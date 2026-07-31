@@ -9,10 +9,32 @@
   <tr><th>Class ID</th><td>{{ asset.class_id }}</td></tr>
   <tr><th>Class name</th><td>{{ asset.class_name }}</td></tr>
   <tr><th>Collection</th><td>{{ asset.collection.name }}</td></tr>
-  <tr><th>Raw data length</th><td>{{ data_length }} bytes</td></tr>
+  <tr><th>Serialized version</th><td>{{ asset.serialized_version }}</td></tr>
 </table>
 
-<h2>Hex</h2>
+{% if field_rows %}
+<h2>Fields</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Value</th></tr>
+  {% for depth, name, type_name, value in field_rows %}
+  <tr>
+    <td style="padding-left: {{ 0.5 + depth * 1.5 }}em">{{ name }}</td>
+    <td>{{ type_name }}</td>
+    <td class="hex">{{ value }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>
+  No decoded fields: this asset's field layout could not be resolved, so it is held as raw
+  bytes. That happens when the file embeds no type tree and no hand-written layout covers
+  this class.
+</p>
+{% endif %}
+
+{% if hex_rows %}
+<h2>Hex{% if truncated %} (first 64 KiB of {{ data_length }} bytes){% endif %}</h2>
 <div class="hex">{% for offset, hex_part, ascii_part in hex_rows %}{{ offset }}  {{ hex_part }}  {{ ascii_part }}
 {% endfor %}</div>
+{% endif %}
 {% endblock %}

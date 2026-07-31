@@ -94,7 +94,9 @@ def test_load_file_and_browse_round_trip(client, tmp_path):
     collection_path = json.dumps({"B": {"P": []}, "I": 0})
     collection_response = client.get(f"/Collections/View?Path={collection_path}")
     assert collection_response.status_code == 200
-    assert b"UnknownType_1" in collection_response.data
+    # The sample file embeds no type tree, so its object's layout can't be resolved and it
+    # becomes an UnknownObject -- whose class_name still resolves through ClassIDType.
+    assert b"GameObject" in collection_response.data
 
     count_response = client.get(f"/Collections/Count?Path={collection_path}")
     assert count_response.get_json() == {"count": 1}
@@ -130,9 +132,9 @@ def test_search_finds_loaded_asset_by_class_name(client, tmp_path):
     _write_sample_file(sample)
     client.post("/LoadFile", data={"Path": str(sample)})
 
-    response = client.get("/Search/View?q=UnknownType_1")
+    response = client.get("/Search/View?q=GameObject")
     assert response.status_code == 200
-    assert b"UnknownType_1" in response.data
+    assert b"GameObject" in response.data
 
 
 def test_bundle_view_404s_for_unresolvable_path(client):

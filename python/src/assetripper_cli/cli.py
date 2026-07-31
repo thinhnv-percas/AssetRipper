@@ -76,6 +76,49 @@ def _print_serialized_file(serialized_file, indent: str = "  ") -> None:
     print(f"{indent}Types:        {len(list(serialized_file.types))}")
     print(f"{indent}Objects:      {len(list(serialized_file.objects))}")
     print(f"{indent}Dependencies: {len(list(serialized_file.dependencies))}")
+    _print_decoded_assets(serialized_file, indent)
+
+
+def _print_decoded_assets(serialized_file, indent: str) -> None:
+    """Decodes each object against the file's embedded type tree and prints its fields.
+
+    Objects in files with no type tree can't be decoded, and are reported as such rather
+    than dumped as bytes here (use the GUI's hex view for those).
+    """
+    from assetripper_assets.bundles.game_bundle import GameBundle
+    from assetripper_import.asset_creation import GameAssetFactory, TypeTreeObject
+
+    try:
+        bundle = GameBundle()
+        collection = bundle.add_collection_from_serialized_file(serialized_file, GameAssetFactory())
+    except Exception as ex:  # noqa: BLE001 -- inspection should never be fatal
+        print(f"{indent}Assets:       <could not decode: {ex!r}>")
+        return
+
+    if not collection.assets:
+        return
+
+    print(f"{indent}Assets:")
+    for path_id, asset in collection.assets.items():
+        if isinstance(asset, TypeTreeObject):
+            print(f"{indent}  [{path_id}] {asset.class_name}")
+            for name, value in asset.items():
+                print(f"{indent}      {name} = {_summarize(value)}")
+        else:
+            print(f"{indent}  [{path_id}] {asset.class_name} <no type tree; {len(getattr(asset, 'raw_data', b''))} raw bytes>")
+
+
+def _summarize(value, limit: int = 100) -> str:
+    """Renders a field value compactly -- long lists and strings would otherwise flood the
+    terminal for things like mesh vertex buffers."""
+    if isinstance(value, list):
+        if len(value) > 8:
+            return f"[{', '.join(_summarize(v, 20) for v in value[:8])}, ... {len(value) - 8} more]"
+        return f"[{', '.join(_summarize(v, 20) for v in value)}]"
+    if hasattr(value, "items") and hasattr(value, "keys"):
+        return "{" + ", ".join(f"{n}: {_summarize(v, 20)}" for n, v in value.items()) + "}"
+    text = repr(value)
+    return text if len(text) <= limit else text[: limit - 3] + "..."
 
 
 def _print_bundle(bundle_file) -> None:

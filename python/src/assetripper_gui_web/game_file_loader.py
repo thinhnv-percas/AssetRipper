@@ -6,12 +6,12 @@ The real GameFileLoader.LoadAndProcess() runs the full Import -> Processing pipe
 building, etc.), none of which is ported to Python yet. This module can load:
 
 - A raw SerializedFile (.assets/.sharedAssets/level* files), directly into a GameBundle
-  as one collection, using RawAssetFactory so objects are browsable but not decoded
-  into typed classes.
+  as one collection. Objects are decoded field-by-field against the file's embedded
+  type tree via GameAssetFactory; objects in files with no type tree become UnknownObject.
 - A UnityFS bundle file (the modern AssetBundle container -- see
   assetripper_io_files.bundle_files.file_stream), whose entries are recursively
   classified via FileContainer.read_contents_recursively() and mapped onto the
-  GameBundle: embedded SerializedFiles become collections (again via RawAssetFactory),
+  GameBundle: embedded SerializedFiles become collections (again via GameAssetFactory),
   plain ResourceFiles and FailedFiles are added directly.
 
 BundleFiles.Archive/RawWeb (legacy pre-Unity5 bundles) and CompressedFiles/WebFiles
@@ -27,9 +27,9 @@ from assetripper_io_files.local_file_system import LocalFileSystem
 from assetripper_io_files.serialized_files import SerializedFile, SerializedFileScheme
 from assetripper_io_files.streams.smart import SmartStream
 
-from .raw_asset import RawAssetFactory
+from assetripper_import.asset_creation import GameAssetFactory
 
-_factory = RawAssetFactory()
+_factory = GameAssetFactory()
 
 
 class _State:

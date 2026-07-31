@@ -62,6 +62,40 @@ class TypeTree:
             node.type = get_type_name(node.type_str_offset)
             node.name = get_type_name(node.name_str_offset)
 
+    def build_string_buffer(self) -> None:
+        """Compute `string_buffer` and each node's type/name offsets from its `type`/`name`.
+
+        Addition beyond the C# original: upstream's `TypeTree.Write` only re-emits the
+        `StringBuffer` it read from a file, so a tree whose nodes were constructed
+        programmatically would be written with all offsets still zero and an empty buffer.
+        Call this before `write()` when building a tree by hand.
+
+        Names present in the shared CommonString table are referenced through it with the
+        0x80000000 flag set, exactly as Unity does; anything else is appended to this
+        tree's own buffer (deduplicated).
+        """
+        common = {name: offset for offset, name in common_string.STRING_BUFFER.items()}
+        buffer = bytearray()
+        local: dict[str, int] = {}
+
+        def offset_for(value: str) -> int:
+            common_offset = common.get(value)
+            if common_offset is not None:
+                return 0x80000000 | common_offset
+            existing = local.get(value)
+            if existing is not None:
+                return existing
+            offset = len(buffer)
+            local[value] = offset
+            buffer.extend(value.encode("utf-8"))
+            buffer.append(0)
+            return offset
+
+        for node in self.nodes:
+            node.type_str_offset = offset_for(node.type)
+            node.name_str_offset = offset_for(node.name)
+        self.string_buffer = bytes(buffer)
+
     def write(self, writer) -> None:
         if is_format5(writer.generation):
             writer.write_int32(len(self.nodes))
