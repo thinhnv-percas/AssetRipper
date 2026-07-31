@@ -22,6 +22,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 assetripper_gui_web = ["templates/**/*.html", "static/**/*"]
+assetripper_export_modules = ["shaders/templates/*.json", "shaders/templates/*.txt"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
