@@ -16,6 +16,7 @@ def index():
     return render_template(
         "index.html",
         is_loaded=game_file_loader.is_loaded(),
+        has_game_data=game_file_loader.has_game_data(),
         load_errors=game_file_loader.load_errors(),
         root_path=BundlePath().to_json(),
     )

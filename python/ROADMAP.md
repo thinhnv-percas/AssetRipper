@@ -4,8 +4,9 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-7 xong. 516 tests pass. Commit cuối: `fba6ba5`.
-- **Chưa chạy end-to-end lần nào** trên game thật — xem Phase 8 và 9.
+- **Trạng thái:** Phase 1-8 xong. 530 tests pass. Commit cuối: xem heading Phase 8 bên dưới.
+- **Đã chạy end-to-end lần đầu** (Phase 8) trên synthetic fixture — nhưng trên game thật vẫn
+  ra gần như rỗng vì streamed data (`.resS`) chưa port, xem Phase 9.
 
 ---
 
@@ -66,20 +67,20 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 5 | Essential processors | ✅ `789188a` |
 | 6 | Content exporters (texture/shader/text/audio/script/mesh) | ✅ `e2841be`…`84cbf57` |
 | 7 | Project scaffolding post-exporters | ✅ `fba6ba5` |
-| **8** | **Pipeline driver + wiring CLI/GUI** | ⬜ Chưa làm — **chặn mọi thứ** |
-| **9** | **Streamed data (`.resS`)** | ⬜ Chưa làm — **fidelity gap lớn nhất** |
+| **8** | **Pipeline driver + wiring CLI/GUI** | ✅ xem heading Phase 8 |
+| **9** | **Streamed data (`.resS`)** | ⬜ Chưa làm — **fidelity gap lớn nhất, giờ là điểm chặn số 1** |
 | 10 | Settings model + trang Settings | ⬜ Chưa làm |
 | 11 | GUI overhaul | ⬜ Chưa làm |
 | 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm |
 | 13 | Asset type còn thiếu | ⬜ Chưa làm |
 
-Số test theo area (tổng 516): `export_modules` 112, `io_files` 91, `import_` 89, `numerics` 64,
-`assets` 48, `export_unity_projects` 34, `io_files_bundle` 21, `gui_web` 19, `processing` 16,
-`yaml` 11, `cli` 6, `configuration` 5.
+Số test theo area (tổng 530): `export_modules` 112, `io_files` 91, `import_` 89, `numerics` 64,
+`assets` 48, `export_unity_projects` 37, `gui_web` 24, `io_files_bundle` 21, `cli` 12,
+`processing` 16, `yaml` 11, `configuration` 5.
 
 ---
 
-# PHẦN A — Đã làm (Phase 1-7)
+# PHẦN A — Đã làm (Phase 1-8)
 
 ### Phase 1 — Dynamic asset reader ✅ `88ffc58`
 
@@ -164,37 +165,44 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [x] `post_exporters.py` — `DEFAULT_POST_EXPORTERS` đúng thứ tự upstream
 - [~] `PathIdMapExporter` — dump export-ID phục vụ debug, không phải project scaffolding
 
+### Phase 8 — Pipeline driver + wiring ✅ (xem `git log` commit ngay sau `fba6ba5`)
+
+`ProjectExporter` trước phase này **chỉ được gọi từ test files** — không có production code path
+nào chạy `load → process → export`, và GUI/CLI vẫn ở trạng thái Phase 0. Đây là bước nối, không thêm
+tính năng mới.
+
+- [x] `src/assetripper_export_unity_projects/export_handler.py` — `ExportHandler` với
+      `load()`/`process()`/`export()`/`load_and_process()`/`load_process_and_export()`
+- [x] `src/assetripper_processing/default_processors.py` — `SceneDefinitionProcessor` →
+      `OriginalPathProcessor` → `MainAssetProcessor` → `EditorFormatProcessor`, đúng thứ tự upstream
+- [x] `src/assetripper_cli/cli.py` — sub-command `inspect` (giữ back-compat khi gọi không có
+      sub-command) + `export <input...> -o <output>`
+- [x] `src/assetripper_gui_web/game_file_loader.py` — `load_paths(paths)` dùng `ExportHandler`,
+      lưu `GameData` vào state (`has_game_data()`/`game_data()`); giữ `load_file` cho single-file browsing
+- [x] `routes/commands.py` — `/LoadFolder` dùng `load_paths`; `/Export/UnityProject` gọi export thật
+- [x] `templates/index.html` + `routes/home.py` — form Load Folder + Export (nội dung cũ nói pipeline
+      chưa port, đã sai từ Phase 6-7, sửa luôn thay vì để tới Phase 11 vì nó active-wrong ngay sau khi
+      wiring xong)
+- [x] `tests/export_unity_projects/test_export_handler.py` — **test end-to-end đầu tiên của project**:
+      ghi SerializedFile thật ra đĩa → `load_process_and_export` qua `MixedGameStructure` → assert
+      `.txt`+`.meta` (TextAsset qua `TextAssetExporter` thật, không phải `.asset` generic) +
+      `ProjectSettings/ProjectVersion.txt` + `Packages/manifest.json`
+- [x] `tests/cli/test_cli_export.py`, `tests/gui_web/test_export_wiring.py`
+- [x] Release gate + commit + push
+
+**Phát hiện trong lúc làm:** `TypeTree.build_string_buffer()` phải gọi thủ công trước khi ghi tree ra
+đĩa, nếu không offset chuỗi trong node.type/node.name vẫn là 0 và đọc lại sẽ `KeyError`. Mọi test
+trước Phase 8 build `SerializedFile` thẳng trong memory (không ghi+đọc lại qua đĩa) nên chưa bao giờ
+gặp path này — `test_export_handler.py` là test *đầu tiên* thật sự ghi bytes ra đĩa rồi đọc lại qua
+`scheme_reader.load_file`, giống hệt cách CLI/GUI thật sự dùng. Không phải bug mới, chỉ là chưa có gì
+kiểm tra path đó trước đây.
+
+**Reuse:** `GameStructure.load()` tại `assetripper_import/structure/game_structure.py:78`,
+`GameData.from_game_structure()`, `register_default_exporters()`, `run_default_post_exporters()`.
+
 ---
 
-# PHẦN B — Cần làm (Phase 8-13)
-
-### Phase 8 — Pipeline driver + wiring ⬜
-
-**Vì sao ưu tiên số 1:** `ProjectExporter` hiện **chỉ được gọi từ test files**. Không có production
-code path nào chạy `load → process → export`. GUI/CLI vẫn ở trạng thái Phase 0. Không xong phase này
-thì không thể test trên game thật, nên mọi phase sau đều mù.
-
-Không thêm tính năng mới — chỉ nối những gì đã có.
-
-- [ ] `src/assetripper_export_unity_projects/export_handler.py` — port `ExportHandler.cs`
-      (`Source/AssetRipper.Export.UnityProjects/ExportHandler.cs:30-120`): `load(paths, file_system)`,
-      `process(game_data)`, `export(game_data, output_directory, file_system)`, `load_and_process(...)`
-- [ ] `src/assetripper_processing/default_processors.py` — processor list đúng thứ tự upstream:
-      `SceneDefinitionProcessor` → `OriginalPathProcessor` → `MainAssetProcessor` → `EditorFormatProcessor`.
-      Docstring ghi rõ processor nào skip và vì sao
-- [ ] `src/assetripper_cli/cli.py` — sub-command `inspect` (giữ back-compat khi gọi không có
-      sub-command) + `export <input...> -o <output>`
-- [ ] `src/assetripper_gui_web/game_file_loader.py` — thêm `load_paths(paths)` dùng `GameStructure`,
-      lưu `GameData` vào state. Giữ `load_file` cho single-file browsing
-- [ ] `routes/commands.py` — `/LoadFolder` dùng `load_paths` (xoá hack "load file đọc được đầu
-      tiên"); `/Export/UnityProject` gọi export thật thay vì `flash("not implemented")`
-- [ ] `tests/export_unity_projects/test_export_handler.py` — **test end-to-end đầu tiên của project**:
-      synthetic bundle → `load_and_process` → `export` → assert `.asset`+`.meta` +
-      `ProjectSettings/ProjectVersion.txt` + `Packages/manifest.json`
-- [ ] Release gate + commit + push
-
-**Reuse (đừng viết lại):** `GameStructure.load()` tại `assetripper_import/structure/game_structure.py:78`,
-`GameData.from_game_structure()`, `register_default_exporters()`, `run_default_post_exporters()`.
+# PHẦN B — Cần làm (Phase 9-13)
 
 ### Phase 9 — Streamed data (`.resS`) ⬜
 
@@ -252,9 +260,9 @@ path bằng tay; không có progress.
 - [ ] Auto-open browser khi chạy `assetripper-gui-web` (tương đương `WelcomeMessage.cs`)
 - [ ] `progress_callback` optional trong `ProjectExporter.export` (docstring của nó đã tự ghi nhận
       thiếu chỗ này) + GUI poll/SSE hiện tiến độ
-- [ ] **Sửa nội dung sai:** `templates/index.html` vẫn nói "Import/Processing/Export pipeline không
-      được port" — sai từ Phase 6-7. Docstring `gui_web/__init__.py` cũng nói pipeline "cần Mono.Cecil
-      IL analysis" — cả hai đều lỗi thời
+- [x] **Sửa nội dung sai** — làm sớm ở Phase 8 (không đợi Phase 11) vì sau khi wiring xong, nội dung
+      cũ nói "pipeline không được port" trở thành active-wrong ngay lập tức: `templates/index.html`,
+      `gui_web/__init__.py`
 - [ ] Điền trang Licenses / Privacy, bỏ `stub.html` khỏi trang đã làm
 - [ ] Cập nhật `run_gui.bat` nếu flow đổi
 - [ ] Test Flask test-client cho mọi route mới + smoke test render từng tab

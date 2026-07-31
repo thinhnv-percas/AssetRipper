@@ -1,21 +1,21 @@
 """
-A greatly simplified stand-in for Source/AssetRipper.GUI.Web/GameFileLoader.cs.
+Stand-in for Source/AssetRipper.GUI.Web/GameFileLoader.cs.
 
-The real GameFileLoader.LoadAndProcess() runs the full Import -> Processing pipeline
-(assembly loading, asset factories per Unity version, dependency resolution, scene
-building, etc.), none of which is ported to Python yet. This module can load:
+Two loading paths, kept side by side because they serve different pages:
 
-- A raw SerializedFile (.assets/.sharedAssets/level* files), directly into a GameBundle
-  as one collection. Objects are decoded field-by-field against the file's embedded
-  type tree via GameAssetFactory; objects in files with no type tree become UnknownObject.
-- A UnityFS bundle file (the modern AssetBundle container -- see
-  assetripper_io_files.bundle_files.file_stream), whose entries are recursively
-  classified via FileContainer.read_contents_recursively() and mapped onto the
-  GameBundle: embedded SerializedFiles become collections (again via GameAssetFactory),
-  plain ResourceFiles and FailedFiles are added directly.
+- `load_file(path)`: one raw file (SerializedFile or UnityFS bundle) straight into a bare
+  GameBundle, for quick browsing of a single .assets/.bundle file's raw metadata (the
+  Bundles/Collections/Assets pages). No platform discovery, no processors -- this is what
+  the GUI used exclusively before Phase 8.
+- `load_paths(paths)`: the real thing, via `ExportHandler.load_and_process` (see
+  assetripper_export_unity_projects/export_handler.py) -- full platform/game-structure
+  discovery across every file under the given path(s), dependency resolution, and the
+  standard asset processors. This is what `/LoadFolder` and `/Export/UnityProject` need;
+  `load_file`'s bare GameBundle has no platform_structure and never ran a processor, so it
+  can't be exported into a real Unity project.
 
-BundleFiles.Archive/RawWeb (legacy pre-Unity5 bundles) and CompressedFiles/WebFiles
-aren't ported, so those formats still fall through to a load error.
+BundleFiles.Archive/RawWeb (legacy pre-Unity5 bundles) and CompressedFiles/WebFiles aren't
+ported, so those formats still fall through to a load error either way.
 """
 from __future__ import annotations
 
@@ -35,6 +35,9 @@ _factory = GameAssetFactory()
 class _State:
     def __init__(self):
         self.game_bundle: GameBundle | None = None
+        self.game_data = None
+        """Only set by `load_paths` -- the GameData a real Export needs (platform_structure,
+        processed assets). `None` when the currently loaded bundle came from `load_file`."""
         self.load_errors: list[str] = []
 
 
@@ -51,13 +54,49 @@ def game_bundle() -> GameBundle:
     return _state.game_bundle
 
 
+def has_game_data() -> bool:
+    return _state.game_data is not None
+
+
+def game_data():
+    if _state.game_data is None:
+        raise RuntimeError("No game structure loaded (use Load Folder, not Load File, before exporting).")
+    return _state.game_data
+
+
 def load_errors() -> list[str]:
     return _state.load_errors
 
 
 def reset() -> None:
     _state.game_bundle = None
+    _state.game_data = None
     _state.load_errors = []
+
+
+def load_paths(paths: list[str]) -> None:
+    """Loads one or more files/folders as a full Unity game: platform discovery, every
+    SerializedFile/bundle found, dependency resolution, and the standard processors --
+    everything `ExportHandler.load_and_process` does. Populates `game_data()`, which
+    `/Export/UnityProject` needs; `load_file` never does."""
+    reset()
+
+    from assetripper_export_unity_projects.export_handler import ExportHandler
+
+    file_system = LocalFileSystem.instance()
+    handler = ExportHandler()
+    try:
+        data = handler.load_and_process(list(paths), file_system)
+    except Exception as ex:  # noqa: BLE001 -- GUI error boundary, reported to the user via flash
+        _state.load_errors.append(f"Failed to load: {ex!r}")
+        return
+
+    if not data.game_bundle.has_any_asset_collections():
+        _state.load_errors.append("No valid Unity assets found in the given path(s).")
+        return
+
+    _state.game_data = data
+    _state.game_bundle = data.game_bundle
 
 
 def load_file(path: str) -> None:

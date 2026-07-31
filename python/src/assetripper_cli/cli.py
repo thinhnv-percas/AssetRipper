@@ -1,4 +1,13 @@
-"""CLI implementation for the `assetripper-inspect` command."""
+"""CLI implementation for the `assetripper-inspect` command.
+
+Two subcommands:
+- `inspect` (also the default when no subcommand is given, for back-compat with the
+  original single-purpose CLI): prints a SerializedFile/UnityFS bundle's header and
+  metadata without running the full Import/Processing/Export pipeline.
+- `export`: the pipeline itself, via `ExportHandler` (see
+  assetripper_export_unity_projects/export_handler.py) -- full platform/game-structure
+  discovery, all four default processors, then a real Unity project export.
+"""
 from __future__ import annotations
 
 import sys
@@ -10,6 +19,22 @@ from assetripper_io_files.streams.smart import SmartStream
 
 _VERSION = "0.1.0"
 
+_TOP_LEVEL_USAGE = """\
+Usage: assetripper-inspect <file> [<file> ...]
+       assetripper-inspect inspect <file> [<file> ...]
+       assetripper-inspect export <path> [<path> ...] -o <output_dir>
+
+inspect (default if no subcommand is given): reads each file and, if it's a
+recognized Unity SerializedFile or UnityFS bundle (.assets/.sharedAssets/
+level*/*.bundle/etc.), prints its header and metadata. Legacy pre-Unity5
+bundles and Compressed/Web files are not yet supported by this build.
+
+export: loads the given file(s)/folder(s) as a full Unity game (platform
+discovery + every SerializedFile/bundle found), runs the standard asset
+processors, and exports a Unity project to -o/--output."""
+
+_EXPORT_USAGE = "Usage: assetripper-inspect export <path> [<path> ...] -o <output_dir>"
+
 
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else argv
@@ -19,12 +44,22 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if not argv or argv[0] in ("-h", "--help"):
-        print("Usage: assetripper-inspect <file> [<file> ...]")
-        print()
-        print("Reads each file and, if it's a recognized Unity SerializedFile or")
-        print("UnityFS bundle (.assets/.sharedAssets/level*/*.bundle/etc.), prints")
-        print("its header and metadata. Legacy pre-Unity5 bundles and Compressed/Web")
-        print("files are not yet supported by this build.")
+        print(_TOP_LEVEL_USAGE)
+        return 0 if argv else 1
+
+    if argv[0] == "inspect":
+        return _run_inspect(argv[1:])
+    if argv[0] == "export":
+        return _run_export(argv[1:])
+
+    # Back-compat: no recognized subcommand, so treat every argument as a file to inspect
+    # (the CLI's original, single-purpose behavior before the `export` subcommand existed).
+    return _run_inspect(argv)
+
+
+def _run_inspect(argv: list[str]) -> int:
+    if not argv or argv[0] in ("-h", "--help"):
+        print("Usage: assetripper-inspect inspect <file> [<file> ...]")
         return 0 if argv else 1
 
     file_system = LocalFileSystem.instance()
@@ -33,6 +68,54 @@ def main(argv: list[str] | None = None) -> int:
         if not _inspect_one(path, file_system):
             exit_code = 1
     return exit_code
+
+
+def _run_export(argv: list[str]) -> int:
+    if not argv or argv[0] in ("-h", "--help"):
+        print(_EXPORT_USAGE)
+        return 0 if argv else 1
+
+    input_paths: list[str] = []
+    output_directory: str | None = None
+    i = 0
+    while i < len(argv):
+        arg = argv[i]
+        if arg in ("-o", "--output"):
+            i += 1
+            if i >= len(argv):
+                print("Error: -o/--output requires a value")
+                return 1
+            output_directory = argv[i]
+        else:
+            input_paths.append(arg)
+        i += 1
+
+    if not input_paths:
+        print("Error: no input paths given")
+        print(_EXPORT_USAGE)
+        return 1
+    if not output_directory:
+        print("Error: -o/--output is required")
+        print(_EXPORT_USAGE)
+        return 1
+
+    from assetripper_export_unity_projects.export_handler import ExportHandler
+
+    file_system = LocalFileSystem.instance()
+    handler = ExportHandler()
+    try:
+        print(f"Loading {len(input_paths)} path(s)...")
+        game_data = handler.load_and_process(input_paths, file_system)
+        if not game_data.game_bundle.has_any_asset_collections():
+            print("Error: no valid Unity assets found in the given path(s)")
+            return 1
+        print(f"Exporting to {output_directory} (Unity {game_data.project_version})...")
+        handler.export(game_data, output_directory, file_system)
+        print("Done.")
+        return 0
+    except Exception as ex:  # noqa: BLE001 -- top-level CLI error boundary
+        print(f"Error: {ex!r}")
+        return 1
 
 
 def _inspect_one(path: str, file_system: LocalFileSystem) -> bool:

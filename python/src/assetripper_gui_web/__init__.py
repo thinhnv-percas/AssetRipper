@@ -6,13 +6,15 @@ DSL (no MVC/Razor). Flask + Jinja2 templates is the natural Python replacement f
 that combination, so this is a fresh implementation of the route map and page
 structure, not a line-by-line port of the tag-builder classes.
 
-Only a fraction of pages are functional: file loading and raw metadata browsing of
-Unity SerializedFiles (info/hex views) work end-to-end via the already-ported
-AssetRipper.IO.Files/AssetRipper.Assets packages. Everything that depends on the
-Import -> Processing -> Export pipeline or the SourceGenerated typed asset classes
-(image/audio/model/text/yaml asset tabs, project export, settings persistence beyond
-a stub) is out of scope -- that pipeline requires Mono.Cecil IL analysis of compiled
-Unity assemblies, which has no reasonable Python equivalent.
+As of Phase 8 (see python/ROADMAP.md), `/LoadFolder` and `/Export/UnityProject` drive the
+real Import -> Processing -> Export pipeline end to end (game_file_loader.load_paths ->
+ExportHandler -> ProjectExporter), not a Mono.Cecil-based one -- this port's dynamic
+TypeTree reader (assetripper_import/asset_creation/game_asset_factory.py) replaces the
+generated SourceGenerated typed asset classes entirely, so no IL analysis is needed. Still
+missing (see ROADMAP Phase 9-13): the settings pages remain stubs, several asset tabs
+(image/audio/model previews) aren't wired to the content exporters yet, and export of
+files whose payload lives in an external .resS (Texture2D/AudioClip/Mesh on most player
+builds) is declined rather than guessed at.
 """
 from __future__ import annotations
 
