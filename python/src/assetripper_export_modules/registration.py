@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from .font_asset_exporter import FontAssetExporter
 from .movie_texture_exporter import MovieTextureAssetExporter
+from .scripts.script_exporter import ScriptExporter
 from .shaders.dummy_shader_text_exporter import DummyShaderTextExporter
 from .shaders.simple_shader_exporter import SimpleShaderExporter
 from .text_asset_exporter import TextAssetExporter
@@ -27,5 +28,6 @@ def register_default_exporters(project_exporter) -> None:
     project_exporter.override_exporter_for_class_id(48, DummyShaderTextExporter())  # Shader (fallback)
     project_exporter.override_exporter_for_class_id(48, SimpleShaderExporter())  # Shader (preferred)
     project_exporter.override_exporter_for_class_id(49, TextAssetExporter())  # TextAsset
+    project_exporter.override_exporter_for_class_id(115, ScriptExporter())  # MonoScript
     project_exporter.override_exporter_for_class_id(128, FontAssetExporter())  # Font
     project_exporter.override_exporter_for_class_id(152, MovieTextureAssetExporter())  # MovieTexture

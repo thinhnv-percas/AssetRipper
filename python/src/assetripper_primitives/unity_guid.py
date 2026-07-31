@@ -5,6 +5,7 @@ see task notes for the researched API surface).
 """
 from __future__ import annotations
 
+import hashlib
 import uuid
 from dataclasses import dataclass
 
@@ -40,6 +41,18 @@ class UnityGuid:
     @staticmethod
     def parse(text: str) -> "UnityGuid":
         return UnityGuid.from_bytes(bytes.fromhex(text))
+
+    @staticmethod
+    def md5_hash(*parts: bytes) -> "UnityGuid":
+        """Deterministic GUID derived from the MD5 digest of the concatenated `parts`.
+
+        Reconstructed from call sites (ScriptHashing.CalculateScriptGuid/
+        CalculateAssemblyGuid in Source/AssetRipper.Export.UnityProjects/Scripts/
+        ScriptHashing.cs): used where upstream wants a *stable* (not random) GUID for
+        content that doesn't have one of its own, e.g. a script's namespace+class+assembly.
+        """
+        digest = hashlib.md5(b"".join(parts)).digest()
+        return UnityGuid.from_bytes(digest)
 
 
 UnityGuid.ZERO = UnityGuid(0, 0, 0, 0)
