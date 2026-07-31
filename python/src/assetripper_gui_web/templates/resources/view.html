@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block title %}{{ resource.name }} - AssetRipper{% endblock %}
+{% block content %}
+<h1>Resource: {{ resource.name }}</h1>
+<p><a href="{{ url_for('resources.data', Path=path.to_json()) }}">Download raw data</a></p>
+{% endblock %}

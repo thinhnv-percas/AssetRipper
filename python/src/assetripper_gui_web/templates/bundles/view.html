@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}{{ bundle.name }} - AssetRipper{% endblock %}
+{% block content %}
+<h1>Bundle: {{ bundle.name }}</h1>
+
+{% if child_bundles %}
+<h2>Child bundles</h2>
+<ul>
+  {% for child, child_path in child_bundles %}
+  <li><a href="{{ url_for('bundles.view', Path=child_path.to_json()) }}">{{ child.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if collections %}
+<h2>Collections</h2>
+<ul>
+  {% for collection, collection_path in collections %}
+  <li><a href="{{ url_for('collections.view', Path=collection_path.to_json()) }}">{{ collection.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if resources %}
+<h2>Resources</h2>
+<ul>
+  {% for resource, resource_path in resources %}
+  <li><a href="{{ url_for('resources.view', Path=resource_path.to_json()) }}">{{ resource.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if failed_files %}
+<h2>Failed files</h2>
+<ul>
+  {% for failed_file, failed_file_path in failed_files %}
+  <li><a href="{{ url_for('failed_files.view', Path=failed_file_path.to_json()) }}">{{ failed_file.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if not child_bundles and not collections and not resources and not failed_files %}
+<p>This bundle is empty.</p>
+{% endif %}
+{% endblock %}

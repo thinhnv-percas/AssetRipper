@@ -7,7 +7,7 @@ name = "assetripper-python"
 version = "0.1.0"
 description = "Python port of AssetRipper, ported package by package from Source/*.csproj"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["flask>=3"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
@@ -15,9 +15,13 @@ build = ["pyinstaller>=6"]
 
 [project.scripts]
 assetripper-inspect = "assetripper_cli.cli:main"
+assetripper-gui-web = "assetripper_gui_web.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+assetripper_gui_web = ["templates/**/*.html", "static/**/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

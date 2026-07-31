@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}{{ scene.name }} - AssetRipper{% endblock %}
+{% block content %}
+<h1>Scene: {{ scene.name }}</h1>
+<p>Path: {{ scene.path }}</p>
+<ul>
+  {% for collection in scene.collections %}<li>{{ collection.name }}</li>{% endfor %}
+</ul>
+{% endblock %}

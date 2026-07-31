@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}AssetRipper{% endblock %}
+{% block content %}
+<h1>AssetRipper (Python port, GUI skeleton)</h1>
+<p>
+  This is a Python/Flask port of AssetRipper.GUI.Web's route skeleton. Only file
+  loading and raw metadata browsing of Unity SerializedFiles works end-to-end;
+  the Import/Processing/Export pipeline and typed asset classes are not ported,
+  so most pages here are stubs. See the project README for details.
+</p>
+
+<h2>Load a file</h2>
+<form method="post" action="{{ url_for('commands.load_file') }}">
+  <input type="text" name="Path" placeholder="/path/to/level0 or file.assets" size="60">
+  <button type="submit">Load</button>
+</form>
+<form method="post" action="{{ url_for('commands.reset') }}">
+  <button type="submit">Reset</button>
+</form>
+
+{% if load_errors %}
+<h2>Load errors</h2>
+<ul>
+  {% for error in load_errors %}<li>{{ error }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if is_loaded %}
+<h2>Loaded bundle</h2>
+<p><a href="{{ url_for('bundles.view', Path=root_path) }}">View root bundle</a></p>
+{% endif %}
+{% endblock %}

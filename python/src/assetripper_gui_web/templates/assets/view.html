@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}{{ asset.class_name }} [{{ asset.path_id }}] - AssetRipper{% endblock %}
+{% block content %}
+<h1>Asset: {{ asset.class_name }} [{{ asset.path_id }}]</h1>
+
+<h2>Information</h2>
+<table>
+  <tr><th>Path ID</th><td>{{ asset.path_id }}</td></tr>
+  <tr><th>Class ID</th><td>{{ asset.class_id }}</td></tr>
+  <tr><th>Class name</th><td>{{ asset.class_name }}</td></tr>
+  <tr><th>Collection</th><td>{{ asset.collection.name }}</td></tr>
+  <tr><th>Raw data length</th><td>{{ data_length }} bytes</td></tr>
+</table>
+
+<h2>Hex</h2>
+<div class="hex">{% for offset, hex_part, ascii_part in hex_rows %}{{ offset }}  {{ hex_part }}  {{ ascii_part }}
+{% endfor %}</div>
+{% endblock %}

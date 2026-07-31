@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}{{ collection.name }} - AssetRipper{% endblock %}
+{% block content %}
+<h1>Collection: {{ collection.name }}</h1>
+<p>Version: {{ collection.version }} | Platform: {{ collection.platform.name }} | Assets: {{ assets|length }}</p>
+
+<table>
+  <tr><th>Path ID</th><th>Class</th></tr>
+  {% for asset, asset_path in assets %}
+  <tr>
+    <td><a href="{{ url_for('assets.view', Path=asset_path.to_json()) }}">{{ asset.path_id }}</a></td>
+    <td>{{ asset.class_name }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

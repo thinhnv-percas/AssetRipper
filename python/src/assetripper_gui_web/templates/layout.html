@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}AssetRipper{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('home.index') }}">Home</a>
+    <a href="{{ url_for('home.commands') }}">Commands</a>
+    <a href="{{ url_for('search.view') }}">Search</a>
+    <a href="{{ url_for('home.settings') }}">Settings</a>
+    <a href="{{ url_for('home.configuration_files') }}">Configuration Files</a>
+  </nav>
+  <main>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
