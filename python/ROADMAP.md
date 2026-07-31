@@ -4,7 +4,7 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-8 xong. 530 tests pass. Commit cuối: xem heading Phase 8 bên dưới.
+- **Trạng thái:** Phase 1-8 xong. 530 tests pass. Commit cuối: `86cca85`.
 - **Đã chạy end-to-end lần đầu** (Phase 8) trên synthetic fixture — nhưng trên game thật vẫn
   ra gần như rỗng vì streamed data (`.resS`) chưa port, xem Phase 9.
 
@@ -67,7 +67,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 5 | Essential processors | ✅ `789188a` |
 | 6 | Content exporters (texture/shader/text/audio/script/mesh) | ✅ `e2841be`…`84cbf57` |
 | 7 | Project scaffolding post-exporters | ✅ `fba6ba5` |
-| **8** | **Pipeline driver + wiring CLI/GUI** | ✅ xem heading Phase 8 |
+| **8** | **Pipeline driver + wiring CLI/GUI** | ✅ `86cca85` |
 | **9** | **Streamed data (`.resS`)** | ⬜ Chưa làm — **fidelity gap lớn nhất, giờ là điểm chặn số 1** |
 | 10 | Settings model + trang Settings | ⬜ Chưa làm |
 | 11 | GUI overhaul | ⬜ Chưa làm |
@@ -165,7 +165,7 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [x] `post_exporters.py` — `DEFAULT_POST_EXPORTERS` đúng thứ tự upstream
 - [~] `PathIdMapExporter` — dump export-ID phục vụ debug, không phải project scaffolding
 
-### Phase 8 — Pipeline driver + wiring ✅ (xem `git log` commit ngay sau `fba6ba5`)
+### Phase 8 — Pipeline driver + wiring ✅ `86cca85`
 
 `ProjectExporter` trước phase này **chỉ được gọi từ test files** — không có production code path
 nào chạy `load → process → export`, và GUI/CLI vẫn ở trạng thái Phase 0. Đây là bước nối, không thêm
