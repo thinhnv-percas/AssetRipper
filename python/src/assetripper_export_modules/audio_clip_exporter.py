@@ -4,13 +4,15 @@
 Collapses upstream's two audio exporters (the FSB5-decoding `AudioClipExporter` and the
 always-raw `NativeAudioExporter`) into one, since this port never actually decodes FSB5
 (see audio_clip_decoder.py) -- both would produce the same output here. `m_Resource`
-(external `.resS`/StreamedResource) is not wired up, matching the precedent set by
-texture2d_exporter.py's `m_StreamData` handling: export is declined rather than guessed at,
-so only clips with their audio data directly embedded in `m_AudioData` are exported.
+(external `.resS`/StreamedResource) is now resolved as a fallback when `m_AudioData` is
+empty -- see assetripper_import/streamed_resource.py (Phase 9). Before that, this exporter
+declined outright whenever `m_AudioData` was empty, which is the common case: most player
+builds stream audio from `.resS` rather than embedding it.
 """
 from __future__ import annotations
 
 from assetripper_export_unity_projects.asset_export_collection import AssetExportCollection
+from assetripper_import.streamed_resource import get_streamed_resource_content
 
 from .audio_clip_decoder import get_export_extension
 from .binary_asset_exporter import BinaryAssetExporter
@@ -37,5 +39,13 @@ class AudioClipExportCollection(AssetExportCollection):
 
 
 def _audio_data_bytes(asset) -> bytes:
-    """m_AudioData is a TypelessData field, read as list[int] by the dynamic reader."""
-    return bytes(asset.get("m_AudioData") or ())
+    """m_AudioData is a TypelessData field, read as list[int] by the dynamic reader.
+    Falls back to the external m_Resource (StreamedResource) when empty."""
+    data = bytes(asset.get("m_AudioData") or ())
+    if data:
+        return data
+
+    resource = asset.get("m_Resource")
+    if resource is not None:
+        return get_streamed_resource_content(resource, asset.collection)
+    return b""

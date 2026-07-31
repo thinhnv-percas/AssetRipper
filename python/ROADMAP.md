@@ -4,9 +4,9 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-8 xong. 530 tests pass. Commit cuối: `86cca85`.
-- **Đã chạy end-to-end lần đầu** (Phase 8) trên synthetic fixture — nhưng trên game thật vẫn
-  ra gần như rỗng vì streamed data (`.resS`) chưa port, xem Phase 9.
+- **Trạng thái:** Phase 1-9 xong. 547 tests pass. Commit cuối: xem heading Phase 9 bên dưới.
+- Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
+  chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 
 ---
 
@@ -68,19 +68,19 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 6 | Content exporters (texture/shader/text/audio/script/mesh) | ✅ `e2841be`…`84cbf57` |
 | 7 | Project scaffolding post-exporters | ✅ `fba6ba5` |
 | **8** | **Pipeline driver + wiring CLI/GUI** | ✅ `86cca85` |
-| **9** | **Streamed data (`.resS`)** | ⬜ Chưa làm — **fidelity gap lớn nhất, giờ là điểm chặn số 1** |
-| 10 | Settings model + trang Settings | ⬜ Chưa làm |
+| **9** | **Streamed data (`.resS`)** | ✅ xem heading Phase 9 |
+| 10 | Settings model + trang Settings | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 | 11 | GUI overhaul | ⬜ Chưa làm |
 | 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm |
 | 13 | Asset type còn thiếu | ⬜ Chưa làm |
 
-Số test theo area (tổng 530): `export_modules` 112, `io_files` 91, `import_` 89, `numerics` 64,
+Số test theo area (tổng 547): `export_modules` 118, `io_files` 91, `import_` 100, `numerics` 64,
 `assets` 48, `export_unity_projects` 37, `gui_web` 24, `io_files_bundle` 21, `cli` 12,
 `processing` 16, `yaml` 11, `configuration` 5.
 
 ---
 
-# PHẦN A — Đã làm (Phase 1-8)
+# PHẦN A — Đã làm (Phase 1-9)
 
 ### Phase 1 — Dynamic asset reader ✅ `88ffc58`
 
@@ -200,32 +200,38 @@ kiểm tra path đó trước đây.
 **Reuse:** `GameStructure.load()` tại `assetripper_import/structure/game_structure.py:78`,
 `GameData.from_game_structure()`, `register_default_exporters()`, `run_default_post_exporters()`.
 
+### Phase 9 — Streamed data (`.resS`) ✅ (xem `git log` commit ngay sau Phase 8)
+
+Trước phase này cả 3 exporter binary lớn đều decline khi payload nằm ở file ngoài. Player build của
+Unity để **gần như toàn bộ** texture/audio/mesh ở đó → trên game thật, export ra gần như rỗng. Nhỏ về
+code, tác động lớn nhất trong toàn bộ roadmap.
+
+- [x] `src/assetripper_import/streamed_resource.py` — `get_content(path, offset, size, collection)`,
+      `check_integrity(...)`, cộng hai wrapper theo đúng field name mỗi struct dùng:
+      `get_streaming_info_content` (`m_StreamData`: `path`/`offset`/`size`, không `m_` prefix) và
+      `get_streamed_resource_content` (`m_Resource`: `m_Source`/`m_Offset`/`m_Size`, có `m_` prefix —
+      một khác biệt thật giữa hai struct trong Unity, không phải lỗi đánh máy)
+- [x] `export_modules/texture2d_exporter.py::_image_data_bytes` — fallback `m_StreamData` khi
+      `"image data"` rỗng
+- [x] `export_modules/audio_clip_exporter.py::_audio_data_bytes` — fallback `m_Resource`
+- [x] `export_modules/meshes/mesh_data.py::get_mesh_data` — fallback `m_StreamData` cho
+      `m_VertexData.m_DataSize`
+- [x] `tests/import_/test_streamed_resource.py` — 11 unit test cho module core (offset slicing,
+      overflow guard, resource không resolve được, 2 field-name shape)
+- [x] `tests/export_modules/test_streamed_data_export.py` — 6 test end-to-end (Texture2D/AudioClip/
+      Mesh × positive-với-ResourceFile + negative-resource-thiếu) qua `ProjectExporter` thật
+- [x] Release gate + commit + push
+
+**Không đổi so với dự kiến ban đầu:** không cần phân biệt `Offset_UInt32`/`Offset_UInt64` theo version
+— Python int không có width cố định, đọc được giá trị nào từ dynamic reader thì dùng giá trị đó,
+không cần biết nó từng là 4 hay 8 byte trên đĩa.
+
+**Reuse:** `Bundle.resolve_resource(name)` tại `assetripper_assets/bundles/bundle.py:105` — đã xử lý
+`fix_file_identifier` và tra ngược lên bundle cha, dùng thẳng không cần sửa gì.
+
 ---
 
-# PHẦN B — Cần làm (Phase 9-13)
-
-### Phase 9 — Streamed data (`.resS`) ⬜
-
-**Vì sao ưu tiên số 2:** cả 3 exporter binary lớn đều decline khi payload nằm ở file ngoài. Player
-build của Unity để **gần như toàn bộ** texture/audio/mesh ở đó → trên game thật, export hiện tại ra
-**gần như rỗng**. Nhỏ về code, lớn về tác động.
-
-- [ ] `src/assetripper_import/streamed_resource.py` — port `StreamedResourceExtensions` /
-      `StreamingInfoExtensions`: `get_content(path, offset, size, collection)`, `check_integrity(...)`.
-      Xử lý `Offset_UInt32` vs `Offset_UInt64` theo version
-- [ ] `export_modules/texture2d_exporter.py::_decode` — fallback `m_StreamData` khi `"image data"` rỗng
-- [ ] `export_modules/audio_clip_exporter.py::_audio_data_bytes` — fallback `m_Resource`
-- [ ] `export_modules/meshes/mesh_data.py::get_mesh_data` — `m_StreamData` cho vertex buffer
-- [ ] Test positive: bundle có `ResourceFile` + asset trỏ vào qua `m_StreamData` → export đúng bytes
-- [ ] Test negative: resource thiếu → decline gọn, không crash
-- [ ] Release gate + commit + push
-
-**Reuse:** `Bundle.resolve_resource(name)` **đã có sẵn** tại `assetripper_assets/bundles/bundle.py:105`
-— đã xử lý `fix_file_identifier` và tra ngược lên bundle cha. Chỉ cần resolve rồi slice
-`[offset, offset+size)`.
-
-⚠️ Offset/size sai một chút là ra file hỏng **im lặng**. Test cả 2 chiều, đúng kỷ luật đã áp cho MD4
-và array alignment.
+# PHẦN B — Cần làm (Phase 10-13)
 
 ### Phase 10 — Settings model + trang Settings ⬜
 

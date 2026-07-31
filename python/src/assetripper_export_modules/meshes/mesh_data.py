@@ -10,13 +10,16 @@ conversion, the channel-index-to-attribute mapping (0=vertex, 1=normal, 2=tangen
 skin-weight validation/normalization -- all copied field-for-field from MeshData.cs's
 TryGetTangentAtIndex/TryGetSkinAtIndex/FlipY.
 
-What's declined (matching this project's precedent of declining an uncertain path rather
-than guessing at it -- see texture2d_exporter.py's m_StreamData, audio_clip_exporter.py's
-m_Resource): meshes whose only vertex data lives in `m_CompressedMesh` (Unity's mobile-
-oriented Low/Medium/High MeshCompression settings). That container packs every channel
-through a shared bit-packed `PackedBitVector` scheme with per-channel bit-width metadata;
-decoding it is a substantial separate subsystem in its own right, and this repo does not
-vendor enough of it to implement with confidence.
+When `m_VertexData`'s inline `m_DataSize` is empty (common in player builds, which stream
+the buffer from an external `.resS` file instead), `m_StreamData` is resolved as a fallback
+-- see assetripper_import/streamed_resource.py (Phase 9).
+
+What's still declined (matching this project's precedent of declining an uncertain path
+rather than guessing at it): meshes whose only vertex data lives in `m_CompressedMesh`
+(Unity's mobile-oriented Low/Medium/High MeshCompression settings). That container packs
+every channel through a shared bit-packed `PackedBitVector` scheme with per-channel
+bit-width metadata; decoding it is a substantial separate subsystem in its own right, and
+this repo does not vendor enough of it to implement with confidence.
 
 Also not ported: blend shapes, bind poses/skeleton hierarchy (the skin weight/index
 *vertex attributes* are read, but no glTF `skin` object or joint-node hierarchy is
@@ -27,6 +30,8 @@ same version cutoff and rationale.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+
+from assetripper_import.streamed_resource import get_streaming_info_content
 
 from .mesh_topology import MeshTopology
 from .vertex_format import VertexFormat, bytes_to_float_array, bytes_to_int_array, get_format_size, is_int_format
@@ -87,6 +92,10 @@ def get_mesh_data(mesh) -> "MeshData | None":
     vertex_count = vertex_data.get("m_VertexCount") or 0
     channels = vertex_data.get("m_Channels")
     data = bytes(vertex_data.get("m_DataSize") or ())
+    if not data:
+        stream_data = mesh.get("m_StreamData")
+        if stream_data is not None:
+            data = get_streaming_info_content(stream_data, mesh.collection)
     if not channels or vertex_count == 0 or not data:
         return None
 
