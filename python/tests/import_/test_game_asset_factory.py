@@ -75,10 +75,12 @@ def test_asset_with_embedded_type_tree_decodes_to_named_fields():
     assert list(asset.keys()) == ["m_Name", "m_Script"]
 
 
-def test_asset_without_type_tree_becomes_unknown_object():
-    """A stripped release file gives the factory nothing to work with, so the raw bytes are
-    preserved as an UnknownObject rather than being guessed at."""
-    serialized_file = _build_file(49, _TEXT_ASSET_TREE, b"\x01\x02\x03\x04", with_type_tree=False)
+def test_asset_without_type_tree_and_without_a_registered_layout_becomes_unknown_object():
+    """A stripped release file for a class ID this port has no layout for gives the factory
+    nothing to work with, so the raw bytes are preserved as an UnknownObject rather than
+    being guessed at."""
+    _UNREGISTERED_CLASS_ID = 30000  # not in asset_creation.layouts' default registry
+    serialized_file = _build_file(_UNREGISTERED_CLASS_ID, [], b"\x01\x02\x03\x04", with_type_tree=False)
     assert not serialized_file.has_type_tree
 
     bundle = GameBundle()
@@ -87,8 +89,25 @@ def test_asset_without_type_tree_becomes_unknown_object():
     asset = collection.assets[1]
     assert isinstance(asset, UnknownObject)
     assert asset.raw_data == b"\x01\x02\x03\x04"
+    assert asset.name.startswith("Unknown")
+
+
+def test_default_layout_registry_decodes_a_stripped_text_asset():
+    """End-to-end: GameAssetFactory()'s default layout_provider (asset_creation.layouts)
+    decodes a TextAsset (class 49) even though the file embeds no type tree at all --
+    exercising the actual Phase 2 registry, not a test-supplied stand-in."""
+    payload = unity_string("PlayerName") + unity_string("dialogue text")
+    serialized_file = _build_file(49, [], payload, with_type_tree=False)
+    assert not serialized_file.has_type_tree
+
+    bundle = GameBundle()
+    collection = bundle.add_collection_from_serialized_file(serialized_file, GameAssetFactory())
+
+    asset = collection.assets[1]
+    assert isinstance(asset, TypeTreeObject)
     assert asset.class_name == "TextAsset"
-    assert asset.name.startswith("UnknownTextAsset_")
+    assert asset["m_Name"] == "PlayerName"
+    assert asset["m_Script"] == "dialogue text"
 
 
 def test_layout_provider_supplies_a_tree_when_the_file_has_none():

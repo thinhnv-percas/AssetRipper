@@ -10,8 +10,8 @@ Upstream `ReadAsset` resolves an asset's layout in this order:
 
 Neither (1) nor (2) is available to this port, so the order here is:
   1. the SerializedFile's own embedded type tree (`SerializedType.old_type`)
-  2. a hand-written layout, if one is registered for the class ID (phase 2; the registry
-     hook is `layout_provider` below and is empty for now)
+  2. a hand-written layout, if one is registered for the class ID (see
+     asset_creation.layouts for what's covered and why the rest isn't)
   3. `UnknownObject`
 
 MonoBehaviours (class ID 114) follow upstream's structure: with an embedded type tree they
@@ -35,10 +35,16 @@ class GameAssetFactory:
     """Stands in for upstream's GameAssetFactory. `read_asset` matches the call shape
     SerializedAssetCollection expects: `read_asset(asset_info, object_data, type_)`."""
 
-    def __init__(self, layout_provider=None):
+    def __init__(self, layout_provider=...):
+        if layout_provider is ...:
+            from .layouts import default_layout_provider
+
+            layout_provider = default_layout_provider
         self.layout_provider = layout_provider
-        """Optional callable `(class_id, version) -> TypeTreeNodeStruct | None`, used when a
-        file embeds no type tree. Populated in phase 2 by the hand-written layout registry."""
+        """Callable `(class_id, version) -> TypeTreeNodeStruct | None`, used when a file
+        embeds no type tree. Defaults to the hand-written layout registry
+        (asset_creation.layouts); pass `None` explicitly to disable it (e.g. in tests that
+        want to force UnknownObject for anything without an embedded tree)."""
 
     def read_asset(self, asset_info, object_data: bytes, type_):
         version = asset_info.collection.version
