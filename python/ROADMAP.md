@@ -4,7 +4,7 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-9 xong. 547 tests pass. Commit cuối: xem heading Phase 9 bên dưới.
+- **Trạng thái:** Phase 1-9 xong. 547 tests pass. Commit cuối: `404ce54`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 
@@ -68,7 +68,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 6 | Content exporters (texture/shader/text/audio/script/mesh) | ✅ `e2841be`…`84cbf57` |
 | 7 | Project scaffolding post-exporters | ✅ `fba6ba5` |
 | **8** | **Pipeline driver + wiring CLI/GUI** | ✅ `86cca85` |
-| **9** | **Streamed data (`.resS`)** | ✅ xem heading Phase 9 |
+| **9** | **Streamed data (`.resS`)** | ✅ `404ce54` |
 | 10 | Settings model + trang Settings | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 | 11 | GUI overhaul | ⬜ Chưa làm |
 | 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm |
@@ -200,7 +200,7 @@ kiểm tra path đó trước đây.
 **Reuse:** `GameStructure.load()` tại `assetripper_import/structure/game_structure.py:78`,
 `GameData.from_game_structure()`, `register_default_exporters()`, `run_default_post_exporters()`.
 
-### Phase 9 — Streamed data (`.resS`) ✅ (xem `git log` commit ngay sau Phase 8)
+### Phase 9 — Streamed data (`.resS`) ✅ `404ce54`
 
 Trước phase này cả 3 exporter binary lớn đều decline khi payload nằm ở file ngoài. Player build của
 Unity để **gần như toàn bộ** texture/audio/mesh ở đó → trên game thật, export ra gần như rỗng. Nhỏ về
