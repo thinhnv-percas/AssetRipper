@@ -21,6 +21,10 @@ class ResourceFile(FileBase):
     def from_bytes(data: bytes, file_path: str, name: str, writable: bool = True) -> "ResourceFile":
         return ResourceFile(SmartStream.create_memory(bytearray(data), 0, len(data), writable), file_path, name)
 
+    @staticmethod
+    def from_path(file_path: str, name: str, file_system) -> "ResourceFile":
+        return ResourceFile(SmartStream.open_read_multi(file_path, file_system), file_path, name)
+
     def is_default_resource_file(self) -> bool:
         return ResourceFile.is_default_resource_file_name(self.name)
 
