@@ -162,14 +162,14 @@ class SerializableValue:
             elif primitive_type in (PrimitiveType.PAIR, PrimitiveType.MAP_PAIR):
                 self.value.walk_editor(walker)
             else:
-                walker.visit_primitive(self.value)
+                walker.visit_primitive(self.value, primitive_type)
             return
 
         inner_etalon = _element_etalon(etalon)
-        if walker.enter_list(self.value):
+        if walker.enter_list(self.value, primitive_type):
             for i, item in enumerate(self.value or ()):
                 if i > 0:
-                    walker.divide_list(self.value)
+                    walker.divide_list(self.value, primitive_type)
                 if array_depth == 1 and primitive_type in (
                     PrimitiveType.COMPLEX,
                     PrimitiveType.PAIR,
@@ -177,10 +177,10 @@ class SerializableValue:
                 ):
                     item.walk_editor(walker)
                 elif array_depth == 1:
-                    walker.visit_primitive(item)
+                    walker.visit_primitive(item, primitive_type)
                 else:
                     SerializableValue(item).walk_editor(walker, inner_etalon)
-            walker.exit_list(self.value)
+            walker.exit_list(self.value, primitive_type)
 
     def fetch_dependencies(self, etalon):
         """Yields (path, PPtr) pairs. Only Complex fields can contain dependencies."""

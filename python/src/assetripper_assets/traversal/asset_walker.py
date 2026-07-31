@@ -7,6 +7,16 @@ C#'s generic parameters (`EnterList<T>`, `VisitPrimitive<T>`, `VisitPPtr<TAsset>
 runtime meaning here, so they collapse to plain methods. The two `VisitPPtr` overloads
 (one taking IPPtr<TAsset>, one taking PPtr<TAsset>) collapse into one, since this port has
 a single concrete PPtr type.
+
+`enter_list`/`divide_list`/`exit_list`/`visit_primitive` additionally take an optional
+`primitive_type` (an `assetripper_serialization_logic.primitive_type.PrimitiveType`, or
+`None` when not applicable/known). This is a deliberate deviation from a strict 1:1 port:
+C#'s `EnterList<T>`/`VisitPrimitive<T>` recover the element's static type `T` via reflection
+on the generic parameter, even for an empty list -- info a plain Python method parameter
+can't carry. `SerializableValue.walk_editor` (the only caller so far) threads the field's
+`PrimitiveType` through so subclasses that need it (e.g. YamlWalker, to decide whether an
+array is hex-encoded, or whether a scalar `str` is a Unicode string vs. a numeric char) can
+use it; subclasses that don't care can ignore the parameter entirely.
 """
 from __future__ import annotations
 
@@ -35,13 +45,13 @@ class AssetWalker:
 
     # -- lists --
 
-    def enter_list(self, list_) -> bool:
+    def enter_list(self, list_, primitive_type=None) -> bool:
         return True
 
-    def divide_list(self, list_) -> None:
+    def divide_list(self, list_, primitive_type=None) -> None:
         pass
 
-    def exit_list(self, list_) -> None:
+    def exit_list(self, list_, primitive_type=None) -> None:
         pass
 
     # -- dictionaries --
@@ -77,7 +87,7 @@ class AssetWalker:
 
     # -- leaves --
 
-    def visit_primitive(self, value) -> None:
+    def visit_primitive(self, value, primitive_type=None) -> None:
         """Visit a primitive leaf node. `bytes` is treated as a primitive."""
 
     def visit_pptr(self, pptr) -> None:

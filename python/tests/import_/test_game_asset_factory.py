@@ -191,7 +191,7 @@ def test_walk_editor_visits_fields_in_order():
         def exit_field(self, asset, name):
             self.events.append(("exit_field", name))
 
-        def visit_primitive(self, value):
+        def visit_primitive(self, value, primitive_type=None):
             self.events.append(("primitive", value))
 
     payload = unity_string("N") + unity_string("S")

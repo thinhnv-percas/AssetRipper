@@ -36,7 +36,7 @@ class SerializablePair:
             if self.first_field.type.type == PrimitiveType.STRING:
                 pair = (self.first.value, self.second)
                 if walker.enter_dictionary_pair(pair):
-                    walker.visit_primitive(pair[0])
+                    walker.visit_primitive(pair[0], PrimitiveType.STRING)
                     walker.divide_pair(pair)
                     self.second.walk_editor(walker, self.second_field)
                     walker.exit_dictionary_pair(pair)
