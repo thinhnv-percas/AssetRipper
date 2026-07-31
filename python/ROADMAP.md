@@ -4,7 +4,7 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-10 xong. 568 tests pass. Commit cuối: `PENDING_HASH`.
+- **Trạng thái:** Phase 1-10 xong. 568 tests pass. Commit cuối: `1eaef6f`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -71,7 +71,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 7 | Project scaffolding post-exporters | ✅ `fba6ba5` |
 | 8 | Pipeline driver + wiring CLI/GUI | ✅ `86cca85` |
 | 9 | Streamed data (`.resS`) | ✅ `404ce54` |
-| **10** | **Settings model + trang Settings** | ✅ `PENDING_HASH` |
+| **10** | **Settings model + trang Settings** | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 | 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm |
 | 13 | Asset type còn thiếu | ⬜ Chưa làm |
@@ -82,7 +82,7 @@ Số test theo area (tổng 568): `export_modules` 123, `import_` 100, `io_files
 
 ---
 
-# PHẦN A — Đã làm (Phase 1-9)
+# PHẦN A — Đã làm (Phase 1-10)
 
 ### Phase 1 — Dynamic asset reader ✅ `88ffc58`
 
@@ -231,7 +231,7 @@ không cần biết nó từng là 4 hay 8 byte trên đĩa.
 **Reuse:** `Bundle.resolve_resource(name)` tại `assetripper_assets/bundles/bundle.py:105` — đã xử lý
 `fix_file_identifier` và tra ngược lên bundle cha, dùng thẳng không cần sửa gì.
 
-### Phase 10 — Settings model + trang Settings ✅ `PENDING_HASH`
+### Phase 10 — Settings model + trang Settings ✅ `1eaef6f`
 
 Trước phase này format ảnh/audio/text/shader bị hardcode trong `registration.py` (comment cũ trong đó
 tự ghi nhận *"This port has no settings system"*), và `/Settings/Edit` là `stub.html`.
