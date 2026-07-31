@@ -11,6 +11,10 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+build = ["pyinstaller>=6"]
+
+[project.scripts]
+assetripper-inspect = "assetripper_cli.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
