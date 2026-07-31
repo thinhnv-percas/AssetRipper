@@ -5,7 +5,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-11 xong (Phase 11 một phần — xem ghi chú trong phase đó). 584 tests pass.
-  Commit cuối: `PENDING_HASH`.
+  Commit cuối: `f9c9b80`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -76,7 +76,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 8 | Pipeline driver + wiring CLI/GUI | ✅ `86cca85` |
 | 9 | Streamed data (`.resS`) | ✅ `404ce54` |
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
-| **11** | **GUI overhaul** | ✅ `PENDING_HASH` (một phần — xem ghi chú) |
+| **11** | **GUI overhaul** | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 | 13 | Asset type còn thiếu | ⬜ Chưa làm |
 
@@ -299,7 +299,7 @@ tự ghi nhận *"This port has no settings system"*), và `/Settings/Edit` là 
 `GameStructure.load()`'s `default_version`/`target_version`/`ignore_streaming_assets` kwargs (đã có
 từ trước phase này, chỉ cần truyền vào).
 
-### Phase 11 — GUI overhaul ✅ `PENDING_HASH` (một phần — xem việc còn lại bên dưới)
+### Phase 11 — GUI overhaul ✅ `f9c9b80` (một phần — xem việc còn lại bên dưới)
 
 Hiện GUI có 3 asset tab so với 12 của upstream; 4 trang là `stub.html`; không CSS framework; phải gõ
 path bằng tay; không có progress. Phase này làm xong phần backend/wiring (progress, preview
