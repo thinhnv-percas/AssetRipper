@@ -8,9 +8,17 @@ always-raw `NativeAudioExporter`) into one, since this port never actually decod
 empty -- see assetripper_import/streamed_resource.py (Phase 9). Before that, this exporter
 declined outright whenever `m_AudioData` was empty, which is the common case: most player
 builds stream audio from `.resS` rather than embedding it.
+
+`AudioExportFormat` (Phase 10): accepted for parity with upstream's constructor, but has no
+observable effect here. Upstream's `PreferWav` only changes anything when its FSB5 rebuild
+produced an `.ogg` file (it then re-exports as `.wav` instead); this port never rebuilds
+FSB5 (see audio_clip_decoder.py), so `get_export_extension` never returns `"ogg"` and the
+`PreferWav` branch is unreachable dead code here, same as upstream's `Yaml`/`Native` values
+which don't apply to a raw-dump-only exporter either.
 """
 from __future__ import annotations
 
+from assetripper_export_configuration.audio_export_format import AudioExportFormat
 from assetripper_export_unity_projects.asset_export_collection import AssetExportCollection
 from assetripper_import.streamed_resource import get_streamed_resource_content
 
@@ -21,6 +29,9 @@ _AUDIO_CLIP_CLASS_ID = 83
 
 
 class AudioClipExporter(BinaryAssetExporter):
+    def __init__(self, audio_export_format: AudioExportFormat = AudioExportFormat.DEFAULT):
+        self.audio_export_format = audio_export_format
+
     def try_create_collection(self, asset) -> "tuple[bool, object]":
         if asset.class_id == _AUDIO_CLIP_CLASS_ID and self.is_valid_data(_audio_data_bytes(asset)):
             return True, AudioClipExportCollection(self, asset)

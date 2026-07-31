@@ -30,7 +30,7 @@ from .scenes.scene_definition_processor import SceneDefinitionProcessor
 
 
 def default_processors(
-    bundled_assets_export_mode: BundledAssetsExportMode = BundledAssetsExportMode.GROUP_BY_ASSET_TYPE,
+    bundled_assets_export_mode: BundledAssetsExportMode = BundledAssetsExportMode.DIRECT_EXPORT,
 ) -> tuple:
     return (
         SceneDefinitionProcessor(),
@@ -40,9 +40,14 @@ def default_processors(
     )
 
 
-def run_default_processors(
-    game_data,
-    bundled_assets_export_mode: BundledAssetsExportMode = BundledAssetsExportMode.GROUP_BY_ASSET_TYPE,
-) -> None:
+def run_default_processors(game_data, settings=None) -> None:
+    """`settings` (Phase 10): a `FullConfiguration`; only its
+    `processing_settings.bundled_assets_export_mode` is consulted. Omitting it keeps
+    `default_processors`'s own default (upstream's real default, `DirectExport`)."""
+    bundled_assets_export_mode = (
+        settings.processing_settings.bundled_assets_export_mode
+        if settings is not None
+        else BundledAssetsExportMode.DIRECT_EXPORT
+    )
     for processor in default_processors(bundled_assets_export_mode):
         processor.process(game_data)

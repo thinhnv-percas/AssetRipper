@@ -10,9 +10,16 @@ builds commonly leave that field empty and store the actual pixel bytes in an ex
 assetripper_import/streamed_resource.py for the resolution logic (Phase 9 -- before that,
 this exporter declined outright whenever "image data" was empty, which is why real player
 builds exported almost nothing).
+
+`ImageExportFormat` (Phase 10): see assetripper_export_configuration/image_export_format.py
+for which formats are actually wired to an encoder (Bmp/Jpeg/Png/Tga via Pillow; Exr/Hdr
+fall back to Png, a documented gap).
 """
 from __future__ import annotations
 
+import io
+
+from assetripper_export_configuration.image_export_format import ImageExportFormat, get_pillow_format_and_extension
 from assetripper_export_unity_projects.asset_export_collection import AssetExportCollection
 from assetripper_import.streamed_resource import get_streaming_info_content
 
@@ -21,10 +28,13 @@ from .texture_converter import decode_texture
 from .texture_format import TextureFormat
 
 _TEXTURE_2D_CLASS_ID = 28
-_PNG_EXTENSION = "png"
 
 
 class Texture2DExporter(BinaryAssetExporter):
+    def __init__(self, image_export_format: ImageExportFormat = ImageExportFormat.PNG):
+        self.image_export_format = image_export_format
+        self.pillow_format, self.extension = get_pillow_format_and_extension(image_export_format)
+
     def try_create_collection(self, asset) -> "tuple[bool, object]":
         if asset.class_id == _TEXTURE_2D_CLASS_ID and self.is_valid_data(_image_data_bytes(asset)):
             return True, Texture2DExportCollection(self, asset)
@@ -35,11 +45,13 @@ class Texture2DExporter(BinaryAssetExporter):
         if image is None:
             return False
 
-        with file_system.file.create(path) as stream:
-            import io
+        if self.pillow_format == "JPEG" and image.mode not in ("RGB", "L"):
+            # JPEG has no alpha channel; Pillow raises rather than silently dropping it.
+            image = image.convert("RGB")
 
+        with file_system.file.create(path) as stream:
             buffer = io.BytesIO()
-            image.save(buffer, format="PNG")
+            image.save(buffer, format=self.pillow_format)
             data = buffer.getvalue()
             stream.write(data, 0, len(data))
         return True
@@ -47,7 +59,7 @@ class Texture2DExporter(BinaryAssetExporter):
 
 class Texture2DExportCollection(AssetExportCollection):
     def _get_export_extension(self, asset) -> str:
-        return _PNG_EXTENSION
+        return self.asset_exporter.extension
 
 
 def _image_data_bytes(asset) -> bytes:

@@ -10,6 +10,9 @@ and assert the exported project looks like a real Unity project directory.
 """
 import struct
 
+from assetripper_export_configuration.export_settings import ExportSettings
+from assetripper_export_configuration.full_configuration import FullConfiguration
+from assetripper_export_configuration.text_export_mode import TextExportMode
 from assetripper_export_unity_projects.export_handler import ExportHandler
 from assetripper_io_files.build_target import BuildTarget
 from assetripper_io_files.local_file_system import LocalFileSystem
@@ -100,6 +103,22 @@ def test_load_and_process_skips_processing_when_bundle_is_empty(tmp_path):
     game_data = handler.load_and_process([str(empty_dir)], FS)
 
     assert not game_data.game_bundle.has_any_asset_collections()
+
+
+def test_settings_are_threaded_through_to_registration(tmp_path):
+    # Phase 10: `export()`'s `settings` parameter reaches `register_default_exporters`,
+    # which should force `.bytes` here instead of the guessed `.txt` extension.
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    _write_synthetic_game(game_dir)
+    output_dir = tmp_path / "output"
+
+    settings = FullConfiguration(export_settings=ExportSettings(text_export_mode=TextExportMode.BYTES))
+    handler = ExportHandler()
+    handler.load_process_and_export([str(game_dir)], str(output_dir), FS, settings=settings)
+
+    assert (output_dir / "Assets" / "TextAsset" / "TextAsset.bytes").exists()
+    assert not (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
 
 
 def test_load_then_process_then_export_as_separate_steps(tmp_path):

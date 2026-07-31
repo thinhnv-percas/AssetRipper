@@ -4,9 +4,11 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-9 xong. 547 tests pass. Commit cuối: `404ce54`.
+- **Trạng thái:** Phase 1-10 xong. 568 tests pass. Commit cuối: `PENDING_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
+- Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
+  không còn hardcode, `/Settings/Edit` là form thật.
 
 ---
 
@@ -67,16 +69,16 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 5 | Essential processors | ✅ `789188a` |
 | 6 | Content exporters (texture/shader/text/audio/script/mesh) | ✅ `e2841be`…`84cbf57` |
 | 7 | Project scaffolding post-exporters | ✅ `fba6ba5` |
-| **8** | **Pipeline driver + wiring CLI/GUI** | ✅ `86cca85` |
-| **9** | **Streamed data (`.resS`)** | ✅ `404ce54` |
-| 10 | Settings model + trang Settings | ⬜ Chưa làm — **điểm chặn tiếp theo** |
-| 11 | GUI overhaul | ⬜ Chưa làm |
+| 8 | Pipeline driver + wiring CLI/GUI | ✅ `86cca85` |
+| 9 | Streamed data (`.resS`) | ✅ `404ce54` |
+| **10** | **Settings model + trang Settings** | ✅ `PENDING_HASH` |
+| 11 | GUI overhaul | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 | 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm |
 | 13 | Asset type còn thiếu | ⬜ Chưa làm |
 
-Số test theo area (tổng 547): `export_modules` 118, `io_files` 91, `import_` 100, `numerics` 64,
-`assets` 48, `export_unity_projects` 37, `gui_web` 24, `io_files_bundle` 21, `cli` 12,
-`processing` 16, `yaml` 11, `configuration` 5.
+Số test theo area (tổng 568): `export_modules` 123, `import_` 100, `io_files` 91, `numerics` 64,
+`assets` 48, `export_unity_projects` 39, `gui_web` 28, `io_files_bundle` 21, `cli` 13,
+`processing` 16, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
 ---
 
@@ -229,24 +231,73 @@ không cần biết nó từng là 4 hay 8 byte trên đĩa.
 **Reuse:** `Bundle.resolve_resource(name)` tại `assetripper_assets/bundles/bundle.py:105` — đã xử lý
 `fix_file_identifier` và tra ngược lên bundle cha, dùng thẳng không cần sửa gì.
 
----
+### Phase 10 — Settings model + trang Settings ✅ `PENDING_HASH`
 
-# PHẦN B — Cần làm (Phase 10-13)
+Trước phase này format ảnh/audio/text/shader bị hardcode trong `registration.py` (comment cũ trong đó
+tự ghi nhận *"This port has no settings system"*), và `/Settings/Edit` là `stub.html`.
 
-### Phase 10 — Settings model + trang Settings ⬜
-
-- [ ] `src/assetripper_export_configuration/` — enums port từ `Source/AssetRipper.Export/Configuration/`:
+- [x] `src/assetripper_export_configuration/` — 8 enum port từ `Source/AssetRipper.Export/Configuration/`:
       `ImageExportFormat`, `AudioExportFormat`, `TextExportMode`, `ShaderExportMode`,
       `SpriteExportMode`, `TerrainExportMode`, `ScriptContentLevel`, `StreamingAssetsMode`
       (`BundledAssetsExportMode` đã có ở `assetripper_processing/configuration/`, reuse)
-- [ ] `ExportSettings` / `ImportSettings` / `ProcessingSettings` / `FullConfiguration` dataclasses,
-      persist JSON qua `assetripper_configuration` (đã port sẵn)
-- [ ] `export_modules/registration.py` — `register_default_exporters(exporter, settings=None)`, chọn
-      `DummyShaderTextExporter` vs `YamlShaderExporter` và text/image/audio format theo settings.
-      Xoá được đúng cái comment *"This port has no settings system"* trong file đó
-- [ ] `export_handler.py` nhận `settings`
-- [ ] GUI `/Settings/Edit` → form thật (hiện `stub.html`)
-- [ ] Tests + release gate + commit + push
+- [x] `ExportSettings` / `ImportSettings` / `ProcessingSettings` / `FullConfiguration` dataclasses —
+      plain `to_dict`/`from_dict`/`save`/`load` qua stdlib `json`, **không** dùng
+      `assetripper_configuration`'s `DataStorage`/`SingletonData` machinery (built cho một file settings
+      hợp nhất nhiều record — overkill cho 3 dataclass nhỏ ở đây; xem docstring
+      `full_configuration.py`)
+- [x] `export_modules/registration.py` — `register_default_exporters(exporter, settings=None)`, chọn
+      `DummyShaderTextExporter` vs `YamlShaderExporter` theo `ShaderExportMode`, và
+      image/text/audio format theo settings tương ứng. Xoá được đúng cái comment *"This port has no
+      settings system"* cũ trong file đó
+- [x] `texture2d_exporter.py`/`text_asset_exporter.py`/`audio_clip_exporter.py` — nhận
+      `ImageExportFormat`/`TextExportMode`/`AudioExportFormat` qua constructor. `AudioExportFormat`
+      không đổi hành vi gì cả (xem ghi chú bên dưới)
+- [x] `i_post_exporter.py` + 4 implementation + `post_exporters.py` — `settings=None` optional thêm
+      vào cuối `do_post_export(...)`; `StreamingAssetsPostExporter` đọc
+      `settings.import_settings.streaming_assets_mode == IGNORE` để bỏ qua copy StreamingAssets
+- [x] `default_processors.py` — `run_default_processors(game_data, settings=None)` đọc
+      `settings.processing_settings.bundled_assets_export_mode`; sửa luôn default riêng của
+      `default_processors()`/`run_default_processors()` từ `GROUP_BY_ASSET_TYPE` (lệch so với upstream,
+      tự để lại từ Phase 5/8) sang `DIRECT_EXPORT` (đúng default thật của upstream)
+- [x] `export_handler.py` — `load()`/`process()`/`export()`/`load_and_process()`/
+      `load_process_and_export()` đều nhận `settings=None`; `load()` suy ra
+      `default_version`/`target_version`/`ignore_streaming_assets` từ `settings.import_settings` (chỉ
+      khi `kwargs` chưa tự set — keyword argument luôn thắng)
+- [x] `cli.py` — `export` subcommand có thêm `--config <settings.json>`, load qua
+      `FullConfiguration.load()`
+- [x] `game_file_loader.py` — state `settings()`/`set_settings()`, session-only (không persist ra
+      đĩa), dùng bởi `load_paths` và `/Export/UnityProject`
+- [x] GUI `/Settings/Edit` — form thật (`templates/settings.html`), GET render giá trị hiện tại, POST
+      cập nhật state. Field cho enum port nhưng chưa consume (`SpriteExportMode`,
+      `ScriptContentLevel`, `remove_nullable_attributes`, `publicize_assemblies`) vẫn hiện trên form,
+      đánh dấu rõ "not yet consumed"
+- [x] `tests/export_configuration/test_full_configuration.py` (9), `test_registration_settings.py` (4),
+      settings-threading test trong `test_export_handler.py`/`test_streaming_assets_post_exporter.py`/
+      `test_cli_export.py`, `tests/gui_web/test_settings_page.py` (4), audio constructor smoke test —
+      21 test mới
+- [x] Release gate + commit + push
+
+**Quyết định trong lúc làm:**
+- `TerrainExportMode` được giữ lại **không** làm field trên `ExportSettings` — grep upstream thật
+  (`ExportSettings.cs`) thấy nó chỉ được dùng bởi 1 class dropdown GUI riêng
+  (`TerrainExportModeDropDownSetting.cs`), không phải field thật. Giữ enum đứng riêng, không gán vào
+  dataclass nào, tránh bịa ra một setting upstream không có.
+- `AudioExportFormat` **không đổi hành vi export nào** trong port này: `PreferWav` upstream chỉ có
+  tác dụng khi FSB5 rebuild ra `.ogg` (không rebuild FSB5 trong port này, xem `audio_clip_decoder.py`
+  — `get_export_extension` không bao giờ trả `"ogg"`), nên nhánh đó là dead code không thể chạy tới.
+  Vẫn wire tham số vào constructor cho đúng shape/để callers không phải chờ Phase 13, nhưng ghi rõ
+  trong docstring đây là no-op thật, không phải bug.
+- `ImportSettings.default_version`/`target_version` (`UnityVersion | None`) **không** có field trên
+  form GUI — cần parser/validator version-string mà phase này không thêm; set qua JSON file +
+  `--config` của CLI thay vì qua GUI.
+
+**Reuse:** `assetripper_processing/configuration/bundled_assets_export_mode.py` (đã có từ Phase 5),
+`GameStructure.load()`'s `default_version`/`target_version`/`ignore_streaming_assets` kwargs (đã có
+từ trước phase này, chỉ cần truyền vào).
+
+---
+
+# PHẦN B — Cần làm (Phase 11-13)
 
 ### Phase 11 — GUI overhaul ⬜
 

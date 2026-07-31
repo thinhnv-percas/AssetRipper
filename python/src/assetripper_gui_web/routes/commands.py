@@ -54,7 +54,12 @@ def export_unity_project():
     from assetripper_io_files.local_file_system import LocalFileSystem
 
     try:
-        ExportHandler().export(game_file_loader.game_data(), output_path, LocalFileSystem.instance())
+        ExportHandler().export(
+            game_file_loader.game_data(),
+            output_path,
+            LocalFileSystem.instance(),
+            settings=game_file_loader.settings(),
+        )
     except Exception as ex:  # noqa: BLE001 -- GUI error boundary, reported to the user via flash
         flash(f"Export failed: {ex!r}")
         return redirect(url_for("home.index"))

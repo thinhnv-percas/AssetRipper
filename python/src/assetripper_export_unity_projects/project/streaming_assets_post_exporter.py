@@ -10,6 +10,8 @@ their `LocalFileSystem` implementation), so `_walk` recurses manually to match.
 """
 from __future__ import annotations
 
+from assetripper_export_configuration.streaming_assets_mode import StreamingAssetsMode
+
 from ..i_post_exporter import IPostExporter
 
 
@@ -25,7 +27,10 @@ def _walk(directory_impl, root: str, path_join):
 
 
 class StreamingAssetsPostExporter(IPostExporter):
-    def do_post_export(self, game_data, output_directory: str, unity_version, file_system) -> None:
+    def do_post_export(self, game_data, output_directory: str, unity_version, file_system, settings=None) -> None:
+        if settings is not None and settings.import_settings.streaming_assets_mode == StreamingAssetsMode.IGNORE:
+            return
+
         platform = game_data.platform_structure
         if platform is None:
             return

@@ -6,12 +6,13 @@ ProjectExporter, post-exporters) existed but nothing in production code called t
 sequence -- only their own tests did. `ExportHandler` is that missing driver: `load()` ->
 `process()` -> `export()`, exactly like upstream's `Load`/`Process`/`Export` methods.
 
-Not ported: `FullConfiguration`-based settings (`Settings.ExportRootPath`,
-`Settings.SetProjectSettings`, `BeforeExport`/`DoFinalOverrides` premium hooks) -- this port
-has no settings model yet (see python/ROADMAP.md Phase 10), so `export()` takes
-`output_directory` directly, matching how `ProjectExporter.export` and
-`run_default_post_exporters` already do. `ThrowIfSettingsDontMatch` has no counterpart for
-the same reason.
+Not ported: `Settings.ExportRootPath`/`Settings.SetProjectSettings`,
+`BeforeExport`/`DoFinalOverrides` premium hooks, `ThrowIfSettingsDontMatch`. A `FullConfiguration`
+settings model now exists (Phase 10, assetripper_export_configuration/) and is accepted as an
+optional `settings` parameter on `load`/`export`, but `output_directory` stays its own argument
+rather than folding into `settings.ExportRootPath` as upstream has it, matching how
+`ProjectExporter.export` and `run_default_post_exporters` already replaced settings-object
+access with direct arguments.
 """
 from __future__ import annotations
 
@@ -29,8 +30,8 @@ _logger = logging.getLogger(__name__)
 
 class ExportHandler:
     def __init__(self, register_exporters=None):
-        """`register_exporters(project_exporter)` wires content exporters onto a fresh
-        `ProjectExporter` before each export -- defaults to
+        """`register_exporters(project_exporter, settings)` wires content exporters onto a
+        fresh `ProjectExporter` before each export -- defaults to
         `assetripper_export_modules.registration.register_default_exporters`. Passed in
         rather than imported directly to avoid a hard dependency from this package (Export)
         onto assetripper_export_modules, mirroring the layering upstream keeps between
@@ -41,7 +42,17 @@ class ExportHandler:
             register_exporters = register_default_exporters
         self._register_exporters = register_exporters
 
-    def load(self, paths, file_system, **kwargs) -> GameData:
+    def load(self, paths, file_system, settings=None, **kwargs) -> GameData:
+        """`settings` (Phase 10): a `FullConfiguration`; only its `import_settings`
+        (`default_version`/`target_version`/`ignore_streaming_assets`) is consulted, and
+        only to fill in values `kwargs` didn't already specify -- an explicit keyword
+        argument always wins over `settings`."""
+        if settings is not None:
+            import_settings = settings.import_settings
+            kwargs.setdefault("default_version", import_settings.default_version)
+            kwargs.setdefault("target_version", import_settings.target_version)
+            kwargs.setdefault("ignore_streaming_assets", import_settings.ignore_streaming_assets)
+
         if len(paths) == 1:
             _logger.info("Attempting to read files from %s", paths[0])
         else:
@@ -52,31 +63,33 @@ class ExportHandler:
         _logger.info("Finished reading files")
         return game_data
 
-    def process(self, game_data: GameData) -> None:
+    def process(self, game_data: GameData, settings=None) -> None:
         _logger.info("Processing loaded assets...")
-        run_default_processors(game_data)
+        run_default_processors(game_data, settings)
         _logger.info("Finished processing assets")
 
-    def export(self, game_data: GameData, output_directory: str, file_system) -> None:
+    def export(self, game_data: GameData, output_directory: str, file_system, settings=None) -> None:
         _logger.info("Starting export")
         _logger.info("Attempting to export assets to %s...", output_directory)
         _logger.info("Exporting to Unity version %s", game_data.project_version)
 
         project_exporter = ProjectExporter()
-        self._register_exporters(project_exporter)
+        self._register_exporters(project_exporter, settings)
         project_exporter.export(game_data.game_bundle, output_directory, file_system, game_data.project_version)
         _logger.info("Finished exporting assets")
 
-        run_default_post_exporters(game_data, output_directory, game_data.project_version, file_system)
+        run_default_post_exporters(game_data, output_directory, game_data.project_version, file_system, settings)
         _logger.info("Finished post-export")
 
-    def load_and_process(self, paths, file_system, **kwargs) -> GameData:
-        game_data = self.load(paths, file_system, **kwargs)
+    def load_and_process(self, paths, file_system, settings=None, **kwargs) -> GameData:
+        game_data = self.load(paths, file_system, settings=settings, **kwargs)
         if game_data.game_bundle.has_any_asset_collections():
-            self.process(game_data)
+            self.process(game_data, settings)
         return game_data
 
-    def load_process_and_export(self, input_paths, output_directory: str, file_system, **kwargs) -> GameData:
-        game_data = self.load_and_process(input_paths, file_system, **kwargs)
-        self.export(game_data, output_directory, file_system)
+    def load_process_and_export(
+        self, input_paths, output_directory: str, file_system, settings=None, **kwargs
+    ) -> GameData:
+        game_data = self.load_and_process(input_paths, file_system, settings=settings, **kwargs)
+        self.export(game_data, output_directory, file_system, settings)
         return game_data

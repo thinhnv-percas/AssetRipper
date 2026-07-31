@@ -27,6 +27,7 @@ from assetripper_io_files.local_file_system import LocalFileSystem
 from assetripper_io_files.serialized_files import SerializedFile, SerializedFileScheme
 from assetripper_io_files.streams.smart import SmartStream
 
+from assetripper_export_configuration.full_configuration import FullConfiguration
 from assetripper_import.asset_creation import GameAssetFactory
 
 _factory = GameAssetFactory()
@@ -39,6 +40,11 @@ class _State:
         """Only set by `load_paths` -- the GameData a real Export needs (platform_structure,
         processed assets). `None` when the currently loaded bundle came from `load_file`."""
         self.load_errors: list[str] = []
+        self.settings = FullConfiguration()
+        """Session-only (Phase 10): kept in this module's state for the lifetime of the GUI
+        process, not persisted to disk. `/Settings/Edit` reads/writes it directly; `load_paths`
+        and `/Export/UnityProject` both use it. Use `FullConfiguration.save`/`.load` (see
+        assetripper_export_configuration/full_configuration.py) if a caller wants persistence."""
 
 
 _state = _State()
@@ -68,6 +74,14 @@ def load_errors() -> list[str]:
     return _state.load_errors
 
 
+def settings() -> FullConfiguration:
+    return _state.settings
+
+
+def set_settings(new_settings: FullConfiguration) -> None:
+    _state.settings = new_settings
+
+
 def reset() -> None:
     _state.game_bundle = None
     _state.game_data = None
@@ -86,7 +100,7 @@ def load_paths(paths: list[str]) -> None:
     file_system = LocalFileSystem.instance()
     handler = ExportHandler()
     try:
-        data = handler.load_and_process(list(paths), file_system)
+        data = handler.load_and_process(list(paths), file_system, settings=_state.settings)
     except Exception as ex:  # noqa: BLE001 -- GUI error boundary, reported to the user via flash
         _state.load_errors.append(f"Failed to load: {ex!r}")
         return

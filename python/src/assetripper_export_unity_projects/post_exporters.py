@@ -22,6 +22,6 @@ DEFAULT_POST_EXPORTERS = (
 )
 
 
-def run_default_post_exporters(game_data, output_directory: str, unity_version, file_system) -> None:
+def run_default_post_exporters(game_data, output_directory: str, unity_version, file_system, settings=None) -> None:
     for post_exporter in DEFAULT_POST_EXPORTERS:
-        post_exporter.do_post_export(game_data, output_directory, unity_version, file_system)
+        post_exporter.do_post_export(game_data, output_directory, unity_version, file_system, settings)

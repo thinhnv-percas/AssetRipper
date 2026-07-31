@@ -12,7 +12,7 @@ from assetripper_export_unity_projects.i_post_exporter import IPostExporter
 
 
 class DllPostExporter(IPostExporter):
-    def do_post_export(self, game_data, output_directory: str, unity_version, file_system) -> None:
+    def do_post_export(self, game_data, output_directory: str, unity_version, file_system, settings=None) -> None:
         if game_data.assembly_manager is None:
             return
         raise NotImplementedError("Assembly saving is not implemented in this port.")

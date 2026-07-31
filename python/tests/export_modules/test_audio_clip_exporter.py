@@ -99,3 +99,15 @@ def test_empty_audio_data_is_not_exported(tmp_path):
 
     assert list(tmp_path.rglob("*.fsb")) == []
     assert list(tmp_path.rglob("*.it")) == []
+
+
+def test_constructor_accepts_audio_export_format():
+    # Phase 10: accepted for parity with upstream's constructor, but never changes output
+    # here -- see audio_clip_exporter.py's module docstring for why PreferWav is
+    # unreachable dead code in this port (no FSB5 rebuild, so get_export_extension never
+    # returns "ogg").
+    from assetripper_export_configuration.audio_export_format import AudioExportFormat
+    from assetripper_export_modules.audio_clip_exporter import AudioClipExporter
+
+    exporter = AudioClipExporter(AudioExportFormat.PREFER_WAV)
+    assert exporter.audio_export_format == AudioExportFormat.PREFER_WAV

@@ -67,6 +67,28 @@ def test_export_subcommand_writes_a_unity_project(tmp_path, capsys):
     assert (output_dir / "ProjectSettings" / "ProjectVersion.txt").exists()
 
 
+def test_export_subcommand_applies_config_file(tmp_path, capsys):
+    # Phase 10: `--config <settings.json>` should reach register_default_exporters and force
+    # TextExportMode.BYTES instead of the guessed ".txt" extension.
+    from assetripper_export_configuration.export_settings import ExportSettings
+    from assetripper_export_configuration.full_configuration import FullConfiguration
+    from assetripper_export_configuration.text_export_mode import TextExportMode
+
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    _write_synthetic_game(game_dir)
+    output_dir = tmp_path / "output"
+
+    config_path = tmp_path / "settings.json"
+    FullConfiguration(export_settings=ExportSettings(text_export_mode=TextExportMode.BYTES)).save(str(config_path))
+
+    exit_code = main(["export", str(game_dir), "-o", str(output_dir), "--config", str(config_path)])
+
+    assert exit_code == 0
+    assert (output_dir / "Assets" / "TextAsset" / "TextAsset.bytes").exists()
+    assert not (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
+
+
 def test_export_subcommand_requires_output_flag(tmp_path, capsys):
     exit_code = main(["export", str(tmp_path)])
 

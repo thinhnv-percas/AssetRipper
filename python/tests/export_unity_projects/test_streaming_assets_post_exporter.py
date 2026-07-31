@@ -1,5 +1,8 @@
 from dataclasses import dataclass
 
+from assetripper_export_configuration.full_configuration import FullConfiguration
+from assetripper_export_configuration.import_settings import ImportSettings
+from assetripper_export_configuration.streaming_assets_mode import StreamingAssetsMode
 from assetripper_export_unity_projects.project.streaming_assets_post_exporter import StreamingAssetsPostExporter
 from assetripper_io_files.local_file_system import LocalFileSystem
 from assetripper_primitives import UnityVersion
@@ -55,3 +58,15 @@ def test_empty_streaming_assets_path_is_a_no_op(tmp_path):
     game_data = _FakeGameData(platform_structure=_FakePlatformStructure("", FS))
     StreamingAssetsPostExporter().do_post_export(game_data, str(tmp_path), UnityVersion(2020, 1, 0), FS)
     assert not (tmp_path / "Assets").exists()
+
+
+def test_streaming_assets_mode_ignore_is_wired_through_settings(tmp_path):
+    source = _make_source_tree(tmp_path)
+    game_data = _FakeGameData(platform_structure=_FakePlatformStructure(source, FS))
+    settings = FullConfiguration(import_settings=ImportSettings(streaming_assets_mode=StreamingAssetsMode.IGNORE))
+
+    StreamingAssetsPostExporter().do_post_export(
+        game_data, str(tmp_path / "output"), UnityVersion(2020, 1, 0), FS, settings
+    )
+
+    assert not (tmp_path / "output" / "Assets").exists()

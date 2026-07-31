@@ -9,11 +9,17 @@ U+FFFD replacement characters by the time this exporter sees it; re-encoding to 
 export cannot recover the original bytes. This is a pre-existing Phase 1 limitation, not
 something introduced here -- fixing it needs threading raw bytes through the string-reading
 path everywhere a String field is read, a larger cross-cutting change.
+
+`TextExportMode` (Phase 10): `Bytes`/`Txt` force a fixed extension; `Parse` (the default)
+keeps the JSON/plain-text/bytes guessing this exporter always did before settings existed.
+`GetBestExtension()` (an asset-bundle-name-derived extension) still wins over all three
+modes, matching upstream exactly.
 """
 from __future__ import annotations
 
 import json
 
+from assetripper_export_configuration.text_export_mode import TextExportMode
 from assetripper_export_unity_projects.asset_export_collection import AssetExportCollection
 from assetripper_export_unity_projects.project.text_script_importer import TextScriptImporter
 
@@ -31,6 +37,9 @@ _DANGEROUS_EXTENSIONS = frozenset(
 
 
 class TextAssetExporter(BinaryAssetExporter):
+    def __init__(self, export_mode: TextExportMode = TextExportMode.PARSE):
+        self.export_mode = export_mode
+
     def try_create_collection(self, asset) -> "tuple[bool, object]":
         if asset.class_id == _TEXT_ASSET_CLASS_ID and asset.get("m_Script"):
             return True, TextAssetExportCollection(self, asset)
@@ -51,7 +60,13 @@ class TextAssetExportCollection(AssetExportCollection):
             if extension.lower() in _DANGEROUS_EXTENSIONS:
                 return _TXT_EXTENSION
             return extension
-        return _guess_extension(asset.get("m_Script") or "")
+
+        mode = self.asset_exporter.export_mode
+        if mode == TextExportMode.TXT:
+            return _TXT_EXTENSION
+        if mode == TextExportMode.PARSE:
+            return _guess_extension(asset.get("m_Script") or "")
+        return _BYTES_EXTENSION  # TextExportMode.BYTES
 
     def _create_importer(self, container):
         importer = TextScriptImporter()

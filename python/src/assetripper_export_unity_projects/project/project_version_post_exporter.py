@@ -10,7 +10,7 @@ from ..i_post_exporter import IPostExporter
 
 
 class ProjectVersionPostExporter(IPostExporter):
-    def do_post_export(self, game_data, output_directory: str, unity_version, file_system) -> None:
+    def do_post_export(self, game_data, output_directory: str, unity_version, file_system, settings=None) -> None:
         project_settings_path = file_system.path.join(output_directory, "ProjectSettings")
         file_system.directory.create(project_settings_path)
         file_path = file_system.path.join(project_settings_path, "ProjectVersion.txt")

@@ -33,7 +33,9 @@ export: loads the given file(s)/folder(s) as a full Unity game (platform
 discovery + every SerializedFile/bundle found), runs the standard asset
 processors, and exports a Unity project to -o/--output."""
 
-_EXPORT_USAGE = "Usage: assetripper-inspect export <path> [<path> ...] -o <output_dir>"
+_EXPORT_USAGE = (
+    "Usage: assetripper-inspect export <path> [<path> ...] -o <output_dir> [--config <settings.json>]"
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -77,6 +79,7 @@ def _run_export(argv: list[str]) -> int:
 
     input_paths: list[str] = []
     output_directory: str | None = None
+    config_path: str | None = None
     i = 0
     while i < len(argv):
         arg = argv[i]
@@ -86,6 +89,12 @@ def _run_export(argv: list[str]) -> int:
                 print("Error: -o/--output requires a value")
                 return 1
             output_directory = argv[i]
+        elif arg == "--config":
+            i += 1
+            if i >= len(argv):
+                print("Error: --config requires a value")
+                return 1
+            config_path = argv[i]
         else:
             input_paths.append(arg)
         i += 1
@@ -99,18 +108,21 @@ def _run_export(argv: list[str]) -> int:
         print(_EXPORT_USAGE)
         return 1
 
+    from assetripper_export_configuration.full_configuration import FullConfiguration
     from assetripper_export_unity_projects.export_handler import ExportHandler
+
+    settings = FullConfiguration.load(config_path) if config_path else None
 
     file_system = LocalFileSystem.instance()
     handler = ExportHandler()
     try:
         print(f"Loading {len(input_paths)} path(s)...")
-        game_data = handler.load_and_process(input_paths, file_system)
+        game_data = handler.load_and_process(input_paths, file_system, settings=settings)
         if not game_data.game_bundle.has_any_asset_collections():
             print("Error: no valid Unity assets found in the given path(s)")
             return 1
         print(f"Exporting to {output_directory} (Unity {game_data.project_version})...")
-        handler.export(game_data, output_directory, file_system)
+        handler.export(game_data, output_directory, file_system, settings=settings)
         print("Done.")
         return 0
     except Exception as ex:  # noqa: BLE001 -- top-level CLI error boundary
