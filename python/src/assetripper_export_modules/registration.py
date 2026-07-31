@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from .audio_clip_exporter import AudioClipExporter
 from .font_asset_exporter import FontAssetExporter
+from .mesh_exporter import MeshExporter
 from .movie_texture_exporter import MovieTextureAssetExporter
 from .scripts.script_exporter import ScriptExporter
 from .shaders.dummy_shader_text_exporter import DummyShaderTextExporter
@@ -26,6 +27,7 @@ from .texture2d_exporter import Texture2DExporter
 
 def register_default_exporters(project_exporter) -> None:
     project_exporter.override_exporter_for_class_id(28, Texture2DExporter())  # Texture2D
+    project_exporter.override_exporter_for_class_id(43, MeshExporter())  # Mesh
     project_exporter.override_exporter_for_class_id(48, DummyShaderTextExporter())  # Shader (fallback)
     project_exporter.override_exporter_for_class_id(48, SimpleShaderExporter())  # Shader (preferred)
     project_exporter.override_exporter_for_class_id(49, TextAssetExporter())  # TextAsset
