@@ -7,23 +7,44 @@
   SerializedFile/bundle's metadata. "Load Folder" runs the full game-structure pipeline
   (platform discovery, dependency resolution, the standard asset processors) and is what
   Export needs. See <code>python/ROADMAP.md</code> for what's ported and what's still a
-  documented gap (settings pages, several asset preview tabs, and assets whose payload
-  lives in an external <code>.resS</code> file).
+  documented gap (prefab/scene export, several asset types).
 </p>
 
 <h2>Load a file</h2>
 <p>Quick metadata browsing of one raw file -- can't be exported (no game/platform structure).</p>
 <form method="post" action="{{ url_for('commands.load_file') }}">
-  <input type="text" name="Path" placeholder="/path/to/level0 or file.assets" size="60">
+  <input type="text" name="Path" id="load-file-path" placeholder="/path/to/level0 or file.assets" size="60">
+  <button type="button" class="browse-button" data-target="load-file-path" data-kind="file">Browse...</button>
   <button type="submit">Load File</button>
 </form>
 
 <h2>Load a folder</h2>
 <p>Loads an entire game directory and runs the standard processors -- required before Export.</p>
 <form method="post" action="{{ url_for('commands.load_folder') }}">
-  <input type="text" name="Path" placeholder="/path/to/game folder" size="60">
+  <input type="text" name="Path" id="load-folder-path" placeholder="/path/to/game folder" size="60">
+  <button type="button" class="browse-button" data-target="load-folder-path" data-kind="folder">Browse...</button>
   <button type="submit">Load Folder</button>
 </form>
+
+<script>
+  // Native file/folder picker (Phase 11): only works when the GUI runs on a local desktop
+  // with a display -- see routes/dialogs.py. Silently does nothing on failure (404/no
+  // tkinter/no display), leaving the plain text input as the fallback, which is why these
+  // buttons have no error-handling UI of their own.
+  document.querySelectorAll(".browse-button").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var kind = button.dataset.kind === "file" ? "File" : "Folder";
+      fetch("/Dialogs/" + kind)
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (data && data.available && data.path) {
+            document.getElementById(button.dataset.target).value = data.path;
+          }
+        })
+        .catch(function () {});
+    });
+  });
+</script>
 
 <form method="post" action="{{ url_for('commands.reset') }}">
   <button type="submit">Reset</button>
@@ -44,9 +65,37 @@
 {% if has_game_data %}
 <h2>Export</h2>
 <form method="post" action="{{ url_for('commands.export_unity_project') }}">
-  <input type="text" name="OutputPath" placeholder="/path/to/output directory" size="60">
+  <input type="text" name="OutputPath" id="export-output-path" placeholder="/path/to/output directory" size="60">
+  <button type="button" class="browse-button" data-target="export-output-path" data-kind="folder">Browse...</button>
   <button type="submit">Export Unity Project</button>
 </form>
+
+<div id="export-progress" {% if not export_progress.running %}style="display:none"{% endif %}>
+  <p><progress id="export-progress-bar" value="{{ export_progress.current }}" max="{{ export_progress.total or 1 }}"></progress>
+     <span id="export-progress-text">{{ export_progress.current }}/{{ export_progress.total }} {{ export_progress.current_name }}</span></p>
+</div>
+<script>
+  (function () {
+    var container = document.getElementById("export-progress");
+    var bar = document.getElementById("export-progress-bar");
+    var text = document.getElementById("export-progress-text");
+    if (!container) return;
+
+    function poll() {
+      fetch("{{ url_for('commands.export_progress') }}")
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          container.style.display = data.running ? "block" : (data.total ? "block" : "none");
+          bar.max = data.total || 1;
+          bar.value = data.current;
+          text.textContent = data.current + "/" + data.total + " " + (data.current_name || "");
+          if (data.error) { text.textContent += " (error: " + data.error + ")"; }
+          if (data.running) { setTimeout(poll, 500); }
+        });
+    }
+    poll();
+  })();
+</script>
 {% elif is_loaded %}
 <h2>Export</h2>
 <p>Loaded via "Load File", which has no game/platform structure. Use "Load Folder" instead to export.</p>

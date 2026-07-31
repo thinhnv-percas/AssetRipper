@@ -4,11 +4,15 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-10 xong. 568 tests pass. Commit cuối: `1eaef6f`.
+- **Trạng thái:** Phase 1-11 xong (Phase 11 một phần — xem ghi chú trong phase đó). 584 tests pass.
+  Commit cuối: `PENDING_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
   không còn hardcode, `/Settings/Edit` là form thật.
+- GUI giờ có Bootstrap vendored, asset preview tab (Image/Audio/Text/Yaml/Binary), file picker
+  native, auto-open browser, progress bar export thật (Phase 11) — nhưng chưa có sidebar cây/tab
+  Dependencies-Json riêng, xem phần "Còn lại" trong Phase 11.
 
 ---
 
@@ -71,18 +75,18 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 7 | Project scaffolding post-exporters | ✅ `fba6ba5` |
 | 8 | Pipeline driver + wiring CLI/GUI | ✅ `86cca85` |
 | 9 | Streamed data (`.resS`) | ✅ `404ce54` |
-| **10** | **Settings model + trang Settings** | ✅ `1eaef6f` |
-| 11 | GUI overhaul | ⬜ Chưa làm — **điểm chặn tiếp theo** |
-| 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm |
+| 10 | Settings model + trang Settings | ✅ `1eaef6f` |
+| **11** | **GUI overhaul** | ✅ `PENDING_HASH` (một phần — xem ghi chú) |
+| 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 | 13 | Asset type còn thiếu | ⬜ Chưa làm |
 
-Số test theo area (tổng 568): `export_modules` 123, `import_` 100, `io_files` 91, `numerics` 64,
-`assets` 48, `export_unity_projects` 39, `gui_web` 28, `io_files_bundle` 21, `cli` 13,
+Số test theo area (tổng 584): `export_modules` 123, `import_` 100, `io_files` 91, `numerics` 64,
+`assets` 48, `gui_web` 42, `export_unity_projects` 41, `io_files_bundle` 21, `cli` 13,
 `processing` 16, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
 ---
 
-# PHẦN A — Đã làm (Phase 1-10)
+# PHẦN A — Đã làm (Phase 1-11)
 
 ### Phase 1 — Dynamic asset reader ✅ `88ffc58`
 
@@ -295,36 +299,61 @@ tự ghi nhận *"This port has no settings system"*), và `/Settings/Edit` là 
 `GameStructure.load()`'s `default_version`/`target_version`/`ignore_streaming_assets` kwargs (đã có
 từ trước phase này, chỉ cần truyền vào).
 
----
-
-# PHẦN B — Cần làm (Phase 11-13)
-
-### Phase 11 — GUI overhaul ⬜
+### Phase 11 — GUI overhaul ✅ `PENDING_HASH` (một phần — xem việc còn lại bên dưới)
 
 Hiện GUI có 3 asset tab so với 12 của upstream; 4 trang là `stub.html`; không CSS framework; phải gõ
-path bằng tay; không có progress.
+path bằng tay; không có progress. Phase này làm xong phần backend/wiring (progress, preview
+endpoint, file picker, auto-open) và một layout Bootstrap thật, nhưng **không** làm sidebar cây +
+toàn bộ 9 tab distinct như upstream — xem "Còn lại" bên dưới, tracked chứ không âm thầm bỏ qua.
 
-- [ ] Vendor `bootstrap.min.css` vào `static/vendor/` (upstream cũng dùng Bootstrap — xem
-      `OnlineDependencies.cs`). Khai báo trong `package-data` của `pyproject.toml`. **Vendor, không CDN**
-      — tool desktop chạy qua `.bat`, phải hoạt động offline
-- [ ] Layout mới: navbar, sidebar cây bundle/collection, card, table
-- [ ] Asset tabs (3 → ~9), tận dụng exporter Phase 6/9: Image (PNG), Audio (`<audio>` + download),
-      Text, Yaml, Model (`.glb` download), Font, Dependencies, Json
-- [ ] Endpoints mới mirror `Pages/Assets/AssetAPI.cs`: `/Assets/Image`, `/Assets/Binary`,
-      `/Assets/Text`, `/Assets/Yaml`
-- [ ] Native file/folder picker qua `tkinter.filedialog` (tương đương `Dialogs.cs` + `NativeDialogs`),
-      degrade về input text nếu không có display
-- [ ] Auto-open browser khi chạy `assetripper-gui-web` (tương đương `WelcomeMessage.cs`)
-- [ ] `progress_callback` optional trong `ProjectExporter.export` (docstring của nó đã tự ghi nhận
-      thiếu chỗ này) + GUI poll/SSE hiện tiến độ
-- [x] **Sửa nội dung sai** — làm sớm ở Phase 8 (không đợi Phase 11) vì sau khi wiring xong, nội dung
-      cũ nói "pipeline không được port" trở thành active-wrong ngay lập tức: `templates/index.html`,
-      `gui_web/__init__.py`
-- [ ] Điền trang Licenses / Privacy, bỏ `stub.html` khỏi trang đã làm
-- [ ] Cập nhật `run_gui.bat` nếu flow đổi
-- [ ] Test Flask test-client cho mọi route mới + smoke test render từng tab
-- [ ] Release gate + commit + push
+- [x] Vendor `bootstrap.min.css` (v5.3.3, tải thật từ jsdelivr CDN lúc build, không phải gõ tay) +
+      `LICENSE` vào `static/vendor/bootstrap/` — đã nằm trong `package-data` sẵn có (`static/**/*`)
+- [x] `layout.html` — navbar Bootstrap thật (thay nav CSS tay), flash message thành `alert`,
+      `data-bs-theme="dark"`. **Chưa làm:** sidebar cây bundle/collection — vẫn là link phẳng trong
+      navbar, xem "Còn lại"
+- [x] `src/assetripper_gui_web/asset_preview.py` — `render_asset(game_bundle, asset, export_version,
+      register_exporters, settings)`: chạy asset qua `ProjectExporter` thật vào một temp dir rồi đọc
+      bytes lại, thay vì viết lại logic encode riêng cho GUI (tái dùng nguyên Phase 6/9/10, không
+      phải reimplement Texture2D/Audio/Text decode lần hai)
+- [x] Endpoints mirror `Pages/Assets/AssetAPI.cs`: `/Assets/Image`, `/Assets/Text`, `/Assets/Yaml`,
+      `/Assets/Binary` (`routes/assets.py`)
+- [x] `templates/assets/view.html` — section "Preview": `<img>`/`<audio>`/`<iframe>` tuỳ class ID đã
+      có exporter (Texture2D/AudioClip/TextAsset/Shader/Font/MovieTexture/Mesh), cộng link download +
+      link Yaml cho asset không có content exporter riêng (rơi về `DefaultYamlExporter`). **Chưa
+      làm:** tab Dependencies/Json riêng như upstream — xem "Còn lại"
+- [x] `src/assetripper_gui_web/routes/dialogs.py` — `/Dialogs/File`, `/Dialogs/Folder` qua
+      `tkinter.filedialog`; degrade về 404 `{"available": false}` khi không có display (verified
+      thật trong CI — container test không có display, đúng path degrade cần test)
+- [x] `templates/index.html` — nút "Browse..." gọi `/Dialogs/*`, tự điền input nếu có; im lặng
+      không làm gì nếu 404 (input tay vẫn dùng được)
+- [x] `assetripper-gui-web` tự mở trình duyệt sau 1s (đợi server sẵn sàng), `--no-browser` để tắt;
+      `run_gui.bat` bỏ `start` cũ của chính nó (tránh mở 2 tab)
+- [x] `ProjectExporter.export(..., progress_callback=None)` — gọi mỗi collection exportable; `
+      create_collections()` public alias để `asset_preview.py` dùng chung logic gom nhóm
+- [x] `ExportHandler.export/load_process_and_export` nhận `progress_callback`
+- [x] GUI: `/Export/UnityProject` giờ chạy export trên background thread
+      (`game_file_loader.start_export`), trả response ngay; `/Export/Progress` (JSON) cho
+      `index.html` poll mỗi 500ms, progress bar thật
+- [x] **Sửa nội dung sai** — làm sớm ở Phase 8 (không đợi Phase 11): `templates/index.html`,
+      `gui_web/__init__.py`; refresh lại lần nữa ở phase này cho khớp Phase 9-11
+- [x] Điền trang Licenses (danh sách dependency PyPI thật + Bootstrap, không bịa license chưa xác
+      minh được — xem docstring `home.py`) / Privacy (verbatim upstream: "This app does not access
+      the internet."), bỏ `stub.html` khỏi 2 trang này
+- [x] Test Flask test-client: `test_asset_preview.py` (5), `test_dialogs.py` (2), `test_main.py` (2),
+      cộng test progress trong `test_export_wiring.py` (4 mới), test nội dung Licenses/Privacy trong
+      `test_flask_app.py` (2 mới) — 15 test mới cho riêng phần GUI, cộng 2 test `progress_callback`/
+      `create_collections` trong `test_project_exporter.py`
+- [x] Release gate + commit + push
 - [~] Babylon.js 3D mesh preview — nặng vài MB vendored, `.glb` download đã đủ. Thêm sau nếu cần
+- [ ] **Còn lại (chưa làm, không bịa là xong):** sidebar cây bundle/collection thật (hiện chỉ có
+      navbar phẳng); tách tab Dependencies/Json riêng biệt như upstream (hiện gộp vào link
+      "Download exported file" + Yaml); pass đổi toàn bộ template khác (`bundles/collections/
+      resources/scenes/failed_files/search`) sang class Bootstrap `.table`/`.card` thay vì `<table>`
+      thường (site.css có ghi chú rõ đây là nợ kỹ thuật tạm thời, không phải quên)
+
+---
+
+# PHẦN B — Cần làm (Phase 12-13)
 
 ### Phase 12 — Prefab/Scene export ⬜
 

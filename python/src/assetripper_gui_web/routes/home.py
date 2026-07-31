@@ -42,6 +42,7 @@ def index():
         "index.html",
         is_loaded=game_file_loader.is_loaded(),
         has_game_data=game_file_loader.has_game_data(),
+        export_progress=game_file_loader.export_progress(),
         load_errors=game_file_loader.load_errors(),
         root_path=BundlePath().to_json(),
     )
@@ -54,12 +55,34 @@ def commands():
 
 @bp.get("/Privacy")
 def privacy():
-    return render_template("stub.html", page_title="Privacy")
+    # Verbatim port of upstream's PrivacyPage.cs -- same one-sentence policy applies here:
+    # this GUI only serves the local Flask dev server on 127.0.0.1, no outbound requests.
+    return render_template("privacy.html", page_title="Privacy Policy")
+
+
+_THIRD_PARTY_PACKAGES = (
+    # PyPI runtime dependencies from pyproject.toml's [project] dependencies, plus the
+    # vendored Bootstrap CSS. Not a full per-dependency license-text bundle the way
+    # upstream's Licenses.Load(name) embeds one per NuGet package (Source/
+    # AssetRipper.GUI.Licensing) -- that would need pulling each PyPI package's actual
+    # LICENSE file at build time, which this phase doesn't add. Bootstrap's LICENSE *is*
+    # vendored alongside its CSS (static/vendor/bootstrap/LICENSE) since it ships as a
+    # static asset in this repo, not a PyPI dependency resolved at install time.
+    # License strings below are only asserted where this port could directly confirm them
+    # (installed package metadata / PyPI classifiers) -- see the linked project page for
+    # anything left as "see project page" rather than guessed.
+    {"name": "Flask", "url": "https://pypi.org/project/Flask/", "license": "see project page"},
+    {"name": "lz4", "url": "https://pypi.org/project/lz4/", "license": "BSD License"},
+    {"name": "xxhash", "url": "https://pypi.org/project/xxhash/", "license": "BSD-2-Clause"},
+    {"name": "texture2ddecoder", "url": "https://pypi.org/project/texture2ddecoder/", "license": "MIT License"},
+    {"name": "Pillow", "url": "https://pypi.org/project/pillow/", "license": "see project page"},
+    {"name": "Bootstrap", "url": "https://getbootstrap.com/", "license": "MIT (vendored, see static/vendor/bootstrap/LICENSE)"},
+)
 
 
 @bp.get("/Licenses")
 def licenses():
-    return render_template("stub.html", page_title="Licenses")
+    return render_template("licenses.html", page_title="Licenses", packages=_THIRD_PARTY_PACKAGES)
 
 
 @bp.get("/PremiumFeatures")

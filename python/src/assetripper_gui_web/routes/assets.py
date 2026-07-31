@@ -6,14 +6,21 @@ TypeTreeObjects with dict-style field access, so the field tree itself is what's
 showing. Assets whose layout couldn't be resolved (UnknownObject/UnreadableObject) still
 fall back to a hex dump of their raw bytes.
 
-The Image/Audio/Model/Font/Video/Yaml tabs need Export.Modules.* converters, which are a
-later phase.
+`/Assets/Image`, `/Assets/Binary`, `/Assets/Text`, `/Assets/Yaml` (Phase 11) mirror
+upstream's `AssetAPI.cs` endpoints: each runs the asset through the real export pipeline
+via `asset_preview.render_asset` (Phase 6/9/10's exporters, not reimplemented here) and
+serves the resulting bytes with the right MIME type. Each declines (404) if no registered
+exporter can handle the asset, or if the asset's actual extension doesn't belong to that
+endpoint's group (e.g. a Shader's `.shader` text hitting `/Assets/Image`) -- `view.html`
+only links to the endpoint matching the asset's real export extension, so this is a
+defense-in-depth check, not the primary gate.
 """
 from __future__ import annotations
 
-from flask import Blueprint, abort, render_template
+from flask import Blueprint, Response, abort, render_template
 
 from .. import game_file_loader
+from ..asset_preview import IMAGE_EXTENSIONS, TEXT_EXTENSIONS, YAML_EXTENSIONS, mime_type_for_extension, render_asset
 from ..path_params import get_path_param
 from ..paths import AssetPath, try_get_asset
 
@@ -79,3 +86,56 @@ def view():
         data_length=len(raw_data),
         truncated=len(raw_data) > _MAX_HEX_BYTES,
     )
+
+
+def _resolve_asset():
+    path = get_path_param(AssetPath)
+    if not game_file_loader.is_loaded():
+        abort(404, description="No files loaded.")
+    asset = try_get_asset(game_file_loader.game_bundle(), path)
+    if asset is None:
+        abort(404, description=f"Asset could not be resolved: {path}")
+    return asset
+
+
+def _render(allowed_extensions, as_attachment: bool = False):
+    asset = _resolve_asset()
+
+    from assetripper_export_modules.registration import register_default_exporters
+
+    game_bundle = game_file_loader.game_bundle()
+    export_version = game_bundle.get_max_unity_version()
+    result = render_asset(
+        game_bundle, asset, export_version, register_default_exporters, game_file_loader.settings()
+    )
+    if result is None:
+        abort(404, description="No exporter can render this asset.")
+    data, extension = result
+    if allowed_extensions is not None and extension.lower() not in allowed_extensions:
+        abort(404, description=f"Asset exports as .{extension}, not a format this endpoint serves.")
+
+    response = Response(data, mimetype=mime_type_for_extension(extension))
+    if as_attachment:
+        file_name = f"{asset.get_best_name() or asset.class_name}.{extension}"
+        response.headers["Content-Disposition"] = f"attachment; filename={file_name}"
+    return response
+
+
+@bp.get("/Image")
+def image():
+    return _render(IMAGE_EXTENSIONS)
+
+
+@bp.get("/Text")
+def text():
+    return _render(TEXT_EXTENSIONS)
+
+
+@bp.get("/Yaml")
+def yaml():
+    return _render(YAML_EXTENSIONS)
+
+
+@bp.get("/Binary")
+def binary():
+    return _render(None, as_attachment=True)

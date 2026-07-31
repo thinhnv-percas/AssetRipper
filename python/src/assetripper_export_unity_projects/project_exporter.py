@@ -1,8 +1,14 @@
 """Port of Source/AssetRipper.Export.UnityProjects/ProjectExporter.cs
 
-Not ported: the `EventExport*` progress events (this port has no GUI progress bar to drive
-yet) and `CoreConfiguration`-based configuration -- `export` takes `output_directory` and
-`export_version` directly.
+Not ported: upstream's static `EventExportPreparationStarted`/`EventExportStarted`/
+`EventExportFinished`/`EventExportProgressUpdated` C# events -- Python has no direct
+equivalent event/delegate mechanism as lightweight as C#'s, and nothing outside a single
+process would ever subscribe to them here. In their place, `export()` takes a plain
+optional `progress_callback(current_exportable, exportable_count, collection_name)`
+(Phase 11), called once per exportable collection right before it's exported -- this is
+what the GUI's `/Export/Progress` polling (see assetripper_gui_web/routes/commands.py) is
+driven by. `CoreConfiguration`-based configuration isn't ported either -- `export` takes
+`output_directory` and `export_version` directly.
 
 Dispatch is extended beyond the literal port: upstream's `ObjectHandlerStack<IAssetExporter>`
 is keyed by *generated* C# type (`ITextAsset`, `IMovieTexture`, ... are all distinct types),
@@ -61,10 +67,17 @@ class ProjectExporter:
                 return collection
         raise LookupError(f"There is no exporter that can handle '{asset}'")
 
-    def export(self, game_bundle, output_directory: str, file_system, export_version: UnityVersion | None = None) -> None:
+    def export(
+        self,
+        game_bundle,
+        output_directory: str,
+        file_system,
+        export_version: UnityVersion | None = None,
+        progress_callback=None,
+    ) -> None:
         export_version = export_version if export_version is not None else game_bundle.get_max_unity_version()
 
-        collections = self._create_collections(game_bundle)
+        collections = self.create_collections(game_bundle)
         container = ProjectAssetContainer(self, export_version, game_bundle.fetch_assets(), collections)
         exportable_count = sum(1 for c in collections if c.exportable)
         current_exportable = 0
@@ -74,8 +87,16 @@ class ProjectExporter:
             if collection.exportable:
                 current_exportable += 1
                 _logger.info("(%d/%d) Exporting '%s'", current_exportable, exportable_count, collection.name)
+                if progress_callback is not None:
+                    progress_callback(current_exportable, exportable_count, collection.name)
                 if not collection.export(container, output_directory, file_system):
                     _logger.warning("Failed to export '%s' (%s)", collection.name, type(collection).__name__)
+
+    def create_collections(self, game_bundle) -> list:
+        """Public alias of `_create_collections` -- used by the GUI's single-asset preview
+        renderer (assetripper_gui_web/asset_preview.py, Phase 11) to locate which
+        collection a given asset belongs to without duplicating this grouping logic."""
+        return self._create_collections(game_bundle)
 
     def _create_collections(self, game_bundle) -> list:
         collections = []

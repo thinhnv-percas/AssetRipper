@@ -67,6 +67,19 @@ def test_static_pages_render(client):
         assert response.status_code == 200, url
 
 
+def test_privacy_page_has_real_content_not_a_stub(client):
+    response = client.get("/Privacy")
+    assert b"This app does not access the internet." in response.data
+    assert b"Not implemented in this Python port yet." not in response.data
+
+
+def test_licenses_page_lists_third_party_packages_not_a_stub(client):
+    response = client.get("/Licenses")
+    assert b"Flask" in response.data
+    assert b"Bootstrap" in response.data
+    assert b"Not implemented in this Python port yet." not in response.data
+
+
 def test_io_file_probe_endpoints(client, tmp_path):
     existing = tmp_path / "exists.txt"
     existing.write_text("hi")

@@ -68,14 +68,22 @@ class ExportHandler:
         run_default_processors(game_data, settings)
         _logger.info("Finished processing assets")
 
-    def export(self, game_data: GameData, output_directory: str, file_system, settings=None) -> None:
+    def export(
+        self, game_data: GameData, output_directory: str, file_system, settings=None, progress_callback=None
+    ) -> None:
         _logger.info("Starting export")
         _logger.info("Attempting to export assets to %s...", output_directory)
         _logger.info("Exporting to Unity version %s", game_data.project_version)
 
         project_exporter = ProjectExporter()
         self._register_exporters(project_exporter, settings)
-        project_exporter.export(game_data.game_bundle, output_directory, file_system, game_data.project_version)
+        project_exporter.export(
+            game_data.game_bundle,
+            output_directory,
+            file_system,
+            game_data.project_version,
+            progress_callback=progress_callback,
+        )
         _logger.info("Finished exporting assets")
 
         run_default_post_exporters(game_data, output_directory, game_data.project_version, file_system, settings)
@@ -88,8 +96,8 @@ class ExportHandler:
         return game_data
 
     def load_process_and_export(
-        self, input_paths, output_directory: str, file_system, settings=None, **kwargs
+        self, input_paths, output_directory: str, file_system, settings=None, progress_callback=None, **kwargs
     ) -> GameData:
         game_data = self.load_and_process(input_paths, file_system, settings=settings, **kwargs)
-        self.export(game_data, output_directory, file_system, settings)
+        self.export(game_data, output_directory, file_system, settings, progress_callback=progress_callback)
         return game_data

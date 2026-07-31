@@ -58,7 +58,9 @@ if not exist ".venv-gui\Scripts\python.exe" (
 )
 
 echo [3/3] Starting the GUI on http://127.0.0.1:%PORT% ...
-start "" "http://127.0.0.1:%PORT%"
+REM assetripper_gui_web itself now opens the default browser once the server is actually
+REM listening (Phase 11) -- no need for this script to "start" the URL itself anymore
+REM (doing both would open two tabs, and the old start-before-launch was a race anyway).
 python -m assetripper_gui_web %PORT%
 
 call ".venv-gui\Scripts\deactivate.bat"

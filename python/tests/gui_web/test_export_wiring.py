@@ -6,6 +6,7 @@ fixture-building technique as tests/export_unity_projects/test_export_handler.py
 from __future__ import annotations
 
 import struct
+import time
 
 import pytest
 from assetripper_gui_web import create_app, game_file_loader
@@ -67,6 +68,17 @@ def _write_synthetic_game(directory) -> None:
     (directory / "sharedassets0.assets").write_bytes(stream.to_array())
 
 
+def _wait_for_export_to_finish(timeout: float = 5.0) -> None:
+    # Phase 11: /Export/UnityProject now runs on a background thread (see
+    # game_file_loader.start_export) so the GUI can poll live progress instead of blocking
+    # the whole request on a large export.
+    deadline = time.monotonic() + timeout
+    while game_file_loader.export_progress()["running"]:
+        if time.monotonic() > deadline:
+            raise AssertionError("export did not finish within the timeout")
+        time.sleep(0.01)
+
+
 def test_load_folder_runs_full_pipeline(client, tmp_path):
     game_dir = tmp_path / "game"
     game_dir.mkdir()
@@ -100,10 +112,69 @@ def test_export_unity_project_writes_a_real_project(client, tmp_path):
     assert game_file_loader.has_game_data()
 
     response = client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)}, follow_redirects=True)
+    _wait_for_export_to_finish()
 
     assert response.status_code == 200
     assert (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
     assert (output_dir / "ProjectSettings" / "ProjectVersion.txt").exists()
+    assert game_file_loader.export_progress()["error"] is None
+
+
+def test_export_progress_endpoint_reports_completion(client, tmp_path):
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    _write_synthetic_game(game_dir)
+    output_dir = tmp_path / "output"
+
+    client.post("/LoadFolder", data={"Path": str(game_dir)})
+    client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)})
+    _wait_for_export_to_finish()
+
+    response = client.get("/Export/Progress")
+
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data["running"] is False
+    assert data["error"] is None
+    assert data["total"] == 1
+    assert data["current"] == 1
+
+
+def test_start_export_rejects_a_second_concurrent_export(tmp_path):
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    _write_synthetic_game(game_dir)
+    game_file_loader.load_paths([str(game_dir)])
+    assert game_file_loader.has_game_data()
+
+    # Simulate an export already in flight rather than racing a real background thread
+    # (a synthetic single-asset export can finish before a second start_export() call).
+    game_file_loader._state.export_progress["running"] = True
+    try:
+        with pytest.raises(RuntimeError):
+            game_file_loader.start_export(str(tmp_path / "output2"))
+    finally:
+        game_file_loader.reset()
+
+
+def test_export_progress_records_error_without_raising(client, tmp_path):
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    _write_synthetic_game(game_dir)
+    client.post("/LoadFolder", data={"Path": str(game_dir)})
+
+    # A regular file where the export expects to create a directory -- makes the background
+    # thread's export() call raise; start_export()/the POST route must not propagate that.
+    blocked_output = tmp_path / "blocked_output"
+    blocked_output.write_text("not a directory", encoding="utf-8")
+
+    response = client.post(
+        "/Export/UnityProject", data={"OutputPath": str(blocked_output)}, follow_redirects=True
+    )
+    _wait_for_export_to_finish()
+
+    assert response.status_code == 200
+    assert game_file_loader.export_progress()["error"] is not None
 
 
 def test_export_unity_project_without_game_data_flashes_error(client, tmp_path):

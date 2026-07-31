@@ -111,3 +111,24 @@ def test_export_two_bundles_produce_different_guids(tmp_path_factory):
         return next(line for line in text.splitlines() if line.startswith("guid:"))
 
     assert guid_of(first_meta) != guid_of(second_meta)
+
+
+def test_export_calls_progress_callback_once_per_exportable_collection(tmp_path):
+    calls = []
+    exporter = ProjectExporter()
+    exporter.export(
+        _build_game_bundle(),
+        str(tmp_path),
+        FS,
+        progress_callback=lambda current, total, name: calls.append((current, total, name)),
+    )
+
+    assert calls == [(1, 1, "TextAsset")]
+
+
+def test_create_collections_is_a_public_alias_of_the_grouping_logic():
+    exporter = ProjectExporter()
+    game_bundle = _build_game_bundle()
+    collections = exporter.create_collections(game_bundle)
+    assert len(collections) == 1
+    assert collections[0].name == "TextAsset"

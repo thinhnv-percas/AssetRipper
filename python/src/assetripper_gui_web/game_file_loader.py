@@ -20,6 +20,7 @@ ported, so those formats still fall through to a load error either way.
 from __future__ import annotations
 
 import os
+import threading
 
 from assetripper_assets.bundles.game_bundle import GameBundle
 from assetripper_io_files.bundle_files.file_stream import FileStreamBundleScheme
@@ -45,6 +46,11 @@ class _State:
         process, not persisted to disk. `/Settings/Edit` reads/writes it directly; `load_paths`
         and `/Export/UnityProject` both use it. Use `FullConfiguration.save`/`.load` (see
         assetripper_export_configuration/full_configuration.py) if a caller wants persistence."""
+        self.export_progress: dict = {"running": False, "current": 0, "total": 0, "current_name": "", "error": None}
+        """(Phase 11) Updated by `start_export`'s background thread via
+        `ProjectExporter.export`'s `progress_callback`; `/Export/Progress` polls this so the
+        GUI can show a live progress bar instead of blocking the whole request on a large
+        export."""
 
 
 _state = _State()
@@ -82,10 +88,54 @@ def set_settings(new_settings: FullConfiguration) -> None:
     _state.settings = new_settings
 
 
+def export_progress() -> dict:
+    return dict(_state.export_progress)
+
+
+def start_export(output_directory: str) -> None:
+    """Runs the real export (`ExportHandler.export`) on a background thread so the POST
+    handler can return immediately and the GUI can poll `export_progress()` for a live
+    progress bar (Phase 11) instead of blocking on a large export. Raises if an export from
+    this process is already running -- overlapping exports would race on `export_progress`."""
+    if _state.export_progress["running"]:
+        raise RuntimeError("An export is already running.")
+    if _state.game_data is None:
+        raise RuntimeError("No game structure loaded (use Load Folder, not Load File, before exporting).")
+
+    _state.export_progress = {"running": True, "current": 0, "total": 0, "current_name": "", "error": None}
+    game_data = _state.game_data
+    settings = _state.settings
+
+    def _on_progress(current: int, total: int, name: str) -> None:
+        _state.export_progress["current"] = current
+        _state.export_progress["total"] = total
+        _state.export_progress["current_name"] = name
+
+    def _run() -> None:
+        from assetripper_export_unity_projects.export_handler import ExportHandler
+        from assetripper_io_files.local_file_system import LocalFileSystem
+
+        try:
+            ExportHandler().export(
+                game_data,
+                output_directory,
+                LocalFileSystem.instance(),
+                settings=settings,
+                progress_callback=_on_progress,
+            )
+        except Exception as ex:  # noqa: BLE001 -- reported via export_progress()["error"], not raised
+            _state.export_progress["error"] = repr(ex)
+        finally:
+            _state.export_progress["running"] = False
+
+    threading.Thread(target=_run, daemon=True).start()
+
+
 def reset() -> None:
     _state.game_bundle = None
     _state.game_data = None
     _state.load_errors = []
+    _state.export_progress = {"running": False, "current": 0, "total": 0, "current_name": "", "error": None}
 
 
 def load_paths(paths: list[str]) -> None:

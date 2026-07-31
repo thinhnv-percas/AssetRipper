@@ -10,11 +10,11 @@ As of Phase 8 (see python/ROADMAP.md), `/LoadFolder` and `/Export/UnityProject` 
 real Import -> Processing -> Export pipeline end to end (game_file_loader.load_paths ->
 ExportHandler -> ProjectExporter), not a Mono.Cecil-based one -- this port's dynamic
 TypeTree reader (assetripper_import/asset_creation/game_asset_factory.py) replaces the
-generated SourceGenerated typed asset classes entirely, so no IL analysis is needed. Still
-missing (see ROADMAP Phase 9-13): the settings pages remain stubs, several asset tabs
-(image/audio/model previews) aren't wired to the content exporters yet, and export of
-files whose payload lives in an external .resS (Texture2D/AudioClip/Mesh on most player
-builds) is declined rather than guessed at.
+generated SourceGenerated typed asset classes entirely, so no IL analysis is needed.
+Streamed (`.resS`) payloads export correctly (Phase 9), `/Settings/Edit` is a real form
+(Phase 10), and asset preview tabs (Image/Text/Yaml/Binary) plus a live export progress
+bar are wired in (Phase 11) -- see ROADMAP Phase 12-13 for what's still a documented gap
+(prefab/scene export, several asset types).
 """
 from __future__ import annotations
 
@@ -29,6 +29,7 @@ def create_app() -> Flask:
     from .routes.bundles import bp as bundles_bp
     from .routes.collections import bp as collections_bp
     from .routes.commands import bp as commands_bp
+    from .routes.dialogs import bp as dialogs_bp
     from .routes.failed_files import bp as failed_files_bp
     from .routes.home import bp as home_bp
     from .routes.io_api import bp as io_api_bp
@@ -46,5 +47,6 @@ def create_app() -> Flask:
     app.register_blueprint(scenes_bp)
     app.register_blueprint(search_bp)
     app.register_blueprint(io_api_bp)
+    app.register_blueprint(dialogs_bp)
 
     return app

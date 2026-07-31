@@ -3,6 +3,34 @@
 {% block content %}
 <h1>Asset: {{ asset.class_name }} [{{ asset.path_id }}]</h1>
 
+{# Class IDs registered to a real content exporter (Phase 6/9/10) -- these export as raw
+   bytes (image/audio/text/font/model), not generic YAML, so /Assets/Yaml would 404 for
+   them (a different, already-registered exporter owns that class ID -- see
+   export_modules/registration.py). Everything else falls through to the generic
+   DefaultYamlExporter and gets a Yaml preview instead. A class ID showing here doesn't
+   guarantee a preview succeeds: e.g. a Texture2D with an unsupported TextureFormat still
+   declines, same as a real project export would (see routes/assets.py's render_asset). #}
+{% set image_class_ids = [28] %}       {# Texture2D #}
+{% set text_class_ids = [49, 48] %}    {# TextAsset, Shader #}
+{% set binary_class_ids = [83, 128, 152, 43] %}  {# AudioClip, Font, MovieTexture, Mesh (.glb) #}
+{% set has_content_exporter = asset.class_id in image_class_ids or asset.class_id in text_class_ids or asset.class_id in binary_class_ids %}
+<h2>Preview</h2>
+{% if asset.class_id in image_class_ids %}
+<img src="{{ url_for('assets.image', Path=path) }}" alt="{{ asset.class_name }} preview" style="max-width: 512px; max-height: 512px;">
+<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
+{% elif asset.class_id == 83 %}
+<audio controls src="{{ url_for('assets.binary', Path=path) }}"></audio>
+<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
+{% elif asset.class_id in text_class_ids %}
+<iframe src="{{ url_for('assets.text', Path=path) }}" style="width: 100%; height: 20em; border: 1px solid #ccc;"></iframe>
+<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
+{% elif has_content_exporter %}
+<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
+{% else %}
+<iframe src="{{ url_for('assets.yaml', Path=path) }}" style="width: 100%; height: 20em; border: 1px solid #ccc;"></iframe>
+<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
+{% endif %}
+
 <h2>Information</h2>
 <table>
   <tr><th>Path ID</th><td>{{ asset.path_id }}</td></tr>

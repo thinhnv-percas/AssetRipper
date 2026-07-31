@@ -5,10 +5,15 @@ game_file_loader.py's module docstring and assetripper_export_unity_projects/
 export_handler.py). Export.PrimaryContent still isn't: it needs
 `AssetRipper.Export.PrimaryContent`, a separate content-extraction pipeline this port
 hasn't touched (distinct from `AssetRipper.Export.UnityProjects`, which the rest of this
-file now drives)."""
+file now drives).
+
+`/Export/UnityProject` (Phase 11): now starts the export on a background thread and
+returns immediately instead of blocking the whole request -- `/Export/Progress` (JSON,
+polled by index.html) reports live progress via `game_file_loader.export_progress()`.
+"""
 from __future__ import annotations
 
-from flask import Blueprint, flash, redirect, request, url_for
+from flask import Blueprint, flash, jsonify, redirect, request, url_for
 
 from .. import game_file_loader
 
@@ -50,22 +55,19 @@ def export_unity_project():
         flash("No output path given.")
         return redirect(url_for("home.index"))
 
-    from assetripper_export_unity_projects.export_handler import ExportHandler
-    from assetripper_io_files.local_file_system import LocalFileSystem
-
     try:
-        ExportHandler().export(
-            game_file_loader.game_data(),
-            output_path,
-            LocalFileSystem.instance(),
-            settings=game_file_loader.settings(),
-        )
-    except Exception as ex:  # noqa: BLE001 -- GUI error boundary, reported to the user via flash
-        flash(f"Export failed: {ex!r}")
+        game_file_loader.start_export(output_path)
+    except RuntimeError as ex:
+        flash(str(ex))
         return redirect(url_for("home.index"))
 
-    flash(f"Exported to {output_path}")
+    flash(f"Export started to {output_path} -- see progress below.")
     return redirect(url_for("home.index"))
+
+
+@bp.get("/Export/Progress")
+def export_progress():
+    return jsonify(game_file_loader.export_progress())
 
 
 @bp.post("/Export/PrimaryContent")
