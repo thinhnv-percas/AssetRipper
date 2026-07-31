@@ -2,10 +2,16 @@
 
 Not ported: the `EventExport*` progress events (this port has no GUI progress bar to drive
 yet) and `CoreConfiguration`-based configuration -- `export` takes `output_directory` and
-`export_version` directly. Only one exporter is registered by default
-(`DefaultYamlExporter`, for every asset), matching this phase's scope: Phase 6 registers
-more specific exporters (textures, meshes, audio, ...) on top of the same
-ObjectHandlerStack-based `override_exporter` mechanism, without needing this class to change.
+`export_version` directly.
+
+Dispatch is extended beyond the literal port: upstream's `ObjectHandlerStack<IAssetExporter>`
+is keyed by *generated* C# type (`ITextAsset`, `IMovieTexture`, ... are all distinct types),
+which lets `OverrideExporter<T>` select an exporter by asset kind. This port's dynamic
+reader produces exactly one Python type (TypeTreeObject) for every asset regardless of its
+real Unity class, so type-based dispatch alone can't tell a TextAsset from a Texture2D.
+`override_exporter_for_class_id`/`_class_id_exporters` adds a class-ID-keyed lookup, tried
+first (most specific); the original type-based ObjectHandlerStack remains as the fallback
+that ultimately reaches `DefaultYamlExporter` for anything without a registered class ID.
 """
 from __future__ import annotations
 
@@ -24,10 +30,17 @@ _logger = logging.getLogger(__name__)
 class ProjectExporter:
     def __init__(self):
         self._asset_exporter_stack = ObjectHandlerStack()
+        self._class_id_exporters: dict[int, list] = {}
         self.override_exporter(UnityObjectBase, DefaultYamlExporter(), allow_inheritance=True)
 
     def override_exporter(self, type_: type, exporter, allow_inheritance: bool = True) -> None:
         self._asset_exporter_stack.override_handler(type_, exporter, allow_inheritance)
+
+    def override_exporter_for_class_id(self, class_id: int, exporter) -> None:
+        """Registers `exporter` for assets with this Unity class ID, tried before the
+        type-based stack. Last registered wins, tried first (same chain-of-responsibility
+        semantics as ObjectHandlerStack)."""
+        self._class_id_exporters.setdefault(class_id, []).insert(0, exporter)
 
     def to_export_type(self, type_: type):
         for exporter in self._asset_exporter_stack.get_handler_stack(type_):
@@ -37,6 +50,11 @@ class ProjectExporter:
         raise LookupError(f"There is no exporter that knows the AssetType for unknown asset type '{type_}'")
 
     def _create_collection(self, asset):
+        for exporter in self._class_id_exporters.get(getattr(asset, "class_id", None), ()):
+            created, collection = exporter.try_create_collection(asset)
+            if created:
+                return collection
+
         for exporter in self._asset_exporter_stack.get_handler_stack(type(asset)):
             created, collection = exporter.try_create_collection(asset)
             if created:
