@@ -14,6 +14,7 @@ only succeeds when the shader already has real decompiled-looking source text.
 """
 from __future__ import annotations
 
+from .audio_clip_exporter import AudioClipExporter
 from .font_asset_exporter import FontAssetExporter
 from .movie_texture_exporter import MovieTextureAssetExporter
 from .scripts.script_exporter import ScriptExporter
@@ -28,6 +29,7 @@ def register_default_exporters(project_exporter) -> None:
     project_exporter.override_exporter_for_class_id(48, DummyShaderTextExporter())  # Shader (fallback)
     project_exporter.override_exporter_for_class_id(48, SimpleShaderExporter())  # Shader (preferred)
     project_exporter.override_exporter_for_class_id(49, TextAssetExporter())  # TextAsset
+    project_exporter.override_exporter_for_class_id(83, AudioClipExporter())  # AudioClip
     project_exporter.override_exporter_for_class_id(115, ScriptExporter())  # MonoScript
     project_exporter.override_exporter_for_class_id(128, FontAssetExporter())  # Font
     project_exporter.override_exporter_for_class_id(152, MovieTextureAssetExporter())  # MovieTexture
