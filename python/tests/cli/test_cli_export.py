@@ -63,7 +63,7 @@ def test_export_subcommand_writes_a_unity_project(tmp_path, capsys):
     out = capsys.readouterr().out
     assert exit_code == 0
     assert "Done." in out
-    assert (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
+    assert (output_dir / "Assets" / "TextAsset" / "MyText.txt").exists()
     assert (output_dir / "ProjectSettings" / "ProjectVersion.txt").exists()
 
 
@@ -85,8 +85,8 @@ def test_export_subcommand_applies_config_file(tmp_path, capsys):
     exit_code = main(["export", str(game_dir), "-o", str(output_dir), "--config", str(config_path)])
 
     assert exit_code == 0
-    assert (output_dir / "Assets" / "TextAsset" / "TextAsset.bytes").exists()
-    assert not (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
+    assert (output_dir / "Assets" / "TextAsset" / "MyText.bytes").exists()
+    assert not (output_dir / "Assets" / "TextAsset" / "MyText.txt").exists()
 
 
 def test_export_subcommand_requires_output_flag(tmp_path, capsys):

@@ -115,7 +115,7 @@ def test_export_unity_project_writes_a_real_project(client, tmp_path):
     _wait_for_export_to_finish()
 
     assert response.status_code == 200
-    assert (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
+    assert (output_dir / "Assets" / "TextAsset" / "MyText.txt").exists()
     assert (output_dir / "ProjectSettings" / "ProjectVersion.txt").exists()
     assert game_file_loader.export_progress()["error"] is None
 

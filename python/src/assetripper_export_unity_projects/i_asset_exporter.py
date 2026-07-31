@@ -1,7 +1,10 @@
 """Port of Source/AssetRipper.Export.UnityProjects/IAssetExporter.cs
 
-C#'s multi-asset-per-file overloads (`Export(container, IEnumerable<asset>, ...)`) are not
-ported -- see asset_exporter.py's module docstring for why.
+C#'s multi-asset-per-file overload (`Export(container, IEnumerable<asset>, ...)`) isn't
+part of this interface here -- it's `asset_exporter.export_assets`, a free function called
+directly by the multi-asset export collections (project/scene_export_collection.py,
+project/assets_export_collection.py) rather than an `IAssetExporter` method, since no
+exporter other than the scene/prefab machinery needs it.
 """
 from __future__ import annotations
 

@@ -36,6 +36,20 @@ class TypeTreeObject(NullObject):
         return self.class_id == 129
 
     @property
+    def name(self) -> str | None:
+        """Stand-in for upstream's `INamed` marker interface: every generated class that
+        actually has an `m_Name` field implements `INamed.Name` typed to that field, which
+        `IUnityObjectBase.get_best_name()` falls back to via `getattr(self, "name", None)`.
+        A dynamically-read TypeTreeObject has no generated interface to implement, so
+        without this property that fallback was silently dead -- every TypeTreeObject-backed
+        asset's "best name" fell straight through to its class name, discovered while naming
+        Phase 12's synthesized `.prefab` files. Returns None (same as `INamed` simply not
+        being implemented) for classes with no `m_Name` field. Doesn't affect `__str__`/
+        `__repr__` below, which intentionally still show the class name."""
+        value = self.get("m_Name")
+        return value if isinstance(value, str) else None
+
+    @property
     def release_fields(self):
         return self.fields
 

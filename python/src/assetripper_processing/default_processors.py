@@ -1,14 +1,16 @@
 """The asset-processor half of `ExportHandler.GetProcessors()`
 (Source/AssetRipper.Export.UnityProjects/ExportHandler.cs:57-93), in upstream's exact order:
-SceneDefinitionProcessor -> OriginalPathProcessor -> MainAssetProcessor -> EditorFormatProcessor.
+SceneDefinitionProcessor -> OriginalPathProcessor -> MainAssetProcessor -> EditorFormatProcessor
+-> PrefabProcessor (Phase 12).
 
 Not ported (each is a real, un-guessed-at gap, not a fabricated no-op):
 - AnimatorControllerProcessor, AudioMixerProcessor, LightingDataProcessor, SpriteProcessor,
-  ScriptableObjectProcessor -- see python/ROADMAP.md Phase 13.
-- PrefabProcessor -- see python/ROADMAP.md Phase 12 ("Static mesh separation goes here" in
-  upstream sits between EditorFormatProcessor and LightingDataProcessor; static mesh
-  separation itself is premium-only upstream and no processor in this repo reads that
-  setting, so it has no Python counterpart to omit).
+  ScriptableObjectProcessor -- see python/ROADMAP.md Phase 13. Upstream runs these between
+  EditorFormatProcessor and PrefabProcessor; "static mesh separation" also goes there but is
+  premium-only upstream and no processor in this repo reads that setting, so it has no
+  Python counterpart to omit either.
+- `PrefabProcessor`'s `AddMissingTransforms` step and its "prefabs with an existing
+  PrefabInstance" branch -- see prefabs/prefab_processor.py's own module docstring for why.
 
 Skipped with high confidence (not merely deferred): the 11 assembly processors upstream runs
 first (AttributePolyfillGenerator, MonoExplicitPropertyRepairProcessor,
@@ -25,6 +27,7 @@ from __future__ import annotations
 from .configuration.bundled_assets_export_mode import BundledAssetsExportMode
 from .editor.editor_format_processor import EditorFormatProcessor
 from .main_asset_processor import MainAssetProcessor
+from .prefabs.prefab_processor import PrefabProcessor
 from .scenes.original_path_processor import OriginalPathProcessor
 from .scenes.scene_definition_processor import SceneDefinitionProcessor
 
@@ -37,6 +40,7 @@ def default_processors(
         OriginalPathProcessor(bundled_assets_export_mode),
         MainAssetProcessor(),
         EditorFormatProcessor(bundled_assets_export_mode),
+        PrefabProcessor(),
     )
 
 

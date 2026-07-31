@@ -80,8 +80,8 @@ def test_load_process_and_export_produces_a_real_unity_project(tmp_path):
 
     assert game_data.project_version.equals(2019, 4, 0)
 
-    asset_path = output_dir / "Assets" / "TextAsset" / "TextAsset.txt"
-    meta_path = output_dir / "Assets" / "TextAsset" / "TextAsset.txt.meta"
+    asset_path = output_dir / "Assets" / "TextAsset" / "MyText.txt"
+    meta_path = output_dir / "Assets" / "TextAsset" / "MyText.txt.meta"
     assert asset_path.exists()
     assert meta_path.exists()
     assert asset_path.read_text(encoding="utf-8") == "hello world"
@@ -117,8 +117,8 @@ def test_settings_are_threaded_through_to_registration(tmp_path):
     handler = ExportHandler()
     handler.load_process_and_export([str(game_dir)], str(output_dir), FS, settings=settings)
 
-    assert (output_dir / "Assets" / "TextAsset" / "TextAsset.bytes").exists()
-    assert not (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
+    assert (output_dir / "Assets" / "TextAsset" / "MyText.bytes").exists()
+    assert not (output_dir / "Assets" / "TextAsset" / "MyText.txt").exists()
 
 
 def test_load_then_process_then_export_as_separate_steps(tmp_path):
@@ -134,4 +134,4 @@ def test_load_then_process_then_export_as_separate_steps(tmp_path):
     handler.process(game_data)
     handler.export(game_data, str(output_dir), FS)
 
-    assert (output_dir / "Assets" / "TextAsset" / "TextAsset.txt").exists()
+    assert (output_dir / "Assets" / "TextAsset" / "MyText.txt").exists()

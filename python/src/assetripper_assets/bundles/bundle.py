@@ -182,6 +182,16 @@ class Bundle:
         for bundle in self._bundles:
             yield from bundle.fetch_asset_collections()
 
+    @property
+    def scenes(self):
+        """Every distinct `SceneDefinition` referenced by a collection in this bundle."""
+        seen = set()
+        for collection in self.fetch_asset_collections():
+            scene = collection.scene
+            if scene is not None and scene not in seen:
+                seen.add(scene)
+                yield scene
+
     def fetch_resource_files(self):
         for resource in self._resources:
             yield resource

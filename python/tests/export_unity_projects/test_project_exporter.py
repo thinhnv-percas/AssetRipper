@@ -65,8 +65,8 @@ def test_export_writes_asset_and_meta_files(tmp_path):
     exporter = ProjectExporter()
     exporter.export(game_bundle, str(tmp_path), FS)
 
-    asset_path = tmp_path / "Assets" / "TextAsset" / "TextAsset.asset"
-    meta_path = tmp_path / "Assets" / "TextAsset" / "TextAsset.asset.meta"
+    asset_path = tmp_path / "Assets" / "TextAsset" / "MyText.asset"
+    meta_path = tmp_path / "Assets" / "TextAsset" / "MyText.asset.meta"
     assert asset_path.exists()
     assert meta_path.exists()
 
@@ -88,7 +88,7 @@ def test_export_guid_is_stable_within_a_single_export(tmp_path):
     exporter = ProjectExporter()
     exporter.export(game_bundle, str(tmp_path), FS)
 
-    meta_text = _read_file(tmp_path / "Assets" / "TextAsset" / "TextAsset.asset.meta")
+    meta_text = _read_file(tmp_path / "Assets" / "TextAsset" / "MyText.asset.meta")
     guid_lines = [line for line in meta_text.splitlines() if line.startswith("guid:")]
     assert len(guid_lines) == 1
     guid_value = guid_lines[0].split(":", 1)[1].strip()
@@ -104,8 +104,8 @@ def test_export_two_bundles_produce_different_guids(tmp_path_factory):
     exporter.export(_build_game_bundle(), str(first_dir), FS)
     exporter.export(_build_game_bundle(), str(second_dir), FS)
 
-    first_meta = _read_file(first_dir / "Assets" / "TextAsset" / "TextAsset.asset.meta")
-    second_meta = _read_file(second_dir / "Assets" / "TextAsset" / "TextAsset.asset.meta")
+    first_meta = _read_file(first_dir / "Assets" / "TextAsset" / "MyText.asset.meta")
+    second_meta = _read_file(second_dir / "Assets" / "TextAsset" / "MyText.asset.meta")
 
     def guid_of(text: str) -> str:
         return next(line for line in text.splitlines() if line.startswith("guid:"))
@@ -123,7 +123,7 @@ def test_export_calls_progress_callback_once_per_exportable_collection(tmp_path)
         progress_callback=lambda current, total, name: calls.append((current, total, name)),
     )
 
-    assert calls == [(1, 1, "TextAsset")]
+    assert calls == [(1, 1, "MyText")]
 
 
 def test_create_collections_is_a_public_alias_of_the_grouping_logic():
@@ -131,4 +131,4 @@ def test_create_collections_is_a_public_alias_of_the_grouping_logic():
     game_bundle = _build_game_bundle()
     collections = exporter.create_collections(game_bundle)
     assert len(collections) == 1
-    assert collections[0].name == "TextAsset"
+    assert collections[0].name == "MyText"

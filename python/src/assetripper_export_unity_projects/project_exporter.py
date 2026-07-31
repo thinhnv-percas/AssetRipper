@@ -29,6 +29,7 @@ from assetripper_primitives import UnityVersion
 from .object_handler_stack import ObjectHandlerStack
 from .project.default_yaml_exporter import DefaultYamlExporter
 from .project.project_asset_container import ProjectAssetContainer
+from .project.scene_yaml_exporter import SceneYamlExporter
 
 _logger = logging.getLogger(__name__)
 
@@ -38,6 +39,11 @@ class ProjectExporter:
         self._asset_exporter_stack = ObjectHandlerStack()
         self._class_id_exporters: dict[int, list] = {}
         self.override_exporter(UnityObjectBase, DefaultYamlExporter(), allow_inheritance=True)
+        # Tried before DefaultYamlExporter (last registered wins, see ObjectHandlerStack) --
+        # intercepts assets whose main_asset is a SceneHierarchyObject/PrefabHierarchyObject
+        # (Phase 12) to group them into one .unity/.prefab file instead of DefaultYamlExporter's
+        # one-asset-per-file default. Declines (falls through) for everything else.
+        self.override_exporter(UnityObjectBase, SceneYamlExporter(), allow_inheritance=True)
 
     def override_exporter(self, type_: type, exporter, allow_inheritance: bool = True) -> None:
         self._asset_exporter_stack.override_handler(type_, exporter, allow_inheritance)

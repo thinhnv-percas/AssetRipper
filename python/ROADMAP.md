@@ -4,8 +4,8 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-11 xong (Phase 11 một phần — xem ghi chú trong phase đó). 584 tests pass.
-  Commit cuối: `f9c9b80`.
+- **Trạng thái:** Phase 1-12 xong (Phase 11, 12 mỗi cái một phần — xem ghi chú trong từng phase).
+  591 tests pass. Commit cuối: `PENDING_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -13,6 +13,10 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - GUI giờ có Bootstrap vendored, asset preview tab (Image/Audio/Text/Yaml/Binary), file picker
   native, auto-open browser, progress bar export thật (Phase 11) — nhưng chưa có sidebar cây/tab
   Dependencies-Json riêng, xem phần "Còn lại" trong Phase 11.
+- Scene/Prefab export thật đã có (Phase 12): GameObject/Component/Transform giờ gom vào một file
+  `.unity`/`.prefab` duy nhất thay vì mỗi cái một `.asset` rời — đã verify bằng test đọc lại nội dung
+  YAML xuất ra thật. Sẵn tiện phát hiện và sửa 1 bug có sẵn: `TypeTreeObject` thiếu `.name` khiến mọi
+  asset xuất tên theo class name thay vì tên thật trong game (xem ghi chú trong Phase 12).
 
 ---
 
@@ -76,17 +80,17 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 8 | Pipeline driver + wiring CLI/GUI | ✅ `86cca85` |
 | 9 | Streamed data (`.resS`) | ✅ `404ce54` |
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
-| **11** | **GUI overhaul** | ✅ `f9c9b80` (một phần — xem ghi chú) |
-| 12 | Prefab/Scene export (`.prefab`/`.unity`) | ⬜ Chưa làm — **điểm chặn tiếp theo** |
-| 13 | Asset type còn thiếu | ⬜ Chưa làm |
+| 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
+| **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `PENDING_HASH` (một phần — xem ghi chú) |
+| 13 | Asset type còn thiếu | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 
-Số test theo area (tổng 584): `export_modules` 123, `import_` 100, `io_files` 91, `numerics` 64,
-`assets` 48, `gui_web` 42, `export_unity_projects` 41, `io_files_bundle` 21, `cli` 13,
-`processing` 16, `yaml` 11, `export_configuration` 9, `configuration` 5.
+Số test theo area (tổng 591): `export_modules` 123, `import_` 102, `io_files` 91, `numerics` 64,
+`assets` 48, `export_unity_projects` 43, `gui_web` 42, `io_files_bundle` 21, `processing` 19,
+`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
 ---
 
-# PHẦN A — Đã làm (Phase 1-11)
+# PHẦN A — Đã làm (Phase 1-12)
 
 ### Phase 1 — Dynamic asset reader ✅ `88ffc58`
 
@@ -351,23 +355,73 @@ toàn bộ 9 tab distinct như upstream — xem "Còn lại" bên dưới, track
       resources/scenes/failed_files/search`) sang class Bootstrap `.table`/`.card` thay vì `<table>`
       thường (site.css có ghi chú rõ đây là nợ kỹ thuật tạm thời, không phải quên)
 
+### Phase 12 — Prefab/Scene export ✅ `PENDING_HASH` (một phần — xem "Còn lại" bên dưới)
+
+Trước phase này project export ra **không có scene hay prefab nào** — mọi GameObject/Transform/
+Component ra file `.asset` rời rạc. Đây là phần coupling cao nhất trong roadmap: upstream dùng
+generated typed property (`IGameObject`, `ITransform.Father_C4P`, ...), port này phải làm qua dynamic
+field access (`asset.get("m_Father")`) — reimplementation thuật toán, không phải port 1:1 dòng-theo-dòng.
+
+- [x] `src/assetripper_processing/prefabs/game_object_helpers.py` — reimplementation của
+      `GameObjectExtensions`: `is_root`/`get_root`/`fetch_hierarchy`/`get_components`/`get_children`
+      qua dynamic field access. Xử lý đúng 2 shape thật khác nhau của `m_Component`: struct
+      `ComponentPair` (field `component`) từ type tree thật, vs `pair<int,PPtr>` (`.first`/`.second`)
+      từ hand-written layout Phase 2 — verified bằng `TypeTreeNodeStruct.is_pair`'s structural check
+      (`type_name == "pair"` cụ thể), không phải đoán
+- [x] `game_object_hierarchy_object.py`/`scene_hierarchy_object.py`/`prefab_hierarchy_object.py` —
+      port `GameObjectHierarchyObject`/`SceneHierarchyObject`/`PrefabHierarchyObject`. `Create()` xây
+      hierarchy bằng cách walk từ root GameObject (`is_root` + `fetch_hierarchy`) thay vì switch theo
+      generated interface như upstream — cùng kết quả, không cần phân loại "class ID nào là Component"
+- [x] `synthetic_prefab_instance.py` — marker `PrefabInstance` tổng hợp cho GameObject rời (không có
+      PrefabInstance thật). **Luôn** dùng style hiện đại (2018.3+, marker bị hidden khỏi YAML) bất kể
+      version file gốc — xem docstring, quyết định fidelity có chủ đích
+- [x] `prefab_processor.py` — port `PrefabProcessor.Process`, KHÔNG làm 2 nhánh:
+      `AddMissingTransforms` (cần dựng Transform từ đầu, cùng loại gap `SceneDefinitionProcessor` đã
+      từ chối) và "prefab có PrefabInstance thật sẵn" (cần field `RootGameObjectP` chưa xác minh được
+      tên field thật) — cả 2 ghi rõ lý do trong docstring, không âm thầm bỏ
+- [x] Wired vào `default_processors.py`, sau `EditorFormatProcessor`
+- [x] `export_unity_projects/asset_exporter.py::export_assets` — multi-asset-per-file YAML overload
+      (nhiều `--- !u!<ClassID> &<exportID>` document, một file), xoá được đúng câu docstring cũ ghi
+      "not ported here"
+- [x] `project/assets_export_collection.py` — `AssetsExportCollection`, base multi-asset kế thừa
+      `AssetExportCollection` sẵn có (không viết lại machinery path/meta)
+- [x] `project/scene_export_collection.py` — `SceneExportCollection` (kế thừa `ExportCollection`
+      thẳng, không qua `AssetExportCollection` vì path đến từ `Scene.path` chứ không phải
+      `get_best_directory()`), export ID theo đúng rule upstream (path_id thật nếu
+      `SerializedAssetCollection`, ngược lại pseudo-random 32/64-bit theo version)
+- [x] `project/prefab_export_collection.py` — `PrefabExportCollection` (kế thừa
+      `AssetsExportCollection`), luôn dùng `PrefabImporter` (không có nhánh `NativeFormatImporter`
+      pre-2018.3, khớp quyết định ở `synthetic_prefab_instance.py`)
+- [x] `project/scene_yaml_exporter.py` — `SceneYamlExporter`, dispatch theo `asset.main_asset` (không
+      phải class ID, vì `PrefabHierarchyObject` dùng lại đúng class ID `PrefabInstance` thật — class-ID
+      dispatch không phân biệt được 2 cái); đăng ký trên `UnityObjectBase` trong
+      `ProjectExporter.__init__`, tried trước `DefaultYamlExporter`
+- [x] `project/default_importer.py`, `project/prefab_importer.py` — 2 importer hand-written mới
+      (shape giống `TextScriptImporter`, best-effort từ hiểu biết chung về `.meta` thật)
+- [x] `Bundle.scenes` property mới (`assetripper_assets/bundles/bundle.py`) — port trực tiếp từ
+      `Bundle.cs`, cần cho `PrefabProcessor` duyệt hết scene
+- [x] **Phát hiện + sửa trong lúc làm:** `TypeTreeObject` chưa có property `.name` — nghĩa là
+      `get_best_name()`'s `getattr(self,"name",None)` fallback **chưa bao giờ hoạt động** cho asset
+      đọc bằng dynamic reader, mọi file export tên theo `class_name` ("TextAsset.txt") thay vì tên
+      thật trong game ("MyText.txt"). Phát hiện khi đặt tên `.prefab` xuất ra. Đã thêm
+      `TypeTreeObject.name` (đọc `m_Name`), sửa 11 test hardcode tên sai theo bug cũ
+      (`tests/{cli,export_unity_projects,gui_web}/test_*.py`) — xem
+      `tests/import_/test_type_tree_object_name.py`
+- [x] Tests: `tests/processing/test_prefab_processor.py` (3), `tests/export_unity_projects/
+      test_scene_prefab_export.py` (2, end-to-end thật — xuất ra `.unity`/`.prefab` bằng
+      `ProjectExporter` rồi đọc lại nội dung YAML), `tests/import_/test_type_tree_object_name.py` (2)
+      — 7 test mới, cộng sửa 11 test cũ
+- [x] Release gate + commit + push
+- [ ] **Còn lại (chưa làm, không bịa là xong):** `AddMissingTransforms` (Transform-từ-đầu, edge case
+      hiếm); prefab hoá cho `PrefabInstance` thật sẵn có trong scene (cần field `RootGameObjectP`
+      chưa xác minh); `StrippedAssets`/`--- !u!1 &2 stripped` support (upstream cũng chưa dùng thật
+      trong `PrefabProcessor.Process`, chỉ test code set — xem `game_object_hierarchy_object.py`
+      docstring, không phải quên mà là "vốn dĩ chưa cần" ngay cả ở upstream); `IsSceneDuplicate` thật
+      (hiện `is_scene_duplicate` luôn `False`)
+
 ---
 
-# PHẦN B — Cần làm (Phase 12-13)
-
-### Phase 12 — Prefab/Scene export ⬜
-
-Không có phase này thì project export ra **không có scene hay prefab nào** — chỉ asset rời rạc.
-
-- [ ] `src/assetripper_processing/prefabs/prefab_processor.py` — gap Phase 5 bỏ sót
-- [ ] Multi-asset-per-file YAML export: overload trong `export_unity_projects/asset_exporter.py`
-      (docstring hiện ghi rõ *"The multi-asset-per-file overload (used upstream for scene/prefab files)
-      is not ported"*)
-- [ ] `ExportCollection` biến thể cho scene (`.unity`) / prefab (`.prefab`)
-- [ ] Tests + release gate + commit + push
-
-⚠️ Đây là phần coupling cao nhất: upstream manipulate typed property, port này phải làm qua dynamic
-field access → reimplementation, không phải port 1:1.
+# PHẦN B — Cần làm (Phase 13)
 
 ### Phase 13 — Asset type còn thiếu ⬜
 
