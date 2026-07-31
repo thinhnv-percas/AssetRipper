@@ -11,12 +11,14 @@ import json
 
 import pytest
 from assetripper_gui_web import create_app, game_file_loader
+from assetripper_io_files.bundle_files.compression_type import CompressionType
 from assetripper_io_files.build_target import BuildTarget
 from assetripper_io_files.serialized_files import FormatVersion, SerializedFileBuilder
 from assetripper_io_files.serialized_files.parser.object_info import ObjectInfo
 from assetripper_io_files.serialized_files.parser.serialized_type import SerializedType
 from assetripper_io_files.streams.stream import MemoryStream
 from assetripper_primitives import UnityVersion
+from io_files_bundle._bundle_builder import build_bundle
 
 
 @pytest.fixture(autouse=True)
@@ -137,3 +139,29 @@ def test_bundle_view_404s_for_unresolvable_path(client):
     root_path = json.dumps({"P": []})
     response = client.get(f"/Bundles/View?Path={root_path}")
     assert response.status_code == 404
+
+
+def test_load_unityfs_bundle_and_browse_resource(client, tmp_path):
+    bundle_path = tmp_path / "level0"
+    bundle_path.write_bytes(build_bundle(CompressionType.LZ4, {"CAB-abc": b"raw asset bytes" * 5}))
+
+    response = client.post("/LoadFile", data={"Path": str(bundle_path)}, follow_redirects=True)
+    assert response.status_code == 200
+    assert game_file_loader.is_loaded()
+    assert not game_file_loader.load_errors()
+
+    gb = game_file_loader.game_bundle()
+    assert [r.name for r in gb.resources] == ["CAB-abc"]
+
+    root_path = json.dumps({"P": []})
+    bundle_view = client.get(f"/Bundles/View?Path={root_path}")
+    assert bundle_view.status_code == 200
+    assert b"CAB-abc" in bundle_view.data
+
+    resource_path = json.dumps({"B": {"P": []}, "I": 0})
+    resource_view = client.get(f"/Resources/View?Path={resource_path}")
+    assert resource_view.status_code == 200
+
+    resource_data = client.get(f"/Resources/Data?Path={resource_path}")
+    assert resource_data.status_code == 200
+    assert resource_data.data == b"raw asset bytes" * 5

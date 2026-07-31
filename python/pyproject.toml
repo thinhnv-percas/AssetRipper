@@ -7,7 +7,7 @@ name = "assetripper-python"
 version = "0.1.0"
 description = "Python port of AssetRipper, ported package by package from Source/*.csproj"
 requires-python = ">=3.11"
-dependencies = ["flask>=3"]
+dependencies = ["flask>=3", "lz4>=4"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]

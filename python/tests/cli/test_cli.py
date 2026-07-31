@@ -7,10 +7,12 @@ test suite: build a real SerializedFile, run the CLI against it, and check the r
 from __future__ import annotations
 
 from assetripper_cli.cli import main
+from assetripper_io_files.bundle_files.compression_type import CompressionType
 from assetripper_io_files.build_target import BuildTarget
 from assetripper_io_files.serialized_files import FormatVersion, SerializedFileBuilder
 from assetripper_io_files.streams.stream import MemoryStream
 from assetripper_primitives import UnityVersion
+from io_files_bundle._bundle_builder import build_bundle
 
 
 def _write_sample_file(path) -> None:
@@ -36,6 +38,18 @@ def test_inspect_recognizes_a_serialized_file(tmp_path, capsys):
     assert "LARGE_FILES_SUPPORT" in out
     assert "2021.3.5f0" in out
     assert "STANDALONE_WIN64_PLAYER" in out
+
+
+def test_inspect_recognizes_a_unityfs_bundle(tmp_path, capsys):
+    sample = tmp_path / "level0"
+    sample.write_bytes(build_bundle(CompressionType.LZ4, {"CAB-abc": b"raw asset bytes" * 5}))
+
+    exit_code = main([str(sample)])
+
+    out = capsys.readouterr().out
+    assert exit_code == 0
+    assert "UnityFS bundle" in out
+    assert "ResourceFile 'CAB-abc'" in out
 
 
 def test_inspect_reports_unrecognized_files(tmp_path, capsys):
