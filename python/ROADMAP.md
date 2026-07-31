@@ -5,7 +5,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12 xong (Phase 11, 12 mỗi cái một phần — xem ghi chú trong từng phase).
-  591 tests pass. Commit cuối: `PENDING_HASH`.
+  591 tests pass. Commit cuối: `6b4fae3`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -81,7 +81,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 9 | Streamed data (`.resS`) | ✅ `404ce54` |
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
-| **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `PENDING_HASH` (một phần — xem ghi chú) |
+| **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
 | 13 | Asset type còn thiếu | ⬜ Chưa làm — **điểm chặn tiếp theo** |
 
 Số test theo area (tổng 591): `export_modules` 123, `import_` 102, `io_files` 91, `numerics` 64,
@@ -355,7 +355,7 @@ toàn bộ 9 tab distinct như upstream — xem "Còn lại" bên dưới, track
       resources/scenes/failed_files/search`) sang class Bootstrap `.table`/`.card` thay vì `<table>`
       thường (site.css có ghi chú rõ đây là nợ kỹ thuật tạm thời, không phải quên)
 
-### Phase 12 — Prefab/Scene export ✅ `PENDING_HASH` (một phần — xem "Còn lại" bên dưới)
+### Phase 12 — Prefab/Scene export ✅ `6b4fae3` (một phần — xem "Còn lại" bên dưới)
 
 Trước phase này project export ra **không có scene hay prefab nào** — mọi GameObject/Transform/
 Component ra file `.asset` rời rạc. Đây là phần coupling cao nhất trong roadmap: upstream dùng
