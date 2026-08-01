@@ -5,7 +5,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a, 16b xong, xem PHẦN B).
-  641 tests pass. Commit cuối: `PHASE16B_HASH`.
+  641 tests pass. Commit cuối: `38a23cd`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -149,7 +149,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a ✅ `25d7b0b`, còn 13b-13i |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
-| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `PHASE16B_HASH`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
+| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 
 Số test theo area (tổng 641): `export_modules` 132, `import_` 105, `io_files` 105, `numerics` 64,
 `assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 19,
@@ -815,7 +815,7 @@ complete type info)"*. Nguồn cho phân chia trên:
 - **Effort/Risk:** trung bình/trung bình (đã tăng so với đánh giá lần đầu — không còn "pure function")
 - **Phụ thuộc:** 16c hoặc 16d (cần một type-resolution context thật, không mock được đáng tin cậy)
 
-#### 16b — Emitter `.cs` từ một type model trung lập ✅ `PHASE16B_HASH`
+#### 16b — Emitter `.cs` từ một type model trung lập ✅ `38a23cd`
 
 - [x] `assetripper_export_modules/scripts/csharp_emitter.py` — nhận `RecoveredType`
       (`assetripper_import/structure/assembly/recovered_model.py`: namespace, name, base type,
