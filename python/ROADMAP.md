@@ -5,7 +5,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong (Phase 11, 12, 15 mỗi cái một phần — xem ghi chú trong
-  từng phase). 629 tests pass. Commit cuối: `PHASE14_HASH`.
+  từng phase). 629 tests pass. Commit cuối: `5cc200a`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -133,7 +133,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
 | 13 | Asset type còn thiếu (13a-13i) | ⬜ Chưa làm — làm **thứ 3** |
-| **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `PHASE14_HASH` |
+| **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 
 Số test theo area (tổng 629): `export_modules` 123, `import_` 102, `io_files` 105, `numerics` 64,
@@ -593,7 +593,7 @@ processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới
 
 - [ ] Release gate + commit + push (mỗi sub-phase một commit riêng, đừng gộp)
 
-### Phase 14 — Input format còn thiếu (mở khoá WebGL / WebPlayer / pre-5.0) (commit `PHASE14_HASH`)
+### Phase 14 — Input format còn thiếu (mở khoá WebGL / WebPlayer / pre-5.0) (commit `5cc200a`)
 
 Xem bảng "Mục tiêu & Scope input/output" ở đầu file (đã cập nhật ✅). `scheme_reader.py` giờ đăng ký
 đủ 8 scheme upstream có, đúng thứ tự (xem docstring của nó về gotcha `Stack<IScheme>` + `foreach` LIFO
