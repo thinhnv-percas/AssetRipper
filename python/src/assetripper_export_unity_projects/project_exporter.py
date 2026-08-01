@@ -62,10 +62,19 @@ class ProjectExporter:
         raise LookupError(f"There is no exporter that knows the AssetType for unknown asset type '{type_}'")
 
     def _create_collection(self, asset):
-        for exporter in self._class_id_exporters.get(getattr(asset, "class_id", None), ()):
-            created, collection = exporter.try_create_collection(asset)
-            if created:
-                return collection
+        from assetripper_import.asset_creation.raw_data_object import RawDataObject
+
+        # RawDataObject (UnknownObject/UnreadableObject) carries whatever class_id the type
+        # tree claimed even though it couldn't actually be read as that class -- routing it
+        # through class-ID-keyed dispatch would hand raw, fieldless bytes to an exporter that
+        # expects a real typed asset (e.g. a failed Sprite landing in the Sprite exporter) and
+        # crash. Its own type is the authoritative signal here, so skip straight to the
+        # type-based stack (see raw_assets/ for its registered handlers).
+        if not isinstance(asset, RawDataObject):
+            for exporter in self._class_id_exporters.get(getattr(asset, "class_id", None), ()):
+                created, collection = exporter.try_create_collection(asset)
+                if created:
+                    return collection
 
         for exporter in self._asset_exporter_stack.get_handler_stack(type(asset)):
             created, collection = exporter.try_create_collection(asset)

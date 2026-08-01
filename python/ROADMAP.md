@@ -4,8 +4,8 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12 xong (Phase 11, 12 mỗi cái một phần — xem ghi chú trong từng phase).
-  591 tests pass. Commit cuối: `6b4fae3`.
+- **Trạng thái:** Phase 1-12, 15 xong (Phase 11, 12, 15 mỗi cái một phần — xem ghi chú trong từng
+  phase). 607 tests pass. Commit cuối: `PHASE15_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -20,6 +20,12 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - ⚠️ **Audit 2026-08-01** (xem "Mục tiêu & Scope" ngay dưới) phát hiện 3 gap lớn chưa từng có trong
   roadmap: input format WebGL/WebPlayer/legacy bundle chưa đọc được (Phase 14), `ProjectSettings/*`
   chưa xuất đúng chỗ (Phase 15), và Phase 13 cần kế hoạch chi tiết từng type. Đã thêm vào PHẦN B.
+- **Phase 15 xong** (cùng ngày, sau audit): `ProjectSettings/*.asset` giờ export đúng chỗ
+  (`ManagerAssetExporter`/`ManagerExportCollection`), 7 manager rác (BuildSettings, PreloadData,
+  AssetBundle, AssetBundleManifest, MonoManager, ResourceManager, ShaderNameRegistry) bị skip đúng
+  cách thay vì export lẫn vào `Assets/`, và `UnknownObject`/`UnreadableObject` giờ dump raw byte thay
+  vì YAML rỗng. `EditorBuildSettingsExportCollection` và `EngineAssets` vẫn `[~]` — xem Phase 15.
+  **Thứ tự tiếp theo: Phase 14 → 13** (xem PHẦN B).
 
 ---
 
@@ -54,8 +60,8 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 | `Packages/manifest.json` | ✅ | Phase 7 |
 | `Assets/StreamingAssets/**` | ✅ | Phase 7 |
 | Script `.cs` (dummy class) + `.meta` GUID ổn định | ✅ | Phase 6c-2 |
-| **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ❌ | **Phase 15** — `ManagerAssetExporter` chưa port → manager singleton hiện xuất vào `Assets/` như asset thường. Unity Editor đọc setting từ `ProjectSettings/`, nên project export ra hiện **mất toàn bộ project settings** |
-| Reference tới built-in Unity asset (default material, built-in shader…) | ❌ | **Phase 15** — `EngineAssetsExporter`/`PredefinedAssetCache` chưa port → asset built-in bị export trùng thay vì trỏ về asset gốc của Unity |
+| **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ✅ | Phase 15 — `ManagerAssetExporter`/`ManagerExportCollection` |
+| Reference tới built-in Unity asset (default material, built-in shader…) | ❌ | **Phase 15 `[~]`** — `EngineAssetsExporter`/`PredefinedAssetCache` chưa xếp lịch (cần database asset built-in theo Unity version không vendored) → asset built-in bị export trùng thay vì trỏ về asset gốc của Unity |
 | `.cs` thật (decompiled) | ❌ | Ngoài scope vĩnh viễn (cần ILSpy) |
 
 ---
@@ -124,10 +130,10 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
 | 13 | Asset type còn thiếu (13a-13i) | ⬜ Chưa làm — làm **thứ 3** |
 | 14 | Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd) | ⬜ Chưa làm — làm **thứ 2** |
-| 15 | Exporter thiếu ảnh hưởng "project mở được" | ⬜ Chưa làm — **làm trước tiên** (impact/effort cao nhất) |
+| **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `PHASE15_HASH` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 
-Số test theo area (tổng 591): `export_modules` 123, `import_` 102, `io_files` 91, `numerics` 64,
-`assets` 48, `export_unity_projects` 43, `gui_web` 42, `io_files_bundle` 21, `processing` 19,
+Số test theo area (tổng 607): `export_modules` 123, `import_` 102, `io_files` 91, `numerics` 64,
+`assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 21, `processing` 19,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
 ---
@@ -215,8 +221,8 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - ⚠️ **(audit 2026-08-01)** Port có **12 content exporter**, upstream có **~30**. Những cái thiếu ảnh
       hưởng lớn nhất **không** phải asset type lạ mà là 4 exporter hạ tầng: `ManagerAssetExporter`
       (mất `ProjectSettings/`), `UnknownObjectExporter`/`UnreadableObjectExporter` (asset không đọc
-      được ra YAML rỗng thay vì dump byte), `DummyAssetExporter`. Xem Phase 15 — đây là gap
-      **nghiêm trọng hơn** toàn bộ Phase 13 gộp lại
+      được ra YAML rỗng thay vì dump byte), `DummyAssetExporter`. **Đã port ở Phase 15** (cùng ngày) —
+      xem Phase 15 để biết chi tiết + 2 phần còn `[~]`
 
 ### Phase 7 — Post-exporters ✅ `fba6ba5`
 
@@ -613,35 +619,60 @@ thô, không parse được) hoặc throw.
       `GameStructure.load` như WebGL build thường. Chưa làm vì (a) không có gì để port, (b) cần quyết
       định policy network (proxy, robots, rate limit) mà repo này chưa có tiền lệ
 
-### Phase 15 — Exporter còn thiếu ảnh hưởng trực tiếp "project mở được" ⬜
+### Phase 15 — Exporter còn thiếu ảnh hưởng trực tiếp "project mở được" (commit `PHASE15_HASH`)
 
-Nhóm nhỏ nhưng **impact cao nhất còn lại**: hiện project export ra **mất toàn bộ `ProjectSettings/`**.
+Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, project export ra **mất toàn bộ
+`ProjectSettings/`**.
 
-- [ ] `export_unity_projects/project/manager_asset_exporter.py` + `manager_export_collection.py` —
-      port `Project/{ManagerAssetExporter,ManagerExportCollection}.cs`. Manager singleton
-      (`IGlobalGameManager` + `TypeTreeObject.is_player_settings`) phải xuất vào
+- [x] `export_unity_projects/project/manager_asset_exporter.py` + `manager_export_collection.py` —
+      port `Project/{ManagerAssetExporter,ManagerExportCollection}.cs`. Manager singleton xuất vào
       `ProjectSettings/<Name>.asset` với `GetExportID() == 1`, kèm 3 phép đổi tên upstream:
       `PlayerSettings`→`ProjectSettings`, `NavMeshProjectSettings`→`NavMeshAreas`,
-      `PhysicsManager`→`DynamicsManager`. **Đây là lý do project export ra hiện không có project
-      settings nào** — chúng đang nằm lẫn trong `Assets/`.
-      Cần một cách xác định "class ID nào là GlobalGameManager" (port này không có interface
-      `IGlobalGameManager`) → dùng danh sách class ID hard-code + ghi rõ trong docstring, cùng kiểu
-      `_LEVEL_GAME_MANAGER_CLASS_IDS` ở `scene_definition_processor.py` đã làm
-- [ ] `export_unity_projects/project/editor_build_settings_export_collection.py` — port
-      `EditorBuildSettingsExportCollection.cs` (danh sách scene trong Build Settings). Phụ thuộc
-      "Generated Settings" collection mà `SceneDefinitionProcessor` hiện chưa tạo (xem docstring của nó)
-- [ ] `export_unity_projects/raw_assets/` — port `RawAssets/{UnknownObjectExporter,
-      UnreadableObjectExporter}.cs` + collection tương ứng. Hiện `UnknownObject`/`UnreadableObject`
-      (`assetripper_import/asset_creation/`) rơi vào `DefaultYamlExporter` → YAML rỗng vô nghĩa thay vì
-      dump byte thô có ích
-- [ ] `export_unity_projects/dummy_asset_exporter.py` — port `DummyAssetExporter.cs`: cho class cố ý
-      **không** export, thay reference bằng missing-reference thay vì export asset rác
+      `PhysicsManager`→`DynamicsManager`. Không có interface `IGlobalGameManager` nên dùng
+      `_GLOBAL_GAME_MANAGER_CLASS_IDS` hard-code (13 class ID phổ biến: TimeManager, AudioManager,
+      InputManager, Physics2DSettings, GraphicsSettings, QualitySettings, PhysicsManager, TagManager,
+      DelayedCallManager, NavMeshProjectSettings, NetworkManager, ClusterInputManager,
+      UnityConnectSettings) + PlayerSettings (129, không có tên trong `ClassIDType` — xem docstring
+      của `class_id_type.py`), cùng kiểu `_LEVEL_GAME_MANAGER_CLASS_IDS` ở
+      `scene_definition_processor.py` đã làm. Docstring của `manager_asset_exporter.py` liệt kê rõ một
+      nhóm manager hiếm/legacy (AnimationManager, NotificationManager, HaloManager,
+      MasterServerInterface, UnityAdsManager, RuntimeInitializeOnLoadManager,
+      CloudWebServicesManager, CloudServiceHandlerBehaviour, UnityAnalyticsManager,
+      CrashReportManager, PerformanceReportingManager, NScreenBridge) **không** nằm trong danh sách
+      này — game thật hầu như không dùng các subsystem đó, nhưng nếu có, asset sẽ rơi vào
+      `Assets/<ClassName>/` thay vì `ProjectSettings/` thay vì bị bỏ sót âm thầm
+- [~] `export_unity_projects/project/editor_build_settings_export_collection.py` — **chưa làm**:
+      `EditorBuildSettingsExportCollection.cs` phụ thuộc "Generated Settings" collection mà
+      `SceneDefinitionProcessor` hiện chưa tạo (xem docstring của nó), và `EditorBuildSettings` gần như
+      không bao giờ xuất hiện trong player build đã build xong (nó là asset chỉ tồn tại lúc dev trong
+      Editor) — giá trị thực tế cho use case "extract từ build đã ship" gần như bằng 0. Nếu một asset
+      class 1045 vẫn xuất hiện, nó rơi vào `ManagerExportCollection` thường (đúng thư mục
+      `ProjectSettings/EditorBuildSettings.asset`, chỉ thiếu phần patch GUID scene — chi tiết thẩm mỹ,
+      không ảnh hưởng gì khác trong port này)
+- [x] `export_unity_projects/raw_assets/` — port `RawAssets/{UnknownObjectExporter,
+      UnreadableObjectExporter}.cs` + `{Unknown,Unreadable}ExportCollection.cs`. `UnknownObject`/
+      `UnreadableObject` giờ dump raw byte vào `AssetRipper/{UnknownAssets,UnreadableAssets}/`, gate bởi
+      `export_settings.export_unreadable_assets` (mặc định `False` → dùng `DummyAssetExporter` skip,
+      không export gì cả, đúng hành vi mặc định của upstream)
+- [x] `export_unity_projects/dummy_asset_exporter.py` — port `DummyAssetExporter.cs` +
+      `EmptyExportCollection.cs` + `SkipExportCollection.cs`. Dùng cho 7 class `IGlobalGameManager`
+      upstream dummy-export ở priority cao hơn `ManagerAssetExporter` (BuildSettings, PreloadData,
+      AssetBundle, AssetBundleManifest, MonoManager, ResourceManager, ShaderNameRegistry — xem
+      docstring `manager_asset_exporter.py`), và cho raw asset khi `export_unreadable_assets=False`
+- [x] **Fix kèm theo, không có trong checklist gốc**: `project_exporter.py::_create_collection` trước
+      đây luôn thử class-ID dispatch trước bất kể loại asset — nếu một `UnreadableObject` mang class ID
+      trùng với class đã đăng ký exporter riêng (vd TextAsset=49), nó sẽ bị đưa nhầm vào
+      `TextAssetExporter` (crash, vì `RawDataObject` không có field thật) thay vì
+      `UnreadableObjectExporter`. Giờ `RawDataObject` luôn bỏ qua class-ID dispatch, đi thẳng vào
+      type-based stack — có test regression riêng
+      (`test_raw_asset_exporters.py::test_class_id_dispatch_is_bypassed_for_raw_data_objects`)
 - [~] `EngineAssets/{EngineAssetsExporter,PredefinedAssetCache}.cs` (built-in Unity asset → trỏ về
       asset gốc của Unity thay vì export trùng) — **chưa xếp lịch**: `PredefinedAssetCache.cs` cần
       database asset built-in theo từng version Unity mà repo này không vendored (cùng loại rào cản
       Tpk database, xem "Ngoài scope"). Ghi lại ở đây để không ai tưởng là quên; nếu làm thì phải tự
       dựng database từ Unity Editor thật
-- [ ] Test + release gate + commit + push
+- [x] Test (16 test mới: `test_manager_export.py` 7, `test_raw_asset_exporters.py` 4,
+      `test_dummy_asset_exporter.py` 5) + release gate + commit + push
 
 ---
 
@@ -708,10 +739,12 @@ Nhóm nhỏ nhưng **impact cao nhất còn lại**: hiện project export ra **
    uncertainty nhất so với upstream.
 4. **Layout coverage hẹp** (5/20 type) — asset ngoài đó, trong file bị strip type tree, thành
    `UnknownObject`.
-5. **`ProjectSettings/` đang mất hoàn toàn** (phát hiện ở audit 2026-08-01, xem Phase 15). Tiêu chí
-   "project mở được bằng Unity Editor" hiện **chưa đạt đầy đủ** dù `.unity`/`.prefab`/asset đều đúng:
-   Unity đọc setting từ `ProjectSettings/*.asset`, nơi hiện không có gì. Đây là rủi ro dạng "tưởng xong
-   rồi mà chưa" — đúng loại mà audit này tồn tại để bắt.
+5. ~~**`ProjectSettings/` đang mất hoàn toàn**~~ — **đã sửa ở Phase 15** (phát hiện ở audit
+   2026-08-01, cùng ngày đã port `ManagerAssetExporter`/`ManagerExportCollection`). Vẫn còn 2 việc
+   nhỏ chưa làm trong nhóm này: `EditorBuildSettingsExportCollection` (`[~]`, giá trị thực tế thấp —
+   xem Phase 15) và `EngineAssets`/`PredefinedAssetCache` (`[~]`, cần database built-in không
+   vendored). Cả hai không chặn "project mở được" — chỉ thiếu build-settings scene list và asset
+   built-in bị export trùng thay vì trỏ về bản gốc.
 6. **Input format coverage hẹp hơn platform coverage.** 14/14 platform structure đã port, nhưng WebGL /
    WebPlayer / pre-Unity-5.0 **tìm thấy file rồi không đọc được** (thiếu scheme, xem Phase 14). Nguy
    hiểm vì nó *trông như* đã hỗ trợ: discovery chạy, không báo lỗi gì cho tới lúc load thất bại.

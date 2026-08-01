@@ -12,11 +12,26 @@ port (see shaders/ -- no HLSL/DXBC decompiler was ported) and falls back to Dumm
 upstream would if Decompile were requested without its decompiler assembly present.
 SimpleShaderExporter always has top priority regardless of mode: it only succeeds when the
 shader already has real decompiled-looking source text.
+
+Phase 15 (`ProjectSettings/`, dummy managers, raw assets): mirrors
+`Source/AssetRipper.Export.UnityProjects/ProjectExporter.Overrides.cs`'s equivalent section.
+See `assetripper_export_unity_projects/project/manager_asset_exporter.py` for exactly which
+class IDs are treated as GlobalGameManager singletons and why, and that module plus
+`dummy_asset_exporter.py` for why 7 specific manager-ish class IDs are dummy-exported instead.
 """
 from __future__ import annotations
 
 from assetripper_export_configuration.full_configuration import FullConfiguration
 from assetripper_export_configuration.shader_export_mode import ShaderExportMode
+from assetripper_export_unity_projects.dummy_asset_exporter import get_dummy_asset_exporter
+from assetripper_export_unity_projects.project.manager_asset_exporter import (
+    _GLOBAL_GAME_MANAGER_CLASS_IDS,
+    _PLAYER_SETTINGS_CLASS_ID,
+    ManagerAssetExporter,
+)
+from assetripper_export_unity_projects.raw_assets.unknown_object_exporter import UnknownObjectExporter
+from assetripper_export_unity_projects.raw_assets.unreadable_object_exporter import UnreadableObjectExporter
+from assetripper_import.asset_creation.raw_data_object import UnknownObject, UnreadableObject
 
 from .audio_clip_exporter import AudioClipExporter
 from .font_asset_exporter import FontAssetExporter
@@ -28,6 +43,12 @@ from .shaders.simple_shader_exporter import SimpleShaderExporter
 from .shaders.yaml_shader_exporter import YamlShaderExporter
 from .text_asset_exporter import TextAssetExporter
 from .texture2d_exporter import Texture2DExporter
+
+# BuildSettings, PreloadData, AssetBundle, AssetBundleManifest, MonoManager, ResourceManager,
+# ShaderNameRegistry: IGlobalGameManager upstream, but dummy-exported at higher priority than
+# ManagerAssetExporter (OverrideDummyExporter, isEmptyCollection=true) -- see
+# manager_asset_exporter.py's docstring for the reasoning.
+_DUMMY_GLOBAL_GAME_MANAGER_CLASS_IDS = (141, 150, 142, 290, 116, 147, 94)
 
 
 def register_default_exporters(project_exporter, settings: "FullConfiguration | None" = None) -> None:
@@ -57,3 +78,25 @@ def register_default_exporters(project_exporter, settings: "FullConfiguration | 
     project_exporter.override_exporter_for_class_id(115, ScriptExporter())  # MonoScript
     project_exporter.override_exporter_for_class_id(128, FontAssetExporter())  # Font
     project_exporter.override_exporter_for_class_id(152, MovieTextureAssetExporter())  # MovieTexture
+
+    # Phase 15: ProjectSettings/*.asset for GlobalGameManager singletons + PlayerSettings.
+    manager_exporter = ManagerAssetExporter()
+    for class_id in (*_GLOBAL_GAME_MANAGER_CLASS_IDS, _PLAYER_SETTINGS_CLASS_ID):
+        project_exporter.override_exporter_for_class_id(class_id, manager_exporter)
+
+    # The 7 IGlobalGameManager types upstream dummy-exports instead (see module docstring).
+    dummy_manager_exporter = get_dummy_asset_exporter(is_empty_collection=True, is_meta_type=False)
+    for class_id in _DUMMY_GLOBAL_GAME_MANAGER_CLASS_IDS:
+        project_exporter.override_exporter_for_class_id(class_id, dummy_manager_exporter)
+
+    # Raw fallbacks for assets whose layout couldn't be determined (UnknownObject) or that
+    # failed to read against a known layout (UnreadableObject). Dispatched by Python type, not
+    # class ID -- see project_exporter.py's `_create_collection` for why RawDataObject skips
+    # class-ID dispatch entirely.
+    if export_settings.export_unreadable_assets:
+        project_exporter.override_exporter(UnknownObject, UnknownObjectExporter(), allow_inheritance=False)
+        project_exporter.override_exporter(UnreadableObject, UnreadableObjectExporter(), allow_inheritance=False)
+    else:
+        dummy_raw_exporter = get_dummy_asset_exporter(is_empty_collection=False, is_meta_type=False)
+        project_exporter.override_exporter(UnknownObject, dummy_raw_exporter, allow_inheritance=False)
+        project_exporter.override_exporter(UnreadableObject, dummy_raw_exporter, allow_inheritance=False)
