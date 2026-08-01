@@ -7,7 +7,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới) — 17a xong; Phase 19 là bug thật user
-  đang gặp.** 697 tests pass. Commit cuối: (pending).
+  đang gặp.** 697 tests pass. Commit cuối: `a71bef0`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -184,7 +184,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ (pending) — `VirtualFileSystem`. 17b-17e chưa làm |
+| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ `a71bef0` — `VirtualFileSystem`. 17b-17e chưa làm |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
@@ -1124,7 +1124,7 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
 **dummy class rỗng** (`ScriptExporter`/`EmptyScriptExportCollection`) cho tới khi Phase 16 xong.
 **UI bắt buộc phải nói rõ hai điều này**, không để user tưởng "tool xem được nhưng game này rỗng".
 
-#### 17a — `VirtualFileSystem` ✅ (pending)
+#### 17a — `VirtualFileSystem` ✅ `a71bef0`
 
 - [x] `assetripper_io_files/virtual_file_system.py` — port khá sát 1:1 từ chính
       `Source/AssetRipper.IO.Files/VirtualFileSystem.cs`/`.g.cs` (đọc lại mới thấy: upstream **đã có**
@@ -1487,7 +1487,7 @@ Bug thuần ở phía GUI:
 - [ ] `LightmapTextureAssetExporter.cs`, `RawTextureExporter.cs` chưa port (đi cùng 13f/13i)
 - [ ] `RedirectExportCollection.cs` / `SingleRedirectExportCollection.cs` — `single_redirect` đã có,
       `RedirectExportCollection` (bản nhiều asset) chưa
-- [x] `VirtualFileSystem.cs` ✅ (pending) — port ở `assetripper_io_files/virtual_file_system.py`, xem
+- [x] `VirtualFileSystem.cs` ✅ `a71bef0` — port ở `assetripper_io_files/virtual_file_system.py`, xem
       Phase 17, mục 17a.
 - [ ] `GameInitializer.CustomResourceProvider.cs` chưa port (Phase 3 chỉ ghi nhận
       `EngineResourceInjector`/`VersionChanger` bị bỏ, thiếu mục này)
