@@ -50,6 +50,33 @@ def decompress_lzma_stream(compressed_stream, compressed_size: int, decompressed
     compressed_stream.position = base_position + compressed_size
 
 
+def decompress_lzma_size_stream(compressed_stream, compressed_size: int, decompressed_stream) -> None:
+    """Port of `LzmaCompression.DecompressLzmaSizeStream`: like `decompress_lzma_stream`,
+    but the decompressed size is itself embedded in the stream (an 8-byte little-endian
+    integer right after the 5 properties bytes) rather than known ahead of time by the
+    caller -- the shape the legacy Raw/Web bundle format's LZMA-compressed chunk uses."""
+    properties_size = _PROPERTIES_SIZE
+    uncompressed_size_field = 8
+    base_position = compressed_stream.position
+
+    properties = bytearray(properties_size)
+    compressed_stream.read_exactly(properties)
+    size_bytes = bytearray(uncompressed_size_field)
+    compressed_stream.read_exactly(size_bytes)
+    decompressed_size = int.from_bytes(size_bytes, "little", signed=True)
+
+    head_size = compressed_stream.position - base_position
+    headless_size = compressed_size - head_size
+
+    _decompress_lzma_stream(bytes(properties), compressed_stream, headless_size, decompressed_stream, decompressed_size)
+
+    if compressed_stream.position > base_position + compressed_size:
+        DecompressionFailedException.throw_read_more_than_expected(
+            compressed_size, compressed_stream.position - base_position, compression=CompressionType.LZMA
+        )
+    compressed_stream.position = base_position + compressed_size
+
+
 def _decompress_lzma_stream(properties: bytes, compressed_stream, headless_size: int, decompressed_stream, decompressed_size: int) -> None:
     lc, lp, pb, dict_size = _parse_properties(properties)
     filters = [{"id": lzma.FILTER_LZMA1, "dict_size": dict_size, "lc": lc, "lp": lp, "pb": pb}]

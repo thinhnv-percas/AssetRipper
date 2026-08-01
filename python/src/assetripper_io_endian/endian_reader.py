@@ -83,6 +83,14 @@ class EndianReader:
             raw.append(b)
         return raw.decode("utf-8")
 
+    def read_string(self) -> str:
+        """Length-prefixed string: int32 byte count, then that many UTF-8 bytes, with no
+        alignment padding (unlike a type-tree `string` field, which upstream's
+        SerializableTreeType pads to a 4-byte boundary itself -- callers that need that
+        align explicitly via `align_stream()`)."""
+        length = self.read_int32()
+        return self._read_exact(length).decode("utf-8")
+
     def align_stream(self, alignment: int = 4) -> None:
         pos = self.base_stream.position
         mod = pos % alignment

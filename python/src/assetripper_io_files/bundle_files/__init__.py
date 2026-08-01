@@ -1,17 +1,13 @@
 """
 Python port of Source/AssetRipper.IO.Files/BundleFiles.
 
-Only the modern "UnityFS" bundle format is ported (bundle_files.file_stream --
-FileStreamBundleFile/FileStreamBundleHeader/FileStreamBundleScheme), since it's what
-every current Unity build produces. The legacy pre-Unity5 bundle variants (Archive/
-RawWeb/Web -- BundleFiles/Archive and BundleFiles/RawWeb in the C# source) are not
-ported: they only matter for asset bundles built with Unity 3.x/4.x, which is well
-outside this project's scope.
-
-Zstd decompression (ZstdCompression.cs) is also not ported -- it's an unofficial/
-experimental compression mode with no first-party Python binding used elsewhere in
-this port; bundles using it raise UnsupportedBundleDecompression, same as Lzham
-(unsupported in the C# original too).
+The modern "UnityFS" bundle format (bundle_files.file_stream --
+FileStreamBundleFile/FileStreamBundleHeader/FileStreamBundleScheme) is what every current
+Unity build produces. Phase 14 added the legacy pre-Unity5 bundle variants too
+(bundle_files.raw_web -- "UnityRaw"/"UnityWeb", and bundle_files.archive -- "UnityArchive",
+recognized-but-unreadable at the same fidelity as upstream itself, see that module's
+docstring) and Zstd block decompression (zstd_compression.py, wired into
+file_stream/bundle_file_block_reader.py).
 """
 from __future__ import annotations
 
@@ -27,14 +23,19 @@ from .node import Node
 
 
 def is_bundle_header(path: str, file_system) -> bool:
-    """Port of BundleHeader.IsBundleHeader(string, FileSystem), narrowed to only the
-    ported FileStreamBundleHeader (UnityFS) check."""
+    """Port of BundleHeader.IsBundleHeader(string, FileSystem)."""
     from ..streams.smart import SmartStream
     from .file_stream.file_stream_bundle_header import FileStreamBundleHeader
+    from .raw_web.raw.raw_bundle_header import RawBundleHeader
+    from .raw_web.web.web_bundle_header import WebBundleHeader
 
     with SmartStream.open_read(path, file_system) as stream:
         with EndianReader(stream, EndianType.BIG_ENDIAN) as reader:
-            return FileStreamBundleHeader.is_bundle_header(reader)
+            return (
+                FileStreamBundleHeader.is_bundle_header(reader)
+                or RawBundleHeader.is_bundle_header(reader)
+                or WebBundleHeader.is_bundle_header(reader)
+            )
 
 
 __all__ = [

@@ -4,8 +4,8 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12, 15 xong (Phase 11, 12, 15 mỗi cái một phần — xem ghi chú trong từng
-  phase). 607 tests pass. Commit cuối: `994daee`.
+- **Trạng thái:** Phase 1-12, 14, 15 xong (Phase 11, 12, 15 mỗi cái một phần — xem ghi chú trong
+  từng phase). 629 tests pass. Commit cuối: `PHASE14_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -25,7 +25,11 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   AssetBundle, AssetBundleManifest, MonoManager, ResourceManager, ShaderNameRegistry) bị skip đúng
   cách thay vì export lẫn vào `Assets/`, và `UnknownObject`/`UnreadableObject` giờ dump raw byte thay
   vì YAML rỗng. `EditorBuildSettingsExportCollection` và `EngineAssets` vẫn `[~]` — xem Phase 15.
-  **Thứ tự tiếp theo: Phase 14 → 13** (xem PHẦN B).
+- **Phase 14 xong**: `scheme_reader.py` giờ đọc được GZip/Brotli-wrapped WebGL `.data`, WebFile
+  container (`UnityWebData1.0`), bundle `UnityRaw`/`UnityWeb` (pre-Unity-5.0/WebPlayer), và Zstd-nén
+  storage block — input coverage giờ khớp bảng "Mục tiêu & Scope" (mọi hàng ✅ trừ 2 hàng ngoài scope
+  vĩnh viễn: Unreal Engine, WebGL theo URL). 2 dependency mới: `brotli`, `zstandard`.
+  **Thứ tự tiếp theo: Phase 13** (xem PHẦN B — 13a → 13i, mỗi sub-phase một commit riêng).
 
 ---
 
@@ -42,10 +46,10 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 | AssetBundle `UnityFS` (LZ4/LZMA/none) | ✅ | ✅ | Phase 2 |
 | APK / OBB / XAPK / APKS / IPA / VPK / XAP / APPX | ✅ | ✅ | `zip_extractor.py`, giải nén rồi discovery như directory |
 | `.resS` / `.resource` streamed data | ✅ | ✅ | Phase 9 |
-| AssetBundle nén **Zstd** | ✅ | ❌ | **Phase 14** — `bundle_file_block_reader` throw ngay, C# thử `ZstdCompression.IsZstd` trước |
-| **Unity WebGL** (`.data`, `.data.unityweb`, `.datagz`) | ✅ | ❌ | **Phase 14** — platform discovery có (`webgl_game_structure.py`) nhưng `WebFile`/GZip/Brotli scheme chưa port → tìm thấy file rồi **không đọc được** |
-| **WebPlayer bundle** (`UnityWeb`, `UnityRaw` pre-5.0) | ✅ | ❌ | **Phase 14** — `webplayer_game_structure.py` có nhưng `BundleFiles/RawWeb` + `Archive` chưa port |
-| Game **pre-Unity-5.0** nói chung | ✅ | ❌ | **Phase 14** — cùng lý do trên (bundle format cũ) |
+| AssetBundle nén **Zstd** | ✅ | ✅ | Phase 14 — signature-sniff trước khi throw, đúng như C# |
+| **Unity WebGL** (`.data`, `.data.unityweb`, `.datagz`) | ✅ | ✅ | Phase 14 — `WebFile`/GZip/Brotli scheme đã port |
+| **WebPlayer bundle** (`UnityWeb`, `UnityRaw` pre-5.0) | ✅ | ✅ | Phase 14 — `BundleFiles/RawWeb` đã port |
+| Game **pre-Unity-5.0** nói chung | ✅ | ✅ | Phase 14 — cùng format trên (`UnityRaw`/`UnityWeb` bundle) |
 | Unity WebGL game **theo URL** | ❌ | ❌ | **Upstream cũng không có.** Không có `HttpClient`/`WebRequest` nào trong `AssetRipper.Import` hay `GUI.Web/Pages/Commands.cs` — chỉ `LoadFile`/`LoadFolder` từ path local. Muốn có thì phải tự viết downloader (tải `.data`/`.wasm` từ URL về temp dir rồi load như WebGL build) — **feature mới, không phải port** |
 | **Unreal Engine** (game directory, `.uasset`, `.pak`) | ❌ | ❌ | **Ngoài scope vĩnh viễn** — `grep -ril unreal Source/ = 0 hit`. AssetRipper là tool **Unity-only** (README: *"analyzing Unity game files"*, hỗ trợ Unity `3.5.0`–`6000.5.X`). Đọc Unreal cần một tool khác hoàn toàn (UE asset registry, FPakFile, UObject serialization) — không có gì để port từ repo này |
 
@@ -129,11 +133,11 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
 | 13 | Asset type còn thiếu (13a-13i) | ⬜ Chưa làm — làm **thứ 3** |
-| 14 | Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd) | ⬜ Chưa làm — làm **thứ 2** |
+| **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `PHASE14_HASH` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 
-Số test theo area (tổng 607): `export_modules` 123, `import_` 102, `io_files` 91, `numerics` 64,
-`assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 21, `processing` 19,
+Số test theo area (tổng 629): `export_modules` 123, `import_` 102, `io_files` 105, `numerics` 64,
+`assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 19,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
 ---
@@ -175,10 +179,10 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [~] `EngineResourceInjector` / `VersionChanger` — không cần cho scope hiện tại
 - [ ] **(audit 2026-08-01)** `GameInitializer.CustomResourceProvider.cs` chưa port — thiếu sót không
       được ghi nhận ở lần commit phase này
-- ⚠️ **(audit 2026-08-01)** 14/14 platform structure đã port, nhưng **discovery ≠ load được**:
+- ⚠️ **(audit 2026-08-01)** 14/14 platform structure đã port, nhưng lúc đó **discovery ≠ load được**:
       `WebGLGameStructure` tìm đúng `.data`/`.data.unityweb`/`.datagz` và `WebPlayerGameStructure` tìm
-      đúng bundle, nhưng `scheme_reader` chưa có scheme để **đọc** chúng → load thất bại. Xem Phase 14.
-      Phase này chỉ nên coi là "discovery xong", không phải "hỗ trợ xong các platform đó"
+      đúng bundle, nhưng `scheme_reader` chưa có scheme để **đọc** chúng → load thất bại.
+      **Đã sửa ở Phase 14** — scheme đọc được rồi, gap này không còn
 
 ### Phase 4 — YAML export + `.meta` ✅ `395e0b7`
 
@@ -480,11 +484,11 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
 
 ---
 
-# PHẦN B — Cần làm (Phase 13-15)
+# PHẦN B — Phase 15, 14 đã xong; Phase 13 còn lại
 
-**Thứ tự đề xuất: Phase 15 → 14 → 13.** Lý do: Phase 15 nhỏ nhất nhưng ảnh hưởng trực tiếp tới tiêu
-chí "project mở được bằng Unity Editor" (hiện đang mất toàn bộ `ProjectSettings/`); Phase 14 mở khoá
-cả một nhóm input đang không đọc được; Phase 13 là fidelity tăng dần, lớn nhất và mở nhất về scope.
+Thứ tự đã làm: **Phase 15 → 14 → 13** (đúng thứ tự đề xuất ban đầu). Phase 15 (`ProjectSettings/`)
+và Phase 14 (input format) đã xong, xem ghi chú trong từng phase bên dưới. Còn lại **Phase 13** —
+fidelity tăng dần, lớn nhất và mở nhất về scope, xem chi tiết 13a-13i bên dưới.
 Đánh số giữ nguyên theo thứ tự thêm vào file (append-only, đúng giao thức tick) — số phase **không**
 phải thứ tự làm.
 
@@ -589,31 +593,48 @@ processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới
 
 - [ ] Release gate + commit + push (mỗi sub-phase một commit riêng, đừng gộp)
 
-### Phase 14 — Input format còn thiếu (mở khoá WebGL / WebPlayer / pre-5.0) ⬜
+### Phase 14 — Input format còn thiếu (mở khoá WebGL / WebPlayer / pre-5.0) (commit `PHASE14_HASH`)
 
-Xem bảng "Mục tiêu & Scope input/output" ở đầu file. Hiện `scheme_reader.py` chỉ đăng ký 2 scheme
-(`SerializedFileScheme`, `FileStreamBundleScheme`) — mọi format dưới đây rơi về `ResourceFile` (byte
-thô, không parse được) hoặc throw.
+Xem bảng "Mục tiêu & Scope input/output" ở đầu file (đã cập nhật ✅). `scheme_reader.py` giờ đăng ký
+đủ 8 scheme upstream có, đúng thứ tự (xem docstring của nó về gotcha `Stack<IScheme>` + `foreach` LIFO
+của C#) — không còn format nào rơi về `ResourceFile` thô hay throw ngay khi gặp signature đã biết.
 
-- [ ] `io_files/compressed_files/gzip/` — port `CompressedFiles/GZip/{GZipFile,GZipFileScheme}.cs`.
+- [x] `io_files/compressed_files/gzip/` — port `CompressedFiles/GZip/{GZipFile,GZipFileScheme}.cs`.
       Dùng stdlib `gzip`. Mở khoá `.datagz` (WebGL Release build)
-- [ ] `io_files/compressed_files/brotli/` — port `CompressedFiles/Brotli/{BrotliFile,BrotliFileScheme}.cs`.
-      Signature `"UnityWeb Compressed Content (brotli)"`. **Cần dependency mới** (`brotli` hoặc
-      `brotlicffi` trên PyPI) — thêm vào `pyproject.toml`. Mở khoá `.data.unityweb` (WebGL, phổ biến nhất)
-- [ ] `io_files/web_files/` — port `WebFiles/{WebFile,WebFileEntry,WebFileScheme}.cs`. Signature
-      `"UnityWebData1.0"`. Đây là container chứa các SerializedFile bên trong `.data` của WebGL build
-- [ ] `io_files/bundle_files/raw_web/` — port `BundleFiles/RawWeb/**` (`RawBundleFile` = `UnityRaw`,
-      `WebBundleFile` = `UnityWeb`, `RawWebNode`, `BundleScene`). Mở khoá bundle pre-Unity-5.0 và
-      WebPlayer bundle
-- [ ] `io_files/bundle_files/archive/` — port `BundleFiles/Archive/**` (`UnityArchive`)
-- [ ] Zstd: trong `bundle_file_block_reader.decompress_blocks`, nhánh `else` hiện throw ngay; C# thử
-      `ZstdCompression.IsZstd(stream)` (magic `28 B5 2F FD`) trước rồi mới throw. **Cần dependency mới**
-      (`zstandard` PyPI). Bundle Unity mới (Addressables) có dùng
-- [ ] Đăng ký hết vào `scheme_reader._schemes()` **đúng thứ tự upstream** (`SchemeReader.cs`) — thứ tự
-      quan trọng vì `can_read` chỉ sniff magic, format lồng nhau (gzip chứa WebFile chứa SerializedFile)
-- [ ] Test: dựng file synthetic cho từng format (pattern `tests/io_files_bundle/_bundle_builder.py`),
-      cộng 1 test end-to-end "WebGL build giả → export ra project"
-- [ ] Release gate + commit + push
+- [x] `io_files/compressed_files/brotli/` — port `CompressedFiles/Brotli/{BrotliFile,BrotliFileScheme}.cs`.
+      Signature `"UnityWeb Compressed Content (brotli)"` detect bằng cách parse một phần header
+      meta-block Brotli (port bit-for-bit từ C#, xem docstring `brotli_file.py`), không cần chạy decoder
+      thật để sniff. **Dependency mới**: `brotli` (thêm vào `pyproject.toml`). Mở khoá `.data.unityweb`
+- [x] `io_files/web_files/` — port `WebFiles/{WebFile,WebFileEntry,WebFileScheme}.cs`. Signature
+      `"UnityWebData1.0"`. Container chứa các SerializedFile bên trong `.data` của WebGL build.
+      Cần thêm `EndianReader.read_string`/`EndianWriter.write_string` (length-prefixed, không align) —
+      chưa có trong port trước đây, chỉ có `read_string_zero_term`
+- [x] `io_files/bundle_files/raw_web/` — port `BundleFiles/RawWeb/**` (`RawBundleFile` = `UnityRaw`,
+      `WebBundleFile` = `UnityWeb`, `RawWebNode`, `BundleScene`). C#'s `RawWebBundleFile<THeader>`
+      generic collapse thành 1 class cụ thể + cờ `_is_web_variant` (Python không cần generic).
+      Mở khoá bundle pre-Unity-5.0 và WebPlayer bundle. Cần thêm
+      `LzmaCompression.decompress_lzma_size_stream` (Web variant nén cả metadata+data cùng lúc, kèm
+      8-byte size embedded — khác `decompress_lzma_stream` đã có từ Phase 1, vốn cần biết size trước)
+- [x] `io_files/bundle_files/archive/` — port `BundleFiles/Archive/**` (`UnityArchive`). Upstream tự nó
+      cũng chỉ nhận diện signature rồi `throw NotSupportedException()` khi đọc thật (xem
+      `Archive/README.md`: *"I'm not certain that UnityArchive files exist..."*) — port giữ đúng fidelity
+      đó: `can_read` nhận diện được, `read()` raise `NotImplementedError`
+- [x] Zstd: `bundle_file_block_reader.decompress_blocks`'s nhánh cuối giờ thử `zstd_compression.is_zstd`
+      trước khi throw, đúng như C#. **Dependency mới**: `zstandard`. Phát hiện và sửa luôn 1 bug có sẵn
+      trong lúc làm: `storage_block_flags.get_compression_type` dùng `CompressionType(value)` strict —
+      raise `ValueError` cho compression type ngoài enum (đúng trường hợp Zstd) thay vì trả về giá trị
+      thô như C# enum cast (không strict); giờ trả về `int` nếu value không khớp member nào
+- [x] Đăng ký hết vào `scheme_reader._schemes()` **đúng thứ tự upstream** — xem docstring, `SchemeReader.cs`
+      dùng `Stack<IScheme>` + `foreach` (LIFO) nên thứ tự effective là **ngược** với thứ tự liệt kê trong
+      code C#; tuple ở đây viết thẳng theo effective order đó
+- [x] Test: 21 test mới — `test_gzip_file.py` (4), `test_brotli_file.py` (6, gồm cả test heuristic parse
+      byte-by-byte vì không dựng được Brotli thật có đúng framing của Unity), `test_web_file.py` (3),
+      `test_raw_web_bundle.py` (4, builder riêng `_raw_web_bundle_builder.py`), `test_archive_bundle.py`
+      (3), `test_zstd_decompression.py` (1) + 1 test end-to-end
+      (`test_scheme_reader.py::test_gzip_wrapped_web_file_recursively_discovers_the_embedded_serialized_file`)
+      dựng "WebGL build giả" (SerializedFile → WebFile → gzip) và đọc lại đệ quy qua
+      `scheme_reader.read_file` + `read_contents_recursively`
+- [x] Release gate + commit + push
 - [~] Unity WebGL game **theo URL** — **upstream không có**, đây sẽ là feature mới chứ không phải port.
       Nếu cần: thêm downloader tải `.data`/`.wasm`/`.framework.js` từ URL về temp dir rồi gọi
       `GameStructure.load` như WebGL build thường. Chưa làm vì (a) không có gì để port, (b) cần quyết
@@ -745,9 +766,9 @@ Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, projec
    xem Phase 15) và `EngineAssets`/`PredefinedAssetCache` (`[~]`, cần database built-in không
    vendored). Cả hai không chặn "project mở được" — chỉ thiếu build-settings scene list và asset
    built-in bị export trùng thay vì trỏ về bản gốc.
-6. **Input format coverage hẹp hơn platform coverage.** 14/14 platform structure đã port, nhưng WebGL /
-   WebPlayer / pre-Unity-5.0 **tìm thấy file rồi không đọc được** (thiếu scheme, xem Phase 14). Nguy
-   hiểm vì nó *trông như* đã hỗ trợ: discovery chạy, không báo lỗi gì cho tới lúc load thất bại.
+6. ~~**Input format coverage hẹp hơn platform coverage.**~~ — **đã sửa ở Phase 14**: WebGL/WebPlayer/
+   pre-Unity-5.0 giờ đọc được (GZip/Brotli/WebFile/RawWeb/Zstd scheme đã port), không chỉ discovery.
+   Vẫn chưa test trên game thật (xem rủi ro #1) — mọi verify vẫn là synthetic byte layout tự dựng.
 7. **Số test cao không đồng nghĩa coverage cao.** 591 test nhưng 0 fixture Unity thật; nhiều nhánh
    "đã port" chỉ được test bằng chính giả định của người port (xem rủi ro #1). Test đếm được, độ đúng
    thì không.

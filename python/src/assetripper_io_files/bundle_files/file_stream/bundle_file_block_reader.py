@@ -9,14 +9,17 @@ then slices each FileStreamNode's entry out of it by offset/size. This trades me
 efficiency for much simpler, obviously-correct code -- reasonable for a research/
 inspection tool, but not something you'd want for extracting multi-gigabyte bundles.
 
-Zstd is not supported (ZstdSharp isn't a dependency here); Unity bundles using it will
-raise UnsupportedBundleDecompression, same as Lzham (unsupported in the C# original too).
+Zstd (Phase 14): a block whose declared `CompressionType` doesn't match any of the 4 named
+values falls through to a Zstd signature sniff, exactly like upstream's own `default:`
+branch -- Unity tags Zstd-compressed blocks with a numeric CompressionType value newer than
+this (and upstream's own) enum, so both detect it by content instead of by that tag.
 """
 from __future__ import annotations
 
 from ...exceptions import DecompressionFailedException, UnsupportedBundleDecompression
 from ...streams.smart import SmartStream
 from ...streams.stream import MemoryStream
+from .. import zstd_compression
 from ..compression_type import CompressionType
 from ..lzma_compression import decompress_lzma_stream
 from .blocks_info import BlocksInfo
@@ -46,6 +49,8 @@ def decompress_blocks(stream, blocks_info: BlocksInfo) -> bytes:
             output.write(decompressed)
         elif compression_type == CompressionType.LZHAM:
             UnsupportedBundleDecompression.throw_lzham("")
+        elif zstd_compression.is_zstd(stream):
+            zstd_compression.decompress_stream(stream, block.compressed_size, output, block.uncompressed_size)
         else:
             UnsupportedBundleDecompression.throw("", compression_type)
     return output.to_array()

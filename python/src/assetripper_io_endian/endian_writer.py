@@ -68,6 +68,13 @@ class EndianWriter:
         self.base_stream.write(encoded, 0, len(encoded))
         self.write_byte(0)
 
+    def write_string(self, value: str) -> None:
+        """Counterpart of `EndianReader.read_string`: int32 byte count + UTF-8 bytes, no
+        alignment padding."""
+        encoded = value.encode("utf-8")
+        self.write_int32(len(encoded))
+        self.base_stream.write(encoded, 0, len(encoded))
+
     def align_stream(self, alignment: int = 4) -> None:
         pos = self.base_stream.position
         mod = pos % alignment
