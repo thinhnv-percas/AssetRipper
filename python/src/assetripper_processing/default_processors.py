@@ -1,12 +1,22 @@
 """The asset-processor half of `ExportHandler.GetProcessors()`
-(Source/AssetRipper.Export.UnityProjects/ExportHandler.cs:57-93), in upstream's exact order:
-SceneDefinitionProcessor -> OriginalPathProcessor -> MainAssetProcessor -> EditorFormatProcessor
--> SpriteProcessor (Phase 13c, partial -- see its own docstring) -> PrefabProcessor (Phase 12).
+(Source/AssetRipper.Export.UnityProjects/ExportHandler.cs:57-93), in upstream's exact relative
+order for the processors this port has: SceneDefinitionProcessor -> OriginalPathProcessor ->
+MainAssetProcessor -> EditorFormatProcessor -> PrefabProcessor (Phase 12) -> SpriteProcessor
+(Phase 13c, partial -- see its own docstring) -> ScriptableObjectProcessor (Phase 13h).
+
+**Fixed an ordering bug from an earlier pass**: this file previously listed SpriteProcessor
+*before* PrefabProcessor, backwards from upstream's real order (`PrefabProcessor` then
+`SpriteProcessor` then `ScriptableObjectProcessor`, line 90-92 of ExportHandler.cs). No known
+functional dependency exists between Sprite and Prefab processing (disjoint asset types), so
+this likely never caused an observable bug -- but it matters now that
+`ScriptableObjectProcessor` must run after both (its `MonoBehaviour.main_asset is not None`
+skip-check means anything already claimed by an earlier processor is correctly excluded, but
+only if that earlier processor really did run first).
 
 Not ported (each is a real, un-guessed-at gap, not a fabricated no-op):
-- AnimatorControllerProcessor, AudioMixerProcessor, LightingDataProcessor,
-  ScriptableObjectProcessor -- see python/ROADMAP.md Phase 13. Upstream runs these between
-  EditorFormatProcessor and PrefabProcessor; "static mesh separation" also goes there but is
+- AnimatorControllerProcessor, AudioMixerProcessor, LightingDataProcessor -- see
+  python/ROADMAP.md Phase 13d/13e/13i. Upstream runs these between MainAssetProcessor and
+  EditorFormatProcessor/PrefabProcessor; "static mesh separation" also goes there but is
   premium-only upstream and no processor in this repo reads that setting, so it has no
   Python counterpart to omit either.
 - `PrefabProcessor`'s `AddMissingTransforms` step and its "prefabs with an existing
@@ -30,6 +40,7 @@ from .main_asset_processor import MainAssetProcessor
 from .prefabs.prefab_processor import PrefabProcessor
 from .scenes.original_path_processor import OriginalPathProcessor
 from .scenes.scene_definition_processor import SceneDefinitionProcessor
+from .scriptable_object.scriptable_object_processor import ScriptableObjectProcessor
 from .textures.sprite_processor import SpriteProcessor
 
 
@@ -41,8 +52,9 @@ def default_processors(
         OriginalPathProcessor(bundled_assets_export_mode),
         MainAssetProcessor(),
         EditorFormatProcessor(bundled_assets_export_mode),
-        SpriteProcessor(),
         PrefabProcessor(),
+        SpriteProcessor(),
+        ScriptableObjectProcessor(),
     )
 
 

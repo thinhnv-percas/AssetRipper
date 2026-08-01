@@ -4,8 +4,9 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a-13c một phần, 16b xong, xem
-  PHẦN B). 652 tests pass. Commit cuối: `93d591b`.
+- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một phần,
+  13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong). 657 tests
+  pass. Commit cuối: (pending, xem 13h).
 - 🆕 **Phase 17 (audit 2026-08-01)** — view output "dưới dạng Unity project luôn trên tool" (browse
   cây `Assets/`/`ProjectSettings/`/`Packages/` của project đã export ngay trong GUI web, không cần mở
   thư mục đĩa) đã có plan đầy đủ (17a-17e, xem PHẦN B). Đây là **feature mới không có ở upstream**
@@ -34,8 +35,15 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   container (`UnityWebData1.0`), bundle `UnityRaw`/`UnityWeb` (pre-Unity-5.0/WebPlayer), và Zstd-nén
   storage block — input coverage giờ khớp bảng "Mục tiêu & Scope" (mọi hàng ✅ trừ WebGL-theo-URL,
   hàng duy nhất còn ngoài scope). 2 dependency mới: `brotli`, `zstandard`.
-- **Phase 13a xong** (VideoClip, xem PHẦN B): dùng lại `streamed_resource.py` (Phase 9). Còn 13b
-  (Sprite export) → 13i, mỗi sub-phase một commit riêng.
+- **Phase 13a/13b/13c/13h xong** (VideoClip, Sprite export, SpriteProcessor một phần,
+  ScriptableObjectProcessor — xem PHẦN B), mỗi sub-phase một commit riêng. **13d/13e/13f/13g/13i đã
+  rà soát kỹ và đánh dấu `[~]`** thay vì để `[ ]` treo: 13d/13e/13i bị chặn cứng bởi cùng một lỗ hổng
+  kiến trúc ("dựng instance Unity thật từ đầu" — port này chỉ đọc theo layout có sẵn, chưa tổng hợp
+  được layout mới); 13g bị chặn bởi đúng rào cản field-name-confidence port này đã tự đặt ra
+  (`main_asset_processor.py`); 13f được sửa lại sau khi phát hiện ghi chú cũ sai (Cubemap thật ra
+  dùng chung exporter Texture2D, không phải TextureArrayAssetExporter) nhưng hoá ra rủi ro hơn tưởng
+  (field số-mặt không xác nhận được tên + Texture2DArray/CubemapArray/Texture3D cần bảng decode
+  GraphicsFormat hoàn toàn mới) nên cũng không port lần này.
 - 🆕 **Phase 16 — dựng lại `.cs` từ IL2CPP / Mono** đã có plan đầy đủ (16a-16g, xem PHẦN B). Thay thế
   3 hàng trước đây nằm trong "Ngoài scope vĩnh viễn". **Trần của việc này là declaration thật + method
   body rỗng** — không phải logic game chạy được; upstream và mọi tool trên thị trường cũng chỉ tới đó
@@ -152,14 +160,14 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
-| 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), còn 13d-13i |
+| 13 | Asset type còn thiếu (13a-13i) | 🟡 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ (pending hash). 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục) |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ⬜ Chưa làm — feature mới, không có ở upstream |
 
-Số test theo area (tổng 652): `export_modules` 135, `import_` 105, `io_files` 105, `numerics` 64,
-`assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 27,
+Số test theo area (tổng 657): `export_modules` 135, `import_` 105, `io_files` 105, `numerics` 64,
+`assets` 48, `export_unity_projects` 60, `gui_web` 42, `io_files_bundle` 29, `processing` 31,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
 ---
@@ -515,8 +523,9 @@ và Phase 14 (input format) đã xong, xem ghi chú trong từng phase bên dư�
 
 Còn lại hai phase, **độc lập nhau, chọn theo mục tiêu**:
 
-- **Phase 13** (13a ✅, còn 13b-13i) — fidelity từng asset type. Tăng dần, chia nhỏ được, rủi ro thấp
-  ở phần lớn item. Chọn cái này nếu mục tiêu là "asset export ra đúng hơn".
+- **Phase 13** (13a/13b/13h ✅, 13c ⚠️ một phần, 13d/13e/13f/13g/13i `[~]` đã rà soát xong — không
+  port, xem lý do từng mục) — fidelity từng asset type. Phần còn khả thi mà chưa làm: không còn — mọi
+  sub-phase đã hoặc port xong hoặc đánh giá và đánh dấu `[~]` với lý do cụ thể.
 - **Phase 16** — dựng lại `.cs` từ IL2CPP/Mono metadata. Phase lớn nhất còn lại và cũng là thứ duy
   nhất còn chặn tiêu chí "project mở ra giống project gốc": hiện mọi script vẫn là dummy class và
   MonoBehaviour không có type tree thì mất sạch field value. Chọn cái này nếu mục tiêu là "code và
@@ -598,65 +607,146 @@ processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới
 - **Đăng ký vào pipeline:** `SpriteProcessor` thêm vào `default_processors.py`, đúng vị trí upstream
       (giữa `EditorFormatProcessor` và `PrefabProcessor`)
 
-#### 13d — AudioMixer + AudioMixerProcessor
+**Kết quả rà soát 13d-13i (phiên này, trước khi code):** đọc lại toàn bộ 6 file C# nguồn
+(`AudioMixerProcessor.cs` 317 dòng, `AnimatorControllerProcessor.cs` 168 dòng,
+`ScriptableObjectProcessor.cs`/`ScriptableObjectGroup.cs`, `LightingDataProcessor.cs` (90/409 dòng
+đầu), `TerrainYamlExporter.cs`/`TerrainYamlExportCollection.cs`, `TextureArrayAssetExporter.cs` 95
+dòng + phần liên quan của `TextureConverter.cs`) trước khi quyết định làm cái nào. Kết luận: **3/6
+bị chặn cứng bởi cùng một lỗ hổng nền tảng** (13d/13e/13i — xem "Rủi ro" bên dưới), **1/6 bị chặn
+bởi đúng rào cản field-name-confidence port này đã tự đặt ra cho chính nó** (13g), **1/6 hoá ra
+rộng và rủi ro hơn ghi chú cũ tưởng** (13f — sửa lại), và **1/6 khả thi thật, đã làm** (13h).
 
-- [ ] `processing/audio_mixers/audio_mixer_processor.py` — port `AudioMixers/AudioMixerProcessor.cs`
-      (317 dòng): dựng lại cây `AudioMixerGroup`/`AudioMixerSnapshot`/effect từ array phẳng
-- [ ] `export_modules/audio_mixer_exporter.py` — port `AudioMixers/AudioMixerExporter.cs` (24 dòng)
+**Rủi ro nền tảng chung của 13d/13e/13i — "dựng asset Unity thật từ đầu":** cả ba đều gọi một biến
+thể của "tạo mới một instance kiểu Unity thật, có field layout thật" (`processedCollection.
+CreateAudioMixerEffectController()`, `VirtualAnimationFactory.CreateRootAnimatorStateMachine()`,
+`processedCollection.CreateLightingDataAsset()`). Reader động (Phase 1-2) của port này chỉ đọc bytes
+theo shape **đã biết trước** (type tree có sẵn) — nó không tổng hợp được một instance **mới toanh**
+của một class sinh (generated) với field layout tự bịa. Đây là đúng lỗ hổng Phase 12's "Generated
+Settings" `ProcessedAssetCollection` đã từng gặp và bỏ qua (xem `scene_definition_processor.py`'s
+docstring) — không phải giới hạn riêng của 3 item này, mà là giới hạn kiến trúc chung của port. Cần
+port trước một "instance-synthesis layer" (viết field theo layout tự chọn, không chỉ đọc theo layout
+có sẵn) mới mở khoá được cả ba, việc đó lớn hơn hẳn quy mô một sub-phase Phase 13 đơn lẻ.
+
+#### 13d — AudioMixer + AudioMixerProcessor `[~]` — chặn cứng, không port
+
+- [~] `processing/audio_mixers/audio_mixer_processor.py` — port `AudioMixers/AudioMixerProcessor.cs`
+      (317 dòng): dựng lại cây `AudioMixerGroup`/`AudioMixerSnapshot`/effect từ array phẳng.
+      **Chặn cứng** bởi `processedCollection.CreateAudioMixerEffectController()` (dựng
+      `IAudioMixerEffectController` — kiểu Unity thật — từ đầu) — xem "Rủi ro nền tảng" ở trên. Đoán
+      field layout để tự dựng instance này sẽ ra file `.mixer`/effect controller **sai âm thầm** thay
+      vì chỉ thiếu, đúng loại rủi ro port này đã từ chối nhận trước đây (Phase 12)
+- [~] `export_modules/audio_mixer_exporter.py` — port `AudioMixers/AudioMixerExporter.cs` (24 dòng)
+      — không port, phụ thuộc trực tiếp vào group/snapshot mà processor trên không dựng được
 - **Hiện có:** `AudioMixer` ra `.mixer` YAML, nhưng group/snapshot/effect vẫn là asset rời không có
-      quan hệ cha-con → mixer mở trong Unity sẽ rỗng/phẳng
-- **Thiếu:** toàn bộ phần tái tạo cây
-- **Effort/Risk:** cao/trung bình — nhiều code nhưng là logic gom nhóm rõ ràng, không phải math
+      quan hệ cha-con → mixer mở trong Unity sẽ rỗng/phẳng. **Không đổi** so với trước phiên này
+- **Thiếu:** toàn bộ phần tái tạo cây — cần instance-synthesis layer trước (xem trên), không phải
+      thiếu thời gian/effort
 
-#### 13e — AnimatorController + AnimatorControllerProcessor
+#### 13e — AnimatorController + AnimatorControllerProcessor `[~]` — chặn cứng, không port
 
-- [ ] `processing/animator_controllers/animator_controller_processor.py` — port
-      `AnimatorControllers/AnimatorControllerProcessor.cs` (168 dòng)
-- [ ] `export_modules/animator_controller_exporter.py` — port `AnimatorControllerExporter.cs`
+- [~] `processing/animator_controllers/animator_controller_processor.py` — port
+      `AnimatorControllers/AnimatorControllerProcessor.cs` (168 dòng). **Chặn cứng** bởi
+      `VirtualAnimationFactory.CreateRootAnimatorStateMachine()` — dựng cây state machine/state/
+      transition Unity thật từ đầu, cùng lỗ hổng "Rủi ro nền tảng" ở trên
+- [~] `export_modules/animator_controller_exporter.py` — không port, cùng lý do
 - **Hiện có:** `AnimationClip`→`.anim` và `AnimatorController`→`.controller` đều ra YAML đúng extension
       (**"AnimationClip" trong danh sách cũ coi như đã xong** ở mức YAML — nó không có exporter riêng
       ở upstream, cũng đi qua `DefaultYamlExporter`)
-- **Thiếu:** state machine / state / transition chưa được dựng thành asset con của controller
-- **Effort/Risk:** trung bình/trung bình
+- **Thiếu:** state machine / state / transition — cần instance-synthesis layer, không phải effort
 
-#### 13f — Cubemap / Texture2DArray (ảnh thật, không chỉ YAML)
+#### 13f — Cubemap / Texture2DArray (ảnh thật, không chỉ YAML) `[~]` — sửa lại ghi chú cũ, không port
 
-- [ ] Mở rộng `texture2d_exporter.py` (hoặc thêm `texture_array_exporter.py`) — port
-      `Textures/TextureArrayAssetExporter.cs` (95 dòng): Cubemap (89) → 6 mặt, Texture2DArray (187) →
-      N slice, Texture3D → N slice
-- **Hiện có:** `Cubemap`→`.cubemap` YAML (metadata đúng, **không có pixel**)
-- **Thiếu:** decode + ghi ảnh từng mặt/slice
-- **Effort/Risk:** trung bình/thấp — dùng lại `texture_converter.py` đã có, chỉ thêm vòng lặp slice
+- **Sửa một nhận định sai của ghi chú cũ:** đọc lại `ProjectExporter.Overrides.cs` (comment
+      `OverrideExporter<ITexture2D>(textureExporter); //Texture2D and Cubemap`) và
+      `TextureConverter.cs::TryConvertToBitmap(ITexture2D texture, ...)` cho thấy **Cubemap (89)
+      KHÔNG đi qua `TextureArrayAssetExporter`** như ghi chú cũ viết — nó dùng đúng exporter/hàm decode
+      của Texture2D, chỉ khác ở `Depth = texture.ImageCount_C28` (số mặt, thường 6) thay vì 1, và
+      **không lật ảnh** (`if (texture is not ICubemap) bitmap.FlipY();`). `TextureArrayAssetExporter`
+      chỉ thật sự áp dụng cho Texture2DArray(187)/CubemapArray(188)/Texture3D(117)
+- [~] Cubemap: **không port**, dù ban đầu tưởng "gần như miễn phí" (dùng lại decode Texture2D có sẵn).
+      Hai rào cản thật sau khi đọc kỹ `TextureConverter.cs`:
+      1. Field cấp số mặt (`ImageCount_C28`) là **property sinh (source-generated)**, không tìm thấy
+         field serialize gốc tương ứng trong source đã đọc được ở đây để xác nhận tên chắc chắn — đúng
+         loại "tên field không biết chắc" port này đã từ chối đoán trước đó (xem 13g, `main_asset_processor.py`)
+      2. Layout `Width×Height×Depth` phải decode **từng lớp** rồi ghép dọc thành 1 ảnh
+         `Width×(Height×Depth)` (đã trace từ `DirectBitmap<T,U>.FlipY()`/`GetLayer()` — flip xảy ra
+         **trong từng lớp**, không phải trên toàn ảnh) — cơ chế đã hiểu rõ, nhưng bytes-per-layer cho
+         format nén (BC/ETC/ASTC) không có field `ActualImageSize`/`m_CompleteImageSize` tương ứng đã
+         confirm trong port này để tính chính xác; đoán bằng `len(data)//depth` có thể sai khi có mip
+- [~] Texture2DArray(187)/CubemapArray(188)/Texture3D(117): **không port** — các hàm C# tương ứng
+      (`TryConvertToBitmap(ITexture2DArray/...)`) decode qua **`GraphicsFormat`**, một bảng switch
+      hoàn toàn khác và chưa port (port này mới chỉ có bảng theo `TextureFormat` cũ, xem
+      `texture_format.py`) — đúng như ghi chú cũ đã cảnh báo "cần native-decode-library uncertainty",
+      chỉ là nó áp dụng cho *cả 3* class ID này, không phải Cubemap
+- **Hiện có:** `Cubemap`/`Texture2DArray`/`CubemapArray`/`Texture3D` đều ra `.cubemap`/
+      `.renderTexture`/... YAML đúng extension qua `DefaultYamlExporter` (metadata đúng, không có pixel)
 - **Ghi chú:** `RenderTexture` (84) **không cần làm gì thêm** — nó là buffer runtime, không có pixel
       data trên đĩa; `.renderTexture` YAML hiện tại **đã là đúng và đủ**
 
-#### 13g — TerrainData
+#### 13g — TerrainData `[~]` — không port (field-name-confidence, cùng rào cản đã tự đặt ra)
 
-- [ ] `export_modules/terrain_exporter.py` — port `Terrains/TerrainYamlExporter.cs` (18 dòng) +
-      `TerrainYamlExportCollection`
-- **Hiện có:** `TerrainData`→`.asset` YAML (upstream cũng dùng `.asset`) — **đã gần đúng**
-- **Thiếu:** `TerrainYamlExportCollection` (xử lý heightmap/alphamap texture kèm theo);
-      `TerrainExportMode.MESH`/`HEATMAP` (enum đã declare ở Phase 10, chưa ai đọc)
-- **Effort/Risk:** thấp-trung bình/thấp cho nhánh YAML; cao cho nhánh Mesh/Heatmap (cần tự sinh mesh)
+- [~] `export_modules/terrain_exporter.py` — port `Terrains/TerrainYamlExporter.cs` (18 dòng) +
+      `TerrainYamlExportCollection` (base class `AssetsExportCollection` đã có sẵn từ Phase 12, tái sử
+      dụng được thật — không phải rào cản). **Rào cản thật:** nhóm heightmap/alphamap texture kèm theo
+      cần field như `m_SplatDatabase.m_AlphaTextures` — `main_asset_processor.py`'s docstring **đã tự
+      từ chối port đúng việc này** (`terrainData.GetSplatAlphaTextures`) với lý do "exact field
+      layouts this port doesn't have confirmed". Đánh giá ban đầu của phiên này (tưởng "tin cậy vừa
+      phải, làm được") đã bị **sửa lại** theo đúng tiền lệ nghiêm ngặt hơn đã có sẵn trong code — không
+      đoán field name mới khi chính port đã từ chối đoán field đó một lần trước rồi
+- **Hiện có:** `TerrainData`→`.asset` YAML (upstream cũng dùng `.asset`) — **đã gần đúng**, không đổi
+- **Thiếu:** grouping heightmap/alphamap — cần field name chưa xác nhận được; `TerrainExportMode.MESH`/
+      `HEATMAP` (enum đã declare ở Phase 10, chưa ai đọc) — cần tự sinh mesh, effort/risk cao hơn nữa
 
-#### 13h — ScriptableObjectProcessor
+#### 13h — ScriptableObjectProcessor ✅ (Commit hash: pending)
 
-- [ ] `processing/scriptable_object/scriptable_object_processor.py` — port (193 dòng): gom
-      `MonoBehaviour` thành group (Timeline asset, PostProcess profile)
-- **Hiện có:** `MonoBehaviour`→`.asset` YAML rời
-- **Thiếu:** gom nhóm → Timeline/PostProcess mở được trong Editor
-- **Effort/Risk:** trung bình/trung bình. Phụ thuộc `IsTimelineAsset()`/`IsPostProcessProfile()` — đọc
-      script class name, port này có `MonoScriptInfo` sẵn nên khả thi
+- [x] `processing/scriptable_object/scriptable_object_group.py` — port `ScriptableObjectGroup.cs`:
+      marker asset gom root (TimelineAsset/PostProcessProfile) + children, `class_id=-1` (không phải
+      ClassID thật) giống hệt Phase 12's `GameObjectHierarchyObject`/`PrefabHierarchyObject` — **đây
+      chính là lý do 13h KHÔNG bị chặn bởi rào cản "dựng asset Unity thật" của 13d/13e/13i**: group
+      không cần field layout Unity thật, chỉ là container gom nhóm nội bộ Python
+- [x] `processing/scriptable_object/scriptable_object_processor.py` — port `ScriptableObjectProcessor.cs`
+      (193 dòng): tìm `TimelineAsset`/`PostProcessProfile` qua `m_Script` PPtr → `MonoScript.m_Namespace`/
+      `m_ClassName` (field chuẩn, cùng độ tin cậy `mono_script_info.py` đã dùng — không đoán mới); dò
+      `m_Tracks`/`m_Parent`/`m_Clips.m_Asset`/`m_Markers.m_Objects`/`m_MarkerTrack` (Timeline) và
+      `settings` (PostProcessProfile) qua truy cập field động (`asset.get(...)`), **tái hiện thuật
+      toán** của upstream (không phải port nguyên văn `LoadStructure()`/`SerializableStructure` —
+      xem docstring module để biết giới hạn thật: chỉ đọc được field khi serialized file có type tree
+      nhúng thật, giống mọi helper động khác trong port này, ví dụ `game_object_helpers.py`)
+- [x] `export_unity_projects/project/scriptable_object_group_export_collection.py` — port
+      `ScriptableObjectGroupExportCollection` (nested class trong `ScriptableObjectGroupExporter.cs`):
+      subclass `AssetsExportCollection` (Phase 12) — root làm asset chính, children làm extra, group
+      marker tự thêm vào `assets` (để `ProjectExporter`'s "đã queued" logic không tạo collection thứ 2
+      cho nó) nhưng **không** vào `exportable_assets` (không bao giờ serialize marker)
+- [x] Đăng ký dispatch: mở rộng `scene_yaml_exporter.py` (đã tồn tại từ Phase 12, dispatch theo
+      `asset.main_asset`'s Python type) thêm nhánh `ScriptableObjectGroup` — gộp 2 exporter class của
+      upstream (`SceneYamlExporter`/`ScriptableObjectGroupExporter`) thành 1 vì port này vốn đã tổng
+      quát hoá cơ chế dispatch-theo-main_asset dùng chung cho cả ba loại marker
+- [x] **Sửa 1 bug thứ tự processor có từ Phase 13c:** `default_processors.py` từng liệt kê
+      `SpriteProcessor` *trước* `PrefabProcessor`, ngược với thứ tự thật của upstream
+      (`ExportHandler.cs` dòng 90-92: `PrefabProcessor` → `SpriteProcessor` → `ScriptableObjectProcessor`).
+      Không có phụ thuộc chức năng thật giữa Sprite/Prefab (2 loại asset khác nhau) nên khả năng cao
+      chưa từng gây lỗi quan sát được, nhưng giờ `ScriptableObjectProcessor` phải chạy sau cùng nên thứ
+      tự đúng mới thành quan trọng — đã sửa lại đúng thứ tự upstream
+- **Test:** 9 test mới — `test_scriptable_object_processor.py` (4: Timeline đầy đủ track/clip/marker/
+      marker-track, PostProcessProfile, track không thuộc root nào bị loại, child share giữa 2 root
+      thành nonunique và bị loại khỏi cả hai) + `test_scriptable_object_export.py` (1, end-to-end: 1
+      file `.playable` duy nhất chứa cả 5 asset thay vì 5 file `.asset` rời)
+- **Effort/Risk thực tế:** đúng như dự đoán ban đầu — trung bình/trung bình
 
-#### 13i — LightingDataProcessor (làm cuối)
+#### 13i — LightingDataProcessor (làm cuối) `[~]` — chặn cứng, không port
 
-- [ ] `processing/lighting_data_processor.py` — port `LightingDataProcessor.cs` (409 dòng)
-- **Hiện có:** `LightingDataAsset`→`.asset` YAML rời
-- **Thiếu:** gắn lightmap/lightprobe vào scene tương ứng
-- **Effort/Risk:** cao/cao — file lớn nhất nhóm này, coupling với scene (Phase 12) và lightmap texture.
-      Giá trị thấp nhất cho phần lớn dự án → để cuối
+- [~] `processing/lighting_data_processor.py` — port `LightingDataProcessor.cs` (409 dòng). **Chặn
+      cứng** bởi `processedCollection.CreateLightingDataAsset()` — cùng lỗ hổng "Rủi ro nền tảng" ở
+      trên, cộng thêm định dạng nhị phân "EnlightenData" riêng chưa từng đọc qua trong phiên này
+- **Hiện có:** `LightingDataAsset`→`.asset` YAML rời — không đổi
+- **Thiếu:** gắn lightmap/lightprobe vào scene tương ứng — cần instance-synthesis layer trước, cộng
+      coupling với scene (Phase 12) và lightmap texture. Giá trị thấp nhất cho phần lớn dự án, đúng
+      như ghi chú "để cuối" ban đầu — giờ có thêm lý do kỹ thuật rõ ràng để không làm, không chỉ ưu
+      tiên thấp
 
-- [ ] Release gate + commit + push (mỗi sub-phase một commit riêng, đừng gộp)
+- [x] Release gate + commit + push (mỗi sub-phase một commit riêng, đừng gộp) — 13h là sub-phase duy
+      nhất trong nhóm 13d-13i thực sự port được; 13d/13e/13f/13g/13i đã đánh giá xong và đánh dấu `[~]`
+      với lý do cụ thể thay vì để `[ ]` treo không rõ trạng thái
 
 ### Phase 14 — Input format còn thiếu (mở khoá WebGL / WebPlayer / pre-5.0) (commit `5cc200a`)
 
