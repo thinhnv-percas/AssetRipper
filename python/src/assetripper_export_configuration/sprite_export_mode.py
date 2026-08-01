@@ -1,7 +1,11 @@
 """Port of Source/AssetRipper.Export/Configuration/SpriteExportMode.cs
 
-Declared for API completeness but not yet consumed anywhere: there is no Sprite exporter
-in this port yet (see python/ROADMAP.md Phase 13)."""
+Consumed since Phase 13b (`assetripper_export_modules.registration`): `YAML` (the default,
+matching upstream) registers `YamlSpriteExporter`. `NATIVE`/`TEXTURE_2D` have no exporter
+ported yet -- no native-image Sprite exporter exists in this port (`texture2d_exporter.py`
+only handles Texture2D) -- so those two modes currently fall through to
+`DefaultYamlExporter`, which happens to produce the same `.asset` YAML as the `YAML` mode
+minus the `SpriteAtlas` skip. See python/ROADMAP.md Phase 13b/13f."""
 from __future__ import annotations
 
 from enum import IntEnum

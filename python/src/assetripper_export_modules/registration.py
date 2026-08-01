@@ -23,6 +23,7 @@ from __future__ import annotations
 
 from assetripper_export_configuration.full_configuration import FullConfiguration
 from assetripper_export_configuration.shader_export_mode import ShaderExportMode
+from assetripper_export_configuration.sprite_export_mode import SpriteExportMode
 from assetripper_export_unity_projects.dummy_asset_exporter import get_dummy_asset_exporter
 from assetripper_export_unity_projects.project.manager_asset_exporter import (
     _GLOBAL_GAME_MANAGER_CLASS_IDS,
@@ -41,6 +42,7 @@ from .scripts.script_exporter import ScriptExporter
 from .shaders.dummy_shader_text_exporter import DummyShaderTextExporter
 from .shaders.simple_shader_exporter import SimpleShaderExporter
 from .shaders.yaml_shader_exporter import YamlShaderExporter
+from .sprite_exporter import SPRITE_ATLAS_CLASS_ID, SPRITE_CLASS_ID, YamlSpriteExporter
 from .text_asset_exporter import TextAssetExporter
 from .texture2d_exporter import Texture2DExporter
 from .video_clip_exporter import VIDEO_CLIP_CLASS_IDS, VideoClipExporter
@@ -83,6 +85,13 @@ def register_default_exporters(project_exporter, settings: "FullConfiguration | 
     video_clip_exporter = VideoClipExporter()
     for class_id in VIDEO_CLIP_CLASS_IDS:  # VideoClip_327, VideoClip_329
         project_exporter.override_exporter_for_class_id(class_id, video_clip_exporter)
+
+    if export_settings.sprite_export_mode == SpriteExportMode.YAML:
+        yaml_sprite_exporter = YamlSpriteExporter()
+        project_exporter.override_exporter_for_class_id(SPRITE_CLASS_ID, yaml_sprite_exporter)
+        project_exporter.override_exporter_for_class_id(SPRITE_ATLAS_CLASS_ID, yaml_sprite_exporter)
+    # NATIVE/TEXTURE_2D: no native-image Sprite exporter ported yet -- falls through to
+    # DefaultYamlExporter (see sprite_export_mode.py's docstring).
 
     # Phase 15: ProjectSettings/*.asset for GlobalGameManager singletons + PlayerSettings.
     manager_exporter = ManagerAssetExporter()
