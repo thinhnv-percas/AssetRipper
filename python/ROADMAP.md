@@ -8,7 +8,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
   lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d; Phase 18's Mesh layout xong.**
-  720 tests pass. Commit cuối: (pending).
+  720 tests pass. Commit cuối: `8d12472`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -188,7 +188,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
-| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong (pending); MonoBehaviour/Shader/BuildSettings còn lại |
+| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong `8d12472`; MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
 
 Số test theo area (tổng 720): `export_modules` 135, `import_` 118, `io_files` 118, `numerics` 64,
@@ -1395,7 +1395,7 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       >20 mat, >5 audio, PNG decode được, mat YAML có field đúng) — khẳng định cải thiện đo được, không
       chỉ "không crash"
 
-#### Mesh (43) — layout thứ 5, cùng ngày, đợt 2 ✅ (pending)
+#### Mesh (43) — layout thứ 5, cùng ngày, đợt 2 ✅ `8d12472`
 
 - [x] `assetripper_import/asset_creation/layouts/mesh.py` — field order lấy từ
       Perfare/AssetStudio's `Mesh.cs` (fetch trực tiếp qua `curl` từ raw.githubusercontent.com —
@@ -1435,7 +1435,7 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       tài liệu công khai tra được (rất cũ, thời Unity 2.x-3.x) không khớp — không đủ tự tin đặt tên
       field, để lại `[~]`. Giá trị thấp (chỉ ảnh hưởng tên file scene fallback, đã graceful từ Phase 18
       bug-fix pass)
-- [x] `Mesh`(43) — ✅ xong (pending), xem mục riêng ngay trên
+- [x] `Mesh`(43) — ✅ xong `8d12472`, xem mục riêng ngay trên
 - [ ] `Shader`(48): quy mô lớn hơn hẳn Mesh (blob bytecode biên dịch riêng từng platform, không phải
       chỉ geometry data) — chưa thử, xem `layouts/__init__.py`'s docstring
 - [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
