@@ -5,7 +5,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a-13b, 16b xong, xem PHẦN B).
-  644 tests pass. Commit cuối: `PHASE13B_HASH`.
+  644 tests pass. Commit cuối: `19e3b0a`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -146,7 +146,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
-| 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a `25d7b0b`, 13b ✅ `PHASE13B_HASH`, còn 13c-13i |
+| 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a `25d7b0b`, 13b ✅ `19e3b0a`, còn 13c-13i |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
@@ -543,7 +543,7 @@ processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới
   `.bytes` khi `m_OriginalPath` không có extension, và không export khi resource không resolve được
 - **Release gate + commit:** xong
 
-#### 13b — Sprite export (không kèm atlas math) ✅ `PHASE13B_HASH`
+#### 13b — Sprite export (không kèm atlas math) ✅ `19e3b0a`
 
 - [x] `export_modules/sprite_exporter.py` — port `Textures/YamlSpriteExporter.cs`: `Sprite` (213) →
       `.asset` YAML; `SpriteAtlas` (687078895) → **skip hẳn** qua `EmptyExportCollection` (đã có sẵn
