@@ -299,3 +299,100 @@ def test_asset_bundle_layout():
     assert structure["m_AssetBundleName"] == "mybundle"
     assert structure["m_Dependencies"] == []
     assert reader.position == len(data)
+
+
+def _empty_packed_float_vector() -> bytes:
+    return struct.pack("<Iff", 0, 0.0, 0.0) + struct.pack("<i", 0) + b"\x00" + b"\x00\x00\x00"
+
+
+def _empty_packed_int_vector() -> bytes:
+    return struct.pack("<I", 0) + struct.pack("<i", 0) + b"\x00" + b"\x00\x00\x00"
+
+
+def test_mesh_layout_minimal():
+    """All optional arrays/sub-structures empty -- see layouts/mesh.py's docstring for what's
+    byte-verified against a real fixture (29 real Meshes; this synthetic payload mirrors that
+    shape, not the real bytes). Uses `UnityVersion(2022, 3, 62)` so the `m_CookingOptions`
+    (2022.1+) branch is exercised too."""
+    data = (
+        unity_string("MyMesh")  # m_Name
+        + struct.pack("<i", 0)  # m_SubMeshes (empty)
+        + struct.pack("<i", 0) * 4  # m_Shapes: vertices/shapes/channels/fullWeights all empty
+        + struct.pack("<i", 0)  # m_BindPose (empty)
+        + struct.pack("<i", 0)  # m_BoneNameHashes (empty)
+        + struct.pack("<I", 0)  # m_RootBoneNameHash
+        + struct.pack("<i", 0)  # m_BonesAABB (empty)
+        + struct.pack("<i", 0)  # m_VariableBoneCountWeights (empty)
+        + b"\x00\x01\x00\x00"  # m_MeshCompression=0, m_IsReadable=1, m_KeepVertices=0, m_KeepIndices=0 + align (no-op)
+        + struct.pack("<i", 0)  # m_IndexFormat
+        + struct.pack("<i", 0)  # m_IndexBuffer (empty)
+        + struct.pack("<I", 4)  # VertexData.m_VertexCount
+        + struct.pack("<i", 0)  # VertexData.m_Channels (empty)
+        + struct.pack("<i", 0)  # VertexData.m_DataSize (empty)
+        # CompressedMesh: 5 PackedFloatVector, then 5 PackedIntVector, then m_UVInfo
+        + _empty_packed_float_vector() * 4  # m_Vertices, m_UV, m_Normals, m_Tangents
+        + _empty_packed_int_vector() * 3  # m_Weights, m_NormalSigns, m_TangentSigns
+        + _empty_packed_float_vector()  # m_FloatColors
+        + _empty_packed_int_vector() * 2  # m_BoneIndices, m_Triangles
+        + struct.pack("<I", 0)  # m_UVInfo
+        + struct.pack("<3f", 0.0, 0.0, 0.0) + struct.pack("<3f", 1.0, 1.0, 1.0)  # m_LocalAABB
+        + struct.pack("<i", 0)  # m_MeshUsageFlags
+        + struct.pack("<i", 30)  # m_CookingOptions (2022.1+)
+        + struct.pack("<i", 0)  # m_BakedConvexCollisionMesh (empty)
+        + struct.pack("<i", 0)  # m_BakedTriangleCollisionMesh (empty)
+        + struct.pack("<2f", 12.5, 1.0)  # m_MeshMetrics
+        + struct.pack("<q", 0) + struct.pack("<I", 0) + struct.pack("<i", 0)  # m_StreamData (offset, size, empty path)
+    )
+    structure, reader = _read_via_registry(43, UnityVersion(2022, 3, 62), data)
+    assert structure["m_Name"] == "MyMesh"
+    assert structure["m_SubMeshes"] == []
+    assert structure["m_VertexData"]["m_VertexCount"] == 4
+    assert structure["m_MeshUsageFlags"] == 0
+    assert reader.position == len(data)
+
+
+def test_mesh_layout_with_a_submesh():
+    """Exercises the one non-trivial repeated struct (`SubMesh`) that real Meshes always have
+    at least one of."""
+    data = (
+        unity_string("MyMesh")
+        + struct.pack("<i", 1)  # m_SubMeshes count
+        + struct.pack("<II", 0, 6)  # firstByte, indexCount
+        + struct.pack("<i", 0)  # topology (Triangles)
+        + struct.pack("<III", 0, 0, 4)  # baseVertex, firstVertex, vertexCount
+        + struct.pack("<3f", 0.0, 0.0, 0.0) + struct.pack("<3f", 1.0, 1.0, 1.0)  # localAABB
+        + struct.pack("<i", 0) * 4  # m_Shapes (empty)
+        + struct.pack("<i", 0)  # m_BindPose (empty)
+        + struct.pack("<i", 0)  # m_BoneNameHashes (empty)
+        + struct.pack("<I", 0)  # m_RootBoneNameHash
+        + struct.pack("<i", 0)  # m_BonesAABB (empty)
+        + struct.pack("<i", 0)  # m_VariableBoneCountWeights (empty)
+        + b"\x00\x00\x00\x00"  # compression/readable/keepverts/keepindices
+        + struct.pack("<i", 0)  # m_IndexFormat
+        + struct.pack("<i", 12) + b"\x00" * 12  # m_IndexBuffer (12 bytes, already aligned)
+        + struct.pack("<I", 4)  # VertexData.m_VertexCount
+        + struct.pack("<i", 0)  # VertexData.m_Channels (empty)
+        + struct.pack("<i", 0)  # VertexData.m_DataSize (empty)
+        + _empty_packed_float_vector() * 4
+        + _empty_packed_int_vector() * 3
+        + _empty_packed_float_vector()
+        + _empty_packed_int_vector() * 2
+        + struct.pack("<I", 0)
+        + struct.pack("<3f", 0.0, 0.0, 0.0) + struct.pack("<3f", 1.0, 1.0, 1.0)
+        + struct.pack("<i", 0)
+        + struct.pack("<i", 30)
+        + struct.pack("<i", 0)
+        + struct.pack("<i", 0)
+        + struct.pack("<2f", 5.0, 1.0)
+        + struct.pack("<q", 0) + struct.pack("<I", 0) + struct.pack("<i", 0)
+    )
+    structure, reader = _read_via_registry(43, UnityVersion(2022, 3, 62), data)
+    submeshes = structure["m_SubMeshes"]
+    assert len(submeshes) == 1
+    assert submeshes[0]["indexCount"] == 6
+    assert submeshes[0]["vertexCount"] == 4
+    assert reader.position == len(data)
+
+
+def test_mesh_layout_is_not_registered_before_2019_1():
+    assert default_registry().get(43, UnityVersion(2018, 4, 0)) is None

@@ -7,8 +7,8 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
-  lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d.** 716 tests pass.
-  Commit cuối: `1e64fd3`.
+  lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d; Phase 18's Mesh layout xong.**
+  720 tests pass. Commit cuối: (pending).
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -188,12 +188,12 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
-| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
+| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong (pending); MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
 
-Số test theo area (tổng 716): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
+Số test theo area (tổng 720): `export_modules` 135, `import_` 118, `io_files` 118, `numerics` 64,
 `assets` 48, `export_unity_projects` 60, `gui_web` 71, `io_files_bundle` 29, `processing` 34,
-`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 4 (skip nếu chưa
+`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 5 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
 ---
@@ -1347,8 +1347,8 @@ pipeline có thật sự chạy được trên game thật không.
       (module này đã port sẵn từ Phase 1-3, hoá ra đã đúng, không phải sửa — chỉ verify lần đầu
       bằng file thật)
 
-#### Gap nghiêm trọng nhất: build thật (release) không có type tree ⚠️ `d9494ec` — **4/7 class đã có
-     layout, byte-verified bằng chính fixture thật; MonoBehaviour/Mesh/Shader/BuildSettings còn lại**
+#### Gap nghiêm trọng nhất: build thật (release) không có type tree ⚠️ `d9494ec` — **5/7 class đã có
+     layout, byte-verified bằng chính fixture thật; MonoBehaviour/Shader/BuildSettings còn lại**
 
 Sau khi sửa 3 bug trên, pipeline chạy hết không crash và export ra project — nhưng kiểm tra nội dung
 thật thì phát hiện: **Texture2D (111 asset), Sprite (39), Material (58), Shader (68), Mesh (29),
@@ -1395,6 +1395,36 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       >20 mat, >5 audio, PNG decode được, mat YAML có field đúng) — khẳng định cải thiện đo được, không
       chỉ "không crash"
 
+#### Mesh (43) — layout thứ 5, cùng ngày, đợt 2 ✅ (pending)
+
+- [x] `assetripper_import/asset_creation/layouts/mesh.py` — field order lấy từ
+      Perfare/AssetStudio's `Mesh.cs` (fetch trực tiếp qua `curl` từ raw.githubusercontent.com —
+      WebFetch's summarizer từ chối reproduce nguyên văn vì lo ngại bản quyền, nhưng `curl` qua Bash
+      tool lấy được y nguyên; **đọc trực tiếp bằng Read tool, không qua model tóm tắt trung gian**,
+      để tránh sai lệch do việc tóm tắt gây ra) + `AnimationClip.cs` (nơi `PackedFloatVector`/
+      `PackedIntVector` được định nghĩa — dùng chung bởi `CompressedMesh`, đặt tên hơi lạ nhưng xác
+      nhận đúng qua chính source)
+- [x] **Quy trình verify khác một bậc so với 4 layout trước:** vì Mesh có quá nhiều field/version-gate
+      (BlendShapeData, VertexData, CompressedMesh, nhiều mảng lồng nhau), **viết script Python dò byte
+      thủ công trước** (không qua DSL) để trace từng field một qua tất cả 29 sample Mesh thật trong
+      `demo-android.apk`, xác nhận consume **đúng 100% byte count** cho cả 29/29 trước khi encode vào
+      DSL — rồi verify lại lần hai qua `GameAssetFactory.read_asset` thật (đúng quy trình đã dùng cho
+      Texture2D/AudioClip/Sprite/Material, chỉ thêm một bước dò tay ở giữa vì độ phức tạp cao hơn hẳn)
+- [x] Scoped `min_version=2019.1.0` (nơi `m_BonesAABB`/`m_VariableBoneCountWeights` xuất hiện — không
+      model version cũ hơn, đúng "modern era only" như các layout khác); `m_CookingOptions` (2022.1+)
+      là field duy nhất trong khoảng hỗ trợ còn có version gate runtime
+- [x] **Kết quả thật trên `demo-android.apk`:** trước — 0 file `.glb`. Sau — **29 `.glb`** (100% số
+      Mesh trong fixture), mỗi file được xác nhận là glTF 2.0 binary hợp lệ thật (magic `glTF`, length
+      khớp file size, JSON chunk parse được, có `POSITION`/`NORMAL`/`TEXCOORD_0` accessor thật) — không
+      chỉ "có file .glb" mà còn "file .glb đó dùng được"
+- [~] **Không verify được cho trường hợp không rỗng, ghi rõ trong module:** `m_Shapes` (BlendShapeData
+      — không Mesh nào trong fixture có blend shape) và `m_CompressedMesh` (mọi sample đều
+      `m_MeshCompression=0`, tức không nén — bản thân `mesh_data.py` cũng đã tự khai từ trước là
+      "declined" cho case nén, nên gap này không thêm rủi ro thực tế nào ngoài phần đã biết)
+- **Test:** 3 test mới trong `test_layouts.py` (synthetic minimal + 1 SubMesh + not-registered-before-
+      2019.1) + `test_demo_android_apk.py::test_real_meshes_are_actually_exported` (assert thật: ≥25
+      `.glb`, 1 file decode được qua parser glTF thủ công, có mesh + accessor `POSITION` thật)
+
 **Còn lại, chưa làm:**
 - [ ] `MonoBehaviour`(114): field thật tuỳ theo **script gắn vào nó** (không có layout cố định) — cần
       Phase 16's script-metadata recovery (biết field layout từ IL2CPP/Mono) TRƯỚC KHI viết được layout
@@ -1405,8 +1435,9 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       tài liệu công khai tra được (rất cũ, thời Unity 2.x-3.x) không khớp — không đủ tự tin đặt tên
       field, để lại `[~]`. Giá trị thấp (chỉ ảnh hưởng tên file scene fallback, đã graceful từ Phase 18
       bug-fix pass)
-- [ ] `Mesh`(43), `Shader`(48): quy mô lớn hơn hẳn (Shader đặc biệt — blob bytecode biên dịch riêng
-      từng platform) — chưa thử, xem `layouts/__init__.py`'s docstring
+- [x] `Mesh`(43) — ✅ xong (pending), xem mục riêng ngay trên
+- [ ] `Shader`(48): quy mô lớn hơn hẳn Mesh (blob bytecode biên dịch riêng từng platform, không phải
+      chỉ geometry data) — chưa thử, xem `layouts/__init__.py`'s docstring
 - [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
       skip) một khi kích thước/Git LFS được chấp nhận là chi phí xứng đáng
 

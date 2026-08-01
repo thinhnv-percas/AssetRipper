@@ -43,6 +43,7 @@ def _build_default_registry() -> LayoutRegistry:
         audio_clip,
         game_object,
         material,
+        mesh,
         mono_script,
         sprite,
         text_asset,
@@ -60,6 +61,7 @@ def _build_default_registry() -> LayoutRegistry:
     audio_clip.register(registry)
     sprite.register(registry)
     material.register(registry)
+    mesh.register(registry)
     return registry
 
 

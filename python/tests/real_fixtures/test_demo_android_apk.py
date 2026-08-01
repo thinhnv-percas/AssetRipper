@@ -36,6 +36,12 @@ would have caught the real bug the user hit ("the GUI tool still doesn't work wi
 input"), which was purely in the GUI's own route wiring (`/LoadFile` calling the wrong loader),
 not the engine. `test_real_android_apk_loads_through_the_gui` closes that coverage gap by
 driving the real Flask app's test client instead.
+
+**Phase 18, Mesh (2026-08-01):** `Mesh` now has a hand-written layout too (see
+`assetripper_import/asset_creation/layouts/mesh.py`), byte-verified against all 29 Meshes in
+this exact fixture the same way as Texture2D/AudioClip/Sprite/Material --
+`test_real_meshes_are_actually_exported` asserts the concrete improvement (0 -> 29 real `.glb`
+files, each a valid glTF 2.0 binary with real POSITION/NORMAL/TEXCOORD_0 accessors).
 """
 from __future__ import annotations
 
@@ -98,6 +104,32 @@ def test_real_content_is_actually_exported(tmp_path):
     mat_text = mat_files[0].read_text(encoding="utf-8")
     assert "m_Shader:" in mat_text
     assert "m_SavedProperties:" in mat_text
+
+
+def test_real_meshes_are_actually_exported(tmp_path):
+    """Phase 18's Mesh gap, closed: before `layouts/mesh.py` existed, every Mesh in this build
+    read back as a content-less UnknownObject (no `.glb` ever got produced). Asserts the
+    concrete improvement, and that the output is a real, structurally valid glTF binary, not
+    just "a file with a .glb extension"."""
+    import json
+    import struct as struct_module
+
+    handler = ExportHandler()
+    game_data = handler.load_and_process([str(_APK_PATH)], FS, settings=None)
+    handler.export(game_data, str(tmp_path), FS, settings=None)
+
+    glb_files = list(tmp_path.rglob("*.glb"))
+    assert len(glb_files) >= 25, f"expected ~29 real meshes, got {len(glb_files)}"
+
+    data = glb_files[0].read_bytes()
+    magic, version, length = struct_module.unpack_from("<4sII", data, 0)
+    assert magic == b"glTF"
+    assert length == len(data)
+    chunk_len, _chunk_type = struct_module.unpack_from("<II", data, 12)
+    document = json.loads(data[20:20 + chunk_len])
+    assert document["meshes"], "expected at least one glTF mesh in the document"
+    attributes = document["meshes"][0]["primitives"][0]["attributes"]
+    assert "POSITION" in attributes
 
 
 def test_real_android_apk_split_asset_files_are_reassembled(tmp_path):
