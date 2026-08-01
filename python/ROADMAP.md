@@ -7,7 +7,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
-  lại; Phase 19 là bug thật user đang gặp, chưa sửa.** 705 tests pass. Commit cuối: (pending).
+  lại; Phase 19 là bug thật user đang gặp, chưa sửa.** 705 tests pass. Commit cuối: `0cb790e`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -185,7 +185,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e (pending) — 1 test GUI-mức-thật dời lại, xem chi tiết |
+| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
@@ -1186,7 +1186,7 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
       GUI state để test hay dùng lại (CLI có thể gọi thẳng nếu cần sau này)
 - **Phụ thuộc:** 17a
 
-#### 17c — Endpoint + UI: cây file sẽ-được-export, xem được asset **và** code ✅ (pending)
+#### 17c — Endpoint + UI: cây file sẽ-được-export, xem được asset **và** code ✅ `0cb790e`
 
 - [x] `routes/projects.py` đọc `game_file_loader.get_export_plan()` (17b) thay vì `os.listdir` trên
       thư mục thật. **Giữ nguyên shape URL** (`/Project`, `/Project/Browse?path=`, `/Project/File?path=`,
@@ -1231,7 +1231,7 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
       từ chối — xem chi tiết trong lịch sử phiên làm việc
 - **Phụ thuộc:** 17b
 
-#### 17d — Bỏ (hạ xuống phụ) phần browse input bundle ✅ (pending)
+#### 17d — Bỏ (hạ xuống phụ) phần browse input bundle ✅ `0cb790e`
 
 User đã chốt: *"bỏ phần view loaded bundle cũng được"*.
 
@@ -1250,7 +1250,7 @@ User đã chốt: *"bỏ phần view loaded bundle cũng được"*.
       "loaded but empty" bug thuộc Phase 19, không lặp lại ở đây
 - **Phụ thuộc:** 17c (bỏ sau khi đã có cái thay thế — có rồi, xong)
 
-#### 17e — Test + release gate ✅ (pending)
+#### 17e — Test + release gate ✅ `0cb790e`
 
 - [x] `tests/gui_web/test_project_browse.py` — **viết lại hoàn toàn** phần lấy dữ liệu (16 test, từ
       11 test cũ): giữ lại đúng như dự định 2 test path-traversal (đổi tên rõ "on_disk_source"), test
