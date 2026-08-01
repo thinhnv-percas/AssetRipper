@@ -7,7 +7,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới); Phase 19 là bug thật user đang gặp.**
-  684 tests pass. Commit cuối: (pending, xem Phase 18).
+  684 tests pass. Commit cuối: `d9494ec`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -185,7 +185,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🔴 **Viết lại** — bản `37db9bf` sai mục tiêu ("browse project đã export"). Plan mới đã có, chưa implement. Cần `VirtualFileSystem` |
-| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong (pending hash); MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
+| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
 Số test theo area (tổng 684): `export_modules` 135, `import_` 115, `io_files` 105, `numerics` 64,
@@ -1276,7 +1276,7 @@ pipeline có thật sự chạy được trên game thật không.
       (module này đã port sẵn từ Phase 1-3, hoá ra đã đúng, không phải sửa — chỉ verify lần đầu
       bằng file thật)
 
-#### Gap nghiêm trọng nhất: build thật (release) không có type tree ⚠️ `(pending)` — **4/7 class đã có
+#### Gap nghiêm trọng nhất: build thật (release) không có type tree ⚠️ `d9494ec` — **4/7 class đã có
      layout, byte-verified bằng chính fixture thật; MonoBehaviour/Mesh/Shader/BuildSettings còn lại**
 
 Sau khi sửa 3 bug trên, pipeline chạy hết không crash và export ra project — nhưng kiểm tra nội dung
@@ -1292,7 +1292,7 @@ ghi chú cảnh báo — giờ đã biết chính xác nó tệ tới mức nào
 làm đúng, nhưng vô dụng nếu Texture2D không có field `m_Width`/`m_TextureFormat`/`m_StreamData` để
 đọc trước — hai lớp vấn đề độc lập, và lớp "đọc field" mới là lớp chặn thật trên build release.
 
-**Đã làm (commit: pending) — 4 hand-written layout mới, `assetripper_import/asset_creation/
+**Đã làm (commit `d9494ec`) — 4 hand-written layout mới, `assetripper_import/asset_creation/
 layouts/{texture2d,audio_clip,sprite,material}.py`:**
 
 - [x] **`Texture2D`(28)**, **`AudioClip`(83)**, **`Sprite`(213)**, **`Material`(21)** — field order lấy
