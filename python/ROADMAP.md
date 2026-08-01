@@ -7,16 +7,16 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới); Phase 19 là bug thật user đang gặp.**
-  675 tests pass. Commit cuối: (pending, xem Phase 17/19).
-- 🔴 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), và phát hiện quan trọng nhất từ trước giờ —
-  xem Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
-  Chạy full pipeline lên file android thật phát hiện: (1) 3 bug crash thật (đã sửa, xem Phase 18), và
-  (2) **gap nghiêm trọng nhất project từng có**: build thật (release, không phải Editor) **không có
-  type tree nhúng**, và port này **chỉ có hand-written layout cho GameObject/Transform/AssetBundle/
-  MonoScript/TextAsset** (Phase 2) — nghĩa là Texture2D/Sprite/Material/Shader/Mesh/AudioClip/
-  MonoBehaviour **đều đọc ra rỗng** (`UnknownObject`, không field nào) trên build thật, dù pipeline
-  không crash. Toàn bộ rủi ro "chưa test trên game thật" mọi phase trước đây tự cảnh báo **đã xảy ra
-  đúng như lo ngại**. Xem Phase 18 để biết quy mô sửa thật sự cần.
+  684 tests pass. Commit cuối: (pending, xem Phase 18).
+- 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
+  Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
+  Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
+  từng có**: build release **không có type tree nhúng**, và port này ban đầu **chỉ có hand-written
+  layout cho 5 class** (Phase 2) — Texture2D/Sprite/Material/AudioClip/MonoBehaviour đọc ra rỗng
+  (`UnknownObject`) dù pipeline không crash. **Cập nhật: 4/7 class ưu tiên đã có layout, byte-verified
+  bằng chính fixture thật** (Texture2D/AudioClip/Sprite/Material) — export thật trên
+  `demo-android.apk` giờ ra **105 PNG + 58 material + 11 audio thật** thay vì 0. MonoBehaviour (cần
+  Phase 16 trước)/Mesh/Shader/BuildSettings còn lại. Xem Phase 18 chi tiết.
 - 🔴 **Phase 17 đã làm SAI MỤC TIÊU (commit `37db9bf`) — đã viết lại plan, chưa implement lại.**
   Bản cũ hiểu là "browse project **đã export xong**" (phải bấm Export ra thư mục trước). Mục tiêu thật
   user chốt lại: **xem trước những file SẼ được export** — asset **và** code `.cs` — **ngay sau khi
@@ -185,12 +185,12 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🔴 **Viết lại** — bản `37db9bf` sai mục tiêu ("browse project đã export"). Plan mới đã có, chưa implement. Cần `VirtualFileSystem` |
-| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🔴 3 bug đã sửa `0e4c206`; gap chính (hand-written layout cho common class) **chưa làm**, xem chi tiết |
+| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong (pending hash); MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
-Số test theo area (tổng 675): `export_modules` 135, `import_` 107, `io_files` 105, `numerics` 64,
+Số test theo area (tổng 684): `export_modules` 135, `import_` 115, `io_files` 105, `numerics` 64,
 `assets` 48, `export_unity_projects` 60, `gui_web` 53, `io_files_bundle` 29, `processing` 34,
-`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 2 (skip nếu chưa
+`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 3 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
 ---
@@ -1276,8 +1276,8 @@ pipeline có thật sự chạy được trên game thật không.
       (module này đã port sẵn từ Phase 1-3, hoá ra đã đúng, không phải sửa — chỉ verify lần đầu
       bằng file thật)
 
-#### Gap nghiêm trọng nhất: build thật (release) không có type tree, và port này gần như không có
-     hand-written layout nào ngoài Phase 2's 5 class ⬜ — **chưa làm, cần quyết định ưu tiên**
+#### Gap nghiêm trọng nhất: build thật (release) không có type tree ⚠️ `(pending)` — **4/7 class đã có
+     layout, byte-verified bằng chính fixture thật; MonoBehaviour/Mesh/Shader/BuildSettings còn lại**
 
 Sau khi sửa 3 bug trên, pipeline chạy hết không crash và export ra project — nhưng kiểm tra nội dung
 thật thì phát hiện: **Texture2D (111 asset), Sprite (39), Material (58), Shader (68), Mesh (29),
@@ -1285,31 +1285,57 @@ AudioClip (11), MonoBehaviour (496), AnimationClip, AnimatorController, ComputeS
 gần như *mọi* class ngoài GameObject/Transform/PrefabInstance/MonoScript — đều đọc ra
 `UnknownObject` rỗng trên file `sharedassets0.assets`/`sharedassets1.assets` này, dù các file đó
 **có load được** (884 + 322 object). Lý do: `has_type_tree=False` trên build release thật (bình
-thường, không phải lỗi build), và Phase 2's hand-written layout **chỉ phủ 5 class**
-(`GameObject`/`Transform`/`AssetBundle`/`MonoScript`/`TextAsset` — xem
-`assetripper_import/asset_creation/layouts/`). Kết quả thực tế trên `demo-android.apk`: `.prefab`
-export được (vì dùng GameObject/Transform/PrefabInstance, có layout), nhưng **không một file
-`.png`/`.mat`/`.shader`/`.wav`/mesh nào được tạo ra** — toàn bộ nội dung hình ảnh/âm thanh/vật liệu
-của game bị mất trắng.
+thường, không phải lỗi build), và Phase 2's hand-written layout **chỉ phủ 5 class**.
 
 **Đây chính là rủi ro "chưa test trên game thật" mà hầu như mọi phase trước (Phase 6, 9, 13, ...) tự
 ghi chú cảnh báo — giờ đã biết chính xác nó tệ tới mức nào.** Phase 9 (`.resS` streamed data) tự nó
 làm đúng, nhưng vô dụng nếu Texture2D không có field `m_Width`/`m_TextureFormat`/`m_StreamData` để
 đọc trước — hai lớp vấn đề độc lập, và lớp "đọc field" mới là lớp chặn thật trên build release.
 
-**Việc cần làm (chưa bắt đầu — quy mô lớn hơn một sub-phase, cần quyết định ưu tiên với user trước
-khi làm):**
-- [ ] Hand-written layout (kiểu Phase 2) cho tối thiểu: `Texture2D`(28), `Sprite`(213),
-      `Material`(21), `Shader`(48), `Mesh`(43), `AudioClip`(83), `BuildSettings`(141) — 7 class phổ
-      biến nhất, đều có field layout **đã biết công khai rộng rãi** (chính port này, upstream, và mọi
-      tool AssetRipper-adjacent khác đều đã document field name/thứ tự) nên rủi ro "đoán sai field"
-      thấp hơn hẳn so với các gap `[~]` khác trong ROADMAP này (VD 13g/13f) — khác ở chỗ đây không
-      phải struct lồng nhau mơ hồ, mà là struct top-level đã ổn định 10+ năm
-- [ ] `MonoBehaviour`(114) khó hơn: field thật tuỳ theo **script gắn vào nó** (không có layout cố
-      định) — cần Phase 16's script-metadata recovery (biết field layout từ IL2CPP/Mono) TRƯỚC KHI
-      viết được layout tổng quát cho nó. Không tách rời được khỏi Phase 16
-- [ ] Sau khi có layout, chạy lại `demo-android.apk` để verify thật: có ra `.png`/`.wav`/mesh không,
-      so khớp field value với `assets/bin/Data/...` decode thủ công nếu cần
+**Đã làm (commit: pending) — 4 hand-written layout mới, `assetripper_import/asset_creation/
+layouts/{texture2d,audio_clip,sprite,material}.py`:**
+
+- [x] **`Texture2D`(28)**, **`AudioClip`(83)**, **`Sprite`(213)**, **`Material`(21)** — field order lấy
+      từ Perfare/AssetStudio (`Texture2D.cs`/`AudioClip.cs`/`Sprite.cs`/`Material.cs`, tool tham chiếu
+      lâu đời, được cộng đồng dùng rộng rãi), **rồi verify byte-chính-xác bằng cách đọc thật từng byte
+      của `demo-android.apk`** — không chỉ tin tài liệu công khai suông. Cách làm: dựng layout ứng
+      viên, chạy `GameAssetFactory.read_asset` thật (không phải parser tay) lên **toàn bộ 8 sample**
+      mỗi loại tìm được trong file thật, chỉnh tới khi `SerializableStructure.try_read` tiêu thụ
+      **đúng số byte** với giá trị hợp lý (VD Texture2D "EmojiOne" 512x512 mip_count=10 khớp
+      log2(512)+1; AudioClip offset/size của 8 sample nối liền nhau khớp hệt cấu trúc file
+      `.resource` đóng gói tuần tự; Sprite path_id của `RD.texture` trỏ đúng vào các Texture2D liền kề;
+      Material "TextMeshPro/Sprite" ra đúng property `_ColorMask`/`_Stencil*`/`_ClipRect`/`_Color`)
+- [x] **Phát hiện + sửa một chi tiết format Unity 2022.2+ chưa document rõ ở đâu công khai lúc tra
+      cứu:** `Texture2D.m_IgnoreMasterTextureLimit` (bool) bị **thay thế** bởi `m_IgnoreMipmapLimit`
+      (bool) + `m_MipmapLimitGroupName` (string) kể từ Unity 2022.2 (tính năng Mipmap Limit Groups) —
+      chỉ tìm ra được nhờ so khớp byte thật, không tài liệu công khai nào tra được liệt kê rõ field
+      này thay thế field cũ ở vị trí nào
+- [x] **Kết quả thật trên `demo-android.apk`:** trước khi có layout — 0 file `.png`/`.mat`/`.fsb`.
+      Sau: **105 `.png`** (ảnh thật, decode được, kích thước hợp lý: 256x256, 1024x1024, 2x2, 24x1920
+      loading-bar…), **58 `.mat`** (YAML material thật với property đúng), **11 `.fsb`** (audio thật,
+      offset/size khớp file resource gốc)
+- [~] **Không port đầy đủ, ghi rõ trong từng module:** Sprite's `secondaryTextures`/`m_Bones` và
+      Material's `m_BuildTextureStacks` — mọi sample thật đều rỗng (count=0) nên phần tử bên trong các
+      mảng này **chưa verify được** cho trường hợp không rỗng; đoán tốt nhất theo public API, tài liệu
+      rõ trong docstring từng module. Một Sprite/Material thật dùng các tính năng hiếm này (2D Sprite
+      Skin, texture stacks) có thể đọc lỗi (`UnreadableObject`, an toàn) thay vì sai âm thầm
+- **Test:** 8 test mới trong `test_layouts.py` (synthetic, không cần Git LFS) + mở rộng
+      `test_demo_android_apk.py` với `test_real_content_is_actually_exported` (assert thật: >50 PNG,
+      >20 mat, >5 audio, PNG decode được, mat YAML có field đúng) — khẳng định cải thiện đo được, không
+      chỉ "không crash"
+
+**Còn lại, chưa làm:**
+- [ ] `MonoBehaviour`(114): field thật tuỳ theo **script gắn vào nó** (không có layout cố định) — cần
+      Phase 16's script-metadata recovery (biết field layout từ IL2CPP/Mono) TRƯỚC KHI viết được layout
+      tổng quát cho nó. Không tách rời được khỏi Phase 16. Đây là gap ảnh hưởng nhiều asset nhất còn
+      lại (496 MonoBehaviour trong fixture) nhưng bản chất khác hẳn 4 class trên (không thể "chỉ viết
+      thêm 1 layout")
+- [ ] `BuildSettings`(141): byte thật cho thấy ~28 byte flag giữa `m_Scenes` và version string mà
+      tài liệu công khai tra được (rất cũ, thời Unity 2.x-3.x) không khớp — không đủ tự tin đặt tên
+      field, để lại `[~]`. Giá trị thấp (chỉ ảnh hưởng tên file scene fallback, đã graceful từ Phase 18
+      bug-fix pass)
+- [ ] `Mesh`(43), `Shader`(48): quy mô lớn hơn hẳn (Shader đặc biệt — blob bytecode biên dịch riêng
+      từng platform) — chưa thử, xem `layouts/__init__.py`'s docstring
 - [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
       skip) một khi kích thước/Git LFS được chấp nhận là chi phí xứng đáng
 

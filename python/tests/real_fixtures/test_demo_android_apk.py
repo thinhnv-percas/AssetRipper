@@ -16,14 +16,20 @@ detail here, see their own module docstrings/tests):**
   common shape for a release player build) -- fixed, see test_scene_helpers.py.
 - `RawDataObject` (`UnknownObject`/`UnreadableObject`) had no `.get`/`.items`/`__contains__`,
   so literally every processor/exporter calling `asset.get(...)` on an asset with an
-  unresolved layout crashed -- fixed, see test_raw_data_object.py. This is the single biggest
-  finding: on this real build, common classes like Texture2D/Sprite/Material/Shader/Mesh/
-  AudioClip/MonoBehaviour have **no** embedded type tree and **no** Phase 2 hand-written
-  layout, so they all come through as content-less UnknownObject. Tracked as a major,
-  not-yet-closed gap in python/ROADMAP.md -- this test only asserts the pipeline survives
-  that gracefully, not that those asset types export real content yet.
+  unresolved layout crashed -- fixed, see test_raw_data_object.py.
 - `sprite_coordinates.py` raised `ZeroDivisionError` for a degenerate (unreadable) Sprite's
   zero-size rect -- fixed, see test_sprite_coordinates.py.
+
+**Phase 18's main gap (2026-08-01):** this build has no embedded type trees anywhere, and this
+port originally only had hand-written layouts for 5 classes (GameObject/Transform/
+AssetBundle/MonoScript/TextAsset), so Texture2D/Sprite/Material/AudioClip all came through as
+content-less `UnknownObject` -- no crash, but no `.png`/`.mat`/`.fsb` file ever got produced.
+Texture2D/AudioClip/Sprite/Material now have hand-written layouts too (see
+assetripper_import/asset_creation/layouts/{texture2d,audio_clip,sprite,material}.py, each
+byte-verified against every sample of that type in *this exact fixture*) --
+`test_real_content_is_actually_exported` below asserts the concrete, measurable improvement:
+real PNG/mat/fsb files exist in the export output, not just "didn't crash". MonoBehaviour/
+Mesh/Shader/BuildSettings remain unmodeled -- see python/ROADMAP.md Phase 18.
 """
 from __future__ import annotations
 
@@ -59,6 +65,33 @@ def test_real_android_apk_loads_processes_and_exports_without_crashing(tmp_path)
     assert any(p.is_file() for p in all_files)
     assert (tmp_path / "ProjectSettings" / "ProjectVersion.txt").exists()
     assert list(tmp_path.rglob("*.prefab")), "expected at least one grouped .prefab file"
+
+
+def test_real_content_is_actually_exported(tmp_path):
+    """Phase 18's main gap, closed: before the Texture2D/AudioClip/Sprite/Material
+    hand-written layouts existed, this same export produced zero PNG/mat/audio files (every
+    one of those classes read back as content-less UnknownObject on this build). Asserts the
+    concrete improvement, not just "the pipeline doesn't crash"."""
+    from PIL import Image
+
+    handler = ExportHandler()
+    game_data = handler.load_and_process([str(_APK_PATH)], FS, settings=None)
+    handler.export(game_data, str(tmp_path), FS, settings=None)
+
+    png_files = list(tmp_path.rglob("*.png"))
+    mat_files = list(tmp_path.rglob("*.mat"))
+    audio_files = list(tmp_path.rglob("*.fsb"))
+    assert len(png_files) > 50, f"expected many real textures, got {len(png_files)}"
+    assert len(mat_files) > 20, f"expected many real materials, got {len(mat_files)}"
+    assert len(audio_files) > 5, f"expected several real audio clips, got {len(audio_files)}"
+
+    # Spot-check one PNG actually decodes as a real image, not a stub/placeholder.
+    image = Image.open(png_files[0])
+    assert image.size[0] > 0 and image.size[1] > 0
+
+    mat_text = mat_files[0].read_text(encoding="utf-8")
+    assert "m_Shader:" in mat_text
+    assert "m_SavedProperties:" in mat_text
 
 
 def test_real_android_apk_split_asset_files_are_reassembled(tmp_path):

@@ -38,7 +38,17 @@ class LayoutRegistry:
 
 
 def _build_default_registry() -> LayoutRegistry:
-    from . import asset_bundle, game_object, mono_script, text_asset, transform
+    from . import (
+        asset_bundle,
+        audio_clip,
+        game_object,
+        material,
+        mono_script,
+        sprite,
+        text_asset,
+        texture2d,
+        transform,
+    )
 
     registry = LayoutRegistry()
     game_object.register(registry)
@@ -46,6 +56,10 @@ def _build_default_registry() -> LayoutRegistry:
     text_asset.register(registry)
     mono_script.register(registry)
     asset_bundle.register(registry)
+    texture2d.register(registry)
+    audio_clip.register(registry)
+    sprite.register(registry)
+    material.register(registry)
     return registry
 
 
