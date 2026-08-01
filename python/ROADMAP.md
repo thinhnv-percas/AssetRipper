@@ -7,7 +7,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới) — 17a xong; Phase 19 là bug thật user
-  đang gặp.** 700 tests pass. Commit cuối: (pending).
+  đang gặp.** 700 tests pass. Commit cuối: `58a4f76`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -184,7 +184,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ `a71bef0`, 17b ✅ (pending). 17c-17e chưa làm |
+| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ `a71bef0`, 17b ✅ `58a4f76`. 17c-17e chưa làm |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
@@ -1161,7 +1161,7 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
       để port sát, không phải tự thiết kế từ đầu
 - **Phụ thuộc:** không
 
-#### 17b — `ExportPlan`: chạy export thật vào RAM, lấy ra cây "sẽ được export" ✅ (pending)
+#### 17b — `ExportPlan`: chạy export thật vào RAM, lấy ra cây "sẽ được export" ✅ `58a4f76`
 
 - [x] `assetripper_gui_web/export_plan.py` — `build_export_plan(game_data, settings=None) -> ExportPlan`.
       **Khác kế hoạch gốc một chỗ, có chủ đích:** không tự giữ index `path -> node` riêng —
