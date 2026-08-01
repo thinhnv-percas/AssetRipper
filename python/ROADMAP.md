@@ -27,16 +27,26 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   vì YAML rỗng. `EditorBuildSettingsExportCollection` và `EngineAssets` vẫn `[~]` — xem Phase 15.
 - **Phase 14 xong**: `scheme_reader.py` giờ đọc được GZip/Brotli-wrapped WebGL `.data`, WebFile
   container (`UnityWebData1.0`), bundle `UnityRaw`/`UnityWeb` (pre-Unity-5.0/WebPlayer), và Zstd-nén
-  storage block — input coverage giờ khớp bảng "Mục tiêu & Scope" (mọi hàng ✅ trừ 2 hàng ngoài scope
-  vĩnh viễn: Unreal Engine, WebGL theo URL). 2 dependency mới: `brotli`, `zstandard`.
-- **Phase 13a xong** (VideoClip, xem PHẦN B): dùng lại `streamed_resource.py` (Phase 9). Đang tiếp tục
-  13b (Sprite export) → 13i, mỗi sub-phase một commit riêng.
+  storage block — input coverage giờ khớp bảng "Mục tiêu & Scope" (mọi hàng ✅ trừ WebGL-theo-URL,
+  hàng duy nhất còn ngoài scope). 2 dependency mới: `brotli`, `zstandard`.
+- **Phase 13a xong** (VideoClip, xem PHẦN B): dùng lại `streamed_resource.py` (Phase 9). Còn 13b
+  (Sprite export) → 13i, mỗi sub-phase một commit riêng.
+- 🆕 **Phase 16 — dựng lại `.cs` từ IL2CPP / Mono** đã có plan đầy đủ (16a-16g, xem PHẦN B). Thay thế
+  3 hàng trước đây nằm trong "Ngoài scope vĩnh viễn". **Trần của việc này là declaration thật + method
+  body rỗng** — không phải logic game chạy được; upstream và mọi tool trên thị trường cũng chỉ tới đó
+  (có evidence trong phase). Khuyến nghị dừng ở mốc `16c-alt`: cho toàn bộ kết quả với ~15% effort,
+  đổi lại user tự chạy Il2CppDumper ở ngoài.
 
 ---
 
 ## Mục tiêu & Scope input/output
 
-**Mục tiêu:** input = Unity build → output = Unity project (C#) mở được bằng Unity Editor.
+**Mục tiêu:** input = **Unity** build → output = Unity project (C#) mở được bằng Unity Editor.
+
+**Chỉ Unity — engine khác không nằm trong scope và không được tracking ở file này.** AssetRipper
+upstream là tool Unity-only (README: *"a powerful tool for analyzing **Unity** game files"*, hỗ trợ
+Unity `3.5.0`–`6000.5.X`); không có dòng C# nào trong 53 project để port cho engine khác, và output
+cũng sẽ không phải Unity project — đó sẽ là một tool khác, không phải port này.
 
 ### Input format — trạng thái thật
 
@@ -52,7 +62,8 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 | **WebPlayer bundle** (`UnityWeb`, `UnityRaw` pre-5.0) | ✅ | ✅ | Phase 14 — `BundleFiles/RawWeb` đã port |
 | Game **pre-Unity-5.0** nói chung | ✅ | ✅ | Phase 14 — cùng format trên (`UnityRaw`/`UnityWeb` bundle) |
 | Unity WebGL game **theo URL** | ❌ | ❌ | **Upstream cũng không có.** Không có `HttpClient`/`WebRequest` nào trong `AssetRipper.Import` hay `GUI.Web/Pages/Commands.cs` — chỉ `LoadFile`/`LoadFolder` từ path local. Muốn có thì phải tự viết downloader (tải `.data`/`.wasm` từ URL về temp dir rồi load như WebGL build) — **feature mới, không phải port** |
-| **Unreal Engine** (game directory, `.uasset`, `.pak`) | ❌ | ❌ | **Ngoài scope vĩnh viễn** — `grep -ril unreal Source/ = 0 hit`. AssetRipper là tool **Unity-only** (README: *"analyzing Unity game files"*, hỗ trợ Unity `3.5.0`–`6000.5.X`). Đọc Unreal cần một tool khác hoàn toàn (UE asset registry, FPakFile, UObject serialization) — không có gì để port từ repo này |
+| `GameAssembly.dll` / `libil2cpp.so` + `global-metadata.dat` (IL2CPP) | ✅ | ❌ | **Phase 16** — đã *tìm thấy* đường dẫn cho cả 8 platform IL2CPP (Phase 3, `il2cpp_metadata_path`/`il2cpp_game_assembly_path`) nhưng **chưa parse**. Đây là input cho việc dựng lại `.cs` — xem Phase 16 |
+| Managed `.dll` (Mono `Managed/*.dll`) | ✅ | ❌ | **Phase 16** — `mono_assembly_predicate.py` chỉ nhận diện đuôi `.dll` để báo `ScriptingBackend.MONO`, chưa đọc metadata bên trong |
 
 ### Output format — trạng thái thật
 
@@ -65,9 +76,11 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 | `Packages/manifest.json` | ✅ | Phase 7 |
 | `Assets/StreamingAssets/**` | ✅ | Phase 7 |
 | Script `.cs` (dummy class) + `.meta` GUID ổn định | ✅ | Phase 6c-2 |
+| Script `.cs` có **declaration thật** (class/field/property/method signature) | ❌ | **Phase 16** — dựng lại từ IL2CPP metadata / Mono `.dll`. Đây là mức mà upstream **và mọi tool trên thị trường** đạt được |
+| MonoBehaviour **field value** khi asset không có type tree | ❌ | **Phase 16** — cùng một lần parse ra `SerializableType`; hiện các asset này rơi vào `UnknownObject`. Giá trị thực tế **cao hơn** cả bản thân file `.cs` |
 | **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ✅ | Phase 15 — `ManagerAssetExporter`/`ManagerExportCollection` |
 | Reference tới built-in Unity asset (default material, built-in shader…) | ❌ | **Phase 15 `[~]`** — `EngineAssetsExporter`/`PredefinedAssetCache` chưa xếp lịch (cần database asset built-in theo Unity version không vendored) → asset built-in bị export trùng thay vì trỏ về asset gốc của Unity |
-| `.cs` thật (decompiled) | ❌ | Ngoài scope vĩnh viễn (cần ILSpy) |
+| `.cs` có **method body thật** (logic game chạy được) | ❌ | **Ngoài scope vĩnh viễn** — với IL2CPP thì *không tool nào làm được tin cậy*, kể cả upstream (xem Phase 16g cho evidence). Với Mono thì cần một IL→C# decompiler cỡ ILSpy |
 
 ---
 
@@ -133,9 +146,10 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
-| 13 | Asset type còn thiếu (13a-13i) | ⬜ Chưa làm — làm **thứ 3** |
+| 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a ✅ `25d7b0b`, còn 13b-13i |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
+| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | ⬜ Chưa làm — phase lớn nhất còn lại. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 
 Số test theo area (tổng 629): `export_modules` 123, `import_` 102, `io_files` 105, `numerics` 64,
 `assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 19,
@@ -485,11 +499,20 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
 
 ---
 
-# PHẦN B — Phase 15, 14 đã xong; Phase 13 còn lại
+# PHẦN B — Còn lại: Phase 13 (đang làm) và Phase 16
 
 Thứ tự đã làm: **Phase 15 → 14 → 13** (đúng thứ tự đề xuất ban đầu). Phase 15 (`ProjectSettings/`)
-và Phase 14 (input format) đã xong, xem ghi chú trong từng phase bên dưới. Còn lại **Phase 13** —
-fidelity tăng dần, lớn nhất và mở nhất về scope, xem chi tiết 13a-13i bên dưới.
+và Phase 14 (input format) đã xong, xem ghi chú trong từng phase bên dưới.
+
+Còn lại hai phase, **độc lập nhau, chọn theo mục tiêu**:
+
+- **Phase 13** (13a ✅, còn 13b-13i) — fidelity từng asset type. Tăng dần, chia nhỏ được, rủi ro thấp
+  ở phần lớn item. Chọn cái này nếu mục tiêu là "asset export ra đúng hơn".
+- **Phase 16** — dựng lại `.cs` từ IL2CPP/Mono metadata. Phase lớn nhất còn lại và cũng là thứ duy
+  nhất còn chặn tiêu chí "project mở ra giống project gốc": hiện mọi script vẫn là dummy class và
+  MonoBehaviour không có type tree thì mất sạch field value. Chọn cái này nếu mục tiêu là "code và
+  data của component phải thật".
+
 Đánh số giữ nguyên theo thứ tự thêm vào file (append-only, đúng giao thức tick) — số phase **không**
 phải thứ tự làm.
 
@@ -707,6 +730,209 @@ Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, projec
 
 ---
 
+### Phase 16 — Dựng lại `.cs` từ IL2CPP / Mono ⬜
+
+> Phase này thay thế 3 hàng trước đây nằm trong "Ngoài scope vĩnh viễn" (C# script decompilation,
+> IL2Cpp script recovery, MonoBehaviour field không có type tree). Chỉ **method body** còn ngoài
+> scope — xem 16g.
+
+#### Đọc cái này trước khi đọc plan: trần của việc này là gì
+
+**Kết quả khả thi = declaration thật + method body rỗng.** Không phải logic game chạy được. Đây không
+phải giới hạn của port này mà là giới hạn của toàn bộ state of the art:
+
+| Tool | IL2CPP → C# đạt tới đâu | Nguồn |
+|---|---|---|
+| **AssetRipper (upstream)** | Declaration đầy đủ, method body **stub** (`return null;`, `return default(float);`). Cpp2IL *có* sinh được một phần method body nhưng upstream **tắt tính năng đó**: *"the method output frequency is not high enough to justify enabling that feature for use in AssetRipper"*, và ghi rõ sẽ còn vậy *"for the foreseeable future"* | [AssetRipper#74](https://github.com/AssetRipper/AssetRipper/issues/74) |
+| **Cpp2IL** | Nhánh development chỉ fill method rỗng; method body recovery nằm ở nhánh legacy, platform-specific, chưa port sang ISIL | [Cpp2IL](https://github.com/SamboyCoding/Cpp2IL), [#223](https://github.com/SamboyCoding/Cpp2IL/issues/223) |
+| **DevX-GameRecovery** | Cùng kiến trúc: metadata → DLL → decompiler ngoài (dnSpy, DecompilerFi) → import vào Unity project. Chỉ hỗ trợ **ARM64 (apk, ipa)**. Closed-source thương mại → tham khảo được *hình dáng sản phẩm*, không phải nguồn để port | [devxdevelopment.com](https://www.devxdevelopment.com/) |
+
+Nên: **đừng hứa với ai là sẽ ra game chạy được.** Cái Phase 16 đổi lại là hai thứ cụ thể:
+
+1. `.cs` có class/field/property/method **signature** thật → component trong `.unity`/`.prefab` bind
+   được vào script thật thay vì dummy class.
+2. **MonoBehaviour field value đọc được** trên game không có type tree (hiện rơi vào `UnknownObject`).
+   Cái này giá trị **cao hơn** bản thân file `.cs`: nó làm data của component trở thành thật.
+
+#### Không có gì để port — đây là implement mới
+
+`grep AsmResolver\|Cpp2IL Source/AssetRipper.Import/AssetRipper.Import.csproj` → cả hai là
+**PackageReference** (`AsmResolver.DotNet 6.0.1`, `AssetRipper.Cpp2IL.Core 1.0.8`), không vendored.
+`ICSharpCode.Decompiler` cũng vậy. Nên khác mọi phase trước, Phase 16 **không phải port 1:1** mà là
+implement file format từ spec công khai (Il2CppDumper / Il2CppInspector struct definitions, ECMA-335).
+Cùng loại việc với bundle format ở Phase 2/14 — khác ở chỗ không có file C# nào trong repo để đối chiếu.
+
+⚠️ **Trước khi copy struct definition từ repo tham khảo nào, check license của repo đó.** Implement
+lại format từ tài liệu là một chuyện, copy code là chuyện khác.
+
+#### Hai đầu dây đã có sẵn — chỉ thiếu đoạn giữa
+
+| Đầu | Trạng thái |
+|---|---|
+| **Discovery** | ✅ Phase 3 đã resolve `il2cpp_metadata_path` + `il2cpp_game_assembly_path` cho **cả 8 platform IL2CPP** (Windows/Linux/Mac/Android/iOS/Switch/PS4 + `_has_il2cpp_files()`), và `gameStructure.assemblies` cho Mono |
+| **Consumption** | ✅ `assetripper_serialization_logic.SerializableType`/`Field` + `SerializableStructure.read()` đã có từ Phase 1. **Dựng được `SerializableType` là MonoBehaviour đọc được ngay, không sửa gì downstream** |
+
+Đoạn giữa còn thiếu: parse metadata → `SerializableType` → emit `.cs`.
+
+#### Ràng buộc quan trọng nhất: cần **cả hai** file, không chỉ `global-metadata.dat`
+
+| Bảng | Nằm ở đâu |
+|---|---|
+| type definition (namespace, name, flags, field/method range), field definition (name, **typeIndex**, flags), method definition, string heap, custom attribute table, default value | `global-metadata.dat` |
+| **`Il2CppType[]`** — bảng mà *mọi* `typeIndex` trỏ vào | **binary** (`Il2CppMetadataRegistration`) |
+| method pointer / RVA, generic inst table, codegen module | **binary** (`Il2CppCodeRegistration`) |
+
+Chuỗi resolve một field: `field.typeIndex` → `binary.types[typeIndex]` → `Il2CppType{type, data}` →
+với `IL2CPP_TYPE_CLASS`/`VALUETYPE` thì `data.klassIndex` → quay lại `metadata.typeDefinitions[]`.
+
+**Hệ quả: 16d (metadata parser) một mình gần như vô giá trị** — không có binary thì không resolve được
+kiểu của bất kỳ field nào, mà tên type thì `MonoScript` asset đã cho sẵn rồi (`m_ClassName`/
+`m_Namespace`/`m_AssemblyName`, xem `mono_script_info.py`). Đừng ship 16d rồi tưởng là đã có gì.
+Đây cũng đúng là lý do `web-global-metadata-parser` tự ghi *"without the binary (thus without address /
+complete type info)"*. Nguồn cho phân chia trên:
+[katyscode IL2CPP part 2](https://katyscode.wordpress.com/2020/12/27/il2cpp-part-2/),
+[Il2CppDumper](https://github.com/Perfare/Il2CppDumper).
+
+---
+
+#### 16a — Serialization rules (`WillUnitySerialize`)
+
+- [ ] `assetripper_serialization_logic/field_serializer.py` — port `FieldSerializer.Logic.cs` (phần
+      `WillUnitySerialize` + `IsValueTypeSerializable` + các version gate). Đây là **logic thuần, port
+      1:1 được**, không cần đọc IL: input là field flags + attribute + type signature đã resolve.
+      Các version boundary upstream đã ghi sẵn trong comment và phải giữ nguyên: struct serializable
+      từ 4.5; int8/int16/uint16/uint32 từ 5.0; char/int64 từ 2017; generic (ngoài `List<T>` và
+      `ExposedReference<T>`) từ 2020
+- **Hiện có:** không. `SerializableType` có sẵn nhưng chỉ được dựng từ TypeTree (`SerializableTreeType`)
+- **Effort/Risk:** thấp/thấp — pure function, test bằng table-driven case cho từng version boundary
+- **Không phụ thuộc gì** → làm được ngay, kể cả trước khi có metadata parser
+
+#### 16b — Emitter `.cs` từ một type model trung lập
+
+- [ ] `assetripper_export_modules/scripts/csharp_emitter.py` — nhận một model trung lập
+      (`RecoveredType`: namespace, name, base type, generic params, field/property/method signature,
+      attribute) và sinh text C#. Method body = stub trả default theo return type, **đúng như upstream**.
+      Định nghĩa `RecoveredType` ở `assetripper_import/structure/assembly/recovered_model.py` để cả
+      nhánh Mono (16c) và IL2CPP (16d-e) cùng dùng
+- [ ] Giữ `EmptyScript` làm fallback khi không recover được type (đừng xoá — nó vẫn là nhánh đúng khi
+      không có metadata)
+- **Effort/Risk:** thấp-trung bình/thấp — sinh text, test bằng cách so string. Cần cẩn thận: escape
+      keyword C#, tên generic mangled (`Foo`2` → `Foo<T1, T2>`, đã có `mono_script_extensions.is_generic`),
+      nested type, `global::` khi tên trùng
+- **Không phụ thuộc gì** → làm song song với 16a được
+
+#### 16c — Nhánh Mono: đọc metadata .NET từ `.dll`
+
+- [ ] `assetripper_import/structure/assembly/managers/mono_manager.py` + reader ECMA-335:
+      PE header → CLI header → metadata root → các table cần dùng (`Assembly`, `Module`, `TypeDef`,
+      `TypeRef`, `TypeSpec`, `Field`, `MethodDef`, `Param`, `CustomAttribute`, `Constant`,
+      `NestedClass`, `InterfaceImpl`, `GenericParam`, `MemberRef`) + heap (`#Strings`, `#Blob`,
+      `#GUID`, `#US`) + decoder cho signature blob
+- **Tại sao làm trước IL2CPP:** không cần parse native binary, spec ECMA-335 công khai và đầy đủ,
+      **và nó validate toàn bộ 16a + 16b + 16f end-to-end** trước khi bước vào phần rủi ro cao nhất.
+      Không có chỗ nào "đoán" — sai là sai rõ ràng
+- **Effort/Risk:** trung bình-cao/thấp — khối code lớn nhất trong phase (~1500-2500 dòng) nhưng
+      **không có ẩn số**. Test được bằng cách tự compile một `.dll` nhỏ? Không có .NET SDK ở môi
+      trường này → dựng byte layout bằng tay như `_tree_builder.py`/`_bundle_builder.py` đã làm, cộng
+      test trên `.dll` thật nếu user cung cấp được
+- **Phụ thuộc:** 16a, 16b
+
+#### 16c-alt — Đường tắt: nhận dummy DLL do tool ngoài sinh ra ⭐ **khuyến nghị làm MVP**
+
+- [ ] Cho `ExportHandler.load(...)` nhận thêm một directory chứa dummy DLL đã có sẵn (do user chạy
+      Il2CppDumper / Cpp2IL / DevX ở ngoài), rồi đi thẳng vào 16c reader — **bỏ qua hoàn toàn 16d+16e**
+- **Vì sao đáng làm trước:** đây chính là cách DevX-GameRecovery hoạt động (nó gọi decompiler ngoài),
+      và nó cho **toàn bộ kết quả của Phase 16 với ~15% effort**. Đổi lại là user phải chạy một tool
+      nữa bằng tay. Upstream cũng có đúng đường này: `ScriptContentLevel` + việc user tự cung cấp dll
+- **Effort/Risk:** rất thấp/rất thấp một khi 16c xong (chỉ là thêm một input path)
+- **Phụ thuộc:** 16c
+
+#### 16d — IL2CPP: parser `global-metadata.dat`
+
+- [ ] `assetripper_import/structure/assembly/il2cpp/metadata.py` — magic `0xFAB11BAF`, đọc
+      `metadataVersion` rồi dispatch layout theo version. **Chốt một range version cụ thể** (đề xuất:
+      24.0-31, phủ Unity 2018.4 → 2022+, tức đại đa số game đang ship) và ghi rõ trong docstring
+      version nào *không* hỗ trợ, thay vì cố phủ hết 16-31
+- [ ] Bảng cần đọc: string heap, `Il2CppImageDefinition[]`, `Il2CppTypeDefinition[]`,
+      `Il2CppFieldDefinition[]`, `Il2CppMethodDefinition[]`, `Il2CppParameterDefinition[]`,
+      generic container/param, interface + nested type index table, custom attribute table, default value
+- **⚠️ Một mình không dùng được** — xem "Ràng buộc quan trọng nhất" ở trên. Chỉ ship cùng 16e
+- **Effort/Risk:** trung bình/**cao** — nhiều version, layout thay đổi giữa các version, và
+      **không có fixture thật để verify** (xem "Rủi ro riêng" bên dưới)
+- **Phụ thuộc:** 16a, 16b
+
+#### 16e — IL2CPP: parser binary + định vị `Il2CppMetadataRegistration`
+
+- [ ] `assetripper_import/structure/assembly/il2cpp/binary/` — container parser. **Bắt đầu bằng
+      PE (`GameAssembly.dll`) + ELF64 (`libil2cpp.so` arm64)** vì phủ Windows + Android arm64, hai
+      target phổ biến nhất. Mach-O (iOS/Mac), ELF32, NSO (Switch), WASM (WebGL) để sau, mỗi cái một
+      commit riêng
+- [ ] Định vị `Il2CppCodeRegistration` + `Il2CppMetadataRegistration`: release build **không export
+      symbol** cho chúng → phải scan heuristic qua section, đúng cách Il2CppDumper làm. Với v24.2+ có
+      thêm `Il2CppCodeGenModule` làm mốc
+- [ ] Đọc `Il2CppType[]` → hàm `resolve_type(type_index) -> RecoveredTypeRef` khép kín chuỗi resolve
+      đã mô tả ở trên
+- **Effort/Risk:** cao/**cao nhất trong phase** — heuristic scan là chỗ dễ sai nhất, và game mobile
+      có anti-tamper thường **mã hoá/obfuscate `global-metadata.dat`**, lúc đó Il2CppDumper cũng fail
+      (xem [tutorial của katyscode về obfuscated metadata](https://katyscode.wordpress.com/2021/02/23/il2cpp-finding-obfuscated-global-metadata/)).
+      **Game obfuscated nằm ngoài scope Phase 16** — ghi rõ trong docstring, đừng cố
+- **Phụ thuộc:** 16d
+
+#### 16f — Wiring + MonoBehaviour field recovery (nơi giá trị thật xuất hiện)
+
+- [ ] `assetripper_import/structure/assembly/managers/base_manager.py` — interface chung
+      (`get_serializable_type(assembly, namespace, class_name) -> SerializableType | None`) để
+      `GameStructure`/`ExportHandler` không cần biết backend là Mono hay IL2CPP
+- [ ] `unloaded_structure.py` — port `UnloadedStructure.cs`: MonoBehaviour đọc **lazy** sau khi mọi
+      asset đã load (vì MonoBehaviour có thể load trước MonoScript nó trỏ tới). Đây là mảnh làm
+      field value trở thành thật
+- [ ] `game_asset_factory.py` — hiện MonoBehaviour không có type tree → `UnknownObject`
+      (xem docstring của nó). Thêm nhánh: có assembly manager thì dựng `UnloadedStructure`
+- [ ] `script_exporter.py` — bỏ giả định `AssemblyManager.IsSet` luôn `False` (ghi thẳng trong
+      docstring hiện tại), nối vào 16b để ra `.cs` thật; giữ `EmptyScriptExportCollection` làm fallback
+- [ ] `ScriptContentLevel` (đã có ở `assetripper_export_configuration`, Phase 10) — nối cho thật:
+      Level0 = không load, Level1 = stub, Level2 = default
+- **Effort/Risk:** trung bình/trung bình — chỗ dễ vỡ là regression trên đường TypeTree đang chạy tốt.
+      **Bắt buộc:** test khẳng định asset *có* type tree vẫn đi đường cũ, không đổi output
+- **Phụ thuộc:** 16c (hoặc 16c-alt), hoặc 16d+16e
+
+#### 16g — Method body: ngoài scope, có evidence
+
+- [~] **Không làm.** IL2CPP: xem bảng ở đầu Phase 16 — upstream tự tắt tính năng này của Cpp2IL vì
+      tỉ lệ ra được quá thấp, và không có gì để port (Cpp2IL là NuGet). Mono: cần một IL→C#
+      decompiler cỡ ILSpy, tức một project riêng lớn hơn cả port này. Ghi lại ở đây để không ai
+      tưởng là quên. Method body sẽ là stub trả default, **đúng bằng mức upstream ship**
+
+---
+
+**Thứ tự đề xuất:** `16a + 16b` (song song, không phụ thuộc gì) → `16c` → **`16c-alt` (dừng được ở
+đây và đã có kết quả dùng được)** → `16f` → `16d` → `16e`.
+
+Lý do đặt `16c-alt` làm mốc dừng: nó cho toàn bộ output của Phase 16 mà không phải chạm vào native
+binary parsing — phần rủi ro cao nhất và cũng là phần **không thể verify** nếu không có game thật.
+Chỉ đi tiếp `16d`/`16e` khi đã quyết định rằng "user phải tự chạy Il2CppDumper" là không chấp nhận được.
+
+#### Rủi ro riêng của Phase 16
+
+1. **Không có fixture IL2CPP thật là blocker cứng, không phải chỉ là rủi ro.** Với bundle format
+   (Phase 2/14) còn dựng được byte layout bằng tay vì format đơn giản và tự mình sinh được cả hai
+   phía. Với `global-metadata.dat` thì "test parser của mình bằng file mình tự sinh" **không chứng
+   minh được gì** về game thật — layout mới là ẩn số, không phải code đọc nó.
+   → **16d/16e không nên bắt đầu trước khi có ít nhất một IL2CPP build thật** (một APK là đủ).
+   16a/16b/16c thì không bị chặn.
+2. **Metadata version drift.** Unity đổi layout `global-metadata.dat` giữa các version mà không có
+   tài liệu chính thức (xem [Il2CppDumper#873](https://github.com/Perfare/Il2CppDumper/issues/873) —
+   vẫn đang có người xin doc cho v31). Chốt range và fail rõ ràng ngoài range, đừng đoán.
+3. **Game obfuscated/encrypted metadata** — ngoài scope, ghi rõ. Đây là mặc định ở nhiều game mobile
+   thương mại, nên khả năng cao là game thật đầu tiên gặp phải sẽ fail vì lý do này chứ không phải
+   vì parser sai. Phân biệt được hai nguyên nhân đó là việc bắt buộc trước khi debug.
+4. **Regression lên đường TypeTree đang chạy đúng.** 16f chạm vào `game_asset_factory.py`, nơi mọi
+   asset đi qua. Test regression trước khi sửa, không phải sau.
+5. **Đây là phase lớn nhất kể từ Phase 1-3.** Tổng ~4000-6000 dòng nếu làm hết 16a-16f. Nếu chỉ tới
+   `16c-alt` thì ~2500 dòng. Đừng bắt đầu nếu chưa chốt dừng ở đâu.
+
+---
+
 ## Việc lẻ, chưa xếp phase
 
 - [ ] `tests/io_endian/` và `tests/primitives/` là **thư mục rỗng** — `EndianSpanReader` và
@@ -745,14 +971,14 @@ Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, projec
 | Mục | Lý do |
 |---|---|
 | Reproduce `AssetRipper.SourceGenerated` | 354 class ID × một class mỗi version range, sinh dưới dạng IL bởi toolchain 20k dòng từ NuGet feed private. Đã thay bằng dynamic reader |
-| C# script decompilation | Cần ILSpy. Upstream có `ScriptExportMode.DllExportWithoutRenaming` làm việc tương đương |
-| IL2Cpp script recovery | Cần Cpp2IL |
-| MonoBehaviour field không có type tree | Cần IL field-layout analysis. Có type tree thì đọc bình thường — upstream cũng rẽ nhánh y vậy |
+| ~~C# script decompilation~~ | **Đã chuyển sang Phase 16** (không còn ngoài scope). Phần *thật sự* ngoài scope vĩnh viễn chỉ còn **method body** — xem 16g |
+| ~~IL2Cpp script recovery~~ | **Đã chuyển sang Phase 16.** Cpp2IL không vendored nên không có gì để port, nhưng format `global-metadata.dat` + `Il2CppMetadataRegistration` là format file đọc được — cùng loại việc như bundle format đã làm ở Phase 2/14 |
+| ~~MonoBehaviour field không có type tree~~ | **Đã chuyển sang Phase 16** (16f). Có type tree thì vẫn đọc bình thường như hiện tại — upstream cũng rẽ nhánh y vậy |
 | Tpk type-tree database | Binary format không vendored; `nightly.link` và GitHub releases trả 403 qua proxy môi trường này |
 | Crunch-compressed texture | `AssetRipper.Conversions.Crunch` là native crnlib port |
 | Shader decompilation | **Upstream cũng chưa implement** |
 | Asset dedup, static mesh separation, prefab outlining | Premium-only upstream; **không processor nào trong repo đọc setting đó** |
-| **Unreal Engine** (game directory, `.uasset`, `.pak`, `.umap`) | **AssetRipper là tool Unity-only.** `grep -ril unreal Source/` = **0 hit** trên toàn bộ 53 project C#. README upstream: *"a powerful tool for analyzing **Unity** game files"*, hỗ trợ Unity `3.5.0`–`6000.5.X`. Không có một dòng nào để port. Muốn đọc Unreal phải viết mới từ đầu (FPakFile/IoStore container, UObject serialization, asset registry) và output cũng không phải Unity project — đó là một tool khác, không phải port này |
+| Engine không phải Unity | Xem "Chỉ Unity" ở đầu mục "Mục tiêu & Scope" — không nằm trong scope, không có gì để port |
 | Unity WebGL game theo URL (tải trực tiếp từ web) | Upstream cũng không có (không có `HttpClient`/`WebRequest` nào trong `Import`/`GUI.Web`). Xem ghi chú `- [~]` cuối Phase 14: khả thi nhưng là **feature mới**, cần quyết định policy network trước |
 
 ---
@@ -762,7 +988,9 @@ Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, projec
 1. **Không có fixture Unity thật.** Mọi thứ verify bằng binary hand-built. Đây là rủi ro xuyên suốt.
    Phase 9 đặc biệt khó tin cậy nếu không có `.resS` thật để thử. **Nếu user cung cấp được một
    AssetBundle hoặc player build thật, chạy CLI lên nó ngay** — đó là cách duy nhất validate với
-   output Unity thật.
+   output Unity thật. Với **Phase 16d/16e (IL2CPP)** thì đây không còn là rủi ro mà là **blocker
+   cứng**: layout `global-metadata.dat` mới là ẩn số, nên tự sinh file rồi tự đọc lại không chứng
+   minh được gì (xem "Rủi ro riêng của Phase 16" #1).
 2. **Alignment / offset trong binary format** là nguồn lỗi âm thầm số một. Đã có 2 tiền lệ trong
    project: bug type-tree "string" node (ra `{}` thay vì giá trị), và implicit array alignment Unity
    >= 2017. Cả hai đều pass test cho tới khi test đúng chỗ.
