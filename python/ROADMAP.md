@@ -6,6 +6,11 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a-13c một phần, 16b xong, xem
   PHẦN B). 652 tests pass. Commit cuối: `93d591b`.
+- 🆕 **Phase 17 (audit 2026-08-01)** — view output "dưới dạng Unity project luôn trên tool" (browse
+  cây `Assets/`/`ProjectSettings/`/`Packages/` của project đã export ngay trong GUI web, không cần mở
+  thư mục đĩa) đã có plan đầy đủ (17a-17e, xem PHẦN B). Đây là **feature mới không có ở upstream**
+  (upstream chỉ export ra disk rồi user tự mở bằng file explorer) — xem rào cản `VirtualFileSystem`
+  và lý do được thêm vào dưới đây. Chưa có gì của phase này được làm, kể cả chỗ reuse được.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -81,6 +86,7 @@ cũng sẽ không phải Unity project — đó sẽ là một tool khác, khôn
 | **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ✅ | Phase 15 — `ManagerAssetExporter`/`ManagerExportCollection` |
 | Reference tới built-in Unity asset (default material, built-in shader…) | ❌ | **Phase 15 `[~]`** — `EngineAssetsExporter`/`PredefinedAssetCache` chưa xếp lịch (cần database asset built-in theo Unity version không vendored) → asset built-in bị export trùng thay vì trỏ về asset gốc của Unity |
 | `.cs` có **method body thật** (logic game chạy được) | ❌ | **Ngoài scope vĩnh viễn** — với IL2CPP thì *không tool nào làm được tin cậy*, kể cả upstream (xem Phase 16g cho evidence). Với Mono thì cần một IL→C# decompiler cỡ ILSpy |
+| **Browse cây project đã export ngay trong GUI** (`Assets/`/`ProjectSettings/`/`Packages/` view) | ❌ | **Phase 17** — feature mới không có ở upstream. Hiện user phải `/Export/UnityProject` ra một thư mục trên đĩa rồi tự mở bằng file explorer. Phase 17 xem cây project trong chính tool, click vào file `.asset`/`.png`/`.unity` đọc nội dung ngay |
 
 ---
 
@@ -150,6 +156,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
+| 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ⬜ Chưa làm — feature mới, không có ở upstream |
 
 Số test theo area (tổng 652): `export_modules` 135, `import_` 105, `io_files` 105, `numerics` 64,
 `assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 27,
@@ -431,7 +438,9 @@ toàn bộ 9 tab distinct như upstream — xem "Còn lại" bên dưới, track
       navbar phẳng); tách tab Dependencies/Json riêng biệt như upstream (hiện gộp vào link
       "Download exported file" + Yaml); pass đổi toàn bộ template khác (`bundles/collections/
       resources/scenes/failed_files/search`) sang class Bootstrap `.table`/`.card` thay vì `<table>`
-      thường (site.css có ghi chú rõ đây là nợ kỹ thuật tạm thời, không phải quên)
+      thường (site.css có ghi chú rõ đây là nợ kỹ thuật tạm thời, không phải quên). **(audit
+      2026-08-01):** sidebar cây **đầu ra** (project đã export) giờ có phase riêng — Phase 17. Sidebar
+      cây **đầu vào** (bundle/collection) vẫn thuộc nợ kỹ thuật này, không dời
 
 ### Phase 12 — Prefab/Scene export ✅ `6b4fae3` (một phần — xem "Còn lại" bên dưới)
 
@@ -949,6 +958,141 @@ Lý do đặt `16c-alt` làm mốc dừng: nó cho toàn bộ output của Phase
 binary parsing — phần rủi ro cao nhất và cũng là phần **không thể verify** nếu không có game thật.
 Chỉ đi tiếp `16d`/`16e` khi đã quyết định rằng "user phải tự chạy Il2CppDumper" là không chấp nhận được.
 
+### Phase 17 — View output "dưới dạng Unity project luôn trên tool" ⬜
+
+> **Đây là feature mới, không phải port từ upstream.** Upstream `AssetRipper.GUI.Web` export ra
+> thư mục trên đĩa xong rồi kết thúc — user tự mở thư mục đó bằng file explorer của OS. Phase này
+> khác: cho user **browse cây `Assets/`/`ProjectSettings/`/`Packages/`/... của project đã export
+> ngay trong chính GUI web**, click vào một file `.asset`/`.png`/`.unity`/`.prefab` để xem nội dung
+> đã export thay vì phải mở đĩa. Mục tiêu use case: rút ngắn vòng lặp "export → kiểm tra có đúng
+> không → chỉnh settings → export lại" mà hiện phải quay ra OS giữa chừng.
+
+**Tại sao thêm vào roadmap (audit 2026-08-01):** audit hỏi "đã check phase, code review xong, còn
+thiếu gì cho UX thật" → phát hiện GUI hiện có preview **từng asset đầu vào** (Phase 11:
+`/Assets/Image`/`Text`/`Yaml`/`Binary`) nhưng **không có view nào cho output** sau khi đã run
+`/Export/UnityProject`. Đó là gap UX cụ thể giấu dưới lớp "xong ở mức phase 11" — Phase 11 chính nó
+cũng ghi sẵn nợ sidebar cây bundle/collection ở đầu **vào**, chứ không phải cây **ra**.
+
+**Trần của phase này:** browse + xem nội dung file **đã export thật** qua `ProjectExporter`. Không
+emulate Unity Editor (không mở scene trong viewport 2D/3D, không material inspector, không Prefab
+hierarchy đồ hoạ). Cây thư mục + nội dung text/ảnh/YAML là đủ — đó cũng là tất cả những gì `ProjectExporter`
+sinh ra. Muốn hơn thế thì cần Unity Editor hoặc một web Unity Editor cả một project, ngoài scope vĩnh viễn.
+
+#### Hạn chế đã biết — đọc trước khi bắt đầu
+
+1. **Cần `VirtualFileSystem` (xem "Việc lẻ")** để browse mà không ghi đĩa, hoặc chấp nhận ghi ra temp
+   dir rồi đọc lại (đơn giản hơn, trung thực với output thật nhưng nặng disk + phải cleanup). 17a
+   chốt chọn nào.
+2. **State phải tồn tại sau khi export xong.** Hiện `game_file_loader.py`'s `_state` giữ `game_bundle`/
+   `game_data` nhưng **không giữ** project đã export — `/Export/UnityProject` phát thread rồi xoá.
+   17c thêm state cho output project (vừa exported, hoặc load lại từ disk đã export trước đó).
+3. **Phải bridge được tới `ProjectExporter`'s collection list** (đã có sẵn `create_collections()`
+   public từ Phase 11, dùng bởi `asset_preview.py`) để biết cây có node nào, file nào — không
+   dựng cây riêng từ disk crawl được nếu chọn nhánh `VirtualFileSystem`.
+
+#### 17a — Nền tảng: `VirtualFileSystem` (port `VirtualFileSystem.cs`)
+
+- [ ] `assetripper_io_files/virtual_file_system.py` — port `Source/AssetRipper.IO.Files/
+      VirtualFileSystem.cs`. Cây ảo `VirtualNode` (directory/file) trong RAM, implement `IFileSystem`
+      (`read_file`/`write_file`/`exists`/`list`) — `ProjectExporter` hiện chỉ biết `LocalFileSystem`,
+      port này cho nó ghi vào cây ảo thay vì disk, ngay cả khi còn thiếu reader thật
+- [ ] Adapter `project_tree.py`: build cây thư mục `Assets/`/`ProjectSettings/`/`Packages/`/
+      `Assets/StreamingAssets/`/... từ danh sách `ExportCollection` (cứ collection thai với
+      `collection.get_path()`/`get_path()` là biết node ở đâu trong cây), không crawl đĩa
+- [ ] **Thay thế (đơn giản hơn, ship đươc nhanh):** giữ `LocalFileSystem`, export ra
+      `tempfile.TemporaryDirectory(prefix="assetripper_exported_")` giữ lại trong state GUI, browse
+      qua `LocalFileSystem` instance trỏ vào thư mục đó. Đánh đổi: nặng disk, không deterministic,
+      không reuse được cho test không chạm đĩa — nhưng ~80% ít code hơn nhánh `VirtualFileSystem`
+- **Effort/Risk:** trung bình/thấp (chọn nhánh temp-dir) hoặc trung bình-cao/thấp (chọn
+      `VirtualFileSystem` — quan trọng cho Rủi ro #1 "không có fixture Unity thật": nếu có VFS thì
+      test assert cây project của một game thật **bằng chính cây RAM**, không cần so output trên đĩa)
+- **Khuyến nghị:** làm temp-dir trước (17a-lite) → nếu VFS có giá trị đủ lớn (testing + Phase 17B's
+      tree) thì nâng lên thành 17a-full. Ghi lại chọn cái nào trong docstring để người sau không mơ hồ
+- **Phụ thuộc:** không — nền tảng, làm đầu tiên
+
+#### 17b — Endpoint + template cây project (Phase 11 sidebar nợ bù luôn)
+
+- [ ] `routes/projects.py` (Blueprint `projects`): `/Project` liệt kê cây; `/Project/Browse?path=`
+      đi vào thư mục con; `/Project/File?path=` trả nội dung file đã export (serve đúng mime type
+      dựa trên extension, reuse `asset_preview.py::mime_type_for_extension` — đã có sẵn)
+- [ ] `templates/projects/view.html` + `projects/tree.html` (dùng `TREE` macro, có sẵn sidebar
+      Bootstrap từ Phase 11 — nếu chưa có thì đây là chỗ Phase 11 nợ "sidebar cây bundle/collection
+      thật" đươc trả; cũng có thể tách macro riêng để `bundles/view.html` reuse sau)
+- [ ] Cây hiển thị đúng cấu trúc Unity project: `Assets/` (chứa thư mục con theo class + file
+      `.asset`/`.png`/`.prefab`/`.unity`/`.shader`/...), `ProjectSettings/` (manager sólo file +
+      `ProjectVersion.txt`), `Packages/manifest.json`, `Assets/StreamingAssets/`. Không hiển thị
+      `.meta` rác riêng từng node — gộp hoặc ẩn mặc định, có toggle
+- [ ] Tree node click → `/Project/File?path=<relative>`: text (`.asset`/`.unity`/`.prefab`/`.shader`
+      YAML) qua `<pre>`; ảnh (`.png`/`.jpeg`/`.bmp`/`.tga`) qua `<img>`; audio (`.wav`) qua `<audio>`;
+      mesh (`.glb`) qua link tải (Babylon.js preview đã có `[~]` ở Phase 11 — không lặp lại); binary
+      (`UnknownObject`/`UnreadableObject`, xem Phase 15) qua hex viewer hoặc link tải
+- **Effort/Risk:** trung bình/thấp — Bootstrap component có sẵn, chỉ cần ploop dữ liệu cây từ 17a
+- **Phụ thuộc:** 17a
+
+#### 17c — State + wiring vào luồng export
+
+- [ ] `game_file_loader.py`'s `_state` thêm `exported_project`: `ExportedProject | None` (đường
+      dẫn thư mục temp + cây đã xây từ 17a, hoặc VFS root), reset khi `reset()` và khi `/LoadFolder`
+      chạy lại (output cũ mất ý nghĩa khi load input mới)
+- [ ] `start_export(output_path)`: **chọn 1 trong 2 chế độ**, không thay đổi shape hiện có (CLI/file
+      explorer vẫn dùng `output_path`):
+  - "browse trong tool" (mặc định cho GUI nếu `output_path` rỗng hoặc `_KEEP_BROWSER_OUTPUT=1`):
+    export ra temp-dir, giữ trong `exported_project`, redirect tới `/Project`
+  - "export ra disk" (hiện tại, giữ back-compat): export ra `output_path`, không set `exported_project`
+- [ ] `/Export/Progress` thêm trường `project_ready` (bool) → `index.html`'s poll thêm một branch:
+      khi `project_ready` thì hiện nút "Browse exported project →" dẫn tới `/Project`
+- [ ] Không phá CLI: `cli.py`'s `export` vẫn luôn ghi ra `output_path` user cấp (nhánh browse-trong-tool
+      chỉ cho GUI). Test rằng CLI không tự ý tạo temp-dir
+- **Effort/Risk:** thấp/thấp — wiring tinh, không có logic mới
+- **Phụ thuộc:** 17a, 17b
+
+#### 17d — Load lại một project đã export trước đó (export ra disk rồi browse sau)
+
+- [ ] `routes/projects.py` thêm `/Project/Load?path=`: dùng `LocalFileSystem` trỏ vào thư mục đã export
+      trên đĩa, build cây bằng `os.walk` thay vì collection list — dùng chung template `tree.html`/
+      `view.html` với 17b (giao tiếp lớn nhất là "data source" trừu tượng thành `ProjectTreeProvider`
+      với 2 impl: `CollectionBackedProvider` (17b) và `FileSystemBackedProvider` (17d))
+- [ ] `index.html` thêm nút "Browse existing exported project..." cạnh "Export Unity Project" (calls
+      `/Dialogs/Folder` rồi POST tới `/Project/Load`) — for use case "tôi export hôm qua, giờ xem lại"
+- **Effort/Risk:** thấp/thấp
+- **Phụ thuộc:** 17b
+- **Ghi chú:** item này **có thể bù** cho rủi ro #1 một phần — nếu user có game thật + đã export ra
+      disk, có thể browse kết quả đó mà không cần re-export
+
+#### 17e — Test + release gate
+
+- [ ] `tests/gui_web/test_project_browse.py` — tree rendering (cây thật có `Assets/`/
+      `ProjectSettings/` + ít nhất 1 file mỗi kiểu), click vào `.asset` trả YAML, click vào `.png`
+      trả ảnh với đúng mime + content-type header,`reset()` xoá `exported_project`, CLI không tạo
+      temp-dir (regression gate cho 17c's "không phá CLI")
+- [ ] `tests/io_files/test_virtual_file_system.py` (chỉ nếu chọn nhánh 17a-full) — write/read/list,
+      nested directory, conflict trên node đã có
+- [ ] Release gate + commit + push
+
+**Thứ tự đề xuất:** `17a` (chọn temp-dir hay VFS chốt đầu) → `17c` → `17b` → `17d` → `17e`. Lý do
+đặt 17c trước 17b: wiring state rẻ và rạch ròi, làm trước để 17b có "data thật" để render (tránh
+viết template chống cây giả rồi sửa lại). Có thể 17a-lite → 17c → 17b → nâng 17a-full → 17d → 17e.
+
+#### Rủi ro riêng của Phase 17
+
+1. **Temp dir leak.** `exported_project` giữ `tempfile.TemporaryDirectory` — nếu GUI crash mà không
+   cleanup, temp đọng lại. Phải catch exception trong `start_export`'s thread và try-finally, cộng
+   `atexit` cleanup khi process thoát.
+2. **Tiện ích tranh với "đã port xong upstream parity."** Upstream *không có* phase này — thêm nó có
+   thể sai lệch so với "port 1:1 đã được audit từng phase". Phải ghi rõ trong docstring module và
+   trong design decision này là **additive feature, không thay thế** cái gì upstream có.
+3. **Stale state sau khi user đổi Settings.** `exported_project` vẫn là kết quả export với settings
+   cũ sau khi `/Settings/Edit` đổi — nếu user chỉnh rồi browse lại, họ thấy cây cũ. Ghi warning rõ
+   trên trang `/Project` + 1 flag `settings_dirty` invalidates cây, hoặc đơn giản: đổi settings mà
+   có cây đang browse → flash "Settings changed — re-export to refresh"
+4. **Security: path traversal.** `/Project/File?path=` nhận path từ URL — phải guard `os.path.join`
+   không vượt ra ngoài root project (URL `..%2F..%2Fetc%2Fpasswd` phải trả 400). Loại bug kinh điển
+   trong static-file serving; kiểm bằng test cố ý
+5. **No-additive-work-per assumption.** User có thể tưởng "browse trong tool" = "Unity Editor mở
+   được." **Sai hoàn toàn**: view chỉ là cây + nội dung file, không có importer, kiểm tra reference,
+   scene hierarchy đồ hoạ. Ghi ngay trên trang `/Project`: "This is a **browsable tree of exported
+   files**, not a Unity Editor. Open the exported folder in Unity Editor for full validation."
+
 #### Rủi ro riêng của Phase 16
 
 1. **Không có fixture IL2CPP thật là blocker cứng, không phải chỉ là rủi ro.** Với bundle format
@@ -993,7 +1137,9 @@ Chỉ đi tiếp `16d`/`16e` khi đã quyết định rằng "user phải tự c
 - [ ] `RedirectExportCollection.cs` / `SingleRedirectExportCollection.cs` — `single_redirect` đã có,
       `RedirectExportCollection` (bản nhiều asset) chưa
 - [ ] `VirtualFileSystem.cs` chưa port — `FileSystem` hiện chỉ có `LocalFileSystem`. Cần nếu muốn test
-      export không chạm đĩa thật, hoặc load từ archive không giải nén ra temp
+      export không chạm đĩa thật, hoặc load từ archive không giải nén ra temp. **(audit 2026-08-01,
+      dời sang Phase 17):** đây cũng là chính nền tảng để browse cây project đã export trực tiếp
+      trong GUI mà không ghi ra disk — xem Phase 17, mục 17a
 - [ ] `GameInitializer.CustomResourceProvider.cs` chưa port (Phase 3 chỉ ghi nhận
       `EngineResourceInjector`/`VersionChanger` bị bỏ, thiếu mục này)
 - [ ] `ObjectFactory` pattern (dùng bởi `SpriteProcessor` upstream, `AssetGroup`-tạo-theo-nhu-cầu) chưa
