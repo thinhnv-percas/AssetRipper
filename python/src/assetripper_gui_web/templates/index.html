@@ -64,8 +64,10 @@
 
 {% if has_game_data %}
 <h2>Export</h2>
+<p>Leave the output path blank to export into a temporary directory and browse it right here in
+   the tool afterward, instead of picking a disk location.</p>
 <form method="post" action="{{ url_for('commands.export_unity_project') }}">
-  <input type="text" name="OutputPath" id="export-output-path" placeholder="/path/to/output directory" size="60">
+  <input type="text" name="OutputPath" id="export-output-path" placeholder="(blank = browse in tool) or /path/to/output directory" size="60">
   <button type="button" class="browse-button" data-target="export-output-path" data-kind="folder">Browse...</button>
   <button type="submit">Export Unity Project</button>
 </form>
@@ -74,11 +76,15 @@
   <p><progress id="export-progress-bar" value="{{ export_progress.current }}" max="{{ export_progress.total or 1 }}"></progress>
      <span id="export-progress-text">{{ export_progress.current }}/{{ export_progress.total }} {{ export_progress.current_name }}</span></p>
 </div>
+<div id="export-browse-link" {% if not has_exported_project %}style="display:none"{% endif %}>
+  <p><a href="{{ url_for('projects.browse') }}">Browse exported project &rarr;</a></p>
+</div>
 <script>
   (function () {
     var container = document.getElementById("export-progress");
     var bar = document.getElementById("export-progress-bar");
     var text = document.getElementById("export-progress-text");
+    var browseLink = document.getElementById("export-browse-link");
     if (!container) return;
 
     function poll() {
@@ -90,6 +96,7 @@
           bar.value = data.current;
           text.textContent = data.current + "/" + data.total + " " + (data.current_name || "");
           if (data.error) { text.textContent += " (error: " + data.error + ")"; }
+          if (!data.running && !data.error && browseLink) { browseLink.style.display = "block"; }
           if (data.running) { setTimeout(poll, 500); }
         });
     }
@@ -100,4 +107,16 @@
 <h2>Export</h2>
 <p>Loaded via "Load File", which has no game/platform structure. Use "Load Folder" instead to export.</p>
 {% endif %}
+
+<h2>Browse an exported project</h2>
+<p>View a Unity project's <code>Assets/</code>/<code>ProjectSettings/</code>/<code>Packages/</code>
+   tree right here -- either one just exported above, or one exported by an earlier run/the CLI.</p>
+{% if has_exported_project %}
+<p><a href="{{ url_for('projects.browse') }}">Browse exported project &rarr;</a></p>
+{% endif %}
+<form method="post" action="{{ url_for('projects.load') }}">
+  <input type="text" name="Path" id="load-project-path" placeholder="/path/to/already-exported project" size="60">
+  <button type="button" class="browse-button" data-target="load-project-path" data-kind="folder">Browse...</button>
+  <button type="submit">Load Exported Project</button>
+</form>
 {% endblock %}

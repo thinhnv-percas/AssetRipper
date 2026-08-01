@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Exported Project - AssetRipper{% endblock %}
+{% block content %}
+<h1>Exported Project</h1>
+<p class="text-body-secondary">
+  This is a <strong>browsable tree of exported files</strong>, not a Unity Editor -- no importer,
+  no reference validation, no scene hierarchy view. Open <code>{{ root }}</code> in the real Unity
+  Editor for that.
+</p>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('projects.browse') }}">(root)</a></li>
+    {% for crumb in crumbs %}
+    <li class="breadcrumb-item"><a href="{{ url_for('projects.browse', path=crumb.rel_path) }}">{{ crumb.name }}</a></li>
+    {% endfor %}
+  </ol>
+</nav>
+
+{% if not entries %}
+<p>This directory is empty.</p>
+{% else %}
+<table class="table table-sm">
+  <thead><tr><th>Name</th><th>Size</th></tr></thead>
+  <tbody>
+    {% for entry in entries %}
+    <tr>
+      <td>
+        {% if entry.is_dir %}
+        <a href="{{ url_for('projects.browse', path=entry.rel_path) }}">📁 {{ entry.name }}</a>
+        {% else %}
+        <a href="{{ url_for('projects.file', path=entry.rel_path) }}" target="_blank">{{ entry.name }}</a>
+        {% endif %}
+      </td>
+      <td>{{ entry.size if entry.size is not none else "" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

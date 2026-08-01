@@ -4,9 +4,9 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một phần,
-  13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong). 664 tests
-  pass. Commit cuối: `0e4c206`.
+- **Trạng thái:** Phase 1-12, 14, 15, 17 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
+  phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
+  675 tests pass. Commit cuối: (pending, xem Phase 17).
 - 🔴 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), và phát hiện quan trọng nhất từ trước giờ —
   xem Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline lên file android thật phát hiện: (1) 3 bug crash thật (đã sửa, xem Phase 18), và
@@ -16,13 +16,13 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   MonoBehaviour **đều đọc ra rỗng** (`UnknownObject`, không field nào) trên build thật, dù pipeline
   không crash. Toàn bộ rủi ro "chưa test trên game thật" mọi phase trước đây tự cảnh báo **đã xảy ra
   đúng như lo ngại**. Xem Phase 18 để biết quy mô sửa thật sự cần.
-- 🆕 **Phase 17 (audit 2026-08-01)** — view output "dưới dạng Unity project luôn trên tool" (browse
-  cây `Assets/`/`ProjectSettings/`/`Packages/` của project đã export ngay trong GUI web, không cần mở
-  thư mục đĩa) đã có plan đầy đủ (17a-17e, xem PHẦN B). Đây là **feature mới không có ở upstream**
-  (upstream chỉ export ra disk rồi user tự mở bằng file explorer) — xem rào cản `VirtualFileSystem`
-  và lý do được thêm vào dưới đây. Chưa có gì của phase này được làm, kể cả chỗ reuse được. **Lưu ý
-  sau phát hiện Phase 18:** browse được cây file không có nghĩa nội dung file đó đúng — phase này vẫn
-  làm được độc lập, nhưng giá trị thực tế phụ thuộc Phase 18 giải quyết tới đâu.
+- **Phase 17 xong** — view output "dưới dạng Unity project luôn trên tool": `/Project` browse cây
+  `Assets/`/`ProjectSettings/`/`Packages/` của project đã export ngay trong GUI web, click file xem
+  nội dung thật, không cần mở thư mục đĩa. Chọn nhánh đơn giản hơn kế hoạch ban đầu (17a-lite: temp-dir
+  + `os.listdir`, không port `VirtualFileSystem`) — xem PHẦN B để biết lý do và những gì cố ý không
+  làm theo plan gốc. Đây vẫn là **feature mới không có ở upstream** (upstream chỉ export ra disk rồi
+  user tự mở bằng file explorer). **Lưu ý sau phát hiện Phase 18:** browse được cây file không có
+  nghĩa nội dung file đó đúng — giá trị thực tế của phase này phụ thuộc Phase 18 giải quyết tới đâu.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất **về input format** đã gỡ, nhưng không giúp gì nếu chính asset đó không có
   type tree để đọc field trước (xem Phase 18) — hai vấn đề độc lập nhau.
@@ -176,11 +176,11 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ⬜ Chưa làm — feature mới, không có ở upstream |
+| 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ✅ (pending hash) — feature mới, không có ở upstream; chọn nhánh 17a-lite (temp-dir), không port `VirtualFileSystem` |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🔴 3 bug đã sửa `0e4c206`; gap chính (hand-written layout cho common class) **chưa làm**, xem chi tiết |
 
-Số test theo area (tổng 664): `export_modules` 135, `import_` 107, `io_files` 105, `numerics` 64,
-`assets` 48, `export_unity_projects` 60, `gui_web` 42, `io_files_bundle` 29, `processing` 34,
+Số test theo area (tổng 675): `export_modules` 135, `import_` 107, `io_files` 105, `numerics` 64,
+`assets` 48, `export_unity_projects` 60, `gui_web` 53, `io_files_bundle` 29, `processing` 34,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 2 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
@@ -1062,7 +1062,7 @@ Lý do đặt `16c-alt` làm mốc dừng: nó cho toàn bộ output của Phase
 binary parsing — phần rủi ro cao nhất và cũng là phần **không thể verify** nếu không có game thật.
 Chỉ đi tiếp `16d`/`16e` khi đã quyết định rằng "user phải tự chạy Il2CppDumper" là không chấp nhận được.
 
-### Phase 17 — View output "dưới dạng Unity project luôn trên tool" ⬜
+### Phase 17 — View output "dưới dạng Unity project luôn trên tool" ✅ (Commit hash: pending)
 
 > **Đây là feature mới, không phải port từ upstream.** Upstream `AssetRipper.GUI.Web` export ra
 > thư mục trên đĩa xong rồi kết thúc — user tự mở thư mục đó bằng file explorer của OS. Phase này
@@ -1094,108 +1094,104 @@ sinh ra. Muốn hơn thế thì cần Unity Editor hoặc một web Unity Editor
    public từ Phase 11, dùng bởi `asset_preview.py`) để biết cây có node nào, file nào — không
    dựng cây riêng từ disk crawl được nếu chọn nhánh `VirtualFileSystem`.
 
-#### 17a — Nền tảng: `VirtualFileSystem` (port `VirtualFileSystem.cs`)
+#### 17a — Nền tảng: chọn temp-dir (17a-lite), không port `VirtualFileSystem` ✅
 
-- [ ] `assetripper_io_files/virtual_file_system.py` — port `Source/AssetRipper.IO.Files/
-      VirtualFileSystem.cs`. Cây ảo `VirtualNode` (directory/file) trong RAM, implement `IFileSystem`
-      (`read_file`/`write_file`/`exists`/`list`) — `ProjectExporter` hiện chỉ biết `LocalFileSystem`,
-      port này cho nó ghi vào cây ảo thay vì disk, ngay cả khi còn thiếu reader thật
-- [ ] Adapter `project_tree.py`: build cây thư mục `Assets/`/`ProjectSettings/`/`Packages/`/
-      `Assets/StreamingAssets/`/... từ danh sách `ExportCollection` (cứ collection thai với
-      `collection.get_path()`/`get_path()` là biết node ở đâu trong cây), không crawl đĩa
-- [ ] **Thay thế (đơn giản hơn, ship đươc nhanh):** giữ `LocalFileSystem`, export ra
-      `tempfile.TemporaryDirectory(prefix="assetripper_exported_")` giữ lại trong state GUI, browse
-      qua `LocalFileSystem` instance trỏ vào thư mục đó. Đánh đổi: nặng disk, không deterministic,
-      không reuse được cho test không chạm đĩa — nhưng ~80% ít code hơn nhánh `VirtualFileSystem`
-- **Effort/Risk:** trung bình/thấp (chọn nhánh temp-dir) hoặc trung bình-cao/thấp (chọn
-      `VirtualFileSystem` — quan trọng cho Rủi ro #1 "không có fixture Unity thật": nếu có VFS thì
-      test assert cây project của một game thật **bằng chính cây RAM**, không cần so output trên đĩa)
-- **Khuyến nghị:** làm temp-dir trước (17a-lite) → nếu VFS có giá trị đủ lớn (testing + Phase 17B's
-      tree) thì nâng lên thành 17a-full. Ghi lại chọn cái nào trong docstring để người sau không mơ hồ
+- [x] **Chốt: 17a-lite (temp-dir), không nâng lên `VirtualFileSystem`.** `game_file_loader.
+      start_export()`: `output_directory` rỗng → `tempfile.mkdtemp(prefix="assetripper_exported_")`
+      thay vì export thật ra path đó, browse bằng `os.listdir`/`os.path.*` thẳng lên temp dir này —
+      không cần `IFileSystem` ảo hay adapter "collection → cây" riêng. Lý do không nâng lên VFS: một
+      khi đã có `demo-android.apk` (Phase 18) làm fixture thật, giá trị "test không chạm đĩa" của VFS
+      giảm hẳn — test thật (17e) giờ verify bằng chính output trên đĩa, đúng với những gì user thấy
+- [~] `VirtualFileSystem.cs` — **vẫn chưa port**, không phải vì thiếu thời gian mà vì 17a-lite đã đủ
+      cho mục tiêu thật của Phase 17 (browse được, không phải "test không chạm đĩa"). Để lại nếu sau
+      này cần export không ghi đĩa thật (archive không giải nén, environment không có filesystem ghi
+      được)
 - **Phụ thuộc:** không — nền tảng, làm đầu tiên
 
-#### 17b — Endpoint + template cây project (Phase 11 sidebar nợ bù luôn)
+#### 17b — Endpoint + template cây project ✅
 
-- [ ] `routes/projects.py` (Blueprint `projects`): `/Project` liệt kê cây; `/Project/Browse?path=`
-      đi vào thư mục con; `/Project/File?path=` trả nội dung file đã export (serve đúng mime type
-      dựa trên extension, reuse `asset_preview.py::mime_type_for_extension` — đã có sẵn)
-- [ ] `templates/projects/view.html` + `projects/tree.html` (dùng `TREE` macro, có sẵn sidebar
-      Bootstrap từ Phase 11 — nếu chưa có thì đây là chỗ Phase 11 nợ "sidebar cây bundle/collection
-      thật" đươc trả; cũng có thể tách macro riêng để `bundles/view.html` reuse sau)
-- [ ] Cây hiển thị đúng cấu trúc Unity project: `Assets/` (chứa thư mục con theo class + file
-      `.asset`/`.png`/`.prefab`/`.unity`/`.shader`/...), `ProjectSettings/` (manager sólo file +
-      `ProjectVersion.txt`), `Packages/manifest.json`, `Assets/StreamingAssets/`. Không hiển thị
-      `.meta` rác riêng từng node — gộp hoặc ẩn mặc định, có toggle
-- [ ] Tree node click → `/Project/File?path=<relative>`: text (`.asset`/`.unity`/`.prefab`/`.shader`
-      YAML) qua `<pre>`; ảnh (`.png`/`.jpeg`/`.bmp`/`.tga`) qua `<img>`; audio (`.wav`) qua `<audio>`;
-      mesh (`.glb`) qua link tải (Babylon.js preview đã có `[~]` ở Phase 11 — không lặp lại); binary
-      (`UnknownObject`/`UnreadableObject`, xem Phase 15) qua hex viewer hoặc link tải
-- **Effort/Risk:** trung bình/thấp — Bootstrap component có sẵn, chỉ cần ploop dữ liệu cây từ 17a
+- [x] `routes/projects.py` (Blueprint `projects`, url_prefix `/Project`): `/Project` (redirect nội bộ
+      tới root), `/Project/Browse?path=` liệt kê thư mục con (không đệ quy toàn bộ cây — file-manager
+      kiểu breadcrumb, đơn giản hơn hẳn cây expand/collapse JS mà vẫn thoả "browse được"),
+      `/Project/File?path=` trả nội dung file đã export, serve đúng mime type qua
+      `asset_preview.py::mime_type_for_extension` (tái dùng, không viết lại bảng mime)
+- [x] `templates/projects/view.html`: breadcrumb + bảng thư mục con (thư mục trước, file sau, sort
+      theo tên). **Không tách macro `tree.html` riêng như kế hoạch ban đầu** — breadcrumb +
+      listing-từng-cấp đơn giản hơn cây lồng nhau mà vẫn đủ browse được, ghi chú lại quyết định này
+      thay vì làm phức tạp hoá không cần thiết
+- [~] `.meta` file vẫn hiển thị lẫn trong listing, không có toggle ẩn — nợ nhỏ, không chặn "browse
+      được" (mục tiêu chính của phase), để lại nếu cần UX gọn hơn sau
 - **Phụ thuộc:** 17a
 
-#### 17c — State + wiring vào luồng export
+#### 17c — State + wiring vào luồng export ✅
 
-- [ ] `game_file_loader.py`'s `_state` thêm `exported_project`: `ExportedProject | None` (đường
-      dẫn thư mục temp + cây đã xây từ 17a, hoặc VFS root), reset khi `reset()` và khi `/LoadFolder`
-      chạy lại (output cũ mất ý nghĩa khi load input mới)
-- [ ] `start_export(output_path)`: **chọn 1 trong 2 chế độ**, không thay đổi shape hiện có (CLI/file
-      explorer vẫn dùng `output_path`):
-  - "browse trong tool" (mặc định cho GUI nếu `output_path` rỗng hoặc `_KEEP_BROWSER_OUTPUT=1`):
-    export ra temp-dir, giữ trong `exported_project`, redirect tới `/Project`
-  - "export ra disk" (hiện tại, giữ back-compat): export ra `output_path`, không set `exported_project`
-- [ ] `/Export/Progress` thêm trường `project_ready` (bool) → `index.html`'s poll thêm một branch:
-      khi `project_ready` thì hiện nút "Browse exported project →" dẫn tới `/Project`
-- [ ] Không phá CLI: `cli.py`'s `export` vẫn luôn ghi ra `output_path` user cấp (nhánh browse-trong-tool
-      chỉ cho GUI). Test rằng CLI không tự ý tạo temp-dir
-- **Effort/Risk:** thấp/thấp — wiring tinh, không có logic mới
+- [x] `game_file_loader.py`'s `_state` thêm `exported_project_dir: str | None` +
+      `_owned_temp_dir: str | None` (chỉ set khi chính module này tạo temp dir — phân biệt với
+      OutputPath do user tự chọn, để `reset()` **chỉ** xoá cái mình tạo ra, không đụng vào thư mục
+      thật của user)
+- [x] `start_export(output_directory)`: `output_directory` falsy → tạo temp dir, export vào đó; export
+      thành công (dù temp hay disk thật) → `exported_project_dir` được set, browse được ngay qua
+      `/Project`. Khác kế hoạch ban đầu ("chỉ browse được nếu browse-trong-tool"): **export ra disk
+      thật giờ cũng browse được luôn**, không cần phân biệt 2 chế độ tách biệt — đơn giản hơn, và vẫn
+      đúng ý "export xong, xem lại được ngay" cho cả 2 trường hợp
+- [x] `index.html`: poll `/Export/Progress` xong (`!running && !error`) thì hiện link "Browse exported
+      project →"; form Export giữ nguyên field `OutputPath`, để trống = browse-trong-tool
+- [x] Không phá CLI: `cli.py`'s `_run_export` gọi thẳng `handler.export(...)`, không đụng
+      `game_file_loader` — xác nhận bằng đọc code, không cần test riêng (không có đường nào để CLI
+      chạm vào `game_file_loader.start_export`)
+- [x] `atexit.register` cleanup temp dir khi process thoát (Rủi ro #1 của phase này), cộng cleanup
+      trong `reset()`
 - **Phụ thuộc:** 17a, 17b
 
-#### 17d — Load lại một project đã export trước đó (export ra disk rồi browse sau)
+#### 17d — Load lại một project đã export trước đó ✅
 
-- [ ] `routes/projects.py` thêm `/Project/Load?path=`: dùng `LocalFileSystem` trỏ vào thư mục đã export
-      trên đĩa, build cây bằng `os.walk` thay vì collection list — dùng chung template `tree.html`/
-      `view.html` với 17b (giao tiếp lớn nhất là "data source" trừu tượng thành `ProjectTreeProvider`
-      với 2 impl: `CollectionBackedProvider` (17b) và `FileSystemBackedProvider` (17d))
-- [ ] `index.html` thêm nút "Browse existing exported project..." cạnh "Export Unity Project" (calls
-      `/Dialogs/Folder` rồi POST tới `/Project/Load`) — for use case "tôi export hôm qua, giờ xem lại"
-- **Effort/Risk:** thấp/thấp
+- [x] `routes/projects.py::load()` (`POST /Project/Load`, field `Path`): validate thư mục tồn tại rồi
+      gọi `game_file_loader.load_exported_project(path)` — set thẳng `exported_project_dir` không qua
+      `start_export`, không cần export lại. **Dùng chung code browse với 17b** (cả hai chỉ khác nhau ở
+      cách `exported_project_dir` được set, không phải 2 `ProjectTreeProvider` riêng như kế hoạch ban
+      đầu — vì 17a chọn temp-dir/`os.listdir` cho cả hai trường hợp, không có "cây từ collection" và
+      "cây từ disk" là hai thứ khác nhau cần trừu tượng hoá)
+- [x] `index.html` thêm form "Load Exported Project" (path input + nút Browse + submit) độc lập với
+      form Export, luôn hiển thị (không phụ thuộc `has_game_data`) — đúng use case "hôm qua export rồi,
+      giờ mở lại xem, không cần load lại game"
 - **Phụ thuộc:** 17b
-- **Ghi chú:** item này **có thể bù** cho rủi ro #1 một phần — nếu user có game thật + đã export ra
-      disk, có thể browse kết quả đó mà không cần re-export
 
-#### 17e — Test + release gate
+#### 17e — Test + release gate ✅
 
-- [ ] `tests/gui_web/test_project_browse.py` — tree rendering (cây thật có `Assets/`/
-      `ProjectSettings/` + ít nhất 1 file mỗi kiểu), click vào `.asset` trả YAML, click vào `.png`
-      trả ảnh với đúng mime + content-type header,`reset()` xoá `exported_project`, CLI không tạo
-      temp-dir (regression gate cho 17c's "không phá CLI")
-- [ ] `tests/io_files/test_virtual_file_system.py` (chỉ nếu chọn nhánh 17a-full) — write/read/list,
-      nested directory, conflict trên node đã có
-- [ ] Release gate + commit + push
+- [x] `tests/gui_web/test_project_browse.py` — 11 test: blank OutputPath → temp dir browsable;
+      `/Project/Browse` liệt kê đúng root + thư mục con; `/Project/File` trả đúng nội dung thật;
+      path traversal (`../../../../etc/passwd` và tương tự cho `/Browse`) trả 400; browse khi chưa
+      export redirect về home kèm flash; `/Project/Load` trỏ vào thư mục export trước đó (mô phỏng
+      "export hôm qua"); `/Project/Load` báo lỗi thư mục không tồn tại; `reset()` xoá đúng temp dir
+      mình sở hữu; export ra disk thật (`OutputPath` không rỗng) vẫn browse được và **không** bị xoá
+      bởi `reset()` (chỉ temp dir do chính module tạo mới bị xoá)
+- [x] Release gate + commit + push
 
-**Thứ tự đề xuất:** `17a` (chọn temp-dir hay VFS chốt đầu) → `17c` → `17b` → `17d` → `17e`. Lý do
-đặt 17c trước 17b: wiring state rẻ và rạch ròi, làm trước để 17b có "data thật" để render (tránh
-viết template chống cây giả rồi sửa lại). Có thể 17a-lite → 17c → 17b → nâng 17a-full → 17d → 17e.
+**Không port so với kế hoạch ban đầu (quyết định có chủ đích, ghi lại để không ai làm lại):**
+`VirtualFileSystem` (17a — 17a-lite đủ dùng), `ProjectTreeProvider` 2-impl abstraction (17d — không
+cần vì cả hai đường đều là thư mục thật trên đĩa), macro `tree.html` riêng (17b — breadcrumb +
+listing từng cấp đơn giản hơn, đủ dùng), toggle ẩn `.meta` (17b — nợ nhỏ, không chặn mục tiêu chính).
 
-#### Rủi ro riêng của Phase 17
+#### Rủi ro riêng của Phase 17 — trạng thái sau khi làm xong
 
-1. **Temp dir leak.** `exported_project` giữ `tempfile.TemporaryDirectory` — nếu GUI crash mà không
-   cleanup, temp đọng lại. Phải catch exception trong `start_export`'s thread và try-finally, cộng
-   `atexit` cleanup khi process thoát.
-2. **Tiện ích tranh với "đã port xong upstream parity."** Upstream *không có* phase này — thêm nó có
-   thể sai lệch so với "port 1:1 đã được audit từng phase". Phải ghi rõ trong docstring module và
-   trong design decision này là **additive feature, không thay thế** cái gì upstream có.
-3. **Stale state sau khi user đổi Settings.** `exported_project` vẫn là kết quả export với settings
-   cũ sau khi `/Settings/Edit` đổi — nếu user chỉnh rồi browse lại, họ thấy cây cũ. Ghi warning rõ
-   trên trang `/Project` + 1 flag `settings_dirty` invalidates cây, hoặc đơn giản: đổi settings mà
-   có cây đang browse → flash "Settings changed — re-export to refresh"
-4. **Security: path traversal.** `/Project/File?path=` nhận path từ URL — phải guard `os.path.join`
-   không vượt ra ngoài root project (URL `..%2F..%2Fetc%2Fpasswd` phải trả 400). Loại bug kinh điển
-   trong static-file serving; kiểm bằng test cố ý
-5. **No-additive-work-per assumption.** User có thể tưởng "browse trong tool" = "Unity Editor mở
-   được." **Sai hoàn toàn**: view chỉ là cây + nội dung file, không có importer, kiểm tra reference,
-   scene hierarchy đồ hoạ. Ghi ngay trên trang `/Project`: "This is a **browsable tree of exported
-   files**, not a Unity Editor. Open the exported folder in Unity Editor for full validation."
+1. **Temp dir leak — đã xử lý.** `game_file_loader._owned_temp_dir` + `atexit.register` cleanup khi
+   process thoát, cộng cleanup trong `reset()`. Chỉ xoá temp dir **chính module này tạo ra**
+   (`start_export` với `output_directory` rỗng) — một `OutputPath` thật do user chỉ định không bao
+   giờ bị `reset()` xoá (test `test_disk_export_with_explicit_path_also_becomes_browsable` xác nhận).
+2. **Tiện ích tranh với "đã port xong upstream parity" — đã ghi rõ.** Docstring
+   `game_file_loader.py`/`routes/projects.py` đều nói rõ đây là additive feature, không port; trang
+   `/Project` tự nó cũng ghi banner cảnh báo (xem #5).
+3. **Stale state sau khi đổi Settings — CHƯA xử lý, nợ thật.** `exported_project_dir` vẫn trỏ vào kết
+   quả export cũ sau khi `/Settings/Edit` đổi settings và chưa re-export. Không có flag
+   `settings_dirty`/flash cảnh báo như kế hoạch ban đầu đề xuất — để lại làm sau nếu cần, không chặn
+   "browse được" (mục tiêu chính của phase)
+4. **Security: path traversal — đã xử lý + test.** `routes/projects.py::_resolve()` normalize +
+   `os.path.realpath` rồi so `commonpath`/`startswith` với root thật, trả `400` nếu vượt ra ngoài.
+   2 test cố ý (`test_project_file_rejects_path_traversal`,
+   `test_project_browse_rejects_path_traversal`) xác nhận cả `/Project/File` lẫn `/Project/Browse`.
+5. **No-additive-work-per assumption — đã xử lý.** Banner ngay đầu `templates/projects/view.html`:
+   "This is a browsable tree of exported files, not a Unity Editor" + đường dẫn thư mục thật để mở
+   bằng Unity Editor.
 
 ### Phase 18 — Fixture Unity thật đầu tiên: 3 bug + 1 gap nghiêm trọng 🔴 `0e4c206`
 

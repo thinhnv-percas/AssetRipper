@@ -16,10 +16,22 @@ Two loading paths, kept side by side because they serve different pages:
 
 BundleFiles.Archive/RawWeb (legacy pre-Unity5 bundles) and CompressedFiles/WebFiles aren't
 ported, so those formats still fall through to a load error either way.
+
+**Phase 17 (`exported_project_dir`):** this is a *new* feature, not upstream port -- upstream's
+GUI exports to disk and stops; the user opens the result with their OS file explorer. This adds
+"browse the just-exported (or a previously exported) project's tree right in the GUI" (see
+routes/projects.py). Scoped to the simpler "17a-lite" option from python/ROADMAP.md Phase 17: no
+`VirtualFileSystem` -- when the GUI's OutputPath is left blank, `start_export` exports into a
+real `tempfile.mkdtemp` directory instead of an in-memory tree, and `/Project` just walks that
+directory with `os.walk` like any other folder on disk. Simpler, and the same code path also
+serves loading a project someone exported to disk in an earlier run (`load_exported_project`).
 """
 from __future__ import annotations
 
+import atexit
 import os
+import shutil
+import tempfile
 import threading
 
 from assetripper_assets.bundles.game_bundle import GameBundle
@@ -51,9 +63,28 @@ class _State:
         `ProjectExporter.export`'s `progress_callback`; `/Export/Progress` polls this so the
         GUI can show a live progress bar instead of blocking the whole request on a large
         export."""
+        self.exported_project_dir: str | None = None
+        """(Phase 17) Root directory of a completed export that can be browsed via `/Project` --
+        either a `tempfile.mkdtemp` this module owns (see `_owned_temp_dir`) or a real directory
+        the user pointed at (either as this export's OutputPath, or via `load_exported_project`
+        for a project exported in an earlier run/process). `None` until an export finishes or
+        `load_exported_project` succeeds."""
+        self._owned_temp_dir: str | None = None
+        """Set only when `exported_project_dir` is a temp dir this module created and therefore
+        must clean up itself (on `reset()` or process exit) -- a user-supplied OutputPath is
+        never deleted out from under them."""
 
 
 _state = _State()
+
+
+def _cleanup_owned_temp_dir() -> None:
+    if _state._owned_temp_dir is not None:
+        shutil.rmtree(_state._owned_temp_dir, ignore_errors=True)
+        _state._owned_temp_dir = None
+
+
+atexit.register(_cleanup_owned_temp_dir)
 
 
 def is_loaded() -> bool:
@@ -92,17 +123,30 @@ def export_progress() -> dict:
     return dict(_state.export_progress)
 
 
-def start_export(output_directory: str) -> None:
+def start_export(output_directory: "str | None") -> None:
     """Runs the real export (`ExportHandler.export`) on a background thread so the POST
     handler can return immediately and the GUI can poll `export_progress()` for a live
     progress bar (Phase 11) instead of blocking on a large export. Raises if an export from
-    this process is already running -- overlapping exports would race on `export_progress`."""
+    this process is already running -- overlapping exports would race on `export_progress`.
+
+    `output_directory` falsy (Phase 17): exports into a fresh `tempfile.mkdtemp` this module
+    owns instead, so it can be browsed afterward via `/Project` without the user having to
+    pick a disk location first. Either way, a *successful* export sets `exported_project_dir()`
+    once it finishes -- see `_run`."""
     if _state.export_progress["running"]:
         raise RuntimeError("An export is already running.")
     if _state.game_data is None:
         raise RuntimeError("No game structure loaded (use Load Folder, not Load File, before exporting).")
 
+    _cleanup_owned_temp_dir()
+    owned_temp_dir = None
+    if not output_directory:
+        owned_temp_dir = tempfile.mkdtemp(prefix="assetripper_exported_")
+        output_directory = owned_temp_dir
+
     _state.export_progress = {"running": True, "current": 0, "total": 0, "current_name": "", "error": None}
+    _state.exported_project_dir = None
+    _state._owned_temp_dir = owned_temp_dir
     game_data = _state.game_data
     settings = _state.settings
 
@@ -123,6 +167,7 @@ def start_export(output_directory: str) -> None:
                 settings=settings,
                 progress_callback=_on_progress,
             )
+            _state.exported_project_dir = output_directory
         except Exception as ex:  # noqa: BLE001 -- reported via export_progress()["error"], not raised
             _state.export_progress["error"] = repr(ex)
         finally:
@@ -131,11 +176,34 @@ def start_export(output_directory: str) -> None:
     threading.Thread(target=_run, daemon=True).start()
 
 
+def has_exported_project() -> bool:
+    return _state.exported_project_dir is not None
+
+
+def exported_project_dir() -> str:
+    if _state.exported_project_dir is None:
+        raise RuntimeError("No exported project to browse (export or load one first).")
+    return _state.exported_project_dir
+
+
+def load_exported_project(path: str) -> None:
+    """(Phase 17d) Points `/Project` at a project directory exported in an earlier run --
+    e.g. via the CLI, or a previous GUI session that used a real OutputPath -- without
+    running a fresh export. Doesn't touch `game_bundle`/`game_data`; browsing an old export
+    doesn't require the source game to still be loaded."""
+    if not os.path.isdir(path):
+        raise FileNotFoundError(f"Directory not found: {path}")
+    _cleanup_owned_temp_dir()
+    _state.exported_project_dir = path
+
+
 def reset() -> None:
     _state.game_bundle = None
     _state.game_data = None
     _state.load_errors = []
     _state.export_progress = {"running": False, "current": 0, "total": 0, "current_name": "", "error": None}
+    _cleanup_owned_temp_dir()
+    _state.exported_project_dir = None
 
 
 def load_paths(paths: list[str]) -> None:

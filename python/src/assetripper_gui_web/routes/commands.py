@@ -10,6 +10,11 @@ file now drives).
 `/Export/UnityProject` (Phase 11): now starts the export on a background thread and
 returns immediately instead of blocking the whole request -- `/Export/Progress` (JSON,
 polled by index.html) reports live progress via `game_file_loader.export_progress()`.
+
+Phase 17: `OutputPath` is now optional -- left blank, `start_export` exports into a temp
+directory instead and the result becomes browsable at `/Project` once it finishes (see
+game_file_loader.py's docstring). A non-blank path keeps exporting straight to disk exactly
+like before.
 """
 from __future__ import annotations
 
@@ -47,21 +52,21 @@ def reset():
 
 @bp.post("/Export/UnityProject")
 def export_unity_project():
-    output_path = request.form.get("OutputPath", "")
+    output_path = request.form.get("OutputPath", "").strip()
     if not game_file_loader.has_game_data():
         flash("Load a game folder first (use Load Folder, not Load File -- export needs the full game structure).")
         return redirect(url_for("home.index"))
-    if not output_path:
-        flash("No output path given.")
-        return redirect(url_for("home.index"))
 
     try:
-        game_file_loader.start_export(output_path)
+        game_file_loader.start_export(output_path or None)
     except RuntimeError as ex:
         flash(str(ex))
         return redirect(url_for("home.index"))
 
-    flash(f"Export started to {output_path} -- see progress below.")
+    if output_path:
+        flash(f"Export started to {output_path} -- see progress below.")
+    else:
+        flash("Export started -- once finished, browse it in the tool from the link below.")
     return redirect(url_for("home.index"))
 
 

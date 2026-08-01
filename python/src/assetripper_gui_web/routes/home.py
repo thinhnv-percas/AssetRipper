@@ -45,6 +45,7 @@ def index():
         export_progress=game_file_loader.export_progress(),
         load_errors=game_file_loader.load_errors(),
         root_path=BundlePath().to_json(),
+        has_exported_project=game_file_loader.has_exported_project(),
     )
 
 

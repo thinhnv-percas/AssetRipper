@@ -33,6 +33,7 @@ def create_app() -> Flask:
     from .routes.failed_files import bp as failed_files_bp
     from .routes.home import bp as home_bp
     from .routes.io_api import bp as io_api_bp
+    from .routes.projects import bp as projects_bp
     from .routes.resources import bp as resources_bp
     from .routes.scenes import bp as scenes_bp
     from .routes.search import bp as search_bp
@@ -48,5 +49,6 @@ def create_app() -> Flask:
     app.register_blueprint(search_bp)
     app.register_blueprint(io_api_bp)
     app.register_blueprint(dialogs_bp)
+    app.register_blueprint(projects_bp)
 
     return app
