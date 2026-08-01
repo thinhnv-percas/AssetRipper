@@ -36,10 +36,13 @@ class GameStructure:
         default_version: UnityVersion | None = None,
         target_version: UnityVersion | None = None,
         ignore_streaming_assets: bool = False,
+        progress_callback=None,
     ):
         self.file_system = file_system
         self.assembly_manager = None
 
+        if progress_callback:
+            progress_callback("Discovering platform structure...")
         self.platform_structure, self.mixed_structure = check_platform(paths, file_system)
         if self.platform_structure is not None:
             self.platform_structure.collect_files(ignore_streaming_assets)
@@ -52,6 +55,8 @@ class GameStructure:
 
         asset_factory = GameAssetFactory()
         file_paths = _get_file_paths(self.platform_structure, self.mixed_structure)
+        if progress_callback:
+            progress_callback(f"Reading {len(file_paths)} file(s)...")
         self.file_collection = GameBundle.from_paths(
             file_paths,
             asset_factory,
@@ -82,7 +87,15 @@ class GameStructure:
         default_version: UnityVersion | None = None,
         target_version: UnityVersion | None = None,
         ignore_streaming_assets: bool = False,
+        progress_callback=None,
     ) -> "GameStructure":
+        """`progress_callback(message: str)` (Phase 19c), optional: reports coarse milestones
+        only ("Extracting archive...", "Discovering platform structure...", "Reading N
+        file(s)...") -- there's no cheap way to know a numeric total/current up front (unlike
+        `ProjectExporter.export`'s per-asset progress), so this is a status message, not a
+        percentage."""
+        if progress_callback:
+            progress_callback("Extracting archive...")
         to_process = zip_extractor.process(paths, file_system)
         if not to_process:
             raise ValueError("Game files not found")
@@ -93,6 +106,7 @@ class GameStructure:
             default_version=default_version,
             target_version=target_version,
             ignore_streaming_assets=ignore_streaming_assets,
+            progress_callback=progress_callback,
         )
 
     def dispose(self) -> None:

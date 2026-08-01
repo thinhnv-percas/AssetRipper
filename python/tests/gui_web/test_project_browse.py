@@ -21,6 +21,8 @@ from assetripper_primitives import UnityVersion
 
 from import_._tree_builder import node, string_nodes, tree, unity_string
 
+from ._load_helpers import wait_for_load_to_finish
+
 _TEXT_ASSET_TREE = tree(
     node("TextAsset", "Base", 0),
     *string_nodes("m_Name", 1),
@@ -83,6 +85,7 @@ def _load_synthetic_game(client, tmp_path):
     game_dir.mkdir()
     _write_synthetic_game(game_dir)
     client.post("/LoadFolder", data={"Path": str(game_dir)})
+    wait_for_load_to_finish()
     assert game_file_loader.has_game_data()
     return game_dir
 
@@ -188,6 +191,7 @@ def test_load_exported_project_points_at_an_arbitrary_existing_directory(client,
     _write_synthetic_game(game_dir)
     output_dir = tmp_path / "output"
     client.post("/LoadFolder", data={"Path": str(game_dir)})
+    wait_for_load_to_finish()
     client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)})
     _wait_for_export_to_finish()
     game_file_loader.reset()
@@ -228,6 +232,7 @@ def test_project_file_on_disk_source_rejects_path_traversal(client, tmp_path):
     _write_synthetic_game(game_dir)
     output_dir = tmp_path / "output"
     client.post("/LoadFolder", data={"Path": str(game_dir)})
+    wait_for_load_to_finish()
     client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)})
     _wait_for_export_to_finish()
     client.post("/Project/Load", data={"Path": str(output_dir)})
@@ -242,6 +247,7 @@ def test_project_browse_on_disk_source_rejects_path_traversal(client, tmp_path):
     _write_synthetic_game(game_dir)
     output_dir = tmp_path / "output"
     client.post("/LoadFolder", data={"Path": str(game_dir)})
+    wait_for_load_to_finish()
     client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)})
     _wait_for_export_to_finish()
     client.post("/Project/Load", data={"Path": str(output_dir)})

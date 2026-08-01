@@ -11,10 +11,26 @@ file now drives).
 returns immediately instead of blocking the whole request -- `/Export/Progress` (JSON,
 polled by index.html) reports live progress via `game_file_loader.export_progress()`.
 
+`/LoadFile`/`/LoadFolder` (Phase 19c): now the same, via `start_load` + `/Load/Progress` --
+a real `.ipa` takes ~38s to extract and read (see ROADMAP Phase 19), which used to hang the
+whole POST request with no feedback. Mirrors the export-progress pattern exactly rather than
+inventing a new one.
+
 `OutputPath` is required (Phase 17 rewrite dropped the old "blank = export into a temp dir,
 then browse it" behavior -- see game_file_loader.py's docstring for why: `/Project` now
 previews a loaded game instantly via `ExportPlan`, with no export step needed, so this real
 disk export always needs a real path again, same as before Phase 17 existed).
+
+**Phase 19a:** `/LoadFile` and `/LoadFolder` are now aliases of the same `_load` handler,
+which always calls `game_file_loader.load_paths([path])` regardless of whether `path` is a
+file or a directory -- fixes the real bug the user hit: a `.apk`/`.ipa` handed to the old
+"Load File" button (which called `game_file_loader.load_file`, a raw-SerializedFile/bundle-only
+reader) always failed with "not a recognized SerializedFile or UnityFS bundle", even though
+`load_paths` (behind "Load Folder") has handled archive inputs correctly since Phase 3/14 --
+`zip_extractor`/`platform_checker` already classify `.apk`/`.ipa`/`.obb`/`.zip`, a real game
+folder, or one loose `.assets`/bundle file correctly, with no format-detection logic needed at
+the GUI layer. Kept as two distinct route names (not collapsed to one) so neither an old
+bookmark nor `test_flask_app.py`'s existing route list breaks.
 """
 from __future__ import annotations
 
@@ -25,23 +41,28 @@ from .. import game_file_loader
 bp = Blueprint("commands", __name__)
 
 
+def _load():
+    path = request.form.get("Path", "")
+    try:
+        game_file_loader.start_load([path])
+    except RuntimeError as ex:
+        flash(str(ex))
+    return redirect(url_for("home.index"))
+
+
 @bp.post("/LoadFile")
 def load_file():
-    path = request.form.get("Path", "")
-    game_file_loader.load_file(path)
-    return redirect(url_for("home.index"))
+    return _load()
 
 
 @bp.post("/LoadFolder")
 def load_folder():
-    """Loads every file under `Path` as a full Unity game via `GameStructure` (platform
-    discovery, dependency resolution, processors) -- unlike `load_file`'s single raw file,
-    this is what `/Export/UnityProject` needs."""
-    folder = request.form.get("Path", "")
-    game_file_loader.load_paths([folder])
-    for error in game_file_loader.load_errors():
-        flash(error)
-    return redirect(url_for("home.index"))
+    return _load()
+
+
+@bp.get("/Load/Progress")
+def load_progress():
+    return jsonify(game_file_loader.load_progress())
 
 
 @bp.post("/Reset")

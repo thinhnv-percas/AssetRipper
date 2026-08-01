@@ -42,11 +42,14 @@ class ExportHandler:
             register_exporters = register_default_exporters
         self._register_exporters = register_exporters
 
-    def load(self, paths, file_system, settings=None, **kwargs) -> GameData:
+    def load(self, paths, file_system, settings=None, progress_callback=None, **kwargs) -> GameData:
         """`settings` (Phase 10): a `FullConfiguration`; only its `import_settings`
         (`default_version`/`target_version`/`ignore_streaming_assets`) is consulted, and
         only to fill in values `kwargs` didn't already specify -- an explicit keyword
-        argument always wins over `settings`."""
+        argument always wins over `settings`.
+
+        `progress_callback` (Phase 19c): forwarded to `GameStructure.load` -- see its
+        docstring for exactly what milestones it reports."""
         if settings is not None:
             import_settings = settings.import_settings
             kwargs.setdefault("default_version", import_settings.default_version)
@@ -58,7 +61,7 @@ class ExportHandler:
         else:
             _logger.info("Attempting to read files from %d paths...", len(paths))
 
-        game_structure = GameStructure.load(paths, file_system, **kwargs)
+        game_structure = GameStructure.load(paths, file_system, progress_callback=progress_callback, **kwargs)
         game_data = GameData.from_game_structure(game_structure)
         _logger.info("Finished reading files")
         return game_data
@@ -89,9 +92,11 @@ class ExportHandler:
         run_default_post_exporters(game_data, output_directory, game_data.project_version, file_system, settings)
         _logger.info("Finished post-export")
 
-    def load_and_process(self, paths, file_system, settings=None, **kwargs) -> GameData:
-        game_data = self.load(paths, file_system, settings=settings, **kwargs)
+    def load_and_process(self, paths, file_system, settings=None, progress_callback=None, **kwargs) -> GameData:
+        game_data = self.load(paths, file_system, settings=settings, progress_callback=progress_callback, **kwargs)
         if game_data.game_bundle.has_any_asset_collections():
+            if progress_callback:
+                progress_callback("Running processors...")
             self.process(game_data, settings)
         return game_data
 

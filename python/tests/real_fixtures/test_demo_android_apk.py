@@ -30,6 +30,12 @@ byte-verified against every sample of that type in *this exact fixture*) --
 `test_real_content_is_actually_exported` below asserts the concrete, measurable improvement:
 real PNG/mat/fsb files exist in the export output, not just "didn't crash". MonoBehaviour/
 Mesh/Shader/BuildSettings remain unmodeled -- see python/ROADMAP.md Phase 18.
+
+**Phase 19 (2026-08-01):** every test above drives `ExportHandler` directly -- none of them
+would have caught the real bug the user hit ("the GUI tool still doesn't work with apk and ipa
+input"), which was purely in the GUI's own route wiring (`/LoadFile` calling the wrong loader),
+not the engine. `test_real_android_apk_loads_through_the_gui` closes that coverage gap by
+driving the real Flask app's test client instead.
 """
 from __future__ import annotations
 
@@ -105,3 +111,39 @@ def test_real_android_apk_split_asset_files_are_reassembled(tmp_path):
     collection_names = {c.name for c in game_data.game_bundle.fetch_asset_collections()}
     assert "sharedassets0.assets" in collection_names
     assert "sharedassets1.assets" in collection_names
+
+
+def test_real_android_apk_loads_through_the_gui(tmp_path):
+    """Phase 19d: closes the exact gap that let the user-reported apk/ipa bug through in the
+    first place -- the engine (`ExportHandler`/`load_and_process`, tested above) had real-file
+    coverage from Phase 18, but the GUI's own `/LoadFile`/`/LoadFolder` routes never did, so a
+    GUI-layer wiring bug (`/LoadFile` calling the wrong loader) went undetected until a real
+    user hit it. Posts the real `.apk` through the actual Flask test client, not just
+    `ExportHandler` directly, and through *both* aliased routes (Phase 19a)."""
+    import time
+
+    from assetripper_gui_web import create_app, game_file_loader
+
+    def _wait_for_load(timeout: float = 60.0) -> None:
+        deadline = time.monotonic() + timeout
+        while game_file_loader.load_progress()["running"]:
+            if time.monotonic() > deadline:
+                raise AssertionError("load did not finish within the timeout")
+            time.sleep(0.05)
+
+    game_file_loader.reset()
+    try:
+        app = create_app()
+        app.testing = True
+        client = app.test_client()
+
+        client.post("/LoadFile", data={"Path": str(_APK_PATH)})
+        _wait_for_load()
+        assert game_file_loader.has_game_data(), game_file_loader.load_errors()
+        game_file_loader.reset()
+
+        client.post("/LoadFolder", data={"Path": str(_APK_PATH)})
+        _wait_for_load()
+        assert game_file_loader.has_game_data(), game_file_loader.load_errors()
+    finally:
+        game_file_loader.reset()

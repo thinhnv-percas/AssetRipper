@@ -43,6 +43,7 @@ def index():
         is_loaded=game_file_loader.is_loaded(),
         has_game_data=game_file_loader.has_game_data(),
         export_progress=game_file_loader.export_progress(),
+        load_progress=game_file_loader.load_progress(),
         load_errors=game_file_loader.load_errors(),
         root_path=BundlePath().to_json(),
         has_exported_project=game_file_loader.has_exported_project(),

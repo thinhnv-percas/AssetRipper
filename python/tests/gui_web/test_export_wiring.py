@@ -19,6 +19,8 @@ from assetripper_primitives import UnityVersion
 
 from import_._tree_builder import node, string_nodes, tree, unity_string
 
+from ._load_helpers import wait_for_load_to_finish
+
 _TEXT_ASSET_TREE = tree(
     node("TextAsset", "Base", 0),
     *string_nodes("m_Name", 1),
@@ -85,6 +87,7 @@ def test_load_folder_runs_full_pipeline(client, tmp_path):
     _write_synthetic_game(game_dir)
 
     response = client.post("/LoadFolder", data={"Path": str(game_dir)}, follow_redirects=True)
+    wait_for_load_to_finish()
 
     assert response.status_code == 200
     assert game_file_loader.is_loaded()
@@ -96,6 +99,7 @@ def test_load_folder_reports_missing_directory(client, tmp_path):
     missing = tmp_path / "does_not_exist"
 
     response = client.post("/LoadFolder", data={"Path": str(missing)}, follow_redirects=True)
+    wait_for_load_to_finish()
 
     assert response.status_code == 200
     assert not game_file_loader.is_loaded()
@@ -109,6 +113,7 @@ def test_export_unity_project_writes_a_real_project(client, tmp_path):
     output_dir = tmp_path / "output"
 
     client.post("/LoadFolder", data={"Path": str(game_dir)})
+    wait_for_load_to_finish()
     assert game_file_loader.has_game_data()
 
     response = client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)}, follow_redirects=True)
@@ -127,6 +132,7 @@ def test_export_progress_endpoint_reports_completion(client, tmp_path):
     output_dir = tmp_path / "output"
 
     client.post("/LoadFolder", data={"Path": str(game_dir)})
+    wait_for_load_to_finish()
     client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)})
     _wait_for_export_to_finish()
 
@@ -162,6 +168,7 @@ def test_export_progress_records_error_without_raising(client, tmp_path):
     game_dir.mkdir()
     _write_synthetic_game(game_dir)
     client.post("/LoadFolder", data={"Path": str(game_dir)})
+    wait_for_load_to_finish()
 
     # A regular file where the export expects to create a directory -- makes the background
     # thread's export() call raise; start_export()/the POST route must not propagate that.
@@ -177,20 +184,26 @@ def test_export_progress_records_error_without_raising(client, tmp_path):
     assert game_file_loader.export_progress()["error"] is not None
 
 
-def test_export_unity_project_without_game_data_flashes_error(client, tmp_path):
-    # load_file (not load_folder) never populates game_data, so export must decline.
+def test_load_file_route_now_populates_game_data_too(client, tmp_path):
+    """Phase 19a: `/LoadFile` used to call the raw `game_file_loader.load_file` (no platform
+    discovery, no processors), so a single `.assets` file posted there could never be
+    exported -- this test used to assert exactly that as the expected behavior. It's now the
+    bug Phase 19a fixes: `/LoadFile` and `/LoadFolder` are both aliases of the same
+    `load_paths`-based handler, so a single loose `.assets` file gets full game_data (via
+    `MixedGameStructure`) and *can* be exported, same as a folder would."""
     sample = tmp_path / "sample.assets"
     _write_synthetic_game(tmp_path)
     (sample).write_bytes((tmp_path / "sharedassets0.assets").read_bytes())
     client.post("/LoadFile", data={"Path": str(sample)})
-    assert not game_file_loader.has_game_data()
+    wait_for_load_to_finish()
+    assert game_file_loader.has_game_data()
 
-    response = client.post(
-        "/Export/UnityProject", data={"OutputPath": str(tmp_path / "output")}, follow_redirects=True
-    )
+    output_dir = tmp_path / "output"
+    client.post("/Export/UnityProject", data={"OutputPath": str(output_dir)})
+    _wait_for_export_to_finish()
 
-    assert response.status_code == 200
-    assert not (tmp_path / "output").exists()
+    assert game_file_loader.export_progress()["error"] is None
+    assert (output_dir / "ProjectSettings" / "ProjectVersion.txt").exists()
 
 
 def test_export_unity_project_without_loaded_data_flashes_error(client, tmp_path):

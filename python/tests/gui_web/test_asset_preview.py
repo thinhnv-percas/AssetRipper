@@ -18,6 +18,8 @@ from assetripper_primitives import UnityVersion
 
 from import_._tree_builder import node, pad_to_4, string_nodes, tree, unity_array
 
+from ._load_helpers import wait_for_load_to_finish
+
 _TEXT_ASSET_TREE = tree(node("TextAsset", "Base", 0), *string_nodes("m_Name", 1), *string_nodes("m_Script", 1))
 _TEXTURE_2D_TREE = tree(
     node("Texture2D", "Base", 0),
@@ -101,6 +103,7 @@ def test_text_asset_renders_through_text_endpoint(client, tmp_path):
     sample = tmp_path / "sample.assets"
     _write_sample_file(sample)
     client.post("/LoadFile", data={"Path": str(sample)})
+    wait_for_load_to_finish()
 
     response = client.get(f"/Assets/Text?Path={_asset_path(1)}")
 
@@ -113,6 +116,7 @@ def test_texture2d_renders_through_image_endpoint(client, tmp_path):
     sample = tmp_path / "sample.assets"
     _write_sample_file(sample)
     client.post("/LoadFile", data={"Path": str(sample)})
+    wait_for_load_to_finish()
 
     response = client.get(f"/Assets/Image?Path={_asset_path(2)}")
 
@@ -125,6 +129,7 @@ def test_text_asset_404s_on_image_endpoint(client, tmp_path):
     sample = tmp_path / "sample.assets"
     _write_sample_file(sample)
     client.post("/LoadFile", data={"Path": str(sample)})
+    wait_for_load_to_finish()
 
     response = client.get(f"/Assets/Image?Path={_asset_path(1)}")
 
@@ -135,6 +140,7 @@ def test_texture2d_renders_through_binary_endpoint_as_attachment(client, tmp_pat
     sample = tmp_path / "sample.assets"
     _write_sample_file(sample)
     client.post("/LoadFile", data={"Path": str(sample)})
+    wait_for_load_to_finish()
 
     response = client.get(f"/Assets/Binary?Path={_asset_path(2)}")
 

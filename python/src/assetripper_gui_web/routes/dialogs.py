@@ -8,12 +8,23 @@ Degrades on purpose: any failure (no `tkinter`, no display, dialog cancelled) re
 `{"available": False}` with a 404 rather than raising, so the browser-side JS in
 index.html falls back to the existing manual text input instead of showing a broken
 picker button.
+
+**Phase 19a:** `askopenfilename`'s `filetypes` now lists the archive/bundle inputs
+`load_paths` actually accepts (`.apk`/`.ipa`/`.obb`/`.zip`/`.assets`/`.bundle`/`.unity3d`) so the
+native picker's default filter doesn't hide them -- before this, a user picking a `.apk` off
+their desktop had no reason to expect the dialog would show it. "All files" is still listed so
+nothing is ever actually hidden, just deprioritized.
 """
 from __future__ import annotations
 
 from flask import Blueprint, jsonify
 
 bp = Blueprint("dialogs", __name__, url_prefix="/Dialogs")
+
+_GAME_FILE_TYPES = [
+    ("Game archives and bundles", "*.apk *.ipa *.obb *.zip *.assets *.bundle *.unity3d"),
+    ("All files", "*.*"),
+]
 
 
 def _open_dialog(kind: str) -> "str | None":
@@ -29,7 +40,7 @@ def _open_dialog(kind: str) -> "str | None":
         root.attributes("-topmost", True)
         try:
             if kind == "file":
-                path = filedialog.askopenfilename(parent=root)
+                path = filedialog.askopenfilename(parent=root, filetypes=_GAME_FILE_TYPES)
             else:
                 path = filedialog.askdirectory(parent=root)
         finally:

@@ -7,7 +7,8 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
-  lại; Phase 19 là bug thật user đang gặp, chưa sửa.** 705 tests pass. Commit cuối: `0cb790e`.
+  lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d.** 716 tests pass.
+  Commit cuối: (pending).
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -26,12 +27,13 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   + 16 test mới + release gate (17e). Còn nợ lại, ghi rõ không giấu: 1 test đối chiếu preview-vs-export
   ở mức GUI thật với `demo-android.apk` (bất biến đã chứng minh 2 lần ở tầng thấp hơn — 17a, 17b), và
   rủi ro RAM khi Phase 18 làm xong nhiều class hơn (xem "Rủi ro riêng của Phase 17" mục 2).
-- 🔴 **Phase 19 — GUI không nhận `.apk`/`.ipa` (bug user đang gặp).** Đã điều tra xong: engine đúng
-  (`load_paths` load được cả `.apk` 3s và `.ipa` 38s, Unity 2022.3.62f3), **GUI sai entry point** —
-  nút "Load File" gọi `load_file` (chỉ đọc SerializedFile/bundle thô) chứ không phải `load_paths`, và
-  picker của "Load Folder" là `askdirectory` nên không chọn được file `.apk`. Kèm 2 bug phụ:
-  `load_file` để GUI ở trạng thái "đã load" với bundle rỗng khi validate fail, và load `.ipa` treo
-  browser 38 giây vì không có progress. Xem Phase 19.
+- ✅ **Phase 19 — GUI không nhận `.apk`/`.ipa` (bug user đang gặp) — đã sửa xong (19a-19d).**
+  Root cause đúng như điều tra: engine đúng, GUI sai entry point (`/LoadFile` gọi `load_file`, không
+  phải `load_paths`). `/LoadFile`+`/LoadFolder` giờ là alias của cùng một handler luôn gọi
+  `load_paths`; `askopenfilename` thêm `filetypes` cho apk/ipa/obb/zip/assets/bundle; `load_file`'s
+  trạng thái mâu thuẫn đã sửa; load giờ chạy background thread + progress bar (`/Load/Progress`),
+  không còn treo browser 38 giây không phản hồi. Verify bằng cả apk giả (test, không cần LFS) và
+  `demo-android.apk` thật qua chính Flask test client. Xem Phase 19.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất **về input format** đã gỡ, nhưng không giúp gì nếu chính asset đó không có
   type tree để đọc field trước (xem Phase 18) — hai vấn đề độc lập nhau.
@@ -187,11 +189,11 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
-| 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
+| 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ (pending) — bug user báo đã sửa xong (19a-19d) |
 
-Số test theo area (tổng 705): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
-`assets` 48, `export_unity_projects` 60, `gui_web` 61, `io_files_bundle` 29, `processing` 34,
-`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 3 (skip nếu chưa
+Số test theo area (tổng 716): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
+`assets` 48, `export_unity_projects` 60, `gui_web` 71, `io_files_bundle` 29, `processing` 34,
+`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 4 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
 ---
@@ -561,6 +563,12 @@ Phase 14 (input format) đã xong, xem ghi chú trong từng phase bên dưới.
    để tab code có nội dung thật thay vì stub.
 5. **Phase 13** (13a/13b/13h ✅, 13c ⚠️ một phần, 13d/13e/13f/13g/13i `[~]`) — **không còn việc khả thi
    nào chưa làm**: mọi sub-phase đã hoặc port xong hoặc đánh giá và đánh dấu `[~]` với lý do cụ thể.
+
+**Cập nhật tiến độ (2026-08-01, cùng ngày):** #1 (Phase 19) và #3 (Phase 17) đã làm xong theo đúng thứ
+tự khuyến nghị ở trên. #2 (Phase 18's gap chính) đã làm một phần (4/7 class, xem Phase 18) trước cả khi
+làm #3 — thứ tự thực tế lệch nhẹ so với khuyến nghị (làm 18 rồi 17 rồi 19, thay vì 19 rồi 18 rồi 17)
+nhưng không ảnh hưởng kết quả vì các phase này độc lập nhau. Còn lại theo đúng khuyến nghị: #4 (Phase 16)
+đang làm, #5 (Phase 13) đã xong không còn việc khả thi.
 
 Đánh số giữ nguyên theo thứ tự thêm vào file (append-only, đúng giao thức tick) — số phase **không**
 phải thứ tự làm.
@@ -1244,10 +1252,9 @@ User đã chốt: *"bỏ phần view loaded bundle cũng được"*.
 - [x] `/Bundles/View`, `/Collections/View`, `/Assets/View`, `/Resources/View`, `/FailedFiles/View`,
       `/Scenes/View`, `/Search` — route/blueprint **không đổi gì**, vẫn đăng ký như cũ, test hiện có
       của chúng không cần sửa (đã verify: suite vẫn 705 pass sau khi bỏ nav link)
-- [~] **`load_file()` chưa dọn theo quyết định này** — vẫn được giữ nguyên vì Phase 19 (bug thật user
-      đang gặp: GUI không nhận `.apk`/`.ipa`) cần sửa đúng hàm này trước, và ROADMAP tự ghi chú "làm
-      19b sau khi chốt 17d" — 17d chỉ chốt quyết định (đã chốt: giữ route), việc sửa `load_file`'s
-      "loaded but empty" bug thuộc Phase 19, không lặp lại ở đây
+- [x] **`load_file()` đã dọn theo quyết định này ở Phase 19b** — giữ nguyên (không xoá), chỉ không còn
+      được gọi từ nút Load chính của GUI nữa (19a); trạng thái mâu thuẫn "loaded but empty" của nó cũng
+      đã sửa ở 19b, xem Phase 19
 - **Phụ thuộc:** 17c (bỏ sau khi đã có cái thay thế — có rồi, xong)
 
 #### 17e — Test + release gate ✅ `0cb790e`
@@ -1403,7 +1410,7 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
 - [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
       skip) một khi kích thước/Git LFS được chấp nhận là chi phí xứng đáng
 
-### Phase 19 — GUI không nhận được input `.apk`/`.ipa` 🔴 (bug thật, user báo 2026-08-01)
+### Phase 19 — GUI không nhận được input `.apk`/`.ipa` ✅ (pending) (bug thật, user báo 2026-08-01)
 
 **Triệu chứng user báo:** "phần GUI tool vẫn chưa hoạt động với file apk và ipa input".
 
@@ -1433,63 +1440,86 @@ Bug thuần ở phía GUI:
    tool chết. Export đã có progress bar từ Phase 11; load thì chưa. Đây là yêu cầu UX **phát hiện được
    nhờ có fixture thật**, không phải suy đoán.
 
-#### 19a — Một entry point "Load" duy nhất, nhận cả file lẫn folder
+#### 19a — Một entry point "Load" duy nhất, nhận cả file lẫn folder ✅ (pending)
 
-- [ ] Gộp `/LoadFile` + `/LoadFolder` thành một luồng: **luôn** gọi `load_paths([path])` bất kể path là
-      file hay folder. `load_paths` → `ExportHandler.load_and_process` → `GameStructure.load` →
+- [x] Gộp `/LoadFile` + `/LoadFolder` thành một luồng: **luôn** gọi `load_paths([path])` bất kể path là
+      file hay folder. Không cần thêm logic phát hiện định dạng ở tầng GUI —
       `zip_extractor.process` + `platform_checker.check_platform` đã tự phân loại đúng
       (`.apk`/`.ipa`/`.obb`/`.zip` → giải nén; folder game → platform structure; file `.assets`/bundle
-      lẻ → `MixedGameStructure`). **Không cần thêm logic phát hiện định dạng ở tầng GUI** — chỉ cần
-      đừng đi qua `load_file`
-- [ ] `index.html`: một form "Load game" + 2 nút picker cạnh nhau ("Choose file…" / "Choose folder…"),
-      cùng POST về một endpoint. Ghi rõ ngay trên form: chấp nhận `.apk`, `.ipa`, `.obb`, `.zip`,
-      folder game (Windows/Linux/Mac/Android/iOS/Switch/PS4/WebGL), hoặc một file `.assets`/bundle lẻ
-- [ ] `routes/dialogs.py`: `askopenfilename` thêm `filetypes` cho apk/ipa/obb/zip/assets/bundle + "All
-      files". Giữ nguyên cơ chế degrade về text input khi không có display (đã đúng từ Phase 11)
-- [ ] Giữ `/LoadFile` + `/LoadFolder` như alias để không phá test/bookmark cũ, cả hai trỏ vào cùng một
-      handler
-- **Effort/Risk:** thấp/thấp — không thêm logic mới, chỉ nối đúng dây
+      lẻ → `MixedGameStructure`)
+- [x] `index.html`: một form "Load a game" duy nhất + 2 nút picker cạnh nhau ("Choose file…" /
+      "Choose folder…"), cùng POST về `commands.load_folder` (giờ chỉ còn là tên route, cả hai route
+      đều gọi cùng handler). Ghi rõ trên form: chấp nhận `.apk`, `.ipa`, `.obb`, `.zip`, folder game
+      (Windows/Linux/Mac/Android/iOS/Switch/PS4/WebGL), hoặc một file `.assets`/bundle lẻ
+- [x] `routes/dialogs.py`: `askopenfilename` thêm `filetypes` (apk/ipa/obb/zip/assets/bundle/unity3d +
+      "All files"), giữ nguyên cơ chế degrade về text input khi không có display
+- [x] Giữ `/LoadFile` + `/LoadFolder` như alias (không collapse thành 1 URL) để không phá bookmark/test
+      cũ — cả hai gọi chung một hàm `_load()` nội bộ trong `routes/commands.py`
+- [x] Test: `tests/gui_web/test_load_input.py` — apk giả nhưng hợp lệ (ZIP thật, `assets/bin/Data/` +
+      `META-INF/` để qua được `AndroidGameStructure.is_android_structure`, chứa 1 SerializedFile tên
+      `globalgamemanagers`) qua cả `/LoadFile` và `/LoadFolder`, cùng kết quả; file rác → không load
+      được + có error rõ ràng. Phát hiện khi viết test: `sharedassetsN.assets` **không** dùng được làm
+      tên file trong fixture tối giản này — nó chỉ được `GameStructure` nhận diện như *dependency* của
+      `globalgamemanagers`, không phải qua quét tên file trực tiếp; `globalgamemanagers` mới là tên
+      `_collect_default_serialized_files` quét trực tiếp
+- [x] `tests/real_fixtures/test_demo_android_apk.py::test_real_android_apk_loads_through_the_gui` —
+      đóng đúng khoảng trống để bug lọt qua: dùng `demo-android.apk` thật qua Flask test client
+      (`/LoadFile` và `/LoadFolder`), không chỉ qua `ExportHandler` như các test khác trong file
+- **Effort/Risk:** thấp/thấp như dự kiến
+- **Lưu ý phụ phát sinh khi sửa:** dọn theo luôn nhánh "OutputPath rỗng → export vào temp dir" ở
+      `/Export/UnityProject` — dọn ở Phase 17c (đã xong), không lặp lại ở đây
 
-#### 19b — Sửa bug trạng thái mâu thuẫn của `load_file`
+#### 19b — Sửa bug trạng thái mâu thuẫn của `load_file` ✅ (pending)
 
-- [ ] `load_file`: chỉ set `_state.game_bundle` **sau** khi đã xác nhận đọc được, hoặc `reset()` lại
-      khi validate fail — không để `is_loaded() == True` với bundle rỗng
-- [ ] Test regression: load một file rác (không phải Unity) → `is_loaded()` phải là `False` và có
-      `load_errors()`, **không** phải "loaded nhưng rỗng"
-- [ ] Tuỳ quyết định ở Phase 17d (bỏ hay giữ trang browse input): nếu bỏ hẳn thì `load_file` xoá luôn
-      và item này thành vô nghĩa — **làm 19b sau khi chốt 17d**, đừng sửa rồi xoá
-- **Effort/Risk:** thấp/thấp
+- [x] `load_file`: chỉ set `_state.game_bundle` **sau** khi đã xác nhận đọc được (chuyển `bundle` thành
+      biến local, chỉ gán vào `_state.game_bundle` ở 2 nhánh thành công) — không còn để
+      `is_loaded() == True` với bundle rỗng khi validate fail
+- [x] Test regression: `tests/gui_web/test_flask_app.py::test_load_file_on_an_unreadable_file_leaves_nothing_loaded`
+      + `test_load_file_on_a_missing_path_leaves_nothing_loaded` — file rác/path không tồn tại →
+      `is_loaded()` `False` + có `load_errors()`, không phải "loaded nhưng rỗng"
+- [x] Theo quyết định Phase 17d (giữ route input-bundle debug, không xoá hẳn): `load_file` **không xoá**
+      — vẫn hữu ích cho công cụ debug asset thô (`/Bundles/View` etc.), chỉ không còn được gọi từ nút
+      Load chính của GUI nữa (đó là ý của 19a, không phải 19b)
+- **Effort/Risk:** thấp/thấp như dự kiến
 
-#### 19c — Progress khi load (không để browser treo 38 giây)
+#### 19c — Progress khi load (không để browser treo 38 giây) ✅ (pending)
 
-- [ ] `load_paths` chạy background thread + `load_progress` state, giống hệt cách `start_export` đã làm
-      từ Phase 11 (`export_progress` + poll `/Export/Progress`) — tái dùng đúng pattern đó, đừng phát
-      minh cái mới: `/Load/Progress` (JSON) + poll ở `index.html`
-- [ ] Ít nhất báo được các mốc thô: "Extracting archive…" → "Discovering platform structure…" →
-      "Reading N files…" → "Running processors…". `ExportHandler.load_and_process` hiện không có
-      `progress_callback` → cần thêm (cùng shape với `ProjectExporter.export`'s callback đã có)
-- [ ] Chặn double-submit khi đang load (giống `start_export` raise khi đã có export đang chạy)
-- **Effort/Risk:** thấp-trung bình/thấp
-- **Ghi chú:** cần cho cả Phase 17 — build `ExportPlan` cho game lớn cũng tốn thời gian, dùng chung
-      được cơ chế progress này
+- [x] `game_file_loader.start_load`/`load_progress()` — background thread + `load_progress` state,
+      giống hệt pattern `start_export`/`export_progress` (Phase 11): `/Load/Progress` (JSON) + poll ở
+      `index.html`. Nút Load bị disable trong lúc chạy (chặn double-submit qua UI); `start_load` cũng tự
+      `raise RuntimeError` nếu gọi chồng khi đang chạy (test riêng)
+- [x] `progress_callback(message: str)` thêm vào `GameStructure.__init__`/`.load()`,
+      `ExportHandler.load()`/`.load_and_process()` — 4 mốc thô đúng như kế hoạch: "Extracting
+      archive…" → "Discovering platform structure…" → "Reading N file(s)…" → "Running processors…".
+      Cố ý **không** báo % vì không có cách rẻ để biết tổng số trước (khác `ProjectExporter.export`'s
+      progress theo từng asset, vốn đã biết tổng số collection trước)
+- [x] `reset()` **cố ý không đụng** `load_progress` (ghi rõ trong docstring field) — `load_paths` tự gọi
+      `reset()` làm bước đầu tiên của chính nó, và nếu `reset()` cũng xoá `load_progress` thì cờ
+      `running: True` mà `start_load` vừa set sẽ bị chính lệnh gọi đó xoá mất giữa chừng
+- [x] Trang chủ tự `location.reload()` sau khi load xong (thành công hay lỗi) để mọi phần phụ thuộc
+      trạng thái (Load errors, Preview link, Export section) cập nhật đúng mà không cần JS tự vá từng
+      phần
+- **Effort/Risk:** thấp-trung bình/thấp như dự kiến
+- **Ghi chú:** cơ chế `progress_callback` này **chưa** được nối vào Phase 17b's `build_export_plan` —
+      build một `ExportPlan` cho game lớn cũng chạy `ExportHandler.export` đầy đủ nên cũng tốn thời
+      gian tương tự, nhưng nối progress vào đó là việc của khi 17b thực sự cần (game nhỏ hiện tại
+      không thấy vấn đề, xem Phase 17 rủi ro #2) — không mở rộng phạm vi 19c để làm luôn việc đó
 
-#### 19d — Test
+#### 19d — Test ✅ (pending, gộp luôn vào 19a/19b/19c ở trên thay vì tách riêng)
 
-- [ ] `tests/gui_web/test_load_input.py`: POST path một file `.apk` **giả nhưng hợp lệ** (ZIP tự dựng
-      chứa `assets/bin/Data/globalgamemanagers` + `sharedassets0.assets` synthetic — dựng bằng
-      `zipfile` + `SerializedFileBuilder`, cùng kỹ thuật `tests/gui_web/test_export_wiring.py`) →
-      `has_game_data()` phải `True`. **Đây là test quan trọng nhất của phase**: nó chặn đúng bug
-      user báo, và chạy được không cần Git LFS
-- [ ] Test cùng path đó qua cả `/LoadFile` và `/LoadFolder` (alias) → cùng kết quả
-- [ ] Test file rác → `is_loaded()` `False` + có error (19b)
-- [ ] Bổ sung `tests/real_fixtures/test_demo_android_apk.py`: 1 test đi qua **GUI** (`create_app()` test
-      client POST `/LoadFolder` với đường dẫn `.apk` thật) chứ không chỉ qua `ExportHandler` — đóng
-      đúng khoảng trống đã để bug này lọt: engine có test thật, GUI thì không
-- [ ] `.ipa` thật: **không** đưa vào release gate (38s + 300MB), nhưng ghi lại con số đã đo được ở đây
-      để lần sau không phải đo lại
+Bản kế hoạch gốc coi 19d là bước test riêng sau 19a; thực tế test được viết cùng lúc với từng sub-phase
+(19a/19b/19c) để không bao giờ commit một sub-phase mà chưa có test đi kèm — xem checklist test cụ thể
+ở từng mục trên. Việc còn lại của 19d:
 
-**Thứ tự:** `19a` (gỡ bug user báo, giá trị cao nhất/rẻ nhất) → `19d` phần test 19a → `19c` → chốt
-17d → `19b`.
+- [x] Test cùng path apk giả qua cả `/LoadFile` và `/LoadFolder` → cùng kết quả (xong ở 19a)
+- [x] Test file rác → `is_loaded()` `False` + có error (xong ở 19b, không phải "loaded nhưng rỗng" nữa)
+- [x] Test GUI thật với `demo-android.apk` (xong ở 19a)
+- [ ] `.ipa` thật: **vẫn chưa** đưa vào release gate (38s + 300MB) — số đo cũ (38s, Unity 2022.3.62f3,
+      26 collection) đã ghi nhận ở đầu Phase 19, chưa đo lại lần này vì 19a/19b/19c không đổi hành vi
+      xử lý `.ipa` (chỉ đổi route wiring + progress, đã verify bằng apk thật + apk giả)
+
+**Thứ tự đã làm:** `19a` (gỡ bug user báo) → test 19a → `19c` (progress) → `19b` (fix state bug, sau
+khi 17d đã chốt giữ route debug) — đúng thứ tự dự kiến.
 
 #### Rủi ro riêng của Phase 16
 

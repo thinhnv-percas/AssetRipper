@@ -20,6 +20,8 @@ from assetripper_io_files.streams.stream import MemoryStream
 from assetripper_primitives import UnityVersion
 from io_files_bundle._bundle_builder import build_bundle
 
+from ._load_helpers import wait_for_load_to_finish
+
 
 @pytest.fixture(autouse=True)
 def _reset_game_file_loader():
@@ -95,6 +97,7 @@ def test_load_file_and_browse_round_trip(client, tmp_path):
     _write_sample_file(sample)
 
     response = client.post("/LoadFile", data={"Path": str(sample)}, follow_redirects=True)
+    wait_for_load_to_finish()
     assert response.status_code == 200
     assert game_file_loader.is_loaded()
     assert not game_file_loader.load_errors()
@@ -121,19 +124,27 @@ def test_load_file_and_browse_round_trip(client, tmp_path):
 
 
 def test_load_unrecognized_file_records_an_error(client, tmp_path):
+    """Phase 19a: `/LoadFile` now goes through `load_paths` (like `/LoadFolder` always did),
+    so an unrecognized file correctly leaves `is_loaded()` False with an error -- not the old
+    `load_file`'s bug where a failed load still left a contradictory "loaded but empty" bundle
+    state (see ROADMAP Phase 19, point 3; fixed as a side effect of 19a rather than needing
+    19b's originally-planned separate fix, since `/LoadFile` no longer calls `load_file` at
+    all)."""
     not_asset = tmp_path / "notasset.txt"
     not_asset.write_text("hello world")
 
     client.post("/LoadFile", data={"Path": str(not_asset)})
-    assert game_file_loader.is_loaded()
+    wait_for_load_to_finish()
+    assert not game_file_loader.is_loaded()
     assert game_file_loader.load_errors()
-    assert "not a recognized SerializedFile" in game_file_loader.load_errors()[0]
+    assert "No valid Unity assets found" in game_file_loader.load_errors()[0]
 
 
 def test_reset_clears_loaded_state(client, tmp_path):
     sample = tmp_path / "sample.assets"
     _write_sample_file(sample)
     client.post("/LoadFile", data={"Path": str(sample)})
+    wait_for_load_to_finish()
     assert game_file_loader.is_loaded()
 
     client.post("/Reset")
@@ -144,6 +155,7 @@ def test_search_finds_loaded_asset_by_class_name(client, tmp_path):
     sample = tmp_path / "sample.assets"
     _write_sample_file(sample)
     client.post("/LoadFile", data={"Path": str(sample)})
+    wait_for_load_to_finish()
 
     response = client.get("/Search/View?q=GameObject")
     assert response.status_code == 200
@@ -157,11 +169,17 @@ def test_bundle_view_404s_for_unresolvable_path(client):
 
 
 def test_load_unityfs_bundle_and_browse_resource(client, tmp_path):
+    """A bundle with only a raw resource (no SerializedFile) has no "asset collection" for
+    `load_paths`/`GameStructure` to recognize, so `has_any_asset_collections()` is False and
+    the unified `/LoadFile`=`/LoadFolder` route (Phase 19a) correctly declines it as "no valid
+    Unity assets found" -- same as any other file with nothing `GameStructure` can classify.
+    Raw single-file/resource browsing (this test's actual subject) is exercised by calling
+    `game_file_loader.load_file` directly instead of through a route, since Phase 19a no
+    longer wires any GUI button to it (see that module's docstring)."""
     bundle_path = tmp_path / "level0"
     bundle_path.write_bytes(build_bundle(CompressionType.LZ4, {"CAB-abc": b"raw asset bytes" * 5}))
 
-    response = client.post("/LoadFile", data={"Path": str(bundle_path)}, follow_redirects=True)
-    assert response.status_code == 200
+    game_file_loader.load_file(str(bundle_path))
     assert game_file_loader.is_loaded()
     assert not game_file_loader.load_errors()
 
@@ -180,3 +198,27 @@ def test_load_unityfs_bundle_and_browse_resource(client, tmp_path):
     resource_data = client.get(f"/Resources/Data?Path={resource_path}")
     assert resource_data.status_code == 200
     assert resource_data.data == b"raw asset bytes" * 5
+
+
+def test_load_file_on_an_unreadable_file_leaves_nothing_loaded(tmp_path):
+    """Phase 19b regression: `load_file` used to set `_state.game_bundle` to a fresh (empty)
+    `GameBundle` *before* validating the file, so a failed load left `is_loaded() == True`
+    with nothing actually in it -- a contradictory state, not just a bad error message. Fixed
+    by only assigning `_state.game_bundle` once a read actually succeeds."""
+    not_a_game = tmp_path / "not_a_game.bin"
+    not_a_game.write_bytes(b"definitely not a SerializedFile or UnityFS bundle")
+
+    game_file_loader.load_file(str(not_a_game))
+
+    assert not game_file_loader.is_loaded()
+    assert game_file_loader.load_errors()
+    assert "not a recognized SerializedFile" in game_file_loader.load_errors()[0]
+
+
+def test_load_file_on_a_missing_path_leaves_nothing_loaded(tmp_path):
+    missing = tmp_path / "does_not_exist.assets"
+
+    game_file_loader.load_file(str(missing))
+
+    assert not game_file_loader.is_loaded()
+    assert game_file_loader.load_errors()
