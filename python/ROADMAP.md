@@ -8,7 +8,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
   lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d.** 716 tests pass.
-  Commit cuối: (pending).
+  Commit cuối: `1e64fd3`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -189,7 +189,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
-| 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ (pending) — bug user báo đã sửa xong (19a-19d) |
+| 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
 
 Số test theo area (tổng 716): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
 `assets` 48, `export_unity_projects` 60, `gui_web` 71, `io_files_bundle` 29, `processing` 34,
@@ -1410,7 +1410,7 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
 - [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
       skip) một khi kích thước/Git LFS được chấp nhận là chi phí xứng đáng
 
-### Phase 19 — GUI không nhận được input `.apk`/`.ipa` ✅ (pending) (bug thật, user báo 2026-08-01)
+### Phase 19 — GUI không nhận được input `.apk`/`.ipa` ✅ `1e64fd3` (bug thật, user báo 2026-08-01)
 
 **Triệu chứng user báo:** "phần GUI tool vẫn chưa hoạt động với file apk và ipa input".
 
@@ -1440,7 +1440,7 @@ Bug thuần ở phía GUI:
    tool chết. Export đã có progress bar từ Phase 11; load thì chưa. Đây là yêu cầu UX **phát hiện được
    nhờ có fixture thật**, không phải suy đoán.
 
-#### 19a — Một entry point "Load" duy nhất, nhận cả file lẫn folder ✅ (pending)
+#### 19a — Một entry point "Load" duy nhất, nhận cả file lẫn folder ✅ `1e64fd3`
 
 - [x] Gộp `/LoadFile` + `/LoadFolder` thành một luồng: **luôn** gọi `load_paths([path])` bất kể path là
       file hay folder. Không cần thêm logic phát hiện định dạng ở tầng GUI —
@@ -1469,7 +1469,7 @@ Bug thuần ở phía GUI:
 - **Lưu ý phụ phát sinh khi sửa:** dọn theo luôn nhánh "OutputPath rỗng → export vào temp dir" ở
       `/Export/UnityProject` — dọn ở Phase 17c (đã xong), không lặp lại ở đây
 
-#### 19b — Sửa bug trạng thái mâu thuẫn của `load_file` ✅ (pending)
+#### 19b — Sửa bug trạng thái mâu thuẫn của `load_file` ✅ `1e64fd3`
 
 - [x] `load_file`: chỉ set `_state.game_bundle` **sau** khi đã xác nhận đọc được (chuyển `bundle` thành
       biến local, chỉ gán vào `_state.game_bundle` ở 2 nhánh thành công) — không còn để
@@ -1482,7 +1482,7 @@ Bug thuần ở phía GUI:
       Load chính của GUI nữa (đó là ý của 19a, không phải 19b)
 - **Effort/Risk:** thấp/thấp như dự kiến
 
-#### 19c — Progress khi load (không để browser treo 38 giây) ✅ (pending)
+#### 19c — Progress khi load (không để browser treo 38 giây) ✅ `1e64fd3`
 
 - [x] `game_file_loader.start_load`/`load_progress()` — background thread + `load_progress` state,
       giống hệt pattern `start_export`/`export_progress` (Phase 11): `/Load/Progress` (JSON) + poll ở
@@ -1505,7 +1505,7 @@ Bug thuần ở phía GUI:
       gian tương tự, nhưng nối progress vào đó là việc của khi 17b thực sự cần (game nhỏ hiện tại
       không thấy vấn đề, xem Phase 17 rủi ro #2) — không mở rộng phạm vi 19c để làm luôn việc đó
 
-#### 19d — Test ✅ (pending, gộp luôn vào 19a/19b/19c ở trên thay vì tách riêng)
+#### 19d — Test ✅ `1e64fd3` (gộp luôn vào 19a/19b/19c ở trên thay vì tách riêng)
 
 Bản kế hoạch gốc coi 19d là bước test riêng sau 19a; thực tế test được viết cùng lúc với từng sub-phase
 (19a/19b/19c) để không bao giờ commit một sub-phase mà chưa có test đi kèm — xem checklist test cụ thể
