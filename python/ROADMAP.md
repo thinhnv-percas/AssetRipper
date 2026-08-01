@@ -6,7 +6,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một phần,
   13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong). 657 tests
-  pass. Commit cuối: (pending, xem 13h).
+  pass. Commit cuối: `c8093ba`.
 - 🆕 **Phase 17 (audit 2026-08-01)** — view output "dưới dạng Unity project luôn trên tool" (browse
   cây `Assets/`/`ProjectSettings/`/`Packages/` của project đã export ngay trong GUI web, không cần mở
   thư mục đĩa) đã có plan đầy đủ (17a-17e, xem PHẦN B). Đây là **feature mới không có ở upstream**
@@ -160,7 +160,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
-| 13 | Asset type còn thiếu (13a-13i) | 🟡 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ (pending hash). 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục) |
+| 13 | Asset type còn thiếu (13a-13i) | 🟡 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ `c8093ba`. 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục) |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
@@ -697,7 +697,7 @@ có sẵn) mới mở khoá được cả ba, việc đó lớn hơn hẳn quy m
 - **Thiếu:** grouping heightmap/alphamap — cần field name chưa xác nhận được; `TerrainExportMode.MESH`/
       `HEATMAP` (enum đã declare ở Phase 10, chưa ai đọc) — cần tự sinh mesh, effort/risk cao hơn nữa
 
-#### 13h — ScriptableObjectProcessor ✅ (Commit hash: pending)
+#### 13h — ScriptableObjectProcessor ✅ `c8093ba`
 
 - [x] `processing/scriptable_object/scriptable_object_group.py` — port `ScriptableObjectGroup.cs`:
       marker asset gom root (TimelineAsset/PostProcessProfile) + children, `class_id=-1` (không phải
