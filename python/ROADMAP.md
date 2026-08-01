@@ -17,6 +17,46 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   `.unity`/`.prefab` duy nhất thay vì mỗi cái một `.asset` rời — đã verify bằng test đọc lại nội dung
   YAML xuất ra thật. Sẵn tiện phát hiện và sửa 1 bug có sẵn: `TypeTreeObject` thiếu `.name` khiến mọi
   asset xuất tên theo class name thay vì tên thật trong game (xem ghi chú trong Phase 12).
+- ⚠️ **Audit 2026-08-01** (xem "Mục tiêu & Scope" ngay dưới) phát hiện 3 gap lớn chưa từng có trong
+  roadmap: input format WebGL/WebPlayer/legacy bundle chưa đọc được (Phase 14), `ProjectSettings/*`
+  chưa xuất đúng chỗ (Phase 15), và Phase 13 cần kế hoạch chi tiết từng type. Đã thêm vào PHẦN B.
+
+---
+
+## Mục tiêu & Scope input/output
+
+**Mục tiêu:** input = Unity build → output = Unity project (C#) mở được bằng Unity Editor.
+
+### Input format — trạng thái thật
+
+| Input | Upstream C# | Port Python | Ghi chú |
+|---|---|---|---|
+| Unity game directory (Win/Linux/Mac/Android/iOS/Switch/PS4/WiiU/WinPhone) | ✅ | ✅ | 14/14 platform structure đã port (Phase 3) |
+| `.assets` / `level*` / `globalgamemanagers` (SerializedFile) | ✅ | ✅ | Phase 1-2 |
+| AssetBundle `UnityFS` (LZ4/LZMA/none) | ✅ | ✅ | Phase 2 |
+| APK / OBB / XAPK / APKS / IPA / VPK / XAP / APPX | ✅ | ✅ | `zip_extractor.py`, giải nén rồi discovery như directory |
+| `.resS` / `.resource` streamed data | ✅ | ✅ | Phase 9 |
+| AssetBundle nén **Zstd** | ✅ | ❌ | **Phase 14** — `bundle_file_block_reader` throw ngay, C# thử `ZstdCompression.IsZstd` trước |
+| **Unity WebGL** (`.data`, `.data.unityweb`, `.datagz`) | ✅ | ❌ | **Phase 14** — platform discovery có (`webgl_game_structure.py`) nhưng `WebFile`/GZip/Brotli scheme chưa port → tìm thấy file rồi **không đọc được** |
+| **WebPlayer bundle** (`UnityWeb`, `UnityRaw` pre-5.0) | ✅ | ❌ | **Phase 14** — `webplayer_game_structure.py` có nhưng `BundleFiles/RawWeb` + `Archive` chưa port |
+| Game **pre-Unity-5.0** nói chung | ✅ | ❌ | **Phase 14** — cùng lý do trên (bundle format cũ) |
+| Unity WebGL game **theo URL** | ❌ | ❌ | **Upstream cũng không có.** Không có `HttpClient`/`WebRequest` nào trong `AssetRipper.Import` hay `GUI.Web/Pages/Commands.cs` — chỉ `LoadFile`/`LoadFolder` từ path local. Muốn có thì phải tự viết downloader (tải `.data`/`.wasm` từ URL về temp dir rồi load như WebGL build) — **feature mới, không phải port** |
+| **Unreal Engine** (game directory, `.uasset`, `.pak`) | ❌ | ❌ | **Ngoài scope vĩnh viễn** — `grep -ril unreal Source/ = 0 hit`. AssetRipper là tool **Unity-only** (README: *"analyzing Unity game files"*, hỗ trợ Unity `3.5.0`–`6000.5.X`). Đọc Unreal cần một tool khác hoàn toàn (UE asset registry, FPakFile, UObject serialization) — không có gì để port từ repo này |
+
+### Output format — trạng thái thật
+
+| Output | Trạng thái | Ghi chú |
+|---|---|---|
+| `Assets/**/*.asset` + `.meta` (YAML) | ✅ | Phase 4 |
+| Asset nội dung thật (`.png`/`.wav`/`.txt`/`.shader`/`.glb`/`.ttf`/`.ogv`) | ✅ | Phase 6, 9 |
+| `.unity` (scene) / `.prefab` | ✅ | Phase 12 |
+| `ProjectSettings/ProjectVersion.txt` | ✅ | Phase 7 |
+| `Packages/manifest.json` | ✅ | Phase 7 |
+| `Assets/StreamingAssets/**` | ✅ | Phase 7 |
+| Script `.cs` (dummy class) + `.meta` GUID ổn định | ✅ | Phase 6c-2 |
+| **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ❌ | **Phase 15** — `ManagerAssetExporter` chưa port → manager singleton hiện xuất vào `Assets/` như asset thường. Unity Editor đọc setting từ `ProjectSettings/`, nên project export ra hiện **mất toàn bộ project settings** |
+| Reference tới built-in Unity asset (default material, built-in shader…) | ❌ | **Phase 15** — `EngineAssetsExporter`/`PredefinedAssetCache` chưa port → asset built-in bị export trùng thay vì trỏ về asset gốc của Unity |
+| `.cs` thật (decompiled) | ❌ | Ngoài scope vĩnh viễn (cần ILSpy) |
 
 ---
 
@@ -82,7 +122,9 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
-| 13 | Asset type còn thiếu | ⬜ Chưa làm — **điểm chặn tiếp theo** |
+| 13 | Asset type còn thiếu (13a-13i) | ⬜ Chưa làm — làm **thứ 3** |
+| 14 | Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd) | ⬜ Chưa làm — làm **thứ 2** |
+| 15 | Exporter thiếu ảnh hưởng "project mở được" | ⬜ Chưa làm — **làm trước tiên** (impact/effort cao nhất) |
 
 Số test theo area (tổng 591): `export_modules` 123, `import_` 102, `io_files` 91, `numerics` 64,
 `assets` 48, `export_unity_projects` 43, `gui_web` 42, `io_files_bundle` 21, `processing` 19,
@@ -125,6 +167,12 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [x] `scheme_reader.load_file` wrapper
 - [x] `assetripper_processing/game_data.py`
 - [~] `EngineResourceInjector` / `VersionChanger` — không cần cho scope hiện tại
+- [ ] **(audit 2026-08-01)** `GameInitializer.CustomResourceProvider.cs` chưa port — thiếu sót không
+      được ghi nhận ở lần commit phase này
+- ⚠️ **(audit 2026-08-01)** 14/14 platform structure đã port, nhưng **discovery ≠ load được**:
+      `WebGLGameStructure` tìm đúng `.data`/`.data.unityweb`/`.datagz` và `WebPlayerGameStructure` tìm
+      đúng bundle, nhưng `scheme_reader` chưa có scheme để **đọc** chúng → load thất bại. Xem Phase 14.
+      Phase này chỉ nên coi là "discovery xong", không phải "hỗ trợ xong các platform đó"
 
 ### Phase 4 — YAML export + `.meta` ✅ `395e0b7`
 
@@ -164,6 +212,11 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [~] Shader decompile — **upstream cũng chưa implement**, nó fallback về DummyShaderTextExporter
 - [~] Blend shapes, bind pose/skeleton hierarchy trong Mesh
 - [~] Pre-2018 vertex channel layout (`vertex_format.py` chỉ target Unity >= 2019)
+- ⚠️ **(audit 2026-08-01)** Port có **12 content exporter**, upstream có **~30**. Những cái thiếu ảnh
+      hưởng lớn nhất **không** phải asset type lạ mà là 4 exporter hạ tầng: `ManagerAssetExporter`
+      (mất `ProjectSettings/`), `UnknownObjectExporter`/`UnreadableObjectExporter` (asset không đọc
+      được ra YAML rỗng thay vì dump byte), `DummyAssetExporter`. Xem Phase 15 — đây là gap
+      **nghiêm trọng hơn** toàn bộ Phase 13 gộp lại
 
 ### Phase 7 — Post-exporters ✅ `fba6ba5`
 
@@ -421,20 +474,174 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
 
 ---
 
-# PHẦN B — Cần làm (Phase 13)
+# PHẦN B — Cần làm (Phase 13-15)
+
+**Thứ tự đề xuất: Phase 15 → 14 → 13.** Lý do: Phase 15 nhỏ nhất nhưng ảnh hưởng trực tiếp tới tiêu
+chí "project mở được bằng Unity Editor" (hiện đang mất toàn bộ `ProjectSettings/`); Phase 14 mở khoá
+cả một nhóm input đang không đọc được; Phase 13 là fidelity tăng dần, lớn nhất và mở nhất về scope.
+Đánh số giữ nguyên theo thứ tự thêm vào file (append-only, đúng giao thức tick) — số phase **không**
+phải thứ tự làm.
 
 ### Phase 13 — Asset type còn thiếu ⬜
 
-Thứ tự cost/benefit. Cắt theo nhu cầu thật, đừng làm hết cho đủ.
+**Phát hiện quan trọng từ audit:** phần lớn type trong danh sách này **đã export được dưới dạng YAML
+generic với đúng extension** qua `DefaultYamlExporter` + `_EXTENSION_BY_CLASS_ID`
+(`export_collection.py`) — `AnimationClip`→`.anim`, `AnimatorController`→`.controller`,
+`AudioMixer`→`.mixer`, `Cubemap`→`.cubemap`, `RenderTexture`→`.renderTexture`, `TerrainData`/`Sprite`→
+`.asset`. Nên gap thật **hẹp hơn** danh sách cũ ngụ ý: không phải "chưa export được gì", mà là "thiếu
+processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới đây ghi rõ **hiện có gì / thiếu gì**.
 
-- [ ] `Sprite` + `SpriteProcessor` — rất phổ biến ở game 2D
-- [ ] `AnimationClip`
-- [ ] `Terrain` / `TerrainData`
-- [ ] `AudioMixer` + `AudioMixerProcessor`
-- [ ] `Cubemap` / `RenderTexture`
-- [ ] `VideoClip` (streamed — cần Phase 9 trước)
-- [ ] `LightingDataProcessor`
-- [ ] `ScriptableObjectProcessor`
+#### 13a — VideoClip (làm trước: rẻ nhất, đã có sẵn hạ tầng)
+
+- [ ] `export_modules/video_clip_exporter.py` — port `Miscellaneous/VideoClipExporter.cs` (35 dòng).
+      Dùng lại `assetripper_import/streamed_resource.py` (Phase 9) cho `m_ExternalResources`; pattern
+      giống hệt `audio_clip_exporter.py` đã có. Class ID 329 (`ClassIDType.VideoClip_329`)
+- **Hiện có:** không có gì (class 329 chưa đăng ký exporter → ra `.asset` YAML không có video data)
+- **Thiếu:** dump byte thật ra `.mp4`/`.webm`
+- **Effort/Risk:** thấp/thấp — không có math, chỉ slice byte qua API Phase 9 đã verify
+
+#### 13b — Sprite export (không kèm atlas math)
+
+- [ ] `export_modules/sprite_exporter.py` — port `Textures/YamlSpriteExporter.cs`: `Sprite` (213) →
+      `.asset` YAML; `SpriteAtlas` (687078895) → **skip hẳn** (upstream trả
+      `EmptyExportCollection.Instance`). Cần port `EmptyExportCollection` (40 dòng, chưa có ở port này)
+- **Hiện có:** `Sprite` export ra `.asset` YAML đúng; nhưng `SpriteAtlas` **cũng** export ra `.asset`
+      → Unity Editor sẽ thử pack lại atlas đã pack, upstream skip chính vì lý do đó
+- **Thiếu:** skip `SpriteAtlas`; `EmptyExportCollection`
+- **Effort/Risk:** thấp/thấp — thuần chọn collection, không có math
+
+#### 13c — SpriteProcessor (atlas coordinate recovery)
+
+- [ ] `processing/textures/sprite_processor.py` — port `Textures/SpriteProcessor.cs` (136 dòng) +
+      `SpriteExtensions.GetSpriteCoordinatesInAtlas` (~50 dòng math) + `SpriteInformationObject`
+- **Hiện có:** sprite **không** thuộc atlas export đúng (field `m_RD` gốc đã đủ). Sprite **thuộc**
+      atlas export ra rect/pivot/border **sai** (không recover từ `m_RD` của atlas)
+- **Thiếu:** copy `m_RD` từ `SpriteAtlas.RenderDataMap`; recalc `Rect`/`Pivot`/`Border`/`Offset`/
+      `TextureRectOffset`; clear reference tới atlas (Unity Editor crash nếu không clear)
+- **Effort/Risk:** trung bình/**CAO** — pivot/rect/border math, sai một chút là sprite lệch **âm thầm**.
+      ⚠️ **Nên có fixture Unity thật (một game 2D có SpriteAtlas) trước khi làm**, hoặc ít nhất dựng
+      test tính tay từng bước theo đúng công thức C#. Đây là item risk cao nhất trong Phase 13
+- **Blocked-by:** 13b (cần Sprite export trước mới thấy được kết quả)
+
+#### 13d — AudioMixer + AudioMixerProcessor
+
+- [ ] `processing/audio_mixers/audio_mixer_processor.py` — port `AudioMixers/AudioMixerProcessor.cs`
+      (317 dòng): dựng lại cây `AudioMixerGroup`/`AudioMixerSnapshot`/effect từ array phẳng
+- [ ] `export_modules/audio_mixer_exporter.py` — port `AudioMixers/AudioMixerExporter.cs` (24 dòng)
+- **Hiện có:** `AudioMixer` ra `.mixer` YAML, nhưng group/snapshot/effect vẫn là asset rời không có
+      quan hệ cha-con → mixer mở trong Unity sẽ rỗng/phẳng
+- **Thiếu:** toàn bộ phần tái tạo cây
+- **Effort/Risk:** cao/trung bình — nhiều code nhưng là logic gom nhóm rõ ràng, không phải math
+
+#### 13e — AnimatorController + AnimatorControllerProcessor
+
+- [ ] `processing/animator_controllers/animator_controller_processor.py` — port
+      `AnimatorControllers/AnimatorControllerProcessor.cs` (168 dòng)
+- [ ] `export_modules/animator_controller_exporter.py` — port `AnimatorControllerExporter.cs`
+- **Hiện có:** `AnimationClip`→`.anim` và `AnimatorController`→`.controller` đều ra YAML đúng extension
+      (**"AnimationClip" trong danh sách cũ coi như đã xong** ở mức YAML — nó không có exporter riêng
+      ở upstream, cũng đi qua `DefaultYamlExporter`)
+- **Thiếu:** state machine / state / transition chưa được dựng thành asset con của controller
+- **Effort/Risk:** trung bình/trung bình
+
+#### 13f — Cubemap / Texture2DArray (ảnh thật, không chỉ YAML)
+
+- [ ] Mở rộng `texture2d_exporter.py` (hoặc thêm `texture_array_exporter.py`) — port
+      `Textures/TextureArrayAssetExporter.cs` (95 dòng): Cubemap (89) → 6 mặt, Texture2DArray (187) →
+      N slice, Texture3D → N slice
+- **Hiện có:** `Cubemap`→`.cubemap` YAML (metadata đúng, **không có pixel**)
+- **Thiếu:** decode + ghi ảnh từng mặt/slice
+- **Effort/Risk:** trung bình/thấp — dùng lại `texture_converter.py` đã có, chỉ thêm vòng lặp slice
+- **Ghi chú:** `RenderTexture` (84) **không cần làm gì thêm** — nó là buffer runtime, không có pixel
+      data trên đĩa; `.renderTexture` YAML hiện tại **đã là đúng và đủ**
+
+#### 13g — TerrainData
+
+- [ ] `export_modules/terrain_exporter.py` — port `Terrains/TerrainYamlExporter.cs` (18 dòng) +
+      `TerrainYamlExportCollection`
+- **Hiện có:** `TerrainData`→`.asset` YAML (upstream cũng dùng `.asset`) — **đã gần đúng**
+- **Thiếu:** `TerrainYamlExportCollection` (xử lý heightmap/alphamap texture kèm theo);
+      `TerrainExportMode.MESH`/`HEATMAP` (enum đã declare ở Phase 10, chưa ai đọc)
+- **Effort/Risk:** thấp-trung bình/thấp cho nhánh YAML; cao cho nhánh Mesh/Heatmap (cần tự sinh mesh)
+
+#### 13h — ScriptableObjectProcessor
+
+- [ ] `processing/scriptable_object/scriptable_object_processor.py` — port (193 dòng): gom
+      `MonoBehaviour` thành group (Timeline asset, PostProcess profile)
+- **Hiện có:** `MonoBehaviour`→`.asset` YAML rời
+- **Thiếu:** gom nhóm → Timeline/PostProcess mở được trong Editor
+- **Effort/Risk:** trung bình/trung bình. Phụ thuộc `IsTimelineAsset()`/`IsPostProcessProfile()` — đọc
+      script class name, port này có `MonoScriptInfo` sẵn nên khả thi
+
+#### 13i — LightingDataProcessor (làm cuối)
+
+- [ ] `processing/lighting_data_processor.py` — port `LightingDataProcessor.cs` (409 dòng)
+- **Hiện có:** `LightingDataAsset`→`.asset` YAML rời
+- **Thiếu:** gắn lightmap/lightprobe vào scene tương ứng
+- **Effort/Risk:** cao/cao — file lớn nhất nhóm này, coupling với scene (Phase 12) và lightmap texture.
+      Giá trị thấp nhất cho phần lớn dự án → để cuối
+
+- [ ] Release gate + commit + push (mỗi sub-phase một commit riêng, đừng gộp)
+
+### Phase 14 — Input format còn thiếu (mở khoá WebGL / WebPlayer / pre-5.0) ⬜
+
+Xem bảng "Mục tiêu & Scope input/output" ở đầu file. Hiện `scheme_reader.py` chỉ đăng ký 2 scheme
+(`SerializedFileScheme`, `FileStreamBundleScheme`) — mọi format dưới đây rơi về `ResourceFile` (byte
+thô, không parse được) hoặc throw.
+
+- [ ] `io_files/compressed_files/gzip/` — port `CompressedFiles/GZip/{GZipFile,GZipFileScheme}.cs`.
+      Dùng stdlib `gzip`. Mở khoá `.datagz` (WebGL Release build)
+- [ ] `io_files/compressed_files/brotli/` — port `CompressedFiles/Brotli/{BrotliFile,BrotliFileScheme}.cs`.
+      Signature `"UnityWeb Compressed Content (brotli)"`. **Cần dependency mới** (`brotli` hoặc
+      `brotlicffi` trên PyPI) — thêm vào `pyproject.toml`. Mở khoá `.data.unityweb` (WebGL, phổ biến nhất)
+- [ ] `io_files/web_files/` — port `WebFiles/{WebFile,WebFileEntry,WebFileScheme}.cs`. Signature
+      `"UnityWebData1.0"`. Đây là container chứa các SerializedFile bên trong `.data` của WebGL build
+- [ ] `io_files/bundle_files/raw_web/` — port `BundleFiles/RawWeb/**` (`RawBundleFile` = `UnityRaw`,
+      `WebBundleFile` = `UnityWeb`, `RawWebNode`, `BundleScene`). Mở khoá bundle pre-Unity-5.0 và
+      WebPlayer bundle
+- [ ] `io_files/bundle_files/archive/` — port `BundleFiles/Archive/**` (`UnityArchive`)
+- [ ] Zstd: trong `bundle_file_block_reader.decompress_blocks`, nhánh `else` hiện throw ngay; C# thử
+      `ZstdCompression.IsZstd(stream)` (magic `28 B5 2F FD`) trước rồi mới throw. **Cần dependency mới**
+      (`zstandard` PyPI). Bundle Unity mới (Addressables) có dùng
+- [ ] Đăng ký hết vào `scheme_reader._schemes()` **đúng thứ tự upstream** (`SchemeReader.cs`) — thứ tự
+      quan trọng vì `can_read` chỉ sniff magic, format lồng nhau (gzip chứa WebFile chứa SerializedFile)
+- [ ] Test: dựng file synthetic cho từng format (pattern `tests/io_files_bundle/_bundle_builder.py`),
+      cộng 1 test end-to-end "WebGL build giả → export ra project"
+- [ ] Release gate + commit + push
+- [~] Unity WebGL game **theo URL** — **upstream không có**, đây sẽ là feature mới chứ không phải port.
+      Nếu cần: thêm downloader tải `.data`/`.wasm`/`.framework.js` từ URL về temp dir rồi gọi
+      `GameStructure.load` như WebGL build thường. Chưa làm vì (a) không có gì để port, (b) cần quyết
+      định policy network (proxy, robots, rate limit) mà repo này chưa có tiền lệ
+
+### Phase 15 — Exporter còn thiếu ảnh hưởng trực tiếp "project mở được" ⬜
+
+Nhóm nhỏ nhưng **impact cao nhất còn lại**: hiện project export ra **mất toàn bộ `ProjectSettings/`**.
+
+- [ ] `export_unity_projects/project/manager_asset_exporter.py` + `manager_export_collection.py` —
+      port `Project/{ManagerAssetExporter,ManagerExportCollection}.cs`. Manager singleton
+      (`IGlobalGameManager` + `TypeTreeObject.is_player_settings`) phải xuất vào
+      `ProjectSettings/<Name>.asset` với `GetExportID() == 1`, kèm 3 phép đổi tên upstream:
+      `PlayerSettings`→`ProjectSettings`, `NavMeshProjectSettings`→`NavMeshAreas`,
+      `PhysicsManager`→`DynamicsManager`. **Đây là lý do project export ra hiện không có project
+      settings nào** — chúng đang nằm lẫn trong `Assets/`.
+      Cần một cách xác định "class ID nào là GlobalGameManager" (port này không có interface
+      `IGlobalGameManager`) → dùng danh sách class ID hard-code + ghi rõ trong docstring, cùng kiểu
+      `_LEVEL_GAME_MANAGER_CLASS_IDS` ở `scene_definition_processor.py` đã làm
+- [ ] `export_unity_projects/project/editor_build_settings_export_collection.py` — port
+      `EditorBuildSettingsExportCollection.cs` (danh sách scene trong Build Settings). Phụ thuộc
+      "Generated Settings" collection mà `SceneDefinitionProcessor` hiện chưa tạo (xem docstring của nó)
+- [ ] `export_unity_projects/raw_assets/` — port `RawAssets/{UnknownObjectExporter,
+      UnreadableObjectExporter}.cs` + collection tương ứng. Hiện `UnknownObject`/`UnreadableObject`
+      (`assetripper_import/asset_creation/`) rơi vào `DefaultYamlExporter` → YAML rỗng vô nghĩa thay vì
+      dump byte thô có ích
+- [ ] `export_unity_projects/dummy_asset_exporter.py` — port `DummyAssetExporter.cs`: cho class cố ý
+      **không** export, thay reference bằng missing-reference thay vì export asset rác
+- [~] `EngineAssets/{EngineAssetsExporter,PredefinedAssetCache}.cs` (built-in Unity asset → trỏ về
+      asset gốc của Unity thay vì export trùng) — **chưa xếp lịch**: `PredefinedAssetCache.cs` cần
+      database asset built-in theo từng version Unity mà repo này không vendored (cùng loại rào cản
+      Tpk database, xem "Ngoài scope"). Ghi lại ở đây để không ai tưởng là quên; nếu làm thì phải tự
+      dựng database từ Unity Editor thật
+- [ ] Test + release gate + commit + push
 
 ---
 
@@ -446,6 +653,26 @@ Thứ tự cost/benefit. Cắt theo nhu cầu thật, đừng làm hết cho đ�
 - [ ] Bổ sung importer Phase 4 còn thiếu (xem Phase 4)
 - [ ] Chưa port test upstream: `StrippedAssetTests`, `TextureImporterTests`, `PathIDCalculationTests`,
       `ExportTests`, và toàn bộ `AssetRipper.SerializationLogic.Tests`
+
+**Thêm từ audit 2026-08-01:**
+
+- [ ] `SceneAssetExporter.cs` / `SceneAssetExportCollection.cs` chưa port — `SceneAsset` (1032) là
+      placeholder Unity dùng để một scene reference scene khác. Phase 12 dùng lại class ID này cho
+      `SceneHierarchyObject` nên cần kiểm tra xung đột trước khi port
+- [ ] `YamlStreamedAssetExporter.cs` / `YamlStreamedAssetExportCollection.cs` chưa port — YAML export
+      cho asset có streamed data (Phase 9 chỉ làm nhánh binary dump)
+- [ ] `ScriptableObjectGroupExporter.cs` chưa port (đi cùng 13h)
+- [ ] `DeletedAssetsExporter.cs` / `DeletedAssetsExportCollection.cs` chưa port — premium-adjacent,
+      chưa rõ có cần
+- [ ] `LightmapTextureAssetExporter.cs`, `RawTextureExporter.cs` chưa port (đi cùng 13f/13i)
+- [ ] `RedirectExportCollection.cs` / `SingleRedirectExportCollection.cs` — `single_redirect` đã có,
+      `RedirectExportCollection` (bản nhiều asset) chưa
+- [ ] `VirtualFileSystem.cs` chưa port — `FileSystem` hiện chỉ có `LocalFileSystem`. Cần nếu muốn test
+      export không chạm đĩa thật, hoặc load từ archive không giải nén ra temp
+- [ ] `GameInitializer.CustomResourceProvider.cs` chưa port (Phase 3 chỉ ghi nhận
+      `EngineResourceInjector`/`VersionChanger` bị bỏ, thiếu mục này)
+- [ ] `ObjectFactory` pattern (dùng bởi `SpriteProcessor` upstream, `AssetGroup`-tạo-theo-nhu-cầu) chưa
+      có tương đương — Phase 12 tạo hierarchy trực tiếp. Xem lại khi làm 13c
 
 ---
 
@@ -463,6 +690,8 @@ Thứ tự cost/benefit. Cắt theo nhu cầu thật, đừng làm hết cho đ�
 | Crunch-compressed texture | `AssetRipper.Conversions.Crunch` là native crnlib port |
 | Shader decompilation | **Upstream cũng chưa implement** |
 | Asset dedup, static mesh separation, prefab outlining | Premium-only upstream; **không processor nào trong repo đọc setting đó** |
+| **Unreal Engine** (game directory, `.uasset`, `.pak`, `.umap`) | **AssetRipper là tool Unity-only.** `grep -ril unreal Source/` = **0 hit** trên toàn bộ 53 project C#. README upstream: *"a powerful tool for analyzing **Unity** game files"*, hỗ trợ Unity `3.5.0`–`6000.5.X`. Không có một dòng nào để port. Muốn đọc Unreal phải viết mới từ đầu (FPakFile/IoStore container, UObject serialization, asset registry) và output cũng không phải Unity project — đó là một tool khác, không phải port này |
+| Unity WebGL game theo URL (tải trực tiếp từ web) | Upstream cũng không có (không có `HttpClient`/`WebRequest` nào trong `Import`/`GUI.Web`). Xem ghi chú `- [~]` cuối Phase 14: khả thi nhưng là **feature mới**, cần quyết định policy network trước |
 
 ---
 
@@ -479,3 +708,13 @@ Thứ tự cost/benefit. Cắt theo nhu cầu thật, đừng làm hết cho đ�
    uncertainty nhất so với upstream.
 4. **Layout coverage hẹp** (5/20 type) — asset ngoài đó, trong file bị strip type tree, thành
    `UnknownObject`.
+5. **`ProjectSettings/` đang mất hoàn toàn** (phát hiện ở audit 2026-08-01, xem Phase 15). Tiêu chí
+   "project mở được bằng Unity Editor" hiện **chưa đạt đầy đủ** dù `.unity`/`.prefab`/asset đều đúng:
+   Unity đọc setting từ `ProjectSettings/*.asset`, nơi hiện không có gì. Đây là rủi ro dạng "tưởng xong
+   rồi mà chưa" — đúng loại mà audit này tồn tại để bắt.
+6. **Input format coverage hẹp hơn platform coverage.** 14/14 platform structure đã port, nhưng WebGL /
+   WebPlayer / pre-Unity-5.0 **tìm thấy file rồi không đọc được** (thiếu scheme, xem Phase 14). Nguy
+   hiểm vì nó *trông như* đã hỗ trợ: discovery chạy, không báo lỗi gì cho tới lúc load thất bại.
+7. **Số test cao không đồng nghĩa coverage cao.** 591 test nhưng 0 fixture Unity thật; nhiều nhánh
+   "đã port" chỉ được test bằng chính giả định của người port (xem rủi ro #1). Test đếm được, độ đúng
+   thì không.
