@@ -5,7 +5,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 đang làm (13a xong, xem PHẦN B). 632 tests pass.
-  Commit cuối: `PHASE13A_HASH`.
+  Commit cuối: `25d7b0b`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -502,7 +502,7 @@ generic với đúng extension** qua `DefaultYamlExporter` + `_EXTENSION_BY_CLAS
 `.asset`. Nên gap thật **hẹp hơn** danh sách cũ ngụ ý: không phải "chưa export được gì", mà là "thiếu
 processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới đây ghi rõ **hiện có gì / thiếu gì**.
 
-#### 13a — VideoClip ✅ `PHASE13A_HASH`
+#### 13a — VideoClip ✅ `25d7b0b`
 
 - [x] `export_modules/video_clip_exporter.py` — port `Miscellaneous/{VideoClipExporter,
       VideoClipExportCollection}.cs`. Dùng lại `assetripper_import/streamed_resource.py` (Phase 9)
