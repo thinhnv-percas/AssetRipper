@@ -4,8 +4,8 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12, 14, 15 xong (Phase 11, 12, 15 mỗi cái một phần — xem ghi chú trong
-  từng phase). 629 tests pass. Commit cuối: `5cc200a`.
+- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 đang làm (13a xong, xem PHẦN B). 632 tests pass.
+  Commit cuối: `PHASE13A_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -29,7 +29,8 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   container (`UnityWebData1.0`), bundle `UnityRaw`/`UnityWeb` (pre-Unity-5.0/WebPlayer), và Zstd-nén
   storage block — input coverage giờ khớp bảng "Mục tiêu & Scope" (mọi hàng ✅ trừ 2 hàng ngoài scope
   vĩnh viễn: Unreal Engine, WebGL theo URL). 2 dependency mới: `brotli`, `zstandard`.
-  **Thứ tự tiếp theo: Phase 13** (xem PHẦN B — 13a → 13i, mỗi sub-phase một commit riêng).
+- **Phase 13a xong** (VideoClip, xem PHẦN B): dùng lại `streamed_resource.py` (Phase 9). Đang tiếp tục
+  13b (Sprite export) → 13i, mỗi sub-phase một commit riêng.
 
 ---
 
@@ -501,14 +502,23 @@ generic với đúng extension** qua `DefaultYamlExporter` + `_EXTENSION_BY_CLAS
 `.asset`. Nên gap thật **hẹp hơn** danh sách cũ ngụ ý: không phải "chưa export được gì", mà là "thiếu
 processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới đây ghi rõ **hiện có gì / thiếu gì**.
 
-#### 13a — VideoClip (làm trước: rẻ nhất, đã có sẵn hạ tầng)
+#### 13a — VideoClip ✅ `PHASE13A_HASH`
 
-- [ ] `export_modules/video_clip_exporter.py` — port `Miscellaneous/VideoClipExporter.cs` (35 dòng).
-      Dùng lại `assetripper_import/streamed_resource.py` (Phase 9) cho `m_ExternalResources`; pattern
-      giống hệt `audio_clip_exporter.py` đã có. Class ID 329 (`ClassIDType.VideoClip_329`)
-- **Hiện có:** không có gì (class 329 chưa đăng ký exporter → ra `.asset` YAML không có video data)
-- **Thiếu:** dump byte thật ra `.mp4`/`.webm`
-- **Effort/Risk:** thấp/thấp — không có math, chỉ slice byte qua API Phase 9 đã verify
+- [x] `export_modules/video_clip_exporter.py` — port `Miscellaneous/{VideoClipExporter,
+      VideoClipExportCollection}.cs`. Dùng lại `assetripper_import/streamed_resource.py` (Phase 9)
+      cho `m_ExternalResources` (cùng shape StreamingInfo với Texture2D/Mesh's `m_StreamData`).
+      Đăng ký cho cả 2 class ID cùng nghĩa "VideoClip" qua các version Unity: 327 và 329
+      (`ClassIDType` không có `VideoClip` tên chung, chỉ `VideoClip_327`/`VideoClip_329` — cùng kiểu
+      `AvatarMask_319`/`AvatarMask_1011`). Extension lấy từ `m_OriginalPath` (fallback `.bytes` nếu
+      không có extension), khớp `GetExtensionFromPath` upstream
+- [~] `VideoClipExportCollection.CreateImporter` (dựng `VideoClipImporter` thật với EndFrame/
+      OriginalWidth/OriginalHeight/SourceFileSize/FrameRate/ImportAudio) — **không port**: generated
+      importer class không có trong repo này. Fallback về `NativeFormatImporter` (base class), giống
+      hệt cách `MovieTextureAssetExporter` đã làm — mở được trong Unity nhưng không có các setting
+      importer riêng
+- **Test:** 3 test mới (`test_video_clip_exporter.py`) — export bằng resource thật, fallback extension
+  `.bytes` khi `m_OriginalPath` không có extension, và không export khi resource không resolve được
+- **Release gate + commit:** xong
 
 #### 13b — Sprite export (không kèm atlas math)
 

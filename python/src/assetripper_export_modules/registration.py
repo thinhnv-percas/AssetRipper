@@ -43,6 +43,7 @@ from .shaders.simple_shader_exporter import SimpleShaderExporter
 from .shaders.yaml_shader_exporter import YamlShaderExporter
 from .text_asset_exporter import TextAssetExporter
 from .texture2d_exporter import Texture2DExporter
+from .video_clip_exporter import VIDEO_CLIP_CLASS_IDS, VideoClipExporter
 
 # BuildSettings, PreloadData, AssetBundle, AssetBundleManifest, MonoManager, ResourceManager,
 # ShaderNameRegistry: IGlobalGameManager upstream, but dummy-exported at higher priority than
@@ -78,6 +79,10 @@ def register_default_exporters(project_exporter, settings: "FullConfiguration | 
     project_exporter.override_exporter_for_class_id(115, ScriptExporter())  # MonoScript
     project_exporter.override_exporter_for_class_id(128, FontAssetExporter())  # Font
     project_exporter.override_exporter_for_class_id(152, MovieTextureAssetExporter())  # MovieTexture
+
+    video_clip_exporter = VideoClipExporter()
+    for class_id in VIDEO_CLIP_CLASS_IDS:  # VideoClip_327, VideoClip_329
+        project_exporter.override_exporter_for_class_id(class_id, video_clip_exporter)
 
     # Phase 15: ProjectSettings/*.asset for GlobalGameManager singletons + PlayerSettings.
     manager_exporter = ManagerAssetExporter()
