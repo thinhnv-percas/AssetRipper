@@ -5,7 +5,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 15 xong (Phase 11, 12, 15 mỗi cái một phần — xem ghi chú trong từng
-  phase). 607 tests pass. Commit cuối: `PHASE15_HASH`.
+  phase). 607 tests pass. Commit cuối: `994daee`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -130,7 +130,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
 | 13 | Asset type còn thiếu (13a-13i) | ⬜ Chưa làm — làm **thứ 3** |
 | 14 | Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd) | ⬜ Chưa làm — làm **thứ 2** |
-| **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `PHASE15_HASH` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
+| **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 
 Số test theo area (tổng 607): `export_modules` 123, `import_` 102, `io_files` 91, `numerics` 64,
 `assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 21, `processing` 19,
@@ -619,7 +619,7 @@ thô, không parse được) hoặc throw.
       `GameStructure.load` như WebGL build thường. Chưa làm vì (a) không có gì để port, (b) cần quyết
       định policy network (proxy, robots, rate limit) mà repo này chưa có tiền lệ
 
-### Phase 15 — Exporter còn thiếu ảnh hưởng trực tiếp "project mở được" (commit `PHASE15_HASH`)
+### Phase 15 — Exporter còn thiếu ảnh hưởng trực tiếp "project mở được" (commit `994daee`)
 
 Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, project export ra **mất toàn bộ
 `ProjectSettings/`**.
