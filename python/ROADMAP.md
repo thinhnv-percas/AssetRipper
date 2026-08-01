@@ -6,8 +6,8 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
-  **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới); Phase 19 là bug thật user đang gặp.**
-  684 tests pass. Commit cuối: `d9494ec`.
+  **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới) — 17a xong; Phase 19 là bug thật user
+  đang gặp.** 697 tests pass. Commit cuối: (pending).
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -184,11 +184,11 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🔴 **Viết lại** — bản `37db9bf` sai mục tiêu ("browse project đã export"). Plan mới đã có, chưa implement. Cần `VirtualFileSystem` |
+| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ (pending) — `VirtualFileSystem`. 17b-17e chưa làm |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
-Số test theo area (tổng 684): `export_modules` 135, `import_` 115, `io_files` 105, `numerics` 64,
+Số test theo area (tổng 697): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
 `assets` 48, `export_unity_projects` 60, `gui_web` 53, `io_files_bundle` 29, `processing` 34,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 3 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
@@ -1124,24 +1124,41 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
 **dummy class rỗng** (`ScriptExporter`/`EmptyScriptExportCollection`) cho tới khi Phase 16 xong.
 **UI bắt buộc phải nói rõ hai điều này**, không để user tưởng "tool xem được nhưng game này rỗng".
 
-#### 17a — `VirtualFileSystem` (giờ là bắt buộc, không còn tuỳ chọn)
+#### 17a — `VirtualFileSystem` ✅ (pending)
 
-- [ ] `assetripper_io_files/virtual_file_system.py` — implement `FileSystem` bằng một cây dict trong
-      RAM: `VirtualFileSystem(FileSystem)` + 3 impl con (`file`/`directory`/`path`) khớp đúng surface
-      `LocalFileSystem` đang có (`create`/`open_read`/`open_write`/`exists`/`delete`/`read_all_bytes`/
-      `write_all_bytes`/`read_all_text`/`write_all_text`, `directory.create`/`exists`/`enumerate_files`/
-      `enumerate_directories`, `path.join`/`get_directory_name`/... — đọc `local_file_system.py` để
-      lấy danh sách chính xác, **đừng đoán**). `file.create()` trả một `MemoryStream`-like ghi vào node
-- [ ] `get_unique_name` phải hoạt động đúng trên VFS (đây chính là hàm quyết định tên file cuối cùng —
-      nếu VFS trả sai thì cây preview lệch tên so với export thật, tức là preview **nói dối**). Test
-      riêng cho case trùng tên
-- [ ] Test `tests/io_files/test_virtual_file_system.py`: write→read round-trip, nested directory tự tạo,
-      `enumerate_files`/`enumerate_directories`, `get_unique_name` khi trùng tên, và **1 test đối chiếu**:
-      export cùng một synthetic game vào `LocalFileSystem` (tmp_path) và `VirtualFileSystem`, assert
-      **danh sách path ra giống nhau từng file** — đây là test quan trọng nhất của 17a, nó chứng minh
-      preview == export thật
-- **Effort/Risk:** trung bình/thấp-trung bình. Rủi ro thật nằm ở "VFS lệch `LocalFileSystem` ở một
-      chi tiết nhỏ → preview lệch export", nên test đối chiếu ở trên là bắt buộc, không phải nice-to-have
+- [x] `assetripper_io_files/virtual_file_system.py` — port khá sát 1:1 từ chính
+      `Source/AssetRipper.IO.Files/VirtualFileSystem.cs`/`.g.cs` (đọc lại mới thấy: upstream **đã có**
+      class này, không phải feature mới của port này — chỉ là chưa port trước đó). `_DirectoryEntry`/
+      `_FileEntry` cây dict trong RAM, khớp `DirectoryEntry`/`FileEntry` của C#. `file.create()` trả
+      `_VirtualFileStream(MemoryStream)` mà buffer **là chính** `_FileEntry.data` (share reference,
+      không copy) — nhiều handle cùng ghi vào một file thấy nhau ngay, giống `SmartStream.CreateReference()`
+      upstream. `open_write` tự tạo file nếu chưa có (khác upstream — upstream bắt buộc file có sẵn —
+      nhưng khớp đúng `LocalFileSystem`'s `open_write` hiện có của port này, đúng yêu cầu "khớp surface
+      LocalFileSystem" hơn là khớp 1:1 upstream ở điểm này)
+- [x] `directory.delete` **cố ý để `NotImplementedError`** — khớp đúng upstream (`VirtualDirectoryImplementation`
+      không bao giờ override `DirectoryImplementation.Delete`'s `NotSupportedException` mặc định); grep
+      xác nhận không có call site nào trong port gọi `directory.delete`, nên không có gì để implement
+- [x] `enumerate_files`/`enumerate_directories` trên path không tồn tại: trả rỗng thay vì raise — khác
+      upstream (upstream's `OpenDirectory` throw `DirectoryNotFoundException`) nhưng khớp
+      `LocalFileSystem`'s glob-based behavior của port này, và Phase 17c sẽ lấy `path` trực tiếp từ query
+      string URL nên "không tìm thấy gì" đúng hơn là 500
+- [x] `get_unique_name` (kế thừa nguyên từ `FileSystem` base, không override) hoạt động đúng trên VFS vì
+      chỉ dựa vào `directory.exists`/`file.exists`/`path.*` đã implement đúng — test riêng cho case trùng
+      tên (`test_get_unique_name_resolves_collision_in_virtual_file_system`)
+- [x] Test `tests/io_files/test_virtual_file_system.py` (13 test): write→read round-trip, nested
+      directory tự tạo, `file.create` đòi hỏi parent dir có sẵn (giống `LocalFileSystem`, không tự
+      `mkdir -p`), `enumerate_files`/`enumerate_directories` (kể cả trên path không tồn tại),
+      `get_unique_name` khi trùng tên và khi không, `directory.delete` raise, path join/full-path
+      normalize, và **test đối chiếu** `test_export_path_set_matches_local_file_system_export`: export
+      cùng một synthetic game (fixture giống `test_export_handler.py`) vào `LocalFileSystem` (tmp_path)
+      và `VirtualFileSystem`, assert **danh sách path ra giống nhau từng file** — test quan trọng nhất
+      của 17a, chứng minh preview == export thật. Lưu ý khi viết test này: **input luôn đọc từ
+      `LocalFileSystem` thật** (game data thật sự nằm trên đĩa, apk/ipa không có "bản ảo"), chỉ **export**
+      mới dùng `VirtualFileSystem` — gọi `load_and_process` với `LocalFileSystem` rồi `export` riêng với
+      VFS, không gọi `load_process_and_export` với VFS cho cả hai (thử sai lần đầu, VFS rỗng không có
+      gì để đọc input game dir)
+- **Effort/Risk:** trung bình/thấp-trung bình — thấp hơn dự kiến vì có sẵn `VirtualFileSystem.cs` upstream
+      để port sát, không phải tự thiết kế từ đầu
 - **Phụ thuộc:** không
 
 #### 17b — `ExportPlan`: chạy export thật vào RAM, lấy ra cây "sẽ được export"
@@ -1470,12 +1487,8 @@ Bug thuần ở phía GUI:
 - [ ] `LightmapTextureAssetExporter.cs`, `RawTextureExporter.cs` chưa port (đi cùng 13f/13i)
 - [ ] `RedirectExportCollection.cs` / `SingleRedirectExportCollection.cs` — `single_redirect` đã có,
       `RedirectExportCollection` (bản nhiều asset) chưa
-- [ ] `VirtualFileSystem.cs` chưa port — `FileSystem` hiện chỉ có `LocalFileSystem`. **Đã chuyển thành
-      hạng mục BẮT BUỘC của Phase 17a (2026-08-01), không còn là "việc lẻ nice-to-have":** sau khi
-      Phase 17 được sửa lại mục tiêu ("xem trước file SẼ được export"), đây là cách **duy nhất** biết
-      chính xác cây output mà không ghi đĩa — `IExportCollection` chỉ có `export(..., file_system)`,
-      không có `get_export_paths()`. Xem Phase 17, mục 17a. (Ghi chú cũ "chỉ cần nếu muốn test export
-      không chạm đĩa" là đánh giá thấp hơn thực tế.)
+- [x] `VirtualFileSystem.cs` ✅ (pending) — port ở `assetripper_io_files/virtual_file_system.py`, xem
+      Phase 17, mục 17a.
 - [ ] `GameInitializer.CustomResourceProvider.cs` chưa port (Phase 3 chỉ ghi nhận
       `EngineResourceInjector`/`VersionChanger` bị bỏ, thiếu mục này)
 - [ ] `ObjectFactory` pattern (dùng bởi `SpriteProcessor` upstream, `AssetGroup`-tạo-theo-nhu-cầu) chưa
