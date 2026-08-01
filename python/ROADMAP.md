@@ -4,8 +4,8 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 đang làm (13a xong, xem PHẦN B). 632 tests pass.
-  Commit cuối: `25d7b0b`.
+- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a, 16b xong, xem PHẦN B).
+  641 tests pass. Commit cuối: `PHASE16B_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -149,9 +149,9 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a ✅ `25d7b0b`, còn 13b-13i |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
-| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | ⬜ Chưa làm — phase lớn nhất còn lại. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
+| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `PHASE16B_HASH`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 
-Số test theo area (tổng 629): `export_modules` 123, `import_` 102, `io_files` 105, `numerics` 64,
+Số test theo area (tổng 641): `export_modules` 132, `import_` 105, `io_files` 105, `numerics` 64,
 `assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 19,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
@@ -795,31 +795,43 @@ complete type info)"*. Nguồn cho phân chia trên:
 
 ---
 
-#### 16a — Serialization rules (`WillUnitySerialize`)
+#### 16a — Serialization rules (`WillUnitySerialize`) — ⚠️ **điều chỉnh sau khi đọc kỹ**
 
 - [ ] `assetripper_serialization_logic/field_serializer.py` — port `FieldSerializer.Logic.cs` (phần
-      `WillUnitySerialize` + `IsValueTypeSerializable` + các version gate). Đây là **logic thuần, port
-      1:1 được**, không cần đọc IL: input là field flags + attribute + type signature đã resolve.
-      Các version boundary upstream đã ghi sẵn trong comment và phải giữ nguyên: struct serializable
-      từ 4.5; int8/int16/uint16/uint32 từ 5.0; char/int64 từ 2017; generic (ngoài `List<T>` và
+      `WillUnitySerialize` + `IsValueTypeSerializable` + các version gate). Các version boundary
+      upstream đã ghi sẵn trong comment và phải giữ nguyên: struct serializable từ 4.5;
+      int8/int16/uint16/uint32 từ 5.0; char/int64 từ 2017; generic (ngoài `List<T>` và
       `ExposedReference<T>`) từ 2020
+- **⚠️ Sửa lại nhận định "không phụ thuộc gì" ở lần viết plan trước** (sau khi đọc hết
+      `FieldSerializer.Logic.cs` + `EngineTypePredicates.cs` để bắt đầu implement): claim đó sai.
+      Gần một nửa hàm (`IsDelegate`, `ShouldNotTryToResolve`, `IsUnityEngineObject`,
+      `IsSerializableUnityClass`, `ShouldImplementIDeserializable`, …) gọi
+      `type.IsAssignableTo(namespace, name, runtimeContext)` — một phép walk lên chuỗi base-type
+      **xuyên across assembly đã load**. Không có một "type universe" để walk thì không thể port
+      trung thực các hàm này bằng field riêng lẻ; mock rời rạc sẽ cho kết quả không khớp AsmResolver
+      thật và phải viết lại khi có reader thật. **Việc này gộp chung với 16c/16d** thay vì đứng một
+      mình — bất kỳ ai nhặt lại 16a sau này nên đọc lại `EngineTypePredicates.cs` trước khi bắt đầu
 - **Hiện có:** không. `SerializableType` có sẵn nhưng chỉ được dựng từ TypeTree (`SerializableTreeType`)
-- **Effort/Risk:** thấp/thấp — pure function, test bằng table-driven case cho từng version boundary
-- **Không phụ thuộc gì** → làm được ngay, kể cả trước khi có metadata parser
+- **Effort/Risk:** trung bình/trung bình (đã tăng so với đánh giá lần đầu — không còn "pure function")
+- **Phụ thuộc:** 16c hoặc 16d (cần một type-resolution context thật, không mock được đáng tin cậy)
 
-#### 16b — Emitter `.cs` từ một type model trung lập
+#### 16b — Emitter `.cs` từ một type model trung lập ✅ `PHASE16B_HASH`
 
-- [ ] `assetripper_export_modules/scripts/csharp_emitter.py` — nhận một model trung lập
-      (`RecoveredType`: namespace, name, base type, generic params, field/property/method signature,
-      attribute) và sinh text C#. Method body = stub trả default theo return type, **đúng như upstream**.
-      Định nghĩa `RecoveredType` ở `assetripper_import/structure/assembly/recovered_model.py` để cả
-      nhánh Mono (16c) và IL2CPP (16d-e) cùng dùng
-- [ ] Giữ `EmptyScript` làm fallback khi không recover được type (đừng xoá — nó vẫn là nhánh đúng khi
-      không có metadata)
-- **Effort/Risk:** thấp-trung bình/thấp — sinh text, test bằng cách so string. Cần cẩn thận: escape
-      keyword C#, tên generic mangled (`Foo`2` → `Foo<T1, T2>`, đã có `mono_script_extensions.is_generic`),
-      nested type, `global::` khi tên trùng
-- **Không phụ thuộc gì** → làm song song với 16a được
+- [x] `assetripper_export_modules/scripts/csharp_emitter.py` — nhận `RecoveredType`
+      (`assetripper_import/structure/assembly/recovered_model.py`: namespace, name, base type,
+      field name/type-text/visibility/attribute, `is_struct`) và sinh text C#. Không có method body
+      (không có model cho nó — `RecoveredType` không mang method signature), đúng ceiling "declaration
+      only" đã ghi ở đầu Phase 16
+- [x] `RecoveredField.type_name` là text C# **đã format sẵn** (`"int"`, `"List<Foo>"`, …) do reader
+      (16c/16d) tự quyết định — emitter không tự suy luận type text, giữ nó test được độc lập hoàn
+      toàn không cần reader thật đứng sau, đúng như dự kiến
+- [x] Generic mangled name (`` Foo`2 `` → `Foo<T1, T2>`) dùng lại `mono_script_extensions.is_generic`
+      đã có sẵn từ Phase 6c-2, không viết lại
+- [x] Giữ `EmptyScript` làm fallback khi không recover được type — chưa đổi gì ở đó
+- **Test:** 9 test mới (`test_csharp_emitter.py` 6, `test_recovered_model.py` 3) — class/struct,
+      có/không namespace, public/private field, nhiều attribute trên 1 field, generic, không field nào
+- **Effort/Risk thực tế:** đúng như dự đoán — thấp/thấp, không phát sinh bất ngờ
+- **Không phụ thuộc gì** — đúng như dự đoán ban đầu, khác với 16a
 
 #### 16c — Nhánh Mono: đọc metadata .NET từ `.dll`
 
@@ -827,7 +839,9 @@ complete type info)"*. Nguồn cho phân chia trên:
       PE header → CLI header → metadata root → các table cần dùng (`Assembly`, `Module`, `TypeDef`,
       `TypeRef`, `TypeSpec`, `Field`, `MethodDef`, `Param`, `CustomAttribute`, `Constant`,
       `NestedClass`, `InterfaceImpl`, `GenericParam`, `MemberRef`) + heap (`#Strings`, `#Blob`,
-      `#GUID`, `#US`) + decoder cho signature blob
+      `#GUID`, `#US`) + decoder cho signature blob. Đây cũng chính là "type universe" mà 16a cần —
+      khi làm 16c, port `WillUnitySerialize` (16a) lồng vào đây luôn, tra thẳng vào `TypeDef`/`TypeRef`
+      table thay vì AsmResolver's `RuntimeContext`
 - **Tại sao làm trước IL2CPP:** không cần parse native binary, spec ECMA-335 công khai và đầy đủ,
       **và nó validate toàn bộ 16a + 16b + 16f end-to-end** trước khi bước vào phần rủi ro cao nhất.
       Không có chỗ nào "đoán" — sai là sai rõ ràng
