@@ -63,6 +63,37 @@ def pptr_nodes(name: str, target: str = "GameObject", level: int = 1, path_id_ty
     ]
 
 
+def rect_nodes(name: str, level: int) -> list[TypeTreeNode]:
+    """The 5-node shape Unity uses for a `Rectf` field: {x, y, width, height}."""
+    return [
+        node("Rectf", name, level),
+        node("float", "x", level + 1),
+        node("float", "y", level + 1),
+        node("float", "width", level + 1),
+        node("float", "height", level + 1),
+    ]
+
+
+def vector2_nodes(name: str, level: int) -> list[TypeTreeNode]:
+    """The 3-node shape Unity uses for a `Vector2f` field: {x, y}."""
+    return [
+        node("Vector2f", name, level),
+        node("float", "x", level + 1),
+        node("float", "y", level + 1),
+    ]
+
+
+def vector4_nodes(name: str, level: int) -> list[TypeTreeNode]:
+    """The 5-node shape Unity uses for a `Vector4f` field: {x, y, z, w}."""
+    return [
+        node("Vector4f", name, level),
+        node("float", "x", level + 1),
+        node("float", "y", level + 1),
+        node("float", "z", level + 1),
+        node("float", "w", level + 1),
+    ]
+
+
 def unity_string(value: str) -> bytes:
     """int32 length + UTF-8 bytes + padding to a 4-byte boundary (strings always align)."""
     encoded = value.encode("utf-8")

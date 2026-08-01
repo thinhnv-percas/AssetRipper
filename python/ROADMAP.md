@@ -4,8 +4,8 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a-13b, 16b xong, xem PHẦN B).
-  644 tests pass. Commit cuối: `19e3b0a`.
+- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a-13c một phần, 16b xong, xem
+  PHẦN B). 652 tests pass. Commit cuối: `PHASE13C_HASH`.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
   chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
@@ -146,13 +146,13 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
-| 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a `25d7b0b`, 13b ✅ `19e3b0a`, còn 13c-13i |
+| 13 | Asset type còn thiếu (13a-13i) | 🟡 Đang làm — 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `PHASE13C_HASH` (một phần), còn 13d-13i |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 
-Số test theo area (tổng 644): `export_modules` 135, `import_` 105, `io_files` 105, `numerics` 64,
-`assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 19,
+Số test theo area (tổng 652): `export_modules` 135, `import_` 105, `io_files` 105, `numerics` 64,
+`assets` 48, `export_unity_projects` 59, `gui_web` 42, `io_files_bundle` 29, `processing` 27,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5.
 
 ---
@@ -555,18 +555,39 @@ processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới
       nào cả, và cả hai cùng lúc chỉ Sprite được export
 - **Effort/Risk thực tế:** đúng như dự đoán — thấp/thấp
 
-#### 13c — SpriteProcessor (atlas coordinate recovery)
+#### 13c — SpriteProcessor (atlas coordinate recovery) ⚠️ `PHASE13C_HASH` — **làm một phần, xem giới hạn**
 
-- [ ] `processing/textures/sprite_processor.py` — port `Textures/SpriteProcessor.cs` (136 dòng) +
-      `SpriteExtensions.GetSpriteCoordinatesInAtlas` (~50 dòng math) + `SpriteInformationObject`
-- **Hiện có:** sprite **không** thuộc atlas export đúng (field `m_RD` gốc đã đủ). Sprite **thuộc**
-      atlas export ra rect/pivot/border **sai** (không recover từ `m_RD` của atlas)
-- **Thiếu:** copy `m_RD` từ `SpriteAtlas.RenderDataMap`; recalc `Rect`/`Pivot`/`Border`/`Offset`/
-      `TextureRectOffset`; clear reference tới atlas (Unity Editor crash nếu không clear)
-- **Effort/Risk:** trung bình/**CAO** — pivot/rect/border math, sai một chút là sprite lệch **âm thầm**.
-      ⚠️ **Nên có fixture Unity thật (một game 2D có SpriteAtlas) trước khi làm**, hoặc ít nhất dựng
-      test tính tay từng bước theo đúng công thức C#. Đây là item risk cao nhất trong Phase 13
-- **Blocked-by:** 13b (cần Sprite export trước mới thấy được kết quả)
+- [x] `processing/textures/sprite_coordinates.py` — port `SpriteExtensions.
+      GetSpriteCoordinatesInAtlas` (~50 dòng math) như **pure function** trên tuple số thô (không
+      đụng vào asset động) — cố ý tách riêng để test được bằng tay từng bước đúng công thức C#,
+      độc lập với phần field-access dễ vỡ hơn. 5 test tính tay (identity, có crop, thiếu field pivot,
+      thiếu field border, border-component-bằng-0-giữ-nguyên-0)
+- [x] `processing/textures/sprite_processor.py` — port phần **an toàn** của `SpriteProcessor.cs`:
+      clear `m_SpriteAtlas` PPtr + `m_AtlasTags` khi resolve được atlas thật (upstream làm việc này
+      **vô điều kiện**, không phụ thuộc lookup RenderDataMap — lý do là tránh Unity Editor crash khi
+      cố pack lại atlas đã pack, không liên quan gì tới độ chính xác rect/pivot/border); và chạy
+      `get_sprite_coordinates_in_atlas` cho mọi sprite dùng chính `m_RD.textureRect`/
+      `textureRectOffset` hiện có của sprite làm input (đúng bằng nhánh fallback "không resolve được
+      atlas data" mà upstream tự có sẵn — không phải bịa thêm)
+- **⚠️ CHỦ ĐỘNG KHÔNG PORT: recover `m_RD` từ `SpriteAtlas.RenderDataMap`.** Việc này cần khớp
+      `sprite.m_RenderDataKey` (`pair<GUID, SInt64>`) với key trong `atlas.m_RenderDataMap` — tức là
+      cần biết chính xác tên sub-field của struct `GUID` khi đọc động. Project này **đã từ chối đoán
+      việc này một lần trước đó, với đúng lý do**: xem docstring `scene_definition_processor.py`
+      ("`IOcclusionCullingSettings.SceneGUID` recovery is skipped... GUID sub-structure... sub-field
+      names... aren't known with confidence here"). Đoán sai ở đây sẽ làm lệch rect/pivot/border của
+      **mọi sprite trong atlas** một cách âm thầm — đúng rủi ro ROADMAP đã cảnh báo trước khi làm.
+      **Hệ quả thực tế:** sprite thuộc atlas thật vẫn dùng `m_RD.textureRect` **gốc, chưa cắt theo
+      atlas** làm input — với sprite không hề bị crop thật (không atlas, hoặc atlas không crop) thì
+      công thức là identity (không đổi gì), nhưng với sprite **thật sự bị atlas crop** thì rect/pivot/
+      border ra **sai** giống hệt như trước khi làm 13c. **Đừng tin output atlas-sprite của port này
+      khi chưa có fixture Unity thật để so sánh**
+- [~] `SpriteInformationObject`/`ObjectFactory` (xác định texture "chính" khi nhiều sprite share 1
+      texture) — không port: đây là vấn đề tổ chức export (tên/collection của file PNG dùng chung),
+      không phải tính đúng của riêng từng sprite. Để lại cho sau nếu cần
+- **Test:** 8 test mới (`test_sprite_coordinates.py` 5, `test_sprite_processor.py` 3) — bao gồm 1 test
+      chuyên biệt xác nhận reference tới atlas resolve được **đã bị clear** đúng
+- **Đăng ký vào pipeline:** `SpriteProcessor` thêm vào `default_processors.py`, đúng vị trí upstream
+      (giữa `EditorFormatProcessor` và `PrefabProcessor`)
 
 #### 13d — AudioMixer + AudioMixerProcessor
 
