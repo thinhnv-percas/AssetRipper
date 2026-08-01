@@ -6,7 +6,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15, 17 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
-  675 tests pass. Commit cuối: (pending, xem Phase 17).
+  675 tests pass. Commit cuối: `37db9bf`.
 - 🔴 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), và phát hiện quan trọng nhất từ trước giờ —
   xem Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline lên file android thật phát hiện: (1) 3 bug crash thật (đã sửa, xem Phase 18), và
@@ -176,7 +176,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ✅ (pending hash) — feature mới, không có ở upstream; chọn nhánh 17a-lite (temp-dir), không port `VirtualFileSystem` |
+| 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ✅ `37db9bf` — feature mới, không có ở upstream; chọn nhánh 17a-lite (temp-dir), không port `VirtualFileSystem` |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🔴 3 bug đã sửa `0e4c206`; gap chính (hand-written layout cho common class) **chưa làm**, xem chi tiết |
 
 Số test theo area (tổng 675): `export_modules` 135, `import_` 107, `io_files` 105, `numerics` 64,
@@ -1062,7 +1062,7 @@ Lý do đặt `16c-alt` làm mốc dừng: nó cho toàn bộ output của Phase
 binary parsing — phần rủi ro cao nhất và cũng là phần **không thể verify** nếu không có game thật.
 Chỉ đi tiếp `16d`/`16e` khi đã quyết định rằng "user phải tự chạy Il2CppDumper" là không chấp nhận được.
 
-### Phase 17 — View output "dưới dạng Unity project luôn trên tool" ✅ (Commit hash: pending)
+### Phase 17 — View output "dưới dạng Unity project luôn trên tool" ✅ `37db9bf`
 
 > **Đây là feature mới, không phải port từ upstream.** Upstream `AssetRipper.GUI.Web` export ra
 > thư mục trên đĩa xong rồi kết thúc — user tự mở thư mục đó bằng file explorer của OS. Phase này
