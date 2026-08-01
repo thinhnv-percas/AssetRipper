@@ -6,6 +6,20 @@ they can still be inspected and round-tripped, but no fields are exposed.
 `UnknownObject` means "no layout available for this class ID" -- with the dynamic reader that
 happens when a SerializedFile embeds no type tree and no hand-written layout covers the
 class. `UnreadableObject` means a layout existed but reading against it failed.
+
+**`.get`/`.items`/`.keys`/`__contains__`/`__getitem__` (added after a real-fixture audit,
+Phase 13/17):** a real shipped Unity player build routinely strips embedded type trees from
+release builds -- this is not an edge case. Every processor/exporter in this port that calls
+`asset.get(field_name)` (the established dynamic-field-access idiom used throughout, e.g.
+`scene_helpers.py`, `original_path_processor.py`) previously assumed that always succeeds,
+and crashed with `AttributeError` the moment a real asset came through as `RawDataObject`
+instead of `TypeTreeObject` -- confirmed against `python/input-test/demo-android.apk`, a real
+stripped IL2CPP Android build. Rather than hunting down and guarding every call site
+individually, `RawDataObject` exposes the same read-only surface `TypeTreeObject` does
+(`get`/`items`/`keys`/`__contains__`/`__getitem__`), always reporting "no fields" -- which is
+the truthful answer for an asset whose layout genuinely couldn't be determined. `__setitem__`
+is deliberately *not* added: writing a field to an asset with an unknown layout is a real bug
+in the caller, not something to silently swallow.
 """
 from __future__ import annotations
 
@@ -35,6 +49,21 @@ class RawDataObject(NullObject):
 
     def reset(self) -> None:
         pass
+
+    def get(self, name: str, default=None):
+        return default
+
+    def items(self):
+        return ()
+
+    def keys(self):
+        return ()
+
+    def __contains__(self, name: str) -> bool:
+        return False
+
+    def __getitem__(self, name: str):
+        raise KeyError(name)
 
 
 class UnknownObject(RawDataObject):

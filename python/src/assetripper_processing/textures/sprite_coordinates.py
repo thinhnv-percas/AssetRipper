@@ -21,7 +21,24 @@ actually happened, which is the overwhelmingly common case for a sprite that isn
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
+
+
+def _div(a: float, b: float) -> float:
+    """IEEE-754 float division semantics, matching C#'s `a / b`: division by zero produces
+    +-Infinity (or NaN for 0/0) instead of raising, unlike Python's native `/` operator.
+    **Confirmed necessary against a real fixture** (`python/input-test/demo-android.apk`,
+    Phase 13/17 audit): a Sprite whose type tree can't be resolved (`RawDataObject`) reads
+    back a zero-size `m_Rect`, which used to raise `ZeroDivisionError` and abort the whole
+    export -- upstream would have just produced a NaN/Infinity pivot for that one sprite and
+    kept going, so that's what this port does too now."""
+    if b != 0.0:
+        return a / b
+    if a == 0.0:
+        return math.nan
+    negative = (a < 0) != (math.copysign(1.0, b) < 0)
+    return -math.inf if negative else math.inf
 
 
 @dataclass(frozen=True, slots=True)
@@ -73,15 +90,15 @@ def get_sprite_coordinates_in_atlas(
         center_x, center_y = sprite_width / 2.0, sprite_height / 2.0
         pivot_offset_x = center_x + sprite_offset[0]
         pivot_offset_y = center_y + sprite_offset[1]
-        pivot_x = pivot_offset_x / sprite_width
-        pivot_y = pivot_offset_y / sprite_height
+        pivot_x = _div(pivot_offset_x, sprite_width)
+        pivot_y = _div(pivot_offset_y, sprite_height)
 
     pivot_position_x = pivot_x * sprite_width
     pivot_position_y = pivot_y * sprite_height
     atlas_pivot_position_x = pivot_position_x - crop_bot_left_x
     atlas_pivot_position_y = pivot_position_y - crop_bot_left_y
-    atlas_pivot_x = atlas_pivot_position_x / atlas_width
-    atlas_pivot_y = atlas_pivot_position_y / atlas_height
+    atlas_pivot_x = _div(atlas_pivot_position_x, atlas_width)
+    atlas_pivot_y = _div(atlas_pivot_position_y, atlas_height)
 
     if sprite_border is not None:
         border_l = 0.0 if sprite_border[0] == 0.0 else sprite_border[0] - crop_bot_left_x

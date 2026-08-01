@@ -83,3 +83,18 @@ def test_is_scene_duplicate():
     assert scene_helpers.is_scene_duplicate(0, build_settings)
     assert not scene_helpers.is_scene_duplicate(1, build_settings)
     assert not scene_helpers.is_scene_duplicate(0, None)
+
+
+def test_try_get_scene_path_does_not_crash_when_build_settings_has_no_get():
+    """A real stripped player build has no embedded type tree for BuildSettings, so it
+    comes through as a RawDataObject (no `.get`) rather than a TypeTreeObject -- confirmed
+    against python/input-test/demo-android.apk. Must decline gracefully, not raise."""
+
+    class _NoGetAsset:
+        pass
+
+    collection = _FakeCollection("level0", _V2019)
+    found, path = scene_helpers.try_get_scene_path(collection, _NoGetAsset())
+    assert not found
+    assert path is None
+    assert not scene_helpers.is_scene_duplicate(0, _NoGetAsset())

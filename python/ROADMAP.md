@@ -5,15 +5,27 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một phần,
-  13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong). 657 tests
-  pass. Commit cuối: `c8093ba`.
+  13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong). 664 tests
+  pass. Commit cuối: (pending, xem Phase 18).
+- 🔴 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), và phát hiện quan trọng nhất từ trước giờ —
+  xem Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
+  Chạy full pipeline lên file android thật phát hiện: (1) 3 bug crash thật (đã sửa, xem Phase 18), và
+  (2) **gap nghiêm trọng nhất project từng có**: build thật (release, không phải Editor) **không có
+  type tree nhúng**, và port này **chỉ có hand-written layout cho GameObject/Transform/AssetBundle/
+  MonoScript/TextAsset** (Phase 2) — nghĩa là Texture2D/Sprite/Material/Shader/Mesh/AudioClip/
+  MonoBehaviour **đều đọc ra rỗng** (`UnknownObject`, không field nào) trên build thật, dù pipeline
+  không crash. Toàn bộ rủi ro "chưa test trên game thật" mọi phase trước đây tự cảnh báo **đã xảy ra
+  đúng như lo ngại**. Xem Phase 18 để biết quy mô sửa thật sự cần.
 - 🆕 **Phase 17 (audit 2026-08-01)** — view output "dưới dạng Unity project luôn trên tool" (browse
   cây `Assets/`/`ProjectSettings/`/`Packages/` của project đã export ngay trong GUI web, không cần mở
   thư mục đĩa) đã có plan đầy đủ (17a-17e, xem PHẦN B). Đây là **feature mới không có ở upstream**
   (upstream chỉ export ra disk rồi user tự mở bằng file explorer) — xem rào cản `VirtualFileSystem`
-  và lý do được thêm vào dưới đây. Chưa có gì của phase này được làm, kể cả chỗ reuse được.
+  và lý do được thêm vào dưới đây. Chưa có gì của phase này được làm, kể cả chỗ reuse được. **Lưu ý
+  sau phát hiện Phase 18:** browse được cây file không có nghĩa nội dung file đó đúng — phase này vẫn
+  làm được độc lập, nhưng giá trị thực tế phụ thuộc Phase 18 giải quyết tới đâu.
 - Texture2D/AudioClip/Mesh giờ export được cả khi payload nằm ở `.resS` ngoài (Phase 9) — điểm
-  chặn fidelity lớn nhất trên game thật đã gỡ. Vẫn **chưa test trên game thật** (xem Rủi ro #1).
+  chặn fidelity lớn nhất **về input format** đã gỡ, nhưng không giúp gì nếu chính asset đó không có
+  type tree để đọc field trước (xem Phase 18) — hai vấn đề độc lập nhau.
 - Settings model thật đã có (Phase 10): image/audio/text/shader format và bundled-assets grouping
   không còn hardcode, `/Settings/Edit` là form thật.
 - GUI giờ có Bootstrap vendored, asset preview tab (Image/Audio/Text/Yaml/Binary), file picker
@@ -165,10 +177,12 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ⬜ Chưa làm — feature mới, không có ở upstream |
+| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🔴 3 bug đã sửa (pending hash); gap chính (hand-written layout cho common class) **chưa làm**, xem chi tiết |
 
-Số test theo area (tổng 657): `export_modules` 135, `import_` 105, `io_files` 105, `numerics` 64,
-`assets` 48, `export_unity_projects` 60, `gui_web` 42, `io_files_bundle` 29, `processing` 31,
-`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5.
+Số test theo area (tổng 664): `export_modules` 135, `import_` 107, `io_files` 105, `numerics` 64,
+`assets` 48, `export_unity_projects` 60, `gui_web` 42, `io_files_bundle` 29, `processing` 34,
+`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 2 (skip nếu chưa
+`git lfs pull` file thật ở `python/input-test/`).
 
 ---
 
@@ -1182,6 +1196,85 @@ viết template chống cây giả rồi sửa lại). Có thể 17a-lite → 17
    được." **Sai hoàn toàn**: view chỉ là cây + nội dung file, không có importer, kiểm tra reference,
    scene hierarchy đồ hoạ. Ghi ngay trên trang `/Project`: "This is a **browsable tree of exported
    files**, not a Unity Editor. Open the exported folder in Unity Editor for full validation."
+
+### Phase 18 — Fixture Unity thật đầu tiên: 3 bug + 1 gap nghiêm trọng 🔴
+
+**Bối cảnh:** user đẩy 2 file thật lên `python/input-test/` qua Git LFS —
+`demo-android.apk` (build IL2CPP Android thật, có `libil2cpp.so` + `global-metadata.dat`, Unity
+`2022.3.62f2`) và `demo-ios.ipa` (chưa test trong phase này — 300MB, để phase sau). Đây là fixture
+Unity thật **đầu tiên** trong toàn bộ project — mọi phase trước giờ chỉ verify bằng
+`SerializedFileBuilder`/`_tree_builder.py` tự dựng byte tay. Chạy thẳng
+`ExportHandler.load_and_process` + `.export()` lên `demo-android.apk` (không sửa gì trước) để xem
+pipeline có thật sự chạy được trên game thật không.
+
+#### 3 bug crash thật, đã sửa (commit: pending)
+
+- [x] **`scene_helpers.py`**: `try_get_scene_path`/`is_scene_duplicate` gọi `build_settings.get(...)`
+      không kiểm tra `build_settings` có `.get` hay không — crash `AttributeError` ngay bug đầu tiên
+      gặp phải. Nguyên nhân gốc: build thật (release) **không nhúng type tree**, nên BuildSettings đọc
+      ra là `UnknownObject` chứ không phải `TypeTreeObject`, khác hẳn giả định cũ trong docstring
+      module ("type tree có mặt ở hầu hết file thật" — **sai**, ít nhất với release build). Sửa bằng
+      helper `_scenes(build_settings)` coi "không có `.get`" giống hệt "không có BuildSettings" (trả
+      `False, None` thay vì crash) — game vẫn export được, chỉ là tên scene fallback về tên file thô
+- [x] **`raw_data_object.py`**: đây là bug **nền tảng nhất trong 3 cái** — thêm
+      `.get`/`.items`/`.keys`/`__contains__`/`__getitem__` vào `RawDataObject` (báo "không field nào"
+      một cách nhất quán) thay vì chờ `AttributeError` ở TỪNG call site riêng lẻ khắp codebase.
+      `original_path_processor.py` là call site thứ 2 hit đúng bug này ngay sau khi sửa cái đầu — xác
+      nhận đây là lỗi hệ thống (mọi nơi gọi `asset.get(...)`), không phải lỗi cục bộ. `__setitem__`
+      **cố ý không thêm** — ghi field vào asset có layout không xác định là bug thật của caller, không
+      nên nuốt âm thầm
+- [x] **`sprite_coordinates.py`**: `get_sprite_coordinates_in_atlas` chia cho `sprite_width`/
+      `atlas_width` không kiểm tra 0 — `ZeroDivisionError` khi gặp Sprite có `m_Rect` rỗng (hệ quả
+      trực tiếp của bug `RawDataObject` ở trên: Sprite không đọc được layout → mọi field mặc định 0).
+      C# không bao giờ throw ở phép chia float (`x/0f` = `Infinity`, `0f/0f` = `NaN`) — thêm helper
+      `_div()` replicate đúng semantics IEEE-754 đó thay vì để Python's `/` raise
+- **Test:** 5 test đơn vị mới (2 `test_raw_data_object.py`, 1 `test_scene_helpers.py`, 2
+      `test_sprite_coordinates.py`) + 2 test tích hợp thật (`tests/real_fixtures/
+      test_demo_android_apk.py`, **skip tự động nếu chưa `git lfs pull`** — file LFS pointer chỉ
+      ~130 byte, phân biệt được với file thật đã pull bằng ngưỡng size) chạy full
+      `load_and_process` + `export` lên chính `demo-android.apk`, xác nhận: không crash, ra được
+      `ProjectSettings/ProjectVersion.txt` + ít nhất 1 `.prefab`, và xác nhận
+      `sharedassets0.assets`/`sharedassets1.assets` (vốn bị chia nhỏ vật lý thành `.split0`-`.split5`
+      trên APK — giới hạn nén ZIP >1MB lịch sử của Android) được `MultiFileStream` ghép lại đúng
+      (module này đã port sẵn từ Phase 1-3, hoá ra đã đúng, không phải sửa — chỉ verify lần đầu
+      bằng file thật)
+
+#### Gap nghiêm trọng nhất: build thật (release) không có type tree, và port này gần như không có
+     hand-written layout nào ngoài Phase 2's 5 class ⬜ — **chưa làm, cần quyết định ưu tiên**
+
+Sau khi sửa 3 bug trên, pipeline chạy hết không crash và export ra project — nhưng kiểm tra nội dung
+thật thì phát hiện: **Texture2D (111 asset), Sprite (39), Material (58), Shader (68), Mesh (29),
+AudioClip (11), MonoBehaviour (496), AnimationClip, AnimatorController, ComputeShader, ...** — tức là
+gần như *mọi* class ngoài GameObject/Transform/PrefabInstance/MonoScript — đều đọc ra
+`UnknownObject` rỗng trên file `sharedassets0.assets`/`sharedassets1.assets` này, dù các file đó
+**có load được** (884 + 322 object). Lý do: `has_type_tree=False` trên build release thật (bình
+thường, không phải lỗi build), và Phase 2's hand-written layout **chỉ phủ 5 class**
+(`GameObject`/`Transform`/`AssetBundle`/`MonoScript`/`TextAsset` — xem
+`assetripper_import/asset_creation/layouts/`). Kết quả thực tế trên `demo-android.apk`: `.prefab`
+export được (vì dùng GameObject/Transform/PrefabInstance, có layout), nhưng **không một file
+`.png`/`.mat`/`.shader`/`.wav`/mesh nào được tạo ra** — toàn bộ nội dung hình ảnh/âm thanh/vật liệu
+của game bị mất trắng.
+
+**Đây chính là rủi ro "chưa test trên game thật" mà hầu như mọi phase trước (Phase 6, 9, 13, ...) tự
+ghi chú cảnh báo — giờ đã biết chính xác nó tệ tới mức nào.** Phase 9 (`.resS` streamed data) tự nó
+làm đúng, nhưng vô dụng nếu Texture2D không có field `m_Width`/`m_TextureFormat`/`m_StreamData` để
+đọc trước — hai lớp vấn đề độc lập, và lớp "đọc field" mới là lớp chặn thật trên build release.
+
+**Việc cần làm (chưa bắt đầu — quy mô lớn hơn một sub-phase, cần quyết định ưu tiên với user trước
+khi làm):**
+- [ ] Hand-written layout (kiểu Phase 2) cho tối thiểu: `Texture2D`(28), `Sprite`(213),
+      `Material`(21), `Shader`(48), `Mesh`(43), `AudioClip`(83), `BuildSettings`(141) — 7 class phổ
+      biến nhất, đều có field layout **đã biết công khai rộng rãi** (chính port này, upstream, và mọi
+      tool AssetRipper-adjacent khác đều đã document field name/thứ tự) nên rủi ro "đoán sai field"
+      thấp hơn hẳn so với các gap `[~]` khác trong ROADMAP này (VD 13g/13f) — khác ở chỗ đây không
+      phải struct lồng nhau mơ hồ, mà là struct top-level đã ổn định 10+ năm
+- [ ] `MonoBehaviour`(114) khó hơn: field thật tuỳ theo **script gắn vào nó** (không có layout cố
+      định) — cần Phase 16's script-metadata recovery (biết field layout từ IL2CPP/Mono) TRƯỚC KHI
+      viết được layout tổng quát cho nó. Không tách rời được khỏi Phase 16
+- [ ] Sau khi có layout, chạy lại `demo-android.apk` để verify thật: có ra `.png`/`.wav`/mesh không,
+      so khớp field value với `assets/bin/Data/...` decode thủ công nếu cần
+- [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
+      skip) một khi kích thước/Git LFS được chấp nhận là chi phí xứng đáng
 
 #### Rủi ro riêng của Phase 16
 

@@ -1,10 +1,19 @@
 """Port of Source/AssetRipper.Processing/Scenes/SceneHelpers.cs
 
-`build_settings` is accessed dynamically (`build_settings["m_Scenes"]`) rather than through
-a generated `IBuildSettings` interface -- BuildSettings (class ID 141) is not covered by
-Phase 2's hand-written layouts, but its embedded type tree is present in virtually every
-real game file, so dynamic access works the same way it does for every other asset in this
-port. `IsSceneCompatible` (used by the not-yet-ported PrefabProcessor) is not ported here.
+`build_settings` is accessed dynamically (`build_settings.get("m_Scenes")`) rather than
+through a generated `IBuildSettings` interface -- BuildSettings (class ID 141) is not covered
+by Phase 2's hand-written layouts. **Confirmed against a real stripped IL2CPP Android player
+build** (`python/input-test/demo-android.apk`, Phase 13/17 audit): unlike editor-produced
+files, a real shipped player build commonly has *no* embedded type tree at all, so
+`build_settings` legitimately comes through as an `UnknownObject`/`RawDataObject` here, not a
+`TypeTreeObject` -- `.get(...)` doesn't exist on it. `_scenes(build_settings)` below treats
+that the same as "no BuildSettings resolved" (matching the existing `build_settings is None`
+branch already here) rather than crashing the whole processor pipeline. This is a real,
+not-yet-closed fidelity gap, not a fabrication: scene-file naming falls back to
+`SceneDefinition.from_name` for every scene in a stripped build, same as if BuildSettings had
+never been found at all. A hand-written BuildSettings layout (Phase 2 style) would let real
+scene names resolve even without a type tree -- not done here, tracked in python/ROADMAP.md.
+`IsSceneCompatible` (used by the not-yet-ported PrefabProcessor) is not ported here.
 """
 from __future__ import annotations
 
@@ -44,15 +53,26 @@ def scene_index_to_file_name(index: int, version) -> str:
     return f"{_LEVEL_NAME}{index}"
 
 
-def try_get_scene_path(collection, build_settings) -> tuple[bool, str | None]:
+def _scenes(build_settings) -> "list[str] | None":
+    """`None` if `build_settings` is `None` or has no readable `m_Scenes` field (no embedded
+    type tree -- see module docstring), distinct from `[]` (a real, empty scene list)."""
     if build_settings is None:
+        return None
+    getter = getattr(build_settings, "get", None)
+    if getter is None:
+        return None
+    return getter("m_Scenes", [])
+
+
+def try_get_scene_path(collection, build_settings) -> tuple[bool, str | None]:
+    scenes = _scenes(build_settings)
+    if scenes is None:
         return False, None
 
     found, index = try_get_file_name_to_scene_index(collection.name, collection.original_version)
     if not found:
         return False, None
 
-    scenes: list[str] = build_settings.get("m_Scenes", [])
     if index >= len(scenes):
         # A game can be built with N scenes, one gets removed from the project, and the
         # developer forgets to delete the Nth scene file on the next build -- N-1 scenes in
@@ -82,9 +102,9 @@ def try_get_scene_path(collection, build_settings) -> tuple[bool, str | None]:
 
 
 def is_scene_duplicate(scene_index: int, build_settings) -> bool:
-    if build_settings is None:
+    scenes = _scenes(build_settings)
+    if scenes is None:
         return False
 
-    scenes: list[str] = build_settings.get("m_Scenes", [])
     scene_name = scenes[scene_index]
     return any(name == scene_name and i != scene_index for i, name in enumerate(scenes))

@@ -5,11 +5,36 @@ real fixture, which doesn't exist in this environment).
 """
 import math
 
-from assetripper_processing.textures.sprite_coordinates import get_sprite_coordinates_in_atlas
+from assetripper_processing.textures.sprite_coordinates import _div, get_sprite_coordinates_in_atlas
+
+
+def test_div_matches_ieee754_float_semantics():
+    assert _div(4.0, 2.0) == 2.0
+    assert math.isnan(_div(0.0, 0.0))
+    assert _div(1.0, 0.0) == math.inf
+    assert _div(-1.0, 0.0) == -math.inf
 
 
 def _assert_close(actual: float, expected: float) -> None:
     assert math.isclose(actual, expected, rel_tol=1e-9, abs_tol=1e-9), f"{actual} != {expected}"
+
+
+def test_zero_size_rect_produces_nan_instead_of_raising():
+    """Confirmed necessary against a real fixture (python/input-test/demo-android.apk,
+    Phase 13/17 audit): a Sprite whose type tree can't be resolved reads back a zero-size
+    m_Rect, which used to raise ZeroDivisionError and abort the whole export. C#'s float
+    division never raises (0/0 -> NaN, x/0 -> +-Infinity); this matches that instead."""
+    result = get_sprite_coordinates_in_atlas(
+        sprite_rect=(0.0, 0.0, 0.0, 0.0),
+        sprite_pivot=None,
+        sprite_offset=(0.0, 0.0),
+        sprite_border=None,
+        atlas_texture_rect=(0.0, 0.0, 0.0, 0.0),
+        atlas_texture_rect_offset=(0.0, 0.0),
+    )
+    assert math.isinf(result.pivot[0])
+    assert math.isinf(result.pivot[1])
+    assert result.rect == (0.0, 0.0, 0.0, 0.0)
 
 
 def test_no_crop_with_explicit_pivot_is_an_identity_transform():
