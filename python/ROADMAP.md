@@ -7,7 +7,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
   **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới) — 17a xong; Phase 19 là bug thật user
-  đang gặp.** 697 tests pass. Commit cuối: `a71bef0`.
+  đang gặp.** 700 tests pass. Commit cuối: (pending).
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -184,12 +184,12 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ `a71bef0` — `VirtualFileSystem`. 17b-17e chưa làm |
+| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ `a71bef0`, 17b ✅ (pending). 17c-17e chưa làm |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
-Số test theo area (tổng 697): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
-`assets` 48, `export_unity_projects` 60, `gui_web` 53, `io_files_bundle` 29, `processing` 34,
+Số test theo area (tổng 700): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
+`assets` 48, `export_unity_projects` 60, `gui_web` 56, `io_files_bundle` 29, `processing` 34,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 3 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
@@ -1161,22 +1161,28 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
       để port sát, không phải tự thiết kế từ đầu
 - **Phụ thuộc:** không
 
-#### 17b — `ExportPlan`: chạy export thật vào RAM, lấy ra cây "sẽ được export"
+#### 17b — `ExportPlan`: chạy export thật vào RAM, lấy ra cây "sẽ được export" ✅ (pending)
 
-- [ ] `assetripper_gui_web/export_plan.py` (hoặc `export_unity_projects/export_plan.py` nếu muốn CLI
-      dùng chung — cân nhắc, đừng khoá sớm): `build_export_plan(game_data, settings) -> ExportPlan`.
-      Bên trong: `ProjectExporter()` + `register_default_exporters(exporter, settings)` +
-      `run_default_post_exporters` **y hệt** `ExportHandler.export` đang làm, nhưng `file_system` là
-      `VirtualFileSystem()`. Kết quả: `ExportPlan` giữ VFS root + index `path -> node` để browse
-- [ ] **Bắt buộc dùng lại `ExportHandler.export` chứ không copy logic của nó.** Nếu `export_plan` tự
-      dựng lại chuỗi exporter riêng thì preview sẽ trôi khỏi export thật theo thời gian — đúng loại bug
-      "hai đường code làm cùng một việc" mà cả ROADMAP này đã tránh ở mọi phase. Cách đúng:
-      `ExportHandler().export(game_data, "/", vfs, settings=settings)` rồi đọc `vfs`
-- [ ] Cache theo `(game_data, settings)`: build plan cho một game thật tốn cỡ thời gian một lần export
-      (trên `demo-android.apk` ≈ 0.2s export nên rẻ, nhưng game lớn hơn thì không) → giữ trong
-      `game_file_loader._state`, invalidate khi `/Settings/Edit` đổi settings hoặc load game mới.
-      **Đây cũng là chỗ trả nợ Rủi ro #3 của bản cũ** (stale state sau khi đổi Settings — bản `37db9bf`
-      ghi nhận mà chưa xử lý)
+- [x] `assetripper_gui_web/export_plan.py` — `build_export_plan(game_data, settings=None) -> ExportPlan`.
+      **Khác kế hoạch gốc một chỗ, có chủ đích:** không tự giữ index `path -> node` riêng —
+      `VirtualFileSystem` (17a) đã lộ đủ qua interface `FileSystem` chuẩn
+      (`directory.get_files`/`get_directories`, `file.read_all_bytes`/`exists`) để browse trực tiếp,
+      nên `ExportPlan` chỉ là dataclass mỏng giữ `file_system` (chính VFS) + `project_version` (cho
+      banner UI) + `all_files()` (cho cảnh báo "gần rỗng" ở 17c). Thêm một index riêng sẽ là abstraction
+      thừa — vi phạm đúng nguyên tắc "không port/thêm thứ không cần" mà ROADMAP này giữ xuyên suốt
+- [x] **Dùng lại `ExportHandler.export` y nguyên, không copy logic:**
+      `ExportHandler().export(game_data, "/", vfs, settings=settings)` rồi trả `ExportPlan(vfs, ...)` —
+      đúng yêu cầu, không tự dựng `ProjectExporter`/`register_default_exporters` riêng
+- [x] Test `tests/gui_web/test_export_plan.py` (3 test): plan chứa đúng file thật export ra (kể cả đọc
+      lại bytes), **test đối chiếu thứ hai** (nối tiếp 17a nhưng ở tầng `ExportPlan` thay vì
+      `VirtualFileSystem` trực tiếp) — cùng `game_data`, path set của plan khớp hệt path set của một
+      `ExportHandler.export` thật ra `tmp_path` — và settings (`text_export_mode=BYTES`) được truyền
+      đúng xuống qua `build_export_plan`
+- [ ] **Chưa làm ở 17b, dời sang 17c:** cache `(game_data, settings) -> ExportPlan` trong
+      `game_file_loader._state` + invalidate khi đổi Settings/load game mới. Lý do dời: đây là logic
+      gắn với GUI state thật (`_state`), thuộc đúng phạm vi "Endpoint + UI" của 17c hơn là "build một
+      ExportPlan thuần" của 17b — `build_export_plan` tự nó đã là pure function, không cần biết gì về
+      GUI state để test hay dùng lại (CLI có thể gọi thẳng nếu cần sau này)
 - **Phụ thuộc:** 17a
 
 #### 17c — Endpoint + UI: cây file sẽ-được-export, xem được asset **và** code
