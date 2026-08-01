@@ -6,7 +6,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một phần,
   13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong). 664 tests
-  pass. Commit cuối: (pending, xem Phase 18).
+  pass. Commit cuối: `0e4c206`.
 - 🔴 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), và phát hiện quan trọng nhất từ trước giờ —
   xem Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline lên file android thật phát hiện: (1) 3 bug crash thật (đã sửa, xem Phase 18), và
@@ -177,7 +177,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **View output dưới dạng Unity project ngay trên tool** (17a-17e) | ⬜ Chưa làm — feature mới, không có ở upstream |
-| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🔴 3 bug đã sửa (pending hash); gap chính (hand-written layout cho common class) **chưa làm**, xem chi tiết |
+| 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🔴 3 bug đã sửa `0e4c206`; gap chính (hand-written layout cho common class) **chưa làm**, xem chi tiết |
 
 Số test theo area (tổng 664): `export_modules` 135, `import_` 107, `io_files` 105, `numerics` 64,
 `assets` 48, `export_unity_projects` 60, `gui_web` 42, `io_files_bundle` 29, `processing` 34,
@@ -1197,7 +1197,7 @@ viết template chống cây giả rồi sửa lại). Có thể 17a-lite → 17
    scene hierarchy đồ hoạ. Ghi ngay trên trang `/Project`: "This is a **browsable tree of exported
    files**, not a Unity Editor. Open the exported folder in Unity Editor for full validation."
 
-### Phase 18 — Fixture Unity thật đầu tiên: 3 bug + 1 gap nghiêm trọng 🔴
+### Phase 18 — Fixture Unity thật đầu tiên: 3 bug + 1 gap nghiêm trọng 🔴 `0e4c206`
 
 **Bối cảnh:** user đẩy 2 file thật lên `python/input-test/` qua Git LFS —
 `demo-android.apk` (build IL2CPP Android thật, có `libil2cpp.so` + `global-metadata.dat`, Unity
@@ -1207,7 +1207,7 @@ Unity thật **đầu tiên** trong toàn bộ project — mọi phase trước 
 `ExportHandler.load_and_process` + `.export()` lên `demo-android.apk` (không sửa gì trước) để xem
 pipeline có thật sự chạy được trên game thật không.
 
-#### 3 bug crash thật, đã sửa (commit: pending)
+#### 3 bug crash thật, đã sửa ✅ `0e4c206`
 
 - [x] **`scene_helpers.py`**: `try_get_scene_path`/`is_scene_duplicate` gọi `build_settings.get(...)`
       không kiểm tra `build_settings` có `.get` hay không — crash `AttributeError` ngay bug đầu tiên
