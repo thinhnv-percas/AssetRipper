@@ -11,10 +11,10 @@ file now drives).
 returns immediately instead of blocking the whole request -- `/Export/Progress` (JSON,
 polled by index.html) reports live progress via `game_file_loader.export_progress()`.
 
-Phase 17: `OutputPath` is now optional -- left blank, `start_export` exports into a temp
-directory instead and the result becomes browsable at `/Project` once it finishes (see
-game_file_loader.py's docstring). A non-blank path keeps exporting straight to disk exactly
-like before.
+`OutputPath` is required (Phase 17 rewrite dropped the old "blank = export into a temp dir,
+then browse it" behavior -- see game_file_loader.py's docstring for why: `/Project` now
+previews a loaded game instantly via `ExportPlan`, with no export step needed, so this real
+disk export always needs a real path again, same as before Phase 17 existed).
 """
 from __future__ import annotations
 
@@ -56,17 +56,17 @@ def export_unity_project():
     if not game_file_loader.has_game_data():
         flash("Load a game folder first (use Load Folder, not Load File -- export needs the full game structure).")
         return redirect(url_for("home.index"))
+    if not output_path:
+        flash("An output directory is required. To just look around without exporting to disk, use the preview link instead.")
+        return redirect(url_for("home.index"))
 
     try:
-        game_file_loader.start_export(output_path or None)
+        game_file_loader.start_export(output_path)
     except RuntimeError as ex:
         flash(str(ex))
         return redirect(url_for("home.index"))
 
-    if output_path:
-        flash(f"Export started to {output_path} -- see progress below.")
-    else:
-        flash("Export started -- once finished, browse it in the tool from the link below.")
+    flash(f"Export started to {output_path} -- see progress below.")
     return redirect(url_for("home.index"))
 
 

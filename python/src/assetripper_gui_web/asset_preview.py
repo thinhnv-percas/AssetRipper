@@ -39,11 +39,22 @@ _MIME_TYPES = {
     "yaml": "text/yaml; charset=utf-8",
     "shader": "text/plain; charset=utf-8",
     "bytes": "application/octet-stream",
+    # Phase 17c: the full project-tree preview browses more than single-asset exports can
+    # produce -- multi-asset YAML files (Phase 12) and generated code (Phase 16 stub).
+    "mat": "text/yaml; charset=utf-8",
+    "prefab": "text/yaml; charset=utf-8",
+    "unity": "text/yaml; charset=utf-8",
+    "meta": "text/yaml; charset=utf-8",
+    "controller": "text/yaml; charset=utf-8",
+    "cs": "text/plain; charset=utf-8",
 }
 
 IMAGE_EXTENSIONS = frozenset({"png", "jpeg", "bmp", "tga"})
+AUDIO_EXTENSIONS = frozenset({"wav", "ogg", "mp3", "m4a"})
 TEXT_EXTENSIONS = frozenset({"txt", "json", "shader"})
-YAML_EXTENSIONS = frozenset({"asset", "yaml"})
+YAML_EXTENSIONS = frozenset({"asset", "yaml", "mat", "prefab", "unity", "meta", "controller"})
+CODE_EXTENSIONS = frozenset({"cs"})
+MESH_EXTENSIONS = frozenset({"glb"})
 
 
 def mime_type_for_extension(extension: str) -> str:

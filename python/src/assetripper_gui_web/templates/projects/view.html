@@ -1,12 +1,28 @@
 {% extends "layout.html" %}
-{% block title %}Exported Project - AssetRipper{% endblock %}
+{% block title %}Export Preview - AssetRipper{% endblock %}
 {% block content %}
-<h1>Exported Project</h1>
+<h1>Export Preview</h1>
+
+{% if using_disk %}
 <p class="text-body-secondary">
-  This is a <strong>browsable tree of exported files</strong>, not a Unity Editor -- no importer,
-  no reference validation, no scene hierarchy view. Open <code>{{ root }}</code> in the real Unity
-  Editor for that.
+  Browsing a real, already-exported project directory (loaded via "Load Exported Project") --
+  not a Unity Editor: no importer, no reference validation, no scene hierarchy view.
 </p>
+{% else %}
+<div class="alert alert-info py-2">
+  This is a <strong>preview of the files that would be exported</strong>, rendered from the real
+  exporter into memory -- not a Unity Editor, and not written to disk. No importer, no reference
+  validation, no scene hierarchy view.
+</div>
+{% endif %}
+
+{% if warn_empty %}
+<div class="alert alert-warning py-2">
+  This build has no embedded type trees; most asset types can't be read yet
+  (see <code>python/ROADMAP.md</code> Phase 18). An almost-empty <code>Assets/</code> tree below
+  is that known gap surfacing, not a bug in this preview.
+</div>
+{% endif %}
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
@@ -17,25 +33,47 @@
   </ol>
 </nav>
 
-{% if not entries %}
-<p>This directory is empty.</p>
-{% else %}
-<table class="table table-sm">
-  <thead><tr><th>Name</th><th>Size</th></tr></thead>
-  <tbody>
-    {% for entry in entries %}
-    <tr>
-      <td>
-        {% if entry.is_dir %}
-        <a href="{{ url_for('projects.browse', path=entry.rel_path) }}">📁 {{ entry.name }}</a>
-        {% else %}
-        <a href="{{ url_for('projects.file', path=entry.rel_path) }}" target="_blank">{{ entry.name }}</a>
-        {% endif %}
-      </td>
-      <td>{{ entry.size if entry.size is not none else "" }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% if entries is not none %}
+  {% if not entries %}
+  <p>This directory is empty.</p>
+  {% else %}
+  <table class="table table-sm">
+    <thead><tr><th>Name</th><th>Size</th></tr></thead>
+    <tbody>
+      {% for entry in entries %}
+      <tr>
+        <td>
+          {% if entry.is_dir %}
+          <a href="{{ url_for('projects.browse', path=entry.rel_path) }}">📁 {{ entry.name }}</a>
+          {% else %}
+          <a href="{{ url_for('projects.browse', path=entry.rel_path) }}">{{ entry.name }}</a>
+          {% endif %}
+        </td>
+        <td>{{ entry.size if entry.size is not none else "" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+{% elif file_view %}
+  <p><code>{{ file_view.rel_path }}</code> ({{ file_view.size }} bytes)
+     -- <a href="{{ url_for('projects.file', path=file_view.rel_path) }}">Download</a></p>
+
+  {% if file_view.kind == "code" %}
+  <div class="alert alert-warning py-2">
+    Dummy stub -- real script bodies need Phase 16 (IL2CPP/Mono script recovery).
+  </div>
+  <pre>{{ file_view.text }}</pre>
+  {% elif file_view.kind == "image" %}
+  <img src="{{ url_for('projects.file', path=file_view.rel_path) }}" alt="{{ file_view.rel_path }}" style="max-width: 512px; max-height: 512px;">
+  {% elif file_view.kind == "audio" %}
+  <audio controls src="{{ url_for('projects.file', path=file_view.rel_path) }}"></audio>
+  {% elif file_view.kind == "text" %}
+  <pre>{{ file_view.text }}</pre>
+  {% elif file_view.kind == "mesh" %}
+  <p>Mesh preview isn't rendered inline -- <a href="{{ url_for('projects.file', path=file_view.rel_path) }}">download the .glb</a> and open it in an external viewer.</p>
+  {% else %}
+  <p>No inline preview for this file type -- use the download link above.</p>
+  {% endif %}
 {% endif %}
 {% endblock %}

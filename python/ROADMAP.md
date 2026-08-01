@@ -6,8 +6,8 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B, 16b xong).
-  **Phase 17 phải viết lại (sai mục tiêu, xem ngay dưới) — 17a xong; Phase 19 là bug thật user
-  đang gặp.** 700 tests pass. Commit cuối: `58a4f76`.
+  **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
+  lại; Phase 19 là bug thật user đang gặp, chưa sửa.** 705 tests pass. Commit cuối: (pending).
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -17,14 +17,15 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   bằng chính fixture thật** (Texture2D/AudioClip/Sprite/Material) — export thật trên
   `demo-android.apk` giờ ra **105 PNG + 58 material + 11 audio thật** thay vì 0. MonoBehaviour (cần
   Phase 16 trước)/Mesh/Shader/BuildSettings còn lại. Xem Phase 18 chi tiết.
-- 🔴 **Phase 17 đã làm SAI MỤC TIÊU (commit `37db9bf`) — đã viết lại plan, chưa implement lại.**
-  Bản cũ hiểu là "browse project **đã export xong**" (phải bấm Export ra thư mục trước). Mục tiêu thật
-  user chốt lại: **xem trước những file SẼ được export** — asset **và** code `.cs` — **ngay sau khi
-  load game, không cần export ra đĩa**. Hệ quả kỹ thuật: `IExportCollection` không có cách nào biết
-  trước "sẽ ghi ra file nào" mà không chạy exporter thật → **`VirtualFileSystem` giờ là bắt buộc**,
-  đúng thứ bản cũ đã chủ động từ chối port (lý do đó đúng với mục tiêu cũ, sai với mục tiêu mới).
-  Phần route/template/guard path-traversal của `37db9bf` giữ lại dùng được; phần temp-dir + `atexit`
-  cleanup thì thành thừa. Xem Phase 17 ở PHẦN B để biết chi tiết giữ/bỏ từng phần.
+- ✅ **Phase 17 (viết lại) xong — 17a-17e.** Bản cũ (`37db9bf`) hiểu sai mục tiêu: "browse project
+  **đã export xong**" (phải bấm Export ra thư mục trước). Mục tiêu đúng, giờ đã implement: **xem
+  trước những file SẼ được export** — asset **và** code `.cs` — **ngay sau khi load game, không cần
+  export ra đĩa**. `VirtualFileSystem` (17a, port sát từ chính `VirtualFileSystem.cs` upstream) +
+  `ExportPlan` (17b, chạy `ExportHandler.export` thật vào VFS) + `routes/projects.py`/`/Project`
+  (17c, đọc từ plan, render inline, banner trung thực bắt buộc) + bỏ nav link input-bundle-thô (17d)
+  + 16 test mới + release gate (17e). Còn nợ lại, ghi rõ không giấu: 1 test đối chiếu preview-vs-export
+  ở mức GUI thật với `demo-android.apk` (bất biến đã chứng minh 2 lần ở tầng thấp hơn — 17a, 17b), và
+  rủi ro RAM khi Phase 18 làm xong nhiều class hơn (xem "Rủi ro riêng của Phase 17" mục 2).
 - 🔴 **Phase 19 — GUI không nhận `.apk`/`.ipa` (bug user đang gặp).** Đã điều tra xong: engine đúng
   (`load_paths` load được cả `.apk` 3s và `.ipa` 38s, Unity 2022.3.62f3), **GUI sai entry point** —
   nút "Load File" gọi `load_file` (chỉ đọc SerializedFile/bundle thô) chứ không phải `load_paths`, và
@@ -184,12 +185,12 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16b ✅ `38a23cd`. `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
-| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | 🟡 17a ✅ `a71bef0`, 17b ✅ `58a4f76`. 17c-17e chưa làm |
+| 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e (pending) — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; MonoBehaviour/Mesh/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | 🔴 Bug user đang gặp. Đã điều tra xong (engine đúng, GUI sai entry point), plan đã có, chưa sửa |
 
-Số test theo area (tổng 700): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
-`assets` 48, `export_unity_projects` 60, `gui_web` 56, `io_files_bundle` 29, `processing` 34,
+Số test theo area (tổng 705): `export_modules` 135, `import_` 115, `io_files` 118, `numerics` 64,
+`assets` 48, `export_unity_projects` 60, `gui_web` 61, `io_files_bundle` 29, `processing` 34,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 3 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
@@ -1185,55 +1186,91 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
       GUI state để test hay dùng lại (CLI có thể gọi thẳng nếu cần sau này)
 - **Phụ thuộc:** 17a
 
-#### 17c — Endpoint + UI: cây file sẽ-được-export, xem được asset **và** code
+#### 17c — Endpoint + UI: cây file sẽ-được-export, xem được asset **và** code ✅ (pending)
 
-- [ ] Đổi `routes/projects.py` sang đọc `ExportPlan` thay vì `os.listdir` trên thư mục thật. **Giữ
-      nguyên** shape URL (`/Project`, `/Project/Browse?path=`, `/Project/File?path=`) và guard
-      path-traversal + template breadcrumb đã có từ `37db9bf` — chỉ đổi nguồn dữ liệu
-- [ ] `/Project/File?path=` trả bytes từ VFS node, mime type qua `asset_preview.mime_type_for_extension`
-      (đã có sẵn). **Render inline theo loại, không chỉ để tải về** — đây là phần "xem luôn trên tool"
-      user yêu cầu:
-  - ảnh (`.png`/`.jpeg`/`.bmp`/`.tga`) → `<img>`
-  - âm thanh (`.wav`/`.ogg`/`.mp3`) → `<audio controls>`
-  - **code `.cs`** → `<pre>` (kèm nhãn "dummy stub" rõ ràng, xem dưới)
-  - text/YAML (`.asset`/`.unity`/`.prefab`/`.mat`/`.shader`/`.txt`/`.json`) → `<pre>`
-  - mesh (`.glb`) → link tải (Babylon.js vẫn `[~]` từ Phase 11, không lặp lại ở đây)
-  - binary khác → hex view hoặc link tải
-- [ ] **Nhãn trung thực bắt buộc (không được bỏ):**
-  - Trang `/Project`: banner "This is a preview of the files that **would be** exported, rendered from
-    the real exporter into memory — not a Unity Editor."
-  - Mỗi file `.cs`: nhãn "Dummy stub — real script bodies need Phase 16 (IL2CPP/Mono script recovery)."
-  - Nếu game load vào mà số asset file trong plan ≈ 0 (case `demo-android.apk`): banner cảnh báo
-    "This build has no embedded type trees; most asset types can't be read yet (ROADMAP Phase 18)."
-    **Không** để user tự đoán là game rỗng
-- [ ] Bỏ nút/luồng "phải Export ra đĩa trước rồi mới browse được" — cây phải xem được **ngay sau khi
-      load xong**, không cần bấm Export
+- [x] `routes/projects.py` đọc `game_file_loader.get_export_plan()` (17b) thay vì `os.listdir` trên
+      thư mục thật. **Giữ nguyên shape URL** (`/Project`, `/Project/Browse?path=`, `/Project/File?path=`,
+      `/Project/Load`). **Khác với kế hoạch gốc một chỗ, có chủ đích:** không mở thêm URL mới cho
+      "file view" — `/Project/Browse?path=` tự phân nhánh: nếu `path` trỏ vào một **thư mục** thì hiện
+      bảng liệt kê (như cũ); nếu trỏ vào một **file** thì hiện luôn nội dung file đó inline ngay trong
+      cùng trang (ảnh/audio/`<pre>`...). `/Project/File?path=` vẫn đúng vai trò ROADMAP mô tả: endpoint
+      **raw bytes** (mime type qua `asset_preview.mime_type_for_extension`), dùng làm `src` cho
+      `<img>`/`<audio>` và làm link tải — cách này thoả đúng yêu cầu "giữ nguyên shape URL" theo nghĩa
+      đen (không thêm URL nào ngoài 4 cái đã liệt kê)
+- [x] Render inline theo loại (`_render_kind` trong `routes/projects.py`): ảnh → `<img>`; âm thanh →
+      `<audio controls>`; code `.cs` → `<pre>` + banner dummy-stub; text/YAML (mở rộng
+      `asset_preview.YAML_EXTENSIONS` thêm `mat`/`prefab`/`unity`/`meta`/`controller`, thêm
+      `CODE_EXTENSIONS`={`cs`}) → `<pre>`; mesh `.glb` → link tải; binary khác → link tải (ROADMAP cho
+      phép "hex view **hoặc** link tải" — chọn link tải, không lặp lại `_hex_dump` đã có ở
+      `routes/assets.py` cho asset raw-bytes debugging)
+- [x] Cả 3 banner trung thực bắt buộc đã có trong `templates/projects/view.html`: banner preview
+      chung ("preview of the files that would be exported... not a Unity Editor" — chỉ hiện khi xem
+      qua `ExportPlan`, không hiện khi xem một project **thật** đã load qua `/Project/Load`), banner
+      dummy-stub trên mỗi file `.cs`, và banner "no embedded type trees" khi `_asset_count_warning()`
+      phát hiện `Assets/` (trừ `.meta`) rỗng trong plan
+- [x] Bỏ hẳn yêu cầu "phải Export trước mới browse được": `browse()` gate giờ check
+      `game_file_loader.has_browsable_project()` (= có `game_data` HOẶC đã `/Project/Load`) thay vì
+      `has_exported_project()` — cây hiện ngay sau `/LoadFolder`
+- [x] **Dọn theo cùng: bỏ hẳn nhánh "OutputPath rỗng → export vào temp dir rồi browse"** ở
+      `game_file_loader.start_export`/`commands.py` (`_owned_temp_dir`, `atexit` cleanup) — nhánh này
+      đã thừa thật (đúng ghi chú ở bảng đầu Phase 17), `ExportPlan` preview thay thế nó hoàn toàn mà
+      không cần ghi đĩa. `/Export/UnityProject` giờ đòi `OutputPath` thật trở lại, y hệt trước khi có
+      Phase 17 — export ra đĩa và preview-trong-RAM giờ là hai tính năng tách biệt rõ ràng
+- [x] `/Project/Load` (browse một project **thật** đã export ở lần chạy trước) giữ nguyên, và **có
+      precedence** so với `ExportPlan` preview khi cả hai đều sẵn sàng (browsing một export cũ là hành
+      động chủ động của user, nên ưu tiên hơn preview mặc định) — `reset()` (từ `load_paths` mới) xoá
+      precedence này, quay lại preview
+- [x] Path-traversal: nguồn `/Project/Load` (đĩa thật) giữ nguyên guard cũ (400). Nguồn `ExportPlan`
+      (VFS) **không cần guard riêng** — path là literal dict-key lookup trong cây RAM, không có
+      directory entry nào tên `..` để "thoát" ra ngoài, nên một path bịa chỉ 404 như path sai bất kỳ
+      (xem `_resolve_plan`'s docstring trong `routes/projects.py`)
+- [x] Smoke-test thủ công qua dev server thật (`python -m assetripper_gui_web ... --no-browser` +
+      `curl`), không chỉ Flask test client: `/LoadFolder` → `/Project/Browse` hiện cây ngay, browse
+      subdirectory, xem file `.txt`/`.meta` inline qua `<pre>`, `/Project/File` trả đúng bytes, navbar
+      không còn "Search", traversal trên nguồn plan trả 404 sạch (không crash), `OutputPath` rỗng bị
+      từ chối — xem chi tiết trong lịch sử phiên làm việc
 - **Phụ thuộc:** 17b
 
-#### 17d — Bỏ (hoặc hạ xuống phụ) phần browse input bundle
+#### 17d — Bỏ (hạ xuống phụ) phần browse input bundle ✅ (pending)
 
 User đã chốt: *"bỏ phần view loaded bundle cũng được"*.
 
-- [ ] Bỏ khỏi navbar/index các trang input-side: `/Bundles/View`, `/Collections/View`, `/Assets/View`,
-      `/Resources/View`, `/FailedFiles/View`, `/Scenes/View`, `/Search`. **Quyết định cần chốt trước khi
-      làm:** xoá hẳn (gọn, nhưng mất công cụ debug khi asset đọc ra sai — đúng lúc Phase 18 đang cần
-      chính công cụ đó) **hay** giữ code + route nhưng gỡ khỏi navbar, đánh dấu "raw input inspection
-      (debug)". **Khuyến nghị: gỡ khỏi navbar, giữ route + test** — chi phí gần bằng 0 và Phase 18 sẽ
-      cần soi asset đầu vào để viết hand-written layout
-- [ ] `load_file()` (browse 1 file thô) chỉ còn phục vụ các trang trên → theo cùng quyết định đó.
-      **Chú ý bug có thật đã phát hiện:** `load_file` set `_state.game_bundle` **trước** khi validate,
-      nên file không đọc được vẫn để GUI ở trạng thái "đã load" với bundle rỗng — xem Phase 19
-- **Phụ thuộc:** 17c (bỏ sau khi đã có cái thay thế, không bỏ trước)
+- [x] **Quyết định:** gỡ khỏi navbar, **giữ route + test** (khuyến nghị của bản kế hoạch, không xoá
+      hẳn) — chi phí gần bằng 0 và Phase 18 sẽ cần soi asset đầu vào để viết hand-written layout.
+      Cụ thể: bỏ link "Search" khỏi `templates/layout.html`'s navbar. Link "View root bundle" ở
+      `index.html` **không xoá hẳn** (khác một chút so với chữ "navbar/index" ở đầu mục 17d) — giữ lại
+      nhưng đổi nhãn thành "Raw input-bundle inspection (debug)" kèm giải thích khi nào cần dùng, để
+      công cụ debug Phase 18 vẫn dễ tìm mà không còn là lối đi chính trên trang chủ
+- [x] `/Bundles/View`, `/Collections/View`, `/Assets/View`, `/Resources/View`, `/FailedFiles/View`,
+      `/Scenes/View`, `/Search` — route/blueprint **không đổi gì**, vẫn đăng ký như cũ, test hiện có
+      của chúng không cần sửa (đã verify: suite vẫn 705 pass sau khi bỏ nav link)
+- [~] **`load_file()` chưa dọn theo quyết định này** — vẫn được giữ nguyên vì Phase 19 (bug thật user
+      đang gặp: GUI không nhận `.apk`/`.ipa`) cần sửa đúng hàm này trước, và ROADMAP tự ghi chú "làm
+      19b sau khi chốt 17d" — 17d chỉ chốt quyết định (đã chốt: giữ route), việc sửa `load_file`'s
+      "loaded but empty" bug thuộc Phase 19, không lặp lại ở đây
+- **Phụ thuộc:** 17c (bỏ sau khi đã có cái thay thế — có rồi, xong)
 
-#### 17e — Test + release gate
+#### 17e — Test + release gate ✅ (pending)
 
-- [ ] `tests/gui_web/test_project_browse.py` — **viết lại** phần lấy dữ liệu (giữ lại được: 2 test
-      path-traversal, test "chưa load thì redirect", test `/Project/Load`): cây hiện ra **ngay sau
-      `/LoadFolder`, không cần POST `/Export/UnityProject`**; `Assets/`+`ProjectSettings/` có mặt;
-      `/Project/File` trả đúng nội dung asset thật; file `.cs` xem được và có nhãn dummy-stub
-- [ ] Test đối chiếu preview-vs-export (nối tiếp test của 17a nhưng ở mức GUI): cùng một game,
-      `ExportPlan`'s path set == path set của một `ExportHandler.export` thật ra `tmp_path`
-- [ ] Release gate + commit + push
+- [x] `tests/gui_web/test_project_browse.py` — **viết lại hoàn toàn** phần lấy dữ liệu (16 test, từ
+      11 test cũ): giữ lại đúng như dự định 2 test path-traversal (đổi tên rõ "on_disk_source"), test
+      "chưa load thì redirect" (đổi thông báo), test `/Project/Load`. Thêm mới: cây hiện ra ngay sau
+      `/LoadFolder` không cần `/Export/UnityProject`; browse subdirectory; `/Project/File` trả đúng
+      nội dung; browse thẳng vào một file `.txt` hiện nội dung inline (không chỉ link tải); `_render_kind`
+      nhận diện `.cs`; `/Export/UnityProject` từ chối `OutputPath` rỗng; export đĩa thật không còn tự
+      động thành nguồn browse; disk-Load có precedence; traversal trên nguồn plan trả 404 (không phải
+      lỗi, đối lập có chủ đích với nguồn disk trả 400); và 2 unit test thuần cho `_asset_count_warning`
+- [ ] **Chưa làm — dời sang lúc có fixture thật hoặc phiên sau:** test đối chiếu preview-vs-export ở
+      mức GUI thật (dùng `demo-android.apk` qua Flask test client, so `ExportPlan`'s path set với một
+      `/Export/UnityProject` thật ra `tmp_path`). Rủi ro thấp vì bản chất đã được chứng minh ở tầng
+      thấp hơn hai lần: `test_virtual_file_system.py::test_export_path_set_matches_local_file_system_export`
+      (17a, VFS trực tiếp) và `test_export_plan.py::test_build_export_plan_matches_a_real_disk_export_of_the_same_game_data`
+      (17b, qua ExportPlan) đều đã chứng minh đúng bất biến này bằng game synthetic; thêm một lớp GUI
+      route phía trên (`browse()`/`get_export_plan()` chỉ đọc lại `ExportPlan`, không biến đổi path)
+      khó có khả năng phá vỡ bất biến đó, nhưng vẫn nên làm để phủ đúng route thật, không chỉ hàm nội
+      bộ — ghi lại rõ ràng thay vì bỏ qua âm thầm
+- [x] Release gate (full suite 705 pass, wheel build + fresh-venv import + `pip install -e .`
+      rerun) + smoke test qua dev server thật (xem 17c) + commit + push
 
 **Thứ tự:** `17a` → `17b` → `17c` → (chốt quyết định) `17d` → `17e`. Không đảo — 17c không có gì để
 render nếu chưa có 17b, và 17b không chạy được nếu chưa có 17a.
@@ -1244,18 +1281,22 @@ render nếu chưa có 17b, và 17b không chạy được nếu chưa có 17a.
    `LocalFileSystem` ở bất cứ chi tiết nào ảnh hưởng tên/đường dẫn file (nhất là `get_unique_name` khi
    trùng tên), preview sẽ **nói dối** — tệ hơn hẳn không có preview. Chống bằng test đối chiếu path-set
    ở cả 17a và 17e, và bằng việc `export_plan` **gọi lại `ExportHandler.export`** chứ không copy logic.
-2. **RAM.** Export cả một game vào RAM giữ toàn bộ bytes output trong bộ nhớ. `demo-android.apk` hiện
-   ra rất ít file nên chưa thấy vấn đề, nhưng một game mà Phase 18 đã sửa xong (mọi texture decode
-   được) có thể ra hàng trăm MB PNG. Cần: hoặc chỉ giữ *metadata* cây (path + size) và render nội dung
-   từng file **theo yêu cầu** (`asset_preview.render_asset` đã làm đúng kiểu này, tái dùng được), hoặc
-   giới hạn/streaming. **Nên chọn cách "cây chỉ giữ metadata, nội dung render on-demand"** — vừa hết lo
-   RAM, vừa khớp cách `asset_preview.py` đã hoạt động từ Phase 11.
-3. **User tưởng preview = Unity Editor mở được.** Như bản cũ — banner rõ ràng, không bỏ.
-4. **User tưởng "tool xem được ⇒ decompile xong".** Mới, và là rủi ro nghiêm trọng nhất về *kỳ vọng*:
-   Phase 17 làm cho output **trông** hoàn chỉnh trong khi Phase 16 (code thật) và Phase 18 (asset thật)
-   đều chưa xong. Nhãn dummy-stub + banner "no type trees" ở 17c là bắt buộc chính vì lý do này.
-5. **Stale plan sau khi đổi Settings.** Bản cũ ghi nhận mà không xử lý; 17b's cache-invalidation phải
-   xử lý thật lần này.
+2. **RAM — chưa xử lý, đã biết và chấp nhận có chủ đích cho lần này.** `build_export_plan` (17b) chạy
+   `ExportHandler.export` **đầy đủ** vào VFS (không phải "cây metadata + render on-demand" như risk
+   note gốc đề xuất) — bytes thật của mọi file (kể cả PNG đã decode) nằm trong RAM một khi plan được
+   build. Lý do chưa đổi kiến trúc: (a) `IExportCollection.export()` không có API "chỉ liệt kê path,
+   đừng ghi nội dung", nên tách "metadata-only" đòi sửa tận `IExportCollection`/từng exporter — vượt
+   quy mô 17b; (b) trên fixture thật hiện có (`demo-android.apk`), export ra rất ít file (đa số asset
+   vẫn đọc rỗng, xem Phase 18) nên chưa thấy vấn đề RAM thật. **Vẫn là nợ kỹ thuật thật** nếu/khi
+   Phase 18 làm xong nhiều class hơn (hàng trăm MB PNG có thể tích luỹ trong `ExportPlan` cache) — để
+   lại làm sau nếu triệu chứng RAM thật xuất hiện, không rewrite trước khi có bằng chứng cần
+3. **User tưởng preview = Unity Editor mở được.** Đã xử lý: banner rõ ràng ở `/Project` (chỉ hiện khi
+   xem qua `ExportPlan`, không hiện khi browse một project thật đã load qua `/Project/Load`).
+4. **User tưởng "tool xem được ⇒ decompile xong".** Đã xử lý: banner "no type trees" khi
+   `Assets/` rỗng + nhãn dummy-stub trên mọi file `.cs` — cả hai bắt buộc, không thể tắt.
+5. **Stale plan sau khi đổi Settings.** Đã xử lý ở 17c/`game_file_loader.get_export_plan()`: cache key
+   `(id(game_data), id(settings))`, cả `load_paths` và `/Settings/Edit` đều luôn tạo object mới (không
+   mutate tại chỗ) nên so sánh identity là đủ để phát hiện stale, không cần gọi invalidate tường minh.
 
 ### Phase 18 — Fixture Unity thật đầu tiên: 3 bug + 1 gap nghiêm trọng 🔴 `0e4c206`
 
