@@ -1436,8 +1436,30 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       field, để lại `[~]`. Giá trị thấp (chỉ ảnh hưởng tên file scene fallback, đã graceful từ Phase 18
       bug-fix pass)
 - [x] `Mesh`(43) — ✅ xong `8d12472`, xem mục riêng ngay trên
-- [ ] `Shader`(48): quy mô lớn hơn hẳn Mesh (blob bytecode biên dịch riêng từng platform, không phải
-      chỉ geometry data) — chưa thử, xem `layouts/__init__.py`'s docstring
+- [~] `Shader`(48): **đã điều tra cùng ngày (đợt 3), quyết định không làm trong phiên này — bằng
+      chứng cụ thể, không phải suy đoán:**
+  - Đọc trực tiếp Perfare/AssetStudio's `Shader.cs` (curl, 1031 dòng): với Unity ≥5.5 (bao gồm
+    2022.3 của fixture), `Shader` **không còn field `m_Script`** (chỉ có ở nhánh cũ <5.5) — toàn bộ
+    nội dung nằm trong `m_ParsedForm` (`SerializedShader`), một cây lồng nhau sâu: `SubShader[]` →
+    `Pass[]` → `SerializedProgram`/`SerializedSubProgram` (per-GPU-target: DX9/DX11/GLES/Vulkan/
+    Metal...), cộng `SerializedProperties`/`SerializedShaderState` (blend/stencil/fog state, mỗi
+    field lại là `SerializedShaderFloatValue`/`VectorValue` gồm cả tên biến để hỗ trợ property
+    override) — ước tính **~15+ struct lồng nhau**, nhiều hơn hẳn độ phức tạp của Mesh, với nhiều
+    version-gate riêng bên trong từng struct con (VD `SerializedShaderState` tự có gate 2017.2+ và
+    2020.1+ không liên quan gì đến gate ở tầng Shader ngoài cùng)
+  - Kiểm tra thật 68 sample Shader trong `demo-android.apk`: kích thước 4KB – 340KB (so với Mesh
+    lớn nhất chỉ 36KB) — xác nhận đây là dữ liệu chương trình GPU đã biên dịch thật, không phải
+    metadata gọn nhẹ
+  - **Khác Mesh ở điểm mấu chốt:** `SerializableStructure.try_read` đòi hỏi khớp byte **toàn bộ**
+    object mới trả về `TypeTreeObject` — với một cây ~15+ struct lồng nhau như thế này, sai bất kỳ
+    field nào ở bất kỳ tầng nào (kể cả tầng sâu trong `SerializedProgram`) làm hỏng **toàn bộ** phép
+    đọc, không có đường "đọc được một phần". Áp dụng đúng kỷ luật đã dùng cho Mesh (dò tay từng byte
+    qua toàn bộ sample thật trước khi tin) cho quy mô này tốn nhiều lần công sức hơn Mesh, cho một
+    class mà `DummyShaderTextExporter`/`UnknownObject` đã export graceful (không crash) từ trước —
+    tức là đây là value-add, không phải bug cần vá
+  - **Không phải "sẽ không bao giờ làm"** — chỉ là không đủ effort/risk hợp lý trong phiên này so
+    với việc đã làm xong Mesh. Nếu quay lại: bắt đầu bằng cách dò tay 1-2 sample nhỏ nhất (4188 byte)
+    trước, đúng phương pháp Mesh đã dùng, thay vì viết cả `SerializedShader` một lần
 - [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
       skip) một khi kích thước/Git LFS được chấp nhận là chi phí xứng đáng
 
