@@ -1436,7 +1436,7 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       field, để lại `[~]`. Giá trị thấp (chỉ ảnh hưởng tên file scene fallback, đã graceful từ Phase 18
       bug-fix pass)
 - [x] `Mesh`(43) — ✅ xong `8d12472`, xem mục riêng ngay trên
-- [~] `Shader`(48): **đã điều tra cùng ngày (đợt 3), quyết định không làm trong phiên này — bằng
+- [~] `Shader`(48): **đã điều tra cùng ngày (đợt 3, commit `7dcd3f8`), quyết định không làm trong phiên này — bằng
       chứng cụ thể, không phải suy đoán:**
   - Đọc trực tiếp Perfare/AssetStudio's `Shader.cs` (curl, 1031 dòng): với Unity ≥5.5 (bao gồm
     2022.3 của fixture), `Shader` **không còn field `m_Script`** (chỉ có ở nhánh cũ <5.5) — toàn bộ
