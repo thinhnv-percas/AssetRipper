@@ -1,9 +1,11 @@
 """Port of Source/AssetRipper.Export/Configuration/ExportSettings.cs
 
 Not ported: `ScriptExportMode`/`ScriptLanguageVersion`/`ScriptTypesFullyQualified` --
-those only matter for real assembly decompilation (ILSpy), which this port doesn't do
-(assembly_manager is always None; ScriptExporter always takes the "no assembly manager"
-empty-script path regardless of any setting -- see script_exporter.py). Also not ported:
+those only matter for real assembly decompilation (ILSpy), which this port doesn't do.
+Since Phase 16f, `ScriptExporter` *can* emit real recovered `.cs` text for Mono scripts
+(see script_exporter.py/mono_manager.py) when an assembly manager resolves them, but that
+path has no settings of its own to gate it beyond `ScriptContentLevel` (`import_settings.py`)
+-- these three fields specifically remain unported. Also not ported:
 `SaveSettingsToDisk`/`LanguageCode` (tied to upstream's localization and default-settings-
 path machinery, out of scope) and `LightmapTextureExportFormat`/`PreferOriginalTextureExtension`
 (no lightmap exporter exists yet to apply the former to; the latter is a minor nicety, not

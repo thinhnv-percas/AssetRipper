@@ -6,13 +6,15 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 13, 14, 15 xong, Phase 16 đang làm (13a/13b/13h port xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể, không còn việc khả thi
-  nào chưa làm — xem PHẦN B; 16a+16b+16c
-  xong, 16f phần 1 (dựng `SerializableType` thật từ Mono `.dll`, gồm PPtr detection + kế thừa
-  nhiều cấp) cũng xong — nhưng **chưa nối vào pipeline export** (16f phần 2: `GameAssetFactory`/
-  `script_exporter`/`GameStructure` chưa gọi tới), xem 16f).
+  nào chưa làm — xem PHẦN B; 16a+16b+16c+16f
+  xong — đọc metadata Mono `.dll` thật, dựng cả `RecoveredType`/`.cs` text lẫn `SerializableType`
+  byte-layout thật (PPtr detection + kế thừa nhiều cấp), và **giờ đã nối vào pipeline export
+  thật**: `GameAssetFactory`/`GameStructure`/`ScriptExporter`/`DllPostExporter` đều gọi tới. Còn
+  lại: `16c-alt` (đường tắt dummy DLL từ tool ngoài) và `16d`/`16e` (IL2CPP, bị chặn tới khi có
+  build thật) — xem chi tiết Phase 16.
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
   lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d; Phase 18's Mesh layout xong.**
-  748 tests pass. Commit cuối: `2427b82`.
+  765 tests pass. Commit cuối: `(pending)`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -20,8 +22,10 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   layout cho 5 class** (Phase 2) — Texture2D/Sprite/Material/AudioClip/MonoBehaviour đọc ra rỗng
   (`UnknownObject`) dù pipeline không crash. **Cập nhật: 4/7 class ưu tiên đã có layout, byte-verified
   bằng chính fixture thật** (Texture2D/AudioClip/Sprite/Material) — export thật trên
-  `demo-android.apk` giờ ra **105 PNG + 58 material + 11 audio thật** thay vì 0. MonoBehaviour (cần
-  Phase 16 trước)/Mesh/Shader/BuildSettings còn lại. Xem Phase 18 chi tiết.
+  `demo-android.apk` giờ ra **105 PNG + 58 material + 11 audio thật** thay vì 0. MonoBehaviour
+  (Mono field recovery giờ đã nối qua Phase 16f -- nhưng `demo-android.apk` là **IL2CPP**, không
+  có `Managed/*.dll`, nên fixture này cụ thể không hưởng lợi; cần build Mono thật để kiểm chứng
+  end-to-end)/Mesh/Shader/BuildSettings còn lại. Xem Phase 18 chi tiết.
 - ✅ **Phase 17 (viết lại) xong — 17a-17e.** Bản cũ (`37db9bf`) hiểu sai mục tiêu: "browse project
   **đã export xong**" (phải bấm Export ra thư mục trước). Mục tiêu đúng, giờ đã implement: **xem
   trước những file SẼ được export** — asset **và** code `.cs` — **ngay sau khi load game, không cần
@@ -103,7 +107,7 @@ cũng sẽ không phải Unity project — đó sẽ là một tool khác, khôn
 | Game **pre-Unity-5.0** nói chung | ✅ | ✅ | Phase 14 — cùng format trên (`UnityRaw`/`UnityWeb` bundle) |
 | Unity WebGL game **theo URL** | ❌ | ❌ | **Upstream cũng không có.** Không có `HttpClient`/`WebRequest` nào trong `AssetRipper.Import` hay `GUI.Web/Pages/Commands.cs` — chỉ `LoadFile`/`LoadFolder` từ path local. Muốn có thì phải tự viết downloader (tải `.data`/`.wasm` từ URL về temp dir rồi load như WebGL build) — **feature mới, không phải port** |
 | `GameAssembly.dll` / `libil2cpp.so` + `global-metadata.dat` (IL2CPP) | ✅ | ❌ | **Phase 16** — đã *tìm thấy* đường dẫn cho cả 8 platform IL2CPP (Phase 3, `il2cpp_metadata_path`/`il2cpp_game_assembly_path`) nhưng **chưa parse**. Đây là input cho việc dựng lại `.cs` — xem Phase 16 |
-| Managed `.dll` (Mono `Managed/*.dll`) | ✅ | ⚠️ | **Phase 16c+16f-phần1 ✅** — `mono_manager.py` đọc được metadata ECMA-335 thật (PE→CLI→tables→field signature) và ra cả `RecoveredType`/`RecoveredField` (16c) lẫn `SerializableType` thật đọc được bytes (16f phần 1, PPtr + kế thừa nhiều cấp), nhưng **chưa nối vào pipeline** (`GameStructure`/`GameAssetFactory`/`ScriptExporter` chưa gọi nó) — đó là Phase 16f phần 2, chưa làm. `mono_assembly_predicate.py` (chỉ nhận diện đuôi `.dll`) vẫn là con đường duy nhất `ScriptingBackend.MONO` thật sự đi qua hôm nay |
+| Managed `.dll` (Mono `Managed/*.dll`) | ✅ | ✅ | **Phase 16c+16f ✅** — `mono_manager.py` đọc metadata ECMA-335 thật ra `RecoveredType`/`SerializableType`; **`GameStructure` giờ tự dựng `MonoAssemblyManager` khi thấy `.dll` trong `Managed/`** và nối thẳng vào `GameAssetFactory`/`ScriptExporter`/`DllPostExporter`. Chưa có build Mono thật để kiểm chứng end-to-end (chỉ có fixture IL2CPP, xem ghi chú Phase 18) — mọi test đều trên `.dll` dựng tay |
 
 ### Output format — trạng thái thật
 
@@ -116,8 +120,8 @@ cũng sẽ không phải Unity project — đó sẽ là một tool khác, khôn
 | `Packages/manifest.json` | ✅ | Phase 7 |
 | `Assets/StreamingAssets/**` | ✅ | Phase 7 |
 | Script `.cs` (dummy class) + `.meta` GUID ổn định | ✅ | Phase 6c-2 |
-| Script `.cs` có **declaration thật** (class/field/property/method signature) | ❌ | **Phase 16c ✅ đã đọc được** (Mono `.dll` → `RecoveredType`) **nhưng chưa export ra** — `script_exporter.py` chưa gọi 16c/16b, vẫn luôn dùng `EmptyScript`. Cần Phase 16f phần 2 để nối. IL2CPP (16d/16e) vẫn hoàn toàn chưa làm |
-| MonoBehaviour **field value** khi asset không có type tree | ❌ | **Phase 16f phần 1 ✅ đã đọc được** (`get_serializable_type` dựng `SerializableType` thật, PPtr + kế thừa nhiều cấp, test đọc bytes thật qua `SerializableStructure`) **nhưng chưa nối** — `GameAssetFactory`/`UnloadedStructure` (phần 2) chưa gọi tới; các asset này vẫn rơi vào `UnknownObject` hôm nay. Giá trị thực tế **cao hơn** cả bản thân file `.cs` |
+| Script `.cs` có **declaration thật** (class/field/property/method signature) | ✅ (Mono) | **Phase 16c+16f ✅** — cho Mono: `ScriptExporter`/`EmptyScriptExportCollection` giờ thật sự gọi `assembly_manager.get_recovered_type(...)` → `csharp_emitter.emit(...)`, chỉ rơi về dummy stub khi không resolve được (script/assembly không tìm thấy). IL2CPP (16d/16e) vẫn hoàn toàn chưa làm — MonoScript trong build IL2CPP vẫn luôn ra dummy |
+| MonoBehaviour **field value** khi asset không có type tree | ✅ (Mono) | **Phase 16f ✅** — `GameAssetFactory` giờ trả `UnloadedMonoBehaviour` khi có `assembly_manager`, và `GameStructure` gọi `resolve_unloaded_mono_behaviours` ngay sau khi bundle load xong để dựng field value thật (PPtr + kế thừa nhiều cấp). IL2CPP thì vẫn `UnknownObject` (16d/16e chưa làm). Giá trị thực tế **cao hơn** cả bản thân file `.cs` |
 | **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ✅ | Phase 15 — `ManagerAssetExporter`/`ManagerExportCollection` |
 | Reference tới built-in Unity asset (default material, built-in shader…) | ❌ | **Phase 15 `[~]`** — `EngineAssetsExporter`/`PredefinedAssetCache` chưa xếp lịch (cần database asset built-in theo Unity version không vendored) → asset built-in bị export trùng thay vì trỏ về asset gốc của Unity |
 | `.cs` có **method body thật** (logic game chạy được) | ❌ | **Ngoài scope vĩnh viễn** — với IL2CPP thì *không tool nào làm được tin cậy*, kể cả upstream (xem Phase 16g cho evidence). Với Mono thì cần một IL→C# decompiler cỡ ILSpy |
@@ -190,13 +194,13 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 13 | Asset type còn thiếu (13a-13i) | ✅ 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ `c8093ba`. 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục). Không còn việc khả thi nào chưa làm |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
-| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16a+16b+16c ✅ (16b `38a23cd`, 16a+16c `acd8e36`), 16f phần 1 ✅ `2427b82` (dựng `SerializableType` thật, PPtr + kế thừa). Đọc được Mono `.dll` thật nhưng **chưa nối vào export** (16f phần 2). `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
+| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Mono xong (16a+16b+16c+16f) — 16b `38a23cd`, 16a+16c `acd8e36`, 16f `(pending)`. Đọc + nối thật vào export cho Mono. `16c-alt`/`16d`/`16e` (IL2CPP) **bị chặn** tới khi có IL2CPP build thật hoặc user tự chạy tool ngoài |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong `8d12472`; MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
 
-Số test theo area (tổng 748): `export_modules` 135, `import_` 146, `io_files` 118, `numerics` 64,
-`assets` 48, `export_unity_projects` 60, `gui_web` 71, `io_files_bundle` 29, `processing` 34,
+Số test theo area (tổng 765): `export_modules` 138, `import_` 158, `io_files` 118, `numerics` 64,
+`assets` 48, `export_unity_projects` 62, `gui_web` 71, `io_files_bundle` 29, `processing` 34,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 5 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
@@ -895,7 +899,7 @@ Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, projec
 
 ---
 
-### Phase 16 — Dựng lại `.cs` từ IL2CPP / Mono ⬜ (16a+16b+16c+16f-phần1 ✅ — còn 16c-alt/16d/16e/16f-phần2, xem bên dưới)
+### Phase 16 — Dựng lại `.cs` từ IL2CPP / Mono ⬜ (Mono xong: 16a+16b+16c+16f ✅ — còn 16c-alt/16d/16e (IL2CPP), xem bên dưới)
 
 > Phase này thay thế 3 hàng trước đây nằm trong "Ngoài scope vĩnh viễn" (C# script decompilation,
 > IL2Cpp script recovery, MonoBehaviour field không có type tree). Chỉ **method body** còn ngoài
@@ -1117,24 +1121,77 @@ từ metadata; phần 2 dưới đây, còn lại, chỉ là nối dây):
       thứ tự, cache trả cùng instance, và **test đọc bytes thật** qua
       `SerializableStructure.read`/`EndianSpanReader` (không chỉ assert cấu trúc) để chắc chắn
       graph dựng ra thật sự tiêu thụ được, không chỉ trông hợp lý
-- **Chưa làm (Phần 2 — nối dây thật, xem việc còn lại):**
-  - [ ] `assetripper_import/structure/assembly/managers/base_manager.py` — interface chung
-        (`get_serializable_type(assembly, namespace, class_name) -> SerializableType | None`) để
-        `GameStructure`/`ExportHandler` không cần biết backend là Mono hay IL2CPP. Cần thêm: nhiều
-        `MonoAssembly` (một per `.dll` trong `Managed/`) + resolve theo `assembly` name — hiện
-        `MonoAssembly.get_serializable_type` chỉ tra trong CHÍNH `.dll` đó, chưa cross-assembly
-  - [ ] `unloaded_structure.py` — port `UnloadedStructure.cs`: MonoBehaviour đọc **lazy** sau khi mọi
-        asset đã load (vì MonoBehaviour có thể load trước MonoScript nó trỏ tới)
-  - [ ] `game_asset_factory.py` — hiện MonoBehaviour không có type tree → `UnknownObject`
-        (xem docstring của nó). Thêm nhánh: có assembly manager thì dựng `UnloadedStructure`
-  - [ ] `script_exporter.py` — bỏ giả định `AssemblyManager.IsSet` luôn `False` (ghi thẳng trong
-        docstring hiện tại), nối vào 16b để ra `.cs` thật; giữ `EmptyScriptExportCollection` làm fallback
-  - [ ] `ScriptContentLevel` (đã có ở `assetripper_export_configuration`, Phase 10) — nối cho thật:
-        Level0 = không load, Level1 = stub, Level2 = default
-  - **Effort/Risk:** thấp/trung bình (đã giảm so với đánh giá ban đầu — phần khó nhất, dựng đúng
-        `SerializableType`, đã xong ở Phần 1). Chỗ dễ vỡ là regression trên đường TypeTree đang
-        chạy tốt. **Bắt buộc:** test khẳng định asset *có* type tree vẫn đi đường cũ, không đổi output
-  - **Phụ thuộc:** 16c (hoặc 16c-alt), hoặc 16d+16e — đã thoả (16c xong)
+**Phần 2 — Nối dây thật ✅ `(pending)`** (`GameStructure`/`GameAssetFactory`/`ScriptExporter` giờ
+thật sự gọi tới Phần 1 — đây là chỗ giá trị thật của Phase 16 lần đầu tới tay export pipeline):
+
+- [x] `assetripper_import/structure/assembly/managers/base_manager.py` (mới) — `BaseManager`:
+      interface null-object chung (`get_serializable_type`/`get_recovered_type`/
+      `get_assembly_file_paths`, đều trả "không resolve được"/rỗng) để `GameStructure` không cần
+      biết backend là Mono hay IL2CPP. `GameStructure.assembly_manager` vẫn giữ `None` khi không
+      tìm thấy assembly nào — đúng hợp đồng cũ mọi caller sẵn có (vd. `DllPostExporter`) đã kiểm tra
+- [x] `assetripper_import/structure/assembly/managers/mono_assembly_manager.py` (mới) —
+      `MonoAssemblyManager`: đóng gói **nhiều** `MonoAssembly` (một per `.dll` tìm thấy trong
+      `Managed/`, hoặc rải rác qua `MixedGameStructure`), parse + cache **lazy** theo tên assembly
+      (parse fail cũng được cache là "không resolve được", không thử lại mỗi lần). Đây là mảnh
+      "cross-assembly" mà Phần 1 còn thiếu
+- [x] `assetripper_import/structure/assembly/managers/unloaded_structure.py` (mới) — port tinh
+      thần `UnloadedStructure.cs`: MonoBehaviour không có type tree → `UnloadedMonoBehaviour`
+      (placeholder, giữ raw bytes) ở lượt đọc đầu; `GameStructure.__init__` gọi
+      `resolve_unloaded_mono_behaviours(bundle, assembly_manager)` **đúng một lần, ngay sau khi
+      cả `GameBundle` load xong** — bắt buộc phải là lượt thứ hai vì `SerializedAssetCollection`
+      điền `_assets` **theo đúng thứ tự trong file** (`_read_data`), nên tại thời điểm đọc một
+      MonoBehaviour, `MonoScript` nó trỏ tới (thường đứng SAU trong cùng file, class ID 115 > 114)
+      thường **chưa có trong collection**. Sau khi cả bundle load xong thì luôn resolve được, nếu
+      `MonoScript` có tồn tại ở đâu đó trong bundle. Thay thế placeholder bằng asset thật qua
+      `AssetCollection.replace_asset` (đã port từ trước, chưa ai gọi tới)
+- [x] Chỉ model **field chuẩn bản release** của MonoBehaviour header (`m_GameObject`, `m_Enabled`,
+      `m_Script`, `m_Name`, `m_EditorClassIdentifier`) — đúng tiền lệ "release-format fields only"
+      `asset_creation/layouts/game_object.py` đã đặt ra cho GameObject, không phải đoán mới.
+      `m_GameObject` quan trọng hơn vẻ ngoài: nó là thứ giúp component nối đúng vào GameObject khi
+      export scene; `m_Name` là thứ `StructureBackedAsset.name` dùng
+- [x] `type_tree_object.py` — tách `StructureBackedAsset` (mọi thứ dưới "làm sao dựng ra
+      `SerializableStructure`") ra khỏi `TypeTreeObject`, để `unloaded_structure.py` dùng lại được
+      toàn bộ field-access/traversal forwarding thay vì copy lại — không đổi hành vi `TypeTreeObject`
+- [x] `game_asset_factory.py` — nhận thêm `assembly_manager` (mặc định `None`, không đổi hành vi
+      cũ). MonoBehaviour không có root: có `assembly_manager` thì trả `UnloadedMonoBehaviour`,
+      không thì vẫn `UnknownObject` y hệt trước 16f
+- [x] `script_exporter.py`/`empty_script_export_collection.py` — `ScriptExporter` nhận
+      `assembly_manager`; `EmptyScriptExportCollection._get_script_text` thử
+      `assembly_manager.get_recovered_type(...)` → `csharp_emitter.emit(...)` trước, chỉ rơi về
+      `empty_script.get_content`'s dummy stub khi không resolve được (không manager, assembly
+      không tìm thấy, hoặc class không recover được). `.meta` GUID không đổi trong cả hai trường
+      hợp (vẫn suy từ assembly/namespace/class name, không phụ thuộc nội dung)
+- [x] `registration.py`/`export_handler.py` — `register_default_exporters` nhận thêm
+      `assembly_manager`, `ExportHandler.export()` truyền `game_data.assembly_manager` vào
+- [x] `ScriptContentLevel` (đã có ở `assetripper_export_configuration`, Phase 10) — nối cho thật:
+      `GameStructure`/`GameStructure.load` nhận `script_content_level` (int/enum thô, không import
+      `assetripper_export_configuration` để tránh phụ thuộc chéo); `LEVEL_0` tắt hẳn việc dựng
+      `assembly_manager` dù có tìm thấy `.dll`; `LEVEL_1`/`LEVEL_2` không phân biệt (port này chỉ có
+      một mức phục hồi — field layout thật, không bao giờ có method body, xem 16g) — cả hai coi như
+      `LEVEL_2`. `ExportHandler.load()` đã tự set từ `settings.import_settings.script_content_level`
+      giống hệt cách nó đã làm với `default_version`/`target_version`/`ignore_streaming_assets`
+- [x] **Sửa luôn một no-op sẽ vỡ:** `DllPostExporter` trước đây `raise NotImplementedError` bất cứ
+      khi nào `assembly_manager is not None` (an toàn khi assembly_manager luôn `None`, nhưng sẽ
+      crash thật ngay khi 16f làm cho nó khác `None`). Giờ implement thật: copy từng `.dll`
+      `MonoAssemblyManager.get_assembly_file_paths()` biết tới vào
+      `AuxiliaryFiles/GameAssemblies/` — đúng như upstream, và đúng docstring cũ của file này đã mô
+      tả (chỉ là chưa implement)
+- **Test:** `tests/import_/test_unloaded_structure.py` (5: MonoBehaviour không tree → placeholder
+      khi có manager / vẫn `UnknownObject` khi không có manager, resolve ra field value thật + tên
+      thật qua `SerializableStructure`, script không resolve được → fallback `UnknownObject` đúng,
+      **regression bắt buộc theo ROADMAP: asset có type tree thật vẫn đi đường cũ `TypeTreeObject`
+      không đổi output dù có assembly_manager**), `tests/import_/test_mono_assembly_manager.py`
+      (5: resolve đúng theo tên assembly, assembly không tồn tại → None, `.dll` hỏng → cache
+      "không resolve được" chứ không thử lại, `get_assembly_file_paths` trả bản copy),
+      `tests/import_/test_game_structure.py` (+2: `Managed/*.dll` thật → dựng
+      `MonoAssemblyManager` thật; `script_content_level=0` → `assembly_manager` vẫn `None` dù có
+      `.dll`), `tests/export_modules/test_script_exporter_recovery.py` (3: script resolve được →
+      `.cs` thật có field declaration đúng, assembly không tìm thấy → dummy stub, không có
+      assembly_manager → dummy stub), `tests/export_unity_projects/test_dll_post_exporter.py` (+2:
+      manager rỗng vẫn no-op, manager có `.dll` thật thì copy đúng bytes vào đúng thư mục)
+- **Effort/Risk thực tế:** đúng như dự đoán sau khi Phần 1 xong — thấp/trung bình. Rủi ro lớn nhất
+      lường trước (regression trên đường TypeTree) đã có test riêng xác nhận không đổi
+- **Phụ thuộc:** 16c (hoặc 16c-alt), hoặc 16d+16e — đã thoả (16c xong)
 
 #### 16g — Method body: ngoài scope, có evidence
 
@@ -1145,12 +1202,15 @@ từ metadata; phần 2 dưới đây, còn lại, chỉ là nối dây):
 
 ---
 
-**Thứ tự đề xuất:** `16a + 16b` (song song, không phụ thuộc gì) → `16c` → **`16c-alt` (dừng được ở
-đây và đã có kết quả dùng được)** → `16f` → `16d` → `16e`.
+**Thứ tự đề xuất (đã cập nhật sau khi 16f xong):** `16a + 16b` → `16c` → `16f` → **đã tới đây, xong
+hết phần Mono** → `16c-alt` (đường tắt cho IL2CPP, nếu chấp nhận user tự chạy tool ngoài) → `16d` →
+`16e` (parse IL2CPP thật, rủi ro cao nhất, chỉ nên làm khi có build thật để verify).
 
-Lý do đặt `16c-alt` làm mốc dừng: nó cho toàn bộ output của Phase 16 mà không phải chạm vào native
-binary parsing — phần rủi ro cao nhất và cũng là phần **không thể verify** nếu không có game thật.
-Chỉ đi tiếp `16d`/`16e` khi đã quyết định rằng "user phải tự chạy Il2CppDumper" là không chấp nhận được.
+Lý do đi `16c-alt` trước `16d`/`16e`: nó cho phép IL2CPP game cũng dùng được toàn bộ hạ tầng 16c/16f
+vừa xong (`get_recovered_type`/`get_serializable_type`/wiring) mà không phải chạm vào native binary
+parsing — phần rủi ro cao nhất và cũng là phần **không thể verify** nếu không có game thật. Chỉ đi
+tiếp `16d`/`16e` khi đã quyết định rằng "user phải tự chạy Il2CppDumper/Cpp2IL/DevX ở ngoài" là không
+chấp nhận được.
 
 ### Phase 17 — Xem trước **những file SẼ được export** (asset + code) ngay trên tool 🔴 VIẾT LẠI
 

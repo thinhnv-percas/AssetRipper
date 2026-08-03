@@ -1,8 +1,11 @@
 """Port of Source/AssetRipper.Export.UnityProjects/Scripts/ScriptExporter.cs, scoped down
 to the branch that upstream itself takes whenever no assembly manager is set
-(`AssemblyManager.IsSet` is always `False` in this port -- see the plan's "no script
-decompilation" scope): every `MonoScript` is treated as `AssemblyExportType.Decompile`,
-i.e. exported as a dummy/empty class rather than a redirect to a real reference assembly.
+(`AssemblyManager.IsSet` is always `False` -- see the plan's "no script decompilation"
+scope): every `MonoScript` is treated as `AssemblyExportType.Decompile`, i.e. exported as a
+dummy/empty class rather than a redirect to a real reference assembly -- unless Phase 16f's
+`assembly_manager` resolves a real `RecoveredType` for it, in which case
+`EmptyScriptExportCollection` (despite the name, unchanged since before 16f) emits real `.cs`
+text instead of the dummy stub. See that module's docstring for exactly where that happens.
 
 The first `MonoScript` encountered by the project exporter creates one
 `EmptyScriptExportCollection`, which writes every unique script in the whole bundle
@@ -28,8 +31,12 @@ _MONO_SCRIPT_DECOMPILED_FILE_ID = get_main_export_id(_MONO_SCRIPT_CLASS_ID)
 
 
 class ScriptExporter(IAssetExporter):
-    def __init__(self):
+    def __init__(self, assembly_manager=None):
         self._has_decompiled = False
+        self.assembly_manager = assembly_manager
+        """Phase 16f: a `MonoAssemblyManager`/`None` -- consulted by
+        `EmptyScriptExportCollection.export()` (via `self.asset_exporter.assembly_manager`)
+        to try real `.cs` recovery before falling back to the dummy stub."""
 
     def try_create_collection(self, asset) -> "tuple[bool, object]":
         if getattr(asset, "class_id", None) != _MONO_SCRIPT_CLASS_ID:

@@ -10,6 +10,14 @@ AssemblyDefinitionExporter only runs for non-predefined assemblies resolved thro
 ReferenceAssemblies.GetReferenceAssemblies, which needs a set IAssemblyManager -- always
 unset in this port. Script content (dummy classes) and their stable per-script GUIDs are
 fully ported; only this organizational scaffolding is skipped.
+
+Phase 16f: `_get_script_text` tries `asset_exporter.assembly_manager.get_recovered_type(...)`
+first (real `.cs` text via `csharp_emitter`, see mono_manager.py) and only falls back to
+`empty_script.get_content`'s dummy stub when that's unavailable -- no assembly manager, the
+script's assembly wasn't found/couldn't be parsed, or its class wasn't (fully) recoverable.
+Every script's `.meta` GUID is unaffected either way (still derived from
+assembly/namespace/class name alone, matching upstream, so file identity is stable across a
+run with recovery and one without).
 """
 from __future__ import annotations
 
@@ -78,11 +86,21 @@ class EmptyScriptExportCollection(ExportCollection):
             folder_path = file_system.path.join(assets_directory_path, folder_sub_path)
             file_path = file_system.path.join(folder_path, file_name)
             file_system.directory.create(folder_path)
-            file_system.file.write_all_text(file_path, get_content(info.namespace, info.class_name))
+            file_system.file.write_all_text(file_path, self._get_script_text(info))
 
             self._on_script_exported(container, script, file_path, file_system)
 
         return True
+
+    def _get_script_text(self, info: MonoScriptInfo) -> str:
+        assembly_manager = getattr(self.asset_exporter, "assembly_manager", None)
+        if assembly_manager is not None:
+            recovered_type = assembly_manager.get_recovered_type(info.assembly, info.namespace, info.class_name)
+            if recovered_type is not None:
+                from .csharp_emitter import emit
+
+                return emit(recovered_type)
+        return get_content(info.namespace, info.class_name)
 
     def _on_script_exported(self, container, script, path: str, file_system) -> None:
         from assetripper_export_unity_projects.project.mono_importer import MonoImporter

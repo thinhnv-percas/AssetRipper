@@ -5,8 +5,10 @@ to a loadable project are ported here (scene definitions, original paths, main-a
 pairing, editor-format defaults for PlayerSettings), each scoped down to what's tractable
 without generated typed classes -- see each module's docstring for exactly what's covered
 and what's deferred. The 11 Assemblies/ processors are skipped entirely: they all iterate
-`assembly_manager.get_assemblies()`, which is always empty under this port's null assembly
-manager (see assetripper_import/structure/game_structure.py), making them provable no-ops.
+`assembly_manager.get_assemblies()`, a full assembly-listing method this port's
+`MonoAssemblyManager` (Phase 16f) doesn't implement (it resolves script types on demand
+instead -- see assetripper_import/structure/assembly/managers/mono_assembly_manager.py),
+making them provable no-ops regardless.
 
 PrefabProcessor is NOT ported this phase: it needs to synthesize brand-new default-valued
 Transform/PrefabInstance assets from scratch (a "construct an instance to serialize", not

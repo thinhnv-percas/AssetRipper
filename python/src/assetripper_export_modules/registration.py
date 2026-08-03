@@ -54,7 +54,11 @@ from .video_clip_exporter import VIDEO_CLIP_CLASS_IDS, VideoClipExporter
 _DUMMY_GLOBAL_GAME_MANAGER_CLASS_IDS = (141, 150, 142, 290, 116, 147, 94)
 
 
-def register_default_exporters(project_exporter, settings: "FullConfiguration | None" = None) -> None:
+def register_default_exporters(
+    project_exporter, settings: "FullConfiguration | None" = None, assembly_manager=None
+) -> None:
+    """`assembly_manager` (Phase 16f): forwarded to `ScriptExporter` so recovered Mono
+    scripts export real `.cs` text instead of the dummy stub -- see `script_exporter.py`."""
     if settings is None:
         settings = FullConfiguration()
     export_settings = settings.export_settings
@@ -78,7 +82,7 @@ def register_default_exporters(project_exporter, settings: "FullConfiguration | 
     project_exporter.override_exporter_for_class_id(
         83, AudioClipExporter(export_settings.audio_export_format)
     )  # AudioClip
-    project_exporter.override_exporter_for_class_id(115, ScriptExporter())  # MonoScript
+    project_exporter.override_exporter_for_class_id(115, ScriptExporter(assembly_manager))  # MonoScript
     project_exporter.override_exporter_for_class_id(128, FontAssetExporter())  # Font
     project_exporter.override_exporter_for_class_id(152, MovieTextureAssetExporter())  # MovieTexture
 

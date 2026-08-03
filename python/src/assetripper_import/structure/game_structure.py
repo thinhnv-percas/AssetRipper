@@ -1,12 +1,16 @@
 """Port of Source/AssetRipper.Import/Structure/GameStructure.cs
 
 Two things upstream does are intentionally not ported here:
-- `InitializeAssemblyManager` (Mono/IL2Cpp/Base manager selection + `OnRequestAssembly`
-  callback wiring) -- this port's `GameAssetFactory` never touches an assembly manager
-  (see asset_creation/game_asset_factory.py's module docstring: MonoBehaviour fields with
-  no embedded type tree become UnknownObject rather than resolving through IL), so there
-  is nothing for an assembly manager to do. `assembly_manager` is always `None`, matching
-  upstream's own "Unknown scripting backend" fallback path (`BaseManager`).
+- `InitializeAssemblyManager`'s full generality (Mono/IL2Cpp/Base manager selection +
+  `OnRequestAssembly` callback wiring). Phase 16f ports the Mono half of this: if any `.dll`
+  files were found under `Managed/` (or scattered across a `MixedGameStructure`), a
+  `MonoAssemblyManager` (`structure.assembly.managers.mono_assembly_manager`) is built and
+  assigned to `assembly_manager`, and used both by `GameAssetFactory` while reading (to park
+  `UnloadedMonoBehaviour` placeholders) and by this class afterward (to resolve them for
+  real -- see `resolve_unloaded_mono_behaviours`'s own docstring for why that has to be a
+  second pass). `assembly_manager` stays `None` -- matching the pre-16f contract every
+  existing caller (e.g. `DllPostExporter`) already checks for -- when no assemblies are
+  found at all, or the scripting backend is IL2CPP (16d/16e, not implemented).
 - `CoreConfiguration`/`ImportSettings` -- not ported (see assetripper_configuration's
   scope). `load()` takes the handful of settings it actually needs as keyword arguments
   instead of a configuration object.
@@ -22,6 +26,8 @@ from assetripper_primitives import UnityVersion
 from ..asset_creation.game_asset_factory import GameAssetFactory
 from ..platforms.platform_checker import check_platform
 from . import zip_extractor
+from .assembly.managers.mono_assembly_manager import MonoAssemblyManager
+from .assembly.managers.unloaded_structure import resolve_unloaded_mono_behaviours
 from .game_initializer import GameInitializer
 
 _logger = logging.getLogger(__name__)
@@ -36,10 +42,19 @@ class GameStructure:
         default_version: UnityVersion | None = None,
         target_version: UnityVersion | None = None,
         ignore_streaming_assets: bool = False,
+        script_content_level=None,
         progress_callback=None,
     ):
+        """`script_content_level` (Phase 16f): a `ScriptContentLevel`
+        (`assetripper_export_configuration`) or plain `int`/`None` -- kept untyped here to
+        avoid this package depending on the export-configuration one. `LEVEL_0` (0) disables
+        Mono script recovery entirely (`assembly_manager` stays `None` even if `.dll` files
+        were found, matching upstream's "don't load scripts at all"); any other value
+        (including the default, `None`) attempts recovery. Upstream's `LEVEL_1`
+        ("stub method bodies") vs `LEVEL_2` ("default") distinction isn't modeled -- this
+        port's recovery is single-tier (declaration + real field layout, never method
+        bodies -- see ROADMAP.md Phase 16g), so both behave like `LEVEL_2`."""
         self.file_system = file_system
-        self.assembly_manager = None
 
         if progress_callback:
             progress_callback("Discovering platform structure...")
@@ -50,10 +65,14 @@ class GameStructure:
         # leaves the equivalent call commented out, and PlatformGameStructure.collect_files()
         # is a no-op for MixedGameStructure anyway (it already collected files in __init__).
 
+        self.assembly_manager = None
+        if script_content_level is None or script_content_level != 0:
+            self.assembly_manager = _create_assembly_manager(self.platform_structure, self.mixed_structure, file_system)
+
         default_version = default_version if default_version is not None else UnityVersion()
         target_version = target_version if target_version is not None else UnityVersion()
 
-        asset_factory = GameAssetFactory()
+        asset_factory = GameAssetFactory(assembly_manager=self.assembly_manager)
         file_paths = _get_file_paths(self.platform_structure, self.mixed_structure)
         if progress_callback:
             progress_callback(f"Reading {len(file_paths)} file(s)...")
@@ -63,6 +82,9 @@ class GameStructure:
             file_system,
             GameInitializer(self.platform_structure, self.mixed_structure, file_system, default_version, target_version),
         )
+
+        if self.assembly_manager is not None:
+            resolve_unloaded_mono_behaviours(self.file_collection, self.assembly_manager)
 
         if not self.file_collection.has_any_asset_collections():
             _logger.warning("The game structure processor could not find any valid assets.")
@@ -87,13 +109,14 @@ class GameStructure:
         default_version: UnityVersion | None = None,
         target_version: UnityVersion | None = None,
         ignore_streaming_assets: bool = False,
+        script_content_level=None,
         progress_callback=None,
     ) -> "GameStructure":
         """`progress_callback(message: str)` (Phase 19c), optional: reports coarse milestones
         only ("Extracting archive...", "Discovering platform structure...", "Reading N
         file(s)...") -- there's no cheap way to know a numeric total/current up front (unlike
         `ProjectExporter.export`'s per-asset progress), so this is a status message, not a
-        percentage."""
+        percentage. `script_content_level` (Phase 16f): see `__init__`'s docstring."""
         if progress_callback:
             progress_callback("Extracting archive...")
         to_process = zip_extractor.process(paths, file_system)
@@ -106,6 +129,7 @@ class GameStructure:
             default_version=default_version,
             target_version=target_version,
             ignore_streaming_assets=ignore_streaming_assets,
+            script_content_level=script_content_level,
             progress_callback=progress_callback,
         )
 
@@ -127,3 +151,23 @@ def _get_file_paths(platform_structure, mixed_structure) -> list[str]:
             seen.add(key)
             paths.append(path)
     return paths
+
+
+def _get_assemblies(platform_structure, mixed_structure) -> dict[str, str]:
+    """assembly-file-name (with '.dll') -> path, merged the same way `_get_file_paths`
+    merges `.files` -- both `platform_structure`/`mixed_structure` are `PlatformGameStructure`
+    instances (or `None`) and each independently exposes its own `.assemblies`."""
+    if platform_structure is None or mixed_structure is None:
+        structure = platform_structure if platform_structure is not None else mixed_structure
+        return dict(structure.assemblies) if structure is not None else {}
+
+    merged = dict(platform_structure.assemblies)
+    merged.update(mixed_structure.assemblies)
+    return merged
+
+
+def _create_assembly_manager(platform_structure, mixed_structure, file_system) -> "MonoAssemblyManager | None":
+    assemblies = _get_assemblies(platform_structure, mixed_structure)
+    if not assemblies:
+        return None
+    return MonoAssemblyManager(assemblies, file_system)

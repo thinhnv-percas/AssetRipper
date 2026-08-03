@@ -30,8 +30,8 @@ _logger = logging.getLogger(__name__)
 
 class ExportHandler:
     def __init__(self, register_exporters=None):
-        """`register_exporters(project_exporter, settings)` wires content exporters onto a
-        fresh `ProjectExporter` before each export -- defaults to
+        """`register_exporters(project_exporter, settings, assembly_manager=None)` wires
+        content exporters onto a fresh `ProjectExporter` before each export -- defaults to
         `assetripper_export_modules.registration.register_default_exporters`. Passed in
         rather than imported directly to avoid a hard dependency from this package (Export)
         onto assetripper_export_modules, mirroring the layering upstream keeps between
@@ -44,9 +44,9 @@ class ExportHandler:
 
     def load(self, paths, file_system, settings=None, progress_callback=None, **kwargs) -> GameData:
         """`settings` (Phase 10): a `FullConfiguration`; only its `import_settings`
-        (`default_version`/`target_version`/`ignore_streaming_assets`) is consulted, and
-        only to fill in values `kwargs` didn't already specify -- an explicit keyword
-        argument always wins over `settings`.
+        (`default_version`/`target_version`/`ignore_streaming_assets`/`script_content_level`)
+        is consulted, and only to fill in values `kwargs` didn't already specify -- an
+        explicit keyword argument always wins over `settings`.
 
         `progress_callback` (Phase 19c): forwarded to `GameStructure.load` -- see its
         docstring for exactly what milestones it reports."""
@@ -55,6 +55,7 @@ class ExportHandler:
             kwargs.setdefault("default_version", import_settings.default_version)
             kwargs.setdefault("target_version", import_settings.target_version)
             kwargs.setdefault("ignore_streaming_assets", import_settings.ignore_streaming_assets)
+            kwargs.setdefault("script_content_level", import_settings.script_content_level)
 
         if len(paths) == 1:
             _logger.info("Attempting to read files from %s", paths[0])
@@ -79,7 +80,7 @@ class ExportHandler:
         _logger.info("Exporting to Unity version %s", game_data.project_version)
 
         project_exporter = ProjectExporter()
-        self._register_exporters(project_exporter, settings)
+        self._register_exporters(project_exporter, settings, assembly_manager=game_data.assembly_manager)
         project_exporter.export(
             game_data.game_bundle,
             output_directory,

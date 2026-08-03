@@ -17,7 +17,13 @@ Neither (1) nor (2) is available to this port, so the order here is:
 MonoBehaviours (class ID 114) follow upstream's structure: with an embedded type tree they
 read like any other asset via SerializableTreeType.FromRootNode(root, monoBehaviourStructure:
 True). Without one, upstream falls back to `UnloadedStructure`, which resolves the script's
-fields from IL through the assembly manager -- not portable, so those become UnknownObject.
+fields from IL through the assembly manager. Phase 16f ports this for the Mono backend: with
+an `assembly_manager` configured (see `game_structure.py`), a MonoBehaviour with no type tree
+becomes an `UnloadedMonoBehaviour` placeholder instead of `UnknownObject` -- `GameStructure`
+resolves every one of those for real once the whole bundle has finished loading (see
+`structure.assembly.managers.unloaded_structure`'s module docstring for why that has to be a
+second pass). With no assembly manager (still true for IL2CPP, or a Mono game whose `Managed/`
+directory wasn't found), the behavior is unchanged: `UnknownObject`.
 """
 from __future__ import annotations
 
@@ -35,7 +41,7 @@ class GameAssetFactory:
     """Stands in for upstream's GameAssetFactory. `read_asset` matches the call shape
     SerializedAssetCollection expects: `read_asset(asset_info, object_data, type_)`."""
 
-    def __init__(self, layout_provider=...):
+    def __init__(self, layout_provider=..., assembly_manager=None):
         if layout_provider is ...:
             from .layouts import default_layout_provider
 
@@ -45,6 +51,9 @@ class GameAssetFactory:
         embeds no type tree. Defaults to the hand-written layout registry
         (asset_creation.layouts); pass `None` explicitly to disable it (e.g. in tests that
         want to force UnknownObject for anything without an embedded tree)."""
+        self.assembly_manager = assembly_manager
+        """Phase 16f: a `MonoAssemblyManager` (or `None`, the pre-16f default) -- see this
+        module's docstring for what it changes about MonoBehaviour resolution."""
 
     def read_asset(self, asset_info, object_data: bytes, type_):
         version = asset_info.collection.version
@@ -53,11 +62,15 @@ class GameAssetFactory:
             # trees cover.
             return UnreadableObject(asset_info, object_data)
 
+        is_mono_behaviour = asset_info.class_id == _MONO_BEHAVIOUR_CLASS_ID
         root = self._resolve_root(asset_info, type_, version)
         if root is None:
+            if is_mono_behaviour and self.assembly_manager is not None:
+                from ..structure.assembly.managers.unloaded_structure import UnloadedMonoBehaviour
+
+                return UnloadedMonoBehaviour(asset_info, object_data)
             return UnknownObject(asset_info, object_data)
 
-        is_mono_behaviour = asset_info.class_id == _MONO_BEHAVIOUR_CLASS_ID
         try:
             asset = TypeTreeObject.create(asset_info, root, is_mono_behaviour)
         except Exception:  # noqa: BLE001 -- a malformed tree shouldn't abort the whole file

@@ -16,8 +16,9 @@ sub-fields upstream sets to fixed literals (`webGLLinkerTarget = 1`, `allowUnsaf
 true`) are patched. `apiCompatibilityLevel`/`scriptingRuntimeVersion` are NOT patched: their
 correct values are `ApiCompatibilityLevel`/`ScriptingRuntimeVersion` enum members whose exact
 integer values aren't confirmed here (and `assembly_manager.has_mscorlib2`, which upstream
-uses to choose between them, is unavailable anyway -- assembly_manager is always None in
-this port, see assetripper_import/structure/game_structure.py). Writing a guessed integer
+uses to choose between them, has no equivalent on this port's `MonoAssemblyManager` --
+Phase 16f's assembly manager resolves script types, not assembly-level metadata like this).
+Writing a guessed integer
 into exported PlayerSettings data would be a fabricated value, not just a missing one, so
 this is skipped rather than guessed.
 """

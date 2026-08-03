@@ -1,8 +1,12 @@
 """Port of Source/AssetRipper.Import/Configuration/ScriptContentLevel.cs
 
-Declared for API completeness but not consumed anywhere: this port's `assembly_manager` is
-always `None` (see assetripper_import/structure/game_structure.py's module docstring), so
-behavior is always equivalent to upstream's `Level0` regardless of this setting's value.
+Since Phase 16f, `GameStructure`/`GameStructure.load` consult this (as a plain int, passed
+through `ExportHandler.load`'s `settings.import_settings.script_content_level`): `LEVEL_0`
+disables Mono script recovery entirely (`assembly_manager` stays `None` even if `.dll` files
+were found); any other value attempts recovery. `LEVEL_1` ("stub method bodies") and
+`LEVEL_2` ("default") are not distinguished -- this port's recovery is single-tier
+(declaration + real field layout, never method bodies, see ROADMAP.md Phase 16g), so both
+behave like `LEVEL_2`. IL2CPP is unaffected either way (16d/16e not implemented).
 """
 from __future__ import annotations
 
