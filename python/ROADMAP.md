@@ -6,11 +6,12 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
 - **Branch:** `claude/convert-project-python-6mee7g`
 - **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
   phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B; 16a+16b+16c
-  xong — đọc metadata Mono `.dll` thật ra `RecoveredType`, nhưng **chưa nối vào pipeline export**,
-  xem 16f).
+  xong, 16f phần 1 (dựng `SerializableType` thật từ Mono `.dll`, gồm PPtr detection + kế thừa
+  nhiều cấp) cũng xong — nhưng **chưa nối vào pipeline export** (16f phần 2: `GameAssetFactory`/
+  `script_exporter`/`GameStructure` chưa gọi tới), xem 16f).
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
   lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d; Phase 18's Mesh layout xong.**
-  742 tests pass. Commit cuối: `acd8e36`.
+  748 tests pass. Commit cuối: `(pending)`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -101,7 +102,7 @@ cũng sẽ không phải Unity project — đó sẽ là một tool khác, khôn
 | Game **pre-Unity-5.0** nói chung | ✅ | ✅ | Phase 14 — cùng format trên (`UnityRaw`/`UnityWeb` bundle) |
 | Unity WebGL game **theo URL** | ❌ | ❌ | **Upstream cũng không có.** Không có `HttpClient`/`WebRequest` nào trong `AssetRipper.Import` hay `GUI.Web/Pages/Commands.cs` — chỉ `LoadFile`/`LoadFolder` từ path local. Muốn có thì phải tự viết downloader (tải `.data`/`.wasm` từ URL về temp dir rồi load như WebGL build) — **feature mới, không phải port** |
 | `GameAssembly.dll` / `libil2cpp.so` + `global-metadata.dat` (IL2CPP) | ✅ | ❌ | **Phase 16** — đã *tìm thấy* đường dẫn cho cả 8 platform IL2CPP (Phase 3, `il2cpp_metadata_path`/`il2cpp_game_assembly_path`) nhưng **chưa parse**. Đây là input cho việc dựng lại `.cs` — xem Phase 16 |
-| Managed `.dll` (Mono `Managed/*.dll`) | ✅ | ⚠️ | **Phase 16c ✅** — `mono_manager.py` đọc được metadata ECMA-335 thật (PE→CLI→tables→field signature) và ra `RecoveredType`/`RecoveredField`, nhưng **chưa nối vào pipeline** (`GameStructure`/`ScriptExporter` chưa gọi nó) — đó là Phase 16f, chưa làm. `mono_assembly_predicate.py` (chỉ nhận diện đuôi `.dll`) vẫn là con đường duy nhất `ScriptingBackend.MONO` thật sự đi qua hôm nay |
+| Managed `.dll` (Mono `Managed/*.dll`) | ✅ | ⚠️ | **Phase 16c+16f-phần1 ✅** — `mono_manager.py` đọc được metadata ECMA-335 thật (PE→CLI→tables→field signature) và ra cả `RecoveredType`/`RecoveredField` (16c) lẫn `SerializableType` thật đọc được bytes (16f phần 1, PPtr + kế thừa nhiều cấp), nhưng **chưa nối vào pipeline** (`GameStructure`/`GameAssetFactory`/`ScriptExporter` chưa gọi nó) — đó là Phase 16f phần 2, chưa làm. `mono_assembly_predicate.py` (chỉ nhận diện đuôi `.dll`) vẫn là con đường duy nhất `ScriptingBackend.MONO` thật sự đi qua hôm nay |
 
 ### Output format — trạng thái thật
 
@@ -114,8 +115,8 @@ cũng sẽ không phải Unity project — đó sẽ là một tool khác, khôn
 | `Packages/manifest.json` | ✅ | Phase 7 |
 | `Assets/StreamingAssets/**` | ✅ | Phase 7 |
 | Script `.cs` (dummy class) + `.meta` GUID ổn định | ✅ | Phase 6c-2 |
-| Script `.cs` có **declaration thật** (class/field/property/method signature) | ❌ | **Phase 16c ✅ đã đọc được** (Mono `.dll` → `RecoveredType`) **nhưng chưa export ra** — `script_exporter.py` chưa gọi 16c/16b, vẫn luôn dùng `EmptyScript`. Cần Phase 16f để nối. IL2CPP (16d/16e) vẫn hoàn toàn chưa làm |
-| MonoBehaviour **field value** khi asset không có type tree | ❌ | **Phase 16f** — hạ tầng đọc (16c) đã có, nhưng chưa nối vào `GameAssetFactory`/`UnloadedStructure`; các asset này vẫn rơi vào `UnknownObject` hôm nay. Giá trị thực tế **cao hơn** cả bản thân file `.cs` |
+| Script `.cs` có **declaration thật** (class/field/property/method signature) | ❌ | **Phase 16c ✅ đã đọc được** (Mono `.dll` → `RecoveredType`) **nhưng chưa export ra** — `script_exporter.py` chưa gọi 16c/16b, vẫn luôn dùng `EmptyScript`. Cần Phase 16f phần 2 để nối. IL2CPP (16d/16e) vẫn hoàn toàn chưa làm |
+| MonoBehaviour **field value** khi asset không có type tree | ❌ | **Phase 16f phần 1 ✅ đã đọc được** (`get_serializable_type` dựng `SerializableType` thật, PPtr + kế thừa nhiều cấp, test đọc bytes thật qua `SerializableStructure`) **nhưng chưa nối** — `GameAssetFactory`/`UnloadedStructure` (phần 2) chưa gọi tới; các asset này vẫn rơi vào `UnknownObject` hôm nay. Giá trị thực tế **cao hơn** cả bản thân file `.cs` |
 | **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ✅ | Phase 15 — `ManagerAssetExporter`/`ManagerExportCollection` |
 | Reference tới built-in Unity asset (default material, built-in shader…) | ❌ | **Phase 15 `[~]`** — `EngineAssetsExporter`/`PredefinedAssetCache` chưa xếp lịch (cần database asset built-in theo Unity version không vendored) → asset built-in bị export trùng thay vì trỏ về asset gốc của Unity |
 | `.cs` có **method body thật** (logic game chạy được) | ❌ | **Ngoài scope vĩnh viễn** — với IL2CPP thì *không tool nào làm được tin cậy*, kể cả upstream (xem Phase 16g cho evidence). Với Mono thì cần một IL→C# decompiler cỡ ILSpy |
@@ -188,12 +189,12 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 13 | Asset type còn thiếu (13a-13i) | 🟡 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ `c8093ba`. 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục) |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
-| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16a+16b+16c ✅ (16b `38a23cd`, 16a+16c `acd8e36`). Đọc được Mono `.dll` thật nhưng **chưa nối vào export** (16f). `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
+| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16a+16b+16c ✅ (16b `38a23cd`, 16a+16c `acd8e36`), 16f phần 1 ✅ `(pending)` (dựng `SerializableType` thật, PPtr + kế thừa). Đọc được Mono `.dll` thật nhưng **chưa nối vào export** (16f phần 2). `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong `8d12472`; MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
 
-Số test theo area (tổng 742): `export_modules` 135, `import_` 140, `io_files` 118, `numerics` 64,
+Số test theo area (tổng 748): `export_modules` 135, `import_` 146, `io_files` 118, `numerics` 64,
 `assets` 48, `export_unity_projects` 60, `gui_web` 71, `io_files_bundle` 29, `processing` 34,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 5 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
@@ -893,7 +894,7 @@ Nhóm nhỏ nhưng **impact cao nhất còn lại**: trước phase này, projec
 
 ---
 
-### Phase 16 — Dựng lại `.cs` từ IL2CPP / Mono ⬜ (16a+16b+16c ✅ — còn 16c-alt/16d/16e/16f, xem bên dưới)
+### Phase 16 — Dựng lại `.cs` từ IL2CPP / Mono ⬜ (16a+16b+16c+16f-phần1 ✅ — còn 16c-alt/16d/16e/16f-phần2, xem bên dưới)
 
 > Phase này thay thế 3 hàng trước đây nằm trong "Ngoài scope vĩnh viễn" (C# script decompilation,
 > IL2Cpp script recovery, MonoBehaviour field không có type tree). Chỉ **method body** còn ngoài
@@ -1080,21 +1081,59 @@ complete type info)"*. Nguồn cho phân chia trên:
 
 #### 16f — Wiring + MonoBehaviour field recovery (nơi giá trị thật xuất hiện)
 
-- [ ] `assetripper_import/structure/assembly/managers/base_manager.py` — interface chung
-      (`get_serializable_type(assembly, namespace, class_name) -> SerializableType | None`) để
-      `GameStructure`/`ExportHandler` không cần biết backend là Mono hay IL2CPP
-- [ ] `unloaded_structure.py` — port `UnloadedStructure.cs`: MonoBehaviour đọc **lazy** sau khi mọi
-      asset đã load (vì MonoBehaviour có thể load trước MonoScript nó trỏ tới). Đây là mảnh làm
-      field value trở thành thật
-- [ ] `game_asset_factory.py` — hiện MonoBehaviour không có type tree → `UnknownObject`
-      (xem docstring của nó). Thêm nhánh: có assembly manager thì dựng `UnloadedStructure`
-- [ ] `script_exporter.py` — bỏ giả định `AssemblyManager.IsSet` luôn `False` (ghi thẳng trong
-      docstring hiện tại), nối vào 16b để ra `.cs` thật; giữ `EmptyScriptExportCollection` làm fallback
-- [ ] `ScriptContentLevel` (đã có ở `assetripper_export_configuration`, Phase 10) — nối cho thật:
-      Level0 = không load, Level1 = stub, Level2 = default
-- **Effort/Risk:** trung bình/trung bình — chỗ dễ vỡ là regression trên đường TypeTree đang chạy tốt.
-      **Bắt buộc:** test khẳng định asset *có* type tree vẫn đi đường cũ, không đổi output
-- **Phụ thuộc:** 16c (hoặc 16c-alt), hoặc 16d+16e
+**Phần 1 — `SerializableType` builder ✅ `(pending)`** (phần khó/rủi ro nhất: dựng đúng byte layout
+từ metadata; phần 2 dưới đây, còn lại, chỉ là nối dây):
+
+- [x] `mono_manager.py::MonoAssembly.get_serializable_type(namespace, class_name) ->
+      SerializableType | None` — dựng thật một `SerializableType` graph (không chỉ text `.cs`)
+      từ field signature blob, tái dùng đúng gating `WillUnitySerialize` đã có ở 16c
+      (`_serialized_field_row_numbers`) thay vì viết lại
+- [x] **PPtr detection thật**: field có kiểu (trực tiếp hoặc qua chuỗi `extends` trong CÙNG
+      assembly) dẫn tới `UnityEngine.Object`/`MonoBehaviour`/`Behaviour`/`Component` →
+      `SerializablePointerType.shared()`, đúng hành vi Unity thật (không inline object reference)
+      — đây chính là phần `IsAssignableTo` walk mà 16a từng nói "không mock được", giờ mock được
+      thật vì đã có type universe thật (16c)
+- [x] **Kế thừa nhiều cấp trong cùng assembly**: field của lớp cha (cũng local) được gộp vào theo
+      đúng thứ tự Unity thật (cha trước, con sau) — `_local_base_chain`. Đây là mảnh giá trị nhất
+      của 16a mà bản RecoveredType/.cs (16c) không cần tới (vì .cs không redeclare field kế thừa)
+- [x] `List<T>` được nhận diện là mảng 1 cấp (đúng cách Unity serialize nó thật)
+- [x] `assetripper_import/structure/assembly/managers/unity_engine_structs.py` (mới) — layout
+      cứng cho 7 struct built-in **chắc chắn nhất** (Vector2/3/4, Quaternion, Color, Color32,
+      Rect — tên field đã được xác nhận độc lập qua `_tree_builder.py`'s `rect_nodes`/
+      `vector2_nodes`/`vector4_nodes` cho 4/7 cái). **Cố ý không** làm 13 cái còn lại trong
+      `mono_utils._ENGINE_STRUCT_NAMES` (Bounds, BoundsInt, Matrix4x4, LayerMask, RectOffset,
+      GUID, Hash128, Vector2Int, Vector3Int, SphericalHarmonicsL2, AnimationCurve, Gradient,
+      GUIStyle, PropertyName) — tên field private của một số cái (`m_X`/`m_Extent`, không phải
+      `x`/`m_Extents`) không đủ chắc chắn để đoán mà không có fixture thật, và đoán sai thì lệch
+      byte toàn bộ field phía sau
+- **Quy tắc an toàn cốt lõi**: field không resolve được (external type chưa load, generic khác
+      `List<T>`, struct built-in chưa hardcode, ...) → **cả type bị decline** (`None`), không chỉ
+      field đó — một layout đúng-một-phần còn tệ hơn không có gì, vì mọi field sau field sai sẽ
+      lệch byte theo
+- **Test:** `tests/import_/test_mono_manager_serializable_type.py` (6 test) — struct 1 field,
+      đủ 8 dạng field trên 1 class (`int`/`float`/`string`/nested struct/`string[]`/PPtr/
+      `List<int>`/`Vector3`), field không resolve được làm cả type decline, kế thừa 2 cấp đúng
+      thứ tự, cache trả cùng instance, và **test đọc bytes thật** qua
+      `SerializableStructure.read`/`EndianSpanReader` (không chỉ assert cấu trúc) để chắc chắn
+      graph dựng ra thật sự tiêu thụ được, không chỉ trông hợp lý
+- **Chưa làm (Phần 2 — nối dây thật, xem việc còn lại):**
+  - [ ] `assetripper_import/structure/assembly/managers/base_manager.py` — interface chung
+        (`get_serializable_type(assembly, namespace, class_name) -> SerializableType | None`) để
+        `GameStructure`/`ExportHandler` không cần biết backend là Mono hay IL2CPP. Cần thêm: nhiều
+        `MonoAssembly` (một per `.dll` trong `Managed/`) + resolve theo `assembly` name — hiện
+        `MonoAssembly.get_serializable_type` chỉ tra trong CHÍNH `.dll` đó, chưa cross-assembly
+  - [ ] `unloaded_structure.py` — port `UnloadedStructure.cs`: MonoBehaviour đọc **lazy** sau khi mọi
+        asset đã load (vì MonoBehaviour có thể load trước MonoScript nó trỏ tới)
+  - [ ] `game_asset_factory.py` — hiện MonoBehaviour không có type tree → `UnknownObject`
+        (xem docstring của nó). Thêm nhánh: có assembly manager thì dựng `UnloadedStructure`
+  - [ ] `script_exporter.py` — bỏ giả định `AssemblyManager.IsSet` luôn `False` (ghi thẳng trong
+        docstring hiện tại), nối vào 16b để ra `.cs` thật; giữ `EmptyScriptExportCollection` làm fallback
+  - [ ] `ScriptContentLevel` (đã có ở `assetripper_export_configuration`, Phase 10) — nối cho thật:
+        Level0 = không load, Level1 = stub, Level2 = default
+  - **Effort/Risk:** thấp/trung bình (đã giảm so với đánh giá ban đầu — phần khó nhất, dựng đúng
+        `SerializableType`, đã xong ở Phần 1). Chỗ dễ vỡ là regression trên đường TypeTree đang
+        chạy tốt. **Bắt buộc:** test khẳng định asset *có* type tree vẫn đi đường cũ, không đổi output
+  - **Phụ thuộc:** 16c (hoặc 16c-alt), hoặc 16d+16e — đã thoả (16c xong)
 
 #### 16g — Method body: ngoài scope, có evidence
 
