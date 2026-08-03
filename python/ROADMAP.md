@@ -14,7 +14,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   build thật) — xem chi tiết Phase 16.
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
   lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d; Phase 18's Mesh layout xong.**
-  765 tests pass. Commit cuối: `(pending)`.
+  765 tests pass. Commit cuối: `e4a5ccb`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -194,7 +194,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 13 | Asset type còn thiếu (13a-13i) | ✅ 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ `c8093ba`. 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục). Không còn việc khả thi nào chưa làm |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
-| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Mono xong (16a+16b+16c+16f) — 16b `38a23cd`, 16a+16c `acd8e36`, 16f `(pending)`. Đọc + nối thật vào export cho Mono. `16c-alt`/`16d`/`16e` (IL2CPP) **bị chặn** tới khi có IL2CPP build thật hoặc user tự chạy tool ngoài |
+| 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Mono xong (16a+16b+16c+16f) — 16b `38a23cd`, 16a+16c `acd8e36`, 16f `e4a5ccb`. Đọc + nối thật vào export cho Mono. `16c-alt`/`16d`/`16e` (IL2CPP) **bị chặn** tới khi có IL2CPP build thật hoặc user tự chạy tool ngoài |
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong `8d12472`; MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
@@ -1121,7 +1121,7 @@ từ metadata; phần 2 dưới đây, còn lại, chỉ là nối dây):
       thứ tự, cache trả cùng instance, và **test đọc bytes thật** qua
       `SerializableStructure.read`/`EndianSpanReader` (không chỉ assert cấu trúc) để chắc chắn
       graph dựng ra thật sự tiêu thụ được, không chỉ trông hợp lý
-**Phần 2 — Nối dây thật ✅ `(pending)`** (`GameStructure`/`GameAssetFactory`/`ScriptExporter` giờ
+**Phần 2 — Nối dây thật ✅ `e4a5ccb`** (`GameStructure`/`GameAssetFactory`/`ScriptExporter` giờ
 thật sự gọi tới Phần 1 — đây là chỗ giá trị thật của Phase 16 lần đầu tới tay export pipeline):
 
 - [x] `assetripper_import/structure/assembly/managers/base_manager.py` (mới) — `BaseManager`:
