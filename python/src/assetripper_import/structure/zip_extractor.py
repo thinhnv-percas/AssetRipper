@@ -3,6 +3,15 @@
 Upstream uses SharpCompress; this uses the stdlib `zipfile` module instead. Archive bytes
 are read fully into memory via the `FileSystem` stream API (rather than assuming a real OS
 path exists) and handed to `zipfile.ZipFile` through a `BytesIO` wrapper.
+
+`process`'s optional `created_directories` (2026-08-03 fix): every `create_temporary()` call
+here was previously untracked and never cleaned up anywhere -- `GameStructure`/`ExportHandler`/
+`game_file_loader.py` now pass a list through so they can delete these directories once the
+extracted files are no longer needed (see `cleanup()` below, and each caller's own docstring
+for exactly when it's safe to call it -- streamed resources, e.g. `.resS`, are read lazily
+from these files throughout export, so cleanup can't happen until export actually finishes).
+Optional and additive: omitting it keeps `process`'s existing return shape and behavior
+exactly as before, for the tests that already call it directly.
 """
 from __future__ import annotations
 
@@ -38,34 +47,52 @@ class ExtractionError(Exception):
     pass
 
 
-def process(paths: Iterable[str], file_system) -> list[str]:
+def process(paths: Iterable[str], file_system, created_directories: "list[str] | None" = None) -> list[str]:
     result: list[str] = []
     for path in paths:
         extension = _get_file_extension(path, file_system)
         if extension in _DIRECT_EXTRACT_EXTENSIONS:
-            result.append(_extract_zip(path, file_system))
+            result.append(_extract_zip(path, file_system, created_directories))
         elif extension in _NESTED_EXTRACT_EXTENSIONS:
-            result.append(_extract_xapk(path, file_system))
+            result.append(_extract_xapk(path, file_system, created_directories))
         else:
             result.append(path)
     return result
 
 
-def _extract_zip(zip_file_path: str, file_system) -> str:
+def cleanup(directories: "Iterable[str]", file_system) -> None:
+    """Deletes every directory `process` created via `created_directories`. Safe to call with
+    directories that no longer exist (already cleaned up, or never created) -- silently
+    skipped rather than raising, since cleanup failing shouldn't fail whatever operation
+    triggered it (export, or loading the next game in the GUI)."""
+    for directory in directories:
+        try:
+            if file_system.directory.exists(directory):
+                file_system.directory.delete(directory)
+        except OSError:
+            pass
+
+
+def _extract_zip(zip_file_path: str, file_system, created_directories: "list[str] | None" = None) -> str:
     if not _has_compatible_magic(zip_file_path, file_system):
         return zip_file_path
 
     output_directory = file_system.directory.create_temporary()
+    if created_directories is not None:
+        created_directories.append(output_directory)
     _decompress_zip_archive(zip_file_path, output_directory, file_system)
     return output_directory
 
 
-def _extract_xapk(xapk_file_path: str, file_system) -> str:
+def _extract_xapk(xapk_file_path: str, file_system, created_directories: "list[str] | None" = None) -> str:
     if not _has_compatible_magic(xapk_file_path, file_system):
         return xapk_file_path
 
     intermediate_directory = file_system.directory.create_temporary()
     output_directory = file_system.directory.create_temporary()
+    if created_directories is not None:
+        created_directories.append(intermediate_directory)
+        created_directories.append(output_directory)
     _decompress_zip_archive(xapk_file_path, intermediate_directory, file_system)
     for file_path in file_system.directory.get_files(intermediate_directory):
         if _get_file_extension(file_path, file_system) == _APK_EXTENSION:

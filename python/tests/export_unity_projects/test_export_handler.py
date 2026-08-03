@@ -9,6 +9,7 @@ directory, run `load_and_process`/`export` through `GameStructure` (platform dis
 and assert the exported project looks like a real Unity project directory.
 """
 import struct
+import zipfile
 
 from assetripper_export_configuration.export_settings import ExportSettings
 from assetripper_export_configuration.full_configuration import FullConfiguration
@@ -93,6 +94,33 @@ def test_load_process_and_export_produces_a_real_unity_project(tmp_path):
     manifest = output_dir / "Packages" / "manifest.json"
     assert manifest.exists()
     assert "com.unity.modules.ai" in manifest.read_text(encoding="utf-8")
+
+
+def test_export_cleans_up_the_extracted_archive_temp_directory(tmp_path):
+    """2026-08-03 fix: ExportHandler.export now deletes any temp directory GameStructure.load
+    extracted an archive into, once export (including post-exporters, e.g. DllPostExporter,
+    which can still need to read files from it) is completely done with it."""
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    _write_synthetic_game(game_dir)
+
+    zip_path = tmp_path / "game.zip"
+    with zipfile.ZipFile(zip_path, "w") as archive:
+        archive.write(game_dir / "sharedassets0.assets", "sharedassets0.assets")
+
+    handler = ExportHandler()
+    game_data = handler.load_and_process([str(zip_path)], FS)
+
+    assert len(game_data.temp_directories) == 1
+    extracted_directory = game_data.temp_directories[0]
+    assert FS.directory.exists(extracted_directory)
+
+    output_dir = tmp_path / "output"
+    handler.export(game_data, str(output_dir), FS)
+
+    assert not FS.directory.exists(extracted_directory)
+    assert game_data.temp_directories == []
+    assert (output_dir / "Assets" / "TextAsset" / "MyText.txt").exists()
 
 
 def test_load_and_process_skips_processing_when_bundle_is_empty(tmp_path):

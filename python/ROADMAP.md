@@ -14,7 +14,13 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   build thật) — xem chi tiết Phase 16.
   **Phase 17 viết lại xong (17a-17e, xem ngay dưới) — chỉ còn 1 test đối chiếu GUI-mức-thật dời
   lại xong; Phase 19 (bug thật user đang gặp) đã sửa xong 19a-19d; Phase 18's Mesh layout xong.**
-  765 tests pass. Commit cuối: `e4a5ccb`.
+  **(2026-08-03) Rà soát toàn bộ ROADMAP tìm việc tồn đọng:** sửa 1 bug rò rỉ đĩa thật (Phase 3's
+  `zip_extractor.py` chưa bao giờ dọn temp dir đã tạo, gây hết dung lượng lặp lại nhiều lần trong
+  các phiên trước — xem Phase 3), và sửa 3 chỗ ghi chép sai/lỗi thời trong chính file này
+  (CustomResourceProvider thật ra đã port từ đầu; ExportPlan cache đã làm xong ở 17c nhưng quên
+  tick; ghi chú MonoBehaviour ở Phase 18 chưa cập nhật theo 16f) — không có bug chức năng nào khác
+  phát hiện thêm ngoài rò rỉ đĩa.
+  773 tests pass. Commit cuối: `(pending)`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -199,8 +205,8 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong `8d12472`; MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
 
-Số test theo area (tổng 765): `export_modules` 138, `import_` 158, `io_files` 118, `numerics` 64,
-`assets` 48, `export_unity_projects` 62, `gui_web` 71, `io_files_bundle` 29, `processing` 34,
+Số test theo area (tổng 773): `export_modules` 138, `import_` 164, `io_files` 118, `numerics` 64,
+`assets` 48, `export_unity_projects` 63, `gui_web` 72, `io_files_bundle` 29, `processing` 34,
 `cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 5 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
@@ -235,15 +241,43 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 
 - [x] `platform_checker.py` + 13 platform subclass (Windows/Linux/Mac/Android/iOS/Switch/PS4/WebGL/WebPlayer/WiiU/WindowsPhone/Mixed)
 - [x] `platform_game_structure.py`
-- [x] `game_structure.py` — `load(paths, file_system, ...)`; assembly manager luôn `None`
-- [x] `zip_extractor.py` (apk/zip → temp dir)
+- [x] `game_structure.py` — `load(paths, file_system, ...)`; assembly manager `None` khi không
+      tìm thấy `.dll` nào, hoặc một `MonoAssemblyManager` thật khi có — xem Phase 16f (lúc viết
+      dòng này lần đầu, assembly manager đúng là luôn `None`; đã đổi từ Phase 16f)
+- [x] `zip_extractor.py` (apk/zip → temp dir). **Sửa lỗi rò rỉ đĩa (audit 2026-08-03, phiên "check
+      các vấn đề tồn đọng"):** mỗi lần `_extract_zip`/`_extract_xapk` gọi
+      `file_system.directory.create_temporary()`, thư mục tạo ra **không hề được dọn ở bất cứ đâu**
+      — bug này đã bị flag nhiều lần trong suốt các phiên trước (gây hết dung lượng đĩa lặp lại khi
+      chạy `real_fixtures` test nhiều lần) nhưng luôn bị gác lại "ngoài scope". Đã sửa thật:
+      `process()` nhận thêm tham số optional `created_directories` (không đổi behavior/signature
+      cho 5 test hiện có không truyền tham số này) để track cả thư mục trung gian của `.xapk` (trước
+      đây thư mục này rò rỉ mà `process()`'s return value còn không hề nhắc tới); `cleanup()` (hàm
+      mới) xoá chúng. Nối vào 3 chỗ, đúng thời điểm an toàn cho từng chỗ (dọn sớm quá sẽ làm hỏng
+      streamed resource `.resS` đọc lazy suốt quá trình export — xem Phase 9):
+      `GameStructure.temp_directories`/`.dispose()` (dọn khi ai đó gọi dispose trực tiếp) →
+      `GameData.temp_directories` (mang theo từ `GameStructure` sang, vì bản thân `GameStructure`
+      hết vòng đời ngay sau `ExportHandler.load()`, không ai giữ tham chiếu để gọi `dispose()` được
+      nữa) → `ExportHandler.export()` dọn **sau cùng** `run_default_post_exporters` (không phải
+      trước — `DllPostExporter` vẫn cần đọc `.dll` từ thư mục đó) → `game_file_loader.reset()` dọn
+      game **cũ** trước khi thay bằng game mới (vòng đời GUI dài, không có điểm "export xong" tự
+      nhiên để dọn, nên dọn đúng lúc game cũ bị bỏ). Test: `test_zip_extractor.py` (+5),
+      `test_game_structure.py` (+1, load từ `.zip` thật → track + dispose xoá đúng),
+      `test_export_handler.py` (+1, end-to-end qua `ExportHandler.export` thật), `test_load_input.py`
+      (+1, load 2 lần liên tiếp qua GUI thật → lần load thứ 2 dọn sạch temp dir của lần 1)
 - [x] `GameBundle.from_paths` + `SerializedBundle.from_file_container`
 - [x] `scheme_reader.load_file` wrapper
 - [x] `assetripper_processing/game_data.py`
 - [~] `EngineResourceInjector` / `VersionChanger` — không cần cho scope hiện tại
-- [ ] **(audit 2026-08-01)** `GameInitializer.CustomResourceProvider.cs` chưa port — thiếu sót không
-      được ghi nhận ở lần commit phase này
-- ⚠️ **(audit 2026-08-01)** 14/14 platform structure đã port, nhưng lúc đó **discovery ≠ load được**:
+- [x] **(audit 2026-08-01, sửa lại sau audit khác)** `GameInitializer.CustomResourceProvider.cs`
+      **đã port từ đầu** — audit trước ghi nhầm "chưa port" vì chỉ tìm theo tên file C#
+      (`GameInitializer.CustomResourceProvider.cs` là 1 partial class riêng); bản Python gộp
+      `CustomResourceProvider`/`StructureDependencyProvider` chung vào 1 file
+      `game_initializer.py` (đúng cách 2 file C# partial cùng thuộc 1 class `GameInitializer`).
+      `CustomResourceProvider` (implements `IResourceProvider`, `find_resource` tra
+      `platform_structure.request_resource` rồi `mixed_structure.request_resource`) đã có, đã
+      wire vào `GameBundle.resource_provider`/`_resolve_external_resource`, và đây chính xác là
+      đường `.resS` external resource đi qua ở Phase 9 — không có gap hành vi nào thật
+- [x] 14/14 platform structure đã port. **(audit 2026-08-01):** lúc đó **discovery ≠ load được**:
       `WebGLGameStructure` tìm đúng `.data`/`.data.unityweb`/`.datagz` và `WebPlayerGameStructure` tìm
       đúng bundle, nhưng `scheme_reader` chưa có scheme để **đọc** chúng → load thất bại.
       **Đã sửa ở Phase 14** — scheme đọc được rồi, gap này không còn
@@ -1312,11 +1346,11 @@ công cụ làm cho gap Phase 18 **hiện ra rõ ràng** thay vì ẩn đi. Tư�
       `VirtualFileSystem` trực tiếp) — cùng `game_data`, path set của plan khớp hệt path set của một
       `ExportHandler.export` thật ra `tmp_path` — và settings (`text_export_mode=BYTES`) được truyền
       đúng xuống qua `build_export_plan`
-- [ ] **Chưa làm ở 17b, dời sang 17c:** cache `(game_data, settings) -> ExportPlan` trong
-      `game_file_loader._state` + invalidate khi đổi Settings/load game mới. Lý do dời: đây là logic
-      gắn với GUI state thật (`_state`), thuộc đúng phạm vi "Endpoint + UI" của 17c hơn là "build một
-      ExportPlan thuần" của 17b — `build_export_plan` tự nó đã là pure function, không cần biết gì về
-      GUI state để test hay dùng lại (CLI có thể gọi thẳng nếu cần sau này)
+- [x] **Đã làm ở 17c** (đúng như dự tính dời khi viết dòng này ở 17b — checkbox trước đó bị bỏ quên
+      chưa tick): `game_file_loader.get_export_plan()` cache `(id(game_data), id(settings)) ->
+      ExportPlan` trong `_state._export_plan`/`_export_plan_key`, tự rebuild khi key đổi (load game
+      mới hoặc đổi Settings đều đổi identity). `build_export_plan` tự nó vẫn là pure function,
+      không cần biết gì về GUI state để test hay dùng lại (CLI có thể gọi thẳng nếu cần sau này)
 - **Phụ thuộc:** 17a
 
 #### 17c — Endpoint + UI: cây file sẽ-được-export, xem được asset **và** code ✅ `0cb790e`
@@ -1551,11 +1585,14 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       `.glb`, 1 file decode được qua parser glTF thủ công, có mesh + accessor `POSITION` thật)
 
 **Còn lại, chưa làm:**
-- [ ] `MonoBehaviour`(114): field thật tuỳ theo **script gắn vào nó** (không có layout cố định) — cần
-      Phase 16's script-metadata recovery (biết field layout từ IL2CPP/Mono) TRƯỚC KHI viết được layout
-      tổng quát cho nó. Không tách rời được khỏi Phase 16. Đây là gap ảnh hưởng nhiều asset nhất còn
-      lại (496 MonoBehaviour trong fixture) nhưng bản chất khác hẳn 4 class trên (không thể "chỉ viết
-      thêm 1 layout")
+- [~] `MonoBehaviour`(114) trong **fixture này cụ thể**: field thật tuỳ theo **script gắn vào nó**
+      (không có layout cố định) — cần Phase 16's script-metadata recovery TRƯỚC KHI đọc được.
+      **Cập nhật:** Phase 16's nhánh Mono (16a+16b+16c+16f) đã xong — `MonoBehaviour` field value
+      giờ đọc được thật cho game Mono có `Managed/*.dll` (xem Phase 16f). Nhưng `demo-android.apk`
+      **là build IL2CPP** (không có `Managed/*.dll`), nên 496 MonoBehaviour trong CHÍNH fixture này
+      vẫn cần `16d`/`16e` (IL2CPP metadata + binary parser, chưa làm) mới đọc được — gap ở đây không
+      còn là "chưa làm gì cho MonoBehaviour" mà cụ thể là "chưa làm nhánh IL2CPP". Cần một build Mono
+      thật để kiểm chứng nhánh Mono end-to-end (test hiện tại đều trên `.dll` dựng tay, xem 16f)
 - [ ] `BuildSettings`(141): byte thật cho thấy ~28 byte flag giữa `m_Scenes` và version string mà
       tài liệu công khai tra được (rất cũ, thời Unity 2.x-3.x) không khớp — không đủ tự tin đặt tên
       field, để lại `[~]`. Giá trị thấp (chỉ ảnh hưởng tên file scene fallback, đã graceful từ Phase 18

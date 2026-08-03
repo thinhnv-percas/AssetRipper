@@ -44,6 +44,7 @@ class GameStructure:
         ignore_streaming_assets: bool = False,
         script_content_level=None,
         progress_callback=None,
+        temp_directories: list[str] | None = None,
     ):
         """`script_content_level` (Phase 16f): a `ScriptContentLevel`
         (`assetripper_export_configuration`) or plain `int`/`None` -- kept untyped here to
@@ -53,8 +54,15 @@ class GameStructure:
         (including the default, `None`) attempts recovery. Upstream's `LEVEL_1`
         ("stub method bodies") vs `LEVEL_2` ("default") distinction isn't modeled -- this
         port's recovery is single-tier (declaration + real field layout, never method
-        bodies -- see ROADMAP.md Phase 16g), so both behave like `LEVEL_2`."""
+        bodies -- see ROADMAP.md Phase 16g), so both behave like `LEVEL_2`.
+
+        `temp_directories` (2026-08-03 fix): directories `zip_extractor.process` created while
+        unpacking an archive to get to `paths`, if this instance was built via `load()` -- kept
+        so `dispose()` (and callers that read `.temp_directories` directly, e.g. `GameData`)
+        can clean them up once the extracted files are no longer needed. Empty when `load()`
+        wasn't used (`paths` were already plain files/directories, nothing was extracted)."""
         self.file_system = file_system
+        self.temp_directories: list[str] = temp_directories if temp_directories is not None else []
 
         if progress_callback:
             progress_callback("Discovering platform structure...")
@@ -119,7 +127,8 @@ class GameStructure:
         percentage. `script_content_level` (Phase 16f): see `__init__`'s docstring."""
         if progress_callback:
             progress_callback("Extracting archive...")
-        to_process = zip_extractor.process(paths, file_system)
+        temp_directories: list[str] = []
+        to_process = zip_extractor.process(paths, file_system, temp_directories)
         if not to_process:
             raise ValueError("Game files not found")
 
@@ -131,11 +140,15 @@ class GameStructure:
             ignore_streaming_assets=ignore_streaming_assets,
             script_content_level=script_content_level,
             progress_callback=progress_callback,
+            temp_directories=temp_directories,
         )
 
     def dispose(self) -> None:
         if self.file_collection is not None:
             self.file_collection.dispose()
+        if self.temp_directories:
+            zip_extractor.cleanup(self.temp_directories, self.file_system)
+            self.temp_directories = []
 
 
 def _get_file_paths(platform_structure, mixed_structure) -> list[str]:

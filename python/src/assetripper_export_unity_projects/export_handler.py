@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import logging
 
+from assetripper_import.structure import zip_extractor
 from assetripper_import.structure.game_structure import GameStructure
 from assetripper_processing.default_processors import run_default_processors
 from assetripper_processing.game_data import GameData
@@ -92,6 +93,15 @@ class ExportHandler:
 
         run_default_post_exporters(game_data, output_directory, game_data.project_version, file_system, settings)
         _logger.info("Finished post-export")
+
+        # 2026-08-03 fix: clean up any temp directories GameStructure.load extracted an
+        # archive into. Must come after post-exporters (not before export, not between
+        # export and post-export) -- DllPostExporter reads assembly files that can live
+        # inside one of these directories, and streamed-resource exporters read texture/
+        # audio/mesh bytes from them throughout the main export pass.
+        if game_data.temp_directories:
+            zip_extractor.cleanup(game_data.temp_directories, file_system)
+            game_data.temp_directories = []
 
     def load_and_process(self, paths, file_system, settings=None, progress_callback=None, **kwargs) -> GameData:
         game_data = self.load(paths, file_system, settings=settings, progress_callback=progress_callback, **kwargs)

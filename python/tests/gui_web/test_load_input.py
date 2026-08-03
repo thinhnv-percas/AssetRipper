@@ -139,6 +139,30 @@ def test_load_file_and_load_folder_produce_the_same_result(client, tmp_path):
     assert via_load_file == via_load_folder is True
 
 
+def test_reloading_cleans_up_the_previous_games_extracted_temp_directory(client, tmp_path):
+    """2026-08-03 fix: reset() (called at the start of every load_paths -- a fresh load in an
+    already-running GUI session is the common case, not the exception) now cleans up whatever
+    GameStructure.load extracted for the game it's discarding. Previously nothing in the GUI's
+    long-lived session ever cleaned these up, so a session that loaded many games one after
+    another leaked one extracted archive per load for as long as the process stayed up."""
+    from assetripper_io_files.local_file_system import LocalFileSystem
+
+    apk_path = tmp_path / "game.apk"
+    _write_synthetic_apk(apk_path)
+
+    client.post("/LoadFile", data={"Path": str(apk_path)})
+    wait_for_load_to_finish()
+    assert game_file_loader.has_game_data()
+    first_temp_directories = list(game_file_loader.game_data().temp_directories)
+    assert len(first_temp_directories) == 1
+    assert LocalFileSystem.instance().directory.exists(first_temp_directories[0])
+
+    client.post("/LoadFile", data={"Path": str(apk_path)})
+    wait_for_load_to_finish()
+
+    assert not LocalFileSystem.instance().directory.exists(first_temp_directories[0])
+
+
 def test_loading_a_garbage_file_leaves_nothing_loaded_with_a_clear_error(client, tmp_path):
     """Regression check for the second, smaller bug the ROADMAP flagged alongside the main
     one: the old `load_file` set `_state.game_bundle` *before* validating, so a failed load

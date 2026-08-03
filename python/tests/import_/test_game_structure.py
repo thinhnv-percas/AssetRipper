@@ -1,5 +1,8 @@
 """Tests for the top-level Load() orchestrator
 (Source/AssetRipper.Import/Structure/GameStructure.cs), Phase 3 of the port."""
+import io
+import zipfile
+
 import pytest
 
 from assetripper_import.structure.game_structure import GameStructure
@@ -83,3 +86,35 @@ def test_load_falls_back_to_mixed_structure_for_unrecognized_directory(tmp_path)
     assert game_structure.platform_structure is None
     assert game_structure.mixed_structure is not None
     assert game_structure.is_valid
+
+
+def test_load_from_a_zip_tracks_and_disposes_the_extracted_temp_directory(tmp_path):
+    """2026-08-03 fix: GameStructure.load's zip_extractor.process call previously created a
+    temp directory that nothing ever tracked or cleaned up. Loading directly from a plain
+    directory (every other test in this file) never exercises that path at all -- only an
+    archive path (.zip/.apk/...) does."""
+    game_data_bytes = io.BytesIO()
+    with zipfile.ZipFile(game_data_bytes, "w") as archive:
+        archive.writestr("MyGame.exe", b"")
+        stream = SmartStream.create_memory()
+        builder = SerializedFileBuilder(
+            generation=FormatVersion.LARGE_FILES_SUPPORT, version=UnityVersion(2019, 4, 0),
+            platform=BuildTarget.STANDALONE_WIN64_PLAYER, has_type_tree=False,
+        )
+        builder.build().write(stream)
+        stream.flush()
+        archive.writestr("MyGame_Data/globalgamemanagers", bytes(stream.to_array()))
+
+    zip_path = tmp_path / "MyGame.zip"
+    zip_path.write_bytes(game_data_bytes.getvalue())
+
+    game_structure = GameStructure.load([str(zip_path)], FS)
+
+    assert len(game_structure.temp_directories) == 1
+    extracted_directory = game_structure.temp_directories[0]
+    assert FS.directory.exists(extracted_directory)
+
+    game_structure.dispose()
+
+    assert not FS.directory.exists(extracted_directory)
+    assert game_structure.temp_directories == []

@@ -225,6 +225,17 @@ def load_exported_project(path: str) -> None:
 
 
 def reset() -> None:
+    if _state.game_data is not None and _state.game_data.temp_directories:
+        # 2026-08-03 fix: an archive (.apk/.ipa/...) extracted while loading the game we're
+        # about to discard leaks its temp directory forever otherwise -- nothing else in the
+        # GUI holds a reference to it once game_data is replaced below. Safe here specifically
+        # because we're replacing the whole loaded game (a fresh load_paths, or an explicit
+        # reset): the ExportPlan/preview built from the old game_data is cleared in this same
+        # call, so nothing downstream reads from those files again.
+        from assetripper_import.structure import zip_extractor
+
+        zip_extractor.cleanup(_state.game_data.temp_directories, LocalFileSystem.instance())
+
     _state.game_bundle = None
     _state.game_data = None
     _state.load_errors = []
