@@ -4,8 +4,9 @@ File này là **nguồn sự thật duy nhất** về tiến độ port AssetRip
 Mọi agent/session làm việc trên project này đọc file này trước, và tự tick checkbox sau khi xong.
 
 - **Branch:** `claude/convert-project-python-6mee7g`
-- **Trạng thái:** Phase 1-12, 14, 15 xong, Phase 13 và 16 đang làm (13a/13b/13h xong, 13c một
-  phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể — xem PHẦN B; 16a+16b+16c
+- **Trạng thái:** Phase 1-12, 13, 14, 15 xong, Phase 16 đang làm (13a/13b/13h port xong, 13c một
+  phần, 13d/13e/13f/13g/13i đã rà soát và đánh dấu `[~]` với lý do cụ thể, không còn việc khả thi
+  nào chưa làm — xem PHẦN B; 16a+16b+16c
   xong, 16f phần 1 (dựng `SerializableType` thật từ Mono `.dll`, gồm PPtr detection + kế thừa
   nhiều cấp) cũng xong — nhưng **chưa nối vào pipeline export** (16f phần 2: `GameAssetFactory`/
   `script_exporter`/`GameStructure` chưa gọi tới), xem 16f).
@@ -186,7 +187,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 10 | Settings model + trang Settings | ✅ `1eaef6f` |
 | 11 | GUI overhaul | ✅ `f9c9b80` (một phần — xem ghi chú) |
 | **12** | **Prefab/Scene export (`.prefab`/`.unity`)** | ✅ `6b4fae3` (một phần — xem ghi chú) |
-| 13 | Asset type còn thiếu (13a-13i) | 🟡 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ `c8093ba`. 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục) |
+| 13 | Asset type còn thiếu (13a-13i) | ✅ 13a `25d7b0b`, 13b `19e3b0a`, 13c ⚠️ `93d591b` (một phần), 13h ✅ `c8093ba`. 13d/13e/13f/13g/13i `[~]` — đã rà soát, không port (lý do trong từng mục). Không còn việc khả thi nào chưa làm |
 | **14** | **Input format còn thiếu (WebGL/WebPlayer/pre-5.0/Zstd)** | ✅ `5cc200a` |
 | **15** | **Exporter thiếu ảnh hưởng "project mở được"** | ✅ `994daee` (một phần — `EditorBuildSettingsExportCollection`/`EngineAssets` vẫn `[~]`, xem ghi chú) |
 | 16 | **Dựng lại `.cs` từ IL2CPP / Mono** (16a-16g) | 🟡 Đang làm — 16a+16b+16c ✅ (16b `38a23cd`, 16a+16c `acd8e36`), 16f phần 1 ✅ `2427b82` (dựng `SerializableType` thật, PPtr + kế thừa). Đọc được Mono `.dll` thật nhưng **chưa nối vào export** (16f phần 2). `16d`/`16e` **bị chặn** tới khi có IL2CPP build thật |
@@ -576,7 +577,7 @@ nhưng không ảnh hưởng kết quả vì các phase này độc lập nhau. 
 Đánh số giữ nguyên theo thứ tự thêm vào file (append-only, đúng giao thức tick) — số phase **không**
 phải thứ tự làm.
 
-### Phase 13 — Asset type còn thiếu ⬜
+### Phase 13 — Asset type còn thiếu ✅ (13a/13b/13h port xong; 13c một phần; 13d/13e/13f/13g/13i `[~]` có lý do cụ thể — không còn việc khả thi nào chưa làm)
 
 **Phát hiện quan trọng từ audit:** phần lớn type trong danh sách này **đã export được dưới dạng YAML
 generic với đúng extension** qua `DefaultYamlExporter` + `_EXTENSION_BY_CLASS_ID`
