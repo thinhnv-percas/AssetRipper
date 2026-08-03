@@ -20,7 +20,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   (CustomResourceProvider thật ra đã port từ đầu; ExportPlan cache đã làm xong ở 17c nhưng quên
   tick; ghi chú MonoBehaviour ở Phase 18 chưa cập nhật theo 16f) — không có bug chức năng nào khác
   phát hiện thêm ngoài rò rỉ đĩa.
-  773 tests pass. Commit cuối: `(pending)`.
+  773 tests pass. Commit cuối: `391c6ae`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
