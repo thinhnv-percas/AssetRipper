@@ -73,9 +73,19 @@ def _decode_fsb5(raw_data: bytes) -> "tuple[bytes, str]":
         container = fsb5.FSB5(raw_data)
         if not container.samples:
             return raw_data, _FSB5_EXTENSION
-        # A multi-sample FSB5 has no single output file it could map to, and Unity's own
-        # AudioClip assets are one sample each -- so only the first is rebuilt, matching how
-        # upstream's AudioClipExporter treats the clip as a single audio file.
+        if len(container.samples) > 1:
+            # A Unity AudioClip is one sample, and an export collection maps one asset to one
+            # file -- so there is no correct place to put samples 2..n, and silently dropping
+            # them would be the exact "wrong but plausible output" this port avoids. Dump the
+            # whole container verbatim instead: the user keeps every sample and can extract them
+            # with an FSB tool, and the warning says why. (Not observed in any real fixture --
+            # all 11 clips in demo-android.apk are single-sample.)
+            _logger.warning(
+                "FSB5 container holds %d samples; a single AudioClip maps to one file, so the raw "
+                ".fsb is exported instead of silently keeping only the first sample.",
+                len(container.samples),
+            )
+            return raw_data, _FSB5_EXTENSION
         return container.rebuild_sample(container.samples[0]), container.get_sample_extension()
     except Exception as ex:  # noqa: BLE001 -- includes fsb5's LibraryNotFoundException for libvorbis
         _logger.warning(

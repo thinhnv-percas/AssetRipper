@@ -13,7 +13,7 @@ import wave
 
 from assetripper_export_modules.audio_clip_decoder import decode, get_export_extension
 
-from ._fsb5_builder import build_pcm16_fsb5
+from ._fsb5_builder import build_multi_sample_pcm16_fsb5, build_pcm16_fsb5
 
 _PCM = struct.pack("<8h", 0, 1000, -1000, 500, -500, 0, 250, -250)
 
@@ -50,6 +50,15 @@ def test_extension_agrees_with_what_decode_actually_writes():
     those two disagreed, a file would get the wrong extension for its contents."""
     blob = build_pcm16_fsb5(_PCM)
     assert get_export_extension(blob) == decode(blob)[1]
+
+
+def test_multi_sample_fsb5_falls_back_rather_than_silently_dropping_samples():
+    """One AudioClip maps to one exported file, so samples 2..n have nowhere to go. Keeping only
+    the first would look like success while losing data, so the whole container is dumped."""
+    data, extension = decode(build_multi_sample_pcm16_fsb5(_PCM))
+
+    assert extension == "fsb"
+    assert data[:4] == b"FSB5", "the raw container must be preserved, not a partial rebuild"
 
 
 def test_malformed_fsb5_falls_back_to_a_verbatim_fsb_dump():

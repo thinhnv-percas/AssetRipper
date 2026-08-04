@@ -14,6 +14,19 @@ picker button.
 native picker's default filter doesn't hide them -- before this, a user picking a `.apk` off
 their desktop had no reason to expect the dialog would show it. "All files" is still listed so
 nothing is ever actually hidden, just deprioritized.
+
+**2026-08-03 (Phase 20e audit follow-up):** upstream has five dialog endpoints; this port had
+two. Added the three missing ones -- `/Dialogs/Files` and `/Dialogs/Folders` (multi-select,
+upstream's `OpenFiles`/`OpenFolders`) and `/Dialogs/SaveFile`. Multi-select is a genuine
+capability gain rather than pure convenience: `game_file_loader.load_paths` has always taken a
+*list* of paths (a split APK + its `.obb` is the standard real case), but nothing in the GUI
+could ever produce more than one. `/Dialogs/SaveFile` is what an "export to..." field wants,
+where the target doesn't exist yet so a folder picker won't do.
+
+Multi-select responses return `{"paths": [...]}`; single-select keeps `{"path": "..."}` so the
+existing callers in `index.html` don't change. `askdirectory` has no multi-select mode in Tk at
+all, so `/Dialogs/Folders` collects folders one at a time until the user cancels -- documented
+in that route rather than pretending Tk offers something it doesn't.
 """
 from __future__ import annotations
 
@@ -26,8 +39,14 @@ _GAME_FILE_TYPES = [
     ("All files", "*.*"),
 ]
 
+_MAX_FOLDERS = 32
+"""Safety bound on `/Dialogs/Folders`' repeat-until-cancel loop, so a stuck dialog can't spin
+forever. Far above any realistic number of game directories."""
 
-def _open_dialog(kind: str) -> "str | None":
+
+def _with_tk(action):
+    """Runs `action(root, filedialog)` against a hidden, top-most Tk root, returning None on any
+    failure (no tkinter, no display, dialog cancelled) so every route can degrade identically."""
     try:
         import tkinter
         from tkinter import filedialog
@@ -39,28 +58,68 @@ def _open_dialog(kind: str) -> "str | None":
         root.withdraw()
         root.attributes("-topmost", True)
         try:
-            if kind == "file":
-                path = filedialog.askopenfilename(parent=root, filetypes=_GAME_FILE_TYPES)
-            else:
-                path = filedialog.askdirectory(parent=root)
+            return action(root, filedialog)
         finally:
             root.destroy()
-        return path or None
     except Exception:  # noqa: BLE001 -- any Tk/display failure just degrades to unavailable
         return None
 
 
+def _single(result):
+    if not result:
+        return jsonify({"available": False}), 404
+    return jsonify({"available": True, "path": result})
+
+
+def _multiple(results):
+    if not results:
+        return jsonify({"available": False}), 404
+    return jsonify({"available": True, "paths": list(results)})
+
+
 @bp.get("/File")
 def file():
-    path = _open_dialog("file")
-    if path is None:
-        return jsonify({"available": False}), 404
-    return jsonify({"available": True, "path": path})
+    return _single(_with_tk(lambda root, fd: fd.askopenfilename(parent=root, filetypes=_GAME_FILE_TYPES) or None))
+
+
+@bp.get("/Files")
+def files():
+    """Upstream's `OpenFiles`. `askopenfilenames` returns a tuple (possibly empty on cancel)."""
+
+    def action(root, fd):
+        selected = fd.askopenfilenames(parent=root, filetypes=_GAME_FILE_TYPES)
+        return list(selected) if selected else None
+
+    return _multiple(_with_tk(action))
 
 
 @bp.get("/Folder")
 def folder():
-    path = _open_dialog("folder")
-    if path is None:
-        return jsonify({"available": False}), 404
-    return jsonify({"available": True, "path": path})
+    return _single(_with_tk(lambda root, fd: fd.askdirectory(parent=root) or None))
+
+
+@bp.get("/Folders")
+def folders():
+    """Upstream's `OpenFolders`. Tk has **no** multi-select directory dialog, so this reopens the
+    single-folder picker until the user cancels, accumulating what they chose. That's a real UX
+    difference from upstream's native multi-select dialog, not a hidden one -- but it does let a
+    user hand `load_paths` several game directories, which was previously impossible."""
+
+    def action(root, fd):
+        chosen: list[str] = []
+        while len(chosen) < _MAX_FOLDERS:
+            path = fd.askdirectory(parent=root)
+            if not path:
+                break
+            if path not in chosen:
+                chosen.append(path)
+        return chosen or None
+
+    return _multiple(_with_tk(action))
+
+
+@bp.get("/SaveFile")
+def save_file():
+    """Upstream's `SaveFile`. Unlike the open dialogs this returns a path that need not exist
+    yet, which is what an export-target field actually needs."""
+    return _single(_with_tk(lambda root, fd: fd.asksaveasfilename(parent=root) or None))

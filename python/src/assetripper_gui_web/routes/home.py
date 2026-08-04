@@ -15,7 +15,7 @@ doesn't add; set them via a `FullConfiguration` JSON file and the CLI's `--confi
 """
 from __future__ import annotations
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 
 from assetripper_export_configuration.audio_export_format import AudioExportFormat
 from assetripper_export_configuration.export_settings import ExportSettings
@@ -30,7 +30,7 @@ from assetripper_export_configuration.text_export_mode import TextExportMode
 from assetripper_export_configuration.full_configuration import FullConfiguration
 from assetripper_processing.configuration.bundled_assets_export_mode import BundledAssetsExportMode
 
-from .. import game_file_loader
+from .. import config_files, game_file_loader
 from ..paths import BundlePath
 
 bp = Blueprint("home", __name__)
@@ -94,7 +94,70 @@ def premium_features():
 
 @bp.get("/ConfigurationFiles")
 def configuration_files():
-    return render_template("stub.html", page_title="Configuration Files")
+    """2026-08-03 (Phase 20e audit follow-up): was `stub.html`. Now a real page over
+    `config_files`'s `SingletonDataStorage`/`ListDataStorage` -- see that module's docstring for
+    why it uses its own storage instance rather than `FullConfiguration`'s dataclasses."""
+    return render_template("configuration_files.html", page_title="Configuration Files", **config_files.view_model())
+
+
+def _redirect_to_configuration_files():
+    return redirect(url_for("home.configuration_files"))
+
+
+@bp.post("/ConfigurationFiles/Singleton/Add")
+def configuration_singleton_add():
+    key = request.form.get("Key", "")
+    if not key:
+        abort(400, description="A Key is required.")
+    config_files.singleton_add(key, request.form.get("Content", ""))
+    return _redirect_to_configuration_files()
+
+
+@bp.post("/ConfigurationFiles/Singleton/Remove")
+def configuration_singleton_remove():
+    key = request.form.get("Key", "")
+    if not key:
+        abort(400, description="A Key is required.")
+    config_files.singleton_remove(key)
+    return _redirect_to_configuration_files()
+
+
+@bp.post("/ConfigurationFiles/List/Add")
+def configuration_list_add():
+    key = request.form.get("Key", "")
+    if not key:
+        abort(400, description="A Key is required.")
+    config_files.list_add(key, request.form.get("Content", ""))
+    return _redirect_to_configuration_files()
+
+
+@bp.post("/ConfigurationFiles/List/Replace")
+def configuration_list_replace():
+    key = request.form.get("Key", "")
+    index = _form_index()
+    if not key or index is None:
+        abort(400, description="A Key and a numeric Index are required.")
+    if not config_files.list_replace(key, index, request.form.get("Content", "")):
+        abort(400, description="No list entry at that key and index.")
+    return _redirect_to_configuration_files()
+
+
+@bp.post("/ConfigurationFiles/List/Remove")
+def configuration_list_remove():
+    key = request.form.get("Key", "")
+    index = _form_index()
+    if not key or index is None:
+        abort(400, description="A Key and a numeric Index are required.")
+    if not config_files.list_remove(key, index):
+        abort(400, description="No list entry at that key and index.")
+    return _redirect_to_configuration_files()
+
+
+def _form_index() -> "int | None":
+    try:
+        return int(request.form["Index"])
+    except (KeyError, ValueError):
+        return None
 
 
 _ENUM_CHOICES = {

@@ -36,7 +36,7 @@ from __future__ import annotations
 
 from flask import Blueprint, flash, jsonify, redirect, request, url_for
 
-from .. import game_file_loader
+from .. import config_files, game_file_loader
 
 bp = Blueprint("commands", __name__)
 
@@ -68,6 +68,9 @@ def load_progress():
 @bp.post("/Reset")
 def reset():
     game_file_loader.reset()
+    # 2026-08-03: `/ConfigurationFiles` entries are session state too, so a Reset that left them
+    # behind would be a half-reset (upstream's Reset clears its Settings storage the same way).
+    config_files.reset()
     return redirect(url_for("home.index"))
 
 

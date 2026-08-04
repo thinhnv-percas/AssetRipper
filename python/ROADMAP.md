@@ -242,7 +242,7 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 
 - [x] Layout builder + registry (`asset_creation/layouts/`)
 - [x] `text_asset.py`, `game_object.py`, `transform.py`, `asset_bundle.py`, `mono_script.py`
-- [ ] Còn thiếu layout cho: `Texture2D`, `Sprite`, `SpriteAtlas`, `Mesh`, `AudioClip`, `Font`, `VideoClip`, `Material`, `Shader`, `MonoBehaviour`, `ResourceManager`, `BuildSettings`, `PlayerSettings`, `TerrainData`, `AnimationClip` — plan gốc dự kiến ~20 type, hiện có 5. **Asset ngoài 5 type này, trong file bị strip type tree, sẽ thành `UnknownObject`.**
+- [x] **(cập nhật 2026-08-03)** `Texture2D`, `AudioClip`, `Sprite`, `Material`, `Mesh` **đã có** (Phase 18, byte-verified trên fixture thật) → hiện có **10/20** layout. Còn thiếu: `SpriteAtlas`, `Font`, `VideoClip`, `Shader` (`[~]`, đã điều tra — Phase 18), `MonoBehaviour` (nay đọc được qua Phase 16f cho game Mono, còn IL2CPP cần 16d/16e), `ResourceManager`, `BuildSettings` (`[~]`, xem Phase 18/20f), `PlayerSettings`, `TerrainData`, `AnimationClip`. **Asset ngoài 10 type này, trong file bị strip type tree, vẫn thành `UnknownObject`.** ⚠️ Và Phase 20a/20b chứng minh: "có layout" ≠ "layout đúng" — 2/5 layout gốc đã sai suốt từ Phase 2
 
 ### Phase 3 — Game structure discovery ✅ `17ebd0c`
 
@@ -308,9 +308,9 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [x] `OriginalPathProcessor`
 - [x] `MainAssetProcessor`
 - [x] `EditorFormatProcessor`
-- [ ] `PrefabProcessor` — **plan Phase 5 có ghi nhưng bỏ sót.** Xem Phase 12
+- [x] `PrefabProcessor` — **đã port ở Phase 12** (`processing/prefabs/prefab_processor.py`); checkbox này chỉ chưa được tick lại (sửa 2026-08-03)
 - [~] 11 assembly processor — iterate `assembly_manager.get_assemblies()`, luôn rỗng ở port này → provably no-op
-- [ ] `AnimatorControllerProcessor`, `AudioMixerProcessor`, `LightingDataProcessor`, `SpriteProcessor`, `ScriptableObjectProcessor` — xem Phase 13
+- [x] `SpriteProcessor` (13c, một phần) + `ScriptableObjectProcessor` (13h) **đã port**. `AnimatorControllerProcessor`/`AudioMixerProcessor`/`LightingDataProcessor` là `[~]` chặn cứng bởi instance-synthesis layer — xem Phase 13 (sửa checkbox 2026-08-03)
 
 ### Phase 6 — Content exporters ✅ `e2841be` `aaade6e` `e9f837a` `51a34a4` `7ce13f6` `84cbf57`
 
@@ -1912,21 +1912,39 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
 
 ## Việc lẻ, chưa xếp phase
 
-- [ ] **(Phase 20e audit)** `ConfigurationFiles`: port chỉ có route **đọc**; 5 route sửa của upstream
-      (`List/Add`, `List/Remove`, `List/Replace`, `Singleton/Add`, `Singleton/Remove`) chưa port
-- [ ] **(Phase 20e audit)** `Dialogs`: thiếu 3 biến thể `OpenFiles` (multi-select file), `OpenFolders`,
-      `SaveFile`. Giá trị thấp — `load_paths` vốn nhận list nên đây chỉ là tiện lợi UI
+- [x] **(2026-08-03) `ConfigurationFiles` xong.** Audit trước ghi "chỉ có route đọc" là **nói quá**:
+      `/ConfigurationFiles` thật ra render `stub.html` — trang trắng. Đã làm thật: `config_files.py`
+      (mới) + `configuration_files.html` (mới) + đủ **5 route sửa** của upstream. **Đây cũng là
+      consumer ĐẦU TIÊN của `assetripper_configuration`** (`DataStorage`/`SingletonDataStorage`/
+      `ListDataStorage`, port + test từ Phase 22 rồi **không ai gọi tới** suốt từ đó → vừa đóng gap
+      route, vừa làm sống lại code đã chết). Cố ý dùng storage **riêng** chứ không đụng vào
+      `FullConfiguration` (docstring của nó đã giải thích dài dòng vì sao settings của port này là 3
+      dataclass thuần) — port nguyên văn route sẽ phải đảo ngược quyết định đó. Giữ đúng hành vi
+      upstream kể cả chỗ lạ: `Singleton/Remove` gọi `.Clear()` nên **key vẫn còn**, content rỗng.
+      `/Reset` giờ xoá luôn các entry này (trước sẽ là reset một nửa). Test: 15 test mới
+- [x] **(2026-08-03) `Dialogs` đủ 5 route.** Thêm `/Dialogs/Files`, `/Dialogs/Folders`,
+      `/Dialogs/SaveFile`. **Sửa lại đánh giá "chỉ là tiện lợi UI"**: multi-select là *capability*
+      thật — `load_paths` luôn nhận list (APK split + `.obb` là case thật phổ biến) nhưng **GUI
+      trước đây không có cách nào tạo ra >1 path**. Tk **không có** dialog multi-select cho
+      directory nên `/Dialogs/Folders` mở lại picker cho tới khi user cancel (ghi rõ trong
+      docstring là khác upstream, không giả vờ Tk có thứ nó không có), có bound `_MAX_FOLDERS=32`.
+      Multi-select trả `{"paths": [...]}`, single-select giữ `{"path": ...}` để không phá JS sẵn có
+      ở `index.html`. Test: 6 test mới (gồm 2 test monkeypatch tầng Tk để verify **shape thành
+      công**, vì môi trường headless chỉ chạy được nhánh degrade)
 - [~] **(Phase 20e audit)** `/Localization` — **không port, cố ý**: port này chỉ có tiếng Anh, không có
       hạ tầng localization nào. Không chặn tính năng
 - [ ] **(Phase 20c)** `AudioExportFormat.PreferWav` vẫn là no-op: đổi `.ogg` rebuild sang `.wav` cần
       một Vorbis **decoder** + re-encode PCM, mà `fsb5` chỉ dựng lại Ogg stream chứ không decode. Unity
       import `.ogg` trực tiếp nên giá trị thấp
-- [ ] **(Phase 20c)** FSB5 nhiều sample trong 1 container: hiện chỉ rebuild sample đầu (Unity AudioClip
-      vốn là 1 sample/asset, nên chưa gặp case thật). Nếu gặp, cần quyết định naming cho sample 2..n
+- [x] **(2026-08-03)** FSB5 nhiều sample: **đã quyết định và implement** — dump nguyên container
+      `.fsb` + log warning, thay vì im lặng giữ sample đầu. Lý do: 1 AudioClip ↔ 1 file export, nên
+      sample 2..n **không có chỗ đúng nào để đi**; giữ sample đầu là "output sai mà trông như thành
+      công", đúng loại lỗi port này tránh. User giữ được đủ mọi sample và tự tách bằng tool FSB.
+      Test: `_fsb5_builder.build_multi_sample_pcm16_fsb5` (mới) + 1 test
 
-- [ ] `tests/io_endian/` và `tests/primitives/` là **thư mục rỗng** — `EndianSpanReader` và
+- [x] **(2026-08-03)** `tests/io_endian/` và `tests/primitives/` **không còn rỗng** — 60 test mới: `test_endian_span_reader.py` (23: cả 2 endianness cho mọi kiểu multi-byte, `offset` semantics thật, align, bulk read, overrun phải raise), `test_unity_version.py` (18: ordering, partial `equals`, mốc `2020.2.0a21` mà `get_max_depth_level` dùng, parse/format), `test_unity_guid.py` (19: round-trip, và **`md5_hash` pin đúng byte-interpretation** — nó là thứ giữ `.meta` GUID của script ổn định giữa các lần export, đổi là vỡ mọi reference trong project Unity đang mở). (Ghi chú gốc: `EndianSpanReader` và
       `UnityVersion`/`UnityGuid` hiện chỉ được test gián tiếp qua `import_`. Nên có unit test trực tiếp
-- [ ] Bổ sung layout Phase 2 cho ~15 type còn thiếu (xem Phase 2)
+- [ ] Bổ sung layout Phase 2 cho ~10 type còn thiếu (xem Phase 2 — đã từ 15 xuống 10 sau Phase 18)
 - [ ] Bổ sung importer Phase 4 còn thiếu (xem Phase 4)
 - [ ] Chưa port test upstream: `StrippedAssetTests`, `TextureImporterTests`, `PathIDCalculationTests`,
       `ExportTests`, và toàn bộ `AssetRipper.SerializationLogic.Tests`
@@ -1938,7 +1956,7 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
       `SceneHierarchyObject` nên cần kiểm tra xung đột trước khi port
 - [ ] `YamlStreamedAssetExporter.cs` / `YamlStreamedAssetExportCollection.cs` chưa port — YAML export
       cho asset có streamed data (Phase 9 chỉ làm nhánh binary dump)
-- [ ] `ScriptableObjectGroupExporter.cs` chưa port (đi cùng 13h)
+- [x] `ScriptableObjectGroupExporter.cs` — **đã port ở 13h** (`project/scriptable_object_group_export_collection.py` + nhánh dispatch trong `scene_yaml_exporter.py`); checkbox chưa tick (sửa 2026-08-03)
 - [ ] `DeletedAssetsExporter.cs` / `DeletedAssetsExportCollection.cs` chưa port — premium-adjacent,
       chưa rõ có cần
 - [ ] `LightmapTextureAssetExporter.cs`, `RawTextureExporter.cs` chưa port (đi cùng 13f/13i)
@@ -1946,7 +1964,7 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
       `RedirectExportCollection` (bản nhiều asset) chưa
 - [x] `VirtualFileSystem.cs` ✅ `a71bef0` — port ở `assetripper_io_files/virtual_file_system.py`, xem
       Phase 17, mục 17a.
-- [ ] `GameInitializer.CustomResourceProvider.cs` chưa port (Phase 3 chỉ ghi nhận
+- [x] `GameInitializer.CustomResourceProvider.cs` — **đã port từ đầu**, entry này trùng lặp với entry đã sửa ở Phase 3 (audit cũ tìm theo tên file C# nên báo nhầm; bản Python gộp vào `game_initializer.py`). Sửa 2026-08-03. (Ghi chú gốc: Phase 3 chỉ ghi nhận
       `EngineResourceInjector`/`VersionChanger` bị bỏ, thiếu mục này)
 - [ ] `ObjectFactory` pattern (dùng bởi `SpriteProcessor` upstream, `AssetGroup`-tạo-theo-nhu-cầu) chưa
       có tương đương — Phase 12 tạo hierarchy trực tiếp. Xem lại khi làm 13c

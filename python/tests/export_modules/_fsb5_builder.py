@@ -23,6 +23,22 @@ _PCM16_MODE = 2
 # The frequency table FSB5 packs into the sample header's 4-bit frequency field; index 8 is
 # 44100 Hz. Anything not in that table needs an explicit FREQUENCY metadata chunk instead.
 _FREQUENCY_44100 = 8
+_HEADER_SIZE = struct.calcsize(_FSB5_HEADER_FORMAT)
+
+
+def build_multi_sample_pcm16_fsb5(pcm_frames: bytes, *, channels: int = 1) -> bytes:
+    """A two-sample container, for the "more than one sample" branch of `decode`. Both sample
+    headers describe the same data region -- enough for the parser to report two samples, which
+    is the only thing the branch keys off."""
+    single = build_pcm16_fsb5(pcm_frames, channels=channels)
+    header = single[:_HEADER_SIZE]
+    sample_header = single[_HEADER_SIZE:_HEADER_SIZE + 8]
+    data = single[_HEADER_SIZE + 8:]
+
+    patched = bytearray(header)
+    struct.pack_into("<I", patched, 8, 2)  # numSamples
+    struct.pack_into("<I", patched, 12, 16)  # sampleHeadersSize (two 8-byte headers)
+    return bytes(patched) + sample_header + sample_header + data
 
 
 def build_pcm16_fsb5(pcm_frames: bytes, *, channels: int = 1) -> bytes:
