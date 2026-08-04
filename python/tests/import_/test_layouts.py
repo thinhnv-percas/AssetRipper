@@ -49,33 +49,57 @@ def test_text_asset_layout():
 
 
 def test_mono_script_layout():
-    data = unity_string("MyScript") + unity_string("MyBehaviour") + unity_string("MyGame") + unity_string("Assembly-CSharp")
+    """Shape byte-verified against the real fixture on 2026-08-03 -- m_ExecutionOrder and
+    m_PropertiesHash sit *between* m_Name and m_ClassName. This test previously encoded the
+    old, wrong shape (those two fields omitted), which is exactly why the bug it would have
+    caught went unnoticed: both sides of the contract were wrong in the same way. See
+    layouts/mono_script.py's docstring for the real offsets."""
+    data = (
+        unity_string("MyScript")
+        + struct.pack("<i", 7)  # m_ExecutionOrder
+        + struct.pack("<4I", 1, 2, 3, 4)  # m_PropertiesHash (Hash128 == four uint32s)
+        + unity_string("MyBehaviour")
+        + unity_string("MyGame")
+        + unity_string("Assembly-CSharp")
+    )
     structure, reader = _read_via_registry(115, UnityVersion(2019, 4, 0), data)
     assert structure["m_Name"] == "MyScript"
+    assert structure["m_ExecutionOrder"] == 7
+    assert structure["m_PropertiesHash"]["m_u32_0"] == 1
+    assert structure["m_PropertiesHash"]["m_u32_3"] == 4
     assert structure["m_ClassName"] == "MyBehaviour"
     assert structure["m_Namespace"] == "MyGame"
     assert structure["m_AssemblyName"] == "Assembly-CSharp"
     assert reader.position == len(data)
 
 
+def test_mono_script_layout_is_not_registered_before_5_0():
+    assert default_registry().get(115, UnityVersion(4, 7, 0)) is None
+
+
 def test_game_object_layout():
+    """Shape byte-verified against the real fixture on 2026-08-03: m_Component elements are
+    bare 12-byte PPtrs (no `int first` -- that's the pre-5.5 shape), the tag is a UInt16
+    m_Tag (not a m_TagString string, which is editor-format only), and m_IsActive carries no
+    trailing align. Like test_mono_script_layout above, the previous version of this test
+    encoded the same wrong shape the layout did."""
     data = (
         struct.pack("<i", 2)  # m_Component count
-        + struct.pack("<i", 0) + struct.pack("<i", 0) + struct.pack("<q", 100)  # first component
-        + struct.pack("<i", 0) + struct.pack("<i", 0) + struct.pack("<q", 200)  # second component
+        + struct.pack("<i", 0) + struct.pack("<q", 100)  # first component (bare PPtr)
+        + struct.pack("<i", 0) + struct.pack("<q", 200)  # second component
         + struct.pack("<i", 5)  # m_Layer
         + unity_string("Player")  # m_Name
-        + unity_string("Untagged")  # m_TagString
-        + b"\x01" + b"\x00\x00\x00"  # m_IsActive (aligned bool)
+        + struct.pack("<H", 3)  # m_Tag (UInt16)
+        + b"\x01"  # m_IsActive -- last field, no trailing pad
     )
     structure, reader = _read_via_registry(1, UnityVersion(2019, 4, 0), data)
     components = structure["m_Component"]
     assert len(components) == 2
-    assert components[0].second.value.path_id == 100
-    assert components[1].second.value.path_id == 200
+    assert components[0].path_id == 100
+    assert components[1].path_id == 200
     assert structure["m_Layer"] == 5
     assert structure["m_Name"] == "Player"
-    assert structure["m_TagString"] == "Untagged"
+    assert structure["m_Tag"] == 3
     assert structure["m_IsActive"] is True
     assert reader.position == len(data)
 

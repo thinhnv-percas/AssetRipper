@@ -106,6 +106,51 @@ def test_real_content_is_actually_exported(tmp_path):
     assert "m_SavedProperties:" in mat_text
 
 
+def test_real_scripts_are_actually_exported(tmp_path):
+    """2026-08-03 (ROADMAP Phase 18): `layouts/mono_script.py` omitted m_ExecutionOrder and
+    m_PropertiesHash, which sit *between* m_Name and m_ClassName -- so all 2076 MonoScripts in
+    this build failed `try_read` and became `UnreadableObject`. Since `ProjectExporter`
+    dispatches `RawDataObject` subclasses by Python type rather than class ID, they never
+    reached `ScriptExporter` at all and this export produced **zero** `.cs` files, silently.
+    Asserts both halves: the assets now read, and the `.cs` files now actually appear."""
+    handler = ExportHandler()
+    game_data = handler.load_and_process([str(_APK_PATH)], FS, settings=None)
+
+    mono_scripts = [a for a in game_data.game_bundle.fetch_assets_in_hierarchy() if a.class_id == 115]
+    assert len(mono_scripts) > 1000, f"expected many MonoScripts, got {len(mono_scripts)}"
+    readable = [a for a in mono_scripts if a.get("m_ClassName")]
+    assert len(readable) == len(mono_scripts), (
+        f"only {len(readable)}/{len(mono_scripts)} MonoScripts read their m_ClassName"
+    )
+
+    handler.export(game_data, str(tmp_path), FS, settings=None)
+
+    cs_files = list(tmp_path.rglob("*.cs"))
+    assert len(cs_files) > 1000, f"expected many .cs files, got {len(cs_files)}"
+    # Every emitted script must be a real class declaration named after the MonoScript, even
+    # in the dummy-stub case (this build is IL2CPP, so no field recovery -- see Phase 16f).
+    sample = next(p for p in cs_files if p.stem == "GUISkin")
+    text = sample.read_text(encoding="utf-8")
+    assert "class GUISkin" in text
+
+
+def test_real_game_objects_are_actually_readable(tmp_path):
+    """2026-08-03 (ROADMAP Phase 18): `layouts/game_object.py` modeled m_Component as
+    `pair<int, PPtr>` (the pre-5.5 shape) and the tag as a `m_TagString` string, plus a
+    trailing align on the last field -- three separate errors that made all 407 GameObjects in
+    this build unreadable, losing every name/layer/component list."""
+    game_data = ExportHandler().load_and_process([str(_APK_PATH)], FS, settings=None)
+
+    game_objects = [a for a in game_data.game_bundle.fetch_assets_in_hierarchy() if a.class_id == 1]
+    assert len(game_objects) > 300, f"expected many GameObjects, got {len(game_objects)}"
+    named = [a for a in game_objects if a.get("m_Name")]
+    assert len(named) == len(game_objects), f"only {len(named)}/{len(game_objects)} GameObjects read a name"
+    # Components must resolve as real PPtrs, which is what scene/prefab hierarchy needs.
+    with_components = [a for a in game_objects if a.get("m_Component")]
+    assert len(with_components) > 300
+    assert with_components[0].get("m_Component")[0].path_id != 0
+
+
 def test_real_meshes_are_actually_exported(tmp_path):
     """Phase 18's Mesh gap, closed: before `layouts/mesh.py` existed, every Mesh in this build
     read back as a content-less UnknownObject (no `.glb` ever got produced). Asserts the

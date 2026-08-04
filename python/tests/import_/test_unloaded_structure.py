@@ -94,8 +94,15 @@ def _build_serialized_file(objects) -> "object":
 
 
 def _build_collection(mono_behaviour_payload: bytes, assembly_manager):
+    # m_Name, m_ExecutionOrder, m_PropertiesHash (Hash128), m_ClassName, m_Namespace,
+    # m_AssemblyName -- the byte-verified MonoScript shape, see layouts/mono_script.py.
     mono_script_payload = (
-        unity_string("TestBehaviour") + unity_string("TestBehaviour") + unity_string("MyGame") + unity_string("Test")
+        unity_string("TestBehaviour")
+        + struct.pack("<i", 0)
+        + struct.pack("<4I", 0, 0, 0, 0)
+        + unity_string("TestBehaviour")
+        + unity_string("MyGame")
+        + unity_string("Test")
     )
     serialized_file = _build_serialized_file([
         (1, _MONO_BEHAVIOUR_CLASS_ID, mono_behaviour_payload),
