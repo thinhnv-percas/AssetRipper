@@ -299,7 +299,7 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [x] Importers hand-written: `NativeFormatImporter`, `TextScriptImporter`, `ShaderImporter`, `MonoImporter`
 - [x] `override_exporter_for_class_id()` — dispatch theo class ID, vì dynamic reader sinh ra **cùng một Python type** cho mọi asset nên type-based dispatch không phân biệt được TextAsset vs Texture2D
 - [x] ⚠️ Importer còn thiếu: `TextureImporter`, `TrueTypeFontImporter`, `AudioImporter`,
-      `ModelImporter`, `VideoClipImporter`, `DefaultImporter` (2026-08-03, commit `(pending)`).
+      `ModelImporter`, `VideoClipImporter`, `DefaultImporter` (2026-08-03, commit `d4d22e2`).
       `DefaultImporter` đã có từ trước; 5 cái còn lại thêm ở `project/content_importers.py` trên
       base chung `project/asset_importer_base.py` (tránh 9 bản `walk_standard` gần giống nhau), và
       wire `_create_importer` vào 5 export collection tương ứng (Texture2D/AudioClip/Mesh/
