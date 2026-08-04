@@ -62,7 +62,10 @@ def _build_and_export(tmp_path, name: str, audio_bytes: bytes, compression_forma
     exporter.export(game_bundle, str(tmp_path), FS)
 
 
-def test_fsb5_audio_is_dumped_verbatim_with_fsb_extension(tmp_path):
+def test_undecodable_fsb5_audio_is_dumped_verbatim_with_fsb_extension(tmp_path):
+    """The fallback path (2026-08-03): a decodable FSB5 now becomes a real .wav/.ogg -- see
+    test_audio_clip_decoder.py. This payload is truncated garbage after the magic, so it takes
+    the documented raw-dump branch, which is upstream's behavior for an unsupported codec."""
     payload = b"FSB5" + b"\x00" * 60
     _build_and_export(tmp_path, "Explosion", payload)
 

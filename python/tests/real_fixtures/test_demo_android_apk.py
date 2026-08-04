@@ -92,14 +92,28 @@ def test_real_content_is_actually_exported(tmp_path):
 
     png_files = list(tmp_path.rglob("*.png"))
     mat_files = list(tmp_path.rglob("*.mat"))
-    audio_files = list(tmp_path.rglob("*.fsb"))
+    audio_files = list(tmp_path.rglob("*.ogg"))
     assert len(png_files) > 50, f"expected many real textures, got {len(png_files)}"
     assert len(mat_files) > 20, f"expected many real materials, got {len(mat_files)}"
     assert len(audio_files) > 5, f"expected several real audio clips, got {len(audio_files)}"
+    assert not list(tmp_path.rglob("*.fsb")), "no clip should fall back to a raw FMOD container"
 
     # Spot-check one PNG actually decodes as a real image, not a stub/placeholder.
     image = Image.open(png_files[0])
     assert image.size[0] > 0 and image.size[1] > 0
+
+    # 2026-08-03: audio used to come out as raw `.fsb` FMOD containers, which is what the user
+    # reported as "the audio format is wrong" -- nothing plays those. Assert the rebuilt file is
+    # a genuinely valid Ogg Vorbis stream (magic + a real identification header carrying the
+    # channel count and sample rate), not merely a renamed dump.
+    ogg = audio_files[0].read_bytes()
+    assert ogg[:4] == b"OggS"
+    first_packet_offset = 27 + ogg[26]
+    packet = ogg[first_packet_offset:first_packet_offset + 16]
+    assert packet[0] == 1 and packet[1:7] == b"vorbis", "missing Vorbis identification header"
+    channels, sample_rate = packet[11], int.from_bytes(packet[12:16], "little")
+    assert channels >= 1
+    assert sample_rate >= 8000
 
     mat_text = mat_files[0].read_text(encoding="utf-8")
     assert "m_Shader:" in mat_text

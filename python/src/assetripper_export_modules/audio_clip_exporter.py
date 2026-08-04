@@ -2,19 +2,20 @@
 {AudioClipExporter, AudioClipExportCollection, NativeAudioExporter}.cs
 
 Collapses upstream's two audio exporters (the FSB5-decoding `AudioClipExporter` and the
-always-raw `NativeAudioExporter`) into one, since this port never actually decodes FSB5
-(see audio_clip_decoder.py) -- both would produce the same output here. `m_Resource`
-(external `.resS`/StreamedResource) is now resolved as a fallback when `m_AudioData` is
+always-raw `NativeAudioExporter`) into one: `audio_clip_decoder.decode` handles both cases
+itself (rebuild when the codec is supported, verbatim `.fsb` dump when it isn't), so the two
+upstream classes would differ only in which branch of that single function they reach.
+
+`m_Resource` (external `.resS`/StreamedResource) is resolved as a fallback when `m_AudioData` is
 empty -- see assetripper_import/streamed_resource.py (Phase 9). Before that, this exporter
 declined outright whenever `m_AudioData` was empty, which is the common case: most player
 builds stream audio from `.resS` rather than embedding it.
 
-`AudioExportFormat` (Phase 10): accepted for parity with upstream's constructor, but has no
-observable effect here. Upstream's `PreferWav` only changes anything when its FSB5 rebuild
-produced an `.ogg` file (it then re-exports as `.wav` instead); this port never rebuilds
-FSB5 (see audio_clip_decoder.py), so `get_export_extension` never returns `"ogg"` and the
-`PreferWav` branch is unreachable dead code here, same as upstream's `Yaml`/`Native` values
-which don't apply to a raw-dump-only exporter either.
+`AudioExportFormat` (Phase 10): accepted for parity with upstream's constructor, but still
+has no observable effect. Upstream's `PreferWav` re-encodes a rebuilt `.ogg` as `.wav`, which
+needs a Vorbis *decoder* plus a PCM re-encode -- `fsb5` only rebuilds the Ogg stream, it
+doesn't decode it, so there is nothing here to convert. `.ogg` is emitted as-is (Unity imports
+it natively). See ROADMAP.md Phase 18. Upstream's `Yaml`/`Native` values don't apply either.
 """
 from __future__ import annotations
 
@@ -22,7 +23,7 @@ from assetripper_export_configuration.audio_export_format import AudioExportForm
 from assetripper_export_unity_projects.asset_export_collection import AssetExportCollection
 from assetripper_import.streamed_resource import get_streamed_resource_content
 
-from .audio_clip_decoder import get_export_extension
+from .audio_clip_decoder import decode, get_export_extension
 from .binary_asset_exporter import BinaryAssetExporter
 
 _AUDIO_CLIP_CLASS_ID = 83
@@ -38,7 +39,7 @@ class AudioClipExporter(BinaryAssetExporter):
         return False, None
 
     def export(self, container, asset, path: str, file_system) -> bool:
-        data = _audio_data_bytes(asset)
+        data, _extension = decode(_audio_data_bytes(asset), asset.get("m_CompressionFormat"))
         with file_system.file.create(path) as stream:
             stream.write(data, 0, len(data))
         return True
