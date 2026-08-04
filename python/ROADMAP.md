@@ -26,7 +26,7 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   11 file Ogg Vorbis thật). Cả 3 đều **sai âm thầm**, và 2 unit test liên quan đã encode đúng cùng
   cái shape sai đó nên không bắt được — xem 20d. Cộng **Phase 17f**: preview đổi sang 2 pane
   (tree project trái / preview asset phải) theo yêu cầu user, và **20e** audit route GUI vs tool gốc.
-  785 tests pass. Commit cuối: `(pending)`.
+  785 tests pass. Commit cuối: `7836de0`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -210,7 +210,7 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong `8d12472`; MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
-| 20 | **Audit tính năng vs tool gốc + 3 bug thật user báo** (20a-20e) | ✅ `(pending)` — MonoScript layout (0→1945 `.cs`), GameObject layout (407 asset), audio FSB5→Ogg/WAV thật, cộng audit route GUI |
+| 20 | **Audit tính năng vs tool gốc + 3 bug thật user báo** (20a-20e) | ✅ `f185fbb`/`5b9ac35`/`7836de0` — MonoScript layout (0→1945 `.cs`), GameObject layout (407 asset), audio FSB5→Ogg/WAV thật, cộng audit route GUI |
 
 Số test theo area (tổng 785): `export_modules` 142, `import_` 165, `io_files` 118, `numerics` 64,
 `assets` 48, `export_unity_projects` 63, `gui_web` 77, `io_files_bundle` 29, `processing` 34,
@@ -1471,7 +1471,7 @@ render nếu chưa có 17b, và 17b không chạy được nếu chưa có 17a.
    `(id(game_data), id(settings))`, cả `load_paths` và `/Settings/Edit` đều luôn tạo object mới (không
    mutate tại chỗ) nên so sánh identity là đủ để phát hiện stale, không cần gọi invalidate tường minh.
 
-#### 17f — Preview 2 pane: tree project bên trái, preview asset bên phải ✅ `(pending)` (user yêu cầu 2026-08-03)
+#### 17f — Preview 2 pane: tree project bên trái, preview asset bên phải ✅ `7836de0` (user yêu cầu 2026-08-03)
 
 User: *"chỉnh lại phần preview ... để chỉ làm 2 phần bên trái treeview project bên phải preview
 asset"*. (User viết "phase 19" nhưng preview là Phase 17 — đã xác nhận lại.)
@@ -1804,7 +1804,7 @@ khi 17d đã chốt giữ route debug) — đúng thứ tự dự kiến.
 
 ---
 
-### Phase 20 — Audit tính năng vs tool gốc + 3 bug thật user báo ✅ `(pending)` (2026-08-03)
+### Phase 20 — Audit tính năng vs tool gốc + 3 bug thật user báo ✅ `f185fbb` (20a/20b) `5b9ac35` (20c) `7836de0` (20d/20e) (2026-08-03)
 
 > Phiên này user yêu cầu 3 việc: (1) đối chiếu tính năng với tool gốc + check code + update roadmap,
 > (2) chỉnh preview thành 2 pane (tree trái / preview asset phải), (3) *"format audio đang chưa đúng,
