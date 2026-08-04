@@ -20,7 +20,13 @@ Mọi agent/session làm việc trên project này đọc file này trước, v�
   (CustomResourceProvider thật ra đã port từ đầu; ExportPlan cache đã làm xong ở 17c nhưng quên
   tick; ghi chú MonoBehaviour ở Phase 18 chưa cập nhật theo 16f) — không có bug chức năng nào khác
   phát hiện thêm ngoài rò rỉ đĩa.
-  773 tests pass. Commit cuối: `391c6ae`.
+  **(2026-08-03, phiên "check tính năng vs tool gốc") — 3 BUG THẬT USER BÁO, xem Phase 20:**
+  `MonoScript` layout sai → export ra **0 file `.cs`** (giờ 1945); `GameObject` layout sai 3 chỗ →
+  407 GameObject không đọc được (giờ đọc hết); audio ra `.fsb` thô không player nào mở được (giờ
+  11 file Ogg Vorbis thật). Cả 3 đều **sai âm thầm**, và 2 unit test liên quan đã encode đúng cùng
+  cái shape sai đó nên không bắt được — xem 20d. Cộng **Phase 17f**: preview đổi sang 2 pane
+  (tree project trái / preview asset phải) theo yêu cầu user, và **20e** audit route GUI vs tool gốc.
+  785 tests pass. Commit cuối: `(pending)`.
 - 🟡 **LẦN ĐẦU CÓ FIXTURE UNITY THẬT (2026-08-01), phát hiện quan trọng nhất từ trước giờ — xem
   Phase 18.** `python/input-test/demo-android.apk`/`demo-ios.ipa` (Git LFS) là build IL2CPP thật.
   Chạy full pipeline phát hiện: (1) 3 bug crash thật (đã sửa), và (2) **gap nghiêm trọng nhất project
@@ -125,7 +131,7 @@ cũng sẽ không phải Unity project — đó sẽ là một tool khác, khôn
 | `ProjectSettings/ProjectVersion.txt` | ✅ | Phase 7 |
 | `Packages/manifest.json` | ✅ | Phase 7 |
 | `Assets/StreamingAssets/**` | ✅ | Phase 7 |
-| Script `.cs` (dummy class) + `.meta` GUID ổn định | ✅ | Phase 6c-2 |
+| Script `.cs` (dummy class) + `.meta` GUID ổn định | ✅ | Phase 6c-2. **Từng ra 0 file trên game thật** vì `MonoScript` layout sai — sửa ở Phase 20a |
 | Script `.cs` có **declaration thật** (class/field/property/method signature) | ✅ (Mono) | **Phase 16c+16f ✅** — cho Mono: `ScriptExporter`/`EmptyScriptExportCollection` giờ thật sự gọi `assembly_manager.get_recovered_type(...)` → `csharp_emitter.emit(...)`, chỉ rơi về dummy stub khi không resolve được (script/assembly không tìm thấy). IL2CPP (16d/16e) vẫn hoàn toàn chưa làm — MonoScript trong build IL2CPP vẫn luôn ra dummy |
 | MonoBehaviour **field value** khi asset không có type tree | ✅ (Mono) | **Phase 16f ✅** — `GameAssetFactory` giờ trả `UnloadedMonoBehaviour` khi có `assembly_manager`, và `GameStructure` gọi `resolve_unloaded_mono_behaviours` ngay sau khi bundle load xong để dựng field value thật (PPtr + kế thừa nhiều cấp). IL2CPP thì vẫn `UnknownObject` (16d/16e chưa làm). Giá trị thực tế **cao hơn** cả bản thân file `.cs` |
 | **`ProjectSettings/*.asset`** (PlayerSettings, DynamicsManager, TagManager, …) | ✅ | Phase 15 — `ManagerAssetExporter`/`ManagerExportCollection` |
@@ -204,10 +210,11 @@ Bước wheel-content check tồn tại vì đã từng suýt mất `scripts/__i
 | 17 | **Xem trước file SẼ được export (asset + code) ngay trên tool** (17a-17e) | ✅ 17a `a71bef0`, 17b `58a4f76`, 17c-17e `0cb790e` — 1 test GUI-mức-thật dời lại, xem chi tiết |
 | 18 | **Fixture Unity thật đầu tiên: 3 bug crash + gap "build thật không type tree"** | 🟡 3 bug đã sửa `0e4c206`; layout Texture2D/AudioClip/Sprite/Material xong `d9494ec`; Mesh xong `8d12472`; MonoBehaviour/Shader/BuildSettings còn lại |
 | 19 | **GUI không nhận input `.apk`/`.ipa`** (19a-19d) | ✅ `1e64fd3` — bug user báo đã sửa xong (19a-19d) |
+| 20 | **Audit tính năng vs tool gốc + 3 bug thật user báo** (20a-20e) | ✅ `(pending)` — MonoScript layout (0→1945 `.cs`), GameObject layout (407 asset), audio FSB5→Ogg/WAV thật, cộng audit route GUI |
 
-Số test theo area (tổng 773): `export_modules` 138, `import_` 164, `io_files` 118, `numerics` 64,
-`assets` 48, `export_unity_projects` 63, `gui_web` 72, `io_files_bundle` 29, `processing` 34,
-`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 5 (skip nếu chưa
+Số test theo area (tổng 785): `export_modules` 142, `import_` 165, `io_files` 118, `numerics` 64,
+`assets` 48, `export_unity_projects` 63, `gui_web` 77, `io_files_bundle` 29, `processing` 34,
+`cli` 13, `yaml` 11, `export_configuration` 9, `configuration` 5, `real_fixtures` 7 (skip nếu chưa
 `git lfs pull` file thật ở `python/input-test/`).
 
 ---
@@ -1464,6 +1471,46 @@ render nếu chưa có 17b, và 17b không chạy được nếu chưa có 17a.
    `(id(game_data), id(settings))`, cả `load_paths` và `/Settings/Edit` đều luôn tạo object mới (không
    mutate tại chỗ) nên so sánh identity là đủ để phát hiện stale, không cần gọi invalidate tường minh.
 
+#### 17f — Preview 2 pane: tree project bên trái, preview asset bên phải ✅ `(pending)` (user yêu cầu 2026-08-03)
+
+User: *"chỉnh lại phần preview ... để chỉ làm 2 phần bên trái treeview project bên phải preview
+asset"*. (User viết "phase 19" nhưng preview là Phase 17 — đã xác nhận lại.)
+
+Trước 17f, `/Project/Browse` là layout **một cột, thay thế nhau**: xem một thư mục thì thấy bảng
+liệt kê; bấm vào một file thì bảng **biến mất** và thay bằng nội dung file → mất hẳn ngữ cảnh cây
+project, muốn xem file khác phải bấm breadcrumb quay lại.
+
+- [x] Layout 2 pane thật, **cùng một response server-rendered** (không SPA, không JS framework —
+      giữ đúng nguyên tắc Bootstrap-vendored/offline của Phase 11): cột trái `col-md-4 col-lg-3`
+      card "Project" chứa tree, cột phải `col-md-8 col-lg-9` chứa preview asset. Tree **luôn hiện**,
+      kể cả khi đang chọn một file — đúng yêu cầu của user
+- [x] `_build_tree(source, selected_rel_path)` trong `routes/projects.py` — **path-expanded tree**,
+      cố ý **không** phải full recursive walk: fixture thật export ra ~4500 file, render hết mọi node
+      (dù collapsed) sẽ ra page vài MB mỗi request. Path-expansion chỉ mở đúng các ancestor của node
+      đang chọn, mọi thư mục khác render collapsed (là link, bấm vào thì server render lại mở tại
+      đó) → output bị chặn ở khoảng (độ sâu × số sibling mỗi cấp), đúng bằng những gì một file
+      explorer thật hiện. Không cần JS lazy-load endpoint nào
+- [x] `_list_dir(source, rel_path)` — adapter duy nhất che khác biệt 2 nguồn dữ liệu
+      (`ExportPlan` VFS vs thư mục thật trên đĩa), tái dùng `_resolve_disk`/`_resolve_plan` đã có
+      thay vì viết implementation traversal thứ hai cho mỗi nguồn
+- [x] Node đang chọn được highlight (`bg-primary text-white`); thư mục mở/đóng phân biệt bằng icon
+      (📂/📁); tên dài `text-truncate` + `title` đầy đủ
+- [x] Pane phải giữ **đủ 6 chế độ render của 17c** không đổi: image `<img>`, audio `<audio>`, code
+      `<pre>` + banner dummy-stub, text/YAML `<pre>`, mesh → link tải `.glb`, binary → link tải.
+      Chọn một **thư mục** thì pane phải hiện bảng liệt kê (như cũ) + gợi ý "chọn file ở cây bên trái"
+- [x] **URL surface không đổi gì** (`/Project`, `/Project/Browse?path=`, `/Project/File?path=`,
+      `/Project/Load`) — vẫn đúng ràng buộc Phase 17 đặt ra từ đầu. Cả 3 banner trung thực bắt buộc
+      (preview-không-phải-Editor / dummy-stub / no-type-trees) giữ nguyên vị trí và điều kiện hiện
+- [x] Cả 2 nguồn dữ liệu dùng chung layout mới (disk-loaded project cũng có tree)
+- **Test:** 5 test mới trong `test_project_browse.py` — 2 pane cùng render trong 1 response; tree vẫn
+      hiện khi đang chọn file (đây là chính cái 17f sửa); tree mở đúng theo path đang chọn **và** thư
+      mục không liên quan vẫn collapsed (assert cả 2 chiều — đây là thứ giữ page bounded); node đang
+      chọn được mark; root không kéo theo subtree nào. 16 test cũ của 17c/17e **pass không cần sửa**
+      (URL + nội dung không đổi, chỉ layout đổi)
+- **Verify thủ công trên fixture thật** (`demo-android.apk`, qua Flask test client): root 3.9KB,
+      thư mục 22 file 16KB, file view 10KB — page size bị chặn thật; `.ogg` ra `<audio>`, `.png` ra
+      `<img>`, `.cs` ra `<pre>` + banner; tree mở 4 cấp đúng theo path `.cs` sâu
+
 ### Phase 18 — Fixture Unity thật đầu tiên: 3 bug + 1 gap nghiêm trọng 🔴 `0e4c206`
 
 **Bối cảnh:** user đẩy 2 file thật lên `python/input-test/` qua Git LFS —
@@ -1757,7 +1804,125 @@ khi 17d đã chốt giữ route debug) — đúng thứ tự dự kiến.
 
 ---
 
+### Phase 20 — Audit tính năng vs tool gốc + 3 bug thật user báo ✅ `(pending)` (2026-08-03)
+
+> Phiên này user yêu cầu 3 việc: (1) đối chiếu tính năng với tool gốc + check code + update roadmap,
+> (2) chỉnh preview thành 2 pane (tree trái / preview asset phải), (3) *"format audio đang chưa đúng,
+> script cũng chưa có"*. Mục (2) nằm ở **Phase 17f** bên dưới (preview là Phase 17, không phải 19 như
+> user viết — đã xác nhận lại với user). Mục (3) hoá ra **không chỉ là ghi chú**: điều tra bằng
+> fixture thật tìm ra 3 bug thật, trong đó 2 bug làm mất hoàn toàn một loại output.
+
+#### 20a — `MonoScript` layout sai → export ra **0 file `.cs`** ✅
+
+- [x] **Bug**: `layouts/mono_script.py` chỉ khai `m_Name`/`m_ClassName`/`m_Namespace`/`m_AssemblyName`,
+      **cố ý bỏ** `m_ExecutionOrder` + `m_PropertiesHash` với lý do (ghi trong docstring cũ) "field
+      nào không chắc thì bỏ hẳn, không đoán". Lập luận đó **chỉ đúng cho field ở CUỐI layout**. Hai
+      field này nằm **giữa** `m_Name` và `m_ClassName` → bỏ đi làm lệch mọi field phía sau → cả
+      **2076** MonoScript trong `demo-android.apk` fail `try_read` → `UnreadableObject`.
+- [x] **Vì sao im lặng hoàn toàn**: `ProjectExporter` dispatch `RawDataObject` (gồm
+      `UnreadableObject`) **theo Python type, không theo class ID** → chúng không bao giờ tới
+      `ScriptExporter` → export ra **0 file `.cs`**, không log, không lỗi. Đúng kiểu bug ROADMAP này
+      luôn cảnh báo: "sai âm thầm" tệ hơn "thiếu tính năng".
+- [x] **Byte evidence** (3 sample, offset chính xác, ghi trong docstring module): đúng **20 byte**
+      giữa `m_Name` (đã align) và `m_ClassName` = int32 `m_ExecutionOrder` + 16 byte
+      `m_PropertiesHash` (Hash128 = 4×uint32). `m_IsEditorScript` **đúng là không có** trong release
+      bytes (giữ nguyên quyết định không model nó).
+- [x] `min_version` đặt thành 5.0 (mốc `m_PropertiesHash` đổi từ uint32 sang Hash128) — thay vì đọc
+      sai âm thầm file cũ hơn như bản trước
+- **Kết quả thật**: `.cs` **0 → 1945 file**, có class/namespace/assembly name thật
+
+#### 20b — `GameObject` layout sai 3 chỗ cùng lúc → 407 GameObject không đọc được ✅
+
+- [x] **Bug 1**: `m_Component` model là `pair<int, PPtr<Component>>` (16 byte/element) — đó là shape
+      **trước 5.5**, trong khi docstring module lại tự khai "targets 5.5 onward". Release build 5.5+
+      là `PPtr<Component>` trần (12 byte: int32 + int64)
+- [x] **Bug 2**: `m_TagString` (string) là field **editor-format only**; release bytes mang `m_Tag`
+      là **UInt16**
+- [x] **Bug 3**: trailing `align` trên field cuối (`m_IsActive`) → đọc quá 1 byte (35 → 36). Data của
+      một object **không** được pad sau field cuối; padding giữa các object là việc của
+      `SerializedFile`, không phải payload
+- [x] **Byte evidence** (2 sample, offset chính xác trong docstring): len=35 và len=83 đều kết thúc
+      đúng tại `m_IsActive`
+- **Kết quả thật**: 407 GameObject `UnreadableObject` → 407 đọc được (có tên/layer/component thật).
+      Kéo theo `.prefab` 232 → 177 và `.asset` rời 173 → 39 — **không phải regression**: có
+      `m_Component` thật thì `PrefabProcessor` gom được component vào hierarchy đúng thay vì để rơi
+      ra thành asset rời
+
+#### 20c — Audio export ra `.fsb` thô (không player nào mở được) ✅
+
+- [x] **Bug**: `audio_clip_decoder.py` chỉ sniff magic byte rồi dump nguyên container FMOD ra `.fsb`.
+      Docstring cũ tự khai điều này là cố ý ("không đoán layout FSB5"), nhưng kết quả thực tế là
+      **audio không dùng được** — đúng như user báo. Cả 11 clip trong fixture đều vậy
+- [x] **Sửa**: dùng package `fsb5` (HearthSim's python-fsb5) — **tương đương trực tiếp** với
+      Fmod5Sharp mà upstream dùng cho đúng việc này. Nó parse sample header (frequency/channels/
+      sample count) và dựng lại Vorbis setup header mà FMOD lược bỏ → ra `.wav` (PCM) / `.ogg` (Vorbis)
+- [x] **Giữ đúng nhánh fallback của upstream**: codec không dựng lại được → vẫn dump `.fsb` verbatim,
+      nhưng **có log warning** thay vì im lặng. Bao gồm luôn case phụ thuộc môi trường: Vorbis cần
+      **native `libvorbis`** (pip không cung cấp được) → máy thiếu nó thì degrade về `.fsb` chứ không
+      làm fail cả export. `pyproject.toml` ghi rõ package hệ thống cần cài cho từng OS
+- [x] `get_export_extension` và `decode` giờ **dùng chung một implementation có cache** → extension mà
+      export collection chọn không bao giờ lệch với bytes mà exporter ghi (trước đây là 2 đường riêng)
+- **Kết quả thật**: 11 `.fsb` thô → **11 file Ogg Vorbis hợp lệ** (verify: magic `OggS`, có Vorbis
+      identification header thật, 44.1kHz stereo, multi-page)
+- **Test**: `_fsb5_builder.py` (mới) dựng tay một FSB5 PCM16 **hợp lệ thật** → test được đường
+      decode **không cần** native lib hay Git LFS, cộng assert round-trip PCM chính xác từng byte.
+      Test synthetic cũ giữ lại nhưng **đổi tên cho đúng** những gì chúng thật sự cover (nhánh
+      fallback, vì payload của chúng là garbage sau magic)
+
+#### 20d — Bài học chung: test encode cùng một cái sai với code ✅
+
+- [x] **Cả 2 unit test của 20a/20b đều đã encode ĐÚNG cái shape sai mà layout đang dùng** — đó chính
+      là lý do không test nào bắt được bug. Hai bên của contract đồng ý với nhau và cùng sai so với
+      Unity. Đây là failure mode mà "số test cao" không bảo vệ được (rủi ro #7 ở cuối file này đã
+      cảnh báo đúng điều này — giờ có ví dụ cụ thể)
+- [x] **Đối sách đã áp dụng**: mọi assert mới đều gắn với **byte thật từ fixture** (offset cụ thể ghi
+      trong docstring), cộng test real-fixture assert *kết quả cuối* (`.cs` xuất hiện, `.ogg` là
+      Vorbis stream hợp lệ) chứ không chỉ assert cấu trúc trung gian
+- **Test mới trong phase này**: `test_real_scripts_are_actually_exported`,
+      `test_real_game_objects_are_actually_readable` (real fixture), `test_audio_clip_decoder.py`
+      viết lại (12 test), `test_layouts.py`'s MonoScript/GameObject test viết lại + 1 test
+      `min_version`, cộng 5 test 2-pane ở 17f
+
+#### 20e — Audit tính năng vs tool gốc (route surface GUI) ✅
+
+Đối chiếu route của `Source/AssetRipper.GUI.Web` với `create_app()` của port này:
+
+| Route upstream | Port này | Ghi chú |
+|---|---|---|
+| `/`, `/Commands`, `/Licenses`, `/Privacy`, `/PremiumFeatures`, `/Reset` | ✅ | đủ |
+| `/LoadFile`, `/LoadFolder` | ✅ | Phase 19a gộp thành 1 handler (bug thật đã sửa) |
+| `/Export/UnityProject`, `/Export/PrimaryContent` | ✅ | cộng `/Export/Progress` (**thêm**, upstream không có) |
+| `/Settings/Edit` + `/Settings/Update` | ⚠️ | port gộp thành 1 route `/Settings/Edit` (GET+POST) — cùng chức năng, khác shape |
+| `/Dialogs/OpenFile`, `/OpenFolder` | ✅ | `/Dialogs/File`, `/Dialogs/Folder` |
+| `/Dialogs/OpenFiles`, `/OpenFolders`, `/SaveFile` | ❌ | 3 biến thể multi-select + save chưa port. Giá trị thấp: `/LoadFile` nhận 1 path và `load_paths` vốn nhận list, nên multi-select chỉ là tiện lợi UI |
+| `/ConfigurationFiles` | ⚠️ | port chỉ **đọc**; 5 route sửa (`List/Add`, `List/Remove`, `List/Replace`, `Singleton/Add`, `Singleton/Remove`) chưa port |
+| `/IO/Directory/Empty`, `/IO/Directory/Exists`, `/IO/File/Exists` | ✅ | đủ |
+| `/Localization` | ❌ | **không port, cố ý** — port này chỉ có tiếng Anh, không có hạ tầng localization. Không chặn tính năng nào |
+| `/Bundles/View`, `/Collections/View`, `/Assets/View`, `/Resources/View`, `/FailedFiles/View`, `/Scenes/View`, `/Search` | ✅ | đủ (Phase 17d hạ xuống mức debug, giữ route) |
+| — | 🆕 | `/Project/*` (4 route): **tính năng port này có mà upstream KHÔNG có** — preview file sẽ-được-export ngay trong tool (Phase 17). Upstream export ra đĩa rồi để user tự mở file explorer |
+| — | 🆕 | `/Load/Progress`, `/Export/Progress`, `/Collections/Count`, `/Resources/Data`, `/Assets/{Image,Text,Yaml,Binary}` |
+
+**Kết luận audit**: route surface gần như đủ. 3 khoảng trống thật, tất cả giá trị thấp và không chặn
+luồng chính: (1) 5 route sửa `ConfigurationFiles`, (2) 3 biến thể dialog multi-select/save,
+(3) `/Localization`. Khoảng trống tính năng **thật** của port này không nằm ở GUI route mà ở chỗ khác
+và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedForm` (Phase 18), và
+`AudioMixer`/`AnimatorController`/`LightingData` (Phase 13, chặn bởi instance-synthesis layer).
+
+---
+
 ## Việc lẻ, chưa xếp phase
+
+- [ ] **(Phase 20e audit)** `ConfigurationFiles`: port chỉ có route **đọc**; 5 route sửa của upstream
+      (`List/Add`, `List/Remove`, `List/Replace`, `Singleton/Add`, `Singleton/Remove`) chưa port
+- [ ] **(Phase 20e audit)** `Dialogs`: thiếu 3 biến thể `OpenFiles` (multi-select file), `OpenFolders`,
+      `SaveFile`. Giá trị thấp — `load_paths` vốn nhận list nên đây chỉ là tiện lợi UI
+- [~] **(Phase 20e audit)** `/Localization` — **không port, cố ý**: port này chỉ có tiếng Anh, không có
+      hạ tầng localization nào. Không chặn tính năng
+- [ ] **(Phase 20c)** `AudioExportFormat.PreferWav` vẫn là no-op: đổi `.ogg` rebuild sang `.wav` cần
+      một Vorbis **decoder** + re-encode PCM, mà `fsb5` chỉ dựng lại Ogg stream chứ không decode. Unity
+      import `.ogg` trực tiếp nên giá trị thấp
+- [ ] **(Phase 20c)** FSB5 nhiều sample trong 1 container: hiện chỉ rebuild sample đầu (Unity AudioClip
+      vốn là 1 sample/asset, nên chưa gặp case thật). Nếu gặp, cần quyết định naming cho sample 2..n
 
 - [ ] `tests/io_endian/` và `tests/primitives/` là **thư mục rỗng** — `EndianSpanReader` và
       `UnityVersion`/`UnityGuid` hiện chỉ được test gián tiếp qua `import_`. Nên có unit test trực tiếp
@@ -1820,8 +1985,11 @@ khi 17d đã chốt giữ route debug) — đúng thứ tự dự kiến.
    >= 2017. Cả hai đều pass test cho tới khi test đúng chỗ.
 3. **Processors và importers là reimplementation**, không phải port 1:1 — chúng mang nhiều behavioural
    uncertainty nhất so với upstream.
-4. **Layout coverage hẹp** (5/20 type) — asset ngoài đó, trong file bị strip type tree, thành
-   `UnknownObject`.
+4. **Layout coverage hẹp** (10/20 type: 5 gốc + Texture2D/AudioClip/Sprite/Material/Mesh ở Phase 18)
+   — asset ngoài đó, trong file bị strip type tree, thành `UnknownObject`. **Và (Phase 20, 2026-08-03)
+   coverage không đảm bảo đúng**: 2 trong 5 layout gốc (`MonoScript`, `GameObject`) hoá ra **sai** so
+   với byte thật suốt từ Phase 2, mỗi cái làm mất trắng một loại output (0 file `.cs`; 407 GameObject
+   rỗng). Layout "đã có" ≠ layout "đúng" — chỉ layout đã byte-verify trên fixture thật mới đáng tin.
 5. ~~**`ProjectSettings/` đang mất hoàn toàn**~~ — **đã sửa ở Phase 15** (phát hiện ở audit
    2026-08-01, cùng ngày đã port `ManagerAssetExporter`/`ManagerExportCollection`). Vẫn còn 2 việc
    nhỏ chưa làm trong nhóm này: `EditorBuildSettingsExportCollection` (`[~]`, giá trị thực tế thấp —

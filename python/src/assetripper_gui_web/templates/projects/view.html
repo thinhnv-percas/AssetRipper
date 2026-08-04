@@ -1,7 +1,27 @@
 {% extends "layout.html" %}
 {% block title %}Export Preview - AssetRipper{% endblock %}
+
+{#- Left pane node renderer. Recursive, but only over what `_build_tree` chose to expand (the
+    path to the selection), so the recursion depth is the selected path's depth, not the whole
+    project's. -#}
+{% macro tree_nodes(nodes) %}
+<ul class="list-unstyled mb-0 ps-3">
+  {% for node in nodes %}
+  <li>
+    <a href="{{ url_for('projects.browse', path=node.rel_path) }}"
+       class="d-block text-decoration-none px-1 rounded text-truncate{% if node.is_selected %} bg-primary text-white{% endif %}"
+       title="{{ node.name }}">
+      {%- if node.is_dir %}{{ "📂" if node.is_expanded else "📁" }} {% endif -%}
+      {{ node.name }}
+    </a>
+    {% if node.is_expanded %}{{ tree_nodes(node.children) }}{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endmacro %}
+
 {% block content %}
-<h1>Export Preview</h1>
+<h1 class="h3">Export Preview</h1>
 
 {% if using_disk %}
 <p class="text-body-secondary">
@@ -19,61 +39,88 @@
 {% if warn_empty %}
 <div class="alert alert-warning py-2">
   This build has no embedded type trees; most asset types can't be read yet
-  (see <code>python/ROADMAP.md</code> Phase 18). An almost-empty <code>Assets/</code> tree below
+  (see <code>python/ROADMAP.md</code> Phase 18). An almost-empty <code>Assets/</code> tree
   is that known gap surfacing, not a bug in this preview.
 </div>
 {% endif %}
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{{ url_for('projects.browse') }}">(root)</a></li>
-    {% for crumb in crumbs %}
-    <li class="breadcrumb-item"><a href="{{ url_for('projects.browse', path=crumb.rel_path) }}">{{ crumb.name }}</a></li>
-    {% endfor %}
-  </ol>
-</nav>
-
-{% if entries is not none %}
-  {% if not entries %}
-  <p>This directory is empty.</p>
-  {% else %}
-  <table class="table table-sm">
-    <thead><tr><th>Name</th><th>Size</th></tr></thead>
-    <tbody>
-      {% for entry in entries %}
-      <tr>
-        <td>
-          {% if entry.is_dir %}
-          <a href="{{ url_for('projects.browse', path=entry.rel_path) }}">📁 {{ entry.name }}</a>
-          {% else %}
-          <a href="{{ url_for('projects.browse', path=entry.rel_path) }}">{{ entry.name }}</a>
-          {% endif %}
-        </td>
-        <td>{{ entry.size if entry.size is not none else "" }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
-{% elif file_view %}
-  <p><code>{{ file_view.rel_path }}</code> ({{ file_view.size }} bytes)
-     -- <a href="{{ url_for('projects.file', path=file_view.rel_path) }}">Download</a></p>
-
-  {% if file_view.kind == "code" %}
-  <div class="alert alert-warning py-2">
-    Dummy stub -- real script bodies need Phase 16 (IL2CPP/Mono script recovery).
+<div class="row g-3">
+  {# ---- Left pane: project tree ---- #}
+  <div class="col-12 col-md-4 col-lg-3">
+    <div class="card h-100">
+      <div class="card-header py-2 fw-semibold">Project</div>
+      <div class="card-body p-2" style="max-height: 70vh; overflow: auto;">
+        <a href="{{ url_for('projects.browse') }}"
+           class="d-block text-decoration-none px-1 rounded{% if not crumbs %} bg-primary text-white{% endif %}">
+          🗂 (root)
+        </a>
+        {{ tree_nodes(tree) }}
+      </div>
+    </div>
   </div>
-  <pre>{{ file_view.text }}</pre>
-  {% elif file_view.kind == "image" %}
-  <img src="{{ url_for('projects.file', path=file_view.rel_path) }}" alt="{{ file_view.rel_path }}" style="max-width: 512px; max-height: 512px;">
-  {% elif file_view.kind == "audio" %}
-  <audio controls src="{{ url_for('projects.file', path=file_view.rel_path) }}"></audio>
-  {% elif file_view.kind == "text" %}
-  <pre>{{ file_view.text }}</pre>
-  {% elif file_view.kind == "mesh" %}
-  <p>Mesh preview isn't rendered inline -- <a href="{{ url_for('projects.file', path=file_view.rel_path) }}">download the .glb</a> and open it in an external viewer.</p>
-  {% else %}
-  <p>No inline preview for this file type -- use the download link above.</p>
-  {% endif %}
-{% endif %}
+
+  {# ---- Right pane: asset preview (or a directory listing when a folder is selected) ---- #}
+  <div class="col-12 col-md-8 col-lg-9">
+    <div class="card h-100">
+      <div class="card-header py-2">
+        <nav aria-label="breadcrumb" class="mb-0">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('projects.browse') }}">(root)</a></li>
+            {% for crumb in crumbs %}
+            <li class="breadcrumb-item"><a href="{{ url_for('projects.browse', path=crumb.rel_path) }}">{{ crumb.name }}</a></li>
+            {% endfor %}
+          </ol>
+        </nav>
+      </div>
+      <div class="card-body">
+        {% if entries is not none %}
+          {% if not entries %}
+          <p class="mb-0">This directory is empty.</p>
+          {% else %}
+          <p class="text-body-secondary">
+            Select a file in the tree on the left to preview it. This folder holds
+            {{ entries | length }} item{{ "" if entries | length == 1 else "s" }}.
+          </p>
+          <table class="table table-sm mb-0">
+            <thead><tr><th>Name</th><th class="text-end">Size</th></tr></thead>
+            <tbody>
+              {% for entry in entries %}
+              <tr>
+                <td>
+                  <a href="{{ url_for('projects.browse', path=entry.rel_path) }}">
+                    {%- if entry.is_dir %}📁 {% endif -%}{{ entry.name }}
+                  </a>
+                </td>
+                <td class="text-end">{{ entry.size if entry.size is not none else "" }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+        {% elif file_view %}
+          <p><code>{{ file_view.rel_path }}</code> ({{ file_view.size }} bytes)
+             -- <a href="{{ url_for('projects.file', path=file_view.rel_path) }}">Download</a></p>
+
+          {% if file_view.kind == "code" %}
+          <div class="alert alert-warning py-2">
+            Dummy stub -- real script bodies need Phase 16 (IL2CPP/Mono script recovery).
+          </div>
+          <pre class="mb-0" style="max-height: 60vh; overflow: auto;">{{ file_view.text }}</pre>
+          {% elif file_view.kind == "image" %}
+          <img src="{{ url_for('projects.file', path=file_view.rel_path) }}" alt="{{ file_view.rel_path }}"
+               class="img-fluid" style="max-height: 60vh;">
+          {% elif file_view.kind == "audio" %}
+          <audio controls src="{{ url_for('projects.file', path=file_view.rel_path) }}" class="w-100"></audio>
+          {% elif file_view.kind == "text" %}
+          <pre class="mb-0" style="max-height: 60vh; overflow: auto;">{{ file_view.text }}</pre>
+          {% elif file_view.kind == "mesh" %}
+          <p class="mb-0">Mesh preview isn't rendered inline -- <a href="{{ url_for('projects.file', path=file_view.rel_path) }}">download the .glb</a> and open it in an external viewer.</p>
+          {% else %}
+          <p class="mb-0">No inline preview for this file type -- use the download link above.</p>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -131,6 +131,64 @@ def _resolve_plan(plan, rel_path: str) -> dict:
     abort(404, description="Not found in the export preview.")
 
 
+# --- Left pane: the project tree -----------------------------------------------------------
+#
+# Both sources already expose "list one directory" (`_resolve_disk`/`_resolve_plan` above), so
+# the tree is built from repeated one-level listings rather than a second traversal
+# implementation per source. `_list_dir` is the single adapter that hides which source is in
+# play; everything below it is source-agnostic.
+
+
+def _list_dir(source, rel_path: str) -> "list[dict]":
+    """One directory's entries, or `[]` if `rel_path` isn't a directory in this source."""
+    kind, payload = source
+    try:
+        result = _resolve_disk(payload, rel_path) if kind == "disk" else _resolve_plan(payload, rel_path)
+    except Exception:  # noqa: BLE001 -- a 400/404 abort just means "nothing to show here"
+        return []
+    return result["entries"] if result["kind"] == "dir" else []
+
+
+def _build_tree(source, selected_rel_path: str) -> "list[dict]":
+    """A **path-expanded** tree: every ancestor of `selected_rel_path` is expanded to show its
+    children, and every other directory is rendered collapsed (a link that re-renders the page
+    expanded at that node).
+
+    Deliberately not a full recursive walk. A real exported game is large -- the
+    `demo-android.apk` fixture produces ~4,500 files -- so emitting every node would mean a
+    multi-megabyte page of mostly-collapsed markup on every request. Path-expansion bounds the
+    output to roughly (depth x siblings-per-level) instead, which is what a file explorer
+    actually shows, and it needs no client-side JavaScript or lazy-load endpoint to do it.
+    """
+    expanded = set()
+    accumulated = ""
+    for part in (selected_rel_path or "").split("/"):
+        if not part:
+            continue
+        accumulated = f"{accumulated}/{part}" if accumulated else part
+        expanded.add(accumulated)
+
+    def build(rel_path: str, depth: int) -> "list[dict]":
+        nodes = []
+        for entry in _list_dir(source, rel_path):
+            node = {
+                "name": entry["name"],
+                "rel_path": entry["rel_path"],
+                "is_dir": entry["is_dir"],
+                "size": entry["size"],
+                "depth": depth,
+                "is_selected": entry["rel_path"] == selected_rel_path,
+                "is_expanded": entry["is_dir"] and entry["rel_path"] in expanded,
+                "children": [],
+            }
+            if node["is_expanded"]:
+                node["children"] = build(entry["rel_path"], depth + 1)
+            nodes.append(node)
+        return nodes
+
+    return build("", 0)
+
+
 def _asset_count_warning(plan) -> bool:
     """Phase 17c's mandatory honesty banner: if the loaded build has (almost) no readable
     asset files under Assets/, that's Phase 18's real "no type tree" gap surfacing, not a bug
@@ -153,44 +211,38 @@ def browse():
     rel_path = request.args.get("path", "")
     using_disk = game_file_loader.has_exported_project()
     if using_disk:
-        result = _resolve_disk(game_file_loader.exported_project_dir(), rel_path)
+        source = ("disk", game_file_loader.exported_project_dir())
         warn_empty = False
     else:
         plan = game_file_loader.get_export_plan()
-        result = _resolve_plan(plan, rel_path)
+        source = ("plan", plan)
         warn_empty = _asset_count_warning(plan)
 
-    crumbs = _crumbs(result["rel_path"])
+    result = _resolve_disk(source[1], rel_path) if using_disk else _resolve_plan(source[1], rel_path)
+    normalized_rel_path = result["rel_path"]
 
-    if result["kind"] == "dir":
-        return render_template(
-            "projects/view.html",
-            page_title="Export Preview",
-            crumbs=crumbs,
-            entries=result["entries"],
-            file_view=None,
-            using_disk=using_disk,
-            warn_empty=warn_empty,
-        )
+    file_view = None
+    if result["kind"] == "file":
+        extension = result["extension"]
+        kind = _render_kind(extension)
+        file_view = {
+            "rel_path": normalized_rel_path,
+            "extension": extension,
+            "kind": kind,
+            "text": result["data"].decode("utf-8", errors="replace") if kind in ("text", "code") else None,
+            "size": len(result["data"]),
+        }
+        warn_empty = False
 
-    extension = result["extension"]
-    kind = _render_kind(extension)
-    text_content = result["data"].decode("utf-8", errors="replace") if kind in ("text", "code") else None
-    file_view = {
-        "rel_path": result["rel_path"],
-        "extension": extension,
-        "kind": kind,
-        "text": text_content,
-        "size": len(result["data"]),
-    }
     return render_template(
         "projects/view.html",
         page_title="Export Preview",
-        crumbs=crumbs,
-        entries=None,
+        crumbs=_crumbs(normalized_rel_path),
+        tree=_build_tree(source, normalized_rel_path),
+        entries=result["entries"] if result["kind"] == "dir" else None,
         file_view=file_view,
         using_disk=using_disk,
-        warn_empty=False,
+        warn_empty=warn_empty,
     )
 
 

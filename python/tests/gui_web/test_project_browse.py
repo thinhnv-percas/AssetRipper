@@ -7,11 +7,13 @@ tests for browsing a real, already-exported directory.
 """
 from __future__ import annotations
 
+import re
 import time
+import urllib.parse
 
 import pytest
 from assetripper_gui_web import create_app, game_file_loader
-from assetripper_gui_web.routes.projects import _asset_count_warning
+from assetripper_gui_web.routes.projects import _asset_count_warning, _build_tree
 from assetripper_io_files.build_target import BuildTarget
 from assetripper_io_files.serialized_files import FormatVersion, SerializedFileBuilder
 from assetripper_io_files.serialized_files.parser.object_info import ObjectInfo
@@ -283,3 +285,61 @@ def test_asset_count_warning_false_when_real_assets_present():
             return ["/Assets/TextAsset/MyText.txt", "/Assets/TextAsset/MyText.txt.meta"]
 
     assert _asset_count_warning(_FakePlan()) is False
+
+
+# --- Phase 17f: two-pane layout (left project tree, right asset preview) --------------------
+
+
+def test_both_panes_render_on_every_browse_response(client, tmp_path):
+    """Phase 17f: the tree and the preview are one server-rendered page, so the tree is present
+    even when a *file* is selected (previously the listing was replaced by the file view)."""
+    _load_synthetic_game(client, tmp_path)
+
+    text = client.get("/Project/Browse", query_string={"path": "Assets/TextAsset"}).get_data(as_text=True)
+    assert ">Project<" in text, "left pane header missing"
+    assert "(root)" in text, "tree root link missing"
+
+
+def test_tree_is_present_when_a_file_is_selected(client, tmp_path):
+    _load_synthetic_game(client, tmp_path)
+    listing = client.get("/Project/Browse", query_string={"path": "Assets/TextAsset"}).get_data(as_text=True)
+    file_link = re.search(r'href="/Project/Browse\?path=([^"]+\.txt)"', listing)
+    assert file_link, "expected a .txt file link in the directory listing"
+
+    text = client.get(
+        "/Project/Browse", query_string={"path": urllib.parse.unquote(file_link.group(1))}
+    ).get_data(as_text=True)
+
+    assert ">Project<" in text, "the tree must stay visible alongside the file preview"
+    assert "Download" in text, "the right pane must show the file preview"
+
+
+def test_tree_expands_along_the_selected_path_only(client, tmp_path):
+    """`_build_tree` is deliberately path-expanded rather than a full walk (a real game exports
+    thousands of files). Assert the ancestors of the selection are expanded and that an
+    unrelated sibling directory is not."""
+    _load_synthetic_game(client, tmp_path)
+
+    tree = _build_tree(("plan", game_file_loader.get_export_plan()), "Assets/TextAsset")
+    by_name = {node["name"]: node for node in tree}
+    assert by_name["Assets"]["is_expanded"], "the selected path's ancestor must be expanded"
+    assert by_name["Assets"]["children"], "an expanded directory must list its children"
+    assert not by_name["ProjectSettings"]["is_expanded"], "unrelated directories stay collapsed"
+
+
+def test_tree_marks_the_selected_node(client, tmp_path):
+    _load_synthetic_game(client, tmp_path)
+
+    tree = _build_tree(("plan", game_file_loader.get_export_plan()), "Assets/TextAsset")
+    assets = next(node for node in tree if node["name"] == "Assets")
+    selected = [child for child in assets["children"] if child["is_selected"]]
+    assert [node["name"] for node in selected] == ["TextAsset"]
+
+
+def test_tree_of_an_unselected_root_expands_nothing(client, tmp_path):
+    """The root listing shouldn't drag in any subtree -- that's what keeps the page bounded."""
+    _load_synthetic_game(client, tmp_path)
+    tree = _build_tree(("plan", game_file_loader.get_export_plan()), "")
+    assert tree, "root must still list its top-level entries"
+    assert all(not node["is_expanded"] for node in tree)
+    assert all(node["children"] == [] for node in tree)
