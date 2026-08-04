@@ -41,6 +41,18 @@ class FontAssetExportCollection(AssetExportCollection):
         return get_font_extension(_font_data_bytes(asset))
 
 
+
+    def _create_importer(self, container):
+        """2026-08-03: a .ttf needs Unity's TrueTypeFontImporter -- see
+        `assetripper_export_unity_projects/project/content_importers.py`. Before this, the base
+        class's `NativeFormatImporter` default named an importer that cannot read this file."""
+        from assetripper_export_unity_projects.project.content_importers import TrueTypeFontImporter
+
+        importer = TrueTypeFontImporter()
+        if self.asset.asset_bundle_name is not None:
+            importer.asset_bundle_name = self.asset.asset_bundle_name
+        return importer
+
 def get_font_extension(font_data: bytes) -> str:
     """OpenType fonts start with the "OTTO" magic (CFF-flavored OpenType); everything
     else Unity accepts as font data is a variant of TrueType."""

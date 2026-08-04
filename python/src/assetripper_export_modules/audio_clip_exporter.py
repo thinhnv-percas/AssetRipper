@@ -50,6 +50,18 @@ class AudioClipExportCollection(AssetExportCollection):
         return get_export_extension(_audio_data_bytes(asset), asset.get("m_CompressionFormat"))
 
 
+
+    def _create_importer(self, container):
+        """2026-08-03: a .wav/.ogg needs Unity's AudioImporter -- see
+        `assetripper_export_unity_projects/project/content_importers.py`. Before this, the base
+        class's `NativeFormatImporter` default named an importer that cannot read this file."""
+        from assetripper_export_unity_projects.project.content_importers import AudioImporter
+
+        importer = AudioImporter()
+        if self.asset.asset_bundle_name is not None:
+            importer.asset_bundle_name = self.asset.asset_bundle_name
+        return importer
+
 def _audio_data_bytes(asset) -> bytes:
     """m_AudioData is a TypelessData field, read as list[int] by the dynamic reader.
     Falls back to the external m_Resource (StreamedResource) when empty."""

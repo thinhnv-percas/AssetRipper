@@ -62,6 +62,18 @@ class Texture2DExportCollection(AssetExportCollection):
         return self.asset_exporter.extension
 
 
+
+    def _create_importer(self, container):
+        """2026-08-03: a PNG needs Unity's TextureImporter, not the native-YAML importer -- see
+        `assetripper_export_unity_projects/project/content_importers.py`. Before this, the base
+        class's `NativeFormatImporter` default named an importer that cannot read this file."""
+        from assetripper_export_unity_projects.project.content_importers import TextureImporter
+
+        importer = TextureImporter()
+        if self.asset.asset_bundle_name is not None:
+            importer.asset_bundle_name = self.asset.asset_bundle_name
+        return importer
+
 def _image_data_bytes(asset) -> bytes:
     data = bytes(asset.get("image data") or ())
     if data:

@@ -298,7 +298,26 @@ TypeTree-driven dynamic reader mà AssetRipper đã có sẵn nhưng chỉ dùng
 - [x] `export_collection.py` / `asset_export_collection.py`
 - [x] Importers hand-written: `NativeFormatImporter`, `TextScriptImporter`, `ShaderImporter`, `MonoImporter`
 - [x] `override_exporter_for_class_id()` — dispatch theo class ID, vì dynamic reader sinh ra **cùng một Python type** cho mọi asset nên type-based dispatch không phân biệt được TextAsset vs Texture2D
-- [ ] Importer còn thiếu: `TextureImporter`, `TrueTypeFontImporter`, `AudioImporter`, `ModelImporter`, `VideoClipImporter`, `DefaultImporter` — hiện fallback về `NativeFormatImporter`
+- [x] ⚠️ Importer còn thiếu: `TextureImporter`, `TrueTypeFontImporter`, `AudioImporter`,
+      `ModelImporter`, `VideoClipImporter`, `DefaultImporter` (2026-08-03, commit `(pending)`).
+      `DefaultImporter` đã có từ trước; 5 cái còn lại thêm ở `project/content_importers.py` trên
+      base chung `project/asset_importer_base.py` (tránh 9 bản `walk_standard` gần giống nhau), và
+      wire `_create_importer` vào 5 export collection tương ứng (Texture2D/AudioClip/Mesh/
+      FontAsset/VideoClip). **Trước đó mọi asset export ra file non-native — `.png`, `.ogg`,
+      `.glb`, `.ttf` — đều nhận block `NativeFormatImporter`**, tức importer chỉ đọc được YAML
+      format riêng của Unity → sai importer hoàn toàn cho một file PNG.
+      ⚠️ **Fidelity gap có chủ ý:** field set là tối thiểu (`externalObjects`/`userData`/
+      `assetBundleName`/`assetBundleVariant`), không có texture compression / model rig setting /
+      `serializedVersion`. Lý do: Unity tự điền default của chính importer đó cho mọi field bị
+      thiếu, nên tên class đúng + field tối thiểu là cải thiện thật; còn bịa ra setting chi tiết
+      thì port này không có cách nào verify. `serializedVersion` bỏ hẳn thay vì đoán — Unity coi
+      "thiếu" là bản cũ nhất và tự upgrade, còn số sai có thể làm nó đọc lệch cả block.
+      4 importer cũ (`NativeFormatImporter`/`TextScriptImporter`/`ShaderImporter`/`MonoImporter`)
+      giữ nguyên: đang chạy đúng, có test, viết lại lên base mới chỉ là churn + rủi ro regression
+      - **Test:** 32 test (`test_content_importers.py`) trên `walk_standard` + 1 test real-fixture
+        (`test_real_meta_files_name_the_right_importer`) assert đúng nội dung `.meta` render ra từ
+        build thật: `.png`→TextureImporter, `.ogg`→AudioImporter, `.glb`→ModelImporter, và 3
+        importer cũ vẫn đúng (`.txt`/`.mat`/`.prefab`)
 - [~] Multi-asset-per-file export overload — cần cho scene/prefab, xem Phase 12
 
 ### Phase 5 — Essential processors ✅ `789188a`
@@ -641,10 +660,11 @@ processor tái tạo lại quan hệ/nội dung nhị phân". Mỗi item dưới
       `AvatarMask_319`/`AvatarMask_1011`). Extension lấy từ `m_OriginalPath` (fallback `.bytes` nếu
       không có extension), khớp `GetExtensionFromPath` upstream
 - [~] `VideoClipExportCollection.CreateImporter` (dựng `VideoClipImporter` thật với EndFrame/
-      OriginalWidth/OriginalHeight/SourceFileSize/FrameRate/ImportAudio) — **không port**: generated
-      importer class không có trong repo này. Fallback về `NativeFormatImporter` (base class), giống
-      hệt cách `MovieTextureAssetExporter` đã làm — mở được trong Unity nhưng không có các setting
-      importer riêng
+      OriginalWidth/OriginalHeight/SourceFileSize/FrameRate/ImportAudio) — **các setting riêng
+      không port**: generated importer class không có trong repo này.
+      *Cập nhật 2026-08-03:* tên class `VideoClipImporter` thì đã đúng rồi (xem item importer ở
+      Phase 4) — trước đó fallback về `NativeFormatImporter`, tức sai importer hẳn. Giờ chỉ còn
+      thiếu 6 field setting nói trên, là fidelity gap nhỏ hơn nhiều
 - **Test:** 3 test mới (`test_video_clip_exporter.py`) — export bằng resource thật, fallback extension
   `.bytes` khi `m_OriginalPath` không có extension, và không export khi resource không resolve được
 - **Release gate + commit:** xong

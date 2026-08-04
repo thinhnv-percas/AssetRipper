@@ -40,3 +40,15 @@ class MeshExporter(BinaryAssetExporter):
 class MeshExportCollection(AssetExportCollection):
     def _get_export_extension(self, asset) -> str:
         return _GLB_EXTENSION
+
+
+    def _create_importer(self, container):
+        """2026-08-03: a .glb model file needs Unity's ModelImporter -- see
+        `assetripper_export_unity_projects/project/content_importers.py`. Before this, the base
+        class's `NativeFormatImporter` default named an importer that cannot read this file."""
+        from assetripper_export_unity_projects.project.content_importers import ModelImporter
+
+        importer = ModelImporter()
+        if self.asset.asset_bundle_name is not None:
+            importer.asset_bundle_name = self.asset.asset_bundle_name
+        return importer

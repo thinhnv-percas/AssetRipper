@@ -62,3 +62,15 @@ class VideoClipExportCollection(AssetExportCollection):
         original_path = asset.get("m_OriginalPath") or ""
         extension = os.path.splitext(original_path)[1]
         return extension[1:] if extension else _DEFAULT_EXTENSION
+
+
+    def _create_importer(self, container):
+        """2026-08-03: a video file needs Unity's VideoClipImporter -- see
+        `assetripper_export_unity_projects/project/content_importers.py`. Before this, the base
+        class's `NativeFormatImporter` default named an importer that cannot read this file."""
+        from assetripper_export_unity_projects.project.content_importers import VideoClipImporter
+
+        importer = VideoClipImporter()
+        if self.asset.asset_bundle_name is not None:
+            importer.asset_bundle_name = self.asset.asset_bundle_name
+        return importer

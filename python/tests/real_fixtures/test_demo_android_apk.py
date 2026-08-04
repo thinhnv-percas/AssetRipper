@@ -191,6 +191,43 @@ def test_real_meshes_are_actually_exported(tmp_path):
     assert "POSITION" in attributes
 
 
+def test_real_meta_files_name_the_right_importer(tmp_path):
+    """2026-08-03 (ROADMAP Phase 4's open importer item): every non-native export -- `.png`,
+    `.ogg`, `.glb` -- carried a `NativeFormatImporter` block, because that is the base
+    `AssetExportCollection._create_importer` default and no collection overrode it.
+    `NativeFormatImporter` reads Unity's *own YAML format*, so naming it for a PNG names an
+    importer that cannot read the file, and the importer name is what Unity keys off to decide
+    how to read an asset at all. Asserts the rendered `.meta` content (not just the importer
+    classes in isolation, which `tests/export_unity_projects/test_content_importers.py`
+    covers), because the rendering path is where the wiring could silently not take effect."""
+    handler = ExportHandler()
+    game_data = handler.load_and_process([str(_APK_PATH)], FS, settings=None)
+    handler.export(game_data, str(tmp_path), FS, settings=None)
+
+    expected_importer_by_suffix = {
+        ".png": "TextureImporter",
+        ".ogg": "AudioImporter",
+        ".glb": "ModelImporter",
+        # The pre-existing importers, asserted alongside so a regression in the shared
+        # `.meta` rendering path can't pass by only breaking the new five.
+        ".txt": "TextScriptImporter",
+        ".mat": "NativeFormatImporter",
+        ".prefab": "PrefabImporter",
+    }
+
+    for suffix, importer_name in expected_importer_by_suffix.items():
+        assets = [p for p in tmp_path.rglob(f"*{suffix}") if (p.parent / (p.name + ".meta")).exists()]
+        assert assets, f"expected at least one exported {suffix} with a .meta"
+        meta_text = (assets[0].parent / (assets[0].name + ".meta")).read_text(encoding="utf-8")
+        assert f"{importer_name}:" in meta_text, (
+            f"{assets[0].name}.meta names the wrong importer:\n{meta_text}"
+        )
+        # The four shared tail fields must survive the real rendering path too -- an omitted
+        # `externalObjects` makes Unity treat the block as malformed.
+        for field in ("externalObjects:", "userData:", "assetBundleName:", "assetBundleVariant:"):
+            assert field in meta_text, f"{assets[0].name}.meta is missing {field}"
+
+
 def test_real_android_apk_split_asset_files_are_reassembled(tmp_path):
     """`sharedassets0.assets`/`sharedassets1.assets` in this APK are physically split into
     `.split0`..`.splitN` pieces (Android's historical >1MB ZIP-entry-compression limit) --
