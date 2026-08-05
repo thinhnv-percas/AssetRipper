@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Licenses - AssetRipper{% endblock %}
+{% block content %}
+<h1>Licenses</h1>
+<p>
+  Third-party packages this Python port depends on. Not a full bundled license-text page
+  like upstream's (which embeds each NuGet dependency's license file directly) -- this
+  phase lists packages with a link to their own license terms instead of vendoring every
+  license file.
+</p>
+<table class="table">
+  <thead><tr><th>Package</th><th>License</th></tr></thead>
+  <tbody>
+    {% for package in packages %}
+    <tr>
+      <td><a href="{{ package.url }}">{{ package.name }}</a></td>
+      <td>{{ package.license }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,8 @@
+/* Small overrides on top of vendored Bootstrap (vendor/bootstrap/bootstrap.min.css).
+   2026-08-03: the per-template pass Phase 11 left as debt is done -- every template now uses
+   Bootstrap's own .table/.card/.list-group classes, so the bare-<table> fallback rules that used
+   to live here are gone. What remains is the one thing Bootstrap has no class for. */
+.hex {
+  font-family: var(--bs-font-monospace);
+  white-space: pre;
+}

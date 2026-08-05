@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block title %}Configuration Files - AssetRipper{% endblock %}
+{% block content %}
+<h1 class="h3">Configuration Files</h1>
+
+<p class="text-body-secondary">
+  A named store for arbitrary configuration content, backed by
+  <code>assetripper_configuration</code>'s <code>SingletonDataStorage</code>/<code>ListDataStorage</code>.
+  Session-only: nothing here is written to disk, and <strong>Reset</strong> clears it.
+  Separate from the <a href="{{ url_for('home.settings') }}">Settings</a> page, which holds this
+  port's own export/import options.
+</p>
+
+<h2 class="h5 mt-4">Singletons</h2>
+<p class="text-body-secondary small mb-2">One content value per key. Adding an existing key replaces its content.</p>
+{% if singletons %}
+<table class="table table-sm align-middle">
+  <thead><tr><th>Key</th><th>Content</th><th></th></tr></thead>
+  <tbody>
+    {% for row in singletons %}
+    <tr>
+      <td><code>{{ row.key }}</code></td>
+      <td><pre class="mb-0 small" style="max-height: 8rem; overflow: auto;">{{ row.content }}</pre></td>
+      <td>
+        <form method="post" action="{{ url_for('home.configuration_singleton_remove') }}">
+          <input type="hidden" name="Key" value="{{ row.key }}">
+          <button type="submit" class="btn btn-sm btn-outline-secondary">Clear</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="mb-2">No singleton entries.</p>
+{% endif %}
+
+<form method="post" action="{{ url_for('home.configuration_singleton_add') }}" class="row g-2 align-items-end mb-4">
+  <div class="col-12 col-sm-4">
+    <label class="form-label mb-1" for="singleton-key">Key</label>
+    <input class="form-control" id="singleton-key" name="Key" required>
+  </div>
+  <div class="col-12 col-sm-6">
+    <label class="form-label mb-1" for="singleton-content">Content</label>
+    <input class="form-control" id="singleton-content" name="Content">
+  </div>
+  <div class="col-12 col-sm-2">
+    <button type="submit" class="btn btn-primary w-100">Add / Replace</button>
+  </div>
+</form>
+
+<h2 class="h5 mt-4">Lists</h2>
+<p class="text-body-secondary small mb-2">Many content values per key. Adding an unknown key creates it.</p>
+{% if lists %}
+{% for row in lists %}
+<h3 class="h6 mt-3"><code>{{ row.key }}</code> <span class="text-body-secondary fw-normal">({{ row.entries | length }})</span></h3>
+<table class="table table-sm align-middle">
+  <thead><tr><th style="width: 4rem;">#</th><th>Content</th><th></th></tr></thead>
+  <tbody>
+    {% for item in row.entries %}
+    <tr>
+      <td>{{ loop.index0 }}</td>
+      <td>
+        <form method="post" action="{{ url_for('home.configuration_list_replace') }}" class="d-flex gap-2">
+          <input type="hidden" name="Key" value="{{ row.key }}">
+          <input type="hidden" name="Index" value="{{ loop.index0 }}">
+          <input class="form-control form-control-sm" name="Content" value="{{ item }}">
+          <button type="submit" class="btn btn-sm btn-outline-primary">Replace</button>
+        </form>
+      </td>
+      <td>
+        <form method="post" action="{{ url_for('home.configuration_list_remove') }}">
+          <input type="hidden" name="Key" value="{{ row.key }}">
+          <input type="hidden" name="Index" value="{{ loop.index0 }}">
+          <button type="submit" class="btn btn-sm btn-outline-secondary">Remove</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+{% else %}
+<p class="mb-2">No list entries.</p>
+{% endif %}
+
+<form method="post" action="{{ url_for('home.configuration_list_add') }}" class="row g-2 align-items-end">
+  <div class="col-12 col-sm-4">
+    <label class="form-label mb-1" for="list-key">Key</label>
+    <input class="form-control" id="list-key" name="Key" required>
+  </div>
+  <div class="col-12 col-sm-6">
+    <label class="form-label mb-1" for="list-content">Content</label>
+    <input class="form-control" id="list-content" name="Content">
+  </div>
+  <div class="col-12 col-sm-2">
+    <button type="submit" class="btn btn-primary w-100">Add</button>
+  </div>
+</form>
+{% endblock %}

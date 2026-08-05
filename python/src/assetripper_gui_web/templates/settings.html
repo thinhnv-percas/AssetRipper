@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block title %}Settings - AssetRipper{% endblock %}
+{% block content %}
+<h1>Settings</h1>
+<p>
+  Session-only: these choices apply to the next Load Folder / Export Unity Project in this
+  GUI process, and are not saved to disk. Some fields are declared but not yet consumed by
+  any exporter/processor -- see python/ROADMAP.md Phase 10 for which.
+</p>
+<form method="post" action="{{ url_for('home.settings') }}">
+  <h2>Import</h2>
+  <p>
+    <label for="script_content_level">Script content level</label><br>
+    <small>
+      <code>LEVEL_0</code> skips script recovery entirely. Every other level behaves the same
+      here: this port recovers declarations and real field layouts, never method bodies.
+    </small><br>
+    <select id="script_content_level" name="script_content_level">
+      {% for member in enum_choices.script_content_level %}
+      <option value="{{ member.name }}" {% if settings.import_settings.script_content_level == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="streaming_assets_mode">Streaming assets</label><br>
+    <select id="streaming_assets_mode" name="streaming_assets_mode">
+      {% for member in enum_choices.streaming_assets_mode %}
+      <option value="{{ member.name }}" {% if settings.import_settings.streaming_assets_mode == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+
+  <p>
+    <label for="assembly_directories">Extra assembly directories</label><br>
+    <small>
+      One directory per line. Any <code>.dll</code> files found are used to recover script
+      types, in addition to assemblies found inside the build. For an IL2CPP build (no
+      <code>Managed/</code> directory), point this at the dummy assemblies produced by
+      Il2CppDumper / Cpp2IL / DevX-GameRecovery.
+    </small><br>
+    <textarea id="assembly_directories" name="assembly_directories" rows="3" cols="70"
+      >{{ settings.import_settings.assembly_directories | join('\n') }}</textarea>
+  </p>
+
+  <h2>Export</h2>
+  <p>
+    <label for="image_export_format">Image export format</label><br>
+    <select id="image_export_format" name="image_export_format">
+      {% for member in enum_choices.image_export_format %}
+      <option value="{{ member.name }}" {% if settings.export_settings.image_export_format == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="audio_export_format">Audio export format</label><br>
+    <select id="audio_export_format" name="audio_export_format">
+      {% for member in enum_choices.audio_export_format %}
+      <option value="{{ member.name }}" {% if settings.export_settings.audio_export_format == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="shader_export_mode">Shader export mode</label><br>
+    <select id="shader_export_mode" name="shader_export_mode">
+      {% for member in enum_choices.shader_export_mode %}
+      <option value="{{ member.name }}" {% if settings.export_settings.shader_export_mode == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="sprite_export_mode">Sprite export mode (not yet consumed)</label><br>
+    <select id="sprite_export_mode" name="sprite_export_mode">
+      {% for member in enum_choices.sprite_export_mode %}
+      <option value="{{ member.name }}" {% if settings.export_settings.sprite_export_mode == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="text_export_mode">Text export mode</label><br>
+    <select id="text_export_mode" name="text_export_mode">
+      {% for member in enum_choices.text_export_mode %}
+      <option value="{{ member.name }}" {% if settings.export_settings.text_export_mode == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label>
+      <input type="checkbox" name="export_unreadable_assets" {% if settings.export_settings.export_unreadable_assets %}checked{% endif %}>
+      Export unreadable assets
+    </label>
+  </p>
+
+  <h2>Processing</h2>
+  <p>
+    <label for="bundled_assets_export_mode">Bundled assets export mode</label><br>
+    <select id="bundled_assets_export_mode" name="bundled_assets_export_mode">
+      {% for member in enum_choices.bundled_assets_export_mode %}
+      <option value="{{ member.name }}" {% if settings.processing_settings.bundled_assets_export_mode == member %}selected{% endif %}>{{ member.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label>
+      <input type="checkbox" name="remove_nullable_attributes" {% if settings.processing_settings.remove_nullable_attributes %}checked{% endif %}>
+      Remove nullable attributes (not yet consumed)
+    </label>
+  </p>
+  <p>
+    <label>
+      <input type="checkbox" name="publicize_assemblies" {% if settings.processing_settings.publicize_assemblies %}checked{% endif %}>
+      Publicize assemblies (not yet consumed)
+    </label>
+  </p>
+
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

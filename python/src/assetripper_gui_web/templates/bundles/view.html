@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}{{ bundle.name }} - AssetRipper{% endblock %}
+{% block content %}
+<h1 class="h3">Bundle: {{ bundle.name }}</h1>
+
+{% macro link_card(title, rows, endpoint) %}
+{% if rows %}
+<div class="card mb-3">
+  <div class="card-header">{{ title }} <span class="badge text-bg-secondary">{{ rows|length }}</span></div>
+  <ul class="list-group list-group-flush">
+    {% for item, item_path in rows %}
+    <li class="list-group-item"><a href="{{ url_for(endpoint, Path=item_path.to_json()) }}">{{ item.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endmacro %}
+
+{{ link_card("Child bundles", child_bundles, "bundles.view") }}
+{{ link_card("Collections", collections, "collections.view") }}
+{{ link_card("Resources", resources, "resources.view") }}
+{{ link_card("Failed files", failed_files, "failed_files.view") }}
+
+{% if not child_bundles and not collections and not resources and not failed_files %}
+<p class="text-body-secondary">This bundle is empty.</p>
+{% endif %}
+{% endblock %}
