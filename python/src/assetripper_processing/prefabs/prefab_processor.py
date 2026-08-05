@@ -35,6 +35,7 @@ from assetripper_import.class_id_type import ClassIDType
 from ..i_asset_processor import IAssetProcessor
 from . import game_object_helpers
 from .prefab_hierarchy_object import PrefabHierarchyObject, create_prefab_for_root
+from .missing_transforms import add_missing_transforms
 from .scene_hierarchy_object import SceneHierarchyObject
 
 _GENERATED_HIERARCHY_BUNDLE_NAME = "Generated Hierarchy Assets"
@@ -51,6 +52,11 @@ class PrefabProcessor(IAssetProcessor):
         prefab_instance_collection = processed_bundle.add_new_processed_collection(
             _GENERATED_PREFABS_COLLECTION_NAME, game_data.project_version
         )
+
+        # Before any hierarchy is built, exactly like upstream: a GameObject with no Transform
+        # cannot be placed in a Unity hierarchy at all, so it has to be fixed while the
+        # hierarchies are still being assembled.
+        add_missing_transforms(game_data, processed_bundle)
 
         game_objects_already_processed: set = set()
 

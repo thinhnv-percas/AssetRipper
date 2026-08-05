@@ -631,7 +631,35 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
 - [x] Release gate + commit + push
 - [ ] **Còn lại (chưa làm, không bịa là xong):** `AddMissingTransforms` (Transform-từ-đầu, edge case
       hiếm); prefab hoá cho `PrefabInstance` thật sẵn có trong scene (cần field `RootGameObjectP`
-      chưa xác minh); `IsSceneDuplicate` thật (hiện `is_scene_duplicate` luôn `False`)
+      chưa xác minh)
+- [x] `AddMissingTransforms` — **xong 2026-08-03** `(pending)`,
+      `prefabs/missing_transforms.py`. Unity **bắt buộc** mọi GameObject phải có Transform;
+      thiếu là GameObject mà Editor không đặt được vào hierarchy. Đây là **port thật, không phải
+      tự bịa shape**: layout Transform đã có và đã register sẵn, `TypeTreeObject.create` dựng
+      instance từ đúng layout đó, nên field set/order y như một Transform đọc từ file thật. Chỉ 2
+      giá trị set tay là 2 default của Unity mà zero-fill sẽ sai — rotation identity (`w=1`) và
+      scale = 1 (quaternion toàn 0 không phải phép quay, scale 0 làm object biến mất)
+      - **Đo thay vì đoán độ hiếm:** trên `demo-android.apk` có 407 GameObject và **0 cái** thiếu
+        Transform → code path này chỉ chạy với build lỗi/bị strip dở, và test của nó là chỗ duy
+        nhất nó thực sự chạy
+      - **2 cái bẫy gặp khi làm, đều là bug sẽ nổ muộn:** (1) `TypeTreeObject.create` chỉ cấp slot
+        chứ không init field — không gọi `initialize_fields` thì gán `m_GameObject` sẽ nhét một
+        `PPtr` thô vào chỗ structure chờ `SerializablePPtr`, và **chỉ vỡ lúc export YAML**, rất xa
+        chỗ gây ra; (2) `m_Component` là `vector<ComponentPair>` trước 5.5 và `vector<PPtr>` từ 5.5
+        → element mới được dựng từ chính **element descriptor của array**, không branch theo
+        version, nên luôn khớp layout đang dùng. Có 2 test export YAML thật để khoá cả hai
+      - Khác upstream 1 chỗ có ghi rõ: mọi Transform sinh ra nằm trong **một** collection thay vì
+        chia theo scene — upstream chạy trước khi tạo scene hierarchy và dùng chung cache
+        `GetOrCreateSceneCollection`, còn `PrefabProcessor` của port này tạo các collection đó
+        inline trong loop của nó. Không ảnh hưởng byte export: `SceneHierarchyObject` gom component
+        bằng cách đi hierarchy, không theo collection
+      - **Test:** 9 test (`test_missing_transforms.py`)
+- [x] **Sửa ghi chú sai:** `IsSceneDuplicate` — **đã implement đầy đủ và đúng từ trước**
+      (`scene_helpers.is_scene_duplicate`, khớp upstream từng dòng). Ghi chú cũ "hiện luôn
+      `False`" là **sai về nguyên nhân**: nó chỉ trả `False` khi `build_settings` là `None` hoặc
+      không đọc được `m_Scenes` — mà đó chính là hành vi của upstream. Cái thật sự chặn nó trên
+      build release là **thiếu layout `BuildSettings`(141)**, đã có item riêng bên dưới. Sửa
+      2026-08-03
 - [x] ⚠️ `StrippedAssets`/`--- !u!1 &2 stripped` support — **xong phía consumer 2026-08-03** `fc7b10d`: `GameObjectHierarchyObject.stripped_assets` +
       `assetripper_export_unity_projects/stripped_asset.py` (`is_stripped` +
       `remove_stripped_fields`, allow-list nguyên văn upstream) + hook trong
