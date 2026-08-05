@@ -1,5 +1,4 @@
-﻿using AssetRipper.GUI.Web.Pages.Export;
-using AssetRipper.GUI.Web.Paths;
+﻿using AssetRipper.GUI.Web.Paths;
 
 namespace AssetRipper.GUI.Web.Pages;
 
@@ -11,24 +10,6 @@ public sealed class CommandsPage : VuePage
 
 	public override void WriteInnerContent(TextWriter writer)
 	{
-		using (new P(writer).End())
-		{
-			using (new Form(writer).WithAction(BrowseAPI.Urls.Browse).WithMethod("get").End())
-			{
-				new Input(writer).WithClass("form-control").WithType("text").WithName("Path")
-					.WithCustomAttribute("v-model", "view_path").Close();
-				new Input(writer).WithCustomAttribute("v-if", "view_path !== '' && view_path === view_path.trim()").WithType("submit").WithClass("btn btn-primary").WithValue(Localization.ViewUnityProject).Close();
-				new Button(writer).WithCustomAttribute("v-else").WithClass("btn btn-primary").WithCustomAttribute("disabled").Close(Localization.ViewUnityProject);
-			}
-
-			if (Dialogs.Supported)
-			{
-				new Button(writer).WithCustomAttribute("@click", "handleSelectViewFolder").WithClass("btn btn-success").Close(Localization.SelectFolder);
-			}
-		}
-
-		new Hr(writer).Close();
-
 		if (!GameFileLoader.IsLoaded)
 		{
 			using (new P(writer).End())

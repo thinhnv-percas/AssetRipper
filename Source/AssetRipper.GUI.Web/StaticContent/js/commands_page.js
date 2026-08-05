@@ -7,26 +7,10 @@ const app = createApp({
 			load_path_exists: false,
 			export_path: '',
 			export_path_has_files: false,
-			create_subfolder: false,
-			view_path: ''
+			create_subfolder: false
 		}
 	},
 	methods: {
-		async handleSelectViewFolder() {
-			// Add a debounce mechanism to avoid too many requests in a short time
-			if (this.debouncedInput) {
-				clearTimeout(this.debouncedInput);
-			}
-
-			this.debouncedInput = setTimeout(async () => {
-				try {
-					const response = await fetch(`/Dialogs/OpenFolder`);
-					this.view_path = await response.json();
-				} catch (error) {
-					console.error('Error fetching data:', error);
-				}
-			}, 300); // Adjust the debounce time as needed (300 milliseconds in this example)
-		},
 		async handleLoadPathChange() {
 			// Add a debounce mechanism to avoid too many requests in a short time
 			if (this.debouncedInput) {
