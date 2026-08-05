@@ -1,4 +1,5 @@
-﻿using AssetRipper.NativeDialogs;
+﻿using AssetRipper.GUI.Web.Pages.Export;
+using AssetRipper.NativeDialogs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
@@ -107,7 +108,8 @@ public static class Commands
 			{
 				bool createSubfolder = TryGetCreateSubfolder(form);
 				path = MaybeAppendTimestampedSubfolder(path, createSubfolder);
-				await GameFileLoader.ExportUnityProject(path);
+				bool success = await GameFileLoader.ExportUnityProject(path);
+				return success ? BrowseAPI.GetBrowseUrl(path) : null;
 			}
 			return null;
 		}
@@ -133,7 +135,8 @@ public static class Commands
 			{
 				bool createSubfolder = TryGetCreateSubfolder(form);
 				path = MaybeAppendTimestampedSubfolder(path, createSubfolder);
-				await GameFileLoader.ExportPrimaryContent(path);
+				bool success = await GameFileLoader.ExportPrimaryContent(path);
+				return success ? BrowseAPI.GetBrowseUrl(path) : null;
 			}
 			return null;
 		}

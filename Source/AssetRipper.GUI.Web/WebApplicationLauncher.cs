@@ -3,6 +3,7 @@ using AssetRipper.GUI.Web.Pages;
 using AssetRipper.GUI.Web.Pages.Assets;
 using AssetRipper.GUI.Web.Pages.Bundles;
 using AssetRipper.GUI.Web.Pages.Collections;
+using AssetRipper.GUI.Web.Pages.Export;
 using AssetRipper.GUI.Web.Pages.FailedFiles;
 using AssetRipper.GUI.Web.Pages.Resources;
 using AssetRipper.GUI.Web.Pages.Scenes;
@@ -238,6 +239,14 @@ public static class WebApplicationLauncher
 
 		//Scenes
 		app.MapGet(SceneAPI.Urls.View, SceneAPI.GetView).ProducesHtmlPage();
+
+		//Exported project browsing
+		app.MapGet(BrowseAPI.Urls.Browse, BrowseAPI.GetView)
+			.ProducesHtmlPage()
+			.WithQueryStringParameter("Path", "Path to a folder or file in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.File, BrowseAPI.GetFileData)
+			.Produces<byte[]>(contentType: "application/octet-stream")
+			.WithQueryStringParameter("Path", "Path to a file in the exported project", true);
 
 		app.MapPost("/Localization", (context) =>
 		{
