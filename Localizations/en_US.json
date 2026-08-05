@@ -102,6 +102,7 @@
     "export_preparing": "Preparing for Export...\nThis might take a minute.",
     "export_preview_unavailable": "Preview is not available for this file type.",
     "export_primary_content": "Export Primary Content",
+    "export_select_file_to_preview": "Select a file in the tree to preview it.",
     "export_unity_project": "Export Unity Project",
     "export_unreadable_assets": "Export Unreadable Assets",
     "failed_files": "Failed Files",

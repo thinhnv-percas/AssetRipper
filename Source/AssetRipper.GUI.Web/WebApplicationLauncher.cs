@@ -151,6 +151,7 @@ public static class WebApplicationLauncher
 		app.MapStaticFile("/js/site.js", "text/javascript");
 		app.MapStaticFile("/js/commands_page.js", "text/javascript");
 		app.MapStaticFile("/js/mesh_preview.js", "text/javascript");
+		app.MapStaticFile("/js/export_explorer.js", "text/javascript");
 		OnlineDependencies.MapDependencies(app);
 
 		//Normal Pages
@@ -243,6 +244,12 @@ public static class WebApplicationLauncher
 		//Exported project browsing
 		app.MapGet(BrowseAPI.Urls.Browse, BrowseAPI.GetView)
 			.ProducesHtmlPage()
+			.WithQueryStringParameter("Path", "Path to a folder or file in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.Tree, BrowseAPI.GetTree)
+			.Produces<TreeEntry[]>()
+			.WithQueryStringParameter("Path", "Path to a folder in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.Preview, BrowseAPI.GetPreview)
+			.Produces<string>(contentType: "text/html")
 			.WithQueryStringParameter("Path", "Path to a folder or file in the exported project", true);
 		app.MapGet(BrowseAPI.Urls.File, BrowseAPI.GetFileData)
 			.Produces<byte[]>(contentType: "application/octet-stream")

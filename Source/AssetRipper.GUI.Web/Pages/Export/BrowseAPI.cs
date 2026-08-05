@@ -10,6 +10,8 @@ internal static class BrowseAPI
 	{
 		public const string Base = "/Export";
 		public const string Browse = Base + "/Browse";
+		public const string Tree = Base + "/Tree";
+		public const string Preview = Base + "/Preview";
 		public const string File = Base + "/File";
 	}
 
@@ -19,6 +21,9 @@ internal static class BrowseAPI
 
 	public static string GetFileUrl(string path) => $"{Urls.File}?{Path}={Uri.EscapeDataString(path)}";
 
+	/// <summary>
+	/// Renders the two-pane project explorer, rooted at the whole exported project when possible.
+	/// </summary>
 	public static Task GetView(HttpContext context)
 	{
 		context.Response.DisableCaching();
@@ -27,18 +32,64 @@ internal static class BrowseAPI
 			return failureTask;
 		}
 
-		if (Directory.Exists(path))
-		{
-			return new BrowsePage() { DirectoryPath = path }.WriteToResponse(context.Response);
-		}
-		else if (System.IO.File.Exists(path))
-		{
-			return new FilePreviewPage() { FilePath = path }.WriteToResponse(context.Response);
-		}
-		else
+		if (!Directory.Exists(path) && !System.IO.File.Exists(path))
 		{
 			return context.Response.NotFound($"Path could not be found: {path}");
 		}
+
+		string root = GetTreeRoot(path);
+		return new BrowsePage() { RootPath = root, SelectedPath = path }.WriteToResponse(context.Response);
+	}
+
+	/// <summary>
+	/// Returns the immediate children (folders then files) of a directory, for the file tree sidebar.
+	/// </summary>
+	public static Task GetTree(HttpContext context)
+	{
+		context.Response.DisableCaching();
+		if (!TryGetPathFromQuery(context, out string? path, out Task? failureTask))
+		{
+			return failureTask;
+		}
+
+		if (!Directory.Exists(path))
+		{
+			return context.Response.NotFound($"Directory could not be found: {path}");
+		}
+
+		string[] directories = Directory.GetDirectories(path);
+		string[] files = Directory.GetFiles(path);
+		Array.Sort(directories, StringComparer.OrdinalIgnoreCase);
+		Array.Sort(files, StringComparer.OrdinalIgnoreCase);
+
+		TreeEntry[] entries = new TreeEntry[directories.Length + files.Length];
+		int i = 0;
+		foreach (string directory in directories)
+		{
+			entries[i++] = new TreeEntry(System.IO.Path.GetFileName(directory), directory, true);
+		}
+		foreach (string file in files)
+		{
+			entries[i++] = new TreeEntry(System.IO.Path.GetFileName(file), file, false);
+		}
+
+		return Results.Json(entries, AppJsonSerializerContext.Default.TreeEntryArray).ExecuteAsync(context);
+	}
+
+	/// <summary>
+	/// Returns an HTML fragment previewing a single file or folder, for the right-hand preview panel.
+	/// </summary>
+	public static Task GetPreview(HttpContext context)
+	{
+		context.Response.DisableCaching();
+		if (!TryGetPathFromQuery(context, out string? path, out Task? failureTask))
+		{
+			return failureTask;
+		}
+
+		StringWriter stringWriter = new();
+		PreviewFragment.Write(stringWriter, path);
+		return Results.Text(stringWriter.ToString(), "text/html").ExecuteAsync(context);
 	}
 
 	public static Task GetFileData(HttpContext context)
@@ -61,8 +112,28 @@ internal static class BrowseAPI
 	}
 
 	/// <summary>
-	/// Resolves the requested path from the query string.
+	/// Prefers rooting the tree at the most recently exported project when the requested path falls inside it,
+	/// so deep links still show the whole project rather than just one subfolder.
 	/// </summary>
+	private static string GetTreeRoot(string path)
+	{
+		string? lastExportPath = GameFileLoader.LastExportPath;
+		if (lastExportPath is not null && Directory.Exists(lastExportPath) && IsWithinOrEqual(path, lastExportPath))
+		{
+			return lastExportPath;
+		}
+
+		return Directory.Exists(path) ? path : (Directory.GetParent(path)?.FullName ?? path);
+	}
+
+	private static bool IsWithinOrEqual(string candidate, string root)
+	{
+		string fullCandidate = System.IO.Path.GetFullPath(candidate);
+		string fullRoot = System.IO.Path.GetFullPath(root);
+		return fullCandidate.Equals(fullRoot, StringComparison.OrdinalIgnoreCase)
+			|| fullCandidate.StartsWith(fullRoot + System.IO.Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+	}
+
 	private static bool TryGetPathFromQuery(HttpContext context, [NotNullWhen(true)] out string? path, [NotNullWhen(false)] out Task? failureTask)
 	{
 		if (!context.Request.Query.TryGetValue(Path, out StringValues values) || string.IsNullOrEmpty(values))
