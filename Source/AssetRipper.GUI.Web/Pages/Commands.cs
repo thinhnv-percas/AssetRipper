@@ -55,6 +55,7 @@ public static class Commands
 			if (paths is { Length: > 0 })
 			{
 				GameFileLoader.LoadAndProcess(paths);
+				return await AutoExportAndGetRedirect();
 			}
 			return null;
 		}
@@ -83,9 +84,25 @@ public static class Commands
 			if (paths is { Length: > 0 })
 			{
 				GameFileLoader.LoadAndProcess(paths);
+				return await AutoExportAndGetRedirect();
 			}
 			return null;
 		}
+	}
+
+	/// <summary>
+	/// Automatically decompiles the just-loaded game to a scratch directory and returns the URL to preview it.
+	/// </summary>
+	private static async Task<string?> AutoExportAndGetRedirect()
+	{
+		if (!GameFileLoader.IsLoaded)
+		{
+			return null;
+		}
+
+		string autoExportPath = Path.Combine(Path.GetTempPath(), "AssetRipper_AutoPreview", Guid.NewGuid().ToString("N"));
+		bool success = await GameFileLoader.ExportUnityProject(autoExportPath);
+		return success ? BrowseAPI.GetBrowseUrl(autoExportPath) : null;
 	}
 
 	public readonly struct ExportUnityProject : ICommand
