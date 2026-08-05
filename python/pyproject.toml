@@ -13,7 +13,27 @@ requires-python = ">=3.11"
 # package manager (Debian/Ubuntu: `libvorbis0a`; Fedora: `libvorbis`; macOS: `brew install
 # libvorbis`). Without it, Vorbis clips fall back to a raw .fsb dump with a logged warning
 # rather than failing the export -- see assetripper_export_modules/audio_clip_decoder.py.
-dependencies = ["flask>=3", "lz4>=4", "xxhash>=3", "texture2ddecoder>=1", "Pillow>=10", "brotli>=1.1", "zstandard>=0.22", "fsb5>=1"]
+dependencies = [
+    "flask>=3",
+    "lz4>=4",
+    "xxhash>=3",
+    "texture2ddecoder>=1",
+    "Pillow>=10",
+    "brotli>=1.1",
+    "zstandard>=0.22",
+    # FSB5/FMOD audio containers. Vorbis-mode clips additionally need the *native* libvorbis
+    # library at runtime, which is not pip-installable:
+    #   Debian/Ubuntu: apt install libvorbis0a
+    #   Fedora:        dnf install libvorbis
+    #   macOS:         brew install libvorbis
+    # Without it, Vorbis clips fall back to a raw .fsb dump with a logged warning; PCM-mode
+    # clips need nothing extra. See assetripper_export_modules/audio_clip_decoder.py.
+    "fsb5>=1",
+    # Decodes Ogg Vorbis for AudioExportFormat.PreferWav. Its wheels bundle libsndfile, which
+    # has had Ogg Vorbis support since 1.0.29, so this one needs no system package -- and it is
+    # only used by PreferWav, so a broken install degrades to .ogg rather than failing exports.
+    "soundfile>=0.12",
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]

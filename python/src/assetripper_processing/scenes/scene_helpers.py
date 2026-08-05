@@ -1,24 +1,28 @@
 """Port of Source/AssetRipper.Processing/Scenes/SceneHelpers.cs
 
-`build_settings` is accessed dynamically (`build_settings.get("m_Scenes")`) rather than
-through a generated `IBuildSettings` interface -- BuildSettings (class ID 141) is not covered
-by Phase 2's hand-written layouts. **Confirmed against a real stripped IL2CPP Android player
-build** (`python/input-test/demo-android.apk`, Phase 13/17 audit): unlike editor-produced
-files, a real shipped player build commonly has *no* embedded type tree at all, so
-`build_settings` legitimately comes through as an `UnknownObject`/`RawDataObject` here, not a
-`TypeTreeObject` -- `.get(...)` doesn't exist on it. `_scenes(build_settings)` below treats
-that the same as "no BuildSettings resolved" (matching the existing `build_settings is None`
-branch already here) rather than crashing the whole processor pipeline. This is a real,
-not-yet-closed fidelity gap, not a fabrication: scene-file naming falls back to
-`SceneDefinition.from_name` for every scene in a stripped build, same as if BuildSettings had
-never been found at all. A hand-written BuildSettings layout (Phase 2 style) would let real
-scene names resolve even without a type tree -- not done here, tracked in python/ROADMAP.md.
-`IsSceneCompatible` (used by the not-yet-ported PrefabProcessor) is not ported here.
+`build_settings` is accessed dynamically rather than through a generated `IBuildSettings`
+interface -- BuildSettings (class ID 141) is not covered by Phase 2's hand-written layouts,
+because 28 bytes of its 2022.3 shape remain unidentified and a layout must consume an object's
+bytes exactly (see `build_settings_scenes.py`).
+
+**Confirmed against a real stripped IL2CPP Android player build**
+(`python/input-test/demo-android.apk`): unlike editor-produced files, a shipped player build
+commonly has *no* embedded type tree at all, so `build_settings` comes through as an
+`UnknownObject`/`RawDataObject` -- `.get(...)` returns nothing useful on it.
+
+2026-08-03: that no longer costs the scene names. `_scenes` now delegates to
+`build_settings_scenes.scenes_of`, which reads `m_Scenes` -- `BuildSettings`' **first** field --
+straight from the raw bytes when there is no layout, and declines rather than guessing if the
+bytes do not start with a plausible string array. On the real fixture this turns `level0`/`level1`
+into the real `Loading`/`Game`. `IsSceneCompatible` (used by the not-yet-ported PrefabProcessor)
+is not ported here.
 """
 from __future__ import annotations
 
 import posixpath
 import re
+
+from . import build_settings_scenes
 
 _ASSETS_NAME = "Assets/"
 _LIBRARY_PACKAGE_CACHE_NAME = "Library/PackageCache/"
@@ -54,14 +58,15 @@ def scene_index_to_file_name(index: int, version) -> str:
 
 
 def _scenes(build_settings) -> "list[str] | None":
-    """`None` if `build_settings` is `None` or has no readable `m_Scenes` field (no embedded
-    type tree -- see module docstring), distinct from `[]` (a real, empty scene list)."""
-    if build_settings is None:
-        return None
-    getter = getattr(build_settings, "get", None)
-    if getter is None:
-        return None
-    return getter("m_Scenes", [])
+    """`None` if `build_settings` is `None` or its `m_Scenes` cannot be recovered at all,
+    distinct from `[]` (a real, empty scene list).
+
+    2026-08-03: no longer gives up when there is no embedded type tree. `m_Scenes` is
+    `BuildSettings`' first field, so it can be read from the raw bytes without any claim about
+    the rest of the object -- see `build_settings_scenes.py` for the evidence and for why a full
+    hand-written layout still cannot be written honestly.
+    """
+    return build_settings_scenes.scenes_of(build_settings)
 
 
 def try_get_scene_path(collection, build_settings) -> tuple[bool, str | None]:

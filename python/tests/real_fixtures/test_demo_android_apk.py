@@ -275,3 +275,48 @@ def test_real_android_apk_loads_through_the_gui(tmp_path):
         assert game_file_loader.has_game_data(), game_file_loader.load_errors()
     finally:
         game_file_loader.reset()
+
+
+def test_real_scene_names_come_from_build_settings(tmp_path):
+    """2026-08-03: `BuildSettings` (class 141) has no hand-written layout -- 28 bytes of its real
+    2022.3 shape are still unidentified, and a layout must consume an object's bytes exactly. So
+    both scenes in this build used to fall back to generic `level0`/`level1` names.
+
+    `m_Scenes` is `BuildSettings`' *first* field, though, so it can be read from the raw bytes
+    without any claim about what follows (see `scenes/build_settings_scenes.py`). Asserts the real
+    names, which is the whole user-visible point."""
+    game_data = ExportHandler().load_and_process([str(_APK_PATH)], FS, settings=None)
+
+    scenes = {scene.name: scene.path for scene in game_data.game_bundle.scenes}
+    assert set(scenes) == {"Loading", "Game"}, f"expected the real scene names, got {set(scenes)}"
+    assert scenes["Loading"] == "Assets/Scenes/Loading"
+    assert scenes["Game"] == "Assets/Scenes/Game"
+
+
+def test_real_audio_exports_as_wav_under_prefer_wav(tmp_path):
+    """2026-08-03: `AudioExportFormat.PreferWav` used to be a no-op. `fsb5` only rebuilds the Ogg
+    headers FMOD strips -- it never decodes Vorbis -- so this needed a real decoder (`soundfile`,
+    whose wheels bundle libsndfile). Asserts all 11 clips come out as genuinely valid WAV, not a
+    renamed Ogg."""
+    import wave
+
+    from assetripper_export_configuration.audio_export_format import AudioExportFormat
+    from assetripper_export_configuration.export_settings import ExportSettings
+    from assetripper_export_configuration.full_configuration import FullConfiguration
+
+    settings = FullConfiguration(
+        export_settings=ExportSettings(audio_export_format=AudioExportFormat.PREFER_WAV)
+    )
+    handler = ExportHandler()
+    game_data = handler.load_and_process([str(_APK_PATH)], FS, settings=settings)
+    handler.export(game_data, str(tmp_path), FS, settings=settings)
+
+    wav_files = list(tmp_path.rglob("*.wav"))
+    assert len(wav_files) > 5, f"expected the clips as WAV, got {len(wav_files)}"
+    assert not list(tmp_path.rglob("*.ogg")), "PreferWav should leave no .ogg behind"
+    assert not list(tmp_path.rglob("*.fsb"))
+
+    reader = wave.open(str(wav_files[0]))
+    assert reader.getsampwidth() == 2
+    assert reader.getframerate() >= 8000
+    assert reader.getnframes() > 0

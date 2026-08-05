@@ -1748,10 +1748,25 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       vẫn cần `16d`/`16e` (IL2CPP metadata + binary parser, chưa làm) mới đọc được — gap ở đây không
       còn là "chưa làm gì cho MonoBehaviour" mà cụ thể là "chưa làm nhánh IL2CPP". Cần một build Mono
       thật để kiểm chứng nhánh Mono end-to-end (test hiện tại đều trên `.dll` dựng tay, xem 16f)
-- [ ] `BuildSettings`(141): byte thật cho thấy ~28 byte flag giữa `m_Scenes` và version string mà
-      tài liệu công khai tra được (rất cũ, thời Unity 2.x-3.x) không khớp — không đủ tự tin đặt tên
-      field, để lại `[~]`. Giá trị thấp (chỉ ảnh hưởng tên file scene fallback, đã graceful từ Phase 18
-      bug-fix pass)
+- [x] ⚠️ `BuildSettings`(141) — **2026-08-03 `(pending)`: lấy được `m_Scenes` mà KHÔNG cần layout.**
+      Kết quả user thấy được: 2 scene trên fixture thật đổi từ `level0`/`level1` → **`Loading`/`Game`**
+      (`Assets/Scenes/Loading`, `Assets/Scenes/Game`).
+      - **Vẫn không viết layout, và giờ có lý do chính xác từ byte thật** (decode từng field, xem
+        docstring `test_build_settings_scenes.py`): payload 204 byte gồm `m_Scenes` (offset 0),
+        rồi **28 byte không xác định được** (offset 64: `00`×18, `01 01 01 01`, `00 00 01`,
+        `00 00 00`), rồi `m_Version` = "2022.3.62f2", rồi 1 string hash 80 ký tự, rồi **12 byte
+        không xác định** ở cuối. Layout **buộc phải** consume đúng hết byte (`try_read`), nên viết
+        layout = phải bịa tên cho 40 byte
+      - **Cách làm thay thế:** `scenes/build_settings_scenes.py` đọc **chỉ** `m_Scenes` từ raw
+        bytes. Hợp lý vì nó là field **đầu tiên** → không cần khẳng định gì về phần sau. 3 nguồn
+        độc lập đồng ý cả vị trí lẫn encoding: byte thật của fixture, `SceneHelpers.cs` của
+        upstream (`buildSettings.Scenes[sceneIndex]`), và `BuildSettings.cs` của AssetStudio
+        (`reader.ReadStringArray()` đầu tiên — từ Unity rất cũ, đúng ý: mảng string mở đầu ổn định
+        suốt các version). Count/length vô lý → **decline**, giữ hành vi tên generic cũ, không bịa
+        tên scene. Layout (nếu sau này có) vẫn được ưu tiên hơn raw bytes
+      - **Tác dụng phụ:** `is_scene_duplicate` (vốn đã đúng nhưng chưa bao giờ chạy được trên
+        release build vì `m_Scenes` không đọc nổi) giờ hoạt động thật
+      - **Test:** 31 test (`test_build_settings_scenes.py`) + 1 test real-fixture
 - [x] `Mesh`(43) — ✅ xong `8d12472`, xem mục riêng ngay trên
 - [~] `Shader`(48): **đã điều tra cùng ngày (đợt 3, commit `7dcd3f8`), quyết định không làm trong phiên này — bằng
       chứng cụ thể, không phải suy đoán:**
@@ -2051,9 +2066,20 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
       công**, vì môi trường headless chỉ chạy được nhánh degrade)
 - [~] **(Phase 20e audit)** `/Localization` — **không port, cố ý**: port này chỉ có tiếng Anh, không có
       hạ tầng localization nào. Không chặn tính năng
-- [ ] **(Phase 20c)** `AudioExportFormat.PreferWav` vẫn là no-op: đổi `.ogg` rebuild sang `.wav` cần
-      một Vorbis **decoder** + re-encode PCM, mà `fsb5` chỉ dựng lại Ogg stream chứ không decode. Unity
-      import `.ogg` trực tiếp nên giá trị thấp
+- [x] **(Phase 20c)** `AudioExportFormat.PreferWav` — **xong 2026-08-03 `(pending)`**. Đúng như
+      chẩn đoán cũ: `fsb5` chỉ *dựng lại* header Ogg mà FMOD lược bỏ, **không decode** Vorbis, nên
+      cần decoder thật. Dùng `soundfile`: **wheel của nó bundle luôn libsndfile** (có Ogg Vorbis từ
+      1.0.29) → **không cần system package**, khác hẳn `libvorbis` native mà bản thân `fsb5` cần cho
+      bước rebuild. Encode ra PCM-16 (Vorbis là lossy, không có bit depth gốc để giữ; 16-bit là
+      mặc định Unity import audio).
+      - Chỉ ảnh hưởng clip Vorbis: PCM mode `fsb5` đã trả WAV sẵn, còn container fallback `.fsb`
+        thì không có gì để transcode. Thiếu decoder / stream lỗi → **degrade về `.ogg` + warning**,
+        không làm vỡ export
+      - `prefer_wav` đọc từ chính exporter (`AudioClipExporter.prefer_wav`) chứ không lưu lại lần
+        nữa ở collection, để extension và bytes không thể lệch nhau
+      - **Verify trên fixture thật:** 11/11 clip ra `.wav` hợp lệ (44.1kHz, 16-bit), 0 `.ogg`,
+        0 `.fsb`. **Test:** 8 test mới + 1 test real-fixture. Thêm 1 fixture clear `lru_cache` —
+        chính test bắt được chuyện cache của `decode` giữ kết quả giữa các test
 - [x] **(2026-08-03)** FSB5 nhiều sample: **đã quyết định và implement** — dump nguyên container
       `.fsb` + log warning, thay vì im lặng giữ sample đầu. Lý do: 1 AudioClip ↔ 1 file export, nên
       sample 2..n **không có chỗ đúng nào để đi**; giữ sample đầu là "output sai mà trông như thành
@@ -2071,6 +2097,38 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
       còn sai số tuyệt đối tệ nhất chỉ ~2.4e-8 → thứ phép so này cần là **absolute floor**, siết
       `rel` kiểu gì cũng không bao giờ đúng được. Thêm `abs=1e-6`; chạy lại 60 lần liên tiếp đều pass
 - [ ] Bổ sung layout Phase 2 cho ~10 type còn thiếu (xem Phase 2 — đã từ 15 xuống 10 sau Phase 18)
+- [ ] ⭐ **Phát hiện lớn 2026-08-03 — đường đi cho TOÀN BỘ layout còn thiếu: Tpk type-tree
+      database TẢI ĐƯỢC và parse được một phần.** Đây là thứ đáng làm nhất trong các item còn lại,
+      vì nó thay thế hẳn việc hand-author layout bằng dữ liệu authoritative của chính upstream.
+      - **Nguồn:** `https://nightly.link/AssetRipper/Tpk/workflows/type_tree_tpk/master/brotli_file.zip`
+        (đúng URL `Source/AssetRipper.AssemblyDumper.Downloader/Program.cs:22` dùng). Tải OK, 208 KB
+        → `brotli.tpk`
+      - **Header đã giải:** `TPK*` magic (4B), version=2 (1B), blobType=3 (1B), 6B zero,
+        compressedSize u32, decompressedSize u32 → **stream brotli bắt đầu ở offset 20**,
+        decompress ra 1.538.989 byte (khớp đúng decompressedSize)
+      - **Đã parse sạch 3/4 section:**
+        1. **Version table:** 8B unknown, count u32 = **1420**, rồi 1420 × 8B với layout
+           `typeNumber(u8), type(u8), build(u16), minor(u16), major(u16)` — verify: record đầu
+           `01 03 00 00 04 00 03 00` = **3.4.0f1**, record cuối = **6000.7.0a3**
+        2. **ClassInformation:** count u32 = **415** class, mỗi entry `ID(i32), count(u32)`, rồi
+           count × `version(8B), hasClass(u8), [Name(u16), Base(u16), Flags(u8),
+           [editorRoot(u16) nếu Flags&0x80], [releaseRoot(u16) nếu Flags&0x40]]`. Verify:
+           GameObject → Name=2 (`"GameObject"`), Base=3 (`"EditorExtension"`) — **đúng type tree
+           thật của Unity**; class 141 (BuildSettings) và 28 (Texture2D) đều có mặt
+        3. **StringBuffer:** count u32 = **7363**, rồi string length-prefix 1 byte, kết thúc
+           **đúng** byte cuối file. Index 0=`"Object"`, 1=`""`, 2=`"GameObject"`,
+           3=`"EditorExtension"`, 4=`"Base"`, …
+      - ⚠️ **Chưa xong: NodeBuffer.** Đã thử brute-force 12 field-set × 2 sub-count size × 2
+        sub-index size × 17k offset khởi đầu, yêu cầu consume đúng đến hết section — **0 match**.
+        Nên nó **không phải mảng record phẳng**: trong vùng đó có sentinel `ff ff ff ff` xuất hiện
+        *sau* các list index, gợi ý encoding kiểu terminator hoặc delta/dedup, chứ không phải
+        `(TypeName, Name, MetaFlag, Version, subCount, subs[])` cố định. Cần đọc thật source
+        package `AssetRipper.Tpk` (NuGet 2.0.0, **không có trong repo này**; các path repo GitHub
+        đã thử đều 404)
+      - **Giá trị nếu làm xong:** có type tree chuẩn cho mọi class × mọi version Unity → đóng
+        được `BuildSettings`(141) đầy đủ, `Shader`(48), và ~10 layout còn thiếu, **không phải
+        đoán byte nào**. Cũng loại bỏ luôn rủi ro "layout hand-author sai mà cả 2 phía đều đồng ý
+        với nhau" đã ghi ở mục 20d
 - [x] Bổ sung importer Phase 4 còn thiếu — **xong 2026-08-03** `d4d22e2`, xem Phase 4 (còn fidelity
       gap có chủ ý: field set tối thiểu, không có setting riêng của từng importer)
 - [x] ⚠️ Test upstream còn thiếu — **rà từng file 2026-08-03** port cái nào port được,

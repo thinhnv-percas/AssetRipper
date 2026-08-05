@@ -33,13 +33,22 @@ class AudioClipExporter(BinaryAssetExporter):
     def __init__(self, audio_export_format: AudioExportFormat = AudioExportFormat.DEFAULT):
         self.audio_export_format = audio_export_format
 
+    @property
+    def prefer_wav(self) -> bool:
+        """Whether a rebuilt Ogg Vorbis stream should be transcoded to WAV (2026-08-03). Only
+        `PreferWav` does; `Native`/`Default` keep whatever `fsb5` rebuilt, and `Yaml` has no
+        collection of its own in this port (see audio_export_format.py)."""
+        return self.audio_export_format == AudioExportFormat.PREFER_WAV
+
     def try_create_collection(self, asset) -> "tuple[bool, object]":
         if asset.class_id == _AUDIO_CLIP_CLASS_ID and self.is_valid_data(_audio_data_bytes(asset)):
             return True, AudioClipExportCollection(self, asset)
         return False, None
 
     def export(self, container, asset, path: str, file_system) -> bool:
-        data, _extension = decode(_audio_data_bytes(asset), asset.get("m_CompressionFormat"))
+        data, _extension = decode(
+            _audio_data_bytes(asset), asset.get("m_CompressionFormat"), self.prefer_wav
+        )
         with file_system.file.create(path) as stream:
             stream.write(data, 0, len(data))
         return True
@@ -47,7 +56,13 @@ class AudioClipExporter(BinaryAssetExporter):
 
 class AudioClipExportCollection(AssetExportCollection):
     def _get_export_extension(self, asset) -> str:
-        return get_export_extension(_audio_data_bytes(asset), asset.get("m_CompressionFormat"))
+        # Reads `prefer_wav` off the exporter rather than storing it again here, so the extension
+        # and the bytes can never be derived from different settings.
+        return get_export_extension(
+            _audio_data_bytes(asset),
+            asset.get("m_CompressionFormat"),
+            getattr(self.asset_exporter, "prefer_wav", False),
+        )
 
 
 
