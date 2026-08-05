@@ -605,10 +605,18 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
 - [x] Release gate + commit + push
 - [ ] **Còn lại (chưa làm, không bịa là xong):** `AddMissingTransforms` (Transform-từ-đầu, edge case
       hiếm); prefab hoá cho `PrefabInstance` thật sẵn có trong scene (cần field `RootGameObjectP`
-      chưa xác minh); `StrippedAssets`/`--- !u!1 &2 stripped` support (upstream cũng chưa dùng thật
-      trong `PrefabProcessor.Process`, chỉ test code set — xem `game_object_hierarchy_object.py`
-      docstring, không phải quên mà là "vốn dĩ chưa cần" ngay cả ở upstream); `IsSceneDuplicate` thật
-      (hiện `is_scene_duplicate` luôn `False`)
+      chưa xác minh); `IsSceneDuplicate` thật (hiện `is_scene_duplicate` luôn `False`)
+- [x] ⚠️ `StrippedAssets`/`--- !u!1 &2 stripped` support — **xong phía consumer 2026-08-03**
+      `(pending)`: `GameObjectHierarchyObject.stripped_assets` +
+      `assetripper_export_unity_projects/stripped_asset.py` (`is_stripped` +
+      `remove_stripped_fields`, allow-list nguyên văn upstream) + hook trong
+      `YamlWalker.export_yaml_document`.
+      ⚠️ **Phía producer vẫn không có gì set nó** — y như upstream, `PrefabProcessor.Process` cũng
+      không bao giờ add vào `StrippedAssets`, chỉ test code set. **Sửa lại lập luận cũ** ("upstream
+      cũng chưa dùng thật nên bỏ luôn"): lập luận đó đúng cho phía producer nhưng sai cho phía
+      consumer — đó là một YAML shape có thật, upstream có test pin từng byte, và `YamlWalker` là
+      chỗ duy nhất một producer tương lai phải cắm vào. Port consumer biến shape đó từ "không có"
+      thành "đã verify". Test: 13 test (`test_stripped_asset.py`)
 
 ---
 
@@ -1994,8 +2002,59 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
 - [ ] Bổ sung layout Phase 2 cho ~10 type còn thiếu (xem Phase 2 — đã từ 15 xuống 10 sau Phase 18)
 - [x] Bổ sung importer Phase 4 còn thiếu — **xong 2026-08-03** `d4d22e2`, xem Phase 4 (còn fidelity
       gap có chủ ý: field set tối thiểu, không có setting riêng của từng importer)
-- [ ] Chưa port test upstream: `StrippedAssetTests`, `TextureImporterTests`, `PathIDCalculationTests`,
-      `ExportTests`, và toàn bộ `AssetRipper.SerializationLogic.Tests`
+- [x] ⚠️ Test upstream còn thiếu — **rà từng file 2026-08-03** `(pending)`, port cái nào port được,
+      cái nào không thì ghi rõ lý do đã verify (không phải phỏng đoán):
+      - [x] **`PathIDCalculationTests`** → `tests/export_unity_projects/test_path_id_calculation.py`
+            (8 test). Port được nguyên vẹn và **giá trị của nó cao hơn dự đoán**: case duy nhất của
+            upstream là một path ID **quan sát từ project Unity thật** ("BinocularsOverlay"), nên nó
+            là bằng chứng end-to-end duy nhất rằng cả chuỗi MD4 → dạng text của GUID (hex lowercase,
+            không phải format `Guid` có dấu gạch của .NET) → số của `AssetType` → endianness của cả
+            3 lần write đều khớp Unity. **Chạy pass ngay từ lần đầu** — xác nhận `md4.py`,
+            `UnityGuid.parse`, `AssetType`, `get_main_export_id` đều đúng
+      - [x] **`StrippedAssetTests`** → `tests/export_unity_projects/test_stripped_asset.py`
+            (13 test) + **port luôn tính năng** `stripped_assets` (xem mục Phase 12 bên trên và
+            `assetripper_export_unity_projects/stripped_asset.py`). ⚠️ **Không so byte được với
+            upstream**: 2 test YAML-content của upstream so với output Unity thật, mà 3 field trong
+            đó (`m_CorrespondingSourceObject`/`m_PrefabInstance`/`m_PrefabAsset`) là **editor-only**
+            — chúng có trên generated class của upstream vì class đó model đủ editor serialization,
+            còn port này đọc bằng hand-written release-format layout nên các field đó **thực sự
+            không tồn tại** (release build không serialize chúng, bịa ra là fabricate field chưa
+            từng đọc). Cái port được — và đã port — là mọi hành vi còn lại: field nào sống sót,
+            MonoBehaviour giữ set lớn hơn, marker `stripped` nằm trên document root, asset không
+            stripped thì không bị chạm. Allow-list lấy nguyên văn upstream nên lệch là fail
+      - [~] **`TextureImporterTests`** — **không port, lý do đã verify**: nó test accessor
+            `Swizzle` get/set trên `ITextureImporter` = **class 1006, một asset editor-only**.
+            Đếm trên `demo-android.apk` (player build thật): **0 asset class 1006** (class ID ≥1000
+            duy nhất có mặt: 1001, 1032, 937362698, 1403656975). Port này không có generated class
+            1006 và đường đọc của nó không bao giờ gặp class 1006 trong player build, nên test sẽ
+            phải test một class không tồn tại. `TextureImporter` mới thêm ở Phase 4 là phía
+            **ghi** `.meta`, trùng tên chứ khác hẳn thứ upstream test
+      - [~] **`ExportTests`** — **không port, lý do đã verify**: 6/7 test dựng asset bằng
+            `AssetCreator` trên generated editor model (cùng lý do như trên); test thứ 7
+            (`AssembliesHaveCorrectGuid`) cần bảng GUID trong `assemblies.json`, mà file đó
+            **không có trong repo này** — `Pass557_CreateSourceTpkClass.cs:43` đọc nó lúc build
+            AssemblyDumper rồi nhúng thành `ReferenceAssembliesJson`, tức giá trị mong đợi
+            (`UnityEngine.UI` → `f5f67c52d1564df4a8936ccd202a3bd8`) không dẫn xuất được từ bất kỳ
+            thuật toán nào có trong repo (đã thử: MD5 của UTF-8 ra `b519e7d3…`, UTF-16LE ra
+            `ab0447eb…`, đều khác — nó là GUID Unity **cấp sẵn** cho assembly đó)
+      - [ ] **`AssetRipper.SerializationLogic.Tests`** (`FieldSerializationTests`,
+            `CyclicalReferenceTests`, `ReferenceAssembliesTests`) — chưa rà, để batch sau. Đây là
+            nhóm **đáng port nhất** trong số còn lại vì nó test đúng `WillUnitySerialize`, thứ 16c
+            đã implement một subset
+- [ ] **Phát hiện mới 2026-08-03 (từ lúc rà `ExportTests`):** `ScriptExporter.create_export_pointer`
+      của port này **luôn** dùng nhánh `Decompile` (`calculate_script_guid`), không có nhánh `Skip`
+      của upstream — nhánh mà upstream dùng để trỏ script thuộc assembly của chính Unity
+      (`UnityEngine`, `UnityEngine.UI`, `mscorlib`, …) vào **GUID thật Unity cấp** thay vì một GUID
+      md5 tự sinh. Hằng số `UnityEngineGUID` thì có sẵn trong source
+      (`ReferenceAssemblies.cs:9`), nhưng **danh sách tên assembly theo từng version Unity thì
+      không** (nằm trong `assemblies.json` không có trong repo).
+      **Không phải export bị vỡ:** port này emit `.cs` stub cho cả script của engine assembly, và
+      `.meta` của stub đó dùng đúng cùng một GUID, nên reference *trong project export ra* vẫn
+      nhất quán và project vẫn mở được. Đây là fidelity difference, không phải dangling reference.
+      **Cố ý chưa fix bằng heuristic tên** (`UnityEngine*`/`Unity.*`/`System*`/`mscorlib`): một
+      asmdef của game hoàn toàn có thể mang tên khớp prefix, và khi đó script *của game* sẽ bị trỏ
+      vào GUID của UnityEngine và **mất hẳn** — đắt hơn nhiều so với cái đang có. Đúng kỷ luật
+      "thà decline còn hơn đoán" mà phase 16c/16f đã áp
 
 **Thêm từ audit 2026-08-01:**
 

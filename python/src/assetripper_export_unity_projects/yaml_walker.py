@@ -130,6 +130,16 @@ class YamlWalker(AssetWalker):
         self._context_stack.append(_YamlContext(mapping_node=root, field_name=asset.class_name))
         asset.walk_editor(self)
 
+        from .stripped_asset import is_stripped, remove_stripped_fields
+
+        if is_stripped(asset):
+            # `walk_editor` produced exactly one child: the class-name key mapped to the
+            # asset's own field mapping. The stripped stub keeps only a few of *those*
+            # fields, so the filtering happens one level down, not on `root`.
+            assert len(root.children) == 1
+            remove_stripped_fields(asset, root.children[0][1])
+            root.stripped = True
+
         return document
 
     def export_yaml_node(self, asset):

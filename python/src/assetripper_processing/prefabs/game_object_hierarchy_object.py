@@ -8,10 +8,13 @@ each real asset's `main_asset` (set by `set_main_asset()`) rather than by class 
 this port's class-ID-keyed exporter dispatch can't apply here (a `PrefabHierarchyObject`
 reuses the real `PrefabInstance` class ID -- see its own module docstring).
 
-Not ported: `StrippedAssets` -- upstream's own `PrefabProcessor.Process` never populates it
-either (only test code does, see `AssetRipper.Tests/StrippedAssetTests.cs`), so it would be
-a real port of something that's already a no-op in the actual pipeline. Skipped rather than
-carried over as always-empty dead weight.
+`stripped_assets` (2026-08-03): ported. Nothing in this port *populates* it during a normal
+export, matching upstream -- `PrefabProcessor.Process` never adds to `StrippedAssets` either,
+only test code does. What is ported is the consumer side: `YamlWalker.export_yaml_document`
+now honors it and emits the real Unity stripped-stub shape (see
+assetripper_export_unity_projects/stripped_asset.py). That makes the shape verified against
+upstream's own byte-exact expectations instead of merely absent, and gives a future producer
+a working hook to plug into.
 """
 from __future__ import annotations
 
@@ -27,6 +30,11 @@ class GameObjectHierarchyObject(UnityObjectBase):
         self.game_objects: list = []
         self.components: list = []
         self.prefab_instances: list = []
+        self.stripped_assets: list = []
+        """Assets this file references but does not own -- exported as `stripped` stubs
+        carrying only the fields that identify where the real object lives. A list rather than
+        a set because `UnityObjectBase` has no value-based hash and identity is what matters
+        here; membership is checked by identity (see `stripped_asset.is_stripped`)."""
         self.hidden_assets: set = set()
         """Assets in `assets` that should not be part of the YAML export (e.g. the
         synthetic PrefabInstance marker -- see synthetic_prefab_instance.py)."""
