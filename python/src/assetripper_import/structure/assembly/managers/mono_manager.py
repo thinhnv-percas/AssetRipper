@@ -52,6 +52,39 @@ which is exactly what this module has). Simplifications from the full upstream
 - `List<T>` is recognized as a one-level array (matching how Unity actually serializes it); any
   other generic instantiation is unresolvable. Non-generic external reference types not in
   `unity_engine_structs.py` and not a `UnityEngine.Object` descendant are unresolvable too.
+
+2026-08-03, while porting `AssetRipper.SerializationLogic.Tests` (three real bugs, all of the
+same shape: the layout claimed a field that has no bytes in the file, or read two ints where
+inline content lives, so **every field after it read from the wrong offset** -- silent
+corruption, never a crash):
+
+- **Every ordinary class was a PPtr.** `_is_unity_object_descendant` walked the base chain and
+  finished with `mono_utils.is_prime`, which is `is_mono_prime` *plus* `System.Object` -- because
+  upstream uses `IsPrime` as a "have we reached the root of the chain" stop condition, not as
+  "is this a UnityEngine.Object". Since every C# class extends `System.Object`, every plain
+  serializable class used as a field type was read as two ints instead of being inlined. Now
+  `is_mono_prime`. No existing test caught it because every nested type in the fixtures was
+  either a struct (extends `System.ValueType`) or genuinely MonoBehaviour-derived.
+- **Reference cycles.** `class Node { public Node next; }` used to resolve `next` against the
+  half-built cache entry for `Node` itself, yielding a field of infinite nominal depth. Unity
+  serializes nothing for a field on a cycle. The rule is *reachability*, not "did I see this
+  type on the way down" -- see `_inlines_a_cycle`, which explains why the three cycle-shaped
+  upstream tests can only all pass under the reachability reading.
+- **Abstract field types.** Unity cannot instantiate an abstract type, so it writes nothing for
+  such a field (upstream's `FieldsWithAbstractTypesShouldNotBeSerialized`).
+
+The latter two now return `NOT_SERIALIZED` (see that sentinel's docstring for why that is not
+simply `None`), and both gates sit *after* the `UnityEngine.Object`-descendant check on purpose:
+a PPtr is two ints no matter what it points at, so an abstract or self-referencing `Object`
+subclass still serializes fine -- exactly what upstream's `DeserializationSupportsPPtrFields`
+pins with an abstract generic MonoBehaviour.
+
+Still not modeled, and now covered by `xfail` tests that spell out each one rather than leaving
+it to be discovered later: version-gated serialization (`long` from 2017, structs from 4.5,
+generic instantiations from 2020.1 -- `get_serializable_type` takes no version at all, so it
+always behaves like a modern Unity), user-defined generic instantiations, and fixed-size
+buffers. All three currently *decline* rather than mis-serialize, so they cost coverage, not
+correctness.
 """
 from __future__ import annotations
 
@@ -102,6 +135,24 @@ _ELEMENT_TYPE_STRING = 0x0E
 
 _LIST_FULL_NAME = "System.Collections.Generic.List`1"
 
+_TYPE_ABSTRACT = 0x00000080
+
+NOT_SERIALIZED = object()
+"""Sentinel: "Unity itself does not serialize a field of this type."
+
+Distinct from `None`, which means "this port could not work out what the type is", and the
+distinction decides what happens to the *containing* type:
+
+- `NOT_SERIALIZED` -> drop just this field and keep going. Unity writes no bytes for it, so
+  dropping it is what makes the layout match; declining the whole type would throw away a type
+  this port can in fact read.
+- `None` -> decline the whole type (see the module docstring). The layout past an unknown field
+  is unknowable, and a partially-correct layout is worse than none.
+
+Getting these two confused in either direction produces silently wrong reads, which is why they
+are separate values rather than both being falsy.
+"""
+
 _primitive_singletons: "dict[PrimitiveType, SerializableType]" = {}
 _string_singleton: "SerializableType | None" = None
 
@@ -134,6 +185,12 @@ class MonoAssembly:
         self._row_numbers: "dict[int, int]" = {}
         """id(type_def_row) -> 1-based TypeDef row number, precomputed once in _build()."""
         self._serializable_cache: "dict[tuple[str, str], SerializableType | None]" = {}
+        self._in_progress: "set[tuple[str, str]]" = set()
+        """Keys currently being built -- a backstop against runaway recursion only, see
+        `_is_being_built`."""
+        self._declaring_key: "tuple[str, str] | None" = None
+        """The type that declares the field currently being resolved, which is what a reference
+        cycle is measured against -- see `_inlines_a_cycle`."""
         self._build()
 
     def get_type(self, namespace: str, class_name: str) -> "RecoveredType | None":
@@ -151,6 +208,86 @@ class MonoAssembly:
             self._serializable_cache[key] = None
             return None
         return self._build_serializable_type(type_def_row, key)
+
+    def _is_being_built(self, key: "tuple[str, str]") -> bool:
+        """Defensive backstop only. The reachability check in `_inlines_a_cycle` already makes
+        the graph of followed edges acyclic, so this should never fire; if it somehow does,
+        dropping the field is the safe answer rather than recursing forever."""
+        return key in self._in_progress
+
+    def _type_key(self, type_def_row: dict) -> "tuple[str, str]":
+        return (
+            self._reader.strings.get(type_def_row["namespace"]) or "",
+            self._reader.strings.get(type_def_row["name"]),
+        )
+
+    def _inlines_a_cycle(self, declaring_key: "tuple[str, str]", target_row: dict) -> bool:
+        """Whether inlining `target_row` into `declaring_key` would close a reference cycle, i.e.
+        whether `declaring_key` is reachable from `target_row` by following inlined fields.
+
+        This is a reachability question on the type graph, deliberately *not* a "did I already
+        see this type on the way down" check, and the difference is what upstream's three
+        cycle-shaped tests pin between them:
+
+        - `class Node { public Node next; }` -- the edge Node->Node closes a cycle, so `next` is
+          dropped and `Node` ends up with no fields
+          (`CyclicalReferenceTests.CyclicalReferenceClassIsHandled_D1`).
+        - `C1 -> C2 -> C3 -> C1` -- *every* edge lies on the cycle, so all three types end up
+          with no fields (`..._D2`/`_D3`/`_D4`). A path-based check would only drop the one edge
+          that happens to close the loop during the walk, leaving the others in place.
+        - `class Derived : Base { public Base b; }` where `Base` has a field of its own type --
+          `Base`'s self-field is on a cycle and is dropped, but `Derived.b` is not (nothing
+          reaches `Derived` from `Base`), so it stays: two fields, which is exactly upstream's
+          `FieldWhoseTypeIsBaseShouldBeSerialized`.
+        """
+        stack = [target_row]
+        seen: "set[int]" = set()
+        while stack:
+            row = stack.pop()
+            if id(row) in seen:
+                continue
+            seen.add(id(row))
+            if self._type_key(row) == declaring_key:
+                return True
+            stack.extend(self._inlined_local_type_rows(row))
+        return False
+
+    def _inlined_local_type_rows(self, type_def_row: dict) -> "list[dict]":
+        """The local TypeDefs whose content `type_def_row` inlines through its serialized fields.
+
+        A PPtr target is not an edge: Unity stores it as two ints without looking at the target,
+        so `class Enemy : MonoBehaviour { public Enemy next; }` is perfectly serializable. Enums
+        and abstract types are not edges either -- the former is an int, the latter contributes
+        nothing at all.
+        """
+        result = []
+        for ancestor_row in self._local_base_chain(type_def_row):
+            for row_number in self._serialized_field_row_numbers(ancestor_row):
+                row = self._reader.tables.row(TableId.FIELD, row_number)
+                if row is None:
+                    continue
+                target = self._inlined_target_row(self._reader.blobs.get(row["signature"]))
+                if target is not None:
+                    result.append(target)
+        return result
+
+    def _inlined_target_row(self, blob: bytes) -> "dict | None":
+        offset = self._skip_signature_prefix(blob)
+        if offset is None:
+            return None
+        element_type = blob[offset]
+        if element_type not in (_ELEMENT_TYPE_VALUETYPE, _ELEMENT_TYPE_CLASS):
+            return None
+        encoded, _ = read_compressed_uint(blob, offset + 1)
+        tag, row_index = decode_type_def_or_ref(encoded)
+        if tag != 0:
+            return None
+        target_row = self._reader.tables.row(TableId.TYPE_DEF, row_index + 1)
+        if target_row is None:
+            return None
+        if self._is_unity_object_descendant(target_row) or target_row["flags"] & _TYPE_ABSTRACT:
+            return None
+        return target_row
 
     # -- RecoveredType (16b/16c) -------------------------------------------------
 
@@ -256,17 +393,28 @@ class MonoAssembly:
     def _build_serializable_type(self, type_def_row: dict, key: "tuple[str, str]") -> "SerializableType | None":
         name = self._reader.strings.get(type_def_row["name"])
         result = SerializableType(key[0] or None, PrimitiveType.COMPLEX, name)
-        self._serializable_cache[key] = result  # inserted before recursing, for cyclic types
+        self._serializable_cache[key] = result
 
-        fields: "list[Field]" = []
-        for ancestor_row in self._local_base_chain(type_def_row):
-            for row_number in self._serialized_field_row_numbers(ancestor_row):
-                row = self._reader.tables.row(TableId.FIELD, row_number)
-                field_type, array_depth = self._resolve_field_type(self._reader.blobs.get(row["signature"]))
-                if field_type is None:
-                    self._serializable_cache[key] = None
-                    return None
-                fields.append(Field(field_type, array_depth, self._reader.strings.get(row["name"]), False))
+        self._in_progress.add(key)
+        previous_declaring = self._declaring_key
+        try:
+            fields: "list[Field]" = []
+            for ancestor_row in self._local_base_chain(type_def_row):
+                # Cycle detection is per *declaring* type, not per type being built: an
+                # inherited field's edge starts at the ancestor that declares it.
+                self._declaring_key = self._type_key(ancestor_row)
+                for row_number in self._serialized_field_row_numbers(ancestor_row):
+                    row = self._reader.tables.row(TableId.FIELD, row_number)
+                    field_type, array_depth = self._resolve_field_type(self._reader.blobs.get(row["signature"]))
+                    if field_type is NOT_SERIALIZED:
+                        continue
+                    if field_type is None:
+                        self._serializable_cache[key] = None
+                        return None
+                    fields.append(Field(field_type, array_depth, self._reader.strings.get(row["name"]), False))
+        finally:
+            self._in_progress.discard(key)
+            self._declaring_key = previous_declaring
 
         result.fields = fields
         result.max_depth = max((field.type.max_depth + 1 for field in fields), default=0)
@@ -311,12 +459,29 @@ class MonoAssembly:
                     return False
                 namespace = self._reader.strings.get(ref_row["namespace"])
                 name = self._reader.strings.get(ref_row["name"])
-                return mono_utils.is_prime(namespace, name)
+                # `is_mono_prime`, NOT `is_prime`. 2026-08-03 bug fix: `is_prime` is
+                # `is_mono_prime` *plus* `System.Object`, because upstream uses it as a
+                # "have we reached the root of the chain" stop condition -- not as "is this a
+                # UnityEngine.Object". Using it here meant every ordinary serializable class
+                # (they all extend System.Object) was classified as a PPtr and read as two ints
+                # instead of being inlined, so any MonoBehaviour with a nested class field read
+                # complete garbage. No existing test caught it because every nested type in the
+                # fixtures was either a struct (extends System.ValueType) or genuinely
+                # MonoBehaviour-derived.
+                return mono_utils.is_mono_prime(namespace, name)
             return False
 
-    def _resolve_field_type(self, blob: bytes) -> "tuple[SerializableType | None, int]":
+    def _skip_signature_prefix(self, blob: bytes) -> "int | None":
+        """Offset of a field signature's leaf element type, or None if the signature is not one
+        this port understands. Shared by the resolving walk and the cycle-graph walk so the two
+        can never disagree about what a signature's leaf is."""
+        result = self._walk_signature_prefix(blob)
+        return None if result is None else result[0]
+
+    def _walk_signature_prefix(self, blob: bytes) -> "tuple[int, int] | None":
+        """(leaf offset, array depth), or None if unparseable."""
         if not blob or blob[0] != _FIELD_SIG_CALLING_CONVENTION:
-            return None, 0
+            return None
         offset = 1
         array_depth = 0
         while True:
@@ -335,12 +500,23 @@ class MonoAssembly:
             if element_type == _ELEMENT_TYPE_GENERICINST:
                 new_offset = self._try_unwrap_list_generic(blob, offset)
                 if new_offset is None:
-                    return None, 0
+                    return None
                 offset = new_offset
                 array_depth += 1
                 continue
             break
+        return offset, array_depth
+
+    def _resolve_field_type(self, blob: bytes) -> "tuple[SerializableType | None, int]":
+        walked = self._walk_signature_prefix(blob)
+        if walked is None:
+            return None, 0
+        offset, array_depth = walked
         leaf = self._resolve_leaf_type(blob, offset)
+        if leaf is NOT_SERIALIZED:
+            # A `List<Cyclic>` or a `Cyclic[]` is just as unserializable as a bare `Cyclic`, so
+            # the accumulated array depth is discarded along with the field.
+            return NOT_SERIALIZED, 0
         return leaf, array_depth
 
     def _try_unwrap_list_generic(self, blob: bytes, offset: int) -> "int | None":
@@ -376,7 +552,22 @@ class MonoAssembly:
             if type_def_row is None:
                 return None
             if self._is_unity_object_descendant(type_def_row):
+                # Checked before the abstract/cyclic gates below, and deliberately so: a PPtr is
+                # stored as two ints regardless of what it points at, so an abstract
+                # UnityEngine.Object subclass -- or one that references itself -- serializes
+                # perfectly well. Upstream's DeserializationSupportsPPtrFields covers exactly
+                # this with an abstract generic MonoBehaviour.
                 return SerializablePointerType.shared()
+            if type_def_row["flags"] & _TYPE_ABSTRACT:
+                # Unity cannot instantiate an abstract type, so it serializes no bytes for such
+                # a field at all -- upstream's FieldsWithAbstractTypesShouldNotBeSerialized.
+                return NOT_SERIALIZED
+            if self._declaring_key is not None and self._inlines_a_cycle(self._declaring_key, type_def_row):
+                # A reference cycle. Unity would have to recurse forever to lay this out, so it
+                # serializes nothing for the field -- upstream's CyclicalReferenceTests.
+                return NOT_SERIALIZED
+            if self._is_being_built(self._type_key(type_def_row)):
+                return NOT_SERIALIZED
             extends = type_def_row["extends"]
             if extends.table == TableId.TYPE_REF:
                 ref_row = self._reader.tables.row(TableId.TYPE_REF, extends.row_number)

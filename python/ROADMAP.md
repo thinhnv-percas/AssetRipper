@@ -2036,10 +2036,34 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
             (`UnityEngine.UI` → `f5f67c52d1564df4a8936ccd202a3bd8`) không dẫn xuất được từ bất kỳ
             thuật toán nào có trong repo (đã thử: MD5 của UTF-8 ra `b519e7d3…`, UTF-16LE ra
             `ab0447eb…`, đều khác — nó là GUID Unity **cấp sẵn** cho assembly đó)
-      - [ ] **`AssetRipper.SerializationLogic.Tests`** (`FieldSerializationTests`,
-            `CyclicalReferenceTests`, `ReferenceAssembliesTests`) — chưa rà, để batch sau. Đây là
-            nhóm **đáng port nhất** trong số còn lại vì nó test đúng `WillUnitySerialize`, thứ 16c
-            đã implement một subset
+      - [x] ⚠️ **`AssetRipper.SerializationLogic.Tests`** → `tests/import_/test_field_serialization.py`
+            (22 test + 3 xfail), 2026-08-03 `(pending)`. Đúng như dự đoán, đây là nhóm giá trị
+            nhất — **nó tìm ra 3 bug thật**, tất cả cùng một dạng: layout khai một field mà Unity
+            **không ghi byte nào**, hoặc đọc 2 int ở chỗ đáng ra là nội dung inline → **mọi field
+            phía sau đọc lệch offset**. Không crash, không log, chỉ đọc ra rác:
+            1. **Mọi class thường đều bị coi là PPtr.** `_is_unity_object_descendant` đi hết base
+               chain rồi kết bằng `mono_utils.is_prime`, mà `is_prime` = `is_mono_prime` **cộng
+               `System.Object`** — upstream dùng nó làm điều kiện dừng "đã tới gốc chain chưa",
+               không phải "đây có phải UnityEngine.Object". Mọi class C# đều extends
+               `System.Object`, nên **mọi nested serializable class** (shape cực phổ biến trong
+               code game) bị đọc thành 2 int thay vì inline. Sửa: dùng `is_mono_prime`
+            2. **Reference cycle.** `class Node { public Node next; }` resolve `next` vào chính
+               cache entry đang dựng dở → field có depth vô hạn. Quy tắc đúng là **reachability**
+               (`_inlines_a_cycle`), không phải "đã gặp type này trên đường đi xuống chưa" — chỉ
+               cách đọc reachability mới thoả đồng thời cả 3 test cycle của upstream (D1 self-loop,
+               D2/D3/D4 mọi edge trên cycle đều bị drop, và
+               `FieldWhoseTypeIsBaseShouldBeSerialized` nơi edge Derived→Base **được giữ**)
+            3. **Field kiểu abstract.** Unity không instantiate được nên không ghi byte nào
+            Thêm sentinel `NOT_SERIALIZED` để phân biệt rõ 2 nghĩa vốn bị lẫn: "Unity không
+            serialize field này" → **drop field, giữ type**; còn `None` = "không hiểu field này
+            là gì" → **decline cả type**. Lẫn hai cái theo chiều nào cũng ra đọc sai.
+            ⚠️ 3 case **chưa model**, viết thành `xfail` (strict) chứ không im lặng: version gate
+            (`long` từ 2017, struct từ 4.5, generic instantiation từ 2020.1 —
+            `get_serializable_type` không nhận version nào cả, luôn xử như Unity mới), generic
+            instantiation của type do user định nghĩa, và fixed-size buffer. Cả 3 hiện **decline**
+            chứ không serialize sai, nên là mất coverage, không phải mất đúng đắn.
+            `ReferenceAssembliesTests` không port: nó test bảng `assemblies.json` không có trong
+            repo (xem `ExportTests` bên trên)
 - [ ] **Phát hiện mới 2026-08-03 (từ lúc rà `ExportTests`):** `ScriptExporter.create_export_pointer`
       của port này **luôn** dùng nhánh `Decompile` (`calculate_script_guid`), không có nhánh `Skip`
       của upstream — nhánh mà upstream dùng để trỏ script thuộc assembly của chính Unity
