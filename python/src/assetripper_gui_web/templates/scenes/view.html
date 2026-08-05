@@ -1,9 +1,17 @@
 {% extends "layout.html" %}
 {% block title %}{{ scene.name }} - AssetRipper{% endblock %}
 {% block content %}
-<h1>Scene: {{ scene.name }}</h1>
-<p>Path: {{ scene.path }}</p>
-<ul>
-  {% for collection in scene.collections %}<li>{{ collection.name }}</li>{% endfor %}
-</ul>
+<h1 class="h3">Scene: {{ scene.name }}</h1>
+<dl class="row">
+  <dt class="col-sm-2">Path</dt><dd class="col-sm-10">{{ scene.path }}</dd>
+</dl>
+
+<div class="card">
+  <div class="card-header">Collections <span class="badge text-bg-secondary">{{ scene.collections|length }}</span></div>
+  <ul class="list-group list-group-flush">
+    {% for collection in scene.collections %}
+    <li class="list-group-item">{{ collection.name }}</li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}

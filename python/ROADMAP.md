@@ -536,15 +536,41 @@ toàn bộ 9 tab distinct như upstream — xem "Còn lại" bên dưới, track
       `create_collections` trong `test_project_exporter.py`
 - [x] Release gate + commit + push
 - [~] Babylon.js 3D mesh preview — nặng vài MB vendored, `.glb` download đã đủ. Thêm sau nếu cần
-- [ ] **Còn lại (chưa làm, không bịa là xong):** sidebar cây bundle/collection thật (hiện chỉ có
-      navbar phẳng); tách tab Dependencies/Json riêng biệt như upstream (hiện gộp vào link
-      "Download exported file" + Yaml); pass đổi toàn bộ template khác (`bundles/collections/
-      resources/scenes/failed_files/search`) sang class Bootstrap `.table`/`.card` thay vì `<table>`
-      thường (site.css có ghi chú rõ đây là nợ kỹ thuật tạm thời, không phải quên). **(audit
-      2026-08-01):** sidebar cây **đầu ra** giờ có phase riêng — Phase 17 (đã viết lại: xem trước file
-      sẽ được export). Sidebar cây **đầu vào** (bundle/collection): user đã chốt *"bỏ phần view loaded
-      bundle cũng được"* → nợ này có thể **xoá thay vì trả**, xem Phase 17d để chốt xoá hẳn hay chỉ gỡ
-      khỏi navbar
+- [x] **Nợ Phase 11 — trả xong 2026-08-03** `(pending)`:
+      - [x] **Tab Dependencies + Json riêng biệt.** Trước đó trang asset là một trang cuộn dài
+            (Preview/Information/Fields/Hex), giờ là tab Bootstrap thật, và có đủ 2 tab upstream
+            có mà port này thiếu: **Dependencies** (port `Pages/Assets/DependenciesTab.cs` — liệt
+            kê mọi PPtr non-null, resolve thành link tới asset đích hoặc "Missing") và **Json**
+            (port `JsonTab.cs`, chạy trên endpoint mới `/Assets/Json`).
+            Điều kiện hiện tab theo đúng `AssetHtmlTab.Enabled` của upstream: tab nào không có gì
+            để hiện thì không render (asset không resolve được field thì không có tab Fields rỗng)
+      - [x] **`DefaultJsonWalker`** — port ở `assetripper_export_unity_projects/json_walker.py`
+            (upstream đặt trong `AssetRipper.Export.PrimaryContent`, package port này không có, nên
+            để cạnh `yaml_walker.py`). 2 chỗ không thể 1:1, đều cùng gốc: C# lấy static type của
+            element từ generic parameter kể cả với collection rỗng, còn parameter Python thì không
+            mang được thông tin đó → (a) dictionary rỗng emit `{}` thay vì `[]` (upstream emit `[]`
+            khi key không phải string, mà với collection rỗng thì không consumer nào phân biệt
+            được), (b) `char` chỉ quote được khi caller truyền `PrimitiveType.CHAR` (mà
+            `SerializableValue.walk_editor` có truyền). Test: 20 test, mọi test đều `json.loads`
+            lại output nên thiếu dấu phẩy/ngoặc là fail ngay
+      - [x] **Pass Bootstrap cho 6 template còn lại** (`bundles`/`collections`/`resources`/`scenes`/
+            `failed_files`/`search`) — dùng `.table`/`.card`/`.list-group`/`.dl` thật. `site.css` giờ
+            **không còn** rule fallback cho `<table>` trơn (chỉ còn `.hex`), và có 1 test khoá:
+            không template nào được dùng `<table>` trơn nữa
+      - [x] **Tab switching không cần vendor thêm JS.** Chỉ `bootstrap.min.css` được vendor, không
+            có `bootstrap.bundle.min.js`. Class tab của Bootstrap là CSS thuần, JS của nó chỉ đảo
+            class — nên viết `static/js/tabs.js` (~20 dòng vanilla) thay vì thêm ~80 KB script phải
+            fetch lúc build; GUI của port này giữ nguyên tắc asset hoàn toàn offline
+      - [~] **Sidebar cây bundle/collection đầu vào: xoá thay vì trả** — user đã chốt *"bỏ phần view
+            loaded bundle cũng được"*, và sidebar cây **đầu ra** đã có ở Phase 17f (2 pane). Không
+            còn là nợ
+      - ⚠️ **Phát hiện khi làm tab Dependencies:** `AssetCollection.get_asset` lọc bỏ `NullObject`
+            (đúng upstream: PPtr trỏ tới `NullObject` phải đọc ra null), nhưng **ở port này gần như
+            mọi asset đều là `TypeTreeObject`, mà nó derive từ `NullObject`** (cũng đúng upstream)
+            → lookup thường báo "Missing" cho gần như mọi dependency. Nên `_resolve_pptr` tra 2
+            lần: cách thường trước, rồi hỏi thẳng `NullObject`. Chỉ áp dụng trong listing của GUI,
+            **không** đụng vào đường export — browse không phải export, user muốn thấy reference
+            thật sự đi đâu
 
 ### Phase 12 — Prefab/Scene export ✅ `6b4fae3` (một phần — xem "Còn lại" bên dưới)
 
@@ -1998,6 +2024,14 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
 
 - [x] **(2026-08-03)** `tests/io_endian/` và `tests/primitives/` **không còn rỗng** — 60 test mới: `test_endian_span_reader.py` (23: cả 2 endianness cho mọi kiểu multi-byte, `offset` semantics thật, align, bulk read, overrun phải raise), `test_unity_version.py` (18: ordering, partial `equals`, mốc `2020.2.0a21` mà `get_max_depth_level` dùng, parse/format), `test_unity_guid.py` (19: round-trip, và **`md5_hash` pin đúng byte-interpretation** — nó là thứ giữ `.meta` GUID của script ổn định giữa các lần export, đổi là vỡ mọi reference trong project Unity đang mở). (Ghi chú gốc: `EndianSpanReader` và
       `UnityVersion`/`UnityGuid` hiện chỉ được test gián tiếp qua `import_`. Nên có unit test trực tiếp
+- [x] **(2026-08-03) Sửa 1 test flaky có thật**: `test_relative_distance.py::
+      test_distance_is_the_same_in_multiple_dimensions` dùng tolerance **chỉ có `rel=1e-4`**, mà
+      fixture thì `random` không seed (giống upstream) → fail cỡ 1 lần mỗi vài trăm lần chạy, và
+      đúng lúc release gate của batch này thì fail. **Không phải kết quả sai**: khi 2 giá trị gần
+      nhau thì distance rất nhỏ (~1e-5), nên sai số *tuyệt đối* cố định do làm tròn input về float32
+      trở thành sai số *tương đối* lớn. Đo trên 200k cặp random: sai số tương đối tệ nhất ~1.5e-3
+      còn sai số tuyệt đối tệ nhất chỉ ~2.4e-8 → thứ phép so này cần là **absolute floor**, siết
+      `rel` kiểu gì cũng không bao giờ đúng được. Thêm `abs=1e-6`; chạy lại 60 lần liên tiếp đều pass
 - [ ] Bổ sung layout Phase 2 cho ~10 type còn thiếu (xem Phase 2 — đã từ 15 xuống 10 sau Phase 18)
 - [x] Bổ sung importer Phase 4 còn thiếu — **xong 2026-08-03** `d4d22e2`, xem Phase 4 (còn fidelity
       gap có chủ ý: field set tối thiểu, không có setting riêng của từng importer)

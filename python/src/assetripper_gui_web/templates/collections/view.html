@@ -1,16 +1,22 @@
 {% extends "layout.html" %}
 {% block title %}{{ collection.name }} - AssetRipper{% endblock %}
 {% block content %}
-<h1>Collection: {{ collection.name }}</h1>
-<p>Version: {{ collection.version }} | Platform: {{ collection.platform.name }} | Assets: {{ assets|length }}</p>
+<h1 class="h3">Collection: {{ collection.name }}</h1>
+<dl class="row">
+  <dt class="col-sm-2">Version</dt><dd class="col-sm-10">{{ collection.version }}</dd>
+  <dt class="col-sm-2">Platform</dt><dd class="col-sm-10">{{ collection.platform.name }}</dd>
+  <dt class="col-sm-2">Assets</dt><dd class="col-sm-10">{{ assets|length }}</dd>
+</dl>
 
-<table>
-  <tr><th>Path ID</th><th>Class</th></tr>
-  {% for asset, asset_path in assets %}
-  <tr>
-    <td><a href="{{ url_for('assets.view', Path=asset_path.to_json()) }}">{{ asset.path_id }}</a></td>
-    <td>{{ asset.class_name }}</td>
-  </tr>
-  {% endfor %}
+<table class="table table-sm table-striped table-hover">
+  <thead><tr><th>Path ID</th><th>Class</th></tr></thead>
+  <tbody>
+    {% for asset, asset_path in assets %}
+    <tr>
+      <td><a href="{{ url_for('assets.view', Path=asset_path.to_json()) }}">{{ asset.path_id }}</a></td>
+      <td>{{ asset.class_name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 {% endblock %}

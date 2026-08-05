@@ -1,28 +1,34 @@
 {% extends "layout.html" %}
 {% block title %}Search - AssetRipper{% endblock %}
 {% block content %}
-<h1>Search</h1>
-<form method="get" action="{{ url_for('search.view') }}">
-  <input type="text" name="q" value="{{ query }}" placeholder="Search by name or class...">
-  <button type="submit">Search</button>
+<h1 class="h3">Search</h1>
+<form class="row g-2 mb-3" method="get" action="{{ url_for('search.view') }}">
+  <div class="col-auto">
+    <input class="form-control" type="text" name="q" value="{{ query }}" placeholder="Search by name or class...">
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
 </form>
 
 {% if query %}
   {% if results %}
-  <h2>Results: {{ results|length }}</h2>
-  <table>
-    <tr><th>Path ID</th><th>Class</th><th>Name</th><th>Collection</th></tr>
-    {% for asset, collection, asset_path in results %}
-    <tr>
-      <td>{{ asset.path_id }}</td>
-      <td>{{ asset.class_name }}</td>
-      <td><a href="{{ url_for('assets.view', Path=asset_path.to_json()) }}">{{ asset.get_best_name() }}</a></td>
-      <td>{{ collection.name }}</td>
-    </tr>
-    {% endfor %}
+  <p class="text-body-secondary">{{ results|length }} result(s).</p>
+  <table class="table table-sm table-striped table-hover">
+    <thead><tr><th>Path ID</th><th>Class</th><th>Name</th><th>Collection</th></tr></thead>
+    <tbody>
+      {% for asset, collection, asset_path in results %}
+      <tr>
+        <td>{{ asset.path_id }}</td>
+        <td>{{ asset.class_name }}</td>
+        <td><a href="{{ url_for('assets.view', Path=asset_path.to_json()) }}">{{ asset.get_best_name() }}</a></td>
+        <td>{{ collection.name }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
   {% else %}
-  <p>No results found.</p>
+  <p class="text-body-secondary">No results found.</p>
   {% endif %}
 {% endif %}
 {% endblock %}

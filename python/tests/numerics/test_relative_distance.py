@@ -51,8 +51,16 @@ def test_distance_is_the_same_in_multiple_dimensions(random_floats):
     # The C# original asserts bit-exact equality here, which holds there because every
     # sub-expression (X*X, the sum, the sqrt) is individually rounded to float32. This port
     # only rounds to float32 at Vector construction and keeps intermediate arithmetic in
-    # Python's double precision, so a wider (but still tight) tolerance is used instead.
-    approx = lambda value: pytest.approx(value, rel=1e-4)  # noqa: E731
+    # Python's double precision, so a tolerance is needed instead.
+    #
+    # 2026-08-03: a relative-only tolerance made this test **flaky**, and the fixture is
+    # unseeded (like upstream's) so it failed perhaps one run in a few hundred. The cause is
+    # not a wrong result: when the two values are nearly equal the distance itself is tiny
+    # (~1e-5), so the fixed absolute error from rounding the inputs to float32 becomes a large
+    # *relative* error. Measured over 200k random pairs, the worst relative error is ~1.5e-3
+    # while the worst absolute error stays around 2.4e-8 -- so an absolute floor is what this
+    # comparison actually needs, and `rel` alone can never be tightened into correctness.
+    approx = lambda value: pytest.approx(value, rel=1e-4, abs=1e-6)  # noqa: E731
 
     for i in range(len(random_floats) - 1):
         value1, value2 = random_floats[i], random_floats[i + 1]

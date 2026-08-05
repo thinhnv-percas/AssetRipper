@@ -1,7 +1,8 @@
-/* Small overrides on top of vendored Bootstrap (vendor/bootstrap/bootstrap.min.css) --
-   most templates here still use plain <table>/<tr> markup rather than Bootstrap's own
-   .table classes (that per-template pass is future work, not done in Phase 11), so these
-   rules keep them readable without fighting Bootstrap's reset. */
-table { border-collapse: collapse; }
-td, th { border: 1px solid var(--bs-border-color); padding: 0.25em 0.5em; text-align: left; }
-.hex { font-family: monospace; white-space: pre; }
+/* Small overrides on top of vendored Bootstrap (vendor/bootstrap/bootstrap.min.css).
+   2026-08-03: the per-template pass Phase 11 left as debt is done -- every template now uses
+   Bootstrap's own .table/.card/.list-group classes, so the bare-<table> fallback rules that used
+   to live here are gone. What remains is the one thing Bootstrap has no class for. */
+.hex {
+  font-family: var(--bs-font-monospace);
+  white-space: pre;
+}

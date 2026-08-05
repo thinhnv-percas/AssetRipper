@@ -1,68 +1,142 @@
 {% extends "layout.html" %}
 {% block title %}{{ asset.class_name }} [{{ asset.path_id }}] - AssetRipper{% endblock %}
 {% block content %}
-<h1>Asset: {{ asset.class_name }} [{{ asset.path_id }}]</h1>
+{#
+  2026-08-03 (ROADMAP Phase 11 leftovers): real Bootstrap tabs instead of one long scrolling
+  page, plus the two tabs upstream has that this port was missing -- Dependencies (ported from
+  Pages/Assets/DependenciesTab.cs) and Json (from JsonTab.cs, backed by the new /Assets/Json).
 
-{# Class IDs registered to a real content exporter (Phase 6/9/10) -- these export as raw
-   bytes (image/audio/text/font/model), not generic YAML, so /Assets/Yaml would 404 for
-   them (a different, already-registered exporter owns that class ID -- see
-   export_modules/registration.py). Everything else falls through to the generic
-   DefaultYamlExporter and gets a Yaml preview instead. A class ID showing here doesn't
-   guarantee a preview succeeds: e.g. a Texture2D with an unsupported TextureFormat still
-   declines, same as a real project export would (see routes/assets.py's render_asset). #}
+  Tab enabling mirrors upstream's `AssetHtmlTab.Enabled`: a tab is rendered only when it has
+  something to show, so an asset with no resolved fields does not get an empty Fields tab.
+#}
 {% set image_class_ids = [28] %}       {# Texture2D #}
 {% set text_class_ids = [49, 48] %}    {# TextAsset, Shader #}
 {% set binary_class_ids = [83, 128, 152, 43] %}  {# AudioClip, Font, MovieTexture, Mesh (.glb) #}
 {% set has_content_exporter = asset.class_id in image_class_ids or asset.class_id in text_class_ids or asset.class_id in binary_class_ids %}
-<h2>Preview</h2>
-{% if asset.class_id in image_class_ids %}
-<img src="{{ url_for('assets.image', Path=path) }}" alt="{{ asset.class_name }} preview" style="max-width: 512px; max-height: 512px;">
-<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
-{% elif asset.class_id == 83 %}
-<audio controls src="{{ url_for('assets.binary', Path=path) }}"></audio>
-<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
-{% elif asset.class_id in text_class_ids %}
-<iframe src="{{ url_for('assets.text', Path=path) }}" style="width: 100%; height: 20em; border: 1px solid #ccc;"></iframe>
-<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
-{% elif has_content_exporter %}
-<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
-{% else %}
-<iframe src="{{ url_for('assets.yaml', Path=path) }}" style="width: 100%; height: 20em; border: 1px solid #ccc;"></iframe>
-<p><a href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a></p>
-{% endif %}
 
-<h2>Information</h2>
-<table>
-  <tr><th>Path ID</th><td>{{ asset.path_id }}</td></tr>
-  <tr><th>Class ID</th><td>{{ asset.class_id }}</td></tr>
-  <tr><th>Class name</th><td>{{ asset.class_name }}</td></tr>
-  <tr><th>Collection</th><td>{{ asset.collection.name }}</td></tr>
-  <tr><th>Serialized version</th><td>{{ asset.serialized_version }}</td></tr>
-</table>
+<h1 class="h3">{{ asset.class_name }} <span class="text-body-secondary">[{{ asset.path_id }}]</span></h1>
 
-{% if field_rows %}
-<h2>Fields</h2>
-<table>
-  <tr><th>Name</th><th>Type</th><th>Value</th></tr>
-  {% for depth, name, type_name, value in field_rows %}
-  <tr>
-    <td style="padding-left: {{ 0.5 + depth * 1.5 }}em">{{ name }}</td>
-    <td>{{ type_name }}</td>
-    <td class="hex">{{ value }}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% else %}
-<p>
-  No decoded fields: this asset's field layout could not be resolved, so it is held as raw
-  bytes. That happens when the file embeds no type tree and no hand-written layout covers
-  this class.
-</p>
-{% endif %}
+<ul class="nav nav-tabs mb-3" role="tablist">
+  <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-preview" type="button" role="tab">Preview</button></li>
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-information" type="button" role="tab">Information</button></li>
+  {% if field_rows %}
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-fields" type="button" role="tab">Fields</button></li>
+  {% endif %}
+  {% if dependency_rows %}
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-dependencies" type="button" role="tab">Dependencies <span class="badge text-bg-secondary">{{ dependency_rows|length }}</span></button></li>
+  {% endif %}
+  {% if field_rows %}
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-json" type="button" role="tab">Json</button></li>
+  {% endif %}
+  {% if hex_rows %}
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-hex" type="button" role="tab">Hex</button></li>
+  {% endif %}
+</ul>
 
-{% if hex_rows %}
-<h2>Hex{% if truncated %} (first 64 KiB of {{ data_length }} bytes){% endif %}</h2>
-<div class="hex">{% for offset, hex_part, ascii_part in hex_rows %}{{ offset }}  {{ hex_part }}  {{ ascii_part }}
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="tab-preview" role="tabpanel">
+    {# A class ID appearing in one of the lists above doesn't guarantee the preview succeeds:
+       e.g. a Texture2D with an unsupported TextureFormat still declines, exactly as a real
+       project export would (see routes/assets.py's render_asset). #}
+    <div class="card">
+      <div class="card-body">
+        {% if asset.class_id in image_class_ids %}
+        <img class="img-fluid border rounded" src="{{ url_for('assets.image', Path=path) }}" alt="{{ asset.class_name }} preview" style="max-width: 512px; max-height: 512px;">
+        {% elif asset.class_id == 83 %}
+        <audio class="w-100" controls src="{{ url_for('assets.binary', Path=path) }}"></audio>
+        {% elif asset.class_id in text_class_ids %}
+        <iframe class="w-100 border rounded" src="{{ url_for('assets.text', Path=path) }}" style="height: 24em;"></iframe>
+        {% elif has_content_exporter %}
+        <p class="text-body-secondary mb-0">
+          This asset exports as a binary file with no inline preview. Download it below.
+        </p>
+        {% else %}
+        <iframe class="w-100 border rounded" src="{{ url_for('assets.yaml', Path=path) }}" style="height: 24em;"></iframe>
+        {% endif %}
+      </div>
+      <div class="card-footer">
+        <a class="btn btn-sm btn-primary" href="{{ url_for('assets.binary', Path=path) }}">Download exported file</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="tab-information" role="tabpanel">
+    <table class="table table-sm table-striped w-auto">
+      <tbody>
+        <tr><th scope="row">Path ID</th><td>{{ asset.path_id }}</td></tr>
+        <tr><th scope="row">Class ID</th><td>{{ asset.class_id }}</td></tr>
+        <tr><th scope="row">Class name</th><td>{{ asset.class_name }}</td></tr>
+        <tr><th scope="row">Collection</th><td>{{ asset.collection.name }}</td></tr>
+        <tr><th scope="row">Serialized version</th><td>{{ asset.serialized_version }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane fade" id="tab-fields" role="tabpanel">
+    {% if field_rows %}
+    <table class="table table-sm table-striped">
+      <thead><tr><th>Name</th><th>Type</th><th>Value</th></tr></thead>
+      <tbody>
+        {% for depth, name, type_name, value in field_rows %}
+        <tr>
+          <td style="padding-left: {{ 0.5 + depth * 1.5 }}em">{{ name }}</td>
+          <td class="text-body-secondary">{{ type_name }}</td>
+          <td class="hex">{{ value }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-body-secondary">
+      No decoded fields: this asset's field layout could not be resolved, so it is held as raw
+      bytes. That happens when the file embeds no type tree and no hand-written layout covers
+      this class.
+    </p>
+    {% endif %}
+  </div>
+
+  <div class="tab-pane fade" id="tab-dependencies" role="tabpanel">
+    {% if dependency_rows %}
+    <p class="text-body-secondary">
+      Every non-null reference this asset holds. Null references are omitted -- an unset
+      reference field is one, and there are usually many.
+    </p>
+    <table class="table table-sm table-striped">
+      <thead><tr><th>Field</th><th>Target</th><th>PPtr</th></tr></thead>
+      <tbody>
+        {% for row in dependency_rows %}
+        <tr>
+          <td>{{ row.field_path }}</td>
+          <td>
+            {% if row.target is not none %}
+            <a href="{{ url_for('assets.view', Path=row.target_path.to_json()) }}">{{ row.target.class_name }} [{{ row.target.path_id }}]</a>
+            {% else %}
+            <span class="text-warning">Missing</span>
+            {% endif %}
+          </td>
+          <td class="text-body-secondary">{{ row.file_id }} / {{ row.path_id }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+
+  <div class="tab-pane fade" id="tab-json" role="tabpanel">
+    <iframe class="w-100 border rounded" src="{{ url_for('assets.json_document', Path=path) }}" style="height: 28em;"></iframe>
+    <p class="mt-2 mb-0">
+      <a class="btn btn-sm btn-secondary" href="{{ url_for('assets.json_document', Path=path) }}">Open raw JSON</a>
+    </p>
+  </div>
+
+  <div class="tab-pane fade" id="tab-hex" role="tabpanel">
+    {% if hex_rows %}
+    {% if truncated %}<p class="text-body-secondary">First 64 KiB of {{ data_length }} bytes.</p>{% endif %}
+    <div class="hex border rounded p-2">{% for offset, hex_part, ascii_part in hex_rows %}{{ offset }}  {{ hex_part }}  {{ ascii_part }}
 {% endfor %}</div>
-{% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/tabs.js') }}"></script>
 {% endblock %}
