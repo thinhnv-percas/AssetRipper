@@ -15,7 +15,7 @@ public sealed class BrowsePage : DefaultPage
 		new H1(writer).Close(GetTitle());
 		new P(writer).WithClass("text-muted").Close(DirectoryPath);
 
-		string? parent = IsExportRoot(DirectoryPath) ? null : Directory.GetParent(DirectoryPath)?.FullName;
+		string? parent = Directory.GetParent(DirectoryPath)?.FullName;
 		if (parent is not null)
 		{
 			using (new Div(writer).WithClass("mb-3").End())
@@ -63,11 +63,5 @@ public sealed class BrowsePage : DefaultPage
 		{
 			new P(writer).WithClass("text-muted").Close(Localization.ExportFolderEmpty);
 		}
-	}
-
-	private static bool IsExportRoot(string path)
-	{
-		string? root = GameFileLoader.LastExportPath;
-		return root is not null && string.Equals(System.IO.Path.GetFullPath(path), System.IO.Path.GetFullPath(root), StringComparison.OrdinalIgnoreCase);
 	}
 }

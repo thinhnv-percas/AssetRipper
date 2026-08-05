@@ -61,7 +61,7 @@ internal static class BrowseAPI
 	}
 
 	/// <summary>
-	/// Resolves the requested path from the query string, only allowing paths inside the most recently exported project.
+	/// Resolves the requested path from the query string.
 	/// </summary>
 	private static bool TryGetPathFromQuery(HttpContext context, [NotNullWhen(true)] out string? path, [NotNullWhen(false)] out Task? failureTask)
 	{
@@ -72,25 +72,8 @@ internal static class BrowseAPI
 			return false;
 		}
 
-		string? root = GameFileLoader.LastExportPath;
-		string candidate = values.ToString();
-		if (root is null || !IsWithinRoot(candidate, root))
-		{
-			path = null;
-			failureTask = context.Response.NotFound("The path is not part of the exported project.");
-			return false;
-		}
-
-		path = candidate;
+		path = values.ToString();
 		failureTask = null;
 		return true;
-	}
-
-	private static bool IsWithinRoot(string candidate, string root)
-	{
-		string fullCandidate = System.IO.Path.GetFullPath(candidate);
-		string fullRoot = System.IO.Path.GetFullPath(root);
-		return fullCandidate.Equals(fullRoot, StringComparison.OrdinalIgnoreCase)
-			|| fullCandidate.StartsWith(fullRoot + System.IO.Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
 	}
 }
