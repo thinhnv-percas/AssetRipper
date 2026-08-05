@@ -10,7 +10,11 @@
 <form method="post" action="{{ url_for('home.settings') }}">
   <h2>Import</h2>
   <p>
-    <label for="script_content_level">Script content level (not yet consumed)</label><br>
+    <label for="script_content_level">Script content level</label><br>
+    <small>
+      <code>LEVEL_0</code> skips script recovery entirely. Every other level behaves the same
+      here: this port recovers declarations and real field layouts, never method bodies.
+    </small><br>
     <select id="script_content_level" name="script_content_level">
       {% for member in enum_choices.script_content_level %}
       <option value="{{ member.name }}" {% if settings.import_settings.script_content_level == member %}selected{% endif %}>{{ member.name }}</option>
@@ -24,6 +28,18 @@
       <option value="{{ member.name }}" {% if settings.import_settings.streaming_assets_mode == member %}selected{% endif %}>{{ member.name }}</option>
       {% endfor %}
     </select>
+  </p>
+
+  <p>
+    <label for="assembly_directories">Extra assembly directories</label><br>
+    <small>
+      One directory per line. Any <code>.dll</code> files found are used to recover script
+      types, in addition to assemblies found inside the build. For an IL2CPP build (no
+      <code>Managed/</code> directory), point this at the dummy assemblies produced by
+      Il2CppDumper / Cpp2IL / DevX-GameRecovery.
+    </small><br>
+    <textarea id="assembly_directories" name="assembly_directories" rows="3" cols="70"
+      >{{ settings.import_settings.assembly_directories | join('\n') }}</textarea>
   </p>
 
   <h2>Export</h2>

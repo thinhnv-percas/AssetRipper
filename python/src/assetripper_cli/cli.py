@@ -34,7 +34,15 @@ discovery + every SerializedFile/bundle found), runs the standard asset
 processors, and exports a Unity project to -o/--output."""
 
 _EXPORT_USAGE = (
-    "Usage: assetripper-inspect export <path> [<path> ...] -o <output_dir> [--config <settings.json>]"
+    "Usage: assetripper-inspect export <path> [<path> ...] -o <output_dir>\n"
+    "                                  [--config <settings.json>]\n"
+    "                                  [--assembly-dir <dir>] ...\n"
+    "\n"
+    "  --assembly-dir  A directory of .dll files to recover script types from, in addition\n"
+    "                  to any assemblies found inside the build itself. Repeatable. Intended\n"
+    "                  for the dummy assemblies an external tool (Il2CppDumper, Cpp2IL,\n"
+    "                  DevX-GameRecovery) produces for an IL2CPP build, which this port\n"
+    "                  cannot generate itself -- see ROADMAP.md 16c-alt."
 )
 
 
@@ -80,6 +88,7 @@ def _run_export(argv: list[str]) -> int:
     input_paths: list[str] = []
     output_directory: str | None = None
     config_path: str | None = None
+    assembly_directories: list[str] = []
     i = 0
     while i < len(argv):
         arg = argv[i]
@@ -95,6 +104,12 @@ def _run_export(argv: list[str]) -> int:
                 print("Error: --config requires a value")
                 return 1
             config_path = argv[i]
+        elif arg == "--assembly-dir":
+            i += 1
+            if i >= len(argv):
+                print("Error: --assembly-dir requires a value")
+                return 1
+            assembly_directories.append(argv[i])
         else:
             input_paths.append(arg)
         i += 1
@@ -117,7 +132,10 @@ def _run_export(argv: list[str]) -> int:
     handler = ExportHandler()
     try:
         print(f"Loading {len(input_paths)} path(s)...")
-        game_data = handler.load_and_process(input_paths, file_system, settings=settings)
+        # An explicit --assembly-dir wins over whatever the config file said, matching how
+        # every other explicit argument to `load` overrides `settings`.
+        load_kwargs = {"assembly_directories": assembly_directories} if assembly_directories else {}
+        game_data = handler.load_and_process(input_paths, file_system, settings=settings, **load_kwargs)
         if not game_data.game_bundle.has_any_asset_collections():
             print("Error: no valid Unity assets found in the given path(s)")
             return 1

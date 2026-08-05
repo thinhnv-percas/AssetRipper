@@ -172,6 +172,14 @@ _ENUM_CHOICES = {
 }
 
 
+def _split_lines(text: "str | None") -> list[str]:
+    """One directory per line, since a path can legitimately contain a comma or a space and a
+    textarea is the only free-form multi-value input a plain HTML form offers."""
+    if not text:
+        return []
+    return [line.strip() for line in text.splitlines() if line.strip()]
+
+
 @bp.route("/Settings/Edit", methods=["GET", "POST"])
 def settings():
     if request.method == "POST":
@@ -184,6 +192,7 @@ def settings():
                     streaming_assets_mode=StreamingAssetsMode[form.get("streaming_assets_mode")],
                     default_version=current.import_settings.default_version,
                     target_version=current.import_settings.target_version,
+                    assembly_directories=_split_lines(form.get("assembly_directories")),
                 ),
                 export_settings=ExportSettings(
                     audio_export_format=AudioExportFormat[form.get("audio_export_format")],

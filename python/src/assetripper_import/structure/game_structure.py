@@ -45,6 +45,7 @@ class GameStructure:
         script_content_level=None,
         progress_callback=None,
         temp_directories: list[str] | None = None,
+        assembly_directories: Iterable[str] = (),
     ):
         """`script_content_level` (Phase 16f): a `ScriptContentLevel`
         (`assetripper_export_configuration`) or plain `int`/`None` -- kept untyped here to
@@ -60,7 +61,15 @@ class GameStructure:
         unpacking an archive to get to `paths`, if this instance was built via `load()` -- kept
         so `dispose()` (and callers that read `.temp_directories` directly, e.g. `GameData`)
         can clean them up once the extracted files are no longer needed. Empty when `load()`
-        wasn't used (`paths` were already plain files/directories, nothing was extracted)."""
+        wasn't used (`paths` were already plain files/directories, nothing was extracted).
+
+        `assembly_directories` (ROADMAP 16c-alt): directories of user-supplied `.dll` files to
+        recover scripts from, in addition to any assemblies found inside the build itself. An
+        explicitly supplied assembly **wins** over a same-named one discovered in the build:
+        passing the directory at all is a deliberate act, so it's read as "use these". In
+        practice they rarely collide -- an IL2CPP build has no `Managed/` directory for the
+        discovery pass to find anything in, which is the case this option exists for.
+        `script_content_level=0` disables these too, same as build-discovered assemblies."""
         self.file_system = file_system
         self.temp_directories: list[str] = temp_directories if temp_directories is not None else []
 
@@ -75,7 +84,9 @@ class GameStructure:
 
         self.assembly_manager = None
         if script_content_level is None or script_content_level != 0:
-            self.assembly_manager = _create_assembly_manager(self.platform_structure, self.mixed_structure, file_system)
+            self.assembly_manager = _create_assembly_manager(
+                self.platform_structure, self.mixed_structure, file_system, assembly_directories
+            )
 
         default_version = default_version if default_version is not None else UnityVersion()
         target_version = target_version if target_version is not None else UnityVersion()
@@ -119,12 +130,14 @@ class GameStructure:
         ignore_streaming_assets: bool = False,
         script_content_level=None,
         progress_callback=None,
+        assembly_directories: Iterable[str] = (),
     ) -> "GameStructure":
         """`progress_callback(message: str)` (Phase 19c), optional: reports coarse milestones
         only ("Extracting archive...", "Discovering platform structure...", "Reading N
         file(s)...") -- there's no cheap way to know a numeric total/current up front (unlike
         `ProjectExporter.export`'s per-asset progress), so this is a status message, not a
-        percentage. `script_content_level` (Phase 16f): see `__init__`'s docstring."""
+        percentage. `script_content_level` (Phase 16f) and `assembly_directories` (16c-alt):
+        see `__init__`'s docstring."""
         if progress_callback:
             progress_callback("Extracting archive...")
         temp_directories: list[str] = []
@@ -141,6 +154,7 @@ class GameStructure:
             script_content_level=script_content_level,
             progress_callback=progress_callback,
             temp_directories=temp_directories,
+            assembly_directories=assembly_directories,
         )
 
     def dispose(self) -> None:
@@ -179,8 +193,41 @@ def _get_assemblies(platform_structure, mixed_structure) -> dict[str, str]:
     return merged
 
 
-def _create_assembly_manager(platform_structure, mixed_structure, file_system) -> "MonoAssemblyManager | None":
+def _create_assembly_manager(
+    platform_structure, mixed_structure, file_system, extra_assembly_directories=()
+) -> "MonoAssemblyManager | None":
     assemblies = _get_assemblies(platform_structure, mixed_structure)
+    assemblies.update(_collect_assemblies_in_directories(extra_assembly_directories, file_system))
     if not assemblies:
         return None
     return MonoAssemblyManager(assemblies, file_system)
+
+
+def _collect_assemblies_in_directories(directories, file_system) -> dict[str, str]:
+    """ROADMAP 16c-alt: `.dll` files the *user* supplied, rather than ones discovered inside the
+    game build. The intended source is a dummy-assembly directory produced by an external tool
+    (Il2CppDumper / Cpp2IL / DevX-GameRecovery) -- those dummies carry real .NET metadata with
+    real field declarations, which is exactly what the 16c reader consumes, so they give the
+    whole of Phase 16's output for an IL2CPP build without this port having to parse
+    `global-metadata.dat` itself (16d/16e). Upstream offers the same route by letting the user
+    point at assemblies directly.
+
+    Non-recursive, and `.dll` only: a dumper's output directory holds the assemblies flat, and
+    walking into subdirectories would start picking up unrelated native libraries.
+    """
+    collected: dict[str, str] = {}
+    for directory in directories:
+        if not file_system.directory.exists(directory):
+            _logger.warning("Assembly directory does not exist, ignoring: %s", directory)
+            continue
+        found = 0
+        for path in file_system.directory.enumerate_files(directory):
+            if file_system.path.get_extension(path).lower() != ".dll":
+                continue
+            collected[file_system.path.get_file_name(path)] = path
+            found += 1
+        if found:
+            _logger.info("Found %d user-supplied assembly file(s) in %s", found, directory)
+        else:
+            _logger.warning("No .dll files found in assembly directory: %s", directory)
+    return collected

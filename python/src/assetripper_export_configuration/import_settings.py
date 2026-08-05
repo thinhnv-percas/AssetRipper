@@ -1,7 +1,7 @@
 """Port of Source/AssetRipper.Import/Configuration/ImportSettings.cs"""
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from assetripper_primitives import UnityVersion
 
@@ -15,6 +15,13 @@ class ImportSettings:
     streaming_assets_mode: StreamingAssetsMode = StreamingAssetsMode.EXTRACT
     default_version: "UnityVersion | None" = None
     target_version: "UnityVersion | None" = None
+    assembly_directories: list[str] = field(default_factory=list)
+    """ROADMAP 16c-alt: directories of user-supplied dummy `.dll` files (Il2CppDumper / Cpp2IL /
+    DevX-GameRecovery output) to recover script types from, in addition to any assemblies found
+    inside the build. No upstream counterpart as a *setting* -- upstream takes assemblies as
+    additional input paths instead -- but this port keeps the input-path list meaning strictly
+    "game files", so the assembly directories are a setting here. Consumed by
+    `GameStructure.__init__`; ignored entirely when `script_content_level` is `LEVEL_0`."""
 
     @property
     def ignore_streaming_assets(self) -> bool:
@@ -26,6 +33,7 @@ class ImportSettings:
             "streaming_assets_mode": self.streaming_assets_mode.name,
             "default_version": str(self.default_version) if self.default_version is not None else None,
             "target_version": str(self.target_version) if self.target_version is not None else None,
+            "assembly_directories": list(self.assembly_directories),
         }
 
     @staticmethod
@@ -38,4 +46,5 @@ class ImportSettings:
             streaming_assets_mode=StreamingAssetsMode[data.get("streaming_assets_mode", defaults.streaming_assets_mode.name)],
             default_version=UnityVersion.parse(default_version_text) if default_version_text else None,
             target_version=UnityVersion.parse(target_version_text) if target_version_text else None,
+            assembly_directories=list(data.get("assembly_directories") or []),
         )

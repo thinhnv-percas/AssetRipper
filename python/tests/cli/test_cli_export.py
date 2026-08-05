@@ -125,3 +125,93 @@ def test_top_level_usage_mentions_export(capsys):
     assert main([]) == 1
     out = capsys.readouterr().out
     assert "export" in out.lower()
+
+
+def test_assembly_dir_flag_is_repeatable_and_reaches_the_loader(tmp_path, capsys, monkeypatch):
+    """ROADMAP 16c-alt. Asserts against what `load_and_process` actually received rather than
+    against exported `.cs` files: the synthetic game here has no MonoBehaviour, so the flag's
+    *effect* on output would be invisible, while the wiring is exactly what could break."""
+    from assetripper_export_unity_projects import export_handler as export_handler_module
+
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    _write_synthetic_game(game_dir)
+
+    received = {}
+    original = export_handler_module.ExportHandler.load_and_process
+
+    def _spy(self, paths, file_system, **kwargs):
+        received.update(kwargs)
+        return original(self, paths, file_system, **kwargs)
+
+    monkeypatch.setattr(export_handler_module.ExportHandler, "load_and_process", _spy)
+
+    exit_code = main([
+        "export", str(game_dir), "-o", str(tmp_path / "output"),
+        "--assembly-dir", "/dumps/one", "--assembly-dir", "/dumps/two",
+    ])
+
+    assert exit_code == 0
+    assert received["assembly_directories"] == ["/dumps/one", "/dumps/two"]
+
+
+def test_assembly_dir_flag_requires_a_value(capsys):
+    exit_code = main(["export", "game", "-o", "out", "--assembly-dir"])
+
+    assert exit_code == 1
+    assert "--assembly-dir requires a value" in capsys.readouterr().out
+
+
+def test_assembly_dir_flag_overrides_the_config_file(tmp_path, monkeypatch):
+    """Same precedence rule every other explicit argument to `load` follows: explicit wins
+    over `settings`. Here the config names one directory and the flag names another."""
+    from assetripper_export_configuration.full_configuration import FullConfiguration
+    from assetripper_export_configuration.import_settings import ImportSettings
+
+    config_path = tmp_path / "settings.json"
+    FullConfiguration(import_settings=ImportSettings(assembly_directories=["/from/config"])).save(str(config_path))
+
+    received = _spy_on_game_structure_load(monkeypatch)
+    exit_code = _run_export(tmp_path, "--config", str(config_path), "--assembly-dir", "/from/flag")
+
+    assert exit_code == 0
+    assert list(received["assembly_directories"]) == ["/from/flag"]
+
+
+def test_config_file_assembly_directories_are_used_when_no_flag_is_given(tmp_path, monkeypatch):
+    from assetripper_export_configuration.full_configuration import FullConfiguration
+    from assetripper_export_configuration.import_settings import ImportSettings
+
+    config_path = tmp_path / "settings.json"
+    FullConfiguration(import_settings=ImportSettings(assembly_directories=["/from/config"])).save(str(config_path))
+
+    received = _spy_on_game_structure_load(monkeypatch)
+    assert _run_export(tmp_path, "--config", str(config_path)) == 0
+    assert list(received["assembly_directories"]) == ["/from/config"]
+
+
+def _run_export(tmp_path, *extra_args: str) -> int:
+    game_dir = tmp_path / "game"
+    game_dir.mkdir(exist_ok=True)
+    _write_synthetic_game(game_dir)
+    return main(["export", str(game_dir), "-o", str(tmp_path / "output"), *extra_args])
+
+
+def _spy_on_game_structure_load(monkeypatch) -> dict:
+    """Records the keyword arguments `GameStructure.load` was actually called with.
+
+    Spying on `ExportHandler.load` would not work: it fills settings-derived values in with
+    `kwargs.setdefault`, and `**kwargs` hands the callee its own fresh dict, so the caller's
+    copy never sees them. `GameStructure.load` is the real destination anyway.
+    """
+    from assetripper_import.structure import game_structure as game_structure_module
+
+    received: dict = {}
+    original = game_structure_module.GameStructure.load
+
+    def _spy(paths, file_system, **kwargs):
+        received.update(kwargs)
+        return original(paths, file_system, **kwargs)
+
+    monkeypatch.setattr(game_structure_module.GameStructure, "load", staticmethod(_spy))
+    return received

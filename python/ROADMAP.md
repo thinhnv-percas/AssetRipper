@@ -1106,8 +1106,22 @@ complete type info)"*. Nguồn cho phân chia trên:
 
 #### 16c-alt — Đường tắt: nhận dummy DLL do tool ngoài sinh ra ⭐ **khuyến nghị làm MVP**
 
-- [ ] Cho `ExportHandler.load(...)` nhận thêm một directory chứa dummy DLL đã có sẵn (do user chạy
+- [x] Cho `ExportHandler.load(...)` nhận thêm một directory chứa dummy DLL đã có sẵn (do user chạy
       Il2CppDumper / Cpp2IL / DevX ở ngoài), rồi đi thẳng vào 16c reader — **bỏ qua hoàn toàn 16d+16e**
+      (2026-08-03, commit `(pending)`). Đúng như đánh giá "rất thấp effort": chỉ thêm một input.
+      - Chuỗi wiring: `--assembly-dir <dir>` (CLI, lặp được) / textarea trên `/Settings/Edit` /
+        `ImportSettings.assembly_directories` → `ExportHandler.load` → `GameStructure.load` →
+        `_collect_assemblies_in_directories` → gộp vào dict assemblies mà `MonoAssemblyManager`
+        đang dùng. Không có code path mới ở tầng đọc metadata — vẫn đúng reader 16c
+      - Quy tắc precedence: DLL user cung cấp **thắng** DLL cùng tên tìm thấy trong build (đưa
+        directory vào là một hành động có chủ ý). Explicit argument thắng `settings`, giống mọi
+        tham số khác của `load`
+      - Chỉ quét `.dll`, **không** đệ quy: output của dumper để assembly phẳng, còn đi vào
+        subdirectory sẽ bắt đầu nhặt cả `libil2cpp.so`/`dump.cs`/`script.json` vào
+      - Directory không tồn tại → warning + bỏ qua (một path cũ trong settings không được làm
+        sập cả lần load), `script_content_level=LEVEL_0` vẫn tắt hết như trước
+      - **Test:** 11 test (`test_extra_assembly_directories.py`, gồm 1 test đọc thật type + field
+        layout ra khỏi `.dll` hand-built), 3 test GUI form, 4 test CLI flag
 - **Vì sao đáng làm trước:** đây chính là cách DevX-GameRecovery hoạt động (nó gọi decompiler ngoài),
       và nó cho **toàn bộ kết quả của Phase 16 với ~15% effort**. Đổi lại là user phải chạy một tool
       nữa bằng tay. Upstream cũng có đúng đường này: `ScriptContentLevel` + việc user tự cung cấp dll
@@ -1453,9 +1467,22 @@ User đã chốt: *"bỏ phần view loaded bundle cũng được"*.
       nhận diện `.cs`; `/Export/UnityProject` từ chối `OutputPath` rỗng; export đĩa thật không còn tự
       động thành nguồn browse; disk-Load có precedence; traversal trên nguồn plan trả 404 (không phải
       lỗi, đối lập có chủ đích với nguồn disk trả 400); và 2 unit test thuần cho `_asset_count_warning`
-- [ ] **Chưa làm — dời sang lúc có fixture thật hoặc phiên sau:** test đối chiếu preview-vs-export ở
-      mức GUI thật (dùng `demo-android.apk` qua Flask test client, so `ExportPlan`'s path set với một
-      `/Export/UnityProject` thật ra `tmp_path`). Rủi ro thấp vì bản chất đã được chứng minh ở tầng
+- [x] **Xong 2026-08-03** `(pending)` — test đối chiếu preview-vs-export ở
+      mức GUI thật (`tests/real_fixtures/test_preview_matches_export.py`, 5 test): load
+      `demo-android.apk` qua `/LoadFolder` thật, so path set của `ExportPlan` với
+      `/Export/UnityProject` thật ra `tmp_path` (~4500 file, khớp tuyệt đối), so **nội dung byte**
+      của 1 file mỗi loại, `/Project/File` trả đúng bytes trước khi export lần nào, listing của
+      `browse()` khớp thư mục thật, và disk source thắng plan sau `/Project/Load`.
+      **Phát hiện thật từ test này (2 cái, đều không phải bug của port):**
+      1. `.meta` `timeCreated` là wall-clock → phải pin `SOURCE_DATE_EPOCH` mới so byte được
+         (đồng thời phủ luôn nhánh reproducible-build)
+      2. **GUID trong `.meta` random mỗi lần export** — `AssetExportCollection.__init__` gọi
+         `UnityGuid.new_guid()`, và upstream y hệt (`AssetExportCollection.cs:78`). Hệ quả thật
+         nhưng là của upstream: **export lại cùng một game sẽ ra GUID khác**, nên reference trong
+         một Unity project đã mở từ bản export trước sẽ đứt. Script là ngoại lệ — dùng
+         `UnityGuid.md5_hash(namespace+class+assembly)` nên ổn định. Test normalize GUID trước khi
+         so, và ghi rõ lý do (không phải preview drift)
+      (Ghi chú gốc:) Rủi ro thấp vì bản chất đã được chứng minh ở tầng
       thấp hơn hai lần: `test_virtual_file_system.py::test_export_path_set_matches_local_file_system_export`
       (17a, VFS trực tiếp) và `test_export_plan.py::test_build_export_plan_matches_a_real_disk_export_of_the_same_game_data`
       (17b, qua ExportPlan) đều đã chứng minh đúng bất biến này bằng game synthetic; thêm một lớp GUI
@@ -1965,7 +1992,8 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
 - [x] **(2026-08-03)** `tests/io_endian/` và `tests/primitives/` **không còn rỗng** — 60 test mới: `test_endian_span_reader.py` (23: cả 2 endianness cho mọi kiểu multi-byte, `offset` semantics thật, align, bulk read, overrun phải raise), `test_unity_version.py` (18: ordering, partial `equals`, mốc `2020.2.0a21` mà `get_max_depth_level` dùng, parse/format), `test_unity_guid.py` (19: round-trip, và **`md5_hash` pin đúng byte-interpretation** — nó là thứ giữ `.meta` GUID của script ổn định giữa các lần export, đổi là vỡ mọi reference trong project Unity đang mở). (Ghi chú gốc: `EndianSpanReader` và
       `UnityVersion`/`UnityGuid` hiện chỉ được test gián tiếp qua `import_`. Nên có unit test trực tiếp
 - [ ] Bổ sung layout Phase 2 cho ~10 type còn thiếu (xem Phase 2 — đã từ 15 xuống 10 sau Phase 18)
-- [ ] Bổ sung importer Phase 4 còn thiếu (xem Phase 4)
+- [x] Bổ sung importer Phase 4 còn thiếu — **xong 2026-08-03** `d4d22e2`, xem Phase 4 (còn fidelity
+      gap có chủ ý: field set tối thiểu, không có setting riêng của từng importer)
 - [ ] Chưa port test upstream: `StrippedAssetTests`, `TextureImporterTests`, `PathIDCalculationTests`,
       `ExportTests`, và toàn bộ `AssetRipper.SerializationLogic.Tests`
 

@@ -81,3 +81,43 @@ def test_settings_edit_post_preserves_unexposed_unity_version_fields(client):
     client.post("/Settings/Edit", data=_FORM_DEFAULTS, follow_redirects=True)
 
     assert game_file_loader.settings().import_settings.default_version == UnityVersion(2019, 4, 0)
+
+
+def test_assembly_directories_round_trip_through_the_form(client):
+    """ROADMAP 16c-alt: the GUI's only way to supply externally-dumped assemblies. One
+    directory per line, because a path can legitimately contain a comma or a space."""
+    form = dict(_FORM_DEFAULTS, assembly_directories="/games/dump/Managed\n/games/other/DummyDll\n")
+
+    client.post("/Settings/Edit", data=form, follow_redirects=True)
+
+    assert game_file_loader.settings().import_settings.assembly_directories == [
+        "/games/dump/Managed",
+        "/games/other/DummyDll",
+    ]
+
+    response = client.get("/Settings/Edit")
+    assert b"/games/dump/Managed" in response.data
+
+
+def test_blank_and_whitespace_only_lines_are_dropped(client):
+    """A trailing newline in a textarea is normal, and an empty string would reach
+    `directory.exists("")` and log a spurious warning on every load."""
+    form = dict(_FORM_DEFAULTS, assembly_directories="\n  \n/real/path\n\n")
+
+    client.post("/Settings/Edit", data=form, follow_redirects=True)
+
+    assert game_file_loader.settings().import_settings.assembly_directories == ["/real/path"]
+
+
+def test_omitting_the_field_entirely_clears_it(client):
+    """A form POST always carries every field the page renders, so an absent
+    `assembly_directories` means the textarea was emptied -- not "leave it alone"."""
+    from assetripper_export_configuration.import_settings import ImportSettings
+
+    game_file_loader.set_settings(
+        FullConfiguration(import_settings=ImportSettings(assembly_directories=["/old"]))
+    )
+
+    client.post("/Settings/Edit", data=dict(_FORM_DEFAULTS), follow_redirects=True)
+
+    assert game_file_loader.settings().import_settings.assembly_directories == []

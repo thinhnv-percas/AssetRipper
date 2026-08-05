@@ -45,9 +45,14 @@ class ExportHandler:
 
     def load(self, paths, file_system, settings=None, progress_callback=None, **kwargs) -> GameData:
         """`settings` (Phase 10): a `FullConfiguration`; only its `import_settings`
-        (`default_version`/`target_version`/`ignore_streaming_assets`/`script_content_level`)
-        is consulted, and only to fill in values `kwargs` didn't already specify -- an
-        explicit keyword argument always wins over `settings`.
+        (`default_version`/`target_version`/`ignore_streaming_assets`/`script_content_level`/
+        `assembly_directories`) is consulted, and only to fill in values `kwargs` didn't
+        already specify -- an explicit keyword argument always wins over `settings`.
+
+        `assembly_directories` (ROADMAP 16c-alt) is the shortcut route into Phase 16 for an
+        IL2CPP build: point it at a directory of dummy `.dll` files produced by an external
+        tool (Il2CppDumper / Cpp2IL / DevX-GameRecovery) and the 16c metadata reader recovers
+        script types from those, without this port parsing `global-metadata.dat` itself.
 
         `progress_callback` (Phase 19c): forwarded to `GameStructure.load` -- see its
         docstring for exactly what milestones it reports."""
@@ -57,6 +62,7 @@ class ExportHandler:
             kwargs.setdefault("target_version", import_settings.target_version)
             kwargs.setdefault("ignore_streaming_assets", import_settings.ignore_streaming_assets)
             kwargs.setdefault("script_content_level", import_settings.script_content_level)
+            kwargs.setdefault("assembly_directories", import_settings.assembly_directories)
 
         if len(paths) == 1:
             _logger.info("Attempting to read files from %s", paths[0])
