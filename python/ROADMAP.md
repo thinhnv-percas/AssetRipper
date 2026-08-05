@@ -629,9 +629,9 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
       `ProjectExporter` rồi đọc lại nội dung YAML), `tests/import_/test_type_tree_object_name.py` (2)
       — 7 test mới, cộng sửa 11 test cũ
 - [x] Release gate + commit + push
-- [ ] **Còn lại (chưa làm, không bịa là xong):** `AddMissingTransforms` (Transform-từ-đầu, edge case
-      hiếm); prefab hoá cho `PrefabInstance` thật sẵn có trong scene (cần field `RootGameObjectP`
-      chưa xác minh)
+- [ ] **Còn lại (chưa làm, không bịa là xong):** prefab hoá cho `PrefabInstance` thật sẵn có trong
+      scene (cần field `RootGameObjectP` chưa xác minh). `AddMissingTransforms` đã xong — xem mục
+      ngay dưới
 - [x] `AddMissingTransforms` — **xong 2026-08-03** `0b079e8`,
       `prefabs/missing_transforms.py`. Unity **bắt buộc** mọi GameObject phải có Transform;
       thiếu là GameObject mà Editor không đặt được vào hierarchy. Đây là **port thật, không phải
@@ -1777,8 +1777,13 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
   - **Không phải "sẽ không bao giờ làm"** — chỉ là không đủ effort/risk hợp lý trong phiên này so
     với việc đã làm xong Mesh. Nếu quay lại: bắt đầu bằng cách dò tay 1-2 sample nhỏ nhất (4188 byte)
     trước, đúng phương pháp Mesh đã dùng, thay vì viết cả `SerializedShader` một lần
-- [ ] Cân nhắc: dùng chính 2 file thật này làm **fixture chuẩn cho release gate** (không chỉ optional
-      skip) một khi kích thước/Git LFS được chấp nhận là chi phí xứng đáng
+- [x] **Đã chốt 2026-08-03: `demo-android.apk` là fixture bắt buộc của release gate trên thực tế.**
+      Nó đã chạy trong mọi `pytest -q` của mọi batch phiên này (`tests/real_fixtures/`, 2 file, 13
+      test) và **đã bắt được lỗi thật** nhiều hơn bất kỳ nhóm synthetic nào: layout MonoScript sai
+      (0 → 1945 file `.cs`), layout GameObject sai (407 unreadable), audio ra `.fsb` không mở được,
+      và GUID `.meta` random giữa 2 lần export. Cơ chế skip-khi-không-có-LFS vẫn giữ để suite chạy
+      được khi chưa pull LFS — nhưng nó là **fallback cho môi trường thiếu file**, không phải "test
+      optional". Đo được: 2 file real-fixture chiếm ~50s trong tổng ~115s của suite
 
 ### Phase 19 — GUI không nhận được input `.apk`/`.ipa` ✅ `1e64fd3` (bug thật, user báo 2026-08-01)
 
@@ -1884,9 +1889,14 @@ Bản kế hoạch gốc coi 19d là bước test riêng sau 19a; thực tế te
 - [x] Test cùng path apk giả qua cả `/LoadFile` và `/LoadFolder` → cùng kết quả (xong ở 19a)
 - [x] Test file rác → `is_loaded()` `False` + có error (xong ở 19b, không phải "loaded nhưng rỗng" nữa)
 - [x] Test GUI thật với `demo-android.apk` (xong ở 19a)
-- [ ] `.ipa` thật: **vẫn chưa** đưa vào release gate (38s + 300MB) — số đo cũ (38s, Unity 2022.3.62f3,
-      26 collection) đã ghi nhận ở đầu Phase 19, chưa đo lại lần này vì 19a/19b/19c không đổi hành vi
-      xử lý `.ipa` (chỉ đổi route wiring + progress, đã verify bằng apk thật + apk giả)
+- [~] `.ipa` thật: **chốt không đưa vào release gate (2026-08-03)**. Lý do: nó **không phủ thêm code
+      path nào** so với `.apk` đã có trong gate — cả hai đi cùng một đường `zip_extractor` →
+      `platform_checker` → `GameStructure`, khác nhau chỉ ở phần mở rộng và cây thư mục bên trong,
+      mà 2 thứ đó đã có test riêng. Đổi lại giá là +38s cho **mỗi** lần chạy suite (đang ~115s,
+      tức +33%) và +300MB Git LFS. Suite đã chạy 8 lần trong phiên này, nên đó là ~5 phút thuần
+      chờ để verify lại cùng một logic. `.apk` thật giữ nguyên trong gate (xem mục Phase 18/19).
+      Nếu sau này có bug chỉ xảy ra với `.ipa` thì đảo lại quyết định này — số đo cũ (38s, Unity
+      2022.3.62f3, 26 collection) ghi ở đầu Phase 19
 
 **Thứ tự đã làm:** `19a` (gỡ bug user báo) → test 19a → `19c` (progress) → `19b` (fix state bug, sau
 khi 17d đã chốt giữ route debug) — đúng thứ tự dự kiến.
