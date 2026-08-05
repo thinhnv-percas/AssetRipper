@@ -536,7 +536,7 @@ toàn bộ 9 tab distinct như upstream — xem "Còn lại" bên dưới, track
       `create_collections` trong `test_project_exporter.py`
 - [x] Release gate + commit + push
 - [~] Babylon.js 3D mesh preview — nặng vài MB vendored, `.glb` download đã đủ. Thêm sau nếu cần
-- [x] **Nợ Phase 11 — trả xong 2026-08-03** `(pending)`:
+- [x] **Nợ Phase 11 — trả xong 2026-08-03** `70a035d`:
       - [x] **Tab Dependencies + Json riêng biệt.** Trước đó trang asset là một trang cuộn dài
             (Preview/Information/Fields/Hex), giờ là tab Bootstrap thật, và có đủ 2 tab upstream
             có mà port này thiếu: **Dependencies** (port `Pages/Assets/DependenciesTab.cs` — liệt
