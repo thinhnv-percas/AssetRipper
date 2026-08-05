@@ -2094,8 +2094,8 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
          `SceneYamlExporter` và **làm vỡ toàn bộ scene export**. Đếm trên `demo-android.apk`: mọi
          asset 1032 đều là `SceneHierarchyObject` synthetic, không có `SceneAsset` thật nào.
          Nếu sau này port, phải có discriminator: decline khi asset là `GameObjectHierarchyObject`
-- [x] `YamlStreamedAssetExporter.cs` / `YamlStreamedAssetExportCollection.cs` — **xong 2026-08-03**
-      `(pending)`, `project/yaml_streamed_asset_exporter.py`. Lỗ hổng nó bịt: player build để pixel
+- [x] `YamlStreamedAssetExporter.cs` / `YamlStreamedAssetExportCollection.cs` — **xong 2026-08-03** `4bfd1d9`,
+      `project/yaml_streamed_asset_exporter.py`. Lỗ hổng nó bịt: player build để pixel
       của texture và vertex buffer của mesh trong `.resS`, trỏ tới bằng `m_StreamData`. Phase 9 đã
       dạy các *content exporter* đi theo con trỏ đó (nên `.png`/`.glb` chạy đúng) — nhưng khi content
       exporter **decline** (texture format không hỗ trợ, mesh chỉ có `m_CompressedMesh`), asset rơi
