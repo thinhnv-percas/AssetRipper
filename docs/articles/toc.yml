@@ -21,5 +21,7 @@
   items:
     - name: Road Map
       href: RoadMap.md
+    - name: Il2Cpp Method Recovery
+      href: Il2CppMethodRecovery.md
     - name: Credits
       href: Credits.md

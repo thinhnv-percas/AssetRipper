@@ -1,6 +1,7 @@
 using AsmResolver.DotNet;
 using AssetRipper.Import.Configuration;
 using AssetRipper.Import.Logging;
+using AssetRipper.Import.Structure.Assembly.Recovery;
 using AssetRipper.Import.Structure.Platforms;
 using Cpp2IL.Core.Api;
 using Cpp2IL.Core.InstructionSets;
@@ -40,9 +41,24 @@ public sealed class IL2CppManager : BaseManager
 
 	public static AsmResolverDllOutputFormatDefault DefaultOutputFormat { get; } = new();
 
-	public static List<Cpp2IlProcessingLayer>? RecoveryProcessingLayers { get; set; }
+	/// <summary>
+	/// The processing layers used for <see cref="ScriptContentLevel.Level3"/>.
+	/// </summary>
+	public static List<Cpp2IlProcessingLayer>? RecoveryProcessingLayers { get; set; } =
+	[
+		new AttributeAnalysisProcessingLayer(),
+		new MethodOverrideNameFixer(),
+	];
 
-	public static AsmResolverDllOutputFormat? RecoveryOutputFormat { get; set; }
+	/// <summary>
+	/// The output format used for <see cref="ScriptContentLevel.Level3"/>.
+	/// </summary>
+	/// <remarks>
+	/// Unlike <see cref="DefaultOutputFormat"/>, this attempts to lift the native machine code of each
+	/// method back into CIL. It only succeeds for a fraction of methods, so
+	/// <see cref="Il2CppRecoveryReport"/> records the outcome of each attempt.
+	/// </remarks>
+	public static AsmResolverDllOutputFormat? RecoveryOutputFormat { get; set; } = new InstrumentedIlRecoveryOutputFormat();
 
 	public static event Action? ClearStaticState;
 
@@ -109,15 +125,43 @@ public sealed class IL2CppManager : BaseManager
 			cpp2IlProcessingLayer.Process(Cpp2IlApi.CurrentAppContext);
 		}
 
-		AsmResolverDllOutputFormat outputFormat = contentLevel == ScriptContentLevel.Level3
+		bool recovering = contentLevel == ScriptContentLevel.Level3;
+
+		AsmResolverDllOutputFormat outputFormat = recovering
 			? RecoveryOutputFormat ?? DefaultOutputFormat
 			: DefaultOutputFormat;
 
+		if (recovering)
+		{
+			Il2CppRecoveryReport.Clear();
+		}
+
 		List<AssemblyDefinition> assemblies = outputFormat.BuildAssemblies(Cpp2IlApi.CurrentAppContext);
+
+		if (recovering)
+		{
+			ReportRecoveryResults();
+		}
 
 		foreach (AssemblyDefinition assembly in assemblies)
 		{
 			Add(assembly);
+		}
+	}
+
+	private static void ReportRecoveryResults()
+	{
+		if (Il2CppRecoveryReport.Count == 0)
+		{
+			return;
+		}
+
+		Il2CppRecoveryReport.LogSummary();
+
+		string? reportPath = Il2CppRecoveryReport.TryWriteCsv(AppContext.BaseDirectory);
+		if (reportPath is not null)
+		{
+			Logger.Info(LogCategory.Import, $"Il2Cpp method recovery report written to {reportPath}");
 		}
 	}
 
