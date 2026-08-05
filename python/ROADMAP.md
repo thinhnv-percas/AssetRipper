@@ -1108,7 +1108,7 @@ complete type info)"*. Nguồn cho phân chia trên:
 
 - [x] Cho `ExportHandler.load(...)` nhận thêm một directory chứa dummy DLL đã có sẵn (do user chạy
       Il2CppDumper / Cpp2IL / DevX ở ngoài), rồi đi thẳng vào 16c reader — **bỏ qua hoàn toàn 16d+16e**
-      (2026-08-03, commit `(pending)`). Đúng như đánh giá "rất thấp effort": chỉ thêm một input.
+      (2026-08-03, commit `b9a4806`). Đúng như đánh giá "rất thấp effort": chỉ thêm một input.
       - Chuỗi wiring: `--assembly-dir <dir>` (CLI, lặp được) / textarea trên `/Settings/Edit` /
         `ImportSettings.assembly_directories` → `ExportHandler.load` → `GameStructure.load` →
         `_collect_assemblies_in_directories` → gộp vào dict assemblies mà `MonoAssemblyManager`
@@ -1467,7 +1467,7 @@ User đã chốt: *"bỏ phần view loaded bundle cũng được"*.
       nhận diện `.cs`; `/Export/UnityProject` từ chối `OutputPath` rỗng; export đĩa thật không còn tự
       động thành nguồn browse; disk-Load có precedence; traversal trên nguồn plan trả 404 (không phải
       lỗi, đối lập có chủ đích với nguồn disk trả 400); và 2 unit test thuần cho `_asset_count_warning`
-- [x] **Xong 2026-08-03** `(pending)` — test đối chiếu preview-vs-export ở
+- [x] **Xong 2026-08-03** `b9a4806` — test đối chiếu preview-vs-export ở
       mức GUI thật (`tests/real_fixtures/test_preview_matches_export.py`, 5 test): load
       `demo-android.apk` qua `/LoadFolder` thật, so path set của `ExportPlan` với
       `/Export/UnityProject` thật ra `tmp_path` (~4500 file, khớp tuyệt đối), so **nội dung byte**
