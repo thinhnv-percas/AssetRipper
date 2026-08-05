@@ -2037,7 +2037,7 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
             thuật toán nào có trong repo (đã thử: MD5 của UTF-8 ra `b519e7d3…`, UTF-16LE ra
             `ab0447eb…`, đều khác — nó là GUID Unity **cấp sẵn** cho assembly đó)
       - [x] ⚠️ **`AssetRipper.SerializationLogic.Tests`** → `tests/import_/test_field_serialization.py`
-            (22 test + 3 xfail), 2026-08-03 `(pending)`. Đúng như dự đoán, đây là nhóm giá trị
+            (22 test + 3 xfail), 2026-08-03 `ed23d82`. Đúng như dự đoán, đây là nhóm giá trị
             nhất — **nó tìm ra 3 bug thật**, tất cả cùng một dạng: layout khai một field mà Unity
             **không ghi byte nào**, hoặc đọc 2 int ở chỗ đáng ra là nội dung inline → **mọi field
             phía sau đọc lệch offset**. Không crash, không log, chỉ đọc ra rác:
