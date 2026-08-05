@@ -632,7 +632,7 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
 - [ ] **Còn lại (chưa làm, không bịa là xong):** `AddMissingTransforms` (Transform-từ-đầu, edge case
       hiếm); prefab hoá cho `PrefabInstance` thật sẵn có trong scene (cần field `RootGameObjectP`
       chưa xác minh)
-- [x] `AddMissingTransforms` — **xong 2026-08-03** `(pending)`,
+- [x] `AddMissingTransforms` — **xong 2026-08-03** `0b079e8`,
       `prefabs/missing_transforms.py`. Unity **bắt buộc** mọi GameObject phải có Transform;
       thiếu là GameObject mà Editor không đặt được vào hierarchy. Đây là **port thật, không phải
       tự bịa shape**: layout Transform đã có và đã register sẵn, `TypeTreeObject.create` dựng
