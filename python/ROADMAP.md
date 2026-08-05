@@ -1748,7 +1748,7 @@ layouts/{texture2d,audio_clip,sprite,material}.py`:**
       vẫn cần `16d`/`16e` (IL2CPP metadata + binary parser, chưa làm) mới đọc được — gap ở đây không
       còn là "chưa làm gì cho MonoBehaviour" mà cụ thể là "chưa làm nhánh IL2CPP". Cần một build Mono
       thật để kiểm chứng nhánh Mono end-to-end (test hiện tại đều trên `.dll` dựng tay, xem 16f)
-- [x] ⚠️ `BuildSettings`(141) — **2026-08-03 `(pending)`: lấy được `m_Scenes` mà KHÔNG cần layout.**
+- [x] ⚠️ `BuildSettings`(141) — **2026-08-03 `fa0781f`: lấy được `m_Scenes` mà KHÔNG cần layout.**
       Kết quả user thấy được: 2 scene trên fixture thật đổi từ `level0`/`level1` → **`Loading`/`Game`**
       (`Assets/Scenes/Loading`, `Assets/Scenes/Game`).
       - **Vẫn không viết layout, và giờ có lý do chính xác từ byte thật** (decode từng field, xem
@@ -2066,7 +2066,7 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
       công**, vì môi trường headless chỉ chạy được nhánh degrade)
 - [~] **(Phase 20e audit)** `/Localization` — **không port, cố ý**: port này chỉ có tiếng Anh, không có
       hạ tầng localization nào. Không chặn tính năng
-- [x] **(Phase 20c)** `AudioExportFormat.PreferWav` — **xong 2026-08-03 `(pending)`**. Đúng như
+- [x] **(Phase 20c)** `AudioExportFormat.PreferWav` — **xong 2026-08-03 `fa0781f`**. Đúng như
       chẩn đoán cũ: `fsb5` chỉ *dựng lại* header Ogg mà FMOD lược bỏ, **không decode** Vorbis, nên
       cần decoder thật. Dùng `soundfile`: **wheel của nó bundle luôn libsndfile** (có Ogg Vorbis từ
       1.0.29) → **không cần system package**, khác hẳn `libvorbis` native mà bản thân `fsb5` cần cho
