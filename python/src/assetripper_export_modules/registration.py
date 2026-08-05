@@ -30,6 +30,7 @@ from assetripper_export_unity_projects.project.manager_asset_exporter import (
     _PLAYER_SETTINGS_CLASS_ID,
     ManagerAssetExporter,
 )
+from assetripper_export_unity_projects.project.yaml_streamed_asset_exporter import YamlStreamedAssetExporter
 from assetripper_export_unity_projects.raw_assets.unknown_object_exporter import UnknownObjectExporter
 from assetripper_export_unity_projects.raw_assets.unreadable_object_exporter import UnreadableObjectExporter
 from assetripper_import.asset_creation.raw_data_object import UnknownObject, UnreadableObject
@@ -62,6 +63,15 @@ def register_default_exporters(
     if settings is None:
         settings = FullConfiguration()
     export_settings = settings.export_settings
+
+    # Registered BEFORE Texture2DExporter/MeshExporter, which means it is tried *after* them
+    # (`override_exporter_for_class_id` inserts at the front, so last registered wins). That
+    # order is the whole point: a texture or mesh this port can decode still becomes a real
+    # `.png`/`.glb`, and only one that every content exporter declined falls through to YAML --
+    # where, without this, `m_StreamData` would name a `.resS` file that does not exist in the
+    # exported project. See yaml_streamed_asset_exporter.py.
+    project_exporter.override_exporter_for_class_id(28, YamlStreamedAssetExporter())  # Texture2D
+    project_exporter.override_exporter_for_class_id(43, YamlStreamedAssetExporter())  # Mesh
 
     project_exporter.override_exporter_for_class_id(
         28, Texture2DExporter(export_settings.image_export_format)

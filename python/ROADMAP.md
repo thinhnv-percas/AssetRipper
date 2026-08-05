@@ -2081,17 +2081,52 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
 
 **Thêm từ audit 2026-08-01:**
 
-- [ ] `SceneAssetExporter.cs` / `SceneAssetExportCollection.cs` chưa port — `SceneAsset` (1032) là
-      placeholder Unity dùng để một scene reference scene khác. Phase 12 dùng lại class ID này cho
-      `SceneHierarchyObject` nên cần kiểm tra xung đột trước khi port
-- [ ] `YamlStreamedAssetExporter.cs` / `YamlStreamedAssetExportCollection.cs` chưa port — YAML export
-      cho asset có streamed data (Phase 9 chỉ làm nhánh binary dump)
+- [~] `SceneAssetExporter.cs` / `SceneAssetExportCollection.cs` — **không port, 2 lý do đã verify
+      (2026-08-03)**:
+      1. **Bị chặn bởi `LightingDataProcessor`** (chưa port, thuộc 13f/13i). Toàn bộ việc của
+         `SceneAssetExportCollection` là trả `MetaPtr(id, TargetScene.GUID, Meta)`, mà
+         `SceneAsset.TargetScene` **chỉ được set ở đúng một chỗ trong upstream**:
+         `LightingDataProcessor.cs:383`. Không có nó thì `target_scene` luôn `None` → collection
+         không có gì để trỏ tới
+      2. **Xung đột class ID 1032 là thật, đã xác nhận**: `SceneHierarchyObject.create` dùng
+         `int(ClassIDType.SceneAsset)` = 1032, và `_class_id_exporters` được thử **trước** stack
+         theo type — nên đăng ký `SceneAssetExporter` cho 1032 một cách hồn nhiên sẽ chặn
+         `SceneYamlExporter` và **làm vỡ toàn bộ scene export**. Đếm trên `demo-android.apk`: mọi
+         asset 1032 đều là `SceneHierarchyObject` synthetic, không có `SceneAsset` thật nào.
+         Nếu sau này port, phải có discriminator: decline khi asset là `GameObjectHierarchyObject`
+- [x] `YamlStreamedAssetExporter.cs` / `YamlStreamedAssetExportCollection.cs` — **xong 2026-08-03**
+      `(pending)`, `project/yaml_streamed_asset_exporter.py`. Lỗ hổng nó bịt: player build để pixel
+      của texture và vertex buffer của mesh trong `.resS`, trỏ tới bằng `m_StreamData`. Phase 9 đã
+      dạy các *content exporter* đi theo con trỏ đó (nên `.png`/`.glb` chạy đúng) — nhưng khi content
+      exporter **decline** (texture format không hỗ trợ, mesh chỉ có `m_CompressedMesh`), asset rơi
+      xuống `DefaultYamlExporter` và YAML vẫn ghi `m_StreamData` trỏ tới một file `.resS`
+      **không tồn tại trong project export ra** → Unity đọc được asset nhưng không có data nào.
+      Giờ inline byte vào đúng field (`image data` / `m_VertexData.m_DataSize`) rồi blank
+      `m_StreamData` trong lúc ghi, và **restore lại sau đó** (cùng asset object còn được collection
+      khác và GUI preview dùng) — kể cả khi ghi throw.
+      - **Thứ tự đăng ký là điểm dễ vỡ nhất:** đăng ký *trước* Texture2D/MeshExporter, tức được thử
+        *sau* chúng (`override_exporter_for_class_id` insert vào đầu list). Đăng ký ngược lại sẽ làm
+        **mọi** texture/mesh streamed trong một export bình thường thành `.asset` YAML thay vì
+        `.png`/`.glb`, và không báo lỗi gì cả → có 1 test riêng khoá thứ tự này
+      - Không đăng ký cho Cubemap (89)/Texture2DArray (187) như `IImageTexture` của upstream: port
+        này chưa có layout cho 2 type đó nên chúng không đọc được ngay từ đầu (Phase 2)
+      - **Test:** 16 test (`test_yaml_streamed_asset_exporter.py`) — decline đúng chỗ, inline +
+        blank + restore, restore cả khi throw, `.resS` không resolve được thì **giữ nguyên** path
+        (path treo còn cho biết file nào mất; blank đi là im lặng khẳng định asset vốn không có
+        data), và thứ tự đăng ký
 - [x] `ScriptableObjectGroupExporter.cs` — **đã port ở 13h** (`project/scriptable_object_group_export_collection.py` + nhánh dispatch trong `scene_yaml_exporter.py`); checkbox chưa tick (sửa 2026-08-03)
-- [ ] `DeletedAssetsExporter.cs` / `DeletedAssetsExportCollection.cs` chưa port — premium-adjacent,
-      chưa rõ có cần
+- [~] `DeletedAssetsExporter.cs` / `DeletedAssetsExportCollection.cs` — **không port, lý do đã
+      verify (2026-08-03)**: nó nhận `DeletedAssetsInformation` từ `AssetRipper.Processing`, một
+      processor chưa port. Và **năng lực thực chất của nó đã có**: việc duy nhất collection này làm
+      là trả `MetaPtr.CreateMissingReference` + log warning, mà `create_missing_reference` đã có
+      trong port này và đang được dùng ở `skip_export_collection.py` +
+      `project/project_yaml_walker.py`. Port thêm chỉ để có một collection type không ai tạo ra
 - [ ] `LightmapTextureAssetExporter.cs`, `RawTextureExporter.cs` chưa port (đi cùng 13f/13i)
-- [ ] `RedirectExportCollection.cs` / `SingleRedirectExportCollection.cs` — `single_redirect` đã có,
-      `RedirectExportCollection` (bản nhiều asset) chưa
+- [~] `RedirectExportCollection.cs` / `SingleRedirectExportCollection.cs` — `single_redirect` đã có;
+      bản nhiều asset **không port, lý do đã verify (2026-08-03)**: `RedirectExportCollection`
+      **không có chỗ nào trong upstream dùng nó** — grep toàn bộ `Source/` chỉ ra 3 call site và cả
+      3 đều là `SingleRedirectExportCollection` (`ScriptExporter.cs:38`,
+      `EngineAssetsExporter.cs:77` và `:124`). Port sang đây sẽ là dead code đúng nghĩa
 - [x] `VirtualFileSystem.cs` ✅ `a71bef0` — port ở `assetripper_io_files/virtual_file_system.py`, xem
       Phase 17, mục 17a.
 - [x] `GameInitializer.CustomResourceProvider.cs` — **đã port từ đầu**, entry này trùng lặp với entry đã sửa ở Phase 3 (audit cũ tìm theo tên file C# nên báo nhầm; bản Python gộp vào `game_initializer.py`). Sửa 2026-08-03. (Ghi chú gốc: Phase 3 chỉ ghi nhận
