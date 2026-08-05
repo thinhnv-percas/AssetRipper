@@ -606,8 +606,7 @@ field access (`asset.get("m_Father")`) — reimplementation thuật toán, khôn
 - [ ] **Còn lại (chưa làm, không bịa là xong):** `AddMissingTransforms` (Transform-từ-đầu, edge case
       hiếm); prefab hoá cho `PrefabInstance` thật sẵn có trong scene (cần field `RootGameObjectP`
       chưa xác minh); `IsSceneDuplicate` thật (hiện `is_scene_duplicate` luôn `False`)
-- [x] ⚠️ `StrippedAssets`/`--- !u!1 &2 stripped` support — **xong phía consumer 2026-08-03**
-      `(pending)`: `GameObjectHierarchyObject.stripped_assets` +
+- [x] ⚠️ `StrippedAssets`/`--- !u!1 &2 stripped` support — **xong phía consumer 2026-08-03** `fc7b10d`: `GameObjectHierarchyObject.stripped_assets` +
       `assetripper_export_unity_projects/stripped_asset.py` (`is_stripped` +
       `remove_stripped_fields`, allow-list nguyên văn upstream) + hook trong
       `YamlWalker.export_yaml_document`.
@@ -2002,8 +2001,8 @@ và đã có phase riêng: IL2CPP script recovery (16d/16e), Shader `m_ParsedFor
 - [ ] Bổ sung layout Phase 2 cho ~10 type còn thiếu (xem Phase 2 — đã từ 15 xuống 10 sau Phase 18)
 - [x] Bổ sung importer Phase 4 còn thiếu — **xong 2026-08-03** `d4d22e2`, xem Phase 4 (còn fidelity
       gap có chủ ý: field set tối thiểu, không có setting riêng của từng importer)
-- [x] ⚠️ Test upstream còn thiếu — **rà từng file 2026-08-03** `(pending)`, port cái nào port được,
-      cái nào không thì ghi rõ lý do đã verify (không phải phỏng đoán):
+- [x] ⚠️ Test upstream còn thiếu — **rà từng file 2026-08-03** port cái nào port được,
+      cái nào không thì ghi rõ lý do đã verify (không phải phỏng đoán) — commit `fc7b10d`:
       - [x] **`PathIDCalculationTests`** → `tests/export_unity_projects/test_path_id_calculation.py`
             (8 test). Port được nguyên vẹn và **giá trị của nó cao hơn dự đoán**: case duy nhất của
             upstream là một path ID **quan sát từ project Unity thật** ("BinocularsOverlay"), nên nó
