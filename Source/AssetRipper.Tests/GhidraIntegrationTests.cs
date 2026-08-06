@@ -49,8 +49,8 @@ public sealed class GhidraIntegrationTests
 	{
 		Il2CppSymbolTable.Entry[] entries =
 		[
-			new(0x1149, "Assembly-CSharp", "CombatMath.ComputeDamage"),
-			new(0x7ff6_0000_115e, "Assembly-CSharp", "CombatMath.ApplyArmor"),
+			new(0x1149, "Assembly-CSharp", "CombatMath.ComputeDamage", "CombatMath|ComputeDamage|2"),
+			new(0x7ff6_0000_115e, "Assembly-CSharp", "CombatMath.ApplyArmor", "CombatMath|ApplyArmor|2"),
 		];
 
 		StringWriter writer = new() { NewLine = "\n" };
@@ -60,8 +60,8 @@ public sealed class GhidraIntegrationTests
 		using (Assert.EnterMultipleScope())
 		{
 			Assert.That(lines[0], Does.StartWith("#"));
-			Assert.That(lines[1], Is.EqualTo("0x1149\tAssembly-CSharp\tCombatMath.ComputeDamage"));
-			Assert.That(lines[2], Is.EqualTo("0x7ff60000115e\tAssembly-CSharp\tCombatMath.ApplyArmor"));
+			Assert.That(lines[1], Is.EqualTo("0x1149\tAssembly-CSharp\tCombatMath.ComputeDamage\tCombatMath|ComputeDamage|2"));
+			Assert.That(lines[2], Is.EqualTo("0x7ff60000115e\tAssembly-CSharp\tCombatMath.ApplyArmor\tCombatMath|ApplyArmor|2"));
 		}
 	}
 
@@ -71,7 +71,7 @@ public sealed class GhidraIntegrationTests
 	[Test]
 	public void SeparatorsInsideNamesAreRemoved()
 	{
-		Il2CppSymbolTable.Entry[] entries = [new(0x10, "Group\tWithTab", "Name\nWithNewline")];
+		Il2CppSymbolTable.Entry[] entries = [new(0x10, "Group\tWithTab", "Name\nWithNewline", "Key")];
 
 		StringWriter writer = new() { NewLine = "\n" };
 		Il2CppSymbolTable.Write(entries, writer);
@@ -79,8 +79,8 @@ public sealed class GhidraIntegrationTests
 		string line = writer.ToString().TrimEnd('\n').Split('\n')[1];
 		using (Assert.EnterMultipleScope())
 		{
-			Assert.That(line.Split('\t'), Has.Length.EqualTo(3));
-			Assert.That(line, Is.EqualTo("0x10\tGroup WithTab\tName WithNewline"));
+			Assert.That(line.Split('\t'), Has.Length.EqualTo(4));
+			Assert.That(line, Is.EqualTo("0x10\tGroup WithTab\tName WithNewline\tKey"));
 		}
 	}
 

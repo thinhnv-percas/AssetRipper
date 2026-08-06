@@ -27,15 +27,20 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 
 	private static final int DecompileTimeoutSeconds = 60;
 
+	/// Written next to the grouped output so AssetRipper can attach each function to its managed method.
+	private static final String IndexFileName = "decompilation_index.txt";
+
 	private static final class Symbol {
 		final long address;
 		final String group;
 		final String name;
+		final String key;
 
-		Symbol(long address, String group, String name) {
+		Symbol(long address, String group, String name, String key) {
 			this.address = address;
 			this.group = group;
 			this.name = name;
+			this.key = key;
 		}
 	}
 
@@ -68,6 +73,8 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 			}
 
 			Map<String, StringBuilder> outputByGroup = new LinkedHashMap<String, StringBuilder>();
+			BufferedWriter index = new BufferedWriter(new FileWriter(new File(outputDirectory, IndexFileName)));
+			index.write("# key\tescaped decompiled code\n");
 			int succeeded = 0;
 			int failed = 0;
 
@@ -102,8 +109,18 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 				builder.append("// ").append(symbol.name).append('\n');
 				builder.append("// 0x").append(Long.toHexString(symbol.address)).append('\n');
 				builder.append(code).append('\n');
+
+				if (symbol.key.length() > 0) {
+					index.write(symbol.key);
+					index.write('\t');
+					index.write(escape(code));
+					index.write('\n');
+				}
+
 				succeeded++;
 			}
+
+			index.close();
 
 			for (Map.Entry<String, StringBuilder> entry : outputByGroup.entrySet()) {
 				File file = new File(outputDirectory, sanitize(entry.getKey()) + ".c");
@@ -141,7 +158,8 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 				} catch (NumberFormatException e) {
 					continue;
 				}
-				symbols.add(new Symbol(address, parts[1], parts[2]));
+				String key = parts.length > 3 ? parts[3] : "";
+				symbols.add(new Symbol(address, parts[1], parts[2], key));
 			}
 		} finally {
 			reader.close();
@@ -204,6 +222,26 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	/// Keeps each index record on a single line.
+	private static String escape(String value) {
+		StringBuilder builder = new StringBuilder(value.length() + 16);
+		for (int i = 0; i < value.length(); i++) {
+			char c = value.charAt(i);
+			if (c == '\\') {
+				builder.append("\\\\");
+			} else if (c == '\n') {
+				builder.append("\\n");
+			} else if (c == '\r') {
+				// Normalized away so the record never splits.
+			} else if (c == '\t') {
+				builder.append("\\t");
+			} else {
+				builder.append(c);
+			}
+		}
+		return builder.toString();
 	}
 
 	private static String sanitize(String name) {

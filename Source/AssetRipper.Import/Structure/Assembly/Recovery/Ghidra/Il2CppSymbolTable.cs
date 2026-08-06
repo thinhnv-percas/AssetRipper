@@ -15,16 +15,17 @@ namespace AssetRipper.Import.Structure.Assembly.Recovery.Ghidra;
 public static class Il2CppSymbolTable
 {
 	/// <summary>
-	/// One method: where it lives in the binary, which assembly it belongs to, and what it is called.
+	/// One method: where it lives in the binary, which assembly it belongs to, what it is called, and
+	/// the key used to match it back to a managed method when exporting.
 	/// </summary>
-	public readonly record struct Entry(ulong Address, string Group, string Name);
+	public readonly record struct Entry(ulong Address, string Group, string Name, string Key);
 
 	/// <summary>
 	/// Writes the entries as a tab separated file.
 	/// </summary>
 	public static void Write(IEnumerable<Entry> entries, TextWriter writer)
 	{
-		writer.WriteLine("# address\tgroup\tname");
+		writer.WriteLine("# address\tgroup\tname\tkey");
 		foreach (Entry entry in entries)
 		{
 			writer.Write("0x");
@@ -33,6 +34,8 @@ public static class Il2CppSymbolTable
 			writer.Write(Sanitize(entry.Group));
 			writer.Write('\t');
 			writer.Write(Sanitize(entry.Name));
+			writer.Write('\t');
+			writer.Write(Sanitize(entry.Key));
 			writer.WriteLine();
 		}
 	}
@@ -58,7 +61,8 @@ public static class Il2CppSymbolTable
 						continue;
 					}
 
-					entries.Add(new Entry(method.UnderlyingPointer, group, method.FullName));
+					string key = GhidraDecompilationIndex.CreateKey(type.FullName, method.DefaultName, method.Parameters.Count);
+					entries.Add(new Entry(method.UnderlyingPointer, group, method.FullName, key));
 				}
 			}
 		}

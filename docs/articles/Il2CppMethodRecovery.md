@@ -123,6 +123,15 @@ embedded in `AssetRipper.Import` so it travels with the build.
 Addresses are resolved against the loaded image base with a fallback, because the address Il2Cpp
 reports does not always match the base Ghidra loads at.
 
+The script also writes `decompilation_index.txt`, keyed by declaring type, method name and parameter
+count. During export, `GhidraCommentTransform` looks each method up in that index and attaches the
+recovered pseudo C above the declaration as a comment, so the exported `.cs` carries both the C#
+signature and the real logic. Matching is by name rather than address because the assemblies handed
+to ILSpy are generated and no longer carry native addresses.
+
+The comment is C, not C#, so it cannot be a method body. Long bodies are truncated at 200 lines by
+default to keep one method from burying the rest of the file.
+
 ### Phase 3 — Measure on a real game (next)
 
 This phase is a decision gate, not a commitment to improve anything.
@@ -153,9 +162,10 @@ the package, not patching AssetRipper.
 
 ### Phase 5 — Possible extensions (unscheduled)
 
-- Attach the Ghidra pseudo C to the exported `.cs` files as comments, instead of leaving it in a
-  separate directory.
 - Cache Ghidra results keyed by binary hash, so a re-import does not pay the hour again.
+- Improve key matching. Declaring type, method name and parameter count is unambiguous for the vast
+  majority of methods, but overloads that differ only by parameter type collide and will get the
+  wrong comment attached.
 - Feed the pseudo C through an LLM refinement pass for readability. Research on this (LLM4Decompile,
   D-LiFT) is promising, but the models reconstruct loops and array indexing unreliably, so the output
   cannot be treated as a source of truth.

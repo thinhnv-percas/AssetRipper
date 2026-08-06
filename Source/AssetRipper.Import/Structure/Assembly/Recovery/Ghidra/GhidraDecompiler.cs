@@ -77,6 +77,13 @@ public static class GhidraDecompiler
 			{
 				Logger.Info(LogCategory.Import,
 					$"Ghidra decompiled {result.DecompiledCount} methods, {result.FailedCount} failed. Output written to {outputDirectory}");
+
+				// Picked up during export to attach the recovered logic to each method.
+				GhidraDecompilationIndex.Current = GhidraDecompilationIndex.TryReadFrom(outputDirectory);
+				if (GhidraDecompilationIndex.Current is null)
+				{
+					Logger.Warning(LogCategory.Import, "Ghidra produced no decompilation index, so the output will not be attached to the exported scripts.");
+				}
 			}
 			else
 			{

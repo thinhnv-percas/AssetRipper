@@ -4,9 +4,11 @@ using AssetRipper.Import.Configuration;
 using AssetRipper.Import.Logging;
 using AssetRipper.Import.Structure.Assembly;
 using AssetRipper.Import.Structure.Assembly.Managers;
+using AssetRipper.Import.Structure.Assembly.Recovery.Ghidra;
 using ICSharpCode.Decompiler;
 using ICSharpCode.Decompiler.CSharp;
 using ICSharpCode.Decompiler.CSharp.ProjectDecompiler;
+using ICSharpCode.Decompiler.TypeSystem;
 
 namespace AssetRipper.Export.UnityProjects.Scripts;
 
@@ -70,6 +72,19 @@ internal class ScriptDecompiler
 			}
 
 			return base.CreateFile(path);
+		}
+
+		protected override CSharpDecompiler CreateDecompiler(DecompilerTypeSystem typeSystem)
+		{
+			CSharpDecompiler decompiler = base.CreateDecompiler(typeSystem);
+
+			// Level 4 puts the natively decompiled logic into the source alongside the signatures.
+			if (GhidraDecompilationIndex.Current is GhidraDecompilationIndex index)
+			{
+				decompiler.AstTransforms.Add(new GhidraCommentTransform(index));
+			}
+
+			return decompiler;
 		}
 	}
 }
