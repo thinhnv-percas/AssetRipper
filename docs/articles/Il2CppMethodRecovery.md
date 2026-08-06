@@ -95,6 +95,13 @@ four hours.
 Expect the run to take an hour or more on a real game and to need a lot of memory. It runs as a
 separate process so a hang or a crash cannot take AssetRipper down with it.
 
+Measured on a 74 MB ARM64 `libil2cpp.so` from a shipped Unity 2022.3 game: Ghidra's analysis took 87
+minutes, after which decompiling 120 methods took under a minute. Skipping analysis with
+`-noanalysis` cuts the 87 minutes to under a minute, but the result is not usable: without it Ghidra
+resolves no calls and loses register context, so every body is full of `func_0x...` and `unaff_...`.
+Analysis is the cost of readable output. Re-running against an already analyzed project is fast,
+which is what makes caching the project worth doing.
+
 Ghidra's output is relayed to the log as it arrives, so a long run reports what it is doing rather
 than going silent. The export script emits progress while naming functions and while decompiling,
 which AssetRipper turns into lines like `Ghidra decompiling: 1250/48000 (2.6 %)`, throttled to one
@@ -135,8 +142,23 @@ The CSV has one row per method with `Assembly, Method, Outcome, InstructionCount
 that applies those names and exports the decompiled output grouped by assembly. The script is
 embedded in `AssetRipper.Import` so it travels with the build.
 
-Addresses are resolved against the loaded image base with a fallback, because the address Il2Cpp
-reports does not always match the base Ghidra loads at.
+### Address calibration
+
+The address Il2Cpp reports does not always match the base Ghidra loads the image at. A PE is normally
+loaded at the base its header asks for, so its addresses already line up; an ELF shared object is
+loaded at an arbitrary base, so every address is short by exactly that much.
+
+Getting this wrong is silent and total. On a real 74 MB `libil2cpp.so` the unshifted addresses all
+still land inside the image, just on the wrong functions, so every method decompiles successfully and
+every result is worthless. Measured on a sample of 3000 methods from that binary, the unshifted
+addresses hit a function start 61 times out of 3000; shifted by the image base they hit 3000 out of
+3000.
+
+Rather than special casing the binary format, the script scores both interpretations against the
+functions the analyzer already found and takes the winner. Every Il2Cpp address must be the start of
+a function, so the correct interpretation matches nearly all of them. Only functions the analyzer
+discovered by itself count, because functions this script named on a previous run would otherwise
+vouch for whatever offset produced them.
 
 ### Function signatures
 

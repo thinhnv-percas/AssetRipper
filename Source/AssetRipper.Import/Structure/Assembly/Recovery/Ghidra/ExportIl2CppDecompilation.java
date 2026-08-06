@@ -34,6 +34,9 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 	private static final int DecompileProgressInterval = 250;
 	private static final int NamingProgressInterval = 5000;
 
+	/// How many symbols to check when working out the address offset.
+	private static final int CalibrationSampleSize = 2000;
+
 	/// Written next to the grouped output so AssetRipper can attach each function to its managed method.
 	private static final String IndexFileName = "decompilation_index.txt";
 
@@ -70,6 +73,9 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 
 		List<Symbol> symbols = readSymbols(symbolFile);
 		println("Read " + symbols.size() + " symbols from " + symbolFile);
+
+		// Must run before any function is created, otherwise it scores its own work.
+		calibrateAddressOffset(symbols);
 
 		int named = applyNames(symbols);
 		println("Applied " + named + " function names");
@@ -185,19 +191,77 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 	}
 
 	/// Il2Cpp reports addresses in the binary's own address space, which does not always match the
-	/// base Ghidra loaded the image at.
+	/// base Ghidra loaded the image at. Determined once by calibration.
+	private long addressOffset;
+
 	private Address resolve(long rawAddress) {
-		Address address = toAddr(rawAddress);
-		if (address != null && currentProgram.getMemory().contains(address)) {
-			return address;
+		try {
+			Address address = toAddr(rawAddress + addressOffset);
+			return address != null && currentProgram.getMemory().contains(address) ? address : null;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/// Only functions the analyzer found on its own are evidence. Functions this script created on a
+	/// previous run would otherwise vouch for whichever offset produced them.
+	private boolean isAnalyzerDiscoveredFunction(Address address) {
+		Function function = getFunctionAt(address);
+		return function != null
+			&& function.getSymbol() != null
+			&& function.getSymbol().getSource() != SourceType.IMPORTED;
+	}
+
+	/// Works out whether Il2Cpp's addresses need the image base added to them.
+	///
+	/// A PE is normally loaded at the base its header asks for, so its addresses already match. An ELF
+	/// shared object is loaded at an arbitrary base, so its addresses are short by exactly that much.
+	/// Guessing wrong is silent and total: every address still lands inside the image, just on the
+	/// wrong function. Rather than special casing the format, both interpretations are scored against
+	/// the functions the analyzer already found. Every Il2Cpp address must be the start of a function,
+	/// so the correct interpretation matches nearly all of them and the wrong one hardly any.
+	private void calibrateAddressOffset(List<Symbol> symbols) {
+		long imageBase = currentProgram.getImageBase().getOffset();
+		if (imageBase == 0 || symbols.isEmpty()) {
+			addressOffset = 0;
+			return;
 		}
 
-		Address rebased = currentProgram.getImageBase().add(rawAddress);
-		if (currentProgram.getMemory().contains(rebased)) {
-			return rebased;
+		long[] candidates = { 0L, imageBase };
+		long bestOffset = 0;
+		int bestStarts = -1;
+		int bestInMemory = -1;
+
+		int step = Math.max(1, symbols.size() / CalibrationSampleSize);
+		for (long candidate : candidates) {
+			int starts = 0;
+			int inMemory = 0;
+			for (int i = 0; i < symbols.size(); i += step) {
+				Address address;
+				try {
+					address = toAddr(symbols.get(i).address + candidate);
+				} catch (Exception e) {
+					continue;
+				}
+				if (address == null || !currentProgram.getMemory().contains(address)) {
+					continue;
+				}
+				inMemory++;
+				if (isAnalyzerDiscoveredFunction(address)) {
+					starts++;
+				}
+			}
+
+			if (starts > bestStarts || (starts == bestStarts && inMemory > bestInMemory)) {
+				bestStarts = starts;
+				bestInMemory = inMemory;
+				bestOffset = candidate;
+			}
 		}
 
-		return null;
+		addressOffset = bestOffset;
+		println("Address offset 0x" + Long.toHexString(addressOffset)
+			+ " (" + bestStarts + " of the sampled addresses are function starts)");
 	}
 
 	/// AssetRipper parses these lines to show progress while the run is in flight.
