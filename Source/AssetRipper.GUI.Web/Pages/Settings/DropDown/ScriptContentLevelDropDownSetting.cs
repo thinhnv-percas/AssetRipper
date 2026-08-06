@@ -14,6 +14,7 @@ public sealed class ScriptContentLevelDropDownSetting : DropDownSetting<ScriptCo
 		ScriptContentLevel.Level1 => Localization.ScriptContentLevel1,
 		ScriptContentLevel.Level2 => Localization.ScriptContentLevel2,
 		ScriptContentLevel.Level3 => Localization.ScriptContentLevel3,
+		ScriptContentLevel.Level4 => Localization.ScriptContentLevel4,
 		_ => base.GetDisplayName(value),
 	};
 
@@ -23,6 +24,7 @@ public sealed class ScriptContentLevelDropDownSetting : DropDownSetting<ScriptCo
 		ScriptContentLevel.Level1 => Localization.ScriptContentLevel1Description,
 		ScriptContentLevel.Level2 => Localization.ScriptContentLevel2Description,
 		ScriptContentLevel.Level3 => Localization.ScriptContentLevel3Description,
+		ScriptContentLevel.Level4 => Localization.ScriptContentLevel4Description,
 		_ => base.GetDescription(value),
 	};
 }

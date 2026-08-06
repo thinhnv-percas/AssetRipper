@@ -2,6 +2,7 @@ using AsmResolver.DotNet;
 using AssetRipper.Import.Configuration;
 using AssetRipper.Import.Logging;
 using AssetRipper.Import.Structure.Assembly.Recovery;
+using AssetRipper.Import.Structure.Assembly.Recovery.Ghidra;
 using AssetRipper.Import.Structure.Platforms;
 using Cpp2IL.Core.Api;
 using Cpp2IL.Core.InstructionSets;
@@ -111,7 +112,10 @@ public sealed class IL2CppManager : BaseManager
 
 		Logger.SendStatusChange("loading_step_generate_dummy_dll");
 
-		List<Cpp2IlProcessingLayer> processingLayers = contentLevel == ScriptContentLevel.Level3
+		// Level 4 is level 3 plus native decompilation, so both use the IL recovery path.
+		bool recovering = contentLevel is ScriptContentLevel.Level3 or ScriptContentLevel.Level4;
+
+		List<Cpp2IlProcessingLayer> processingLayers = recovering
 			? RecoveryProcessingLayers ?? DefaultProcessingLayers
 			: DefaultProcessingLayers;
 
@@ -124,8 +128,6 @@ public sealed class IL2CppManager : BaseManager
 		{
 			cpp2IlProcessingLayer.Process(Cpp2IlApi.CurrentAppContext);
 		}
-
-		bool recovering = contentLevel == ScriptContentLevel.Level3;
 
 		AsmResolverDllOutputFormat outputFormat = recovering
 			? RecoveryOutputFormat ?? DefaultOutputFormat
@@ -143,10 +145,28 @@ public sealed class IL2CppManager : BaseManager
 			ReportRecoveryResults();
 		}
 
+		if (contentLevel == ScriptContentLevel.Level4)
+		{
+			RunGhidraDecompilation();
+		}
+
 		foreach (AssemblyDefinition assembly in assemblies)
 		{
 			Add(assembly);
 		}
+	}
+
+	private void RunGhidraDecompilation()
+	{
+		if (string.IsNullOrEmpty(GameAssemblyPath))
+		{
+			Logger.Warning(LogCategory.Import, "Cannot run Ghidra because the game assembly path is unknown.");
+			return;
+		}
+
+		string outputDirectory = Path.Join(AppContext.BaseDirectory, $"GhidraDecompilation_{DateTime.Now:yyyyMMdd_HHmmss}");
+		Logger.SendStatusChange("loading_step_decompile_with_ghidra");
+		GhidraDecompiler.TryDecompile(Cpp2IlApi.CurrentAppContext, GameAssemblyPath, outputDirectory);
 	}
 
 	private static void ReportRecoveryResults()

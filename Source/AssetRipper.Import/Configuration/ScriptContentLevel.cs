@@ -19,7 +19,12 @@ public enum ScriptContentLevel
 	/// </summary>
 	Level3,
 	/// <summary>
-	/// IL2Cpp methods are recovered without regard to safety. Currently the same as <see cref="Level2"/>
+	/// Everything <see cref="Level3"/> does, plus the native binary is decompiled with Ghidra.
 	/// </summary>
-	//Level4,
+	/// <remarks>
+	/// Ghidra produces pseudo C rather than C#, but it covers nearly every method instead of the
+	/// fraction that <see cref="Level3"/> manages, and it handles ARM well. This requires a Ghidra
+	/// installation and adds an hour or more to loading.
+	/// </remarks>
+	Level4,
 }
