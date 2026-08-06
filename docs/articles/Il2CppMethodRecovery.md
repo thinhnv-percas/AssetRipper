@@ -95,6 +95,13 @@ four hours.
 Expect the run to take an hour or more on a real game and to need a lot of memory. It runs as a
 separate process so a hang or a crash cannot take AssetRipper down with it.
 
+Ghidra's output is relayed to the log as it arrives, so a long run reports what it is doing rather
+than going silent. The export script emits progress while naming functions and while decompiling,
+which AssetRipper turns into lines like `Ghidra decompiling: 1250/48000 (2.6 %)`, throttled to one
+every `GhidraHeadlessRunner.ProgressInterval`. Ghidra's own startup chatter, its per analyzer timing
+table and the JVM banner are dropped; everything filtered out is still available at verbose level. On
+failure the last 50 lines are written to the log for diagnosis.
+
 ## Phases
 
 ### Phase 0 — Enable Cpp2IL recovery (done)

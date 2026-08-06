@@ -1,8 +1,5 @@
 using AssetRipper.Import.Logging;
 using System.Diagnostics;
-using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace AssetRipper.Import.Structure.Assembly.Recovery.Ghidra;
 
@@ -20,9 +17,10 @@ public readonly record struct GhidraRunResult(bool Succeeded, int DecompiledCoun
 /// </summary>
 /// <remarks>
 /// Analysis of a full game binary regularly takes an hour or more and needs a lot of memory. This is
-/// deliberately a separate process so a crash or a hang cannot take AssetRipper down with it.
+/// deliberately a separate process so a crash or a hang cannot take AssetRipper down with it, and its
+/// output is relayed to the log as it arrives so the run does not look like it has stalled.
 /// </remarks>
-public static partial class GhidraHeadlessRunner
+public static class GhidraHeadlessRunner
 {
 	public const string ScriptName = "ExportIl2CppDecompilation";
 
@@ -31,8 +29,17 @@ public static partial class GhidraHeadlessRunner
 	/// </summary>
 	public static TimeSpan Timeout { get; set; } = TimeSpan.FromHours(4);
 
-	[GeneratedRegex(@"RESULT decompiled=(\d+) failed=(\d+)")]
-	private static partial Regex ResultRegex { get; }
+	/// <summary>
+	/// The minimum gap between progress lines in the log. Ghidra reports far more often than is
+	/// useful to read.
+	/// </summary>
+	public static TimeSpan ProgressInterval { get; set; } = TimeSpan.FromSeconds(15);
+
+	/// <summary>
+	/// How many recent lines to keep for diagnosing a failure. The full output of a real run is far
+	/// too large to hold.
+	/// </summary>
+	private const int RetainedLineCount = 50;
 
 	/// <summary>
 	/// Builds the argument list for the headless analyzer.
@@ -73,12 +80,12 @@ public static partial class GhidraHeadlessRunner
 	/// </summary>
 	public static bool TryParseResult(string output, out int decompiled, out int failed)
 	{
-		Match match = ResultRegex.Match(output);
-		if (match.Success
-			&& int.TryParse(match.Groups[1].ValueSpan, CultureInfo.InvariantCulture, out decompiled)
-			&& int.TryParse(match.Groups[2].ValueSpan, CultureInfo.InvariantCulture, out failed))
+		foreach (string line in output.Split('\n'))
 		{
-			return true;
+			if (GhidraOutputParser.TryParseResult(line, out decompiled, out failed))
+			{
+				return true;
+			}
 		}
 
 		decompiled = 0;
@@ -87,7 +94,7 @@ public static partial class GhidraHeadlessRunner
 	}
 
 	/// <summary>
-	/// Runs the analyzer and waits for it to finish.
+	/// Runs the analyzer and waits for it to finish, relaying its output to the log.
 	/// </summary>
 	public static GhidraRunResult Run(GhidraInstallation installation, List<string> arguments)
 	{
@@ -105,14 +112,15 @@ public static partial class GhidraHeadlessRunner
 			startInfo.ArgumentList.Add(argument);
 		}
 
-		StringBuilder output = new();
+		OutputRelay relay = new();
 
 		try
 		{
 			using Process process = new() { StartInfo = startInfo };
-			process.OutputDataReceived += (_, e) => AppendLine(output, e.Data);
-			process.ErrorDataReceived += (_, e) => AppendLine(output, e.Data);
+			process.OutputDataReceived += (_, e) => relay.Handle(e.Data);
+			process.ErrorDataReceived += (_, e) => relay.Handle(e.Data);
 
+			Stopwatch stopwatch = Stopwatch.StartNew();
 			process.Start();
 			process.BeginOutputReadLine();
 			process.BeginErrorReadLine();
@@ -124,19 +132,26 @@ public static partial class GhidraHeadlessRunner
 				return new GhidraRunResult(false, 0, 0);
 			}
 
-			// Let the redirected streams flush before reading the accumulated output.
+			// Let the redirected streams flush before inspecting what was captured.
 			process.WaitForExit();
+			stopwatch.Stop();
 
-			string text = output.ToString();
 			if (process.ExitCode != 0)
 			{
 				Logger.Error(LogCategory.Import, $"Ghidra exited with code {process.ExitCode}.");
+				relay.LogRetainedLines();
 				return new GhidraRunResult(false, 0, 0);
 			}
 
-			return TryParseResult(text, out int decompiled, out int failed)
-				? new GhidraRunResult(true, decompiled, failed)
-				: new GhidraRunResult(false, 0, 0);
+			if (!relay.HasResult)
+			{
+				Logger.Error(LogCategory.Import, "Ghidra finished without reporting a result.");
+				relay.LogRetainedLines();
+				return new GhidraRunResult(false, 0, 0);
+			}
+
+			Logger.Info(LogCategory.Import, $"Ghidra finished in {stopwatch.Elapsed:hh\\:mm\\:ss}.");
+			return new GhidraRunResult(true, relay.DecompiledCount, relay.FailedCount);
 		}
 		catch (Exception ex)
 		{
@@ -145,16 +160,84 @@ public static partial class GhidraHeadlessRunner
 		}
 	}
 
-	private static void AppendLine(StringBuilder builder, string? line)
+	/// <summary>
+	/// Relays the analyzer's output to the log as it arrives, throttling the progress lines.
+	/// </summary>
+	private sealed class OutputRelay
 	{
-		if (line is null)
+		private readonly object lockObject = new();
+		private readonly Queue<string> retainedLines = new();
+		private readonly Stopwatch sinceLastProgress = Stopwatch.StartNew();
+		private string? lastProgressPhase;
+
+		public bool HasResult { get; private set; }
+		public int DecompiledCount { get; private set; }
+		public int FailedCount { get; private set; }
+
+		public void Handle(string? line)
 		{
-			return;
+			if (line is null)
+			{
+				return;
+			}
+
+			lock (lockObject)
+			{
+				Retain(line);
+
+				if (GhidraOutputParser.TryParseProgress(line, out string? phase, out int done, out int total))
+				{
+					// Always report the first line of a phase, then only occasionally.
+					if (phase != lastProgressPhase || sinceLastProgress.Elapsed >= ProgressInterval)
+					{
+						Logger.Info(LogCategory.Import, GhidraOutputParser.FormatProgress(phase, done, total));
+						lastProgressPhase = phase;
+						sinceLastProgress.Restart();
+					}
+					return;
+				}
+
+				if (GhidraOutputParser.TryParseResult(line, out int decompiled, out int failed))
+				{
+					HasResult = true;
+					DecompiledCount = decompiled;
+					FailedCount = failed;
+					return;
+				}
+
+				if (GhidraOutputParser.IsWorthLogging(line))
+				{
+					Logger.Info(LogCategory.Import, $"Ghidra: {GhidraOutputParser.Clean(line)}");
+				}
+				else
+				{
+					Logger.Verbose(LogCategory.Import, line.TrimEnd());
+				}
+			}
 		}
 
-		lock (builder)
+		/// <summary>
+		/// Dumps what was kept, so a failure has some context in the log.
+		/// </summary>
+		public void LogRetainedLines()
 		{
-			builder.AppendLine(line);
+			lock (lockObject)
+			{
+				Logger.Error(LogCategory.Import, "Last lines of the Ghidra output:");
+				foreach (string line in retainedLines)
+				{
+					Logger.Error(LogCategory.Import, $"  {line}");
+				}
+			}
+		}
+
+		private void Retain(string line)
+		{
+			retainedLines.Enqueue(line.TrimEnd());
+			if (retainedLines.Count > RetainedLineCount)
+			{
+				retainedLines.Dequeue();
+			}
 		}
 	}
 }

@@ -27,6 +27,10 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 
 	private static final int DecompileTimeoutSeconds = 60;
 
+	/// How often progress is reported. Decompiling is slow, so this is far smaller than for naming.
+	private static final int DecompileProgressInterval = 250;
+	private static final int NamingProgressInterval = 5000;
+
 	/// Written next to the grouped output so AssetRipper can attach each function to its managed method.
 	private static final String IndexFileName = "decompilation_index.txt";
 
@@ -64,6 +68,7 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 
 		int named = applyNames(symbols);
 		println("Applied " + named + " function names");
+		reportProgress("naming", symbols.size(), symbols.size());
 
 		DecompInterface decompiler = new DecompInterface();
 		try {
@@ -77,10 +82,16 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 			index.write("# key\tescaped decompiled code\n");
 			int succeeded = 0;
 			int failed = 0;
+			int processed = 0;
 
 			for (Symbol symbol : symbols) {
 				if (monitor.isCancelled()) {
 					break;
+				}
+
+				processed++;
+				if (processed % DecompileProgressInterval == 0) {
+					reportProgress("decompiling", processed, symbols.size());
 				}
 
 				Address address = resolve(symbol.address);
@@ -183,11 +194,22 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		return null;
 	}
 
+	/// AssetRipper parses these lines to show progress while the run is in flight.
+	private void reportProgress(String phase, int done, int total) {
+		println("PROGRESS phase=" + phase + " done=" + done + " total=" + total);
+	}
+
 	private int applyNames(List<Symbol> symbols) {
 		int named = 0;
+		int processed = 0;
 		for (Symbol symbol : symbols) {
 			if (monitor.isCancelled()) {
 				break;
+			}
+
+			processed++;
+			if (processed % NamingProgressInterval == 0) {
+				reportProgress("naming", processed, symbols.size());
 			}
 
 			Address address = resolve(symbol.address);
