@@ -68,6 +68,14 @@ These are properties of the analysis, not of the wiring:
 
 ## Level 4 setup
 
+The quickest way is `Ghidra.bat` (or `Ghidra.sh`) in the repository root. It downloads Ghidra into
+`./ghidra` the first time, reuses it afterwards, and launches AssetRipper with `GHIDRA_INSTALL_DIR`
+already pointed at it. The download and the extracted installation are both git ignored.
+
+Ghidra itself is Java, and its decompiler is a separate native executable that the Java side drives
+over a pipe, so there is no library to reference from .NET. AssetRipper invokes the headless analyzer
+as a child process; that is the only integration Ghidra offers.
+
 Level 4 needs a Ghidra installation. It is found in this order:
 
 1. `GhidraInstallation.OverrideDirectory`, if set programmatically.
