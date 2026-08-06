@@ -6,10 +6,13 @@
 //
 //@category AssetRipper
 
+import ghidra.app.cmd.function.ApplyFunctionSignatureCmd;
 import ghidra.app.decompiler.DecompInterface;
 import ghidra.app.decompiler.DecompileResults;
 import ghidra.app.script.GhidraScript;
+import ghidra.app.util.parser.FunctionSignatureParser;
 import ghidra.program.model.address.Address;
+import ghidra.program.model.data.FunctionDefinitionDataType;
 import ghidra.program.model.listing.Function;
 import ghidra.program.model.symbol.SourceType;
 
@@ -39,12 +42,14 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		final String group;
 		final String name;
 		final String key;
+		final String signature;
 
-		Symbol(long address, String group, String name, String key) {
+		Symbol(long address, String group, String name, String key, String signature) {
 			this.address = address;
 			this.group = group;
 			this.name = name;
 			this.key = key;
+			this.signature = signature;
 		}
 	}
 
@@ -170,7 +175,8 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 					continue;
 				}
 				String key = parts.length > 3 ? parts[3] : "";
-				symbols.add(new Symbol(address, parts[1], parts[2], key));
+				String signature = parts.length > 4 ? parts[4] : "";
+				symbols.add(new Symbol(address, parts[1], parts[2], key, signature));
 			}
 		} finally {
 			reader.close();
@@ -199,8 +205,11 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		println("PROGRESS phase=" + phase + " done=" + done + " total=" + total);
 	}
 
+	private FunctionSignatureParser signatureParser;
+
 	private int applyNames(List<Symbol> symbols) {
 		int named = 0;
+		int typed = 0;
 		int processed = 0;
 		for (Symbol symbol : symbols) {
 			if (monitor.isCancelled()) {
@@ -226,12 +235,44 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 				}
 				if (function != null) {
 					named++;
+					if (applySignature(address, symbol)) {
+						typed++;
+					}
 				}
 			} catch (Exception e) {
 				// A single bad symbol must not abort the run.
 			}
 		}
+
+		if (typed > 0) {
+			println("Applied " + typed + " function signatures");
+		}
 		return named;
+	}
+
+	/// Gives Ghidra the real return and parameter types instead of letting it guess them from the
+	/// machine code. AssetRipper leaves the signature empty when it could not map a type safely.
+	private boolean applySignature(Address address, Symbol symbol) {
+		if (symbol.signature.length() == 0) {
+			return false;
+		}
+
+		try {
+			if (signatureParser == null) {
+				signatureParser = new FunctionSignatureParser(currentProgram.getDataTypeManager(), null);
+			}
+
+			FunctionDefinitionDataType definition = signatureParser.parse(null, symbol.signature);
+			if (definition == null) {
+				return false;
+			}
+
+			ApplyFunctionSignatureCmd command = new ApplyFunctionSignatureCmd(address, definition, SourceType.IMPORTED);
+			return command.applyTo(currentProgram, monitor);
+		} catch (Exception e) {
+			// An unparseable prototype just means Ghidra keeps its own guess.
+			return false;
+		}
 	}
 
 	private String decompile(DecompInterface decompiler, Function function) {

@@ -18,14 +18,15 @@ public static class Il2CppSymbolTable
 	/// One method: where it lives in the binary, which assembly it belongs to, what it is called, and
 	/// the key used to match it back to a managed method when exporting.
 	/// </summary>
-	public readonly record struct Entry(ulong Address, string Group, string Name, string Key);
+	/// <param name="Signature">A C prototype for the function, or empty when the types could not be mapped safely.</param>
+	public readonly record struct Entry(ulong Address, string Group, string Name, string Key, string Signature = "");
 
 	/// <summary>
 	/// Writes the entries as a tab separated file.
 	/// </summary>
 	public static void Write(IEnumerable<Entry> entries, TextWriter writer)
 	{
-		writer.WriteLine("# address\tgroup\tname\tkey");
+		writer.WriteLine("# address\tgroup\tname\tkey\tsignature");
 		foreach (Entry entry in entries)
 		{
 			writer.Write("0x");
@@ -36,6 +37,8 @@ public static class Il2CppSymbolTable
 			writer.Write(Sanitize(entry.Name));
 			writer.Write('\t');
 			writer.Write(Sanitize(entry.Key));
+			writer.Write('\t');
+			writer.Write(Sanitize(entry.Signature));
 			writer.WriteLine();
 		}
 	}
@@ -62,12 +65,38 @@ public static class Il2CppSymbolTable
 					}
 
 					string key = GhidraDecompilationIndex.CreateKey(type.FullName, method.DefaultName, method.Parameters.Count);
-					entries.Add(new Entry(method.UnderlyingPointer, group, method.FullName, key));
+					string name = method.FullName;
+
+					// A prototype is only emitted when every type maps to a known size.
+					string signature = GhidraTypeMapper.TryGetPrototype(method, SanitizeFunctionName(name), out string? prototype)
+						? prototype
+						: "";
+
+					entries.Add(new Entry(method.UnderlyingPointer, group, name, key, signature));
 				}
 			}
 		}
 
 		return entries;
+	}
+
+	/// <summary>
+	/// The prototype has to name the function with a valid C identifier.
+	/// </summary>
+	private static string SanitizeFunctionName(string name)
+	{
+		System.Text.StringBuilder builder = new(name.Length);
+		foreach (char c in name)
+		{
+			builder.Append(char.IsAsciiLetterOrDigit(c) || c == '_' ? c : '_');
+		}
+
+		if (builder.Length == 0 || char.IsAsciiDigit(builder[0]))
+		{
+			builder.Insert(0, '_');
+		}
+
+		return builder.ToString();
 	}
 
 	/// <summary>

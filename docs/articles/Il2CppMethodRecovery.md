@@ -138,6 +138,32 @@ embedded in `AssetRipper.Import` so it travels with the build.
 Addresses are resolved against the loaded image base with a fallback, because the address Il2Cpp
 reports does not always match the base Ghidra loads at.
 
+### Function signatures
+
+Names alone still leave Ghidra guessing parameter counts and types from the machine code, which is
+where most of the noise in decompiled output comes from. The symbol file therefore also carries a C
+prototype per method, which the script applies before decompiling. Il2Cpp passes the instance as an
+implicit first argument and a MethodInfo pointer as an implicit last one, and both are included.
+
+The effect on a two argument method, without and then with a prototype:
+
+```c
+int Foo(int param_1,int param_2)          // Ghidra's own guess
+int Foo(int baseDamage,int multiplier)    // with the prototype applied
+```
+
+**A wrong prototype is much worse than none.** Ghidra locks parameter storage to whatever it is
+given, so a mismatched return type can reduce an entire function body to a single return of an
+uninitialised register. `GhidraTypeMapper` therefore refuses to emit a prototype unless every type
+has a certain size: primitives map to the matching built in type, reference and pointer sized types
+become `void *`, and value types, generic instances and generic parameters are refused outright
+because their size depends on a layout Ghidra has not been given. Methods without a prototype simply
+keep their name and Ghidra's own guess.
+
+Supplying those layouts, which is what Il2CppDumper's `il2cpp.h` does, would let value types be typed
+too and would turn field accesses from `*(int *)(param_1 + 0x18)` into named members. That is the
+natural next step and is not implemented.
+
 The script also writes `decompilation_index.txt`, keyed by declaring type, method name and parameter
 count. During export, `GhidraCommentTransform` looks each method up in that index and attaches the
 recovered pseudo C above the declaration as a comment, so the exported `.cs` carries both the C#
@@ -177,6 +203,8 @@ the package, not patching AssetRipper.
 
 ### Phase 5 — Possible extensions (unscheduled)
 
+- Emit struct layouts for Il2Cpp types, the equivalent of Il2CppDumper's `il2cpp.h`, so value types can be
+  typed and field accesses decompile as named members instead of raw offsets.
 - Cache Ghidra results keyed by binary hash, so a re-import does not pay the hour again.
 - Improve key matching. Declaring type, method name and parameter count is unambiguous for the vast
   majority of methods, but overloads that differ only by parameter type collide and will get the
