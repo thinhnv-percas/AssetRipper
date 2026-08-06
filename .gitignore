@@ -1,3 +1,6 @@
+python/.venv-gui
+python/.venv-buildpython/.venv-gui
+python/.venv-build
 **/.vs/
 **/*.csproj.user
 packages/
@@ -12,6 +15,8 @@ bin
 *.blend1
 launchSettings.json
 .DS_Store
+python/.venv-gui
+python/.venv-build
 # Ghidra installed locally by Ghidra.bat / Ghidra.sh
 /ghidra/
 ghidra_*_PUBLIC_*.zip
