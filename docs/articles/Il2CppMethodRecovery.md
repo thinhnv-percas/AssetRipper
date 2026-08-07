@@ -182,9 +182,30 @@ become `void *`, and value types, generic instances and generic parameters are r
 because their size depends on a layout Ghidra has not been given. Methods without a prototype simply
 keep their name and Ghidra's own guess.
 
-Supplying those layouts, which is what Il2CppDumper's `il2cpp.h` does, would let value types be typed
-too and would turn field accesses from `*(int *)(param_1 + 0x18)` into named members. That is the
-natural next step and is not implemented.
+### Type layouts
+
+Il2Cpp metadata carries every field's name and offset, so Ghidra can be given the layout of each type
+and show a field access by name. Instance methods take a pointer to their declaring type, which is
+what connects a body to its layout.
+
+Fields whose type could not be mapped are left out rather than guessed, so they become a gap and the
+offsets of everything after them still hold. A reference type begins with the object header so its
+fields start past zero; a value type has no header and its first field sits at zero.
+
+Enums are resolved to the primitive they are stored as. An enum is a value type in the metadata, but
+the ABI passes its underlying field, so typing it carries none of the sizing risk of a real struct.
+
+Measured on a shipped ARM64 game (Unity 2022.3, 74 MB `libil2cpp.so`, 85483 methods with an address):
+
+| | |
+| --- | --- |
+| Methods given a prototype | 58782, 68.8 percent |
+| Types with a usable layout | 4297 |
+| Field accesses in the sampled output | 246, of which 58 remain unnamed |
+
+The remaining 31 percent are methods taking or returning a real value type. Typing those means
+passing a struct by value, which needs its exact size; a wrong size misassigns the argument registers
+and is worse than leaving the method untyped. Not implemented.
 
 The script also writes `decompilation_index.txt`, keyed by declaring type, method name and parameter
 count. During export, `GhidraCommentTransform` looks each method up in that index and attaches the
