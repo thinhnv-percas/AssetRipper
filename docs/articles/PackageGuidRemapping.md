@@ -81,7 +81,7 @@ the two do not overlap.
 
 ## Plan
 
-### Phase 1 — Mapping, no writes
+### Phase 1 — Mapping, no writes (done)
 
 Build the old to new mapping and report it. Nothing is modified.
 
@@ -96,16 +96,28 @@ Build the old to new mapping and report it. Nothing is modified.
 The output of this phase is a reviewable file, not a modified project. Anything unmatched is a
 decision for the user, not something to guess at.
 
-### Phase 2 — Rewriting
+### Phase 2 — Rewriting (done)
 
-- Rewrite GUIDs in `.meta` files and in the YAML asset files that carry references: `.prefab`,
-  `.unity`, `.asset`, `.mat`, `.controller`, `.anim`, `.spriteatlas`, `.asmdef`, plus the shader and
-  material variants a project may contain.
-- Handle the script `fileID` case above. When the official package ships an assembly, the new
-  `fileID` has to be computed for each type rather than carried over.
-- Refuse to run against a dirty working tree unless explicitly overridden, and write a backup
-  otherwise. This edits an entire project in place and a bad run is expensive to undo by hand.
-- Re-run the Phase 1 report afterwards, so the result can be checked rather than trusted.
+`ProjectReferenceRewriter` walks the asset kinds that can carry a reference and rewrites the two forms
+Unity writes one in: the `{fileID, guid, type}` block, and the `GUID:` form an assembly definition uses.
+
+**Only a guid written as part of a reference is rewritten.** A bare `guid:` line is an asset's own
+identity, and rewriting one would hand the official package's identity to a file that is still the
+ripped copy, leaving two assets claiming to be the same thing. Restricting the rewrite to the reference
+forms keeps that from happening anywhere, including inside meta files, which carry both kinds of guid
+in the same document. It also means a `.cs` file or a text asset that happens to contain something guid
+shaped is never touched, since neither is a file kind that is opened at all.
+
+The script `fileID` case is handled by `ScriptReferenceMapping`, and neither end of the reference has
+to be read out of the project. AssetRipper derives a decompiled script's guid from the assembly name,
+namespace and class name, and refers to it by the one fileID every script file has, so enumerating the
+types in the official package's assemblies gives the old reference and the new one together. The new
+fileID is `ScriptHashing.CalculateScriptFileID`, which AssetRipper already had.
+
+Running is a dry run by default: it reports what would change and writes nothing. Applying takes a
+backup directory, which mirrors the paths it copies. The report counts what was rewritten and, more to
+the point, counts every reference still aimed at a ripped asset that had no counterpart, which is the
+partial success this whole thing exists to make visible.
 
 ### Phase 3 — Interface
 
