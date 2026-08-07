@@ -30,6 +30,9 @@ partial class SettingsPage
 			case nameof(ProcessingSettings.BundledAssetsExportMode):
 				Configuration.ProcessingSettings.BundledAssetsExportMode = TryParseEnum<BundledAssetsExportMode>(value);
 				break;
+			case nameof(ExportSettings.OfficialPackageCachePath):
+				Configuration.ExportSettings.OfficialPackageCachePath = string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+				break;
 			case nameof(ExportSettings.AudioExportFormat):
 				Configuration.ExportSettings.AudioExportFormat = TryParseEnum<AudioExportFormat>(value);
 				break;

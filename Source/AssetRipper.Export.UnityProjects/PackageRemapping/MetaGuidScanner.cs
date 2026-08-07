@@ -1,3 +1,4 @@
+using AssetRipper.IO.Files;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AssetRipper.Export.UnityProjects.PackageRemapping;
@@ -72,21 +73,26 @@ public static class MetaGuidScanner
 	/// Finds every asset in a directory tree along with its GUID.
 	/// </summary>
 	/// <param name="root">The package root that returned paths are relative to.</param>
-	public static List<AssetIdentity> Scan(string root)
+	/// <param name="fileSystem">
+	/// Where to read from. An export may be written somewhere other than the local disk, and the same
+	/// scan has to work against wherever that is.
+	/// </param>
+	public static List<AssetIdentity> Scan(string root, FileSystem? fileSystem = null)
 	{
+		fileSystem ??= LocalFileSystem.Instance;
 		List<AssetIdentity> identities = [];
 
-		if (!Directory.Exists(root))
+		if (!fileSystem.Directory.Exists(root))
 		{
 			return identities;
 		}
 
-		foreach (string metaPath in Directory.EnumerateFiles(root, $"*{MetaExtension}", SearchOption.AllDirectories))
+		foreach (string metaPath in fileSystem.Directory.EnumerateFiles(root, $"*{MetaExtension}", SearchOption.AllDirectories))
 		{
 			string? guid;
 			try
 			{
-				using StreamReader reader = new(metaPath);
+				using StringReader reader = new(fileSystem.File.ReadAllText(metaPath));
 				if (!TryReadGuid(reader, out guid))
 				{
 					continue;
@@ -99,10 +105,22 @@ public static class MetaGuidScanner
 
 			// The meta describes the file beside it, so its own extension comes off.
 			string assetPath = metaPath[..^MetaExtension.Length];
-			string relativePath = Path.GetRelativePath(root, assetPath).Replace('\\', '/');
-			identities.Add(new AssetIdentity(relativePath, guid));
+			identities.Add(new AssetIdentity(GetRelativePath(root, assetPath), guid));
 		}
 
 		return identities;
+	}
+
+	/// <summary>
+	/// The part of a path below a root, in the forward slash form Unity writes.
+	/// </summary>
+	public static string GetRelativePath(string root, string path)
+	{
+		string normalisedRoot = root.Replace('\\', '/').TrimEnd('/');
+		string normalised = path.Replace('\\', '/');
+
+		return normalised.StartsWith(normalisedRoot + '/', StringComparison.OrdinalIgnoreCase)
+			? normalised[(normalisedRoot.Length + 1)..]
+			: normalised;
 	}
 }

@@ -1,3 +1,4 @@
+using AssetRipper.IO.Files;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -106,6 +107,8 @@ public static partial class ProjectReferenceRewriter
 		return $"{{fileID: {fileId.ToString(CultureInfo.InvariantCulture)}, guid: {guid}, type: {type}}}";
 	}
 
+	private static readonly UTF8Encoding Utf8NoBom = new(false);
+
 	/// <summary>
 	/// Rewrites every file under a directory.
 	/// </summary>
@@ -118,16 +121,20 @@ public static partial class ProjectReferenceRewriter
 	/// Where to copy a file before it is changed, keeping its path relative to <paramref name="root"/>.
 	/// Null skips the backup, which is only reasonable when the project is under version control.
 	/// </param>
-	public static RemapReport Apply(string root, ProjectRemapPlan plan, bool dryRun = true, string? backupDirectory = null)
+	/// <param name="fileSystem">
+	/// Where to read and write. An export may be written somewhere other than the local disk.
+	/// </param>
+	public static RemapReport Apply(string root, ProjectRemapPlan plan, bool dryRun = true, string? backupDirectory = null, FileSystem? fileSystem = null)
 	{
+		fileSystem ??= LocalFileSystem.Instance;
 		RemapReport report = new();
 
-		if (!Directory.Exists(root))
+		if (plan.IsEmpty || !fileSystem.Directory.Exists(root))
 		{
 			return report;
 		}
 
-		foreach (string path in Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories))
+		foreach (string path in fileSystem.Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories))
 		{
 			if (!RewritableExtensions.Contains(Path.GetExtension(path)))
 			{
@@ -137,7 +144,7 @@ public static partial class ProjectReferenceRewriter
 			string text;
 			try
 			{
-				text = File.ReadAllText(path);
+				text = fileSystem.File.ReadAllText(path);
 			}
 			catch (IOException)
 			{
@@ -161,13 +168,13 @@ public static partial class ProjectReferenceRewriter
 
 			if (backupDirectory is not null)
 			{
-				string backupPath = Path.Combine(backupDirectory, Path.GetRelativePath(root, path));
-				Directory.CreateDirectory(Path.GetDirectoryName(backupPath)!);
-				File.Copy(path, backupPath, overwrite: true);
+				string backupPath = fileSystem.Path.Join(backupDirectory, MetaGuidScanner.GetRelativePath(root, path));
+				fileSystem.Directory.Create(fileSystem.Path.GetDirectoryName(backupPath));
+				fileSystem.File.WriteAllText(backupPath, text, Utf8NoBom);
 			}
 
 			// Unity's files are utf8 and it writes no byte order mark, so neither does this.
-			File.WriteAllText(path, rewritten, new UTF8Encoding(false));
+			fileSystem.File.WriteAllText(path, rewritten, Utf8NoBom);
 		}
 
 		return report;
