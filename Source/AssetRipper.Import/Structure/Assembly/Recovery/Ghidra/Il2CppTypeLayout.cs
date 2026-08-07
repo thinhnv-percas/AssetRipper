@@ -19,7 +19,9 @@ public static class Il2CppTypeLayout
 	/// </summary>
 	/// <param name="Offset">The field's offset from the start of the object.</param>
 	/// <param name="Name">The field's name.</param>
-	/// <param name="CType">A Ghidra built in type of the right size, or empty when the type could not be mapped.</param>
+	/// <param name="CType">
+	/// A Ghidra built in type, the name of another struct, or empty when the type could not be mapped.
+	/// </param>
 	public readonly record struct Field(int Offset, string Name, string CType);
 
 	/// <summary>
@@ -48,99 +50,253 @@ public static class Il2CppTypeLayout
 		_ => 0,
 	};
 
-	/// <summary>
-	/// Reference types begin with the object header, so their first field never sits at zero. A
-	/// layout whose fields all sit at zero is not a layout Il2Cpp produced.
-	/// </summary>
 	private const int MinimumUsefulFieldCount = 1;
 
+	private sealed class WorkingField
+	{
+		public required int Offset { get; init; }
+		public required string Name { get; init; }
+		public required TypeAnalysisContext? Type { get; init; }
+		public string CType { get; set; } = "";
+	}
+
+	private sealed class WorkingLayout
+	{
+		public required TypeAnalysisContext Type { get; init; }
+		public required string StructName { get; init; }
+		public required int Size { get; init; }
+		public required List<WorkingField> Fields { get; init; }
+		public bool IsComplete { get; set; }
+	}
+
 	/// <summary>
-	/// Collects a layout for every type that has instance fields at known offsets.
+	/// Collects a layout for every type whose size and field offsets are known.
 	/// </summary>
-	/// <returns>The layouts, keyed by the struct name used for them.</returns>
 	public static Dictionary<TypeAnalysisContext, Layout> Collect(ApplicationAnalysisContext context)
 	{
+		List<WorkingLayout> working = BuildPreliminaryLayouts(context);
+		ResolveNestedValueTypes(working);
+
 		Dictionary<TypeAnalysisContext, Layout> layouts = [];
+		foreach (WorkingLayout layout in working)
+		{
+			List<Field> fields = layout.Fields
+				.Select(static f => new Field(f.Offset, f.Name, f.CType))
+				.ToList();
+
+			layouts.Add(layout.Type, new Layout(layout.StructName, layout.Size, layout.IsComplete, fields));
+		}
+
+		return layouts;
+	}
+
+	/// <summary>
+	/// Builds every layout with only the fields that map to a built in type resolved.
+	/// </summary>
+	private static List<WorkingLayout> BuildPreliminaryLayouts(ApplicationAnalysisContext context)
+	{
+		List<WorkingLayout> working = [];
 		HashSet<string> usedNames = new(StringComparer.Ordinal);
 
 		foreach (AssemblyAnalysisContext assembly in context.Assemblies)
 		{
 			foreach (TypeAnalysisContext type in assembly.Types)
 			{
-				if (TryGetLayout(type, usedNames, out Layout layout))
+				// An enum is its underlying primitive, not something with a useful field layout.
+				if (type.IsEnumType)
 				{
-					layouts.Add(type, layout);
+					continue;
+				}
+
+				// The metadata carries the exact size, including any trailing padding, so there is no
+				// need to work it out from the fields and risk getting the alignment rules wrong.
+				int declaredSize = GetDeclaredSize(type);
+				if (declaredSize <= 0)
+				{
+					continue;
+				}
+
+				// A reference type begins with the object header, so a field at zero is not a real
+				// offset. A value type has no header and its first field genuinely sits at zero.
+				int lowestValidOffset = type.IsValueType ? 0 : 1;
+
+				List<WorkingField> fields = [];
+				foreach (FieldAnalysisContext field in type.Fields)
+				{
+					if (field.IsStatic || field.Offset < lowestValidOffset)
+					{
+						continue;
+					}
+
+					WorkingField working_ = new()
+					{
+						Offset = field.Offset,
+						Name = field.DefaultName ?? $"field_{field.Offset:x}",
+						Type = field.FieldType,
+					};
+
+					if (GhidraTypeMapper.TryGetCTypeName(field.FieldType, out string? name))
+					{
+						working_.CType = name;
+					}
+
+					fields.Add(working_);
+				}
+
+				if (fields.Count < MinimumUsefulFieldCount)
+				{
+					continue;
+				}
+
+				working.Add(new WorkingLayout
+				{
+					Type = type,
+					StructName = MakeUniqueName(type, usedNames),
+					Size = declaredSize,
+					Fields = fields,
+				});
+			}
+		}
+
+		return working;
+	}
+
+	/// <summary>
+	/// Resolves fields that are themselves value types, repeating until nothing more can be resolved.
+	/// </summary>
+	/// <remarks>
+	/// A struct like Bounds is made of Vector3, so it cannot be described until Vector3 is. Resolving
+	/// in one pass would depend on the order types happen to appear in, so this iterates instead:
+	/// completeness spreads outwards from the types made only of primitives. A value type cannot
+	/// contain itself, so the process always settles.
+	/// </remarks>
+	private static void ResolveNestedValueTypes(List<WorkingLayout> working)
+	{
+		Dictionary<TypeAnalysisContext, WorkingLayout> byType = working.ToDictionary(static l => l.Type);
+		Dictionary<string, int> sizeByStructName = new(StringComparer.Ordinal);
+
+		bool changed = true;
+		while (changed)
+		{
+			changed = false;
+
+			foreach (WorkingLayout layout in working)
+			{
+				if (layout.IsComplete)
+				{
+					continue;
+				}
+
+				foreach (WorkingField field in layout.Fields)
+				{
+					if (field.CType.Length > 0 || field.Type is null || !field.Type.IsValueType)
+					{
+						continue;
+					}
+
+					// Only a complete nested layout may be embedded: an incomplete one would leave the
+					// outer struct's field types partly guessed, which is what the completeness rule
+					// exists to prevent.
+					if (byType.TryGetValue(field.Type, out WorkingLayout? nested) && nested.IsComplete)
+					{
+						field.CType = nested.StructName;
+						changed = true;
+					}
+				}
+
+				if (Recompute(layout, sizeByStructName))
+				{
+					changed = true;
 				}
 			}
 		}
-
-		return layouts;
 	}
 
-	private static bool TryGetLayout(TypeAnalysisContext type, HashSet<string> usedNames, out Layout layout)
+	/// <summary>
+	/// Works out whether every byte of a value type is now accounted for.
+	/// </summary>
+	private static bool Recompute(WorkingLayout layout, Dictionary<string, int> sizeByStructName)
 	{
-		layout = default;
-
-		// An enum is its underlying primitive, not something with a useful field layout.
-		if (type.IsEnumType)
+		if (!layout.Type.IsValueType)
 		{
 			return false;
 		}
 
-		// The metadata carries the exact size, including any trailing padding, so there is no need to
-		// work it out from the fields and risk getting the alignment rules wrong.
-		int declaredSize = GetDeclaredSize(type);
-		if (declaredSize <= 0)
-		{
-			return false;
-		}
-
-		List<Field> fields = [];
 		int covered = 0;
-		bool everyFieldMapped = true;
-
-		// A reference type begins with the object header, so a field at zero is not a real offset. A
-		// value type has no header and its first field genuinely sits at zero.
-		int lowestValidOffset = type.IsValueType ? 0 : 1;
-
-		foreach (FieldAnalysisContext field in type.Fields)
+		foreach (WorkingField field in layout.Fields)
 		{
-			if (field.IsStatic || field.Offset < lowestValidOffset)
+			int size = GetCTypeSize(field.CType);
+			if (size == 0 && field.CType.Length > 0)
 			{
-				continue;
+				sizeByStructName.TryGetValue(field.CType, out size);
 			}
 
-			// A field whose type could not be mapped is left out, which leaves a gap rather than
-			// shifting everything after it.
-			string cType = GhidraTypeMapper.TryGetCTypeName(field.FieldType, out string? name)
-				? name
-				: "";
-
-			fields.Add(new Field(field.Offset, field.DefaultName ?? $"field_{field.Offset:x}", cType));
-
-			int size = GetCTypeSize(cType);
 			if (size == 0)
 			{
-				everyFieldMapped = false;
+				return false;
 			}
-			else
-			{
-				covered = Math.Max(covered, field.Offset + size);
-			}
+
+			covered = Math.Max(covered, field.Offset + size);
 		}
 
-		if (fields.Count < MinimumUsefulFieldCount)
+		if (covered != layout.Size || layout.IsComplete)
 		{
 			return false;
 		}
 
-		// A value type is only safe to pass by value when nothing about it is guessed. A reference type
-		// is always handled through a pointer, so completeness does not matter for it.
-		bool isComplete = type.IsValueType && everyFieldMapped && covered == declaredSize;
-
-		string structName = MakeUniqueName(type, usedNames);
-		layout = new Layout(structName, declaredSize, isComplete, fields);
+		layout.IsComplete = true;
+		sizeByStructName[layout.StructName] = layout.Size;
 		return true;
+	}
+
+	/// <summary>
+	/// Orders layouts so that a struct comes after every struct it embeds.
+	/// </summary>
+	/// <remarks>
+	/// Ghidra resolves a field's type by name against what is already registered, so a struct has to
+	/// be defined before anything that contains it.
+	/// </remarks>
+	public static List<Layout> SortByDependency(IEnumerable<Layout> layouts)
+	{
+		List<Layout> input = layouts as List<Layout> ?? [.. layouts];
+		Dictionary<string, Layout> byName = new(input.Count, StringComparer.Ordinal);
+		foreach (Layout layout in input)
+		{
+			byName[layout.StructName] = layout;
+		}
+
+		List<Layout> sorted = new(input.Count);
+		HashSet<string> visited = new(StringComparer.Ordinal);
+
+		foreach (Layout layout in input)
+		{
+			Visit(layout);
+		}
+
+		return sorted;
+
+		void Visit(Layout layout)
+		{
+			// Marking on the way in rather than on the way out is what stops a cycle from recursing
+			// forever. A value type cannot contain itself, so this should never trigger, but unexpected
+			// metadata should not be able to overflow the stack.
+			if (!visited.Add(layout.StructName))
+			{
+				return;
+			}
+
+			foreach (Field field in layout.Fields)
+			{
+				if (field.CType.Length > 0
+					&& byName.TryGetValue(field.CType, out Layout nested)
+					&& nested.StructName != layout.StructName)
+				{
+					Visit(nested);
+				}
+			}
+
+			sorted.Add(layout);
+		}
 	}
 
 	/// <summary>
@@ -164,14 +320,16 @@ public static class Il2CppTypeLayout
 	/// Writes the layouts in the format the Ghidra script reads.
 	/// </summary>
 	/// <remarks>
-	/// A type line is followed by its field lines, so the file is read in a single pass.
+	/// A type line is followed by its field lines, so the file is read in a single pass. The reader
+	/// registers each struct as it goes and resolves a field's type by name against what is already
+	/// registered, so the layouts are written with the ones being embedded first.
 	/// </remarks>
 	public static void Write(IEnumerable<Layout> layouts, TextWriter writer)
 	{
 		writer.WriteLine("# T\tstructName\tsize");
 		writer.WriteLine("# F\toffset\tname\tctype");
 
-		foreach (Layout layout in layouts)
+		foreach (Layout layout in SortByDependency(layouts))
 		{
 			writer.Write("T\t");
 			writer.Write(layout.StructName);

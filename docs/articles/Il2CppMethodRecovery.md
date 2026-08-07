@@ -199,9 +199,9 @@ Measured on a shipped ARM64 game (Unity 2022.3, 74 MB `libil2cpp.so`, 85483 meth
 
 | | |
 | --- | --- |
-| Methods given a prototype | 67708, 79.2 percent |
-| Types with a layout | 3986, of which 334 are complete |
-| Field accesses in the sampled output | 246, of which 58 remain unnamed |
+| Methods given a prototype | 74329, 87.0 percent |
+| Types with a layout | 3986, of which 511 are complete |
+| Field accesses in the sampled output | 1256, of which 47 remain unnamed |
 
 ### Passing value types by value
 
@@ -214,7 +214,7 @@ bytes, `Quaternion` 16 and `Bounds` 24.
 Size alone is not enough, because the convention also depends on the field types: on ARM64 a struct
 of four floats travels in floating point registers while one of four integers does not. A layout is
 therefore only passed by value when it is **complete**, meaning every field maps to a type of known
-size and those fields account for the whole declared size. That holds for 334 of 3986 types, but they
+size and those fields account for the whole declared size. That holds for 511 of 3986 types, but they
 are the ones games actually pass around.
 
 Measured on 17 methods taking or returning such structs, giving Ghidra the prototype cut references
@@ -224,8 +224,27 @@ Primitives are mapped to their built in type before this is consulted, because t
 `System.Single` as a value type wrapping its own storage and it would otherwise become a one field
 struct that merely behaves like a float.
 
-Types whose layout is incomplete stay refused. `Bounds` is one: its fields are themselves `Vector3`,
-and nested value types are not resolved yet.
+### Nested value types
+
+A struct made of other structs cannot be described until they are. `Bounds` is two `Vector3` fields,
+so on its own it is neither complete nor usable in a prototype, and neither is anything taking a
+`Bounds`. Resolving this in one pass would depend on the order types happen to appear in, so the
+layouts are instead revisited until nothing more can be resolved: completeness spreads outwards from
+the types made only of primitives. A value type cannot contain itself, so the process always settles.
+Only a complete nested layout is embedded, since an incomplete one would leave the outer struct's
+field types partly guessed, which is the exact thing the completeness rule exists to prevent.
+
+Ghidra resolves a field's type by name against the structs already registered, so the layout file is
+written with the embedded struct first. `SortByDependency` does that ordering, and the script fills
+each struct and registers it before starting the next, because the data type manager keeps its own
+copy and editing a struct after registering it has no effect.
+
+On the same game this took complete layouts from 334 to 511 and prototypes from 79.2 to 87.0 percent,
+6621 methods gained and none lost. Sampling the 97 methods that mention `Bounds`, 27 could be typed
+before and all 97 after. Two levels of nesting resolve in the output: a `Bounds` argument decompiles
+as `(newValue->m_Extents).y`, and a `Bounds` local as `local_88.m_Center.x`. Being 24 bytes, it is
+returned indirectly, and Ghidra renders that correctly as `__return_storage_ptr__` only because the
+layout is complete enough to classify.
 
 The script also writes `decompilation_index.txt`, keyed by declaring type, method name and parameter
 count. During export, `GhidraCommentTransform` looks each method up in that index and attaches the
@@ -266,8 +285,6 @@ the package, not patching AssetRipper.
 
 ### Phase 5 — Possible extensions (unscheduled)
 
-- Emit struct layouts for Il2Cpp types, the equivalent of Il2CppDumper's `il2cpp.h`, so value types can be
-  typed and field accesses decompile as named members instead of raw offsets.
 - Cache Ghidra results keyed by binary hash, so a re-import does not pay the hour again.
 - Improve key matching. Declaring type, method name and parameter count is unambiguous for the vast
   majority of methods, but overloads that differ only by parameter type collide and will get the

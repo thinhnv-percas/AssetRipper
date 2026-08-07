@@ -300,7 +300,7 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		DataTypeManager manager = currentProgram.getDataTypeManager();
 		CategoryPath category = new CategoryPath("/Il2Cpp");
 		Map<String, StructureDataType> structures = new LinkedHashMap<String, StructureDataType>();
-		List<String[]> fieldRows = new ArrayList<String[]>();
+		Map<String, List<String[]>> fieldsByStruct = new LinkedHashMap<String, List<String[]>>();
 		String current = null;
 
 		BufferedReader reader = null;
@@ -320,8 +320,12 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 					}
 					current = parts[1];
 					structures.put(current, new StructureDataType(category, current, size, manager));
+					fieldsByStruct.put(current, new ArrayList<String[]>());
 				} else if (parts[0].equals("F") && parts.length >= 4 && current != null) {
-					fieldRows.add(new String[] { current, parts[1], parts[2], parts[3] });
+					List<String[]> rows = fieldsByStruct.get(current);
+					if (rows != null) {
+						rows.add(new String[] { current, parts[1], parts[2], parts[3] });
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -331,28 +335,29 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 			try { if (reader != null) reader.close(); } catch (Exception ignored) { }
 		}
 
-		// Fields resolve to built in types and plain pointers, never to another Il2Cpp struct, so each
-		// struct can be completed before it is registered. Registering first and editing afterwards
-		// does not work: the manager keeps its own copy of what it was given.
-		for (String[] row : fieldRows) {
-			StructureDataType structure = structures.get(row[0]);
-			if (structure == null) {
-				continue;
-			}
-			try {
-				int offset = Integer.parseInt(row[1]);
-				DataType fieldType = resolveFieldType(manager, row[3]);
-				if (fieldType == null || fieldType.getLength() <= 0 || offset + fieldType.getLength() > structure.getLength()) {
-					continue;
-				}
-				structure.replaceAtOffset(offset, fieldType, fieldType.getLength(), row[2], null);
-			} catch (Exception e) {
-				// One bad field must not lose the whole type.
-			}
-		}
-
+		// Each struct is filled and then registered before the next one is started, because a later
+		// struct may embed it and Ghidra resolves that by name against what is already registered.
+		// Editing after registering would not work either: the manager keeps its own copy.
 		int defined = 0;
-		for (StructureDataType structure : structures.values()) {
+		for (Map.Entry<String, StructureDataType> entry : structures.entrySet()) {
+			StructureDataType structure = entry.getValue();
+
+			List<String[]> rows = fieldsByStruct.get(entry.getKey());
+			if (rows != null) {
+				for (String[] row : rows) {
+					try {
+						int offset = Integer.parseInt(row[1]);
+						DataType fieldType = resolveFieldType(manager, row[3]);
+						if (fieldType == null || fieldType.getLength() <= 0 || offset + fieldType.getLength() > structure.getLength()) {
+							continue;
+						}
+						structure.replaceAtOffset(offset, fieldType, fieldType.getLength(), row[2], null);
+					} catch (Exception e) {
+						// One bad field must not lose the whole type.
+					}
+				}
+			}
+
 			if (manager.addDataType(structure, DataTypeConflictHandler.REPLACE_HANDLER) != null) {
 				defined++;
 			}
@@ -383,7 +388,10 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		if (cType.equals("ulonglong")) return UnsignedLongLongDataType.dataType;
 		if (cType.equals("float")) return FloatDataType.dataType;
 		if (cType.equals("double")) return DoubleDataType.dataType;
-		return null;
+
+		// A field may be another Il2Cpp struct. AssetRipper orders the layouts so that one is always
+		// registered before anything embedding it.
+		return manager.getDataType(new CategoryPath("/Il2Cpp"), cType);
 	}
 
 	/// AssetRipper parses these lines to show progress while the run is in flight.
