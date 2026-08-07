@@ -199,13 +199,33 @@ Measured on a shipped ARM64 game (Unity 2022.3, 74 MB `libil2cpp.so`, 85483 meth
 
 | | |
 | --- | --- |
-| Methods given a prototype | 58782, 68.8 percent |
-| Types with a usable layout | 4297 |
+| Methods given a prototype | 67708, 79.2 percent |
+| Types with a layout | 3986, of which 334 are complete |
 | Field accesses in the sampled output | 246, of which 58 remain unnamed |
 
-The remaining 31 percent are methods taking or returning a real value type. Typing those means
-passing a struct by value, which needs its exact size; a wrong size misassigns the argument registers
-and is worse than leaving the method untyped. Not implemented.
+### Passing value types by value
+
+A method taking a `Vector3` cannot be typed without knowing exactly how large a `Vector3` is, and
+guessing wrong misassigns the argument registers. The metadata answers this directly: a type
+definition carries its own size, already including any trailing padding, so nothing has to be
+inferred from alignment rules. Measured against the metadata of a shipped game, `Vector3` is 12
+bytes, `Quaternion` 16 and `Bounds` 24.
+
+Size alone is not enough, because the convention also depends on the field types: on ARM64 a struct
+of four floats travels in floating point registers while one of four integers does not. A layout is
+therefore only passed by value when it is **complete**, meaning every field maps to a type of known
+size and those fields account for the whole declared size. That holds for 334 of 3986 types, but they
+are the ones games actually pass around.
+
+Measured on 17 methods taking or returning such structs, giving Ghidra the prototype cut references
+to uninitialised registers from 1007 to 32.
+
+Primitives are mapped to their built in type before this is consulted, because the metadata describes
+`System.Single` as a value type wrapping its own storage and it would otherwise become a one field
+struct that merely behaves like a float.
+
+Types whose layout is incomplete stay refused. `Bounds` is one: its fields are themselves `Vector3`,
+and nested value types are not resolved yet.
 
 The script also writes `decompilation_index.txt`, keyed by declaring type, method name and parameter
 count. During export, `GhidraCommentTransform` looks each method up in that index and attaches the

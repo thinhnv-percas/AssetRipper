@@ -34,13 +34,27 @@ public static class GhidraTypeMapper
 	/// </param>
 	public static bool TryGetPrototype(MethodAnalysisContext method, string functionName, string? instanceTypeName, [NotNullWhen(true)] out string? prototype)
 	{
+		return TryGetPrototype(method, functionName, instanceTypeName, [], out prototype);
+	}
+
+	/// <param name="layouts">
+	/// Known struct layouts. A value type with a complete layout can be named directly, which is what
+	/// lets a method taking a Vector3 be typed at all.
+	/// </param>
+	public static bool TryGetPrototype(
+		MethodAnalysisContext method,
+		string functionName,
+		string? instanceTypeName,
+		Dictionary<TypeAnalysisContext, Il2CppTypeLayout.Layout> layouts,
+		[NotNullWhen(true)] out string? prototype)
+	{
 		if (method.ReturnType is null)
 		{
 			prototype = null;
 			return false;
 		}
 
-		if (!TryGetCTypeName(method.ReturnType, out string? returnTypeName))
+		if (!TryGetTypeName(method.ReturnType, layouts, out string? returnTypeName))
 		{
 			prototype = null;
 			return false;
@@ -51,7 +65,7 @@ public static class GhidraTypeMapper
 		for (int i = 0; i < parameters.Length; i++)
 		{
 			ParameterAnalysisContext parameter = method.Parameters[i];
-			if (!TryGetCTypeName(parameter.ParameterType, out string? parameterTypeName))
+			if (!TryGetTypeName(parameter.ParameterType, layouts, out string? parameterTypeName))
 			{
 				prototype = null;
 				return false;
@@ -166,6 +180,39 @@ public static class GhidraTypeMapper
 
 		prototype = builder.ToString();
 		return true;
+	}
+
+	/// <summary>
+	/// Maps a type, preferring a named struct for a value type whose layout is fully known.
+	/// </summary>
+	/// <remarks>
+	/// The calling convention for a struct depends on its field types, not only on its size: on ARM64
+	/// a struct of four floats goes in floating point registers while one of four integers does not.
+	/// A layout with an unmapped field would therefore be classified wrongly, so only a complete one
+	/// is used and everything else stays refused.
+	/// </remarks>
+	private static bool TryGetTypeName(
+		TypeAnalysisContext? type,
+		Dictionary<TypeAnalysisContext, Il2CppTypeLayout.Layout> layouts,
+		[NotNullWhen(true)] out string? name)
+	{
+		// A primitive is described in the metadata as a value type wrapping its own storage, so it has
+		// a complete layout like any other struct. Mapping it to the built in type first keeps
+		// System.Single a float rather than a one field struct that merely behaves like one.
+		if (TryGetCTypeName(type, out name))
+		{
+			return true;
+		}
+
+		if (type is not null
+			&& layouts.TryGetValue(type, out Il2CppTypeLayout.Layout layout)
+			&& layout.IsComplete)
+		{
+			name = layout.StructName;
+			return true;
+		}
+
+		return false;
 	}
 
 	/// <summary>

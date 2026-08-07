@@ -26,8 +26,27 @@ public static class Il2CppTypeLayout
 	/// One type and the fields laid out inside it.
 	/// </summary>
 	/// <param name="StructName">The name the struct is registered under in Ghidra.</param>
-	/// <param name="Size">How many bytes the struct spans.</param>
-	public readonly record struct Layout(string StructName, int Size, List<Field> Fields);
+	/// <param name="Size">How many bytes the struct spans, taken from the metadata.</param>
+	/// <param name="IsComplete">
+	/// Whether every byte of the struct is accounted for by a field of known type. Only a complete
+	/// layout may be passed by value, because the calling convention depends on the field types and
+	/// not merely on the size.
+	/// </param>
+	public readonly record struct Layout(string StructName, int Size, bool IsComplete, List<Field> Fields);
+
+	/// <summary>
+	/// The size of a Ghidra built in type, or zero when it is not one this maps to.
+	/// </summary>
+	public static int GetCTypeSize(string cType) => cType switch
+	{
+		"bool" or "char" or "byte" => 1,
+		"short" or "ushort" => 2,
+		"int" or "uint" or "float" => 4,
+		"longlong" or "ulonglong" or "double" => 8,
+		// Every pointer this emits is 64 bit, matching the binaries Il2Cpp ships for.
+		"void *" => 8,
+		_ => 0,
+	};
 
 	/// <summary>
 	/// Reference types begin with the object header, so their first field never sits at zero. A
@@ -68,8 +87,17 @@ public static class Il2CppTypeLayout
 			return false;
 		}
 
+		// The metadata carries the exact size, including any trailing padding, so there is no need to
+		// work it out from the fields and risk getting the alignment rules wrong.
+		int declaredSize = GetDeclaredSize(type);
+		if (declaredSize <= 0)
+		{
+			return false;
+		}
+
 		List<Field> fields = [];
-		int end = 0;
+		int covered = 0;
+		bool everyFieldMapped = true;
 
 		// A reference type begins with the object header, so a field at zero is not a real offset. A
 		// value type has no header and its first field genuinely sits at zero.
@@ -90,9 +118,15 @@ public static class Il2CppTypeLayout
 
 			fields.Add(new Field(field.Offset, field.DefaultName ?? $"field_{field.Offset:x}", cType));
 
-			// Sizes are unknown for anything but the mapped types, so a pointer's worth is assumed.
-			// Overshooting the struct's size is harmless; undershooting would truncate later fields.
-			end = Math.Max(end, field.Offset + 8);
+			int size = GetCTypeSize(cType);
+			if (size == 0)
+			{
+				everyFieldMapped = false;
+			}
+			else
+			{
+				covered = Math.Max(covered, field.Offset + size);
+			}
 		}
 
 		if (fields.Count < MinimumUsefulFieldCount)
@@ -100,9 +134,30 @@ public static class Il2CppTypeLayout
 			return false;
 		}
 
+		// A value type is only safe to pass by value when nothing about it is guessed. A reference type
+		// is always handled through a pointer, so completeness does not matter for it.
+		bool isComplete = type.IsValueType && everyFieldMapped && covered == declaredSize;
+
 		string structName = MakeUniqueName(type, usedNames);
-		layout = new Layout(structName, end, fields);
+		layout = new Layout(structName, declaredSize, isComplete, fields);
 		return true;
+	}
+
+	/// <summary>
+	/// The size the struct should occupy in Ghidra.
+	/// </summary>
+	/// <remarks>
+	/// A value type's size is its unboxed size. A reference type's fields are laid out after the object
+	/// header, so its struct has to span the whole instance.
+	/// </remarks>
+	private static int GetDeclaredSize(TypeAnalysisContext type)
+	{
+		if (type.Definition is null)
+		{
+			return 0;
+		}
+
+		return type.IsValueType ? type.Definition.Size : (int)type.Definition.RawSizes.instance_size;
 	}
 
 	/// <summary>

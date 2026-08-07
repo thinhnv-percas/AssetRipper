@@ -78,7 +78,7 @@ public static class Il2CppSymbolTable
 						: null;
 
 					// A prototype is only emitted when every type maps to a known size.
-					string signature = GhidraTypeMapper.TryGetPrototype(method, SanitizeFunctionName(name), instanceTypeName, out string? prototype)
+					string signature = GhidraTypeMapper.TryGetPrototype(method, SanitizeFunctionName(name), instanceTypeName, layouts, out string? prototype)
 						? prototype
 						: "";
 
