@@ -23,5 +23,7 @@
       href: RoadMap.md
     - name: Il2Cpp Method Recovery
       href: Il2CppMethodRecovery.md
+    - name: Package GUID Remapping
+      href: PackageGuidRemapping.md
     - name: Credits
       href: Credits.md
