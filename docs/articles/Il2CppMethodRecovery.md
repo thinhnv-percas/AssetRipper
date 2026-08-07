@@ -178,9 +178,8 @@ int Foo(int baseDamage,int multiplier)    // with the prototype applied
 given, so a mismatched return type can reduce an entire function body to a single return of an
 uninitialised register. `GhidraTypeMapper` therefore refuses to emit a prototype unless every type
 has a certain size: primitives map to the matching built in type, reference and pointer sized types
-become `void *`, and value types, generic instances and generic parameters are refused outright
-because their size depends on a layout Ghidra has not been given. Methods without a prototype simply
-keep their name and Ghidra's own guess.
+become `void *`, and anything whose size depends on something Ghidra has not been given is refused
+outright. Methods without a prototype simply keep their name and Ghidra's own guess.
 
 ### Type layouts
 
@@ -199,23 +198,31 @@ Measured on a shipped ARM64 game (Unity 2022.3, 74 MB `libil2cpp.so`, 85483 meth
 
 | | |
 | --- | --- |
-| Methods given a prototype | 74329, 87.0 percent |
-| Types with a layout | 3986, of which 511 are complete |
-| Field accesses in the sampled output | 1256, of which 47 remain unnamed |
+| Methods given a prototype | 80725, 94.4 percent |
+| Types with a layout | 4489, of which 999 are complete |
+| Field accesses in the sampled output | 1256, of which 21 remain unnamed |
 
 ### Passing value types by value
 
 A method taking a `Vector3` cannot be typed without knowing exactly how large a `Vector3` is, and
-guessing wrong misassigns the argument registers. The metadata answers this directly: a type
-definition carries its own size, already including any trailing padding, so nothing has to be
-inferred from alignment rules. Measured against the metadata of a shipped game, `Vector3` is 12
-bytes, `Quaternion` 16 and `Bounds` 24.
+guessing wrong misassigns the argument registers. The metadata answers this directly, in the instance
+size a boxed value occupies: subtracting the object header, which is a class pointer and a monitor
+pointer, leaves the size of the value itself. Measured against the metadata of a shipped game,
+`Vector3` is 12 bytes, `Quaternion` 16 and `Bounds` 24.
+
+The other size the metadata carries, `native_size`, is the marshalled one and is the wrong one to
+use. It is absent for 504 of the value types in that game, and where it differs it describes a
+different layout: `System.Char` marshals to one byte but occupies two, and `HandleRef` marshals to a
+bare handle but holds a reference alongside it. Reading it as the size refused those 504 types
+outright and sized 41 more wrongly.
 
 Size alone is not enough, because the convention also depends on the field types: on ARM64 a struct
 of four floats travels in floating point registers while one of four integers does not. A layout is
 therefore only passed by value when it is **complete**, meaning every field maps to a type of known
-size and those fields account for the whole declared size. That holds for 511 of 3986 types, but they
-are the ones games actually pass around.
+size and laying those fields out the way a C compiler would reproduces the declared size exactly.
+That last test is what separates a struct ending in alignment padding, which is fine, from one whose
+size only fits because a field is missing, which is not. It holds for 999 of 4489 types, but they are
+the ones games actually pass around.
 
 Measured on 17 methods taking or returning such structs, giving Ghidra the prototype cut references
 to uninitialised registers from 1007 to 32.
@@ -223,6 +230,26 @@ to uninitialised registers from 1007 to 32.
 Primitives are mapped to their built in type before this is consulted, because the metadata describes
 `System.Single` as a value type wrapping its own storage and it would otherwise become a one field
 struct that merely behaves like a float.
+
+A constructed generic is refused on its raw type alone, since its size depends on the arguments it was
+constructed with. That reasoning only applies to value types: a `List<int>` is as much a pointer as any
+other class, and refusing those cost 6884 type occurrences against the 3566 that value type
+instantiations account for.
+
+### Explicit layouts
+
+A type with an explicit layout compiles to a C++ union, and a struct definition cannot hold two fields
+at the same offset. One member per range of bytes is therefore chosen, which makes the emitted file say
+exactly what Ghidra will get instead of leaving the script to overwrite one field with the next. The
+largest member is preferred, being the one most likely to span the union as declared, and among equals
+one that is not floating point.
+
+That last preference is the part that matters. A union holding both a float and an int does not travel
+in floating point registers, so describing it by its floating point members alone would classify it
+wrongly. `System.Numerics.Register` is the case in point: sixteen bytes overlaid as bytes, ints, floats
+and doubles. It is described as two `ulonglong` fields, and a union that has no such member left after
+the selection is refused rather than guessed at. The same reasoning follows a struct into a nested one,
+so `v256`, which is two `v128` unions, is accepted because `v128` itself resolved to integer members.
 
 ### Nested value types
 
@@ -241,7 +268,8 @@ copy and editing a struct after registering it has no effect.
 
 On the same game this took complete layouts from 334 to 511 and prototypes from 79.2 to 87.0 percent,
 6621 methods gained and none lost. Sampling the 97 methods that mention `Bounds`, 27 could be typed
-before and all 97 after. Two levels of nesting resolve in the output: a `Bounds` argument decompiles
+before and all 97 after, and across that sample the accesses still decompiling as a raw offset fell
+from 47 of 1256 to 21. Two levels of nesting resolve in the output: a `Bounds` argument decompiles
 as `(newValue->m_Extents).y`, and a `Bounds` local as `local_88.m_Center.x`. Being 24 bytes, it is
 returned indirectly, and Ghidra renders that correctly as `__return_storage_ptr__` only because the
 layout is complete enough to classify.

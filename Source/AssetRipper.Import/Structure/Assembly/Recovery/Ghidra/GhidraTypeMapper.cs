@@ -246,6 +246,16 @@ public static class GhidraTypeMapper
 			return false;
 		}
 
+		// A constructed generic is refused on its raw type alone, because its size depends on which
+		// arguments it was constructed with. That is only true of a value type: a List<int> is as much
+		// a pointer as any other class, and refusing those costs far more methods than the value type
+		// instantiations do.
+		if (type.Type is Il2CppTypeEnum.IL2CPP_TYPE_GENERICINST && !type.IsValueType)
+		{
+			name = "void *";
+			return true;
+		}
+
 		return TryGetCTypeName(type.Type, out name);
 	}
 

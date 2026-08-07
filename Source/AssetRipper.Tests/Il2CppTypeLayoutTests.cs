@@ -37,9 +37,155 @@ public sealed class Il2CppTypeLayoutTests
 		Assert.That(Il2CppTypeLayout.GetCTypeSize(cType), Is.Zero);
 	}
 
+	[TestCase(0, 4, 0)]
+	[TestCase(1, 1, 1)]
+	[TestCase(10, 8, 16)]
+	[TestCase(12, 4, 12)]
+	[TestCase(21, 4, 24)]
+	[TestCase(60, 8, 64)]
+	public void SizesRoundUpToAlignmentTheWayACompilerPadsAStruct(int size, int alignment, int expected)
+	{
+		Assert.That(Il2CppTypeLayout.AlignUp(size, alignment), Is.EqualTo(expected));
+	}
+
 	private static Il2CppTypeLayout.Layout Struct(string name, int size, params (int Offset, string Name, string CType)[] fields)
 	{
-		return new Il2CppTypeLayout.Layout(name, size, true, [.. fields.Select(f => new Il2CppTypeLayout.Field(f.Offset, f.Name, f.CType))]);
+		return new Il2CppTypeLayout.Layout(name, size, true, [.. Fields(fields)]);
+	}
+
+	private static List<Il2CppTypeLayout.Field> Fields(params (int Offset, string Name, string CType)[] fields)
+	{
+		return [.. fields.Select(f => new Il2CppTypeLayout.Field(f.Offset, f.Name, f.CType))];
+	}
+
+	private static readonly Dictionary<string, Il2CppTypeLayout.StructInfo> NoStructs = [];
+
+	private static bool TryDescribe(int size, params (int Offset, string Name, string CType)[] fields)
+	{
+		return Il2CppTypeLayout.TryDescribeValueType(size, Fields(fields), NoStructs, out _, out _);
+	}
+
+	/// <summary>
+	/// A struct is passed by value on the strength of its fields, so the layout has to reproduce the
+	/// declared size exactly once the fields are laid out the way a compiler would.
+	/// </summary>
+	[Test]
+	public void FieldsThatAccountForEveryByteDescribeTheStruct()
+	{
+		Assert.That(TryDescribe(12, (0, "x", "float"), (4, "y", "float"), (8, "z", "float")), Is.True);
+	}
+
+	/// <summary>
+	/// Most structs end in padding no field covers. Refusing those would rule out a large share of the
+	/// types games pass around, and the padding changes nothing about how the struct travels.
+	/// </summary>
+	[Test]
+	public void TrailingAlignmentPaddingIsAccepted()
+	{
+		Assert.That(TryDescribe(16, (0, "ptr", "void *"), (8, "len", "int")), Is.True);
+	}
+
+	/// <summary>
+	/// Padding beyond what alignment explains means a field is missing, and a struct missing a field
+	/// may be classified wrongly.
+	/// </summary>
+	[Test]
+	public void PaddingAlignmentCannotExplainIsRefused()
+	{
+		Assert.That(TryDescribe(64, (0, "first", "int"), (4, "second", "int")), Is.False);
+	}
+
+	/// <summary>
+	/// A field running past the declared size means the size and the offsets disagree.
+	/// </summary>
+	[Test]
+	public void AFieldRunningPastTheDeclaredSizeIsRefused()
+	{
+		Assert.That(TryDescribe(1, (0, "m_value", "ushort")), Is.False);
+	}
+
+	[Test]
+	public void AnUnmappedFieldIsRefused()
+	{
+		Assert.That(TryDescribe(8, (0, "known", "int"), (4, "unknown", "")), Is.False);
+	}
+
+	/// <summary>
+	/// An explicit layout compiles to a union, which a struct definition cannot hold. Only one member
+	/// per range of bytes is described, and the emitted layout says so rather than leaving Ghidra to
+	/// overwrite one with the other.
+	/// </summary>
+	[Test]
+	public void OverlappingFieldsAreReducedToOnePerRange()
+	{
+		bool described = Il2CppTypeLayout.TryDescribeValueType(
+			16,
+			Fields((0, "flags", "int"), (4, "hi", "int"), (8, "lo", "int"), (12, "mid", "int"), (8, "ulomidLE", "ulonglong")),
+			NoStructs,
+			out List<Il2CppTypeLayout.Field> kept,
+			out _);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(described, Is.True);
+			Assert.That(kept.Select(static f => f.Name), Is.EqualTo(new[] { "flags", "hi", "ulomidLE" }));
+		});
+	}
+
+	/// <summary>
+	/// A union of a float and an int is not passed like a float, so describing it by its floating point
+	/// members alone would put it in the wrong registers. Preferring the other member avoids that.
+	/// </summary>
+	[Test]
+	public void AMixedUnionIsNotDescribedAsFloatingPoint()
+	{
+		bool described = Il2CppTypeLayout.TryDescribeValueType(
+			16,
+			Fields((0, "double_0", "double"), (0, "int64_0", "longlong"), (8, "double_1", "double"), (8, "int64_1", "longlong")),
+			NoStructs,
+			out List<Il2CppTypeLayout.Field> kept,
+			out Il2CppTypeLayout.StructInfo info);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(described, Is.True);
+			Assert.That(kept.Select(static f => f.CType), Is.All.EqualTo("longlong"));
+			Assert.That(info.NonFloating, Is.True);
+		});
+	}
+
+	/// <summary>
+	/// A struct of floats is passed like floats, so one only proves the type is not floating point when
+	/// it was itself resolved to hold something that is not.
+	/// </summary>
+	[Test]
+	public void NonFloatingNessCarriesThroughANestedStruct()
+	{
+		Dictionary<string, Il2CppTypeLayout.StructInfo> resolved = new()
+		{
+			["v128"] = new Il2CppTypeLayout.StructInfo(16, 8, NonFloating: true),
+			["floats4"] = new Il2CppTypeLayout.StructInfo(16, 4, NonFloating: false),
+		};
+
+		bool viaNonFloating = Il2CppTypeLayout.TryDescribeValueType(
+			32,
+			Fields((0, "Lo128", "v128"), (16, "Hi128", "v128"), (0, "Float0", "float")),
+			resolved,
+			out _,
+			out _);
+
+		bool viaFloating = Il2CppTypeLayout.TryDescribeValueType(
+			32,
+			Fields((0, "Lo", "floats4"), (16, "Hi", "floats4"), (0, "Int0", "int")),
+			resolved,
+			out _,
+			out _);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(viaNonFloating, Is.True, "a union of structs that are known not to be floating point is not floating point either");
+			Assert.That(viaFloating, Is.False, "dropping the only member that proves the union is not floating point must refuse it");
+		});
 	}
 
 	private static readonly Il2CppTypeLayout.Layout Vector3 = Struct("Vector3", 12, (0, "x", "float"), (4, "y", "float"), (8, "z", "float"));
