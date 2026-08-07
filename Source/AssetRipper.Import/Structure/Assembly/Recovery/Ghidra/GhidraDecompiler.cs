@@ -54,8 +54,17 @@ public static class GhidraDecompiler
 				return false;
 			}
 
+			// Layouts first: an instance method's prototype names the struct of its declaring type.
+			Dictionary<TypeAnalysisContext, Il2CppTypeLayout.Layout> layouts = Il2CppTypeLayout.Collect(context);
+			string layoutFilePath = Path.Join(workingDirectory, "types.tsv");
+			using (StreamWriter writer = new(layoutFilePath))
+			{
+				Il2CppTypeLayout.Write(layouts.Values, writer);
+			}
+			Logger.Info(LogCategory.Import, $"Wrote {layouts.Count} Il2Cpp type layouts for Ghidra.");
+
 			string symbolFilePath = Path.Join(workingDirectory, "symbols.tsv");
-			List<Il2CppSymbolTable.Entry> entries = Il2CppSymbolTable.Collect(context);
+			List<Il2CppSymbolTable.Entry> entries = Il2CppSymbolTable.Collect(context, layouts);
 			using (StreamWriter writer = new(symbolFilePath))
 			{
 				Il2CppSymbolTable.Write(entries, writer);
@@ -68,7 +77,8 @@ public static class GhidraDecompiler
 				binaryPath,
 				scriptDirectory,
 				symbolFilePath,
-				outputDirectory);
+				outputDirectory,
+				layoutFilePath);
 
 			Logger.Info(LogCategory.Import, "Running Ghidra. Analyzing a full game binary usually takes an hour or more.");
 			GhidraRunResult result = GhidraHeadlessRunner.Run(installation, arguments);

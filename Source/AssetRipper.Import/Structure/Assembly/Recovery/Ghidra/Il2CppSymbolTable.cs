@@ -48,6 +48,12 @@ public static class Il2CppSymbolTable
 	/// </summary>
 	public static List<Entry> Collect(ApplicationAnalysisContext context)
 	{
+		return Collect(context, []);
+	}
+
+	/// <param name="layouts">Struct layouts, so instance methods can be typed against their declaring type.</param>
+	public static List<Entry> Collect(ApplicationAnalysisContext context, Dictionary<TypeAnalysisContext, Il2CppTypeLayout.Layout> layouts)
+	{
 		List<Entry> entries = [];
 
 		foreach (AssemblyAnalysisContext assembly in context.Assemblies)
@@ -67,8 +73,12 @@ public static class Il2CppSymbolTable
 					string key = GhidraDecompilationIndex.CreateKey(type.FullName, method.DefaultName, method.Parameters.Count);
 					string name = method.FullName;
 
+					string? instanceTypeName = layouts.TryGetValue(type, out Il2CppTypeLayout.Layout layout)
+						? layout.StructName
+						: null;
+
 					// A prototype is only emitted when every type maps to a known size.
-					string signature = GhidraTypeMapper.TryGetPrototype(method, SanitizeFunctionName(name), out string? prototype)
+					string signature = GhidraTypeMapper.TryGetPrototype(method, SanitizeFunctionName(name), instanceTypeName, out string? prototype)
 						? prototype
 						: "";
 

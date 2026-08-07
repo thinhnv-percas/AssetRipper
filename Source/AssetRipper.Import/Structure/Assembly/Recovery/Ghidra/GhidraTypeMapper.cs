@@ -28,7 +28,11 @@ public static class GhidraTypeMapper
 	/// <summary>
 	/// Builds a prototype for a method, or returns false when a type cannot be mapped safely.
 	/// </summary>
-	public static bool TryGetPrototype(MethodAnalysisContext method, string functionName, [NotNullWhen(true)] out string? prototype)
+	/// <param name="instanceTypeName">
+	/// The struct registered for the declaring type, so field accesses off the instance decompile by
+	/// name. Null falls back to an untyped pointer.
+	/// </param>
+	public static bool TryGetPrototype(MethodAnalysisContext method, string functionName, string? instanceTypeName, [NotNullWhen(true)] out string? prototype)
 	{
 		if (method.ReturnType is null)
 		{
@@ -49,7 +53,7 @@ public static class GhidraTypeMapper
 			parameters[i] = new Parameter(parameter.ParameterType.Type, parameter.DefaultName, parameter.ParameterIndex);
 		}
 
-		return TryBuildPrototype(functionName, method.ReturnType.Type, method.IsStatic, parameters, out prototype);
+		return TryBuildPrototype(functionName, method.ReturnType.Type, method.IsStatic, parameters, instanceTypeName, out prototype);
 	}
 
 	/// <summary>
@@ -60,6 +64,7 @@ public static class GhidraTypeMapper
 		Il2CppTypeEnum returnType,
 		bool isStatic,
 		IReadOnlyList<Parameter> parameters,
+		string? instanceTypeName,
 		[NotNullWhen(true)] out string? prototype)
 	{
 		prototype = null;
@@ -76,8 +81,10 @@ public static class GhidraTypeMapper
 
 		if (!isStatic)
 		{
-			// The instance pointer is not part of the managed signature.
-			builder.Append("void * __this");
+			// The instance pointer is not part of the managed signature. Naming its type is what makes
+			// field accesses inside the body decompile as members rather than pointer arithmetic.
+			builder.Append(string.IsNullOrEmpty(instanceTypeName) ? "void *" : instanceTypeName + " *");
+			builder.Append(" __this");
 			first = false;
 		}
 

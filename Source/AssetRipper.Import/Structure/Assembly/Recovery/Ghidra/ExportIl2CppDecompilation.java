@@ -3,6 +3,7 @@
 // Run by AssetRipper through analyzeHeadless. Arguments:
 //   [0] path to the tab separated symbol file: address <TAB> group <TAB> name
 //   [1] directory to write the decompiled output into
+//   [2] optional path to the type layout file
 //
 //@category AssetRipper
 
@@ -12,7 +13,24 @@ import ghidra.app.decompiler.DecompileResults;
 import ghidra.app.script.GhidraScript;
 import ghidra.app.util.parser.FunctionSignatureParser;
 import ghidra.program.model.address.Address;
+import ghidra.program.model.data.CategoryPath;
+import ghidra.program.model.data.DataType;
+import ghidra.program.model.data.DataTypeConflictHandler;
+import ghidra.program.model.data.DataTypeManager;
 import ghidra.program.model.data.FunctionDefinitionDataType;
+import ghidra.program.model.data.BooleanDataType;
+import ghidra.program.model.data.ByteDataType;
+import ghidra.program.model.data.CharDataType;
+import ghidra.program.model.data.DoubleDataType;
+import ghidra.program.model.data.FloatDataType;
+import ghidra.program.model.data.IntegerDataType;
+import ghidra.program.model.data.LongLongDataType;
+import ghidra.program.model.data.PointerDataType;
+import ghidra.program.model.data.ShortDataType;
+import ghidra.program.model.data.UnsignedIntegerDataType;
+import ghidra.program.model.data.UnsignedLongLongDataType;
+import ghidra.program.model.data.UnsignedShortDataType;
+import ghidra.program.model.data.StructureDataType;
 import ghidra.program.model.listing.Function;
 import ghidra.program.model.symbol.SourceType;
 
@@ -76,6 +94,11 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 
 		// Must run before any function is created, otherwise it scores its own work.
 		calibrateAddressOffset(symbols);
+
+		if (args.length > 2) {
+			int structs = defineStructures(new File(args[2]));
+			println("Defined " + structs + " type layouts");
+		}
 
 		int named = applyNames(symbols);
 		println("Applied " + named + " function names");
@@ -264,6 +287,105 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 			+ " (" + bestStarts + " of the sampled addresses are function starts)");
 	}
 
+	/// Registers a struct for each Il2Cpp type so that field accesses decompile as named members
+	/// instead of arithmetic on the instance pointer.
+	///
+	/// Built in two passes: every struct is created at its final size first, so that a field in one
+	/// type can refer to another type without the two having to be declared in dependency order.
+	private int defineStructures(File layoutFile) {
+		if (!layoutFile.isFile()) {
+			return 0;
+		}
+
+		DataTypeManager manager = currentProgram.getDataTypeManager();
+		CategoryPath category = new CategoryPath("/Il2Cpp");
+		Map<String, StructureDataType> structures = new LinkedHashMap<String, StructureDataType>();
+		List<String[]> fieldRows = new ArrayList<String[]>();
+		String current = null;
+
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(layoutFile));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (line.length() == 0 || line.charAt(0) == '#') {
+					continue;
+				}
+				String[] parts = line.split("\t", -1);
+				if (parts[0].equals("T") && parts.length >= 3) {
+					int size = Integer.parseInt(parts[2]);
+					if (size <= 0) {
+						current = null;
+						continue;
+					}
+					current = parts[1];
+					structures.put(current, new StructureDataType(category, current, size, manager));
+				} else if (parts[0].equals("F") && parts.length >= 4 && current != null) {
+					fieldRows.add(new String[] { current, parts[1], parts[2], parts[3] });
+				}
+			}
+		} catch (Exception e) {
+			println("WARNING: could not read the type layouts: " + e);
+			return 0;
+		} finally {
+			try { if (reader != null) reader.close(); } catch (Exception ignored) { }
+		}
+
+		// Fields resolve to built in types and plain pointers, never to another Il2Cpp struct, so each
+		// struct can be completed before it is registered. Registering first and editing afterwards
+		// does not work: the manager keeps its own copy of what it was given.
+		for (String[] row : fieldRows) {
+			StructureDataType structure = structures.get(row[0]);
+			if (structure == null) {
+				continue;
+			}
+			try {
+				int offset = Integer.parseInt(row[1]);
+				DataType fieldType = resolveFieldType(manager, row[3]);
+				if (fieldType == null || fieldType.getLength() <= 0 || offset + fieldType.getLength() > structure.getLength()) {
+					continue;
+				}
+				structure.replaceAtOffset(offset, fieldType, fieldType.getLength(), row[2], null);
+			} catch (Exception e) {
+				// One bad field must not lose the whole type.
+			}
+		}
+
+		int defined = 0;
+		for (StructureDataType structure : structures.values()) {
+			if (manager.addDataType(structure, DataTypeConflictHandler.REPLACE_HANDLER) != null) {
+				defined++;
+			}
+		}
+
+		return defined;
+	}
+
+	/// Maps the type names AssetRipper emits onto Ghidra's built in types.
+	///
+	/// The program's own type manager does not contain the built ins, so they have to be named
+	/// directly rather than looked up.
+	private DataType resolveFieldType(DataTypeManager manager, String cType) {
+		if (cType == null || cType.length() == 0) {
+			return null;
+		}
+		if (cType.endsWith("*")) {
+			return new PointerDataType(manager);
+		}
+		if (cType.equals("bool")) return BooleanDataType.dataType;
+		if (cType.equals("char")) return CharDataType.dataType;
+		if (cType.equals("byte")) return ByteDataType.dataType;
+		if (cType.equals("short")) return ShortDataType.dataType;
+		if (cType.equals("ushort")) return UnsignedShortDataType.dataType;
+		if (cType.equals("int")) return IntegerDataType.dataType;
+		if (cType.equals("uint")) return UnsignedIntegerDataType.dataType;
+		if (cType.equals("longlong")) return LongLongDataType.dataType;
+		if (cType.equals("ulonglong")) return UnsignedLongLongDataType.dataType;
+		if (cType.equals("float")) return FloatDataType.dataType;
+		if (cType.equals("double")) return DoubleDataType.dataType;
+		return null;
+	}
+
 	/// AssetRipper parses these lines to show progress while the run is in flight.
 	private void reportProgress(String phase, int done, int total) {
 		println("PROGRESS phase=" + phase + " done=" + done + " total=" + total);
@@ -294,6 +416,11 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 				Function function = getFunctionAt(address);
 				if (function == null) {
 					function = createFunction(address, symbol.name);
+					// createFunction does not take a source, and calibration must be able to tell this
+					// script's work apart from the analyzer's on a project that is processed twice.
+					if (function != null && function.getSymbol() != null) {
+						function.getSymbol().setSource(SourceType.IMPORTED);
+					}
 				} else {
 					function.setName(symbol.name, SourceType.IMPORTED);
 				}

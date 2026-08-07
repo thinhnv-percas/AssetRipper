@@ -19,7 +19,7 @@ public sealed class GhidraTypeMapperTests
 	public void AStaticMethodTakesOnlyItsParametersAndTheMethodInfo()
 	{
 		bool built = GhidraTypeMapper.TryBuildPrototype("Foo_Bar", Il2CppTypeEnum.IL2CPP_TYPE_I4, true,
-			[Param(Il2CppTypeEnum.IL2CPP_TYPE_R4, "speed")], out string? prototype);
+			[Param(Il2CppTypeEnum.IL2CPP_TYPE_R4, "speed")], null, out string? prototype);
 
 		Assert.That(built, Is.True);
 		Assert.That(prototype, Is.EqualTo("int Foo_Bar(float speed, void * method)"));
@@ -32,7 +32,7 @@ public sealed class GhidraTypeMapperTests
 	public void AnInstanceMethodTakesTheInstancePointerFirst()
 	{
 		bool built = GhidraTypeMapper.TryBuildPrototype("Foo_Bar", Il2CppTypeEnum.IL2CPP_TYPE_VOID, false,
-			[Param(Il2CppTypeEnum.IL2CPP_TYPE_BOOLEAN, "enabled")], out string? prototype);
+			[Param(Il2CppTypeEnum.IL2CPP_TYPE_BOOLEAN, "enabled")], null, out string? prototype);
 
 		Assert.That(built, Is.True);
 		Assert.That(prototype, Is.EqualTo("void Foo_Bar(void * __this, bool enabled, void * method)"));
@@ -41,7 +41,7 @@ public sealed class GhidraTypeMapperTests
 	[Test]
 	public void AParameterlessStaticMethodStillTakesTheMethodInfo()
 	{
-		bool built = GhidraTypeMapper.TryBuildPrototype("Foo_Bar", Il2CppTypeEnum.IL2CPP_TYPE_VOID, true, [], out string? prototype);
+		bool built = GhidraTypeMapper.TryBuildPrototype("Foo_Bar", Il2CppTypeEnum.IL2CPP_TYPE_VOID, true, [], null, out string? prototype);
 
 		Assert.That(built, Is.True);
 		Assert.That(prototype, Is.EqualTo("void Foo_Bar(void * method)"));
@@ -62,9 +62,9 @@ public sealed class GhidraTypeMapperTests
 			Assert.That(GhidraTypeMapper.TryGetCTypeName(type, out _), Is.False);
 
 			// Refused as a parameter...
-			Assert.That(GhidraTypeMapper.TryBuildPrototype("F", Il2CppTypeEnum.IL2CPP_TYPE_VOID, true, [Param(type)], out _), Is.False);
+			Assert.That(GhidraTypeMapper.TryBuildPrototype("F", Il2CppTypeEnum.IL2CPP_TYPE_VOID, true, [Param(type)], null, out _), Is.False);
 			// ...and as a return type.
-			Assert.That(GhidraTypeMapper.TryBuildPrototype("F", type, true, [], out _), Is.False);
+			Assert.That(GhidraTypeMapper.TryBuildPrototype("F", type, true, [], null, out _), Is.False);
 		}
 	}
 
@@ -94,6 +94,18 @@ public sealed class GhidraTypeMapperTests
 	{
 		Assert.That(GhidraTypeMapper.TryGetCTypeName(type, out string? name), Is.True);
 		Assert.That(name, Is.EqualTo("void *"));
+	}
+
+	/// <summary>
+	/// Typing the instance pointer is what makes field accesses inside the body read as members.
+	/// </summary>
+	[Test]
+	public void TheInstancePointerIsTypedWhenALayoutIsKnown()
+	{
+		bool built = GhidraTypeMapper.TryBuildPrototype("Foo_Bar", Il2CppTypeEnum.IL2CPP_TYPE_VOID, false, [], "PieceView", out string? prototype);
+
+		Assert.That(built, Is.True);
+		Assert.That(prototype, Is.EqualTo("void Foo_Bar(PieceView * __this, void * method)"));
 	}
 
 	[TestCase(null, 3, "param_3")]

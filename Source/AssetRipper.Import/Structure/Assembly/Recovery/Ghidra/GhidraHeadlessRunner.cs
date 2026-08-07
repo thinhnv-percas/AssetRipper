@@ -50,15 +50,17 @@ public static class GhidraHeadlessRunner
 	/// <param name="scriptDirectory">The directory containing <see cref="ScriptName"/>.</param>
 	/// <param name="symbolFilePath">The symbol file to label functions with.</param>
 	/// <param name="outputDirectory">Where the decompiled output is written.</param>
+	/// <param name="layoutFilePath">The type layouts, so field accesses decompile by name.</param>
 	public static List<string> BuildArguments(
 		string projectDirectory,
 		string projectName,
 		string binaryPath,
 		string scriptDirectory,
 		string symbolFilePath,
-		string outputDirectory)
+		string outputDirectory,
+		string? layoutFilePath = null)
 	{
-		return
+		List<string> arguments =
 		[
 			projectDirectory,
 			projectName,
@@ -70,9 +72,16 @@ public static class GhidraHeadlessRunner
 			ScriptName,
 			symbolFilePath,
 			outputDirectory,
-			// The project is scratch data, so there is no reason to pay for saving it.
-			"-deleteProject",
 		];
+
+		if (!string.IsNullOrEmpty(layoutFilePath))
+		{
+			arguments.Add(layoutFilePath);
+		}
+
+		// The project is scratch data, so there is no reason to pay for saving it.
+		arguments.Add("-deleteProject");
+		return arguments;
 	}
 
 	/// <summary>
