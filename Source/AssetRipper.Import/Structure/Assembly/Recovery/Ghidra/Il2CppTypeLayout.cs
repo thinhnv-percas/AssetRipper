@@ -71,16 +71,20 @@ public static class Il2CppTypeLayout
 		List<Field> fields = [];
 		int end = 0;
 
+		// A reference type begins with the object header, so a field at zero is not a real offset. A
+		// value type has no header and its first field genuinely sits at zero.
+		int lowestValidOffset = type.IsValueType ? 0 : 1;
+
 		foreach (FieldAnalysisContext field in type.Fields)
 		{
-			if (field.IsStatic || field.Offset <= 0)
+			if (field.IsStatic || field.Offset < lowestValidOffset)
 			{
 				continue;
 			}
 
 			// A field whose type could not be mapped is left out, which leaves a gap rather than
 			// shifting everything after it.
-			string cType = GhidraTypeMapper.TryGetCTypeName(field.FieldType?.Type ?? default, out string? name)
+			string cType = GhidraTypeMapper.TryGetCTypeName(field.FieldType, out string? name)
 				? name
 				: "";
 

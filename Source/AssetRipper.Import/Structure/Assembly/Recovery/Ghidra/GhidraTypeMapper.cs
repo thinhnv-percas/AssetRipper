@@ -40,20 +40,73 @@ public static class GhidraTypeMapper
 			return false;
 		}
 
+		if (!TryGetCTypeName(method.ReturnType, out string? returnTypeName))
+		{
+			prototype = null;
+			return false;
+		}
+
+		string[] parameterTypeNames = new string[method.Parameters.Count];
 		Parameter[] parameters = new Parameter[method.Parameters.Count];
 		for (int i = 0; i < parameters.Length; i++)
 		{
 			ParameterAnalysisContext parameter = method.Parameters[i];
-			if (parameter.ParameterType is null)
+			if (!TryGetCTypeName(parameter.ParameterType, out string? parameterTypeName))
 			{
 				prototype = null;
 				return false;
 			}
 
-			parameters[i] = new Parameter(parameter.ParameterType.Type, parameter.DefaultName, parameter.ParameterIndex);
+			parameterTypeNames[i] = parameterTypeName;
+			parameters[i] = new Parameter(default, parameter.DefaultName, parameter.ParameterIndex);
 		}
 
-		return TryBuildPrototype(functionName, method.ReturnType.Type, method.IsStatic, parameters, instanceTypeName, out prototype);
+		return TryBuildPrototypeFromNames(functionName, returnTypeName, method.IsStatic, parameterTypeNames, parameters, instanceTypeName, out prototype);
+	}
+
+	/// <summary>
+	/// Builds the prototype text from already resolved type names.
+	/// </summary>
+	private static bool TryBuildPrototypeFromNames(
+		string functionName,
+		string returnTypeName,
+		bool isStatic,
+		IReadOnlyList<string> parameterTypeNames,
+		IReadOnlyList<Parameter> parameters,
+		string? instanceTypeName,
+		[NotNullWhen(true)] out string? prototype)
+	{
+		StringBuilder builder = new();
+		builder.Append(returnTypeName).Append(' ').Append(functionName).Append('(');
+
+		bool first = true;
+
+		if (!isStatic)
+		{
+			builder.Append(string.IsNullOrEmpty(instanceTypeName) ? "void *" : instanceTypeName + " *");
+			builder.Append(" __this");
+			first = false;
+		}
+
+		for (int i = 0; i < parameterTypeNames.Count; i++)
+		{
+			if (!first)
+			{
+				builder.Append(", ");
+			}
+			first = false;
+
+			builder.Append(parameterTypeNames[i]).Append(' ').Append(SanitizeIdentifier(parameters[i].Name, parameters[i].Index));
+		}
+
+		if (!first)
+		{
+			builder.Append(", ");
+		}
+		builder.Append("void * method)");
+
+		prototype = builder.ToString();
+		return true;
 	}
 
 	/// <summary>
@@ -113,6 +166,40 @@ public static class GhidraTypeMapper
 
 		prototype = builder.ToString();
 		return true;
+	}
+
+	/// <summary>
+	/// Maps a type, resolving an enum to whatever primitive it is stored as.
+	/// </summary>
+	/// <remarks>
+	/// An enum is a value type as far as the metadata is concerned, but it holds a single field named
+	/// value__ whose type is what the ABI actually passes. Resolving that turns a large share of the
+	/// methods that would otherwise be refused into ones with a usable prototype, at no risk, because
+	/// the underlying type is always a primitive.
+	/// </remarks>
+	public static bool TryGetCTypeName(TypeAnalysisContext? type, [NotNullWhen(true)] out string? name)
+	{
+		if (type is null)
+		{
+			name = null;
+			return false;
+		}
+
+		if (type.IsEnumType)
+		{
+			foreach (FieldAnalysisContext field in type.Fields)
+			{
+				if (!field.IsStatic && field.FieldType is not null)
+				{
+					return TryGetCTypeName(field.FieldType.Type, out name);
+				}
+			}
+
+			name = null;
+			return false;
+		}
+
+		return TryGetCTypeName(type.Type, out name);
 	}
 
 	/// <summary>

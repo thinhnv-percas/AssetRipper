@@ -108,6 +108,17 @@ public sealed class GhidraTypeMapperTests
 		Assert.That(prototype, Is.EqualTo("void Foo_Bar(PieceView * __this, void * method)"));
 	}
 
+	/// <summary>
+	/// An enum is a value type in the metadata but the ABI passes its underlying primitive, so
+	/// refusing it would throw away methods that are perfectly safe to type.
+	/// </summary>
+	[Test]
+	public void AnEnumIsRefusedWhenItIsOnlyKnownAsAValueType()
+	{
+		// Without the declaring type there is no way to reach the underlying primitive.
+		Assert.That(GhidraTypeMapper.TryGetCTypeName(Il2CppTypeEnum.IL2CPP_TYPE_VALUETYPE, out _), Is.False);
+	}
+
 	[TestCase(null, 3, "param_3")]
 	[TestCase("", 0, "param_0")]
 	[TestCase("value", 0, "value")]
