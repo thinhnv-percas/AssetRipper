@@ -167,6 +167,13 @@ public static class WebApplicationLauncher
 		app.MapGet("/Licenses", LicensesPage.Instance.ToResult).ProducesHtmlPage();
 		app.MapGet("/PremiumFeatures", PremiumFeaturesPage.Instance.ToResult).ProducesHtmlPage();
 
+		app.MapGet("/PackageRemapping", (context) =>
+		{
+			context.Response.DisableCaching();
+			return Pages.PackageRemapping.PackageRemapPage.Instance.WriteToResponse(context.Response);
+		}).ProducesHtmlPage();
+		app.MapPost("/PackageRemapping/Run", Pages.PackageRemapping.PackageRemapApi.HandleRunPostRequest);
+
 		app.MapGet("/ConfigurationFiles", (context) =>
 		{
 			context.Response.DisableCaching();

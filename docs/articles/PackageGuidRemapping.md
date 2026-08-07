@@ -119,11 +119,15 @@ backup directory, which mirrors the paths it copies. The report counts what was 
 the point, counts every reference still aimed at a ripped asset that had no counterpart, which is the
 partial success this whole thing exists to make visible.
 
-### Phase 3 — Interface
+### Phase 3 — Interface (done)
 
-A page in the GUI taking the three directories the job needs: the ripped package, the official
-package (typically under `Library/PackageCache`), and the project's `Assets` folder. Show the Phase 1
-report and require a confirmation before any write.
+`/PackageRemapping` takes the three directories the job needs, plus a backup directory, and offers two
+buttons: **Report only**, which writes nothing, and **Apply changes**. The report is the same one
+Phase 1 produces, extended with what the rewrite did or would do, and with the count of references left
+pointing at ripped assets the official package has no counterpart for.
+
+Applying is refused outright when the mapping has conflicts. Two ripped assets mapping onto one
+official asset would merge references that were distinct, and no rewrite can undo that.
 
 ### Phase 4 — Optional, at export time
 
