@@ -198,8 +198,8 @@ Measured on a shipped ARM64 game (Unity 2022.3, 74 MB `libil2cpp.so`, 85483 meth
 
 | | |
 | --- | --- |
-| Methods given a prototype | 80725, 94.4 percent |
-| Types with a layout | 4489, of which 999 are complete |
+| Methods given a prototype | 80816, 94.5 percent |
+| Types with a layout | 4716, of which 1230 are complete |
 | Field accesses in the sampled output | 1256, of which 21 remain unnamed |
 
 ### Passing value types by value
@@ -221,8 +221,10 @@ of four floats travels in floating point registers while one of four integers do
 therefore only passed by value when it is **complete**, meaning every field maps to a type of known
 size and laying those fields out the way a C compiler would reproduces the declared size exactly.
 That last test is what separates a struct ending in alignment padding, which is fine, from one whose
-size only fits because a field is missing, which is not. It holds for 999 of 4489 types, but they are
-the ones games actually pass around.
+size only fits because a field is missing, which is not. It holds for 1230 of 4716 types, but they are
+the ones games actually pass around. A value type with no fields at all is described by its size alone:
+it occupies the one byte that keeps two of them apart, and a byte cannot hold a floating point value,
+so there is nothing left to infer.
 
 Measured on 17 methods taking or returning such structs, giving Ghidra the prototype cut references
 to uninitialised registers from 1007 to 32.
@@ -235,6 +237,32 @@ A constructed generic is refused on its raw type alone, since its size depends o
 constructed with. That reasoning only applies to value types: a `List<int>` is as much a pointer as any
 other class, and refusing those cost 6884 type occurrences against the 3566 that value type
 instantiations account for.
+
+### What is left, and why it stays left
+
+The 4667 methods still without a prototype are almost entirely blocked by two things, and neither has
+the data to decide it safely.
+
+Constructed generic value types account for 3566 of the refusals, `ReadOnlySpan<char>` and
+`UniTask<bool>` among them. Il2Cpp metadata carries no layout for a generic type in any form: the
+definition reports an instance size of zero and every one of its field offsets as zero, and a
+constructed instance carries no fields of its own. The only route left is to compute the layout from
+the declaration and the type arguments.
+
+That was measured rather than assumed. Laying every complete value type out the way a C compiler
+would, ignoring the offsets the metadata gives, reproduces the declared size for 998 of 999 and every
+offset for 988. The failures are the compiler generated async state machines, whose fields Il2Cpp
+reorders, and one type built on a fixed buffer. So the rule is close but not exact — and for a generic
+type there is no declared size to check it against, which is precisely the check every other decision
+here rests on. A wrong prototype costs more than a missing one, so these stay refused.
+
+Generic parameters, `T` and `TState`, account for another 2841. Their size is not a property of the
+method at all.
+
+Two smaller ideas were measured and dropped. A struct larger than 16 bytes that is certainly not a
+homogeneous float aggregate is passed as a pointer to a copy, so it needs no layout when it appears as
+a parameter; that turned out to unlock 7 methods. Fixed buffers could be described as array fields,
+which would complete 8 more types and unlock none.
 
 ### Explicit layouts
 

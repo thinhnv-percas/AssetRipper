@@ -62,7 +62,11 @@ public static class Il2CppTypeLayout
 		return alignment <= 1 ? size : (size + alignment - 1) / alignment * alignment;
 	}
 
-	private const int MinimumUsefulFieldCount = 1;
+	/// <summary>
+	/// The size a compiler gives a value type with no fields, so that two of them still have distinct
+	/// addresses. Nothing about such a type has to be inferred, which is what makes it safe to describe.
+	/// </summary>
+	private const int EmptyValueTypeSize = 1;
 
 	/// <summary>
 	/// What is known about a struct whose layout is already resolved.
@@ -169,7 +173,9 @@ public static class Il2CppTypeLayout
 					fields.Add(working_);
 				}
 
-				if (fields.Count < MinimumUsefulFieldCount)
+				// A type with nothing in it is worth describing only when it is an empty value type,
+				// which still occupies a byte and is still passed as one.
+				if (fields.Count == 0 && !(type.IsValueType && declaredSize == EmptyValueTypeSize))
 				{
 					continue;
 				}
@@ -286,6 +292,19 @@ public static class Il2CppTypeLayout
 	{
 		kept = [];
 		info = default;
+
+		// An empty value type is described exactly by its size: there is no field to resolve, and a
+		// single byte cannot hold a floating point value, so it is never passed in those registers.
+		if (fields.Count == 0)
+		{
+			if (declaredSize != EmptyValueTypeSize)
+			{
+				return false;
+			}
+
+			info = new StructInfo(declaredSize, 1, NonFloating: true);
+			return true;
+		}
 
 		foreach (Field field in fields)
 		{

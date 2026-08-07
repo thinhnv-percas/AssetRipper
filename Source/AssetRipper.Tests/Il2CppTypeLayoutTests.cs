@@ -111,6 +111,22 @@ public sealed class Il2CppTypeLayoutTests
 	}
 
 	/// <summary>
+	/// A value type with no fields still occupies the byte that keeps two of them apart, and there is
+	/// nothing about it left to infer. A larger type reporting no fields is a different thing: its
+	/// fields were not read, and describing it would be a guess.
+	/// </summary>
+	[Test]
+	public void AnEmptyValueTypeIsDescribedByItsSizeAlone()
+	{
+		Assert.Multiple(() =>
+		{
+			Assert.That(Il2CppTypeLayout.TryDescribeValueType(1, [], NoStructs, out _, out Il2CppTypeLayout.StructInfo info), Is.True);
+			Assert.That(info.NonFloating, Is.True, "a single byte cannot hold a floating point value");
+			Assert.That(Il2CppTypeLayout.TryDescribeValueType(32, [], NoStructs, out _, out _), Is.False);
+		});
+	}
+
+	/// <summary>
 	/// An explicit layout compiles to a union, which a struct definition cannot hold. Only one member
 	/// per range of bytes is described, and the emitted layout says so rather than leaving Ghidra to
 	/// overwrite one with the other.
