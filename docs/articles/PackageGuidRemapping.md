@@ -129,11 +129,62 @@ pointing at ripped assets the official package has no counterpart for.
 Applying is refused outright when the mapping has conflicts. Two ripped assets mapping onto one
 official asset would merge references that were distinct, and no rewrite can undo that.
 
-### Phase 4 — Optional, at export time
+### Phase 4 — At export time (done)
 
-AssetRipper already knows which assembly each script came from, so it knows which output belongs to a
-package. Given a Unity installation to read `PackageCache` from, the mapping could be applied while
-exporting and the manual step would disappear. Worth doing only once phases 1 to 3 are trusted.
+Setting **Official package cache** in the export settings to a Unity project's `Library/PackageCache`
+makes an export replace the ripped packages with the real ones by itself. Leaving it empty skips the
+whole thing, which is the default: the official guids are not part of the game being ripped, so there
+is nothing to guess at.
+
+Repointing the references is only half of it. The ripped copies are still in the project, and Unity
+would compile the decompiled scripts alongside the package's assembly and end up with every type
+twice. So an export time run also:
+
+- **deletes the ripped files the package replaces**, and only those. A ripped asset the package has no
+  counterpart for is something else that happened to be in the same folder, such as the essentials a
+  user imports beside TextMesh Pro, and deleting it would break the references the run just took care
+  to keep. The decompiled scripts go by the folder, since AssetRipper writes them under one named
+  after the assembly they came from and the whole folder belongs to it. Folders the deletions emptied
+  are pruned, and only those.
+- **adds the package to `Packages/manifest.json`**, with the name and version out of the package's own
+  `package.json`, falling back to the version in the cache folder's name. A package whose version
+  cannot be determined is left out and named in the log, because a version the package manager cannot
+  resolve would fail the project's first import.
+- **writes `AuxiliaryFiles/PackageRemapping.txt`**, a per package account of what was paired, deleted
+  and left behind, for when the log has scrolled past.
+
+#### Finding the ripped copy
+
+Nothing in the export says which folder a package was ripped into. `RippedPackageLocator` finds it by
+shape rather than by name: a package holds its assets at fixed relative paths, so the folder that most
+of those paths exist under is where it landed. A tail has to fall on a folder boundary, and a folder
+is only accepted on at least three agreements and a quarter of the package, so one repeated file name
+cannot place a package on its own.
+
+The scripts half needs none of this. A decompiled script's guid is derived from the assembly name,
+namespace and class name, so reading the official assembly gives both ends of every reference to it,
+wherever the ripped copy was written and whatever it was called. A package whose folder cannot be
+placed still gets its scripts remapped and still goes into the manifest.
+
+#### Configuring it
+
+`AssetRipper.PackageRemapping.json`, beside the settings file, is written after every run with what
+the automation worked out, so it is a record of its decisions as much as a way to override them:
+
+```json
+{
+  "deleteRippedCopies": true,
+  "packages": [
+    { "name": "com.unity.textmeshpro", "version": "3.0.6", "folder": "TextMesh Pro", "skip": false }
+  ]
+}
+```
+
+`folder` places a package the locator missed, `version` overrides what the cache holds when the game
+shipped with a different one, `skip` leaves a package alone entirely, and `deleteRippedCopies` turns
+off the deleting while keeping the rest.
+
+Conflicts stop the write, as in Phase 3.
 
 ## Risks
 
