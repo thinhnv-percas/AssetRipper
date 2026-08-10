@@ -1,4 +1,5 @@
 using AssetRipper.Export.UnityProjects.PackageRemapping;
+using AssetRipper.IO.Files;
 
 namespace AssetRipper.GUI.Web.Pages.PackageRemapping;
 
@@ -14,8 +15,9 @@ public sealed class PackageRemapResult
 	/// </summary>
 	public string? Error { get; init; }
 
-	public int Matches { get; init; }
-	public int UnmatchedRipped { get; init; }
+	public int Assemblies { get; init; }
+	public int Shaders { get; init; }
+	public int OtherAssets { get; init; }
 	public int ScriptTypes { get; init; }
 	public int FilesScanned { get; init; }
 	public int FilesChanged { get; init; }
@@ -34,13 +36,8 @@ public sealed class PackageRemapResult
 	/// A run with conflicts is reported and refused rather than half applied: two ripped assets mapping
 	/// onto one official asset would merge references that were distinct, and no rewrite can undo that.
 	/// </remarks>
-	public static PackageRemapResult Run(string rippedPackage, string officialPackage, string projectAssets, string? backupDirectory, bool apply)
+	public static PackageRemapResult Run(string officialPackage, string projectAssets, string? backupDirectory, bool apply)
 	{
-		if (!Directory.Exists(rippedPackage))
-		{
-			return Failure($"The ripped package directory does not exist: {rippedPackage}");
-		}
-
 		if (!Directory.Exists(officialPackage))
 		{
 			return Failure($"The official package directory does not exist: {officialPackage}");
@@ -51,44 +48,57 @@ public sealed class PackageRemapResult
 			return Failure($"The project directory does not exist: {projectAssets}");
 		}
 
-		PackageGuidMapping mapping = PackageGuidMapping.Build(
-			MetaGuidScanner.Scan(rippedPackage),
-			MetaGuidScanner.Scan(officialPackage));
+		List<ExportMatch> found = ExportPackageMatcher.Match(projectAssets, officialPackage, LocalFileSystem.Instance);
 
-		List<ScriptRemap> scripts = ScriptReferenceMapping.Build(officialPackage).Remaps;
-		ProjectRemapPlan plan = ProjectRemapPlan.Build(mapping, scripts);
-
-		if (apply && !mapping.IsSafeToApply)
+		Dictionary<string, string> guids = new(StringComparer.OrdinalIgnoreCase);
+		HashSet<string> assemblyGuids = new(StringComparer.OrdinalIgnoreCase);
+		int assemblies = 0;
+		int shaders = 0;
+		foreach (ExportMatch match in found)
 		{
-			return new PackageRemapResult
+			guids[match.OldGuid] = match.NewGuid;
+			if (match.Kind == "assembly")
 			{
-				Applied = false,
-				Error = "The mapping has conflicts, so nothing was written. Resolve them and run again.",
-				Matches = mapping.Matches.Count,
-				UnmatchedRipped = mapping.UnmatchedRipped.Count,
-				ScriptTypes = scripts.Count,
-				Conflicts = mapping.Conflicts,
-			};
+				assemblyGuids.Add(match.OldGuid);
+				assemblies++;
+			}
+			else if (match.Kind == "shader name")
+			{
+				shaders++;
+			}
 		}
+
+		PackageGuidMapping mapping = new()
+		{
+			Matches = [.. guids.Select(static pair => new GuidMatch("", "", pair.Key, pair.Value, GuidMatchKind.FileName))],
+			UnmatchedRipped = [],
+			UnmatchedOfficial = [],
+			Conflicts = [],
+		};
+
+		// A decompiled script is referred to by a guid of its own, so both halves of that reference move.
+		// This only applies when the export decompiled the package's code rather than saving the assembly.
+		List<ScriptRemap> scripts = ScriptReferenceMapping.Build(officialPackage).Remaps;
+		ProjectRemapPlan plan = ProjectRemapPlan.Build(mapping, scripts, assemblyGuids);
 
 		RemapReport report = ProjectReferenceRewriter.Apply(
 			projectAssets,
 			plan,
 			dryRun: !apply,
-			backupDirectory: string.IsNullOrWhiteSpace(backupDirectory) ? null : backupDirectory);
+			backupDirectory: string.IsNullOrWhiteSpace(backupDirectory) ? null : backupDirectory,
+			fileSystem: LocalFileSystem.Instance);
 
 		return new PackageRemapResult
 		{
 			Applied = apply,
-			Matches = mapping.Matches.Count,
-			UnmatchedRipped = mapping.UnmatchedRipped.Count,
+			Assemblies = assemblies,
+			Shaders = shaders,
+			OtherAssets = found.Count - assemblies - shaders,
 			ScriptTypes = scripts.Count,
 			FilesScanned = report.FilesScanned,
 			FilesChanged = report.FilesChanged,
 			GuidsRewritten = report.GuidsRewritten,
 			ScriptReferencesRewritten = report.ScriptReferencesRewritten,
-			Conflicts = mapping.Conflicts,
-			UnresolvedByGuid = report.UnresolvedByGuid,
 		};
 	}
 }

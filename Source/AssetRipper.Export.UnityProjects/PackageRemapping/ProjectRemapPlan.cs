@@ -22,6 +22,15 @@ public sealed class ProjectRemapPlan
 	/// </summary>
 	public required HashSet<string> UnmappedRippedGuids { get; init; }
 
+	/// <summary>
+	/// The guids in <see cref="GuidMap"/> that belong to an assembly.
+	/// </summary>
+	/// <remarks>
+	/// A reference into an assembly is a script reference, even though only its guid moves. Counting it
+	/// as an asset would report the case that matters most as if nothing had happened to the scripts.
+	/// </remarks>
+	public HashSet<string> AssemblyGuids { get; init; } = new(StringComparer.OrdinalIgnoreCase);
+
 	public bool IsEmpty => GuidMap.Count == 0 && ScriptMap.Count == 0;
 
 	/// <summary>
@@ -33,7 +42,11 @@ public sealed class ProjectRemapPlan
 	/// overlap, and the script half is still applied first so that a collision could never silently
 	/// rewrite half a reference.
 	/// </remarks>
-	public static ProjectRemapPlan Build(PackageGuidMapping mapping, IEnumerable<ScriptRemap> scripts)
+	/// <param name="assemblyGuids">
+	/// Which of the mapping's guids belong to an assembly, so a reference into one is reported as the
+	/// script reference it is.
+	/// </param>
+	public static ProjectRemapPlan Build(PackageGuidMapping mapping, IEnumerable<ScriptRemap> scripts, HashSet<string>? assemblyGuids = null)
 	{
 		Dictionary<string, string> guids = new(StringComparer.OrdinalIgnoreCase);
 		foreach (GuidMatch match in mapping.Matches)
@@ -59,6 +72,7 @@ public sealed class ProjectRemapPlan
 			GuidMap = guids,
 			ScriptMap = scriptMap,
 			UnmappedRippedGuids = unmapped,
+			AssemblyGuids = assemblyGuids ?? new(StringComparer.OrdinalIgnoreCase),
 		};
 	}
 }
@@ -77,7 +91,7 @@ public sealed class RemapReport
 	public int GuidsRewritten { get; set; }
 
 	/// <summary>
-	/// Script references whose fileID was recomputed for the assembly.
+	/// References to a script, whether they moved by the assembly's guid or by both halves.
 	/// </summary>
 	public int ScriptReferencesRewritten { get; set; }
 

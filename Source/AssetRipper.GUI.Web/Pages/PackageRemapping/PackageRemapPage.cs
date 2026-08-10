@@ -6,9 +6,8 @@ namespace AssetRipper.GUI.Web.Pages.PackageRemapping;
 /// The page for replacing a ripped copy of a Unity package with the official one.
 /// </summary>
 /// <remarks>
-/// The job takes three directories because the two halves of the answer live in different places: the
-/// ripped and official packages say which guid becomes which, and the project is where the references
-/// that have to be repointed actually are.
+/// The official package says which guid each asset should have, and the exported project is where the
+/// references that have to be repointed actually are.
 /// <para>
 /// Nothing is written until a run is explicitly applied. The first run is a report, because rewriting
 /// edits a whole project in place and is expensive to undo by hand.
@@ -31,10 +30,10 @@ public sealed class PackageRemapPage : DefaultPage
 
 		using (new P(writer).WithClass("text-muted").End())
 		{
-			writer.Write("Repoints a project's references from a ripped package at the official one. ");
-			writer.Write("Scripts are handled as well as shaders and other assets: a decompiled script and the ");
-			writer.Write("assembly the official package ships differ in both halves of the reference, so rewriting ");
-			writer.Write("only the guid leaves it broken while looking repaired.");
+			writer.Write("Repoints an exported project's references at the official package. An export does not keep a ");
+			writer.Write("package's folder structure, so assets are paired by identity instead: an assembly by its file ");
+			writer.Write("name, a shader by the name it declares, everything else by a file name unique on both sides. ");
+			writer.Write("Pairing the assembly is what moves every script reference at once.");
 		}
 
 		WriteForm(writer);
@@ -49,9 +48,8 @@ public sealed class PackageRemapPage : DefaultPage
 	{
 		using (new Form(writer).WithAction("/PackageRemapping/Run").WithMethod("post").End())
 		{
-			WriteDirectoryField(writer, "rippedPackage", "Ripped package", "The decompiled copy inside the exported project, such as Assets/TextMesh Pro.");
-			WriteDirectoryField(writer, "officialPackage", "Official package", "The real package, usually under Library/PackageCache.");
-			WriteDirectoryField(writer, "projectAssets", "Project assets", "The folder whose references are rewritten, usually the project's Assets.");
+			WriteDirectoryField(writer, "officialPackage", "Official package", "The real package, usually a folder under Library/PackageCache.");
+			WriteDirectoryField(writer, "projectAssets", "Project assets", "The exported project's Assets folder, whose references are rewritten.");
 			WriteDirectoryField(writer, "backupDirectory", "Backup directory", "Where a file is copied before it is changed. Leave empty only if the project is under version control.");
 
 			using (new Div(writer).WithClass("mb-3").End())
@@ -125,8 +123,9 @@ public sealed class PackageRemapPage : DefaultPage
 	{
 		using (new Table(writer).WithClass("table table-sm w-auto").End())
 		{
-			WriteRow(writer, "Assets paired between the packages", result.Matches);
-			WriteRow(writer, "Ripped assets with no counterpart", result.UnmatchedRipped);
+			WriteRow(writer, "Assemblies paired", result.Assemblies);
+			WriteRow(writer, "Shaders paired by name", result.Shaders);
+			WriteRow(writer, "Other assets paired by file name", result.OtherAssets);
 			WriteRow(writer, "Types found in the official assemblies", result.ScriptTypes);
 			WriteRow(writer, "Files scanned", result.FilesScanned);
 			WriteRow(writer, result.Applied ? "Files changed" : "Files that would change", result.FilesChanged);

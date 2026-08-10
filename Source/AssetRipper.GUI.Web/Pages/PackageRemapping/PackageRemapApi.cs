@@ -13,7 +13,6 @@ public static class PackageRemapApi
 		IFormCollection form = context.Request.Form;
 
 		PackageRemapPage.LastResult = PackageRemapResult.Run(
-			Read(form, "rippedPackage"),
 			Read(form, "officialPackage"),
 			Read(form, "projectAssets"),
 			Read(form, "backupDirectory"),

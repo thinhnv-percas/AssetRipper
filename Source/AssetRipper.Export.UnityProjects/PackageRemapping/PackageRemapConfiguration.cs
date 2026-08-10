@@ -8,8 +8,8 @@ namespace AssetRipper.Export.UnityProjects.PackageRemapping;
 /// </summary>
 /// <remarks>
 /// Every field is optional and every one of them overrides something that is worked out automatically.
-/// The file exists for the cases the automation cannot settle: a package whose ripped copy was not
-/// found, or one whose version in the cache is not the version the game shipped with.
+/// The file exists for the cases the automation cannot settle, such as a package whose version in the
+/// cache is not the version the game shipped with.
 /// </remarks>
 public sealed class PackageRemapEntry
 {
@@ -24,12 +24,6 @@ public sealed class PackageRemapEntry
 	/// </summary>
 	[JsonPropertyName("version")]
 	public string Version { get; set; } = "";
-
-	/// <summary>
-	/// Where the ripped copy landed, relative to Assets. Empty leaves it to be found by shape.
-	/// </summary>
-	[JsonPropertyName("folder")]
-	public string Folder { get; set; } = "";
 
 	/// <summary>
 	/// Leaves the package alone entirely.

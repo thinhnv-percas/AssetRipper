@@ -153,18 +153,35 @@ twice. So an export time run also:
 - **writes `AuxiliaryFiles/PackageRemapping.txt`**, a per package account of what was paired, deleted
   and left behind, for when the log has scrolled past.
 
-#### Finding the ripped copy
+#### What an export actually looks like
 
-Nothing in the export says which folder a package was ripped into. `RippedPackageLocator` finds it by
-shape rather than by name: a package holds its assets at fixed relative paths, so the folder that most
-of those paths exist under is where it landed. A tail has to fall on a folder boundary, and a folder
-is only accepted on at least three agreements and a quarter of the package, so one repeated file name
-cannot place a package on its own.
+This is the part the plan originally got wrong. An export does **not** reproduce a package's folder
+structure. Assets are written into folders named after their type, and named after the asset rather
+than the file, so a package's `Shaders/TMP_SDF.shader` comes out as
+`Assets/Shader/TextMeshPro_Distance Field.shader`. Nothing about the path says which package an asset
+came from, so paths cannot be matched at all.
 
-The scripts half needs none of this. A decompiled script's guid is derived from the assembly name,
-namespace and class name, so reading the official assembly gives both ends of every reference to it,
-wherever the ripped copy was written and whatever it was called. A package whose folder cannot be
-placed still gets its scripts remapped and still goes into the manifest.
+Scripts are different again. In the default export mode, `Hybrid`, only the predefined assemblies are
+decompiled; a package's code is **saved as an assembly** under `Assets/Plugins`. A reference into it is
+already `{fileID: <the hash of the namespace and class name>, guid: <the assembly's guid>}`, which is
+the same shape the official package uses. So one guid, the assembly's, repoints every reference to
+every type in the package at once, and no fileID moves.
+
+`ExportPackageMatcher` therefore pairs by identity rather than by path:
+
+| | Matched by |
+| --- | --- |
+| Assembly | its file name, which both sides keep |
+| Shader | the name it declares inside the file, which both sides keep |
+| Everything else | its file name, when that name is unique on both sides |
+
+Measured on a real export of a shipped game against a TextMeshPro package: 63 script references moved
+with the one assembly guid, 5 asset references with the shader and font, and none of the old guids were
+left behind.
+
+The decompiled case is still handled, since `ScriptExportMode` can be set to `Decompiled`. There a
+script has a guid of its own and the constant fileID every script file has, so both halves move;
+`ScriptReferenceMapping` derives both ends from the type's identity.
 
 #### Configuring it
 

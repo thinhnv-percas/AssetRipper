@@ -72,7 +72,17 @@ public static partial class ProjectReferenceRewriter
 
 		if (plan.GuidMap.TryGetValue(guid, out string? newGuid))
 		{
-			report.GuidsRewritten++;
+			// A reference into an assembly is a reference to a script, even though only the guid moves:
+			// the fileID is already the hash Unity computes from the namespace and class name.
+			if (plan.AssemblyGuids.Contains(guid))
+			{
+				report.ScriptReferencesRewritten++;
+			}
+			else
+			{
+				report.GuidsRewritten++;
+			}
+
 			return Format(fileId, newGuid, type);
 		}
 

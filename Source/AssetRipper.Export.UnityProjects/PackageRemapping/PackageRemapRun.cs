@@ -14,17 +14,20 @@ public sealed class PackageOutcome
 	public required string Name { get; init; }
 	public required string Version { get; init; }
 
-	/// <summary>
-	/// Where the ripped copy was found, relative to Assets, or empty when it was not found.
-	/// </summary>
-	public string Folder { get; set; } = "";
-
 	public bool Skipped { get; set; }
-	public int AssetsPaired { get; set; }
-	public int AssetsWithNoCounterpart { get; set; }
+
+	/// <summary>
+	/// Assemblies paired, which is the match that repoints every script of the package at once.
+	/// </summary>
+	public int AssembliesPaired { get; set; }
+
+	public int ShadersPaired { get; set; }
+	public int OtherAssetsPaired { get; set; }
 	public int TypesInAssemblies { get; set; }
 	public int FilesDeleted { get; set; }
 	public bool AddedToManifest { get; set; }
+
+	public int TotalPaired => AssembliesPaired + ShadersPaired + OtherAssetsPaired;
 }
 
 /// <summary>
@@ -40,8 +43,8 @@ public sealed class PackageRemapRun
 	private readonly FileSystem fileSystem;
 	private readonly PackageRemapConfiguration configuration;
 
-	private readonly List<GuidMatch> matches = [];
-	private readonly List<AssetIdentity> unmatched = [];
+	private readonly Dictionary<string, string> guidMatches = new(StringComparer.OrdinalIgnoreCase);
+	private readonly HashSet<string> assemblyGuids = new(StringComparer.OrdinalIgnoreCase);
 	private readonly List<string> conflicts = [];
 	private readonly List<ScriptRemap> scripts = [];
 	private readonly List<PackageOutcome> outcomes = [];
@@ -91,37 +94,38 @@ public sealed class PackageRemapRun
 			return;
 		}
 
-		// The scripts half needs no folder: a decompiled script's guid comes from the type's identity,
-		// so the assembly identifies it wherever it was written.
+		// A decompiled script is referred to by a guid of its own, so both halves of that reference have
+		// to move. This only applies when the export decompiled the package's code; in the default mode
+		// it saved the assembly instead, and the assembly match below covers it.
 		PackageScripts packageScripts = ScriptReferenceMapping.Build(packageDirectory);
 		scripts.AddRange(packageScripts.Remaps);
 		outcome.TypesInAssemblies = packageScripts.Remaps.Count;
 
-		List<AssetIdentity> official = MetaGuidScanner.Scan(packageDirectory);
-		string? rippedRoot = ResolveRippedRoot(entry, official);
-		if (rippedRoot is null)
+		List<ExportMatch> found = ExportPackageMatcher.Match(settings.AssetsPath, packageDirectory, fileSystem);
+		foreach (ExportMatch match in found)
 		{
-			// Still worth adding to the manifest: the scripts were remapped even though the assets the
-			// package ships could not be paired.
-			outcome.AddedToManifest = packageScripts.Remaps.Count > 0;
-			return;
+			guidMatches[match.OldGuid] = match.NewGuid;
+
+			switch (match.Kind)
+			{
+				case "assembly":
+					assemblyGuids.Add(match.OldGuid);
+					outcome.AssembliesPaired++;
+					break;
+				case "shader name":
+					outcome.ShadersPaired++;
+					break;
+				default:
+					outcome.OtherAssetsPaired++;
+					break;
+			}
 		}
 
-		outcome.Folder = MetaGuidScanner.GetRelativePath(settings.AssetsPath, rippedRoot);
-		entry.Folder = outcome.Folder;
-		outcome.AddedToManifest = true;
-
-		PackageGuidMapping mapping = PackageGuidMapping.Build(MetaGuidScanner.Scan(rippedRoot, fileSystem), official);
-		matches.AddRange(mapping.Matches);
-		unmatched.AddRange(mapping.UnmatchedRipped);
-		conflicts.AddRange(mapping.Conflicts);
-
-		outcome.AssetsPaired = mapping.Matches.Count;
-		outcome.AssetsWithNoCounterpart = mapping.UnmatchedRipped.Count;
+		outcome.AddedToManifest = found.Count > 0 || packageScripts.Remaps.Count > 0;
 
 		if (configuration.DeleteRippedCopies)
 		{
-			CollectRedundant(outcome, rippedRoot, mapping, packageScripts.AssemblyNames);
+			CollectRedundant(outcome, found, packageScripts.AssemblyNames);
 		}
 	}
 
@@ -142,15 +146,16 @@ public sealed class PackageRemapRun
 			return;
 		}
 
-		PackageGuidMapping combined = new()
-		{
-			Matches = matches,
-			UnmatchedRipped = unmatched,
-			UnmatchedOfficial = [],
-			Conflicts = [],
-		};
-
-		ProjectRemapPlan plan = ProjectRemapPlan.Build(combined, scripts);
+		ProjectRemapPlan plan = ProjectRemapPlan.Build(
+			new PackageGuidMapping
+			{
+				Matches = [.. guidMatches.Select(static pair => new GuidMatch("", "", pair.Key, pair.Value, GuidMatchKind.FileName))],
+				UnmatchedRipped = [],
+				UnmatchedOfficial = [],
+				Conflicts = [],
+			},
+			scripts,
+			assemblyGuids);
 		report = ProjectReferenceRewriter.Apply(settings.AssetsPath, plan, dryRun: false, backupDirectory: null, fileSystem: fileSystem);
 
 		// Deleting comes after the rewrite, so a file that still had references into it is rewritten
@@ -191,33 +196,18 @@ public sealed class PackageRemapRun
 	}
 
 	/// <summary>
-	/// Where the ripped copy is, preferring what the configuration says over what can be worked out.
-	/// </summary>
-	private string? ResolveRippedRoot(PackageRemapEntry entry, List<AssetIdentity> official)
-	{
-		if (entry.Folder.Length > 0)
-		{
-			string configured = fileSystem.Path.Join(settings.AssetsPath, entry.Folder);
-			return fileSystem.Directory.Exists(configured) ? configured : null;
-		}
-
-		return RippedPackageLocator.Locate(settings.AssetsPath, official, fileSystem);
-	}
-
-	/// <summary>
 	/// Lists the ripped files the package makes redundant.
 	/// </summary>
 	/// <remarks>
-	/// Only files that were actually paired with one in the package are listed. A ripped asset the
-	/// package has no counterpart for is something else that happened to be in the same folder, such as
-	/// the essentials a user imports beside TextMesh Pro, and deleting it would break the references
-	/// this run just took care to keep.
+	/// Only files that were actually paired with one in the package are listed. Anything the package has
+	/// no counterpart for belongs to the game rather than to the package, and deleting it would break
+	/// the references this run just took care to keep.
 	/// </remarks>
-	private void CollectRedundant(PackageOutcome outcome, string rippedRoot, PackageGuidMapping mapping, List<string> assemblyNames)
+	private void CollectRedundant(PackageOutcome outcome, List<ExportMatch> found, List<string> assemblyNames)
 	{
-		foreach (GuidMatch match in mapping.Matches)
+		foreach (ExportMatch match in found)
 		{
-			Add(fileSystem.Path.Join(rippedRoot, match.RippedPath));
+			Add(match.RippedPath);
 		}
 
 		// A decompiled script lives under a folder named after the assembly it came from, and the whole
@@ -390,13 +380,13 @@ public sealed class PackageRemapRun
 			{
 				Logger.Info(LogCategory.Export, $"  {outcome.Name}: skipped by configuration");
 			}
-			else if (outcome.Folder.Length == 0)
+			else if (outcome.TotalPaired == 0)
 			{
-				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: ripped copy not found, {outcome.TypesInAssemblies} types remapped from its assemblies");
+				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: nothing in the export matched it");
 			}
 			else
 			{
-				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: {outcome.AssetsPaired} assets paired in {outcome.Folder}, {outcome.FilesDeleted} files deleted, {outcome.AssetsWithNoCounterpart} left with no counterpart");
+				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: {outcome.AssembliesPaired} assemblies, {outcome.ShadersPaired} shaders and {outcome.OtherAssetsPaired} other assets paired, {outcome.FilesDeleted} files deleted");
 			}
 		}
 
@@ -422,11 +412,10 @@ public sealed class PackageRemapRun
 		writer.WriteLine();
 
 		writer.WriteLine("## Packages");
-		writer.WriteLine("name,version,folder,assetsPaired,noCounterpart,typesInAssemblies,filesDeleted,addedToManifest");
+		writer.WriteLine("name,version,assemblies,shaders,otherAssets,typesInAssemblies,filesDeleted,addedToManifest,skipped");
 		foreach (PackageOutcome outcome in outcomes)
 		{
-			string folder = outcome.Skipped ? "(skipped)" : outcome.Folder.Length > 0 ? outcome.Folder : "(not found)";
-			writer.WriteLine($"{outcome.Name},{outcome.Version},{folder},{outcome.AssetsPaired},{outcome.AssetsWithNoCounterpart},{outcome.TypesInAssemblies},{outcome.FilesDeleted},{outcome.AddedToManifest}");
+			writer.WriteLine($"{outcome.Name},{outcome.Version},{outcome.AssembliesPaired},{outcome.ShadersPaired},{outcome.OtherAssetsPaired},{outcome.TypesInAssemblies},{outcome.FilesDeleted},{outcome.AddedToManifest},{outcome.Skipped}");
 		}
 
 		if (conflicts.Count > 0)
