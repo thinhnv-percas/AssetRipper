@@ -1,4 +1,5 @@
 using AsmResolver.DotNet;
+using System.Diagnostics.CodeAnalysis;
 using AssetRipper.Export.UnityProjects.Scripts;
 using AssetRipper.IO.Files;
 using AssetRipper.Primitives;
@@ -18,6 +19,15 @@ public readonly record struct AssetReference(long FileId, string Guid);
 /// </summary>
 /// <param name="TypeFullName">The type the reference resolves to, for the report.</param>
 public readonly record struct ScriptRemap(string TypeFullName, AssetReference Old, AssetReference New);
+
+/// <summary>
+/// What a package's assemblies say about the scripts ripped out of them.
+/// </summary>
+/// <param name="AssemblyNames">
+/// The assemblies, without their extension. AssetRipper writes a decompiled script under a folder
+/// named after the assembly it came from, so this is also where the ripped copies are.
+/// </param>
+public readonly record struct PackageScripts(List<string> AssemblyNames, List<ScriptRemap> Remaps);
 
 /// <summary>
 /// Works out how script references change when a ripped package is swapped for the official one.
@@ -48,13 +58,14 @@ public static class ScriptReferenceMapping
 	/// Builds the remapping for every type in the assemblies an official package ships.
 	/// </summary>
 	/// <param name="officialPackageRoot">The official package, typically under Library/PackageCache.</param>
-	public static List<ScriptRemap> Build(string officialPackageRoot)
+	public static PackageScripts Build(string officialPackageRoot)
 	{
 		List<ScriptRemap> remaps = [];
+		List<string> assemblyNames = [];
 
 		if (!Directory.Exists(officialPackageRoot))
 		{
-			return remaps;
+			return new PackageScripts(assemblyNames, remaps);
 		}
 
 		foreach (string assemblyPath in Directory.EnumerateFiles(officialPackageRoot, $"*{AssemblyExtension}", SearchOption.AllDirectories))
@@ -79,6 +90,7 @@ public static class ScriptReferenceMapping
 			}
 
 			string assemblyName = SpecialFileNames.FixAssemblyName(Path.GetFileName(assemblyPath));
+			assemblyNames.Add(assemblyName);
 
 			// Only top level types: Unity does not serialise a reference to a nested one.
 			foreach (TypeDefinition type in module.TopLevelTypes)
@@ -87,7 +99,7 @@ public static class ScriptReferenceMapping
 			}
 		}
 
-		return remaps;
+		return new PackageScripts(assemblyNames, remaps);
 	}
 
 	/// <summary>
@@ -111,7 +123,7 @@ public static class ScriptReferenceMapping
 		return new ScriptRemap(fullName, old, @new);
 	}
 
-	private static bool TryReadMetaGuid(string metaPath, out string? guid)
+	private static bool TryReadMetaGuid(string metaPath, [NotNullWhen(true)] out string? guid)
 	{
 		guid = null;
 

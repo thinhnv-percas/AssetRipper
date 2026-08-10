@@ -55,7 +55,7 @@ public sealed class PackageRemapResult
 			MetaGuidScanner.Scan(rippedPackage),
 			MetaGuidScanner.Scan(officialPackage));
 
-		List<ScriptRemap> scripts = ScriptReferenceMapping.Build(officialPackage);
+		List<ScriptRemap> scripts = ScriptReferenceMapping.Build(officialPackage).Remaps;
 		ProjectRemapPlan plan = ProjectRemapPlan.Build(mapping, scripts);
 
 		if (apply && !mapping.IsSafeToApply)

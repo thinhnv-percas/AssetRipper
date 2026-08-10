@@ -1,31 +1,33 @@
 using AssetRipper.Export.Configuration;
+using AssetRipper.Export.UnityProjects.Project;
 using AssetRipper.Import.Logging;
 using AssetRipper.IO.Files;
 using AssetRipper.Processing;
+using System.Text.Json;
 
 namespace AssetRipper.Export.UnityProjects.PackageRemapping;
 
 /// <summary>
-/// Repoints an export's references at the official packages, so the manual remapping step is not
-/// needed.
+/// Replaces the ripped copies of Unity packages with the real ones.
 /// </summary>
 /// <remarks>
 /// This does nothing unless a package cache is configured, because it cannot: the official guids only
 /// exist in the packages themselves, and they are not part of the game being ripped.
 /// <para>
-/// The two halves of the work need different amounts of luck. Scripts need none: a decompiled script's
-/// guid is derived from the assembly name, namespace and class name, so reading the official assembly
-/// gives both ends of every reference to it. The assets a package ships need the ripped copy to be
-/// found first, which is what <see cref="RippedPackageLocator"/> is for, and a package it cannot place
-/// confidently is left to the script half alone rather than guessed at.
+/// Repointing the references is only half of it. The ripped copies are still in the project, and Unity
+/// would compile the decompiled scripts alongside the package's assembly and end up with every type
+/// twice, so the copies the package replaces are deleted and the package is added to the project's
+/// manifest instead. What is left behind is what the package had no counterpart for.
 /// </para>
 /// </remarks>
 public sealed class PackageRemapPostExporter : IPostExporter
 {
 	/// <summary>
-	/// The file a package is recognised by.
+	/// The file a package is recognised by, and where its name and version come from.
 	/// </summary>
 	private const string PackageManifestName = "package.json";
+
+	private const string ReportFileName = "PackageRemapping.txt";
 
 	public void DoPostExport(GameData gameData, FullConfiguration settings, FileSystem fileSystem)
 	{
@@ -41,85 +43,41 @@ public sealed class PackageRemapPostExporter : IPostExporter
 			return;
 		}
 
-		string assetsPath = settings.AssetsPath;
-		List<string> packages = FindPackages(cachePath);
-		if (packages.Count == 0)
+		List<string> packageDirectories = FindPackages(cachePath);
+		if (packageDirectories.Count == 0)
 		{
 			Logger.Warning(LogCategory.Export, $"Package remapping skipped: no packages under {cachePath}");
 			return;
 		}
 
-		Logger.Info(LogCategory.Export, $"Remapping references against {packages.Count} official packages");
+		string configurationPath = Path.Join(LocalFileSystem.ExecutingDirectory, PackageRemapConfiguration.FileName);
+		PackageRemapConfiguration configuration = PackageRemapConfiguration.Load(configurationPath);
 
-		List<GuidMatch> matches = [];
-		List<AssetIdentity> unmatched = [];
-		List<string> conflicts = [];
-		List<ScriptRemap> scripts = [];
-		List<string> locatedRoots = [];
+		Logger.Info(LogCategory.Export, $"Package remapping: {packageDirectories.Count} packages under {cachePath}, settings from {configurationPath}");
 
-		foreach (string package in packages)
+		PackageRemapRun run = new(settings, fileSystem, configuration);
+		foreach (string directory in packageDirectories)
 		{
-			// The official package is read from the local disk whatever the export was written to: it is
-			// part of the user's Unity installation, not of the output.
-			List<AssetIdentity> official = MetaGuidScanner.Scan(package);
-			scripts.AddRange(ScriptReferenceMapping.Build(package));
-
-			string? rippedRoot = RippedPackageLocator.Locate(assetsPath, official, fileSystem);
-			if (rippedRoot is null)
-			{
-				continue;
-			}
-
-			string rippedRelative = MetaGuidScanner.GetRelativePath(assetsPath, rippedRoot);
-			locatedRoots.Add(rippedRelative);
-			PackageGuidMapping mapping = PackageGuidMapping.Build(MetaGuidScanner.Scan(rippedRoot, fileSystem), official);
-			matches.AddRange(mapping.Matches);
-			unmatched.AddRange(mapping.UnmatchedRipped);
-			conflicts.AddRange(mapping.Conflicts);
-
-			Logger.Info(LogCategory.Export, $"{Path.GetFileName(package)}: {mapping.Matches.Count} assets paired in {rippedRelative}");
+			run.Consider(directory);
 		}
 
-		if (conflicts.Count > 0)
+		run.Finish();
+		configuration.Save(configurationPath);
+		WriteReport(settings, fileSystem, run);
+	}
+
+	private static void WriteReport(FullConfiguration settings, FileSystem fileSystem, PackageRemapRun run)
+	{
+		try
 		{
-			// Two ripped assets mapping onto one official asset would merge references that were
-			// distinct, and no rewrite undoes that. Nothing is written when that is in the mapping.
-			Logger.Warning(LogCategory.Export, $"Package remapping skipped: the mapping has {conflicts.Count} conflicts");
-			foreach (string conflict in conflicts)
-			{
-				Logger.Warning(LogCategory.Export, $"  {conflict}");
-			}
-			return;
+			fileSystem.Directory.Create(settings.AuxiliaryFilesPath);
+			using StringWriter writer = new();
+			run.WriteReport(writer);
+			fileSystem.File.WriteAllText(fileSystem.Path.Join(settings.AuxiliaryFilesPath, ReportFileName), writer.ToString());
 		}
-
-		PackageGuidMapping combined = new()
+		catch (IOException exception)
 		{
-			Matches = matches,
-			UnmatchedRipped = unmatched,
-			UnmatchedOfficial = [],
-			Conflicts = [],
-		};
-
-		ProjectRemapPlan plan = ProjectRemapPlan.Build(combined, scripts);
-		RemapReport report = ProjectReferenceRewriter.Apply(assetsPath, plan, dryRun: false, backupDirectory: null, fileSystem: fileSystem);
-
-		Logger.Info(LogCategory.Export, $"Package remapping: {locatedRoots.Count} of {packages.Count} packages located, {scripts.Count} types read from their assemblies");
-		Logger.Info(LogCategory.Export, $"Package remapping: {report.ScriptReferencesRewritten} script references and {report.GuidsRewritten} asset references rewritten across {report.FilesChanged} files");
-
-		if (locatedRoots.Count > 0)
-		{
-			// The references now point at the official packages, but the ripped copies are still in the
-			// project and Unity would compile both. Saying which folders they are is the difference
-			// between a finished job and one that looks finished.
-			Logger.Info(LogCategory.Export, $"Package remapping: install the packages and delete the ripped copies at {string.Join(", ", locatedRoots)}");
-		}
-
-		int unresolved = report.UnresolvedByGuid.Values.Sum();
-		if (unresolved > 0)
-		{
-			// Saying so matters more than the count: a rewrite that looks complete and is not is the
-			// failure this whole thing exists to avoid.
-			Logger.Warning(LogCategory.Export, $"Package remapping: {unresolved} references still point at ripped assets the official packages have no counterpart for");
+			Logger.Warning(LogCategory.Export, $"Package remapping report could not be written: {exception.Message}");
 		}
 	}
 
