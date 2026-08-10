@@ -26,7 +26,16 @@ public sealed class BrowsePage : DefaultPage
 	public override void WriteInnerContent(TextWriter writer)
 	{
 		new H1(writer).Close(GetTitle());
-		new P(writer).WithClass("text-muted").Close(RootPath);
+
+		using (new Div(writer).WithClass("d-flex align-items-center mb-2").WithStyle("gap: 0.75rem;").End())
+		{
+			new Span(writer).WithClass("text-muted").WithStyle("word-break: break-all;").Close(RootPath);
+			new Button(writer)
+				.WithClass("btn btn-sm btn-outline-secondary flex-shrink-0")
+				.WithCustomAttribute("data-reveal-url", BrowseAPI.GetRevealUrl(RootPath).ToHtml())
+				.WithId("export-reveal-button")
+				.Close("Open folder");
+		}
 
 		using (new Div(writer).WithClass("d-flex").WithStyle("gap: 1rem; align-items: flex-start;").End())
 		{

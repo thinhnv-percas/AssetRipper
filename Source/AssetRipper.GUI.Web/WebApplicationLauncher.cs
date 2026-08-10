@@ -261,6 +261,8 @@ public static class WebApplicationLauncher
 		app.MapGet(BrowseAPI.Urls.File, BrowseAPI.GetFileData)
 			.Produces<byte[]>(contentType: "application/octet-stream")
 			.WithQueryStringParameter("Path", "Path to a file in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.Reveal, BrowseAPI.Reveal)
+			.WithQueryStringParameter("Path", "Path to a folder or file in the exported project", true);
 
 		app.MapPost("/Localization", (context) =>
 		{

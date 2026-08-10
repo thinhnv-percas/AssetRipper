@@ -110,6 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
 		return label;
 	}
 
+	// Opening the folder is a side effect, so the page stays where it is and only says when it failed.
+	const revealButton = document.getElementById('export-reveal-button');
+	if (revealButton) {
+		revealButton.addEventListener('click', () => {
+			const original = revealButton.textContent;
+			fetch(revealButton.dataset.revealUrl)
+				.then((response) => {
+					if (response.ok) {
+						return;
+					}
+					return response.text().then((text) => { throw new Error(text || response.statusText); });
+				})
+				.catch((error) => {
+					revealButton.textContent = 'Could not open folder';
+					revealButton.title = error.message;
+					setTimeout(() => { revealButton.textContent = original; }, 4000);
+				});
+		});
+	}
+
 	fetchChildren(rootPath)
 		.then((entries) => buildList(treeRoot, entries))
 		.catch((error) => {

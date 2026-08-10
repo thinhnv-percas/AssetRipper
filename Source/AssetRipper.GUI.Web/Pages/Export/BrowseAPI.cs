@@ -13,6 +13,7 @@ internal static class BrowseAPI
 		public const string Tree = Base + "/Tree";
 		public const string Preview = Base + "/Preview";
 		public const string File = Base + "/File";
+		public const string Reveal = Base + "/Reveal";
 	}
 
 	private const string Path = "Path";
@@ -20,6 +21,70 @@ internal static class BrowseAPI
 	public static string GetBrowseUrl(string path) => $"{Urls.Browse}?{Path}={Uri.EscapeDataString(path)}";
 
 	public static string GetFileUrl(string path) => $"{Urls.File}?{Path}={Uri.EscapeDataString(path)}";
+
+	public static string GetRevealUrl(string path) => $"{Urls.Reveal}?{Path}={Uri.EscapeDataString(path)}";
+
+	/// <summary>
+	/// Opens a directory in the desktop's file manager.
+	/// </summary>
+	/// <remarks>
+	/// An auto exported project lands in a temporary directory whose name is a guid, so it is not
+	/// something anyone would find by browsing. This is the way out of the preview and into the files.
+	/// </remarks>
+	public static Task Reveal(HttpContext context)
+	{
+		context.Response.DisableCaching();
+		if (!TryGetPathFromQuery(context, out string? path, out Task? failureTask))
+		{
+			return failureTask;
+		}
+
+		// A file's own folder is what the user wants opened, not the file.
+		string directory = Directory.Exists(path) ? path : System.IO.Path.GetDirectoryName(path) ?? path;
+
+		if (!Directory.Exists(directory))
+		{
+			return context.Response.NotFound($"Directory could not be found: {directory}");
+		}
+
+		if (!TryOpenInFileManager(directory, out string? error))
+		{
+			return context.Response.NotFound(error);
+		}
+
+		// The page stays where it is: opening a folder is a side effect, not a navigation.
+		context.Response.StatusCode = 204;
+		return Task.CompletedTask;
+	}
+
+	private static bool TryOpenInFileManager(string directory, [NotNullWhen(false)] out string? error)
+	{
+		try
+		{
+			if (OperatingSystem.IsWindows())
+			{
+				System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(directory) { UseShellExecute = true });
+			}
+			else if (OperatingSystem.IsMacOS())
+			{
+				System.Diagnostics.Process.Start("open", directory);
+			}
+			else
+			{
+				System.Diagnostics.Process.Start("xdg-open", directory);
+			}
+
+			error = null;
+			return true;
+		}
+		catch (Exception exception)
+		{
+			// Headless machines and containers have no file manager, which is not worth an error page
+			// beyond saying so.
+			error = $"Could not open {directory}: {exception.Message}";
+			return false;
+		}
+	}
 
 	/// <summary>
 	/// Renders the two-pane project explorer, rooted at the whole exported project when possible.
