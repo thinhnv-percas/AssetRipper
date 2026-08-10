@@ -1,0 +1,100 @@
+# Working in this repository
+
+## Building and testing
+
+The SDK is not on `PATH` in a fresh container. Find it first:
+
+```
+export PATH="/tmp/dotnet-sdk:$PATH"     # or wherever `find / -name dotnet -type f` puts it
+dotnet build Source/AssetRipper.GUI.Free/AssetRipper.GUI.Free.csproj -c Debug
+dotnet test Source/AssetRipper.Tests/AssetRipper.Tests.csproj -c Debug
+```
+
+Building `AssetRipper.GUI.Free` builds everything the app needs. Running it:
+
+```
+dotnet run -c Debug --project Source/AssetRipper.GUI.Free/AssetRipper.GUI.Free.csproj -- --port 8642 --headless
+```
+
+`--headless` skips opening a browser. There is no `--launch-browser` flag.
+
+**Static content is embedded.** JavaScript and CSS under `Source/AssetRipper.GUI.Web/StaticContent`
+are embedded resources, so editing one has no effect until the project is rebuilt.
+
+**Page markup is C#, not templates.** Pages are built with the fluent tag builder in
+`AssetRipper.Text.Html` (`new Div(writer).WithClass(...)`), and JSON returned to the browser is
+serialised by the AOT source generator, which emits **PascalCase** property names. A script reading
+`entry.name` will get `undefined`; it is `entry.Name`.
+
+## What an export actually looks like
+
+This is the thing that is easiest to get wrong, and a fixture built from the wrong assumption will
+pass while nothing works on a real game. Rip something and look before designing against the output.
+
+**Assets are grouped by type, not by where they came from.** The output is
+`Assets/Shader/…`, `Assets/Material/…`, `Assets/MonoBehaviour/…`, `Assets/Plugins/…`. A package's
+folder structure is not reproduced anywhere, so nothing about a path says which package an asset
+belongs to.
+
+**Assets are named after the asset, not the original file.** A package's `Shaders/TMP_SDF.shader`
+comes out as `Assets/Shader/TextMeshPro_Distance Field.shader`, named from the shader's declared name
+with `/` replaced. File names cannot be matched across the two sides for shaders.
+
+**How scripts are exported depends on `ScriptExportMode`, and the two modes produce completely
+different references.** The default is `Hybrid`.
+
+| | `Hybrid` (default) | `Decompiled` |
+| --- | --- | --- |
+| Predefined assemblies (`Assembly-CSharp`) | decompiled to `Assets/Scripts/<assembly>/…` | same |
+| Everything else, including packages | assembly saved to `Assets/Plugins/<assembly>.dll` | decompiled to `Assets/Scripts/<assembly>/…` |
+| A reference to one of its types | `{fileID: <hash of namespace and class>, guid: <the assembly's guid>}` | `{fileID: 11500000, guid: <the script's own guid>}` |
+
+The hash is `ScriptHashing.CalculateScriptFileID`, which replicates Unity's own algorithm, so in
+`Hybrid` the fileID already matches what an official package uses and **only the assembly's guid has
+to change**. In `Decompiled` both halves of the reference move. Both guids are deterministic:
+`CalculateScriptGuid(assembly, namespace, class)` and `CalculateAssemblyGuid(assembly)`.
+
+Assembly definitions are written with **name** references (`"references": ["Unity.TextMeshPro"]`),
+not GUID ones, so deleting a decompiled assembly's folder does not leave anything dangling: the name
+resolves to whichever assembly definition now carries it, which is the package's own.
+
+The export root is `<chosen path>/ExportedProject`, and `settings.AssetsPath` is
+`<chosen path>/ExportedProject/Assets`, not `<chosen path>/Assets`.
+
+## Package remapping
+
+`Source/AssetRipper.Export.UnityProjects/PackageRemapping` replaces the ripped copies of Unity
+packages with the real ones. `docs/articles/PackageGuidRemapping.md` is the design; the short version:
+
+- It runs at export time when **Official package cache** is set in the export settings, and nothing
+  happens when it is empty, since the official guids are not part of the game.
+- Only a guid written **inside a reference** is rewritten. A bare `guid:` line is an asset's own
+  identity, and rewriting one would give the official package's identity to a file that is still the
+  ripped copy.
+- `AssetRipper.PackageRemapping.json`, beside the settings file, is written after every run with what
+  was worked out, and is where to override it.
+- `AuxiliaryFiles/PackageRemapping.txt` is the per package account of a run.
+
+## Il2Cpp method recovery
+
+`Source/AssetRipper.Import/Structure/Assembly/Recovery` recovers method bodies through Cpp2IL and,
+at `ScriptContentLevel.Level4`, through Ghidra. `docs/articles/Il2CppMethodRecovery.md` is the design.
+
+**A wrong prototype is much worse than none.** Ghidra locks parameter storage to whatever it is told,
+so a mismatched return type can reduce a whole function body to a single return of an uninitialised
+register. Everything whose size is not certain is refused rather than guessed at.
+
+Two metadata traps, both measured on a shipped game:
+
+- `Il2CppTypeDefinition.Size` is the **marshalled** size, not the managed one. It is absent for many
+  value types and wrong for others: `System.Char` marshals to one byte but occupies two. The managed
+  size is `RawSizes.instance_size` less the object header, which is two pointers.
+- Metadata carries **no layout at all for generic types**: a generic definition reports an instance
+  size of zero and every field offset as zero, and a constructed instance carries no fields. There is
+  nothing to compute a layout against, which is why those stay refused.
+
+## Conventions
+
+Comments explain why, not what, and are written as prose. Match the density and idiom of the file
+being edited. Measurements quoted in documentation and commit messages are expected to have been
+taken, not estimated.

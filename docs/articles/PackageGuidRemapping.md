@@ -177,11 +177,19 @@ every type in the package at once, and no fileID moves.
 
 Measured on a real export of a shipped game against a TextMeshPro package: 63 script references moved
 with the one assembly guid, 5 asset references with the shader and font, and none of the old guids were
-left behind.
+left behind. The ripped assembly, shader and font were deleted, and the package went into the manifest.
 
-The decompiled case is still handled, since `ScriptExportMode` can be set to `Decompiled`. There a
-script has a guid of its own and the constant fileID every script file has, so both halves move;
-`ScriptReferenceMapping` derives both ends from the type's identity.
+Setting `ScriptExportMode` to `Decompiled` produces the other shape, and it is handled by the other
+half. There the package's code comes out as source files under `Assets/Scripts/<assembly>`, a
+reference carries a guid of its own and the constant fileID every script file has, and both halves
+move. `ScriptReferenceMapping` derives both ends from the type's identity, so neither has to be read
+out of the project. The same export in that mode: the same 63 script references moved, both halves
+this time, 170 files deleted with the assembly's whole folder, and no assembly pairing because there
+is no assembly under `Plugins` to pair.
+
+Deleting that folder is safe because AssetRipper writes assembly definition references by name rather
+than by guid, so `"references": ["Unity.TextMeshPro"]` resolves to the package's own assembly
+definition once it is installed.
 
 #### Configuring it
 

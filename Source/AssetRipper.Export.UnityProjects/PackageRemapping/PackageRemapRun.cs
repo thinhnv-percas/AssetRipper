@@ -50,9 +50,10 @@ public sealed class PackageRemapRun
 	private readonly List<PackageOutcome> outcomes = [];
 
 	/// <summary>
-	/// Files to remove once the rewrite is done, as absolute paths.
+	/// Files to remove once the rewrite is done, with the package each one belongs to so that what was
+	/// actually deleted is what gets reported.
 	/// </summary>
-	private readonly List<string> redundantPaths = [];
+	private readonly List<(string Path, PackageOutcome Outcome)> redundantPaths = [];
 
 	/// <summary>
 	/// The folders those files were in, so only those are pruned when they end up empty.
@@ -236,23 +237,23 @@ public sealed class PackageRemapRun
 
 		void Add(string path)
 		{
-			redundantPaths.Add(path);
-			redundantPaths.Add(path + ".meta");
+			redundantPaths.Add((path, outcome));
+			redundantPaths.Add((path + ".meta", outcome));
 			emptiedDirectories.Add(fileSystem.Path.GetDirectoryName(path));
-			outcome.FilesDeleted++;
 		}
 	}
 
 	private void DeleteRedundant()
 	{
 		int deleted = 0;
-		foreach (string path in redundantPaths)
+		foreach ((string path, PackageOutcome outcome) in redundantPaths)
 		{
 			try
 			{
 				if (fileSystem.File.Exists(path))
 				{
 					fileSystem.File.Delete(path);
+					outcome.FilesDeleted++;
 					deleted++;
 				}
 			}

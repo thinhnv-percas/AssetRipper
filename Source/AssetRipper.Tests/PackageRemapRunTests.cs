@@ -270,6 +270,41 @@ public sealed class PackageRemapRunTests
 	}
 
 	/// <summary>
+	/// The other shape an export can have. With ScriptExportMode set to Decompiled a package's code
+	/// comes out as source files rather than an assembly, so a reference carries a guid of its own and
+	/// the constant fileID every script file has, and both halves have to move.
+	/// </summary>
+	[Test]
+	public void ADecompiledExportMovesBothHalvesOfAScriptReference()
+	{
+		using Fixture fixture = Build();
+
+		// A real assembly, so the types the mapping is derived from are real ones.
+		string assemblyPath = Path.Combine(fixture.PackagePath, "Runtime", "Test.Package.dll");
+		File.Copy(typeof(PackageRemapConfiguration).Assembly.Location, assemblyPath, overwrite: true);
+		ScriptRemap remap = ScriptReferenceMapping.Build(fixture.PackagePath).Remaps[0];
+
+		// There is no assembly under Plugins in this mode, only the decompiled sources.
+		File.Delete(fixture.RippedAssembly);
+		File.Delete(fixture.RippedAssembly + ".meta");
+
+		string scriptFolder = Path.Combine(fixture.AssetsPath, "Scripts", "Test.Package");
+		Write(Path.Combine(scriptFolder, "Anything.cs"), "class Anything {}\n", remap.Old.Guid);
+		Write(Path.Combine(scriptFolder, "Test.Package.asmdef"), "{\n  \"name\": \"Test.Package\"\n}\n", "dddddddddddddddddddddddddddddddd");
+
+		File.WriteAllText(fixture.Prefab, $"  m_Script: {{fileID: {remap.Old.FileId}, guid: {remap.Old.Guid}, type: 3}}\n");
+
+		Run(fixture, new PackageRemapConfiguration());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(remap.Old.FileId, Is.EqualTo(11500000), "a decompiled script is referred to by the one fileID every script file has");
+			Assert.That(File.ReadAllText(fixture.Prefab), Is.EqualTo($"  m_Script: {{fileID: {remap.New.FileId}, guid: {OfficialAssemblyGuid}, type: 3}}\n"));
+			Assert.That(Directory.Exists(scriptFolder), Is.False, "the whole folder belongs to the assembly the package replaces");
+		});
+	}
+
+	/// <summary>
 	/// A file name that occurs twice on either side identifies nothing, and pairing the wrong two assets
 	/// would repoint references at something unrelated.
 	/// </summary>
