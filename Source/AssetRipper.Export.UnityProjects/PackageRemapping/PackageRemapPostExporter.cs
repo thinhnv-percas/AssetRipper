@@ -29,6 +29,16 @@ public sealed class PackageRemapPostExporter : IPostExporter
 
 	private const string ReportFileName = "PackageRemapping.txt";
 
+	/// <summary>
+	/// Where the files a run deletes are kept.
+	/// </summary>
+	/// <remarks>
+	/// Deleting the ripped copies is the step that cannot be undone by running again, and it is only
+	/// right if the real packages do install. Keeping what was removed beside the export costs little
+	/// and is the difference between a mistake being recoverable and being a re-rip.
+	/// </remarks>
+	private const string BackupDirectoryName = "PackageRemappingBackup";
+
 	public void DoPostExport(GameData gameData, FullConfiguration settings, FileSystem fileSystem)
 	{
 		string? cachePath = settings.ExportSettings.OfficialPackageCachePath;
@@ -55,7 +65,8 @@ public sealed class PackageRemapPostExporter : IPostExporter
 
 		Logger.Info(LogCategory.Export, $"Package remapping: {packageDirectories.Count} packages under {cachePath}, settings from {configurationPath}");
 
-		PackageRemapRun run = new(settings, fileSystem, configuration);
+		string backupPath = Path.Join(settings.AuxiliaryFilesPath, BackupDirectoryName);
+		PackageRemapRun run = new(settings, fileSystem, configuration, backupPath);
 		foreach (string directory in packageDirectories)
 		{
 			run.Consider(directory);
