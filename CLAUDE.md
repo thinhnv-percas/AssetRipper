@@ -61,6 +61,22 @@ resolves to whichever assembly definition now carries it, which is the package's
 The export root is `<chosen path>/ExportedProject`, and `settings.AssetsPath` is
 `<chosen path>/ExportedProject/Assets`, not `<chosen path>/Assets`.
 
+## What a Unity package actually looks like
+
+The other half of the same trap. **Most packages ship source, not an assembly.**
+`com.unity.textmeshpro` is 109 `.cs` files and an assembly definition, with no dll anywhere; Unity
+compiles it. So a project using the real package refers to one of its types the way it refers to any
+source file, as `{fileID: 11500000, guid: <the .cs file's own guid>}`.
+
+Neither ripped shape matches that, so the mapping is per type and the type's name pairs the two sides,
+Unity requiring a serialisable class to live in a file named after it. Matching code by file name
+across the whole project is not safe on its own: a package file can share a name with one of the
+game's own scripts, which is why only `SourcePackageScriptMapping`, which knows the assembly, pairs
+code.
+
+TextMeshPro also ships its shaders and fonts inside `Package Resources/TMP Essential Resources.unitypackage`
+rather than in the package tree, so they cannot be paired from the package alone.
+
 ## Package remapping
 
 `Source/AssetRipper.Export.UnityProjects/PackageRemapping` replaces the ripped copies of Unity

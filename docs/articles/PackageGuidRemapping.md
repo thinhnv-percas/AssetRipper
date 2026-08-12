@@ -153,43 +153,52 @@ twice. So an export time run also:
 - **writes `AuxiliaryFiles/PackageRemapping.txt`**, a per package account of what was paired, deleted
   and left behind, for when the log has scrolled past.
 
-#### What an export actually looks like
+#### What the two sides actually look like
 
-This is the part the plan originally got wrong. An export does **not** reproduce a package's folder
-structure. Assets are written into folders named after their type, and named after the asset rather
-than the file, so a package's `Shaders/TMP_SDF.shader` comes out as
-`Assets/Shader/TextMeshPro_Distance Field.shader`. Nothing about the path says which package an asset
-came from, so paths cannot be matched at all.
+This is the part the plan originally got wrong, twice, and both halves are worth stating.
 
-Scripts are different again. In the default export mode, `Hybrid`, only the predefined assemblies are
-decompiled; a package's code is **saved as an assembly** under `Assets/Plugins`. A reference into it is
-already `{fileID: <the hash of the namespace and class name>, guid: <the assembly's guid>}`, which is
-the same shape the official package uses. So one guid, the assembly's, repoints every reference to
-every type in the package at once, and no fileID moves.
+**An export does not reproduce a package's folder structure.** Assets are written into folders named
+after their type, and named after the asset rather than the file, so a package's
+`Shaders/TMP_SDF.shader` comes out as `Assets/Shader/TextMeshPro_Distance Field.shader`. Nothing about
+the path says which package an asset came from, so paths cannot be matched at all.
 
-`ExportPackageMatcher` therefore pairs by identity rather than by path:
+**Most packages ship source, not an assembly.** `com.unity.textmeshpro` is 109 `.cs` files and an
+assembly definition, with no dll anywhere. A project using the real package therefore refers to one of
+its types the way it refers to any source file: `{fileID: 11500000, guid: <the .cs file's own guid>}`.
+
+The ripped side is neither of those, and takes one of two shapes depending on `ScriptExportMode`:
+
+| | Ripped reference | Becomes |
+| --- | --- | --- |
+| `Hybrid` (default) | `{fileID: <hash of namespace and class>, guid: <the saved assembly's guid>}` | `{fileID: 11500000, guid: <the package's .cs guid>}` |
+| `Decompiled` | `{fileID: 11500000, guid: <the decompiled file's guid>}` | same |
+
+So the script mapping is **per type**, and the type's name pairs the two sides: Unity requires a
+serialisable class to live in a file named after it, which is what makes the package's file names
+usable as class names. `SourcePackageScriptMapping` reads the assembly names from the package's
+assembly definitions, then reads the ripped assembly's types out of the saved dll or walks the
+decompiled folder.
+
+Everything else is paired by identity too:
 
 | | Matched by |
 | --- | --- |
-| Assembly | its file name, which both sides keep |
-| Shader | the name it declares inside the file, which both sides keep |
-| Everything else | its file name, when that name is unique on both sides |
+| Assembly, for a package that does ship one | its file name, which both sides keep |
+| Shader | the name it declares inside the file |
+| Everything except code | its file name, when unique on both sides |
 
-Measured on a real export of a shipped game against a TextMeshPro package: 63 script references moved
-with the one assembly guid, 5 asset references with the shader and font, and none of the old guids were
-left behind. The ripped assembly, shader and font were deleted, and the package went into the manifest.
+Code is deliberately kept out of that last rule. A package file can share a name with one of the
+game's own scripts, and repointing that would aim a reference at something unrelated and delete the
+game's file with it.
 
-Setting `ScriptExportMode` to `Decompiled` produces the other shape, and it is handled by the other
-half. There the package's code comes out as source files under `Assets/Scripts/<assembly>`, a
-reference carries a guid of its own and the constant fileID every script file has, and both halves
-move. `ScriptReferenceMapping` derives both ends from the type's identity, so neither has to be read
-out of the project. The same export in that mode: the same 63 script references moved, both halves
-this time, 170 files deleted with the assembly's whole folder, and no assembly pairing because there
-is no assembly under `Plugins` to pair.
+Measured against the real `com.unity.textmeshpro@3.0.6` package and a real export of a shipped game,
+in both export modes: 63 script references resolved to the package's own source files, none left
+pointing at the ripped copy, and the ripped copy removed. `Hybrid` deleted 2 files, the saved assembly
+and its meta; `Decompiled` deleted 166, the whole decompiled folder. The only references left
+unresolved in either run were two that were already dangling in the export before any remapping.
 
-Deleting that folder is safe because AssetRipper writes assembly definition references by name rather
-than by guid, so `"references": ["Unity.TextMeshPro"]` resolves to the package's own assembly
-definition once it is installed.
+TextMeshPro ships its shaders and fonts inside `Package Resources/TMP Essential Resources.unitypackage`
+rather than in the package tree, so those cannot be paired from the package alone and stay as they are.
 
 #### Configuring it
 

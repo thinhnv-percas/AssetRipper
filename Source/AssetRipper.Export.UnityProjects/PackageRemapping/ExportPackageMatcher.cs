@@ -176,17 +176,24 @@ public static partial class ExportPackageMatcher
 	/// <remarks>
 	/// Uniqueness is what makes this safe. A name that occurs twice on either side identifies nothing,
 	/// and pairing the wrong two assets would repoint references at something unrelated.
+	/// <para>
+	/// Code is excluded rather than left to that rule. A script belongs to an assembly, and which
+	/// assembly is what decides whether a package replaces it, so matching one by name across the whole
+	/// project could repoint a script of the game's own at a package file that merely shares its name.
+	/// <see cref="SourcePackageScriptMapping"/> does that half, knowing both the assembly and the two
+	/// shapes a script reference can take.
+	/// </para>
 	/// </remarks>
 	private static void MatchByFileName(List<ExportMatch> matches, Dictionary<string, string> ripped, Dictionary<string, string> official)
 	{
 		HashSet<string> alreadyMatched = [.. matches.Select(static match => match.RippedPath)];
 
-		Dictionary<string, string> officialByName = IndexByFileName(official, static path => !path.EndsWith(".dll", StringComparison.OrdinalIgnoreCase));
-		Dictionary<string, string> rippedByName = IndexByFileName(ripped, static path => !path.EndsWith(".dll", StringComparison.OrdinalIgnoreCase));
+		Dictionary<string, string> officialByName = IndexByFileName(official, IsMatchableByName);
+		Dictionary<string, string> rippedByName = IndexByFileName(ripped, IsMatchableByName);
 
 		foreach ((string path, string oldGuid) in ripped)
 		{
-			if (alreadyMatched.Contains(path))
+			if (alreadyMatched.Contains(path) || !IsMatchableByName(path))
 			{
 				continue;
 			}
@@ -227,6 +234,17 @@ public static partial class ExportPackageMatcher
 		}
 
 		return index;
+	}
+
+	/// <summary>
+	/// Whether a file is one this rule may pair. Assemblies and code are matched by other means.
+	/// </summary>
+	private static bool IsMatchableByName(string path)
+	{
+		return !path.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)
+			&& !path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase)
+			&& !path.EndsWith(".asmdef", StringComparison.OrdinalIgnoreCase)
+			&& !path.EndsWith(".asmref", StringComparison.OrdinalIgnoreCase);
 	}
 
 	private static string GetFileName(string path)

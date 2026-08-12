@@ -1,17 +1,20 @@
 using AssetRipper.Export.Configuration;
 using AssetRipper.Export.UnityProjects.PackageRemapping;
+using AssetRipper.Export.UnityProjects.Scripts;
 using AssetRipper.IO.Files;
 
 namespace AssetRipper.Tests;
 
 /// <summary>
-/// The whole export time job, against an export shaped the way AssetRipper actually writes one.
+/// The whole export time job, against an export shaped the way AssetRipper actually writes one and a
+/// package shaped the way Unity actually ships one.
 /// </summary>
 /// <remarks>
-/// An export does not reproduce a package's folder structure. Assets go into folders named after their
-/// type, a shader is named after the shader rather than the file, and in the default export mode a
-/// package's code is saved as an assembly under Plugins rather than decompiled. The fixture is built
-/// that way because a package shaped one proves nothing about a real export.
+/// Both sides have been got wrong before, so both are built from real artifacts here. An export groups
+/// assets by type rather than by origin, names a shader after the shader rather than the file, and in
+/// the default mode saves a package's code as an assembly under Plugins. A package, meanwhile, usually
+/// ships source and an assembly definition and no assembly at all: com.unity.textmeshpro is 109 .cs
+/// files and no dll anywhere. The ripped assembly here is a real one, so its types are real types.
 /// </remarks>
 public sealed class PackageRemapRunTests
 {
@@ -22,17 +25,30 @@ public sealed class PackageRemapRunTests
 	private const string RippedAssemblyGuid = "67dfb1fdfb2b407222eda8e23ac8b724";
 	private const string RippedShaderGuid = "614273de7bf1ec349adb71aafbc3a359";
 	private const string RippedFontGuid = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+	private const string RippedScriptGuid = "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 	private const string GameAssetGuid = "77777777777777777777777777777777";
 
-	private const string OfficialAssemblyGuid = "f4688fdb7df04437aeb418b961361dc5";
+	/// <summary>
+	/// The guid of the package's own source file for the type, which is what a reference to it becomes.
+	/// </summary>
+	private const string OfficialScriptGuid = "f4688fdb7df04437aeb418b961361dc5";
 	private const string OfficialShaderGuid = "0f4122b9a34c1ff4b9b9b5f8b7f8b8c1";
 	private const string OfficialFontGuid = "33333333333333333333333333333333";
 
 	/// <summary>
-	/// The fileID a script reference carries once its assembly was saved rather than decompiled. It is
-	/// already the one Unity computes from the namespace and class name, so it must not move.
+	/// A type that really is in the assembly the fixture rips, so the mapping is derived from a real
+	/// assembly rather than asserted into existence.
 	/// </summary>
-	private const long ScriptFileId = -1620774994;
+	private static readonly Type SampleType = typeof(PackageRemapConfiguration);
+
+	private static string AssemblyName => Path.GetFileNameWithoutExtension(SampleType.Assembly.Location);
+	private static string ClassName => SampleType.Name;
+	private static string Namespace => SampleType.Namespace ?? "";
+
+	/// <summary>
+	/// What a reference to that type looks like once its assembly was saved rather than decompiled.
+	/// </summary>
+	private static long SavedAssemblyFileId => ScriptHashing.CalculateScriptFileID(Namespace, ClassName);
 
 	private sealed class Fixture : IDisposable
 	{
@@ -44,7 +60,8 @@ public sealed class PackageRemapRunTests
 		public string ManifestPath => Path.Combine(ExportRoot, "ExportedProject", "Packages", "manifest.json");
 		public string ConfigurationPath => Path.Combine(Root, PackageRemapConfiguration.FileName);
 
-		public string RippedAssembly => Path.Combine(AssetsPath, "Plugins", "Test.Package.dll");
+		public string RippedAssembly => Path.Combine(AssetsPath, "Plugins", AssemblyName + ".dll");
+		public string RippedScriptFolder => Path.Combine(AssetsPath, "Scripts", AssemblyName);
 		public string RippedShader => Path.Combine(AssetsPath, "Shader", "TextMeshPro_Distance Field.shader");
 		public string RippedFont => Path.Combine(AssetsPath, "Font", "LiberationSans.ttf");
 		public string GameAsset => Path.Combine(AssetsPath, "Font", "MyOwnFont.ttf");
@@ -73,16 +90,20 @@ public sealed class PackageRemapRunTests
 	{
 		Fixture fixture = new();
 
-		Directory.CreateDirectory(fixture.PackagePath);
+		Directory.CreateDirectory(Path.Combine(fixture.PackagePath, "Runtime"));
 		File.WriteAllText(Path.Combine(fixture.PackagePath, "package.json"), $"{{\"name\":\"{PackageName}\",\"version\":\"{PackageVersion}\"}}\n");
 
-		// The official package keeps its own names and folders.
-		Write(Path.Combine(fixture.PackagePath, "Runtime", "Test.Package.dll"), "assembly", OfficialAssemblyGuid);
+		// A real package ships source and an assembly definition, and no assembly.
+		File.WriteAllText(Path.Combine(fixture.PackagePath, "Runtime", AssemblyName + ".asmdef"), $"{{\n  \"name\": \"{AssemblyName}\"\n}}\n");
+		Write(Path.Combine(fixture.PackagePath, "Runtime", ClassName + ".cs"), "class Whatever {}\n", OfficialScriptGuid);
 		Write(Path.Combine(fixture.PackagePath, "Shaders", "TMP_SDF.shader"), $"Shader \"{ShaderName}\" {{\n}}\n", OfficialShaderGuid);
 		Write(Path.Combine(fixture.PackagePath, "Fonts", "LiberationSans.ttf"), "font", OfficialFontGuid);
 
 		// The export names things after the asset and groups them by type.
-		Write(fixture.RippedAssembly, "assembly", RippedAssemblyGuid);
+		Directory.CreateDirectory(Path.GetDirectoryName(fixture.RippedAssembly)!);
+		File.Copy(SampleType.Assembly.Location, fixture.RippedAssembly);
+		File.WriteAllText(fixture.RippedAssembly + ".meta", $"fileFormatVersion: 2\nguid: {RippedAssemblyGuid}\n");
+
 		Write(fixture.RippedShader, $"Shader \"{ShaderName}\" {{\n}}\n", RippedShaderGuid);
 		Write(fixture.RippedFont, "font", RippedFontGuid);
 
@@ -90,7 +111,7 @@ public sealed class PackageRemapRunTests
 		Write(fixture.GameAsset, "font", GameAssetGuid);
 
 		Write(fixture.Prefab,
-			$"  m_Script: {{fileID: {ScriptFileId}, guid: {RippedAssemblyGuid}, type: 3}}\n" +
+			$"  m_Script: {{fileID: {SavedAssemblyFileId}, guid: {RippedAssemblyGuid}, type: 3}}\n" +
 			$"  m_Shader: {{fileID: 4800000, guid: {RippedShaderGuid}, type: 3}}\n" +
 			$"  m_Font:   {{fileID: 12800000, guid: {RippedFontGuid}, type: 3}}\n" +
 			$"  m_Mine:   {{fileID: 12800000, guid: {GameAssetGuid}, type: 3}}\n",
@@ -110,17 +131,44 @@ public sealed class PackageRemapRunTests
 	}
 
 	/// <summary>
-	/// The match that carries the most: one assembly guid repoints every script reference into the
-	/// package, and the fileIDs stay exactly as they were because they already are what Unity computes
-	/// from the namespace and class name.
+	/// The case that matters, and the one that was broken: the package ships the type as a source file,
+	/// so a reference to it becomes the plain script reference Unity writes for any source file. Both
+	/// halves move, because the ripped side had the assembly's guid and a fileID derived from the type.
 	/// </summary>
 	[Test]
-	public void OneAssemblyGuidRepointsEveryScriptReference()
+	public void AReferenceIntoASavedAssemblyBecomesAReferenceToThePackagesSourceFile()
 	{
 		using Fixture fixture = Build();
 		Run(fixture, new PackageRemapConfiguration());
 
-		Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"m_Script: {{fileID: {ScriptFileId}, guid: {OfficialAssemblyGuid}, type: 3}}"));
+		Assert.That(
+			File.ReadAllText(fixture.Prefab),
+			Does.Contain($"m_Script: {{fileID: {ScriptReferenceMapping.DecompiledScriptFileId}, guid: {OfficialScriptGuid}, type: 3}}"));
+	}
+
+	/// <summary>
+	/// The other export mode writes one file per type instead, each with a guid of its own, so only the
+	/// guid moves.
+	/// </summary>
+	[Test]
+	public void ADecompiledScriptIsRepointedAtThePackagesSourceFile()
+	{
+		using Fixture fixture = Build();
+
+		// There is no assembly under Plugins in this mode, only the decompiled sources.
+		File.Delete(fixture.RippedAssembly);
+		File.Delete(fixture.RippedAssembly + ".meta");
+
+		Write(Path.Combine(fixture.RippedScriptFolder, Namespace.Replace('.', Path.DirectorySeparatorChar), ClassName + ".cs"), "class Whatever {}\n", RippedScriptGuid);
+		File.WriteAllText(fixture.Prefab, $"  m_Script: {{fileID: 11500000, guid: {RippedScriptGuid}, type: 3}}\n");
+
+		Run(fixture, new PackageRemapConfiguration());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(File.ReadAllText(fixture.Prefab), Is.EqualTo($"  m_Script: {{fileID: 11500000, guid: {OfficialScriptGuid}, type: 3}}\n"));
+			Assert.That(Directory.Exists(fixture.RippedScriptFolder), Is.False, "the whole folder belongs to the assembly the package replaces");
+		});
 	}
 
 	/// <summary>
@@ -160,7 +208,7 @@ public sealed class PackageRemapRunTests
 
 	/// <summary>
 	/// Repointing references is only half the job. Leaving the ripped assembly behind means Unity loads
-	/// it alongside the package's and every type exists twice.
+	/// it alongside the one it compiles from the package and every type exists twice.
 	/// </summary>
 	[Test]
 	public void TheFilesThePackageReplacesAreDeleted()
@@ -198,7 +246,7 @@ public sealed class PackageRemapRunTests
 		Assert.Multiple(() =>
 		{
 			Assert.That(File.Exists(fixture.RippedAssembly), Is.True);
-			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain(OfficialAssemblyGuid), "the references are still repointed");
+			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain(OfficialScriptGuid), "the references are still repointed");
 			Assert.That(File.ReadAllText(fixture.ManifestPath), Does.Contain(PackageName));
 		});
 	}
@@ -230,7 +278,8 @@ public sealed class PackageRemapRunTests
 
 		Assert.Multiple(() =>
 		{
-			Assert.That(outcome.AssembliesPaired, Is.EqualTo(1));
+			Assert.That(outcome.TypesPaired, Is.EqualTo(1));
+			Assert.That(outcome.AssembliesPaired, Is.Zero, "the package ships no assembly to pair one against");
 			Assert.That(outcome.ShadersPaired, Is.EqualTo(1));
 			Assert.That(outcome.OtherAssetsPaired, Is.EqualTo(1));
 			Assert.That(configuration.Find(PackageName)?.Version, Is.EqualTo(PackageVersion));
@@ -270,41 +319,6 @@ public sealed class PackageRemapRunTests
 	}
 
 	/// <summary>
-	/// The other shape an export can have. With ScriptExportMode set to Decompiled a package's code
-	/// comes out as source files rather than an assembly, so a reference carries a guid of its own and
-	/// the constant fileID every script file has, and both halves have to move.
-	/// </summary>
-	[Test]
-	public void ADecompiledExportMovesBothHalvesOfAScriptReference()
-	{
-		using Fixture fixture = Build();
-
-		// A real assembly, so the types the mapping is derived from are real ones.
-		string assemblyPath = Path.Combine(fixture.PackagePath, "Runtime", "Test.Package.dll");
-		File.Copy(typeof(PackageRemapConfiguration).Assembly.Location, assemblyPath, overwrite: true);
-		ScriptRemap remap = ScriptReferenceMapping.Build(fixture.PackagePath).Remaps[0];
-
-		// There is no assembly under Plugins in this mode, only the decompiled sources.
-		File.Delete(fixture.RippedAssembly);
-		File.Delete(fixture.RippedAssembly + ".meta");
-
-		string scriptFolder = Path.Combine(fixture.AssetsPath, "Scripts", "Test.Package");
-		Write(Path.Combine(scriptFolder, "Anything.cs"), "class Anything {}\n", remap.Old.Guid);
-		Write(Path.Combine(scriptFolder, "Test.Package.asmdef"), "{\n  \"name\": \"Test.Package\"\n}\n", "dddddddddddddddddddddddddddddddd");
-
-		File.WriteAllText(fixture.Prefab, $"  m_Script: {{fileID: {remap.Old.FileId}, guid: {remap.Old.Guid}, type: 3}}\n");
-
-		Run(fixture, new PackageRemapConfiguration());
-
-		Assert.Multiple(() =>
-		{
-			Assert.That(remap.Old.FileId, Is.EqualTo(11500000), "a decompiled script is referred to by the one fileID every script file has");
-			Assert.That(File.ReadAllText(fixture.Prefab), Is.EqualTo($"  m_Script: {{fileID: {remap.New.FileId}, guid: {OfficialAssemblyGuid}, type: 3}}\n"));
-			Assert.That(Directory.Exists(scriptFolder), Is.False, "the whole folder belongs to the assembly the package replaces");
-		});
-	}
-
-	/// <summary>
 	/// A file name that occurs twice on either side identifies nothing, and pairing the wrong two assets
 	/// would repoint references at something unrelated.
 	/// </summary>
@@ -320,7 +334,7 @@ public sealed class PackageRemapRunTests
 		{
 			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"guid: {RippedFontGuid}"), "the ambiguous font is not repointed");
 			Assert.That(File.Exists(fixture.RippedFont), Is.True);
-			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain(OfficialAssemblyGuid), "the assembly is unaffected");
+			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain(OfficialScriptGuid), "the script is unaffected");
 		});
 	}
 }

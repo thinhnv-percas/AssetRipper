@@ -23,6 +23,11 @@ public sealed class PackageOutcome
 
 	public int ShadersPaired { get; set; }
 	public int OtherAssetsPaired { get; set; }
+	/// <summary>
+	/// Types paired one at a time against the source files a package ships.
+	/// </summary>
+	public int TypesPaired { get; set; }
+
 	public int TypesInAssemblies { get; set; }
 	public int FilesDeleted { get; set; }
 	public bool AddedToManifest { get; set; }
@@ -95,9 +100,12 @@ public sealed class PackageRemapRun
 			return;
 		}
 
-		// A decompiled script is referred to by a guid of its own, so both halves of that reference have
-		// to move. This only applies when the export decompiled the package's code; in the default mode
-		// it saved the assembly instead, and the assembly match below covers it.
+		// Most packages ship source rather than an assembly, so their types are matched one at a time by
+		// name. A package that does ship an assembly is covered by the assembly match below instead.
+		SourcePackageScripts sourceScripts = SourcePackageScriptMapping.Build(settings.AssetsPath, packageDirectory, fileSystem);
+		scripts.AddRange(sourceScripts.Remaps);
+		outcome.TypesPaired = sourceScripts.Remaps.Count;
+
 		PackageScripts packageScripts = ScriptReferenceMapping.Build(packageDirectory);
 		scripts.AddRange(packageScripts.Remaps);
 		outcome.TypesInAssemblies = packageScripts.Remaps.Count;
@@ -122,11 +130,11 @@ public sealed class PackageRemapRun
 			}
 		}
 
-		outcome.AddedToManifest = found.Count > 0 || packageScripts.Remaps.Count > 0;
+		outcome.AddedToManifest = found.Count > 0 || scripts.Count > 0;
 
 		if (configuration.DeleteRippedCopies)
 		{
-			CollectRedundant(outcome, found, packageScripts.AssemblyNames);
+			CollectRedundant(outcome, found, [.. packageScripts.AssemblyNames, .. sourceScripts.AssemblyNames], sourceScripts.RippedAssemblyPaths);
 		}
 	}
 
@@ -204,11 +212,17 @@ public sealed class PackageRemapRun
 	/// no counterpart for belongs to the game rather than to the package, and deleting it would break
 	/// the references this run just took care to keep.
 	/// </remarks>
-	private void CollectRedundant(PackageOutcome outcome, List<ExportMatch> found, List<string> assemblyNames)
+	private void CollectRedundant(PackageOutcome outcome, List<ExportMatch> found, List<string> assemblyNames, List<string> rippedAssemblyPaths)
 	{
 		foreach (ExportMatch match in found)
 		{
 			Add(match.RippedPath);
+		}
+
+		// A saved assembly is a file rather than a folder, so it is named here rather than walked.
+		foreach (string path in rippedAssemblyPaths)
+		{
+			Add(path);
 		}
 
 		// A decompiled script lives under a folder named after the assembly it came from, and the whole
@@ -381,13 +395,13 @@ public sealed class PackageRemapRun
 			{
 				Logger.Info(LogCategory.Export, $"  {outcome.Name}: skipped by configuration");
 			}
-			else if (outcome.TotalPaired == 0)
+			else if (outcome.TotalPaired == 0 && outcome.TypesPaired == 0)
 			{
 				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: nothing in the export matched it");
 			}
 			else
 			{
-				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: {outcome.AssembliesPaired} assemblies, {outcome.ShadersPaired} shaders and {outcome.OtherAssetsPaired} other assets paired, {outcome.FilesDeleted} files deleted");
+				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: {outcome.TypesPaired} types, {outcome.AssembliesPaired} assemblies, {outcome.ShadersPaired} shaders and {outcome.OtherAssetsPaired} other assets paired, {outcome.FilesDeleted} files deleted");
 			}
 		}
 
@@ -413,10 +427,10 @@ public sealed class PackageRemapRun
 		writer.WriteLine();
 
 		writer.WriteLine("## Packages");
-		writer.WriteLine("name,version,assemblies,shaders,otherAssets,typesInAssemblies,filesDeleted,addedToManifest,skipped");
+		writer.WriteLine("name,version,typesPaired,assemblies,shaders,otherAssets,filesDeleted,addedToManifest,skipped");
 		foreach (PackageOutcome outcome in outcomes)
 		{
-			writer.WriteLine($"{outcome.Name},{outcome.Version},{outcome.AssembliesPaired},{outcome.ShadersPaired},{outcome.OtherAssetsPaired},{outcome.TypesInAssemblies},{outcome.FilesDeleted},{outcome.AddedToManifest},{outcome.Skipped}");
+			writer.WriteLine($"{outcome.Name},{outcome.Version},{outcome.TypesPaired},{outcome.AssembliesPaired},{outcome.ShadersPaired},{outcome.OtherAssetsPaired},{outcome.FilesDeleted},{outcome.AddedToManifest},{outcome.Skipped}");
 		}
 
 		if (conflicts.Count > 0)
