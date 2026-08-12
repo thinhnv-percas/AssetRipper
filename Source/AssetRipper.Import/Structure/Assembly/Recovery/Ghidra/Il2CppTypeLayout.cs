@@ -151,7 +151,7 @@ public static class Il2CppTypeLayout
 				int lowestValidOffset = type.IsValueType ? 0 : 1;
 
 				List<WorkingField> fields = [];
-				foreach (FieldAnalysisContext field in type.Fields)
+				foreach (FieldAnalysisContext field in EnumerateInstanceFields(type))
 				{
 					if (field.IsStatic || field.Offset < lowestValidOffset)
 					{
@@ -191,6 +191,55 @@ public static class Il2CppTypeLayout
 		}
 
 		return working;
+	}
+
+	/// <summary>
+	/// A type's own instance fields and the ones it inherits.
+	/// </summary>
+	/// <remarks>
+	/// Field offsets are counted from the start of the object rather than from the start of the class
+	/// that declares them, so a base class's fields sit at the low offsets of every derived instance.
+	/// Leaving them out is what made a read of an inherited field decompile as arithmetic while the
+	/// class's own fields read by name.
+	/// </remarks>
+	private static IEnumerable<FieldAnalysisContext> EnumerateInstanceFields(TypeAnalysisContext type)
+	{
+		HashSet<int> declaredOffsets = [];
+
+		foreach (FieldAnalysisContext field in type.Fields)
+		{
+			// The type's own fields are taken as they are, overlaps included: a type with an explicit
+			// layout puts several of them at one offset on purpose, and it is the selection later that
+			// decides which to describe it by.
+			if (!field.IsStatic)
+			{
+				declaredOffsets.Add(field.Offset);
+			}
+
+			yield return field;
+		}
+
+		// A value type inherits nothing to lay out, so walking its bases would only find whatever the
+		// metadata says about ValueType and Object and put it where the struct's own fields belong.
+		if (type.IsValueType)
+		{
+			yield break;
+		}
+
+		HashSet<TypeAnalysisContext> seen = [type];
+
+		for (TypeAnalysisContext? current = type.BaseType; current is not null && seen.Add(current); current = current.BaseType)
+		{
+			foreach (FieldAnalysisContext field in current.Fields)
+			{
+				// A field the derived class already describes at that offset keeps the derived name, so
+				// shadowing does not produce two fields claiming the same bytes.
+				if (field.IsStatic || declaredOffsets.Add(field.Offset))
+				{
+					yield return field;
+				}
+			}
+		}
 	}
 
 	/// <summary>

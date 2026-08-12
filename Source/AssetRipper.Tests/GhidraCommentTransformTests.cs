@@ -49,8 +49,12 @@ public sealed class GhidraCommentTransformTests
 		return decompiler.DecompileTypeAsString(new FullTypeName(SampleTypeName));
 	}
 
+	/// <summary>
+	/// The recovered code goes inside the method it belongs to, so that scanning a class shows its
+	/// members rather than pages of C between them.
+	/// </summary>
 	[Test]
-	public void RecoveredCodeIsAttachedAboveTheMatchingMethod()
+	public void RecoveredCodeIsAttachedInsideTheMatchingMethod()
 	{
 		GhidraDecompilationIndex index = CreateIndex(
 			(GhidraDecompilationIndex.CreateKey(SampleTypeName, "Add", 2), "int Add(int p1,int p2)\n{\n  return p1 + p2;\n}"));
@@ -65,9 +69,12 @@ public sealed class GhidraCommentTransformTests
 			// The multi line C body must survive the round trip through the index and become comments.
 			Assert.That(output, Does.Contain("// int Add(int p1,int p2)"));
 			Assert.That(output, Does.Contain("//   return p1 + p2;"));
-			// It must land above the method it belongs to, not somewhere else in the file.
-			Assert.That(output.IndexOf("// Ghidra decompilation:", StringComparison.Ordinal),
-				Is.LessThan(output.IndexOf("public int Add(", StringComparison.Ordinal)));
+			// It must land inside the method it belongs to, after the signature and before the brace
+			// that closes the body.
+			int comment = output.IndexOf("// Ghidra decompilation:", StringComparison.Ordinal);
+			int signature = output.IndexOf("public int Add(", StringComparison.Ordinal);
+			Assert.That(comment, Is.GreaterThan(signature));
+			Assert.That(output.IndexOf("return ", signature, StringComparison.Ordinal), Is.GreaterThan(comment));
 		}
 	}
 

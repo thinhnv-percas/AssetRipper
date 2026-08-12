@@ -196,6 +196,20 @@ public static class GhidraTypeMapper
 		Dictionary<TypeAnalysisContext, Il2CppTypeLayout.Layout> layouts,
 		[NotNullWhen(true)] out string? name)
 	{
+		// A reference type is a pointer whatever it points at, so naming the struct it points at costs
+		// nothing in size or calling convention and is what lets a field read through a parameter come
+		// out as a member rather than as arithmetic. Completeness is not required for the same reason:
+		// an incomplete layout names the fields it knows and leaves the rest as padding, which is only
+		// ever a question of readability here, never of where the argument goes.
+		if (type is not null
+			&& !type.IsValueType
+			&& !type.IsEnumType
+			&& layouts.TryGetValue(type, out Il2CppTypeLayout.Layout reference))
+		{
+			name = reference.StructName + " *";
+			return true;
+		}
+
 		// A primitive is described in the metadata as a value type wrapping its own storage, so it has
 		// a complete layout like any other struct. Mapping it to the built in type first keeps
 		// System.Single a float rather than a one field struct that merely behaves like one.
@@ -204,6 +218,8 @@ public static class GhidraTypeMapper
 			return true;
 		}
 
+		// A value type has to be complete before it can be passed by value, because the convention
+		// depends on the field types and not only on the size.
 		if (type is not null
 			&& layouts.TryGetValue(type, out Il2CppTypeLayout.Layout layout)
 			&& layout.IsComplete)

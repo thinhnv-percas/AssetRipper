@@ -191,6 +191,19 @@ Fields whose type could not be mapped are left out rather than guessed, so they 
 offsets of everything after them still hold. A reference type begins with the object header so its
 fields start past zero; a value type has no header and its first field sits at zero.
 
+**A class's struct carries the fields it inherits as well as its own.** An offset is counted from the
+start of the object rather than from the start of the class that declares the field, so a base class's
+fields occupy the low offsets of every derived instance. Leaving them out was what made a read of an
+inherited field decompile as arithmetic while the class's own fields read by name. A field the derived
+class shadows keeps the derived name, and a value type is not walked upwards at all since it inherits
+nothing to lay out.
+
+**A reference type parameter is typed by the struct it points at.** A reference is a pointer whatever
+it points at, so naming the struct costs nothing in size or calling convention, and completeness is not
+required for the same reason: an incomplete layout names the fields it knows and the rest stays padding.
+This is what lets a field read through a parameter come out as a member rather than as arithmetic, and
+it applies to return types too, so a local assigned from a call is typed as well.
+
 Enums are resolved to the primitive they are stored as. An enum is a value type in the metadata, but
 the ABI passes its underlying field, so typing it carries none of the sizing risk of a real struct.
 
@@ -303,9 +316,11 @@ returned indirectly, and Ghidra renders that correctly as `__return_storage_ptr_
 layout is complete enough to classify.
 
 The script also writes `decompilation_index.txt`, keyed by declaring type, method name and parameter
-count. During export, `GhidraCommentTransform` looks each method up in that index and attaches the
-recovered pseudo C above the declaration as a comment, so the exported `.cs` carries both the C#
-signature and the real logic. Matching is by name rather than address because the assemblies handed
+count. During export, `GhidraCommentTransform` looks each method up in that index and writes the
+recovered pseudo C **inside** the method it belongs to, as the first thing in the body, so the exported
+`.cs` carries both the C# signature and the real logic while a class still reads as a list of its
+members rather than as pages of C between them. A method with no body, such as an abstract one, has
+nowhere to put it and falls back to sitting above the declaration. Matching is by name rather than address because the assemblies handed
 to ILSpy are generated and no longer carry native addresses.
 
 The comment is C, not C#, so it cannot be a method body. Long bodies are truncated at 200 lines by

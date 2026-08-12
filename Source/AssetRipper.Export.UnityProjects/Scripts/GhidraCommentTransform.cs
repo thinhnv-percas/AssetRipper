@@ -7,12 +7,17 @@ using ICSharpCode.Decompiler.TypeSystem;
 namespace AssetRipper.Export.UnityProjects.Scripts;
 
 /// <summary>
-/// Attaches the pseudo C that Ghidra recovered for a method as a comment above its declaration.
+/// Puts the pseudo C that Ghidra recovered for a method inside the method it belongs to.
 /// </summary>
 /// <remarks>
-/// The comment is the real logic of the method, which is otherwise only available in a separate
-/// directory of C files. It is C rather than C#, so it cannot become a method body; attaching it as
-/// leading trivia keeps it next to the signature it belongs to.
+/// The recovered code is the real logic of the method, which is otherwise only available in a separate
+/// directory of C files. It is C rather than C#, so it can only be a comment; putting it inside the
+/// body rather than above the signature keeps the reading order of the file intact, so that scanning a
+/// class shows its members rather than pages of C between them.
+/// <para>
+/// A method with no body, such as an abstract or extern one, has nowhere to put it, so those fall back
+/// to sitting above the declaration.
+/// </para>
 /// </remarks>
 public sealed class GhidraCommentTransform(GhidraDecompilationIndex index) : IAstTransform
 {
@@ -44,26 +49,85 @@ public sealed class GhidraCommentTransform(GhidraDecompilationIndex index) : IAs
 			string key = GhidraDecompilationIndex.CreateKey(method.DeclaringType?.FullName, method.Name, method.Parameters.Count);
 			if (index.TryGetCode(key, out string? code))
 			{
-				AttachComment(declaration, code);
+				Attach(declaration, code);
 				AttachedCount++;
 			}
 		}
 	}
 
-	private void AttachComment(EntityDeclaration declaration, string code)
+	private void Attach(EntityDeclaration declaration, string code)
 	{
-		declaration.AddLeadingTrivia(new Comment(" Ghidra decompilation:"));
+		// A comment in this syntax tree is trivia belonging to a node rather than a node of its own, so
+		// it has to hang off the first statement of the body. A body with no statements offers nothing
+		// to hang it on, and neither does a method that has no body at all.
+		if (FindFirstStatement(declaration) is Statement first)
+		{
+			foreach (Comment comment in BuildComments(code))
+			{
+				first.AddLeadingTrivia(comment);
+			}
+		}
+		else
+		{
+			AttachAbove(declaration, code);
+		}
+	}
+
+	private static Statement? FindFirstStatement(EntityDeclaration declaration)
+	{
+		BlockStatement? body = FindBody(declaration);
+
+		try
+		{
+			return body?.Statements.FirstOrDefault();
+		}
+		catch (Exception)
+		{
+			// A declaration with no body answers with a null object rather than null in some shapes,
+			// and asking it for its statements is not always allowed.
+			return null;
+		}
+	}
+
+	/// <summary>
+	/// The block a method's statements live in, or null when it has none.
+	/// </summary>
+	/// <remarks>
+	/// A constructor and an operator are declarations in their own right rather than methods with a
+	/// body property in common, so each kind is asked for its own.
+	/// </remarks>
+	private static BlockStatement? FindBody(EntityDeclaration declaration) => declaration switch
+	{
+		MethodDeclaration method => method.Body,
+		ConstructorDeclaration constructor => constructor.Body,
+		DestructorDeclaration destructor => destructor.Body,
+		OperatorDeclaration @operator => @operator.Body,
+		Accessor accessor => accessor.Body,
+		_ => null,
+	};
+
+	private void AttachAbove(EntityDeclaration declaration, string code)
+	{
+		foreach (Comment comment in BuildComments(code))
+		{
+			declaration.AddLeadingTrivia(comment);
+		}
+	}
+
+	private IEnumerable<Comment> BuildComments(string code)
+	{
+		yield return new Comment(" Ghidra decompilation:");
 
 		int written = 0;
 		foreach (string line in code.Split('\n'))
 		{
 			if (written >= MaximumLines)
 			{
-				declaration.AddLeadingTrivia(new Comment(" ... truncated"));
+				yield return new Comment(" ... truncated");
 				break;
 			}
 
-			declaration.AddLeadingTrivia(new Comment(" " + line.TrimEnd('\r')));
+			yield return new Comment(" " + line.TrimEnd('\r'));
 			written++;
 		}
 	}

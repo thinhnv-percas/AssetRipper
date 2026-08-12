@@ -115,6 +115,10 @@ Two metadata traps, both measured on a shipped game:
   size of zero and every field offset as zero, and a constructed instance carries no fields. There is
   nothing to compute a layout against, which is why those stay refused.
 
+A field offset is counted from the start of the object, so a class's struct has to carry its inherited
+fields as well as its own or every read of one decompiles as arithmetic. Reference type parameters are
+typed by the struct they point at, which is free because a pointer is a pointer whatever it addresses.
+
 ## Conventions
 
 Comments explain why, not what, and are written as prose. Match the density and idiom of the file
