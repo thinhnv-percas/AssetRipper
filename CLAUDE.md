@@ -58,8 +58,10 @@ Assembly definitions are written with **name** references (`"references": ["Unit
 not GUID ones, so deleting a decompiled assembly's folder does not leave anything dangling: the name
 resolves to whichever assembly definition now carries it, which is the package's own.
 
-The export root is `<chosen path>/ExportedProject`, and `settings.AssetsPath` is
-`<chosen path>/ExportedProject/Assets`, not `<chosen path>/Assets`.
+The project folder is `<chosen path>/<project name>`, and `settings.AssetsPath` is
+`<chosen path>/<project name>/Assets`, not `<chosen path>/Assets`. The project name comes from what
+was loaded, a file without its extension or a folder's own name, and falls back to `ExportedProject`
+when several paths were loaded at once or the name sanitises away to nothing.
 
 ## What a Unity package actually looks like
 
