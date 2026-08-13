@@ -200,18 +200,6 @@ unresolved in either run were two that were already dangling in the export befor
 TextMeshPro ships its shaders and fonts inside `Package Resources/TMP Essential Resources.unitypackage`
 rather than in the package tree, so those cannot be paired from the package alone and stay as they are.
 
-#### Only the packages a game used
-
-A package cache holds every package a machine has ever resolved, most of which a given game never
-touched. A package is added to the project's manifest only when something in the export was actually
-repointed at it. Naming the others would ask the package manager to resolve packages the project does
-not need, and a manifest it cannot resolve takes down every assembly those packages provide, which
-in the editor looks like every component having lost its script, its references and its text.
-
-Deleted files are kept under `AuxiliaryFiles/PackageRemappingBackup`, mirroring their path. Deleting
-the ripped copies is the one step running again cannot undo, and it is only right if the real packages
-do install.
-
 #### Configuring it
 
 `AssetRipper.PackageRemapping.json`, beside the settings file, is written after every run with what

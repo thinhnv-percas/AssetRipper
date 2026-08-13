@@ -20,3 +20,4 @@ python/.venv-build
 # Ghidra installed locally by Ghidra.bat / Ghidra.sh
 /ghidra/
 ghidra_*_PUBLIC_*.zip
+python

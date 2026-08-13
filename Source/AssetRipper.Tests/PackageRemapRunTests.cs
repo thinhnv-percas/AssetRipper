@@ -286,63 +286,6 @@ public sealed class PackageRemapRunTests
 		});
 	}
 
-	/// <summary>
-	/// A package cache holds every package a machine has ever resolved, most of which a given game never
-	/// used. Naming one of those in the manifest asks the package manager to resolve something the
-	/// project does not need, and a manifest it cannot resolve takes every script in the project down
-	/// with it, which looks like every component having lost its references.
-	/// </summary>
-	[Test]
-	public void APackageThatMatchedNothingIsNotAddedToTheManifest()
-	{
-		using Fixture fixture = Build();
-
-		string unrelated = Path.Combine(fixture.Root, "PackageCache", "com.unity.unrelated@1.0.0");
-		Directory.CreateDirectory(Path.Combine(unrelated, "Runtime"));
-		File.WriteAllText(Path.Combine(unrelated, "package.json"), "{\"name\":\"com.unity.unrelated\",\"version\":\"1.0.0\"}\n");
-		File.WriteAllText(Path.Combine(unrelated, "Runtime", "Unrelated.asmdef"), "{\n  \"name\": \"Unrelated\"\n}\n");
-		Write(Path.Combine(unrelated, "Runtime", "NothingHereMatches.cs"), "class NothingHereMatches {}\n", "12121212121212121212121212121212");
-
-		FullConfiguration settings = new() { ExportRootPath = fixture.ExportRoot };
-		PackageRemapRun run = new(settings, LocalFileSystem.Instance, new PackageRemapConfiguration());
-
-		// The matching package first, so a run level counter would already be non zero by the time the
-		// unrelated one is considered.
-		run.Consider(fixture.PackagePath);
-		run.Consider(unrelated);
-		run.Finish();
-
-		string manifest = File.ReadAllText(fixture.ManifestPath);
-
-		Assert.Multiple(() =>
-		{
-			Assert.That(manifest, Does.Contain(PackageName));
-			Assert.That(manifest, Does.Not.Contain("com.unity.unrelated"));
-		});
-	}
-
-	/// <summary>
-	/// Deleting the ripped copies cannot be undone by running again, so what was removed is kept.
-	/// </summary>
-	[Test]
-	public void DeletedFilesAreKept()
-	{
-		using Fixture fixture = Build();
-		string backup = Path.Combine(fixture.Root, "Backup");
-
-		FullConfiguration settings = new() { ExportRootPath = fixture.ExportRoot };
-		PackageRemapRun run = new(settings, LocalFileSystem.Instance, new PackageRemapConfiguration(), backup);
-		run.Consider(fixture.PackagePath);
-		run.Finish();
-
-		Assert.Multiple(() =>
-		{
-			Assert.That(File.Exists(fixture.RippedAssembly), Is.False);
-			Assert.That(File.Exists(Path.Combine(backup, "Plugins", AssemblyName + ".dll")), Is.True);
-			Assert.That(File.Exists(Path.Combine(backup, "Shader", "TextMeshPro_Distance Field.shader")), Is.True);
-		});
-	}
-
 	[Test]
 	public void TheConfigurationRoundTripsThroughItsFile()
 	{

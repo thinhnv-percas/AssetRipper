@@ -91,11 +91,7 @@ packages with the real ones. `docs/articles/PackageGuidRemapping.md` is the desi
   ripped copy.
 - `AssetRipper.PackageRemapping.json`, beside the settings file, is written after every run with what
   was worked out, and is where to override it.
-- `AuxiliaryFiles/PackageRemapping.txt` is the per package account of a run, and
-  `AuxiliaryFiles/PackageRemappingBackup` holds whatever it deleted.
-- A package goes into the project manifest only when something was repointed at it. A manifest naming
-  packages the game never used may not resolve, and in the editor that looks like every component
-  having lost its script rather than like a package problem.
+- `AuxiliaryFiles/PackageRemapping.txt` is the per package account of a run.
 
 ## Il2Cpp method recovery
 

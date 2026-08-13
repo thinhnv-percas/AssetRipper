@@ -47,7 +47,6 @@ public sealed class PackageRemapRun
 	private readonly FullConfiguration settings;
 	private readonly FileSystem fileSystem;
 	private readonly PackageRemapConfiguration configuration;
-	private readonly string? backupPath;
 
 	private readonly Dictionary<string, string> guidMatches = new(StringComparer.OrdinalIgnoreCase);
 	private readonly HashSet<string> assemblyGuids = new(StringComparer.OrdinalIgnoreCase);
@@ -68,15 +67,11 @@ public sealed class PackageRemapRun
 
 	private RemapReport report = new();
 
-	/// <param name="backupPath">
-	/// Where a deleted file is kept, or null to delete without keeping anything.
-	/// </param>
-	public PackageRemapRun(FullConfiguration settings, FileSystem fileSystem, PackageRemapConfiguration configuration, string? backupPath = null)
+	public PackageRemapRun(FullConfiguration settings, FileSystem fileSystem, PackageRemapConfiguration configuration)
 	{
 		this.settings = settings;
 		this.fileSystem = fileSystem;
 		this.configuration = configuration;
-		this.backupPath = backupPath;
 	}
 
 	public IReadOnlyList<PackageOutcome> Outcomes => outcomes;
@@ -135,10 +130,7 @@ public sealed class PackageRemapRun
 			}
 		}
 
-		// This package's own matches, not the run's. Counting the run's would put every package in the
-		// cache into the manifest once any one of them had matched, and a manifest naming packages the
-		// game never used is one the package manager may not be able to resolve at all.
-		outcome.AddedToManifest = found.Count > 0 || sourceScripts.Remaps.Count > 0 || packageScripts.Remaps.Count > 0;
+		outcome.AddedToManifest = found.Count > 0 || scripts.Count > 0;
 
 		if (configuration.DeleteRippedCopies)
 		{
@@ -272,15 +264,12 @@ public sealed class PackageRemapRun
 		{
 			try
 			{
-				if (!fileSystem.File.Exists(path))
+				if (fileSystem.File.Exists(path))
 				{
-					continue;
+					fileSystem.File.Delete(path);
+					outcome.FilesDeleted++;
+					deleted++;
 				}
-
-				Keep(path);
-				fileSystem.File.Delete(path);
-				outcome.FilesDeleted++;
-				deleted++;
 			}
 			catch (IOException)
 			{
@@ -292,36 +281,13 @@ public sealed class PackageRemapRun
 			return;
 		}
 
-		Logger.Info(LogCategory.Export, backupPath is null
-			? $"Package remapping: deleted {deleted} ripped files the packages replace"
-			: $"Package remapping: deleted {deleted} ripped files the packages replace, kept in {backupPath}");
+		Logger.Info(LogCategory.Export, $"Package remapping: deleted {deleted} ripped files the packages replace");
 
 		// Only the folders the deletions emptied are pruned. Walking the whole project would also take
 		// away folders that were empty before this ran and have nothing to do with any package.
 		foreach (string directory in emptiedDirectories.OrderByDescending(static path => path.Length))
 		{
 			PruneUpwards(directory);
-		}
-	}
-
-	/// <summary>
-	/// Copies a file into the backup before it goes, keeping where it was.
-	/// </summary>
-	private void Keep(string path)
-	{
-		if (backupPath is null)
-		{
-			return;
-		}
-
-		try
-		{
-			string destination = fileSystem.Path.Join(backupPath, MetaGuidScanner.GetRelativePath(settings.AssetsPath, path));
-			fileSystem.Directory.Create(fileSystem.Path.GetDirectoryName(destination));
-			fileSystem.File.WriteAllBytes(destination, fileSystem.File.ReadAllBytes(path));
-		}
-		catch (IOException)
-		{
 		}
 	}
 

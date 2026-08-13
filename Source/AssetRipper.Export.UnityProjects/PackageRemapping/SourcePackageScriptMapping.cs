@@ -37,13 +37,18 @@ public static class SourcePackageScriptMapping
 	/// <param name="assetsPath">The export's Assets folder.</param>
 	public static SourcePackageScripts Build(string assetsPath, string packagePath, FileSystem fileSystem)
 	{
-		Dictionary<string, Dictionary<string, string>> byAssembly = IndexSourceFilesByAssembly(packagePath);
-		List<string> assemblyNames = [.. byAssembly.Keys];
+		List<string> assemblyNames = ReadAssemblyNames(packagePath);
+		Dictionary<string, string> byClassName = IndexSourceFiles(packagePath);
 
 		List<ScriptRemap> remaps = [];
 		List<string> rippedAssemblies = [];
 
-		foreach ((string assemblyName, Dictionary<string, string> byClassName) in byAssembly)
+		if (assemblyNames.Count == 0 || byClassName.Count == 0)
+		{
+			return new SourcePackageScripts(assemblyNames, remaps, rippedAssemblies);
+		}
+
+		foreach (string assemblyName in assemblyNames)
 		{
 			AddFromSavedAssembly(assetsPath, assemblyName, byClassName, fileSystem, remaps, rippedAssemblies);
 			AddFromDecompiledSources(assetsPath, assemblyName, byClassName, fileSystem, remaps);
@@ -132,76 +137,16 @@ public static class SourcePackageScriptMapping
 	}
 
 	/// <summary>
-	/// The package's source files, grouped by the assembly each one is compiled into and keyed by the
-	/// class it holds, which Unity requires to be its file name.
+	/// The assemblies a package declares, which is how its source is grouped once Unity compiles it.
 	/// </summary>
-	/// <remarks>
-	/// Grouping by assembly rather than pooling every file matters twice over. An editor only class can
-	/// share a name with a runtime one, and pairing a ripped runtime type with the editor file would
-	/// give a component a script that does not exist in a build. And a name that repeats across two
-	/// assemblies is not ambiguous at all once the assembly is known, so pooling would throw away
-	/// mappings that are perfectly well determined.
-	/// <para>
-	/// An assembly definition owns every file beneath it that a nearer one does not claim, which is the
-	/// same rule Unity applies.
-	/// </para>
-	/// </remarks>
-	private static Dictionary<string, Dictionary<string, string>> IndexSourceFilesByAssembly(string packagePath)
+	private static List<string> ReadAssemblyNames(string packagePath)
 	{
-		Dictionary<string, Dictionary<string, string>> byAssembly = new(StringComparer.Ordinal);
-		Dictionary<string, HashSet<string>> duplicates = new(StringComparer.Ordinal);
+		List<string> names = [];
 
 		if (!Directory.Exists(packagePath))
 		{
-			return byAssembly;
+			return names;
 		}
-
-		List<(string Folder, string Name)> definitions = ReadAssemblyDefinitions(packagePath);
-		if (definitions.Count == 0)
-		{
-			return byAssembly;
-		}
-
-		foreach (string path in Directory.EnumerateFiles(packagePath, "*.cs", SearchOption.AllDirectories))
-		{
-			if (FindOwningAssembly(definitions, path) is not string assemblyName
-				|| !TryReadMetaGuid(LocalFileSystem.Instance, path + MetaExtension, out string? guid))
-			{
-				continue;
-			}
-
-			if (!byAssembly.TryGetValue(assemblyName, out Dictionary<string, string>? byClassName))
-			{
-				byClassName = new Dictionary<string, string>(StringComparer.Ordinal);
-				byAssembly.Add(assemblyName, byClassName);
-				duplicates.Add(assemblyName, new HashSet<string>(StringComparer.Ordinal));
-			}
-
-			string className = Path.GetFileNameWithoutExtension(path);
-			if (!byClassName.TryAdd(className, guid))
-			{
-				duplicates[assemblyName].Add(className);
-			}
-		}
-
-		// A name that occurs twice inside one assembly identifies neither of them.
-		foreach ((string assemblyName, HashSet<string> names) in duplicates)
-		{
-			foreach (string name in names)
-			{
-				byAssembly[assemblyName].Remove(name);
-			}
-		}
-
-		return byAssembly;
-	}
-
-	/// <summary>
-	/// Every assembly definition in the package, with the folder it governs.
-	/// </summary>
-	private static List<(string Folder, string Name)> ReadAssemblyDefinitions(string packagePath)
-	{
-		List<(string Folder, string Name)> definitions = [];
 
 		foreach (string path in Directory.EnumerateFiles(packagePath, "*.asmdef", SearchOption.AllDirectories))
 		{
@@ -210,7 +155,7 @@ public static class SourcePackageScriptMapping
 				using JsonDocument document = JsonDocument.Parse(File.ReadAllText(path));
 				if (document.RootElement.TryGetProperty("name", out JsonElement name) && name.GetString() is string value && value.Length > 0)
 				{
-					definitions.Add((Path.GetDirectoryName(path)!.Replace('\\', '/'), value));
+					names.Add(value);
 				}
 			}
 			catch (Exception)
@@ -218,30 +163,55 @@ public static class SourcePackageScriptMapping
 			}
 		}
 
-		return definitions;
+		return names;
 	}
 
 	/// <summary>
-	/// The assembly a file belongs to, which is the nearest definition above it.
+	/// The package's source files by the class each one holds, which Unity requires to be its file name.
 	/// </summary>
-	private static string? FindOwningAssembly(List<(string Folder, string Name)> definitions, string path)
+	/// <remarks>
+	/// A name that occurs twice identifies neither of them, so it is dropped rather than guessed at.
+	/// </remarks>
+	private static Dictionary<string, string> IndexSourceFiles(string packagePath)
 	{
-		string normalised = path.Replace('\\', '/');
-		string? owner = null;
-		int depth = -1;
+		Dictionary<string, string> byClassName = new(StringComparer.Ordinal);
+		HashSet<string> duplicates = new(StringComparer.Ordinal);
 
-		foreach ((string folder, string name) in definitions)
+		if (!Directory.Exists(packagePath))
 		{
-			if (normalised.StartsWith(folder + '/', StringComparison.OrdinalIgnoreCase) && folder.Length > depth)
+			return byClassName;
+		}
+
+		foreach (string path in Directory.EnumerateFiles(packagePath, "*.cs", SearchOption.AllDirectories))
+		{
+			// Tests and editor only code are compiled into their own assemblies, and a game never refers
+			// to either, so pairing against them would only add ways to be wrong.
+			if (IsExcluded(packagePath, path) || !TryReadMetaGuid(LocalFileSystem.Instance, path + MetaExtension, out string? guid))
 			{
-				owner = name;
-				depth = folder.Length;
+				continue;
+			}
+
+			string className = Path.GetFileNameWithoutExtension(path);
+			if (!byClassName.TryAdd(className, guid))
+			{
+				duplicates.Add(className);
 			}
 		}
 
-		return owner;
+		foreach (string duplicate in duplicates)
+		{
+			byClassName.Remove(duplicate);
+		}
+
+		return byClassName;
 	}
 
+	private static bool IsExcluded(string packagePath, string path)
+	{
+		string relative = MetaGuidScanner.GetRelativePath(packagePath, path);
+		return relative.StartsWith("Tests/", StringComparison.OrdinalIgnoreCase)
+			|| relative.Contains("/Tests/", StringComparison.OrdinalIgnoreCase);
+	}
 
 	/// <summary>
 	/// AsmResolver spells a generic type's name with its arity, which no file name carries.
