@@ -28,6 +28,9 @@ public static class ContextToTypeSignature
         SentinelTypeAnalysisContext => SentinelTypeSignature.Instance,
         // An Il2CppClass* runtime handle has no managed type; lower it to a raw pointer-sized value.
         RuntimeClassTypeAnalysisContext => parentModule.CorLibTypeFactory.IntPtr,
+        // A MethodInfo* is the same kind of handle and needs the same treatment. It only reaches here
+        // once metadata usages resolve, which is why it was never hit before.
+        RuntimeMethodInfoAnalysisContext => parentModule.CorLibTypeFactory.IntPtr,
         _ => throw new ArgumentException($"Unknown referenced type context {context.GetType()}", nameof(context))
     };
 

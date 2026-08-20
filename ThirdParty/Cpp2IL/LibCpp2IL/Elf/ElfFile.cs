@@ -24,6 +24,11 @@ public sealed class ElfFile : Il2CppBinary
 
     private readonly List<(ulong start, ulong end)> relocationBlocks = [];
 
+    /// <summary>
+    /// The virtual addresses of every word this file writes through a relocation, sorted.
+    /// </summary>
+    private ulong[] _relocatedAddresses = [];
+
     private long _globalOffset;
 
     public ElfFile(MemoryStream input) : base(input)
@@ -289,6 +294,8 @@ public sealed class ElfFile : Il2CppBinary
 
             var sizeOfRelocationStruct = (ulong)(is32Bit ? ElfDynamicSymbol32.StructSize : ElfDynamicSymbol64.StructSize);
 
+            var relocatedAddresses = new List<ulong>(rels.Count);
+
             LibLogger.Verbose($"\t-Now Processing {rels.Count} relocations...");
 
             foreach (var rel in rels)
@@ -369,9 +376,13 @@ public sealed class ElfFile : Il2CppBinary
 
                 if (recognized)
                 {
+                    relocatedAddresses.Add(rel.Offset);
                     WriteWord((int)targetLocation, newValue);
                 }
             }
+
+            _relocatedAddresses = relocatedAddresses.ToArray();
+            Array.Sort(_relocatedAddresses);
         }
         catch
         {
@@ -379,6 +390,8 @@ public sealed class ElfFile : Il2CppBinary
             throw;
         }
     }
+
+    public override bool HasRelocationAt(ulong virtualAddress) => Array.BinarySearch(_relocatedAddresses, virtualAddress) >= 0;
 
     private void ProcessSymbols()
     {

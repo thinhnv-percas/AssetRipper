@@ -29,45 +29,69 @@ public static class MetadataResolver
     {
         var libContext = method.AppContext.LibCpp2IlContext;
 
+        // Where the code reaches its globals through a table, as position independent code does, the
+        // load that names the usage and the load that reads it are two instructions. The first assigns
+        // the slot's address to a local, so remembering what each local was resolved to lets the second
+        // be resolved as well - otherwise the value everything actually uses stays an unnamed load.
+        Dictionary<LocalVariable, object>? resolvedLocals = null;
+
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
             if (instruction.OpCode != OpCode.Move)
                 continue;
 
             // Only an absolute-address load [addr] (no base/index/scale) can be a metadata-usage global.
-            if (instruction.Operands[0] is not LocalVariable
+            if (instruction.Operands[0] is not LocalVariable destination
                 || instruction.Operands[1] is not MemoryOperand { Base: null, Index: null, Scale: 0 } memory)
                 continue;
 
             var address = (ulong)memory.Addend;
+            var resolved = Resolve(method, libContext, address);
 
-            // String literal.
-            var stringLiteral = libContext.GetLiteralByAddress(address);
-            if (stringLiteral != null)
-            {
-                instruction.Operands[1] = stringLiteral;
+            if (resolved == null)
                 continue;
-            }
 
-            // Type metadata usage (Il2CppType* / Il2CppClass*).
-            if (method.DeclaringType is { } declaringType)
-            {
-                var typeContext = libContext.GetTypeGlobalByAddress(address)?.ToContext(declaringType.AppContext);
-                if (typeContext != null)
-                {
-                    instruction.Operands[1] = typeContext;
-                    continue;
-                }
-            }
-
-            // Method metadata usage (MethodInfo*). On metadata v27+ GetMethodGlobalByAddress can return
-            // any global, so confirm it is actually a method before resolving - the resolver's switch
-            // throws on other usage kinds.
-            var methodUsage = libContext.GetMethodGlobalByAddress(address);
-            if (methodUsage?.Type is MetadataUsageType.MethodDef or MetadataUsageType.MethodRef
-                && method.AppContext.ResolveContextForMethod(methodUsage) is { DeclaringType: { } methodDeclaringType } methodContext)
-                instruction.Operands[1] = new RuntimeMethodInfoAnalysisContext(methodContext, methodDeclaringType.DeclaringAssembly);
+            instruction.Operands[1] = resolved;
+            (resolvedLocals ??= [])[destination] = resolved;
         }
+
+        if (resolvedLocals == null)
+            return;
+
+        foreach (var instruction in method.ControlFlowGraph.Instructions)
+        {
+            if (instruction.OpCode != OpCode.Move
+                || instruction.Operands[1] is not MemoryOperand { Base: LocalVariable source, Index: null, Scale: 0, Addend: 0 })
+                continue;
+
+            if (resolvedLocals.TryGetValue(source, out var resolved))
+                instruction.Operands[1] = resolved;
+        }
+    }
+
+    /// <summary>
+    /// What the metadata usage global at this address refers to, or null when it is not one.
+    /// </summary>
+    private static object? Resolve(MethodAnalysisContext method, LibCpp2IlContext libContext, ulong address)
+    {
+        // String literal.
+        if (libContext.GetLiteralByAddress(address) is { } stringLiteral)
+            return stringLiteral;
+
+        // Type metadata usage (Il2CppType* / Il2CppClass*).
+        if (method.DeclaringType is { } declaringType
+            && libContext.GetTypeGlobalByAddress(address)?.ToContext(declaringType.AppContext) is { } typeContext)
+            return typeContext;
+
+        // Method metadata usage (MethodInfo*). On metadata v27+ GetMethodGlobalByAddress can return
+        // any global, so confirm it is actually a method before resolving - the resolver's switch
+        // throws on other usage kinds.
+        var methodUsage = libContext.GetMethodGlobalByAddress(address);
+        if (methodUsage?.Type is MetadataUsageType.MethodDef or MetadataUsageType.MethodRef
+            && method.AppContext.ResolveContextForMethod(methodUsage) is { DeclaringType: { } methodDeclaringType } methodContext)
+            return new RuntimeMethodInfoAnalysisContext(methodContext, methodDeclaringType.DeclaringAssembly);
+
+        return null;
     }
 
     /// <summary>

@@ -68,6 +68,13 @@ public class AsmResolverDllOutputFormatIlRecovery : AsmResolverDllOutputFormat
             else
                 Logger.ErrorNewline($"Decompiling {methodContext.FullName} failed: {detail}");
 
+            // The generator replaces the body rather than filling the one made above, so a failure part
+            // way through leaves the method holding a different, empty body. Without starting a fresh
+            // one here the throw would be written into the discarded body and the method would come out
+            // silently empty, which reads as a method that genuinely does nothing.
+            methodDefinition.CilMethodBody = new();
+            instructions = methodDefinition.CilMethodBody.Instructions;
+
             // throw new Exception(detail);
             var factory = module.CorLibTypeFactory;
             var exceptionCtor = factory.CorLibScope

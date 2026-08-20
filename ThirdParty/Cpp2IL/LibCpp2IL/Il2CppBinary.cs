@@ -514,6 +514,16 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
     public abstract ulong GetVirtualAddressOfExportedFunctionByName(string toFind);
     public virtual bool IsExportedFunction(ulong addr) => false;
 
+    /// <summary>
+    /// Whether the word at this virtual address was written by a relocation rather than by the linker.
+    /// </summary>
+    /// <remarks>
+    /// Position independent code does not name a global by its address; it loads the address out of a
+    /// table the loader fills in, so what the code refers to is one indirection away from what it reads.
+    /// Knowing which addresses those are is what tells the two apart without guessing.
+    /// </remarks>
+    public virtual bool HasRelocationAt(ulong virtualAddress) => false;
+
     public virtual bool TryGetExportedFunctionName(ulong addr, [NotNullWhen(true)] out string? name)
     {
         name = null;

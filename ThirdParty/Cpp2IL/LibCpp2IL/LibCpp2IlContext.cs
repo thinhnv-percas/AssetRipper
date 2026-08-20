@@ -110,10 +110,22 @@ public sealed class LibCpp2IlContext
         var encoded = Binary.ReadPointerAtVirtualAddress(address);
         var metadataUsage = MetadataUsage.DecodeMetadataUsage(encoded, address, this);
 
-        if (metadataUsage?.IsValid != true)
+        if (metadataUsage?.IsValid == true)
+            return metadataUsage;
+
+        // Position independent code does not name a global by its address. It loads the address out of a
+        // table the loader fills in, so an address the code reads from can hold the address of the usage
+        // rather than the usage itself, and the token is one indirection further on. Only an address the
+        // file relocates is followed, so this cannot mistake an ordinary pointer for a table entry.
+        if (!Binary.HasRelocationAt(address))
             return null;
 
-        return metadataUsage;
+        if (!Binary.TryMapVirtualAddressToRaw(encoded, out var indirectRaw) || indirectRaw >= Binary.RawLength)
+            return null;
+
+        var indirect = MetadataUsage.DecodeMetadataUsage(Binary.ReadPointerAtVirtualAddress(encoded), address, this);
+
+        return indirect?.IsValid == true ? indirect : null;
     }
 
     public MetadataUsage? GetAnyGlobalByAddress(ulong address)

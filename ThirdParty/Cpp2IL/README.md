@@ -18,4 +18,28 @@ else is edited except where a change is described below.
 Each entry says what was changed and why, so the copy can be rebased onto a newer upstream by
 reapplying them.
 
-*(none yet)*
+### Metadata usages reached through the GOT
+
+`LibCpp2IlContext.CheckForPost27GlobalAt` read the word at the address the code loads from and decoded
+it as an encoded metadata token. On a position independent ARM64 binary that address is a GOT entry
+holding the *address* of the usage, so the decode always failed and every string literal, type, method
+and field the code refers to came out as `Unmanaged memory load: [449BB68]`. It now follows one
+indirection, and only for an address the file actually relocates, so an ordinary pointer cannot be
+mistaken for a table entry. `Il2CppBinary.HasRelocationAt` and the address list `ElfFile` records while
+applying relocations are the supporting change.
+
+`MetadataResolver.ResolveMetadataUsages` gained the second half of the same pattern: the load that
+names the usage and the load that reads it are two instructions, so what each local resolved to is
+remembered and `Move b, [a]` is resolved as well.
+
+### A MethodInfo* has no managed type
+
+`ContextToTypeSignature` threw on `RuntimeMethodInfoAnalysisContext`, which only became reachable once
+usages resolved. It is lowered to `IntPtr`, the same as the `Il2CppClass*` handle beside it.
+
+### A failed method came out empty rather than throwing
+
+`AsmResolverDllOutputFormatIlRecovery.FillMethodBody` wrote its `throw` into the body it had created
+before calling the generator, but the generator replaces the body rather than filling it, so anything
+that failed part way through was left holding an empty body and read as a method that does nothing.
+The catch now starts a fresh body. This is what hid the exception above.
