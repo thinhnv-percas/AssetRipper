@@ -12,7 +12,11 @@ public static partial class GhidraOutputParser
 	[GeneratedRegex(@"^PROGRESS phase=(\w+) done=(\d+) total=(\d+)$")]
 	private static partial Regex ProgressRegex { get; }
 
-	[GeneratedRegex(@"^RESULT decompiled=(\d+) failed=(\d+)$")]
+	/// <remarks>
+	/// The named only count is optional so that a run of an older script still parses. It is the
+	/// functions given a name without being decompiled, which is most of the generic instantiations.
+	/// </remarks>
+	[GeneratedRegex(@"^RESULT decompiled=(\d+) failed=(\d+)(?: named-only=(\d+))?$")]
 	private static partial Regex ResultRegex { get; }
 
 	/// <summary>

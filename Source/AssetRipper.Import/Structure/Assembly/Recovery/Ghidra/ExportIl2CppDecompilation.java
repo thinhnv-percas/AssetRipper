@@ -1,7 +1,7 @@
 // Decompiles the functions listed in an Il2Cpp symbol file and writes the results grouped by assembly.
 //
 // Run by AssetRipper through analyzeHeadless. Arguments:
-//   [0] path to the tab separated symbol file: address <TAB> group <TAB> name
+//   [0] path to the tab separated symbol file: address, group, name, key, signature, decompile
 //   [1] directory to write the decompiled output into
 //   [2] optional path to the type layout file
 //
@@ -64,13 +64,17 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		final String name;
 		final String key;
 		final String signature;
+		/// Naming a function is cheap and makes every call to it readable. Decompiling one is the
+		/// expensive half of the run, so a symbol may ask to be named and left alone.
+		final boolean decompile;
 
-		Symbol(long address, String group, String name, String key, String signature) {
+		Symbol(long address, String group, String name, String key, String signature, boolean decompile) {
 			this.address = address;
 			this.group = group;
 			this.name = name;
 			this.key = key;
 			this.signature = signature;
+			this.decompile = decompile;
 		}
 	}
 
@@ -117,15 +121,27 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 			int succeeded = 0;
 			int failed = 0;
 			int processed = 0;
+			int skipped = 0;
+			int wanted = 0;
+			for (Symbol symbol : symbols) {
+				if (symbol.decompile) {
+					wanted++;
+				}
+			}
 
 			for (Symbol symbol : symbols) {
 				if (monitor.isCancelled()) {
 					break;
 				}
 
+				if (!symbol.decompile) {
+					skipped++;
+					continue;
+				}
+
 				processed++;
 				if (processed % DecompileProgressInterval == 0) {
-					reportProgress("decompiling", processed, symbols.size());
+					reportProgress("decompiling", processed, wanted);
 				}
 
 				Address address = resolve(symbol.address);
@@ -178,7 +194,7 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 			}
 
 			// AssetRipper parses this line to report the outcome.
-			println("RESULT decompiled=" + succeeded + " failed=" + failed);
+			println("RESULT decompiled=" + succeeded + " failed=" + failed + " named-only=" + skipped);
 		} finally {
 			decompiler.dispose();
 		}
@@ -205,7 +221,8 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 				}
 				String key = parts.length > 3 ? parts[3] : "";
 				String signature = parts.length > 4 ? parts[4] : "";
-				symbols.add(new Symbol(address, parts[1], parts[2], key, signature));
+				boolean decompile = parts.length <= 5 || !parts[5].equals("0");
+				symbols.add(new Symbol(address, parts[1], parts[2], key, signature, decompile));
 			}
 		} finally {
 			reader.close();

@@ -35,6 +35,22 @@ public sealed class GhidraOutputParserTests
 		}
 	}
 
+	/// <summary>
+	/// The count of functions named without being decompiled was added later, so both shapes parse.
+	/// </summary>
+	[Test]
+	public void ResultIsReadWhenItReportsNamedOnlyFunctions()
+	{
+		const string line = "INFO  ExportIl2CppDecompilation.java> RESULT decompiled=1234 failed=56 named-only=89243 (GhidraScript)  ";
+
+		Assert.That(GhidraOutputParser.TryParseResult(line, out int decompiled, out int failed), Is.True);
+		using (Assert.EnterMultipleScope())
+		{
+			Assert.That(decompiled, Is.EqualTo(1234));
+			Assert.That(failed, Is.EqualTo(56));
+		}
+	}
+
 	[Test]
 	public void OrdinaryLinesAreNotMistakenForProgressOrResults()
 	{

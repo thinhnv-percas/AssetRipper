@@ -410,15 +410,46 @@ divide cleanly:
 | A runtime entry point Cpp2IL can name | 3 | 6313 |
 | Everything else, which is `libil2cpp` itself | 218 | 48281 |
 
-The second row is ours and is not hard: `Il2CppSymbolTable.Collect` walks `assembly.Types` and so only
-ever sees the 85483 methods that have a definition. `ApplicationAnalysisContext.ConcreteGenericMethodsByRef`
-holds another 99916 instantiations, 99707 of them with an address and 89243 not already in the table.
-Each is a separate compiled function, and naming them more than doubles what the table covers.
+The second row was ours. `Il2CppSymbolTable.Collect` walked `assembly.Types` and so only ever saw the
+85483 methods that have a definition, while `ApplicationAnalysisContext.ConcreteGenericMethodsByRef`
+holds another 99916 instantiations, 99707 of them with an address and 89243 at an address no definition
+claims. Each is a separate compiled function. They are now in the table, which takes it from 85483
+entries to 174745.
 
-The fourth row is `libil2cpp`'s own helpers — 218 functions carrying three quarters of the unnamed
-calls, the busiest of them used 13535 times. Cpp2IL locates twenty one of them by pattern and the rest
-are not exported, so Ghidra has nothing to name them from. This is the same shortage that leaves
-`Method not found @1D35808` in the recovered C#, and 0x1d35808 is one address in both accounts.
+The third row was ours as well, for a smaller amount. Cpp2IL locates a handful of `libil2cpp`'s own
+entry points by pattern — 21 on this game — and nothing was passing them to Ghidra even though they
+were already known.
+
+Both are named without being decompiled, which is a distinction the symbol file now carries in a
+column of its own. Naming a function is what makes every call to it readable and costs nothing;
+decompiling it is the expensive half of the run. Decompiling 89243 more functions would multiply the
+longest part of a run to produce bodies that are, for the most part, another instantiation of something
+already in the output. For the same reason they carry no index key: the exported assemblies hold a
+generic method once rather than once per instantiation, so there is nothing to attach a body to without
+guessing which instantiation the reader meant.
+
+Rerunning the same 11059 method subset against the enlarged table, with everything else unchanged:
+
+| | before | after |
+| --- | --- | --- |
+| Call sites naming nothing | 63930 | 55421 |
+| Distinct targets naming nothing | 1591 | 394 |
+
+Ghidra took the names for 140808 of the 174726 symbols and prototypes for 128071 of them; the rest are
+addresses inside a function it had already defined, which is what a shared generic implementation looks
+like, and a call there resolves to the containing function anyway. The run cost about a minute more
+than the same subset had cost before, which is the answer to whether naming a hundred and sixty
+thousand extra functions is affordable: naming is cheap, and it was only ever decompiling that was not.
+
+The runtime entry points were added after that run and account for 6313 more of the remaining call
+sites across three addresses, `il2cpp_runtime_class_init_actual` alone appearing 6027 times. That
+leaves 49108 sites over 391 targets.
+
+Those are the fourth row, which is not ours and is the one that matters most: `libil2cpp`'s own helpers,
+218 functions carrying three quarters of the unnamed calls, the busiest used 13535 times. They are not
+exported, so Ghidra has nothing to name them from, and Cpp2IL's pattern matching finds only the 21
+above. This is the same shortage that leaves `Method not found @1D35808` in the recovered C#, and
+0x1d35808 is one address in both accounts.
 
 ### Running the layout rule rather than approximating it
 

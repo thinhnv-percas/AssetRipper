@@ -60,10 +60,29 @@ public sealed class GhidraIntegrationTests
 		using (Assert.EnterMultipleScope())
 		{
 			Assert.That(lines[0], Does.StartWith("#"));
-			Assert.That(lines[1], Is.EqualTo("0x1149\tAssembly-CSharp\tCombatMath.ComputeDamage\tCombatMath|ComputeDamage|2\tint ComputeDamage(int a, void * method)"));
+			Assert.That(lines[1], Is.EqualTo("0x1149\tAssembly-CSharp\tCombatMath.ComputeDamage\tCombatMath|ComputeDamage|2\tint ComputeDamage(int a, void * method)\t1"));
 			// A method whose types could not be mapped leaves the signature column empty.
-			Assert.That(lines[2], Is.EqualTo("0x7ff60000115e\tAssembly-CSharp\tCombatMath.ApplyArmor\tCombatMath|ApplyArmor|2\t"));
+			Assert.That(lines[2], Is.EqualTo("0x7ff60000115e\tAssembly-CSharp\tCombatMath.ApplyArmor\tCombatMath|ApplyArmor|2\t\t1"));
 		}
+	}
+
+	/// <summary>
+	/// A generic instantiation is worth naming, so that calls to it read, but not worth the time it
+	/// takes to decompile. The last column is what says so.
+	/// </summary>
+	[Test]
+	public void SymbolsCanAskToBeNamedWithoutBeingDecompiled()
+	{
+		Il2CppSymbolTable.Entry[] entries =
+		[
+			new(0x20, "mscorlib", "System.Collections.Generic.List`1<System.Int32>::Add", "", "", Decompile: false),
+		];
+
+		StringWriter writer = new() { NewLine = "\n" };
+		Il2CppSymbolTable.Write(entries, writer);
+
+		string line = writer.ToString().TrimEnd('\n').Split('\n')[1];
+		Assert.That(line, Is.EqualTo("0x20\tmscorlib\tSystem.Collections.Generic.List`1<System.Int32>::Add\t\t\t0"));
 	}
 
 	/// <summary>
@@ -80,8 +99,8 @@ public sealed class GhidraIntegrationTests
 		string line = writer.ToString().TrimEnd('\n').Split('\n')[1];
 		using (Assert.EnterMultipleScope())
 		{
-			Assert.That(line.Split('\t'), Has.Length.EqualTo(5));
-			Assert.That(line, Is.EqualTo("0x10\tGroup WithTab\tName WithNewline\tKey\tvoid F(void * method)"));
+			Assert.That(line.Split('\t'), Has.Length.EqualTo(6));
+			Assert.That(line, Is.EqualTo("0x10\tGroup WithTab\tName WithNewline\tKey\tvoid F(void * method)\t1"));
 		}
 	}
 
