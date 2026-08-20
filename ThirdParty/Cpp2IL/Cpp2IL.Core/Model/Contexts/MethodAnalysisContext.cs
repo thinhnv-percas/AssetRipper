@@ -398,6 +398,9 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider
         // Delete any il2cpp_codegen_initialize_runtime_metadata/il2cpp_codegen_initialize_method
         MetadataInitGuardRemover.Run(this);
 
+        // Whatever bookkeeping the guard removal did not take with it says nothing in managed terms.
+        KeyFunctionRecovery.RemoveBookkeepingCalls(this);
+
         LocalVariables.ResolveTypesAndFields(this);
 
         // Copy/constant propagation belongs in SSA, where one definition dominates all uses and phis

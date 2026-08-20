@@ -9,6 +9,19 @@ namespace Cpp2IL.Core.Il2CppApiFunctions;
 
 public class X86KeyFunctionAddresses : BaseKeyFunctionAddresses
 {
+    protected override ulong FindFirstCallTargetInMethod(ulong methodPointer)
+    {
+        var body = X86Utils.GetMethodBodyAtVirtAddressNew(methodPointer, false, _appContext.Binary);
+
+        foreach (var instruction in body)
+        {
+            if (instruction.Mnemonic == Mnemonic.Call)
+                return instruction.NearBranchTarget;
+        }
+
+        return 0;
+    }
+
     private InstructionList? _cachedDisassembledBytes;
 
     private InstructionList DisassembleTextSection()

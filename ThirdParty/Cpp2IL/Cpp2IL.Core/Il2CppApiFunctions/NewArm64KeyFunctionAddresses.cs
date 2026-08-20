@@ -22,6 +22,25 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
         return _cachedDisassembledBytes;
     }
 
+    /// <remarks>
+    /// The managed method bodies do not live in the section the thunk search disassembles, so this
+    /// disassembles the one method rather than looking it up there. A body ends at its first return, and
+    /// anything past that belongs to the next method.
+    /// </remarks>
+    protected override ulong FindFirstCallTargetInMethod(ulong methodPointer)
+    {
+        foreach (var instruction in NewArm64Utils.GetArm64MethodBodyAtVirtualAddress(_appContext.Binary, methodPointer))
+        {
+            if (instruction.Mnemonic == Arm64Mnemonic.BL)
+                return instruction.BranchTarget;
+
+            if (instruction.Mnemonic == Arm64Mnemonic.RET)
+                return 0;
+        }
+
+        return 0;
+    }
+
     protected override IEnumerable<ulong> FindAllThunkFunctions(ulong addr, uint maxBytesBack = 0, params ulong[] addressesToIgnore)
     {
         //Disassemble .text
@@ -92,6 +111,16 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
         if (lastCall.Mnemonic == Arm64Mnemonic.INVALID)
         {
             Logger.VerboseNewline("Method does not match expected signature. Aborting.");
+            return 0;
+        }
+
+        // Object::IsInst is part of the runtime and so is not a managed method. Landing on one means
+        // this build does not write IsInstanceOfType the way the rule above assumes - on the measured
+        // game it calls one method and then tail branches - and a name on the wrong function is worse
+        // than no name at all.
+        if (_appContext.MethodsByAddress.ContainsKey(lastCall.BranchTarget))
+        {
+            Logger.VerboseNewline($"Last call is to the managed method at 0x{lastCall.BranchTarget:X}, so this is not IsInst. Aborting.");
             return 0;
         }
 

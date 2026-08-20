@@ -553,25 +553,61 @@ distinct ARM64 instructions it has not implemented, about 1400 occurrences, led 
 `LDUR`, `FCMP` and the conditional selects `CSEL`, `CSET` and `FCSEL` — which is why the method above
 lost its clamp. Every one of them is announced in the output rather than silently skipped.
 
-### Phase 4 — Cpp2IL improvements (unscheduled)
+### Phase 4 — the Cpp2IL fork
 
-`IlGenerator` is `internal` to Cpp2IL. Changing lifting behaviour means forking Cpp2IL and building
-the package, not patching AssetRipper. What such a fork would be for, in order of what it would buy,
-measured on the game's own assembly of 66261 lines of recovered C#:
+`IlGenerator` is `internal` to Cpp2IL, so changing what a recovered body says means changing Cpp2IL.
+It is copied into `ThirdParty/Cpp2IL`, MIT licensed, at the commit the package was built from, and that
+directory's README lists every change with its reason so the copy can be rebased.
 
-1. **Metadata usages are not resolved on this build**, so a type, string or method reference that the
-   code loads from a global comes out as `Unmanaged memory load: [449B1C0]` — 3827 of them. The usage
-   table stopped being part of the metadata at version 27 and this game is version 31, so LibCpp2IL's
-   `GetAnyGlobalByAddress` answers null for every one of them. This is the same gap Ghidra shows as
-   `PTR_DAT_0459b1c0`.
-2. **Calls into the runtime are not resolved**, coming out as `Method not found @1D35808` — 6001 of
-   them, over an alphabet of a few dozen addresses. `il2cpp_codegen_initialize_runtime_metadata` and
-   `il2cpp_codegen_initialize_method` are among the eight of Cpp2IL's twenty nine key functions that it
-   fails to locate on this build, and they are exactly the ones that would resolve the point above.
-   Supplying the address by hand changes nothing, because the map they feed is built while the binary
-   loads, which is what makes this a fork rather than a setting.
-3. **The 39 unimplemented ARM64 instructions.** Small next to the other two, and the most obviously
-   bounded work of the three.
+Two things were wrong, and both were invisible from outside.
+
+**The metadata usages were being looked for at the wrong address.** Every type, string, method and field
+the compiled code refers to is loaded from a global holding an encoded token, and none of them resolved:
+3827 lines of `Unmanaged memory load: [449BB68]` in the game's own assembly. The address is not the
+token's. Position independent code reaches its globals through the GOT, so 0x449bb68 is a GOT entry the
+loader fills with 0x456a578, and the token lives there. The decoder read the GOT entry, found an address
+rather than a token, and gave up. It now follows one indirection, and only for an address the file
+relocates, so an ordinary pointer cannot be mistaken for a table entry. On this binary 41096 relocated
+GOT entries point at usages: 12387 string literals, 10274 method refs, 9271 method defs, 7577 type
+infos, 934 types, 604 field infos and 4 field RVAs.
+
+**The metadata initialization function was never looked for on ARM64.** It is not exported, so it is
+found by pattern — the first call in `System.Exception::get_Message` — and that was written for x86 only,
+behind an instruction set check with a *TODO make this abstract* beside it. Reading the first call out of
+a method body is now something each instruction set implements, and on this game the ARM64 one finds
+0x1d35808, which is the address 12899 of the unnamed calls in the Ghidra output go to. Calls to it, and
+to the class initializer beside it, are then deleted rather than named: metadata initialization fills in
+globals the method is about to read and a class init runs a static constructor, and C# writes neither.
+
+Two smaller things had to be fixed for that to be usable, both described in the fork's README: a
+`MethodInfo*` had no managed type and threw when one was asked for, which had never happened because
+these usages never resolved before, and a method whose generation threw was coming out silently empty
+because the throw went into a body the generator had already replaced.
+
+On the game's own assembly, before and after:
+
+| | before | after |
+| --- | --- | --- |
+| Lines of recovered C# | 66261 | 63261 |
+| `Method not found @…` | 6001 | 3589 |
+| `Unmanaged memory load: …` | 3827 | 2356 |
+| Placeholder calls in total | 11084 | 8362 |
+
+Methods recovered is unchanged at 19859: this removes noise and adds names, it does not recover more.
+The Ghidra output gains the larger share, because the runtime entry points now reach its symbol table:
+the 20 of them account for 19212 of the 55421 calls that still named nothing, `il2cpp_codegen_initialize_runtime_metadata`
+alone for 12899 and `il2cpp_runtime_class_init_actual` for 6027.
+
+What is left, in order of what it would buy:
+
+1. **The remaining `libil2cpp` helpers.** 117 addresses carry the 3589 `Method not found` lines that
+   remain, and three of them carry 2093. They are not exported and no pattern in Cpp2IL finds them.
+   Naming one wrongly is worse than leaving it unnamed, so this needs a way to identify them, not a
+   guess: `Object::IsInst` is the cautionary case, where the documented rule lands on a managed method
+   on this build and the fork now answers nothing rather than the wrong name.
+2. **The 39 unimplemented ARM64 instructions**, 1204 occurrences, the most obviously bounded work here.
+3. **`Expected O, but got …`**, 3133 of them: the recovered IL is ill-typed in places, which ILSpy
+   reports and works around.
 
 `AsmResolverDllOutputFormatIlRecovery.WriteControlFlowGraph` dumps a Graphviz CFG for one method.
 

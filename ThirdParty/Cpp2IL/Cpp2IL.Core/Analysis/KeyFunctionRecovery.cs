@@ -19,6 +19,47 @@ public static class KeyFunctionRecovery
         "il2cpp_codegen_object_new",
     ];
 
+    /// <summary>
+    /// The runtime calls that do bookkeeping and mean nothing in managed terms.
+    /// </summary>
+    /// <remarks>
+    /// Metadata initialization fills in the globals the method is about to read, and a class init runs
+    /// a static constructor, which C# does not write either. Left alone they are the single largest
+    /// source of noise in a recovered body: the compiler emits them before nearly every metadata use.
+    /// </remarks>
+    private static readonly HashSet<string> BookkeepingFunctions =
+    [
+        "il2cpp_codegen_initialize_method",
+        "il2cpp_codegen_initialize_runtime_metadata",
+        "il2cpp_vm_metadatacache_initializemethodmetadata",
+        "il2cpp_runtime_class_init_export",
+        "il2cpp_runtime_class_init_actual",
+    ];
+
+    /// <summary>
+    /// Drops the bookkeeping calls, which has to happen after the metadata init guards are removed,
+    /// since those are recognised by the very calls this deletes.
+    /// </summary>
+    /// <remarks>
+    /// Only the void form is dropped. The same functions are sometimes called for their return value,
+    /// which is the pointer they initialized, and deleting one of those would leave the value it
+    /// produced undefined.
+    /// </remarks>
+    public static void RemoveBookkeepingCalls(MethodAnalysisContext method)
+    {
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            if (instruction.OpCode != OpCode.CallVoid || instruction.Operands is not [string name, ..])
+                continue;
+
+            if (!BookkeepingFunctions.Contains(name))
+                continue;
+
+            instruction.OpCode = OpCode.Nop;
+            instruction.Operands = [];
+        }
+    }
+
     public static void Run(MethodAnalysisContext method)
     {
         foreach (var instruction in method.ControlFlowGraph!.Blocks.SelectMany(block => block.Instructions))

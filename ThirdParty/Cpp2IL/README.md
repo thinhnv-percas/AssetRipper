@@ -37,6 +37,27 @@ remembered and `Move b, [a]` is resolved as well.
 `ContextToTypeSignature` threw on `RuntimeMethodInfoAnalysisContext`, which only became reachable once
 usages resolved. It is lowered to `IntPtr`, the same as the `Il2CppClass*` handle beside it.
 
+### The metadata initialization function was never looked for on ARM64
+
+Every metadata use is preceded by a call to `il2cpp_codegen_initialize_runtime_metadata`, which is not
+exported and so has to be found by pattern: the first call in `System.Exception::get_Message` is it.
+That was written for x86 only, guarded by an instruction set check with a *TODO make this abstract*
+beside it. Reading the first call out of a method body is now a `virtual` the instruction sets
+implement, and ARM64 implements it, which finds the function at 0x1d35808 on the measured game — 2433
+`Method not found` lines in one assembly, and 12899 unnamed calls in the Ghidra output.
+
+Calls to it, and to the class initializer beside it, are then deleted rather than named. Metadata
+initialization fills in globals the method is about to read and a class init runs a static constructor;
+neither is something C# writes, and both are emitted before nearly every metadata use. Only the void
+form is deleted, since the same functions are sometimes called for the pointer they return.
+
+### An IsInst that lands on a managed method is not IsInst
+
+`Object::IsInst` is found by taking the last call in `System.Type::IsInstanceOfType`. On the measured
+game that method makes one call and then tail branches, so the rule does not hold and the answer was a
+managed method's address. `Object::IsInst` is part of the runtime and never is one, so that case now
+answers nothing rather than naming the wrong function.
+
 ### A failed method came out empty rather than throwing
 
 `AsmResolverDllOutputFormatIlRecovery.FillMethodBody` wrote its `throw` into the body it had created

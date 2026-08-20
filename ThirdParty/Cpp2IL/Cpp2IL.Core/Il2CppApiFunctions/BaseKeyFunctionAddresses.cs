@@ -78,10 +78,9 @@ public abstract class BaseKeyFunctionAddresses
         _appContext = applicationAnalysisContext;
         Init(applicationAnalysisContext);
 
-        //Try to find System.Exception (should always be there)
-        if (applicationAnalysisContext.Binary.InstructionSetId == DefaultInstructionSets.X86_32 || applicationAnalysisContext.Binary.InstructionSetId == DefaultInstructionSets.X86_64)
-            //TODO make this abstract and implement in subclasses.
-            TryGetInitMetadataFromException();
+        //Try to find System.Exception (should always be there). Each instruction set supplies its own
+        //way of reading the first call out of a method body, and answers zero when it has none.
+        TryGetInitMetadataFromException();
 
         //New Object
         FindExport("il2cpp_object_new", out il2cpp_object_new);
@@ -122,37 +121,44 @@ public abstract class BaseKeyFunctionAddresses
         InitializeResolvedAddresses();
     }
 
+    /// <summary>
+    /// The target of the first call in a method's body, or zero when it cannot be worked out.
+    /// </summary>
+    /// <remarks>
+    /// Each instruction set disassembles its own code, so this is the one piece of
+    /// <see cref="TryGetInitMetadataFromException"/> that has to be written per architecture.
+    /// </remarks>
+    protected virtual ulong FindFirstCallTargetInMethod(ulong methodPointer) => 0;
+
     protected void TryGetInitMetadataFromException()
     {
         //Exception.get_Message() - first call is either to codegen_initialize_method (< v27) or codegen_initialize_runtime_metadata
         Logger.VerboseNewline("\tLooking for Type System.Exception, Method get_Message...");
 
-        var type = ReflectionCache.GetType("Exception", "System")!;
-        Logger.VerboseNewline("\t\tType Located. Ensuring method exists...");
-        var targetMethod = type.Methods!.FirstOrDefault(m => m.Name == "get_Message");
-        if (targetMethod != null) //Check struct contains valid data 
+        var type = ReflectionCache.GetType("Exception", "System");
+        var targetMethod = type?.Methods!.FirstOrDefault(m => m.Name == "get_Message");
+        if (targetMethod == null)
+            return;
+
+        Logger.VerboseNewline($"\t\tTarget Method Located at {targetMethod.MethodPointer}. Taking first CALL as the (version-specific) metadata initialization function...");
+
+        var target = FindFirstCallTargetInMethod(targetMethod.MethodPointer);
+
+        if (target == 0)
         {
-            Logger.VerboseNewline($"\t\tTarget Method Located at {targetMethod.MethodPointer}. Taking first CALL as the (version-specific) metadata initialization function...");
+            Logger.WarnNewline("Couldn't find any call instructions in the method body. This is not expected. Will not have metadata initialization function.");
+            return;
+        }
 
-            var disasm = X86Utils.GetMethodBodyAtVirtAddressNew(targetMethod.MethodPointer, false, _appContext.Binary);
-            var calls = disasm.Where(i => i.Mnemonic == Mnemonic.Call).ToList();
-
-            if (calls.Count == 0)
-            {
-                Logger.WarnNewline("Couldn't find any call instructions in the method body. This is not expected. Will not have metadata initialization function.");
-                return;
-            }
-
-            if (_appContext.MetadataVersion < 27)
-            {
-                il2cpp_codegen_initialize_method = calls.First().NearBranchTarget;
-                Logger.VerboseNewline($"\t\til2cpp_codegen_initialize_method => 0x{il2cpp_codegen_initialize_method:X}");
-            }
-            else
-            {
-                il2cpp_codegen_initialize_runtime_metadata = calls.First().NearBranchTarget;
-                Logger.VerboseNewline($"\t\til2cpp_codegen_initialize_runtime_metadata => 0x{il2cpp_codegen_initialize_runtime_metadata:X}");
-            }
+        if (_appContext.MetadataVersion < 27)
+        {
+            il2cpp_codegen_initialize_method = target;
+            Logger.VerboseNewline($"\t\til2cpp_codegen_initialize_method => 0x{il2cpp_codegen_initialize_method:X}");
+        }
+        else
+        {
+            il2cpp_codegen_initialize_runtime_metadata = target;
+            Logger.VerboseNewline($"\t\til2cpp_codegen_initialize_runtime_metadata => 0x{il2cpp_codegen_initialize_runtime_metadata:X}");
         }
     }
 

@@ -98,6 +98,16 @@ packages with the real ones. `docs/articles/PackageGuidRemapping.md` is the desi
 `Source/AssetRipper.Import/Structure/Assembly/Recovery` recovers method bodies through Cpp2IL and,
 at `ScriptContentLevel.Level4`, through Ghidra. `docs/articles/Il2CppMethodRecovery.md` is the design.
 
+**Cpp2IL is forked into `ThirdParty/Cpp2IL`** because the parts that decide what a recovered body says
+are `internal` to it. That directory's README lists every change and why, so it can be rebased onto a
+newer upstream. It sits outside `Source/` so the repository's build properties do not apply to it.
+
+**A position independent binary reaches its globals through the GOT.** An address the code loads from
+holds the address of the metadata usage, not the usage, so anything that reads a global has to follow
+one indirection — and only for an address the file relocates, or an ordinary pointer gets mistaken for a
+table entry. This is why every type, string and method reference used to come out as
+`Unmanaged memory load: [449BB68]`.
+
 **Cpp2IL has two ARM64 lifters and only the newer one works.** `NewArmV8InstructionSet` recovered 19859
 bodies against `Arm64InstructionSet`'s 3762 on a shipped game, and 2326857 CIL instructions against
 13635. The old one was reporting recoveries that were empty. The new one fails differently: an
