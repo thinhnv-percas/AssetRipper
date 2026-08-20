@@ -18,7 +18,7 @@ Two independent approaches attack the second, and they are complementary rather 
 
 | Approach | Output | Coverage | ARM64 | Cost |
 | --- | --- | --- | --- | --- |
-| **Cpp2IL IL recovery** (`Level3`) | Real C# | ~10-20% on x86, less elsewhere | Weak | Already paid for |
+| **Cpp2IL IL recovery** (`Level3`) | Real C# | 92.9% of what it attempts | Good, with the newer lifter | Two minutes |
 | **Ghidra decompilation** (`Level4`) | Pseudo C | Nearly every function | Mature | An hour or more per binary |
 | Frida (`frida-il2cpp-bridge`, external) | Runtime traces and dumps | Only what executes | Android is well tested | Needs a running device |
 
@@ -58,9 +58,8 @@ GameAssembly.dll / libil2cpp.so  +  global-metadata.dat
 
 These are properties of the analysis, not of the wiring:
 
-- Cpp2IL IL recovery is partial. Upstream reports roughly 10-20% of methods on x86 games.
-- Non-x86 instruction sets do worse in Cpp2IL. ARMv8 covers a narrower set of operations than x86,
-  which matters because shipped mobile games are ARM64. Ghidra does not share this weakness.
+- Cpp2IL IL recovery is partial, and what it does recover is not always right. See the ARM64 lifter
+  section below: a recovered body is right in outline and can be wrong in a detail.
 - `mscorlib` and any assembly whose name starts with `System` or `Unity` are excluded from Cpp2IL
   analysis for performance, so engine and BCL code stays stubbed.
 - Recovered C# is not expected to compile. It is for reading, not rebuilding.
@@ -397,6 +396,30 @@ Ordered by what they would cost:
 3. Only then lay out constructed generic value types by inflating their definitions, which is the 3566
    refusals. Generic parameters stay refused regardless; their size is not a property of the method.
 
+### What the decompiled output is actually short of
+
+Counting the call expressions across the decompiled C says where the reading difficulty is, and it is
+not where the layout work has been going. Of roughly 97000 calls, 63930 are to a function with no name:
+45653 written `FUN_…` and 18277 written `thunk_FUN_…`. They land on 1591 distinct addresses, and those
+divide cleanly:
+
+| What the target is | Distinct | Call sites |
+| --- | --- | --- |
+| A managed method outside the decompiled subset | 706 | 5465 |
+| A generic method instantiation, which the symbol table never emits | 664 | 3871 |
+| A runtime entry point Cpp2IL can name | 3 | 6313 |
+| Everything else, which is `libil2cpp` itself | 218 | 48281 |
+
+The second row is ours and is not hard: `Il2CppSymbolTable.Collect` walks `assembly.Types` and so only
+ever sees the 85483 methods that have a definition. `ApplicationAnalysisContext.ConcreteGenericMethodsByRef`
+holds another 99916 instantiations, 99707 of them with an address and 89243 not already in the table.
+Each is a separate compiled function, and naming them more than doubles what the table covers.
+
+The fourth row is `libil2cpp`'s own helpers — 218 functions carrying three quarters of the unnamed
+calls, the busiest of them used 13535 times. Cpp2IL locates twenty one of them by pattern and the rest
+are not exported, so Ghidra has nothing to name them from. This is the same shortage that leaves
+`Method not found @1D35808` in the recovered C#, and 0x1d35808 is one address in both accounts.
+
 ### Running the layout rule rather than approximating it
 
 `Il2CppFieldLayout` is that algorithm. It is the runtime's, not a reconstruction: a field's alignment
@@ -459,18 +482,67 @@ This phase is a decision gate, not a commitment to improve anything.
 **Gate:** if Ghidra covers what is needed, further Cpp2IL work is hard to justify. Phase 4 only makes
 sense if C# output specifically is required.
 
-### Phase 4 — Cpp2IL improvements (unscheduled, low priority)
+### The ARM64 lifter, which was the whole problem
 
-Deprioritized in favour of Ghidra, which reaches far higher coverage for far less effort. Only worth
-starting if C# output is a hard requirement and Phase 3 shows a concentrated set of failures.
+Cpp2IL ships two ARM64 lifters and `IL2CppManager` was registering the older one. That single choice
+was most of what made `Level3` look like a dead end on mobile games.
 
-- Try `NewArmV8InstructionSet` instead of `Arm64InstructionSet`. `IL2CppManager` currently hardcodes
-  `useNewArm64 = false`. This is the cheapest experiment with the largest potential effect on ARM64.
-- Work the ranked failure list from Phase 3. ISIL has only 33 opcodes, so the surface area is finite.
-- `AsmResolverDllOutputFormatIlRecovery.WriteControlFlowGraph` dumps a Graphviz CFG for one method.
+Measured on the same shipped ARM64 game, 87678 methods of which Cpp2IL attempts 21371 — the rest are
+`mscorlib`, `System*` and `Unity*`, which it excludes, or have no body:
+
+| | `Arm64InstructionSet` | `NewArmV8InstructionSet` |
+| --- | --- | --- |
+| Bodies recovered | 3762 | 19859 |
+| Bodies that came out empty | 17609 | 1512 |
+| CIL instructions across them | 13635 | 2326857 |
+| Time to build 80 assemblies | 4.3 s | 2 m 13 s |
+
+Four instructions per recovered body against a hundred and seventeen. The older lifter was not
+recovering a fifth of the game, it was recovering nothing and reporting a fifth.
+
+This is not free of cost, and the cost is not the two minutes. The two lifters fail differently. Where
+the older one cannot lift something it leaves the body returning a default, so an unrecovered method
+reads as obviously absent. The newer one produces a body that is right in outline and can be wrong in a
+detail, which reads as present. A three line method in the game's own code makes the point:
+
+```csharp
+// Arm64InstructionSet                     // NewArmV8InstructionSet
+public static int Add(int current,         public static int Add(int current,
+    int amount, int max)                       int amount, int max)
+{                                          {
+    return 0;                                  return current;
+}                                          }
+```
+
+Neither is the real method, which clamps the sum against `max`. Only one of them looks like it might
+be. Recovered C# is for reading, and the reader has to know that.
+
+What the newer lifter cannot do is at least a finite list. In the game's own assembly it names 39
+distinct ARM64 instructions it has not implemented, about 1400 occurrences, led by `LDRH`, `BLR`,
+`LDUR`, `FCMP` and the conditional selects `CSEL`, `CSET` and `FCSEL` — which is why the method above
+lost its clamp. Every one of them is announced in the output rather than silently skipped.
+
+### Phase 4 — Cpp2IL improvements (unscheduled)
 
 `IlGenerator` is `internal` to Cpp2IL. Changing lifting behaviour means forking Cpp2IL and building
-the package, not patching AssetRipper.
+the package, not patching AssetRipper. What such a fork would be for, in order of what it would buy,
+measured on the game's own assembly of 66261 lines of recovered C#:
+
+1. **Metadata usages are not resolved on this build**, so a type, string or method reference that the
+   code loads from a global comes out as `Unmanaged memory load: [449B1C0]` — 3827 of them. The usage
+   table stopped being part of the metadata at version 27 and this game is version 31, so LibCpp2IL's
+   `GetAnyGlobalByAddress` answers null for every one of them. This is the same gap Ghidra shows as
+   `PTR_DAT_0459b1c0`.
+2. **Calls into the runtime are not resolved**, coming out as `Method not found @1D35808` — 6001 of
+   them, over an alphabet of a few dozen addresses. `il2cpp_codegen_initialize_runtime_metadata` and
+   `il2cpp_codegen_initialize_method` are among the eight of Cpp2IL's twenty nine key functions that it
+   fails to locate on this build, and they are exactly the ones that would resolve the point above.
+   Supplying the address by hand changes nothing, because the map they feed is built while the binary
+   loads, which is what makes this a fork rather than a setting.
+3. **The 39 unimplemented ARM64 instructions.** Small next to the other two, and the most obviously
+   bounded work of the three.
+
+`AsmResolverDllOutputFormatIlRecovery.WriteControlFlowGraph` dumps a Graphviz CFG for one method.
 
 ### Phase 5 — Possible extensions (unscheduled)
 

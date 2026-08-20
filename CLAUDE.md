@@ -98,6 +98,12 @@ packages with the real ones. `docs/articles/PackageGuidRemapping.md` is the desi
 `Source/AssetRipper.Import/Structure/Assembly/Recovery` recovers method bodies through Cpp2IL and,
 at `ScriptContentLevel.Level4`, through Ghidra. `docs/articles/Il2CppMethodRecovery.md` is the design.
 
+**Cpp2IL has two ARM64 lifters and only the newer one works.** `NewArmV8InstructionSet` recovered 19859
+bodies against `Arm64InstructionSet`'s 3762 on a shipped game, and 2326857 CIL instructions against
+13635. The old one was reporting recoveries that were empty. The new one fails differently: an
+unrecovered detail comes out as a plausible wrong line rather than an obviously empty body, so recovered
+C# has to be read knowing that.
+
 **A wrong prototype is much worse than none.** Ghidra locks parameter storage to whatever it is told,
 so a mismatched return type can reduce a whole function body to a single return of an uninitialised
 register. Everything whose size is not certain is refused rather than guessed at.
