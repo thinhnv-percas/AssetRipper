@@ -393,9 +393,56 @@ Ordered by what they would cost:
    dereferenced as classes. Bounded work, and it addresses a tenth of the remaining raw offsets.
 2. Implement `FieldLayout::LayoutFields` exactly and require it to reproduce all 999 declared sizes and
    offsets before it is used for anything. If it does not, the difference is the answer to the async
-   state machine cases as well.
+   state machine cases as well. **Done — see below.**
 3. Only then lay out constructed generic value types by inflating their definitions, which is the 3566
    refusals. Generic parameters stay refused regardless; their size is not a property of the method.
+
+### Running the layout rule rather than approximating it
+
+`Il2CppFieldLayout` is that algorithm. It is the runtime's, not a reconstruction: a field's alignment
+comes from its type, packing lowers that alignment and never raises it, the running size starts where
+the base class's fields stopped rather than where the base class ended, a field of no size still
+advances the type by a byte, and the type ends at its furthest field rounded up to the strictest
+alignment any field asked for. A value type's own offsets are counted from the value while the runtime
+counts from the boxed object, so the header is added back and one calculation covers both kinds.
+
+Only a handful of decisions are not in `FieldLayout.cpp` itself and had to be read out of `Class.cpp`
+around it. A value type's alignment starts at one rather than at its parent's, since the value is not
+an object. Packing is dropped entirely for a type holding a reference, because such a type is not
+blittable and a misaligned pointer would cost more than the packing saves. A declaration that states
+its own size keeps it, which is what a fixed buffer is: one declared element and a size covering the
+rest. A type with no instance fields at all is whatever its definition records, which is the only thing
+that can be right for `System.Array`, whose size is an array's bounds and length on the C++ side rather
+than anything managed. And the instance layout has to be published before the static one is worked out,
+exactly as the runtime marks the type sized between the two, or a type with a static field of its own
+type — `System.Guid.Empty`, `System.DateTime.MinValue` — waits on itself and both are refused.
+
+`Il2CppFieldLayoutReport.Verify` is the check, and it has to be re-run per game rather than assumed. On
+the same ARM64 build, 9119 types have a recorded layout to compare against:
+
+| | matched | disagreed |
+| --- | --- | --- |
+| Instance size | 8251 | 82 |
+| Field offsets | 8331 | 82 |
+| Static storage size | 8655 | 0 |
+
+454 more were refused rather than described, which is not a disagreement. Every one of the 82 that
+disagreed inherits from a constructed generic, so the calculation is exact everywhere it has the data:
+2284 of 2284 value types, including the async state machines the earlier approximation could not
+reproduce, and 5967 of 5967 reference types that do not descend from a generic. The static sizes are an
+independent check on the same code, since a type's static storage is laid out by the same rule and
+recorded separately.
+
+Two details of the run are worth keeping. 68 types put their first field inside the size their base
+class declared, which is the Itanium ABI reusing the base's trailing padding; all 68 are right, and all
+68 would be wrong under the Microsoft rule, so the ABI is a real distinction rather than a theoretical
+one and is taken from whether the binary is a PE. Packing, on the other hand, is barely exercised: two
+types in the whole game carry a packing directive.
+
+Nothing consumes this yet. It exists so that the next step — inflating a generic definition with its
+type arguments and laying the result out — is a step onto something already checked, and the 82 types
+that disagree are how that step will be checked in turn, since they have recorded layouts that only a
+correct generic layout can reproduce.
 
 ### Phase 3 — Measure on a real game (next)
 

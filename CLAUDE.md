@@ -111,6 +111,13 @@ Two metadata traps, both measured on a shipped game:
   size of zero and every field offset as zero, and a constructed instance carries no fields. Those stay
   refused for now, but the reason is not that the layout is unknowable — see below.
 
+`Il2CppFieldLayout` runs Unity's own layout algorithm instead of reading stored offsets, and
+`Il2CppFieldLayoutReport.Verify` checks it against every type that does have a stored layout. **Re-run
+that per game rather than trusting the numbers here**; on the measured build it matched 8251 instance
+sizes, 8331 field offset sets and 8655 static sizes, with the only 82 disagreements all inheriting from
+a constructed generic. Nothing consumes it yet: it is the groundwork for laying out generics, which is
+what those 82 will verify.
+
 A field offset is counted from the start of the object, so a class's struct has to carry its inherited
 fields as well as its own or every read of one decompiles as arithmetic. Reference type parameters are
 typed by the struct they point at, which is free because a pointer is a pointer whatever it addresses.
