@@ -108,12 +108,22 @@ Two metadata traps, both measured on a shipped game:
   value types and wrong for others: `System.Char` marshals to one byte but occupies two. The managed
   size is `RawSizes.instance_size` less the object header, which is two pointers.
 - Metadata carries **no layout at all for generic types**: a generic definition reports an instance
-  size of zero and every field offset as zero, and a constructed instance carries no fields. There is
-  nothing to compute a layout against, which is why those stay refused.
+  size of zero and every field offset as zero, and a constructed instance carries no fields. Those stay
+  refused for now, but the reason is not that the layout is unknowable — see below.
 
 A field offset is counted from the start of the object, so a class's struct has to carry its inherited
 fields as well as its own or every read of one decompiles as arithmetic. Reference type parameters are
 typed by the struct they point at, which is free because a pointer is a pointer whatever it addresses.
+
+Unity ships the `libil2cpp` runtime source in the editor installer, and
+[MlgmXyysd/libil2cpp](https://github.com/MlgmXyysd/libil2cpp) collects it per Unity version. **It has no
+license and the code is Unity's, so nothing may be copied from it into this GPL-3.0 project**; use it to
+check facts against the binary, the way a specification is used. What it settles: `metadata/FieldLayout.cpp`
+is the exact layout algorithm, and `vm/Class.cpp` shows a generic instance inflating its definition's
+fields and running that same algorithm at runtime rather than reading a stored layout. It also explains
+raw offsets in decompiled output — `offsetof(Il2CppClass, static_fields)` is 0xb8 on 64 bit, which is
+what a doubly dereferenced `PTR_DAT_… + 0xb8` is. Version drift is real and the collection stops at Unity
+6000.0.5f1 with metadata version 29, short of the metadata 31 that later 2022.3 patches ship.
 
 ## Conventions
 

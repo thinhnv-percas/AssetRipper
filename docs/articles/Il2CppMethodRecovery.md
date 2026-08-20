@@ -269,6 +269,9 @@ reorders, and one type built on a fixed buffer. So the rule is close but not exa
 type there is no declared size to check it against, which is precisely the check every other decision
 here rests on. A wrong prototype costs more than a missing one, so these stay refused.
 
+That reasoning holds for a layout we invent. It does not hold for the one Il2Cpp itself computes, which
+is a different thing and is described under Unity's own runtime source below.
+
 Generic parameters, `T` and `TState`, account for another 2841. Their size is not a property of the
 method at all.
 
@@ -325,6 +328,74 @@ to ILSpy are generated and no longer carry native addresses.
 
 The comment is C, not C#, so it cannot be a method body. Long bodies are truncated at 200 lines by
 default to keep one method from burying the rest of the file.
+
+### Unity's own runtime source
+
+Everything above was worked out from the metadata and from what the decompiler produced. The runtime
+that reads that metadata is itself C++ source, and Unity ships it inside the editor installer:
+`libil2cpp`. [MlgmXyysd/libil2cpp](https://github.com/MlgmXyysd/libil2cpp) collects those trees, one per
+Unity patch release, from 4.6.2f1 to 6000.0.5f1, with a table of the metadata version each one carries.
+
+It has no license and the code is Unity's, so nothing from it can be copied into AssetRipper, which is
+GPL-3.0. It is useful the way a specification is: it says what the numbers in the binary mean, and every
+claim taken from it is worth confirming against the binary before it is relied on.
+
+Read that way it settles two questions this document leaves open.
+
+The first is the layout rule. `metadata/FieldLayout.cpp` is the whole algorithm in sixty lines, and the
+file is byte for byte identical in 2022.3.32f1 and 6000.0.5f1. A field's alignment comes from its type,
+packing lowers it rather than raising it, the running size starts at the parent's and an empty field
+still advances it by one byte, and the final size is the running size aligned to the largest alignment
+seen. That is the rule the 998 of 999 measurement was approximating, which means the remaining
+disagreements are a difference from a known algorithm rather than an unknown.
+
+The second is generics, and it reverses the conclusion above. `vm/Class.cpp` shows that a generic
+instance does not read a layout from anywhere: `SetupFieldsLocked` inflates the definition's fields with
+the type arguments and then runs the same `LayoutFieldsLocked` as every other type, and
+`SetupFieldOffsetsLocked` writes back what came out. The metadata carrying no layout for a generic is
+therefore not a gap to guess across; the layout is computed, and it is computed by an algorithm we can
+reproduce. The verification we were missing comes with it, since the same code path produces every
+non-generic layout, and those have declared sizes to check against — all 999 of them. An implementation
+that reproduces 999 of 999 has been tested on far more evidence than a generic instantiation would ever
+offer on its own. `UpdateInstanceSizeForGenericClass` also explains the zero instance size a generic
+definition reports: nothing ever sets one, because nothing lays a definition out.
+
+It also explains output we already have. `offsetof(Il2CppClass, static_fields)` works out to 0xb8 on 64
+bit, and the decompiled output for the measured game contains 4434 reads shaped
+`*(long *)(*(long *)PTR_DAT_… + 0xb8)`, about a tenth of the 41720 accesses still decompiling as a raw
+offset. Those are static field reads. `Il2CppObject` is two pointers, and `Il2CppArraySize` puts its
+elements at 0x20, which is the other arithmetic that shows up constantly. Describing those three structs
+to Ghidra costs nothing and names all of it.
+
+Two cautions, both measured. Version drift is real: `Il2CppClass` agrees between 2022.3.32f1 and
+6000.0.5f1 up to and past `static_fields`, but `initializationExceptionGCHandle` changes from a
+`uint32_t` to an `Il2CppGCHandle`, which is a pointer, so every field after it moves by four bytes on 64
+bit. And the collection stops short of what is being ripped: its newest tree is 6000.0.5f1 and every
+entry in its table reports metadata version 29, while the game measured here is 2022.3.62f2 and the
+header of its `global-metadata.dat` says 31. The nearest tree is a guide to what is stable, not a
+description of this binary.
+
+Naming the class behind each of those globals is a separate problem and is not solved by reading the
+source. `LibCpp2IlMain.GetAnyGlobalByAddress` only maps the pre-27 metadata usage table; on this game
+every sampled address answered null, and the same addresses without the image base subtracted answered
+with unrelated string literals, which is worse than nothing. What does exist is
+`ApplicationAnalysisContext.GetOrCreateKeyFunctionAddresses`, which finds
+`il2cpp_codegen_initialize_runtime_metadata` among some thirty runtime entry points. That function is
+what fills those globals from a token, so the call site carries the answer.
+
+The exported API is the cheap end of the same idea. The game exports 241 `il2cpp_` symbols and
+`il2cpp-api-functions.h` declares 239, so Ghidra already names them from the dynamic symbol table and
+only the prototypes are missing.
+
+Ordered by what they would cost:
+
+1. Register `Il2CppObject`, `Il2CppArraySize` and `Il2CppClass` as structs and type the globals that are
+   dereferenced as classes. Bounded work, and it addresses a tenth of the remaining raw offsets.
+2. Implement `FieldLayout::LayoutFields` exactly and require it to reproduce all 999 declared sizes and
+   offsets before it is used for anything. If it does not, the difference is the answer to the async
+   state machine cases as well.
+3. Only then lay out constructed generic value types by inflating their definitions, which is the 3566
+   refusals. Generic parameters stay refused regardless; their size is not a property of the method.
 
 ### Phase 3 — Measure on a real game (next)
 
