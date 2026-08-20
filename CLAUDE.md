@@ -102,6 +102,12 @@ at `ScriptContentLevel.Level4`, through Ghidra. `docs/articles/Il2CppMethodRecov
 are `internal` to it. That directory's README lists every change and why, so it can be rebased onto a
 newer upstream. It sits outside `Source/` so the repository's build properties do not apply to it.
 
+**The two recoveries are complementary and each can feed the other.** Of the methods a Ghidra run
+decompiles, roughly three fifths are ones Cpp2IL excludes outright (`mscorlib`, `System*`, `Unity*`), so
+the pseudo C is their only content. Going the other way, `Il2CppGlobalTable` gives Ghidra the names of
+the metadata globals that Cpp2IL resolves, which is what turns `PTR_DAT_0459b1c0` into
+`UnityEngine_Object_TypeInfo`.
+
 **A position independent binary reaches its globals through the GOT.** An address the code loads from
 holds the address of the metadata usage, not the usage, so anything that reads a global has to follow
 one indirection — and only for an address the file relocates, or an ordinary pointer gets mistaken for a

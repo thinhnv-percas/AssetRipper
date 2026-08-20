@@ -4,6 +4,7 @@
 //   [0] path to the tab separated symbol file: address, group, name, key, signature, decompile
 //   [1] directory to write the decompiled output into
 //   [2] optional path to the type layout file
+//   [3] optional path to the metadata globals file: address, name
 //
 //@category AssetRipper
 
@@ -13,6 +14,7 @@ import ghidra.app.decompiler.DecompileResults;
 import ghidra.app.script.GhidraScript;
 import ghidra.app.util.parser.FunctionSignatureParser;
 import ghidra.program.model.address.Address;
+import ghidra.program.model.symbol.SymbolTable;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.DataTypeConflictHandler;
@@ -102,6 +104,11 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		if (args.length > 2) {
 			int structs = defineStructures(new File(args[2]));
 			println("Defined " + structs + " type layouts");
+		}
+
+		if (args.length > 3) {
+			int globals = applyGlobalNames(new File(args[3]));
+			println("Named " + globals + " metadata globals");
 		}
 
 		int named = applyNames(symbols);
@@ -198,6 +205,58 @@ public class ExportIl2CppDecompilation extends GhidraScript {
 		} finally {
 			decompiler.dispose();
 		}
+	}
+
+	/// Labels the globals that compiled Il2Cpp code loads its types, strings and methods out of.
+	///
+	/// The decompiler prints a data reference by the address it sits at, so a body is full of
+	/// PTR_DAT_0459b1c0 where the metadata says UnityEngine.Object. A primary label at that address is
+	/// all it takes for the name to appear instead.
+	private int applyGlobalNames(File file) throws Exception {
+		if (!file.isFile()) {
+			return 0;
+		}
+
+		SymbolTable symbolTable = currentProgram.getSymbolTable();
+		int named = 0;
+
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		try {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (line.length() == 0 || line.charAt(0) == '#') {
+					continue;
+				}
+
+				String[] parts = line.split("\t");
+				if (parts.length < 2) {
+					continue;
+				}
+
+				long value;
+				try {
+					value = Long.parseUnsignedLong(parts[0].startsWith("0x") ? parts[0].substring(2) : parts[0], 16);
+				} catch (NumberFormatException e) {
+					continue;
+				}
+
+				Address address = resolve(value);
+				if (address == null) {
+					continue;
+				}
+
+				try {
+					symbolTable.createLabel(address, parts[1], SourceType.IMPORTED).setPrimary();
+					named++;
+				} catch (Exception e) {
+					// A name the program will not accept is not worth abandoning the rest for.
+				}
+			}
+		} finally {
+			reader.close();
+		}
+
+		return named;
 	}
 
 	private List<Symbol> readSymbols(File file) throws Exception {

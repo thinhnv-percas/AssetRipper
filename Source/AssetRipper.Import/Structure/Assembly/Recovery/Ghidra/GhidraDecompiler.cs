@@ -71,6 +71,16 @@ public static class GhidraDecompiler
 			}
 			Logger.Info(LogCategory.Import, $"Wrote {entries.Count} Il2Cpp symbols for Ghidra.");
 
+			// The globals compiled code loads its types, strings and methods out of. Ghidra sees these as
+			// anonymous words; Cpp2IL knows what each one holds.
+			string globalFilePath = Path.Join(workingDirectory, "globals.tsv");
+			List<Il2CppGlobalTable.Global> globals = Il2CppGlobalTable.Collect(context);
+			using (StreamWriter writer = new(globalFilePath))
+			{
+				Il2CppGlobalTable.Write(globals, writer);
+			}
+			Logger.Info(LogCategory.Import, $"Wrote {globals.Count} Il2Cpp metadata globals for Ghidra.");
+
 			List<string> arguments = GhidraHeadlessRunner.BuildArguments(
 				projectDirectory,
 				"AssetRipper",
@@ -78,7 +88,8 @@ public static class GhidraDecompiler
 				scriptDirectory,
 				symbolFilePath,
 				outputDirectory,
-				layoutFilePath);
+				layoutFilePath,
+				globalFilePath);
 
 			Logger.Info(LogCategory.Import, "Running Ghidra. Analyzing a full game binary usually takes an hour or more.");
 			GhidraRunResult result = GhidraHeadlessRunner.Run(installation, arguments);

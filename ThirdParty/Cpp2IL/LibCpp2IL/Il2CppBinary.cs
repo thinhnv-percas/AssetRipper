@@ -524,6 +524,15 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
     /// </remarks>
     public virtual bool HasRelocationAt(ulong virtualAddress) => false;
 
+    /// <summary>
+    /// Every virtual address whose word is written by a relocation, in ascending order.
+    /// </summary>
+    /// <remarks>
+    /// These are where the metadata usage globals are reached from, so this is how to walk them all
+    /// rather than only the ones some piece of code happened to load.
+    /// </remarks>
+    public virtual IReadOnlyList<ulong> RelocatedAddresses => [];
+
     public virtual bool TryGetExportedFunctionName(ulong addr, [NotNullWhen(true)] out string? name)
     {
         name = null;

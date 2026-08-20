@@ -58,7 +58,8 @@ public static class GhidraHeadlessRunner
 		string scriptDirectory,
 		string symbolFilePath,
 		string outputDirectory,
-		string? layoutFilePath = null)
+		string? layoutFilePath = null,
+		string? globalFilePath = null)
 	{
 		List<string> arguments =
 		[
@@ -74,9 +75,15 @@ public static class GhidraHeadlessRunner
 			outputDirectory,
 		];
 
+		// Positional, so the layout file has to be there for the globals to be read as the fourth.
 		if (!string.IsNullOrEmpty(layoutFilePath))
 		{
 			arguments.Add(layoutFilePath);
+
+			if (!string.IsNullOrEmpty(globalFilePath))
+			{
+				arguments.Add(globalFilePath);
+			}
 		}
 
 		// The project is scratch data, so there is no reason to pay for saving it.

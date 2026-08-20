@@ -393,6 +393,8 @@ public sealed class ElfFile : Il2CppBinary
 
     public override bool HasRelocationAt(ulong virtualAddress) => Array.BinarySearch(_relocatedAddresses, virtualAddress) >= 0;
 
+    public override IReadOnlyList<ulong> RelocatedAddresses => _relocatedAddresses;
+
     private void ProcessSymbols()
     {
         var symbolTables = new List<(ulong offset, ulong count, ulong strings)>();

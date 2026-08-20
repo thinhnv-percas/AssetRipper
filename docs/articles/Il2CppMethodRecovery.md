@@ -498,6 +498,45 @@ type arguments and laying the result out — is a step onto something already ch
 that disagree are how that step will be checked in turn, since they have recorded layouts that only a
 correct generic layout can reproduce.
 
+### What each one knows that the other does not
+
+The two recoveries were built independently and then compared on the same 9959 methods, which is what
+a decompiled subset covers. Cpp2IL's outcome for each of them:
+
+| | methods |
+| --- | --- |
+| Excluded from Cpp2IL entirely | 5858 |
+| Recovered as C# | 3905 |
+| Attempted and came out empty | 109 |
+| No body to recover | 87 |
+
+So for three fifths of what Ghidra decompiles the pseudo C is the only content there is, because Cpp2IL
+does not attempt `mscorlib`, `System*` or `Unity*` at all. For the other two fifths there are two
+accounts of the same method, and they fail in different places: the C# has the names and loses the
+arithmetic, the C has the arithmetic and loses the names.
+
+Which is a trade that can be closed from one side. Compiled Il2Cpp code loads every type, string and
+method it refers to out of a global, and a disassembler has nothing to call those, so a decompiled body
+reads `*(long *)(*(long *)PTR_DAT_0459b1c0 + 0xb8)` where the metadata says `UnityEngine.Object`.
+Cpp2IL knows what each one holds — all 4578 globals the decompiled output referred to resolve, over
+28629 references — so `Il2CppGlobalTable` hands the names over. They come from the metadata rather than
+from a guess, exactly as the method names do. 41224 of them are named on this binary, walking the
+relocations rather than the code so that a global is named whether or not the subset being decompiled
+happens to use it.
+
+On a rerun of the same subset, `PTR_DAT_…` goes from 28629 references to **none**. The body that opened
+this section reads:
+
+```c
+il2cpp_codegen_initialize_runtime_metadata(Percas_Core_Bootstrap_ServiceLocator_TypeInfo);
+il2cpp_codegen_initialize_runtime_metadata(SliceCountDown_HandleCountdownStart_MethodInfo);
+...
+il2cpp_vm_object_new(*(undefined8 *)System_Action_1_System_Single__TypeInfo);
+```
+
+Every name in it came from somewhere: the function names from the metadata, the runtime entry points
+from Cpp2IL's key function search, and the globals from the tokens they hold.
+
 ### Phase 3 — Measure on a real game (next)
 
 This phase is a decision gate, not a commitment to improve anything.

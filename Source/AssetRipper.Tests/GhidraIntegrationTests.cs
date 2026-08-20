@@ -86,6 +86,31 @@ public sealed class GhidraIntegrationTests
 	}
 
 	/// <summary>
+	/// The globals file is what turns PTR_DAT_0459b1c0 in the decompiled output into the name of the
+	/// type it holds.
+	/// </summary>
+	[Test]
+	public void GlobalsAreWrittenAsTabSeparatedHexAddresses()
+	{
+		Il2CppGlobalTable.Global[] globals =
+		[
+			new(0x449b1c0, "UnityEngine_Object_TypeInfo"),
+			new(0x449bb48, "StringLiteral_Create"),
+		];
+
+		StringWriter writer = new() { NewLine = "\n" };
+		Il2CppGlobalTable.Write(globals, writer);
+
+		string[] lines = writer.ToString().TrimEnd('\n').Split('\n');
+		using (Assert.EnterMultipleScope())
+		{
+			Assert.That(lines[0], Does.StartWith("#"));
+			Assert.That(lines[1], Is.EqualTo("0x449b1c0\tUnityEngine_Object_TypeInfo"));
+			Assert.That(lines[2], Is.EqualTo("0x449bb48\tStringLiteral_Create"));
+		}
+	}
+
+	/// <summary>
 	/// A tab inside a name would silently shift every following column.
 	/// </summary>
 	[Test]
