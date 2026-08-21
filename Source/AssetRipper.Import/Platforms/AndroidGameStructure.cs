@@ -142,23 +142,68 @@ internal sealed class AndroidGameStructure : PlatformGameStructure
 
 	private string? GetIl2CppGameAssemblyPath(string libDirectory)
 	{
-		if (string.IsNullOrEmpty(libDirectory) || !FileSystem.Directory.Exists(libDirectory))
-		{
-			return null;
-		}
-
-		return FileSystem.Directory.EnumerateFiles(libDirectory, Il2CppGameAssemblyName, SearchOption.AllDirectories).FirstOrDefault();
+		return FindNativeLibrary(libDirectory, Il2CppGameAssemblyName);
 	}
 
 	private string? GetAndroidUnityAssemblyPath(string libDirectory)
+	{
+		return FindNativeLibrary(libDirectory, AndroidUnityAssemblyName);
+	}
+
+	/// <summary>
+	/// Finds a native library under <c>lib</c>, preferring the architecture that recovers best.
+	/// </summary>
+	/// <remarks>
+	/// An apk ships one copy per architecture and the metadata is shared between them, so any copy will
+	/// load. Which one is picked decides how much of the game comes back, though: Cpp2IL lifts ARM64 far
+	/// better than ARMv7, and on a build carrying both, taking whichever the file system happened to list
+	/// first left nearly every method body empty. The order below is by how much is recovered, and
+	/// anything unrecognised is still used rather than refused.
+	/// </remarks>
+	private string? FindNativeLibrary(string libDirectory, string fileName)
 	{
 		if (string.IsNullOrEmpty(libDirectory) || !FileSystem.Directory.Exists(libDirectory))
 		{
 			return null;
 		}
 
-		return FileSystem.Directory.EnumerateFiles(libDirectory, AndroidUnityAssemblyName, SearchOption.AllDirectories).FirstOrDefault();
+		// A whole file name is not a search pattern every file system here supports, so the extension is
+		// matched and the name checked afterwards.
+		IEnumerable<string> candidates = FileSystem.Directory
+			.EnumerateFiles(libDirectory, "*.so", SearchOption.AllDirectories)
+			.Where(path => FileSystem.Path.GetFileName(path) == fileName);
+
+		return PreferBestArchitecture(candidates, path => FileSystem.Path.GetFileName(FileSystem.Path.GetDirectoryName(path)));
 	}
+
+	/// <summary>
+	/// Picks the copy in the most recoverable architecture, or the first one when none is recognised.
+	/// </summary>
+	internal static string? PreferBestArchitecture(IEnumerable<string> paths, Func<string, string?> architectureOf)
+	{
+		string? fallback = null;
+		string? best = null;
+		int bestRank = int.MaxValue;
+
+		foreach (string path in paths)
+		{
+			fallback ??= path;
+
+			int rank = Array.IndexOf(AndroidArchitecturePreference, architectureOf(path) ?? "");
+			if (rank >= 0 && rank < bestRank)
+			{
+				bestRank = rank;
+				best = path;
+			}
+		}
+
+		return best ?? fallback;
+	}
+
+	/// <summary>
+	/// Android architecture directory names, most recoverable first.
+	/// </summary>
+	private static readonly string[] AndroidArchitecturePreference = ["arm64-v8a", "x86_64", "armeabi-v7a", "x86"];
 
 	private bool IsMono(string managedDirectory)
 	{

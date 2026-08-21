@@ -98,6 +98,12 @@ packages with the real ones. `docs/articles/PackageGuidRemapping.md` is the desi
 `Source/AssetRipper.Import/Structure/Assembly/Recovery` recovers method bodies through Cpp2IL and,
 at `ScriptContentLevel.Level4`, through Ghidra. `docs/articles/Il2CppMethodRecovery.md` is the design.
 
+**An apk ships one `libil2cpp.so` per architecture and they are not equivalent to us.** The metadata is
+shared so any of them loads, but Cpp2IL lifts ARM64 far better than ARMv7: on the same game the 64 bit
+copy recovers 19859 method bodies and the 32 bit one 3762, which reads as every class being a stub.
+`AndroidGameStructure` therefore ranks the architecture directories rather than taking the first the
+file system lists.
+
 **Cpp2IL is forked into `ThirdParty/Cpp2IL`** because the parts that decide what a recovered body says
 are `internal` to it. That directory's README lists every change and why, so it can be rebased onto a
 newer upstream. It sits outside `Source/` so the repository's build properties do not apply to it.
