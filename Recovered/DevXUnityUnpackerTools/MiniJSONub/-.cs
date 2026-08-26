@@ -1,0 +1,15 @@
+using DMP4;
+using DSMCaps.M68K;
+using System.IO;
+
+namespace MiniJSONub
+{
+	internal class _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A
+	{
+		private void _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020(BinaryReader _0020)
+		{
+			M68KOperandType type = ((M68KOperand)null).Type;
+			((_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020)null).CheckSection();
+		}
+	}
+}

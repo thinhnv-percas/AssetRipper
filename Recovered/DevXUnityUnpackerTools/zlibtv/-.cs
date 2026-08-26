@@ -1,0 +1,15 @@
+using ICSharpCode.SharpZipLib.Tar;
+using System;
+
+namespace zlibtv
+{
+	internal class _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A
+	{
+		private int _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020()
+		{
+			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A((object)null, (EventArgs)null);
+			((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A)null).WriteEntryHeader((byte[])null);
+			return 845038179;
+		}
+	}
+}

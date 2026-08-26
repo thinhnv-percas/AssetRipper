@@ -1,0 +1,22 @@
+using @as;
+using SevenZip.Compression.RangeCoder;
+
+namespace Xxteasl
+{
+	internal class _0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A
+	{
+		private int _0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020(_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A _0020)
+		{
+			((MainForm)null).DoReplaceImg((string)null, (object)null);
+			return 2134264004;
+		}
+	}
+	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A
+	{
+		private object _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020()
+		{
+			((VerFormat)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020((VerFormat)null);
+			return null;
+		}
+	}
+}

@@ -1,0 +1,16 @@
+using APK;
+using System.Drawing;
+using TrunkTracesConsole.Pages;
+
+namespace DSMCaps.PowerPcgl
+{
+	internal class _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A
+	{
+		private object _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020()
+		{
+			Bitmap imageResult = ((ImagesViewControl)null).ImageResult;
+			_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A._0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020();
+			return null;
+		}
+	}
+}

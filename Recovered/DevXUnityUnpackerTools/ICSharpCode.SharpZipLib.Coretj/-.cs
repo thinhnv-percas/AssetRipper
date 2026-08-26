@@ -1,0 +1,15 @@
+using DevXUnityUnpackerTools._WPFcj;
+using PropertyGridEx;
+
+namespace ICSharpCode.SharpZipLib.Coretj
+{
+	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A
+	{
+		private int _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020()
+		{
+			bool isBrowsable = ((CustomProperty)null).IsBrowsable;
+			((_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020();
+			return 181954787;
+		}
+	}
+}

@@ -1,0 +1,18 @@
+using @as;
+using DMP4;
+using Wasm;
+using XnaGeometry;
+
+namespace PropertyGridExnm
+{
+	internal class _0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A
+	{
+		private int _0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020(_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A _0020, _0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020 _0020_000A, bool _0020_0020, int _0020_000A_000A)
+		{
+			XnaGeometry.Vector3 one = XnaGeometry.Vector3.One;
+			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020)null).GetRGCTXDefinition((string)null, (Il2CppTypeDefinition)null);
+			((ImportedMemory)null).Memory = null;
+			return 1916966044;
+		}
+	}
+}

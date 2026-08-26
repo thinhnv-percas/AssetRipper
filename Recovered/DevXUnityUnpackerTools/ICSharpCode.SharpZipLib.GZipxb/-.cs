@@ -1,0 +1,10 @@
+namespace ICSharpCode.SharpZipLib.GZipxb
+{
+	internal class _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A
+	{
+		private int _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020(short _0020, float _0020_000A, object _0020_0020)
+		{
+			return 2100837207;
+		}
+	}
+}

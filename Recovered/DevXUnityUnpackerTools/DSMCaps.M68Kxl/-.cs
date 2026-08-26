@@ -1,0 +1,14 @@
+using WFTools3D;
+
+namespace DSMCaps.M68Kxl
+{
+	internal class _0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_000A_000A
+	{
+		private string _0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020()
+		{
+			Math3D.GetViewMatrix(null);
+			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A)null).GetField((string)null);
+			return "948396947";
+		}
+	}
+}

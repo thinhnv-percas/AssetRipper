@@ -1,0 +1,109 @@
+using System.Runtime.CompilerServices;
+
+namespace DSMCaps.Arm
+{
+	public sealed class ArmInstructionDetail : InstructionDetail<ArmInstructionDetail, ArmDisassembleMode, ArmInstructionGroup, ArmInstructionGroupId, ArmInstruction, ArmInstructionId, ArmRegister, ArmRegisterId>
+	{
+		[CompilerGenerated]
+		private readonly ArmConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
+
+		[CompilerGenerated]
+		private readonly ArmCpsFlag _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020;
+
+		[CompilerGenerated]
+		private readonly ArmCpsMode _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A;
+
+		[CompilerGenerated]
+		private readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020;
+
+		[CompilerGenerated]
+		private readonly ArmMemoryBarrierOperation _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A;
+
+		[CompilerGenerated]
+		private readonly ArmOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+
+		[CompilerGenerated]
+		private readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A;
+
+		[CompilerGenerated]
+		private readonly ArmVectorDataType _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020;
+
+		[CompilerGenerated]
+		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A;
+
+		[CompilerGenerated]
+		private readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
+
+		public ArmConditionCode ConditionCode
+		{
+			get;
+		}
+
+		public ArmCpsFlag CpsFlag
+		{
+			get;
+		}
+
+		public ArmCpsMode CpsMode
+		{
+			get;
+		}
+
+		public bool IsUserMode
+		{
+			get;
+		}
+
+		public ArmMemoryBarrierOperation MemoryBarrierOperation
+		{
+			get;
+		}
+
+		public ArmOperand[] Operands
+		{
+			get;
+		}
+
+		public bool UpdateFlags
+		{
+			get;
+		}
+
+		public ArmVectorDataType VectorDataType
+		{
+			get;
+		}
+
+		public int VectorSize
+		{
+			get;
+		}
+
+		public bool WriteBack
+		{
+			get;
+		}
+
+		internal static ArmInstructionDetail Create(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		{
+			_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020 _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020 = new _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020();
+			_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020.Build(disassembler, hInstruction);
+			return _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020.Create();
+		}
+
+		internal ArmInstructionDetail(_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020 builder)
+			: base((InstructionDetailBuilder<ArmInstructionDetail, ArmDisassembleMode, ArmInstructionGroup, ArmInstructionGroupId, ArmInstruction, ArmInstructionId, ArmRegister, ArmRegisterId>)builder)
+		{
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020 = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020 = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020;
+			_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020 = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A;
+			_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020 = builder._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020;
+		}
+	}
+}

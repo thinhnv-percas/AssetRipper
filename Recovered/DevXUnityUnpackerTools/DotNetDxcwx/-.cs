@@ -1,0 +1,14 @@
+using FMOD;
+using ICSharpCode.SharpZipLib.Tar;
+using SpirV;
+
+namespace DotNetDxcwx
+{
+	internal class _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A
+	{
+		private void _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020(short _0020, FPFastMathModeParameterFactory _0020_000A, DSP_SYSTEM_GETSPEAKERMODE _0020_0020)
+		{
+			int groupId = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020)null).GroupId;
+		}
+	}
+}

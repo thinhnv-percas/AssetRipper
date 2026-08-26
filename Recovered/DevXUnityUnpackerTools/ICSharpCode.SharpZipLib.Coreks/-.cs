@@ -1,0 +1,15 @@
+using BrotliSharpLib;
+using System;
+
+namespace ICSharpCode.SharpZipLib.Coreks
+{
+	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A
+	{
+		private unsafe int _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020(string _0020)
+		{
+			//IL_0032: Expected I, but got O
+			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
+			return 1582287471;
+		}
+	}
+}

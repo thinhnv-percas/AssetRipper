@@ -1,0 +1,16 @@
+using EdiTools;
+using Mono.Cecil;
+using System.IO;
+
+namespace NetObfuo
+{
+	internal class _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A
+	{
+		private string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020(uint _0020)
+		{
+			((_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020)null)._0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020((MemberReference)null);
+			EdiDocument.Load((TextReader)null, (EdiOptions)null);
+			return "1237552188";
+		}
+	}
+}

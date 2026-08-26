@@ -1,0 +1,14 @@
+using DSMCaps.Armgb;
+using Wasm.Instructions;
+
+namespace Wasm.Interpretoi
+{
+	internal class _0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A
+	{
+		private void _0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020()
+		{
+			((BlockOperator)null).CastInstruction((Wasm.Instructions.Instruction)null);
+			((_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A)null)._0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020();
+		}
+	}
+}

@@ -1,0 +1,12 @@
+using DSMCaps.X86;
+
+namespace as2oj
+{
+	internal class _0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A
+	{
+		private int _0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020(X86SseConditionCode _0020)
+		{
+			return 1098790736;
+		}
+	}
+}

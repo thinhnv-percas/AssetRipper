@@ -1,0 +1,18 @@
+using DMP4pr;
+using System.IO;
+using System.Windows.Forms;
+using XnaGeometry;
+
+namespace SevenZiptr
+{
+	internal class _0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A
+	{
+		private void _0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020(RequestManager _0020)
+		{
+			TreeNode selectedNode = ((MultiSelectTreeView)null).SelectedNode;
+			Plane bottom = ((BoundingFrustum)null).Bottom;
+			_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020._0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A((BinaryReader)null);
+			((_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A)null)._0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020((string)null);
+		}
+	}
+}

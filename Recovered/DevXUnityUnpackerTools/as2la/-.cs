@@ -1,0 +1,12 @@
+using SpirV;
+
+namespace as2la
+{
+	internal class _0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A
+	{
+		private int _0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020(OpTypeForwardPointer _0020, bool _0020_000A, short _0020_0020)
+		{
+			return 1303537037;
+		}
+	}
+}

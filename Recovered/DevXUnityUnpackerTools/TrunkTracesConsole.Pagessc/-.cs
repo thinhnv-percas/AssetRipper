@@ -1,0 +1,18 @@
+using @as;
+using DSMCaps.M68K;
+using PropertyGridEx;
+using SpirV;
+
+namespace TrunkTracesConsole.Pagessc
+{
+	internal class _0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A
+	{
+		private object _0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020(OpGroupFMin _0020, M68KMemoryOperandValue _0020_000A, object _0020_0020)
+		{
+			ConsoleOver._0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020(null);
+			_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020._0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A(null);
+			((CustomProperty)null).DefaultValue = null;
+			return null;
+		}
+	}
+}

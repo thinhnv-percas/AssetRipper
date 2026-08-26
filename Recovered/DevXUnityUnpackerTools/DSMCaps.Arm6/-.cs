@@ -1,0 +1,16 @@
+using @as;
+using DMP4;
+using XnaGeometry;
+
+namespace DSMCaps.Arm6
+{
+	internal class _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A
+	{
+		private unsafe void _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020(string _0020, object[] _0020_000A, ref bool _0020_0020, ref object _0020_000A_000A)
+		{
+			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020((Il2CppType)null);
+			int bottom = ((Rectangle*)(byte*)null)->Bottom;
+			string name = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A*)(byte*)null)->Name;
+		}
+	}
+}

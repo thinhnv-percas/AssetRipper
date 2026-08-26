@@ -1,0 +1,19 @@
+using DMP4yg;
+using DSMCaps.M68K;
+using Unity.IO.Compression;
+using Unity.SerializationLogicoy;
+using Wasm.Binary;
+
+namespace WFTools3Dtx
+{
+	internal class _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A
+	{
+		private object _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020(M68KOperationSize _0020)
+		{
+			((BinaryWasmReader)null).ReadVarUInt1();
+			((_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A)null)._0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020((string)null);
+			((_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A)null)._0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020((InvalidDataException)null, (string)null);
+			return null;
+		}
+	}
+}

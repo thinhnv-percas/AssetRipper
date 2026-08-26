@@ -1,0 +1,38 @@
+namespace Unreal
+{
+	public enum ETexturePixelFormat
+	{
+		TPF_UNKNOWN,
+		TPF_P8,
+		TPF_G8,
+		TPF_RGB8,
+		TPF_RGBA8,
+		TPF_BGRA8,
+		TPF_DXT1,
+		TPF_DXT3,
+		TPF_DXT5,
+		TPF_DXT5N,
+		TPF_V8U8,
+		TPF_V8U8_2,
+		TPF_BC4,
+		TPF_BC5,
+		TPF_BC6H,
+		TPF_BC7,
+		TPF_A1,
+		TPF_RGBA4,
+		TPF_FLOAT_RGBA,
+		TPF_PVRTC2,
+		TPF_PVRTC4,
+		TPF_ETC1,
+		TPF_ETC2_RGB,
+		TPF_ETC2_RGBA,
+		TPF_ASTC_4x4,
+		TPF_ASTC_6x6,
+		TPF_ASTC_8x8,
+		TPF_ASTC_10x10,
+		TPF_ASTC_12x12,
+		TPF_PNG_BGRA,
+		TPF_PNG_RGBA,
+		TPF_MAX
+	}
+}

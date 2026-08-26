@@ -1,0 +1,17 @@
+using DSMCaps.X86;
+using Unreal;
+using Wasm;
+using Wasm.Interpret;
+
+namespace DevXUnityUnpackerTools.Propertiestc
+{
+	internal class _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A
+	{
+		private void _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020()
+		{
+			((ModuleInstance)null).Evaluate<T>((InitializerExpression)null);
+			((UObject)null)._0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A();
+			X86Register x86Register = ((_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A;
+		}
+	}
+}

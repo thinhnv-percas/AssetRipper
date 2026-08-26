@@ -1,0 +1,18 @@
+using APK;
+using ICSharpCode.SharpZipLib.Zip;
+using Wasm.Interpret;
+
+namespace DevXUnityUnpackerTools.Propertieslp
+{
+	internal class _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A
+	{
+		private object _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020()
+		{
+			OperatorImpls.Float32ConvertUInt32(null, null);
+			((_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A)null)._0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A();
+			bool isDirectory = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).IsDirectory;
+			((DevXCMethodData)null)._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020((string)null);
+			return null;
+		}
+	}
+}

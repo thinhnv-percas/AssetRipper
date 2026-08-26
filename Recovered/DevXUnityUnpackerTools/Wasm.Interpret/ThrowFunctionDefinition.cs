@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+
+namespace Wasm.Interpret
+{
+	public sealed class ThrowFunctionDefinition : FunctionDefinition
+	{
+		private IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;
+
+		private IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020;
+
+		[CompilerGenerated]
+		private Exception _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A;
+
+		public override IList<WasmValueType> ParameterTypes => _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;
+
+		public override IList<WasmValueType> ReturnTypes => _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020;
+
+		public Exception ExceptionToThrow
+		{
+			get;
+			private set;
+		}
+
+		public ThrowFunctionDefinition(IList<WasmValueType> parameterTypes, IList<WasmValueType> returnTypes, Exception exceptionToThrow)
+		{
+			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A = parameterTypes;
+			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020 = returnTypes;
+			ExceptionToThrow = exceptionToThrow;
+		}
+
+		public override IList<object> Invoke(IList<object> arguments, uint callStackDepth = 0u)
+		{
+			throw ExceptionToThrow;
+		}
+	}
+}

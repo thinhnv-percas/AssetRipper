@@ -1,0 +1,18 @@
+using DevXForms;
+using ICSharpCode.SharpZipLib.Encryptionsa;
+using ICSharpCode.SharpZipLib.Zip;
+using System;
+
+namespace DSMCaps.X86lr
+{
+	internal class _0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A
+	{
+		private int _0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020()
+		{
+			((NodesSelection)null).GetSortedNodes();
+			((_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A)null)._0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020();
+			DateTime createTime = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020)null).CreateTime;
+			return 1230064268;
+		}
+	}
+}

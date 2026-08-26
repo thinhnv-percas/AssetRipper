@@ -1,0 +1,10 @@
+namespace ICSharpCode.SharpZipLib.Zipcn
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A
+	{
+		private int _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020(float _0020, bool _0020_000A)
+		{
+			return 657613588;
+		}
+	}
+}

@@ -1,0 +1,19 @@
+using @as;
+using DSMCaps;
+using DSMCaps.M68K;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+
+namespace DotNetDxcsm
+{
+	internal class _0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A
+	{
+		private int _0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(short _0020, _0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A _0020_000A, _0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020 _0020_0020, short _0020_000A_000A)
+		{
+			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020)null).BuildDistTree();
+			M68KOperationSizeType type = ((M68KOperationSize)null).Type;
+			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A();
+			long address = ((InstructionBuilder<, , , , , , , >)null).Address;
+			return 238063299;
+		}
+	}
+}

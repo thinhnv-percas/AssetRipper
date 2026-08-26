@@ -1,0 +1,13 @@
+using SpirV;
+
+namespace Unity.SerializationLogicdj
+{
+	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A
+	{
+		private int _0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(OpTypeNamedBarrier _0020, float _0020_000A)
+		{
+			((DevXCMethodData)null)._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020((string)null);
+			return 708107090;
+		}
+	}
+}

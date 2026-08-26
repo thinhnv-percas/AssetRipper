@@ -1,0 +1,17 @@
+using DMP4op;
+using System.IO;
+using Wasm;
+
+namespace Systemeb
+{
+	internal class _0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A
+	{
+		private string _0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020(float _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A)
+		{
+			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A((string)null);
+			((_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A)null)._0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020((BinaryReader)null);
+			((FunctionSection)null).FunctionTypes = null;
+			return "964088872";
+		}
+	}
+}

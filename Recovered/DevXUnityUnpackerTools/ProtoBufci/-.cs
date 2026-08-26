@@ -1,0 +1,23 @@
+using BrotliSharpLib;
+using DSMCaps.XCore;
+using SevenZip.Buffer;
+using System.IO;
+using Unity.SerializationLogicmd;
+using Wasm;
+using XmlBin;
+
+namespace ProtoBufci
+{
+	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A
+	{
+		private unsafe object _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020(string _0020)
+		{
+			((_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A((string)null);
+			((InBuffer)null).Init((Stream)null);
+			XCoreInstruction.Create(null, null);
+			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020(ref *(Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020*)null);
+			((_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A)null)._0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020((ElementSegment)null);
+			return null;
+		}
+	}
+}

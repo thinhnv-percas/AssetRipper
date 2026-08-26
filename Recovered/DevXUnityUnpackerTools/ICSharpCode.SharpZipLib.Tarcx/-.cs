@@ -1,0 +1,13 @@
+using ICSharpCode.SharpZipLib.Zip;
+
+namespace ICSharpCode.SharpZipLib.Tarcx
+{
+	internal class _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A
+	{
+		private string _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020()
+		{
+			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A)null).ProcessDirectory -= null;
+			return "1705293921";
+		}
+	}
+}

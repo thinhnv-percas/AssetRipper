@@ -1,0 +1,16 @@
+using @as;
+using DSMCaps.Mips;
+using Wasm.Interpret;
+using Wasm.Interpret.BaseRuntime;
+
+namespace Unity.CecilToolspi
+{
+	internal class _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A
+	{
+		private void _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020(MipsInstructionDetail _0020, bool _0020_000A)
+		{
+			((_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A)null)._0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020();
+			((TerminalRuntime)null)._0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A((PredefinedImporter)null);
+		}
+	}
+}

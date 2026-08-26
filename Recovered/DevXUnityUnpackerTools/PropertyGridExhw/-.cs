@@ -1,0 +1,24 @@
+using @as;
+using DMP4rj;
+using DSMCaps.M68Kxl;
+using ICSharpCode.SharpZipLib.Zipmx;
+using System;
+using System.Drawing;
+using TrunkTracesConsole.Pages;
+using XnaGeometry;
+
+namespace PropertyGridExhw
+{
+	internal class _0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A
+	{
+		private unsafe int _0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020(ref Bitmap _0020, Bitmap _0020_000A, float _0020_0020, float _0020_000A_000A, float _0020_000A_0020, ImagesViewControl.PerformOrder _0020_0020_000A)
+		{
+			((_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A)null)._0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020(ref *(Matrix*)null, ref *(Matrix*)null);
+			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A((object)null, (EventArgs)null);
+			((_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A)null)._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020((object)null);
+			string zVal = ((@as.Vector3*)(byte*)null)->zVal;
+			((_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_000A_000A)null)._0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020();
+			return 1795627827;
+		}
+	}
+}

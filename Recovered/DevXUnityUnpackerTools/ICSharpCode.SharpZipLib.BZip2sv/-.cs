@@ -1,0 +1,21 @@
+using @as;
+using DevXUnityUnpackerTools.Properties;
+using ICSharpCode.SharpZipLib.Core;
+using MiniLZO;
+using System;
+using System.Drawing;
+
+namespace ICSharpCode.SharpZipLib.BZip2sv
+{
+	internal class _0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A
+	{
+		private object _0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020()
+		{
+			Vector3 vector = ((_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020)null)._0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A;
+			_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A._0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A(null, null);
+			Bitmap connection = Resources.Connection32;
+			Exception exception = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020)null).Exception;
+			return null;
+		}
+	}
+}

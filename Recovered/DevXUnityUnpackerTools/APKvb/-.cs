@@ -1,0 +1,18 @@
+using @as;
+using DevXForms;
+using FMOD;
+using NetObfih;
+using System.Drawing;
+
+namespace APKvb
+{
+	internal class _0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A
+	{
+		private int _0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020(float _0020, float _0020_000A, DSP_ITECHO _0020_0020, DSP_LIMITER _0020_000A_000A)
+		{
+			Font font = ((TreeViewColumnCollection)null).Font;
+			((_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A)null)._0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020((ImageResData)null);
+			return 1075899169;
+		}
+	}
+}

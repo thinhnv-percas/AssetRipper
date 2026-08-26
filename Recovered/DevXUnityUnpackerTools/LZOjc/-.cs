@@ -1,0 +1,17 @@
+using BrotliSharpLib;
+using ICSharpCode.SharpZipLib.Zip;
+using System;
+
+namespace LZOjc
+{
+	internal class _0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A
+	{
+		private unsafe void _0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020()
+		{
+			//IL_002f: Expected I, but got O
+			//IL_002f: Expected I, but got O
+			int getAttribute = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A)null).GetAttributes;
+			Brotli._0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020*)(long)(IntPtr)(void*)null, (Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020*)(long)(IntPtr)(void*)null);
+		}
+	}
+}

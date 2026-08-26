@@ -1,0 +1,17 @@
+using @as;
+using Unreal;
+using Wasm.Instructions;
+
+namespace DevXUnityUnpackerTools._WinFormvq
+{
+	internal class _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A
+	{
+		private object _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020(bool _0020, object _0020_000A, string _0020_0020, bool _0020_000A_000A)
+		{
+			((ConsoleData)null)._0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020();
+			_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020._0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020(null);
+			bool hasDeclaringType = ((Operator)null).HasDeclaringType;
+			return null;
+		}
+	}
+}

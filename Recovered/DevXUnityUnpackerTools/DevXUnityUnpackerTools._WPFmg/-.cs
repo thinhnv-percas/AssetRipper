@@ -1,0 +1,18 @@
+using @as;
+using SpirV;
+using System.IO;
+
+namespace DevXUnityUnpackerTools._WPFmg
+{
+	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A
+	{
+		private unsafe string _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020()
+		{
+			Stream baseStream = ((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A)null).BaseStream;
+			((ModuleHeader*)(byte*)null)->GeneratorName = null;
+			bool flag = ((_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A)null)._0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020;
+			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020((string)null);
+			return "822643843";
+		}
+	}
+}

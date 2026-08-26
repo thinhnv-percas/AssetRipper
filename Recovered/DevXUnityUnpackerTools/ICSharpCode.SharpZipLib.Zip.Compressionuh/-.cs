@@ -1,0 +1,22 @@
+using @as;
+using DMP4;
+using Mono.Cecil;
+using System.IO;
+using Unity.SerializationLogic;
+using Wasm.Interpret;
+
+namespace ICSharpCode.SharpZipLib.Zip.Compressionuh
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A
+	{
+		private object _0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020(Stream _0020, long _0020_000A)
+		{
+			((Il2CppType)null).Init();
+			OperatorImpls.Float32Ge(null, null);
+			UnitySerializationLogic._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020((TypeReference)null);
+			string text = ((_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020;
+			_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A._0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A((string[])null);
+			return null;
+		}
+	}
+}

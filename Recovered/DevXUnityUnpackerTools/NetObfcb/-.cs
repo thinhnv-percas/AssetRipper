@@ -1,0 +1,18 @@
+using DSMCaps.X86;
+using Mono.Cecil;
+using Unity.SerializationLogic;
+using Unreal;
+using Wasm.Optimize;
+
+namespace NetObfcb
+{
+	internal class _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A
+	{
+		private void _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020(string _0020, short _0020_000A, X86InstructionId _0020_0020, _0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A _0020_000A_000A)
+		{
+			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020)null)._0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020((string)null);
+			UnitySerializationLogic._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A((TypeDefinition)null, (TypeResolver)null);
+			((WasmFile)null).RewriteFunctionTypeReferences(null);
+		}
+	}
+}

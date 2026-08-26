@@ -1,0 +1,19 @@
+namespace DSMCaps.X86
+{
+	public enum X86Prefix : byte
+	{
+		Invalid = 0,
+		X86_PREFIX_LOCK = 240,
+		X86_PREFIX_REP = 243,
+		X86_PREFIX_REPE = 243,
+		X86_PREFIX_REPNE = 242,
+		X86_PREFIX_CS = 46,
+		X86_PREFIX_SS = 54,
+		X86_PREFIX_DS = 62,
+		X86_PREFIX_ES = 38,
+		X86_PREFIX_FS = 100,
+		X86_PREFIX_GS = 101,
+		X86_PREFIX_OPSIZE = 102,
+		X86_PREFIX_ADDRSIZE = 103
+	}
+}

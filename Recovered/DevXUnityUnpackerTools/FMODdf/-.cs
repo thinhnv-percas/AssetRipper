@@ -1,0 +1,17 @@
+using APK;
+using DSMCaps;
+using System.Xml;
+using Unreal;
+
+namespace FMODdf
+{
+	internal class _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A
+	{
+		private void _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020(_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020 _0020)
+		{
+			TDetail detail = ((Instruction<, , , , , , , >)null).Details;
+			_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A.Value((XmlNode)null, (string)null);
+			((UObject)null)._0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020 = null;
+		}
+	}
+}

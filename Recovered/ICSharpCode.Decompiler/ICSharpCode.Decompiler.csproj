@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ICSharpCode.Decompiler</AssemblyName>
+    <RootNamespace />
+    <OutputType>Library</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);CS0108;CS0109;CS0114;CS0162;CS0164;CS0169;CS0219;CS0414;CS0618;CS0649;CS1030;CS1717;CS3021;SYSLIB0011</NoWarn>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Core"><HintPath>C:\WINDOWS\Microsoft.NET\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll</HintPath></Reference>
+    <Reference Include="Mono.Cecil"><HintPath>Recovered\_assemblies\Mono.Cecil.dll</HintPath></Reference>
+    <Reference Include="ICSharpCode.NRefactory"><HintPath>Recovered\_assemblies\ICSharpCode.NRefactory.dll</HintPath></Reference>
+    <Reference Include="System"><HintPath>C:\WINDOWS\Microsoft.NET\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll</HintPath></Reference>
+    <Reference Include="ICSharpCode.NRefactory.CSharp"><HintPath>Recovered\_assemblies\ICSharpCode.NRefactory.CSharp.dll</HintPath></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />
+    <ProjectReference Include="..\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />
+    <ProjectReference Include="..\Mono.Cecil\Mono.Cecil.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,23 @@
+using APK;
+using Mono.Cecil;
+using PropertyGridEx;
+using STLsq;
+using Wasm.Interpret;
+using XnaGeometry;
+
+namespace Xxteavx
+{
+	internal class _0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A
+	{
+		private unsafe object _0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020()
+		{
+			((CustomProperty)null).Name = null;
+			((_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020((string)null, (MemberReference)null);
+			OperatorImpls.Float64ConvertUInt64(null, null);
+			((_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020((byte[])null);
+			((_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020)null)._0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020();
+			Point location = ((Rectangle*)(byte*)null)->Location;
+			return null;
+		}
+	}
+}

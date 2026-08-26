@@ -1,0 +1,17 @@
+using ICSharpCode.SharpZipLib.BZip2;
+using PropertyGridEx;
+using Wasm.Interpret;
+
+namespace zlibnl
+{
+	internal class _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A
+	{
+		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020(bool _0020, bool _0020_000A, short _0020_0020, _0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020 _0020_000A_000A)
+		{
+			((_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020)null)._0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020((string)null);
+			object datasource = ((CustomProperty)null).Datasource;
+			OperatorImpls.Int64Ctz(null, null);
+			return 1129717694;
+		}
+	}
+}

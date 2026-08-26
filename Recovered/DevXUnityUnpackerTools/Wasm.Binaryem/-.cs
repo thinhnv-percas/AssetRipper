@@ -1,0 +1,13 @@
+using SpirV;
+using Unreal;
+
+namespace Wasm.Binaryem
+{
+	internal class _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A
+	{
+		private void _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020(int _0020, DisassemblyOptions _0020_000A, _0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A _0020_0020)
+		{
+			((GlobalSection)null).ExtraPayload = null;
+		}
+	}
+}

@@ -1,0 +1,15 @@
+using PropertyGridEx;
+using XmlBinjy;
+
+namespace MiniLZObu
+{
+	internal class _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A
+	{
+		private int _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020()
+		{
+			((_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020();
+			CustomPropertyCollection item = ((PropertyGridEx.PropertyGridEx)null).Item;
+			return 1057879841;
+		}
+	}
+}

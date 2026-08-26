@@ -1,0 +1,13 @@
+using Wasm.Interpret;
+
+namespace DSMCaps.M68Knb
+{
+	internal class _0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A
+	{
+		private object _0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020(byte[] _0020, long _0020_000A)
+		{
+			OperatorImpls.Int64Rotl(null, null);
+			return null;
+		}
+	}
+}

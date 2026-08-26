@@ -1,0 +1,14 @@
+using DSMCaps.XCore;
+using SevenZip.Compression.LZMA;
+using Wasm.Interpret;
+
+namespace zlibll
+{
+	internal class _0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A
+	{
+		private string _0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020(NamespacedImporter _0020, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A _0020_000A, Encoder _0020_0020)
+		{
+			return "2026206032";
+		}
+	}
+}

@@ -1,0 +1,15 @@
+using ARMD;
+using System.Collections.Generic;
+using Wasm.Interpret;
+
+namespace XnaGeometrybh
+{
+	internal class _0020_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A
+	{
+		private void _0020_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020(string _0020)
+		{
+			((_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A)null)._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020((_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A)null, (string)null);
+			IList<FunctionTable> table = ((ModuleInstance)null).Tables;
+		}
+	}
+}

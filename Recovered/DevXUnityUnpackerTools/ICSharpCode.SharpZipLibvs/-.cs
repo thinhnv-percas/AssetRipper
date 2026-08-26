@@ -1,0 +1,10 @@
+namespace ICSharpCode.SharpZipLibvs
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A
+	{
+		private string _0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020(short _0020)
+		{
+			return "1958705013";
+		}
+	}
+}

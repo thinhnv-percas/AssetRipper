@@ -1,0 +1,19 @@
+namespace DSMCaps.Arm64
+{
+	public enum Arm64AtOperation
+	{
+		Invalid = -1,
+		ARM64_AT_S1E1R,
+		ARM64_AT_S1E1W,
+		ARM64_AT_S1E0R,
+		ARM64_AT_S1E0W,
+		ARM64_AT_S1E2R,
+		ARM64_AT_S1E2W,
+		ARM64_AT_S12E1R,
+		ARM64_AT_S12E1W,
+		ARM64_AT_S12E0R,
+		ARM64_AT_S12E0W,
+		ARM64_AT_S1E3R,
+		ARM64_AT_S1E3W
+	}
+}

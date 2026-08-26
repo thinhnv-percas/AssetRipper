@@ -1,0 +1,28 @@
+using System.Collections.Generic;
+
+namespace Wasm.Interpret
+{
+	public struct LinearMemoryAsInt8
+	{
+		private List<byte> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A;
+
+		public sbyte this[uint offset]
+		{
+			get
+			{
+				LinearMemory._0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020(_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A, offset, 1u);
+				return (sbyte)_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A[(int)offset];
+			}
+			set
+			{
+				LinearMemory._0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020(_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A, offset, 1u);
+				_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A[(int)offset] = (byte)value;
+			}
+		}
+
+		internal LinearMemoryAsInt8(List<byte> memory)
+		{
+			_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A = memory;
+		}
+	}
+}

@@ -1,0 +1,14 @@
+using DMP4;
+
+namespace ICSharpCode.SharpZipLib.Zip.Compression.Streamsgk
+{
+	internal class _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A
+	{
+		private object _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020(string _0020)
+		{
+			((Il2CppType)null).data = null;
+			((_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020)null)._0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A((Il2CppMethodSpec)null);
+			return null;
+		}
+	}
+}

@@ -1,0 +1,17 @@
+using DevXUnityUnpackerTools._WinFormdc;
+using DevXUnityUnpackerTools.Properties;
+using System.Drawing;
+using XnaGeometry;
+
+namespace XmlBingv
+{
+	internal class _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A
+	{
+		private void _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020(Vector3 _0020)
+		{
+			Bitmap dataBase = Resources.DataBase16;
+			TranslationManager._0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A();
+			((_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020((string)null);
+		}
+	}
+}

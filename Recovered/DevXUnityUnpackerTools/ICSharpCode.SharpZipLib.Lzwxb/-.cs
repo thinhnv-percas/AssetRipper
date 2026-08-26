@@ -1,0 +1,18 @@
+using APK;
+using @as;
+using DevXUnityUnpackerTools.Properties;
+using System.Drawing;
+
+namespace ICSharpCode.SharpZipLib.Lzwxb
+{
+	internal class _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A
+	{
+		private object _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020(ref ushort[] _0020)
+		{
+			((_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A();
+			FbxBinary.WriteHeader((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A)null);
+			Bitmap @new = Resources.New16;
+			return null;
+		}
+	}
+}

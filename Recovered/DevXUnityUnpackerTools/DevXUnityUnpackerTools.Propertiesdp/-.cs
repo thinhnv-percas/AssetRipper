@@ -1,0 +1,19 @@
+using DevXUnityUnpackerTools._WinForm;
+using ICSharpCode.SharpZipLib.Zip;
+using System.Windows.Forms;
+using Unity.IO.Compression;
+
+namespace DevXUnityUnpackerTools.Propertiesdp
+{
+	internal class _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A
+	{
+		private unsafe string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020(short _0020, _0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A _0020_000A)
+		{
+			MainForm._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A(null, ref *(MainForm._0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A*)null);
+			int defaultCodePage = ZipConstants.DefaultCodePage;
+			long crc = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A)null).Crc;
+			((ScriptGenerateOptions)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020((IWin32Window)null);
+			return "837383244";
+		}
+	}
+}

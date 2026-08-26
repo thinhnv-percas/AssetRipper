@@ -1,0 +1,16 @@
+using DevXUnityUnpackerTools._WPFvm;
+using SpirV;
+using System.Windows.Forms;
+
+namespace DevXParserLibww
+{
+	internal class _0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A
+	{
+		private string _0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020(OpConvertUToF _0020)
+		{
+			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A)null).WriteLine((string)null);
+			((_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020((object)null, (ToolStripItemClickedEventArgs)null);
+			return "542881697";
+		}
+	}
+}

@@ -1,0 +1,18 @@
+using DevXForms;
+using ICSharpCode.SharpZipLib.Zip;
+using System.Drawing;
+using Unreal;
+
+namespace ICSharpCode.SharpZipLib.Coreix
+{
+	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A
+	{
+		private int _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020(decimal _0020, string _0020_000A, short _0020_0020, bool _0020_000A_000A)
+		{
+			UseZip64 useZip = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A)null).UseZip64;
+			_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020._0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A(null, null);
+			Font font = ((TreeViewColumnCollection)null).Font;
+			return 357297532;
+		}
+	}
+}

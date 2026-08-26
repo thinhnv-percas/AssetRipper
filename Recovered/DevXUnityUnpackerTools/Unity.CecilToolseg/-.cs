@@ -1,0 +1,12 @@
+using FMOD;
+
+namespace Unity.CecilToolseg
+{
+	internal class _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A
+	{
+		private string _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020(ref uint _0020, TIMEUNIT _0020_000A)
+		{
+			return "1568027497";
+		}
+	}
+}

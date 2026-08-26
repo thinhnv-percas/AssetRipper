@@ -1,0 +1,16 @@
+using APK;
+using SevenZip.Compression.LZ;
+using System.IO;
+
+namespace LZ4pndq
+{
+	internal class _0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A
+	{
+		private object _0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020()
+		{
+			((_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020)null)._0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A();
+			((OutWindow)null).Train((Stream)null);
+			return null;
+		}
+	}
+}

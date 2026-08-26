@@ -1,0 +1,22 @@
+using @as;
+using DevXUnityUnpackerTools._WinForm;
+using SpirV;
+using System;
+using Wasm.Interpret;
+
+namespace DSMCaps.Arm64ib
+{
+	internal class _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A
+	{
+		private string _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020()
+		{
+			Module.ReadFrom(null);
+			((EnterTextLine)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020();
+			((ARGB_RAW)null).MirrorY();
+			OperatorImpls._0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A((InterpreterContext)null);
+			((_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020)null)._0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A = null;
+			((DevXCControl)null)._0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020((object)null, (EventArgs)null);
+			return "559043943";
+		}
+	}
+}

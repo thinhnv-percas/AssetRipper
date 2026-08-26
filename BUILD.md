@@ -220,6 +220,101 @@ Cross-checked two independent ways: decrypting with a recovered secret string
 * The real application logic is in `DevXUnityUnpackerTools` (11345 types), not in
   the main assembly.
 
+## Rebuilding the recovered assemblies (`Recovered/`)
+
+`Recovered/_assemblies/` holds the eight assemblies unpacked from the loader
+payload and the sidecar files. Each was decompiled back to a project next to it.
+
+```
+dotnet build Recovered/<Name>/<Name>.csproj
+```
+
+### Which decompiler
+
+Both tools built from this repo were tried on the same input, and they fail
+differently:
+
+| | dnSpy.Console | DecompilerFi (ILSpy) |
+|---|---|---|
+| invalid identifiers | emits raw ` ` escapes -- **not valid C#** | sanitises to `_0020_` |
+| project file | legacy ToolsVersion 4.0, sometimes .NETPortable Profile344 | legacy, but usable |
+| DevXUnityUnpackerMain | 4034 errors | 469 errors |
+| ICSharpCode.Decompiler | 281 errors | 2 errors (after wiring refs) |
+
+DecompilerFi wins on the obfuscated assemblies, and the `_0020_` identifier
+style plus the `-.cs` catch-all file matches the sources already in this repo --
+so the original decompile of this project was done with this same ILSpy fork.
+
+`tools/sdkify.py` converts the legacy projects to SDK-style on net472
+(`python tools/sdkify.py --all Recovered`), and `tools/fixdecompiled.py` applies
+the repair patterns below.
+
+### Results
+
+| project | errors before | after |
+|---|---|---|
+| Mono.Cecil | 8 | 0 |
+| DevX.Cecil | 160 | 0 |
+| NAudio | 8 | 0 |
+| ICSharpCode.NRefactory | 140 | 0 |
+| ICSharpCode.NRefactory.CSharp | 294 | 0 |
+| ICSharpCode.Decompiler | 562 | 0 |
+| DevXUnityUnpackerMain | 4034 | 0 |
+
+### What actually broke, and why
+
+* **Missing project references.** ICSharpCode.Decompiler and
+  ICSharpCode.NRefactory.CSharp accounted for ~4000 of the errors purely because
+  neither decompiler wires up inter-assembly references. Adding them dropped
+  ICSharpCode.NRefactory.CSharp from 3221 errors to 2.
+* **`static class` as a parameter type** (CS0721, 371 in the main assembly). IL
+  permits an `abstract sealed` type in a signature; C# does not. This is a
+  deliberate anti-decompiler trick. Dropping the `static` modifier is enough.
+* **Private/protected members reached across type boundaries** (CS0122, 17309).
+  Same trick. Widening to `internal` preserves behaviour and only changes
+  visibility.
+* **`<Module>` and `<PrivateImplementationDetails>` in signatures.** ILSpy
+  escapes the names but does not emit the declarations, since they are hidden
+  types. Every call site passes `null`, so empty stubs suffice --
+  `Recovered/DevXUnityUnpackerMain/_CompilerGeneratedStubs.cs`.
+* **A type that must be static and non-static at once.** One obfuscated class
+  declares an extension method (needs `static class`) while its own name is used
+  as a parameter type in 48 signatures (needs non-static). Resolved by keeping
+  the class non-static and re-exposing the method from a separate host class.
+* **Obfuscated entry point** (CS5001). The entry point is `[STAThread]` but its
+  name is a run of whitespace characters, and C# requires the entry point to be
+  literally `Main`. A `Program.Main` forwarder plus `<StartupObject>` fixes it.
+* **Real decompiler bugs**, each needing a hand fix:
+  * `fixed (IntPtr* p = (IntPtr*)(&arr[0]))` -- a cast is not a valid `fixed`
+    initializer (NAudio `AsioOut`).
+  * an `out var` declaration emitted in the *last* disjunct of a `||` chain
+    while earlier disjuncts already use the variable (ICSharpCode.Decompiler
+    `ILAstOptimizer`).
+  * `(expr?)?.Member` -- the inner `?` makes the parser see a nullable cast.
+  * `[ComImport]` coclasses given an explicit constructor (CS0669, NAudio).
+  * an indexer rendered as a parameterless property, so the index parameter is
+    undefined in the body and every call site names a member that does not exist.
+  * `new SaveHandle((object)this, (IntPtr)(void*)/*OpCode not supported: LdFtn*/)`
+    -- ILSpy gave up on an `ldftn`; dnSpy resolves the same site, so the target
+    method name can be read off the other tool's output.
+
+### A bug in our own rebuilt ILSpy
+
+Decompiling the 20 MB `DevXUnityUnpackerTools` crashed `DecompilerFi` with a
+`NullReferenceException` in `SwitchOnNullableTransform.MatchRoslynSwitchOnNullable`.
+The cause is in the decompiled ILSpy source this repo is built from --
+`DecompilerPreFi/DecompTools.Decompiler.IL.Transforms/SwitchOnNullableTransform.cs:174`
+came out as
+
+```csharp
+if (!NullableLiftingTransform.MatchGetValueOrDefault(value, out ILInstruction arg4) && arg4.Match(arg2).Success)
+```
+
+where the guard should be `|| !arg4.Match(...)`. When the match fails, `arg4` is
+null and the `&&` still evaluates it. Verified against the pre-fix snapshot: the
+line is byte-identical to the raw decompiler output, so it is an original
+mis-decompilation, not something introduced while repairing the build.
+
 ## Known limitations
 * Assemblies are **unsigned**. Anything that checks strong names at runtime will
   behave differently from the originals.

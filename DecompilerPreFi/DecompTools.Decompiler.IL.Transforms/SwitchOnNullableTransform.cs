@@ -171,7 +171,7 @@ internal class SwitchOnNullableTransform : IILTransform
 				{
 					return false;
 				}
-				if (!NullableLiftingTransform.MatchGetValueOrDefault(value, out ILInstruction arg4) && arg4.Match(arg2).Success)
+				if (!NullableLiftingTransform.MatchGetValueOrDefault(value, out ILInstruction arg4) || !arg4.Match(arg2).Success)
 				{
 					return false;
 				}

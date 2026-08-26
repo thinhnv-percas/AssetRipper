@@ -1,0 +1,18 @@
+using @as;
+using DevXForms;
+using Wasm;
+
+namespace ICSharpCode.SharpZipLib.Lzwnb
+{
+	internal class _0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A
+	{
+		private int _0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020()
+		{
+			((_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A((byte[])null);
+			NodesSelection nodesSelection = ((MultiSelectTreeView2)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020;
+			bool flag = ((MultiSelectTreeView2)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A;
+			((ExportSection)null).ExtraPayload = null;
+			return 1613380526;
+		}
+	}
+}

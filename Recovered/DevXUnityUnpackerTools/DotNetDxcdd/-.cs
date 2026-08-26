@@ -1,0 +1,14 @@
+using ICSharpCode.SharpZipLib.Zip;
+using System.IO;
+
+namespace DotNetDxcdd
+{
+	internal class _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A
+	{
+		private string _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020()
+		{
+			_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A.Create((Stream)null);
+			return "48141176";
+		}
+	}
+}

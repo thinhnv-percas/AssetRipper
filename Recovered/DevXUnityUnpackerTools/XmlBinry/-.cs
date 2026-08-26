@@ -1,0 +1,13 @@
+using ICSharpCode.SharpZipLib.Zip;
+
+namespace XmlBinry
+{
+	internal class _0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A
+	{
+		private string _0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020(decimal _0020, int _0020_000A, int _0020_0020)
+		{
+			ZipManager._0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_0020(null, null);
+			return "321844723";
+		}
+	}
+}

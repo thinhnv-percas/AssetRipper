@@ -1,0 +1,17 @@
+using ICSharpCode.SharpZipLib.BZip2;
+using System;
+using Wasm;
+using Wasm.Interpret;
+
+namespace Unity.CecilTool
+{
+	internal class _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A
+	{
+		private int _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020(string _0020, _0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A _0020_000A)
+		{
+			ModuleInstance._0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A((ImportedValue)null, (string)null);
+			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A((object)null, (EventArgs)null);
+			return 1641689689;
+		}
+	}
+}

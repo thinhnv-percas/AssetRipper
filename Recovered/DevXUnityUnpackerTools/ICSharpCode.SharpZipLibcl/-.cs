@@ -1,0 +1,13 @@
+using @as;
+
+namespace ICSharpCode.SharpZipLibcl
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A
+	{
+		private unsafe void _0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020(MultiSelectTreeView _0020, string _0020_000A, string _0020_0020)
+		{
+			FileManager.Exists(null);
+			_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A[] matrixParam = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A*)(byte*)null)->MatrixParams;
+		}
+	}
+}

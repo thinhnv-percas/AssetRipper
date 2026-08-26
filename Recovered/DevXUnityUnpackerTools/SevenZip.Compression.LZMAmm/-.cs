@@ -1,0 +1,12 @@
+using DSMCaps.PowerPc;
+
+namespace SevenZip.Compression.LZMAmm
+{
+	internal class _0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A
+	{
+		private void _0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020)
+		{
+			PowerPcRegister register = ((PowerPcOperand)null).Register;
+		}
+	}
+}

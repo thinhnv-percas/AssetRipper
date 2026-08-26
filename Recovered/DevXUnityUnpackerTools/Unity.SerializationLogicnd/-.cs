@@ -1,0 +1,26 @@
+using EdiTools;
+using Smolviy;
+using SpirV;
+using STL;
+using System;
+using System.IO;
+using System.Xml.Linq;
+using Wasm;
+
+namespace Unity.SerializationLogicnd
+{
+	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A
+	{
+		private string _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020()
+		{
+			_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020._0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A((StreamReader)null);
+			((_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A)null)._0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020((object)null, (EventArgs)null);
+			((PointerType)null).Type = null;
+			Wasm.FunctionType.ReadFrom(null);
+			((EdiMapping)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A((XElement)null);
+			TranslationManager._0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020();
+			Half.Parse(null, null);
+			return "1443406813";
+		}
+	}
+}

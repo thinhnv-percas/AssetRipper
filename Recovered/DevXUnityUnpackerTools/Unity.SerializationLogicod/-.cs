@@ -1,0 +1,17 @@
+using APK;
+using @as;
+using System.Collections.Generic;
+using XnaGeometry;
+
+namespace Unity.SerializationLogicod
+{
+	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A
+	{
+		private unsafe void _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020(XnaGeometry.Vector3 _0020)
+		{
+			((_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020((Dictionary<short, _0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020>)null);
+			int originalIndex = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020*)(byte*)null)->OriginalIndex;
+			GameRecoveryLicManager.FormatLicense();
+		}
+	}
+}

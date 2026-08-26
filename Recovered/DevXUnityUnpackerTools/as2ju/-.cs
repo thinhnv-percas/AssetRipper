@@ -1,0 +1,16 @@
+using @as;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using SpirV;
+
+namespace as2ju
+{
+	internal class _0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A
+	{
+		private string _0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020(object _0020, _0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A _0020_000A, bool _0020_0020)
+		{
+			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A)null).GetLevel();
+			int depth = ((ImageType)null).Depth;
+			return "1860414940";
+		}
+	}
+}

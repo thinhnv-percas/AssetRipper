@@ -1,0 +1,17 @@
+using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Zipny;
+using PropertyGridEx;
+
+namespace Wasm.Binarylp
+{
+	internal class _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A
+	{
+		private int _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020(ElementSegment _0020)
+		{
+			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A)null).ReadByte();
+			((_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A)null)._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020();
+			string name = ((CustomProperty)null).Name;
+			return 273959223;
+		}
+	}
+}

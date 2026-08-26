@@ -1,0 +1,27 @@
+using APK;
+using @as;
+using DevXForms;
+using DSMCaps;
+using WFTools3D;
+
+namespace DevXUnityUnpackerTools._WPFet
+{
+	internal class _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A
+	{
+		private void _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020()
+		{
+			TreeListColumn[] visibleColumn = ((TreeViewColumnCollection)null).VisibleColumns;
+			((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020 = null;
+			((CapstoneDisassembler<, , , , , , , >)null).SkipDataCallback = null;
+		}
+	}
+	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A
+	{
+		private object _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020(ushort _0020)
+		{
+			string formatString = ((NumberBox)null).FormatString;
+			_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020._0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020((_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020)null);
+			return null;
+		}
+	}
+}

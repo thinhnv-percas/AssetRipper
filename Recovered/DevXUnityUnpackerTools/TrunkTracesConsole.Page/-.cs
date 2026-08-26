@@ -1,0 +1,16 @@
+using DSMCaps.Arm64;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+
+namespace TrunkTracesConsole.Page
+{
+	internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A
+	{
+		private string _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020(_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020 _0020, short _0020_000A, bool _0020_0020)
+		{
+			bool writeBack = ((Arm64InstructionDetail)null).WriteBack;
+			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020();
+			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020)null).ReadLeByte();
+			return "1138141697";
+		}
+	}
+}

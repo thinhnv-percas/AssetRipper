@@ -1,0 +1,12 @@
+using FMOD;
+
+namespace PropertyGridExmi
+{
+	internal class _0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A
+	{
+		private int _0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020(ref uint _0020, TIMEUNIT _0020_000A)
+		{
+			return 1387067706;
+		}
+	}
+}

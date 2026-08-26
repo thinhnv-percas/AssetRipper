@@ -1,0 +1,10 @@
+namespace DevXUnityUnpackerTools._WinFormpe
+{
+	internal class _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A
+	{
+		private string _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020(ushort _0020)
+		{
+			return "1881325496";
+		}
+	}
+}

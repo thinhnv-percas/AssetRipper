@@ -1,0 +1,20 @@
+using ProtoBuf;
+using SpirV;
+using STL;
+using Wasm.Interpret;
+
+namespace NetObftd
+{
+	internal class _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A
+	{
+		private string _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020()
+		{
+			_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020._0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A(null, null);
+			OperatorImpls.Int64ExtendUInt32(null, null);
+			bool internString = ((ProtoReader)null).InternStrings;
+			bool flag = ((_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020;
+			ModuleHeader header = ((Module)null).Header;
+			return "1140550635";
+		}
+	}
+}

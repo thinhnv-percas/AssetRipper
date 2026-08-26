@@ -1,0 +1,17 @@
+using @as;
+using asxb;
+using Wasm.Optimize;
+
+namespace DevXUnityUnpackerTools._WinForm.AssetControlfq
+{
+	internal class _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A
+	{
+		private string _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020(int _0020)
+		{
+			((TextureManager)null)._0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020((byte[])null);
+			((_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A)null)._0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020();
+			((FunctionBody)null).ExpandLocalEntries();
+			return "1323186484";
+		}
+	}
+}

@@ -1,0 +1,14 @@
+using DevXUnityUnpackerTools.Properties;
+using System.Drawing;
+
+namespace ICSharpCode.SharpZipLibmp
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A
+	{
+		private void _0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020(float _0020)
+		{
+			bool flag = _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A._0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020;
+			Bitmap level = Resources.Level16;
+		}
+	}
+}

@@ -1,0 +1,14 @@
+namespace Unreal
+{
+	internal enum EPlatform
+	{
+		PLATFORM_UNKNOWN,
+		PLATFORM_PC,
+		PLATFORM_XBOX360,
+		PLATFORM_PS3,
+		PLATFORM_PS4,
+		PLATFORM_IOS,
+		PLATFORM_ANDROID,
+		PLATFORM_COUNT
+	}
+}

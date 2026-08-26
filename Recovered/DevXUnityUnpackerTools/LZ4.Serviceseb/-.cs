@@ -1,0 +1,14 @@
+using SpirV;
+using System.Text;
+
+namespace LZ4.Serviceseb
+{
+	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A
+	{
+		private void _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020(decimal _0020, bool _0020_000A)
+		{
+			((ObjectReference)null).ToString((StringBuilder)null);
+			((_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020)null)._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A((string)null);
+		}
+	}
+}

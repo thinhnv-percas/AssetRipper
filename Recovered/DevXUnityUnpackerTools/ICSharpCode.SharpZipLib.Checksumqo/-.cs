@@ -1,0 +1,17 @@
+using @as;
+using DevXUnityUnpackerTools.Properties;
+using DSMCaps.M68K;
+using System.Drawing;
+
+namespace ICSharpCode.SharpZipLib.Checksumqo
+{
+	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A
+	{
+		private unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020(decimal _0020)
+		{
+			M68KOperand.Create(null, ref *(_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020*)null);
+			_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A._0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A((VerFormat)null);
+			Bitmap save = Resources.Save161;
+		}
+	}
+}

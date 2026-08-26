@@ -1,0 +1,13 @@
+using ICSharpCode.SharpZipLib.Tar;
+
+namespace ICSharpCode.SharpZipLib.Lzwve
+{
+	internal class _0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_000A
+	{
+		private string _0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020(int _0020, int _0020_000A, int _0020_0020)
+		{
+			byte typeFlag = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020)null).TypeFlag;
+			return "1534466797";
+		}
+	}
+}

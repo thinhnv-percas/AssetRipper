@@ -1,0 +1,15 @@
+using System.Collections.Generic;
+using Unreal;
+using Wasm.Interpret;
+
+namespace Org.Brotli.Decjx
+{
+	internal class _0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A
+	{
+		private unsafe void _0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020()
+		{
+			OperatorImpls.Float64Floor(null, null);
+			((_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_00601<_0020_000A>(ref *(List<_0020_000A>*)null);
+		}
+	}
+}

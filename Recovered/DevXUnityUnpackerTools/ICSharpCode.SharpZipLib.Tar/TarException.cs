@@ -1,0 +1,28 @@
+using System;
+using System.Runtime.Serialization;
+
+namespace ICSharpCode.SharpZipLib.Tar
+{
+	[Serializable]
+	internal class TarException : SharpZipBaseException
+	{
+		protected TarException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+
+		public TarException()
+		{
+		}
+
+		public TarException(string message)
+			: base(message)
+		{
+		}
+
+		public TarException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+	}
+}

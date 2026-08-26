@@ -1,0 +1,17 @@
+using DSMCaps.Mips;
+using Mono.Cecil;
+using System.Windows.Forms;
+
+namespace ProtoBufor
+{
+	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A
+	{
+		private void _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020()
+		{
+			((_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020((string)null, (MemberReference)null);
+			MipsInstructionDetail.Create(null, null);
+			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A((object)null, (KeyEventArgs)null);
+			((RapackInfo)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020();
+		}
+	}
+}

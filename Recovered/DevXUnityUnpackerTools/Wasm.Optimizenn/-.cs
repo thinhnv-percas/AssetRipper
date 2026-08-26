@@ -1,0 +1,20 @@
+using ARMDku;
+using DMP4;
+using DSMCaps.PowerPc;
+using DSMCaps.X86;
+using Wasm.Interpret;
+
+namespace Wasm.Optimizenn
+{
+	internal class _0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A
+	{
+		private object _0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020()
+		{
+			((_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020((string)null);
+			((_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A)null)._0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020((Il2CppType)null);
+			byte displacementSize = ((X86Encoding)null).DisplacementSize;
+			bool isMutable = ((Variable)null).IsMutable;
+			return null;
+		}
+	}
+}

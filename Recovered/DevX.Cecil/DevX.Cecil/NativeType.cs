@@ -1,0 +1,43 @@
+namespace DevX.Cecil
+{
+	public enum NativeType
+	{
+		NONE = 102,
+		BOOLEAN = 2,
+		I1 = 3,
+		U1 = 4,
+		I2 = 5,
+		U2 = 6,
+		I4 = 7,
+		U4 = 8,
+		I8 = 9,
+		U8 = 10,
+		R4 = 11,
+		R8 = 12,
+		LPSTR = 20,
+		INT = 0x1F,
+		UINT = 0x20,
+		FUNC = 38,
+		ARRAY = 42,
+		CURRENCY = 0xF,
+		BSTR = 19,
+		LPWSTR = 21,
+		LPTSTR = 22,
+		FIXEDSYSSTRING = 23,
+		IUNKNOWN = 25,
+		IDISPATCH = 26,
+		STRUCT = 27,
+		INTF = 28,
+		SAFEARRAY = 29,
+		FIXEDARRAY = 30,
+		BYVALSTR = 34,
+		ANSIBSTR = 35,
+		TBSTR = 36,
+		VARIANTBOOL = 37,
+		ASANY = 40,
+		LPSTRUCT = 43,
+		CUSTOMMARSHALER = 44,
+		ERROR = 45,
+		MAX = 80
+	}
+}

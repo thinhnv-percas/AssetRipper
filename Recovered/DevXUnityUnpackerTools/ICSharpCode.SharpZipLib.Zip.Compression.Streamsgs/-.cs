@@ -1,0 +1,23 @@
+using PropertyGridEx;
+using SevenZip.Compression.RangeCoder;
+using System;
+
+namespace ICSharpCode.SharpZipLib.Zip.Compression.Streamsgs
+{
+	internal class _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A
+	{
+		private string _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020(UIFilenameEditor _0020, decimal _0020_000A)
+		{
+			return "1613218662";
+		}
+	}
+	internal class _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A
+	{
+		private void _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020(short _0020, string _0020_000A)
+		{
+			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A((string)null);
+			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A((object)null, (EventArgs)null);
+			((_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020)null).FlushData();
+		}
+	}
+}

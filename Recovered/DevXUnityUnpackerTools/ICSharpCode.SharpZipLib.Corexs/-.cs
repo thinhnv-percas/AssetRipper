@@ -1,0 +1,21 @@
+using @as;
+using DevXUnityUnpackerTools._WinForm;
+using DevXUnityUnpackerTools.Propertiesgx;
+using DMP4;
+using System;
+
+namespace ICSharpCode.SharpZipLib.Corexs
+{
+	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A
+	{
+		private object _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020()
+		{
+			((_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A();
+			((_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A((string)null);
+			((Il2Cpp)null).GetMethodPointer((string)null, (Il2CppMethodDefinition)null);
+			((SearchForm)null).listView_DoubleClick((object)null, (EventArgs)null);
+			((_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020();
+			return null;
+		}
+	}
+}

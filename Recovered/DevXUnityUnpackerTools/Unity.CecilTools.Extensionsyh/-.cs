@@ -1,0 +1,12 @@
+using FMOD;
+
+namespace Unity.CecilTools.Extensionsyh
+{
+	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A
+	{
+		private string _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020(DSP_CREATECALLBACK _0020)
+		{
+			return "1520807525";
+		}
+	}
+}

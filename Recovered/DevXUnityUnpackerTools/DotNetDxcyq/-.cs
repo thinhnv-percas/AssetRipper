@@ -1,0 +1,19 @@
+using @as;
+using DSMCaps.Arm;
+using SevenZip.Buffer;
+using SpirV;
+using XmlBin;
+
+namespace DotNetDxcyq
+{
+	internal class _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A
+	{
+		private string _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020(_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020 _0020, ImageResData _0020_000A)
+		{
+			((_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A)null)._0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020((OpUMulExtended)null);
+			ArmRegister index = ((ArmMemoryOperandValue)null).Index;
+			((InBuffer)null).ReadBlock();
+			return "629144074";
+		}
+	}
+}

@@ -1,0 +1,17 @@
+using ARMD;
+using SevenZip.Compression.RangeCoder;
+using Wasm;
+
+namespace ICSharpCode.SharpZipLib.Tarcy
+{
+	internal class _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A
+	{
+		private unsafe int _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020(string _0020)
+		{
+			((_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A*)(byte*)null)->ReverseDecode(null);
+			((ModuleNameEntry)null).ModuleName = null;
+			int num = ((_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A;
+			return 1517959388;
+		}
+	}
+}

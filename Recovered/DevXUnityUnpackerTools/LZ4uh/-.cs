@@ -1,0 +1,21 @@
+using @as;
+using DevXUnityUnpackerTools._WinForm;
+using ICSharpCode.SharpZipLib.Tar;
+using System;
+using System.Collections.Specialized;
+using WFTools3D;
+
+namespace LZ4uh
+{
+	internal class _0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A
+	{
+		private int _0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020(bool _0020, _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A _0020_000A, float _0020_0020, string _0020_000A_000A)
+		{
+			((SearchForm)null).Filter_Enter((object)null, (EventArgs)null);
+			string label = ((NumberBox)null).Label;
+			_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020._0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020(null);
+			((_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020)null)._0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A((NameValueCollection)null);
+			return 2137676995;
+		}
+	}
+}

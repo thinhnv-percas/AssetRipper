@@ -1,0 +1,24 @@
+using @as;
+using DevXUnityUnpackerTools.Properties;
+using System.Drawing;
+using Wasm;
+
+namespace SevenZip.CommandLineParsermk
+{
+	internal class _0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A
+	{
+		private string _0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020(FunctionType _0020)
+		{
+			return "1413191318";
+		}
+	}
+	internal class _0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A
+	{
+		private int _0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020(float _0020)
+		{
+			Bitmap level = Resources.Level16;
+			string text = ((_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020)null)._0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020;
+			return 440349159;
+		}
+	}
+}

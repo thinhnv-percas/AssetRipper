@@ -1,0 +1,15 @@
+using ICSharpCode.SharpZipLib.Tar;
+using System;
+
+namespace DevXUnityUnpackerTools.Propertiessq
+{
+	internal class _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A
+	{
+		private int _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020()
+		{
+			DateTime modTime = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A)null).ModTime;
+			_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A.GetNode(null, null);
+			return 1500591706;
+		}
+	}
+}

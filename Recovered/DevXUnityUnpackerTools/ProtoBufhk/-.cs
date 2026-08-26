@@ -1,0 +1,13 @@
+using Wasm;
+
+namespace ProtoBufhk
+{
+	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A
+	{
+		private int _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020(DevXCMethodData._0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020 _0020)
+		{
+			((ExportSection)null).ExtraPayload = null;
+			return 1787110750;
+		}
+	}
+}

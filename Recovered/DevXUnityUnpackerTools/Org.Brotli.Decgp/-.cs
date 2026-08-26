@@ -1,0 +1,17 @@
+using EdiTools;
+using ICSharpCode.SharpZipLib.Zip;
+using System.Collections.Generic;
+using Unity.IO.Compressionxr;
+
+namespace Org.Brotli.Decgp
+{
+	internal class _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A
+	{
+		private void _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020(decimal _0020, int _0020_000A, _0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020 _0020_0020, decimal _0020_000A_000A)
+		{
+			((_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A)null)._0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020((object)null);
+			TranslationManager._0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020(null);
+			IList<EdiRepetition> repetition = ((EdiElement)null).Repetitions;
+		}
+	}
+}

@@ -1,0 +1,15 @@
+using DevXUnityUnpackerTools._WPFkg;
+using Wasm;
+
+namespace ICSharpCode.SharpZipLib.Encryptionwf
+{
+	internal class _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A
+	{
+		private object _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020(int _0020, int _0020_000A)
+		{
+			((ElementSegment)null).Offset = null;
+			((_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A)null)._0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020();
+			return null;
+		}
+	}
+}

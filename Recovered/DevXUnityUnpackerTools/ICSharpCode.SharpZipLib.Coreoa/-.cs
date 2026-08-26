@@ -1,0 +1,25 @@
+using APK;
+using @as;
+using DMP4;
+using DSMCaps.Arm;
+using FMOD;
+using SpirV;
+using System;
+using Unity.CecilTools.Extensions;
+using XmlBiniu;
+
+namespace ICSharpCode.SharpZipLib.Coreoa
+{
+	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A
+	{
+		private unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020(DSP_PARAMETER_3DATTRIBUTES_MULTI _0020, int _0020_000A, bool _0020_0020, OpImageSampleProjDrefExplicitLod _0020_000A_000A)
+		{
+			long num = ((_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A;
+			((MethodDefinition)null).IsSimpleSetter();
+			((_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A)null)._0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020((string)null, (Il2CppMethodDefinition)null);
+			_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020._0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020();
+			((Half*)(byte*)null)->GetTypeCode();
+			ArmCpsMode cpsMode = ((ArmInstructionDetail)null).CpsMode;
+		}
+	}
+}

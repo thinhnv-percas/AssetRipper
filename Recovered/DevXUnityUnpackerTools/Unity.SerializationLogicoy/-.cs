@@ -1,0 +1,13 @@
+using System.Collections.Generic;
+
+namespace Unity.SerializationLogicoy
+{
+	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A
+	{
+		private string _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020(string _0020)
+		{
+			IEnumerable<ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A> enumerable = ((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020;
+			return "924450574";
+		}
+	}
+}

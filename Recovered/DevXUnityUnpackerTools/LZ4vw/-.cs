@@ -1,0 +1,25 @@
+using APK;
+using BrotliSharpLib;
+using DevXUnityUnpackerTools._WinForm;
+using DotNetDxcct;
+using EdiTools;
+using System;
+using System.Collections.Generic;
+using Unreal;
+
+namespace LZ4vw
+{
+	internal class _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A
+	{
+		private unsafe object _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020(string _0020)
+		{
+			//IL_0037: Expected I, but got O
+			IList<EdiComponent> component = ((EdiElement)null).Components;
+			((_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020(ref *(UObject[]*)null);
+			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020(ref *(Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A*)null, (Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020*)(long)(IntPtr)(void*)null);
+			_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020._0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020();
+			((SearchForm)null).SunSearchAll();
+			return null;
+		}
+	}
+}

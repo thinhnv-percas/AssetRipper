@@ -1,0 +1,18 @@
+using ICSharpCode.SharpZipLib.Tar;
+using SevenZip.Compression.RangeCoder;
+using XnaGeometry;
+
+namespace Unrealbn
+{
+	internal class _0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A
+	{
+		private unsafe int _0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020(decimal _0020)
+		{
+			((_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A*)(byte*)null)->ReverseDecode(null);
+			string name = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A)null).Name;
+			((Plane*)(byte*)null)->Normalize();
+			((_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020)null)._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020();
+			return 1742551040;
+		}
+	}
+}

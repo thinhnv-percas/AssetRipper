@@ -1,0 +1,14 @@
+using EdiTools;
+using ICSharpCode.SharpZipLib.Zip;
+using System.Xml.Linq;
+
+namespace DSMCaps.X86mq
+{
+	internal class _0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A
+	{
+		private void _0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020(_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A _0020, string _0020_000A)
+		{
+			EdiMapping.Load((XDocument)null);
+		}
+	}
+}

@@ -1,0 +1,15 @@
+using System.IO;
+using Unreal;
+
+namespace Wasm.Interpretgl
+{
+	internal class _0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A
+	{
+		private void _0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020(string _0020, UObject _0020_000A, short _0020_0020, decimal _0020_000A_000A)
+		{
+			((DevXCMethodData)null).AddMethod((string)null, (DevXCMethodData.DevXCMethodDelegate)null);
+			_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020 I_0 = (_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020)(string)null;
+			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020)null).Reset((Stream)null);
+		}
+	}
+}

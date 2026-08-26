@@ -1,0 +1,16 @@
+using @as;
+using DevXForms;
+using System.Windows.Forms;
+
+namespace WFTools3Ddl
+{
+	internal class _0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A
+	{
+		private unsafe int _0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020()
+		{
+			((_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A)null)._0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020((System.Windows.Forms.TreeNode)null, ref *(bool*)null);
+			ShaderInfo shaderInfo = ((ImageResData)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A;
+			return 1820599612;
+		}
+	}
+}
