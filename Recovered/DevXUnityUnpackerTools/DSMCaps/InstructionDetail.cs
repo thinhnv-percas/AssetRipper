@@ -1,23 +1,23 @@
-using System;
+﻿using System;
 using System.Linq;
 
 namespace DSMCaps
 {
 	public abstract class InstructionDetail<TSelf, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> where TSelf : InstructionDetail<TSelf, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> where TDisassembleMode : Enum where TGroup : InstructionGroup<TGroupId> where TGroupId : Enum where TInstruction : Instruction<TInstruction, TSelf, TDisassembleMode, TGroup, TGroupId, TInstructionId, TRegister, TRegisterId> where TInstructionId : Enum where TRegister : Register<TRegisterId> where TRegisterId : Enum
 	{
-		private readonly TRegister[] _allReadRegisters;
+		internal readonly TRegister[] _allReadRegisters;
 
-		private readonly TRegister[] _allWrittenRegisters;
+		internal readonly TRegister[] _allWrittenRegisters;
 
-		private readonly Lazy<TRegister[]> _explicitlyReadRegisters;
+		internal readonly Lazy<TRegister[]> _explicitlyReadRegisters;
 
-		private readonly Lazy<TRegister[]> _explicitlyWrittenRegisters;
+		internal readonly Lazy<TRegister[]> _explicitlyWrittenRegisters;
 
-		private readonly TGroup[] _groups;
+		internal readonly TGroup[] _groups;
 
-		private readonly TRegister[] _implicitlyReadRegisters;
+		internal readonly TRegister[] _implicitlyReadRegisters;
 
-		private readonly TRegister[] _implicitlyWrittenRegisters;
+		internal readonly TRegister[] _implicitlyWrittenRegisters;
 
 		public TRegister[] AllReadRegisters
 		{
@@ -110,7 +110,7 @@ namespace DSMCaps
 
 		public bool IsDietModeEnabled => CapstoneDisassembler.IsDietModeEnabled;
 
-		private protected InstructionDetail(InstructionDetailBuilder<TSelf, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> builder)
+		internal protected InstructionDetail(InstructionDetailBuilder<TSelf, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> builder)
 		{
 			_allReadRegisters = builder.AllReadRegisters;
 			_allWrittenRegisters = builder.AllWrittenRegisters;
@@ -133,7 +133,7 @@ namespace DSMCaps
 			return Groups.Any((TGroup g) => g.Id.Equals(instructionGroupId));
 		}
 
-		private bool IsDisassembleArchitectureUnsupported()
+		internal bool IsDisassembleArchitectureUnsupported()
 		{
 			if (DisassembleArchitecture != DisassembleArchitecture.M68K && DisassembleArchitecture != DisassembleArchitecture.Mips && DisassembleArchitecture != DisassembleArchitecture.PowerPc)
 			{
@@ -218,12 +218,12 @@ namespace DSMCaps
 			return ImplicitlyWrittenRegisters.Any((TRegister r) => r.Id.Equals(registerId));
 		}
 
-		private TRegister[] OnExplicitlyReadRegistersLazyInitialization()
+		internal TRegister[] OnExplicitlyReadRegistersLazyInitialization()
 		{
 			return _allReadRegisters.Except(_implicitlyReadRegisters).ToArray();
 		}
 
-		private TRegister[] OnExplicitlyWrittenRegistersLazyInitialization()
+		internal TRegister[] OnExplicitlyWrittenRegistersLazyInitialization()
 		{
 			return _allWrittenRegisters.Except(_implicitlyWrittenRegisters).ToArray();
 		}

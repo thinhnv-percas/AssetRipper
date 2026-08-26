@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using STLsk;
 using System.Windows.Forms;
 
@@ -6,7 +6,7 @@ namespace Unity.SerializationLogicdq
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A
 	{
-		private unsafe int _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020(string _0020, short _0020_000A)
+		internal unsafe int _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020(string _0020, short _0020_000A)
 		{
 			((ViewMap)null).AddView((object)null, (Control)null);
 			((_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A)null)._0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020();

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip;
 using Wasm;
@@ -7,7 +7,7 @@ namespace MiniJSONdu
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A
 	{
-		private object _0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020(string _0020, object[] _0020_000A, ref bool _0020_0020, ref object _0020_000A_000A)
+		internal object _0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020(string _0020, object[] _0020_000A, ref bool _0020_0020, ref object _0020_000A_000A)
 		{
 			MaybeAlertManager._0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A(null);
 			string fileName = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020)null).FileName;

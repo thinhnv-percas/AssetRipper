@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using System;
 
@@ -6,7 +6,7 @@ namespace LZ4.Serviceslu
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A
 	{
-		private unsafe void _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020(object _0020)
+		internal unsafe void _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020(object _0020)
 		{
 			//IL_001d: Expected I, but got O
 			//IL_001d: Expected I, but got O

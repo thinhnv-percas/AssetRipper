@@ -1,4 +1,4 @@
-using DMP4;
+﻿using DMP4;
 using System;
 using Unity.CecilTools.Extensionsbx;
 using Unreal;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Zipwf
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A
 	{
-		private unsafe void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020(short _0020, string _0020_000A, string _0020_0020, float _0020_000A_000A)
+		internal unsafe void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020(short _0020, string _0020_000A, string _0020_0020, float _0020_000A_000A)
 		{
 			((ImageData)null).DestroryImage();
 			((_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A(ref *(bool[]*)null);

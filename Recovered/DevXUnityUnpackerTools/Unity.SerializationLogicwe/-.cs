@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using FMOD;
 using ICSharpCode.SharpZipLib.Core;
 using System;
@@ -9,7 +9,7 @@ namespace Unity.SerializationLogicwe
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A
 	{
-		private unsafe string _0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020(decimal _0020, float _0020_000A)
+		internal unsafe string _0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020(decimal _0020, float _0020_000A)
 		{
 			_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A((FileInfo)null, (string)null);
 			float[][] spectrum = ((DSP_PARAMETER_FFT*)(byte*)null)->spectrum;

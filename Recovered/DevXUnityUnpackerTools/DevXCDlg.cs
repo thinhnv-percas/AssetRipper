@@ -1,10 +1,10 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 public class DevXCDlg : Form
 {
-	private IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
+	internal IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
 
 	public DevXCControl devXCControl;
 
@@ -22,7 +22,7 @@ public class DevXCDlg : Form
 		base.Dispose(disposing);
 	}
 
-	private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
+	internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
 	{
 		devXCControl = new DevXCControl();
 		SuspendLayout();

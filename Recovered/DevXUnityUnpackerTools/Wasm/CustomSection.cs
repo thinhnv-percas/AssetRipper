@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
 namespace Wasm
@@ -6,15 +6,15 @@ namespace Wasm
 	public sealed class CustomSection : Section
 	{
 		[CompilerGenerated]
-		private string _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A;
+		internal string _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020;
+		internal byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020;
 
 		public string CustomName
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public override SectionName Name => new SectionName(CustomName);
@@ -22,7 +22,7 @@ namespace Wasm
 		public byte[] Payload
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public CustomSection(string customName, byte[] payload)

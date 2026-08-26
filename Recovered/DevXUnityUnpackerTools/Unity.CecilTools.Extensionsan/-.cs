@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WPFyc;
 using DevXUnityUnpackerTools.Properties;
 using EdiTools;
@@ -8,7 +8,7 @@ namespace Unity.CecilTools.Extensionsan
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A
 	{
-		private string _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020(string _0020, char _0020_000A)
+		internal string _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020(string _0020, char _0020_000A)
 		{
 			Bitmap girl_unity = Resources.girl_unity12;
 			_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020._0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A();

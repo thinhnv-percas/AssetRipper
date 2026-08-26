@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using ICSharpCode.SharpZipLib.Zip;
 using System.IO;
@@ -10,7 +10,7 @@ namespace FMODxu
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A
 	{
-		private unsafe int _0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020(string _0020, int _0020_000A, TextureTransform _0020_0020, ColorSpace _0020_000A_000A)
+		internal unsafe int _0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020(string _0020, int _0020_000A, TextureTransform _0020_0020, ColorSpace _0020_000A_000A)
 		{
 			UnityEngineTypePredicates.IsMatrix4x4(null);
 			((Il2CppType)null).Init();

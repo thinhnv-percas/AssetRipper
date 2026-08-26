@@ -1,4 +1,4 @@
-using DMP4;
+﻿using DMP4;
 using System;
 using Unity.IO.Compression;
 using Unity.IO.Compressionly;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Encryptionec
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A
 	{
-		private void _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020(bool _0020)
+		internal void _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020(bool _0020)
 		{
 			int num = ((_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020)null)._0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A;
 			FileManager.Write((string)null, (string)null);

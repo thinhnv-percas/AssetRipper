@@ -1,6 +1,6 @@
-namespace DMP4
+﻿namespace DMP4
 {
-	public static class ElfConstants
+	public class ElfConstants
 	{
 		public const int EM_386 = 3;
 

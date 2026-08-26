@@ -1,4 +1,4 @@
-using ARMD;
+﻿using ARMD;
 using @as;
 using DevXUnityUnpackerTools.Properties;
 using DMP4;
@@ -11,7 +11,7 @@ namespace Xxteady
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A
 	{
-		private int _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020(int _0020, OpAtomicAnd _0020_000A)
+		internal int _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020(int _0020, OpAtomicAnd _0020_000A)
 		{
 			Bitmap shader = Resources.Shader16;
 			bool isDietModeEnabled = ((InstructionGroup<>)null).IsDietModeEnabled;

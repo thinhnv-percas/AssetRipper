@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using Wasm;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace Org.Brotli.Decfa
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A
 	{
-		private unsafe object _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020(string _0020)
+		internal unsafe object _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020(string _0020)
 		{
 			TableType.ReadFrom(null);
 			((MultiSelectTreeView2)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020 += null;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -6,7 +6,7 @@ namespace FMOD
 {
 	public struct StringWrapper
 	{
-		private IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020;
+		internal IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020;
 
 		public static implicit operator string(StringWrapper fstring)
 		{

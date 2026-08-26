@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DevXForms.TreeList;
 using DMP4;
@@ -83,7 +83,7 @@ namespace DevXForms
 	}
 	internal class _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020 : ControlDesigner
 	{
-		private IComponentChangeService _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020;
+		internal IComponentChangeService _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020;
 
 		public override void Initialize(IComponent component)
 		{
@@ -102,7 +102,7 @@ namespace DevXForms
 			}
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020(object _0020, MouseEventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020(object _0020, MouseEventArgs _0020_000A)
 		{
 			RaiseComponentChanged(null, null, null);
 		}
@@ -112,7 +112,7 @@ namespace DevXForms
 			base.Dispose(disposing);
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A(object _0020, ComponentChangedEventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A(object _0020, ComponentChangedEventArgs _0020_000A)
 		{
 			Control?.Invalidate();
 		}
@@ -150,7 +150,7 @@ namespace DevXForms
 	}
 	internal class _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A
 	{
-		private static Pen _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A = SystemPens.Control;
+		internal static Pen _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A = SystemPens.Control;
 
 		public static Pen GridLinePen => _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A;
 	}
@@ -470,9 +470,9 @@ namespace DevXForms
 	{
 		public delegate System.Windows.Forms.TreeNode NodeCallback(System.Windows.Forms.TreeNode node, ref bool doContinue);
 
-		protected TreeView m_tree;
+		internal TreeView m_tree;
 
-		protected NodeCallback m_callback;
+		internal NodeCallback m_callback;
 
 		public _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020(TreeView tree, NodeCallback cb)
 		{
@@ -494,7 +494,7 @@ namespace DevXForms
 			return null;
 		}
 
-		protected System.Windows.Forms.TreeNode ExecuteNode(System.Windows.Forms.TreeNode node, ref bool doContinue)
+		internal System.Windows.Forms.TreeNode ExecuteNode(System.Windows.Forms.TreeNode node, ref bool doContinue)
 		{
 			doContinue = true;
 			System.Windows.Forms.TreeNode result = m_callback(node, ref doContinue);
@@ -515,7 +515,7 @@ namespace DevXForms
 	}
 	internal class _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A : _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020
 	{
-		private object _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020;
+		internal object _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020;
 
 		public _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A(TreeView tree, object tag)
 			: base(tree, null)
@@ -524,7 +524,7 @@ namespace DevXForms
 			m_callback = this._0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020;
 		}
 
-		private System.Windows.Forms.TreeNode _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020(System.Windows.Forms.TreeNode _0020, ref bool _0020_000A)
+		internal System.Windows.Forms.TreeNode _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020(System.Windows.Forms.TreeNode _0020, ref bool _0020_000A)
 		{
 			if (_0020.Tag != null && _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020 != null && _0020.Tag.Equals(_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020))
 			{
@@ -536,14 +536,14 @@ namespace DevXForms
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020(double _0020)
+		internal object _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020(double _0020)
 		{
 			return null;
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020(Point3D _0020)
+		internal int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020(Point3D _0020)
 		{
 			((_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020((string)null);
 			CecilUtils.ElementTypeOfCollection(null);
@@ -554,14 +554,14 @@ namespace DevXForms
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020(object _0020)
+		internal int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020(object _0020)
 		{
 			return 376838775;
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A
 	{
-		private unsafe int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020()
+		internal unsafe int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020()
 		{
 			//IL_0074: Expected I, but got O
 			((Vector4*)(byte*)null)->Length();
@@ -576,7 +576,7 @@ namespace DevXForms
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A
 	{
-		private unsafe object _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020()
+		internal unsafe object _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020()
 		{
 			//IL_0048: Expected I, but got O
 			((_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020((_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A)null);
@@ -590,7 +590,7 @@ namespace DevXForms
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020(Il2CppTokenAdjustorThunkPair _0020, _0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020 _0020_000A, string _0020_0020, bool _0020_000A_000A)
+		internal string _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020(Il2CppTokenAdjustorThunkPair _0020, _0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020 _0020_000A, string _0020_0020, bool _0020_000A_000A)
 		{
 			return "1482609421";
 		}

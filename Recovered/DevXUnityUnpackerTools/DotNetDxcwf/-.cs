@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using System;
 using Wasm.Interpret;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace DotNetDxcwf
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A
 	{
-		private unsafe object _0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020()
+		internal unsafe object _0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020()
 		{
 			//IL_0040: Expected I, but got O
 			((BoundingFrustum)null).GetCorners();

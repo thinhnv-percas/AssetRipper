@@ -1,8 +1,8 @@
-namespace SevenZip.Compression.LZMAed
+﻿namespace SevenZip.Compression.LZMAed
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		private int _0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020(short _0020)
+		internal int _0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020(short _0020)
 		{
 			return 1062550326;
 		}

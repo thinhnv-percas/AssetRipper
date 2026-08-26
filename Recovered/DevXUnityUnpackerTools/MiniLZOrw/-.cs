@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WPF;
 using FMOD;
 using ICSharpCode.SharpZipLib.Zip;
@@ -9,7 +9,7 @@ namespace MiniLZOrw
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020()
+		internal int _0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020()
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020)null).ReadLeShort();
 			((_3DView)null).MakeLights();

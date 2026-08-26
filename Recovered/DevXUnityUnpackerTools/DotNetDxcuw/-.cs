@@ -1,4 +1,4 @@
-using APKdl;
+﻿using APKdl;
 using DevXForms.TreeList;
 using Unreal;
 using WFTools3D;
@@ -7,7 +7,7 @@ namespace DotNetDxcuw
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		private void _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020()
+		internal void _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020()
 		{
 			bool showPlusMinu = ((ViewSetting)null).ShowPlusMinus;
 			ServerLink.SetLink(null);

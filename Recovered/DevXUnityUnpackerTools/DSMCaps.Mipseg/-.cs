@@ -1,10 +1,10 @@
-using Wasm.Instructions;
+﻿using Wasm.Instructions;
 
 namespace DSMCaps.Mipseg
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A
 	{
-		private int _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020()
+		internal int _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020()
 		{
 			uint immediate = ((VarUInt32Instruction)null).Immediate;
 			bool isDietModeEnabled = ((InstructionDetail<, , , , , , , >)null).IsDietModeEnabled;

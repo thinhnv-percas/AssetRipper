@@ -1,30 +1,30 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Wasm.Interpret
 {
 	public sealed class Variable
 	{
-		private object _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A;
+		internal object _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private WasmValueType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal WasmValueType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020;
+		internal bool _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020;
 
 		public WasmValueType Type
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public bool IsMutable
 		{
 			get;
-			private set;
+			internal set;
 		}
 
-		private Variable(object value, WasmValueType type, bool isMutable)
+		internal Variable(object value, WasmValueType type, bool isMutable)
 		{
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A = value;
 			Type = type;
@@ -97,7 +97,7 @@ namespace Wasm.Interpret
 			}
 		}
 
-		private static string _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A(object _0020)
+		internal static string _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A(object _0020)
 		{
 			return _0020.GetType().Name;
 		}

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DevXUnityUnpackerTools._WPFjb;
 using DSMCaps;
@@ -10,7 +10,7 @@ namespace Unity.CecilToolsii
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A
 	{
-		private unsafe int _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020(byte[] _0020, int _0020_000A, int _0020_0020)
+		internal unsafe int _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020(byte[] _0020, int _0020_000A, int _0020_0020)
 		{
 			//IL_0069: Expected I, but got O
 			long size = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A)null).Size;
@@ -26,7 +26,7 @@ namespace Unity.CecilToolsii
 	}
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A
 	{
-		private int _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020(string _0020)
+		internal int _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020(string _0020)
 		{
 			return 1306285170;
 		}

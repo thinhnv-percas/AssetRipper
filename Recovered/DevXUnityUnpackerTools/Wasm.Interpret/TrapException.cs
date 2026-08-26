@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace Wasm.Interpret
@@ -32,7 +32,7 @@ namespace Wasm.Interpret
 		public string SpecMessage
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public TrapException(string message, string specMessage)
@@ -41,7 +41,7 @@ namespace Wasm.Interpret
 			SpecMessage = specMessage;
 		}
 
-		protected TrapException(SerializationInfo info, StreamingContext context)
+		internal TrapException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
 		}

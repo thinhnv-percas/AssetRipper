@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using APKme;
 using DevX.Cecil;
 using SpirV;
@@ -9,7 +9,7 @@ namespace Unity.SerializationLogicng
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A
 	{
-		private unsafe string _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020(decimal _0020, object _0020_000A, OpAtomicSMax _0020_0020, UPropAttr _0020_000A_000A)
+		internal unsafe string _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020(decimal _0020, object _0020_000A, OpAtomicSMax _0020_0020, UPropAttr _0020_000A_000A)
 		{
 			Vector3 left = ((Matrix*)(byte*)null)->Left;
 			((_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A)null)._0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020();

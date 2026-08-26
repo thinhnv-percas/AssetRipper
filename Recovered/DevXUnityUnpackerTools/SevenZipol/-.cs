@@ -1,11 +1,11 @@
-using ICSharpCode.SharpZipLib.Lzwea;
+﻿using ICSharpCode.SharpZipLib.Lzwea;
 using Wasm;
 
 namespace SevenZipol
 {
 	internal class _0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A
 	{
-		private string _0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020(short _0020, SevenZipHelper _0020_000A)
+		internal string _0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020(short _0020, SevenZipHelper _0020_000A)
 		{
 			((DevXCMethodData)null)._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A += null;
 			string moduleName = ((ImportedValue)null).ModuleName;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Wasm.Instructions;
 using Wasm.Optimize;
@@ -150,7 +150,7 @@ namespace Wasm.Interpret
 			context.Push((IEnumerable<object>)values);
 		}
 
-		private static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A(InterpreterContext _0020)
+		internal static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A(InterpreterContext _0020)
 		{
 			if (_0020.CallStackDepth >= _0020.Policy.MaxCallStackDepth)
 			{
@@ -378,7 +378,7 @@ namespace Wasm.Interpret
 			context.Module.Memories[0].Float64[offset] = value2;
 		}
 
-		private static uint _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(MemoryInstruction _0020, InterpreterContext _0020_000A)
+		internal static uint _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(MemoryInstruction _0020, InterpreterContext _0020_000A)
 		{
 			long num = (long)(uint)_0020_000A.Pop<int>() + (long)_0020.Offset;
 			if ((ulong)num > 4294967295uL)
@@ -393,7 +393,7 @@ namespace Wasm.Interpret
 			return num2;
 		}
 
-		private static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A(uint _0020, MemoryInstruction _0020_000A)
+		internal static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A(uint _0020, MemoryInstruction _0020_000A)
 		{
 			if (_0020 % _0020_000A.Alignment != 0)
 			{

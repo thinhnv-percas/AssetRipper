@@ -1,10 +1,10 @@
-using ICSharpCode.SharpZipLib.Corecs;
+﻿using ICSharpCode.SharpZipLib.Corecs;
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression.Streamspo
 {
 	internal class _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		private object _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020(int _0020)
+		internal object _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020(int _0020)
 		{
 			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A)null).WriteLine((string)null);
 			((ARGB_RAW)null).ToRGBA();

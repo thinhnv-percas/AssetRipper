@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System;
 
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compressionbd
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A
 	{
-		private string _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020(float _0020, float _0020_000A)
+		internal string _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020(float _0020, float _0020_000A)
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A((object)null, (EventArgs)null);
 			ImageResData imageResDatum = ((_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020;

@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm.AssetControlbo;
+﻿using DevXUnityUnpackerTools._WinForm.AssetControlbo;
 using System.Collections.Generic;
 using Wasm.Interpret;
 
@@ -6,7 +6,7 @@ namespace XmlBingx
 {
 	internal class _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A
 	{
-		private object _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020()
+		internal object _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020()
 		{
 			IDictionary<string, LinearMemory> exportedMemory = ((ModuleInstance)null).ExportedMemories;
 			((_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020();

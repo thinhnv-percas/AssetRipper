@@ -1,4 +1,4 @@
-using DevXForms.TreeList;
+﻿using DevXForms.TreeList;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,19 +12,19 @@ namespace DevXForms
 	[Editor(typeof(ColumnCollectionEditor), typeof(UITypeEditor))]
 	public class TreeViewColumnCollection : IList<TreeListColumn>, ICollection<TreeListColumn>, IEnumerable<TreeListColumn>, IEnumerable, IList, ICollection
 	{
-		private ColumnHeaderPainter _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A = new ColumnHeaderPainter();
+		internal ColumnHeaderPainter _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A = new ColumnHeaderPainter();
 
-		private CollumnSetting _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020;
+		internal CollumnSetting _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020;
 
-		private MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020;
+		internal MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020;
 
-		private List<TreeListColumn> _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A = new List<TreeListColumn>();
+		internal List<TreeListColumn> _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A = new List<TreeListColumn>();
 
-		private List<TreeListColumn> _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020 = new List<TreeListColumn>();
+		internal List<TreeListColumn> _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020 = new List<TreeListColumn>();
 
-		private Dictionary<string, TreeListColumn> _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A = new Dictionary<string, TreeListColumn>();
+		internal Dictionary<string, TreeListColumn> _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A = new Dictionary<string, TreeListColumn>();
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020;
 
 		[Browsable(false)]
 		public CollumnSetting Options => _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020;

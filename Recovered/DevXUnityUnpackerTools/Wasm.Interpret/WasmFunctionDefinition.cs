@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Wasm.Instructions;
@@ -8,23 +8,23 @@ namespace Wasm.Interpret
 	public sealed class WasmFunctionDefinition : FunctionDefinition
 	{
 		[CompilerGenerated]
-		private FunctionType _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020;
+		internal FunctionType _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020;
 
-		private FunctionBody _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A;
+		internal FunctionBody _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020;
+		internal ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020;
 
 		public FunctionType Signature
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ModuleInstance Module
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public override IList<WasmValueType> ParameterTypes => Signature.ParameterTypes;
@@ -71,7 +71,7 @@ namespace Wasm.Interpret
 			return returnValues;
 		}
 
-		private InterpreterContext _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020(uint _0020, List<Variable> _0020_000A)
+		internal InterpreterContext _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020(uint _0020, List<Variable> _0020_000A)
 		{
 			if (Module.Policy.TranslateExceptions)
 			{
@@ -91,7 +91,7 @@ namespace Wasm.Interpret
 			return _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A(_0020, _0020_000A);
 		}
 
-		private InterpreterContext _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A(uint _0020, List<Variable> _0020_000A)
+		internal InterpreterContext _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A(uint _0020, List<Variable> _0020_000A)
 		{
 			InterpreterContext interpreterContext = new InterpreterContext(Module, ReturnTypes, _0020_000A, Module.Policy, _0020 + 1);
 			InstructionInterpreter interpreter = Module.Interpreter;

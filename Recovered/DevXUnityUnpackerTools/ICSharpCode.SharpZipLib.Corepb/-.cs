@@ -1,11 +1,11 @@
-using @as;
+﻿using @as;
 using System;
 
 namespace ICSharpCode.SharpZipLib.Corepb
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A
 	{
-		private unsafe int _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020()
+		internal unsafe int _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020()
 		{
 			//IL_0046: Expected I, but got O
 			//IL_0046: Expected I, but got O

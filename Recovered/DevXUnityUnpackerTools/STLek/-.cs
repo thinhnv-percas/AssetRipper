@@ -1,4 +1,4 @@
-using DSMCaps.X86;
+﻿using DSMCaps.X86;
 using MiniLZO;
 using System;
 using Unreal;
@@ -8,7 +8,7 @@ namespace STLek
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A
 	{
-		private unsafe void _0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020(X86Operand[] _0020)
+		internal unsafe void _0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020(X86Operand[] _0020)
 		{
 			string text = ((UObject)null)._0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020;
 			((BinaryWasmWriter)null).WriteLengthPrefixed((Action<BinaryWasmWriter>)null);

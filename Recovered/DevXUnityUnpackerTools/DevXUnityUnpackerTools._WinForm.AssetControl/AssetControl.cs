@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,9 +6,9 @@ namespace DevXUnityUnpackerTools._WinForm.AssetControl
 {
 	public class AssetControl : UserControl
 	{
-		private IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
+		internal IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
 
-		private PropertyGrid _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020;
+		internal PropertyGrid _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020;
 
 		public AssetControl()
 		{
@@ -24,7 +24,7 @@ namespace DevXUnityUnpackerTools._WinForm.AssetControl
 			base.Dispose(disposing);
 		}
 
-		private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
+		internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
 		{
 			_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020 = new PropertyGrid();
 			SuspendLayout();

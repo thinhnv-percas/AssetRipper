@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using DevXUnityUnpackerTools._WPFar;
 using Wasm;
 using Wasm.Binary;
@@ -7,7 +7,7 @@ namespace ProtoBufqr
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020()
+		internal void _0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020()
 		{
 			((BinaryWasmReader)null).ReadVersionHeader();
 			((WasmFile)null).AddNameEntry((NameEntry)null);

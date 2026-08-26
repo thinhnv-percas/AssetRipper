@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -16,7 +16,7 @@ namespace PropertyGridEx
 
 		public class BrowsableLabelStyleAttribute : Attribute
 		{
-			private LabelStyle _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020;
+			internal LabelStyle _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020;
 
 			public LabelStyle LabelStyle
 			{

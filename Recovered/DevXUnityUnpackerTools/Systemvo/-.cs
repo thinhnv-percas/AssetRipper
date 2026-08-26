@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using ICSharpCode.SharpZipLib.Coreep;
 using ICSharpCode.SharpZipLib.Encryptionxw;
 using Unity.SerializationLogic;
@@ -7,7 +7,7 @@ namespace Systemvo
 {
 	internal class _0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A
 	{
-		private void _0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020()
+		internal void _0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020()
 		{
 			((_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A)null)._0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020();
 			UnityEngineTypePredicates.IsUnityEngineValueType(null);

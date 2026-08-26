@@ -1,4 +1,4 @@
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using Org.Brotli.Decam;
 using PropertyGridEx;
 using System.Drawing;
@@ -7,7 +7,7 @@ namespace LZ4.Servicestp
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A
 	{
-		private string _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020(MethodSpecification _0020)
+		internal string _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020(MethodSpecification _0020)
 		{
 			string text = ((_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A;
 			Image docCommentImage = ((PropertyGridEx.PropertyGridEx)null).DocCommentImage;

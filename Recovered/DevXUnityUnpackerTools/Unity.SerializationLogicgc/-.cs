@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.M68K;
 using DSMCaps.X86;
 
@@ -6,7 +6,7 @@ namespace Unity.SerializationLogicgc
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020(ShaderInfo _0020, ImageResData _0020_000A)
+		internal void _0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020(ShaderInfo _0020, ImageResData _0020_000A)
 		{
 			int registerBit = ((M68KOperand)null).RegisterBits;
 			X86Register @base = ((X86MemoryOperandValue)null).Base;

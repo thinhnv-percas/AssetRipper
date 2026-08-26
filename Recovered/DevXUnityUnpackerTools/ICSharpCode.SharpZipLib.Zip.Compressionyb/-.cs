@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using System;
 using System.IO;
 using Xxtea;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compressionyb
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A
 	{
-		private unsafe int _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020()
+		internal unsafe int _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020()
 		{
 			//IL_0058: Expected I, but got O
 			long compressedSize = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A)null).CompressedSize;

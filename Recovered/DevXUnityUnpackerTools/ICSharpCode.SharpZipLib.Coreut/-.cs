@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System;
 using Wasm;
 using Wasm.Binary;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Coreut
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020(object _0020, ByteOrder _0020_000A, float _0020_0020)
+		internal unsafe object _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020(object _0020, ByteOrder _0020_000A, float _0020_0020)
 		{
 			//IL_0043: Expected I, but got O
 			//IL_0043: Expected I, but got O

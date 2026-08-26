@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 using Wasm.Instructions;
@@ -8,12 +8,12 @@ namespace Wasm
 	public sealed class InitializerExpression
 	{
 		[CompilerGenerated]
-		private List<Wasm.Instructions.Instruction> _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020;
+		internal List<Wasm.Instructions.Instruction> _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020;
 
 		public List<Wasm.Instructions.Instruction> BodyInstructions
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public InitializerExpression(IEnumerable<Wasm.Instructions.Instruction> body)

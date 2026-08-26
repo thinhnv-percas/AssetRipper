@@ -1,4 +1,4 @@
-using DotNetDxcia;
+﻿using DotNetDxcia;
 using System;
 using Wasm.Interpret;
 
@@ -6,7 +6,7 @@ namespace SevenZip.Compression.LZMApo
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A
 	{
-		private unsafe string _0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020()
+		internal unsafe string _0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020()
 		{
 			//IL_0012: Expected I, but got O
 			//IL_0012: Expected I, but got O

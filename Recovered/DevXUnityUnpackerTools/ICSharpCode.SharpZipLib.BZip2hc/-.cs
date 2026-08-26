@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.BZip2hc
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020(string _0020)
+		internal unsafe object _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020(string _0020)
 		{
 			//IL_0011: Expected I, but got O
 			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A*)(long)(IntPtr)(void*)null);

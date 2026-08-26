@@ -1,14 +1,14 @@
-internal class DdEcVwX123s
+﻿internal class DdEcVwX123s
 {
-	private void vsfv43ff2f3()
+	internal void vsfv43ff2f3()
 	{
 	}
 
-	private void GDDe33d()
+	internal void GDDe33d()
 	{
 	}
 
-	private void s321XwVcEdD()
+	internal void s321XwVcEdD()
 	{
 	}
 }

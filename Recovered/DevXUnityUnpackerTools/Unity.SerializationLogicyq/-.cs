@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using ICSharpCode.SharpZipLib.Zip;
 using Mono.Cecil;
 using SpirV;
@@ -10,7 +10,7 @@ namespace Unity.SerializationLogicyq
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A
 	{
-		private unsafe string _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020()
+		internal unsafe string _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020()
 		{
 			//IL_0036: Expected I, but got O
 			//IL_0036: Expected I, but got O

@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using System.Text;
 using Unity.IO.Compression;
 using WASD;
@@ -7,7 +7,7 @@ namespace DevXUnityUnpackerTools._WinFormef
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A
 	{
-		private string _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020(StringBuilder _0020, int _0020_000A)
+		internal string _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020(StringBuilder _0020, int _0020_000A)
 		{
 			((_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A)null)._0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020();
 			object tag = ((TreeNode)null).Tag;

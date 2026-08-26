@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -9,13 +9,13 @@ namespace Wasm
 	public sealed class ElementSegment
 	{
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private InitializerExpression _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020;
+		internal InitializerExpression _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private List<uint> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A;
+		internal List<uint> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A;
 
 		public uint TableIndex
 		{
@@ -32,7 +32,7 @@ namespace Wasm
 		public List<uint> Elements
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ElementSegment(uint tableIndex, InitializerExpression offset, IEnumerable<uint> elements)

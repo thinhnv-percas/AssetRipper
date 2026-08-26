@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.M68Kkf;
 using ICSharpCode.SharpZipLib.Zip;
 using LZ4psol;
@@ -9,7 +9,7 @@ namespace DSMCaps.Mipsvx
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A
 	{
-		private unsafe string _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020()
+		internal unsafe string _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020()
 		{
 			((_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A)null)._0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020();
 			((BoundingBox*)(byte*)null)->Intersects(null);

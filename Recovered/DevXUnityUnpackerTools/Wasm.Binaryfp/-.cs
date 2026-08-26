@@ -1,4 +1,4 @@
-using EdiTools;
+﻿using EdiTools;
 using ICSharpCode.SharpZipLiboc;
 using System.Xml.Linq;
 using TrunkTracesConsole.Pages;
@@ -7,7 +7,7 @@ namespace Wasm.Binaryfp
 {
 	internal class _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A
 	{
-		private object _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020()
+		internal object _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020()
 		{
 			((ImagesViewControl)null)._0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020();
 			((EdiDocument)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A((XElement)null);

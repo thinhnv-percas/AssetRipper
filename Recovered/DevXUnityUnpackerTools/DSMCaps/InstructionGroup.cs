@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 
 namespace DSMCaps
 {
 	public abstract class InstructionGroup<TId> where TId : Enum
 	{
-		private readonly string _name;
+		internal readonly string _name;
 
 		public TId Id
 		{
@@ -22,7 +22,7 @@ namespace DSMCaps
 			}
 		}
 
-		private protected InstructionGroup(TId id, string name)
+		internal protected InstructionGroup(TId id, string name)
 		{
 			Id = id;
 			_name = name;

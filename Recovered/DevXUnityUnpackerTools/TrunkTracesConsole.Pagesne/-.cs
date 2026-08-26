@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinFormqf;
+﻿using DevXUnityUnpackerTools._WinFormqf;
 using SpirV;
 using SpirVgl;
 using System;
@@ -8,7 +8,7 @@ namespace TrunkTracesConsole.Pagesne
 {
 	internal class _0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A
 	{
-		private void _0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020(OpConvertFToS _0020)
+		internal void _0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020(OpConvertFToS _0020)
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020((object)null, (EventArgs)null);
 			((_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A)null)._0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020((string)null);

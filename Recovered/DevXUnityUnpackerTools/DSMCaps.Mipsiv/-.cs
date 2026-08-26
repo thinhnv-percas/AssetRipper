@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using DevXForms;
 using DevXForms.TreeList;
 using DMP4;
@@ -10,7 +10,7 @@ namespace DSMCaps.Mipsiv
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A
 	{
-		private object _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020()
+		internal object _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020()
 		{
 			CompressionMethod compressionMethod = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).CompressionMethod;
 			((Il2CppType)null).data = null;
@@ -23,7 +23,7 @@ namespace DSMCaps.Mipsiv
 	}
 	internal class _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A
 	{
-		private string _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020(OpSpecConstantOp _0020)
+		internal string _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020(OpSpecConstantOp _0020)
 		{
 			TextFormatting headerFormat = ((TreeListColumn)null).HeaderFormat;
 			return "89370805";

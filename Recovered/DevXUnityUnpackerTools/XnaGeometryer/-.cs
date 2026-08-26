@@ -1,11 +1,11 @@
-using ICSharpCode.SharpZipLib.Zip.Compression;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression;
 using zlibrk;
 
 namespace XnaGeometryer
 {
 	internal class _0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A
 	{
-		private void _0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020()
+		internal void _0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020()
 		{
 			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A)null).RemoveField((string)null);
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A((string)null);

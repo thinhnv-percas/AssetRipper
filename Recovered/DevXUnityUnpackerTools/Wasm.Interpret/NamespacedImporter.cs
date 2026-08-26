@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Wasm.Interpret
 {
 	public sealed class NamespacedImporter : IImporter
 	{
-		private Dictionary<string, IImporter> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A;
+		internal Dictionary<string, IImporter> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A;
 
 		public NamespacedImporter()
 		{

@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Properties;
+﻿using DevXUnityUnpackerTools.Properties;
 using DSMCaps.X86;
 using System.Drawing;
 using Unity.IO.Compression;
@@ -7,7 +7,7 @@ namespace STLuc
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A
 	{
-		private int _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020()
+		internal int _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020()
 		{
 			Bitmap img_background = Resources.img_background;
 			Bitmap girl_unity = Resources.girl_unity8;
@@ -18,7 +18,7 @@ namespace STLuc
 	}
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A
 	{
-		private int _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020(object _0020, int _0020_000A, bool _0020_0020)
+		internal int _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020(object _0020, int _0020_000A, bool _0020_0020)
 		{
 			int bytesAvailable = ((_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A)null).BytesAvailable;
 			X86Operand[] array = ((_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020;

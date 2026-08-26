@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using DevXForms.TreeList;
 using zlib;
@@ -7,7 +7,7 @@ namespace Unrealnm
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private unsafe void _0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020(decimal _0020, bool _0020_000A, object _0020_0020)
+		internal unsafe void _0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020(decimal _0020, bool _0020_000A, object _0020_0020)
 		{
 			CollumnSetting columnsOption = ((MultiSelectTreeView2)null).ColumnsOptions;
 			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020)null).ReadDoubleArray();

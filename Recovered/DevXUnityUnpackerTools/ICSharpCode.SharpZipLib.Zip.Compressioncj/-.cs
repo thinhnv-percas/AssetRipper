@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DSMCaps.XCore;
 using EdiTools;
 using LZ4hm;
@@ -9,7 +9,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compressioncj
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A
 	{
-		private string _0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020()
+		internal string _0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020()
 		{
 			char? componentSeparator = ((EdiOptions)null).ComponentSeparator;
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A((string)null);

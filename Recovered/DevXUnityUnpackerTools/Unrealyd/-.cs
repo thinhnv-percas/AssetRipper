@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using ee;
 using System;
 using Wasm.Binary;
@@ -7,7 +7,7 @@ namespace Unrealyd
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A
 	{
-		private unsafe object _0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020()
+		internal unsafe object _0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020()
 		{
 			uint payloadLength = ((SectionHeader*)(byte*)null)->PayloadLength;
 			((_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A)null)._0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020();

@@ -1,8 +1,8 @@
-namespace DevXUnityUnpackerTools._WPFny
+﻿namespace DevXUnityUnpackerTools._WPFny
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A
 	{
-		private int _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020(float _0020, float _0020_000A)
+		internal int _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020(float _0020, float _0020_000A)
 		{
 			return 2043940676;
 		}

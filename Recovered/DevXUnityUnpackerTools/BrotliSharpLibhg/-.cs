@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Zip;
 using SpirV;
 using System;
@@ -7,7 +7,7 @@ namespace BrotliSharpLibhg
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A
 	{
-		private void _0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020()
+		internal void _0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020()
 		{
 			uint revision = _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020.Revision;
 			SpritePackingRotation spritePackingRotation = ((ImageInfo)null)._0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A;

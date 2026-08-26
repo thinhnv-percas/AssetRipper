@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using DSMCaps.X86mh;
 using System;
 using Unity.CecilToolsuv;
@@ -7,7 +7,7 @@ namespace SevenZip.CommandLineParserst
 {
 	internal class _0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A
 	{
-		private unsafe object _0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020(float _0020, int _0020_000A, string _0020_0020)
+		internal unsafe object _0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020(float _0020, int _0020_000A, string _0020_0020)
 		{
 			//IL_001e: Expected I, but got O
 			//IL_001e: Expected I, but got O

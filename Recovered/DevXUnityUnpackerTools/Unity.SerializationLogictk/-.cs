@@ -1,4 +1,4 @@
-using DevX.Cecil;
+﻿using DevX.Cecil;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using Mono.Cecil;
 using SpirV;
@@ -8,7 +8,7 @@ namespace Unity.SerializationLogictk
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020(bool _0020, float _0020_000A, int _0020_0020, short _0020_000A_000A)
+		internal void _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020(bool _0020, float _0020_000A, int _0020_0020, short _0020_000A_000A)
 		{
 			ExitManager.ExecutablePath();
 			((ParsedInstruction)null).ResolveResultType((IDictionary<uint, ParsedInstruction>)null);

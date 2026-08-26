@@ -1,4 +1,4 @@
-using LZ4;
+﻿using LZ4;
 using LZ4.Serviceslu;
 using System;
 using Unity.IO.Compressionja;
@@ -8,7 +8,7 @@ namespace DSMCaps.Mipsim
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A
 	{
-		private void _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020(LZ4StreamFlags _0020, string _0020_000A, short _0020_0020, decimal _0020_000A_000A)
+		internal void _0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020(LZ4StreamFlags _0020, string _0020_000A, short _0020_0020, decimal _0020_000A_000A)
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A((object)null, (EventArgs)null);
 			uint preMvpVersion = VersionHeader.PreMvpVersion;

@@ -1,4 +1,4 @@
-using DSMCaps.XCorebi;
+﻿using DSMCaps.XCorebi;
 using System;
 using Wasm.Interpret;
 using Wasm.Interprethk;
@@ -7,7 +7,7 @@ namespace SevenZipcu
 {
 	internal class _0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A
 	{
-		private string _0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020(bool _0020)
+		internal string _0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020(bool _0020)
 		{
 			((_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A)null)._0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020();
 			OperatorImpls.Int64GtS(null, null);

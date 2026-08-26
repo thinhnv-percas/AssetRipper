@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WPFwi;
 using EdiTools;
 using ICSharpCode.SharpZipLib.Tar;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Lzwaj
 {
 	internal class _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A
 	{
-		private unsafe int _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020()
+		internal unsafe int _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020()
 		{
 			((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A*)(byte*)null)->_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A(null);
 			EdiDocument.LoadXml((string)null);

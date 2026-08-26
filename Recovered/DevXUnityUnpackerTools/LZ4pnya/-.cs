@@ -1,4 +1,4 @@
-using DSMCaps.Arm;
+﻿using DSMCaps.Arm;
 using FMOD;
 using Smolvcf;
 using System.Collections.Specialized;
@@ -8,7 +8,7 @@ namespace LZ4pnya
 {
 	internal class _0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		private string _0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020(short _0020, object _0020_000A)
+		internal string _0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020(short _0020, object _0020_000A)
 		{
 			PRESET.CONCERTHALL();
 			((ZInputStream)null)._0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A();

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps;
 using ICSharpCode.SharpZipLib.Zip;
 using SpirV;
@@ -39,7 +39,7 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Create(out IntPtr _0020);
+		internal static extern RESULT FMOD_System_Create(out IntPtr _0020);
 	}
 	internal class _0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020
 	{
@@ -59,10 +59,10 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Memory_Initialize(IntPtr _0020, int _0020_000A, MEMORY_ALLOC_CALLBACK _0020_0020, MEMORY_REALLOC_CALLBACK _0020_000A_000A, MEMORY_FREE_CALLBACK _0020_000A_0020, MEMORY_TYPE _0020_0020_000A);
+		internal static extern RESULT FMOD_Memory_Initialize(IntPtr _0020, int _0020_000A, MEMORY_ALLOC_CALLBACK _0020_0020, MEMORY_REALLOC_CALLBACK _0020_000A_000A, MEMORY_FREE_CALLBACK _0020_000A_0020, MEMORY_TYPE _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Memory_GetStats(out int _0020, out int _0020_000A, bool _0020_0020);
+		internal static extern RESULT FMOD_Memory_GetStats(out int _0020, out int _0020_000A, bool _0020_0020);
 	}
 	internal class _0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A
 	{
@@ -72,11 +72,11 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Debug_Initialize(DEBUG_FLAGS _0020, DEBUG_MODE _0020_000A, DEBUG_CALLBACK _0020_0020, string _0020_000A_000A);
+		internal static extern RESULT FMOD_Debug_Initialize(DEBUG_FLAGS _0020, DEBUG_MODE _0020_000A, DEBUG_CALLBACK _0020_0020, string _0020_000A_000A);
 	}
 	internal class _0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020
 	{
-		protected IntPtr rawPtr;
+		internal IntPtr rawPtr;
 
 		public _0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020(IntPtr newPtr)
 		{
@@ -702,268 +702,268 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Release(IntPtr _0020);
+		internal static extern RESULT FMOD_System_Release(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetOutput(IntPtr _0020, OUTPUTTYPE _0020_000A);
+		internal static extern RESULT FMOD_System_SetOutput(IntPtr _0020, OUTPUTTYPE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetOutput(IntPtr _0020, out OUTPUTTYPE _0020_000A);
+		internal static extern RESULT FMOD_System_GetOutput(IntPtr _0020, out OUTPUTTYPE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetNumDrivers(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_System_GetNumDrivers(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetDriverInfo(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, int _0020_000A_000A, out Guid _0020_000A_0020, out int _0020_0020_000A, out SPEAKERMODE _0020_0020_0020, out int _0020_000A_000A_000A);
+		internal static extern RESULT FMOD_System_GetDriverInfo(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, int _0020_000A_000A, out Guid _0020_000A_0020, out int _0020_0020_000A, out SPEAKERMODE _0020_0020_0020, out int _0020_000A_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetDriver(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_System_SetDriver(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetDriver(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_System_GetDriver(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetSoftwareChannels(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_System_SetSoftwareChannels(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetSoftwareChannels(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_System_GetSoftwareChannels(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetSoftwareFormat(IntPtr _0020, int _0020_000A, SPEAKERMODE _0020_0020, int _0020_000A_000A);
+		internal static extern RESULT FMOD_System_SetSoftwareFormat(IntPtr _0020, int _0020_000A, SPEAKERMODE _0020_0020, int _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetSoftwareFormat(IntPtr _0020, out int _0020_000A, out SPEAKERMODE _0020_0020, out int _0020_000A_000A);
+		internal static extern RESULT FMOD_System_GetSoftwareFormat(IntPtr _0020, out int _0020_000A, out SPEAKERMODE _0020_0020, out int _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetDSPBufferSize(IntPtr _0020, uint _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_System_SetDSPBufferSize(IntPtr _0020, uint _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetDSPBufferSize(IntPtr _0020, out uint _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_System_GetDSPBufferSize(IntPtr _0020, out uint _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetFileSystem(IntPtr _0020, FILE_OPENCALLBACK _0020_000A, FILE_CLOSECALLBACK _0020_0020, FILE_READCALLBACK _0020_000A_000A, FILE_SEEKCALLBACK _0020_000A_0020, FILE_ASYNCREADCALLBACK _0020_0020_000A, FILE_ASYNCCANCELCALLBACK _0020_0020_0020, int _0020_000A_000A_000A);
+		internal static extern RESULT FMOD_System_SetFileSystem(IntPtr _0020, FILE_OPENCALLBACK _0020_000A, FILE_CLOSECALLBACK _0020_0020, FILE_READCALLBACK _0020_000A_000A, FILE_SEEKCALLBACK _0020_000A_0020, FILE_ASYNCREADCALLBACK _0020_0020_000A, FILE_ASYNCCANCELCALLBACK _0020_0020_0020, int _0020_000A_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_AttachFileSystem(IntPtr _0020, FILE_OPENCALLBACK _0020_000A, FILE_CLOSECALLBACK _0020_0020, FILE_READCALLBACK _0020_000A_000A, FILE_SEEKCALLBACK _0020_000A_0020);
+		internal static extern RESULT FMOD_System_AttachFileSystem(IntPtr _0020, FILE_OPENCALLBACK _0020_000A, FILE_CLOSECALLBACK _0020_0020, FILE_READCALLBACK _0020_000A_000A, FILE_SEEKCALLBACK _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetPluginPath(IntPtr _0020, byte[] _0020_000A);
+		internal static extern RESULT FMOD_System_SetPluginPath(IntPtr _0020, byte[] _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_LoadPlugin(IntPtr _0020, byte[] _0020_000A, out uint _0020_0020, uint _0020_000A_000A);
+		internal static extern RESULT FMOD_System_LoadPlugin(IntPtr _0020, byte[] _0020_000A, out uint _0020_0020, uint _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_UnloadPlugin(IntPtr _0020, uint _0020_000A);
+		internal static extern RESULT FMOD_System_UnloadPlugin(IntPtr _0020, uint _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetNumPlugins(IntPtr _0020, PLUGINTYPE _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_System_GetNumPlugins(IntPtr _0020, PLUGINTYPE _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetPluginHandle(IntPtr _0020, PLUGINTYPE _0020_000A, int _0020_0020, out uint _0020_000A_000A);
+		internal static extern RESULT FMOD_System_GetPluginHandle(IntPtr _0020, PLUGINTYPE _0020_000A, int _0020_0020, out uint _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetPluginInfo(IntPtr _0020, uint _0020_000A, out PLUGINTYPE _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020, out uint _0020_0020_000A);
+		internal static extern RESULT FMOD_System_GetPluginInfo(IntPtr _0020, uint _0020_000A, out PLUGINTYPE _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020, out uint _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateDSPByPlugin(IntPtr _0020, uint _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_System_CreateDSPByPlugin(IntPtr _0020, uint _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetOutputByPlugin(IntPtr _0020, uint _0020_000A);
+		internal static extern RESULT FMOD_System_SetOutputByPlugin(IntPtr _0020, uint _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetOutputByPlugin(IntPtr _0020, out uint _0020_000A);
+		internal static extern RESULT FMOD_System_GetOutputByPlugin(IntPtr _0020, out uint _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetDSPInfoByPlugin(IntPtr _0020, uint _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_System_GetDSPInfoByPlugin(IntPtr _0020, uint _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_RegisterDSP(IntPtr _0020, ref DSP_DESCRIPTION _0020_000A, out uint _0020_0020);
+		internal static extern RESULT FMOD_System_RegisterDSP(IntPtr _0020, ref DSP_DESCRIPTION _0020_000A, out uint _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Init(IntPtr _0020, int _0020_000A, INITFLAGS _0020_0020, IntPtr _0020_000A_000A);
+		internal static extern RESULT FMOD_System_Init(IntPtr _0020, int _0020_000A, INITFLAGS _0020_0020, IntPtr _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Close(IntPtr _0020);
+		internal static extern RESULT FMOD_System_Close(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Update(IntPtr _0020);
+		internal static extern RESULT FMOD_System_Update(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetAdvancedSettings(IntPtr _0020, ref ADVANCEDSETTINGS _0020_000A);
+		internal static extern RESULT FMOD_System_SetAdvancedSettings(IntPtr _0020, ref ADVANCEDSETTINGS _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetAdvancedSettings(IntPtr _0020, ref ADVANCEDSETTINGS _0020_000A);
+		internal static extern RESULT FMOD_System_GetAdvancedSettings(IntPtr _0020, ref ADVANCEDSETTINGS _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Set3DRolloffCallback(IntPtr _0020, CB_3D_ROLLOFFCALLBACK _0020_000A);
+		internal static extern RESULT FMOD_System_Set3DRolloffCallback(IntPtr _0020, CB_3D_ROLLOFFCALLBACK _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_MixerSuspend(IntPtr _0020);
+		internal static extern RESULT FMOD_System_MixerSuspend(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_MixerResume(IntPtr _0020);
+		internal static extern RESULT FMOD_System_MixerResume(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetDefaultMixMatrix(IntPtr _0020, SPEAKERMODE _0020_000A, SPEAKERMODE _0020_0020, float[] _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_System_GetDefaultMixMatrix(IntPtr _0020, SPEAKERMODE _0020_000A, SPEAKERMODE _0020_0020, float[] _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetSpeakerModeChannels(IntPtr _0020, SPEAKERMODE _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_System_GetSpeakerModeChannels(IntPtr _0020, SPEAKERMODE _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetCallback(IntPtr _0020, SYSTEM_CALLBACK _0020_000A, SYSTEM_CALLBACK_TYPE _0020_0020);
+		internal static extern RESULT FMOD_System_SetCallback(IntPtr _0020, SYSTEM_CALLBACK _0020_000A, SYSTEM_CALLBACK_TYPE _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetSpeakerPosition(IntPtr _0020, SPEAKER _0020_000A, float _0020_0020, float _0020_000A_000A, bool _0020_000A_0020);
+		internal static extern RESULT FMOD_System_SetSpeakerPosition(IntPtr _0020, SPEAKER _0020_000A, float _0020_0020, float _0020_000A_000A, bool _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetSpeakerPosition(IntPtr _0020, SPEAKER _0020_000A, out float _0020_0020, out float _0020_000A_000A, out bool _0020_000A_0020);
+		internal static extern RESULT FMOD_System_GetSpeakerPosition(IntPtr _0020, SPEAKER _0020_000A, out float _0020_0020, out float _0020_000A_000A, out bool _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Set3DSettings(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
+		internal static extern RESULT FMOD_System_Set3DSettings(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Get3DSettings(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
+		internal static extern RESULT FMOD_System_Get3DSettings(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Set3DNumListeners(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_System_Set3DNumListeners(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Get3DNumListeners(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_System_Get3DNumListeners(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Set3DListenerAttributes(IntPtr _0020, int _0020_000A, ref VECTOR _0020_0020, ref VECTOR _0020_000A_000A, ref VECTOR _0020_000A_0020, ref VECTOR _0020_0020_000A);
+		internal static extern RESULT FMOD_System_Set3DListenerAttributes(IntPtr _0020, int _0020_000A, ref VECTOR _0020_0020, ref VECTOR _0020_000A_000A, ref VECTOR _0020_000A_0020, ref VECTOR _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_Get3DListenerAttributes(IntPtr _0020, int _0020_000A, out VECTOR _0020_0020, out VECTOR _0020_000A_000A, out VECTOR _0020_000A_0020, out VECTOR _0020_0020_000A);
+		internal static extern RESULT FMOD_System_Get3DListenerAttributes(IntPtr _0020, int _0020_000A, out VECTOR _0020_0020, out VECTOR _0020_000A_000A, out VECTOR _0020_000A_0020, out VECTOR _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetStreamBufferSize(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020);
+		internal static extern RESULT FMOD_System_SetStreamBufferSize(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetStreamBufferSize(IntPtr _0020, out uint _0020_000A, out TIMEUNIT _0020_0020);
+		internal static extern RESULT FMOD_System_GetStreamBufferSize(IntPtr _0020, out uint _0020_000A, out TIMEUNIT _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetVersion(IntPtr _0020, out uint _0020_000A);
+		internal static extern RESULT FMOD_System_GetVersion(IntPtr _0020, out uint _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetOutputHandle(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_System_GetOutputHandle(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetChannelsPlaying(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_System_GetChannelsPlaying(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetChannelsReal(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_System_GetChannelsReal(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetCPUUsage(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A, out float _0020_000A_0020, out float _0020_0020_000A);
+		internal static extern RESULT FMOD_System_GetCPUUsage(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A, out float _0020_000A_0020, out float _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetSoundRAM(IntPtr _0020, out int _0020_000A, out int _0020_0020, out int _0020_000A_000A);
+		internal static extern RESULT FMOD_System_GetSoundRAM(IntPtr _0020, out int _0020_000A, out int _0020_0020, out int _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateSound(IntPtr _0020, byte[] _0020_000A, MODE _0020_0020, ref CREATESOUNDEXINFO _0020_000A_000A, out IntPtr _0020_000A_0020);
+		internal static extern RESULT FMOD_System_CreateSound(IntPtr _0020, byte[] _0020_000A, MODE _0020_0020, ref CREATESOUNDEXINFO _0020_000A_000A, out IntPtr _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateStream(IntPtr _0020, byte[] _0020_000A, MODE _0020_0020, ref CREATESOUNDEXINFO _0020_000A_000A, out IntPtr _0020_000A_0020);
+		internal static extern RESULT FMOD_System_CreateStream(IntPtr _0020, byte[] _0020_000A, MODE _0020_0020, ref CREATESOUNDEXINFO _0020_000A_000A, out IntPtr _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateDSP(IntPtr _0020, ref DSP_DESCRIPTION _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_System_CreateDSP(IntPtr _0020, ref DSP_DESCRIPTION _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateDSPByType(IntPtr _0020, DSP_TYPE _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_System_CreateDSPByType(IntPtr _0020, DSP_TYPE _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateChannelGroup(IntPtr _0020, byte[] _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_System_CreateChannelGroup(IntPtr _0020, byte[] _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateSoundGroup(IntPtr _0020, byte[] _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_System_CreateSoundGroup(IntPtr _0020, byte[] _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateReverb3D(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_System_CreateReverb3D(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_PlaySound(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, bool _0020_000A_000A, out IntPtr _0020_000A_0020);
+		internal static extern RESULT FMOD_System_PlaySound(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, bool _0020_000A_000A, out IntPtr _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_PlayDSP(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, bool _0020_000A_000A, out IntPtr _0020_000A_0020);
+		internal static extern RESULT FMOD_System_PlayDSP(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, bool _0020_000A_000A, out IntPtr _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetChannel(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_System_GetChannel(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetMasterChannelGroup(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_System_GetMasterChannelGroup(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetMasterSoundGroup(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_System_GetMasterSoundGroup(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_AttachChannelGroupToPort(IntPtr _0020, uint _0020_000A, ulong _0020_0020, IntPtr _0020_000A_000A, bool _0020_000A_0020);
+		internal static extern RESULT FMOD_System_AttachChannelGroupToPort(IntPtr _0020, uint _0020_000A, ulong _0020_0020, IntPtr _0020_000A_000A, bool _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_DetachChannelGroupFromPort(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_System_DetachChannelGroupFromPort(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetReverbProperties(IntPtr _0020, int _0020_000A, ref REVERB_PROPERTIES _0020_0020);
+		internal static extern RESULT FMOD_System_SetReverbProperties(IntPtr _0020, int _0020_000A, ref REVERB_PROPERTIES _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetReverbProperties(IntPtr _0020, int _0020_000A, out REVERB_PROPERTIES _0020_0020);
+		internal static extern RESULT FMOD_System_GetReverbProperties(IntPtr _0020, int _0020_000A, out REVERB_PROPERTIES _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_LockDSP(IntPtr _0020);
+		internal static extern RESULT FMOD_System_LockDSP(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_UnlockDSP(IntPtr _0020);
+		internal static extern RESULT FMOD_System_UnlockDSP(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetRecordNumDrivers(IntPtr _0020, out int _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_System_GetRecordNumDrivers(IntPtr _0020, out int _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetRecordDriverInfo(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, int _0020_000A_000A, out Guid _0020_000A_0020, out int _0020_0020_000A, out SPEAKERMODE _0020_0020_0020, out int _0020_000A_000A_000A, out DRIVER_STATE _0020_000A_000A_0020);
+		internal static extern RESULT FMOD_System_GetRecordDriverInfo(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, int _0020_000A_000A, out Guid _0020_000A_0020, out int _0020_0020_000A, out SPEAKERMODE _0020_0020_0020, out int _0020_000A_000A_000A, out DRIVER_STATE _0020_000A_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetRecordPosition(IntPtr _0020, int _0020_000A, out uint _0020_0020);
+		internal static extern RESULT FMOD_System_GetRecordPosition(IntPtr _0020, int _0020_000A, out uint _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_RecordStart(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, bool _0020_000A_000A);
+		internal static extern RESULT FMOD_System_RecordStart(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, bool _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_RecordStop(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_System_RecordStop(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_IsRecording(IntPtr _0020, int _0020_000A, out bool _0020_0020);
+		internal static extern RESULT FMOD_System_IsRecording(IntPtr _0020, int _0020_000A, out bool _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_CreateGeometry(IntPtr _0020, int _0020_000A, int _0020_0020, out IntPtr _0020_000A_000A);
+		internal static extern RESULT FMOD_System_CreateGeometry(IntPtr _0020, int _0020_000A, int _0020_0020, out IntPtr _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetGeometrySettings(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_System_SetGeometrySettings(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetGeometrySettings(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_System_GetGeometrySettings(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_LoadGeometry(IntPtr _0020, IntPtr _0020_000A, int _0020_0020, out IntPtr _0020_000A_000A);
+		internal static extern RESULT FMOD_System_LoadGeometry(IntPtr _0020, IntPtr _0020_000A, int _0020_0020, out IntPtr _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetGeometryOcclusion(IntPtr _0020, ref VECTOR _0020_000A, ref VECTOR _0020_0020, out float _0020_000A_000A, out float _0020_000A_0020);
+		internal static extern RESULT FMOD_System_GetGeometryOcclusion(IntPtr _0020, ref VECTOR _0020_000A, ref VECTOR _0020_0020, out float _0020_000A_000A, out float _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetNetworkProxy(IntPtr _0020, byte[] _0020_000A);
+		internal static extern RESULT FMOD_System_SetNetworkProxy(IntPtr _0020, byte[] _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetNetworkProxy(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_System_GetNetworkProxy(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetNetworkTimeout(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_System_SetNetworkTimeout(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetNetworkTimeout(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_System_GetNetworkTimeout(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_System_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_System_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_System_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		public _0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A(IntPtr raw)
 			: base(raw)
@@ -1217,133 +1217,133 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Release(IntPtr _0020);
+		internal static extern RESULT FMOD_Sound_Release(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Lock(IntPtr _0020, uint _0020_000A, uint _0020_0020, out IntPtr _0020_000A_000A, out IntPtr _0020_000A_0020, out uint _0020_0020_000A, out uint _0020_0020_0020);
+		internal static extern RESULT FMOD_Sound_Lock(IntPtr _0020, uint _0020_000A, uint _0020_0020, out IntPtr _0020_000A_000A, out IntPtr _0020_000A_0020, out uint _0020_0020_000A, out uint _0020_0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Unlock(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, uint _0020_000A_000A, uint _0020_000A_0020);
+		internal static extern RESULT FMOD_Sound_Unlock(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, uint _0020_000A_000A, uint _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetDefaults(IntPtr _0020, float _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_Sound_SetDefaults(IntPtr _0020, float _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetDefaults(IntPtr _0020, out float _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_Sound_GetDefaults(IntPtr _0020, out float _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Set3DMinMaxDistance(IntPtr _0020, float _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_Sound_Set3DMinMaxDistance(IntPtr _0020, float _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Get3DMinMaxDistance(IntPtr _0020, out float _0020_000A, out float _0020_0020);
+		internal static extern RESULT FMOD_Sound_Get3DMinMaxDistance(IntPtr _0020, out float _0020_000A, out float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Set3DConeSettings(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
+		internal static extern RESULT FMOD_Sound_Set3DConeSettings(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Get3DConeSettings(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
+		internal static extern RESULT FMOD_Sound_Get3DConeSettings(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Set3DCustomRolloff(IntPtr _0020, ref VECTOR _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_Sound_Set3DCustomRolloff(IntPtr _0020, ref VECTOR _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_Get3DCustomRolloff(IntPtr _0020, out IntPtr _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_Sound_Get3DCustomRolloff(IntPtr _0020, out IntPtr _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetSubSound(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_Sound_GetSubSound(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetSubSoundParent(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetSubSoundParent(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetName(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_Sound_GetName(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetLength(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020);
+		internal static extern RESULT FMOD_Sound_GetLength(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetFormat(IntPtr _0020, out SOUND_TYPE _0020_000A, out SOUND_FORMAT _0020_0020, out int _0020_000A_000A, out int _0020_000A_0020);
+		internal static extern RESULT FMOD_Sound_GetFormat(IntPtr _0020, out SOUND_TYPE _0020_000A, out SOUND_FORMAT _0020_0020, out int _0020_000A_000A, out int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetNumSubSounds(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetNumSubSounds(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetNumTags(IntPtr _0020, out int _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_Sound_GetNumTags(IntPtr _0020, out int _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetTag(IntPtr _0020, string _0020_000A, int _0020_0020, out TAG _0020_000A_000A);
+		internal static extern RESULT FMOD_Sound_GetTag(IntPtr _0020, string _0020_000A, int _0020_0020, out TAG _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetOpenState(IntPtr _0020, out OPENSTATE _0020_000A, out uint _0020_0020, out bool _0020_000A_000A, out bool _0020_000A_0020);
+		internal static extern RESULT FMOD_Sound_GetOpenState(IntPtr _0020, out OPENSTATE _0020_000A, out uint _0020_0020, out bool _0020_000A_000A, out bool _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_ReadData(IntPtr _0020, IntPtr _0020_000A, uint _0020_0020, out uint _0020_000A_000A);
+		internal static extern RESULT FMOD_Sound_ReadData(IntPtr _0020, IntPtr _0020_000A, uint _0020_0020, out uint _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SeekData(IntPtr _0020, uint _0020_000A);
+		internal static extern RESULT FMOD_Sound_SeekData(IntPtr _0020, uint _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetSoundGroup(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Sound_SetSoundGroup(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetSoundGroup(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetSoundGroup(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetNumSyncPoints(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetNumSyncPoints(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetSyncPoint(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_Sound_GetSyncPoint(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetSyncPointInfo(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, int _0020_000A_000A, out uint _0020_000A_0020, TIMEUNIT _0020_0020_000A);
+		internal static extern RESULT FMOD_Sound_GetSyncPointInfo(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020, int _0020_000A_000A, out uint _0020_000A_0020, TIMEUNIT _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_AddSyncPoint(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020, string _0020_000A_000A, out IntPtr _0020_000A_0020);
+		internal static extern RESULT FMOD_Sound_AddSyncPoint(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020, string _0020_000A_000A, out IntPtr _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_DeleteSyncPoint(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Sound_DeleteSyncPoint(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetMode(IntPtr _0020, MODE _0020_000A);
+		internal static extern RESULT FMOD_Sound_SetMode(IntPtr _0020, MODE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetMode(IntPtr _0020, out MODE _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetMode(IntPtr _0020, out MODE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetLoopCount(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_Sound_SetLoopCount(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetLoopCount(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetLoopCount(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetLoopPoints(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020, uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
+		internal static extern RESULT FMOD_Sound_SetLoopPoints(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020, uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetLoopPoints(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020, out uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
+		internal static extern RESULT FMOD_Sound_GetLoopPoints(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020, out uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetMusicNumChannels(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetMusicNumChannels(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetMusicChannelVolume(IntPtr _0020, int _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_Sound_SetMusicChannelVolume(IntPtr _0020, int _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetMusicChannelVolume(IntPtr _0020, int _0020_000A, out float _0020_0020);
+		internal static extern RESULT FMOD_Sound_GetMusicChannelVolume(IntPtr _0020, int _0020_000A, out float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetMusicSpeed(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_Sound_SetMusicSpeed(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetMusicSpeed(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetMusicSpeed(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Sound_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Sound_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Sound_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		public _0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A(IntPtr raw)
 			: base(raw)
@@ -1671,192 +1671,192 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Stop(IntPtr _0020);
+		internal static extern RESULT FMOD_ChannelGroup_Stop(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetPaused(IntPtr _0020, bool _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetPaused(IntPtr _0020, bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetPaused(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetPaused(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetVolume(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetVolume(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetVolumeRamp(IntPtr _0020, bool _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetVolumeRamp(IntPtr _0020, bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetVolumeRamp(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetVolumeRamp(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetAudibility(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetAudibility(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetPitch(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetPitch(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetPitch(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetPitch(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetMute(IntPtr _0020, bool _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetMute(IntPtr _0020, bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetMute(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetMute(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetReverbProperties(IntPtr _0020, int _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_SetReverbProperties(IntPtr _0020, int _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetReverbProperties(IntPtr _0020, int _0020_000A, out float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetReverbProperties(IntPtr _0020, int _0020_000A, out float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetLowPassGain(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetLowPassGain(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetLowPassGain(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetLowPassGain(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetMode(IntPtr _0020, MODE _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetMode(IntPtr _0020, MODE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetMode(IntPtr _0020, out MODE _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetMode(IntPtr _0020, out MODE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetCallback(IntPtr _0020, CHANNEL_CALLBACK _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetCallback(IntPtr _0020, CHANNEL_CALLBACK _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_IsPlaying(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_IsPlaying(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetPan(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetPan(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetMixLevelsOutput(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A, float _0020_000A_0020, float _0020_0020_000A, float _0020_0020_0020, float _0020_000A_000A_000A, float _0020_000A_000A_0020);
+		internal static extern RESULT FMOD_ChannelGroup_SetMixLevelsOutput(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A, float _0020_000A_0020, float _0020_0020_000A, float _0020_0020_0020, float _0020_000A_000A_000A, float _0020_000A_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetMixLevelsInput(IntPtr _0020, float[] _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_SetMixLevelsInput(IntPtr _0020, float[] _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetMixMatrix(IntPtr _0020, float[] _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_ChannelGroup_SetMixMatrix(IntPtr _0020, float[] _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetMixMatrix(IntPtr _0020, float[] _0020_000A, out int _0020_0020, out int _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetMixMatrix(IntPtr _0020, float[] _0020_000A, out int _0020_0020, out int _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetDSPClock(IntPtr _0020, out ulong _0020_000A, out ulong _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetDSPClock(IntPtr _0020, out ulong _0020_000A, out ulong _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetDelay(IntPtr _0020, ulong _0020_000A, ulong _0020_0020, bool _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetDelay(IntPtr _0020, ulong _0020_000A, ulong _0020_0020, bool _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetDelay(IntPtr _0020, out ulong _0020_000A, out ulong _0020_0020, out bool _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetDelay(IntPtr _0020, out ulong _0020_000A, out ulong _0020_0020, out bool _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_AddFadePoint(IntPtr _0020, ulong _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_AddFadePoint(IntPtr _0020, ulong _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetFadePointRamp(IntPtr _0020, ulong _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_SetFadePointRamp(IntPtr _0020, ulong _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_RemoveFadePoints(IntPtr _0020, ulong _0020_000A, ulong _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_RemoveFadePoints(IntPtr _0020, ulong _0020_000A, ulong _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetFadePoints(IntPtr _0020, ref uint _0020_000A, ulong[] _0020_0020, float[] _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetFadePoints(IntPtr _0020, ref uint _0020_000A, ulong[] _0020_0020, float[] _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DAttributes(IntPtr _0020, ref VECTOR _0020_000A, ref VECTOR _0020_0020, ref VECTOR _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DAttributes(IntPtr _0020, ref VECTOR _0020_000A, ref VECTOR _0020_0020, ref VECTOR _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DAttributes(IntPtr _0020, out VECTOR _0020_000A, out VECTOR _0020_0020, out VECTOR _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DAttributes(IntPtr _0020, out VECTOR _0020_000A, out VECTOR _0020_0020, out VECTOR _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DMinMaxDistance(IntPtr _0020, float _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DMinMaxDistance(IntPtr _0020, float _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DMinMaxDistance(IntPtr _0020, out float _0020_000A, out float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DMinMaxDistance(IntPtr _0020, out float _0020_000A, out float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DConeSettings(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DConeSettings(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DConeSettings(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DConeSettings(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DConeOrientation(IntPtr _0020, ref VECTOR _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DConeOrientation(IntPtr _0020, ref VECTOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DConeOrientation(IntPtr _0020, out VECTOR _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DConeOrientation(IntPtr _0020, out VECTOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DCustomRolloff(IntPtr _0020, ref VECTOR _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DCustomRolloff(IntPtr _0020, ref VECTOR _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DCustomRolloff(IntPtr _0020, out IntPtr _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DCustomRolloff(IntPtr _0020, out IntPtr _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DOcclusion(IntPtr _0020, float _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DOcclusion(IntPtr _0020, float _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DOcclusion(IntPtr _0020, out float _0020_000A, out float _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DOcclusion(IntPtr _0020, out float _0020_000A, out float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DSpread(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DSpread(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DSpread(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DSpread(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DLevel(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DLevel(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DLevel(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DLevel(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DDopplerLevel(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DDopplerLevel(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DDopplerLevel(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DDopplerLevel(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Set3DDistanceFilter(IntPtr _0020, bool _0020_000A, float _0020_0020, float _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Set3DDistanceFilter(IntPtr _0020, bool _0020_000A, float _0020_0020, float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Get3DDistanceFilter(IntPtr _0020, out bool _0020_000A, out float _0020_0020, out float _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_Get3DDistanceFilter(IntPtr _0020, out bool _0020_000A, out float _0020_0020, out float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetVolume(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetVolume(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetDSP(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetDSP(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_AddDSP(IntPtr _0020, int _0020_000A, IntPtr _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_AddDSP(IntPtr _0020, int _0020_000A, IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_RemoveDSP(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_RemoveDSP(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetNumDSPs(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetNumDSPs(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetDSPIndex(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_SetDSPIndex(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetDSPIndex(IntPtr _0020, IntPtr _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetDSPIndex(IntPtr _0020, IntPtr _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_OverridePanDSP(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_OverridePanDSP(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
-		protected _0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020(IntPtr raw)
+		internal _0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020(IntPtr raw)
 			: base(raw)
 		{
 		}
@@ -1947,61 +1947,61 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetFrequency(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_Channel_SetFrequency(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetFrequency(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetFrequency(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetPriority(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_Channel_SetPriority(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetPriority(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetPriority(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetChannelGroup(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Channel_SetChannelGroup(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetChannelGroup(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetChannelGroup(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_IsVirtual(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_Channel_IsVirtual(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetCurrentSound(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetCurrentSound(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetIndex(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetIndex(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetPosition(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020);
+		internal static extern RESULT FMOD_Channel_SetPosition(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetPosition(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020);
+		internal static extern RESULT FMOD_Channel_GetPosition(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetMode(IntPtr _0020, MODE _0020_000A);
+		internal static extern RESULT FMOD_Channel_SetMode(IntPtr _0020, MODE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetMode(IntPtr _0020, out MODE _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetMode(IntPtr _0020, out MODE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetLoopCount(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_Channel_SetLoopCount(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetLoopCount(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetLoopCount(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetLoopPoints(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020, uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
+		internal static extern RESULT FMOD_Channel_SetLoopPoints(IntPtr _0020, uint _0020_000A, TIMEUNIT _0020_0020, uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetLoopPoints(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020, out uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
+		internal static extern RESULT FMOD_Channel_GetLoopPoints(IntPtr _0020, out uint _0020_000A, TIMEUNIT _0020_0020, out uint _0020_000A_000A, TIMEUNIT _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Channel_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Channel_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Channel_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		public _0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A(IntPtr raw)
 			: base(raw)
@@ -2076,28 +2076,28 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_Release(IntPtr _0020);
+		internal static extern RESULT FMOD_ChannelGroup_Release(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_AddGroup(IntPtr _0020, IntPtr _0020_000A, bool _0020_0020, out IntPtr _0020_000A_000A);
+		internal static extern RESULT FMOD_ChannelGroup_AddGroup(IntPtr _0020, IntPtr _0020_000A, bool _0020_0020, out IntPtr _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetNumGroups(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetNumGroups(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetGroup(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetGroup(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetParentGroup(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetParentGroup(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetName(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetName(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetNumChannels(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_ChannelGroup_GetNumChannels(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_ChannelGroup_GetChannel(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_ChannelGroup_GetChannel(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		public _0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A(IntPtr raw)
 			: base(raw)
@@ -2209,55 +2209,55 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_Release(IntPtr _0020);
+		internal static extern RESULT FMOD_SoundGroup_Release(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_SetMaxAudible(IntPtr _0020, int _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_SetMaxAudible(IntPtr _0020, int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetMaxAudible(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetMaxAudible(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_SetMaxAudibleBehavior(IntPtr _0020, SOUNDGROUP_BEHAVIOR _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_SetMaxAudibleBehavior(IntPtr _0020, SOUNDGROUP_BEHAVIOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetMaxAudibleBehavior(IntPtr _0020, out SOUNDGROUP_BEHAVIOR _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetMaxAudibleBehavior(IntPtr _0020, out SOUNDGROUP_BEHAVIOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_SetMuteFadeSpeed(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_SetMuteFadeSpeed(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetMuteFadeSpeed(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetMuteFadeSpeed(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_SetVolume(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_SetVolume(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetVolume(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetVolume(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_Stop(IntPtr _0020);
+		internal static extern RESULT FMOD_SoundGroup_Stop(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetName(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_SoundGroup_GetName(IntPtr _0020, IntPtr _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetNumSounds(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetNumSounds(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetSound(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_SoundGroup_GetSound(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetNumPlaying(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetNumPlaying(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_SoundGroup_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_SoundGroup_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		public _0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020(IntPtr raw)
 			: base(raw)
@@ -2503,112 +2503,112 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_Release(IntPtr _0020);
+		internal static extern RESULT FMOD_DSP_Release(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetSystemObject(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_AddInput(IntPtr _0020, IntPtr _0020_000A, out IntPtr _0020_0020, DSPCONNECTION_TYPE _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_AddInput(IntPtr _0020, IntPtr _0020_000A, out IntPtr _0020_0020, DSPCONNECTION_TYPE _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_DisconnectFrom(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020);
+		internal static extern RESULT FMOD_DSP_DisconnectFrom(IntPtr _0020, IntPtr _0020_000A, IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_DisconnectAll(IntPtr _0020, bool _0020_000A, bool _0020_0020);
+		internal static extern RESULT FMOD_DSP_DisconnectAll(IntPtr _0020, bool _0020_000A, bool _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetNumInputs(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetNumInputs(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetNumOutputs(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetNumOutputs(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetInput(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020, out IntPtr _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_GetInput(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020, out IntPtr _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetOutput(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020, out IntPtr _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_GetOutput(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020, out IntPtr _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetActive(IntPtr _0020, bool _0020_000A);
+		internal static extern RESULT FMOD_DSP_SetActive(IntPtr _0020, bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetActive(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetActive(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetBypass(IntPtr _0020, bool _0020_000A);
+		internal static extern RESULT FMOD_DSP_SetBypass(IntPtr _0020, bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetBypass(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetBypass(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetWetDryMix(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_SetWetDryMix(IntPtr _0020, float _0020_000A, float _0020_0020, float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetWetDryMix(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_GetWetDryMix(IntPtr _0020, out float _0020_000A, out float _0020_0020, out float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetChannelFormat(IntPtr _0020, CHANNELMASK _0020_000A, int _0020_0020, SPEAKERMODE _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_SetChannelFormat(IntPtr _0020, CHANNELMASK _0020_000A, int _0020_0020, SPEAKERMODE _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetChannelFormat(IntPtr _0020, out CHANNELMASK _0020_000A, out int _0020_0020, out SPEAKERMODE _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_GetChannelFormat(IntPtr _0020, out CHANNELMASK _0020_000A, out int _0020_0020, out SPEAKERMODE _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetOutputChannelFormat(IntPtr _0020, CHANNELMASK _0020_000A, int _0020_0020, SPEAKERMODE _0020_000A_000A, out CHANNELMASK _0020_000A_0020, out int _0020_0020_000A, out SPEAKERMODE _0020_0020_0020);
+		internal static extern RESULT FMOD_DSP_GetOutputChannelFormat(IntPtr _0020, CHANNELMASK _0020_000A, int _0020_0020, SPEAKERMODE _0020_000A_000A, out CHANNELMASK _0020_000A_0020, out int _0020_0020_000A, out SPEAKERMODE _0020_0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_Reset(IntPtr _0020);
+		internal static extern RESULT FMOD_DSP_Reset(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetParameterFloat(IntPtr _0020, int _0020_000A, float _0020_0020);
+		internal static extern RESULT FMOD_DSP_SetParameterFloat(IntPtr _0020, int _0020_000A, float _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetParameterInt(IntPtr _0020, int _0020_000A, int _0020_0020);
+		internal static extern RESULT FMOD_DSP_SetParameterInt(IntPtr _0020, int _0020_000A, int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetParameterBool(IntPtr _0020, int _0020_000A, bool _0020_0020);
+		internal static extern RESULT FMOD_DSP_SetParameterBool(IntPtr _0020, int _0020_000A, bool _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetParameterData(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, uint _0020_000A_000A);
+		internal static extern RESULT FMOD_DSP_SetParameterData(IntPtr _0020, int _0020_000A, IntPtr _0020_0020, uint _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetParameterFloat(IntPtr _0020, int _0020_000A, out float _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_DSP_GetParameterFloat(IntPtr _0020, int _0020_000A, out float _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetParameterInt(IntPtr _0020, int _0020_000A, out int _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_DSP_GetParameterInt(IntPtr _0020, int _0020_000A, out int _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetParameterBool(IntPtr _0020, int _0020_000A, out bool _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_DSP_GetParameterBool(IntPtr _0020, int _0020_000A, out bool _0020_0020, IntPtr _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetParameterData(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020, out uint _0020_000A_000A, IntPtr _0020_000A_0020, int _0020_0020_000A);
+		internal static extern RESULT FMOD_DSP_GetParameterData(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020, out uint _0020_000A_000A, IntPtr _0020_000A_0020, int _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetNumParameters(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetNumParameters(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetParameterInfo(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
+		internal static extern RESULT FMOD_DSP_GetParameterInfo(IntPtr _0020, int _0020_000A, out IntPtr _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetDataParameterIndex(IntPtr _0020, int _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_DSP_GetDataParameterIndex(IntPtr _0020, int _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_ShowConfigDialog(IntPtr _0020, IntPtr _0020_000A, bool _0020_0020);
+		internal static extern RESULT FMOD_DSP_ShowConfigDialog(IntPtr _0020, IntPtr _0020_000A, bool _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetInfo(IntPtr _0020, IntPtr _0020_000A, out uint _0020_0020, out int _0020_000A_000A, out int _0020_000A_0020, out int _0020_0020_000A);
+		internal static extern RESULT FMOD_DSP_GetInfo(IntPtr _0020, IntPtr _0020_000A, out uint _0020_0020, out int _0020_000A_000A, out int _0020_000A_0020, out int _0020_0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetType(IntPtr _0020, out DSP_TYPE _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetType(IntPtr _0020, out DSP_TYPE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetIdle(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetIdle(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_DSP_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSP_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_DSP_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
 		public static extern RESULT FMOD_DSP_SetMeteringEnabled(IntPtr _0020, bool _0020_000A, bool _0020_0020);
@@ -2680,31 +2680,31 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_GetInput(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_DSPConnection_GetInput(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_GetOutput(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_DSPConnection_GetOutput(IntPtr _0020, out IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_SetMix(IntPtr _0020, float _0020_000A);
+		internal static extern RESULT FMOD_DSPConnection_SetMix(IntPtr _0020, float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_GetMix(IntPtr _0020, out float _0020_000A);
+		internal static extern RESULT FMOD_DSPConnection_GetMix(IntPtr _0020, out float _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_SetMixMatrix(IntPtr _0020, float[] _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_DSPConnection_SetMixMatrix(IntPtr _0020, float[] _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_GetMixMatrix(IntPtr _0020, float[] _0020_000A, out int _0020_0020, out int _0020_000A_000A, int _0020_000A_0020);
+		internal static extern RESULT FMOD_DSPConnection_GetMixMatrix(IntPtr _0020, float[] _0020_000A, out int _0020_0020, out int _0020_000A_000A, int _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_GetType(IntPtr _0020, out DSPCONNECTION_TYPE _0020_000A);
+		internal static extern RESULT FMOD_DSPConnection_GetType(IntPtr _0020, out DSPCONNECTION_TYPE _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_DSPConnection_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_DSPConnection_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_DSPConnection_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		public _0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020(IntPtr raw)
 			: base(raw)
@@ -2819,64 +2819,64 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_Release(IntPtr _0020);
+		internal static extern RESULT FMOD_Geometry_Release(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_AddPolygon(IntPtr _0020, float _0020_000A, float _0020_0020, bool _0020_000A_000A, int _0020_000A_0020, VECTOR[] _0020_0020_000A, out int _0020_0020_0020);
+		internal static extern RESULT FMOD_Geometry_AddPolygon(IntPtr _0020, float _0020_000A, float _0020_0020, bool _0020_000A_000A, int _0020_000A_0020, VECTOR[] _0020_0020_000A, out int _0020_0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetNumPolygons(IntPtr _0020, out int _0020_000A);
+		internal static extern RESULT FMOD_Geometry_GetNumPolygons(IntPtr _0020, out int _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetMaxPolygons(IntPtr _0020, out int _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_Geometry_GetMaxPolygons(IntPtr _0020, out int _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetPolygonNumVertices(IntPtr _0020, int _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_Geometry_GetPolygonNumVertices(IntPtr _0020, int _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_SetPolygonVertex(IntPtr _0020, int _0020_000A, int _0020_0020, ref VECTOR _0020_000A_000A);
+		internal static extern RESULT FMOD_Geometry_SetPolygonVertex(IntPtr _0020, int _0020_000A, int _0020_0020, ref VECTOR _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetPolygonVertex(IntPtr _0020, int _0020_000A, int _0020_0020, out VECTOR _0020_000A_000A);
+		internal static extern RESULT FMOD_Geometry_GetPolygonVertex(IntPtr _0020, int _0020_000A, int _0020_0020, out VECTOR _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_SetPolygonAttributes(IntPtr _0020, int _0020_000A, float _0020_0020, float _0020_000A_000A, bool _0020_000A_0020);
+		internal static extern RESULT FMOD_Geometry_SetPolygonAttributes(IntPtr _0020, int _0020_000A, float _0020_0020, float _0020_000A_000A, bool _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetPolygonAttributes(IntPtr _0020, int _0020_000A, out float _0020_0020, out float _0020_000A_000A, out bool _0020_000A_0020);
+		internal static extern RESULT FMOD_Geometry_GetPolygonAttributes(IntPtr _0020, int _0020_000A, out float _0020_0020, out float _0020_000A_000A, out bool _0020_000A_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_SetActive(IntPtr _0020, bool _0020_000A);
+		internal static extern RESULT FMOD_Geometry_SetActive(IntPtr _0020, bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetActive(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_Geometry_GetActive(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_SetRotation(IntPtr _0020, ref VECTOR _0020_000A, ref VECTOR _0020_0020);
+		internal static extern RESULT FMOD_Geometry_SetRotation(IntPtr _0020, ref VECTOR _0020_000A, ref VECTOR _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetRotation(IntPtr _0020, out VECTOR _0020_000A, out VECTOR _0020_0020);
+		internal static extern RESULT FMOD_Geometry_GetRotation(IntPtr _0020, out VECTOR _0020_000A, out VECTOR _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_SetPosition(IntPtr _0020, ref VECTOR _0020_000A);
+		internal static extern RESULT FMOD_Geometry_SetPosition(IntPtr _0020, ref VECTOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetPosition(IntPtr _0020, out VECTOR _0020_000A);
+		internal static extern RESULT FMOD_Geometry_GetPosition(IntPtr _0020, out VECTOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_SetScale(IntPtr _0020, ref VECTOR _0020_000A);
+		internal static extern RESULT FMOD_Geometry_SetScale(IntPtr _0020, ref VECTOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetScale(IntPtr _0020, out VECTOR _0020_000A);
+		internal static extern RESULT FMOD_Geometry_GetScale(IntPtr _0020, out VECTOR _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_Save(IntPtr _0020, IntPtr _0020_000A, out int _0020_0020);
+		internal static extern RESULT FMOD_Geometry_Save(IntPtr _0020, IntPtr _0020_000A, out int _0020_0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Geometry_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Geometry_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Geometry_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		public _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020(IntPtr raw)
 			: base(raw)
@@ -2936,31 +2936,31 @@ namespace FMOD
 		}
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_Release(IntPtr _0020);
+		internal static extern RESULT FMOD_Reverb3D_Release(IntPtr _0020);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_Set3DAttributes(IntPtr _0020, ref VECTOR _0020_000A, float _0020_0020, float _0020_000A_000A);
+		internal static extern RESULT FMOD_Reverb3D_Set3DAttributes(IntPtr _0020, ref VECTOR _0020_000A, float _0020_0020, float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_Get3DAttributes(IntPtr _0020, ref VECTOR _0020_000A, ref float _0020_0020, ref float _0020_000A_000A);
+		internal static extern RESULT FMOD_Reverb3D_Get3DAttributes(IntPtr _0020, ref VECTOR _0020_000A, ref float _0020_0020, ref float _0020_000A_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_SetProperties(IntPtr _0020, ref REVERB_PROPERTIES _0020_000A);
+		internal static extern RESULT FMOD_Reverb3D_SetProperties(IntPtr _0020, ref REVERB_PROPERTIES _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_GetProperties(IntPtr _0020, ref REVERB_PROPERTIES _0020_000A);
+		internal static extern RESULT FMOD_Reverb3D_GetProperties(IntPtr _0020, ref REVERB_PROPERTIES _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_SetActive(IntPtr _0020, bool _0020_000A);
+		internal static extern RESULT FMOD_Reverb3D_SetActive(IntPtr _0020, bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_GetActive(IntPtr _0020, out bool _0020_000A);
+		internal static extern RESULT FMOD_Reverb3D_GetActive(IntPtr _0020, out bool _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_SetUserData(IntPtr _0020, IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Reverb3D_SetUserData(IntPtr _0020, IntPtr _0020_000A);
 
 		[DllImport("Library\\fmod_x64.dll")]
-		private static extern RESULT FMOD_Reverb3D_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
+		internal static extern RESULT FMOD_Reverb3D_GetUserData(IntPtr _0020, out IntPtr _0020_000A);
 
 		public _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020(IntPtr raw)
 			: base(raw)
@@ -2983,7 +2983,7 @@ namespace FMOD
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020(decimal _0020)
+		internal int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020(decimal _0020)
 		{
 			string text = ((_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A;
 			bool isDietModeEnabled = CapstoneDisassembler.IsDietModeEnabled;
@@ -2994,7 +2994,7 @@ namespace FMOD
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020(ref int _0020, ref int _0020_000A)
+		internal object _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020(ref int _0020, ref int _0020_000A)
 		{
 			_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020._0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A(null);
 			return null;
@@ -3002,7 +3002,7 @@ namespace FMOD
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		private void _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020()
+		internal void _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020()
 		{
 			bool flag = _0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A._0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A;
 			Module.IsDebugInstruction(null);
@@ -3011,14 +3011,14 @@ namespace FMOD
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020(float _0020, OpImageSparseFetch _0020_000A, decimal _0020_0020)
+		internal string _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020(float _0020, OpImageSparseFetch _0020_000A, decimal _0020_0020)
 		{
 			return "1892482586";
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020()
+		internal object _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020()
 		{
 			MainForm._0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A((object)null);
 			((_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020();
@@ -3027,7 +3027,7 @@ namespace FMOD
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020(_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A _0020, _0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020 _0020_000A, int _0020_0020)
+		internal object _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020(_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A _0020, _0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020 _0020_000A, int _0020_0020)
 		{
 			MatchState matchState = ((_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020)null)._0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A;
 			return null;

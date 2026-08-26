@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace ICSharpCode.SharpZipLib.Zip
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 	[Serializable]
 	internal class ZipException : SharpZipBaseException
 	{
-		protected ZipException(SerializationInfo info, StreamingContext context)
+		internal ZipException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
 		}

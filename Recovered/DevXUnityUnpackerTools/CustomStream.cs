@@ -1,8 +1,8 @@
-using System.IO;
+﻿using System.IO;
 
 internal class CustomStream : Stream
 {
-	private Stream stream;
+	internal Stream stream;
 
 	public override bool CanRead => stream.CanRead;
 

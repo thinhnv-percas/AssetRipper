@@ -1,4 +1,4 @@
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -15,7 +15,7 @@ namespace DevXUnityUnpackerTools.Properties
 	{
 		public static ResourceManager resourceMan;
 
-		private static CultureInfo resourceCulture;
+		internal static CultureInfo resourceCulture;
 
 		[EditorBrowsable(EditorBrowsableState.Advanced)]
 		internal static ResourceManager ResourceManager

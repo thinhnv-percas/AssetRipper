@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.X86;
 using FMOD;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace SevenZip.Compression.LZMAda
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A
 	{
-		private int _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020(int _0020, DSP_PARAMETER_DESC_BOOL _0020_000A, string _0020_0020)
+		internal int _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020(int _0020, DSP_PARAMETER_DESC_BOOL _0020_000A, string _0020_0020)
 		{
 			Vector4 unitZ = Vector4.UnitZ;
 			byte modRmOffset = ((X86Encoding)null).ModRmOffset;

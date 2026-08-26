@@ -1,4 +1,4 @@
-using DevXForms.TreeList;
+﻿using DevXForms.TreeList;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,93 +19,93 @@ namespace DevXForms
 		public delegate void NotifyAfterHandler(TreeNode node, bool isExpanding);
 
 		[CompilerGenerated]
-		private TreeViewEventHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020;
+		internal TreeViewEventHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private NotifyAfterHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A;
+		internal NotifyAfterHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private TreeViewCancelEventHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020;
+		internal TreeViewCancelEventHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A;
+		internal string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020;
+		internal string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020;
 
-		private TreeListViewNodes _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A;
+		internal TreeListViewNodes _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A;
 
-		private TreeViewColumnCollection _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A;
+		internal TreeViewColumnCollection _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A;
 
-		private RowSetting _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020;
+		internal RowSetting _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020;
 
-		private ViewSetting _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A;
+		internal ViewSetting _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020;
 
-		private VScrollBar _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A;
+		internal VScrollBar _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A;
 
-		private HScrollBar _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020;
+		internal HScrollBar _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020;
 
-		private Panel _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A;
+		internal Panel _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A;
 
-		private Panel _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020;
+		internal Panel _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A = true;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A = true;
 
-		private TreeNode _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020;
+		internal TreeNode _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020;
 
-		private ImageList _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A = new ImageList();
+		internal ImageList _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A = new ImageList();
 
-		private RowPainter _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020;
+		internal RowPainter _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020;
 
-		private CellPainter _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A;
+		internal CellPainter _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A;
 
-		private TreeListColumn _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020;
+		internal TreeListColumn _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020;
 
-		private int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A;
+		internal int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A;
 
-		private NodesSelection _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020 = new NodesSelection();
+		internal NodesSelection _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020 = new NodesSelection();
 
-		private TreeNode _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A;
+		internal TreeNode _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A;
 
-		private int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020 = -1;
+		internal int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020 = -1;
 
 		[CompilerGenerated]
-		private MouseEventHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A;
+		internal MouseEventHandler _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020;
 
-		private TreeListColumn _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A;
+		internal TreeListColumn _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A;
 
-		private Image _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020;
+		internal Image _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020;
 
-		private Graphics _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A;
+		internal Graphics _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A;
 
-		private Graphics _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020;
+		internal Graphics _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020;
 
-		private Rectangle _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A;
+		internal Rectangle _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020;
 
-		private int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A;
+		internal int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A;
 
-		private int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020;
+		internal int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020;
 
-		private Rectangle _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A;
+		internal Rectangle _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A;
 
 		public bool FullRowSelect
 		{
@@ -275,7 +275,7 @@ namespace DevXForms
 			}
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A
 		{
 			get
 			{
@@ -446,12 +446,12 @@ namespace DevXForms
 			}
 		}
 
-		protected virtual void OnAfterSelect(TreeNode node)
+		internal virtual void OnAfterSelect(TreeNode node)
 		{
 			raiseAfterSelect(node);
 		}
 
-		protected virtual void raiseAfterSelect(TreeNode node)
+		internal virtual void raiseAfterSelect(TreeNode node)
 		{
 			if (_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020 != null)
 			{
@@ -464,7 +464,7 @@ namespace DevXForms
 			raiseNotifyBeforeExpand(node, isExpanding, out cancel);
 		}
 
-		protected virtual void raiseNotifyBeforeExpand(TreeNode node, bool isExpanding, out bool cancel)
+		internal virtual void raiseNotifyBeforeExpand(TreeNode node, bool isExpanding, out bool cancel)
 		{
 			cancel = false;
 			if (_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020 != null)
@@ -481,7 +481,7 @@ namespace DevXForms
 			raiseNotifyAfterExpand(node, isExpanded);
 		}
 
-		protected virtual void raiseNotifyAfterExpand(TreeNode node, bool isExpanded)
+		internal virtual void raiseNotifyAfterExpand(TreeNode node, bool isExpanded)
 		{
 			if (_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A != null)
 			{
@@ -527,7 +527,7 @@ namespace DevXForms
 			Invalidate();
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020()
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020()
 		{
 			_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020 = new HScrollBar();
 			_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020.Scroll += _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A;
@@ -616,11 +616,11 @@ namespace DevXForms
 			}
 		}
 
-		protected virtual void BeforeShowContextMenu()
+		internal virtual void BeforeShowContextMenu()
 		{
 		}
 
-		protected void InvalidateRow(int absoluteRowIndex)
+		internal void InvalidateRow(int absoluteRowIndex)
 		{
 			int _0020 = absoluteRowIndex - _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A();
 			Rectangle rectangle = _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A(_0020);
@@ -631,7 +631,7 @@ namespace DevXForms
 			}
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020(object _0020, ScrollEventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020(object _0020, ScrollEventArgs _0020_000A)
 		{
 			int num = _0020_000A.NewValue - _0020_000A.OldValue;
 			if (num != 0)
@@ -646,12 +646,12 @@ namespace DevXForms
 			}
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A(object _0020, ScrollEventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A(object _0020, ScrollEventArgs _0020_000A)
 		{
 			Invalidate();
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020(int _0020)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020(int _0020)
 		{
 			if (_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A != null)
 			{
@@ -688,7 +688,7 @@ namespace DevXForms
 			}
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A()
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A()
 		{
 			if (_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A == null)
 			{
@@ -701,7 +701,7 @@ namespace DevXForms
 			return _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A.Value;
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020()
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020()
 		{
 			if (_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A == null)
 			{
@@ -714,7 +714,7 @@ namespace DevXForms
 			return _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020.Value;
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A()
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A()
 		{
 			if (_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A == null || ClientRectangle.Width < 0)
 			{
@@ -754,7 +754,7 @@ namespace DevXForms
 			_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020.Visible = true;
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A(Point _0020)
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A(Point _0020)
 		{
 			if (_0020.Y <= _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A)
 			{
@@ -763,12 +763,12 @@ namespace DevXForms
 			return (_0020.Y - _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A) / RowOptions.ItemHeight;
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020(int _0020)
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020(int _0020)
 		{
 			return _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A + _0020 * RowOptions.ItemHeight;
 		}
 
-		private Rectangle _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A(int _0020)
+		internal Rectangle _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A(int _0020)
 		{
 			Rectangle clientRectangle = ClientRectangle;
 			clientRectangle.Y = _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020(_0020);
@@ -780,7 +780,7 @@ namespace DevXForms
 			return clientRectangle;
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020(TreeNode _0020, Keys _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020(TreeNode _0020, Keys _0020_000A)
 		{
 			if (Control.ModifierKeys == Keys.None)
 			{
@@ -1023,7 +1023,7 @@ namespace DevXForms
 			Invalidate();
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020(TreeListColumn _0020, bool _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020(TreeListColumn _0020, bool _0020_000A)
 		{
 			int num = _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020();
 			if (_0020 != _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A)
@@ -1055,7 +1055,7 @@ namespace DevXForms
 			return 0;
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020()
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020()
 		{
 			if (!ShowColumns)
 			{
@@ -1069,7 +1069,7 @@ namespace DevXForms
 			return _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A() + Columns.ColumnsWidth;
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A(out int _0020)
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A(out int _0020)
 		{
 			_0020 = 0;
 			if (ClientRectangle.Height < 0)
@@ -1082,7 +1082,7 @@ namespace DevXForms
 			return (ClientRectangle.Height - _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A) / RowOptions.ItemHeight;
 		}
 
-		private int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A()
+		internal int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A()
 		{
 			int num;
 			return _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A(out num);
@@ -1108,7 +1108,7 @@ namespace DevXForms
 			Invalidate();
 		}
 
-		private object _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020(TreeNode _0020, TreeListColumn _0020_000A)
+		internal object _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020(TreeNode _0020, TreeListColumn _0020_000A)
 		{
 			string text = string.Empty;
 			while (_0020 != null)
@@ -1119,7 +1119,7 @@ namespace DevXForms
 			return "<temp>" + text;
 		}
 
-		protected virtual object GetData(TreeNode node, TreeListColumn column)
+		internal virtual object GetData(TreeNode node, TreeListColumn column)
 		{
 			if (node[column.Index] != null)
 			{
@@ -1128,12 +1128,12 @@ namespace DevXForms
 			return null;
 		}
 
-		protected virtual TextFormatting GetFormatting(TreeNode node, TreeListColumn column)
+		internal virtual TextFormatting GetFormatting(TreeNode node, TreeListColumn column)
 		{
 			return column.CellFormat;
 		}
 
-		protected virtual void PaintCell(Graphics dc, Rectangle cellRect, TreeNode node, TreeListColumn column)
+		internal virtual void PaintCell(Graphics dc, Rectangle cellRect, TreeNode node, TreeListColumn column)
 		{
 			if (_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A)
 			{
@@ -1145,7 +1145,7 @@ namespace DevXForms
 			}
 		}
 
-		protected virtual void PaintImage(Graphics dc, Rectangle imageRect, TreeNode node, Image image)
+		internal virtual void PaintImage(Graphics dc, Rectangle imageRect, TreeNode node, Image image)
 		{
 			if (image != null)
 			{
@@ -1153,7 +1153,7 @@ namespace DevXForms
 			}
 		}
 
-		protected virtual void PaintNode(Graphics dc, Rectangle rowRect, TreeNode node, TreeListColumn[] visibleColumns, int visibleRowIndex)
+		internal virtual void PaintNode(Graphics dc, Rectangle rowRect, TreeNode node, TreeListColumn[] visibleColumns, int visibleRowIndex)
 		{
 			if (ShowColumns)
 			{
@@ -1260,7 +1260,7 @@ namespace DevXForms
 			PaintCell(dc, rectangle, node, treeListColumn);
 		}
 
-		protected virtual void PaintLines(Graphics dc, Rectangle cellRect, TreeNode node)
+		internal virtual void PaintLines(Graphics dc, Rectangle cellRect, TreeNode node)
 		{
 			Pen pen = new Pen(Color.Gray);
 			pen.DashStyle = DashStyle.Dot;
@@ -1290,7 +1290,7 @@ namespace DevXForms
 			pen.Dispose();
 		}
 
-		protected virtual int GetIndentSize(TreeNode node)
+		internal virtual int GetIndentSize(TreeNode node)
 		{
 			int num = 0;
 			for (TreeNode parent = node.Parent; parent != null; parent = parent.Parent)
@@ -1300,7 +1300,7 @@ namespace DevXForms
 			return num;
 		}
 
-		protected virtual Rectangle GetPlusMinusRectangle(TreeNode node, TreeListColumn firstColumn, int visibleRowIndex)
+		internal virtual Rectangle GetPlusMinusRectangle(TreeNode node, TreeListColumn firstColumn, int visibleRowIndex)
 		{
 			if (!node.HasChildren)
 			{
@@ -1321,7 +1321,7 @@ namespace DevXForms
 			return calculatedRect;
 		}
 
-		protected virtual Image GetNodeBitmap(TreeNode node)
+		internal virtual Image GetNodeBitmap(TreeNode node)
 		{
 			if (ImageList != null && node.ImageId >= 0 && node.ImageId < ImageList.Images.Count)
 			{
@@ -1338,11 +1338,11 @@ namespace DevXForms
 			return null;
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A(int _0020, int _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A(int _0020, int _0020_000A)
 		{
 		}
 
-		private void Start()
+		internal void Start()
 		{
 		}
 
@@ -1420,7 +1420,7 @@ namespace DevXForms
 			OnPaintOwn(e);
 		}
 
-		protected void OnPaintOwn(PaintEventArgs e)
+		internal void OnPaintOwn(PaintEventArgs e)
 		{
 			int num = _0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020();
 			int num2 = 0;

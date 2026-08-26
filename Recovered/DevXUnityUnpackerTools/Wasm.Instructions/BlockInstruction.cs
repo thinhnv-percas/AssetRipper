@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -7,13 +7,13 @@ namespace Wasm.Instructions
 {
 	public sealed class BlockInstruction : Instruction
 	{
-		private BlockOperator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
+		internal BlockOperator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private WasmType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal WasmType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private List<Instruction> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A;
+		internal List<Instruction> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A;
 
 		public override Operator Op => _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 
@@ -38,7 +38,7 @@ namespace Wasm.Instructions
 		public List<Instruction> Contents
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public BlockInstruction(BlockOperator op, WasmType type, IEnumerable<Instruction> contents)

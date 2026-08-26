@@ -1,4 +1,4 @@
-using Microsoft.VisualBasic.CompilerServices;
+﻿using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,33 +11,33 @@ namespace PropertyGridEx
 	[DesignerGenerated]
 	public class PropertyGridEx : PropertyGrid
 	{
-		protected CustomPropertyCollection oCustomPropertyCollection;
+		internal CustomPropertyCollection oCustomPropertyCollection;
 
-		protected bool bShowCustomProperties;
+		internal bool bShowCustomProperties;
 
-		protected CustomPropertyCollectionSet oCustomPropertyCollectionSet;
+		internal CustomPropertyCollectionSet oCustomPropertyCollectionSet;
 
-		protected bool bShowCustomPropertiesSet;
+		internal bool bShowCustomPropertiesSet;
 
-		protected object oPropertyGridView;
+		internal object oPropertyGridView;
 
-		protected object oHotCommands;
+		internal object oHotCommands;
 
-		protected object oDocComment;
+		internal object oDocComment;
 
-		protected ToolStrip oToolStrip;
+		internal ToolStrip oToolStrip;
 
-		protected Label oDocCommentTitle;
+		internal Label oDocCommentTitle;
 
-		protected Label oDocCommentDescription;
+		internal Label oDocCommentDescription;
 
-		protected FieldInfo oPropertyGridEntries;
+		internal FieldInfo oPropertyGridEntries;
 
-		protected bool bAutoSizeProperties;
+		internal bool bAutoSizeProperties;
 
-		protected bool bDrawFlatToolbar;
+		internal bool bDrawFlatToolbar;
 
-		private Container _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
+		internal Container _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
 
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
 		[Description("Set the collection of the CustomProperty. Set ShowCustomProperties to True to enable it.")]
@@ -242,7 +242,7 @@ namespace PropertyGridEx
 			}
 		}
 
-		protected void AutoSizeSplitter(int RightMargin)
+		internal void AutoSizeSplitter(int RightMargin)
 		{
 			GridItemCollection gridItemCollection = (GridItemCollection)oPropertyGridEntries.GetValue(oPropertyGridView);
 			if (gridItemCollection != null)
@@ -265,7 +265,7 @@ namespace PropertyGridEx
 			}
 		}
 
-		protected void ApplyToolStripRenderMode(bool value)
+		internal void ApplyToolStripRenderMode(bool value)
 		{
 			if (value)
 			{
@@ -288,7 +288,7 @@ namespace PropertyGridEx
 		}
 
 		[DebuggerStepThrough]
-		private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
+		internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
 		{
 			_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A = new Container();
 			base.AutoScaleMode = AutoScaleMode.Font;

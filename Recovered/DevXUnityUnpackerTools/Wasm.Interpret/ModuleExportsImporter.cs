@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Wasm.Optimize;
 
 namespace Wasm.Interpret
@@ -6,12 +6,12 @@ namespace Wasm.Interpret
 	public sealed class ModuleExportsImporter : IImporter
 	{
 		[CompilerGenerated]
-		private ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020;
+		internal ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020;
 
 		public ModuleInstance Module
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ModuleExportsImporter(ModuleInstance module)

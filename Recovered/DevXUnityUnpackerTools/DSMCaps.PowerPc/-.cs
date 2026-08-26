@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip;
@@ -69,17 +69,17 @@ namespace DSMCaps.PowerPc
 			return new PowerPcInstruction(this);
 		}
 
-		private protected override PowerPcInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override PowerPcInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return PowerPcInstructionDetail.Create(disassembler, hInstruction);
 		}
 
-		private protected override PowerPcDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override PowerPcDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (PowerPcDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override PowerPcInstructionId CreateId(int id)
+		internal protected override PowerPcInstructionId CreateId(int id)
 		{
 			return (PowerPcInstructionId)id;
 		}
@@ -87,39 +87,39 @@ namespace DSMCaps.PowerPc
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020 : InstructionDetailBuilder<PowerPcInstructionDetail, PowerPcDisassembleMode, PowerPcInstructionGroup, PowerPcInstructionGroupId, PowerPcInstruction, PowerPcInstructionId, PowerPcRegister, PowerPcRegisterId>
 	{
 		[CompilerGenerated]
-		private PowerPcBranchCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A;
+		internal PowerPcBranchCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private PowerPcBranchHint _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020;
+		internal PowerPcBranchHint _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private PowerPcOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal PowerPcOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A;
+		internal bool _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A;
 
 		internal PowerPcBranchCode _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal PowerPcBranchHint _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal PowerPcOperand[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal override void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -137,24 +137,24 @@ namespace DSMCaps.PowerPc
 			return new PowerPcInstructionDetail(this);
 		}
 
-		private protected override PowerPcDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override PowerPcDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (PowerPcDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override PowerPcInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
+		internal protected override PowerPcInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
 		{
 			return PowerPcInstructionGroup.Create(disassembler, (PowerPcInstructionGroupId)instructionGroupId);
 		}
 
-		private protected override PowerPcRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
+		internal protected override PowerPcRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
 		{
 			return PowerPcRegister._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A(disassembler, (PowerPcRegisterId)registerId);
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020(byte[] _0020)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020(byte[] _0020)
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A((object)null, (LabelEditEventArgs)null);
 			long count = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A)null).Count;
@@ -163,14 +163,14 @@ namespace DSMCaps.PowerPc
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020(_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020 _0020)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020(_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020 _0020)
 		{
 			return 851230008;
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020()
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020()
 		{
 			ManyCodeCls manyCodeCl = ((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A;
 			_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A._0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A(null);
@@ -180,7 +180,7 @@ namespace DSMCaps.PowerPc
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A
 	{
-		private unsafe string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020(bool _0020, float _0020_000A, Object3D _0020_0020, object _0020_000A_000A)
+		internal unsafe string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020(bool _0020, float _0020_000A, Object3D _0020_0020, object _0020_000A_000A)
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020)null)._0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A();
 			_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A._0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020();
@@ -190,7 +190,7 @@ namespace DSMCaps.PowerPc
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A
 	{
-		private void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020()
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020()
 		{
 			((_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020)null)._0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A((_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020)null);
 			ProtoReader._0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A((ProtoReader)null);
@@ -201,7 +201,7 @@ namespace DSMCaps.PowerPc
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A
 	{
-		private void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020(string _0020)
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020(string _0020)
 		{
 		}
 	}

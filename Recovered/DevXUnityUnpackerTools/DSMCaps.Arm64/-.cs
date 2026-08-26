@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using DSMCaps.Arm;
 using FMOD;
@@ -22,17 +22,17 @@ namespace DSMCaps.Arm64
 			return new Arm64Instruction(this);
 		}
 
-		private protected override Arm64InstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override Arm64InstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return Arm64InstructionDetail.Create(disassembler, hInstruction);
 		}
 
-		private protected override Arm64DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override Arm64DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (Arm64DisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override Arm64InstructionId CreateId(int id)
+		internal protected override Arm64InstructionId CreateId(int id)
 		{
 			return (Arm64InstructionId)id;
 		}
@@ -40,39 +40,39 @@ namespace DSMCaps.Arm64
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A : InstructionDetailBuilder<Arm64InstructionDetail, Arm64DisassembleMode, Arm64InstructionGroup, Arm64InstructionGroupId, Arm64Instruction, Arm64InstructionId, Arm64Register, Arm64RegisterId>
 	{
 		[CompilerGenerated]
-		private Arm64ConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
+		internal Arm64ConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private Arm64Operand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal Arm64Operand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A;
+		internal bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
+		internal bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
 
 		internal Arm64ConditionCode _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal Arm64Operand[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal override void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -91,17 +91,17 @@ namespace DSMCaps.Arm64
 			return new Arm64InstructionDetail(this);
 		}
 
-		private protected override Arm64DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override Arm64DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (Arm64DisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override Arm64InstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
+		internal protected override Arm64InstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
 		{
 			return Arm64InstructionGroup.Create(disassembler, (Arm64InstructionGroupId)instructionGroupId);
 		}
 
-		private protected override Arm64Register CreateRegister(CapstoneDisassembler disassembler, short registerId)
+		internal protected override Arm64Register CreateRegister(CapstoneDisassembler disassembler, short registerId)
 		{
 			return Arm64Register._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A(disassembler, (Arm64RegisterId)registerId);
 		}
@@ -182,7 +182,7 @@ namespace DSMCaps.Arm64
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020()
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020()
 		{
 			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020((byte[])null);
 			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020((RapackInfo)null);
@@ -191,7 +191,7 @@ namespace DSMCaps.Arm64
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020(string _0020, string _0020_000A, string _0020_0020)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020(string _0020, string _0020_000A, string _0020_0020)
 		{
 			_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020.Create(null);
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A((string)null, (string)null);
@@ -202,7 +202,7 @@ namespace DSMCaps.Arm64
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020(string _0020, string _0020_000A)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020(string _0020, string _0020_000A)
 		{
 			((RapackInfo)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A();
 			return 1698441269;
@@ -210,7 +210,7 @@ namespace DSMCaps.Arm64
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020()
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020()
 		{
 			((TreeNode)null).SetData((object[])null);
 			((_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A)null)._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020 += null;
@@ -223,7 +223,7 @@ namespace DSMCaps.Arm64
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(Wasm.Instructions.Instruction _0020, InterpreterContext _0020_000A)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(Wasm.Instructions.Instruction _0020, InterpreterContext _0020_000A)
 		{
 			long num = ((ShaderInfo)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A;
 			PRESET.SEWERPIPE();
@@ -235,7 +235,7 @@ namespace DSMCaps.Arm64
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020(bool _0020, OpGroupSMax _0020_000A, float _0020_0020, short _0020_000A_000A)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020(bool _0020, OpGroupSMax _0020_000A, float _0020_0020, short _0020_000A_000A)
 		{
 			_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A._0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A(null);
 			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).ForceZip64();

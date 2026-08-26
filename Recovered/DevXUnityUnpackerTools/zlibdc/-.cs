@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Core;
 using Wasm;
 
@@ -6,7 +6,7 @@ namespace zlibdc
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A
 	{
-		private unsafe string _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020(object _0020)
+		internal unsafe string _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020(object _0020)
 		{
 			((TypeSection)null).ExtraPayload = null;
 			_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020._0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A(null, null);

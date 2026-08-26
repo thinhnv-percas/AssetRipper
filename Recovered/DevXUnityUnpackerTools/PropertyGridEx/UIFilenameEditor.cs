@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
@@ -10,7 +10,7 @@ namespace PropertyGridEx
 		[AttributeUsage(AttributeTargets.Property)]
 		public class FileDialogFilterAttribute : Attribute
 		{
-			private string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A;
+			internal string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A;
 
 			public string Filter => _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A;
 

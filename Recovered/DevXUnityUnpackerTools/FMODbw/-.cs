@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DevXForms.TreeList;
 using DSMCaps;
 using ICSharpCode.SharpZipLibuc;
@@ -9,7 +9,7 @@ namespace FMODbw
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A
 	{
-		private void _0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020(object _0020, EventArgs _0020_000A)
+		internal void _0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020(object _0020, EventArgs _0020_000A)
 		{
 			ViewSetting viewOption = ((MultiSelectTreeView2)null).ViewOptions;
 			((_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020();

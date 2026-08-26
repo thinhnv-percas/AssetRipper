@@ -1,9 +1,9 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 internal class ThreadCaller
 {
 	[CompilerGenerated]
-	private sealed class Data
+	internal sealed class Data
 	{
 		public object obj;
 
@@ -18,7 +18,7 @@ internal class ThreadCaller
 	}
 
 	[CompilerGenerated]
-	private sealed class _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020
+	internal sealed class _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020
 	{
 		public object _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A;
 

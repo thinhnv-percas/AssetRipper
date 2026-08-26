@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression
 {
-	public static class DeflaterConstants
+	public class DeflaterConstants
 	{
 		public const bool DEBUGGING = false;
 

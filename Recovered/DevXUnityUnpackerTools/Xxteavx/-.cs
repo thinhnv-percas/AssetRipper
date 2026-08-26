@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using Mono.Cecil;
 using PropertyGridEx;
 using STLsq;
@@ -9,7 +9,7 @@ namespace Xxteavx
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A
 	{
-		private unsafe object _0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020()
+		internal unsafe object _0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020()
 		{
 			((CustomProperty)null).Name = null;
 			((_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020((string)null, (MemberReference)null);

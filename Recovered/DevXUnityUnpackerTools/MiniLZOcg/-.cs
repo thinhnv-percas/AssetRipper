@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinFormdg;
 using EdiTools;
 using ICSharpCode.SharpZipLib.Core;
@@ -9,7 +9,7 @@ namespace MiniLZOcg
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A
 	{
-		private object _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020(INameTransform _0020)
+		internal object _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020(INameTransform _0020)
 		{
 			DateTime dateValue = ((EdiValue)null).DateValue;
 			((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A();

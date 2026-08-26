@@ -1,4 +1,4 @@
-using aspm;
+﻿using aspm;
 using BrotliSharpLib;
 using DevX.Cecil;
 using System;
@@ -10,7 +10,7 @@ namespace Unity.CecilToolswp
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A
 	{
-		private unsafe string _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020(object _0020)
+		internal unsafe string _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020(object _0020)
 		{
 			//IL_005d: Expected I, but got O
 			List<Instruction> bodyInstruction = ((InitializerExpression)null).BodyInstructions;

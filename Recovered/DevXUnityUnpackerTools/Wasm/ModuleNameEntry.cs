@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
@@ -7,7 +7,7 @@ namespace Wasm
 	public sealed class ModuleNameEntry : NameEntry
 	{
 		[CompilerGenerated]
-		private string _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020;
+		internal string _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020;
 
 		public override NameEntryKind Kind => NameEntryKind.Module;
 

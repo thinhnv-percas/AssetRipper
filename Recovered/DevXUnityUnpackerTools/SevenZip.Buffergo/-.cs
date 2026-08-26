@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Core;
+﻿using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Coretj;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -6,7 +6,7 @@ namespace SevenZip.Buffergo
 {
 	internal class _0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private int _0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020()
+		internal int _0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020()
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).Comment = null;
 			long processed = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020)null).Processed;

@@ -1,34 +1,34 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 public class CrackWindow : Form
 {
-	private CheckBox Activation;
+	internal CheckBox Activation;
 
-	private CheckBox Demo;
+	internal CheckBox Demo;
 
-	private CheckBox DevXCheck;
+	internal CheckBox DevXCheck;
 
-	private CheckBox forceDll;
+	internal CheckBox forceDll;
 
-	private CheckBox offlineMode;
+	internal CheckBox offlineMode;
 
-	private CheckBox folderOpen;
+	internal CheckBox folderOpen;
 
-	private CheckBox fakeInfo;
+	internal CheckBox fakeInfo;
 
-	private Label fakeUserL;
+	internal Label fakeUserL;
 
-	private TextBox fakeUser;
+	internal TextBox fakeUser;
 
-	private TextBox fakePC;
+	internal TextBox fakePC;
 
-	private Label fakePCL;
+	internal Label fakePCL;
 
-	private RichTextBox richTextBox1;
+	internal RichTextBox richTextBox1;
 
-	private CheckBox autoScene;
+	internal CheckBox autoScene;
 
 	public static string CrackVersion;
 
@@ -199,31 +199,31 @@ public class CrackWindow : Form
 		PerformLayout();
 	}
 
-	private void Activation_CheckedChanged(object sender, EventArgs e)
+	internal void Activation_CheckedChanged(object sender, EventArgs e)
 	{
 		CrackSettings.AllowActivation = Activation.Checked;
 		CrackSettings.Save();
 	}
 
-	private void Demo_CheckedChanged(object sender, EventArgs e)
+	internal void Demo_CheckedChanged(object sender, EventArgs e)
 	{
 		CrackSettings.AllowDemoAssetRead = Demo.Checked;
 		CrackSettings.Save();
 	}
 
-	private void DevXCheck_CheckedChanged(object sender, EventArgs e)
+	internal void DevXCheck_CheckedChanged(object sender, EventArgs e)
 	{
 		CrackSettings.DisableDevXCheck = DevXCheck.Checked;
 		CrackSettings.Save();
 	}
 
-	private void forceDll_CheckedChanged(object sender, EventArgs e)
+	internal void forceDll_CheckedChanged(object sender, EventArgs e)
 	{
 		CrackSettings.ForceDllLoad = forceDll.Checked;
 		CrackSettings.Save();
 	}
 
-	private void offlineMode_CheckedChanged(object sender, EventArgs e)
+	internal void offlineMode_CheckedChanged(object sender, EventArgs e)
 	{
 		CrackSettings.AllowOffline = offlineMode.Checked;
 		if (offlineMode.Checked)
@@ -236,13 +236,13 @@ public class CrackWindow : Form
 		CrackSettings.Save();
 	}
 
-	private void folderOpen_CheckedChanged(object sender, EventArgs e)
+	internal void folderOpen_CheckedChanged(object sender, EventArgs e)
 	{
 		CrackSettings.DisableFolderOpen = folderOpen.Checked;
 		CrackSettings.Save();
 	}
 
-	private void fakeInfo_CheckedChanged(object sender, EventArgs e)
+	internal void fakeInfo_CheckedChanged(object sender, EventArgs e)
 	{
 		Label label = fakeUserL;
 		TextBox textBox = fakeUser;
@@ -255,19 +255,19 @@ public class CrackWindow : Form
 		CrackSettings.Save();
 	}
 
-	private void fakeUser_TextChanged(object sender, EventArgs e)
+	internal void fakeUser_TextChanged(object sender, EventArgs e)
 	{
 		CrackSettings.FakeUserName = fakeUser.Text;
 		CrackSettings.Save();
 	}
 
-	private void fakePC_TextChanged(object sender, EventArgs e)
+	internal void fakePC_TextChanged(object sender, EventArgs e)
 	{
 		CrackSettings.FakeMachineName = fakePC.Text;
 		CrackSettings.Save();
 	}
 
-	private void autoScene_CheckedChanged(object sender, EventArgs e)
+	internal void autoScene_CheckedChanged(object sender, EventArgs e)
 	{
 		CrackSettings.AutoScene = autoScene.Checked;
 		CrackSettings.Save();

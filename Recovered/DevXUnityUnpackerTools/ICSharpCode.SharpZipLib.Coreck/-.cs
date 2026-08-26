@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using DevXUnityUnpackerTools.Propertiesfi;
 using DMP4;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Coreck
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A
 	{
-		private string _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020()
+		internal string _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020()
 		{
 			PredefinedImporter._0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_00601<_0020_0020>((Dictionary<string, _0020_0020>)null, (Dictionary<string, _0020_0020>)null);
 			((_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020();

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using LZ4pnvf;
 using System.Collections.Specialized;
@@ -8,7 +8,7 @@ namespace Wasm.Optimizepp
 {
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020(uint _0020)
+		internal int _0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020(uint _0020)
 		{
 			((_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A)null)._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A((string)null);
 			OperatorImpls.Int64ShrS(null, null);

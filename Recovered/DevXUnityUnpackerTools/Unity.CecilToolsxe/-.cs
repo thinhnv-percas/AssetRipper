@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using EdiTools;
 using ICSharpCode.SharpZipLib.Core;
 using System.IO;
@@ -8,7 +8,7 @@ namespace Unity.CecilToolsxe
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020()
+		internal int _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020()
 		{
 			((_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A)null)._0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020((Instruction)null);
 			EdiSegment interchangeHeader = ((EdiTransactionSet)null).InterchangeHeader;

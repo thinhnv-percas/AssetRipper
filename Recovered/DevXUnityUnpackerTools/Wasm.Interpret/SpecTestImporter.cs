@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -7,27 +7,27 @@ namespace Wasm.Interpret
 	public sealed class SpecTestImporter : IImporter
 	{
 		[CompilerGenerated]
-		private string _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020;
+		internal string _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private TextWriter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A;
+		internal TextWriter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A;
 
-		private Variable _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020;
+		internal Variable _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020;
 
-		private Variable _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A;
+		internal Variable _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A;
 
-		private Variable _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020;
+		internal Variable _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020;
 
 		public string PrintSuffix
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public TextWriter PrintWriter
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public SpecTestImporter()

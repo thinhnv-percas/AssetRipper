@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using MiniJSONso;
 using NetObfna;
 using PropertyGridEx;
@@ -7,7 +7,7 @@ namespace SevenZip.Compression.L
 {
 	internal class _0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A
 	{
-		private string _0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020(bool _0020)
+		internal string _0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020(bool _0020)
 		{
 			((CustomProperty)null).DefaultValue = null;
 			((_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A)null)._0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020((string)null);

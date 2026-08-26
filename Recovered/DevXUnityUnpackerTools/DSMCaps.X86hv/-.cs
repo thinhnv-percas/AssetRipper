@@ -1,4 +1,4 @@
-using MiniLZO;
+﻿using MiniLZO;
 using SpirV;
 using Wasm.Instructions;
 using Wasm.Interpret;
@@ -9,7 +9,7 @@ namespace DSMCaps.X86hv
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A
 	{
-		private object _0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020(decimal _0020, OpCommitReadPipe _0020_000A)
+		internal object _0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020(decimal _0020, OpCommitReadPipe _0020_000A)
 		{
 			((ARGB_RAW)null).ToPNG();
 			((_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A)null)._0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020((Wasm.Instructions.Instruction)null, (InterpreterContext)null);

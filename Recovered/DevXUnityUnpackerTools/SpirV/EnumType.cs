@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +9,7 @@ namespace SpirV
 	}
 	public class EnumType<T, U> : OperandType where U : ParameterFactory, new()
 	{
-		private U _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020 = new U();
+		internal U _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020 = new U();
 
 		public System.Type EnumerationType => typeof(T);
 

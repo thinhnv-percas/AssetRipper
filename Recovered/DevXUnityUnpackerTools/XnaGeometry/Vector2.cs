@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace XnaGeometry
@@ -6,13 +6,13 @@ namespace XnaGeometry
 	[Serializable]
 	public struct Vector2 : IEquatable<Vector2>
 	{
-		private static Vector2 zeroVector = new Vector2(0.0, 0.0);
+		internal static Vector2 zeroVector = new Vector2(0.0, 0.0);
 
-		private static Vector2 unitVector = new Vector2(1.0, 1.0);
+		internal static Vector2 unitVector = new Vector2(1.0, 1.0);
 
-		private static Vector2 unitXVector = new Vector2(1.0, 0.0);
+		internal static Vector2 unitXVector = new Vector2(1.0, 0.0);
 
-		private static Vector2 unitYVector = new Vector2(0.0, 1.0);
+		internal static Vector2 unitYVector = new Vector2(0.0, 1.0);
 
 		public double X;
 

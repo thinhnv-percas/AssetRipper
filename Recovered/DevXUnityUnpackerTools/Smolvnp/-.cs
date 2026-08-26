@@ -1,4 +1,4 @@
-using DMP4;
+﻿using DMP4;
 using ICSharpCode.SharpZipLib.Zip;
 using NetObffy;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace Smolvnp
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A
 	{
-		private int _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020(Vector3 _0020, Vector3 _0020_000A)
+		internal int _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020(Vector3 _0020, Vector3 _0020_000A)
 		{
 			int methodIndex = ((Il2CppRGCTXDefinitionData)null).methodIndex;
 			IDictionary<byte, Operator> dictionary = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020;

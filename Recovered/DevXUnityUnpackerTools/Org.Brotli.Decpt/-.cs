@@ -1,4 +1,4 @@
-using FMOD;
+﻿using FMOD;
 using SevenZip.Compression.RangeCoder;
 using SpirV;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace Org.Brotli.Decpt
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A
 	{
-		private unsafe int _0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020()
+		internal unsafe int _0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020()
 		{
 			IList<Operand> operand = ((Instruction)null).Operands;
 			((_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A)null)._0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020();

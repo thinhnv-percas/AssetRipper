@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Zip;
 using SpirV;
 using System;
@@ -8,7 +8,7 @@ namespace DevXFormsma
 {
 	internal class _0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A
 	{
-		private int _0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020(object _0020, float _0020_000A, float _0020_0020)
+		internal int _0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020(object _0020, float _0020_000A, float _0020_0020)
 		{
 			int num = ((_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A;
 			Instruction instruction = ((ParsedInstruction)null).Instruction;

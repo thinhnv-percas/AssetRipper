@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Properties;
+﻿using DevXUnityUnpackerTools.Properties;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -14,7 +14,7 @@ internal class Loader
 {
 	public class Filter : IMessageFilter
 	{
-		private static ushort WM_SYSKEYDOWN;
+		internal static ushort WM_SYSKEYDOWN;
 
 		public bool PreFilterMessage(ref Message m)
 		{
@@ -31,7 +31,7 @@ internal class Loader
 		}
 	}
 
-	private static Random random;
+	internal static Random random;
 
 	[DllImport("kernel32.dll", SetLastError = true)]
 	internal static extern bool AllocConsole();
@@ -105,7 +105,7 @@ internal class Loader
 		}
 	}
 
-	private static string RandomString(int length)
+	internal static string RandomString(int length)
 	{
 		return new string((from s in Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length)
 			select s[random.Next(s.Length)]).ToArray());

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using System;
 using Unreal;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.GZipgi
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020(short _0020)
+		internal unsafe object _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020(short _0020)
 		{
 			//IL_0023: Expected I, but got O
 			//IL_0023: Expected I, but got O

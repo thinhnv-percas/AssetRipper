@@ -1,4 +1,4 @@
-using LZ4.Services;
+﻿using LZ4.Services;
 using Mono.Cecil;
 using System.Collections.Generic;
 
@@ -6,7 +6,7 @@ namespace kn
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A
 	{
-		private unsafe string _0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020(TypeReference _0020)
+		internal unsafe string _0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020(TypeReference _0020)
 		{
 			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020(ref *(Dictionary<int, int[]>*)null);
 			return "270990540";

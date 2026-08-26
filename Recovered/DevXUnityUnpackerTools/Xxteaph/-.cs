@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System;
 using Wasm.Interpret;
 
@@ -6,7 +6,7 @@ namespace Xxteaph
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A
 	{
-		private void _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020()
+		internal void _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020()
 		{
 			OperatorImpls.Int32And(null, null);
 			((BinaryAnalizerControl)null)._0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A((object)null, (EventArgs)null);

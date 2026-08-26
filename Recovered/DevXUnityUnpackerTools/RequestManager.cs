@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 [FunAttr(Num = "E47B28FE108668A6886A190535D79F31")]
 internal class RequestManager
 {
-	private static Dictionary<int, string> RequestResults;
+	internal static Dictionary<int, string> RequestResults;
 
-	private static Dictionary<string, string> CrackRequestResults;
+	internal static Dictionary<string, string> CrackRequestResults;
 
-	private static string someData;
+	internal static string someData;
 
 	public static string TryMakeRequest(string method, string licType, string ver)
 	{

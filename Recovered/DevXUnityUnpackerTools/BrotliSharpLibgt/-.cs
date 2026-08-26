@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Properties;
+﻿using DevXUnityUnpackerTools.Properties;
 using ICSharpCode.SharpZipLib.Zip;
 using md;
 using System;
@@ -8,7 +8,7 @@ namespace BrotliSharpLibgt
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A
 	{
-		private object _0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020()
+		internal object _0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020()
 		{
 			Bitmap repack = Resources.Repack16;
 			((_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020();

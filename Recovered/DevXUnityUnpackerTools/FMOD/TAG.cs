@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 
 namespace FMOD
@@ -9,7 +9,7 @@ namespace FMOD
 
 		public TAGDATATYPE datatype;
 
-		private IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A;
+		internal IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A;
 
 		public IntPtr data;
 

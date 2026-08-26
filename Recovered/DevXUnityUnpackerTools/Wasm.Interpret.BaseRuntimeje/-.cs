@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using SpirV;
 using System.Drawing;
 using System.Windows.Forms;
@@ -8,7 +8,7 @@ namespace Wasm.Interpret.BaseRuntimeje
 {
 	internal class _0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A
 	{
-		private string _0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020(Rectangle _0020, Padding _0020_000A)
+		internal string _0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020(Rectangle _0020, Padding _0020_000A)
 		{
 			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A)null).RemoveFieldModif((string)null);
 			Type returnType = ((SpirV.FunctionType)null).ReturnType;

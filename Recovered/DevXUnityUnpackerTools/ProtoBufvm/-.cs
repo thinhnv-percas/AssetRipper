@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DevXForms;
 using System;
@@ -7,7 +7,7 @@ namespace ProtoBufvm
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A
 	{
-		private unsafe string _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020(SpriteMeshType _0020, int _0020_000A)
+		internal unsafe string _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020(SpriteMeshType _0020, int _0020_000A)
 		{
 			//IL_0070: Expected I, but got O
 			int length = ((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020)null).Length;

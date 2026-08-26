@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Properties;
 using Org.Brotli.Dec;
 using sv;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compressio
 {
 	internal class _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A
 	{
-		private string _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020(VerFormat _0020)
+		internal string _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020(VerFormat _0020)
 		{
 			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020)null).CustomClose();
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A((string)null);

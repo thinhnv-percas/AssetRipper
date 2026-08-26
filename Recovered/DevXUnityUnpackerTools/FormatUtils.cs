@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-internal static class FormatUtils
+internal class FormatUtils
 {
-	private static string[] _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020;
+	internal static string[] _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020;
 
-	private static Random _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A = new Random((int)DateTime.Now.Ticks);
+	internal static Random _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A = new Random((int)DateTime.Now.Ticks);
 
 	internal static decimal _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A(decimal _0020)
 	{

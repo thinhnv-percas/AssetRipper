@@ -1,11 +1,11 @@
-using DevXForms;
+﻿using DevXForms;
 using PropertyGridEx;
 
 namespace ICSharpCode.SharpZipLib.Corewb
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A
 	{
-		private object _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020()
+		internal object _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020()
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A();
 			TreeNodeCollection.GetVisibleNodeIndex(null);

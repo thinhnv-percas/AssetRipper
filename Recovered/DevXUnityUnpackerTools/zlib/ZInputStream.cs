@@ -1,20 +1,20 @@
-using System.IO;
+﻿using System.IO;
 
 namespace zlib
 {
 	public class ZInputStream : BinaryReader
 	{
-		protected ZStream z = new ZStream();
+		internal ZStream z = new ZStream();
 
-		protected int bufsize = 512;
+		internal int bufsize = 512;
 
-		protected int flush;
+		internal int flush;
 
-		protected byte[] buf;
+		internal byte[] buf;
 
-		protected byte[] buf1 = new byte[1];
+		internal byte[] buf1 = new byte[1];
 
-		protected bool compress;
+		internal bool compress;
 
 		internal Stream _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020;
 

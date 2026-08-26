@@ -1,4 +1,4 @@
-using DSMCaps.Arm;
+﻿using DSMCaps.Arm;
 using LZ4psvw;
 using Unity.CecilToolsgw;
 
@@ -6,7 +6,7 @@ namespace SevenZip.CommandLineParserbt
 {
 	internal class _0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private string _0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020(bool _0020, decimal _0020_000A)
+		internal string _0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020(bool _0020, decimal _0020_000A)
 		{
 			((_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A)null)._0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020();
 			ArmMemoryBarrierOperation memoryBarrierOperation = ((ArmInstructionDetail)null).MemoryBarrierOperation;

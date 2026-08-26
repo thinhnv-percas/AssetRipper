@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm.AssetControlnc;
 using EdiTools;
 using ICSharpCode.SharpZipLib.Lzwod;
@@ -10,7 +10,7 @@ namespace DevXFormsjs
 {
 	internal class _0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A
 	{
-		private void _0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020(LZ4StreamMode _0020, BlockOperator _0020_000A)
+		internal void _0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020(LZ4StreamMode _0020, BlockOperator _0020_000A)
 		{
 			DateTime timeValue = ((EdiValue)null).TimeValue;
 			((_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A)null)._0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020();

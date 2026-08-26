@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DSMCaps.XCore;
 using ProtoBuf;
 using XmlBin;
@@ -7,7 +7,7 @@ namespace DevXUnityUnpackerTools._WinForm.AssetControlvt
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A
 	{
-		private object _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020()
+		internal object _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020()
 		{
 			ConsoleManager.WriteEx9847(null);
 			string fieldname = ((TreeListColumn)null).Fieldname;

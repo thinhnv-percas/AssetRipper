@@ -1,14 +1,14 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.PowerPc
 {
 	public sealed class PowerPcMemoryOperandValue
 	{
 		[CompilerGenerated]
-		private readonly PowerPcRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
+		internal readonly PowerPcRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
+		internal readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
 
 		public PowerPcRegister Base
 		{

@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using JpegEncoder;
 using Mono.Cecil;
 using System;
@@ -8,7 +8,7 @@ namespace DSMCaps.XCorelr
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A
 	{
-		private unsafe object _0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020(uint _0020)
+		internal unsafe object _0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020(uint _0020)
 		{
 			//IL_0047: Expected I, but got O
 			((_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020((sbyte[])null, (float[])null);

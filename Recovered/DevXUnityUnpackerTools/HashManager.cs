@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -15,13 +15,13 @@ internal class HashManager
 
 		internal const uint _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020 = uint.MaxValue;
 
-		private uint _0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
+		internal uint _0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
 
-		private uint _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A;
+		internal uint _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A;
 
-		private uint[] _0020_000A_000A_000A_000A_0020_0020_0020;
+		internal uint[] _0020_000A_000A_000A_000A_0020_0020_0020;
 
-		private static uint[] _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020;
+		internal static uint[] _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020;
 
 		public override int HashSize => 32;
 
@@ -89,7 +89,7 @@ internal class HashManager
 			return ~_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A(_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(_0020), _0020_000A, _0020_0020, 0, _0020_0020.Length);
 		}
 
-		private static uint[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(uint _0020)
+		internal static uint[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(uint _0020)
 		{
 			if (_0020 == 3988292384u && _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020 != null)
 			{
@@ -112,7 +112,7 @@ internal class HashManager
 			return array;
 		}
 
-		private static uint _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A(uint[] _0020, uint _0020_000A, byte[] _0020_0020, int _0020_000A_000A, int _0020_000A_0020)
+		internal static uint _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A(uint[] _0020, uint _0020_000A, byte[] _0020_0020, int _0020_000A_000A, int _0020_000A_0020)
 		{
 			uint num = _0020_000A;
 			for (int i = _0020_000A_000A; i < _0020_000A_0020; i++)
@@ -122,7 +122,7 @@ internal class HashManager
 			return num;
 		}
 
-		private byte[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020(uint _0020)
+		internal byte[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020(uint _0020)
 		{
 			return new byte[4]
 			{
@@ -138,11 +138,11 @@ internal class HashManager
 	{
 		public const ulong DefaultSeed = 0uL;
 
-		private readonly ulong[] _0020_000A_000A_000A_000A_0020_0020_0020;
+		internal readonly ulong[] _0020_000A_000A_000A_000A_0020_0020_0020;
 
-		private readonly ulong _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A;
+		internal readonly ulong _0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A;
 
-		private ulong _0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
+		internal ulong _0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
 
 		public override int HashSize => 64;
 
@@ -172,7 +172,7 @@ internal class HashManager
 			return HashValue = _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A(_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020);
 		}
 
-		protected static ulong CalculateHash(ulong seed, ulong[] table, IList<byte> buffer, int start, int size)
+		internal static ulong CalculateHash(ulong seed, ulong[] table, IList<byte> buffer, int start, int size)
 		{
 			ulong num = seed;
 			for (int i = start; i < start + size; i++)
@@ -182,7 +182,7 @@ internal class HashManager
 			return num;
 		}
 
-		private static byte[] _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A(ulong _0020)
+		internal static byte[] _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A(ulong _0020)
 		{
 			byte[] bytes = BitConverter.GetBytes(_0020);
 			if (BitConverter.IsLittleEndian)
@@ -192,7 +192,7 @@ internal class HashManager
 			return bytes;
 		}
 
-		private static ulong[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(ulong _0020)
+		internal static ulong[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(ulong _0020)
 		{
 			if (_0020 == 15564440312192434176uL && _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A._0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A != null)
 			{
@@ -206,7 +206,7 @@ internal class HashManager
 			return array;
 		}
 
-		protected static ulong[] CreateTable(ulong polynomial)
+		internal static ulong[] CreateTable(ulong polynomial)
 		{
 			ulong[] array = new ulong[256];
 			for (int i = 0; i < 256; i++)

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps;
 using SevenZip.Compression.LZ;
 using System.Text;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Checksumba
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A
 	{
-		private void _0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020()
+		internal void _0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020()
 		{
 			((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A((string)null, (Encoding)null);
 			((InWindow)null).MoveBlock();

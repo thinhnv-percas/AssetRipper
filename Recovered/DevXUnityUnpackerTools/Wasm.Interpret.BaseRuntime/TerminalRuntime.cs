@@ -1,19 +1,19 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace Wasm.Interpret.BaseRuntime
 {
 	public sealed class TerminalRuntime
 	{
-		private Stream _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020;
+		internal Stream _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020;
 
-		private Stream _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A;
+		internal Stream _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A;
 
-		private Stream _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020;
+		internal Stream _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020;
 
-		private readonly PredefinedImporter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A;
+		internal readonly PredefinedImporter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A;
 
-		private TerminalRuntime(Stream inputStream, Stream outputStream, Stream errorStream)
+		internal TerminalRuntime(Stream inputStream, Stream outputStream, Stream errorStream)
 		{
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020 = inputStream;
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A = outputStream;
@@ -36,7 +36,7 @@ namespace Wasm.Interpret.BaseRuntime
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A.DefineFunction("stderr_flush", new DelegateFunctionDefinition(new WasmValueType[0], new WasmValueType[0], _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A));
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A(PredefinedImporter _0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A(PredefinedImporter _0020)
 		{
 			_0020.IncludeDefinitions(_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A);
 		}
@@ -46,7 +46,7 @@ namespace Wasm.Interpret.BaseRuntime
 			new TerminalRuntime(inputStream, outputStream, errorStream)._0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A(importer);
 		}
 
-		private IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020(IList<object> _0020)
+		internal IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020(IList<object> _0020)
 		{
 			return new object[1]
 			{
@@ -54,33 +54,33 @@ namespace Wasm.Interpret.BaseRuntime
 			};
 		}
 
-		private IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A(IList<object> _0020)
+		internal IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A(IList<object> _0020)
 		{
 			object obj = _0020[0];
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A.WriteByte((byte)(int)obj);
 			return new object[0];
 		}
 
-		private IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020(IList<object> _0020)
+		internal IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020(IList<object> _0020)
 		{
 			object obj = _0020[0];
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020.WriteByte((byte)(int)obj);
 			return new object[0];
 		}
 
-		private IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A(IList<object> _0020)
+		internal IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A(IList<object> _0020)
 		{
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020.Flush();
 			return new object[0];
 		}
 
-		private IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020(IList<object> _0020)
+		internal IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020(IList<object> _0020)
 		{
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020.Flush();
 			return new object[0];
 		}
 
-		private IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A(IList<object> _0020)
+		internal IList<object> _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A(IList<object> _0020)
 		{
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020.Flush();
 			return new object[0];

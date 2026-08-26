@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Wasm.Instructions;
 
@@ -6,7 +6,7 @@ namespace Wasm.Interpret
 {
 	public sealed class DefaultInstructionInterpreter : InstructionInterpreter
 	{
-		private Dictionary<Operator, Action<Wasm.Instructions.Instruction, InterpreterContext>> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020;
+		internal Dictionary<Operator, Action<Wasm.Instructions.Instruction, InterpreterContext>> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020;
 
 		public static readonly DefaultInstructionInterpreter Default;
 

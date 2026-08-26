@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using DMP4;
 using ICSharpCode.SharpZipLib.Zip;
 using PropertyGridEx;
@@ -8,7 +8,7 @@ namespace Xxteajy
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020()
+		internal void _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020()
 		{
 			bool hasCrc = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).HasCrc;
 			((CustomProperty)null).BuildAttributes_FilenameEditor();

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Properties;
 using System;
 using System.Collections.Generic;
@@ -15,89 +15,89 @@ namespace DevXUnityUnpackerTools._WinForm
 	{
 		internal static SearchForm Instance = new SearchForm();
 
-		private static bool SearchBreak = false;
+		internal static bool SearchBreak = false;
 
 		internal ImageResData Reference_to_ppt;
 
-		private string f_Name;
+		internal string f_Name;
 
-		private string f_ClassName;
+		internal string f_ClassName;
 
-		private long f_ID;
+		internal long f_ID;
 
-		private List<byte[]> f_ContentText_buff = new List<byte[]>();
+		internal List<byte[]> f_ContentText_buff = new List<byte[]>();
 
-		private string f_ContentText;
+		internal string f_ContentText;
 
-		private bool searchInScripts;
+		internal bool searchInScripts;
 
-		private IContainer components;
+		internal IContainer components;
 
-		private ToolStrip toolStrip5;
+		internal ToolStrip toolStrip5;
 
-		private ToolStripButton toolStripButton_Find;
+		internal ToolStripButton toolStripButton_Find;
 
-		private ToolStripSeparator toolStripSeparator18;
+		internal ToolStripSeparator toolStripSeparator18;
 
-		private ToolStripButton toolStripButton_Clear;
+		internal ToolStripButton toolStripButton_Clear;
 
-		private ToolStripSeparator toolStripSeparator2;
+		internal ToolStripSeparator toolStripSeparator2;
 
-		private ToolStripButton toolStripButton_Break;
+		internal ToolStripButton toolStripButton_Break;
 
-		private GroupBox gr_Filter;
+		internal GroupBox gr_Filter;
 
-		private ToolStripSeparator toolStripSeparator1;
+		internal ToolStripSeparator toolStripSeparator1;
 
-		private ToolStripButton toolStripButton1;
+		internal ToolStripButton toolStripButton1;
 
-		private Label label1;
+		internal Label label1;
 
-		private TextBox ed_text;
+		internal TextBox ed_text;
 
-		private Label label2;
+		internal Label label2;
 
-		private RadioButton rb_AsText;
+		internal RadioButton rb_AsText;
 
-		private RadioButton rb_AsHex;
+		internal RadioButton rb_AsHex;
 
-		private ListView listView;
+		internal ListView listView;
 
-		private ColumnHeader columnHeader1;
+		internal ColumnHeader columnHeader1;
 
-		private ColumnHeader columnHeader2;
+		internal ColumnHeader columnHeader2;
 
-		private ColumnHeader columnHeader3;
+		internal ColumnHeader columnHeader3;
 
-		private ColumnHeader columnHeader4;
+		internal ColumnHeader columnHeader4;
 
-		private ToolStripSeparator toolStripSeparator3;
+		internal ToolStripSeparator toolStripSeparator3;
 
-		private StatusStrip statusStrip1;
+		internal StatusStrip statusStrip1;
 
-		private ToolStripStatusLabel lb_status;
+		internal ToolStripStatusLabel lb_status;
 
-		private ToolStripProgressBar progressBar;
+		internal ToolStripProgressBar progressBar;
 
-		private Label label3;
+		internal Label label3;
 
-		private TextBox ed_Name;
+		internal TextBox ed_Name;
 
-		private Label label4;
+		internal Label label4;
 
-		private Label label5;
+		internal Label label5;
 
-		private TextBox ed_ID;
+		internal TextBox ed_ID;
 
-		private Label label6;
+		internal Label label6;
 
-		private ComboBox ed_Class;
+		internal ComboBox ed_Class;
 
-		private CheckBox ch_SearchInScrips;
+		internal CheckBox ch_SearchInScrips;
 
-		private TextBox ed_Referece;
+		internal TextBox ed_Referece;
 
-		private Label label7;
+		internal Label label7;
 
 		internal static SearchForm ShowWin(ImageResData ppt_reference = null)
 		{
@@ -143,7 +143,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			Hide();
 		}
 
-		private void toolStripButton_Clear_Click(object sender, EventArgs e)
+		internal void toolStripButton_Clear_Click(object sender, EventArgs e)
 		{
 			listView.Items.Clear();
 			ed_ID.Text = "";
@@ -152,21 +152,21 @@ namespace DevXUnityUnpackerTools._WinForm
 			ed_text.Text = "";
 		}
 
-		private void toolStripButton_Break_Click(object sender, EventArgs e)
+		internal void toolStripButton_Break_Click(object sender, EventArgs e)
 		{
 			SearchBreak = true;
 		}
 
-		private void Filter_Enter(object sender, EventArgs e)
+		internal void Filter_Enter(object sender, EventArgs e)
 		{
 		}
 
-		private void toolStripButton1_Click(object sender, EventArgs e)
+		internal void toolStripButton1_Click(object sender, EventArgs e)
 		{
 			gr_Filter.Visible = !gr_Filter.Visible;
 		}
 
-		private void toolStripButton_Find_Click(object sender, EventArgs e)
+		internal void toolStripButton_Find_Click(object sender, EventArgs e)
 		{
 			lb_status.Text = "";
 			f_ContentText_buff.Clear();
@@ -209,7 +209,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			});
 		}
 
-		private void AddItem(ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A item, int offset)
+		internal void AddItem(ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A item, int offset)
 		{
 			MainForm.instance.AddAction(delegate
 			{
@@ -244,7 +244,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			});
 		}
 
-		private void SunSearchAll()
+		internal void SunSearchAll()
 		{
 			try
 			{
@@ -279,7 +279,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			}
 		}
 
-		private void SunSearch(IEnumerable<ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A> items)
+		internal void SunSearch(IEnumerable<ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A> items)
 		{
 			foreach (ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A item in items)
 			{
@@ -411,7 +411,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			}
 		}
 
-		private void listView_DoubleClick(object sender, EventArgs e)
+		internal void listView_DoubleClick(object sender, EventArgs e)
 		{
 			if (listView.SelectedItems.Count != 0)
 			{
@@ -420,7 +420,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			}
 		}
 
-		private void ed_Name_KeyDown(object sender, KeyEventArgs e)
+		internal void ed_Name_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Return)
 			{
@@ -437,7 +437,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			base.Dispose(disposing);
 		}
 
-		private void InitializeComponent()
+		internal void InitializeComponent()
 		{
 			toolStrip5 = new System.Windows.Forms.ToolStrip();
 			toolStripButton_Find = new System.Windows.Forms.ToolStripButton();

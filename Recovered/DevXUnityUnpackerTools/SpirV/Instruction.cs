@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace SpirV
@@ -6,10 +6,10 @@ namespace SpirV
 	public class Instruction
 	{
 		[CompilerGenerated]
-		private readonly string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
+		internal readonly string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly IList<Operand> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal readonly IList<Operand> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		public string Name
 		{

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4rj;
 using DSMCaps.M68Kxl;
 using ICSharpCode.SharpZipLib.Zipmx;
@@ -11,7 +11,7 @@ namespace PropertyGridExhw
 {
 	internal class _0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A
 	{
-		private unsafe int _0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020(ref Bitmap _0020, Bitmap _0020_000A, float _0020_0020, float _0020_000A_000A, float _0020_000A_0020, ImagesViewControl.PerformOrder _0020_0020_000A)
+		internal unsafe int _0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020(ref Bitmap _0020, Bitmap _0020_000A, float _0020_0020, float _0020_000A_000A, float _0020_000A_0020, ImagesViewControl.PerformOrder _0020_0020_000A)
 		{
 			((_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A)null)._0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020(ref *(Matrix*)null, ref *(Matrix*)null);
 			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A((object)null, (EventArgs)null);

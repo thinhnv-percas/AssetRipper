@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using BrotliSharpLib;
 using DevXForms;
 using DevXUnityUnpackerTools._WPF;
@@ -13,7 +13,7 @@ namespace ICSharpCode.SharpZipLib.Checksumue
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A
 	{
-		private unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020(string _0020)
+		internal unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020(string _0020)
 		{
 			//IL_0067: Expected I, but got O
 			//IL_0067: Expected I, but got O
@@ -26,7 +26,7 @@ namespace ICSharpCode.SharpZipLib.Checksumue
 	}
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020(decimal _0020, bool _0020_000A)
+		internal unsafe object _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020(decimal _0020, bool _0020_000A)
 		{
 			//IL_0072: Expected I, but got O
 			//IL_0072: Expected I, but got O

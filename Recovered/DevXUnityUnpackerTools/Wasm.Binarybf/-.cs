@@ -1,4 +1,4 @@
-using ARMDre;
+﻿using ARMDre;
 using BrotliSharpLib;
 using DevXUnityUnpackerTools.Propertiesqr;
 using DSMCaps;
@@ -12,7 +12,7 @@ namespace Wasm.Binarybf
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A
 	{
-		private unsafe void _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020(ref OUTPUTTYPE _0020)
+		internal unsafe void _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020(ref OUTPUTTYPE _0020)
 		{
 			//IL_0069: Expected I, but got O
 			((InstructionDetailBuilder<, , , , , , , >)null).Groups = null;

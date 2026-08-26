@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Properties;
 using ICSharpCode.SharpZipLib.Tar;
 using ProtoBufor;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Encryptiondt
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A
 	{
-		private string _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020(uint _0020)
+		internal string _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020(uint _0020)
 		{
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A();
 			_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020.CreateInputTarBuffer(null);

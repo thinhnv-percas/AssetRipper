@@ -1,4 +1,4 @@
-using DMP4;
+﻿using DMP4;
 using EdiTools;
 using System.Collections.Generic;
 using Unity.SerializationLogic;
@@ -8,7 +8,7 @@ namespace NetObfnp
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A
 	{
-		private int _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020(long _0020)
+		internal int _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020(long _0020)
 		{
 			UnitySerializationLogic.IsSupportedCollection(null);
 			IList<EdiElement> element = ((EdiSegment)null).Elements;

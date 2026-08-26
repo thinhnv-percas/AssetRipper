@@ -1,14 +1,14 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
 namespace Wasm
 {
 	public sealed class UnknownNameEntry : NameEntry
 	{
-		private NameEntryKind _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A;
+		internal NameEntryKind _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020;
+		internal byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020;
 
 		public byte[] Payload
 		{

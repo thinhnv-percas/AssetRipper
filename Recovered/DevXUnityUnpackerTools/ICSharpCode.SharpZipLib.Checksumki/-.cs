@@ -1,4 +1,4 @@
-using DSMCaps.Arm64;
+﻿using DSMCaps.Arm64;
 using ICSharpCode.SharpZipLib.Checksumtv;
 using LZ4pnxo;
 
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Checksumki
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020()
+		internal int _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020()
 		{
 			((_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A)null)._0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020((string)null, (object)null);
 			Arm64Register register = ((Arm64Operand)null).Register;

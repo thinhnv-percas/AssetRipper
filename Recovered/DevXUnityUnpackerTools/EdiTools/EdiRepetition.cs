@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -7,12 +7,12 @@ namespace EdiTools
 	public class EdiRepetition : EdiValue
 	{
 		[CompilerGenerated]
-		private IList<EdiComponent> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020;
+		internal IList<EdiComponent> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020;
 
 		public IList<EdiComponent> Components
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public override string Value
@@ -103,7 +103,7 @@ namespace EdiTools
 			return stringBuilder.ToString();
 		}
 
-		private int _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A()
+		internal int _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A()
 		{
 			for (int num = Components.Count - 1; num >= 0; num--)
 			{

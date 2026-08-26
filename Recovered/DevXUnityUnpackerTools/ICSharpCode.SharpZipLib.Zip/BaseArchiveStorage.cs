@@ -1,14 +1,14 @@
-using System.IO;
+﻿using System.IO;
 
 namespace ICSharpCode.SharpZipLib.Zip
 {
 	internal abstract class BaseArchiveStorage : IArchiveStorage
 	{
-		private FileUpdateMode updateMode_;
+		internal FileUpdateMode updateMode_;
 
 		public FileUpdateMode UpdateMode => updateMode_;
 
-		protected BaseArchiveStorage(FileUpdateMode updateMode)
+		internal BaseArchiveStorage(FileUpdateMode updateMode)
 		{
 			updateMode_ = updateMode;
 		}

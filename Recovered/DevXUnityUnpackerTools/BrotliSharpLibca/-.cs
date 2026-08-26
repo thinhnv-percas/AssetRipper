@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Propertieshg;
 using System;
 using System.Windows.Input;
@@ -9,7 +9,7 @@ namespace BrotliSharpLibca
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		private unsafe object _0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020()
+		internal unsafe object _0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020()
 		{
 			string name = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A*)(byte*)null)->Name;
 			((NumberBox)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A((object)null, (MouseButtonEventArgs)null);

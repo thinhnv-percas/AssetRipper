@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using Wasm;
@@ -8,7 +8,7 @@ namespace SevenZipko
 {
 	internal class _0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A
 	{
-		private unsafe string _0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020(string _0020)
+		internal unsafe string _0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020(string _0020)
 		{
 			//IL_006c: Expected I, but got O
 			//IL_006c: Expected I, but got O

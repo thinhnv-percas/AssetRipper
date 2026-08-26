@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using bf;
 using Wasm.Instructions;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace um
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020(string _0020)
+		internal int _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020(string _0020)
 		{
 			((_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020();
 			bool hasDeclaringType = ((Operator)null).HasDeclaringType;

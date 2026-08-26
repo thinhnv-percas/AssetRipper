@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Wasm.Optimize
@@ -7,7 +7,7 @@ namespace Wasm.Optimize
 	{
 		public static readonly ConstFunctionTypeComparer Instance = new ConstFunctionTypeComparer();
 
-		private ConstFunctionTypeComparer()
+		internal ConstFunctionTypeComparer()
 		{
 		}
 
@@ -20,7 +20,7 @@ namespace Wasm.Optimize
 			return false;
 		}
 
-		private static int _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020(IEnumerable<WasmValueType> _0020, int _0020_000A)
+		internal static int _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020(IEnumerable<WasmValueType> _0020, int _0020_000A)
 		{
 			int num = _0020_000A;
 			foreach (WasmValueType item in _0020)

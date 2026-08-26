@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using SpirV;
 using XnaGeometry;
 
@@ -6,7 +6,7 @@ namespace WASDxr
 {
 	internal class _0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A
 	{
-		private int _0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020(bool _0020, AccessQualifierParameterFactory _0020_000A, decimal _0020_0020)
+		internal int _0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020(bool _0020, AccessQualifierParameterFactory _0020_000A, decimal _0020_0020)
 		{
 			bool flag = ((_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020;
 			Plane left = ((BoundingFrustum)null).Left;

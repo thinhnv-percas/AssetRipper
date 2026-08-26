@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -10,14 +10,14 @@ namespace Wasm
 		public const string CustomName = "name";
 
 		[CompilerGenerated]
-		private List<NameEntry> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020;
+		internal List<NameEntry> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020;
 
 		public override SectionName Name => new SectionName("name");
 
 		public List<NameEntry> Names
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public NameSection()

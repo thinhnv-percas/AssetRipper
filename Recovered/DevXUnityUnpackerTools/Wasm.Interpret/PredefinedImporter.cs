@@ -1,16 +1,16 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Wasm.Interpret
 {
 	public sealed class PredefinedImporter : IImporter
 	{
-		private Dictionary<string, FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A;
+		internal Dictionary<string, FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A;
 
-		private Dictionary<string, Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020;
+		internal Dictionary<string, Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020;
 
-		private Dictionary<string, LinearMemory> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A;
+		internal Dictionary<string, LinearMemory> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A;
 
-		private Dictionary<string, FunctionTable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020;
+		internal Dictionary<string, FunctionTable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020;
 
 		public IDictionary<string, FunctionDefinition> FunctionDefinitions => _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A;
 
@@ -56,7 +56,7 @@ namespace Wasm.Interpret
 			_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_00601(importer._0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020, _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020);
 		}
 
-		private static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_00601<_0020_0020>(Dictionary<string, _0020_0020> _0020, Dictionary<string, _0020_0020> _0020_000A)
+		internal static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_00601<_0020_0020>(Dictionary<string, _0020_0020> _0020, Dictionary<string, _0020_0020> _0020_000A)
 		{
 			foreach (KeyValuePair<string, _0020_0020> item in _0020)
 			{
@@ -64,7 +64,7 @@ namespace Wasm.Interpret
 			}
 		}
 
-		private static _0020_0020 _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_00601<_0020_0020>(ImportedValue _0020, Dictionary<string, _0020_0020> _0020_000A)
+		internal static _0020_0020 _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_00601<_0020_0020>(ImportedValue _0020, Dictionary<string, _0020_0020> _0020_000A)
 		{
 			if (_0020_000A.TryGetValue(_0020.FieldName, out _0020_0020 value))
 			{

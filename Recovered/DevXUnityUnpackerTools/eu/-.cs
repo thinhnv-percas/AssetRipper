@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Lzw;
 using tp;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace eu
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020(BinaryAnalizerControl _0020, object _0020_000A, int _0020_0020)
+		internal int _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020(BinaryAnalizerControl _0020, object _0020_000A, int _0020_0020)
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020)null)._0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020();
 			uint size = ((LinearMemory)null).Size;

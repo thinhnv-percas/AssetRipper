@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DevXUnityUnpackerTools.Propertiescc;
 using le;
@@ -9,7 +9,7 @@ namespace DSMCaps.PowerPcrt
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A
 	{
-		private unsafe void _0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020(object _0020, decimal _0020_000A)
+		internal unsafe void _0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020(object _0020, decimal _0020_000A)
 		{
 			//IL_001c: Expected I, but got O
 			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);

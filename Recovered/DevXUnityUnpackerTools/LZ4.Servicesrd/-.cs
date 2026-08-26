@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps;
 using EdiToolsie;
 using ICSharpCode.SharpZipLib.Zip;
@@ -8,7 +8,7 @@ namespace LZ4.Servicesrd
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A
 	{
-		private void _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020()
+		internal void _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020()
 		{
 			bool flag = (VerFormat)null <= (VerFormat)null;
 			TRegister[] allReadRegister = ((InstructionDetailBuilder<, , , , , , , >)null).AllReadRegisters;

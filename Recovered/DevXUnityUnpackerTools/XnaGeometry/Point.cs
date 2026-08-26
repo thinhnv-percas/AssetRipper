@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 
 namespace XnaGeometry
 {
 	public struct Point : IEquatable<Point>
 	{
-		private static Point _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A;
+		internal static Point _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A;
 
 		public int X;
 

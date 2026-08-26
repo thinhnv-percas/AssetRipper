@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using PropertyGridEx;
 
@@ -6,7 +6,7 @@ namespace MiniLZOue
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A
 	{
-		private object _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020(byte[] _0020, uint _0020_000A, uint _0020_0020)
+		internal object _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020(byte[] _0020, uint _0020_000A, uint _0020_0020)
 		{
 			int num = ((_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020;
 			((PropertyGridEx.PropertyGridEx)null).DocCommentImage = null;

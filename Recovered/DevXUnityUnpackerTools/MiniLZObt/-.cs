@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using ICSharpCode.SharpZipLib.Core;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace MiniLZObt
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020(uint _0020, uint _0020_000A, uint _0020_0020, uint _0020_000A_000A, uint _0020_000A_0020, int _0020_0020_000A)
+		internal int _0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020(uint _0020, uint _0020_000A, uint _0020_0020, uint _0020_000A_000A, uint _0020_000A_0020, int _0020_0020_000A)
 		{
 			long processed = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020)null).Processed;
 			OperatorImpls.Loop(null, null);

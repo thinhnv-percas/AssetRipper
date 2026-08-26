@@ -1,4 +1,4 @@
-using FMOD;
+﻿using FMOD;
 using ICSharpCode.SharpZipLib.Zip;
 using Unity.IO.Compression;
 using Unreal;
@@ -8,7 +8,7 @@ namespace Xxteayo
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020(FileUpdateMode _0020)
+		internal string _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020(FileUpdateMode _0020)
 		{
 			((DeflateStream)null)._0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A();
 			double immediate = ((Float64Instruction)null).Immediate;

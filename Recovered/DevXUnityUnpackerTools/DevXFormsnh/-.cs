@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Propertiesge;
 using DSMCapsah;
 using SpirV;
@@ -10,7 +10,7 @@ namespace DevXFormsnh
 {
 	internal class _0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A
 	{
-		private void _0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020(Wasm.Instructions.Instruction _0020, InterpreterContext _0020_000A)
+		internal void _0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020(Wasm.Instructions.Instruction _0020, InterpreterContext _0020_000A)
 		{
 			SpirV.Instruction instruction = ((ParsedInstruction)null).Instruction;
 			((_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020();

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +10,7 @@ public class MultiSelectTreeView : TreeView
 {
 	[Serializable]
 	[CompilerGenerated]
-	private sealed class _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020<_00210>
+	internal sealed class _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020<_00210>
 	{
 		public static readonly _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020<_00210> _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A = new _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020<_00210>();
 
@@ -22,11 +22,11 @@ public class MultiSelectTreeView : TreeView
 		}
 	}
 
-	private readonly Dictionary<int, TreeNode> _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020 = new Dictionary<int, TreeNode>();
+	internal readonly Dictionary<int, TreeNode> _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020 = new Dictionary<int, TreeNode>();
 
-	private List<TreeNode> _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A = new List<TreeNode>();
+	internal List<TreeNode> _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A = new List<TreeNode>();
 
-	private TreeNode _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020;
+	internal TreeNode _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020;
 
 	public List<TreeNode> SelectedNodes
 	{
@@ -401,7 +401,7 @@ public class MultiSelectTreeView : TreeView
 		}
 	}
 
-	private void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A(TreeNode _0020)
+	internal void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A(TreeNode _0020)
 	{
 		try
 		{
@@ -524,7 +524,7 @@ public class MultiSelectTreeView : TreeView
 		}
 	}
 
-	private void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020()
+	internal void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020()
 	{
 		try
 		{
@@ -541,7 +541,7 @@ public class MultiSelectTreeView : TreeView
 		}
 	}
 
-	private void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A(TreeNode _0020)
+	internal void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A(TreeNode _0020)
 	{
 		if (_0020 != null)
 		{
@@ -551,7 +551,7 @@ public class MultiSelectTreeView : TreeView
 		}
 	}
 
-	private void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020(TreeNode _0020, bool _0020_000A)
+	internal void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020(TreeNode _0020, bool _0020_000A)
 	{
 		if (_0020_000A)
 		{
@@ -575,7 +575,7 @@ public class MultiSelectTreeView : TreeView
 		}
 	}
 
-	private void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A(Exception _0020)
+	internal void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A(Exception _0020)
 	{
 		MessageBox.Show(_0020.Message);
 	}

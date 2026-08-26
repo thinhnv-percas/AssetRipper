@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Media3D;
 
 namespace WFTools3D
 {
-	public static class MeshUtils
+	public class MeshUtils
 	{
-		private static int _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A = 4;
+		internal static int _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A = 4;
 
 		public static void AddTriangleIndices(MeshGeometry3D mesh, int i, int j, int k)
 		{
@@ -104,7 +104,7 @@ namespace WFTools3D
 			}
 		}
 
-		private static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020(MeshGeometry3D _0020, int _0020_000A, double _0020_0020, double _0020_000A_000A, double _0020_000A_0020, double _0020_0020_000A, double _0020_0020_0020)
+		internal static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020(MeshGeometry3D _0020, int _0020_000A, double _0020_0020, double _0020_000A_000A, double _0020_000A_0020, double _0020_0020_000A, double _0020_0020_0020)
 		{
 			double num = MathUtils.ToRadians(_0020_0020_000A);
 			double num2 = (MathUtils.ToRadians(_0020_0020_0020) - num) / (double)_0020_000A;
@@ -155,7 +155,7 @@ namespace WFTools3D
 			}
 		}
 
-		private static bool _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A(int _0020, double _0020_000A, double _0020_0020)
+		internal static bool _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A(int _0020, double _0020_000A, double _0020_0020)
 		{
 			if ((_0020 == 4 || _0020 == 6 || _0020 == 8) && _0020_000A % 360.0 == 0.0 && _0020_0020 % 360.0 == 0.0)
 			{
@@ -224,7 +224,7 @@ namespace WFTools3D
 			return meshGeometry3D;
 		}
 
-		private static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020(MeshGeometry3D _0020, double _0020_000A, double _0020_0020, bool _0020_000A_000A)
+		internal static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020(MeshGeometry3D _0020, double _0020_000A, double _0020_0020, bool _0020_000A_000A)
 		{
 			double num = MathUtils.ToRadians(_0020_000A);
 			double num2 = Math.Cos(num);
@@ -374,7 +374,7 @@ namespace WFTools3D
 			return meshGeometry3D;
 		}
 
-		private static int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A(int _0020, int _0020_000A)
+		internal static int _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A(int _0020, int _0020_000A)
 		{
 			if (_0020 > _0020_000A)
 			{
@@ -446,7 +446,7 @@ namespace WFTools3D
 			return meshGeometry3D;
 		}
 
-		private static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020(MeshGeometry3D _0020, int _0020_000A, IList<Point3D> _0020_0020, IList<Point> _0020_000A_000A, bool _0020_000A_0020)
+		internal static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020(MeshGeometry3D _0020, int _0020_000A, IList<Point3D> _0020_0020, IList<Point> _0020_000A_000A, bool _0020_000A_0020)
 		{
 			int index = _0020_000A_0020 ? 1 : (_0020_0020.Count - 2);
 			int index2 = (!_0020_000A_0020) ? (_0020_0020.Count - 1) : 0;

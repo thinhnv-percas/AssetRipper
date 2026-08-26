@@ -1,4 +1,4 @@
-using DSMCaps.X86;
+﻿using DSMCaps.X86;
 using EdiToolsns;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Encryptionbx
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A
 	{
-		private object _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020(object _0020, float _0020_000A)
+		internal object _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020(object _0020, float _0020_000A)
 		{
 			X86Operand[] operand = ((X86InstructionDetail)null).Operands;
 			DateTime lastModificationTime = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020)null).LastModificationTime;

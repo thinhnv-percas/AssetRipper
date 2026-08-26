@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -8,21 +8,21 @@ namespace Wasm.Binary
 	public class BinaryWasmWriter
 	{
 		[CompilerGenerated]
-		private BinaryWriter _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020;
+		internal BinaryWriter _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private Encoding _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A;
+		internal Encoding _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A;
 
 		public BinaryWriter Writer
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public Encoding StringEncoding
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public BinaryWasmWriter(BinaryWriter writer)

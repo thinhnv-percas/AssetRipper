@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using asfu;
 using JpegEncoderqk;
 using Wasm;
@@ -9,7 +9,7 @@ namespace SevenZipkp
 {
 	internal class _0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A
 	{
-		private unsafe object _0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020()
+		internal unsafe object _0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020()
 		{
 			WasmValueType type = ((Variable)null).Type;
 			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A)null)._0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020();

@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Properties;
+﻿using DevXUnityUnpackerTools.Properties;
 using DSMCaps;
 using ICSharpCode.SharpZipLib.Checksumkd;
 using System.Drawing;
@@ -8,7 +8,7 @@ namespace as2kp
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A
 	{
-		private void _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020()
+		internal void _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020()
 		{
 			((_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A)null)._0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020((CapstoneDisassembler)null, (_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A)null);
 			Bitmap girl_wait = Resources.girl_wait;

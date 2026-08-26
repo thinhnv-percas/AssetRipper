@@ -1,8 +1,8 @@
-namespace Wasm.Optimizesf
+﻿namespace Wasm.Optimizesf
 {
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A
 	{
-		private string _0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020)
+		internal string _0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020)
 		{
 			return "1072142478";
 		}

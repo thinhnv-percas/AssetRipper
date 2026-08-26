@@ -1,8 +1,8 @@
-namespace ICSharpCode.SharpZipLib.GZipqn
+﻿namespace ICSharpCode.SharpZipLib.GZipqn
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A
 	{
-		private object _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020(float _0020)
+		internal object _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020(float _0020)
 		{
 			return null;
 		}

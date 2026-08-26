@@ -1,10 +1,10 @@
-using XnaGeometry;
+﻿using XnaGeometry;
 
 namespace FMODws
 {
 	internal class _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A
 	{
-		private object _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020(BoundingBox _0020, BoundingBox _0020_000A)
+		internal object _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020(BoundingBox _0020, BoundingBox _0020_000A)
 		{
 			return null;
 		}

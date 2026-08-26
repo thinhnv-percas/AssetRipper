@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Instructions;
 
@@ -7,21 +7,21 @@ namespace Wasm.Interpret
 	public class TracingInstructionInterpreter : InstructionInterpreter
 	{
 		[CompilerGenerated]
-		private InstructionInterpreter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A;
+		internal InstructionInterpreter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private TextWriter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020;
+		internal TextWriter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_0020;
 
 		public InstructionInterpreter Interpreter
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public TextWriter TraceWriter
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public TracingInstructionInterpreter(InstructionInterpreter interpreter, TextWriter traceWriter)
@@ -30,7 +30,7 @@ namespace Wasm.Interpret
 			TraceWriter = traceWriter;
 		}
 
-		protected virtual void Trace(Wasm.Instructions.Instruction value)
+		internal virtual void Trace(Wasm.Instructions.Instruction value)
 		{
 			if (value is BlockInstruction || value is IfElseInstruction)
 			{

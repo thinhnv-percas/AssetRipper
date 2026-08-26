@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DMP4jl;
 using ICSharpCode.SharpZipLib.Zip;
@@ -8,7 +8,7 @@ namespace TrunkTracesConsole.Pagesgh
 {
 	internal class _0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A
 	{
-		private unsafe object _0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020()
+		internal unsafe object _0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020()
 		{
 			//IL_0077: Expected I, but got O
 			//IL_0077: Expected I, but got O

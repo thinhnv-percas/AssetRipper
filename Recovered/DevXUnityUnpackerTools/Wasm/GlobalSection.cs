@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -8,17 +8,17 @@ namespace Wasm
 	public sealed class GlobalSection : Section
 	{
 		[CompilerGenerated]
-		private List<GlobalVariable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020;
+		internal List<GlobalVariable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
+		internal byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
 
 		public override SectionName Name => new SectionName(SectionCode.Global);
 
 		public List<GlobalVariable> GlobalVariables
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public byte[] ExtraPayload

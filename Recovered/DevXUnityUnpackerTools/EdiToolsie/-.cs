@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using LZ4pn;
 using ProtoBuf;
 using System;
@@ -7,7 +7,7 @@ namespace EdiToolsie
 {
 	internal class _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A
 	{
-		private unsafe object _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020()
+		internal unsafe object _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020()
 		{
 			//IL_0035: Expected I, but got O
 			((ProtoReader)null).ReadInt64();

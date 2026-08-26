@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -7,10 +7,10 @@ namespace SpirV
 	public class ObjectReference
 	{
 		[CompilerGenerated]
-		private readonly uint _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A;
+		internal readonly uint _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private ParsedInstruction _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020;
+		internal ParsedInstruction _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020;
 
 		public uint Id
 		{
@@ -20,7 +20,7 @@ namespace SpirV
 		public ParsedInstruction Reference
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ObjectReference(uint id)

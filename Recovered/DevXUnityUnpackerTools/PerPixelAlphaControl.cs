@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
@@ -7,7 +7,7 @@ using System.Windows.Forms;
 [ToolboxBitmap(typeof(PictureBox))]
 public class PerPixelAlphaControl : PictureBox
 {
-	private struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A
+	internal struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A
 	{
 		public int x;
 
@@ -20,7 +20,7 @@ public class PerPixelAlphaControl : PictureBox
 		}
 	}
 
-	private struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020
+	internal struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020
 	{
 		public int cx;
 
@@ -34,7 +34,7 @@ public class PerPixelAlphaControl : PictureBox
 	}
 
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	private struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A
+	internal struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A
 	{
 		public byte Blue;
 
@@ -46,7 +46,7 @@ public class PerPixelAlphaControl : PictureBox
 	}
 
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	private struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020
+	internal struct _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020
 	{
 		public byte BlendOp;
 
@@ -59,17 +59,17 @@ public class PerPixelAlphaControl : PictureBox
 
 	public const int WM_CREATE = 1;
 
-	private const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020 = 524288;
+	internal const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020 = 524288;
 
-	private const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A = 2;
+	internal const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A = 2;
 
-	private const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020 = 132;
+	internal const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020 = 132;
 
-	private const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A = 2;
+	internal const int _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A = 2;
 
-	private const byte _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020 = 0;
+	internal const byte _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020 = 0;
 
-	private const byte _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A = 1;
+	internal const byte _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A = 1;
 
 	protected override void WndProc(ref Message message)
 	{
@@ -130,25 +130,25 @@ public class PerPixelAlphaControl : PictureBox
 
 	[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 	[return: MarshalAs(UnmanagedType.Bool)]
-	private static extern bool UpdateLayeredWindow(IntPtr _0020, IntPtr _0020_000A, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A _0020_0020, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020 _0020_000A_000A, IntPtr _0020_000A_0020, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A _0020_0020_000A, int _0020_0020_0020, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020 _0020_000A_000A_000A, int _0020_000A_000A_0020);
+	internal static extern bool UpdateLayeredWindow(IntPtr _0020, IntPtr _0020_000A, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A _0020_0020, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020 _0020_000A_000A, IntPtr _0020_000A_0020, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A _0020_0020_000A, int _0020_0020_0020, ref _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020 _0020_000A_000A_000A, int _0020_000A_000A_0020);
 
 	[DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-	private static extern IntPtr CreateCompatibleDC(IntPtr _0020);
+	internal static extern IntPtr CreateCompatibleDC(IntPtr _0020);
 
 	[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-	private static extern IntPtr GetDC(IntPtr _0020);
+	internal static extern IntPtr GetDC(IntPtr _0020);
 
 	[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-	private static extern int ReleaseDC(IntPtr _0020, IntPtr _0020_000A);
+	internal static extern int ReleaseDC(IntPtr _0020, IntPtr _0020_000A);
 
 	[DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 	[return: MarshalAs(UnmanagedType.Bool)]
-	private static extern bool DeleteDC(IntPtr _0020);
+	internal static extern bool DeleteDC(IntPtr _0020);
 
 	[DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-	private static extern IntPtr SelectObject(IntPtr _0020, IntPtr _0020_000A);
+	internal static extern IntPtr SelectObject(IntPtr _0020, IntPtr _0020_000A);
 
 	[DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 	[return: MarshalAs(UnmanagedType.Bool)]
-	private static extern bool DeleteObject(IntPtr _0020);
+	internal static extern bool DeleteObject(IntPtr _0020);
 }

@@ -1,18 +1,18 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace DSMCaps.Mips
 {
 	public sealed class MipsOperand
 	{
-		private readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020;
+		internal readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020;
 
-		private readonly MipsMemoryOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
+		internal readonly MipsMemoryOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
 
-		private readonly MipsRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020;
+		internal readonly MipsRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly MipsOperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal readonly MipsOperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		public long Immediate
 		{

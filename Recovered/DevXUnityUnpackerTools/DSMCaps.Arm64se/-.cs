@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.X86;
 using NetObfih;
 using Xxteaof;
@@ -7,7 +7,7 @@ namespace DSMCaps.Arm64se
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A
 	{
-		private void _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020(decimal _0020)
+		internal void _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020(decimal _0020)
 		{
 			long displacement = ((X86MemoryOperandValue)null).Displacement;
 			((_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A)null)._0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020((ImageResData)null);

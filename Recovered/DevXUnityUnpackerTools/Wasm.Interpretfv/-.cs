@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Properties;
 using DMP4;
 using Mono.Cecil;
@@ -8,7 +8,7 @@ namespace Wasm.Interpretfv
 {
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A
 	{
-		private int _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020(decimal _0020, decimal _0020_000A)
+		internal int _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020(decimal _0020, decimal _0020_000A)
 		{
 			TempManager.Create(null);
 			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A)null).Decompile((Config)null, (string)null);

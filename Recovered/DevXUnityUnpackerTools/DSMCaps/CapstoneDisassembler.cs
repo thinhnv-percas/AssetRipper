@@ -1,4 +1,4 @@
-using DSMCaps.Arm;
+﻿using DSMCaps.Arm;
 using DSMCaps.Arm64;
 using DSMCaps.M68K;
 using DSMCaps.Mips;
@@ -136,7 +136,7 @@ namespace DSMCaps
 	public abstract class CapstoneDisassembler<TDisassembleMode, TInstruction, TInstructionDetail, TInstructionGroup, TInstructionGroupId, TInstructionId, TRegister, TRegisterId> : CapstoneDisassembler where TDisassembleMode : Enum where TInstruction : Instruction<TInstruction, TInstructionDetail, TDisassembleMode, TInstructionGroup, TInstructionGroupId, TInstructionId, TRegister, TRegisterId> where TInstructionDetail : InstructionDetail<TInstructionDetail, TDisassembleMode, TInstructionGroup, TInstructionGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> where TInstructionGroup : InstructionGroup<TInstructionGroupId> where TInstructionGroupId : Enum where TInstructionId : Enum where TRegister : Register<TRegisterId> where TRegisterId : Enum
 	{
 		[CompilerGenerated]
-		private sealed class _003C_003Ec__DisplayClass42_0
+		internal sealed class _003C_003Ec__DisplayClass42_0
 		{
 			public CapstoneDisassembler<TDisassembleMode, TInstruction, TInstructionDetail, TInstructionGroup, TInstructionGroupId, TInstructionId, TRegister, TRegisterId> _003C_003E4__this;
 
@@ -144,36 +144,36 @@ namespace DSMCaps
 
 			public int binaryCodeOffset;
 
-			private IntPtr _003CIterate_003Eg__OnNativeSkipDataCallback_007C0(IntPtr cPBinaryCode, IntPtr cBinaryCodeSize, IntPtr cDataOffset, IntPtr pState)
+			internal IntPtr _003CIterate_003Eg__OnNativeSkipDataCallback_007C0(IntPtr cPBinaryCode, IntPtr cBinaryCodeSize, IntPtr cDataOffset, IntPtr pState)
 			{
 				return new IntPtr(_003C_003E4__this.SkipDataCallback(binaryCode, binaryCodeOffset));
 			}
 		}
 
 		[CompilerGenerated]
-		private sealed class _003CIterate_003Ed__42 : IEnumerable<TInstruction>, IEnumerable, IEnumerator<TInstruction>, IDisposable, IEnumerator
+		internal sealed class _003CIterate_003Ed__42 : IEnumerable<TInstruction>, IEnumerable, IEnumerator<TInstruction>, IDisposable, IEnumerator
 		{
-			private int _003C_003E1__state;
+			internal int _003C_003E1__state;
 
-			private TInstruction _003C_003E2__current;
+			internal TInstruction _003C_003E2__current;
 
-			private int _003C_003El__initialThreadId;
+			internal int _003C_003El__initialThreadId;
 
 			public CapstoneDisassembler<TDisassembleMode, TInstruction, TInstructionDetail, TInstructionGroup, TInstructionGroupId, TInstructionId, TRegister, TRegisterId> _003C_003E4__this;
 
-			private byte[] binaryCode;
+			internal byte[] binaryCode;
 
 			public byte[] _003C_003E3__binaryCode;
 
-			private _003C_003Ec__DisplayClass42_0 _003C_003E8__1;
+			internal _003C_003Ec__DisplayClass42_0 _003C_003E8__1;
 
-			private long startingAddress;
+			internal long startingAddress;
 
 			public long _003C_003E3__startingAddress;
 
-			private _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020 _003Ccallback_003E5__2;
+			internal _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020 _003Ccallback_003E5__2;
 
-			private _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A _003ChInstruction_003E5__3;
+			internal _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A _003ChInstruction_003E5__3;
 
 			TInstruction IEnumerator<TInstruction>.Current
 			{
@@ -226,7 +226,7 @@ namespace DSMCaps
 				}
 			}
 
-			private bool MoveNext()
+			internal bool MoveNext()
 			{
 				try
 				{
@@ -296,7 +296,7 @@ namespace DSMCaps
 				return this.MoveNext();
 			}
 
-			private void _003C_003Em__Finally1()
+			internal void _003C_003Em__Finally1()
 			{
 				_003C_003E1__state = -1;
 				CapstoneDisassembler<TDisassembleMode, TInstruction, TInstructionDetail, TInstructionGroup, TInstructionGroupId, TInstructionId, TRegister, TRegisterId> capstoneDisassembler = _003C_003E4__this;
@@ -310,7 +310,7 @@ namespace DSMCaps
 				}
 			}
 
-			private void _003C_003Em__Finally2()
+			internal void _003C_003Em__Finally2()
 			{
 				_003C_003E1__state = -3;
 				if (_003ChInstruction_003E5__3 != null)
@@ -351,23 +351,23 @@ namespace DSMCaps
 			}
 		}
 
-		private readonly DisassembleArchitecture _disassembleArchitecture;
+		internal readonly DisassembleArchitecture _disassembleArchitecture;
 
-		private TDisassembleMode _disassembleMode;
+		internal TDisassembleMode _disassembleMode;
 
-		private DisassembleSyntax _disassembleSyntax;
+		internal DisassembleSyntax _disassembleSyntax;
 
-		private bool _enableInstructionDetails;
+		internal bool _enableInstructionDetails;
 
-		private bool _enableSkipDataMode;
+		internal bool _enableSkipDataMode;
 
-		private readonly _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020 _handle;
+		internal readonly _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020 _handle;
 
-		private NativeDisassembleMode _nativeDisassembleMode;
+		internal NativeDisassembleMode _nativeDisassembleMode;
 
-		private Func<byte[], long, long> _skipDataCallback;
+		internal Func<byte[], long, long> _skipDataCallback;
 
-		private string _skipDataInstructionMnemonic;
+		internal string _skipDataInstructionMnemonic;
 
 		public override DisassembleArchitecture DisassembleArchitecture => _disassembleArchitecture;
 
@@ -458,7 +458,7 @@ namespace DSMCaps
 			}
 		}
 
-		private protected CapstoneDisassembler(DisassembleArchitecture disassembleArchitecture, TDisassembleMode disassembleMode)
+		internal protected CapstoneDisassembler(DisassembleArchitecture disassembleArchitecture, TDisassembleMode disassembleMode)
 		{
 			_disassembleArchitecture = disassembleArchitecture;
 			_disassembleMode = disassembleMode;
@@ -468,7 +468,7 @@ namespace DSMCaps
 			_handle = _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A(_disassembleArchitecture, _nativeDisassembleMode);
 		}
 
-		private protected abstract TInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction);
+		internal protected abstract TInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction);
 
 		public TInstruction[] Disassemble(byte[] binaryCode)
 		{
@@ -592,7 +592,7 @@ namespace DSMCaps
 			_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020(_handle, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_00202);
 		}
 
-		private void ThrowIfDisassemblerIsDisposed()
+		internal void ThrowIfDisassemblerIsDisposed()
 		{
 			if (_handle.IsClosed)
 			{
@@ -601,7 +601,7 @@ namespace DSMCaps
 		}
 
 		[CompilerGenerated]
-		private static NativeDisassembleMode _003C_002Ector_003Eg__CreateNativeDisassembleMode_007C33_0(CapstoneDisassembler<TDisassembleMode, TInstruction, TInstructionDetail, TInstructionGroup, TInstructionGroupId, TInstructionId, TRegister, TRegisterId> @this)
+		internal static NativeDisassembleMode _003C_002Ector_003Eg__CreateNativeDisassembleMode_007C33_0(CapstoneDisassembler<TDisassembleMode, TInstruction, TInstructionDetail, TInstructionGroup, TInstructionGroupId, TInstructionId, TRegister, TRegisterId> @this)
 		{
 			return (NativeDisassembleMode)Convert.ToInt32(@this._disassembleMode);
 		}

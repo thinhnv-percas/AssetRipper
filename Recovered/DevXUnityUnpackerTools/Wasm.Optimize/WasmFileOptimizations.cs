@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Wasm.Instructions;
 
 namespace Wasm.Optimize

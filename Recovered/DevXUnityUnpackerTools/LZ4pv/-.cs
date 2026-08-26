@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using Wasm.Instructions;
 using XmlBin;
 
@@ -6,7 +6,7 @@ namespace LZ4pv
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A
 	{
-		private void _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020(decimal _0020)
+		internal void _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020(decimal _0020)
 		{
 			((BrTableInstruction)null).TargetTable = null;
 			((MultiSelectTreeView2)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A();

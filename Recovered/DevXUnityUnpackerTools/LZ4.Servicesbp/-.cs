@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Zip;
 using PropertyGridEx;
@@ -10,7 +10,7 @@ namespace LZ4.Servicesbp
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A
 	{
-		private object _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020(XmlNode _0020, string _0020_000A, ref string _0020_0020)
+		internal object _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020(XmlNode _0020, string _0020_000A, ref string _0020_0020)
 		{
 			((_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020();
 			((CustomProperty)null).Description = null;

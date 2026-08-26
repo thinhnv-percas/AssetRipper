@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace ICSharpCode.SharpZipLib.Zip
@@ -90,7 +90,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 		[Obsolete("Use EndOfCentralDirectorySignature instead")]
 		public const int ENDSIG = 101010256;
 
-		private static int _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020 = Encoding.UTF8.CodePage;
+		internal static int _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020 = Encoding.UTF8.CodePage;
 
 		public static int DefaultCodePage
 		{
@@ -174,7 +174,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 			return ConvertToArray(str);
 		}
 
-		private ZipConstants()
+		internal ZipConstants()
 		{
 		}
 	}

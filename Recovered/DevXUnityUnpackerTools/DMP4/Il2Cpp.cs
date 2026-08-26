@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,9 +7,9 @@ namespace DMP4
 {
 	internal abstract class Il2Cpp : _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A
 	{
-		private Il2CppMetadataRegistration pMetadataRegistration;
+		internal Il2CppMetadataRegistration pMetadataRegistration;
 
-		private Il2CppCodeRegistration pCodeRegistration;
+		internal Il2CppCodeRegistration pCodeRegistration;
 
 		internal ulong[] methodPointers;
 
@@ -23,13 +23,13 @@ namespace DMP4
 
 		public ulong[] unresolvedVirtualCallPointers;
 
-		private ulong[] fieldOffsets;
+		internal ulong[] fieldOffsets;
 
 		public Il2CppTypeDefinitionSizes[] typeDefinitionsSizes;
 
 		public Il2CppType[] types;
 
-		private Dictionary<ulong, Il2CppType> typeDic = new Dictionary<ulong, Il2CppType>();
+		internal Dictionary<ulong, Il2CppType> typeDic = new Dictionary<ulong, Il2CppType>();
 
 		public ulong[] metadataUsages;
 
@@ -45,7 +45,7 @@ namespace DMP4
 
 		public Dictionary<Il2CppMethodSpec, ulong> methodSpecGenericMethodPointers = new Dictionary<Il2CppMethodSpec, ulong>();
 
-		private bool fieldOffsetsArePointers;
+		internal bool fieldOffsetsArePointers;
 
 		internal long maxMetadataUsages;
 
@@ -65,7 +65,7 @@ namespace DMP4
 
 		public abstract bool SymbolSearch();
 
-		protected Il2Cpp(Stream stream)
+		internal Il2Cpp(Stream stream)
 			: base(stream)
 		{
 		}
@@ -76,7 +76,7 @@ namespace DMP4
 			this.maxMetadataUsages = maxMetadataUsages;
 		}
 
-		protected bool AutoCorrect_codeRegistration_test(ulong codeRegistration)
+		internal bool AutoCorrect_codeRegistration_test(ulong codeRegistration)
 		{
 			pCodeRegistration = MapVATR<Il2CppCodeRegistration>(codeRegistration);
 			bool flag = pCodeRegistration.codeGenModulesCount > 0 && pCodeRegistration.codeGenModulesCount < 1000;
@@ -93,7 +93,7 @@ namespace DMP4
 			return false;
 		}
 
-		protected bool AutoCorrect_codeRegistration(ulong codeRegistration, ulong metadataRegistration, out ulong codeRegistration_result)
+		internal bool AutoCorrect_codeRegistration(ulong codeRegistration, ulong metadataRegistration, out ulong codeRegistration_result)
 		{
 			codeRegistration_result = codeRegistration;
 			if (Version < 24.2)
@@ -129,7 +129,7 @@ namespace DMP4
 			return false;
 		}
 
-		protected bool AutoPlusInit(ulong codeRegistration, ulong metadataRegistration)
+		internal bool AutoPlusInit(ulong codeRegistration, ulong metadataRegistration)
 		{
 			if (codeRegistration != 0L && metadataRegistration != 0L)
 			{
@@ -483,12 +483,12 @@ namespace DMP4
 			return 0uL;
 		}
 
-		private static uint GetTokenType(uint token)
+		internal static uint GetTokenType(uint token)
 		{
 			return (uint)((int)token & -16777216);
 		}
 
-		private static uint GetTokenRowId(uint token)
+		internal static uint GetTokenRowId(uint token)
 		{
 			return token & 0xFFFFFF;
 		}

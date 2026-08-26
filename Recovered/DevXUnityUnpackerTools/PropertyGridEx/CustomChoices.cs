@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -10,7 +10,7 @@ namespace PropertyGridEx
 	{
 		public class CustomChoicesTypeConverter : TypeConverter
 		{
-			private CustomChoicesAttributeList oChoices;
+			internal CustomChoicesAttributeList oChoices;
 
 			public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
 			{
@@ -55,7 +55,7 @@ namespace PropertyGridEx
 
 		public class CustomChoicesAttributeList : Attribute
 		{
-			private ArrayList oList = new ArrayList();
+			internal ArrayList oList = new ArrayList();
 
 			public ArrayList Item => oList;
 

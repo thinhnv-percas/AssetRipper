@@ -1,25 +1,25 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Wasm
 {
 	public struct VersionHeader
 	{
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private uint _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A;
+		internal uint _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A;
 
 		public uint Magic
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint Version
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public static uint WasmMagic => 1836278016u;

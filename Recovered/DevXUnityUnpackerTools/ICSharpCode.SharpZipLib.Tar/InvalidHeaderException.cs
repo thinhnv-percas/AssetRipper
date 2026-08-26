@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace ICSharpCode.SharpZipLib.Tar
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 	[Serializable]
 	internal class InvalidHeaderException : TarException
 	{
-		protected InvalidHeaderException(SerializationInfo information, StreamingContext context)
+		internal InvalidHeaderException(SerializationInfo information, StreamingContext context)
 			: base(information, context)
 		{
 		}

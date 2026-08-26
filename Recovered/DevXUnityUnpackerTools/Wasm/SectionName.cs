@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace Wasm
@@ -6,15 +6,15 @@ namespace Wasm
 	public struct SectionName : IEquatable<SectionName>
 	{
 		[CompilerGenerated]
-		private SectionCode _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A;
+		internal SectionCode _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private string _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A;
+		internal string _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A;
 
 		public SectionCode Code
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public bool IsCustom => Code == SectionCode.Custom;
@@ -22,7 +22,7 @@ namespace Wasm
 		public string CustomName
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public SectionName(SectionCode code)

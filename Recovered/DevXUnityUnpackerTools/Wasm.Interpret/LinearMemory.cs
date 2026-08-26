@@ -1,19 +1,19 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Wasm.Interpret
 {
 	public sealed class LinearMemory
 	{
-		private List<byte> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020;
+		internal List<byte> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020;
 
 		[CompilerGenerated]
-		private ResizableLimits _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A;
+		internal ResizableLimits _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A;
 
 		public ResizableLimits Limits
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint Size => (uint)_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020.Count / 65536u;
@@ -37,7 +37,7 @@ namespace Wasm.Interpret
 			_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A(limits.Initial);
 		}
 
-		private int _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A(uint _0020)
+		internal int _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A(uint _0020)
 		{
 			if (Limits.HasMaximum && _0020 > Limits.Maximum.Value)
 			{

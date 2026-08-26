@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using SevenZip.Compression.RangeCoder;
 using Unreal;
 
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Ziptc
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A
 	{
-		private unsafe void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020(string _0020, UObject _0020_000A, short _0020_0020, decimal _0020_000A_000A)
+		internal unsafe void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020(string _0020, UObject _0020_000A, short _0020_0020, decimal _0020_000A_000A)
 		{
 			bool flag = ((_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020;
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020)null).Reset();

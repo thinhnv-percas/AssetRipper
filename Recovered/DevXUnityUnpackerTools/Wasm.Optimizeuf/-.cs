@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using DMP4;
 using System;
@@ -8,7 +8,7 @@ namespace Wasm.Optimizeuf
 {
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A
 	{
-		private unsafe int _0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020(object _0020, Point _0020_000A)
+		internal unsafe int _0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020(object _0020, Point _0020_000A)
 		{
 			((_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A)null).CheckSection();
 			((ScriptGenerateOptions)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020((object)null, (EventArgs)null);

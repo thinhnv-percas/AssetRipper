@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 
 namespace DSMCaps
 {
 	public abstract class Instruction<TSelf, TDetail, TDisassembleMode, TGroup, TGroupId, TId, TRegister, TRegisterId> where TSelf : Instruction<TSelf, TDetail, TDisassembleMode, TGroup, TGroupId, TId, TRegister, TRegisterId> where TDetail : InstructionDetail<TDetail, TDisassembleMode, TGroup, TGroupId, TSelf, TId, TRegister, TRegisterId> where TDisassembleMode : Enum where TGroup : InstructionGroup<TGroupId> where TGroupId : Enum where TId : Enum where TRegister : Register<TRegisterId> where TRegisterId : Enum
 	{
-		private readonly TDetail _details;
+		internal readonly TDetail _details;
 
-		private readonly string _mnemonic;
+		internal readonly string _mnemonic;
 
-		private readonly string _operand;
+		internal readonly string _operand;
 
 		public long Address
 		{
@@ -74,7 +74,7 @@ namespace DSMCaps
 			}
 		}
 
-		private protected Instruction(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TSelf, TId, TRegister, TRegisterId> builder)
+		internal protected Instruction(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TSelf, TId, TRegister, TRegisterId> builder)
 		{
 			Address = builder.Address;
 			Bytes = builder.Bytes;

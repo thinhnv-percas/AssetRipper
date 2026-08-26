@@ -1,10 +1,10 @@
-using Wasm.Binary;
+﻿using Wasm.Binary;
 
 namespace Wasm.Instructions
 {
 	public sealed class NullaryInstruction : Instruction
 	{
-		private NullaryOperator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
+		internal NullaryOperator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 
 		public override Operator Op => _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 

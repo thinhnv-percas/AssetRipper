@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 public class DemoAssetDumper
 {
-	private static Dictionary<string, StrSthData> dictData;
+	internal static Dictionary<string, StrSthData> dictData;
 
 	public static Dictionary<string, StrSthData> GetData()
 	{

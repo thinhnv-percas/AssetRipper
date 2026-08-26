@@ -1,11 +1,11 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.Mips
 {
 	public sealed class MipsInstructionDetail : InstructionDetail<MipsInstructionDetail, MipsDisassembleMode, MipsInstructionGroup, MipsInstructionGroupId, MipsInstruction, MipsInstructionId, MipsRegister, MipsRegisterId>
 	{
 		[CompilerGenerated]
-		private readonly MipsOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal readonly MipsOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		public MipsOperand[] Operands
 		{

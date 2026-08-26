@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip.Compression;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression;
 using MiniJSONkg;
 using System.Collections.Generic;
 using Unreal;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Checksumsx
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A
 	{
-		private unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020(int _0020, decimal _0020_000A)
+		internal unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020(int _0020, decimal _0020_000A)
 		{
 			((_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020((BoundingFrustum)null);
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020)null).NeedsInput();

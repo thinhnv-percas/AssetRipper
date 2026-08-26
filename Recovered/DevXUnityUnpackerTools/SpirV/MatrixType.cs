@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SpirV
@@ -6,10 +6,10 @@ namespace SpirV
 	public class MatrixType : Type
 	{
 		[CompilerGenerated]
-		private readonly VectorType _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A;
+		internal readonly VectorType _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020;
+		internal readonly int _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020;
 
 		public VectorType ColumnType
 		{

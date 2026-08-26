@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DevXUnityUnpackerTools._WPFgx;
 using ICSharpCode.SharpZipLib.BZip2lh;
 using WFTools3Dqn;
@@ -7,7 +7,7 @@ namespace FMODqp
 {
 	internal class _0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A
 	{
-		private void _0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020(string _0020, bool _0020_000A)
+		internal void _0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020(string _0020, bool _0020_000A)
 		{
 			((_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020();
 			((TreeListColumn)null).Fieldname = null;

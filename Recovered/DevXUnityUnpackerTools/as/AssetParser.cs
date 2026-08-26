@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -26,7 +26,7 @@ namespace @as
 
 		[Serializable]
 		[CompilerGenerated]
-		private sealed class Data
+		internal sealed class Data
 		{
 			public static readonly Data instance;
 
@@ -49,11 +49,11 @@ namespace @as
 
 		internal static ulong ul2;
 
-		private static bool bool1;
+		internal static bool bool1;
 
-		private static Dictionary<int, ConsoleData> hashes;
+		internal static Dictionary<int, ConsoleData> hashes;
 
-		private static bool bool2;
+		internal static bool bool2;
 
 		internal static void SetNowTicks()
 		{
@@ -76,7 +76,7 @@ namespace @as
 			}
 		}
 
-		private static ConsoleData MakeConsoleData(VerFormat ver, int i1, int i2, string s = null, int i4 = 0, int[] iArr = null)
+		internal static ConsoleData MakeConsoleData(VerFormat ver, int i1, int i2, string s = null, int i4 = 0, int[] iArr = null)
 		{
 			data data = default(data);
 			data.ver = ver;
@@ -209,7 +209,7 @@ namespace @as
 		}
 
 		[CIntA(Num = 2uL)]
-		private static StrSth MakeRequest(VerFormat ver, int i1, int[] iArr, string s, int i2)
+		internal static StrSth MakeRequest(VerFormat ver, int i1, int[] iArr, string s, int i2)
 		{
 			byte[] array = null;
 			try
@@ -501,7 +501,7 @@ namespace @as
 			}
 		}
 
-		private static IEnumerable<string> Format2(VerFormat ver)
+		internal static IEnumerable<string> Format2(VerFormat ver)
 		{
 			if (ver != null)
 			{
@@ -569,7 +569,7 @@ namespace @as
 			}
 		}
 
-		private static ConsoleData ForReqData(int i, VerFormat ver, int i2 = 0)
+		internal static ConsoleData ForReqData(int i, VerFormat ver, int i2 = 0)
 		{
 			foreach (string item in Format2(ver))
 			{
@@ -629,7 +629,7 @@ namespace @as
 			return null;
 		}
 
-		private static IEnumerable<StrSth> TryGetStrSth2(string s1, string s2, int? i)
+		internal static IEnumerable<StrSth> TryGetStrSth2(string s1, string s2, int? i)
 		{
 			Dictionary<string, StrSthData> dictionary = DemoAssetDumper.GetData();
 			foreach (KeyValuePair<string, StrSthData> item in dictionary)
@@ -683,7 +683,7 @@ namespace @as
 		}
 
 		[CIntA(Num = 3uL)]
-		private static StrSth MakeDemoRequest(VerFormat ver, int i1, int[] iArr, string s, int i2)
+		internal static StrSth MakeDemoRequest(VerFormat ver, int i1, int[] iArr, string s, int i2)
 		{
 			if ((iArr == null || iArr.Length == 0) && !string.IsNullOrEmpty(s))
 			{
@@ -696,7 +696,7 @@ namespace @as
 			return null;
 		}
 
-		private static StrSth ReqIsNonEmptyArr(VerFormat ver, int i1, int[] iArr, int i2 = 0)
+		internal static StrSth ReqIsNonEmptyArr(VerFormat ver, int i1, int[] iArr, int i2 = 0)
 		{
 			if (iArr != null && iArr.Length != 0)
 			{
@@ -715,7 +715,7 @@ namespace @as
 			return null;
 		}
 
-		private static StrSth ReqIsEmptyArr(VerFormat ver, int i1, string s, int i2 = 0)
+		internal static StrSth ReqIsEmptyArr(VerFormat ver, int i1, string s, int i2 = 0)
 		{
 			ConsoleData consoleData = null;
 			StrSth strSth = null;

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Propertiesge;
 using Org.Brotli.Dec;
 
@@ -6,7 +6,7 @@ namespace Unity.CecilToolsry
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A
 	{
-		private unsafe int _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020(int _0020, string _0020_000A)
+		internal unsafe int _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020(int _0020, string _0020_000A)
 		{
 			HashManager.DoNothing(null);
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A((string)null, (object)null);

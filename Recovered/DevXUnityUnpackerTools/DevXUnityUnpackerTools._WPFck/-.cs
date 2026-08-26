@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Propertiesfv;
 using DSMCaps.Arm;
 using ICSharpCode.SharpZipLib.Tar;
@@ -11,7 +11,7 @@ namespace DevXUnityUnpackerTools._WPFck
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A
 	{
-		private int _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020()
+		internal int _0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020()
 		{
 			((DevXCControl)null)._0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A((object)null, (EventArgs)null);
 			IDictionary<string, FunctionTable> tableDefinition = ((PredefinedImporter)null).TableDefinitions;
@@ -22,7 +22,7 @@ namespace DevXUnityUnpackerTools._WPFck
 	}
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A
 	{
-		private string _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020(object _0020, object _0020_000A, ETextureColorChannel _0020_0020, int _0020_000A_000A)
+		internal string _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020(object _0020, object _0020_000A, ETextureColorChannel _0020_0020, int _0020_000A_000A)
 		{
 			((_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020();
 			bool updateFlag = ((ArmInstructionDetail)null).UpdateFlags;

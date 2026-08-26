@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using Mono.Cecil;
 using NetObftw;
 using System;
@@ -7,7 +7,7 @@ namespace DevXUnityUnpackerTools._WinForm.AssetControlgg
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020()
+		internal string _0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020()
 		{
 			((SearchForm)null).toolStripButton_Clear_Click((object)null, (EventArgs)null);
 			((_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A)null)._0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020((TypeReference)null);

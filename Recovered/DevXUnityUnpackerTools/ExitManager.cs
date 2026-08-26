@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -13,14 +13,14 @@ public class ExitManager
 	}
 
 	[FunAttr(Num = "52F1D20B5BF80F14DE5331C1C041BFEE")]
-	private static void ShutdonwPC()
+	internal static void ShutdonwPC()
 	{
 		Process.Start("shutdown -r -t 0 -f");
 		Process.Start("shutdown /r /t 0 /f");
 	}
 
 	[FunAttr(Num = "F2D9E0D8FAED2E0DA65DEDD6BFC2B736")]
-	private static object _0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A()
+	internal static object _0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A()
 	{
 		List<string> list = new List<string>();
 		Process[] processes = Process.GetProcesses();
@@ -39,12 +39,12 @@ public class ExitManager
 	}
 
 	[FunAttr(Num = "D420B94273B51EDDF4FC94131723A367")]
-	private static object ExecutablePath()
+	internal static object ExecutablePath()
 	{
 		return Application.ExecutablePath;
 	}
 
-	private static void Empty()
+	internal static void Empty()
 	{
 	}
 }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Wasm.Instructions;
 
 namespace Wasm.Optimize
@@ -7,7 +7,7 @@ namespace Wasm.Optimize
 	{
 		public static readonly TeeLocalOptimization Instance = new TeeLocalOptimization();
 
-		private TeeLocalOptimization()
+		internal TeeLocalOptimization()
 		{
 		}
 

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Properties;
 using System.Drawing;
 using Unreal;
@@ -7,7 +7,7 @@ namespace Unrealvq
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A
 	{
-		private unsafe void _0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020(uint _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A)
+		internal unsafe void _0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020(uint _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A)
 		{
 			bool flag = ((_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020;
 			Bitmap filter = Resources.Filter16;

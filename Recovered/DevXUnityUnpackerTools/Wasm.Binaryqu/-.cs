@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Encryption;
 using TrunkTracesConsole.Pages;
@@ -7,7 +7,7 @@ namespace Wasm.Binaryqu
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A
 	{
-		private void _0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020()
+		internal void _0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020()
 		{
 			ScriptGenerateOptions._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A();
 			((ImagesViewControl)null)._0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020();

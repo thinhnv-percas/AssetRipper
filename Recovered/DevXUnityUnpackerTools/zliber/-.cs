@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using Wasm;
 using WFTools3D;
@@ -7,7 +7,7 @@ namespace zliber
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A
 	{
-		private void _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020(object _0020, int _0020_000A, object _0020_0020)
+		internal void _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020(object _0020, int _0020_000A, object _0020_0020)
 		{
 			((Vector3DTransform)null).TX = null;
 			FunctionType.ReadFrom(null);

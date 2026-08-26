@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Wasm.Interpret
@@ -6,14 +6,14 @@ namespace Wasm.Interpret
 	public sealed class FunctionTable
 	{
 		[CompilerGenerated]
-		private ResizableLimits _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A;
+		internal ResizableLimits _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A;
 
-		private List<FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020;
+		internal List<FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020;
 
 		public ResizableLimits Limits
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public FunctionDefinition this[uint index]
@@ -43,7 +43,7 @@ namespace Wasm.Interpret
 			}
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020(uint _0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020(uint _0020)
 		{
 			if (_0020 >= _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020.Count)
 			{

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -9,7 +9,7 @@ namespace WFTools3D
 	public class CameraBox : INotifyPropertyChanged
 	{
 		[CompilerGenerated]
-		private PropertyChangedEventHandler _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020;
+		internal PropertyChangedEventHandler _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020;
 
 		public PerspectiveCamera Camera = new PerspectiveCamera();
 
@@ -17,17 +17,17 @@ namespace WFTools3D
 
 		public bool MovingDirectionIsLocked;
 
-		private int _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A;
+		internal int _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A;
 
 		public double Scale = 1.0;
 
-		private int _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020;
+		internal int _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020;
 
-		private bool _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A;
+		internal bool _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A;
 
-		private Vector3D _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020;
+		internal Vector3D _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020;
 
-		private Vector3D _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A;
+		internal Vector3D _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A;
 
 		public Point3D Position
 		{
@@ -159,7 +159,7 @@ namespace WFTools3D
 			}
 		}
 
-		protected void FirePropertyChanged(string propertyName)
+		internal void FirePropertyChanged(string propertyName)
 		{
 			if (_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020 != null)
 			{
@@ -305,7 +305,7 @@ namespace WFTools3D
 			}
 		}
 
-		private double _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A(double _0020)
+		internal double _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A(double _0020)
 		{
 			if (!(Math.Abs(_0020) < 0.5))
 			{
@@ -314,7 +314,7 @@ namespace WFTools3D
 			return 0.0;
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020()
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020()
 		{
 			double lengthSquared = (UpDirection - _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020).LengthSquared;
 			double lengthSquared2 = (LookDirection - _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A).LengthSquared;

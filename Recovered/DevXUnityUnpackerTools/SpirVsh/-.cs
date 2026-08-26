@@ -1,4 +1,4 @@
-using DMP4;
+﻿using DMP4;
 using DSMCaps.Mips;
 using ProtoBuf;
 using WFTools3D;
@@ -7,7 +7,7 @@ namespace SpirVsh
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A
 	{
-		private int _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020()
+		internal int _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020()
 		{
 			double fieldOfView = ((CameraBox)null).FieldOfView;
 			((ProtoReader)null).ReadByte();

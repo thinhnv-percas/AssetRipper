@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Propertieslp;
 using ICSharpCode.SharpZipLib.BZip2;
 using ICSharpCode.SharpZipLib.Tar;
@@ -10,7 +10,7 @@ namespace Smolvow
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A
 	{
-		private object _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020()
+		internal object _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020()
 		{
 			int recordSize = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A)null).RecordSize;
 			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A)null).SetComment((string)null);

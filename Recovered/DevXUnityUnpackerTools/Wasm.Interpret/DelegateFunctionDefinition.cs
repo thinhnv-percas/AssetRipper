@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -6,17 +6,17 @@ namespace Wasm.Interpret
 {
 	public sealed class DelegateFunctionDefinition : FunctionDefinition
 	{
-		private IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;
+		internal IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;
 
-		private IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020;
+		internal IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private Func<IList<object>, IList<object>> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A;
+		internal Func<IList<object>, IList<object>> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A;
 
 		public Func<IList<object>, IList<object>> Implementation
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public override IList<WasmValueType> ParameterTypes => _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;

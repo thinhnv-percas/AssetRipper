@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using NetObfjn;
@@ -9,7 +9,7 @@ namespace LZ4pswb
 {
 	internal class _0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A
 	{
-		private string _0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020(string _0020)
+		internal string _0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020(string _0020)
 		{
 			((BinaryWasmReader)null).ReadString();
 			int stackDepth = ((InterpreterContext)null).StackDepth;
@@ -22,7 +22,7 @@ namespace LZ4pswb
 	}
 	internal class _0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private int _0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020()
+		internal int _0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020()
 		{
 			int num = _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A._0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A;
 			long minSize = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A)null).MinSize;

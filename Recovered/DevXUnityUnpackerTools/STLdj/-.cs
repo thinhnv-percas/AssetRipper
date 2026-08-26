@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using DevXUnityUnpackerTools.Propertiesia;
 using LZ4pn;
 using System;
@@ -7,7 +7,7 @@ namespace STLdj
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A
 	{
-		private unsafe void _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020()
+		internal unsafe void _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020()
 		{
 			//IL_0052: Expected I, but got O
 			((ImportSettings)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020((object)null, (EventArgs)null);

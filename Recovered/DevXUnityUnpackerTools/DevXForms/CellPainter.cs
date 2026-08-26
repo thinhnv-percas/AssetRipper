@@ -1,4 +1,4 @@
-using DevXForms.TreeList;
+﻿using DevXForms.TreeList;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -7,13 +7,13 @@ namespace DevXForms
 {
 	public class CellPainter
 	{
-		private SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A;
+		internal SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A;
 
-		private SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020;
+		internal SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020;
 
-		protected MultiSelectTreeView2 m_owner;
+		internal MultiSelectTreeView2 m_owner;
 
-		private SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020;
+		internal SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020;
 
 		public CellPainter(MultiSelectTreeView2 owner)
 		{

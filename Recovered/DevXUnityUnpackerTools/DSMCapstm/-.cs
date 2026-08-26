@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinFormcx;
+﻿using DevXUnityUnpackerTools._WinFormcx;
 using DMP4;
 using System.Drawing;
 
@@ -6,7 +6,7 @@ namespace DSMCapstm
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A
 	{
-		private int _0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020()
+		internal int _0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020()
 		{
 			((_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_000A_0020();
 			((PerPixelAlphaControl)null).SelectBitmap((Bitmap)null);

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
 
@@ -6,7 +6,7 @@ namespace LZO
 {
 	public class LzoStream : Stream
 	{
-		protected enum LzoState
+		internal enum LzoState
 		{
 			ZeroCopy,
 			SmallCopy1,
@@ -15,23 +15,23 @@ namespace LZO
 			LargeCopy
 		}
 
-		protected readonly Stream Source;
+		internal readonly Stream Source;
 
-		private long? _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A;
+		internal long? _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A;
 
-		private readonly bool _0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020;
+		internal readonly bool _0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 
-		protected byte[] DecodedBuffer;
+		internal byte[] DecodedBuffer;
 
-		protected const int MaxWindowSize = 49151;
+		internal const int MaxWindowSize = 49151;
 
-		protected RingBuffer RingBuffer = new RingBuffer(49151);
+		internal RingBuffer RingBuffer = new RingBuffer(49151);
 
-		protected long OutputPosition;
+		internal long OutputPosition;
 
-		protected int Instruction;
+		internal int Instruction;
 
-		protected LzoState State;
+		internal LzoState State;
 
 		public override bool CanRead => true;
 
@@ -90,7 +90,7 @@ namespace LZO
 			_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A();
 		}
 
-		private void _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A()
+		internal void _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A()
 		{
 			Instruction = Source.ReadByte();
 			if (Instruction == -1)
@@ -103,7 +103,7 @@ namespace LZO
 			}
 		}
 
-		private void _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020(byte[] _0020, int _0020_000A, int _0020_0020)
+		internal void _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020(byte[] _0020, int _0020_000A, int _0020_0020)
 		{
 			while (true)
 			{
@@ -123,7 +123,7 @@ namespace LZO
 			throw new EndOfStreamException();
 		}
 
-		protected virtual int Decode(byte[] buffer, int offset, int count)
+		internal virtual int Decode(byte[] buffer, int offset, int count)
 		{
 			int num;
 			if (Instruction <= 15)
@@ -231,7 +231,7 @@ namespace LZO
 			return num;
 		}
 
-		private int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A(byte[] _0020, int _0020_000A, int _0020_0020)
+		internal int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A(byte[] _0020, int _0020_000A, int _0020_0020)
 		{
 			int num = Source.ReadByte();
 			if (num == -1)
@@ -242,7 +242,7 @@ namespace LZO
 			return _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020(_0020, _0020_000A, _0020_0020, _0020_000A_000A, 3, Instruction & 3);
 		}
 
-		private int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020)
+		internal int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020)
 		{
 			int num = Source.ReadByte();
 			if (num == -1)
@@ -253,7 +253,7 @@ namespace LZO
 			return _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020(_0020, _0020_000A, _0020_0020, _0020_000A_000A, 2, Instruction & 3);
 		}
 
-		private int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A()
+		internal int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A()
 		{
 			int num = 0;
 			int num2;
@@ -272,7 +272,7 @@ namespace LZO
 			return num + num2;
 		}
 
-		private int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020(byte[] _0020, int _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A)
+		internal int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020(byte[] _0020, int _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A)
 		{
 			int num = _0020_000A_0020 + _0020_0020_000A;
 			if (_0020_0020 < num)
@@ -329,7 +329,7 @@ namespace LZO
 			return num;
 		}
 
-		private int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A(byte[] _0020, int _0020_000A, int _0020_0020)
+		internal int _0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A(byte[] _0020, int _0020_000A, int _0020_0020)
 		{
 			if (_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A.HasValue && OutputPosition >= _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A)
 			{

@@ -1,8 +1,8 @@
-namespace DevXUnityUnpackerTools._WinFormff
+﻿namespace DevXUnityUnpackerTools._WinFormff
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020()
+		internal int _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020()
 		{
 			return 1030387447;
 		}

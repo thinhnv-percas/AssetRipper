@@ -1,4 +1,4 @@
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -14,7 +14,7 @@ namespace PropertyGridEx
 	{
 		public class CustomPropertyDescriptor : PropertyDescriptor
 		{
-			protected CustomProperty oCustomProperty;
+			internal CustomProperty oCustomProperty;
 
 			public override Type ComponentType => GetType();
 
@@ -82,72 +82,72 @@ namespace PropertyGridEx
 			}
 		}
 
-		protected string sName = "";
+		internal string sName = "";
 
-		protected object oValue;
+		internal object oValue;
 
-		protected bool bIsReadOnly;
+		internal bool bIsReadOnly;
 
-		protected bool bVisible = true;
+		internal bool bVisible = true;
 
-		protected string sDescription = "";
+		internal string sDescription = "";
 
-		protected string sCategory = "";
+		internal string sCategory = "";
 
-		protected bool bIsPassword;
+		internal bool bIsPassword;
 
-		protected bool bIsPercentage;
+		internal bool bIsPercentage;
 
-		protected bool bParenthesize;
+		internal bool bParenthesize;
 
-		protected string sFilter;
+		internal string sFilter;
 
-		protected UIFilenameEditor.FileDialogType eDialogType;
+		internal UIFilenameEditor.FileDialogType eDialogType;
 
-		protected bool bUseFileNameEditor;
+		internal bool bUseFileNameEditor;
 
-		protected CustomChoices oChoices;
+		internal CustomChoices oChoices;
 
-		protected bool bIsBrowsable;
+		internal bool bIsBrowsable;
 
-		protected BrowsableTypeConverter.LabelStyle eBrowsablePropertyLabel = BrowsableTypeConverter.LabelStyle.lsEllipsis;
+		internal BrowsableTypeConverter.LabelStyle eBrowsablePropertyLabel = BrowsableTypeConverter.LabelStyle.lsEllipsis;
 
-		protected bool bRef;
+		internal bool bRef;
 
-		protected object oRef;
+		internal object oRef;
 
-		protected string sProp = "";
+		internal string sProp = "";
 
-		protected object oDatasource;
+		internal object oDatasource;
 
-		protected string sDisplayMember;
+		internal string sDisplayMember;
 
-		protected string sValueMember;
+		internal string sValueMember;
 
-		protected object oSelectedValue;
+		internal object oSelectedValue;
 
-		protected object oSelectedItem;
+		internal object oSelectedItem;
 
-		protected bool bIsDropdownResizable;
+		internal bool bIsDropdownResizable;
 
-		protected UICustomEventEditor.OnClick MethodDelegate;
-
-		[NonSerialized]
-		protected AttributeCollection oCustomAttributes;
-
-		protected object oTag;
-
-		protected object oDefaultValue;
-
-		protected Type oDefaultType;
+		internal UICustomEventEditor.OnClick MethodDelegate;
 
 		[NonSerialized]
-		protected UITypeEditor oCustomEditor;
+		internal AttributeCollection oCustomAttributes;
+
+		internal object oTag;
+
+		internal object oDefaultValue;
+
+		internal Type oDefaultType;
 
 		[NonSerialized]
-		protected TypeConverter oCustomTypeConverter;
+		internal UITypeEditor oCustomEditor;
 
-		private object DataColumn
+		[NonSerialized]
+		internal TypeConverter oCustomTypeConverter;
+
+		internal object DataColumn
 		{
 			get
 			{
@@ -733,7 +733,7 @@ namespace PropertyGridEx
 			}
 		}
 
-		private void BuildAttributes_FilenameEditor()
+		internal void BuildAttributes_FilenameEditor()
 		{
 			ArrayList arrayList = new ArrayList();
 			UIFilenameEditor.FileDialogFilterAttribute value = new UIFilenameEditor.FileDialogFilterAttribute(sFilter);
@@ -747,7 +747,7 @@ namespace PropertyGridEx
 			oCustomAttributes = new AttributeCollection(attributes);
 		}
 
-		private void BuildAttributes_CustomChoices()
+		internal void BuildAttributes_CustomChoices()
 		{
 			if (oChoices != null)
 			{
@@ -760,7 +760,7 @@ namespace PropertyGridEx
 			}
 		}
 
-		private void BuildAttributes_ListboxEditor()
+		internal void BuildAttributes_ListboxEditor()
 		{
 			if (oDatasource != null)
 			{
@@ -782,13 +782,13 @@ namespace PropertyGridEx
 			}
 		}
 
-		private void BuildAttributes_BrowsableProperty()
+		internal void BuildAttributes_BrowsableProperty()
 		{
 			BrowsableTypeConverter.BrowsableLabelStyleAttribute browsableLabelStyleAttribute = new BrowsableTypeConverter.BrowsableLabelStyleAttribute(eBrowsablePropertyLabel);
 			oCustomAttributes = new AttributeCollection(browsableLabelStyleAttribute);
 		}
 
-		private void BuildAttributes_CustomEventProperty()
+		internal void BuildAttributes_CustomEventProperty()
 		{
 			UICustomEventEditor.DelegateAttribute delegateAttribute = new UICustomEventEditor.DelegateAttribute(MethodDelegate);
 			oCustomAttributes = new AttributeCollection(delegateAttribute);

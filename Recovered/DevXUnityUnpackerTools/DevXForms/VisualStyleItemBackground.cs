@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -12,9 +12,9 @@ namespace DevXForms
 			Inactive
 		}
 
-		private Style _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020;
+		internal Style _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020;
 
-		private Pen _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A;
+		internal Pen _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A;
 
 		public VisualStyleItemBackground(Style style)
 		{

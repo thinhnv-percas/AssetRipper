@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
@@ -9,11 +9,11 @@ public class ImageTools
 
 	public static int Jpeg_Default_ImagePreview_Quality = 15;
 
-	private static EncoderParameters _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A;
+	internal static EncoderParameters _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A;
 
-	private static ImageCodecInfo _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020;
+	internal static ImageCodecInfo _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020;
 
-	private static char[] _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A = new char[16]
+	internal static char[] _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A = new char[16]
 	{
 		'0',
 		'1',

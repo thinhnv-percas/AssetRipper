@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using Wasm.Binary;
 
@@ -9,19 +9,19 @@ namespace Wasm.Instructions
 		public byte OpCode
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public WasmType DeclaringType
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public string Mnemonic
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public bool HasDeclaringType => DeclaringType != WasmType.Empty;

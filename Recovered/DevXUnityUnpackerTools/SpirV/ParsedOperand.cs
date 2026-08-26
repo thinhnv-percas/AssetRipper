@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace SpirV
@@ -6,13 +6,13 @@ namespace SpirV
 	public class ParsedOperand
 	{
 		[CompilerGenerated]
-		private readonly IList<uint> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A;
+		internal readonly IList<uint> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private object _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020;
+		internal object _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020;
 
 		[CompilerGenerated]
-		private readonly Operand _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A;
+		internal readonly Operand _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A;
 
 		public IList<uint> Words
 		{

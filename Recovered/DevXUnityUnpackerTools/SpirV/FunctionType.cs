@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace SpirV
@@ -6,10 +6,10 @@ namespace SpirV
 	public class FunctionType : Type
 	{
 		[CompilerGenerated]
-		private readonly Type _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020;
+		internal readonly Type _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private readonly IList<Type> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A;
+		internal readonly IList<Type> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A;
 
 		public Type ReturnType
 		{

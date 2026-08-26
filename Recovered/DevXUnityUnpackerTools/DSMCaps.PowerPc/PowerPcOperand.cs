@@ -1,20 +1,20 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace DSMCaps.PowerPc
 {
 	public sealed class PowerPcOperand
 	{
-		private readonly PowerPcConditionRegisterOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020;
+		internal readonly PowerPcConditionRegisterOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020;
 
-		private readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020;
+		internal readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020;
 
-		private readonly PowerPcMemoryOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
+		internal readonly PowerPcMemoryOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
 
-		private readonly PowerPcRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020;
+		internal readonly PowerPcRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly PowerPcOperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal readonly PowerPcOperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		public PowerPcConditionRegisterOperandValue ConditionRegister
 		{

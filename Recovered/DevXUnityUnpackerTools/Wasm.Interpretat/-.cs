@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Propertiesfv;
+﻿using DevXUnityUnpackerTools.Propertiesfv;
 using ICSharpCode.SharpZipLib.Tar;
 using LZ4pnyv;
 using WFTools3D;
@@ -7,7 +7,7 @@ namespace Wasm.Interpretat
 {
 	internal class _0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A
 	{
-		private int _0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020()
+		internal int _0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020()
 		{
 			((CameraBox)null).LookBack();
 			((_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020();

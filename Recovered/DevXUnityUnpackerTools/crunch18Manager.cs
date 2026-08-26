@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 
 internal class crunch18Manager
 {
-	private const string txt = "crunch_2018";
+	internal const string txt = "crunch_2018";
 
-	private static string path
+	internal static string path
 	{
 		get
 		{

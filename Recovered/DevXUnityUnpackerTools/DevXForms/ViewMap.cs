@@ -1,13 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace DevXForms
 {
 	public class ViewMap : Panel
 	{
-		private object _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A;
+		internal object _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A;
 
-		private Dictionary<object, Control> _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020 = new Dictionary<object, Control>();
+		internal Dictionary<object, Control> _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020 = new Dictionary<object, Control>();
 
 		public object CurKey
 		{

@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using DevXUnityUnpackerTools._WPF;
 using DMP4;
 using ICSharpCode.SharpZipLib.Zip.Compression;
@@ -10,7 +10,7 @@ namespace Unity.CecilTools.Extensionsdi
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A
 	{
-		private void _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020(Il2CppRGCTXDefinitionData _0020, ImageChannelDataTypeParameterFactory _0020_000A, float _0020_0020, bool _0020_000A_000A)
+		internal void _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020(Il2CppRGCTXDefinitionData _0020, ImageChannelDataTypeParameterFactory _0020_000A, float _0020_0020, bool _0020_000A_000A)
 		{
 			((_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A)null)._0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020((ImageData)null);
 			int adler = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020)null).Adler;

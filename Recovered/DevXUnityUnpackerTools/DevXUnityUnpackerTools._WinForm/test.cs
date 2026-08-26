@@ -1,11 +1,11 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DevXUnityUnpackerTools._WinForm
 {
 	public class test : Form
 	{
-		private IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
+		internal IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
 
 		public test()
 		{
@@ -21,7 +21,7 @@ namespace DevXUnityUnpackerTools._WinForm
 			base.Dispose(disposing);
 		}
 
-		private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
+		internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
 		{
 			_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A = new Container();
 			base.AutoScaleMode = AutoScaleMode.Font;

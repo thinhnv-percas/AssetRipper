@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -7,9 +7,9 @@ namespace DevXForms
 {
 	public class RowPainter
 	{
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A;
 
 		public void DrawHeader(Graphics dc, Rectangle r, bool isHot)
 		{

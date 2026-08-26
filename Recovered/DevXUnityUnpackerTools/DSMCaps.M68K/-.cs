@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using DSMCaps.Arm64;
 using LZ4ps;
@@ -17,17 +17,17 @@ namespace DSMCaps.M68K
 			return new M68KInstruction(this);
 		}
 
-		private protected override M68KInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override M68KInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return M68KInstructionDetail.Create(disassembler, hInstruction);
 		}
 
-		private protected override M68KDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override M68KDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (M68KDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override M68KInstructionId CreateId(int id)
+		internal protected override M68KInstructionId CreateId(int id)
 		{
 			return (M68KInstructionId)id;
 		}
@@ -35,21 +35,21 @@ namespace DSMCaps.M68K
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A : InstructionDetailBuilder<M68KInstructionDetail, M68KDisassembleMode, M68KInstructionGroup, M68KInstructionGroupId, M68KInstruction, M68KInstructionId, M68KRegister, M68KRegisterId>
 	{
 		[CompilerGenerated]
-		private M68KOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal M68KOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private M68KOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020;
+		internal M68KOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020;
 
 		internal M68KOperand[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal M68KOperationSize _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal override void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -65,17 +65,17 @@ namespace DSMCaps.M68K
 			return new M68KInstructionDetail(this);
 		}
 
-		private protected override M68KDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override M68KDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (M68KDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override M68KInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
+		internal protected override M68KInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
 		{
 			return M68KInstructionGroup.Create(disassembler, (M68KInstructionGroupId)instructionGroupId);
 		}
 
-		private protected override M68KRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
+		internal protected override M68KRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
 		{
 			return M68KRegister._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A(disassembler, (M68KRegisterId)registerId);
 		}
@@ -175,14 +175,14 @@ namespace DSMCaps.M68K
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020(GroupOperation _0020, object _0020_000A)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020(GroupOperation _0020, object _0020_000A)
 		{
 			return 1196293062;
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020()
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020()
 		{
 			((_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A((byte[])null);
 			((_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020();
@@ -191,7 +191,7 @@ namespace DSMCaps.M68K
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020(_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020 _0020, _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A _0020_000A, NameSection _0020_0020, decimal _0020_000A_000A)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020(_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020 _0020, _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A _0020_000A, NameSection _0020_0020, decimal _0020_000A_000A)
 		{
 			((_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A();
 			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020();
@@ -200,14 +200,14 @@ namespace DSMCaps.M68K
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020(float _0020, int _0020_000A, _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020 _0020_0020)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020(float _0020, int _0020_000A, _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020 _0020_0020)
 		{
 			return null;
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020(float _0020)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020(float _0020)
 		{
 			string formatString = ((NumberBox)null).FormatString;
 			Arm64IcOperation icOperation = ((Arm64Operand)null).IcOperation;
@@ -216,7 +216,7 @@ namespace DSMCaps.M68K
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A
 	{
-		private void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020()
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020()
 		{
 		}
 	}

@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DevXUnityUnpackerTools.Propertiesiv;
 using DevXUnityUnpackerTools.Propertieswu;
 using ICSharpCode.SharpZipLib.Tar;
@@ -7,7 +7,7 @@ namespace Unity.CecilToolsfn
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A
 	{
-		private int _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020()
+		internal int _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020()
 		{
 			TreeListColumn treeListColumn = ((TreeViewColumnCollection)null)[(string)null];
 			((_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020();

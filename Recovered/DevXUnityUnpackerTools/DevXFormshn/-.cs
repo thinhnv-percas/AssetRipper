@@ -1,4 +1,4 @@
-using ARMD;
+﻿using ARMD;
 using ICSharpCode.SharpZipLib.Encryption;
 using sk;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace DevXFormshn
 {
 	internal class _0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A
 	{
-		private object _0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020(bool _0020)
+		internal object _0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020(bool _0020)
 		{
 			((ThrowFunctionDefinition)null).ExceptionToThrow = null;
 			((Deflate)null)._0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A();

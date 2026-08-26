@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using DSMCaps.X86;
 using FMOD;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace ARMDei
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A
 	{
-		private void _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020()
+		internal void _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020()
 		{
 			char[] array = MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020;
 			byte addressSize = ((X86InstructionDetail)null).AddressSize;

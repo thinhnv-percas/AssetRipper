@@ -315,6 +315,56 @@ null and the `&&` still evaluates it. Verified against the pre-fix snapshot: the
 line is byte-identical to the raw decompiler output, so it is an original
 mis-decompilation, not something introduced while repairing the build.
 
+### DevXUnityUnpackerTools -- the one that does not finish
+
+The 20 MB, 11345-type main library is the only project that does not reach zero.
+It sits at 407 unique errors, and the reason is that **the decompiler does not
+emit all of it**:
+
+* 10009 of 10347 top-level types come out (96.7%). The missing 338 are
+  concentrated in `Unreal` (148) and several `ICSharpCode.SharpZipLib.*`
+  namespaces, and they account for 288 of the remaining errors (CS0246).
+* ILSpy fails silently: it writes the files it can and then leaves a 0-byte
+  .csproj, with no error on stdout. The empty project file is the only signal
+  that the run did not finish.
+* dnSpy can dump the missing types one at a time (`--md <token>`), and doing so
+  for `BrotliSharpLib` -- 8 types, 93k lines in one of them -- removed 561
+  errors. Folding in all 338 the same way was tried and reverted: the per-type
+  dumps are not self-contained (global-namespace types, a namespace literally
+  called `as`, which is a C# keyword), and the result was worse than leaving
+  them out.
+
+What did get fixed there, on top of the patterns listed above:
+
+* `*(ref buf + (IntPtr)((ulong)i * 4UL))` -- fixed-buffer indexing written as
+  pointer arithmetic. 101 sites. A regex cannot do this safely because the index
+  carries nested parentheses, so `tools/` has a balanced-paren rewriter.
+* `(void*)(ref buf + (byte*)(...))` -- taking the address of a buffer element.
+* `[FixedBuffer(typeof(int), 4)]` on a synthetic struct field, which C# rejects
+  outright (CS1716); it has to become `unsafe fixed int name[4]`.
+* IL generic-arity markers left on nested type names (`Type` + backtick + `1<T>`).
+* `using @as;` -- the hoisting pass has to accept `@`-escaped keywords.
+
+### Missing sidecar files
+
+`DevXUnityUnpackerTools` also references seven assemblies whose sidecar files are
+not in `DevXUnityUnpackerRun/`. Their file names follow the same hash rule, so
+they are easy to look for in a full installation:
+
+| assembly | file to copy |
+|---|---|
+| DevXUnityUnpackerTools_Structures | `A33D874E` |
+| DevXUnityUnpackerUnityCommon | `93368449` |
+| HelixToolkit | `D1F09BE0` |
+| HelixToolkit.Wpf | `185AE22E` |
+| ICSharpCode.TextEditor | `C5544D17` |
+| Mon3.Cecil | `60C901F4` |
+| Pngcs | `2E4B659E` |
+
+Six of the seven are already decompiled in the root of this repo, so the project
+references point there instead; only `DevXUnityUnpackerTools_Structures` has no
+substitute. Nothing in the build currently fails because of it.
+
 ## Known limitations
 * Assemblies are **unsigned**. Anything that checks strong names at runtime will
   behave differently from the originals.

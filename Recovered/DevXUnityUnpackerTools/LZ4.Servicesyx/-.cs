@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using MiniLZO;
 using STLig;
 using System;
@@ -7,7 +7,7 @@ namespace LZ4.Servicesyx
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A
 	{
-		private unsafe void _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020()
+		internal unsafe void _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020()
 		{
 			((SearchForm)null).Filter_Enter((object)null, (EventArgs)null);
 			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020(ref *(ZipStorer.ZipFileEntry*)null);

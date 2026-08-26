@@ -1,8 +1,8 @@
-namespace ICSharpCode.SharpZipLib.BZip2un
+﻿namespace ICSharpCode.SharpZipLib.BZip2un
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A
 	{
-		private unsafe int _0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020(byte* _0020, int _0020_000A, byte* _0020_0020, int _0020_000A_000A, bool _0020_000A_0020)
+		internal unsafe int _0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020(byte* _0020, int _0020_000A, byte* _0020_0020, int _0020_000A_000A, bool _0020_000A_0020)
 		{
 			return 466890171;
 		}

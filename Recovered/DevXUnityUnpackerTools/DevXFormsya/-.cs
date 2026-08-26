@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using DevXUnityUnpackerTools._WinForm;
 using System;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace DevXFormsya
 {
 	internal class _0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A
 	{
-		private unsafe object _0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020()
+		internal unsafe object _0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020()
 		{
 			//IL_0079: Expected I, but got O
 			Point zero = Point.Zero;

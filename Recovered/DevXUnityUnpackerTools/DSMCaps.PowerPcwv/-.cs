@@ -1,4 +1,4 @@
-using DevXForms.TreeList;
+﻿using DevXForms.TreeList;
 using Smolvyp;
 using SpirV;
 using System.IO;
@@ -7,7 +7,7 @@ namespace DSMCaps.PowerPcwv
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A
 	{
-		private unsafe string _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020(Stream _0020)
+		internal unsafe string _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020(Stream _0020)
 		{
 			((ModuleHeader*)(byte*)null)->GeneratorVendor = null;
 			((_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020((string)null, (string)null);

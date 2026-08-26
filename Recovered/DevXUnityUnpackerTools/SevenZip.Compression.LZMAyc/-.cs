@@ -1,8 +1,8 @@
-namespace SevenZip.Compression.LZMAyc
+﻿namespace SevenZip.Compression.LZMAyc
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A
 	{
-		private int _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020()
+		internal int _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020()
 		{
 			return 320844880;
 		}

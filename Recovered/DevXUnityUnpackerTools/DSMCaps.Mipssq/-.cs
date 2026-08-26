@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using LZ4pnac;
 using System.Windows.Forms;
@@ -8,7 +8,7 @@ namespace DSMCaps.Mipssq
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A
 	{
-		private unsafe void _0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020, byte[] _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A, bool _0020_0020_0020)
+		internal unsafe void _0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020, byte[] _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A, bool _0020_0020_0020)
 		{
 			((BoundingBox*)(byte*)null)->GetCorners();
 			((_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A)null)._0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020((object)null, (DragEventArgs)null);

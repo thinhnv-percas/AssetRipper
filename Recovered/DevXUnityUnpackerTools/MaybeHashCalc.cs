@@ -1,15 +1,15 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 internal class MaybeHashCalc
 {
-	private static char[] _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A = "()[]{}<>.,:;'\"+-*/=\\?|&^%#@!~` \t\r\n\0".ToCharArray();
+	internal static char[] _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A = "()[]{}<>.,:;'\"+-*/=\\?|&^%#@!~` \t\r\n\0".ToCharArray();
 
-	private static char[] _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020 = " \t\r\n".ToCharArray();
+	internal static char[] _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020 = " \t\r\n".ToCharArray();
 
-	private static Dictionary<string, int> _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A = new Dictionary<string, int>();
+	internal static Dictionary<string, int> _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A = new Dictionary<string, int>();
 
 	internal static char[] _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020 => _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A;
 
@@ -492,7 +492,7 @@ internal class MaybeHashCalc
 		return $"{num:x8}{num2:x8}{num3:x8}{num4:x8}";
 	}
 
-	private static int _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020(string _0020)
+	internal static int _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020(string _0020)
 	{
 		if (!_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A.ContainsKey(_0020))
 		{

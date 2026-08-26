@@ -1,4 +1,4 @@
-using DSMCaps.Mips;
+﻿using DSMCaps.Mips;
 using PropertyGridEx;
 using Wasm.Interpret;
 
@@ -6,7 +6,7 @@ namespace ee
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A
 	{
-		private void _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020()
+		internal void _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020()
 		{
 			OperatorImpls.Int64Eqz(null, null);
 			((CustomProperty)null).Name = null;

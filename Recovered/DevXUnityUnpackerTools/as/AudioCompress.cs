@@ -1,4 +1,4 @@
-using FMOD;
+﻿using FMOD;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -63,9 +63,9 @@ namespace @as
 			Xbox360_WAV = 22
 		}
 
-		private static string _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020 = FileManager.FormatPath(DevXSystemInfo.StreamingAssets, "DevXC", "AutioConvertor.devxc");
+		internal static string _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020 = FileManager.FormatPath(DevXSystemInfo.StreamingAssets, "DevXC", "AutioConvertor.devxc");
 
-		private const string _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A = "FSBTool";
+		internal const string _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A = "FSBTool";
 
 		internal string _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020;
 
@@ -99,7 +99,7 @@ namespace @as
 
 		internal AudioCompressionFormat _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020 = AudioCompressionFormat.unknown;
 
-		private static string FSBToolPath
+		internal static string FSBToolPath
 		{
 			get
 			{

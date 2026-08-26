@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Wasm.Interpret.BaseRuntime;
@@ -8,7 +8,7 @@ namespace LZ4mx
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A
 	{
-		private unsafe int _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020()
+		internal unsafe int _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020()
 		{
 			byte dim = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020*)(byte*)null)->Dim;
 			((TerminalRuntime)null)._0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020((IList<object>)null);

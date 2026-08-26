@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SpirV
 {
@@ -6,7 +6,7 @@ namespace SpirV
 	{
 		public class InvocationsParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -16,7 +16,7 @@ namespace SpirV
 
 		public class LocalSizeParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger(),
 				new LiteralInteger(),
@@ -28,7 +28,7 @@ namespace SpirV
 
 		public class LocalSizeHintParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger(),
 				new LiteralInteger(),
@@ -40,7 +40,7 @@ namespace SpirV
 
 		public class OutputVerticesParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -50,7 +50,7 @@ namespace SpirV
 
 		public class VecTypeHintParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -60,7 +60,7 @@ namespace SpirV
 
 		public class SubgroupSizeParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -70,7 +70,7 @@ namespace SpirV
 
 		public class SubgroupsPerWorkgroupParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -80,7 +80,7 @@ namespace SpirV
 
 		public class SubgroupsPerWorkgroupIdParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -90,7 +90,7 @@ namespace SpirV
 
 		public class LocalSizeIdParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef(),
 				new IdRef(),
@@ -102,7 +102,7 @@ namespace SpirV
 
 		public class LocalSizeHintIdParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};

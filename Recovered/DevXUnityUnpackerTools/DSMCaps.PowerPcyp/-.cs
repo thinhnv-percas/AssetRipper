@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using Wasm.Interpret;
 using XnaGeometry;
 
@@ -6,7 +6,7 @@ namespace DSMCaps.PowerPcyp
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private unsafe int _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020(bool _0020)
+		internal unsafe int _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020(bool _0020)
 		{
 			((_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A)null).readEntry((_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020)null);
 			XnaGeometry.Vector3 down = ((Matrix*)(byte*)null)->Down;

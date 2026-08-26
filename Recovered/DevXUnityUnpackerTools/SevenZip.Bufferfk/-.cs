@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using Unreal;
@@ -9,7 +9,7 @@ namespace SevenZip.Bufferfk
 {
 	internal class _0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A
 	{
-		private unsafe int _0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020(bool _0020, int _0020_000A, decimal _0020_0020)
+		internal unsafe int _0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020(bool _0020, int _0020_000A, decimal _0020_0020)
 		{
 			OperatorImpls.Int32Clz(null, null);
 			((_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A((string)null);

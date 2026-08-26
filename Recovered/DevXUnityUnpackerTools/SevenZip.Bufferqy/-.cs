@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Lzw;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression;
@@ -8,7 +8,7 @@ namespace SevenZip.Bufferqy
 {
 	internal class _0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A
 	{
-		private void _0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020(long _0020, bool _0020_000A)
+		internal void _0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020(long _0020, bool _0020_000A)
 		{
 			long totalIn = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A)null).TotalIn;
 			int freeByte = ((_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A)null).FreeBytes;

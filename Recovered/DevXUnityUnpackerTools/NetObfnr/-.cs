@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using EdiTools;
 using PropertyGridEx;
 using System.Collections;
@@ -8,7 +8,7 @@ namespace NetObfnr
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A
 	{
-		private string _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020()
+		internal string _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020()
 		{
 			((EdiDocument)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020((XElement)null);
 			ArrayList item = ((CustomChoices)null).Items;

@@ -1,10 +1,10 @@
-using DSMCaps.PowerPc;
+﻿using DSMCaps.PowerPc;
 
 namespace Unity.CecilTools.Extensionsiq
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A
 	{
-		private string _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020(PowerPcInstructionDetail _0020)
+		internal string _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020(PowerPcInstructionDetail _0020)
 		{
 			return "988752121";
 		}

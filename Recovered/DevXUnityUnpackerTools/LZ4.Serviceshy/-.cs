@@ -1,10 +1,10 @@
-using DevXUnityUnpackerTools._WPF;
+﻿using DevXUnityUnpackerTools._WPF;
 
 namespace LZ4.Serviceshy
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020(string _0020)
+		internal int _0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020(string _0020)
 		{
 			TempManager._0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A(null);
 			((_3DView)null).MakeViewByParams((_3DView.Params)null);

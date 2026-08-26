@@ -1,8 +1,8 @@
-namespace Org.Brotli.Decer
+﻿namespace Org.Brotli.Decer
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020(CustomString _0020)
+		internal string _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020(CustomString _0020)
 		{
 			return "814329939";
 		}

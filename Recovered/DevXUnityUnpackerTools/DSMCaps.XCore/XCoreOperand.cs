@@ -1,18 +1,18 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace DSMCaps.XCore
 {
 	public sealed class XCoreOperand
 	{
-		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020;
+		internal readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020;
 
-		private readonly XCoreMemoryOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
+		internal readonly XCoreMemoryOperandValue _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
 
-		private readonly XCoreRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020;
+		internal readonly XCoreRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly XCoreOperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal readonly XCoreOperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		public long Immediate
 		{

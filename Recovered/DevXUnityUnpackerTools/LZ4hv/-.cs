@@ -1,11 +1,11 @@
-using ICSharpCode.SharpZipLib.BZip2;
+﻿using ICSharpCode.SharpZipLib.BZip2;
 using Wasm;
 
 namespace LZ4hv
 {
 	internal class _0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_0020(object _0020, string _0020_000A)
+		internal int _0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_0020(object _0020, string _0020_000A)
 		{
 			((FunctionBody)null).Locals = null;
 			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020)null).ReadStringZeroTerm();

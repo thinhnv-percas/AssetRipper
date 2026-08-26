@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -7,22 +7,22 @@ namespace SpirV
 	public class ParsedInstruction
 	{
 		[CompilerGenerated]
-		private Type _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020;
+		internal Type _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private readonly IList<uint> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A;
+		internal readonly IList<uint> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private readonly Instruction _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020;
+		internal readonly Instruction _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly IList<ParsedOperand> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A = new List<ParsedOperand>();
+		internal readonly IList<ParsedOperand> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A = new List<ParsedOperand>();
 
 		[CompilerGenerated]
-		private string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
+		internal string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private object _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020;
+		internal object _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020;
 
 		public Type ResultType
 		{
@@ -81,7 +81,7 @@ namespace SpirV
 			_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A();
 		}
 
-		private void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A()
+		internal void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A()
 		{
 			if (Instruction.Operands.Count == 0)
 			{

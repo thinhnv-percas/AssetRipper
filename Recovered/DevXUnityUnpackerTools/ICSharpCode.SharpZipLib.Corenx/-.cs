@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DSMCaps.M68K;
 using XnaGeometry;
 
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Corenx
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A
 	{
-		private unsafe void _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020(string _0020)
+		internal unsafe void _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020(string _0020)
 		{
 			int right = ((Rectangle*)(byte*)null)->Right;
 			((_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020();

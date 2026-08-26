@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace Wasm
@@ -11,7 +11,7 @@ namespace Wasm
 		{
 		}
 
-		protected WasmException(SerializationInfo info, StreamingContext context)
+		internal WasmException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
 		}

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -12,56 +12,56 @@ namespace Wasm.Interpret
 		}
 
 		[CompilerGenerated]
-		private ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020;
+		internal ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020;
+		internal IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private IList<Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A;
+		internal IList<Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private ExecutionPolicy _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020;
+		internal ExecutionPolicy _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020;
 
-		private Stack<object> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A;
-
-		[CompilerGenerated]
-		private IList<object> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020;
+		internal Stack<object> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private int _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A;
+		internal IList<object> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020;
+
+		[CompilerGenerated]
+		internal int _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A;
 
 		public ModuleInstance Module
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public IList<WasmValueType> ReturnTypes
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public IList<Variable> Locals
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ExecutionPolicy Policy
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint CallStackDepth
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public EvaluationStack Stack
@@ -81,7 +81,7 @@ namespace Wasm.Interpret
 		public IList<object> ReturnValues
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public int StackDepth => _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A.Count;

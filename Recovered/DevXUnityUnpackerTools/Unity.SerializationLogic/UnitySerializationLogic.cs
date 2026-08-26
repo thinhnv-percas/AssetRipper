@@ -1,4 +1,4 @@
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,10 @@ using Unity.CecilTools.Extensions;
 
 namespace Unity.SerializationLogic
 {
-	public static class UnitySerializationLogic
+	public class UnitySerializationLogic
 	{
 		[CompilerGenerated]
-		private sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A
+		internal sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A
 		{
 			public TypeDefinition _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A;
 
@@ -28,7 +28,7 @@ namespace Unity.SerializationLogic
 
 		[Serializable]
 		[CompilerGenerated]
-		private sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020
+		internal sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020
 		{
 			public static readonly _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020 _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A = new _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020();
 
@@ -93,7 +93,7 @@ namespace Unity.SerializationLogic
 			return true;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A(TypeReference _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A(TypeReference _0020)
 		{
 			return _0020.IsAssignableTo("System.Delegate");
 		}
@@ -112,7 +112,7 @@ namespace Unity.SerializationLogic
 			return _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020(typeResolver.Resolve(fieldDefinition.FieldType));
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020(TypeReference _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020(TypeReference _0020)
 		{
 			if (_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A(_0020))
 			{
@@ -138,14 +138,14 @@ namespace Unity.SerializationLogic
 			return _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A(typeDefinition, new TypeResolver(_0020 as GenericInstanceType));
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A(TypeDefinition _0020, TypeResolver _0020_000A)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A(TypeDefinition _0020, TypeResolver _0020_000A)
 		{
 			_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A = new _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A();
 			_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A._0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A = _0020;
 			return _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020(_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A._0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A, _0020_000A).Where(_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A).Any(_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020);
 		}
 
-		private static IEnumerable<KeyValuePair<FieldDefinition, TypeResolver>> _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020(TypeDefinition _0020, TypeResolver _0020_000A)
+		internal static IEnumerable<KeyValuePair<FieldDefinition, TypeResolver>> _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020(TypeDefinition _0020, TypeResolver _0020_000A)
 		{
 			TypeReference baseType = _0020.BaseType;
 			if (baseType != null)
@@ -170,7 +170,7 @@ namespace Unity.SerializationLogic
 			}
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A(TypeReference _0020, FieldDefinition _0020_000A, TypeResolver _0020_0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A(TypeReference _0020, FieldDefinition _0020_000A, TypeResolver _0020_0020)
 		{
 			if (_0020_0020.Resolve(_0020_000A.FieldType) == _0020)
 			{
@@ -187,7 +187,7 @@ namespace Unity.SerializationLogic
 			return true;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020(FieldDefinition _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020(FieldDefinition _0020)
 		{
 			if (_0020.IsLiteral)
 			{
@@ -208,7 +208,7 @@ namespace Unity.SerializationLogic
 			return false;
 		}
 
-		private static IEnumerable<TypeReference> _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A(FieldDefinition _0020)
+		internal static IEnumerable<TypeReference> _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A(FieldDefinition _0020)
 		{
 			return _0020.CustomAttributes.Select(_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A);
 		}
@@ -234,7 +234,7 @@ namespace Unity.SerializationLogic
 			return false;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020(TypeReference _0020, FieldDefinition _0020_000A)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020(TypeReference _0020, FieldDefinition _0020_000A)
 		{
 			if (!_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A(_0020) && !IsSupportedCollection(_0020))
 			{
@@ -243,7 +243,7 @@ namespace Unity.SerializationLogic
 			return true;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A(TypeReference _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A(TypeReference _0020)
 		{
 			if (_0020.IsAssignableTo("UnityScript.Lang.Array"))
 			{
@@ -260,7 +260,7 @@ namespace Unity.SerializationLogic
 			return true;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020(TypeReference _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020(TypeReference _0020)
 		{
 			if (_0020 != null && CecilUtils.IsGenericDictionary(_0020))
 			{
@@ -318,7 +318,7 @@ namespace Unity.SerializationLogic
 			}
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A(TypeReference _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A(TypeReference _0020)
 		{
 			MetadataType metadataType = _0020.MetadataType;
 			if (metadataType - 2 <= MetadataType.Single)
@@ -341,12 +341,12 @@ namespace Unity.SerializationLogic
 			return _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A(CecilUtils.ElementTypeOfCollection(typeReference));
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020(FieldDefinition _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020(FieldDefinition _0020)
 		{
 			return UnityEngineTypePredicates.IsUnityEngineValueType(_0020.DeclaringType);
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A(TypeReference _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A(TypeReference _0020)
 		{
 			return UnityEngineTypePredicates.IsUnityEngineObject(_0020);
 		}

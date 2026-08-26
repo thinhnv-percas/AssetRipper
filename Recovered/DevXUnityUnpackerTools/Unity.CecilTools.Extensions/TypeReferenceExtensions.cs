@@ -1,4 +1,4 @@
-using Mono.Cecil;
+﻿using Mono.Cecil;
 
 namespace Unity.CecilTools.Extensions
 {
@@ -55,7 +55,7 @@ namespace Unity.CecilTools.Extensions
 			return false;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A(TypeReference _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A(TypeReference _0020)
 		{
 			return _0020.FullName == "System.Decimal";
 		}

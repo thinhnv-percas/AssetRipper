@@ -1,12 +1,12 @@
-using System.Windows;
+﻿using System.Windows;
 
 namespace WFTools3D
 {
 	public class TextureTransform
 	{
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020 = new LinearTransform();
 
 		public TextureTransform(double from1, double from2, double tx1, double tx2, double ty1, double ty2)
 		{

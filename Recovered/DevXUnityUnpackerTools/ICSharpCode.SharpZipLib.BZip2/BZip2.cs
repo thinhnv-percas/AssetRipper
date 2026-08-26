@@ -1,10 +1,10 @@
-using ICSharpCode.SharpZipLib.Core;
+﻿using ICSharpCode.SharpZipLib.Core;
 using System;
 using System.IO;
 
 namespace ICSharpCode.SharpZipLib.BZip2
 {
-	public static class BZip2
+	public class BZip2
 	{
 		public static void Decompress(Stream inStream, Stream outStream, bool isStreamOwner)
 		{

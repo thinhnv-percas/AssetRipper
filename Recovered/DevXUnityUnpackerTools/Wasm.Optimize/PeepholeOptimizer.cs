@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Wasm.Instructions;
 
@@ -6,7 +6,7 @@ namespace Wasm.Optimize
 {
 	public sealed class PeepholeOptimizer
 	{
-		private IEnumerable<PeepholeOptimization> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020;
+		internal IEnumerable<PeepholeOptimization> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020;
 
 		public static readonly IEnumerable<PeepholeOptimization> DefaultOptimizations = new PeepholeOptimization[2]
 		{
@@ -65,7 +65,7 @@ namespace Wasm.Optimize
 			return list;
 		}
 
-		private uint _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A(IList<Wasm.Instructions.Instruction> _0020, out PeepholeOptimization _0020_000A)
+		internal uint _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A(IList<Wasm.Instructions.Instruction> _0020, out PeepholeOptimization _0020_000A)
 		{
 			uint num = 0u;
 			PeepholeOptimization peepholeOptimization = null;

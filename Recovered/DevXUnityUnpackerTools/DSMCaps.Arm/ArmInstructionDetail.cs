@@ -1,38 +1,38 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.Arm
 {
 	public sealed class ArmInstructionDetail : InstructionDetail<ArmInstructionDetail, ArmDisassembleMode, ArmInstructionGroup, ArmInstructionGroupId, ArmInstruction, ArmInstructionId, ArmRegister, ArmRegisterId>
 	{
 		[CompilerGenerated]
-		private readonly ArmConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
+		internal readonly ArmConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private readonly ArmCpsFlag _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020;
+		internal readonly ArmCpsFlag _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private readonly ArmCpsMode _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A;
+		internal readonly ArmCpsMode _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020;
+		internal readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private readonly ArmMemoryBarrierOperation _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A;
+		internal readonly ArmMemoryBarrierOperation _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private readonly ArmOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal readonly ArmOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A;
+		internal readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly ArmVectorDataType _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020;
+		internal readonly ArmVectorDataType _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A;
+		internal readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
+		internal readonly bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
 
 		public ArmConditionCode ConditionCode
 		{

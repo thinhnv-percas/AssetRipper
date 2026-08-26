@@ -1,16 +1,16 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace DSMCaps.M68K
 {
 	public sealed class M68KOperationSize
 	{
-		private readonly M68KCpuOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020;
+		internal readonly M68KCpuOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020;
 
-		private readonly M68KFpuOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A;
+		internal readonly M68KFpuOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly M68KOperationSizeType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal readonly M68KOperationSizeType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		public M68KCpuOperationSize CpuOperationSize
 		{

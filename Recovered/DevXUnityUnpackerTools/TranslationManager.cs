@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Threading;
 
 internal class TranslationManager
 {
-	private static bool _0020_000A_000A_000A_000A_0020_000A_000A;
+	internal static bool _0020_000A_000A_000A_000A_0020_000A_000A;
 
 	internal static Dictionary<int, string> _0020_000A_000A_000A_000A_0020_000A_0020;
 
@@ -17,11 +17,11 @@ internal class TranslationManager
 
 	internal static List<Action> _0020_000A_000A_000A_0020_000A_000A_000A;
 
-	private static Dictionary<string, string> _0020_000A_000A_000A_0020_000A_000A_0020;
+	internal static Dictionary<string, string> _0020_000A_000A_000A_0020_000A_000A_0020;
 
-	private static string _0020_000A_000A_000A_0020_000A_0020_000A;
+	internal static string _0020_000A_000A_000A_0020_000A_0020_000A;
 
-	private static void _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020(string _0020, string _0020_000A)
+	internal static void _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020(string _0020, string _0020_000A)
 	{
 		if (_0020 != null)
 		{
@@ -29,7 +29,7 @@ internal class TranslationManager
 		}
 	}
 
-	private static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A(string _0020)
+	internal static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A(string _0020)
 	{
 		if (_0020 == null)
 		{
@@ -1413,7 +1413,7 @@ internal class TranslationManager
 		return null;
 	}
 
-	private static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A()
+	internal static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A()
 	{
 		try
 		{
@@ -1431,7 +1431,7 @@ internal class TranslationManager
 		return null;
 	}
 
-	private static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020()
+	internal static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020()
 	{
 		try
 		{
@@ -1443,7 +1443,7 @@ internal class TranslationManager
 		return null;
 	}
 
-	private static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A()
+	internal static string _0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A()
 	{
 		try
 		{

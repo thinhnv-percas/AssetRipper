@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using DevXUnityUnpackerTools._WinForm;
 
@@ -6,7 +6,7 @@ namespace STLsu
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A
 	{
-		private string _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020(TreeViewColumnCollection _0020, string _0020_000A, float _0020_0020)
+		internal string _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020(TreeViewColumnCollection _0020, string _0020_000A, float _0020_0020)
 		{
 			_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A._0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020();
 			((SearchForm)null).InitializeComponent();

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using DevXUnityUnpackerTools._WinForm.AssetControlsp;
 using DSMCaps.Arm;
@@ -11,7 +11,7 @@ namespace ICSharpCode.SharpZipLib.Corekw
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A
 	{
-		private int _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020()
+		internal int _0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020()
 		{
 			((_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A)null).Create();
 			((MultiSelectTreeView2)null).BeforeExpand += null;

@@ -1,4 +1,4 @@
-using DMP4;
+﻿using DMP4;
 using DSMCaps.Mips;
 using ICSharpCode.SharpZipLib.Zip;
 using XmlBinpb;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Coreqf
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A
 	{
-		private unsafe string _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020()
+		internal unsafe string _0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020()
 		{
 			((_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020)null).EncodeRgba4Bpp((ARGB_RAW)null);
 			((Il2Cpp)null).GetMethodPointer((string)null, (Il2CppMethodDefinition)null);

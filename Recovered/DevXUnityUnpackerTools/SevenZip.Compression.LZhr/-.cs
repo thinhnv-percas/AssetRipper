@@ -1,4 +1,4 @@
-using DevXFormscb;
+﻿using DevXFormscb;
 using DSMCaps.Arm64pw;
 using ProtoBuf;
 using ProtoBufjs;
@@ -9,7 +9,7 @@ namespace SevenZip.Compression.LZhr
 {
 	internal class _0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A
 	{
-		private object _0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020(short _0020, float _0020_000A, float _0020_0020)
+		internal object _0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020(short _0020, float _0020_000A, float _0020_0020)
 		{
 			((InterpreterContext)null).CreateStack();
 			bool internString = ((ProtoReader)null).InternStrings;

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using DevXUnityUnpackerTools.Properties;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace Unrealgq
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020(TreeNode _0020, string _0020_000A, string _0020_0020, string _0020_000A_000A)
+		internal int _0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020(TreeNode _0020, string _0020_000A, string _0020_0020, string _0020_000A_000A)
 		{
 			OperatorImpls.Int64DivS(null, null);
 			((_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A)null)._0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020();

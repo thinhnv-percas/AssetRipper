@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System.Windows.Media.Media3D;
 using Wasm.Instructions;
 
@@ -6,7 +6,7 @@ namespace DevXUnityUnpackerTools.Propertiesvs
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A
 	{
-		private string _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020(Point3D _0020, Point3D _0020_000A, Point3D _0020_0020, int _0020_000A_000A)
+		internal string _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020(Point3D _0020, Point3D _0020_000A, Point3D _0020_0020, int _0020_000A_000A)
 		{
 			((VarInt64Operator)null).CastInstruction((Instruction)null);
 			_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A(null);

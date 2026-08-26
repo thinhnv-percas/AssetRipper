@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip;
+﻿using ICSharpCode.SharpZipLib.Zip;
 using System;
 using XnaGeometry;
 
@@ -6,7 +6,7 @@ namespace MiniLZObd
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A
 	{
-		private string _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020(string _0020)
+		internal string _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020(string _0020)
 		{
 			Vector4 unitX = Vector4.UnitX;
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020((string[])null);

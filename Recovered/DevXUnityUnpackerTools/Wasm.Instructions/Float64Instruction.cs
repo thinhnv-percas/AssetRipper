@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
@@ -6,10 +6,10 @@ namespace Wasm.Instructions
 {
 	public sealed class Float64Instruction : Instruction
 	{
-		private Float64Operator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
+		internal Float64Operator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private double _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A;
+		internal double _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A;
 
 		public override Operator Op => _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 

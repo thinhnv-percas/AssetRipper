@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -1092,11 +1092,11 @@ public class Win32
 
 	public const int PFD_UNDERLAY_PLANE = -1;
 
-	private const uint _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020 = 0u;
+	internal const uint _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020 = 0u;
 
-	private const uint _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A = 1u;
+	internal const uint _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A = 1u;
 
-	private const uint _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020 = 2u;
+	internal const uint _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020 = 2u;
 
 	[DllImport("User32.dll", CharSet = CharSet.Auto)]
 	public static extern int GetSystemMetrics(int _0020);

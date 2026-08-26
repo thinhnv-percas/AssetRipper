@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
@@ -7,10 +7,10 @@ namespace Wasm
 	public sealed class GlobalType
 	{
 		[CompilerGenerated]
-		private WasmValueType _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A;
+		internal WasmValueType _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020;
+		internal bool _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020;
 
 		public WasmValueType ContentType
 		{

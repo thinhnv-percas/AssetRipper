@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using DSMCaps.Mips;
 using PropertyGridEx;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Zipol
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A
 	{
-		private string _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020(int _0020, int _0020_000A)
+		internal string _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020(int _0020, int _0020_000A)
 		{
 			string displayMember = ((CustomProperty)null).DisplayMember;
 			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A();

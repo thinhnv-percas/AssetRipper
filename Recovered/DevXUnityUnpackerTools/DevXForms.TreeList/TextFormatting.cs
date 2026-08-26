@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,13 +7,13 @@ namespace DevXForms.TreeList
 	[TypeConverter(typeof(OptionsSettingTypeConverter))]
 	public class TextFormatting
 	{
-		private ContentAlignment _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A = ContentAlignment.MiddleLeft;
+		internal ContentAlignment _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A = ContentAlignment.MiddleLeft;
 
-		private Color _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020 = SystemColors.ControlText;
+		internal Color _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020 = SystemColors.ControlText;
 
-		private Color _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A = Color.Transparent;
+		internal Color _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A = Color.Transparent;
 
-		private Padding _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020 = new Padding(0, 0, 0, 0);
+		internal Padding _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020 = new Padding(0, 0, 0, 0);
 
 		[DefaultValue(typeof(Padding), "0,0,0,0")]
 		public Padding Padding

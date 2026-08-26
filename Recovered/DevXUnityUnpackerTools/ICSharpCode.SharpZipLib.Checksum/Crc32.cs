@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 
 namespace ICSharpCode.SharpZipLib.Checksum
 {
 	public sealed class Crc32 : IChecksum
 	{
-		private static readonly uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020 = uint.MaxValue;
+		internal static readonly uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020 = uint.MaxValue;
 
-		private static readonly uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A = uint.MaxValue;
+		internal static readonly uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A = uint.MaxValue;
 
-		private static readonly uint[] _0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020 = new uint[256]
+		internal static readonly uint[] _0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020 = new uint[256]
 		{
 			0u,
 			1996959894u,
@@ -268,7 +268,7 @@ namespace ICSharpCode.SharpZipLib.Checksum
 			755167117u
 		};
 
-		private uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020;
+		internal uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 
 		public long Value => _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020 ^ _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A;
 

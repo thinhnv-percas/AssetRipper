@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WPF;
+﻿using DevXUnityUnpackerTools._WPF;
 using System;
 using System.IO;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace aswd
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A
 	{
-		private unsafe string _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020(BinaryWriter _0020, int _0020_000A)
+		internal unsafe string _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020(BinaryWriter _0020, int _0020_000A)
 		{
 			//IL_0012: Expected I, but got O
 			//IL_0012: Expected I, but got O
@@ -20,7 +20,7 @@ namespace aswd
 	}
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A
 	{
-		private unsafe int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(string _0020, short _0020_000A, object _0020_0020)
+		internal unsafe int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(string _0020, short _0020_000A, object _0020_0020)
 		{
 			int left = ((Rectangle*)(byte*)null)->Left;
 			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020();

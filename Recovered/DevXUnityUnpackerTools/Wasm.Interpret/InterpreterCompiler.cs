@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Wasm.Interpret
 {
 	public sealed class InterpreterCompiler : ModuleCompiler
 	{
-		private ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A;
+		internal ModuleInstance _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A;
 
-		private IList<FunctionType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020;
+		internal IList<FunctionType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020;
 
 		public override void Initialize(ModuleInstance module, int offset, IList<FunctionType> types)
 		{

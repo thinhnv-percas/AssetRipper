@@ -1,11 +1,11 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace SpirV
 {
 	public class RuntimeArrayType : Type
 	{
 		[CompilerGenerated]
-		private readonly Type _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A;
+		internal readonly Type _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A;
 
 		public Type ElementType
 		{

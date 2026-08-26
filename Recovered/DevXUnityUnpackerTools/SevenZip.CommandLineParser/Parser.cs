@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 
 namespace SevenZip.CommandLineParser
@@ -7,15 +7,15 @@ namespace SevenZip.CommandLineParser
 	{
 		public ArrayList NonSwitchStrings = new ArrayList();
 
-		private SwitchResult[] _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A;
+		internal SwitchResult[] _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A;
 
-		private const char _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020 = '-';
+		internal const char _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020 = '-';
 
-		private const char _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A = '/';
+		internal const char _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A = '/';
 
-		private const char _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020 = '-';
+		internal const char _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020 = '-';
 
-		private const string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A = "--";
+		internal const string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A = "--";
 
 		public SwitchResult this[int index] => _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A[index];
 
@@ -28,7 +28,7 @@ namespace SevenZip.CommandLineParser
 			}
 		}
 
-		private bool _0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020(string _0020, SwitchForm[] _0020_000A)
+		internal bool _0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020(string _0020, SwitchForm[] _0020_000A)
 		{
 			int length = _0020.Length;
 			if (length == 0)
@@ -187,7 +187,7 @@ namespace SevenZip.CommandLineParser
 			return -1;
 		}
 
-		private static bool _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A(int _0020, _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020[] _0020_000A, string _0020_0020, ArrayList _0020_000A_000A)
+		internal static bool _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A(int _0020, _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020[] _0020_000A, string _0020_0020, ArrayList _0020_000A_000A)
 		{
 			_0020_000A_000A.Clear();
 			int num = 0;
@@ -223,7 +223,7 @@ namespace SevenZip.CommandLineParser
 			return num == _0020_0020.Length;
 		}
 
-		private static bool _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(char _0020)
+		internal static bool _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(char _0020)
 		{
 			if (_0020 != '-')
 			{

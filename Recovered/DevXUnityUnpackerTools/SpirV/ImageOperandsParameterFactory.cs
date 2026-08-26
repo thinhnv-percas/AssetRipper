@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SpirV
 {
@@ -6,7 +6,7 @@ namespace SpirV
 	{
 		public class BiasParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -16,7 +16,7 @@ namespace SpirV
 
 		public class LodParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -26,7 +26,7 @@ namespace SpirV
 
 		public class GradParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef(),
 				new IdRef()
@@ -37,7 +37,7 @@ namespace SpirV
 
 		public class ConstOffsetParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -47,7 +47,7 @@ namespace SpirV
 
 		public class OffsetParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -57,7 +57,7 @@ namespace SpirV
 
 		public class ConstOffsetsParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -67,7 +67,7 @@ namespace SpirV
 
 		public class SampleParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -77,7 +77,7 @@ namespace SpirV
 
 		public class MinLodParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};

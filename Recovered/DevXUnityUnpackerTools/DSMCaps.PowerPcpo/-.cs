@@ -1,4 +1,4 @@
-using bf;
+﻿using bf;
 using BrotliSharpLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
@@ -8,7 +8,7 @@ namespace DSMCaps.PowerPcpo
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A
 	{
-		private unsafe void _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020()
+		internal unsafe void _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020()
 		{
 			//IL_0012: Expected I, but got O
 			//IL_0012: Expected I, but got O

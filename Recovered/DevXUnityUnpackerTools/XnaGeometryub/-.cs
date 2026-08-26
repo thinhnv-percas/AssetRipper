@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.X86;
 using Wasm.Instructions;
 using Wasm.Interpret;
@@ -8,7 +8,7 @@ namespace XnaGeometryub
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A
 	{
-		private void _0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020(X86RegisterId _0020)
+		internal void _0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020(X86RegisterId _0020)
 		{
 			((_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A)null)._0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020((Instruction)null, (InterpreterContext)null);
 			((MainForm)null).Init();

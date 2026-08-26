@@ -1,4 +1,4 @@
-namespace DSMCaps.Mips
+﻿namespace DSMCaps.Mips
 {
 	public sealed class CapstoneMipsDisassembler : CapstoneDisassembler<MipsDisassembleMode, MipsInstruction, MipsInstructionDetail, MipsInstructionGroup, MipsInstructionGroupId, MipsInstructionId, MipsRegister, MipsRegisterId>
 	{
@@ -7,7 +7,7 @@ namespace DSMCaps.Mips
 		{
 		}
 
-		private protected override MipsInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override MipsInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return MipsInstruction.Create(this, hInstruction);
 		}

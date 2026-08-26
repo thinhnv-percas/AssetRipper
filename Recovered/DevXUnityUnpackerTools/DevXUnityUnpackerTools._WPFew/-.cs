@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.Arm;
 using JpegEncoder;
 using SpirV;
@@ -7,7 +7,7 @@ namespace DevXUnityUnpackerTools._WPFew
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A
 	{
-		private string _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020(OpGroupCommitReadPipe _0020, object _0020_000A, short _0020_0020, object _0020_000A_000A)
+		internal string _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020(OpGroupCommitReadPipe _0020, object _0020_000A, short _0020_0020, object _0020_000A_000A)
 		{
 			_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A._0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A();
 			WebReqManager.MakeReq(null, null);

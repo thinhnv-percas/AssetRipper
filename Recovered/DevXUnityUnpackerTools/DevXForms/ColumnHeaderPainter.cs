@@ -1,4 +1,4 @@
-using DevXForms.TreeList;
+﻿using DevXForms.TreeList;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -7,9 +7,9 @@ namespace DevXForms
 {
 	public class ColumnHeaderPainter
 	{
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020;
 
-		private SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020;
+		internal SolidBrush _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020;
 
 		public virtual void DrawHeaderFiller(Graphics dc, Rectangle r)
 		{

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -8,17 +8,17 @@ namespace Wasm
 	public sealed class FunctionSection : Section
 	{
 		[CompilerGenerated]
-		private List<uint> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A;
+		internal List<uint> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
+		internal byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
 
 		public override SectionName Name => new SectionName(SectionCode.Function);
 
 		public List<uint> FunctionTypes
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public byte[] ExtraPayload

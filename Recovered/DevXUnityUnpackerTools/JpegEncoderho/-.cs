@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using Unity.IO.Compressionfo;
@@ -8,7 +8,7 @@ namespace JpegEncoderho
 {
 	internal class _0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A
 	{
-		private object _0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020()
+		internal object _0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020()
 		{
 			ClassIDEnum classIDEnum = ((_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020)null).objectType;
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020)null).GetAvailable();

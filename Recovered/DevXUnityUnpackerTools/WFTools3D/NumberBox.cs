@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
@@ -12,16 +12,16 @@ namespace WFTools3D
 	{
 		public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(double), typeof(NumberBox), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020, _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020));
 
-		private TextBlock _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A;
+		internal TextBlock _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A;
 
-		private TextBox _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020;
+		internal TextBox _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020;
 
-		private ScrollBar _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A;
+		internal ScrollBar _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A;
 
-		private string _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal string _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private EventHandler _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A;
+		internal EventHandler _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A;
 
 		public double Number
 		{
@@ -162,7 +162,7 @@ namespace WFTools3D
 			}
 		}
 
-		private static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020(DependencyObject _0020, DependencyPropertyChangedEventArgs _0020_000A)
+		internal static void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020(DependencyObject _0020, DependencyPropertyChangedEventArgs _0020_000A)
 		{
 			(_0020 as NumberBox)?._0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A();
 		}
@@ -177,7 +177,7 @@ namespace WFTools3D
 			}
 		}
 
-		private static object _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020(DependencyObject _0020, object _0020_000A)
+		internal static object _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020(DependencyObject _0020, object _0020_000A)
 		{
 			NumberBox numberBox = (NumberBox)_0020;
 			return MathUtils.Clamp((double)_0020_000A, numberBox.Minimum, numberBox.Maximum);
@@ -188,7 +188,7 @@ namespace WFTools3D
 			Initialize();
 		}
 
-		protected virtual void Initialize()
+		internal virtual void Initialize()
 		{
 			base.ColumnDefinitions.Add(new ColumnDefinition
 			{
@@ -222,7 +222,7 @@ namespace WFTools3D
 			LargeChange = 10.0;
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A(object _0020, TextChangedEventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A(object _0020, TextChangedEventArgs _0020_000A)
 		{
 			if (double.TryParse(_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020.Text, out double result))
 			{
@@ -230,13 +230,13 @@ namespace WFTools3D
 			}
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020(object _0020, ScrollEventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020(object _0020, ScrollEventArgs _0020_000A)
 		{
 			_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A.Focus();
 			Number = _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A(_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A.Value);
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A(object _0020, MouseButtonEventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A(object _0020, MouseButtonEventArgs _0020_000A)
 		{
 			if (_0020_000A.GetPosition(_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A).Y > _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A.ActualHeight * 0.5)
 			{
@@ -248,7 +248,7 @@ namespace WFTools3D
 			}
 		}
 
-		private double _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A(double _0020)
+		internal double _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A(double _0020)
 		{
 			return Maximum + Minimum - _0020;
 		}

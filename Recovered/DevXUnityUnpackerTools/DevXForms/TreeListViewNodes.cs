@@ -1,10 +1,10 @@
-namespace DevXForms
+﻿namespace DevXForms
 {
 	public class TreeListViewNodes : TreeNodeCollection
 	{
-		private MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A;
+		internal MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020;
 
 		public void BeginUpdate()
 		{

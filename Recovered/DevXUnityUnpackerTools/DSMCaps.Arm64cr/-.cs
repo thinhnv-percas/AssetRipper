@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.BZip2;
+﻿using ICSharpCode.SharpZipLib.BZip2;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 
@@ -6,7 +6,7 @@ namespace DSMCaps.Arm64cr
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A
 	{
-		private int _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020(EncryptionAlgorithm _0020, object _0020_000A)
+		internal int _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020(EncryptionAlgorithm _0020, object _0020_000A)
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020((object)null, (EventArgs)null);
 			BinaryWriterExtensions.DecodeInt32(null);

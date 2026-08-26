@@ -1,8 +1,8 @@
-namespace Unity.CecilTools.Extensionsyo
+﻿namespace Unity.CecilTools.Extensionsyo
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020(string _0020, bool _0020_000A)
+		internal void _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020(string _0020, bool _0020_000A)
 		{
 		}
 	}

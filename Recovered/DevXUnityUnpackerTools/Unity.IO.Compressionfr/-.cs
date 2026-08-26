@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using System;
 using System.Drawing;
 using Unreal;
@@ -7,7 +7,7 @@ namespace Unity.IO.Compressionfr
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A
 	{
-		private unsafe void _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020(Size _0020, float _0020_000A)
+		internal unsafe void _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020(Size _0020, float _0020_000A)
 		{
 			//IL_006f: Expected I, but got O
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020(ref *(ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A*)null);

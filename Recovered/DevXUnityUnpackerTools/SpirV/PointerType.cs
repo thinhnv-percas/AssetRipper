@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SpirV
@@ -6,10 +6,10 @@ namespace SpirV
 	public class PointerType : Type
 	{
 		[CompilerGenerated]
-		private readonly StorageClass _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020;
+		internal readonly StorageClass _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private Type _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal Type _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		public StorageClass StorageClass
 		{
@@ -19,7 +19,7 @@ namespace SpirV
 		public Type Type
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public PointerType(StorageClass storageClass, Type type)

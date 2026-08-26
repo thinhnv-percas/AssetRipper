@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SpirV
 {
-	public static class Instructions
+	public class Instructions
 	{
-		private static readonly Dictionary<int, Instruction> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020 = new Dictionary<int, Instruction>
+		internal static readonly Dictionary<int, Instruction> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020 = new Dictionary<int, Instruction>
 		{
 			{
 				0,

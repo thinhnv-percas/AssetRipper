@@ -1,4 +1,4 @@
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using System.Collections.Generic;
 using Unity.CecilTools.Extensions;
 
@@ -6,7 +6,7 @@ namespace Unity.SerializationLogic
 {
 	public class UnityEngineTypePredicates
 	{
-		private static readonly HashSet<string> _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020 = new HashSet<string>
+		internal static readonly HashSet<string> _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020 = new HashSet<string>
 		{
 			"Vector3",
 			"Vector2",
@@ -24,27 +24,27 @@ namespace Unity.SerializationLogic
 			"Vector2Int"
 		};
 
-		private const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A = "UnityEngine.AnimationCurve";
+		internal const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A = "UnityEngine.AnimationCurve";
 
-		private const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020 = "UnityEngine.Gradient";
+		internal const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020 = "UnityEngine.Gradient";
 
-		private const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A = "UnityEngine.GUIStyle";
+		internal const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A = "UnityEngine.GUIStyle";
 
-		private const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020 = "UnityEngine.RectOffset";
+		internal const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020 = "UnityEngine.RectOffset";
 
-		protected const string UnityEngineObject = "UnityEngine.Object";
+		internal const string UnityEngineObject = "UnityEngine.Object";
 
 		public const string MonoBehaviour = "UnityEngine.MonoBehaviour";
 
 		public const string ScriptableObject = "UnityEngine.ScriptableObject";
 
-		protected const string Matrix4x4 = "UnityEngine.Matrix4x4";
+		internal const string Matrix4x4 = "UnityEngine.Matrix4x4";
 
-		protected const string Color32 = "UnityEngine.Color32";
+		internal const string Color32 = "UnityEngine.Color32";
 
-		private const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A = "UnityEngine.SerializeField";
+		internal const string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A = "UnityEngine.SerializeField";
 
-		private static string[] _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020 = new string[7]
+		internal static string[] _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020 = new string[7]
 		{
 			"UnityEngine.AnimationCurve",
 			"UnityEngine.Color32",
@@ -60,7 +60,7 @@ namespace Unity.SerializationLogic
 			return _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A(type.CheckedResolve());
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A(TypeDefinition _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A(TypeDefinition _0020)
 		{
 			return _0020.IsSubclassOf("UnityEngine.MonoBehaviour");
 		}
@@ -70,7 +70,7 @@ namespace Unity.SerializationLogic
 			return _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020(type.CheckedResolve());
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020(TypeDefinition _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020(TypeDefinition _0020)
 		{
 			return _0020.IsSubclassOf("UnityEngine.ScriptableObject");
 		}

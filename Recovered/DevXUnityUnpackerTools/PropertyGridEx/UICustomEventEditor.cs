@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 
@@ -11,7 +11,7 @@ namespace PropertyGridEx
 		[AttributeUsage(AttributeTargets.Property)]
 		public class DelegateAttribute : Attribute
 		{
-			protected OnClick m_MethodDelegate;
+			internal OnClick m_MethodDelegate;
 
 			public OnClick GetMethod => m_MethodDelegate;
 
@@ -21,9 +21,9 @@ namespace PropertyGridEx
 			}
 		}
 
-		protected OnClick m_MethodDelegate;
+		internal OnClick m_MethodDelegate;
 
-		protected CustomProperty.CustomPropertyDescriptor m_sender;
+		internal CustomProperty.CustomPropertyDescriptor m_sender;
 
 		public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
 		{

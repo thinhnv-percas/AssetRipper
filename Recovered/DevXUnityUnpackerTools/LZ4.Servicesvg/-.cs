@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using DSMCaps.Mips;
 using Org.Brotli.Decws;
 using ProtoBuf;
@@ -7,14 +7,14 @@ namespace LZ4.Servicesvg
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A
 	{
-		private int _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020(string _0020, decimal _0020_000A, string _0020_0020, ProtoReader _0020_000A_000A)
+		internal int _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020(string _0020, decimal _0020_000A, string _0020_0020, ProtoReader _0020_000A_000A)
 		{
 			return 1150433461;
 		}
 	}
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A
 	{
-		private void _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020(CIntA _0020, short _0020_000A)
+		internal void _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020(CIntA _0020, short _0020_000A)
 		{
 			EditText._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A();
 			MipsRegister register = ((MipsOperand)null).Register;

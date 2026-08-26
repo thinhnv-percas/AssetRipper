@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip.Compression;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression;
 using LZ4psno;
 using Org.Brotli.Deckv;
 using Unity.CecilToolsdo;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compressionxg
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020()
+		internal int _0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020()
 		{
 			((_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A)null)._0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020();
 			DeflateStrategy strategy = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020)null).Strategy;

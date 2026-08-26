@@ -1,4 +1,4 @@
-using FMOD;
+﻿using FMOD;
 using ICSharpCode.SharpZipLib.Zip;
 using STL;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Targb
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020(string _0020, short _0020_000A, object _0020_0020)
+		internal int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020(string _0020, short _0020_000A, object _0020_0020)
 		{
 			Vector2 zero = Vector2.Zero;
 			PRESET.FOREST();

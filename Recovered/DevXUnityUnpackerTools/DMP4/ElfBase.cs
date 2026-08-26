@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 
 namespace DMP4
 {
@@ -8,7 +8,7 @@ namespace DMP4
 
 		public ulong DumpAddr;
 
-		protected ElfBase(Stream stream)
+		internal ElfBase(Stream stream)
 			: base(stream)
 		{
 		}

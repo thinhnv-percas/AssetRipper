@@ -1,14 +1,14 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.Mips
 {
 	public sealed class MipsMemoryOperandValue
 	{
 		[CompilerGenerated]
-		private readonly MipsRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
+		internal readonly MipsRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
+		internal readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
 
 		public MipsRegister Base
 		{

@@ -1,11 +1,11 @@
-using asdg;
+﻿using asdg;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 
 namespace APKeu
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020()
+		internal int _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020()
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020)null).BuildLitLenTree();
 			MaybeAlertManager.ShowAlert(null, null);

@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using System;
 
@@ -6,7 +6,7 @@ namespace Smolvkf
 {
 	internal class _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A
 	{
-		private int _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020()
+		internal int _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020()
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020((object)null, (EventArgs)null);
 			((ScriptGenerateOptions)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A((object)null, (EventArgs)null);

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using DevXUnityUnpackerTools._WinForm.AssetControluu;
 using Wasm;
@@ -8,7 +8,7 @@ namespace Xxteawe
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A
 	{
-		private string _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020()
+		internal string _0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020()
 		{
 			WasmValueType type = ((Variable)null).Type;
 			((_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020();

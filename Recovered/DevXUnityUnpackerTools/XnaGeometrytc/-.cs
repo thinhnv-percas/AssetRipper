@@ -1,4 +1,4 @@
-using ARMD;
+﻿using ARMD;
 using DevXUnityUnpackerTools.Properties;
 using LZ4.Servicesan;
 using System.Drawing;
@@ -7,7 +7,7 @@ namespace XnaGeometrytc
 {
 	internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A
 	{
-		private string _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020(float _0020)
+		internal string _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020(float _0020)
 		{
 			Bitmap girl_unity = Resources.girl_unity5;
 			((_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A)null)._0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020();

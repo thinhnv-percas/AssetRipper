@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,21 +9,21 @@ namespace Wasm
 	public struct LocalEntry : IEquatable<LocalEntry>
 	{
 		[CompilerGenerated]
-		private WasmValueType _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A;
+		internal WasmValueType _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal uint _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		public WasmValueType LocalType
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint LocalCount
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public LocalEntry(WasmValueType localType, uint localCount)

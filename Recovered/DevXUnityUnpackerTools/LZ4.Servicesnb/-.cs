@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinFormmu;
 using System;
 
@@ -6,7 +6,7 @@ namespace LZ4.Servicesnb
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A
 	{
-		private int _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020(decimal _0020)
+		internal int _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020(decimal _0020)
 		{
 			string text = ((ConsoleData)null).SthStrValueForIndex;
 			((_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020((object)null, (EventArgs)null);

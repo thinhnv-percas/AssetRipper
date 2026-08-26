@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using SpirV;
 using System;
@@ -8,7 +8,7 @@ namespace PropertyGridExif
 {
 	internal class _0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A
 	{
-		private unsafe object _0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020(decimal _0020, BoolType _0020_000A, Point3DTransform _0020_0020)
+		internal unsafe object _0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020(decimal _0020, BoolType _0020_000A, Point3DTransform _0020_0020)
 		{
 			((Half*)(byte*)null)->ToString((IFormatProvider)null);
 			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(null, (string)null);

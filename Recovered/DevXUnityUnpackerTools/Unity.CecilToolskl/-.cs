@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
@@ -8,7 +8,7 @@ namespace Unity.CecilToolskl
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020()
+		internal void _0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020()
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020)null).ReadLeInt();
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A)null).SetInput((byte[])null);

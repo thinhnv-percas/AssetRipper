@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using ICSharpCode.SharpZipLib.Tar;
 using Mono.Cecil;
@@ -13,7 +13,7 @@ namespace APKtv
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A
 	{
-		private unsafe void _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020(Wasm.Instructions.Instruction _0020)
+		internal unsafe void _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020(Wasm.Instructions.Instruction _0020)
 		{
 			//IL_0012: Expected I, but got O
 			//IL_0012: Expected I, but got O
@@ -26,7 +26,7 @@ namespace APKtv
 	}
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A
 	{
-		private void _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020(VectorType _0020, short _0020_000A)
+		internal void _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020(VectorType _0020, short _0020_000A)
 		{
 			((_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020((TypeDefinition)null);
 		}

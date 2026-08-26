@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -8,26 +8,26 @@ namespace Wasm.Binary
 {
 	public class BinaryWasmReader
 	{
-		private BinaryReader _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A;
+		internal BinaryReader _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private Encoding _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A;
+		internal Encoding _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A;
 
-		private Func<bool> _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020;
+		internal Func<bool> _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private long _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A;
+		internal long _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A;
 
 		public Encoding StringEncoding
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public long Position
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public BinaryWasmReader(BinaryReader reader)
@@ -56,7 +56,7 @@ namespace Wasm.Binary
 			_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020 = streamIsEmpty;
 		}
 
-		private bool _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A()
+		internal bool _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A()
 		{
 			return Position >= _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A.BaseStream.Length;
 		}
@@ -220,7 +220,7 @@ namespace Wasm.Binary
 			return ReadRemainingPayload(startPosition, header.PayloadLength);
 		}
 
-		protected virtual Section ReadCustomSectionPayload(SectionHeader header)
+		internal virtual Section ReadCustomSectionPayload(SectionHeader header)
 		{
 			if (header.Name.CustomName == "name")
 			{
@@ -229,7 +229,7 @@ namespace Wasm.Binary
 			return new CustomSection(header.Name.CustomName, ReadBytes((int)header.PayloadLength));
 		}
 
-		protected Section ReadKnownSectionPayload(SectionHeader header)
+		internal Section ReadKnownSectionPayload(SectionHeader header)
 		{
 			switch (header.Name.Code)
 			{
@@ -260,7 +260,7 @@ namespace Wasm.Binary
 			}
 		}
 
-		protected virtual Section ReadUnknownSectionPayload(SectionHeader header)
+		internal virtual Section ReadUnknownSectionPayload(SectionHeader header)
 		{
 			return new UnknownSection(header.Name.Code, ReadBytes((int)header.PayloadLength));
 		}

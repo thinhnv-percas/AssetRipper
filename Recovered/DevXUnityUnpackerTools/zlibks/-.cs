@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WPF;
+﻿using DevXUnityUnpackerTools._WPF;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using LZ4yx;
 using SpirV;
@@ -9,7 +9,7 @@ namespace zlibks
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020()
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020()
 		{
 			((_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020((object)null, (EventArgs)null);
 			((_3DView)null).CreateCamCaller();

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using DevXUnityUnpackerTools.Properties;
 using DMP4;
@@ -23,17 +23,17 @@ namespace DSMCaps.Arm
 			return new ArmInstruction(this);
 		}
 
-		private protected override ArmInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override ArmInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return ArmInstructionDetail.Create(disassembler, hInstruction);
 		}
 
-		private protected override ArmDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override ArmDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (ArmDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override ArmInstructionId CreateId(int id)
+		internal protected override ArmInstructionId CreateId(int id)
 		{
 			return (ArmInstructionId)id;
 		}
@@ -41,93 +41,93 @@ namespace DSMCaps.Arm
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020 : InstructionDetailBuilder<ArmInstructionDetail, ArmDisassembleMode, ArmInstructionGroup, ArmInstructionGroupId, ArmInstruction, ArmInstructionId, ArmRegister, ArmRegisterId>
 	{
 		[CompilerGenerated]
-		private ArmConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
+		internal ArmConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private ArmCpsFlag _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020;
+		internal ArmCpsFlag _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private ArmCpsMode _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A;
+		internal ArmCpsMode _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020;
+		internal bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private ArmMemoryBarrierOperation _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A;
+		internal ArmMemoryBarrierOperation _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private ArmOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal ArmOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A;
+		internal bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private ArmVectorDataType _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020;
+		internal ArmVectorDataType _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A;
+		internal int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
+		internal bool _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
 
 		internal ArmConditionCode _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal ArmCpsFlag _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal ArmCpsMode _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal ArmMemoryBarrierOperation _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal ArmOperand[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal ArmVectorDataType _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal int _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal override void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -151,17 +151,17 @@ namespace DSMCaps.Arm
 			return new ArmInstructionDetail(this);
 		}
 
-		private protected override ArmDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override ArmDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (ArmDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override ArmInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
+		internal protected override ArmInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
 		{
 			return ArmInstructionGroup.Create(disassembler, (ArmInstructionGroupId)instructionGroupId);
 		}
 
-		private protected override ArmRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
+		internal protected override ArmRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
 		{
 			return ArmRegister._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A(disassembler, (ArmRegisterId)registerId);
 		}
@@ -250,14 +250,14 @@ namespace DSMCaps.Arm
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020(bool _0020)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020(bool _0020)
 		{
 			return "973683935";
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A
 	{
-		private unsafe object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020(VersionHeader _0020)
+		internal unsafe object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020(VersionHeader _0020)
 		{
 			string text = ((_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020)null)._0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020;
 			int nameIndex = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020*)(byte*)null)->NameIndex;
@@ -269,7 +269,7 @@ namespace DSMCaps.Arm
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020(ArmOperand _0020, CapstoneDisassembler _0020_000A, ref _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A _0020_0020)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020(ArmOperand _0020, CapstoneDisassembler _0020_000A, ref _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A _0020_0020)
 		{
 			Bitmap imageUpload = Resources.ImageUpload16;
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A((object)null, (EventArgs)null);
@@ -278,7 +278,7 @@ namespace DSMCaps.Arm
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020(int _0020)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020(int _0020)
 		{
 			int num = ((_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020)null)._0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A;
 			((_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020();
@@ -288,7 +288,7 @@ namespace DSMCaps.Arm
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020(int _0020, float _0020_000A, _0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A _0020_0020, short _0020_000A_000A)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020(int _0020, float _0020_000A, _0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A _0020_0020, short _0020_000A_000A)
 		{
 			((APKSignDialog)null).ShowAsDialog((IWin32Window)null);
 			_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A(null, null);
@@ -297,7 +297,7 @@ namespace DSMCaps.Arm
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A
 	{
-		private unsafe string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A _0020, bool _0020_000A)
+		internal unsafe string _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A _0020, bool _0020_000A)
 		{
 			int nameIndex = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020*)(byte*)null)->NameIndex;
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020((object)null, (EventArgs)null);

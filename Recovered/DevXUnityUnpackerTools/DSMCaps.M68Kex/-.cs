@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streamsgh;
 using System;
@@ -7,7 +7,7 @@ namespace DSMCaps.M68Kex
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A
 	{
-		private unsafe string _0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020(int[] _0020, float[] _0020_000A, float[] _0020_0020, int _0020_000A_000A)
+		internal unsafe string _0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020(int[] _0020, float[] _0020_000A, float[] _0020_0020, int _0020_000A_000A)
 		{
 			//IL_002e: Expected I, but got O
 			//IL_002e: Expected I, but got O

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using System;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Tarxt
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A
 	{
-		private void _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020(object _0020, EventArgs _0020_000A)
+		internal void _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020(object _0020, EventArgs _0020_000A)
 		{
 			OperatorImpls.Float64Le(null, null);
 			((_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020)null).EncodeRgba4Bpp((ARGB_RAW)null);

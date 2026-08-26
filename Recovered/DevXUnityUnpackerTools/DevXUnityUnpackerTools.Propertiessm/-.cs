@@ -1,4 +1,4 @@
-using EdiTools;
+﻿using EdiTools;
 using System;
 using System.Collections.Generic;
 using Unity.IO.Compression;
@@ -9,7 +9,7 @@ namespace DevXUnityUnpackerTools.Propertiessm
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020(int _0020, string _0020_000A, float _0020_0020)
+		internal string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020(int _0020, string _0020_000A, float _0020_0020)
 		{
 			byte[] extraPayload = ((FunctionBody)null).ExtraPayload;
 			((DeflateStream)null)._0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020((_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A)null);

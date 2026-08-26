@@ -1,23 +1,23 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.Arm
 {
 	public sealed class ArmMemoryOperandValue
 	{
 		[CompilerGenerated]
-		private readonly ArmRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
+		internal readonly ArmRegister _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
+		internal readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly ArmRegister _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
+		internal readonly ArmRegister _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020;
+		internal readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A;
+		internal readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A;
 
 		public ArmRegister Base
 		{

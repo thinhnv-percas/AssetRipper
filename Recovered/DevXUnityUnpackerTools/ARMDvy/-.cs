@@ -1,4 +1,4 @@
-using LZ4pslu;
+﻿using LZ4pslu;
 using System;
 using System.IO;
 using XmlBincc;
@@ -7,7 +7,7 @@ namespace ARMDvy
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020(float _0020)
+		internal string _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020(float _0020)
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A((object)null, (EventArgs)null);
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020((object)null, (EventArgs)null);

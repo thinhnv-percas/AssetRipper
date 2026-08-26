@@ -1,8 +1,8 @@
-namespace DevXUnityUnpackerTools._WinFormeg
+﻿namespace DevXUnityUnpackerTools._WinFormeg
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		private void _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020(decimal _0020, short _0020_000A)
+		internal void _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020(decimal _0020, short _0020_000A)
 		{
 		}
 	}

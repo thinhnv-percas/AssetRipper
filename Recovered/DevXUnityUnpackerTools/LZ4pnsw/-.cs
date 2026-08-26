@@ -1,10 +1,10 @@
-using zlib;
+﻿using zlib;
 
 namespace LZ4pnsw
 {
 	internal class _0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020(short _0020, ZStreamException _0020_000A)
+		internal int _0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020(short _0020, ZStreamException _0020_000A)
 		{
 			return 65574279;
 		}

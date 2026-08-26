@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ne;
 using XnaGeometry;
 
@@ -6,7 +6,7 @@ namespace DevXUnityUnpackerTools._WinFormbj
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A
 	{
-		private unsafe object _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020()
+		internal unsafe object _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020()
 		{
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020(ref *(ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A*)null);
 			Vector2 unitY = Vector2.UnitY;

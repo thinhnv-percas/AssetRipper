@@ -1,23 +1,23 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.X86
 {
 	public sealed class X86MemoryOperandValue
 	{
 		[CompilerGenerated]
-		private readonly X86Register _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
+		internal readonly X86Register _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
+		internal readonly long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly X86Register _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
+		internal readonly X86Register _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A;
+		internal readonly int _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly X86Register _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A;
+		internal readonly X86Register _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A;
 
 		public X86Register Base
 		{

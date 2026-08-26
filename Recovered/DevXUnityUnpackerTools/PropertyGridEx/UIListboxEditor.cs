@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
@@ -11,7 +11,7 @@ namespace PropertyGridEx
 		[AttributeUsage(AttributeTargets.Property)]
 		public class UIListboxDatasource : Attribute
 		{
-			private object _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020;
+			internal object _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020;
 
 			public object Value => _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020;
 
@@ -24,7 +24,7 @@ namespace PropertyGridEx
 		[AttributeUsage(AttributeTargets.Property)]
 		public class UIListboxValueMember : Attribute
 		{
-			private string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A;
+			internal string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A;
 
 			public string Value
 			{
@@ -47,7 +47,7 @@ namespace PropertyGridEx
 		[AttributeUsage(AttributeTargets.Property)]
 		public class UIListboxDisplayMember : Attribute
 		{
-			private string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020;
+			internal string _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020;
 
 			public string Value
 			{
@@ -72,13 +72,13 @@ namespace PropertyGridEx
 		{
 		}
 
-		private bool _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A;
+		internal bool _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A;
 
-		private ListBox _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020 = new ListBox();
+		internal ListBox _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020 = new ListBox();
 
-		private object _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A;
+		internal object _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A;
 
-		private IWindowsFormsEditorService _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020;
+		internal IWindowsFormsEditorService _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020;
 
 		public override bool IsDropDownResizable => _0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A;
 
@@ -148,7 +148,7 @@ namespace PropertyGridEx
 			return EditValue(provider, value);
 		}
 
-		private void _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A(object _0020, EventArgs _0020_000A)
+		internal void _0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A(object _0020, EventArgs _0020_000A)
 		{
 			if (_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020 != null)
 			{

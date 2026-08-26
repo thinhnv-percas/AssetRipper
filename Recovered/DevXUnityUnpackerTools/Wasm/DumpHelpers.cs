@@ -1,9 +1,9 @@
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
 using System.IO;
 
 namespace Wasm
 {
-	public static class DumpHelpers
+	public class DumpHelpers
 	{
 		public static string FormatHex(byte value)
 		{

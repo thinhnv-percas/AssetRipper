@@ -1,40 +1,40 @@
-using System.Windows.Media.Media3D;
+﻿using System.Windows.Media.Media3D;
 
 namespace WFTools3D
 {
 	public class Matrix3DTransform
 	{
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020 = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020 = new LinearTransform();
 
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A = new LinearTransform();
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A = new LinearTransform();
 
 		public void Init(Matrix3D m0, Matrix3D m1, double t0 = 0.0, double t1 = 1.0)
 		{

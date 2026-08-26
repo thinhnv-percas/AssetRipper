@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ internal class GetMethodManager
 {
 	[Serializable]
 	[CompilerGenerated]
-	private sealed class Alert
+	internal sealed class Alert
 	{
 		public static readonly Alert instance = new Alert();
 

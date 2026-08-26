@@ -1,11 +1,11 @@
-using @as;
+﻿using @as;
 using Wasm.Interpret;
 
 namespace DevXUnityUnpackerTools._WPFcm
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A
 	{
-		private object _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020()
+		internal object _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020()
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A((string)null);
 			OperatorImpls.Int64RemU(null, null);

@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinFormtu;
+﻿using DevXUnityUnpackerTools._WinFormtu;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using Wasm;
 
@@ -6,7 +6,7 @@ namespace DotNetDxcxl
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A
 	{
-		private string _0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020(InitializerExpression _0020)
+		internal string _0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020(InitializerExpression _0020)
 		{
 			bool isFinished = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A)null).IsFinished;
 			((_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020();

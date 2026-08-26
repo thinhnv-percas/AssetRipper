@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -9,24 +9,24 @@ namespace Wasm
 	public sealed class FunctionBody
 	{
 		[CompilerGenerated]
-		private List<LocalEntry> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A;
+		internal List<LocalEntry> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private List<Wasm.Instructions.Instruction> _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020;
+		internal List<Wasm.Instructions.Instruction> _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
+		internal byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
 
 		public List<LocalEntry> Locals
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public List<Wasm.Instructions.Instruction> BodyInstructions
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public byte[] ExtraPayload
@@ -64,7 +64,7 @@ namespace Wasm
 			writer.WriteLengthPrefixed(_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A);
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A(BinaryWasmWriter _0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A(BinaryWasmWriter _0020)
 		{
 			_0020.WriteVarUInt32((uint)Locals.Count);
 			foreach (LocalEntry local in Locals)

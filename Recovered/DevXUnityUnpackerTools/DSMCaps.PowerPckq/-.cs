@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinFormac;
+﻿using DevXUnityUnpackerTools._WinFormac;
 using SpirV;
 using System;
 
@@ -6,7 +6,7 @@ namespace DSMCaps.PowerPckq
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A
 	{
-		private unsafe int _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020(OpExtInst _0020)
+		internal unsafe int _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020(OpExtInst _0020)
 		{
 			//IL_003c: Expected I, but got O
 			//IL_003c: Expected I, but got O

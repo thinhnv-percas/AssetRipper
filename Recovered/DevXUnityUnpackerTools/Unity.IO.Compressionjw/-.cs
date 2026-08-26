@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using System;
 using Unity.SerializationLogicul;
@@ -7,7 +7,7 @@ namespace Unity.IO.Compressionjw
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A
 	{
-		private unsafe string _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020(int _0020)
+		internal unsafe string _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020(int _0020)
 		{
 			//IL_004b: Expected I, but got O
 			//IL_004b: Expected I, but got O

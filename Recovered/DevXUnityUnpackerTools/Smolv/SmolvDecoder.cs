@@ -1,16 +1,16 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 
 namespace Smolv
 {
-	public static class SmolvDecoder
+	public class SmolvDecoder
 	{
 		public const uint SpirVHeaderMagic = 119734787u;
 
 		public const uint SmolHeaderMagic = 1397575500u;
 
-		private const int _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A = 24;
+		internal const int _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A = 24;
 
 		public static int GetDecodedBufferSize(byte[] data)
 		{
@@ -246,7 +246,7 @@ namespace Smolv
 			}
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020(byte[] _0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020(byte[] _0020)
 		{
 			if (!_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A(_0020, 1397575500u))
 			{
@@ -255,7 +255,7 @@ namespace Smolv
 			return true;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A(byte[] _0020, uint _0020_000A)
+		internal static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A(byte[] _0020, uint _0020_000A)
 		{
 			if (_0020 == null)
 			{
@@ -277,7 +277,7 @@ namespace Smolv
 			return true;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020(BinaryReader _0020, out uint _0020_000A)
+		internal static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020(BinaryReader _0020, out uint _0020_000A)
 		{
 			uint num = 0u;
 			int num2 = 0;
@@ -295,7 +295,7 @@ namespace Smolv
 			return true;
 		}
 
-		private static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A(BinaryReader _0020, out uint _0020_000A, out SpvOp _0020_0020)
+		internal static bool _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A(BinaryReader _0020, out uint _0020_000A, out SpvOp _0020_0020)
 		{
 			_0020_000A = 0u;
 			_0020_0020 = SpvOp.Nop;
@@ -310,7 +310,7 @@ namespace Smolv
 			return true;
 		}
 
-		private static SpvOp _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020(SpvOp _0020)
+		internal static SpvOp _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020(SpvOp _0020)
 		{
 			switch (_0020)
 			{
@@ -367,7 +367,7 @@ namespace Smolv
 			}
 		}
 
-		private static uint _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A(SpvOp _0020, uint _0020_000A)
+		internal static uint _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A(SpvOp _0020, uint _0020_000A)
 		{
 			_0020_000A++;
 			switch (_0020)
@@ -391,7 +391,7 @@ namespace Smolv
 			return _0020_000A;
 		}
 
-		private static int _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020(int _0020)
+		internal static int _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020(int _0020)
 		{
 			switch (_0020)
 			{
@@ -410,7 +410,7 @@ namespace Smolv
 			}
 		}
 
-		private static int _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A(uint _0020)
+		internal static int _0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A(uint _0020)
 		{
 			if ((_0020 & 1) == 0)
 			{

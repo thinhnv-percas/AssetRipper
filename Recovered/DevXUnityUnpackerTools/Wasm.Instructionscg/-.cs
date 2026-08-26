@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using EdiTools;
 using SpirV;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace Wasm.Instructionscg
 {
 	internal class _0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A
 	{
-		private string _0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020(Wasm.Instructions.Instruction _0020, InterpreterContext _0020_000A)
+		internal string _0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020(Wasm.Instructions.Instruction _0020, InterpreterContext _0020_000A)
 		{
 			_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A I_0 = ((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020;
 			IList<ParsedInstruction> instruction = ((Module)null).Instructions;

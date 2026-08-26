@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -6,12 +6,12 @@ namespace Wasm.Interpret
 {
 	public sealed class ThrowFunctionDefinition : FunctionDefinition
 	{
-		private IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;
+		internal IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;
 
-		private IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020;
+		internal IList<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private Exception _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A;
+		internal Exception _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A;
 
 		public override IList<WasmValueType> ParameterTypes => _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A;
 
@@ -20,7 +20,7 @@ namespace Wasm.Interpret
 		public Exception ExceptionToThrow
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ThrowFunctionDefinition(IList<WasmValueType> parameterTypes, IList<WasmValueType> returnTypes, Exception exceptionToThrow)

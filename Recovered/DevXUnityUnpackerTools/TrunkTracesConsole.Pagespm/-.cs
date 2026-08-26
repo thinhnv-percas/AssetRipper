@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Core;
 using Mono.Cecil;
@@ -10,7 +10,7 @@ namespace TrunkTracesConsole.Pagespm
 {
 	internal class _0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private int _0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020()
+		internal int _0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020()
 		{
 			((TypeResolver)null).Remove((GenericInstanceMethod)null);
 			bool flag = ((_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020;

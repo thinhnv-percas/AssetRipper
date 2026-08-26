@@ -1,11 +1,11 @@
-using DSMCaps.X86;
+﻿using DSMCaps.X86;
 using MiniLZOqi;
 
 namespace ARMDoi
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		private string _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020(short _0020)
+		internal string _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020(short _0020)
 		{
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020();
 			long displacement = ((X86MemoryOperandValue)null).Displacement;

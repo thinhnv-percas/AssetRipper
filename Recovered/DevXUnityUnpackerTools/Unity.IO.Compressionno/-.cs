@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using EdiTool;
 using SevenZip;
 using System;
@@ -7,7 +7,7 @@ namespace Unity.IO.Compressionno
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A
 	{
-		private int _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020(object _0020)
+		internal int _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020(object _0020)
 		{
 			((DevXCMethodData)null)._0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A((Exception)null);
 			((CheckExecuteTime)null).StackTrace = null;

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DotNetDxcjt;
 using PropertyGridEx;
@@ -10,7 +10,7 @@ namespace ICSharpCode.SharpZipLib.GZipns
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A
 	{
-		private string _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020()
+		internal string _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020()
 		{
 			Type defaultType = ((CustomProperty)null).DefaultType;
 			return "1234101627";
@@ -18,7 +18,7 @@ namespace ICSharpCode.SharpZipLib.GZipns
 	}
 	internal class _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A
 	{
-		private unsafe string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020(bool _0020)
+		internal unsafe string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020(bool _0020)
 		{
 			//IL_0012: Expected I, but got O
 			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A(ref *(Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A*)null, (Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020*)(long)(IntPtr)(void*)null);

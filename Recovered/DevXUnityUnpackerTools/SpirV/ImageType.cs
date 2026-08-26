@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SpirV
@@ -6,28 +6,28 @@ namespace SpirV
 	public class ImageType : Type
 	{
 		[CompilerGenerated]
-		private readonly Type _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020;
+		internal readonly Type _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private readonly Dim _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A;
+		internal readonly Dim _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A;
+		internal readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A;
 
 		[CompilerGenerated]
-		private readonly bool _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020;
+		internal readonly bool _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private readonly bool _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A;
+		internal readonly bool _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly ImageFormat _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A;
+		internal readonly ImageFormat _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly AccessQualifier _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020;
+		internal readonly AccessQualifier _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020;
 
 		public Type SampledType
 		{

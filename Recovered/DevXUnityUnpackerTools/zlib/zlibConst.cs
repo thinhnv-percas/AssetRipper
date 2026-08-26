@@ -1,8 +1,8 @@
-namespace zlib
+﻿namespace zlib
 {
 	public sealed class zlibConst
 	{
-		private const string _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A = "1.0.2";
+		internal const string _0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A = "1.0.2";
 
 		public const int Z_NO_COMPRESSION = 0;
 

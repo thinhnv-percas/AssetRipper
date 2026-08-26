@@ -1,8 +1,8 @@
-namespace Unity.IO.Compressionuj
+﻿namespace Unity.IO.Compressionuj
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A
 	{
-		private int _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020(string _0020)
+		internal int _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020(string _0020)
 		{
 			return 154002927;
 		}

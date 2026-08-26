@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Propertieswf;
+﻿using DevXUnityUnpackerTools.Propertieswf;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using Mono.Cecil;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.GZiptp
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020()
+		internal string _0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020()
 		{
 			((_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020((INameTransform)null);
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020)null).Reset();

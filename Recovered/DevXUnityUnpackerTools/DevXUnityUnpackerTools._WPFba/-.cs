@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip;
+﻿using ICSharpCode.SharpZipLib.Zip;
 using LZ4;
 using System;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace DevXUnityUnpackerTools._WPFba
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		private void _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020()
+		internal void _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020()
 		{
 			bool flag = (CustomString)null != (CustomString)null;
 			DateTime createTime = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A)null).CreateTime;

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using DSMCaps.M68K;
 using System;
@@ -8,7 +8,7 @@ namespace DevXUnityUnpackerTools._WinForm.AssetControlay
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A
 	{
-		private object _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020(object _0020, EventArgs _0020_000A)
+		internal object _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020(object _0020, EventArgs _0020_000A)
 		{
 			((ManyCodeCls)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020();
 			int registerBit = ((M68KOperand)null).RegisterBits;

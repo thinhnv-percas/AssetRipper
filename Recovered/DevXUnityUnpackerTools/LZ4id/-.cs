@@ -1,4 +1,4 @@
-using DevX.Cecil;
+﻿using DevX.Cecil;
 using DevXUnityUnpackerTools._WinForm;
 using DSMCaps.PowerPc;
 using System;
@@ -8,7 +8,7 @@ namespace LZ4id
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A
 	{
-		private void _0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020(IMemberReference _0020)
+		internal void _0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020(IMemberReference _0020)
 		{
 			byte[] extraPayload = ((ElementSection)null).ExtraPayload;
 			((_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A)null)._0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020((byte[])null);

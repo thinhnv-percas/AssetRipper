@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using System;
 using Wasm.Interpret;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace Unity.CecilTools.Extensionspt
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020()
+		internal void _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020()
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A((object)null, (EventArgs)null);
 			OperatorImpls.Float64Gt(null, null);

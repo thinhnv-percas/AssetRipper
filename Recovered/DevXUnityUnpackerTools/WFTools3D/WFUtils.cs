@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -8,9 +8,9 @@ using System.Windows.Media;
 
 namespace WFTools3D
 {
-	public static class WFUtils
+	public class WFUtils
 	{
-		private delegate bool _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020(IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData);
+		internal delegate bool _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020(IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData);
 
 		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
 		public struct MonitorInfoEx
@@ -45,7 +45,7 @@ namespace WFTools3D
 		}
 
 		[CompilerGenerated]
-		private sealed class _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020
+		internal sealed class _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020
 		{
 			public List<Screen> _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A;
 
@@ -68,7 +68,7 @@ namespace WFTools3D
 			}
 		}
 
-		private const int _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 = 32;
+		internal const int _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 = 32;
 
 		public static bool IsShiftDown()
 		{
@@ -116,10 +116,10 @@ namespace WFTools3D
 		}
 
 		[DllImport("user32.dll")]
-		private static extern bool EnumDisplayMonitors(IntPtr _0020, IntPtr _0020_000A, _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020 _0020_0020, IntPtr _0020_000A_000A);
+		internal static extern bool EnumDisplayMonitors(IntPtr _0020, IntPtr _0020_000A, _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020 _0020_0020, IntPtr _0020_000A_000A);
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		private static extern bool GetMonitorInfo(IntPtr _0020, ref MonitorInfoEx _0020_000A);
+		internal static extern bool GetMonitorInfo(IntPtr _0020, ref MonitorInfoEx _0020_000A);
 
 		public static List<Screen> GetAllScreens()
 		{

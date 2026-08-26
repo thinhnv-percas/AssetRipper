@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Wasm.Instructions;
 
 namespace Wasm.Optimize
@@ -7,14 +7,14 @@ namespace Wasm.Optimize
 	{
 		public static readonly UnreachableCodeOptimization Instance = new UnreachableCodeOptimization();
 
-		private static readonly HashSet<Operator> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A = new HashSet<Operator>
+		internal static readonly HashSet<Operator> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A = new HashSet<Operator>
 		{
 			_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020,
 			_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A,
 			_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A
 		};
 
-		private UnreachableCodeOptimization()
+		internal UnreachableCodeOptimization()
 		{
 		}
 

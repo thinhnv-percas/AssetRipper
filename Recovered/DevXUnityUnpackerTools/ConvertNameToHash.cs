@@ -1,4 +1,4 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 internal class ConvertNameToHash
@@ -44,7 +44,7 @@ internal class ConvertNameToHash
 		return _0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A(DevXSystemInfo.get_MachineName() + "-" + DevXSystemInfo.UserName + _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A);
 	}
 
-	private static string _0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A(string _0020)
+	internal static string _0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A(string _0020)
 	{
 		MD5CryptoServiceProvider mD5CryptoServiceProvider = new MD5CryptoServiceProvider();
 		byte[] bytes = new ASCIIEncoding().GetBytes(_0020 + "123");
@@ -61,7 +61,7 @@ internal class ConvertNameToHash
 		return _0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(bytes);
 	}
 
-	private static string _0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(byte[] _0020)
+	internal static string _0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(byte[] _0020)
 	{
 		string text = string.Empty;
 		for (int i = 0; i < _0020.Length; i++)

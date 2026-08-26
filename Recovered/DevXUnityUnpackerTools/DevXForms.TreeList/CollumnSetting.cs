@@ -1,15 +1,15 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace DevXForms.TreeList
 {
 	[TypeConverter(typeof(OptionsSettingTypeConverter))]
 	public class CollumnSetting
 	{
-		private int _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020 = 5;
+		internal int _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020 = 5;
 
-		private int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A = 20;
+		internal int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A = 20;
 
-		private MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020;
+		internal MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020;
 
 		[DefaultValue(5)]
 		public int LeftMargin

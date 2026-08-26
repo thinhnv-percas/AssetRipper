@@ -1,22 +1,22 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 public class CheckExecuteTime : IDisposable
 {
-	private static bool _0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A = !_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A._0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A;
+	internal static bool _0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A = !_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A._0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A;
 
 	public DateTime StartTimeLocal;
 
 	[CompilerGenerated]
-	private string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
+	internal string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
 
 	public Dictionary<string, long> LineCounter = new Dictionary<string, long>();
 
 	public string CurrentLine;
 
 	[CompilerGenerated]
-	private string _0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020;
+	internal string _0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020;
 
 	public string Name
 	{

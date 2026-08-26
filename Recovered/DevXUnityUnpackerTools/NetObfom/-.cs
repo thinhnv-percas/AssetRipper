@@ -1,4 +1,4 @@
-using ARMD;
+﻿using ARMD;
 using @as;
 using PropertyGridEx;
 using System;
@@ -8,7 +8,7 @@ namespace NetObfom
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A
 	{
-		private unsafe int _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020(float _0020, object _0020_000A, float _0020_0020, object _0020_000A_000A)
+		internal unsafe int _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020(float _0020, object _0020_000A, float _0020_0020, object _0020_000A_000A)
 		{
 			//IL_0012: Expected I, but got O
 			//IL_0012: Expected I, but got O

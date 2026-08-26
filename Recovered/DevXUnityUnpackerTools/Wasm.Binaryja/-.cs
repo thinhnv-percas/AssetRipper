@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WPFwi;
 using WASD;
 using Wasm.Instructions;
@@ -8,7 +8,7 @@ namespace Wasm.Binaryja
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A
 	{
-		private unsafe object _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020(object _0020, string _0020_000A, float _0020_0020, object _0020_000A_000A)
+		internal unsafe object _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020(object _0020, string _0020_000A, float _0020_0020, object _0020_000A_000A)
 		{
 			int unityFileGenVersion = ((_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020)null).UnityFileGenVersion;
 			int nameIndex = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A*)(byte*)null)->NameIndex;

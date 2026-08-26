@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using DevXForms;
 using EdiToolsxg;
 using System;
@@ -9,7 +9,7 @@ namespace ICSharpCode.SharpZipLib.Tardn
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020(string _0020, short _0020_000A, ViewMap _0020_0020)
+		internal unsafe object _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020(string _0020, short _0020_000A, ViewMap _0020_0020)
 		{
 			//IL_0011: Expected I, but got O
 			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);

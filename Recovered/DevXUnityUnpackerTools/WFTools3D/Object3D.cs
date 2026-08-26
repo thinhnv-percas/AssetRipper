@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media.Media3D;
 
 namespace WFTools3D
@@ -19,7 +19,7 @@ namespace WFTools3D
 
 		public static readonly DependencyProperty Rotation3Property = DependencyProperty.Register("Rotation3", typeof(Quaternion), typeof(Object3D), new UIPropertyMetadata(Quaternion.Identity, _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A));
 
-		private int _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
+		internal int _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A;
 
 		public virtual double ScaleX
 		{
@@ -119,7 +119,7 @@ namespace WFTools3D
 			(_0020 as Object3D).NewTransform();
 		}
 
-		protected virtual void NewTransform()
+		internal virtual void NewTransform()
 		{
 			if (_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A == 0)
 			{

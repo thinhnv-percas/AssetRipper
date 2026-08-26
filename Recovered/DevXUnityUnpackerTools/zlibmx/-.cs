@@ -1,4 +1,4 @@
-using SevenZip.CommandLineParser;
+﻿using SevenZip.CommandLineParser;
 using Wasm.Interpret;
 using Xxtease;
 
@@ -6,7 +6,7 @@ namespace zlibmx
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A
 	{
-		private void _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020(decimal _0020, decimal _0020_000A, int _0020_0020)
+		internal void _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020(decimal _0020, decimal _0020_000A, int _0020_0020)
 		{
 			((_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020();
 			OperatorImpls.Int64Rotl(null, null);

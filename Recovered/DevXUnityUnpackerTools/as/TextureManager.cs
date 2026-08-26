@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
@@ -339,33 +339,33 @@ namespace @as
 
 		internal const bool _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A = false;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A = 1;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A = 1;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A = 1;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A = 1;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020 = 1;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020 = 1;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A;
 
-		private WeakReference _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020;
+		internal WeakReference _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020;
 
-		private texgenpack_texturetype _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A;
+		internal texgenpack_texturetype _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020;
 
-		private int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A;
+		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A;
 
-		private QFORMAT _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020;
+		internal QFORMAT _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020;
 
-		private byte[] _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A;
+		internal byte[] _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A;
 
 		internal _0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020 _0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020;
 
@@ -433,9 +433,9 @@ namespace @as
 
 		internal int _0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020;
 
-		private static string ConvertTextureFilePath = FileManager.FormatPath(DevXSystemInfo.StreamingAssets, "DevXC", "ConvertTexture.devxc");
+		internal static string ConvertTextureFilePath = FileManager.FormatPath(DevXSystemInfo.StreamingAssets, "DevXC", "ConvertTexture.devxc");
 
-		private bool _0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020;
+		internal bool _0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020;
 
 		internal bool _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020
 		{
@@ -846,12 +846,12 @@ namespace @as
 		}
 
 		[DllImport("TextureConverterWrapper_x64.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Ponvert")]
-		private static extern void Ponvert_64(byte[] _0020, IntPtr _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A, int _0020_0020_0020, bool _0020_000A_000A_000A);
+		internal static extern void Ponvert_64(byte[] _0020, IntPtr _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A, int _0020_0020_0020, bool _0020_000A_000A_000A);
 
 		[DllImport("x86\\TextureConverterWrapper_x86.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Ponvert")]
-		private static extern void Ponvert_32(byte[] _0020, IntPtr _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A, int _0020_0020_0020, bool _0020_000A_000A_000A);
+		internal static extern void Ponvert_32(byte[] _0020, IntPtr _0020_000A, int _0020_0020, int _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A, int _0020_0020_0020, bool _0020_000A_000A_000A);
 
-		private unsafe byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020)
+		internal unsafe byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020(byte[] _0020, int _0020_000A, int _0020_0020)
 		{
 			try
 			{
@@ -925,12 +925,12 @@ namespace @as
 		}
 
 		[DllImport("texgenpack_x64", CallingConvention = CallingConvention.Cdecl, EntryPoint = "texgenpackdecode")]
-		private static extern void texgenpackdecode_64(int _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A, IntPtr _0020_000A_0020, bool _0020_0020_000A);
+		internal static extern void texgenpackdecode_64(int _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A, IntPtr _0020_000A_0020, bool _0020_0020_000A);
 
 		[DllImport("texgenpack_x86", CallingConvention = CallingConvention.Cdecl, EntryPoint = "texgenpackdecode")]
-		private static extern void texgenpackdecode_86(int _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A, IntPtr _0020_000A_0020, bool _0020_0020_000A);
+		internal static extern void texgenpackdecode_86(int _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A, IntPtr _0020_000A_0020, bool _0020_0020_000A);
 
-		private unsafe static byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A(int _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A, bool _0020_000A_0020)
+		internal unsafe static byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A(int _0020, byte[] _0020_000A, int _0020_0020, int _0020_000A_000A, bool _0020_000A_0020)
 		{
 			string currentDirectory = Directory.GetCurrentDirectory();
 			try
@@ -987,12 +987,12 @@ namespace @as
 		}
 
 		[DllImport("crunch_x64.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "DecompressCRN")]
-		private static extern bool DecompressCRN_64(byte[] _0020, int _0020_000A, out IntPtr _0020_0020, out int _0020_000A_000A);
+		internal static extern bool DecompressCRN_64(byte[] _0020, int _0020_000A, out IntPtr _0020_0020, out int _0020_000A_000A);
 
 		[DllImport("crunch_x86.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "DecompressCRN")]
-		private static extern bool DecompressCRN_86(byte[] _0020, int _0020_000A, out IntPtr _0020_0020, out int _0020_000A_000A);
+		internal static extern bool DecompressCRN_86(byte[] _0020, int _0020_000A, out IntPtr _0020_0020, out int _0020_000A_000A);
 
-		private static byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(byte[] _0020)
+		internal static byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(byte[] _0020)
 		{
 			int num = 0;
 			IntPtr zero = IntPtr.Zero;
@@ -1041,7 +1041,7 @@ namespace @as
 			}
 		}
 
-		private byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020(byte[] _0020)
+		internal byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020(byte[] _0020)
 		{
 			MemoryStream memoryStream = new MemoryStream();
 			using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
@@ -1071,7 +1071,7 @@ namespace @as
 			return _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020();
 		}
 
-		private byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020()
+		internal byte[] _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020()
 		{
 			try
 			{
@@ -1428,7 +1428,7 @@ namespace @as
 			return memoryStream.ToArray();
 		}
 
-		private void _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020()
+		internal void _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020()
 		{
 			switch (curTexFormat)
 			{
@@ -1653,7 +1653,7 @@ namespace @as
 			}
 		}
 
-		private void _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A(bool _0020 = true, bool _0020_000A = true)
+		internal void _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A(bool _0020 = true, bool _0020_000A = true)
 		{
 			byte[] array = _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020;
 			if (array == null)
@@ -2765,7 +2765,7 @@ namespace @as
 			_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A(_0020)[_0020_000A._0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020] = _0020_000A;
 		}
 
-		private static ConcurrentDictionary<string, ImageInfo> _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A(_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020 _0020)
+		internal static ConcurrentDictionary<string, ImageInfo> _0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A(_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020 _0020)
 		{
 			if (_0020 == null)
 			{

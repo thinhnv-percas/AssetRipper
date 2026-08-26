@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DevXUnityUnpackerTools._WPFeh;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -9,7 +9,7 @@ namespace DevXUnityUnpackerTools._WPFsh
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A
 	{
-		private unsafe void _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020(string _0020, int _0020_000A, string _0020_0020)
+		internal unsafe void _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020(string _0020, int _0020_000A, string _0020_0020)
 		{
 			((_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020)null).ExecuteNode((System.Windows.Forms.TreeNode)null, ref *(bool*)null);
 			((_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020();

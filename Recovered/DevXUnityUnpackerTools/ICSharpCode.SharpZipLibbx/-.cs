@@ -1,4 +1,4 @@
-using DMP4;
+﻿using DMP4;
 using System;
 using Unity.IO.Compressiondq;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLibbx
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A
 	{
-		private unsafe int _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020(Il2CppGenericContainer _0020, bool _0020_000A)
+		internal unsafe int _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020(Il2CppGenericContainer _0020, bool _0020_000A)
 		{
 			//IL_004d: Expected I, but got O
 			//IL_004d: Expected I, but got O

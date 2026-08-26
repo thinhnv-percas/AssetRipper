@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip.Compression;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression;
 using SpirV;
 using Unity.IO.Compressiongr;
 
@@ -6,7 +6,7 @@ namespace ProtoBufqn
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A
 	{
-		private int _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020(short _0020, OpTypeRuntimeArray _0020_000A, decimal _0020_0020)
+		internal int _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020(short _0020, OpTypeRuntimeArray _0020_000A, decimal _0020_0020)
 		{
 			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020)null)._0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020((byte[])null);
 			bool isFinished = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A)null).IsFinished;

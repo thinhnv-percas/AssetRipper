@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using DSMCaps.XCore;
 using SevenZip.Buffer;
 using System.IO;
@@ -10,7 +10,7 @@ namespace ProtoBufci
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A
 	{
-		private unsafe object _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020(string _0020)
+		internal unsafe object _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020(string _0020)
 		{
 			((_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A((string)null);
 			((InBuffer)null).Init((Stream)null);

@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using LZ4psvl;
 using System;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streamsmu
 {
 	internal class _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A
 	{
-		private int _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020()
+		internal int _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020()
 		{
 			((_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A)null)._0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020((ExecutionPolicy)null);
 			HiddenCalls.Call2(null);

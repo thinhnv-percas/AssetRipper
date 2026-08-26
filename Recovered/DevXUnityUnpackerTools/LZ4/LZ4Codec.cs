@@ -1,68 +1,68 @@
-using LZ4.Services;
+﻿using LZ4.Services;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace LZ4
 {
-	public static class LZ4Codec
+	public class LZ4Codec
 	{
-		private static readonly ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020;
+		internal static readonly ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020;
 
-		private static readonly ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A;
+		internal static readonly ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A;
 
-		private static readonly ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020;
+		internal static readonly ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A;
 
-		private static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020;
+		internal static ILZ4Service _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020;
 
-		private const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A = 0;
+		internal const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A = 0;
 
-		private const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020 = 4;
+		internal const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020 = 4;
 
-		private const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A = 8;
+		internal const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A = 8;
 
-		private const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020 = 8;
+		internal const int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020 = 8;
 
 		public static string CodecName => string.Format("{0}/{1}/{2}HC", (_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020 == null) ? "<none>" : _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020.CodecName, (_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020 == null) ? "<none>" : _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020.CodecName, (_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A == null) ? "<none>" : _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A.CodecName);
 
-		private static bool _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020()
+		internal static bool _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020()
 		{
 			return false;
 		}
 
-		private static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A()
+		internal static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A()
 		{
 			_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020 = (_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A = null);
 		}
 
-		private static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020()
+		internal static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020()
 		{
 			_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020 = (_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A = null);
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		private static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A()
+		internal static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A()
 		{
 			_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A = _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_00601<_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A>();
 			_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020 = _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_00601<_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020>();
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		private static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020()
+		internal static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020()
 		{
 			_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A = _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_00601<_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A>();
 			_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020 = _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_00601<_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020>();
@@ -87,7 +87,7 @@ namespace LZ4
 			}
 		}
 
-		private static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A(out ILZ4Service _0020, out ILZ4Service _0020_000A, out ILZ4Service _0020_0020)
+		internal static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A(out ILZ4Service _0020, out ILZ4Service _0020_000A, out ILZ4Service _0020_0020)
 		{
 			if (IntPtr.Size == 4)
 			{
@@ -103,7 +103,7 @@ namespace LZ4
 			}
 		}
 
-		private static ILZ4Service _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020(ILZ4Service _0020)
+		internal static ILZ4Service _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020(ILZ4Service _0020)
 		{
 			byte[] bytes = Encoding.UTF8.GetBytes("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 			byte[] array = new byte[MaximumOutputLength(bytes.Length)];
@@ -156,7 +156,7 @@ namespace LZ4
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		private static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A(Action _0020)
+		internal static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A(Action _0020)
 		{
 			try
 			{
@@ -168,7 +168,7 @@ namespace LZ4
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		private static _0020_0020 _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A<_0020_0020>(Func<_0020_0020> _0020, _0020_0020 _0020_000A)
+		internal static _0020_0020 _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A<_0020_0020>(Func<_0020_0020> _0020, _0020_0020 _0020_000A)
 		{
 			try
 			{
@@ -181,7 +181,7 @@ namespace LZ4
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		private static ILZ4Service _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_00601<_0020>() where _0020 : ILZ4Service, new()
+		internal static ILZ4Service _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_00601<_0020>() where _0020 : ILZ4Service, new()
 		{
 			try
 			{
@@ -305,7 +305,7 @@ namespace LZ4
 			return array3;
 		}
 
-		private static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A(byte[] _0020, int _0020_000A, uint _0020_0020)
+		internal static void _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A(byte[] _0020, int _0020_000A, uint _0020_0020)
 		{
 			_0020[_0020_000A] = (byte)_0020_0020;
 			_0020[_0020_000A + 1] = (byte)(_0020_0020 >> 8);
@@ -313,12 +313,12 @@ namespace LZ4
 			_0020[_0020_000A + 3] = (byte)(_0020_0020 >> 24);
 		}
 
-		private static uint _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020(byte[] _0020, int _0020_000A)
+		internal static uint _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020(byte[] _0020, int _0020_000A)
 		{
 			return (uint)(_0020[_0020_000A] | (_0020[_0020_000A + 1] << 8) | (_0020[_0020_000A + 2] << 16) | (_0020[_0020_000A + 3] << 24));
 		}
 
-		private static byte[] _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A(byte[] _0020, int _0020_000A, int _0020_0020, bool _0020_000A_000A)
+		internal static byte[] _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A(byte[] _0020, int _0020_000A, int _0020_0020, bool _0020_000A_000A)
 		{
 			_0020_0020 = Math.Min(_0020.Length - _0020_000A, _0020_0020);
 			if (_0020_0020 < 0)

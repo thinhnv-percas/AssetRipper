@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Properties;
+﻿using DevXUnityUnpackerTools.Properties;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 public class BinaryAnalizerDlg : Form
 {
-	private IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
+	internal IContainer _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A;
 
-	private ToolStrip _0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020;
+	internal ToolStrip _0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020;
 
-	private ToolStripButton _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A;
+	internal ToolStripButton _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A;
 
-	private ToolStripSeparator _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A;
+	internal ToolStripSeparator _0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A;
 
 	public BinaryAnalizerControl binaryAnalizerControl;
 
@@ -22,7 +22,7 @@ public class BinaryAnalizerDlg : Form
 		_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020();
 	}
 
-	private void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020(object _0020, EventArgs _0020_000A)
+	internal void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020(object _0020, EventArgs _0020_000A)
 	{
 		OpenFileDialog openFileDialog = new OpenFileDialog();
 		openFileDialog.Title = "Open code file";
@@ -43,7 +43,7 @@ public class BinaryAnalizerDlg : Form
 		base.Dispose(disposing);
 	}
 
-	private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
+	internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020()
 	{
 		_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020 = new ToolStrip();
 		_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A = new ToolStripButton();

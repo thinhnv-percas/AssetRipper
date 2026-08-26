@@ -1,17 +1,17 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace SpirV
 {
 	public class Operand
 	{
 		[CompilerGenerated]
-		private readonly string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
+		internal readonly string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly OperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
+		internal readonly OperandType _0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private readonly OperandQuantifier _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020;
+		internal readonly OperandQuantifier _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020;
 
 		public string Name
 		{

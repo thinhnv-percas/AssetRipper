@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using Wasm;
@@ -7,7 +7,7 @@ namespace LZ4kv
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A
 	{
-		private unsafe object _0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020()
+		internal unsafe object _0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020()
 		{
 			//IL_0051: Expected I, but got O
 			IEntryFactory entryFactory = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020)null).EntryFactory;

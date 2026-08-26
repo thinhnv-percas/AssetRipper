@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using DSMCaps.Mips;
 using DSMCaps.X86;
@@ -7,7 +7,7 @@ namespace DevXUnityUnpackerTools._WinFormpp
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020()
+		internal string _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020()
 		{
 			bool flag = (VerFormat)null != (VerFormat)null;
 			byte displacementOffset = ((X86Encoding)null).DisplacementOffset;

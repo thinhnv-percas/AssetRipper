@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Wasm.Binary;
@@ -8,23 +8,23 @@ namespace Wasm
 	public struct ResizableLimits
 	{
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private uint? _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_000A;
+		internal uint? _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_000A;
 
 		public bool HasMaximum => Maximum.HasValue;
 
 		public uint Initial
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint? Maximum
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ResizableLimits(uint initial)

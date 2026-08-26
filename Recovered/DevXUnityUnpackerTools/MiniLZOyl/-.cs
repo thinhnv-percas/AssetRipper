@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DevXUnityUnpackerTools.Propertiesps;
 using FMOD;
 using ICSharpCode.SharpZipLib.Zip;
@@ -7,7 +7,7 @@ namespace MiniLZOyl
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020()
+		internal int _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020()
 		{
 			((_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A((string)null, (string[])null);
 			TreeNode owner = ((TreeNodeCollection)null).Owner;

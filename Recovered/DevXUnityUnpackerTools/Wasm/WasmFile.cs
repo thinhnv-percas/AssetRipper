@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Wasm
 	{
 		[Serializable]
 		[CompilerGenerated]
-		private sealed class _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020
+		internal sealed class _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020
 		{
 			public static readonly _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020 _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A = new _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020();
 
@@ -24,10 +24,10 @@ namespace Wasm
 		}
 
 		[CompilerGenerated]
-		private VersionHeader _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020;
+		internal VersionHeader _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private List<Section> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A;
+		internal List<Section> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A;
 
 		public VersionHeader Header
 		{
@@ -38,7 +38,7 @@ namespace Wasm
 		public List<Section> Sections
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public string ModuleName
@@ -61,7 +61,7 @@ namespace Wasm
 			}
 		}
 
-		private ModuleNameEntry _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A
+		internal ModuleNameEntry _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A
 		{
 			get
 			{

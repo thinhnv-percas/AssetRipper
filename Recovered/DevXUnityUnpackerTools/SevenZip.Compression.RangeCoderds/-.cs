@@ -1,4 +1,4 @@
-using DevXParserLibav;
+﻿using DevXParserLibav;
 using DSMCaps.M68K;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using SevenZip.CommandLineParseret;
@@ -9,7 +9,7 @@ namespace SevenZip.Compression.RangeCoderds
 {
 	internal class _0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A
 	{
-		private unsafe string _0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020(Type _0020)
+		internal unsafe string _0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020(Type _0020)
 		{
 			M68KRegister @base = ((M68KMemoryOperandValue)null).Base;
 			((_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A)null)._0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020();

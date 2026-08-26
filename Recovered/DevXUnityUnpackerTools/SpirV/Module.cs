@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -9,7 +9,7 @@ namespace SpirV
 	public class Module
 	{
 		[StructLayout(LayoutKind.Explicit)]
-		private struct _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020
+		internal struct _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020
 		{
 			[FieldOffset(0)]
 			public uint Int;
@@ -19,7 +19,7 @@ namespace SpirV
 		}
 
 		[StructLayout(LayoutKind.Explicit)]
-		private struct _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A
+		internal struct _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A
 		{
 			[FieldOffset(0)]
 			public ulong Long;
@@ -29,12 +29,12 @@ namespace SpirV
 		}
 
 		[CompilerGenerated]
-		private readonly ModuleHeader _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020;
+		internal readonly ModuleHeader _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private readonly IList<ParsedInstruction> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A;
+		internal readonly IList<ParsedInstruction> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A;
 
-		private static HashSet<string> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020 = new HashSet<string>
+		internal static HashSet<string> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020 = new HashSet<string>
 		{
 			"OpSourceContinued",
 			"OpSource",
@@ -47,7 +47,7 @@ namespace SpirV
 			"OpModuleProcessed"
 		};
 
-		private readonly Dictionary<uint, ParsedInstruction> _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A = new Dictionary<uint, ParsedInstruction>();
+		internal readonly Dictionary<uint, ParsedInstruction> _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_000A = new Dictionary<uint, ParsedInstruction>();
 
 		public ModuleHeader Header
 		{
@@ -71,7 +71,7 @@ namespace SpirV
 			return _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020.Contains(instruction.Instruction.Name);
 		}
 
-		private static void _0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A(IList<ParsedInstruction> _0020, Dictionary<uint, ParsedInstruction> _0020_000A)
+		internal static void _0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A(IList<ParsedInstruction> _0020, Dictionary<uint, ParsedInstruction> _0020_000A)
 		{
 			List<ParsedInstruction> list = new List<ParsedInstruction>();
 			List<ParsedInstruction> list2 = new List<ParsedInstruction>();
@@ -179,7 +179,7 @@ namespace SpirV
 			return new Module(header, list);
 		}
 
-		private static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020(ParsedInstruction _0020, IDictionary<uint, ParsedInstruction> _0020_000A)
+		internal static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020(ParsedInstruction _0020, IDictionary<uint, ParsedInstruction> _0020_000A)
 		{
 			Instruction instruction = _0020.Instruction;
 			if (instruction == null)
@@ -369,7 +369,7 @@ namespace SpirV
 			}
 		}
 
-		private static object _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A(ScalarType _0020, IList<uint> _0020_000A, int _0020_0020)
+		internal static object _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A(ScalarType _0020, IList<uint> _0020_000A, int _0020_0020)
 		{
 			if (_0020 != null)
 			{

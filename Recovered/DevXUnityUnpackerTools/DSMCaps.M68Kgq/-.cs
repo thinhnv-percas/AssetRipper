@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using EdiTools;
 using SpirV;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ namespace DSMCaps.M68Kgq
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A
 	{
-		private int _0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020(byte[] _0020)
+		internal int _0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020(byte[] _0020)
 		{
 			_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A.Create(null);
 			((EdiDocument)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A((string)null, (EdiOptions)null);

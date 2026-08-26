@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using MiniJSONgy;
 using Unity.SerializationLogic;
 using Wasm;
@@ -8,7 +8,7 @@ namespace SevenZip.Compression.RangeCoderpr
 {
 	internal class _0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A
 	{
-		private void _0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020()
+		internal void _0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020()
 		{
 			UnityEngineTypePredicates.IsMonoBehaviour(null);
 			((_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A)null)._0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020();

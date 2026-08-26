@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -6,7 +6,7 @@ namespace DevXForms
 {
 	public class IconUtil
 	{
-		private struct _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A
+		internal struct _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A
 		{
 			public IntPtr hIcon;
 
@@ -21,17 +21,17 @@ namespace DevXForms
 			public string szTypeName;
 		}
 
-		private const int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A = 256;
+		internal const int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A = 256;
 
-		private const int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020 = 1;
+		internal const int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020 = 1;
 
-		private const int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A = 0;
+		internal const int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A = 0;
 
 		[DllImport("Shell32.dll")]
-		private static extern IntPtr SHGetFileInfo(string _0020, uint _0020_000A, ref _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A _0020_0020, int _0020_000A_000A, uint _0020_000A_0020);
+		internal static extern IntPtr SHGetFileInfo(string _0020, uint _0020_000A, ref _0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A _0020_0020, int _0020_000A_000A, uint _0020_000A_0020);
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		private static extern bool DestroyIcon(IntPtr _0020);
+		internal static extern bool DestroyIcon(IntPtr _0020);
 
 		public static Bitmap GetIcon(string filename)
 		{

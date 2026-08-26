@@ -1,4 +1,4 @@
-using ICSharpCode.SharpZipLib.Zip.Compression;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression;
 using LZ4bd;
 using System;
 
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Checksumvw
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A
 	{
-		private unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020()
+		internal unsafe void _0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020()
 		{
 			//IL_0013: Expected I, but got O
 			//IL_0013: Expected I, but got O

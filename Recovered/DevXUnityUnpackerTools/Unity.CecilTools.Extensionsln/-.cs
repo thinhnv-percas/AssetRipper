@@ -1,8 +1,8 @@
-namespace Unity.CecilTools.Extensionsln
+﻿namespace Unity.CecilTools.Extensionsln
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020(decimal _0020, short _0020_000A, short _0020_0020, string _0020_000A_000A)
+		internal void _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020(decimal _0020, short _0020_000A, short _0020_0020, string _0020_000A_000A)
 		{
 		}
 	}

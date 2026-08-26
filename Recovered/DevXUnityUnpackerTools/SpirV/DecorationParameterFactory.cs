@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SpirV
 {
@@ -6,7 +6,7 @@ namespace SpirV
 	{
 		public class SpecIdParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -16,7 +16,7 @@ namespace SpirV
 
 		public class ArrayStrideParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -26,7 +26,7 @@ namespace SpirV
 
 		public class MatrixStrideParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -36,7 +36,7 @@ namespace SpirV
 
 		public class BuiltInParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new EnumType<BuiltIn>()
 			};
@@ -46,7 +46,7 @@ namespace SpirV
 
 		public class StreamParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -56,7 +56,7 @@ namespace SpirV
 
 		public class LocationParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -66,7 +66,7 @@ namespace SpirV
 
 		public class ComponentParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -76,7 +76,7 @@ namespace SpirV
 
 		public class IndexParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -86,7 +86,7 @@ namespace SpirV
 
 		public class BindingParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -96,7 +96,7 @@ namespace SpirV
 
 		public class DescriptorSetParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -106,7 +106,7 @@ namespace SpirV
 
 		public class OffsetParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -116,7 +116,7 @@ namespace SpirV
 
 		public class XfbBufferParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -126,7 +126,7 @@ namespace SpirV
 
 		public class XfbStrideParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -136,7 +136,7 @@ namespace SpirV
 
 		public class FuncParamAttrParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new EnumType<FunctionParameterAttribute>()
 			};
@@ -146,7 +146,7 @@ namespace SpirV
 
 		public class FPRoundingModeParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new EnumType<FPRoundingMode>()
 			};
@@ -156,7 +156,7 @@ namespace SpirV
 
 		public class FPFastMathModeParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new EnumType<FPFastMathMode>()
 			};
@@ -166,7 +166,7 @@ namespace SpirV
 
 		public class LinkageAttributesParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralString(),
 				new EnumType<LinkageType>()
@@ -177,7 +177,7 @@ namespace SpirV
 
 		public class InputAttachmentIndexParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -187,7 +187,7 @@ namespace SpirV
 
 		public class AlignmentParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -197,7 +197,7 @@ namespace SpirV
 
 		public class MaxByteOffsetParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};
@@ -207,7 +207,7 @@ namespace SpirV
 
 		public class AlignmentIdParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -217,7 +217,7 @@ namespace SpirV
 
 		public class MaxByteOffsetIdParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new IdRef()
 			};
@@ -227,7 +227,7 @@ namespace SpirV
 
 		public class SecondaryViewportRelativeNVParameter : Parameter
 		{
-			private static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
+			internal static readonly List<OperandType> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = new List<OperandType>
 			{
 				new LiteralInteger()
 			};

@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using ICSharpCode.SharpZipLib.Tar;
 using System;
 
@@ -6,7 +6,7 @@ namespace APKld
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A
 	{
-		private unsafe object _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020(int _0020, int _0020_000A)
+		internal unsafe object _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020(int _0020, int _0020_000A)
 		{
 			//IL_004c: Expected I, but got O
 			byte typeFlag = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020)null).TypeFlag;

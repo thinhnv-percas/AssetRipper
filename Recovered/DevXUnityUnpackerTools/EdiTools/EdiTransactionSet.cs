@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace EdiTools
@@ -6,30 +6,30 @@ namespace EdiTools
 	public class EdiTransactionSet
 	{
 		[CompilerGenerated]
-		private EdiSegment _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020;
+		internal EdiSegment _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private EdiSegment _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A;
+		internal EdiSegment _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private IList<EdiSegment> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020;
+		internal IList<EdiSegment> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020;
 
 		public EdiSegment InterchangeHeader
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public EdiSegment FunctionalGroupHeader
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public IList<EdiSegment> Segments
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public EdiTransactionSet(EdiSegment interchangeHeader, EdiSegment functionalGroupHeader)

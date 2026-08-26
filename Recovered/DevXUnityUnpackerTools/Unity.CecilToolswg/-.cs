@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System.Collections.Generic;
 using Wasm;
 using WFTools3D;
@@ -7,7 +7,7 @@ namespace Unity.CecilToolswg
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A
 	{
-		private string _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020()
+		internal string _0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020()
 		{
 			double num = ((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A;
 			((CustomSection)null).Payload = null;

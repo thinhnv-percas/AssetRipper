@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +9,7 @@ namespace WFTools3D
 {
 	public static class Math3D
 	{
-		private static RayMeshGeometry3DHitTestResult _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A;
+		internal static RayMeshGeometry3DHitTestResult _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A;
 
 		public static readonly Matrix3D ZeroMatrix = new Matrix3D(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
@@ -125,7 +125,7 @@ namespace WFTools3D
 			return size.Width / size.Height;
 		}
 
-		private static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A(ProjectionCamera _0020)
+		internal static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A(ProjectionCamera _0020)
 		{
 			Vector3D vector3D = -_0020.LookDirection;
 			vector3D.Normalize();
@@ -158,7 +158,7 @@ namespace WFTools3D
 			throw new ArgumentException($"Unsupported camera type '{camera.GetType().FullName}'.", "camera");
 		}
 
-		private static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020(OrthographicCamera _0020, double _0020_000A)
+		internal static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020(OrthographicCamera _0020, double _0020_000A)
 		{
 			double width = _0020.Width;
 			double num = width / _0020_000A;
@@ -169,7 +169,7 @@ namespace WFTools3D
 			return new Matrix3D(2.0 / width, 0.0, 0.0, 0.0, 0.0, 2.0 / num, 0.0, 0.0, 0.0, 0.0, num2, 0.0, 0.0, 0.0, offsetZ, 1.0);
 		}
 
-		private static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020(PerspectiveCamera _0020, double _0020_000A)
+		internal static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020(PerspectiveCamera _0020, double _0020_000A)
 		{
 			double num = MathUtils.ToRadians(_0020.FieldOfView);
 			double nearPlaneDistance = _0020.NearPlaneDistance;
@@ -205,7 +205,7 @@ namespace WFTools3D
 			throw new ArgumentException($"Unsupported camera type '{camera.GetType().FullName}'.", "camera");
 		}
 
-		private static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A(Rect _0020)
+		internal static Matrix3D _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A(Rect _0020)
 		{
 			double num = _0020.Width / 2.0;
 			double num2 = _0020.Height / 2.0;
@@ -369,7 +369,7 @@ namespace WFTools3D
 			return _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A;
 		}
 
-		private static HitTestResultBehavior _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020(HitTestResult _0020)
+		internal static HitTestResultBehavior _0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020(HitTestResult _0020)
 		{
 			RayMeshGeometry3DHitTestResult rayMeshGeometry3DHitTestResult = _0020 as RayMeshGeometry3DHitTestResult;
 			if (rayMeshGeometry3DHitTestResult != null)

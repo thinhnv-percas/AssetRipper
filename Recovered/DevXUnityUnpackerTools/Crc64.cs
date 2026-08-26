@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
@@ -6,11 +6,11 @@ public class Crc64 : HashAlgorithm
 {
 	public const ulong DefaultSeed = 0uL;
 
-	private readonly ulong[] table1;
+	internal readonly ulong[] table1;
 
-	private readonly ulong seed2;
+	internal readonly ulong seed2;
 
-	private ulong seed1;
+	internal ulong seed1;
 
 	public override int HashSize => 64;
 
@@ -40,7 +40,7 @@ public class Crc64 : HashAlgorithm
 		return HashValue = doSth(seed1);
 	}
 
-	protected static ulong CalculateHash(ulong seed, ulong[] table, IList<byte> buffer, int start, int size)
+	internal static ulong CalculateHash(ulong seed, ulong[] table, IList<byte> buffer, int start, int size)
 	{
 		ulong num = seed;
 		for (int i = start; i < start + size; i++)
@@ -50,7 +50,7 @@ public class Crc64 : HashAlgorithm
 		return num;
 	}
 
-	private static byte[] doSth(ulong _0020)
+	internal static byte[] doSth(ulong _0020)
 	{
 		byte[] bytes = BitConverter.GetBytes(_0020);
 		if (BitConverter.IsLittleEndian)
@@ -60,7 +60,7 @@ public class Crc64 : HashAlgorithm
 		return bytes;
 	}
 
-	private static ulong[] GetTable(ulong v)
+	internal static ulong[] GetTable(ulong v)
 	{
 		if (v == 15564440312192434176uL && Crc64Iso.table != null)
 		{
@@ -74,7 +74,7 @@ public class Crc64 : HashAlgorithm
 		return array;
 	}
 
-	protected static ulong[] CreateTable(ulong polynomial)
+	internal static ulong[] CreateTable(ulong polynomial)
 	{
 		ulong[] array = new ulong[256];
 		for (int i = 0; i < 256; i++)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace XnaGeometry
@@ -6,27 +6,27 @@ namespace XnaGeometry
 	[Serializable]
 	public struct Vector3 : IEquatable<Vector3>
 	{
-		private static Vector3 zero = new Vector3(0.0, 0.0, 0.0);
+		internal static Vector3 zero = new Vector3(0.0, 0.0, 0.0);
 
-		private static Vector3 one = new Vector3(1.0, 1.0, 1.0);
+		internal static Vector3 one = new Vector3(1.0, 1.0, 1.0);
 
-		private static Vector3 unitX = new Vector3(1.0, 0.0, 0.0);
+		internal static Vector3 unitX = new Vector3(1.0, 0.0, 0.0);
 
-		private static Vector3 unitY = new Vector3(0.0, 1.0, 0.0);
+		internal static Vector3 unitY = new Vector3(0.0, 1.0, 0.0);
 
-		private static Vector3 unitZ = new Vector3(0.0, 0.0, 1.0);
+		internal static Vector3 unitZ = new Vector3(0.0, 0.0, 1.0);
 
-		private static Vector3 up = new Vector3(0.0, 1.0, 0.0);
+		internal static Vector3 up = new Vector3(0.0, 1.0, 0.0);
 
-		private static Vector3 down = new Vector3(0.0, -1.0, 0.0);
+		internal static Vector3 down = new Vector3(0.0, -1.0, 0.0);
 
-		private static Vector3 right = new Vector3(1.0, 0.0, 0.0);
+		internal static Vector3 right = new Vector3(1.0, 0.0, 0.0);
 
-		private static Vector3 left = new Vector3(-1.0, 0.0, 0.0);
+		internal static Vector3 left = new Vector3(-1.0, 0.0, 0.0);
 
-		private static Vector3 forward = new Vector3(0.0, 0.0, -1.0);
+		internal static Vector3 forward = new Vector3(0.0, 0.0, -1.0);
 
-		private static Vector3 backward = new Vector3(0.0, 0.0, 1.0);
+		internal static Vector3 backward = new Vector3(0.0, 0.0, 1.0);
 
 		public double X;
 

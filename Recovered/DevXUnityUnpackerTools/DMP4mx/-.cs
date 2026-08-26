@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLibah;
 using Wasm;
 using XmlBin;
@@ -7,7 +7,7 @@ namespace DMP4mx
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A
 	{
-		private void _0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020()
+		internal void _0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020()
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A((string)null);
 			bool isMutable = ((GlobalType)null).IsMutable;

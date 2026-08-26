@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Properties;
 using ICSharpCode.SharpZipLib.Checksumta;
 using ICSharpCode.SharpZipLib.Tarbx;
@@ -9,7 +9,7 @@ namespace DSMCaps.Armfx
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A
 	{
-		private string _0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020()
+		internal string _0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020()
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020((object)null, (EventArgs)null);
 			Bitmap protectionFromDecompilers = Resources.ProtectionFromDecompilers16;

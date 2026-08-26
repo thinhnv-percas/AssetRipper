@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using Wasm;
 using Wasm.Interpret;
 
@@ -6,7 +6,7 @@ namespace MiniJSONov
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A
 	{
-		private unsafe object _0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020(string _0020, FunctionTable _0020_000A)
+		internal unsafe object _0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020(string _0020, FunctionTable _0020_000A)
 		{
 			((ExportSection)null).Exports = null;
 			VerFormat verFormat = ((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A;

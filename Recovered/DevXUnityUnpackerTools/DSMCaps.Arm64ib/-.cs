@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using SpirV;
 using System;
@@ -8,7 +8,7 @@ namespace DSMCaps.Arm64ib
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		private string _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020()
+		internal string _0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020()
 		{
 			Module.ReadFrom(null);
 			((EnterTextLine)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020();

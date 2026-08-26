@@ -1,4 +1,4 @@
-using ARMD;
+﻿using ARMD;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using Mono.Cecil;
 using SpirV;
@@ -7,7 +7,7 @@ namespace Wasm.Binaryoh
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A
 	{
-		private object _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(string _0020, OpMatrixTimesScalar _0020_000A, int _0020_0020)
+		internal object _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(string _0020, OpMatrixTimesScalar _0020_000A, int _0020_0020)
 		{
 			bool hasExtraPayload = ((FunctionBody)null).HasExtraPayload;
 			int num = ((_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A)null)._0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A;

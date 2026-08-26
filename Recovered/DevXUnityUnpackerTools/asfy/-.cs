@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Zip;
 using PropertyGridEx;
 
@@ -6,7 +6,7 @@ namespace asfy
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A
 	{
-		private object _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020(ref uint _0020, uint _0020_000A, sbyte _0020_0020, uint _0020_000A_000A)
+		internal object _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020(ref uint _0020, uint _0020_000A, sbyte _0020_0020, uint _0020_000A_000A)
 		{
 			_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A file = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A)null).File;
 			((CustomProperty)null).DefaultValue = null;

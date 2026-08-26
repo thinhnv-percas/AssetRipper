@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WinForm;
 using DevXUnityUnpackerTools._WPFet;
 using DevXUnityUnpackerTools.Propertiesfv;
@@ -9,7 +9,7 @@ namespace SevenZip.CommandLineParseryj
 {
 	internal class _0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A
 	{
-		private object _0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020(decimal _0020, bool _0020_000A, object _0020_0020)
+		internal object _0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020(decimal _0020, bool _0020_000A, object _0020_0020)
 		{
 			((_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020();
 			((ScriptGenerateOptions)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020((object)null, (EventArgs)null);

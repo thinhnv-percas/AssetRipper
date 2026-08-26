@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinFormff;
+﻿using DevXUnityUnpackerTools._WinFormff;
 using Unity.IO.Compressionjl;
 using Wasm.Binary;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLib.Zipkk
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A
 	{
-		private void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020(ref Quaternion _0020, ref Quaternion _0020_000A)
+		internal void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020(ref Quaternion _0020, ref Quaternion _0020_000A)
 		{
 			((BinaryWasmWriter)null).WriteString((string)null);
 			((_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020();

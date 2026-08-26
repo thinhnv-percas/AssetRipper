@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using DSMCaps.Mips;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace DevXUnityUnpackerTools.Propertieswv
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A
 	{
-		private string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020(MipsInstructionId _0020)
+		internal string _0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020(MipsInstructionId _0020)
 		{
 			((_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A = null;
 			OperatorImpls.Unreachable(null, null);

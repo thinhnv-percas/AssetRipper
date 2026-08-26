@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace DevXForms
@@ -6,10 +6,10 @@ namespace DevXForms
 	public class TreeViewEventArgs : EventArgs
 	{
 		[CompilerGenerated]
-		private readonly TreeNode _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A;
+		internal readonly TreeNode _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private readonly TreeViewAction _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020;
+		internal readonly TreeViewAction _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020;
 
 		public TreeNode Node
 		{

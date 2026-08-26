@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System.Drawing;
 using Unity.SerializationLogic;
 using XmlBin;
@@ -7,14 +7,14 @@ namespace asdg
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A
 	{
-		private unsafe void _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020()
+		internal unsafe void _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020()
 		{
 			((ZipStorer)null)._0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020(ref *(ZipStorer.ZipFileEntry*)null);
 		}
 	}
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A
 	{
-		private int _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(short _0020, decimal _0020_000A, float _0020_0020, UnitySerializationLogic _0020_000A_000A)
+		internal int _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(short _0020, decimal _0020_000A, float _0020_0020, UnitySerializationLogic _0020_000A_000A)
 		{
 			ConsoleOver._0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A(null);
 			Bitmap bitmap = ((ImageData)null).Bitmap;

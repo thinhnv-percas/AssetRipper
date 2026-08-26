@@ -1,11 +1,11 @@
-using ICSharpCode.SharpZipLib.Checksumvp;
+﻿using ICSharpCode.SharpZipLib.Checksumvp;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Wasm.Binarylr
 {
 	internal class _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A
 	{
-		private void _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020()
+		internal void _0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020()
 		{
 			((DataSegment)null).Offset = null;
 			((DevXCControl)null)._0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A = null;

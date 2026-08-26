@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using Wasm.Binary;
 
 namespace Wasm
@@ -28,9 +28,9 @@ namespace Wasm
 			FieldName = fieldName;
 		}
 
-		protected abstract void WriteContentsTo(BinaryWasmWriter writer);
+		internal abstract void WriteContentsTo(BinaryWasmWriter writer);
 
-		protected abstract void DumpContents(TextWriter writer);
+		internal abstract void DumpContents(TextWriter writer);
 
 		public void WriteTo(BinaryWasmWriter writer)
 		{

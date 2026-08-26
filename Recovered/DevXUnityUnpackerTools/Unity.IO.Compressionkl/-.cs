@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using DevXForms;
 using DevXUnityUnpackerTools._WinFormcs;
@@ -10,7 +10,7 @@ namespace Unity.IO.Compressionkl
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020(Il2CppTypeDefinition _0020)
+		internal void _0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020(Il2CppTypeDefinition _0020)
 		{
 			((TreeNodeCollection)null).Remove((TreeNode)null);
 			_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A._0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020(null);

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace ARMD
 {
@@ -8,7 +8,7 @@ namespace ARMD
 
 		internal static int? _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A;
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A(uint _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A(uint _0020)
 		{
 			switch (_0020)
 			{
@@ -120,7 +120,7 @@ namespace ARMD
 			return "BXJ" + str + " " + str2;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020(uint _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020(uint _0020)
 		{
 			if (_0020.ExtractBits(28, 31) == 15)
 			{
@@ -205,7 +205,7 @@ namespace ARMD
 			return $"{text4}{text} p{num3}, {num}, {text2}, {text3}, cr{num2}";
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			uint num = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ExpandARMImmediate(_0020_000A.ExtractBits(0, 11));
@@ -215,7 +215,7 @@ namespace ARMD
 			return $"{_0020}{text4}{text} {text2}, {text3}, #{num}";
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(16, 19));
@@ -223,7 +223,7 @@ namespace ARMD
 			return $"{_0020}{text} {text2}, #{num}";
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(12, 15));
@@ -231,7 +231,7 @@ namespace ARMD
 			return $"{_0020}{text} {text2}, #{num}";
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(16, 19));
@@ -243,7 +243,7 @@ namespace ARMD
 			return _0020 + text5 + text + " " + text3 + ", " + text2 + ", " + text4 + text6;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(16, 19));
@@ -253,7 +253,7 @@ namespace ARMD
 			return _0020 + text + " " + text2 + ", " + text3 + text4;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(12, 15));
@@ -265,7 +265,7 @@ namespace ARMD
 			return _0020 + text5 + text + " " + text2 + ", " + text4 + ", " + text3 + text6;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(0, 3));
@@ -275,7 +275,7 @@ namespace ARMD
 			return _0020 + text + " " + text3 + ", " + text2 + text4;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(12, 15));
@@ -290,7 +290,7 @@ namespace ARMD
 			return $"{_0020}{text4}{text} {text2}, {text3}, #{num2}";
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(12, 15));
@@ -640,7 +640,7 @@ namespace ARMD
 			return text + text2 + " " + text3 + ", " + text5 + ", " + text4;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A(uint _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A(uint _0020)
 		{
 			switch (_0020)
 			{
@@ -831,7 +831,7 @@ namespace ARMD
 			return "YIELD" + str;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A(uint _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A(uint _0020)
 		{
 			bool num = _0020.IsBitSet(24);
 			bool flag = _0020.IsBitSet(23);
@@ -855,7 +855,7 @@ namespace ARMD
 			return "[" + text + "]" + str2;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020(uint _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020(uint _0020)
 		{
 			bool num = _0020.IsBitSet(24);
 			bool num2 = _0020.IsBitSet(23);
@@ -1137,7 +1137,7 @@ namespace ARMD
 			return "STRHT" + text + " " + text2 + ", " + _0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020(_0020);
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A(string _0020, uint _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A(string _0020, uint _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020_000A);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020_000A.ExtractBits(16, 19));
@@ -1405,7 +1405,7 @@ namespace ARMD
 			return "UMAAL" + text + " " + text3 + ", " + text2 + ", " + text5 + ", " + text4;
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020(uint _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020(uint _0020)
 		{
 			switch (_0020.ExtractBits(5, 7))
 			{
@@ -1426,7 +1426,7 @@ namespace ARMD
 			}
 		}
 
-		private static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A(uint _0020, string _0020_000A)
+		internal static string _0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A(uint _0020, string _0020_000A)
 		{
 			string text = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.ARMConditionCode(_0020);
 			string text2 = _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020.RegisterName(_0020.ExtractBits(12, 15));

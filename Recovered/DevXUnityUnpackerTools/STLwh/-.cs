@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using XnaGeometry;
 
@@ -6,7 +6,7 @@ namespace STLwh
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A
 	{
-		private void _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020(object _0020, string _0020_000A)
+		internal void _0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020(object _0020, string _0020_000A)
 		{
 			bool flag = (CustomString)null != (string)null;
 			Vector2 unitX = Vector2.UnitX;

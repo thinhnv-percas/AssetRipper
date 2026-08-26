@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +6,7 @@ namespace SpirV
 {
 	public class Disassembler
 	{
-		private readonly StringBuilder _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A = new StringBuilder();
+		internal readonly StringBuilder _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A = new StringBuilder();
 
 		public string Disassemble(Module module)
 		{
@@ -76,7 +76,7 @@ namespace SpirV
 			return result;
 		}
 
-		private static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020(StringBuilder _0020, ParsedInstruction _0020_000A, DisassemblyOptions _0020_0020)
+		internal static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020(StringBuilder _0020, ParsedInstruction _0020_000A, DisassemblyOptions _0020_0020)
 		{
 			if (_0020_000A.Operands.Count == 0)
 			{
@@ -114,7 +114,7 @@ namespace SpirV
 			}
 		}
 
-		private static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A(StringBuilder _0020, object _0020_000A, DisassemblyOptions _0020_0020)
+		internal static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A(StringBuilder _0020, object _0020_000A, DisassemblyOptions _0020_0020)
 		{
 			if (_0020_000A != null)
 			{
@@ -172,7 +172,7 @@ namespace SpirV
 			_0020.Append(_0020_000A);
 		}
 
-		private static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020(StringBuilder _0020, IBitEnumOperandValue _0020_000A, DisassemblyOptions _0020_0020)
+		internal static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020(StringBuilder _0020, IBitEnumOperandValue _0020_000A, DisassemblyOptions _0020_0020)
 		{
 			foreach (uint key in _0020_000A.Values.Keys)
 			{
@@ -189,7 +189,7 @@ namespace SpirV
 			}
 		}
 
-		private static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A(StringBuilder _0020, IValueEnumOperandValue _0020_000A, DisassemblyOptions _0020_0020)
+		internal static void _0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A(StringBuilder _0020, IValueEnumOperandValue _0020_000A, DisassemblyOptions _0020_0020)
 		{
 			_0020.Append(_0020_000A.Key);
 			IList<object> value;

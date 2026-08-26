@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System;
 using Wasm.Instructions;
 
@@ -6,7 +6,7 @@ namespace Smolvuv
 {
 	internal class _0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A
 	{
-		private object _0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020()
+		internal object _0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020()
 		{
 			((VarInt32Operator)null).CastInstruction((Instruction)null);
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A((object)null, (EventArgs)null);

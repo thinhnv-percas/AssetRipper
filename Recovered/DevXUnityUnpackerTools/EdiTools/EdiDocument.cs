@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -10,21 +10,21 @@ namespace EdiTools
 	public class EdiDocument
 	{
 		[CompilerGenerated]
-		private EdiOptions _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A;
+		internal EdiOptions _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private IList<EdiSegment> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020;
+		internal IList<EdiSegment> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020;
 
 		public EdiOptions Options
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public IList<EdiSegment> Segments
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public IList<EdiTransactionSet> TransactionSets
@@ -80,7 +80,7 @@ namespace EdiTools
 			Segments = new List<EdiSegment>();
 		}
 
-		private EdiDocument(string edi, EdiOptions options)
+		internal EdiDocument(string edi, EdiOptions options)
 		{
 			if (options == null)
 			{
@@ -158,7 +158,7 @@ namespace EdiTools
 			}
 		}
 
-		private EdiDocument(XDocument xml)
+		internal EdiDocument(XDocument xml)
 		{
 			Options = new EdiOptions();
 			Segments = new List<EdiSegment>();
@@ -216,7 +216,7 @@ namespace EdiTools
 			}
 		}
 
-		private char _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A(string _0020)
+		internal char _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A(string _0020)
 		{
 			if (_0020.StartsWith("UNA", StringComparison.OrdinalIgnoreCase))
 			{
@@ -230,7 +230,7 @@ namespace EdiTools
 			return match.Value[0];
 		}
 
-		private char _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020(string _0020)
+		internal char _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020(string _0020)
 		{
 			if (_0020.StartsWith("ISA", StringComparison.OrdinalIgnoreCase))
 			{
@@ -248,7 +248,7 @@ namespace EdiTools
 			return match.Groups[1].Value[0];
 		}
 
-		private char? _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A(string _0020)
+		internal char? _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A(string _0020)
 		{
 			if (_0020.StartsWith("UNA", StringComparison.OrdinalIgnoreCase) && _0020[6] != ' ')
 			{
@@ -257,7 +257,7 @@ namespace EdiTools
 			return null;
 		}
 
-		private EdiElement _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020(string _0020, EdiOptions _0020_000A)
+		internal EdiElement _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020(string _0020, EdiOptions _0020_000A)
 		{
 			EdiElement ediElement = new EdiElement();
 			string[] array = _0020_000A.RepetitionSeparator.HasValue ? _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020(_0020, _0020_000A.RepetitionSeparator.Value, _0020_000A.ReleaseCharacter) : new string[1]
@@ -274,7 +274,7 @@ namespace EdiTools
 			return ediElement;
 		}
 
-		private EdiRepetition _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A(string _0020, EdiOptions _0020_000A)
+		internal EdiRepetition _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A(string _0020, EdiOptions _0020_000A)
 		{
 			EdiRepetition ediRepetition = new EdiRepetition();
 			string[] array = _0020_000A.ComponentSeparator.HasValue ? _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020(_0020, _0020_000A.ComponentSeparator.Value, _0020_000A.ReleaseCharacter) : new string[1]
@@ -295,7 +295,7 @@ namespace EdiTools
 			return ediRepetition;
 		}
 
-		private string[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020(string _0020, char _0020_000A, char? _0020_0020)
+		internal string[] _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020(string _0020, char _0020_000A, char? _0020_0020)
 		{
 			if (_0020_0020.HasValue)
 			{
@@ -304,12 +304,12 @@ namespace EdiTools
 			return _0020.Split(_0020_000A);
 		}
 
-		private string _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A(string _0020, char _0020_000A)
+		internal string _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A(string _0020, char _0020_000A)
 		{
 			return Regex.Replace(_0020, Regex.Escape(_0020_000A.ToString()) + "(.)", "$1");
 		}
 
-		private void _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020(XElement _0020)
+		internal void _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020(XElement _0020)
 		{
 			foreach (XElement item in _0020.Elements())
 			{
@@ -324,7 +324,7 @@ namespace EdiTools
 			}
 		}
 
-		private void _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A(XElement _0020)
+		internal void _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A(XElement _0020)
 		{
 			EdiSegment ediSegment = new EdiSegment(_0020.Name.LocalName.ToUpper());
 			foreach (XElement item in _0020.Elements())
@@ -346,7 +346,7 @@ namespace EdiTools
 			Segments.Add(ediSegment);
 		}
 
-		private int _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020(string _0020)
+		internal int _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020(string _0020)
 		{
 			if (_0020.Length < 2 || !int.TryParse(_0020.Substring(_0020.Length - 2), out int result))
 			{
@@ -355,7 +355,7 @@ namespace EdiTools
 			return result - 1;
 		}
 
-		private EdiRepetition _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020(XElement _0020)
+		internal EdiRepetition _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020(XElement _0020)
 		{
 			EdiRepetition ediRepetition = new EdiRepetition();
 			if (_0020.HasElements)
@@ -381,7 +381,7 @@ namespace EdiTools
 			return ediRepetition;
 		}
 
-		private string _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A(XElement _0020)
+		internal string _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A(XElement _0020)
 		{
 			string text = null;
 			XAttribute xAttribute = _0020.Attribute("type");

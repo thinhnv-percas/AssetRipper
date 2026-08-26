@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using Mono.Cecil;
 using System;
@@ -8,7 +8,7 @@ namespace TrunkTracesConsole.Pagesoa
 {
 	internal class _0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A
 	{
-		private unsafe void _0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020()
+		internal unsafe void _0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020()
 		{
 			//IL_0070: Expected I, but got O
 			((_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A((AssemblyDefinition)null);

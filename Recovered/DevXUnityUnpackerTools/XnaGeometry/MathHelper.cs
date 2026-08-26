@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace XnaGeometry
 {
-	public static class MathHelper
+	public class MathHelper
 	{
 		public const double E = Math.E;
 

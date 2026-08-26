@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Zip;
 using Mono.Cecil;
 using System;
@@ -10,7 +10,7 @@ namespace Unity.SerializationLogicll
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A
 	{
-		private unsafe int _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020()
+		internal unsafe int _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020()
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020)null)._0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020((string)null, (Stream)null);
 			((ImportSettings)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020((object)null, (EventArgs)null);

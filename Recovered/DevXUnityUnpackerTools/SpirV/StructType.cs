@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -7,9 +7,9 @@ namespace SpirV
 	public class StructType : Type
 	{
 		[CompilerGenerated]
-		private readonly IList<Type> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A;
+		internal readonly IList<Type> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A;
 
-		private List<string> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020;
+		internal List<string> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020;
 
 		public IList<Type> MemberTypes
 		{

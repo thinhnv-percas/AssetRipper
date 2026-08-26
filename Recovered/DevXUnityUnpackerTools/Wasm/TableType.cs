@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
@@ -7,21 +7,21 @@ namespace Wasm
 	public struct TableType
 	{
 		[CompilerGenerated]
-		private WasmType _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A;
+		internal WasmType _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private ResizableLimits _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A;
+		internal ResizableLimits _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A;
 
 		public WasmType ElementType
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ResizableLimits Limits
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public TableType(WasmType elementType, ResizableLimits limits)

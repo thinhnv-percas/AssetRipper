@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace XnaGeometry
 {
@@ -36,7 +36,7 @@ namespace XnaGeometry
 
 		public double M44;
 
-		private static Matrix _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020 = new Matrix(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+		internal static Matrix _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020 = new Matrix(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
 
 		public Vector3 Backward
 		{
@@ -1762,7 +1762,7 @@ namespace XnaGeometry
 			result.M44 = matrix.M44;
 		}
 
-		private static void _0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A(ref Matrix _0020, out double _0020_000A, out double _0020_0020, out double _0020_000A_000A, out double _0020_000A_0020, out double _0020_0020_000A, out double _0020_0020_0020, out double _0020_000A_000A_000A, out double _0020_000A_000A_0020, out double _0020_000A_0020_000A, out double _0020_000A_0020_0020, out double _0020_0020_000A_000A, out double _0020_0020_000A_0020, out double _0020_0020_0020_000A)
+		internal static void _0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A(ref Matrix _0020, out double _0020_000A, out double _0020_0020, out double _0020_000A_000A, out double _0020_000A_0020, out double _0020_0020_000A, out double _0020_0020_0020, out double _0020_000A_000A_000A, out double _0020_000A_000A_0020, out double _0020_000A_0020_000A, out double _0020_000A_0020_0020, out double _0020_0020_000A_000A, out double _0020_0020_000A_0020, out double _0020_0020_0020_000A)
 		{
 			double num = _0020.M11 * _0020.M22 - _0020.M12 * _0020.M21;
 			double num2 = _0020.M11 * _0020.M23 - _0020.M13 * _0020.M21;

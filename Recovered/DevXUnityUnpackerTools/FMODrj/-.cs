@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.X86;
 using Wasm.Interpret;
 using zlibrk;
@@ -7,7 +7,7 @@ namespace FMODrj
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A
 	{
-		private string _0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020(object _0020, bool _0020_000A, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A _0020_0020)
+		internal string _0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020(object _0020, bool _0020_000A, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A _0020_0020)
 		{
 			((CheckExecuteTime)null).Line = null;
 			InstructionInterpreter interpreter = ((TracingInstructionInterpreter)null).Interpreter;

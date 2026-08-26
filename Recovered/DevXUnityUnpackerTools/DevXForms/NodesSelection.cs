@@ -1,13 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace DevXForms
 {
 	public class NodesSelection : IEnumerable<TreeNode>, IEnumerable
 	{
-		private List<TreeNode> _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A = new List<TreeNode>();
+		internal List<TreeNode> _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A = new List<TreeNode>();
 
-		private Dictionary<TreeNode, int> _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020 = new Dictionary<TreeNode, int>();
+		internal Dictionary<TreeNode, int> _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020 = new Dictionary<TreeNode, int>();
 
 		public TreeNode this[int index] => _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A[index];
 

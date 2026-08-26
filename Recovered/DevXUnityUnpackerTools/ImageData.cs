@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -27,7 +27,7 @@ internal class ImageData : IDisposable
 
 		[Serializable]
 		[CompilerGenerated]
-		private sealed class SizeGetter
+		internal sealed class SizeGetter
 		{
 			public static readonly SizeGetter instance;
 
@@ -44,9 +44,9 @@ internal class ImageData : IDisposable
 			}
 		}
 
-		private const string errTxt = "Could not recognise image format.";
+		internal const string errTxt = "Could not recognise image format.";
 
-		private static Dictionary<byte[], Func<BinaryReader, Size>> sizeGetters;
+		internal static Dictionary<byte[], Func<BinaryReader, Size>> sizeGetters;
 
 		internal static Size TryGetImgSizeByPath(string path)
 		{
@@ -110,7 +110,7 @@ internal class ImageData : IDisposable
 			throw new ArgumentException("Could not recognise image format.", "binaryReader");
 		}
 
-		private static bool IsSame(byte[] l, byte[] r)
+		internal static bool IsSame(byte[] l, byte[] r)
 		{
 			for (int i = 0; i < r.Length; i++)
 			{
@@ -122,7 +122,7 @@ internal class ImageData : IDisposable
 			return true;
 		}
 
-		private static short ReadInt16(BinaryReader reader)
+		internal static short ReadInt16(BinaryReader reader)
 		{
 			byte[] array = new byte[2];
 			for (int i = 0; i < 2; i++)
@@ -132,7 +132,7 @@ internal class ImageData : IDisposable
 			return BitConverter.ToInt16(array, 0);
 		}
 
-		private static ushort readUint16(BinaryReader reader)
+		internal static ushort readUint16(BinaryReader reader)
 		{
 			byte[] array = new byte[2];
 			for (int i = 0; i < 2; i++)
@@ -142,7 +142,7 @@ internal class ImageData : IDisposable
 			return BitConverter.ToUInt16(array, 0);
 		}
 
-		private static int ReadInt(BinaryReader reader)
+		internal static int ReadInt(BinaryReader reader)
 		{
 			byte[] array = new byte[4];
 			for (int i = 0; i < 4; i++)
@@ -152,7 +152,7 @@ internal class ImageData : IDisposable
 			return BitConverter.ToInt32(array, 0);
 		}
 
-		private static Size ReadImgSize32(BinaryReader reader)
+		internal static Size ReadImgSize32(BinaryReader reader)
 		{
 			reader.ReadBytes(16);
 			int width = reader.ReadInt32();
@@ -160,14 +160,14 @@ internal class ImageData : IDisposable
 			return new Size(width, height);
 		}
 
-		private static Size ReadImgSize16(BinaryReader reader)
+		internal static Size ReadImgSize16(BinaryReader reader)
 		{
 			short width = reader.ReadInt16();
 			int height = reader.ReadInt16();
 			return new Size(width, height);
 		}
 
-		private static Size ReadImgSize32_2(BinaryReader reader)
+		internal static Size ReadImgSize32_2(BinaryReader reader)
 		{
 			reader.ReadBytes(8);
 			int width = ReadInt(reader);
@@ -175,7 +175,7 @@ internal class ImageData : IDisposable
 			return new Size(width, height);
 		}
 
-		private static Size ReadImgSize(BinaryReader reader)
+		internal static Size ReadImgSize(BinaryReader reader)
 		{
 			while (reader.ReadByte() == byte.MaxValue)
 			{
@@ -272,9 +272,9 @@ internal class ImageData : IDisposable
 
 	internal bool needMirrorY;
 
-	private Bitmap bitmap;
+	internal Bitmap bitmap;
 
-	private string str1Data;
+	internal string str1Data;
 
 	internal Bitmap Bitmap
 	{
@@ -290,7 +290,7 @@ internal class ImageData : IDisposable
 			}
 			return bitmap;
 		}
-		private set
+		set
 		{
 			bitmap = value;
 		}
@@ -450,7 +450,7 @@ internal class ImageData : IDisposable
 		}
 	}
 
-	private void MakeBitmap(ARGB_RAW raw)
+	internal void MakeBitmap(ARGB_RAW raw)
 	{
 		if (raw != null)
 		{
@@ -496,7 +496,7 @@ internal class ImageData : IDisposable
 		}
 	}
 
-	private void LoadImg(Stream stream)
+	internal void LoadImg(Stream stream)
 	{
 		Bitmap = new Bitmap(stream);
 		Width = Bitmap.Width;
@@ -533,7 +533,7 @@ internal class ImageData : IDisposable
 	{
 	}
 
-	private byte[] MakeDataCopy()
+	internal byte[] MakeDataCopy()
 	{
 		Rectangle rect = new Rectangle(0, 0, Bitmap.Width, Bitmap.Height);
 		BitmapData bitmapData = Bitmap.LockBits(rect, ImageLockMode.ReadWrite, Bitmap.PixelFormat);

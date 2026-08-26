@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Properties;
+﻿using DevXUnityUnpackerTools.Properties;
 using DMP4;
 using DSMCaps.Arm;
 using System.Drawing;
@@ -9,7 +9,7 @@ namespace SevenZip.Compression.LZgj
 {
 	internal class _0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A
 	{
-		private object _0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020(int _0020, ref byte _0020_000A, ref byte _0020_0020)
+		internal object _0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020(int _0020, ref byte _0020_000A, ref byte _0020_0020)
 		{
 			ArmRegister register = ((ArmOperand)null).Register;
 			Bitmap girl_unity = Resources.girl_unity1;

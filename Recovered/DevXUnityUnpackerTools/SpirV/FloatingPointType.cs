@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SpirV
@@ -6,7 +6,7 @@ namespace SpirV
 	public class FloatingPointType : ScalarType
 	{
 		[CompilerGenerated]
-		private readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020;
+		internal readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020;
 
 		public int Width
 		{

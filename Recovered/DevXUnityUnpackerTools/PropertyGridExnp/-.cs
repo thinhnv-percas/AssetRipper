@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DSMCaps;
 using DSMCaps.X86;
 using FMODbf;
@@ -8,7 +8,7 @@ namespace PropertyGridExnp
 {
 	internal class _0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A
 	{
-		private void _0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020(byte[] _0020, int _0020_000A)
+		internal void _0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020(byte[] _0020, int _0020_000A)
 		{
 			((InstructionDetail<, , , , , , , >)null).OnExplicitlyReadRegistersLazyInitialization();
 			((_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A)null)._0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020();

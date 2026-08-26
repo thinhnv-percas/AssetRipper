@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -8,10 +8,10 @@ namespace EdiTools
 	public class EdiSegment
 	{
 		[CompilerGenerated]
-		private string _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A;
+		internal string _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private IList<EdiElement> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A;
+		internal IList<EdiElement> _0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A;
 
 		public string Id
 		{
@@ -22,7 +22,7 @@ namespace EdiTools
 		public IList<EdiElement> Elements
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public string this[int position]
@@ -124,7 +124,7 @@ namespace EdiTools
 			return stringBuilder.ToString();
 		}
 
-		private int _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020()
+		internal int _0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020()
 		{
 			for (int num = Elements.Count - 1; num >= 0; num--)
 			{

@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 
 namespace ICSharpCode.SharpZipLib.GZipqv
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A
 	{
-		private unsafe void _0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020()
+		internal unsafe void _0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020()
 		{
 			//IL_0030: Expected I, but got O
 			//IL_0030: Expected I, but got O

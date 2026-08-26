@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools._WinForm;
+﻿using DevXUnityUnpackerTools._WinForm;
 using DevXUnityUnpackerTools._WPFwi;
 using ICSharpCode.SharpZipLib.Zip;
 using Unreal;
@@ -8,7 +8,7 @@ namespace Unity.CecilTools.Extensionsmu
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020(string _0020)
+		internal void _0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020(string _0020)
 		{
 			((_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A)null);
 			InterpreterContext.EvaluationStack stack = ((InterpreterContext)null).Stack;

@@ -1,4 +1,4 @@
-using DSMCaps.Arm64;
+﻿using DSMCaps.Arm64;
 using DSMCaps.Mips;
 using System.Collections.Generic;
 using Wasm.Instructions;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.BZip2jl
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A
 	{
-		private unsafe string _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020()
+		internal unsafe string _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020()
 		{
 			MipsOperand.Create(null, ref *(_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020*)null);
 			OperatorImpls.Float32Ge(null, null);

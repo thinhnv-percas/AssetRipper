@@ -1,4 +1,4 @@
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using Unity.CecilTools.Extensions;
 
 namespace Unity.CecilTools
 {
-	public static class CecilUtils
+	public class CecilUtils
 	{
 		[CompilerGenerated]
-		private sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020
+		internal sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020
 		{
 			public MethodDefinition _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020;
 
@@ -29,7 +29,7 @@ namespace Unity.CecilTools
 
 		[Serializable]
 		[CompilerGenerated]
-		private sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A
+		internal sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A
 		{
 			public static readonly _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A = new _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A();
 

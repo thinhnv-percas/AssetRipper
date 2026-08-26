@@ -1,4 +1,4 @@
-using FMOD;
+﻿using FMOD;
 using System;
 using Unity.SerializationLogicnd;
 using Wasm.Instructions;
@@ -7,7 +7,7 @@ namespace DSMCaps.X86lh
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A
 	{
-		private unsafe string _0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020(string _0020, _0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020 _0020_000A, StringWrapper _0020_0020, string _0020_000A_000A)
+		internal unsafe string _0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020(string _0020, _0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020 _0020_000A, StringWrapper _0020_0020, string _0020_000A_000A)
 		{
 			//IL_0012: Expected I, but got O
 			//IL_0012: Expected I, but got O

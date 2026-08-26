@@ -1,17 +1,17 @@
-using System.IO;
+﻿using System.IO;
 
 internal class GameRecoveryLicManager
 {
-	private static string LicenseData;
+	internal static string LicenseData;
 
-	private static object IsValidLicense;
+	internal static object IsValidLicense;
 
-	private static string ActivationData;
+	internal static string ActivationData;
 
-	private static object IsValidActivation;
+	internal static object IsValidActivation;
 
 	[FunAttr(Num = "1C5B48BFA19BD7E829B47A0F8DCAB745")]
-	private static string License
+	internal static string License
 	{
 		get
 		{
@@ -41,7 +41,7 @@ internal class GameRecoveryLicManager
 	}
 
 	[FunAttr(Num = "13324E821691D7F7B53FFDC3A24875DD")]
-	private static bool ValidLicense
+	internal static bool ValidLicense
 	{
 		get
 		{
@@ -54,7 +54,7 @@ internal class GameRecoveryLicManager
 	}
 
 	[FunAttr(Num = "E5C42876EE57E308D82950A652B016D0")]
-	private static string Activation
+	internal static string Activation
 	{
 		get
 		{
@@ -84,7 +84,7 @@ internal class GameRecoveryLicManager
 	}
 
 	[FunAttr(Num = "F879CAB3A3DDE56431E043FFCE307AA8")]
-	private static bool ValidActivation
+	internal static bool ValidActivation
 	{
 		get
 		{
@@ -96,7 +96,7 @@ internal class GameRecoveryLicManager
 		}
 	}
 
-	private static string LicensePath
+	internal static string LicensePath
 	{
 		get
 		{
@@ -109,7 +109,7 @@ internal class GameRecoveryLicManager
 		}
 	}
 
-	private static string ActivationPath
+	internal static string ActivationPath
 	{
 		get
 		{
@@ -123,7 +123,7 @@ internal class GameRecoveryLicManager
 	}
 
 	[FunAttr(Num = "185FC627893A32877273958A2F914F75")]
-	private static string FormatLicenseNumber()
+	internal static string FormatLicenseNumber()
 	{
 		if (!CrackSettings.AllowActivation)
 		{
@@ -133,7 +133,7 @@ internal class GameRecoveryLicManager
 	}
 
 	[FunAttr(Num = "16B36A8E1F088A094F437370BE3D4E02")]
-	private static string FormatLicense()
+	internal static string FormatLicense()
 	{
 		if (!CrackSettings.AllowActivation)
 		{
@@ -143,7 +143,7 @@ internal class GameRecoveryLicManager
 	}
 
 	[FunAttr(Num = "1D33A916EF5CCA849368FD8169AA68F3")]
-	private static string FormatActivation()
+	internal static string FormatActivation()
 	{
 		if (!CrackSettings.AllowActivation)
 		{
@@ -152,7 +152,7 @@ internal class GameRecoveryLicManager
 		return Activation;
 	}
 
-	private static bool IsActivated()
+	internal static bool IsActivated()
 	{
 		return (bool)HiddenCalls.CallObjectSafe1(null, "81EA6F036044B87F5C5BBE07AA5993FF", License, Activation);
 	}

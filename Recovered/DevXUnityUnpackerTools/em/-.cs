@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools.Properties;
 using System;
 using System.Drawing;
@@ -9,7 +9,7 @@ namespace em
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A
 	{
-		private object _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020()
+		internal object _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020()
 		{
 			Bitmap girl_unity = Resources.girl_unity9;
 			((_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020((byte[])null);

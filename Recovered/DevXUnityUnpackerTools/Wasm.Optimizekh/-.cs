@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using ICSharpCode.SharpZipLib.Zip;
 using SevenZip.Compression.RangeCoder;
 using SpirV;
@@ -9,7 +9,7 @@ namespace Wasm.Optimizekh
 {
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A
 	{
-		private unsafe void _0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020(OpDecorationGroup _0020, decimal _0020_000A)
+		internal unsafe void _0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020(OpDecorationGroup _0020, decimal _0020_000A)
 		{
 			((TypeSection)null).FunctionTypes = null;
 			((_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020)null).ExecuteNode((System.Windows.Forms.TreeNode)null, ref *(bool*)null);

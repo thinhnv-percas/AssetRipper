@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using DSMCaps;
 using SevenZip.Buffer;
@@ -8,7 +8,7 @@ namespace Unity.SerializationLogicnx
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020(long _0020, object _0020_000A, int _0020_0020)
+		internal void _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020(long _0020, object _0020_000A, int _0020_0020)
 		{
 			((_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020)null).Dispose();
 			string source = ((_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020)null).Sources;

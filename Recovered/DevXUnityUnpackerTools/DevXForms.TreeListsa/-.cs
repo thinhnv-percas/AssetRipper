@@ -1,10 +1,10 @@
-using ICSharpCode.SharpZipLib.Zip;
+﻿using ICSharpCode.SharpZipLib.Zip;
 
 namespace DevXForms.TreeListsa
 {
 	internal class _0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A
 	{
-		private void _0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020()
+		internal void _0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020()
 		{
 			string password = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A)null).Password;
 		}

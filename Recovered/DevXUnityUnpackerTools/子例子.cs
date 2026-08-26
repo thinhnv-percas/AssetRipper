@@ -1,4 +1,4 @@
-internal class 子例子
+﻿internal class 子例子
 {
 	internal const string JustRandomString = "sg343555T4f";
 
@@ -10,17 +10,17 @@ internal class 子例子
 
 	internal const string RND4_TXT = "78171A0063B24DB3B3E#RND4@GN16#97441667F6469F43";
 
-	private static string 子例子子 = "53433t45gdfgdfhsdfh#RND1@GN16#F8E371695B718976";
+	internal static string 子例子子 = "53433t45gdfgdfhsdfh#RND1@GN16#F8E371695B718976";
 
-	private static string 例子子子 = "533DFD9332CD416CB79#RND2@GN16#FA890FD169CBFDAF";
+	internal static string 例子子子 = "533DFD9332CD416CB79#RND2@GN16#FA890FD169CBFDAF";
 
-	private static string 子例例 = "9005F3E4A466B46A9B7#RND3@GN16#19816B228E16324F";
+	internal static string 子例例 = "9005F3E4A466B46A9B7#RND3@GN16#19816B228E16324F";
 
-	private static string キスト = "78171A0063B24DB3B3E#RND4@GN16#97441667F6469F43";
+	internal static string キスト = "78171A0063B24DB3B3E#RND4@GN16#97441667F6469F43";
 
-	private static string スキト = "ERG34t3REGTHTRY#RND5@GN16#F0730A28B1186013";
+	internal static string スキト = "ERG34t3REGTHTRY#RND5@GN16#F0730A28B1186013";
 
-	private static string rand;
+	internal static string rand;
 
 	internal static string RND1()
 	{

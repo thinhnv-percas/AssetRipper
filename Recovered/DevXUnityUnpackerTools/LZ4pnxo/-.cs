@@ -1,11 +1,11 @@
-using DevXUnityUnpackerTools._WinForm.AssetControlkp;
+﻿using DevXUnityUnpackerTools._WinForm.AssetControlkp;
 using SpirV;
 
 namespace LZ4pnxo
 {
 	internal class _0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A
 	{
-		private unsafe string _0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020(string _0020, object _0020_000A)
+		internal unsafe string _0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020(string _0020, object _0020_000A)
 		{
 			((ModuleHeader*)(byte*)null)->Version = null;
 			_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A.CheckUpdateAgain();

@@ -1,46 +1,46 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Wasm.Interpret
 {
 	public sealed class ExecutionPolicy
 	{
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020;
+		internal bool _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A;
+		internal bool _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A;
 
 		public bool EnforceAlignment
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint MaxCallStackDepth
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint MaxMemorySize
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public bool TranslateExceptions
 		{
 			get;
-			private set;
+			internal set;
 		}
 
-		private ExecutionPolicy()
+		internal ExecutionPolicy()
 		{
 		}
 

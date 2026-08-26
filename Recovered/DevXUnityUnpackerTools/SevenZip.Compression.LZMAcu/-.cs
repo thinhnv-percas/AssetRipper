@@ -1,8 +1,8 @@
-namespace SevenZip.Compression.LZMAcu
+﻿namespace SevenZip.Compression.LZMAcu
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A
 	{
-		private void _0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020(string _0020)
+		internal void _0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020(string _0020)
 		{
 		}
 	}

@@ -1,17 +1,17 @@
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
 namespace WFTools3D
 {
 	public class Lighting : ModelVisual3D
 	{
-		private Model3DGroup _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020 = new Model3DGroup();
+		internal Model3DGroup _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020 = new Model3DGroup();
 
-		private AmbientLight _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A = new AmbientLight(Colors.White);
+		internal AmbientLight _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A = new AmbientLight(Colors.White);
 
-		private DirectionalLight _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020 = new DirectionalLight(Colors.White, new Vector3D(23.0, 28.0, -15.0));
+		internal DirectionalLight _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020 = new DirectionalLight(Colors.White, new Vector3D(23.0, 28.0, -15.0));
 
-		private DirectionalLight _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A = new DirectionalLight(Colors.White, new Vector3D(-23.0, -28.0, -15.0));
+		internal DirectionalLight _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A = new DirectionalLight(Colors.White, new Vector3D(-23.0, -28.0, -15.0));
 
 		public Model3DGroup LightingGroup => _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020;
 

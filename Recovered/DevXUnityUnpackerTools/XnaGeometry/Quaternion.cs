@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace XnaGeometry
@@ -14,7 +14,7 @@ namespace XnaGeometry
 
 		public double W;
 
-		private static Quaternion identity = new Quaternion(0.0, 0.0, 0.0, 1.0);
+		internal static Quaternion identity = new Quaternion(0.0, 0.0, 0.0, 1.0);
 
 		public static Quaternion Identity => identity;
 
@@ -823,7 +823,7 @@ namespace XnaGeometry
 			return result;
 		}
 
-		private double copysign(double _X, double _Y)
+		internal double copysign(double _X, double _Y)
 		{
 			if (_Y < 0.0)
 			{

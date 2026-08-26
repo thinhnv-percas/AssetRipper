@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -6,11 +6,11 @@ using System.Reflection;
 
 internal class TextureCompress
 {
-	private const string astcencTxt = "astcenc";
+	internal const string astcencTxt = "astcenc";
 
-	private const int num = 1554098963;
+	internal const int num = 1554098963;
 
-	private static string astcencPath
+	internal static string astcencPath
 	{
 		get
 		{
@@ -208,7 +208,7 @@ internal class TextureCompress
 		}
 	}
 
-	private static void CreateTempFile(byte[] raw_text_inputBytes, int width, int height, int block_xsize, int block_ysize, string path)
+	internal static void CreateTempFile(byte[] raw_text_inputBytes, int width, int height, int block_xsize, int block_ysize, string path)
 	{
 		using (FileStream fileStream = File.Create(path))
 		{

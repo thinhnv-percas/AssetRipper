@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.XCore;
 using ICSharpCode.SharpZipLib.Zip;
 using ProtoBufsf;
@@ -11,7 +11,7 @@ namespace SevenZip.Compression.LZMAnx
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A
 	{
-		private int _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(PeepholeOptimization _0020)
+		internal int _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(PeepholeOptimization _0020)
 		{
 			XCoreRegister register = ((XCoreOperand)null).Register;
 			OperatorImpls.Float64Abs(null, null);

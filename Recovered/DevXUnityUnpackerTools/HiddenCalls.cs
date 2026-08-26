@@ -1,4 +1,4 @@
-using ARMD;
+﻿using ARMD;
 using @as;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ internal static class HiddenCalls
 {
 	[Serializable]
 	[CompilerGenerated]
-	private sealed class _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020
+	internal sealed class _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020
 	{
 		public static readonly _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020 _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A = new _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020();
 
@@ -23,23 +23,23 @@ internal static class HiddenCalls
 		}
 	}
 
-	private static List<Type> types;
+	internal static List<Type> types;
 
-	private const string _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A = "FunAttr";
+	internal const string _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A = "FunAttr";
 
-	private static Type FunAttrType = Type.GetType("FunAttr");
+	internal static Type FunAttrType = Type.GetType("FunAttr");
 
-	private static PropertyInfo FunAttrNum = Type.GetType("FunAttr").GetProperty("Num");
+	internal static PropertyInfo FunAttrNum = Type.GetType("FunAttr").GetProperty("Num");
 
-	private const string _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020 = "CIntA";
+	internal const string _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020 = "CIntA";
 
-	private static Type CIntAType = Type.GetType("CIntA");
+	internal static Type CIntAType = Type.GetType("CIntA");
 
-	private static PropertyInfo CIntANum = Type.GetType("CIntA").GetProperty("Num");
+	internal static PropertyInfo CIntANum = Type.GetType("CIntA").GetProperty("Num");
 
-	private static BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+	internal static BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
-	private static Dictionary<string, Type> typesDict = new Dictionary<string, Type>();
+	internal static Dictionary<string, Type> typesDict = new Dictionary<string, Type>();
 
 	public static Dictionary<string, MethodInfo> methodsDict = new Dictionary<string, MethodInfo>();
 

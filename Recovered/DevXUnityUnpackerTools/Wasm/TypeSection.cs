@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,15 +9,15 @@ namespace Wasm
 	public sealed class TypeSection : Section
 	{
 		[CompilerGenerated]
-		private List<FunctionType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A;
+		internal List<FunctionType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
+		internal byte[] _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020;
 
 		public List<FunctionType> FunctionTypes
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public byte[] ExtraPayload

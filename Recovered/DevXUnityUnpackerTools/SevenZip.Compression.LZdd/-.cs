@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Encryptiongy;
 using System.Windows.Forms;
@@ -8,7 +8,7 @@ namespace SevenZip.Compression.LZdd
 {
 	internal class _0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A
 	{
-		private unsafe void _0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020()
+		internal unsafe void _0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020()
 		{
 			bool continueRunning = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020)null).ContinueRunning;
 			Vector3 unitY = Vector3.UnitY;

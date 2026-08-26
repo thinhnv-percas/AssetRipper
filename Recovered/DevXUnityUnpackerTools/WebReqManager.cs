@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
@@ -10,7 +10,7 @@ internal class WebReqManager
 {
 	public class ExtendedWebClient : WebClient
 	{
-		private int _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A = 600000;
+		internal int _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A = 600000;
 
 		public int TimeoutMilliseconds
 		{

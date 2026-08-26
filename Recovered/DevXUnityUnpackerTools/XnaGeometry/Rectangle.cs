@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 
 namespace XnaGeometry
 {
 	public struct Rectangle : IEquatable<Rectangle>
 	{
-		private static Rectangle _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A;
+		internal static Rectangle _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A;
 
 		public int X;
 

@@ -1,4 +1,4 @@
-using APKbu;
+﻿using APKbu;
 using @as;
 using EdiToolsal;
 using PropertyGridEx;
@@ -7,7 +7,7 @@ namespace Unity.IO.Compressionfo
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A
 	{
-		private unsafe string _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020(CultureFormatter.SomeItem _0020)
+		internal unsafe string _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020(CultureFormatter.SomeItem _0020)
 		{
 			CustomChoices choice = ((CustomProperty)null).Choices;
 			((_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020(ref *(int*)null);

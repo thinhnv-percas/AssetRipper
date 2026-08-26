@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Wasm.Instructions;
@@ -9,7 +9,7 @@ namespace Wasm.Interpret
 	{
 		[Serializable]
 		[CompilerGenerated]
-		private sealed class _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A
+		internal sealed class _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A
 		{
 			public static readonly _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A = new _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A();
 
@@ -22,39 +22,39 @@ namespace Wasm.Interpret
 		}
 
 		[CompilerGenerated]
-		private InstructionInterpreter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A;
+		internal InstructionInterpreter _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A;
 
-		private List<FunctionType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A;
+		internal List<FunctionType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A;
 
-		private List<LinearMemory> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020;
+		internal List<LinearMemory> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020;
 
-		private List<Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A;
+		internal List<Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A;
 
-		private List<FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020;
+		internal List<FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020;
 
-		private List<FunctionTable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A;
+		internal List<FunctionTable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A;
 
-		private Dictionary<string, LinearMemory> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020;
+		internal Dictionary<string, LinearMemory> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020;
 
-		private Dictionary<string, Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A;
+		internal Dictionary<string, Variable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A;
 
-		private Dictionary<string, FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020;
+		internal Dictionary<string, FunctionDefinition> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020;
 
-		private Dictionary<string, FunctionTable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A;
+		internal Dictionary<string, FunctionTable> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A;
 
 		[CompilerGenerated]
-		private ExecutionPolicy _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020;
+		internal ExecutionPolicy _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020;
 
 		public InstructionInterpreter Interpreter
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ExecutionPolicy Policy
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public IList<FunctionType> Types => _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A;
@@ -75,7 +75,7 @@ namespace Wasm.Interpret
 
 		public IDictionary<string, FunctionTable> ExportedTables => _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A;
 
-		private ModuleInstance(InstructionInterpreter interpreter, ExecutionPolicy policy)
+		internal ModuleInstance(InstructionInterpreter interpreter, ExecutionPolicy policy)
 		{
 			Interpreter = interpreter;
 			Policy = policy;
@@ -149,7 +149,7 @@ namespace Wasm.Interpret
 			return moduleInstance;
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020(WasmFile _0020, IImporter _0020_000A, List<FunctionType> _0020_0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020(WasmFile _0020, IImporter _0020_000A, List<FunctionType> _0020_0020)
 		{
 			IList<ImportSection> sections = _0020.GetSections<ImportSection>();
 			for (int i = 0; i < sections.Count; i++)
@@ -201,12 +201,12 @@ namespace Wasm.Interpret
 			}
 		}
 
-		private static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A(ImportedValue _0020, string _0020_000A)
+		internal static void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A(ImportedValue _0020, string _0020_000A)
 		{
 			throw new WasmException($"Importer cannot resolve {_0020_000A} definition '{_0020.ModuleName}.{_0020.FieldName}'.");
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020(WasmFile _0020, uint _0020_000A)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020(WasmFile _0020, uint _0020_000A)
 		{
 			IList<MemorySection> sections = _0020.GetSections<MemorySection>();
 			for (int i = 0; i < sections.Count; i++)
@@ -238,7 +238,7 @@ namespace Wasm.Interpret
 			}
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A(WasmFile _0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A(WasmFile _0020)
 		{
 			IList<GlobalSection> sections = _0020.GetSections<GlobalSection>();
 			for (int i = 0; i < sections.Count; i++)
@@ -250,7 +250,7 @@ namespace Wasm.Interpret
 			}
 		}
 
-		private static List<FunctionType> _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020(WasmFile _0020)
+		internal static List<FunctionType> _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020(WasmFile _0020)
 		{
 			List<FunctionType> list = new List<FunctionType>();
 			IList<TypeSection> sections = _0020.GetSections<TypeSection>();
@@ -261,7 +261,7 @@ namespace Wasm.Interpret
 			return list;
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A(WasmFile _0020, ModuleCompiler _0020_000A, List<FunctionType> _0020_0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A(WasmFile _0020, ModuleCompiler _0020_000A, List<FunctionType> _0020_0020)
 		{
 			List<FunctionType> list = new List<FunctionType>();
 			List<FunctionBody> list2 = new List<FunctionBody>();
@@ -290,12 +290,12 @@ namespace Wasm.Interpret
 			_0020_000A.Finish();
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020(FunctionDefinition _0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020(FunctionDefinition _0020)
 		{
 			_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020.Add(_0020);
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A(WasmFile _0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A(WasmFile _0020)
 		{
 			IList<TableSection> sections = _0020.GetSections<TableSection>();
 			for (int i = 0; i < sections.Count; i++)
@@ -320,7 +320,7 @@ namespace Wasm.Interpret
 			}
 		}
 
-		private void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020(WasmFile _0020)
+		internal void _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020(WasmFile _0020)
 		{
 			IList<ExportSection> sections = _0020.GetSections<ExportSection>();
 			for (int i = 0; i < sections.Count; i++)

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXUnityUnpackerTools._WPF;
 using ICSharpCode.SharpZipLib.Zip;
 using Wasm.Interpret;
@@ -7,7 +7,7 @@ namespace DotNetDxcwb
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		private void _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020()
+		internal void _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020()
 		{
 			char c = ((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A;
 			_3DView.Params param = ((_3DView)null).@params;

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.M68K;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 
@@ -6,7 +6,7 @@ namespace Unity.SerializationLogicrf
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A
 	{
-		private void _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020(short _0020)
+		internal void _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020(short _0020)
 		{
 			short displacement = ((M68KMemoryOperandValue)null).Displacement;
 			((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A = null;

@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
@@ -7,7 +7,7 @@ namespace Wasm
 	public sealed class ImportedMemory : ImportedValue
 	{
 		[CompilerGenerated]
-		private MemoryType _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
+		internal MemoryType _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
 
 		public MemoryType Memory
 		{

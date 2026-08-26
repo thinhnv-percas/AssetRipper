@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using ICSharpCode.SharpZipLib.Encryptionsr;
 using STLsm;
 using System;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streamsbb
 {
 	internal class _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020()
+		internal unsafe object _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020()
 		{
 			//IL_0013: Expected I, but got O
 			//IL_0013: Expected I, but got O

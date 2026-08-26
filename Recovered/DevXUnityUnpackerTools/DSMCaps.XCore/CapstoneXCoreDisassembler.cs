@@ -1,4 +1,4 @@
-namespace DSMCaps.XCore
+﻿namespace DSMCaps.XCore
 {
 	public sealed class CapstoneXCoreDisassembler : CapstoneDisassembler<XCoreDisassembleMode, XCoreInstruction, XCoreInstructionDetail, XCoreInstructionGroup, XCoreInstructionGroupId, XCoreInstructionId, XCoreRegister, XCoreRegisterId>
 	{
@@ -7,7 +7,7 @@ namespace DSMCaps.XCore
 		{
 		}
 
-		private protected override XCoreInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override XCoreInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return XCoreInstruction.Create(this, hInstruction);
 		}

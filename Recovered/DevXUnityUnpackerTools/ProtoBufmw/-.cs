@@ -1,4 +1,4 @@
-using SpirV;
+﻿using SpirV;
 using STL;
 using System.IO;
 using System.Windows.Media.Media3D;
@@ -9,7 +9,7 @@ namespace ProtoBufmw
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A
 	{
-		private unsafe object _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020()
+		internal unsafe object _0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020()
 		{
 			Vector3D upDirection = ((CameraBox)null).UpDirection;
 			((Plane*)(byte*)null)->Normalize();

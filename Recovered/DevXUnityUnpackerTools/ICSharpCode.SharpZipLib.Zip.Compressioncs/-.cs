@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using DMP4;
 using WASD;
@@ -9,7 +9,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compressioncs
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A
 	{
-		private string _0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020(int _0020, float _0020_000A, float _0020_0020, bool _0020_000A_000A)
+		internal string _0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020(int _0020, float _0020_000A, float _0020_0020, bool _0020_000A_000A)
 		{
 			long immediate = ((VarInt64Instruction)null).Immediate;
 			((_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A)null)._0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020((string)null, (Il2CppMethodDefinition)null);

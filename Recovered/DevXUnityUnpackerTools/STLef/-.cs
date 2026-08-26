@@ -1,11 +1,11 @@
-using DSMCaps.Arm64;
+﻿using DSMCaps.Arm64;
 using Wasm.Interpret;
 
 namespace STLef
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A
 	{
-		private object _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020()
+		internal object _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020()
 		{
 			string text = ((BinaryAnalizerControl)null)._0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A;
 			Arm64ShiftOperation shiftOperation = ((Arm64Operand)null).ShiftOperation;

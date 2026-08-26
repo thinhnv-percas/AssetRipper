@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace ICSharpCode.SharpZipLib.BZip2
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 	[Serializable]
 	internal class BZip2Exception : SharpZipBaseException
 	{
-		protected BZip2Exception(SerializationInfo info, StreamingContext context)
+		internal BZip2Exception(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
 		}

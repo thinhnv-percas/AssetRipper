@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using FMOD;
 using PropertyGridEx;
 using System;
@@ -8,7 +8,7 @@ namespace ProtoBufus
 {
 	internal class _0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A
 	{
-		private object _0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020(decimal _0020, int _0020_000A)
+		internal object _0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020(decimal _0020, int _0020_000A)
 		{
 			object dataColumn = ((CustomProperty)null).DataColumn;
 			((_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A();

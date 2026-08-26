@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip;
 using PropertyGridEx;
@@ -8,7 +8,7 @@ namespace FMODnv
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A
 	{
-		private object _0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020(Action _0020)
+		internal object _0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020(Action _0020)
 		{
 			((CustomProperty)null).BuildAttributes_BrowsableProperty();
 			((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A)null).CloseEntry();

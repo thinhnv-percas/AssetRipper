@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 using Wasm.Instructions;
@@ -8,13 +8,13 @@ namespace Wasm
 	public sealed class DataSegment
 	{
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private InitializerExpression _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020;
+		internal InitializerExpression _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A;
+		internal byte[] _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A;
 
 		public uint MemoryIndex
 		{

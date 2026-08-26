@@ -1,4 +1,4 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using DSMCaps;
 using System;
 
@@ -6,7 +6,7 @@ namespace ICSharpCode.SharpZipLib.Encryptionar
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A
 	{
-		private unsafe string _0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020(bool _0020)
+		internal unsafe string _0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020(bool _0020)
 		{
 			//IL_0030: Expected I, but got O
 			((_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A((string)null, (object)null);

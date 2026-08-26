@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Wasm.Interpret
 {
 	public struct LinearMemoryAsInt8
 	{
-		private List<byte> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A;
+		internal List<byte> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A;
 
 		public sbyte this[uint offset]
 		{

@@ -1,4 +1,4 @@
-using DSMCaps.X86mq;
+﻿using DSMCaps.X86mq;
 using EdiTools;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip;
@@ -8,7 +8,7 @@ namespace Wasm.Interpretyd
 {
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A
 	{
-		private object _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020()
+		internal object _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020()
 		{
 			IList<EdiSegment> segment = ((EdiDocument)null).Segments;
 			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A)null).SetField((string)null, (object)null);

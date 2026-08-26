@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
 
@@ -7,30 +7,30 @@ namespace Wasm
 	public struct ExportedValue
 	{
 		[CompilerGenerated]
-		private string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
+		internal string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private ExternalKind _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A;
+		internal ExternalKind _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private uint _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
+		internal uint _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A;
 
 		public string Name
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ExternalKind Kind
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint Index
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public ExportedValue(string name, ExternalKind kind, uint index)

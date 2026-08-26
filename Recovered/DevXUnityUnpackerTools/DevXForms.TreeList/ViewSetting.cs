@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DevXForms.TreeList
@@ -6,17 +6,17 @@ namespace DevXForms.TreeList
 	[TypeConverter(typeof(OptionsSettingTypeConverter))]
 	public class ViewSetting
 	{
-		private MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020;
+		internal MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020;
 
-		private BorderStyle _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020;
+		internal BorderStyle _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020;
 
-		private int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A = 16;
+		internal int _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A = 16;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020 = true;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020 = true;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_000A = true;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_000A = true;
 
-		private bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020 = true;
+		internal bool _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020 = true;
 
 		[DefaultValue(typeof(int), "16")]
 		[Category("Behavior")]

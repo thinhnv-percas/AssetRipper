@@ -1,4 +1,4 @@
-using DevXForms;
+﻿using DevXForms;
 using DSMCapstm;
 using WFTools3D;
 
@@ -6,7 +6,7 @@ namespace XnaGeometrymc
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A
 	{
-		private int _0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020(string _0020, int _0020_000A, Object3D _0020_0020)
+		internal int _0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020(string _0020, int _0020_000A, Object3D _0020_0020)
 		{
 			bool flag = ((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020;
 			ImageTools.CovertToRTF(null);

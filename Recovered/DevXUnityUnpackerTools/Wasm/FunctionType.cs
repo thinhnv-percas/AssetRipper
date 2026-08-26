@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -8,23 +8,23 @@ namespace Wasm
 	public sealed class FunctionType
 	{
 		[CompilerGenerated]
-		private List<WasmValueType> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A;
+		internal List<WasmValueType> _0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private List<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020;
+		internal List<WasmValueType> _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020;
 
 		public WasmType Form => WasmType.Func;
 
 		public List<WasmValueType> ParameterTypes
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public List<WasmValueType> ReturnTypes
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public FunctionType()
@@ -39,7 +39,7 @@ namespace Wasm
 			ReturnTypes = new List<WasmValueType>(returnTypes);
 		}
 
-		private FunctionType(List<WasmValueType> parameterTypes, List<WasmValueType> returnTypes)
+		internal FunctionType(List<WasmValueType> parameterTypes, List<WasmValueType> returnTypes)
 		{
 			ParameterTypes = parameterTypes;
 			ReturnTypes = returnTypes;

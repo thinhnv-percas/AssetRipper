@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -7,7 +7,7 @@ namespace SpirV
 	public class VaryingOperandValue
 	{
 		[CompilerGenerated]
-		private readonly IList<object> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A;
+		internal readonly IList<object> _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A;
 
 		public IList<object> Values
 		{

@@ -1,4 +1,4 @@
-namespace DSMCaps.X86
+﻿namespace DSMCaps.X86
 {
 	public sealed class CapstoneX86Disassembler : CapstoneDisassembler<X86DisassembleMode, X86Instruction, X86InstructionDetail, X86InstructionGroup, X86InstructionGroupId, X86InstructionId, X86Register, X86RegisterId>
 	{
@@ -9,7 +9,7 @@ namespace DSMCaps.X86
 		{
 		}
 
-		private protected override X86Instruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override X86Instruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return X86Instruction.Create(this, hInstruction);
 		}

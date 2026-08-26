@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DMP4;
 using STL;
@@ -11,7 +11,7 @@ namespace ICSharpCode.SharpZipLib.Lzwys
 {
 	internal class _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020(byte* _0020, uint _0020_000A, byte* _0020_0020, ref uint _0020_000A_000A, void* _0020_000A_0020)
+		internal unsafe object _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020(byte* _0020, uint _0020_000A, byte* _0020_0020, ref uint _0020_000A_000A, void* _0020_000A_0020)
 		{
 			//IL_0012: Expected I, but got O
 			//IL_006c: Expected I, but got O

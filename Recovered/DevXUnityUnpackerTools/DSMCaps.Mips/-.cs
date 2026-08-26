@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using ARMD;
 using @as;
 using DevXForms;
@@ -22,17 +22,17 @@ namespace DSMCaps.Mips
 			return new MipsInstruction(this);
 		}
 
-		private protected override MipsInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override MipsInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return MipsInstructionDetail.Create(disassembler, hInstruction);
 		}
 
-		private protected override MipsDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override MipsDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (MipsDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override MipsInstructionId CreateId(int id)
+		internal protected override MipsInstructionId CreateId(int id)
 		{
 			return (MipsInstructionId)id;
 		}
@@ -40,12 +40,12 @@ namespace DSMCaps.Mips
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A : InstructionDetailBuilder<MipsInstructionDetail, MipsDisassembleMode, MipsInstructionGroup, MipsInstructionGroupId, MipsInstruction, MipsInstructionId, MipsRegister, MipsRegisterId>
 	{
 		[CompilerGenerated]
-		private MipsOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal MipsOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		internal MipsOperand[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal override void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -60,17 +60,17 @@ namespace DSMCaps.Mips
 			return new MipsInstructionDetail(this);
 		}
 
-		private protected override MipsDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override MipsDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (MipsDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override MipsInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
+		internal protected override MipsInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
 		{
 			return MipsInstructionGroup.Create(disassembler, (MipsInstructionGroupId)instructionGroupId);
 		}
 
-		private protected override MipsRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
+		internal protected override MipsRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
 		{
 			return MipsRegister._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A(disassembler, (MipsRegisterId)registerId);
 		}
@@ -108,7 +108,7 @@ namespace DSMCaps.Mips
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020(_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020 _0020)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020(_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020 _0020)
 		{
 			string text = ((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020;
 			long num = ((_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020;
@@ -117,7 +117,7 @@ namespace DSMCaps.Mips
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020(bool _0020)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020(bool _0020)
 		{
 			bool flag = ((_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020;
 			OutForm._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A();
@@ -129,7 +129,7 @@ namespace DSMCaps.Mips
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020(_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A _0020)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020(_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A _0020)
 		{
 			_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020._0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020();
 			return 105515811;
@@ -137,21 +137,21 @@ namespace DSMCaps.Mips
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020(_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020 _0020, string _0020_000A, ResizableLimits _0020_0020)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020(_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020 _0020, string _0020_000A, ResizableLimits _0020_0020)
 		{
 			return null;
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020()
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020()
 		{
 			return "470816090";
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020(OpCreatePipeFromPipeStorage _0020, object _0020_000A, bool _0020_0020, string _0020_000A_000A)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020(OpCreatePipeFromPipeStorage _0020, object _0020_000A, bool _0020_0020, string _0020_000A_000A)
 		{
 			FileManager._0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020(null);
 			_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A._0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020((object)null);

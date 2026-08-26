@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Windows.Forms;
 
 public class ControlUpdate : IDisposable
 {
-	private static Hashtable _0020_000A_000A_000A_000A_0020_0020_0020 = new Hashtable();
+	internal static Hashtable _0020_000A_000A_000A_000A_0020_0020_0020 = new Hashtable();
 
-	private static bool _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A = false;
+	internal static bool _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A = false;
 
-	private Control _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020;
+	internal Control _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020;
 
 	public static void Reset()
 	{
@@ -21,11 +21,11 @@ public class ControlUpdate : IDisposable
 		return new ControlUpdate(control);
 	}
 
-	private ControlUpdate()
+	internal ControlUpdate()
 	{
 	}
 
-	private ControlUpdate(Control control)
+	internal ControlUpdate(Control control)
 	{
 		_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020 = control;
 		if (control != null)

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLib;
 using DevXForms.TreeList;
 using DevXUnityUnpackerTools._WinForm;
@@ -9,7 +9,7 @@ namespace Unity.CecilTools.Extensionsyp
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A
 	{
-		private unsafe object _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020(string _0020)
+		internal unsafe object _0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020(string _0020)
 		{
 			//IL_003f: Expected I, but got O
 			((PPtSelectForm)null).AddItem((ImageResData)null);

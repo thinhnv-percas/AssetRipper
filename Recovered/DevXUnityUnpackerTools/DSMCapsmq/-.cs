@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ProtoBufhg;
 using Unity.CecilTools.Extensionsco;
 using Wasm.Optimize;
@@ -7,7 +7,7 @@ namespace DSMCapsmq
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A
 	{
-		private string _0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020(ImageResData _0020, bool _0020_000A, bool _0020_0020)
+		internal string _0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020(ImageResData _0020, bool _0020_000A, bool _0020_0020)
 		{
 			((_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A)null)._0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020((string)null);
 			((FunctionBody)null).CompressLocalEntries();
@@ -18,7 +18,7 @@ namespace DSMCapsmq
 	}
 	internal class _0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A
 	{
-		private void _0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020(string _0020, object[] _0020_000A)
+		internal void _0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020(string _0020, object[] _0020_000A)
 		{
 		}
 	}

@@ -1,4 +1,4 @@
-using APKre;
+﻿using APKre;
 using DSMCaps;
 using DSMCaps.Arm;
 using DSMCaps.X86;
@@ -9,7 +9,7 @@ namespace DevXForms.TreeListmk
 {
 	internal class _0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		private object _0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020()
+		internal object _0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020()
 		{
 			ArmConditionCode conditionCode = ((ArmInstructionDetail)null).ConditionCode;
 			_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A.SplitQuoted(null);

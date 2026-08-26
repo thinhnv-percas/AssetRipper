@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip;
@@ -57,17 +57,17 @@ namespace DSMCaps.XCore
 			return new XCoreInstruction(this);
 		}
 
-		private protected override XCoreInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override XCoreInstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return XCoreInstructionDetail.Create(disassembler, hInstruction);
 		}
 
-		private protected override XCoreDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override XCoreDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (XCoreDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override XCoreInstructionId CreateId(int id)
+		internal protected override XCoreInstructionId CreateId(int id)
 		{
 			return (XCoreInstructionId)id;
 		}
@@ -75,12 +75,12 @@ namespace DSMCaps.XCore
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A : InstructionDetailBuilder<XCoreInstructionDetail, XCoreDisassembleMode, XCoreInstructionGroup, XCoreInstructionGroupId, XCoreInstruction, XCoreInstructionId, XCoreRegister, XCoreRegisterId>
 	{
 		[CompilerGenerated]
-		private XCoreOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal XCoreOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		internal XCoreOperand[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal override void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -95,24 +95,24 @@ namespace DSMCaps.XCore
 			return new XCoreInstructionDetail(this);
 		}
 
-		private protected override XCoreDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override XCoreDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (XCoreDisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override XCoreInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
+		internal protected override XCoreInstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
 		{
 			return XCoreInstructionGroup.Create(disassembler, (XCoreInstructionGroupId)instructionGroupId);
 		}
 
-		private protected override XCoreRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
+		internal protected override XCoreRegister CreateRegister(CapstoneDisassembler disassembler, short registerId)
 		{
 			return XCoreRegister._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A(disassembler, (XCoreRegisterId)registerId);
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020()
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020()
 		{
 			OperatorImpls.Int32Const(null, null);
 			return null;
@@ -120,7 +120,7 @@ namespace DSMCaps.XCore
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020(_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A _0020)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020(_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A _0020)
 		{
 			((TableSection)null).Tables = null;
 			((MultiSelectTreeView2)null).OnPaintOwn((PaintEventArgs)null);
@@ -131,7 +131,7 @@ namespace DSMCaps.XCore
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020(string _0020, string _0020_000A)
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020(string _0020, string _0020_000A)
 		{
 			((MultiSelectTreeView2)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020 -= null;
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A((string)null);
@@ -140,7 +140,7 @@ namespace DSMCaps.XCore
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020()
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020()
 		{
 			bool isNeedingInput = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A)null).IsNeedingInput;
 			GlobalType type = ((GlobalVariable)null).Type;
@@ -150,7 +150,7 @@ namespace DSMCaps.XCore
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020(string _0020, Stream _0020_000A)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020(string _0020, Stream _0020_000A)
 		{
 			UseZip64 useZip = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A)null).UseZip64;
 			return "2139865921";
@@ -158,7 +158,7 @@ namespace DSMCaps.XCore
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A
 	{
-		private void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020(short _0020, decimal _0020_000A, object _0020_0020, float _0020_000A_000A)
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020(short _0020, decimal _0020_000A, object _0020_0020, float _0020_000A_000A)
 		{
 			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020)null)._0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null, (string)null);
 			((ConnectSettingsForm)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020();

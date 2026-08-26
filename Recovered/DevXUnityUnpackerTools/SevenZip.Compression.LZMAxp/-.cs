@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLibmh;
 using DSMCaps.Mipsvv;
 using Mono.Cecil;
@@ -9,7 +9,7 @@ namespace SevenZip.Compression.LZMAxp
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A
 	{
-		private unsafe object _0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020()
+		internal unsafe object _0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020()
 		{
 			uint memoryIndex = ((DataSegment)null).MemoryIndex;
 			((_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A)null)._0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020();

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace XnaGeometry
@@ -6,17 +6,17 @@ namespace XnaGeometry
 	[Serializable]
 	public struct Vector4 : IEquatable<Vector4>
 	{
-		private static Vector4 zeroVector = default(Vector4);
+		internal static Vector4 zeroVector = default(Vector4);
 
-		private static Vector4 unitVector = new Vector4(1.0, 1.0, 1.0, 1.0);
+		internal static Vector4 unitVector = new Vector4(1.0, 1.0, 1.0, 1.0);
 
-		private static Vector4 unitXVector = new Vector4(1.0, 0.0, 0.0, 0.0);
+		internal static Vector4 unitXVector = new Vector4(1.0, 0.0, 0.0, 0.0);
 
-		private static Vector4 unitYVector = new Vector4(0.0, 1.0, 0.0, 0.0);
+		internal static Vector4 unitYVector = new Vector4(0.0, 1.0, 0.0, 0.0);
 
-		private static Vector4 unitZVector = new Vector4(0.0, 0.0, 1.0, 0.0);
+		internal static Vector4 unitZVector = new Vector4(0.0, 0.0, 1.0, 0.0);
 
-		private static Vector4 unitWVector = new Vector4(0.0, 0.0, 0.0, 1.0);
+		internal static Vector4 unitWVector = new Vector4(0.0, 0.0, 0.0, 1.0);
 
 		public double X;
 

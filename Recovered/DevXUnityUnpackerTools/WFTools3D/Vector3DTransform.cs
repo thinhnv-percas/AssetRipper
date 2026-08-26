@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Windows.Media.Media3D;
 
 namespace WFTools3D
@@ -6,13 +6,13 @@ namespace WFTools3D
 	public class Vector3DTransform
 	{
 		[CompilerGenerated]
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A;
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A;
 
 		[CompilerGenerated]
-		private LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020;
+		internal LinearTransform _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020;
 
 		public LinearTransform TX
 		{

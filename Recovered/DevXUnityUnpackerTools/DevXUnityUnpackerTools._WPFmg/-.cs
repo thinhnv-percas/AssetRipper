@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using SpirV;
 using System.IO;
 
@@ -6,7 +6,7 @@ namespace DevXUnityUnpackerTools._WPFmg
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A
 	{
-		private unsafe string _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020()
+		internal unsafe string _0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020()
 		{
 			Stream baseStream = ((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A)null).BaseStream;
 			((ModuleHeader*)(byte*)null)->GeneratorName = null;

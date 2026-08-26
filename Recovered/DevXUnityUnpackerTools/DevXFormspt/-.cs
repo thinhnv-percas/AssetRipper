@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DMP4;
 using ICSharpCode.SharpZipLib.Core;
 using Unity.IO.Compression;
@@ -8,7 +8,7 @@ namespace DevXFormspt
 {
 	internal class _0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A
 	{
-		private object _0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020(decimal _0020, decimal _0020_000A)
+		internal object _0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020(decimal _0020, decimal _0020_000A)
 		{
 			OperatorImpls.Float32Abs(null, null);
 			((_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020)null)._0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A((Il2CppMethodSpec)null);

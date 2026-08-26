@@ -1,4 +1,4 @@
-using DevXUnityUnpackerTools.Propertiesos;
+﻿using DevXUnityUnpackerTools.Propertiesos;
 using FMODjl;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -6,7 +6,7 @@ namespace SevenZip.Compression.LZMAom
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A
 	{
-		private void _0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020()
+		internal void _0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020()
 		{
 			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A();
 			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A)null).TrimPrefix = null;

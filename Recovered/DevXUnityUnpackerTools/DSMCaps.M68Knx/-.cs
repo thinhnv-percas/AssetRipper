@@ -1,10 +1,10 @@
-using SevenZip.Compression.LZMA;
+﻿using SevenZip.Compression.LZMA;
 
 namespace DSMCaps.M68Knx
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		private string _0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(Encoder _0020, object _0020_000A, decimal _0020_0020, float _0020_000A_000A)
+		internal string _0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(Encoder _0020, object _0020_000A, decimal _0020_0020, float _0020_000A_000A)
 		{
 			return "227568347";
 		}

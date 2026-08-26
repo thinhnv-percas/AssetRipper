@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using EdiTools;
 using Mono.Cecil;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace DSMCaps.X86hs
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A
 	{
-		private int _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020()
+		internal int _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020()
 		{
 			IList<EdiTransactionSet> transactionSet = ((EdiDocument)null).TransactionSets;
 			((_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020((PropertyDefinition)null);

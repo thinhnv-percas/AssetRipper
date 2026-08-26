@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using BrotliSharpLibgp;
 using DSMCaps.PowerPc;
 using SpirV;
@@ -8,7 +8,7 @@ namespace LZ4.Servicesnv
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A
 	{
-		private int _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020(ZStream _0020, SamplerAddressingModeParameterFactory _0020_000A, string _0020_0020, OpBitReverse _0020_000A_000A)
+		internal int _0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020(ZStream _0020, SamplerAddressingModeParameterFactory _0020_000A, string _0020_0020, OpBitReverse _0020_000A_000A)
 		{
 			((_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A)null)._0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020();
 			PowerPcInstruction.Create(null, null);

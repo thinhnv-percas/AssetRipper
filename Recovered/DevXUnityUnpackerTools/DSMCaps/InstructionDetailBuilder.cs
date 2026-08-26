@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace DSMCaps
@@ -8,43 +8,43 @@ namespace DSMCaps
 		internal TRegister[] AllReadRegisters
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TRegister[] AllWrittenRegisters
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal DisassembleArchitecture DisassembleArchitecture
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TDisassembleMode DisassembleMode
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TGroup[] Groups
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TRegister[] ImplicitlyReadRegisters
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TRegister[] ImplicitlyWrittenRegisters
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal virtual void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -58,14 +58,14 @@ namespace DSMCaps
 			_003CBuild_003Eg__SetImplicitlyWrittenRegisters_007C28_3(this, disassembler, ref cNativeInstructionDetail);
 		}
 
-		private protected abstract TDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode);
+		internal protected abstract TDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode);
 
-		private protected abstract TGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId);
+		internal protected abstract TGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId);
 
-		private protected abstract TRegister CreateRegister(CapstoneDisassembler disassembler, short registerId);
+		internal protected abstract TRegister CreateRegister(CapstoneDisassembler disassembler, short registerId);
 
 		[CompilerGenerated]
-		private static void _003CBuild_003Eg__SetAccessedRegisters_007C28_0(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A cHInstruction)
+		internal static void _003CBuild_003Eg__SetAccessedRegisters_007C28_0(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A cHInstruction)
 		{
 			@this.AllReadRegisters = new TRegister[0];
 			@this.AllWrittenRegisters = new TRegister[0];
@@ -88,7 +88,7 @@ namespace DSMCaps
 		}
 
 		[CompilerGenerated]
-		private static void _003CBuild_003Eg__SetGroups_007C28_1(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020 cNativeInstructionDetail)
+		internal static void _003CBuild_003Eg__SetGroups_007C28_1(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020 cNativeInstructionDetail)
 		{
 			@this.Groups = new TGroup[cNativeInstructionDetail.GroupCount];
 			if (!CapstoneDisassembler.IsDietModeEnabled)
@@ -102,7 +102,7 @@ namespace DSMCaps
 		}
 
 		[CompilerGenerated]
-		private static void _003CBuild_003Eg__SetImplicitlyReadRegisters_007C28_2(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020 cNativeInstructionDetail)
+		internal static void _003CBuild_003Eg__SetImplicitlyReadRegisters_007C28_2(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020 cNativeInstructionDetail)
 		{
 			@this.ImplicitlyReadRegisters = new TRegister[cNativeInstructionDetail.ImplicitlyReadRegisterCount];
 			if (!CapstoneDisassembler.IsDietModeEnabled)
@@ -116,7 +116,7 @@ namespace DSMCaps
 		}
 
 		[CompilerGenerated]
-		private static void _003CBuild_003Eg__SetImplicitlyWrittenRegisters_007C28_3(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020 cNativeInstructionDetail)
+		internal static void _003CBuild_003Eg__SetImplicitlyWrittenRegisters_007C28_3(InstructionDetailBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020 cNativeInstructionDetail)
 		{
 			@this.ImplicitlyWrittenRegisters = new TRegister[cNativeInstructionDetail.ImplicitlyWrittenRegisterCount];
 			if (!CapstoneDisassembler.IsDietModeEnabled)

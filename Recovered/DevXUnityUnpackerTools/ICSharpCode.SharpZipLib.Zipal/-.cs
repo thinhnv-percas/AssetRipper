@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using @as;
 using SpirV;
 using Unrealve;
@@ -8,7 +8,7 @@ namespace ICSharpCode.SharpZipLib.Zipal
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A
 	{
-		private string _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020(object _0020, decimal _0020_000A, string _0020_0020)
+		internal string _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020(object _0020, decimal _0020_000A, string _0020_0020)
 		{
 			double slope = ((LinearTransform)null).Slope;
 			int num = ((_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A)null)._0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020;

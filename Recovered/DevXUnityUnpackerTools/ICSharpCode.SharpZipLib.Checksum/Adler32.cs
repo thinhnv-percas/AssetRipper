@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 
 namespace ICSharpCode.SharpZipLib.Checksum
 {
 	public sealed class Adler32 : IChecksum
 	{
-		private static readonly uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A = 65521u;
+		internal static readonly uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A = 65521u;
 
-		private uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020;
+		internal uint _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 
 		public long Value => _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020;
 

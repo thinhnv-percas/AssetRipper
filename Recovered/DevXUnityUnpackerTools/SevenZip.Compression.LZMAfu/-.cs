@@ -1,11 +1,11 @@
-using BrotliSharpLib;
+﻿using BrotliSharpLib;
 using System;
 
 namespace SevenZip.Compression.LZMAfu
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		private unsafe string _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020()
+		internal unsafe string _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020()
 		{
 			//IL_0023: Expected I, but got O
 			((CodeWriter)null)._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A((string)null);

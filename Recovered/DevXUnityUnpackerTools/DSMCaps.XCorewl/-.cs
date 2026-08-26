@@ -1,4 +1,4 @@
-using APK;
+﻿using APK;
 using BrotliSharpLib;
 using System;
 
@@ -6,7 +6,7 @@ namespace DSMCaps.XCorewl
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A
 	{
-		private unsafe string _0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020(object _0020, EventArgs _0020_000A)
+		internal unsafe string _0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020(object _0020, EventArgs _0020_000A)
 		{
 			//IL_0023: Expected I, but got O
 			((InstructionDetailBuilder<, , , , , , , >)null).AllWrittenRegisters = null;

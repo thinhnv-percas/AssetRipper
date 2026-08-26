@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using ICSharpCode.SharpZipLib.Core;
 using Org.Brotli.Dec;
 using System;
@@ -122,17 +122,17 @@ namespace DSMCaps.X86
 			return new X86Instruction(this);
 		}
 
-		private protected override X86InstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal protected override X86InstructionDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return X86InstructionDetail.Create(disassembler, hInstruction);
 		}
 
-		private protected override X86DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override X86DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (X86DisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override X86InstructionId CreateId(int id)
+		internal protected override X86InstructionId CreateId(int id)
 		{
 			return (X86InstructionId)id;
 		}
@@ -140,174 +140,174 @@ namespace DSMCaps.X86
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A : InstructionDetailBuilder<X86InstructionDetail, X86DisassembleMode, X86InstructionGroup, X86InstructionGroupId, X86Instruction, X86InstructionId, X86Register, X86RegisterId>
 	{
 		[CompilerGenerated]
-		private byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020;
+		internal byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020;
 
 		[CompilerGenerated]
-		private X86AvxConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A;
+		internal X86AvxConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private X86AvxRoundingMode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020;
+		internal X86AvxRoundingMode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private bool _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A;
+		internal bool _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
+		internal long _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private long _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020;
+		internal long _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020;
 
 		[CompilerGenerated]
-		private X86Encoding _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A;
+		internal X86Encoding _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private long _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020;
+		internal long _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020;
 
 		[CompilerGenerated]
-		private byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A;
+		internal byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private byte[] _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020;
+		internal byte[] _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020;
 
 		[CompilerGenerated]
-		private X86Operand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal X86Operand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private X86Prefix[] _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A;
+		internal X86Prefix[] _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A;
 
 		[CompilerGenerated]
-		private byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020;
+		internal byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020;
 
 		[CompilerGenerated]
-		private byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A;
+		internal byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A;
 
 		[CompilerGenerated]
-		private X86Register _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020;
+		internal X86Register _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private X86Register _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A;
+		internal X86Register _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A;
 
 		[CompilerGenerated]
-		private byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020;
+		internal byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020;
 
 		[CompilerGenerated]
-		private X86SseConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A;
+		internal X86SseConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private X86XopConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020;
+		internal X86XopConditionCode _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020;
 
 		internal byte _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86AvxConditionCode _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86AvxRoundingMode _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal long _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal long _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86Encoding _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal long _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal byte _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal byte[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86Operand[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86Prefix[] _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal byte _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal byte _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86Register _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86Register _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal byte _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86SseConditionCode _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal X86XopConditionCode _0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal override void Build(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
@@ -340,24 +340,24 @@ namespace DSMCaps.X86
 			return new X86InstructionDetail(this);
 		}
 
-		private protected override X86DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
+		internal protected override X86DisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode)
 		{
 			return (X86DisassembleMode)nativeDisassembleMode;
 		}
 
-		private protected override X86InstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
+		internal protected override X86InstructionGroup CreateInstructionGroup(CapstoneDisassembler disassembler, byte instructionGroupId)
 		{
 			return X86InstructionGroup.Create(disassembler, (X86InstructionGroupId)instructionGroupId);
 		}
 
-		private protected override X86Register CreateRegister(CapstoneDisassembler disassembler, short registerId)
+		internal protected override X86Register CreateRegister(CapstoneDisassembler disassembler, short registerId)
 		{
 			return X86Register._0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A(disassembler, (X86RegisterId)registerId);
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020(string _0020, object _0020_000A, ref _0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 _0020_0020)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020(string _0020, object _0020_000A, ref _0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 _0020_0020)
 		{
 			_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A._0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020(null);
 			((_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020)null)._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020 += null;
@@ -368,20 +368,20 @@ namespace DSMCaps.X86
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A
 	{
-		private void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020(string _0020, object[] _0020_000A, ref bool _0020_0020, ref object _0020_000A_000A)
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020(string _0020, object[] _0020_000A, ref bool _0020_0020, ref object _0020_000A_000A)
 		{
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020()
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020()
 		{
 			return "1768401434";
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A
 	{
-		private int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020(short _0020, object _0020_000A, string _0020_0020, _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A _0020_000A_000A)
+		internal int _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020(short _0020, object _0020_000A, string _0020_0020, _0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A _0020_000A_000A)
 		{
 			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020();
 			UnityEngineTypePredicates.IsColor32(null);
@@ -390,14 +390,14 @@ namespace DSMCaps.X86
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A
 	{
-		private object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020()
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020()
 		{
 			return null;
 		}
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A
 	{
-		private string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020(bool _0020, string _0020_000A, object _0020_0020, decimal _0020_000A_000A)
+		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020(bool _0020, string _0020_000A, object _0020_0020, decimal _0020_000A_000A)
 		{
 			WFUtils.GetAllScreens();
 			return "685311793";

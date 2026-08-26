@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 
 namespace FMOD
@@ -11,9 +11,9 @@ namespace FMOD
 
 		public IntPtr instance;
 
-		private IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A;
+		internal IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A;
 
-		private IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020;
+		internal IntPtr _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020;
 
 		public string functionname => Marshal.PtrToStringAnsi(_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A);
 

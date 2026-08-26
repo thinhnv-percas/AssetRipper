@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace DSMCaps
@@ -8,55 +8,55 @@ namespace DSMCaps
 		internal long Address
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal byte[] Bytes
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TDetail Details
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal DisassembleArchitecture DisassembleArchitecture
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TDisassembleMode DisassembleMode
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal TId Id
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal bool IsSkippedData
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal string Mnemonic
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal string Operand
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal InstructionBuilder()
@@ -84,14 +84,14 @@ namespace DSMCaps
 			_003CBuild_003Eg__SetDetails_007C37_1(this, disassembler, hInstruction, ref cNativeInstruction);
 		}
 
-		private protected abstract TDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction);
+		internal protected abstract TDetail CreateDetails(CapstoneDisassembler disassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction);
 
-		private protected abstract TDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode);
+		internal protected abstract TDisassembleMode CreateDisassembleMode(NativeDisassembleMode nativeDisassembleMode);
 
-		private protected abstract TId CreateId(int id);
+		internal protected abstract TId CreateId(int id);
 
 		[CompilerGenerated]
-		private static void _003CBuild_003Eg__SetBytes_007C37_0(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TId, TRegister, TRegisterId> @this, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A cNativeInstruction)
+		internal static void _003CBuild_003Eg__SetBytes_007C37_0(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TId, TRegister, TRegisterId> @this, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A cNativeInstruction)
 		{
 			@this.Bytes = new byte[0];
 			if (cNativeInstruction.Id >= 0)
@@ -105,7 +105,7 @@ namespace DSMCaps
 		}
 
 		[CompilerGenerated]
-		private static void _003CBuild_003Eg__SetDetails_007C37_1(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A cHInstruction, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A cNativeInstruction)
+		internal static void _003CBuild_003Eg__SetDetails_007C37_1(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TInstruction, TId, TRegister, TRegisterId> @this, CapstoneDisassembler cDisassembler, _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A cHInstruction, ref _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A cNativeInstruction)
 		{
 			bool num = cNativeInstruction.Details != IntPtr.Zero;
 			bool enableInstructionDetails = cDisassembler.EnableInstructionDetails;

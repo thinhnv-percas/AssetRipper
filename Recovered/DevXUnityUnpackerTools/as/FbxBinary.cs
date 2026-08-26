@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,9 +6,9 @@ namespace @as
 {
 	internal abstract class FbxBinary
 	{
-		private static readonly byte[] headerString = Encoding.ASCII.GetBytes("Kaydara FBX Binary  \0\u001a\0");
+		internal static readonly byte[] headerString = Encoding.ASCII.GetBytes("Kaydara FBX Binary  \0\u001a\0");
 
-		private static readonly byte[] sourceId = new byte[16]
+		internal static readonly byte[] sourceId = new byte[16]
 		{
 			88,
 			171,
@@ -28,7 +28,7 @@ namespace @as
 			61
 		};
 
-		private static readonly byte[] key = new byte[16]
+		internal static readonly byte[] key = new byte[16]
 		{
 			226,
 			79,
@@ -48,7 +48,7 @@ namespace @as
 			120
 		};
 
-		private static readonly byte[] extension = new byte[16]
+		internal static readonly byte[] extension = new byte[16]
 		{
 			248,
 			90,
@@ -68,27 +68,27 @@ namespace @as
 			11
 		};
 
-		private const int footerZeroes1 = 17;
+		internal const int footerZeroes1 = 17;
 
-		private const int footerZeroes2 = 120;
+		internal const int footerZeroes2 = 120;
 
-		protected const int footerCodeSize = 16;
+		internal const int footerCodeSize = 16;
 
-		protected const string binarySeparator = "\0\u0001";
+		internal const string binarySeparator = "\0\u0001";
 
-		protected const string asciiSeparator = "::";
+		internal const string asciiSeparator = "::";
 
-		private const string timePath1 = "FBXHeaderExtension";
+		internal const string timePath1 = "FBXHeaderExtension";
 
-		private const string timePath2 = "CreationTimeStamp";
+		internal const string timePath2 = "CreationTimeStamp";
 
-		private static readonly Stack<string> timePath = new Stack<string>(new string[2]
+		internal static readonly Stack<string> timePath = new Stack<string>(new string[2]
 		{
 			"FBXHeaderExtension",
 			"CreationTimeStamp"
 		});
 
-		protected static bool CheckEqual(byte[] data, byte[] original)
+		internal static bool CheckEqual(byte[] data, byte[] original)
 		{
 			for (int i = 0; i < original.Length; i++)
 			{
@@ -100,19 +100,19 @@ namespace @as
 			return true;
 		}
 
-		protected static void WriteHeader(_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A stream)
+		internal static void WriteHeader(_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A stream)
 		{
 			stream.Write(headerString, 0, headerString.Length);
 		}
 
-		protected static bool ReadHeader(_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020 stream)
+		internal static bool ReadHeader(_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020 stream)
 		{
 			byte[] array = new byte[headerString.Length];
 			stream._0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A(array, 0, array.Length);
 			return CheckEqual(array, headerString);
 		}
 
-		private static void Encrypt(byte[] a, byte[] b)
+		internal static void Encrypt(byte[] a, byte[] b)
 		{
 			byte b2 = 64;
 			for (int i = 0; i < 16; i++)
@@ -122,7 +122,7 @@ namespace @as
 			}
 		}
 
-		private static int GetTimestampVar(_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A timestamp, string element)
+		internal static int GetTimestampVar(_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A timestamp, string element)
 		{
 			_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A _0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A = timestamp[element];
 			if (_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A != null && _0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A._0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A.Count > 0)
@@ -140,7 +140,7 @@ namespace @as
 			throw new _0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020(timePath, -1, "Timestamp has no " + element);
 		}
 
-		protected static byte[] GenerateFooterCode(FbxNodeList document)
+		internal static byte[] GenerateFooterCode(FbxNodeList document)
 		{
 			_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A relative = document.GetRelative("FBXHeaderExtension/CreationTimeStamp");
 			if (relative == null)
@@ -157,7 +157,7 @@ namespace @as
 			}
 		}
 
-		protected static byte[] GenerateFooterCode(int year, int month, int day, int hour, int minute, int second, int millisecond)
+		internal static byte[] GenerateFooterCode(int year, int month, int day, int hour, int minute, int second, int millisecond)
 		{
 			if (year < 0 || year > 9999)
 			{
@@ -196,7 +196,7 @@ namespace @as
 			return array;
 		}
 
-		protected void WriteFooter(_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A stream, int version, _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A document)
+		internal void WriteFooter(_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A stream, int version, _0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A document)
 		{
 			stream.Write(GenerateFooterCode(document));
 			byte[] buffer = new byte[Math.Max(17, 120)];
@@ -206,7 +206,7 @@ namespace @as
 			stream.Write(extension, 0, extension.Length);
 		}
 
-		private static bool AllZero(byte[] array)
+		internal static bool AllZero(byte[] array)
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
@@ -218,7 +218,7 @@ namespace @as
 			return true;
 		}
 
-		protected bool CheckFooter(_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020 stream, FbxVersion version)
+		internal bool CheckFooter(_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020 stream, FbxVersion version)
 		{
 			byte[] array = new byte[Math.Max(17, 120)];
 			stream._0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A(array, 0, 17);

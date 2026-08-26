@@ -1,14 +1,14 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.M68K
 {
 	public sealed class M68KInstructionDetail : InstructionDetail<M68KInstructionDetail, M68KDisassembleMode, M68KInstructionGroup, M68KInstructionGroupId, M68KInstruction, M68KInstructionId, M68KRegister, M68KRegisterId>
 	{
 		[CompilerGenerated]
-		private readonly M68KOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
+		internal readonly M68KOperand[] _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly M68KOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020;
+		internal readonly M68KOperationSize _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_0020;
 
 		public M68KOperand[] Operands
 		{

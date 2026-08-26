@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace Unity.IO.Compression
 {
 	public class GZipStream : Stream
 	{
-		private DeflateStream _0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020;
+		internal DeflateStream _0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020;
 
 		public override bool CanRead
 		{
@@ -86,7 +86,7 @@ namespace Unity.IO.Compression
 			_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A(mode);
 		}
 
-		private void _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A(CompressionMode _0020)
+		internal void _0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A(CompressionMode _0020)
 		{
 			if (_0020 == CompressionMode.Compress)
 			{

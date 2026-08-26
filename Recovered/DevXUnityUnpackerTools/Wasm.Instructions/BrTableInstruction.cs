@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Wasm.Binary;
@@ -7,20 +7,20 @@ namespace Wasm.Instructions
 {
 	public sealed class BrTableInstruction : Instruction
 	{
-		private BrTableOperator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
+		internal BrTableOperator _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 
 		[CompilerGenerated]
-		private List<uint> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A;
+		internal List<uint> _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A;
 
 		[CompilerGenerated]
-		private uint _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020;
+		internal uint _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020;
 
 		public override Operator Op => _0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020;
 
 		public List<uint> TargetTable
 		{
 			get;
-			private set;
+			internal set;
 		}
 
 		public uint DefaultTarget

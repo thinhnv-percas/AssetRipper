@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using HelixToolkit.Wpf;
 using System;
 using System.CodeDom.Compiler;
@@ -58,51 +58,51 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private string currentActionString;
+		internal string currentActionString;
 
-		private ProjectionCamera camera;
+		internal ProjectionCamera camera;
 
-		private System.Windows.Media.Brush brush1;
+		internal System.Windows.Media.Brush brush1;
 
-		private System.Windows.Media.Brush brush2;
+		internal System.Windows.Media.Brush brush2;
 
-		private Material material;
+		internal Material material;
 
-		private Material[] allMaterials;
+		internal Material[] allMaterials;
 
-		private ModelVisual3D modelVisual2;
+		internal ModelVisual3D modelVisual2;
 
-		private ModelVisual3D modelVisual1;
+		internal ModelVisual3D modelVisual1;
 
-		private CameraBox cameraBox;
+		internal CameraBox cameraBox;
 
-		private int curIndex;
+		internal int curIndex;
 
-		private Point3D point3D = Math3D.Origin;
+		internal Point3D point3D = Math3D.Origin;
 
-		private System.Windows.Point point = new System.Windows.Point(double.NaN, 0.0);
+		internal System.Windows.Point point = new System.Windows.Point(double.NaN, 0.0);
 
-		private bool IsInteractive_Val;
+		internal bool IsInteractive_Val;
 
-		private volatile Params m_params;
+		internal volatile Params m_params;
 
-		private Dictionary<int, Params> paramsByIndex = new Dictionary<int, Params>();
+		internal Dictionary<int, Params> paramsByIndex = new Dictionary<int, Params>();
 
-		private List<int> ints = new List<int>();
+		internal List<int> ints = new List<int>();
 
-		private Dictionary<ImageResData, Stream> imageAndStream2 = new Dictionary<ImageResData, Stream>();
+		internal Dictionary<ImageResData, Stream> imageAndStream2 = new Dictionary<ImageResData, Stream>();
 
-		private Dictionary<ImageResData, BitmapImage> imageAndBitmap = new Dictionary<ImageResData, BitmapImage>();
+		internal Dictionary<ImageResData, BitmapImage> imageAndBitmap = new Dictionary<ImageResData, BitmapImage>();
 
-		private static object lockObject = new object();
+		internal static object lockObject = new object();
 
-		private Dictionary<ImageResData, Material> imageAndMat = new Dictionary<ImageResData, Material>();
+		internal Dictionary<ImageResData, Material> imageAndMat = new Dictionary<ImageResData, Material>();
 
-		private Dictionary<ImageResData, Stream> imageAndStream = new Dictionary<ImageResData, Stream>();
+		internal Dictionary<ImageResData, Stream> imageAndStream = new Dictionary<ImageResData, Stream>();
 
 		internal HelixViewport3D viewport;
 
-		private bool sthBool;
+		internal bool sthBool;
 
 		internal string currentAction
 		{
@@ -195,7 +195,7 @@ namespace DevXUnityUnpackerTools._WPF
 			Clear();
 		}
 
-		private void CreateCam()
+		internal void CreateCam()
 		{
 			if (cameraBox == null)
 			{
@@ -210,7 +210,7 @@ namespace DevXUnityUnpackerTools._WPF
 			IsInteractive = true;
 		}
 
-		protected void HandleMouseMove(Vector mouseMove)
+		internal void HandleMouseMove(Vector mouseMove)
 		{
 			double num = WFUtils.IsShiftDown() ? 0.5 : 0.1;
 			double num2 = mouseMove.X * num;
@@ -233,7 +233,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private Point3D Raycast(System.Windows.Point point)
+		internal Point3D Raycast(System.Windows.Point point)
 		{
 			RayMeshGeometry3DHitTestResult rayMeshGeometry3DHitTestResult = Math3D.HitTest(viewport, point);
 			if (rayMeshGeometry3DHitTestResult == null)
@@ -388,7 +388,7 @@ namespace DevXUnityUnpackerTools._WPF
 			cameraBox.FieldOfView *= ((e.Delta < 0) ? 1.1 : 0.90909090909090906);
 		}
 
-		protected ModelVisual3D MakeLights()
+		internal ModelVisual3D MakeLights()
 		{
 			Model3DGroup model3DGroup = new Model3DGroup();
 			model3DGroup.Children.Add(new DirectionalLight(System.Windows.Media.Color.FromRgb(180, 180, 180), new Vector3D(0.0, 1.0, -0.5)));
@@ -501,7 +501,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private Model3D TryLoadModel(string path)
+		internal Model3D TryLoadModel(string path)
 		{
 			//IL_0002: Unknown result type (might be due to invalid IL or missing references)
 			Model3D result = null;
@@ -633,7 +633,7 @@ namespace DevXUnityUnpackerTools._WPF
 			return @params;
 		}
 
-		private void MakeViewByParams(Params @params)
+		internal void MakeViewByParams(Params @params)
 		{
 			try
 			{
@@ -695,7 +695,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A(Params _0020, ModelHandler _0020_000A, ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A _0020_0020, bool _0020_000A_000A)
+		internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A(Params _0020, ModelHandler _0020_000A, ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A _0020_0020, bool _0020_000A_000A)
 		{
 			try
 			{
@@ -729,7 +729,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A(Params _0020, ModelHandler _0020_000A, _0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020 _0020_0020, bool _0020_000A_000A)
+		internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A(Params _0020, ModelHandler _0020_000A, _0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020 _0020_0020, bool _0020_000A_000A)
 		{
 			try
 			{
@@ -862,7 +862,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private void _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A(Params _0020, ModelHandler _0020_000A, _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020 _0020_0020, bool _0020_000A_000A)
+		internal void _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A(Params _0020, ModelHandler _0020_000A, _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020 _0020_0020, bool _0020_000A_000A)
 		{
 			try
 			{
@@ -970,7 +970,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private Stream _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020(ImageResData _0020, bool _0020_000A = false, bool _0020_0020 = false)
+		internal Stream _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020(ImageResData _0020, bool _0020_000A = false, bool _0020_0020 = false)
 		{
 			if (_0020 == null || _0020._0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A || _0020._0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020 == null)
 			{
@@ -1025,7 +1025,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private BitmapImage MakeBitmapImage(ImageResData img, bool bool1 = false, bool bool2 = false)
+		internal BitmapImage MakeBitmapImage(ImageResData img, bool bool1 = false, bool bool2 = false)
 		{
 			if (img == null || img._0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A)
 			{
@@ -1081,7 +1081,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private Material getMatByData(ImageResData img)
+		internal Material getMatByData(ImageResData img)
 		{
 			if (img == null || img._0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A || img._0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020 == null)
 			{
@@ -1295,7 +1295,7 @@ namespace DevXUnityUnpackerTools._WPF
 			return material;
 		}
 
-		private Model3DGroup MakeModelGroup(ImageResData img)
+		internal Model3DGroup MakeModelGroup(ImageResData img)
 		{
 			//IL_00cc: Unknown result type (might be due to invalid IL or missing references)
 			try
@@ -1350,7 +1350,7 @@ namespace DevXUnityUnpackerTools._WPF
 			}
 		}
 
-		private Model3DGroup _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A(IMakeObj _0020)
+		internal Model3DGroup _0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A(IMakeObj _0020)
 		{
 			//IL_006c: Unknown result type (might be due to invalid IL or missing references)
 			try
@@ -1403,7 +1403,7 @@ namespace DevXUnityUnpackerTools._WPF
 			ThreadPool.QueueUserWorkItem(CallAction, action);
 		}
 
-		private static void CallAction(object action)
+		internal static void CallAction(object action)
 		{
 			try
 			{

@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using Xxtea;
 
 namespace ICSharpCode.SharpZipLib.Encryptiontw
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A
 	{
-		private unsafe object _0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020()
+		internal unsafe object _0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020()
 		{
 			//IL_0025: Expected I, but got O
 			//IL_0025: Expected I, but got O

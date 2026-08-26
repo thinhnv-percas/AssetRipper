@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DevXForms;
 using Wasm.Interpret;
 using XnaGeometry;
@@ -7,7 +7,7 @@ namespace ICSharpCode.SharpZipLibko
 {
 	internal class _0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A
 	{
-		private void _0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020(NodesSelection _0020, int _0020_000A, int _0020_0020, int _0020_000A_000A)
+		internal void _0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020(NodesSelection _0020, int _0020_000A, int _0020_0020, int _0020_000A_000A)
 		{
 			((BoundingFrustum)null)._0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A();
 			((ThrowFunctionDefinition)null).ExceptionToThrow = null;

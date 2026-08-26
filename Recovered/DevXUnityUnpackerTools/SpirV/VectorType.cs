@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SpirV
@@ -6,10 +6,10 @@ namespace SpirV
 	public class VectorType : Type
 	{
 		[CompilerGenerated]
-		private readonly ScalarType _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020;
+		internal readonly ScalarType _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A;
+		internal readonly int _0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_000A;
 
 		public ScalarType ComponentType
 		{

@@ -1,4 +1,4 @@
-using @as;
+﻿using @as;
 using DSMCaps.X86;
 using ICSharpCode.SharpZipLib.Zip;
 using SpirV;
@@ -10,7 +10,7 @@ namespace EdiToolsxo
 {
 	internal class _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A
 	{
-		private object _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020(float _0020, IdType _0020_000A)
+		internal object _0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020(float _0020, IdType _0020_000A)
 		{
 			((GlobalVariable)null).Type = null;
 			OperatorImpls.Int64Add(null, null);

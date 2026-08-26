@@ -1,23 +1,23 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace DSMCaps.X86
 {
 	public sealed class X86Encoding
 	{
 		[CompilerGenerated]
-		private readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A;
+		internal readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A;
 
 		[CompilerGenerated]
-		private readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A;
+		internal readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A;
 
 		[CompilerGenerated]
-		private readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020;
+		internal readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020;
 
 		[CompilerGenerated]
-		private readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A;
+		internal readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A;
 
 		[CompilerGenerated]
-		private readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020;
+		internal readonly byte _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020;
 
 		public byte DisplacementOffset
 		{
