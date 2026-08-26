@@ -135,6 +135,91 @@ resolving it and reporting a valid entry point.
 * `Memrestore` calls `Application.Exit()` in the middle of the loop. With no
   message loop running it is a no-op; it appears to be leftover or noise.
 
+## The hash-named sidecar files
+
+Next to `DevXUnityUnpackerRun.exe` sit more files with hex names. They are the
+rest of the application, one encrypted .NET assembly each.
+
+### Naming
+
+`DevXUnityUnpackerMain` resolves an assembly by hashing its simple name,
+lowercased, with the CLR x86 `String.GetHashCode` (seed 352654597, multiplier
+1566083941 -- token 0x06000002):
+
+```
+filename = String.GetHashCode(name.ToLower()).ToString("X")
+```
+
+Every file checks out against this:
+
+| file | assembly | version | unpacked |
+|---|---|---|---|
+| `0000000000` | DevXUnityUnpackerMain | 1.0.0.0 | 1.8 MB, 2093 types |
+| `8DAFE878` | DevXUnityUnpackerTools | 1.0.0.0 | 20.4 MB, 11345 types |
+| `A8043F67` | ICSharpCode.NRefactory.CSharp | 5.0.0.0 | 2.3 MB |
+| `33123090` | NAudio | 1.8.2.0 | 463 KB |
+| `4382FEFE` | ICSharpCode.Decompiler | 2.4.0.0 | 395 KB |
+| `2C74C997` | DevX.Cecil | 0.6.9.0 | 375 KB |
+| `45DB8D9A` | ICSharpCode.NRefactory | 5.0.0.0 | 348 KB |
+| `E88D01F4` | Mono.Cecil | 0.9.6.0 | 254 KB |
+| `002203XLC` | not an assembly -- a plain-text GUID, `"E668BDF2-85D8-4BB3-BF9D-18F865D6795B"` | | 40 bytes |
+
+`0000000000` uses the simple XOR+GZip container described above; the hash-named
+files use the cipher below.
+
+### The cipher, and why it only has a 16-bit key
+
+`例子.测试(byte[], string)` (token 0x06000003):
+
+```
+num  = 1162040133 + hash(secret[:len/2])
+num2 = 2506450243 + hash(secret[len/2:])
+b    = in[0]                                    # first byte is the seed, not data
+for i in 0 .. len(in)-2:
+    num  = (num  * 4343255 + b + 5235457)  mod 2^32 mod (2^32-2)
+    num2 = (num2 * 5354354 + b + 22646641) mod 2^32 mod (2^32-2)
+    out[i] = ((in[i+1] - (num2 & 0xFF)) & 0xFF) ^ (num & 0xFF)
+    b = out[i]                                  # chains on plaintext
+gunzip(out)                                     # falls back to out on failure
+```
+
+Only `num & 0xFF` and `num2 & 0xFF` are ever used, and multiplication mod 256
+depends only on the operands mod 256. So the two 32-bit state words collapse to
+their low bytes: **the whole keystream is fixed by 16 bits**, and the secret
+string, the hashes and the seeds are irrelevant to recovering the plaintext.
+65536 four-byte trial decryptions find the key; gunzip then CRC-checks the
+result. Recovered keys, one per file: (136,48) (11,96) (7,71) (7,19) (7,45)
+(238,63) (136,14).
+
+(The `mod (2^32-2)` step can break the mod-256 closure, but only when a state
+word lands exactly on 2^32-2 or 2^32-1 -- probability 2^-31 per byte. It did not
+occur in any of these files; the gzip CRCs all pass.)
+
+### tools/sidecar.py
+
+```
+python tools/sidecar.py hash ICSharpCode.NRefactory     # name -> filename
+python tools/sidecar.py info      <file>                # recover key, identify
+python tools/sidecar.py unpack    <file> <out.dll>
+python tools/sidecar.py unpackall DevXUnityUnpackerRun out/
+```
+
+Cross-checked two independent ways: decrypting with a recovered secret string
+(found by brute-forcing the app own string constants) and brute-forcing the
+16-bit key produce byte-identical output for all seven files.
+
+### Notes for anyone going further
+* `DevXUnityUnpackerMain` is obfuscated with renamed symbols (CJK and whitespace
+  identifiers), control-flow flattening via opaque predicates, and a decoy
+  string pool. Method 0x0600007C looks like the assembly loader but the type and
+  method names it feeds to `Assembly.GetType`/`GetMethod` do not resolve -- those
+  string-pool slots hold decoys (`子例` for `例子`, `测` for `测试`). Reading it
+  straight off a decompiler will send you the wrong way.
+* The assembly references no networking, `Process`, or registry API at all, and
+  has no module initializer.
+* The real application logic is in `DevXUnityUnpackerTools` (11345 types), not in
+  the main assembly.
+
 ## Known limitations
 * Assemblies are **unsigned**. Anything that checks strong names at runtime will
   behave differently from the originals.
