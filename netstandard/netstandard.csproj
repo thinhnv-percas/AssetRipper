@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>netstandard</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="System.Core">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.IO.Compression.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition">
+      <HintPath>C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\System.ComponentModel.Composition.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Transactions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\System.Data.Common\System.Data.Common.csproj" />
+    <ProjectReference Include="..\System.Diagnostics.StackTrace\System.Diagnostics.StackTrace.csproj" />
+    <ProjectReference Include="..\System.Diagnostics.Tracing\System.Diagnostics.Tracing.csproj" />
+    <ProjectReference Include="..\System.Globalization.Extensions\System.Globalization.Extensions.csproj" />
+    <ProjectReference Include="..\System.IO.Compression\System.IO.Compression.csproj" />
+    <ProjectReference Include="..\System.Net.Http\System.Net.Http.csproj" />
+    <ProjectReference Include="..\System.Net.Sockets\System.Net.Sockets.csproj" />
+    <ProjectReference Include="..\System.ValueTuple\System.ValueTuple.csproj" />
+    <ProjectReference Include="..\System.Runtime.InteropServices.RuntimeInformation\System.Runtime.InteropServices.RuntimeInformation.csproj" />
+    <ProjectReference Include="..\System.Runtime.Serialization.Xml\System.Runtime.Serialization.Xml.csproj" />
+    <ProjectReference Include="..\System.Runtime.Serialization.Primitives\System.Runtime.Serialization.Primitives.csproj" />
+    <ProjectReference Include="..\System.Security.Cryptography.Algorithms\System.Security.Cryptography.Algorithms.csproj" />
+    <ProjectReference Include="..\System.Security.SecureString\System.Security.SecureString.csproj" />
+    <ProjectReference Include="..\System.Threading.Overlapped\System.Threading.Overlapped.csproj" />
+    <ProjectReference Include="..\System.Xml.XPath.XDocument\System.Xml.XPath.XDocument.csproj" />
+  </ItemGroup>
+</Project>

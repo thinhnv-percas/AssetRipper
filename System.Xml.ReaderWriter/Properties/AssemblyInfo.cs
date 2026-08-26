@@ -1,0 +1,46 @@
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
+[assembly: AssemblyTitle("System.Xml.ReaderWriter")]
+[assembly: AssemblyDescription("System.Xml.ReaderWriter")]
+[assembly: AssemblyDefaultAlias("System.Xml.ReaderWriter")]
+[assembly: AssemblyCompany("Microsoft Corporation")]
+[assembly: AssemblyProduct("Microsoft® .NET Framework")]
+[assembly: AssemblyCopyright("© Microsoft Corporation.  All rights reserved.")]
+[assembly: AssemblyFileVersion("4.6.25714.01")]
+[assembly: AssemblyInformationalVersion("4.6.25714.01 built by: dlab-DDVSOWINAGE032. Commit Hash: b7f182415927d3b98445d043e1680c56b9d1f17c")]
+[assembly: CLSCompliant(true)]
+[assembly: AssemblyMetadata("", "")]
+[assembly: AssemblyVersion("4.1.1.0")]
+[assembly: TypeForwardedTo(typeof(ConformanceLevel))]
+[assembly: TypeForwardedTo(typeof(DtdProcessing))]
+[assembly: TypeForwardedTo(typeof(IXmlLineInfo))]
+[assembly: TypeForwardedTo(typeof(IXmlNamespaceResolver))]
+[assembly: TypeForwardedTo(typeof(NamespaceHandling))]
+[assembly: TypeForwardedTo(typeof(NameTable))]
+[assembly: TypeForwardedTo(typeof(NewLineHandling))]
+[assembly: TypeForwardedTo(typeof(ReadState))]
+[assembly: TypeForwardedTo(typeof(WriteState))]
+[assembly: TypeForwardedTo(typeof(XmlConvert))]
+[assembly: TypeForwardedTo(typeof(XmlDateTimeSerializationMode))]
+[assembly: TypeForwardedTo(typeof(XmlException))]
+[assembly: TypeForwardedTo(typeof(XmlNamespaceManager))]
+[assembly: TypeForwardedTo(typeof(XmlNamespaceScope))]
+[assembly: TypeForwardedTo(typeof(XmlNameTable))]
+[assembly: TypeForwardedTo(typeof(XmlNodeType))]
+[assembly: TypeForwardedTo(typeof(XmlParserContext))]
+[assembly: TypeForwardedTo(typeof(XmlQualifiedName))]
+[assembly: TypeForwardedTo(typeof(XmlReader))]
+[assembly: TypeForwardedTo(typeof(XmlReaderSettings))]
+[assembly: TypeForwardedTo(typeof(XmlSpace))]
+[assembly: TypeForwardedTo(typeof(XmlWriter))]
+[assembly: TypeForwardedTo(typeof(XmlWriterSettings))]
+[assembly: TypeForwardedTo(typeof(XmlSchema))]
+[assembly: TypeForwardedTo(typeof(XmlSchemaForm))]
+[assembly: TypeForwardedTo(typeof(IXmlSerializable))]
+[assembly: TypeForwardedTo(typeof(XmlSchemaProviderAttribute))]

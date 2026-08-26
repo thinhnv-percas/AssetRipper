@@ -1,0 +1,31 @@
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
+[assembly: AssemblyTitle("System.Runtime.CompilerServices.VisualC")]
+[assembly: AssemblyDescription("System.Runtime.CompilerServices.VisualC")]
+[assembly: AssemblyDefaultAlias("System.Runtime.CompilerServices.VisualC")]
+[assembly: AssemblyCompany("Microsoft Corporation")]
+[assembly: AssemblyProduct("Microsoft® .NET Framework")]
+[assembly: AssemblyCopyright("© Microsoft Corporation.  All rights reserved.")]
+[assembly: AssemblyFileVersion("4.6.25714.01")]
+[assembly: AssemblyInformationalVersion("4.6.25714.01 built by: dlab-DDVSOWINAGE032. Commit Hash: b7f182415927d3b98445d043e1680c56b9d1f17c")]
+[assembly: CLSCompliant(true)]
+[assembly: AssemblyMetadata("", "")]
+[assembly: AssemblyVersion("4.0.2.0")]
+[assembly: TypeForwardedTo(typeof(CallConvCdecl))]
+[assembly: TypeForwardedTo(typeof(CallConvFastcall))]
+[assembly: TypeForwardedTo(typeof(CallConvStdcall))]
+[assembly: TypeForwardedTo(typeof(CallConvThiscall))]
+[assembly: TypeForwardedTo(typeof(IsBoxed))]
+[assembly: TypeForwardedTo(typeof(IsByValue))]
+[assembly: TypeForwardedTo(typeof(IsCopyConstructed))]
+[assembly: TypeForwardedTo(typeof(IsExplicitlyDereferenced))]
+[assembly: TypeForwardedTo(typeof(IsImplicitlyDereferenced))]
+[assembly: TypeForwardedTo(typeof(IsJitIntrinsic))]
+[assembly: TypeForwardedTo(typeof(IsLong))]
+[assembly: TypeForwardedTo(typeof(IsSignUnspecifiedByte))]
+[assembly: TypeForwardedTo(typeof(IsUdtReturn))]
+[assembly: TypeForwardedTo(typeof(NativeCppClassAttribute))]
+[assembly: TypeForwardedTo(typeof(RequiredAttributeAttribute))]

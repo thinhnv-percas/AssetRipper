@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Humanizer</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>netstandard1.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\System.Resources.ResourceManager\System.Resources.ResourceManager.csproj" />
+    <ProjectReference Include="..\System.Globalization\System.Globalization.csproj" />
+    <ProjectReference Include="..\System.Reflection\System.Reflection.csproj" />
+    <ProjectReference Include="..\System.Text.RegularExpressions\System.Text.RegularExpressions.csproj" />
+    <ProjectReference Include="..\System.Collections\System.Collections.csproj" />
+    <ProjectReference Include="..\System.Linq\System.Linq.csproj" />
+    <ProjectReference Include="..\System.Reflection.Extensions\System.Reflection.Extensions.csproj" />
+  </ItemGroup>
+</Project>

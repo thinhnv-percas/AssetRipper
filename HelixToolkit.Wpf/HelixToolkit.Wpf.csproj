@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>HelixToolkit.Wpf</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <UseWPF>True</UseWPF>
+    <TargetFramework>net40</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="controls\stereo\interlacedview3d.baml" />
+    <None Remove="shadereffects\anaglypheffect.ps" />
+    <None Remove="controls\stereo\anaglyphview3d.baml" />
+    <None Remove="controls\stereo\wiggleview3d.baml" />
+    <None Remove="themes\generic.baml" />
+    <None Remove="controls\stereo\stereoview3d.baml" />
+    <None Remove="shadereffects\interlacedeffect.ps" />
+    <None Remove="resources\teapotgeometry.baml" />
+    <EmbeddedResource Include="controls\stereo\interlacedview3d.baml" LogicalName="controls/stereo/interlacedview3d.baml" />
+    <EmbeddedResource Include="shadereffects\anaglypheffect.ps" LogicalName="shadereffects/anaglypheffect.ps" />
+    <EmbeddedResource Include="controls\stereo\anaglyphview3d.baml" LogicalName="controls/stereo/anaglyphview3d.baml" />
+    <EmbeddedResource Include="controls\stereo\wiggleview3d.baml" LogicalName="controls/stereo/wiggleview3d.baml" />
+    <EmbeddedResource Include="themes\generic.baml" LogicalName="themes/generic.baml" />
+    <EmbeddedResource Include="controls\stereo\stereoview3d.baml" LogicalName="controls/stereo/stereoview3d.baml" />
+    <EmbeddedResource Include="shadereffects\interlacedeffect.ps" LogicalName="shadereffects/interlacedeffect.ps" />
+    <EmbeddedResource Include="resources\teapotgeometry.baml" LogicalName="resources/teapotgeometry.baml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Core" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xml" />
+    <Reference Include="HelixToolkit">
+      <HintPath>..\..\DevXCrack_1.0.9 (1)\HelixToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

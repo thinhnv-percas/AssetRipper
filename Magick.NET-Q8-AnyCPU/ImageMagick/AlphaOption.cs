@@ -1,0 +1,21 @@
+namespace ImageMagick;
+
+public enum AlphaOption
+{
+	Undefined,
+	Activate,
+	Associate,
+	Background,
+	Copy,
+	Deactivate,
+	Discrete,
+	Disassociate,
+	Extract,
+	Off,
+	On,
+	Opaque,
+	Remove,
+	Set,
+	Shape,
+	Transparent
+}

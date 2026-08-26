@@ -1,0 +1,35 @@
+using System;
+using Mon2.Collections.Generic;
+
+namespace Mon2.Cecil;
+
+public abstract class PropertyReference : MemberReference
+{
+	private TypeReference property_type;
+
+	public TypeReference PropertyType
+	{
+		get
+		{
+			return property_type;
+		}
+		set
+		{
+			property_type = value;
+		}
+	}
+
+	public abstract Collection<ParameterDefinition> Parameters { get; }
+
+	internal PropertyReference(string name, TypeReference propertyType)
+		: base(name)
+	{
+		if (propertyType == null)
+		{
+			throw new ArgumentNullException("propertyType");
+		}
+		property_type = propertyType;
+	}
+
+	public abstract PropertyDefinition Resolve();
+}

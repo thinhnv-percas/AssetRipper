@@ -1,0 +1,42 @@
+using System;
+
+namespace dnlib.DotNet;
+
+[Flags]
+public enum TypeAttributes : uint
+{
+	VisibilityMask = 7u,
+	NotPublic = 0u,
+	Public = 1u,
+	NestedPublic = 2u,
+	NestedPrivate = 3u,
+	NestedFamily = 4u,
+	NestedAssembly = 5u,
+	NestedFamANDAssem = 6u,
+	NestedFamORAssem = VisibilityMask,
+	LayoutMask = 0x18u,
+	AutoLayout = 0u,
+	SequentialLayout = 8u,
+	ExplicitLayout = 0x10u,
+	ClassSemanticsMask = 0x20u,
+	ClassSemanticMask = ClassSemanticsMask,
+	Class = 0u,
+	Interface = ClassSemanticsMask,
+	Abstract = 0x80u,
+	Sealed = 0x100u,
+	SpecialName = 0x400u,
+	Import = 0x1000u,
+	Serializable = 0x2000u,
+	WindowsRuntime = 0x4000u,
+	StringFormatMask = 0x30000u,
+	AnsiClass = 0u,
+	UnicodeClass = 0x10000u,
+	AutoClass = 0x20000u,
+	CustomFormatClass = StringFormatMask,
+	CustomFormatMask = 0xC00000u,
+	BeforeFieldInit = 0x100000u,
+	Forwarder = 0x200000u,
+	ReservedMask = 0x40800u,
+	RTSpecialName = 0x800u,
+	HasSecurity = 0x40000u
+}

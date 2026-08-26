@@ -1,0 +1,18 @@
+using Mon3.Cecil.PE;
+
+namespace Mon3.Cecil.Metadata;
+
+internal sealed class DataBuffer : ByteBuffer
+{
+	public DataBuffer()
+		: base(0)
+	{
+	}
+
+	public uint AddData(byte[] data)
+	{
+		int result = position;
+		WriteBytes(data);
+		return (uint)result;
+	}
+}

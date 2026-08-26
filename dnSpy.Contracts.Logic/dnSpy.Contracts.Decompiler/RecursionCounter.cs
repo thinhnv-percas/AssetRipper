@@ -1,0 +1,29 @@
+using System;
+
+namespace dnSpy.Contracts.Decompiler;
+
+internal struct RecursionCounter
+{
+	private const int MAX_RECURSION_COUNT = 100;
+
+	private int counter;
+
+	public bool Increment()
+	{
+		if (counter >= 100)
+		{
+			return false;
+		}
+		counter++;
+		return true;
+	}
+
+	public void Decrement()
+	{
+		if (counter <= 0)
+		{
+			throw new InvalidOperationException("recursionCounter <= 0");
+		}
+		counter--;
+	}
+}

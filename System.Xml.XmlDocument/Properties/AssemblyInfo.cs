@@ -1,0 +1,38 @@
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Xml;
+
+[assembly: AssemblyTitle("System.Xml.XmlDocument")]
+[assembly: AssemblyDescription("System.Xml.XmlDocument")]
+[assembly: AssemblyDefaultAlias("System.Xml.XmlDocument")]
+[assembly: AssemblyCompany("Microsoft Corporation")]
+[assembly: AssemblyProduct("Microsoft® .NET Framework")]
+[assembly: AssemblyCopyright("© Microsoft Corporation.  All rights reserved.")]
+[assembly: AssemblyFileVersion("4.6.25714.01")]
+[assembly: AssemblyInformationalVersion("4.6.25714.01 built by: dlab-DDVSOWINAGE032. Commit Hash: b7f182415927d3b98445d043e1680c56b9d1f17c")]
+[assembly: CLSCompliant(true)]
+[assembly: AssemblyMetadata("", "")]
+[assembly: AssemblyVersion("4.0.3.0")]
+[assembly: TypeForwardedTo(typeof(XmlAttribute))]
+[assembly: TypeForwardedTo(typeof(XmlAttributeCollection))]
+[assembly: TypeForwardedTo(typeof(XmlCDataSection))]
+[assembly: TypeForwardedTo(typeof(XmlCharacterData))]
+[assembly: TypeForwardedTo(typeof(XmlComment))]
+[assembly: TypeForwardedTo(typeof(XmlDeclaration))]
+[assembly: TypeForwardedTo(typeof(XmlDocument))]
+[assembly: TypeForwardedTo(typeof(XmlDocumentFragment))]
+[assembly: TypeForwardedTo(typeof(XmlElement))]
+[assembly: TypeForwardedTo(typeof(XmlImplementation))]
+[assembly: TypeForwardedTo(typeof(XmlLinkedNode))]
+[assembly: TypeForwardedTo(typeof(XmlNamedNodeMap))]
+[assembly: TypeForwardedTo(typeof(XmlNode))]
+[assembly: TypeForwardedTo(typeof(XmlNodeChangedAction))]
+[assembly: TypeForwardedTo(typeof(XmlNodeChangedEventArgs))]
+[assembly: TypeForwardedTo(typeof(XmlNodeChangedEventHandler))]
+[assembly: TypeForwardedTo(typeof(XmlNodeList))]
+[assembly: TypeForwardedTo(typeof(XmlProcessingInstruction))]
+[assembly: TypeForwardedTo(typeof(XmlSignificantWhitespace))]
+[assembly: TypeForwardedTo(typeof(XmlText))]
+[assembly: TypeForwardedTo(typeof(XmlWhitespace))]

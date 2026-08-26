@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>DecompilerFi</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>Exe</OutputType>
+    <UseWPF>True</UseWPF>
+    <TargetFramework>net462</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="ICSharpCode.ILSpy.README.txt" />
+    <EmbeddedResource Include="ICSharpCode.ILSpy.README.txt" LogicalName="ICSharpCode.ILSpy.README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Core" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <ProjectReference Include="..\McMaster.Extensions.CommandLineUtils\McMaster.Extensions.CommandLineUtils.csproj" />
+    <ProjectReference Include="..\DecompilerPreFi\DecompilerPreFi.csproj" />
+    <ProjectReference Include="..\System.Reflection.Metadata\System.Reflection.Metadata.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,7 @@
+[DevXUnity_DoNotObfuscateClassWitchAllChilds]
+public class 例子测例
+{
+	public static void 测测测()
+	{
+	}
+}

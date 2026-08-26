@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Magick.NET-Q8-AnyCPU</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net40</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="ImageMagick.Resources.ColorProfiles.CMYK.CoatedFOGRA39.icc" />
+    <None Remove="ImageMagick.Resources.ColorProfiles.CMYK.USWebCoatedSWOP.icc" />
+    <None Remove="ImageMagick.Resources.ColorProfiles.RGB.AdobeRGB1998.icc" />
+    <None Remove="ImageMagick.Resources.ColorProfiles.RGB.AppleRGB.icc" />
+    <None Remove="ImageMagick.Resources.ColorProfiles.RGB.ColorMatchRGB.icc" />
+    <None Remove="ImageMagick.Resources.ColorProfiles.RGB.SRGB.icm" />
+    <None Remove="ImageMagick.Resources.MagickScript.xsd" />
+    <None Remove="ImageMagick.Resources.Xml.coder.xml" />
+    <None Remove="ImageMagick.Resources.Xml.colors.xml" />
+    <None Remove="ImageMagick.Resources.Xml.configure.xml" />
+    <None Remove="ImageMagick.Resources.Xml.delegates.xml" />
+    <None Remove="ImageMagick.Resources.Xml.english.xml" />
+    <None Remove="ImageMagick.Resources.Xml.locale.xml" />
+    <None Remove="ImageMagick.Resources.Xml.log.xml" />
+    <None Remove="ImageMagick.Resources.Xml.magic.xml" />
+    <None Remove="ImageMagick.Resources.Xml.policy.xml" />
+    <None Remove="ImageMagick.Resources.Xml.thresholds.xml" />
+    <None Remove="ImageMagick.Resources.Xml.type.xml" />
+    <None Remove="ImageMagick.Resources.Xml.type-ghostscript.xml" />
+    <None Remove="ImageMagick.Resources.Library.Magick.NET.Native_x86.gz" />
+    <None Remove="ImageMagick.Resources.Library.Magick.NET.Native_x64.gz" />
+    <EmbeddedResource Include="ImageMagick.Resources.ColorProfiles.CMYK.CoatedFOGRA39.icc" LogicalName="ImageMagick.Resources.ColorProfiles.CMYK.CoatedFOGRA39.icc" />
+    <EmbeddedResource Include="ImageMagick.Resources.ColorProfiles.CMYK.USWebCoatedSWOP.icc" LogicalName="ImageMagick.Resources.ColorProfiles.CMYK.USWebCoatedSWOP.icc" />
+    <EmbeddedResource Include="ImageMagick.Resources.ColorProfiles.RGB.AdobeRGB1998.icc" LogicalName="ImageMagick.Resources.ColorProfiles.RGB.AdobeRGB1998.icc" />
+    <EmbeddedResource Include="ImageMagick.Resources.ColorProfiles.RGB.AppleRGB.icc" LogicalName="ImageMagick.Resources.ColorProfiles.RGB.AppleRGB.icc" />
+    <EmbeddedResource Include="ImageMagick.Resources.ColorProfiles.RGB.ColorMatchRGB.icc" LogicalName="ImageMagick.Resources.ColorProfiles.RGB.ColorMatchRGB.icc" />
+    <EmbeddedResource Include="ImageMagick.Resources.ColorProfiles.RGB.SRGB.icm" LogicalName="ImageMagick.Resources.ColorProfiles.RGB.SRGB.icm" />
+    <EmbeddedResource Include="ImageMagick.Resources.MagickScript.xsd" LogicalName="ImageMagick.Resources.MagickScript.xsd" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.coder.xml" LogicalName="ImageMagick.Resources.Xml.coder.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.colors.xml" LogicalName="ImageMagick.Resources.Xml.colors.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.configure.xml" LogicalName="ImageMagick.Resources.Xml.configure.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.delegates.xml" LogicalName="ImageMagick.Resources.Xml.delegates.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.english.xml" LogicalName="ImageMagick.Resources.Xml.english.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.locale.xml" LogicalName="ImageMagick.Resources.Xml.locale.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.log.xml" LogicalName="ImageMagick.Resources.Xml.log.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.magic.xml" LogicalName="ImageMagick.Resources.Xml.magic.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.policy.xml" LogicalName="ImageMagick.Resources.Xml.policy.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.thresholds.xml" LogicalName="ImageMagick.Resources.Xml.thresholds.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.type.xml" LogicalName="ImageMagick.Resources.Xml.type.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Xml.type-ghostscript.xml" LogicalName="ImageMagick.Resources.Xml.type-ghostscript.xml" />
+    <EmbeddedResource Include="ImageMagick.Resources.Library.Magick.NET.Native_x86.gz" LogicalName="ImageMagick.Resources.Library.Magick.NET.Native_x86.gz" />
+    <EmbeddedResource Include="ImageMagick.Resources.Library.Magick.NET.Native_x64.gz" LogicalName="ImageMagick.Resources.Library.Magick.NET.Native_x64.gz" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Core" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+</Project>

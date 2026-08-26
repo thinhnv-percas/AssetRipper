@@ -1,0 +1,38 @@
+namespace ImageMagick;
+
+public enum EvaluateOperator
+{
+	Undefined,
+	Abs,
+	Add,
+	AddModulus,
+	And,
+	Cosine,
+	Divide,
+	Exponential,
+	GaussianNoise,
+	ImpulseNoise,
+	LaplacianNoise,
+	LeftShift,
+	Log,
+	Max,
+	Mean,
+	Median,
+	Min,
+	MultiplicativeNoise,
+	Multiply,
+	Or,
+	PoissonNoise,
+	Pow,
+	RightShift,
+	RootMeanSquare,
+	Set,
+	Sine,
+	Subtract,
+	Sum,
+	ThresholdBlack,
+	Threshold,
+	ThresholdWhite,
+	UniformNoise,
+	Xor
+}

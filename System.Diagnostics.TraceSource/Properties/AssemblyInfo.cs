@@ -1,0 +1,33 @@
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
+[assembly: AssemblyTitle("System.Diagnostics.TraceSource")]
+[assembly: AssemblyDescription("System.Diagnostics.TraceSource")]
+[assembly: AssemblyDefaultAlias("System.Diagnostics.TraceSource")]
+[assembly: AssemblyCompany("Microsoft Corporation")]
+[assembly: AssemblyProduct("Microsoft® .NET Framework")]
+[assembly: AssemblyCopyright("© Microsoft Corporation.  All rights reserved.")]
+[assembly: AssemblyFileVersion("4.6.25714.01")]
+[assembly: AssemblyInformationalVersion("4.6.25714.01 built by: dlab-DDVSOWINAGE032. Commit Hash: b7f182415927d3b98445d043e1680c56b9d1f17c")]
+[assembly: CLSCompliant(true)]
+[assembly: AssemblyMetadata("", "")]
+[assembly: AssemblyVersion("4.0.2.0")]
+[assembly: TypeForwardedTo(typeof(BooleanSwitch))]
+[assembly: TypeForwardedTo(typeof(DefaultTraceListener))]
+[assembly: TypeForwardedTo(typeof(EventTypeFilter))]
+[assembly: TypeForwardedTo(typeof(SourceFilter))]
+[assembly: TypeForwardedTo(typeof(SourceLevels))]
+[assembly: TypeForwardedTo(typeof(SourceSwitch))]
+[assembly: TypeForwardedTo(typeof(Switch))]
+[assembly: TypeForwardedTo(typeof(Trace))]
+[assembly: TypeForwardedTo(typeof(TraceEventCache))]
+[assembly: TypeForwardedTo(typeof(TraceEventType))]
+[assembly: TypeForwardedTo(typeof(TraceFilter))]
+[assembly: TypeForwardedTo(typeof(TraceLevel))]
+[assembly: TypeForwardedTo(typeof(TraceListener))]
+[assembly: TypeForwardedTo(typeof(TraceListenerCollection))]
+[assembly: TypeForwardedTo(typeof(TraceOptions))]
+[assembly: TypeForwardedTo(typeof(TraceSource))]
+[assembly: TypeForwardedTo(typeof(TraceSwitch))]
