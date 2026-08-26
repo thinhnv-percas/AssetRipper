@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Composition.Hosting.Core;
 using System.Composition.Hosting.Providers.Metadata;
 using System.Composition.Hosting.Util;
@@ -13,7 +13,7 @@ internal class LazyWithMetadataExportDescriptorProvider : ExportDescriptorProvid
 
 	public override IEnumerable<ExportDescriptorPromise> GetExportDescriptors(CompositionContract exportKey, DependencyAccessor definitionAccessor)
 	{
-		if (!exportKey.ContractType.IsConstructedGenericType || (object)exportKey.ContractType.GetGenericTypeDefinition() != typeof(Lazy<, >))
+		if (!exportKey.ContractType.IsConstructedGenericType || (object)exportKey.ContractType.GetGenericTypeDefinition() != typeof(System.Lazy<, >))
 		{
 			return ExportDescriptorProvider.NoExportDescriptors;
 		}
@@ -27,11 +27,11 @@ internal class LazyWithMetadataExportDescriptorProvider : ExportDescriptorProvid
 	{
 		Func<IDictionary<string, object>, TMetadata> metadataProvider = MetadataViewProvider.GetMetadataViewProvider<TMetadata>();
 		return (from d in definitionAccessor.ResolveDependencies("value", lazyContract.ChangeType(typeof(TValue)), isPrerequisite: false)
-			select new ExportDescriptorPromise(lazyContract, Formatters.Format(typeof(Lazy<TValue, TMetadata>)), isShared: false, () => new CompositionDependency[1] { d }, delegate
+			select new ExportDescriptorPromise(lazyContract, Formatters.Format(typeof(System.Lazy<TValue, TMetadata>)), isShared: false, () => new CompositionDependency[1] { d }, delegate
 			{
 				ExportDescriptor dsc = d.Target.GetDescriptor();
 				CompositeActivator da = dsc.Activator;
-				return ExportDescriptor.Create((LifetimeContext c, CompositionOperation o) => new Lazy<TValue, TMetadata>(() => (TValue)CompositionOperation.Run(c, da), metadataProvider(dsc.Metadata)), dsc.Metadata);
+				return ExportDescriptor.Create((LifetimeContext c, CompositionOperation o) => new System.Lazy<TValue, TMetadata>(() => (TValue)CompositionOperation.Run(c, da), metadataProvider(dsc.Metadata)), dsc.Metadata);
 			})).ToArray();
 	}
 }

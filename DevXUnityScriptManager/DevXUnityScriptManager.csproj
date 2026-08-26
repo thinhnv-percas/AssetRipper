@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>DevXUnityScriptManager</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net35</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -14,9 +14,13 @@
   <ItemGroup />
   <ItemGroup>
     <Reference Include="System.Core" />
-    <Reference Include="UnityEngine.CoreModule" />
-    <Reference Include="UnityEditor" />
-    <Reference Include="UnityEngine.IMGUIModule" />
-    <Reference Include="UnityEngine.TextRenderingModule" />
+    <Reference Include="UnityEngine">
+      <HintPath>$(UnityManagedDir)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>$(UnityManagedDir)\UnityEditor.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 </Project>

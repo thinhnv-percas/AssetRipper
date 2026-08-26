@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -39,7 +39,7 @@ internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A : IDispos
 				{
 					if (_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020 != null)
 					{
-						_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A = _0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020._0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A(text);
+						_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A = _0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020._0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A(value);
 					}
 				}
 			}
@@ -240,7 +240,7 @@ internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A : IDispos
 				_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A obj = new _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A();
 				List<_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020> list = new List<_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_0020>();
 				int num = 0;
-				Random random = new Random();
+				System.Random random = new System.Random();
 				for (int i = 0; i < 10000; i++)
 				{
 					string text = _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020 + random.Next() % 100;
@@ -989,17 +989,17 @@ internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A : IDispos
 			}
 			set
 			{
-				if (text == null)
+				if (value == null)
 				{
 					_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A(null);
 				}
-				else if (text.Length == 0)
+				else if (value.Length == 0)
 				{
 					_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A(new byte[0]);
 				}
 				else
 				{
-					_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A(Encoding.UTF8.GetBytes(text));
+					_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A(Encoding.UTF8.GetBytes(value));
 				}
 			}
 		}
@@ -1055,7 +1055,7 @@ internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A : IDispos
 			}
 			set
 			{
-				_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A(array);
+				_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A(value);
 			}
 		}
 
@@ -1308,7 +1308,7 @@ internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A : IDispos
 
 		[StructLayout(LayoutKind.Auto)]
 		[CompilerGenerated]
-		private struct _0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A
+		internal struct _0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A
 		{
 			public BinaryWriter _0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A;
 		}
@@ -1341,7 +1341,7 @@ internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A : IDispos
 			}
 			set
 			{
-				if (obj is string text)
+				if (value is string text)
 				{
 					if (text.Length < 255)
 					{
@@ -1352,13 +1352,13 @@ internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A : IDispos
 						_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A = new _0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020(text);
 					}
 				}
-				else if (obj is byte[] array && array.Length > 128)
+				else if (value is byte[] array && array.Length > 128)
 				{
 					_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A = new _0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A(array);
 				}
 				else
 				{
-					_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A = obj;
+					_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A = value;
 				}
 			}
 		}
@@ -2991,7 +2991,7 @@ internal static class _0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020
 {
 	private static string[] _0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020;
 
-	private static Random _0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A = new Random((int)DateTime.Now.Ticks);
+	private static System.Random _0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A = new System.Random((int)DateTime.Now.Ticks);
 
 	internal static decimal _0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020(decimal P_0)
 	{
@@ -3197,7 +3197,7 @@ internal static class _0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020
 				P_0 = P_0.TrimStart('-');
 				P_0 = _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A + P_0.Substring(2);
 				P_0 = P_0.Substring(P_0.Length - 8);
-				P_1 = BitConverter.ToInt32(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, _0020_000A: true), 0);
+				P_1 = BitConverter.ToInt32(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, true), 0);
 				if (flag)
 				{
 					P_1 = -P_1;
@@ -3232,7 +3232,7 @@ internal static class _0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020
 				P_0 = P_0.TrimStart('-');
 				P_0 = _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A + P_0.Substring(2);
 				P_0 = P_0.Substring(P_0.Length - 8);
-				result = BitConverter.ToInt32(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, _0020_000A: true), 0);
+				result = BitConverter.ToInt32(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, true), 0);
 				if (flag)
 				{
 					result = -result;
@@ -3272,7 +3272,7 @@ internal static class _0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020
 				P_0 = P_0.TrimStart('-');
 				P_0 = _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020 + P_0.Substring(2);
 				P_0 = P_0.Substring(P_0.Length - 16);
-				P_1 = BitConverter.ToInt64(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, _0020_000A: true), 0);
+				P_1 = BitConverter.ToInt64(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, true), 0);
 				if (flag)
 				{
 					P_1 = -P_1;
@@ -3307,7 +3307,7 @@ internal static class _0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020
 				P_0 = P_0.TrimStart('-');
 				P_0 = _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020 + P_0.Substring(2);
 				P_0 = P_0.Substring(P_0.Length - 16);
-				result = BitConverter.ToInt64(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, _0020_000A: true), 0);
+				result = BitConverter.ToInt64(_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020(P_0, true), 0);
 				if (flag)
 				{
 					result = -result;
@@ -3327,7 +3327,7 @@ internal static class _0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020
 
 	internal static bool _0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A(string P_0)
 	{
-		return _0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A(P_0, _0020_000A: false);
+		return _0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A(P_0, false);
 	}
 
 	internal static bool _0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A(string P_0, out bool P_1)
@@ -5105,7 +5105,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			string text = Path.Combine(_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020, _0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar));
 			if (!P_0)
 			{
-				Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020 + text));
+				UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020 + text));
 			}
 			if (!File.Exists(text))
 			{
@@ -5121,12 +5121,12 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 					{
 						AssetDatabase.Refresh((ImportAssetOptions)257);
 						MonoScript val = AssetDatabase.LoadAssetAtPath<MonoScript>(_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A);
-						EditorGUIUtility.PingObject((Object)(object)val);
-						Selection.objects = (Object[])(object)new Object[1] { (Object)val };
+						EditorGUIUtility.PingObject((UnityEngine.Object)(object)val);
+						Selection.objects = (UnityEngine.Object[])(object)new UnityEngine.Object[1] { (UnityEngine.Object)val };
 					}
 					catch (Exception ex)
 					{
-						Debug.LogException(ex);
+						UnityEngine.Debug.LogException(ex);
 					}
 				}
 			}
@@ -5159,7 +5159,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 				{
 					if (!P_0)
 					{
-						Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A + text));
+						UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A + text));
 					}
 					File.Delete(text);
 					File.Delete(text + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A);
@@ -5189,7 +5189,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 				}
 				catch (Exception ex)
 				{
-					Debug.LogException(ex);
+					UnityEngine.Debug.LogException(ex);
 				}
 			}
 			string text4 = string.Format(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_0020, _0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020, _0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A);
@@ -5213,7 +5213,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 				}
 				catch (Exception ex2)
 				{
-					Debug.LogException(ex2);
+					UnityEngine.Debug.LogException(ex2);
 				}
 			}
 			return false;
@@ -5252,7 +5252,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 		}
 		set
 		{
-			_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020 = value2;
+			_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020 = value;
 		}
 	}
 
@@ -5268,15 +5268,15 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 		try
 		{
 			Scene activeScene = SceneManager.GetActiveScene();
-			string path = ((Scene)(ref activeScene)).path;
+			string path = activeScene.path;
 			SceneManager.GetActiveScene();
 			if (!string.IsNullOrEmpty(path))
 			{
 				activeScene = SceneManager.GetActiveScene();
-				if (!string.IsNullOrEmpty(((Scene)(ref activeScene)).name))
+				if (!string.IsNullOrEmpty(activeScene.name))
 				{
 					activeScene = SceneManager.GetActiveScene();
-					SceneManager.UnloadSceneAsync(((Scene)(ref activeScene)).name);
+					SceneManager.UnloadSceneAsync(activeScene.name);
 				}
 			}
 		}
@@ -5297,8 +5297,8 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			string text = Path.Combine(Path.GetDirectoryName(_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020), _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A);
 			if (!File.Exists(text))
 			{
-				Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020 + text));
-				Debug.LogWarning((object)_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020);
+				UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020 + text));
+				UnityEngine.Debug.LogWarning((object)_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020);
 				return;
 			}
 			_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A = new _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A();
@@ -5306,17 +5306,17 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020 = _0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A._0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A._0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A) == _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020;
 			if (_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020.Value)
 			{
-				Debug.LogWarning((object)_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A);
+				UnityEngine.Debug.LogWarning((object)_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A);
 				return;
 			}
 			_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020 = _0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A._0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A._0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020);
 			_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A = _0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A._0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A._0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A);
-			Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020 + _0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A?._0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020?.Count));
-			Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A + _0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020?._0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020?.Count));
+			UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020 + _0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A?._0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020?.Count));
+			UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A + _0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020?._0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020?.Count));
 		}
 		catch (Exception ex)
 		{
-			Debug.LogWarning((object)string.Concat(ex));
+			UnityEngine.Debug.LogWarning((object)string.Concat(ex));
 		}
 	}
 
@@ -5360,7 +5360,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 	{
 		if (!P_2)
 		{
-			Debug.LogWarning((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020 + P_0 + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A + P_1));
+			UnityEngine.Debug.LogWarning((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020 + P_0 + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A + P_1));
 		}
 		byte[] bytes = Encoding.ASCII.GetBytes(P_0);
 		int num = 0;
@@ -5381,21 +5381,21 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 					File.WriteAllText(text, File.ReadAllText(text).Replace(P_0, P_1));
 					if (!P_2)
 					{
-						Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A + text));
+						UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A + text));
 					}
 					num++;
 				}
 			}
 			catch (Exception ex)
 			{
-				Debug.LogError((object)((_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020 + text + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_0020_0020_0020_000A_0020_000A_000A_000A_0020 + ex) ?? ""));
+				UnityEngine.Debug.LogError((object)((_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020 + text + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_0020_0020_0020_000A_0020_000A_000A_000A_0020 + ex) ?? ""));
 			}
 		}
 		if (!P_2)
 		{
 			try
 			{
-				Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A + num));
+				UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A + num));
 				_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A();
 			}
 			catch
@@ -5408,7 +5408,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 	{
 		if (!P_3)
 		{
-			Debug.LogWarning((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020 + P_1 + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A + P_2));
+			UnityEngine.Debug.LogWarning((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020 + P_1 + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A + P_2));
 		}
 		byte[] bytes = Encoding.ASCII.GetBytes(P_0);
 		byte[] bytes2 = Encoding.ASCII.GetBytes(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020 + P_1);
@@ -5444,21 +5444,21 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 					File.WriteAllLines(text, array);
 					if (!P_3)
 					{
-						Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A + text));
+						UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A + text));
 					}
 					num++;
 				}
 			}
 			catch (Exception ex)
 			{
-				Debug.LogError((object)((_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020 + text + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_0020_0020_0020_000A_0020_000A_000A_000A_0020 + ex) ?? ""));
+				UnityEngine.Debug.LogError((object)((_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020 + text + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_0020_0020_0020_000A_0020_000A_000A_000A_0020 + ex) ?? ""));
 			}
 		}
 		if (!P_3)
 		{
 			try
 			{
-				Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A + num));
+				UnityEngine.Debug.Log((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A + num));
 				_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A();
 			}
 			catch
@@ -5514,7 +5514,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			}
 			try
 			{
-				item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(_0020: true);
+				item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(true);
 				if (!string.IsNullOrEmpty(item._0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A) && !hashSet.Contains(item._0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A))
 				{
 					hashSet.Add(item._0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A);
@@ -5522,7 +5522,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			}
 			catch (Exception ex)
 			{
-				Debug.LogException(ex);
+				UnityEngine.Debug.LogException(ex);
 			}
 			finally
 			{
@@ -5546,11 +5546,11 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			}
 			try
 			{
-				item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(_0020: true);
+				item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(true);
 			}
 			catch (Exception ex)
 			{
-				Debug.LogException(ex);
+				UnityEngine.Debug.LogException(ex);
 			}
 			finally
 			{
@@ -5580,7 +5580,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			}
 			catch (Exception ex)
 			{
-				Debug.LogException(ex);
+				UnityEngine.Debug.LogException(ex);
 			}
 		}
 		foreach (string item2 in hashSet)
@@ -5607,7 +5607,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 				}
 				catch (Exception ex2)
 				{
-					Debug.LogException(ex2);
+					UnityEngine.Debug.LogException(ex2);
 				}
 			}
 			if (!flag || string.IsNullOrEmpty(item2))
@@ -5629,7 +5629,7 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			}
 			catch (Exception ex3)
 			{
-				Debug.LogException(ex3);
+				UnityEngine.Debug.LogException(ex3);
 			}
 		}
 	}
@@ -5647,11 +5647,11 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			}
 			try
 			{
-				_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A._0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A(item)._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(_0020: true);
+				_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A._0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A(item)._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(true);
 			}
 			catch (Exception ex)
 			{
-				Debug.LogException(ex);
+				UnityEngine.Debug.LogException(ex);
 			}
 			finally
 			{
@@ -5676,11 +5676,11 @@ internal static class _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020
 			}
 			try
 			{
-				_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A._0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A(item)._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(_0020: true);
+				_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A._0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A(item)._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(true);
 			}
 			catch (Exception ex)
 			{
-				Debug.LogException(ex);
+				UnityEngine.Debug.LogException(ex);
 			}
 			finally
 			{
@@ -5736,32 +5736,32 @@ internal class _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020 : Editor
 			{
 				_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020 = true;
 				MonoScript val = null;
-				Object target = ((Editor)this).target;
-				if (((target is MonoScript) ? target : null) != (Object)null)
+				UnityEngine.Object target = ((Editor)this).target;
+				if (((target is MonoScript) ? target : null) != (UnityEngine.Object)null)
 				{
-					Object target2 = ((Editor)this).target;
+					UnityEngine.Object target2 = ((Editor)this).target;
 					val = (MonoScript)(object)((target2 is MonoScript) ? target2 : null);
 				}
 				else
 				{
-					Object target3 = ((Editor)this).target;
-					if (((target3 is MonoBehaviour) ? target3 : null) != (Object)null)
+					UnityEngine.Object target3 = ((Editor)this).target;
+					if (((target3 is MonoBehaviour) ? target3 : null) != (UnityEngine.Object)null)
 					{
 						val = MonoScript.FromMonoBehaviour((MonoBehaviour)((Editor)this).target);
 					}
 					else
 					{
-						Object target4 = ((Editor)this).target;
-						if (((target4 is ScriptableObject) ? target4 : null) != (Object)null)
+						UnityEngine.Object target4 = ((Editor)this).target;
+						if (((target4 is ScriptableObject) ? target4 : null) != (UnityEngine.Object)null)
 						{
 							val = MonoScript.FromScriptableObject((ScriptableObject)((Editor)this).target);
 						}
 					}
 				}
-				if ((Object)(object)val != (Object)null)
+				if ((UnityEngine.Object)(object)val != (UnityEngine.Object)null)
 				{
-					_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A = AssetDatabase.GetAssetPath((Object)(object)val);
-					AssetDatabase.TryGetGUIDAndLocalFileIdentifier((Object)(object)val, ref _0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A, ref _0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020);
+					_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A = AssetDatabase.GetAssetPath((UnityEngine.Object)(object)val);
+					AssetDatabase.TryGetGUIDAndLocalFileIdentifier((UnityEngine.Object)(object)val, out _0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A, out _0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020);
 					_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020 = _0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020(_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020, _0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A, ((object)((Editor)this).target).GetType().FullName);
 				}
 			}
@@ -5777,7 +5777,7 @@ internal class _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020 : Editor
 						if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020, (GUILayoutOption[])(object)new GUILayoutOption[0]))
 						{
 							_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020 = false;
-							_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(_0020: true);
+							_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(true);
 							_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A();
 							AssetDatabase.Refresh((ImportAssetOptions)257);
 							_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A();
@@ -5799,7 +5799,7 @@ internal class _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020 : Editor
 								try
 								{
 									EditorApplication.LockReloadAssemblies();
-									_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(_0020: true);
+									_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(true);
 									_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A();
 									return;
 								}
@@ -5811,7 +5811,7 @@ internal class _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020 : Editor
 							}
 							catch (Exception ex)
 							{
-								Debug.LogError((object)string.Concat(ex));
+								UnityEngine.Debug.LogError((object)string.Concat(ex));
 							}
 							AssetDatabase.Refresh((ImportAssetOptions)257);
 							_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A();
@@ -5825,7 +5825,7 @@ internal class _0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020 : Editor
 		}
 		catch (Exception ex2)
 		{
-			Debug.LogError((object)ex2);
+			UnityEngine.Debug.LogError((object)ex2);
 		}
 		((Editor)this).OnInspectorGUI();
 	}
@@ -5850,7 +5850,7 @@ internal static class _0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020
 		for (int i = 0; i < num; i++)
 		{
 			int num2 = 6;
-			_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A(scriptDbTreeElement, Random.Range(_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A, _0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020), _0020_0020: true, numTotalElements, ref num2, list);
+			_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A(scriptDbTreeElement, UnityEngine.Random.Range(_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A, _0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020), true, numTotalElements, ref num2, list);
 		}
 		return list;
 	}
@@ -5870,9 +5870,9 @@ internal static class _0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020
 			}
 			ScriptDbTreeElement scriptDbTreeElement = new ScriptDbTreeElement(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A + _0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020, P_0.depth + 1, ++_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020);
 			P_5.Add(scriptDbTreeElement);
-			if (P_2 || !(Random.value < _0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A))
+			if (P_2 || !(UnityEngine.Random.value < _0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A))
 			{
-				_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A(scriptDbTreeElement, Random.Range(_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A, _0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020), _0020_0020: false, P_3, ref P_4, P_5);
+				_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A(scriptDbTreeElement, UnityEngine.Random.Range(_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A, _0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020), false, P_3, ref P_4, P_5);
 			}
 		}
 	}
@@ -5983,20 +5983,20 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 	}
 
 	public _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020(TreeViewState state, MultiColumnHeader multicolumnHeader, TreeModel<ScriptDbTreeElement> model)
+		: base(state, multicolumnHeader, model)
 	{
 		//IL_0066: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0070: Expected O, but got Unknown
 		showControls = true;
 		_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020 = new SortOption[1];
-		base._002Ector(state, multicolumnHeader, model);
-		((TreeView)this).rowHeight = 20f;
-		((TreeView)this).columnIndexForTreeFoldouts = 0;
-		((TreeView)this).showAlternatingRowBackgrounds = true;
-		((TreeView)this).showBorder = true;
-		((TreeView)this).customFoldoutYOffset = (20f - EditorGUIUtility.singleLineHeight) * 0.5f;
-		((TreeView)this).extraSpaceBeforeIconAndLabel = 18f;
-		multicolumnHeader.sortingChanged += new HeaderCallback(_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A);
-		((TreeView)this).Reload();
+		this.rowHeight = 20f;
+		this.columnIndexForTreeFoldouts = 0;
+		this.showAlternatingRowBackgrounds = true;
+		this.showBorder = true;
+		this.customFoldoutYOffset = (20f - EditorGUIUtility.singleLineHeight) * 0.5f;
+		this.extraSpaceBeforeIconAndLabel = 18f;
+		multicolumnHeader.sortingChanged += new MultiColumnHeader.HeaderCallback(_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A);
+		this.Reload();
 	}
 
 	protected override IList<TreeViewItem> BuildRows(TreeViewItem root)
@@ -6008,44 +6008,44 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 
 	private void _0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A(MultiColumnHeader P_0)
 	{
-		_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020(((TreeView)this).rootItem, ((TreeView)this).GetRows());
+		_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020(this.rootItem, this.GetRows());
 	}
 
 	private void _0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020(TreeViewItem P_0, IList<TreeViewItem> P_1)
 	{
-		if (P_1.Count > 1 && ((TreeView)this).multiColumnHeader.sortedColumnIndex != -1)
+		if (P_1.Count > 1 && this.multiColumnHeader.sortedColumnIndex != -1)
 		{
 			_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A();
 			TreeToList(P_0, P_1);
-			((TreeView)this).Repaint();
+			this.Repaint();
 		}
 	}
 
 	private void _0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_000A()
 	{
-		int[] sortedColumns = ((TreeView)this).multiColumnHeader.state.sortedColumns;
+		int[] sortedColumns = this.multiColumnHeader.state.sortedColumns;
 		if (sortedColumns.Length == 0)
 		{
 			return;
 		}
-		IEnumerable<_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement>> enumerable = ((TreeView)this).rootItem.children.Cast<_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement>>();
+		IEnumerable<_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement>> enumerable = this.rootItem.children.Cast<_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement>>();
 		IOrderedEnumerable<_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement>> source = _0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020(enumerable, sortedColumns);
 		for (int i = 1; i < sortedColumns.Length; i++)
 		{
 			SortOption sortOption = _0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020[sortedColumns[i]];
-			bool flag = ((TreeView)this).multiColumnHeader.IsSortedAscending(sortedColumns[i]);
+			bool flag = this.multiColumnHeader.IsSortedAscending(sortedColumns[i]);
 			if (sortOption == SortOption.Name)
 			{
 				source = source.ThenBy((_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement> P_0) => P_0.data.name, flag);
 			}
 		}
-		((TreeView)this).rootItem.children = source.Cast<TreeViewItem>().ToList();
+		this.rootItem.children = source.Cast<TreeViewItem>().ToList();
 	}
 
 	private IOrderedEnumerable<_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement>> _0020_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020(IEnumerable<_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement>> P_0, int[] P_1)
 	{
 		SortOption sortOption = _0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020[P_1[0]];
-		bool flag = ((TreeView)this).multiColumnHeader.IsSortedAscending(P_1[0]);
+		bool flag = this.multiColumnHeader.IsSortedAscending(P_1[0]);
 		if (sortOption == SortOption.Name)
 		{
 			return P_0.Order((_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A<ScriptDbTreeElement> obj) => obj.data.name, flag);
@@ -6063,9 +6063,9 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 		{
 			GUI.enabled = false;
 		}
-		for (int i = 0; i < ((RowGUIArgs)(ref args)).GetNumVisibleColumns(); i++)
+		for (int i = 0; i < args.GetNumVisibleColumns(); i++)
 		{
-			_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A(((RowGUIArgs)(ref args)).GetCellRect(i), obj, (MyColumns)((RowGUIArgs)(ref args)).GetColumn(i), ref args);
+			_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A(args.GetCellRect(i), obj, (MyColumns)args.GetColumn(i), ref args);
 		}
 		GUI.enabled = enabled;
 	}
@@ -6081,26 +6081,26 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 		//IL_00cc: Unknown result type (might be due to invalid IL or missing references)
 		//IL_020e: Unknown result type (might be due to invalid IL or missing references)
 		//IL_027a: Unknown result type (might be due to invalid IL or missing references)
-		((TreeView)this).CenterRectUsingSingleLineHeight(ref P_0);
+		this.CenterRectUsingSingleLineHeight(ref P_0);
 		switch (P_2)
 		{
 		case MyColumns.Name:
 		{
 			Rect val = P_0;
-			((Rect)(ref val)).x = ((Rect)(ref val)).x + ((TreeView)this).GetContentIndent((TreeViewItem)(object)P_1);
-			((Rect)(ref val)).width = 18f;
-			if (((Rect)(ref val)).xMax < ((Rect)(ref P_0)).xMax)
+			val.x = val.x + this.GetContentIndent((TreeViewItem)(object)P_1);
+			val.width = 18f;
+			if (val.xMax < P_0.xMax)
 			{
 				P_1.data.selected = EditorGUI.Toggle(val, P_1.data.selected);
 			}
 			P_3.rowRect = P_0;
-			((TreeView)this).RowGUI(P_3);
+			this.RowGUI(P_3);
 			break;
 		}
 		case MyColumns.ViewScript:
 			if (showControls && P_1.data.item != null && !string.IsNullOrEmpty(P_1.data.item._0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A))
 			{
-				((Rect)(ref P_0)).xMin = ((Rect)(ref P_0)).xMin + 5f;
+				P_0.xMin = P_0.xMin + 5f;
 				if (GUI.Button(P_0, _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020))
 				{
 					DevXShowScript._0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A + P_1.data.item._0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020 + P_1.data.item._0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A + P_1.data.item._0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020 + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020 + P_1.data.item._0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A + P_1.data.item._0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020 + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020 + P_1.data.item._0020_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020 + P_1.data.item._0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A, P_1.data.item._0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A);
@@ -6110,10 +6110,10 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 		case MyColumns.UnpackScript:
 			if (showControls && P_1.data.item != null && !P_1.data.item._0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020)
 			{
-				((Rect)(ref P_0)).xMin = ((Rect)(ref P_0)).xMin + 5f;
+				P_0.xMin = P_0.xMin + 5f;
 				if (GUI.Button(P_0, _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A))
 				{
-					P_1.data.item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(_0020: false);
+					P_1.data.item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A(false);
 					_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A();
 					AssetDatabase.Refresh((ImportAssetOptions)257);
 				}
@@ -6122,10 +6122,10 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 		case MyColumns.RemoveScript:
 			if (showControls && P_1.data.item != null && P_1.data.item._0020_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020)
 			{
-				((Rect)(ref P_0)).xMin = ((Rect)(ref P_0)).xMin + 5f;
+				P_0.xMin = P_0.xMin + 5f;
 				if (GUI.Button(P_0, _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020))
 				{
-					P_1.data.item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(_0020: false);
+					P_1.data.item._0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020(false);
 					AssetDatabase.Refresh((ImportAssetOptions)257);
 				}
 			}
@@ -6146,7 +6146,7 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 		if (args.acceptedRename)
 		{
 			base.treeModel.Find(args.itemID).name = args.newName;
-			((TreeView)this).Reload();
+			this.Reload();
 		}
 	}
 
@@ -6157,9 +6157,9 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 		//IL_0007: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0011: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0014: Unknown result type (might be due to invalid IL or missing references)
-		Rect cellRectForTreeFoldouts = ((TreeView)this).GetCellRectForTreeFoldouts(rowRect);
-		((TreeView)this).CenterRectUsingSingleLineHeight(ref cellRectForTreeFoldouts);
-		return ((TreeView)this).GetRenameRect(cellRectForTreeFoldouts, row, item);
+		Rect cellRectForTreeFoldouts = this.GetCellRectForTreeFoldouts(rowRect);
+		this.CenterRectUsingSingleLineHeight(ref cellRectForTreeFoldouts);
+		return this.GetRenameRect(cellRectForTreeFoldouts, row, item);
 	}
 
 	protected override bool CanMultiSelect(TreeViewItem item)
@@ -6223,9 +6223,9 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 		//IL_013d: Expected O, but got Unknown
 		//IL_013d: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0143: Expected O, but got Unknown
-		return new MultiColumnHeaderState((Column[])(object)new Column[4]
+		return new MultiColumnHeaderState((MultiColumnHeaderState.Column[])(object)new MultiColumnHeaderState.Column[4]
 		{
-			new Column
+			new MultiColumnHeaderState.Column
 			{
 				headerContent = new GUIContent(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A),
 				headerTextAlignment = (TextAlignment)0,
@@ -6235,7 +6235,7 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 				minWidth = 60f,
 				autoResize = false
 			},
-			new Column
+			new MultiColumnHeaderState.Column
 			{
 				headerContent = new GUIContent(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020, ""),
 				headerTextAlignment = (TextAlignment)2,
@@ -6245,7 +6245,7 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 				minWidth = 50f,
 				autoResize = false
 			},
-			new Column
+			new MultiColumnHeaderState.Column
 			{
 				headerContent = new GUIContent(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A, ""),
 				headerTextAlignment = (TextAlignment)2,
@@ -6255,7 +6255,7 @@ internal class _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020 : _0020_0
 				minWidth = 50f,
 				autoResize = false
 			},
-			new Column
+			new MultiColumnHeaderState.Column
 			{
 				headerContent = new GUIContent(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020, ""),
 				headerTextAlignment = (TextAlignment)2,
@@ -6292,14 +6292,14 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 {
 	[StructLayout(LayoutKind.Auto)]
 	[CompilerGenerated]
-	private struct _0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A
+	internal struct _0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A
 	{
 		public List<_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A> _0020_0020_0020_000A_0020_0020_0020_0020_0020_0020;
 	}
 
 	[StructLayout(LayoutKind.Auto)]
 	[CompilerGenerated]
-	private struct _0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020
+	internal struct _0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020
 	{
 		public List<_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_000A> _0020_0020_0020_000A_0020_0020_0020_0020_0020_0020;
 	}
@@ -6324,7 +6324,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			AssetDatabase.Refresh((ImportAssetOptions)257);
 			SceneManager.GetActiveScene();
 			Scene activeScene = SceneManager.GetActiveScene();
-			EditorSceneManager.OpenScene(((Scene)(ref activeScene)).path, (OpenSceneMode)0);
+			EditorSceneManager.OpenScene(activeScene.path, (OpenSceneMode)0);
 		}
 
 		internal void _0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020()
@@ -6337,7 +6337,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			AssetDatabase.Refresh((ImportAssetOptions)257);
 			SceneManager.GetActiveScene();
 			Scene activeScene = SceneManager.GetActiveScene();
-			EditorSceneManager.OpenScene(((Scene)(ref activeScene)).path, (OpenSceneMode)0);
+			EditorSceneManager.OpenScene(activeScene.path, (OpenSceneMode)0);
 		}
 	}
 
@@ -6365,10 +6365,10 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			//IL_001f: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0024: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0032: Unknown result type (might be due to invalid IL or missing references)
-			Rect position = ((EditorWindow)this).position;
-			float num = ((Rect)(ref position)).width - 40f;
-			position = ((EditorWindow)this).position;
-			return new Rect(20f, 30f, num, ((Rect)(ref position)).height - 60f);
+			Rect position = this.position;
+			float num = position.width - 40f;
+			position = this.position;
+			return new Rect(20f, 30f, num, position.height - 60f);
 		}
 	}
 
@@ -6379,8 +6379,8 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			//IL_000b: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0010: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0023: Unknown result type (might be due to invalid IL or missing references)
-			Rect position = ((EditorWindow)this).position;
-			return new Rect(20f, 10f, ((Rect)(ref position)).width - 40f, 20f);
+			Rect position = this.position;
+			return new Rect(20f, 10f, position.width - 40f, 20f);
 		}
 	}
 
@@ -6393,10 +6393,10 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			//IL_001a: Unknown result type (might be due to invalid IL or missing references)
 			//IL_001f: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0032: Unknown result type (might be due to invalid IL or missing references)
-			Rect position = ((EditorWindow)this).position;
-			float num = ((Rect)(ref position)).height - 28f;
-			position = ((EditorWindow)this).position;
-			return new Rect(20f, num, ((Rect)(ref position)).width - 40f, 26f);
+			Rect position = this.position;
+			float num = position.height - 28f;
+			position = this.position;
+			return new Rect(20f, num, position.width - 40f, 26f);
 		}
 	}
 
@@ -6412,7 +6412,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 		{
 			_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020 = new _0020_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A();
 		}
-		EditorApplication.update = (CallbackFunction)Delegate.Combine((Delegate)(object)EditorApplication.update, (Delegate)new CallbackFunction(OnEditorUpdate));
+		EditorApplication.update = (EditorApplication.CallbackFunction)Delegate.Combine((Delegate)(object)EditorApplication.update, (Delegate)new EditorApplication.CallbackFunction(OnEditorUpdate));
 	}
 
 	protected virtual void OnEditorUpdate()
@@ -6421,7 +6421,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 		if (_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A != 0m)
 		{
 			GUI.changed = true;
-			((EditorWindow)this).Repaint();
+			this.Repaint();
 		}
 	}
 
@@ -6465,7 +6465,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			}
 			bool num = m_MultiColumnHeaderState == null;
 			Rect val = _0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020;
-			MultiColumnHeaderState val2 = _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020.CreateDefaultMultiColumnHeaderState(((Rect)(ref val)).width);
+			MultiColumnHeaderState val2 = _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020.CreateDefaultMultiColumnHeaderState(val.width);
 			if (MultiColumnHeaderState.CanOverwriteSerializedFields(m_MultiColumnHeaderState, val2))
 			{
 				MultiColumnHeaderState.OverwriteSerializedFields(m_MultiColumnHeaderState, val2);
@@ -6479,7 +6479,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			TreeModel<ScriptDbTreeElement> model = new TreeModel<ScriptDbTreeElement>(_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A());
 			_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A = new _0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020(m_TreeViewState, (MultiColumnHeader)(object)obj, model);
 			_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020 = new SearchField();
-			_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020.downOrUpArrowKeyPressed += new SearchFieldCallback(((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).SetFocusAndEnsureSelectedItem);
+			_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020.downOrUpArrowKeyPressed += new SearchField.SearchFieldCallback(((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).SetFocusAndEnsureSelectedItem);
 			_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A = true;
 		}
 	}
@@ -6523,7 +6523,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			}
 			catch (Exception ex)
 			{
-				Debug.LogException(ex);
+				UnityEngine.Debug.LogException(ex);
 			}
 		}
 		return list;
@@ -6580,7 +6580,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 		//IL_000c: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0012: Expected O, but got Unknown
 		GUILayout.BeginArea(P_0);
-		HorizontalScope val = new HorizontalScope((GUILayoutOption[])(object)new GUILayoutOption[0]);
+		EditorGUILayout.HorizontalScope val = new EditorGUILayout.HorizontalScope((GUILayoutOption[])(object)new GUILayoutOption[0]);
 		try
 		{
 			bool enabled = GUI.enabled;
@@ -6589,7 +6589,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 				GUI.enabled = false;
 			}
 			string text = _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A;
-			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020, GUIStyle.op_Implicit(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
+			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020, (GUIStyle)(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
 			{
 				_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A = 0m;
 				GUI.changed = true;
@@ -6612,12 +6612,12 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 							AssetDatabase.Refresh((ImportAssetOptions)257);
 							SceneManager.GetActiveScene();
 							Scene activeScene = SceneManager.GetActiveScene();
-							EditorSceneManager.OpenScene(((Scene)(ref activeScene)).path, (OpenSceneMode)0);
+							EditorSceneManager.OpenScene(activeScene.path, (OpenSceneMode)0);
 						});
 					}
 				});
 			}
-			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A, GUIStyle.op_Implicit(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
+			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A, (GUIStyle)(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
 			{
 				_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A = 0m;
 				GUI.changed = true;
@@ -6640,13 +6640,13 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 							AssetDatabase.Refresh((ImportAssetOptions)257);
 							SceneManager.GetActiveScene();
 							Scene activeScene = SceneManager.GetActiveScene();
-							EditorSceneManager.OpenScene(((Scene)(ref activeScene)).path, (OpenSceneMode)0);
+							EditorSceneManager.OpenScene(activeScene.path, (OpenSceneMode)0);
 						});
 					}
 				});
 			}
 			GUI.enabled = enabled;
-			if (_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A >= 0m && GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020, GUIStyle.op_Implicit(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
+			if (_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A >= 0m && GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020, (GUIStyle)(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
 			{
 				_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020 = true;
 			}
@@ -6654,7 +6654,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 			{
 				EditorGUILayout.LabelField(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A + Math.Round(_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020._0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A * 100m, 2) + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020, (GUILayoutOption[])(object)new GUILayoutOption[0]);
 				GUI.changed = true;
-				((EditorWindow)this).Repaint();
+				this.Repaint();
 			}
 			GUILayout.FlexibleSpace();
 			GUILayout.FlexibleSpace();
@@ -6729,7 +6729,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 				AssetDatabase.Refresh((ImportAssetOptions)257);
 				SceneManager.GetActiveScene();
 				Scene activeScene = SceneManager.GetActiveScene();
-				EditorSceneManager.OpenScene(((Scene)(ref activeScene)).path, (OpenSceneMode)0);
+				EditorSceneManager.OpenScene(activeScene.path, (OpenSceneMode)0);
 			});
 		}
 	}
@@ -6754,7 +6754,7 @@ internal class _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A : EditorW
 				AssetDatabase.Refresh((ImportAssetOptions)257);
 				SceneManager.GetActiveScene();
 				Scene activeScene = SceneManager.GetActiveScene();
-				EditorSceneManager.OpenScene(((Scene)(ref activeScene)).path, (OpenSceneMode)0);
+				EditorSceneManager.OpenScene(activeScene.path, (OpenSceneMode)0);
 			});
 		}
 	}
@@ -6782,16 +6782,16 @@ internal class _0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020 : MultiCo
 			switch (_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020)
 			{
 			case Mode.LargeHeader:
-				((MultiColumnHeader)this).canSort = true;
-				((MultiColumnHeader)this).height = 37f;
+				this.canSort = true;
+				this.height = 37f;
 				break;
 			case Mode.DefaultHeader:
-				((MultiColumnHeader)this).canSort = true;
-				((MultiColumnHeader)this).height = DefaultGUI.defaultHeight;
+				this.canSort = true;
+				this.height = DefaultGUI.defaultHeight;
 				break;
 			case Mode.MinimumHeaderWithoutSorting:
-				((MultiColumnHeader)this).canSort = false;
-				((MultiColumnHeader)this).height = DefaultGUI.minimumHeight;
+				this.canSort = false;
+				this.height = DefaultGUI.minimumHeight;
 				break;
 			}
 		}
@@ -6803,17 +6803,17 @@ internal class _0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020 : MultiCo
 		mode = Mode.DefaultHeader;
 	}
 
-	protected override void ColumnHeaderGUI(Column column, Rect headerRect, int columnIndex)
+	protected override void ColumnHeaderGUI(MultiColumnHeaderState.Column column, Rect headerRect, int columnIndex)
 	{
 		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
 		//IL_002d: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0032: Unknown result type (might be due to invalid IL or missing references)
 		//IL_003e: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0061: Unknown result type (might be due to invalid IL or missing references)
-		((MultiColumnHeader)this).ColumnHeaderGUI(column, headerRect, columnIndex);
+		this.ColumnHeaderGUI(column, headerRect, columnIndex);
 		if (mode == Mode.LargeHeader && columnIndex > 2)
 		{
-			((Rect)(ref headerRect)).xMax = ((Rect)(ref headerRect)).xMax - 3f;
+			headerRect.xMax = headerRect.xMax - 3f;
 			TextAnchor alignment = EditorStyles.largeLabel.alignment;
 			EditorStyles.largeLabel.alignment = (TextAnchor)2;
 			GUI.Label(headerRect, 36 + columnIndex + _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020, EditorStyles.largeLabel);
@@ -6928,7 +6928,7 @@ internal class _0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020
 		}
 		set
 		{
-			_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A = array;
+			_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A = value;
 		}
 	}
 
@@ -6940,7 +6940,7 @@ internal class _0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020
 		}
 		set
 		{
-			_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A = num;
+			_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A = value;
 		}
 	}
 
@@ -6952,7 +6952,7 @@ internal class _0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020
 		}
 		set
 		{
-			_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020 = num;
+			_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020 = value;
 		}
 	}
 
@@ -7431,12 +7431,12 @@ internal class _0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A : Stream
 			int num = _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A.Inflate(array, offset, count);
 			if (num != 0)
 			{
-				obj._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A(_0020: true, num);
+				obj._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A(true, num);
 				return obj;
 			}
 			if (_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A.Finished())
 			{
-				obj._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A(_0020: true, 0);
+				obj._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A(true, 0);
 				return obj;
 			}
 			_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_0020.BeginRead(_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A, 0, _0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A.Length, _0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020, obj);
@@ -7499,7 +7499,7 @@ internal class _0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A : Stream
 		_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A();
 		_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020(array, offset, count);
 		_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A();
-		_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A(array, offset, count, _0020_000A_000A: false);
+		_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A(array, offset, count, false);
 	}
 
 	internal void _0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A(byte[] P_0, int P_1, int P_2, bool P_3)
@@ -7567,14 +7567,14 @@ internal class _0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A : Stream
 		}
 		if (_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020)
 		{
-			_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020(_0020: false);
+			_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020(false);
 			bool flag;
 			do
 			{
 				flag = _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020.Finish(_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A, out var bytesRead);
 				if (bytesRead > 0)
 				{
-					_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A(_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A, 0, bytesRead, _0020_000A_000A: false);
+					_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A(_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A, 0, bytesRead, false);
 				}
 			}
 			while (!flag);
@@ -9917,7 +9917,7 @@ internal class _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020
 		}
 		set
 		{
-			_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020 = matchState;
+			_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020 = value;
 		}
 	}
 
@@ -9929,7 +9929,7 @@ internal class _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020
 		}
 		set
 		{
-			_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020 = num;
+			_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020 = value;
 		}
 	}
 
@@ -9941,7 +9941,7 @@ internal class _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020
 		}
 		set
 		{
-			_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A = num;
+			_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A = value;
 		}
 	}
 
@@ -9953,7 +9953,7 @@ internal class _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020
 		}
 		set
 		{
-			_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020 = b;
+			_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020 = value;
 		}
 	}
 }
@@ -10552,7 +10552,7 @@ internal class _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A
 
 	private static Dictionary<int, string> _0020_0020_0020_000A_0020_0020_0020_0020_0020_0020;
 
-	private static Random _0020_0020_0020_0020_000A_000A_000A_000A_000A_000A;
+	private static System.Random _0020_0020_0020_0020_000A_000A_000A_000A_000A_000A;
 
 	internal static string _0020_0020_0020_0020_000A_000A_000A_000A_000A_0020;
 
@@ -11397,7 +11397,7 @@ internal class _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A
 		_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A = _0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A("✤⛫⛭⛝⛡⛱⛱⛳⛳⛟⛹⛩⛮⛪⛤⛬⛬⛮✀⛩⛵⛯⛳⛶⛮⛵✈⛷⛶⛽✍⛾⛽✐⛾⛿⛾❋");
 		_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020 = _0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A("✤⛰⛤⛱⛮⛱⛱⛥⛢⛟⛷⛥⛹⛫⛤⛬⛮⛻⛲⛩⛿⛳⛳⛰⛮✅⛵⛹⛹⛻⛺⛻✍✌⛽✎✃❋");
 		_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020 = new Dictionary<int, string>();
-		_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A = new Random((int)DateTime.Now.Ticks);
+		_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A = new System.Random((int)DateTime.Now.Ticks);
 	}
 
 	internal static string _0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020(string P_0, int P_1)

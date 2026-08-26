@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>System.Composition.Runtime</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net40</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -15,10 +15,5 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\System.Collections\System.Collections.csproj" />
-    <ProjectReference Include="..\System.Resources.ResourceManager\System.Resources.ResourceManager.csproj" />
-    <ProjectReference Include="..\System.Globalization\System.Globalization.csproj" />
-    <ProjectReference Include="..\System.Linq\System.Linq.csproj" />
-    <ProjectReference Include="..\System.Reflection\System.Reflection.csproj" />
   </ItemGroup>
 </Project>

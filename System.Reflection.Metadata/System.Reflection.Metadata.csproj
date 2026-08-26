@@ -15,6 +15,5 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\System.Collections.Immutable\System.Collections.Immutable.csproj" />
   </ItemGroup>
 </Project>

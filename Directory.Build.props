@@ -1,0 +1,8 @@
+<Project>
+  <!-- Path to the Unity Editor managed assemblies used by the Unity-side projects
+       (DevXUnityScriptManager, DevXUnityUnpackerUnityCommon).
+       Override with:  dotnet build /p:UnityManagedDir="<your Unity>\Editor\Data\Managed" -->
+  <PropertyGroup>
+    <UnityManagedDir Condition="'$(UnityManagedDir)' == ''">C:\Program Files\Unity\Hub\Editor\2022.3.62f2\Editor\Data\Managed</UnityManagedDir>
+  </PropertyGroup>
+</Project>

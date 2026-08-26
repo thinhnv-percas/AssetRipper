@@ -1,4 +1,4 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,7 +27,6 @@ public class IntroduceUsingDeclarations : IAstTransform
 			obj.Add(string.Empty);
 			DeclaredNamespaces = obj;
 			ImportedNamespaces = new HashSet<string>();
-			base._002Ector();
 			currentNamespace = context.CurrentTypeDefinition?.Namespace ?? string.Empty;
 		}
 

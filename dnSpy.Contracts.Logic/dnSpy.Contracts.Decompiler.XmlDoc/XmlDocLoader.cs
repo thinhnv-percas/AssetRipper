@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -93,7 +93,7 @@ public static class XmlDocLoader
 	private static string[] GetReferenceV4PathsSortedByHighestestVersion()
 	{
 		string path = Path.Combine(referenceAssembliesPath, ".NETFramework");
-		List<(string, Version)> list = new List<(string, Version)>();
+		List<(string dir, Version version)> list = new List<(string dir, Version version)>();
 		string[] directories = GetDirectories(path);
 		foreach (string text in directories)
 		{

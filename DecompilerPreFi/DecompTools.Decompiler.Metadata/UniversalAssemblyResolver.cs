@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -260,7 +260,7 @@ public class UniversalAssemblyResolver : IAssemblyResolver
 		//IL_003d: Unknown result type (might be due to invalid IL or missing references)
 		AddTargetFrameworkSearchPathIfExists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Microsoft Silverlight"));
 		AddTargetFrameworkSearchPathIfExists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Microsoft Silverlight"));
-		Enumerator<string> enumerator = targetFrameworkSearchPaths.GetEnumerator();
+		var enumerator = targetFrameworkSearchPaths.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())

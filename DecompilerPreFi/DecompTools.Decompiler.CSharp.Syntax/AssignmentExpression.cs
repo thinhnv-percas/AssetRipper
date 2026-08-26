@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using DecompTools.Decompiler.CSharp.Syntax.PatternMatching;
 
@@ -173,7 +173,7 @@ public class AssignmentExpression : Expression
 		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0044: Expected I4, but got Unknown
-		switch (expressionType - 63)
+		switch ((int)expressionType - 63)
 		{
 		case 0:
 		case 11:

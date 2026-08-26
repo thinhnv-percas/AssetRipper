@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -58,18 +58,18 @@ public sealed class DynamicCompoundAssign : CompoundAssignmentInstruction
 	}
 
 	public DynamicCompoundAssign(ExpressionType op, CSharpBinderFlags binderFlags, ILInstruction target, CSharpArgumentInfo targetArgumentInfo, ILInstruction value, CSharpArgumentInfo valueArgumentInfo)
+		: base(OpCode.DynamicCompoundAssign, CompoundAssignmentTypeFromOperation(op), target, value)
 	{
 		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0013: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0033: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0034: Unknown result type (might be due to invalid IL or missing references)
-		base._002Ector(OpCode.DynamicCompoundAssign, CompoundAssignmentTypeFromOperation(op), target, value);
 		if (!IsExpressionTypeSupported(op))
 		{
 			throw new ArgumentOutOfRangeException("op");
 		}
 		BinderFlags = binderFlags;
-		Operation = op;
+		_003COperation_003Ek__BackingField = op;
 		TargetArgumentInfo = targetArgumentInfo;
 		ValueArgumentInfo = valueArgumentInfo;
 	}
@@ -140,7 +140,7 @@ public sealed class DynamicCompoundAssign : CompoundAssignmentInstruction
 		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0008: Invalid comparison between Unknown and I4
-		if (op - 79 <= 1)
+		if ((int)op - 79 <= 1)
 		{
 			return CompoundAssignmentType.EvaluatesToOldValue;
 		}

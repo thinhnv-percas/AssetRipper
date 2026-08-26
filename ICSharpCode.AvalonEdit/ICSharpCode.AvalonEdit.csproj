@@ -4,6 +4,7 @@
     <AssemblyName>ICSharpCode.AvalonEdit</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <UseWPF>True</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
     <TargetFramework>net40</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>

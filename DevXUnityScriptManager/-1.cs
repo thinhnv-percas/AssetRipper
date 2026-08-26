@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -165,7 +165,7 @@ internal class _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020<_00210> :
 		{
 			_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020();
 		}
-		((TreeView)this).Reload();
+		this.Reload();
 	}
 
 	protected override TreeViewItem BuildRoot()
@@ -178,12 +178,12 @@ internal class _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020<_00210> :
 	{
 		if (_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020.root == null)
 		{
-			Debug.LogError((object)_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A);
+			UnityEngine.Debug.LogError((object)_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A);
 		}
 		_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A.Clear();
-		if (!string.IsNullOrEmpty(((TreeView)this).searchString))
+		if (!string.IsNullOrEmpty(this.searchString))
 		{
-			_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020(_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020.root, ((TreeView)this).searchString, _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A);
+			_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020(_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020.root, this.searchString, _0020_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A);
 		}
 		else if (_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020.root.hasChildren)
 		{
@@ -201,7 +201,7 @@ internal class _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020<_00210> :
 			P_2.Add((TreeViewItem)(object)obj);
 			if (child.hasChildren)
 			{
-				if (((TreeView)this).IsExpanded(child.id))
+				if (this.IsExpanded(child.id))
 				{
 					_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A(child, P_1 + 1, P_2);
 				}
@@ -267,14 +267,14 @@ internal class _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020<_00210> :
 	{
 		//IL_0007: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0008: Unknown result type (might be due to invalid IL or missing references)
-		if (!((TreeView)this).hasSearch)
+		if (!this.hasSearch)
 		{
 			DragAndDrop.PrepareStartDrag();
-			List<TreeViewItem> list = (from P_0 in ((TreeView)this).GetRows()
+			List<TreeViewItem> list = (from P_0 in this.GetRows()
 				where args.draggedItemIDs.Contains(P_0.id)
 				select P_0).ToList();
 			DragAndDrop.SetGenericData(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020, (object)list);
-			DragAndDrop.objectReferences = (Object[])(object)new Object[0];
+			DragAndDrop.objectReferences = (UnityEngine.Object[])(object)new UnityEngine.Object[0];
 			DragAndDrop.StartDrag((list.Count == 1) ? list[0].displayName : _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A);
 		}
 	}
@@ -309,7 +309,7 @@ internal class _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020<_00210> :
 					}
 					return (DragAndDropVisualMode)16;
 				}
-				Debug.LogError((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020 + args.dragAndDropPosition));
+				UnityEngine.Debug.LogError((object)(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020 + args.dragAndDropPosition));
 				return (DragAndDropVisualMode)0;
 			}
 			bool flag = _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A(args.parentItem, list);
@@ -340,7 +340,7 @@ internal class _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020<_00210> :
 		}
 		int[] array = list.Select((TreeElement P_0) => P_0.id).ToArray();
 		_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020.MoveElements(parent, insertIndex, list);
-		((TreeView)this).SetSelection((IList<int>)array, (TreeViewSelectionOptions)2);
+		this.SetSelection((IList<int>)array, (TreeViewSelectionOptions)2);
 	}
 
 	private bool _0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A(TreeViewItem P_0, List<TreeViewItem> P_1)

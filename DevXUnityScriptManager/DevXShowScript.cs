@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -93,12 +93,12 @@ public class DevXShowScript : EditorWindow
 			if (_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A != null)
 			{
 				Rect val3 = default(Rect);
-				for (int i = 0; (float)i < ((Rect)(ref P_0)).height / (float)num && i + num2 < _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A.Length; i++)
+				for (int i = 0; (float)i < P_0.height / (float)num && i + num2 < _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A.Length; i++)
 				{
 					string text = _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A[i + num2];
 					Vector2 val2 = val.CalcSize(new GUIContent(text));
-					((Rect)(ref val3))._002Ector(8f, (float)((num2 + i) * num), Math.Max(val2.x + 30f, ((Rect)(ref P_0)).width), Mathf.Max(val2.y, (float)num));
-					num4 = Math.Max(num4, Math.Max(val2.x, ((Rect)(ref P_0)).width));
+					val3 = new Rect(8f, (float)((num2 + i) * num), Math.Max(val2.x + 30f, P_0.width), Mathf.Max(val2.y, (float)num));
+					num4 = Math.Max(num4, Math.Max(val2.x, P_0.width));
 					if (_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020)
 					{
 						GUI.Label(val3, text, val);

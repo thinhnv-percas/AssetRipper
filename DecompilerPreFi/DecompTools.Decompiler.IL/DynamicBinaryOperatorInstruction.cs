@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -66,11 +66,11 @@ public sealed class DynamicBinaryOperatorInstruction : DynamicInstruction
 	public override InstructionFlags DirectFlags => base.DirectFlags | InstructionFlags.MayThrow | InstructionFlags.SideEffect;
 
 	public DynamicBinaryOperatorInstruction(CSharpBinderFlags binderFlags, ExpressionType operation, IType context, CSharpArgumentInfo leftArgumentInfo, ILInstruction left, CSharpArgumentInfo rightArgumentInfo, ILInstruction right)
+		: base(OpCode.DynamicBinaryOperatorInstruction, binderFlags, context)
 	{
 		//IL_000d: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000e: Unknown result type (might be due to invalid IL or missing references)
-		base._002Ector(OpCode.DynamicBinaryOperatorInstruction, binderFlags, context);
-		Operation = operation;
+		_003COperation_003Ek__BackingField = operation;
 		LeftArgumentInfo = leftArgumentInfo;
 		Left = left;
 		RightArgumentInfo = rightArgumentInfo;

@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -6,12 +6,12 @@ using System.Runtime.Versioning;
 
 [assembly: AssemblyTitle("Mon2.Cecil")]
 [assembly: Guid("fd225bb4-fa53-44b2-a6db-85f5e48dcb54")]
-[assembly: InternalsVisibleTo("Mon2.Cecil.Pdb, PublicKey=002400000480000094000000060200000024000052534131000400000100010079159977d2d03a8e6bea7a2e74e8d1afcc93e8851974952bb480a12c9134474d04062447c37e0e68c080536fcf3c3fbe2ff9c979ce998475e506e8ce82dd5b0f350dc10e93bf2eeecf874b24770c5081dbea7447fddafa277b22de47d6ffea449674a4f9fccf84d15069089380284dbdd35f46cdff12a1bd78e4ef0065d016df")]
-[assembly: InternalsVisibleTo("Mon2.Cecil.Mdb, PublicKey=002400000480000094000000060200000024000052534131000400000100010079159977d2d03a8e6bea7a2e74e8d1afcc93e8851974952bb480a12c9134474d04062447c37e0e68c080536fcf3c3fbe2ff9c979ce998475e506e8ce82dd5b0f350dc10e93bf2eeecf874b24770c5081dbea7447fddafa277b22de47d6ffea449674a4f9fccf84d15069089380284dbdd35f46cdff12a1bd78e4ef0065d016df")]
+[assembly: InternalsVisibleTo("Mon2.Cecil.Pdb")]
+[assembly: InternalsVisibleTo("Mon2.Cecil.Mdb")]
 [assembly: ComVisible(false)]
 [assembly: AssemblyFileVersion("0.9.6.0")]
 [assembly: AssemblyCopyright("Copyright © 2008 - 2015 Jb Evain")]
-[assembly: InternalsVisibleTo("Mon2.Cecil.Rocks, PublicKey=002400000480000094000000060200000024000052534131000400000100010079159977d2d03a8e6bea7a2e74e8d1afcc93e8851974952bb480a12c9134474d04062447c37e0e68c080536fcf3c3fbe2ff9c979ce998475e506e8ce82dd5b0f350dc10e93bf2eeecf874b24770c5081dbea7447fddafa277b22de47d6ffea449674a4f9fccf84d15069089380284dbdd35f46cdff12a1bd78e4ef0065d016df")]
-[assembly: InternalsVisibleTo("Mon2.Cecil.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010079159977d2d03a8e6bea7a2e74e8d1afcc93e8851974952bb480a12c9134474d04062447c37e0e68c080536fcf3c3fbe2ff9c979ce998475e506e8ce82dd5b0f350dc10e93bf2eeecf874b24770c5081dbea7447fddafa277b22de47d6ffea449674a4f9fccf84d15069089380284dbdd35f46cdff12a1bd78e4ef0065d016df")]
+[assembly: InternalsVisibleTo("Mon2.Cecil.Rocks")]
+[assembly: InternalsVisibleTo("Mon2.Cecil.Tests")]
 [assembly: AssemblyProduct("Mon2.Cecil")]
 [assembly: AssemblyVersion("0.9.6.0")]

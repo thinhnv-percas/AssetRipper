@@ -1,4 +1,4 @@
-#define STEP
+﻿#define STEP
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,7 +80,7 @@ internal class AwaitInFinallyTransform
 					item2.ReplaceWith(new Branch(afterFinally));
 				}
 			}
-			Enumerator<Block> enumerator3 = additionalBlocksInFinally.GetEnumerator();
+			var enumerator3 = additionalBlocksInFinally.GetEnumerator();
 			try
 			{
 				while (enumerator3.MoveNext())
@@ -119,7 +119,7 @@ internal class AwaitInFinallyTransform
 				}
 			}
 		}
-		Enumerator<BlockContainer> enumerator4 = val.GetEnumerator();
+		var enumerator4 = val.GetEnumerator();
 		try
 		{
 			while (enumerator4.MoveNext())

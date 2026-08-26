@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ public static class StringHumanizeExtensions
 		//IL_001c: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0021: Unknown result type (might be due to invalid IL or missing references)
 		//IL_002b: Expected O, but got Unknown
-		PascalCaseWordPartsRegex = new Regex("[\\p{Lu}]?[\\p{Ll}]+|[0-9]+[\\p{Ll}]*|[\\p{Lu}]+(?=[\\p{Lu}][\\p{Ll}]|[0-9]|\\b)|[\\p{Lo}]+", (RegexOptions)(0x24 | RegexOptionsUtil.Compiled));
+		PascalCaseWordPartsRegex = new Regex("[\\p{Lu}]?[\\p{Ll}]+|[0-9]+[\\p{Ll}]*|[\\p{Lu}]+(?=[\\p{Lu}][\\p{Ll}]|[0-9]|\\b)|[\\p{Lo}]+", RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace | RegexOptionsUtil.Compiled);
 		FreestandingSpacingCharRegex = new Regex("\\s[-_]|[-_]\\s", RegexOptionsUtil.Compiled);
 	}
 

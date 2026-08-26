@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -13,8 +13,8 @@ public class MyTreeAssetEditor : Editor
 		public _0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A(TreeViewState state, TreeModel<ScriptDbTreeElement> model)
 			: base(state, model)
 		{
-			((TreeView)this).showBorder = true;
-			((TreeView)this).showAlternatingRowBackgrounds = true;
+			this.showBorder = true;
+			this.showAlternatingRowBackgrounds = true;
 		}
 	}
 
@@ -38,15 +38,15 @@ public class MyTreeAssetEditor : Editor
 		//IL_0096: Expected O, but got Unknown
 		//IL_00a8: Unknown result type (might be due to invalid IL or missing references)
 		//IL_00b2: Expected O, but got Unknown
-		Undo.undoRedoPerformed = (UndoRedoCallback)Delegate.Combine((Delegate)(object)Undo.undoRedoPerformed, (Delegate)new UndoRedoCallback(_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020));
+		Undo.undoRedoPerformed = (Undo.UndoRedoCallback)Delegate.Combine((Delegate)(object)Undo.undoRedoPerformed, (Delegate)new Undo.UndoRedoCallback(_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020));
 		TreeViewState state = new TreeViewState();
-		SessionState.GetString(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020 + ((Object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020).GetInstanceID(), "");
+		SessionState.GetString(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020 + ((UnityEngine.Object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020).GetInstanceID(), "");
 		TreeModel<ScriptDbTreeElement> model = new TreeModel<ScriptDbTreeElement>(_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020.treeElements);
 		_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A = new _0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A(state, model);
 		_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A.beforeDroppingDraggedItems += _0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A;
 		((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).Reload();
 		_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020 = new SearchField();
-		_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020.downOrUpArrowKeyPressed += new SearchFieldCallback(((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).SetFocusAndEnsureSelectedItem);
+		_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020.downOrUpArrowKeyPressed += new SearchField.SearchFieldCallback(((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).SetFocusAndEnsureSelectedItem);
 	}
 
 	private void OnDisable()
@@ -55,7 +55,7 @@ public class MyTreeAssetEditor : Editor
 		//IL_0016: Expected O, but got Unknown
 		//IL_0016: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0020: Expected O, but got Unknown
-		Undo.undoRedoPerformed = (UndoRedoCallback)Delegate.Remove((Delegate)(object)Undo.undoRedoPerformed, (Delegate)new UndoRedoCallback(_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020));
+		Undo.undoRedoPerformed = (Undo.UndoRedoCallback)Delegate.Remove((Delegate)(object)Undo.undoRedoPerformed, (Delegate)new Undo.UndoRedoCallback(_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020));
 	}
 
 	private void _0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020()
@@ -69,7 +69,7 @@ public class MyTreeAssetEditor : Editor
 
 	private void _0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A(IList<TreeViewItem> P_0)
 	{
-		Undo.RecordObject((Object)(object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020, string.Format(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A, P_0.Count, (P_0.Count > 1) ? _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020 : ""));
+		Undo.RecordObject((UnityEngine.Object)(object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020, string.Format(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A, P_0.Count, (P_0.Count > 1) ? _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020 : ""));
 	}
 
 	public override void OnInspectorGUI()
@@ -84,9 +84,9 @@ public class MyTreeAssetEditor : Editor
 		float num = ((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).totalHeight + 20f + 4f;
 		Rect rect = GUILayoutUtility.GetRect(0f, 10000f, 0f, num);
 		Rect val = default(Rect);
-		((Rect)(ref val))._002Ector(((Rect)(ref rect)).x, ((Rect)(ref rect)).y, ((Rect)(ref rect)).width, 20f);
+		val = new Rect(rect.x, rect.y, rect.width, 20f);
 		Rect val2 = default(Rect);
-		((Rect)(ref val2))._002Ector(((Rect)(ref rect)).x, ((Rect)(ref rect)).y + 20f + 2f, ((Rect)(ref rect)).width, ((Rect)(ref rect)).height - 20f - 4f);
+		val2 = new Rect(rect.x, rect.y + 20f + 2f, rect.width, rect.height - 20f - 4f);
 		_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020(val);
 		_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A(val2);
 	}
@@ -107,22 +107,22 @@ public class MyTreeAssetEditor : Editor
 	{
 		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000c: Expected O, but got Unknown
-		HorizontalScope val = new HorizontalScope((GUILayoutOption[])(object)new GUILayoutOption[0]);
+		EditorGUILayout.HorizontalScope val = new EditorGUILayout.HorizontalScope((GUILayoutOption[])(object)new GUILayoutOption[0]);
 		try
 		{
 			string text = _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A;
-			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020, GUIStyle.op_Implicit(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
+			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020, (GUIStyle)(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
 			{
 				((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).ExpandAll();
 			}
-			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A, GUIStyle.op_Implicit(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
+			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A, (GUIStyle)(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
 			{
 				((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).CollapseAll();
 			}
 			GUILayout.FlexibleSpace();
-			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020, GUIStyle.op_Implicit(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
+			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020, (GUIStyle)(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
 			{
-				Undo.RecordObject((Object)(object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020, _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A);
+				Undo.RecordObject((UnityEngine.Object)(object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020, _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A);
 				IList<int> selection = ((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).GetSelection();
 				TreeElement treeElement = ((selection.Count == 1) ? _0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A.treeModel.Find(selection[0]) : null) ?? _0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A.treeModel.root;
 				int depth = ((treeElement != null) ? (treeElement.depth + 1) : 0);
@@ -131,9 +131,9 @@ public class MyTreeAssetEditor : Editor
 				_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A.treeModel.AddElement(element, treeElement, 0);
 				((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).SetSelection((IList<int>)new int[1] { num }, (TreeViewSelectionOptions)2);
 			}
-			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A, GUIStyle.op_Implicit(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
+			if (GUILayout.Button(_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A, (GUIStyle)(text), (GUILayoutOption[])(object)new GUILayoutOption[0]))
 			{
-				Undo.RecordObject((Object)(object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020, _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020);
+				Undo.RecordObject((UnityEngine.Object)(object)_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020, _0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A._0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020);
 				IList<int> selection2 = ((TreeView)_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A).GetSelection();
 				_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A.treeModel.RemoveElements(selection2);
 			}

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>Microsoft.VisualStudio.Composition</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -21,9 +21,11 @@
     <Reference Include="System.Threading.Tasks.Dataflow">
       <HintPath>..\..\DevXCrack_1.0.9 (1)\StreamingAssets\DecompilerFi\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
-    <ProjectReference Include="..\System.Collections.Immutable\System.Collections.Immutable.csproj" />
     <ProjectReference Include="..\System.Composition.AttributedModel\System.Composition.AttributedModel.csproj" />
     <ProjectReference Include="..\Microsoft.VisualStudio.Validation\Microsoft.VisualStudio.Validation.csproj" />
     <ProjectReference Include="..\System.Composition.Runtime\System.Composition.Runtime.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
   </ItemGroup>
 </Project>

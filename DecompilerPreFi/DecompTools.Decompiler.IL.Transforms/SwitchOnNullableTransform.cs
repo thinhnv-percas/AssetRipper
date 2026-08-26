@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +50,7 @@ internal class SwitchOnNullableTransform : IILTransform
 					}
 				}
 			}
-			Enumerator<BlockContainer> enumerator2 = val.GetEnumerator();
+			var enumerator2 = val.GetEnumerator();
 			try
 			{
 				while (enumerator2.MoveNext())

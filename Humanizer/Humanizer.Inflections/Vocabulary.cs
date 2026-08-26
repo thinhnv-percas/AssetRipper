@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Humanizer.Inflections;
@@ -17,8 +17,7 @@ public class Vocabulary
 			//IL_000e: Unknown result type (might be due to invalid IL or missing references)
 			//IL_000f: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0019: Expected O, but got Unknown
-			base._002Ector();
-			_regex = new Regex(pattern, (RegexOptions)(1 | RegexOptionsUtil.Compiled));
+			_regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptionsUtil.Compiled);
 			_replacement = replacement;
 		}
 

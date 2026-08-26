@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>Microsoft.VisualStudio.Validation</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>

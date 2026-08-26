@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>System.Composition.AttributedModel</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net40</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -13,6 +13,5 @@
   <PropertyGroup />
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\System.Reflection\System.Reflection.csproj" />
   </ItemGroup>
 </Project>

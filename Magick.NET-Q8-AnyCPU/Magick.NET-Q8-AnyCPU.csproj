@@ -60,6 +60,8 @@
   <ItemGroup>
     <Reference Include="System.Core" />
     <Reference Include="PresentationCore" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>

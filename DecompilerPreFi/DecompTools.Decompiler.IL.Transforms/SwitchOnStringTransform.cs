@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,7 +86,7 @@ internal class SwitchOnStringTransform : IILTransform
 			{
 				blockContainer.EntryPoint.Instructions.RemoveAt(0);
 			}
-			Enumerator<BlockContainer> enumerator3 = val.GetEnumerator();
+			var enumerator3 = val.GetEnumerator();
 			try
 			{
 				while (enumerator3.MoveNext())

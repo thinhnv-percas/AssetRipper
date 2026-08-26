@@ -1,4 +1,4 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -259,7 +259,7 @@ internal class BlockBuilder
 	{
 		//IL_0008: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000d: Unknown result type (might be due to invalid IL or missing references)
-		Enumerator<BlockContainer> enumerator = containerStack.GetEnumerator();
+		var enumerator = containerStack.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())

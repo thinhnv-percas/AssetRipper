@@ -1,4 +1,4 @@
-#define STEP
+﻿#define STEP
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -82,7 +82,7 @@ internal class AwaitInCatchTransform
 				}
 			}
 		}
-		Enumerator<BlockContainer> enumerator3 = val.GetEnumerator();
+		var enumerator3 = val.GetEnumerator();
 		try
 		{
 			while (enumerator3.MoveNext())

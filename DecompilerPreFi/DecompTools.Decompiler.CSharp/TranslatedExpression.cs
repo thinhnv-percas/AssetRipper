@@ -1,11 +1,11 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
+using ExpressionType = System.Linq.Expressions.ExpressionType;
 using DecompTools.Decompiler.CSharp.Resolver;
 using DecompTools.Decompiler.CSharp.Syntax;
 using DecompTools.Decompiler.CSharp.Transforms;

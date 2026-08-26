@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>Microsoft.DiaSymReader.PortablePdb</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -13,17 +13,10 @@
   <PropertyGroup />
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\System.Runtime.InteropServices\System.Runtime.InteropServices.csproj" />
-    <ProjectReference Include="..\System.Resources.ResourceManager\System.Resources.ResourceManager.csproj" />
-    <ProjectReference Include="..\System.Reflection.Metadata\System.Reflection.Metadata.csproj" />
-    <ProjectReference Include="..\System.Collections.Immutable\System.Collections.Immutable.csproj" />
     <ProjectReference Include="..\Microsoft.DiaSymReader\Microsoft.DiaSymReader.csproj" />
-    <ProjectReference Include="..\System.Collections\System.Collections.csproj" />
-    <ProjectReference Include="..\System.Reflection.Primitives\System.Reflection.Primitives.csproj" />
-    <ProjectReference Include="..\System.IO.Compression\System.IO.Compression.csproj" />
-    <ProjectReference Include="..\System.IO\System.IO.csproj" />
-    <ProjectReference Include="..\System.Reflection\System.Reflection.csproj" />
-    <ProjectReference Include="..\System.Linq\System.Linq.csproj" />
-    <ProjectReference Include="..\System.Threading\System.Threading.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.Metadata" Version="1.6.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
   </ItemGroup>
 </Project>

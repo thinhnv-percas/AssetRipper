@@ -1,4 +1,4 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -161,7 +161,7 @@ public class DynamicCallSiteTransform : IILTransform
 			Block block4 = (Block)item4.Parent;
 			block4.Instructions.RemoveAt(item4.ChildIndex);
 		}
-		Enumerator<BlockContainer> enumerator5 = val.GetEnumerator();
+		var enumerator5 = val.GetEnumerator();
 		try
 		{
 			while (enumerator5.MoveNext())
@@ -238,6 +238,7 @@ public class DynamicCallSiteTransform : IILTransform
 			return false;
 		}
 		ILInstruction value;
+		Call call2;
 		checked
 		{
 			if (!callSiteInitBlock.Instructions[count - 1].MatchBranch(out blockAfterInit))
@@ -252,7 +253,7 @@ public class DynamicCallSiteTransform : IILTransform
 			{
 				return false;
 			}
-			if (!(call.Arguments[0] is Call call2) || call2.Method.DeclaringType.FullName != "Microsoft.CSharp.RuntimeBinder.Binder" || call2.Method.DeclaringType.TypeParameterCount != 0)
+			if ((call2 = call.Arguments[0] as Call) == null || call2.Method.DeclaringType.FullName != "Microsoft.CSharp.RuntimeBinder.Binder" || call2.Method.DeclaringType.TypeParameterCount != 0)
 			{
 				return false;
 			}

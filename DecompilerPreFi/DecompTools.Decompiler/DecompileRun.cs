@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using DecompTools.Decompiler.CSharp.Resolver;
@@ -34,7 +34,7 @@ internal class DecompileRun
 		//IL_0009: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000e: Unknown result type (might be due to invalid IL or missing references)
 		UsingScope usingScope = new UsingScope();
-		Enumerator<string> enumerator = requiredNamespacesSuperset.GetEnumerator();
+		var enumerator = requiredNamespacesSuperset.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())

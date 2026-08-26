@@ -1,4 +1,4 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -63,7 +63,7 @@ internal class DebugInfoGenerator : DepthFirstAstVisitor
 		//IL_0013: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0018: Unknown result type (might be due to invalid IL or missing references)
 		BlobBuilder blobBuilder = new BlobBuilder();
-		Enumerator<string> enumerator = scope.Imports.GetEnumerator();
+		var enumerator = scope.Imports.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())

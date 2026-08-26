@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -39,7 +39,7 @@ public sealed class DynamicUnaryOperatorInstruction : DynamicInstruction
 			//IL_000b: Unknown result type (might be due to invalid IL or missing references)
 			//IL_000d: Invalid comparison between Unknown and I4
 			ExpressionType operation = Operation;
-			if (operation - 83 <= 1)
+			if ((int)operation - 83 <= 1)
 			{
 				return StackType.I4;
 			}
@@ -63,11 +63,11 @@ public sealed class DynamicUnaryOperatorInstruction : DynamicInstruction
 	public override InstructionFlags DirectFlags => base.DirectFlags | InstructionFlags.MayThrow | InstructionFlags.SideEffect;
 
 	public DynamicUnaryOperatorInstruction(CSharpBinderFlags binderFlags, ExpressionType operation, IType context, CSharpArgumentInfo operandArgumentInfo, ILInstruction operand)
+		: base(OpCode.DynamicUnaryOperatorInstruction, binderFlags, context)
 	{
 		//IL_000d: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000e: Unknown result type (might be due to invalid IL or missing references)
-		base._002Ector(OpCode.DynamicUnaryOperatorInstruction, binderFlags, context);
-		Operation = operation;
+		_003COperation_003Ek__BackingField = operation;
 		OperandArgumentInfo = operandArgumentInfo;
 		Operand = operand;
 	}

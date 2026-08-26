@@ -5,6 +5,8 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <OutputType>Exe</OutputType>
     <TargetFramework>net471</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -20,5 +22,7 @@
     <ProjectReference Include="..\dnSpy.Contracts.Logic\dnSpy.Contracts.Logic.csproj" />
     <ProjectReference Include="..\dnSpy.Decompiler\dnSpy.Decompiler.csproj" />
     <ProjectReference Include="..\dnlib\dnlib.csproj" />
+    <!-- loaded reflectively at runtime by GetAllLanguages(); needed in the output folder -->
+    <ProjectReference Include="..\dnSpy.Decompiler.ILSpy.Core\dnSpy.Decompiler.ILSpy.Core.csproj" />
   </ItemGroup>
 </Project>

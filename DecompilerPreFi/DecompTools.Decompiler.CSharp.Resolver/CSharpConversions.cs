@@ -1,4 +1,4 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -191,7 +191,7 @@ public sealed class CSharpConversions
 		}
 		TypePair typePair = new TypePair(fromType, toType);
 		Conversion result = default(Conversion);
-		if (implicitConversionCache.TryGetValue(typePair, ref result))
+		if (implicitConversionCache.TryGetValue(typePair, out result))
 		{
 			return result;
 		}

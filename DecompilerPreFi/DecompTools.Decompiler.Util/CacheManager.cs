@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -11,7 +11,7 @@ public sealed class CacheManager
 	public object GetShared(object key)
 	{
 		object result = default(object);
-		sharedDict.TryGetValue(key, ref result);
+		sharedDict.TryGetValue(key, out result);
 		return result;
 	}
 

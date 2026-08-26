@@ -5,7 +5,9 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <OutputType>Exe</OutputType>
     <UseWPF>True</UseWPF>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -25,6 +27,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <ProjectReference Include="..\McMaster.Extensions.CommandLineUtils\McMaster.Extensions.CommandLineUtils.csproj" />
     <ProjectReference Include="..\DecompilerPreFi\DecompilerPreFi.csproj" />
-    <ProjectReference Include="..\System.Reflection.Metadata\System.Reflection.Metadata.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.Metadata" Version="1.6.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
   </ItemGroup>
 </Project>

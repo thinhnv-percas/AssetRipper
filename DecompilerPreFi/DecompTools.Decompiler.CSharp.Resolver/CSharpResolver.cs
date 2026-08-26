@@ -1,4 +1,4 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -488,7 +488,7 @@ public class CSharpResolver : ICodeContext, ITypeResolveContext, ICompilationPro
 		HashSet<IParameterizedMember> val = new HashSet<IParameterizedMember>();
 		val.UnionWith(GetUserDefinedOperatorCandidates(type, overloadableOperatorName));
 		val.UnionWith(GetUserDefinedOperatorCandidates(type2, overloadableOperatorName));
-		Enumerator<IParameterizedMember> enumerator = val.GetEnumerator();
+		var enumerator = val.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
@@ -1267,7 +1267,7 @@ public class CSharpResolver : ICodeContext, ITypeResolveContext, ICompilationPro
 		}
 		else if (count == 0 && lookupMode != NameLookupMode.TypeInUsingDeclaration)
 		{
-			if (context.CurrentUsingScope.ResolveCache.TryGetValue(identifier, ref value))
+			if (context.CurrentUsingScope.ResolveCache.TryGetValue(identifier, out value))
 			{
 				value = value?.ShallowClone();
 			}

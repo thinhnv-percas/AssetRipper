@@ -1,4 +1,4 @@
-#define STEP
+﻿#define STEP
 #define DEBUG
 using System;
 using System.Collections;
@@ -120,7 +120,7 @@ internal class YieldReturnDecompiler : IILTransform
 			{
 				returnStores.AddRange(Enumerable.OfType<StLoc>((IEnumerable)value.StoreInstructions));
 			}
-			Enumerator<ILVariable> enumerator3 = cachedStateVars.GetEnumerator();
+			var enumerator3 = cachedStateVars.GetEnumerator();
 			try
 			{
 				while (enumerator3.MoveNext())

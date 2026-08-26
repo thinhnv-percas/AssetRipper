@@ -43,20 +43,5 @@
     <Reference Include="System.Xml.Linq">
       <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.36\System.Xml.Linq.dll</HintPath>
     </Reference>
-    <ProjectReference Include="..\System.Data.Common\System.Data.Common.csproj" />
-    <ProjectReference Include="..\System.Diagnostics.StackTrace\System.Diagnostics.StackTrace.csproj" />
-    <ProjectReference Include="..\System.Diagnostics.Tracing\System.Diagnostics.Tracing.csproj" />
-    <ProjectReference Include="..\System.Globalization.Extensions\System.Globalization.Extensions.csproj" />
-    <ProjectReference Include="..\System.IO.Compression\System.IO.Compression.csproj" />
-    <ProjectReference Include="..\System.Net.Http\System.Net.Http.csproj" />
-    <ProjectReference Include="..\System.Net.Sockets\System.Net.Sockets.csproj" />
-    <ProjectReference Include="..\System.ValueTuple\System.ValueTuple.csproj" />
-    <ProjectReference Include="..\System.Runtime.InteropServices.RuntimeInformation\System.Runtime.InteropServices.RuntimeInformation.csproj" />
-    <ProjectReference Include="..\System.Runtime.Serialization.Xml\System.Runtime.Serialization.Xml.csproj" />
-    <ProjectReference Include="..\System.Runtime.Serialization.Primitives\System.Runtime.Serialization.Primitives.csproj" />
-    <ProjectReference Include="..\System.Security.Cryptography.Algorithms\System.Security.Cryptography.Algorithms.csproj" />
-    <ProjectReference Include="..\System.Security.SecureString\System.Security.SecureString.csproj" />
-    <ProjectReference Include="..\System.Threading.Overlapped\System.Threading.Overlapped.csproj" />
-    <ProjectReference Include="..\System.Xml.XPath.XDocument\System.Xml.XPath.XDocument.csproj" />
   </ItemGroup>
 </Project>

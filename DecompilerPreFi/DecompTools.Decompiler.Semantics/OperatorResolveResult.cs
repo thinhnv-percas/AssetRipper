@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using DecompTools.Decompiler.TypeSystem;
@@ -33,10 +33,10 @@ public class OperatorResolveResult : ResolveResult
 	public bool IsLiftedOperator => isLiftedOperator;
 
 	public OperatorResolveResult(IType resultType, ExpressionType operatorType, params ResolveResult[] operands)
+		: base(resultType)
 	{
 		//IL_001d: Unknown result type (might be due to invalid IL or missing references)
 		//IL_001e: Unknown result type (might be due to invalid IL or missing references)
-		base._002Ector(resultType);
 		if (operands == null)
 		{
 			throw new ArgumentNullException("operands");
@@ -46,10 +46,10 @@ public class OperatorResolveResult : ResolveResult
 	}
 
 	public OperatorResolveResult(IType resultType, ExpressionType operatorType, IMethod userDefinedOperatorMethod, bool isLiftedOperator, IList<ResolveResult> operands)
+		: base(resultType)
 	{
 		//IL_001e: Unknown result type (might be due to invalid IL or missing references)
 		//IL_001f: Unknown result type (might be due to invalid IL or missing references)
-		base._002Ector(resultType);
 		if (operands == null)
 		{
 			throw new ArgumentNullException("operands");

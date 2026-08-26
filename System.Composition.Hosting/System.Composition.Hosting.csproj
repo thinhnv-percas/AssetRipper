@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>System.Composition.Hosting</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net40</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
@@ -16,14 +16,9 @@
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\System.Composition.Runtime\System.Composition.Runtime.csproj" />
-    <ProjectReference Include="..\System.Reflection\System.Reflection.csproj" />
-    <ProjectReference Include="..\System.Linq.Expressions\System.Linq.Expressions.csproj" />
-    <ProjectReference Include="..\System.Collections\System.Collections.csproj" />
-    <ProjectReference Include="..\System.Resources.ResourceManager\System.Resources.ResourceManager.csproj" />
-    <ProjectReference Include="..\System.Globalization\System.Globalization.csproj" />
-    <ProjectReference Include="..\System.Linq\System.Linq.csproj" />
-    <ProjectReference Include="..\System.Reflection.Extensions\System.Reflection.Extensions.csproj" />
-    <ProjectReference Include="..\System.Threading\System.Threading.csproj" />
-    <ProjectReference Include="..\System.ObjectModel\System.ObjectModel.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- System.Lazy<T,TMetadata> lives here on .NET Framework -->
+    <Reference Include="System.ComponentModel.Composition" />
   </ItemGroup>
 </Project>

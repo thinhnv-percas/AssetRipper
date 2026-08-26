@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -46,7 +46,7 @@ internal sealed class SymUnmanagedWriterImpl : SymUnmanagedWriter
 
 	private ISymUnmanagedWriter5 GetSymWriter()
 	{
-		return _symWriter ?? throw _disposed ? new ObjectDisposedException("SymUnmanagedWriterImpl") : new InvalidOperationException();
+		return _symWriter ?? throw (_disposed ? (Exception)new ObjectDisposedException("SymUnmanagedWriterImpl") : new InvalidOperationException());
 	}
 
 	private ISymUnmanagedWriter8 GetSymWriter8()

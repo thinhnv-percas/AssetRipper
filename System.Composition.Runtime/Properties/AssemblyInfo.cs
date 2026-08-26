@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -12,6 +12,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyFileVersion("4.6.24705.01")]
 [assembly: AssemblyInformationalVersion("4.6.24705.01. Commit Hash: 4d1af962ca0fede10beb01d197367c2f90e92c97")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyMetadata(".NETFrameworkAssembly", "")]
-[assembly: AssemblyMetadata("Serviceable", "True")]
 [assembly: AssemblyVersion("1.0.31.0")]

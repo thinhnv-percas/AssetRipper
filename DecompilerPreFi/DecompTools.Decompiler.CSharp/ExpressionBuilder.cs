@@ -1,10 +1,10 @@
-#define DEBUG
+﻿#define DEBUG
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
+using ExpressionType = System.Linq.Expressions.ExpressionType;
 using System.Threading;
 using DecompTools.Decompiler.CSharp.Resolver;
 using DecompTools.Decompiler.CSharp.Syntax;
@@ -2511,7 +2511,7 @@ internal class ExpressionBuilder : ILVisitor<TranslationContext, TranslatedExpre
 			case 2:
 				goto IL_029c;
 			}
-			switch (operation - 12)
+			switch ((int)operation - 12)
 			{
 			case 14:
 				break;
@@ -2544,7 +2544,7 @@ internal class ExpressionBuilder : ILVisitor<TranslationContext, TranslatedExpre
 			}
 			goto IL_0194;
 		}
-		switch (operation - 41)
+		switch ((int)operation - 41)
 		{
 		case 1:
 			goto IL_014e;
@@ -2553,7 +2553,7 @@ internal class ExpressionBuilder : ILVisitor<TranslationContext, TranslatedExpre
 		case 0:
 			goto IL_02f1;
 		}
-		switch (operation - 63)
+		switch ((int)operation - 63)
 		{
 		case 0:
 			break;
@@ -2676,7 +2676,7 @@ internal class ExpressionBuilder : ILVisitor<TranslationContext, TranslatedExpre
 		ExpressionType operation = inst.Operation;
 		if ((int)operation <= 49)
 		{
-			switch (operation - 28)
+			switch ((int)operation - 28)
 			{
 			default:
 				if ((int)operation != 49)
