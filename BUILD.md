@@ -80,6 +80,61 @@ present at runtime.
   original build (they pinned facades that are no longer shipped and broke
   `System.ValueTuple` loading). `AutoGenerateBindingRedirects` now generates them.
 
+## The `0000000000` payload format
+
+`DevXUnityUnpackerRun` is a loader, and `Memrestore` in
+[Program.cs](DevXUnityUnpackerRun/Program.cs) fully specifies the container
+format. There is no key material and no per-file state, so it is reversible
+from the source alone.
+
+```
+file 0000000000  --XOR keystream-->  GZip stream  --gunzip-->  .NET assembly
+                                                               Assembly.Load(..).EntryPoint.Invoke()
+```
+
+The keystream is `num2 + num3` where `num2` starts at 10 stepping by 13 and
+`num3` starts at 1 stepping by 1317, so at index `i` it is `11 + 1330*i`.
+Since `1330 % 256 == 50` that collapses to
+
+```
+key[i] = (11 + 50*i) & 0xFF
+```
+
+a fixed pattern with period 128 (gcd(50,256)=2, so only 128 of the 256 byte
+values ever appear). It is a plain obfuscation layer, not encryption.
+
+Because gzip always starts `1F 8B 08 00`, a correctly packed file always
+starts with those bytes XORed against `0B 3D 6F A1`:
+
+```
+magic: 14 B6 67 A1
+```
+
+which is a cheap way to recognise the format.
+
+### tools/payload.py
+
+```
+python tools/payload.py info   0000000000              # identify + PE/CLI header summary
+python tools/payload.py unpack 0000000000 payload.dll  # recover the assembly
+python tools/payload.py pack   payload.dll 0000000000  # inverse (both steps are symmetric)
+```
+
+Verified, not just derived: `pack` output was fed to a harness running
+`Memrestore`/`DeCompess`/`Copy` copied verbatim from `Program.cs`, and the
+result was byte-identical to the input assembly, with `Assembly.Load` then
+resolving it and reporting a valid entry point.
+
+### Caveats
+* The payload is **not in this folder** — nothing here can reconstruct it. You
+  need the file from an actual installation.
+* Recovering it only undoes the packing. The DevX code in this repo is heavily
+  obfuscated (identifiers like `_0020_0020_000A_...`), so expect the payload
+  assembly to be obfuscated too — a decompiler gets you compilable-ish source,
+  not readable source.
+* `Memrestore` calls `Application.Exit()` in the middle of the loop. With no
+  message loop running it is a no-op; it appears to be leftover or noise.
+
 ## Known limitations
 * Assemblies are **unsigned**. Anything that checks strong names at runtime will
   behave differently from the originals.
