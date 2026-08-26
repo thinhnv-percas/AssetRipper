@@ -4,7 +4,8 @@ What the files shipped next to `DevXUnityUnpackerRun.exe` are, how they are
 packed, and what the code does to resist decompilation.
 
 Everything below was verified against the actual binaries, not inferred from the
-source alone; each section says how. Build instructions live in [BUILD.md](BUILD.md).
+source alone; each section says how. Build instructions live in
+[BUILD.md](BUILD.md); outstanding work in [ROADMAP.md](ROADMAP.md).
 
 ---
 

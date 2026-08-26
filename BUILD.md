@@ -6,6 +6,7 @@ make everything here build, and how to reproduce it.
 For what the shipped files actually *are* — the container formats, the cipher,
 the obfuscation, and the decompiler defects behind most of these fixes — see
 [FINDINGS.md](FINDINGS.md).
+Outstanding work is tracked in [ROADMAP.md](ROADMAP.md).
 
 ---
 
