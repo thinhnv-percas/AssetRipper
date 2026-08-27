@@ -1,0 +1,16 @@
+﻿using @as;
+using Unreal;
+using Wasm.Interpret;
+
+namespace ICSharpCode.SharpZipLibtc
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A
+	{
+		internal int _0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020(string _0020, FVirtualFileSystem _0020_000A, bool _0020_0020, FbxNodeList _0020_000A_000A)
+		{
+			_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020._0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A(null);
+			OperatorImpls.Float64Load(null, null);
+			return 240520824;
+		}
+	}
+}

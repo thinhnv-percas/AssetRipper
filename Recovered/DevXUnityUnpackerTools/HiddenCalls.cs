@@ -1,4 +1,4 @@
-﻿using ARMD;
+using ARMD;
 using @as;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using WASD;
 
-internal static class HiddenCalls
+internal class HiddenCalls
 {
 	[Serializable]
 	[CompilerGenerated]
@@ -237,7 +237,7 @@ internal static class HiddenCalls
 		}
 	}
 
-	internal static IEnumerable<Type> _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020(this Assembly _0020)
+	internal static IEnumerable<Type> _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020(Assembly _0020)
 	{
 		try
 		{

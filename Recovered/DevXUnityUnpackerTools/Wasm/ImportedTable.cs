@@ -23,12 +23,12 @@ namespace Wasm
 			Table = table;
 		}
 
-		protected override void DumpContents(TextWriter writer)
+		internal override void DumpContents(TextWriter writer)
 		{
 			Table.Dump(writer);
 		}
 
-		protected override void WriteContentsTo(BinaryWasmWriter writer)
+		internal override void WriteContentsTo(BinaryWasmWriter writer)
 		{
 			Table.WriteTo(writer);
 		}

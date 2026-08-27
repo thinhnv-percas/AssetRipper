@@ -2,7 +2,6 @@
 
 namespace DevXForms.TreeList
 {
-	[TypeConverter(typeof(OptionsSettingTypeConverter))]
 	public class CollumnSetting
 	{
 		internal int _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020 = 5;

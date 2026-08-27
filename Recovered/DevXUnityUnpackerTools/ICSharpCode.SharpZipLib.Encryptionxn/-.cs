@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Unity.CecilTools.Extensionsgq;
 using Unreal;
 
@@ -6,14 +6,6 @@ namespace ICSharpCode.SharpZipLib.Encryptionxn
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A
 	{
-		internal unsafe string _0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020(float _0020, float _0020_000A, int _0020_0020)
-		{
-			//IL_0036: Expected I, but got O
-			//IL_0036: Expected I, but got O
-			_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A._0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A(null);
-			((_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A)null)._0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020(ref *(_0021_00210[]*)null);
-			_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020._0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020((_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_0020.lum*)(long)(IntPtr)(void*)null, (byte*)(long)(IntPtr)(void*)null);
-			return "229101832";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

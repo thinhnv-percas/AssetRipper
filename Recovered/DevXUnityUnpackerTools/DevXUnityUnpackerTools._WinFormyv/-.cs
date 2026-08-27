@@ -1,11 +1,7 @@
-﻿namespace DevXUnityUnpackerTools._WinFormyv
+namespace DevXUnityUnpackerTools._WinFormyv
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A
 	{
-		internal int _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020(_00216[] _0020)
-		{
-			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020)null).EqualsInternal((object)null);
-			return 322195467;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 namespace DevXForms
 {
-	[Designer(typeof(TreeListViewDesigner))]
 	public class MultiSelectTreeView2 : Control, ISupportInitialize
 	{
 		public delegate void NotifyBeforeExpandHandler(TreeNode node, bool isExpanding);

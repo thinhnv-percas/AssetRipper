@@ -1,10 +1,7 @@
-﻿namespace MiniLZOyq
+namespace MiniLZOyq
 {
 	internal class _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A
 	{
-		internal string _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020(_00216[] _0020)
-		{
-			return "2096237453";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

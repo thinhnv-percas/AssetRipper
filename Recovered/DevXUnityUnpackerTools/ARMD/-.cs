@@ -1,4 +1,4 @@
-﻿using @as;
+using @as;
 using DMP4;
 using DSMCaps;
 using DSMCaps.Arm;
@@ -2298,196 +2298,196 @@ namespace ARMD
 			return $"[DecodeResult: IsValid={IsValid}, DisassemblyFunction={DisassemblyFunction}]";
 		}
 	}
-	internal static class _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020
+	internal class _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020
 	{
 		internal const int _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A = 8;
 
-		public static int BitSize(this sbyte integral)
+		public static int BitSize(sbyte integral)
 		{
 			return 8;
 		}
 
-		public static int BitSize(this byte integral)
+		public static int BitSize(byte integral)
 		{
 			return 8;
 		}
 
-		public static int BitSize(this short integral)
+		public static int BitSize(short integral)
 		{
 			return 16;
 		}
 
-		public static int BitSize(this ushort integral)
+		public static int BitSize(ushort integral)
 		{
 			return 16;
 		}
 
-		public static int BitSize(this int integral)
+		public static int BitSize(int integral)
 		{
 			return 32;
 		}
 
-		public static int BitSize(this uint integral)
+		public static int BitSize(uint integral)
 		{
 			return 32;
 		}
 
-		public static int BitSize(this long integral)
+		public static int BitSize(long integral)
 		{
 			return 64;
 		}
 
-		public static int BitSize(this ulong integral)
+		public static int BitSize(ulong integral)
 		{
 			return 64;
 		}
 
-		public static sbyte ExtractBit(this sbyte integral, int bit)
+		public static sbyte ExtractBit(sbyte integral, int bit)
 		{
 			return (sbyte)((integral >> bit) & 1);
 		}
 
-		public static byte ExtractBit(this byte integral, int bit)
+		public static byte ExtractBit(byte integral, int bit)
 		{
 			return (byte)((integral >> bit) & 1);
 		}
 
-		public static short ExtractBit(this short integral, int bit)
+		public static short ExtractBit(short integral, int bit)
 		{
 			return (short)((integral >> bit) & 1);
 		}
 
-		public static int ExtractBit(this int integral, int bit)
+		public static int ExtractBit(int integral, int bit)
 		{
 			return (integral >> bit) & 1;
 		}
 
-		public static uint ExtractBit(this uint integral, int bit)
+		public static uint ExtractBit(uint integral, int bit)
 		{
 			return (integral >> bit) & 1;
 		}
 
-		public static long ExtractBit(this long integral, int bit)
+		public static long ExtractBit(long integral, int bit)
 		{
 			return (integral >> bit) & 1;
 		}
 
-		public static ulong ExtractBit(this ulong integral, int bit)
+		public static ulong ExtractBit(ulong integral, int bit)
 		{
 			return (integral >> bit) & 1;
 		}
 
-		public static sbyte ExtractBits(this sbyte integral, int start, int end)
+		public static sbyte ExtractBits(sbyte integral, int start, int end)
 		{
 			return (sbyte)(integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1);
 		}
 
-		public static byte ExtractBits(this byte integral, int start, int end)
+		public static byte ExtractBits(byte integral, int start, int end)
 		{
 			return (byte)(integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1);
 		}
 
-		public static short ExtractBits(this short integral, int start, int end)
+		public static short ExtractBits(short integral, int start, int end)
 		{
 			return (short)(integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1);
 		}
 
-		public static ushort ExtractBits(this ushort integral, int start, int end)
+		public static ushort ExtractBits(ushort integral, int start, int end)
 		{
 			return (ushort)(integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1);
 		}
 
-		public static int ExtractBits(this int integral, int start, int end)
+		public static int ExtractBits(int integral, int start, int end)
 		{
 			return integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1;
 		}
 
-		public static uint ExtractBits(this uint integral, int start, int end)
+		public static uint ExtractBits(uint integral, int start, int end)
 		{
 			return integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1;
 		}
 
-		public static long ExtractBits(this long integral, int start, int end)
+		public static long ExtractBits(long integral, int start, int end)
 		{
 			return integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1;
 		}
 
-		public static ulong ExtractBits(this ulong integral, int start, int end)
+		public static ulong ExtractBits(ulong integral, int start, int end)
 		{
 			return integral << integral.BitSize() - 1 - end >> integral.BitSize() - end + start - 1;
 		}
 
-		public static bool IsBitSet(this sbyte integral, int bit)
+		public static bool IsBitSet(sbyte integral, int bit)
 		{
 			return integral.ExtractBit(bit) == 1;
 		}
 
-		public static bool IsBitSet(this byte integral, int bit)
+		public static bool IsBitSet(byte integral, int bit)
 		{
 			return integral.ExtractBit(bit) == 1;
 		}
 
-		public static bool IsBitSet(this short integral, int bit)
+		public static bool IsBitSet(short integral, int bit)
 		{
 			return integral.ExtractBit(bit) == 1;
 		}
 
-		public static bool IsBitSet(this ushort integral, int bit)
+		public static bool IsBitSet(ushort integral, int bit)
 		{
 			return ExtractBit(integral, bit) == 1;
 		}
 
-		public static bool IsBitSet(this int integral, int bit)
+		public static bool IsBitSet(int integral, int bit)
 		{
 			return integral.ExtractBit(bit) == 1;
 		}
 
-		public static bool IsBitSet(this uint integral, int bit)
+		public static bool IsBitSet(uint integral, int bit)
 		{
 			return integral.ExtractBit(bit) == 1;
 		}
 
-		public static bool IsBitSet(this long integral, int bit)
+		public static bool IsBitSet(long integral, int bit)
 		{
 			return integral.ExtractBit(bit) == 1;
 		}
 
-		public static bool IsBitSet(this ulong integral, int bit)
+		public static bool IsBitSet(ulong integral, int bit)
 		{
 			return integral.ExtractBit(bit) == 1;
 		}
 
-		public static sbyte SignExtend(this sbyte integral, int bit)
+		public static sbyte SignExtend(sbyte integral, int bit)
 		{
 			return (sbyte)((short)integral).SignExtend(bit);
 		}
 
-		public static byte SignExtend(this byte integral, int bit)
+		public static byte SignExtend(byte integral, int bit)
 		{
 			return (byte)((ushort)integral).SignExtend(bit);
 		}
 
-		public static short SignExtend(this short integral, int bit)
+		public static short SignExtend(short integral, int bit)
 		{
 			return (short)((int)integral).SignExtend(bit);
 		}
 
-		public static ushort SignExtend(this ushort integral, int bit)
+		public static ushort SignExtend(ushort integral, int bit)
 		{
 			return (ushort)((uint)integral).SignExtend(bit);
 		}
 
-		public static int SignExtend(this int integral, int bit)
+		public static int SignExtend(int integral, int bit)
 		{
 			return (int)((long)integral).SignExtend(bit);
 		}
 
-		public static uint SignExtend(this uint integral, int bit)
+		public static uint SignExtend(uint integral, int bit)
 		{
 			return (uint)((ulong)integral).SignExtend(bit);
 		}
 
-		public static long SignExtend(this long integral, int bit)
+		public static long SignExtend(long integral, int bit)
 		{
 			long num = (1L << bit) - 1;
 			if (integral.IsBitSet(bit - 1))
@@ -2497,7 +2497,7 @@ namespace ARMD
 			return integral;
 		}
 
-		public static ulong SignExtend(this ulong integral, int bit)
+		public static ulong SignExtend(ulong integral, int bit)
 		{
 			ulong num = (ulong)((1L << bit) - 1);
 			if (integral.IsBitSet(bit - 1))
@@ -2507,7 +2507,7 @@ namespace ARMD
 			return integral;
 		}
 
-		public static char SignBitToChar(this sbyte val)
+		public static char SignBitToChar(sbyte val)
 		{
 			if (val >= 0)
 			{
@@ -2516,7 +2516,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static char SignBitToChar(this byte val)
+		public static char SignBitToChar(byte val)
 		{
 			if (!val.IsBitSet(val.BitSize() - 1))
 			{
@@ -2525,7 +2525,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static char SignBitToChar(this short val)
+		public static char SignBitToChar(short val)
 		{
 			if (val >= 0)
 			{
@@ -2534,7 +2534,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static char SignBitToChar(this ushort val)
+		public static char SignBitToChar(ushort val)
 		{
 			if (!val.IsBitSet(val.BitSize() - 1))
 			{
@@ -2543,7 +2543,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static char SignBitToChar(this int val)
+		public static char SignBitToChar(int val)
 		{
 			if (val >= 0)
 			{
@@ -2552,7 +2552,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static char SignBitToChar(this uint val)
+		public static char SignBitToChar(uint val)
 		{
 			if (!val.IsBitSet(val.BitSize() - 1))
 			{
@@ -2561,7 +2561,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static char SignBitToChar(this long val)
+		public static char SignBitToChar(long val)
 		{
 			if (val >= 0)
 			{
@@ -2570,7 +2570,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static char SignBitToChar(this ulong val)
+		public static char SignBitToChar(ulong val)
 		{
 			if (!val.IsBitSet(val.BitSize() - 1))
 			{
@@ -2579,7 +2579,7 @@ namespace ARMD
 			return '-';
 		}
 
-		public static byte RotateLeft(this byte value, int count)
+		public static byte RotateLeft(byte value, int count)
 		{
 			if (count == 0)
 			{
@@ -2588,7 +2588,7 @@ namespace ARMD
 			return (byte)((value << count) | (value >> value.BitSize() - count));
 		}
 
-		public static ushort RotateLeft(this ushort value, int count)
+		public static ushort RotateLeft(ushort value, int count)
 		{
 			if (count == 0)
 			{
@@ -2597,7 +2597,7 @@ namespace ARMD
 			return (ushort)((value << count) | (value >> value.BitSize() - count));
 		}
 
-		public static uint RotateLeft(this uint value, int count)
+		public static uint RotateLeft(uint value, int count)
 		{
 			if (count == 0)
 			{
@@ -2606,7 +2606,7 @@ namespace ARMD
 			return (value << count) | (value >> value.BitSize() - count);
 		}
 
-		public static ulong RotateLeft(this ulong value, int count)
+		public static ulong RotateLeft(ulong value, int count)
 		{
 			if (count == 0)
 			{
@@ -2615,7 +2615,7 @@ namespace ARMD
 			return (value << count) | (value >> value.BitSize() - count);
 		}
 
-		public static byte RotateRight(this byte value, int count)
+		public static byte RotateRight(byte value, int count)
 		{
 			if (count == 0)
 			{
@@ -2624,7 +2624,7 @@ namespace ARMD
 			return (byte)((value >> count) | (value << value.BitSize() - count));
 		}
 
-		public static ushort RotateRight(this ushort value, int count)
+		public static ushort RotateRight(ushort value, int count)
 		{
 			if (count == 0)
 			{
@@ -2633,7 +2633,7 @@ namespace ARMD
 			return (ushort)((value >> count) | (value << value.BitSize() - count));
 		}
 
-		public static uint RotateRight(this uint value, int count)
+		public static uint RotateRight(uint value, int count)
 		{
 			if (count == 0)
 			{
@@ -2642,7 +2642,7 @@ namespace ARMD
 			return (value >> count) | (value << value.BitSize() - count);
 		}
 
-		public static ulong RotateRight(this ulong value, int count)
+		public static ulong RotateRight(ulong value, int count)
 		{
 			if (count == 0)
 			{

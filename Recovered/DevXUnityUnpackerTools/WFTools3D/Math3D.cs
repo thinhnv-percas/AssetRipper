@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,7 +7,7 @@ using System.Windows.Media.Media3D;
 
 namespace WFTools3D
 {
-	public static class Math3D
+	public class Math3D
 	{
 		internal static RayMeshGeometry3DHitTestResult _0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A;
 
@@ -21,32 +21,32 @@ namespace WFTools3D
 
 		public static readonly Vector3D UnitZ = new Vector3D(0.0, 0.0, 1.0);
 
-		public static double Distance(this Point3D pt)
+		public static double Distance(Point3D pt)
 		{
 			return Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y + pt.Z * pt.Z);
 		}
 
-		public static double DistanceSquared(this Point3D pt)
+		public static double DistanceSquared(Point3D pt)
 		{
 			return pt.X * pt.X + pt.Y * pt.Y + pt.Z * pt.Z;
 		}
 
-		public static Point3D Add(this Point3D pt, Point3D add)
+		public static Point3D Add(Point3D pt, Point3D add)
 		{
 			return new Point3D(pt.X + add.X, pt.Y + add.Y, pt.Z + add.Z);
 		}
 
-		public static Point3D Subtract(this Point3D pt, Point3D add)
+		public static Point3D Subtract(Point3D pt, Point3D add)
 		{
 			return new Point3D(pt.X - add.X, pt.Y - add.Y, pt.Z - add.Z);
 		}
 
-		public static Point3D Inverse(this Point3D pt)
+		public static Point3D Inverse(Point3D pt)
 		{
 			return new Point3D(0.0 - pt.X, 0.0 - pt.Y, 0.0 - pt.Z);
 		}
 
-		public static bool IsValid(this Point3D pt)
+		public static bool IsValid(Point3D pt)
 		{
 			if (!MathUtils.IsValidNumber(pt.X) || !MathUtils.IsValidNumber(pt.Y) || !MathUtils.IsValidNumber(pt.Z))
 			{
@@ -55,7 +55,7 @@ namespace WFTools3D
 			return true;
 		}
 
-		public static bool IsValid(this Vector3D dir)
+		public static bool IsValid(Vector3D dir)
 		{
 			if (!MathUtils.IsValidNumber(dir.X) || !MathUtils.IsValidNumber(dir.Y) || !MathUtils.IsValidNumber(dir.Z))
 			{
@@ -68,7 +68,7 @@ namespace WFTools3D
 			return true;
 		}
 
-		public static Vector3D Transform(this Quaternion q, Vector3D v)
+		public static Vector3D Transform(Quaternion q, Vector3D v)
 		{
 			double num = q.X + q.X;
 			double num2 = q.Y + q.Y;
@@ -88,32 +88,32 @@ namespace WFTools3D
 			return new Vector3D(x, y, z);
 		}
 
-		public static Point3D Transform(this Quaternion q, Point3D p)
+		public static Point3D Transform(Quaternion q, Point3D p)
 		{
 			return (Point3D)q.Transform((Vector3D)p);
 		}
 
-		public static Vector3D Rotate(this Vector3D v, Vector3D rotationAxis, double angleInDegrees)
+		public static Vector3D Rotate(Vector3D v, Vector3D rotationAxis, double angleInDegrees)
 		{
 			return new Quaternion(rotationAxis, angleInDegrees).Transform(v);
 		}
 
-		public static Vector3D Cross(this Vector3D v, Vector3D vector)
+		public static Vector3D Cross(Vector3D v, Vector3D vector)
 		{
 			return Vector3D.CrossProduct(v, vector);
 		}
 
-		public static double Dot(this Vector3D v, Vector3D vector)
+		public static double Dot(Vector3D v, Vector3D vector)
 		{
 			return Vector3D.DotProduct(v, vector);
 		}
 
-		public static double AngleTo(this Vector3D v, Vector3D vector)
+		public static double AngleTo(Vector3D v, Vector3D vector)
 		{
 			return Vector3D.AngleBetween(v, vector);
 		}
 
-		public static Vector3D DirectionTo(this Point3D thisPoint, Point3D targetPoint)
+		public static Vector3D DirectionTo(Point3D thisPoint, Point3D targetPoint)
 		{
 			Vector3D result = targetPoint - thisPoint;
 			result.Normalize();

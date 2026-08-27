@@ -1,0 +1,35 @@
+﻿using @as;
+using EdiToolsge;
+using PropertyGridEx;
+using SpirV;
+using System.Text;
+using Wasm.Binary;
+using Wasm.Interpret;
+using XnaGeometry;
+
+namespace ICSharpCode.SharpZipLib.Zipth
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A
+	{
+		internal void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020(_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_0020 _0020, SectionHeader _0020_000A, OpConstantPipeStorage _0020_0020, bool _0020_000A_000A)
+		{
+			((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A((string)null, (Encoding)null);
+			WebReqManager.MakeReq(null, null);
+			((CustomPropertyCollection)null).LoadXml((string)null);
+		}
+	}
+	internal class _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A
+	{
+		internal int _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020()
+		{
+			((MultiSelectTreeView)null).AddChild((string)null);
+			OperatorImpls.Int32TruncUFloat64(null, null);
+			XnaGeometry.Vector3 unitY = XnaGeometry.Vector3.UnitY;
+			_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A._0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020(null);
+			((_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A)null)._0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020();
+			OperatorImpls.Float32Floor(null, null);
+			((BoundingFrustum)null)._0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A();
+			return 1974139819;
+		}
+	}
+}

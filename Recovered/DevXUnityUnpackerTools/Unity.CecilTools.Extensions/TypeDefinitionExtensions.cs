@@ -1,10 +1,10 @@
-﻿using Mono.Cecil;
+using Mono.Cecil;
 
 namespace Unity.CecilTools.Extensions
 {
-	public static class TypeDefinitionExtensions
+	public class TypeDefinitionExtensions
 	{
-		public static bool IsSubclassOf(this TypeDefinition type, string baseTypeName)
+		public static bool IsSubclassOf(TypeDefinition type, string baseTypeName)
 		{
 			TypeReference baseType = type.BaseType;
 			if (baseType == null)

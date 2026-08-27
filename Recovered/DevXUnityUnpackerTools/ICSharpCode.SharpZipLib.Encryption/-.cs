@@ -1,0 +1,386 @@
+﻿using APK;
+using @as;
+using DMP4;
+using ICSharpCode.SharpZipLib.Checksum;
+using ICSharpCode.SharpZipLib.Tar;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using SpirV;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+using Unity.IO.Compression;
+using Unreal;
+using XnaGeometry;
+
+namespace ICSharpCode.SharpZipLib.Encryption
+{
+	internal class _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020
+	{
+		internal uint[] _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A;
+
+		internal byte TransformByte()
+		{
+			uint num = (_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[2] & 0xFFFF) | 2;
+			return (byte)(num * (num ^ 1) >> 8);
+		}
+
+		internal void SetKeys(byte[] keyData)
+		{
+			if (keyData == null)
+			{
+				throw new ArgumentNullException("keyData");
+			}
+			if (keyData.Length != 12)
+			{
+				throw new InvalidOperationException("Key length is not valid");
+			}
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A = new uint[3];
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[0] = (uint)((keyData[3] << 24) | (keyData[2] << 16) | (keyData[1] << 8) | keyData[0]);
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[1] = (uint)((keyData[7] << 24) | (keyData[6] << 16) | (keyData[5] << 8) | keyData[4]);
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[2] = (uint)((keyData[11] << 24) | (keyData[10] << 16) | (keyData[9] << 8) | keyData[8]);
+		}
+
+		internal void UpdateKeys(byte ch)
+		{
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[0] = Crc32._0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020(_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[0], ch);
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[1] = _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[1] + (byte)_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[0];
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[1] = _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[1] * 134775813 + 1;
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[2] = Crc32._0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020(_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[2], (byte)(_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[1] >> 24));
+		}
+
+		internal void Reset()
+		{
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[0] = 0u;
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[1] = 0u;
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A[2] = 0u;
+		}
+	}
+	internal class _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A : _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020, ICryptoTransform, IDisposable
+	{
+		public bool CanReuseTransform => true;
+
+		public int InputBlockSize => 1;
+
+		public int OutputBlockSize => 1;
+
+		public bool CanTransformMultipleBlocks => true;
+
+		internal _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A(byte[] keyBlock)
+		{
+			SetKeys(keyBlock);
+		}
+
+		public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
+		{
+			byte[] array = new byte[inputCount];
+			TransformBlock(inputBuffer, inputOffset, inputCount, array, 0);
+			return array;
+		}
+
+		public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
+		{
+			for (int i = inputOffset; i < inputOffset + inputCount; i++)
+			{
+				byte ch = inputBuffer[i];
+				outputBuffer[outputOffset++] = (byte)(inputBuffer[i] ^ TransformByte());
+				UpdateKeys(ch);
+			}
+			return inputCount;
+		}
+
+		public void Dispose()
+		{
+			Reset();
+		}
+	}
+	internal class _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020 : _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020, ICryptoTransform, IDisposable
+	{
+		public bool CanReuseTransform => true;
+
+		public int InputBlockSize => 1;
+
+		public int OutputBlockSize => 1;
+
+		public bool CanTransformMultipleBlocks => true;
+
+		internal _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020(byte[] keyBlock)
+		{
+			SetKeys(keyBlock);
+		}
+
+		public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
+		{
+			byte[] array = new byte[inputCount];
+			TransformBlock(inputBuffer, inputOffset, inputCount, array, 0);
+			return array;
+		}
+
+		public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
+		{
+			for (int i = inputOffset; i < inputOffset + inputCount; i++)
+			{
+				byte b = (byte)(inputBuffer[i] ^ TransformByte());
+				outputBuffer[outputOffset++] = b;
+				UpdateKeys(b);
+			}
+			return inputCount;
+		}
+
+		public void Dispose()
+		{
+			Reset();
+		}
+	}
+	internal class _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A : CryptoStream
+	{
+		internal const int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A = 10;
+
+		internal Stream _0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020;
+
+		internal _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020;
+
+		internal byte[] _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A;
+
+		internal int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020;
+
+		internal int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A;
+
+		internal const int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020 = 16;
+
+		internal int _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A;
+
+		public _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A(Stream stream, _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 transform, CryptoStreamMode mode)
+			: base(stream, transform, mode)
+		{
+			_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020 = stream;
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020 = transform;
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A = new byte[1024];
+			_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A = 26;
+			if (mode != 0)
+			{
+				throw new Exception("ZipAESStream only for read");
+			}
+		}
+
+		public override int Read(byte[] buffer, int offset, int count)
+		{
+			int num = 0;
+			while (num < count)
+			{
+				int num2 = _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A - _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020;
+				int num3 = _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A - num2;
+				if (_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A.Length - _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A < num3)
+				{
+					int num4 = 0;
+					int num5 = _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020;
+					while (num5 < _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A)
+					{
+						_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A[num4] = _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A[num5];
+						num5++;
+						num4++;
+					}
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A -= _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020;
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020 = 0;
+				}
+				int num6 = _0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020.Read(_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A, _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A, num3);
+				_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A += num6;
+				num2 = _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A - _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020;
+				if (num2 >= _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A)
+				{
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020.TransformBlock(_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A, _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020, 16, buffer, offset);
+					num += 16;
+					offset += 16;
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020 += 16;
+					continue;
+				}
+				if (num2 > 10)
+				{
+					int num7 = num2 - 10;
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020.TransformBlock(_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A, _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020, num7, buffer, offset);
+					num += num7;
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020 += num7;
+				}
+				else if (num2 < 10)
+				{
+					throw new Exception("Internal error missed auth code");
+				}
+				byte[] authCode = _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020.GetAuthCode();
+				for (int i = 0; i < 10; i++)
+				{
+					if (authCode[i] != _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A[_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020 + i])
+					{
+						throw new Exception("AES Authentication Code does not match. This is a super-CRC check on the data in the file after compression and encryption. \r\nThe file may be damaged.");
+					}
+				}
+				break;
+			}
+			return num;
+		}
+
+		public override void Write(byte[] buffer, int offset, int count)
+		{
+			throw new NotImplementedException();
+		}
+	}
+	internal class _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 : ICryptoTransform, IDisposable
+	{
+		internal const int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020 = 2;
+
+		internal const int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A = 1000;
+
+		internal const int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020 = 16;
+
+		internal int _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020;
+
+		internal readonly ICryptoTransform _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A;
+
+		internal readonly byte[] _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020;
+
+		internal byte[] _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A;
+
+		internal int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020;
+
+		internal byte[] _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A;
+
+		internal HMACSHA1 _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020;
+
+		internal bool _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A;
+
+		internal bool _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020;
+
+		public byte[] PwdVerifier => _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A;
+
+		public int InputBlockSize => _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020;
+
+		public int OutputBlockSize => _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020;
+
+		public bool CanTransformMultipleBlocks => true;
+
+		public bool CanReuseTransform => true;
+
+		public _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020(string key, byte[] saltBytes, int blockSize, bool writeMode)
+		{
+			if (blockSize != 16 && blockSize != 32)
+			{
+				throw new Exception("Invalid blocksize " + blockSize + ". Must be 16 or 32.");
+			}
+			if (saltBytes.Length != blockSize / 2)
+			{
+				throw new Exception("Invalid salt len. Must be " + blockSize / 2 + " for blocksize " + blockSize);
+			}
+			_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020 = blockSize;
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A = new byte[_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020];
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020 = 16;
+			Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(key, saltBytes, 1000);
+			RijndaelManaged rijndaelManaged = new RijndaelManaged
+			{
+				Mode = CipherMode.ECB
+			};
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020 = new byte[_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020];
+			byte[] bytes = rfc2898DeriveBytes.GetBytes(_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020);
+			byte[] bytes2 = rfc2898DeriveBytes.GetBytes(_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020);
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A = rijndaelManaged.CreateEncryptor(bytes, bytes2);
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A = rfc2898DeriveBytes.GetBytes(2);
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020 = new HMACSHA1(bytes2);
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020 = writeMode;
+		}
+
+		public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
+		{
+			if (!_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020)
+			{
+				_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020.TransformBlock(inputBuffer, inputOffset, inputCount, inputBuffer, inputOffset);
+			}
+			for (int i = 0; i < inputCount; i++)
+			{
+				if (_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020 == 16)
+				{
+					int num = 0;
+					while (++_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020[num] == 0)
+					{
+						num++;
+					}
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A.TransformBlock(_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020, 0, _0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020, _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A, 0);
+					_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020 = 0;
+				}
+				outputBuffer[i + outputOffset] = (byte)(inputBuffer[i + inputOffset] ^ _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A[_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020++]);
+			}
+			if (_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020)
+			{
+				_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020.TransformBlock(outputBuffer, outputOffset, inputCount, outputBuffer, outputOffset);
+			}
+			return inputCount;
+		}
+
+		public byte[] GetAuthCode()
+		{
+			if (!_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A)
+			{
+				byte[] inputBuffer = new byte[0];
+				_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020.TransformFinalBlock(inputBuffer, 0, 0);
+				_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A = true;
+			}
+			return _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020.Hash;
+		}
+
+		public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
+		{
+			throw new NotImplementedException("ZipAESTransform.TransformFinalBlock");
+		}
+
+		public void Dispose()
+		{
+			_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A.Dispose();
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A
+	{
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020(_0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A _0020, RapackInfo _0020_000A, float _0020_0020, short _0020_000A_000A)
+		{
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_000A
+	{
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020()
+		{
+			return null;
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A
+	{
+		internal unsafe string _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020()
+		{
+			bool flag = ((ImageInfo)null)._0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A;
+			((_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A<_0020_000A>(ref *(Dictionary<int, _0020_000A>*)null);
+			return "423699959";
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A
+	{
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020(FloatingPointType _0020, short _0020_000A)
+		{
+			((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A = null;
+			_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A I_0 = ((_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020)null)._0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020;
+			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020((Il2CppType)null, (Il2CppGenericContext)null);
+			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A_0020();
+			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A)null).Reset();
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A
+	{
+		internal void _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020()
+		{
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A_000A
+	{
+		internal object _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020(Rectangle _0020)
+		{
+			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020();
+			int freeWindowSpace = ((_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A)null).FreeWindowSpace;
+			((_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A)null)._0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A();
+			return null;
+		}
+	}
+}

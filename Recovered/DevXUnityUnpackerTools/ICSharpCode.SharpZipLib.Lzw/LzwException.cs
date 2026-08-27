@@ -1,0 +1,28 @@
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace ICSharpCode.SharpZipLib.Lzw
+{
+	[Serializable]
+	internal class LzwException : SharpZipBaseException
+	{
+		internal LzwException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+
+		public LzwException()
+		{
+		}
+
+		public LzwException(string message)
+			: base(message)
+		{
+		}
+
+		public LzwException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+	}
+}

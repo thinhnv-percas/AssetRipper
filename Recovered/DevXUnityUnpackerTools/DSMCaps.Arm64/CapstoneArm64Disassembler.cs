@@ -7,7 +7,7 @@
 		{
 		}
 
-		internal protected override Arm64Instruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal override Arm64Instruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return Arm64Instruction.Create(this, hInstruction);
 		}

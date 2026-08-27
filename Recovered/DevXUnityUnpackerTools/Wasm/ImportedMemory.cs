@@ -23,12 +23,12 @@ namespace Wasm
 			Memory = memory;
 		}
 
-		protected override void DumpContents(TextWriter writer)
+		internal override void DumpContents(TextWriter writer)
 		{
 			Memory.Dump(writer);
 		}
 
-		protected override void WriteContentsTo(BinaryWasmWriter writer)
+		internal override void WriteContentsTo(BinaryWasmWriter writer)
 		{
 			Memory.WriteTo(writer);
 		}

@@ -46,8 +46,16 @@ internal class ILSpyCmdProgram
 	[Option("-r|--referencepath <path>", ".", CommandOptionType.MultipleValue)]
 	public string[] ReferencePaths { get; } = new string[0];
 
+	[Option("-s|--skipfile <path>", "Newline-separated list of output file keys (from _wpd_progress.log) to skip instead of decompiling, for -p runs. See ROADMAP.md P1a.", CommandOptionType.SingleValue)]
+	public string SkipFile { get; }
+
 	public static int Main(string[] args)
 	{
+		// This is an unattended CLI tool: a failed Debug.Assert/Trace.Assert must never pop up
+		// DefaultTraceListener's modal "Assertion Failed" dialog, which blocks the process
+		// forever waiting for a human to click Abort/Retry/Ignore. Debug.Listeners and
+		// Trace.Listeners are the same underlying collection, so clearing this one covers both.
+		System.Diagnostics.Trace.Listeners.Clear();
 		return CommandLineApplication.Execute<ILSpyCmdProgram>(args);
 	}
 
@@ -59,7 +67,7 @@ internal class ILSpyCmdProgram
 		{
 			if (CreateCompilableProjectFlag)
 			{
-				DecompileAsProject(InputAssemblyName, OutputDirectory, ReferencePaths);
+				DecompileAsProject(InputAssemblyName, OutputDirectory, ReferencePaths, SkipFile);
 			}
 			else if (EntityTypes.Any())
 			{
@@ -158,7 +166,7 @@ internal class ILSpyCmdProgram
 		output.WriteLine(textOutput.ToString());
 	}
 
-	private static void DecompileAsProject(string assemblyFileName, string outputDirectory, string[] referencePaths)
+	private static void DecompileAsProject(string assemblyFileName, string outputDirectory, string[] referencePaths, string skipFile)
 	{
 		WholeProjectDecompiler wholeProjectDecompiler = new WholeProjectDecompiler();
 		PEFile pEFile = new PEFile(assemblyFileName);
@@ -168,6 +176,10 @@ internal class ILSpyCmdProgram
 			universalAssemblyResolver.AddSearchDirectory(directory);
 		}
 		wholeProjectDecompiler.AssemblyResolver = universalAssemblyResolver;
+		if (!string.IsNullOrEmpty(skipFile) && File.Exists(skipFile))
+		{
+			wholeProjectDecompiler.SkipGroupKeys = new HashSet<string>(File.ReadAllLines(skipFile), StringComparer.OrdinalIgnoreCase);
+		}
 		wholeProjectDecompiler.DecompileProject(pEFile, outputDirectory);
 	}
 

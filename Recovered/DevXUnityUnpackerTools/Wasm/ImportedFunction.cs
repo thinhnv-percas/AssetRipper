@@ -23,12 +23,12 @@ namespace Wasm
 			TypeIndex = typeIndex;
 		}
 
-		protected override void DumpContents(TextWriter writer)
+		internal override void DumpContents(TextWriter writer)
 		{
 			writer.Write("type #{0}", TypeIndex);
 		}
 
-		protected override void WriteContentsTo(BinaryWasmWriter writer)
+		internal override void WriteContentsTo(BinaryWasmWriter writer)
 		{
 			writer.WriteVarUInt32(TypeIndex);
 		}

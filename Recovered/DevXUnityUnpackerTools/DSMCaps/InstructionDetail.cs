@@ -110,7 +110,7 @@ namespace DSMCaps
 
 		public bool IsDietModeEnabled => CapstoneDisassembler.IsDietModeEnabled;
 
-		internal protected InstructionDetail(InstructionDetailBuilder<TSelf, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> builder)
+		internal InstructionDetail(InstructionDetailBuilder<TSelf, TDisassembleMode, TGroup, TGroupId, TInstruction, TInstructionId, TRegister, TRegisterId> builder)
 		{
 			_allReadRegisters = builder.AllReadRegisters;
 			_allWrittenRegisters = builder.AllWrittenRegisters;

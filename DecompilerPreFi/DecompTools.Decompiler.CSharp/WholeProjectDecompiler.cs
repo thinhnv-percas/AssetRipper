@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -71,6 +72,18 @@ public class WholeProjectDecompiler
 	public Guid? ProjectGuid { get; set; }
 
 	public int MaxDegreeOfParallelism { get; set; } = Environment.ProcessorCount;
+
+	/// <summary>
+	/// Output file paths (the same keys logged as "BEGIN"/"FAIL" by <see cref="DecompileGroupWithLargeStack"/>,
+	/// e.g. "BrotliSharpLib\Brotli.cs") to skip entirely rather than attempt to decompile.
+	/// A group in this set is written as an empty placeholder instead. Some obfuscated methods are
+	/// large/deep enough that even a large dedicated stack still overflows, which kills the whole
+	/// process with no catchable exception (see ROADMAP.md P1a) — the only way to keep such a group
+	/// from taking down an entire run is to know in advance not to attempt it. A caller discovers
+	/// the offending keys by retrying a crashed run and reading the resulting "_wpd_progress.log"
+	/// for entries with a "BEGIN" but no matching "END"/"FAIL".
+	/// </summary>
+	public HashSet<string> SkipGroupKeys { get; set; }
 
 	public void DecompileProject(PEFile moduleDefinition, string targetDirectory, CancellationToken cancellationToken = default(CancellationToken))
 	{
@@ -313,19 +326,80 @@ public class WholeProjectDecompiler
 			return Path.Combine(text2, text);
 		}, (IEqualityComparer<string>)StringComparer.OrdinalIgnoreCase));
 		DecompilerTypeSystem ts = new DecompilerTypeSystem(module, AssemblyResolver, settings);
+		ConcurrentBag<string> failedGroups = new ConcurrentBag<string>();
 		Parallel.ForEach<IGrouping<string, TypeDefinitionHandle>>((IEnumerable<IGrouping<string, TypeDefinitionHandle>>)list, new ParallelOptions
 		{
 			MaxDegreeOfParallelism = MaxDegreeOfParallelism,
 			CancellationToken = cancellationToken
 		}, (Action<IGrouping<string, TypeDefinitionHandle>>)delegate(IGrouping<string, TypeDefinitionHandle> file)
 		{
-			using StreamWriter textWriter = new StreamWriter(Path.Combine(targetDirectory, file.Key));
-			CSharpDecompiler cSharpDecompiler = CreateDecompiler(ts);
-			cSharpDecompiler.CancellationToken = cancellationToken;
-			SyntaxTree syntaxTree = cSharpDecompiler.DecompileTypes(Enumerable.ToArray<TypeDefinitionHandle>((IEnumerable<TypeDefinitionHandle>)file));
-			syntaxTree.AcceptVisitor(new CSharpOutputVisitor(textWriter, settings.CSharpFormattingOptions));
+			DecompileGroupWithLargeStack(file, ts, cancellationToken, failedGroups);
 		});
+		if (!failedGroups.IsEmpty)
+		{
+			Console.Error.WriteLine($"[WholeProjectDecompiler] {failedGroups.Count} of {list.Count} output file(s) failed to decompile and were left empty: {string.Join(", ", failedGroups)}");
+			Console.Error.Flush();
+		}
 		return Enumerable.Concat<Tuple<string, string>>(Enumerable.Select<IGrouping<string, TypeDefinitionHandle>, Tuple<string, string>>((IEnumerable<IGrouping<string, TypeDefinitionHandle>>)list, (Func<IGrouping<string, TypeDefinitionHandle>, Tuple<string, string>>)((IGrouping<string, TypeDefinitionHandle> f) => Tuple.Create("Compile", f.Key))), WriteAssemblyInfo(ts, cancellationToken));
+	}
+
+	private static readonly object progressLogLock = new object();
+
+	private void LogProgress(string message)
+	{
+		lock (progressLogLock)
+		{
+			File.AppendAllText(Path.Combine(targetDirectory, "_wpd_progress.log"), message + Environment.NewLine);
+		}
+	}
+
+	/// <summary>
+	/// Decompiles and writes one output file (one namespace's worth of top-level types) on a
+	/// dedicated thread with a large stack. The default 1 MB thread-pool stack is not always
+	/// enough for the AST visitors to walk a single huge/deeply-nested obfuscated method
+	/// (observed on a 93k-line type), and that overflow is a StackOverflowException, which
+	/// .NET cannot catch and which kills the whole process instantly with no diagnostic
+	/// output — the "0-byte .csproj, no error" failure mode this works around. Any other,
+	/// catchable exception is logged and the group is skipped instead of aborting the run.
+	/// </summary>
+	private void DecompileGroupWithLargeStack(IGrouping<string, TypeDefinitionHandle> file, DecompilerTypeSystem ts, CancellationToken cancellationToken, ConcurrentBag<string> failedGroups)
+	{
+		if (SkipGroupKeys != null && SkipGroupKeys.Contains(file.Key))
+		{
+			File.WriteAllText(Path.Combine(targetDirectory, file.Key), "// decompilation skipped: this output crashed the decompiler process (see ROADMAP.md P1a); recover it with dnSpy's per-type dump instead." + Environment.NewLine);
+			LogProgress("SKIP " + file.Key);
+			return;
+		}
+		LogProgress("BEGIN " + file.Key);
+		Exception failure = null;
+		Thread thread = new Thread(delegate()
+		{
+			try
+			{
+				using StreamWriter textWriter = new StreamWriter(Path.Combine(targetDirectory, file.Key));
+				CSharpDecompiler cSharpDecompiler = CreateDecompiler(ts);
+				cSharpDecompiler.CancellationToken = cancellationToken;
+				SyntaxTree syntaxTree = cSharpDecompiler.DecompileTypes(Enumerable.ToArray<TypeDefinitionHandle>((IEnumerable<TypeDefinitionHandle>)file));
+				syntaxTree.AcceptVisitor(new CSharpOutputVisitor(textWriter, settings.CSharpFormattingOptions));
+			}
+			catch (Exception ex)
+			{
+				failure = ex;
+			}
+		}, 256 * 1024 * 1024);
+		thread.Start();
+		thread.Join();
+		if (failure != null)
+		{
+			failedGroups.Add(file.Key);
+			Console.Error.WriteLine($"[WholeProjectDecompiler] '{file.Key}' ({Enumerable.Count<TypeDefinitionHandle>((IEnumerable<TypeDefinitionHandle>)file)} type(s)): {failure}");
+			Console.Error.Flush();
+			LogProgress("FAIL " + file.Key);
+		}
+		else
+		{
+			LogProgress("END " + file.Key);
+		}
 	}
 
 	protected virtual IEnumerable<Tuple<string, string>> WriteResourceFilesInProject(PEFile module)

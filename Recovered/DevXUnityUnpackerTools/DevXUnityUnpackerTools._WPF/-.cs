@@ -1,0 +1,55 @@
+﻿using @as;
+using DSMCaps.Arm64;
+using DSMCaps.XCore;
+using PropertyGridEx;
+
+namespace DevXUnityUnpackerTools._WPF
+{
+	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A
+	{
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as unbound generic syntax `<>`/`<,>`).
+	}
+	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A
+	{
+		internal string _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020()
+		{
+			HighDpiHelper.AdjustControlImagesDpiScale(null);
+			return "1195242896";
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A
+	{
+		internal string _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020()
+		{
+			XCoreRegister xCoreRegister = ((XCoreMemoryOperandValue)null)._0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A;
+			Arm64IcOperation icOperation = ((Arm64Operand)null).IcOperation;
+			MaybeAlertManager._0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020();
+			MaybeAlertManager._0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A(null);
+			return "659233440";
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A
+	{
+		internal object _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020()
+		{
+			((_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020();
+			return null;
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A
+	{
+		internal string _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020(ImageData _0020)
+		{
+			return "969733067";
+		}
+	}
+	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A
+	{
+		internal object _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_0020(ImageResData _0020)
+		{
+			bool showCustomPropertiesSet = ((PropertyGridEx.PropertyGridEx)null).ShowCustomPropertiesSet;
+			bool flag = ((_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020)null)._0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A;
+			return null;
+		}
+	}
+}

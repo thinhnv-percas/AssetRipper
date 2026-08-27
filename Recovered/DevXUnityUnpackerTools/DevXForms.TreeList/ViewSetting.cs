@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 namespace DevXForms.TreeList
 {
-	[TypeConverter(typeof(OptionsSettingTypeConverter))]
 	public class ViewSetting
 	{
 		internal MultiSelectTreeView2 _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020;

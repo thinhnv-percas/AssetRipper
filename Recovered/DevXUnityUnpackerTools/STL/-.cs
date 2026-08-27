@@ -1,4 +1,4 @@
-﻿using @as;
+using @as;
 using DevXUnityUnpackerTools._WinForm;
 using ICSharpCode.SharpZipLib.Zip;
 using MiniLZO;
@@ -17,7 +17,7 @@ using Wasm.Interpret;
 
 namespace STL
 {
-	internal static class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020
+	internal class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020
 	{
 		[CompilerGenerated]
 		internal sealed class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020
@@ -55,36 +55,36 @@ namespace STL
 			}
 		}
 
-		public static void Shift(this IEnumerable<_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020> facets, float x, float y, float z)
+		public static void Shift(IEnumerable<_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020> facets, float x, float y, float z)
 		{
 			facets.Shift(new _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A(x, y, z));
 		}
 
-		public static void Shift(this IEnumerable<_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020> facets, _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A shift)
+		public static void Shift(IEnumerable<_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020> facets, _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A shift)
 		{
 			_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020 _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020 = new _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020();
 			_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020._0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A = shift;
 			facets.ForEach(_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A);
 		}
 
-		public static void Shift(this IEnumerable<_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A> vertices, float x, float y, float z)
+		public static void Shift(IEnumerable<_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A> vertices, float x, float y, float z)
 		{
 			vertices.Shift(new _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A(x, y, z));
 		}
 
-		public static void Shift(this IEnumerable<_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A> vertices, _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A shift)
+		public static void Shift(IEnumerable<_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A> vertices, _0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A shift)
 		{
 			_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A = new _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A();
 			_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A._0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A = shift;
 			vertices.ForEach(_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A);
 		}
 
-		public static void Invert(this IEnumerable<_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020> facets)
+		public static void Invert(IEnumerable<_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020> facets)
 		{
 			facets.ForEach(_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020);
 		}
 
-		public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
+		public static void ForEach<T>(IEnumerable<T> items, Action<T> action)
 		{
 			if (items != null)
 			{
@@ -95,7 +95,7 @@ namespace STL
 			}
 		}
 
-		public static bool All<T>(this IEnumerable<T> items, Func<int, T, bool> predicate)
+		public static bool All<T>(IEnumerable<T> items, Func<int, T, bool> predicate)
 		{
 			if (items != null)
 			{
@@ -112,17 +112,17 @@ namespace STL
 			return true;
 		}
 
-		public static bool IsNullOrEmpty(this string value)
+		public static bool IsNullOrEmpty(string value)
 		{
 			return string.IsNullOrEmpty(value);
 		}
 
-		public static string Interpolate(this string format, params object[] args)
+		public static string Interpolate(string format, params object[] args)
 		{
 			return format.Interpolate(CultureInfo.InvariantCulture, args);
 		}
 
-		public static string Interpolate(this string format, CultureInfo culture, params object[] args)
+		public static string Interpolate(string format, CultureInfo culture, params object[] args)
 		{
 			if (format != null)
 			{

@@ -6,7 +6,6 @@ using System.Drawing;
 namespace DevXForms
 {
 	[DesignTimeVisible(false)]
-	[TypeConverter(typeof(ColumnConverter))]
 	public class TreeListColumn
 	{
 		internal TextFormatting _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A = new TextFormatting();

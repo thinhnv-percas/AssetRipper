@@ -1,4 +1,4 @@
-﻿using APK;
+using APK;
 using ARMD;
 using @as;
 using DevXUnityUnpackerTools.Properties;
@@ -14,19 +14,19 @@ using Wasm.Interpret;
 
 namespace Unity.CecilTools.Extensions
 {
-	internal static class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020
+	internal class _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020
 	{
-		public static bool SameAs(this MethodDefinition self, MethodDefinition other)
+		public static bool SameAs(MethodDefinition self, MethodDefinition other)
 		{
 			return self.FullName == other.FullName;
 		}
 
-		public static string PropertyName(this MethodDefinition self)
+		public static string PropertyName(MethodDefinition self)
 		{
 			return self.Name.Substring(4);
 		}
 
-		public static bool IsConversionOperator(this MethodDefinition method)
+		public static bool IsConversionOperator(MethodDefinition method)
 		{
 			if (!method.IsSpecialName)
 			{
@@ -39,7 +39,7 @@ namespace Unity.CecilTools.Extensions
 			return true;
 		}
 
-		public static bool IsSimpleSetter(this MethodDefinition original)
+		public static bool IsSimpleSetter(MethodDefinition original)
 		{
 			if (original.IsSetter)
 			{
@@ -48,7 +48,7 @@ namespace Unity.CecilTools.Extensions
 			return false;
 		}
 
-		public static bool IsSimpleGetter(this MethodDefinition original)
+		public static bool IsSimpleGetter(MethodDefinition original)
 		{
 			if (original.IsGetter)
 			{
@@ -57,7 +57,7 @@ namespace Unity.CecilTools.Extensions
 			return false;
 		}
 
-		public static bool IsSimplePropertyAccessor(this MethodDefinition method)
+		public static bool IsSimplePropertyAccessor(MethodDefinition method)
 		{
 			if (!method.IsSimpleGetter())
 			{

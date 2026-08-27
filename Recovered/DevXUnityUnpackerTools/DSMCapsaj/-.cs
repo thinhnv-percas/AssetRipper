@@ -1,4 +1,4 @@
-﻿using DSMCaps.PowerPc;
+using DSMCaps.PowerPc;
 using Unity.CecilTools.Extensionsid;
 using Unreal;
 using Wasm.Interpret;
@@ -7,14 +7,6 @@ namespace DSMCapsaj
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A
 	{
-		internal string _0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020(TrapException _0020, object _0020_000A)
-		{
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A((string)null);
-			_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A._0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020(null);
-			PowerPcInstruction.Create(null, null);
-			((_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A)null)._0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020((_00216[])null);
-			OperatorImpls.Int64Sub(null, null);
-			return "1376878347";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

@@ -1,0 +1,14 @@
+﻿using ICSharpCode.SharpZipLib.Encryption;
+using ICSharpCode.SharpZipLib.Tar;
+
+namespace PropertyGridExxg
+{
+	internal class _0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A
+	{
+		internal object _0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020(string _0020, _0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020 _0020_000A)
+		{
+			int recordSize = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020)null).RecordSize;
+			return null;
+		}
+	}
+}

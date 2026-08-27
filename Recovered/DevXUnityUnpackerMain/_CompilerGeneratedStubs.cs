@@ -25,14 +25,25 @@ internal static class _ExtensionHost
 	}
 }
 
-// The real entry point is [STAThread] _0020_000A_..._000A() on the obfuscated
-// class below (-.cs:931). C# requires the entry point to be literally named
-// `Main`, so this forwards to it. Referenced by <StartupObject> in the csproj.
+// The real entry point used to be [STAThread] _0020_000A_..._000A() on the
+// obfuscated class below (-.cs:931), which -- after skipping decoy/debug-log
+// branches never taken outside a debugger -- resolves and invokes
+// DevXUnityUnpackerTools through three more CJK-permutation dispatcher hops
+// (空記草 -> 記草空 -> 草記空, see FINDINGS.md §5) ending in a CSharpCodeProvider
+// runtime-compiled loader shim that hash-resolves and decrypts the
+// DevXUnityUnpackerTools sidecar file. ROADMAP.md P7b replaces all of that
+// with a direct call into the now-decompiled Tools entry point; the original
+// chain is left in place, unused, as the only buildable record of that
+// obfuscation layer (same treatment as Memrestore/DeCompess in
+// DevXUnityUnpackerRun/Program.cs for P7a).
 internal static class Program
 {
 	[System.STAThread]
 	internal static void Main()
 	{
-		_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A();
+		// The bypassed chain called these two before ever reaching Tools.
+		System.Windows.Forms.Application.EnableVisualStyles();
+		System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+		new 例子子().子子例();
 	}
 }

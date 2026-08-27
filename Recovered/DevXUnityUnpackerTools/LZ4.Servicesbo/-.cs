@@ -1,4 +1,4 @@
-﻿using DevXUnityUnpackerTools._WinFormyv;
+using DevXUnityUnpackerTools._WinFormyv;
 using Unity.SerializationLogicoy;
 using Xxteamw;
 
@@ -6,13 +6,6 @@ namespace LZ4.Servicesbo
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A
 	{
-		internal unsafe object _0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020(uint _0020, uint _0020_000A, byte* _0020_0020, int _0020_000A_000A, int _0020_000A_0020, int _0020_0020_000A, int _0020_0020_0020, int _0020_000A_000A_000A)
-		{
-			((CodeWriter)null).WriteCommentedLine((string)null);
-			((_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A)null)._0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020((string)null);
-			((_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A)null)._0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020();
-			((_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020((_00216[])null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

@@ -2,5 +2,8 @@
   <PropertyGroup>
     <AssemblyName>System.Threading.Tasks.Dataflow</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 </Project>

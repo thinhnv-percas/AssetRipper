@@ -46,11 +46,18 @@ dotnet build Recovered/<Name>/<Name>.csproj
 | ICSharpCode.NRefactory.CSharp | 294 | **0** |
 | ICSharpCode.Decompiler | 562 | **0** |
 | DevXUnityUnpackerMain | 4034 | **0** |
-| DevXUnityUnpackerTools | ~4000 | 407 |
+| DevXUnityUnpackerTools | ~4000 → 407 → 183 | **1** |
 
-`DevXUnityUnpackerTools` is the one that does not finish, because the decompiler
-emits only 10009 of its 10347 top-level types. See
-[FINDINGS.md §6](FINDINGS.md).
+`DevXUnityUnpackerTools` used to stall at 407 errors because the decompiler
+silently emitted only 10009 of its 10347 top-level types. Root cause and fix
+are in [ROADMAP.md §P1](ROADMAP.md); background in
+[FINDINGS.md §6](FINDINGS.md). A second, independent merge pass during
+ROADMAP.md P7b found the "0 errors" above didn't actually hold (183, from
+several more silently-empty files plus a real cross-fork Mono.Cecil
+ambiguity) — now down to 1, isolated to a single Roslyn quirk described in
+P7b. `BrotliSharpLib.Brotli` (93k obfuscated lines), previously a
+placeholder because ILSpy's AST transforms never finish on it, has since
+been re-decompiled with dnSpy's per-type dump — see FINDINGS.md §8.
 
 ---
 
@@ -60,7 +67,7 @@ emits only 10009 of its 10347 top-level types. See
 |---|---|
 | `dnSpy.Console/bin/Debug/net471/dnSpy.Console.exe` | dnSpy CLI decompiler. Working — decompiles a DLL to a project. |
 | `DecompilerFi/bin/Debug/net472/DecompilerFi.exe` | ILSpy CLI decompiler (`ilspycmd`). Working. |
-| `DevXUnityUnpackerRun/bin/Debug/net40/DevXUnityUnpackerRun.exe` | The loader stub. Builds. Launching it was not tested: it resolves its payload via `Application.StartupPath`, so `0000000000` and every sidecar file would have to sit next to the built exe, not in the project folder. |
+| `DevXUnityUnpackerRun/bin/Debug/net472/DevXUnityUnpackerRun.exe` | The loader stub. As of [ROADMAP.md §P7a](ROADMAP.md) it loads `DevXUnityUnpackerMain` via a direct `ProjectReference` (`Assembly.LoadFrom` + `EntryPoint.Invoke`), not the `0000000000` payload — that file is no longer needed here. `DevXUnityUnpackerMain` still resolves `DevXUnityUnpackerTools` and its other dependencies through the original hash-cipher/runtime-compile chain (P7b, not yet merged), so every sidecar file and the plain supporting DLLs/data listed in [ROADMAP.md §P3](ROADMAP.md) still need to sit next to the built exe. **Confirmed working end-to-end** with those files copied from `DevXCrack_1.0.9/`: shows the real application window. |
 
 ---
 
@@ -163,6 +170,14 @@ Handled by `tools/fixdecompiled.py textual`:
   loads reflectively at runtime. Without it the tool builds but fails with
   "No languages were found".
 * `HelixToolkit.csproj` had no `<TargetFramework>` at all; added net40.
+* `System.Threading.Tasks.Dataflow.csproj` had no `<TargetFramework>` or
+  `<LangVersion>` either (so it wasn't in `Decompiled.sln` and didn't build);
+  added net472 / `latest` to match the rest of the repo.
+* `Microsoft.VisualStudio.Composition.csproj` and `HelixToolkit.Wpf.csproj`
+  referenced `System.Threading.Tasks.Dataflow.dll` / `HelixToolkit.dll` via a
+  `<Reference HintPath="..\..\DevXCrack_1.0.9 (1)\...">` pointing outside this
+  repo — a leftover from wherever this was first decompiled. Replaced both with
+  `<ProjectReference>`s to the projects already in this repo.
 * Unified target frameworks — net472 for the .NET Framework chain,
   netstandard2.0 for the portable libraries.
 
@@ -183,6 +198,4 @@ Handled by `tools/fixdecompiled.py textual`:
 * `DevXUnityScriptManager` was originally built against a much older Unity. It
   now compiles against Unity 2022.3, but the API adaptation was done to satisfy
   the compiler — the editor UI is not functionally verified.
-* `DevXUnityUnpackerTools` still has 407 errors, and the cause is missing
-  decompiler output rather than anything fixable in the source.
 * ~605 build warnings remain, mostly unused fields from obfuscated code.

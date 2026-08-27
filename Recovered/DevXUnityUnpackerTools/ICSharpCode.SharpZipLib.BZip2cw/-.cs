@@ -1,13 +1,9 @@
-﻿using LZ4xe;
+using LZ4xe;
 
 namespace ICSharpCode.SharpZipLib.BZip2cw
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A
 	{
-		internal unsafe object _0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020()
-		{
-			((_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_000A)null)._0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020(ref *(_0021_00210[]*)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

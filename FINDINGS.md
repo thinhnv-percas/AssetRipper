@@ -233,25 +233,52 @@ differently, and neither is a clear winner.
 | project file | legacy ToolsVersion 4.0, sometimes .NETPortable Profile344 | legacy, usable |
 | `DevXUnityUnpackerMain` | 4034 errors | 469 errors |
 | `ICSharpCode.Decompiler` | 281 errors | 2 errors (once refs are wired) |
-| large obfuscated assembly | completes | **drops types silently** |
+| large obfuscated assembly | completes | hung on an unattended assert dialog — fixed, see below |
 
 ILSpy's `_0020_` identifier style and its `-.cs` catch-all file match the sources
 already in this repo, so the original decompile of this project was done with
 this same ILSpy fork.
 
-### ILSpy drops types without saying so
+### ILSpy drops types without saying so — root cause found and fixed
 
-On the 20 MB `DevXUnityUnpackerTools` it emits **10009 of 10347 top-level types
-(96.7%)** and stays silent. The 338 missing ones cluster in `Unreal` (148) and
-several `ICSharpCode.SharpZipLib.*` namespaces. The only signal that the run did
-not finish is a **0-byte `.csproj`** — no error, no non-zero exit code.
+On the 20 MB `DevXUnityUnpackerTools` it used to emit only **10009 of 10347
+top-level types (96.7%)**, and stayed silent. The 338 missing ones clustered in
+`Unreal` (148) and several `ICSharpCode.SharpZipLib.*` namespaces. The only
+signal that the run had not finished was a **0-byte `.csproj`** — no error, no
+non-zero exit code.
 
-dnSpy can dump the missing types individually (`--md <token>`). Doing that for
-`BrotliSharpLib` — 8 types, one of them 93k lines, which is presumably what
-choked ILSpy — removed 561 errors. Folding in all 338 the same way was tried and
-reverted: per-type dumps are not self-contained, and two cases have no clean
-answer (types in the global namespace, and a namespace literally called `as`,
-which is a C# keyword).
+The cause: `WholeProjectDecompiler.WriteCodeFilesInProject` decompiles each
+output file inside a `Parallel.ForEach` with no `try`/`catch` anywhere in it.
+Somewhere in the IL reader or transform pipeline (`ILReader.CreateILVariable`,
+`ReduceNestingTransform`, ...), the obfuscated input trips a
+`System.Diagnostics.Debug.Assert`. In a Debug build that pops a modal
+`DefaultTraceListener` dialog — *"Assertion Failed: Abort=Quit, Retry=Debug,
+Ignore=Continue"* — and blocks that thread forever. There was no exception to
+swallow; there was a human-shaped hole in an unattended pipeline. This also
+explains why the original decompile that produced 10009/10347 wasn't a clean
+failure: someone was presumably present clicking through these dialogs, and
+whichever groups hit the assert ended up missing or corrupted depending on
+timing, while a fully unattended run just hangs.
+
+Fixed in `DecompilerFi`/`DecompilerPreFi` (see [ROADMAP.md §P1](ROADMAP.md) for
+the full writeup): `ILSpyCmdProgram.Main` now clears `Trace.Listeners` before
+anything else runs, so a failed assert can never show UI. The per-file decompile
+also now runs on a dedicated large-stack thread with the exception caught and
+logged per file instead of aborting the whole `Parallel.ForEach`, plus a
+skip-list for the rare file that's provably not worth waiting on (see below).
+Re-running the fixed tool recovered all but one of the 338 missing types
+without needing dnSpy at all, and took `DevXUnityUnpackerTools` from 407 build
+errors to 0.
+
+The one holdout is `BrotliSharpLib.Brotli` (93k obfuscated lines, previously
+suspected as "presumably what choked ILSpy" — correctly, just not for the
+reason assumed). Isolated with `-t BrotliSharpLib.Brotli`, it neither crashes
+nor asserts; it just doesn't finish in 240+ seconds single-threaded. That's a
+real algorithmic limit in ILSpy's AST transforms on pathological input, not
+something a stack size or an exception handler fixes. dnSpy can still dump it
+directly (`--md <token>`) — that combination (8 types, one of them this
+93k-line one) already removed 561 errors when tried before, so the fallback
+below remains valid for this one type.
 
 ### A real bug in the rebuilt ILSpy
 
@@ -310,6 +337,7 @@ the missing `ProjectReference` entries took `ICSharpCode.NRefactory.CSharp` from
 | `tools/sdkify.py` | convert dnSpy/ILSpy legacy `.csproj` output to SDK-style net472 |
 | `tools/fixdecompiled.py` | apply the recurring decompiler-artifact repairs, textual and error-log driven |
 | `tools/unescape_ids.py` | convert dnSpy `\uXXXX` identifier escapes to `_XXXX`, skipping string and char literals and comments |
+| `DecompilerFi.exe` (`-p`) | the ILSpy-based project decompiler itself. No longer hangs on an obfuscation-tripped assert (see §6); `-s <file>` skips specific output files (one group key per line, e.g. `BrotliSharpLib\Brotli.cs`) instead of decompiling them, and every run writes `_wpd_progress.log` (`BEGIN`/`END`/`FAIL` per output file) to the output directory. |
 
 ```
 python tools/payload.py  info      0000000000
@@ -322,18 +350,35 @@ python tools/sidecar.py  unpackall DevXUnityUnpackerRun out/
 python tools/sdkify.py        --all Recovered
 python tools/unescape_ids.py  --check <dir>                    # report, change nothing
 python tools/fixdecompiled.py all <dir> <build-log>
+
+DecompilerFi.exe <asm.dll> -p -o <outdir> -r <refdir>           # decompile as project
+DecompilerFi.exe <asm.dll> -p -o <outdir> -r <refdir> -s skip.txt  # ...skipping known-bad files
 ```
 
 ---
 
 ## 8. Open items
 
-* **338 types (3.3%) of `DevXUnityUnpackerTools` are still missing** from the
-  decompiled sources, leaving that one project at 407 errors. The workable next
-  step is extracting them **per namespace** rather than per type, with special
-  handling for the global namespace and the `as` namespace.
+* ~~One type, `BrotliSharpLib.Brotli`, is still a placeholder~~ **Fixed** —
+  re-decompiled with dnSpy's per-type dump (`--md <token>`) during
+  ROADMAP.md P7b, after ILSpy's `-t`/type-name path was reconfirmed to hang
+  indefinitely on it. The dump needed `tools/unescape_ids.py` (dnSpy's raw
+  `\uXXXX` escapes → this codebase's `_XXXX` form) plus a handful of
+  mechanical fixes for decompiler-rendering quirks specific to this type
+  (`*(ref X + offset)` pointer arithmetic where `ref` isn't valid syntax,
+  a stray CLR generic-arity backtick on two method calls, and
+  `[FixedBuffer]` attributes that needed converting to the `fixed` field
+  modifier plus `unsafe` on their containing structs) — see ROADMAP.md P7b
+  for the full list. Confirmed via reflection
+  (`Type.IsAbstract && Type.IsSealed`) that the type really is a C#
+  `static class`, which the old ILSpy placeholder had gotten wrong in
+  addition to being incomplete.
 * **`DevXUnityUnpackerTools_Structures` (`A33D874E`) is absent** from the folder
   and has no substitute in this repo.
+* **`HelixToolkit.Wpf` likely has the same missing-type bug** `DevXUnityUnpackerTools`
+  had (`SplitOnWhitespace` is called but never defined anywhere in the repo) —
+  it was decompiled before the fix in §6 existed. Not re-decompiled yet; see
+  ROADMAP.md.
 * The recovered assemblies stay obfuscated. Unpacking undoes the packing only —
   a decompiler gets you compilable source, not readable source.
 * Rebuilt assemblies are **unsigned**; anything checking strong names at runtime

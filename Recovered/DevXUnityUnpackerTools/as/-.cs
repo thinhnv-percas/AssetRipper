@@ -1,4 +1,4 @@
-﻿using APK;
+using APK;
 using BrotliSharpLib;
 using DevX.Cecil;
 using DevXForms;
@@ -32,7 +32,6 @@ using System.Xml;
 using Unity.IO.Compression;
 using Wasm.Instructions;
 using XmlBin;
-using XmlBin2;
 using XnaGeometry;
 
 namespace @as
@@ -12758,7 +12757,7 @@ namespace @as
 			_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020 = version;
 		}
 
-		protected override void Export(BinaryReader reader, TextWriter writer)
+		internal override void Export(BinaryReader reader, TextWriter writer)
 		{
 			TextWriter textWriter = new StringWriter();
 			while (reader.BaseStream.Position != reader.BaseStream.Length)
@@ -12802,7 +12801,7 @@ namespace @as
 			_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A = "";
 		}
 
-		protected override void Export(BinaryReader reader, TextWriter writer)
+		internal override void Export(BinaryReader reader, TextWriter writer)
 		{
 			if (_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020._0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020(_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020))
 			{
@@ -35694,9 +35693,9 @@ namespace @as
 			throw new NotSupportedException($"Unsupported gpu program type {_this} [{platform}, {type}]");
 		}
 	}
-	internal static class _0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A
+	internal class _0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A
 	{
-		public static string ToProgramTypeString(this ShaderType _this)
+		public static string ToProgramTypeString(ShaderType _this)
 		{
 			switch (_this)
 			{
@@ -35715,7 +35714,7 @@ namespace @as
 			}
 		}
 
-		public static string ToXampString(this ShaderType _this)
+		public static string ToXampString(ShaderType _this)
 		{
 			switch (_this)
 			{

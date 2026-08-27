@@ -1,14 +1,9 @@
-﻿using Unity.CecilTools.Extensionsid;
+using Unity.CecilTools.Extensionsid;
 
 namespace zlibsr
 {
 	internal class _0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A
 	{
-		internal string _0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020(decimal _0020, decimal _0020_000A)
-		{
-			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A((object)null);
-			((_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A)null)._0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020((_00216[])null);
-			return "1463521177";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

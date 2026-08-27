@@ -74,7 +74,7 @@ namespace DSMCaps
 			}
 		}
 
-		internal protected Instruction(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TSelf, TId, TRegister, TRegisterId> builder)
+		internal Instruction(InstructionBuilder<TDetail, TDisassembleMode, TGroup, TGroupId, TSelf, TId, TRegister, TRegisterId> builder)
 		{
 			Address = builder.Address;
 			Bytes = builder.Bytes;

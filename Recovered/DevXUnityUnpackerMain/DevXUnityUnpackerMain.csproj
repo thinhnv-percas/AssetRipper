@@ -19,4 +19,9 @@
     <Reference Include="System.Core"><HintPath>C:\WINDOWS\Microsoft.NET\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll</HintPath></Reference>
     <Reference Include="System.Windows.Forms"><HintPath>C:\WINDOWS\Microsoft.NET\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll</HintPath></Reference>
   </ItemGroup>
+  <ItemGroup>
+    <!-- ROADMAP.md P7b: direct reference to the real payload instead of resolving it
+         at runtime through the hash-named/ciphered sidecar files. -->
+    <ProjectReference Include="..\DevXUnityUnpackerTools\DevXUnityUnpackerTools.csproj" />
+  </ItemGroup>
 </Project>

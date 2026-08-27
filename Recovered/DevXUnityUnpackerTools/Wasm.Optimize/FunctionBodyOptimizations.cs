@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Wasm.Optimize
 {
-	public static class FunctionBodyOptimizations
+	public class FunctionBodyOptimizations
 	{
-		public static void CompressLocalEntries(this FunctionBody body)
+		public static void CompressLocalEntries(FunctionBody body)
 		{
 			List<LocalEntry> list = new List<LocalEntry>();
 			LocalEntry item = new LocalEntry(WasmValueType.Int32, 0u);
@@ -30,7 +30,7 @@ namespace Wasm.Optimize
 			body.Locals.AddRange(list);
 		}
 
-		public static void ExpandLocalEntries(this FunctionBody body)
+		public static void ExpandLocalEntries(FunctionBody body)
 		{
 			List<LocalEntry> list = new List<LocalEntry>();
 			for (int i = 0; i < body.Locals.Count; i++)

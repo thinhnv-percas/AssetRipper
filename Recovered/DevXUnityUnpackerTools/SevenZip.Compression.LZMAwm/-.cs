@@ -1,4 +1,4 @@
-﻿using @as;
+using @as;
 using DevXUnityUnpackerTools._WinForm;
 using DSMCaps.Arm;
 using ne;
@@ -9,13 +9,7 @@ namespace SevenZip.Compression.LZMAwm
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A
 	{
-		internal int _0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020(_00216[] _0020)
-		{
-			((_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020((string)null, (string)null);
-			((ImportSettings)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020();
-			((_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020((string)null);
-			return 1981750378;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 	internal class _0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_000A
 	{

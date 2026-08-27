@@ -1,0 +1,16 @@
+﻿using DevXForms;
+using XnaGeometry;
+using zlib;
+
+namespace ICSharpCode.SharpZipLib.Lzwah
+{
+	internal class _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_000A
+	{
+		internal int _0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020(Vector2 _0020)
+		{
+			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A((ZStream)null);
+			((PropertyDialog)null).SelectPage((object)null);
+			return 1905786673;
+		}
+	}
+}

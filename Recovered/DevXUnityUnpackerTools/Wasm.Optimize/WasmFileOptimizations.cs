@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Wasm.Instructions;
 
 namespace Wasm.Optimize
 {
-	public static class WasmFileOptimizations
+	public class WasmFileOptimizations
 	{
-		public static void Optimize(this WasmFile file)
+		public static void Optimize(WasmFile file)
 		{
 			file.CompressFunctionTypes();
 			foreach (Section section in file.Sections)
@@ -17,7 +17,7 @@ namespace Wasm.Optimize
 			}
 		}
 
-		public static void Optimize(this CodeSection section)
+		public static void Optimize(CodeSection section)
 		{
 			PeepholeOptimizer defaultOptimizer = PeepholeOptimizer.DefaultOptimizer;
 			foreach (FunctionBody body in section.Bodies)

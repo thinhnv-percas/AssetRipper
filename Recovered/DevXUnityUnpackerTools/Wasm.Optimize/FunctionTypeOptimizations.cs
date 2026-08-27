@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Wasm.Optimize
 {
-	public static class FunctionTypeOptimizations
+	public class FunctionTypeOptimizations
 	{
 		public static void MakeFunctionTypesDistinct(IEnumerable<FunctionType> types, out IList<FunctionType> newTypes, out IDictionary<uint, uint> typeMapping)
 		{
@@ -27,7 +27,7 @@ namespace Wasm.Optimize
 			typeMapping = dictionary2;
 		}
 
-		public static void RewriteFunctionTypeReferences(this WasmFile file, IDictionary<uint, uint> rewriteMap)
+		public static void RewriteFunctionTypeReferences(WasmFile file, IDictionary<uint, uint> rewriteMap)
 		{
 			IList<ImportSection> sections = file.GetSections<ImportSection>();
 			for (int i = 0; i < sections.Count; i++)
@@ -56,7 +56,7 @@ namespace Wasm.Optimize
 			}
 		}
 
-		public static void CompressFunctionTypes(this WasmFile file)
+		public static void CompressFunctionTypes(WasmFile file)
 		{
 			TypeSection firstSectionOrNull = file.GetFirstSectionOrNull<TypeSection>();
 			if (firstSectionOrNull != null)

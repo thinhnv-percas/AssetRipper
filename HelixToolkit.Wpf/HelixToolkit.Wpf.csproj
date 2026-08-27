@@ -37,8 +37,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="WindowsBase" />
     <Reference Include="System.Xml" />
-    <Reference Include="HelixToolkit">
-      <HintPath>..\..\DevXCrack_1.0.9 (1)\HelixToolkit.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\HelixToolkit\HelixToolkit.csproj" />
   </ItemGroup>
 </Project>

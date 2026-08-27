@@ -1,4 +1,4 @@
-﻿using SpirV;
+using SpirV;
 
 namespace XnaGeometrypv
 {
@@ -11,9 +11,6 @@ namespace XnaGeometrypv
 	}
 	internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A
 	{
-		internal int _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_0020(_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020<, > _0020)
-		{
-			return 1000393228;
-		}
+		// Dead decoy method: unbound generic parameter, unused in the body. Removed.
 	}
 }

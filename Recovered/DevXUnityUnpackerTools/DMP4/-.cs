@@ -6,9 +6,6 @@ using DSMCaps;
 using FMOD;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
-using Mon3.Cecil;
-using Mon3.Cecil.Cil;
-using Mon3.Collections.Generic;
 using Mono.Cecil;
 using SevenZip.Buffer;
 using System;
@@ -2909,9 +2906,9 @@ namespace DMP4
 			return false;
 		}
 	}
-	internal static class _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020
+	internal class _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020
 	{
-		internal static IEnumerable<int> _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(this byte[] _0020, byte[] _0020_000A)
+		internal static IEnumerable<int> _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(byte[] _0020, byte[] _0020_000A)
 		{
 			if (_0020 == null)
 			{
@@ -2952,7 +2949,7 @@ namespace DMP4
 			}
 		}
 
-		internal static IEnumerable<int> _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(this byte[] _0020, string _0020_000A)
+		internal static IEnumerable<int> _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020(byte[] _0020, string _0020_000A)
 		{
 			if (_0020 == null)
 			{
@@ -3008,14 +3005,14 @@ namespace DMP4
 			return true;
 		}
 	}
-	internal static class _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A
+	internal class _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A
 	{
-		internal static string _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020(this byte _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020(byte _0020)
 		{
 			return Convert.ToString(_0020, 2).PadLeft(8, '0');
 		}
 
-		internal static string _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020(this byte[] _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020(byte[] _0020)
 		{
 			StringBuilder stringBuilder = new StringBuilder(_0020.Length * 8);
 			foreach (byte _00202 in _0020)
@@ -3025,9 +3022,9 @@ namespace DMP4
 			return stringBuilder.ToString();
 		}
 	}
-	internal static class _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A
+	internal class _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		internal static string _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020(this string _0020)
+		internal static string _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020(string _0020)
 		{
 			StringBuilder stringBuilder = new StringBuilder(_0020.Length);
 			foreach (char c in _0020)
@@ -8784,16 +8781,39 @@ namespace DMP4
 			return _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.genericParameters[_0020.data.genericParameterIndex];
 		}
 	}
-	internal class _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020 : DefaultAssemblyResolver
+	// The recovered Mono.Cecil in this solution has no DefaultAssemblyResolver/BaseAssemblyResolver
+	// (see FINDINGS.md); this replaces them with a minimal in-memory resolver matching the actual
+	// usage here (register the AssemblyDefinitions created while dumping, resolve cross-references
+	// between them by name -- no disk search directories are exercised by this code path).
+	internal class _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020 : IAssemblyResolver
 	{
+		private readonly Dictionary<string, AssemblyDefinition> _0020_0020registered = new Dictionary<string, AssemblyDefinition>();
+
 		internal void _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A(AssemblyDefinition _0020)
 		{
-			this.RegisterAssembly(_0020);
+			_0020_0020registered[_0020.Name.Name] = _0020;
 		}
 
-		public _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020()
-			: this()
+		public AssemblyDefinition Resolve(AssemblyNameReference name)
 		{
+			_0020_0020registered.TryGetValue(name.Name, out AssemblyDefinition result);
+			return result;
+		}
+
+		public AssemblyDefinition Resolve(AssemblyNameReference name, ReaderParameters parameters)
+		{
+			return Resolve(name);
+		}
+
+		public AssemblyDefinition Resolve(string fullName)
+		{
+			_0020_0020registered.TryGetValue(fullName, out AssemblyDefinition result);
+			return result;
+		}
+
+		public AssemblyDefinition Resolve(string fullName, ReaderParameters parameters)
+		{
+			return Resolve(fullName);
 		}
 	}
 	internal class _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020

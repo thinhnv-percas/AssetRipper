@@ -23,12 +23,12 @@ namespace Wasm
 			Global = global;
 		}
 
-		protected override void DumpContents(TextWriter writer)
+		internal override void DumpContents(TextWriter writer)
 		{
 			Global.Dump(writer);
 		}
 
-		protected override void WriteContentsTo(BinaryWasmWriter writer)
+		internal override void WriteContentsTo(BinaryWasmWriter writer)
 		{
 			Global.WriteTo(writer);
 		}

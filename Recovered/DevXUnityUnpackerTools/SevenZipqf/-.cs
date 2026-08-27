@@ -1,10 +1,7 @@
-﻿namespace SevenZipqf
+namespace SevenZipqf
 {
 	internal class _0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A
 	{
-		internal string _0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020(ref _0021_00210[] _0020)
-		{
-			return "2134397304";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak, e.g. `!0`/`!!0` escaped as `_0021...`).
 	}
 }

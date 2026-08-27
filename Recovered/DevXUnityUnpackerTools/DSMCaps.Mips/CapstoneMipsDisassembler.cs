@@ -7,7 +7,7 @@
 		{
 		}
 
-		internal protected override MipsInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal override MipsInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return MipsInstruction.Create(this, hInstruction);
 		}

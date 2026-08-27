@@ -18,9 +18,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Threading.Tasks.Dataflow">
-      <HintPath>..\..\DevXCrack_1.0.9 (1)\StreamingAssets\DecompilerFi\System.Threading.Tasks.Dataflow.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\System.Threading.Tasks.Dataflow\System.Threading.Tasks.Dataflow.csproj" />
     <ProjectReference Include="..\System.Composition.AttributedModel\System.Composition.AttributedModel.csproj" />
     <ProjectReference Include="..\Microsoft.VisualStudio.Validation\Microsoft.VisualStudio.Validation.csproj" />
     <ProjectReference Include="..\System.Composition.Runtime\System.Composition.Runtime.csproj" />

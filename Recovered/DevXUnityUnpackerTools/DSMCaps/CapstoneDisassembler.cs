@@ -468,7 +468,7 @@ namespace DSMCaps
 			_handle = _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A(_disassembleArchitecture, _nativeDisassembleMode);
 		}
 
-		internal protected abstract TInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction);
+		internal abstract TInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction);
 
 		public TInstruction[] Disassemble(byte[] binaryCode)
 		{

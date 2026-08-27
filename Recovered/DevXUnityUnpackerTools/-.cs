@@ -1,4 +1,4 @@
-﻿using APK;
+using APK;
 using @as;
 using BrotliSharpLib;
 using DevX.Cecil;
@@ -74391,54 +74391,54 @@ internal class _0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020
 		return consoleData._0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A(_0020)._0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A._0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_000A;
 	}
 }
-internal static class _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020
+internal class _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020
 {
-	public static int IndexOfWord(this string _this, string find_word, int begin = 0)
+	public static int IndexOfWord(string _this, string find_word, int begin = 0)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A(_this, find_word, begin);
 	}
 
-	public static int IndexOfWord(this string _this, string find_word, int begin, params char[] separator_chars)
+	public static int IndexOfWord(string _this, string find_word, int begin, params char[] separator_chars)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A(_this, find_word, begin, separator_chars);
 	}
 
-	public static string ReplaceOfNotStrongPhrase(this string _this, string find_phrase, string replace_phrase, int begin = 0)
+	public static string ReplaceOfNotStrongPhrase(string _this, string find_phrase, string replace_phrase, int begin = 0)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020(_this, find_phrase, replace_phrase, begin);
 	}
 
-	public static bool IndexOfNotStrongPhrase(this string _this, string find_word, int begin, out int find_start, out int find_len)
+	public static bool IndexOfNotStrongPhrase(string _this, string find_word, int begin, out int find_start, out int find_len)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020(_this, find_word, begin, out find_start, out find_len);
 	}
 
-	public static bool ContainsNotStrongPhrase(this string _this, string find_word, int begin = 0)
+	public static bool ContainsNotStrongPhrase(string _this, string find_word, int begin = 0)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A(_this, find_word, begin);
 	}
 
-	public static bool ContainsOfWord(this string _this, string find_word, int begin = 0)
+	public static bool ContainsOfWord(string _this, string find_word, int begin = 0)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020(_this, find_word, begin);
 	}
 
-	public static bool ContainsOfWord(this string _this, string find_word, int begin, params char[] separator_chars)
+	public static bool ContainsOfWord(string _this, string find_word, int begin, params char[] separator_chars)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020(_this, find_word, begin, separator_chars);
 	}
 
-	public static string ReplaceOfWord(this string _this, string find_word, string replace_word, int begin = 0)
+	public static string ReplaceOfWord(string _this, string find_word, string replace_word, int begin = 0)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A(_this, find_word, replace_word, begin);
 	}
 
-	public static string ReplaceOfWord(this string _this, string find_word, string replace_word, int begin, params char[] separator_chars)
+	public static string ReplaceOfWord(string _this, string find_word, string replace_word, int begin, params char[] separator_chars)
 	{
 		return MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A(_this, find_word, replace_word, begin, separator_chars);
 	}
 
-	public static int SpaceStartCount(this string _this)
+	public static int SpaceStartCount(string _this)
 	{
 		int num = 0;
 		foreach (char c in _this)
@@ -74452,7 +74452,7 @@ internal static class _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_00
 		return num;
 	}
 
-	public static bool EqualOr(this string _this, params string[] vals)
+	public static bool EqualOr(string _this, params string[] vals)
 	{
 		foreach (string b in vals)
 		{

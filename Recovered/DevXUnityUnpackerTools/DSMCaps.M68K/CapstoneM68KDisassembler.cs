@@ -7,7 +7,7 @@
 		{
 		}
 
-		internal protected override M68KInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
+		internal override M68KInstruction CreateInstruction(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A hInstruction)
 		{
 			return M68KInstruction.Create(this, hInstruction);
 		}

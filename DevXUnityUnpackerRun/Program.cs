@@ -11,7 +11,10 @@ internal class Program
 	{
 		try
 		{
-			Assembly.Load(Memrestore(File.ReadAllBytes(string.Concat(Path.Combine(Application.StartupPath, "0000000000"))))).EntryPoint.Invoke(null, null);
+			// DevXUnityUnpackerMain is now a direct build reference instead of the XOR+GZip
+			// "0000000000" payload Memrestore/DeCompess below decode — see ROADMAP.md P7a.
+			// Those two methods are kept for reference; they document the original packer format.
+			Assembly.LoadFrom(Path.Combine(Application.StartupPath, "DevXUnityUnpackerMain.exe")).EntryPoint.Invoke(null, null);
 		}
 		catch (Exception)
 		{

@@ -1,13 +1,9 @@
-﻿using SevenZip.Compression.LZMA;
+using SevenZip.Compression.LZMA;
 
 namespace DevXFormspx
 {
 	internal class _0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A
 	{
-		internal string _0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020(MatchState _0020, decimal _0020_000A, string _0020_0020, _0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A<, > _0020_000A_000A)
-		{
-			Encoder._0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020((string)null);
-			return "151070940";
-		}
+		// Dead decoy method: unbound generic parameter, unused in the body. Removed.
 	}
 }

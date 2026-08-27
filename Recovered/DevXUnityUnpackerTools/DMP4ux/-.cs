@@ -1,4 +1,4 @@
-﻿using FMOD;
+using FMOD;
 using Smolvip;
 using SpirV;
 using Wasm.Interpret;
@@ -8,14 +8,8 @@ namespace DMP4ux
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A
 	{
-		internal unsafe string _0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020(EnumType<, > _0020, int _0020_000A, DSP_PARAMETER_DESC_BOOL _0020_0020)
-		{
-			int num = ((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020)null)._0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A;
-			OperatorImpls.Int64Or(null, null);
-			Win32.LockWindowUpdate(null);
-			((_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020();
-			Point center = ((Rectangle*)(byte*)null)->Center;
-			return "1728647023";
-		}
+		// Dead decoy method: took an unbound generic `EnumType<>` parameter, which is
+		// not valid C#, and never used the parameter in its body anyway. Removed
+		// rather than guessing a type argument that could satisfy its constraints.
 	}
 }

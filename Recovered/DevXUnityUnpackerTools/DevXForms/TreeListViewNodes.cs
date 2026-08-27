@@ -22,7 +22,7 @@
 			_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A = owner;
 		}
 
-		protected override void UpdateNodeCount(int oldvalue, int newvalue)
+		internal override void UpdateNodeCount(int oldvalue, int newvalue)
 		{
 			base.UpdateNodeCount(oldvalue, newvalue);
 			if (!_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020)
@@ -51,7 +51,7 @@
 			_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A.OnNotifyAfterExpand(nodeToExpand, expanded);
 		}
 
-		protected override int GetFieldIndex(string fieldname)
+		internal override int GetFieldIndex(string fieldname)
 		{
 			return _0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A.Columns[fieldname]?.Index ?? (-1);
 		}

@@ -1,0 +1,23 @@
+﻿using @as;
+using XnaGeometry;
+
+namespace ICSharpCode.SharpZipLib.Zipkj
+{
+	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A
+	{
+		internal void _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020()
+		{
+			ConsoleOver.LogEx(null);
+			CustomString customString = (CustomString)(string)null;
+			_0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020._0020_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A();
+		}
+	}
+	internal class _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A
+	{
+		internal string _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020(string _0020)
+		{
+			XnaGeometry.Vector3 up = XnaGeometry.Vector3.Up;
+			return "1157544894";
+		}
+	}
+}

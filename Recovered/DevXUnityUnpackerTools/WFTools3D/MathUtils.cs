@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Windows;
 
 namespace WFTools3D
 {
-	public static class MathUtils
+	public class MathUtils
 	{
 		public static readonly double PI = Math.PI;
 
@@ -66,7 +66,7 @@ namespace WFTools3D
 			return Math.Min(Math.Max(value, minValue), maxValue);
 		}
 
-		public static bool IsValid(this Point pt)
+		public static bool IsValid(Point pt)
 		{
 			if (!IsValidNumber(pt.X) || !IsValidNumber(pt.Y))
 			{
