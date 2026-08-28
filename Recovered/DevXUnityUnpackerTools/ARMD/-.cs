@@ -63,11 +63,17 @@ namespace ARMD
 						return result;
 					}
 				default:
+					DbgLog.Lim("ASM.arch", "no disassembler for processor type " + processorTypeEnum + " -> no instructions", 5);
 					return result;
 				}
 			}
-			catch
+			catch (Exception _dbgEx)
 			{
+				// This catch is the reason a missing arm_cp.dll shows up as empty output
+				// instead of an error: ARM32 falls back to the managed disassembler, every
+				// other architecture just returns null.
+				DbgLog.Lim("ASM.fail", "disassembly threw for " + processorTypeEnum + " at addr 0x" + _00202.ToString("X") + (processorTypeEnum == ProcessorTypeEnum.ARM32 ? " -> falling back to managed ARM32 disassembler" : " -> RETURNING NULL, method bodies will be empty"), 20);
+				DbgLog.Lim("ASM.fail.detail", "first exception detail for " + processorTypeEnum + ": " + _dbgEx, 3);
 				if (processorTypeEnum == ProcessorTypeEnum.ARM32)
 				{
 					return _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A(_00202, _0020_000A, _0020_0020);
@@ -10494,11 +10500,15 @@ namespace ARMD
 
 		internal void _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A(_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020 _0020, List<_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A> _0020_000A, _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020 _0020_0020)
 		{
+			// The "demo" gate: if this indirect call does not return "0012" every second
+			// invocation discards the lifted statements and writes a placeholder comment.
+			DbgLog.Lim("ARMD.gate", "HiddenCalls(\"1834582700\") = " + (HiddenCalls.CallObjectSafe1(null, "1834582700")?.ToString() ?? "<null>") + " (expected \"0012\"), statements in = " + ((_0020_000A == null) ? -1 : _0020_000A.Count), 5);
 			if (HiddenCalls.CallObjectSafe1(null, "1834582700")?.ToString() != "0012")
 			{
 				_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A++;
 				if ((_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A & 1) == 0)
 				{
+					DbgLog.Lim("ARMD.demo", "demo gate tripped -> statements discarded, \"Hide for demo version!\" emitted instead", 5);
 					_0020_0020.WriteLine("//");
 					_0020_0020.WriteLine("// Hide for demo version!");
 					_0020_0020.WriteLine("//");

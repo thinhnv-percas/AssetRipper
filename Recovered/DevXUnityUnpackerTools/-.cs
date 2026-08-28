@@ -48602,10 +48602,24 @@ internal class _0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A
 	internal void _0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A(string _0020, string _0020_000A, List<_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A> _0020_0020, ManyCodeCls _0020_000A_000A, out _0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020 _0020_000A_0020)
 	{
 		_0020_000A_0020 = null;
+		DbgLog.W("IL2CPP.gate", "mode=" + _0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020 + "  metadata=" + (_0020 ?? "<null>") + "  binary=" + (_0020_000A ?? "<null>"));
 		if (_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020 != 0)
 		{
 			ConsoleManager.WriteInfo("Begin Use IL2CPP#4");
-			new _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020()._0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020(_0020, _0020_000A, _0020_0020, _0020_000A_000A, out _0020_000A_0020);
+			try
+			{
+				new _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020()._0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020(_0020, _0020_000A, _0020_0020, _0020_000A_000A, out _0020_000A_0020);
+			}
+			catch (Exception ex)
+			{
+				DbgLog.Ex("IL2CPP.gate", "orchestrator threw out to the gate", ex);
+				throw;
+			}
+			DbgLog.W("IL2CPP.gate", "orchestrator returned, result=" + ((_0020_000A_0020 == null) ? "null" : _0020_000A_0020.GetType().Name));
+		}
+		else
+		{
+			DbgLog.W("IL2CPP.gate", "mode is None -> IL2CPP pipeline skipped entirely");
 		}
 	}
 }
@@ -75475,6 +75489,12 @@ internal class _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A
 
 	internal DecompillerType _0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020 => _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A._0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020;
 
+	// Property initializers restored: ILSpy emitted the [CompilerGenerated] backing
+	// fields above as separate dead fields and re-declared these as fresh auto-
+	// properties, so 18 of the 21 lost their "= true" default. They feed
+	// ICSharpCode DecompilerContext.Settings, so with everything defaulting to
+	// false the generated C# came out without foreach/using/yield/async/etc.
+	// The three left at false match real ILSpy defaults.
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A
 	{
 		get;
@@ -75485,31 +75505,31 @@ internal class _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A
 	{
@@ -75521,79 +75541,79 @@ internal class _0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020
 	{
 		get;
 		set;
-	}
+	} = true;
 
 	internal bool _0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A
 	{

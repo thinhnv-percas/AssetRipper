@@ -78,13 +78,13 @@ namespace DevXForms
 		{
 			get;
 			set;
-		}
+		} = -1;
 
 		public string ImageKey
 		{
 			get;
 			set;
-		}
+		} = "";
 
 		public string SelectedImageKey
 		{

@@ -81,6 +81,7 @@ internal class Loader
 		DevXSystemInfo.LogDir = Application.StartupPath;
 		DevXSystemInfo.PluginsDir = Path.Combine(Application.StartupPath, "Library");
 		DevXSystemInfo.StreamingAssets = Path.Combine(Application.StartupPath, "StreamingAssets");
+		LogEnvironment();
 		if (!Directory.Exists(DevXSystemInfo.PersistentDataPath))
 		{
 			Directory.CreateDirectory(DevXSystemInfo.PersistentDataPath);
@@ -103,6 +104,35 @@ internal class Loader
 				MessageBox.Show(string.Concat(arg));
 			}
 		}
+	}
+
+	// Debug tracing only — see DbgLog. Every runtime data dependency the IL2CPP
+	// pipeline needs is resolved off these paths, so record what is actually there.
+	private static void LogEnvironment()
+	{
+		DbgLog.W("ENV", "log file is " + DbgLog.LogPath);
+		DbgLog.Probe("ENV", "StartupPath", DevXSystemInfo.UnpackerRootDirectory);
+		DbgLog.Probe("ENV", "PluginsDir (Library)", DevXSystemInfo.PluginsDir);
+		DbgLog.Probe("ENV", "StreamingAssets", DevXSystemInfo.StreamingAssets);
+		DbgLog.Probe("ENV", "PersistentDataPath", DevXSystemInfo.PersistentDataPath);
+		try
+		{
+			string sa = DevXSystemInfo.StreamingAssets;
+			DbgLog.Probe("ENV", "ArmCP/x64/arm_cp.dll", Path.Combine(sa, "ArmCP", "x64", "arm_cp.dll"));
+			DbgLog.Probe("ENV", "ArmCP/x86/arm_cp.dll", Path.Combine(sa, "ArmCP", "x86", "arm_cp.dll"));
+			DbgLog.Probe("ENV", "UnityDLL", Path.Combine(sa, "UnityDLL"));
+			DbgLog.Probe("ENV", "IL2CPPStructs", Path.Combine(sa, "IL2CPPStructs"));
+			if (Directory.Exists(Path.Combine(sa, "UnityDLL")))
+			{
+				DbgLog.W("ENV", "UnityDLL zips = " + Directory.GetFiles(Path.Combine(sa, "UnityDLL"), "*.zip").Length);
+			}
+		}
+		catch (Exception ex)
+		{
+			DbgLog.Ex("ENV", "probing StreamingAssets failed", ex);
+		}
+		DbgLog.W("ENV", "CrackSettings: AllowOffline=" + CrackSettings.AllowOffline + " AllowActivation=" + CrackSettings.AllowActivation + " AllowDemoAssetRead=" + CrackSettings.AllowDemoAssetRead);
+		DbgLog.W("ENV", "FileManager.FakePath = \"" + FileManager.FakePath + "\" (canary would compute \"" + FileManager.FakePathCanary + "\"; anything but \"\" breaks every filename lookup)");
 	}
 
 	internal static string RandomString(int length)

@@ -572,7 +572,7 @@ namespace @as
 		{
 			get;
 			set;
-		}
+		} = new List<object>();
 
 		internal object _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A
 		{
@@ -1334,7 +1334,7 @@ namespace @as
 		{
 			get;
 			set;
-		}
+		} = 16777216;
 
 		internal _0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A(Stream stream, ErrorLevel errorLevel = ErrorLevel.Checked)
 		{
@@ -1883,7 +1883,7 @@ namespace @as
 		{
 			get;
 			set;
-		}
+		} = 260;
 
 		internal _0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A(Stream stream)
 		{
@@ -2560,7 +2560,7 @@ namespace @as
 		{
 			get;
 			set;
-		}
+		} = 1024;
 
 		internal _0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020(Stream base_stream)
 		{

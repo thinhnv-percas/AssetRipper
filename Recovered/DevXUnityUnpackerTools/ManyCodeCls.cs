@@ -3274,8 +3274,10 @@ internal class ManyCodeCls : IContentInfo, IContent
 	{
 		_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A _0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A = default(_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A);
 		_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_0020 = this;
+		DbgLog.W("SCAN.begin", "dir=" + (_0020 ?? "<null>") + "  flag=" + _0020_000A + "  isCurrentInstance=" + (this == _0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020));
 		if (string.IsNullOrEmpty(_0020))
 		{
+			DbgLog.W("SCAN.begin", "aborted: dir is null/empty");
 			ConsoleManager.Info.WriteLine("Dir==null");
 			return;
 		}
@@ -3355,6 +3357,10 @@ internal class ManyCodeCls : IContentInfo, IContent
 		}
 		ManyCodeCls _0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_00202 = _0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020._0020_0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020;
 		string[] array = (_0020_0020 != null && _0020_0020.Count > 0) ? _0020_0020.ToArray() : Directory.GetFiles(_0020, _0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A + "*.*", SearchOption.AllDirectories);
+		DbgLog.W("SCAN.files", "source=" + ((_0020_0020 != null && _0020_0020.Count > 0) ? ("caller list (" + _0020_0020.Count + " entries)") : ("Directory.GetFiles pattern '" + (_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A ?? "") + "*.*'"))
+			+ "  total=" + array.Length
+			+ "  global-metadata.dat hits=" + array.Count((string _dbgF) => Path.GetFileName(_dbgF) == "global-metadata.dat")
+			+ "  libil2cpp.so hits=" + array.Count((string _dbgF) => Path.GetFileName(_dbgF) == "libil2cpp.so"));
 		float num = 0f;
 		float num2 = 100f / (float)(array.Length + 1);
 		List<string> list = new List<string>();
@@ -3477,6 +3483,11 @@ internal class ManyCodeCls : IContentInfo, IContent
 		list.AddRange(list8);
 		list.AddRange(list10);
 		array = list.ToArray();
+		DbgLog.W("SCAN.class", "buckets: data.unity3d+all=" + list.Count + " apk/ipf=" + list2.Count + " unityweb=" + list3.Count
+			+ " assets=" + list4.Count + " obb=" + list5.Count + " unity3d=" + list6.Count + " other=" + list7.Count
+			+ " streamingassets/plugins=" + list8.Count + " pack=" + list9.Count + " unreal=" + list10.Count
+			+ "  |  global-metadata.dat in assets bucket=" + list4.Count((string _dbgF) => Path.GetFileName(_dbgF) == "global-metadata.dat")
+			+ "  in other bucket=" + list7.Count((string _dbgF) => Path.GetFileName(_dbgF) == "global-metadata.dat"));
 		if ((flag && flag2) & flag3)
 		{
 			_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020 = true;
@@ -3485,6 +3496,7 @@ internal class ManyCodeCls : IContentInfo, IContent
 		{
 			try
 			{
+				int _dbgBefore = array.Length;
 				if ((bool)HiddenCalls.CallObjectSafe1(null, "7DED7100EFD400C789B13A6247846E62", "fsdffwefEWfwefwefwef", "fsdfffdfsdfds"))
 				{
 					array = new string[0];
@@ -3493,9 +3505,11 @@ internal class ManyCodeCls : IContentInfo, IContent
 				{
 					array = new string[0];
 				}
+				DbgLog.W("SCAN.wipe", "anti-tamper gate: " + _dbgBefore + " files before, " + array.Length + " after" + ((array.Length == 0 && _dbgBefore != 0) ? "  *** FILE LIST WIPED ***" : ""));
 			}
-			catch
+			catch (Exception _dbgEx)
 			{
+				DbgLog.W("SCAN.wipe", "anti-tamper gate threw (" + _dbgEx.GetType().Name + ") -> file list left at " + array.Length);
 			}
 		}
 		array2 = array;
@@ -4046,6 +4060,7 @@ internal class ManyCodeCls : IContentInfo, IContent
 				{
 					_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020._0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A = true;
 				}
+				DbgLog.W("SCAN.il2cpp", "global-metadata.dat entry = " + ((_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A5 == null) ? "NOT FOUND -> IL2CPP branch will be skipped" : "found"));
 				string text7 = null;
 				if (_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A5?._0020_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A is FileInfo)
 				{
@@ -4125,6 +4140,7 @@ internal class ManyCodeCls : IContentInfo, IContent
 					{
 						List<_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A> list13 = new List<_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A>();
 						ConsoleManager._0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A("libil2cpp_so_file_name: " + item8);
+						DbgLog.W("DETECT", "candidate " + (list12.IndexOf(item8) + 1) + "/" + list12.Count + ": binary=" + item8 + "  metadata=" + (text7 ?? "<null>"));
 						_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A = TranslationManager.TryGetTranslated(-343881984);
 						_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020 _0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020 = null;
 						try
@@ -6173,12 +6189,21 @@ internal class ManyCodeCls : IContentInfo, IContent
 			}
 			if (_0020_000A)
 			{
-				return _0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020._0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020(_0020, _0020_000A, _0020_0020, _0020_000A_000A);
+				_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A _dbgDeep = _0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020._0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020(_0020, _0020_000A, _0020_0020, _0020_000A_000A);
+				if (_dbgDeep == null)
+				{
+					DbgLog.Lim("FIND.miss", "'" + _0020 + "' not found. flat list=" + _0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A.Count() + " items, deep list=" + _0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020.Count() + " items", 10);
+					DbgLog.Lim("FIND.miss.dump", "'" + _0020 + "' — flat names containing 'metadata': " + string.Join(" | ", (from _dbgI in _0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A
+						where _dbgI._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020 != null && _dbgI._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020.IndexOf("metadata", StringComparison.OrdinalIgnoreCase) >= 0
+						select _dbgI._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020).Take(10)), 4);
+				}
+				return _dbgDeep;
 			}
 			return null;
 		}
 		catch (Exception ex)
 		{
+			DbgLog.Lim("FIND.throw", "'" + _0020 + "': " + ex, 5);
 			ConsoleManager.LogExeption("FindItemByName: " + _0020 + "\r\n" + ex);
 			return null;
 		}

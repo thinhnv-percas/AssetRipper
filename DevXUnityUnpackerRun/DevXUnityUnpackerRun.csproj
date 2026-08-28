@@ -19,6 +19,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Recovered\DevXUnityUnpackerMain\DevXUnityUnpackerMain.csproj" />
+    <!-- explicit (not just transitive via Main) so Program.cs can use DbgLog -->
+    <ProjectReference Include="..\Recovered\DevXUnityUnpackerTools\DevXUnityUnpackerTools.csproj" />
   </ItemGroup>
   <ItemGroup />
 </Project>

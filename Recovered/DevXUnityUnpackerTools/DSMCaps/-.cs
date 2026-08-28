@@ -92,6 +92,11 @@ namespace DSMCaps
 			{
 				_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A = Directory.GetCurrentDirectory()
 			};
+			// Capstone is P/Invoked as "arm_cp" with no path, so it can only be found by
+			// chdir'ing next to it first. If this throws, ARMD swallows it and silently
+			// produces no instructions — hence the log line.
+			string _dbgArmCpDir = Path.Combine(DevXSystemInfo.StreamingAssets ?? "<StreamingAssets is NULL>", "ArmCP", Environment.Is64BitProcess ? "x64" : "x86");
+			DbgLog.Lim("CAP.cwd", "chdir to " + _dbgArmCpDir + "  dirExists=" + Directory.Exists(_dbgArmCpDir) + "  dllExists=" + File.Exists(Path.Combine(_dbgArmCpDir, "arm_cp.dll")), 3);
 			Directory.SetCurrentDirectory(Path.Combine(DevXSystemInfo.StreamingAssets, "ArmCP", Environment.Is64BitProcess ? "x64" : "x86"));
 			return result;
 		}

@@ -54,6 +54,17 @@ namespace DMP4
 	[AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
 	internal class _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020 : Attribute
 	{
+		// These two are the ORIGINAL auto-property backing fields. ILSpy emitted them as
+		// ordinary named fields *and* re-declared Min/Max as auto-properties, which gave
+		// the properties fresh backing fields — so the `= 99.0` initializer below landed
+		// on a dead field and Max silently defaulted to 0 instead of 99. Every field
+		// annotated [Version(Min = x)] with no explicit Max then failed the
+		// `Version <= Max` test at any version, got skipped by the reader, and shifted
+		// every following field in the struct: garbage offsets, garbage counts. That is
+		// what made the IL2CPP metadata read blow up with "An item with the same key has
+		// already been added" while the file itself is perfectly valid.
+		// The initializer is restored onto the real property below; these stay only so
+		// the decompiled shape remains visible.
 		[CompilerGenerated]
 		internal double _0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A;
 
@@ -70,7 +81,8 @@ namespace DMP4
 		{
 			get;
 			set;
-		}
+		} = 99.0;
+
 	}
 	internal sealed class _0020_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A : ElfBase
 	{
@@ -6743,6 +6755,7 @@ namespace DMP4
 			try
 			{
 				ConsoleManager.WriteInfo("Create dlls...");
+				DbgLog.W("DUMMY.begin", "output dir = " + _0020);
 				if (!Directory.Exists(_0020))
 				{
 					Directory.CreateDirectory(_0020);
@@ -6750,19 +6763,24 @@ namespace DMP4
 				Directory.SetCurrentDirectory(_0020);
 				_0020_0020_0020 = new _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020(_0020_000A_0020, _0020_0020_000A);
 				_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A = new _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A(_0020_0020_0020);
+				int _dbgWritten = 0;
 				foreach (AssemblyDefinition item in _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A)
 				{
 					using (MemoryStream memoryStream = new MemoryStream())
 					{
 						item.Write((Stream)memoryStream);
 						File.WriteAllBytes(item.MainModule.Name, memoryStream.ToArray());
+						_dbgWritten++;
+						DbgLog.Lim("DUMMY.write", item.MainModule.Name + "  types=" + item.MainModule.Types.Count + "  " + memoryStream.Length + " bytes", 40);
 					}
 				}
+				DbgLog.W("DUMMY.end", _dbgWritten + " dummy assemblies written to " + _0020);
 				ConsoleManager.WriteInfo("End create dll");
 				return _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A;
 			}
 			catch (Exception arg)
 			{
+				DbgLog.Ex("DUMMY.fail", "dummy assembly generation failed -> returning null", arg);
 				ConsoleManager._0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A(string.Concat(arg));
 				return null;
 			}
@@ -8177,6 +8195,7 @@ namespace DMP4
 					{
 						text = files[0];
 					}
+					DbgLog.W("REFDLL", "UnityDLL zips found=" + files.Length + "  picked=" + (text ?? "<NONE - generated types will not resolve against real Unity assemblies>"));
 					if (!string.IsNullOrEmpty(text))
 					{
 						_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_0020 = TempManager._0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020();
@@ -8216,13 +8235,16 @@ namespace DMP4
 							}
 							catch (Exception ex2)
 							{
+								DbgLog.Lim("REFDLL.skip", "could not read " + text3 + ": " + ex2.GetType().Name + " " + ex2.Message, 10);
 								ConsoleManager.LogExeption("sfile: " + text3 + "\r\n" + ex2);
 							}
 						}
+						DbgLog.W("REFDLL.loaded", array.Length + " reference dlls from " + _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_0020 + ", resolver now holds " + _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A.Count + " assemblies / " + _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020.Count + " types");
 					}
 				}
 				catch (Exception arg)
 				{
+					DbgLog.Ex("REFDLL.fail", "Unity reference-dll loading failed (dummy dlls will fall back to generated stubs)", arg);
 					ConsoleManager.LogExeption("DLL Ref: error \r\n" + arg);
 				}
 			}
@@ -8395,7 +8417,40 @@ namespace DMP4
 			//IL_001f: Expected O, but got Unknown
 			AssemblyDefinition val = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("RestoredIL2CPPDll", new Version("1.0.0.0")), "RestoredIL2CPPDllLib.dll", 0);
 			TypeReference @string = val.MainModule.TypeSystem.String;
+			// RESTORED. The decompiled body stopped here: it built an empty assembly and
+			// returned it, which left both `@string` and the typeof(Attribute) ctor cached
+			// in the static field above completely dead — the tell that a chunk of the
+			// method was lost. The generator immediately does
+			//     val.MainModule.Types.First(t => t.Name == "AddressAttribute").Methods[0]
+			// for five marker attribute types, so with none of them present every lookup
+			// threw "Sequence contains no matching element" inside a catch {}, all five
+			// ctor handles stayed null, and the first unguarded use NRE'd straight out of
+			// the generator (logged as DUMMY.fail -> returning null): no dummy DLLs, so no
+			// C# at all. The field sets below are exactly the named arguments the
+			// generator writes onto each attribute.
+			CreateMarkerAttribute(val.MainModule, @string, "TokenAttribute", "Token");
+			CreateMarkerAttribute(val.MainModule, @string, "AddressAttribute", "RVA", "Offset", "VA", "Slot");
+			CreateMarkerAttribute(val.MainModule, @string, "FieldOffsetAttribute", "Offset");
+			CreateMarkerAttribute(val.MainModule, @string, "AttributeAttribute", "Name", "RVA", "Offset");
+			CreateMarkerAttribute(val.MainModule, @string, "MetadataOffsetAttribute", "Offset");
 			return val;
+		}
+
+		// RESTORED (see Create). One marker attribute type: public class X : Attribute with
+		// a parameterless ctor plus one public string field per named argument. The base
+		// type reference is built by hand rather than ImportReference(typeof(Attribute))
+		// because this repo's Mono.Cecil vintage has no default assembly resolver — the
+		// same approach the surviving ctor-emitter below already uses.
+		private static void CreateMarkerAttribute(ModuleDefinition module, TypeReference stringRef, string name, params string[] fields)
+		{
+			TypeReference attributeTypeReference = new TypeReference("System", "Attribute", module, module.TypeSystem.CoreLibrary);
+			TypeDefinition val = new TypeDefinition(string.Empty, name, TypeAttributes.Public | TypeAttributes.BeforeFieldInit, attributeTypeReference);
+			module.Types.Add(val);
+			_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A(val);
+			foreach (string text in fields)
+			{
+				val.Fields.Add(new FieldDefinition(text, FieldAttributes.Public, stringRef));
+			}
 		}
 
 		internal static void _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A(TypeDefinition _0020)
@@ -9785,6 +9840,9 @@ namespace DMP4
 			_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A();
 			_0020_000A_0020 = null;
 			string text = "0";
+			DbgLog.W("IL2CPP.begin", "metadata=" + (_0020 ?? "<null>") + "  binary=" + (_0020_000A ?? "<null>") + "  mode=" + _0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020._0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020);
+			DbgLog.Probe("IL2CPP.begin", "metadata file", _0020);
+			DbgLog.Probe("IL2CPP.begin", "binary file", _0020_000A);
 			try
 			{
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_0020_000A.Reset();
@@ -9810,6 +9868,9 @@ namespace DMP4
 				_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A = _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020(text2, _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A, File.ReadAllBytes(_0020), MainForm.instance._0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A._0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A?.ToString(), out _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020, out _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A, out _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020);
 				text = "3";
 				ConsoleManager._0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A("IL2CPP: " + _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A?.GetType()?.Name);
+				DbgLog.W("IL2CPP.load", "binary reader = " + (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A?.GetType()?.Name ?? "NULL (binary not recognised / search failed)")
+					+ "  metadata = " + ((_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020 == null) ? "NULL" : ("v" + _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.header.version + ", images=" + _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.imageDefs.Length + ", types=" + _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.typeDefs.Length))
+					+ "  dummyDlls = " + ((_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A == null) ? "NULL" : "ok"));
 				if (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null && _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A)
 				{
 					_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A = ((_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A == null) ? null : _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A(_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020, _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A));
@@ -10130,6 +10191,8 @@ namespace DMP4
 											}
 											catch (Exception arg3)
 											{
+												DbgLog.Lim("EXPORT2.type.fail", arg3.GetType().Name + " " + arg3.Message, 15);
+												DbgLog.Lim("EXPORT2.type.fail.detail", "first full trace: " + arg3, 2);
 												ConsoleManager.LogExeption("DeCompile_2[2]: " + arg3);
 											}
 										}
@@ -10176,6 +10239,7 @@ namespace DMP4
 								{
 									dictionary2.TryGetValue(_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020._0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020, out _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A value11);
 									DateTime now2 = DateTime.Now;
+									DbgLog.W("EXPORT.image", _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020._0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020 + "  typeCount=" + value9.typeCount + "  refDll=" + ((value11 == null) ? "none" : "matched"));
 									_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020 _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_00202 = new _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020();
 									for (int m = 0; m < value9.typeCount; m++)
 									{
@@ -10227,6 +10291,8 @@ namespace DMP4
 										}
 										catch (Exception arg5)
 										{
+											DbgLog.Lim("EXPORT.type.fail", "type " + text4 + " failed: " + arg5.GetType().Name + " " + arg5.Message, 15);
+											DbgLog.Lim("EXPORT.type.fail.detail", "first full trace: " + arg5, 2);
 											ConsoleManager.LogExeption("DeCompile_2[2]: " + arg5);
 										}
 										long num4 = _0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A._0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020._0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A(_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_00203.ToString());
@@ -10242,6 +10308,7 @@ namespace DMP4
 										_0020_0020.Add(_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A2);
 									}
 									string _00203 = _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_00202.ToString();
+									DbgLog.W("EXPORT.done", _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020._0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020 + "  generated " + _00203.Length + " chars of C#" + (_00203.Contains("Hide for demo version") ? "  *** contains demo placeholders ***" : ""));
 									_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_00202.Close();
 									_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_00202 = null;
 									_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A2._0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020(_00203);
@@ -10274,6 +10341,7 @@ namespace DMP4
 			}
 			catch (Exception ex)
 			{
+				DbgLog.Ex("IL2CPP.fail", "aborted at progress marker text=\"" + text + "\"", ex);
 				if (_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A._0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A)
 				{
 					ConsoleManager.LogExeption("DeCompile_4[end]: " + ex);
@@ -10285,6 +10353,7 @@ namespace DMP4
 			}
 			finally
 			{
+				DbgLog.W("IL2CPP.end", "last progress marker text=\"" + text + "\"");
 				ConsoleManager.WriteInfo("End decompile IL2CPP#4");
 				MaybeAlertManager._0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020 = "il2cpp decompile end";
 				_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A();

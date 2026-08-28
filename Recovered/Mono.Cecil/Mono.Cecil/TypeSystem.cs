@@ -20,11 +20,41 @@ namespace Mono.Cecil
 				{
 					return typeReference;
 				}
+				// An in-memory module has no metadata to look anything up in, so hand back a
+				// reference the way CommonTypeSystem would instead of throwing. See the note
+				// in LookupTypeDefinition below.
+				if (!module.HasImage)
+				{
+					return new TypeReference(@namespace, name, module, module);
+				}
 				throw new NotSupportedException();
 			}
 
 			private TypeReference LookupTypeDefinition(string @namespace, string name)
 			{
+				// A module created with AssemblyDefinition.CreateAssembly has no
+				// MetadataReader, and module.Read below dereferences it unconditionally.
+				// The IL2CPP dummy-assembly generator hits exactly this: one of the
+				// assemblies it synthesises is named literally "mscorlib", and
+				// Mixin.IsCoreLibrary only applies its sanity check when HasImage is true,
+				// so Cecil hands that module a CoreTypeSystem. The first TypeSystem.Object
+				// — assigning a base type — then NRE'd straight out of the generator, which
+				// meant no dummy assemblies and therefore no decompiled C# at all.
+				// For such a module the in-memory type list IS its metadata, so scan that.
+				// Modules read from a file are untouched by this branch.
+				if (!module.HasImage)
+				{
+					Collection<TypeDefinition> inMemoryTypes = module.Types;
+					for (int j = 0; j < inMemoryTypes.Count; j++)
+					{
+						TypeDefinition candidate = inMemoryTypes[j];
+						if (candidate.Name == name && candidate.Namespace == @namespace)
+						{
+							return candidate;
+						}
+					}
+					return null;
+				}
 				if (module.MetadataSystem.Types == null)
 				{
 					Initialize(module.Types);

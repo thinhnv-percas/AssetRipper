@@ -22,7 +22,26 @@ internal class FileManager
 		'/'
 	};
 
-	internal static string FakePath => _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020 + _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A + _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020 + _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A;
+	// Anti-tamper canary, defused. The three terms above count files named
+	// DevXUnityUnpackerTools.dll / DevX.Cecil.dll / DevXUnityUnpackerTools.exe next to
+	// the exe. In a real install NONE of them exist as plain files — Tools and
+	// DevX.Cecil ship as encrypted hash-named sidecars — so every term was
+	// "0" -> Replace("0","") -> "" and FakePath was ALWAYS the empty string. Every use
+	// of it (GetSth, Exists, File.Create, the YAML "%TAG !u!" header) is only correct
+	// under that assumption: they concatenate it onto paths.
+	//
+	// This repo's merged loader chain (ROADMAP P7a/P7b) drops those DLLs on disk as
+	// ordinary files, so the terms become "1" -> Replace("1","5") -> "5" and FakePath
+	// silently becomes "55". GetSth() appends it to any path containing a directory
+	// separator but returns a bare filename untouched, so
+	// GetSth(@"assets\...\global-metadata.dat") == "global-metadata.dat55" never equals
+	// GetSth("global-metadata.dat") == "global-metadata.dat" — i.e. every
+	// FindItemByName(<filename>) misses and whole features (the IL2CPP pipeline among
+	// them) skip themselves with no error. Pinned back to the original runtime value.
+	internal static string FakePath => string.Empty;
+
+	// The original expression, kept so the canary state is still observable/loggable.
+	internal static string FakePathCanary => _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020 + _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A + _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020 + _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A;
 
 	internal static string StartupPath => Application.StartupPath;
 
