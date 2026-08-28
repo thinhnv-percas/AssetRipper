@@ -38,10 +38,10 @@ using XnaGeometry;
 	{
 	internal static string ToProgramTypeString(this ShaderType _this)
 	{
-		return _0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A.ToProgramTypeString(_this);
+		return global::@as._0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A.ToProgramTypeString(_this);
 	}
 	internal static string ToXampString(this ShaderType _this)
 	{
-		return _0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A.ToXampString(_this);
+		return global::@as._0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A.ToXampString(_this);
 	}
 	}

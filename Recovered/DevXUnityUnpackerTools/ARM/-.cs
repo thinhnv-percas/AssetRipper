@@ -5,11 +5,6 @@ namespace ARM
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A
 	{
-		internal unsafe void _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020()
-		{
-			int arraySize = ((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A*)(byte*)null)->ArraySize;
-			long num = ((_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_000A;
-			((TypeReference)null).IsAssignableTo(null);
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

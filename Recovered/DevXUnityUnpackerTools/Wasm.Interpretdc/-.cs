@@ -1,15 +1,4 @@
-﻿using WFTools3D;
-
 namespace Wasm.Interpretdc
 {
-	internal class _0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A
-	{
-		internal string _0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020(short _0020)
-		{
-			((_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020((string)null, (string)null);
-			((_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020();
-			_003CPrivateImplementationDetails_003E.ComputeStringHash(null);
-			return "1454720409";
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

@@ -6,12 +6,6 @@ namespace ICSharpCode.SharpZipLib.BZip2km
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		internal unsafe int _0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020(long _0020, int _0020_000A)
-		{
-			((_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020*)(byte*)null)->_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A();
-			((InstructionDetail<, , , , , , , >)null).IsDisassembleArchitectureUnsupported();
-			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A)null)._0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020();
-			return 595573336;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

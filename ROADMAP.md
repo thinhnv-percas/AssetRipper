@@ -11,14 +11,14 @@ Analysis lives in [FINDINGS.md](FINDINGS.md); build instructions in
 
 | | state |
 |---|---|
-| Root solution `Decompiled.sln` | 37 projects, **0 errors** |
+| Root solution `Decompiled.sln` | 37 projects, **0 errors** — reconfirmed on a full clean rebuild (`dotnet build Decompiled.sln`, `rm -rf obj bin` first) after the P7b `DevXUnityUnpackerTools` fix, so this now includes `DevXUnityUnpackerMain`'s `ProjectReference` to it |
 | Unpacking `0000000000` | done, verified against the original `Memrestore` |
 | Unpacking the hash-named sidecars | done, all 7, verified two independent ways |
 | File identification | done, 9 of 9 |
 | Rebuilding recovered assemblies | **8 of 8 at 0 errors** |
-| `DevXUnityUnpackerTools` | 407 → 0 (P1) → **183 → 1** once P7b's merge exercised the full build again — see P7b |
+| `DevXUnityUnpackerTools` | 407 → 0 (P1) → 183 (P7b merge) → **0 errors, clean rebuild verified** — see P7b |
 | Running anything that was recovered | **the rebuilt app runs and shows its window** — see P3 |
-| Merging the loader chain (dropping the encrypted payloads) | Run→Main **done**, Main→Tools in progress, 1 error left — see P7 |
+| Merging the loader chain (dropping the encrypted payloads) | Run→Main **done**, Main→Tools **done** (Tools itself builds clean) — re-verify the merged launch still opens a window next — see P7 |
 | Deobfuscation | not started — see P5 |
 
 ---
@@ -378,53 +378,56 @@ Build-error cleanup this pass, 183 → 2:
     `private`/`protected` cross-file accessibility fallout (731
     declarations) and one more static-class-as-parameter-type widening,
     same as every other file in this recovery.
-* **A real, unexplained Roslyn quirk, worth flagging before anyone touches
-  `DMP4/-.cs` again.** With `BrotliSharpLib/Brotli.cs` now fully fixed
-  (0 errors on its own) and `DefaultAssemblyResolver` fixed the same way,
-  exactly one symbol was left unresolved: a `Mono.Collections.Generic
-  .Collection<T>` (Mono.Cecil's own collection type, already present in
-  `Recovered/Mono.Cecil`) used as one method's 5th parameter type. Making
-  `DevXUnityUnpackerTools.csproj` fully error-free — by *any* means tried —
-  makes the build erupt into 1500+ new errors scattered across dozens of
-  unrelated files (`Brotli.cs`, `HEXControll.cs`, `MainForm.cs`,
-  `ARGB_RAW.cs`, ...), not just one, and every one of the following was
-  tried and ruled out as the cause:
-  - Which type resolves the parameter — qualifying it inline, a
-    `using`-alias, a plain `using Mono.Collections.Generic;`, or
-    substituting a completely unrelated, already-used-74-times-elsewhere-
-    in-this-file type like `List<T>` or `IList<T>`. All identical result.
-  - The method body — stubbed to `throw new NotImplementedException();`
-    while keeping the resolved signature, still triggers it. It's the
-    *signature resolving at all*, not the body.
-  - **Deleting the method and all 6 call sites outright** (removing every
-    trace of the symbol from the file, rather than resolving it) —
-    triggers it just the same. This rules out "this specific generic
-    instantiation" as the cause; the trigger is `DMP4/-.cs` (or the whole
-    project) reaching a fully-error-free state, full stop, regardless of
-    how.
-  - Shared-compiler-server / `VBCSCompiler` state (killed it, reran with
-    `-p:UseSharedCompilation=false -m:1`) and MSBuild incremental caching
-    (`rm -rf obj bin`) — both identical result.
-  - Non-determinism (reran 3× identical) and low system memory (the
-    session's free RAM dropped as low as 1.8GB/15.4GB from Unity Editor
-    instances plus — this was the real, confirmed culprit for *that*
-    specific drop — 13+ leftover `dotnet`/`VBCSCompiler` MSBuild worker
-    processes from this session's own repeated builds, never reaped by
-    node reuse; killing them recovered ~2GB. But retesting at 3.8GB free,
-    well above what earlier successful builds had, gave the identical
-    1500+-error result — memory pressure is not the actual cause either,
-    just a real, separate problem worth knowing about if this recurs
-    (`Get-Process dotnet,VBCSCompiler | Stop-Process -Force` clears it).
-  No working theory survives all of the above. Left unresolved: `DMP4/-.cs`
-  keeps its original, real (non-decoy) custom-attribute-copying helper and
-  all 6 call sites intact, with its one parameter type still bare
-  `Collection<>` — a plain, honest `CS0246`, the one remaining build error.
-  That helper only fires when re-emitting custom attributes onto a
-  reconstructed Il2Cpp-derived assembly (a DevXCrack dump feature) — not
-  anything on the app-launch path P7b actually cares about.
-* Net effect: `DevXUnityUnpackerTools.csproj` now builds with **1 error**
-  (down from 183), isolated to the one symbol above and not fixable by any
-  means tried so far.
+* **The "1500+ error eruption" mystery above is solved — and it was never
+  really about `Collection<T>`.** Re-adding the plain `Collection<>`
+  parameter (undoing the workaround) and instead removing the *actual*
+  trigger — the `[DefaultMember("Item")]` attribute on `CustomString.cs`,
+  which conflicted with a real indexer once one was added there — made the
+  exact same ~1000-error backlog surface, then disappear again when the fix
+  was reverted, reproduced twice. **Root cause: a declaration-level compile
+  error anywhere in the compilation (a duplicate/conflicting attribute, an
+  unresolvable member signature) suppresses Roslyn's method-body-level
+  diagnostics for the entire project, not just the file containing it.**
+  Every earlier theory in this list was tested against the wrong symbol —
+  `Collection<T>` genuinely does resolve fine once `DefaultAssemblyResolver`
+  is in place; it was guilty by association, having been the only
+  declaration-level error left standing at the time. See
+  [FINDINGS.md §6](FINDINGS.md) for the full mechanism and how to recognise
+  it (an error count that *grows* after a fix is not a regression).
+* **`BrotliSharpLib` swapped for the real open-source library**, superseding
+  the dnSpy-recompile fix above entirely. It's
+  [master131/BrotliSharpLib](https://github.com/master131/BrotliSharpLib)
+  (MIT) — confirmed via matching method signatures against the recovered
+  source — so the whole obfuscated 58-file directory was deleted and
+  replaced with real upstream source verbatim; see
+  [FINDINGS.md §8](FINDINGS.md) for the verification detail.
+* **With the cascade unmasked and Brotli swapped, the project's true error
+  surface was ~600 (not 1 or 183) — fixed down to 0, file by file.** Every
+  fix follows one of the patterns now catalogued in
+  [FINDINGS.md §6](FINDINGS.md) (decoy methods, `CS0571` explicit accessor
+  calls, fixed-buffer-then-bogus-field-access, `Reverse().ToArray()`'s
+  `Span<T>` ambiguity, name collisions from the fixed-length obfuscation
+  pool colliding a local variable with an unrelated type/static member) —
+  not re-narrated per-file here. Two things worth flagging specifically:
+  - **A decoy-removal false positive, caught and left honest rather than
+    papered over.** An early, pattern-driven pass deleted what looked like
+    a decoy click handler in `MainForm.cs` (it matched the
+    unresolvable-generic tell) but was actually a real, if buggy,
+    "save packed version metadata" handler. Its two structurally different
+    sibling handlers didn't give enough to confidently reconstruct the
+    original body, so the menu item is left with no handler and an
+    in-code comment explaining why, rather than fabricating behaviour.
+  - **C# 14's contextual `field` keyword** broke a property named
+    `WasModified` (returns `bool`) that happened to declare a local
+    variable literally named `field` inside its accessors — the compiler
+    now prefers the keyword (the auto-property backing field, typed to
+    match the property, `bool` here) over the shadowing local in that
+    position, producing baffling "cannot convert bool to X" errors with no
+    connection to the real bug. Renaming the local resolved it immediately
+    once recognised; the CS9273 warning-as-error naming the keyword by name
+    is the tell.
+* `DevXUnityUnpackerTools.csproj` now builds with **0 errors**, confirmed on
+  a full clean rebuild (`rm -rf obj bin`, not just incremental).
 
 **Sidecar cleanup, done for 6 of the 8 hashes.** With the six purely-library
 sidecars building clean from source through the `Recovered/` chain, their
@@ -440,8 +443,8 @@ just leftovers from P3's manual runtime testing) are redundant and removed:
 | `33123090` | NAudio | 0 errors — **deleted** |
 | `A8043F67` | ICSharpCode.NRefactory.CSharp | 0 errors — **deleted** |
 | `E88D01F4` | Mono.Cecil 0.9.6.0 (`Recovered/Mono.Cecil`, confirmed by matching `AssemblyVersion` — *not* the two other, unrelated Mono.Cecil forks in this repo, `Mono.Cecil/` 0.10.3.0 and `Mon3.Cecil/` 0.11.2.0) | 0 errors — **deleted** |
-| `8DAFE878` | DevXUnityUnpackerTools | 1 error (above) — **kept** |
-| `002203XLC` | not an assembly (plain-text GUID, see FINDINGS.md §4); consumer never located | **kept**, unaddressed |
+| `8DAFE878` | DevXUnityUnpackerTools | 0 errors (P7b, this session) — **deleted** |
+| `002203XLC` | not an assembly (plain-text GUID, see FINDINGS.md §4); consumer never located despite a dedicated search — doesn't fit the real hash-naming scheme or cipher, and no license/GUID-reading code anywhere in the buildable, runtime-verified source touches it | **kept**, unaddressed — likely decoy, or tied to the never-recovered `DevXUnityUnpackerTools_Structures` (`A33D874E`) |
 
 `DevXUnityUnpackerTools_Structures` (`A33D874E`, P2) is separate from this
 list of 8 — still absent, still confirmed not needed for the app to run

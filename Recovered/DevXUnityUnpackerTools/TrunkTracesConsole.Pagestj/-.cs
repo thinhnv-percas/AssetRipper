@@ -7,14 +7,6 @@ namespace TrunkTracesConsole.Pagestj
 {
 	internal class _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A
 	{
-		internal string _0020_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020(decimal _0020, int _0020_000A)
-		{
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A((object)null, (EventArgs)null);
-			((_0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020((ImageResData)null, (ImageResData)null);
-			((_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020();
-			_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020.Create(null, null);
-			((CapstoneDisassembler<, , , , , , , >)null).SkipDataCallback = null;
-			return "1498092999";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

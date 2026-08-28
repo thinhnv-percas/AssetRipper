@@ -6,14 +6,6 @@ namespace ICSharpCode.SharpZipLib.BZip2hc
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A
 	{
-		internal unsafe object _0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020(string _0020)
-		{
-			//IL_0011: Expected I, but got O
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A*)(long)(IntPtr)(void*)null);
-			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A((string)null);
-			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A((CultureFormatter.SomeItem)null);
-			int versionMadeBy = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).VersionMadeBy;
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

@@ -5,11 +5,6 @@ namespace SevenZip.Compression.LZnf
 {
 	internal class _0020_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A
 	{
-		internal object _0020_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020()
-		{
-			((FunctionBody)null).CompressLocalEntries();
-			((InstructionDetail<, , , , , , , >)null).OnExplicitlyReadRegistersLazyInitialization();
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

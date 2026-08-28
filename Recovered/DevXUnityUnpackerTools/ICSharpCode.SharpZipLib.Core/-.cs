@@ -734,27 +734,10 @@ namespace ICSharpCode.SharpZipLib.Core
 			_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A.Create();
 		}
 	}
-	internal class _0020_000A_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A
-	{
-		internal int _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020(decimal _0020, short _0020_000A, float _0020_0020)
-		{
-			CapstoneDisassembler<, , , , , , , >._003C_002Ector_003Eg__CreateNativeDisassembleMode_007C33_0(null);
-			((ScriptGenerateOptions)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020((object)null, (EventArgs)null);
-			((CodeWriter)null).WriteLine();
-			return 1477378959;
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic CapstoneDisassembler<,,,,,,,> no-op pattern, see FINDINGS.md P7b).
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A
 	{
-		internal unsafe string _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020(VerFormat _0020, VerFormat _0020_000A)
-		{
-			//IL_0024: Expected I, but got O
-			//IL_0024: Expected I, but got O
-			((MultiSelectTreeView2)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A();
-			Brotli._0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020*)(long)(IntPtr)(void*)null, (Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			bool canDecompress = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).CanDecompress;
-			return "1455195062";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A
 	{

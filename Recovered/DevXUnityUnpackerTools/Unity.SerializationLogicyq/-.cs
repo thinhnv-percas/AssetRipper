@@ -10,17 +10,6 @@ namespace Unity.SerializationLogicyq
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A
 	{
-		internal unsafe string _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020()
-		{
-			//IL_0036: Expected I, but got O
-			//IL_0036: Expected I, but got O
-			((_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020();
-			IList<uint> word = ((ParsedOperand)null).Words;
-			_0020_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A._0020_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020((ulong*)(long)(IntPtr)(void*)null, (uint*)(long)(IntPtr)(void*)null);
-			_0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020._0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_0020();
-			bool canDecompress = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).CanDecompress;
-			UnitySerializationLogic._0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A((FieldDefinition)null);
-			return "160443733";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

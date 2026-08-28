@@ -1,25 +1,4 @@
-﻿using @as;
-using DMP4;
-using FMOD;
-using Mon3.Cecil;
-using SevenZip;
-using System.Collections.Generic;
-using Wasm.Instructions;
-using XnaGeometry;
-
 namespace asgq
 {
-	internal class _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A
-	{
-		internal unsafe int _0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020(DSP_LOWPASS_SIMPLE _0020, _0020_0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020 _0020_000A)
-		{
-			uint typeIndex = ((_0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020)null).TypeIndex;
-			BoundingBox.CreateFromPoints(null);
-			Dictionary<string, AssemblyDefinition> dictionary = ((_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A;
-			((_0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A)null).GetDigest();
-			float[][] spectrum = ((DSP_PARAMETER_FFT*)(byte*)null)->spectrum;
-			_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A I_0 = ((_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020)null)._0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A;
-			return 64351764;
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

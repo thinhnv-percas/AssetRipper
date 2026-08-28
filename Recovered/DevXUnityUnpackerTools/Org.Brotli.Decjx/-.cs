@@ -6,10 +6,6 @@ namespace Org.Brotli.Decjx
 {
 	internal class _0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A
 	{
-		internal unsafe void _0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020()
-		{
-			OperatorImpls.Float64Floor(null, null);
-			((_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_00601<_0020_000A>(ref *(List<_0020_000A>*)null);
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

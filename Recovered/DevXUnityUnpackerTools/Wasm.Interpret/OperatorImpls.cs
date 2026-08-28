@@ -311,7 +311,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A.CastInstruction(value);
 			int num = context.Pop<int>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Int8[offset] = (sbyte)num;
+			LinearMemoryAsInt8 memAsInt8 = context.Module.Memories[0].Int8;
+			memAsInt8[offset] = (sbyte)num;
 		}
 
 		public static void Int32Store16(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -319,7 +320,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020.CastInstruction(value);
 			int num = context.Pop<int>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Int16[offset] = (short)num;
+			LinearMemoryAsInt16 memAsInt16 = context.Module.Memories[0].Int16;
+			memAsInt16[offset] = (short)num;
 		}
 
 		public static void Int32Store(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -327,7 +329,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A.CastInstruction(value);
 			int value2 = context.Pop<int>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Int32[offset] = value2;
+			LinearMemoryAsInt32 memAsInt32 = context.Module.Memories[0].Int32;
+			memAsInt32[offset] = value2;
 		}
 
 		public static void Int64Store8(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -335,7 +338,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A.CastInstruction(value);
 			long num = context.Pop<long>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Int8[offset] = (sbyte)num;
+			LinearMemoryAsInt8 memAsInt8 = context.Module.Memories[0].Int8;
+			memAsInt8[offset] = (sbyte)num;
 		}
 
 		public static void Int64Store16(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -343,7 +347,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020.CastInstruction(value);
 			long num = context.Pop<long>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Int16[offset] = (short)num;
+			LinearMemoryAsInt16 memAsInt16 = context.Module.Memories[0].Int16;
+			memAsInt16[offset] = (short)num;
 		}
 
 		public static void Int64Store32(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -351,7 +356,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A.CastInstruction(value);
 			long num = context.Pop<long>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Int32[offset] = (int)num;
+			LinearMemoryAsInt32 memAsInt32 = context.Module.Memories[0].Int32;
+			memAsInt32[offset] = (int)num;
 		}
 
 		public static void Int64Store(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -359,7 +365,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020.CastInstruction(value);
 			long value2 = context.Pop<long>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Int64[offset] = value2;
+			LinearMemoryAsInt64 memAsInt64 = context.Module.Memories[0].Int64;
+			memAsInt64[offset] = value2;
 		}
 
 		public static void Float32Store(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -367,7 +374,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A.CastInstruction(value);
 			float value2 = context.Pop<float>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Float32[offset] = value2;
+			LinearMemoryAsFloat32 memAsFloat32 = context.Module.Memories[0].Float32;
+			memAsFloat32[offset] = value2;
 		}
 
 		public static void Float64Store(Wasm.Instructions.Instruction value, InterpreterContext context)
@@ -375,7 +383,8 @@ namespace Wasm.Interpret
 			MemoryInstruction _0020 = _0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A._0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020.CastInstruction(value);
 			double value2 = context.Pop<double>();
 			uint offset = _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(_0020, context);
-			context.Module.Memories[0].Float64[offset] = value2;
+			LinearMemoryAsFloat64 memAsFloat64 = context.Module.Memories[0].Float64;
+			memAsFloat64[offset] = value2;
 		}
 
 		internal static uint _0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_0020(MemoryInstruction _0020, InterpreterContext _0020_000A)

@@ -8,13 +8,6 @@ namespace DMP4fo
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		internal string _0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020(string _0020, FileByteProvider _0020_000A)
-		{
-			((_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A)null)._0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020();
-			bool updateFlag = ((ArmInstructionDetail)null).UpdateFlags;
-			((_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A)null)._0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020((CapstoneDisassembler)null, (_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A)null);
-			bool isDietModeEnabled = ((Register<>)null).IsDietModeEnabled;
-			return "1242206399";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

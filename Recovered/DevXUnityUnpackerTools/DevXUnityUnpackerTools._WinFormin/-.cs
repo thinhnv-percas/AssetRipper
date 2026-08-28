@@ -10,14 +10,7 @@ namespace DevXUnityUnpackerTools._WinFormin
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A
 	{
-		internal unsafe object _0020_000A_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020(int _0020, decimal _0020_000A, TreeViewColumnCollection _0020_0020)
-		{
-			int rawLength = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020)null).RawLength;
-			DisassembleSyntax disassembleSyntax = ((CapstoneDisassembler<, , , , , , , >)null).DisassembleSyntax;
-			((_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A<_0020_000A>(ref *(Dictionary<_0020_000A, int>*)null);
-			_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A._0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020 = null;
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A
 	{

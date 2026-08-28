@@ -8,11 +8,6 @@ namespace FMODby
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A
 	{
-		internal unsafe object _0020_0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020(_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A _0020, EPlatform _0020_000A, string _0020_0020)
-		{
-			//IL_0012: Expected I, but got O
-			((_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A)null)._0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020*)(long)(IntPtr)(void*)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

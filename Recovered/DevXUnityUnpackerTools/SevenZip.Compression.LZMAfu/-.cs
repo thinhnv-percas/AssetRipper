@@ -5,12 +5,6 @@ namespace SevenZip.Compression.LZMAfu
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		internal unsafe string _0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020()
-		{
-			//IL_0023: Expected I, but got O
-			((CodeWriter)null)._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A((string)null);
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A*)(long)(IntPtr)(void*)null);
-			return "1632984714";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

@@ -7,10 +7,7 @@ namespace DSMCaps.X86ew
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A
 	{
-		internal unsafe string _0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020(ref Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020 _0020, bool _0020_000A, bool _0020_0020, Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A* _0020_000A_000A, byte** _0020_000A_0020)
-		{
-			return "2018018617";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A
 	{

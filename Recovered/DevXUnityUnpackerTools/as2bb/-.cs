@@ -10,16 +10,6 @@ namespace as2bb
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A
 	{
-		internal unsafe string _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_0020_0020(float _0020)
-		{
-			bool isMipsSupported = CapstoneDisassembler.IsMipsSupported;
-			((_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020)null)._0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A();
-			bool isSystemZSupported = CapstoneDisassembler.IsSystemZSupported;
-			VersionHeader mvpHeader = VersionHeader.MvpHeader;
-			((_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A)null)._0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020((_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A)null);
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020(ref *(Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020*)null);
-			string trimPrefix = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A)null).TrimPrefix;
-			return "1463542491";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

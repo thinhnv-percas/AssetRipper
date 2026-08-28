@@ -6,12 +6,6 @@ namespace NetObfum
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A
 	{
-		internal unsafe int _0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020(Il2CppTypeDefinition _0020, _0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020 _0020_000A, Il2CppGenericContext _0020_0020)
-		{
-			//IL_0011: Expected I, but got O
-			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			string text = (string)(CustomString)null;
-			return 949711325;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

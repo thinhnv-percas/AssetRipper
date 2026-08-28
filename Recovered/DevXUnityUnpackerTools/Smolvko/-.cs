@@ -7,13 +7,6 @@ namespace Smolvko
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A
 	{
-		internal unsafe object _0020_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020(OperandType _0020, int _0020_000A, string _0020_0020)
-		{
-			//IL_0012: Expected I, but got O
-			Brotli._0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020(ref *(Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A*)null, (Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020*)(long)(IntPtr)(void*)null);
-			_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A entry = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_000A)null).Entry;
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020((object)null, (EventArgs)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

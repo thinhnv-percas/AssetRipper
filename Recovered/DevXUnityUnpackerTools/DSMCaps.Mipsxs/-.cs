@@ -1,16 +1,4 @@
-﻿using DevXForms;
-using ICSharpCode.SharpZipLib.Tar;
-using NetObfwo;
-
 namespace DSMCaps.Mipsxs
 {
-	internal class _0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A
-	{
-		internal int _0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020(short _0020, int _0020_000A, TreeViewEventHandler _0020_0020, short _0020_000A_000A)
-		{
-			((_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A)null)._0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020();
-			_0020_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020.CreateOutputTarArchive(null);
-			return 1443664582;
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

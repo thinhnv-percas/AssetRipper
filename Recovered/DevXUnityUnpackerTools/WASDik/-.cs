@@ -6,12 +6,6 @@ namespace WASDik
 {
 	internal class _0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		internal unsafe object _0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020(bool _0020, _0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A _0020_000A, string _0020_0020, object _0020_000A_000A)
-		{
-			((InstructionDetail<, , , , , , , >)null).IsDisassembleArchitectureUnsupported();
-			Vector3 zero = Vector3.Zero;
-			_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020._0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020_0020(null, ref *(_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020._0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020*)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

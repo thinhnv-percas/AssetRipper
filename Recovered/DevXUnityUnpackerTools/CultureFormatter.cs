@@ -601,10 +601,7 @@ internal class CultureFormatter
 			switch (obj as string)
 			{
 			default:
-			{
-				string a;
-				return a == "On";
-			}
+				return false;
 			case "1":
 			case "True":
 			case "true":

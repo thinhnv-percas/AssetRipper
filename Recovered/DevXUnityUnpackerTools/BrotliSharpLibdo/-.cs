@@ -1,17 +1,4 @@
-﻿using DMP4;
-using FMOD;
-using Mon3.Cecil;
-using System.Collections.Generic;
-
 namespace BrotliSharpLibdo
 {
-	internal class _0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A
-	{
-		internal object _0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020(DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR _0020, decimal _0020_000A)
-		{
-			HashManager._0020_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_0020(null);
-			Dictionary<int, TypeReference> dictionary = ((_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A;
-			return null;
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

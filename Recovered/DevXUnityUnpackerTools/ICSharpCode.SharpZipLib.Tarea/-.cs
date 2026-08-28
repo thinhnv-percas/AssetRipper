@@ -1,15 +1,4 @@
-﻿using @as;
-
 namespace ICSharpCode.SharpZipLib.Tarea
 {
-	internal class _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A
-	{
-		internal string _0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020(int _0020)
-		{
-			((HEXControll)null)._0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A((string)null, null);
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020((string)null);
-			double num = ((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020;
-			return "473450216";
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

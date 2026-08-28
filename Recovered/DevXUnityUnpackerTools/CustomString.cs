@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-[DefaultMember("Item")]
 internal class CustomString : IDisposable, IEquatable<CustomString>
 {
 	internal char[] _0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020;
@@ -54,7 +53,7 @@ internal class CustomString : IDisposable, IEquatable<CustomString>
 		}
 	}
 
-	internal char _0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A => _0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A(_0020);
+	internal char this[int _0020] => _0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A(_0020);
 
 	internal void _0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020(string _0020)
 	{
@@ -378,7 +377,7 @@ internal class CustomString : IDisposable, IEquatable<CustomString>
 		_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A[] array = new _0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A[_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020];
 		for (int i = 0; i < _0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020; i++)
 		{
-			array[i] = this._0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020(i);
+			array[i] = this[i];
 		}
 		return array;
 	}
@@ -388,7 +387,7 @@ internal class CustomString : IDisposable, IEquatable<CustomString>
 		char[] array = new char[_0020_000A];
 		for (int i = 0; i < _0020_000A && i + _0020 < _0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020; i++)
 		{
-			array[i] = this._0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020(i + _0020);
+			array[i] = this[i + _0020];
 		}
 		CustomString result = new CustomString(array);
 		for (int j = 0; j < array.Length; j++)

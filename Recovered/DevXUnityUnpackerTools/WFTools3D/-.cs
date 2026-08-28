@@ -16,13 +16,7 @@ namespace WFTools3D
 {
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A
 	{
-		internal unsafe void _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020(Image _0020)
-		{
-			//IL_0023: Expected I, but got O
-			string text = (string)(_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A)null;
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A*)(long)(IntPtr)(void*)null);
-			Arm64VectorElementSizeSpecifier vectorElementSizeSpecifier = ((Arm64Operand)null).VectorElementSizeSpecifier;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A
 	{
@@ -36,11 +30,7 @@ namespace WFTools3D
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A
 	{
-		internal void _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020(int _0020)
-		{
-			string text = ((_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A)null)._0020_000A_0020_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020;
-			((InstructionDetailBuilder<, , , , , , , >)null).ImplicitlyReadRegisters = null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A
 	{

@@ -14,14 +14,6 @@ namespace DevXUnityUnpackerTools._WinFormuf
 	}
 	internal class _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A
 	{
-		internal int _0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020()
-		{
-			((_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020)null)._0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A = null;
-			((CustomProperty)null).FileNameFilter = null;
-			((TypeDefinition)null).IsSubclassOf(null);
-			byte[] extraPayload = ((ElementSection)null).ExtraPayload;
-			ConsoleManager._0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A(null, null);
-			return 2047753636;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

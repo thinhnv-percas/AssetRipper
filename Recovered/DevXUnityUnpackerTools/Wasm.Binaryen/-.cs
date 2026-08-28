@@ -6,12 +6,6 @@ namespace Wasm.Binaryen
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A
 	{
-		internal unsafe int _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020(byte* _0020, Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A _0020_000A, Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A _0020_0020, uint* _0020_000A_000A)
-		{
-			((OutWindow)null).Flush();
-			((DeflateStream)null)._0020_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A();
-			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020)null).ReadInt16Array();
-			return 1128931228;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

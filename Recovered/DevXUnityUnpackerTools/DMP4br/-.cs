@@ -1,15 +1,4 @@
-﻿using DSMCapsgx;
-using ICSharpCode.SharpZipLib.Core;
-
 namespace DMP4br
 {
-	internal class _0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A
-	{
-		internal string _0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020(string _0020)
-		{
-			string name = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020)null).Name;
-			((_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A)null)._0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020();
-			return "1442343756";
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

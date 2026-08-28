@@ -9,13 +9,6 @@ namespace DevXParserLibun
 {
 	internal class _0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		internal object _0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020(Rectangle _0020, Rectangle _0020_000A)
-		{
-			((_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A)null)._0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020((Instruction)null);
-			LZ4Codec._0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_000A_0020_0020();
-			WFUtils.GetPrimaryScreen();
-			TDisassembleMode disassembleMode = ((CapstoneDisassembler<, , , , , , , >)null).DisassembleMode;
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

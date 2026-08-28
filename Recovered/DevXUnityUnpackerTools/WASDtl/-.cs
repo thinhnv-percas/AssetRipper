@@ -8,15 +8,6 @@ namespace WASDtl
 {
 	internal class _0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A
 	{
-		internal string _0020_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020(float _0020, string _0020_000A, int _0020_0020)
-		{
-			PRESET.LIVINGROOM();
-			((TypeReference)null).IsAssignableTo(null);
-			((_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A)null)._0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020();
-			((ViewMap)null).CurKey = null;
-			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A)null).ReadInt64();
-			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020)null)._0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_000A((string)null, (object)null);
-			return "1594902653";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

@@ -4,11 +4,6 @@ namespace DevXUnityUnpackerTools._WPFfi
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A
 	{
-		internal object _0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_0020()
-		{
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A((string)null);
-			((InstructionDetailBuilder<, , , , , , , >)null).ImplicitlyReadRegisters = null;
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

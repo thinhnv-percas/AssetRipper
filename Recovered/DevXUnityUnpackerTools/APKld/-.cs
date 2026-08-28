@@ -6,13 +6,6 @@ namespace APKld
 {
 	internal class _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A
 	{
-		internal unsafe object _0020_000A_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020(int _0020, int _0020_000A)
-		{
-			//IL_004c: Expected I, but got O
-			byte typeFlag = ((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020)null).TypeFlag;
-			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A)null).GetField((string)null);
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A*)(long)(IntPtr)(void*)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

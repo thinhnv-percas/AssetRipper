@@ -7,12 +7,6 @@ namespace DotNetDxcif
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_000A
 	{
-		internal string _0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020(uint _0020, Base.State _0020_000A, uint _0020_0020)
-		{
-			TDisassembleMode disassembleMode = ((Instruction<, , , , , , , >)null).DisassembleMode;
-			((_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A((string)null);
-			((_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A)null)._0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A((string)null);
-			return "1295476004";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

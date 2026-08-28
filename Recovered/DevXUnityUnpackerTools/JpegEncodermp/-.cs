@@ -7,14 +7,6 @@ namespace JpegEncodermp
 {
 	internal class _0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A
 	{
-		internal string _0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020()
-		{
-			((DevXCControl)null)._0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A((object)null, (EventArgs)null);
-			LicChecker._0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A((string)null);
-			byte[] @byte = ((InstructionBuilder<, , , , , , , >)null).Bytes;
-			((EditText)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020 = null;
-			((_0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A)null)._0020_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020((_0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020)null);
-			return "939378538";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

@@ -11,14 +11,7 @@ namespace EdiToolsck
 {
 	internal class _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A
 	{
-		internal unsafe int _0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020()
-		{
-			NodesSelection nodesSelection = ((MultiSelectTreeView2)null).NodesSelection;
-			X86Operand.Create(null, ref *(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020*)null);
-			TId id = ((Instruction<, , , , , , , >)null).Id;
-			bool flag = (VerFormat)null > (VerFormat)null;
-			return 1174284620;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A
 	{

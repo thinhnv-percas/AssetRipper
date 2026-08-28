@@ -35,7 +35,7 @@ internal class ARGB_RAW
 		using (MemoryStream memoryStream = new MemoryStream(buff))
 		{
 			PngReader val = new PngReader((Stream)memoryStream);
-			ImageInfo imgInfo = val.get_ImgInfo();
+			Hjg.Pngcs.ImageInfo imgInfo = val.ImgInfo;
 			if (imgInfo == null)
 			{
 				ConsoleManager.Info.WriteLine("ARGB_RAW.FromPNG imi - null");
@@ -50,10 +50,10 @@ internal class ARGB_RAW
 				ImageLine val2 = val.ReadRowByte(i);
 				for (int j = 0; j < imgInfo.Cols; j++)
 				{
-					byte g = val2.get_ScanlineB()[j * imgInfo.Channels];
-					byte b = val2.get_ScanlineB()[j * imgInfo.Channels + 1];
-					byte a = val2.get_ScanlineB()[j * imgInfo.Channels + 2];
-					byte r_0020_0020 = (imgInfo.Channels < 4) ? byte.MaxValue : val2.get_ScanlineB()[j * imgInfo.Channels + 3];
+					byte g = val2.ScanlineB[j * imgInfo.Channels];
+					byte b = val2.ScanlineB[j * imgInfo.Channels + 1];
+					byte a = val2.ScanlineB[j * imgInfo.Channels + 2];
+					byte r_0020_0020 = (imgInfo.Channels < 4) ? byte.MaxValue : val2.ScanlineB[j * imgInfo.Channels + 3];
 					if (aRGB_RAW.needYmirror)
 					{
 						aRGB_RAW.SetPixelRGBA(j, imgInfo.Rows - 1 - i, r_0020_0020, g, b, a);
@@ -81,11 +81,11 @@ internal class ARGB_RAW
 			ConsoleManager.Info.WriteLine("ToPNG Width=" + Width + ", Height=" + Height);
 			return null;
 		}
-		ImageInfo val = new ImageInfo(Width, Height, 8, true, false, false);
+		Hjg.Pngcs.ImageInfo val = new Hjg.Pngcs.ImageInfo(Width, Height, 8, true, false, false);
 		using (MemoryStream memoryStream = new MemoryStream())
 		{
 			PngWriter val2 = new PngWriter((Stream)memoryStream, val);
-			ImageLine val3 = new ImageLine(val, 1, true);
+			ImageLine val3 = new ImageLine(val, ImageLine.ESampleType.BYTE, true);
 			for (int i = 0; i < val2.ImgInfo.Rows; i++)
 			{
 				for (int j = 0; j < val.Cols; j++)
@@ -93,18 +93,18 @@ internal class ARGB_RAW
 					if (needYmirror)
 					{
 						(byte, byte, byte, byte) rGBA = GetRGBA(j, val2.ImgInfo.Rows - 1 - i);
-						val3.get_ScanlineB()[j * val.Channels] = rGBA.Item1;
-						val3.get_ScanlineB()[j * val.Channels + 1] = rGBA.Item2;
-						val3.get_ScanlineB()[j * val.Channels + 2] = rGBA.Item3;
-						val3.get_ScanlineB()[j * val.Channels + 3] = rGBA.Item4;
+						val3.ScanlineB[j * val.Channels] = rGBA.Item1;
+						val3.ScanlineB[j * val.Channels + 1] = rGBA.Item2;
+						val3.ScanlineB[j * val.Channels + 2] = rGBA.Item3;
+						val3.ScanlineB[j * val.Channels + 3] = rGBA.Item4;
 					}
 					else
 					{
 						(byte, byte, byte, byte) rGBA2 = GetRGBA(j, i);
-						val3.get_ScanlineB()[j * val.Channels] = rGBA2.Item1;
-						val3.get_ScanlineB()[j * val.Channels + 1] = rGBA2.Item2;
-						val3.get_ScanlineB()[j * val.Channels + 2] = rGBA2.Item3;
-						val3.get_ScanlineB()[j * val.Channels + 3] = rGBA2.Item4;
+						val3.ScanlineB[j * val.Channels] = rGBA2.Item1;
+						val3.ScanlineB[j * val.Channels + 1] = rGBA2.Item2;
+						val3.ScanlineB[j * val.Channels + 2] = rGBA2.Item3;
+						val3.ScanlineB[j * val.Channels + 3] = rGBA2.Item4;
 					}
 				}
 				val2.WriteRow(val3, i);

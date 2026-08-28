@@ -7,13 +7,6 @@ namespace SevenZip.Bufferaf
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A
 	{
-		internal object _0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020(decimal _0020, bool _0020_000A)
-		{
-			((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020)null).GetRecordSize();
-			((_0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A)null)._0020_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020();
-			TId id = ((InstructionGroup<>)null).Id;
-			((_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020((string)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

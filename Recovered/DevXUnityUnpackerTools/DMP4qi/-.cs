@@ -1,16 +1,4 @@
-﻿using DevXUnityUnpackerTools._WinForm;
-using ICSharpCode.SharpZipLib.Zip.Compressionvt;
-
 namespace DMP4qi
 {
-	internal class _0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A
-	{
-		internal object _0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020(short _0020)
-		{
-			((SearchForm)null)._003CSunSearchAll_003Eb__19_0();
-			((_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020((string)null);
-			((MainForm)null)._0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A();
-			return null;
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

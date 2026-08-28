@@ -2,12 +2,7 @@
 {
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A
 	{
-		internal int _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_000A_0020()
-		{
-			string mnemonic = ((Instruction<, , , , , , , >)null).Mnemonic;
-			((RapackInfo)null)._0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A((string)null, (string)null);
-			return 569550597;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A_000A
 	{

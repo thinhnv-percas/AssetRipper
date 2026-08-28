@@ -7,6 +7,16 @@ using FMOD;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
+using CustomAttributeNamedArgument = Mono.Cecil.CustomAttributeNamedArgument;
+using EventAttributes = Mono.Cecil.EventAttributes;
+using FieldAttributes = Mono.Cecil.FieldAttributes;
+using MethodAttributes = Mono.Cecil.MethodAttributes;
+using MethodImplAttributes = Mono.Cecil.MethodImplAttributes;
+using GenericParameterAttributes = Mono.Cecil.GenericParameterAttributes;
+using ParameterAttributes = Mono.Cecil.ParameterAttributes;
+using PropertyAttributes = Mono.Cecil.PropertyAttributes;
+using TypeAttributes = Mono.Cecil.TypeAttributes;
 using SevenZip.Buffer;
 using System;
 using System.Collections.Generic;
@@ -2024,14 +2034,14 @@ namespace DMP4
 			: base(stream)
 		{
 			base.Position += 4uL;
-			int num = BitConverter.ToInt32(ReadBytes(4).Reverse().ToArray(), 0);
+			int num = BitConverter.ToInt32(System.Linq.Enumerable.Reverse(ReadBytes(4)).ToArray(), 0);
 			_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020 = new _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A[num];
 			for (int i = 0; i < num; i++)
 			{
 				base.Position += 8uL;
 				_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020[i] = new _0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A();
-				_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020[i].offset = BitConverter.ToUInt32(ReadBytes(4).Reverse().ToArray(), 0);
-				_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020[i].size = BitConverter.ToUInt32(ReadBytes(4).Reverse().ToArray(), 0);
+				_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020[i].offset = BitConverter.ToUInt32(System.Linq.Enumerable.Reverse(ReadBytes(4)).ToArray(), 0);
+				_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020[i].size = BitConverter.ToUInt32(System.Linq.Enumerable.Reverse(ReadBytes(4)).ToArray(), 0);
 				base.Position += 4uL;
 			}
 			for (int j = 0; j < num; j++)
@@ -6745,7 +6755,7 @@ namespace DMP4
 					using (MemoryStream memoryStream = new MemoryStream())
 					{
 						item.Write((Stream)memoryStream);
-						File.WriteAllBytes(item.get_MainModule().get_Name(), memoryStream.ToArray());
+						File.WriteAllBytes(item.MainModule.Name, memoryStream.ToArray());
 					}
 				}
 				ConsoleManager.WriteInfo("End create dll");
@@ -6905,32 +6915,32 @@ namespace DMP4
 
 			internal bool _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A(TypeDefinition _0020)
 			{
-				return _0020.get_Name() == "AddressAttribute";
+				return _0020.Name == "AddressAttribute";
 			}
 
 			internal bool _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020(TypeDefinition _0020)
 			{
-				return _0020.get_Name() == "FieldOffsetAttribute";
+				return _0020.Name == "FieldOffsetAttribute";
 			}
 
 			internal bool _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A(TypeDefinition _0020)
 			{
-				return _0020.get_Name() == "AttributeAttribute";
+				return _0020.Name == "AttributeAttribute";
 			}
 
 			internal bool _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020(TypeDefinition _0020)
 			{
-				return _0020.get_Name() == "MetadataOffsetAttribute";
+				return _0020.Name == "MetadataOffsetAttribute";
 			}
 
 			internal bool _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A(TypeDefinition _0020)
 			{
-				return _0020.get_Name() == "TokenAttribute";
+				return _0020.Name == "TokenAttribute";
 			}
 
 			internal bool _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020(MethodDefinition _0020)
 			{
-				return _0020.get_Name() == ".ctor";
+				return _0020.Name == ".ctor";
 			}
 		}
 
@@ -7141,26 +7151,26 @@ namespace DMP4
 			MethodDefinition val5 = null;
 			try
 			{
-				_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A = val.get_MainModule().get_TypeSystem().get_String();
+				_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A = val.MainModule.TypeSystem.String;
 			}
 			catch
 			{
 			}
 			try
 			{
-				val2 = ((IEnumerable<TypeDefinition>)val.get_MainModule().get_Types()).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A).get_Methods().get_Item(0);
-				val3 = ((IEnumerable<TypeDefinition>)val.get_MainModule().get_Types()).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020).get_Methods().get_Item(0);
-				_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020 = ((IEnumerable<TypeDefinition>)val.get_MainModule().get_Types()).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A).get_Methods().get_Item(0);
-				val4 = ((IEnumerable<TypeDefinition>)val.get_MainModule().get_Types()).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020).get_Methods().get_Item(0);
-				val5 = ((IEnumerable<TypeDefinition>)val.get_MainModule().get_Types()).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A).get_Methods().get_Item(0);
+				val2 = ((IEnumerable<TypeDefinition>)val.MainModule.Types).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A).Methods[0];
+				val3 = ((IEnumerable<TypeDefinition>)val.MainModule.Types).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_0020).Methods[0];
+				_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020 = ((IEnumerable<TypeDefinition>)val.MainModule.Types).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A).Methods[0];
+				val4 = ((IEnumerable<TypeDefinition>)val.MainModule.Types).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020).Methods[0];
+				val5 = ((IEnumerable<TypeDefinition>)val.MainModule.Types).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A).Methods[0];
 			}
 			catch
 			{
 			}
 			_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020 _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020 = new _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020();
 			ModuleParameters val6 = new ModuleParameters();
-			val6.set_Kind(0);
-			val6.set_AssemblyResolver(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020);
+			val6.Kind = 0;
+			val6.AssemblyResolver = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020;
 			ModuleParameters val7 = val6;
 			_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A(val);
 			Dictionary<int, FieldDefinition> dictionary = new Dictionary<int, FieldDefinition>();
@@ -7179,19 +7189,19 @@ namespace DMP4
 				AssemblyDefinition val8 = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition(stringFromIndex.Replace(".dll", ""), new Version("1.0.0.0")), stringFromIndex, val7);
 				_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A(val8);
 				_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A.Add(val8);
-				ModuleDefinition mainModule = val8.get_MainModule();
-				mainModule.get_Types().Clear();
+				ModuleDefinition mainModule = val8.MainModule;
+				mainModule.Types.Clear();
 				long num = il2CppImageDefinition.typeStart + il2CppImageDefinition.typeCount;
 				for (int j = il2CppImageDefinition.typeStart; j < num; j++)
 				{
 					Il2CppTypeDefinition il2CppTypeDefinition = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.typeDefs[j];
 					string stringFromIndex2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppTypeDefinition.namespaceIndex);
 					string stringFromIndex3 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppTypeDefinition.nameIndex);
-					TypeDefinition val9 = new TypeDefinition(stringFromIndex2, stringFromIndex3, il2CppTypeDefinition.flags);
+					TypeDefinition val9 = new TypeDefinition(stringFromIndex2, stringFromIndex3, (TypeAttributes)il2CppTypeDefinition.flags);
 					_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020.Add(il2CppTypeDefinition, val9);
 					if (il2CppTypeDefinition.declaringTypeIndex == -1)
 					{
-						mainModule.get_Types().Add(val9);
+						mainModule.Types.Add(val9);
 					}
 				}
 			}
@@ -7204,7 +7214,7 @@ namespace DMP4
 					int num2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.nestedTypeIndices[il2CppTypeDefinition2.nestedTypesStart + l];
 					Il2CppTypeDefinition key = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.typeDefs[num2];
 					TypeDefinition val11 = _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020[key];
-					val10.get_NestedTypes().Add(val11);
+					val10.NestedTypes.Add(val11);
 				}
 			}
 			for (int m = 0; m < _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.typeDefs.Length; m++)
@@ -7213,9 +7223,9 @@ namespace DMP4
 				TypeDefinition val12 = _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020[il2CppTypeDefinition3];
 				if (val5 != null)
 				{
-					CustomAttribute val13 = new CustomAttribute(val12.get_Module().ImportReference(val5));
-					val13.get_Fields().Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppTypeDefinition3.token:X}")));
-					val12.get_CustomAttributes().Add(val13);
+					CustomAttribute val13 = new CustomAttribute(val12.Module.ImportReference(val5));
+					val13.Fields.Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppTypeDefinition3.token:X}")));
+					val12.CustomAttributes.Add(val13);
 				}
 				if (il2CppTypeDefinition3.genericContainerIndex >= 0)
 				{
@@ -7225,7 +7235,7 @@ namespace DMP4
 						int num3 = il2CppGenericContainer.genericParameterStart + n;
 						Il2CppGenericParameter _0020 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.genericParameters[num3];
 						GenericParameter val14 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A(_0020, val12);
-						val12.get_GenericParameters().Add(val14);
+						val12.GenericParameters.Add(val14);
 					}
 				}
 				if (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null)
@@ -7234,18 +7244,18 @@ namespace DMP4
 					{
 						Il2CppType _0020_000A = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppTypeDefinition3.parentIndex];
 						TypeReference baseType = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(val12, _0020_000A);
-						val12.set_BaseType(baseType);
+						val12.BaseType = baseType;
 					}
 					for (int num4 = 0; num4 < il2CppTypeDefinition3.interfaces_count; num4++)
 					{
 						Il2CppType _0020_000A2 = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.interfaceIndices[il2CppTypeDefinition3.interfacesStart + num4]];
 						TypeReference val15 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(val12, _0020_000A2);
-						val12.get_Interfaces().Add(new InterfaceImplementation(val15));
+						val12.Interfaces.Add(val15);
 					}
 				}
 				else
 				{
-					if (val12.get_FullName().StartsWith("System.") || val12.get_FullName().StartsWith("UnityEngine.") || val12.get_FullName().StartsWith("mscorlib.") || val12.get_FullName().StartsWith("Mono.") || val12.get_FullName().StartsWith("netstandard.") || val12.get_FullName().StartsWith("Unity.Timeline") || val12.get_FullName().StartsWith("Unity.RenderPipelines") || val12.get_FullName().StartsWith("Unity.Postprocessing"))
+					if (val12.FullName.StartsWith("System.") || val12.FullName.StartsWith("UnityEngine.") || val12.FullName.StartsWith("mscorlib.") || val12.FullName.StartsWith("Mono.") || val12.FullName.StartsWith("netstandard.") || val12.FullName.StartsWith("Unity.Timeline") || val12.FullName.StartsWith("Unity.RenderPipelines") || val12.FullName.StartsWith("Unity.Postprocessing"))
 					{
 						continue;
 					}
@@ -7255,7 +7265,7 @@ namespace DMP4
 					{
 						Il2CppMethodDefinition il2CppMethodDefinition = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.methodDefs[num6];
 						string stringFromIndex4 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppMethodDefinition.nameIndex);
-						if (!(stringFromIndex4 == ".ctor") && !(stringFromIndex4 == ".cctor") && !(stringFromIndex4 == val12.get_Name()))
+						if (!(stringFromIndex4 == ".ctor") && !(stringFromIndex4 == ".cctor") && !(stringFromIndex4 == val12.Name))
 						{
 							hashSet.Add(stringFromIndex4);
 						}
@@ -7265,7 +7275,7 @@ namespace DMP4
 						TypeReference val16 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(val12, "UnityEngine.MonoBehaviour");
 						if (val16 != null)
 						{
-							val12.set_BaseType(val16);
+							val12.BaseType = val16;
 						}
 					}
 					else if (hashSet.Count == 0 && il2CppTypeDefinition3.field_count > 0)
@@ -7273,7 +7283,7 @@ namespace DMP4
 						TypeReference val17 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(val12, "UnityEngine.ScriptableObject");
 						if (val17 != null)
 						{
-							val12.set_BaseType(val17);
+							val12.BaseType = val17;
 						}
 					}
 				}
@@ -7308,48 +7318,48 @@ namespace DMP4
 								_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A(val18, value.dataIndex, value.typeIndex, out constant);
 							}
 							TypeReference val19 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A(val18, il2CppFieldDefinition.typeIndex, stringFromIndex6, _0020_000A_000A: true);
-							FieldDefinition val20 = new FieldDefinition(stringFromIndex6, 6, val19);
-							val18.get_Fields().Add(val20);
-							if (val20.get_HasDefault())
+							FieldDefinition val20 = new FieldDefinition(stringFromIndex6, (FieldAttributes)6, val19);
+							val18.Fields.Add(val20);
+							if (val20.HasDefault)
 							{
-								val20.set_Constant(constant);
+								val20.Constant = constant;
 							}
 							continue;
 						}
 						Il2CppType il2CppType = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppFieldDefinition.typeIndex];
 						TypeReference val21 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(val18, il2CppType);
-						FieldDefinition val22 = new FieldDefinition(stringFromIndex6, (ushort)il2CppType.attrs, val21);
-						val18.get_Fields().Add(val22);
+						FieldDefinition val22 = new FieldDefinition(stringFromIndex6, (FieldAttributes)(ushort)il2CppType.attrs, val21);
+						val18.Fields.Add(val22);
 						dictionary.Add(num10, val22);
 						if (val5 != null)
 						{
-							CustomAttribute val23 = new CustomAttribute(val18.get_Module().ImportReference(val5));
-							val23.get_Fields().Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppFieldDefinition.token:X}")));
-							val22.get_CustomAttributes().Add(val23);
+							CustomAttribute val23 = new CustomAttribute(val18.Module.ImportReference(val5));
+							val23.Fields.Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppFieldDefinition.token:X}")));
+							val22.CustomAttributes.Add(val23);
 						}
 						if (_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetFieldDefaultValueFromIndex(num10, out Il2CppFieldDefaultValue value2) && value2.dataIndex != -1)
 						{
 							if (_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A(val18, value2.typeIndex, value2.dataIndex, out object obj3))
 							{
-								val22.set_Constant(obj3);
+								val22.Constant = obj3;
 							}
 							else if (val4 != null)
 							{
-								CustomAttribute val24 = new CustomAttribute(val18.get_Module().ImportReference(val4));
-								val25._002Ector("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{obj3:X}"));
-								val24.get_Fields().Add(val25);
-								val22.get_CustomAttributes().Add(val24);
+								CustomAttribute val24 = new CustomAttribute(val18.Module.ImportReference(val4));
+								val25 = new CustomAttributeNamedArgument("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{obj3:X}"));
+								val24.Fields.Add(val25);
+								val22.CustomAttributes.Add(val24);
 							}
 						}
-						if (!val22.get_IsLiteral())
+						if (!val22.IsLiteral)
 						{
-							int fieldOffsetFromIndex = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.GetFieldOffsetFromIndex(num8, num10 - il2CppTypeDefinition4.fieldStart, num10, val18.get_IsValueType(), val22.get_IsStatic());
+							int fieldOffsetFromIndex = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.GetFieldOffsetFromIndex(num8, num10 - il2CppTypeDefinition4.fieldStart, num10, val18.IsValueType, val22.IsStatic);
 							if (fieldOffsetFromIndex >= 0 && val3 != null)
 							{
-								CustomAttribute val26 = new CustomAttribute(val18.get_Module().ImportReference(val3));
-								val27._002Ector("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{fieldOffsetFromIndex:X}"));
-								val26.get_Fields().Add(val27);
-								val22.get_CustomAttributes().Add(val26);
+								CustomAttribute val26 = new CustomAttribute(val18.Module.ImportReference(val3));
+								val27 = new CustomAttributeNamedArgument("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{fieldOffsetFromIndex:X}"));
+								val26.Fields.Add(val27);
+								val22.CustomAttributes.Add(val26);
 							}
 						}
 					}
@@ -7358,9 +7368,9 @@ namespace DMP4
 					{
 						Il2CppMethodDefinition il2CppMethodDefinition2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.methodDefs[num12];
 						string stringFromIndex7 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppMethodDefinition2.nameIndex);
-						MethodDefinition val28 = new MethodDefinition(stringFromIndex7, il2CppMethodDefinition2.flags, val18.get_Module().ImportReference(typeof(void)));
-						val28.set_ImplAttributes(il2CppMethodDefinition2.iflags);
-						val18.get_Methods().Add(val28);
+						MethodDefinition val28 = new MethodDefinition(stringFromIndex7, (MethodAttributes)il2CppMethodDefinition2.flags, val18.Module.TypeSystem.Void);
+						val28.ImplAttributes = (MethodImplAttributes)il2CppMethodDefinition2.iflags;
+						val18.Methods.Add(val28);
 						if (il2CppMethodDefinition2.genericContainerIndex >= 0)
 						{
 							Il2CppGenericContainer il2CppGenericContainer2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.genericContainers[il2CppMethodDefinition2.genericContainerIndex];
@@ -7369,25 +7379,25 @@ namespace DMP4
 								int num14 = il2CppGenericContainer2.genericParameterStart + num13;
 								Il2CppGenericParameter _00202 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.genericParameters[num14];
 								GenericParameter val29 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A(_00202, val28);
-								val28.get_GenericParameters().Add(val29);
+								val28.GenericParameters.Add(val29);
 							}
 						}
 						TypeReference returnType = (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null) ? _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020(val28, _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppMethodDefinition2.returnType]) : _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A(val28, il2CppMethodDefinition2.returnType, stringFromIndex7, _0020_000A_000A: false, _0020_000A_0020: true);
-						val28.set_ReturnType(returnType);
+						val28.ReturnType = returnType;
 						if (val5 != null)
 						{
-							CustomAttribute val30 = new CustomAttribute(val18.get_Module().ImportReference(val5));
-							val30.get_Fields().Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppMethodDefinition2.token:X}")));
-							val28.get_CustomAttributes().Add(val30);
+							CustomAttribute val30 = new CustomAttribute(val18.Module.ImportReference(val5));
+							val30.Fields.Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppMethodDefinition2.token:X}")));
+							val28.CustomAttributes.Add(val30);
 						}
-						if (val28.get_HasBody())
+						if (val28.HasBody)
 						{
-							TypeReference baseType2 = val18.get_BaseType();
-							if (((baseType2 != null) ? baseType2.get_FullName() : null) != "System.MulticastDelegate")
+							TypeReference baseType2 = val18.BaseType;
+							if (((baseType2 != null) ? baseType2.FullName : null) != "System.MulticastDelegate")
 							{
-								ILProcessor iLProcessor = val28.get_Body().GetILProcessor();
+								ILProcessor iLProcessor = val28.Body.GetILProcessor();
 								iLProcessor.Append(iLProcessor.Create(OpCodes.Nop));
-								string fullName = val28.get_ReturnType().get_FullName();
+								string fullName = val28.ReturnType.FullName;
 								if (fullName != "System.Void")
 								{
 									switch (fullName)
@@ -7441,23 +7451,23 @@ namespace DMP4
 							TypeReference val32 = (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null) ? _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020(val28, _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppParameterDefinition.typeIndex]) : _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A(val28, il2CppParameterDefinition.typeIndex, stringFromIndex7, _0020_000A_000A: false, _0020_000A_0020: false, _0020_0020_000A: true, stringFromIndex8);
 							if (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null)
 							{
-								val31 = (ushort)_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppParameterDefinition.typeIndex].attrs;
+								val31 = (ParameterAttributes)(ushort)_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppParameterDefinition.typeIndex].attrs;
 							}
 							ParameterDefinition val33 = new ParameterDefinition(stringFromIndex8, val31, val32);
-							val28.get_Parameters().Add(val33);
+							val28.Parameters.Add(val33);
 							dictionary3.Add(il2CppMethodDefinition2.parameterStart + num15, val33);
 							if (_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetParameterDefaultValueFromIndex(il2CppMethodDefinition2.parameterStart + num15, out Il2CppParameterDefaultValue value3) && value3.dataIndex != -1)
 							{
 								if (_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A(val18, value3.typeIndex, value3.dataIndex, out object obj4))
 								{
-									val33.set_Constant(obj4);
+									val33.Constant = obj4;
 								}
 								else if (val4 != null)
 								{
-									CustomAttribute val34 = new CustomAttribute(val18.get_Module().ImportReference(val4));
-									val35._002Ector("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{obj4:X}"));
-									val34.get_Fields().Add(val35);
-									val33.get_CustomAttributes().Add(val34);
+									CustomAttribute val34 = new CustomAttribute(val18.Module.ImportReference(val4));
+									val35 = new CustomAttributeNamedArgument("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{obj4:X}"));
+									val34.Fields.Add(val35);
+									val33.CustomAttributes.Add(val34);
 								}
 							}
 						}
@@ -7468,20 +7478,20 @@ namespace DMP4
 						ulong methodPointer = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.GetMethodPointer(stringFromIndex5, il2CppMethodDefinition2);
 						if (methodPointer != 0 && val2 != null)
 						{
-							CustomAttribute val36 = new CustomAttribute(val18.get_Module().ImportReference(val2));
+							CustomAttribute val36 = new CustomAttribute(val18.Module.ImportReference(val2));
 							ulong rVA = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.GetRVA(methodPointer);
-							val37._002Ector("RVA", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{rVA:X}"));
-							val38._002Ector("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.MapVATR(methodPointer):X}"));
-							val39._002Ector("VA", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{methodPointer:X}"));
-							val36.get_Fields().Add(val37);
-							val36.get_Fields().Add(val38);
-							val36.get_Fields().Add(val39);
+							val37 = new CustomAttributeNamedArgument("RVA", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{rVA:X}"));
+							val38 = new CustomAttributeNamedArgument("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.MapVATR(methodPointer):X}"));
+							val39 = new CustomAttributeNamedArgument("VA", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{methodPointer:X}"));
+							val36.Fields.Add(val37);
+							val36.Fields.Add(val38);
+							val36.Fields.Add(val39);
 							if (il2CppMethodDefinition2.slot != ushort.MaxValue)
 							{
-								val40._002Ector("Slot", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)il2CppMethodDefinition2.slot.ToString()));
-								val36.get_Fields().Add(val40);
+								val40 = new CustomAttributeNamedArgument("Slot", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)il2CppMethodDefinition2.slot.ToString()));
+								val36.Fields.Add(val40);
 							}
-							val28.get_CustomAttributes().Add(val36);
+							val28.CustomAttributes.Add(val36);
 						}
 					}
 					int num16 = il2CppTypeDefinition4.propertyStart + il2CppTypeDefinition4.property_count;
@@ -7495,27 +7505,27 @@ namespace DMP4
 						if (il2CppPropertyDefinition.get >= 0)
 						{
 							val42 = dictionary2[il2CppTypeDefinition4.methodStart + il2CppPropertyDefinition.get];
-							val41 = val42.get_ReturnType();
+							val41 = val42.ReturnType;
 						}
 						if (il2CppPropertyDefinition.set >= 0)
 						{
 							val43 = dictionary2[il2CppTypeDefinition4.methodStart + il2CppPropertyDefinition.set];
 							if (val41 == null)
 							{
-								val41 = val43.get_Parameters().get_Item(0).get_ParameterType();
+								val41 = val43.Parameters[0].ParameterType;
 							}
 						}
-						PropertyDefinition val44 = new PropertyDefinition(stringFromIndex9, (ushort)il2CppPropertyDefinition.attrs, val41);
-						val44.set_GetMethod(val42);
-						val44.set_SetMethod(val43);
+						PropertyDefinition val44 = new PropertyDefinition(stringFromIndex9, (PropertyAttributes)(ushort)il2CppPropertyDefinition.attrs, val41);
+						val44.GetMethod = val42;
+						val44.SetMethod = val43;
 						PropertyDefinition val45 = val44;
-						val18.get_Properties().Add(val45);
+						val18.Properties.Add(val45);
 						dictionary4.Add(num17, val45);
 						if (val5 != null)
 						{
-							CustomAttribute val46 = new CustomAttribute(val18.get_Module().ImportReference(val5));
-							val46.get_Fields().Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppPropertyDefinition.token:X}")));
-							val45.get_CustomAttributes().Add(val46);
+							CustomAttribute val46 = new CustomAttribute(val18.Module.ImportReference(val5));
+							val46.Fields.Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppPropertyDefinition.token:X}")));
+							val45.CustomAttributes.Add(val46);
 						}
 					}
 					int num18 = il2CppTypeDefinition4.eventStart + il2CppTypeDefinition4.event_count;
@@ -7526,29 +7536,29 @@ namespace DMP4
 						EventAttributes val47 = 0;
 						if (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null)
 						{
-							val47 = (ushort)_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppEventDefinition.typeIndex].attrs;
+							val47 = (EventAttributes)(ushort)_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppEventDefinition.typeIndex].attrs;
 						}
 						TypeReference val48 = (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null) ? _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(val18, _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[il2CppEventDefinition.typeIndex]) : _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A(val18, il2CppEventDefinition.typeIndex);
 						EventDefinition val49 = new EventDefinition(stringFromIndex10, val47, val48);
 						if (il2CppEventDefinition.add >= 0)
 						{
-							val49.set_AddMethod(dictionary2[il2CppTypeDefinition4.methodStart + il2CppEventDefinition.add]);
+							val49.AddMethod = dictionary2[il2CppTypeDefinition4.methodStart + il2CppEventDefinition.add];
 						}
 						if (il2CppEventDefinition.remove >= 0)
 						{
-							val49.set_RemoveMethod(dictionary2[il2CppTypeDefinition4.methodStart + il2CppEventDefinition.remove]);
+							val49.RemoveMethod = dictionary2[il2CppTypeDefinition4.methodStart + il2CppEventDefinition.remove];
 						}
 						if (il2CppEventDefinition.raise >= 0)
 						{
-							val49.set_InvokeMethod(dictionary2[il2CppTypeDefinition4.methodStart + il2CppEventDefinition.raise]);
+							val49.InvokeMethod = dictionary2[il2CppTypeDefinition4.methodStart + il2CppEventDefinition.raise];
 						}
-						val18.get_Events().Add(val49);
+						val18.Events.Add(val49);
 						dictionary5.Add(num19, val49);
 						if (val5 != null)
 						{
-							CustomAttribute val50 = new CustomAttribute(val18.get_Module().ImportReference(val5));
-							val50.get_Fields().Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppEventDefinition.token:X}")));
-							val49.get_CustomAttributes().Add(val50);
+							CustomAttribute val50 = new CustomAttribute(val18.Module.ImportReference(val5));
+							val50.Fields.Add(new CustomAttributeNamedArgument("Token", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{il2CppEventDefinition.token:X}")));
+							val49.CustomAttributes.Add(val50);
 						}
 					}
 				}
@@ -7566,25 +7576,25 @@ namespace DMP4
 				{
 					Il2CppTypeDefinition il2CppTypeDefinition5 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.typeDefs[num21];
 					TypeDefinition val51 = _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020[il2CppTypeDefinition5];
-					_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppTypeDefinition5.customAttributeIndex, il2CppTypeDefinition5.token, val51.get_Module(), val51.get_CustomAttributes());
+					_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppTypeDefinition5.customAttributeIndex, il2CppTypeDefinition5.token, val51.Module, val51.CustomAttributes);
 					int num22 = il2CppTypeDefinition5.fieldStart + il2CppTypeDefinition5.field_count;
 					for (int num23 = il2CppTypeDefinition5.fieldStart; num23 < num22; num23++)
 					{
 						Il2CppFieldDefinition il2CppFieldDefinition2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.fieldDefs[num23];
 						FieldDefinition val52 = dictionary[num23];
-						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppFieldDefinition2.customAttributeIndex, il2CppFieldDefinition2.token, val51.get_Module(), val52.get_CustomAttributes());
+						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppFieldDefinition2.customAttributeIndex, il2CppFieldDefinition2.token, val51.Module, val52.CustomAttributes);
 					}
 					int num24 = il2CppTypeDefinition5.methodStart + il2CppTypeDefinition5.method_count;
 					for (int num25 = il2CppTypeDefinition5.methodStart; num25 < num24; num25++)
 					{
 						Il2CppMethodDefinition il2CppMethodDefinition3 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.methodDefs[num25];
 						MethodDefinition val53 = dictionary2[num25];
-						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppMethodDefinition3.customAttributeIndex, il2CppMethodDefinition3.token, val51.get_Module(), val53.get_CustomAttributes());
+						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppMethodDefinition3.customAttributeIndex, il2CppMethodDefinition3.token, val51.Module, val53.CustomAttributes);
 						for (int num26 = 0; num26 < il2CppMethodDefinition3.parameterCount; num26++)
 						{
 							Il2CppParameterDefinition il2CppParameterDefinition2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.parameterDefs[il2CppMethodDefinition3.parameterStart + num26];
 							ParameterDefinition val54 = dictionary3[il2CppMethodDefinition3.parameterStart + num26];
-							_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppParameterDefinition2.customAttributeIndex, il2CppParameterDefinition2.token, val51.get_Module(), val54.get_CustomAttributes());
+							_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppParameterDefinition2.customAttributeIndex, il2CppParameterDefinition2.token, val51.Module, val54.CustomAttributes);
 						}
 					}
 					int num27 = il2CppTypeDefinition5.propertyStart + il2CppTypeDefinition5.property_count;
@@ -7592,14 +7602,14 @@ namespace DMP4
 					{
 						Il2CppPropertyDefinition il2CppPropertyDefinition2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.propertyDefs[num28];
 						PropertyDefinition val55 = dictionary4[num28];
-						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppPropertyDefinition2.customAttributeIndex, il2CppPropertyDefinition2.token, val51.get_Module(), val55.get_CustomAttributes());
+						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppPropertyDefinition2.customAttributeIndex, il2CppPropertyDefinition2.token, val51.Module, val55.CustomAttributes);
 					}
 					int num29 = il2CppTypeDefinition5.eventStart + il2CppTypeDefinition5.event_count;
 					for (int num30 = il2CppTypeDefinition5.eventStart; num30 < num29; num30++)
 					{
 						Il2CppEventDefinition il2CppEventDefinition2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.eventDefs[num30];
 						EventDefinition val56 = dictionary5[num30];
-						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppEventDefinition2.customAttributeIndex, il2CppEventDefinition2.token, val51.get_Module(), val56.get_CustomAttributes());
+						_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(il2CppImageDefinition3, il2CppEventDefinition2.customAttributeIndex, il2CppEventDefinition2.token, val51.Module, val56.CustomAttributes);
 					}
 				}
 			}
@@ -7611,88 +7621,88 @@ namespace DMP4
 			//IL_01f7: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0224: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0229: Unknown result type (might be due to invalid IL or missing references)
-			ModuleDefinition module = _0020.get_Module();
+			ModuleDefinition module = _0020.Module;
 			if (_0020_000A == "System.Void")
 			{
-				return module.ImportReference(typeof(void));
+				return module.TypeSystem.Void;
 			}
 			if (_0020_000A == "System.String")
 			{
-				return module.ImportReference(typeof(string));
+				return module.TypeSystem.String;
 			}
 			if (_0020_000A == "System.Boolean")
 			{
-				return module.ImportReference(typeof(bool));
+				return module.TypeSystem.Boolean;
 			}
 			if (_0020_000A == "System.Byte")
 			{
-				return module.ImportReference(typeof(byte));
+				return module.TypeSystem.Byte;
 			}
 			if (_0020_000A == "System.SByte")
 			{
-				return module.ImportReference(typeof(sbyte));
+				return module.TypeSystem.SByte;
 			}
 			if (_0020_000A == "System.Int16")
 			{
-				return module.ImportReference(typeof(short));
+				return module.TypeSystem.Int16;
 			}
 			if (_0020_000A == "System.UInt16")
 			{
-				return module.ImportReference(typeof(ushort));
+				return module.TypeSystem.UInt16;
 			}
 			if (_0020_000A == "System.Int32")
 			{
-				return module.ImportReference(typeof(int));
+				return module.TypeSystem.Int32;
 			}
 			if (_0020_000A == "System.UInt32")
 			{
-				return module.ImportReference(typeof(uint));
+				return module.TypeSystem.UInt32;
 			}
 			if (_0020_000A == "System.Int64")
 			{
-				return module.ImportReference(typeof(long));
+				return module.TypeSystem.Int64;
 			}
 			if (_0020_000A == "System.UInt64")
 			{
-				return module.ImportReference(typeof(ulong));
+				return module.TypeSystem.UInt64;
 			}
 			if (_0020_000A == "System.Single")
 			{
-				return module.ImportReference(typeof(float));
+				return module.TypeSystem.Single;
 			}
 			if (_0020_000A == "System.Double")
 			{
-				return module.ImportReference(typeof(double));
+				return module.TypeSystem.Double;
 			}
 			if (_0020_000A == "System.IntPtr")
 			{
-				return module.ImportReference(typeof(IntPtr));
+				return module.TypeSystem.IntPtr;
 			}
 			if (_0020_000A == "System.Char")
 			{
-				return module.ImportReference(typeof(char));
+				return module.TypeSystem.Char;
 			}
 			if (_0020_000A == "System.Object")
 			{
-				return module.ImportReference(typeof(object));
+				return module.TypeSystem.Object;
 			}
-			var enumerator = _0020.get_Module().get_Types().GetEnumerator();
+			var enumerator = _0020.Module.Types.GetEnumerator();
 			try
 			{
 				while (enumerator.MoveNext())
 				{
-					TypeDefinition current = enumerator.get_Current();
-					if (current.get_FullName() == _0020_000A)
+					TypeDefinition current = enumerator.Current;
+					if (current.FullName == _0020_000A)
 					{
 						return module.ImportReference(current);
 					}
-					var enumerator2 = current.get_NestedTypes().GetEnumerator();
+					var enumerator2 = current.NestedTypes.GetEnumerator();
 					try
 					{
 						while (enumerator2.MoveNext())
 						{
-							TypeDefinition current2 = enumerator2.get_Current();
-							if (current2.get_FullName() == _0020_000A)
+							TypeDefinition current2 = enumerator2.Current;
+							if (current2.FullName == _0020_000A)
 							{
 								return module.ImportReference(current2);
 							}
@@ -7712,25 +7722,25 @@ namespace DMP4
 			{
 				return module.ImportReference(value);
 			}
-			return module.ImportReference(typeof(object));
+			return module.TypeSystem.Object;
 		}
 
 		internal TypeReference _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(MemberReference _0020, Type _0020_000A)
 		{
-			ModuleDefinition module = _0020.get_Module();
+			ModuleDefinition module = _0020.Module;
 			if (_0020_000A == null)
 			{
-				return module.ImportReference(typeof(object));
+				return module.TypeSystem.Object;
 			}
-			return module.ImportReference(_0020_000A);
+			return _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(_0020, _0020_000A.FullName);
 		}
 
 		internal TypeReference _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(MemberReference _0020, TypeReference _0020_000A)
 		{
-			ModuleDefinition module = _0020.get_Module();
+			ModuleDefinition module = _0020.Module;
 			if (_0020_000A == null)
 			{
-				return module.ImportReference(typeof(object));
+				return module.TypeSystem.Object;
 			}
 			return module.ImportReference(_0020_000A);
 		}
@@ -7761,7 +7771,7 @@ namespace DMP4
 				TypeReference val = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, _0020_000A2);
 				if (val != null)
 				{
-					_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val.get_FullName();
+					_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val.FullName;
 					return val;
 				}
 			}
@@ -7771,10 +7781,10 @@ namespace DMP4
 				return _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, _0020_000A3);
 			}
 			MemberReference _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020;
-			ModuleDefinition val2 = (_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020 != null) ? _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020.get_Module() : null;
-			if (val2 != null && _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A.TryGetValue(val2.get_Name(), out AssemblyDefinition value))
+			ModuleDefinition val2 = (_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020 != null) ? _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020.Module : null;
+			if (val2 != null && _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A.TryGetValue(val2.Name, out AssemblyDefinition value))
 			{
-				TypeReference val3 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020(value, out _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020);
+				TypeReference val3 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020(value, ref _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020);
 				if (val3 != null)
 				{
 					return val3;
@@ -7795,9 +7805,9 @@ namespace DMP4
 			}
 			if (typeFromHandle == null)
 			{
-				return val2.ImportReference(typeof(object));
+				return val2.TypeSystem.Object;
 			}
-			return val2.ImportReference(typeFromHandle);
+			return val2.TypeSystem.Object;
 		}
 
 		internal TypeReference _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020(MemberReference _0020, Il2CppType _0020_000A)
@@ -7826,45 +7836,45 @@ namespace DMP4
 			//IL_0354: Expected O, but got Unknown
 			//IL_038a: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0390: Expected O, but got Unknown
-			ModuleDefinition module = _0020.get_Module();
+			ModuleDefinition module = _0020.Module;
 			switch (_0020_000A.type)
 			{
 			case Il2CppTypeEnum.IL2CPP_TYPE_OBJECT:
-				return module.ImportReference(typeof(object));
+				return module.TypeSystem.Object;
 			case Il2CppTypeEnum.IL2CPP_TYPE_VOID:
-				return module.ImportReference(typeof(void));
+				return module.TypeSystem.Void;
 			case Il2CppTypeEnum.IL2CPP_TYPE_BOOLEAN:
-				return module.ImportReference(typeof(bool));
+				return module.TypeSystem.Boolean;
 			case Il2CppTypeEnum.IL2CPP_TYPE_CHAR:
-				return module.ImportReference(typeof(char));
+				return module.TypeSystem.Char;
 			case Il2CppTypeEnum.IL2CPP_TYPE_I1:
-				return module.ImportReference(typeof(sbyte));
+				return module.TypeSystem.SByte;
 			case Il2CppTypeEnum.IL2CPP_TYPE_U1:
-				return module.ImportReference(typeof(byte));
+				return module.TypeSystem.Byte;
 			case Il2CppTypeEnum.IL2CPP_TYPE_I2:
-				return module.ImportReference(typeof(short));
+				return module.TypeSystem.Int16;
 			case Il2CppTypeEnum.IL2CPP_TYPE_U2:
-				return module.ImportReference(typeof(ushort));
+				return module.TypeSystem.UInt16;
 			case Il2CppTypeEnum.IL2CPP_TYPE_I4:
-				return module.ImportReference(typeof(int));
+				return module.TypeSystem.Int32;
 			case Il2CppTypeEnum.IL2CPP_TYPE_U4:
-				return module.ImportReference(typeof(uint));
+				return module.TypeSystem.UInt32;
 			case Il2CppTypeEnum.IL2CPP_TYPE_I:
-				return module.ImportReference(typeof(IntPtr));
+				return module.TypeSystem.IntPtr;
 			case Il2CppTypeEnum.IL2CPP_TYPE_U:
-				return module.ImportReference(typeof(UIntPtr));
+				return module.TypeSystem.UIntPtr;
 			case Il2CppTypeEnum.IL2CPP_TYPE_I8:
-				return module.ImportReference(typeof(long));
+				return module.TypeSystem.Int64;
 			case Il2CppTypeEnum.IL2CPP_TYPE_U8:
-				return module.ImportReference(typeof(ulong));
+				return module.TypeSystem.UInt64;
 			case Il2CppTypeEnum.IL2CPP_TYPE_R4:
-				return module.ImportReference(typeof(float));
+				return module.TypeSystem.Single;
 			case Il2CppTypeEnum.IL2CPP_TYPE_R8:
-				return module.ImportReference(typeof(double));
+				return module.TypeSystem.Double;
 			case Il2CppTypeEnum.IL2CPP_TYPE_STRING:
-				return module.ImportReference(typeof(string));
+				return module.TypeSystem.String;
 			case Il2CppTypeEnum.IL2CPP_TYPE_TYPEDBYREF:
-				return module.ImportReference(typeof(TypedReference));
+				return module.TypeSystem.TypedReference;
 			case Il2CppTypeEnum.IL2CPP_TYPE_VALUETYPE:
 			case Il2CppTypeEnum.IL2CPP_TYPE_CLASS:
 			{
@@ -7889,7 +7899,7 @@ namespace DMP4
 				foreach (ulong pointer in array)
 				{
 					Il2CppType il2CppType3 = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.GetIl2CppType(pointer);
-					val3.get_GenericArguments().Add(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(_0020, il2CppType3));
+					val3.GenericArguments.Add(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(_0020, il2CppType3));
 				}
 				return val3;
 			}
@@ -7903,14 +7913,14 @@ namespace DMP4
 				MethodDefinition val;
 				if ((val = (_0020 as MethodDefinition)) != null)
 				{
-					return _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A(_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A(_0020_000A), val.get_DeclaringType());
+					return _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A(_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A(_0020_000A), val.DeclaringType);
 				}
-				TypeDefinition _0020_000A3 = _0020;
+				TypeDefinition _0020_000A3 = (TypeDefinition)_0020;
 				return _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A(_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A(_0020_000A), _0020_000A3);
 			}
 			case Il2CppTypeEnum.IL2CPP_TYPE_MVAR:
 			{
-				MethodDefinition _0020_000A2 = _0020;
+				MethodDefinition _0020_000A2 = (MethodDefinition)_0020;
 				return _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A(_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A(_0020_000A), _0020_000A2);
 			}
 			case Il2CppTypeEnum.IL2CPP_TYPE_PTR:
@@ -7933,7 +7943,7 @@ namespace DMP4
 			}
 			if (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A == null)
 			{
-				string fullName = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A(_0020, _0020_000A).get_FullName();
+				string fullName = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A(_0020, _0020_000A).FullName;
 				if (fullName == "System.Object")
 				{
 					return true;
@@ -8046,17 +8056,17 @@ namespace DMP4
 			{
 				foreach (AssemblyDefinition item in _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_000A)
 				{
-					TypeDefinition type = item.get_MainModule().GetType(text);
+					TypeDefinition type = item.MainModule.GetType(text);
 					if (type != null)
 					{
-						_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020.Add(text, ((IEnumerable<MethodDefinition>)type.get_Methods()).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020));
+						_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020.Add(text, ((IEnumerable<MethodDefinition>)type.Methods).First(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020));
 						break;
 					}
 				}
 			}
 		}
 
-		internal void _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(Il2CppImageDefinition _0020, int _0020_000A, uint _0020_0020, ModuleDefinition _0020_000A_000A, Collection<CustomAttribute> _0020_000A_0020)
+		internal void _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020(Il2CppImageDefinition _0020, int _0020_000A, uint _0020_0020, ModuleDefinition _0020_000A_000A, Mono.Collections.Generic.Collection<CustomAttribute> _0020_000A_0020)
 		{
 			//IL_008c: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0093: Expected O, but got Unknown
@@ -8083,7 +8093,7 @@ namespace DMP4
 				Il2CppType _00202 = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[num];
 				Il2CppTypeDefinition key = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020(_00202);
 				TypeDefinition val = _0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_0020_0020[key];
-				if (_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020.TryGetValue(val.get_FullName(), out MethodDefinition value))
+				if (_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020.TryGetValue(val.FullName, out MethodDefinition value))
 				{
 					CustomAttribute val2 = new CustomAttribute(_0020_000A_000A.ImportReference(value));
 					_0020_000A_0020.Add(val2);
@@ -8093,12 +8103,12 @@ namespace DMP4
 					ulong num2 = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020[customAttributeIndex];
 					ulong rVA = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.GetRVA(num2);
 					CustomAttribute val3 = new CustomAttribute(_0020_000A_000A.ImportReference(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020));
-					val4._002Ector("Name", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)val.get_Name()));
-					val5._002Ector("RVA", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{rVA:X}"));
-					val6._002Ector("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.MapVATR(num2):X}"));
-					val3.get_Fields().Add(val4);
-					val3.get_Fields().Add(val5);
-					val3.get_Fields().Add(val6);
+					val4 = new CustomAttributeNamedArgument("Name", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)val.Name));
+					val5 = new CustomAttributeNamedArgument("RVA", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{rVA:X}"));
+					val6 = new CustomAttributeNamedArgument("Offset", new CustomAttributeArgument(_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A, (object)$"0x{_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.MapVATR(num2):X}"));
+					val3.Fields.Add(val4);
+					val3.Fields.Add(val5);
+					val3.Fields.Add(val6);
 					_0020_000A_0020.Add(val3);
 				}
 			}
@@ -8115,14 +8125,14 @@ namespace DMP4
 			if (!_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A.TryGetValue(_0020, out GenericParameter value))
 			{
 				value = new GenericParameter(_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(_0020.nameIndex), _0020_000A);
-				value.set_Attributes(_0020.flags);
+				value.Attributes = (GenericParameterAttributes)_0020.flags;
 				_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A.Add(_0020, value);
 				if (_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null)
 				{
 					for (int i = 0; i < _0020.constraintsCount; i++)
 					{
 						Il2CppType _0020_000A2 = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A.types[_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.constraintIndices[_0020.constraintsStart + i]];
-						value.get_Constraints().Add(new GenericParameterConstraint(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A(_0020_000A, _0020_000A2)));
+						value.Constraints.Add(_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_0020((MemberReference)_0020_000A, _0020_000A2));
 					}
 				}
 			}
@@ -8189,14 +8199,14 @@ namespace DMP4
 							{
 								AssemblyDefinition val = AssemblyDefinition.ReadAssembly((Stream)new MemoryStream(File.ReadAllBytes(text3)));
 								_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A[Path.GetFileNameWithoutExtension(text3)] = val;
-								_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A[val.get_MainModule().get_Name()] = val;
-								var enumerator2 = val.get_MainModule().get_Types().GetEnumerator();
+								_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A[val.MainModule.Name] = val;
+								var enumerator2 = val.MainModule.Types.GetEnumerator();
 								try
 								{
 									while (enumerator2.MoveNext())
 									{
-										TypeDefinition current2 = enumerator2.get_Current();
-										_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020[current2.get_FullName()] = current2;
+										TypeDefinition current2 = enumerator2.Current;
+										_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020[current2.FullName] = current2;
 									}
 								}
 								finally
@@ -8246,23 +8256,23 @@ namespace DMP4
 			//IL_02d2: Unknown result type (might be due to invalid IL or missing references)
 			if (_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A)
 			{
-				foreach (TypeDefinition type in _0020.get_MainModule().GetTypes())
+				foreach (TypeDefinition type in _0020.MainModule.GetTypes())
 				{
-					if (type.get_FullName() == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020.get_FullName())
+					if (type.FullName == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020.FullName)
 					{
-						var enumerator2 = type.get_Fields().GetEnumerator();
+						var enumerator2 = type.Fields.GetEnumerator();
 						try
 						{
 							while (enumerator2.MoveNext())
 							{
-								FieldDefinition current2 = enumerator2.get_Current();
-								if (current2.get_Name() == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)
+								FieldDefinition current2 = enumerator2.Current;
+								if (current2.Name == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)
 								{
-									TypeReference val = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, current2.get_FieldType().get_FullName());
+									TypeReference val = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, current2.FieldType.FullName);
 									if (val != null)
 									{
 										_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val;
-										_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val.get_FullName();
+										_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val.FullName;
 										return val;
 									}
 								}
@@ -8279,30 +8289,30 @@ namespace DMP4
 				if (val2 != null)
 				{
 					_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val2;
-					_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val2.get_FullName();
+					_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val2.FullName;
 					return val2;
 				}
 			}
 			MethodDefinition val3;
 			if (_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020 && (val3 = (_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020 as MethodDefinition)) != null)
 			{
-				foreach (TypeDefinition type2 in _0020.get_MainModule().GetTypes())
+				foreach (TypeDefinition type2 in _0020.MainModule.GetTypes())
 				{
-					if (type2.get_FullName() == val3.get_DeclaringType().get_FullName())
+					if (type2.FullName == val3.DeclaringType.FullName)
 					{
-						var enumerator3 = type2.get_Methods().GetEnumerator();
+						var enumerator3 = type2.Methods.GetEnumerator();
 						try
 						{
 							while (enumerator3.MoveNext())
 							{
-								MethodDefinition current4 = enumerator3.get_Current();
-								if (current4.get_Name() == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)
+								MethodDefinition current4 = enumerator3.Current;
+								if (current4.Name == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)
 								{
-									TypeReference val4 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, current4.get_ReturnType().get_FullName());
+									TypeReference val4 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, current4.ReturnType.FullName);
 									if (val4 != null)
 									{
 										_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val4;
-										_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val4.get_FullName();
+										_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val4.FullName;
 										return val4;
 									}
 								}
@@ -8319,31 +8329,31 @@ namespace DMP4
 			MethodDefinition val5;
 			if (_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_000A && (val5 = (_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020 as MethodDefinition)) != null)
 			{
-				foreach (TypeDefinition type3 in _0020.get_MainModule().GetTypes())
+				foreach (TypeDefinition type3 in _0020.MainModule.GetTypes())
 				{
-					if (type3.get_FullName() == val5.get_DeclaringType().get_FullName())
+					if (type3.FullName == val5.DeclaringType.FullName)
 					{
-						var enumerator3 = type3.get_Methods().GetEnumerator();
+						var enumerator3 = type3.Methods.GetEnumerator();
 						try
 						{
 							while (enumerator3.MoveNext())
 							{
-								MethodDefinition current6 = enumerator3.get_Current();
-								if (current6.get_Name() == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)
+								MethodDefinition current6 = enumerator3.Current;
+								if (current6.Name == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)
 								{
-									var enumerator4 = current6.get_Parameters().GetEnumerator();
+									var enumerator4 = current6.Parameters.GetEnumerator();
 									try
 									{
 										while (enumerator4.MoveNext())
 										{
-											ParameterDefinition current7 = enumerator4.get_Current();
-											if (current7.get_Name() == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020)
+											ParameterDefinition current7 = enumerator4.Current;
+											if (current7.Name == _0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020)
 											{
-												TypeReference val6 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, current7.get_ParameterType().get_FullName());
+												TypeReference val6 = _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020(_0020_000A._0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_0020, current7.ParameterType.FullName);
 												if (val6 != null)
 												{
 													_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val6;
-													_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val6.get_FullName();
+													_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A_0020_000A[_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020] = val6.FullName;
 													return val6;
 												}
 											}
@@ -8384,7 +8394,7 @@ namespace DMP4
 			//IL_000f: Unknown result type (might be due to invalid IL or missing references)
 			//IL_001f: Expected O, but got Unknown
 			AssemblyDefinition val = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("RestoredIL2CPPDll", new Version("1.0.0.0")), "RestoredIL2CPPDllLib.dll", 0);
-			TypeReference @string = val.get_MainModule().get_TypeSystem().get_String();
+			TypeReference @string = val.MainModule.TypeSystem.String;
 			return val;
 		}
 
@@ -8395,13 +8405,18 @@ namespace DMP4
 			//IL_0033: Unknown result type (might be due to invalid IL or missing references)
 			//IL_003e: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0053: Unknown result type (might be due to invalid IL or missing references)
-			ModuleDefinition module = _0020.get_Module();
-			MethodDefinition val = new MethodDefinition(".ctor", 6278, module.Import(typeof(void)));
-			ILProcessor iLProcessor = val.get_Body().GetILProcessor();
+			ModuleDefinition module = _0020.Module;
+			MethodDefinition val = new MethodDefinition(".ctor", (MethodAttributes)6278, module.TypeSystem.Void);
+			ILProcessor iLProcessor = val.Body.GetILProcessor();
 			iLProcessor.Emit(OpCodes.Ldarg_0);
-			iLProcessor.Emit(OpCodes.Call, module.Import((MethodBase)_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_0020_000A_0020));
+			TypeReference attributeTypeReference = new TypeReference("System", "Attribute", module, module.TypeSystem.CoreLibrary);
+			MethodReference attributeCtorReference = new MethodReference(".ctor", module.TypeSystem.Void, attributeTypeReference)
+			{
+				HasThis = true
+			};
+			iLProcessor.Emit(OpCodes.Call, attributeCtorReference);
 			iLProcessor.Emit(OpCodes.Ret);
-			_0020.get_Methods().Add(val);
+			_0020.Methods.Add(val);
 		}
 	}
 	internal class _0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020
@@ -12991,38 +13006,9 @@ namespace DMP4
 			Bitmap edit = Resources.Edit16;
 		}
 	}
-	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A
-	{
-		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020(int _0020)
-		{
-			Dictionary<int, TypeReference> dictionary = ((_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A;
-			((BlockOperator)null).CastInstruction((Instruction)null);
-			return "1632099275";
-		}
-	}
-	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A
-	{
-		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020()
-		{
-			((_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_000A)null)._0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020((ImageResData)null);
-			FileManager.Exists(null);
-			_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020._0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_00601<_0020>();
-			_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A._0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A = null;
-			return null;
-		}
-	}
-	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A
-	{
-		internal unsafe void _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020(Point3D _0020, Point3D _0020_000A)
-		{
-			//IL_005f: Expected I, but got O
-			//IL_005f: Expected I, but got O
-			((OutBuffer)null).SetStream((Stream)null);
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A((object)null, (EventArgs)null);
-			((InitializerExpression)null).WriteTo((BinaryWasmWriter)null);
-			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null, (Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-		}
-	}
+	// Dead decoy classes removed (null-cast no-op pattern with an unresolvable Wasm/Cecil Instruction ambiguity
+	// and an unresolvable generic type argument), see FINDINGS.md P7b.
+	// Dead decoy class removed (null-cast no-op pattern referencing private Brotli nested types), see FINDINGS.md P7b.
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A
 	{
 		internal string _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020()

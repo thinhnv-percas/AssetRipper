@@ -8,13 +8,6 @@ namespace sb
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		internal string _0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020(_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020 _0020, int _0020_000A, Arm64PrefetchOperation _0020_0020, float _0020_000A_000A)
-		{
-			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020((byte[])null);
-			string name = ((Register<>)null).Name;
-			OperatorImpls.Int64GtS(null, null);
-			_0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020._0020_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A((float[])null);
-			return "1849293891";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

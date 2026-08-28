@@ -5,10 +5,6 @@ namespace SevenZipmq
 {
 	internal class _0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A
 	{
-		internal int _0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020(TypeDefinition _0020, ref _0020_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020._0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020 _0020_000A)
-		{
-			bool isDietModeEnabled = ((InstructionGroup<>)null).IsDietModeEnabled;
-			return 649533447;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

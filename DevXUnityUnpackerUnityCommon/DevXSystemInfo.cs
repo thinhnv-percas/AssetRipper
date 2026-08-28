@@ -48,5 +48,8 @@ public class DevXSystemInfo
 
 	public static string StreamingAssets;
 
-	public static string MachineName => DeviceName;
+	public static string get_MachineName()
+	{
+		return DeviceName;
+	}
 }

@@ -6,10 +6,6 @@ namespace Unity.CecilToolsjc
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A
 	{
-		internal void _0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020(object _0020, float _0020_000A, OpConvertUToPtr _0020_0020, Literal _0020_000A_000A)
-		{
-			((_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020((StartSection)null);
-			ImageTools.GetBitmap_ByBytes(null);
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

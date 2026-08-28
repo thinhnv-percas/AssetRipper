@@ -6,11 +6,6 @@ namespace LZ4as
 {
 	internal class _0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_000A_000A
 	{
-		internal int _0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020(object _0020)
-		{
-			((ScriptGenerateOptions)null)._0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020((object)null, (EventArgs)null);
-			((_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_000A)null)._0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020();
-			return 1688909437;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

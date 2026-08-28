@@ -652,11 +652,7 @@ namespace Wasm.Instructions
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_000A_000A_000A
 	{
-		internal object _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020(_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A _0020, string _0020_000A)
-		{
-			bool isDietModeEnabled = ((InstructionGroup<>)null).IsDietModeEnabled;
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A
 	{
@@ -668,11 +664,7 @@ namespace Wasm.Instructions
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_000A
 	{
-		internal unsafe void _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_0020()
-		{
-			Arm64ConditionCode conditionCode = ((Arm64InstructionDetail)null).ConditionCode;
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A(ref *(Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A*)null);
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A
 	{

@@ -6,12 +6,6 @@ namespace SevenZip.Bufferjk
 {
 	internal class _0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A
 	{
-		internal unsafe int _0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_000A_0020(OpCopyMemory _0020)
-		{
-			//IL_0039: Expected I, but got O
-			_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A._0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020((string)null);
-			Brotli._0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020*)(long)(IntPtr)(void*)null);
-			return 852943616;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

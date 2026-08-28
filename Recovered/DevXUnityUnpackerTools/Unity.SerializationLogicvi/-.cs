@@ -5,12 +5,6 @@ namespace Unity.SerializationLogicvi
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A
 	{
-		internal unsafe int _0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020(byte[] _0020, byte[] _0020_000A)
-		{
-			//IL_0023: Expected I, but got O
-			bool flag = ((_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A;
-			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_0020_000A_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			return 21172441;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

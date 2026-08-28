@@ -8,13 +8,6 @@ namespace ICSharpCode.SharpZipLib.Encryptionbx
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_000A
 	{
-		internal object _0020_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_0020_0020(object _0020, float _0020_000A)
-		{
-			X86Operand[] operand = ((X86InstructionDetail)null).Operands;
-			DateTime lastModificationTime = ((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020)null).LastModificationTime;
-			((_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A)null)._0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020();
-			InstructionInterpreter interpreter = ((ModuleInstance)null).Interpreter;
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

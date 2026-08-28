@@ -6,12 +6,6 @@ namespace DevXUnityUnpackerTools.Propertieshv
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A
 	{
-		internal unsafe string _0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020()
-		{
-			//IL_0043: Expected I, but got O
-			((_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A)null)._0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A();
-			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			return "1132142565";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

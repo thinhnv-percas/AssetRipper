@@ -1,13 +1,4 @@
-﻿using LZ4;
-
 namespace DSMCaps.PowerPcsd
 {
-	internal class _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A
-	{
-		internal object _0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020(byte[] _0020, int _0020_000A, int _0020_0020)
-		{
-			((_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020((string)null);
-			return null;
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

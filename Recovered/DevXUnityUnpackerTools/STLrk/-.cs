@@ -4,10 +4,6 @@ namespace STLrk
 {
 	internal class _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		internal object _0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020(string _0020, object[] _0020_000A, ref bool _0020_0020, ref object _0020_000A_000A)
-		{
-			((_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A)null).ReadClass_by_db<T>();
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

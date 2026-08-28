@@ -5,11 +5,6 @@ namespace ICSharpCode.SharpZipLib.Corebn
 {
 	internal class _0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A
 	{
-		internal int _0020_000A_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020(object _0020, decimal _0020_000A, string _0020_0020, OpUndef _0020_000A_000A)
-		{
-			((_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020((_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A_000A)null, (string)null);
-			MaybeHashCalc.toHash((string[])null);
-			return 2053943549;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

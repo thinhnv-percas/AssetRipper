@@ -6,12 +6,6 @@ namespace FMODla
 {
 	internal class _0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A
 	{
-		internal string _0020_0020_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020_0020_000A_0020(float _0020, _0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A_0020 _0020_000A)
-		{
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_000A_0020((object)null, (EventArgs)null);
-			((MethodDefinition)null).IsSimplePropertyAccessor();
-			bool flag = ((_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020;
-			return "1527923557";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

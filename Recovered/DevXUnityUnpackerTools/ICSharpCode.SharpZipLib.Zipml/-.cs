@@ -14,13 +14,6 @@ namespace ICSharpCode.SharpZipLib.Zipml
 	}
 	internal class _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A
 	{
-		internal unsafe int _0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020(string _0020, short _0020_000A, int _0020_0020, float _0020_000A_000A)
-		{
-			//IL_0054: Expected I, but got O
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020((object)null, (EventArgs)null);
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A_0020((object)null, (EventArgs)null);
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020*)(long)(IntPtr)(void*)null, ref *(Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A*)null);
-			return 1142376633;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

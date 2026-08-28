@@ -250,13 +250,7 @@ namespace Xxtea
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A
 	{
-		internal unsafe string _0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020(ref Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A _0020, Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A* _0020_000A)
-		{
-			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A();
-			OperatorImpls.Float32DemoteFloat64(null, null);
-			ArmInstructionDetail.Create(null, null);
-			return "302266689";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A
 	{

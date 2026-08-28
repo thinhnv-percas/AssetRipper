@@ -186,15 +186,7 @@ namespace SpirV
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A
 	{
-		internal unsafe int _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020()
-		{
-			//IL_001c: Expected I, but got O
-			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A();
-			NodesSelection nodesSelection = ((MultiSelectTreeView2)null).NodesSelection;
-			_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020._0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020_000A_000A_000A((MemoryStream)null, (MemoryStream)null);
-			return 819424990;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A
 	{

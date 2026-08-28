@@ -15,13 +15,6 @@ namespace Wasm.Interpretkm
 	}
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		internal unsafe int _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_0020_0020(_0020_0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A _0020)
-		{
-			//IL_005a: Expected I, but got O
-			M68KOperationSize operationSize = ((M68KInstructionDetail)null).OperationSize;
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A*)(long)(IntPtr)(void*)null);
-			WFUtils.IsShiftDown();
-			return 383780850;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

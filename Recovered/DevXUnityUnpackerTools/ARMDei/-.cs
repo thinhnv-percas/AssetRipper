@@ -7,13 +7,6 @@ namespace ARMDei
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_000A
 	{
-		internal void _0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020()
-		{
-			char[] array = MaybeHashCalc._0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_000A_0020;
-			byte addressSize = ((X86InstructionDetail)null).AddressSize;
-			((_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A)null)._0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A();
-			((Variable)null).Get<T>();
-			((_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A();
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

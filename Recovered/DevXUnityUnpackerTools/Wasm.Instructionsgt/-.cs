@@ -1,17 +1,4 @@
-﻿using @as;
-using DSMCaps;
-using Mono.Cecil;
-using ProtoBufji;
-
 namespace Wasm.Instructionsgt
 {
-	internal class _0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A
-	{
-		internal void _0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020(int _0020, _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A _0020_000A, decimal _0020_0020, string _0020_000A_000A)
-		{
-			((_0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A)null)._0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020((TypeReference)null);
-			((VerFormat)null)._0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A_0020((string)null);
-			CapstoneDisassembler<, , , , , , , >._003C_002Ector_003Eg__CreateNativeDisassembleMode_007C33_0(null);
-		}
-	}
+	// Dead decoy class removed (unresolvable-generic / null-cast no-op pattern, see FINDINGS.md P7b).
 }

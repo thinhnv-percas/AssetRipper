@@ -5,11 +5,6 @@ namespace ICSharpCode.SharpZipLib.Coretj
 {
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A
 	{
-		internal int _0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020()
-		{
-			bool isBrowsable = ((CustomProperty)null).IsBrowsable;
-			((_0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A)null)._0020_000A_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_0020_0020();
-			return 181954787;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

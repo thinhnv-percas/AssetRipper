@@ -45,4 +45,1319 @@
     <ProjectReference Include="..\..\ICSharpCode.TextEditor\ICSharpCode.TextEditor.csproj" />
     <ProjectReference Include="..\..\DevXUnityUnpackerUnityCommon\DevXUnityUnpackerUnityCommon.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- embedded resources recovered from the original compiled DevXUnityUnpackerTools.dll
+         (Recovered/_assemblies/DevXUnityUnpackerTools.dll); ILSpy's WholeProjectDecompiler
+         did not reconstruct .resx sources for these, so they are re-embedded verbatim as
+         precompiled .resources blobs (or, for the plain-file entries, raw bytes) under their
+         exact original manifest names via LogicalName. See FINDINGS.md / ROADMAP.md P7b. -->
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.g.resources">
+      <LogicalName>DevXUnityUnpackerTools.g.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXCControl.resources">
+      <LogicalName>DevXCControl.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\BinaryAnalizerControl.resources">
+      <LogicalName>BinaryAnalizerControl.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HEXControll.resources">
+      <LogicalName>HEXControll.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.APKSignDialog.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.APKSignDialog.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXCDlg.resources">
+      <LogicalName>DevXCDlg.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\BinaryAnalizerDlg.resources">
+      <LogicalName>BinaryAnalizerDlg.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.EnterTextLine.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.EnterTextLine.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.FbxExportSettings.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.FbxExportSettings.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.PPtSelectForm.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.PPtSelectForm.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.GameDBForm.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.GameDBForm.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.ScriptGenerateOptions.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.ScriptGenerateOptions.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.SearchForm.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.SearchForm.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TrunkTracesConsole.Pages.ImagesViewControl.resources">
+      <LogicalName>TrunkTracesConsole.Pages.ImagesViewControl.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.ImportSettings.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.ImportSettings.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXForms.PropertyDialog.resources">
+      <LogicalName>DevXForms.PropertyDialog.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.OutForm.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.OutForm.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ConnectSettingsForm.resources">
+      <LogicalName>ConnectSettingsForm.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.AssetControl.AssetControl.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.AssetControl.AssetControl.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._WinForm.EditText.resources">
+      <LogicalName>DevXUnityUnpackerTools._WinForm.EditText.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LicensePage.resources">
+      <LogicalName>LicensePage.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainForm.resources">
+      <LogicalName>MainForm.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Properties.Resources.resources">
+      <LogicalName>DevXUnityUnpackerTools.Properties.Resources.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Images.Title-MagicStudio.png">
+      <LogicalName>DevXUnityUnpackerTools.Images.Title-MagicStudio.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Images.Title-GameRecovery.png">
+      <LogicalName>DevXUnityUnpackerTools.Images.Title-GameRecovery.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Images.Title-Repacker.png">
+      <LogicalName>DevXUnityUnpackerTools.Images.Title-Repacker.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Images.Title-UnpackerTools.png">
+      <LogicalName>DevXUnityUnpackerTools.Images.Title-UnpackerTools.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Images.Title-GameModding.png">
+      <LogicalName>DevXUnityUnpackerTools.Images.Title-GameModding.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Grid16.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Grid16.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Unreal16.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Unreal16.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.UnrealPak16.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.UnrealPak16.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Property16.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Property16.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.LightingDataAsset32.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.LightingDataAsset32.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.LightingSettings32.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.LightingSettings32.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.LightProbes32.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.LightProbes32.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ad.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ad.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ae.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ae.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.af.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.af.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ag.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ag.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ai.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ai.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.al.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.al.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.am.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.am.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.an.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.an.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ao.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ao.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ar.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ar.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.as.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.as.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.at.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.at.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.au.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.au.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.aw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.aw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ax.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ax.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.az.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.az.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ba.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ba.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bb.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bb.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bd.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bd.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.be.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.be.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bh.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bh.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bi.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bi.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bj.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bj.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bo.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bo.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.br.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.br.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bs.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bs.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bv.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bv.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.by.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.by.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.bz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.bz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ca.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ca.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.catalonia.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.catalonia.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cc.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cc.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cd.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cd.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ch.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ch.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ci.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ci.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ck.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ck.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cl.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cl.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.co.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.co.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cs.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cs.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cv.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cv.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cx.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cx.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cy.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cy.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.cz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.cz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.da.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.da.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.de.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.de.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.dj.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.dj.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.dk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.dk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.dm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.dm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.do.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.do.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.dz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.dz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ec.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ec.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ee.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ee.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.eg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.eg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.eh.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.eh.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.el.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.el.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.en.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.en.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.eo.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.eo.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.er.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.er.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.es.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.es.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.et.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.et.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.eu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.eu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fa.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fa.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fi.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fi.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fil.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fil.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fj.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fj.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fo.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fo.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.fr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.fr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ga.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ga.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.galicia.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.galicia.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gb.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gb.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gd.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gd.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ge.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ge.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gh.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gh.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gi.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gi.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gl.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gl.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gp.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gp.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gq.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gq.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gs.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gs.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.gy.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.gy.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.he.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.he.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.hi.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.hi.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.hk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.hk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.hm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.hm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.hn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.hn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.hr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.hr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ht.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ht.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.hu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.hu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.id.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.id.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ie.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ie.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.il.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.il.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.im.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.im.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.in.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.in.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.io.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.io.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.iq.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.iq.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ir.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ir.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.is.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.is.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.it.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.it.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.iw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.iw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ja.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ja.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.je.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.je.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.jm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.jm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.jo.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.jo.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.jp.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.jp.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ke.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ke.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.kg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.kg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.kh.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.kh.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ki.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ki.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.km.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.km.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.kn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.kn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ko.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ko.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.kp.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.kp.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.kr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.kr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.kw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.kw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ky.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ky.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.kz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.kz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.la.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.la.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.lb.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.lb.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.lc.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.lc.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.li.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.li.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.lk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.lk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.lr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.lr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ls.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ls.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.lt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.lt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.lu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.lu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.lv.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.lv.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ly.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ly.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ma.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ma.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mc.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mc.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.md.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.md.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.me.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.me.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mh.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mh.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ml.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ml.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mo.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mo.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mp.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mp.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mq.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mq.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ms.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ms.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mv.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mv.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mx.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mx.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.my.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.my.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.mz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.mz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.na.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.na.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nb.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nb.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nc.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nc.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nc2.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nc2.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ne.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ne.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ng.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ng.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ni.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ni.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nl.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nl.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.no.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.no.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.np.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.np.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.nz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.nz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.om.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.om.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pa.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pa.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pe.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pe.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ph.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ph.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pl.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pl.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ps.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ps.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pt-br.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pt-br.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pt-pt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pt-pt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.pw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.pw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.py.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.py.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.qa.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.qa.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.re.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.re.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ro.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ro.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.rs.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.rs.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ru.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ru.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.rw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.rw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sa.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sa.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sb.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sb.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sc.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sc.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sco.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sco.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.scotland.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.scotland.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sd.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sd.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.se.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.se.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sh.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sh.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.si.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.si.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sj.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sj.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sl.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sl.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.so.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.so.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sq.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sq.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.st.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.st.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sv.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sv.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sy.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sy.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.sz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.sz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tc.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tc.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.td.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.td.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.th.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.th.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tj.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tj.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tl.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tl.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.to.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.to.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tr.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tr.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tv.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tv.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.tz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.tz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ua.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ua.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ug.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ug.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.uk.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.uk.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.um.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.um.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.us.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.us.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.uy.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.uy.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.uz.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.uz.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.va.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.va.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.vc.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.vc.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ve.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ve.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.vg.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.vg.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.vi.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.vi.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.vn.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.vn.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.vu.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.vu.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.wales.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.wales.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.wf.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.wf.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ws.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ws.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.ye.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.ye.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.yt.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.yt.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.za.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.za.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.zh-hant.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.zh-hant.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.zh.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.zh.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.zm.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.zm.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools.Res.Flags.zw.png">
+      <LogicalName>DevXUnityUnpackerTools.Res.Flags.zw.png</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Base.structures.Resources.Resources.zip">
+      <LogicalName>DevXUnityUnpackerTools._Base.structures.Resources.Resources.zip</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Base.structures.UnityDllAssets.UnityDllAssets.bin">
+      <LogicalName>DevXUnityUnpackerTools._Base.structures.UnityDllAssets.UnityDllAssets.bin</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.ResourcesForReplase.MiniJSON.Json.cs.resource">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.ResourcesForReplase.MiniJSON.Json.cs</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Base.structures.Strings.strings_15.dat">
+      <LogicalName>DevXUnityUnpackerTools._Base.structures.Strings.strings_15.dat</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.UI.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.UI.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.mscorlib.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.mscorlib.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Core.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Core.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Xml.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Xml.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityScript.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityScript.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityScript.Lang.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityScript.Lang.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.Mono.Security.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.Mono.Security.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Data.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Data.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Json.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Json.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Runtime.Serialization.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.System.Runtime.Serialization.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Advertisements.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Advertisements.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Analytics.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Analytics.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Networking.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Networking.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Purchasing.dll">
+      <LogicalName>DevXUnityUnpackerTools._Decompiler.References.Unity_5._6.UnityEngine.Purchasing.dll</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FoxSound">
+      <LogicalName>FoxSound</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

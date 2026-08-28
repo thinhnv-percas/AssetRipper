@@ -26,12 +26,6 @@ namespace Wasm.Binarydy
 	}
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A
 	{
-		internal int _0020_000A_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020(_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_000A _0020)
-		{
-			TDetail detail = ((Instruction<, , , , , , , >)null).Details;
-			_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A._0020_000A_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020(null);
-			((TextureManager)null)._0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_0020((byte[])null);
-			return 336140570;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

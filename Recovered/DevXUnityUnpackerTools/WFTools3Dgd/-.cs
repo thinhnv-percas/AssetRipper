@@ -4,8 +4,6 @@ namespace WFTools3Dgd
 {
 	internal class _0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_000A
 	{
-		internal void _0020_0020_0020_0020_0020_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020(ref Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A _0020, Brotli.BrotliDecoderErrorCode _0020_000A)
-		{
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

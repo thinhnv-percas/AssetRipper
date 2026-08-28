@@ -11,14 +11,6 @@ namespace DevXUnityUnpackerTools._WinForm.AssetControlks
 {
 	internal class _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_0020_000A
 	{
-		internal string _0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020(ArmShiftOperation _0020, short _0020_000A, int _0020_0020, OperandType _0020_000A_000A)
-		{
-			PRESET.HALLWAY();
-			((_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A)null)._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A((_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A)null, (string)null);
-			((_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_0020_000A_0020((TreeNode)null);
-			((BinaryAnalizerControl)null)._0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020((Action)null);
-			string name = ((Register<>)null).Name;
-			return "29533843";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

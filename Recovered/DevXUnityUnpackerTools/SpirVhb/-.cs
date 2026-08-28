@@ -7,11 +7,6 @@ namespace SpirVhb
 {
 	internal class _0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_000A
 	{
-		internal string _0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_0020(decimal _0020, PredefinedImporter _0020_000A, decimal _0020_0020, _0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A _0020_000A_000A)
-		{
-			((_0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_000A)null)._0020_000A_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_0020((string)null);
-			((TerminalRuntime)null)._0020_0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_0020_000A((IList<object>)null);
-			return "1341543555";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

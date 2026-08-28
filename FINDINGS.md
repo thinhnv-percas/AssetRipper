@@ -157,6 +157,32 @@ every reference value.
 Recovered keys, one pair per file: (136,48) (11,96) (7,71) (7,19) (7,45)
 (238,63) (136,14).
 
+`002203XLC` doesn't fit the pattern the other 8 files share, in two
+independent ways: `tools/sidecar.py` finds no XOR key for it (expected — the
+crack only recognizes a hit by GZip's magic bytes, and this payload, hex-
+dumped directly, is plain ASCII: `"E668BDF2-...5B"\r\n`, never GZip'd), and
+its filename itself isn't producible by the app's own hash-naming function —
+every real implementation found (`DevXUnityUnpackerMain/例子.cs`,
+`Recovered/DevXUnityUnpackerMain/bin/Debug/net472/_diag_source.cs`'s dumped
+`RunDlls` shim, `記草空.cs`, `MaybeHashCalc.cs`) formats the hash as
+`"{0:X}"` — uppercase hex only, `0-9A-F` — and `002203XLC` contains `X`/`L`,
+neither a hex digit. A wide search across the license/activation code
+(`LicChecker.cs`, `GameRecoveryLicManager.cs`, `ConvertNameToHash.cs`,
+`RequestManager.cs`/`GetMethodManager.cs`/`ServerLink.cs`/`CrackSettings.cs`,
+`HiddenCalls.cs`) turned up plenty of GUID/license/device-ID-shaped code, but
+none of it reads a bare quoted GUID from a file next to the exe — the real
+license cache lives under `%LocalAppData%` in a different (RSA-signed) format
+entirely. No consumer was found in the fully rebuilt, runtime-verified (P3)
+`DevXUnityUnpackerMain`/`DevXUnityUnpackerTools` source, and P3's own
+`FirstChanceException` launch trace never touched this file either. Two
+unconfirmed hypotheses, roughly equally supported: it belongs to
+`DevXUnityUnpackerTools_Structures` (`A33D874E`, the one sidecar this repo
+never recovered at all — though the assembly's own name doesn't hash to this
+either), or it's simply decoy chaff, consistent with this app's documented
+habit of planting misleading artifacts (§5) — an oddly-named, unencrypted,
+otherwise-unreferenced 40-byte file fits that pattern as well as any real
+purpose. Left as an open question, not a solved one.
+
 ### Files that are absent
 
 `DevXUnityUnpackerTools` references seven more assemblies whose sidecar files
@@ -214,6 +240,26 @@ cannot compile without editing:
   parameter type in 48 signatures (requires non-static).
 * **An entry point named with whitespace.** It carries `[STAThread]`, but C#
   requires the entry point to be literally called `Main`.
+
+### Symbol-renaming scheme, characterized
+684 unique non-public member names sampled from the recovered
+`BrotliSharpLib/Brotli.cs` (before it was replaced, see §8) came back **98%
+either 15 or 16 characters long**, drawn only from `U+0020`/`U+000A`, with no
+correlation to the original identifier's length or kind (type, method, field
+all land in the same narrow band). That rules out any length-preserving or
+hash-derived-length transform — it's flat random selection from a small fixed-
+length pool, consistent with common .NET obfuscators' "unprintable identifier"
+renaming (Eazfuscator.NET/Agile.NET/ConfuserEx-style). Public API members
+(`DecompressBuffer`, `CompressBuffer`, ...) are exempted and keep their real
+names — the same pattern later confirmed project-wide: real BCL/library
+method names like `GetField`/`SetField`/`Read` survive obfuscation untouched,
+while everything internal to the obfuscated assembly gets a whitespace name
+from this pool. At project scale, the fixed-size pool produces genuine
+collisions — the same random name reused for unrelated members in different
+types (see the "declaration-vs-static-reference" bug shape in §6) — which is
+itself a useful tell when triaging a build error: if a bare identifier could
+plausibly be either a local variable and a type/namespace-scoped member, a
+collision, not a logic bug, is the first thing to check.
 
 ### What it does *not* do
 The main assembly references no networking, `Process`, or registry API at all,
@@ -297,6 +343,106 @@ is null and the `&&` still evaluates it. Checked against the pre-fix snapshot:
 the line is byte-identical to the raw decompiler output, so this is an original
 mis-decompilation, not something introduced while repairing the build.
 
+### A declaration-level error anywhere suppresses semantic diagnostics project-wide
+
+While pushing `DevXUnityUnpackerTools.csproj` from the "1 unfixable error"
+state described in ROADMAP.md P7b down to 0, the error count did not shrink
+monotonically as fixes landed — at one point *removing* a single obviously-
+wrong attribute (`[DefaultMember("Item")]` colliding with a real indexer,
+CS0646) caused the reported error count to jump from ~10 to **over 1000**,
+with the new errors scattered across dozens of files that hadn't been touched.
+Reproduced twice, deterministically, by toggling that one fix on and off: the
+same ~1000-error set appeared or vanished as a block, stable in count and
+location both times. This rules out non-determinism, MSBuild/Roslyn server
+caching, and resource exhaustion (all suspected and ruled out in this exact
+project earlier, see ROADMAP.md P7b) as the mechanism.
+
+The actual cause: **a compile error at the *declaration* level (a duplicate
+attribute, an indexer/`DefaultMember` clash, a member signature Roslyn can't
+resolve at all) suppresses semantic-level diagnostics for the rest of the
+compilation**, not just the containing file. Only once every declaration-level
+error was gone did Roslyn start reporting the method-body-level errors
+(`CS0571` explicit accessor calls, decoy methods, real bugs) that had been
+sitting underneath the whole time. Practically: an error count that *grows*
+after a fix is not a sign the fix was wrong — check whether the fix removed a
+declaration-level error and revealed a backlog, before assuming a regression.
+
+### The "decoy method" pattern
+
+Beyond the decoy string pool (§5) and decoy dispatch strings, obfuscated
+non-public methods are frequently replaced wholesale with bodies that do
+nothing real: a sequence of calls on `((SomeType)null).Member(...)` (a
+guaranteed `NullReferenceException` at runtime, never actually reached because
+the method itself is never legitimately called), followed by a `return`
+of a hardcoded literal (an int, a numeral-string, or `null`). Hundreds of
+these were found and removed project-wide. Reliable tells, in combination:
+
+* Every statement in the body is either a null-cast no-op call or an isolated
+  field/property read off a null-cast object — no data flows between
+  statements, no branching, no loops.
+* The return value (if any) is a literal, not derived from anything computed
+  in the body.
+* Often paired with a syntactically-broken generic instantiation that only
+  exists to make the method fail to compile at all without inspection —
+  unbound generic syntax (`Foo<,,,>`), a CLR arity suffix leaking through
+  (`` Method`1() ``), or a type argument that resolves to a variable instead
+  of a type (`Method<localVarName>()`, CS0118).
+* A one-line `[FunAttr(Num = "...")]`-style attribute frequently precedes the
+  method; deleting the method but leaving that attribute behind produces an
+  orphaned attribute that then attaches to the *next* declaration, occasionally
+  causing a fresh duplicate-attribute error (CS0579) if that next member
+  happens to carry the same attribute type.
+
+Safe to delete wholesale once confirmed real call sites don't route through
+them (dozens of files this pass; none of them are referenced from outside
+their own never-instantiated decoy class). Two important caveats **found the
+hard way**: (1) an automated pass built on this pattern once deleted a
+genuinely real (if buggy) event handler that happened to also reference an
+unresolvable generic — see ROADMAP.md P7b's MainForm.cs note; treat the
+pattern as a strong prior, not a certainty, on anything with real business
+logic nearby. (2) after swapping in a real open-source library for a
+previously-decompiled type (see ROADMAP.md P7b's BrotliSharpLib section),
+every decoy method built to camouflage itself using that type's *old,
+obfuscated* member names breaks — this is expected fallout, not a sign the
+swap was wrong, and resolves the same way (delete the now-broken decoy).
+
+### Explicit accessor calls on properties from real assemblies (CS0571)
+
+Decompiled method bodies throughout the project call `.get_X()`/`.set_X()`/
+`.add_X()`/`.remove_X()` directly — ILSpy's rendering of an IL `callvirt` on a
+property's compiler-generated accessor method. Roslyn accepts this in IL but
+refuses to *compile* it once the declaring type comes from real C# source with
+proper property metadata (seen against `Mono.Cecil`, `HelixToolkit`,
+`ICSharpCode.TextEditor`, and `Pngcs` types alike) — the fix is always to
+rewrite to normal property/indexer/event syntax
+(`x.get_Y()` → `x.Y`, `x.set_Item(i, v)` → `x[i] = v`,
+`x.add_Z(h)` → `x.Z += h`).
+
+### Fixed-size buffers decaying to a bare pointer, then indexed as if it were a struct
+
+Several ASTC- and LZMA-style unsafe structs declare `fixed int name[N];`
+(a fixed-size buffer). Accessing that field through a pointer
+(`structPtr->name`) already yields `int*` directly — no `&`, no further member
+access. Some call sites nonetheless tacked on `.someObfuscatedField` (an
+artifact of the same renaming pass, colliding with a same-named field on an
+unrelated struct elsewhere in the file — see the naming-scheme note above),
+producing `CS1061: 'int*' does not contain a definition for ...`. The fix is
+mechanical once recognised: drop the trailing member access (and the leading
+`&`, if present) and let the buffer decay to the pointer the call site already
+wanted.
+
+### `Reverse().ToArray()` silently resolving to the wrong method
+
+`array.Reverse().ToArray()`, with both `using System;` and `using System.Linq;`
+in scope, does not always call `Enumerable.Reverse` — `System.MemoryExtensions
+.Reverse<T>(this Span<T>)` is also in scope (via `System`), array-to-`Span<T>`
+is an implicit conversion, and the compiler resolves to that overload instead,
+which returns `void` (in-place reverse) and breaks the `.ToArray()` chain with
+`CS0023: Operator '.' cannot be applied to operand of type 'void'`. Nothing to
+do with obfuscation — a plain modern-.NET gotcha that happens to surface a lot
+in code this old. Fix: qualify explicitly,
+`System.Linq.Enumerable.Reverse(array).ToArray()`.
+
 ### Other decompilation defects found
 
 Each of these needed a hand fix; they are catalogued with their repairs in
@@ -359,20 +505,33 @@ DecompilerFi.exe <asm.dll> -p -o <outdir> -r <refdir> -s skip.txt  # ...skipping
 
 ## 8. Open items
 
-* ~~One type, `BrotliSharpLib.Brotli`, is still a placeholder~~ **Fixed** —
-  re-decompiled with dnSpy's per-type dump (`--md <token>`) during
-  ROADMAP.md P7b, after ILSpy's `-t`/type-name path was reconfirmed to hang
-  indefinitely on it. The dump needed `tools/unescape_ids.py` (dnSpy's raw
-  `\uXXXX` escapes → this codebase's `_XXXX` form) plus a handful of
-  mechanical fixes for decompiler-rendering quirks specific to this type
-  (`*(ref X + offset)` pointer arithmetic where `ref` isn't valid syntax,
-  a stray CLR generic-arity backtick on two method calls, and
-  `[FixedBuffer]` attributes that needed converting to the `fixed` field
-  modifier plus `unsafe` on their containing structs) — see ROADMAP.md P7b
-  for the full list. Confirmed via reflection
+* ~~One type, `BrotliSharpLib.Brotli`, is still a placeholder~~ **Fixed**, in
+  two stages. First pass: re-decompiled with dnSpy's per-type dump
+  (`--md <token>`) during ROADMAP.md P7b, after ILSpy's `-t`/type-name path
+  was reconfirmed to hang indefinitely on it — needed `tools/unescape_ids.py`
+  (dnSpy's raw `\uXXXX` escapes → this codebase's `_XXXX` form) plus a
+  handful of mechanical fixes for decompiler-rendering quirks specific to
+  this type (`*(ref X + offset)` pointer arithmetic where `ref` isn't valid
+  syntax, a stray CLR generic-arity backtick on two method calls, and
+  `[FixedBuffer]` attributes converted to the `fixed` field modifier plus
+  `unsafe` on their containing structs). Confirmed via reflection
   (`Type.IsAbstract && Type.IsSealed`) that the type really is a C#
   `static class`, which the old ILSpy placeholder had gotten wrong in
-  addition to being incomplete.
+  addition to being incomplete. Second pass, superseding the first entirely:
+  `BrotliSharpLib` is [master131/BrotliSharpLib](https://github.com/master131/BrotliSharpLib)
+  (MIT), a near-1:1 port of Google's reference Brotli C implementation —
+  confirmed structurally via matching method signatures
+  (`HistogramClear`/`ClearHistograms`/`HistogramAddHistogram`/
+  `BrotliBuildHistogramsWithContext`, `BrotliStream`'s constructors/fields)
+  against the recovered source. The whole obfuscated `BrotliSharpLib/`
+  directory (58 files, including the 93k-line `Brotli.cs`) was deleted and
+  replaced verbatim with the real upstream source — the SDK-style project's
+  default `**/*.cs` glob picks up the real project's subfolder layout
+  (`Decode/`, `Encode/`, `Encode/Hash/`) with no `.csproj` changes needed.
+  Removes the only place in this codebase carrying decompiler-rendering
+  workarounds instead of original-looking source, and incidentally confirmed
+  every one of the mechanical fixes above was correct (the obfuscated and
+  real versions are behaviorally identical up to renaming).
 * **`DevXUnityUnpackerTools_Structures` (`A33D874E`) is absent** from the folder
   and has no substitute in this repo.
 * **`HelixToolkit.Wpf` likely has the same missing-type bug** `DevXUnityUnpackerTools`

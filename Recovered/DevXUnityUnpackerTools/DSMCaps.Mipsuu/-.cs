@@ -4,11 +4,6 @@ namespace DSMCaps.Mipsuu
 {
 	internal class _0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A
 	{
-		internal int _0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020()
-		{
-			int displacement = ((PowerPcMemoryOperandValue)null).Displacement;
-			TDetail detail = ((Instruction<, , , , , , , >)null).Details;
-			return 1627211852;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

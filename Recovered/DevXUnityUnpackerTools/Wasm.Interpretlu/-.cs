@@ -24,13 +24,6 @@ namespace Wasm.Interpretlu
 	}
 	internal class _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_0020_000A
 	{
-		internal unsafe string _0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020()
-		{
-			bool isZero = ((Vector3*)(byte*)null)->IsZero;
-			((_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_000A_0020();
-			((CapstoneDisassembler<, , , , , , , >)null).Disassemble((byte[])null);
-			((_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A_0020();
-			return "1053457829";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

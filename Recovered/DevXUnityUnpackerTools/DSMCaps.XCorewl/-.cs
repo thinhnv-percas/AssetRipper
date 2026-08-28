@@ -6,14 +6,6 @@ namespace DSMCaps.XCorewl
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A
 	{
-		internal unsafe string _0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020(object _0020, EventArgs _0020_000A)
-		{
-			//IL_0023: Expected I, but got O
-			((InstructionDetailBuilder<, , , , , , , >)null).AllWrittenRegisters = null;
-			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020_000A_000A_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			_0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A_0020._0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020(null);
-			((_0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A)null)._0020_0020_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A();
-			return "1866552864";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

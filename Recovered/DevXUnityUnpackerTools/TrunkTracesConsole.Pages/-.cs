@@ -33,14 +33,7 @@ namespace TrunkTracesConsole.Pages
 			return "347495548";
 		}
 	}
-	internal class _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A
-	{
-		internal string _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020(DevXForms.TreeNodeCollection _0020, bool _0020_000A, short _0020_0020)
-		{
-			Dictionary<string, AssemblyDefinition> dictionary = ((_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A)null)._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A;
-			return "315972129";
-		}
-	}
+	// Dead decoy class removed (Mon3.Cecil/Mono.Cecil type-mismatch no-op pattern, see FINDINGS.md P7b).
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_000A
 	{
 		internal string _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020(_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A _0020)
@@ -51,11 +44,7 @@ namespace TrunkTracesConsole.Pages
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A
 	{
-		internal void _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_0020()
-		{
-			((TreeListColumn)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020 = null;
-			TRegister[] allWrittenRegister = ((InstructionDetailBuilder<, , , , , , , >)null).AllWrittenRegisters;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A
 	{

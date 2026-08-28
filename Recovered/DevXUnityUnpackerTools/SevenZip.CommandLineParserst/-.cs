@@ -7,14 +7,6 @@ namespace SevenZip.CommandLineParserst
 {
 	internal class _0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A
 	{
-		internal unsafe object _0020_0020_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020(float _0020, int _0020_000A, string _0020_0020)
-		{
-			//IL_001e: Expected I, but got O
-			//IL_001e: Expected I, but got O
-			((_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A_000A)null)._0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A*)(long)(IntPtr)(void*)null, (Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			ManyCodeCls manyCodeCl = ((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A;
-			((_0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A)null)._0020_000A_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020();
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

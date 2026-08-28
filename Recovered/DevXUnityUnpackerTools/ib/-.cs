@@ -8,15 +8,6 @@ namespace ib
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A_000A_000A
 	{
-		internal void _0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_0020_000A_0020_0020_0020_0020(object _0020)
-		{
-			((Variable)null).Get<T>();
-			UnitySerializationLogic._0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A_0020((TypeReference)null, (FieldDefinition)null);
-			_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_0020_000A_0020._0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020();
-			((_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020)null)._0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_000A = null;
-			ShaderInfo._0020_000A_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_0020_0020(null);
-			((RapackInfo)null).Find();
-			bool flag = (VerFormat)null >= (VerFormat)null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

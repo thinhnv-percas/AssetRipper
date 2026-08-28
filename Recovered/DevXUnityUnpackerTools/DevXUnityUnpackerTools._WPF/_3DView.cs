@@ -144,10 +144,10 @@ namespace DevXUnityUnpackerTools._WPF
 			value.Rotate(new Quaternion(new Vector3D(1.0, 0.0, 0.0), 90.0));
 			modelVisual2.Transform = new MatrixTransform3D(value);
 			modelVisual1 = MakeLights();
-			viewport.set_ShowCoordinateSystem(true);
-			viewport.set_ShowFrameRate(true);
-			viewport.set_ShowTriangleCountInfo(true);
-			camera = viewport.get_Camera().Clone();
+			viewport.ShowCoordinateSystem = true;
+			viewport.ShowFrameRate = true;
+			viewport.ShowTriangleCountInfo = true;
+			camera = viewport.Camera.Clone();
 			RadialGradientBrush radialGradientBrush = (RadialGradientBrush)(brush1 = new RadialGradientBrush(System.Windows.Media.Color.FromArgb(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue), System.Windows.Media.Color.FromArgb(byte.MaxValue, 150, 200, byte.MaxValue)));
 			brush2 = new RadialGradientBrush(System.Windows.Media.Color.FromArgb(byte.MaxValue, 200, byte.MaxValue, byte.MaxValue), System.Windows.Media.Color.FromArgb(byte.MaxValue, 200, 200, byte.MaxValue));
 			((UIElement)viewport).ClipToBounds = false;
@@ -205,7 +205,7 @@ namespace DevXUnityUnpackerTools._WPF
 			cameraBox.FarPlaneDistance = 1000.0;
 			cameraBox.Position = camera.Position;
 			cameraBox.LookDirection = camera.LookDirection;
-			viewport.set_Camera((ProjectionCamera)cameraBox.Camera);
+			viewport.Camera = (ProjectionCamera)cameraBox.Camera;
 			viewport.ResetCamera();
 			IsInteractive = true;
 		}
@@ -417,8 +417,8 @@ namespace DevXUnityUnpackerTools._WPF
 
 		internal void makeCurModel()
 		{
-			viewport.get_Children().Clear();
-			viewport.get_Children().Add(modelVisual1);
+			viewport.Children.Clear();
+			viewport.Children.Add(modelVisual1);
 			((System.Windows.Controls.Control)viewport).Background = brush1;
 			CreateCamCaller();
 		}
@@ -436,12 +436,12 @@ namespace DevXUnityUnpackerTools._WPF
 			{
 				makeCurModel();
 				SphereVisual3D val = new SphereVisual3D();
-				val.set_Radius(1.0);
-				val.set_Center(new Point3D(0.0, 0.0, 0.0));
+				val.Radius = 1.0;
+				val.Center = new Point3D(0.0, 0.0, 0.0);
 				Material matByData = getMatByData(matImg);
-				val.set_Material(matByData);
-				val.set_BackMaterial(matByData);
-				viewport.get_Children().Add((Visual3D)val);
+				val.Material = matByData;
+				val.BackMaterial = matByData;
+				viewport.Children.Add((Visual3D)val);
 				CreateCamCaller();
 				return true;
 			}
@@ -486,7 +486,7 @@ namespace DevXUnityUnpackerTools._WPF
 					model3DGroup.Transform = new MatrixTransform3D(value);
 				}
 				modelVisual2.Content = model3DGroup;
-				viewport.get_Children().Add(modelVisual2);
+				viewport.Children.Add(modelVisual2);
 				CreateCamCaller();
 				return true;
 			}
@@ -542,7 +542,7 @@ namespace DevXUnityUnpackerTools._WPF
 			makeCurModel();
 			if (this.m_params != null)
 			{
-				this.m_params.camera = viewport.get_Camera();
+				this.m_params.camera = viewport.Camera;
 			}
 			if (this.m_params != @params)
 			{
@@ -550,12 +550,12 @@ namespace DevXUnityUnpackerTools._WPF
 				{
 					CreateCam();
 				}
-				viewport.set_Camera(@params.camera);
+				viewport.Camera = @params.camera;
 				this.m_params = @params;
 			}
 			if (@params.model?.model != null)
 			{
-				viewport.get_Children().Add(@params.model?.model);
+				viewport.Children.Add(@params.model?.model);
 			}
 			CreateCamCaller();
 			return @params;
@@ -659,7 +659,7 @@ namespace DevXUnityUnpackerTools._WPF
 							@params.model.model.Transform = new MatrixTransform3D(value);
 						}
 					}
-					viewport.get_Children().Add(@params.model?.model);
+					viewport.Children.Add(@params.model?.model);
 					if (!@params._0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A)
 					{
 						@params._0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A = true;
@@ -1390,11 +1390,11 @@ namespace DevXUnityUnpackerTools._WPF
 			//IL_0047: Unknown result type (might be due to invalid IL or missing references)
 			//IL_004f: Expected O, but got Unknown
 			SphereVisual3D val = new SphereVisual3D();
-			val.set_Radius(0.25);
-			val.set_Center(new Point3D(x, y, z));
+			val.Radius = 0.25;
+			val.Center = new Point3D(x, y, z);
 			DiffuseMaterial backMaterial = new DiffuseMaterial(new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, byte.MaxValue, 200)));
-			val.set_Material((Material)backMaterial);
-			val.set_BackMaterial((Material)backMaterial);
+			val.Material = (Material)backMaterial;
+			val.BackMaterial = (Material)backMaterial;
 			return val;
 		}
 
@@ -1436,7 +1436,7 @@ namespace DevXUnityUnpackerTools._WPF
 			//IL_0010: Expected O, but got Unknown
 			if (connectionId == 1)
 			{
-				viewport = target;
+				viewport = (HelixViewport3D)target;
 			}
 			else
 			{

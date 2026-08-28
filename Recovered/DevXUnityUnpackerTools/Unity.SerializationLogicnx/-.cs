@@ -8,13 +8,6 @@ namespace Unity.SerializationLogicnx
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A
 	{
-		internal void _0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020(long _0020, object _0020_000A, int _0020_0020)
-		{
-			((_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020)null).Dispose();
-			string source = ((_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020)null).Sources;
-			_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020 I_0 = ((_0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_0020)null)._0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_0020;
-			((InBuffer)null).ReleaseStream();
-			((InstructionBuilder<, , , , , , , >)null).Mnemonic = null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

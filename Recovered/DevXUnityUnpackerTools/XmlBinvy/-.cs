@@ -5,12 +5,7 @@ namespace XmlBinvy
 {
 	internal class _0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A
 	{
-		internal int _0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020_0020()
-		{
-			_0020 val = ((_0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A<, >)null)._0020_0020_000A_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020;
-			((MultiSelectTreeView)null).AddChild((string)null);
-			return 2136280597;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_000A
 	{

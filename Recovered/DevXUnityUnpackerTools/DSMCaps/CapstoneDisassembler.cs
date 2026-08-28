@@ -285,7 +285,7 @@ namespace DSMCaps
 				catch
 				{
 					//try-fault
-					System_002EIDisposable_002EDispose();
+					((IDisposable)this).Dispose();
 					throw;
 				}
 			}
@@ -347,7 +347,7 @@ namespace DSMCaps
 			[DebuggerHidden]
 			IEnumerator IEnumerable.GetEnumerator()
 			{
-				return System_002ECollections_002EGeneric_002EIEnumerable_003CTInstruction_003E_002EGetEnumerator();
+				return ((IEnumerable<TInstruction>)this).GetEnumerator();
 			}
 		}
 
@@ -535,7 +535,10 @@ namespace DSMCaps
 			{
 				if (_skipDataCallback != null)
 				{
-					_003C_003Ec__DisplayClass42_0 @object;
+					_003C_003Ec__DisplayClass42_0 @object = new _003C_003Ec__DisplayClass42_0();
+					@object._003C_003E4__this = this;
+					@object.binaryCode = binaryCode;
+					@object.binaryCodeOffset = binaryCodeOffset;
 					callback = @object._003CIterate_003Eg__OnNativeSkipDataCallback_007C0;
 				}
 				_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A _0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A = default(_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A);

@@ -26,16 +26,6 @@ namespace ICSharpCode.SharpZipLib.Checksumue
 	}
 	internal class _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A
 	{
-		internal unsafe object _0020_000A_000A_0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020(decimal _0020, bool _0020_000A)
-		{
-			//IL_0072: Expected I, but got O
-			//IL_0072: Expected I, but got O
-			bool flag = ((_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020)null)._0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020;
-			((_3DView)null).Clear();
-			((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_000A_0020)null).WriteBlock((byte[])null);
-			((_0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_000A)null)._0020_000A_000A_0020_0020_0020_0020_0020_000A_0020_0020_000A_0020_000A_000A_0020((string)null, ref *(int*)null);
-			((_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A_000A)null)._0020_000A_000A_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020_0020((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A*)(long)(IntPtr)(void*)null, (byte*)(long)(IntPtr)(void*)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

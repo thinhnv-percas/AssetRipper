@@ -6,12 +6,6 @@ namespace SevenZip.Buffergo
 {
 	internal class _0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A
 	{
-		internal int _0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020_0020_000A_0020()
-		{
-			((_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A)null).Comment = null;
-			long processed = ((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_000A_0020_000A_000A_0020)null).Processed;
-			((_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A)null)._0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020();
-			return 1003075038;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

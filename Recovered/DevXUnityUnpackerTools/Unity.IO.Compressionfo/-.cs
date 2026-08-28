@@ -7,12 +7,6 @@ namespace Unity.IO.Compressionfo
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A_000A_000A_000A
 	{
-		internal unsafe string _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020(CultureFormatter.SomeItem _0020)
-		{
-			CustomChoices choice = ((CustomProperty)null).Choices;
-			((_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020(ref *(int*)null);
-			((_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A)null)._0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020((_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A)null, (string)null);
-			return "1077720678";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

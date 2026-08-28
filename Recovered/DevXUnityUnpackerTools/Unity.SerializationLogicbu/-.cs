@@ -9,13 +9,6 @@ namespace Unity.SerializationLogicbu
 {
 	internal class _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A
 	{
-		internal unsafe void _0020_000A_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020(short _0020)
-		{
-			((_0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_0020_000A)null)._0020_000A_0020_000A_0020_000A_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020(ref *(int*)null);
-			_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020();
-			((MultiSelectTreeView2)null)._0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_0020_000A((object)null, (ScrollEventArgs)null);
-			uint memoryIndex = ((DataSegment)null).MemoryIndex;
-			((_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_0020_0020_000A_000A_000A_0020*)(byte*)null)->Name = null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

@@ -8,13 +8,6 @@ namespace Wasm.Binaryfb
 {
 	internal class _0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_0020_000A_000A
 	{
-		internal string _0020_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020(Wasm.Instructions.Instruction _0020, InterpreterContext _0020_000A)
-		{
-			((_0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A)null)._0020_000A_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020_0020_0020_000A_0020();
-			((_0020_000A_0020_0020_0020_0020_0020_0020_000A_0020_000A_0020_000A_000A_0020_000A)null)._0020_000A_0020_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_0020_000A_000A();
-			((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A)null).CloseEntry();
-			((WasmFile)null).GetFirstSectionOrNull<T>();
-			return "1510901366";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

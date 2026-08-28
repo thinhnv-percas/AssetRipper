@@ -19,14 +19,6 @@ namespace ICSharpCode.SharpZipLib.Lzwss
 	}
 	internal class _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_000A
 	{
-		internal unsafe string _0020_000A_000A_0020_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_0020()
-		{
-			//IL_002e: Expected I, but got O
-			//IL_004b: Expected I, but got O
-			((TypeResolver)null).Add((GenericInstanceMethod)null);
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_000A_0020_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A*)(long)(IntPtr)(void*)null);
-			Brotli._0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_000A_0020_000A_0020_000A_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_000A*)(long)(IntPtr)(void*)null);
-			return "210437819";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

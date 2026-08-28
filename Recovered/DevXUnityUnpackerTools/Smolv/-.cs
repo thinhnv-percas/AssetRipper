@@ -50,23 +50,10 @@ namespace Smolv
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A
 	{
-		internal void _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020(string _0020, float _0020_000A, LiteralNumber _0020_0020, object _0020_000A_000A)
-		{
-			_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A._0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020((string)null);
-			((MethodDefinition)null).PropertyName();
-			string text = _0020_0020_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A._0020_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020;
-			Bitmap music = Resources.Music16;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_000A
 	{
-		internal string _0020_000A_0020_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020(_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020 _0020, decimal _0020_000A, short _0020_0020, object _0020_000A_000A)
-		{
-			long alignPosition = ((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020)null).AlignPosition;
-			((_0020_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020_000A_0020_0020_0020)null).LinkName = null;
-			TempManager._0020_0020_000A_000A_0020_0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020(null);
-			TRegister[] implicitlyReadRegister = ((InstructionDetail<, , , , , , , >)null).ImplicitlyReadRegisters;
-			return "1228645963";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

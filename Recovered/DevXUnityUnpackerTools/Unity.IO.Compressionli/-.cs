@@ -6,12 +6,6 @@ namespace Unity.IO.Compressionli
 {
 	internal class _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020_000A_000A_000A
 	{
-		internal void _0020_000A_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020_0020_0020(byte _0020)
-		{
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_0020_0020_0020_000A((string)null);
-			OperatorImpls.Int64Load16S(null, null);
-			DisassembleArchitecture disassembleArchitecture = ((InstructionDetail<, , , , , , , >)null).DisassembleArchitecture;
-			IEnumerable<ManyCodeCls> enumerable = ((ManyCodeCls)null)._0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_0020_000A;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

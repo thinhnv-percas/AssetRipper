@@ -104,14 +104,7 @@ namespace LZ4.Services
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020_000A
 	{
-		internal int _0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020(ref Dictionary<int, int[]> _0020)
-		{
-			TId id = ((InstructionGroup<>)null).Id;
-			((_0020_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020)null).ReadUInt32Array();
-			((_0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A)null)._0020_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A();
-			((MainForm)null)._0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_000A_0020();
-			return 1298474288;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A
 	{

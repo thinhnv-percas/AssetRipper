@@ -7,13 +7,6 @@ namespace NetObfqk
 {
 	internal class _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_0020_000A_000A
 	{
-		internal unsafe object _0020_000A_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_000A_000A_0020_0020()
-		{
-			//IL_0034: Expected I, but got O
-			((CustomProperty)null).SelectedItem = null;
-			((OutWindow)null).ReleaseStream();
-			Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_000A((Brotli._0020_0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A*)(long)(IntPtr)(void*)null);
-			return null;
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }

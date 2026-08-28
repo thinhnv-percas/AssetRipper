@@ -84,7 +84,7 @@ using XmlBin;
 	}
 	internal static bool IndexOfNotStrongPhrase(this string _this, string find_word, int begin, out int find_start, out int find_len)
 	{
-		return _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020.IndexOfNotStrongPhrase(_this, find_word, begin, find_start, find_len);
+		return _0020_0020_000A_000A_0020_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020_0020.IndexOfNotStrongPhrase(_this, find_word, begin, out find_start, out find_len);
 	}
 	internal static bool ContainsNotStrongPhrase(this string _this, string find_word, int begin = 0)
 	{

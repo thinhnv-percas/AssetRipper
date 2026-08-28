@@ -7,19 +7,10 @@ namespace DMP4xv
 {
 	internal class _0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_000A_000A
 	{
-		internal unsafe void _0020_000A_000A_000A_0020_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020_0020(uint* _0020, Brotli._0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A _0020_000A, uint* _0020_0020)
-		{
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 	internal class _0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A
 	{
-		internal string _0020_000A_000A_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_0020_0020(short _0020, decimal _0020_000A, object _0020_0020)
-		{
-			_0020_0020_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A._0020_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020_0020_0020((string)null, (object[])null);
-			((_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A)null)._0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020();
-			((_0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A)null)._0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020((string)null);
-			object value = ((ParsedOperand)null).Value;
-			return "756109730";
-		}
+		// Dead decoy method removed (referenced an unresolved IL generic-parameter leak escaped as unbound generic syntax, e.g. `!0`/`!!0`); see FINDINGS.md §5.
 	}
 }
