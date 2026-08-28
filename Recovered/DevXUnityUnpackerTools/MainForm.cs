@@ -6828,7 +6828,29 @@ public class MainForm : Form
 		}
 		Text += (Environment.Is64BitProcess ? "x64" : "x32");
 		Text = Text + " Crack Ver " + CrackWindow.CrackVersion;
-		if (!(typeof(ManyCodeCls).Assembly.Location ?? "").ToLower().Contains("DevXUnityUnpackerTools.dll".ToLower()))
+		// Anti-tamper canary #3, defused — the inverted one, and by far the most damaging.
+		// This block only runs when Assembly.Location does NOT name
+		// DevXUnityUnpackerTools.dll, i.e. only in a genuine install, where Tools is loaded
+		// from the encrypted sidecar via Assembly.Load(byte[]) and Location is "". This
+		// repo's merged build (ROADMAP P7a/P7b) loads it as a plain DLL from disk, so the
+		// whole block was skipped, and with it:
+		//   * both _3DView_WinformsHost instances — which is the recurring
+		//     NullReferenceException at MainForm.cs:7546 and in Clear2(): the 3D preview
+		//     host is null because it was never constructed;
+		//   * the MaybeAlertManager callback wiring;
+		//   * HiddenCalls(RND2() + RND3()) — the ONLY real entry into the chain
+		//     RND2 -> the RND3 wrapper -> the method that creates and Start()s the 250 ms
+		//     status timer. With that call skipped the timer is never created, so the
+		//     status label and the progress bar never update for an entire run. That is
+		//     exactly the reported symptom.
+		// The RND2/RND3 tokens are single-use (子例子.RND2/RND3 clear their backing static
+		// after the first read), which is what makes the chain resolve: RND2 is burned at
+		// line 6812, so here RND2() returns "" and RND2()+RND3() equals the wrapper's key;
+		// the wrapper's own RND3() then returns "" and yields the timer method's key.
+		// Pinned to the original runtime result.
+		DbgLog.W("CANARY", "Assembly.Location canary #3 (skips 3D hosts + status-timer chain): would skip = "
+			+ (typeof(ManyCodeCls).Assembly.Location ?? "").ToLower().Contains("devxunityunpackertools.dll") + "  -> defused, block forced on");
+		if (true)
 		{
 			try
 			{
@@ -6876,7 +6898,17 @@ public class MainForm : Form
 		_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A.Interval = 250;
 		_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A.Tick += _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020;
 		_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A.Start();
-		if ((typeof(ManyCodeCls).Assembly.Location ?? "").ToLower().Contains("DevXUnityUnpackerTools.dll".ToLower()))
+		// Anti-tamper canary, defused. Hidden call "2599629565" resolves to
+		// ExitManager.ExitProgram() -> Environment.Exit(1). In a real install
+		// DevXUnityUnpackerTools is loaded from the encrypted sidecar via
+		// Assembly.Load(byte[]), so Assembly.Location is "" and this never fires. This
+		// repo's merged build (ROADMAP P7a/P7b) loads it as a plain DLL from disk, so the
+		// condition is always true and the app tries to kill itself during startup. It
+		// only survives today because HashManager's reflective Environment.Exit call fails
+		// and CallObjectSafe1 swallows it. Pinned to the original runtime result.
+		DbgLog.W("CANARY", "Assembly.Location canary #1 (ExitManager.ExitProgram): would fire = "
+			+ (typeof(ManyCodeCls).Assembly.Location ?? "").ToLower().Contains("devxunityunpackertools.dll") + "  -> defused");
+		if (false)
 		{
 			HiddenCalls.CallObjectSafe1(null, "2599629565");
 		}
@@ -6896,7 +6928,14 @@ public class MainForm : Form
 		HiddenCalls.CallObjectSafe1(this, "CC4A94B60C96475DBA03560088AA44F4");
 		HiddenCalls.CallObjectSafe1(this, "3968704961");
 		HiddenCalls.CallObjectSafe1(this, "CC4A94B60C96475DBA03560088AA44F4");
-		if ((typeof(HashManager).Assembly.Location ?? "").ToLower().Contains("DevXUnityUnpackerTools.dll".ToLower()))
+		// Anti-tamper canary #2, defused. Same trigger as #1. The field it sets is read in
+		// the status-timer handler as
+		//     if (!IsNullOrEmpty(field) && DateTime.Now.Minute % 10 == 3) Process.Start(field);
+		// i.e. once every ten minutes the tampered build pops a notepad window. Pinned to
+		// the original runtime result (Location == "" -> never set).
+		DbgLog.W("CANARY", "Assembly.Location canary #2 (Process.Start \"notepad.exe\" every 10 min): would fire = "
+			+ (typeof(HashManager).Assembly.Location ?? "").ToLower().Contains("devxunityunpackertools.dll") + "  -> defused");
+		if (false)
 		{
 			_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020_000A_000A_0020 = "notepad.exe";
 		}
@@ -7007,8 +7046,21 @@ public class MainForm : Form
 	}
 
 	[FunAttr(Num = "F0F58AE9870868CFE9D6E6EBE16FC812")]
+	// Debug tracing only. Sampled every 40th tick (~10 s at Interval=250) so a long run
+	// produces a readable trail instead of thousands of lines.
+	private int _dbgTickCount;
+
 	internal void _0020_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020_0020(object _0020, EventArgs _0020_000A)
 	{
+		if (++_dbgTickCount % 40 == 1)
+		{
+			DbgLog.Lim("TICK", "tick #" + _dbgTickCount + "  cliMode=" + _0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A
+				+ "  InvokeRequired=" + base.InvokeRequired + "  Visible=" + base.Visible
+				+ "  progress=" + MaybeAlertManager._0020_0020_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020
+				+ " (outer=" + MaybeAlertManager._0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_0020_0020
+				+ " inner=" + MaybeAlertManager._0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_0020_000A_000A + ")"
+				+ "  pendingStatus=" + (MaybeAlertManager._0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020 ?? "<null>"), 120);
+		}
 		if (_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_0020_000A_000A_000A)
 		{
 			_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A = MaybeAlertManager._0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A_0020;
@@ -7077,6 +7129,12 @@ public class MainForm : Form
 						_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A = DateTime.Now;
 					}
 					string text = DateTime.Now.ToString() + ((num == 0) ? " " : (" [" + (decimal)num / 10m + "%] ")) + _0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_0020_000A_000A;
+					if (_dbgTickCount % 40 == 1)
+					{
+						DbgLog.Lim("STATUS", "label=" + ((_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A == null) ? "NULL CONTROL" : "ok")
+							+ "  bar.Visible=" + (_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020 != null && _0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020.Visible)
+							+ "  num=" + num + "  text=" + text, 120);
+					}
 					try
 					{
 						_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_000A_0020_0020_0020_000A.Text = text;
@@ -7091,12 +7149,14 @@ public class MainForm : Form
 					}
 					catch (Exception arg)
 					{
+						DbgLog.Lim("STATUS.fail", "writing the status label threw: " + arg, 5);
 						ConsoleManager.LogExeption(string.Concat(arg));
 					}
 				}
 			}
-			catch
+			catch (Exception _dbgOuter)
 			{
+				DbgLog.Lim("STATUS.outerfail", "UpdateStatus threw: " + _dbgOuter, 5);
 			}
 		}
 	}
