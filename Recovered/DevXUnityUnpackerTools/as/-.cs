@@ -24787,7 +24787,7 @@ namespace @as
 			{
 				return null;
 			}
-			DbgLog.W("SIG.rawFallback", "unresolved-call placeholder created for method=" + method + "\n" + Environment.StackTrace);
+			DbgLog.Lim("SIG.rawFallback", "unresolved-call placeholder created for method=" + method + "\n" + Environment.StackTrace, 5);
 			return new _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020
 			{
 				_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A = method
