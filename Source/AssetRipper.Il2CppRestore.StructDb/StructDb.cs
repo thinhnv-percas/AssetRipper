@@ -30,6 +30,16 @@ public sealed class StructDb
 	/// "Il2CppString", 16 -&gt; "length". "Il2CppString", 0 -&gt; "object.klass" (recurses into the nested
 	/// <c>Il2CppObject</c> header every managed reference type embeds at offset 0).
 	/// </summary>
+	/// <remarks>
+	/// Two schema details this leans on: a union's members (<see cref="StructField.Union"/>) share one
+	/// <see cref="StructField.Offset"/>, and fields are matched in declaration order, so the first one
+	/// listed wins — a reasonable default when the actual accessed member can't be told apart from the
+	/// offset alone. A bitfield (<see cref="StructField.IsBitfield"/>) has no byte <see cref="StructField.Size"/>
+	/// of its own, so it can never match this byte-range check and a load of its whole storage unit comes
+	/// back unresolved rather than naming one arbitrary bit out of several packed into the same word —
+	/// resolving an individual bitfield needs recognizing the AND/shift around the load, which nothing
+	/// here attempts yet.
+	/// </remarks>
 	public bool TryResolveField(string structName, long offset, out string path)
 	{
 		path = "";
@@ -90,7 +100,7 @@ public sealed class StructDb
 	/// </summary>
 	public static StructDb LoadNearest(string directory, string unityVersion, bool is32Bit)
 	{
-		string exactPath = Path.Combine(directory, $"{unityVersion}-{(is32Bit ? "arm32" : "arm64")}.json");
+		string exactPath = Path.Combine(directory, $"{unityVersion}-{(is32Bit ? "x32" : "x64")}.json");
 		if (System.IO.File.Exists(exactPath))
 		{
 			return Load(exactPath);

@@ -143,12 +143,54 @@ public class Il2CppImageDefinition
 }
 
 /// <summary>
-/// The two-int32 record every string literal is looked up through: not the string itself, just where
-/// to find it. See <see cref="Il2CppMetadata.GetStringLiteral"/>.
+/// The strong-name-shaped part of an assembly's identity — version, culture, public key token. Read as
+/// a nested struct of <see cref="Il2CppAssemblyDefinition.aname"/>; kept independent for the same reason
+/// clang's record-layout dump keeps it independent: it is <c>Il2CppAssembly</c>'s own aggregate member,
+/// not inline fields.
 /// </summary>
+public class Il2CppAssemblyNameDefinition
+{
+	public int nameIndex;
+	public int cultureIndex;
+	public int hashValueIndex;
+	public int publicKeyIndex;
+	public uint hash_alg;
+	public int hash_len;
+	public uint flags;
+	public int major, minor, build, revision;
+	public int publicKeyTokenIndex;
+}
+
+/// <summary>
+/// One assembly's identity. Not the same thing as <see cref="Il2CppImageDefinition"/> — an image is the
+/// module's types; this is the strong-name-shaped metadata a manifest/reference resolves against.
+/// </summary>
+/// <remarks>
+/// <c>moduleToken</c> is new at metadata v39 (guide §13.1, found only by diffing generated struct DBs
+/// between Unity versions — not visible from a casual header read).
+/// </remarks>
+public class Il2CppAssemblyDefinition
+{
+	public int imageIndex;
+	public int token;
+	public int referencedAssemblyStart;
+	public int referencedAssemblyCount;
+	public Il2CppAssemblyNameDefinition aname = new();
+	[Version(Min = 39)] public uint moduleToken;
+}
+
+/// <summary>
+/// Not the string literal itself, just where to find it. See <see cref="Il2CppMetadata.GetStringLiteral"/>.
+/// </summary>
+/// <remarks>
+/// <c>length</c> exists only through metadata v31; from v39 the struct is <c>dataIndex</c> alone (8 bytes
+/// -&gt; 4), and a literal's length has to be inferred from where the *next* literal's data starts
+/// instead — this is exactly the kind of change that doesn't show up just from reading a header, only
+/// from diffing generated struct DBs between two Unity versions (integration guide §13.1).
+/// </remarks>
 public class Il2CppStringLiteral
 {
-	public int length;
+	[Version(Max = 31)] public int length;
 	public int dataIndex;
 }
 

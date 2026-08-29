@@ -68,7 +68,7 @@ internal static class Program
 
 		Dictionary<ulong, MethodRef> methodsByVa = BuildMethodsByVa(metadata, codeGenModules, addresses);
 
-		StructDb.StructDb? structs = TryLoadStructDb(options);
+		StructDb.StructDb? structs = TryLoadStructDb(options, image.Is32Bit);
 
 		IArchLifter lifter = new Arm64Lifter();
 		LiftEnvironment environment = new()
@@ -183,7 +183,7 @@ internal static class Program
 		return result;
 	}
 
-	private static StructDb.StructDb? TryLoadStructDb(Options options)
+	private static StructDb.StructDb? TryLoadStructDb(Options options, bool is32Bit)
 	{
 		if (options.StructDbDirectory is null)
 		{
@@ -193,7 +193,7 @@ internal static class Program
 
 		try
 		{
-			return StructDb.StructDb.LoadNearest(options.StructDbDirectory, options.UnityVersion ?? "", is32Bit: false);
+			return StructDb.StructDb.LoadNearest(options.StructDbDirectory, options.UnityVersion ?? "", is32Bit);
 		}
 		catch (Exception exception)
 		{

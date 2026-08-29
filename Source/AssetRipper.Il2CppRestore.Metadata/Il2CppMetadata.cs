@@ -25,6 +25,7 @@ public sealed class Il2CppMetadata
 	public required Il2CppFieldDefinition[] Fields { get; init; }
 	public required Il2CppParameterDefinition[] Parameters { get; init; }
 	public required Il2CppImageDefinition[] Images { get; init; }
+	public required Il2CppAssemblyDefinition[] Assemblies { get; init; }
 	public required Il2CppStringLiteral[] StringLiterals { get; init; }
 	public required Il2CppDefaultValue[] FieldDefaultValues { get; init; }
 	public required Il2CppDefaultValue[] ParameterDefaultValues { get; init; }
@@ -73,6 +74,7 @@ public sealed class Il2CppMetadata
 		Il2CppFieldDefinition[] fields = reader.ReadStructArray<Il2CppFieldDefinition>(header.Fields.Offset, header.Fields.Size);
 		Il2CppParameterDefinition[] parameters = reader.ReadStructArray<Il2CppParameterDefinition>(header.Parameters.Offset, header.Parameters.Size);
 		Il2CppImageDefinition[] images = reader.ReadStructArray<Il2CppImageDefinition>(header.Images.Offset, header.Images.Size);
+		Il2CppAssemblyDefinition[] assemblies = reader.ReadStructArray<Il2CppAssemblyDefinition>(header.Assemblies.Offset, header.Assemblies.Size);
 		Il2CppStringLiteral[] stringLiterals = reader.ReadStructArray<Il2CppStringLiteral>(header.StringLiterals.Offset, header.StringLiterals.Size);
 		Il2CppDefaultValue[] fieldDefaults = reader.ReadStructArray<Il2CppDefaultValue>(header.FieldDefaultValues.Offset, header.FieldDefaultValues.Size);
 		Il2CppDefaultValue[] parameterDefaults = reader.ReadStructArray<Il2CppDefaultValue>(header.ParameterDefaultValues.Offset, header.ParameterDefaultValues.Size);
@@ -92,6 +94,7 @@ public sealed class Il2CppMetadata
 			Fields = fields,
 			Parameters = parameters,
 			Images = images,
+			Assemblies = assemblies,
 			StringLiterals = stringLiterals,
 			FieldDefaultValues = fieldDefaults,
 			ParameterDefaultValues = parameterDefaults,
@@ -157,6 +160,12 @@ public sealed class Il2CppMetadata
 	}
 
 	/// <summary>The real string a <see cref="Il2CppStringLiteral"/> slot decodes to — for string constants baked into IL, not names.</summary>
+	/// <remarks>
+	/// From metadata v39 on, <see cref="Il2CppStringLiteral.length"/> no longer exists (guide §13.1) —
+	/// a literal's length is instead however many bytes separate its <c>dataIndex</c> from the next
+	/// literal's (or the end of the data blob, for the last one). Literals are written back-to-back with
+	/// no gaps, which is what makes this safe.
+	/// </remarks>
 	public string GetStringLiteral(uint index)
 	{
 		if (index >= StringLiterals.Length)
@@ -164,11 +173,15 @@ public sealed class Il2CppMetadata
 			return "";
 		}
 		Il2CppStringLiteral literal = StringLiterals[index];
-		if (literal.dataIndex < 0 || literal.length < 0 || literal.dataIndex + literal.length > _stringLiteralData.Length)
+		int length = Header.Version <= 31
+			? literal.length
+			: (int)(index + 1 < StringLiterals.Length ? StringLiterals[index + 1].dataIndex : _stringLiteralData.Length) - literal.dataIndex;
+
+		if (literal.dataIndex < 0 || length < 0 || literal.dataIndex + length > _stringLiteralData.Length)
 		{
 			return "";
 		}
-		return Encoding.UTF8.GetString(_stringLiteralData, literal.dataIndex, literal.length);
+		return Encoding.UTF8.GetString(_stringLiteralData, literal.dataIndex, length);
 	}
 
 	public string GetTypeDefName(int typeDefIndex, bool includeNamespace = true)
