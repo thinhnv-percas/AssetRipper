@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "count": 370,
- "note": "Struct layout runtime IL2CPP. 368 ban giai ma tu .dvxil2c cua DevX; 2 ban sinh tu header Unity bang clang.",
+ "note": "Struct layout runtime IL2CPP. Xem structdb/README.md.",
  "versions": [
   {
    "unityVersion": "5.1.0f3",
