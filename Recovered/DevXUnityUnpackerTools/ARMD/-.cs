@@ -10144,7 +10144,7 @@ namespace ARMD
 										}
 									}
 								}
-								if (text93 != null && text93.Contains("#0x"))
+								if (text93 != null && text93.Contains("#0x") && (text93.StartsWith("B ") || text93.StartsWith("BL ") || text93.StartsWith("B.") || text93.StartsWith("CBZ ") || text93.StartsWith("CBNZ ") || text93.StartsWith("TBZ ") || text93.StartsWith("TBNZ ")))
 								{
 									DbgLog.W("ARMD.unresolvedLabel", "line still has raw hex operand after label pass: " + text93);
 								}
