@@ -174,6 +174,13 @@ public static class WebApplicationLauncher
 		}).ProducesHtmlPage();
 		app.MapPost("/PackageRemapping/Run", Pages.PackageRemapping.PackageRemapApi.HandleRunPostRequest);
 
+		app.MapGet("/Il2CppRestore", (context) =>
+		{
+			context.Response.DisableCaching();
+			return Pages.Il2CppRestore.Il2CppRestorePage.Instance.WriteToResponse(context.Response);
+		}).ProducesHtmlPage();
+		app.MapPost("/Il2CppRestore/Run", Pages.Il2CppRestore.Il2CppRestoreApi.HandleRunPostRequest);
+
 		app.MapGet("/ConfigurationFiles", (context) =>
 		{
 			context.Response.DisableCaching();

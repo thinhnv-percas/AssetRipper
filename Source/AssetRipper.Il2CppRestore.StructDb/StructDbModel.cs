@@ -73,6 +73,11 @@ public sealed class StructInfo
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
 	public int Align { get; set; }
 
+	/// <summary>True for a struct dumped as a C <c>union</c> rather than a <c>struct</c>/<c>class</c> — the whole record, not one field of it (see <see cref="StructField.Union"/> for that).</summary>
+	[JsonPropertyName("union")]
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+	public bool Union { get; set; }
+
 	[JsonPropertyName("fields")]
 	public List<StructField> Fields { get; set; } = [];
 }
@@ -80,11 +85,23 @@ public sealed class StructInfo
 /// <summary>Where a generated struct DB file came from — enough to reproduce it.</summary>
 public sealed class StructDbSource
 {
+	[JsonPropertyName("origin")]
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+	public string? Origin { get; set; }
+
 	[JsonPropertyName("target")]
 	public string Target { get; set; } = "";
 
 	[JsonPropertyName("tool")]
 	public string Tool { get; set; } = "";
+
+	[JsonPropertyName("generatedUtc")]
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+	public string? GeneratedUtc { get; set; }
+
+	[JsonPropertyName("note")]
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+	public string? Note { get; set; }
 }
 
 /// <summary>
