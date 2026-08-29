@@ -162,7 +162,7 @@ Copy it from a full installation if one is available.
 `DevXUnityUnpackerRun.exe`, `DevXUnityUnpackerMain` and `DevXUnityUnpackerTools`
 — all three built from the decompiled sources in this repo — load, resolve each
 other, and show the actual application window:
-**`"DevXUnity-Unpacker Magic Tools Ver 10.06x64 Crack Ver 1.0.9"`**.
+**`"DevXUnity-Unpacker Magic Tools Ver 10.06x64"`**.
 
 The first attempt (just the nine hash-named payload files next to the built
 `DevXUnityUnpackerRun.exe`) got past `Assembly.Load`/`EntryPoint.Invoke()`

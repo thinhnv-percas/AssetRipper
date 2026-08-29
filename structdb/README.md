@@ -1,11 +1,26 @@
 # structdb — layout struct runtime IL2CPP, dạng JSON không mã hóa
 
-368 phiên bản Unity (**5.1.0f3 → 2021.2.9f1**), mỗi bản 2 file (x32 / x64) =
-**736 file + `index.json`**, tổng ~62 MB.
+**370 phiên bản Unity** (5.1.0f3 → 6000.3.18f1), mỗi bản 2 file (x32 / x64) =
+**740 file + `index.json`**, tổng ~62 MB.
+
+Hai nguồn, phân biệt bằng `source.target` trong từng file và cột `source` trong
+`index.json`:
+
+| Nguồn | Số bản | Phạm vi | Cách lấy |
+|---|---|---|---|
+| `dvxil2c` | 368 | 5.1.0f3 → 2021.2.9f1 | Giải mã từ DB của DevXUnity-Unpacker |
+| `clang` | 2 | 2022.3.62f2 (metadata **v31**), 6000.3.18f1 (metadata **v39**) | Sinh trực tiếp từ header `libil2cpp` của Unity Editor |
 
 Đây là bản giải mã đầy đủ của `StreamingAssets/IL2CPPStructs/*.dvxil2c` trong
 DevXUnity-Unpacker. Không cipher, không GZip, đọc bằng mắt và `git diff` được.
 Cách dùng trong pipeline: xem [../IL2CPP-REBUILD-GUIDE.md](../IL2CPP-REBUILD-GUIDE.md) §10.
+
+> **Tool trong repo này đã dùng trực tiếp bộ JSON ở đây.**
+> [`Il2CppStructDbJson.cs`](../Recovered/DevXUnityUnpackerTools/Il2CppStructDbJson.cs)
+> nạp thẳng các file này; toàn bộ đường `.dvxil2c` (cipher + GZip + `BinaryWriter`)
+> đã bị gỡ khỏi mã nguồn. Runtime tìm thư mục `structdb` tại
+> `<StreamingAssets>/structdb`, rồi `<thư mục exe>/structdb`.
+> Thư mục `StreamingAssets/IL2CPPStructs/` cũ giờ không còn được đọc và có thể xoá.
 
 ---
 
@@ -257,15 +272,63 @@ public sealed class FieldInfo
 
 ---
 
+## Hai bản sinh bằng clang (2022.3 và 6000.3)
+
+Sinh theo đúng quy trình [../IL2CPP-REBUILD-GUIDE.md](../IL2CPP-REBUILD-GUIDE.md) §10.2:
+biên dịch header `Editor/Data/il2cpp/libil2cpp/` bằng clang của NDK đi kèm Unity,
+với `-Xclang -fdump-record-layouts`. Target `aarch64-linux-android21` (x64) và
+`armv7a-linux-androideabi21` (x32).
+
+**Kiểm chứng round-trip:** sinh ngược file `.cpp` từ JSON rồi biên dịch lại với
+`static_assert` cho **mọi** `sizeof` và **mọi** `offsetof` (kể cả field lồng nhau
+và thành viên union; chỉ bỏ bitfield vì `offsetof` không áp dụng được):
+
+| File | assert | kết quả |
+|---|---|---|
+| 2022.3.62f2-x64 / -x32 | 88 sizeof + 805 offsetof | PASS |
+| 6000.3.18f1-x64 / -x32 | 89 sizeof + 840 offsetof | PASS |
+
+Hai bản này có thêm các struct mà DevX không lưu — `Il2CppObject`, `Il2CppString`,
+`Il2CppArray`, `Il2CppDelegate`, `Il2CppException`, `Il2CppReflectionType`… — nên
+số struct là 88/89 thay vì 73.
+
+`enums` / `defines` / `typedefs` **không** nằm trong output của
+`-fdump-record-layouts` (cờ đó chỉ in layout record). Chúng được lấy bằng hai lượt
+clang riêng trên cùng bộ header:
+
+| Nhóm | Lấy từ | Nội dung |
+|---|---|---|
+| `enums` | `-Xclang -ast-dump` → `EnumDecl` | 13 enum, giá trị lấy từ `value: Int N`; hằng không ghi giá trị thì tính dồn từ hằng trước |
+| `defines` | `-ast-dump` (`TypedefDecl`) + `-dM -E` (macro) | typedef vô hướng (`TypeIndex` → `int32_t`) và macro; đã lọc bỏ typedef chuẩn của C (`int32_t`, `size_t`…) để không định nghĩa đè |
+| `typedefs` | `TypedefDecl` tới struct chưa hoàn chỉnh | forward declaration cho kiểu mờ chỉ được trỏ tới (`Il2CppVTable`, `MonitorData`…) |
+
+Trường `type` / `realType` cũng đã chuẩn hoá theo **đúng quy ước 368 file cũ**:
+`type` là kiểu đã giải typedef, `realType` là tên typedef gốc khi khác. Ví dụ
+`Il2CppStringLiteral.dataIndex` ra `{"type":"int32_t","realType":"StringLiteralIndex"}`
+— trùng từng ký tự với file DevX của 2021.2.9f1.
+
+**Khác biệt v31 → v39, đo được bằng cách so hai file:**
+
+| Struct | v31 (2022.3) | v39 (6000.3) | Thay đổi |
+|---|---|---|---|
+| `Il2CppGlobalMetadataHeader` | 256 | 380 | cặp `xxxOffset`/`xxxSize` → `Il2CppSectionMetadata {offset, size, count}` |
+| `Il2CppTypeDefinition` | 88 | 84 | bỏ `elementTypeIndex` |
+| `Il2CppStringLiteral` | 8 | 4 | **bỏ `length`** — chỉ còn `dataIndex`; bộ đọc string literal phải đổi |
+| `Il2CppAssemblyDefinition` | 64 | 68 | thêm `moduleToken` |
+| `Il2CppCodeRegistration`, `Il2CppMetadataRegistration`, `Il2CppCodeGenModule`, `Il2CppMethodDefinition`, `Il2CppImageDefinition` | | | **không đổi** |
+
+> **Lưu ý về `arrayItemSize` ở hai file này:** chúng dùng `sizeof` thật của kiểu
+> được trỏ tới, KHÁC với 368 file cũ (DevX lưu `dsize`, không tính padding đuôi —
+> xem bẫy §2). Trường `source.note` trong file ghi rõ điều này.
+
 ## Giới hạn
 
-* **Dừng ở Unity 2021.2.9f1.** Unity 2022 / 6.x không có trong bộ này. Cách bổ
-  sung: [../IL2CPP-REBUILD-GUIDE.md](../IL2CPP-REBUILD-GUIDE.md) §10.2 — cài
-  Editor, chạy `clang -Xclang -fdump-record-layouts` trên header trong
-  `Editor/Data/il2cpp/libil2cpp/`, sinh JSON đúng schema này. Không cần tải bản cũ.
-* **Chỉ có struct DevX cần**, không phải toàn bộ runtime. Bản 2021.2 có 74 struct;
-  thiếu ví dụ `Il2CppObject`, `Il2CppString`, `Il2CppArray` — nếu bộ lift của bạn
-  cần chúng thì phải tự sinh bổ sung.
+* **Có khoảng trống 2021.3 → 2022.2 và 2023.x → 6000.2.** Với các bản đó, loader
+  lùi về bản gần nhất còn nhỏ hơn. Bổ sung bằng cách cài Editor tương ứng rồi chạy
+  lại quy trình §10.2 — không cần tải bản cũ.
+* **368 file cũ chỉ có struct DevX cần**, không phải toàn bộ runtime: bản 2021.2 có
+  74 struct và thiếu `Il2CppObject`, `Il2CppString`, `Il2CppArray`. Hai file sinh
+  bằng clang đã có đủ những struct đó.
 * **Chỉ phân biệt 32/64-bit**, không phân biệt ABI. Trên thực tế layout
   ARM64 và x86-64 giống nhau với các struct này, nhưng ARM32 và x86-32 có thể
   khác về alignment ở vài trường hợp hiếm.

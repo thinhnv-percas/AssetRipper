@@ -121,7 +121,17 @@ internal class Loader
 			DbgLog.Probe("ENV", "ArmCP/x64/arm_cp.dll", Path.Combine(sa, "ArmCP", "x64", "arm_cp.dll"));
 			DbgLog.Probe("ENV", "ArmCP/x86/arm_cp.dll", Path.Combine(sa, "ArmCP", "x86", "arm_cp.dll"));
 			DbgLog.Probe("ENV", "UnityDLL", Path.Combine(sa, "UnityDLL"));
-			DbgLog.Probe("ENV", "IL2CPPStructs", Path.Combine(sa, "IL2CPPStructs"));
+			// DB layout struct runtime IL2CPP. Thay cho IL2CPPStructs/*.dvxil2c cũ.
+			string structDb = Path.Combine(sa, Il2CppStructDbJson.DirectoryName);
+			DbgLog.Probe("ENV", "structdb", structDb);
+			if (Directory.Exists(structDb))
+			{
+				DbgLog.W("ENV", "structdb: " + Directory.GetFiles(structDb, "*-x64.json").Length + " phiên bản Unity");
+			}
+			else
+			{
+				DbgLog.W("ENV", "structdb KHÔNG CÓ -> thân hàm IL2CPP sẽ chỉ có offset thô, không có tên field");
+			}
 			if (Directory.Exists(Path.Combine(sa, "UnityDLL")))
 			{
 				DbgLog.W("ENV", "UnityDLL zips = " + Directory.GetFiles(Path.Combine(sa, "UnityDLL"), "*.zip").Length);
