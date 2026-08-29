@@ -1,0 +1,15 @@
+{
+  "exclude": [
+    "bin/",
+    "obj/",
+    ".vs/",
+    "packages/",
+    "TestResults/",
+    "/*.Designer.cs",
+    "/.g.cs",
+    "**/.g.i.cs",
+    "/*.AssemblyInfo.cs",
+    "/.AssemblyAttributes.cs",
+    "**/.resources"
+  ]
+}
