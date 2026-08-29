@@ -204,7 +204,7 @@
     "script_content_level_3": "Level 3",
     "script_content_level_3_description": "IL2Cpp methods are safely recovered where possible.",
     "script_content_level_4": "Level 4",
-    "script_content_level_4_description": "IL2Cpp methods are recovered without regard to safety.",
+    "script_content_level_4_description": "IL2Cpp methods are recovered by disassembling and lifting the native binary, as a post-export pass. Requires a struct DB folder.",
     "script_content_level_title": "Script Content Level",
     "script_export_format_decompiled": "Decompilation",
     "script_export_format_decompiled_description": "The ILSpy decompiler is used to generate CS scripts. This is reliable. However, it's also time-consuming and contains many compile errors.",

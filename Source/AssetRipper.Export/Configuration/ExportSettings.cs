@@ -70,6 +70,13 @@ public sealed record class ExportSettings
 	/// </remarks>
 	public string? OfficialPackageCachePath { get; set; }
 
+	/// <summary>
+	/// A folder of struct DB json files (see <c>structdb_gen.py</c>), describing native IL2Cpp struct
+	/// layouts for a range of Unity versions. Only used at <see cref="Import.Configuration.ScriptContentLevel.Level4"/>,
+	/// to resolve native field names inside lifted method bodies.
+	/// </summary>
+	public string? StructDbDirectoryPath { get; set; }
+
 	public void Log()
 	{
 		Logger.Info(LogCategory.General, $"{nameof(AudioExportFormat)}: {AudioExportFormat}");

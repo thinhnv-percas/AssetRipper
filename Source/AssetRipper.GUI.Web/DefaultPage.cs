@@ -126,10 +126,6 @@ public abstract class DefaultPage : HtmlPage
 				}
 				using (new Li(writer).End())
 				{
-					new A(writer).WithClass("dropdown-item").WithHref("/Il2CppRestore").Close("IL2CPP Restore");
-				}
-				using (new Li(writer).End())
-				{
 					new A(writer).WithClass("dropdown-item").WithHref("/Privacy").Close(Localization.Privacy);
 				}
 				using (new Li(writer).End())

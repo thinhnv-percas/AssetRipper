@@ -169,6 +169,7 @@ public class ExportHandler
 		yield return new DllPostExporter();
 		yield return new PathIdMapExporter();
 		yield return new PackageRemapping.PackageRemapPostExporter();
+		yield return new Il2CppRestore.Il2CppRestorePostExporter();
 	}
 
 	public GameData LoadAndProcess(IReadOnlyList<string> paths, FileSystem fileSystem)

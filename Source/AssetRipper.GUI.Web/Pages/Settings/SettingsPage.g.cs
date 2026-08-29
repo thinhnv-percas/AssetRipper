@@ -60,6 +60,9 @@ partial class SettingsPage
 			case nameof(ExportSettings.OfficialPackageCachePath):
 				Configuration.ExportSettings.OfficialPackageCachePath = value;
 				break;
+			case nameof(ExportSettings.StructDbDirectoryPath):
+				Configuration.ExportSettings.StructDbDirectoryPath = value;
+				break;
 		}
 	}
 
