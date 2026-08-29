@@ -172,6 +172,16 @@ namespace ARMD
 			{
 				_0020_000A = _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A.BaseStream.Length;
 			}
+			// The END offset is clamped above, but the START offset was not. A tagged
+			// virtual address (e.g. 0x1000000000F22000, the 2^60-tagged VA seen in the
+			// ASM.fail trace) that reaches here as _0020 makes Seek throw
+			// ArgumentOutOfRangeException on the backing MemoryStream (> Int32.MaxValue),
+			// which upstream turned into "RETURNING NULL, method bodies will be empty".
+			// Bound the start the same way the end is bounded and bail out cleanly.
+			if (_0020 < 0 || _0020 >= _0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A.BaseStream.Length)
+			{
+				return list;
+			}
 			_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_000A.BaseStream.Seek(_0020, SeekOrigin.Begin);
 			long num = _0020_000A - _0020;
 			if (num < 4)
@@ -212,6 +222,28 @@ namespace ARMD
 						if (arm64Instruction.Details.Operands != null && arm64Instruction.Details.Operands.Length != 0 && arm64Instruction.Details.Operands[0].Type == Arm64OperandType.Immediate)
 						{
 							_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020 = (int)arm64Instruction.Details.Operands[0].Immediate;
+						}
+						else if ((mnemonic == "b" || mnemonic == "bl" || (mnemonic != null && mnemonic.StartsWith("b."))) && operand != null && operand.StartsWith("#0x"))
+						{
+							// Confirmed live via ARMD.immDiag (2026-08-29 CameraOverlay trace): Capstone's ARM64
+							// backend leaves Details.Operands null for the unconditional "b"/"bl" mnemonics under
+							// this build's disassembler config (Arm64DisassembleMode.Arm + AT&T syntax) --
+							// Details itself is populated, just not the generic Operands array. Every single B/BL
+							// target in that trace came out unresolved (num24==0) as a result, which is the root
+							// cause of the "goto #0xADDR;"/"= #0xADDR();" raw-hex corruption seen throughout this
+							// investigation: CBZ/CBNZ/TBZ/TBNZ don't hit this because they're parsed straight from
+							// the operand text by a separate helper, not from Details.Operands. Fall back to that
+							// same kind of text parse here: the operand for a plain b/bl is always just "#0xHEX".
+							// Also covers conditional forms ("b.eq", "b.ne", ...): confirmed live (same
+							// CameraOverlay trace, ARMD.labelRangeDiag) that two of Start()'s three remaining
+							// unresolved local targets (0x9fd210, 0x9fd0c0) never appeared in the pre-scan's
+							// resolved-address list at all -- not rejected by the in-range check, just never
+							// recognized as a branch target by the original "b"/"bl"-only check, exactly as a
+							// conditional-branch mnemonic (reported by Capstone as e.g. "b.eq", not "b") would.
+							if (long.TryParse(operand.Substring(3), System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out long _blTarget))
+							{
+								_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020 = (int)_blTarget;
+							}
 						}
 					}
 				}
@@ -6138,7 +6170,8 @@ namespace ARMD
 						{
 							num5 = _0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A;
 						}
-						if (value >= _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020 && value < _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020 + _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020)
+						bool _labelInRange = value >= _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020 && value < _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020 + _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_000A_0020;
+						if (_labelInRange)
 						{
 							if (_0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_0020.TryGetValue(item._0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A, out string value2))
 							{
@@ -6345,7 +6378,19 @@ namespace ARMD
 								index = num14;
 								int num15 = 0;
 								string text = null;
-								bool armdDbgTarget = _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020 != null && _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020.Contains("CameraOverlay");
+								// Was comparing the CURRENT INSTRUCTION's own raw asm text (e.g. "LDR x8, [x2]",
+								// "RET") against "CameraOverlay" -- asm text never contains a class name, so this
+								// was unconditionally false and ARMD.instrTrace never fired for any bulk-export
+								// run (confirmed live: ARMD.methodNameSeen showed nothing but raw mnemonics).
+								// The actual "method currently being decompiled" is the 4th parameter of this
+								// function (the same model type fixed for the CameraOverlay sig-leak, exposing
+								// a "DeclaringType.Name.MethodName" qualified-name property) -- check that instead.
+								bool armdDbgTarget = _0020_000A_000A != null && (_0020_000A_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020?.Contains("CameraOverlay") ?? false);
+								// Diagnostic only (no behavior change): confirms the fix above actually reads
+								// the current method's qualified name now (was reading per-instruction raw asm
+								// text before, which is why ARMD.instrTrace/sigLeak never fired for CameraOverlay
+								// in any prior bulk-export run).
+								DbgLog.Lim("ARMD.methodNameSeen", "method=" + (_0020_000A_000A?._0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020 ?? "<null>") + " armdDbgTarget=" + armdDbgTarget, 30);
 								try
 								{
 									string _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A2;
@@ -6748,6 +6793,10 @@ namespace ARMD
 												else
 												{
 													num15 = 3;
+													if (armdDbgTarget)
+													{
+														DbgLog.Lim("ARMD.callUnresolved", "num24==0 mnemonic=" + text3 + " text13=" + (text13 ?? "<null>") + " rawOperand=" + (_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A2 ?? "<null>") + " asm=" + text, 60);
+													}
 													if (num24 == 0L)
 													{
 														if (text3 == "BL" || text3 == "BLX" || text3 == "BLR")
@@ -6757,7 +6806,12 @@ namespace ARMD
 														else
 														{
 															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020_000A(_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A_0020_0020_0020.Create(text13 ?? _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A2));
-															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A = "goto " + text13 + ";";
+															// text13 can still be null here (unresolved indirect B/BX/BR target,
+															// no dictionary match) -- unlike the sibling BL/BLX branch above and
+															// the Create() call on the line above, this used to concatenate it
+															// unguarded, emitting a bare "goto ;" (invalid C#). Fall back to the
+															// same raw-operand text the other two branches already use.
+															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A = "goto " + (text13 ?? _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A2) + ";";
 														}
 													}
 													else
@@ -10056,7 +10110,13 @@ namespace ARMD
 									{
 										DbgLog.W("ARMD.instrTrace", "idx=" + num14 + " state=" + num15 + " asm=" + text + " pseudo=" + (_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A ?? "<null>"));
 									}
-									if (_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A != null && _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A.Contains("::"))
+									// Contains("::") alone false-positives on ordinary loaded string literals
+									// whose own text content happens to use "::" (e.g. a C++-style debug
+									// log message like "AppsFlyerTrackerCallbacks:: got conversion data"),
+									// confirmed live in the 2026-08-29 Pinata run. A genuine leaked Cecil
+									// signature is never wrapped in quotes, so exclude any pseudo text that
+									// contains a quote character -- string-literal values always do.
+									if (_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A != null && _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A.Contains("::") && !_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A.Contains("\""))
 									{
 										DbgLog.Lim("ARMD.sigLeak", "raw Cecil signature leaked into pseudocode value -- method=" + _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020 + " idx=" + num14 + " state=" + num15 + " addr=0x" + _0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_000A.ToString("X") + " asm=" + text + " pseudo=" + _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A, 25);
 									}

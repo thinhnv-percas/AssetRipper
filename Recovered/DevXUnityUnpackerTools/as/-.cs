@@ -24800,6 +24800,27 @@ namespace @as
 
 		public override string ToString()
 		{
+			// A raw method-signature model must never render as its full Cecil-style
+			// "public Ret Type::Method(args)" text inside generated pseudocode. The
+			// value-wrapper ToString (this file, ~line 23261) already pulls the plain
+			// callable name for the wrapped case, but this model is also stringified
+			// directly (e.g. an LDR that loads a MethodInfo*), which bypassed that fix
+			// and produced the CameraOverlay `Xn = public ...::...()` corruption
+			// (confirmed via the ARMD.sigLeak trace). Confirmed live (2026-08-29,
+			// fresh CameraOverlay export) that returning the bare callable name here
+			// still doesn't compile: it renders as `val_8 = GetComponent<...>;`, a
+			// method-group assigned to a value with no call-fusion downstream. Quote
+			// it as a string literal instead -- always a valid C# expression in every
+			// context this ToString() feeds (plain value, "goto X" label, "X()" call
+			// prefix all already fail to compile either way when a method can't be
+			// fused into a real call, so quoting is never worse and fixes the
+			// observed plain-value case), while still telling the reader which
+			// method's address was being loaded here.
+			string _sigCleanName = (_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020 ? _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020 : _0020_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_0020_000A_000A_000A_0020);
+			if (!string.IsNullOrEmpty(_sigCleanName))
+			{
+				return "\"" + _sigCleanName + "\"";
+			}
 			List<_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_000A> list = _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_0020_0020_0020_0020;
 			string[] array = new string[list.Count];
 			for (int i = 0; i < list.Count; i++)
@@ -24874,6 +24895,22 @@ namespace @as
 
 		public override string ToString()
 		{
+			// Second, independently-obfuscated copy of the same bug fixed a few lines up
+			// in the sibling model type: this one is built from the native IL2CPP "_class"
+			// metadata (via DMP4, ~line 11654) instead of a Cecil MethodReference, but its
+			// ToString renders the identical raw "public Ret Type::Method(args)" text, and
+			// the value-wrapper's ToString fallback (~line 23300) calls it directly when
+			// this is the payload type -- confirmed by the still-live ARMD.sigLeak trace
+			// for UnityEngine.Purchasing.iOSStoreBindings::* after the first fix. Prefer
+			// the plain "Type.Method" name already exposed as a property on this class.
+			string _sigCleanName2 = _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020;
+			if (!string.IsNullOrEmpty(_sigCleanName2))
+			{
+				// Same reasoning as the sibling fix above: a bare method name assigned
+				// as a value (e.g. `val_8 = MoveNext;`) still doesn't compile even
+				// though it's no longer the full Cecil signature. Quote it.
+				return "\"" + _sigCleanName2 + "\"";
+			}
 			string[] array = new string[_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A.Count];
 			for (int i = 0; i < _0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A.Count; i++)
 			{

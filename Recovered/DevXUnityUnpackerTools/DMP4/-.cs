@@ -10582,11 +10582,21 @@ namespace DMP4
 			bool flag2 = false;
 			string text = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(_0020_000A.namespaceIndex);
 			string text2 = text2 = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A(_0020_000A, _0020_000A: false, _0020_0020: true);
-			if (text2.StartsWith("<"))
+			// StartsWith("<") only catches compiler-generated names with no outer-type prefix
+			// (e.g. "<>c__DisplayClass0_0"). It misses the far more common nested case --
+			// "OuterType.<Method>d__N" for async/iterator state machines and
+			// "OuterType.<>c__DisplayClassN_M" for lambda closures -- where the "<" sits after
+			// a leading class name, not at the very start. Those names were being written
+			// verbatim into the generated C# ("class OuterType.<Method>d__N : ..."), which
+			// contains characters ('<', '>') that are never valid in a C# type declaration --
+			// confirmed live via a fresh CameraOverlay-project export showing exactly this
+			// (RuntimeRopeGeneratorUse.<Start>d__2.cs). Contains("<") catches both shapes; the
+			// same Replace(...) call already flattens it into one valid flat identifier either way.
+			if (text2.Contains("<"))
 			{
 				text2 = text2.Replace("<", "_").Replace(">", "_").Replace(".", "_");
 			}
-			if (text.StartsWith("<"))
+			if (text.Contains("<"))
 			{
 				text = text.Replace("<", "_").Replace(">", "_").Replace(".", "_");
 			}
@@ -10664,6 +10674,17 @@ namespace DMP4
 			{
 				_0020_000A_000A.Write("[Serializable]\n");
 			}
+			// This writer always emits its type as a standalone top-level declaration (one type
+			// per .cs file, matching the Unity-script export layout -- confirmed: nothing in this
+			// function recurses into an outer type's braces to nest it there). A C# top-level
+			// type can only be "public" or "internal"; IL2CPP's nested-type visibility flags
+			// (private/protected/protected-internal, valid only for a genuinely nested C# type)
+			// were being written verbatim regardless, producing invalid top-level declarations
+			// like "private sealed class RuntimeRopeGeneratorUse.<Start>d__2 : ..." -- confirmed
+			// live via a fresh CameraOverlay-project export (async/iterator state-machine and
+			// lambda-closure types, which are always originally *nested* private/protected types,
+			// hit this every time). Coerce every nested-only modifier to "internal", the closest
+			// valid equivalent (preserves "not public API" intent without being flatly illegal).
 			switch (_0020_000A.flags & 7)
 			{
 			case 1u:
@@ -10673,16 +10694,10 @@ namespace DMP4
 			case 0u:
 			case 5u:
 			case 6u:
-				_0020_000A_000A.Write("internal ");
-				break;
 			case 3u:
-				_0020_000A_000A.Write("private ");
-				break;
 			case 4u:
-				_0020_000A_000A.Write("protected ");
-				break;
 			case 7u:
-				_0020_000A_000A.Write("protected internal ");
+				_0020_000A_000A.Write("internal ");
 				break;
 			}
 			if ((_0020_000A.flags & 0x80) != 0 && (_0020_000A.flags & 0x100) != 0)
@@ -11397,7 +11412,11 @@ namespace DMP4
 									}
 									bool _0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020 = false;
 									int _0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A = 0;
-									string text7 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppMethodDefinition5.nameIndex);
+									// Same unsanitized-name gap as the field/constructor-parameter writers above:
+									// a compiler-generated lambda method name (e.g. "<ColorWithString>b__0") was
+									// written verbatim, containing '<'/'>' that are never valid in a C# method
+									// name -- confirmed live via a fresh export ("internal bool <ColorWithString>b__0(char c)").
+									string text7 = _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A(_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppMethodDefinition5.nameIndex));
 									if (il2CppMethodDefinition5.genericContainerIndex >= 0 && _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A != null)
 									{
 										Il2CppGenericContainer il2CppGenericContainer2 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.genericContainers[il2CppMethodDefinition5.genericContainerIndex];
@@ -11565,7 +11584,12 @@ namespace DMP4
 											{
 												num16 = 61;
 												string str = "";
-												string stringFromIndex3 = _0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppParameterDefinition2.nameIndex);
+												// Same unsanitized-name gap as the field writer above: a compiler-generated
+												// constructor parameter on a state-machine type (e.g. the iterator/async
+												// MoveNext() constructor's hidden "<>1__state" parameter) was written
+												// verbatim, containing '<'/'>' that are never valid in a C# parameter
+												// name -- confirmed live via a fresh export ("RuntimeRopeGeneratorUse__Start_d__2(int <>1__state)").
+												string stringFromIndex3 = _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A(_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020.GetStringFromIndex(il2CppParameterDefinition2.nameIndex));
 												Il2CppType il2CppType4 = _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_0020_0020_0020_0020(il2CppParameterDefinition2.typeIndex);
 												string text9 = null;
 												text9 = ((_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_000A_0020_0020_000A == null) ? _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020(il2CppParameterDefinition2.typeIndex, stringFromIndex3) : _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020(_0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020_000A_000A_000A(il2CppType4, _0020_000A: true, _0020_0020: false)));
@@ -11955,7 +11979,19 @@ namespace DMP4
 
 		internal static string _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_000A(string _0020)
 		{
-			string.IsNullOrEmpty(_0020);
+			// This "sanitize an IL2CPP-metadata name for use as a C# identifier" stub never did
+			// anything (called IsNullOrEmpty and threw the result away). Its only caller writes
+			// this straight out as a field name -- for an ordinary field that's harmless since
+			// ordinary names never contain '<'/'>'/'.', but a compiler-generated state-machine
+			// field like "<>1__state"/"<>2__current"/"<>4__this" (or an auto-property backing
+			// field "<Prop>k__BackingField") got emitted completely unsanitized, producing
+			// invalid C# ("private int <>1__state;") -- confirmed live via a fresh CameraOverlay
+			// project export. Same flattening already used for the analogous class-name bug in
+			// this file: never worse for a name that has none of these characters.
+			if (_0020 != null && _0020.Contains("<"))
+			{
+				return _0020.Replace("<", "_").Replace(">", "_").Replace(".", "_");
+			}
 			return _0020;
 		}
 
