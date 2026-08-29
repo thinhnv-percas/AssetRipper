@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputPath>..\0Bins\Other\AssetRipper.Il2CppRestore.Lift\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>..\0Bins\obj\AssetRipper.Il2CppRestore.Lift\$(Configuration)\</IntermediateOutputPath>
+		<IsAotCompatible>false</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- x86/x64 disassembly, pure C#, no native dll -->
+		<PackageReference Include="Iced" Version="1.21.0" />
+		<!-- ARM64 disassembly, pure C#, no native dll (same choice Cpp2IL made) -->
+		<PackageReference Include="Disarm" Version="1.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Metadata\AssetRipper.Il2CppRestore.Metadata.csproj" />
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Binary\AssetRipper.Il2CppRestore.Binary.csproj" />
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.StructDb\AssetRipper.Il2CppRestore.StructDb.csproj" />
+	</ItemGroup>
+
+</Project>
