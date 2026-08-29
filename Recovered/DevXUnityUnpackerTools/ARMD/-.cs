@@ -10153,10 +10153,6 @@ namespace ARMD
 								{
 									DbgLog.W("ARMD.unresolvedLabel", "line still has raw hex operand after label pass: " + text93);
 								}
-								if (armdDbgTarget)
-								{
-									DbgLog.W("ARMD.labelLine", "idx=" + num14 + " raw=" + text + " labeled=" + text93);
-								}
 								text92 = text92 + text93 + "\n";
 								switch (text93)
 								{
