@@ -38,10 +38,41 @@ public class ExportHandler
 			Logger.Info(LogCategory.Import, $"Attempting to read files from {paths.Count} paths...");
 		}
 
+		Settings.ProjectName = ChooseProjectName(paths, fileSystem);
+
 		GameStructure gameStructure = GameStructure.Load(paths, fileSystem, Settings);
 		GameData gameData = GameData.FromGameStructure(gameStructure);
 		Logger.Info(LogCategory.Import, "Finished reading files");
 		return gameData;
+	}
+
+	/// <summary>
+	/// Names the exported project after what was loaded.
+	/// </summary>
+	/// <remarks>
+	/// A file gives its name without the extension, a folder gives its own name, and several paths at
+	/// once give nothing to prefer over the others, so the generic name stands. The result has to be a
+	/// usable folder name, and an input whose name sanitises away to nothing falls back too.
+	/// </remarks>
+	public static string ChooseProjectName(IReadOnlyList<string> paths, FileSystem fileSystem)
+	{
+		if (paths.Count != 1)
+		{
+			return CoreConfiguration.DefaultProjectName;
+		}
+
+		string path = paths[0].TrimEnd('/', '\\');
+		string name = fileSystem.Directory.Exists(path)
+			? Path.GetFileName(path)
+			: Path.GetFileNameWithoutExtension(path);
+
+		name = FileSystem.FixInvalidFileNameCharacters(name).Trim();
+
+		// A drive root has no name of its own, and a reserved name would not be a folder anyone could
+		// create, so neither is worth preferring over the generic one.
+		return name.Length == 0 || FileSystem.IsReservedName(name)
+			? CoreConfiguration.DefaultProjectName
+			: name;
 	}
 
 	public void Process(GameData gameData)
