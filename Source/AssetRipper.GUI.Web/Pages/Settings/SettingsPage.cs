@@ -103,6 +103,14 @@ public sealed partial class SettingsPage : DefaultPage
 							{
 								using (new Div(writer).WithClass("col").End())
 								{
+									WriteTextAreaForOfficialPackageCachePath(writer);
+								}
+							}
+
+							using (new Div(writer).WithClass("row").End())
+							{
+								using (new Div(writer).WithClass("col").End())
+								{
 									WriteTextAreaForTargetVersion(writer);
 								}
 							}
@@ -213,6 +221,19 @@ public sealed partial class SettingsPage : DefaultPage
 			.WithName(nameof(Configuration.ImportSettings.DefaultVersion))
 			.WithValue(Configuration.ImportSettings.DefaultVersion.ToString())
 			.Close();
+	}
+
+	private static void WriteTextAreaForOfficialPackageCachePath(TextWriter writer)
+	{
+		new Label(writer).WithClass("form-label").WithFor(nameof(Configuration.ExportSettings.OfficialPackageCachePath)).Close("Official package cache");
+		new Input(writer)
+			.WithType("text")
+			.WithClass("form-control")
+			.WithId(nameof(Configuration.ExportSettings.OfficialPackageCachePath))
+			.WithName(nameof(Configuration.ExportSettings.OfficialPackageCachePath))
+			.WithValue(Configuration.ExportSettings.OfficialPackageCachePath ?? "")
+			.Close();
+		new Div(writer).WithClass("form-text").Close("A Unity project's Library/PackageCache. When set, the export repoints its references at those packages instead of at the ripped copies. Leave empty to skip.");
 	}
 
 	private static void WriteTextAreaForTargetVersion(TextWriter writer)
