@@ -9,8 +9,9 @@
 	<ItemGroup>
 		<!-- x86/x64 disassembly, pure C#, no native dll -->
 		<PackageReference Include="Iced" Version="1.21.0" />
-		<!-- ARM64 disassembly, pure C#, no native dll (same choice Cpp2IL made) -->
-		<PackageReference Include="Disarm" Version="1.1.1" />
+		<!-- ARM64 disassembly, pure C#, no native dll (same choice Cpp2IL made). Disarm has no 1.x stable
+		     release; it only ships prerelease builds tagged 2022.1.0-master.NNN. -->
+		<PackageReference Include="Disarm" Version="2022.1.0-master.99" />
 	</ItemGroup>
 
 	<ItemGroup>

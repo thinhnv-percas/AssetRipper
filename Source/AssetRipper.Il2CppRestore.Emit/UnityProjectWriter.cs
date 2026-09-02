@@ -53,15 +53,18 @@ public static class UnityProjectWriter
 		File.WriteAllText(path, code, new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
 
 		string guid = ScriptGuid(assemblyName, fullTypeName);
-		File.WriteAllText(path + ".meta", $"""
+		// $$"""...""" (not $"""...""") because the literal YAML itself contains "{}" and "{instanceID: 0}" —
+		// with a single '$', raw string interpolation reads consecutive braces as a request for a
+		// higher-count interpolation delimiter (CS9006), not as literal text.
+		File.WriteAllText(path + ".meta", $$"""
 			fileFormatVersion: 2
-			guid: {guid}
+			guid: {{guid}}
 			MonoImporter:
-			  externalObjects: {{}}
+			  externalObjects: {}
 			  serializedVersion: 2
 			  defaultReferences: []
 			  executionOrder: 0
-			  icon: {{instanceID: 0}}
+			  icon: {instanceID: 0}
 			  userData:
 			  assetBundleName:
 			  assetBundleVariant:

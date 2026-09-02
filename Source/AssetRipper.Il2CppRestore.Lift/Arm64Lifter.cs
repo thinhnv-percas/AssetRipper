@@ -1,5 +1,6 @@
 using AssetRipper.Il2CppRestore.Binary;
 using AssetRipper.Il2CppRestore.Lift.Registration;
+using AssetRipper.Il2CppRestore.Metadata;
 
 namespace AssetRipper.Il2CppRestore.Lift;
 

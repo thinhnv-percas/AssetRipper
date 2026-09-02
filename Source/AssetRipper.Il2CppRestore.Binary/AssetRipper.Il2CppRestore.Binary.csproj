@@ -8,10 +8,8 @@
 	<ItemGroup>
 		<!-- PE (Windows GameAssembly.dll) -->
 		<PackageReference Include="AsmResolver.PE.File" Version="6.0.1" />
-		<!-- ELF (Android/Linux libil2cpp.so) -->
-		<PackageReference Include="ELFSharp" Version="3.6.1" />
-		<!-- WASM (WebGL builds) -->
-		<PackageReference Include="WebAssembly" Version="0.9.0" />
+		<!-- ELF (Android/Linux libil2cpp.so). 3.6.1 does not exist on nuget.org; 2.17.3 is the real latest. -->
+		<PackageReference Include="ELFSharp" Version="2.17.3" />
 	</ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
 using Disarm;
-using Disarm.InternalDisassembly;
 
 namespace AssetRipper.Il2CppRestore.Lift;
 
@@ -7,21 +6,23 @@ namespace AssetRipper.Il2CppRestore.Lift;
 /// Adapts Disarm's own instruction model to <see cref="DecodedInstruction"/>.
 /// </summary>
 /// <remarks>
-/// <b>This file is the one place in the pipeline that could not be checked against a real build.</b>
-/// NuGet restore is blocked by this environment's network policy (the repo's package feed is a private
-/// mirror), so Disarm's exact type/member names below are written from best recollection of its public
-/// API, not from a compiler that confirmed them. Everything upstream of this file (<see cref="Arm64Lifter"/>,
-/// the symbolic execution loop, <see cref="SymValue"/>/<see cref="Statement"/>) only depends on
-/// <see cref="DecodedInstruction"/> and does not need to change if this adapter does. Before trusting
-/// any lifted output, confirm this compiles and that <c>Mnemonic</c>/operand mapping below actually
-/// matches the resolved Disarm version.
+/// Verified against Disarm's real public API (github.com/SamboyCoding/Disarm) once NuGet access made
+/// that possible. Everything upstream of this file (<see cref="Arm64Lifter"/>, the symbolic execution
+/// loop, <see cref="SymValue"/>/<see cref="Statement"/>) only depends on <see cref="DecodedInstruction"/>
+/// and does not need to change if this adapter does.
+/// <para>
+/// One overload gotcha: <c>Disassembler.Disassemble(ReadOnlySpan&lt;byte&gt;, ...)</c> returns a ref
+/// struct (<c>SpanEnumerator</c>), which cannot be assigned to <see cref="IEnumerable{T}"/> — passing the
+/// <see cref="ReadOnlyMemory{T}"/> itself (not <c>.Span</c>) picks the overload that actually returns
+/// <see cref="IEnumerable{T}"/>.
+/// </para>
 /// </remarks>
 public static class Arm64Disassembler
 {
 	public static List<DecodedInstruction> Decode(ReadOnlyMemory<byte> code, ulong baseVa)
 	{
 		List<DecodedInstruction> result = [];
-		IEnumerable<Arm64Instruction> instructions = Disassembler.Disassemble(code.Span, baseVa);
+		IEnumerable<Arm64Instruction> instructions = Disassembler.Disassemble(code, baseVa);
 
 		foreach (Arm64Instruction instruction in instructions)
 		{
@@ -75,7 +76,7 @@ public static class Arm64Disassembler
 	{
 		try
 		{
-			return instruction.MemExtendType == ExtendType.NONE && instruction.MemOffset != 0
+			return instruction.MemExtendType == Arm64ExtendType.NONE && instruction.MemOffset != 0
 				? instruction.MemOffset
 				: instruction.Op1Imm;
 		}

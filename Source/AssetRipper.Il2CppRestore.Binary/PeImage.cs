@@ -1,5 +1,4 @@
 using AsmResolver.PE.File;
-using AsmResolver.PE.File.Headers;
 
 namespace AssetRipper.Il2CppRestore.Binary;
 
@@ -7,8 +6,12 @@ namespace AssetRipper.Il2CppRestore.Binary;
 /// A Windows <c>GameAssembly.dll</c>, read with AsmResolver.PE.File.
 /// </summary>
 /// <remarks>
-/// As with <see cref="ElfImage"/>, the exact AsmResolver.PE.File member names could not be checked
-/// against a real build here (NuGet restore is blocked) — verify once this can actually compile.
+/// Verified against the real AsmResolver.PE.File API (github.com/Washi1337/AsmResolver) once NuGet
+/// access made that possible: everything used here — <see cref="PEFile"/>, <see cref="PESection"/>,
+/// <see cref="OptionalHeaderMagic"/>, <see cref="MachineType"/>, <see cref="SectionFlags"/> — lives
+/// directly in the <c>AsmResolver.PE.File</c> namespace; there is no separate <c>.Headers</c>
+/// sub-namespace. <see cref="PESection"/> also has no <c>FileOffset</c> member — the file offset is
+/// just <see cref="PESection.Offset"/>.
 /// </remarks>
 public sealed class PeImage : IBinaryImage
 {
@@ -21,7 +24,7 @@ public sealed class PeImage : IBinaryImage
 		_data = File.ReadAllBytes(path);
 		_pe = PEFile.FromFile(path);
 
-		Is32Bit = _pe.OptionalHeader.Magic == OptionalHeaderMagic.Pe32;
+		Is32Bit = _pe.OptionalHeader.Magic == OptionalHeaderMagic.PE32;
 		Arch = _pe.FileHeader.Machine switch
 		{
 			MachineType.Amd64 => Architecture.X64,
@@ -31,11 +34,11 @@ public sealed class PeImage : IBinaryImage
 			_ => Architecture.Unknown,
 		};
 
-		foreach (var section in _pe.Sections)
+		foreach (PESection section in _pe.Sections)
 		{
 			bool executable = (section.Characteristics & SectionFlags.MemoryExecute) != 0;
 			ulong va = _pe.OptionalHeader.ImageBase + section.Rva;
-			_sections.Add(new BinarySection(section.Name, va, section.FileOffset, section.GetPhysicalSize(), executable));
+			_sections.Add(new BinarySection(section.Name.ToString(), va, (long)section.Offset, section.GetPhysicalSize(), executable));
 		}
 	}
 
@@ -56,11 +59,11 @@ public sealed class PeImage : IBinaryImage
 			return -1;
 		}
 		uint rva = (uint)(va - imageBase);
-		foreach (var section in _pe.Sections)
+		foreach (PESection section in _pe.Sections)
 		{
 			if (rva >= section.Rva && rva < section.Rva + section.GetVirtualSize())
 			{
-				return section.FileOffset + (rva - section.Rva);
+				return (long)section.Offset + (rva - section.Rva);
 			}
 		}
 		return -1;
@@ -68,11 +71,11 @@ public sealed class PeImage : IBinaryImage
 
 	public ulong MapOffsetToVa(long offset)
 	{
-		foreach (var section in _pe.Sections)
+		foreach (PESection section in _pe.Sections)
 		{
-			if (offset >= section.FileOffset && offset < section.FileOffset + section.GetPhysicalSize())
+			if (offset >= (long)section.Offset && offset < (long)section.Offset + section.GetPhysicalSize())
 			{
-				return _pe.OptionalHeader.ImageBase + section.Rva + (ulong)(offset - section.FileOffset);
+				return _pe.OptionalHeader.ImageBase + section.Rva + (ulong)(offset - (long)section.Offset);
 			}
 		}
 		return 0;

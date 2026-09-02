@@ -8,9 +8,11 @@ namespace AssetRipper.Il2CppRestore.Binary;
 /// An Android/Linux <c>libil2cpp.so</c>, read with ELFSharp.
 /// </summary>
 /// <remarks>
-/// The exact ELFSharp member names here (<see cref="ISymbolTable"/> in particular) could not be
-/// checked against a real build in this environment — NuGet restore is blocked by network policy.
-/// Verify this file compiles against whichever ELFSharp version actually resolves before trusting it.
+/// ELFSharp's non-generic <see cref="IELF"/>/<see cref="ISegment"/>/<see cref="ISection"/> only expose
+/// <c>Type</c>/<c>Flags</c> — the actual address/offset/size fields live on the generic
+/// <see cref="Segment{T}"/>/<see cref="Section{T}"/> classes (<c>T</c> is <c>uint</c> for a 32-bit ELF,
+/// <c>ulong</c> for 64-bit), which is why this loads through <see cref="ELFReader.Load{T}(string)"/>
+/// rather than the untyped <c>ELFReader.Load(path)</c> overload.
 /// </remarks>
 public sealed class ElfImage : IBinaryImage
 {
@@ -22,9 +24,22 @@ public sealed class ElfImage : IBinaryImage
 	public ElfImage(string path)
 	{
 		_data = File.ReadAllBytes(path);
-		IELF elf = ELFReader.Load(path);
 
-		Is32Bit = elf.Class == Class.Bit32;
+		Class elfClass = ELFReader.CheckELFType(path);
+		Is32Bit = elfClass == Class.Bit32;
+
+		if (Is32Bit)
+		{
+			Load(ELFReader.Load<uint>(path));
+		}
+		else
+		{
+			Load(ELFReader.Load<ulong>(path));
+		}
+	}
+
+	private void Load<T>(ELF<T> elf) where T : struct
+	{
 		Arch = elf.Machine switch
 		{
 			Machine.AArch64 => Architecture.Arm64,
@@ -37,35 +52,36 @@ public sealed class ElfImage : IBinaryImage
 		// Mapped by PROGRAM header (PT_LOAD), not section header: a stripped .so keeps its program
 		// headers (the loader needs them) even when the section headers are gone, and PT_LOAD is what
 		// actually decides where bytes land in memory at runtime.
-		foreach (ISegment segment in elf.Segments)
+		foreach (Segment<T> segment in elf.Segments)
 		{
 			if (segment.Type != SegmentType.Load)
 			{
 				continue;
 			}
-			_loadSegments.Add((segment.Address, segment.Size, segment.Offset));
+			_loadSegments.Add((ToUInt64(segment.Address), ToUInt64(segment.Size), segment.Offset));
 		}
 		_loadSegments.Sort((a, b) => a.Va.CompareTo(b.Va));
 
-		foreach (ISection section in elf.Sections)
+		foreach (Section<T> section in elf.Sections)
 		{
 			bool executable = (section.Flags & SectionFlags.Executable) != 0;
-			_sections.Add(new BinarySection(section.Name, section.LoadAddress, section.Offset, (long)section.Size, executable));
+			_sections.Add(new BinarySection(section.Name, ToUInt64(section.LoadAddress), ToInt64(section.Offset), ToInt64(section.Size), executable));
 		}
 
 		try
 		{
-			foreach (ISection section in elf.Sections)
+			foreach (Section<T> section in elf.Sections)
 			{
-				if (section is not ISymbolTable symbolTable)
+				if (section is not SymbolTable<T> symbolTable)
 				{
 					continue;
 				}
-				foreach (ISymbolEntry entry in symbolTable.Entries)
+				foreach (SymbolEntry<T> entry in symbolTable.Entries)
 				{
-					if (!string.IsNullOrEmpty(entry.Name) && entry.Value != 0)
+					ulong value = ToUInt64(entry.Value);
+					if (!string.IsNullOrEmpty(entry.Name) && value != 0)
 					{
-						_symbols.TryAdd(entry.Value, entry.Name);
+						_symbols.TryAdd(value, entry.Name);
 					}
 				}
 			}
@@ -77,8 +93,12 @@ public sealed class ElfImage : IBinaryImage
 		}
 	}
 
+	private static ulong ToUInt64(object value) => Convert.ToUInt64(value);
+
+	private static long ToInt64(object value) => Convert.ToInt64(value);
+
 	public bool Is32Bit { get; }
-	public Architecture Arch { get; }
+	public Architecture Arch { get; private set; }
 	public ReadOnlyMemory<byte> Data => _data;
 	public IReadOnlyList<BinarySection> Sections => _sections;
 	public IReadOnlyDictionary<ulong, string> SymbolsByVa => _symbols;
