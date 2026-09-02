@@ -27,9 +27,20 @@ public class CoreConfiguration
 	/// </summary>
 	public string ExportRootPath { get; set; } = "";
 	/// <summary>
+	/// What the exported project's folder is called.
+	/// </summary>
+	/// <remarks>
+	/// Named after whatever was loaded, so an export is recognisable when several of them sit beside
+	/// each other. It falls back to a generic name when nothing was loaded to name it after.
+	/// </remarks>
+	public string ProjectName { get; set; } = DefaultProjectName;
+
+	public const string DefaultProjectName = "ExportedProject";
+
+	/// <summary>
 	/// The path to create a new unity project in
 	/// </summary>
-	public string ProjectRootPath => Path.Join(ExportRootPath, "ExportedProject");
+	public string ProjectRootPath => Path.Join(ExportRootPath, ProjectName);
 	public string AssetsPath => Path.Join(ProjectRootPath, "Assets");
 	public string ProjectSettingsPath => Path.Join(ProjectRootPath, "ProjectSettings");
 	public string AuxiliaryFilesPath => Path.Join(ExportRootPath, "AuxiliaryFiles");

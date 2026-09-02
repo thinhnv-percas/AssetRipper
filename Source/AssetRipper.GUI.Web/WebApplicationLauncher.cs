@@ -3,6 +3,7 @@ using AssetRipper.GUI.Web.Pages;
 using AssetRipper.GUI.Web.Pages.Assets;
 using AssetRipper.GUI.Web.Pages.Bundles;
 using AssetRipper.GUI.Web.Pages.Collections;
+using AssetRipper.GUI.Web.Pages.Export;
 using AssetRipper.GUI.Web.Pages.FailedFiles;
 using AssetRipper.GUI.Web.Pages.Resources;
 using AssetRipper.GUI.Web.Pages.Scenes;
@@ -150,6 +151,7 @@ public static class WebApplicationLauncher
 		app.MapStaticFile("/js/site.js", "text/javascript");
 		app.MapStaticFile("/js/commands_page.js", "text/javascript");
 		app.MapStaticFile("/js/mesh_preview.js", "text/javascript");
+		app.MapStaticFile("/js/export_explorer.js", "text/javascript");
 		OnlineDependencies.MapDependencies(app);
 
 		//Normal Pages
@@ -164,6 +166,13 @@ public static class WebApplicationLauncher
 		app.MapGet("/Privacy", PrivacyPage.Instance.ToResult).ProducesHtmlPage();
 		app.MapGet("/Licenses", LicensesPage.Instance.ToResult).ProducesHtmlPage();
 		app.MapGet("/PremiumFeatures", PremiumFeaturesPage.Instance.ToResult).ProducesHtmlPage();
+
+		app.MapGet("/PackageRemapping", (context) =>
+		{
+			context.Response.DisableCaching();
+			return Pages.PackageRemapping.PackageRemapPage.Instance.WriteToResponse(context.Response);
+		}).ProducesHtmlPage();
+		app.MapPost("/PackageRemapping/Run", Pages.PackageRemapping.PackageRemapApi.HandleRunPostRequest);
 
 		app.MapGet("/ConfigurationFiles", (context) =>
 		{
@@ -238,6 +247,22 @@ public static class WebApplicationLauncher
 
 		//Scenes
 		app.MapGet(SceneAPI.Urls.View, SceneAPI.GetView).ProducesHtmlPage();
+
+		//Exported project browsing
+		app.MapGet(BrowseAPI.Urls.Browse, BrowseAPI.GetView)
+			.ProducesHtmlPage()
+			.WithQueryStringParameter("Path", "Path to a folder or file in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.Tree, BrowseAPI.GetTree)
+			.Produces<TreeEntry[]>()
+			.WithQueryStringParameter("Path", "Path to a folder in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.Preview, BrowseAPI.GetPreview)
+			.Produces<string>(contentType: "text/html")
+			.WithQueryStringParameter("Path", "Path to a folder or file in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.File, BrowseAPI.GetFileData)
+			.Produces<byte[]>(contentType: "application/octet-stream")
+			.WithQueryStringParameter("Path", "Path to a file in the exported project", true);
+		app.MapGet(BrowseAPI.Urls.Reveal, BrowseAPI.Reveal)
+			.WithQueryStringParameter("Path", "Path to a folder or file in the exported project", true);
 
 		app.MapPost("/Localization", (context) =>
 		{

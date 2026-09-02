@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputPath>..\0Bins\Other\AssetRipper.Il2CppRestore.Metadata\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>..\0Bins\obj\AssetRipper.Il2CppRestore.Metadata\$(Configuration)\</IntermediateOutputPath>
+		<!-- The versioned struct reader is inherently reflection-based (field attributes, MakeGenericMethod
+		     for nested structs), which is not trim/AOT friendly. This assembly is only consumed by the
+		     standalone Il2CppRestore.Cli tool, never by the AOT-published GUI, so that tradeoff is fine here. -->
+		<IsAotCompatible>false</IsAotCompatible>
+	</PropertyGroup>
+
+</Project>

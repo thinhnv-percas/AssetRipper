@@ -14,6 +14,7 @@ public sealed class ScriptContentLevelDropDownSetting : DropDownSetting<ScriptCo
 		ScriptContentLevel.Level1 => Localization.ScriptContentLevel1,
 		ScriptContentLevel.Level2 => Localization.ScriptContentLevel2,
 		ScriptContentLevel.Level3 => Localization.ScriptContentLevel3,
+		ScriptContentLevel.Level4 => Localization.ScriptContentLevel4,
 		_ => base.GetDisplayName(value),
 	};
 
@@ -24,6 +25,9 @@ public sealed class ScriptContentLevelDropDownSetting : DropDownSetting<ScriptCo
 		ScriptContentLevel.Level2 => Localization.ScriptContentLevel2Description,
 		ScriptContentLevel.Level3 => GameFileLoader.Premium
 			? Localization.ScriptContentLevel3Description
+			: Localization.NotAvailableInTheFreeEdition,
+		ScriptContentLevel.Level4 => GameFileLoader.Premium
+			? Localization.ScriptContentLevel4Description
 			: Localization.NotAvailableInTheFreeEdition,
 		_ => base.GetDescription(value),
 	};

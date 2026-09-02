@@ -103,6 +103,18 @@ public sealed partial class SettingsPage : DefaultPage
 							{
 								using (new Div(writer).WithClass("col").End())
 								{
+									WriteTextAreaForOfficialPackageCachePath(writer);
+								}
+								using (new Div(writer).WithClass("col").End())
+								{
+									WriteTextAreaForStructDbDirectoryPath(writer);
+								}
+							}
+
+							using (new Div(writer).WithClass("row").End())
+							{
+								using (new Div(writer).WithClass("col").End())
+								{
 									WriteTextAreaForTargetVersion(writer);
 								}
 							}
@@ -213,6 +225,32 @@ public sealed partial class SettingsPage : DefaultPage
 			.WithName(nameof(Configuration.ImportSettings.DefaultVersion))
 			.WithValue(Configuration.ImportSettings.DefaultVersion.ToString())
 			.Close();
+	}
+
+	private static void WriteTextAreaForOfficialPackageCachePath(TextWriter writer)
+	{
+		new Label(writer).WithClass("form-label").WithFor(nameof(Configuration.ExportSettings.OfficialPackageCachePath)).Close("Official package cache");
+		new Input(writer)
+			.WithType("text")
+			.WithClass("form-control")
+			.WithId(nameof(Configuration.ExportSettings.OfficialPackageCachePath))
+			.WithName(nameof(Configuration.ExportSettings.OfficialPackageCachePath))
+			.WithValue(Configuration.ExportSettings.OfficialPackageCachePath ?? "")
+			.Close();
+		new Div(writer).WithClass("form-text").Close("A Unity project's Library/PackageCache. When set, the export repoints its references at those packages instead of at the ripped copies. Leave empty to skip.");
+	}
+
+	private static void WriteTextAreaForStructDbDirectoryPath(TextWriter writer)
+	{
+		new Label(writer).WithClass("form-label").WithFor(nameof(Configuration.ExportSettings.StructDbDirectoryPath)).Close("Struct DB folder");
+		new Input(writer)
+			.WithType("text")
+			.WithClass("form-control")
+			.WithId(nameof(Configuration.ExportSettings.StructDbDirectoryPath))
+			.WithName(nameof(Configuration.ExportSettings.StructDbDirectoryPath))
+			.WithValue(Configuration.ExportSettings.StructDbDirectoryPath ?? "")
+			.Close();
+		new Div(writer).WithClass("form-text").Close("A folder of generated struct-layout json files (see structdb_gen.py). Used at Script Content Level 4 to resolve native field names inside lifted method bodies.");
 	}
 
 	private static void WriteTextAreaForTargetVersion(TextWriter writer)

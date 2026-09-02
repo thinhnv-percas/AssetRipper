@@ -60,6 +60,23 @@ public sealed record class ExportSettings
 
 	public string? LanguageCode { get; set; }
 
+	/// <summary>
+	/// Where the official Unity packages live, usually a project's Library/PackageCache. When set, an
+	/// export repoints its references at those packages instead of at the ripped copies of them.
+	/// </summary>
+	/// <remarks>
+	/// Empty by default, because the guids it needs are not part of the game being ripped and there is
+	/// nothing sensible to guess.
+	/// </remarks>
+	public string? OfficialPackageCachePath { get; set; }
+
+	/// <summary>
+	/// A folder of struct DB json files (see <c>structdb_gen.py</c>), describing native IL2Cpp struct
+	/// layouts for a range of Unity versions. Only used at <see cref="Import.Configuration.ScriptContentLevel.Level4"/>,
+	/// to resolve native field names inside lifted method bodies.
+	/// </summary>
+	public string? StructDbDirectoryPath { get; set; }
+
 	public void Log()
 	{
 		Logger.Info(LogCategory.General, $"{nameof(AudioExportFormat)}: {AudioExportFormat}");
@@ -72,5 +89,9 @@ public sealed record class ExportSettings
 		Logger.Info(LogCategory.General, $"{nameof(TextExportMode)}: {TextExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(ExportUnreadableAssets)}: {ExportUnreadableAssets}");
 		Logger.Info(LogCategory.General, $"{nameof(PreferOriginalTextureExtension)}: {PreferOriginalTextureExtension}");
+		if (!string.IsNullOrWhiteSpace(OfficialPackageCachePath))
+		{
+			Logger.Info(LogCategory.General, $"{nameof(OfficialPackageCachePath)}: {OfficialPackageCachePath}");
+		}
 	}
 }
