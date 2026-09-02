@@ -29,12 +29,18 @@ public sealed class MetadataHeader
 	public Section TypeDefinitions, Images, Assemblies;
 	public Section FieldRefs, ReferencedAssemblies;
 
-	// v24..v27 only: superseded by direct decoding of Il2CppMetadataRegistration.metadataUsages in the
-	// binary from v29 onward (guide §8). Read here only so field/section counting still lines up when
-	// parsing an older file.
+	// v24..v24.5 only (gone by v27): superseded by direct decoding of Il2CppMetadataRegistration.metadataUsages
+	// in the binary from v29 onward (guide §8). Read here only so field/section counting still lines up
+	// when parsing an older file.
 	public Section MetadataUsageLists, MetadataUsagePairs;
 
-	// v24..v27: a flat list of attribute types per index range.
+	// v24.1 and earlier only: Il2CppRGCTXDefinition entries. From v24.2 on this moved to being decoded
+	// per-TypeDefinition (rgctxStartIndex/Count) instead of a section of its own — NOT true for v24.1 and
+	// earlier, where it is very much still a header section that must be read or every offset after
+	// TypeDefinitions comes out wrong.
+	public Section RgctxEntries;
+
+	// v21..v27.2: a flat list of attribute types per index range.
 	public Section AttributesInfo, AttributeTypes;
 	// v29+: attributes moved to a serialized binary blob, ECMA-335 CustomAttribute-shaped.
 	public Section AttributeData, AttributeDataRanges;
@@ -82,17 +88,13 @@ public sealed class MetadataHeader
 
 		if (reader.Version <= 24.1)
 		{
-			// Legacy rgctx range sections lived here on very old metadata; they are per-TypeDefinition
-			// fields on that version instead (see Il2CppTypeDefinition.rgctxStartIndex/Count), not a
-			// section of their own, so there is nothing extra to consume — kept as a named branch point
-			// because older tools disagree on this and it is worth a version-specific home if that
-			// changes once checked against a real 24.0/24.1 header.
+			header.RgctxEntries = Next();
 		}
 
 		header.Images = Next();
 		header.Assemblies = Next();
 
-		if (reader.Version <= 27)
+		if (reader.Version <= 24.5)
 		{
 			header.MetadataUsageLists = Next();
 			header.MetadataUsagePairs = Next();
@@ -101,7 +103,7 @@ public sealed class MetadataHeader
 		header.FieldRefs = Next();
 		header.ReferencedAssemblies = Next();
 
-		if (reader.Version <= 27)
+		if (reader.Version <= 27.2)
 		{
 			header.AttributesInfo = Next();
 			header.AttributeTypes = Next();
@@ -209,10 +211,11 @@ public sealed class MetadataHeader
 		reader.Position = 8;
 		reader.Version = candidate;
 		int sectionCount = 20 // StringLiterals .. TypeDefinitions
+			+ (candidate <= 24.1 ? 1 : 0) // RgctxEntries
 			+ 2  // Images, Assemblies
-			+ (candidate <= 27 ? 2 : 0) // MetadataUsageLists/Pairs
+			+ (candidate <= 24.5 ? 2 : 0) // MetadataUsageLists/Pairs
 			+ 2  // FieldRefs, ReferencedAssemblies
-			+ 2; // Attributes(Info/Types) or (Data/DataRanges)
+			+ 2; // Attributes(Info/Types) or (Data/DataRanges) — every 24.x candidate is within [21, 27.2]
 		int perSection = candidate >= 39 ? 12 : 8;
 		return 8 + sectionCount * perSection;
 	}
