@@ -20462,6 +20462,36 @@ namespace @as
 				{
 					text = _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020;
 				}
+				// Remaining bug in this family: none of the four checks above handle an
+				// array-index Src (e.g. `T val_8 = ...GetComponentsInChildren<UnityEngine.
+				// Transform>()[val_9];`) at all, so for that shape "text" was left at
+				// whatever placeholder-bearing value this statement was created with,
+				// instead of the array's real element type. The element type is not on
+				// the ArrayIndexExpression itself (its own TypeName is never populated by
+				// any of its construction sites -- checked across ARMD/-.cs and WASD/-.cs)
+				// but it IS available one hop away, right in the same statement: the
+				// indexed array is almost always the return value of a call (as with
+				// GetComponentsInChildren<T>() : T[]), and that call's ReturnType is now
+				// correctly substituted (see the ReturnType-property fix above) -- so
+				// just strip the trailing "[]" off it to get the element type.
+				_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020 arrayIndexExpr;
+				if ((arrayIndexExpr = (_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A as _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_0020_000A_0020)) != null)
+				{
+					string elementTypeName = arrayIndexExpr._0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A;
+					if (string.IsNullOrEmpty(elementTypeName))
+					{
+						_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020 arrayCallExpr = arrayIndexExpr._0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_000A_0020_0020_000A_000A?._0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_000A_0020_000A_000A_000A as _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_000A_0020_000A_0020;
+						string arrayTypeName = arrayCallExpr?._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A;
+						if (!string.IsNullOrEmpty(arrayTypeName) && arrayTypeName.EndsWith("[]"))
+						{
+							elementTypeName = arrayTypeName.Substring(0, arrayTypeName.Length - 2);
+						}
+					}
+					if (!string.IsNullOrEmpty(elementTypeName))
+					{
+						text = elementTypeName;
+					}
+				}
 			}
 			// Bug fix (CS0818): when this is a bare declaration (IsDeclare) with no
 			// initializer (Src == null), "var" is illegal C# -- implicitly-typed
@@ -23959,33 +23989,41 @@ namespace @as
 					{
 						text = text.Substring(0, num);
 					}
-					// text is this type's cached base name, e.g. "List.Enumerator" -- see DMP4/-.cs's
-					// per-type stub-writer (~line 10793, the "Root fix: never cache the placeholder-
-					// bearing declaration text..." recompute) which builds a NESTED type's canonical
-					// name by dot-joining "DeclaringTypeName" + "." + "OwnName" with no generic
-					// brackets at all -- a composition-safe base for an ordinary (non-nested) generic
-					// type, where appending the real arguments at the very end is correct: "List" +
-					// "<UnityEngine.Transform>" == "List<UnityEngine.Transform>".
+					// text is this type's cached base name -- see DMP4/-.cs's per-type stub-writer
+					// (~line 10793, the "Root fix: never cache the placeholder-bearing declaration
+					// text..." recompute) which populates it two different ways depending on whether
+					// this type is nested:
+					//  - non-nested (the common case): text is NAMESPACE-qualified, e.g.
+					//    "System.Collections.Generic.List" -- every "." is a namespace separator, and
+					//    the real arguments belong at the very end: "System.Collections.Generic.List"
+					//    + "<UnityEngine.Transform>" == "System.Collections.Generic.List<UnityEngine.Transform>".
+					//  - nested (e.g. real List<T>.Enumerator): text is "List.Enumerator" -- the "."
+					//    is a DECLARING-TYPE separator, and the arguments (the declaring type's own
+					//    generic parameters, inherited by the nested type -- IL2CPP gives every type
+					//    that touches an enclosing generic parameter its own genericContainerIndex,
+					//    nested types included, which is how "Enumerator" ends up with a one-item
+					//    placeholder list even though it declares no generics of its own) belong on
+					//    the DECLARING type, before the first ".", not at the very end: "List" +
+					//    "<UnityEngine.Transform>" + ".Enumerator" == "List<UnityEngine.Transform>.Enumerator".
 					//
-					// But when text contains a "." -- this type is nested inside another (e.g.
-					// "List.Enumerator" for the real List<T>.Enumerator) -- the arguments joined here
-					// are the DECLARING type's own generic parameters, inherited by the nested type
-					// (IL2CPP gives every type that touches an enclosing generic parameter its own
-					// genericContainerIndex, nested types included, which is how "Enumerator" ends up
-					// with a one-item placeholder list even though it declares no generics of its
-					// own). Those arguments belong on the DECLARING type, before the first "." --
-					// not tacked onto the very end after the nested type's own name. Appending at the
-					// end produced "List.Enumerator<UnityEngine.Transform>", which is not valid C#
-					// (Enumerator itself is not generic), instead of the correct
-					// "List<UnityEngine.Transform>.Enumerator". Confirmed by tracing: this is the only
-					// place that composes the cached base name with the real argument list, and it
-					// never distinguished a flattened nested-type base (dotted) from a plain one.
-					num = text.IndexOf('.');
-					if (num == -1)
+					// A previous fix handled only the nested shape, by inserting after the first "."
+					// unconditionally -- which regressed the far more common non-nested, namespace-
+					// qualified shape (a fresh export showed "System<UnityEngine.Transform>.Collections
+					// .Generic.List" instead of "System.Collections.Generic.List<UnityEngine.Transform>").
+					// The root problem: a dot in the flattened string is structurally ambiguous between
+					// the two cases above, and cannot be told apart by counting or locating dots in the
+					// string alone. isNestedTypeBaseName is a real structural signal -- recorded
+					// straight off IL2CPP's declaringTypeIndex at the one DMP4/-.cs site that builds
+					// this cached text (~line 10795) -- so this reader no longer has to guess.
+					if (_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020.isNestedTypeBaseName)
 					{
-						return text + "<" + string.Join(", ", _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020) + ">";
+						num = text.IndexOf('.');
+						if (num != -1)
+						{
+							return text.Substring(0, num) + "<" + string.Join(", ", _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020) + ">" + text.Substring(num);
+						}
 					}
-					return text.Substring(0, num) + "<" + string.Join(", ", _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020) + ">" + text.Substring(num);
+					return text + "<" + string.Join(", ", _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020) + ">";
 				}
 				object _0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A = _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020;
 				if (_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A == null)
@@ -24332,6 +24370,13 @@ namespace @as
 		internal string _0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020;
 
 		internal string _0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A;
+
+		// Genuine structural signal for "is the cached base name above (the field just before this
+		// one) a nested-type dot-join, or a plain (possibly namespace-qualified) base name?" Set once,
+		// straight from IL2CPP's own declaringTypeIndex, at the single DMP4/-.cs call site that builds
+		// the field above (~line 10795) -- see as/-.cs's generic-instance name builder (search "text is
+		// this type's cached base name") for why a real flag is needed instead of guessing from dots.
+		internal bool isNestedTypeBaseName;
 
 		internal bool _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020;
 
@@ -24775,6 +24820,57 @@ namespace @as
 					if (num2 >= 0)
 					{
 						_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020 = _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A[num2];
+					}
+				}
+				// Root fix (the remaining bug in this family): the two substitutions above
+				// only fire when the return type IS, verbatim, one bare open generic
+				// parameter -- they miss the far more common case where the parameter is
+				// merely referenced *inside* a compound return type: an array of it
+				// (GetComponentsInChildren<T>() : T[]) or a type nested inside the
+				// declaring generic and parameterized by its enclosing parameter
+				// (List<T>.GetEnumerator() : List<T>.Enumerator, where the nested
+				// Enumerator inherits List<T>'s own "T" as its generic container --
+				// see the isNestedTypeBaseName comment above). In both shapes the exact
+				// whole-string cached-name lookup never matches ("T[]" != "T",
+				// "List<T>.Enumerator" != "T"), so the raw, unsubstituted placeholder
+				// text leaks straight through to the declared-type text of whatever
+				// local receives the call result (confirmed via a fresh CameraOverlay
+				// export: `T val_8 = ...GetComponentsInChildren<UnityEngine.Transform>()
+				// [val_9];` and `List<T>.Enumerator val_11 = this.quads.GetEnumerator();`,
+				// with this.quads a real List<UnityEngine.Transform> field). Fall back to
+				// a whole-token text substitution of every open parameter name still
+				// present in the cached name, using the exact same real-argument lists
+				// already resolved above -- this is the same data, just applied where the
+				// parameter is a fragment of the name instead of the whole name.
+				string text = _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020?._0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020;
+				if (!string.IsNullOrEmpty(text))
+				{
+					string text2 = text;
+					if (_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A != null && _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020 != null && _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A.Count == _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020.Count)
+					{
+						for (int i = 0; i < _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A.Count; i++)
+						{
+							string text3 = _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_0020[i]?._0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020;
+							if (!string.IsNullOrEmpty(text3))
+							{
+								text2 = Regex.Replace(text2, "\\b" + Regex.Escape(_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A[i]) + "\\b", text3);
+							}
+						}
+					}
+					if (_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A != null && _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A != null && _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A.Count == _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A.Count)
+					{
+						for (int i = 0; i < _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A.Count; i++)
+						{
+							string text4 = _0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A[i]?._0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_000A_0020_000A_0020_0020;
+							if (!string.IsNullOrEmpty(text4))
+							{
+								text2 = Regex.Replace(text2, "\\b" + Regex.Escape(_0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_000A[i]) + "\\b", text4);
+							}
+						}
+					}
+					if (text2 != text)
+					{
+						_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020 = _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A(text2);
 					}
 				}
 				return _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020;

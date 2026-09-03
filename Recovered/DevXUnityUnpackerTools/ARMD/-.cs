@@ -2864,9 +2864,41 @@ namespace ARMD
 						else
 						{
 							_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = (_0020?._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A) ?? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A));
-							if (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A != null && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue)
+							// FIX (root cause of ARMD.regResolveRawLeak): a tracked register Operand can
+							// carry BOTH a raw numeric field (e.g. the placeholder pointer value recorded
+							// when a BL call's return register was tagged) AND a genuine DisplayText/Type
+							// pair (live log: DisplayText="this", Type="UnityEngine.Purchasing.UnityPurchasingCallback"
+							// alongside a huge stale RawValue). The condition here used to test only
+							// RawValue.HasValue, so it took the raw-number branch even when a perfectly
+							// good symbolic DisplayText sat right next to it -- the shift/combination logic
+							// further down then rebuilt a brand-new, numeric-only Operand from that raw
+							// value via FromLong(...), discarding DisplayText and leaking the raw number
+							// into pseudocode (e.g. the MoveNext() loop-condition corruption
+							// `if((1825455952 & 1) == 0)`). Requiring DisplayText == null before trusting
+							// the raw value routes any DisplayText-bearing operand into the "flag = true"
+							// branch below, which already builds a correct symbolic fallback via ToString()
+							// -- and Operand.ToString() itself already prefers DisplayText over the raw
+							// fields (see its definition), so this only had to stop bypassing it. Operands
+							// that are legitimately numeric (a real MOV/MOVZ immediate, a resolved
+							// integer/enum with no better display) have DisplayText == null and are
+							// unaffected -- they still take the fast numeric path below.
+							if (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A != null && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 == null)
 							{
 								num3 = (int)_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value;
+								// DIAGNOSTIC (follow-up to ARMD.condRegRawLeak): pinpoint the SOURCE of a
+								// stale raw value at the exact register-dictionary read, not just where
+								// it later gets consumed by a CBZ/TBZ. If GetTrackedRegister(<name>) found
+								// an entry here whose raw value is suspiciously large, that entry was
+								// written by some earlier instruction (SetRegisterValue) and never
+								// invalidated/overwritten before this read -- log the register name plus
+								// what's tracked for it (display text/type) so it can be correlated
+								// against nearby BL calls (does the register name match a call's return
+								// register? was SetRegisterValue for it skipped or overwritten by an
+								// unrelated instruction in between?).
+								if (Math.Abs(num3) > 100000)
+								{
+									DbgLog.Lim("ARMD.regResolveRawLeak", "GetTrackedRegister(\"" + _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A + "\") [32-bit path] returned a stale raw value " + num3 + " -- tracked.DisplayText=" + (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 ?? "<null>") + " tracked.Type=" + (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A ?? "<null>"), 200);
+								}
 							}
 							else
 							{
@@ -2900,7 +2932,11 @@ namespace ARMD
 						else
 						{
 							_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2 = (_0020?._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020) ?? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020));
-							if (!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue)
+							// FIX (same regResolveRawLeak family as the base-value chokepoint above): a
+							// symbolic shift-amount register (DisplayText set) can't be used for real
+							// shift arithmetic even if a stale raw value also happens to be present, so
+							// force the ToString()-based symbolic fallback ("flag = true") in that case too.
+							if (!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 != null)
 							{
 								flag = true;
 							}
@@ -3000,9 +3036,20 @@ namespace ARMD
 						else
 						{
 							_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = (_0020?._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A) ?? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A));
-							if (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A != null && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue)
+							// FIX (root cause of ARMD.regResolveRawLeak, 64-bit register path -- see the
+							// matching 32-bit-path fix above for the full rationale): require DisplayText
+							// to be null before trusting the raw value, so a DisplayText-bearing operand
+							// (e.g. "this") falls into the "flag = true" symbolic-fallback branch instead
+							// of being flattened into a raw-number-only Operand.
+							if (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A != null && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 == null)
 							{
 								num9 = _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value;
+								// DIAGNOSTIC (follow-up to ARMD.condRegRawLeak, 64-bit register path --
+								// see the matching 32-bit-path trap above for the full rationale).
+								if (Math.Abs(num9) > 100000)
+								{
+									DbgLog.Lim("ARMD.regResolveRawLeak", "GetTrackedRegister(\"" + _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A + "\") [64-bit path] returned a stale raw value " + num9 + " -- tracked.DisplayText=" + (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 ?? "<null>") + " tracked.Type=" + (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_0020_000A ?? "<null>"), 200);
+								}
 							}
 							else
 							{
@@ -3036,7 +3083,8 @@ namespace ARMD
 						else
 						{
 							_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A7 = (_0020?._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020) ?? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_0020_000A_0020_0020));
-							if (!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A7._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue)
+							// FIX (same regResolveRawLeak family, shift-amount side -- see 32-bit path above).
+							if (!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A7._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A7._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 != null)
 							{
 								flag = true;
 							}
@@ -3129,7 +3177,9 @@ namespace ARMD
 					else
 					{
 						_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A = (_0020?._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A) ?? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A));
-						if (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A != null && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue)
+						// FIX (same regResolveRawLeak family, non-32/64-bit width fallback -- see the
+						// 32-bit path fix above for the full rationale).
+						if (_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A != null && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue && _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 == null)
 						{
 							_00202 = _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value;
 						}
@@ -3289,7 +3339,15 @@ namespace ARMD
 				{
 					_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2 = null;
 					_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3 = _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A._0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A(_0020);
-					_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2 = ((!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || !_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue) ? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A + " + " + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3) : _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value));
+					// FIX (same regResolveRawLeak family as RegOrImmOperand.Resolve() above): this
+					// builds the "[base, index]" memory-addressing text. It used to switch to raw
+					// numeric addition (Value + Value) purely on RawValue.HasValue, so a base/index
+					// register that legitimately resolved to a symbolic operand (DisplayText set,
+					// e.g. "this") but also carried a stale raw value would get summed as two raw
+					// numbers instead of rendered as "this + <index>". Requiring DisplayText == null
+					// on both sides before taking the numeric-sum branch keeps genuinely numeric
+					// base/index registers (no DisplayText) on the fast numeric path unchanged.
+					_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2 = ((!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 != null || !_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 != null) ? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A + " + " + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3) : _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A3._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value));
 					if (_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020)
 					{
 						_0020._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(_0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020._0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A, _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A2);
@@ -3298,7 +3356,9 @@ namespace ARMD
 				}
 				_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A4 = null;
 				_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5 = _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A._0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020_000A(_0020);
-				_0020._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(_0020_000A: (!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || !_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue) ? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A + " + " + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5) : _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value), _0020: _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020._0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A);
+				// FIX (same regResolveRawLeak family, second base/index-sum overload -- see the
+				// comment above for the full rationale).
+				_0020._0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(_0020_000A: (!_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 != null || !_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.HasValue || _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020 != null) ? _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A + " + " + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5) : _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_000A_0020(_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value + _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A5._0020_000A_000A_000A_0020_0020_0020_0020_000A_0020_000A_000A_000A_000A_000A.Value), _0020: _0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020._0020_000A_0020_000A_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A);
 				return _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A;
 			}
 
@@ -6790,6 +6850,15 @@ namespace ARMD
 														if (text3 == "BL" || text3 == "BLX")
 														{
 															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A = _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_0020 + " R0 = " + value7 + "();";
+															// FIX (ARMD.condRegRawLeak root cause): a resolved BL/BLX call was only
+															// ever recorded as pseudocode TEXT -- the return register's entry in
+															// the register-value-tracking dictionary was never updated, so a
+															// later CBZ/CBNZ/TBZ/TBNZ testing the same register (e.g.
+															// `if (!enumerator.MoveNext())`) resolved it through the stale
+															// tracked Operand left by whatever instruction last wrote that
+															// register before this call. Record a symbolic operand for this
+															// call's result so downstream reads see the call, not stale data.
+															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020, _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(value7 + "()"));
 														}
 														else
 														{
@@ -6825,6 +6894,12 @@ namespace ARMD
 														if (text3 == "BL" || text3 == "BLX" || text3 == "BLR")
 														{
 															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A = _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020 + " = " + (text13 ?? _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A2) + "();";
+															// FIX (ARMD.condRegRawLeak root cause, unresolved-call variant): same
+															// missing register-tracking write-back as the resolved-call BL/BLX
+															// site above, for the case where the call target address itself
+															// could not be resolved to a name. Still record a symbolic operand
+															// for the return register so it isn't left holding stale data.
+															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020, _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A((text13 ?? _0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_0020_000A2) + "()"));
 														}
 														else
 														{
@@ -6859,6 +6934,34 @@ namespace ARMD
 															_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A;
 															if ((_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A = (obj as _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A)) != null && _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A.Count > 0)
 															{
+																// DIAGNOSTIC TRAP for the "Dispose() call resolves to an unrelated
+																// method" half of the foreach/IEnumerator corruption bug (see
+																// CameraOverlay.Update(): the enumerator's Dispose() call site
+																// instead emitted a DrivenRectTransformTracker.Add(...) call).
+																// This branch means num24 already has MULTIPLE methods registered
+																// against it in this table -- a genuine address collision (e.g.
+																// IL2CPP/native-linker identical-code-folding merging two or more
+																// different, equally-trivial methods -- an empty struct
+																// Enumerator.Dispose() is exactly the kind of body that folds --
+																// to ONE physical address). The line below arbitrarily keeps only
+																// the LAST candidate (Count - 1) and silently discards the rest
+																// with no regard for which one this specific call site actually
+																// meant. If "Dispose" and "DrivenRectTransformTracker.Add" both
+																// show up in the candidate list logged here for the same num24,
+																// that confirms the collision hypothesis and explains the wrong
+																// name -- and, because the target address is genuinely ambiguous
+																// once code-folded, there is no address-only fix; disambiguating
+																// would need extra context this table doesn't carry (e.g. per
+																// call-site metadata) rather than a different pick-from-list rule.
+																if (armdDbgTarget && _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A.Count > 1)
+																{
+																	string text28 = "";
+																	foreach (_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020 item27 in _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A)
+																	{
+																		text28 += ((text28.Length > 0) ? " | " : "") + (item27?.ToString() ?? "<null>");
+																	}
+																	DbgLog.Lim("ARMD.callTargetCandidates", "num24=0x" + num24.ToString("X") + " has " + _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A.Count + " candidate methods registered at this SAME address: [" + text28 + "] -- code picks only the LAST one (index " + (_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A.Count - 1) + "), silently discarding the rest.", 50);
+																}
 																_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020 = _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A[_0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_0020_0020_000A_000A_000A_000A.Count - 1];
 															}
 														}
@@ -7031,6 +7134,18 @@ namespace ARMD
 														if (text3 == "BL" || text3 == "BLX")
 														{
 															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A_000A_000A = _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020 + " = " + text13 + "();";
+															// FIX (ARMD.condRegRawLeak root cause -- primary path): this is the
+															// common case for a BL/BLX to a name resolved via the address/name
+															// lookup tables (e.g. a normal in-binary call like MoveNext() or
+															// Dispose() inside a foreach loop). Previously only the pseudocode
+															// TEXT was updated here; the return register's tracked value was
+															// left untouched, so a following CBZ/CBNZ/TBZ/TBNZ testing that
+															// register picked up whatever stale Operand (often a raw immediate
+															// left by an earlier instruction) was tracked for it before this
+															// call, instead of this call's result -- see ARMD.condRegRawLeak.
+															// Record a symbolic operand for the call result so the register
+															// tracking dictionary reflects reality across the call boundary.
+															_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_000A_0020_0020(_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020, _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_0020_0020_0020_000A_000A(text13 + "()"));
 														}
 														else
 														{
@@ -10615,6 +10730,55 @@ namespace ARMD
 			// The "demo" gate: if this indirect call does not return "0012" every second
 			// invocation discards the lifted statements and writes a placeholder comment.
 			DbgLog.Lim("ARMD.gate", "HiddenCalls(\"1834582700\") = " + (HiddenCalls.CallObjectSafe1(null, "1834582700")?.ToString() ?? "<null>") + " (expected \"0012\"), statements in = " + ((_0020_000A == null) ? -1 : _0020_000A.Count), 5);
+			// DIAGNOSTIC TRAP for the "local variable read but never assigned" bug
+			// (see CameraOverlay.Start(): `val_2.Length` read 3x with no `val_2 = ...;`
+			// anywhere in the printed method; CameraOverlay.Update(): `val_12` read via
+			// `val_12 == 0` / `val_12.localScale = ...` with no `val_12 = ...;` either,
+			// even though `object val_12;` DOES get declared). Leading hypothesis: an
+			// earlier pass over the per-instruction statement list (the chunk-merge /
+			// if-else-coalescing pass in as/-.cs, or some other inlining/elision step)
+			// drops the ASSIGNMENT statement for a local while every READ of that same
+			// local's name survives -- because a read only holds a reference to the
+			// same named Operand object, whose text renders correctly regardless of
+			// whether the statement that assigned it made it into this final list.
+			// Target-agnostic and content-based (same idea as ARMD.sigLeak): this is
+			// this function's LAST look at the statement list before it gets printed,
+			// so scan it for "val_N" tokens that appear only as a READ, never as the
+			// LHS of an assignment -- a correctly decompiled method should never read
+			// a local it never assigns.
+			if (_0020_000A != null)
+			{
+				HashSet<string> hashSet4 = new HashSet<string>();
+				HashSet<string> hashSet5 = new HashSet<string>();
+				foreach (_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_000A item23 in _0020_000A)
+				{
+					if (item23?._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020 == null)
+					{
+						continue;
+					}
+					foreach (_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A item24 in item23._0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_0020)
+					{
+						string text27 = item24?.ToCSharpString();
+						if (string.IsNullOrEmpty(text27))
+						{
+							continue;
+						}
+						foreach (System.Text.RegularExpressions.Match item25 in System.Text.RegularExpressions.Regex.Matches(text27, "val_\\d+"))
+						{
+							hashSet5.Add(item25.Value);
+						}
+						foreach (System.Text.RegularExpressions.Match item26 in System.Text.RegularExpressions.Regex.Matches(text27, "(val_\\d+)\\s*="))
+						{
+							hashSet4.Add(item26.Groups[1].Value);
+						}
+					}
+				}
+				hashSet5.ExceptWith(hashSet4);
+				if (hashSet5.Count > 0)
+				{
+					DbgLog.Lim("ARMD.unassignedLocalRead", "method's final statement list reads " + hashSet5.Count + " local(s) that are never assigned anywhere in it: " + string.Join(", ", hashSet5) + " -- the defining assignment statement was likely dropped by an earlier pass while reads of the same named local survived.", 50);
+				}
+			}
 			if (HiddenCalls.CallObjectSafe1(null, "1834582700")?.ToString() != "0012")
 			{
 				_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_000A_000A_000A_000A++;

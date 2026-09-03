@@ -10792,6 +10792,16 @@ namespace DMP4
 				// whether it bothers to strip "<", gets a composition-safe base to append real arguments to.
 				string _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A(_0020_000A, _0020_000A: false, _0020_0020: false);
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020 = _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A;
+				// The dot this recompute inserts between "text" (this type's OWN namespace, empty for a
+				// nested type) and the backtick-stripped base name above is structurally ambiguous once
+				// flattened into one string: for a non-nested type it separates NAMESPACE segments
+				// ("System" + "." + "Collections.Generic.List"), but for a nested type the base name
+				// itself already carries a DECLARING-TYPE dot baked in by the name builder's own
+				// declaringTypeIndex recursion (~line 8691), e.g. "List" + "." + "Enumerator". A reader
+				// that only sees the final string cannot tell which dot is which -- record the real
+				// signal here, straight off IL2CPP's declaringTypeIndex, while it is still cheap and
+				// unambiguous, instead of leaving downstream readers to guess from string content.
+				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A.isNestedTypeBaseName = (_0020_000A.declaringTypeIndex != -1);
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A = (text + "." + _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A).TrimStart('.');
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A = _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A(_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A);
 				if (!_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A)
