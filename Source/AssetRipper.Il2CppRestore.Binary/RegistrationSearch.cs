@@ -83,12 +83,14 @@ public static class RegistrationSearch
 
 		const int MaxRejectionLogs = 20;
 
+		ulong expected = (ulong)expectedCount;
+
 		int sectionsScanned = 0;
 		long positionsScanned = 0;
 		int countMatchesSeen = 0;
 		int rejectionsLogged = 0;
 		ulong closestCountSeen = 0;
-		long closestCountDistance = long.MaxValue;
+		ulong closestCountDistance = ulong.MaxValue;
 
 		foreach (BinarySection section in image.Sections)
 		{
@@ -103,14 +105,18 @@ public static class RegistrationSearch
 				positionsScanned++;
 				ulong count = image.ReadPointer(offset);
 
-				long distance = Math.Abs((long)count - expectedCount);
+				// Plain ulong subtraction, never a (long) cast or Math.Abs: count comes from
+				// reinterpreting arbitrary binary bytes as a number, so it can legitimately be larger
+				// than long.MaxValue - Math.Abs(long.MinValue) throws OverflowException unconditionally,
+				// and that combination turned up reliably within a couple of megabytes of real scanning.
+				ulong distance = count > expected ? count - expected : expected - count;
 				if (distance < closestCountDistance)
 				{
 					closestCountDistance = distance;
 					closestCountSeen = count;
 				}
 
-				if (count != (ulong)expectedCount)
+				if (count != expected)
 				{
 					continue;
 				}
