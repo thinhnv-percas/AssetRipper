@@ -27,7 +27,7 @@ public static class RegistrationSearch
 	/// Finds <c>g_CodeRegistration</c>. Tries the binary's own symbol table first (cheap, exact); falls
 	/// back to the count-constrained scan only when the binary is stripped.
 	/// </summary>
-	public static ulong FindCodeRegistration(IBinaryImage image, int imageCount)
+	public static ulong FindCodeRegistration(IBinaryImage image, int imageCount, Action<string>? log = null)
 	{
 		if (image.SymbolsByVa.Count > 0)
 		{
@@ -35,18 +35,20 @@ public static class RegistrationSearch
 			{
 				if (name is "g_CodeRegistration" or "_g_CodeRegistration")
 				{
+					log?.Invoke($"CodeRegistration: found by symbol table at 0x{va:X}.");
 					return va;
 				}
 			}
 		}
 
-		return ScanForCountedPointer(image, imageCount, CodeRegistrationSlotsBeforeCodeGenModules);
+		log?.Invoke($"CodeRegistration: no symbol table match, scanning for a (count={imageCount}, pointer) pair {CodeRegistrationSlotsBeforeCodeGenModules} pointer-slots into the struct.");
+		return ScanForCountedPointer(image, imageCount, CodeRegistrationSlotsBeforeCodeGenModules, log);
 	}
 
 	/// <summary>
 	/// Finds <c>g_MetadataRegistration</c>, the same way as <see cref="FindCodeRegistration"/>.
 	/// </summary>
-	public static ulong FindMetadataRegistration(IBinaryImage image, int typeDefinitionCount)
+	public static ulong FindMetadataRegistration(IBinaryImage image, int typeDefinitionCount, Action<string>? log = null)
 	{
 		if (image.SymbolsByVa.Count > 0)
 		{
@@ -54,12 +56,14 @@ public static class RegistrationSearch
 			{
 				if (name is "g_MetadataRegistration" or "_g_MetadataRegistration")
 				{
+					log?.Invoke($"MetadataRegistration: found by symbol table at 0x{va:X}.");
 					return va;
 				}
 			}
 		}
 
-		return ScanForCountedPointer(image, typeDefinitionCount, MetadataRegistrationSlotsBeforeTypeDefinitionsSizes);
+		log?.Invoke($"MetadataRegistration: no symbol table match, scanning for a (count={typeDefinitionCount}, pointer) pair {MetadataRegistrationSlotsBeforeTypeDefinitionsSizes} pointer-slots into the struct.");
+		return ScanForCountedPointer(image, typeDefinitionCount, MetadataRegistrationSlotsBeforeTypeDefinitionsSizes, log);
 	}
 
 	/// <summary>
@@ -67,14 +71,24 @@ public static class RegistrationSearch
 	/// in <c>.data</c>/<c>.data.rel.ro</c>, never in code) for a <c>(count, pointer-to-array-of-count-valid-pointers)</c>
 	/// pair, then backs up to where the struct itself must start.
 	/// </summary>
-	private static ulong ScanForCountedPointer(IBinaryImage image, int expectedCount, int slotsBeforePair)
+	private static ulong ScanForCountedPointer(IBinaryImage image, int expectedCount, int slotsBeforePair, Action<string>? log)
 	{
 		if (expectedCount <= 0)
 		{
+			log?.Invoke($"Scan aborted: expected count is {expectedCount} (<= 0), which cannot come from a real registration struct — the metadata array this count was read from is probably empty or misread.");
 			return 0;
 		}
 
 		int pointerSize = image.Is32Bit ? 4 : 8;
+
+		const int MaxRejectionLogs = 20;
+
+		int sectionsScanned = 0;
+		long positionsScanned = 0;
+		int countMatchesSeen = 0;
+		int rejectionsLogged = 0;
+		ulong closestCountSeen = 0;
+		long closestCountDistance = long.MaxValue;
 
 		foreach (BinarySection section in image.Sections)
 		{
@@ -82,37 +96,66 @@ public static class RegistrationSearch
 			{
 				continue;
 			}
+			sectionsScanned++;
 
 			for (long offset = section.Offset; offset + pointerSize * 2L <= section.Offset + section.Size; offset += pointerSize)
 			{
+				positionsScanned++;
 				ulong count = image.ReadPointer(offset);
+
+				long distance = Math.Abs((long)count - expectedCount);
+				if (distance < closestCountDistance)
+				{
+					closestCountDistance = distance;
+					closestCountSeen = count;
+				}
+
 				if (count != (ulong)expectedCount)
 				{
 					continue;
 				}
+				countMatchesSeen++;
 
 				ulong arrayPtr = image.ReadPointer(offset + pointerSize);
 				long arrayOffset = image.MapVaToOffset(arrayPtr);
 				if (arrayOffset < 0)
 				{
+					if (rejectionsLogged++ < MaxRejectionLogs)
+					{
+						log?.Invoke($"  count matched at file offset 0x{offset:X}, but the pointer that follows (0x{arrayPtr:X}) does not map into any loaded section — rejected.");
+					}
 					continue;
 				}
 
 				if (!EveryElementIsAValidPointer(image, arrayOffset, expectedCount, pointerSize))
 				{
+					if (rejectionsLogged++ < MaxRejectionLogs)
+					{
+						log?.Invoke($"  count matched at file offset 0x{offset:X}, but not every one of the {expectedCount} array entries at 0x{arrayPtr:X} is a valid pointer — rejected.");
+					}
 					continue;
 				}
 
 				long structOffset = offset - (long)slotsBeforePair * pointerSize;
 				if (structOffset < section.Offset)
 				{
+					if (rejectionsLogged++ < MaxRejectionLogs)
+					{
+						log?.Invoke($"  count matched at file offset 0x{offset:X} and its array validated, but backing up {slotsBeforePair} slots lands before this section starts — rejected.");
+					}
 					continue;
 				}
 
-				return image.MapOffsetToVa(structOffset);
+				ulong resultVa = image.MapOffsetToVa(structOffset);
+				log?.Invoke($"Scan succeeded: struct starts at file offset 0x{structOffset:X} (VA 0x{resultVa:X}), found in section '{section.Name}'.");
+				return resultVa;
 			}
 		}
 
+		log?.Invoke(
+			$"Scan failed: {sectionsScanned} non-executable section(s), {positionsScanned} pointer-aligned position(s) checked, " +
+			$"{countMatchesSeen} position(s) had the right count but failed array validation (first {Math.Min(rejectionsLogged, MaxRejectionLogs)} logged above). " +
+			$"Closest count actually seen was {closestCountSeen} (target {expectedCount}, off by {closestCountDistance}).");
 		return 0;
 	}
 

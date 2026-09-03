@@ -62,9 +62,16 @@ public sealed class RestorePipeline
 
 		IBinaryImage image = OpenBinary(binaryPath);
 		log.WriteLine($"Binary: {binaryPath} ({image.Arch}, {(image.Is32Bit ? "32-bit" : "64-bit")})");
+		if (image is ElfImage { SectionHeadersStripped: true })
+		{
+			log.WriteLine("This ELF has no section header table (common for hardened/obfuscated builds) — scanning PT_LOAD segments instead.");
+		}
+		log.WriteLine($"Sections/segments available to scan: {image.Sections.Count} ({string.Join(", ", image.Sections.Select(s => $"{s.Name}[{(s.Executable ? "x" : "-")}]:0x{s.Size:X}"))})");
+		log.WriteLine($"Expected counts from metadata: images={metadata.Images.Length}, typeDefinitions={metadata.TypeDefs.Length}");
 
-		ulong codeRegVa = RegistrationSearch.FindCodeRegistration(image, metadata.Images.Length);
-		ulong metadataRegVa = RegistrationSearch.FindMetadataRegistration(image, metadata.TypeDefs.Length);
+		void ScanLog(string message) => log.WriteLine($"  {message}");
+		ulong codeRegVa = RegistrationSearch.FindCodeRegistration(image, metadata.Images.Length, ScanLog);
+		ulong metadataRegVa = RegistrationSearch.FindMetadataRegistration(image, metadata.TypeDefs.Length, ScanLog);
 		if (codeRegVa == 0 || metadataRegVa == 0)
 		{
 			log.WriteLine("Could not locate Il2CppCodeRegistration/Il2CppMetadataRegistration in this binary. Falling back to fields-only output.");

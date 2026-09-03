@@ -68,6 +68,24 @@ public sealed class ElfImage : IBinaryImage
 			_sections.Add(new BinarySection(section.Name, ToUInt64(section.LoadAddress), ToInt64(section.Offset), ToInt64(section.Size), executable));
 		}
 
+		// Some protected/obfuscated builds strip the section header table entirely (the loader only
+		// needs program headers to run) while leaving it in elf.Sections as an empty list. Without a
+		// fallback, RegistrationSearch would have nothing to scan at all — silently, no error — so each
+		// PT_LOAD segment becomes its own pseudo-section instead, using its own read/write/execute flags.
+		if (_sections.Count == 0)
+		{
+			SectionHeadersStripped = true;
+			foreach (Segment<T> segment in elf.Segments)
+			{
+				if (segment.Type != SegmentType.Load)
+				{
+					continue;
+				}
+				bool executable = (segment.Flags & SegmentFlags.Execute) != 0;
+				_sections.Add(new BinarySection($"LOAD@0x{ToUInt64(segment.Address):X}", ToUInt64(segment.Address), segment.Offset, ToInt64(segment.Size), executable));
+			}
+		}
+
 		try
 		{
 			foreach (Section<T> section in elf.Sections)
@@ -102,6 +120,9 @@ public sealed class ElfImage : IBinaryImage
 	public ReadOnlyMemory<byte> Data => _data;
 	public IReadOnlyList<BinarySection> Sections => _sections;
 	public IReadOnlyDictionary<ulong, string> SymbolsByVa => _symbols;
+
+	/// <summary>True when this ELF has no section header table, so <see cref="Sections"/> was built from PT_LOAD segments instead.</summary>
+	public bool SectionHeadersStripped { get; private set; }
 
 	public long MapVaToOffset(ulong va)
 	{
