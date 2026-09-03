@@ -10592,7 +10592,26 @@ namespace DMP4
 			// confirmed live via a fresh CameraOverlay-project export showing exactly this
 			// (RuntimeRopeGeneratorUse.<Start>d__2.cs). Contains("<") catches both shapes; the
 			// same Replace(...) call already flattens it into one valid flat identifier either way.
-			if (text2.Contains("<"))
+			//
+			// BUT a bare Contains("<") is also true for a perfectly legitimate, and very common,
+			// shape: an open GENERIC type's own placeholder declaration name, e.g. "List<T>" or
+			// "Dictionary<TKey, TValue>", which the call above just built on purpose (the "true"
+			// generic-suffix argument appends "<" + real declared generic-parameter names + ">"
+			// whenever genericContainerIndex >= 0). Sanitizing that turns "List<T>" into
+			// "List_T_" -- and this text2 is not just written into the class header below, it is
+			// also cached as this type's canonical display name a few lines further down (the
+			// "(text + "." + text2).TrimStart('.')" assignment) and reused later (as/-.cs's
+			// generic-instance name builder, ~line 23942) as the base onto which the
+			// REAL instantiated arguments get appended, producing exactly the reported corruption
+			// "List_T_<UnityEngine.Transform>" -- the mangled placeholder base with the correct
+			// argument still tacked on by that unrelated, otherwise-correct code. Confirmed by
+			// tracing: this is the only place in the codebase that manufactures "List<T>"-shaped
+			// placeholder text, and the only sanitizer broad enough to turn it into "List_T_".
+			// Fix: only treat this as the compiler-generated case the comment above actually
+			// describes -- both of its named shapes always carry a "d__" (state machine) or
+			// "c__DisplayClass" (lambda closure) marker, which a legitimate generic-parameter
+			// list never does -- instead of reacting to any "<" whatsoever.
+			if (text2.Contains("d__") || text2.Contains("c__DisplayClass"))
 			{
 				text2 = text2.Replace("<", "_").Replace(">", "_").Replace(".", "_");
 			}
@@ -10752,8 +10771,28 @@ namespace DMP4
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020 = _0020_0020;
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_0020_0020 = _0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_0020_0020_000A_000A_0020;
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_0020_000A_000A_000A = list;
-				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020 = text2;
-				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A = (text + "." + text2).TrimStart('.');
+				// text2 is the DECLARATION text for this type's own header line ("class List<T> { ..."),
+				// deliberately built (line ~10584, generic-suffix argument "true") with the OPEN-GENERIC
+				// placeholder appended when this type is generic -- e.g. "List<T>", "Dictionary<TKey, TValue>".
+				// The two lines below used to cache that same placeholder-bearing text2 as this type's
+				// canonical name (read back later wherever a field/local/argument of this type needs to be
+				// displayed, e.g. as/-.cs's generic-instance name builder, ~line 23936-23971). That builder
+				// itself correctly strips a leftover "<...>" before appending the REAL instantiated
+				// arguments, but not every reader of this cache does -- at least one only checks for a
+				// "`" arity marker (already gone by the time text2 exists) and, finding none, assumes the
+				// cached name is a plain base name and appends the real argument straight onto it. Before
+				// the "d__"/"c__DisplayClass" sanitizer fix above, that same over-broad sanitizer happened
+				// to mangle "List<T>" into "List_T_" first, so this cache always carried a `-free, <-free
+				// (if garbled) string; the reported corruption was "List_T_<UnityEngine.Transform>". Now
+				// that text2 is correctly left as literal "List<T>", the same naive reader instead produces
+				// "List<T><UnityEngine.Transform>" -- confirmed by tracing every place this cache is read.
+				// Root fix: never cache the placeholder-bearing declaration text as the canonical name at
+				// all. Recompute the same name with the generic-suffix argument "false" -- the type's own
+				// backtick-stripped base name, with no bracket of any kind -- so every reader, regardless of
+				// whether it bothers to strip "<", gets a composition-safe base to append real arguments to.
+				string _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A = _0020_000A_0020_000A_000A_0020_0020_000A_0020_0020_000A_0020_000A_0020_0020._0020_0020_000A_000A_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A(_0020_000A, _0020_000A: false, _0020_0020: false);
+				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020 = _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A;
+				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A = (text + "." + _0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_000A_0020_0020_0020_000A).TrimStart('.');
 				_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A = _0020_0020_000A_000A_0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A(_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A);
 				if (!_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A._0020_000A_000A_0020_000A_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A)
 				{
