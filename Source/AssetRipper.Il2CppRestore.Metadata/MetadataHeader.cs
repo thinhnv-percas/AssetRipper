@@ -45,6 +45,15 @@ public sealed class MetadataHeader
 	// v29+: attributes moved to a serialized binary blob, ECMA-335 CustomAttribute-shaped.
 	public Section AttributeData, AttributeDataRanges;
 
+	// Trailing sections the pipeline does not otherwise use, but which still have to be read (or at
+	// least counted) so the header's own self-check has an accurate total size to compare against —
+	// StringLiterals.Offset in the file reflects the FULL header, not just the sections above that
+	// something downstream actually reads.
+	public Section UnresolvedVirtualCallParameterTypes, UnresolvedVirtualCallParameterRanges; // v22+
+	public Section WindowsRuntimeTypeNames; // v23+
+	public Section WindowsRuntimeStrings; // v27+ — declared after WindowsRuntimeTypeNames but before ExportedTypeDefinitions in the real header, despite the higher version floor.
+	public Section ExportedTypeDefinitions; // v24+
+
 	/// <summary>
 	/// Reads the header for whichever version is actually on disk.
 	/// </summary>
@@ -114,9 +123,26 @@ public sealed class MetadataHeader
 			header.AttributeDataRanges = Next();
 		}
 
-		// Sections past this point (unresolvedIndirectCall*, windowsRuntime*, exportedTypeDefinitions,
-		// …) are not read: nothing in this pipeline currently needs them. Add a Next() call here, in the
-		// same order as GlobalMetadataFileInternals.h, the day something does.
+		if (reader.Version >= 22)
+		{
+			header.UnresolvedVirtualCallParameterTypes = Next();
+			header.UnresolvedVirtualCallParameterRanges = Next();
+		}
+
+		if (reader.Version >= 23)
+		{
+			header.WindowsRuntimeTypeNames = Next();
+		}
+
+		if (reader.Version >= 27)
+		{
+			header.WindowsRuntimeStrings = Next();
+		}
+
+		if (reader.Version >= 24)
+		{
+			header.ExportedTypeDefinitions = Next();
+		}
 
 		// The runtime itself asserts this (GlobalMetadata.cpp), and it is the cheapest, strongest check
 		// available: getting any section above wrong shifts every offset from here on, and this would
@@ -158,6 +184,16 @@ public sealed class MetadataHeader
 	/// Reading with the wrong sub-version does not throw — it produces a header that looks plausible and
 	/// is wrong, which surfaces much later as garbage in step 8. These three checks are cheap and catch
 	/// nearly every wrong guess before that happens.
+	/// <para>
+	/// Known limitation: 24.0 and 24.1 share one header layout, and 24.2-24.5 share another — this can
+	/// only tell the two GROUPS apart (by whether <see cref="RgctxEntries"/> is present), not which exact
+	/// sub-version within a group it is, so it always reports the lowest candidate in whichever group
+	/// matches (24.0 or 24.2). A reference implementation (Il2CppDumper) additionally disambiguates within
+	/// each group from file CONTENT — an image's <c>token</c> field for 24.0 vs 24.1, and the actual
+	/// per-entry size of the assemblies section for 24.2 vs 24.4 — neither of which this pipeline's
+	/// simplified <c>Il2CppImageDefinition</c>/<c>Il2CppAssemblyDefinition</c> currently need, since neither
+	/// struct here varies within a group the way Il2CppDumper's full version-tagged ones do.
+	/// </para>
 	/// </remarks>
 	private static double ProbeSubVersion(VersionedReader reader, int majorVersion)
 	{
@@ -215,7 +251,10 @@ public sealed class MetadataHeader
 			+ 2  // Images, Assemblies
 			+ (candidate <= 24.5 ? 2 : 0) // MetadataUsageLists/Pairs
 			+ 2  // FieldRefs, ReferencedAssemblies
-			+ 2; // Attributes(Info/Types) or (Data/DataRanges) — every 24.x candidate is within [21, 27.2]
+			+ 2  // Attributes(Info/Types) or (Data/DataRanges) — every 24.x candidate is within [21, 27.2]
+			+ 2  // UnresolvedVirtualCallParameterTypes/Ranges — every 24.x candidate is >= 22
+			+ 1  // WindowsRuntimeTypeNames — every 24.x candidate is >= 23
+			+ 1; // ExportedTypeDefinitions — every 24.x candidate is >= 24 (WindowsRuntimeStrings needs >= 27, never true here)
 		int perSection = candidate >= 39 ? 12 : 8;
 		return 8 + sectionCount * perSection;
 	}
