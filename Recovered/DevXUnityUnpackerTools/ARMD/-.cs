@@ -5375,6 +5375,21 @@ namespace ARMD
 							_0020_000A_0020_0020_0020_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A second = _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020.Create(num3);
 							text = "if ((" + text4 + " & " + text5 + ") " + text2 + " 0)";
 							_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A = _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020.Create(_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_0020_0020.Create(first3, second, "&"), _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020.Create(0), text2);
+							// DIAGNOSTIC TRAP for the "foreach/MoveNext loop condition corrupted to a
+							// hardcoded raw constant" bug (see e.g. CameraOverlay.Update():
+							// `if((1056264080 & 1) == 0)` -- identical, never-changing raw value at
+							// every loop re-entry, exactly where a TBZ testing a MoveNext() bool
+							// result should appear). Content-based trap, same style as the already-
+							// fixed raw-Cecil-signature leak (git history a9b3471a6/171ffe02e): a
+							// legitimate bit-test register value is small (a bool/flags word), so
+							// trap only the suspicious case of a huge raw constant landing here,
+							// which points at a stale/wrong entry in the register-value tracking
+							// dictionaries (or the BL/BLR handler not invalidating the destination
+							// register across the call).
+							if (long.TryParse(first3?.ToString(), out long condRegRawVal) && Math.Abs(condRegRawVal) > 100000)
+							{
+								DbgLog.Lim("ARMD.condRegRawLeak", "TBZ/TBNZ condition register resolved to raw constant " + first3 + " (mask=" + text5 + ", cmp=" + text2 + ") -- expected a tracked/symbolic value (e.g. a MoveNext() call result), not a raw immediate.", 200);
+							}
 						}
 						return true;
 					}
@@ -5423,6 +5438,14 @@ namespace ARMD
 						}
 						text = "if (" + text7 + " " + text6 + " 0)";
 						_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_0020_000A_000A_000A_000A = _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020.Create(first4, _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_0020_0020_000A_000A_0020.Create(0), text6);
+						// DIAGNOSTIC TRAP -- CBZ/CBNZ sibling of the TBZ/TBNZ trap above. Same
+						// content-based heuristic: a legitimate CBZ/CBNZ comparand is small
+						// (a pointer-null-check or small counter), so a huge raw constant here
+						// is the same "stale register value" family of bug.
+						if (long.TryParse(first4?.ToString(), out long condRegRawVal2) && Math.Abs(condRegRawVal2) > 100000)
+						{
+							DbgLog.Lim("ARMD.condRegRawLeak", "CBZ/CBNZ condition register resolved to raw constant " + first4 + " (cmp=" + text6 + ") -- expected a tracked/symbolic value (e.g. a MoveNext() call result), not a raw immediate.", 200);
+						}
 						return true;
 					}
 					num = 4;
@@ -6916,6 +6939,20 @@ namespace ARMD
 															}
 														}
 														num15 = 4;
+														// DIAGNOSTIC TRAP for the "Dispose() call resolves to an unrelated
+														// method" half of the foreach/IEnumerator corruption bug (see
+														// CameraOverlay.Update(): the enumerator's Dispose() call site
+														// instead emitted a DrivenRectTransformTracker.Add(...) call).
+														// Logs every call-target-address -> resolved-name mapping made
+														// in this function for the targeted method, so a human can see
+														// directly whether the address that should resolve to Dispose()
+														// instead collided with (or was overwritten by) the address for
+														// DrivenRectTransformTracker.Add in one of the lookup dictionaries
+														// above.
+														if (armdDbgTarget)
+														{
+															DbgLog.Lim("ARMD.callTargetResolved", "num24=0x" + num24.ToString("X") + " (" + num24 + ") -> text13=" + (text13 ?? "<null>") + " mnemonic=" + text3, 200);
+														}
 														if (text13 == null && !_0020_000A_000A_000A)
 														{
 															_0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_0020_0020_000A16 = _0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A(_0020_0020_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A_0020_0020_0020_0020);

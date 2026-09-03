@@ -20463,7 +20463,16 @@ namespace @as
 					text = _0020_000A_0020_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_0020_000A_000A._0020_000A_000A_0020_000A_000A_000A_0020_000A_000A_0020_0020_0020_0020_0020;
 				}
 			}
-			text = ((text ?? _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A) ?? "var");
+			// Bug fix (CS0818): when this is a bare declaration (IsDeclare) with no
+			// initializer (Src == null), "var" is illegal C# -- implicitly-typed
+			// locals must be initialized. Previously this always fell back to "var"
+			// whenever the type couldn't be resolved, producing invalid output like
+			// `var val_12;` (confirmed via the exported CameraOverlay.Update() body,
+			// 86 occurrences across 36 files). Only fall back to "var" when there IS
+			// an initializer on this same statement (Src != null), matching the
+			// "object" fallback already used elsewhere in this codebase (ARMD/-.cs)
+			// for other cases where the real type can't be resolved.
+			text = ((text ?? _0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A) ?? ((_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020 == null) ? "object" : "var"));
 			return (_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_000A_0020_0020 ? (_0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_0020_0020_000A._0020_000A_0020_0020_0020_000A_0020_0020_0020_0020_0020_000A_0020_000A_0020_0020(text) + " ") : null) + _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_000A + ((_0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020 == null) ? null : (" = " + _0020_000A_0020_0020_0020_0020_000A_000A_000A_0020_0020_000A_000A_0020_0020_0020?.ToString(_0020_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_000A_000A_0020_000A))) + ";";
 		}
 
@@ -23950,7 +23959,33 @@ namespace @as
 					{
 						text = text.Substring(0, num);
 					}
-					return text + "<" + string.Join(", ", _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020) + ">";
+					// text is this type's cached base name, e.g. "List.Enumerator" -- see DMP4/-.cs's
+					// per-type stub-writer (~line 10793, the "Root fix: never cache the placeholder-
+					// bearing declaration text..." recompute) which builds a NESTED type's canonical
+					// name by dot-joining "DeclaringTypeName" + "." + "OwnName" with no generic
+					// brackets at all -- a composition-safe base for an ordinary (non-nested) generic
+					// type, where appending the real arguments at the very end is correct: "List" +
+					// "<UnityEngine.Transform>" == "List<UnityEngine.Transform>".
+					//
+					// But when text contains a "." -- this type is nested inside another (e.g.
+					// "List.Enumerator" for the real List<T>.Enumerator) -- the arguments joined here
+					// are the DECLARING type's own generic parameters, inherited by the nested type
+					// (IL2CPP gives every type that touches an enclosing generic parameter its own
+					// genericContainerIndex, nested types included, which is how "Enumerator" ends up
+					// with a one-item placeholder list even though it declares no generics of its
+					// own). Those arguments belong on the DECLARING type, before the first "." --
+					// not tacked onto the very end after the nested type's own name. Appending at the
+					// end produced "List.Enumerator<UnityEngine.Transform>", which is not valid C#
+					// (Enumerator itself is not generic), instead of the correct
+					// "List<UnityEngine.Transform>.Enumerator". Confirmed by tracing: this is the only
+					// place that composes the cached base name with the real argument list, and it
+					// never distinguished a flattened nested-type base (dotted) from a plain one.
+					num = text.IndexOf('.');
+					if (num == -1)
+					{
+						return text + "<" + string.Join(", ", _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020) + ">";
+					}
+					return text.Substring(0, num) + "<" + string.Join(", ", _0020_000A_0020_0020_0020_000A_0020_0020_0020_000A_000A_0020_000A_000A_0020_0020) + ">" + text.Substring(num);
 				}
 				object _0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A = _0020_000A_000A_0020_000A_000A_0020_000A_0020_000A_000A_0020_000A_000A_0020;
 				if (_0020_000A_000A_0020_000A_000A_000A_0020_000A_0020_000A_000A_000A_000A_000A == null)
