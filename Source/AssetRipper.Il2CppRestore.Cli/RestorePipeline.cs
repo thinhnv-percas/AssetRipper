@@ -46,7 +46,16 @@ public sealed class RestorePipeline
 	/// registration structures, decodes metadata usages, builds the method address table, and (for
 	/// Arm64) learns runtime helper addresses. Everything <see cref="RenderType"/> needs afterwards.
 	/// </summary>
-	public static RestorePipeline Build(string metadataPath, string? binaryPath, string? structDbDirectory, string? unityVersion, TextWriter log)
+	/// <param name="registrationOverride">
+	/// The (CodeRegistration, MetadataRegistration) virtual addresses, when already known from
+	/// elsewhere — AssetRipper's own <c>Il2CppRestorePostExporter</c> passes the addresses Cpp2IL/LibCpp2IL
+	/// already found and verified while loading the same game, since that scan has real per-version field
+	/// layout handling this pipeline's own count-constrained <see cref="RegistrationSearch"/> does not (see
+	/// its own remarks): it is strictly more reliable whenever it is available. Only the standalone Cli,
+	/// which has no such already-initialized context to borrow from, falls back to
+	/// <see cref="RegistrationSearch"/> by leaving this null.
+	/// </param>
+	public static RestorePipeline Build(string metadataPath, string? binaryPath, string? structDbDirectory, string? unityVersion, TextWriter log, (ulong CodeRegistrationVa, ulong MetadataRegistrationVa)? registrationOverride = null)
 	{
 		Il2CppMetadata metadata;
 		using (FileStream metadataStream = File.OpenRead(metadataPath))
@@ -69,9 +78,18 @@ public sealed class RestorePipeline
 		log.WriteLine($"Sections/segments available to scan: {image.Sections.Count} ({string.Join(", ", image.Sections.Select(s => $"{s.Name}[{(s.Executable ? "x" : "-")}]:0x{s.Size:X}"))})");
 		log.WriteLine($"Expected counts from metadata: images={metadata.Images.Length}, typeDefinitions={metadata.TypeDefs.Length}");
 
-		void ScanLog(string message) => log.WriteLine($"  {message}");
-		ulong codeRegVa = RegistrationSearch.FindCodeRegistration(image, metadata.Images.Length, ScanLog);
-		ulong metadataRegVa = RegistrationSearch.FindMetadataRegistration(image, metadata.TypeDefs.Length, ScanLog);
+		ulong codeRegVa, metadataRegVa;
+		if (registrationOverride is { } given)
+		{
+			(codeRegVa, metadataRegVa) = given;
+			log.WriteLine($"Using CodeRegistration/MetadataRegistration addresses already resolved by Cpp2IL: 0x{codeRegVa:X} / 0x{metadataRegVa:X}");
+		}
+		else
+		{
+			void ScanLog(string message) => log.WriteLine($"  {message}");
+			codeRegVa = RegistrationSearch.FindCodeRegistration(image, metadata.Images.Length, ScanLog);
+			metadataRegVa = RegistrationSearch.FindMetadataRegistration(image, metadata.TypeDefs.Length, ScanLog);
+		}
 		if (codeRegVa == 0 || metadataRegVa == 0)
 		{
 			log.WriteLine("Could not locate Il2CppCodeRegistration/Il2CppMetadataRegistration in this binary. Falling back to fields-only output.");

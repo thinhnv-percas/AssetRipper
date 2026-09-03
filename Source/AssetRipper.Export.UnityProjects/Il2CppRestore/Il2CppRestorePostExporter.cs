@@ -5,6 +5,7 @@ using AssetRipper.Import.Configuration;
 using AssetRipper.Import.Logging;
 using AssetRipper.Import.Structure.Assembly.Managers;
 using AssetRipper.Processing;
+using Cpp2IlApi = Cpp2IL.Core.Cpp2IlApi;
 
 namespace AssetRipper.Export.UnityProjects.Il2CppRestore;
 
@@ -61,10 +62,12 @@ public sealed class Il2CppRestorePostExporter : IPostExporter
 
 		Logger.Info(LogCategory.Export, "IL2Cpp restore: disassembling and lifting native methods...");
 
+		(ulong, ulong)? registrationOverride = TryGetRegistrationFromCpp2Il();
+
 		RestorePipeline pipeline;
 		try
 		{
-			pipeline = RestorePipeline.Build(metadataPath, binaryPath, structDbDirectory, il2Cpp.UnityVersion.ToString(), new LoggerTextWriter());
+			pipeline = RestorePipeline.Build(metadataPath, binaryPath, structDbDirectory, il2Cpp.UnityVersion.ToString(), new LoggerTextWriter(), registrationOverride);
 		}
 		catch (Exception exception)
 		{
@@ -110,6 +113,40 @@ public sealed class Il2CppRestorePostExporter : IPostExporter
 		}
 
 		Logger.Info(LogCategory.Export, $"IL2Cpp restore: {overwritten} script(s) overwritten with lifted bodies, {missing} type(s) had no matching exported file.");
+	}
+
+	/// <summary>
+	/// AssetRipper already runs Cpp2IL/LibCpp2IL over this exact binary for every IL2Cpp game (guide's own
+	/// registration-search constants were written against a modern Unity's struct layout and have since
+	/// been shown wrong for older ones - see RegistrationSearch's own remarks) - LibCpp2IL's own
+	/// <c>Il2CppBinary.FindCodeAndMetadataReg</c> has real per-metadata-version field handling this
+	/// pipeline's from-scratch scan does not, and it already ran (and logged its own result) as part of
+	/// loading the game, so reusing it here is strictly safer than re-deriving the same two addresses with
+	/// a less version-aware method.
+	/// </summary>
+	private static (ulong, ulong)? TryGetRegistrationFromCpp2Il()
+	{
+		try
+		{
+			var context = Cpp2IlApi.CurrentAppContext;
+			if (context?.Binary is null || context.Metadata is null)
+			{
+				return null;
+			}
+
+			(ulong codeRegVa, ulong metadataRegVa) = context.Binary.FindCodeAndMetadataReg(context.Metadata);
+			if (codeRegVa == 0 || metadataRegVa == 0)
+			{
+				return null;
+			}
+
+			return (codeRegVa, metadataRegVa);
+		}
+		catch (Exception exception)
+		{
+			Logger.Warning(LogCategory.Export, $"IL2Cpp restore: could not reuse Cpp2IL's registration lookup ({exception.Message}); falling back to an independent scan.");
+			return null;
+		}
 	}
 
 	/// <summary>
