@@ -46,7 +46,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// </summary>
 	/// <remarks>
 	/// A body needing many is one where the generator went wrong in more than the one way this repairs,
-	/// and the rounds are not free, so the loop stops rather than grinding.
+	/// and the rounds are not free, so the loop stops rather than grinding. Raising this to 64 was tried
+	/// and changed nothing: the same 18 bodies gave up, having accumulated 64 pops instead of 16. They
+	/// do not converge because their imbalance is a branch join that merely surfaces at the return, so
+	/// popping there can never settle it, and the extra rounds are pure cost.
 	/// </remarks>
 	private const int MaximumStackRepairs = 16;
 
