@@ -1,0 +1,1648 @@
+/// Wait... Image compression... This may take a few minutes
+67F2EC47|Esperar... compressió d'Imatge... Això poden trigar uns minuts
+/// Wait... Parse assembly 
+676EEA33|Esperar... Analitzar assemblea 
+/// Parse - ok
+8FD05778|Analitzar - ok
+/// Error on Parse assembly 
+783216DC|Error en Analitzar assemblea 
+///  No Internet connection!!!
+A4472FF8| No hi ha connexió a Internet!!!
+///  No Internet connection!!! 
+BC0C3AEE| No hi ha connexió a Internet!!! 
+///                                        Exit new version\n
+65C60228|Sortida de la nova versió\n
+/// Waiting...  open unity GameDir..
+4882047|Esperant... obrir la unitat GameDir..
+/// Open unity GameDir - end
+76D2CE09|Oberta la unitat GameDir - final
+///                                        (binary shader)
+9D41F04E|(binari shader)
+///                                        ......\nShader trancated for DEMO VERSION, Real len: 
+ECA96CA1|......\nShader truncated per a la VERSIÓ de DEMOSTRACIÓ, Real len: 
+/// // Not found assembly: 
+4D34EB5B|// No s'ha trobat assemblea: 
+/// \n// This project used IL2CPP, assembly converted to native code.
+7981C3BD|\n// Aquest projecte utilitza IL2CPP, assemblea converteix a codi natiu.
+/// //Not found assembly: 
+C7E2652|//No s'ha trobat assemblea: 
+/// Save text
+4EC4922D|Desa el text
+/// test
+EAE38E77|prova
+/// OK
+CE0FB7E1|D'ACORD
+///                                        Script decimpilation options
+391D7F38|Guió decimpilation opcions
+///                                        Script decompilation
+FCB4E352|Guió descompilació
+/// Disable decompilation
+120E3FB8|Desactivar descompilació
+///                                   JDecompiler
+8AFC8F39|JDecompiler
+///                                        Standart decompiler
+EEA3A483|Standard decompiler
+/// Scene params
+2A11D566|Escena params
+/// Make direct MeshAsset (else Mesh by .obj file)
+E3E1083F|Fer directes MeshAsset (més de Malla .obj fitxer)
+/// Make all GameObjects as Active (override)
+33C19C13|Fer tots els GameObjects com Activa (override)
+/// C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+EAAC6917|C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+/// C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+F9D86526|C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+/// zipalign.exe
+2C5C77ED|zipalign.exe
+/// Keystore 
+FFDFA781|Magatzem de claus 
+/// Without signature (apk without signature - can not be installed on the device)
+BA63D79B|Sense signatura (apk sense signatura - no pot ser instal · lat al dispositiu)
+/// Store password
+B0EF04E6|Contrasenya del magatzem de
+/// NDName
+3B82BA7F|NDName
+/// Key password
+F15325AD|Clau contrasenya
+/// Key alias
+B2682AD4|Clau àlies
+/// Keystore file
+101C8A80|Fitxer Keystore
+/// Select custom key
+C52368B|Seleccioneu la clau personalitzat
+/// Create temp key
+276F9AC4|Crear temp clau
+/// Paths
+18D1C1FD|Camins
+/// JDK installer link
+293D5432|JDK instal·lador enllaç
+/// zipalign path
+20BAED5F|zipalign camí
+/// jarsigner path
+7119B2A9|jarsigner camí
+/// keytool path
+9A043CA4|keytool camí
+/// Make apk
+87B277BA|Fer apk
+///                                        APKSignDialog - required JDK
+5168C80F|APKSignDialog obligatori JDK
+///                                                Ver 
+2FD97207| Ver 
+///  (Internal!)
+3D13DA7E| (Interna!)
+///  (runtime 
+14A073C4| (temps d'execució 
+///                                        The version is obsolete and you need to install a new version.
+D9E34DAA|La versió que està obsolet i cal instal·lar una nova versió.
+///                                        Waiting... Check internet connection.. http://devxdevelopment.com...
+59AA61CC|Esperant... Fes connexió a internet.. http://devxdevelopment.com...
+///  DEMO-CONSOLE!
+304FB581| DEMO DE LA CONSOLA!
+/// Is Demo Version
+6A0B8062|És La Versió De Demostració
+/// Project protected by
+4F70EAA5|Projecte protegits per
+/// Width: 
+BF6DE30B|Amplada: 
+/// , Height: 
+C4DBC9EF| Alçada: 
+/// , Format: 
+72807AF3| Format: 
+/// , MipMapCount: 
+681748FF|, MipMapCount: 
+/// \nStrings count: 
+49BC9CCF|\nCadenes de comte: 
+///                                        License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated,\nThe image will be partially grounded on black squares!
+612FA8EE|Llicència per 'Unpacker eines' o 'RePacker Eines' o 'Unpacker Estudi' no està activat,\nLa imatge serà parcialment basada en negre places!
+///                                        License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated
+35889687|Llicència per 'Unpacker eines' o 'RePacker Eines' o 'Unpacker Estudi' no està activat
+/// Wait... Extract audio..
+77F9CD7A|Esperar... Extreure àudio..
+/// Unsupported format
+2D5ED39F|No compatible format
+/// Exported to 
+5F0013FA|Exportar a 
+///                                    License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated!
+2D8D9687|Llicència per 'Unpacker eines' o 'RePacker Eines' o 'Unpacker Estudi' no activa!
+/// The file extension must match
+FCB08D72|L'extensió del fitxer ha de coincidir amb
+///                                       License for  'Unpacker Studio' not activated!
+C668CFD6|Llicència per 'Unpacker Estudi' no activa!
+/// Dont select GameObject!
+82955BC5|No seleccioneu GameObject!
+/// Dont select MeshAsset
+68C81170|No seleccioneu MeshAsset
+///                                        License not activated!
+97ABCBA2|Llicència no està activat!
+///                                        Dont select GameObject or level!
+64471DF8|No seleccioneu GameObject o nivell!
+/// UI Language: 
+454E6D74|La INTERFÍCIE d'usuari de la Llengua: 
+/// Metadata
+B20B46F5|Metadades
+/// Interesting..
+186DAFB|Interessant..
+/// Drag the game here and I'll show what's inside)
+6261EC56|Arrossegueu el joc aquí i vaig a mostrar què hi ha a dins)
+/// toolStripMain
+F4275D09|toolStripMain
+/// By name:
+84A32E32|Nom:
+/// Rows limit:
+B8BBD254|Files límit:
+///                                        Select By ID:
+E8FFDFAF|Seleccioneu ID:
+/// toolStrip3
+E795FA33|toolStrip3
+/// Common
+17CFD8E7|Comú
+/// Text/Script
+9E201F6A|Text/Script
+/// To protect against viewing resources, you can use the text encryption option in the obfuscator DevXUnity-ObfuscatorPro
+C3B86430|Per a protegir contra la visualització de recursos, podeu fer servir el text xifrat opció en el obfuscator DevXUnity-ObfuscatorPro
+/// Information:
+1ED72F4B|Informació:
+/// w,h,format
+330840A0|w,h,format
+/// To protect against viewing resources, you can use the image encryption option in the obfuscator DevXUnity-ObfuscatorPro\r\n
+AA0547A7|Per a protegir contra la visualització de recursos, es pot utilitzar la imatge de xifrat opció en el obfuscator DevXUnity-ObfuscatorPro \n
+///                                        Fon:
+80CD912E|Background:
+/// 3DView
+815D0B84|3DView
+/// 3DScene
+FC75575A|3DScene
+/// Hex RAW
+C5C117C1|Malefici CRU
+/// Position
+FD95CA52|Posició
+/// Line:
+60434EC8|Línia:
+/// Col:
+3B7EA7FB|Coll:
+/// Font test
+5BD15A12|Fer la prova
+/// Asset header edit
+C9529C11|Actiu capçalera edita
+/// Value
+D03C6679|Valor
+/// Name
+3BD1C9B|Nom
+/// Type
+C15430C6|Tipus
+///                                        Lenght (bytes)
+FE4868C0|Llargada (bytes)
+/// Assembly code strings
+4C18336D|Assemblea codi cadenes
+/// Method
+18B1C08E|Mètode
+/// Destanation method
+CA64270|Destanation mètode
+/// Value Filter:
+5F768801|Valor De Filtre:
+/// Method name filter:
+C6CB611E|Nom del mètode filtre:
+/// Errors
+621D673|Errors
+/// Errors:
+89FABD5F|Errors:
+/// Products
+4A7FD86A|Productes
+/// It is a tool for gaining new knowledge\r\nOpens the way to new opportunities
+454CCD00|És una eina per a la captació de nous coneixements \nS'obre el camí a noves oportunitats
+/// DevXUnity-Unpacker Magic Studio
+6B32D8F7|DevXUnity-Unpacker Màgia Estudi
+/// DevXUnity-RePackerTools
+6C2DFEF5|DevXUnity-RePackerTools
+/// DevXUnity-UnpackerTools
+86FE2CB4|DevXUnity-UnpackerTools
+/// UnpackerTools - license:\n- View all resources\n- View Script source code (decompile to C#, only view)\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\n
+1AEE8769|UnpackerTools - llicència:\n- La vista de tots els recursos\n- Vista Guió codi font (descompilar a C#, només de veure)\n- Exportació de recursos: els sons (com WAV), imatges (com PNG, DDS), mesh (.obj), text, tipus de lletra\n
+/// Support
+A8ABCCA2|Suport
+/// Implementation..
+5247A0E3|Implementació..
+/// Support formats:
+6799EC0E|Suport formats:
+/// APK (apk, obb, xapk)
+2550695|APK (apk, obb, xapk)
+/// Bundles (.unity3d and other)
+8D3C4B5D|Lligalls (.unity3d i altres)
+///                                        Stabdelone (WIN, MAC, LINUX)
+FB60580D|Standalone (WIN, MAC, LINUX)
+///                                        iOS distributive (.ipa)
+8FB82096|iOS distributiva (.ipa)
+/// Asset files
+E125F64C|Actiu fitxers
+/// Export:
+10D3DAFD|Exportació:
+/// Export Texture2D (png, pvr, dds)
+C92A6C39|Exportació Texture2D (png, pvr, dds)
+/// Export Sprites (png)
+D0AF9C82|Exportació Sprites (png)
+/// Export AudioClip (Sounds to .wav)
+ED6D8610|Exportació AudioClip (Sons .wav)
+/// Export Mesh (OBJ with sub-mesh, FBX)
+5E55F0D5|Exportació de Malla (OBJ amb sub-malla, FBX)
+/// Export Scene elements (to FBX, Prefab)
+271564|Exportar elements de l'Escena (per FBX, Prefab)
+/// Export Video (avi, mp4,..)
+30E504CE|Exportació de Vídeo (avi, mp4,..)
+/// Export Text assets
+73023AC|Exportació de Text actius
+/// Export Fonts
+B566829D|Exportació De Tipus De Lletra
+/// Export Shader (for text shader mode)
+FE03C056|Exportació Shader (per al text shader mode)
+/// Export/Create Prefab
+C7D86831|Exportació/Crear Prefabricada
+/// Export Terrain Height-Map
+5FDE59E4|Exportació Terreny Alçada Mapa
+/// Replace resources for assets:
+92CE21B2|Substituir els recursos per a actius:
+/// Edit Text
+153A07F6|Edició De Text
+/// Edit Header Values
+6C4F95C0|Edita La Capçalera De Valors
+/// Replace Images (with encoding)
+B1C89874|Substituir les Imatges (amb codificació)
+/// Binary replace for any resources
+9E0953D9|Binaris substituir per qualsevol recursos
+/// Generate Unity Project:
+895E5C94|Generar La Unitat Del Projecte:
+/// Make APK (with signature)
+1F806B85|Fer APK (signatura)
+/// Generate Scripts (C#) 
+10E73E5E|Generar Scripts (C#) 
+/// Generate Scenes (.unity Levels)
+F285DD5B|Generar Escenes (.unitat Nivells)
+/// Generate Prefab (.prefab)
+A0EB3B42|Generar Prefabricada (.prefabricada)
+/// Generate Unitypackage (.unitypackage)
+CDBEEABB|Generar Unitypackage (.unitypackage)
+/// Generate animated model (to .unitypackage)
+51C70D81|Generar animació model (a .unitypackage)
+/// GameObject Transform RectTransform  \r\nMonoBehavior Renderer MeshRenderer \r\nMeshFilter MeshCollider Canvas \r\nCameraAsset AudioListener AudioSources \r\nColliders Animator and other
+A687CC7B|GameObject Transformar RectTransform \nMonoBehavior Renderitzador MeshRenderer \nMeshFilter MeshCollider Tela \nCameraAsset AudioListener AudioSources \nColliders Animador i altres
+/// Generate Materials
+E4D924E4|Generar Materials
+/// Generate Texture2D
+DB04E9E7|Generar Texture2D
+/// Generate Sprite
+BBC14F43|Generar Sprite
+/// Generate AnimationClip\r\n
+401C619C|Generar AnimationClip \n
+/// Generate Humanoid Animations
+5CAEA085|Generar Animacions Humanoides
+/// Generate AnimationController
+7333871E|Generar AnimationController
+/// Generate Mesh Asset
+6A08CA37|Generar Malla Actiu
+/// Generate AudioClip Asset
+A96CE37E|Generar AudioClip Actiu
+/// Generate PhysicMaterial Asset
+A1992D64|Generar PhysicMaterial Actiu
+/// Generate PhysicsMaterial2D Asset
+2F9B7BDF|Generar PhysicsMaterial2D Actiu
+/// Generate Prefabs
+88C6C19D|Generar Prefabs
+/// Generate Font
+C879083F|Generar Font
+/// Generate VideoClip
+23418CF9|Generar VideoClip
+/// Generate Text Assets
+60C3C9B2|Generar Text Actius
+/// Generate RenderTexture
+D3E14E1E|Generar RenderTexture
+/// Generate ScriptableObject
+6EC596F4|Generar ScriptableObject
+/// Generate GUISkin
+BF43C65C|Generar GUISkin
+/// Version Info
+E8412D7B|Versió Info
+/// Inspector
+8EC4DE12|Inspector
+/// PropertyGridToolBar
+84B78E19|PropertyGridToolBar
+/// Layer:
+788BDC9|Capa:
+/// Tag:
+38AEAAB3|Dia:
+/// Save class metadata
+BD211979|Estalviar classe de metadades
+/// Save packed version metadata
+493E5DB5|Estalviar dinar versió de metadades
+/// Save metadata from packed
+683E353A|Desar les metadades de dinar
+/// Join and save all assets metadata
+9C362A73|Unir-se i guardar tots els actius de metadades
+/// Load custom metadatas
+B788894D|Càrrega personalitzada metadatas
+/// Export as Unitypackage
+CCC044AA|Exporta com a Unitypackage
+/// Export as Prefab
+8E1C48B9|Exporta com a Prefabricada
+/// Export model as FBX
+EC5ADA02|Exportació del model com FBX
+/// Open
+E8CCC172|Obert
+///                                        Open mode:
+86340C3C|Obert mode:
+/// Open Unity3D game directory
+55607B33|Obert Unity3D directori del joc
+/// Open as APK, OBB, XAPK file (android)
+874EFF8D|Obre com a APK, OBB, XAPK arxiu (android)
+/// Open as IPA file (iOS)
+1C183D79|Obert com IPA arxiu (iOS)
+/// Open as Bundle (WebPlayer) file
+10E210E5|Obre com a Lligall (WebPlayer) fitxer
+/// Open as Asset file
+CDE707F8|Obert, com a Actiu fitxer
+/// Open as binary
+3B58AB5A|Obre com a binari
+/// Open DDS Texture
+670B26E1|Obert DDS Textura
+/// Clear
+87DB2|Clar
+/// Proxy Settings
+238432FB|La Configuració Del Servidor Intermediari
+///                                        ALL
+58A5149D|TOT
+/// Images
+311CACDF|Imatges
+/// Sounds
+772A35E8|Sons
+/// Script files
+9BCF0A3F|Guió de fitxers
+/// Animation Clip
+EA554C3|Clip D'Animació
+///                                        All assets
+91A14438|Tots els actius
+/// Group resources
+117086B5|Grup de recursos
+///                                   Show classic wait mode
+324D865C|Mostra clàssic mode d'espera
+///                                        toolStripButton1
+9D2A7523|toolStripButton1
+/// Export resources to directory (png, wav, avi, obj...)
+3CCC221F|Exportació de recursos al directori (png, wav, avi, obj...)
+/// Generate Unity Project (from any to Unity 2017, 5.6)
+DEB01D86|Generar la Unitat del Projecte (des de qualsevol d'Unitat 2017, 5.6)
+/// Generate Project Scripts
+CD938811|Generar Projectes De Guions
+/// Export All Prefabs
+5CE1E87B|Exportar Tots Prefabs
+///                                        Make APK (with signing, for install on device)
+FF2E2E6C|Fer APK (amb la signatura, per instal·lar en el dispositiu)
+/// Save as Text
+E9941DE0|Guardar com a Text
+/// Replace text
+556F5284|Reemplaçar text
+/// Edit and replace text
+C9B78102|Editar i reemplaçar text
+/// Save as PNG
+640C3205|Desa com a PNG
+/// Save as DDS/PVR
+AEE192BE|Desa com a DDS/PVR
+/// Replace image
+EFD46E44|Substituir la imatge
+/// Chessboard
+C8DCF0B7|Escacs
+/// White
+74D407C9|Blanca
+/// Black
+5EA0AB2E|Negre
+/// Export as OBJ
+C96FB87E|Exporta com a OBJ
+/// Export as FBX
+56DB8833|Exporta com a FBX
+/// Export as Asset
+D9E066FF|Exporta com a Actiu
+/// Reset camera
+A658D7B5|Restabliment de la càmera
+///                                               Make 3D for selection
+5ED161EC|Fer 3D per a la selecció
+///                                               Make 3D (without materials)
+F3F1562B|Fer 3D (sense materials)
+///                                               Break process
+EF8EC7A2|Trencar procés
+/// Go
+CDEBB7D9|Anar
+/// Find
+31D1912E|Trobar
+/// Save selection
+504C0A1B|Desa la selecció
+/// Save to HEX dump
+B053182|Guardar a bolcat HEXADECIMAL
+/// Edit selected
+63A72C9|Edita seleccionat
+/// Save assembly
+3614E1B1|Estalviar assemblea
+///                                        Save RAW pre asset
+5504C5D0|Estalviar matèries primeres pre actiu
+///                                        Save content
+5B7589EA|Desar contingut
+///                                        Save as (WAV, mp3,..)
+529E2CAB|Desar com (WAV, mp3,..)
+/// Play sound
+6F3BD173|Jugar so
+///                                        Save sub content
+F8C47071|Estalviar sub-contingut
+///                                        Replace sub content in asset
+2EF8C2EC|Substituir sub-contingut en actiu
+/// UI Language
+808CCA97|Idioma de la INTERFÍCIE d'usuari
+/// Video lessons
+7F742002|Vídeo lliçons
+/// Buy and support a project
+9CE8EF48|Comprar i donar suport a un projecte
+/// License (registration)
+D302020A|Llicència (inscripció)
+/// Updates\r\nOpen download web site
+192B54E9|Actualitzacions \nObert de descàrrega del lloc web
+/// DevXUnity-Unpacker Magic Tools
+411E8062|DevXUnity-Unpacker Eines Màgiques
+/// There is no connection to devxdevelopment.com\nFor the correct operation of the program - you need a network connection.
+9AD93C02|No hi ha cap connexió a devxdevelopment.com\nPer al correcte funcionament del programa - que necessita una connexió de xarxa.
+/// Connection - ok
+31FBE153|Connexió - ok
+/// error
+5AED193|error
+/// License for 'Unpacker Studio' not activated!
+48235494|Llicència per 'Unpacker Estudi' no activa!
+/// Play.. 
+2A8CF32F|Jugar.. 
+/// License for 'RePacker Tools' or 'Unpacker Studio' not activated!
+AD524422|Llicència per 'RePacker Eines' o 'Unpacker Estudi' no activa!
+///                                        License for 'RePacker Tools' or 'Unpacker Studio' not activated\nThe image will be partially grounded on black squares
+D866935E|Llicència per 'RePacker Eines' o 'Unpacker Estudi' no està activat\nLa imatge serà parcialment basada en negre places
+/// License - not valid!
+C0FCE739|La llicència no és vàlid!
+/// License - valid.
+20200A26|La llicència vàlida.
+/// Activation - ok
+8E8D7F8A|Activació - ok
+/// Not activated!
+F62685F2|No està activat!
+/// License activation - ok
+BCD279FB|Llicència d'activació - ok
+/// License key:
+5A5C9760|La clau de llicència:
+/// License State
+7E90661A|Llicència Estat
+/// License Number
+7F76DDFF|Número De Llicència
+/// To activate license..
+E66D4787|Per activar la llicència..
+/// To open buy page
+2FB642D5|Per obrir comprar de la pàgina
+/// License Information
+122A693A|Informació Sobre La Llicència
+///                                        Waiting.. open 
+352854BF|Esperant.. obert 
+/// Waiting.. 
+1AAA4AE1|Esperant.. 
+/// % 
+CDAAB77B|% 
+/// parsing
+FF4D2980|anàlisi
+/// Waiting..
+1ACA4AE1|Esperant..
+/// Waiting.. Recreate all assets..
+F6525294|Esperant.. Recrear tots els actius..
+/// Waiting.. Update all..
+5472E972|Esperant.. Actualització de tots..
+/// Ok
+CDEFB7E1|D'acord
+/// Waiting.. parsing content...
+594B5358|Esperant.. l'anàlisi de contingut...
+/// Waiting.. make tree...
+2B9B294E|Esperant.. fer l'arbre...
+/// Waiting.. Resource manager.. Resources path update, items: 
+4E8E089D|Esperant.. gestor de Recursos.. Recursos ruta d'actualització, d'elements: 
+/// Waiting.. make tree - end
+C60B13FD|Esperant.. arbre fer - final
+/// Waiting.. Import Asset: 
+9914F0E|Esperant.. Importació D'Actius: 
+/// Waiting.. Import Asset:
+76314F0E|Esperant.. Importació D'Actius:
+///  - read structure..
+183D2F98| - llegir estructura..
+///                                        - read structure - no
+E9E711F3| - llegir estructura - no
+///  - init objects ..
+312589DC| - init objectes ..
+/// Open OK, Items count: 
+AB925A89|Obriu BÉ, els Elements de comte: 
+/// Error
+5AED673|Error
+/// Error:
+5D8D673|Error:
+/// Make asset
+AF344CBD|Fer actiu
+/// Waiting.. make tree structure.. for 
+DC39D535|Esperant.. fer estructura en arbre per.. 
+/// Waiting.. make tree structure - ok
+24501B89|Esperant.. fer estructura d'arbre - ok
+/// Waiting... open bundle: 
+76CA22F1|Esperant... obrir el paquet: 
+/// Export to:
+4F02B678|Exportació a:
+/// read end
+9FB1A365|llegir final
+/// APK:
+4417A002|MOT:
+/// Waiting.. Open apk begin...
+535EE5DE|Esperant.. Obert apk començar...
+/// Waiting.. Open IPA begin...
+EDD4194A|Esperant.. Obert IPA començar...
+/// Waiting.. Open Unitypackage begin...
+2C9F6E00|Esperant.. Obert Unitypackage començar...
+/// Wait... make apk 
+214685F7|Esperar... fer apk 
+/// Error on create APK: 
+A900A8D|Error en crear APK: 
+/// Make apk - ok
+23D17C38|Fer apk - ok
+/// Waiting.. Parsing item: 
+3DFC8A9F|Esperant.. Anàlisi de comanda: 
+/// Waiting.. Parsing script: 
+570BFFCF|Esperant.. Anàlisi de guió: 
+///  - Sometimes the primary decompilation can take several minutes (depends on the size of the assembly)..
+6475DF5C| - De vegades, la principal descompilació pot trigar diversos minuts (depèn de la mida de l'assemblea)..
+/// Waiting.. Parsing asset item: 
+D08181D|Esperant.. Anàlisi d'actius article: 
+/// Export make asset:
+F0F2A2E7|Exportació de fer actiu:
+/// Export asset:
+9878BDA0|Exportació actiu:
+/// Export error: 
+574C4B4D|Exportació d'error: 
+/// Export ok, count: 
+F9C1452A|Exportació d'acord, count: 
+///                                        Waiting.. MakeUnityProject..
+BBD46DFD|Esperant.. MakeUnityProject..
+///                                        Waiting.. MakeUnityProject.. 
+D2D4DD55|Esperant.. MakeUnityProject.. 
+///  export asset: 
+FB976152| exportació actiu: 
+///                                        Waiting.. Make Unity Project.. 
+EAF907C9|Esperant.. Fer La Unitat Del Projecte.. 
+/// MakeUnityProject - ok
+98C91534|MakeUnityProject - ok
+///                                        Waiting.. MakePrefabs..
+B2FD7227|Esperant.. MakePrefabs..
+///                                        Waiting.. MakePrefabs.. 
+1F9D7227|Esperant.. MakePrefabs.. 
+/// MakePrefabs - ok
+7415C18D|MakePrefabs - ok
+///  make asset: 
+24A9DD5| fer actiu: 
+///  make parfab asset: 
+35698EAC| fer parfab actiu: 
+///                                        Waiting.. Generate Scripts..
+4A5FDDF2|Esperant.. Generar Scripts..
+///                                        Waiting.. Generate scripts.. 
+D8442619|Esperant.. Generar scripts.. 
+/// Generate Scripts - ok
+C764262B|Generar Scripts - ok
+/// Proxy connection
+B3B7CD64|Connexió Proxy
+/// Proxy address:
+10161BED|Direcció del Proxy:
+/// port:
+158D4A0|port:
+/// User:
+2C1C7F9C|Usuari:
+/// Password:
+D086BA55|Contrasenya:
+/// Cancel
+76594D8C|Cancel·la
+/// Proxy Authentication
+42142F52|Autenticació De Proxy
+/// Proxy settings
+13DCA69B|La configuració del servidor intermediari
+/// Make temp key...
+69446BC7|Fer temp clau...
+/// Export as ".Unitypackage"
+2062516|Exporta com a ".Unitypackage"
+/// Export model as ".FBX"
+E72DC67C|Exportació de model ".FBX"
+/// Export as ".Prefab"
+2F8CE20D|Exporta com a ".Prefabricada"
+/// Making 3D scene
+E5F5704E|Fent escena 3D
+/// Making 3D scene (without materials)
+47368B19|Fent escena 3D (sense materials)
+/// Stop of process
+E97FBB80|Parada de procés
+/// Clear scene
+D5FE0A41|Clar escena
+/// Reset of camera
+DE92FEBE|Restabliment de la càmera
+/// Optimize Metadata for file
+B533CB05|Optimitzar Metadades per a l'arxiu
+///                                        Generate Scripts for IL2CPP (C#) 
+F59BA396|Generar Scripts per IL2CPP (C#) 
+/// EditText
+A86F74B8|EditText
+/// AnonymousMethods
+887C750E|AnonymousMethods
+/// YieldReturn
+1493CEDC|YieldReturn
+/// SwitchStatementOnString
+35EF1F72|SwitchStatementOnString
+/// AutomaticEvents
+32608958|AutomaticEvents
+/// AutomaticProperties
+5C51074C|AutomaticProperties
+/// ExpressionTrees
+FEBFDC9F|ExpressionTrees
+/// FullyQualifyAmbiguousTypeNames
+6379F9F6|FullyQualifyAmbiguousTypeNames
+/// MakeAssignmentExpressions
+77F2689E|MakeAssignmentExpressions
+/// ObjectOrCollectionInitializers
+58BF2214|ObjectOrCollectionInitializers
+/// QueryExpressions
+8D02C30E|QueryExpressions
+/// UsingDeclarations
+839DD608|UsingDeclarations
+/// CompillerTypeGenerated_Clear
+22FE82C1|CompillerTypeGenerated_Clear
+/// ScriptGenerateOptions
+4FB9B3F8|ScriptGenerateOptions
+///                                         Ver 4.11
+CC98BD88| Ver 4.11
+/// Filter
+5CDB63A9|Filtre
+/// Text
+EDB18BEE|Text
+/// Mesh
+BD4F8E8E|Malla
+/// Script
+47AFD823|Guió
+/// toolStrip5
+E797FA33|toolStrip5
+/// Image
+30EBACDF|Imatge
+/// toolStrip7
+E799FA33|toolStrip7
+/// toolStrip4
+E798FA33|toolStrip4
+/// toolStrip10
+E80B1424|toolStrip10
+/// toolStrip9
+E78BFA33|toolStrip9
+/// toolStrip2
+E796FA33|toolStrip2
+/// statusStrip1
+C1235660|statusStrip1
+/// Font
+E81B912E|Fer
+/// toolStrip8
+E78CFA33|toolStrip8
+/// toolStrip6
+E79AFA33|toolStrip6
+/// Info
+13613|Info
+/// toolStrip1
+E793FA33|toolStrip1
+///                                        Full parsing assets on load (slow..)
+46418AE1|Completa l'anàlisi dels actius de càrrega lenta..)
+///                                        Fast load (with out pre-parsing asset on load)
+BBE06D23|Ràpids de càrrega (amb pre-processament actiu de la càrrega)
+///                                        Scrips load only
+BADCFA5A|Scrips només de càrrega
+/// Decompile libil2cpp.so (IL2CPP) to C# code
+EB80C700|Descompilar libil2cpp.Sé (IL2CPP) a C# codi
+/// .split0
+277313E7|.split0
+/// UnpackerTools - license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts
+47B02D9A|UnpackerTools - llicència: \n- La vista de tots els recursos \n- Vista Guió codi font (descompilar a C#, només de veure) \n- Exportació de recursos: els sons (com WAV), imatges (com PNG, DDS), mesh (.obj), text, tipus de lletra
+/// RePackerTools license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)
+5A68B2D9|RePackerTools llicència: \n- La vista de tots els recursos \n- Vista Guió codi font (descompilar a C#, només de veure) \n- Exportació de recursos: els sons (com WAV), imatges (com PNG, DDS), mesh (.obj), text, tipus de lletra \n- Substituir actius contingut de joc (substituir Imatges, sons, text, editar actiu parametrs)
+///                                        Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshs, Text, Fonts, Material, Animations, Models and etc.)
+9D0D47AC|Unpacker Màgia Estudi llicència: \n- La vista de tots els recursos \n- Vista Completa Guió codi font (descompilar a C#, permeten desa script) \n- Exportació de recursos: els sons (com WAV), imatges (com PNG, DDS, PVR), mesh (.obj, .actiu), text, tipus de lletra, Scrips (C#) \n, Animacions, Avatar \n- Exportar models a Unitypackeg (Model, Animacions, Recursos) \n- Substituir actius contingut de joc (substituir Imatges, sons, text, editar actiu parametrs) \n- Generar Unity3D projecte de joc \n(Escenes, Seqüències, Imatges, Sons, Meshs, Text, tipus de Lletra, Material, Animacions, Maquetes, etc.)
+/// Waiting... open webGL: 
+B67182FE|Esperant... obert en webgl: 
+/// Enter text
+E46D9380|Introduïu text
+///                                         Ver 4.12
+CC98BD87| Ver 4.12
+/// Open as Unity WebGL file (.unityweb)
+65DA45EF|Obre com a Unitat en webgl arxiu (.unityweb)
+/// Open as Unity WebGL Game by URL
+98E0C71D|Obre com a Unitat en webgl Joc per URL
+/// WebGL (.unityweb)
+5BF6015A|En webgl (.unityweb)
+///                                         Ver 4.13
+CC98BD86| Ver 4.13
+///                                        Debug console view
+C41A6653|Depuració de la consola de vista
+///                                         Ver 4.14
+CC98BD8D| Ver 4.14
+///                                         Ver 4.15
+CC98BD8C| Ver 4.15
+///                                        Saving is possible 1 time in 5 minutes
+49A7281C|L'estalvi és possible 1 hora 5 minuts
+/// Save as txt
+3158F06C|Desa com a txt
+/// Save as RTF
+C17EBD68|Desa com a RTF
+/// Debug log form
+57E1EC0F|Depuració formulari de registre
+/// Asset settings
+3E64DDA1|Actiu configuració
+/// Bundle auto extract
+12F151A6|Lligall auto extreure
+///                                        Script settings
+D4BA54B8|Script de configuració
+/// IL2CPP Restore Scripts Structure
+814EE7D0|IL2CPP Restaurar Scripts Estructura
+/// IL2CPP to decompile into ARM ASM && C# (experemental, slow)
+DB9E7D17|IL2CPP descompilar en BRAÇ ASM && C# (experemental, lent)
+/// ImportSettings
+B1B5CF8F|ImportSettings
+/// Show debug log
+F5AF8D49|Mostra de depuració de registre
+/// Saving is possible 1 time in 2 minutes
+5982281C|L'estalvi és possible 1 hora 2 minuts
+///                                        Waiting.. Make Unitypackage..
+D7981B49|Esperant.. Fer Unitypackage..
+///                                        Waiting.. Pack to  Unitypackage..
+AD06DA43|Esperant.. Pack per Unitypackage..
+/// Unitypackage - ok
+D1DB6975|Unitypackage - ok
+/// Wait... make obb 
+75CBB8DD|Esperar... fer obb 
+/// Error on create obb: 
+AE0D89A4|Error en crear obb: 
+/// Make obb - ok
+75B70BDE|Fer obb - ok
+///                                         Ver 4.16
+CC98BD8B| Ver 4.16
+///                                         Ver 4.17
+CC98BD8A| Ver 4.17
+/// Generate Scripts for Android IL2CPP  (C#) 
+11061C52|Generar Scripts per a Android IL2CPP (C#) 
+///                                         Ver 4.18
+CC98BD81| Ver 4.18
+///                                         Ver 4.19
+CC98BD80| Ver 4.19
+///                                         Ver 4.20
+57FDBD89| Ver 4.20
+///                                         Ver 4.21
+57FDBD88| Ver 4.21
+///                                         Ver 4.22
+57FDBD87| Ver 4.22
+///                                   Models
+2F370A3B|Models
+/// ......\nShader truncated for DEMO VERSION, Real len: 
+5C7F68E6|......\nShader truncada per la VERSIÓ de DEMOSTRACIÓ, Real len: 
+/// Break
+1527D9A|Descans
+/// With debug windows
+A40926D6|Amb la depuració de windows
+/// IL2CPP Script settings
+B20B92C9|IL2CPP Script de configuració
+/// .NET assembly script decompilation
+C4BFB9F4|.NET assemblea guió descompilació
+/// Simple code structure decompiler
+D29F038|Codi Simple estructura decompiler
+/// ILSpy (.net 4.6 required)
+13752020|ILSpy (.net 4.6 obligatori)
+/// Exist new version\n
+62B5A32D|Existeixen nova versió\n
+/// Script decompilation options
+12B10B0E|Guió descompilació opcions
+/// Standard decompiler
+3D2D1BC7|Estàndard decompiler
+/// APKSigner Dialog - required JDK
+7C411C18|APKSigner Diàleg requereix de JDK
+///                                         Ver 4.26
+57FDBD8B| Ver 4.26
+/// The version is obsolete. Need to install a new version.
+A7373E98|La versió que està obsolet. Necessitat d'instal · lar una nova versió.
+/// Wait... Check internet connection.. http://devxdevelopment.com...
+76B9212E|Esperar... Fes connexió a internet.. http://devxdevelopment.com...
+/// An error occurred while connecting to the server,\r\nplease check the network status and website availability of devxdevelopment.com\r\nand try again later.
+46A8422F|S'ha produït un error mentre connectar amb el servidor, \nsi us plau, comproveu l'estat de la xarxa i disponibilitat del lloc web devxdevelopment.com \ni torneu a intentar més tard.
+///                                        Select by name equals
+F3183D13|Selecciona per nom és igual a
+/// Search by id, name
+6D8F369B|Cerca per id, nom
+/// Background:
+8A15B0DF|Fons:
+///                                        Without alpha chanel
+4933CD98|Sense alpha chanel
+/// Length (bytes)
+F9E93EC|Longitud (en bytes)
+/// Standalone (WIN, MAC, LINUX)
+49A132CF|Independent (WIN, MAC, LINUX)
+/// iOS Package (.ipa)
+57715F4E|iOS Paquet.ipa)
+/// Wait.. Making UnityProject..
+9706AC3F|Esperar.. Fer UnityProject..
+/// Wait.. Making UnityProject.. 
+F46222AE|Esperar.. Fer UnityProject.. 
+/// Wait.. Making Unity Project.. 
+A12C3A7B|Esperar.. Decisions La Unitat De Projecte.. 
+/// Wait.. Making Prefabs..
+EDF536FB|Esperar.. Fer Prefabs..
+/// Wait.. Making Prefabs.. 
+5A9536FB|Esperar.. Fer Prefabs.. 
+/// Wait.. Making Unitypackage..
+47F22DBE|Esperar.. Fer Unitypackage..
+/// Wait.. Export Scripts..
+42A7B955|Esperar.. Exportació Guions..
+/// Wait.. Generate Scripts..
+44C16C93|Esperar.. Generar Scripts..
+/// Wait.. Generate scripts.. 
+44A0ECF3|Esperar.. Generar scripts.. 
+/// Unity Project Version
+8391C557|Unitat Versió De Projecte
+/// Unity 2017.3
+5E77CD61|Unitat 2017.3
+/// Unity 5.6
+E54C2A1D|Unitat 5.6
+/// Information truncated for DEMO VERSION
+60921137|Informació truncada per la VERSIÓ de DEMOSTRACIÓ
+///                                         Ver 4.39
+E362BD80| Ver 4.39
+/// Show tree items id
+E3024211|Mostra arbre elements id
+///                                        Select by id or name:
+C5DD27A1|Seleccioneu id o name:
+/// File:
+1AF463E4|Fitxer:
+/// ID:
+E7A29BDF|ID:
+/// Waiting.. ScriptMapper.. Resources path update, items: 
+187801F3|Esperant.. ScriptMapper.. Recursos ruta d'actualització, d'elements: 
+/// Temp directory
+6D8B26B7|Temp directori
+///                                         Ver 4.42
+139FBD87| Veure 4.42
+/// Apply changes - end
+29AAA97D|Aplicar canvis - final
+///                                        Apply changes (repack bundle, make APK, etc)
+824F133F|Aplicar els canvis (el tornes a empaquetar adequadament lligall, fer APK, etc.)
+/// Without alpha channel
+33A355B7|Sense canal alfa
+/// Repack Bundles (.unity3d)
+FBA2997F|El Tornes A Empaquetar Adequadament Lligalls (.unity3d)
+/// Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshes, Text, Fonts, Material, Animations, Models and etc.)
+7906005F|Unpacker Màgia Estudi llicència: \n- La vista de tots els recursos \n- Vista Completa Guió codi font (descompilar a C#, permeten desa script) \n- Exportació de recursos: els sons (com WAV), imatges (com PNG, DDS, PVR), mesh (.obj, .actiu), text, tipus de lletra, Scrips (C#) \n, Animacions, Avatar \n- Exportar models a Unitypackeg (Model, Animacions, Recursos) \n- Substituir actius contingut de joc (substituir Imatges, sons, text, editar actiu parametrs) \n- Generar Unity3D projecte de joc \n(Escenes, Seqüències, Imatges, Sons, Malles, Text, tipus de Lletra, Material, Animacions, Maquetes, etc.)
+/// Wait... Save Bundle
+4E93D81|Esperar... Desar El Paquet De
+/// Search end, find count: 
+5714C4BF|Cerca final, trobar comte: 
+/// None
+A6669136|Cap
+/// Saving RAM (export slower)
+D8F87912|Estalvi de memòria RAM (exportació més lent)
+/// Cache time in seconds:
+8AB7DCC5|Temps de la memòria cau en segons:
+/// Begin search...
+79A29A6|Començar a cercar...
+/// Filter (show/hide)
+E6849FA9|Filtre (mostrar/amagar)
+/// Search as HEX
+8566509E|Cerca com HEX
+///                                        Search as text UNICODE
+EAE5E044|Cerca com a text UNICODE
+///                                        Search as text UTF8
+83F86ACE|Cerca com a text UTF8
+///                                        Search as text ANSI
+155E6689|Cerca com a text ANSI
+/// Content Value
+FBF592D0|Contingut De Valor
+/// label1
+E9E81D06|label1
+/// ID
+CE06B7E7|ID
+/// Offset in asset
+68CA2EB8|Desplaçament en actiu
+/// Status
+8A82AD3D|Estat
+/// Double click of item - for show on main tree view
+6781324B|Feu doble clic a l'element per mostrar en la vista d'arbre principal
+/// Search form
+B1C0F49C|El formulari de cerca
+///                                         Ver 4.48
+139FBD81| Ver 4.48
+/// statusStrip2
+4C885660|statusStrip2
+/// Disable auo open result files
+5530D0CE|Desactivar auo obrir els fitxers de resultats
+/// label21
+241B8D1F|label21
+/// Asset class name
+C4A54A6D|Classe d'actius nom
+///                                         Ver 5.01
+4154BD88| Ver 5.01
+/// Audio clip
+36ACA52A|Clip d'àudio
+/// label22
+C6C301BA|label22
+/// Save as (wav, mp3,ogg)
+7297E26F|Desar com (wav, mp3,ogg)
+/// Settings
+D5EB1CC9|Configuració
+///                                        APK Sign settins
+B0D618FC|APK Signe settins
+/// Import settings
+800542D8|Configuració d'importació
+///                                        Export && Save
+83462991|Exportació && Desa
+/// Repack
+A77BEFBB|Repack
+/// Apply all changes (repack bundle, make APK, etc)
+AC5DC3F|Aplicar tots els canvis (el tornes a empaquetar adequadament lligall, fer APK, etc.)
+/// Asset (selected):
+275F743F|Actiu (selecció):
+/// Save Asset (with headers)
+141E9684|Estalviar Actiu (amb capçaleres)
+/// Save Asset content
+8A4E48F7|Desar contingut Actiu
+/// Save Asset sub content (binary conten of asset)
+7DA1A698|Estalviar Actiu sub contingut (binari conten de l'actiu)
+/// Replace sub content in Asset (binary content)
+96520274|Substituir sub-contingut en Actiu (contingut binari)
+/// Reset filter
+19A5084C|Restabliment de filtre
+/// Search now
+13CA73A5|Cerca ara
+/// Assets only
+E46F4BDE|Actius només
+/// Search form..
+CC159FF1|Formulari de cerca..
+/// Select next:
+2C0421D5|Seleccioneu següent:
+/// Debug console
+340EC2BB|Consola de depuració
+/// Warning! Server date and local date  not equal!!!\nFor the program to work, you need the date and time to be correct.(Server UTC date: 
+7AA4D160|Avís! Servidor data i locals data no es igual!!!\nEl programa de treball, la data i l'hora exactes.(Servidor UTC data: 
+/// , Local UTC date=
+9669279D| Local UTC data=
+/// Waiting.. AssetBundle.. Resources path update, items: 
+A75C67B0|Esperant.. AssetBundle.. Recursos ruta d'actualització, d'elements: 
+///                                         Ver 5.03
+4154BD86| Ver 5.03
+/// Export
+C175ED3D|Exportació
+/// Replace sound
+74EE86CF|Substituir so
+/// With generate project
+481459F7|Amb generar projecte
+/// With export resources
+2A463756|Amb l'exportació de recursos
+/// Import bundle as Level
+A199C855|Importar com de Nivell de paquet
+/// Include Search in Scripts (c# script content)
+24CD7A4|Incloure la Cerca a Scripts (c# guió de continguts)
+/// Search as text
+7CB022EA|Cerca com a text
+/// Assets Bundle\n
+5D8CF4D3|Actius Lligall\n
+/// Engine version: 
+77B48C01|Motor versió: 
+/// Bundle size: 
+3CF3C1E8|Lligall mida: 
+/// Signature: 
+A0BFA96D|Signatura: 
+/// Items: \n
+1B77120F|Articles: \n
+/// For save changes to assets: press to button 'Apply changes'
+D94ABDBB|Per desar els canvis a actius: premeu al botó "Aplicar canvis'
+///                                         Ver 5.07
+4154BD8A| Ver 5.07
+/// Generate Unity Project
+7345665F|Generar La Unitat Del Projecte
+/// Export resources to directory
+978ECC6B|Exportació de recursos al directori
+/// Test\n123\n456
+74488F59|Prova\nCent vint-i-tres\nQuatre-cents cinquanta-sis
+/// Stop play
+901BBCBB|Deixar de jugar
+/// Bundle content
+A374ECCF|El paquet de continguts
+/// Lenght
+48414E76|Llargada
+/// Show fast menu
+751996A6|Mostra el menú ràpid
+/// Disable dialog: For save changes to assets: press 'Apply Changes'
+344B17D9|Desactivar diàleg: Per desar els canvis a actius: premeu "Aplica els Canvis'
+/// APK Sign settings
+7E1E21E1|APK Inicieu la configuració
+/// Unity 2018.1
+47AACD61|Unitat 2018.1
+/// Fast open (fast generate project)
+63F8BA7A|Ràpid obert (ràpid generar projecte)
+/// Waiting.. open
+A09AEE74|Esperant.. obert
+/// Make prefab - ok
+BD04F926|Fer prefabricada - ok
+/// Make prefab - error
+FF163379|Fer prefabricada - error
+/// Make prefab - break
+995DB01E|Fer prefabricada - descans
+/// Wait.. Making Prefab..
+7223DB42|Esperar.. Fer Prefabricada..
+/// make parfab asset:
+F5A47C38|fer parfab actiu:
+///                                       License for 'RePacker Tools' or 'Unpacker Studio' not activated
+CC174422|Llicència per 'RePacker Eines' o 'Unpacker Estudi' no està activat
+///                                        Ver 5.20
+581EBD89| Ver 5.20
+/// Prefab
+48BB8036|Prefabricada
+/// GameObject
+44A02777|GameObject
+/// Ignore StreamingAssets directory
+55EFDF96|Ignorar StreamingAssets directori
+/// Ignore scenes
+A10E5601|Ignorar escenes
+/// Async parse of Bundle
+2112BD71|Async analitzar de Paquet
+/// Async parse of Assets
+4ED032E0|Async analitzar d'Actius
+///                                    License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+959D2470|Llicència per 'RePacker Eines' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+///                                    License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A0C17CAF|Llicència per 'Unpacker eines' o 'RePacker Eines' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+/// License for 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A951A366|Llicència per 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+///                                    License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+B4622470|Llicència per 'RePacker Eines' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no està activat
+/// License for  'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6A96853C|Llicència per 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+///                                     Ver 5.22
+581EBD87| Ver 5.22
+/// Async make of Assets
+B4FA0730|Async fer d'Actius
+///                                     Ver 5.26
+581EBD8B| Ver 5.26
+/// Speed options
+78640A1|Velocitat opcions
+/// When you enable async options, it will be faster, but errors are possible!
+E7C89762|Quan habiliteu la async opcions, que serà més ràpid, però els errors són possibles!
+/// Unitypackage - end with error
+20E9686B|Unitypackage - acaba amb error
+///                                     Ver 6.02
+4175BD87| Ver 6.02
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+793DDF5D|Llicència per 'RePacker Eines' o 'Android Unpacker' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+8943AD18|Llicència per 'Unpacker eines' o 'Android Unpacker' o 'RePacker Eines' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+795CDF5D|Llicència per 'RePacker Eines' o 'Android Unpacker' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no està activat
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6B253BF6|Llicència per 'Unpacker Eines' o 'Repacker Eines' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+///                                   License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' not activated!
+FED026C1|Llicència per 'RePacker Eines' o 'Android Unpacker' o 'Unpacker Estudi' no activa!
+///                                    Ver 6.05
+4175BD8C| Ver 6.05
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+31EDE709|Llicència per 'Unpacker eines' o 'RePacker Eines' o 'Unpacker Estudi' o 'Android Unpacker' no activa!
+/// Export as ZIP archive
+DA624C1A|Exportar com a arxiu ZIP
+/// dnSpy (.net 4.7.1 required)
+CA04B12D|dnSpy (.net 4.7.1 obligatori)
+/// Double click of item - for apply select
+BB185879|Feu doble clic a l'element - per aplicar seleccionar
+/// FullName
+92659EB5|FullName
+/// Select object
+C408A146|Seleccioneu l'objecte
+///  Ver 6.12
+CCDABD87| Ver 6.12
+/// FlipY on Replace image
+E15679C|FlipY a Substituir la imatge
+/// Animation models
+E3C4D931|Models d'animació
+/// Primitive models
+4CD6E253|Primitiva models
+/// Import from:
+997E9824|Importar des de:
+/// Import ok, count: 
+23FA00C6|Importació d'acord, count: 
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+4A5CD18C|Llicència per 'Android Unpacker' o 'RePacker Eines' o 'Unpacker Estudi' o 'Unpacker Editor Estudi' no activa!
+///  Ver 6.17
+CCDABD8A| Ver 6.17
+/// Wait animation type
+2348A5F1|Esperar animació tipus
+/// Classic
+3C00B964|Clàssic
+/// Girl
+ED2019E9|Noia
+/// Export resources for Repack
+CB677E5E|Exportació de recursos per a Repack
+/// Import resources for Repack
+9D9F8CAD|La importació de recursos per a Repack
+/// Additional Log
+A29EBB83|Addicionals De Registre
+/// Memory limit (Mb):
+44D3354A|Límit de memòria (Mb):
+/// Impoer Ok:
+4F8CE226|Impoer D'Acord:
+/// Search result count:
+2E03BEB6|Resultat de la cerca comte:
+///  Ver 6.21
+583FBD88| Ver 6.21
+/// Open as SketchFab.com model by URL
+C7676174|Obert com SketchFab.com model per URL
+/// Tools
+E8B1C422|Eines
+/// Unpack GZIP
+F3CBFFB4|Desempaqueteu amb GZIP
+/// Unpack Brotli
+37DF7A42|Descomprimiu Brotli
+/// Unpack LZ4
+B723F483|Descomprimiu LZ4
+/// Unpack LZMA
+6E844169|Descomprimiu LZMA
+/// Search result:
+7AD9B089|Resultat de la cerca:
+/// Save descriptions to file
+E4B7253C|Estalvia descripcions de fitxer
+/// Export :
+AFBC690B|Exportació :
+/// Waiting... open uasset: 
+C804CEBE|Esperant... obrir uasset: 
+/// Waiting... open pak: 
+16CA047B|Esperant... obrir pak: 
+/// License for  'GameRecovery' not activated!
+2C3E7114|Llicència per 'GameRecovery' no activa!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+E48E0C23|Llicència per 'RePacker Eines' o 'Android Unpacker' o 'Unpacker Estudi' o 'GameRecovery' no activa!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+2627AE0E|Llicència per 'Unpacker eines' o 'Android Unpacker' o 'RePacker Eines' o 'Unpacker Estudi' o 'GameRecovery' no activa!
+/// License for 'Unpacker Studio' or 'GameRecovery' not activated!
+7EA6BE1C|Llicència per 'Unpacker Estudi' o 'GameRecovery' no activa!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated
+DC930C23|Llicència per 'RePacker Eines' o 'Android Unpacker' o 'Unpacker Estudi' o 'GameRecovery' no està activat
+/// License for  'Unpacker Studio' or 'GameRecovery' not activated!
+528FF6F|Llicència per 'Unpacker Estudi' o 'GameRecovery' no activa!
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+4F91DB58|Llicència per 'Android Unpacker' o 'RePacker Eines' o 'Unpacker Estudi' o 'GameRecovery' no activa!
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+8ECD3E7F|Llicència per 'Unpacker Eines' o 'Repacker Eines' o 'Unpacker Estudi' o 'GameRecovery' no activa!
+///  Ver 7.01
+4196BD88| Veure 7.01
+/// Dont select header edit item
+1E1E6D12|No seleccioneu la capçalera editar element
+/// Save selected item to file
+A2DFCB1B|Estalviar element seleccionat a un fitxer
+/// Replace selected value from file
+9F42A9B5|Substituir valor escollit des de fitxer
+/// DevXUnity-Game Recovery
+A60E1A35|DevXUnity-Joc De Recuperació
+/// Open Unity3D/Unreal game directory
+89510D9F|Obert Unity3D/Irreal directori del joc
+/// Open UnrealEngine uasset
+DF86BB4C|Obert UnrealEngine uasset
+/// Open UnrealEngine PAK
+242A89E2|Obert UnrealEngine PAK
+/// Generate Scripts (simple) for Android IL2CPP  (C#) 
+B0986638|Generar Scripts (simple) per a Android IL2CPP (C#) 
+/// Unreal Engine PAK
+A41EC297|Unreal Engine PAK
+/// Unreal Engine Assets
+BF46BB11|Unreal Engine Actius
+/// ExportUassetsFromUnrealEnginePAK to:
+7DE1C29C|ExportUassetsFromUnrealEnginePAK a:
+/// ExportUassetsFromUnrealEnginePAK ok, count: 
+310513B1|ExportUassetsFromUnrealEnginePAK bé, count: 
+///  Ver 7.02
+4196BD87| Veure 7.02
+/// Export uassets from Unreal Engine PAK
+926D75C7|Exportació uassets de Unreal Engine PAK
+///  Ver 7.05
+4196BD8C| Vista 7.05
+/// Disable auto open result files
+8BEC4529|Desactivar obertura automàtica els fitxers de resultats
+/// Make node dump
+EF96D912|Fer node abocador
+/// End download
+8279FB4C|Final descarregar
+/// Error on download gameInfo
+B3823311|Error en descarregar gameInfo
+/// End search
+F09E7D13|Final de la cerca
+/// Begin request...
+BF44FF53|Començar a demanar...
+/// Total rows: 
+BE2C451F|Total de files: 
+/// License not activated! Subscription available only with license!
+414DA863|Llicència no està activat! La subscripció només disponible amb la llicència!
+/// You do not have a subscription to access to the Games database.
+C0ED97BD|Vostè no té una subscripció per a accedir als Jocs de la base de dades.
+/// Begin download game information...
+967F7E1C|Començar descarregar informació del joc...
+/// Subscription payment
+F4D99EC6|Subscripció de pagament
+/// Subscription expiration:
+8B7CAF2B|Subscripció a venciment:
+/// AppId
+719FEDCB|AppId
+/// Category
+6482F24|Categoria
+/// Company
+4D421FF8|Empresa
+/// Engine version
+69B53BEE|Motor de versió
+/// Engine type
+E47EA598|Tipus de motor
+/// Free access
+CA53AB27|Accés lliure
+/// Platform type
+7D2BB440|Tipus de plataforma
+/// DiaplayName
+2B5669D1|DiaplayName
+/// Platform
+24D7A31|Plataforma
+/// Engine
+A0A26736|Motor
+/// GameVersion
+25EF2059|GameVersion
+/// Game version
+9EB80D01|Versió de joc
+/// EngineVersion
+85F8F446|EngineVersion
+/// BXmlSize
+5DA5AB4A|BXmlSize
+/// Preview size
+2F7D1404|Mida de la vista prèvia
+/// GameSize
+3A83AAA7|GameSize
+/// Game size
+488DA813|Joc de mida
+/// Hide item
+1EDFB100|Amagar element
+/// Set free acess
+6A513C5A|Conjunt de lliure accés
+/// Всего 0
+B290854D|Total 0
+/// Download and open game (WebGL, OSGJS)
+B6F6F5A2|Descarregar i obrir el joc (en webgl, OSGJS)
+/// Open game structure preview
+27781B61|Obrir el joc estructura de previsualització
+/// Open game web page
+74261900|Obrir el joc pàgina web
+/// Descriptions
+C3DA8DBE|Descripció
+/// Only IL2CPP
+7AE55A1F|Només IL2CPP
+/// Only .NET Assembly
+E73E3DC0|Només .NET de l'Assemblea
+/// Game database search form (Full access by subscription)
+81A21328|Joc de la base de dades el formulari de cerca (Ple accés per subscripció)
+/// Item not support export
+F69FEAA9|Item not de suport a l'exportació
+/// You can save with conversion no more than once every two minutes.
+53B9408B|Vostè pot estalviar amb conversió a màxim, una vegada cada dos minuts.
+/// Object - not supported replace
+A6E20CE7|L'objecte no admet substituir
+/// Original game info: 
+B86AE29D|Original joc info: 
+///  Ver 7.06
+4196BD8B| Veure 7.06
+/// Save asset header
+EA33944D|Estalviar actiu capçalera
+/// Save content (without contertaion)
+67E5E759|Desar contingut (sense contertaion)
+/// Export content (with convert format: png, wav, etc)
+A4A40923|Exporta el contingut convertir format: png, wav, etc.)
+/// Replace binary content (binary, png, wav, etc)
+10A45610|Substituir contingut binari (binari, png, wav, etc.)
+/// Save asset headers
+EA40944D|Estalviar actiu capçaleres
+/// Save asset binary content
+A93311C9|Estalviar actiu contingut binari
+/// Game Database
+835ACED9|Joc De La Base De Dades
+/// Save as FSB5
+DCCE8FE0|Desa com a FSB5
+/// erro on download
+7FE70CA|erro a descarregar
+/// As source code (.cs)
+69F7089C|El codi font (.cs)
+/// As plugin (.dll)
+D525DF66|Com a connector (.dll)
+/// Assemblies (for decompilation to .cs)
+CA7EB231|Assemblees (per descompilació .cs)
+/// Restore type
+71C7F906|Restaurar tipus
+/// DownloadCounter=
+B87065D3|DownloadCounter=
+/// UserName=
+882923D2|UserName=nom d'usuari
+/// CreateDate=
+91297A4C|CreateDate=
+/// License=
+1FCB93AA|Llicència=
+/// iID=
+59C2B95D|iID=
+///  Ver 7.08
+4196BD81| Veure 7.08
+/// Script generate settings
+C3F188C3|Guió generar configuració
+/// As source code (*.cs)
+1DAD6532|El codi font (*.cs)
+/// Scripts
+8E91B592|Guions
+/// Script options
+9FB6408|Guió opcions
+/// Project options
+318C6B1|Opcions del projecte
+/// Remove script class (for exported to .cs) from plugin
+3C84C921|Eliminar el guió de la classe (per exportar .cs) del plugin
+/// Filter by class name:
+A6BADEC6|Filtrar per nom de la classe:
+/// as source code (*.cs)
+F06810D1|el codi font (*.cs)
+/// as plugin (.dll)
+D5593A86|com a connector (.dll)
+/// Reference for asset
+D9FB6EBB|De referència per a l'actiu
+/// Activate license..
+B47EABE4|Activar la llicència..
+/// Open buy page
+D8BFF820|Obert comprar de la pàgina
+///  Ver 7.09
+4196BD80| Veure 7.09
+/// Find All references
+70569210|Trobar Totes les referències
+/// Waiting.. MakePreview..
+2F15684B|Esperant.. MakePreview..
+/// Waiting.. MakePreview-end
+C4EC7D79|Esperant.. MakePreview-final
+/// Disable export Shaders
+FAB8FD38|Desactivar l'exportació Shaders
+/// PropertyDialog
+609D9308|PropertyDialog
+///  Ver 7.11
+CCFBBD88| Veure 7.11
+/// multiSelectTreeView21
+5DCF7336|multiSelectTreeView21
+/// Test Assets
+B56CD8D7|Prova D'Actius
+/// Wait.. Making Unity Project.. Make scripts for 
+E7433FE6|Esperar.. Decisions la Unitat de Projecte.. Fer guions per a 
+/// Wait.. TestAssets..
+5792227B|Esperar.. TestAssets..
+/// Wait.. TestAssets.. 
+EAF2227B|Esperar.. TestAssets.. 
+/// TestAssets - end
+50D60E8F|TestAssets - final
+/// Disable auto-fix sources
+266F7C01|Desactivar auto-fix de fonts
+/// Only available for GameRecovery license.
+A80A4C4|Només està disponible per a GameRecovery llicència.
+/// Disable auto change to Shader links
+7124447A|Desactivar auto canvi a Shader enllaços
+/// Allow delayed extraction of scripts
+AC7A600E|Permet retardar l'extracció de guions
+///  Ver 7.14
+CCFBBD8D| Veure 7.14
+/// Waiting.. m_AssetToPrefab.. items: 
+A08F9053|Esperant.. m_AssetToPrefab.. elements: 
+/// Only available for DevX GameRecovery license type.
+10630F7|Només està disponible per a DevX GameRecovery tipus de llicència.
+///  not include to poroject
+FFE943E5| no inclouen poroject
+/// Partial recovery of scripts is available only with the 'Allow delayed extraction of scripts'.
+F7876C10|Parcial recuperació de guions només està disponible amb la de "Permetre retardar l'extracció de scripts'.
+///  Ver 7.15
+CCFBBD8C| Veure 7.15
+/// Unity 2018.3
+5E74CD61|Unitat 2018.3
+/// Not supported for this asset type
+8726FB75|No està suportada per aquest tipus de bé
+///  Ver 7.18
+CCFBBD81| Veure 7.18
+/// Wait... Check internet connection.. https://devxdevelopment.com...
+5D8EC00D|Esperar... Fes connexió a internet.. https://devxdevelopment.com...
+/// toolStrip11
+8AB288BF|toolStrip11
+/// Restore only fields (for deserialization and minimize scripts errors)
+6D77C25E|Restaurar només camps (per deserialization i minimitzar els scripts errors)
+/// Allow to de-obfuscate assembly
+5DBA5417|Permeten de confondre's amb l'assemblea
+/// Only for export to Unity 2018.3 or higher.
+33783E79|Només per a l'exportació a la Unitat 2018.3 o superior.
+/// Unity 2018.2
+D30FCD61|Unitat 2018.2
+///  Ver 7.21
+5860BD88| Veure 7.21
+/// Rules
+1B78670F|Normes
+/// Apply
+62D0EDB8|Aplicar
+/// Open rules file
+5CCEF1D3|Obrir fitxer rules.
+/// Result:
+8553A117|Resultat:
+/// Save result
+CFB24BA9|Desar resultat
+/// label2
+E9EB1D06|label2
+/// Show offset
+48A4BF19|Mostra offset
+/// Open binary file
+D39D81F1|Obrir fitxer binari
+/// Binary Analyzer Tools
+82675C19|Binaris Analitzador Eines
+/// Open binary analyzer tools
+AE911DB5|Obert binari analitzador eines
+///  Ver 7.22
+5860BD87| Veure 7.22
+/// Open Binary Analyzer tools
+B87E468|Obert Binari Analitzador eines
+/// Parce rules: 
+103B800A|Parce regles: 
+/// Auto apply
+59FF7043|Auto aplicar
+/// Open binary analyzer
+A95D268A|Obert binari analitzador
+///  Ver 7.29
+5860BD80| Veure 7.29
+/// Back
+459BD839|Tornar
+/// Next
+EDB18BE4|Següent
+/// ILSpy 5 (.net 4.6 required)
+5EBB7E80|ILSpy 5 (.net 4.6 obligatori)
+/// exclude
+DC7D8E08|excloure
+///  make plugin (.dll)
+DBEA7DF9| fer plugin (.dll)
+/// Reset
+61854DA3|Reset
+/// Set as Script assembly (.cs)
+2F21ADEB|Establir com a Guió de muntatge (.cs)
+/// Set as Plugin (.dll)
+92AE6425|Establir com a Connector (.dll)
+/// Exclude from project
+5A6F5B4B|Excloure del projecte
+/// Mark class to decompilation (.cs)
+B74012B|Marca de classe per descompilació (.cs)
+/// Remove from decompilation scripts
+3EB9EA0E|Eliminar de la descompilació scripts
+/// As Scripts (.cs)
+72D1D23C|Com Scripts (.cs)
+/// As Plugin (.dll)
+ABEBBC76|Com A Connector (.dll)
+/// Exclude
+DC7D92E8|Excloure
+/// Class to script
+6675DB7B|Classe de guió
+/// Remove from decompilation
+CD00C64F|Eliminar de la descompilació
+/// Script Generate Options
+25994BBC|Guió De Generar Opcions
+/// Only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+E005EA6|Només està disponible per 'DevX-GameRecovery' o 'DevX-GameModing' tipus de llicència.
+/// Not support for add child component.
+BCFB679A|No suport per afegir nen component.
+/// Selected items are not supported for copying.
+FCD072D|Els elements seleccionats no són compatibles per a la còpia.
+/// Not selected asset to copy (Copy asset)
+A86A2FA1|No seleccionats actiu copy (Còpia en actiu)
+///  Ver 8.02
+3FA7BD87| Veure 8.02
+/// Dublicate asset
+18F6772D|Dublicate actiu
+/// Add child asset with dublicate by selection dialog
+934F5427|Afegir nen actiu amb dublicate pel diàleg de selecció de
+/// Copy asset
+5BDBD338|Còpia actiu
+/// Paste asset
+315A3F47|Enganxa actiu
+/// Cubemap
+2CEA422E|Cubemap
+/// Texture2D
+B0AAD29D|Texture2D
+/// Sprites
+910DB596|Sprites
+/// Delete asset
+C0E8BD20|Esborrar actiu
+/// Connection - not tested
+EC7EAB33|La connexió no provat
+/// Not selected owner asset to create GameObjext
+3A35DCF0|No seleccionats propietari d'actius per crear GameObjext
+/// License for 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' not activated!
+45794F93|Llicència per 'RePacker Eines" o "Joc de Modding' o 'Unpacker Estudi' no activa!
+/// License for 'RePacker Tools' or 'Game Modding' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+9CE9AD2|Llicència per 'RePacker Eines" o "Joc de Modding' o 'Android Unpacker' o 'Unpacker Estudi' o 'GameRecovery' no activa!
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+C9AC09B3|Llicència per 'Unpacker eines' o 'RePacker Eines" o "Joc de Modding' o 'Unpacker Estudi' o 'Android Unpacker' no activa!
+/// Add new asset
+5AD1691E|Afegir nou actiu
+/// Add GameObject
+DD4E575F|Afegir GameObject
+/// Paste link to asset
+69A27794|Enganxeu l'enllaç a l'actiu
+/// Clear item
+334BAC85|Clar element
+/// Path to executable file, parameters on run: "assembly_name.dll" -p -o "output_dir"
+1FA80710|Camí al fitxer executable, els paràmetres a executar: "assembly_name.dll" -p -o "output_dir"
+/// Custom extern decompiler
+FF108242|Costum extern decompiler
+///  Ver 8.03
+3FA7BD86| Veure 8.03
+/// Decompiler type:
+4B8D3813|Decompiler tipus:
+/// Decompiler type
+B2DB3813|Decompiler tipus
+///  Ver 8.04
+3FA7BD8D| Veure 8.04
+/// Export format
+35996432|El format d'exportació
+/// Options
+A1D6A433|Opcions
+/// Export models
+FA6DBF53|Exportació de models
+/// ASCII
+32DC01C9|ASCII
+/// Binary
+8E0E4D56|Binari
+/// Export animations
+7FA8B4A|Exportar les animacions
+/// Export textures
+663535DC|Exportació de textures
+/// FbxExportSettings
+5AFAA65F|FbxExportSettings
+///  Ver 8.06
+3FA7BD8B| Veure 8.06
+/// Disable сustom swap file (in file stream)
+B9CC2CB4|Desactivar personalitzats de fitxer d'intercanvi (en el fitxer torrent)
+/// This option enables automatic conversion of compiled shaders to Unity format (UnityLab)
+1D03716|Aquesta opció permet la conversió automàtica d'compilat ombrejadors per Unitat de format (UnityLab)
+/// Allow restore shader as UnityLab format (for GameRecovery license type)
+B5ED1B5F|Permet restaurar shader com UnityLab format (per GameRecovery tipus de llicència)
+/// Allow async export
+61A5FC0F|Permet async exportació
+/// Unity 2019.1
+47ABCD61|Unitat 2019.1
+/// Disable header information for scripts (header on .cs files)
+917298B4|Desactivar la capçalera de la informació per a scripts (capçalera a .cs fitxers)
+/// Export multi sprite texture as separate sprite files
+A44EA654|Exportar la multi-sprite textures m'agradaria separar la figura de fitxers
+/// DevXC Control
+66A43E3|DevXC Control
+///  sec
+2FD0C111| sec
+/// DevXC code: 
+8F41696B|DevXC codi: 
+/// Execute
+5730F05E|Executar
+/// Open devxc file
+22315D|Obrir fitxer devxc
+/// Save code
+C098D69A|Salvar el codi de
+/// Show output window
+11C81E1A|Mostrar la finestra de sortida
+/// Help
+D05AA806|Ajuda
+/// Execute time:
+47830FDC|Executar temps:
+///  Ver 9.01
+3FC8BD88| Veure 9.01
+/// Open current action history
+D2A1EE39|Obert acció actual història
+/// DevXC Console
+3BC20E5B|DevXC Consola
+/// DevXC-Scripts
+7AC6FE2|DevXC-Scripts
+/// Make parfab asset:
+F3637C58|Fer parfab actiu:
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+4F34C49E|Executar DevXC fitxer - només està disponible per 'DevX-GameRecovery' o 'DevX-GameModing' tipus de llicència.
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-MagicStudio' or 'DevX-GameModing' license type.
+41E5A8|Executar DevXC fitxer - només està disponible per 'DevX-GameRecovery' o 'DevX-MagicStudio' o 'DevX-GameModing' tipus de llicència.
+/// Error on create zip: 
+C7BC26B7|Error en crear postal: 
+/// Make zip - end
+FD528D50|Fer zip - final
+///  Ver 9.02
+3FC8BD87| Veure 9.02
+/// Help:
+88B16616|Ajuda:
+/// Functions
+F2FCDCF2|Funcions
+/// Examples
+C9F7545|Exemples
+///  Ver 9.03
+3FC8BD86| Veure 9.03
+/// Material
+8800D7BA|Material
+/// Shader
+D3ADAD2D|Shader
+/// Allow restore shaders (base mode, without convert to ShaderLab format)
+6DBC0660|Permet restaurar shaders (base mode, sense convertir a ShaderLab format)
+///  Ver 9.05
+3FC8BD8C| Veure 9.05

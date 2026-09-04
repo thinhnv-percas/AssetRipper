@@ -1,0 +1,1648 @@
+/// Wait... Image compression... This may take a few minutes
+67F2EC47|Espera... la compresión de la Imagen... Esto puede tardar unos minutos
+/// Wait... Parse assembly 
+676EEA33|Espera... Analizar la asamblea 
+/// Parse - ok
+8FD05778|Analizar - ok
+/// Error on Parse assembly 
+783216DC|Error en Analizar la asamblea 
+///  No Internet connection!!!
+A4472FF8| No hay conexión a Internet!!!
+///  No Internet connection!!! 
+BC0C3AEE| No hay conexión a Internet!!! 
+///                                       Exit new version\n
+65C60228|Salida de la nueva versión\n
+/// Waiting...  open unity GameDir..
+4882047|Espera... abrir la unidad GameDir..
+/// Open unity GameDir - end
+76D2CE09|Abra la unidad GameDir - final
+///                                       (binary shader)
+9D41F04E|(binario shader)
+///                                       ......\nShader trancated for DEMO VERSION, Real len: 
+ECA96CA1|......\nShader truncated para la VERSIÓN de DEMOSTRACIÓN, Real len: 
+/// // Not found assembly: 
+4D34EB5B|// No encontrado asamblea: 
+/// \n// This project used IL2CPP, assembly converted to native code.
+7981C3BD|\n// En este proyecto se utilizó IL2CPP, asamblea convertido a código nativo.
+/// //Not found assembly: 
+C7E2652|//No encontrado asamblea: 
+/// Save text
+4EC4922D|Guardar texto
+/// test
+EAE38E77|prueba
+/// OK
+CE0FB7E1|OK
+///                                       Script decimpilation options
+391D7F38|Script decimpilation opciones
+///                                       Script decompilation
+FCB4E352|Secuencia de comandos de descompilación
+/// Disable decompilation
+120E3FB8|Deshabilitar la descompilación
+///                                  JDecompiler
+8AFC8F39|JDecompiler
+///                                       Standart decompiler
+EEA3A483|Standard decompiler
+/// Scene params
+2A11D566|Escena params
+/// Make direct MeshAsset (else Mesh by .obj file)
+E3E1083F|Directo MeshAsset (otra cosa Malla .archivo obj)
+/// Make all GameObjects as Active (override)
+33C19C13|Hacer todos los GameObjects como Activo (override)
+/// C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+EAAC6917|C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+/// C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+F9D86526|C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+/// zipalign.exe
+2C5C77ED|zipalign.exe
+/// Keystore 
+FFDFA781|Almacén de claves 
+/// Without signature (apk without signature - can not be installed on the device)
+BA63D79B|Sin firma (apk sin firma - no puede ser instalado en el dispositivo)
+/// Store password
+B0EF04E6|Contraseña del almacén de
+/// NDName
+3B82BA7F|NDName
+/// Key password
+F15325AD|La contraseña de la clave
+/// Key alias
+B2682AD4|Key alias
+/// Keystore file
+101C8A80|Archivo de almacén de claves
+/// Select custom key
+C52368B|Seleccione clave personalizada
+/// Create temp key
+276F9AC4|Crear tecla temp
+/// Paths
+18D1C1FD|Rutas
+/// JDK installer link
+293D5432|JDK instalador enlace
+/// zipalign path
+20BAED5F|zipalign camino
+/// jarsigner path
+7119B2A9|jarsigner camino
+/// keytool path
+9A043CA4|keytool camino
+/// Make apk
+87B277BA|Hacer apk
+///                                       APKSignDialog - required JDK
+5168C80F|APKSignDialog - requerida
+///                                               Ver 
+2FD97207| Ver 
+///  (Internal!)
+3D13DA7E| (Interna!)
+///  (runtime 
+14A073C4| (en tiempo de ejecución 
+///                                       The version is obsolete and you need to install a new version.
+D9E34DAA|La versión es obsoleta y necesita instalar una nueva versión.
+///                                       Waiting... Check internet connection.. http://devxdevelopment.com...
+59AA61CC|A la espera... de Verificación de conexión a internet.. http://devxdevelopment.com...
+///  DEMO-CONSOLE!
+304FB581| DEMO-CONSOLE!
+/// Is Demo Version
+6A0B8062|Es La Versión Demo
+/// Project protected by
+4F70EAA5|Proyecto protegidos por
+/// Width: 
+BF6DE30B|Ancho: 
+/// , Height: 
+C4DBC9EF| Altura: 
+/// , Format: 
+72807AF3| Formato: 
+/// , MipMapCount: 
+681748FF|, MipMapCount: 
+/// \nStrings count: 
+49BC9CCF|\nLas cadenas de recuento: 
+///                                       License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated,\nThe image will be partially grounded on black squares!
+612FA8EE|Licencia para 'Unpacker herramientas' o 'Reembalador Herramientas' o 'Unpacker Studio' no se activa,\nLa imagen será parcialmente a tierra en cuadros negros!
+///                                       License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated
+35889687|Licencia para 'Unpacker herramientas' o 'Reembalador Herramientas' o 'Unpacker Studio' no se activa
+/// Wait... Extract audio..
+77F9CD7A|Espera... Extraer el audio..
+/// Unsupported format
+2D5ED39F|Formato no compatible
+/// Exported to 
+5F0013FA|Exportado a 
+///                                   License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated!
+2D8D9687|Licencia para 'Unpacker herramientas' o 'Reembalador Herramientas' o 'Unpacker Studio' no se activa!
+/// The file extension must match
+FCB08D72|La extensión del archivo debe coincidir con
+///                                      License for  'Unpacker Studio' not activated!
+C668CFD6|Licencia para 'Unpacker Studio' no se activa!
+/// Dont select GameObject!
+82955BC5|No seleccione GameObject!
+/// Dont select MeshAsset
+68C81170|No seleccione MeshAsset
+///                                       License not activated!
+97ABCBA2|La licencia no se activa!
+///                                       Dont select GameObject or level!
+64471DF8|No seleccione GameObject o nivel!
+/// UI Language: 
+454E6D74|Idioma de interfaz de usuario: 
+/// Metadata
+B20B46F5|Los metadatos
+/// Interesting..
+186DAFB|Interesante..
+/// Drag the game here and I'll show what's inside)
+6261EC56|Arrastre el juego aquí y yo voy a mostrar lo que hay dentro)
+/// toolStripMain
+F4275D09|toolStripMain
+/// By name:
+84A32E32|Por nombre:
+/// Rows limit:
+B8BBD254|Filas de límite:
+///                                       Select By ID:
+E8FFDFAF|Seleccione Por ID:
+/// toolStrip3
+E795FA33|toolStrip3
+/// Common
+17CFD8E7|Común
+/// Text/Script
+9E201F6A|Texto/Script
+/// To protect against viewing resources, you can use the text encryption option in the obfuscator DevXUnity-ObfuscatorPro
+C3B86430|Para proteger en contra de la visualización de los recursos, puede utilizar el texto de la opción de codificación en el obfuscator DevXUnity-ObfuscatorPro
+/// Information:
+1ED72F4B|Información:
+/// w,h,format
+330840A0|w,h,formato
+/// To protect against viewing resources, you can use the image encryption option in the obfuscator DevXUnity-ObfuscatorPro\r\n
+AA0547A7|Para proteger en contra de la visualización de los recursos, puede utilizar la imagen de la opción de cifrado en el obfuscator DevXUnity-ObfuscatorPro \n
+///                                       Fon:
+80CD912E|Background:
+/// 3DView
+815D0B84|3DView
+/// 3DScene
+FC75575A|3DScene
+/// Hex RAW
+C5C117C1|Hex RAW
+/// Position
+FD95CA52|Posición
+/// Line:
+60434EC8|Línea:
+/// Col:
+3B7EA7FB|Col:
+/// Font test
+5BD15A12|Hacer la prueba
+/// Asset header edit
+C9529C11|De los activos de edición de encabezado
+/// Value
+D03C6679|Valor
+/// Name
+3BD1C9B|Nombre
+/// Type
+C15430C6|Tipo de
+///                                       Lenght (bytes)
+FE4868C0|Longitud (bytes)
+/// Assembly code strings
+4C18336D|Asamblea cadenas de código
+/// Method
+18B1C08E|Método
+/// Destanation method
+CA64270|Destanation método
+/// Value Filter:
+5F768801|Valor De Filtro:
+/// Method name filter:
+C6CB611E|Método de filtro de nombre de:
+/// Errors
+621D673|Errors
+/// Errors:
+89FABD5F|Errores:
+/// Products
+4A7FD86A|Productos
+/// It is a tool for gaining new knowledge\r\nOpens the way to new opportunities
+454CCD00|Es una herramienta para adquirir nuevos conocimientos \nAbre el camino a nuevas oportunidades
+/// DevXUnity-Unpacker Magic Studio
+6B32D8F7|DevXUnity-Unpacker Magic Studio
+/// DevXUnity-RePackerTools
+6C2DFEF5|DevXUnity-RePackerTools
+/// DevXUnity-UnpackerTools
+86FE2CB4|DevXUnity-UnpackerTools
+/// UnpackerTools - license:\n- View all resources\n- View Script source code (decompile to C#, only view)\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\n
+1AEE8769|UnpackerTools - licencia:\n- Ver todos los recursos\n- Ver código fuente del Script (descompilar a C#, sólo vista)\n- Exportación de los recursos: los sonidos (WAV), imágenes (PNG, DDS), malla (.obj), texto, fuentes\n
+/// Support
+A8ABCCA2|Apoyo
+/// Implementation..
+5247A0E3|La ejecución..
+/// Support formats:
+6799EC0E|Soporta los siguientes formatos:
+/// APK (apk, obb, xapk)
+2550695|APK (android, obb, xapk)
+/// Bundles (.unity3d and other)
+8D3C4B5D|Paquetes (.unity3d y otros)
+///                                       Stabdelone (WIN, MAC, LINUX)
+FB60580D|Standalone (WIN, MAC, LINUX)
+///                                       iOS distributive (.ipa)
+8FB82096|iOS distributiva (.ipa)
+/// Asset files
+E125F64C|Archivos de activos
+/// Export:
+10D3DAFD|Exportación:
+/// Export Texture2D (png, pvr, dds)
+C92A6C39|Exportación Texture2D (png, pvr, dds)
+/// Export Sprites (png)
+D0AF9C82|La exportación de los Sprites (png)
+/// Export AudioClip (Sounds to .wav)
+ED6D8610|Exportación AudioClip (los Sonidos .wav)
+/// Export Mesh (OBJ with sub-mesh, FBX)
+5E55F0D5|La exportación de Malla (OBJ con sub-malla, FBX)
+/// Export Scene elements (to FBX, Prefab)
+271564|La exportación de los elementos de la Escena (a FBX, Prefab)
+/// Export Video (avi, mp4,..)
+30E504CE|Exportación de Vídeo (avi, mp4,..)
+/// Export Text assets
+73023AC|Texto de exportación de los activos
+/// Export Fonts
+B566829D|Exportación De Fuentes
+/// Export Shader (for text shader mode)
+FE03C056|La exportación de Sombreado (para el texto sombreado modo)
+/// Export/Create Prefab
+C7D86831|Exportación/Crear Prefab
+/// Export Terrain Height-Map
+5FDE59E4|Exportación De La Altura Del Terreno-Mapa
+/// Replace resources for assets:
+92CE21B2|Reemplazar recursos de activos:
+/// Edit Text
+153A07F6|Edición De Texto
+/// Edit Header Values
+6C4F95C0|Editar Los Valores De Encabezado
+/// Replace Images (with encoding)
+B1C89874|Reemplazar las Imágenes (con codificación)
+/// Binary replace for any resources
+9E0953D9|Binario reemplazar todos los recursos
+/// Generate Unity Project:
+895E5C94|Generar La Unidad Proyecto:
+/// Make APK (with signature)
+1F806B85|Hacer APK (con firma)
+/// Generate Scripts (C#) 
+10E73E5E|Generar Secuencias De Comandos (C#) 
+/// Generate Scenes (.unity Levels)
+F285DD5B|Generar Escenas.la unidad de los Niveles)
+/// Generate Prefab (.prefab)
+A0EB3B42|Generar Prefab (.prefab)
+/// Generate Unitypackage (.unitypackage)
+CDBEEABB|Generar Unitypackage (.unitypackage)
+/// Generate animated model (to .unitypackage)
+51C70D81|Generar animado modelo (a .unitypackage)
+/// GameObject Transform RectTransform  \r\nMonoBehavior Renderer MeshRenderer \r\nMeshFilter MeshCollider Canvas \r\nCameraAsset AudioListener AudioSources \r\nColliders Animator and other
+A687CC7B|GameObject Transformar RectTransform \nMonoBehavior Representador MeshRenderer \nMeshFilter MeshCollider Lienzo \nCameraAsset AudioListener AudioSources \nColisionadores Animador y otros
+/// Generate Materials
+E4D924E4|Generar Materiales
+/// Generate Texture2D
+DB04E9E7|Generar Texture2D
+/// Generate Sprite
+BBC14F43|Generate Sprite
+/// Generate AnimationClip\r\n
+401C619C|Generar AnimationClip \n
+/// Generate Humanoid Animations
+5CAEA085|Generar Humanoide Animaciones
+/// Generate AnimationController
+7333871E|Generar AnimationController
+/// Generate Mesh Asset
+6A08CA37|Generar La Malla De Activos
+/// Generate AudioClip Asset
+A96CE37E|Generar AudioClip De Activos
+/// Generate PhysicMaterial Asset
+A1992D64|Generar PhysicMaterial De Activos
+/// Generate PhysicsMaterial2D Asset
+2F9B7BDF|Generar PhysicsMaterial2D De Activos
+/// Generate Prefabs
+88C6C19D|Generar Prefabs
+/// Generate Font
+C879083F|Generar Fuentes
+/// Generate VideoClip
+23418CF9|Generar VideoClip
+/// Generate Text Assets
+60C3C9B2|Generar Texto De Activos
+/// Generate RenderTexture
+D3E14E1E|Generar RenderTexture
+/// Generate ScriptableObject
+6EC596F4|Generar ScriptableObject
+/// Generate GUISkin
+BF43C65C|Generar GUISkin
+/// Version Info
+E8412D7B|Información De La Versión
+/// Inspector
+8EC4DE12|Inspector
+/// PropertyGridToolBar
+84B78E19|PropertyGridToolBar
+/// Layer:
+788BDC9|Capa:
+/// Tag:
+38AEAAB3|Día:
+/// Save class metadata
+BD211979|Guardar los metadatos de clase
+/// Save packed version metadata
+493E5DB5|Guardar lleno versión de metadatos
+/// Save metadata from packed
+683E353A|Guardar los metadatos de lleno
+/// Join and save all assets metadata
+9C362A73|Unir y guardar todos los activos de metadatos
+/// Load custom metadatas
+B788894D|De carga personalizados de etiquetas (metadatos)
+/// Export as Unitypackage
+CCC044AA|Exportar como Unitypackage
+/// Export as Prefab
+8E1C48B9|Exportar como Prefab
+/// Export model as FBX
+EC5ADA02|Exportar el modelo como FBX
+/// Open
+E8CCC172|Abierto
+///                                       Open mode:
+86340C3C|El modo abierto:
+/// Open Unity3D game directory
+55607B33|Abierto Unity3D directorio del juego
+/// Open as APK, OBB, XAPK file (android)
+874EFF8D|Abierto como ANDROID, OBB, XAPK file (android)
+/// Open as IPA file (iOS)
+1C183D79|Abrir como archivo IPA (iOS)
+/// Open as Bundle (WebPlayer) file
+10E210E5|Abierto como Paquete (WebPlayer) archivo
+/// Open as Asset file
+CDE707F8|Abrir como archivo de Activos
+/// Open as binary
+3B58AB5A|Abierto como binario
+/// Open DDS Texture
+670B26E1|Abierto DDS Textura
+/// Clear
+87DB2|Claro
+/// Proxy Settings
+238432FB|Configuración De Proxy
+///                                       ALL
+58A5149D|TODOS
+/// Images
+311CACDF|Imágenes
+/// Sounds
+772A35E8|Sonidos
+/// Script files
+9BCF0A3F|Archivos de secuencia de comandos
+/// Animation Clip
+EA554C3|Clip De Animación
+///                                       All assets
+91A14438|Todos los activos
+/// Group resources
+117086B5|Grupo de recursos
+///                                  Show classic wait mode
+324D865C|Espectáculo clásico modo de espera
+///                                       toolStripButton1
+9D2A7523|toolStripButton1
+/// Export resources to directory (png, wav, avi, obj...)
+3CCC221F|La exportación de recursos a un directorio (png, wav, avi, obj...)
+/// Generate Unity Project (from any to Unity 2017, 5.6)
+DEB01D86|Generar Proyecto de la Unidad (a partir de cualquier Unidad de 2017, 5.6)
+/// Generate Project Scripts
+CD938811|Generar Proyecto De Secuencias De Comandos
+/// Export All Prefabs
+5CE1E87B|Exportar Todos Los Prefabs
+///                                       Make APK (with signing, for install on device)
+FF2E2E6C|Hacer APK (con la firma, para instalar en el dispositivo)
+/// Save as Text
+E9941DE0|Guardar como Texto
+/// Replace text
+556F5284|Reemplazar texto
+/// Edit and replace text
+C9B78102|Editar y reemplazar texto
+/// Save as PNG
+640C3205|Guardar como PNG
+/// Save as DDS/PVR
+AEE192BE|Guardar como DDS/PVR
+/// Replace image
+EFD46E44|Reemplazar la imagen
+/// Chessboard
+C8DCF0B7|Tablero de ajedrez
+/// White
+74D407C9|Blanco
+/// Black
+5EA0AB2E|Negro
+/// Export as OBJ
+C96FB87E|Exportar como OBJ
+/// Export as FBX
+56DB8833|Como de exportación FBX
+/// Export as Asset
+D9E066FF|La exportación de los Activos
+/// Reset camera
+A658D7B5|Restablecimiento de la cámara
+///                                              Make 3D for selection
+5ED161EC|Hacer 3D para la selección
+///                                              Make 3D (without materials)
+F3F1562B|Hacer 3D (sin materiales)
+///                                              Break process
+EF8EC7A2|Romper el proceso de
+/// Go
+CDEBB7D9|Ir
+/// Find
+31D1912E|Encontrar
+/// Save selection
+504C0A1B|Guardar selección
+/// Save to HEX dump
+B053182|Guardar volcado HEXADECIMAL
+/// Edit selected
+63A72C9|Editar seleccionado
+/// Save assembly
+3614E1B1|Guardar la asamblea
+///                                       Save RAW pre asset
+5504C5D0|Guardar en RAW pre activos
+///                                       Save content
+5B7589EA|Guardar contenido
+///                                       Save as (WAV, mp3,..)
+529E2CAB|Guardar como (WAV, mp3,..)
+/// Play sound
+6F3BD173|Reproducir sonido
+///                                       Save sub content
+F8C47071|Guardar sub contenido
+///                                       Replace sub content in asset
+2EF8C2EC|Sustituir los contenidos de los activos
+/// UI Language
+808CCA97|Idioma de interfaz de usuario
+/// Video lessons
+7F742002|Lecciones de vídeo
+/// Buy and support a project
+9CE8EF48|Comprar y apoyo de un proyecto
+/// License (registration)
+D302020A|Licencia (registro)
+/// Updates\r\nOpen download web site
+192B54E9|Actualizaciones \nAbra el sitio web de descarga
+/// DevXUnity-Unpacker Magic Tools
+411E8062|DevXUnity-Unpacker Herramientas Mágicas
+/// There is no connection to devxdevelopment.com\nFor the correct operation of the program - you need a network connection.
+9AD93C02|No hay ninguna conexión a devxdevelopment.com\nPara el correcto funcionamiento del programa, necesita una conexión de red.
+/// Connection - ok
+31FBE153|Conexión - ok
+/// error
+5AED193|error
+/// License for 'Unpacker Studio' not activated!
+48235494|Licencia para 'Unpacker Studio' no se activa!
+/// Play.. 
+2A8CF32F|Jugar.. 
+/// License for 'RePacker Tools' or 'Unpacker Studio' not activated!
+AD524422|Licencia para 'Reembalador Herramientas' o 'Unpacker Studio' no se activa!
+///                                       License for 'RePacker Tools' or 'Unpacker Studio' not activated\nThe image will be partially grounded on black squares
+D866935E|Licencia para 'Reembalador Herramientas' o 'Unpacker Studio' no se activa\nLa imagen será parcialmente a tierra en cuadros negros
+/// License - not valid!
+C0FCE739|La licencia no es valida!
+/// License - valid.
+20200A26|Licencia válida.
+/// Activation - ok
+8E8D7F8A|La activación ok
+/// Not activated!
+F62685F2|No se activa!
+/// License activation - ok
+BCD279FB|Activación de la licencia - ok
+/// License key:
+5A5C9760|Clave de licencia:
+/// License State
+7E90661A|De Licencia Estatal
+/// License Number
+7F76DDFF|Número De Licencia
+/// To activate license..
+E66D4787|Para activar la licencia..
+/// To open buy page
+2FB642D5|Para abrir la página de compra
+/// License Information
+122A693A|La Información De La Licencia
+///                                       Waiting.. open 
+352854BF|A la espera abrir.. 
+/// Waiting.. 
+1AAA4AE1|A la espera.. 
+/// % 
+CDAAB77B|% 
+/// parsing
+FF4D2980|analizar
+/// Waiting..
+1ACA4AE1|A la espera..
+/// Waiting.. Recreate all assets..
+F6525294|Espera.. Recrear todos los activos..
+/// Waiting.. Update all..
+5472E972|Espera.. Actualización de todos..
+/// Ok
+CDEFB7E1|Ok
+/// Waiting.. parsing content...
+594B5358|Espera.. análisis de contenido...
+/// Waiting.. make tree...
+2B9B294E|Espera.. hacer árbol de...
+/// Waiting.. Resource manager.. Resources path update, items: 
+4E8E089D|Espera.. administrador de Recursos.. Recursos ruta de actualización, elementos: 
+/// Waiting.. make tree - end
+C60B13FD|Espera.. hacer árbol de fin de
+/// Waiting.. Import Asset: 
+9914F0E|Espera.. Importación De Activos: 
+/// Waiting.. Import Asset:
+76314F0E|Espera.. Importación De Activos:
+///  - read structure..
+183D2F98| - lectura de la estructura..
+///                                       - read structure - no
+E9E711F3| - leer la estructura no
+///  - init objects ..
+312589DC| - inicialización de los objetos.
+/// Open OK, Items count: 
+AB925A89|Abierto OK, recuento de Elementos: 
+/// Error
+5AED673|Error
+/// Error:
+5D8D673|Error:
+/// Make asset
+AF344CBD|Hacer de activos
+/// Waiting.. make tree structure.. for 
+DC39D535|Espera.. hacer de la estructura de árbol.. 
+/// Waiting.. make tree structure - ok
+24501B89|Espera.. hacer de la estructura de árbol - ok
+/// Waiting... open bundle: 
+76CA22F1|Espera... abrir paquete: 
+/// Export to:
+4F02B678|Exportar a:
+/// read end
+9FB1A365|leer el final
+/// APK:
+4417A002|APK:
+/// Waiting.. Open apk begin...
+535EE5DE|Espera.. Abrir el apk de comenzar...
+/// Waiting.. Open IPA begin...
+EDD4194A|Espera.. Abrir IPA de comenzar...
+/// Waiting.. Open Unitypackage begin...
+2C9F6E00|Espera.. Abrir Unitypackage de comenzar...
+/// Wait... make apk 
+214685F7|Espere... hacer apk 
+/// Error on create APK: 
+A900A8D|Error en crear APK: 
+/// Make apk - ok
+23D17C38|Hacer apk - ok
+/// Waiting.. Parsing item: 
+3DFC8A9F|Espera.. Análisis de elemento: 
+/// Waiting.. Parsing script: 
+570BFFCF|Espera.. el Análisis de secuencia de comandos: 
+///  - Sometimes the primary decompilation can take several minutes (depends on the size of the assembly)..
+6475DF5C| - A veces el principal descompilación puede tardar varios minutos (depende del tamaño de la asamblea)..
+/// Waiting.. Parsing asset item: 
+D08181D|Espera.. Análisis de los activos objeto: 
+/// Export make asset:
+F0F2A2E7|Exportación de hacer activo:
+/// Export asset:
+9878BDA0|La exportación de activos:
+/// Export error: 
+574C4B4D|La exportación de error: 
+/// Export ok, count: 
+F9C1452A|Exportación de aceptar, el conde: 
+///                                       Waiting.. MakeUnityProject..
+BBD46DFD|Espera.. MakeUnityProject..
+///                                       Waiting.. MakeUnityProject.. 
+D2D4DD55|Espera.. MakeUnityProject.. 
+///  export asset: 
+FB976152| la exportación de activos: 
+///                                       Waiting.. Make Unity Project.. 
+EAF907C9|Espera.. Hacer El Proyecto De La Unidad.. 
+/// MakeUnityProject - ok
+98C91534|MakeUnityProject - ok
+///                                       Waiting.. MakePrefabs..
+B2FD7227|Espera.. MakePrefabs..
+///                                       Waiting.. MakePrefabs.. 
+1F9D7227|Espera.. MakePrefabs.. 
+/// MakePrefabs - ok
+7415C18D|MakePrefabs - ok
+///  make asset: 
+24A9DD5| hacer de activos: 
+///  make parfab asset: 
+35698EAC| hacer parfab activo: 
+///                                       Waiting.. Generate Scripts..
+4A5FDDF2|Espera.. Generar Secuencias De Comandos..
+///                                       Waiting.. Generate scripts.. 
+D8442619|Espera.. Generar secuencias de comandos.. 
+/// Generate Scripts - ok
+C764262B|Generar secuencias de comandos - ok
+/// Proxy connection
+B3B7CD64|Conexión de Proxy
+/// Proxy address:
+10161BED|Dirección de Proxy:
+/// port:
+158D4A0|puerto:
+/// User:
+2C1C7F9C|Usuario:
+/// Password:
+D086BA55|Contraseña:
+/// Cancel
+76594D8C|Cancelar
+/// Proxy Authentication
+42142F52|La Autenticación De Proxy
+/// Proxy settings
+13DCA69B|Configuración de Proxy
+/// Make temp key...
+69446BC7|Hacer la tecla temp...
+/// Export as ".Unitypackage"
+2062516|Como de exportación ".Unitypackage"
+/// Export model as ".FBX"
+E72DC67C|Modelo de exportación ".FBX"
+/// Export as ".Prefab"
+2F8CE20D|Como de exportación ".Prefab"
+/// Making 3D scene
+E5F5704E|Hacer de la escena 3D
+/// Making 3D scene (without materials)
+47368B19|Hacer de la escena 3D (sin materiales)
+/// Stop of process
+E97FBB80|Parada de proceso
+/// Clear scene
+D5FE0A41|Claro escena
+/// Reset of camera
+DE92FEBE|Restablecimiento de la cámara
+/// Optimize Metadata for file
+B533CB05|Optimizar los Metadatos de archivo
+///                                       Generate Scripts for IL2CPP (C#) 
+F59BA396|Generar secuencias de comandos para IL2CPP (C#) 
+/// EditText
+A86F74B8|EditText
+/// AnonymousMethods
+887C750E|AnonymousMethods
+/// YieldReturn
+1493CEDC|YieldReturn
+/// SwitchStatementOnString
+35EF1F72|SwitchStatementOnString
+/// AutomaticEvents
+32608958|AutomaticEvents
+/// AutomaticProperties
+5C51074C|AutomaticProperties
+/// ExpressionTrees
+FEBFDC9F|ExpressionTrees
+/// FullyQualifyAmbiguousTypeNames
+6379F9F6|FullyQualifyAmbiguousTypeNames
+/// MakeAssignmentExpressions
+77F2689E|MakeAssignmentExpressions
+/// ObjectOrCollectionInitializers
+58BF2214|ObjectOrCollectionInitializers
+/// QueryExpressions
+8D02C30E|QueryExpressions
+/// UsingDeclarations
+839DD608|UsingDeclarations
+/// CompillerTypeGenerated_Clear
+22FE82C1|CompillerTypeGenerated_Clear
+/// ScriptGenerateOptions
+4FB9B3F8|ScriptGenerateOptions
+///                                        Ver 4.11
+CC98BD88| Ver 4.11
+/// Filter
+5CDB63A9|Filtro
+/// Text
+EDB18BEE|Texto
+/// Mesh
+BD4F8E8E|Malla
+/// Script
+47AFD823|Secuencia de comandos
+/// toolStrip5
+E797FA33|toolStrip5
+/// Image
+30EBACDF|Imagen
+/// toolStrip7
+E799FA33|toolStrip7
+/// toolStrip4
+E798FA33|toolStrip4
+/// toolStrip10
+E80B1424|toolStrip10
+/// toolStrip9
+E78BFA33|toolStrip9
+/// toolStrip2
+E796FA33|toolStrip2
+/// statusStrip1
+C1235660|statusStrip1
+/// Font
+E81B912E|¿
+/// toolStrip8
+E78CFA33|toolStrip8
+/// toolStrip6
+E79AFA33|toolStrip6
+/// Info
+13613|Info
+/// toolStrip1
+E793FA33|toolStrip1
+///                                       Full parsing assets on load (slow..)
+46418AE1|Completo análisis de los activos de la carga (lento..)
+///                                       Fast load (with out pre-parsing asset on load)
+BBE06D23|De carga rápida (con pre-análisis de los activos de la carga)
+///                                       Scrips load only
+BADCFA5A|Scrips de carga sólo
+/// Decompile libil2cpp.so (IL2CPP) to C# code
+EB80C700|Descompilar libil2cpp.Sé (IL2CPP) a código C# 
+/// .split0
+277313E7|.split0
+/// UnpackerTools - license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts
+47B02D9A|UnpackerTools - licencia: \n- Ver todos los recursos \n- Ver código fuente del Script (descompilar a C#, sólo vista) \n- Exportación de los recursos: los sonidos (WAV), imágenes (PNG, DDS), malla (.obj), texto, fuentes
+/// RePackerTools license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)
+5A68B2D9|RePackerTools licencia: \n- Ver todos los recursos \n- Ver código fuente del Script (descompilar a C#, sólo vista) \n- Exportación de los recursos: los sonidos (WAV), imágenes (PNG, DDS), malla (.obj), texto, fuentes \n- Reemplazar los activos de contenido de juego (reemplazar las Imágenes, sonidos, texto, editar parámetros de activos)
+///                                       Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshs, Text, Fonts, Material, Animations, Models and etc.)
+9D0D47AC|Unpacker Magic Studio de licencia: \n- Ver todos los recursos \n- Ver todo el código fuente del Script (descompilar a C#, permiten guardar la secuencia de comandos) \n- Exportación de los recursos: los sonidos (WAV), imágenes (PNG, DDS, PVR), malla (.obj, .de activos), texto, fuentes, Scrips (C#) \n, Las Animaciones, El Avatar \n- La exportación de modelos para Unitypackeg (Modelo, Animaciones, Recursos) \n- Reemplazar los activos de contenido de juego (reemplazar las Imágenes, sonidos, texto, editar parámetros de activos) \n- Generar Unity3D proyecto de juego \n(Escenas, Guiones, Imágenes, Sonidos, Meshs, Texto, Fuentes, Materiales, Animaciones, Modelos, etc.)
+/// Waiting... open webGL: 
+B67182FE|Espera... abrir webGL: 
+/// Enter text
+E46D9380|Introduzca el texto
+///                                        Ver 4.12
+CC98BD87| Ver 4.12
+/// Open as Unity WebGL file (.unityweb)
+65DA45EF|Abierta como la Unidad WebGL archivo (.unityweb)
+/// Open as Unity WebGL Game by URL
+98E0C71D|Abierta como la Unidad WebGL Juego por URL
+/// WebGL (.unityweb)
+5BF6015A|WebGL (.unityweb)
+///                                        Ver 4.13
+CC98BD86| Ver 4.13
+///                                       Debug console view
+C41A6653|Consola de depuración de vista
+///                                        Ver 4.14
+CC98BD8D| Ver 4.14
+///                                        Ver 4.15
+CC98BD8C| Ver 4.15
+///                                       Saving is possible 1 time in 5 minutes
+49A7281C|El ahorro es posible 1 vez en 5 minutos
+/// Save as txt
+3158F06C|Guardar como txt
+/// Save as RTF
+C17EBD68|Guardar como RTF
+/// Debug log form
+57E1EC0F|Formulario de registro de depuración
+/// Asset settings
+3E64DDA1|De activos ajustes
+/// Bundle auto extract
+12F151A6|Paquete de auto extracto
+///                                       Script settings
+D4BA54B8|Configuración de secuencia de comandos
+/// IL2CPP Restore Scripts Structure
+814EE7D0|IL2CPP Restaurar la Estructura de secuencias de comandos
+/// IL2CPP to decompile into ARM ASM && C# (experemental, slow)
+DB9E7D17|IL2CPP descompilar en el BRAZO ASM && C# (experemental, lento)
+/// ImportSettings
+B1B5CF8F|ImportSettings
+/// Show debug log
+F5AF8D49|Mostrar registro de depuración
+/// Saving is possible 1 time in 2 minutes
+5982281C|El ahorro es posible 1 vez en 2 minutos
+///                                       Waiting.. Make Unitypackage..
+D7981B49|Espera.. Hacer Unitypackage..
+///                                       Waiting.. Pack to  Unitypackage..
+AD06DA43|Espera.. Pack para Unitypackage..
+/// Unitypackage - ok
+D1DB6975|Unitypackage - ok
+/// Wait... make obb 
+75CBB8DD|Espere... hacer obb 
+/// Error on create obb: 
+AE0D89A4|Error en crear obb: 
+/// Make obb - ok
+75B70BDE|Hacer obb - ok
+///                                        Ver 4.16
+CC98BD8B| Ver 4.16
+///                                        Ver 4.17
+CC98BD8A| Ver 4.17
+/// Generate Scripts for Android IL2CPP  (C#) 
+11061C52|Generar secuencias de comandos para Android IL2CPP (C#) 
+///                                        Ver 4.18
+CC98BD81| Ver 4.18
+///                                        Ver 4.19
+CC98BD80| Ver 4.19
+///                                        Ver 4.20
+57FDBD89| Ver 4.20
+///                                        Ver 4.21
+57FDBD88| Ver 4.21
+///                                        Ver 4.22
+57FDBD87| Ver 4.22
+///                                  Models
+2F370A3B|Modelos
+/// ......\nShader truncated for DEMO VERSION, Real len: 
+5C7F68E6|......\nShader truncado por la VERSIÓN de DEMOSTRACIÓN, Real len: 
+/// Break
+1527D9A|Romper
+/// With debug windows
+A40926D6|Con la depuración de windows
+/// IL2CPP Script settings
+B20B92C9|IL2CPP configuración de secuencia de Comandos
+/// .NET assembly script decompilation
+C4BFB9F4|.NETO de la asamblea de secuencia de comandos de descompilación
+/// Simple code structure decompiler
+D29F038|Simple código de la estructura de decompiler
+/// ILSpy (.net 4.6 required)
+13752020|ILSpy (.net 4.6 necesario)
+/// Exist new version\n
+62B5A32D|Existe nueva versión\n
+/// Script decompilation options
+12B10B0E|Secuencia de comandos de descompilación opciones
+/// Standard decompiler
+3D2D1BC7|Estándar de decompiler
+/// APKSigner Dialog - required JDK
+7C411C18|APKSigner de Diálogo - se requiere JDK
+///                                        Ver 4.26
+57FDBD8B| Ver 4.26
+/// The version is obsolete. Need to install a new version.
+A7373E98|La versión es obsoleta. Necesidad de instalar una nueva versión.
+/// Wait... Check internet connection.. http://devxdevelopment.com...
+76B9212E|Espera... de Verificación de conexión a internet.. http://devxdevelopment.com...
+/// An error occurred while connecting to the server,\r\nplease check the network status and website availability of devxdevelopment.com\r\nand try again later.
+46A8422F|Se ha producido un error al conectar con el servidor, \npor favor, compruebe el estado de la red y la disponibilidad de la página web de devxdevelopment.com \ny vuelve a intentarlo más tarde.
+///                                       Select by name equals
+F3183D13|Seleccionar por nombre equivale a
+/// Search by id, name
+6D8F369B|Buscar por id, nombre
+/// Background:
+8A15B0DF|Antecedentes:
+///                                       Without alpha chanel
+4933CD98|Sin alfa chanel
+/// Length (bytes)
+F9E93EC|Longitud (bytes)
+/// Standalone (WIN, MAC, LINUX)
+49A132CF|Independiente (WIN, MAC, LINUX)
+/// iOS Package (.ipa)
+57715F4E|Paquete de iOS (.ipa)
+/// Wait.. Making UnityProject..
+9706AC3F|Esperar.. Haciendo UnityProject..
+/// Wait.. Making UnityProject.. 
+F46222AE|Esperar.. Haciendo UnityProject.. 
+/// Wait.. Making Unity Project.. 
+A12C3A7B|Esperar.. Haciendo De Proyecto De La Unidad.. 
+/// Wait.. Making Prefabs..
+EDF536FB|Esperar.. Haciendo Prefabs..
+/// Wait.. Making Prefabs.. 
+5A9536FB|Esperar.. Haciendo Prefabs.. 
+/// Wait.. Making Unitypackage..
+47F22DBE|Esperar.. Haciendo Unitypackage..
+/// Wait.. Export Scripts..
+42A7B955|Esperar.. De Exportación De Secuencias De Comandos..
+/// Wait.. Generate Scripts..
+44C16C93|Esperar.. Generar Secuencias De Comandos..
+/// Wait.. Generate scripts.. 
+44A0ECF3|Esperar.. Generar secuencias de comandos.. 
+/// Unity Project Version
+8391C557|Proyecto De La Unidad Versión
+/// Unity 2017.3
+5E77CD61|Unidad 2017.3
+/// Unity 5.6
+E54C2A1D|Unidad 5.6
+/// Information truncated for DEMO VERSION
+60921137|Información truncada para la VERSIÓN de DEMOSTRACIÓN
+///                                        Ver 4.39
+E362BD80| Ver 4.39
+/// Show tree items id
+E3024211|Mostrar elementos del árbol de identificación
+///                                       Select by id or name:
+C5DD27A1|Seleccione por id o nombre de:
+/// File:
+1AF463E4|Archivo:
+/// ID:
+E7A29BDF|ID:
+/// Waiting.. ScriptMapper.. Resources path update, items: 
+187801F3|Espera.. ScriptMapper.. Recursos ruta de actualización, elementos: 
+/// Temp directory
+6D8B26B7|Directorio Temp
+///                                        Ver 4.42
+139FBD87| Ver 4.42
+/// Apply changes - end
+29AAA97D|Aplicar cambios de fin de
+///                                       Apply changes (repack bundle, make APK, etc)
+824F133F|Aplicar los cambios (repack paquete, hacer APK, etc)
+/// Without alpha channel
+33A355B7|Sin canal alfa
+/// Repack Bundles (.unity3d)
+FBA2997F|Vuelva A Embalar Paquetes (.unity3d)
+/// Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshes, Text, Fonts, Material, Animations, Models and etc.)
+7906005F|Unpacker Magic Studio de licencia: \n- Ver todos los recursos \n- Ver todo el código fuente del Script (descompilar a C#, permiten guardar la secuencia de comandos) \n- Exportación de los recursos: los sonidos (WAV), imágenes (PNG, DDS, PVR), malla (.obj, .de activos), texto, fuentes, Scrips (C#) \n, Las Animaciones, El Avatar \n- La exportación de modelos para Unitypackeg (Modelo, Animaciones, Recursos) \n- Reemplazar los activos de contenido de juego (reemplazar las Imágenes, sonidos, texto, editar parámetros de activos) \n- Generar Unity3D proyecto de juego \n(Escenas, Guiones, Imágenes, Sonidos, Mallas, Texto, Fuentes, Materiales, Animaciones, Modelos, etc.)
+/// Wait... Save Bundle
+4E93D81|Espera... Guardar Paquete
+/// Search end, find count: 
+5714C4BF|La búsqueda final, encontrar a contar: 
+/// None
+A6669136|Ninguno
+/// Saving RAM (export slower)
+D8F87912|Ahorro de RAM (exportaciones más lento)
+/// Cache time in seconds:
+8AB7DCC5|Caché de tiempo en segundos:
+/// Begin search...
+79A29A6|Iniciar la búsqueda...
+/// Filter (show/hide)
+E6849FA9|Filtro (mostrar/ocultar)
+/// Search as HEX
+8566509E|De búsqueda como HEXADECIMAL
+///                                       Search as text UNICODE
+EAE5E044|Búsqueda de texto UNICODE
+///                                       Search as text UTF8
+83F86ACE|Búsqueda de texto UTF8
+///                                       Search as text ANSI
+155E6689|Búsqueda de texto ANSI
+/// Content Value
+FBF592D0|Contenido De Valor
+/// label1
+E9E81D06|label1
+/// ID
+CE06B7E7|ID
+/// Offset in asset
+68CA2EB8|Desplazamiento en activo
+/// Status
+8A82AD3D|Estatus
+/// Double click of item - for show on main tree view
+6781324B|Haga doble clic en el elemento para mostrar en la vista de árbol principal
+/// Search form
+B1C0F49C|Formulario de búsqueda
+///                                        Ver 4.48
+139FBD81| Ver 4.48
+/// statusStrip2
+4C885660|statusStrip2
+/// Disable auo open result files
+5530D0CE|Deshabilitar auo abrir archivos con los resultados de
+/// label21
+241B8D1F|label21
+/// Asset class name
+C4A54A6D|Activo nombre de la clase
+///                                        Ver 5.01
+4154BD88| Ver 5.01
+/// Audio clip
+36ACA52A|Clip de Audio
+/// label22
+C6C301BA|label22
+/// Save as (wav, mp3,ogg)
+7297E26F|Guardar como (wav, mp3,ogg)
+/// Settings
+D5EB1CC9|Configuración
+///                                       APK Sign settins
+B0D618FC|APK Signo settins
+/// Import settings
+800542D8|La configuración de importación
+///                                       Export && Save
+83462991|Exportación && Guardar
+/// Repack
+A77BEFBB|Repack
+/// Apply all changes (repack bundle, make APK, etc)
+AC5DC3F|Aplicar todos los cambios (repack paquete, hacer APK, etc)
+/// Asset (selected):
+275F743F|Activo (seleccionado):
+/// Save Asset (with headers)
+141E9684|Guardar Activo (con encabezados)
+/// Save Asset content
+8A4E48F7|Guardar los Activos de contenido
+/// Save Asset sub content (binary conten of asset)
+7DA1A698|Guardar Activo sub contenido (contenido binario de los activos)
+/// Replace sub content in Asset (binary content)
+96520274|Sustituir los contenidos de los Activos (contenido binario)
+/// Reset filter
+19A5084C|Restablecer filtro
+/// Search now
+13CA73A5|Buscar ahora
+/// Assets only
+E46F4BDE|Los activos sólo
+/// Search form..
+CC159FF1|Formulario de búsqueda..
+/// Select next:
+2C0421D5|Seleccione siguiente:
+/// Debug console
+340EC2BB|Consola de depuración
+/// Warning! Server date and local date  not equal!!!\nFor the program to work, you need the date and time to be correct.(Server UTC date: 
+7AA4D160|Advertencia! Servidor de fecha y fecha local no es igual!!!\nPara que el programa funcione, necesita de la fecha y hora correcta.(UTC del servidor de la fecha: 
+/// , Local UTC date=
+9669279D| Local UTC fecha=
+/// Waiting.. AssetBundle.. Resources path update, items: 
+A75C67B0|Espera.. AssetBundle.. Recursos ruta de actualización, elementos: 
+///                                        Ver 5.03
+4154BD86| Ver 5.03
+/// Export
+C175ED3D|Exportación
+/// Replace sound
+74EE86CF|Reemplazar el sonido
+/// With generate project
+481459F7|Con generar el proyecto
+/// With export resources
+2A463756|Con la exportación de recursos
+/// Import bundle as Level
+A199C855|Importar paquete de Nivel
+/// Include Search in Scripts (c# script content)
+24CD7A4|Incluir la Búsqueda de secuencias de comandos (c# contenido del script)
+/// Search as text
+7CB022EA|Búsqueda de texto
+/// Assets Bundle\n
+5D8CF4D3|Activos Paquete\n
+/// Engine version: 
+77B48C01|La versión del motor: 
+/// Bundle size: 
+3CF3C1E8|Paquete de tamaño: 
+/// Signature: 
+A0BFA96D|Firma: 
+/// Items: \n
+1B77120F|Elementos: \n
+/// For save changes to assets: press to button 'Apply changes'
+D94ABDBB|Para guardar los cambios en los activos: pulse el botón "Aplicar cambios"
+///                                        Ver 5.07
+4154BD8A| Ver 5.07
+/// Generate Unity Project
+7345665F|Generar Proyecto De La Unidad
+/// Export resources to directory
+978ECC6B|La exportación de recursos para el directorio
+/// Test\n123\n456
+74488F59|Prueba\n123\n456
+/// Stop play
+901BBCBB|Deje de jugar
+/// Bundle content
+A374ECCF|Paquete de contenido
+/// Lenght
+48414E76|Longitud
+/// Show fast menu
+751996A6|Mostrar un menú rápido
+/// Disable dialog: For save changes to assets: press 'Apply Changes'
+344B17D9|Deshabilitar el cuadro de diálogo: Para guardar los cambios en los activos: pulse el botón "Aplicar Cambios"
+/// APK Sign settings
+7E1E21E1|APK Signo de configuración
+/// Unity 2018.1
+47AACD61|Unidad 2018.1
+/// Fast open (fast generate project)
+63F8BA7A|Rápido abierta (fast generar proyecto)
+/// Waiting.. open
+A09AEE74|A la espera abrir.. 
+/// Make prefab - ok
+BD04F926|Hacer prefab - ok
+/// Make prefab - error
+FF163379|Hacer prefab - error
+/// Make prefab - break
+995DB01E|Hacer prefab - break
+/// Wait.. Making Prefab..
+7223DB42|Esperar.. Fabricación De Prefabricados..
+/// make parfab asset:
+F5A47C38|hacer parfab activo:
+///                                      License for 'RePacker Tools' or 'Unpacker Studio' not activated
+CC174422|Licencia para 'Reembalador Herramientas' o 'Unpacker Studio' no se activa
+///                                       Ver 5.20
+581EBD89| Ver 5.20
+/// Prefab
+48BB8036|Prefabricada
+/// GameObject
+44A02777|GameObject
+/// Ignore StreamingAssets directory
+55EFDF96|Ignorar StreamingAssets directorio
+/// Ignore scenes
+A10E5601|Ignorar las escenas
+/// Async parse of Bundle
+2112BD71|Async analizar de Paquete
+/// Async parse of Assets
+4ED032E0|Async analizar de Activos
+///                                   License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+959D2470|Licencia para 'Reembalador Herramientas' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+///                                   License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A0C17CAF|Licencia para 'Unpacker herramientas' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+/// License for 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A951A366|Licencia para 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+///                                   License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+B4622470|Licencia para 'Reembalador Herramientas' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa
+/// License for  'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6A96853C|Licencia para 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+///                                    Ver 5.22
+581EBD87| Ver 5.22
+/// Async make of Assets
+B4FA0730|Async hacer de Activos
+///                                    Ver 5.26
+581EBD8B| Ver 5.26
+/// Speed options
+78640A1|Opciones de velocidad
+/// When you enable async options, it will be faster, but errors are possible!
+E7C89762|Cuando se habilita async opciones, será más rápido, pero los errores son posibles!
+/// Unitypackage - end with error
+20E9686B|Unitypackage - end con error
+///                                    Ver 6.02
+4175BD87| Ver 6.02
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+793DDF5D|Licencia para 'Reembalador Herramientas' o 'Android Unpacker' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+8943AD18|Licencia para 'Unpacker herramientas' o 'Android Unpacker' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+795CDF5D|Licencia para 'Reembalador Herramientas' o 'Android Unpacker' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6B253BF6|Licencia para 'Unpacker Herramientas' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+///                                  License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' not activated!
+FED026C1|Licencia para 'Reembalador Herramientas' o 'Android Unpacker' o 'Unpacker Studio' no se activa!
+///                                   Ver 6.05
+4175BD8C| Ver 6.05
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+31EDE709|Licencia para 'Unpacker herramientas' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'Android Unpacker' no se activa!
+/// Export as ZIP archive
+DA624C1A|Exportar como archivo ZIP
+/// dnSpy (.net 4.7.1 required)
+CA04B12D|dnSpy (.net 4.7.1 necesario)
+/// Double click of item - for apply select
+BB185879|Haga doble clic en el elemento para aplicar seleccione
+/// FullName
+92659EB5|FullName
+/// Select object
+C408A146|Seleccione el objeto
+///  Ver 6.12
+CCDABD87| Ver 6.12
+/// FlipY on Replace image
+E15679C|FlipY en Reemplazar la imagen
+/// Animation models
+E3C4D931|Animación de modelos
+/// Primitive models
+4CD6E253|Primitivos modelos
+/// Import from:
+997E9824|Importación de:
+/// Import ok, count: 
+23FA00C6|Importación de aceptar, el conde: 
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+4A5CD18C|Licencia para Android de Unpacker' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'Unpacker Editor Studio' no se activa!
+///  Ver 6.17
+CCDABD8A| Ver 6.17
+/// Wait animation type
+2348A5F1|Espere tipo de animación
+/// Classic
+3C00B964|Clásico
+/// Girl
+ED2019E9|Chica
+/// Export resources for Repack
+CB677E5E|La exportación de recursos para el Repack
+/// Import resources for Repack
+9D9F8CAD|Importación de recursos para el Repack
+/// Additional Log
+A29EBB83|De Registro Adicionales
+/// Memory limit (Mb):
+44D3354A|Límite de memoria (Mb):
+/// Impoer Ok:
+4F8CE226|Impoer Ok:
+/// Search result count:
+2E03BEB6|Resultado de la búsqueda en cuenta:
+///  Ver 6.21
+583FBD88| Ver 6.21
+/// Open as SketchFab.com model by URL
+C7676174|Abierto como SketchFab.com modelo de dirección URL
+/// Tools
+E8B1C422|Herramientas
+/// Unpack GZIP
+F3CBFFB4|Desembale GZIP
+/// Unpack Brotli
+37DF7A42|Unpack Brotli
+/// Unpack LZ4
+B723F483|Desembale LZ4
+/// Unpack LZMA
+6E844169|Desembale LZMA
+/// Search result:
+7AD9B089|Resultados de la búsqueda:
+/// Save descriptions to file
+E4B7253C|Guardar descripciones a los archivos
+/// Export :
+AFBC690B|Exportación :
+/// Waiting... open uasset: 
+C804CEBE|Espera... abrir uasset: 
+/// Waiting... open pak: 
+16CA047B|Espera... abrir pak: 
+/// License for  'GameRecovery' not activated!
+2C3E7114|Licencia para 'GameRecovery' no se activa!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+E48E0C23|Licencia para 'Reembalador Herramientas' o 'Android Unpacker' o 'Unpacker Studio' o 'GameRecovery' no se activa!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+2627AE0E|Licencia para 'Unpacker herramientas' o 'Android Unpacker' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'GameRecovery' no se activa!
+/// License for 'Unpacker Studio' or 'GameRecovery' not activated!
+7EA6BE1C|Licencia para 'Unpacker Studio' o 'GameRecovery' no se activa!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated
+DC930C23|Licencia para 'Reembalador Herramientas' o 'Android Unpacker' o 'Unpacker Studio' o 'GameRecovery' no se activa
+/// License for  'Unpacker Studio' or 'GameRecovery' not activated!
+528FF6F|Licencia para 'Unpacker Studio' o 'GameRecovery' no se activa!
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+4F91DB58|Licencia para Android de Unpacker' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'GameRecovery' no se activa!
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+8ECD3E7F|Licencia para 'Unpacker Herramientas' o 'Reembalador Herramientas' o 'Unpacker Studio' o 'GameRecovery' no se activa!
+///  Ver 7.01
+4196BD88| Ver 7.01
+/// Dont select header edit item
+1E1E6D12|No seleccione el encabezado de edición de elementos
+/// Save selected item to file
+A2DFCB1B|Guardar el elemento seleccionado a archivo
+/// Replace selected value from file
+9F42A9B5|Reemplazar el valor seleccionado de archivo
+/// DevXUnity-Game Recovery
+A60E1A35|DevXUnity-Juego De Recuperación
+/// Open Unity3D/Unreal game directory
+89510D9F|Abierto Unity3D/Irreal directorio del juego
+/// Open UnrealEngine uasset
+DF86BB4C|Abierto UnrealEngine uasset
+/// Open UnrealEngine PAK
+242A89E2|Abierto UnrealEngine PAK
+/// Generate Scripts (simple) for Android IL2CPP  (C#) 
+B0986638|Generar secuencias de comandos (simple) para Android IL2CPP (C#) 
+/// Unreal Engine PAK
+A41EC297|Unreal Engine PAK
+/// Unreal Engine Assets
+BF46BB11|Unreal Engine Activos
+/// ExportUassetsFromUnrealEnginePAK to:
+7DE1C29C|ExportUassetsFromUnrealEnginePAK a:
+/// ExportUassetsFromUnrealEnginePAK ok, count: 
+310513B1|ExportUassetsFromUnrealEnginePAK ok, recuento: 
+///  Ver 7.02
+4196BD87| Ver 7.02
+/// Export uassets from Unreal Engine PAK
+926D75C7|Exportación uassets de Unreal Engine PAK
+///  Ver 7.05
+4196BD8C| Ver 7.05
+/// Disable auto open result files
+8BEC4529|Deshabilitar el auto abrir archivos con los resultados de
+/// Make node dump
+EF96D912|Hacer nodo de volcado
+/// End download
+8279FB4C|Descarga de final
+/// Error on download gameInfo
+B3823311|Error en la descarga gameInfo
+/// End search
+F09E7D13|Final de la búsqueda
+/// Begin request...
+BF44FF53|Comienzo de solicitud de...
+/// Total rows: 
+BE2C451F|Total de filas: 
+/// License not activated! Subscription available only with license!
+414DA863|La licencia no se activa! Suscripción disponible sólo con licencia!
+/// You do not have a subscription to access to the Games database.
+C0ED97BD|Usted no tiene una suscripción para acceder a los Juegos de la base de datos.
+/// Begin download game information...
+967F7E1C|Comenzar a descargar la información de juego...
+/// Subscription payment
+F4D99EC6|Pago de la suscripción
+/// Subscription expiration:
+8B7CAF2B|El vencimiento de la suscripción:
+/// AppId
+719FEDCB|AppId
+/// Category
+6482F24|Categoría
+/// Company
+4D421FF8|Empresa
+/// Engine version
+69B53BEE|La versión del motor de
+/// Engine type
+E47EA598|Tipo de motor
+/// Free access
+CA53AB27|Acceso gratuito
+/// Platform type
+7D2BB440|Tipo de plataforma
+/// DiaplayName
+2B5669D1|DiaplayName
+/// Platform
+24D7A31|Plataforma
+/// Engine
+A0A26736|Motor
+/// GameVersion
+25EF2059|GameVersion
+/// Game version
+9EB80D01|Versión del juego
+/// EngineVersion
+85F8F446|EngineVersion
+/// BXmlSize
+5DA5AB4A|BXmlSize
+/// Preview size
+2F7D1404|Tamaño de la vista previa
+/// GameSize
+3A83AAA7|GameSize
+/// Game size
+488DA813|El tamaño del juego
+/// Hide item
+1EDFB100|Ocultar elemento
+/// Set free acess
+6A513C5A|Conjunto de libre acceso
+/// Всего 0
+B290854D|Total 0
+/// Download and open game (WebGL, OSGJS)
+B6F6F5A2|Descargar y abrir el juego (WebGL, OSGJS)
+/// Open game structure preview
+27781B61|Abrir el juego vista previa de la estructura
+/// Open game web page
+74261900|Abrir la página del juego
+/// Descriptions
+C3DA8DBE|Descripciones
+/// Only IL2CPP
+7AE55A1F|Sólo IL2CPP
+/// Only .NET Assembly
+E73E3DC0|Sólo .NETO de la Asamblea
+/// Game database search form (Full access by subscription)
+81A21328|Juego de búsqueda de base de datos de formulario (acceso Completo por suscripción)
+/// Item not support export
+F69FEAA9|Elemento no apoyo a la exportación
+/// You can save with conversion no more than once every two minutes.
+53B9408B|Usted puede guardar con la conversión de no más de una vez cada dos minutos.
+/// Object - not supported replace
+A6E20CE7|Objeto - no se admiten reemplazar
+/// Original game info: 
+B86AE29D|Original juego de info: 
+///  Ver 7.06
+4196BD8B| Ver 7.06
+/// Save asset header
+EA33944D|Guardar los activos de encabezado
+/// Save content (without contertaion)
+67E5E759|Guardar el contenido (sin contertaion)
+/// Export content (with convert format: png, wav, etc)
+A4A40923|Exportación de contenido (con convertir el formato: png, wav, etc)
+/// Replace binary content (binary, png, wav, etc)
+10A45610|Reemplazar el contenido binario (binary, png, wav, etc)
+/// Save asset headers
+EA40944D|Guardar los encabezados de los activos
+/// Save asset binary content
+A93311C9|Guardar activo contenido binario
+/// Game Database
+835ACED9|Juego De La Base De Datos
+/// Save as FSB5
+DCCE8FE0|Guardar como FSB5
+/// erro on download
+7FE70CA|erro en la descarga
+/// As source code (.cs)
+69F7089C|Como el código fuente (.cs)
+/// As plugin (.dll)
+D525DF66|Como plugin (.dll)
+/// Assemblies (for decompilation to .cs)
+CA7EB231|Asambleas (por descompilación .cs)
+/// Restore type
+71C7F906|Tipo de restauración
+/// DownloadCounter=
+B87065D3|DownloadCounter=
+/// UserName=
+882923D2|Nombre de usuario=
+/// CreateDate=
+91297A4C|CreateDate=
+/// License=
+1FCB93AA|Licencia=
+/// iID=
+59C2B95D|iID=
+///  Ver 7.08
+4196BD81| Ver 7.08
+/// Script generate settings
+C3F188C3|Script para generar la configuración de
+/// As source code (*.cs)
+1DAD6532|Como el código fuente (*.cs)
+/// Scripts
+8E91B592|Secuencias de comandos
+/// Script options
+9FB6408|Opciones de secuencias de comandos
+/// Project options
+318C6B1|Opciones de proyecto
+/// Remove script class (for exported to .cs) from plugin
+3C84C921|Quitar secuencia de comandos de clase (por exportado .cs) de plugin
+/// Filter by class name:
+A6BADEC6|Filtrar por nombre de la clase:
+/// as source code (*.cs)
+F06810D1|como el código fuente (*.cs)
+/// as plugin (.dll)
+D5593A86|como plugin (.dll)
+/// Reference for asset
+D9FB6EBB|De referencia para los activos
+/// Activate license..
+B47EABE4|Activar licencia..
+/// Open buy page
+D8BFF820|Abrir la página de compra
+///  Ver 7.09
+4196BD80| Ver 7.09
+/// Find All references
+70569210|Buscar Todas las referencias
+/// Waiting.. MakePreview..
+2F15684B|Espera.. MakePreview..
+/// Waiting.. MakePreview-end
+C4EC7D79|Espera.. MakePreview-final
+/// Disable export Shaders
+FAB8FD38|Deshabilitar la exportación Shaders
+/// PropertyDialog
+609D9308|PropertyDialog
+///  Ver 7.11
+CCFBBD88| Ver 7.11
+/// multiSelectTreeView21
+5DCF7336|multiSelectTreeView21
+/// Test Assets
+B56CD8D7|Prueba De Activos
+/// Wait.. Making Unity Project.. Make scripts for 
+E7433FE6|Esperar.. Haciendo de Proyecto de la Unidad.. Hacer scripts para 
+/// Wait.. TestAssets..
+5792227B|Esperar.. TestAssets..
+/// Wait.. TestAssets.. 
+EAF2227B|Esperar.. TestAssets.. 
+/// TestAssets - end
+50D60E8F|TestAssets - final
+/// Disable auto-fix sources
+266F7C01|Deshabilitar el auto-revisión de fuentes
+/// Only available for GameRecovery license.
+A80A4C4|Sólo disponible para GameRecovery licencia.
+/// Disable auto change to Shader links
+7124447A|Deshabilitar el auto cambio para Shader enlaces
+/// Allow delayed extraction of scripts
+AC7A600E|Permitir el retraso de la extracción de secuencias de comandos
+///  Ver 7.14
+CCFBBD8D| Ver 7.14
+/// Waiting.. m_AssetToPrefab.. items: 
+A08F9053|Espera.. m_AssetToPrefab.. elementos: 
+/// Only available for DevX GameRecovery license type.
+10630F7|Sólo disponible para DevX GameRecovery tipo de licencia.
+///  not include to poroject
+FFE943E5| no incluir a poroject
+/// Partial recovery of scripts is available only with the 'Allow delayed extraction of scripts'.
+F7876C10|Recuperación parcial de secuencias de comandos está disponible sólo con el 'Permitir el retraso de la extracción de secuencias de comandos'.
+///  Ver 7.15
+CCFBBD8C| Ver 7.15
+/// Unity 2018.3
+5E74CD61|Unidad 2018.3
+/// Not supported for this asset type
+8726FB75|No se admite para este tipo de activo
+///  Ver 7.18
+CCFBBD81| Ver 7.18
+/// Wait... Check internet connection.. https://devxdevelopment.com...
+5D8EC00D|Espera... de Verificación de conexión a internet.. https://devxdevelopment.com...
+/// toolStrip11
+8AB288BF|toolStrip11
+/// Restore only fields (for deserialization and minimize scripts errors)
+6D77C25E|Restaurar sólo los campos (por deserialización y minimizar los errores de secuencias de comandos)
+/// Allow to de-obfuscate assembly
+5DBA5417|Deje de confundir la asamblea
+/// Only for export to Unity 2018.3 or higher.
+33783E79|Sólo para la exportación a la Unidad 2018.3 o superior.
+/// Unity 2018.2
+D30FCD61|Unidad 2018.2
+///  Ver 7.21
+5860BD88| Ver 7.21
+/// Rules
+1B78670F|Reglas
+/// Apply
+62D0EDB8|Aplicar
+/// Open rules file
+5CCEF1D3|Abra el archivo de reglas de
+/// Result:
+8553A117|Resultado:
+/// Save result
+CFB24BA9|Guardar el resultado
+/// label2
+E9EB1D06|label2
+/// Show offset
+48A4BF19|Mostrar offset
+/// Open binary file
+D39D81F1|Abrir el archivo binario
+/// Binary Analyzer Tools
+82675C19|Binario Analizador De Herramientas
+/// Open binary analyzer tools
+AE911DB5|Abierto binario analizador de herramientas
+///  Ver 7.22
+5860BD87| Ver 7.22
+/// Open Binary Analyzer tools
+B87E468|Abierto Binario Analizador de herramientas
+/// Parce rules: 
+103B800A|Parce reglas: 
+/// Auto apply
+59FF7043|Se aplica automáticamente
+/// Open binary analyzer
+A95D268A|Abierto binario analizador de
+///  Ver 7.29
+5860BD80| Ver 7.29
+/// Back
+459BD839|De vuelta
+/// Next
+EDB18BE4|Siguiente
+/// ILSpy 5 (.net 4.6 required)
+5EBB7E80|ILSpy 5 (.net 4.6 necesario)
+/// exclude
+DC7D8E08|excluir
+///  make plugin (.dll)
+DBEA7DF9| hacer plugin (.dll)
+/// Reset
+61854DA3|Reset
+/// Set as Script assembly (.cs)
+2F21ADEB|Establecer como Script de montaje (.cs)
+/// Set as Plugin (.dll)
+92AE6425|Establecer como Plugin (.dll)
+/// Exclude from project
+5A6F5B4B|Excluir del proyecto
+/// Mark class to decompilation (.cs)
+B74012B|Marca de clase para descompilación (.cs)
+/// Remove from decompilation scripts
+3EB9EA0E|Eliminar de la descompilación secuencias de comandos
+/// As Scripts (.cs)
+72D1D23C|Como Las Secuencias De Comandos (.cs)
+/// As Plugin (.dll)
+ABEBBC76|Como Plugin (.dll)
+/// Exclude
+DC7D92E8|Excluir
+/// Class to script
+6675DB7B|Clase de secuencia de comandos
+/// Remove from decompilation
+CD00C64F|Eliminar de la descompilación
+/// Script Generate Options
+25994BBC|Script Para Generar Opciones
+/// Only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+E005EA6|Sólo disponible para 'DevX-GameRecovery' o 'DevX-GameModing' tipo de licencia.
+/// Not support for add child component.
+BCFB679A|No apoyo para agregar componente secundario.
+/// Selected items are not supported for copying.
+FCD072D|Los elementos seleccionados no son compatibles para la copia.
+/// Not selected asset to copy (Copy asset)
+A86A2FA1|No los activos seleccionados para copiar (Copia de activos)
+///  Ver 8.02
+3FA7BD87| Ver 8.02
+/// Dublicate asset
+18F6772D|Dublicate de activos
+/// Add child asset with dublicate by selection dialog
+934F5427|Agregar niño activo con dublicate por cuadro de diálogo de selección
+/// Copy asset
+5BDBD338|Copia de activos
+/// Paste asset
+315A3F47|Pasta de activos
+/// Cubemap
+2CEA422E|Cubemap
+/// Texture2D
+B0AAD29D|Texture2D
+/// Sprites
+910DB596|Los Sprites
+/// Delete asset
+C0E8BD20|Eliminar de activos
+/// Connection - not tested
+EC7EAB33|Conexión - no probado
+/// Not selected owner asset to create GameObjext
+3A35DCF0|No seleccionada propietario de los activos para crear GameObjext
+/// License for 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' not activated!
+45794F93|Licencia para 'Reembalador Herramientas' o 'Juego de Modding' o 'Unpacker Studio' no se activa!
+/// License for 'RePacker Tools' or 'Game Modding' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+9CE9AD2|Licencia para 'Reembalador Herramientas' o 'Juego de Modding' o 'Android Unpacker' o 'Unpacker Studio' o 'GameRecovery' no se activa!
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+C9AC09B3|Licencia para 'Unpacker herramientas' o 'Reembalador Herramientas' o 'Juego de Modding' o 'Unpacker Studio' o 'Android Unpacker' no se activa!
+/// Add new asset
+5AD1691E|Añadir nuevos activos
+/// Add GameObject
+DD4E575F|Añadir GameObject
+/// Paste link to asset
+69A27794|Pegar el enlace activo
+/// Clear item
+334BAC85|Claro elemento
+/// Path to executable file, parameters on run: "assembly_name.dll" -p -o "output_dir"
+1FA80710|Ruta de acceso al archivo ejecutable, los parámetros de ejecución: "assembly_name.dll" -p-o "output_dir"
+/// Custom extern decompiler
+FF108242|Personalizado extern decompiler
+///  Ver 8.03
+3FA7BD86| Ver 8.03
+/// Decompiler type:
+4B8D3813|Decompiler tipo:
+/// Decompiler type
+B2DB3813|Decompiler tipo
+///  Ver 8.04
+3FA7BD8D| Ver 8.04
+/// Export format
+35996432|Formato de exportación
+/// Options
+A1D6A433|Opciones
+/// Export models
+FA6DBF53|Los modelos de exportación
+/// ASCII
+32DC01C9|ASCII
+/// Binary
+8E0E4D56|Binario
+/// Export animations
+7FA8B4A|Exportación de animaciones
+/// Export textures
+663535DC|Exportar texturas
+/// FbxExportSettings
+5AFAA65F|FbxExportSettings
+///  Ver 8.06
+3FA7BD8B| Ver 8.06
+/// Disable сustom swap file (in file stream)
+B9CC2CB4|Deshabilitar personalizada archivo de intercambio (en la secuencia de archivo)
+/// This option enables automatic conversion of compiled shaders to Unity format (UnityLab)
+1D03716|Esta opción permite la conversión automática de compilado shaders a la Unidad de formato (UnityLab)
+/// Allow restore shader as UnityLab format (for GameRecovery license type)
+B5ED1B5F|Permitir la restauración de sombreado como UnityLab formato (por GameRecovery tipo de licencia)
+/// Allow async export
+61A5FC0F|Permitir async exportación
+/// Unity 2019.1
+47ABCD61|Unidad 2019.1
+/// Disable header information for scripts (header on .cs files)
+917298B4|Desactivar la información de cabecera para secuencias de comandos (encabezado .cs)
+/// Export multi sprite texture as separate sprite files
+A44EA654|Exportación de la multi-sprite texturas me gustaría separar el sprite archivos
+/// DevXC Control
+66A43E3|DevXC De Control
+///  sec
+2FD0C111| sec
+/// DevXC code: 
+8F41696B|DevXC código: 
+/// Execute
+5730F05E|Ejecutar
+/// Open devxc file
+22315D|Abrir archivo devxc
+/// Save code
+C098D69A|Guardar el código
+/// Show output window
+11C81E1A|Mostrar la ventana de salida
+/// Help
+D05AA806|Ayuda
+/// Execute time:
+47830FDC|Tiempo de ejecución:
+///  Ver 9.01
+3FC8BD88| Ver 9.01
+/// Open current action history
+D2A1EE39|Abierto de acción actual de la historia
+/// DevXC Console
+3BC20E5B|DevXC Consola
+/// DevXC-Scripts
+7AC6FE2|DevXC-Scripts
+/// Make parfab asset:
+F3637C58|Hacer parfab activo:
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+4F34C49E|Ejecutar DevXC de archivo disponible solo para 'DevX-GameRecovery' o 'DevX-GameModing' tipo de licencia.
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-MagicStudio' or 'DevX-GameModing' license type.
+41E5A8|Ejecutar DevXC de archivo disponible solo para 'DevX-GameRecovery' o 'DevX-MagicStudio' o 'DevX-GameModing' tipo de licencia.
+/// Error on create zip: 
+C7BC26B7|Error en crear zip: 
+/// Make zip - end
+FD528D50|Hacer zip - final
+///  Ver 9.02
+3FC8BD87| Ver 9.02
+/// Help:
+88B16616|Ayuda:
+/// Functions
+F2FCDCF2|Funciones
+/// Examples
+C9F7545|Ejemplos
+///  Ver 9.03
+3FC8BD86| Ver 9.03
+/// Material
+8800D7BA|Material
+/// Shader
+D3ADAD2D|Shader
+/// Allow restore shaders (base mode, without convert to ShaderLab format)
+6DBC0660|Permitir la restauración de shaders (modo base, sin convertir a ShaderLab formato)
+///  Ver 9.05
+3FC8BD8C| Ver 9.05

@@ -1,0 +1,1648 @@
+/// Wait... Image compression... This may take a few minutes
+67F2EC47|Počakajte... Slike stiskanje... To lahko traja nekaj minut,
+/// Wait... Parse assembly 
+676EEA33|Počakajte... Razčlenjevanje skupščine 
+/// Parse - ok
+8FD05778|Razčlenjevanje - ok
+/// Error on Parse assembly 
+783216DC|Napaka na Razčlenjevanje skupščine 
+///  No Internet connection!!!
+A4472FF8| Brez Internetne povezave!!!
+///  No Internet connection!!! 
+BC0C3AEE| Brez Internetne povezave!!! 
+///                                       Exit new version\n
+65C60228|Izhod nova različica\n
+/// Waiting...  open unity GameDir..
+4882047|Čaka... odprite enotnosti GameDir..
+/// Open unity GameDir - end
+76D2CE09|Odprite enotnosti GameDir - end
+///                                       (binary shader)
+9D41F04E|(binarni shader)
+///                                       ......\nShader trancated for DEMO VERSION, Real len: 
+ECA96CA1|......\nRolo truncated za DEMO RAZLIČICO, Pravi len: 
+/// // Not found assembly: 
+4D34EB5B|// Ni mogoče najti skupščine: 
+/// \n// This project used IL2CPP, assembly converted to native code.
+7981C3BD|\n// Ta projekt uporablja IL2CPP, sestavljanje pretvorjen v lastno kodo.
+/// //Not found assembly: 
+C7E2652|//Ni mogoče najti skupščine: 
+/// Save text
+4EC4922D|Shranjujete lahko besedilna
+/// test
+EAE38E77|test
+/// OK
+CE0FB7E1|OK
+///                                       Script decimpilation options
+391D7F38|Skript decimpilation možnosti
+///                                       Script decompilation
+FCB4E352|Skript decompilation
+/// Disable decompilation
+120E3FB8|Onemogočite decompilation
+///                                  JDecompiler
+8AFC8F39|JDecompiler
+///                                       Standart decompiler
+EEA3A483|Standard decompiler
+/// Scene params
+2A11D566|Prizor params
+/// Make direct MeshAsset (else Mesh by .obj file)
+E3E1083F|Neposreden MeshAsset (drugega Očesa .obj datoteke)
+/// Make all GameObjects as Active (override)
+33C19C13|Bi vse GameObjects kot Aktivno (override)
+/// C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+EAAC6917|C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+/// C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+F9D86526|C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+/// zipalign.exe
+2C5C77ED|zipalign.exe
+/// Keystore 
+FFDFA781|Jks 
+/// Without signature (apk without signature - can not be installed on the device)
+BA63D79B|Brez podpisa (apk brez podpis - ni mogoče namestiti na napravo)
+/// Store password
+B0EF04E6|Geslo za shrambo
+/// NDName
+3B82BA7F|NDName
+/// Key password
+F15325AD|Ključ geslo
+/// Key alias
+B2682AD4|Ključ naziv
+/// Keystore file
+101C8A80|Jks datoteke
+/// Select custom key
+C52368B|Izberite po meri tipka
+/// Create temp key
+276F9AC4|Ustvarite temp tipke
+/// Paths
+18D1C1FD|Poti
+/// JDK installer link
+293D5432|JDK installer povezava
+/// zipalign path
+20BAED5F|zipalign pot
+/// jarsigner path
+7119B2A9|jarsigner pot
+/// keytool path
+9A043CA4|keytool pot
+/// Make apk
+87B277BA|Da apk
+///                                       APKSignDialog - required JDK
+5168C80F|APKSignDialog - zahteva JDK
+///                                               Ver 
+2FD97207| Ver 
+///  (Internal!)
+3D13DA7E| (Notranje!)
+///  (runtime 
+14A073C4| (runtime 
+///                                       The version is obsolete and you need to install a new version.
+D9E34DAA|Različica je zastarela in morate namestiti novo različico.
+///                                       Waiting... Check internet connection.. http://devxdevelopment.com...
+59AA61CC|Čaka... Preverite internetno povezavo.. http://devxdevelopment.com...
+///  DEMO-CONSOLE!
+304FB581| DEMO-KONZOLE!
+/// Is Demo Version
+6A0B8062|Je Demo Verzija
+/// Project protected by
+4F70EAA5|Projekt, zavarovanih s
+/// Width: 
+BF6DE30B|Širina: 
+/// , Height: 
+C4DBC9EF|, Višina: 
+/// , Format: 
+72807AF3|, Format: 
+/// , MipMapCount: 
+681748FF|, MipMapCount: 
+/// \nStrings count: 
+49BC9CCF|\nStrune count: 
+///                                       License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated,\nThe image will be partially grounded on black squares!
+612FA8EE|Licenco za "Unpacker tools" ali "RePacker Tools" ali "Unpacker Studio" ni aktivirana,\nSlika se bo delno utemeljene na črni kvadrati!
+///                                       License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated
+35889687|Licenco za "Unpacker tools" ali "RePacker Tools" ali "Unpacker Studio", ki niso vključena
+/// Wait... Extract audio..
+77F9CD7A|Počakajte... Ekstrakt audio..
+/// Unsupported format
+2D5ED39F|Podprta oblika
+/// Exported to 
+5F0013FA|Izvažajo v 
+///                                   License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated!
+2D8D9687|Licenco za "Unpacker tools" ali "RePacker Tools" ali "Unpacker Studio", ki niso vključena!
+/// The file extension must match
+FCB08D72|Končnica datoteke se mora ujemati
+///                                      License for  'Unpacker Studio' not activated!
+C668CFD6|Licenco za "Unpacker Studio", ki niso vključena!
+/// Dont select GameObject!
+82955BC5|Ne izberite GameObject!
+/// Dont select MeshAsset
+68C81170|Ne izberite MeshAsset
+///                                       License not activated!
+97ABCBA2|Licenca ni vključen!
+///                                       Dont select GameObject or level!
+64471DF8|Ne izberite GameObject ali ravni!
+/// UI Language: 
+454E6D74|Uporabniški VMESNIK Jezik: 
+/// Metadata
+B20B46F5|Metapodatki
+/// Interesting..
+186DAFB|Zanimivo..
+/// Drag the game here and I'll show what's inside)
+6261EC56|Povlecite igre tukaj in jaz bom pokazal, kaj je notri)
+/// toolStripMain
+F4275D09|toolStripMain
+/// By name:
+84A32E32|Ime:
+/// Rows limit:
+B8BBD254|Vrstice omejitev:
+///                                       Select By ID:
+E8FFDFAF|Izberite ID":
+/// toolStrip3
+E795FA33|toolStrip3
+/// Common
+17CFD8E7|Skupno
+/// Text/Script
+9E201F6A|Besedilo/Script
+/// To protect against viewing resources, you can use the text encryption option in the obfuscator DevXUnity-ObfuscatorPro
+C3B86430|Za zaščito pred ogledom virov, lahko uporabite besedilo šifriranje možnost v obfuscator DevXUnity-ObfuscatorPro
+/// Information:
+1ED72F4B|Informacije:
+/// w,h,format
+330840A0|w,h,format
+/// To protect against viewing resources, you can use the image encryption option in the obfuscator DevXUnity-ObfuscatorPro\r\n
+AA0547A7|Za zaščito pred ogledom virov, lahko uporabite sliko za šifriranje možnost v obfuscator DevXUnity-ObfuscatorPro \n
+///                                       Fon:
+80CD912E|Background:
+/// 3DView
+815D0B84|3DView
+/// 3DScene
+FC75575A|3DScene
+/// Hex RAW
+C5C117C1|Čarovnica RAW
+/// Position
+FD95CA52|Položaj
+/// Line:
+60434EC8|Vrstice:
+/// Col:
+3B7EA7FB|Col:
+/// Font test
+5BD15A12|Naredite test
+/// Asset header edit
+C9529C11|Sredstva glave uredi
+/// Value
+D03C6679|Vrednost
+/// Name
+3BD1C9B|Ime
+/// Type
+C15430C6|Vrsta
+///                                       Lenght (bytes)
+FE4868C0|Dolžina (bajtov)
+/// Assembly code strings
+4C18336D|Skupščina code strune
+/// Method
+18B1C08E|Metoda
+/// Destanation method
+CA64270|Destanation metoda
+/// Value Filter:
+5F768801|Vrednost Filter:
+/// Method name filter:
+C6CB611E|Metoda ime filter:
+/// Errors
+621D673|Napake
+/// Errors:
+89FABD5F|Napake:
+/// Products
+4A7FD86A|Izdelki
+/// It is a tool for gaining new knowledge\r\nOpens the way to new opportunities
+454CCD00|To je orodje za pridobivanje novih znanj \nOdpira pot do novih priložnosti
+/// DevXUnity-Unpacker Magic Studio
+6B32D8F7|DevXUnity-Unpacker Magic Studio
+/// DevXUnity-RePackerTools
+6C2DFEF5|DevXUnity-RePackerTools
+/// DevXUnity-UnpackerTools
+86FE2CB4|DevXUnity-UnpackerTools
+/// UnpackerTools - license:\n- View all resources\n- View Script source code (decompile to C#, only view)\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\n
+1AEE8769|UnpackerTools - licence:\n- Ogled vseh virov\n- Ogled Skriptov izvorni kodi (na njem izvajati obratnega inženirstva, C#, samo prikaz)\n- Izvoz virov: zvoki (WAV), slik (jpg, jpeg, PNG, DDS), očesa (.obj), besedila, pisave\n
+/// Support
+A8ABCCA2|Podpora
+/// Implementation..
+5247A0E3|Izvajanje..
+/// Support formats:
+6799EC0E|Podpira formate:
+/// APK (apk, obb, xapk)
+2550695|APK (apk, obb, xapk)
+/// Bundles (.unity3d and other)
+8D3C4B5D|Snope (.unity3d in drugi)
+///                                       Stabdelone (WIN, MAC, LINUX)
+FB60580D|Standalone (WIN, MAC, LINUX)
+///                                       iOS distributive (.ipa)
+8FB82096|iOS razdelitvene (.ipa)
+/// Asset files
+E125F64C|Sredstva datoteke
+/// Export:
+10D3DAFD|Izvoz:
+/// Export Texture2D (png, pvr, dds)
+C92A6C39|Izvoz Texture2D (png, pvr, dds)
+/// Export Sprites (png)
+D0AF9C82|Izvoz Sprites (png)
+/// Export AudioClip (Sounds to .wav)
+ED6D8610|Izvoz AudioClip (zvok .wav)
+/// Export Mesh (OBJ with sub-mesh, FBX)
+5E55F0D5|Izvoz Očesa (OBJ s sub-očesa, FBX)
+/// Export Scene elements (to FBX, Prefab)
+271564|Izvoz Scenski elementi (FBX, Prefab)
+/// Export Video (avi, mp4,..)
+30E504CE|Izvoz Video (avi, mp4,..)
+/// Export Text assets
+73023AC|Izvoz Besedila sredstva
+/// Export Fonts
+B566829D|Izvoz Pisave
+/// Export Shader (for text shader mode)
+FE03C056|Izvoz Shader (za besedilo, shader način)
+/// Export/Create Prefab
+C7D86831|Izvoz/Ustvari Prefab
+/// Export Terrain Height-Map
+5FDE59E4|Izvoz Teren Višina-Zemljevid
+/// Replace resources for assets:
+92CE21B2|Zamenjajte viri sredstev:
+/// Edit Text
+153A07F6|Urejanje Besedila
+/// Edit Header Values
+6C4F95C0|Urejanje Glave Vrednosti
+/// Replace Images (with encoding)
+B1C89874|Zamenjajte Slike (kodiranje)
+/// Binary replace for any resources
+9E0953D9|Binarni zamenjati za kakršno koli sredstva
+/// Generate Unity Project:
+895E5C94|Ustvarjanje Enotnosti Projekta:
+/// Make APK (with signature)
+1F806B85|Da APK (s podpisom)
+/// Generate Scripts (C#) 
+10E73E5E|Ustvarjajo Skripte (C#) 
+/// Generate Scenes (.unity Levels)
+F285DD5B|Ustvarjanje Scene (.enotnost Ravni)
+/// Generate Prefab (.prefab)
+A0EB3B42|Ustvarjanje Prefab (.prefab)
+/// Generate Unitypackage (.unitypackage)
+CDBEEABB|Ustvarjanje Unitypackage (.unitypackage)
+/// Generate animated model (to .unitypackage)
+51C70D81|Ustvarjati animirani model (da .unitypackage)
+/// GameObject Transform RectTransform  \r\nMonoBehavior Renderer MeshRenderer \r\nMeshFilter MeshCollider Canvas \r\nCameraAsset AudioListener AudioSources \r\nColliders Animator and other
+A687CC7B|GameObject Preoblikovanje RectTransform \nMonoBehavior Izrisovalnik MeshRenderer \nMeshFilter MeshCollider Platno \nCameraAsset AudioListener AudioSources \nColliders Animator in drugih
+/// Generate Materials
+E4D924E4|Ustvarjanje Materialov
+/// Generate Texture2D
+DB04E9E7|Ustvarjanje Texture2D
+/// Generate Sprite
+BBC14F43|Ustvarjanje Sprite
+/// Generate AnimationClip\r\n
+401C619C|Ustvarjanje AnimationClip \n
+/// Generate Humanoid Animations
+5CAEA085|Ustvarjanje Humanoid Animacije
+/// Generate AnimationController
+7333871E|Ustvarjanje AnimationController
+/// Generate Mesh Asset
+6A08CA37|Ustvarjanje Očesa Sredstva
+/// Generate AudioClip Asset
+A96CE37E|Ustvarjanje AudioClip Sredstva
+/// Generate PhysicMaterial Asset
+A1992D64|Ustvarjanje PhysicMaterial Sredstva
+/// Generate PhysicsMaterial2D Asset
+2F9B7BDF|Ustvarjanje PhysicsMaterial2D Sredstva
+/// Generate Prefabs
+88C6C19D|Ustvarjanje Prefabs
+/// Generate Font
+C879083F|Ustvari Pisave
+/// Generate VideoClip
+23418CF9|Ustvarjanje VideoClip
+/// Generate Text Assets
+60C3C9B2|Ustvarjanje Besedila Sredstva
+/// Generate RenderTexture
+D3E14E1E|Ustvarjanje RenderTexture
+/// Generate ScriptableObject
+6EC596F4|Ustvarjanje ScriptableObject
+/// Generate GUISkin
+BF43C65C|Ustvarjanje GUISkin
+/// Version Info
+E8412D7B|Različica Info
+/// Inspector
+8EC4DE12|Inšpektor
+/// PropertyGridToolBar
+84B78E19|PropertyGridToolBar
+/// Layer:
+788BDC9|Plast:
+/// Tag:
+38AEAAB3|Dan:
+/// Save class metadata
+BD211979|Shrani razred metapodatkov
+/// Save packed version metadata
+493E5DB5|Shrani pakirani različica metapodatkov
+/// Save metadata from packed
+683E353A|Shrani metapodatke od pakirani
+/// Join and save all assets metadata
+9C362A73|Pridruži se in shrani vsa sredstva metapodatkov
+/// Load custom metadatas
+B788894D|Obremenitev po meri metadatas
+/// Export as Unitypackage
+CCC044AA|Izvozi kot Unitypackage
+/// Export as Prefab
+8E1C48B9|Izvozi kot Prefab
+/// Export model as FBX
+EC5ADA02|Izvoz modela, kot FBX
+/// Open
+E8CCC172|Odprto
+///                                       Open mode:
+86340C3C|Odprt:
+/// Open Unity3D game directory
+55607B33|Odprite Unity3D igre imenik
+/// Open as APK, OBB, XAPK file (android)
+874EFF8D|Odprto, saj APK, OBB, XAPK datoteko (android)
+/// Open as IPA file (iOS)
+1C183D79|Odprto, saj IPA datoteko (iOS)
+/// Open as Bundle (WebPlayer) file
+10E210E5|Odprto kot Snop (WebPlayer) datoteko
+/// Open as Asset file
+CDE707F8|Odprto kot Sredstvo datoteke
+/// Open as binary
+3B58AB5A|Odprto kot binarni
+/// Open DDS Texture
+670B26E1|Odprite DDS Teksturo
+/// Clear
+87DB2|Jasno
+/// Proxy Settings
+238432FB|Nastavitve Strežnika Proxy
+///                                       ALL
+58A5149D|VSE
+/// Images
+311CACDF|Slike
+/// Sounds
+772A35E8|Zvoki
+/// Script files
+9BCF0A3F|Skriptne datoteke
+/// Animation Clip
+EA554C3|Animacija Posnetek
+///                                       All assets
+91A14438|Vsa sredstva
+/// Group resources
+117086B5|Skupina virov
+///                                  Show classic wait mode
+324D865C|Prikaži klasičnih počakajte način
+///                                       toolStripButton1
+9D2A7523|toolStripButton1
+/// Export resources to directory (png, wav, avi, obj...)
+3CCC221F|Izvoz sredstva za imenik (png, wav, avi, obj...)
+/// Generate Unity Project (from any to Unity 2017, 5.6)
+DEB01D86|Ustvarjanje Enotnosti Projekta (iz katerega koli Enotnosti 2017, 5.6)
+/// Generate Project Scripts
+CD938811|Ustvari Projekt, Skripte
+/// Export All Prefabs
+5CE1E87B|Izvoz Vseh Prefabs
+///                                       Make APK (with signing, for install on device)
+FF2E2E6C|Da APK (s podpisom, za namestitev na napravi)
+/// Save as Text
+E9941DE0|Shranite kot Besedilo,
+/// Replace text
+556F5284|Zamenjaj besedilo
+/// Edit and replace text
+C9B78102|Urejanje in popravljanje besedila
+/// Save as PNG
+640C3205|Shrani kot PNG
+/// Save as DDS/PVR
+AEE192BE|Shrani kot DDS/PVR
+/// Replace image
+EFD46E44|Zamenjaj sliko
+/// Chessboard
+C8DCF0B7|Šahovnici
+/// White
+74D407C9|Bela
+/// Black
+5EA0AB2E|Črna
+/// Export as OBJ
+C96FB87E|Izvozi kot OBJ
+/// Export as FBX
+56DB8833|Izvozi kot FBX
+/// Export as Asset
+D9E066FF|Izvozi kot Sredstvo
+/// Reset camera
+A658D7B5|Reset camera
+///                                              Make 3D for selection
+5ED161EC|Naredite 3D za izbor
+///                                              Make 3D (without materials)
+F3F1562B|Naredite 3D (brez materiala)
+///                                              Break process
+EF8EC7A2|Prekinil postopek
+/// Go
+CDEBB7D9|Pojdi
+/// Find
+31D1912E|Iskanje
+/// Save selection
+504C0A1B|Shranite izbor
+/// Save to HEX dump
+B053182|Shrani HEX smetišče
+/// Edit selected
+63A72C9|Urejanje izbrane
+/// Save assembly
+3614E1B1|Shrani skupščine
+///                                       Save RAW pre asset
+5504C5D0|Shrani RAW pre sredstva
+///                                       Save content
+5B7589EA|Shrani vsebino
+///                                       Save as (WAV, mp3,..)
+529E2CAB|Shrani kot (WAV, mp3,..)
+/// Play sound
+6F3BD173|Predvajaj zvok
+///                                       Save sub content
+F8C47071|Shrani sub vsebino
+///                                       Replace sub content in asset
+2EF8C2EC|Zamenjajte sub vsebine v sredstva
+/// UI Language
+808CCA97|Uporabniški VMESNIK Jezik
+/// Video lessons
+7F742002|Video lekcij
+/// Buy and support a project
+9CE8EF48|Nakup in podpora projektu,
+/// License (registration)
+D302020A|Dovoljenje (registracija)
+/// Updates\r\nOpen download web site
+192B54E9|Posodobitve \nOdprite prenos spletnih strani
+/// DevXUnity-Unpacker Magic Tools
+411E8062|DevXUnity-Unpacker Čarobno Orodja
+/// There is no connection to devxdevelopment.com\nFor the correct operation of the program - you need a network connection.
+9AD93C02|Ni povezave, da devxdevelopment.com\nZa pravilno delovanje programa, - potrebujete omrežno povezavo.
+/// Connection - ok
+31FBE153|Povezava - ok
+/// error
+5AED193|napaka
+/// License for 'Unpacker Studio' not activated!
+48235494|Licenco za "Unpacker Studio", ki niso vključena!
+/// Play.. 
+2A8CF32F|Predvajaj.. 
+/// License for 'RePacker Tools' or 'Unpacker Studio' not activated!
+AD524422|Licenco za "RePacker Tools" ali "Unpacker Studio", ki niso vključena!
+///                                       License for 'RePacker Tools' or 'Unpacker Studio' not activated\nThe image will be partially grounded on black squares
+D866935E|Licenco za "RePacker Tools" ali "Unpacker Studio", ki niso vključena\nSlika se bo delno utemeljene na črni kvadrati
+/// License - not valid!
+C0FCE739|Licenca ne velja!
+/// License - valid.
+20200A26|Dovoljenje velja.
+/// Activation - ok
+8E8D7F8A|Vklop pomoči - ok
+/// Not activated!
+F62685F2|Aktiviran!
+/// License activation - ok
+BCD279FB|Licenco za aktiviranje - ok
+/// License key:
+5A5C9760|Licenčni ključ:
+/// License State
+7E90661A|Licenco Članica
+/// License Number
+7F76DDFF|Številka Licence
+/// To activate license..
+E66D4787|Če želite aktivirati licenco..
+/// To open buy page
+2FB642D5|Če želite odpreti kupiti strani
+/// License Information
+122A693A|Licenco Informacije
+///                                       Waiting.. open 
+352854BF|Čaka.. odprt 
+/// Waiting.. 
+1AAA4AE1|Čaka.. 
+/// % 
+CDAAB77B|% 
+/// parsing
+FF4D2980|razčlenjevanje
+/// Waiting..
+1ACA4AE1|Čaka..
+/// Waiting.. Recreate all assets..
+F6525294|Čaka.. Ponovno, vse premoženje..
+/// Waiting.. Update all..
+5472E972|Čaka.. Update all..
+/// Ok
+CDEFB7E1|Ok
+/// Waiting.. parsing content...
+594B5358|Čaka.. razčlenjevanje vsebine...
+/// Waiting.. make tree...
+2B9B294E|Čaka.. bi drevo...
+/// Waiting.. Resource manager.. Resources path update, items: 
+4E8E089D|Čaka.. Resource manager.. Virov pot posodobitev, elemente: 
+/// Waiting.. make tree - end
+C60B13FD|Čaka.. bi drevo - end
+/// Waiting.. Import Asset: 
+9914F0E|Čaka.. Uvoz Sredstva: 
+/// Waiting.. Import Asset:
+76314F0E|Čaka.. Uvoz Sredstva:
+///  - read structure..
+183D2F98| - branje strukture..
+///                                       - read structure - no
+E9E711F3| - preberite struktura, št.
+///  - init objects ..
+312589DC| - init predmeti ..
+/// Open OK, Items count: 
+AB925A89|Odprite OK, Predmetov count: 
+/// Error
+5AED673|Napaka
+/// Error:
+5D8D673|Sporočilo o napaki:
+/// Make asset
+AF344CBD|Bi sredstva
+/// Waiting.. make tree structure.. for 
+DC39D535|Čaka.. da, v strukturo drevesa.. za 
+/// Waiting.. make tree structure - ok
+24501B89|Čaka.. bi drevesne strukture - ok
+/// Waiting... open bundle: 
+76CA22F1|Čaka... odprite snop: 
+/// Export to:
+4F02B678|Izvoz v:
+/// read end
+9FB1A365|preberite koncu
+/// APK:
+4417A002|APK:
+/// Waiting.. Open apk begin...
+535EE5DE|Čaka.. Odprite apk začne...
+/// Waiting.. Open IPA begin...
+EDD4194A|Čaka.. Odprite IPA začne...
+/// Waiting.. Open Unitypackage begin...
+2C9F6E00|Čaka.. Odprite Unitypackage začne...
+/// Wait... make apk 
+214685F7|Počakajte... bi apk 
+/// Error on create APK: 
+A900A8D|Napaka na ustvarjanje APK: 
+/// Make apk - ok
+23D17C38|Da apk - ok
+/// Waiting.. Parsing item: 
+3DFC8A9F|Čaka.. Razčlenjevanje postavka: 
+/// Waiting.. Parsing script: 
+570BFFCF|Čaka.. Razčlenjevanje skript: 
+///  - Sometimes the primary decompilation can take several minutes (depends on the size of the assembly)..
+6475DF5C| - Včasih primarni decompilation lahko traja več minut (odvisno od velikosti skupščine)..
+/// Waiting.. Parsing asset item: 
+D08181D|Čaka.. Razčlenjevanje postavka sredstev: 
+/// Export make asset:
+F0F2A2E7|Izvoz bi sredstva:
+/// Export asset:
+9878BDA0|Izvoz sredstva:
+/// Export error: 
+574C4B4D|Izvoz sporočilo o napaki: 
+/// Export ok, count: 
+F9C1452A|Izvoz v redu, grof: 
+///                                       Waiting.. MakeUnityProject..
+BBD46DFD|Čaka.. MakeUnityProject..
+///                                       Waiting.. MakeUnityProject.. 
+D2D4DD55|Čaka.. MakeUnityProject.. 
+///  export asset: 
+FB976152| izvoz sredstva: 
+///                                       Waiting.. Make Unity Project.. 
+EAF907C9|Čaka.. Bi Enotnosti Projekta.. 
+/// MakeUnityProject - ok
+98C91534|MakeUnityProject - ok
+///                                       Waiting.. MakePrefabs..
+B2FD7227|Čaka.. MakePrefabs..
+///                                       Waiting.. MakePrefabs.. 
+1F9D7227|Čaka.. MakePrefabs.. 
+/// MakePrefabs - ok
+7415C18D|MakePrefabs - ok
+///  make asset: 
+24A9DD5| bi sredstva: 
+///  make parfab asset: 
+35698EAC| da parfab sredstva: 
+///                                       Waiting.. Generate Scripts..
+4A5FDDF2|Čaka.. Ustvarjajo Skripte..
+///                                       Waiting.. Generate scripts.. 
+D8442619|Čaka.. Ustvarjajo skripte.. 
+/// Generate Scripts - ok
+C764262B|Ustvarjanje Skriptov - ok
+/// Proxy connection
+B3B7CD64|Proxy povezava
+/// Proxy address:
+10161BED|Proxy naslov:
+/// port:
+158D4A0|vrata:
+/// User:
+2C1C7F9C|Uporabnik:
+/// Password:
+D086BA55|Geslo:
+/// Cancel
+76594D8C|Cancel
+/// Proxy Authentication
+42142F52|Proxy Za Preverjanje Pristnosti
+/// Proxy settings
+13DCA69B|Nastavitve strežnika Proxy
+/// Make temp key...
+69446BC7|Da temp tipke...
+/// Export as ".Unitypackage"
+2062516|Izvoz, kot je ".Unitypackage"
+/// Export model as ".FBX"
+E72DC67C|Izvoz modela, kot je ".FBX"
+/// Export as ".Prefab"
+2F8CE20D|Izvoz, kot je ".Prefab"
+/// Making 3D scene
+E5F5704E|Izdelava 3D-prizor
+/// Making 3D scene (without materials)
+47368B19|Izdelava 3D scene (brez materiala)
+/// Stop of process
+E97FBB80|Zaustavitev procesa
+/// Clear scene
+D5FE0A41|Jasno scene
+/// Reset of camera
+DE92FEBE|Ponastavite kamero
+/// Optimize Metadata for file
+B533CB05|Optimizacijo Metapodatke datoteke
+///                                       Generate Scripts for IL2CPP (C#) 
+F59BA396|Ustvarjanje Skriptov za IL2CPP (C#) 
+/// EditText
+A86F74B8|EditText
+/// AnonymousMethods
+887C750E|AnonymousMethods
+/// YieldReturn
+1493CEDC|YieldReturn
+/// SwitchStatementOnString
+35EF1F72|SwitchStatementOnString
+/// AutomaticEvents
+32608958|AutomaticEvents
+/// AutomaticProperties
+5C51074C|AutomaticProperties
+/// ExpressionTrees
+FEBFDC9F|ExpressionTrees
+/// FullyQualifyAmbiguousTypeNames
+6379F9F6|FullyQualifyAmbiguousTypeNames
+/// MakeAssignmentExpressions
+77F2689E|MakeAssignmentExpressions
+/// ObjectOrCollectionInitializers
+58BF2214|ObjectOrCollectionInitializers
+/// QueryExpressions
+8D02C30E|QueryExpressions
+/// UsingDeclarations
+839DD608|UsingDeclarations
+/// CompillerTypeGenerated_Clear
+22FE82C1|CompillerTypeGenerated_Clear
+/// ScriptGenerateOptions
+4FB9B3F8|ScriptGenerateOptions
+///                                        Ver 4.11
+CC98BD88| Ver 4.11
+/// Filter
+5CDB63A9|Filter
+/// Text
+EDB18BEE|Besedilo
+/// Mesh
+BD4F8E8E|Očesa
+/// Script
+47AFD823|Skript
+/// toolStrip5
+E797FA33|toolStrip5
+/// Image
+30EBACDF|Slike
+/// toolStrip7
+E799FA33|toolStrip7
+/// toolStrip4
+E798FA33|toolStrip4
+/// toolStrip10
+E80B1424|toolStrip10
+/// toolStrip9
+E78BFA33|toolStrip9
+/// toolStrip2
+E796FA33|toolStrip2
+/// statusStrip1
+C1235660|statusStrip1
+/// Font
+E81B912E|Ne
+/// toolStrip8
+E78CFA33|toolStrip8
+/// toolStrip6
+E79AFA33|toolStrip6
+/// Info
+13613|Info
+/// toolStrip1
+E793FA33|toolStrip1
+///                                       Full parsing assets on load (slow..)
+46418AE1|Celotno razčlenjevanje sredstva na obremenitev (počasi..)
+///                                       Fast load (with out pre-parsing asset on load)
+BBE06D23|Hitro nalaganje (z out pre-razčlenjevanje sredstva na obremenitev)
+///                                       Scrips load only
+BADCFA5A|Scrips vstavite samo
+/// Decompile libil2cpp.so (IL2CPP) to C# code
+EB80C700|Povratno libil2cpp.Vem (IL2CPP) do kode C# 
+/// .split0
+277313E7|.split0
+/// UnpackerTools - license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts
+47B02D9A|UnpackerTools - licence: \n- Ogled vseh virov \n- Ogled Skriptov izvorni kodi (na njem izvajati obratnega inženirstva, C#, samo prikaz) \n- Izvoz virov: zvoki (WAV), slik (jpg, jpeg, PNG, DDS), očesa (.obj), besedila, pisave
+/// RePackerTools license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)
+5A68B2D9|RePackerTools licenco: \n- Ogled vseh virov \n- Ogled Skriptov izvorni kodi (na njem izvajati obratnega inženirstva, C#, samo prikaz) \n- Izvoz virov: zvoki (WAV), slik (jpg, jpeg, PNG, DDS), očesa (.obj), besedila, pisave \n- Zamenjajte sredstva vsebino igre (zamenjate Slike, zvoki, besedila, urejanje sredstva parametrs)
+///                                       Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshs, Text, Fonts, Material, Animations, Models and etc.)
+9D0D47AC|Unpacker Magic Studio licenco: \n- Ogled vseh virov \n- Oglejte si Celoten Skript izvorne kode (na njem izvajati obratnega inženirstva, C#, ki omogočajo shranjevanje skript) \n- Izvoz virov: zvoki (WAV), slik (jpg, jpeg, PNG, DDS, PVR), očesa (.obj, .sredstva), besedila, pisave, Scrips (C#) \n, Animacije, Avatar \n- Izvoz modelov za Unitypackeg (Model, Animacije, Sredstva) \n- Zamenjajte sredstva vsebino igre (zamenjate Slike, zvoki, besedila, urejanje sredstva parametrs) \n- Pridobivanje Unity3D projekta iz igre \n(Prizori, Skripte, Slike, Zvoki, Meshs, Besedila, Pisave, Materiala, Animacije, Modeli in itd.)
+/// Waiting... open webGL: 
+B67182FE|Čaka... odprite webGL: 
+/// Enter text
+E46D9380|Vnesite besedilo
+///                                        Ver 4.12
+CC98BD87| Ver 4.12
+/// Open as Unity WebGL file (.unityweb)
+65DA45EF|Odprto kot Enotnost WebGL (datoteka.unityweb)
+/// Open as Unity WebGL Game by URL
+98E0C71D|Odprto kot Enotnost WebGL Igre, ki jih URL
+/// WebGL (.unityweb)
+5BF6015A|WebGL (.unityweb)
+///                                        Ver 4.13
+CC98BD86| Ver 4.13
+///                                       Debug console view
+C41A6653|Debug konzole ogled
+///                                        Ver 4.14
+CC98BD8D| Ver 4.14
+///                                        Ver 4.15
+CC98BD8C| Ver 4.15
+///                                       Saving is possible 1 time in 5 minutes
+49A7281C|Varčevanje je možno 1 čas v 5 minutah
+/// Save as txt
+3158F06C|Shrani kot txt
+/// Save as RTF
+C17EBD68|Shrani kot RTF
+/// Debug log form
+57E1EC0F|Debug log obliki
+/// Asset settings
+3E64DDA1|Sredstva nastavitve
+/// Bundle auto extract
+12F151A6|Snop samodejno ekstrakta
+///                                       Script settings
+D4BA54B8|Nastavitve skriptov
+/// IL2CPP Restore Scripts Structure
+814EE7D0|IL2CPP Obnovitev Skripte Struktura
+/// IL2CPP to decompile into ARM ASM && C# (experemental, slow)
+DB9E7D17|IL2CPP razstaviti v ROKO ASM && C# (experemental, počasi)
+/// ImportSettings
+B1B5CF8F|ImportSettings
+/// Show debug log
+F5AF8D49|Pokaži dnevnik iskanja in odpravljanja napak
+/// Saving is possible 1 time in 2 minutes
+5982281C|Varčevanje je možno 1 čas v 2 minutah
+///                                       Waiting.. Make Unitypackage..
+D7981B49|Čaka.. Bi Unitypackage..
+///                                       Waiting.. Pack to  Unitypackage..
+AD06DA43|Čaka.. Pack da Unitypackage..
+/// Unitypackage - ok
+D1DB6975|Unitypackage - ok
+/// Wait... make obb 
+75CBB8DD|Počakajte... bi obb 
+/// Error on create obb: 
+AE0D89A4|Napaka na ustvarjanje obb: 
+/// Make obb - ok
+75B70BDE|Da obb - ok
+///                                        Ver 4.16
+CC98BD8B| Ver 4.16
+///                                        Ver 4.17
+CC98BD8A| Ver 4.17
+/// Generate Scripts for Android IL2CPP  (C#) 
+11061C52|Ustvarjanje Skriptov za Android IL2CPP (C#) 
+///                                        Ver 4.18
+CC98BD81| Ver 4.18
+///                                        Ver 4.19
+CC98BD80| Ver 4.19
+///                                        Ver 4.20
+57FDBD89| Ver 4.20
+///                                        Ver 4.21
+57FDBD88| Ver 4.21
+///                                        Ver 4.22
+57FDBD87| Ver 4.22
+///                                  Models
+2F370A3B|Modeli
+/// ......\nShader truncated for DEMO VERSION, Real len: 
+5C7F68E6|......\nRolo skrajšano za DEMO RAZLIČICO, Pravi len: 
+/// Break
+1527D9A|Odmor
+/// With debug windows
+A40926D6|Z debug windows
+/// IL2CPP Script settings
+B20B92C9|IL2CPP Skript nastavitve
+/// .NET assembly script decompilation
+C4BFB9F4|.NETO skupščine skript decompilation
+/// Simple code structure decompiler
+D29F038|Preprostih kodo, struktura decompiler
+/// ILSpy (.net 4.6 required)
+13752020|ILSpy (.neto 4.6 obvezno)
+/// Exist new version\n
+62B5A32D|Obstajajo nove različice\n
+/// Script decompilation options
+12B10B0E|Skript decompilation možnosti
+/// Standard decompiler
+3D2D1BC7|Standard decompiler
+/// APKSigner Dialog - required JDK
+7C411C18|APKSigner Dialog - zahteva JDK
+///                                        Ver 4.26
+57FDBD8B| Ver 4.26
+/// The version is obsolete. Need to install a new version.
+A7373E98|Različica je zastarela. Morate namestiti novo različico.
+/// Wait... Check internet connection.. http://devxdevelopment.com...
+76B9212E|Počakajte... Preverite internetno povezavo.. http://devxdevelopment.com...
+/// An error occurred while connecting to the server,\r\nplease check the network status and website availability of devxdevelopment.com\r\nand try again later.
+46A8422F|Je napaka pri povezovanju na strežnik \nprosimo, preverite stanje omrežja in spletna stran razpoložljivost devxdevelopment.com \nin poskusite še enkrat kasneje.
+///                                       Select by name equals
+F3183D13|Izberite ime, ki je enako
+/// Search by id, name
+6D8F369B|Iskanje po id, ime
+/// Background:
+8A15B0DF|Ozadje:
+///                                       Without alpha chanel
+4933CD98|Brez alfa chanel
+/// Length (bytes)
+F9E93EC|Dolžina (bajtov)
+/// Standalone (WIN, MAC, LINUX)
+49A132CF|Samostojna (WIN, MAC, LINUX)
+/// iOS Package (.ipa)
+57715F4E|iOS Paket (.ipa)
+/// Wait.. Making UnityProject..
+9706AC3F|Počakajte.. Izdelava UnityProject..
+/// Wait.. Making UnityProject.. 
+F46222AE|Počakajte.. Izdelava UnityProject.. 
+/// Wait.. Making Unity Project.. 
+A12C3A7B|Počakajte.. Izdelava Enotnosti Projekta.. 
+/// Wait.. Making Prefabs..
+EDF536FB|Počakajte.. Izdelava Prefabs..
+/// Wait.. Making Prefabs.. 
+5A9536FB|Počakajte.. Izdelava Prefabs.. 
+/// Wait.. Making Unitypackage..
+47F22DBE|Počakajte.. Izdelava Unitypackage..
+/// Wait.. Export Scripts..
+42A7B955|Počakajte.. Izvoz Skripte..
+/// Wait.. Generate Scripts..
+44C16C93|Počakajte.. Ustvarjajo Skripte..
+/// Wait.. Generate scripts.. 
+44A0ECF3|Počakajte.. Ustvarjajo skripte.. 
+/// Unity Project Version
+8391C557|Enotnost Projekta Različica
+/// Unity 2017.3
+5E77CD61|Enotnost 2017.3
+/// Unity 5.6
+E54C2A1D|Enotnost 5.6
+/// Information truncated for DEMO VERSION
+60921137|Informacije, skrajšano za DEMO VERZIJA
+///                                        Ver 4.39
+E362BD80| Ver 4.39
+/// Show tree items id
+E3024211|Prikaži drevo elementov id
+///                                       Select by id or name:
+C5DD27A1|Izberite id ime ali:
+/// File:
+1AF463E4|Datoteke:
+/// ID:
+E7A29BDF|ID:
+/// Waiting.. ScriptMapper.. Resources path update, items: 
+187801F3|Čaka.. ScriptMapper.. Virov pot posodobitev, elemente: 
+/// Temp directory
+6D8B26B7|Temp imenik
+///                                        Ver 4.42
+139FBD87| Ver 4.42
+/// Apply changes - end
+29AAA97D|Uporabite spremembe - namen
+///                                       Apply changes (repack bundle, make APK, etc)
+824F133F|Uporabite spremembe (repack dodajajo, da APK, itd)
+/// Without alpha channel
+33A355B7|Brez kanal alfa
+/// Repack Bundles (.unity3d)
+FBA2997F|Repack Svežnjev (.unity3d)
+/// Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshes, Text, Fonts, Material, Animations, Models and etc.)
+7906005F|Unpacker Magic Studio licenco: \n- Ogled vseh virov \n- Oglejte si Celoten Skript izvorne kode (na njem izvajati obratnega inženirstva, C#, ki omogočajo shranjevanje skript) \n- Izvoz virov: zvoki (WAV), slik (jpg, jpeg, PNG, DDS, PVR), očesa (.obj, .sredstva), besedila, pisave, Scrips (C#) \n, Animacije, Avatar \n- Izvoz modelov za Unitypackeg (Model, Animacije, Sredstva) \n- Zamenjajte sredstva vsebino igre (zamenjate Slike, zvoki, besedila, urejanje sredstva parametrs) \n- Pridobivanje Unity3D projekta iz igre \n(Prizori, Skripte, Slike, Zvoki, Očes, Besedila, Pisave, Materiala, Animacije, Modeli in itd.)
+/// Wait... Save Bundle
+4E93D81|Počakajte... Shranite Snop
+/// Search end, find count: 
+5714C4BF|Iskanje namen, našli count: 
+/// None
+A6669136|Noben
+/// Saving RAM (export slower)
+D8F87912|Prihranek RAM (izvoz počasneje)
+/// Cache time in seconds:
+8AB7DCC5|Začasni čas v sekundah:
+/// Begin search...
+79A29A6|Začnite iskanje...
+/// Filter (show/hide)
+E6849FA9|Filter (pokaži/skrij)
+/// Search as HEX
+8566509E|Iskanje kot ČAROVNICA
+///                                       Search as text UNICODE
+EAE5E044|Iskanje besedilo UNICODE
+///                                       Search as text UTF8
+83F86ACE|Iskanje besedilo UTF8
+///                                       Search as text ANSI
+155E6689|Iskanje besedilo ANSI
+/// Content Value
+FBF592D0|Vsebine Vrednost
+/// label1
+E9E81D06|label1
+/// ID
+CE06B7E7|ID
+/// Offset in asset
+68CA2EB8|Odmik v sredstva
+/// Status
+8A82AD3D|Stanje
+/// Double click of item - for show on main tree view
+6781324B|Dvokliknite element - za prikaz na glavnem drevesnem prikazu
+/// Search form
+B1C0F49C|Obrazec za iskanje
+///                                        Ver 4.48
+139FBD81| Ver 4.48
+/// statusStrip2
+4C885660|statusStrip2
+/// Disable auo open result files
+5530D0CE|Onemogočite auo open rezultat datoteke
+/// label21
+241B8D1F|label21
+/// Asset class name
+C4A54A6D|Sredstva razred ime
+///                                        Ver 5.01
+4154BD88| Ver 5.01
+/// Audio clip
+36ACA52A|Audio clip
+/// label22
+C6C301BA|label22
+/// Save as (wav, mp3,ogg)
+7297E26F|Shrani kot (wav, mp3,ogg)
+/// Settings
+D5EB1CC9|Nastavitve
+///                                       APK Sign settins
+B0D618FC|APK Prijavite settins
+/// Import settings
+800542D8|Uvoz nastavitve
+///                                       Export && Save
+83462991|Izvoz && Shrani
+/// Repack
+A77BEFBB|Repack
+/// Apply all changes (repack bundle, make APK, etc)
+AC5DC3F|Uporabi vse spremembe (repack dodajajo, da APK, itd)
+/// Asset (selected):
+275F743F|Sredstva (označite):
+/// Save Asset (with headers)
+141E9684|Shrani Sredstva (brez glave)
+/// Save Asset content
+8A4E48F7|Shrani Sredstva vsebino
+/// Save Asset sub content (binary conten of asset)
+7DA1A698|Shrani Sredstva sub vsebine (binarni conten premoženja)
+/// Replace sub content in Asset (binary content)
+96520274|Zamenjajte sub vsebine v Sredstva (binarni vsebine)
+/// Reset filter
+19A5084C|Ponastavi filter
+/// Search now
+13CA73A5|Iskanje zdaj
+/// Assets only
+E46F4BDE|Sredstva samo
+/// Search form..
+CC159FF1|Obrazec za iskanje..
+/// Select next:
+2C0421D5|Izberite naslednje:
+/// Debug console
+340EC2BB|Debug konzole
+/// Warning! Server date and local date  not equal!!!\nFor the program to work, you need the date and time to be correct.(Server UTC date: 
+7AA4D160|Opozorilo! Strežniški datum in lokalni datum ni enako!!!\nZa program za delo, morate datum in čas za pravilna.(Strežnik UTC datum: 
+/// , Local UTC date=
+9669279D| Lokalni UTC datum=
+/// Waiting.. AssetBundle.. Resources path update, items: 
+A75C67B0|Čaka.. AssetBundle.. Virov pot posodobitev, elemente: 
+///                                        Ver 5.03
+4154BD86| Ver 5.03
+/// Export
+C175ED3D|Izvoz
+/// Replace sound
+74EE86CF|Zam. zvočni
+/// With generate project
+481459F7|Z ustvarjanje projekta
+/// With export resources
+2A463756|S izvoz viri
+/// Import bundle as Level
+A199C855|Uvoz snop kot na Ravni
+/// Include Search in Scripts (c# script content)
+24CD7A4|Vključujejo Iskanja v Skripti (c# skript vsebine)
+/// Search as text
+7CB022EA|Iskanje kot besedilo,
+/// Assets Bundle\n
+5D8CF4D3|Sredstva Snop\n
+/// Engine version: 
+77B48C01|Motor različica: 
+/// Bundle size: 
+3CF3C1E8|Snop velikost: 
+/// Signature: 
+A0BFA96D|Podpis: 
+/// Items: \n
+1B77120F|Predmeti: \n
+/// For save changes to assets: press to button 'Apply changes'
+D94ABDBB|Za shranjevanje sprememb sredstev: pritisnite na gumb 'Uporabi spremembe"
+///                                        Ver 5.07
+4154BD8A| Ver 5.07
+/// Generate Unity Project
+7345665F|Ustvarjanje Enotnosti Projekta
+/// Export resources to directory
+978ECC6B|Izvoz sredstva za imenik
+/// Test\n123\n456
+74488F59|Test\nSto dvajset tri\nŠtiristo petdeset šest
+/// Stop play
+901BBCBB|Ustavi predvajaj
+/// Bundle content
+A374ECCF|Dodajajo vsebino
+/// Lenght
+48414E76|Dolžina
+/// Show fast menu
+751996A6|Prikaži hitro meni
+/// Disable dialog: For save changes to assets: press 'Apply Changes'
+344B17D9|Onemogočite pogovorno okno: shrani spremembe sredstev: pritisnite "Uporabi Spremembe"
+/// APK Sign settings
+7E1E21E1|APK Prijavite nastavitve
+/// Unity 2018.1
+47AACD61|Enotnost 2018.1
+/// Fast open (fast generate project)
+63F8BA7A|Hitro odpiranje (hitro generiranje projekta)
+/// Waiting.. open
+A09AEE74|Čaka.. odprt
+/// Make prefab - ok
+BD04F926|Da prefab - ok
+/// Make prefab - error
+FF163379|Da prefab - napaka
+/// Make prefab - break
+995DB01E|Da prefab - break
+/// Wait.. Making Prefab..
+7223DB42|Počakajte.. Izdelava Prefab..
+/// make parfab asset:
+F5A47C38|da parfab sredstva:
+///                                      License for 'RePacker Tools' or 'Unpacker Studio' not activated
+CC174422|Licenco za "RePacker Tools" ali "Unpacker Studio", ki niso vključena
+///                                       Ver 5.20
+581EBD89| Ver 5.20
+/// Prefab
+48BB8036|Prefab
+/// GameObject
+44A02777|GameObject
+/// Ignore StreamingAssets directory
+55EFDF96|Prezreti StreamingAssets imenik
+/// Ignore scenes
+A10E5601|Prezreti prizorov
+/// Async parse of Bundle
+2112BD71|Asinhrone razčlenjevanje Svežnjev
+/// Async parse of Assets
+4ED032E0|Asinhrone razčlenjevanje Sredstev
+///                                   License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+959D2470|Licenco za "RePacker Tools" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+///                                   License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A0C17CAF|Licenco za "Unpacker tools" ali "RePacker Tools" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+/// License for 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A951A366|Licenco za "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+///                                   License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+B4622470|Licenco za "RePacker Tools" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena
+/// License for  'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6A96853C|Licenco za "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+///                                    Ver 5.22
+581EBD87| Ver 5.22
+/// Async make of Assets
+B4FA0730|Asinhrone bi Sredstva
+///                                    Ver 5.26
+581EBD8B| Ver 5.26
+/// Speed options
+78640A1|Hitrost možnosti
+/// When you enable async options, it will be faster, but errors are possible!
+E7C89762|Ko omogočite asinhrone možnosti, da bo hitreje, vendar so napake možne!
+/// Unitypackage - end with error
+20E9686B|Unitypackage - konec z napako
+///                                    Ver 6.02
+4175BD87| Ver 6.02
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+793DDF5D|Licenco za "RePacker Tools" ali "Android Unpacker" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+8943AD18|Licenco za "Unpacker tools" ali "Android Unpacker" ali "RePacker Tools" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+795CDF5D|Licenco za "RePacker Tools" ali "Android Unpacker" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6B253BF6|Licenco za "Unpacker Tools" ali "Repacker Tools" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+///                                  License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' not activated!
+FED026C1|Licenco za "RePacker Tools" ali "Android Unpacker" ali "Unpacker Studio", ki niso vključena!
+///                                   Ver 6.05
+4175BD8C| Ver 6.05
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+31EDE709|Licenco za "Unpacker tools" ali "RePacker Tools" ali "Unpacker Studio' ali 'Android Unpacker" ni aktiviran!
+/// Export as ZIP archive
+DA624C1A|Izvozi kot ZIP arhiv
+/// dnSpy (.net 4.7.1 required)
+CA04B12D|dnSpy (.neto 4.7.1 obvezno)
+/// Double click of item - for apply select
+BB185879|Dvokliknite element - za uporablja, izberite
+/// FullName
+92659EB5|FullName
+/// Select object
+C408A146|Izberite predmet
+///  Ver 6.12
+CCDABD87| Ver 6.12
+/// FlipY on Replace image
+E15679C|FlipY na Zamenjati sliko
+/// Animation models
+E3C4D931|Animacije, modeli
+/// Primitive models
+4CD6E253|Primitivno modeli
+/// Import from:
+997E9824|Uvoz iz:
+/// Import ok, count: 
+23FA00C6|Uvoz v redu, grof: 
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+4A5CD18C|Licenco za "Android Unpacker" ali "RePacker Tools" ali "Unpacker Studio' ali 'Unpacker Urednik Studio", ki niso vključena!
+///  Ver 6.17
+CCDABD8A| Ver 6.17
+/// Wait animation type
+2348A5F1|Počakajte animacija tip
+/// Classic
+3C00B964|Klasična
+/// Girl
+ED2019E9|Punca
+/// Export resources for Repack
+CB677E5E|Izvoz virov za Repack
+/// Import resources for Repack
+9D9F8CAD|Uvoz virov za Repack
+/// Additional Log
+A29EBB83|Dodatne Dnevnik
+/// Memory limit (Mb):
+44D3354A|Spomin mejo (Mb):
+/// Impoer Ok:
+4F8CE226|Impoer Ok:
+/// Search result count:
+2E03BEB6|Rezultat iskanja count:
+///  Ver 6.21
+583FBD88| Ver 6.21
+/// Open as SketchFab.com model by URL
+C7676174|Odprt SketchFab.com model na podlagi URL-ja
+/// Tools
+E8B1C422|Orodja
+/// Unpack GZIP
+F3CBFFB4|Vsebina GZIP
+/// Unpack Brotli
+37DF7A42|Vsebina Brotli
+/// Unpack LZ4
+B723F483|Vsebina LZ4
+/// Unpack LZMA
+6E844169|Vsebina LZMA
+/// Search result:
+7AD9B089|Rezultat iskanja:
+/// Save descriptions to file
+E4B7253C|Shrani opise datotek
+/// Export :
+AFBC690B|Izvoz :
+/// Waiting... open uasset: 
+C804CEBE|Čaka... odprite uasset: 
+/// Waiting... open pak: 
+16CA047B|Čaka... odprite pak: 
+/// License for  'GameRecovery' not activated!
+2C3E7114|Licenco za "GameRecovery" ni aktiviran!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+E48E0C23|Licenco za "RePacker Tools" ali "Android Unpacker" ali "Unpacker Studio' ali 'GameRecovery" ni aktiviran!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+2627AE0E|Licenco za "Unpacker tools" ali "Android Unpacker" ali "RePacker Tools" ali "Unpacker Studio' ali 'GameRecovery" ni aktiviran!
+/// License for 'Unpacker Studio' or 'GameRecovery' not activated!
+7EA6BE1C|Licenco za "Unpacker Studio' ali 'GameRecovery" ni aktiviran!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated
+DC930C23|Licenco za "RePacker Tools" ali "Android Unpacker" ali "Unpacker Studio' ali 'GameRecovery" ni vključena
+/// License for  'Unpacker Studio' or 'GameRecovery' not activated!
+528FF6F|Licenco za "Unpacker Studio' ali 'GameRecovery" ni aktiviran!
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+4F91DB58|Licenco za "Android Unpacker" ali "RePacker Tools" ali "Unpacker Studio' ali 'GameRecovery" ni aktiviran!
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+8ECD3E7F|Licenco za "Unpacker Tools" ali "Repacker Tools" ali "Unpacker Studio' ali 'GameRecovery" ni aktiviran!
+///  Ver 7.01
+4196BD88| Glejte 7.01
+/// Dont select header edit item
+1E1E6D12|Ne izberite glav uredi element
+/// Save selected item to file
+A2DFCB1B|Shrani izbrani element v datoteko
+/// Replace selected value from file
+9F42A9B5|Zamenjati izbrano vrednost iz datoteke
+/// DevXUnity-Game Recovery
+A60E1A35|DevXUnity-Igra Okrevanje
+/// Open Unity3D/Unreal game directory
+89510D9F|Odprite Unity3D/Neresnično igre imenik
+/// Open UnrealEngine uasset
+DF86BB4C|Odprite UnrealEngine uasset
+/// Open UnrealEngine PAK
+242A89E2|Odprite UnrealEngine PAK
+/// Generate Scripts (simple) for Android IL2CPP  (C#) 
+B0986638|Ustvarjajo Skripte (simple) za Android IL2CPP (C#) 
+/// Unreal Engine PAK
+A41EC297|Unreal Engine PAK
+/// Unreal Engine Assets
+BF46BB11|Unreal Engine Sredstva
+/// ExportUassetsFromUnrealEnginePAK to:
+7DE1C29C|ExportUassetsFromUnrealEnginePAK:
+/// ExportUassetsFromUnrealEnginePAK ok, count: 
+310513B1|ExportUassetsFromUnrealEnginePAK ok, grof: 
+///  Ver 7.02
+4196BD87| Glejte 7.02
+/// Export uassets from Unreal Engine PAK
+926D75C7|Izvoz uassets iz Unreal Engine PAK
+///  Ver 7.05
+4196BD8C| Pogled 7.05
+/// Disable auto open result files
+8BEC4529|Onemogoči samodejno open rezultat datoteke
+/// Make node dump
+EF96D912|Da vozlišče smetišče
+/// End download
+8279FB4C|Končni prenos
+/// Error on download gameInfo
+B3823311|Napaka na prenos gameInfo
+/// End search
+F09E7D13|Konec iskanje
+/// Begin request...
+BF44FF53|Začeli zahtevo...
+/// Total rows: 
+BE2C451F|Skupaj vrstic: 
+/// License not activated! Subscription available only with license!
+414DA863|Licenca ni vključen! Naročnina na voljo le z licenco!
+/// You do not have a subscription to access to the Games database.
+C0ED97BD|Nimate naročnine za dostop do Igre baze podatkov.
+/// Begin download game information...
+967F7E1C|Začeti prenos informacije o igri...
+/// Subscription payment
+F4D99EC6|Plačilo naročnine
+/// Subscription expiration:
+8B7CAF2B|Vpis poteka:
+/// AppId
+719FEDCB|AppId
+/// Category
+6482F24|Kategorija
+/// Company
+4D421FF8|Podjetje
+/// Engine version
+69B53BEE|Motor različica
+/// Engine type
+E47EA598|Tip motorja
+/// Free access
+CA53AB27|Prost dostop
+/// Platform type
+7D2BB440|Platforma vrsta
+/// DiaplayName
+2B5669D1|DiaplayName
+/// Platform
+24D7A31|Platforma
+/// Engine
+A0A26736|Motor
+/// GameVersion
+25EF2059|GameVersion
+/// Game version
+9EB80D01|Različica igre
+/// EngineVersion
+85F8F446|EngineVersion
+/// BXmlSize
+5DA5AB4A|BXmlSize
+/// Preview size
+2F7D1404|Velikost predogleda
+/// GameSize
+3A83AAA7|GameSize
+/// Game size
+488DA813|Velikost igre
+/// Hide item
+1EDFB100|Skriti predmet
+/// Set free acess
+6A513C5A|Osvobodila acess
+/// Всего 0
+B290854D|Skupaj 0
+/// Download and open game (WebGL, OSGJS)
+B6F6F5A2|Prenesete in odprete igro (WebGL, OSGJS)
+/// Open game structure preview
+27781B61|Odprite igro struktura predogled
+/// Open game web page
+74261900|Odprta igra spletne strani
+/// Descriptions
+C3DA8DBE|Opisi
+/// Only IL2CPP
+7AE55A1F|Samo IL2CPP
+/// Only .NET Assembly
+E73E3DC0|Le .NETO Skupščine
+/// Game database search form (Full access by subscription)
+81A21328|Igra baze podatkov za iskanje obrazec (Polni dostop do naročniških)
+/// Item not support export
+F69FEAA9|Postavka ne podpira, izvoz
+/// You can save with conversion no more than once every two minutes.
+53B9408B|Lahko shranite s konverzijo ne več kot enkrat na vsaki dve minuti.
+/// Object - not supported replace
+A6E20CE7|Predmet ne podpira zamenjavo
+/// Original game info: 
+B86AE29D|Original igra informacije: 
+///  Ver 7.06
+4196BD8B| Glejte 7.06
+/// Save asset header
+EA33944D|Shrani sredstva glave
+/// Save content (without contertaion)
+67E5E759|Shrani vsebino (brez contertaion)
+/// Export content (with convert format: png, wav, etc)
+A4A40923|Izvoz vsebine (z pretvoriti format: jpg, jpeg, png, wav, itd)
+/// Replace binary content (binary, png, wav, etc)
+10A45610|Zamenjajte binarni vsebine (binarni, png, wav, itd)
+/// Save asset headers
+EA40944D|Shrani sredstva glave
+/// Save asset binary content
+A93311C9|Shrani sredstva binarni vsebino
+/// Game Database
+835ACED9|Igra Baze Podatkov
+/// Save as FSB5
+DCCE8FE0|Shrani kot FSB5
+/// erro on download
+7FE70CA|erro na prenos
+/// As source code (.cs)
+69F7089C|Kot izvorne kode (.cs)
+/// As plugin (.dll)
+D525DF66|Kot plugin (.dll)
+/// Assemblies (for decompilation to .cs)
+CA7EB231|Sklopi (za decompilation .cs)
+/// Restore type
+71C7F906|Obnovitev tip
+/// DownloadCounter=
+B87065D3|DownloadCounter=
+/// UserName=
+882923D2|Uporabniško ime=
+/// CreateDate=
+91297A4C|CreateDate=
+/// License=
+1FCB93AA|Licenco=
+/// iID=
+59C2B95D|iID=
+///  Ver 7.08
+4196BD81| Glejte 7.08
+/// Script generate settings
+C3F188C3|Skripta za generiranje nastavitve
+/// As source code (*.cs)
+1DAD6532|Kot izvorna koda (*.cs)
+/// Scripts
+8E91B592|Skripte
+/// Script options
+9FB6408|Skript možnosti
+/// Project options
+318C6B1|Projekt možnosti
+/// Remove script class (for exported to .cs) from plugin
+3C84C921|Odstranite skript razred (za izvoženo .cs) iz plugin
+/// Filter by class name:
+A6BADEC6|Filter za razred ime:
+/// as source code (*.cs)
+F06810D1|kot izvorna koda (*.cs)
+/// as plugin (.dll)
+D5593A86|kot plugin (.dll)
+/// Reference for asset
+D9FB6EBB|Predlog za sredstva
+/// Activate license..
+B47EABE4|Aktiviranje licence..
+/// Open buy page
+D8BFF820|Odprite kupiti strani
+///  Ver 7.09
+4196BD80| Glejte 7.09
+/// Find All references
+70569210|Našli Vse reference
+/// Waiting.. MakePreview..
+2F15684B|Čaka.. MakePreview..
+/// Waiting.. MakePreview-end
+C4EC7D79|Čaka.. MakePreview-end
+/// Disable export Shaders
+FAB8FD38|Onemogočanje izvoza ++ 
+/// PropertyDialog
+609D9308|PropertyDialog
+///  Ver 7.11
+CCFBBD88| Glejte 7.11
+/// multiSelectTreeView21
+5DCF7336|multiSelectTreeView21
+/// Test Assets
+B56CD8D7|Test Sredstev
+/// Wait.. Making Unity Project.. Make scripts for 
+E7433FE6|Počakajte.. Izdelava Enotnosti Projekt.. Bi skripte za 
+/// Wait.. TestAssets..
+5792227B|Počakajte.. TestAssets..
+/// Wait.. TestAssets.. 
+EAF2227B|Počakajte.. TestAssets.. 
+/// TestAssets - end
+50D60E8F|TestAssets - end
+/// Disable auto-fix sources
+266F7C01|Disable auto-fix virov
+/// Only available for GameRecovery license.
+A80A4C4|Na voljo samo za GameRecovery licenco.
+/// Disable auto change to Shader links
+7124447A|Onemogoči samodejno spremeni, da Shader povezave
+/// Allow delayed extraction of scripts
+AC7A600E|Dovolite zamudo pridobivanje skripte
+///  Ver 7.14
+CCFBBD8D| Glejte 7.14
+/// Waiting.. m_AssetToPrefab.. items: 
+A08F9053|Čaka.. m_AssetToPrefab.. elemente: 
+/// Only available for DevX GameRecovery license type.
+10630F7|Na voljo samo za DevX GameRecovery vrste licence.
+///  not include to poroject
+FFE943E5| ne vključujejo poroject
+/// Partial recovery of scripts is available only with the 'Allow delayed extraction of scripts'.
+F7876C10|Delna obnovitev skripte je na voljo samo z "Dovolite zamudo pridobivanje skripte'.
+///  Ver 7.15
+CCFBBD8C| Glejte 7.15
+/// Unity 2018.3
+5E74CD61|Enotnost 2018.3
+/// Not supported for this asset type
+8726FB75|Ne podpira te vrste finančnega premoženja
+///  Ver 7.18
+CCFBBD81| Glejte 7.18
+/// Wait... Check internet connection.. https://devxdevelopment.com...
+5D8EC00D|Počakajte... Preverite internetno povezavo.. https://devxdevelopment.com...
+/// toolStrip11
+8AB288BF|toolStrip11
+/// Restore only fields (for deserialization and minimize scripts errors)
+6D77C25E|Obnovitev le polja (za deserialization in zmanjšanje skripte napake)
+/// Allow to de-obfuscate assembly
+5DBA5417|Dovolite, da de-ob njega oziroma skupščine
+/// Only for export to Unity 2018.3 or higher.
+33783E79|Le za izvoz, za Edinost 2018.3 ali višje.
+/// Unity 2018.2
+D30FCD61|Enotnost 2018.2
+///  Ver 7.21
+5860BD88| Glejte 7.21
+/// Rules
+1B78670F|Pravila
+/// Apply
+62D0EDB8|Uporabljajo
+/// Open rules file
+5CCEF1D3|Odprite pravila datoteke
+/// Result:
+8553A117|Rezultat:
+/// Save result
+CFB24BA9|Shrani rezultat
+/// label2
+E9EB1D06|label2
+/// Show offset
+48A4BF19|Prikaži odmik
+/// Open binary file
+D39D81F1|Odprite binarno datoteko
+/// Binary Analyzer Tools
+82675C19|Binarni Analyzer Orodja
+/// Open binary analyzer tools
+AE911DB5|Odprite binarni analyzer orodja
+///  Ver 7.22
+5860BD87| Glejte 7.22
+/// Open Binary Analyzer tools
+B87E468|Odprite Binarni Analyzer orodja
+/// Parce rules: 
+103B800A|Parce pravila: 
+/// Auto apply
+59FF7043|Auto uporablja
+/// Open binary analyzer
+A95D268A|Odprite binarni analyzer
+///  Ver 7.29
+5860BD80| Glejte 7.29
+/// Back
+459BD839|Nazaj
+/// Next
+EDB18BE4|Naprej
+/// ILSpy 5 (.net 4.6 required)
+5EBB7E80|ILSpy 5 (.neto 4.6 obvezno)
+/// exclude
+DC7D8E08|izključitev
+///  make plugin (.dll)
+DBEA7DF9| da plugin (.dll)
+/// Reset
+61854DA3|Ponastavi
+/// Set as Script assembly (.cs)
+2F21ADEB|Nastavi kot Skript skupščine.cs)
+/// Set as Plugin (.dll)
+92AE6425|Nastavljen kot Vstavek (.dll)
+/// Exclude from project
+5A6F5B4B|Izključitev iz projekta
+/// Mark class to decompilation (.cs)
+B74012B|Oznaka razreda decompilation (.cs)
+/// Remove from decompilation scripts
+3EB9EA0E|Odstrani iz decompilation skripte
+/// As Scripts (.cs)
+72D1D23C|Kot Skripte (.cs)
+/// As Plugin (.dll)
+ABEBBC76|Kot Plugin (.dll)
+/// Exclude
+DC7D92E8|Izključitev
+/// Class to script
+6675DB7B|Razred skript
+/// Remove from decompilation
+CD00C64F|Odstrani iz decompilation
+/// Script Generate Options
+25994BBC|Skript Za Ustvarjanje Možnosti
+/// Only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+E005EA6|Na voljo samo za "DevX-GameRecovery" ali "DevX-GameModing' vrste licence.
+/// Not support for add child component.
+BCFB679A|Ni podpore za dodajanje otrok komponento.
+/// Selected items are not supported for copying.
+FCD072D|Izbrani elementi niso podprte za kopiranje.
+/// Not selected asset to copy (Copy asset)
+A86A2FA1|Ni izbrana sredstva za kopiranje (Copy)sredstva
+///  Ver 8.02
+3FA7BD87| Glejte 8.02
+/// Dublicate asset
+18F6772D|Dublicate sredstva
+/// Add child asset with dublicate by selection dialog
+934F5427|Dodaj otrok sredstva z dublicate z pogovorno okno za izbor
+/// Copy asset
+5BDBD338|Kopiranje sredstva
+/// Paste asset
+315A3F47|Prilepite sredstva
+/// Cubemap
+2CEA422E|Cubemap
+/// Texture2D
+B0AAD29D|Texture2D
+/// Sprites
+910DB596|Sprites
+/// Delete asset
+C0E8BD20|Brisanje sredstva
+/// Connection - not tested
+EC7EAB33|Povezava - ne testirajo
+/// Not selected owner asset to create GameObjext
+3A35DCF0|Ne izbrane lastnik sredstvo za ustvarjanje GameObjext
+/// License for 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' not activated!
+45794F93|Licenco za "RePacker Tools" ali "Igra Modding" ali "Unpacker Studio", ki niso vključena!
+/// License for 'RePacker Tools' or 'Game Modding' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+9CE9AD2|Licenco za "RePacker Tools" ali "Igra Modding" ali "Android Unpacker" ali "Unpacker Studio' ali 'GameRecovery" ni aktiviran!
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+C9AC09B3|Licenco za "Unpacker tools" ali "RePacker Tools" ali "Igra Modding" ali "Unpacker Studio' ali 'Android Unpacker" ni aktiviran!
+/// Add new asset
+5AD1691E|Dodaj novo sredstva
+/// Add GameObject
+DD4E575F|Dodaj GameObject
+/// Paste link to asset
+69A27794|Prilepi povezavo, da sredstva
+/// Clear item
+334BAC85|Jasno postavka
+/// Path to executable file, parameters on run: "assembly_name.dll" -p -o "output_dir"
+1FA80710|Pot do izvedljive datoteke, parametre, na begu: "assembly_name.dll" -p -o "output_dir"
+/// Custom extern decompiler
+FF108242|Po meri terenec decompiler
+///  Ver 8.03
+3FA7BD86| Glejte 8.03
+/// Decompiler type:
+4B8D3813|Decompiler vrsta:
+/// Decompiler type
+B2DB3813|Decompiler tip
+///  Ver 8.04
+3FA7BD8D| Glejte 8.04
+/// Export format
+35996432|Izvoz format
+/// Options
+A1D6A433|Možnosti
+/// Export models
+FA6DBF53|Izvoz modelov
+/// ASCII
+32DC01C9|ASCII
+/// Binary
+8E0E4D56|Binarni
+/// Export animations
+7FA8B4A|Izvoz animacije
+/// Export textures
+663535DC|Izvoz teksture
+/// FbxExportSettings
+5AFAA65F|FbxExportSettings
+///  Ver 8.06
+3FA7BD8B| Glejte 8.06
+/// Disable сustom swap file (in file stream)
+B9CC2CB4|Onemogočite po meri swap file (datoteke v tok)
+/// This option enables automatic conversion of compiled shaders to Unity format (UnityLab)
+1D03716|Ta možnost omogoča samodejno pretvorbo izdelane shaders Enotnosti format (UnityLab)
+/// Allow restore shader as UnityLab format (for GameRecovery license type)
+B5ED1B5F|Dovoli obnoviti shader kot UnityLab formatu (za GameRecovery vrste licence)
+/// Allow async export
+61A5FC0F|Dovoli izvoz asinhrone
+/// Unity 2019.1
+47ABCD61|Enotnost 2019.1
+/// Disable header information for scripts (header on .cs files)
+917298B4|Onemogočite glave informacije za skripte (glava na .cs datoteke)
+/// Export multi sprite texture as separate sprite files
+A44EA654|Izvoz multi-sprite teksture jaz bi ločenih sprite datoteke
+/// DevXC Control
+66A43E3|DevXC Nadzor
+///  sec
+2FD0C111| sec
+/// DevXC code: 
+8F41696B|DevXC kodo: 
+/// Execute
+5730F05E|Izvajanje
+/// Open devxc file
+22315D|Odprite devxc datoteke
+/// Save code
+C098D69A|Shrani kodo
+/// Show output window
+11C81E1A|Prikaži izhodno okno
+/// Help
+D05AA806|Pomoč
+/// Execute time:
+47830FDC|Izvajanje čas:
+///  Ver 9.01
+3FC8BD88| Glejte 9.01
+/// Open current action history
+D2A1EE39|Odprite trenutno dejanje zgodovina
+/// DevXC Console
+3BC20E5B|DevXC Konzole
+/// DevXC-Scripts
+7AC6FE2|DevXC-Skripte
+/// Make parfab asset:
+F3637C58|Da parfab sredstva:
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+4F34C49E|Teči DevXC datotek - na voljo samo za "DevX-GameRecovery" ali "DevX-GameModing' vrste licence.
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-MagicStudio' or 'DevX-GameModing' license type.
+41E5A8|Teči DevXC datotek - na voljo samo za "DevX-GameRecovery" ali "DevX-MagicStudio" ali "DevX-GameModing' vrste licence.
+/// Error on create zip: 
+C7BC26B7|Napaka na ustvarjanje zip: 
+/// Make zip - end
+FD528D50|Bi zip - end
+///  Ver 9.02
+3FC8BD87| Glejte 9.02
+/// Help:
+88B16616|Pomoč:
+/// Functions
+F2FCDCF2|Funkcije
+/// Examples
+C9F7545|Primeri
+///  Ver 9.03
+3FC8BD86| Glejte 9.03
+/// Material
+8800D7BA|Material
+/// Shader
+D3ADAD2D|Shader
+/// Allow restore shaders (base mode, without convert to ShaderLab format)
+6DBC0660|Dovoli obnoviti shaders (base način, brez pretvori v ShaderLab format)
+///  Ver 9.05
+3FC8BD8C| Glejte 9.05

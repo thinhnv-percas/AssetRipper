@@ -1,0 +1,2116 @@
+{
+ "schema": 1,
+ "unityVersion": "2018.1.0b3",
+ "unityTypeVersion": 15,
+ "platform": 6,
+ "baseDefinitions": true,
+ "source": {
+  "origin": "DevXUnity ClassAll.zip",
+  "files": [
+   "UnityType.zip!UnityType_v2018.1.0b3_p6.xml"
+  ],
+  "coversVersions": [
+   "2018.1.0b3"
+  ]
+ },
+ "types": [
+  {
+   "classID": 0,
+   "className": "GUISettings",
+   "serializedVersion": 1,
+   "nodes": [
+    {
+     "type": "UInt8",
+     "name": "m_DoubleClickSelectsWord",
+     "size": 1,
+     "index": 3433,
+     "isArray": false,
+     "metaFlag": 16640,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt8",
+     "name": "m_TripleClickSelectsLine",
+     "size": 1,
+     "index": 3434,
+     "isArray": false,
+     "metaFlag": 16640,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "m_CursorColor",
+     "size": 16,
+     "index": 3435,
+     "isArray": false,
+     "metaFlag": 2097152,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 3436,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 3437,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 3438,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 3439,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "float",
+     "name": "m_CursorFlashSpeed",
+     "size": 4,
+     "index": 3440,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "m_SelectionColor",
+     "size": 16,
+     "index": 3441,
+     "isArray": false,
+     "metaFlag": 2097152,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 3442,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 3443,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 3444,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 3445,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "classID": 0,
+   "className": "GUIStyle",
+   "serializedVersion": 1,
+   "nodes": [
+    {
+     "type": "string",
+     "name": "m_Name",
+     "size": -1,
+     "index": 28,
+     "isArray": false,
+     "metaFlag": 49152,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "Array",
+       "name": "Array",
+       "size": -1,
+       "index": 29,
+       "isArray": true,
+       "metaFlag": 16385,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "size",
+         "size": 4,
+         "index": 30,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "char",
+         "name": "data",
+         "size": 1,
+         "index": 31,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_Normal",
+     "size": -1,
+     "index": 32,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 33,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 34,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 35,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 42,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 43,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 44,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 45,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 46,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_Hover",
+     "size": -1,
+     "index": 47,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 48,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 49,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 50,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 57,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 58,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 59,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 60,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 61,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_Active",
+     "size": -1,
+     "index": 62,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 63,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 64,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 65,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 72,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 73,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 74,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 75,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 76,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_Focused",
+     "size": -1,
+     "index": 77,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 78,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 79,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 80,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 87,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 88,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 89,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 90,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 91,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_OnNormal",
+     "size": -1,
+     "index": 92,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 93,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 94,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 95,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 102,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 103,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 104,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 105,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 106,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_OnHover",
+     "size": -1,
+     "index": 107,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 108,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 109,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 110,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 117,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 118,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 119,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 120,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 121,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_OnActive",
+     "size": -1,
+     "index": 122,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 123,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 124,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 125,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 132,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 133,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 134,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 135,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 136,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "GUIStyleState",
+     "name": "m_OnFocused",
+     "size": -1,
+     "index": 137,
+     "isArray": false,
+     "metaFlag": 32768,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "PPtr<Texture2D>",
+       "name": "m_Background",
+       "size": 12,
+       "index": 138,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "int",
+         "name": "m_FileID",
+         "size": 4,
+         "index": 139,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "SInt64",
+         "name": "m_PathID",
+         "size": 8,
+         "index": 140,
+         "isArray": false,
+         "metaFlag": 1,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      },
+      {
+       "type": "ColorRGBA",
+       "name": "m_TextColor",
+       "size": 16,
+       "index": 147,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": [
+        {
+         "type": "float",
+         "name": "r",
+         "size": 4,
+         "index": 148,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "g",
+         "size": 4,
+         "index": 149,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "b",
+         "size": 4,
+         "index": 150,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        },
+        {
+         "type": "float",
+         "name": "a",
+         "size": 4,
+         "index": 151,
+         "isArray": false,
+         "metaFlag": 2097153,
+         "serializedVersion": 1,
+         "treeLevel": 2,
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "RectOffset",
+     "name": "m_Border",
+     "size": 16,
+     "index": 152,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "int",
+       "name": "m_Left",
+       "size": 4,
+       "index": 153,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Right",
+       "size": 4,
+       "index": 154,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Top",
+       "size": 4,
+       "index": 155,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Bottom",
+       "size": 4,
+       "index": 156,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "RectOffset",
+     "name": "m_Margin",
+     "size": 16,
+     "index": 157,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "int",
+       "name": "m_Left",
+       "size": 4,
+       "index": 158,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Right",
+       "size": 4,
+       "index": 159,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Top",
+       "size": 4,
+       "index": 160,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Bottom",
+       "size": 4,
+       "index": 161,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "RectOffset",
+     "name": "m_Padding",
+     "size": 16,
+     "index": 162,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "int",
+       "name": "m_Left",
+       "size": 4,
+       "index": 163,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Right",
+       "size": 4,
+       "index": 164,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Top",
+       "size": 4,
+       "index": 165,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Bottom",
+       "size": 4,
+       "index": 166,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "RectOffset",
+     "name": "m_Overflow",
+     "size": 16,
+     "index": 167,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "int",
+       "name": "m_Left",
+       "size": 4,
+       "index": 168,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Right",
+       "size": 4,
+       "index": 169,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Top",
+       "size": 4,
+       "index": 170,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "int",
+       "name": "m_Bottom",
+       "size": 4,
+       "index": 171,
+       "isArray": false,
+       "metaFlag": 0,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "PPtr<Font>",
+     "name": "m_Font",
+     "size": 12,
+     "index": 172,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "int",
+       "name": "m_FileID",
+       "size": 4,
+       "index": 173,
+       "isArray": false,
+       "metaFlag": 1,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "SInt64",
+       "name": "m_PathID",
+       "size": 8,
+       "index": 174,
+       "isArray": false,
+       "metaFlag": 1,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "int",
+     "name": "m_FontSize",
+     "size": 4,
+     "index": 175,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "int",
+     "name": "m_FontStyle",
+     "size": 4,
+     "index": 176,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "int",
+     "name": "m_Alignment",
+     "size": 4,
+     "index": 177,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "bool",
+     "name": "m_WordWrap",
+     "size": 1,
+     "index": 178,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "bool",
+     "name": "m_RichText",
+     "size": 1,
+     "index": 179,
+     "isArray": false,
+     "metaFlag": 16384,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "int",
+     "name": "m_TextClipping",
+     "size": 4,
+     "index": 180,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "int",
+     "name": "m_ImagePosition",
+     "size": 4,
+     "index": 181,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "Vector2f",
+     "name": "m_ContentOffset",
+     "size": 8,
+     "index": 182,
+     "isArray": false,
+     "metaFlag": 2097152,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "x",
+       "size": 4,
+       "index": 183,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "y",
+       "size": 4,
+       "index": 184,
+       "isArray": false,
+       "metaFlag": 2097152,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "float",
+     "name": "m_FixedWidth",
+     "size": 4,
+     "index": 185,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "float",
+     "name": "m_FixedHeight",
+     "size": 4,
+     "index": 186,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "bool",
+     "name": "m_StretchWidth",
+     "size": 1,
+     "index": 187,
+     "isArray": false,
+     "metaFlag": 0,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "bool",
+     "name": "m_StretchHeight",
+     "size": 1,
+     "index": 188,
+     "isArray": false,
+     "metaFlag": 16384,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    }
+   ]
+  },
+  {
+   "classID": 0,
+   "className": "Gradient",
+   "serializedVersion": 1,
+   "nodes": [
+    {
+     "type": "ColorRGBA",
+     "name": "key0",
+     "size": 16,
+     "index": 64,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 65,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 66,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 67,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 68,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "key1",
+     "size": 16,
+     "index": 69,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 70,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 71,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 72,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 73,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "key2",
+     "size": 16,
+     "index": 74,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 75,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 76,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 77,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 78,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "key3",
+     "size": 16,
+     "index": 79,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 80,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 81,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 82,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 83,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "key4",
+     "size": 16,
+     "index": 84,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 85,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 86,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 87,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 88,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "key5",
+     "size": 16,
+     "index": 89,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 90,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 91,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 92,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 93,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "key6",
+     "size": 16,
+     "index": 94,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 95,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 96,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 97,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 98,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "ColorRGBA",
+     "name": "key7",
+     "size": 16,
+     "index": 99,
+     "isArray": false,
+     "metaFlag": 2097153,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": [
+      {
+       "type": "float",
+       "name": "r",
+       "size": 4,
+       "index": 100,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "g",
+       "size": 4,
+       "index": 101,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "b",
+       "size": 4,
+       "index": 102,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      },
+      {
+       "type": "float",
+       "name": "a",
+       "size": 4,
+       "index": 103,
+       "isArray": false,
+       "metaFlag": 2097153,
+       "serializedVersion": 1,
+       "treeLevel": 1,
+       "children": []
+      }
+     ]
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime0",
+     "size": 2,
+     "index": 104,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime1",
+     "size": 2,
+     "index": 105,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime2",
+     "size": 2,
+     "index": 106,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime3",
+     "size": 2,
+     "index": 107,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime4",
+     "size": 2,
+     "index": 108,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime5",
+     "size": 2,
+     "index": 109,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime6",
+     "size": 2,
+     "index": 110,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "ctime7",
+     "size": 2,
+     "index": 111,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime0",
+     "size": 2,
+     "index": 112,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime1",
+     "size": 2,
+     "index": 113,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime2",
+     "size": 2,
+     "index": 114,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime3",
+     "size": 2,
+     "index": 115,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime4",
+     "size": 2,
+     "index": 116,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime5",
+     "size": 2,
+     "index": 117,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime6",
+     "size": 2,
+     "index": 118,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt16",
+     "name": "atime7",
+     "size": 2,
+     "index": 119,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "int",
+     "name": "m_Mode",
+     "size": 4,
+     "index": 120,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt8",
+     "name": "m_NumColorKeys",
+     "size": 1,
+     "index": 121,
+     "isArray": false,
+     "metaFlag": 1,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    },
+    {
+     "type": "UInt8",
+     "name": "m_NumAlphaKeys",
+     "size": 1,
+     "index": 122,
+     "isArray": false,
+     "metaFlag": 16385,
+     "serializedVersion": 1,
+     "treeLevel": 0,
+     "children": []
+    }
+   ]
+  }
+ ]
+}

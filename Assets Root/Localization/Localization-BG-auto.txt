@@ -1,0 +1,1648 @@
+/// Wait... Image compression... This may take a few minutes
+67F2EC47|Моля, изчакайте... компресиране на изображения... това може да отнеме няколко минути
+/// Wait... Parse assembly 
+676EEA33|Моля, изчакайте... разбор събрание 
+/// Parse - ok
+8FD05778|Анализира - ок
+/// Error on Parse assembly 
+783216DC|Грешка при обработката на материали 
+///  No Internet connection!!!
+A4472FF8| Няма Интернет връзка!!!
+///  No Internet connection!!! 
+BC0C3AEE| Няма Интернет връзка!!! 
+///                                        Exit new version\n
+65C60228|Излизане на нова версия\n
+/// Waiting...  open unity GameDir..
+4882047|Чакам... отвори единство GameDir..
+/// Open unity GameDir - end
+76D2CE09|Отвори GameDir единство - в края на
+///                                        (binary shader)
+9D41F04E|(двоично шейдър)
+///                                        ......\nShader trancated for DEMO VERSION, Real len: 
+ECA96CA1|......\nШейдер truncated за демо версия, истински лен: 
+/// // Not found assembly: 
+4D34EB5B|// Не са намерили Събрание: 
+/// \n// This project used IL2CPP, assembly converted to native code.
+7981C3BD|\n// Този проект използва IL2CPP, събрание се превърне в машинен код.
+/// //Not found assembly: 
+C7E2652|//Не са намерили Събрание: 
+/// Save text
+4EC4922D|Запишете текста
+/// test
+EAE38E77|тест
+/// OK
+CE0FB7E1|Добре
+///                                        Script decimpilation options
+391D7F38|Възможности decimpilation сценарий
+///                                        Script decompilation
+FCB4E352|Сценарий декомпиляции
+/// Disable decompilation
+120E3FB8|Изключване на декомпиляции
+///                                   JDecompiler
+8AFC8F39|JDecompiler
+///                                        Standart decompiler
+EEA3A483|Стандарт декомпилятор
+/// Scene params
+2A11D566|На сцената параметри
+/// Make direct MeshAsset (else Mesh by .obj file)
+E3E1083F|Директни MeshAsset (още на окото .файл obj)
+/// Make all GameObjects as Active (override)
+33C19C13|Направи всичко gameobject като активен (замени)
+/// C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+EAAC6917|C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+/// C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+F9D86526|C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+/// zipalign.exe
+2C5C77ED|zipalign.exe
+/// Keystore 
+FFDFA781|Съхранение 
+/// Without signature (apk without signature - can not be installed on the device)
+BA63D79B|Без подпис (apk без подпис - не може да бъде инсталиран на устройството)
+/// Store password
+B0EF04E6|Съхранение на пароли
+/// NDName
+3B82BA7F|NDName
+/// Key password
+F15325AD|Ключ парола
+/// Key alias
+B2682AD4|Ключови псевдоним
+/// Keystore file
+101C8A80|Файл keystore
+/// Select custom key
+C52368B|Изберете потребителския ключ
+/// Create temp key
+276F9AC4|Създаване на ключови темпо
+/// Paths
+18D1C1FD|На пътя
+/// JDK installer link
+293D5432|Програма за инсталиране на jdk връзка
+/// zipalign path
+20BAED5F|начин zipalign
+/// jarsigner path
+7119B2A9|пътят е jarsigner
+/// keytool path
+9A043CA4|начин на ключове
+/// Make apk
+87B277BA|Направи apk
+///                                        APKSignDialog - required JDK
+5168C80F|APKSignDialog - необходимия пакет jdk
+///                                                Ver 
+2FD97207| Ver 
+///  (Internal!)
+3D13DA7E| (Вътрешно!)
+///  (runtime 
+14A073C4| (по време на изпълнението на 
+///                                        The version is obsolete and you need to install a new version.
+D9E34DAA|Версията е стара версия и трябва да се инсталира нова версия.
+///                                        Waiting... Check internet connection.. http://devxdevelopment.com...
+59AA61CC|Чакам... проверите вашата връзка към интернет.. http://devxdevelopment.com...
+///  DEMO-CONSOLE!
+304FB581| ДЕМО КОНЗОЛАТА!
+/// Is Demo Version
+6A0B8062|Това Е Демо-Версия
+/// Project protected by
+4F70EAA5|Защитен проект
+/// Width: 
+BF6DE30B|Ширина: 
+/// , Height: 
+C4DBC9EF| Височина: 
+/// , Format: 
+72807AF3| Формат: 
+/// , MipMapCount: 
+681748FF|, MipMapCount: 
+/// \nStrings count: 
+49BC9CCF|\nРед на граф: 
+///                                        License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated,\nThe image will be partially grounded on black squares!
+612FA8EE|Разрешително за Распаковщика инструменти ", или "инструменти RePacker' или 'Распаковщика студио' не са активирани,\nИзображението ще бъде частично се основава на черни квадрати!
+///                                        License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated
+35889687|Разрешително за Распаковщика инструменти ", или "инструменти RePacker' или 'Распаковщика студио' не е активирана
+/// Wait... Extract audio..
+77F9CD7A|Моля, изчакайте... извличане на аудио..
+/// Unsupported format
+2D5ED39F|Поддържан Формат
+/// Exported to 
+5F0013FA|Изнасяни в 
+///                                    License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated!
+2D8D9687|Разрешително за Распаковщика инструменти ", или "инструменти RePacker' или 'Распаковщика студио' не е активирана!
+/// The file extension must match
+FCB08D72|Разширението на файла трябва да съвпада
+///                                       License for  'Unpacker Studio' not activated!
+C668CFD6|Разрешително за Распаковщика студиото не е активирана!
+/// Dont select GameObject!
+82955BC5|Не избирайте обект!
+/// Dont select MeshAsset
+68C81170|Не избирайте MeshAsset
+///                                        License not activated!
+97ABCBA2|Разрешително не е активирана!
+///                                        Dont select GameObject or level!
+64471DF8|Не избирайте обект или второ ниво!
+/// UI Language: 
+454E6D74|Език на интерфейса: 
+/// Metadata
+B20B46F5|Метаданни
+/// Interesting..
+186DAFB|Интересно..
+/// Drag the game here and I'll show what's inside)
+6261EC56|Приплетать тук игра и аз ще ви покажа, че вътре)
+/// toolStripMain
+F4275D09|toolStripMain
+/// By name:
+84A32E32|От името на:
+/// Rows limit:
+B8BBD254|Лимит редове:
+///                                        Select By ID:
+E8FFDFAF|Изберете ID:
+/// toolStrip3
+E795FA33|toolStrip3
+/// Common
+17CFD8E7|Общи
+/// Text/Script
+9E201F6A|Текст/Скрипт
+/// To protect against viewing resources, you can use the text encryption option in the obfuscator DevXUnity-ObfuscatorPro
+C3B86430|За защита от средства за разглеждане, можете да използвате опцията за криптиране на текст в DevXUnity-ObfuscatorPro обфускатор
+/// Information:
+1ED72F4B|Информация:
+/// w,h,format
+330840A0|Вт,сек,Формат
+/// To protect against viewing resources, you can use the image encryption option in the obfuscator DevXUnity-ObfuscatorPro\r\n
+AA0547A7|За защита от средства за разглеждане, можете да използвате опцията за криптиране на изображението в DevXUnity-ObfuscatorPro обфускатор \n
+///                                        Fon:
+80CD912E|Фон:
+/// 3DView
+815D0B84|3DView
+/// 3DScene
+FC75575A|3DScene
+/// Hex RAW
+C5C117C1|Клевети сурово
+/// Position
+FD95CA52|Позиция
+/// Line:
+60434EC8|Линия:
+/// Col:
+3B7EA7FB|Брой:
+/// Font test
+5BD15A12|Правят тест
+/// Asset header edit
+C9529C11|Заглавие на активите редактиране
+/// Value
+D03C6679|Стойност
+/// Name
+3BD1C9B|Заглавие
+/// Type
+C15430C6|Тип
+///                                        Lenght (bytes)
+FE4868C0|Дължина (байт)
+/// Assembly code strings
+4C18336D|Монтаж на реда код
+/// Method
+18B1C08E|Начин
+/// Destanation method
+CA64270|Начин Destanation
+/// Value Filter:
+5F768801|Стойност На Филтъра:
+/// Method name filter:
+C6CB611E|Филтър името на метода:
+/// Errors
+621D673|Errors
+/// Errors:
+89FABD5F|Грешки:
+/// Products
+4A7FD86A|Продукти
+/// It is a tool for gaining new knowledge\r\nOpens the way to new opportunities
+454CCD00|Това е инструмент за получаване на нови знания \nОтваря път към нови възможности
+/// DevXUnity-Unpacker Magic Studio
+6B32D8F7|DevXUnity-Распаковщика Магическа Студио
+/// DevXUnity-RePackerTools
+6C2DFEF5|DevXUnity-RePackerTools
+/// DevXUnity-UnpackerTools
+86FE2CB4|DevXUnity-UnpackerTools
+/// UnpackerTools - license:\n- View all resources\n- View Script source code (decompile to C#, only view)\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\n
+1AEE8769|UnpackerTools лиценз:\n- Преглед на всички ресурси\n- Преглед на изходния код на скрипта (декомпилира в C#, само виж)\n- Износ на ресурси: звуци (като WAV), изображения (като PNG, ДДС), мрежа (.обект), текст, шрифтове\n
+/// Support
+A8ABCCA2|Подкрепа
+/// Implementation..
+5247A0E3|Изпълнението на..
+/// Support formats:
+6799EC0E|Поддръжка формати:
+/// APK (apk, obb, xapk)
+2550695|APK (apk, обб, xapk)
+/// Bundles (.unity3d and other)
+8D3C4B5D|Сухожилие (.unity3d и други)
+///                                        Stabdelone (WIN, MAC, LINUX)
+FB60580D|Stabdelone (победа, Мак и Linux)
+///                                        iOS distributive (.ipa)
+8FB82096|разпределителни устройства с iOS (.ипп)
+/// Asset files
+E125F64C|Файлове актив
+/// Export:
+10D3DAFD|Износ:
+/// Export Texture2D (png, pvr, dds)
+C92A6C39|Износът остава текстура texture2d (png, pvr, dds)
+/// Export Sprites (png)
+D0AF9C82|Износ дух (АСИСТЕНЦИИ)
+/// Export AudioClip (Sounds to .wav)
+ED6D8610|Износ на Аудиоклип (звуци .формат WAV)
+/// Export Mesh (OBJ with sub-mesh, FBX)
+5E55F0D5|Износ на окото (obj с подсетку, в fbx)
+/// Export Scene elements (to FBX, Prefab)
+271564|Експортиране на елементи на сцена (във формат fbx, Prefab)
+/// Export Video (avi, mp4,..)
+30E504CE|Износ на видео (AVI, МР4,..)
+/// Export Text assets
+73023AC|Износ на текст активи
+/// Export Fonts
+B566829D|Износ На Шрифта
+/// Export Shader (for text shader mode)
+FE03C056|Износ на Шейдер (шейдер за текстов режим)
+/// Export/Create Prefab
+C7D86831|Износ/Създаване На Префаб
+/// Export Terrain Height-Map
+5FDE59E4|Износ Височина-Карта На Местността
+/// Replace resources for assets:
+92CE21B2|Замени ресурси в активи:
+/// Edit Text
+153A07F6|Редактиране На Текст
+/// Edit Header Values
+6C4F95C0|Редактиране Стойност На Заглавната Част
+/// Replace Images (with encoding)
+B1C89874|На мястото на снимките (с кодиране)
+/// Binary replace for any resources
+9E0953D9|Бинарни замени на всички ресурси
+/// Generate Unity Project:
+895E5C94|Създаване На Проект За Единство:
+/// Make APK (with signature)
+1F806B85|Направи apk (с подпис)
+/// Generate Scripts (C#) 
+10E73E5E|Създаване На Скриптове (В C#) 
+/// Generate Scenes (.unity Levels)
+F285DD5B|Генериране На Парцели (.нива на единство)
+/// Generate Prefab (.prefab)
+A0EB3B42|Създаване На Панелевозы (.prefab)
+/// Generate Unitypackage (.unitypackage)
+CDBEEABB|Генериране На Пакет (.пакет)
+/// Generate animated model (to .unitypackage)
+51C70D81|Създаване на анимирани модели (за .пакет)
+/// GameObject Transform RectTransform  \r\nMonoBehavior Renderer MeshRenderer \r\nMeshFilter MeshCollider Canvas \r\nCameraAsset AudioListener AudioSources \r\nColliders Animator and other
+A687CC7B|Обект На Преобразуване RectTransform \nОт Monobehavior Рендерер MeshRenderer \nMeshFilter MeshCollider Платно \nCameraAsset AudioListener Аудиоисточников \nАниматор коллайдеры и други
+/// Generate Materials
+E4D924E4|Генерира Материали
+/// Generate Texture2D
+DB04E9E7|Генерира Остава Текстура Texture2d
+/// Generate Sprite
+BBC14F43|Generate Спрайт
+/// Generate AnimationClip\r\n
+401C619C|Създаване На AnimationClip \n
+/// Generate Humanoid Animations
+5CAEA085|Създаване На Хуманоидни Анимации
+/// Generate AnimationController
+7333871E|Създаване На AnimationController
+/// Generate Mesh Asset
+6A08CA37|Генериране На Окото Активи
+/// Generate AudioClip Asset
+A96CE37E|Генериране На Актив Аудиоклип
+/// Generate PhysicMaterial Asset
+A1992D64|Генериране На Актив PhysicMaterial
+/// Generate PhysicsMaterial2D Asset
+2F9B7BDF|Генериране На Актив PhysicsMaterial2D
+/// Generate Prefabs
+88C6C19D|Създаване На Префабы
+/// Generate Font
+C879083F|Създаване На Шрифта
+/// Generate VideoClip
+23418CF9|Създаване На Видео
+/// Generate Text Assets
+60C3C9B2|Създаване На Текст Активи
+/// Generate RenderTexture
+D3E14E1E|Създаване На RenderTexture
+/// Generate ScriptableObject
+6EC596F4|Създаване На ScriptableObject
+/// Generate GUISkin
+BF43C65C|Създаване На GUISkin
+/// Version Info
+E8412D7B|Версия Информация
+/// Inspector
+8EC4DE12|Инспектор
+/// PropertyGridToolBar
+84B78E19|PropertyGridToolBar
+/// Layer:
+788BDC9|Слой:
+/// Tag:
+38AEAAB3|Ден:
+/// Save class metadata
+BD211979|Запазва метаданните на клас
+/// Save packed version metadata
+493E5DB5|Запази пакетиран версия на метаданни
+/// Save metadata from packed
+683E353A|Поддържа метаданни пакетиран
+/// Join and save all assets metadata
+9C362A73|Да обедини и да спаси всички активи на метаданни
+/// Load custom metadatas
+B788894D|Изтегляне на потребителски метаданни
+/// Export as Unitypackage
+CCC044AA|Износ пакет
+/// Export as Prefab
+8E1C48B9|Износ, като Панелевоз
+/// Export model as FBX
+EC5ADA02|Износ на модели във формат fbx
+/// Open
+E8CCC172|Отвори
+///                                        Open mode:
+86340C3C|Отворен режим:
+/// Open Unity3D game directory
+55607B33|В директорията с играта откриване на unity3d
+/// Open as APK, OBB, XAPK file (android)
+874EFF8D|Как да отворите APK, кеш, XAPK на файла (андроид)
+/// Open as IPA file (iOS)
+1C183D79|Като отворите файла ипп (за iOS)
+/// Open as Bundle (WebPlayer) file
+10E210E5|Файлът се отваря като комплект (player) 
+/// Open as Asset file
+CDE707F8|Отвори като Актив на файл
+/// Open as binary
+3B58AB5A|Отвори като двоичен
+/// Open DDS Texture
+670B26E1|Отвори текстура DDS
+/// Clear
+87DB2|Разбираемо е
+/// Proxy Settings
+238432FB|Настройките За Прокси Сървър
+///                                        ALL
+58A5149D|Всички
+/// Images
+311CACDF|Изображения
+/// Sounds
+772A35E8|Звуци
+/// Script files
+9BCF0A3F|Файлове, скриптове
+/// Animation Clip
+EA554C3|Клип, Анимация
+///                                        All assets
+91A14438|Всички активи
+/// Group resources
+117086B5|Група ресурси
+///                                   Show classic wait mode
+324D865C|Покажи класически режим на изчакване
+///                                        toolStripButton1
+9D2A7523|toolStripButton1
+/// Export resources to directory (png, wav, avi, obj...)
+3CCC221F|Износа на ресурси в каталог (Формат PNG, WAV, AVI файл, кадриров...)
+/// Generate Unity Project (from any to Unity 2017, 5.6)
+DEB01D86|, 5.6 създаване на проекта Unity (от всяко единство 2017)
+/// Generate Project Scripts
+CD938811|Генериране На Сценарии На Проекта
+/// Export All Prefabs
+5CE1E87B|Експортиране На Всички Префабы
+///                                        Make APK (with signing, for install on device)
+FF2E2E6C|Направи apk (с подпис, за настройка на устройството)
+/// Save as Text
+E9941DE0|Запиши като текст
+/// Replace text
+556F5284|Замяна на текст
+/// Edit and replace text
+C9B78102|Редактиране и замяна на текст
+/// Save as PNG
+640C3205|Запази като PNG
+/// Save as DDS/PVR
+AEE192BE|Запиши като ДДС/ПВР
+/// Replace image
+EFD46E44|Замяна на изображения
+/// Chessboard
+C8DCF0B7|На шахматната дъска
+/// White
+74D407C9|Бял
+/// Black
+5EA0AB2E|Черен
+/// Export as OBJ
+C96FB87E|Износ като obj
+/// Export as FBX
+56DB8833|Експорт във формат fbx
+/// Export as Asset
+D9E066FF|Износ като актив
+/// Reset camera
+A658D7B5|Отменя камери
+///                                               Make 3D for selection
+5ED161EC|Да се направи 3D, за да изберете
+///                                               Make 3D (without materials)
+F3F1562B|Да се направи 3D (без материали)
+///                                               Break process
+EF8EC7A2|Процесът на пропастта
+/// Go
+CDEBB7D9|Да отида
+/// Find
+31D1912E|Намери
+/// Save selection
+504C0A1B|Запазване на разпределението на
+/// Save to HEX dump
+B053182|Запиши в сметището
+/// Edit selected
+63A72C9|Редактиране на избраните
+/// Save assembly
+3614E1B1|Запази събрание
+///                                        Save RAW pre asset
+5504C5D0|Поддържа RAW предварителна активи
+///                                        Save content
+5B7589EA|Запишете съдържанието
+///                                        Save as (WAV, mp3,..)
+529E2CAB|Запиши като (WAV и MP3..)
+/// Play sound
+6F3BD173|Възпроизвеждане на звук
+///                                        Save sub content
+F8C47071|Запишете съдържанието на под
+///                                        Replace sub content in asset
+2EF8C2EC|Подмяна на съдържанието на вложени в активи
+/// UI Language
+808CCA97|Език на интерфейса
+/// Video lessons
+7F742002|Видео уроци
+/// Buy and support a project
+9CE8EF48|Закупуване и поддръжка на проекта
+/// License (registration)
+D302020A|Разрешително (Регистрация)
+/// Updates\r\nOpen download web site
+192B54E9|Обновяване \nИзтегляне на отваряне на уеб сайт
+/// DevXUnity-Unpacker Magic Tools
+411E8062|DevXUnity-Распаковщика Магически Инструменти
+/// There is no connection to devxdevelopment.com\nFor the correct operation of the program - you need a network connection.
+9AD93C02|Няма връзка devxdevelopment.com\nЗа коректната работа на програмата трябва да имате връзка с мрежа.
+/// Connection - ok
+31FBE153|Връзка - ок
+/// error
+5AED193|грешка
+/// License for 'Unpacker Studio' not activated!
+48235494|Разрешително за Распаковщика студиото не е активирана!
+/// Play.. 
+2A8CF32F|Играе.. 
+/// License for 'RePacker Tools' or 'Unpacker Studio' not activated!
+AD524422|Лиценз инструменти RePacker' или 'Распаковщика студиото не е активирана!
+///                                        License for 'RePacker Tools' or 'Unpacker Studio' not activated\nThe image will be partially grounded on black squares
+D866935E|Разрешително за инструменти RePacker' или 'Распаковщика студиото не е активирана\nИзображението ще бъде частично се основава на черни квадрати
+/// License - not valid!
+C0FCE739|Лиценз - не се действа!
+/// License - valid.
+20200A26|Лиценз - действа.
+/// Activation - ok
+8E8D7F8A|Активиране - ок
+/// Not activated!
+F62685F2|Не е активирана!
+/// License activation - ok
+BCD279FB|Активиране на лиценза е ок
+/// License key:
+5A5C9760|Лицензионен ключ:
+/// License State
+7E90661A|Разрешително На Държавната
+/// License Number
+7F76DDFF|Номер На Лиценз
+/// To activate license..
+E66D4787|За да активирате лиценза..
+/// To open buy page
+2FB642D5|За да отворите страницата купи
+/// License Information
+122A693A|Информация За Лиценза
+///                                        Waiting.. open 
+352854BF|В очакване на откриването на.. 
+/// Waiting.. 
+1AAA4AE1|Очакването на.. 
+/// % 
+CDAAB77B|% 
+/// parsing
+FF4D2980|парсинг
+/// Waiting..
+1ACA4AE1|Очакването на..
+/// Waiting.. Recreate all assets..
+F6525294|Очакваме.. пресъздаде всички активи..
+/// Waiting.. Update all..
+5472E972|Напред към ъпгрейд.. всички..
+/// Ok
+CDEFB7E1|Добре
+/// Waiting.. parsing content...
+594B5358|Очакваме.. парсинг Съдържание...
+/// Waiting.. make tree...
+2B9B294E|Очакваме.. за да направите дърво...
+/// Waiting.. Resource manager.. Resources path update, items: 
+4E8E089D|Очакваме.. диспечера на ресурси.. ресурси, начини за обновяване на стоки: 
+/// Waiting.. make tree - end
+C60B13FD|Очакваме.. направете дървото край
+/// Waiting.. Import Asset: 
+9914F0E|Очакваме.. Внос На Основни Средства: 
+/// Waiting.. Import Asset:
+76314F0E|Очакваме.. Внос На Основни Средства:
+///  - read structure..
+183D2F98| - прочетете структура..
+///                                        - read structure - no
+E9E711F3| - структура на четене - няма
+///  - init objects ..
+312589DC| - инит обекти ..
+/// Open OK, Items count: 
+AB925A89|Отвори ОК, брой елементи: 
+/// Error
+5AED673|Грешка
+/// Error:
+5D8D673|Грешка:
+/// Make asset
+AF344CBD|Активи
+/// Waiting.. make tree structure.. for 
+DC39D535|Очакването на.. правим структурата на дърво.. за 
+/// Waiting.. make tree structure - ok
+24501B89|Очакването на.. правим структурата на дърво е ок
+/// Waiting... open bundle: 
+76CA22F1|Чакам... е отворен набор от: 
+/// Export to:
+4F02B678|Износ в:
+/// read end
+9FB1A365|прочетете края на
+/// APK:
+4417A002|АПК:
+/// Waiting.. Open apk begin...
+535EE5DE|Очакваме.. отворите на ЗЕМЕДЕЛИЕТО ще започне...
+/// Waiting.. Open IPA begin...
+EDD4194A|Очакваме.. отваряне на Ипп да започнете...
+/// Waiting.. Open Unitypackage begin...
+2C9F6E00|Очакваме.. отвори един пакет да започнете...
+/// Wait... make apk 
+214685F7|Моля, изчакайте... да apk 
+/// Error on create APK: 
+A900A8D|Грешка при създаване на УЛИЦИ: 
+/// Make apk - ok
+23D17C38|Направи apk - ок
+/// Waiting.. Parsing item: 
+3DFC8A9F|Очакваме.. Парсинг точка: 
+/// Waiting.. Parsing script: 
+570BFFCF|Очакваме.. Парсинг на скрипта: 
+///  - Sometimes the primary decompilation can take several minutes (depends on the size of the assembly)..
+6475DF5C| - Понякога и основен декомпиляции може да отнеме няколко минути (зависи от големината на монтаж)..
+/// Waiting.. Parsing asset item: 
+D08181D|Очакваме.. Анализ на елементи на актива: 
+/// Export make asset:
+F0F2A2E7|Износ на активи:
+/// Export asset:
+9878BDA0|Износ на активи:
+/// Export error: 
+574C4B4D|Грешка при експортиране: 
+/// Export ok, count: 
+F9C1452A|Износ на ок, се изчислява: 
+///                                        Waiting.. MakeUnityProject..
+BBD46DFD|Очакваме.. MakeUnityProject..
+///                                        Waiting.. MakeUnityProject.. 
+D2D4DD55|Очакваме.. MakeUnityProject.. 
+///  export asset: 
+FB976152| износ на активи: 
+///                                        Waiting.. Make Unity Project.. 
+EAF907C9|Очакването На.. Прави Проект За Единство.. 
+/// MakeUnityProject - ok
+98C91534|MakeUnityProject - ок
+///                                        Waiting.. MakePrefabs..
+B2FD7227|Очакваме.. MakePrefabs..
+///                                        Waiting.. MakePrefabs.. 
+1F9D7227|Очакваме.. MakePrefabs.. 
+/// MakePrefabs - ok
+7415C18D|MakePrefabs - ок
+///  make asset: 
+24A9DD5| активи: 
+///  make parfab asset: 
+35698EAC| направи parfab активи: 
+///                                        Waiting.. Generate Scripts..
+4A5FDDF2|Очакваме.. Създаване На Скриптове..
+///                                        Waiting.. Generate scripts.. 
+D8442619|Очакваме.. създаване на скриптове.. 
+/// Generate Scripts - ok
+C764262B|Създаване на скриптове - ок
+/// Proxy connection
+B3B7CD64|Прокси връзка
+/// Proxy address:
+10161BED|Адрес на прокси сървър:
+/// port:
+158D4A0|пристанище:
+/// User:
+2C1C7F9C|Потребител:
+/// Password:
+D086BA55|Парола:
+/// Cancel
+76594D8C|Отмени
+/// Proxy Authentication
+42142F52|Проверка На Автентичността На Прокси Сървър
+/// Proxy settings
+13DCA69B|Настройките за прокси сървър
+/// Make temp key...
+69446BC7|Ключови темп на...
+/// Export as ".Unitypackage"
+2062516|Износ като ".Пакет"
+/// Export model as ".FBX"
+E72DC67C|Износ на модели като ".В fbx"
+/// Export as ".Prefab"
+2F8CE20D|Износ като ".Панелевозы"
+/// Making 3D scene
+E5F5704E|Създаване на 3D сцена
+/// Making 3D scene (without materials)
+47368B19|Създаване на 3D сцени (без материали)
+/// Stop of process
+E97FBB80|Спиране на процеса на
+/// Clear scene
+D5FE0A41|Ясна място
+/// Reset of camera
+DE92FEBE|Отменя камери
+/// Optimize Metadata for file
+B533CB05|За оптимизиране на метаданни за файла
+///                                        Generate Scripts for IL2CPP (C#) 
+F59BA396|Създаване на Сценарии за IL2CPP (в C#) 
+/// EditText
+A86F74B8|Полета edittext
+/// AnonymousMethods
+887C750E|AnonymousMethods
+/// YieldReturn
+1493CEDC|YieldReturn
+/// SwitchStatementOnString
+35EF1F72|SwitchStatementOnString
+/// AutomaticEvents
+32608958|AutomaticEvents
+/// AutomaticProperties
+5C51074C|AutomaticProperties
+/// ExpressionTrees
+FEBFDC9F|ExpressionTrees
+/// FullyQualifyAmbiguousTypeNames
+6379F9F6|FullyQualifyAmbiguousTypeNames
+/// MakeAssignmentExpressions
+77F2689E|MakeAssignmentExpressions
+/// ObjectOrCollectionInitializers
+58BF2214|ObjectOrCollectionInitializers
+/// QueryExpressions
+8D02C30E|QueryExpressions
+/// UsingDeclarations
+839DD608|UsingDeclarations
+/// CompillerTypeGenerated_Clear
+22FE82C1|CompillerTypeGenerated_Clear
+/// ScriptGenerateOptions
+4FB9B3F8|ScriptGenerateOptions
+///                                         Ver 4.11
+CC98BD88| Ver 4.11
+/// Filter
+5CDB63A9|Филтър
+/// Text
+EDB18BEE|Текст
+/// Mesh
+BD4F8E8E|Мрежа
+/// Script
+47AFD823|Сценарий
+/// toolStrip5
+E797FA33|toolStrip5
+/// Image
+30EBACDF|Изображения
+/// toolStrip7
+E799FA33|toolStrip7
+/// toolStrip4
+E798FA33|toolStrip4
+/// toolStrip10
+E80B1424|toolStrip10
+/// toolStrip9
+E78BFA33|toolStrip9
+/// toolStrip2
+E796FA33|toolStrip2
+/// statusStrip1
+C1235660|statusStrip1
+/// Font
+E81B912E|Правят
+/// toolStrip8
+E78CFA33|toolStrip8
+/// toolStrip6
+E79AFA33|toolStrip6
+/// Info
+13613|Информация
+/// toolStrip1
+E793FA33|toolStrip1
+///                                        Full parsing assets on load (slow..)
+46418AE1|Пълен преглед на активите на натоварване (бавно..)
+///                                        Fast load (with out pre-parsing asset on load)
+BBE06D23|Бързо зареждане (с предварителен анализ на активите при зареждане)
+///                                        Scrips load only
+BADCFA5A|Инициализирующие обувка, само
+/// Decompile libil2cpp.so (IL2CPP) to C# code
+EB80C700|Декомпилира libil2cpp.аз знам (IL2CPP) to C# код
+/// .split0
+277313E7|.split0
+/// UnpackerTools - license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts
+47B02D9A|UnpackerTools лиценз: \n- Преглед на всички ресурси \n- Преглед на изходния код на скрипта (декомпилира в C#, само виж) \n- Износ на ресурси: звуци (като WAV), изображения (като PNG, ДДС), мрежа (.обект), текст, шрифтове
+/// RePackerTools license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)
+5A68B2D9|RePackerTools лиценз: \n- Преглед на всички ресурси \n- Преглед на изходния код на скрипта (декомпилира в C#, само виж) \n- Износ на ресурси: звуци (като WAV), изображения (като PNG, ДДС), мрежа (.обект), текст, шрифтове \n- Замяна на активи съдържанието на игри (замяна на изображения, звуци, текст, редактиране на актива пакет от програми)
+///                                        Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshs, Text, Fonts, Material, Animations, Models and etc.)
+9D0D47AC|Распаковщика лиценз магическа студио: \n- Преглед на всички ресурси \n- Разгледай пълния сорс код на скрипта (декомпилира в C#, които позволяват запиши скрипт) \n- Износ на ресурси: звуци (като WAV), изображения (PNG, DDS и PVR), окото (.в obj, .активи), текст, шрифтове, скриптове (в C#) \n, Анимация, Аватар \n- Износ модел в Unitypackeg (модел, анимации, ресурси) \n- Замяна на активи съдържанието на игри (замяна на изображения, звуци, текст, редактиране на актива пакет от програми) \n- Създаване на проект в unity3d от играта \n(Сцена, скриптове, изображения, звук, мрежа, текст, шрифтове, материали, анимации, модели и т.н.)
+/// Waiting... open webGL: 
+B67182FE|Чакам... отвори в webgl: 
+/// Enter text
+E46D9380|Въведете текста
+///                                         Ver 4.12
+CC98BD87| Ver 4.12
+/// Open as Unity WebGL file (.unityweb)
+65DA45EF|Отваряне на файл с webgl единство (.unityweb)
+/// Open as Unity WebGL Game by URL
+98E0C71D|Отвори като единство в webgl играта на URL
+/// WebGL (.unityweb)
+5BF6015A|С webgl (.unityweb)
+///                                         Ver 4.13
+CC98BD86| Ver 4.13
+///                                        Debug console view
+C41A6653|Дебъг конзола
+///                                         Ver 4.14
+CC98BD8D| Ver 4.14
+///                                         Ver 4.15
+CC98BD8C| Ver 4.15
+///                                        Saving is possible 1 time in 5 minutes
+49A7281C|Спестяването е възможно 1 път на 5 минути
+/// Save as txt
+3158F06C|Запиши като списък
+/// Save as RTF
+C17EBD68|Запиши като rtf
+/// Debug log form
+57E1EC0F|Office форма списание
+/// Asset settings
+3E64DDA1|Параметри на актива
+/// Bundle auto extract
+12F151A6|Комплект за автоматично извличане на
+///                                        Script settings
+D4BA54B8|Настройки на скрипта
+/// IL2CPP Restore Scripts Structure
+814EE7D0|IL2CPP възстановяват структурата на скриптове
+/// IL2CPP to decompile into ARM ASM && C# (experemental, slow)
+DB9E7D17|IL2CPP за декомпиляции в ръка AFM && в C# (са експериментални, бавно)
+/// ImportSettings
+B1B5CF8F|ImportSettings
+/// Show debug log
+F5AF8D49|Покажи дневник отстраняване на грешки
+/// Saving is possible 1 time in 2 minutes
+5982281C|Спестявания възможно да 1 път на 2 минути
+///                                        Waiting.. Make Unitypackage..
+D7981B49|Очакването На.. Прави Пакет..
+///                                        Waiting.. Pack to  Unitypackage..
+AD06DA43|Очакваме.. пакет в пакет..
+/// Unitypackage - ok
+D1DB6975|Пакет - ок
+/// Wait... make obb 
+75CBB8DD|Моля, изчакайте... да обб 
+/// Error on create obb: 
+AE0D89A4|Грешка при създаване на кеш паметта: 
+/// Make obb - ok
+75B70BDE|Направи кеш - ок
+///                                         Ver 4.16
+CC98BD8B| Ver 4.16
+///                                         Ver 4.17
+CC98BD8A| Ver 4.17
+/// Generate Scripts for Android IL2CPP  (C#) 
+11061C52|Създаване на Сценарии за IL2CPP за android (в C#) 
+///                                         Ver 4.18
+CC98BD81| Ver 4.18
+///                                         Ver 4.19
+CC98BD80| Вер 4.19
+///                                         Ver 4.20
+57FDBD89| Ver 4.20
+///                                         Ver 4.21
+57FDBD88| Версия 4.21
+///                                         Ver 4.22
+57FDBD87| Ver 4.22
+///                                   Models
+2F370A3B|Модел
+/// ......\nShader truncated for DEMO VERSION, Real len: 
+5C7F68E6|......\nШейдер пресечен за демо версия, истински лен: 
+/// Break
+1527D9A|Да се прекъсне
+/// With debug windows
+A40926D6|С отстраняване на грешки на Windows
+/// IL2CPP Script settings
+B20B92C9|Настройки на скрипта IL2CPP
+/// .NET assembly script decompilation
+C4BFB9F4|.Net монтаж на скрипта декомпиляции
+/// Simple code structure decompiler
+D29F038|Проста структура на кода декомпилятор
+/// ILSpy (.net 4.6 required)
+13752020|Чрез ilspy (.обем 4.6 задължително)
+/// Exist new version\n
+62B5A32D|Налице е нова версия\n
+/// Script decompilation options
+12B10B0E|Варианти на сценария декомпиляции
+/// Standard decompiler
+3D2D1BC7|Стандартен декомпилятор
+/// APKSigner Dialog - required JDK
+7C411C18|Диалог APKSigner - необходимия пакет jdk
+///                                         Ver 4.26
+57FDBD8B| 4.26 Ver
+/// The version is obsolete. Need to install a new version.
+A7373E98|Версия за остаряла. Трябва да инсталирате нова версия.
+/// Wait... Check internet connection.. http://devxdevelopment.com...
+76B9212E|Моля, изчакайте... проверите вашата връзка към интернет.. http://devxdevelopment.com...
+/// An error occurred while connecting to the server,\r\nplease check the network status and website availability of devxdevelopment.com\r\nand try again later.
+46A8422F|Възникна грешка при свързването към сървъра, \nмоля, проверете състоянието на мрежата и наличието на сайт devxdevelopment.com \nи опитайте отново по-късно.
+///                                        Select by name equals
+F3183D13|Изберете по име равен на
+/// Search by id, name
+6D8F369B|Търсене по ID, име
+/// Background:
+8A15B0DF|Фон:
+///                                        Without alpha chanel
+4933CD98|Без Алфа-Шанел
+/// Length (bytes)
+F9E93EC|Дължина (байт)
+/// Standalone (WIN, MAC, LINUX)
+49A132CF|Автономен (победа, Мак и Linux)
+/// iOS Package (.ipa)
+57715F4E|пакет iOS (.ипп)
+/// Wait.. Making UnityProject..
+9706AC3F|Чакай Малко.. Като UnityProject..
+/// Wait.. Making UnityProject.. 
+F46222AE|Чакай Малко.. Като UnityProject.. 
+/// Wait.. Making Unity Project.. 
+A12C3A7B|Изчакайте.. Което Прави Проекта Единство.. 
+/// Wait.. Making Prefabs..
+EDF536FB|Чакай Малко.. Направи Префабы..
+/// Wait.. Making Prefabs.. 
+5A9536FB|Чакай Малко.. Направи Префабы.. 
+/// Wait.. Making Unitypackage..
+47F22DBE|Изчакайте.. Което Прави Пакет..
+/// Wait.. Export Scripts..
+42A7B955|Чакай.. Износ Скриптове..
+/// Wait.. Generate Scripts..
+44C16C93|Чакай.. Създаване На Скриптове..
+/// Wait.. Generate scripts.. 
+44A0ECF3|Чакай.. създаване на скриптове.. 
+/// Unity Project Version
+8391C557|Проект Версия На Unity
+/// Unity 2017.3
+5E77CD61|2017.3 единство
+/// Unity 5.6
+E54C2A1D|5.6 единство
+/// Information truncated for DEMO VERSION
+60921137|Данните са съкратени за демо версия
+///                                         Ver 4.39
+E362BD80| Ver 4.39
+/// Show tree items id
+E3024211|Покажи елементи дърво ЕЙД
+///                                        Select by id or name:
+C5DD27A1|Изберете по ID или от името на:
+/// File:
+1AF463E4|Файл:
+/// ID:
+E7A29BDF|Идентификатор на:
+/// Waiting.. ScriptMapper.. Resources path update, items: 
+187801F3|Очакваме.. ScriptMapper актуализира път.. ресурси, предмети: 
+/// Temp directory
+6D8B26B7|Каталог Temp
+///                                         Ver 4.42
+139FBD87| За да гледате 4.42
+/// Apply changes - end
+29AAA97D|Прилагане на промени - в края на
+///                                        Apply changes (repack bundle, make APK, etc)
+824F133F|Прилагане на промени (пакет репаки, да apk и т.н.)
+/// Without alpha channel
+33A355B7|Без Алфа-канал
+/// Repack Bundles (.unity3d)
+FBA2997F|Връзки Репаки (.в unity3d)
+/// Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshes, Text, Fonts, Material, Animations, Models and etc.)
+7906005F|Распаковщика лиценз магическа студио: \n- Преглед на всички ресурси \n- Разгледай пълния сорс код на скрипта (декомпилира в C#, които позволяват запиши скрипт) \n- Износ на ресурси: звуци (като WAV), изображения (PNG, DDS и PVR), окото (.в obj, .активи), текст, шрифтове, скриптове (в C#) \n, Анимация, Аватар \n- Износ модел в Unitypackeg (модел, анимации, ресурси) \n- Замяна на активи съдържанието на игри (замяна на изображения, звуци, текст, редактиране на актива пакет от програми) \n- Създаване на проект в unity3d от играта \n(Сцена, скриптове, изображения, звуци, мрежи, текстове, шрифтове, материали, анимации, модели и т.н.)
+/// Wait... Save Bundle
+4E93D81|Моля, Изчакайте... Поддържа Пакет
+/// Search end, find count: 
+5714C4BF|Търсене на сметка, да намерите на граф: 
+/// None
+A6669136|Никой
+/// Saving RAM (export slower)
+D8F87912|Спестяване на оперативната памет (износ по-бавно)
+/// Cache time in seconds:
+8AB7DCC5|Кеш време в секунди:
+/// Begin search...
+79A29A6|Започнете търсене...
+/// Filter (show/hide)
+E6849FA9|Филтър (Покажи/Скрий)
+/// Search as HEX
+8566509E|Търсене на УСТРОЙСТВО
+///                                        Search as text UNICODE
+EAE5E044|Търсене на текст в Unicode кодиране
+///                                        Search as text UTF8
+83F86ACE|Търсене на текст в UTF8
+///                                        Search as text ANSI
+155E6689|Търсене на текст в ANSI кодиране
+/// Content Value
+FBF592D0|Стойност На Съдържанието 
+/// label1
+E9E81D06|метка1
+/// ID
+CE06B7E7|Идентификатор
+/// Offset in asset
+68CA2EB8|Отместване в актив
+/// Status
+8A82AD3D|Статус
+/// Double click of item - for show on main tree view
+6781324B|С двойно натискане с мишката на точка покажи на главния формата на дърво 
+/// Search form
+B1C0F49C|Форма за търсене 
+///                                         Ver 4.48
+139FBD81| Ver 4.48
+/// statusStrip2
+4C885660|statusStrip2
+/// Disable auo open result files
+5530D0CE|Изключване на автоматичното отваряне на файлове резултат 
+/// label21
+241B8D1F|label21
+/// Asset class name
+C4A54A6D|Името на класа активи 
+///                                         Ver 5.01
+4154BD88| Ver 5.01
+/// Audio clip
+36ACA52A|Аудио клип
+/// label22
+C6C301BA|label22
+/// Save as (wav, mp3,ogg)
+7297E26F|Запиши като (във формат WAV, mp3)
+/// Settings
+D5EB1CC9|Опции
+///                                        APK Sign settins
+B0D618FC|Знак ANC настройки
+/// Import settings
+800542D8|Импортиране на настройки 
+///                                        Export && Save
+83462991|Износ && Save
+/// Repack
+A77BEFBB|Перепаковать
+/// Apply all changes (repack bundle, make APK, etc)
+AC5DC3F|Приложи всички промени (пакет репаки, да apk и т.н.)
+/// Asset (selected):
+275F743F|Активи (избирателно):
+/// Save Asset (with headers)
+141E9684|Запазване на Актив (със заглавия)
+/// Save Asset content
+8A4E48F7|Запазване на данни активи 
+/// Save Asset sub content (binary conten of asset)
+7DA1A698|Запишете съдържанието на вложени активи (двоично съдържание на актива)
+/// Replace sub content in Asset (binary content)
+96520274|Подмяна на съдържанието на вложени в активи (двоично съдържание)
+/// Reset filter
+19A5084C|Нулиране на филтъра 
+/// Search now
+13CA73A5|Търсене
+/// Assets only
+E46F4BDE|Активи само
+/// Search form..
+CC159FF1|Форма за търсене..
+/// Select next:
+2C0421D5|Изберете следното:
+/// Debug console
+340EC2BB|Конзола за отстраняване на грешки 
+/// Warning! Server date and local date  not equal!!!\nFor the program to work, you need the date and time to be correct.(Server UTC date: 
+7AA4D160|Предупреждение! Дата на сървър и локална дата, не са равни!!!\nЗа да се гарантира, че програмата работи, има нужда от дата и час, да бъде вярна.(Дата във формат UTC сървър: 
+/// , Local UTC date=
+9669279D| Дата на местното време в UTC=
+/// Waiting.. AssetBundle.. Resources path update, items: 
+A75C67B0|Очакваме.. AssetBundle актуализира път.. ресурси, предмети: 
+///                                         Ver 5.03
+4154BD86| Версия 5.03
+/// Export
+C175ED3D|Износ
+/// Replace sound
+74EE86CF|Замяна на звук
+/// With export resources
+2A463756|С износа на ресурси
+/// Import bundle as Level
+A199C855|Обемът на вноса, като нивото
+/// Include Search in Scripts (c# script content)
+24CD7A4|Включи Търсене на скриптове (със съдържание# сценарий)
+/// Search as text
+7CB022EA|Търсене на текст
+/// Assets Bundle\n
+5D8CF4D3|Активи Комплект\n
+/// Engine version: 
+77B48C01|Версия на двигателя: 
+/// Bundle size: 
+3CF3C1E8|Размер на опаковката: 
+/// Signature: 
+A0BFA96D|Подпис: 
+/// Items: \n
+1B77120F|Продукти: \n
+/// For save changes to assets: press to button 'Apply changes'
+D94ABDBB|За запазване на промените в активите: натиснете на бутона 'приложите вашите промени'
+///                                         Ver 5.07
+4154BD8A| Ver 5.07
+/// Generate Unity Project
+7345665F|Създаване На Проект Единство 
+/// Export resources to directory
+978ECC6B|Износа на ресурси в директорията
+/// Test\n123\n456
+74488F59|Тест\nСто двадесет и три\nЧетиристотин петдесет и шест
+/// Stop play
+901BBCBB|Стоп игра
+/// Bundle content
+A374ECCF|Съдържание на пакета 
+/// Lenght
+48414E76|Дължина
+/// Show fast menu
+751996A6|Покажи бързото меню
+/// Disable dialog: For save changes to assets: press 'Apply Changes'
+344B17D9|Да изключите диалоговия прозорец: за да запазите промените в активите: натиснете "приложи промените'
+/// APK Sign settings
+7E1E21E1|Параметри подпише APK 
+/// Unity 2018.1
+47AACD61|2018.1 единство 
+/// With generate project
+481459F7|С изграждането на проекта
+/// Fast open (fast generate project)
+63F8BA7A|Бързо отваряне (бързо създаване на проект)
+/// Waiting.. open
+A09AEE74|В очакване на откриването на.. 
+/// Make prefab - ok
+BD04F926|Направи панелевоз - ок
+/// Make prefab - error
+FF163379|Направи панелевоз - грешка
+/// Make prefab - break
+995DB01E|Направи префаб - пауза
+/// Wait.. Making Prefab..
+7223DB42|Чакай.. Сборен Прави..
+/// make parfab asset:
+F5A47C38|направи parfab активи:
+///                                       License for 'RePacker Tools' or 'Unpacker Studio' not activated
+CC174422|Разрешително за инструменти RePacker' или 'Распаковщика студиото не е активирана
+///                                        Ver 5.20
+581EBD89| Ver 5.20
+/// Prefab
+48BB8036|Сборен
+/// GameObject
+44A02777|Обект
+/// Ignore StreamingAssets directory
+55EFDF96|Игнорира каталог StreamingAssets 
+/// Ignore scenes
+A10E5601|Игнориране на сцената
+/// Async parse of Bundle
+2112BD71|Асинхронность разбор на пакета
+/// Async parse of Assets
+4ED032E0|Асинхронность анализ на активите
+///                                    License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+959D2470|Лиценз инструменти RePacker' или 'Распаковщика Студио" или " редактор Распаковщика студиото не е активирана!
+///                                    License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A0C17CAF|Разрешително за Распаковщика инструменти ", или "инструменти RePacker' или 'Распаковщика Студио" или "редактор Распаковщика студио' не е активирана!
+/// License for 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A951A366|Разрешително за Распаковщика Студио " или " редактор Распаковщика студиото не е активирана!
+///                                    License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+B4622470|Разрешително за 'инструменти RePacker' или 'Распаковщика студио' или 'Распаковщика редактор студио' не е активирана
+/// License for  'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6A96853C|Разрешително за Распаковщика Студио " или " редактор Распаковщика студиото не е активирана!
+///                                     Ver 5.22
+581EBD87| Ver 5.22
+/// Async make of Assets
+B4FA0730|Асинхронни правят активи
+///                                     Ver 5.26
+581EBD8B| Ver 5.26
+/// Speed options
+78640A1|Настройки на скоростта 
+/// When you enable async options, it will be faster, but errors are possible!
+E7C89762|При включване на асинхронен възможности, това ще бъде по-бързо, но грешки са възможни!
+/// Unitypackage - end with error
+20E9686B|Пакет с грешка
+///                                     Ver 6.02
+4175BD87| Ver 6.02
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+793DDF5D|Разрешително за 'инструменти RePacker' или 'android Распаковщик" или "Распаковщика студио' или 'Распаковщика редактор студио' не е активирана!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+8943AD18|Разрешително за Распаковщика инструменти " или "android Распаковщик" или "инструменти RePacker' или 'Распаковщика Студио" или "редактор Распаковщика студио' не е активирана!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+795CDF5D|Разрешително за инструменти RePacker' или 'android Распаковщик" или "Распаковщика студио' или 'Распаковщика редактор студио' не е активирана
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6B253BF6|Разрешително за Распаковщика инструменти ", или "инструменти Repacker' или 'Распаковщика Студио" или "редактор Распаковщика студио' не е активирана!
+///                                   License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' not activated!
+FED026C1|Лиценз инструменти RePacker' или 'android Распаковщик' или 'Распаковщика студиото не е активирана!
+///                                    Ver 6.05
+4175BD8C| Ver 6.05
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+31EDE709|Разрешително за Распаковщика инструменти ", или "инструменти RePacker' или 'Распаковщика студио' или 'android Распаковщик не е активирана!
+/// Export as ZIP archive
+DA624C1A|Износ като ZIP-архив
+/// dnSpy (.net 4.7.1 required)
+CA04B12D|dnSpy (.чиста 4.7.1 се изисква)
+/// Double click of item - for apply select
+BB185879|Двоен клик по позиция - за приложения и изберете
+/// FullName
+92659EB5|Пълно име
+/// Select object
+C408A146|Избор на обект
+///  Ver 6.12
+CCDABD87| Ver 6.12
+/// FlipY on Replace image
+E15679C|FlipY в замяна на изображения
+/// Animation models
+E3C4D931|Модели анимация 
+/// Primitive models
+4CD6E253|Примитивни модели
+/// Import from:
+997E9824|Внос от:
+/// Import ok, count: 
+23FA00C6|Внос на ок, се изчислява: 
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+4A5CD18C|Разрешително за android Распаковщик " или "RePacker инструменти" или "Распаковщика Студио" или "редактор Распаковщика студио' не е активирана!
+///  Ver 6.17
+CCDABD8A| Ver 6.17
+/// Wait animation type
+2348A5F1|Чакам тип анимация 
+/// Classic
+3C00B964|Класически
+/// Girl
+ED2019E9|Момиче
+/// Export resources for Repack
+CB677E5E|Износа на ресурси за репака
+/// Import resources for Repack
+9D9F8CAD|Внос на ресурси за репака
+/// Additional Log
+A29EBB83|Допълнителен Доклад
+/// Memory limit (Mb):
+44D3354A|Ограничаване на количеството памет (Mb):
+/// Impoer Ok:
+4F8CE226|Impoer Ok:
+/// Search result count:
+2E03BEB6|Очаквате резултат от търсене:
+///  Ver 6.21
+583FBD88| Ver 6.21
+/// Open as SketchFab.com model by URL
+C7676174|Отвори като SketchFab.com модел на URL
+/// Tools
+E8B1C422|Инструменти
+/// Unpack GZIP
+F3CBFFB4|Разархивирайте архиватором GZIP
+/// Unpack Brotli
+37DF7A42|Need To Get % Sb Brotli
+/// Unpack LZ4
+B723F483|Разархивирайте формат lz4
+/// Unpack LZMA
+6E844169|Разархивирайте ЛЗМА
+/// Search result:
+7AD9B089|Резултат от търсене:
+/// Save descriptions to file
+E4B7253C|Запишете описание на файл
+/// Export :
+AFBC690B|Износ :
+/// Waiting... open uasset: 
+C804CEBE|Чакам... отвори uasset: 
+/// Waiting... open pak: 
+16CA047B|Чакам... отвори пак: 
+/// License for  'GameRecovery' not activated!
+2C3E7114|Лиценз за GameRecovery не е активирана!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+E48E0C23|Разрешително за 'инструменти RePacker' или 'android Распаковщик" или "Распаковщика студио' или 'GameRecovery' не е активирана!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+2627AE0E|Разрешително за Распаковщика инструменти " или "android Распаковщик" или "инструменти RePacker' или 'Распаковщика студио' или 'GameRecovery' не е активирана!
+/// License for 'Unpacker Studio' or 'GameRecovery' not activated!
+7EA6BE1C|Разрешително за Распаковщика студио' или 'GameRecovery' не е активирана!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated
+DC930C23|Разрешително за 'инструменти RePacker' или 'android Распаковщик" или "Распаковщика студио' или 'GameRecovery' не е активирана
+/// License for  'Unpacker Studio' or 'GameRecovery' not activated!
+528FF6F|Разрешително за Распаковщика студио' или 'GameRecovery' не е активирана!
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+4F91DB58|Разрешително за android Распаковщик " или "RePacker инструменти" или "Распаковщика студио' или 'GameRecovery' не е активирана!
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+8ECD3E7F|Разрешително за Распаковщика инструменти ", или "инструменти Repacker' или 'Распаковщика студио' или 'GameRecovery' не е активирана!
+///  Ver 7.01
+4196BD88| За да гледате 7.01
+/// Dont select header edit item
+1E1E6D12|Не, изберете Заглавието на редактиране
+/// Save selected item to file
+A2DFCB1B|Запазване на избрания запис във файл
+/// Replace selected value from file
+9F42A9B5|Замяна на избраната стойност от файл
+/// DevXUnity-Game Recovery
+A60E1A35|DevXUnity-Игри За Възстановяване На
+/// Open Unity3D/Unreal game directory
+89510D9F|Отвори unity3d игри каталог/нереално 
+/// Open UnrealEngine uasset
+DF86BB4C|Отворени нас uasset
+/// Open UnrealEngine PAK
+242A89E2|Отворени нас PAK
+/// Generate Scripts (simple) for Android IL2CPP  (C#) 
+B0986638|Създаване на скриптове (лесен) за IL2CPP за android (в C#) 
+/// Unreal Engine PAK
+A41EC297|Енджин Unreal PAK
+/// Unreal Engine Assets
+BF46BB11|Нереално Активите На Двигателя 
+/// ExportUassetsFromUnrealEnginePAK to:
+7DE1C29C|ExportUassetsFromUnrealEnginePAK за:
+/// ExportUassetsFromUnrealEnginePAK ok, count: 
+310513B1|ExportUassetsFromUnrealEnginePAK ОК, изчисли: 
+///  Ver 7.02
+4196BD87| За да гледате 7.02
+/// Export uassets from Unreal Engine PAK
+926D75C7|Износ uassets от може да контролира двигателя PAK
+///  Ver 7.05
+4196BD8C| За да гледате 7.05
+/// Disable auto open result files
+8BEC4529|Изключване на автоматичното отваряне на файлове резултат 
+/// Make node dump
+EF96D912|Направи възел нулиране
+/// End download
+8279FB4C|Края на изтегляне
+/// Error on download gameInfo
+B3823311|Грешка на gameInfo изтегляне 
+/// End search
+F09E7D13|Краят на търсенето
+/// Begin request...
+BF44FF53|Започнете да иска...
+/// Total rows: 
+BE2C451F|Само редове: 
+/// License not activated! Subscription available only with license!
+414DA863|Разрешително не е активирана! Абонирайте се предлага само с лиценз!
+/// You do not have a subscription to access to the Games database.
+C0ED97BD|Нямате абонамент за достъп до игралната база.
+/// Begin download game information...
+967F7E1C|Да започне да изтеглите информация за играта...
+/// Subscription payment
+F4D99EC6|Месечна такса 
+/// Subscription expiration:
+8B7CAF2B|Срокът на валидност на абонамент:
+/// AppId
+719FEDCB|Код
+/// Category
+6482F24|Категория
+/// Company
+4D421FF8|Компанията
+/// Engine version
+69B53BEE|Версия на двигател
+/// Engine type
+E47EA598|Тип на двигателя 
+/// Free access
+CA53AB27|Свободен достъп
+/// Platform type
+7D2BB440|Тип платформа 
+/// DiaplayName
+2B5669D1|DiaplayName
+/// Platform
+24D7A31|Платформа
+/// Engine
+A0A26736|Двигател
+/// GameVersion
+25EF2059|GameVersion
+/// Game version
+9EB80D01|Версия на играта
+/// EngineVersion
+85F8F446|EngineVersion
+/// BXmlSize
+5DA5AB4A|BXmlSize
+/// Preview size
+2F7D1404|Размер прегледи 
+/// GameSize
+3A83AAA7|GameSize
+/// Game size
+488DA813|Играта Размер 
+/// Hide item
+1EDFB100|Скрий точка
+/// Set free acess
+6A513C5A|Инсталиране на свободен достъп
+/// Всего 0
+B290854D|Общо 0
+/// Download and open game (WebGL, OSGJS)
+B6F6F5A2|Изтегляне и отваряне на играта (в WebGL, OSGJS)
+/// Open game structure preview
+27781B61|Отворена структура, игри за предварителен преглед на
+/// Open game web page
+74261900|Open уеб страница
+/// Descriptions
+C3DA8DBE|Описание
+/// Only IL2CPP
+7AE55A1F|Само IL2CPP
+/// Only .NET Assembly
+E73E3DC0|Само .Net-изграждане на
+/// Game database search form (Full access by subscription)
+81A21328|Играта е форма на търсене в базата данни (пълен достъп чрез абонамент)
+/// Item not support export
+F69FEAA9|Елемент не е подкрепа на износа
+/// You can save with conversion no more than once every two minutes.
+53B9408B|Можете да запишете преобразуване на не повече от един път на всеки две минути.
+/// Object - not supported replace
+A6E20CE7|Обект не поддържа замяна
+/// Original game info: 
+B86AE29D|Основна информация за играта: 
+///  Ver 7.06
+4196BD8B| За да гледате 7.06
+/// Save asset header
+EA33944D|Заглавие запази актив 
+/// Save content (without contertaion)
+67E5E759|Запазване на съдържанието (без contertaion)
+/// Export content (with convert format: png, wav, etc)
+A4A40923|Износ на съдържание (с конвертиране формат: формат PNG, WAV и т.н.)
+/// Replace binary content (binary, png, wav, etc)
+10A45610|Подмяна на съдържанието на двоичен (двоичен формат PNG, WAV и т.н.)
+/// Save asset headers
+EA40944D|Запишете заглавия на активите 
+/// Save asset binary content
+A93311C9|Запазване на двоични данни активи 
+/// Game Database
+835ACED9|Игри База Данни
+/// Save as FSB5
+DCCE8FE0|Запиши като FSB5
+/// erro on download
+7FE70CA|Погрешка за изтегляне
+/// As source code (.cs)
+69F7089C|Като изходния код (.АП)
+/// As plugin (.dll)
+D525DF66|Като plug-in (.библиотека DLL)
+/// Assemblies (for decompilation to .cs)
+CA7EB231|Монтаж (за декомпилиране .АП)
+/// Restore type
+71C7F906|Възстановяване тип
+/// DownloadCounter=
+B87065D3|DownloadCounter=
+/// UserName=
+882923D2|Потребителско име=
+/// CreateDate=
+91297A4C|CreateDate=
+/// License=
+1FCB93AA|Разрешително=
+/// iID=
+59C2B95D|идентификатор на IID=
+///  Ver 7.08
+4196BD81| За да гледате 7.08
+/// Script generate settings
+C3F188C3|Скрипт за създаване на настройки
+/// As source code (*.cs)
+1DAD6532|Като изходния код (*.АП)
+/// Scripts
+8E91B592|Скриптове
+/// Script options
+9FB6408|Варианти на сценария 
+/// Project options
+318C6B1|Параметри на проекта 
+/// Remove script class (for exported to .cs) from plugin
+3C84C921|Премахването на класа сценарий (за износ .CS) от plug-in
+/// Filter by class name:
+A6BADEC6|Филтър по име на клас:
+/// as source code (*.cs)
+F06810D1|като изходния код (*.АП)
+/// as plugin (.dll)
+D5593A86|като plug-in (.библиотека DLL)
+/// Reference for asset
+D9FB6EBB|Линк за актива
+/// Activate license..
+B47EABE4|Активиране на лиценз..
+/// Open buy page
+D8BFF820|Отворете страницата купи 
+///  Ver 7.09
+4196BD80| За да гледате 7.09
+/// Find All references
+70569210|Намери всички връзки
+/// Waiting.. MakePreview..
+2F15684B|Очакваме.. MakePreview..
+/// Waiting.. MakePreview-end
+C4EC7D79|Очакваме.. MakePreview-край
+/// Disable export Shaders
+FAB8FD38|Забраните за износ шейдърите
+/// PropertyDialog
+609D9308|PropertyDialog
+///  Ver 7.11
+CCFBBD88| За да гледате 7.11
+/// multiSelectTreeView21
+5DCF7336|multiSelectTreeView21
+/// Test Assets
+B56CD8D7|Тест На Активите
+/// Wait.. Making Unity Project.. Make scripts for 
+E7433FE6|Изчакайте.. което прави проекта единство.. скриптове за 
+/// Wait.. TestAssets..
+5792227B|Чакай.. TestAssets..
+/// Wait.. TestAssets.. 
+EAF2227B|Чакай.. TestAssets.. 
+/// TestAssets - end
+50D60E8F|TestAssets - край
+/// Disable auto-fix sources
+266F7C01|Изключване на автоматичното коригиране на източници на
+/// Only available for GameRecovery license.
+A80A4C4|Достъпен само за GameRecovery лиценз.
+/// Disable auto change to Shader links
+7124447A|Изключване на автоматичното промяна за шейдър връзки
+/// Allow delayed extraction of scripts
+AC7A600E|Затегнати добив на скриптове
+///  Ver 7.14
+CCFBBD8D| Видите 7.14
+/// Waiting.. m_AssetToPrefab.. items: 
+A08F9053|Очакваме.. m_AssetToPrefab.. елементи: 
+/// Only available for DevX GameRecovery license type.
+10630F7|Достъпен само за DevX GameRecovery тип на лиценза.
+///  not include to poroject
+FFE943E5| не се отнасят към poroject
+/// Partial recovery of scripts is available only with the 'Allow delayed extraction of scripts'.
+F7876C10|Частично възстановяване на скриптове е достъпен само с 'затегнати добив на сценарии.
+///  Ver 7.15
+CCFBBD8C| За да гледате 7.15
+/// Unity 2018.3
+5E74CD61|2018.3 единство 
+/// Not supported for this asset type
+8726FB75|Не се поддържа за този вид актив 
+///  Ver 7.18
+CCFBBD81| За да гледате 7.18
+/// Wait... Check internet connection.. https://devxdevelopment.com...
+5D8EC00D|Моля, изчакайте... провери в интернет https://devxdevelopment.com свързване.....
+/// toolStrip11
+8AB288BF|toolStrip11
+/// Restore only fields (for deserialization and minimize scripts errors)
+6D77C25E|Възстановяване само на полето (за десериализиране и намаляване на грешките на скриптове)
+/// Allow to de-obfuscate assembly
+5DBA5417|Позволяват на де-обфусцировать събрание
+/// Only for export to Unity 2018.3 or higher.
+33783E79|Само за износ в 2018.3 единство или по-висока.
+/// Unity 2018.2
+D30FCD61|2018.2 единство 
+///  Ver 7.21
+5860BD88| За да гледате 7.21
+/// Rules
+1B78670F|Правила
+/// Apply
+62D0EDB8|Прилага
+/// Open rules file
+5CCEF1D3|Отворете файла правила
+/// Result:
+8553A117|Резултат:
+/// Save result
+CFB24BA9|Да запазите резултата
+/// label2
+E9EB1D06|метка2
+/// Show offset
+48A4BF19|Покажи офсет
+/// Open binary file
+D39D81F1|Отворите двоичен файл
+/// Binary Analyzer Tools
+82675C19|Инструменти За Търговия Двоичен Анализатор 
+/// Open binary analyzer tools
+AE911DB5|Отворите двоичен анализатори 
+///  Ver 7.22
+5860BD87| За да гледате 7.22
+/// Open Binary Analyzer tools
+B87E468|Отворите Двоичен анализатори 
+/// Parce rules: 
+103B800A|Правила импортира вътрешна структура: 
+/// Auto apply
+59FF7043|Автоматично прилагане на
+/// Open binary analyzer
+A95D268A|Отворите двоичен анализатор
+///  Ver 7.29
+5860BD80| За да гледате 7.29
+/// Back
+459BD839|Назад
+/// Next
+EDB18BE4|Напред
+/// ILSpy 5 (.net 4.6 required)
+5EBB7E80|Чрез ILSpy 5 (.обем 4.6 задължително)
+/// exclude
+DC7D8E08|изключи
+///  make plugin (.dll)
+DBEA7DF9| plug-in (.библиотека DLL)
+/// Reset
+61854DA3|Проучване
+/// Set as Script assembly (.cs)
+2F21ADEB|Задай като събрание на скрипта (.АП)
+/// Set as Plugin (.dll)
+92AE6425|Задай като plug-in (.библиотека DLL)
+/// Exclude from project
+5A6F5B4B|Изтрий от проекта
+/// Mark class to decompilation (.cs)
+B74012B|Марка клас за декомпиляции (.АП)
+/// Remove from decompilation scripts
+3EB9EA0E|Изтрий от скриптове декомпиляции 
+/// As Scripts (.cs)
+72D1D23C|Като Скриптове (.АП)
+/// As Plugin (.dll)
+ABEBBC76|Като Plug-In (.библиотека DLL)
+/// Exclude
+DC7D92E8|Изключи
+/// Class to script
+6675DB7B|Клас сценарий
+/// Remove from decompilation
+CD00C64F|Изтрий от декомпиляции
+/// Script Generate Options
+25994BBC|Скрипта Генерира Възможности
+/// Only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+E005EA6|Достъпен само за DevX-GameRecovery " или "DevX-GameModing тип на лиценза'.
+/// Not support for add child component.
+BCFB679A|Не е подкрепа за добавяне на дъщерния елемент.
+/// Selected items are not supported for copying.
+FCD072D|Избраните елементи не се поддържат за копиране.
+/// Not selected asset to copy (Copy asset)
+A86A2FA1|Не е избран актив копие (копие на активите)
+///  Ver 8.02
+3FA7BD87| За да гледате 8.02
+/// Dublicate asset
+18F6772D|Дубликат на активите
+/// Add child asset with dublicate by selection dialog
+934F5427|Добавяне на дъщерен обект с дубликат на диалогов прозорец за избор на 
+/// Copy asset
+5BDBD338|Актив копие 
+/// Paste asset
+315A3F47|Поставете активи
+/// Cubemap
+2CEA422E|Кубична карта
+/// Texture2D
+B0AAD29D|Остава текстура Texture2D
+/// Sprites
+910DB596|Спрайтове
+/// Delete asset
+C0E8BD20|Изтриване на актив
+/// Connection - not tested
+EC7EAB33|Връзка - не е тестван
+/// Not selected owner asset to create GameObjext
+3A35DCF0|Не е избран собственик на актива за създаване на GameObjext
+/// License for 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' not activated!
+45794F93|Разрешително за игри инструменти RePacker 'или' модерен' или 'распаковщика студиото не е активирана!
+/// License for 'RePacker Tools' or 'Game Modding' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+9CE9AD2|Разрешително за игри инструменти RePacker " или "модерен" или "Android распаковщик" или "распаковщика студио' или 'GameRecovery' не е активирана!
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+C9AC09B3|Разрешително за распаковщика инструменти ", или "инструменти RePacker' или 'играта модерен" или "распаковщика студио' или 'Android распаковщик не е активирана!
+/// Add new asset
+5AD1691E|Добавяне на нов актив
+/// Add GameObject
+DD4E575F|Добави Обект
+/// Paste link to asset
+69A27794|Поставете линка в актив
+/// Clear item
+334BAC85|Изчисти
+/// Path to executable file, parameters on run: "assembly_name.dll" -p -o "output_dir"
+1FA80710|Пътя до изпълнимия файл, опции за стартиране: "assembly_name.dll" -п-за "output_dir"
+/// Custom extern decompiler
+FF108242|Потребителски Външни декомпилятор
+///  Ver 8.03
+3FA7BD86| За да гледате 8.03
+/// Decompiler type:
+4B8D3813|Тип декомпилятор:
+/// Decompiler type
+B2DB3813|Тип декомпилятор 
+///  Ver 8.04
+3FA7BD8D| За да гледате 8.04
+/// Export format
+35996432|Износ Формат
+/// Options
+A1D6A433|Опции
+/// Export models
+FA6DBF53|Износ модели
+/// ASCII
+32DC01C9|В ASCII
+/// Binary
+8E0E4D56|Бинарни
+/// Export animations
+7FA8B4A|Износ анимация
+/// Export textures
+663535DC|Текстура износ 
+/// FbxExportSettings
+5AFAA65F|FbxExportSettings
+///  Ver 8.06
+3FA7BD8B| За да гледате 8.06
+/// Disable сustom swap file (in file stream)
+B9CC2CB4|Изключване на потребителски файла за виртуална памет (в потока на файла)
+/// This option enables automatic conversion of compiled shaders to Unity format (UnityLab)
+1D03716|Тази опция включва автоматично конвертиране на прекомпилиран шейдър във формат Юнити (UnityLab)
+/// Allow restore shader as UnityLab format (for GameRecovery license type)
+B5ED1B5F|Позволяват възстановяване на шейдър във формат UnityLab (за GameRecovery тип лиценз)
+/// Allow async export
+61A5FC0F|Разрешаване на асинхронен износ
+/// Unity 2019.1
+47ABCD61|2019.1 единство 
+/// Disable header information for scripts (header on .cs files)
+917298B4|Изключване на заглавия на имейли (заглавие .CS файлове)
+/// Export multi sprite texture as separate sprite files
+A44EA654|Износът много спрайтове, текстури, като отделни спрайтове, файлове
+/// DevXC Control
+66A43E3|Контрол DevXC 
+///  sec
+2FD0C111| сек
+/// DevXC code: 
+8F41696B|Код DevXC: 
+/// Execute
+5730F05E|Изпълнение
+/// Open devxc file
+22315D|Отваряне на Файл devxc 
+/// Save code
+C098D69A|Запишете кода
+/// Show output window
+11C81E1A|Показване на прозореца за извеждане 
+/// Help
+D05AA806|Помогнете
+/// Execute time:
+47830FDC|Време за изпълнение:
+///  Ver 9.01
+3FC8BD88| За да гледате 9.01
+/// Open current action history
+D2A1EE39|Отваряне на текущата история на действие 
+/// DevXC Console
+3BC20E5B|Конзола DevXC 
+/// DevXC-Scripts
+7AC6FE2|DevXC-Скриптове
+/// Make parfab asset:
+F3637C58|Направи parfab активи:
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+4F34C49E|Стартирайте файла DevXC е възможно само за DevX-GameRecovery " или "DevX-GameModing тип на лиценза'.
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-MagicStudio' or 'DevX-GameModing' license type.
+41E5A8|Стартирайте файла DevXC е възможно само за 'DevX-GameRecovery" или "DevX-MagicStudio" или "DevX-GameModing тип на лиценза'.
+/// Error on create zip: 
+C7BC26B7|Грешка при създаване на zip: 
+/// Make zip - end
+FD528D50|Направи zip - край
+///  Ver 9.02
+3FC8BD87| За да гледате 9.02
+/// Help:
+88B16616|Помощ:
+/// Functions
+F2FCDCF2|Функция
+/// Examples
+C9F7545|Примери
+///  Ver 9.03
+3FC8BD86| За да гледате 9.03
+/// Material
+8800D7BA|Материал
+/// Shader
+D3ADAD2D|Шейдер
+/// Allow restore shaders (base mode, without convert to ShaderLab format)
+6DBC0660|Позволяват възстановяване на шейдърите (базов режим, без конвертиране в формат ShaderLab)
+///  Ver 9.05
+3FC8BD8C| За да гледате 9.05

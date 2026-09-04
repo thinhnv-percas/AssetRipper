@@ -1,0 +1,1648 @@
+/// Wait... Image compression... This may take a few minutes
+67F2EC47|Palaukite... Vaizdo suspaudimas... Tai gali trukti kelias minutes
+/// Wait... Parse assembly 
+676EEA33|Palaukite... Parse asamblėja 
+/// Parse - ok
+8FD05778|Parse - gerai
+/// Error on Parse assembly 
+783216DC|Klaida Parse asamblėja 
+///  No Internet connection!!!
+A4472FF8| Nėra Interneto ryšio!!!
+///  No Internet connection!!! 
+BC0C3AEE| Nėra Interneto ryšio!!! 
+///                                       Exit new version\n
+65C60228|Uždaryti nauja versija\n
+/// Waiting...  open unity GameDir..
+4882047|Laukimas... atidaryti vienybės GameDir..
+/// Open unity GameDir - end
+76D2CE09|Atidaryti vienybės GameDir pabaigos
+///                                       (binary shader)
+9D41F04E|(dvejetainis shader)
+///                                       ......\nShader trancated for DEMO VERSION, Real len: 
+ECA96CA1|......\nShader truncated DEMO VERSIJA, Nekilnojamojo len: 
+/// // Not found assembly: 
+4D34EB5B|// Nerastas surinkimas: 
+/// \n// This project used IL2CPP, assembly converted to native code.
+7981C3BD|\n// Šis projektas naudojami IL2CPP, surinkimas konvertuoti į gimtąją kodą.
+/// //Not found assembly: 
+C7E2652|//Nerastas surinkimas: 
+/// Save text
+4EC4922D|Išsaugoti tekstas
+/// test
+EAE38E77|testas
+/// OK
+CE0FB7E1|GERAI
+///                                       Script decimpilation options
+391D7F38|Scenarijaus decimpilation funkcijos
+///                                       Script decompilation
+FCB4E352|Scenarijaus dekompiliavimo
+/// Disable decompilation
+120E3FB8|Išjungti dekompiliavimo
+///                                  JDecompiler
+8AFC8F39|JDecompiler
+///                                       Standart decompiler
+EEA3A483|Standard decompiler
+/// Scene params
+2A11D566|Scena, params
+/// Make direct MeshAsset (else Mesh by .obj file)
+E3E1083F|Tiesioginių MeshAsset (nors Akies .sk failas)
+/// Make all GameObjects as Active (override)
+33C19C13|Padaryti visi GameObjects kaip Aktyvus (nepaisyti)
+/// C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+EAAC6917|C:\Program Files\Java\jdk1.8.0_65\bin\keytool.exe
+/// C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+F9D86526|C:\Program Files\Java\jdk1.8.0_65\bin\jarsigner.exe
+/// zipalign.exe
+2C5C77ED|zipalign.exe
+/// Keystore 
+FFDFA781|Keystore 
+/// Without signature (apk without signature - can not be installed on the device)
+BA63D79B|Be parašo (apk be parašo negali būti įrengtas ant prietaiso)
+/// Store password
+B0EF04E6|Parduotuvės slaptažodį
+/// NDName
+3B82BA7F|NDName
+/// Key password
+F15325AD|Rakto slaptažodį
+/// Key alias
+B2682AD4|Pagrindiniai alias
+/// Keystore file
+101C8A80|Keystore failų
+/// Select custom key
+C52368B|Pasirinkite pasirinktinis mygtukas
+/// Create temp key
+276F9AC4|Kurti temp rakto
+/// Paths
+18D1C1FD|Keliai
+/// JDK installer link
+293D5432|JDK montuotojas saitą
+/// zipalign path
+20BAED5F|zipalign kelias
+/// jarsigner path
+7119B2A9|jarsigner kelias
+/// keytool path
+9A043CA4|keytool kelias
+/// Make apk
+87B277BA|Padaryti apk
+///                                       APKSignDialog - required JDK
+5168C80F|APKSignDialog - būtina JDK
+///                                               Ver 
+2FD97207| Ver 
+///  (Internal!)
+3D13DA7E| (Vidaus!)
+///  (runtime 
+14A073C4| (trukmė 
+///                                       The version is obsolete and you need to install a new version.
+D9E34DAA|Versija yra pasenę ir jums reikia įdiegti naują versiją.
+///                                       Waiting... Check internet connection.. http://devxdevelopment.com...
+59AA61CC|Laukimas... Patikrinti interneto ryšį.. http://devxdevelopment.com...
+///  DEMO-CONSOLE!
+304FB581| DEMO-KONSOLĘ!
+/// Is Demo Version
+6A0B8062|Yra Demo Versija
+/// Project protected by
+4F70EAA5|Projekto saugomos
+/// Width: 
+BF6DE30B|Plotis: 
+/// , Height: 
+C4DBC9EF|, Aukštis: 
+/// , Format: 
+72807AF3| Formatas: 
+/// , MipMapCount: 
+681748FF|, MipMapCount: 
+/// \nStrings count: 
+49BC9CCF|\nEilučių skaičius: 
+///                                       License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated,\nThe image will be partially grounded on black squares!
+612FA8EE|Licencija "Unpacker tools" ar "RePacker Tools" ar "Unpacker Studija" nebuvo pasinaudota,\nVaizdas bus iš dalies paremtas juodi kvadratai!
+///                                       License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated
+35889687|Licencija "Unpacker tools" ar "RePacker Tools" ar "Unpacker Studija" nėra aktyvuotas
+/// Wait... Extract audio..
+77F9CD7A|Palaukite... Ekstrakto garso..
+/// Unsupported format
+2D5ED39F|Nepalaikomas formatas
+/// Exported to 
+5F0013FA|Eksportuojamos 
+///                                   License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' not activated!
+2D8D9687|Licencija "Unpacker tools" ar "RePacker Tools" ar "Unpacker Studija" nebus įjungta!
+/// The file extension must match
+FCB08D72|Failo plėtinys turi sutapti,
+///                                      License for  'Unpacker Studio' not activated!
+C668CFD6|Licencija "Unpacker Studija" nebus įjungta!
+/// Dont select GameObject!
+82955BC5|Dont pasirinkite GameObject!
+/// Dont select MeshAsset
+68C81170|Dont pasirinkite MeshAsset
+///                                       License not activated!
+97ABCBA2|Licencijos nebuvo pasinaudota!
+///                                       Dont select GameObject or level!
+64471DF8|Dont pasirinkite GameObject arba lygio!
+/// UI Language: 
+454E6D74|UI Kalba: 
+/// Metadata
+B20B46F5|Metaduomenys
+/// Interesting..
+186DAFB|Įdomu..
+/// Drag the game here and I'll show what's inside)
+6261EC56|Vilkite žaidimas čia, ir aš jums parodysiu, kas yra viduje)
+/// toolStripMain
+F4275D09|toolStripMain
+/// By name:
+84A32E32|Pavadinimas:
+/// Rows limit:
+B8BBD254|Eilutės riba:
+///                                       Select By ID:
+E8FFDFAF|Pasirinkite Pagal ID:
+/// toolStrip3
+E795FA33|toolStrip3
+/// Common
+17CFD8E7|Bendra
+/// Text/Script
+9E201F6A|Teksto/Scenarijaus
+/// To protect against viewing resources, you can use the text encryption option in the obfuscator DevXUnity-ObfuscatorPro
+C3B86430|Siekiant apsaugoti nuo žiūrėjimo išteklių, galite naudoti teksto šifravimo funkciją obfuscator DevXUnity-ObfuscatorPro
+/// Information:
+1ED72F4B|Informacija:
+/// w,h,format
+330840A0|w,h,formato
+/// To protect against viewing resources, you can use the image encryption option in the obfuscator DevXUnity-ObfuscatorPro\r\n
+AA0547A7|Siekiant apsaugoti nuo žiūrėjimo išteklių, galite naudoti vaizdo šifravimo funkciją obfuscator DevXUnity-ObfuscatorPro \n
+///                                       Fon:
+80CD912E|Background:
+/// 3DView
+815D0B84|3DView
+/// 3DScene
+FC75575A|3DScene
+/// Hex RAW
+C5C117C1|Hex RAW
+/// Position
+FD95CA52|Pozicija
+/// Line:
+60434EC8|Linija:
+/// Col:
+3B7EA7FB|Pulkininkas:
+/// Font test
+5BD15A12|Padaryti bandymas
+/// Asset header edit
+C9529C11|Turto antraštės redagavimas
+/// Value
+D03C6679|Vertė
+/// Name
+3BD1C9B|Pavadinimas
+/// Type
+C15430C6|Tipas
+///                                       Lenght (bytes)
+FE4868C0|Ilgis (baitais)
+/// Assembly code strings
+4C18336D|Asamblėjos kodas sekas
+/// Method
+18B1C08E|Metodas
+/// Destanation method
+CA64270|Destanation metodas
+/// Value Filter:
+5F768801|Vertė Filtras:
+/// Method name filter:
+C6CB611E|Metodo pavadinimas filtras:
+/// Errors
+621D673|Klaidos
+/// Errors:
+89FABD5F|Klaidos:
+/// Products
+4A7FD86A|Produktai
+/// It is a tool for gaining new knowledge\r\nOpens the way to new opportunities
+454CCD00|Ji yra įrankis įgyti naujų žinių \nAtveria naujas galimybes
+/// DevXUnity-Unpacker Magic Studio
+6B32D8F7|DevXUnity-Unpacker Magija Studija
+/// DevXUnity-RePackerTools
+6C2DFEF5|DevXUnity-RePackerTools
+/// DevXUnity-UnpackerTools
+86FE2CB4|DevXUnity-UnpackerTools
+/// UnpackerTools - license:\n- View all resources\n- View Script source code (decompile to C#, only view)\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\n
+1AEE8769|UnpackerTools - licencija:\n- Peržiūrėti visus išteklius\n- Peržiūrėti Scenarijų šaltinio kodo (dekompiliuoti, kad C#, tik vaizdas)\n- Eksporto išteklius: garsai (WAV), vaizdai (kaip PNG, DDS), akių (.lt), tekstas, šriftas\n
+/// Support
+A8ABCCA2|Parama
+/// Implementation..
+5247A0E3|Įgyvendinant..
+/// Support formats:
+6799EC0E|Palaikymo formatai:
+/// APK (apk, obb, xapk)
+2550695|APK (apk, obb, xapk)
+/// Bundles (.unity3d and other)
+8D3C4B5D|Ryšuliai (.unity3d ir kitos)
+///                                       Stabdelone (WIN, MAC, LINUX)
+FB60580D|Standalone (WIN, MAC, LINUX)
+///                                       iOS distributive (.ipa)
+8FB82096|iOS paskirstymo (.ipa)
+/// Asset files
+E125F64C|Turto failų
+/// Export:
+10D3DAFD|Eksportui:
+/// Export Texture2D (png, pvr, dds)
+C92A6C39|Eksporto Texture2D (png, pvr, dds)
+/// Export Sprites (png)
+D0AF9C82|Eksporto Animacinius (png)
+/// Export AudioClip (Sounds to .wav)
+ED6D8610|Eksporto AudioClip (Garsai .wav)
+/// Export Mesh (OBJ with sub-mesh, FBX)
+5E55F0D5|Eksporto Akių (OBJ su sub-akių, FBX)
+/// Export Scene elements (to FBX, Prefab)
+271564|Eksporto Scenos elementai (FBX, Prefab)
+/// Export Video (avi, mp4,..)
+30E504CE|Eksporto Vaizdo (avi, mp4,..)
+/// Export Text assets
+73023AC|Eksporto Tekstas turtas
+/// Export Fonts
+B566829D|Eksporto Šriftai
+/// Export Shader (for text shader mode)
+FE03C056|Eksporto Shader (tekstas shader mode)
+/// Export/Create Prefab
+C7D86831|Eksporto/Sukurti Standartmāja
+/// Export Terrain Height-Map
+5FDE59E4|Eksporto Vietovės Aukštis-Žemėlapyje
+/// Replace resources for assets:
+92CE21B2|Pakeisti išteklių turtas:
+/// Edit Text
+153A07F6|Teksto Redagavimas
+/// Edit Header Values
+6C4F95C0|Redaguoti Antraštės Vertės
+/// Replace Images (with encoding)
+B1C89874|Pakeisti Vaizdus (kodavimas)
+/// Binary replace for any resources
+9E0953D9|Dvejetainis pakeisti už bet kokius išteklius
+/// Generate Unity Project:
+895E5C94|Kurti Vienybės Projektas:
+/// Make APK (with signature)
+1F806B85|Padaryti APK (parašas)
+/// Generate Scripts (C#) 
+10E73E5E|Kurti Scenarijus (C#) 
+/// Generate Scenes (.unity Levels)
+F285DD5B|Kurti Scenos (.vienybės Lygiai)
+/// Generate Prefab (.prefab)
+A0EB3B42|Kurti Surenkamų (.standartmāja)
+/// Generate Unitypackage (.unitypackage)
+CDBEEABB|Kurti Unitypackage (.unitypackage)
+/// Generate animated model (to .unitypackage)
+51C70D81|Kurti animacinis modelį, (kad .unitypackage)
+/// GameObject Transform RectTransform  \r\nMonoBehavior Renderer MeshRenderer \r\nMeshFilter MeshCollider Canvas \r\nCameraAsset AudioListener AudioSources \r\nColliders Animator and other
+A687CC7B|GameObject Transformuoti RectTransform \nMonoBehavior Renderer MeshRenderer \nMeshFilter MeshCollider Drobė \nCameraAsset AudioListener AudioSources \nColliders Animatorius ir kiti
+/// Generate Materials
+E4D924E4|Susidaro Medžiagų,
+/// Generate Texture2D
+DB04E9E7|Kurti Texture2D
+/// Generate Sprite
+BBC14F43|Kurti Sprite
+/// Generate AnimationClip\r\n
+401C619C|Kurti AnimationClip \n
+/// Generate Humanoid Animations
+5CAEA085|Kurti Humanoidų Animacija
+/// Generate AnimationController
+7333871E|Kurti AnimationController
+/// Generate Mesh Asset
+6A08CA37|Kurti Akių Turto
+/// Generate AudioClip Asset
+A96CE37E|Kurti AudioClip Turto
+/// Generate PhysicMaterial Asset
+A1992D64|Kurti PhysicMaterial Turto
+/// Generate PhysicsMaterial2D Asset
+2F9B7BDF|Kurti PhysicsMaterial2D Turto
+/// Generate Prefabs
+88C6C19D|Kurti Prefabs
+/// Generate Font
+C879083F|Kurti Šriftą
+/// Generate VideoClip
+23418CF9|Kurti Filmuota
+/// Generate Text Assets
+60C3C9B2|Kurti Teksto Turtas
+/// Generate RenderTexture
+D3E14E1E|Kurti RenderTexture
+/// Generate ScriptableObject
+6EC596F4|Kurti ScriptableObject
+/// Generate GUISkin
+BF43C65C|Kurti GUISkin
+/// Version Info
+E8412D7B|Redakcija-Info
+/// Inspector
+8EC4DE12|Inspektorius
+/// PropertyGridToolBar
+84B78E19|PropertyGridToolBar
+/// Layer:
+788BDC9|Sluoksnis:
+/// Tag:
+38AEAAB3|Dieną:
+/// Save class metadata
+BD211979|Išsaugoti klasės metaduomenų
+/// Save packed version metadata
+493E5DB5|Išsaugoti supakuoti versija metaduomenų
+/// Save metadata from packed
+683E353A|Išsaugoti metaduomenis iš supakuoti
+/// Join and save all assets metadata
+9C362A73|Prisijunk ir išsaugoti visas turtas metaduomenų
+/// Load custom metadatas
+B788894D|Apkrovos užsakymą metadatas
+/// Export as Unitypackage
+CCC044AA|Eksporto Unitypackage
+/// Export as Prefab
+8E1C48B9|Eksporto Standartmāja
+/// Export model as FBX
+EC5ADA02|Eksporto modelis, kaip FBX
+/// Open
+E8CCC172|Atvira
+///                                       Open mode:
+86340C3C|Atidarytas:
+/// Open Unity3D game directory
+55607B33|Atidaryti Unity3D žaidimų katalogas
+/// Open as APK, OBB, XAPK file (android)
+874EFF8D|Atvira, kaip APK, OBB, XAPK failą ("android")
+/// Open as IPA file (iOS)
+1C183D79|Atvira, kaip IPA failą ("iOS")
+/// Open as Bundle (WebPlayer) file
+10E210E5|Atvira, kaip Pluoštas (WebPlayer) failą
+/// Open as Asset file
+CDE707F8|Atvira, kaip Turto failų
+/// Open as binary
+3B58AB5A|Atvira, kaip dvejetainiai
+/// Open DDS Texture
+670B26E1|Atidaryti DDS Tekstūros
+/// Clear
+87DB2|Aišku
+/// Proxy Settings
+238432FB|Tarpinio Serverio Parametrus
+///                                       ALL
+58A5149D|VISI
+/// Images
+311CACDF|Vaizdai
+/// Sounds
+772A35E8|Skamba
+/// Script files
+9BCF0A3F|Scenarijaus failų
+/// Animation Clip
+EA554C3|Animacijos Klipas
+///                                       All assets
+91A14438|Visas turtas
+/// Group resources
+117086B5|Grupė ištekliai
+///                                  Show classic wait mode
+324D865C|Rodyti klasikinis palaukti režimas
+///                                       toolStripButton1
+9D2A7523|toolStripButton1
+/// Export resources to directory (png, wav, avi, obj...)
+3CCC221F|Eksporto išteklių kataloge (png, wav, avi, obj...)
+/// Generate Unity Project (from any to Unity 2017, 5.6)
+DEB01D86|Kurti Vienybės Projekto (bet Vienybės 2017, 5.6)
+/// Generate Project Scripts
+CD938811|Sukurti Projekto Scenarijus
+/// Export All Prefabs
+5CE1E87B|Eksporto Visi Prefabs
+///                                       Make APK (with signing, for install on device)
+FF2E2E6C|Padaryti APK (su pasirašymo, įdiegti prietaiso)
+/// Save as Text
+E9941DE0|Išsaugoti Tekstas
+/// Replace text
+556F5284|Pakeisti tekstas
+/// Edit and replace text
+C9B78102|Redaguoti ir pakeisti tekstą
+/// Save as PNG
+640C3205|Išsaugoti kaip PNG
+/// Save as DDS/PVR
+AEE192BE|Išsaugoti kaip MGS/PVR
+/// Replace image
+EFD46E44|Pakeisti nuotrauką
+/// Chessboard
+C8DCF0B7|Šachmatų lenta
+/// White
+74D407C9|Balta
+/// Black
+5EA0AB2E|Juoda
+/// Export as OBJ
+C96FB87E|Eksporto LT
+/// Export as FBX
+56DB8833|Eksporto FBX
+/// Export as Asset
+D9E066FF|Eksporto Turto
+/// Reset camera
+A658D7B5|Reset camera
+///                                              Make 3D for selection
+5ED161EC|Padaryti 3D atrankos
+///                                              Make 3D (without materials)
+F3F1562B|Padaryti 3D (be medžiagų)
+///                                              Break process
+EF8EC7A2|Pertrauka procesas
+/// Go
+CDEBB7D9|Eiti
+/// Find
+31D1912E|Rasti
+/// Save selection
+504C0A1B|Išsaugoti atrankos
+/// Save to HEX dump
+B053182|Išsaugoti HEX iškelties
+/// Edit selected
+63A72C9|Redaguoti pasirinktą
+/// Save assembly
+3614E1B1|Išsaugoti asamblėja
+///                                       Save RAW pre asset
+5504C5D0|Išsaugoti ŽALIO prieš turto
+///                                       Save content
+5B7589EA|Išsaugoti turinio
+///                                       Save as (WAV, mp3,..)
+529E2CAB|"Išsaugoti kaip" (WAV, mp3,..)
+/// Play sound
+6F3BD173|Atkurti garso
+///                                       Save sub content
+F8C47071|Išsaugoti sub turinio
+///                                       Replace sub content in asset
+2EF8C2EC|Pakeisti sub turinio turto
+/// UI Language
+808CCA97|UI Kalba
+/// Video lessons
+7F742002|Vaizdo pamokos
+/// Buy and support a project
+9CE8EF48|Pirkti ir paremti projektą
+/// License (registration)
+D302020A|Licencijos (registracija)
+/// Updates\r\nOpen download web site
+192B54E9|Atnaujinimai \nAtidaryti parsisiųsti interneto svetainėje
+/// DevXUnity-Unpacker Magic Tools
+411E8062|DevXUnity-Unpacker Magija Įrankiai
+/// There is no connection to devxdevelopment.com\nFor the correct operation of the program - you need a network connection.
+9AD93C02|Nėra ryšio su devxdevelopment.com\nTinkamam programos - jums reikia prisijungti prie tinklo.
+/// Connection - ok
+31FBE153|Ryšys - gerai
+/// error
+5AED193|klaida
+/// License for 'Unpacker Studio' not activated!
+48235494|Licencija "Unpacker Studija" nebus įjungta!
+/// Play.. 
+2A8CF32F|Žaisti.. 
+/// License for 'RePacker Tools' or 'Unpacker Studio' not activated!
+AD524422|Licencija "RePacker Tools" ar "Unpacker Studija" nebus įjungta!
+///                                       License for 'RePacker Tools' or 'Unpacker Studio' not activated\nThe image will be partially grounded on black squares
+D866935E|Licencija "RePacker Tools" ar "Unpacker Studija" nėra aktyvuotas\nVaizdas bus iš dalies paremtas juodi kvadratai
+/// License - not valid!
+C0FCE739|Licencija negalioja!
+/// License - valid.
+20200A26|Licencija galioja.
+/// Activation - ok
+8E8D7F8A|Įjungimo - gerai
+/// Not activated!
+F62685F2|Nėra aktyvuotas!
+/// License activation - ok
+BCD279FB|Licencijos aktyvinimo - gerai
+/// License key:
+5A5C9760|Licencijos raktą:
+/// License State
+7E90661A|Licencijos Narė
+/// License Number
+7F76DDFF|Licencijos Numeris
+/// To activate license..
+E66D4787|Norėdami įjungti licencija..
+/// To open buy page
+2FB642D5|Norėdami atidaryti pirkimo puslapį
+/// License Information
+122A693A|Licencijos Informacija
+///                                       Waiting.. open 
+352854BF|Laukia atidaryti.. 
+/// Waiting.. 
+1AAA4AE1|Laukia.. 
+/// % 
+CDAAB77B|% 
+/// parsing
+FF4D2980|apdorojant
+/// Waiting..
+1ACA4AE1|Laukia..
+/// Waiting.. Recreate all assets..
+F6525294|Laukimas.. Atkurti visas turtas..
+/// Waiting.. Update all..
+5472E972|Laukimas.. Atnaujinimas visoms..
+/// Ok
+CDEFB7E1|Gerai
+/// Waiting.. parsing content...
+594B5358|Laukimas.. apdorojant turinį...
+/// Waiting.. make tree...
+2B9B294E|Laukimas.. kad medis...
+/// Waiting.. Resource manager.. Resources path update, items: 
+4E8E089D|Laukimas.. Išteklių valdytojas.. Išteklių kelias atnaujinti, elementai: 
+/// Waiting.. make tree - end
+C60B13FD|Laukimas.. kad medis - end
+/// Waiting.. Import Asset: 
+9914F0E|Laukimas.. Importo Turtas: 
+/// Waiting.. Import Asset:
+76314F0E|Laukimas.. Importo Turtas:
+///  - read structure..
+183D2F98| - skaityti struktūra..
+///                                       - read structure - no
+E9E711F3| - skaityti struktūra - nr.
+///  - init objects ..
+312589DC| - init objektus ..
+/// Open OK, Items count: 
+AB925A89|Atidarykite GERAI, Elementų skaičius: 
+/// Error
+5AED673|Klaida
+/// Error:
+5D8D673|Klaida:
+/// Make asset
+AF344CBD|Kad turtas
+/// Waiting.. make tree structure.. for 
+DC39D535|Laukimas.. kad medžio struktūra.. 
+/// Waiting.. make tree structure - ok
+24501B89|Laukimas.. kad medžio struktūra - gerai
+/// Waiting... open bundle: 
+76CA22F1|Laukimas... atidaryti paketas: 
+/// Export to:
+4F02B678|Eksportui:
+/// read end
+9FB1A365|skaityti pabaigos
+/// APK:
+4417A002|APK:
+/// Waiting.. Open apk begin...
+535EE5DE|Laukimas.. apk Atidaryti pradėti...
+/// Waiting.. Open IPA begin...
+EDD4194A|Laukimas.. Atidarykite IPA pradėti...
+/// Waiting.. Open Unitypackage begin...
+2C9F6E00|Laukimas.. Atidarykite Unitypackage pradėti...
+/// Wait... make apk 
+214685F7|Palaukite... apk 
+/// Error on create APK: 
+A900A8D|Klaida sukurti APK: 
+/// Make apk - ok
+23D17C38|Padaryti apk - gerai
+/// Waiting.. Parsing item: 
+3DFC8A9F|Laukimas.. Apdorojant punktas: 
+/// Waiting.. Parsing script: 
+570BFFCF|Laukimas.. Apdorojant scenarijų: 
+///  - Sometimes the primary decompilation can take several minutes (depends on the size of the assembly)..
+6475DF5C| - Kartais pagrindinis dekompiliavimo gali užtrukti keletą minučių (priklauso nuo dydžio, surinkimas)..
+/// Waiting.. Parsing asset item: 
+D08181D|Laukimas.. Apdorojant straipsnis turto dalyje: 
+/// Export make asset:
+F0F2A2E7|Eksporto padaryti turtas:
+/// Export asset:
+9878BDA0|Eksporto turtas:
+/// Export error: 
+574C4B4D|Eksporto klaida: 
+/// Export ok, count: 
+F9C1452A|Eksporto ok, skaičius: 
+///                                       Waiting.. MakeUnityProject..
+BBD46DFD|Laukimas.. MakeUnityProject..
+///                                       Waiting.. MakeUnityProject.. 
+D2D4DD55|Laukimas.. MakeUnityProject.. 
+///  export asset: 
+FB976152| eksporto turtas: 
+///                                       Waiting.. Make Unity Project.. 
+EAF907C9|Laukimas.. Kad Vienybės Projektas.. 
+/// MakeUnityProject - ok
+98C91534|MakeUnityProject - gerai
+///                                       Waiting.. MakePrefabs..
+B2FD7227|Laukimas.. MakePrefabs..
+///                                       Waiting.. MakePrefabs.. 
+1F9D7227|Laukimas.. MakePrefabs.. 
+/// MakePrefabs - ok
+7415C18D|MakePrefabs - gerai
+///  make asset: 
+24A9DD5| kad turtas: 
+///  make parfab asset: 
+35698EAC| padaryti parfab turtas: 
+///                                       Waiting.. Generate Scripts..
+4A5FDDF2|Laukimas.. Generuoti Scenarijus..
+///                                       Waiting.. Generate scripts.. 
+D8442619|Laukimas.. Generuoti scenarijus.. 
+/// Generate Scripts - ok
+C764262B|Kurti Scenarijus - gerai
+/// Proxy connection
+B3B7CD64|Proxy jungtis
+/// Proxy address:
+10161BED|Proxy adresas:
+/// port:
+158D4A0|jungtis:
+/// User:
+2C1C7F9C|Vartotojas:
+/// Password:
+D086BA55|Slaptažodį:
+/// Cancel
+76594D8C|Atšaukti
+/// Proxy Authentication
+42142F52|Tarpinio Serverio Autentifikavimą
+/// Proxy settings
+13DCA69B|Tarpinio serverio parametrus
+/// Make temp key...
+69446BC7|Kad temp rakto...
+/// Export as ".Unitypackage"
+2062516|Eksporto ".Unitypackage"
+/// Export model as ".FBX"
+E72DC67C|Eksporto modelis ".FBX"
+/// Export as ".Prefab"
+2F8CE20D|Eksporto ".Surenkamų"
+/// Making 3D scene
+E5F5704E|Priėmimo 3D scena
+/// Making 3D scene (without materials)
+47368B19|Priėmimo 3D scena (be medžiagų)
+/// Stop of process
+E97FBB80|Stotelė procesas
+/// Clear scene
+D5FE0A41|Aišku, scena
+/// Reset of camera
+DE92FEBE|Iš naujo fotoaparato
+/// Optimize Metadata for file
+B533CB05|Optimizuoti Metaduomenų failo
+///                                       Generate Scripts for IL2CPP (C#) 
+F59BA396|Kurti Scenarijus IL2CPP (C#) 
+/// EditText
+A86F74B8|EditText
+/// AnonymousMethods
+887C750E|AnonymousMethods
+/// YieldReturn
+1493CEDC|YieldReturn
+/// SwitchStatementOnString
+35EF1F72|SwitchStatementOnString
+/// AutomaticEvents
+32608958|AutomaticEvents
+/// AutomaticProperties
+5C51074C|AutomaticProperties
+/// ExpressionTrees
+FEBFDC9F|ExpressionTrees
+/// FullyQualifyAmbiguousTypeNames
+6379F9F6|FullyQualifyAmbiguousTypeNames
+/// MakeAssignmentExpressions
+77F2689E|MakeAssignmentExpressions
+/// ObjectOrCollectionInitializers
+58BF2214|ObjectOrCollectionInitializers
+/// QueryExpressions
+8D02C30E|QueryExpressions
+/// UsingDeclarations
+839DD608|UsingDeclarations
+/// CompillerTypeGenerated_Clear
+22FE82C1|CompillerTypeGenerated_Clear
+/// ScriptGenerateOptions
+4FB9B3F8|ScriptGenerateOptions
+///                                        Ver 4.11
+CC98BD88| Ver 4.11
+/// Filter
+5CDB63A9|Filtras
+/// Text
+EDB18BEE|Tekstas
+/// Mesh
+BD4F8E8E|Akies
+/// Script
+47AFD823|Scenarijus
+/// toolStrip5
+E797FA33|toolStrip5
+/// Image
+30EBACDF|Nuotrauka
+/// toolStrip7
+E799FA33|toolStrip7
+/// toolStrip4
+E798FA33|toolStrip4
+/// toolStrip10
+E80B1424|toolStrip10
+/// toolStrip9
+E78BFA33|toolStrip9
+/// toolStrip2
+E796FA33|toolStrip2
+/// statusStrip1
+C1235660|statusStrip1
+/// Font
+E81B912E|Padaryti
+/// toolStrip8
+E78CFA33|toolStrip8
+/// toolStrip6
+E79AFA33|toolStrip6
+/// Info
+13613|Info
+/// toolStrip1
+E793FA33|toolStrip1
+///                                       Full parsing assets on load (slow..)
+46418AE1|Visą analizuojant turto apkrova (lėtai..)
+///                                       Fast load (with out pre-parsing asset on load)
+BBE06D23|Greitai apkrova (su iš anksto analizuojant turto apkrovos)
+///                                       Scrips load only
+BADCFA5A|Scrips apkrova tik
+/// Decompile libil2cpp.so (IL2CPP) to C# code
+EB80C700|Dekompiliuoti libil2cpp.Aš žinau, (IL2CPP) C# kodas
+/// .split0
+277313E7|.split0
+/// UnpackerTools - license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts
+47B02D9A|UnpackerTools - licencija: \n- Peržiūrėti visus išteklius \n- Peržiūrėti Scenarijų šaltinio kodo (dekompiliuoti, kad C#, tik vaizdas) \n- Eksporto išteklius: garsai (WAV), vaizdai (kaip PNG, DDS), akių (.lt), tekstas, šriftas
+/// RePackerTools license:\r\n- View all resources\r\n- View Script source code (decompile to C#, only view)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS), mesh (.obj), text, fonts\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)
+5A68B2D9|RePackerTools licencija: \n- Peržiūrėti visus išteklius \n- Peržiūrėti Scenarijų šaltinio kodo (dekompiliuoti, kad C#, tik vaizdas) \n- Eksporto išteklius: garsai (WAV), vaizdai (kaip PNG, DDS), akių (.lt), tekstas, šriftas \n- Pakeisti turto turinį žaidimas (pakeisti Nuotraukas, garsus, tekstą, redaguoti turto parametrs)
+///                                       Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshs, Text, Fonts, Material, Animations, Models and etc.)
+9D0D47AC|Unpacker Magija Studija licencija: \n- Peržiūrėti visus išteklius \n- Peržiūrėti Visą Scenarijų šaltinio kodo (dekompiliuoti, kad C#, leidžia išsaugoti scenarijų) \n- Eksporto išteklius: garsai (WAV), vaizdai (kaip PNG, DDS, PVR), akių (.sk, .turto), tekstas, šriftas, Scrips (C#) \n, Animacija, Avatar \n- Eksporto modelius Unitypackeg (Modelis, Animacija, Ištekliai) \n- Pakeisti turto turinį žaidimas (pakeisti Nuotraukas, garsus, tekstą, redaguoti turto parametrs) \n- Generuoti Unity3D projektas iš žaidimo \n(Scenos, Scenarijus, Vaizdus, Garsus, Meshs, Tekstas, Šriftas, Medžiagos, Animacija, Modeliai ir pan.)
+/// Waiting... open webGL: 
+B67182FE|Laukimas... atidaryti webGL: 
+/// Enter text
+E46D9380|Įveskite tekstą
+///                                        Ver 4.12
+CC98BD87| Ver 4.12
+/// Open as Unity WebGL file (.unityweb)
+65DA45EF|Atvira, kaip Vienybės WebGL failą (.unityweb)
+/// Open as Unity WebGL Game by URL
+98E0C71D|Atvira, kaip Vienybės WebGL Žaidimą URL
+/// WebGL (.unityweb)
+5BF6015A|WebGL (.unityweb)
+///                                        Ver 4.13
+CC98BD86| Ver 4.13
+///                                       Debug console view
+C41A6653|Derinimo konsolės peržiūrėti
+///                                        Ver 4.14
+CC98BD8D| Ver 4.14
+///                                        Ver 4.15
+CC98BD8C| Ver 4.15
+///                                       Saving is possible 1 time in 5 minutes
+49A7281C|Taupyti galima 1 kartą per 5 minutes.
+/// Save as txt
+3158F06C|Išsaugoti kaip txt
+/// Save as RTF
+C17EBD68|Išsaugoti kaip RTF
+/// Debug log form
+57E1EC0F|Derinimo žurnalo forma
+/// Asset settings
+3E64DDA1|Turto parametrai
+/// Bundle auto extract
+12F151A6|Paketas, auto ekstraktas
+///                                       Script settings
+D4BA54B8|Scenarijų parametrai
+/// IL2CPP Restore Scripts Structure
+814EE7D0|IL2CPP Atkurti Scenarijus Struktūra
+/// IL2CPP to decompile into ARM ASM && C# (experemental, slow)
+DB9E7D17|IL2CPP dekompiliuoti į ARM ASM && C# (experemental, lėtai)
+/// ImportSettings
+B1B5CF8F|ImportSettings
+/// Show debug log
+F5AF8D49|Rodyti derinimo žurnalą
+/// Saving is possible 1 time in 2 minutes
+5982281C|Taupyti galima 1 kartą per 2 minutes
+///                                       Waiting.. Make Unitypackage..
+D7981B49|Laukimas.. Kad Unitypackage..
+///                                       Waiting.. Pack to  Unitypackage..
+AD06DA43|Laukimas.. Paketą Unitypackage..
+/// Unitypackage - ok
+D1DB6975|Unitypackage - gerai
+/// Wait... make obb 
+75CBB8DD|Palaukite... obb 
+/// Error on create obb: 
+AE0D89A4|Klaida sukurti obb: 
+/// Make obb - ok
+75B70BDE|Padaryti obb - gerai
+///                                        Ver 4.16
+CC98BD8B| Ver 4.16
+///                                        Ver 4.17
+CC98BD8A| Ver 4.17
+/// Generate Scripts for Android IL2CPP  (C#) 
+11061C52|Kurti Scenarijus, skirta "Android" IL2CPP (C#) 
+///                                        Ver 4.18
+CC98BD81| Ver 4.18
+///                                        Ver 4.19
+CC98BD80| Ver 4.19
+///                                        Ver 4.20
+57FDBD89| Ver 4.20
+///                                        Ver 4.21
+57FDBD88| Ver 4.21
+///                                        Ver 4.22
+57FDBD87| Ver 4.22
+///                                  Models
+2F370A3B|Modeliai
+/// ......\nShader truncated for DEMO VERSION, Real len: 
+5C7F68E6|......\nShader sutrumpintas DEMO VERSIJA, Nekilnojamojo len: 
+/// Break
+1527D9A|Pertrauka
+/// With debug windows
+A40926D6|Su windows debug
+/// IL2CPP Script settings
+B20B92C9|IL2CPP Scenarijų parametrai
+/// .NET assembly script decompilation
+C4BFB9F4|.GRYNASIS surinkimo scenarijų dekompiliavimo
+/// Simple code structure decompiler
+D29F038|Paprasta kodas struktūra decompiler
+/// ILSpy (.net 4.6 required)
+13752020|ILSpy (.grynasis 4.6 reikia)
+/// Exist new version\n
+62B5A32D|Egzistuoja nauja versija\n
+/// Script decompilation options
+12B10B0E|Scenarijaus dekompiliavimo funkcijos
+/// Standard decompiler
+3D2D1BC7|Standartinis decompiler
+/// APKSigner Dialog - required JDK
+7C411C18|APKSigner Dialogo - būtina JDK
+///                                        Ver 4.26
+57FDBD8B| Ver 4.26
+/// The version is obsolete. Need to install a new version.
+A7373E98|Versija yra pasenęs. Reikia įdiegti naują versiją.
+/// Wait... Check internet connection.. http://devxdevelopment.com...
+76B9212E|Palaukite... Patikrinti interneto ryšį.. http://devxdevelopment.com...
+/// An error occurred while connecting to the server,\r\nplease check the network status and website availability of devxdevelopment.com\r\nand try again later.
+46A8422F|Įvyko klaida jungiantis prie serverio \nprašome patikrinti, ar tinklo būseną ir interneto prieinamumas devxdevelopment.com \nir bandykite dar kartą vėliau.
+///                                       Select by name equals
+F3183D13|Pasirinkite pavadinimas yra
+/// Search by id, name
+6D8F369B|Ieškoti pagal id, pavadinimas
+/// Background:
+8A15B0DF|Kilmė:
+///                                       Without alpha chanel
+4933CD98|Be alfa "chanel"
+/// Length (bytes)
+F9E93EC|Ilgis (baitais)
+/// Standalone (WIN, MAC, LINUX)
+49A132CF|Standalone (WIN, MAC, LINUX)
+/// iOS Package (.ipa)
+57715F4E|"iOS" Paketas (.ipa)
+/// Wait.. Making UnityProject..
+9706AC3F|Laukti.. Priėmimo UnityProject..
+/// Wait.. Making UnityProject.. 
+F46222AE|Laukti.. Priėmimo UnityProject.. 
+/// Wait.. Making Unity Project.. 
+A12C3A7B|Laukti.. Priėmimo Vienybės Projektas.. 
+/// Wait.. Making Prefabs..
+EDF536FB|Laukti.. Priėmimo Prefabs..
+/// Wait.. Making Prefabs.. 
+5A9536FB|Laukti.. Priėmimo Prefabs.. 
+/// Wait.. Making Unitypackage..
+47F22DBE|Laukti.. Priėmimo Unitypackage..
+/// Wait.. Export Scripts..
+42A7B955|Laukti.. Eksporto Scenarijus..
+/// Wait.. Generate Scripts..
+44C16C93|Laukti.. Generuoti Scenarijus..
+/// Wait.. Generate scripts.. 
+44A0ECF3|Laukti.. Generuoti scenarijus.. 
+/// Unity Project Version
+8391C557|Vienybės Projekto Versija
+/// Unity 2017.3
+5E77CD61|Vienybės 2017.3
+/// Unity 5.6
+E54C2A1D|Vienybės 5.6
+/// Information truncated for DEMO VERSION
+60921137|Informacija sutrumpintas DEMO VERSIJA
+///                                        Ver 4.39
+E362BD80| Ver 4.39
+/// Show tree items id
+E3024211|Rodyti medžio id
+///                                       Select by id or name:
+C5DD27A1|Pasirinkite pagal id ar pavadinimą:
+/// File:
+1AF463E4|Failas:
+/// ID:
+E7A29BDF|ID:
+/// Waiting.. ScriptMapper.. Resources path update, items: 
+187801F3|Laukimas.. ScriptMapper.. Išteklių kelias atnaujinti, elementai: 
+/// Temp directory
+6D8B26B7|Temp katalogas
+///                                        Ver 4.42
+139FBD87| Matyti 4.42
+/// Apply changes - end
+29AAA97D|Taikyti pakeitimus pabaigos
+///                                       Apply changes (repack bundle, make APK, etc)
+824F133F|Taikyti pakeitimus (repack ryšulio, kad APK ir kt.)
+/// Without alpha channel
+33A355B7|Be alfa kanalo
+/// Repack Bundles (.unity3d)
+FBA2997F|Repack Ryšulius (.unity3d)
+/// Unpacker Magic Studio license:\r\n- View all resources\r\n- View Full Script source code (decompile to C#, allow save script)\r\n- Export resources: sounds (as WAV), images (as PNG, DDS, PVR), mesh (.obj, .asset), text, fonts, Scrips  (to C#)\r\n, Animations, Avatar\r\n- Export models to Unitypackeg (Model, Animations, Resources)\r\n- Replace assets content of game (replace Images, sounds, text, edit asset parametrs)\r\n- Generate Unity3D project from game \r\n  (Scenes, Scripts, Images, Sounds, Meshes, Text, Fonts, Material, Animations, Models and etc.)
+7906005F|Unpacker Magija Studija licencija: \n- Peržiūrėti visus išteklius \n- Peržiūrėti Visą Scenarijų šaltinio kodo (dekompiliuoti, kad C#, leidžia išsaugoti scenarijų) \n- Eksporto išteklius: garsai (WAV), vaizdai (kaip PNG, DDS, PVR), akių (.sk, .turto), tekstas, šriftas, Scrips (C#) \n, Animacija, Avatar \n- Eksporto modelius Unitypackeg (Modelis, Animacija, Ištekliai) \n- Pakeisti turto turinį žaidimas (pakeisti Nuotraukas, garsus, tekstą, redaguoti turto parametrs) \n- Generuoti Unity3D projektas iš žaidimo \n(Scenos, Scenarijus, Vaizdus, Garsus, Akių, Tekstas, Šriftas, Medžiagos, Animacija, Modeliai ir pan.)
+/// Wait... Save Bundle
+4E93D81|Palaukite... Išsaugoti Pluoštas
+/// Search end, find count: 
+5714C4BF|Paieškos pabaigoje, rasti skaičius: 
+/// None
+A6669136|Nėra
+/// Saving RAM (export slower)
+D8F87912|Taupymo RAM (eksporto lėčiau)
+/// Cache time in seconds:
+8AB7DCC5|Cache laikas sekundėmis:
+/// Begin search...
+79A29A6|Prasideda paieškos...
+/// Filter (show/hide)
+E6849FA9|Filtras (rodyti/slėpti)
+/// Search as HEX
+8566509E|Paieškos kaip HEX
+///                                       Search as text UNICODE
+EAE5E044|Paieškos tekstas "UNICODE"
+///                                       Search as text UTF8
+83F86ACE|Paieškos tekstas UTF8
+///                                       Search as text ANSI
+155E6689|Paieškos tekstas ANSI
+/// Content Value
+FBF592D0|Turinio Vertė
+/// label1
+E9E81D06|label1
+/// ID
+CE06B7E7|ID
+/// Offset in asset
+68CA2EB8|Kompensuoti turto
+/// Status
+8A82AD3D|Statusas
+/// Double click of item - for show on main tree view
+6781324B|Dukart spustelėkite elementą - rodyti ant pagrindinio medžio rodinyje
+/// Search form
+B1C0F49C|Paieškos formą
+///                                        Ver 4.48
+139FBD81| Ver 4.48
+/// statusStrip2
+4C885660|statusStrip2
+/// Disable auo open result files
+5530D0CE|Išjungti auo atidaryti rezultatas failų
+/// label21
+241B8D1F|label21
+/// Asset class name
+C4A54A6D|Turto klasės pavadinimas
+///                                        Ver 5.01
+4154BD88| Ver 5.01
+/// Audio clip
+36ACA52A|Garso įrašas
+/// label22
+C6C301BA|label22
+/// Save as (wav, mp3,ogg)
+7297E26F|"Išsaugoti kaip" (wav, mp3,ogg)
+/// Settings
+D5EB1CC9|Parametrai
+///                                       APK Sign settins
+B0D618FC|APK Pasirašyti nustatymų
+/// Import settings
+800542D8|Importo parametrai
+///                                       Export && Save
+83462991|Eksporto && Išsaugoti
+/// Repack
+A77BEFBB|Repack
+/// Apply all changes (repack bundle, make APK, etc)
+AC5DC3F|Taikyti visus pakeitimus (repack ryšulio, kad APK ir kt.)
+/// Asset (selected):
+275F743F|Turto (pažymėti):
+/// Save Asset (with headers)
+141E9684|Išsaugoti Turto (antraštes)
+/// Save Asset content
+8A4E48F7|Išsaugoti Turtą turinys
+/// Save Asset sub content (binary conten of asset)
+7DA1A698|Išsaugoti Turto sub kiekis (dvejetainis conten turto)
+/// Replace sub content in Asset (binary content)
+96520274|Pakeisti sub turinio Turto (dvejetainis turinys)
+/// Reset filter
+19A5084C|Atkurti filtrą
+/// Search now
+13CA73A5|Ieškoti dabar
+/// Assets only
+E46F4BDE|Tik turto
+/// Search form..
+CC159FF1|Paieškos formą..
+/// Select next:
+2C0421D5|Pasirinkite kitą:
+/// Debug console
+340EC2BB|Derinimo konsolės
+/// Warning! Server date and local date  not equal!!!\nFor the program to work, you need the date and time to be correct.(Server UTC date: 
+7AA4D160|Dėmesio! Serverio datos ir vietos šiol nėra lygių!!!\nUž programos darbą, jums reikia datos ir laiko, kad teisingai.(Serverio UTC data: 
+/// , Local UTC date=
+9669279D| Vietos UTC data=
+/// Waiting.. AssetBundle.. Resources path update, items: 
+A75C67B0|Laukimas.. AssetBundle.. Išteklių kelias atnaujinti, elementai: 
+///                                        Ver 5.03
+4154BD86| Ver 5.03
+/// Export
+C175ED3D|Eksporto
+/// Replace sound
+74EE86CF|Pakeisti garso
+/// With generate project
+481459F7|Su generuoti projekto
+/// With export resources
+2A463756|Su eksporto išteklius
+/// Import bundle as Level
+A199C855|Importo Lygio paketas
+/// Include Search in Scripts (c# script content)
+24CD7A4|Įtraukti Paieškos Scenarijus (c# skripto turinys)
+/// Search as text
+7CB022EA|Paieškos tekstas
+/// Assets Bundle\n
+5D8CF4D3|Turto Pluoštas\n
+/// Engine version: 
+77B48C01|Variklių versijos: 
+/// Bundle size: 
+3CF3C1E8|Pluoštas dydis: 
+/// Signature: 
+A0BFA96D|Parašas: 
+/// Items: \n
+1B77120F|Straipsniai: \n
+/// For save changes to assets: press to button 'Apply changes'
+D94ABDBB|Už išsaugoti pakeitimus, kad turtas: paspauskite mygtuką "Apply changes'
+///                                        Ver 5.07
+4154BD8A| Ver 5.07
+/// Generate Unity Project
+7345665F|Kurti Vienybės Projektas
+/// Export resources to directory
+978ECC6B|Eksporto išteklių katalogas
+/// Test\n123\n456
+74488F59|Testas\nVienas šimtas dvidešimt trys\nKeturi šimtai penkiasdešimt šeši
+/// Stop play
+901BBCBB|Nustoti žaisti
+/// Bundle content
+A374ECCF|Rinkinio turinys
+/// Lenght
+48414E76|Ilgis
+/// Show fast menu
+751996A6|Rodyti greitas meniu
+/// Disable dialog: For save changes to assets: press 'Apply Changes'
+344B17D9|Išjungti dialogo: išsaugoti pakeitimus, kad turtas: paspauskite "Apply changes'
+/// APK Sign settings
+7E1E21E1|APK Pasirašyti parametrai
+/// Unity 2018.1
+47AACD61|Vienybės 2018.1
+/// Fast open (fast generate project)
+63F8BA7A|Greitai atidaryti (greitai generuoti projektas)
+/// Waiting.. open
+A09AEE74|Laukia atidaryti.. 
+/// Make prefab - ok
+BD04F926|Kad surenkamų - gerai
+/// Make prefab - error
+FF163379|Kad surenkamų - klaida
+/// Make prefab - break
+995DB01E|Kad surenkamų pertrauka
+/// Wait.. Making Prefab..
+7223DB42|Laukti.. Priėmimo Surenkamų..
+/// make parfab asset:
+F5A47C38|padaryti parfab turtas:
+///                                      License for 'RePacker Tools' or 'Unpacker Studio' not activated
+CC174422|Licencija "RePacker Tools" ar "Unpacker Studija" nėra aktyvuotas
+///                                       Ver 5.20
+581EBD89| Ver 5.20
+/// Prefab
+48BB8036|Standartmāja
+/// GameObject
+44A02777|GameObject
+/// Ignore StreamingAssets directory
+55EFDF96|Ignoruoti StreamingAssets katalogas
+/// Ignore scenes
+A10E5601|Ignoruoti scenos
+/// Async parse of Bundle
+2112BD71|Async parse iš Ryšulio
+/// Async parse of Assets
+4ED032E0|Async parse Turto
+///                                   License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+959D2470|Licencija "RePacker Tools" ar "Unpacker Studija" arba "Unpacker Redaktorius Studija" nebus įjungta!
+///                                   License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A0C17CAF|Licencija "Unpacker tools" ar "RePacker Tools" ar "Unpacker Studija" arba "Unpacker Redaktorius Studija" nebus įjungta!
+/// License for 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+A951A366|Licencija "Unpacker Studija" arba "Unpacker Redaktorius Studija" nebus įjungta!
+///                                   License for 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+B4622470|Licencija "RePacker Tools" ar "Unpacker Studija" arba "Unpacker Redaktorius Studija" nėra aktyvuotas
+/// License for  'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6A96853C|Licencija "Unpacker Studija" arba "Unpacker Redaktorius Studija" nebus įjungta!
+///                                    Ver 5.22
+581EBD87| Ver 5.22
+/// Async make of Assets
+B4FA0730|Async, kad Turto
+///                                    Ver 5.26
+581EBD8B| Ver 5.26
+/// Speed options
+78640A1|Greičio funkcijos
+/// When you enable async options, it will be faster, but errors are possible!
+E7C89762|Kai jums leidžia async funkcijos, jis bus greitesnis, o klaidų yra įmanoma!
+/// Unitypackage - end with error
+20E9686B|Unitypackage pabaigoje su klaida
+///                                    Ver 6.02
+4175BD87| Ver 6.02
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+793DDF5D|Licencija "RePacker Tools" ar "Android" Unpacker "arba" Unpacker Studija "arba" Unpacker Redaktorius Studija " nebus įjungta!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+8943AD18|Licencija "Unpacker tools" ar "Android" Unpacker "arba" RePacker Tools " ar "Unpacker Studija" arba "Unpacker Redaktorius Studija" nebus įjungta!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated
+795CDF5D|Licencija "RePacker Tools" ar "Android" Unpacker "arba" Unpacker Studija "arba" Unpacker Redaktorius Studija " nėra aktyvuotas
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+6B253BF6|Licencija "Unpacker Tools" ar "Repacker Tools" ar "Unpacker Studija" arba "Unpacker Redaktorius Studija" nebus įjungta!
+///                                  License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' not activated!
+FED026C1|Licencija "RePacker Tools" ar "Android" Unpacker "arba" Unpacker Studija " nebus įjungta!
+///                                   Ver 6.05
+4175BD8C| Ver 6.05
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+31EDE709|Licencija "Unpacker tools" ar "RePacker Tools" ar "Unpacker Studija" arba "Android Unpacker" not activated!
+/// Export as ZIP archive
+DA624C1A|Eksporto ZIP archyvas
+/// dnSpy (.net 4.7.1 required)
+CA04B12D|dnSpy (.net 4.7.1 reikia)
+/// Double click of item - for apply select
+BB185879|Dukart spustelėkite elementą - taikyti pasirinkite
+/// FullName
+92659EB5|FullName
+/// Select object
+C408A146|Pasirinkite objektas
+///  Ver 6.12
+CCDABD87| Ver 6.12
+/// FlipY on Replace image
+E15679C|FlipY dėl Pakeisti nuotrauką
+/// Animation models
+E3C4D931|Modelių animacijos
+/// Primitive models
+4CD6E253|Primityvus modeliai
+/// Import from:
+997E9824|Importo iš:
+/// Import ok, count: 
+23FA00C6|Importo ok, skaičius: 
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'Unpacker Editor Studio' not activated!
+4A5CD18C|Licencijos, skirtos "Android Unpacker" arba "RePacker Tools" ar "Unpacker Studija" arba "Unpacker Redaktorius Studija" nebus įjungta!
+///  Ver 6.17
+CCDABD8A| Ver 6.17
+/// Wait animation type
+2348A5F1|Palaukite, animacija tipas
+/// Classic
+3C00B964|Klasikinis
+/// Girl
+ED2019E9|Mergina
+/// Export resources for Repack
+CB677E5E|Eksporto išteklių Repack
+/// Import resources for Repack
+9D9F8CAD|Importo išteklių Repack
+/// Additional Log
+A29EBB83|Papildomas Žurnalas
+/// Memory limit (Mb):
+44D3354A|Atminties riba (Mb):
+/// Impoer Ok:
+4F8CE226|Impoer Ok (Gerai):
+/// Search result count:
+2E03BEB6|Paieškos rezultatas skaičius:
+///  Ver 6.21
+583FBD88| Ver 6.21
+/// Open as SketchFab.com model by URL
+C7676174|Atvira, kaip SketchFab.com modelis URL
+/// Tools
+E8B1C422|Įrankiai
+/// Unpack GZIP
+F3CBFFB4|Išpakuokite GZIP
+/// Unpack Brotli
+37DF7A42|Išpakuokite Brotli
+/// Unpack LZ4
+B723F483|Išpakuokite LZ4
+/// Unpack LZMA
+6E844169|Išpakuokite LZMA
+/// Search result:
+7AD9B089|Paieškos rezultatas:
+/// Save descriptions to file
+E4B7253C|Išsaugoti aprašymai, failų
+/// Export :
+AFBC690B|Eksportui :
+/// Waiting... open uasset: 
+C804CEBE|Laukimas... atidaryti uasset: 
+/// Waiting... open pak: 
+16CA047B|Laukimas... atidaryti pak: 
+/// License for  'GameRecovery' not activated!
+2C3E7114|Licencija "GameRecovery" not activated!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+E48E0C23|Licencija "RePacker Tools" ar "Android" Unpacker "arba" Unpacker Studija "arba" GameRecovery " not activated!
+/// License for 'Unpacker tools' or 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+2627AE0E|Licencija "Unpacker tools" ar "Android" Unpacker "arba" RePacker Tools " ar "Unpacker Studija" arba "GameRecovery" not activated!
+/// License for 'Unpacker Studio' or 'GameRecovery' not activated!
+7EA6BE1C|Licencija "Unpacker Studija" arba "GameRecovery" not activated!
+/// License for 'RePacker Tools' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated
+DC930C23|Licencija "RePacker Tools" ar "Android" Unpacker "arba" Unpacker Studija "arba" GameRecovery " nėra aktyvuotas
+/// License for  'Unpacker Studio' or 'GameRecovery' not activated!
+528FF6F|Licencija "Unpacker Studija" arba "GameRecovery" not activated!
+/// License for 'Android Unpacker' or 'RePacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+4F91DB58|Licencijos, skirtos "Android Unpacker" arba "RePacker Tools" ar "Unpacker Studija" arba "GameRecovery" not activated!
+/// License for  'Unpacker Tools' or 'Repacker Tools' or 'Unpacker Studio' or 'GameRecovery' not activated!
+8ECD3E7F|Licencija "Unpacker Tools" ar "Repacker Tools" ar "Unpacker Studija" arba "GameRecovery" not activated!
+///  Ver 7.01
+4196BD88| Matyti 7.01
+/// Dont select header edit item
+1E1E6D12|Dont pasirinkite antraštę redaguoti elementą
+/// Save selected item to file
+A2DFCB1B|Išsaugoti pasirinktą elementą į failą
+/// Replace selected value from file
+9F42A9B5|Pakeisti pasirinktą vertę iš failo
+/// DevXUnity-Game Recovery
+A60E1A35|DevXUnity-Žaidimas Atkūrimo
+/// Open Unity3D/Unreal game directory
+89510D9F|Atidaryti Unity3D/Unreal game directory
+/// Open UnrealEngine uasset
+DF86BB4C|Atidaryti UnrealEngine uasset
+/// Open UnrealEngine PAK
+242A89E2|Atidaryti UnrealEngine PAK
+/// Generate Scripts (simple) for Android IL2CPP  (C#) 
+B0986638|Kurti Scenarijus (paprastas), skirta "Android" IL2CPP (C#) 
+/// Unreal Engine PAK
+A41EC297|Unreal Engine PAK
+/// Unreal Engine Assets
+BF46BB11|Unreal Engine Turtas
+/// ExportUassetsFromUnrealEnginePAK to:
+7DE1C29C|ExportUassetsFromUnrealEnginePAK:
+/// ExportUassetsFromUnrealEnginePAK ok, count: 
+310513B1|ExportUassetsFromUnrealEnginePAK ok, skaičius: 
+///  Ver 7.02
+4196BD87| Matyti 7.02
+/// Export uassets from Unreal Engine PAK
+926D75C7|Eksporto uassets iš Unreal Engine PAK
+///  Ver 7.05
+4196BD8C| Peržiūrėti 7.05
+/// Disable auto open result files
+8BEC4529|Išjungti auto atidaryti rezultatas failų
+/// Make node dump
+EF96D912|Kad mazgas iškelties
+/// End download
+8279FB4C|Pabaigos parsisiųsti
+/// Error on download gameInfo
+B3823311|Klaida atsisiųsti gameInfo
+/// End search
+F09E7D13|Pabaigoje paieška
+/// Begin request...
+BF44FF53|Pradėti prašymą...
+/// Total rows: 
+BE2C451F|Iš viso eilučių: 
+/// License not activated! Subscription available only with license!
+414DA863|Licencijos nebuvo pasinaudota! Prenumerata galima tik su licencija!
+/// You do not have a subscription to access to the Games database.
+C0ED97BD|Jūs neturite prenumerata prieigą prie Žaidimų duomenų bazė.
+/// Begin download game information...
+967F7E1C|Pradėti atsisiųsti žaidimo informaciją...
+/// Subscription payment
+F4D99EC6|Prenumeratos mokėjimo
+/// Subscription expiration:
+8B7CAF2B|Prenumeratos galiojimo pabaigos:
+/// AppId
+719FEDCB|AppId
+/// Category
+6482F24|Kategorijos
+/// Company
+4D421FF8|Bendrovė
+/// Engine version
+69B53BEE|Variklio versija
+/// Engine type
+E47EA598|Variklio tipas
+/// Free access
+CA53AB27|Nemokama prieiga
+/// Platform type
+7D2BB440|Platforma tipas
+/// DiaplayName
+2B5669D1|DiaplayName
+/// Platform
+24D7A31|Platformos
+/// Engine
+A0A26736|Variklis
+/// GameVersion
+25EF2059|GameVersion
+/// Game version
+9EB80D01|Žaidimo versija
+/// EngineVersion
+85F8F446|EngineVersion
+/// BXmlSize
+5DA5AB4A|BXmlSize
+/// Preview size
+2F7D1404|Peržiūros dydis
+/// GameSize
+3A83AAA7|GameSize
+/// Game size
+488DA813|Žaidimo dydis
+/// Hide item
+1EDFB100|Paslėpti punktas
+/// Set free acess
+6A513C5A|Laisvas acess
+/// Всего 0
+B290854D|Iš viso 0
+/// Download and open game (WebGL, OSGJS)
+B6F6F5A2|Atsisiųsti ir atidaryti žaidimas (WebGL, OSGJS)
+/// Open game structure preview
+27781B61|Atidarykite žaidimo struktūra peržiūra
+/// Open game web page
+74261900|Atidaryti žaidimo tinklalapio
+/// Descriptions
+C3DA8DBE|Aprašymai
+/// Only IL2CPP
+7AE55A1F|Tik IL2CPP
+/// Only .NET Assembly
+E73E3DC0|Tik tada .NET Asamblėja
+/// Game database search form (Full access by subscription)
+81A21328|Žaidimas duomenų bazės paieškos forma (Pilną priėjimą pasirašymo)
+/// Item not support export
+F69FEAA9|Prekės ne remti eksporto
+/// You can save with conversion no more than once every two minutes.
+53B9408B|Galite išsaugoti naudodami konversijų ne daugiau kaip kartą per dvi minutes.
+/// Object - not supported replace
+A6E20CE7|Objektas - nepalaiko pakeisti
+/// Original game info: 
+B86AE29D|Originalaus žaidimo info: 
+///  Ver 7.06
+4196BD8B| Matyti 7.06
+/// Save asset header
+EA33944D|Išsaugoti turto antraštė
+/// Save content (without contertaion)
+67E5E759|Išsaugoti turinį (be contertaion)
+/// Export content (with convert format: png, wav, etc)
+A4A40923|Eksporto kiekis (konvertuoti formatas: png, wav, ir tt)
+/// Replace binary content (binary, png, wav, etc)
+10A45610|Pakeisti dvejetainis kiekis (dvejetainis, png, wav, ir tt)
+/// Save asset headers
+EA40944D|Išsaugoti turto antraštes
+/// Save asset binary content
+A93311C9|Išsaugoti turto dvejetainis turinio
+/// Game Database
+835ACED9|Žaidimas Duomenų Bazėje
+/// Save as FSB5
+DCCE8FE0|Išsaugoti kaip FSB5
+/// erro on download
+7FE70CA|erro dėl atsisiųsti
+/// As source code (.cs)
+69F7089C|Kaip šaltinio kodo (.cs)
+/// As plugin (.dll)
+D525DF66|Kaip įskiepiai (.dll)
+/// Assemblies (for decompilation to .cs)
+CA7EB231|Mazgai (dekompiliavimo .cs)
+/// Restore type
+71C7F906|Atkurti tipas
+/// DownloadCounter=
+B87065D3|DownloadCounter=
+/// UserName=
+882923D2|Vartotojo vardas=
+/// CreateDate=
+91297A4C|CreateDate=
+/// License=
+1FCB93AA|Licencijos=
+/// iID=
+59C2B95D|iID=
+///  Ver 7.08
+4196BD81| Matyti 7.08
+/// Script generate settings
+C3F188C3|Scenarijų sukurti parametrai
+/// As source code (*.cs)
+1DAD6532|Kaip kodą (*.cs)
+/// Scripts
+8E91B592|Scenarijus
+/// Script options
+9FB6408|Scenarijų funkcijos
+/// Project options
+318C6B1|Projekto funkcijos
+/// Remove script class (for exported to .cs) from plugin
+3C84C921|Pašalinti scenarijų klasės (eksportuojamos .cs) iš įskiepiai
+/// Filter by class name:
+A6BADEC6|Filtruoti pagal klasės pavadinimas:
+/// as source code (*.cs)
+F06810D1|kaip kodą (*.cs)
+/// as plugin (.dll)
+D5593A86|kaip įskiepiai (.dll)
+/// Reference for asset
+D9FB6EBB|Nuoroda turto
+/// Activate license..
+B47EABE4|Įjungti licencija..
+/// Open buy page
+D8BFF820|Atidaryti pirkti puslapis
+///  Ver 7.09
+4196BD80| Matyti 7.09
+/// Find All references
+70569210|Rasti Visus nuorodos
+/// Waiting.. MakePreview..
+2F15684B|Laukimas.. MakePreview..
+/// Waiting.. MakePreview-end
+C4EC7D79|Laukimas.. MakePreview pabaigos
+/// Disable export Shaders
+FAB8FD38|Išjungti eksporto Shader
+/// PropertyDialog
+609D9308|PropertyDialog
+///  Ver 7.11
+CCFBBD88| Matyti 7.11
+/// multiSelectTreeView21
+5DCF7336|multiSelectTreeView21
+/// Test Assets
+B56CD8D7|Bandymo Turtas
+/// Wait.. Making Unity Project.. Make scripts for 
+E7433FE6|Laukti.. Priėmimo Vienybės Projektas.. Kad scenarijus 
+/// Wait.. TestAssets..
+5792227B|Laukti.. TestAssets..
+/// Wait.. TestAssets.. 
+EAF2227B|Laukti.. TestAssets.. 
+/// TestAssets - end
+50D60E8F|TestAssets pabaigos
+/// Disable auto-fix sources
+266F7C01|Išjungti auto-fix šaltinių
+/// Only available for GameRecovery license.
+A80A4C4|Tik GameRecovery licenciją.
+/// Disable auto change to Shader links
+7124447A|Išjungti auto pakeisti Shader nuorodos
+/// Allow delayed extraction of scripts
+AC7A600E|Leisti atidėtas gavybos scenarijus
+///  Ver 7.14
+CCFBBD8D| Matyti 7.14
+/// Waiting.. m_AssetToPrefab.. items: 
+A08F9053|Laukimas.. m_AssetToPrefab.. elementus: 
+/// Only available for DevX GameRecovery license type.
+10630F7|Tik DevX GameRecovery licencijos tipas.
+///  not include to poroject
+FFE943E5| negali būti, kad poroject
+/// Partial recovery of scripts is available only with the 'Allow delayed extraction of scripts'.
+F7876C10|Dalinė atsigavimo scenarijus yra galimas tik su "Leisti atidėtas gavybos scenarijus".
+///  Ver 7.15
+CCFBBD8C| Matyti 7.15
+/// Unity 2018.3
+5E74CD61|Vienybės 2018.3
+/// Not supported for this asset type
+8726FB75|Nepalaiko šio turto tipas
+///  Ver 7.18
+CCFBBD81| Matyti 7.18
+/// Wait... Check internet connection.. https://devxdevelopment.com...
+5D8EC00D|Palaukite... Patikrinti interneto ryšį.. https://devxdevelopment.com...
+/// toolStrip11
+8AB288BF|toolStrip11
+/// Restore only fields (for deserialization and minimize scripts errors)
+6D77C25E|Atkurti tik laukai (deserialization ir sumažinti scenarijus klaidų)
+/// Allow to de-obfuscate assembly
+5DBA5417|Galima de-obfuscate asamblėja
+/// Only for export to Unity 2018.3 or higher.
+33783E79|Tik eksportui į Vienybės 2018.3 arba didesnis.
+/// Unity 2018.2
+D30FCD61|Vienybės 2018.2
+///  Ver 7.21
+5860BD88| Matyti 7.21
+/// Rules
+1B78670F|Taisyklės
+/// Apply
+62D0EDB8|Kreiptis
+/// Open rules file
+5CCEF1D3|Atidarykite failą taisyklės
+/// Result:
+8553A117|Rezultatas:
+/// Save result
+CFB24BA9|Išsaugoti rezultatas
+/// label2
+E9EB1D06|label2
+/// Show offset
+48A4BF19|Rodyti kompensuoti
+/// Open binary file
+D39D81F1|Atidaryti dvejetainis failo
+/// Binary Analyzer Tools
+82675C19|Dvejetainis Analizatorius Įrankiai
+/// Open binary analyzer tools
+AE911DB5|Atidaryti dvejetainis analizatorius įrankiai
+///  Ver 7.22
+5860BD87| Matyti 7.22
+/// Open Binary Analyzer tools
+B87E468|Atidaryti Dvejetainis Analizatorius įrankiai
+/// Parce rules: 
+103B800A|Parce taisyklės: 
+/// Auto apply
+59FF7043|Auto pritaikyti
+/// Open binary analyzer
+A95D268A|Atidaryti dvejetainis analizatorius
+///  Ver 7.29
+5860BD80| Matyti 7.29
+/// Back
+459BD839|Atgal
+/// Next
+EDB18BE4|Kitas
+/// ILSpy 5 (.net 4.6 required)
+5EBB7E80|ILSpy 5 (.grynasis 4.6 reikia)
+/// exclude
+DC7D8E08|išskirti
+///  make plugin (.dll)
+DBEA7DF9| padaryti įskiepiai (.dll)
+/// Reset
+61854DA3|Reset
+/// Set as Script assembly (.cs)
+2F21ADEB|Nustatyti kaip Scenarijų asamblėjos (.cs)
+/// Set as Plugin (.dll)
+92AE6425|Nustatyti, kaip Įskiepiai (.dll)
+/// Exclude from project
+5A6F5B4B|Pašalinti iš projekto
+/// Mark class to decompilation (.cs)
+B74012B|Ženklas klasės dekompiliavimo (.cs)
+/// Remove from decompilation scripts
+3EB9EA0E|Pašalinti iš dekompiliavimo scenarijus
+/// As Scripts (.cs)
+72D1D23C|Kaip Scenarijus (.cs)
+/// As Plugin (.dll)
+ABEBBC76|Kaip Įskiepiai (.dll)
+/// Exclude
+DC7D92E8|Išskirti
+/// Class to script
+6675DB7B|Klasės scenarijų
+/// Remove from decompilation
+CD00C64F|Pašalinti iš dekompiliavimo
+/// Script Generate Options
+25994BBC|Scenarijaus Generuoti Funkcijos
+/// Only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+E005EA6|Tik "DevX-GameRecovery "arba" DevX-GameModing' licencijos tipas.
+/// Not support for add child component.
+BCFB679A|Ne remti pridėti vaikas komponentas.
+/// Selected items are not supported for copying.
+FCD072D|Pasirinktos prekės nėra palaikomas kopijavimas.
+/// Not selected asset to copy (Copy asset)
+A86A2FA1|Ne pasirinktas turto kopijuoti (Copy turtas)
+///  Ver 8.02
+3FA7BD87| Matyti 8.02
+/// Dublicate asset
+18F6772D|"Dublicate" turto
+/// Add child asset with dublicate by selection dialog
+934F5427|Pridėti vaikų turtą "dublicate", kurį pasirinkimo langą
+/// Copy asset
+5BDBD338|Kopijuoti turto
+/// Paste asset
+315A3F47|Pasta turto
+/// Cubemap
+2CEA422E|Cubemap
+/// Texture2D
+B0AAD29D|Texture2D
+/// Sprites
+910DB596|Sprites
+/// Delete asset
+C0E8BD20|Ištrinti turto
+/// Connection - not tested
+EC7EAB33|Ryšys - ne išbandytas
+/// Not selected owner asset to create GameObjext
+3A35DCF0|Atrinkti ne turto savininkas sukurti GameObjext
+/// License for 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' not activated!
+45794F93|Licencija "RePacker Tools" ar "Žaidimas Modding" arba "Unpacker Studija" nebus įjungta!
+/// License for 'RePacker Tools' or 'Game Modding' or 'Android Unpacker' or 'Unpacker Studio' or 'GameRecovery' not activated!
+9CE9AD2|Licencija "RePacker Tools" ar "Žaidimas Modding" ar "Android" Unpacker "arba" Unpacker Studija "arba" GameRecovery " not activated!
+/// License for 'Unpacker tools' or 'RePacker Tools' or 'Game Modding' or 'Unpacker Studio' or 'Android Unpacker' not activated!
+C9AC09B3|Licencija "Unpacker tools" ar "RePacker Tools" ar "Žaidimas Modding" arba "Unpacker Studija" arba "Android Unpacker" not activated!
+/// Add new asset
+5AD1691E|Pridėti naują turtą
+/// Add GameObject
+DD4E575F|Pridėti GameObject
+/// Paste link to asset
+69A27794|Įklijuokite nuorodą į turtą
+/// Clear item
+334BAC85|Aišku punktas
+/// Path to executable file, parameters on run: "assembly_name.dll" -p -o "output_dir"
+1FA80710|Kelias į vykdomąjį failą, parametrus paleisti: "assembly_name.dll" p-o "output_dir"
+/// Custom extern decompiler
+FF108242|Custom extern decompiler
+///  Ver 8.03
+3FA7BD86| Matyti 8.03
+/// Decompiler type:
+4B8D3813|Decompiler tipas:
+/// Decompiler type
+B2DB3813|Decompiler tipas
+///  Ver 8.04
+3FA7BD8D| Matyti 8.04
+/// Export format
+35996432|Eksporto formatas
+/// Options
+A1D6A433|Funkcijos
+/// Export models
+FA6DBF53|Eksporto modelius
+/// ASCII
+32DC01C9|ASCII
+/// Binary
+8E0E4D56|Dvejetainiai
+/// Export animations
+7FA8B4A|Eksporto animacija
+/// Export textures
+663535DC|Eksporto tekstūros
+/// FbxExportSettings
+5AFAA65F|FbxExportSettings
+///  Ver 8.06
+3FA7BD8B| Matyti 8.06
+/// Disable сustom swap file (in file stream)
+B9CC2CB4|Išjungti užsakymą swap failas (file stream)
+/// This option enables automatic conversion of compiled shaders to Unity format (UnityLab)
+1D03716|Ši galimybė leidžia automatinio konvertavimo parengė shader Vienybės forma (UnityLab)
+/// Allow restore shader as UnityLab format (for GameRecovery license type)
+B5ED1B5F|Leidžia atkurti shader kaip UnityLab formatą (GameRecovery licencijos tipas)
+/// Allow async export
+61A5FC0F|Leisti async eksporto
+/// Unity 2019.1
+47ABCD61|Vienybės 2019.1
+/// Disable header information for scripts (header on .cs files)
+917298B4|Išjungti antraštės informacija scenarijus (antraštės .cs failus)
+/// Export multi sprite texture as separate sprite files
+A44EA654|Eksporto multi-sprite tekstūros, aš norėčiau atskirti sprite failų
+/// DevXC Control
+66A43E3|DevXC Kontrolės
+///  sec
+2FD0C111| sec
+/// DevXC code: 
+8F41696B|DevXC kodas: 
+/// Execute
+5730F05E|Vykdyti
+/// Open devxc file
+22315D|Atidaryti devxc failų
+/// Save code
+C098D69A|Išsaugoti kodas
+/// Show output window
+11C81E1A|Rodyti produkcijos langą
+/// Help
+D05AA806|Pagalba
+/// Execute time:
+47830FDC|Vykdyti laikas:
+///  Ver 9.01
+3FC8BD88| Matyti 9.01
+/// Open current action history
+D2A1EE39|Atidaryti esamą veiksmų istoriją
+/// DevXC Console
+3BC20E5B|DevXC Konsolės
+/// DevXC-Scripts
+7AC6FE2|DevXC-Scripts
+/// Make parfab asset:
+F3637C58|Padaryti parfab turtas:
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-GameModing' license type.
+4F34C49E|Paleisti DevXC failą - tik 'DevX-GameRecovery "arba" DevX-GameModing' licencijos tipas.
+/// Run DevXC file - only available for 'DevX-GameRecovery' or 'DevX-MagicStudio' or 'DevX-GameModing' license type.
+41E5A8|Paleisti DevXC failą - tik 'DevX-GameRecovery "arba" DevX-MagicStudio "arba" DevX-GameModing' licencijos tipas.
+/// Error on create zip: 
+C7BC26B7|Klaida sukurti zip: 
+/// Make zip - end
+FD528D50|Padaryti zip - end
+///  Ver 9.02
+3FC8BD87| Matyti 9.02
+/// Help:
+88B16616|Padėti:
+/// Functions
+F2FCDCF2|Funkcijos
+/// Examples
+C9F7545|Pavyzdžiai
+///  Ver 9.03
+3FC8BD86| Matyti 9.03
+/// Material
+8800D7BA|Medžiaga
+/// Shader
+D3ADAD2D|Shader
+/// Allow restore shaders (base mode, without convert to ShaderLab format)
+6DBC0660|Leidžia atkurti shader (base režimu, be konvertuoti į ShaderLab formatas)
+///  Ver 9.05
+3FC8BD8C| Matyti 9.05
