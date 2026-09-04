@@ -8,6 +8,25 @@ converts what it can to CIL, and ILSpy decompiles that back to C#.
 The honest ceiling, so nobody expects otherwise: **class skeletons are exact, and method bodies
 are readable rather than recompilable.**
 
+## Which binaries bodies can be recovered from
+
+Recovery needs a lifter from native code to ISIL, and Cpp2IL does not have one for every
+architecture:
+
+| Binary | Bodies |
+|---|---|
+| x86, x86-64 | recovered |
+| ARM64 (`arm64-v8a`, Apple silicon) | recovered |
+| ARMv7 (`armeabi-v7a`) | **not possible** — no ISIL lifter exists |
+| WebAssembly (WebGL) | **not possible** — no ISIL lifter exists |
+
+Cpp2IL ships two ARM64 implementations and only the newer one lifts to ISIL; the older one returns
+an empty instruction list for every method, which reads in the output as a game whose every method
+is empty. `Arm64InstructionSetSelector` picks the lifting one for Level 3 and leaves every other
+level on the implementation it has always used. On a binary that cannot be recovered the import logs
+a warning saying so, rather than producing empty bodies without comment, and the import also reports
+how many methods recovery attempted and how many failed to convert.
+
 ## Turning it on
 
 Set **Script Content Level** to **Level 3** on the Settings page. The **IL2Cpp Script Recovery**
@@ -149,6 +168,9 @@ Editor, which is why no layout has to be reverse engineered.
 | Naming memory accesses in a method's ISIL | `Recovery/RuntimeStructAccessAnnotator.cs` |
 | Rendering ISIL as approximate C# | `Recovery/PseudoCSharpWriter.cs` |
 | Attaching that text so it survives into ILSpy's output | `Recovery/NativeSourceInjectionProcessingLayer.cs` |
+| Choosing an ARM64 implementation that can lift to ISIL | `Recovery/Arm64InstructionSetSelector.cs` |
+| Reporting whether this binary can be recovered at all | `Recovery/Il2CppRecoveryDiagnosticsProcessingLayer.cs` |
+| IL recovery plus per-run counters | `Recovery/Il2CppIlRecoveryOutputFormat.cs` |
 | Installing all of it into `IL2CppManager` | `Recovery/Il2CppRecoverySetup.cs` |
 
 Metadata parsing, binary identification, registration search, dummy assembly generation, the
@@ -157,6 +179,10 @@ duplicated here.
 
 ## Known limits
 
+* ARMv7 and WebAssembly cannot produce method bodies at all, as above.
+* At Level 3 the whole import uses the ISIL-capable ARM64 implementation, including for reading raw
+  method bytes, where it is stricter about address ranges than the older one. That is the trade for
+  getting bodies; lower levels are unaffected.
 * `Il2CppClassUsefulOffsets.GetVtableOffset` is a method in Cpp2IL rather than data, so the vtable
   bound used by `IsPointerIntoVtable` cannot be corrected from a layout file. The named-offset
   lookups around it can be, and are.

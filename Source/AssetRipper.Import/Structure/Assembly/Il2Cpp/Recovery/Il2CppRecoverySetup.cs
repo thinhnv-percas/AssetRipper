@@ -27,11 +27,16 @@ public static class Il2CppRecoverySetup
 		bool reconstructBodies = false,
 		NativeSourceOptions? nativeSourceOptions = null)
 	{
+		// ARM64 has two implementations in Cpp2IL and only one of them lifts to ISIL. Without this,
+		// recovery on an ARM64 game finds no ISIL to convert and writes empty bodies.
+		Arm64InstructionSetSelector.PreferIsilCapable = true;
+
 		List<Cpp2IlProcessingLayer> layers =
 		[
 			// Order matters. Attribute analysis creates the lists the later layers append to.
 			new AttributeAnalysisProcessingLayer(),
 			new MethodOverrideNameFixer(),
+			new Il2CppRecoveryDiagnosticsProcessingLayer(),
 			new StructDbProcessingLayer(structDbDirectory),
 		];
 
@@ -47,8 +52,9 @@ public static class Il2CppRecoverySetup
 
 		IL2CppManager.RecoveryProcessingLayers = layers;
 
-		// ISIL to CIL, so ILSpy produces real C# for the methods it can handle.
-		IL2CppManager.RecoveryOutputFormat = new AsmResolverDllOutputFormatIlRecovery();
+		// ISIL to CIL, so ILSpy produces real C# for the methods it can handle. A fresh instance per
+		// install, because its counters are per-run.
+		IL2CppManager.RecoveryOutputFormat = new Il2CppIlRecoveryOutputFormat();
 	}
 
 	/// <summary>
@@ -77,6 +83,7 @@ public static class Il2CppRecoverySetup
 	{
 		IL2CppManager.RecoveryProcessingLayers = null;
 		IL2CppManager.RecoveryOutputFormat = null;
+		Arm64InstructionSetSelector.PreferIsilCapable = false;
 		Il2CppClassOffsetPatcher.Restore();
 	}
 }

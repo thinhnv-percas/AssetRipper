@@ -1,6 +1,7 @@
 using AsmResolver.DotNet;
 using AssetRipper.Import.Configuration;
 using AssetRipper.Import.Logging;
+using AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 using AssetRipper.Import.Structure.Platforms;
 using Cpp2IL.Core.Api;
 using Cpp2IL.Core.InstructionSets;
@@ -19,15 +20,10 @@ public sealed class IL2CppManager : BaseManager
 		InstructionSetRegistry.RegisterInstructionSet<X86InstructionSet>(DefaultInstructionSets.X86_64);
 		InstructionSetRegistry.RegisterInstructionSet<WasmInstructionSet>(DefaultInstructionSets.WASM);
 		InstructionSetRegistry.RegisterInstructionSet<ArmV7InstructionSet>(DefaultInstructionSets.ARM_V7);
-		bool useNewArm64 = false;
-		if (useNewArm64)
-		{
-			InstructionSetRegistry.RegisterInstructionSet<NewArmV8InstructionSet>(DefaultInstructionSets.ARM_V8);
-		}
-		else
-		{
-			InstructionSetRegistry.RegisterInstructionSet<Arm64InstructionSet>(DefaultInstructionSets.ARM_V8);
-		}
+
+		// Which ARM64 implementation to use depends on the content level, and that is not known here:
+		// the registry takes one set per architecture and refuses a second. See Arm64InstructionSetSelector.
+		InstructionSetRegistry.RegisterInstructionSet<Arm64InstructionSetSelector>(DefaultInstructionSets.ARM_V8);
 
 		LibCpp2IlBinaryRegistry.RegisterBuiltInBinarySupport();
 	}
@@ -114,6 +110,16 @@ public sealed class IL2CppManager : BaseManager
 			: DefaultOutputFormat;
 
 		List<AssemblyDefinition> assemblies = outputFormat.BuildAssemblies(Cpp2IlApi.CurrentAppContext);
+
+		if (outputFormat is Il2CppIlRecoveryOutputFormat recovery)
+		{
+			// Zero attempted means recovery never reached the game's own code, which is a different
+			// problem from recovery reaching it and having nothing to say.
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery attempted {recovery.AttemptedMethodCount} methods; " +
+				$"{recovery.FailedMethodCount} failed to convert. " +
+				"Framework assemblies are skipped, and a method whose native code produced no ISIL keeps an empty body.");
+		}
 
 		foreach (AssemblyDefinition assembly in assemblies)
 		{
