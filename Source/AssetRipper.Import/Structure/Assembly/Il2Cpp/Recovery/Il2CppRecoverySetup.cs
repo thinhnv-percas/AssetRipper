@@ -33,10 +33,13 @@ public static class Il2CppRecoverySetup
 
 		List<Cpp2IlProcessingLayer> layers =
 		[
-			// Order matters. Attribute analysis creates the lists the later layers append to.
+			// First, so a binary that cannot be recovered says so before attribute analysis spends
+			// minutes on it.
+			new Il2CppRecoveryDiagnosticsProcessingLayer(),
+
+			// Order matters from here. Attribute analysis creates the lists the later layers append to.
 			new AttributeAnalysisProcessingLayer(),
 			new MethodOverrideNameFixer(),
-			new Il2CppRecoveryDiagnosticsProcessingLayer(),
 			new StructDbProcessingLayer(structDbDirectory),
 		];
 

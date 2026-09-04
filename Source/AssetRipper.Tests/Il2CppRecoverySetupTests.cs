@@ -126,21 +126,23 @@ internal sealed class Il2CppRecoverySetupTests
 	}
 
 	/// <summary>
-	/// Attribute analysis has to run before the layers that append to the lists it creates, and the
-	/// diagnostics have to run before anything spends time on a binary that cannot be recovered.
+	/// The diagnostics go first, so a binary that cannot be recovered is reported before attribute
+	/// analysis spends minutes on it. Attribute analysis then precedes the layers that append to the
+	/// lists it creates.
 	/// </summary>
 	[Test]
-	public void LayerOrderIsAttributeAnalysisFirst()
+	public void DiagnosticsRunBeforeAnythingExpensive()
 	{
 		Il2CppRecoverySetup.Apply(new ImportSettings { ScriptContentLevel = ScriptContentLevel.Level3 });
 
 		List<string> ids = [.. IL2CppManager.RecoveryProcessingLayers!.Select(layer => layer.Id)];
+		string attributeAnalysis = new Cpp2IL.Core.ProcessingLayers.AttributeAnalysisProcessingLayer().Id;
+
 		Assert.Multiple(() =>
 		{
-			Assert.That(ids[0], Is.EqualTo(new Cpp2IL.Core.ProcessingLayers.AttributeAnalysisProcessingLayer().Id));
-			Assert.That(ids, Does.Contain("recoverydiagnostics"));
-			Assert.That(ids, Does.Contain("structdb"));
-			Assert.That(ids.IndexOf("recoverydiagnostics"), Is.LessThan(ids.IndexOf("structdb")));
+			Assert.That(ids[0], Is.EqualTo("recoverydiagnostics"));
+			Assert.That(ids, Does.Contain(attributeAnalysis));
+			Assert.That(ids.IndexOf(attributeAnalysis), Is.LessThan(ids.IndexOf("structdb")));
 		});
 	}
 }
