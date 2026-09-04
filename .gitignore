@@ -1,2 +1,6 @@
 bin/
 obj/
+
+# typetreedb: dữ liệu sinh bằng tools/typetreedb_gen.py, vài trăm MB — không commit.
+# Xem typetreedb/README.md.
+typetreedb/*.json

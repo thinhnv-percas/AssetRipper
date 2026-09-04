@@ -136,6 +136,20 @@ internal class Loader
 			{
 				DbgLog.W("ENV", "UnityDLL zips = " + Directory.GetFiles(Path.Combine(sa, "UnityDLL"), "*.zip").Length);
 			}
+			// Type-tree của Unity built-in classes. Thay cho ClassAll.zip/UnityType.zip cũ.
+			// Thiếu bộ này thì mọi asset parse ra "unknown type" mà KHÔNG báo lỗi ở đâu cả,
+			// nên phải probe ngay tại đây.
+			string typeTreeDb = Path.Combine(sa, @as.UnityTypeTreeDb.DirectoryName);
+			DbgLog.Probe("ENV", "typetreedb", typeTreeDb);
+			if (Directory.Exists(typeTreeDb))
+			{
+				DbgLog.W("ENV", "typetreedb: " + Directory.GetFiles(typeTreeDb, "*.json").Length + " file JSON");
+			}
+			else
+			{
+				DbgLog.W("ENV", "typetreedb KHÔNG CÓ -> không đọc được .assets/AssetBundle, "
+					+ "mọi type sẽ là unknown. Sinh bằng: python tools/typetreedb_gen.py");
+			}
 		}
 		catch (Exception ex)
 		{

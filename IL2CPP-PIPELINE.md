@@ -64,7 +64,7 @@ thì `continue` sang cái kế tiếp ([ManyCodeCls.cs:4148](Recovered/DevXUnity
 |---|---|---|
 | `structdb/*.json` | **736 file** (368 version × x32/x64). DB layout struct C của runtime IL2CPP. Thay thế `IL2CPPStructs/*.dvxil2c` — xem [structdb/README.md](structdb/README.md) | Dịch `LDR x0,[x1,#0x18]` thành truy cập field có tên |
 | `ArmCP/x64/arm_cp.dll`, `ArmCP/x86/arm_cp.dll` | **Capstone** đổi tên (3.8 MB) | Disassemble ARM32/ARM64/x86/x64 |
-| `ClassAll.zip` (81 MB, 718 XML) | Type-tree của Unity built-in classes | Parse asset (không thuộc pipeline IL2CPP, xem mục 14) |
+| `typetreedb/*.json` + `index.json` | Type-tree của Unity built-in classes. Thay thế `ClassAll.zip`/`UnityType.zip` — xem [typetreedb/README.md](typetreedb/README.md) | Parse asset (không thuộc pipeline IL2CPP, xem mục 14) |
 | `UnityDLL/Unity-*.zip` | DLL engine theo version | Reference khi decompile / dựng project |
 | `DecompilerFi/DecompilerFi.exe` | ILSpy CLI | **Nhánh Mono**, không dùng cho IL2CPP |
 | `dnSpy/` | dnSpy CLI | Nhánh Mono (lựa chọn thay thế) |
@@ -626,10 +626,18 @@ ILSpy sinh ra mà Unity không nuốt được. Lựa chọn decompiler nằm �
 → `DecompillerType` (`dnSpy` | `DecompilerFi`). Đừng kỳ vọng chất lượng nhánh
 IL2CPP ngang nhánh này — bản chất bài toán khác nhau.
 
-**Parse asset.** `ClassAll.zip` / `UnityType.zip` là type-tree của **Unity built-in
-classes**, dùng để đọc `.assets`/`AssetBundle`, hoàn toàn độc lập với
-`IL2CPPStructs/*.dvxil2c` (là layout struct **runtime C**). Hai DB dễ bị nhầm vì cùng
-được chọn theo Unity version bằng cùng thuật toán fallback.
+**Parse asset.** `typetreedb/*.json` là type-tree của **Unity built-in classes**,
+dùng để đọc `.assets`/`AssetBundle`, hoàn toàn độc lập với `structdb/*.json` (là
+layout struct **runtime C**). Hai DB dễ bị nhầm vì cùng được chọn theo Unity
+version bằng cùng thuật toán "bản mới nhất còn ≤ version yêu cầu".
+
+Bộ này thay `ClassAll.zip` (81 MB, 718 XML) + `UnityType.zip` cũ — cùng cách mà
+`structdb/` đã thay `IL2CPPStructs/*.dvxil2c`. Sinh bằng
+[`tools/typetreedb_gen.py`](tools/typetreedb_gen.py), nạp bởi
+[`UnityTypeTreeDb.cs`](Recovered/DevXUnityUnpackerTools/UnityTypeTreeDb.cs).
+Cùng lượt thay này, nhánh mạng `AssetParser.MakeRequest` (license server
+`devxdevelopment.com` + `EncryptDecryptManager.Decrypt`) đã bị gỡ: nó vốn đã chết
+vì `CrackSettings.AllowOffline = true`.
 
 ---
 
@@ -637,7 +645,7 @@ classes**, dùng để đọc `.assets`/`AssetBundle`, hoàn toàn độc lập 
 
 | Giới hạn | Nguyên nhân | Biểu hiện |
 |---|---|---|
-| **Unity ≤ 2021** | Metadata reader dừng ở v27; `.dvxil2c` dừng ở 2021.x; ClassAll dừng ở 2021.2.7f1 | Game 2022/6.x: hoặc `NotSupportedException`, hoặc chạy với DB sai version |
+| **Unity ≤ 2021** | Metadata reader dừng ở v27. (Hai DB đã hết là giới hạn: `structdb/` có tới 6000.3.18f1, `typetreedb/` bổ sung được bằng `tools/typetreedb_gen.py`) | Game 2022/6.x: `NotSupportedException` ở bước đọc metadata |
 | **Thân hàm chỉ gần đúng** | Lift từ mã máy đã tối ưu; không có IL | Biến tạm vô nghĩa, biểu thức tách rời, control flow phẳng |
 | **Hàm > ~1 KB bị cắt** | Ngưỡng ở [DMP4/-.cs:11875](Recovered/DevXUnityUnpackerTools/DMP4/-.cs#L11875) | `// finction code trimed` |
 | **`len` hàm là ước lượng** | Suy từ con trỏ kế tiếp | Lift lấn sang hàm kế, hoặc dừng sớm |
@@ -657,7 +665,7 @@ classes**, dùng để đọc `.assets`/`AssetBundle`, hoàn toàn độc lập 
 
 | Tag | Trả lời câu hỏi |
 |---|---|
-| `ENV` | `StreamingAssets`, `IL2CPPStructs`, `ArmCP` có tồn tại không |
+| `ENV` | `StreamingAssets`, `structdb`, `typetreedb`, `ArmCP` có tồn tại không |
 | `SCAN.il2cpp` | Tìm thấy `global-metadata.dat` chưa |
 | `DETECT` | Đang thử ứng viên binary nào (`candidate 2/5: binary=... metadata=...`) |
 | `IL2CPP.gate` | Mode có phải `None` không |
