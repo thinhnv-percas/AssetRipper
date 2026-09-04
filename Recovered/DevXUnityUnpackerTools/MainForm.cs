@@ -6827,7 +6827,7 @@ public class MainForm : Form
 			Text += TranslationManager.TryGetTranslated(1024711294);
 		}
 		Text += (Environment.Is64BitProcess ? "x64" : "x32");
-		//Text = Text + " Crack Ver " + CrackWindow.CrackVersion;
+		Text = Text;//+ " Crack Ver " + CrackWindow.CrackVersion;
 		// Anti-tamper canary #3, defused — the inverted one, and by far the most damaging.
 		// This block only runs when Assembly.Location does NOT name
 		// DevXUnityUnpackerTools.dll, i.e. only in a genuine install, where Tools is loaded

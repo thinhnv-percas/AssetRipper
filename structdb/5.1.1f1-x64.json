@@ -1,0 +1,1548 @@
+{
+ "schema": 1,
+ "unityVersion": "5.1.1f1",
+ "pointerSize": 8,
+ "source": {
+  "origin": "DevXUnity-Unpacker Magic Tools, StreamingAssets/IL2CPPStructs",
+  "file": "5.1.1f1.dvxil2c",
+  "formatVersion": 1
+ },
+ "structs": {
+  "Il2CppFieldDefinition": {
+   "size": 16,
+   "fields": [
+    {
+     "name": "nameIndex",
+     "type": "int32_t",
+     "offset": 0,
+     "size": 4,
+     "realType": "StringIndex"
+    },
+    {
+     "name": "typeIndex",
+     "type": "int32_t",
+     "offset": 4,
+     "size": 4,
+     "realType": "TypeIndex"
+    },
+    {
+     "name": "offset",
+     "type": "int32_t",
+     "offset": 8,
+     "size": 4
+    },
+    {
+     "name": "customAttributeIndex",
+     "type": "int32_t",
+     "offset": 12,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    }
+   ]
+  },
+  "Il2CppFieldDefaultValue": {
+   "size": 12,
+   "fields": [
+    {
+     "name": "fieldIndex",
+     "type": "int32_t",
+     "offset": 0,
+     "size": 4,
+     "realType": "FieldIndex"
+    },
+    {
+     "name": "typeIndex",
+     "type": "int32_t",
+     "offset": 4,
+     "size": 4,
+     "realType": "TypeIndex"
+    },
+    {
+     "name": "dataIndex",
+     "type": "int32_t",
+     "offset": 8,
+     "size": 4,
+     "realType": "DefaultValueDataIndex"
+    }
+   ]
+  },
+  "Il2CppGenericParameter": {
+   "size": 32,
+   "fields": [
+    {
+     "name": "owner",
+     "type": "Il2CppGenericContainer*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "constraints",
+     "type": "Il2CppType**",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "num",
+     "type": "uint16_t",
+     "offset": 24,
+     "size": 2
+    },
+    {
+     "name": "flags",
+     "type": "uint16_t",
+     "offset": 26,
+     "size": 2
+    }
+   ]
+  },
+  "owner": {
+   "size": 40,
+   "fields": [
+    {
+     "name": "context",
+     "type": "Il2CppGenericContext",
+     "offset": 0,
+     "size": 8
+    },
+    {
+     "name": "parent",
+     "type": "Il2CppGenericContainer*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "dummy",
+     "type": "void*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "klass",
+     "type": "TypeInfo*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "method",
+     "type": "MethodInfo*",
+     "offset": 32,
+     "size": 8,
+     "arrayItemSize": 96
+    }
+   ]
+  },
+  "Il2CppGenericClass": {
+   "size": 24,
+   "fields": [
+    {
+     "name": "container_class",
+     "type": "TypeInfo*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "context",
+     "type": "Il2CppGenericContext",
+     "offset": 8,
+     "size": 8
+    },
+    {
+     "name": "cached_class",
+     "type": "TypeInfo*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 248
+    }
+   ]
+  },
+  "Il2CppGenericMethod": {
+   "size": 16,
+   "fields": [
+    {
+     "name": "methodDefinition",
+     "type": "MethodInfo*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 96
+    },
+    {
+     "name": "context",
+     "type": "Il2CppGenericContext",
+     "offset": 8,
+     "size": 8
+    }
+   ]
+  },
+  "PInvokeArguments": {
+   "size": 40,
+   "fields": [
+    {
+     "name": "moduleName",
+     "type": "char*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "entryPoint",
+     "type": "char*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "callingConvention",
+     "type": "Il2CppCallConvention",
+     "offset": 16,
+     "size": 8
+    },
+    {
+     "name": "charSet",
+     "type": "Il2CppCharSet",
+     "offset": 24,
+     "size": 4
+    },
+    {
+     "name": "parameterSize",
+     "type": "int",
+     "offset": 28,
+     "size": 4
+    },
+    {
+     "name": "isNoMangle",
+     "type": "bool",
+     "offset": 32,
+     "size": 1
+    }
+   ]
+  },
+  "FieldInfo": {
+   "size": 32,
+   "fields": [
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "type",
+     "type": "Il2CppType*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "parent",
+     "type": "TypeInfo*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "offset",
+     "type": "int32_t",
+     "offset": 24,
+     "size": 4
+    },
+    {
+     "name": "customAttributeIndex",
+     "type": "int32_t",
+     "offset": 28,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    }
+   ]
+  },
+  "EventInfo": {
+   "size": 56,
+   "fields": [
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "eventType",
+     "type": "Il2CppType*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "parent",
+     "type": "TypeInfo*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "add",
+     "type": "MethodInfo*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 96
+    },
+    {
+     "name": "remove",
+     "type": "MethodInfo*",
+     "offset": 32,
+     "size": 8,
+     "arrayItemSize": 96
+    },
+    {
+     "name": "raise",
+     "type": "MethodInfo*",
+     "offset": 40,
+     "size": 8,
+     "arrayItemSize": 96
+    },
+    {
+     "name": "customAttributeIndex",
+     "type": "int32_t",
+     "offset": 48,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    }
+   ]
+  },
+  "ParameterInfo": {
+   "size": 32,
+   "fields": [
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "position",
+     "type": "int32_t",
+     "offset": 8,
+     "size": 4
+    },
+    {
+     "name": "token",
+     "type": "uint32_t",
+     "offset": 12,
+     "size": 4
+    },
+    {
+     "name": "customAttributeIndex",
+     "type": "int32_t",
+     "offset": 16,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    },
+    {
+     "name": "parameter_type",
+     "type": "Il2CppType*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 12
+    }
+   ]
+  },
+  "Il2CppGenericMethodFunctions": {
+   "size": 16,
+   "fields": [
+    {
+     "name": "genericMethod",
+     "type": "Il2CppGenericMethod*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 16
+    },
+    {
+     "name": "methodPointerIndex",
+     "type": "uint32_t",
+     "offset": 8,
+     "size": 4
+    },
+    {
+     "name": "invokerMethodPointerIndex",
+     "type": "uint32_t",
+     "offset": 12,
+     "size": 4
+    }
+   ]
+  },
+  "Il2CppRGCTXData": {
+   "size": 8,
+   "fields": [
+    {
+     "name": "rgctxDataDummy",
+     "type": "void*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "method",
+     "type": "MethodInfo*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 96
+    },
+    {
+     "name": "type",
+     "type": "Il2CppType*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "klass",
+     "type": "TypeInfo*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 248
+    }
+   ],
+   "union": true
+  },
+  "Il2CppRGCTXDefinitionData": {
+   "size": 8,
+   "fields": [
+    {
+     "name": "rgctxDataDummy",
+     "type": "void*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "method",
+     "type": "Il2CppGenericMethod*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 16
+    },
+    {
+     "name": "type",
+     "type": "Il2CppType*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 12
+    }
+   ],
+   "union": true
+  },
+  "Il2CppRGCTXDefinition": {
+   "size": 16,
+   "fields": [
+    {
+     "name": "type",
+     "type": "Il2CppRGCTXDataType",
+     "offset": 0,
+     "size": 4
+    },
+    {
+     "name": "data",
+     "type": "Il2CppRGCTXDefinitionData",
+     "offset": 8,
+     "size": 8
+    }
+   ]
+  },
+  "Il2CppRGCTX": {
+   "size": 8,
+   "fields": [
+    {
+     "name": "dummy",
+     "type": "void*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "data",
+     "type": "Il2CppRGCTXData*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "definition",
+     "type": "Il2CppRGCTXDefinition*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 16
+    }
+   ],
+   "union": true
+  },
+  "MethodInfo": {
+   "size": 96,
+   "fields": [
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "method",
+     "type": "methodPointerType",
+     "offset": 8,
+     "size": 8
+    },
+    {
+     "name": "declaring_type",
+     "type": "TypeInfo*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "return_type",
+     "type": "Il2CppType*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "invoker_method",
+     "type": "InvokerMethod",
+     "offset": 32,
+     "size": 8
+    },
+    {
+     "name": "parameters",
+     "type": "ParameterInfo*",
+     "offset": 40,
+     "size": 8,
+     "arrayItemSize": 32
+    },
+    {
+     "name": "customAttributeIndex",
+     "type": "int32_t",
+     "offset": 48,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    },
+    {
+     "name": "flags",
+     "type": "uint16_t",
+     "offset": 52,
+     "size": 2
+    },
+    {
+     "name": "iflags",
+     "type": "uint16_t",
+     "offset": 54,
+     "size": 2
+    },
+    {
+     "name": "slot",
+     "type": "uint16_t",
+     "offset": 56,
+     "size": 2
+    },
+    {
+     "name": "parameters_count",
+     "type": "uint8_t",
+     "offset": 58,
+     "size": 1
+    },
+    {
+     "name": "is_generic",
+     "type": "bool",
+     "offset": 59,
+     "size": 1
+    },
+    {
+     "name": "is_inflated",
+     "type": "bool",
+     "offset": 60,
+     "size": 1
+    },
+    {
+     "name": "token",
+     "type": "uint32_t",
+     "offset": 64,
+     "size": 4
+    },
+    {
+     "name": "rgctx_data",
+     "type": "Il2CppRGCTX",
+     "offset": 72,
+     "size": 8
+    },
+    {
+     "name": "native_delegate_wrapper",
+     "type": "methodPointerType",
+     "offset": 80,
+     "size": 8
+    },
+    {
+     "name": "genericDummy",
+     "type": "void*",
+     "offset": 88,
+     "size": 8,
+     "arrayItemSize": 8,
+     "union": true
+    },
+    {
+     "name": "genericMethod",
+     "type": "Il2CppGenericMethod*",
+     "offset": 88,
+     "size": 8,
+     "arrayItemSize": 16,
+     "union": true
+    },
+    {
+     "name": "genericContainer",
+     "type": "Il2CppGenericContainer*",
+     "offset": 88,
+     "size": 8,
+     "arrayItemSize": 8,
+     "union": true
+    }
+   ]
+  },
+  "Il2CppInterfaceOffsetPair": {
+   "size": 16,
+   "fields": [
+    {
+     "name": "interfaceType",
+     "type": "Il2CppType*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "offset",
+     "type": "int32_t",
+     "offset": 8,
+     "size": 4
+    }
+   ]
+  },
+  "Il2CppRuntimeInterfaceOffsetPair": {
+   "size": 16,
+   "fields": [
+    {
+     "name": "interfaceType",
+     "type": "TypeInfo*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "offset",
+     "type": "int32_t",
+     "offset": 8,
+     "size": 4
+    }
+   ]
+  },
+  "Il2CppMethodReference": {
+   "size": 8,
+   "fields": [
+    {
+     "name": "dummy",
+     "type": "void*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "method",
+     "type": "MethodInfo*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 96
+    },
+    {
+     "name": "genericMethod",
+     "type": "Il2CppGenericMethod*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 16
+    }
+   ],
+   "union": true
+  },
+  "Il2CppTypeDefinitionMetadata": {
+   "size": 72,
+   "fields": [
+    {
+     "name": "declaringType",
+     "type": "Il2CppType*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "nestedTypes",
+     "type": "Il2CppType**",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "implementedInterfaces",
+     "type": "Il2CppType**",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "interfaceOffsets",
+     "type": "Il2CppInterfaceOffsetPair*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 16
+    },
+    {
+     "name": "parent",
+     "type": "Il2CppType*",
+     "offset": 32,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "vtableMethods",
+     "type": "Il2CppMethodReference*",
+     "offset": 40,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "vtableEntryIsGenericMethod",
+     "type": "bool*",
+     "offset": 48,
+     "size": 8,
+     "arrayItemSize": 1
+    },
+    {
+     "name": "rgctxDefinition",
+     "type": "Il2CppRGCTXDefinition*",
+     "offset": 56,
+     "size": 8,
+     "arrayItemSize": 16
+    },
+    {
+     "name": "fieldStart",
+     "type": "int32_t",
+     "offset": 64,
+     "size": 4,
+     "realType": "FieldIndex"
+    }
+   ]
+  },
+  "Il2CppRuntimeMetadata": {
+   "size": 56,
+   "fields": [
+    {
+     "name": "declaringType",
+     "type": "TypeInfo*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "nestedTypes",
+     "type": "TypeInfo**",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "implementedInterfaces",
+     "type": "TypeInfo**",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "interfaceOffsets",
+     "type": "Il2CppRuntimeInterfaceOffsetPair*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 16
+    },
+    {
+     "name": "parent",
+     "type": "TypeInfo*",
+     "offset": 32,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "castClass",
+     "type": "TypeInfo*",
+     "offset": 40,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "fields",
+     "type": "FieldInfo*",
+     "offset": 48,
+     "size": 8,
+     "arrayItemSize": 32
+    }
+   ]
+  },
+  "TypeInfo": {
+   "size": 248,
+   "fields": [
+    {
+     "name": "image",
+     "type": "Il2CppImage*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 120
+    },
+    {
+     "name": "gc_desc",
+     "type": "void*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "namespaze",
+     "type": "char*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "methods",
+     "type": "MethodInfo**",
+     "offset": 32,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "properties",
+     "type": "PropertyInfo**",
+     "offset": 40,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "events",
+     "type": "EventInfo**",
+     "offset": 48,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "element_class",
+     "type": "TypeInfo*",
+     "offset": 56,
+     "size": 8,
+     "arrayItemSize": 248
+    },
+    {
+     "name": "vtable",
+     "type": "MethodInfo**",
+     "offset": 64,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "customAttributeIndex",
+     "type": "int32_t",
+     "offset": 72,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    },
+    {
+     "name": "byval_arg",
+     "type": "Il2CppType*",
+     "offset": 80,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "this_arg",
+     "type": "Il2CppType*",
+     "offset": 88,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "definitionMetadata",
+     "type": "Il2CppTypeDefinitionMetadata*",
+     "offset": 96,
+     "size": 8,
+     "arrayItemSize": 72
+    },
+    {
+     "name": "runtimeMetadata",
+     "type": "Il2CppRuntimeMetadata*",
+     "offset": 104,
+     "size": 8,
+     "arrayItemSize": 56
+    },
+    {
+     "name": "generic_class",
+     "type": "Il2CppGenericClass*",
+     "offset": 112,
+     "size": 8,
+     "arrayItemSize": 24
+    },
+    {
+     "name": "generic_container",
+     "type": "Il2CppGenericContainer*",
+     "offset": 120,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "static_fields",
+     "type": "void*",
+     "offset": 128,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "rgctx_data",
+     "type": "Il2CppRGCTX",
+     "offset": 136,
+     "size": 8
+    },
+    {
+     "name": "pinvoke_delegate_wrapper",
+     "type": "methodPointerType",
+     "offset": 144,
+     "size": 8
+    },
+    {
+     "name": "marshal_to_native_func",
+     "type": "methodPointerType",
+     "offset": 152,
+     "size": 8
+    },
+    {
+     "name": "marshal_from_native_func",
+     "type": "methodPointerType",
+     "offset": 160,
+     "size": 8
+    },
+    {
+     "name": "marshal_cleanup_func",
+     "type": "methodPointerType",
+     "offset": 168,
+     "size": 8
+    },
+    {
+     "name": "instance_size",
+     "type": "uint32_t",
+     "offset": 176,
+     "size": 4
+    },
+    {
+     "name": "actualSize",
+     "type": "uint32_t",
+     "offset": 180,
+     "size": 4
+    },
+    {
+     "name": "element_size",
+     "type": "uint32_t",
+     "offset": 184,
+     "size": 4
+    },
+    {
+     "name": "native_size",
+     "type": "int32_t",
+     "offset": 188,
+     "size": 4
+    },
+    {
+     "name": "static_fields_size",
+     "type": "uint32_t",
+     "offset": 192,
+     "size": 4
+    },
+    {
+     "name": "thread_static_fields_size",
+     "type": "uint32_t",
+     "offset": 196,
+     "size": 4
+    },
+    {
+     "name": "thread_static_fields_offset",
+     "type": "int32_t",
+     "offset": 200,
+     "size": 4
+    },
+    {
+     "name": "flags",
+     "type": "uint32_t",
+     "offset": 204,
+     "size": 4
+    },
+    {
+     "name": "rank",
+     "type": "uint8_t",
+     "offset": 208,
+     "size": 1
+    },
+    {
+     "name": "minimumAlignment",
+     "type": "uint8_t",
+     "offset": 209,
+     "size": 1
+    },
+    {
+     "name": "valuetype",
+     "type": "bool",
+     "offset": 210,
+     "size": 1
+    },
+    {
+     "name": "initialized",
+     "type": "bool",
+     "offset": 211,
+     "size": 1
+    },
+    {
+     "name": "enumtype",
+     "type": "bool",
+     "offset": 212,
+     "size": 1
+    },
+    {
+     "name": "is_generic",
+     "type": "bool",
+     "offset": 213,
+     "size": 1
+    },
+    {
+     "name": "has_references",
+     "type": "bool",
+     "offset": 214,
+     "size": 1
+    },
+    {
+     "name": "init_pending",
+     "type": "bool",
+     "offset": 215,
+     "size": 1
+    },
+    {
+     "name": "size_inited",
+     "type": "bool",
+     "offset": 216,
+     "size": 1
+    },
+    {
+     "name": "has_finalize",
+     "type": "bool",
+     "offset": 217,
+     "size": 1
+    },
+    {
+     "name": "has_cctor",
+     "type": "bool",
+     "offset": 218,
+     "size": 1
+    },
+    {
+     "name": "is_blittable",
+     "type": "bool",
+     "offset": 219,
+     "size": 1
+    },
+    {
+     "name": "method_count",
+     "type": "uint16_t",
+     "offset": 220,
+     "size": 2
+    },
+    {
+     "name": "property_count",
+     "type": "uint16_t",
+     "offset": 222,
+     "size": 2
+    },
+    {
+     "name": "field_count",
+     "type": "uint16_t",
+     "offset": 224,
+     "size": 2
+    },
+    {
+     "name": "event_count",
+     "type": "uint16_t",
+     "offset": 226,
+     "size": 2
+    },
+    {
+     "name": "nested_type_count",
+     "type": "uint16_t",
+     "offset": 228,
+     "size": 2
+    },
+    {
+     "name": "vtable_count",
+     "type": "uint16_t",
+     "offset": 230,
+     "size": 2
+    },
+    {
+     "name": "interfaces_count",
+     "type": "uint16_t",
+     "offset": 232,
+     "size": 2
+    },
+    {
+     "name": "interface_offsets_count",
+     "type": "uint16_t",
+     "offset": 234,
+     "size": 2
+    },
+    {
+     "name": "cctor_started",
+     "type": "uint32_t",
+     "offset": 236,
+     "size": 4
+    },
+    {
+     "name": "cctor_finished",
+     "type": "uint32_t",
+     "offset": 240,
+     "size": 4
+    }
+   ]
+  },
+  "Il2CppAssemblyName": {
+   "size": 72,
+   "fields": [
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "culture",
+     "type": "char*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "hash_value",
+     "type": "char*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "public_key",
+     "type": "char*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "public_key_token",
+     "type": "uint8_t[17]",
+     "offset": 32,
+     "size": 17,
+     "realType": "uint8_t",
+     "arrayItemSize": 1
+    },
+    {
+     "name": "hash_alg",
+     "type": "uint32_t",
+     "offset": 52,
+     "size": 4
+    },
+    {
+     "name": "hash_len",
+     "type": "uint32_t",
+     "offset": 56,
+     "size": 4
+    },
+    {
+     "name": "flags",
+     "type": "uint32_t",
+     "offset": 60,
+     "size": 4
+    },
+    {
+     "name": "major",
+     "type": "uint16_t",
+     "offset": 64,
+     "size": 2
+    },
+    {
+     "name": "minor",
+     "type": "uint16_t",
+     "offset": 66,
+     "size": 2
+    },
+    {
+     "name": "build",
+     "type": "uint16_t",
+     "offset": 68,
+     "size": 2
+    },
+    {
+     "name": "revision",
+     "type": "uint16_t",
+     "offset": 70,
+     "size": 2
+    }
+   ]
+  },
+  "Il2CppImage": {
+   "size": 120,
+   "fields": [
+    {
+     "name": "name",
+     "type": "char*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "assembly",
+     "type": "Il2CppAssembly*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 88
+    },
+    {
+     "name": "types",
+     "type": "TypeInfo**",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "typeCount",
+     "type": "size_t",
+     "offset": 24,
+     "size": 8
+    },
+    {
+     "name": "entryPoint",
+     "type": "MethodInfo*",
+     "offset": 32,
+     "size": 8,
+     "arrayItemSize": 96
+    },
+    {
+     "name": "strings",
+     "type": "char**",
+     "offset": 40,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "stringsCount",
+     "type": "int32_t",
+     "offset": 48,
+     "size": 4,
+     "realType": "StringIndex"
+    },
+    {
+     "name": "fields",
+     "type": "Il2CppFieldDefinition*",
+     "offset": 56,
+     "size": 8,
+     "arrayItemSize": 16
+    },
+    {
+     "name": "fieldsCount",
+     "type": "int32_t",
+     "offset": 64,
+     "size": 4,
+     "realType": "FieldIndex"
+    },
+    {
+     "name": "fieldDefaultValues",
+     "type": "Il2CppFieldDefaultValue*",
+     "offset": 72,
+     "size": 8,
+     "arrayItemSize": 12
+    },
+    {
+     "name": "fieldDefaultValuesCount",
+     "type": "int32_t",
+     "offset": 80,
+     "size": 4,
+     "realType": "DefaultValueIndex"
+    },
+    {
+     "name": "fieldDefaultValueData",
+     "type": "uint8_t*",
+     "offset": 88,
+     "size": 8,
+     "arrayItemSize": 1
+    },
+    {
+     "name": "fieldDefaultValueDataCount",
+     "type": "int32_t",
+     "offset": 96,
+     "size": 4,
+     "realType": "DefaultValueDataIndex"
+    },
+    {
+     "name": "customAttributeCount",
+     "type": "int32_t",
+     "offset": 100,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    },
+    {
+     "name": "customAttributeCaches",
+     "type": "CustomAttributesCache**",
+     "offset": 104,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "customAttributeGenerators",
+     "type": "CustomAttributesCacheGenerator*",
+     "offset": 112,
+     "size": 8,
+     "arrayItemSize": 8
+    }
+   ]
+  },
+  "Il2CppAssembly": {
+   "size": 88,
+   "fields": [
+    {
+     "name": "aname",
+     "type": "Il2CppAssemblyName",
+     "offset": 0,
+     "size": 72
+    },
+    {
+     "name": "image",
+     "type": "Il2CppImage*",
+     "offset": 72,
+     "size": 8,
+     "arrayItemSize": 120
+    },
+    {
+     "name": "customAttributeIndex",
+     "type": "int32_t",
+     "offset": 80,
+     "size": 4,
+     "realType": "CustomAttributeIndex"
+    }
+   ]
+  },
+  "Il2CppDomain": {
+   "size": 32,
+   "fields": [
+    {
+     "name": "domain",
+     "type": "Il2CppAppDomain*",
+     "offset": 0,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "setup",
+     "type": "Il2CppObject*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "friendly_name",
+     "type": "char*",
+     "offset": 16,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "domain_id",
+     "type": "uint32_t",
+     "offset": 24,
+     "size": 4
+    }
+   ]
+  },
+  "Il2CppCodeRegistration": {
+   "size": 32,
+   "fields": [
+    {
+     "name": "methodPointersCount",
+     "type": "uint32_t",
+     "offset": 0,
+     "size": 4
+    },
+    {
+     "name": "methodPointers",
+     "type": "methodPointerType*",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "invokerPointersCount",
+     "type": "uint32_t",
+     "offset": 16,
+     "size": 4
+    },
+    {
+     "name": "invokerPointers",
+     "type": "InvokerMethod*",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 8
+    }
+   ]
+  },
+  "Il2CppMetadataRegistration": {
+   "size": 112,
+   "fields": [
+    {
+     "name": "assembliesCount",
+     "type": "uint32_t",
+     "offset": 0,
+     "size": 4
+    },
+    {
+     "name": "assemblies",
+     "type": "Il2CppAssembly**",
+     "offset": 8,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "genericClassesCount",
+     "type": "uint32_t",
+     "offset": 16,
+     "size": 4
+    },
+    {
+     "name": "genericClasses",
+     "type": "Il2CppGenericClass**",
+     "offset": 24,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "genericMethodsCount",
+     "type": "uint32_t",
+     "offset": 32,
+     "size": 4
+    },
+    {
+     "name": "genericMethods",
+     "type": "Il2CppGenericMethod**",
+     "offset": 40,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "genericInstsCount",
+     "type": "uint32_t",
+     "offset": 48,
+     "size": 4
+    },
+    {
+     "name": "genericInsts",
+     "type": "Il2CppGenericInst**",
+     "offset": 56,
+     "size": 8,
+     "arrayItemSize": 8
+    },
+    {
+     "name": "genericMethodTableCount",
+     "type": "uint32_t",
+     "offset": 64,
+     "size": 4
+    },
+    {
+     "name": "genericMethodTable",
+     "type": "Il2CppGenericMethodFunctions*",
+     "offset": 72,
+     "size": 8,
+     "arrayItemSize": 16
+    },
+    {
+     "name": "typesCount",
+     "type": "uint32_t",
+     "offset": 80,
+     "size": 4
+    },
+    {
+     "name": "types",
+     "type": "Il2CppType* ",
+     "offset": 88,
+     "size": 8,
+     "realType": "Il2CppType* const*"
+    },
+    {
+     "name": "methodReferencesCount",
+     "type": "uint32_t",
+     "offset": 96,
+     "size": 4
+    },
+    {
+     "name": "methodReferences",
+     "type": "Il2CppMethodReference*",
+     "offset": 104,
+     "size": 8,
+     "arrayItemSize": 8
+    }
+   ]
+  }
+ },
+ "enums": {
+  "Il2CppTypeEnum": "IL2CPP_TYPE_END=0x00,IL2CPP_TYPE_VOID=0x01,IL2CPP_TYPE_BOOLEAN=0x02,IL2CPP_TYPE_CHAR=0x03,IL2CPP_TYPE_I1=0x04,IL2CPP_TYPE_U1=0x05,IL2CPP_TYPE_I2=0x06,IL2CPP_TYPE_U2=0x07,IL2CPP_TYPE_I4=0x08,IL2CPP_TYPE_U4=0x09,IL2CPP_TYPE_I8=0x0a,IL2CPP_TYPE_U8=0x0b,IL2CPP_TYPE_R4=0x0c,IL2CPP_TYPE_R8=0x0d,IL2CPP_TYPE_STRING=0x0e,IL2CPP_TYPE_PTR=0x0f,IL2CPP_TYPE_BYREF=0x10,IL2CPP_TYPE_VALUETYPE=0x11,IL2CPP_TYPE_CLASS=0x12,IL2CPP_TYPE_VAR=0x13,IL2CPP_TYPE_ARRAY=0x14,IL2CPP_TYPE_GENERICINST=0x15,IL2CPP_TYPE_TYPEDBYREF=0x16,IL2CPP_TYPE_I=0x18,IL2CPP_TYPE_U=0x19,IL2CPP_TYPE_FNPTR=0x1b,IL2CPP_TYPE_OBJECT=0x1c,IL2CPP_TYPE_SZARRAY=0x1d,IL2CPP_TYPE_MVAR=0x1e,IL2CPP_TYPE_CMOD_REQD=0x1f,IL2CPP_TYPE_CMOD_OPT=0x20,IL2CPP_TYPE_INTERNAL=0x21,IL2CPP_TYPE_MODIFIER=0x40,IL2CPP_TYPE_SENTINEL=0x41,IL2CPP_TYPE_PINNED=0x45,IL2CPP_TYPE_ENUM=0x55",
+  "": "IL2CPP_CALL_DEFAULT,IL2CPP_CALL_C,IL2CPP_CALL_STDCALL,IL2CPP_CALL_THISCALL,IL2CPP_CALL_FASTCALL,IL2CPP_CALL_VARARG",
+  "Il2CppCharSet": "CHARSET_ANSI,CHARSET_UNICODE",
+  "Il2CppTypeNameFormat": "IL2CPP_TYPE_NAME_FORMAT_IL,IL2CPP_TYPE_NAME_FORMAT_REFLECTION,IL2CPP_TYPE_NAME_FORMAT_FULL_NAME,IL2CPP_TYPE_NAME_FORMAT_ASSEMBLY_QUALIFIED",
+  "Il2CppRGCTXDataType": "IL2CPP_RGCTX_DATA_INVALID,IL2CPP_RGCTX_DATA_TYPE,IL2CPP_RGCTX_DATA_CLASS,IL2CPP_RGCTX_DATA_METHOD"
+ },
+ "defines": {
+  "IL2CPP_ZERO_LEN_ARRAY": "0",
+  "unsigned int": "uint32_t",
+  "IL2CPP_PUBLIC_KEY_TOKEN_LENGTH": "17",
+  "TypeIndex": "int32_t",
+  "MethodIndex": "int32_t",
+  "FieldIndex": "int32_t",
+  "DefaultValueIndex": "int32_t",
+  "DefaultValueDataIndex": "int32_t",
+  "CustomAttributeIndex": "int32_t",
+  "StringIndex": "int32_t",
+  "il2cpp_generic_container_get_param(gc,i)": "(*((gc)->type_params + (i)))",
+  "IL2CPP_CLASS_IS_ARRAY(c)": "((c)->rank)",
+  "THREAD_STATIC_FIELD_OFFSET": "-1"
+ },
+ "typedefs": {}
+}
