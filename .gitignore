@@ -20,6 +20,8 @@ launchSettings.json
 !Test/Input/**/bin/
 !Test/Input/**/obj/
 
-# Rip output from RUN-TEST.bat, and the logs beside it.
+# Rip output and logs from RUN-TEST.bat. Every run rewrites these, so tracking them
+# means every run dirties the tree; upload the log to share it instead.
 Test/Output/
+Test/AssetRipper.log
 Test/AssetRipper-recovery.log
