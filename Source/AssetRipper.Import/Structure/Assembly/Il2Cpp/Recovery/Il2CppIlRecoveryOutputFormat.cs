@@ -53,6 +53,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	private readonly ConcurrentDictionary<string, int> invalidReasons = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, int> imbalanceShapes = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, string> imbalanceExamples = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, int> imbalanceNonBoundaryDetail = new(StringComparer.Ordinal);
 
 	private int failedMethodCount;
 	private int invalidMethodCount;
@@ -375,6 +376,20 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			return;
 		}
 
+		if (!exact)
+		{
+			// An offset that lands inside an instruction has to be explained before the shapes around it
+			// mean anything, so record how far inside, and whether the branches in this body carry
+			// instruction labels or raw offsets - a raw offset goes stale when offsets are recalculated.
+			CilInstruction covering = body.Instructions[index];
+			int into = offset - covering.Offset;
+			int rawOffsetLabels = body.Instructions.Count(i => i.Operand is CilOffsetLabel);
+
+			imbalanceNonBoundaryDetail.AddOrUpdate(
+				$"{into} bytes into {covering.OpCode.Mnemonic} (size {covering.Size}), body has {(rawOffsetLabels > 0 ? "raw offset labels" : "instruction labels only")}",
+				1, static (_, count) => count + 1);
+		}
+
 		// The instruction the imbalance was detected at, and the three before it: enough to see which
 		// construct the generator got wrong, short enough to group.
 		string opcodes = string.Join(" ", Enumerable
@@ -485,6 +500,11 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {total} stack imbalances across {imbalanceShapes.Count} distinct opcode shapes. " +
 				"A generator defect repeats a few shapes; unrelated shapes mean unrelated causes.");
+
+			foreach ((string detail, int count) in imbalanceNonBoundaryDetail.OrderByDescending(pair => pair.Value).Take(8))
+			{
+				Logger.Info(LogCategory.Import, $"Il2Cpp method body recovery: {count} imbalances reported {detail}");
+			}
 
 			foreach ((string shape, int count) in imbalanceShapes.OrderByDescending(pair => pair.Value).Take(ImbalanceShapesToReport))
 			{
