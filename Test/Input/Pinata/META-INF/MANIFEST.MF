@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Built-By: BundleTool
+Created-By: BundleTool
+
+Name: AndroidManifest.xml
+SHA1-Digest: sC2opSTC9p3micEvme6+AVkQdRQ=
+
+Name: lib/arm64-v8a/libFirebaseCppAnalytics.so
+SHA1-Digest: MUWn1ONoGLxXvwrb9OTlIes6G1c=
+
+Name: lib/arm64-v8a/libFirebaseCppApp-6_9_0.so
+SHA1-Digest: j7FENiaPZ9q2rMFOn2UNH+8Lr+8=
+
+Name: lib/arm64-v8a/libOni.so
+SHA1-Digest: xIyKxIdh3xoEWEJCJAfyrAfmiQk=
+
+Name: lib/arm64-v8a/libc++_shared.so
+SHA1-Digest: bHWN6wxiaezS3cJkpnij9qFhcig=
+
+Name: lib/arm64-v8a/libeasymobile.so
+SHA1-Digest: 2mZdmV8cfVCgst5hwPRp6qzQKdg=
+
+Name: lib/arm64-v8a/libil2cpp.so
+SHA1-Digest: dq8Aomm1HwALkXlC7Q8j4DEpS3U=
+
+Name: lib/arm64-v8a/libmain.so
+SHA1-Digest: rrOI7ilN+6T+esXSBXagws4Gjl0=
+
+Name: lib/arm64-v8a/libswappy.so
+SHA1-Digest: eH/ns9pJ75XlqXGVm9J3ry+VSi4=
+
+Name: lib/arm64-v8a/libswappyVk.so
+SHA1-Digest: GLkMq4ZWuJGzlflAHAX4YYnqJH4=
+
+Name: lib/arm64-v8a/libunity.so
+SHA1-Digest: Uh77X1kuxuDOuXWDfxPQnvQnSaQ=
+

@@ -1,0 +1,39 @@
+Signature-Version: 1.0
+Created-By: 1.0 (Android)
+SHA1-Digest-Manifest: K9Oo/B3qJ9Dl2CQx3z2WjGWS2E8=
+X-Android-APK-Signed: 2
+
+Name: AndroidManifest.xml
+SHA1-Digest: noFLwyMP3hG6GRNHiWxq7zvZnKE=
+
+Name: lib/arm64-v8a/libFirebaseCppAnalytics.so
+SHA1-Digest: bZGMzcINGAi6BDS92X+h4E0Sn+k=
+
+Name: lib/arm64-v8a/libFirebaseCppApp-6_9_0.so
+SHA1-Digest: FkBx24Wq3fBk+0UryvMWt841lXE=
+
+Name: lib/arm64-v8a/libOni.so
+SHA1-Digest: m7E1RGO5E3JBf+Kc5DWBwFCxqjE=
+
+Name: lib/arm64-v8a/libc++_shared.so
+SHA1-Digest: fzG5KoIe5oY5jd84/7+uLAhIYjI=
+
+Name: lib/arm64-v8a/libeasymobile.so
+SHA1-Digest: SA2vi5uE/2Plp1iBdqJVWm1kNNU=
+
+Name: lib/arm64-v8a/libil2cpp.so
+SHA1-Digest: ZeMwMRZe/UQJFCgw9z69Mbf1aes=
+
+Name: lib/arm64-v8a/libmain.so
+SHA1-Digest: 18m0h4cDXynnotwNWjjUYQrZN8A=
+
+Name: lib/arm64-v8a/libswappy.so
+SHA1-Digest: OlXSVozR+DlipVt1zwHfhgkIYcQ=
+
+Name: lib/arm64-v8a/libswappyVk.so
+SHA1-Digest: PZx0/ugXD5lrt05O+BH6HIN4r98=
+
+Name: lib/arm64-v8a/libunity.so
+SHA1-Digest: asa9TYqwK3P1FIKKo4ptuA+y1D8=
+
+

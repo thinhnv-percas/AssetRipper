@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "835460492219",
+    "firebase_url": "https://pinata-b2dfd.firebaseio.com",
+    "project_id": "pinata-b2dfd",
+    "storage_bucket": "pinata-b2dfd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835460492219:android:42336a77adbf6083eab29e",
+        "android_client_info": {
+          "package_name": "com.greenbuttongames.pinata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835460492219-hum8a8fgg2qki58962sq1aj6u00nuo1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC54eFEAca_xZ9pJ1lLFXSaDen6kkT_LVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835460492219-hum8a8fgg2qki58962sq1aj6u00nuo1o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "835460492219-eofjpna257am6sp8249tpcg0gnvqvemq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.greenbuttongames.pinatacrasher"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
