@@ -145,7 +145,7 @@ public sealed class NativeSourceInjectionProcessingLayer(NativeSourceOptions opt
 		try
 		{
 			method.Analyze();
-			return new PseudoCSharpWriter(annotator).Write(method, options.MaximumStatements);
+			return new PseudoCSharpWriter(annotator, method.AppContext).Write(method, options.MaximumStatements);
 		}
 		catch (Exception ex)
 		{

@@ -1,4 +1,5 @@
 using AssetRipper.Import.Structure.Assembly.Il2Cpp.StructDb;
+using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
 using System.Text;
@@ -9,26 +10,37 @@ namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 /// Renders a method's ISIL as approximate C#. Intended to be read, not compiled: control flow is
 /// expressed with labels and gotos, and unrecognised operations are left as comments.
 /// </summary>
-public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator)
+/// <param name="annotator">Names memory accesses from the runtime struct layouts, when one is loaded.</param>
+/// <param name="appContext">
+/// Used to put names to the addresses the lifter left bare. Optional: without it a call reads as
+/// <c>0x8D8204()</c>, which is an address and not much else.
+/// </param>
+public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, ApplicationAnalysisContext? appContext = null)
 {
 	/// <summary>Formats <paramref name="method"/>, which must already have been analysed.</summary>
 	/// <param name="method">The analysed method.</param>
 	/// <param name="maxLines">Stop after this many statements and say so, so one pathological method cannot dominate the output.</param>
 	public string Write(MethodAnalysisContext method, int maxLines = 400)
+		=> WriteInstructions(method.ConvertedIsil, annotator?.Annotate(method), maxLines);
+
+	/// <summary>
+	/// Formats an ISIL instruction list directly, for callers that have one without a method around it.
+	/// </summary>
+	public string WriteInstructions(List<Instruction>? instructions, Dictionary<int, string>? memoryAccessNames = null, int maxLines = 400)
 	{
-		List<Instruction>? instructions = method.ConvertedIsil;
 		if (instructions is null || instructions.Count == 0)
 		{
 			return "";
 		}
 
-		Dictionary<int, string> annotations = annotator?.Annotate(method) ?? [];
+		Dictionary<int, string> annotations = memoryAccessNames ?? [];
 		HashSet<int> labels = CollectLabels(instructions);
 
 		StringBuilder builder = new();
 		builder.Append("// Approximate reconstruction from native code. Reads as C#; does not compile.\n");
 
 		int written = 0;
+		int skipped = 0;
 		foreach (Instruction instruction in instructions)
 		{
 			if (written >= maxLines)
@@ -37,7 +49,18 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator)
 				break;
 			}
 
-			if (labels.Contains(instruction.Index))
+			bool isLabel = labels.Contains(instruction.Index);
+
+			// Noise is dropped rather than written, both because it buries the statements that matter
+			// and because every character competes for the injection budget. A label target is always
+			// written, since something jumps to it.
+			if (!isLabel && IsNoise(instruction, labels))
+			{
+				skipped++;
+				continue;
+			}
+
+			if (isLabel)
 			{
 				builder.Append($"L_{instruction.Index:X4}:\n");
 			}
@@ -47,7 +70,67 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator)
 			written++;
 		}
 
+		if (skipped > 0)
+		{
+			builder.Append($"// {skipped} bookkeeping instructions omitted: flag registers, address bases and no-ops.\n");
+		}
+
 		return builder.ToString();
+	}
+
+	/// <summary>
+	/// Whether an instruction is machine bookkeeping rather than program logic.
+	/// </summary>
+	/// <remarks>
+	/// Three kinds dominate an ARM64 body and none of them tells a reader anything: no-ops the lifter
+	/// emits for instructions it modelled away, comparisons whose only consumer is the conditional jump
+	/// that follows them, and the page-base half of an <c>adrp</c>/<c>add</c> address pair.
+	/// </remarks>
+	private static bool IsNoise(Instruction instruction, HashSet<int> labels)
+	{
+		switch (instruction.OpCode)
+		{
+			case OpCode.Nop:
+			case OpCode.Interrupt:
+				return true;
+
+			// A comparison into a flag register, immediately consumed by the branch. The branch prints
+			// its own condition, so this line is duplication.
+			case OpCode.CheckEqual or OpCode.CheckNotEqual or OpCode.Subtract
+				when instruction.Operands.Count >= 1 && IsFlagRegister(instruction.Operands[0]):
+				return true;
+
+			// adrp: a register loaded with a page-aligned constant, meaningful only once the low half
+			// is added. The add that follows prints the whole address.
+			case OpCode.Move when instruction.Operands.Count >= 2
+				&& instruction.Operands[0] is Register
+				&& instruction.Operands[1] is Immediate page
+				&& page.Value != 0
+				&& (page.Value & 0xFFF) == 0:
+				return true;
+
+			default:
+				return false;
+		}
+	}
+
+	/// <summary>
+	/// Whether an operand is one of the condition-code pseudo-registers the lifter uses for flags.
+	/// </summary>
+	private static bool IsFlagRegister(IOperand operand)
+	{
+		if (operand is not Register register)
+		{
+			return false;
+		}
+
+		string name = register.Name;
+
+		// Named by the instruction sets as Z, N, C, V and TEMP, sometimes with an SSA suffix.
+		int cut = name.IndexOf('_');
+		ReadOnlySpan<char> bare = cut < 0 ? name : name.AsSpan(0, cut);
+
+		return bare is "Z" or "N" or "C" or "V" or "TEMP";
 	}
 
 	private static HashSet<int> CollectLabels(List<Instruction> instructions)
@@ -80,6 +163,15 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator)
 				case Instruction destination:
 					target = destination.Index;
 					return true;
+
+				// Once the control flow graph is built the lifter rewrites branch operands to the block
+				// they enter. Without this case every branch in every method fell through to the default
+				// handler and was written as a comment, which is most of why the output read as a dump
+				// rather than as code.
+				case Block block when block.Instructions.Count > 0:
+					target = block.Instructions[0].Index;
+					return true;
+
 				case Immediate immediate:
 					target = (int)immediate.Value;
 					return true;
@@ -88,6 +180,42 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator)
 
 		target = -1;
 		return false;
+	}
+
+	/// <summary>
+	/// Puts a name to a call whose target the lifter left as a bare address.
+	/// </summary>
+	/// <remarks>
+	/// The lifter resolves the address, uses it, and then keeps only the number, so a call that Cpp2IL
+	/// knows perfectly well reads as <c>0x8D8204()</c>. Looking it up again here is free: this is text,
+	/// so unlike naming it in the generated IL there is no stack to get wrong.
+	/// </remarks>
+	private string DescribeAddress(long address)
+	{
+		if (appContext is null || address <= 0)
+		{
+			return FormatImmediate(address);
+		}
+
+		ulong target = (ulong)address;
+
+		if (appContext.MethodsByAddress.TryGetValue(target, out List<MethodAnalysisContext>? methods)
+			&& methods.Count > 0
+			&& methods[0].FullName is { Length: > 0 } name)
+		{
+			// Several methods can share an address once the compiler folds identical bodies; the first
+			// is as good a name as any, and the address stays for anyone who needs to be sure.
+			string shared = methods.Count > 1 ? $" /* +{methods.Count - 1} sharing this address */" : "";
+			return $"{name}{shared}";
+		}
+
+		if (appContext.ThrowHelperNamesByAddress.TryGetValue(target, out string? helper)
+			&& !string.IsNullOrWhiteSpace(helper))
+		{
+			return $"{helper} /* throw helper */";
+		}
+
+		return FormatImmediate(address);
 	}
 
 	private string Format(Instruction instruction, Dictionary<int, string> annotations)
@@ -136,9 +264,9 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator)
 				return $"\t{Op(operands[0], instruction, annotations)} = -{Op(operands[1], instruction, annotations)};";
 
 			case OpCode.Call when operands.Count >= 2:
-				return $"\t{Op(operands[1], instruction, annotations)} = {Op(operands[0], instruction, annotations)}({Args(instruction, annotations, 2)});";
+				return $"\t{Op(operands[1], instruction, annotations)} = {CallTarget(operands[0], instruction, annotations)}({Args(instruction, annotations, 2)});";
 			case OpCode.Call or OpCode.CallVoid or OpCode.IndirectCall when operands.Count >= 1:
-				return $"\t{Op(operands[0], instruction, annotations)}({Args(instruction, annotations, 1)});";
+				return $"\t{CallTarget(operands[0], instruction, annotations)}({Args(instruction, annotations, 1)});";
 
 			case OpCode.Newobj when operands.Count >= 2:
 				return $"\t{Op(operands[0], instruction, annotations)} = new {Op(operands[1], instruction, annotations)}();";
@@ -183,8 +311,16 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator)
 		return string.Join(", ", parts);
 	}
 
+	/// <summary>Formats the target of a call, naming it when the operand is only an address.</summary>
+	private string CallTarget(IOperand operand, Instruction instruction, Dictionary<int, string> annotations)
+		=> operand is Immediate address
+			? DescribeAddress(address.Value)
+			: Op(operand, instruction, annotations);
+
 	private string Op(IOperand operand, Instruction instruction, Dictionary<int, string> annotations) => operand switch
 	{
+		Block block when block.Instructions.Count > 0 => $"L_{block.Instructions[0].Index:X4}",
+
 		MethodAnalysisContext method => method.FullName,
 		TypeAnalysisContext type => type.FullName,
 		FieldReference field => $"{field.Local.Name}.{field.Field.Name}",

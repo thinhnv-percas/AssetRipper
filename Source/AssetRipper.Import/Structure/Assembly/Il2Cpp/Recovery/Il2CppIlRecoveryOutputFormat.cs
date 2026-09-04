@@ -6,6 +6,8 @@ using AssetRipper.Import.Logging;
 using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core.OutputFormats;
 using System.Collections.Concurrent;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 
@@ -26,7 +28,7 @@ namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 /// reported as counts per distinct reason.
 /// </para>
 /// </remarks>
-public sealed class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlRecovery
+public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlRecovery
 {
 	/// <summary>Distinct reasons to name in the summary. Enough to see the pattern, not a wall of text.</summary>
 	private const int ReasonsToReport = 5;
@@ -55,8 +57,12 @@ public sealed class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlR
 	/// <summary>Methods whose generated IL did not verify and was replaced with a stub.</summary>
 	public int InvalidMethodCount => Volatile.Read(ref invalidMethodCount);
 
+	private ApplicationAnalysisContext? appContext;
+
 	public override List<AssemblyDefinition> BuildAssemblies(ApplicationAnalysisContext context)
 	{
+		appContext = context;
+
 		List<AssemblyDefinition> assemblies = base.BuildAssemblies(context);
 		LogSummary();
 		return assemblies;
@@ -74,7 +80,121 @@ public sealed class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlR
 		}
 
 		ReplaceIfUnverifiable(methodDefinition);
+		NamePlaceholderAddresses(methodDefinition.CilMethodBody);
 	}
+
+	/// <summary>
+	/// Puts names to the addresses in the placeholder messages the generator leaves in a body.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Where the generator cannot resolve a call it emits <c>Console.WriteLine("Method not found @ACC5DC")</c>,
+	/// which reads as nothing at all even though Cpp2IL resolved that address earlier in the run and
+	/// then kept only the number. Appending the name turns the line into
+	/// <c>Method not found @ACC5DC (UnityEngine.Object.op_Implicit)</c>.
+	/// </para>
+	/// <para>
+	/// This only rewrites the text inside an existing <c>ldstr</c>. Naming the call properly — replacing
+	/// the placeholder with a real call instruction — changes how many operands the body consumes, and
+	/// measuring that showed it unbalances the stack in about a thousand methods, which then lose their
+	/// body entirely. A longer string costs nothing.
+	/// </para>
+	/// </remarks>
+	private void NamePlaceholderAddresses(CilMethodBody? body)
+	{
+		if (appContext is null || body is null)
+		{
+			return;
+		}
+
+		foreach (CilInstruction instruction in body.Instructions)
+		{
+			if (instruction.OpCode.Code != CilCode.Ldstr || instruction.Operand is not string text)
+			{
+				continue;
+			}
+
+			if (TryNameAddressesIn(text, out string? named))
+			{
+				instruction.Operand = named;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Rewrites every hex address in a placeholder message that resolves to something with a name.
+	/// </summary>
+	private bool TryNameAddressesIn(string text, [NotNullWhen(true)] out string? named)
+	{
+		named = null;
+
+		// Both placeholder shapes the generator emits: "@<hex>" for a call and "[<hex>]" for a load.
+		MatchCollection matches = PlaceholderAddress().Matches(text);
+		if (matches.Count == 0)
+		{
+			return false;
+		}
+
+		string result = text;
+		bool changed = false;
+
+		foreach (Match match in matches)
+		{
+			string hex = match.Groups["address"].Value;
+			if (!ulong.TryParse(hex, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out ulong address))
+			{
+				continue;
+			}
+
+			if (TryDescribe(address) is not string description)
+			{
+				continue;
+			}
+
+			// Appended rather than substituted: the address is how a reader cross-checks against the
+			// binary, and it is what the [Address] attribute on the method is expressed in.
+			result = result.Replace(match.Value, $"{match.Value} ({description})", StringComparison.Ordinal);
+			changed = true;
+		}
+
+		if (!changed)
+		{
+			return false;
+		}
+
+		named = result;
+		return true;
+	}
+
+	private string? TryDescribe(ulong address)
+	{
+		if (appContext is null || address == 0)
+		{
+			return null;
+		}
+
+		if (appContext.MethodsByAddress.TryGetValue(address, out List<MethodAnalysisContext>? methods)
+			&& methods.Count > 0
+			&& methods[0].FullName is { Length: > 0 } name)
+		{
+			return methods.Count > 1 ? $"{name} +{methods.Count - 1}" : name;
+		}
+
+		return appContext.ThrowHelperNamesByAddress.TryGetValue(address, out string? helper)
+			&& !string.IsNullOrWhiteSpace(helper)
+				? helper
+				: null;
+	}
+
+	/// <summary>
+	/// Matches the hex address in <c>@ABCDEF</c> and <c>[ABCDEF]</c>.
+	/// </summary>
+	/// <remarks>
+	/// Source generated rather than constructed: this assembly builds AOT compatible, where
+	/// <see cref="RegexOptions.Compiled"/> silently falls back to the interpreter.
+	/// </remarks>
+	[GeneratedRegex(@"[@\[](?<address>[0-9A-Fa-f]{4,16})\]?")]
+	private static partial Regex PlaceholderAddress();
 
 	/// <summary>
 	/// Replaces a generated body that does not verify with a stub.
