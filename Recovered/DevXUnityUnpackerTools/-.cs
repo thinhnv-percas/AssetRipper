@@ -1,4 +1,4 @@
-﻿using APK;
+using APK;
 using @as;
 using BrotliSharpLib;
 using DevX.Cecil;
@@ -76308,45 +76308,7 @@ internal class _0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020
 	[FunAttr(Num = "D14F41DF6EBE5FDBBDFA2A8699757320")]
 	internal static string _0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_0020()
 	{
-		if (CrackSettings.AllowActivation)
-		{
-			return "OK";
-		}
-		try
-		{
-			CustomString f = DevXSystemInfo.get_MachineName();
-			CustomString customString = "";
-			CustomString f2 = "";
-			CustomString f3 = "";
-			CustomString customString2 = (CustomString)"";
-			CustomInt customInt = false;
-			ulong ul = ManyCodeCls.GetUl2();
-			try
-			{
-				f = ConvertNameToHash.Get();
-				customString = HiddenCalls.CallString("155129864");
-				f2 = (DevXSystemInfo.CurrentCulture ?? "");
-				f3 = (DevXSystemInfo.UserName ?? "").ToLower() + "@" + DevXSystemInfo.get_MachineName();
-				customInt = HiddenCalls.Call2("1946453154");
-			}
-			catch (Exception)
-			{
-			}
-			try
-			{
-				CustomString d = HiddenCalls.CallString("1868773426") + "/License/VerifyLicense";
-				CustomString d2 = (string)((string)("LicenseNumber=" + customString + "&BindingID=" + f + "&Name=" + f3 + "&Hash=" + MaybeHashCalc.Calc(customString + "-" + f + "-" + f3) + "&Version=" + "10.06" + "&Is64BitProcess=" + (DevXSystemInfo.Is64BitProcess ? "1" : "0") + "&HVer=" + ul.ToString("X16") + "&THVer=") + (ulong)((long)ul ^ (long)(DateTime.UtcNow.DayOfYear * 17454591)) + "&LicenseType=" + HiddenCalls.CallString("2141342825") + "&DateTime=" + DateTime.Now.ToString("yyyy.MM.dd") + "&SystemLanguage=" + f2 + "&VerifyProjectLicense=") + customInt + "&OSVersion=" + DevXSystemInfo.OSVersion.ToString();
-				return WebReqManager.MakeReq2(d, d2);
-			}
-			catch (Exception arg)
-			{
-				return "Exception: " + arg;
-			}
-		}
-		catch
-		{
-		}
-		return null;
+		return "OK";
 	}
 }
 internal class _0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_0020_000A_000A_000A
@@ -76367,10 +76329,6 @@ internal class _0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A
 	[FunAttr(Num = "45E88175F1B0C69769DB8168CB128641")]
 	internal static void _0020_0020_000A_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_0020_000A_000A()
 	{
-		if (!CrackSettings.AllowOffline)
-		{
-			CheckUpdateAgain();
-		}
 	}
 
 	[FunAttr(Num = "EF9A31E0898E2CE244487A2294C9363D")]

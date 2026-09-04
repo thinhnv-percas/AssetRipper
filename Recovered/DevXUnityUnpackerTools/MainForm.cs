@@ -1,4 +1,4 @@
-﻿using @as;
+using @as;
 using BrotliSharpLib;
 using DevX.Cecil;
 using DevX.Cecil.Cil;
@@ -593,18 +593,6 @@ public class MainForm : Form
 
 		internal void CheckIsNewVer()
 		{
-			try
-			{
-				if (new Version(CrackWindow.CrackVersion) < new Version(currentVersion))
-				{
-					form.UpdateBtn.Visible = true;
-					form.UpdateBtn.Text = "Exist new crack ver\n" + currentVersion;
-				}
-			}
-			catch
-			{
-				form.UpdateBtn.Text = "Exist new crack ver\n" + currentVersion;
-			}
 		}
 	}
 
@@ -1641,22 +1629,6 @@ public class MainForm : Form
 
 	internal bool ValidLic()
 	{
-		if (CrackSettings.AllowActivation)
-		{
-			return true;
-		}
-		ConsoleData consoleData = AssetParser.GetConsoleData(new VerFormat(0, 0, 0, "TST"), 0, "Connetion.Test");
-		if (consoleData == null)
-		{
-			"Connection to server - Error 1".LogErrToConsole();
-			return false;
-		}
-		if (consoleData._0020_000A_0020_0020_0020_0020_000A_0020_000A_000A_0020_0020_000A_000A_0020_000A("Test")?._0020_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A_0020_000A_000A?._0020_000A_000A_000A_0020_0020_0020_000A_000A_0020_0020_000A_0020_0020_000A != "ConnectionOK")
-		{
-			"Connection to server - Error 2".LogErrToConsole();
-			return false;
-		}
-		ConsoleManager._0020_0020_000A_0020_000A_000A_000A_0020_000A_0020_0020_000A_0020_0020_000A_000A("Connection to server - OK");
 		return true;
 	}
 
@@ -6827,7 +6799,6 @@ public class MainForm : Form
 			Text += TranslationManager.TryGetTranslated(1024711294);
 		}
 		Text += (Environment.Is64BitProcess ? "x64" : "x32");
-		Text = Text;//+ " Crack Ver " + CrackWindow.CrackVersion;
 		// Anti-tamper canary #3, defused — the inverted one, and by far the most damaging.
 		// This block only runs when Assembly.Location does NOT name
 		// DevXUnityUnpackerTools.dll, i.e. only in a genuine install, where Tools is loaded
@@ -7576,10 +7547,7 @@ public class MainForm : Form
 	{
 		_0020_0020_000A_0020_000A_000A_0020_0020_0020_000A_0020_000A_0020_0020_0020_0020(tabPage);
 		mainTabPage = tabPage;
-		if (CrackSettings.AutoScene)
-		{
-			MakeScene(null, null);
-		}
+		MakeScene(null, null);
 		try
 		{
 			if (_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_000A_000A_000A_000A_0020.MainControll.GetParams(_0020, _0020_000A) != null)
@@ -8497,7 +8465,6 @@ public class MainForm : Form
 	[FunAttr(Num = "B703C15C798840775F95DCBD3F719F2F")]
 	internal void crackInfoClick(object _0020, EventArgs _0020_000A)
 	{
-		Loader.ShowCrackInfo();
 	}
 
 	[FunAttr(Num = "89CED0D4DC93EFEE717A3761F4A52F3F")]
@@ -8635,7 +8602,7 @@ public class MainForm : Form
 			_0020_0020_0020_000A_000A_000A_000A_000A_0020_0020_0020_000A_000A_000A_0020 = false;
 			ConsoleManager.WriteInfo("LocalDateTime: " + DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss (K)"));
 			ConsoleManager.WriteInfo("ServerDateTime: " + ManyCodeCls._0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020);
-			string text = CrackSettings.AllowOffline ? Loader.GetDate() : WebReqManager.MakeReq2((CustomString)(HiddenCalls.CallString("1868773426") + "/AppSecurityUnpackerTools/DateString"), "temp=" + DateTime.UtcNow.Ticks);
+			string text = Loader.GetDate();
 			string text2 = DateTime.UtcNow.ToString("yyyy.MM.dd");
 			if (DateTime.UtcNow.ToString("yyyy.MM.dd") != text)
 			{
@@ -12265,7 +12232,6 @@ public class MainForm : Form
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.BackColor = Color.FromArgb(75, 117, 181);
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.BackgroundImage = (Image)componentResourceManager.GetObject("panel_Top.BackgroundImage");
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.BackgroundImageLayout = ImageLayout.None;
-		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.Controls.Add(crackInfoBtn);
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.Controls.Add(_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020);
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.Controls.Add(_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020);
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.Controls.Add(_0020_0020_0020_000A_000A_000A_000A_0020_0020_0020_000A_0020_000A_000A_000A);
@@ -12275,22 +12241,6 @@ public class MainForm : Form
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.Name = "panel_Top";
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.Size = new Size(1321, 112);
 		_0020_000A_0020_0020_000A_000A_000A_000A_000A_0020_000A_0020_000A_000A_0020.TabIndex = 6;
-		crackInfoBtn.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
-		crackInfoBtn.AutoSize = true;
-		crackInfoBtn.BackColor = Color.Transparent;
-		crackInfoBtn.FlatAppearance.MouseDownBackColor = Color.Black;
-		crackInfoBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 192);
-		crackInfoBtn.FlatStyle = FlatStyle.Flat;
-		crackInfoBtn.ForeColor = Color.White;
-		crackInfoBtn.Image = Loader.getCrackPng();
-		crackInfoBtn.ImageAlign = ContentAlignment.MiddleLeft;
-		crackInfoBtn.Location = new Point(945, 52);
-		crackInfoBtn.Name = "crackInfoBtn";
-		crackInfoBtn.Size = new Size(186, 40);
-		crackInfoBtn.TabIndex = 23;
-		crackInfoBtn.Text = "Crack";
-		crackInfoBtn.UseVisualStyleBackColor = false;
-		crackInfoBtn.Click += crackInfoClick;
 		_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
 		_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020.AutoSize = true;
 		_0020_0020_0020_000A_000A_000A_0020_000A_000A_0020_0020_000A_000A_0020_0020.BackColor = Color.Transparent;
@@ -12916,13 +12866,6 @@ public class MainForm : Form
 	[CompilerGenerated]
 	internal void _0020_0020_000A_0020_000A_0020_000A_000A_000A_000A_0020_000A_0020_000A_000A_000A()
 	{
-		VersionManager versionManager = new VersionManager();
-		versionManager.form = this;
-		versionManager.currentVersion = CheckNewVerReqManager.CheckNewVerReq();
-		if (!string.IsNullOrEmpty(versionManager.currentVersion) && CrackWindow.CrackVersion != versionManager.currentVersion)
-		{
-			AddAction(versionManager.CheckIsNewVer);
-		}
 	}
 
 	[CompilerGenerated]

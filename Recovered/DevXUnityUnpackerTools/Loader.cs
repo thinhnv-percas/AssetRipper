@@ -1,4 +1,4 @@
-﻿using DevXUnityUnpackerTools.Properties;
+using DevXUnityUnpackerTools.Properties;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -56,17 +56,8 @@ internal class Loader
 
 	internal static void Load()
 	{
-		CrackSettings.Load();
 		DevXSystemInfo.DeviceName = Environment.MachineName;
 		DevXSystemInfo.UserName = Environment.UserName;
-		if (CrackSettings.AllowFakeDeviceInfo)
-		{
-			ChangeInfo();
-		}
-		if (CrackSettings.AllowOffline)
-		{
-			CrackSettings.AllowActivation = (CrackSettings.AllowDemoAssetRead = true);
-		}
 		DevXSystemInfo.FullExecuteblePath = Process.GetCurrentProcess().MainModule.FileName;
 		DevXSystemInfo.TempPath = Path.GetTempPath();
 		DevXSystemInfo.Is64BitProcess = Environment.Is64BitProcess;
@@ -155,7 +146,6 @@ internal class Loader
 		{
 			DbgLog.Ex("ENV", "probing StreamingAssets failed", ex);
 		}
-		DbgLog.W("ENV", "CrackSettings: AllowOffline=" + CrackSettings.AllowOffline + " AllowActivation=" + CrackSettings.AllowActivation + " AllowDemoAssetRead=" + CrackSettings.AllowDemoAssetRead);
 		DbgLog.W("ENV", "FileManager.FakePath = \"" + FileManager.FakePath + "\" (canary would compute \"" + FileManager.FakePathCanary + "\"; anything but \"\" breaks every filename lookup)");
 	}
 
@@ -167,8 +157,6 @@ internal class Loader
 
 	public static void ChangeInfo()
 	{
-		DevXSystemInfo.DeviceName = ((CrackSettings.AllowFakeDeviceInfo && CrackSettings.FakeMachineName != null && CrackSettings.FakeMachineName.Length != 0) ? CrackSettings.FakeMachineName : DevXSystemInfo.DeviceName);
-		DevXSystemInfo.UserName = ((CrackSettings.AllowFakeDeviceInfo && CrackSettings.FakeUserName != null && CrackSettings.FakeUserName.Length != 0) ? CrackSettings.FakeUserName : DevXSystemInfo.UserName);
 	}
 
 	public static string GetDate()
@@ -178,7 +166,7 @@ internal class Loader
 
 	public static Bitmap getCrackPng()
 	{
-		return (Bitmap)Resources.ResourceManager.GetObject("Fox");
+		return null;
 	}
 
 	static Loader()
@@ -188,100 +176,12 @@ internal class Loader
 
 	public static void ShowCrackInfo()
 	{
-		new SoundPlayer(new MemoryStream((byte[])Resources.ResourceManager.GetObject("FoxSound"))).Play();
-		new CrackWindow().ShowDialog(MainForm.instance);
 	}
 
 	public static void CheckConnection()
 	{
-		if (CrackSettings.AllowOffline)
-		{
-			ConsoleManager.WriteInfo("Connection ok to server: " + ServerLink.GetLink());
-			ManyCodeCls.LoadAssets();
-			MainForm.instance.AddAction(MainForm.instance.EnableSth1);
-		}
-		else
-		{
-			try
-			{
-				string[] obj = new string[5]
-				{
-					"https://devxdevelopment.com",
-					"http://devxdevelopment.com",
-					"https://mirror.devxdevelopment.com",
-					"http://mirror.devxdevelopment.com",
-					"http://mirror2.devxdevelopment.com"
-				};
-				string text = null;
-				string[] array = obj;
-				foreach (string text2 in array)
-				{
-					try
-					{
-						if (text != "OK")
-						{
-							text = WebReqManager.MakeReq2(text2 + "/AppSecurityUnpackerTools/Ping", "temp=" + DateTime.UtcNow.Ticks.ToString(), 10);
-							if (text == "OK")
-							{
-								ServerLink.SetLink(text2);
-								break;
-							}
-							ConsoleManager.WriteInfo("Connection error to  server: " + text2 + ", res: " + text);
-						}
-					}
-					catch (Exception ex)
-					{
-						ConsoleManager.WriteInfo("Connection error to  server: " + text2 + "\r\n" + ex);
-					}
-				}
-				if (text == "OK")
-				{
-					ConsoleManager.WriteInfo("Connection ok to server: " + ServerLink.GetLink());
-					try
-					{
-						string text3 = WebReqManager.MakeReq2(ServerLink.GetLink() + "/AppSecurityUnpackerTools/RedirectTo", "temp=" + DateTime.UtcNow.Ticks.ToString(), 5);
-						if (text3 != null && text3.StartsWith("RedirectTo:"))
-						{
-							ConsoleManager.WriteInfo("Redirect to server: " + text3);
-							ServerLink.SetLink(text3.Substring("RedirectTo:".Length));
-						}
-					}
-					catch
-					{
-					}
-				}
-				if (text != "OK")
-				{
-					MaybeAlertManager.ShowAlert("There is no connection to devxdevelopment.com\nFor the correct operation of the program - you need a network connection.");
-					MainForm.instance.AddAction(MainForm.instance.killMe2);
-				}
-				else
-				{
-					string text4 = WebReqManager.MakeReq2(ServerLink.GetLink() + "/AppSecurityUnpackerTools/DateString", "temp=" + DateTime.UtcNow.Ticks.ToString());
-					string text5 = DateTime.UtcNow.ToString("yyyy.MM.dd");
-					if (DateTime.UtcNow.ToString("yyyy.MM.dd") != text4)
-					{
-						MaybeAlertManager.ShowAlert(TranslationManager.CalcHash("Warning! Server date and local date  not equal!!!\nFor the program to work, you need the date and time to be correct.(Server UTC date: " + text4 + ", Local UTC date=" + text5 + ")") + "---\n" + HashManager.DoNothing("Warning! Server date and local date  not equal!!!\nFor the program to work, you need the date and time to be correct.(Server UTC date: " + text4 + ", Local UTC date=" + text5 + ")"));
-					}
-					ManyCodeCls.LoadAssets();
-					MainForm.instance.AddAction(MainForm.instance.EnableSth1);
-				}
-			}
-			catch (Exception ex2)
-			{
-				MainForm.ExManager exManager = new MainForm.ExManager
-				{
-					instance = MainForm.instance
-				};
-				Exception ex3 = exManager.ex = ex2;
-				ConsoleManager.LogExeption(string.Concat(exManager.ex));
-				MainForm.instance.AddAction(exManager.kill);
-			}
-		}
-	}
-
-	public static Icon getCrackIcon()
-	{
-		return (Icon)Resources.ResourceManager.GetObject("FoxIco");
+		ConsoleManager.WriteInfo("Connection ok to server: " + ServerLink.GetLink());
+		ManyCodeCls.LoadAssets();
+		MainForm.instance.AddAction(MainForm.instance.EnableSth1);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [FunAttr(Num = "E47B28FE108668A6886A190535D79F31")]
@@ -12,11 +12,11 @@ internal class RequestManager
 
 	public static string TryMakeRequest(string method, string licType, string ver)
 	{
-		if (method.Contains("@@1298665970") && licType.Contains("UnpackerEditorStudio") && CrackSettings.AllowActivation)
+		if (method.Contains("@@1298665970") && licType.Contains("UnpackerEditorStudio"))
 		{
 			return "1997406664";
 		}
-		if (method.Contains("@@4292476482") && licType.Contains("UnpackerEditorStudio") && CrackSettings.AllowActivation)
+		if (method.Contains("@@4292476482") && licType.Contains("UnpackerEditorStudio"))
 		{
 			return "754242593";
 		}
@@ -26,27 +26,13 @@ internal class RequestManager
 		{
 			return RequestResults[text2.GetHashCode()];
 		}
-		if (CrackSettings.AllowDemoAssetRead && CrackRequestResults.ContainsKey(method))
+		if (CrackRequestResults.ContainsKey(method))
 		{
 			return CrackRequestResults[method];
 		}
-		if (CrackSettings.AllowDemoAssetRead && method.Contains("@@?"))
+		if (method.Contains("@@?"))
 		{
 			return someData;
-		}
-		if (!CrackSettings.AllowOffline)
-		{
-			try
-			{
-				if (text == null)
-				{
-					text = GetMethodManager.RequestMethod(method, licType, ver);
-				}
-				RequestResults[text2.GetHashCode()] = text;
-			}
-			catch (Exception)
-			{
-			}
 		}
 		if (method.Contains("CheckSupportUnityVersion"))
 		{

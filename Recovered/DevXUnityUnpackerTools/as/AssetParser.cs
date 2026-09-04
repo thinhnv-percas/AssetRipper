@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -107,14 +107,8 @@ namespace @as
 			}
 			try
 			{
-				// Nguồn duy nhất là typetreedb (JSON trên đĩa). Nhánh mạng cũ
-				// (MakeRequest -> devxdevelopment.com -> EncryptDecryptManager.Decrypt)
-				// đã bị gỡ: CrackSettings.AllowOffline mặc định true nên nó vốn đã
-				// không bao giờ chạy, và nó mang theo cả payload license lẫn nhánh
-				// "CleanProgramm:" do server điều khiển.
-				StrSth strSth = CrackSettings.AllowDemoAssetRead
-					? MakeDemoRequest(data.ver, i1, iArr, s, data.i)
-					: null;
+				// Nguồn duy nhất là typetreedb (JSON trên đĩa).
+				StrSth strSth = MakeDemoRequest(data.ver, i1, iArr, s, data.i);
 				if (!hashes.ContainsKey(hash))
 				{
 					hashes[hash] = null;

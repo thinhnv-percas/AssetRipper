@@ -1,4 +1,4 @@
-﻿using APK;
+using APK;
 using @as;
 using DevXForms;
 using ICSharpCode.SharpZipLib.Zip;
@@ -1486,25 +1486,7 @@ internal class ManyCodeCls : IContentInfo, IContent
 
 	internal static string _0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_000A => MaybeHashCalc._0020_000A_0020_0020_0020_000A_000A_000A_000A_000A_000A_000A_000A_0020_000A_000A("#RND?@GN16#C2D7F9CDB4000B4F");
 
-	internal static string _0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020
-	{
-		get
-		{
-			try
-			{
-				if (!CrackSettings.AllowOffline)
-				{
-					return WebReqManager.MakeReq2(HiddenCalls.CallString("1868773426") + "/AppSecurityUnpackerTools/DateString?temp=" + DateTime.Now.Ticks, "");
-				}
-				return Loader.GetDate();
-			}
-			catch (Exception ex)
-			{
-				ConsoleManager.WriteEx45(ex);
-				return "ERROR: " + ex.Message;
-			}
-		}
-	}
+	internal static string _0020_0020_000A_0020_000A_0020_000A_000A_0020_000A_0020_0020_0020_0020_0020_0020 => Loader.GetDate();
 
 	internal _0020_0020_000A_0020_000A_0020_000A_000A_000A_0020_000A_000A_000A_0020_0020_000A _0020_0020_000A_0020_000A_0020_000A_000A_0020_0020_000A_000A_000A_000A_000A_000A
 	{

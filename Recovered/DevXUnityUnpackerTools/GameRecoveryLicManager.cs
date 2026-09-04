@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 
 internal class GameRecoveryLicManager
 {
@@ -15,18 +15,6 @@ internal class GameRecoveryLicManager
 	{
 		get
 		{
-			if (LicenseData == null)
-			{
-				string licensePath = LicensePath;
-				if (FileManager.Exists(licensePath))
-				{
-					LicenseData = File.ReadAllText(licensePath);
-				}
-			}
-			if (!CrackSettings.AllowActivation)
-			{
-				return LicenseData;
-			}
 			return "CrackedLicense";
 		}
 		set
@@ -58,18 +46,6 @@ internal class GameRecoveryLicManager
 	{
 		get
 		{
-			if (ActivationData == null)
-			{
-				string activationPath = ActivationPath;
-				if (FileManager.Exists(activationPath))
-				{
-					ActivationData = File.ReadAllText(activationPath);
-				}
-			}
-			if (!CrackSettings.AllowActivation)
-			{
-				return ActivationData;
-			}
 			return "CrackedActivation";
 		}
 		set
@@ -125,30 +101,18 @@ internal class GameRecoveryLicManager
 	[FunAttr(Num = "185FC627893A32877273958A2F914F75")]
 	internal static string FormatLicenseNumber()
 	{
-		if (!CrackSettings.AllowActivation)
-		{
-			return HiddenCalls.CallObjectSafe1(null, "819648A8BF080ABC4B7A1305D9168587", License) as string;
-		}
 		return "Cracked";
 	}
 
 	[FunAttr(Num = "16B36A8E1F088A094F437370BE3D4E02")]
 	internal static string FormatLicense()
 	{
-		if (!CrackSettings.AllowActivation)
-		{
-			return HiddenCalls.CallObjectSafe1(null, "9ED6EF3A457AEEC94FE8BD99B21292DE", License) as string;
-		}
 		return License;
 	}
 
 	[FunAttr(Num = "1D33A916EF5CCA849368FD8169AA68F3")]
 	internal static string FormatActivation()
 	{
-		if (!CrackSettings.AllowActivation)
-		{
-			return HiddenCalls.CallObjectSafe1(null, "F801399EB007894F8DF1A5515C12E8BE", Activation) as string;
-		}
 		return Activation;
 	}
 
