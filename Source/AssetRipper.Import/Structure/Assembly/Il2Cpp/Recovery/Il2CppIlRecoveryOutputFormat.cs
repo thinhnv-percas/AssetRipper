@@ -1,5 +1,6 @@
 using AsmResolver.DotNet;
 using AsmResolver.DotNet.Code.Cil;
+using AsmResolver.DotNet.Signatures;
 using AsmResolver.PE.DotNet.Cil;
 using AssetRipper.CIL;
 using AssetRipper.Import.Logging;
@@ -58,7 +59,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	private int failedMethodCount;
 	private int invalidMethodCount;
 	private int repairedMethodCount;
-	private int insertedPopCount;
+	private int repairRoundCount;
 
 	/// <summary>Methods recovery was attempted on. Framework assemblies are stubbed and not counted.</summary>
 	public int AttemptedMethodCount => TotalMethodCount;
@@ -292,7 +293,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				if (round > 0)
 				{
 					Interlocked.Increment(ref repairedMethodCount);
-					Interlocked.Add(ref insertedPopCount, round);
+					Interlocked.Add(ref repairRoundCount, round);
 				}
 
 				return true;
@@ -325,6 +326,15 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		int index = IndexOfOffset(body, offset);
 		if (index < 0)
 		{
+			// The offset lands one past the last instruction, which is what AsmResolver reports when it
+			// walks off the end of a body: the generator left the method without a terminator, so the
+			// last instruction falls through into nothing. Terminating it is the repair.
+			if (TryTerminateBody(body, offset))
+			{
+				why = null;
+				return true;
+			}
+
 			why = "offset is not an instruction boundary";
 			return false;
 		}
@@ -416,6 +426,52 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		return -1;
 	}
 
+	/// <summary>
+	/// Appends a return to a body that runs off its own end.
+	/// </summary>
+	/// <remarks>
+	/// This is the dominant defect by count: 2379 of the imbalances in the test game report an offset
+	/// one byte past a trailing call, because nothing terminates the body. A method that returns a value
+	/// also needs something to return, and the default for its return type is the only honest choice -
+	/// the real value is whatever the native code would have produced, which is exactly what could not
+	/// be recovered.
+	/// </remarks>
+	private static bool TryTerminateBody(CilMethodBody body, int offset)
+	{
+		if (body.Instructions.Count == 0)
+		{
+			return false;
+		}
+
+		CilInstruction last = body.Instructions[^1];
+
+		// Only when the offset really is the end of this body, and the end really is unterminated.
+		if (offset != last.Offset + last.Size || IsTerminator(last))
+		{
+			return false;
+		}
+
+		if (body.Owner.Signature is { ReturnsValue: true } signature)
+		{
+			body.Instructions.AddDefaultValue(signature.ReturnType);
+		}
+
+		body.Instructions.Add(CilOpCodes.Ret);
+		return true;
+	}
+
+	/// <summary>Whether an instruction ends a basic block, so nothing falls through past it.</summary>
+	private static bool IsTerminator(CilInstruction instruction) => instruction.OpCode.Code
+		is CilCode.Ret
+		or CilCode.Throw
+		or CilCode.Rethrow
+		or CilCode.Br
+		or CilCode.Br_S
+		or CilCode.Leave
+		or CilCode.Leave_S
+		or CilCode.Endfinally
+		or CilCode.Jmp;
+
 	/// <summary>The instruction covering an offset, for an offset that is not itself a boundary.</summary>
 	private static int IndexAtOrBefore(CilMethodBody body, int offset)
 	{
@@ -473,9 +529,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		if (RepairedMethodCount > 0)
 		{
 			Logger.Info(LogCategory.Import,
-				$"Il2Cpp method body recovery: repaired the stack in {RepairedMethodCount} bodies by inserting " +
-				$"{Volatile.Read(ref insertedPopCount)} pops for call results the generator discarded without popping. " +
-				"Those bodies survive instead of becoming stubs.");
+				$"Il2Cpp method body recovery: repaired {RepairedMethodCount} bodies in " +
+				$"{Volatile.Read(ref repairRoundCount)} rounds - popping call results the generator discarded, and " +
+				"terminating bodies it left running off the end. Those bodies survive instead of becoming stubs.");
 		}
 
 		if (InvalidMethodCount > 0)
