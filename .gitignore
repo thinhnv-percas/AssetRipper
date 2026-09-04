@@ -12,3 +12,14 @@ bin
 *.blend1
 launchSettings.json
 .DS_Store
+
+# The 'bin' rule above targets build output, but a ripped Android game keeps its
+# metadata and asset bundles under assets/bin, so game data committed for testing
+# was being dropped silently. Re-including the directory is required: git will not
+# descend into an excluded one, so negating only the files has no effect.
+!Test/Input/**/bin/
+!Test/Input/**/obj/
+
+# Rip output from RUN-TEST.bat, and the logs beside it.
+Test/Output/
+Test/AssetRipper-recovery.log
