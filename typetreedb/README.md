@@ -6,8 +6,9 @@ DevXUnity-Unpacker. Nó là **type-tree của các class dựng sẵn trong Unit
 (layout struct C của runtime IL2CPP). Hai bộ dễ bị nhầm vì cùng được chọn theo
 Unity version.
 
-> **Thư mục này không chứa dữ liệu trong git.** Một bản DB đầy đủ nặng vài trăm MB,
-> gấp nhiều lần `structdb/`. Sinh tại chỗ bằng [`tools/typetreedb_gen.py`](../tools/typetreedb_gen.py)
+> **Thư mục này không chứa dữ liệu trong git.** Bootstrap đầy đủ từ `ClassAll.zip`
+> ra 723 version gộp còn 313 file, **~1,6 GB** ở `indent=1` (`--compact` còn khoảng
+> một nửa) — gấp nhiều lần `structdb/`. Sinh tại chỗ bằng [`tools/typetreedb_gen.py`](../tools/typetreedb_gen.py)
 > rồi copy vào `StreamingAssets/typetreedb/` — `.gitignore` đã loại `*.json` ở đây.
 
 Loader phía C#: [`UnityTypeTreeDb.cs`](../Recovered/DevXUnityUnpackerTools/UnityTypeTreeDb.cs).
@@ -20,12 +21,16 @@ Nhánh `ClassAll.zip` cũ đã bị gỡ khỏi mã nguồn; hai file zip đó c
 
 | Cũ (`ClassAll.zip`) | Mới (`typetreedb/`) |
 |---|---|
-| `File.ReadAllBytes` cả 81 MB, bung **toàn bộ 718 XML** ngay lần tra cứu đầu tiên, mỗi entry lại GZip nén ngược để giữ trong static dictionary | Đọc `index.json` (vài chục KB), nạp **đúng một file** khi cần, cache theo file |
+| `File.ReadAllBytes` cả 81 MB, bung **toàn bộ 718 entry** ngay lần tra cứu đầu tiên, mỗi entry lại GZip nén ngược để giữ trong static dictionary | Đọc `index.json` (vài chục KB), nạp **đúng một file** khi cần, cache theo file |
 | Tra cứu bằng `key.Contains("_v" + s)` trên toàn bộ 718 key, lặp cho **từng** chuỗi version ứng viên mà `AssetParser.Format2` sinh ra (cỡ hàng triệu chuỗi) | So sánh số: chọn bản mới nhất còn ≤ version yêu cầu |
 | `_c1` khớp nhầm `_c114`, `_c10`, `_c128` | Không có matching theo chuỗi |
 | Trần 2021.2.7f1, không có đường bổ sung | Thêm bản mới bằng một lệnh |
 | Thiếu file → `catch {}` rỗng → mọi type là unknown, không lỗi ở đâu | `Loader.LogEnvironment` probe và ghi cảnh báo vào `il2cpp-debug.log` |
-| XML nén trong ZIP, không diff được | JSON thuần, `git diff` đọc được |
+| Blob nhị phân `DVXTR1` nén trong ZIP, không diff được | JSON thuần, `git diff` đọc được |
+
+> **Entry trong `ClassAll.zip` không phải XML.** Chúng mang đuôi `.xml` nhưng nội dung
+> là blob nhị phân bắt đầu bằng magic `DVXTR1` — chính định dạng mà `StrSth.Copy`
+> đọc. `typetreedb_gen.py from-zip` giải trực tiếp blob đó.
 
 ---
 
@@ -81,14 +86,17 @@ dùng được nhưng mất phần khử trùng lặp.
       "scriptID": null,            // hex 32 ký tự, chỉ có với MonoBehaviour
       "typeHash": null,
       "platform": 0,               // tuỳ chọn, ghi đè platform của file
+      // KHÔNG có node gốc "Base": chính type này đóng vai trò đó, nên `nodes` là
+      // danh sách FIELD, ở treeLevel 0. `index` giữ số gốc, bắt đầu từ 1 vì
+      // "Base" chiếm index 0. Xem "Bẫy" §6.
       "nodes": [
         {
-          "type": "GameObject", "name": "Base",
-          "size": -1, "index": 0, "isArray": false,
-          "metaFlag": 0, "serializedVersion": 1, "treeLevel": 0,
+          "type": "string", "name": "m_Name",
+          "size": -1, "index": 1, "isArray": false,
+          "metaFlag": 32769, "serializedVersion": 1, "treeLevel": 0,
           "children": [
-            { "type": "string", "name": "m_Name", "size": -1, "index": 1,
-              "isArray": false, "metaFlag": 32769, "serializedVersion": 1,
+            { "type": "Array", "name": "Array", "size": -1, "index": 2,
+              "isArray": true, "metaFlag": 16385, "serializedVersion": 1,
               "treeLevel": 1, "children": [] }
           ]
         }
@@ -127,8 +135,9 @@ python tools/typetreedb_gen.py from-zip \
     --out typetreedb
 
 # 2. Thêm một bản Unity mới — đường dễ nhất
-#    Tải InfoJson/<version>.json từ bộ TypeTreeDumps công khai
-python tools/typetreedb_gen.py from-dumps --input 6000.3.18f1.json --out typetreedb
+#    Tải InfoJson/<version>.json từ bộ TypeTreeDumps công khai:
+#    https://raw.githubusercontent.com/AssetRipper/TypeTreeDumps/main/InfoJson/<version>.json
+python tools/typetreedb_gen.py from-dumps --input 6000.2.6f2.json --out typetreedb
 
 # 3. Khi chưa ai dump bản đó: build một AssetBundle bằng chính bản Unity ấy
 #    (Unity ghi type-tree vào bundle trừ khi bật DisableWriteTypeTree)
@@ -139,16 +148,21 @@ python tools/typetreedb_gen.py index  --out typetreedb   # khử trùng lặp l�
 python tools/typetreedb_gen.py verify --out typetreedb
 ```
 
+Ba cờ `--out` / `--compact` / `--no-index` nhận được ở cả hai vị trí — trước tên
+lệnh con hoặc sau nó.
+
 `from-serialized` **gộp** nhiều file vào cùng một version, nên cứ đưa vào tất cả
 bundle đang có: mỗi bundle chỉ chứa type-tree của những type nó thực sự dùng, gom
-nhiều bundle mới đủ độ phủ. Thêm `--overwrite` nếu muốn ghi đè thay vì gộp.
+nhiều bundle mới đủ độ phủ. Thêm `--overwrite` nếu muốn ghi đè thay vì gộp. Nó từ
+chối chạy khi các file đầu vào thuộc hai bản Unity khác nhau — dùng
+`--unity-version` nếu thực sự muốn ép về một bản.
 
 Cờ `--compact` cho JSON một dòng (nhỏ hơn ~2×) khi cần nhét vào bản phát hành;
 mặc định là `indent=1` để `git diff` đọc được.
 
 ---
 
-## Năm cái bẫy
+## Sáu cái bẫy
 
 ### 1. MonoBehaviour script mang `classID = 0`
 
@@ -181,10 +195,31 @@ gọi `AssetParser.createOrGetData(new VerFormat("5.6"), 19, 1)` và bật hộp
 classID 19. Chạy `from-zip` trước, rồi mới bổ sung bản mới bằng `from-dumps`.
 Cổng này đã tồn tại từ trước và hành xử y như khi thiếu `ClassAll.zip`.
 
-### 5. `size = -1` là hợp lệ
+### 5. `size = -1`, và type không có node, đều là hợp lệ
 
 Node có kích thước động (`string`, `vector`, `map`, `TypelessData`) luôn mang
 `size = -1`. Bộ kiểm tra bất biến nào coi đó là lỗi sẽ báo hàng nghìn lỗi giả.
+
+Tương tự, **`nodes` rỗng không phải lỗi**: mỗi bản Unity có khoảng 23 type không
+serialize field nào (classID 7, 16, 31, 35, 46, 52, 63, 71, 280, 292, 301, 304…,
+kèm `DelayedCallManager`, `HaloManager`, `MasterServerInterface`). DevX không biết
+tên chúng nên `className` chính là con số. Phải **giữ** chúng: `StrSth.FindByInt`
+trả về một `ConsoleData` rỗng thay vì `null`, và đó là thứ `AssetParser` trông đợi.
+`verify` đếm chúng riêng, không tính là vấn đề.
+
+### 6. `nodes` là danh sách field, không có node gốc `Base`
+
+Đây là chỗ khác nhau giữa ba nguồn, và sai thì **không có lỗi nào nổ ra** — chỉ là
+mọi field nằm sâu thêm một mức nên bộ đọc asset không thấy field nào.
+
+`UnityTypeTreeDb.ReadType` tự tạo một node chứa rồi gắn từng phần tử của `nodes`
+làm **con trực tiếp** — tức chính `ConsoleData` đóng vai trò node `Base`. Cho nên
+`types[*].nodes` phải là các field, `treeLevel` bắt đầu từ 0, `index` giữ nguyên số
+gốc (bắt đầu từ 1, vì `Base` chiếm index 0).
+
+DB cũ của DevX vốn đã lưu như vậy. Nhưng blob type-tree của SerializedFile và
+`ReleaseRootNode` của InfoJson thì **có** `Base` làm gốc thật, nên `from-dumps` và
+`from-serialized` phải gỡ nó bằng `hoist_base()` trước khi ghi.
 
 ---
 

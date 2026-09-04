@@ -6,9 +6,9 @@ Vì sao cần
 ----------
 Để đọc `.assets` / AssetBundle, tool phải biết **type-tree của Unity built-in
 classes** cho đúng phiên bản Unity của game. DevXUnity-Unpacker ship thứ đó dưới
-dạng `StreamingAssets/ClassAll.zip` — 81 MB, 718 file XML, nạp TOÀN BỘ vào RAM
-ngay lần tra cứu đầu tiên, và dừng ở Unity 2021.2.7f1. Game 2022 trở lên không có
-gì để tra.
+dạng `StreamingAssets/ClassAll.zip` — 81 MB, 718 entry (đuôi `.xml` nhưng nội dung
+là blob nhị phân `DVXTR1`, xem `read_dvxtr1`), nạp TOÀN BỘ vào RAM ngay lần tra cứu
+đầu tiên, và dừng ở Unity 2021.2.7f1. Game 2022 trở lên không có gì để tra.
 
 Tool này sinh ra bộ thay thế: mỗi phiên bản Unity một file JSON không mã hoá, nạp
 lười từng file, đọc bằng mắt và `git diff` được — đúng cơ chế mà `structdb/` đã
@@ -55,19 +55,34 @@ Cách dùng
 
 Bẫy đã gặp (đừng bỏ cái nào)
 ----------------------------
-1. `ZipInputStream.Read` trong tool C# gốc chỉ gọi MỘT lần cho mỗi entry — chạy
+1. `types[*].nodes` KHÔNG có node gốc `Base` — chính `ConsoleData` đóng vai trò đó
+   (`UnityTypeTreeDb.ReadType` gắn mọi phần tử của `nodes` làm con trực tiếp). Cả
+   SerializedFile lẫn InfoJson thì CÓ `Base` thật, nên `from-dumps`/`from-serialized`
+   phải gỡ nó bằng `hoist_base()`. Quên là mọi field sâu thêm một mức và bộ đọc
+   asset không thấy field nào — im lặng, không lỗi.
+2. Khoá tên kiểu trong InfoJson là `TypeName`, không phải `Type`/`m_Type`. Đọc
+   nhầm thì mọi node ra type rỗng — nên `dump_node` ném lỗi thay vì mặc định "".
+3. Version của một entry ClassAll lấy từ TÊN FILE, không phải header: header của
+   `UnityType_v2018.3.2f1_p6.xml` ghi "2018.1.0b3", của `UnityType_v5.6.0f0_p6.xml`
+   ghi "v5.6.0f0", còn `Class_v.xml` ghi "1.0.0f1" (đè bản 1.0.0f1 thật).
+4. Trường `SettingFLAGS` của type/node: 1 nghĩa là `classID`/`size` đã bị bộ mã hoá
+   của DevX trộn với `DateTime.UtcNow.DayOfYear` của MÁY GHI — không giải ngược
+   được. Bản 10.06 để 0 ở cả 728 entry; gặp 1 thì phải báo lỗi (`_check_flags`).
+5. `ZipInputStream.Read` trong tool C# gốc chỉ gọi MỘT lần cho mỗi entry — chạy
    đúng với entry deflate nhưng cắt cụt entry *stored*. Ở đây dùng `zipfile` nên
    không dính, nhưng đó là lý do đừng repack ClassAll.zip ở mức nén 0.
-2. Type-tree blob của SerializedFile dùng bảng chuỗi dùng chung: offset có bit
+6. Type-tree blob của SerializedFile dùng bảng chuỗi dùng chung: offset có bit
    0x80000000 trỏ vào bảng CommonString cứng, không phải vào string buffer của
    file. Sai bảng này thì mọi tên field sai mà không có lỗi nào nổ ra — nên
    `_resolve_string` bắt buộc offset phải rơi đúng đầu một chuỗi.
-3. SerializedFile version ≥ 22 có header lớn: 4 field đầu vẫn u32 BE nhưng bị
+7. SerializedFile version ≥ 22 có header lớn: 4 field đầu vẫn u32 BE nhưng bị
    ghi đè bởi metadataSize/fileSize/dataOffset đọc lại ngay sau đó.
-4. `m_EnableTypeTree = false` là chuyện bình thường với player build release.
+8. `m_EnableTypeTree = false` là chuyện bình thường với player build release.
    File đó KHÔNG dùng được; tool báo rõ thay vì sinh DB rỗng.
-5. Node `size = -1` là hợp lệ (kích thước động: string, vector…). Đừng "sửa".
-6. Trong DB cũ của DevX, `classID` của MonoBehaviour script là 0 và định danh
+9. Node `size = -1` là hợp lệ (kích thước động: string, vector…). Đừng "sửa".
+   Type có `nodes` rỗng cũng hợp lệ: ~23 lớp Unity mỗi bản không serialize field
+   nào, và `FindByInt` cần chúng để trả về ConsoleData rỗng thay vì null.
+10. Trong DB cũ của DevX, `classID` của MonoBehaviour script là 0 và định danh
    nằm ở `className`; `StrSth.FindByStr` chỉ khớp khi `objectType == 0`. Giữ
    nguyên quy ước đó khi chuyển đổi, nếu không MonoBehaviour sẽ tra không ra.
 """
@@ -85,7 +100,6 @@ import re
 import struct
 import sys
 import zipfile
-import xml.etree.ElementTree as ET
 
 SCHEMA = 1
 
@@ -146,6 +160,31 @@ def sort_types(doc: dict) -> None:
     doc["types"].sort(key=lambda t: (int(t.get("classID", 0)), t.get("className") or ""))
 
 
+def _shift_level(node: dict, delta: int) -> None:
+    node["treeLevel"] = int(node.get("treeLevel", 0)) + delta
+    for child in node.get("children") or []:
+        _shift_level(child, delta)
+
+
+def hoist_base(root: dict) -> list:
+    """
+    Bỏ node gốc `Base` và trả về các con của nó, đã kéo lên một mức.
+
+    `types[*].nodes` KHÔNG chứa node `Base`: chính `ConsoleData` đóng vai trò đó.
+    `UnityTypeTreeDb.ReadType` tự tạo một node chứa rồi gắn mọi phần tử của `nodes`
+    làm con trực tiếp — cho nên nodes[*] phải là các FIELD của type, ở treeLevel 0,
+    và `index` giữ nguyên số gốc (bắt đầu từ 1, vì `Base` chiếm index 0).
+
+    Blob type-tree của SerializedFile và InfoJson của TypeTreeDumps thì ngược lại:
+    cả hai đều có `Base` làm gốc thật. Không bỏ nó đi thì mọi field nằm sâu thêm
+    một mức, và bộ đọc asset không thấy field nào — im lặng, không báo lỗi.
+    """
+    children = root.get("children") or []
+    for child in children:
+        _shift_level(child, -1)
+    return children
+
+
 # --------------------------------------------------------------------------- #
 # Ghi ra đĩa + index
 # --------------------------------------------------------------------------- #
@@ -156,7 +195,14 @@ STAGE_ORDER = {"a": 0, "b": 1, "f": 2, "p": 3}
 
 
 def version_key(v: str):
-    """Khoá so sánh version. Bản không phân tích được xếp cuối."""
+    """
+    Khoá so sánh version. Bản không phân tích được xếp cuối.
+
+    Phần tử cuối là chính chuỗi gốc, và nó bắt buộc phải có: `2020.1.14f1` với
+    `2020.1.14f1c1` (bản Trung Quốc) khớp cùng một tiền tố nên năm trường đầu bằng
+    nhau. Không có nó thì thứ tự giữa hai bản phụ thuộc thứ tự chèn, và
+    `rebuild_index` chọn keeper khác nhau giữa hai lần chạy trên cùng dữ liệu.
+    """
     m = VERSION_RE.match(v or "")
     if not m:
         return (1 << 30, 0, 0, 0, 0, v or "")
@@ -166,7 +212,7 @@ def version_key(v: str):
         int(m.group(3)),
         STAGE_ORDER.get(m.group(4) or "f", 2),
         int(m.group(5) or 0),
-        "",
+        v or "",
     )
 
 
@@ -212,40 +258,46 @@ def rebuild_index(out_dir: str, compact: bool, quiet: bool = False) -> dict:
     if not files:
         raise SystemExit("typetreedb rỗng: %s" % out_dir)
 
-    groups: dict[str, list[str]] = {}
-    docs: dict[str, dict] = {}
+    # Hai lượt, mỗi lượt giữ đúng MỘT doc trong RAM. Một DB đầy đủ là hàng trăm
+    # file, mỗi file ~18 nghìn node — nạp hết cùng lúc là vài chục GB.
+    groups: dict[str, dict] = {}
     for path in files:
         version = os.path.splitext(os.path.basename(path))[0]
         doc = load_json(path)
-        docs[version] = doc
         # Chạy lại `index` không được làm mất các version đã bị gộp ở lần trước:
         # chúng chỉ còn tồn tại trong source.coversVersions của file giữ lại.
         covered = set((doc.get("source") or {}).get("coversVersions") or [])
         covered.add(version)
-        groups.setdefault(payload_hash(doc), []).extend(sorted(covered, key=version_key))
+        group = groups.setdefault(payload_hash(doc), {"versions": set(), "files": []})
+        group["versions"].update(covered)
+        group["files"].append(path)
+        del doc
 
     index = {}
-    kept = 0
-    for _, raw_versions in groups.items():
-        versions = sorted(set(raw_versions), key=version_key)
+    for group in groups.values():
+        versions = sorted(group["versions"], key=version_key)
         keeper = versions[0]
-        kept += 1
-        keeper_doc = docs[keeper]
-        keeper_doc["unityVersion"] = keeper
-        keeper_doc.setdefault("source", {})["coversVersions"] = versions
-        dump(os.path.join(out_dir, keeper + ".json"), keeper_doc, compact)
+        keeper_path = os.path.join(out_dir, keeper + ".json")
+        # Version cũ nhất của nhóm có thể là một version ĐÃ BỊ GỘP, tức không có
+        # file mang tên nó — lấy bất kỳ file nào trong nhóm rồi đổi tên theo keeper.
+        source_path = keeper_path if keeper_path in group["files"] else group["files"][0]
+        doc = load_json(source_path)
+        doc["unityVersion"] = keeper
+        doc.setdefault("source", {})["coversVersions"] = versions
+        dump(keeper_path, doc, compact)
+        del doc
+        for stale in group["files"]:
+            if os.path.abspath(stale) != os.path.abspath(keeper_path):
+                os.remove(stale)
         for v in versions:
             index[v] = keeper + ".json"
-            stale = os.path.join(out_dir, v + ".json")
-            if v != keeper and os.path.isfile(stale):
-                os.remove(stale)
 
     ordered = {v: index[v] for v in sorted(index, key=version_key)}
     dump(os.path.join(out_dir, "index.json"),
          {"schema": SCHEMA, "versions": ordered}, compact)
     if not quiet:
         print("index: %d version -> %d file (khử trùng lặp %d)"
-              % (len(ordered), kept, len(ordered) - kept))
+              % (len(ordered), len(groups), len(ordered) - len(groups)))
     return ordered
 
 
@@ -256,111 +308,255 @@ def finish(out_dir: str, args) -> None:
 
 
 # --------------------------------------------------------------------------- #
-# Nguồn 1 — ClassAll.zip / UnityType.zip (XML của DevX)
+# Nguồn 1 — ClassAll.zip / UnityType.zip (DVXTR1 của DevX)
 # --------------------------------------------------------------------------- #
 
+# Class_v2021.2.0a17.xml, Class_v2018.4.36f1c1.xml, UnityType_v5.6.0f0_p6.xml.
+# Đuôi `.xml` nói dối: nội dung là blob nhị phân "DVXTR1" (xem `read_dvxtr1`).
+# `_p<N>` là Platform_BuildTarget, KHÔNG thuộc version; hậu tố `c<N>` (bản Trung
+# Quốc, `2018.4.36f1c1`) thì thuộc — đó là một bản Unity khác thật sự.
+ENTRY_RE = re.compile(r"_v([0-9][^\\/]*?)(?:_p\d+)?\.xml$", re.IGNORECASE)
 
-ENTRY_RE = re.compile(r"_v([0-9][^\\/_]*?)(?:_c[^\\/_]*)?\.xml$", re.IGNORECASE)
-
-
-def _xml_int(el: ET.Element, name: str, default: int = 0) -> int:
-    raw = el.get(name)
-    if raw is None or raw == "":
-        return default
-    try:
-        return int(raw, 0)
-    except ValueError:
-        try:
-            return int(float(raw))
-        except ValueError:
-            return default
+DVXTR1_MAGIC = b"DVXTR1"
 
 
-def _xml_bool(el: ET.Element, name: str) -> bool:
-    raw = (el.get(name) or "").strip().lower()
-    return raw in ("1", "true", "yes")
+class BinReader:
+    """Đọc y hệt System.IO.BinaryReader: little-endian, chuỗi có tiền tố LEB128."""
+
+    def __init__(self, data: bytes):
+        self.d = data
+        self.p = 0
+
+    def i32(self) -> int:
+        v = struct.unpack_from("<i", self.d, self.p)[0]
+        self.p += 4
+        return v
+
+    def u8(self) -> int:
+        v = self.d[self.p]
+        self.p += 1
+        return v
+
+    def boolean(self) -> bool:
+        return self.u8() != 0
+
+    def string(self) -> str:
+        n, shift = 0, 0
+        while True:
+            b = self.u8()
+            n |= (b & 0x7F) << shift
+            if not b & 0x80:
+                break
+            shift += 7
+            if shift > 35:
+                raise ValueError("tiền tố độ dài chuỗi hỏng")
+        raw = self.d[self.p:self.p + n]
+        if len(raw) != n:
+            raise ValueError("chuỗi bị cắt cụt")
+        self.p += n
+        return raw.decode("utf-8", "replace")
 
 
-def xml_node(el: ET.Element, level: int) -> dict:
-    node = new_node(
-        el.get("type") or "",
-        el.get("name") or "",
-        _xml_int(el, "size", -1),
-        _xml_int(el, "index"),
-        _xml_bool(el, "isArray"),
-        _xml_int(el, "metaFlag"),
-        _xml_int(el, "serializedVersion", 1),
-        _xml_int(el, "treeLevel", level),
-    )
-    if el.get("LicenseType"):
-        node["licenseType"] = el.get("LicenseType")
-    if el.get("Value"):
-        node["value"] = el.get("Value")
-    for child in el:
-        if child.tag == "node":
-            node["children"].append(xml_node(child, level + 1))
+def _check_flags(flags: int, what: str) -> None:
+    """
+    SettingFLAGS. 0 = số nguyên lưu thẳng. 1 = `size` và `classID` đã bị bộ mã hoá
+    chống sửa của DevX trộn:
+
+        thật = (thô ^ (145473253 + counter)) - DateTime.UtcNow.DayOfYear
+
+    `DayOfYear` là của MÁY GHI, `counter` tăng sau mỗi lần đọc — không có cách nào
+    giải ngược ngoài môi trường đã ghi ra file. Cả 728 entry của bản DevX 10.06 đều
+    mang 0; nếu gặp 1 thì phải báo lỗi thay vì sinh ra size rác.
+    """
+    if flags != 0:
+        raise ValueError("%s có SettingFLAGS=%d: size/classID bị mã hoá theo ngày "
+                         "của máy ghi, không giải ngược được" % (what, flags))
+
+
+def dvx_node(r: BinReader, file_version: int, level: int) -> dict:
+    flags = r.i32()
+    type_name = r.string()
+    name = r.string()
+    license_type = r.string()
+    value = r.string()
+    size = r.i32()
+    index = r.i32()
+    is_array = r.boolean()
+    meta_flag = r.i32()
+    serialized_version = r.i32()
+    _check_flags(flags, "node %r" % name)
+
+    node = new_node(type_name, name, size, index, is_array,
+                    meta_flag, serialized_version, level)
+    # Hai trường này luôn rỗng trong bản DevX 10.06, nhưng loader C# vẫn đọc.
+    if license_type:
+        node["licenseType"] = license_type
+    if value:
+        node["value"] = value
+
+    if file_version >= 2:
+        r.i32()  # chỉ số node được tham chiếu lại; cây lồng nhau đã đủ thông tin
+    for _ in range(r.i32()):
+        node["children"].append(dvx_node(r, file_version, level + 1))
     return node
 
 
-def xml_type(el: ET.Element) -> dict:
+def dvx_type(r: BinReader, file_version: int) -> dict:
+    flags = r.i32()
+    class_id = r.i32()
+    class_name = r.string()
+    script_id = r.string()
+    type_hash = r.string()
+    serialized_version = r.i32()
+    r.string()   # unity version riêng của type — hay sai lệch, xem from_zip
+    platform = r.i32()
+    _check_flags(flags, "type %r" % class_name)
+
     out = {
-        "classID": _xml_int(el, "classID"),
-        "className": el.get("className") or "",
-        "serializedVersion": _xml_int(el, "serializedVersion", 1),
-        "nodes": [xml_node(child, 0) for child in el if child.tag == "node"],
+        "classID": class_id,
+        "className": class_name,
+        "serializedVersion": serialized_version,
+        "nodes": [],
     }
-    if el.get("scriptID"):
-        out["scriptID"] = el.get("scriptID")
-    if el.get("typeHash"):
-        out["typeHash"] = el.get("typeHash")
-    platform = el.get("platform")
-    if platform is not None and platform != "":
-        out["platform"] = _xml_int(el, "platform")
+    if script_id:
+        out["scriptID"] = script_id
+    if type_hash:
+        out["typeHash"] = type_hash
+    # ConsoleData khởi tạo platform = 0, không kế thừa từ StrSth, nên bỏ khoá khi
+    # bằng 0 là tương đương — và tiết kiệm một dòng cho mỗi type.
+    if platform:
+        out["platform"] = platform
+    for _ in range(r.i32()):
+        out["nodes"].append(dvx_node(r, file_version, 0))
+    return out
+
+
+def read_dvxtr1(data: bytes) -> dict:
+    """
+    Giải blob "DVXTR1" — định dạng của StrSth.Copy / ConsoleData / TypeTreeNodeInfo
+    trong DevXUnityUnpackerTools. Ném lỗi nếu còn byte thừa: lệch một trường là
+    lệch hết phần sau, mà im lặng thì DB ra rác.
+    """
+    if not data.startswith(DVXTR1_MAGIC):
+        raise ValueError("thiếu magic DVXTR1 (đọc được %r)" % data[:6])
+    r = BinReader(data)
+    r.p = len(DVXTR1_MAGIC)
+    file_version = r.i32()
+    doc = {
+        "unityTypeVersion": r.i32(),
+        "unityVersion": r.string(),
+        "platform": r.i32(),
+        "baseDefinitions": r.boolean(),
+        "types": [],
+    }
+    for _ in range(r.i32()):
+        doc["types"].append(dvx_type(r, file_version))
+    if r.p != len(data):
+        raise ValueError("còn %d byte chưa đọc — định dạng lệch" % (len(data) - r.p))
+    doc["fileVersion"] = file_version
+    return doc
+
+
+def zip_entries(zip_paths: list) -> dict:
+    """
+    version -> [(ưu tiên, đường dẫn zip, tên entry)], version lấy từ TÊN FILE.
+
+    Chuỗi version trong header không dùng được: `UnityType_v2018.3.2f1_p6.xml` ghi
+    "2018.1.0b3", `UnityType_v5.6.0f0_p6.xml` ghi "v5.6.0f0", `Class_v.xml` ghi
+    "1.0.0f1" (đè lên bản 1.0.0f1 thật). Runtime cũ cũng tra bằng tên file
+    (`key.Contains("_v" + version)`), nên tên file mới là khoá đúng.
+
+    Ưu tiên 0 = UnityType_*, 1 = Class_*: giống thứ tự yield của TryGetStrSth2 cũ.
+    """
+    out: dict = {}
+    for zip_path in zip_paths:
+        if not os.path.isfile(zip_path):
+            raise SystemExit("không thấy file: %s" % zip_path)
+        with zipfile.ZipFile(zip_path) as zf:
+            names = [n for n in zf.namelist() if n.lower().endswith(".xml")]
+            skipped = 0
+            for name in names:
+                base = name.replace("\\", "/").split("/")[-1]
+                m = ENTRY_RE.search(base)
+                if not m:
+                    # `Class_v.xml`: không có version trong tên. Runtime cũ cũng
+                    # không bao giờ khớp được nó, bỏ qua cho khớp hành vi.
+                    skipped += 1
+                    continue
+                rank = 0 if base.lower().startswith("unitytype") else 1
+                out.setdefault(m.group(1), []).append((rank, zip_path, name))
+        print("%s: %d entry, bỏ qua %d (tên không có version)"
+              % (os.path.basename(zip_path), len(names), skipped))
     return out
 
 
 def from_zip(args) -> None:
     """
-    Mỗi entry `*_v<version>.xml` thành một doc. UnityType.zip được nạp TRƯỚC
-    ClassAll.zip cho cùng một version, giống thứ tự ưu tiên của TryGetStrSth2 cũ.
-    """
-    by_version: dict[str, dict] = {}
-    order = sorted(args.zip, key=lambda p: 0 if "unitytype" in os.path.basename(p).lower() else 1)
-    for zip_path in order:
-        if not os.path.isfile(zip_path):
-            raise SystemExit("không thấy file: %s" % zip_path)
-        with zipfile.ZipFile(zip_path) as zf:
-            names = [n for n in zf.namelist() if n.lower().endswith(".xml")]
-            print("%s: %d entry XML" % (os.path.basename(zip_path), len(names)))
-            for name in names:
-                m = ENTRY_RE.search(name.replace("\\", "/").split("/")[-1])
-                raw = zf.read(name)
-                try:
-                    root = ET.fromstring(raw)
-                except ET.ParseError as ex:
-                    print("  bỏ qua %s: XML hỏng (%s)" % (name, ex), file=sys.stderr)
-                    continue
-                version = root.get("unity_version") or (m.group(1) if m else None)
-                if not version:
-                    print("  bỏ qua %s: không suy ra được unity version" % name, file=sys.stderr)
-                    continue
-                doc = by_version.get(version)
-                if doc is None:
-                    doc = new_doc(version, {"origin": "DevXUnity ClassAll.zip",
-                                            "files": []})
-                    by_version[version] = doc
-                    doc["unityTypeVersion"] = _xml_int(root, "unity_type_version")
-                    doc["platform"] = _xml_int(root, "platform")
-                    doc["baseDefinitions"] = _xml_bool(root, "baseDefinitions")
-                doc["source"]["files"].append("%s!%s" % (os.path.basename(zip_path), name))
-                merge_types(doc, [xml_type(el) for el in root if el.tag == "Type"])
+    Mỗi version một doc, gộp mọi entry của version đó. UnityType_* nạp TRƯỚC
+    Class_* nên type trùng khoá (classID, className) của nó thắng — đúng thứ tự ưu
+    tiên của TryGetStrSth2 cũ. Metadata cấp file (unityTypeVersion / platform /
+    baseDefinitions) thì ngược lại: lấy từ entry đóng góp nhiều type nhất, tức bản
+    Class_* đầy đủ. UnityType_* chỉ là bản vá vài type, header của nó
+    (unityTypeVersion=15, platform=6) không đại diện cho cả version.
 
-    if not by_version:
+    Ghi từng version rồi giải phóng: 718 entry là ~13 triệu node, giữ hết trong RAM
+    sẽ hết bộ nhớ. Khử trùng lặp ngay lúc ghi để không phải đổ vài GB xuống đĩa rồi
+    mới xoá.
+    """
+    entries = zip_entries(args.zip)
+    if not entries:
         raise SystemExit("không rút được version nào từ các zip đã cho")
-    for version in sorted(by_version, key=version_key):
-        doc = by_version[version]
-        write_doc(args.out, doc, args.compact)
-        print("  %-14s %4d type" % (version, len(doc["types"])))
+
+    by_hash: dict = {}        # payload hash -> version giữ file
+    covers: dict = {}         # version giữ file -> mọi version dùng chung
+    handles = {p: zipfile.ZipFile(p) for p in set(args.zip)}
+    try:
+        for version in sorted(entries, key=version_key):
+            doc = new_doc(version, {"origin": "DevXUnity ClassAll.zip", "files": []})
+            best_types = -1
+            for _, zip_path, name in sorted(entries[version]):
+                raw = handles[zip_path].read(name)
+                try:
+                    parsed = read_dvxtr1(raw)
+                except ValueError as ex:
+                    print("  bỏ qua %s: %s" % (name, ex), file=sys.stderr)
+                    continue
+                doc["source"]["files"].append("%s!%s" % (os.path.basename(zip_path), name))
+                merge_types(doc, parsed["types"])
+                if len(parsed["types"]) > best_types:
+                    best_types = len(parsed["types"])
+                    doc["unityTypeVersion"] = parsed["unityTypeVersion"]
+                    doc["platform"] = parsed["platform"]
+                    doc["baseDefinitions"] = parsed["baseDefinitions"]
+            if not doc["types"]:
+                print("  bỏ qua %s: không có type nào đọc được" % version, file=sys.stderr)
+                continue
+
+            sort_types(doc)
+            digest = payload_hash(doc)
+            keeper = by_hash.get(digest)
+            if keeper is None:
+                by_hash[digest] = version
+                covers[version] = [version]
+                write_doc(args.out, doc, args.compact)
+                print("  %-16s %4d type  (%d entry)"
+                      % (version, len(doc["types"]), len(doc["source"]["files"])))
+            else:
+                covers[keeper].append(version)
+            del doc
+
+        # coversVersions chỉ biết đủ sau khi duyệt hết; ghi lại vài chục file giữ
+        # lại thì rẻ, còn giữ tất cả trong RAM thì không.
+        for keeper, versions in covers.items():
+            path = os.path.join(args.out, keeper + ".json")
+            doc = load_json(path)
+            doc["source"]["coversVersions"] = sorted(set(versions), key=version_key)
+            dump(path, doc, args.compact)
+    finally:
+        for zf in handles.values():
+            zf.close()
+
+    print("%d version -> %d file" % (len(entries), len(covers)))
     finish(args.out, args)
 
 
@@ -377,8 +573,15 @@ def _pick(d: dict, *names, default=None):
 
 
 def dump_node(raw: dict, level: int) -> dict:
+    # "TypeName" là khoá THẬT của InfoJson (AssetRipper/TypeTreeDumps); các tên
+    # còn lại chỉ là bí danh phòng hờ. Thiếu nó thì mọi node ra type rỗng và DB
+    # hỏng hoàn toàn mà không có lỗi nào — nên phải ném lỗi, đừng mặc định "".
+    type_name = _pick(raw, "TypeName", "m_Type", "Type", "type")
+    if not type_name:
+        raise SystemExit("node không có tên kiểu (khoá đọc được: %s) — InfoJson đổi "
+                         "schema? Xem dump_node." % ", ".join(sorted(raw)))
     node = new_node(
-        _pick(raw, "m_Type", "Type", "type", default=""),
+        type_name,
         _pick(raw, "m_Name", "Name", "name", default=""),
         _pick(raw, "m_ByteSize", "ByteSize", "size", default=-1),
         _pick(raw, "m_Index", "Index", "index", default=0),
@@ -428,7 +631,7 @@ def from_dumps(args) -> None:
                 "classID": int(_pick(cls, "TypeID", "ClassID", "typeID", default=0)),
                 "className": _pick(cls, "Name", "name", default="") or "",
                 "serializedVersion": int(_pick(root, "m_Version", "Version", default=1)),
-                "nodes": [dump_node(root, 0)],
+                "nodes": hoist_base(dump_node(root, 0)),
             }
             types.append(entry)
         merge_types(doc, types)
@@ -752,7 +955,7 @@ def read_serialized_types(data: bytes) -> tuple[str, int, list[dict]]:
             "classID": 0 if (class_id == 114 and script_index >= 0) else class_id,
             "className": root["type"],
             "serializedVersion": root["serializedVersion"],
-            "nodes": [root],
+            "nodes": hoist_base(root),
         }
         if script_id:
             entry["scriptID"] = script_id
@@ -844,6 +1047,12 @@ def verify(args) -> None:
         raise SystemExit("index.json không có version nào")
 
     problems = 0
+    # Type không có node là chuyện bình thường, không phải lỗi: DB gốc của DevX có
+    # ~23 cái mỗi bản (classID 7, 16, 31, 35, 46, 52, 63, 71, 280, 292…) — lớp
+    # Unity không có field nào được serialize, className chỉ là chính con số vì
+    # DevX không biết tên. Phải GIỮ chúng: `StrSth.FindByInt` trả về ConsoleData
+    # rỗng thay vì null, và đó là hành vi mà AssetParser trông đợi.
+    empty_types = 0
     checked = set()
     for version, file_name in versions.items():
         path = os.path.join(args.out, file_name)
@@ -871,16 +1080,15 @@ def verify(args) -> None:
             seen.add(key)
             nodes = t.get("nodes") or []
             if not nodes:
-                print("KHÔNG CÂY %s: %r" % (file_name, key[1]))
-                problems += 1
+                empty_types += 1
             for root in nodes:
                 for n in walk(root):
                     if not n.get("type") and not n.get("name"):
                         print("NODE RỖNG %s: %r" % (file_name, key[1]))
                         problems += 1
                         break
-    print("verify: %d version, %d file, %d vấn đề"
-          % (len(versions), len(checked), problems))
+    print("verify: %d version, %d file, %d type không có node (bình thường), %d vấn đề"
+          % (len(versions), len(checked), empty_types, problems))
     if problems:
         sys.exit(1)
 
@@ -902,31 +1110,43 @@ def main(argv=None) -> None:
                     help="JSON một dòng, nhỏ hơn ~2x nhưng không diff được")
     ap.add_argument("--no-index", action="store_true",
                     help="đừng chạy lại bước index sau khi sinh")
+
+    # Ba cờ trên nhận được ở cả hai vị trí: trước tên lệnh con và sau nó. Mọi ví
+    # dụ trong docstring/README đều viết `from-zip --zip … --out typetreedb`, mà
+    # argparse chỉ khớp cờ của parser đang hoạt động. SUPPRESS để cờ không truyền
+    # ở lệnh con thì không ghi đè giá trị đã lấy từ parser gốc.
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--out", default=argparse.SUPPRESS, help=argparse.SUPPRESS)
+    common.add_argument("--compact", action="store_true",
+                        default=argparse.SUPPRESS, help=argparse.SUPPRESS)
+    common.add_argument("--no-index", action="store_true",
+                        default=argparse.SUPPRESS, help=argparse.SUPPRESS)
+
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    p = sub.add_parser("from-zip", help="ClassAll.zip / UnityType.zip -> JSON")
+    p = sub.add_parser("from-zip", help="ClassAll.zip / UnityType.zip -> JSON", parents=[common])
     p.add_argument("--zip", action="append", required=True,
                    help="đường dẫn tới ClassAll.zip hoặc UnityType.zip (lặp lại được)")
     p.set_defaults(func=from_zip)
 
-    p = sub.add_parser("from-dumps", help="TypeTreeDumps InfoJson -> JSON")
+    p = sub.add_parser("from-dumps", help="TypeTreeDumps InfoJson -> JSON", parents=[common])
     p.add_argument("--input", nargs="+", required=True,
                    help="file .json, glob, hoặc thư mục InfoJson/")
     p.add_argument("--unity-version", help="ghi đè version đọc từ file")
     p.set_defaults(func=from_dumps)
 
     p = sub.add_parser("from-serialized",
-                       help=".assets / AssetBundle có type-tree -> JSON (gộp nhiều file)")
+                       help=".assets / AssetBundle có type-tree -> JSON (gộp nhiều file)", parents=[common])
     p.add_argument("--input", nargs="+", required=True, help="file hoặc glob")
     p.add_argument("--unity-version", help="ghi đè version đọc từ file")
     p.add_argument("--overwrite", action="store_true",
                    help="ghi đè file version có sẵn thay vì gộp vào")
     p.set_defaults(func=from_serialized)
 
-    p = sub.add_parser("index", help="khử trùng lặp + ghi lại index.json")
+    p = sub.add_parser("index", help="khử trùng lặp + ghi lại index.json", parents=[common])
     p.set_defaults(func=lambda a: rebuild_index(a.out, a.compact))
 
-    p = sub.add_parser("verify", help="kiểm tra tính toàn vẹn của DB")
+    p = sub.add_parser("verify", help="kiểm tra tính toàn vẹn của DB", parents=[common])
     p.set_defaults(func=verify)
 
     args = ap.parse_args(argv)
