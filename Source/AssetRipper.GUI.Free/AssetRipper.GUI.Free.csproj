@@ -29,4 +29,16 @@
 		<ProjectReference Include="..\AssetRipper.GUI.Web\AssetRipper.GUI.Web.csproj" />
 	</ItemGroup>
 
+	<!--
+		The IL2Cpp runtime struct layouts, copied to <output>/structdb where StructDbLocator looks.
+		Gzipped: 6.4 MB rather than 62 MB, and StructDbCatalog reads either form.
+	-->
+	<ItemGroup>
+		<Content Include="$(MSBuildThisFileDirectory)..\..\StructDb\*.json.gz;$(MSBuildThisFileDirectory)..\..\StructDb\index.json">
+			<Link>structdb\%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
 </Project>

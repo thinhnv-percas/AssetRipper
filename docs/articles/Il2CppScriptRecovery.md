@@ -17,7 +17,7 @@ section below it holds three options, all of which are ignored at every other le
 |---|---|---|
 | Emit IL2Cpp offsets and addresses | on | Adds `[FieldOffset]`, `[Address]` and `[Token]` attributes to the exported scripts, so each field carries its offset within the object and each method its RVA, file offset and length. |
 | Reconstruct unrecovered method bodies | off | Attaches an approximate C# reconstruction, as a `[NativeSource]` attribute, to methods IL recovery could not express. Reads as C#; does not compile. Slow — it analyses every method in the game's own assemblies. |
-| IL2Cpp struct database | empty | Directory of runtime struct layout files. See below. |
+| IL2Cpp struct database | empty | Directory of runtime struct layout files. Empty means the bundled set is used. See below. |
 
 Nothing here changes script identity: `.cs.meta` GUIDs, and the `m_Script` GUID references inside
 exported scenes and prefabs, come from assembly and type names, not from method bodies. An export at
@@ -28,13 +28,17 @@ Level 3 is drop-in comparable with one at Level 2.
 A recovered method body is full of reads through the IL2Cpp runtime's own C structs. Without a
 layout, `ldr x8, [x0, #0x18]` is "read 8 bytes at +0x18". With one, it is `methodInfo->klass`.
 
+**AssetRipper ships one.** [StructDb/](../../StructDb) holds 370 Unity versions, 5.1.0f3 through
+6000.3.18f1, and the build copies it to `<application directory>/structdb`, where it is found with no
+configuration. The Settings page reports what was detected.
+
 The database is a directory of JSON files, two per Unity version:
 
 ```
 structdb/
 ├── index.json
-├── 2019.4.0f1-x64.json      # or .json.gz — the loader sniffs the gzip magic
-├── 2019.4.0f1-x32.json
+├── 2019.4.0f1-x64.json.gz   # gzipped in the repo; the loader sniffs the magic
+├── 2019.4.0f1-x32.json.gz   # so a plain .json works just as well
 └── ...
 ```
 
@@ -42,7 +46,7 @@ Each file gives, for one Unity version and one pointer size, the `sizeof` of eve
 `libil2cpp` and every field's offset, type and bit width. The numbers describe Unity's own runtime
 and are read out of the `libil2cpp` headers Unity ships with every Editor — none of them is guessed.
 
-**It is optional.** With no database, every code path falls back to unnamed offsets, which is the
+**It stays optional.** With no database, every code path falls back to unnamed offsets, which is the
 behaviour without any of this. With one, three things improve:
 
 1. Memory accesses in reconstructed bodies get runtime field names.
@@ -69,6 +73,26 @@ names, which is worse than no field names at all.
 
 Only versions that have *both* widths are offered. A 32-bit game must not silently get 64-bit
 offsets.
+
+### Checking it
+
+```
+dotnet run --project Source/AssetRipper.Tools.Il2CppStructDbValidator -- StructDb
+```
+
+Reads every file and checks the invariants a correct layout must satisfy — offsets non-negative and
+monotonic, fields inside `sizeof`, pointers exactly one machine word, bitfields within their storage
+unit, a zero-length array last in its struct. Exit code 0 when everything passes. It also answers
+offset questions directly, which is the quickest way to see what the recovery layer will name
+something:
+
+```
+$ ... -- StructDb --no-sweep --version 2019.4.0f1 --offset 0x158
+2019.4.0f1 x64 (exact)
+  sizeof(Il2CppClass)    304
+  Il2CppClass.vtable     0x130 (slot size 16)
+  Il2CppClass+0x158 = vtable[2].method (MethodInfo*) -> MethodInfo
+```
 
 ### Adding a version
 
@@ -118,6 +142,8 @@ Editor, which is why no layout has to be reverse engineered.
 | Piece | Location |
 |---|---|
 | Layout file model, catalog, offset resolver, disk lookup | `AssetRipper.Import/Structure/Assembly/Il2Cpp/StructDb/` |
+| The bundled layouts, and their provenance | [`StructDb/`](../../StructDb) |
+| Validating a database without opening a game | `AssetRipper.Tools.Il2CppStructDbValidator` |
 | `Il2CppClass` offset questions answered from data | `Recovery/StructDbClassOffsets.cs`, `Recovery/Il2CppClassOffsetPatcher.cs` |
 | Loading the layout for the game's version | `Recovery/StructDbProcessingLayer.cs` |
 | Naming memory accesses in a method's ISIL | `Recovery/RuntimeStructAccessAnnotator.cs` |
@@ -140,3 +166,6 @@ duplicated here.
   total character budget across the run. User strings live in the `#US` heap, which is addressed by
   24-bit offsets, so an unbounded dump produces an assembly that cannot be written at all.
 * The 32-bit `Il2CppClass` improvements need a layout file for a version at or below the game's.
+* Unions are flattened in the layout files: several members share one offset, and `Il2CppType` has
+  eight fields at offset 0. The resolver returns the first declared member, since choosing between
+  them needs runtime context it does not have.

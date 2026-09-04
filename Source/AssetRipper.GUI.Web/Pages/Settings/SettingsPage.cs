@@ -1,6 +1,7 @@
 ﻿using AssetRipper.Export.Configuration;
 using AssetRipper.GUI.Web.Pages.Settings.DropDown;
 using AssetRipper.GUI.Web.Paths;
+using AssetRipper.Import.Structure.Assembly.Il2Cpp.StructDb;
 using AssetRipper.Primitives;
 using Microsoft.AspNetCore.Http;
 
@@ -264,6 +265,14 @@ public sealed partial class SettingsPage : DefaultPage
 			.WithValue(Configuration.ImportSettings.Il2CppStructDbPath ?? "")
 			.Close();
 		new Div(writer).WithClass("form-text").Close(Localization.Il2CppStructDbPathDescription);
+
+		// Whether the database was actually picked up is the one thing a path box cannot show on its own.
+		StructDbLocator.StructDbSummary summary = StructDbLocator.Summarize(Configuration.ImportSettings.Il2CppStructDbPath);
+		new Div(writer)
+			.WithClass(summary.Found ? "form-text text-success" : "form-text text-warning")
+			.Close(summary.Found
+				? string.Format(Localization.Il2CppStructDbFound, summary.Directory, summary.VersionCount, summary.Oldest, summary.Newest)
+				: Localization.Il2CppStructDbNotFound);
 	}
 
 	private static void WriteTextAreaForOfficialPackageCachePath(TextWriter writer)
@@ -379,6 +388,9 @@ public sealed partial class SettingsPage : DefaultPage
 		{
 			SetProperty(key, value);
 		}
+
+		// The path may have changed, and files may have appeared under an unchanged one.
+		StructDbLocator.ClearSummaryCache();
 
 		if (Configuration.SaveSettingsToDisk)
 		{

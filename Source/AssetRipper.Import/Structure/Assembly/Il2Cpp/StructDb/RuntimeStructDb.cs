@@ -68,7 +68,14 @@ public sealed class RuntimeStructDb
 			return false;
 		}
 
-		if (!TryGetStruct(structName, out StructDbStruct? layout) || offset >= layout.Size)
+		if (!TryGetStruct(structName, out StructDbStruct? layout))
+		{
+			return false;
+		}
+
+		// sizeof is the bound for everything except a trailing zero-length array, which by definition
+		// starts at or past the end of the struct and runs as far as the runtime allocated it.
+		if (offset >= layout.Size && TrailingFlexibleArray(layout) is null)
 		{
 			return false;
 		}
@@ -80,6 +87,12 @@ public sealed class RuntimeStructDb
 		}
 
 		long inner = offset - field.Offset;
+
+		if (field.IsFlexibleArray)
+		{
+			return TryResolveArrayElement(field, inner, depth, out access);
+		}
+
 		string? pointee = TryGetPointeeStructName(field);
 
 		// Landed on the start of the field, or on something that is not a struct we can descend into.
@@ -126,7 +139,52 @@ public sealed class RuntimeStructDb
 			}
 		}
 
-		return containing;
+		// A trailing zero-length array has no width to fall inside, so it claims everything past its start.
+		return containing ?? (TrailingFlexibleArray(layout) is { } flexible && offset >= flexible.Offset ? flexible : null);
+	}
+
+	/// <summary>The struct's trailing zero-length array, or null when it does not end in one.</summary>
+	private static StructDbField? TrailingFlexibleArray(StructDbStruct layout)
+	{
+		// Only the last member can be one, and every layout in the database respects that.
+		return layout.Fields.Count > 0 && layout.Fields[^1].IsFlexibleArray ? layout.Fields[^1] : null;
+	}
+
+	/// <summary>
+	/// Names an offset inside a trailing array as an indexed element, descending into the element type
+	/// when it is a struct the database knows.
+	/// </summary>
+	private bool TryResolveArrayElement(StructDbField field, long inner, int depth, out RuntimeFieldAccess access)
+	{
+		string element = NormalizeTypeName(field.ElementTypeName);
+
+		// Without an element size there is no index to compute, so the byte remainder is the best answer.
+		if (field.ArrayItemSize <= 0)
+		{
+			access = new RuntimeFieldAccess(field.Name, field.Type, null, 0, 0, inner);
+			return true;
+		}
+
+		long index = inner / field.ArrayItemSize;
+		long withinElement = inner % field.ArrayItemSize;
+		string path = $"{field.Name}[{index}]";
+
+		// vtable[2] + 8 reads VirtualInvokeData::method, and that is what the reader wants to see.
+		if (!IsPointer(field.ElementTypeName)
+			&& TryResolveField(element, withinElement, depth + 1, out RuntimeFieldAccess nested))
+		{
+			access = nested with { Path = path + "." + nested.Path };
+			return true;
+		}
+
+		access = new RuntimeFieldAccess(
+			path,
+			field.ElementTypeName,
+			IsPointer(field.ElementTypeName) && Contains(element) ? element : null,
+			0,
+			0,
+			withinElement);
+		return true;
 	}
 
 	/// <summary>The struct a pointer field points at, or null when the field is not a pointer to a known struct.</summary>

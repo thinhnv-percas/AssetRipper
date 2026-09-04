@@ -99,8 +99,10 @@ internal sealed class Il2CppStructDbTests
 		{
 			Assert.That(db.GetSize("Il2CppNotAThing"), Is.EqualTo(-1));
 			Assert.That(db.TryResolveField("Il2CppNotAThing", 0, out _), Is.False);
-			Assert.That(db.TryResolveField("Il2CppClass", 0x1000, out _), Is.False);
 			Assert.That(db.TryResolveField("Il2CppClass", -8, out _), Is.False);
+
+			// MethodInfo has no trailing array, so sizeof really is its bound.
+			Assert.That(db.TryResolveField("MethodInfo", 0x1000, out _), Is.False);
 		});
 	}
 
@@ -147,6 +149,53 @@ internal sealed class Il2CppStructDbTests
 			Assert.That(access.IsPartial, Is.True);
 			Assert.That(access.Remainder, Is.EqualTo(1));
 			Assert.That(access.ToString(), Is.EqualTo("name+0x1"));
+		});
+	}
+
+	/// <summary>
+	/// Il2CppClass ends with <c>VirtualInvokeData vtable[0]</c>, a C flexible array member, which sits at
+	/// <c>sizeof</c> rather than inside it. Treating sizeof as the bound makes the vtable unreachable.
+	/// </summary>
+	[Test]
+	public void TheVTableIsReachableAtSizeof()
+	{
+		RuntimeStructDb db = Load();
+		Assert.That(db.GetSize("Il2CppClass"), Is.EqualTo(0x130), "the vtable starts where the struct ends");
+		Assert.That(db.TryResolveField("Il2CppClass", 0x130, out RuntimeFieldAccess access), Is.True);
+		Assert.That(access.Path, Is.EqualTo("vtable[0].methodPtr"));
+	}
+
+	[Test]
+	public void VTableSlotsResolveToFieldsOfTheirElement()
+	{
+		RuntimeStructDb db = Load();
+		Assert.Multiple(() =>
+		{
+			// Slot stride is sizeof(VirtualInvokeData) == 16, so +0x20 past the vtable is slot 2.
+			Assert.That(db.TryResolveField("Il2CppClass", 0x150, out RuntimeFieldAccess slot), Is.True);
+			Assert.That(slot.Path, Is.EqualTo("vtable[2].methodPtr"));
+
+			Assert.That(db.TryResolveField("Il2CppClass", 0x158, out RuntimeFieldAccess method), Is.True);
+			Assert.That(method.Path, Is.EqualTo("vtable[2].method"));
+
+			// The pointee travels out of the element, so a caller can keep resolving through it.
+			Assert.That(method.PointeeStruct, Is.EqualTo("MethodInfo"));
+		});
+	}
+
+	/// <summary>
+	/// A trailing array of a primitive has no fields to descend into, so the index alone is the answer.
+	/// </summary>
+	[Test]
+	public void StringCharactersResolveByIndex()
+	{
+		RuntimeStructDb db = Load();
+		Assert.That(db.TryResolveField("Il2CppString", 0x18, out RuntimeFieldAccess access), Is.True);
+		Assert.Multiple(() =>
+		{
+			Assert.That(access.Path, Is.EqualTo("chars[2]"));
+			Assert.That(access.PointeeStruct, Is.Null);
+			Assert.That(access.IsPartial, Is.False);
 		});
 	}
 
@@ -338,6 +387,9 @@ internal sealed class Il2CppStructDbTests
 			vtableOffset = vtableOffset == 0x130 ? 0xBC : vtableOffset;
 		}
 
+		// In every real layout the vtable is a zero-length array, so it starts exactly at sizeof.
+		Assert.That(vtableOffset, Is.EqualTo(classSize), "the fixture must match how Unity lays Il2CppClass out");
+
 		int p = pointerSize;
 		int typeSize = is64 ? 16 : 8;
 		int byvalArg = is64 ? 0x20 : 0x14;
@@ -360,7 +412,16 @@ internal sealed class Il2CppStructDbTests
 						{ "name": "byval_arg", "type": "Il2CppType", "offset": {{byvalArg}}, "size": {{typeSize}} },
 						{ "name": "element_class", "type": "Il2CppClass*", "offset": {{byvalArg + 2 * typeSize}}, "size": {{p}}, "arrayItemSize": {{classSize}} },
 						{ "name": "static_fields", "type": "void*", "offset": {{staticFields}}, "size": {{p}} },
-						{ "name": "vtable", "type": "VirtualInvokeData", "offset": {{vtableOffset}}, "size": 16 }
+						{ "name": "vtable", "type": "VirtualInvokeData[0]", "offset": {{vtableOffset}}, "size": 0, "realType": "VirtualInvokeData", "arrayItemSize": {{2 * p}} }
+					]
+				},
+				"Il2CppString": {
+					"size": {{3 * p}},
+					"fields": [
+						{ "name": "object.klass", "type": "Il2CppClass*", "offset": 0, "size": {{p}}, "arrayItemSize": {{classSize}} },
+						{ "name": "object.monitor", "type": "MonitorData*", "offset": {{p}}, "size": {{p}} },
+						{ "name": "length", "type": "int32_t", "offset": {{2 * p}}, "size": 4 },
+						{ "name": "chars", "type": "char16_t[0]", "offset": {{2 * p + 4}}, "size": 0, "realType": "Il2CppChar", "arrayItemSize": 2 }
 					]
 				},
 				"Il2CppType": {

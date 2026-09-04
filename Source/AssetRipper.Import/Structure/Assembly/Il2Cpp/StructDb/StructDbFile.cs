@@ -131,4 +131,34 @@ public sealed class StructDbField
 	/// <summary>Width in bytes, derived for bitfields from their bit width.</summary>
 	[JsonIgnore]
 	public int SizeInBytes => Bits.HasValue ? Math.Max(1, (Bits.Value + 7) / 8) : Size;
+
+	/// <summary>
+	/// True for a trailing zero-length array — <c>Il2CppClass::vtable</c>, <c>Il2CppString::chars</c> and
+	/// their kind.
+	/// </summary>
+	/// <remarks>
+	/// C excludes such a member from <c>sizeof</c>, so it sits at or past the end of its own struct and
+	/// extends as far as the runtime allocated it. Anything treating <c>sizeof</c> as a bound will miss it.
+	/// </remarks>
+	[JsonIgnore]
+	public bool IsFlexibleArray => Size == 0 && !Bits.HasValue && Type.TrimEnd().EndsWith("[0]", StringComparison.Ordinal);
+
+	/// <summary>
+	/// The element type of an array field, or <see cref="Type"/> unchanged when the field is not an array.
+	/// </summary>
+	[JsonIgnore]
+	public string ElementTypeName
+	{
+		get
+		{
+			if (!string.IsNullOrEmpty(RealType))
+			{
+				return RealType;
+			}
+
+			ReadOnlySpan<char> span = Type.AsSpan().TrimEnd();
+			int bracket = span.IndexOf('[');
+			return bracket < 0 ? Type : span[..bracket].TrimEnd().ToString();
+		}
+	}
 }

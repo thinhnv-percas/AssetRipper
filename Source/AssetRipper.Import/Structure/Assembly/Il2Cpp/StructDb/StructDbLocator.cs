@@ -1,4 +1,5 @@
 using AssetRipper.Import.Logging;
+using AssetRipper.Primitives;
 
 namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.StructDb;
 
@@ -80,6 +81,48 @@ public static class StructDbLocator
 			yield return Path.Join(applicationData, "AssetRipper", DirectoryName);
 		}
 	}
+
+	/// <summary>
+	/// What a UI needs to tell the user whether a database was found, and how much it covers.
+	/// </summary>
+	/// <param name="Directory">Where it was found, or null when nothing was.</param>
+	/// <param name="VersionCount">Unity versions the database can serve.</param>
+	/// <param name="Oldest">Oldest version covered.</param>
+	/// <param name="Newest">Newest version covered.</param>
+	public readonly record struct StructDbSummary(string? Directory, int VersionCount, UnityVersion Oldest, UnityVersion Newest)
+	{
+		public bool Found => Directory is not null;
+	}
+
+	private static (string? Key, StructDbSummary Summary)? cachedSummary;
+
+	/// <summary>
+	/// Describes the database <see cref="Find"/> would use. Cached, because indexing hundreds of files on
+	/// every page render would be wasteful, and quiet, so it does not repeat itself in the log.
+	/// </summary>
+	public static StructDbSummary Summarize(string? configuredPath = null)
+	{
+		string key = configuredPath ?? "";
+		if (cachedSummary is { } cached && cached.Key == key)
+		{
+			return cached.Summary;
+		}
+
+		StructDbSummary summary = default;
+
+		if (Find(configuredPath) is string directory
+			&& StructDbCatalog.TryCreate(directory, log: false) is StructDbCatalog catalog)
+		{
+			List<UnityVersion> versions = [.. catalog.AvailableVersions];
+			summary = new StructDbSummary(directory, versions.Count, versions[0], versions[^1]);
+		}
+
+		cachedSummary = (key, summary);
+		return summary;
+	}
+
+	/// <summary>Drops the cache, so a database added while the application is running is noticed.</summary>
+	public static void ClearSummaryCache() => cachedSummary = null;
 
 	private static bool IsUsable(string path)
 	{

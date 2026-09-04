@@ -31,7 +31,12 @@ public sealed class StructDbCatalog
 	/// Index <paramref name="directory"/>. Returns null when the directory does not exist or holds no
 	/// usable pair of files: the struct database is optional and a missing one is not an error.
 	/// </summary>
-	public static StructDbCatalog? TryCreate(string? directory)
+	/// <param name="directory">The directory to index.</param>
+	/// <param name="log">
+	/// False to index without writing to the log, for callers that only want to report coverage and
+	/// would otherwise repeat the same line on every render.
+	/// </param>
+	public static StructDbCatalog? TryCreate(string? directory, bool log = true)
 	{
 		if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
 		{
@@ -69,7 +74,11 @@ public sealed class StructDbCatalog
 			return null;
 		}
 
-		Logger.Info(LogCategory.Import, $"IL2CPP struct database: {catalog.versions.Count} Unity versions indexed from {directory}");
+		if (log)
+		{
+			Logger.Info(LogCategory.Import, $"IL2CPP struct database: {catalog.versions.Count} Unity versions indexed from {directory}");
+		}
+
 		return catalog;
 	}
 
