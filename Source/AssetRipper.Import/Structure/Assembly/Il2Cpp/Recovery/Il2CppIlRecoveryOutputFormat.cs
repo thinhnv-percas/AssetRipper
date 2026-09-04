@@ -7,6 +7,7 @@ using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core.OutputFormats;
 using System.Collections.Concurrent;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
@@ -36,8 +37,13 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// <summary>Characters of a reason kept for grouping. Long enough to be distinct, short enough to group.</summary>
 	private const int ReasonKeyLength = 160;
 
+	/// <summary>Distinct imbalance shapes to name, with a worked example each.</summary>
+	private const int ImbalanceShapesToReport = 12;
+
 	private readonly ConcurrentDictionary<string, int> failureReasons = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, int> invalidReasons = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, int> imbalanceShapes = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, string> imbalanceExamples = new(StringComparer.Ordinal);
 
 	private int failedMethodCount;
 	private int invalidMethodCount;
@@ -224,6 +230,11 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			body.ComputeMaxStack(false);
 			return;
 		}
+		catch (StackImbalanceException imbalance)
+		{
+			RecordImbalance(body, imbalance.Offset);
+			problem = $"StackImbalanceException at IL_{imbalance.Offset:X4}";
+		}
 		catch (Exception ex)
 		{
 			problem = $"{ex.GetType().Name}: {ex.Message}";
@@ -234,6 +245,67 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		// The same minimal body Cpp2IL uses for a method it does not recover.
 		methodDefinition.ReplaceMethodBodyWithMinimalImplementation();
+	}
+
+	/// <summary>
+	/// Records what the generated IL looks like where the stack stopped balancing.
+	/// </summary>
+	/// <remarks>
+	/// A count of failures says how bad the problem is; it does not say what the problem is. Grouping by
+	/// the opcode shape around the offset does, because a generator defect shows up as the same few
+	/// shapes repeated thousands of times rather than as thousands of unrelated ones.
+	/// </remarks>
+	private void RecordImbalance(CilMethodBody body, int offset)
+	{
+		int index = IndexOfOffset(body, offset);
+		if (index < 0)
+		{
+			imbalanceShapes.AddOrUpdate("offset not found in body", 1, static (_, count) => count + 1);
+			return;
+		}
+
+		// The instruction the imbalance was detected at, and the three before it: enough to see which
+		// construct the generator got wrong, short enough to group.
+		string shape = string.Join(" ", Enumerable
+			.Range(Math.Max(0, index - 3), Math.Min(4, index + 1))
+			.Select(i => body.Instructions[i].OpCode.Mnemonic));
+
+		imbalanceShapes.AddOrUpdate(shape, 1, static (_, count) => count + 1);
+
+		// One worked example per shape, so the shape can be looked at rather than guessed about.
+		imbalanceExamples.TryAdd(shape, DescribeWindow(body, index));
+	}
+
+	private static int IndexOfOffset(CilMethodBody body, int offset)
+	{
+		for (int i = 0; i < body.Instructions.Count; i++)
+		{
+			if (body.Instructions[i].Offset == offset)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	/// <summary>Renders the instructions around an index, marking the one that failed.</summary>
+	private static string DescribeWindow(CilMethodBody body, int index)
+	{
+		int start = Math.Max(0, index - 6);
+		int end = Math.Min(body.Instructions.Count - 1, index + 3);
+
+		StringBuilder window = new();
+		window.Append(body.Owner.FullName);
+
+		for (int i = start; i <= end; i++)
+		{
+			CilInstruction instruction = body.Instructions[i];
+			window.Append("\n      ");
+			window.Append(i == index ? " >> " : "    ");
+			window.Append($"IL_{instruction.Offset:X4}: {instruction}");
+		}
+
+		return window.ToString();
 	}
 
 	private void LogSummary()
@@ -261,6 +333,31 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		Report("failure", failureReasons);
 		Report("invalid body", invalidReasons);
+		ReportImbalanceShapes();
+
+		void ReportImbalanceShapes()
+		{
+			if (imbalanceShapes.IsEmpty)
+			{
+				return;
+			}
+
+			int total = imbalanceShapes.Values.Sum();
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {total} stack imbalances across {imbalanceShapes.Count} distinct opcode shapes. " +
+				"A generator defect repeats a few shapes; unrelated shapes mean unrelated causes.");
+
+			foreach ((string shape, int count) in imbalanceShapes.OrderByDescending(pair => pair.Value).Take(ImbalanceShapesToReport))
+			{
+				Logger.Info(LogCategory.Import,
+					$"Il2Cpp method body recovery: {count} methods imbalance after [{shape}]");
+
+				if (imbalanceExamples.TryGetValue(shape, out string? example))
+				{
+					Logger.Info(LogCategory.Import, $"      example: {example}");
+				}
+			}
+		}
 
 		static void Report(string kind, ConcurrentDictionary<string, int> reasons)
 		{
