@@ -40,6 +40,15 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// <summary>Distinct imbalance shapes to name, with a worked example each.</summary>
 	private const int ImbalanceShapesToReport = 12;
 
+	/// <summary>
+	/// Pops to try inserting into one body before giving up on it.
+	/// </summary>
+	/// <remarks>
+	/// A body needing many is one where the generator went wrong in more than the one way this repairs,
+	/// and the rounds are not free, so the loop stops rather than grinding.
+	/// </remarks>
+	private const int MaximumStackRepairs = 16;
+
 	private readonly ConcurrentDictionary<string, int> failureReasons = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, int> invalidReasons = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, int> imbalanceShapes = new(StringComparer.Ordinal);
@@ -47,6 +56,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 	private int failedMethodCount;
 	private int invalidMethodCount;
+	private int repairedMethodCount;
+	private int insertedPopCount;
 
 	/// <summary>Methods recovery was attempted on. Framework assemblies are stubbed and not counted.</summary>
 	public int AttemptedMethodCount => TotalMethodCount;
@@ -62,6 +73,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 	/// <summary>Methods whose generated IL did not verify and was replaced with a stub.</summary>
 	public int InvalidMethodCount => Volatile.Read(ref invalidMethodCount);
+
+	/// <summary>Methods whose stack was repaired, keeping a body that would otherwise have been discarded.</summary>
+	public int RepairedMethodCount => Volatile.Read(ref repairedMethodCount);
 
 	private ApplicationAnalysisContext? appContext;
 
@@ -224,16 +238,15 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		try
 		{
 			// Branch targets first: an instruction pointing outside the body is what makes a reader
-			// walk off the end. Then the stack, which has to balance for the body to be readable.
+			// walk off the end.
 			body.Instructions.CalculateOffsets();
 			body.VerifyLabels(false);
-			body.ComputeMaxStack(false);
-			return;
-		}
-		catch (StackImbalanceException imbalance)
-		{
-			RecordImbalance(body, imbalance.Offset);
-			problem = $"StackImbalanceException at IL_{imbalance.Offset:X4}";
+
+			// Then the stack, repairing what can be repaired rather than discarding the body over it.
+			if (TryBalanceStack(body, out problem))
+			{
+				return;
+			}
 		}
 		catch (Exception ex)
 		{
@@ -248,6 +261,95 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	}
 
 	/// <summary>
+	/// Balances the evaluation stack, inserting the pops the generator left out.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// The defect is specific and it is the only one the shapes point at: the generator emits a call to
+	/// a method that returns a value, in a position where the value is discarded, and never pops it.
+	/// <c>StringBuilder.Append</c> returns a <c>StringBuilder</c>, so a void method ending in
+	/// <c>ldarg.0; ldfld builder; ldloc; call Append; ret</c> reaches its return with a value still on
+	/// the stack and the whole body is rejected.
+	/// </para>
+	/// <para>
+	/// Rather than reimplement the dataflow, this asks AsmResolver where the stack broke, pops one value
+	/// at that return, and asks again. Each round either fixes one leftover or gives up, so a body that
+	/// cannot be balanced costs a bounded number of rounds and still ends as a stub.
+	/// </para>
+	/// </remarks>
+	private bool TryBalanceStack(CilMethodBody body, out string? problem)
+	{
+		problem = null;
+
+		for (int round = 0; ; round++)
+		{
+			try
+			{
+				body.Instructions.CalculateOffsets();
+				body.ComputeMaxStack(false);
+
+				if (round > 0)
+				{
+					Interlocked.Increment(ref repairedMethodCount);
+					Interlocked.Add(ref insertedPopCount, round);
+				}
+
+				return true;
+			}
+			catch (StackImbalanceException imbalance)
+			{
+				if (round >= MaximumStackRepairs)
+				{
+					RecordImbalance(body, imbalance.Offset, "gave up after " + MaximumStackRepairs + " repairs");
+					problem = $"StackImbalanceException at IL_{imbalance.Offset:X4}, unrepaired after {MaximumStackRepairs} rounds";
+					return false;
+				}
+
+				if (!TryPopLeftoverAtReturn(body, imbalance.Offset, out string? why))
+				{
+					RecordImbalance(body, imbalance.Offset, why);
+					problem = $"StackImbalanceException at IL_{imbalance.Offset:X4}: {why}";
+					return false;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// Pops one leftover value at the return the stack broke at, when that is what the imbalance is.
+	/// </summary>
+	/// <returns>False when the imbalance is not this defect, so the caller stops rather than guessing.</returns>
+	private static bool TryPopLeftoverAtReturn(CilMethodBody body, int offset, out string? why)
+	{
+		int index = IndexOfOffset(body, offset);
+		if (index < 0)
+		{
+			why = "offset is not an instruction boundary";
+			return false;
+		}
+
+		CilInstruction instruction = body.Instructions[index];
+		if (instruction.OpCode.Code is not (CilCode.Ret or CilCode.Throw))
+		{
+			why = $"imbalance is at {instruction.OpCode.Mnemonic}, not at a return";
+			return false;
+		}
+
+		// A void return wants an empty stack, so anything left is a discarded value. A value return
+		// wants exactly one, and this cannot tell a leftover from a missing value, so it declines.
+		if (instruction.OpCode.Code == CilCode.Ret
+			&& body.Owner.Signature?.ReturnsValue == true)
+		{
+			why = "imbalance is at a value return, where a leftover cannot be told from a missing value";
+			return false;
+		}
+
+		body.Instructions.Insert(index, new CilInstruction(CilOpCodes.Pop));
+		why = null;
+		return true;
+	}
+
+	/// <summary>
 	/// Records what the generated IL looks like where the stack stopped balancing.
 	/// </summary>
 	/// <remarks>
@@ -255,20 +357,31 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// the opcode shape around the offset does, because a generator defect shows up as the same few
 	/// shapes repeated thousands of times rather than as thousands of unrelated ones.
 	/// </remarks>
-	private void RecordImbalance(CilMethodBody body, int offset)
+	private void RecordImbalance(CilMethodBody body, int offset, string? why)
 	{
+		bool exact = true;
 		int index = IndexOfOffset(body, offset);
 		if (index < 0)
 		{
-			imbalanceShapes.AddOrUpdate("offset not found in body", 1, static (_, count) => count + 1);
+			// An offset that is not a boundary still localises to the instruction covering it, which is
+			// what a reader needs; saying "not found" was a defect in this lookup rather than a finding.
+			exact = false;
+			index = IndexAtOrBefore(body, offset);
+		}
+
+		if (index < 0)
+		{
+			imbalanceShapes.AddOrUpdate($"offset IL_{offset:X4} is outside the body", 1, static (_, count) => count + 1);
 			return;
 		}
 
 		// The instruction the imbalance was detected at, and the three before it: enough to see which
 		// construct the generator got wrong, short enough to group.
-		string shape = string.Join(" ", Enumerable
+		string opcodes = string.Join(" ", Enumerable
 			.Range(Math.Max(0, index - 3), Math.Min(4, index + 1))
 			.Select(i => body.Instructions[i].OpCode.Mnemonic));
+
+		string shape = $"{opcodes}{(exact ? "" : " (offset mid-instruction)")} - {why ?? "unrepaired"}";
 
 		imbalanceShapes.AddOrUpdate(shape, 1, static (_, count) => count + 1);
 
@@ -286,6 +399,24 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			}
 		}
 		return -1;
+	}
+
+	/// <summary>The instruction covering an offset, for an offset that is not itself a boundary.</summary>
+	private static int IndexAtOrBefore(CilMethodBody body, int offset)
+	{
+		int best = -1;
+		for (int i = 0; i < body.Instructions.Count; i++)
+		{
+			if (body.Instructions[i].Offset <= offset)
+			{
+				best = i;
+			}
+			else
+			{
+				break;
+			}
+		}
+		return best;
 	}
 
 	/// <summary>Renders the instructions around an index, marking the one that failed.</summary>
@@ -323,6 +454,14 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		Logger.Info(LogCategory.Import,
 			$"Il2Cpp method body recovery attempted {attempted} methods; {FailedMethodCount} failed to convert. " +
 			"Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.");
+
+		if (RepairedMethodCount > 0)
+		{
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: repaired the stack in {RepairedMethodCount} bodies by inserting " +
+				$"{Volatile.Read(ref insertedPopCount)} pops for call results the generator discarded without popping. " +
+				"Those bodies survive instead of becoming stubs.");
+		}
 
 		if (InvalidMethodCount > 0)
 		{
