@@ -221,6 +221,18 @@ public sealed partial class SettingsPage : DefaultPage
 							{
 								using (new Div(writer).WithClass("col").End())
 								{
+									WriteTextAreaForDefaultExportPath(writer);
+								}
+								using (new Div(writer).WithClass("col").End())
+								{
+									WriteTextAreaForLogPath(writer);
+								}
+							}
+
+							using (new Div(writer).WithClass("row").End())
+							{
+								using (new Div(writer).WithClass("col").End())
+								{
 								}
 								using (new Div(writer).WithClass("col").End())
 								{
@@ -252,6 +264,32 @@ public sealed partial class SettingsPage : DefaultPage
 			.WithName(nameof(Configuration.ImportSettings.DefaultVersion))
 			.WithValue(Configuration.ImportSettings.DefaultVersion.ToString())
 			.Close();
+	}
+
+	private static void WriteTextAreaForDefaultExportPath(TextWriter writer)
+	{
+		new Label(writer).WithClass("form-label").WithFor(nameof(Configuration.ExportSettings.DefaultExportPath)).Close(Localization.DefaultExportPath);
+		new Input(writer)
+			.WithType("text")
+			.WithClass("form-control")
+			.WithId(nameof(Configuration.ExportSettings.DefaultExportPath))
+			.WithName(nameof(Configuration.ExportSettings.DefaultExportPath))
+			.WithValue(Configuration.ExportSettings.DefaultExportPath ?? "")
+			.Close();
+		new Div(writer).WithClass("form-text").Close(Localization.DefaultExportPathDescription);
+	}
+
+	private static void WriteTextAreaForLogPath(TextWriter writer)
+	{
+		new Label(writer).WithClass("form-label").WithFor(nameof(Configuration.ExportSettings.LogPath)).Close(Localization.LogPath);
+		new Input(writer)
+			.WithType("text")
+			.WithClass("form-control")
+			.WithId(nameof(Configuration.ExportSettings.LogPath))
+			.WithName(nameof(Configuration.ExportSettings.LogPath))
+			.WithValue(Configuration.ExportSettings.LogPath ?? "")
+			.Close();
+		new Div(writer).WithClass("form-text").Close(Localization.LogPathDescription);
 	}
 
 	private static void WriteTextAreaForIl2CppStructDbPath(TextWriter writer)

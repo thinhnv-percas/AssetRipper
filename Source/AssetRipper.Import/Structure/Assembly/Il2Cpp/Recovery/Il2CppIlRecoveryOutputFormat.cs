@@ -1,6 +1,7 @@
 using AsmResolver.DotNet;
 using AsmResolver.DotNet.Code.Cil;
 using AsmResolver.PE.DotNet.Cil;
+using AssetRipper.CIL;
 using AssetRipper.Import.Logging;
 using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core.OutputFormats;
@@ -34,8 +35,10 @@ public sealed class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlR
 	private const int ReasonKeyLength = 160;
 
 	private readonly ConcurrentDictionary<string, int> failureReasons = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, int> invalidReasons = new(StringComparer.Ordinal);
 
 	private int failedMethodCount;
+	private int invalidMethodCount;
 
 	/// <summary>Methods recovery was attempted on. Framework assemblies are stubbed and not counted.</summary>
 	public int AttemptedMethodCount => TotalMethodCount;
@@ -48,6 +51,9 @@ public sealed class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlR
 
 	/// <summary>Methods whose conversion threw, and whose body is now a throw carrying the reason.</summary>
 	public int FailedMethodCount => Volatile.Read(ref failedMethodCount);
+
+	/// <summary>Methods whose generated IL did not verify and was replaced with a stub.</summary>
+	public int InvalidMethodCount => Volatile.Read(ref invalidMethodCount);
 
 	public override List<AssemblyDefinition> BuildAssemblies(ApplicationAnalysisContext context)
 	{
@@ -64,7 +70,50 @@ public sealed class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlR
 		{
 			Interlocked.Increment(ref failedMethodCount);
 			failureReasons.AddOrUpdate(Summarize(reason), 1, static (_, count) => count + 1);
+			return;
 		}
+
+		ReplaceIfUnverifiable(methodDefinition);
+	}
+
+	/// <summary>
+	/// Replaces a generated body that does not verify with a stub.
+	/// </summary>
+	/// <remarks>
+	/// This is worth doing because of how the failure lands. ILSpy decompiles an assembly as one
+	/// parallel unit, and a body it cannot read throws out of that unit, so
+	/// <c>ScriptDecompiler.DecompileWholeProject</c> loses every remaining file in the assembly — a
+	/// handful of bad bodies costs thousands of methods that were fine. Stubbing the bad one keeps the
+	/// cost to that method.
+	/// </remarks>
+	private void ReplaceIfUnverifiable(MethodDefinition methodDefinition)
+	{
+		CilMethodBody? body = methodDefinition.CilMethodBody;
+		if (body is null || body.Instructions.Count == 0)
+		{
+			return;
+		}
+
+		string? problem;
+		try
+		{
+			// Branch targets first: an instruction pointing outside the body is what makes a reader
+			// walk off the end. Then the stack, which has to balance for the body to be readable.
+			body.Instructions.CalculateOffsets();
+			body.VerifyLabels(false);
+			body.ComputeMaxStack(false);
+			return;
+		}
+		catch (Exception ex)
+		{
+			problem = $"{ex.GetType().Name}: {ex.Message}";
+		}
+
+		Interlocked.Increment(ref invalidMethodCount);
+		invalidReasons.AddOrUpdate(Summarize(problem), 1, static (_, count) => count + 1);
+
+		// The same minimal body Cpp2IL uses for a method it does not recover.
+		methodDefinition.ReplaceMethodBodyWithMinimalImplementation();
 	}
 
 	private void LogSummary()
@@ -83,21 +132,34 @@ public sealed class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputFormatIlR
 			$"Il2Cpp method body recovery attempted {attempted} methods; {FailedMethodCount} failed to convert. " +
 			"Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.");
 
-		if (failureReasons.IsEmpty)
+		if (InvalidMethodCount > 0)
 		{
-			return;
+			Logger.Warning(LogCategory.Import,
+				$"Il2Cpp method body recovery: {InvalidMethodCount} generated bodies did not verify and were replaced with stubs. " +
+				"Left in place they would abort decompilation of their whole assembly, losing every other method in it.");
 		}
 
-		foreach ((string reason, int count) in failureReasons.OrderByDescending(pair => pair.Value).Take(ReasonsToReport))
-		{
-			Logger.Info(LogCategory.Import, $"Il2Cpp method body recovery failure ({count} methods): {reason}");
-		}
+		Report("failure", failureReasons);
+		Report("invalid body", invalidReasons);
 
-		int distinct = failureReasons.Count;
-		if (distinct > ReasonsToReport)
+		static void Report(string kind, ConcurrentDictionary<string, int> reasons)
 		{
-			Logger.Info(LogCategory.Import,
-				$"Il2Cpp method body recovery: {distinct - ReasonsToReport} further distinct failure reasons not listed.");
+			if (reasons.IsEmpty)
+			{
+				return;
+			}
+
+			foreach ((string reason, int count) in reasons.OrderByDescending(pair => pair.Value).Take(ReasonsToReport))
+			{
+				Logger.Info(LogCategory.Import, $"Il2Cpp method body recovery {kind} ({count} methods): {reason}");
+			}
+
+			int distinct = reasons.Count;
+			if (distinct > ReasonsToReport)
+			{
+				Logger.Info(LogCategory.Import,
+					$"Il2Cpp method body recovery: {distinct - ReasonsToReport} further distinct {kind} reasons not listed.");
+			}
 		}
 	}
 

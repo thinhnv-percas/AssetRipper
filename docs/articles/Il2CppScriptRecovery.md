@@ -66,6 +66,25 @@ What to read in it, in order:
 | `Il2Cpp recovery: sampled N methods — L lifted to ISIL, E produced none, ...` | The decisive measurement. `L` of zero means the lifting stage is the problem, not the export. |
 | `Il2Cpp method body recovery attempted N methods; M failed to convert` | Whether recovery reached the game's code. Zero attempted means it never did. |
 | `Il2Cpp method body recovery failure (N methods): <reason>` | The distinct reasons conversion threw, most common first. |
+| `N generated bodies did not verify and were replaced with stubs` | Bodies whose IL was malformed. Left in place, each one aborts its whole assembly. |
+| `Native source injection ... per-assembly budget in <assemblies>` | Which assemblies ran out of reconstruction budget, so their later methods carry no `[NativeSource]`. |
+| `Decompilation of '<assembly>' was abandoned part way through` | That assembly's scripts are incomplete, whatever the counts above say. |
+
+The two log-file paths — the one AssetRipper writes and the one the script reads — are set by the
+**Log file path** setting, or by `--log-path`, which overrides it. **Default export path** pre-fills
+the export box for the same reason: a path used every run should be typed once.
+
+### Why one bad method used to cost a whole assembly
+
+ILSpy decompiles an assembly as a single parallel unit, so a method body it cannot read throws out of
+the entire operation and `ScriptDecompiler` loses every file in that assembly that had not been
+written yet. A handful of malformed bodies therefore reads as thousands of missing methods. The
+reference implementation this port is based on catches per type for exactly this reason.
+
+Two things now prevent it: generated bodies are verified before ILSpy sees them and a body that does
+not verify is replaced with a stub, and when decompilation is abandoned anyway the log names the
+assembly instead of leaving it to be guessed.
+
 
 The last one exists because Cpp2IL reports these per method through its own warning channel, which
 AssetRipper maps to verbose logging and then discards. Rather than turn that flood on, the reason is

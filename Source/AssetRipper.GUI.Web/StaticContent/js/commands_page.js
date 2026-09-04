@@ -5,7 +5,8 @@ const app = createApp({
 		return {
 			load_path: '',
 			load_path_exists: false,
-			export_path: '',
+			// Seeded by the page from the DefaultExportPath setting, so a path used every rip is typed once.
+			export_path: (window.assetRipperDefaults && window.assetRipperDefaults.exportPath) || '',
 			export_path_has_files: false,
 			create_subfolder: false
 		}

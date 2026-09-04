@@ -60,6 +60,8 @@ echo.
 echo === Starting AssetRipper ===
 echo Log: %LOG%
 echo.
+echo This script passes --log-path, which overrides the Log file path setting.
+echo.
 echo 1. Settings - set Script Content Level to Level 3, Save.
 echo 2. Load the game, then export the Unity project.
 echo 3. Close AssetRipper. This window then writes the summary log.
@@ -81,7 +83,7 @@ if not exist "%LOG%" (
 )
 
 echo === Recovery lines ===
-findstr /i /c:"Il2Cpp recovery" /c:"IL2CPP struct database" /c:"method body recovery" /c:"Il2Cpp initialization" /c:"ScriptContentLevel" /c:"EmitIl2CppOffsets" /c:"ReconstructNativeBodies" /c:"Il2CppStructDbPath" "%LOG%" > "%SUMMARY%"
+findstr /i /c:"Il2Cpp recovery" /c:"IL2CPP struct database" /c:"method body recovery" /c:"Il2Cpp initialization" /c:"Native source injection" /c:"was abandoned part way" /c:"ScriptContentLevel" /c:"EmitIl2CppOffsets" /c:"ReconstructNativeBodies" /c:"Il2CppStructDbPath" /c:"DefaultExportPath" /c:"Attempting to export assets" "%LOG%" > "%SUMMARY%"
 type "%SUMMARY%"
 
 echo.

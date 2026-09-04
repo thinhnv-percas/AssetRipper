@@ -57,6 +57,12 @@ partial class SettingsPage
 			case nameof(ExportSettings.TextExportMode):
 				Configuration.ExportSettings.TextExportMode = TryParseEnum<TextExportMode>(value);
 				break;
+			case nameof(ExportSettings.DefaultExportPath):
+				Configuration.ExportSettings.DefaultExportPath = value;
+				break;
+			case nameof(ExportSettings.LogPath):
+				Configuration.ExportSettings.LogPath = value;
+				break;
 			case nameof(ExportSettings.LanguageCode):
 				Configuration.ExportSettings.LanguageCode = value;
 				break;

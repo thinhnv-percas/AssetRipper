@@ -58,6 +58,21 @@ public sealed record class ExportSettings
 
 	public bool SaveSettingsToDisk { get; set; }
 
+	/// <summary>
+	/// Pre-fills the export path box, so a path used for every rip is typed once rather than every time.
+	/// Empty leaves the box empty, as before.
+	/// </summary>
+	public string? DefaultExportPath { get; set; }
+
+	/// <summary>
+	/// Where to write the log file. Empty writes a timestamped file next to the executable, as before.
+	/// </summary>
+	/// <remarks>
+	/// A fixed path makes the log easy to find and attach, which a timestamped name in the install
+	/// directory is not. The <c>--log-path</c> command line argument still wins over this.
+	/// </remarks>
+	public string? LogPath { get; set; }
+
 	public string? LanguageCode { get; set; }
 
 	/// <summary>
@@ -82,6 +97,14 @@ public sealed record class ExportSettings
 		Logger.Info(LogCategory.General, $"{nameof(TextExportMode)}: {TextExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(ExportUnreadableAssets)}: {ExportUnreadableAssets}");
 		Logger.Info(LogCategory.General, $"{nameof(PreferOriginalTextureExtension)}: {PreferOriginalTextureExtension}");
+		if (!string.IsNullOrWhiteSpace(DefaultExportPath))
+		{
+			Logger.Info(LogCategory.General, $"{nameof(DefaultExportPath)}: {DefaultExportPath}");
+		}
+		if (!string.IsNullOrWhiteSpace(LogPath))
+		{
+			Logger.Info(LogCategory.General, $"{nameof(LogPath)}: {LogPath}");
+		}
 		if (!string.IsNullOrWhiteSpace(OfficialPackageCachePath))
 		{
 			Logger.Info(LogCategory.General, $"{nameof(OfficialPackageCachePath)}: {OfficialPackageCachePath}");

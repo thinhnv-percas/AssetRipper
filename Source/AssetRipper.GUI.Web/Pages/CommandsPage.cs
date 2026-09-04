@@ -1,4 +1,5 @@
 ﻿using AssetRipper.GUI.Web.Paths;
+using System.Text.Json;
 
 namespace AssetRipper.GUI.Web.Pages;
 
@@ -96,6 +97,15 @@ public sealed class CommandsPage : VuePage
 	protected override void WriteScriptReferences(TextWriter writer)
 	{
 		base.WriteScriptReferences(writer);
+
+		// Must precede the app script, which reads these when it builds its initial state.
+		using (new Script(writer).End())
+		{
+			writer.Write("window.assetRipperDefaults = { exportPath: ");
+			writer.Write(JsonSerializer.Serialize(GameFileLoader.Settings.ExportSettings.DefaultExportPath ?? "", AppJsonSerializerContext.Default.String));
+			writer.Write(" };");
+		}
+
 		new Script(writer).WithSrc("/js/commands_page.js").Close();
 	}
 

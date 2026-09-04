@@ -39,10 +39,12 @@ public sealed class NativeSourceInjectionProcessingLayer(NativeSourceOptions opt
 
 		Dictionary<AssemblyAnalysisContext, InjectedMethodAnalysisContext> constructors = attributeType.InjectConstructor(false);
 
-		long remainingBudget = options.TotalCharacterBudget;
+		long remainingTotalBudget = options.TotalCharacterBudget;
 		int injected = 0;
 		int done = 0;
 		int total = appContext.Assemblies.Count;
+		List<string> truncatedAssemblies = [];
+		bool totalExhausted = false;
 
 		foreach (AssemblyAnalysisContext assembly in appContext.Assemblies)
 		{
@@ -56,13 +58,24 @@ public sealed class NativeSourceInjectionProcessingLayer(NativeSourceOptions opt
 			InjectedFieldAnalysisContext bodyField = bodyFields[assembly];
 			InjectedMethodAnalysisContext constructor = constructors[assembly];
 
+			// The #US heap this text lands in belongs to one assembly, so the limit that keeps the
+			// heap writable is per assembly. The total is only a memory guard.
+			long remainingAssemblyBudget = options.CharacterBudgetPerAssembly;
+
 			foreach (TypeAnalysisContext type in assembly.Types)
 			{
 				foreach (MethodAnalysisContext method in type.Methods)
 				{
-					if (remainingBudget <= 0)
+					if (remainingTotalBudget <= 0)
 					{
+						totalExhausted = true;
 						goto budgetExhausted;
+					}
+
+					if (remainingAssemblyBudget <= 0)
+					{
+						truncatedAssemblies.Add(assembly.CleanAssemblyName);
+						goto nextAssembly;
 					}
 
 					string body = TryReconstruct(method, annotator);
@@ -81,22 +94,32 @@ public sealed class NativeSourceInjectionProcessingLayer(NativeSourceOptions opt
 						new CustomAttributePrimitiveParameter(body, attribute, CustomAttributeParameterKind.Field, 0)));
 					method.CustomAttributes!.Add(attribute);
 
-					remainingBudget -= body.Length;
+					remainingAssemblyBudget -= body.Length;
+					remainingTotalBudget -= body.Length;
 					injected++;
 				}
 			}
+
+		nextAssembly:
+			;
 		}
 
 	budgetExhausted:
-		if (remainingBudget <= 0)
+		Logger.Info(LogCategory.Import, $"Native source injection: reconstructed {injected} method bodies.");
+
+		if (totalExhausted)
 		{
 			Logger.Warning(LogCategory.Import,
-				$"Native source injection stopped after {injected} methods: the {options.TotalCharacterBudget} character budget was exhausted. " +
-				"Raise NativeSourceOptions.TotalCharacterBudget to cover more methods.");
+				$"Native source injection stopped early: the {options.TotalCharacterBudget} character total budget was exhausted. " +
+				$"Raise {nameof(NativeSourceOptions)}.{nameof(NativeSourceOptions.TotalCharacterBudget)} to cover more methods.");
 		}
-		else
+
+		if (truncatedAssemblies.Count > 0)
 		{
-			Logger.Info(LogCategory.Import, $"Native source injection: reconstructed {injected} method bodies.");
+			Logger.Warning(LogCategory.Import,
+				$"Native source injection hit the {options.CharacterBudgetPerAssembly} character per-assembly budget in " +
+				$"{string.Join(", ", truncatedAssemblies)}; later methods in those assemblies have no reconstruction. " +
+				$"Raise {nameof(NativeSourceOptions)}.{nameof(NativeSourceOptions.CharacterBudgetPerAssembly)} to cover more.");
 		}
 
 		progressCallback?.Invoke(total, total);
@@ -150,10 +173,25 @@ public sealed record NativeSourceOptions
 	public int MaximumCharactersPerMethod { get; init; } = 8 * 1024;
 
 	/// <summary>
-	/// Total characters across all methods. The <c>#US</c> heap is addressed by 24-bit offsets, so an
-	/// unbounded dump produces an assembly that cannot be written; the default leaves ample headroom.
+	/// Characters of reconstruction per assembly.
 	/// </summary>
-	public long TotalCharacterBudget { get; init; } = 8L * 1024 * 1024;
+	/// <remarks>
+	/// This is the limit that matters. User strings live in the <c>#US</c> heap, which <c>ldstr</c>
+	/// addresses with a 24-bit offset, so a heap over 16 MB produces an assembly that cannot be written
+	/// — and each assembly has its own heap. The default is 4 M characters, 8 MB as UTF-16, leaving half
+	/// the addressable space for the strings the game itself uses.
+	/// </remarks>
+	public long CharacterBudgetPerAssembly { get; init; } = 4L * 1024 * 1024;
+
+	/// <summary>
+	/// Characters across every assembly, as a memory guard rather than a correctness one.
+	/// </summary>
+	/// <remarks>
+	/// A per-assembly budget times a few dozen assemblies is more text than is reasonable to hold in
+	/// memory at once, so this caps the total. It is deliberately far above
+	/// <see cref="CharacterBudgetPerAssembly"/>: a game's own scripts should never reach it.
+	/// </remarks>
+	public long TotalCharacterBudget { get; init; } = 64L * 1024 * 1024;
 
 	/// <summary>
 	/// Assemblies to reconstruct. Framework assemblies are excluded by default: their bodies are not what

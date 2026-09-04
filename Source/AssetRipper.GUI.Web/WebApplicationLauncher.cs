@@ -1,4 +1,4 @@
-using AssetRipper.GUI.Web.Documentation;
+﻿using AssetRipper.GUI.Web.Documentation;
 using AssetRipper.GUI.Web.Pages;
 using AssetRipper.GUI.Web.Pages.Assets;
 using AssetRipper.GUI.Web.Pages.Bundles;
@@ -77,11 +77,27 @@ public static class WebApplicationLauncher
 
 		if (log)
 		{
-			if (string.IsNullOrEmpty(logPath))
+			// The command line wins, then the setting, then a timestamped file beside the executable.
+			// A fixed path is what makes the log findable, so only the rotating default rotates.
+			if (string.IsNullOrWhiteSpace(logPath))
+			{
+				logPath = GameFileLoader.Settings.ExportSettings.LogPath;
+			}
+
+			if (string.IsNullOrWhiteSpace(logPath))
 			{
 				logPath = Path.Join(LocalFileSystem.ExecutingDirectory, $"AssetRipper_{DateTime.Now:yyyyMMdd_HHmmss}.log");
 				RotateLogs(logPath);
 			}
+			else
+			{
+				string? directory = Path.GetDirectoryName(logPath);
+				if (!string.IsNullOrEmpty(directory))
+				{
+					Directory.CreateDirectory(directory);
+				}
+			}
+
 			Logger.Add(new FileLogger(logPath));
 		}
 		Logger.LogSystemInformation("AssetRipper");

@@ -55,6 +55,13 @@ internal class ScriptDecompiler
 		}
 		catch (Exception exception)
 		{
+			// ILSpy decompiles an assembly as one parallel unit, so a single unreadable method body
+			// throws out of the whole thing and every remaining file in this assembly goes unwritten.
+			// Say which assembly that was: from the output alone it is indistinguishable from an
+			// assembly that simply had little in it.
+			Logger.Error(LogCategory.Export,
+				$"Decompilation of '{assembly.Name}' was abandoned part way through, so its scripts are incomplete. " +
+				"The methods named below are the ones ILSpy could not read.");
 			Logger.Error(exception);
 		}
 	}
