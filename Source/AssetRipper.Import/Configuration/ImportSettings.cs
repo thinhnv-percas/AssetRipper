@@ -40,11 +40,36 @@ public sealed record class ImportSettings
 	[JsonConverter(typeof(UnityVersionJsonConverter))]
 	public UnityVersion TargetVersion { get; set; }
 
+	/// <summary>
+	/// Emit IL2Cpp field offsets and method addresses as attributes on the exported scripts.
+	/// Only has an effect at <see cref="ScriptContentLevel.Level3"/>.
+	/// </summary>
+	public bool EmitIl2CppOffsets { get; set; } = true;
+
+	/// <summary>
+	/// Attach an approximate C# reconstruction of the native body to IL2Cpp methods that IL recovery
+	/// cannot express. Reads as C#; does not compile. Slow.
+	/// Only has an effect at <see cref="ScriptContentLevel.Level3"/>.
+	/// </summary>
+	public bool ReconstructNativeBodies { get; set; }
+
+	/// <summary>
+	/// Directory holding the IL2Cpp runtime struct layout database. Empty means "look in the default
+	/// locations", and finding nothing is not an error: recovered bodies then show raw offsets.
+	/// </summary>
+	public string? Il2CppStructDbPath { get; set; }
+
 	public void Log()
 	{
 		Logger.Info(LogCategory.General, $"{nameof(ScriptContentLevel)}: {ScriptContentLevel}");
 		Logger.Info(LogCategory.General, $"{nameof(StreamingAssetsMode)}: {StreamingAssetsMode}");
 		Logger.Info(LogCategory.General, $"{nameof(DefaultVersion)}: {DefaultVersion}");
 		Logger.Info(LogCategory.General, $"{nameof(TargetVersion)}: {TargetVersion}");
+		if (ScriptContentLevel is ScriptContentLevel.Level3)
+		{
+			Logger.Info(LogCategory.General, $"{nameof(EmitIl2CppOffsets)}: {EmitIl2CppOffsets}");
+			Logger.Info(LogCategory.General, $"{nameof(ReconstructNativeBodies)}: {ReconstructNativeBodies}");
+			Logger.Info(LogCategory.General, $"{nameof(Il2CppStructDbPath)}: {Il2CppStructDbPath}");
+		}
 	}
 }

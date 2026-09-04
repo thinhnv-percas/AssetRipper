@@ -4,6 +4,7 @@ using AssetRipper.Import.Configuration;
 using AssetRipper.Import.Logging;
 using AssetRipper.Import.Platforms;
 using AssetRipper.Import.Structure.Assembly;
+using AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 using AssetRipper.Import.Structure.Assembly.Managers;
 using AssetRipper.Import.Structure.Platforms;
 using AssetRipper.IO.Files;
@@ -89,6 +90,9 @@ public sealed class GameStructure : IDisposable
 	{
 		ScriptingBackend scriptBackend = GetScriptingBackend(configuration.DisableScriptImport);
 		Logger.Info(LogCategory.Import, $"Files use the '{scriptBackend}' scripting backend.");
+
+		// Keeps IL2CppManager's two recovery hooks in step with the current settings. A no-op below Level3.
+		Il2CppRecoverySetup.Apply(configuration.ImportSettings);
 
 		AssemblyManager = scriptBackend switch
 		{

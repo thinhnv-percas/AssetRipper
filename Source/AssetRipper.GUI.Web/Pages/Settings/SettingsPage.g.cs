@@ -27,6 +27,9 @@ partial class SettingsPage
 			case nameof(ImportSettings.TargetVersion):
 				Configuration.ImportSettings.TargetVersion = TryParseUnityVersion(value);
 				break;
+			case nameof(ImportSettings.Il2CppStructDbPath):
+				Configuration.ImportSettings.Il2CppStructDbPath = value;
+				break;
 			case nameof(ProcessingSettings.BundledAssetsExportMode):
 				Configuration.ProcessingSettings.BundledAssetsExportMode = TryParseEnum<BundledAssetsExportMode>(value);
 				break;
@@ -66,6 +69,8 @@ partial class SettingsPage
 	private static readonly Dictionary<string, Action<bool>> booleanProperties = new()
 	{
 		{ nameof(ImportSettings.IgnoreStreamingAssets), (value) => { Configuration.ImportSettings.IgnoreStreamingAssets = value; } },
+		{ nameof(ImportSettings.EmitIl2CppOffsets), (value) => { Configuration.ImportSettings.EmitIl2CppOffsets = value; } },
+		{ nameof(ImportSettings.ReconstructNativeBodies), (value) => { Configuration.ImportSettings.ReconstructNativeBodies = value; } },
 		{ nameof(ProcessingSettings.EnablePrefabOutlining), (value) => { Configuration.ProcessingSettings.EnablePrefabOutlining = value; } },
 		{ nameof(ProcessingSettings.EnableStaticMeshSeparation), (value) => { Configuration.ProcessingSettings.EnableStaticMeshSeparation = value; } },
 		{ nameof(ProcessingSettings.EnableAssetDeduplication), (value) => { Configuration.ProcessingSettings.EnableAssetDeduplication = value; } },
@@ -90,6 +95,16 @@ partial class SettingsPage
 	private static void WriteDropDownForStreamingAssetsMode(TextWriter writer)
 	{
 		WriteDropDown(writer, StreamingAssetsModeDropDownSetting.Instance, Configuration.ImportSettings.StreamingAssetsMode, nameof(ImportSettings.StreamingAssetsMode));
+	}
+
+	private static void WriteCheckBoxForEmitIl2CppOffsets(TextWriter writer, string label, bool disabled = false)
+	{
+		WriteCheckBox(writer, label, Configuration.ImportSettings.EmitIl2CppOffsets, nameof(ImportSettings.EmitIl2CppOffsets), disabled);
+	}
+
+	private static void WriteCheckBoxForReconstructNativeBodies(TextWriter writer, string label, bool disabled = false)
+	{
+		WriteCheckBox(writer, label, Configuration.ImportSettings.ReconstructNativeBodies, nameof(ImportSettings.ReconstructNativeBodies), disabled);
 	}
 
 	private static void WriteCheckBoxForEnablePrefabOutlining(TextWriter writer, string label, bool disabled = false)

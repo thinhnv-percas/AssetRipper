@@ -85,6 +85,36 @@ public sealed partial class SettingsPage : DefaultPage
 
 						using (new Div(writer).End())
 						{
+							new H3(writer).Close(Localization.Il2CppRecovery);
+							new P(writer).WithClass("form-text").Close(Localization.Il2CppRecoveryNotice);
+
+							using (new Div(writer).WithClass("row").End())
+							{
+								using (new Div(writer).WithClass("col").End())
+								{
+									WriteCheckBoxForEmitIl2CppOffsets(writer, Localization.Il2CppEmitOffsets);
+									new Div(writer).WithClass("form-text").Close(Localization.Il2CppEmitOffsetsDescription);
+								}
+								using (new Div(writer).WithClass("col").End())
+								{
+									WriteCheckBoxForReconstructNativeBodies(writer, Localization.Il2CppReconstructNativeBodies);
+									new Div(writer).WithClass("form-text").Close(Localization.Il2CppReconstructNativeBodiesDescription);
+								}
+							}
+
+							using (new Div(writer).WithClass("row").End())
+							{
+								using (new Div(writer).WithClass("col").End())
+								{
+									WriteTextAreaForIl2CppStructDbPath(writer);
+								}
+							}
+						}
+
+						new Hr(writer).Close();
+
+						using (new Div(writer).End())
+						{
 							new H3(writer).Close(Localization.Experimental);
 
 							using (new Div(writer).WithClass("row").End())
@@ -221,6 +251,19 @@ public sealed partial class SettingsPage : DefaultPage
 			.WithName(nameof(Configuration.ImportSettings.DefaultVersion))
 			.WithValue(Configuration.ImportSettings.DefaultVersion.ToString())
 			.Close();
+	}
+
+	private static void WriteTextAreaForIl2CppStructDbPath(TextWriter writer)
+	{
+		new Label(writer).WithClass("form-label").WithFor(nameof(Configuration.ImportSettings.Il2CppStructDbPath)).Close(Localization.Il2CppStructDbPath);
+		new Input(writer)
+			.WithType("text")
+			.WithClass("form-control")
+			.WithId(nameof(Configuration.ImportSettings.Il2CppStructDbPath))
+			.WithName(nameof(Configuration.ImportSettings.Il2CppStructDbPath))
+			.WithValue(Configuration.ImportSettings.Il2CppStructDbPath ?? "")
+			.Close();
+		new Div(writer).WithClass("form-text").Close(Localization.Il2CppStructDbPathDescription);
 	}
 
 	private static void WriteTextAreaForOfficialPackageCachePath(TextWriter writer)
