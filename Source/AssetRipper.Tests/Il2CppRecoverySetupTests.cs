@@ -126,6 +126,30 @@ internal sealed class Il2CppRecoverySetupTests
 	}
 
 	/// <summary>
+	/// Which assemblies recovery attempts. Cpp2IL stubs the framework ones by design, so a reader
+	/// looking at UnityEngine.CoreModule sees empty bodies however well recovery went — and this
+	/// predicate is what the diagnostics use to name the assemblies worth opening.
+	/// </summary>
+	[Test]
+	public void FrameworkAssembliesAreTheOnesCpp2IlStubs()
+	{
+		Assert.Multiple(() =>
+		{
+			foreach (string stubbed in (string[])
+				["UnityEngine", "UnityEngine.CoreModule", "Unity.TextMeshPro", "System", "System.Core", "mscorlib", "netstandard"])
+			{
+				Assert.That(Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(stubbed), Is.True, stubbed);
+			}
+
+			foreach (string attempted in (string[])
+				["Assembly-CSharp", "Assembly-CSharp-firstpass", "SandLoop.Core", "DOTween", "Firebase.App"])
+			{
+				Assert.That(Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(attempted), Is.False, attempted);
+			}
+		});
+	}
+
+	/// <summary>
 	/// The diagnostics go first, so a binary that cannot be recovered is reported before attribute
 	/// analysis spends minutes on it. Attribute analysis then precedes the layers that append to the
 	/// lists it creates.

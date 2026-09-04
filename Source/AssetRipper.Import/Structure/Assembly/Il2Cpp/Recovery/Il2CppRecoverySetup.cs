@@ -1,4 +1,5 @@
 using AssetRipper.Import.Configuration;
+using AssetRipper.Import.Logging;
 using AssetRipper.Import.Structure.Assembly.Il2Cpp.StructDb;
 using AssetRipper.Import.Structure.Assembly.Managers;
 using Cpp2IL.Core.Api;
@@ -54,6 +55,11 @@ public static class Il2CppRecoverySetup
 		}
 
 		IL2CppManager.RecoveryProcessingLayers = layers;
+
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp recovery installed: offset attributes {(injectAddressAttributes ? "on" : "off")}, " +
+			$"body reconstruction {(reconstructBodies ? "on" : "off")}, " +
+			$"struct database {structDbDirectory ?? "not found"}.");
 
 		// ISIL to CIL, so ILSpy produces real C# for the methods it can handle. A fresh instance per
 		// install, because its counters are per-run.

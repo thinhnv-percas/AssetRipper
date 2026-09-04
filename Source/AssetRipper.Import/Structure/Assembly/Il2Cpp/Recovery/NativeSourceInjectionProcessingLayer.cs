@@ -155,11 +155,10 @@ public sealed record NativeSourceOptions
 	/// </summary>
 	public long TotalCharacterBudget { get; init; } = 8L * 1024 * 1024;
 
-	/// <summary>Assemblies to reconstruct. Framework assemblies are excluded by default: their bodies are not what anyone is reading for.</summary>
-	public Func<string, bool> ShouldProcessAssembly { get; init; } = static name =>
-		!name.StartsWith("UnityEngine", StringComparison.Ordinal)
-		&& !name.StartsWith("Unity.", StringComparison.Ordinal)
-		&& !name.StartsWith("System", StringComparison.Ordinal)
-		&& !name.StartsWith("mscorlib", StringComparison.Ordinal)
-		&& !name.StartsWith("netstandard", StringComparison.Ordinal);
+	/// <summary>
+	/// Assemblies to reconstruct. Framework assemblies are excluded by default: their bodies are not what
+	/// anyone is reading for, and Cpp2IL stubs them anyway.
+	/// </summary>
+	public Func<string, bool> ShouldProcessAssembly { get; init; } =
+		static name => !Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(name);
 }

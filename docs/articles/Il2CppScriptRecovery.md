@@ -42,6 +42,35 @@ Nothing here changes script identity: `.cs.meta` GUIDs, and the `m_Script` GUID 
 exported scenes and prefabs, come from assembly and type names, not from method bodies. An export at
 Level 3 is drop-in comparable with one at Level 2.
 
+## Diagnosing empty method bodies
+
+Empty bodies are the failure mode all the others collapse into, and the exported scripts look the
+same whichever cause it was. On Windows, `BUILD-AND-RUN.bat` in the repository root builds, deletes
+the previous log, starts AssetRipper with a fixed log path, and on exit writes
+`AssetRipper-recovery.log` containing just the relevant lines:
+
+```
+BUILD-AND-RUN.bat                 Debug build, random port
+BUILD-AND-RUN.bat Release         Release build
+BUILD-AND-RUN.bat Debug 17845     Debug build on a fixed port
+```
+
+What to read in it, in order:
+
+| Line | What it settles |
+|---|---|
+| `ScriptContentLevel: Level3` | Recovery is on at all. Any other value and nothing below runs. |
+| `Il2Cpp recovery installed: ... struct database <path>` | Whether the bundled layouts were found. `not found` means raw offsets instead of runtime field names, nothing worse. |
+| `Il2Cpp recovery: Unity ..., metadata v..., 64-bit, instruction set ...` | The binary in hand. The instruction set is what decides whether bodies are possible at all. |
+| `Il2Cpp recovery: N assemblies will be attempted ... Attempted: ...` | Which assemblies to open. Framework assemblies are stubbed by design, so empty bodies in `UnityEngine.*` are expected and say nothing about the run. |
+| `Il2Cpp recovery: sampled N methods — L lifted to ISIL, E produced none, ...` | The decisive measurement. `L` of zero means the lifting stage is the problem, not the export. |
+| `Il2Cpp method body recovery attempted N methods; M failed to convert` | Whether recovery reached the game's code. Zero attempted means it never did. |
+| `Il2Cpp method body recovery failure (N methods): <reason>` | The distinct reasons conversion threw, most common first. |
+
+The last one exists because Cpp2IL reports these per method through its own warning channel, which
+AssetRipper maps to verbose logging and then discards. Rather than turn that flood on, the reason is
+read back out of the `throw` the failed body carries and reported as counts.
+
 ## The struct database
 
 A recovered method body is full of reads through the IL2Cpp runtime's own C structs. Without a
