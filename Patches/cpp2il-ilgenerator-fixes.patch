@@ -1,0 +1,54 @@
+diff --git a/Cpp2IL.Core/IlGenerator.cs b/Cpp2IL.Core/IlGenerator.cs
+index 8562038..53a5e23 100644
+--- a/Cpp2IL.Core/IlGenerator.cs
++++ b/Cpp2IL.Core/IlGenerator.cs
+@@ -221,6 +221,30 @@ public static class IlGenerator
+             instructions.Add(CilOpCodes.Ldstr, Diagnostic("Warning: " + warning));
+             instructions.Add(CilOpCodes.Call, writeLine);
+         }
++
++        EnsureTerminated(context, instructions);
++    }
++
++    /// <summary>
++    /// Guarantees the body ends in a terminating instruction.
++    /// </summary>
++    /// <remarks>
++    /// A block whose only successor is the exit block gets no bridge branch, and the warnings appended
++    /// above end in a call, so a body can otherwise run off its own end. That is not valid IL: reading
++    /// it walks past the last instruction, which surfaces as a stack imbalance reported at an offset one
++    /// byte past the final call, and the whole body is then discarded.
++    /// </remarks>
++    private static void EnsureTerminated(MethodAnalysisContext context, CilInstructionCollection instructions)
++    {
++        if (instructions.Count > 0 && instructions[^1].OpCode.Code is CilCode.Ret or CilCode.Throw or CilCode.Br or CilCode.Br_S or CilCode.Rethrow or CilCode.Endfinally)
++            return;
++
++        // The value a missing return would have produced is exactly what could not be recovered, so a
++        // default stands in for it rather than the body being thrown away over it.
++        if (!context.IsVoid)
++            PushDefaultOf(context.ReturnType, instructions);
++
++        instructions.Add(CilOpCodes.Ret);
+     }
+ 
+     // Limit so we don't run into the 16mb limit (see AsmResolver issue #775)
+@@ -387,6 +411,18 @@ public static class IlGenerator
+ 
+             case OpCode.Call:
+             case OpCode.CallVoid:
++                // The lifter resolves a call target, uses it, and then keeps only the address, so a
++                // method the model knows perfectly well arrives here as a bare number. Looking it up
++                // again turns a "Method not found" diagnostic into the call it actually is. Only an
++                // unambiguous address is taken: identical bodies get folded onto one address, and
++                // generic sharing puts dozens of methods there, where any single pick would be wrong.
++                if (instruction.Operands[0] is Immediate resolvableAddress
++                    && context.AppContext.MethodsByAddress.TryGetValue(resolvableAddress.UnsignedValue, out var candidates)
++                    && candidates.Count == 1)
++                {
++                    instruction.SetOperand(0, candidates[0]);
++                }
++
+                 if (instruction.Operands[0] is not MethodAnalysisContext targetMethod)
+                 {
+                     if (instruction.Operands[0] is Immediate targetAddress)
