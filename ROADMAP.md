@@ -120,15 +120,16 @@ writes at the right offsets, `typeof(T)` handles, and `Time.deltaTime`.
 
 What they get wrong, on `ZambiesMovement.Update` against its source:
 
-- **A composite return value read back out of its stack buffer loses its fields.**
-  `slider.value = transform.position.z - player.transform.position.z` recovers the two
-  `get_position` calls and the assignment to `slider.value`, but the value assigned is `0f`: the
-  buffer is handed over as `add r0, sp, #4` and the components are read back as `[sp, #0xc]`, and
-  nothing connects the second to the first. The lifter says `Move rD, AddressOf(StackOffset)` as
-  ARM64 does, so this is the analysis, not the lifter, and ARM64 has the same gap.
-- **A static field read through the type's static storage stays a placeholder**, so the
-  `0.05f * Checker.scoreCounter` term degrades. `speed + <something>` and the assignment to
-  `realSpeed` are both right.
+- **A static field read through the type's static storage stays a placeholder**, so
+  `"" + Checker.scoreCounter` and the `0.05f * Checker.scoreCounter` term both degrade.
+  `LocalVariables.PropagateStaticFieldStorage` needs the base of the `+0x5C` read to be typed
+  `RuntimeClassTypeAnalysisContext`, and there is an extra `Move R0, [R0]` between the `typeof(T)`
+  and the static fields read that leaves the base untyped. `speed + <something>` and the assignment
+  to `realSpeed` are right, only the term is not.
+- **`ldr rD, [pc, rN]` is read through, not stopped at.** It looks like it should resolve to the
+  address it computes, and it was tried: doing that loses every `typeof(T)` in the method, because
+  the word at that address is the metadata usage slot's address and the load after it is what
+  resolves. Measured, twice; do not change it back.
 - **Carry is dropped.** `ADC`, `SBC` and `RSC` lift as plain arithmetic because ISIL cannot add a
   flag to an expression. Wrong only at a word boundary.
 - **A register pair is two moves.** `LDRD`/`STRD` and `SMULL`/`UMULL` have no 64 bit operand to

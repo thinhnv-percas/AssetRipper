@@ -509,6 +509,11 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
                     // The source is resolved before the destination is forgotten: ldr r0, [pc, r0]
                     // builds its address out of the register it is about to overwrite, so forgetting
                     // first would throw away the only thing that makes the address knowable.
+                    // Both [pc, #imm] and [pc, rN] are read out of the image. The first is a literal
+                    // pool, where the word is the constant. The second is one step of the indirection
+                    // that reaches a metadata usage slot, and the word there is the slot's address,
+                    // which is what the load after it resolves against. Measured: stopping at the
+                    // address instead of reading through it loses every typeof(T) in the method.
                     long literal = 0;
                     var isLiteralLoad = instruction.Id == ArmInstructionId.ARM_INS_LDR
                         && TryResolvePcRelative(operands[1], out var literalAddress)
