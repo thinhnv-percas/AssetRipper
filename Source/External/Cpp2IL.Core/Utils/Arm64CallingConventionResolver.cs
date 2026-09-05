@@ -26,26 +26,7 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
     /// <summary>
     /// AssetRipper: how many registers such a return occupies, or zero when the type is not one.
     /// </summary>
-    public static int FloatAggregateMemberCount(TypeAnalysisContext type)
-    {
-        if (!type.IsValueType || type.IsEnumType)
-            return 0;
-
-        var single = type.AppContext.SystemTypes.SystemSingleType;
-        var members = 0;
-
-        foreach (var field in type.Fields)
-        {
-            if (field.IsStatic)
-                continue;
-
-            // Only an aggregate of up to four floats qualifies; anything else goes by the usual rules.
-            if (field.FieldType != single || ++members > 4)
-                return 0;
-        }
-
-        return members;
-    }
+    public static int FloatAggregateMemberCount(TypeAnalysisContext type) => FloatAggregate.MemberCount(type);
 
     public override Register? HiddenReturnBufferRegister(MethodAnalysisContext ctx)
         => ReturnsViaHiddenBuffer(ctx) ? new Register(null, "X8") : null;

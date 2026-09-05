@@ -8,6 +8,7 @@ using AsmResolver.PE.DotNet.Cil;
 using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
+using Cpp2IL.Core.Utils;
 using Cpp2IL.Core.Utils.AsmResolver;
 using LibCpp2IL;
 using LibCpp2IL.Metadata;
@@ -547,11 +548,12 @@ public static class IlGenerator
                 // Float arithmetic on a promoted integer operand needs an explicit conversion, so both
                 // operands are coerced to the (float) result type. A no-op when they already match.
                 var floatConversion = FloatArithmeticConversion(instruction);
+                var floatOperandType = FloatArithmeticType(instruction, context);
 
-                LoadOperand(instruction.Operands[1], context, method, locals, writeLine);
+                LoadOperand(instruction.Operands[1], context, method, locals, writeLine, floatOperandType);
                 if (floatConversion is { } conv1)
                     instructions.Add(conv1);
-                LoadOperand(instruction.Operands[2], context, method, locals, writeLine);
+                LoadOperand(instruction.Operands[2], context, method, locals, writeLine, floatOperandType);
                 if (floatConversion is { } conv2)
                     instructions.Add(conv2);
 
@@ -667,6 +669,24 @@ public static class IlGenerator
     }
 
     /// <summary>
+    /// AssetRipper: the float type this arithmetic produces, so its operands can be loaded as that.
+    /// </summary>
+    private static TypeAnalysisContext? FloatArithmeticType(Instruction instruction, MethodAnalysisContext context)
+    {
+        if (instruction.OpCode is not (OpCode.Add or OpCode.Subtract or OpCode.Multiply or OpCode.Divide or OpCode.Modulo))
+            return null;
+
+        return (instruction.Operands[0] as LocalVariable)?.Type?.FullName switch
+        {
+            "System.Single" => context.AppContext.SystemTypes.SystemSingleType,
+            "System.Double" => context.AppContext.SystemTypes.SystemDoubleType,
+            _ => null,
+        };
+    }
+
+    private static bool IsFloat(TypeAnalysisContext type) => type.FullName is "System.Single" or "System.Double";
+
+    /// <summary>
     /// Reads the metadata usage stored at <paramref name="address"/>, if there is one. Never throws:
     /// a fixed address in a method body is only a guess at a usage slot, and most of them are not.
     /// </summary>
@@ -759,6 +779,18 @@ public static class IlGenerator
                 instructions.Add(CilOpCodes.Ldstr, s.Value);
                 break;
             case LocalVariable local:
+                // AssetRipper: a value the ABI handed back in several vector registers is named by
+                // its first register, which carries its first field. Where a float is wanted, that
+                // field is what the register holds — not the whole struct to be cast.
+                if (expectedType is { } wanted && IsFloat(wanted)
+                    && FloatAggregate.FirstMember(local.Type) is { } firstMember
+                    && locals.TryGetValue(local, out var addressable))
+                {
+                    instructions.Add(CilOpCodes.Ldloca, addressable);
+                    instructions.Add(CilOpCodes.Ldfld, firstMember.ToFieldDescriptor());
+                    break;
+                }
+
                 LoadLocal(local, method, locals);
                 break;
             case ArrayLength arrayLength:

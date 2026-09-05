@@ -507,6 +507,11 @@ public static class LocalVariables
             DoubleLiteral => method.AppContext.SystemTypes.SystemDoubleType,
             LocalVariable { Type: { FullName: "System.Single" } single } => single,
             LocalVariable { Type: { FullName: "System.Double" } @double } => @double,
+            // AssetRipper: a value the ABI handed back in several vector registers is named by its
+            // first register, which carries its first field — a float. Arithmetic on it is float
+            // arithmetic, and without saying so the result stays untyped and every use of it a cast.
+            LocalVariable { Type: { } aggregate } when FloatAggregate.MemberCount(aggregate) >= 2
+                => method.AppContext.SystemTypes.SystemSingleType,
             _ => null,
         };
 
