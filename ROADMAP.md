@@ -84,7 +84,33 @@ label is honest but it is not a resolution: what the address really is — an ad
 generic entry point, a tail-call target — has not been established. Worth an investigation before
 any attempt to turn these into real calls.
 
-## 7. Smaller things
+## 7. A reported crash, not yet reproduced
+
+A rip of Smash Fest (`com.flow.cannonball`, Unity 2022.3.62f3, metadata v31.1, 94407 methods) ended
+with the process gone and the log stopping after `Processing : Lighting Data Assets`. Import had
+finished cleanly: 21 assemblies attempted, 12213 methods recovered, 0 failed to convert.
+
+Nothing was logged because nothing could be. The run was a Debug build, where a failed
+`Debug.Assert` calls `Environment.FailFast` and ends the process before any handler or logger sees
+it; a stack overflow does the same. Both write to standard error only, and the GUI does not capture
+it. So the crash is in `LightingDataProcessor`, `PrefabProcessor` or `SpriteProcessor` —
+`ScriptableObjectProcessor` logs a line of its own first — and there are asserts on that path in
+`PrefabProcessor` (a scene's asset bundle must be a streamed scene bundle), `AssetGroup` (an asset
+must not already belong to a group, which both hierarchy builders go through) and
+`SpriteInformationObject` (the same, for a sprite's texture).
+
+Three changes since make the next run say which: every processor names itself in the log before it
+runs, `BUILD-AND-RUN.bat` and `RUN-TEST.bat` rip in Release where those asserts do not exist, and
+`BUILD-AND-RUN.bat` captures standard error to `AssetRipper-crash.log`. An unhandled exception on a
+background thread now reaches the log too, which it did not before. What is still missing is the
+game itself: none of this is reproduced here, and if it turns out to be a real assert rather than a
+Debug-only one, the invariant it guards needs looking at rather than compiling out.
+
+That run also hit the native source injection budget: 4194304 characters per assembly, exhausted in
+`Newtonsoft.Json`, so later methods in it carry no reconstruction. The budget is a guess, not a
+measurement.
+
+## 8. Smaller things
 
 - **`Il2CppClassUsefulOffsets.GetVtableOffset` is a method in Cpp2IL, not data**, so the vtable bound
   used by `IsPointerIntoVtable` cannot be corrected from a struct database layout file. The named

@@ -7,7 +7,11 @@ rem one command. No clicking, and the same arguments every run.
 rem
 rem   RUN-TEST.bat                  rips Test\Input\Pinata
 rem   RUN-TEST.bat MyGame           rips Test\Input\MyGame
-rem   RUN-TEST.bat Pinata Release   Release build
+rem   RUN-TEST.bat Pinata Debug     Debug build
+rem
+rem Rips in Release. A failed Debug.Assert in a Debug build calls
+rem Environment.FailFast: the process ends with nothing written to the log. A
+rem Release build has no asserts compiled into it.
 rem
 rem Writes, replacing whatever was there:
 rem   Test\AssetRipper.log          the whole log
@@ -19,7 +23,7 @@ set "ROOT=%~dp0"
 set "NAME=%~1"
 if "%NAME%"=="" set "NAME=Pinata"
 set "CONFIG=%~2"
-if "%CONFIG%"=="" set "CONFIG=Debug"
+if "%CONFIG%"=="" set "CONFIG=Release"
 
 set "PROJECT=%ROOT%Source\AssetRipper.Tools.SystemTester\AssetRipper.Tools.SystemTester.csproj"
 set "EXE=%ROOT%Source\0Bins\AssetRipper.Tools.SystemTester\%CONFIG%\AssetRipper.Tools.SystemTester.exe"

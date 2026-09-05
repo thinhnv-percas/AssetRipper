@@ -1,4 +1,4 @@
-﻿using AssetRipper.Assets.Bundles;
+using AssetRipper.Assets.Bundles;
 using AssetRipper.Export.Configuration;
 using AssetRipper.Export.UnityProjects.PathIdMapping;
 using AssetRipper.Export.UnityProjects.Project;
@@ -80,6 +80,10 @@ public class ExportHandler
 		Logger.Info(LogCategory.Processing, "Processing loaded assets...");
 		foreach (IAssetProcessor processor in GetProcessors())
 		{
+			// Named before it runs, not after. A processor that ends the process — a failed
+			// Debug.Assert calls Environment.FailFast, which no handler sees and nothing logs — leaves
+			// its own name as the last line, which is the only thing that says where to look.
+			Logger.Info(LogCategory.Processing, processor.GetType().Name);
 			processor.Process(gameData);
 		}
 		Logger.Info(LogCategory.Processing, "Finished processing assets");

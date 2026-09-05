@@ -74,6 +74,19 @@ find it; `strings` without `-el` does find method and type names.
   looks exactly like a successful run that produced no code.
 - **`InstructionSetRegistry.RegisterInstructionSet` uses `Dictionary.Add`** and throws on a second
   registration for the same identifier.
+- **A Debug build dies silently on a failed `Debug.Assert`.** There are about 156 of them in
+  AssetRipper's own code, asserting invariants that a real game can break. A failed one calls
+  `Environment.FailFast`: the process ends at once, `ErrorHandlingMiddleware` never sees it, nothing
+  reaches the log file, and the message goes only to standard error. A Release build has none of them
+  compiled in, which is why `BUILD-AND-RUN.bat` and `RUN-TEST.bat` both default to Release and why
+  the first captures standard error to `AssetRipper-crash.log`. A stack overflow ends the same way
+  and leaves its trace in the same place. When a run "just stops", read that file first, then the
+  last `Processing :` line in the log — `ExportHandler.Process` names each processor before running
+  it precisely so that line points at the culprit.
+- **`DebugProvider` cannot be replaced from source.** `Debug.SetProvider` and
+  `System.Diagnostics.DebugProvider` are public at runtime but absent from the .NET reference
+  assemblies, so an assert cannot be routed into the logger without reflection over a private field,
+  which this AOT-compatible build should not do. Release is the answer, not interception.
 
 ### Things measured to be worth nothing — do not redo them
 

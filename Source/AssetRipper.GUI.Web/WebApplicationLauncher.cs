@@ -1,4 +1,4 @@
-﻿using AssetRipper.GUI.Web.Documentation;
+using AssetRipper.GUI.Web.Documentation;
 using AssetRipper.GUI.Web.Pages;
 using AssetRipper.GUI.Web.Pages.Assets;
 using AssetRipper.GUI.Web.Pages.Bundles;
@@ -102,6 +102,8 @@ public static class WebApplicationLauncher
 		}
 		Logger.LogSystemInformation("AssetRipper");
 		Logger.Add(new ConsoleLogger());
+
+		LogUnhandledFailures();
 
 		Localization.LoadLanguage(GameFileLoader.Settings.LanguageCode);
 
@@ -413,6 +415,43 @@ public static class WebApplicationLauncher
 		{
 			Logger.Error($"Failed to launch web browser for: {url}", ex);
 		}
+	}
+
+	/// <summary>
+	/// Sends a failure that escapes the request pipeline to the log file before the process ends.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// <see cref="ErrorHandlingMiddleware"/> only sees exceptions thrown while handling a request. One
+	/// thrown on a background thread, or a task nobody awaited, otherwise ends the process with
+	/// nothing written to the log, which is indistinguishable from a hang or a kill.
+	/// </para>
+	/// <para>
+	/// Two ways out are still silent and cannot be caught here. A failed <see cref="Debug.Assert"/>
+	/// calls <see cref="Environment.FailFast"/>, and a stack overflow aborts the runtime; both write
+	/// to standard error and nowhere else. Debug builds are where the first can happen at all —
+	/// asserts are compiled out of a Release build — which is why the scripts here rip in Release.
+	/// </para>
+	/// </remarks>
+	private static void LogUnhandledFailures()
+	{
+		AppDomain.CurrentDomain.UnhandledException += static (_, e) =>
+		{
+			if (e.ExceptionObject is Exception exception)
+			{
+				Logger.Error(LogCategory.General, "Unhandled exception, the process is ending", exception);
+			}
+			else
+			{
+				Logger.Error(LogCategory.General, $"Unhandled failure, the process is ending: {e.ExceptionObject}");
+			}
+		};
+
+		TaskScheduler.UnobservedTaskException += static (_, e) =>
+		{
+			Logger.Error(LogCategory.General, "Unobserved task exception", e.Exception);
+			e.SetObserved();
+		};
 	}
 
 	private static void RotateLogs(string path)
