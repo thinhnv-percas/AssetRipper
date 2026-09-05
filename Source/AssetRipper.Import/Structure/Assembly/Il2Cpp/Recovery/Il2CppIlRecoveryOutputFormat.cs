@@ -82,11 +82,26 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// <summary>Methods whose stack was repaired, keeping a body that would otherwise have been discarded.</summary>
 	public int RepairedMethodCount => Volatile.Read(ref repairedMethodCount);
 
+	/// <summary>
+	/// How far past a method's entry point an address is still called part of that method.
+	/// </summary>
+	/// <remarks>
+	/// A bound rather than the real method length, which Cpp2IL does not carry here. 4 KB is well past
+	/// any ordinary method and still far short of the gap to the runtime helper region, which on the
+	/// test game is megabytes: every occurrence beyond this window was hundreds of KB away, so nothing
+	/// is being claimed for an address that merely happens to follow a method.
+	/// </remarks>
+	private const ulong InteriorWindow = 0x1000;
+
 	private ApplicationAnalysisContext? appContext;
+
+	/// <summary>Managed method entry points, sorted. Built once, before any body is generated.</summary>
+	private ulong[]? methodStarts;
 
 	public override List<AssemblyDefinition> BuildAssemblies(ApplicationAnalysisContext context)
 	{
 		appContext = context;
+		methodStarts = BuildMethodStarts(); // before the parallel body generation that reads it
 
 		List<AssemblyDefinition> assemblies = base.BuildAssemblies(context);
 		LogSummary();
@@ -202,13 +217,78 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			&& methods.Count > 0
 			&& methods[0].FullName is { Length: > 0 } name)
 		{
-			return methods.Count > 1 ? $"{name} +{methods.Count - 1}" : name;
+			// Generic sharing folds many methods onto one address. Say so in words: written as "+53"
+			// this read as an offset into the method, which is a different thing entirely.
+			return methods.Count > 1 ? $"{name}, and {methods.Count - 1} more at this address" : name;
 		}
 
-		return appContext.ThrowHelperNamesByAddress.TryGetValue(address, out string? helper)
-			&& !string.IsNullOrWhiteSpace(helper)
-				? helper
+		if (appContext.ThrowHelperNamesByAddress.TryGetValue(address, out string? helper)
+			&& !string.IsNullOrWhiteSpace(helper))
+		{
+			return helper;
+		}
+
+		return DescribeInteriorAddress(address);
+	}
+
+	/// <summary>
+	/// Describes an address that starts no managed method but falls inside one.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Measured on the test game, the addresses that reach here divide three ways. Most, 18862 of
+	/// 22904 occurrences, are further than <see cref="InteriorWindow"/> from any managed method: they
+	/// are il2cpp runtime helpers compiled into the same section as generated code, and the binary is
+	/// stripped, so there is nothing to name them with. 1794 sit below the lowest managed method
+	/// altogether, in the PLT, and are calls into libc and the C++ runtime. The remaining 2248 land
+	/// inside a method that is known, at 191 distinct offsets, and those are what this names.
+	/// </para>
+	/// <para>
+	/// "inside", not the method's own name: the address is not that method's entry point, and reading
+	/// it as though the call went there would be wrong. What it gives a reader is a place in the
+	/// binary to look, next to code they can already see decompiled.
+	/// </para>
+	/// </remarks>
+	private string? DescribeInteriorAddress(ulong address)
+	{
+		ulong[] starts = methodStarts ?? [];
+
+		if (starts.Length == 0 || address < starts[0])
+		{
+			return null;
+		}
+
+		int index = Array.BinarySearch(starts, address);
+		if (index < 0)
+		{
+			index = ~index - 1;
+		}
+
+		if (index < 0)
+		{
+			return null;
+		}
+
+		ulong start = starts[index];
+		ulong offset = address - start;
+
+		if (offset == 0 || offset > InteriorWindow)
+		{
+			return null;
+		}
+
+		return appContext!.MethodsByAddress.TryGetValue(start, out List<MethodAnalysisContext>? methods)
+			&& methods.Count > 0
+			&& methods[0].FullName is { Length: > 0 } name
+				? $"inside {name} +0x{offset:X}"
 				: null;
+	}
+
+	private ulong[] BuildMethodStarts()
+	{
+		ulong[] starts = [.. appContext!.MethodsByAddress.Keys.Where(static address => address != 0)];
+		Array.Sort(starts);
+		return starts;
 	}
 
 	/// <summary>
