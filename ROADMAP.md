@@ -8,25 +8,25 @@ Where the run stands today:
 
 | | Count |
 |---|---|
-| `.cs` files exported | 3082 |
+| `.cs` files exported | 3083 |
 | Decompilation errors | 0 |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 26999 |
-| `Unmanaged memory load` placeholders | 48409 |
-| `Il2Cpp runtime handle` placeholders | 21100 |
+| `Method not found` placeholders | 9630 |
+| `Unmanaged memory load` placeholders | 30877 |
+| `Il2Cpp runtime handle` placeholders | 0 |
+| Instructions left unimplemented | 34 |
 
 The output does not compile and is not meant to. The goal is that the logic reads correctly. These
 are the places it still does not.
 
-## 1. Calls into the il2cpp runtime — 18862 occurrences
+## 1. Calls into the il2cpp runtime — about 6000 occurrences
 
-The largest single defect. Of the 26999 `Method not found` placeholders, 20656 name an address that
-starts no managed method, and 18862 of those are further than 4 KB from any managed method: they are
-il2cpp runtime helpers compiled into the same section as the generated code. On this binary they are
-41 distinct addresses, the busiest of them (`@8D82BC`) called 8629 times; the top nine account for
-17758 of the 18862. The binary is stripped of local symbols, so there is nothing in it to name them
-with, and Cpp2IL's key function scan does not recognise them.
+The largest single defect. Of the 9630 `Method not found` placeholders, most name an address that
+starts no managed method: they are il2cpp runtime helpers compiled into the same section as the
+generated code. 402 distinct addresses remain, the busiest of them (`@8D82A4`) called 1352 times;
+the top six account for 5781 of them. The binary is stripped of local symbols, so there is nothing
+in it to name them with, and Cpp2IL's key function scan does not recognise them.
 
 The right fix is not naming them but recognising them: a call the lifter identifies becomes an ISIL
 operation and never reaches the generator as an address. That means extending
@@ -47,13 +47,23 @@ list nor the symbol names accessible, so this needs a small public accessor adde
 `ElfFile` — a fourth `AssetRipper:` change. It is ELF only; a Windows game would need the PE import
 table instead.
 
-## 3. Untyped memory loads — 33149 occurrences
+## 3. Inlined interface dispatch — about 6000 occurrences
 
-Two thirds of the `Unmanaged memory load` placeholders are `[X8+B8]` and the like: a load through a
-register the lifter never typed, so there is no way to tell a field read from a runtime struct
-access. Nothing local fixes this. It needs type propagation in Cpp2IL's own analysis, which merges
-types across branches; the current `LocalVariables` pass drops a type rather than guess one, and
-`RuntimeStructAccessAnnotator` on our side is a linear forward walk with the same limit.
+The largest remaining group of `Unmanaged memory load` placeholders is one shape: a read of
+`Il2CppClass::interface_offsets_count` (0x126 on this game), `interfaceOffsets` (0xB0) and
+`typeHierarchyDepth` (0x128), which together are the inlined interface method lookup the compiler
+emits in place of a call to `il2cpp_codegen_get_interface_invoke_data`. `InterfaceDispatchRecovery`
+exists to fold this away and does not match these versions, in the same way the class initialization
+guards did not until their shapes were widened — the offsets move between Unity versions and the
+loads are separate instructions until copy propagation runs. Worth doing next; the struct database
+already carries the measured offsets.
+
+## 3b. Untyped memory loads — the rest
+
+A load through a register the lifter never typed, so there is no way to tell a field read from a
+runtime struct access. Nothing local fixes this. It needs type propagation in Cpp2IL's own analysis,
+which merges types across branches; the current `LocalVariables` pass drops a type rather than guess
+one, and `RuntimeStructAccessAnnotator` on our side is a linear forward walk with the same limit.
 
 ## 4. Field accesses that still do not resolve — about 5100 occurrences
 
@@ -77,9 +87,9 @@ body whose locals the analysis could not type. A recovered string literal now re
 project made, but the local is still `object` and every use of it is a cast. Same root cause as
 item 3.
 
-## 6. Calls into the middle of a known method — 2248 occurrences
+## 6. Calls into the middle of a known method — 1959 occurrences
 
-191 distinct offsets, now labelled `inside <method> +0x4` rather than left as a bare address. The
+Now labelled `inside <method> +0x4` rather than left as a bare address. The
 label is honest but it is not a resolution: what the address really is — an adjustor thunk, a shared
 generic entry point, a tail-call target — has not been established. Worth an investigation before
 any attempt to turn these into real calls.
@@ -110,6 +120,17 @@ That run also hit the native source injection budget: 4194304 characters per ass
 `Newtonsoft.Json`, so later methods in it carry no reconstruction. The budget is a guess, not a
 measurement.
 
+## 7b. ARM64 composite values are named by their first register only
+
+AAPCS64 returns and passes a small struct of floats in several vector registers. Both directions are
+counted correctly now, but ISIL has one operand per argument and one per return value, so only the
+first register can be named. The extra registers of a return are recovered by naming each as the
+field of the returned value it carries, which is why `position.z - position2.z` comes out exact; the
+first register is still the whole struct, so the *x* component of the same expression reads as
+`position2 - position` rather than `position2.x - position.x`. An argument has no equivalent trick:
+`transform.position = v` carries `v` correctly because the analysis types the parameter, but a
+method taking two vectors would see only the first register of each.
+
 ## 8. ARMv7 recovery is new, and shallower than ARM64's
 
 `ArmV7InstructionSet` lifts ARM mode code now, measured on `RunFromZombiesFullProject` — an
@@ -120,16 +141,12 @@ writes at the right offsets, `typeof(T)` handles, and `Time.deltaTime`.
 
 What they get wrong, on `ZambiesMovement.Update` against its source:
 
-- **A static field read through the type's static storage stays a placeholder**, so
-  `"" + Checker.scoreCounter` and the `0.05f * Checker.scoreCounter` term both degrade. The base is
-  typed correctly now — `[v27 (Il2CppClass<Checker>)+5C]` — and one condition still blocks it:
-  `LocalVariables.PropagateStaticFieldStorage` matches only `Move dest, [klass + staticFieldsOffset]`,
-  and by the time it runs the simplifier has folded that move into the instruction that consumed it,
-  so there is no destination local left to type. **This is not an ARMv7 problem**: the ARM64 rip of
-  `Test/Input/Pinata` has 4694 of these, `[v56 @ X0_v4 (Il2CppClass<UnityEngine.AndroidJavaObject>)+B8]`
-  among them, with the base equally well typed. Fixing it means rewriting the memory operand in place
-  into a `StaticFieldStorageTypeAnalysisContext` local rather than waiting for a move to type, which
-  is shared analysis and wants measuring on both games.
+- **A static field read through the type's static storage was a placeholder, and is not any more.**
+  What blocked it was not `PropagateStaticFieldStorage` but the step before: position independent
+  code does not name a metadata usage slot directly, so the class pointer the storage hangs off was
+  never resolved. That is fixed for both architectures — see the note in `CLAUDE.md` — and
+  `realSpeed = speed + (0.05f * Checker.scoreCounter)` now recovers as written on ARM64. The ARMv7
+  path has not been re-measured since.
 - **`ldr rD, [pc, rN]` is read through, not stopped at.** It looks like it should resolve to the
   address it computes, and it was tried: doing that loses every `typeof(T)` in the method, because
   the word at that address is the metadata usage slot's address and the load after it is what
@@ -153,6 +170,12 @@ What they get wrong, on `ZambiesMovement.Update` against its source:
   has eight fields at offset 0. The resolver returns the first declared member because choosing
   needs runtime context it does not have.
 - **32 bit `Il2CppClass` improvements need a layout file at or below the game's version.**
+- **`MetadataInitGuardRemover.InitialisedFlagOffset64` is still a hardcoded 0x135**, which is right
+  for 2022.3 and wrong for 2019.2 (0x12E). It no longer matters, because the guard is recognised by
+  shape rather than by that constant, but the constant is still there and still wrong.
+- **The remaining 34 unimplemented ARM64 instructions** are `BFI` (19), `BFXIL` (5), `REV` (4),
+  `USHL` (2) and `DUP` (2). `BFI` and `BFXIL` are expressible with shifts and masks; the rest are
+  vector or byte-order operations ISIL has no shape for.
 - **`ReconstructNativeBodies` has no considered default.** It is off unless asked for. Turning it on
   costs run time and output size for text that does not compile; whether that is the right default
   for the GUI has not been decided.

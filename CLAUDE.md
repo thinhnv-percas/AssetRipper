@@ -52,12 +52,37 @@ find it; `strings` without `-el` does find method and type names.
 
 ### Things that are true about the pipeline
 
-- **Metadata usage slots have an extra indirection before metadata v27.** The address baked into the
-  code is a per-module pointer holding the address of the usage slot; only that second address keys
-  LibCpp2IL's usage dictionaries. Looking up the first address finds nothing, silently.
+- **Metadata usage slots have an extra indirection, and it is not a metadata version thing.** The
+  address baked into the code is a pointer holding the address of the usage slot; only that second
+  address keys LibCpp2IL's usage dictionaries. Looking up the first address finds nothing, silently.
+  This is position independent code, not a metadata version: it is there on v24.2 and on v31.1
+  alike. `MetadataResolver.FindUsageSlotHolders` takes the hop, and only when the address in the code
+  is not itself a usage and the address it holds is. Taking it is what resolved every remaining
+  `Il2Cpp runtime handle` placeholder on the test game and, with it, static field access.
 - **A method address can be shared.** `ApplicationAnalysisContext.MethodsByAddress` maps one address
   to a *list*: generic sharing folds dozens of methods onto one body. Picking `[0]` is wrong unless
   the list has one entry.
+- **AAPCS64 returns and passes a small struct of floats in the vector registers.** A homogeneous
+  aggregate of up to four floats — every Unity maths type — comes back in V0 to V3 and is passed the
+  same way, not through a hidden buffer and not in the integer registers. ISIL can name only the
+  first register per value; the extra registers of a *return* are recovered by emitting a move naming
+  each as the field of the returned value it carries. Getting this wrong does not look like an ABI
+  bug, it looks like arithmetic: `a.z - b.z` becomes `x - x`, and a vector argument becomes a
+  constant that takes everything computing it with it as dead code.
+- **A guard is matched by shape, not by an offset.** The class initialization guard was matched
+  against one hardcoded `Il2CppClass` byte with a mask of 1 and an inline memory operand, and missed
+  on all three counts: the byte moves between Unity versions, an older code generation guards on
+  `has_cctor` with a mask of 2, and the load is a separate instruction until copy propagation, which
+  runs after the pass. Widening it to "one bit of a byte of a known class pointer" removed 8136
+  placeholders. The interface dispatch recovery has the same problem and has not been done.
+- **The struct database knows where these bytes are.** `StructDb/<version>-x64.json.gz` carries the
+  full `Il2CppClass` layout including bitfield members, with `offset`, `bits` and `bitOrdinal`.
+  `Il2CppClassOffsetPatcher` skips bitfields today; when an exact offset is needed rather than a
+  shape, that is where to get it.
+- **A float loaded from an address the code names outright is a compiler constant**, not a variable.
+  A managed static float is reached through the class's static field storage, two pointers away, so
+  folding an absolute scalar float load into a literal is safe — which is what the x86 lifter has
+  always done and what ARM64 does now.
 - **Value type field offsets are relative to the value's own data**; a class's are relative to the
   object, so they include the 0x10 header. `FsmColor.value` at 0x38 plus `Color.g` at 0x4 is 0x3C.
 - **ILSpy decompiles an assembly as one parallel unit.** One unreadable method body throws out of
@@ -93,6 +118,13 @@ find it; `strings` without `-el` does find method and type names.
   assemblies, so an assert cannot be routed into the logger without reflection over a private field,
   which this AOT-compatible build should not do. Release is the answer, not interception.
 
+- **A `Cpp2IlInstructionSet` subclass that forwards to another must forward the virtual members too.**
+  `Arm64InstructionSetSelector` forwarded the abstract ones and inherited the base's defaults for the
+  rest. `CallingConventionResolver` defaults to null, and every analysis pass that maps a call's raw
+  registers onto the callee's signature is written to do nothing when it is absent — so ARM64 calls
+  silently kept the whole register file as their arguments. That one line was worth 11605 `Method not
+  found` placeholders.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Resolving a bare call address through `MethodsByAddress` when exactly one method sits there.**
@@ -103,6 +135,9 @@ find it; `strings` without `-el` does find method and type names.
 - **Raising `MaximumStackRepairs` from 16 to 64.** The same bodies give up, having accumulated 64
   pops instead of 16. Their imbalance is a branch join that merely surfaces at the return, so
   popping there can never settle it.
+- **Re-running `MetadataInitGuardRemover.Run` after the second `KeyFunctionRecovery` pass.** Zero
+  change. The guards survive for a different reason — the shape of the flag test, see above — not
+  because the class initializer call was still unresolved when the pass ran.
 - **Resolving call targets downstream, in `Il2CppIlRecoveryOutputFormat` rather than in the
   generator.** Placeholders fell but stubs rose from 2490 to 3509, because the downstream code has no
   signature to load arguments from and unbalances the stack. This is why the fix belongs in the
