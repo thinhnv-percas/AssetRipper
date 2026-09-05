@@ -1,10 +1,10 @@
 # Cpp2IL patches
 
-`cpp2il-ilgenerator-fixes.patch` fixes three defects in `Cpp2IL.Core/IlGenerator.cs`. Two of them
-cost this project 2490 method bodies on the test game; the third left every string in every
-recovered body unreadable. All three are in the generator, so they cannot be fixed from here; what
-is here is the patch, the mechanism to build against a patched checkout, and the measurements that
-justify it.
+`cpp2il-recovery-fixes.patch` fixes four defects in Cpp2IL. Two of them cost this project 2490
+method bodies on the test game; the third left every string in every recovered body unreadable; the
+fourth dropped every field access that lands inside a value type field. All four are upstream of
+anything this repository controls, so they cannot be fixed from here; what is here is the patch, the
+mechanism to build against a patched checkout, and the measurements that justify it.
 
 ## What it fixes
 
@@ -37,6 +37,17 @@ address baked into the code is a per-module pointer holding the address of the u
 that second address is the one the usage dictionaries are keyed by. Post-27 `GetAnyGlobalByAddress`
 already reads through the address itself, so the extra dereference is skipped there.
 
+**A field inside a value type field is not a field.** `MetadataResolver.ResolveFieldOffsets` maps
+`[local + offset]` to the field at exactly that offset and gives up otherwise, which is marked in
+the source as a TODO. An offset that lands in the interior of a value type field is a nested access:
+`FsmColor` holds a `Color value` at 0x38, so a load from 0x3C is that colour's `g` component, and
+`FsmColor(FsmColor source)` recovers as `value.y = source.value.y` instead of two dead placeholders.
+The search descends into a value type field when the offset falls inside it, and stops at anything
+else, because past the end of the last field any answer is a guess. `FieldReference` carries the
+fields it sits inside; a read chains `ldfld`, which takes a value type instance on the stack, and a
+write takes `ldflda` down to the containing field so it does not write into a copy. Only a reference
+typed base is taken, since a value typed local on the stack has no address to write through.
+
 Doing this in the generator is what makes it safe. The generator loads arguments from the resolved
 signature, so the stack balances by construction. The same idea applied downstream, where the
 signature is not available, unbalanced the stack in 1019 methods and cost them their bodies — that
@@ -50,9 +61,10 @@ Ripping `Test/Input/Pinata` at script content level 3, 18397 methods attempted:
 |---|---|---|---|
 | Bodies discarded as invalid | 2490 | 21 | **0** |
 | `Method not found` placeholders | 40034 | 40034 | **27007** |
-| `Unmanaged memory load` placeholders | 76063 | 76063 | **50179** |
+| `Unmanaged memory load` placeholders | 76063 | 76063 | **48409** |
 | String literals recovered as `ldstr` | 0 | 0 | **4784** |
 | Runtime handles named rather than hex | 0 | 0 | **21100** |
+| Nested field accesses recovered | 0 | 0 | **1770** |
 | Decompilation errors | 0 | 0 | 0 |
 
 `Morpeh.Hypercasual.SaveSystem.OnAwake` is the shape of the difference. Before:
@@ -77,7 +89,7 @@ and, further down the same method, `Debug.Log(string.Format((string)format, arg,
 
 ```
 git clone --branch development https://github.com/AssetRipper/Cpp2IL.git
-git -C Cpp2IL apply /path/to/AssetRipper/Patches/cpp2il-ilgenerator-fixes.patch
+git -C Cpp2IL apply /path/to/AssetRipper/Patches/cpp2il-recovery-fixes.patch
 dotnet build /path/to/AssetRipper/AssetRipper.slnx -p:Cpp2ILSourcePath=/path/to/Cpp2IL
 ```
 

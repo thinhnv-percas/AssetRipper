@@ -1,5 +1,125 @@
+diff --git a/Cpp2IL.Core/Analysis/MetadataResolver.cs b/Cpp2IL.Core/Analysis/MetadataResolver.cs
+index de03988..088c610 100644
+--- a/Cpp2IL.Core/Analysis/MetadataResolver.cs
++++ b/Cpp2IL.Core/Analysis/MetadataResolver.cs
+@@ -180,8 +180,28 @@ public static class MetadataResolver
+                             && f.BackingData?.FieldOffset == memory.Addend);
+                 }
+ 
+-                if (field == null) // TODO: Support nested fields (Field1.Field2.Field3)
++                if (field == null)
++                {
++                    // The offset can land inside a value type field rather than on a field boundary,
++                    // which is a nested access: a Color at 0x38 makes a load from 0x3C its g
++                    // component. Only a reference typed base is taken, because a store through the
++                    // chain needs the address of the outer field and a value typed local on the
++                    // stack is a copy.
++                    if (staticOwner != null || genericOwner != null || owner.IsValueType || owner.GenericParameters.Count > 0)
++                        continue;
++
++                    var path = FindNestedFieldPath(owner, memory.Addend);
++
++                    if (path == null)
++                        continue;
++
++                    instruction.SetOperand(i, new FieldReference(path[^1], local, (int)memory.Addend)
++                    {
++                        ContainingFields = path.GetRange(0, path.Count - 1),
++                    });
++                    changed = true;
+                     continue;
++                }
+ 
+                 // make sure we have a full GIT for field access. open type is bad.
+                 if (genericOwner != null)
+@@ -195,6 +215,61 @@ public static class MetadataResolver
+         return changed;
+     }
+ 
++    /// <summary>
++    /// Finds the chain of fields that reaches <paramref name="targetOffset"/>, outermost first,
++    /// descending into a value type field when the offset falls in its interior. Null when the
++    /// offset does not land on a field, which includes running off the end of the last one.
++    /// </summary>
++    private static List<FieldAnalysisContext>? FindNestedFieldPath(TypeAnalysisContext owner, long targetOffset, int depth = 0)
++    {
++        const int maximumDepth = 4;
++
++        if (depth > maximumDepth || targetOffset < 0)
++            return null;
++
++        // The field the offset falls in is the one with the greatest offset not past it. Inherited
++        // fields sit at their own offsets in the derived layout, so the whole chain is searched.
++        FieldAnalysisContext? containing = null;
++        var containingOffset = -1;
++
++        for (var candidate = owner; candidate != null; candidate = candidate.BaseType)
++        {
++            foreach (var field in candidate.Fields)
++            {
++                if (field.IsStatic || (field.Attributes & FieldAttributes.Literal) != 0)
++                    continue;
++
++                if (field.BackingData is not { } data || data.FieldOffset > targetOffset || data.FieldOffset <= containingOffset)
++                    continue;
++
++                containing = field;
++                containingOffset = data.FieldOffset;
++            }
++        }
++
++        if (containing == null)
++            return null;
++
++        if (containingOffset == targetOffset)
++            return [containing];
++
++        // Only a value type has an interior to descend into. Anything else means the offset has run
++        // past the end of the last field, where any answer would be a guess.
++        var fieldType = containing.FieldType;
++
++        if (!fieldType.IsValueType || fieldType.IsEnumType || fieldType.GenericParameters.Count > 0)
++            return null;
++
++        // A value type's own field offsets are relative to its data, so the search restarts at zero.
++        var inner = FindNestedFieldPath(fieldType, targetOffset - containingOffset, depth + 1);
++
++        if (inner == null)
++            return null;
++
++        inner.Insert(0, containing);
++        return inner;
++    }
++
+     private static void ResolveCalls(MethodAnalysisContext method)
+     {
+         foreach (var block in method.ControlFlowGraph!.Blocks)
+diff --git a/Cpp2IL.Core/ISIL/FieldReference.cs b/Cpp2IL.Core/ISIL/FieldReference.cs
+index c6546eb..0d069ee 100644
+--- a/Cpp2IL.Core/ISIL/FieldReference.cs
++++ b/Cpp2IL.Core/ISIL/FieldReference.cs
+@@ -1,3 +1,5 @@
++using System.Collections.Generic;
++using System.Linq;
+ using Cpp2IL.Core.Model.Contexts;
+ 
+ namespace Cpp2IL.Core.ISIL;
+@@ -8,5 +10,12 @@ public class FieldReference(FieldAnalysisContext field, LocalVariable local, int
+     public LocalVariable Local = local;
+     public int Offset = offset;
+ 
+-    public override string ToString() => $"{Local.Name}.{Field.Name} ({Field.FieldType.FullName})";
++    /// <summary>
++    /// The value type fields <see cref="Field"/> sits inside, outermost first, when the offset
++    /// landed in the interior of a field rather than on its boundary. Empty for a direct field.
++    /// </summary>
++    public IReadOnlyList<FieldAnalysisContext> ContainingFields = [];
++
++    public override string ToString()
++        => $"{Local.Name}.{string.Join(".", ContainingFields.Select(f => f.Name).Append(Field.Name))} ({Field.FieldType.FullName})";
+ }
 diff --git a/Cpp2IL.Core/IlGenerator.cs b/Cpp2IL.Core/IlGenerator.cs
-index 8562038..d7c5250 100644
+index 8562038..c04e079 100644
 --- a/Cpp2IL.Core/IlGenerator.cs
 +++ b/Cpp2IL.Core/IlGenerator.cs
 @@ -9,6 +9,8 @@ using Cpp2IL.Core.Graphs;
@@ -42,16 +162,21 @@ index 8562038..d7c5250 100644
      }
  
      // Limit so we don't run into the 16mb limit (see AsmResolver issue #775)
-@@ -293,7 +319,7 @@ public static class IlGenerator
+@@ -291,9 +317,12 @@ public static class IlGenerator
+                 if (instruction.Operands[0] is FieldReference field) // stfld takes instance before value so LoadOperand StoreToOperand doesn't work
+                 {
                      if (!field.Field.IsStatic)
++                    {
                          LoadLocal(field.Local, method, locals);
++                        LoadContainingFields(field, instructions);
++                    }
  
 -                    LoadOperand(instruction.Operands[1], method, locals, writeLine, field.Field.FieldType);
 +                    LoadOperand(instruction.Operands[1], context, method, locals, writeLine, field.Field.FieldType);
                      instructions.Add(field.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, field.Field.ToFieldDescriptor());
                      break;
                  }
-@@ -303,26 +329,26 @@ public static class IlGenerator
+@@ -303,26 +332,26 @@ public static class IlGenerator
                  if (instruction.Operands[0] is ArrayAccess { Array.Type: SzArrayTypeAnalysisContext { ElementType: { } stored } } target)
                  {
                      LoadLocal(target.Array, method, locals);
@@ -84,7 +209,7 @@ index 8562038..d7c5250 100644
                  break;
  
              case OpCode.Newobj:
-@@ -334,10 +360,10 @@ public static class IlGenerator
+@@ -334,10 +363,10 @@ public static class IlGenerator
                      // the constructor declares (i.e. drop methodInfo)
                      var constructorArgs = constructorCall.Operands.Skip(ConstructorReceiverIndex(constructorCall) + 1).Take(constructor.Parameters.Count).ToList();
                      for (var i = 0; i < constructorArgs.Count; i++)
@@ -97,7 +222,7 @@ index 8562038..d7c5250 100644
  
                      constructorCall.OpCode = OpCode.Nop;
                      constructorCall.SetOperands();
-@@ -346,12 +372,12 @@ public static class IlGenerator
+@@ -346,12 +375,12 @@ public static class IlGenerator
                  {
                      // Nothing to fuse with, so the allocation was self-contained. The type is still right, so construct it bare.
                      instructions.Add(CilOpCodes.Newobj, parameterlessCtor.ToMethodDescriptor());
@@ -112,7 +237,7 @@ index 8562038..d7c5250 100644
                  }
                  break;
  
-@@ -359,13 +385,13 @@ public static class IlGenerator
+@@ -359,13 +388,13 @@ public static class IlGenerator
                  if (instruction.Operands is [_, TypeAnalysisContext boxedType, var boxedValue])
                  {
                      // il2cpp_value_box takes the value by address, but IL boxes it by value
@@ -128,7 +253,7 @@ index 8562038..d7c5250 100644
                  break;
  
              case OpCode.Throw:
-@@ -373,7 +399,7 @@ public static class IlGenerator
+@@ -373,7 +402,7 @@ public static class IlGenerator
                      && exceptionType.Methods.FirstOrDefault(m => m.Name == ".ctor" && m.Parameters.Count == 0) is { } exceptionCtor)
                      instructions.Add(CilOpCodes.Newobj, exceptionCtor.ToMethodDescriptor());
                  else if (instruction.Operands is [LocalVariable or FieldReference])
@@ -137,7 +262,7 @@ index 8562038..d7c5250 100644
                  else
                      instructions.Add(CilOpCodes.Ldnull);
  
-@@ -387,6 +413,18 @@ public static class IlGenerator
+@@ -387,6 +416,18 @@ public static class IlGenerator
  
              case OpCode.Call:
              case OpCode.CallVoid:
@@ -156,7 +281,7 @@ index 8562038..d7c5250 100644
                  if (instruction.Operands[0] is not MethodAnalysisContext targetMethod)
                  {
                      if (instruction.Operands[0] is Immediate targetAddress)
-@@ -405,7 +443,7 @@ public static class IlGenerator
+@@ -405,7 +446,7 @@ public static class IlGenerator
                  if (!targetMethod.IsStatic) // Load 'this' param
                  {
                      if ((instruction.Operands.Count - 1) >= thisParamIndex)
@@ -165,7 +290,7 @@ index 8562038..d7c5250 100644
                      else
                      {
                          instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Non static method called without 'this' param ({instruction})"));
-@@ -425,7 +463,7 @@ public static class IlGenerator
+@@ -425,7 +466,7 @@ public static class IlGenerator
                      var parameterType = targetMethod.Parameters[i].ParameterType;
  
                      if (i < availableArgs)
@@ -174,7 +299,7 @@ index 8562038..d7c5250 100644
                      else
                          PushDefaultOf(parameterType, instructions);
                  }
-@@ -437,7 +475,7 @@ public static class IlGenerator
+@@ -437,7 +478,7 @@ public static class IlGenerator
                  if (!targetMethod.IsVoid)
                  {
                      if (instruction.OpCode == OpCode.Call)
@@ -183,7 +308,7 @@ index 8562038..d7c5250 100644
                      else
                          instructions.Add(CilOpCodes.Pop);
                  }
-@@ -453,7 +491,7 @@ public static class IlGenerator
+@@ -453,7 +494,7 @@ public static class IlGenerator
                  if (!context.IsVoid)
                  {
                      if (instruction.Operands.Count == 1)
@@ -192,7 +317,7 @@ index 8562038..d7c5250 100644
                      else
                          instructions.Add(CilOpCodes.Ldnull); // ret still pops a value even if we lost track of it
                  }
-@@ -465,7 +503,7 @@ public static class IlGenerator
+@@ -465,7 +506,7 @@ public static class IlGenerator
                  break;
  
              case OpCode.ConditionalJump:
@@ -201,7 +326,7 @@ index 8562038..d7c5250 100644
                  instructions.Add(CilOpCodes.Brtrue, new CilInstructionLabel());
                  break;
  
-@@ -500,17 +538,17 @@ public static class IlGenerator
+@@ -500,17 +541,17 @@ public static class IlGenerator
              case OpCode.Xor:
                  // klass pointer read => GetType
                  if (instruction.OpCode is OpCode.CheckEqual or OpCode.CheckNotEqual
@@ -222,7 +347,7 @@ index 8562038..d7c5250 100644
                  if (floatConversion is { } conv2)
                      instructions.Add(conv2);
  
-@@ -553,12 +591,12 @@ public static class IlGenerator
+@@ -553,12 +594,12 @@ public static class IlGenerator
                      case OpCode.Xor: instructions.Add(CilOpCodes.Xor); break;
                  }
  
@@ -237,7 +362,7 @@ index 8562038..d7c5250 100644
  
                  if (instruction.OpCode == OpCode.Negate)
                      instructions.Add(CilOpCodes.Neg);
-@@ -570,7 +608,7 @@ public static class IlGenerator
+@@ -570,7 +611,7 @@ public static class IlGenerator
                  else
                      instructions.Add(CilOpCodes.Not);
  
@@ -246,7 +371,7 @@ index 8562038..d7c5250 100644
                  break;
  
              default:
-@@ -625,7 +663,66 @@ public static class IlGenerator
+@@ -625,7 +666,66 @@ public static class IlGenerator
          };
      }
  
@@ -314,7 +439,7 @@ index 8562038..d7c5250 100644
          Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine,
          TypeAnalysisContext? expectedType = null)
      {
-@@ -671,13 +768,13 @@ public static class IlGenerator
+@@ -671,13 +771,13 @@ public static class IlGenerator
                  break;
              case AddressOf { Target: ArrayAccess elementAddress }:
                  LoadLocal(elementAddress.Array, method, locals);
@@ -330,7 +455,20 @@ index 8562038..d7c5250 100644
                  instructions.Add(CilOpCodes.Ldelem,
                      ((SzArrayTypeAnalysisContext)arrayAccess.Array.Type!).ElementType.ToTypeSignature().ToTypeDefOrRef());
                  break;
-@@ -704,6 +801,31 @@ public static class IlGenerator
+@@ -689,6 +789,12 @@ public static class IlGenerator
+                 }
+ 
+                 LoadLocal(field.Local, method, locals);
++
++                // A field reached through value type fields needs those loaded first. ldfld takes a
++                // value type instance on the stack, so reads chain without needing addresses.
++                foreach (var containing in field.ContainingFields)
++                    instructions.Add(CilOpCodes.Ldfld, containing.ToFieldDescriptor());
++
+                 instructions.Add(CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
+                 break;
+             case MemoryOperand memory:
+@@ -704,6 +810,31 @@ public static class IlGenerator
                              : new CilInstruction(CilOpCodes.Ldind_Ref));
                      break;
                  }
@@ -362,7 +500,7 @@ index 8562038..d7c5250 100644
                  instructions.Add(CilOpCodes.Ldstr, Diagnostic("Unmanaged memory load: " + operand));
                  instructions.Add(CilOpCodes.Call, writeLine);
                  instructions.Add(CilOpCodes.Ldc_I4_0);
-@@ -757,7 +879,7 @@ public static class IlGenerator
+@@ -757,7 +888,7 @@ public static class IlGenerator
          }
      }
      
@@ -371,7 +509,7 @@ index 8562038..d7c5250 100644
          Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine)
      {
          var left = instruction.Operands[1];
-@@ -783,7 +905,7 @@ public static class IlGenerator
+@@ -783,7 +914,7 @@ public static class IlGenerator
  
          LoadLocal(objLocal, method, locals);
          instructions.Add(CilOpCodes.Callvirt, getType);
@@ -380,7 +518,7 @@ index 8562038..d7c5250 100644
          instructions.Add(CilOpCodes.Ceq);
  
          if (instruction.OpCode == OpCode.CheckNotEqual)
-@@ -792,7 +914,7 @@ public static class IlGenerator
+@@ -792,7 +923,7 @@ public static class IlGenerator
              instructions.Add(CilOpCodes.Ceq);
          }
  
@@ -389,7 +527,24 @@ index 8562038..d7c5250 100644
          return true;
      }
      
-@@ -859,7 +981,7 @@ public static class IlGenerator
+@@ -841,6 +972,16 @@ public static class IlGenerator
+             _ => null
+         };
+ 
++    /// <summary>
++    /// Walks down to the value type field a nested access sits in, leaving its address on the stack
++    /// so the following stfld writes through it rather than into a copy. A no-op for a direct field.
++    /// </summary>
++    private static void LoadContainingFields(FieldReference field, CilInstructionCollection instructions)
++    {
++        foreach (var containing in field.ContainingFields)
++            instructions.Add(CilOpCodes.Ldflda, containing.ToFieldDescriptor());
++    }
++
+     private static void LoadLocal(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
+     {
+         var instructions = method.CilMethodBody!.Instructions;
+@@ -859,7 +1000,7 @@ public static class IlGenerator
              instructions.Add(CilOpCodes.Ldloc, locals[local]);
      }
  
@@ -398,7 +553,15 @@ index 8562038..d7c5250 100644
          Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine)
      {
          var instructions = method.CilMethodBody!.Instructions;
-@@ -898,7 +1020,7 @@ public static class IlGenerator
+@@ -886,6 +1027,7 @@ public static class IlGenerator
+ 
+                 instructions.Add(CilOpCodes.Stloc, scratch);
+                 LoadLocal(field.Local, method, locals);
++                LoadContainingFields(field, instructions);
+                 instructions.Add(CilOpCodes.Ldloc, scratch);
+                 instructions.Add(CilOpCodes.Stfld, fieldDescriptor);
+                 break;
+@@ -898,7 +1040,7 @@ public static class IlGenerator
  
                  instructions.Add(CilOpCodes.Stloc, elementScratch);
                  LoadLocal(arrayAccess.Array, method, locals);
