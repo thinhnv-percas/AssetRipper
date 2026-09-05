@@ -23,6 +23,7 @@
 		<EmbeddedResource Include="StaticContent/js/site.js" />
 		<EmbeddedResource Include="StaticContent/js/commands_page.js" />
 		<EmbeddedResource Include="StaticContent/js/mesh_preview.js" />
+		<EmbeddedResource Include="StaticContent/js/export_explorer.js" />
 	</ItemGroup>
 
 	<ItemGroup>

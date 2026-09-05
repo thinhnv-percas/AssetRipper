@@ -1,5 +1,6 @@
 ﻿using AssetRipper.GUI.Web.Documentation;
 using AssetRipper.GUI.Web.Pages;
+using AssetRipper.GUI.Web.Pages.Export;
 using AssetRipper.GUI.Web.Pages.Search;
 using AssetRipper.GUI.Web.Paths;
 using AssetRipper.Web.Content;
@@ -121,6 +122,10 @@ public abstract class DefaultPage : HtmlPage
 				}
 				using (new Li(writer).End())
 				{
+					new A(writer).WithClass("dropdown-item").WithHref("/PackageRemapping").Close("Package Remapping");
+				}
+				using (new Li(writer).End())
+				{
 					new A(writer).WithClass("dropdown-item").WithHref("/Privacy").Close(Localization.Privacy);
 				}
 				using (new Li(writer).End())
@@ -154,7 +159,14 @@ public abstract class DefaultPage : HtmlPage
 						new A(writer).WithClass("dropdown-item").WithNewTabAttributes().WithHref($"unityhub://{version}").Close(version);
 					}
 				}
-				else
+				if (GameFileLoader.LastExportPath is string exportPath && Directory.Exists(exportPath))
+				{
+					using (new Li(writer).End())
+					{
+						new A(writer).WithClass("dropdown-item").WithHref(BrowseAPI.GetBrowseUrl(exportPath)).Close(Localization.BrowseExportedProject);
+					}
+				}
+				if (!GameFileLoader.IsLoaded)
 				{
 					using (new Li(writer).End())
 					{

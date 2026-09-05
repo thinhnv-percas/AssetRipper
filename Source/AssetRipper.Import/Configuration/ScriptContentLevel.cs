@@ -19,7 +19,9 @@ public enum ScriptContentLevel
 	/// </summary>
 	Level3,
 	/// <summary>
-	/// IL2Cpp methods are recovered without regard to safety. Currently the same as <see cref="Level2"/>
+	/// IL2Cpp methods are recovered by disassembling and lifting the native binary directly, as a post-export
+	/// pass over the files <see cref="Level2"/>/<see cref="Level3"/> already produced. Requires a struct DB folder
+	/// (see <c>AssetRipper.Il2CppRestore.StructDb</c>) to resolve native field names inside lifted bodies.
 	/// </summary>
-	//Level4,
+	Level4,
 }

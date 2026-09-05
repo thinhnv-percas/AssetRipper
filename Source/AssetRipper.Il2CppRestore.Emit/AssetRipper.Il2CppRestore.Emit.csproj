@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputPath>..\0Bins\Other\AssetRipper.Il2CppRestore.Emit\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>..\0Bins\obj\AssetRipper.Il2CppRestore.Emit\$(Configuration)\</IntermediateOutputPath>
+		<IsAotCompatible>false</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Dummy assembly generation. Deliberately Mono.Cecil rather than the AsmResolver.DotNet
+		     already used elsewhere in AssetRipper: the guide's ILProcessor-based body writing is
+		     Cecil's API, and there is no need to fight two different member-building APIs to match it. -->
+		<PackageReference Include="Mono.Cecil" Version="0.11.6" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Metadata\AssetRipper.Il2CppRestore.Metadata.csproj" />
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Lift\AssetRipper.Il2CppRestore.Lift.csproj" />
+	</ItemGroup>
+
+</Project>

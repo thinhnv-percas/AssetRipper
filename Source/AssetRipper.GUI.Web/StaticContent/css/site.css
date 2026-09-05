@@ -38,3 +38,26 @@ footer {
 .dropdown-description.disabled {
 	display: none; /* Hide disabled elements */
 }
+
+/* Exported project explorer (collapsible tree + preview pane) */
+.export-tree-item {
+	cursor: pointer;
+	padding: 0.1rem 0.25rem;
+	border-radius: 0.25rem;
+	white-space: nowrap;
+}
+
+.export-tree-item:hover {
+	background-color: var(--bs-secondary-bg);
+}
+
+.export-tree-file.active {
+	background-color: var(--bs-primary);
+	color: var(--bs-white);
+}
+
+.export-tree-toggle {
+	display: inline-block;
+	width: 1rem;
+	font-size: 0.7rem;
+}

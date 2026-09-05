@@ -1,0 +1,261 @@
+namespace AssetRipper.Il2CppRestore.Metadata;
+
+/// <summary>
+/// Every metadata section reduces to a (byte offset, byte size) pair regardless of version — v39's
+/// three-field <c>Il2CppSectionMetadata</c> (offset, size, count) is read down to this same shape, so
+/// nothing past <see cref="MetadataHeader"/> needs to know which header layout was actually on disk.
+/// </summary>
+public readonly record struct Section(int Offset, int Size);
+
+/// <summary>
+/// <c>global-metadata.dat</c>'s header: where every section lives. The single riskiest piece of the
+/// whole reader, because getting the section order wrong does not throw — it silently reads every
+/// section that follows at the wrong offset. See <see cref="Read"/>'s self-check and §4.3/§13 of the
+/// integration guide before adding a new version.
+/// </summary>
+public sealed class MetadataHeader
+{
+	public const uint ExpectedSanity = 0xFAB11BAF;
+
+	public uint Sanity;
+	public int Version;
+
+	public Section StringLiterals, StringLiteralData, Strings;
+	public Section Events, Properties, Methods;
+	public Section ParameterDefaultValues, FieldDefaultValues, FieldAndParameterDefaultValueData;
+	public Section FieldMarshaledSizes, Parameters, Fields;
+	public Section GenericParameters, GenericParameterConstraints, GenericContainers;
+	public Section NestedTypes, Interfaces, VTableMethods, InterfaceOffsets;
+	public Section TypeDefinitions, Images, Assemblies;
+	public Section FieldRefs, ReferencedAssemblies;
+
+	// v24..v24.5 only (gone by v27): superseded by direct decoding of Il2CppMetadataRegistration.metadataUsages
+	// in the binary from v29 onward (guide §8). Read here only so field/section counting still lines up
+	// when parsing an older file.
+	public Section MetadataUsageLists, MetadataUsagePairs;
+
+	// v24.1 and earlier only: Il2CppRGCTXDefinition entries. From v24.2 on this moved to being decoded
+	// per-TypeDefinition (rgctxStartIndex/Count) instead of a section of its own — NOT true for v24.1 and
+	// earlier, where it is very much still a header section that must be read or every offset after
+	// TypeDefinitions comes out wrong.
+	public Section RgctxEntries;
+
+	// v21..v27.2: a flat list of attribute types per index range.
+	public Section AttributesInfo, AttributeTypes;
+	// v29+: attributes moved to a serialized binary blob, ECMA-335 CustomAttribute-shaped.
+	public Section AttributeData, AttributeDataRanges;
+
+	// Trailing sections the pipeline does not otherwise use, but which still have to be read (or at
+	// least counted) so the header's own self-check has an accurate total size to compare against —
+	// StringLiterals.Offset in the file reflects the FULL header, not just the sections above that
+	// something downstream actually reads.
+	public Section UnresolvedVirtualCallParameterTypes, UnresolvedVirtualCallParameterRanges; // v22+
+	public Section WindowsRuntimeTypeNames; // v23+
+	public Section WindowsRuntimeStrings; // v27+ — declared after WindowsRuntimeTypeNames but before ExportedTypeDefinitions in the real header, despite the higher version floor.
+	public Section ExportedTypeDefinitions; // v24+
+
+	/// <summary>
+	/// Reads the header for whichever version is actually on disk.
+	/// </summary>
+	/// <exception cref="InvalidDataException">The file does not start with the IL2CPP metadata sanity value.</exception>
+	public static MetadataHeader Read(VersionedReader reader)
+	{
+		reader.Position = 0;
+		MetadataHeader header = new() { Sanity = reader.ReadUInt32(), Version = reader.ReadInt32() };
+		if (header.Sanity != ExpectedSanity)
+		{
+			throw new InvalidDataException("Not an IL2CPP global-metadata.dat file (bad sanity value).");
+		}
+
+		reader.Version = ProbeSubVersion(reader, header.Version);
+		reader.Position = 8;
+
+		// A section is (offset, size) before v39, (offset, size, count) from v39 on — the extra field is
+		// simply dropped here since Section never needed the count.
+		Section Next() => reader.Version >= 39 ? ReadTriple(reader) : ReadPair(reader);
+
+		header.StringLiterals = Next();
+		header.StringLiteralData = Next();
+		header.Strings = Next();
+		header.Events = Next();
+		header.Properties = Next();
+		header.Methods = Next();
+		header.ParameterDefaultValues = Next();
+		header.FieldDefaultValues = Next();
+		header.FieldAndParameterDefaultValueData = Next();
+		header.FieldMarshaledSizes = Next();
+		header.Parameters = Next();
+		header.Fields = Next();
+		header.GenericParameters = Next();
+		header.GenericParameterConstraints = Next();
+		header.GenericContainers = Next();
+		header.NestedTypes = Next();
+		header.Interfaces = Next();
+		header.VTableMethods = Next();
+		header.InterfaceOffsets = Next();
+		header.TypeDefinitions = Next();
+
+		if (reader.Version <= 24.1)
+		{
+			header.RgctxEntries = Next();
+		}
+
+		header.Images = Next();
+		header.Assemblies = Next();
+
+		if (reader.Version <= 24.5)
+		{
+			header.MetadataUsageLists = Next();
+			header.MetadataUsagePairs = Next();
+		}
+
+		header.FieldRefs = Next();
+		header.ReferencedAssemblies = Next();
+
+		if (reader.Version <= 27.2)
+		{
+			header.AttributesInfo = Next();
+			header.AttributeTypes = Next();
+		}
+		else
+		{
+			header.AttributeData = Next();
+			header.AttributeDataRanges = Next();
+		}
+
+		if (reader.Version >= 22)
+		{
+			header.UnresolvedVirtualCallParameterTypes = Next();
+			header.UnresolvedVirtualCallParameterRanges = Next();
+		}
+
+		if (reader.Version >= 23)
+		{
+			header.WindowsRuntimeTypeNames = Next();
+		}
+
+		if (reader.Version >= 27)
+		{
+			header.WindowsRuntimeStrings = Next();
+		}
+
+		if (reader.Version >= 24)
+		{
+			header.ExportedTypeDefinitions = Next();
+		}
+
+		// The runtime itself asserts this (GlobalMetadata.cpp), and it is the cheapest, strongest check
+		// available: getting any section above wrong shifts every offset from here on, and this would
+		// almost certainly not equal the true header size if that happened.
+		int headerSize = HeaderSizeFor(reader);
+		if (header.StringLiterals.Offset != headerSize)
+		{
+			throw new InvalidDataException(
+				$"Metadata header self-check failed for version {reader.Version}: expected the first " +
+				$"section at offset {headerSize} (the header's own size) but it claims {header.StringLiterals.Offset}. " +
+				"The section list above does not match this file's actual layout — compare against " +
+				"GlobalMetadataFileInternals.h for this Unity version before trusting anything read after this point.");
+		}
+
+		return header;
+	}
+
+	private static Section ReadPair(VersionedReader reader) => new(reader.ReadInt32(), reader.ReadInt32());
+
+	private static Section ReadTriple(VersionedReader reader)
+	{
+		int offset = reader.ReadInt32();
+		int size = reader.ReadInt32();
+		_ = reader.ReadInt32(); // count — not needed once Section already carries Size.
+		return new Section(offset, size);
+	}
+
+	/// <summary>
+	/// How many bytes the header itself occupies, by reading it once and seeing where it ends up.
+	/// </summary>
+	private static int HeaderSizeFor(VersionedReader reader) => (int)reader.Position;
+
+	/// <summary>
+	/// Metadata version 24 alone covers Unity 2018.3 through 2019.4 (24.0 .. 24.5) with layouts that
+	/// differ but are indistinguishable from the version number in the header. Resolved by trial: read
+	/// with each candidate sub-version and keep the first one whose header actually checks out.
+	/// </summary>
+	/// <remarks>
+	/// Reading with the wrong sub-version does not throw — it produces a header that looks plausible and
+	/// is wrong, which surfaces much later as garbage in step 8. These three checks are cheap and catch
+	/// nearly every wrong guess before that happens.
+	/// <para>
+	/// Known limitation: 24.0 and 24.1 share one header layout, and 24.2-24.5 share another — this can
+	/// only tell the two GROUPS apart (by whether <see cref="RgctxEntries"/> is present), not which exact
+	/// sub-version within a group it is, so it always reports the lowest candidate in whichever group
+	/// matches (24.0 or 24.2). A reference implementation (Il2CppDumper) additionally disambiguates within
+	/// each group from file CONTENT — an image's <c>token</c> field for 24.0 vs 24.1, and the actual
+	/// per-entry size of the assemblies section for 24.2 vs 24.4 — neither of which this pipeline's
+	/// simplified <c>Il2CppImageDefinition</c>/<c>Il2CppAssemblyDefinition</c> currently need, since neither
+	/// struct here varies within a group the way Il2CppDumper's full version-tagged ones do.
+	/// </para>
+	/// </remarks>
+	private static double ProbeSubVersion(VersionedReader reader, int majorVersion)
+	{
+		if (majorVersion != 24)
+		{
+			return majorVersion;
+		}
+
+		long dataLength = reader.BaseStream.Length;
+		foreach (double candidate in (double[])[24.0, 24.1, 24.2, 24.3, 24.4, 24.5])
+		{
+			reader.Version = candidate;
+			try
+			{
+				reader.Position = 8;
+				int headerSize = ProbeHeaderSize(reader, candidate);
+				reader.Position = 0;
+				reader.ReadUInt32();
+				reader.ReadInt32();
+				Section stringLiterals = candidate >= 39 ? ReadTriple(reader) : ReadPair(reader);
+
+				if (stringLiterals.Offset != headerSize)
+				{
+					continue;
+				}
+				if (stringLiterals.Offset < 0 || stringLiterals.Offset > dataLength
+					|| stringLiterals.Size < 0 || stringLiterals.Offset + stringLiterals.Size > dataLength)
+				{
+					continue;
+				}
+
+				return candidate;
+			}
+			catch
+			{
+				// Try the next candidate.
+			}
+		}
+
+		throw new NotSupportedException(
+			$"Could not determine the metadata 24.x sub-version. Set it explicitly if known; otherwise " +
+			"compare GlobalMetadataFileInternals.h for the exact Unity version this file came from.");
+	}
+
+	/// <summary>
+	/// Reads a throwaway header at the given candidate version purely to measure how many bytes it
+	/// consumes, without any of the invariant checks <see cref="Read"/> itself performs.
+	/// </summary>
+	private static int ProbeHeaderSize(VersionedReader reader, double candidate)
+	{
+		reader.Position = 8;
+		reader.Version = candidate;
+		int sectionCount = 20 // StringLiterals .. TypeDefinitions
+			+ (candidate <= 24.1 ? 1 : 0) // RgctxEntries
+			+ 2  // Images, Assemblies
+			+ (candidate <= 24.5 ? 2 : 0) // MetadataUsageLists/Pairs
+			+ 2  // FieldRefs, ReferencedAssemblies
+			+ 2  // Attributes(Info/Types) or (Data/DataRanges) — every 24.x candidate is within [21, 27.2]
+			+ 2  // UnresolvedVirtualCallParameterTypes/Ranges — every 24.x candidate is >= 22
+			+ 1  // WindowsRuntimeTypeNames — every 24.x candidate is >= 23
+			+ 1; // ExportedTypeDefinitions — every 24.x candidate is >= 24 (WindowsRuntimeStrings needs >= 27, never true here)
+		int perSection = candidate >= 39 ? 12 : 8;
+		return 8 + sectionCount * perSection;
+	}
+}

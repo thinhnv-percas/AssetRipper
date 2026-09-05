@@ -29,9 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 
-// For loading dynamic content into pre elements
-document.addEventListener("DOMContentLoaded", async () => {
-	const preElements = document.querySelectorAll('pre[dynamic-text-content]');
+// For loading dynamic content into pre elements. Exposed on window so content
+// injected later (e.g. by the exported-project explorer's AJAX preview panel)
+// can trigger it again, since DOMContentLoaded only fires once.
+window.loadDynamicTextContent = function (root = document) {
+	const preElements = root.querySelectorAll('pre[dynamic-text-content]');
 
 	preElements.forEach(async (preElement) => {
 		const url = preElement.getAttribute('dynamic-text-content');
@@ -48,4 +50,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 			preElement.textContent = `Failed to load content: ${error.message}`;
 		}
 	});
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+	window.loadDynamicTextContent();
 });

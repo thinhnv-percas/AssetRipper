@@ -18,6 +18,13 @@
 		<ProjectReference Include="..\AssetRipper.Import\AssetRipper.Import.csproj" />
 		<ProjectReference Include="..\AssetRipper.Processing\AssetRipper.Processing.csproj" />
 		<ProjectReference Include="..\AssetRipper.Yaml\AssetRipper.Yaml.csproj" />
+		<!--
+			Referencing the Cli project directly (rather than launching it as a subprocess) pulls in its
+			own ProjectReferences transitively (Metadata/Binary/StructDb/Lift/Emit), so Level4 restoration
+			runs in-process as part of the normal post-export pass. See Il2CppRestorePostExporter and
+			RestorePipeline (in the Cli project) for the AOT-compatibility trade-off this accepts.
+		-->
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Cli\AssetRipper.Il2CppRestore.Cli.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

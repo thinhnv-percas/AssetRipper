@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputPath>..\0Bins\Other\AssetRipper.Il2CppRestore.StructDb\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>..\0Bins\obj\AssetRipper.Il2CppRestore.StructDb\$(Configuration)\</IntermediateOutputPath>
+		<!-- Reflection-free logic, but System.Text.Json without a source-generated context is not
+		     trim/AOT safe. Fine for the standalone Cli tool this feeds; not part of the AOT-published GUI. -->
+		<IsAotCompatible>false</IsAotCompatible>
+	</PropertyGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<OutputPath>..\0Bins\AssetRipper.Il2CppRestore.Cli\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>..\0Bins\obj\AssetRipper.Il2CppRestore.Cli\$(Configuration)\</IntermediateOutputPath>
+		<IsAotCompatible>false</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Metadata\AssetRipper.Il2CppRestore.Metadata.csproj" />
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Binary\AssetRipper.Il2CppRestore.Binary.csproj" />
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.StructDb\AssetRipper.Il2CppRestore.StructDb.csproj" />
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Lift\AssetRipper.Il2CppRestore.Lift.csproj" />
+		<ProjectReference Include="..\AssetRipper.Il2CppRestore.Emit\AssetRipper.Il2CppRestore.Emit.csproj" />
+	</ItemGroup>
+
+</Project>
