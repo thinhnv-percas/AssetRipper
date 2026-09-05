@@ -9,10 +9,33 @@ public static class Il2CppClassUsefulOffsets
     public const int X86_INTERFACE_OFFSETS_OFFSET = 0x50;
     public const int X86_64_INTERFACE_OFFSETS_OFFSET = 0xB0;
 
-    public static int GetVtableOffset(float metadataVersion, bool is32Bit) =>
-        metadataVersion >= 24.2f
+    /// <summary>
+    /// Where <c>Il2CppClass::vtable</c> starts.
+    /// </summary>
+    /// <remarks>
+    /// AssetRipper: a measured entry wins over the version formula, which is a two-way guess and gets
+    /// 2019.2 wrong — its vtable is at 0x130, not 0x138. A host that has the runtime struct layouts
+    /// prepends the measured offsets to <see cref="UsefulOffsets"/>, so the first matching entry is
+    /// the measured one when there is one. This is what <see cref="IsPointerIntoVtable"/> bounds on
+    /// and what the inlined interface dispatch is recognised by, and both are silently wrong when it
+    /// is off by a single entry.
+    /// </remarks>
+    public static int GetVtableOffset(float metadataVersion, bool is32Bit)
+    {
+        if (MeasuredVtableOffset is { } measured)
+            return measured;
+
+        return metadataVersion >= 24.2f
             ? is32Bit ? 0x999 /*TODO*/ : 0x138
             : is32Bit ? 0x999 /*TODO*/ : 0x128;
+    }
+
+    /// <summary>
+    /// AssetRipper: the offset read from a runtime struct layout for the binary being analysed, when
+    /// the host has one. Null falls back to the version formula. Set for the whole of one import,
+    /// where the pointer size is fixed, and cleared with the rest of the patch.
+    /// </summary>
+    public static int? MeasuredVtableOffset { get; set; }
 
     public static readonly List<UsefulOffset> UsefulOffsets =
     [

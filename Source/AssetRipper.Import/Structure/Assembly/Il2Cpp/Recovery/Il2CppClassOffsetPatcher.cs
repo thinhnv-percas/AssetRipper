@@ -14,8 +14,8 @@ namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 /// prepending the measured offsets makes them win over the built-in ones without removing anything.
 /// </para>
 /// <para>
-/// <see cref="Il2CppClassUsefulOffsets.GetVtableOffset(float, bool)"/> is a method, not data, so the vtable
-/// bound used by <c>IsPointerIntoVtable</c> cannot be corrected from here. Only the named-offset lookups are.
+/// <see cref="Il2CppClassUsefulOffsets.GetVtableOffset(float, bool)"/> is a method, not data, so it is
+/// told separately, through <see cref="Il2CppClassUsefulOffsets.MeasuredVtableOffset"/>.
 /// </para>
 /// </remarks>
 public static class Il2CppClassOffsetPatcher
@@ -88,6 +88,15 @@ public static class Il2CppClassOffsetPatcher
 			}
 
 			measured.Add(new Il2CppClassUsefulOffsets.UsefulOffset(cpp2IlName, (uint)field.Offset, DescribeType(field), is32Bit));
+
+			// The vtable bound is read through a method rather than the table, so it needs telling
+			// separately. Its version formula is a two-way guess that puts 2019.2's vtable at 0x138
+			// when it is at 0x130, and everything that recognises an inlined interface dispatch is
+			// measured against it.
+			if (cpp2IlName == "vtable")
+			{
+				Il2CppClassUsefulOffsets.MeasuredVtableOffset = field.Offset;
+			}
 		}
 
 		if (measured.Count == 0)
@@ -120,6 +129,7 @@ public static class Il2CppClassOffsetPatcher
 
 		Il2CppClassUsefulOffsets.UsefulOffsets.Clear();
 		Il2CppClassUsefulOffsets.UsefulOffsets.AddRange(pristine);
+		Il2CppClassUsefulOffsets.MeasuredVtableOffset = null;
 	}
 
 	private static StructDbField? Find(StructDbStruct layout, string[] names)

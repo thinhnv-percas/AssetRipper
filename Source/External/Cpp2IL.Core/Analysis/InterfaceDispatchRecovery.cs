@@ -55,7 +55,12 @@ public static class InterfaceDispatchRecovery
             DeadCodeEliminator.Run(method);
     }
 
-    private const long VTableOffset = 0x138;
+    // AssetRipper: was a hardcoded 0x138, which is where the vtable starts on 2022.3 and not on
+    // 2019.2, where it is at 0x130 — so every inlined dispatch in that game went unrecognised and
+    // left its interface offset scan in the output.
+    private static long VTableOffset(MethodAnalysisContext method)
+        => Il2CppClassUsefulOffsets.GetVtableOffset(method.AppContext.MetadataVersion, method.AppContext.Binary.is32Bit);
+
     private const int InvokeDataShift = 4; // sizeof(VirtualInvokeData) == 16
 
     private record struct Match(
@@ -107,7 +112,7 @@ public static class InterfaceDispatchRecovery
         var slot = (int)slotImmediate.Value;
 
         // fast path computes klass + vtableOffset + ((entryOffset + slot) << 4) (the +slot folds away for slot 0)
-        if (MatchVTableEntryChain(definitions, vtableEntry, slot) is not { } klassLocal)
+        if (MatchVTableEntryChain(definitions, vtableEntry, slot, VTableOffset(method)) is not { } klassLocal)
             return null;
 
         if (ResolveInterfaceSlot(declaringInterface, slot) is not { } resolved)
@@ -119,8 +124,21 @@ public static class InterfaceDispatchRecovery
         return new Match(resolved, phi, merge, slowCall, klassLocal);
     }
 
-    private static LocalVariable? MatchVTableEntryChain(Dictionary<LocalVariable, Instruction> definitions, Instruction? vtableEntry, int slot)
+    private static LocalVariable? MatchVTableEntryChain(Dictionary<LocalVariable, Instruction> definitions, Instruction? vtableEntry, int slot, long vtableOffset)
     {
+        // AssetRipper: the same lookup, compiled differently. A64 walks the interface offset table
+        // with a pointer instead of shifting an index, so the entry reads as (klass + entryOffset) +
+        // vtableOffset rather than klass + ((index << 4) + vtableOffset), with the slot folded into
+        // the walk rather than added here. The slot is taken from the slow path call either way.
+        if (vtableEntry is { OpCode: OpCode.Add, Operands: [_, LocalVariable pointerWalk, Immediate walkAddend] }
+            && walkAddend.Value == vtableOffset)
+        {
+            if (ChaseCopies(definitions, pointerWalk) is not { OpCode: OpCode.Add, Operands: [_, var left, var right] })
+                return null;
+
+            return IsKlassLoad(definitions, left) ?? IsKlassLoad(definitions, right);
+        }
+
         if (vtableEntry is not { OpCode: OpCode.Add, Operands: [_, LocalVariable addLeft, LocalVariable addRight] })
             return null;
 
@@ -131,7 +149,8 @@ public static class InterfaceDispatchRecovery
         if (Definition(definitions, klassCandidate) is not { OpCode: OpCode.Move, Operands: [_, MemoryOperand { Index: null, Scale: 0, Addend: 0, Base: LocalVariable }] })
             return null;
 
-        if (ChaseCopies(definitions, sum) is not { OpCode: OpCode.Add, Operands: [_, LocalVariable shifted, Immediate { Value: VTableOffset }] })
+        if (ChaseCopies(definitions, sum) is not { OpCode: OpCode.Add, Operands: [_, LocalVariable shifted, Immediate vtableAddend] }
+            || vtableAddend.Value != vtableOffset)
             return null;
 
         if (ChaseCopies(definitions, shifted) is not { OpCode: OpCode.ShiftLeft, Operands: [_, LocalVariable index, Immediate { Value: InvokeDataShift }] })
@@ -154,6 +173,13 @@ public static class InterfaceDispatchRecovery
 
         return klassCandidate;
     }
+
+    // AssetRipper: the operand, when it is a local holding a load of an object's class pointer.
+    private static LocalVariable? IsKlassLoad(Dictionary<LocalVariable, Instruction> definitions, IOperand operand)
+        => operand is LocalVariable local
+            && Definition(definitions, local) is { OpCode: OpCode.Move, Operands: [_, MemoryOperand { Index: null, Scale: 0, Addend: 0, Base: LocalVariable }] }
+            ? local
+            : null;
 
     private static Instruction? Definition(Dictionary<LocalVariable, Instruction> definitions, LocalVariable local)
         => definitions.TryGetValue(local, out var definition) ? definition : null;
