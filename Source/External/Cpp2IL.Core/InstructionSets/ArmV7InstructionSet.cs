@@ -213,6 +213,15 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
             if (memory.Base is not null && absoluteAddresses!.TryGetValue(RegisterName(memory.Base), out var absolute) && memory.Index is null)
                 return new MemoryOperand(addend: (long)absolute + displacement);
 
+            // A register holding a pool constant that is an address into the image, dereferenced: the
+            // load is from that address. ARM64 reaches a metadata usage in one load and lands typed;
+            // ARMv7 takes two, and without folding the first the second has an untyped base, which is
+            // what leaves every static field read as a placeholder.
+            if (memory.Base is not null && memory.Index is null
+                && literalValues!.TryGetValue(RegisterName(memory.Base), out var literalBase)
+                && literalBase > 0 && binary.TryMapVirtualAddressToRaw((ulong)literalBase, out _))
+                return new MemoryOperand(addend: literalBase + displacement);
+
             if (memory.Base is null)
                 return new MemoryOperand(addend: displacement);
 

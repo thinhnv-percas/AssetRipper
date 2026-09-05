@@ -121,11 +121,15 @@ writes at the right offsets, `typeof(T)` handles, and `Time.deltaTime`.
 What they get wrong, on `ZambiesMovement.Update` against its source:
 
 - **A static field read through the type's static storage stays a placeholder**, so
-  `"" + Checker.scoreCounter` and the `0.05f * Checker.scoreCounter` term both degrade.
-  `LocalVariables.PropagateStaticFieldStorage` needs the base of the `+0x5C` read to be typed
-  `RuntimeClassTypeAnalysisContext`, and there is an extra `Move R0, [R0]` between the `typeof(T)`
-  and the static fields read that leaves the base untyped. `speed + <something>` and the assignment
-  to `realSpeed` are right, only the term is not.
+  `"" + Checker.scoreCounter` and the `0.05f * Checker.scoreCounter` term both degrade. The base is
+  typed correctly now — `[v27 (Il2CppClass<Checker>)+5C]` — and one condition still blocks it:
+  `LocalVariables.PropagateStaticFieldStorage` matches only `Move dest, [klass + staticFieldsOffset]`,
+  and by the time it runs the simplifier has folded that move into the instruction that consumed it,
+  so there is no destination local left to type. **This is not an ARMv7 problem**: the ARM64 rip of
+  `Test/Input/Pinata` has 4694 of these, `[v56 @ X0_v4 (Il2CppClass<UnityEngine.AndroidJavaObject>)+B8]`
+  among them, with the base equally well typed. Fixing it means rewriting the memory operand in place
+  into a `StaticFieldStorageTypeAnalysisContext` local rather than waiting for a move to type, which
+  is shared analysis and wants measuring on both games.
 - **`ldr rD, [pc, rN]` is read through, not stopped at.** It looks like it should resolve to the
   address it computes, and it was tried: doing that loses every `typeof(T)` in the method, because
   the word at that address is the metadata usage slot's address and the load after it is what
