@@ -122,6 +122,16 @@ measurement.
 - **`ReconstructNativeBodies` has no considered default.** It is off unless asked for. Turning it on
   costs run time and output size for text that does not compile; whether that is the right default
   for the GUI has not been decided.
-- **ARMv7 and WebAssembly cannot produce method bodies at all.** Cpp2IL has no ISIL lifter for them,
-  and the run reports success either way, which is why
-  `Il2CppRecoveryDiagnosticsProcessingLayer` warns about the architecture up front.
+- **ARMv7 and WebAssembly cannot produce method bodies at all.** `ArmV7InstructionSet.GetIsilFromMethod`
+  returns an empty list unconditionally, and the run reports success either way, which is why
+  `Il2CppRecoveryDiagnosticsProcessingLayer` warns about the architecture up front. Measured on a real
+  armeabi-v7a game (`RunFromZombiesFullProject`, Unity 2022.3.62f2, metadata v31.1): all 16 game
+  classes recover with their base types, field offsets, method signatures and RVAs intact, and 0 of
+  58 methods get a body — the four that are not literally empty return `null` or `false`, which is
+  the default-value stub for a non-void method with no ISIL. Nothing downstream can improve this;
+  the pipeline stops at the lifter.
+
+  That project is worth keeping in mind as a test: it ships its own full Unity source next to the
+  build, which is the ground truth this repository has never had to measure recovery against. An
+  ARM64 build of it would make every number in this file checkable against real code rather than
+  against placeholder counts.
