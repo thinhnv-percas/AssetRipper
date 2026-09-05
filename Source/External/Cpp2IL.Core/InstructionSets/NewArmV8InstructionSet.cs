@@ -549,9 +549,18 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     EmitWriteback(beforeAccess: true);
 
                     // ldr with a pc-relative literal is an absolute load
-                    var source = instruction.Op1Kind == Arm64OperandKind.ImmediatePcRelative
+                    IOperand source = instruction.Op1Kind == Arm64OperandKind.ImmediatePcRelative
                         ? new MemoryOperand(addend: (long)address + instruction.Op1Imm)
                         : MemOperand();
+
+                    // AssetRipper: a float loaded from an address the code names outright is a constant
+                    // the compiler placed in the binary — a managed static is never reached that way.
+                    if (instruction.Mnemonic is Arm64Mnemonic.LDR or Arm64Mnemonic.LDUR
+                        && instruction.Op0Reg is >= Arm64Register.D0 and <= Arm64Register.S31 // scalar float only
+                        && source is MemoryOperand { Base: null, Index: null, Addend: > 0 } absolute
+                        && NativeConstants.ReadFloat(context.AppContext.Binary, (ulong)absolute.Addend,
+                            instruction.Op0Reg is <= Arm64Register.D31) is { } constant)
+                        source = constant;
 
                     if (instruction.Op0Kind == Arm64OperandKind.Register && IsReg31(instruction.Op0Reg))
                         Add(address, OpCode.Nop); // load to xzr = prefetch, discard
