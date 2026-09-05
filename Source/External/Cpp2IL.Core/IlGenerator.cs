@@ -70,36 +70,45 @@ public static class IlGenerator
         definition.CilMethodBody = body;
 
         // Make sure context.Locals actually has all locals (idk why it doesn't sometimes)
-        foreach (var operand in context.ControlFlowGraph.Instructions.SelectMany(i => i.Operands))
+        // AssetRipper: over every block, not ControlFlowGraph.Instructions, which is a walk from the
+        // entry block and so misses an unreachable one. Code generation below emits every block, so a
+        // local first seen in an unreachable one had no slot and the lookup threw, losing the body.
+        foreach (var operand in context.ControlFlowGraph.Blocks.SelectMany(b => b.Instructions).SelectMany(i => i.Operands))
+            CollectLocals(operand);
+
+        // AssetRipper: recursive, because an index can itself be an element access - `a[b[i]]` hid the
+        // inner array from this walk, and the lookup for a local with no slot threw and lost the body.
+        void CollectLocals(IOperand operand)
         {
-            LocalVariable? local = null;
-
-            if (operand is FieldReference field)
-                local = field.Local;
-
-            if (operand is LocalVariable local2)
-                local = local2;
-
-            if (operand is MemoryOperand memory && memory.Base is LocalVariable local3)
-                local = local3;
-
-            var elementOperand = operand is AddressOf { Target: ArrayAccess elementAddress } ? elementAddress : operand;
-
-            if (elementOperand is ArrayAccess arrayAccess)
+            switch (operand)
             {
-                local = arrayAccess.Array;
-
-                if (arrayAccess.Index is LocalVariable index && !context.Locals.Contains(index))
-                    context.Locals.Add(index);
+                case LocalVariable local:
+                    Declare(local);
+                    break;
+                case FieldReference field:
+                    Declare(field.Local);
+                    break;
+                case MemoryOperand { Base: LocalVariable memoryBase } memory:
+                    Declare(memoryBase);
+                    if (memory.Index is LocalVariable memoryIndex)
+                        Declare(memoryIndex);
+                    break;
+                case ArrayAccess arrayAccess:
+                    Declare(arrayAccess.Array);
+                    CollectLocals(arrayAccess.Index);
+                    break;
+                case ArrayLength arrayLength:
+                    Declare(arrayLength.Array);
+                    break;
+                case AddressOf addressOf:
+                    CollectLocals(addressOf.Target);
+                    break;
             }
+        }
 
-            if (operand is ArrayLength arrayLength)
-                local = arrayLength.Array;
-
-            if (operand is AddressOf { Target: LocalVariable addressed })
-                local = addressed;
-
-            if (local != null && !context.Locals.Contains(local))
+        void Declare(LocalVariable local)
+        {
+            if (!context.Locals.Contains(local))
                 context.Locals.Add(local);
         }
 

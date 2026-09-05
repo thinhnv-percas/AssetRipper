@@ -29,9 +29,45 @@ public static class ArrayRecovery
         GroupInitialisers(method.ControlFlowGraph!);
     }
 
+    /// <summary>
+    /// AssetRipper: folds element accesses whose address is computed into a register before the load.
+    /// </summary>
+    /// <remarks>
+    /// This has to run before copy propagation, which replaces the array local in the address
+    /// computation with whatever defined it — a field read, usually — leaving nothing to name as the
+    /// array. <see cref="Run"/> is deliberately at the end of analysis, long after that.
+    /// </remarks>
+    public static void RecoverComputedAccesses(MethodAnalysisContext method)
+    {
+        var pointerSize = method.AppContext.Binary.PointerSizeBytes;
+        var definitions = Definitions(method);
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            for (var i = 0; i < instruction.Operands.Count; i++)
+            {
+                if (instruction.Operands[i] is MemoryOperand { Base: LocalVariable { Type: not SzArrayTypeAnalysisContext } computed } memory
+                    && ComputedElementAddress(memory, computed, definitions, pointerSize) is { } folded)
+                    instruction.SetOperand(i, folded);
+            }
+        }
+    }
+
+    private static Dictionary<LocalVariable, Instruction> Definitions(MethodAnalysisContext method)
+    {
+        var definitions = new Dictionary<LocalVariable, Instruction>();
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+            if (instruction.Destination is LocalVariable destination)
+                definitions[destination] = instruction;
+
+        return definitions;
+    }
+
     private static void RecoverAccesses(MethodAnalysisContext method)
     {
         var pointerSize = method.AppContext.Binary.PointerSizeBytes;
+        var definitions = Definitions(method);
 
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
@@ -39,8 +75,21 @@ public static class ArrayRecovery
 
             for (var i = 0; i < instruction.Operands.Count; i++)
             {
-                if (instruction.Operands[i] is not MemoryOperand memory
-                    || memory.Base is not LocalVariable { Type: SzArrayTypeAnalysisContext arrayType } array)
+                if (instruction.Operands[i] is not MemoryOperand memory)
+                    continue;
+
+                // AssetRipper: an architecture with no scaled index addressing mode computes the
+                // element's address into a register first, so the load reads [address + elements] and
+                // the array and the index are an instruction earlier. Fold that back before the
+                // patterns below, which all expect the array to be the base.
+                if (memory.Base is LocalVariable { Type: not SzArrayTypeAnalysisContext } computed
+                    && ComputedElementAddress(memory, computed, definitions, pointerSize) is { } folded)
+                {
+                    instruction.SetOperand(i, folded);
+                    continue;
+                }
+
+                if (memory.Base is not LocalVariable { Type: SzArrayTypeAnalysisContext arrayType } array)
                     continue;
 
                 if (memory.Index == null && memory.Scale == 0 && memory.Addend == LengthOffset(pointerSize))
@@ -165,6 +214,44 @@ public static class ArrayRecovery
 
         if (result.Type is not SzArrayTypeAnalysisContext)
             result.Type = type;
+    }
+
+    /// <summary>
+    /// AssetRipper: <c>[t + elementsOffset]</c> where <c>t = array + (index &lt;&lt; log2(elementSize))</c>,
+    /// which is how an element is reached where the address has to be computed before the load.
+    /// </summary>
+    private static ArrayAccess? ComputedElementAddress(MemoryOperand memory, LocalVariable computed,
+        Dictionary<LocalVariable, Instruction> definitions, int pointerSize)
+    {
+        if (memory.Index != null || memory.Scale != 0 || memory.Addend != ElementsOffset(pointerSize))
+            return null;
+
+        if (!definitions.TryGetValue(computed, out var definition)
+            || definition is not { OpCode: OpCode.Add, Operands: [_, var left, var right] })
+            return null;
+
+        // either side can be the array; the other is the scaled index
+        var (array, scaled) = left is LocalVariable { Type: SzArrayTypeAnalysisContext } ? (left, right) : (right, left);
+
+        if (array is not LocalVariable { Type: SzArrayTypeAnalysisContext arrayType } arrayLocal
+            || scaled is not LocalVariable scaledIndex)
+            return null;
+
+        var elementSize = ElementSize(arrayType.ElementType, pointerSize);
+
+        if (elementSize == 0)
+            return null;
+
+        // a one byte element needs no scaling, so the index arrives unshifted
+        if (elementSize == 1)
+            return new ArrayAccess(arrayLocal, scaledIndex);
+
+        if (!definitions.TryGetValue(scaledIndex, out var scaling)
+            || scaling is not { OpCode: OpCode.ShiftLeft, Operands: [_, var index, Immediate shift] }
+            || 1L << (int)shift.Value != elementSize)
+            return null;
+
+        return new ArrayAccess(arrayLocal, index);
     }
 
     private static IOperand? ElementIndex(MemoryOperand memory, SzArrayTypeAnalysisContext arrayType, int pointerSize)

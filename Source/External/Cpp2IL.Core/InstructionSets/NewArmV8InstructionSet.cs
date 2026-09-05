@@ -367,6 +367,35 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             return new MemoryOperand(Reg(baseReg), addend: offset);
         }
 
+        // AssetRipper: the last register operand of a data processing instruction can carry a shift or
+        // an extend, and that is where an array index gets scaled: `add x8, x0, w1, sxtw #3` is
+        // `x0 + (long)(int)w1 * 8`. Dropping it left the index unscaled, so every element access read
+        // as the array's first element and the index went nowhere.
+        IOperand ShiftedOperand(int operandIndex)
+        {
+            var operand = ConvertOperand(instruction, operandIndex);
+
+            if (instruction.Op2Kind != Arm64OperandKind.Register
+                || instruction.Op3Kind != Arm64OperandKind.Immediate || instruction.Op3Imm <= 0)
+                return operand;
+
+            var opCode = instruction.FinalOpShiftType switch
+            {
+                Arm64ShiftType.LSL => OpCode.ShiftLeft,
+                Arm64ShiftType.LSR or Arm64ShiftType.ASR => OpCode.ShiftRight,
+                // an extend's amount is a left shift; a rotate has no ISIL shape, so it is left alone
+                Arm64ShiftType.NONE when instruction.FinalOpExtendType != Arm64ExtendType.NONE => OpCode.ShiftLeft,
+                _ => OpCode.Nop,
+            };
+
+            if (opCode == OpCode.Nop)
+                return operand;
+
+            var shifted = new Register(null, "TEMPSHIFT");
+            Add(address, opCode, shifted, operand, Imm(instruction.Op3Imm));
+            return shifted;
+        }
+
         var flagN = new Register(null, "N");
         var flagZ = new Register(null, "Z");
         var flagC = new Register(null, "C");
@@ -634,7 +663,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     }
 
                     var src1 = ConvertOperand(instruction, 1);
-                    var src2 = ConvertOperand(instruction, 2);
+                    var src2 = ShiftedOperand(2); // AssetRipper
                     // a discarded result means this is only about the flags
                     var dest = IsReg31(instruction.Op0Reg) ? new Register(null, "TEMP") : ConvertOperand(instruction, 0);
 
@@ -689,7 +718,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     };
 
                     var dest = IsReg31(instruction.Op0Reg) ? new Register(null, "TEMP") : ConvertOperand(instruction, 0);
-                    Add(address, opCode, dest, ConvertOperand(instruction, 1), ConvertOperand(instruction, 2));
+                    Add(address, opCode, dest, ConvertOperand(instruction, 1), ShiftedOperand(2)); // AssetRipper
 
                     if (instruction.Mnemonic == Arm64Mnemonic.ANDS)
                         EmitResultFlags(dest);

@@ -97,6 +97,26 @@ public static class SsaSimplifier
                 case FieldReference { Local: { } fieldLocal } field when resolved.TryGetValue(fieldLocal, out var fieldValue) && fieldValue is LocalVariable fieldReplacement:
                     field.Local = fieldReplacement;
                     break;
+
+                // AssetRipper: an element access reads the array and the index. The array, like a
+                // memory base, must stay a local; the index can be any value. Left out, the local
+                // holding an index was neither forwarded nor counted as read, so its definition was
+                // dropped as unused and the access indexed by nothing.
+                case ArrayAccess array:
+                    if (resolved.TryGetValue(array.Array, out var arrayValue) && arrayValue is LocalVariable arrayReplacement)
+                        array.Array = arrayReplacement;
+                    if (array.Index is LocalVariable arrayIndex && resolved.TryGetValue(arrayIndex, out var arrayIndexValue))
+                        array.Index = arrayIndexValue;
+                    break;
+
+                case ArrayLength length when resolved.TryGetValue(length.Array, out var lengthValue) && lengthValue is LocalVariable lengthReplacement:
+                    length.Array = lengthReplacement;
+                    break;
+
+                case AddressOf { Target: LocalVariable addressed } addressOf
+                    when resolved.TryGetValue(addressed, out var addressedValue) && addressedValue is LocalVariable addressedReplacement:
+                    addressOf.Target = addressedReplacement;
+                    break;
             }
         }
     }
@@ -127,6 +147,17 @@ public static class SsaSimplifier
                             break;
                         case FieldReference field when field.Local is { } fieldLocal:
                             reads.Add(fieldLocal);
+                            break;
+                        case ArrayAccess array: // AssetRipper
+                            reads.Add(array.Array);
+                            if (array.Index is LocalVariable arrayIndex)
+                                reads.Add(arrayIndex);
+                            break;
+                        case ArrayLength length: // AssetRipper
+                            reads.Add(length.Array);
+                            break;
+                        case AddressOf { Target: LocalVariable addressed }: // AssetRipper
+                            reads.Add(addressed);
                             break;
                     }
                 }
