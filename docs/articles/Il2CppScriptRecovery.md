@@ -219,11 +219,42 @@ Editor, which is why no layout has to be reverse engineered.
 | Choosing an ARM64 implementation that can lift to ISIL | `Recovery/Arm64InstructionSetSelector.cs` |
 | Reporting whether this binary can be recovered at all | `Recovery/Il2CppRecoveryDiagnosticsProcessingLayer.cs` |
 | IL recovery plus per-run counters | `Recovery/Il2CppIlRecoveryOutputFormat.cs` |
+| Cpp2IL's IL generator, vendored with fixes | `Recovery/Cpp2IL/` |
 | Installing all of it into `IL2CppManager` | `Recovery/Il2CppRecoverySetup.cs` |
 
 Metadata parsing, binary identification, registration search, dummy assembly generation, the
-method address table, string literals and helper-function naming are all Cpp2IL's, and are not
-duplicated here.
+method address table and helper-function naming are all Cpp2IL's, and are not duplicated here.
+
+### The vendored generator
+
+`Recovery/Cpp2IL/Il2CppIlGenerator.cs` is Cpp2IL's own `IlGenerator.cs`, taken from the commit the
+`AssetRipper.Cpp2IL.Core` 1.0.9 nuspec names, with three fixes there is no seam to apply from
+outside. Everything else — the loader, the lifter, the analysis — is still the package's, and the
+vendored generator runs on the ISIL they produce. `Recovery/Cpp2IL/README.md` covers keeping it in
+step with the package.
+
+**A body can run off its own end.** A block whose only successor is the exit block gets no bridge,
+and the analysis warnings appended at the end finish on a call, so nothing guarantees a terminator.
+Reading such a body walks past its last instruction, and it is discarded as unbalanced. On the test
+game 2469 bodies needed repairing downstream to survive; with a terminator, 97 do.
+
+**Every metadata usage was a dead pointer.** A load from a fixed address became a placeholder and a
+null pointer, so a string the metadata holds in full reached the source as `object key = 0` and
+every use of it read as a cast of a number. Those addresses are metadata usage slots. String
+literals are the only kind expressible in IL, so those become `ldstr`; a runtime handle keeps the
+null pointer but the placeholder now names it — `typeof(UnityEngine.Debug)`, `methodof(...)`,
+`fieldof(...)`. Pre-27 metadata puts one indirection in the way, which is why the obvious lookup
+finds nothing: the address in the code is a per-module pointer holding the address of the slot.
+
+**A field inside a value type field was not a field.** Cpp2IL maps `[local + offset]` to the field
+at exactly that offset and gives up otherwise. An offset landing in the interior of a value type
+field is a nested access: `FsmColor` holds a `Color value` at 0x38, so a load from 0x3C is that
+colour's `g`, and `FsmVector2(FsmVector2 source)` recovers as `value.y = source.value.y` instead of
+two dead placeholders. A read chains `ldfld`, which takes a value type instance on the stack; a
+write takes `ldflda` down to the containing field so it does not write into a copy.
+
+Together, on `Test/Input/Pinata` at level 3: `Unmanaged memory load` placeholders 42538 to 27511, of
+which 11147 are now named runtime handles and the rest are real string literals and field accesses.
 
 ## Known limits
 

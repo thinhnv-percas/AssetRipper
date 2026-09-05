@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputPath>..\0Bins\Other\AssetRipper.Import\$(Configuration)\</OutputPath>
@@ -9,12 +9,10 @@
 	<ItemGroup>
 		<PackageReference Include="AsmResolver.DotNet" Version="6.0.1" />
 		<!--
-			Builds against the published package by default. Set Cpp2ILSourcePath to a Cpp2IL checkout to
-			build against its source instead, which is how a defect in IlGenerator gets diagnosed and fixed:
-				dotnet build -p:Cpp2ILSourcePath=/path/to/Cpp2IL
+			Structure/Assembly/Il2Cpp/Recovery/Cpp2IL vendors this package's IL generator with fixes. Its
+			header names the commit; keep the version and that commit in step.
 		-->
-		<PackageReference Include="AssetRipper.Cpp2IL.Core" Version="1.0.9" Condition="'$(Cpp2ILSourcePath)' == ''" />
-		<ProjectReference Include="$(Cpp2ILSourcePath)\Cpp2IL.Core\Cpp2IL.Core.csproj" Condition="'$(Cpp2ILSourcePath)' != ''" />
+		<PackageReference Include="AssetRipper.Cpp2IL.Core" Version="1.0.9" />
 		<PackageReference Include="AssetRipper.Mining.PredefinedAssets" Version="1.5.0" />
 		<PackageReference Include="AssetRipper.Primitives" Version="3.2.0" />
 		<PackageReference Include="AssetRipper.Tpk" Version="2.0.0" />
