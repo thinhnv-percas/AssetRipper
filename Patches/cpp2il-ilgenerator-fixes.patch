@@ -1,8 +1,17 @@
 diff --git a/Cpp2IL.Core/IlGenerator.cs b/Cpp2IL.Core/IlGenerator.cs
-index 8562038..53a5e23 100644
+index 8562038..d7c5250 100644
 --- a/Cpp2IL.Core/IlGenerator.cs
 +++ b/Cpp2IL.Core/IlGenerator.cs
-@@ -221,6 +221,30 @@ public static class IlGenerator
+@@ -9,6 +9,8 @@ using Cpp2IL.Core.Graphs;
+ using Cpp2IL.Core.ISIL;
+ using Cpp2IL.Core.Model.Contexts;
+ using Cpp2IL.Core.Utils.AsmResolver;
++using LibCpp2IL;
++using LibCpp2IL.Metadata;
+ 
+ namespace Cpp2IL.Core;
+ 
+@@ -221,6 +223,30 @@ public static class IlGenerator
              instructions.Add(CilOpCodes.Ldstr, Diagnostic("Warning: " + warning));
              instructions.Add(CilOpCodes.Call, writeLine);
          }
@@ -33,7 +42,102 @@ index 8562038..53a5e23 100644
      }
  
      // Limit so we don't run into the 16mb limit (see AsmResolver issue #775)
-@@ -387,6 +411,18 @@ public static class IlGenerator
+@@ -293,7 +319,7 @@ public static class IlGenerator
+                     if (!field.Field.IsStatic)
+                         LoadLocal(field.Local, method, locals);
+ 
+-                    LoadOperand(instruction.Operands[1], method, locals, writeLine, field.Field.FieldType);
++                    LoadOperand(instruction.Operands[1], context, method, locals, writeLine, field.Field.FieldType);
+                     instructions.Add(field.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, field.Field.ToFieldDescriptor());
+                     break;
+                 }
+@@ -303,26 +329,26 @@ public static class IlGenerator
+                 if (instruction.Operands[0] is ArrayAccess { Array.Type: SzArrayTypeAnalysisContext { ElementType: { } stored } } target)
+                 {
+                     LoadLocal(target.Array, method, locals);
+-                    LoadOperand(target.Index, method, locals, writeLine);
+-                    LoadOperand(instruction.Operands[1], method, locals, writeLine, stored);
++                    LoadOperand(target.Index, context, method, locals, writeLine);
++                    LoadOperand(instruction.Operands[1], context, method, locals, writeLine, stored);
+                     instructions.Add(CilOpCodes.Stelem, stored.ToTypeSignature().ToTypeDefOrRef());
+                     break;
+                 }
+ 
+-                LoadOperand(instruction.Operands[1], method, locals, writeLine, DestinationType(instruction.Operands[0]));
+-                StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                LoadOperand(instruction.Operands[1], context, method, locals, writeLine, DestinationType(instruction.Operands[0]));
++                StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                 break;
+ 
+             case OpCode.NewArr:
+                 if (instruction.Operands is [_, SzArrayTypeAnalysisContext { ElementType: { } newArrayElement }, { } length])
+                 {
+-                    LoadOperand(length, method, locals, writeLine);
++                    LoadOperand(length, context, method, locals, writeLine);
+                     instructions.Add(CilOpCodes.Newarr, newArrayElement.ToTypeSignature().ToTypeDefOrRef());
+                 }
+                 else
+                     instructions.Add(CilOpCodes.Ldnull);
+ 
+-                StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                 break;
+ 
+             case OpCode.Newobj:
+@@ -334,10 +360,10 @@ public static class IlGenerator
+                     // the constructor declares (i.e. drop methodInfo)
+                     var constructorArgs = constructorCall.Operands.Skip(ConstructorReceiverIndex(constructorCall) + 1).Take(constructor.Parameters.Count).ToList();
+                     for (var i = 0; i < constructorArgs.Count; i++)
+-                        LoadOperand(constructorArgs[i], method, locals, writeLine, constructor.Parameters[i].ParameterType);
++                        LoadOperand(constructorArgs[i], context, method, locals, writeLine, constructor.Parameters[i].ParameterType);
+ 
+                     instructions.Add(CilOpCodes.Newobj, constructor.ToMethodDescriptor());
+-                    StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                    StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+ 
+                     constructorCall.OpCode = OpCode.Nop;
+                     constructorCall.SetOperands();
+@@ -346,12 +372,12 @@ public static class IlGenerator
+                 {
+                     // Nothing to fuse with, so the allocation was self-contained. The type is still right, so construct it bare.
+                     instructions.Add(CilOpCodes.Newobj, parameterlessCtor.ToMethodDescriptor());
+-                    StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                    StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                 }
+                 else
+                 {
+                     instructions.Add(CilOpCodes.Ldnull);
+-                    StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                    StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                 }
+                 break;
+ 
+@@ -359,13 +385,13 @@ public static class IlGenerator
+                 if (instruction.Operands is [_, TypeAnalysisContext boxedType, var boxedValue])
+                 {
+                     // il2cpp_value_box takes the value by address, but IL boxes it by value
+-                    LoadOperand(boxedValue is AddressOf { Target: LocalVariable byRef } ? byRef : boxedValue, method, locals, writeLine, boxedType);
++                    LoadOperand(boxedValue is AddressOf { Target: LocalVariable byRef } ? byRef : boxedValue, context, method, locals, writeLine, boxedType);
+                     instructions.Add(CilOpCodes.Box, boxedType.ToTypeSignature().ToTypeDefOrRef());
+                 }
+                 else
+                     instructions.Add(CilOpCodes.Ldnull);
+ 
+-                StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                 break;
+ 
+             case OpCode.Throw:
+@@ -373,7 +399,7 @@ public static class IlGenerator
+                     && exceptionType.Methods.FirstOrDefault(m => m.Name == ".ctor" && m.Parameters.Count == 0) is { } exceptionCtor)
+                     instructions.Add(CilOpCodes.Newobj, exceptionCtor.ToMethodDescriptor());
+                 else if (instruction.Operands is [LocalVariable or FieldReference])
+-                    LoadOperand(instruction.Operands[0], method, locals, writeLine); // an already-constructed exception
++                    LoadOperand(instruction.Operands[0], context, method, locals, writeLine); // an already-constructed exception
+                 else
+                     instructions.Add(CilOpCodes.Ldnull);
+ 
+@@ -387,6 +413,18 @@ public static class IlGenerator
  
              case OpCode.Call:
              case OpCode.CallVoid:
@@ -52,3 +156,254 @@ index 8562038..53a5e23 100644
                  if (instruction.Operands[0] is not MethodAnalysisContext targetMethod)
                  {
                      if (instruction.Operands[0] is Immediate targetAddress)
+@@ -405,7 +443,7 @@ public static class IlGenerator
+                 if (!targetMethod.IsStatic) // Load 'this' param
+                 {
+                     if ((instruction.Operands.Count - 1) >= thisParamIndex)
+-                        LoadOperand(instruction.Operands[thisParamIndex], method, locals, writeLine, targetMethod.DeclaringType);
++                        LoadOperand(instruction.Operands[thisParamIndex], context, method, locals, writeLine, targetMethod.DeclaringType);
+                     else
+                     {
+                         instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Non static method called without 'this' param ({instruction})"));
+@@ -425,7 +463,7 @@ public static class IlGenerator
+                     var parameterType = targetMethod.Parameters[i].ParameterType;
+ 
+                     if (i < availableArgs)
+-                        LoadOperand(instruction.Operands[callParamIndex + i], method, locals, writeLine, parameterType);
++                        LoadOperand(instruction.Operands[callParamIndex + i], context, method, locals, writeLine, parameterType);
+                     else
+                         PushDefaultOf(parameterType, instructions);
+                 }
+@@ -437,7 +475,7 @@ public static class IlGenerator
+                 if (!targetMethod.IsVoid)
+                 {
+                     if (instruction.OpCode == OpCode.Call)
+-                        StoreToOperand(instruction.Operands[1], method, locals, writeLine);
++                        StoreToOperand(instruction.Operands[1], context, method, locals, writeLine);
+                     else
+                         instructions.Add(CilOpCodes.Pop);
+                 }
+@@ -453,7 +491,7 @@ public static class IlGenerator
+                 if (!context.IsVoid)
+                 {
+                     if (instruction.Operands.Count == 1)
+-                        LoadOperand(instruction.Operands[0], method, locals, writeLine, context.ReturnType);
++                        LoadOperand(instruction.Operands[0], context, method, locals, writeLine, context.ReturnType);
+                     else
+                         instructions.Add(CilOpCodes.Ldnull); // ret still pops a value even if we lost track of it
+                 }
+@@ -465,7 +503,7 @@ public static class IlGenerator
+                 break;
+ 
+             case OpCode.ConditionalJump:
+-                LoadOperand(instruction.Operands[1], method, locals, writeLine);
++                LoadOperand(instruction.Operands[1], context, method, locals, writeLine);
+                 instructions.Add(CilOpCodes.Brtrue, new CilInstructionLabel());
+                 break;
+ 
+@@ -500,17 +538,17 @@ public static class IlGenerator
+             case OpCode.Xor:
+                 // klass pointer read => GetType
+                 if (instruction.OpCode is OpCode.CheckEqual or OpCode.CheckNotEqual
+-                    && TryEmitExactTypeComparison(instruction, method, locals, writeLine))
++                    && TryEmitExactTypeComparison(instruction, context, method, locals, writeLine))
+                     break;
+ 
+                 // Float arithmetic on a promoted integer operand needs an explicit conversion, so both
+                 // operands are coerced to the (float) result type. A no-op when they already match.
+                 var floatConversion = FloatArithmeticConversion(instruction);
+ 
+-                LoadOperand(instruction.Operands[1], method, locals, writeLine);
++                LoadOperand(instruction.Operands[1], context, method, locals, writeLine);
+                 if (floatConversion is { } conv1)
+                     instructions.Add(conv1);
+-                LoadOperand(instruction.Operands[2], method, locals, writeLine);
++                LoadOperand(instruction.Operands[2], context, method, locals, writeLine);
+                 if (floatConversion is { } conv2)
+                     instructions.Add(conv2);
+ 
+@@ -553,12 +591,12 @@ public static class IlGenerator
+                     case OpCode.Xor: instructions.Add(CilOpCodes.Xor); break;
+                 }
+ 
+-                StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                 break;
+ 
+             case OpCode.Not:
+             case OpCode.Negate:
+-                LoadOperand(instruction.Operands[1], method, locals, writeLine);
++                LoadOperand(instruction.Operands[1], context, method, locals, writeLine);
+ 
+                 if (instruction.OpCode == OpCode.Negate)
+                     instructions.Add(CilOpCodes.Neg);
+@@ -570,7 +608,7 @@ public static class IlGenerator
+                 else
+                     instructions.Add(CilOpCodes.Not);
+ 
+-                StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++                StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                 break;
+ 
+             default:
+@@ -625,7 +663,66 @@ public static class IlGenerator
+         };
+     }
+ 
+-    private static void LoadOperand(IOperand operand, MethodDefinition method,
++    /// <summary>
++    /// Reads the metadata usage stored at <paramref name="address"/>, if there is one. Never throws:
++    /// a fixed address in a method body is only a guess at a usage slot, and most of them are not.
++    /// </summary>
++    private static MetadataUsage? ResolveGlobal(MethodAnalysisContext context, ulong address)
++    {
++        var lib = context.AppContext.LibCpp2IlContext;
++
++        try
++        {
++            var direct = lib.GetAnyGlobalByAddress(address);
++            if (direct?.IsValid == true)
++                return direct;
++
++            // Pre-27 metadata puts one indirection in the way: the address baked into the code is a
++            // per-module pointer holding the address of the usage slot, and only that second address
++            // is the one the usage dictionaries are keyed by. Post-27 GetAnyGlobalByAddress already
++            // reads through the address itself, so this would be a second, wrong dereference.
++            if (lib.Metadata.MetadataVersion >= 27f)
++                return null;
++
++            if (!lib.Binary.TryMapVirtualAddressToRaw(address, out var raw) || raw >= lib.Binary.RawLength)
++                return null;
++
++            var slot = lib.Binary.ReadPointerAtVirtualAddress(address);
++            if (slot == 0)
++                return null;
++
++            var indirect = lib.GetAnyGlobalByAddress(slot);
++            return indirect?.IsValid == true ? indirect : null;
++        }
++        catch
++        {
++            return null;
++        }
++    }
++
++    private static string Describe(Il2CppMethodDefinition method)
++        => $"{method.DeclaringType?.FullName}::{method.HumanReadableSignature}";
++
++    private static string DescribeGlobal(MetadataUsage global)
++    {
++        try
++        {
++            return global.Type switch
++            {
++                MetadataUsageType.Type or MetadataUsageType.TypeInfo => $"typeof({global.AsType()})",
++                MetadataUsageType.MethodDef => $"methodof({Describe(global.AsMethod())})",
++                MetadataUsageType.MethodRef => $"methodof({global.AsGenericMethodRef()})",
++                MetadataUsageType.FieldInfo => $"fieldof({global.AsField().DeclaringType?.FullName}.{global.AsField().Name})",
++                _ => global.Type.ToString(),
++            };
++        }
++        catch
++        {
++            return global.Type.ToString();
++        }
++    }
++
++    private static void LoadOperand(IOperand operand, MethodAnalysisContext context, MethodDefinition method,
+         Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine,
+         TypeAnalysisContext? expectedType = null)
+     {
+@@ -671,13 +768,13 @@ public static class IlGenerator
+                 break;
+             case AddressOf { Target: ArrayAccess elementAddress }:
+                 LoadLocal(elementAddress.Array, method, locals);
+-                LoadOperand(elementAddress.Index, method, locals, writeLine);
++                LoadOperand(elementAddress.Index, context, method, locals, writeLine);
+                 instructions.Add(CilOpCodes.Ldelema,
+                     ((SzArrayTypeAnalysisContext)elementAddress.Array.Type!).ElementType.ToTypeSignature().ToTypeDefOrRef());
+                 break;
+             case ArrayAccess arrayAccess:
+                 LoadLocal(arrayAccess.Array, method, locals);
+-                LoadOperand(arrayAccess.Index, method, locals, writeLine);
++                LoadOperand(arrayAccess.Index, context, method, locals, writeLine);
+                 instructions.Add(CilOpCodes.Ldelem,
+                     ((SzArrayTypeAnalysisContext)arrayAccess.Array.Type!).ElementType.ToTypeSignature().ToTypeDefOrRef());
+                 break;
+@@ -704,6 +801,31 @@ public static class IlGenerator
+                             : new CilInstruction(CilOpCodes.Ldind_Ref));
+                     break;
+                 }
++
++                // A load from a fixed address is usually a metadata usage slot: the il2cpp runtime
++                // fills these in at startup with a string literal, an Il2CppClass*, a MethodInfo* or
++                // a FieldInfo*. String literals are the only kind we can express in IL, so those
++                // become ldstr; the rest keep the null-pointer placeholder but say what they are.
++                if (memory.IsConstant && memory.Addend > 0)
++                {
++                    var global = ResolveGlobal(context, (ulong)memory.Addend);
++
++                    if (global is { Type: MetadataUsageType.StringLiteral })
++                    {
++                        instructions.Add(CilOpCodes.Ldstr, global.AsLiteral());
++                        break;
++                    }
++
++                    if (global != null)
++                    {
++                        instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Il2Cpp runtime handle: {DescribeGlobal(global)}"));
++                        instructions.Add(CilOpCodes.Call, writeLine);
++                        instructions.Add(CilOpCodes.Ldc_I4_0);
++                        instructions.Add(CilOpCodes.Conv_I);
++                        break;
++                    }
++                }
++
+                 instructions.Add(CilOpCodes.Ldstr, Diagnostic("Unmanaged memory load: " + operand));
+                 instructions.Add(CilOpCodes.Call, writeLine);
+                 instructions.Add(CilOpCodes.Ldc_I4_0);
+@@ -757,7 +879,7 @@ public static class IlGenerator
+         }
+     }
+     
+-    private static bool TryEmitExactTypeComparison(Instruction instruction, MethodDefinition method,
++    private static bool TryEmitExactTypeComparison(Instruction instruction, MethodAnalysisContext context, MethodDefinition method,
+         Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine)
+     {
+         var left = instruction.Operands[1];
+@@ -783,7 +905,7 @@ public static class IlGenerator
+ 
+         LoadLocal(objLocal, method, locals);
+         instructions.Add(CilOpCodes.Callvirt, getType);
+-        LoadOperand(typeOperand, method, locals, writeLine); // emits typeof(T)
++        LoadOperand(typeOperand, context, method, locals, writeLine); // emits typeof(T)
+         instructions.Add(CilOpCodes.Ceq);
+ 
+         if (instruction.OpCode == OpCode.CheckNotEqual)
+@@ -792,7 +914,7 @@ public static class IlGenerator
+             instructions.Add(CilOpCodes.Ceq);
+         }
+ 
+-        StoreToOperand(instruction.Operands[0], method, locals, writeLine);
++        StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+         return true;
+     }
+     
+@@ -859,7 +981,7 @@ public static class IlGenerator
+             instructions.Add(CilOpCodes.Ldloc, locals[local]);
+     }
+ 
+-    private static void StoreToOperand(IOperand operand, MethodDefinition method,
++    private static void StoreToOperand(IOperand operand, MethodAnalysisContext context, MethodDefinition method,
+         Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine)
+     {
+         var instructions = method.CilMethodBody!.Instructions;
+@@ -898,7 +1020,7 @@ public static class IlGenerator
+ 
+                 instructions.Add(CilOpCodes.Stloc, elementScratch);
+                 LoadLocal(arrayAccess.Array, method, locals);
+-                LoadOperand(arrayAccess.Index, method, locals, writeLine);
++                LoadOperand(arrayAccess.Index, context, method, locals, writeLine);
+                 instructions.Add(CilOpCodes.Ldloc, elementScratch);
+                 instructions.Add(CilOpCodes.Stelem, elementType.ToTypeSignature().ToTypeDefOrRef());
+                 break;

@@ -1,9 +1,10 @@
 # Cpp2IL patches
 
-`cpp2il-ilgenerator-fixes.patch` fixes two defects in `Cpp2IL.Core/IlGenerator.cs` that between them
-cost this project 2490 method bodies on the test game. Both are in the generator, so they cannot be
-fixed from here; what is here is the patch, the mechanism to build against a patched checkout, and
-the measurements that justify it.
+`cpp2il-ilgenerator-fixes.patch` fixes three defects in `Cpp2IL.Core/IlGenerator.cs`. Two of them
+cost this project 2490 method bodies on the test game; the third left every string in every
+recovered body unreadable. All three are in the generator, so they cannot be fixed from here; what
+is here is the patch, the mechanism to build against a patched checkout, and the measurements that
+justify it.
 
 ## What it fixes
 
@@ -20,6 +21,22 @@ address, so a method the model knows arrives at the generator as a bare number a
 back into the call it is. Only an unambiguous address is taken: identical bodies are folded onto one
 address and generic sharing puts dozens of methods there, where any single pick would be wrong.
 
+**Every metadata usage is a dead pointer.** A load from a fixed address is emitted as an
+`Unmanaged memory load: [1EF26B0]` diagnostic followed by a null pointer, so a string literal that
+the metadata holds in full reaches the decompiled source as `object key = 0`, and every use of it
+becomes a cast of a number. Those addresses are metadata usage slots: the il2cpp runtime fills them
+in at startup with a string literal, an `Il2CppClass*`, a `MethodInfo*` or a `FieldInfo*`, and
+LibCpp2IL can read them back. String literals are the only kind expressible in IL, so those become
+`ldstr` and the source reads `object key = "MORPEH__SAVED_DATA"`. The rest keep the null-pointer
+placeholder, because a runtime handle has no IL equivalent, but the diagnostic now names what the
+handle is: `typeof(UnityEngine.Debug)`, `methodof(AndroidTenjin::System.Void Init(System.String
+apiKey))`, `fieldof(...)`.
+
+Pre-27 metadata puts one indirection in the way, which is why the obvious lookup finds nothing: the
+address baked into the code is a per-module pointer holding the address of the usage slot, and only
+that second address is the one the usage dictionaries are keyed by. Post-27 `GetAnyGlobalByAddress`
+already reads through the address itself, so the extra dereference is skipped there.
+
 Doing this in the generator is what makes it safe. The generator loads arguments from the resolved
 signature, so the stack balances by construction. The same idea applied downstream, where the
 signature is not available, unbalanced the stack in 1019 methods and cost them their bodies — that
@@ -33,7 +50,28 @@ Ripping `Test/Input/Pinata` at script content level 3, 18397 methods attempted:
 |---|---|---|---|
 | Bodies discarded as invalid | 2490 | 21 | **0** |
 | `Method not found` placeholders | 40034 | 40034 | **27007** |
+| `Unmanaged memory load` placeholders | 76063 | 76063 | **50179** |
+| String literals recovered as `ldstr` | 0 | 0 | **4784** |
+| Runtime handles named rather than hex | 0 | 0 | **21100** |
 | Decompilation errors | 0 | 0 | 0 |
+
+`Morpeh.Hypercasual.SaveSystem.OnAwake` is the shape of the difference. Before:
+
+```csharp
+Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [1EF26B0]");
+object key = 0;
+if (!PlayerPrefs.HasKey((string)key))
+```
+
+After:
+
+```csharp
+object key = "MORPEH__SAVED_DATA";
+if (!PlayerPrefs.HasKey((string)key))
+```
+
+and, further down the same method, `Debug.Log(string.Format((string)format, arg, arg2))` where
+`format` is now `"SAVED INTS {0} STRINGS {1}"` instead of `0`.
 
 ## Applying it
 
