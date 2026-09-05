@@ -71,6 +71,9 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
 
     protected override bool HiddenBufferConsumesArgumentSlot => false;
 
+    protected override int FloatRegisterCount(TypeAnalysisContext type)
+        => IsFloatingPoint(type) ? 1 : FloatAggregateMemberCount(type);
+
     public override IOperand[] ResolveForManaged(MethodAnalysisContext ctx)
     {
         var args = new List<IOperand>();
@@ -81,11 +84,17 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
 
         void AddParameter(ParameterAnalysisContext? par)
         {
-            if (par != null && IsFloatingPoint(par))
+            // AssetRipper: a small aggregate of floats is spread over that many consecutive vector
+            // registers. Only the first can be named as the argument, but the rest are still spoken
+            // for, and counting them is what keeps a later argument pointing at its own register.
+            var floatRegisters = par == null ? 0 : FloatRegisterCount(par.ParameterType);
+
+            if (floatRegisters > 0)
             {
-                if (floating < FloatRegisters.Length)
+                if (floating + floatRegisters <= FloatRegisters.Length)
                 {
-                    args.Add(new Register(null, FloatRegisters[floating++]));
+                    args.Add(new Register(null, FloatRegisters[floating]));
+                    floating += floatRegisters;
                     return;
                 }
             }

@@ -28,6 +28,14 @@ public abstract class BaseCallingConventionResolver
     // false when the return buffer pointer lives outside the argument registers (e.g. arm64 uses x8)
     protected virtual bool HiddenBufferConsumesArgumentSlot => true;
 
+    /// <summary>
+    /// AssetRipper: how many float registers an argument of this type occupies. Zero means it travels
+    /// in the integer registers instead. More than one is a small aggregate of floats, which AAPCS64
+    /// spreads over consecutive vector registers; ISIL can only name the first of them, but consuming
+    /// the right number keeps every argument after it aligned with the register it was passed in.
+    /// </summary>
+    protected virtual int FloatRegisterCount(TypeAnalysisContext type) => IsFloatingPoint(type) ? 1 : 0;
+
     public IOperand[] ResolveForUnmanaged(ApplicationAnalysisContext app, ulong target)
     {
         // We don't know the callee's signature, so preserve every argument register.
@@ -66,14 +74,14 @@ public abstract class BaseCallingConventionResolver
         var (integerRegisters, floatRegisters) = RawRegisters(app);
         var argBase = ArgBase(call);
 
-        var slots = new List<(bool IsFloat, bool Emit)>();
+        var slots = new List<(int FloatRegisters, bool Emit)>();
         if (ReturnsViaHiddenBuffer(resolved) && HiddenBufferConsumesArgumentSlot)
-            slots.Add((false, false));
+            slots.Add((0, false));
         if (!resolved.IsStatic)
-            slots.Add((false, true));
+            slots.Add((0, true));
         foreach (var parameter in resolved.Parameters)
-            slots.Add((IsFloatingPoint(parameter), true));
-        slots.Add((false, true)); // the MethodInfo argument
+            slots.Add((FloatRegisterCount(parameter.ParameterType), true));
+        slots.Add((0, true)); // the MethodInfo argument
 
         var operands = new List<IOperand>(argBase + slots.Count);
         for (var i = 0; i < argBase; i++)
@@ -83,7 +91,7 @@ public abstract class BaseCallingConventionResolver
         {
             for (var slot = 0; slot < slots.Count && slot < integerRegisters.Length; slot++)
                 if (slots[slot].Emit)
-                    operands.Add(call.Operands[argBase + (slots[slot].IsFloat ? integerRegisters.Length + slot : slot)]);
+                    operands.Add(call.Operands[argBase + (slots[slot].FloatRegisters > 0 ? integerRegisters.Length + slot : slot)]);
         }
         else
         {
@@ -96,14 +104,27 @@ public abstract class BaseCallingConventionResolver
             // independent integer/float counters
             var (integer, floating) = (0, 0);
 
-            foreach (var (isFloatSlot, emit) in slots)
+            foreach (var (floatRegisterCount, emit) in slots)
             {
-                var isFloat = isFloatSlot && !passesFloatsInIntegerRegisters;
+                var count = passesFloatsInIntegerRegisters ? 0 : floatRegisterCount;
+                IOperand operand;
 
-                if (isFloat ? floating >= floatRegisters.Length : integer >= integerRegisters.Length)
-                    break;
+                if (count > 0)
+                {
+                    if (floating + count > floatRegisters.Length)
+                        break;
 
-                var operand = call.Operands[argBase + (isFloat ? integerRegisters.Length + floating++ : integer++)];
+                    operand = call.Operands[argBase + integerRegisters.Length + floating];
+                    floating += count;
+                }
+                else
+                {
+                    if (integer >= integerRegisters.Length)
+                        break;
+
+                    operand = call.Operands[argBase + integer++];
+                }
+
                 if (emit)
                     operands.Add(operand);
             }
