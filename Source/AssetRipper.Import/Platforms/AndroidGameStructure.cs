@@ -1,4 +1,4 @@
-﻿using AssetRipper.Import.Structure.Assembly;
+using AssetRipper.Import.Structure.Assembly;
 using AssetRipper.Import.Structure.Platforms;
 using AssetRipper.IO.Files;
 
@@ -141,24 +141,44 @@ internal sealed class AndroidGameStructure : PlatformGameStructure
 	}
 
 	private string? GetIl2CppGameAssemblyPath(string libDirectory)
-	{
-		if (string.IsNullOrEmpty(libDirectory) || !FileSystem.Directory.Exists(libDirectory))
-		{
-			return null;
-		}
-
-		return FileSystem.Directory.EnumerateFiles(libDirectory, Il2CppGameAssemblyName, SearchOption.AllDirectories).FirstOrDefault();
-	}
+		=> GetNativeLibraryPath(libDirectory, Il2CppGameAssemblyName);
 
 	private string? GetAndroidUnityAssemblyPath(string libDirectory)
+		=> GetNativeLibraryPath(libDirectory, AndroidUnityAssemblyName);
+
+	/// <summary>
+	/// Finds a native library under <c>lib</c>, preferring the ABI that recovers best when the APK
+	/// ships more than one.
+	/// </summary>
+	/// <remarks>
+	/// A fat APK carries a copy per ABI and they are all the same game, so any of them imports. Which
+	/// one is picked decides how much of the scripts come back, though: an ARM64 or x86 binary lifts
+	/// to ISIL through implementations that have had far more work than the ARMv7 one, and taking
+	/// whichever the directory listing happened to return first is how an APK holding both arm64-v8a
+	/// and armeabi-v7a came to be read as the 32-bit one.
+	/// </remarks>
+	private string? GetNativeLibraryPath(string libDirectory, string libraryName)
 	{
 		if (string.IsNullOrEmpty(libDirectory) || !FileSystem.Directory.Exists(libDirectory))
 		{
 			return null;
 		}
 
-		return FileSystem.Directory.EnumerateFiles(libDirectory, AndroidUnityAssemblyName, SearchOption.AllDirectories).FirstOrDefault();
+		return FileSystem.Directory.EnumerateFiles(libDirectory, libraryName, SearchOption.AllDirectories)
+			.OrderBy(path => AbiPreference(FileSystem.Path.GetFileName(FileSystem.Path.GetDirectoryName(path))))
+			.ThenBy(static path => path, StringComparer.Ordinal)
+			.FirstOrDefault();
 	}
+
+	/// <summary>Lower sorts first. Anything unrecognised comes last, but still counts.</summary>
+	private static int AbiPreference(string? abi) => abi switch
+	{
+		"arm64-v8a" => 0,
+		"x86_64" => 1,
+		"x86" => 2,
+		"armeabi-v7a" => 3,
+		_ => 4,
+	};
 
 	private bool IsMono(string managedDirectory)
 	{
