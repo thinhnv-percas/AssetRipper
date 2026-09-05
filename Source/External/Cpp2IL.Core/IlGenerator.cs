@@ -446,8 +446,15 @@ public static class IlGenerator
 
                 if (!targetMethod.IsStatic) // Load 'this' param
                 {
+                    // AssetRipper: an instance method on a value type takes its receiver by managed
+                    // pointer, so say so - a static int's ToString() is called on the address of the
+                    // field, not on a copy of it.
+                    var receiverType = targetMethod.DeclaringType is { IsValueType: true } valueReceiver
+                        ? new ByRefTypeAnalysisContext(valueReceiver)
+                        : targetMethod.DeclaringType;
+
                     if ((instruction.Operands.Count - 1) >= thisParamIndex)
-                        LoadOperand(instruction.Operands[thisParamIndex], context, method, locals, writeLine, targetMethod.DeclaringType);
+                        LoadOperand(instruction.Operands[thisParamIndex], context, method, locals, writeLine, receiverType);
                     else
                     {
                         instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Non static method called without 'this' param ({instruction})"));
@@ -840,6 +847,23 @@ public static class IlGenerator
                         instructions.Add(referent.IsValueType
                             ? new CilInstruction(CilOpCodes.Ldobj, referent.ToTypeSignature().ToTypeDefOrRef())
                             : new CilInstruction(CilOpCodes.Ldind_Ref));
+                    break;
+                }
+
+                // AssetRipper: the pointer to a class's static field storage, which is where a static
+                // field lives. The analysis names a *load through* that pointer as the field it
+                // reads, but the pointer itself is a value the code passes around — a static int
+                // reached as `"" + Checker.scoreCounter` is `Int32.ToString` called on it — and left
+                // alone it read as a load from nothing. The storage begins at the field at offset
+                // zero, so that field is what it is: its value, or its address where one is wanted.
+                if (memory is { Index: null, Scale: 0, Base: LocalVariable { Type: RuntimeClassTypeAnalysisContext { RepresentedType: { } staticOwner } } }
+                    && Il2CppClassUsefulOffsets.IsStaticFieldsPtr((uint)memory.Addend, context.AppContext.Binary.is32Bit)
+                    && staticOwner.Fields.FirstOrDefault(f => f.IsStatic
+                        && (f.Attributes & FieldAttributes.Literal) == 0
+                        && f.BackingData?.FieldOffset == 0) is { } storageHead)
+                {
+                    instructions.Add(expectedType is ByRefTypeAnalysisContext or PointerTypeAnalysisContext ? CilOpCodes.Ldsflda : CilOpCodes.Ldsfld,
+                        storageHead.ToFieldDescriptor());
                     break;
                 }
 
