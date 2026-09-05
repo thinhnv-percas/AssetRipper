@@ -684,13 +684,33 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
                 case ArmInstructionId.ARM_INS_VRINTN:
                 case ArmInstructionId.ARM_INS_VRINTM:
                 case ArmInstructionId.ARM_INS_VRINTP:
-                    // ISIL has no square root or rounding, and a move keeps the dataflow connected,
-                    // which is what everything downstream reads. The value is the operand, unrounded.
+                {
+                    // ISIL has no square root or rounding, so each becomes a call to the managed method
+                    // that computes the same thing. Failing that, a move at least keeps the dataflow
+                    // connected, which is what everything downstream reads; the value is then the
+                    // operand, unrounded.
                     if (operands.Length < 2)
                         break;
 
-                    Add(address, OpCode.Move, Convert(operands[0]), Convert(operands[1]));
+                    var name = instruction.Id switch
+                    {
+                        ArmInstructionId.ARM_INS_VSQRT => "Sqrt",
+                        ArmInstructionId.ARM_INS_VABS => "Abs",
+                        ArmInstructionId.ARM_INS_VRINTZ => "Truncate",
+                        ArmInstructionId.ARM_INS_VRINTM => "Floor",
+                        ArmInstructionId.ARM_INS_VRINTP => "Ceiling",
+                        _ => "Round",
+                    };
+
+                    var isDouble = RegisterOf(operands[0]) is { } destination && RegisterName(destination).StartsWith('D');
+
+                    if (MathIntrinsics.Resolve(context.AppContext, name, isDouble, 1) is { } intrinsic)
+                        Add(address, OpCode.Call, intrinsic, Convert(operands[0])).AddOperands([Convert(operands[1])]);
+                    else
+                        Add(address, OpCode.Move, Convert(operands[0]), Convert(operands[1]));
+
                     return;
+                }
 
                 case ArmInstructionId.ARM_INS_VMLS:
                 {

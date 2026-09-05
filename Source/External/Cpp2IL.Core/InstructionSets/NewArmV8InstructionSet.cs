@@ -212,6 +212,27 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             return newInstruction;
         }
 
+        // AssetRipper: emits the managed equivalent of a floating point instruction ISIL has no opcode
+        // for. Falls back to the diagnostic when the game ships no method with an exactly matching
+        // signature — see MathIntrinsics for why an inexact one is not worth taking.
+        void AddMathIntrinsic(string name, int argumentCount)
+        {
+            var isDouble = instruction.Op0Reg is >= Arm64Register.D0 and <= Arm64Register.D31;
+
+            if (MathIntrinsics.Resolve(context.AppContext, name, isDouble, argumentCount) is not { } target)
+            {
+                Add(address, OpCode.NotImplemented, new StringLiteral($"Instruction {instruction.Mnemonic} not yet implemented."));
+                return;
+            }
+
+            var arguments = new List<IOperand>(argumentCount);
+
+            for (var argument = 1; argument <= argumentCount; argument++)
+                arguments.Add(ConvertOperand(instruction, argument));
+
+            Add(address, OpCode.Call, target, ConvertOperand(instruction, 0)).AddOperands(arguments);
+        }
+
         void AddCallAt(ulong target)
         {
             if (context.AppContext.MethodsByAddress.TryGetValue(target, out var possibleMethods) && possibleMethods.Count > 0)
@@ -807,6 +828,37 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                 break;
             case Arm64Mnemonic.FSUB:
                 Add(address, OpCode.Subtract, ConvertOperand(instruction, 0), ConvertOperand(instruction, 1), ConvertOperand(instruction, 2));
+                break;
+            // AssetRipper: no ISIL equivalent, but each names a managed method that computes the same
+            // thing, and a call to it keeps the value flowing where the diagnostic broke the chain.
+            case Arm64Mnemonic.FSQRT:
+                AddMathIntrinsic("Sqrt", 1);
+                break;
+            case Arm64Mnemonic.FABS:
+                AddMathIntrinsic("Abs", 1);
+                break;
+            case Arm64Mnemonic.FRINTM:
+                AddMathIntrinsic("Floor", 1);
+                break;
+            case Arm64Mnemonic.FRINTP:
+                AddMathIntrinsic("Ceiling", 1);
+                break;
+            case Arm64Mnemonic.FRINTZ:
+                AddMathIntrinsic("Truncate", 1);
+                break;
+            case Arm64Mnemonic.FRINTN:
+            case Arm64Mnemonic.FRINTA:
+            case Arm64Mnemonic.FRINTX:
+            case Arm64Mnemonic.FRINTI:
+                AddMathIntrinsic("Round", 1);
+                break;
+            case Arm64Mnemonic.FMAX:
+            case Arm64Mnemonic.FMAXNM:
+                AddMathIntrinsic("Max", 2);
+                break;
+            case Arm64Mnemonic.FMIN:
+            case Arm64Mnemonic.FMINNM:
+                AddMathIntrinsic("Min", 2);
                 break;
             case Arm64Mnemonic.BL:
                 AddCallAt(instruction.BranchTarget);
