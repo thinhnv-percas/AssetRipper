@@ -90,8 +90,27 @@ public static class MetadataInitGuardRemover
     {
         var removedAny = false;
 
+        // AssetRipper: locals holding a byte of an Il2CppClass, so a bit test on one can be recognised
+        // as a class-init guard whatever byte of the struct it reads. See IsClassFlagTest.
+        var classPointers = new HashSet<LocalVariable>();
+        var classByteLoads = new HashSet<LocalVariable>();
+
+        foreach (var instruction in cfg.Instructions)
+        {
+            if (instruction is not { OpCode: OpCode.Move, Operands: [LocalVariable destination, var source] })
+                continue;
+
+            if (source is TypeAnalysisContext and not (RuntimeMethodInfoAnalysisContext or RuntimeFieldInfoAnalysisContext))
+                classPointers.Add(destination);
+            else if (source is MemoryOperand { Index: null, Scale: 0, Addend: > 0, Base: LocalVariable owner } && IsClassPointer(owner))
+                classByteLoads.Add(destination);
+        }
+
         foreach (var guard in cfg.Blocks.ToList())
-            removedAny |= TryRemoveGuard(cfg, guard, initialisedFlagOffset);
+            removedAny |= TryRemoveGuard(cfg, guard, initialisedFlagOffset, classByteLoads);
+
+        bool IsClassPointer(LocalVariable local)
+            => local.Type is RuntimeClassTypeAnalysisContext || classPointers.Contains(local);
 
         removedAny |= RemoveBareClassInitCalls(cfg);
 
@@ -122,7 +141,7 @@ public static class MetadataInitGuardRemover
         return removedAny;
     }
 
-    private static bool TryRemoveGuard(ISILControlFlowGraph cfg, Block guard, long initialisedFlagOffset)
+    private static bool TryRemoveGuard(ISILControlFlowGraph cfg, Block guard, long initialisedFlagOffset, HashSet<LocalVariable> classByteLoads)
     {
         if (guard.BlockType != BlockType.TwoWay || guard.Successors.Count != 2
             || guard.Instructions.Count == 0 || guard.Instructions[^1].OpCode != OpCode.ConditionalJump)
@@ -131,8 +150,9 @@ public static class MetadataInitGuardRemover
         // see if we're checking Il2CppClass::initialized_and_no_error
         // that means this is runtime_init boilerplate and we can drop the block
         var initialisedFlagTest = guard.Instructions.Any(i => i.OpCode == OpCode.And
-            && i.Operands is [_, MemoryOperand { Index: null, Scale: 0, Base: LocalVariable } flag, { } mask]
-            && flag.Addend == initialisedFlagOffset && IsOne(mask));
+            && i.Operands is [_, var flag, var mask]
+            && (flag is MemoryOperand { Index: null, Scale: 0, Base: LocalVariable } direct && direct.Addend == initialisedFlagOffset && IsOne(mask)
+                || IsClassFlagTest(flag, mask, classByteLoads)));
 
         // Either successor could be the init entry; the other is then the merge.
         var first = guard.Successors[0];
@@ -143,6 +163,28 @@ public static class MetadataInitGuardRemover
     }
 
     private static bool IsOne(IOperand operand) => operand is Immediate { Value: 1 };
+
+    /// <summary>
+    /// AssetRipper: whether this tests one bit of a byte of an <c>Il2CppClass</c>.
+    /// </summary>
+    /// <remarks>
+    /// The hardcoded offset above is one Unity version's <c>initialized_and_no_error</c>, and the
+    /// struct moves: on 2019.2 that byte is at 0x12E, and older code generations guard on
+    /// <c>has_cctor</c> in the byte after it instead, with a mask of 2. Rather than track a table of
+    /// versions, recognise the shape — a single bit of a byte of a known class pointer. Nothing but
+    /// this boilerplate reads an Il2CppClass bitfield, and the region behind the test still has to
+    /// reconverge and do nothing observable before it is dropped.
+    /// </remarks>
+    private static bool IsClassFlagTest(IOperand flag, IOperand mask, HashSet<LocalVariable> classByteLoads) =>
+        mask is Immediate { Value: > 0 and <= 0x80 and var bit } && (bit & (bit - 1)) == 0
+        && flag switch
+        {
+            // the load may still be its own instruction: copy propagation has not run yet here
+            LocalVariable local => classByteLoads.Contains(local),
+            MemoryOperand { Index: null, Scale: 0, Addend: > 0, Base: LocalVariable owner } =>
+                owner.Type is RuntimeClassTypeAnalysisContext || classByteLoads.Contains(owner),
+            _ => false,
+        };
 
     private static bool TryExcise(ISILControlFlowGraph cfg, Block guard, Block initEntry, Block merge, bool initialisedFlagTest)
     {
@@ -196,7 +238,11 @@ public static class MetadataInitGuardRemover
                 queue.Enqueue(successor);
         }
 
-        if (!reconverges || !(sawClassInit || (sawMetadataInit && sawFlagStore)))
+        // AssetRipper: behind a class flag test the init call may already have been eliminated as dead
+        // — its result is unused and, once resolved, it is not treated as having an effect — leaving a
+        // region that does nothing at all. That is still the guard, and the shape has already been
+        // checked: every block in it is side-effect-free and it reconverges on the merge.
+        if (!reconverges || !(sawClassInit || (sawMetadataInit && sawFlagStore) || initialisedFlagTest))
             return false;
 
         var collected = region;
@@ -221,6 +267,10 @@ public static class MetadataInitGuardRemover
             switch (instruction.OpCode)
             {
                 case OpCode.Jump:
+                // AssetRipper: a guard can be two tests deep - has_cctor outside, cctor_finished
+                // inside - so the region's own branching is part of it. Which blocks the region
+                // covers is checked separately, by walking successors back to the merge.
+                case OpCode.ConditionalJump:
                     break;
 
                 // Behind an initialized_and_no_error test the callee is the class initializer, even if we didn't resolve it.
