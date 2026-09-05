@@ -87,11 +87,19 @@ public abstract class BaseCallingConventionResolver
         }
         else
         {
+            // AssetRipper: a convention with no floating point registers is one that passes floating
+            // point arguments in the integer ones — softfp, which is what Android's armeabi-v7a is.
+            // Read as "no float registers left" instead, this stopped at the first float parameter and
+            // dropped it and everything after it, so slider.value = x lost the x.
+            var passesFloatsInIntegerRegisters = floatRegisters.Length == 0;
+
             // independent integer/float counters
             var (integer, floating) = (0, 0);
 
-            foreach (var (isFloat, emit) in slots)
+            foreach (var (isFloatSlot, emit) in slots)
             {
+                var isFloat = isFloatSlot && !passesFloatsInIntegerRegisters;
+
                 if (isFloat ? floating >= floatRegisters.Length : integer >= integerRegisters.Length)
                     break;
 

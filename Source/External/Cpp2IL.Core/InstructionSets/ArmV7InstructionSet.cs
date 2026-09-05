@@ -39,6 +39,14 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
     [ThreadStatic]
     private static Dictionary<string, ulong>? absoluteAddresses;
 
+    /// <summary>
+    /// Stack slot a register holds the address of, keyed by register name. A composite return value
+    /// is written through such a pointer, and the words it covers are only ever read back by offset,
+    /// so without this the call is not seen to have written them.
+    /// </summary>
+    [ThreadStatic]
+    private static Dictionary<string, int>? stackAddresses;
+
     private static readonly ArmV7CallingConventionResolver CallingConventions = new();
 
     public override BaseCallingConventionResolver CallingConventionResolver => CallingConventions;
@@ -97,6 +105,7 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
         // ThreadStatic initialisers only run on the first thread to touch them.
         (literalValues ??= new()).Clear();
         (absoluteAddresses ??= new()).Clear();
+        (stackAddresses ??= new()).Clear();
 
         var instructions = new List<Instruction>();
         var addresses = new List<ulong>();
@@ -116,6 +125,7 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
 
         literalValues.Clear();
         absoluteAddresses.Clear();
+        stackAddresses.Clear();
 
         return instructions;
     }
@@ -142,6 +152,7 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
             var name = RegisterName(register);
             literalValues!.Remove(name);
             absoluteAddresses!.Remove(name);
+            stackAddresses!.Remove(name);
         }
 
         // The value at a fixed address, when it is inside the binary. Literal pools live in the
@@ -336,6 +347,7 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
                     : Add(address, OpCode.Call, Imm(target), CallingConventions.ReturnRegister(ctx));
 
                 call.AddOperands(CallingConventions.ResolveForManaged(ctx));
+                DefineHiddenReturnBuffer(ctx, call);
             }
             else
             {
@@ -346,6 +358,34 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
             // A call clobbers the argument and result registers, so nothing tracked survives it.
             literalValues!.Clear();
             absoluteAddresses!.Clear();
+        }
+
+        // A composite return value is written into a caller supplied buffer, and the words of it are
+        // read back one at a time by offset: vldr s16, [sp, #0xc] is the z of a Vector3 whose buffer
+        // was handed over as add r0, sp, #4. Nothing in the ISIL says the call wrote those words, so
+        // every read of them resolves to the same undefined value and two calls into the same buffer
+        // become the same value — which is how a - b turns into a - a. Naming each word as written by
+        // the call is what keeps the two apart.
+        void DefineHiddenReturnBuffer(MethodAnalysisContext callee, Instruction call)
+        {
+            if (!CallingConventions.ReturnsViaHiddenBuffer(callee))
+                return;
+
+            if (CallingConventions.HiddenReturnBufferRegister(callee) is not { } bufferRegister)
+                return;
+
+            if (!stackAddresses!.TryGetValue(bufferRegister.Name, out var slot))
+                return;
+
+            var size = TypeSizes.UnboxedSize(callee.ReturnType, 4);
+
+            // A word at a time, because that is the granularity the code reads them back at, and each
+            // one written from the buffer at its own offset rather than from the whole value. The
+            // buffer register is the call's destination, so once the analysis has typed it the offset
+            // reads as the field it is — [Vector3 + 8] is that vector's z — instead of the whole
+            // struct standing in for one of its components.
+            for (var offset = 0; offset + 4 <= size; offset += 4)
+                Add(address, OpCode.Move, new StackOffset(slot + offset), new MemoryOperand(bufferRegister, addend: offset));
         }
 
         void AddReturn()
@@ -570,6 +610,10 @@ public class ArmV7InstructionSet : Cpp2IlInstructionSet
                     {
                         var slot = new StackOffset(instruction.Id == ArmInstructionId.ARM_INS_SUB ? -right.Immediate : right.Immediate);
                         Add(address, OpCode.Move, Convert(operands[0]), new AddressOf(slot));
+
+                        if (RegisterOf(operands[0]) is { } slotHolder)
+                            stackAddresses![RegisterName(slotHolder)] = slot.Offset;
+
                         return;
                     }
 
