@@ -67,6 +67,7 @@ public static class MetadataResolver
     private static void ResolveMetadataUsages(MethodAnalysisContext method)
     {
         var libContext = method.AppContext.LibCpp2IlContext;
+        var slotHolders = FindUsageSlotHolders(method);
 
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
@@ -79,6 +80,8 @@ public static class MetadataResolver
             var address = instruction.Operands[1] switch
             {
                 MemoryOperand { Base: null, Index: null, Scale: 0 } memory => (ulong)memory.Addend,
+                MemoryOperand { Base: LocalVariable holder, Index: null, Scale: 0 } memory
+                    when slotHolders.TryGetValue(holder, out var slot) => (ulong)((long)slot + memory.Addend),
                 Immediate immediate => immediate.UnsignedValue,
                 _ => 0ul,
             };
@@ -120,6 +123,70 @@ public static class MetadataResolver
             if (libContext.GetRawFieldGlobalByAddress(address) is { Type: MetadataUsageType.FieldInfo } fieldUsage
                 && method.AppContext.ResolveContextForField(fieldUsage.AsField()) is { DeclaringType.DeclaringAssembly: { } fieldAssembly } fieldContext)
                 instruction.SetOperand(1, new RuntimeFieldInfoAnalysisContext(fieldContext, fieldAssembly));
+        }
+    }
+
+    /// <summary>
+    /// AssetRipper: locals holding the address of a metadata usage slot rather than the slot's value.
+    /// </summary>
+    /// <remarks>
+    /// Position independent code does not name a usage slot directly. The address baked into the
+    /// method body is a pointer to the slot, so reaching the slot takes two loads: one to get its
+    /// address and one to read it. Only the second is the usage, and without knowing that the first
+    /// one produced an address, the second reads as a load through an untyped pointer — which is how
+    /// a static field access lost the class it belonged to, and with it the field.
+    ///
+    /// A hop is only taken when the address in the code is not itself a usage and the address it
+    /// holds is, so nothing that already resolves is touched. The load of the address is left as the
+    /// constant it is, since it is bookkeeping the source never had.
+    /// </remarks>
+    private static Dictionary<LocalVariable, ulong> FindUsageSlotHolders(MethodAnalysisContext method)
+    {
+        var libContext = method.AppContext.LibCpp2IlContext;
+        var holders = new Dictionary<LocalVariable, ulong>();
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            if (instruction is not { OpCode: OpCode.Move, Operands: [LocalVariable destination, MemoryOperand { Base: null, Index: null, Scale: 0 } memory] })
+                continue;
+
+            var address = (ulong)memory.Addend;
+
+            if (address == 0 || IsUsage(address))
+                continue;
+
+            if (!libContext.Binary.TryMapVirtualAddressToRaw(address, out var raw) || raw < 0 || raw >= libContext.Binary.RawLength)
+                continue;
+
+            ulong slot;
+            try
+            {
+                slot = libContext.Binary.ReadPointerAtVirtualAddress(address);
+            }
+            catch
+            {
+                continue;
+            }
+
+            if (slot == 0 || !IsUsage(slot))
+                continue;
+
+            holders[destination] = slot;
+            instruction.SetOperand(1, new Immediate(unchecked((long)slot)));
+        }
+
+        return holders;
+
+        bool IsUsage(ulong address)
+        {
+            try
+            {
+                return libContext.GetAnyGlobalByAddress(address)?.IsValid == true || libContext.GetLiteralByAddress(address) != null;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 
