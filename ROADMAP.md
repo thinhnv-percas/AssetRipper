@@ -110,7 +110,36 @@ That run also hit the native source injection budget: 4194304 characters per ass
 `Newtonsoft.Json`, so later methods in it carry no reconstruction. The budget is a guess, not a
 measurement.
 
-## 8. Smaller things
+## 8. ARMv7 recovery is new, and shallower than ARM64's
+
+`ArmV7InstructionSet` lifts ARM mode code now, measured on `RunFromZombiesFullProject` — an
+armeabi-v7a game that ships its own Unity source, so the output can be read against the real thing.
+4632 methods lift, 5 fail, and across `Assembly-CSharp` no instruction is left unimplemented. What
+the bodies get right is the shape: call sequences and their arguments, control flow, field reads and
+writes at the right offsets, `typeof(T)` handles, and `Time.deltaTime`.
+
+What they get wrong, on `ZambiesMovement.Update` against its source:
+
+- **A composite return value read back out of its stack buffer loses its fields.**
+  `slider.value = transform.position.z - player.transform.position.z` recovers the two
+  `get_position` calls and the assignment to `slider.value`, but the value assigned is `0f`: the
+  buffer is handed over as `add r0, sp, #4` and the components are read back as `[sp, #0xc]`, and
+  nothing connects the second to the first. The lifter says `Move rD, AddressOf(StackOffset)` as
+  ARM64 does, so this is the analysis, not the lifter, and ARM64 has the same gap.
+- **A static field read through the type's static storage stays a placeholder**, so the
+  `0.05f * Checker.scoreCounter` term degrades. `speed + <something>` and the assignment to
+  `realSpeed` are both right.
+- **Carry is dropped.** `ADC`, `SBC` and `RSC` lift as plain arithmetic because ISIL cannot add a
+  flag to an expression. Wrong only at a word boundary.
+- **A register pair is two moves.** `LDRD`/`STRD` and `SMULL`/`UMULL` have no 64 bit operand to
+  write, so the high half of a `long` is not modelled.
+- **NEON is opaque.** `VLD1`/`VST1` and the multi-register VFP forms lift as `Nop`.
+- **S and D registers are separate names**, so code that writes `d0` and reads `s0` or `s1` is not
+  seen to alias. Unity's float code stays in `s` registers, so this has not bitten yet.
+- 19 instructions across all assemblies still lift as `NotImplemented`, all of them exotic
+  (`umlaleq`, `qdaddeq`, `mrc2`) and most of them literal pool bytes decoded as code.
+
+## 9. Smaller things
 
 - **`Il2CppClassUsefulOffsets.GetVtableOffset` is a method in Cpp2IL, not data**, so the vtable bound
   used by `IsPointerIntoVtable` cannot be corrected from a struct database layout file. The named
@@ -122,16 +151,8 @@ measurement.
 - **`ReconstructNativeBodies` has no considered default.** It is off unless asked for. Turning it on
   costs run time and output size for text that does not compile; whether that is the right default
   for the GUI has not been decided.
-- **ARMv7 and WebAssembly cannot produce method bodies at all.** `ArmV7InstructionSet.GetIsilFromMethod`
-  returns an empty list unconditionally, and the run reports success either way, which is why
-  `Il2CppRecoveryDiagnosticsProcessingLayer` warns about the architecture up front. Measured on a real
-  armeabi-v7a game (`RunFromZombiesFullProject`, Unity 2022.3.62f2, metadata v31.1): all 16 game
-  classes recover with their base types, field offsets, method signatures and RVAs intact, and 0 of
-  58 methods get a body — the four that are not literally empty return `null` or `false`, which is
-  the default-value stub for a non-void method with no ISIL. Nothing downstream can improve this;
-  the pipeline stops at the lifter.
-
-  That project is worth keeping in mind as a test: it ships its own full Unity source next to the
-  build, which is the ground truth this repository has never had to measure recovery against. An
-  ARM64 build of it would make every number in this file checkable against real code rather than
-  against placeholder counts.
+- **WebAssembly cannot produce method bodies at all.** `WasmInstructionSet.GetIsilFromMethod` returns
+  an empty list unconditionally, and the run reports success either way, which is why
+  `Il2CppRecoveryDiagnosticsProcessingLayer` warns about the architecture up front. ARMv7 was in the
+  same position until `Source/External/Cpp2IL.Core/InstructionSets/ArmV7InstructionSet.cs` was
+  written; see section 8.

@@ -27,7 +27,11 @@ Every change is marked `AssetRipper:` at the point it applies. Three of them, al
    address became a placeholder and a null pointer, so a string the metadata holds in full reached
    the source as `object key = 0`. Those addresses are metadata usage slots; string literals become
    `ldstr` and the other kinds keep the placeholder but name the handle.
-3. **A field inside a value type field was not a field** — `MetadataResolver.FindNestedFieldPath`,
+3. **ARMv7 could not be lifted at all** — `InstructionSets/ArmV7InstructionSet.cs`, rewritten, and
+   `Utils/ArmV7CallingConventionResolver.cs`, added. `GetIsilFromMethod` returned an empty list, so
+   no method body could be recovered from an armeabi-v7a build. `Utils/ArmV7Utils.cs` also holds its
+   Capstone handle per thread now, because bodies are lifted in parallel.
+4. **A field inside a value type field was not a field** — `MetadataResolver.FindNestedFieldPath`,
    `FieldReference.ContainingFields`, and the reads and writes for them in `IlGenerator`. This is
    the `TODO: Support nested fields` in upstream's own resolver.
 

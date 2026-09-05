@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace Cpp2IL.Core.Utils;
 
 public static class ArmV7Utils
 {
+    // AssetRipper: made thread local. Method bodies are lifted in parallel and a Capstone handle is
+    // not safe to share; one disassembler per thread is the cheapest way to keep the iteration
+    // state each call depends on from being trampled by another.
+    [ThreadStatic]
     private static CapstoneArmDisassembler? _armDisassembler;
 
     [MemberNotNull(nameof(_armDisassembler))]

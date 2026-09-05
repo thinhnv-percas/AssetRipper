@@ -42,8 +42,8 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 			Logger.Warning(LogCategory.Import,
 				$"Il2Cpp recovery: {instructionSetName} does not lift native code to ISIL, so method bodies cannot be " +
 				"recovered from this binary and every method will be exported empty. Class layouts, method signatures, " +
-				"field offsets and method addresses are unaffected. Bodies can be recovered from x86, x86-64 and ARM64 " +
-				"binaries, but not from ARMv7 or WebAssembly.");
+				"field offsets and method addresses are unaffected. Bodies can be recovered from x86, x86-64, ARM64 and " +
+				"ARMv7 binaries, but not from WebAssembly.");
 
 			progressCallback?.Invoke(1, 1);
 			return;
@@ -208,9 +208,10 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 		// The selector answers for itself, since which way it points is a per-import decision.
 		Arm64InstructionSetSelector => Arm64InstructionSetSelector.IsIsilCapable,
 
-		// These three return an empty instruction list for every method. ARMv7 and WebAssembly have no
-		// other implementation to switch to; ARM64 does, which is what the selector is for.
-		ArmV7InstructionSet or WasmInstructionSet or Arm64InstructionSet => false,
+		// These two return an empty instruction list for every method. WebAssembly has no other
+		// implementation to switch to; ARM64 does, which is what the selector is for. ARMv7 lifts now,
+		// see Source/External/Cpp2IL.Core/InstructionSets/ArmV7InstructionSet.cs.
+		WasmInstructionSet or Arm64InstructionSet => false,
 
 		_ => true,
 	};

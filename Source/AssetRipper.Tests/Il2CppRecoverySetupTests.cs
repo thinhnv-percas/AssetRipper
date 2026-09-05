@@ -43,16 +43,17 @@ internal sealed class Il2CppRecoverySetupTests
 	}
 
 	/// <summary>
-	/// ARMv7 and WebAssembly have no ISIL lifter at all in this version of Cpp2IL, and no second
-	/// implementation to switch to. Recovery on those binaries cannot work, and has to say so.
+	/// WebAssembly has no ISIL lifter at all and no second implementation to switch to, so recovery on
+	/// such a binary cannot work and has to say so. ARMv7 used to be in the same position and is not
+	/// any more: <c>Source/External/Cpp2IL.Core/InstructionSets/ArmV7InstructionSet.cs</c> lifts it.
 	/// </summary>
 	[Test]
-	public void ArmV7AndWasmCannotProduceBodies()
+	public void OnlyWasmCannotProduceBodies()
 	{
 		Assert.Multiple(() =>
 		{
-			Assert.That(Il2CppRecoveryDiagnosticsProcessingLayer.CanProduceMethodBodies(new ArmV7InstructionSet()), Is.False);
 			Assert.That(Il2CppRecoveryDiagnosticsProcessingLayer.CanProduceMethodBodies(new WasmInstructionSet()), Is.False);
+			Assert.That(Il2CppRecoveryDiagnosticsProcessingLayer.CanProduceMethodBodies(new ArmV7InstructionSet()), Is.True);
 			Assert.That(Il2CppRecoveryDiagnosticsProcessingLayer.CanProduceMethodBodies(new X86InstructionSet()), Is.True);
 		});
 	}

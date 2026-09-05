@@ -69,9 +69,14 @@ find it; `strings` without `-el` does find method and type names.
   care around `beforefieldinit`: a static field initialiser can run *after* a `Clear()` in the same
   method and capture the emptied list. `Il2CppClassOffsetPatcher` reads the pristine copy through a
   property before clearing, and there is a test for it.
-- **Only two Cpp2IL instruction sets lift to ISIL**: `X86InstructionSet` and `NewArmV8InstructionSet`.
-  `Arm64InstructionSet`, `ArmV7InstructionSet` and `WasmInstructionSet` return an empty list, which
-  looks exactly like a successful run that produced no code.
+- **Three Cpp2IL instruction sets lift to ISIL**: `X86InstructionSet`, `NewArmV8InstructionSet` and
+  `ArmV7InstructionSet`, the last of which is ours. `Arm64InstructionSet` and `WasmInstructionSet`
+  return an empty list, which looks exactly like a successful run that produced no code.
+- **Android's armeabi-v7a is ARM mode and softfp**, not Thumb and not hard float. The generated code
+  proves both: it decodes as ARM and is nonsense as Thumb, and a float argument is moved out of VFP
+  with `vmov r1, s0` immediately before the call that takes it.
+- **A Capstone disassembler handle is not thread safe.** Bodies are lifted in parallel, so
+  `ArmV7Utils` keeps one per thread; sharing one silently corrupts the iteration state.
 - **`InstructionSetRegistry.RegisterInstructionSet` uses `Dictionary.Add`** and throws on a second
   registration for the same identifier.
 - **A Debug build dies silently on a failed `Debug.Assert`.** There are about 156 of them in
