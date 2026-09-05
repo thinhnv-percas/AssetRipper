@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 0 |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 9630 |
-| `Unmanaged memory load` placeholders | 30877 |
+| `Method not found` placeholders | 9409 |
+| `Unmanaged memory load` placeholders | 29350 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -47,16 +47,16 @@ list nor the symbol names accessible, so this needs a small public accessor adde
 `ElfFile` — a fourth `AssetRipper:` change. It is ELF only; a Windows game would need the PE import
 table instead.
 
-## 3. Inlined interface dispatch — about 6000 occurrences
+## 3. Inlined interface dispatch — about 5300 occurrences
 
 The largest remaining group of `Unmanaged memory load` placeholders is one shape: a read of
 `Il2CppClass::interface_offsets_count` (0x126 on this game), `interfaceOffsets` (0xB0) and
 `typeHierarchyDepth` (0x128), which together are the inlined interface method lookup the compiler
-emits in place of a call to `il2cpp_codegen_get_interface_invoke_data`. `InterfaceDispatchRecovery`
-exists to fold this away and does not match these versions, in the same way the class initialization
-guards did not until their shapes were widened — the offsets move between Unity versions and the
-loads are separate instructions until copy propagation runs. Worth doing next; the struct database
-already carries the measured offsets.
+emits in place of a call to `il2cpp_codegen_get_interface_invoke_data`.
+`InterfaceDispatchRecovery` now matches the A64 shape of the fast path and measures the vtable
+bound against the layout rather than a version formula, which took roughly a fifth of them. The rest
+fail somewhere else in the match or in the excision, and each needs its own look: the scan loop is
+compiled several ways and the pass gives up silently on any of them.
 
 ## 3b. Untyped memory loads — the rest
 
@@ -123,13 +123,13 @@ measurement.
 ## 7b. ARM64 composite values are named by their first register only
 
 AAPCS64 returns and passes a small struct of floats in several vector registers. Both directions are
-counted correctly now, but ISIL has one operand per argument and one per return value, so only the
-first register can be named. The extra registers of a return are recovered by naming each as the
-field of the returned value it carries, which is why `position.z - position2.z` comes out exact; the
-first register is still the whole struct, so the *x* component of the same expression reads as
-`position2 - position` rather than `position2.x - position.x`. An argument has no equivalent trick:
-`transform.position = v` carries `v` correctly because the analysis types the parameter, but a
-method taking two vectors would see only the first register of each.
+counted correctly, and ISIL has one operand per argument and one per return value, so only the first
+register can be named. The extra registers of a return are recovered by naming each as the field of
+the returned value it carries, and the first register is read as the struct's first field wherever a
+float is wanted, so `Vector3.MoveTowards` inlined into a caller comes out as its three component
+subtractions. What is left is an argument: `transform.position = v` carries `v` because the analysis
+types the parameter, but a method taking two vectors would see only the first register of each, and
+nothing says the other two belong to it.
 
 ## 8. ARMv7 recovery is new, and shallower than ARM64's
 

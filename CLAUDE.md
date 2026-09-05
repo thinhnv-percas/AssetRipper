@@ -118,6 +118,13 @@ find it; `strings` without `-el` does find method and type names.
   assemblies, so an assert cannot be routed into the logger without reflection over a private field,
   which this AOT-compatible build should not do. Release is the answer, not interception.
 
+- **Where the abstraction has one operand and the machine has three, type the ends.** The recurring
+  ARM64 defect is a value that lives in several registers and can only be named by one. Naming the
+  extra registers as the fields they carry fixes the reads; typing what the first register feeds —
+  arithmetic on a float aggregate is float arithmetic, a comparison takes its float type from
+  whichever operand has one, an instance method on a value type takes its receiver by reference —
+  fixes the rest, and is what turns a chain of casts of an untyped `object` back into the expression
+  the source had.
 - **A `Cpp2IlInstructionSet` subclass that forwards to another must forward the virtual members too.**
   `Arm64InstructionSetSelector` forwarded the abstract ones and inherited the base's defaults for the
   rest. `CallingConventionResolver` defaults to null, and every analysis pass that maps a call's raw
