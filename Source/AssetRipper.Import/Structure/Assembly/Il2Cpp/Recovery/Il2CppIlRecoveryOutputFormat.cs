@@ -4,10 +4,7 @@ using AsmResolver.DotNet.Signatures;
 using AsmResolver.PE.DotNet.Cil;
 using AssetRipper.CIL;
 using AssetRipper.Import.Logging;
-using AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery.Cpp2IL;
-using Cpp2IL.Core;
 using Cpp2IL.Core.Model.Contexts;
-using Cpp2IL.Core.Utils;
 using Cpp2IL.Core.OutputFormats;
 using System.Collections.Concurrent;
 using System.Globalization;
@@ -98,7 +95,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 	protected override void FillMethodBody(MethodDefinition methodDefinition, MethodAnalysisContext methodContext)
 	{
-		GenerateBody(methodDefinition, methodContext);
+		base.FillMethodBody(methodDefinition, methodContext);
 
 		if (TryGetFailureReason(methodDefinition.CilMethodBody, out string? reason))
 		{
@@ -109,89 +106,6 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		ReplaceIfUnverifiable(methodDefinition);
 		NamePlaceholderAddresses(methodDefinition.CilMethodBody);
-	}
-
-	/// <summary>
-	/// What the base class's <c>FillMethodBody</c> does, except that it runs
-	/// <see cref="NestedFieldResolver"/> and generates through <see cref="Il2CppIlGenerator"/>.
-	/// </summary>
-	/// <remarks>
-	/// The vendored generator carries fixes the published Cpp2IL package does not have, and there is
-	/// no seam to substitute it through, so the twenty lines that call it are reproduced here. Keep
-	/// this in step with <c>AsmResolverDllOutputFormatIlRecovery.FillMethodBody</c>; the header of
-	/// <see cref="Il2CppIlGenerator"/> names the commit it was taken from.
-	/// </remarks>
-	private void GenerateBody(MethodDefinition methodDefinition, MethodAnalysisContext methodContext)
-	{
-		ModuleDefinition module = methodDefinition.DeclaringModule!;
-		string moduleName = module.Name!.ToString();
-		bool shouldSkip = moduleName.StartsWith("UnityEngine.", StringComparison.Ordinal)
-			|| moduleName.StartsWith("Unity.", StringComparison.Ordinal)
-			|| moduleName.StartsWith("System.", StringComparison.Ordinal)
-			|| moduleName == "System"
-			|| moduleName.StartsWith("mscorlib", StringComparison.Ordinal);
-
-		if (!methodDefinition.IsManagedMethodWithBody())
-		{
-			return;
-		}
-
-		methodDefinition.CilMethodBody = new();
-
-		if (shouldSkip)
-		{
-			methodDefinition.ReplaceMethodBodyWithMinimalImplementation();
-			return;
-		}
-
-		try
-		{
-			TotalMethodCount++;
-
-			methodContext.Analyze();
-
-			if (methodContext.ConvertedIsil.Count == 0)
-			{
-				methodDefinition.ReplaceMethodBodyWithMinimalImplementation();
-			}
-			else
-			{
-				NestedFieldResolver.Resolve(methodContext);
-				Il2CppIlGenerator.GenerateIl(methodContext, methodDefinition);
-			}
-
-			SuccessfulMethodCount++;
-		}
-		catch (Exception e)
-		{
-			// Known analysis limitations (DecompilerException) get a one-line warning; anything else is
-			// an unexpected bug and keeps its (collapsed) stack trace.
-			string detail = e is DecompilerException ? e.Message : e.ToCollapsedString();
-
-			if (e is DecompilerException)
-			{
-				global::Cpp2IL.Core.Logging.Logger.WarnNewline($"Skipping {methodContext.FullName}: {e.Message}");
-			}
-			else
-			{
-				global::Cpp2IL.Core.Logging.Logger.ErrorNewline($"Decompiling {methodContext.FullName} failed: {detail}");
-			}
-
-			methodDefinition.CilMethodBody = new();
-			CilInstructionCollection instructions = methodDefinition.CilMethodBody.Instructions;
-
-			CorLibTypeFactory factory = module.CorLibTypeFactory;
-			IMethodDescriptor exceptionCtor = factory.CorLibScope
-				.CreateTypeReference("System", "Exception")
-				.CreateMemberReference(".ctor", MethodSignature.CreateInstance(factory.Void, [factory.String]))
-				.ImportWith(new ReferenceImporter(module));
-
-			instructions.Add(CilOpCodes.Ldstr, detail);
-			instructions.Add(CilOpCodes.Newobj, exceptionCtor);
-			instructions.Add(CilOpCodes.Throw);
-		}
-
-		methodContext.ReleaseAnalysisData();
 	}
 
 	/// <summary>

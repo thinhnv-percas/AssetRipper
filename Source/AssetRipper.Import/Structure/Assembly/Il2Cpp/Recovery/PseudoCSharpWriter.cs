@@ -1,5 +1,4 @@
 using AssetRipper.Import.Structure.Assembly.Il2Cpp.StructDb;
-using AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery.Cpp2IL;
 using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
@@ -324,8 +323,7 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, 
 
 		MethodAnalysisContext method => method.FullName,
 		TypeAnalysisContext type => type.FullName,
-		FieldReference field => $"{field.Local.Name}.{field.Field.Name}",
-		NestedFieldReference nested => $"{nested.Local.Name}.{string.Join('.', nested.Path.Select(field => field.Name))}",
+		FieldReference field => FieldPath(field),
 		StringLiteral literal => Quote(literal.Value),
 		LocalVariable local => local.Name,
 		Register register => register.Name,
@@ -338,6 +336,18 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, 
 
 		_ => operand.ToString() ?? "?",
 	};
+
+	/// <summary>
+	/// The dotted path of a field access. Taken from the operand's own rendering rather than from the
+	/// field name, because a field reached through a value type field is one name of several and only
+	/// the whole path names it.
+	/// </summary>
+	private static string FieldPath(FieldReference field)
+	{
+		string rendered = field.ToString();
+		int declaredType = rendered.LastIndexOf(" (", StringComparison.Ordinal);
+		return declaredType < 0 ? rendered : rendered[..declaredType];
+	}
 
 	private static string FormatImmediate(long value)
 		=> value is > -10 and < 10 ? value.ToString() : $"0x{value:X}";

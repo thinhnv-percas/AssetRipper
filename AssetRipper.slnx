@@ -61,6 +61,10 @@
     <File Path=".github/workflows/publish.yml" />
     <File Path=".github/workflows/test.yml" />
   </Folder>
+  <Project Path="Source/External/Cpp2IL.Core/Cpp2IL.Core.csproj" />
+  <Project Path="Source/External/LibCpp2IL/LibCpp2IL.csproj" />
+  <Project Path="Source/External/StableNameDotNet/StableNameDotNet.csproj" />
+  <Project Path="Source/External/WasmDisassembler/WasmDisassembler.csproj" />
   <Project Path="Source/AssetRipper.AssemblyDumper.Downloader/AssetRipper.AssemblyDumper.Downloader.csproj" />
   <Project Path="Source/AssetRipper.AssemblyDumper.NativeEnumExtractor/AssetRipper.AssemblyDumper.NativeEnumExtractor.csproj" />
   <Project Path="Source/AssetRipper.AssemblyDumper.NuGetFixer/AssetRipper.AssemblyDumper.NuGetFixer.csproj" />

@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!--
+        AssetRipper: vendored. Multi-targeting, packing, SourceLink and package metadata dropped;
+        the single target framework comes from ../Directory.Build.props. Everything else is upstream.
+    -->
+
+    <PropertyGroup>
+        <OutputPath>..\..\0Bins\Other\Cpp2IL.Core\$(Configuration)\</OutputPath>
+        <IntermediateOutputPath>..\..\0Bins\obj\Cpp2IL.Core\$(Configuration)\</IntermediateOutputPath>
+        <Authors>Sam Byass (Samboy063)</Authors>
+        <Copyright>Copyright © Samboy063 2019-2026</Copyright>
+        <DebugType>embedded</DebugType>
+        <Description>Reverses Unity's IL2CPP Build Process</Description>
+        <LangVersion>14</LangVersion>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <IsTrimmable>true</IsTrimmable>
+        <IsAotCompatible>true</IsAotCompatible>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="TrimmerRoots.xml">
+            <LogicalName>ILLink.Descriptors.xml</LogicalName>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--Needed for DLL output-->
+        <PackageReference Include="AsmResolver.DotNet" Version="6.0.1" />
+        <PackageReference Include="AssetRipper.CIL" Version="1.3.2" />
+
+        <!--For ARM64 dissassembly-->
+        <PackageReference Include="Disarm" Version="2022.1.0-master.117" />
+
+        <!--For X86/X64 disassembly-->
+        <PackageReference Include="Iced" Version="1.21.0" />
+
+        <!--For ARM64 and ARMv7 disassembly. Future: Remove once disarm is stable and move ARMv7 to CapstoneSharp by 6pak-->
+        <PackageReference Include="AssetRipper.Gee.External.Capstone" Version="2.3.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\LibCpp2IL\LibCpp2IL.csproj" />
+
+        <!--Future: Consider moving to its own project and moving the impl in cpp2il to a plugin-->
+        <ProjectReference Include="..\StableNameDotNet\StableNameDotNet.csproj" />
+    </ItemGroup>
+
+</Project>

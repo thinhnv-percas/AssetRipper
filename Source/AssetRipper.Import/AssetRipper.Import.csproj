@@ -8,11 +8,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="AsmResolver.DotNet" Version="6.0.1" />
-		<!--
-			Structure/Assembly/Il2Cpp/Recovery/Cpp2IL vendors this package's IL generator with fixes. Its
-			header names the commit; keep the version and that commit in step.
-		-->
-		<PackageReference Include="AssetRipper.Cpp2IL.Core" Version="1.0.9" />
 		<PackageReference Include="AssetRipper.Mining.PredefinedAssets" Version="1.5.0" />
 		<PackageReference Include="AssetRipper.Primitives" Version="3.2.0" />
 		<PackageReference Include="AssetRipper.Tpk" Version="2.0.0" />
@@ -20,6 +15,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- Vendored, see Source/External/README.md -->
+		<ProjectReference Include="..\External\Cpp2IL.Core\Cpp2IL.Core.csproj" />
 		<ProjectReference Include="..\AssetRipper.Assets\AssetRipper.Assets.csproj" />
 		<ProjectReference Include="..\AssetRipper.Configuration\AssetRipper.Configuration.csproj" />
 		<ProjectReference Include="..\AssetRipper.Numerics\AssetRipper.Numerics.csproj" />

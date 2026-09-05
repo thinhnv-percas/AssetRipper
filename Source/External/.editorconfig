@@ -1,0 +1,3 @@
+# Vendored third party code, written to its own conventions. AssetRipper's rules do not apply here,
+# and this file stops them from being inherited.
+root = true

@@ -1,0 +1,20 @@
+<Project>
+	<!--
+		Vendored third party code. This file deliberately does not import Source/Directory.Build.props:
+		that sets CheckForOverflowUnderflow, which would change how this code runs, and stamps
+		AssetRipper's authorship onto it. See README.md.
+	-->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<IsPackable>false</IsPackable>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+		<!--
+			Upstream's own warnings on upstream's own code: unused fields, its #warning TODOs, and
+			nullability it has not annotated. Silenced so an AssetRipper build does not print seventy
+			lines nobody here will act on. Warnings on the changes we make are not in this list.
+		-->
+		<NoWarn>$(NoWarn);CS0169;CS1030;CS8602;CS8604</NoWarn>
+	</PropertyGroup>
+</Project>

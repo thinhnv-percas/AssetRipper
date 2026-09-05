@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!--
+        AssetRipper: vendored. Multi-targeting, packing, SourceLink and package metadata dropped;
+        the single target framework comes from ../Directory.Build.props. Everything else is upstream.
+    -->
+
+    <PropertyGroup>
+        <OutputPath>..\..\0Bins\Other\LibCpp2IL\$(Configuration)\</OutputPath>
+        <IntermediateOutputPath>..\..\0Bins\obj\LibCpp2IL\$(Configuration)\</IntermediateOutputPath>
+        <Nullable>enable</Nullable>
+        <LangVersion>12</LangVersion>
+        <DebugType>embedded</DebugType>
+        <Authors>Samboy063</Authors>
+        <Copyright>Copyright © Samboy063 2019-2026</Copyright>
+        <Company>Samboy063</Company>
+        <Description>Library for interacting with IL2CPP metadata and binaries</Description>
+        <IsTrimmable>true</IsTrimmable>
+        <IsAotCompatible>true</IsAotCompatible>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AssetRipper.Primitives" Version="3.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\WasmDisassembler\WasmDisassembler.csproj" />
+    </ItemGroup>
+
+</Project>
