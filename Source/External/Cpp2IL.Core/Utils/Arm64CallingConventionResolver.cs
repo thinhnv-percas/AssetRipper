@@ -14,7 +14,38 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
     private static readonly string[] FloatRegisters = ["V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7"];
 
     public override Register ReturnRegister(MethodAnalysisContext ctx)
-        => new(null, IsFloatingPoint(ctx.ReturnType) ? "V0" : "X0");
+        => new(null, IsFloatingPoint(ctx.ReturnType) || IsFloatAggregate(ctx.ReturnType) ? "V0" : "X0");
+
+    /// <summary>
+    /// AssetRipper: whether the type is a homogeneous float aggregate, which AAPCS64 returns in V0 to
+    /// V3 rather than in the integer registers. Unity's small maths types are all of this shape, and
+    /// calling <c>Transform.get_position</c> an X0 return put the vector where it never was.
+    /// </summary>
+    public static bool IsFloatAggregate(TypeAnalysisContext type) => FloatAggregateMemberCount(type) >= 2;
+
+    /// <summary>
+    /// AssetRipper: how many registers such a return occupies, or zero when the type is not one.
+    /// </summary>
+    public static int FloatAggregateMemberCount(TypeAnalysisContext type)
+    {
+        if (!type.IsValueType || type.IsEnumType)
+            return 0;
+
+        var single = type.AppContext.SystemTypes.SystemSingleType;
+        var members = 0;
+
+        foreach (var field in type.Fields)
+        {
+            if (field.IsStatic)
+                continue;
+
+            // Only an aggregate of up to four floats qualifies; anything else goes by the usual rules.
+            if (field.FieldType != single || ++members > 4)
+                return 0;
+        }
+
+        return members;
+    }
 
     public override Register? HiddenReturnBufferRegister(MethodAnalysisContext ctx)
         => ReturnsViaHiddenBuffer(ctx) ? new Register(null, "X8") : null;

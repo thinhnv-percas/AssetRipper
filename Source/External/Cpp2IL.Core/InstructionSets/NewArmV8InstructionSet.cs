@@ -16,6 +16,14 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
     [ThreadStatic]
     private static Dictionary<string, ulong>? adrpOffsets;
 
+    /// <summary>
+    /// AssetRipper: stack slot a register holds the address of, keyed by register name. A composite
+    /// return value is written through such a pointer, and the words it covers are only ever read back
+    /// by offset, so without this the call is not seen to have written them.
+    /// </summary>
+    [ThreadStatic]
+    private static Dictionary<string, int>? stackAddresses;
+
     private static readonly Arm64CallingConventionResolver CallingConventions = new();
 
     public override BaseCallingConventionResolver CallingConventionResolver => CallingConventions;
@@ -145,6 +153,8 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         else
             adrpOffsets.Clear();
 
+        (stackAddresses ??= new()).Clear();
+
         var instructions = new List<Instruction>();
         var addresses = new List<ulong>();
 
@@ -186,6 +196,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         }
 
         adrpOffsets.Clear();
+        stackAddresses.Clear();
         return instructions;
     }
 
@@ -231,6 +242,8 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     : Add(address, OpCode.Call, Imm(target), CallingConventions.ReturnRegister(ctx));
 
                 call.AddOperands(CallingConventions.ResolveForManaged(ctx));
+                DefineHiddenReturnBuffer(ctx, call); // AssetRipper
+                DefineFloatAggregateReturn(ctx, call); // AssetRipper
             }
             else
             {
@@ -238,6 +251,53 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                 var call = Add(address, OpCode.Call, Imm(target), new Register(null, "X0"));
                 call.AddOperands(CallingConventions.ResolveForUnmanaged(context.AppContext, target));
             }
+        }
+
+        // AssetRipper: a composite return value is written into a caller supplied buffer, and the words
+        // of it are read back one at a time by offset. Nothing in the ISIL says the call wrote those
+        // words, so every read of them resolves to the same undefined value and two calls into the same
+        // buffer produce the same one, which is how a - b becomes a - a. Each word is named as written
+        // by the call, read from the buffer at that word's own offset, so once the analysis has typed
+        // the buffer the offset resolves as the field it is.
+        void DefineHiddenReturnBuffer(MethodAnalysisContext callee, Instruction call)
+        {
+            if (!CallingConventions.ReturnsViaHiddenBuffer(callee))
+                return;
+
+            if (CallingConventions.HiddenReturnBufferRegister(callee) is not { } bufferRegister)
+                return;
+
+            if (!stackAddresses!.TryGetValue(bufferRegister.Name, out var slot))
+                return;
+
+            var size = TypeSizes.UnboxedSize(callee.ReturnType, 8);
+
+            // Four bytes at a time: that is the granularity the components of a Vector3 and friends
+            // are read back at, whatever the pointer size is.
+            for (var offset = 0; offset + 4 <= size; offset += 4)
+                Add(address, OpCode.Move, new StackOffset(slot + offset), new MemoryOperand(bufferRegister, addend: offset));
+        }
+
+        // AssetRipper: a small struct of floats comes back in several vector registers rather than
+        // through a buffer — AAPCS64 returns a homogeneous float aggregate of up to four members in
+        // V0 to V3, so a Vector3's y and z arrive in V1 and V2. The call declares only V0 as its
+        // result, so the other two read as undefined and two calls in a row produce the same value,
+        // which is how position.z - position2.z becomes x - x. Each extra register is named as the
+        // field of the returned value that it carries.
+        void DefineFloatAggregateReturn(MethodAnalysisContext callee, Instruction call)
+        {
+            if (CallingConventions.ReturnsViaHiddenBuffer(callee) || callee.IsVoid)
+                return;
+
+            var members = Arm64CallingConventionResolver.FloatAggregateMemberCount(callee.ReturnType);
+
+            if (members < 2)
+                return;
+
+            var returnRegister = CallingConventions.ReturnRegister(callee);
+
+            for (var member = 1; member < members; member++)
+                Add(address, OpCode.Move, new Register(null, $"V{member}"), new MemoryOperand(returnRegister, addend: member * 4));
         }
 
         void AddReturn()
@@ -539,6 +599,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     {
                         var slot = new StackOffset((int)(isSubtract ? -instruction.Op2Imm : instruction.Op2Imm));
                         Add(address, OpCode.Move, ConvertOperand(instruction, 0), new AddressOf(slot));
+                        stackAddresses![NormalizeRegister(instruction.Op0Reg)] = slot.Offset; // AssetRipper
                         break;
                     }
 
