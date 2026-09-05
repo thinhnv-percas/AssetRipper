@@ -4,6 +4,7 @@ using Cpp2IL.Core.InstructionSets;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core;
+using Cpp2IL.Core.Utils;
 
 namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 
@@ -55,6 +56,25 @@ public sealed class Arm64InstructionSetSelector : Cpp2IlInstructionSet
 
 	public override BaseKeyFunctionAddresses CreateKeyFunctionAddressesInstance()
 		=> Current.CreateKeyFunctionAddressesInstance();
+
+	/// <remarks>
+	/// Forwarding this is not optional. The base declares it as null, and analysis reads it off the
+	/// registered instruction set — which is this selector, not the implementation behind it. Left
+	/// unforwarded, every pass that remaps a call's raw registers onto the callee's signature silently
+	/// did nothing, so an ARM64 call kept the whole register file as its arguments and the values it
+	/// was actually passed were never attributed to it.
+	/// </remarks>
+	public override BaseCallingConventionResolver? CallingConventionResolver
+		=> Current.CallingConventionResolver;
+
+	public override (IReadOnlyList<ulong> DataReferences, IReadOnlyList<ulong> CallTargets) InspectPotentialThrowHelper(ApplicationAnalysisContext context, ulong address)
+		=> Current.InspectPotentialThrowHelper(context, address);
+
+	public override ulong GetThunkTarget(ApplicationAnalysisContext context, ulong thunkAddress)
+		=> Current.GetThunkTarget(context, thunkAddress);
+
+	public override ulong GetInternalCallTarget(MethodAnalysisContext method)
+		=> Current.GetInternalCallTarget(method);
 
 	public override string PrintAssembly(MethodAnalysisContext context)
 		=> Current.PrintAssembly(context);
