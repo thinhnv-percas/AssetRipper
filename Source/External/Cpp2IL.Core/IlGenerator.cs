@@ -557,6 +557,16 @@ public static class IlGenerator
                 var floatConversion = FloatArithmeticConversion(instruction);
                 var floatOperandType = FloatArithmeticType(instruction, context);
 
+                // AssetRipper: a comparison has no float destination to take the type from, so it
+                // takes it from whichever operand has one. Without it a float compared against a
+                // value the ABI returned in vector registers read as a comparison of the whole
+                // struct against a number, which is not a comparison at all.
+                if (floatOperandType == null && FloatComparisonType(instruction, context) is { } comparisonType)
+                {
+                    floatOperandType = comparisonType;
+                    floatConversion = comparisonType.FullName == "System.Double" ? CilOpCodes.Conv_R8 : CilOpCodes.Conv_R4;
+                }
+
                 LoadOperand(instruction.Operands[1], context, method, locals, writeLine, floatOperandType);
                 if (floatConversion is { } conv1)
                     instructions.Add(conv1);
@@ -692,6 +702,34 @@ public static class IlGenerator
     }
 
     private static bool IsFloat(TypeAnalysisContext type) => type.FullName is "System.Single" or "System.Double";
+
+    /// <summary>
+    /// AssetRipper: the float type a comparison is between, taken from its operands.
+    /// </summary>
+    private static TypeAnalysisContext? FloatComparisonType(Instruction instruction, MethodAnalysisContext context)
+    {
+        if (instruction.OpCode is < OpCode.CheckEqual or > OpCode.CheckLessOrEqual || instruction.Operands.Count < 3)
+            return null;
+
+        TypeAnalysisContext? found = null;
+
+        for (var i = 1; i <= 2; i++)
+        {
+            var type = instruction.Operands[i] switch
+            {
+                FloatLiteral => context.AppContext.SystemTypes.SystemSingleType,
+                DoubleLiteral => context.AppContext.SystemTypes.SystemDoubleType,
+                var operand when DestinationType(operand) is { } operandType && IsFloat(operandType) => operandType,
+                _ => null,
+            };
+
+            // double wins: comparing a float against one widens rather than truncates
+            if (type != null && (found == null || type.FullName == "System.Double"))
+                found = type;
+        }
+
+        return found;
+    }
 
     /// <summary>
     /// Reads the metadata usage stored at <paramref name="address"/>, if there is one. Never throws:
@@ -1014,8 +1052,10 @@ public static class IlGenerator
         }
     }
 
+    // AssetRipper: a bool field is as boolean as a bool local, and reading only the local left a
+    // negated field as the bitwise complement of an integer: ~(isPaused ? 1u : 0u) == 0.
     private static bool IsBoolean(IOperand operand, MethodAnalysisContext context) =>
-        operand is LocalVariable { Type: { } type } && type == context.AppContext.SystemTypes.SystemBooleanType;
+        DestinationType(operand) == context.AppContext.SystemTypes.SystemBooleanType;
 
     private static bool IsZeroConstant(IOperand operand) => operand is Immediate { Value: 0 };
     
