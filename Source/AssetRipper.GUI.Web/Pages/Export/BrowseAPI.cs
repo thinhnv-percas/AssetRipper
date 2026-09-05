@@ -28,8 +28,9 @@ internal static class BrowseAPI
 	/// Opens a directory in the desktop's file manager.
 	/// </summary>
 	/// <remarks>
-	/// An auto exported project lands in a temporary directory whose name is a guid, so it is not
-	/// something anyone would find by browsing. This is the way out of the preview and into the files.
+	/// An auto exported project lands wherever the default export path says, or in a temporary
+	/// directory whose name is a guid when that setting is empty. This is the way out of the preview
+	/// and into the files.
 	/// </remarks>
 	public static Task Reveal(HttpContext context)
 	{

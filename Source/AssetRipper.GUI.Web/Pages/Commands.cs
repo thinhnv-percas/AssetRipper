@@ -1,4 +1,4 @@
-﻿using AssetRipper.GUI.Web.Pages.Export;
+using AssetRipper.GUI.Web.Pages.Export;
 using AssetRipper.NativeDialogs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -91,7 +91,7 @@ public static class Commands
 	}
 
 	/// <summary>
-	/// Automatically decompiles the just-loaded game to a scratch directory and returns the URL to preview it.
+	/// Automatically decompiles the just-loaded game and returns the URL to preview it.
 	/// </summary>
 	private static async Task<string?> AutoExportAndGetRedirect()
 	{
@@ -100,9 +100,28 @@ public static class Commands
 			return null;
 		}
 
-		string autoExportPath = Path.Combine(Path.GetTempPath(), "AssetRipper_AutoPreview", Guid.NewGuid().ToString("N"));
+		string autoExportPath = GetAutoExportPath();
 		bool success = await GameFileLoader.ExportUnityProject(autoExportPath);
 		return success ? BrowseAPI.GetBrowseUrl(autoExportPath) : null;
+	}
+
+	/// <summary>
+	/// Where the preview export lands: the default export path when one is set, and a scratch
+	/// directory otherwise.
+	/// </summary>
+	/// <remarks>
+	/// A preview in a temporary directory named after a guid is a project nobody can find again, and
+	/// someone who has set a default export path has already said where their rips belong. The export
+	/// itself is the same one the Export Unity Project button performs, deletion prompt included, so
+	/// pointing it at that directory does nothing the button would not.
+	/// </remarks>
+	private static string GetAutoExportPath()
+	{
+		string? configured = GameFileLoader.Settings.ExportSettings.DefaultExportPath;
+
+		return string.IsNullOrWhiteSpace(configured)
+			? Path.Combine(Path.GetTempPath(), "AssetRipper_AutoPreview", Guid.NewGuid().ToString("N"))
+			: configured.Trim();
 	}
 
 	public readonly struct ExportUnityProject : ICommand
