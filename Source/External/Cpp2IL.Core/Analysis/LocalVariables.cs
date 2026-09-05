@@ -432,7 +432,7 @@ public static class LocalVariables
                     break;
                 case OpCode.And or OpCode.Or or OpCode.Xor or OpCode.Not or OpCode.Negate
                     or OpCode.ShiftLeft or OpCode.ShiftRight:
-                    changed |= PropagateIntegerResult(instruction, method);
+                    changed |= PropagateBooleanLogic(instruction, method) || PropagateIntegerResult(instruction, method);
                     break;
             }
         }
@@ -467,6 +467,32 @@ public static class LocalVariables
             return false;
 
         return SetTypeIfUnknown(destination, floatType);
+    }
+
+    /// <summary>
+    /// AssetRipper: logic over booleans produces a boolean.
+    /// </summary>
+    /// <remarks>
+    /// A condition assembled from flags — an ARM64 <c>b.ls</c> is <c>!C || Z</c>, and each of those is
+    /// a comparison result — reaches here as a Not and an Or over two booleans, which nothing typed.
+    /// The destination then stayed untyped and the whole condition read as
+    /// <c>object obj = ~flag1 | flag2; if (obj != null)</c> rather than as the comparison it is.
+    /// </remarks>
+    private static bool PropagateBooleanLogic(Instruction instruction, MethodAnalysisContext method)
+    {
+        if (instruction.Operands is not [LocalVariable { Type: null } destination, ..])
+            return false;
+
+        if (instruction.OpCode is not (OpCode.And or OpCode.Or or OpCode.Xor or OpCode.Not))
+            return false;
+
+        for (var i = 1; i < instruction.Operands.Count; i++)
+        {
+            if (instruction.Operands[i] is not LocalVariable { Type.FullName: "System.Boolean" })
+                return false;
+        }
+
+        return SetTypeIfUnknown(destination, method.AppContext.SystemTypes.SystemBooleanType);
     }
 
     // An integer operand makes the result an integer. Excludes bool operands so flag logic stays boolean.
