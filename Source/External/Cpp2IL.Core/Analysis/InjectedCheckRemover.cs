@@ -31,7 +31,7 @@ public static class InjectedCheckRemover
 
             if (terminator.Operands[1] is not LocalVariable condition
                 || !defOf.TryGetValue(condition, out var definition)
-                || !IsInjectedCheck(definition, thrownType))
+                || !IsInjectedCheck(ChaseCondition(definition, defOf), thrownType))
                 continue;
 
             terminator.OpCode = OpCode.Nop;
@@ -49,6 +49,29 @@ public static class InjectedCheckRemover
         // delete any throw blocks
         cfg.RemoveUnreachableBlocks();
         DeadCodeEliminator.Run(cfg);
+    }
+
+    /// <summary>
+    /// AssetRipper: the comparison behind a condition, through the copies and inversions that carry it.
+    /// </summary>
+    /// <remarks>
+    /// A64 has no branch-if-greater-or-equal on the flags it sets for a bounds check, so the condition
+    /// arrives as the negation of a less-than. Matching only the comparison itself left every bounds
+    /// check in place. The branch's polarity does not matter here: the block it targets does nothing
+    /// but throw, so the edge goes either way.
+    /// </remarks>
+    private static Instruction ChaseCondition(Instruction definition, Dictionary<LocalVariable, Instruction> defOf)
+    {
+        for (var depth = 0; depth < 8; depth++)
+        {
+            if (definition is not { OpCode: OpCode.Not or OpCode.Move } || definition.Operands.Count < 2
+                || definition.Operands[1] is not LocalVariable source || !defOf.TryGetValue(source, out var next))
+                return definition;
+
+            definition = next;
+        }
+
+        return definition;
     }
 
     private static bool IsInjectedCheck(Instruction definition, string thrownType) =>
@@ -75,6 +98,15 @@ public static class InjectedCheckRemover
                 case OpCode.Throw when thrown == null
                     && instruction.Operands is [TypeAnalysisContext { FullName: "System.NullReferenceException" or "System.IndexOutOfRangeException" } exception]:
                     thrown = exception.FullName;
+                    continue;
+
+                // AssetRipper: the helper that raises one of these never returns, so the compiler puts
+                // the calls next to each other and the block that only builds the exception falls
+                // straight into the one that throws a different one. Building it is the whole of the
+                // block either way, and that is what makes it a check's epilogue.
+                case OpCode.Newobj when thrown == null
+                    && instruction.Operands is [_, TypeAnalysisContext { FullName: "System.NullReferenceException" or "System.IndexOutOfRangeException" } constructed]:
+                    thrown = constructed.FullName;
                     continue;
 
                 default:

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -306,6 +307,19 @@ public static class IlGenerator
 
         var module = method.DeclaringModule!;
 
+        // AssetRipper: one field store of a constant float, used to split a paired eight byte store.
+        void EmitFieldStore(FieldReference target, float value)
+        {
+            if (!target.Field.IsStatic)
+            {
+                LoadLocal(target.Local, method, locals);
+                LoadContainingFields(target, instructions);
+            }
+
+            instructions.Add(CilOpCodes.Ldc_R4, value);
+            instructions.Add(target.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, target.Field.ToFieldDescriptor());
+        }
+
         switch (instruction.OpCode)
         {
             case OpCode.Invalid:
@@ -324,6 +338,20 @@ public static class IlGenerator
                 break;
 
             case OpCode.Move:
+                // AssetRipper: two adjacent float fields initialised by one eight byte store, which is
+                // how a constructor sets a pair of them. The value is a double only by accident of its
+                // width: it is the two floats side by side, and stored as a double the first field got
+                // the pair's bit pattern as a number and the second got nothing at all.
+                if (instruction.Operands is [FieldReference { Field.FieldType.FullName: "System.Single" } pairHead, DoubleLiteral pair]
+                    && AdjacentSingleField(pairHead) is { } pairTail)
+                {
+                    var bits = BitConverter.DoubleToInt64Bits(pair.Value);
+
+                    EmitFieldStore(pairHead, BitConverter.Int32BitsToSingle((int)bits));
+                    EmitFieldStore(new FieldReference(pairTail, pairHead.Local, pairHead.Offset + 4), BitConverter.Int32BitsToSingle((int)(bits >> 32)));
+                    break;
+                }
+
                 if (instruction.Operands[0] is FieldReference field) // stfld takes instance before value so LoadOperand StoreToOperand doesn't work
                 {
                     if (!field.Field.IsStatic)
@@ -1065,6 +1093,25 @@ public static class IlGenerator
     // negated field as the bitwise complement of an integer: ~(isPaused ? 1u : 0u) == 0.
     private static bool IsBoolean(IOperand operand, MethodAnalysisContext context) =>
         DestinationType(operand) == context.AppContext.SystemTypes.SystemBooleanType;
+
+    /// <summary>
+    /// AssetRipper: the <c>System.Single</c> field four bytes after this one, if there is one.
+    /// </summary>
+    private static FieldAnalysisContext? AdjacentSingleField(FieldReference field)
+    {
+        if (field.ContainingFields.Count > 0 || field.Field.IsStatic || field.Field.BackingData is not { } backing)
+            return null;
+
+        var wanted = backing.FieldOffset + 4;
+
+        foreach (var candidate in field.Field.DeclaringType!.Fields)
+        {
+            if (!candidate.IsStatic && candidate.FieldType.FullName == "System.Single" && candidate.BackingData?.FieldOffset == wanted)
+                return candidate;
+        }
+
+        return null;
+    }
 
     private static bool IsZeroConstant(IOperand operand) => operand is Immediate { Value: 0 };
     

@@ -1084,7 +1084,11 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                 _ => throw new ArgumentOutOfRangeException(nameof(operand), $"Operand must be between 0 and 3, inclusive. Got {operand}")
             };
 
-            return new DoubleLiteral(imm);
+            // AssetRipper: an fmov's immediate is as wide as the register it moves into. Calling a
+            // single precision one a double made `x += 1f` read as `(float)((double)x + 1.0)`.
+            return instruction.Op0Reg is >= Arm64Register.S0 and <= Arm64Register.S31
+                ? new FloatLiteral((float)imm)
+                : new DoubleLiteral(imm);
         }
 
         if (kind == Arm64OperandKind.Register)
