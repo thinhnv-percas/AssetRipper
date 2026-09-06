@@ -734,6 +734,18 @@ public static class IlGenerator
                 var floatConversion = FloatArithmeticConversion(instruction);
                 var floatOperandType = FloatArithmeticType(instruction, context);
 
+                // AssetRipper: the same where the destination is a register that also carried a whole
+                // aggregate somewhere else in the method, so the local is typed as one. The operands
+                // say what the arithmetic is: a float and a value named by the register holding its
+                // first member add as floats. `position.x + step` read as `position + step` without it.
+                if (floatOperandType == null && FloatComparisonType(instruction, context) is null
+                    && instruction.OpCode is OpCode.Add or OpCode.Subtract or OpCode.Multiply or OpCode.Divide or OpCode.Modulo
+                    && FloatArithmeticOperandType(instruction, context) is { } operandType)
+                {
+                    floatOperandType = operandType;
+                    floatConversion = null;
+                }
+
                 // AssetRipper: a comparison has no float destination to take the type from, so it
                 // takes it from whichever operand has one. Without it a float compared against a
                 // value the ABI returned in vector registers read as a comparison of the whole
@@ -788,6 +800,22 @@ public static class IlGenerator
                     case OpCode.And: instructions.Add(CilOpCodes.And); break;
                     case OpCode.Or: instructions.Add(CilOpCodes.Or); break;
                     case OpCode.Xor: instructions.Add(CilOpCodes.Xor); break;
+                }
+
+                // AssetRipper: the result is a float and the destination local is typed as the whole
+                // aggregate, so it is that aggregate's first member the register holds.
+                if (floatOperandType != null && instruction.Operands[0] is LocalVariable arithmeticResult
+                    && FloatAggregate.FirstMember(arithmeticResult.Type) is { } resultMember
+                    && locals.TryGetValue(arithmeticResult, out var resultLocal))
+                {
+                    var scratch = new CilLocalVariable(floatOperandType.ToTypeSignature());
+                    method.CilMethodBody!.LocalVariables.Add(scratch);
+
+                    instructions.Add(CilOpCodes.Stloc, scratch);
+                    instructions.Add(CilOpCodes.Ldloca, resultLocal);
+                    instructions.Add(CilOpCodes.Ldloc, scratch);
+                    instructions.Add(CilOpCodes.Stfld, resultMember.ToFieldDescriptor());
+                    break;
                 }
 
                 StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
@@ -906,6 +934,40 @@ public static class IlGenerator
             "System.Double" => context.AppContext.SystemTypes.SystemDoubleType,
             _ => null,
         };
+    }
+
+    /// <summary>
+    /// AssetRipper: the float type an arithmetic instruction is in, taken from its operands, when one
+    /// of them is a scalar float and the other a value named by the register holding its first member.
+    /// </summary>
+    private static TypeAnalysisContext? FloatArithmeticOperandType(Instruction instruction, MethodAnalysisContext context)
+    {
+        if (instruction.Operands.Count < 3)
+            return null;
+
+        TypeAnalysisContext? scalar = null;
+        var aggregates = 0;
+
+        for (var i = 1; i <= 2; i++)
+        {
+            switch (instruction.Operands[i])
+            {
+                case FloatLiteral:
+                    scalar ??= context.AppContext.SystemTypes.SystemSingleType;
+                    break;
+                case DoubleLiteral:
+                    scalar = context.AppContext.SystemTypes.SystemDoubleType;
+                    break;
+                case var operand when DestinationType(operand) is { } type && IsFloat(type):
+                    scalar = type.FullName == "System.Double" ? type : scalar ?? type;
+                    break;
+                case var operand when DestinationType(operand) is { } type && FloatAggregate.MemberCount(type) >= 2:
+                    aggregates++;
+                    break;
+            }
+        }
+
+        return aggregates > 0 ? scalar : null;
     }
 
     private static bool IsFloat(TypeAnalysisContext type) => type.FullName is "System.Single" or "System.Double";
