@@ -22,6 +22,8 @@ public static class Il2CppClassOffsetPatcher
 {
 	private const string ClassStruct = "Il2CppClass";
 
+	private const string MethodStruct = "MethodInfo";
+
 	/// <summary>
 	/// The names Cpp2IL analysis asks about, paired with the <c>libil2cpp</c> field they correspond to.
 	/// Several runtime fields were renamed across versions, hence more than one candidate for some.
@@ -39,9 +41,20 @@ public static class Il2CppClassOffsetPatcher
 		("typeHierarchyDepth", ["typeHierarchyDepth"]),
 	];
 
+	/// <summary>
+	/// The same for <c>MethodInfo</c>, whose layout gained a field in 2022 and so moves as well.
+	/// </summary>
+	private static readonly (string Cpp2IlName, string[] FieldNames)[] interestingMethodFields =
+	[
+		("klass", ["klass"]),
+		("rgctx_data", ["rgctx_data"]),
+	];
+
 	private static readonly object patchLock = new();
 
 	private static List<Il2CppClassUsefulOffsets.UsefulOffset>? originalOffsets;
+
+	private static List<Il2CppMethodInfoUsefulOffsets.UsefulOffset>? originalMethodOffsets;
 
 	/// <summary>
 	/// The built-in table, captured before it is ever modified, so a later run starts clean.
@@ -54,6 +67,10 @@ public static class Il2CppClassOffsetPatcher
 	/// </remarks>
 	private static List<Il2CppClassUsefulOffsets.UsefulOffset> OriginalOffsets
 		=> originalOffsets ??= [.. Il2CppClassUsefulOffsets.UsefulOffsets];
+
+	/// <summary>The same, for <c>MethodInfo</c>. See the remarks above.</summary>
+	private static List<Il2CppMethodInfoUsefulOffsets.UsefulOffset> OriginalMethodOffsets
+		=> originalMethodOffsets ??= [.. Il2CppMethodInfoUsefulOffsets.UsefulOffsets];
 
 	/// <summary>
 	/// Replaces any previous patch with offsets read from <paramref name="db"/>.
@@ -71,9 +88,11 @@ public static class Il2CppClassOffsetPatcher
 	{
 		RestoreCore();
 
+		int methodOffsets = ApplyMethodInfo(db);
+
 		if (!db.TryGetStruct(ClassStruct, out StructDbStruct? layout))
 		{
-			return 0;
+			return methodOffsets;
 		}
 
 		bool is32Bit = db.Is32Bit;
@@ -103,14 +122,45 @@ public static class Il2CppClassOffsetPatcher
 
 		if (measured.Count == 0)
 		{
-			return 0;
+			return methodOffsets;
 		}
 
 		// Prepended, not substituted: the built-in entries stay reachable for the other pointer size.
 		Il2CppClassUsefulOffsets.UsefulOffsets.InsertRange(0, measured);
 
 		Logger.Info(LogCategory.Import,
-			$"IL2CPP struct database: applied {measured.Count} measured Il2CppClass offsets for Unity {db.Version} ({(is32Bit ? "32" : "64")}-bit).");
+			$"IL2CPP struct database: applied {measured.Count} measured Il2CppClass and {methodOffsets} MethodInfo offsets " +
+			$"for Unity {db.Version} ({(is32Bit ? "32" : "64")}-bit).");
+
+		return measured.Count + methodOffsets;
+	}
+
+	/// <summary>
+	/// The same for <c>MethodInfo</c>, whose <c>klass</c> and <c>rgctx_data</c> are what generic
+	/// sharing is followed through and both of which move between Unity versions.
+	/// </summary>
+	private static int ApplyMethodInfo(RuntimeStructDb db)
+	{
+		if (!db.TryGetStruct(MethodStruct, out StructDbStruct? layout))
+		{
+			return 0;
+		}
+
+		List<Il2CppMethodInfoUsefulOffsets.UsefulOffset> measured = [];
+
+		foreach ((string cpp2IlName, string[] fieldNames) in interestingMethodFields)
+		{
+			StructDbField? field = Find(layout, fieldNames);
+
+			if (field is null || field.IsBitField || field.Offset < 0)
+			{
+				continue;
+			}
+
+			measured.Add(new Il2CppMethodInfoUsefulOffsets.UsefulOffset(cpp2IlName, (uint)field.Offset, DescribeType(field), db.Is32Bit));
+		}
+
+		Il2CppMethodInfoUsefulOffsets.UsefulOffsets.InsertRange(0, measured);
 
 		return measured.Count;
 	}
@@ -129,9 +179,14 @@ public static class Il2CppClassOffsetPatcher
 		// Read the snapshot before clearing: see the remarks on OriginalOffsets.
 		List<Il2CppClassUsefulOffsets.UsefulOffset> pristine = OriginalOffsets;
 
+		List<Il2CppMethodInfoUsefulOffsets.UsefulOffset> pristineMethods = OriginalMethodOffsets;
+
 		Il2CppClassUsefulOffsets.UsefulOffsets.Clear();
 		Il2CppClassUsefulOffsets.UsefulOffsets.AddRange(pristine);
 		Il2CppClassUsefulOffsets.MeasuredVtableOffset = null;
+
+		Il2CppMethodInfoUsefulOffsets.UsefulOffsets.Clear();
+		Il2CppMethodInfoUsefulOffsets.UsefulOffsets.AddRange(pristineMethods);
 	}
 
 	private static StructDbField? Find(StructDbStruct layout, string[] names)

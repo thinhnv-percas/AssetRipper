@@ -14,9 +14,17 @@ public static class RgctxResolver
     public static bool Run(MethodAnalysisContext method)
     {
         var is32Bit = method.AppContext.Binary.is32Bit;
-        var klassOffset = is32Bit ? 0x10 : 0x20;
-        var rgctxOffset = is32Bit ? 0x60 : 0xC0;
-        var methodRgctxOffset = is32Bit ? 0x1C : 0x38; // MethodInfo::rgctx_data
+
+        // AssetRipper: these were written down, and all three were the 2022 layout: MethodInfo::klass
+        // is at 0x18 and MethodInfo::rgctx_data at 0x30 before 2022 added a field ahead of them, so on
+        // an older game every generic sharing lookup went unrecognised and left its whole chain in the
+        // output. Read them from the tables instead, which a host with the runtime struct layouts
+        // fills in from the game's own Unity version.
+        if (!Il2CppMethodInfoUsefulOffsets.TryGetOffset("klass", is32Bit, out var klassOffset)
+            || !Il2CppMethodInfoUsefulOffsets.TryGetOffset("rgctx_data", is32Bit, out var methodRgctxOffset)
+            || !Il2CppClassUsefulOffsets.TryGetOffset("rgctx_data", is32Bit, out var rgctxOffset))
+            return false;
+
         var pointerSize = is32Bit ? 4 : 8;
 
         var changed = false;
