@@ -6,6 +6,7 @@ using AssetRipper.CIL;
 using AssetRipper.Import.Logging;
 using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core.OutputFormats;
+using LibCpp2IL.Elf;
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Text;
@@ -228,7 +229,45 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			return helper;
 		}
 
+		if (DescribePltStub(address) is string import)
+		{
+			return import;
+		}
+
 		return DescribeInteriorAddress(address);
+	}
+
+	/// <summary>Names resolved for PLT stubs, and the addresses that turned out not to be one.</summary>
+	private readonly ConcurrentDictionary<ulong, string?> pltImports = new();
+
+	/// <summary>
+	/// Describes an address that is a stub in the ELF procedure linkage table.
+	/// </summary>
+	/// <remarks>
+	/// These are calls into libc and the C++ runtime — 1794 of them on the test game, over 24 distinct
+	/// addresses. They start no managed method and sit below the lowest one, so the interior-address
+	/// naming below has nothing to say about them, and the code reads as a call to a bare number. The
+	/// stub jumps through a GOT slot, and the dynamic linker's own relocations say which imported
+	/// function that slot is bound to, so the name is in the file and only needed reading.
+	/// </remarks>
+	private string? DescribePltStub(ulong address)
+	{
+		if (appContext is null)
+		{
+			return null;
+		}
+
+		return pltImports.GetOrAdd(address, static (key, context) =>
+		{
+			if (context.Binary is not ElfFile elf)
+			{
+				return null;
+			}
+
+			ulong slot = context.InstructionSet.GetPltGotSlot(context, key);
+
+			return slot != 0 && elf.TryGetPltImportName(slot, out string? name) ? $"native {name}" : null;
+		}, appContext);
 	}
 
 	/// <summary>

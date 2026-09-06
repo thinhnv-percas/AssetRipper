@@ -129,6 +129,16 @@ public sealed class ElfFile : ElfStyleRelocationsBinary
 #endif
         }
 
+        // AssetRipper: the imported functions the PLT jumps to, which nothing else in the file names.
+        try
+        {
+            ProcessPltImports();
+        }
+        catch (Exception e)
+        {
+            LibLogger.VerboseNewline($"\tCaught {e.GetType().Name} reading PLT imports; calls into the PLT will stay unnamed.");
+        }
+
         LibLogger.Verbose("\tProcessing Initializers...");
         start = DateTime.Now;
 
@@ -292,6 +302,73 @@ public sealed class ElfFile : ElfStyleRelocationsBinary
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: the imported function each PLT slot is bound to, keyed by the address of the GOT
+    /// slot the stub reads. A call into the PLT is a call to one of these.
+    /// </summary>
+    private readonly Dictionary<ulong, string> _pltImportsByGotSlot = new();
+
+    /// <summary>AssetRipper: the name of the import bound to a GOT slot, if there is one.</summary>
+    public bool TryGetPltImportName(ulong gotSlotAddress, [NotNullWhen(true)] out string? name)
+        => _pltImportsByGotSlot.TryGetValue(gotSlotAddress, out name);
+
+    /// <summary>
+    /// AssetRipper: reads <c>.rela.plt</c> (or <c>.rel.plt</c>) so the PLT can be named.
+    /// </summary>
+    /// <remarks>
+    /// Each entry binds one GOT slot, named by its <c>r_offset</c>, to one dynamic symbol; the stub
+    /// that reads that slot is the address the code calls. The relocations are read again here rather
+    /// than remembered from applying them, so nothing about how they are applied changes.
+    /// </remarks>
+    private void ProcessPltImports()
+    {
+        if (GetDynamicEntryOfType(ElfDynamicType.DT_JMPREL) is not { } jumpRelocations
+            || GetDynamicEntryOfType(ElfDynamicType.DT_PLTRELSZ) is not { } jumpRelocationsSize
+            || GetDynamicEntryOfType(ElfDynamicType.DT_SYMTAB) is not { } symbolTable
+            || GetDynamicEntryOfType(ElfDynamicType.DT_STRTAB) is not { } stringTable)
+            return;
+
+        var isRela = GetDynamicEntryOfType(ElfDynamicType.DT_PLTREL)?.Value != (ulong)ElfDynamicType.DT_REL;
+        var symbolSize = (ulong)(is32Bit ? ElfDynamicSymbol32.StructSize : ElfDynamicSymbol64.StructSize);
+
+        var entrySize = (ulong)(isRela
+            ? is32Bit ? ElfRelaEntry.StructSize32Bit : ElfRelaEntry.StructSize64Bit
+            : is32Bit ? ElfRelEntry.StructSize32Bit : ElfRelEntry.StructSize64Bit);
+
+        var count = (int)(jumpRelocationsSize.Value / entrySize);
+
+        if (count <= 0)
+            return;
+
+        var entries = isRela
+            ? ReadReadableArrayAtVirtualAddress<ElfRelaEntry>(jumpRelocations.Value, count).Select(e => (e.Offset, e.Info)).ToList()
+            : ReadReadableArrayAtVirtualAddress<ElfRelEntry>(jumpRelocations.Value, count).Select(e => (e.Offset, e.Info)).ToList();
+
+        foreach (var (offset, info) in entries)
+        {
+            var symbolIndex = is32Bit ? info >> 8 : info >> 32;
+
+            var symbol = is32Bit
+                ? (IElfDynamicSymbol)ReadReadableAtVirtualAddress<ElfDynamicSymbol32>(symbolTable.Value + symbolIndex * symbolSize)
+                : ReadReadableAtVirtualAddress<ElfDynamicSymbol64>(symbolTable.Value + symbolIndex * symbolSize);
+
+            string name;
+            try
+            {
+                name = ReadStringToNull(stringTable.Value + symbol.NameOffset);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                continue; // stripped
+            }
+
+            if (!string.IsNullOrWhiteSpace(name))
+                _pltImportsByGotSlot[offset] = name;
+        }
+
+        LibLogger.VerboseNewline($"\t\t-Named {_pltImportsByGotSlot.Count} PLT imports");
     }
 
     private void ProcessInitializers()

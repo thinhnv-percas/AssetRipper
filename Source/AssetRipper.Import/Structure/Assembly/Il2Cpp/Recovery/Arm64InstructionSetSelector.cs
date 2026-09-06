@@ -73,6 +73,9 @@ public sealed class Arm64InstructionSetSelector : Cpp2IlInstructionSet
 	public override ulong GetThunkTarget(ApplicationAnalysisContext context, ulong thunkAddress)
 		=> Current.GetThunkTarget(context, thunkAddress);
 
+	public override ulong GetPltGotSlot(ApplicationAnalysisContext context, ulong address)
+		=> Current.GetPltGotSlot(context, address);
+
 	public override ulong GetInternalCallTarget(MethodAnalysisContext method)
 		=> Current.GetInternalCallTarget(method);
 

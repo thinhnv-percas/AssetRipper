@@ -68,6 +68,13 @@ public abstract class Cpp2IlInstructionSet
     public virtual ulong GetThunkTarget(ApplicationAnalysisContext context, ulong thunkAddress) => 0;
 
     /// <summary>
+    /// AssetRipper: for a PLT stub, the address of the GOT slot it jumps through, which is what the
+    /// dynamic linker binds to an imported function. Returns 0 when the address is not such a stub, or
+    /// when this instruction set does not recognise one.
+    /// </summary>
+    public virtual ulong GetPltGotSlot(ApplicationAnalysisContext context, ulong address) => 0;
+
+    /// <summary>
     /// For an internal call, returns the address of the runtime function it tail-calls into.
     /// Unlike a thunk these can do a small amount of work before the jump, so implementations must scan the whole body, unlike for <see cref="GetThunkTarget"/>.
     /// Returns 0 if there isn't exactly one such target, or if this instruction set does not implement it.

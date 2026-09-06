@@ -144,6 +144,60 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         return (dataReferences, callTargets);
     }
 
+    /// <summary>
+    /// AssetRipper: an AArch64 PLT stub is <c>adrp x16, page; ldr x17, [x16, #lo12]; add x16, x16,
+    /// #lo12; br x17</c>, so the slot it jumps through is the address that <c>ldr</c> reads.
+    /// </summary>
+    /// <remarks>
+    /// Decoded rather than computed from the section layout: the header and entry sizes of a PLT vary
+    /// by toolchain, and indexing into it by arithmetic is right only until one of them changes.
+    /// </remarks>
+    public override ulong GetPltGotSlot(ApplicationAnalysisContext context, ulong address)
+    {
+        var binary = context.Binary;
+
+        if (!binary.TryMapVirtualAddressToRaw(address, out var rawStart) || rawStart < 0)
+            return 0;
+
+        var content = binary.GetRawBinaryContent();
+        const int stubLength = 4 * 4;
+
+        if (rawStart + stubLength > content.Length)
+            return 0;
+
+        List<Arm64Instruction> stub;
+        try
+        {
+            stub = Disassembler.Disassemble(content.Slice((int)rawStart, stubLength), address, new Disassembler.Options(true, true, false)).ToList();
+        }
+        catch
+        {
+            return 0;
+        }
+
+        var pages = new Dictionary<Arm64Register, ulong>();
+        ulong slot = 0;
+
+        foreach (var instruction in stub)
+        {
+            switch (instruction.Mnemonic)
+            {
+                case Arm64Mnemonic.ADRP:
+                    pages[instruction.Op0Reg] = (ulong)((long)(instruction.Address & ~0xFFFUL) + instruction.Op1Imm);
+                    break;
+                case Arm64Mnemonic.LDR when pages.TryGetValue(instruction.MemBase, out var page):
+                    slot = (ulong)((long)page + instruction.MemOffset);
+                    break;
+                case Arm64Mnemonic.BR:
+                    return slot;
+                default:
+                    break;
+            }
+        }
+
+        return 0;
+    }
+
     public override List<Instruction> GetIsilFromMethod(MethodAnalysisContext context)
     {
         var insns = NewArm64Utils.GetArm64MethodBodyAtVirtualAddress(context.AppContext.Binary, context.UnderlyingPointer);
