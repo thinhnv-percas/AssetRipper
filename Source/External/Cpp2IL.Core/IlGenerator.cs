@@ -266,6 +266,54 @@ public static class IlGenerator
     /// </summary>
     public static Action<MethodAnalysisContext, IOperand>? UnresolvedMemoryLoad;
 
+    /// <summary>
+    /// AssetRipper: writes a call to a private framework method as the public one it is the inside of.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// il2cpp inlines the public wrapper, so the recovered code names the implementation:
+    /// <c>Quaternion.Euler(0f, y, 0f)</c> comes back as <c>Quaternion.Internal_FromEulerRad(euler)</c>,
+    /// which is private and so not a member an exported script can name.
+    /// </para>
+    /// <para>
+    /// Unlike the field case this needs to know what the wrapper did — Euler takes degrees where the
+    /// method it calls takes radians — so it is a table rather than a rule. The references are built
+    /// by name rather than looked up in the model, because managed stripping removes the wrapper from
+    /// the game's copy of the framework and the assembly the exported script is compiled against still
+    /// has it.
+    /// </para>
+    /// </remarks>
+    private static bool EmitInlinedFrameworkCall(MethodAnalysisContext target, Instruction instruction,
+        MethodAnalysisContext context, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals,
+        IMethodDescriptor writeLine)
+    {
+        if (target is not { Name: "Internal_FromEulerRad", DeclaringType.FullName: "UnityEngine.Quaternion" }
+            || instruction.OpCode != OpCode.Call || instruction.Operands.Count < 3)
+        {
+            return false;
+        }
+
+        var module = method.DeclaringModule!;
+        var quaternion = target.DeclaringType!.ToTypeSignature();
+        var vector3 = target.Parameters[0].ParameterType.ToTypeSignature();
+        var single = module.CorLibTypeFactory.Single;
+
+        var scale = vector3.ToTypeDefOrRef().CreateMemberReference("op_Multiply",
+            MethodSignature.CreateStatic(vector3, [vector3, single]));
+        var euler = quaternion.ToTypeDefOrRef().CreateMemberReference("Euler",
+            MethodSignature.CreateStatic(quaternion, [vector3]));
+
+        LoadOperand(instruction.Operands[2], context, method, locals, writeLine, target.Parameters[0].ParameterType);
+        method.CilMethodBody!.Instructions.Add(CilOpCodes.Ldc_R4, RadiansToDegrees);
+        method.CilMethodBody.Instructions.Add(CilOpCodes.Call, scale);
+        method.CilMethodBody.Instructions.Add(CilOpCodes.Call, euler);
+
+        StoreToOperand(instruction.Operands[1], context, method, locals, writeLine);
+        return true;
+    }
+
+    private const float RadiansToDegrees = 57.29578f;
+
     /// <summary>AssetRipper: how many hidden static fields were read through their public property.</summary>
     public static int HiddenFieldsReadThroughAProperty;
 
@@ -563,6 +611,11 @@ public static class IlGenerator
                     instructions.Add(CilOpCodes.Call, writeLine);
                     break;
                 }
+
+                // AssetRipper: a framework method that only exists as the inside of a public one; see
+                // EmitInlinedFrameworkCall.
+                if (EmitInlinedFrameworkCall(targetMethod, instruction, context, method, locals, writeLine))
+                    break;
 
                 var importedMethod = targetMethod.ToMethodDescriptor();
 
@@ -874,6 +927,13 @@ public static class IlGenerator
                 FloatLiteral => context.AppContext.SystemTypes.SystemSingleType,
                 DoubleLiteral => context.AppContext.SystemTypes.SystemDoubleType,
                 var operand when DestinationType(operand) is { } operandType && IsFloat(operandType) => operandType,
+
+                // AssetRipper: a value the ABI keeps in several vector registers is named by the
+                // register carrying its first member, so comparing one against a number is a
+                // comparison of that member. Without this `position.x > 0` reads as `(nint)position > 0`.
+                var operand when DestinationType(operand) is { } aggregate && FloatAggregate.FirstMember(aggregate) is { } first
+                    => first.FieldType,
+
                 _ => null,
             };
 
@@ -962,6 +1022,16 @@ public static class IlGenerator
 
         switch (operand)
         {
+            // AssetRipper: an integer immediate stored where a float belongs is the float's bits. The
+            // machine has no way to write a float constant other than to materialise its bit pattern
+            // in an integer register and store that; a real conversion would be an scvtf. Read as a
+            // number, -0.5f came back as 3.2044483E+09f.
+            case Immediate { Value: >= 0 and <= uint.MaxValue } bits when expectedType is { } wantedFloat && IsFloat(wantedFloat):
+                if (wantedFloat.FullName == "System.Double")
+                    instructions.Add(CilOpCodes.Ldc_R8, BitConverter.Int64BitsToDouble(bits.Value));
+                else
+                    instructions.Add(CilOpCodes.Ldc_R4, BitConverter.Int32BitsToSingle((int)(uint)bits.Value));
+                break;
             case Immediate { Value: >= int.MinValue and <= int.MaxValue } immediate:
                 instructions.Add(CilOpCodes.Ldc_I4, (int)immediate.Value);
                 break;
@@ -1015,8 +1085,12 @@ public static class IlGenerator
             case FieldReference field:
                 if (field.Field.IsStatic)
                 {
-                    // AssetRipper: prefer the public property over a hidden backing field; see PublicAccessorFor.
-                    if (PublicAccessorFor(field.Field) is { } accessor)
+                    // AssetRipper: an instance method on a value type takes its receiver by reference,
+                    // and a property call cannot give one, so the address of the field is what it wants.
+                    if (expectedType is ByRefTypeAnalysisContext or PointerTypeAnalysisContext)
+                        instructions.Add(CilOpCodes.Ldsflda, field.Field.ToFieldDescriptor());
+                    // prefer the public property over a hidden backing field; see PublicAccessorFor.
+                    else if (PublicAccessorFor(field.Field) is { } accessor)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
                         instructions.Add(CilOpCodes.Call, accessor.ToMethodDescriptor());

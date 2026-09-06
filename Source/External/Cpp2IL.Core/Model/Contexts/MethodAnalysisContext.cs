@@ -465,6 +465,13 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         for (var i = 0; i < 8 && ConstantFolder.Run(this); i++)
             SsaSimplifier.Run(this);
 
+        // AssetRipper: after the propagation above, because the shape it matches — a field read and
+        // the loads just past it — only exists once the loads have been folded into their uses. Before
+        // the elimination below, so that what the fold stops reading dies with it.
+        StaticFieldStorageHead.Run(this);
+        MakeStructFolder.Run(this);
+        DeadCodeEliminator.Run(this);
+
         InternalCallGuardRemover.Run(this);
         KeyFunctionRecovery.Run(this);
 

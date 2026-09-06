@@ -2,6 +2,7 @@ using AsmResolver.DotNet;
 using AsmResolver.DotNet.Code.Cil;
 using AsmResolver.DotNet.Signatures;
 using AsmResolver.PE.DotNet.Cil;
+using AsmResolver.PE.DotNet.Metadata.Tables;
 using AssetRipper.CIL;
 using AssetRipper.Import.Logging;
 using Cpp2IL.Core;
@@ -117,6 +118,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Utils.BaseCallingConventionResolver.AggregateArgumentsComposed} call arguments the ABI " +
 				"spread over several vector registers were composed back into their value.");
 			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened to internal " +
+				"because an inlined constructor writes them from outside the type that declares them.");
+			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {IlGenerator.HiddenFieldsReadThroughAProperty} reads of a hidden static field " +
 				"were written as the public property that returns it.");
 			return assemblies;
@@ -138,12 +142,76 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			return;
 		}
 
+		WidenMembersTheBodyCannotReach(methodDefinition);
 		ReplaceIfUnverifiable(methodDefinition);
 		NamePlaceholderAddresses(methodDefinition.CilMethodBody);
 	}
 
 	private readonly ConcurrentDictionary<string, int> unresolvedLoadKinds = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, string> unresolvedLoadExamples = new(StringComparer.Ordinal);
+
+	/// <summary>
+	/// Widens a member of this assembly that the generated body reaches but a compiler would not let it.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// il2cpp inlines a constructor into its caller, so what the caller does is allocate the object and
+	/// write its fields. Where the type is a compiler-generated one — an iterator state machine, a
+	/// closure — those fields are private, and a private member of a nested type is not accessible from
+	/// the type it is nested in. So <c>LoadASynchronously</c> comes back writing
+	/// <c>&lt;LoadASynchronously&gt;d__1.&lt;&gt;1__state</c> and the exported script does not compile,
+	/// which was the one CS0122 in the game reported.
+	/// </para>
+	/// <para>
+	/// Only members of the same assembly are widened, and only to internal. Those are types this
+	/// export invented the source for, so their accessibility is ours to state; a member of a
+	/// framework assembly is left alone, because the assembly the script is really compiled against is
+	/// not this one.
+	/// </para>
+	/// </remarks>
+	private static void WidenMembersTheBodyCannotReach(MethodDefinition methodDefinition)
+	{
+		if (methodDefinition.CilMethodBody is not { } body || methodDefinition.DeclaringType is not { } accessor)
+		{
+			return;
+		}
+
+		foreach (CilInstruction instruction in body.Instructions)
+		{
+			// Only a definition, which is what a reference within this assembly resolves to when the
+			// generator emits it. A reference to another assembly is not ours to widen anyway.
+			if (instruction.Operand is not FieldDefinition field
+				|| field.DeclaringType is not { } owner
+				|| owner.DeclaringModule != methodDefinition.DeclaringModule
+				|| SameOrNestedIn(accessor, owner))
+			{
+				continue;
+			}
+
+			FieldAttributes access = field.Attributes & FieldAttributes.FieldAccessMask;
+
+			if (access is FieldAttributes.Private or FieldAttributes.FamilyAndAssembly or FieldAttributes.Family)
+			{
+				field.Attributes = (field.Attributes & ~FieldAttributes.FieldAccessMask) | FieldAttributes.Assembly;
+				Interlocked.Increment(ref widenedMemberCount);
+			}
+		}
+	}
+
+	private static bool SameOrNestedIn(TypeDefinition type, TypeDefinition owner)
+	{
+		for (TypeDefinition? candidate = type; candidate is not null; candidate = candidate.DeclaringType)
+		{
+			if (candidate == owner)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private static int widenedMemberCount;
 
 	/// <summary>
 	/// Counts what the memory operands the generator gives up on actually are.
