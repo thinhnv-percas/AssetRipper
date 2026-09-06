@@ -107,9 +107,18 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		appContext = context;
 		methodStarts = BuildMethodStarts(); // before the parallel body generation that reads it
 
-		List<AssemblyDefinition> assemblies = base.BuildAssemblies(context);
-		LogSummary();
-		return assemblies;
+		IlGenerator.UnresolvedMemoryLoad += ClassifyUnresolvedLoad;
+
+		try
+		{
+			List<AssemblyDefinition> assemblies = base.BuildAssemblies(context);
+			LogSummary();
+			return assemblies;
+		}
+		finally
+		{
+			IlGenerator.UnresolvedMemoryLoad -= ClassifyUnresolvedLoad;
+		}
 	}
 
 	protected override void FillMethodBody(MethodDefinition methodDefinition, MethodAnalysisContext methodContext)
@@ -127,17 +136,11 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		NamePlaceholderAddresses(methodDefinition.CilMethodBody);
 	}
 
-	/// <summary>Runs while the analysis is still there; see the base class.</summary>
-	protected override void OnBodyGenerated(MethodDefinition methodDefinition, MethodAnalysisContext methodContext)
-	{
-		ClassifyUnresolvedLoads(methodContext);
-	}
-
 	private readonly ConcurrentDictionary<string, int> unresolvedLoadKinds = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, string> unresolvedLoadExamples = new(StringComparer.Ordinal);
 
 	/// <summary>
-	/// Counts what the memory operands that reach the generator unresolved actually are.
+	/// Counts what the memory operands the generator gives up on actually are.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -150,55 +153,93 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// <para>
 	/// So this classifies each one where the types are still in hand, before it is flattened into a
 	/// string, and the summary at the end of the run says how many of each there were with an example
-	/// of each. That is the list to work down.
+	/// of each. That is the list to work down. It hangs off the generator rather than walking the
+	/// finished graph so that the count is of operands that were actually given up on, not of every
+	/// operand in the method.
 	/// </para>
 	/// </remarks>
-	private void ClassifyUnresolvedLoads(MethodAnalysisContext methodContext)
+	private void ClassifyUnresolvedLoad(MethodAnalysisContext methodContext, IOperand operand)
 	{
-		if (appContext is null || methodContext.ControlFlowGraph is not { } cfg)
+		if (appContext is null || operand is not MemoryOperand memory)
 		{
 			return;
 		}
 
-		bool is32Bit = appContext.Binary.is32Bit;
+		string kind = ClassifyOperand(memory, appContext.Binary.is32Bit, SourcesFor(methodContext));
+		unresolvedLoadKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
 
-		// a local map: this runs in parallel over every method
-		Dictionary<LocalVariable, string> untypedBaseSources = [];
-
-		foreach (Block block in cfg.Blocks)
+		if (!unresolvedLoadExamples.ContainsKey(kind))
 		{
-			foreach (Instruction instruction in block.Instructions)
-			{
-				if (instruction.Destination is LocalVariable { Type: null } untyped)
-				{
-					untypedBaseSources[untyped] = instruction.OpCode switch
-					{
-						Cpp2IL.Core.ISIL.OpCode.Move when instruction.Operands.Count > 1 => $"Move from {DescribeSource(instruction.Operands[1])}",
-						Cpp2IL.Core.ISIL.OpCode.Phi => "Phi",
-						Cpp2IL.Core.ISIL.OpCode.Call or Cpp2IL.Core.ISIL.OpCode.IndirectCall => "a call's result",
-						_ => instruction.OpCode.ToString(),
-					};
-				}
-			}
+			unresolvedLoadExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {ExampleFor(methodContext, operand)}");
 		}
+	}
 
-		foreach (Block block in cfg.Blocks)
+	/// <summary>The instruction the operand belongs to, which says far more than the operand alone.</summary>
+	private static string ExampleFor(MethodAnalysisContext methodContext, IOperand operand)
+	{
+		if (methodContext.ControlFlowGraph is { } cfg)
 		{
-			foreach (Instruction instruction in block.Instructions)
+			foreach (Block block in cfg.Blocks)
 			{
-				foreach (IOperand operand in instruction.Operands)
+				foreach (Instruction instruction in block.Instructions)
 				{
-					if (operand is not MemoryOperand memory)
+					foreach (IOperand candidate in instruction.Operands)
 					{
-						continue;
+						if (candidate.Equals(operand))
+						{
+							return instruction.ToString();
+						}
 					}
-
-					string kind = ClassifyOperand(memory, is32Bit, untypedBaseSources);
-					unresolvedLoadKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
-					unresolvedLoadExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {instruction}");
 				}
 			}
 		}
+
+		return operand.ToString() ?? "";
+	}
+
+	[ThreadStatic] private static MethodAnalysisContext? sourcesOwner;
+	[ThreadStatic] private static Dictionary<LocalVariable, string>? sourcesCache;
+
+	/// <summary>
+	/// What defined each local in the method, so that a base can be named by where it came from.
+	/// </summary>
+	/// <remarks>
+	/// Bodies are generated in parallel and every unresolved load in one body wants the same map, so
+	/// it is built once per method and cached per thread.
+	/// </remarks>
+	private static Dictionary<LocalVariable, string> SourcesFor(MethodAnalysisContext methodContext)
+	{
+		if (ReferenceEquals(sourcesOwner, methodContext) && sourcesCache is not null)
+		{
+			return sourcesCache;
+		}
+
+		Dictionary<LocalVariable, string> sources = [];
+
+		if (methodContext.ControlFlowGraph is { } cfg)
+		{
+			foreach (Block block in cfg.Blocks)
+			{
+				foreach (Instruction instruction in block.Instructions)
+				{
+					if (instruction.Destination is LocalVariable destination)
+					{
+						sources[destination] = instruction.OpCode switch
+						{
+							Cpp2IL.Core.ISIL.OpCode.Move when instruction.Operands.Count > 1 => $"Move from {DescribeSource(instruction.Operands[1])}",
+							Cpp2IL.Core.ISIL.OpCode.Add when instruction.Operands.Count > 2 => $"Add of {DescribeSource(instruction.Operands[1])} and {DescribeSource(instruction.Operands[2])}",
+							Cpp2IL.Core.ISIL.OpCode.Phi => "Phi",
+							Cpp2IL.Core.ISIL.OpCode.Call or Cpp2IL.Core.ISIL.OpCode.IndirectCall => "a call's result",
+							_ => instruction.OpCode.ToString(),
+						};
+					}
+				}
+			}
+		}
+
+		sourcesOwner = methodContext;
+		sourcesCache = sources;
+		return sources;
 	}
 
 	private static string DescribeSource(IOperand operand) => operand switch
@@ -206,13 +247,19 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		MemoryOperand { Base: null } => "an absolute address",
 		MemoryOperand { Base: LocalVariable { Type: { } baseType } } memory => $"[{baseType.Name} + 0x{memory.Addend:X}]",
 		MemoryOperand => "an untyped base",
+		AddressOf { Target: LocalVariable { Type: { } addressedType } } => $"AddressOf({addressedType.Name})",
+		AddressOf { Target: LocalVariable } => "AddressOf(an untyped local)",
+		AddressOf addressOf => $"AddressOf({addressOf.Target.GetType().Name})",
 		LocalVariable { Type: { } sourceType } => sourceType.Name,
 		LocalVariable => "an untyped local",
 		FieldReference field => $"the field {field.Field.FieldType.Name}",
 		_ => operand.GetType().Name,
 	};
 
-	private string ClassifyOperand(MemoryOperand memory, bool is32Bit, Dictionary<LocalVariable, string> untypedBaseSources)
+	private static string SourceOf(LocalVariable local, Dictionary<LocalVariable, string> baseSources)
+		=> baseSources.TryGetValue(local, out string? found) ? found : "no definition";
+
+	private string ClassifyOperand(MemoryOperand memory, bool is32Bit, Dictionary<LocalVariable, string> baseSources)
 	{
 		if (memory.Base is null)
 		{
@@ -227,8 +274,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		if (local.Type is null)
 		{
 			// what defined it is the question, so say that rather than just "no type"
-			string source = untypedBaseSources.TryGetValue(local, out string? found) ? found : "no definition";
-			return $"base has no type, from {source}";
+			return $"base has no type, from {SourceOf(local, baseSources)}";
 		}
 
 		string offset = memory.Addend < 0 ? $"-0x{-memory.Addend:X}" : $"0x{memory.Addend:X}";
@@ -245,9 +291,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			case StaticFieldStorageTypeAnalysisContext:
 				return $"static field storage at {offset}";
 			case SzArrayTypeAnalysisContext:
-				return $"array at {offset}";
+				return $"array at {offset}, from {SourceOf(local, baseSources)}";
 			case ByRefTypeAnalysisContext:
-				return $"byref at {offset}";
+				return $"byref at {offset}, from {SourceOf(local, baseSources)}";
 		}
 
 		if (memory.Addend < 0)
@@ -875,7 +921,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			int total = unresolvedLoadKinds.Values.Sum();
 
 			Logger.Info(LogCategory.Import,
-				$"Il2Cpp method body recovery: {total} memory operands reached the generator unresolved, by kind:");
+				$"Il2Cpp method body recovery: {total} memory loads the generator gave up on, by kind:");
 
 			foreach ((string kind, int count) in unresolvedLoadKinds.OrderByDescending(pair => pair.Value))
 			{

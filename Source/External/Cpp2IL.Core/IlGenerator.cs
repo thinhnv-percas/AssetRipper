@@ -260,6 +260,12 @@ public static class IlGenerator
         instructions.Add(CilOpCodes.Ret);
     }
 
+    /// <summary>
+    /// AssetRipper: raised for every memory operand that becomes an <c>Unmanaged memory load</c>
+    /// placeholder. Runs on the body-generation threads, so a handler has to be thread safe.
+    /// </summary>
+    public static Action<MethodAnalysisContext, IOperand>? UnresolvedMemoryLoad;
+
     // Limit so we don't run into the 16mb limit (see AsmResolver issue #775)
     private static string Diagnostic(string message) 
         => message.Length <= 250 ? message : message[..250] + "…";
@@ -1017,6 +1023,11 @@ public static class IlGenerator
                         break;
                     }
                 }
+
+                // AssetRipper: this is the one place a memory operand is given up on, so it is the
+                // only honest place to count them from. Classifying the CFG instead counts operands
+                // that never reach the generator at all.
+                UnresolvedMemoryLoad?.Invoke(context, operand);
 
                 instructions.Add(CilOpCodes.Ldstr, Diagnostic("Unmanaged memory load: " + operand));
                 instructions.Add(CilOpCodes.Call, writeLine);
