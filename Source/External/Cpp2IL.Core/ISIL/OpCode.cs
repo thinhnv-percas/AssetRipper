@@ -125,5 +125,11 @@ public enum OpCode
     /// <summary>
     /// Throws a new instance of the exception type described by op 1.
     /// </summary>
-    Throw
+    Throw,
+
+    /// <summary>
+    /// AssetRipper: moves op 3 into op 1 if it is an instance of the type described by op 2, and null
+    /// otherwise. Appended rather than inserted: the ranges above are compared against by value.
+    /// </summary>
+    IsInst
 }

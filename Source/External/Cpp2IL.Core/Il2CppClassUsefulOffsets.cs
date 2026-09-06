@@ -56,8 +56,21 @@ public static class Il2CppClassUsefulOffsets
         new("interface_offsets_count", 0x12A, typeof(ushort), false),
         new("flags1", 0x132, typeof(byte), false),
         new("flags2", 0x133, typeof(byte), false),
-        new("vtable", 0x138, typeof(IntPtr), false)
+        new("vtable", 0x138, typeof(IntPtr), false),
+
+        // AssetRipper: the two an inlined type check reads. These are the 2022.3 values; a host with
+        // the runtime struct layouts prepends the measured ones, which is how 2019.2 gets 0x128.
+        new("typeHierarchy", 0xC8, typeof(IntPtr), false),
+        new("typeHierarchyDepth", 0x130, typeof(ushort), false)
     ];
+
+    /// <summary>AssetRipper: the offset of a named field, when one is known for this pointer size.</summary>
+    public static bool TryGetOffset(string name, bool is32Bit, out long offset)
+    {
+        var match = UsefulOffsets.FirstOrDefault(o => o.is32Bit == is32Bit && o.name == name);
+        offset = match?.offset ?? 0;
+        return match != null;
+    }
 
     public static bool IsStaticFieldsPtr(uint offset, bool is32Bit)
     {

@@ -423,6 +423,19 @@ public static class IlGenerator
                 }
                 break;
 
+            // AssetRipper: the inlined hierarchy walk, recovered into the cast it was.
+            case OpCode.IsInst:
+                if (instruction.Operands is [_, TypeAnalysisContext checkedType, var checkedValue])
+                {
+                    LoadOperand(checkedValue, context, method, locals, writeLine);
+                    instructions.Add(CilOpCodes.Isinst, checkedType.ToTypeSignature().ToTypeDefOrRef());
+                }
+                else
+                    instructions.Add(CilOpCodes.Ldnull);
+
+                StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                break;
+
             case OpCode.Box:
                 if (instruction.Operands is [_, TypeAnalysisContext boxedType, var boxedValue])
                 {

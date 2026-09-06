@@ -413,6 +413,9 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // test being on a class pointer. Most of them are of that shape.
         MetadataInitGuardRemover.Run(this);
 
+        // AssetRipper: needs the same typing, for the same reason.
+        TypeCheckRecovery.Run(this);
+
         // Needs the MethodInfo* receivers typed, so runs after resolution unlike the class-init guards
         MetadataInitGuardRemover.RunRgctx(this);
 

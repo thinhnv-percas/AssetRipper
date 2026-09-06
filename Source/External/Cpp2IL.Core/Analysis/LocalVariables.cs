@@ -424,6 +424,13 @@ public static class LocalVariables
     {
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
+            // AssetRipper: an isinst yields the type it tested, or null
+            if (instruction is { OpCode: OpCode.IsInst, Operands: [LocalVariable cast, TypeAnalysisContext castType, ..] })
+            {
+                cast.Type = castType;
+                continue;
+            }
+
             if (instruction.OpCode != OpCode.Newobj || instruction.Operands.Count < 2)
                 continue;
 

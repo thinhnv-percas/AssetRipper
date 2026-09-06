@@ -35,6 +35,8 @@ public static class Il2CppClassOffsetPatcher
 		("elementType", ["element_class"]),
 		("vtable", ["vtable"]),
 		("cctor_finished", ["cctor_finished", "cctor_finished_or_no_cctor"]),
+		("typeHierarchy", ["typeHierarchy"]),
+		("typeHierarchyDepth", ["typeHierarchyDepth"]),
 	];
 
 	private static readonly object patchLock = new();
