@@ -408,6 +408,11 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         LocalVariables.ResolveTypesAndFields(this);
 
+        // AssetRipper: again, because a class pointer read off an object rather than named by a
+        // metadata usage is only typed by the resolution above, and the guard is recognised by its
+        // test being on a class pointer. Most of them are of that shape.
+        MetadataInitGuardRemover.Run(this);
+
         // Needs the MethodInfo* receivers typed, so runs after resolution unlike the class-init guards
         MetadataInitGuardRemover.RunRgctx(this);
 

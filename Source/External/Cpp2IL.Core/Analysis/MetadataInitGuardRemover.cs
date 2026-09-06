@@ -97,20 +97,57 @@ public static class MetadataInitGuardRemover
 
         foreach (var instruction in cfg.Instructions)
         {
-            if (instruction is not { OpCode: OpCode.Move, Operands: [LocalVariable destination, var source] })
-                continue;
-
-            if (source is TypeAnalysisContext and not (RuntimeMethodInfoAnalysisContext or RuntimeFieldInfoAnalysisContext))
+            if (instruction is { OpCode: OpCode.Move, Operands: [LocalVariable destination, TypeAnalysisContext and not (RuntimeMethodInfoAnalysisContext or RuntimeFieldInfoAnalysisContext)] })
                 classPointers.Add(destination);
-            else if (source is MemoryOperand { Index: null, Scale: 0, Addend: > 0, Base: LocalVariable owner } && IsClassPointer(owner))
+            else if (instruction.Operands is [LocalVariable typedDestination, ..] && typedDestination.Type is RuntimeClassTypeAnalysisContext)
+                classPointers.Add(typedDestination);
+        }
+
+        // AssetRipper: a class pointer is copied and merged before it is tested - through a phi at a
+        // branch join, then a plain copy - and the locals along the way carry no type of their own.
+        // Following the copies is what lets the guard on the far end be recognised at all.
+        bool grew;
+        do
+        {
+            grew = false;
+
+            foreach (var instruction in cfg.Instructions)
+            {
+                if (instruction.OpCode is not (OpCode.Move or OpCode.Phi)
+                    || instruction.Operands is not [LocalVariable destination, ..]
+                    || classPointers.Contains(destination))
+                    continue;
+
+                for (var i = 1; i < instruction.Operands.Count; i++)
+                {
+                    // A copy or a phi carries the pointer; so does one more dereference, because the
+                    // address in the code can name the metadata usage slot rather than be it, and both
+                    // resolve to the same usage - see the same allowance in PropagateStaticFieldStorage.
+                    var carried = instruction.Operands[i] switch
+                    {
+                        LocalVariable source => source,
+                        MemoryOperand { Index: null, Scale: 0, Addend: 0, Base: LocalVariable through } => through,
+                        _ => null,
+                    };
+
+                    if (carried != null && classPointers.Contains(carried))
+                    {
+                        grew |= classPointers.Add(destination);
+                        break;
+                    }
+                }
+            }
+        } while (grew);
+
+        foreach (var instruction in cfg.Instructions)
+        {
+            if (instruction is { OpCode: OpCode.Move, Operands: [LocalVariable destination, MemoryOperand { Index: null, Scale: 0, Addend: > 0, Base: LocalVariable owner }] }
+                && classPointers.Contains(owner))
                 classByteLoads.Add(destination);
         }
 
         foreach (var guard in cfg.Blocks.ToList())
             removedAny |= TryRemoveGuard(cfg, guard, initialisedFlagOffset, classByteLoads);
-
-        bool IsClassPointer(LocalVariable local)
-            => local.Type is RuntimeClassTypeAnalysisContext || classPointers.Contains(local);
 
         removedAny |= RemoveBareClassInitCalls(cfg);
 
@@ -159,8 +196,76 @@ public static class MetadataInitGuardRemover
         var second = guard.Successors[1];
 
         return TryExcise(cfg, guard, first, second, initialisedFlagTest)
-            || TryExcise(cfg, guard, second, first, initialisedFlagTest);
+            || TryExcise(cfg, guard, second, first, initialisedFlagTest)
+            || (initialisedFlagTest && TryFoldVacuousGuard(cfg, guard)); // AssetRipper
     }
+
+    /// <summary>
+    /// AssetRipper: folds a class flag test whose two arms both do nothing and meet again.
+    /// </summary>
+    /// <remarks>
+    /// The compiler does not always give the guard the shape of one arm skipping the other: it can
+    /// leave a diamond, with both arms reaching a common block. Once the initializer call in one of
+    /// them has been eliminated — its result is unused, so an earlier pass takes it — both arms are
+    /// empty and the test decides nothing, but it still reads a byte of Il2CppClass that has no
+    /// managed meaning. Two thousand of those survived on the test game.
+    /// </remarks>
+    private static bool TryFoldVacuousGuard(ISILControlFlowGraph cfg, Block guard)
+    {
+        if (guard.Successors.Count != 2)
+            return false;
+
+        var first = guard.Successors[0];
+        var second = guard.Successors[1];
+
+        if (ReferenceEquals(first, second) || !IsEmptyArm(guard, first) || !IsEmptyArm(guard, second))
+            return false;
+
+        var merge = first.Successors[0];
+
+        if (!ReferenceEquals(merge, second.Successors[0]) || ReferenceEquals(merge, guard)
+            || ReferenceEquals(merge, cfg.EntryBlock) || ReferenceEquals(merge, cfg.ExitBlock))
+            return false;
+
+        var firstIndex = merge.Predecessors.IndexOf(first);
+        var secondIndex = merge.Predecessors.IndexOf(second);
+
+        if (firstIndex < 0 || secondIndex < 0)
+            return false;
+
+        // The merge sees one predecessor where it saw two, and both carried the same values, because
+        // neither arm computed anything. Drop the second's phi inputs; the first's slot becomes the
+        // guard's.
+        foreach (var phi in merge.Instructions)
+            if (phi.OpCode == OpCode.Phi && 1 + secondIndex < phi.Operands.Count)
+                phi.RemoveOperandAt(1 + secondIndex);
+
+        merge.Predecessors.RemoveAt(secondIndex);
+        merge.Predecessors[merge.Predecessors.IndexOf(first)] = guard;
+
+        guard.Successors.Clear();
+        guard.Successors.Add(merge);
+
+        var terminator = guard.Instructions[^1];
+        terminator.OpCode = OpCode.Jump;
+        terminator.SetOperands(merge);
+        guard.CalculateBlockType();
+
+        foreach (var arm in (Block[])[first, second])
+        {
+            arm.Successors.Clear();
+            arm.Predecessors.Clear();
+            cfg.Blocks.Remove(arm);
+        }
+
+        return true;
+    }
+
+    /// <summary>An arm of a guard that only exists to rejoin: one way in, one way out, nothing done.</summary>
+    private static bool IsEmptyArm(Block guard, Block arm)
+        => arm.Predecessors.Count == 1 && ReferenceEquals(arm.Predecessors[0], guard)
+           && arm.Successors.Count == 1
+           && arm.Instructions.All(i => i.OpCode is OpCode.Nop or OpCode.Jump);
 
     private static bool IsOne(IOperand operand) => operand is Immediate { Value: 1 };
 
@@ -176,7 +281,9 @@ public static class MetadataInitGuardRemover
     /// reconverge and do nothing observable before it is dropped.
     /// </remarks>
     private static bool IsClassFlagTest(IOperand flag, IOperand mask, HashSet<LocalVariable> classByteLoads) =>
-        mask is Immediate { Value: > 0 and <= 0x80 and var bit } && (bit & (bit - 1)) == 0
+        // any single bit: the load is a byte, a halfword or a word depending on which flag it is
+        // after, so `& 0x200` is bit 1 of the byte after the one `& 2` reads
+        mask is Immediate { Value: > 0 and <= 0x8000_0000 and var bit } && (bit & (bit - 1)) == 0
         && flag switch
         {
             // the load may still be its own instruction: copy propagation has not run yet here
@@ -191,17 +298,38 @@ public static class MetadataInitGuardRemover
         if (merge == cfg.EntryBlock || merge == cfg.ExitBlock)
             return false;
 
-        if (!TryCollectRegion(cfg, guard, initEntry, merge, initialisedFlagTest, out var region))
+        if (!TryCollectRegion(cfg, guard, initEntry, merge, initialisedFlagTest, out var region, out var shared))
             return false;
 
-        Excise(cfg, guard, initEntry, merge, region);
+        // AssetRipper: the compiler shares one initialisation region between several guards, so
+        // removing it for this one would take it from the others. Redirecting this guard past it is
+        // the whole of what is wanted anyway; the region goes when the last guard stops entering it.
+        if (shared)
+            RedirectGuard(guard, initEntry, merge);
+        else
+            Excise(cfg, guard, initEntry, merge, region);
+
         return true;
     }
 
+    /// <summary>AssetRipper: sends the guard straight to the merge, leaving the region for its other users.</summary>
+    private static void RedirectGuard(Block guard, Block initEntry, Block merge)
+    {
+        guard.Successors.Remove(initEntry);
+        initEntry.Predecessors.Remove(guard);
+
+        // The merge is already the guard's other successor, so the edge and its phi slot are in place.
+        var terminator = guard.Instructions[^1];
+        terminator.OpCode = OpCode.Jump;
+        terminator.SetOperands(merge);
+        guard.CalculateBlockType();
+    }
+
     private static bool TryCollectRegion(ISILControlFlowGraph cfg, Block guard, Block initEntry, Block merge,
-        bool initialisedFlagTest, out HashSet<Block> region)
+        bool initialisedFlagTest, out HashSet<Block> region, out bool shared)
     {
         region = [];
+        shared = false;
 
         if (initEntry == merge || initEntry == guard)
             return false;
@@ -248,8 +376,10 @@ public static class MetadataInitGuardRemover
         var collected = region;
         foreach (var block in collected)
         {
+            // AssetRipper: an entrance from elsewhere no longer disqualifies the region, it only means
+            // the region cannot be deleted with it.
             if (block.Predecessors.Any(predecessor => predecessor != guard && !collected.Contains(predecessor)))
-                return false;
+                shared = true;
             if (block.Successors.Any(successor => successor != merge && !collected.Contains(successor)))
                 return false;
         }
@@ -269,8 +399,11 @@ public static class MetadataInitGuardRemover
                 case OpCode.Jump:
                 // AssetRipper: a guard can be two tests deep - has_cctor outside, cctor_finished
                 // inside - so the region's own branching is part of it. Which blocks the region
-                // covers is checked separately, by walking successors back to the merge.
+                // covers is checked separately, by walking successors back to the merge. A phi only
+                // names which version of a value arrived, which is nothing to carry out of a region
+                // nobody enters.
                 case OpCode.ConditionalJump:
+                case OpCode.Phi:
                     break;
 
                 // Behind an initialized_and_no_error test the callee is the class initializer, even if we didn't resolve it.
