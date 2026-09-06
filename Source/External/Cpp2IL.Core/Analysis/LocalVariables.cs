@@ -425,6 +425,10 @@ public static class LocalVariables
     {
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
+            // AssetRipper: a composed aggregate is exactly the type it was composed as
+            if (instruction is { OpCode: OpCode.MakeStruct, Operands: [LocalVariable composed, TypeAnalysisContext composedType, ..] })
+                composed.Type = composedType;
+
             // AssetRipper: an isinst yields the type it tested, or null
             if (instruction is { OpCode: OpCode.IsInst, Operands: [LocalVariable cast, TypeAnalysisContext castType, ..] })
             {

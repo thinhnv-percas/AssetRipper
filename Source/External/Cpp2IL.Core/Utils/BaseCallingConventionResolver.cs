@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
 
@@ -64,7 +65,12 @@ public abstract class BaseCallingConventionResolver
     }
 
     // TODO Fix handling of params on the stack here
-    public void RemapRawArguments(Instruction call, MethodAnalysisContext resolved)
+    /// <param name="caller">
+    /// AssetRipper: the method the call is in, when the caller has it to hand. With it, an argument
+    /// the ABI spread over several vector registers is composed back into its value; without it, only
+    /// the first register is named and the rest are dropped, which is what always used to happen.
+    /// </param>
+    public void RemapRawArguments(Instruction call, MethodAnalysisContext resolved, MethodAnalysisContext? caller = null)
     {
         var app = resolved.AppContext;
 
@@ -74,14 +80,14 @@ public abstract class BaseCallingConventionResolver
         var (integerRegisters, floatRegisters) = RawRegisters(app);
         var argBase = ArgBase(call);
 
-        var slots = new List<(int FloatRegisters, bool Emit)>();
+        var slots = new List<(int FloatRegisters, bool Emit, TypeAnalysisContext? Type)>();
         if (ReturnsViaHiddenBuffer(resolved) && HiddenBufferConsumesArgumentSlot)
-            slots.Add((0, false));
+            slots.Add((0, false, null));
         if (!resolved.IsStatic)
-            slots.Add((0, true));
+            slots.Add((0, true, null));
         foreach (var parameter in resolved.Parameters)
-            slots.Add((FloatRegisterCount(parameter.ParameterType), true));
-        slots.Add((0, true)); // the MethodInfo argument
+            slots.Add((FloatRegisterCount(parameter.ParameterType), true, parameter.ParameterType));
+        slots.Add((0, true, null)); // the MethodInfo argument
 
         var operands = new List<IOperand>(argBase + slots.Count);
         for (var i = 0; i < argBase; i++)
@@ -104,7 +110,7 @@ public abstract class BaseCallingConventionResolver
             // independent integer/float counters
             var (integer, floating) = (0, 0);
 
-            foreach (var (floatRegisterCount, emit) in slots)
+            foreach (var (floatRegisterCount, emit, parameterType) in slots)
             {
                 var count = passesFloatsInIntegerRegisters ? 0 : floatRegisterCount;
                 IOperand operand;
@@ -115,6 +121,17 @@ public abstract class BaseCallingConventionResolver
                         break;
 
                     operand = call.Operands[argBase + integerRegisters.Length + floating];
+
+                    // AssetRipper: an aggregate of floats travels in that many consecutive registers,
+                    // and naming only the first made the argument the value of one member — a Vector3
+                    // argument read as its x, which is where `(Vector3)0` in the output comes from.
+                    if (count > 1 && emit && parameterType != null
+                        && caller?.ControlFlowGraph?.FindBlockByInstruction(call) is { } block)
+                    {
+                        operand = ComposeAggregate(block, call, parameterType, call.Operands, argBase + integerRegisters.Length + floating, count);
+                        System.Threading.Interlocked.Increment(ref AggregateArgumentsComposed);
+                    }
+
                     floating += count;
                 }
                 else
@@ -132,6 +149,42 @@ public abstract class BaseCallingConventionResolver
 
         call.SetOperands(operands);
     }
+
+    /// <summary>
+    /// AssetRipper: how many arguments the ABI spread over several vector registers were composed back
+    /// into their value, counting both here and in the lifter.
+    /// </summary>
+    public static int AggregateArgumentsComposed;
+
+    /// <summary>
+    /// AssetRipper: a local holding <paramref name="type"/> built from the registers the members were
+    /// passed in, defined by a <see cref="OpCode.MakeStruct"/> inserted immediately before the call.
+    /// </summary>
+    private static LocalVariable ComposeAggregate(Block block, Instruction call, TypeAnalysisContext type,
+        OperandList operands, int firstRegister, int count)
+    {
+        var members = new List<IOperand> { new LocalVariable($"{type.Name}_arg", RegisterOf(operands[firstRegister]), type), type };
+
+        for (var i = 0; i < count; i++)
+            members.Add(operands[firstRegister + i]);
+
+        var index = block.Instructions.IndexOf(call);
+        var composition = new Instruction(-1, OpCode.MakeStruct, members);
+
+        if (index < 0)
+            block.AddInstruction(composition);
+        else
+            block.Instructions.Insert(index, composition);
+
+        return (LocalVariable)members[0];
+    }
+
+    private static Register RegisterOf(IOperand operand) => operand switch
+    {
+        Register register => register,
+        LocalVariable local => local.Register,
+        _ => new Register(null, "TEMPAGG"),
+    };
 
     protected static int ArgBase(Instruction call) => call.OpCode is OpCode.CallVoid ? 1 : 2;
 

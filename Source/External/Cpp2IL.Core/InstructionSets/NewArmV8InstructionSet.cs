@@ -349,11 +349,16 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     }
                 }
 
+                // AssetRipper: composed before the call is added, because the composition has to run
+                // first: Add appends, and MakeStruct defines the value the call then takes.
+                var callArguments = CallingConventions.ResolveForManaged(ctx);
+                ComposeFloatAggregateArguments(ctx, callArguments);
+
                 var call = ctx.IsVoid
                     ? Add(address, OpCode.CallVoid, Imm(target))
                     : Add(address, OpCode.Call, Imm(target), CallingConventions.ReturnRegister(ctx));
 
-                call.AddOperands(CallingConventions.ResolveForManaged(ctx));
+                call.AddOperands(callArguments);
                 DefineHiddenReturnBuffer(ctx, call); // AssetRipper
                 DefineFloatAggregateReturn(ctx, call); // AssetRipper
             }
@@ -396,6 +401,46 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         // result, so the other two read as undefined and two calls in a row produce the same value,
         // which is how position.z - position2.z becomes x - x. Each extra register is named as the
         // field of the returned value that it carries.
+        /// <summary>
+        /// AssetRipper: an argument the ABI spread over several vector registers, put back together.
+        /// </summary>
+        /// <remarks>
+        /// The mirror of <see cref="DefineFloatAggregateReturn"/>, and the same defect on the other
+        /// side of the call: only the first register can be named as the argument, so
+        /// <c>Quaternion.Euler(0f, random, 0f)</c> passed the vector's x and nothing else, and read
+        /// back as <c>(Vector3)0</c> with everything that computed y and z dead. Each argument of this
+        /// shape gets a value composed out of the registers it was really passed, in a register of its
+        /// own so SSA can version it.
+        /// </remarks>
+        void ComposeFloatAggregateArguments(MethodAnalysisContext callee, IOperand[] slots)
+        {
+            var slot = callee.IsStatic ? 0 : 1;
+
+            foreach (var parameter in callee.Parameters)
+            {
+                if (slot >= slots.Length)
+                    return;
+
+                var members = Arm64CallingConventionResolver.FloatAggregateMemberCount(parameter.ParameterType);
+
+                if (members >= 2 && slots[slot] is Register { Name: ['V', .. var index] }
+                    && int.TryParse(index, out var first) && first + members <= 8)
+                {
+                    var composed = new Register(null, $"AGG{address:X}_{slot}");
+                    var operands = new List<IOperand> { composed, parameter.ParameterType };
+
+                    for (var member = 0; member < members; member++)
+                        operands.Add(new Register(null, $"V{first + member}"));
+
+                    Add(address, OpCode.MakeStruct, operands);
+                    slots[slot] = composed;
+                    System.Threading.Interlocked.Increment(ref BaseCallingConventionResolver.AggregateArgumentsComposed);
+                }
+
+                slot++;
+            }
+        }
+
         void DefineFloatAggregateReturn(MethodAnalysisContext callee, Instruction call)
         {
             if (CallingConventions.ReturnsViaHiddenBuffer(callee) || callee.IsVoid)

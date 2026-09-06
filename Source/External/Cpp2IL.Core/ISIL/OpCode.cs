@@ -131,5 +131,17 @@ public enum OpCode
     /// AssetRipper: moves op 3 into op 1 if it is an instance of the type described by op 2, and null
     /// otherwise. Appended rather than inserted: the ranges above are compared against by value.
     /// </summary>
-    IsInst
+    IsInst,
+
+    /// <summary>
+    /// AssetRipper: builds a value of the type described by op 2 out of its members, op 3 onwards in
+    /// declaration order, and moves it into op 1.
+    /// </summary>
+    /// <remarks>
+    /// This exists because the ABI passes a small aggregate of floats — every Unity maths type — in
+    /// that many consecutive vector registers, and an ISIL operand can name only one register. The
+    /// members are the registers the call was really passed, so composing them back into the value
+    /// is the whole of what the abstraction was missing.
+    /// </remarks>
+    MakeStruct
 }

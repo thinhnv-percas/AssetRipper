@@ -78,7 +78,8 @@ public class AttributeInjectorProcessingLayer : Cpp2IlProcessingLayer
 
             foreach (var m in assemblyAnalysisContext.Types.SelectMany(t => t.Methods))
             {
-                if (m.CustomAttributes == null || m.UnderlyingPointer == 0)
+                // AssetRipper: not onto a lambda body; see MethodAnalysisContext.IsLambdaBody.
+                if (m.CustomAttributes == null || m.UnderlyingPointer == 0 || m.IsLambdaBody)
                     continue;
 
                 var newAttribute = new AnalyzedCustomAttribute(addressConstructor);
@@ -120,6 +121,10 @@ public class AttributeInjectorProcessingLayer : Cpp2IlProcessingLayer
             Parallel.ForEach(toProcess, context =>
             {
                 if (context.CustomAttributes == null || context.Token == 0)
+                    return;
+
+                // AssetRipper: not onto a lambda body; see MethodAnalysisContext.IsLambdaBody.
+                if (context is MethodAnalysisContext { IsLambdaBody: true })
                     return;
 
                 var newAttribute = new AnalyzedCustomAttribute(tokenConstructor);

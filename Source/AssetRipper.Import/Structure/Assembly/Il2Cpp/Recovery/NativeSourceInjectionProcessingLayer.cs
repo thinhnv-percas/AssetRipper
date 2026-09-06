@@ -128,7 +128,9 @@ public sealed class NativeSourceInjectionProcessingLayer(NativeSourceOptions opt
 	private string TryReconstruct(MethodAnalysisContext method, RuntimeStructAccessAnnotator? annotator)
 	{
 		// No attribute list means attribute analysis has not run for this method, and there is nowhere to put the text.
-		if (method.CustomAttributes is null || method.UnderlyingPointer == 0)
+		// A lambda body has nowhere to put it either: an attribute on a lambda is C# 10 and the scripts
+		// are exported at the version the game was written in. See MethodAnalysisContext.IsLambdaBody.
+		if (method.CustomAttributes is null || method.UnderlyingPointer == 0 || method.IsLambdaBody)
 		{
 			return "";
 		}

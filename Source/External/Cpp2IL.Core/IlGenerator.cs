@@ -455,6 +455,24 @@ public static class IlGenerator
                 StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
                 break;
 
+            // AssetRipper: the ABI spread this value over several registers on the way in; each member
+            // is stored back into its field, which is the value the call was really passed.
+            case OpCode.MakeStruct:
+                if (instruction.Operands is [LocalVariable composed, TypeAnalysisContext composedType, ..]
+                    && locals.TryGetValue(composed, out var composedLocal))
+                {
+                    var composedFields = composedType.Fields.Where(f => !f.IsStatic).ToList();
+
+                    for (var member = 0; member < composedFields.Count && member + 2 < instruction.Operands.Count; member++)
+                    {
+                        instructions.Add(CilOpCodes.Ldloca, composedLocal);
+                        LoadOperand(instruction.Operands[member + 2], context, method, locals, writeLine, composedFields[member].FieldType);
+                        instructions.Add(CilOpCodes.Stfld, composedFields[member].ToFieldDescriptor());
+                    }
+                }
+
+                break;
+
             case OpCode.Throw:
                 if (instruction.Operands is [TypeAnalysisContext exceptionType]
                     && exceptionType.Methods.FirstOrDefault(m => m.Name == ".ctor" && m.Parameters.Count == 0) is { } exceptionCtor)

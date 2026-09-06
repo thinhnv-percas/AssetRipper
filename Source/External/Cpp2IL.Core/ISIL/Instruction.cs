@@ -114,6 +114,7 @@ public class Instruction : IOperand
             case OpCode.Newobj:
             case OpCode.Box:
             case OpCode.IsInst: // AssetRipper
+            case OpCode.MakeStruct: // AssetRipper
                 if (newDestination != null)
                     SetOperand(0, newDestination);
                 return IsConstantValue(_operands[0]) ? null : _operands[0];
@@ -156,6 +157,8 @@ public class Instruction : IOperand
                 => [_operands[1]],
 
             OpCode.Box or OpCode.IsInst => [_operands[2]], // AssetRipper
+
+            OpCode.MakeStruct => _operands.Skip(2).ToList(), // AssetRipper
 
             OpCode.Add or OpCode.Subtract or OpCode.Multiply
                 or OpCode.Divide or OpCode.Modulo or OpCode.ShiftLeft or OpCode.ShiftRight

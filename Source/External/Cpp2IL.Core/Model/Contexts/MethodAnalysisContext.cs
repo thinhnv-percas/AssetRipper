@@ -97,6 +97,26 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
     public override string DefaultName => Definition?.Name ?? throw new("Subclasses of MethodAnalysisContext should override DefaultName");
 
+    /// <summary>
+    /// AssetRipper: whether this is the body of a lambda, which a decompiler renders back as one.
+    /// </summary>
+    /// <remarks>
+    /// It matters because a lambda cannot carry an attribute before C# 10, so injecting the address,
+    /// token or reconstructed source onto one of these makes the exported script fail to compile at
+    /// the language version the game was written in — three errors per lambda, and 651 of them on the
+    /// game measured. Roslyn names a lambda body <c>&lt;EnclosingMethod&gt;b__N</c>; a local function
+    /// is <c>&lt;Enclosing&gt;g__Name|N</c> and is deliberately not matched, because attributes on
+    /// those are legal from C# 9.
+    /// </remarks>
+    public bool IsLambdaBody
+    {
+        get
+        {
+            var name = Name;
+            return name.Length > 0 && name[0] == '<' && name.Contains(">b__", StringComparison.Ordinal);
+        }
+    }
+
     public string FullName => DeclaringType == null ? Name : $"{DeclaringType.FullName}::{Name}";
 
     public string FullNameWithSignature => $"{ReturnType.FullName} {FullName}({string.Join(", ", Parameters.Select(p => p.HumanReadableSignature))})";

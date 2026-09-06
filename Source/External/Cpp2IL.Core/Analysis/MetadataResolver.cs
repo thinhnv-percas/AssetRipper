@@ -452,7 +452,7 @@ public static class MetadataResolver
                 continue;
 
             callInstruction.SetOperand(0, singleTargetMethod);
-            singleTargetMethod.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(callInstruction, singleTargetMethod);
+            singleTargetMethod.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(callInstruction, singleTargetMethod, method);
         }
 
         method.ControlFlowGraph.MergeCallBlocks();
@@ -490,7 +490,7 @@ public static class MetadataResolver
             {
                 var preferred = PreferredOf(candidates);
                 instruction.SetOperand(0, preferred);
-                preferred.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, preferred);
+                preferred.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, preferred, method);
                 changed = true;
                 continue;
             }
@@ -521,7 +521,7 @@ public static class MetadataResolver
                 continue;
 
             instruction.SetOperand(0, match);
-            match.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, match);
+            match.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, match, method);
             changed = true;
         }
 
@@ -623,7 +623,7 @@ public static class MetadataResolver
                 continue;
 
             instruction.SetOperand(0, constructor);
-            constructor.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, constructor);
+            constructor.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, constructor, method);
             changed = true;
         }
 
@@ -713,7 +713,7 @@ public static class MetadataResolver
                     continue;
 
                 instruction.SetOperand(0, representedMethod);
-                representedMethod.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, representedMethod);
+                representedMethod.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, representedMethod, method);
                 changed = true;
                 continue;
             }
@@ -727,7 +727,7 @@ public static class MetadataResolver
                 continue;
 
             instruction.SetOperand(0, representedMethod);
-            representedMethod.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, representedMethod);
+            representedMethod.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, representedMethod, method);
             changed = true;
         }
 
@@ -781,7 +781,7 @@ public static class MetadataResolver
 
             instruction.OpCode = OpCode.Call; // same operand layout as IndirectCall, and we've resolved it now
             instruction.SetOperand(0, resolved);
-            resolved.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, resolved);
+            resolved.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, resolved, method);
 
             // the MethodInfo field is also the same method, name it, for cleanliness and so it can
             // serve as a hidden final parameter if needed

@@ -113,6 +113,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		{
 			List<AssemblyDefinition> assemblies = base.BuildAssemblies(context);
 			LogSummary();
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {Cpp2IL.Core.Utils.BaseCallingConventionResolver.AggregateArgumentsComposed} call arguments the ABI " +
+				"spread over several vector registers were composed back into their value.");
 			return assemblies;
 		}
 		finally
