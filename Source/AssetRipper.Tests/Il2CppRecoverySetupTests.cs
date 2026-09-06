@@ -151,9 +151,10 @@ internal sealed class Il2CppRecoverySetupTests
 	}
 
 	/// <summary>
-	/// The diagnostics go first, so a binary that cannot be recovered is reported before attribute
-	/// analysis spends minutes on it. Attribute analysis then precedes the layers that append to the
-	/// lists it creates.
+	/// The struct database goes first, because the measured offsets are what the analysis passes match
+	/// against and the diagnostics analyse methods for real. The diagnostics come next, so a binary
+	/// that cannot be recovered is reported before attribute analysis spends minutes on it. Attribute
+	/// analysis then precedes the layers that append to the lists it creates.
 	/// </summary>
 	[Test]
 	public void DiagnosticsRunBeforeAnythingExpensive()
@@ -165,9 +166,10 @@ internal sealed class Il2CppRecoverySetupTests
 
 		Assert.Multiple(() =>
 		{
-			Assert.That(ids[0], Is.EqualTo("recoverydiagnostics"));
+			Assert.That(ids[0], Is.EqualTo("structdb"));
+			Assert.That(ids[1], Is.EqualTo("recoverydiagnostics"));
 			Assert.That(ids, Does.Contain(attributeAnalysis));
-			Assert.That(ids.IndexOf(attributeAnalysis), Is.LessThan(ids.IndexOf("structdb")));
+			Assert.That(ids.IndexOf(attributeAnalysis), Is.LessThan(ids.IndexOf("attributeinjector")));
 		});
 	}
 }
