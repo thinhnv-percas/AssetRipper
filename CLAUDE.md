@@ -235,6 +235,26 @@ find it; `strings` without `-el` does find method and type names.
   what a metadata usage of T would have produced. It is reached through the array's own class only
   because the array's type is not known until runtime.
 
+- **The argument side of a float aggregate is lost in the lifter, not in the remap.** When the callee
+  is known, `NewArmV8InstructionSet` builds the call's operands from
+  `CallingConventionResolver.ResolveForManaged`, which names one register per parameter — so by the
+  time `RemapRawArguments` sees the call there is nothing left to compose, and only the ~140 calls
+  that still had a raw 16-register layout ever reached it. Composing in the lifter instead covers
+  5474. The `MakeStruct` destination is a synthetic register (`AGG<address>_<slot>`), which is how
+  SSA gets to version it — the same trick `TEMPSHIFT` and `TEMPCOND` use.
+- **Recovering more of a program raises the placeholder count.** Composing aggregate arguments took
+  unmanaged memory loads from 11892 to 12686, because the loads computing a vector's second and third
+  members had been dead code and were dropped rather than reported. A metric that counts what could
+  not be recovered goes up when something that was being silently discarded starts being kept.
+- **The injected attributes make a lambda uncompilable.** A decompiler renders a `<Foo>b__0` method
+  back as a lambda and moves its attributes onto it, and an attribute on a lambda is C# 10 while the
+  scripts are exported at the language version the game was written in. Three errors per lambda, 651
+  on the test game. `MethodAnalysisContext.IsLambdaBody` is what both injectors skip on.
+- **A property that returns a static field is inlined, so the field is what gets named.**
+  `Quaternion.identity` recovers as `Quaternion.identityQuaternion`, which is private — fine against
+  the recovered assemblies, not compilable against the real ones. The pairing is a naming convention,
+  not metadata: the public static property's name is a prefix of the field's.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Resolving a bare call address through `MethodsByAddress` when exactly one method sits there.**

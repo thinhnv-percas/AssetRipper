@@ -8,12 +8,12 @@ Where the run stands today:
 
 | | Count |
 |---|---|
-| `.cs` files exported | 3082 |
+| `.cs` files exported | 3083 |
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 4475, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 11892 |
+| `Method not found` placeholders | 4486, of which 1361 name the import they call |
+| `Unmanaged memory load` placeholders | 12686 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -148,15 +148,20 @@ body whose locals the analysis could not type. A recovered string literal now re
 project made, but the local is still `object` and every use of it is a cast. Same root cause as
 item 3.
 
-## 5b. Values the ABI keeps in several registers, as call arguments
+## 5b. Values the ABI keeps in several registers — recovered
 
-The read side is recovered — the extra registers of a *return* are named as the fields they carry,
-and the first register is read as the struct's first member wherever a float is wanted. The write
-side is not: ISIL has one operand per argument, so `Vector3.MoveTowards(a, b, t)` inlined into a
-caller passes only the vector's *x*, and `Quaternion.Euler(0f, y, 0f)` recovers as
-`Internal_FromEulerRad((Vector3)0)`. Doing better needs an operand kind that composes several values
-into one struct, which every pass that walks operands would have to learn — the same set of about six
-places that the element-access work already went through.
+Both sides now. The extra registers of a *return* are named as the fields they carry; an *argument*
+gets a `MakeStruct` — a new opcode, not a new operand kind — emitted before the call, building the
+value out of the registers it was really passed, into a register of its own so SSA versions it. 5474
+of them on the test game. `Vector3.Distance(a, b)` reads with both arguments where it used to read
+`Distance((Vector3)0, (Vector3)obj10)`.
+
+Unmanaged memory loads rose from 11892 to 12686 as a result, and that is the change being honest:
+the loads computing the second and third members were dead code before, so they were dropped rather
+than reported.
+
+What is left of this is the *store* side of a composite: `this.velocity = 0` where the vector was
+written a register at a time is still 216 casts of a float to a Vector3 on the test game.
 
 ## 6. Calls into the middle of a known method — 1954 occurrences
 
@@ -249,6 +254,28 @@ past "the corrected constructor" — the same body decompiles when the allocatio
 undeclared. The ISIL is right — the display class is allocated, its field stored, a `Predicate<Sound>`
 built over `<Play>b__0` — and ILSpy folds the closure into the enclosing method but then loses the
 delegate. Whether the emitted IL is at fault or the transform is has not been established.
+
+## 8b. The exported scripts do not compile
+
+Distinct from whether they read correctly. A user compiling `RunFromZombiesFullProject`'s exported
+scripts inside Unity got 26 errors, of four kinds. Two are fixed: attributes injected onto a lambda
+body (C# 10 syntax, three errors per lambda, 651 occurrences on the test game) and the argument-side
+aggregate above. Two are not:
+
+- **A member the framework does not expose.** `Quaternion.Internal_FromEulerRad` is private, so
+  naming it is not compilable; the public equivalent is `Quaternion.Euler(euler * Mathf.Rad2Deg)`,
+  which needs a semantic mapping rather than a rename. The field case of the same problem —
+  `Quaternion.identityQuaternion` for `Quaternion.identity` — is handled, by preferring a public
+  static property whose name is a prefix of the field's, but the test game does not exercise it.
+- **A cast to `nint` of something that is not one.** `(nint)typeof(int)` and `(nint)someVector`,
+  where a local was typed `IntPtr` by an unresolved load and then assigned a real value. Downstream
+  of the loads rather than a defect of its own.
+- **A compiler-generated state machine's private field read from the enclosing type**, reported as
+  CS0122, which would be legal if the state machine were still nested. Not reproduced.
+
+Measuring this properly wants the exported scripts actually compiled. Against the *recovered*
+assemblies that is possible with the .NET SDK alone and would catch accessibility, casts and syntax;
+against the real Unity assemblies it needs Unity.
 
 ## 9. Smaller things
 
