@@ -1,3 +1,4 @@
+using Cpp2IL.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -690,15 +691,18 @@ public static class MetadataResolver
 
     // Offset of Il2CppClass::vtable, VirtualInvokeData entries of {methodPtr, MethodInfo*}.
     // TODO this is almost certainly not correct on every version
-    private const long VTableOffset64 = 0x138;
-    private const long VTableOffset32 = 0xC0;
     
     // Resolves virtual dispatch through <c>[klass + vtableOffset + slot * sizeof(VirtualInvokeData)]</c>
     // as long as the klass local's represented type is known.
     public static bool ResolveVirtualCalls(MethodAnalysisContext method)
     {
         var pointerSize = method.AppContext.Binary.PointerSizeBytes;
-        var vtableOffset = pointerSize == 8 ? VTableOffset64 : VTableOffset32;
+
+        // AssetRipper: was a hardcoded 0x138, which is where the vtable starts on 2022.3 and not on
+        // 2019.2, where it is at 0x130. Eight bytes out is not a near miss: the slot index stops
+        // dividing evenly and every virtual call through a vtable goes unresolved, which is how
+        // `sb.Append(x)` came out as a call to an offset off an Il2CppClass.
+        var vtableOffset = (long)Il2CppClassUsefulOffsets.GetVtableOffset(method.AppContext.MetadataVersion, method.AppContext.Binary.is32Bit);
         var invokeDataSize = 2L * pointerSize;
         var changed = false;
 
