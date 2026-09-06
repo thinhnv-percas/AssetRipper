@@ -175,6 +175,43 @@ find it; `strings` without `-el` does find method and type names.
   skips that type and decompiles the assembly again. If a change suddenly loses a lot of files,
   look for `was abandoned part way through` in the log before looking anywhere else.
 
+- **Count a defect where it is produced, not where it might be.** The unresolved-load breakdown first
+  walked the finished graph and counted every memory operand in every body: 45435, against 23173
+  actual placeholders. Its two largest groups were operands that never reach the generator at all —
+  an object header klass load consumed by a guard, and untyped bases in code that was later dropped.
+  Working down that list would have been working on code that is already fine. Raising it from the
+  one place in `IlGenerator` that gives up on a load made the total match the placeholder count and
+  reordered the list entirely.
+- **`IsilDump` prints the ISIL of one named method at points in the analysis.** Set
+  `CPP2IL_DUMP_METHOD` to a substring of the full name and `CPP2IL_DUMP_DIR` to a directory; each
+  stage becomes a file, and `IsilDump.Trace` appends a line to `trace.txt` beside them. Add a stage
+  wherever a pass is not matching. Note that the diagnostic sample layer analyses methods for real,
+  so the *first* dump of a method may be that sample rather than the run that produces the body.
+- **Every busy unresolved call address in the game is a thunk.** The 0x8D82xx cluster is a table of
+  single `b` instructions to the real runtime helpers; `8D82A4` is `il2cpp::vm::Object::IsInst` at
+  0x899F2C, called 1353 times. Cpp2IL's key function scan already follows a thunk for some entries,
+  so what is missing is which functions it looks for. It also mis-resolves
+  `il2cpp_vm_object_is_inst` to the class-init thunk on this game, which is worth knowing before
+  trusting any key function address.
+- **A pass that names an offset must read it from the tables.** This has now been the same bug three
+  times: the vtable offset in `MetadataResolver` and `InterfaceDispatchRecovery`, and
+  `MethodInfo::klass`/`rgctx_data` in `RgctxResolver`, all written down as the 2022 layout and all
+  wrong before 2022 (`MethodInfo` gained a field ahead of them, so klass is 0x18 not 0x20 and
+  rgctx_data 0x30 not 0x38). The cost is never one load: nothing typed the class a shared body reads
+  out of its MethodInfo, so the RGCTX table was untyped and every entry read out of it was untyped
+  too — about 4600 placeholders from two numbers. `Il2CppClassUsefulOffsets.TryGetOffset` and
+  `Il2CppMethodInfoUsefulOffsets.TryGetOffset` read the measured table `Il2CppClassOffsetPatcher`
+  prepends, and that patcher now measures `MethodInfo` as well as `Il2CppClass`.
+- **A dead lookup around a resolved call is not dead to the analysis.** `InterfaceDispatchRecovery`
+  resolved the call and then required the merge phis to be dead before removing the scan that found
+  it, which on A64 they never are: the scan walks the interface offset table with scratch registers
+  the compiler reuses immediately afterwards, so SSA merges the walk's last value with whatever comes
+  next and every phi has a live-looking use. Nothing outside the region reads what the region
+  computed, so the answer is to give the phis a defined zero rather than to demand they be unused.
+- **`[Il2CppClass<T[]> + element_class]` is the array store check**, and the element class is exactly
+  what a metadata usage of T would have produced. It is reached through the array's own class only
+  because the array's type is not known until runtime.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Resolving a bare call address through `MethodsByAddress` when exactly one method sits there.**
