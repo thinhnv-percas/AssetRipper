@@ -187,12 +187,35 @@ find it; `strings` without `-el` does find method and type names.
   stage becomes a file, and `IsilDump.Trace` appends a line to `trace.txt` beside them. Add a stage
   wherever a pass is not matching. Note that the diagnostic sample layer analyses methods for real,
   so the *first* dump of a method may be that sample rather than the run that produces the body.
-- **Every busy unresolved call address in the game is a thunk.** The 0x8D82xx cluster is a table of
-  single `b` instructions to the real runtime helpers; `8D82A4` is `il2cpp::vm::Object::IsInst` at
-  0x899F2C, called 1353 times. Cpp2IL's key function scan already follows a thunk for some entries,
-  so what is missing is which functions it looks for. It also mis-resolves
-  `il2cpp_vm_object_is_inst` to the class-init thunk on this game, which is worth knowing before
-  trusting any key function address.
+- **Every busy unresolved call address in the game is a veneer.** A table of single `b` instructions
+  sits between the runtime and the generated code, and every call to a runtime helper goes to the
+  veneer, so nothing that looks an address up finds anything without the hop.
+  `MetadataResolver.ResolveCalls` takes it and asks all the same questions again — key function,
+  managed method, throw helper, exception raiser — which is worth 2123 `Method not found`
+  placeholders on its own. `Cpp2IlInstructionSet.GetThunkTarget` is the hop; ARM64's is a one-word
+  decode, no disassembler.
+- **An il2cpp .so has two executable sections**, `.text` for the runtime and one called `il2cpp` for
+  every generated method body. `GetEntirePrimaryExecutableSection` returns only the first, so
+  `GetCallerCount` — which every "which of these does managed code call" decision in
+  `BaseKeyFunctionAddresses` rests on — counted a helper called 7999 times as 1. `Il2CppBinary.
+  GetExecutableSections` returns both. The counts do not need a disassembler either: on A64 `B` and
+  `BL` are one word with a signed 26 bit word displacement, so the histogram is a scan.
+- **`Object::IsInst` is not found by the route Cpp2IL uses.** It looks for the last call in
+  `System.Type::IsInstanceOfType`, assuming the one-line icall; on 2019.2 that is managed code
+  ending in a virtual dispatch, and the heuristic reads past the end of the method and returns what
+  the *next* function calls. On the test game that was the class-init thunk — not a miss but a
+  collision, since `HandleKeyFunction` picks the first name with a matching address. It is now found
+  as the busiest caller of `Class::IsAssignableFrom`, which is exported as
+  `il2cpp_class_is_assignable_from`; IsInst is the only one of its dozen callers managed code calls
+  at all, so caller counts separate it by three orders of magnitude. Worth 1351 calls, and with them
+  the array store check, which is `value as T` once the call is recognised.
+- **A pass that needs a resolved type has to run after the type fixpoint, even if it already ran.**
+  The array store check could not be recognised the first time `InjectedCheckRemover` ran because
+  the class being tested is only typed by `ResolveTypesAndFields`; both it and `KeyFunctionRecovery`
+  now run a second time after it. The check's *epilogue* also needed widening: the helpers never
+  return, so the compiler runs several together, and a block that builds an
+  `ArrayTypeMismatchException` and falls into one that raises something else is still a check's
+  epilogue.
 - **A pass that names an offset must read it from the tables.** This has now been the same bug three
   times: the vtable offset in `MetadataResolver` and `InterfaceDispatchRecovery`, and
   `MethodInfo::klass`/`rgctx_data` in `RgctxResolver`, all written down as the 2022 layout and all

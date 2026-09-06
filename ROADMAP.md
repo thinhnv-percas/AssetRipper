@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 7949, of which 1314 name the import they call |
-| `Unmanaged memory load` placeholders | 13026 |
+| `Method not found` placeholders | 4475, of which 1361 name the import they call |
+| `Unmanaged memory load` placeholders | 11892 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -29,38 +29,30 @@ total, all of them calls into il2cpp runtime helpers (section 1), and no decompi
 The output does not compile and is not meant to. The goal is that the logic reads correctly. These
 are the places it still does not.
 
-## 1. Calls into the il2cpp runtime — about 5500 occurrences
+## 1. Calls into the il2cpp runtime — about 3100 occurrences
 
-The largest single defect, and the only one left in the second test game's own scripts. Of the 7949
-`Method not found` placeholders, most name an address that starts no managed method: they are il2cpp
-runtime helpers compiled into the same section as the generated code. The binary is stripped of local
-symbols, so there is nothing in it to name them with, and Cpp2IL's key function scan does not
-recognise them.
+Was the largest single defect. Of the 4475 `Method not found` placeholders that remain, most name an
+address that starts no managed method: they are il2cpp runtime helpers compiled into the same section
+as the generated code, and the binary is stripped of local symbols.
 
-**They are thunks.** Every one of the busy addresses in the 0x8D82xx range is a single `b` to the
-real function: `8D82A4` branches to `0x899F2C`, which takes `(obj, klass)`, returns null for a null
-object, reads `obj->klass`, and tests assignability — `il2cpp::vm::Object::IsInst`. It is called 1353
-times, mostly as the array store check and the `isinst`/`castclass` pair. The key function scan does
-follow a thunk for some entries (`il2cpp_codegen_object_new` is found at the thunk 0x8D82B4), so the
-gap is which functions it looks for, not the indirection. Note also that on this game
-`il2cpp_vm_object_is_inst` resolves to **0x8D8298, which is the class-init thunk** — the same address
-the scan assigns to `il2cpp_codegen_runtime_class_init`. That detection is wrong, not merely absent,
-which is worth fixing before adding more.
+Two things closed most of it. **The busy addresses are veneers**: a table of single `b` instructions
+sits between the runtime and the generated code, and every call goes to the veneer rather than the
+function, so nothing that looks an address up found anything. `MetadataResolver` now takes the hop
+and asks the same questions again — key function, managed method, throw helper, exception raiser —
+which resolved the box and unbox thunks and the helpers that raise an exception by name.
+**`Object::IsInst` is now found**, as the busiest caller of the exported
+`il2cpp_class_is_assignable_from`; 1351 calls became the `isinst` they always were.
 
-Identifying `Object::IsInst` alone would turn 1353 calls into the `IsInst` opcode the generator
-already emits, and with the array store check recognised would take the `ArrayTypeMismatch` throw
-path (477 calls to `@8D82D8`) with it.
-
-The right fix is not naming them but recognising them: a call the lifter identifies becomes an ISIL
-operation and never reaches the generator as an address. That means extending
-`Cpp2IL.Core/Il2CppApiFunctions/NewArm64KeyFunctionAddresses` with signatures for the helpers, which
-is per-Unity-version reverse engineering, not a code change. Identifying the busiest handful — they
-cluster right next to `il2cpp_codegen_object_new` at 0x8D82B4 and
-`il2cpp_codegen_runtime_class_init` at 0x8D8298 — would account for most of them.
+What is left is about 3100 calls over the remaining distinct addresses, the busiest being `@8909C4`
+(595, a real function rather than a veneer) and `@8907BC` (196). The route to them is the same:
+either an anchor in the exported API that reaches them, or a signature in
+`Cpp2IL.Core/Il2CppApiFunctions/NewArm64KeyFunctionAddresses`. Note that `GetCallerCount` now counts
+across every executable section, so "which of these does managed code actually call" is a question
+that can be asked.
 
 ## 2. Calls into the PLT — named, on ELF and ARM64
 
-1314 of them over 28 distinct addresses, and they now say which import they call: `_Unwind_Resume`,
+1361 of them over 28 distinct addresses, and they now say which import they call: `_Unwind_Resume`,
 `__cxa_end_catch`, `memcpy`, `sinf`. `ElfFile` reads `.rela.plt` back, keyed by the GOT slot each
 relocation binds, and the ARM64 lifter decodes a stub to say which slot it reads — decoded rather
 than computed from the section layout, because a PLT's header and entry sizes vary by toolchain.
@@ -98,9 +90,12 @@ through the array's own class because the array's type is only known at runtime.
 which is what a metadata usage of that type would have produced, so the load resolves. 188 are left,
 where the base is an `Il2CppClass<T>` rather than an array's.
 
-What is left of the check itself is the call around it, which is section 1: the helper is
-`Object::IsInst` and is not identified, so the whole check still reads as an unresolved call and an
-`ArrayTypeMismatch` throw path rather than disappearing the way a null or bounds check does.
+The check around it is gone too, now that `Object::IsInst` is identified: it reads as
+`value as T`, which makes it an injected check like any other, and `InjectedCheckRemover` drops it.
+That needed the rewrite to happen after the element class is typed, so `KeyFunctionRecovery` and
+`InjectedCheckRemover` both run a second time after the type fixpoint. The exception the check would
+have thrown often survives as a dead `new ArrayTypeMismatchException()`, because the block that
+builds it is shared with another check's epilogue and stays reachable from that one.
 
 ## 3b. Untyped memory loads — the rest
 
