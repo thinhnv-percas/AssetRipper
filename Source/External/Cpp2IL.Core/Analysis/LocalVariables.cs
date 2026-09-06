@@ -262,6 +262,9 @@ public static class LocalVariables
             changed |= RgctxResolver.Run(method);
             changed |= PropagateStaticFieldStorage(method);
             changed |= TypeAddressedLocals(method);
+            // AssetRipper: inside the loop, because it needs the array typed and what it produces
+            // types the element, which is the base of the next field access.
+            changed |= ArrayRecovery.RecoverComputedAccesses(method);
             changed |= PropagateTypesOnce(method);
         }
 
@@ -698,6 +701,13 @@ public static class LocalVariables
             && source is MemoryOperand { Base: LocalVariable { Type: SzArrayTypeAnalysisContext { ElementType: { } elementType } } } elementAccess
             && (elementAccess.Index != null || elementAccess.Addend >= 4L * pointerSize))
             return SetTypeIfUnknown(elementDest, elementType);
+
+        // AssetRipper: the same, once the access has been recovered into an element operand rather than
+        // an address. Without this the element of a Sound[] stayed an object and every field read on
+        // it was an unnameable offset.
+        if (destination is LocalVariable { Type: null } arrayElementDest
+            && source is ArrayAccess { Array.Type: SzArrayTypeAnalysisContext { ElementType: { } accessElementType } })
+            return SetTypeIfUnknown(arrayElementDest, accessElementType);
 
         // Move local, [byref]: dereferencing a managed pointer to a reference type yields that referent
         // (a struct byref accesses fields directly with no deref, so this only fires for class referents).

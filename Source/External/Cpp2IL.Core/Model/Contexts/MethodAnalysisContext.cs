@@ -408,10 +408,6 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         LocalVariables.ResolveTypesAndFields(this);
 
-        // AssetRipper: before copy propagation, which would replace the array local in an element
-        // address computation with the field read that defined it. See ArrayRecovery.RecoverComputedAccesses.
-        ArrayRecovery.RecoverComputedAccesses(this);
-
         // Needs the MethodInfo* receivers typed, so runs after resolution unlike the class-init guards
         MetadataInitGuardRemover.RunRgctx(this);
 

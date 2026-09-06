@@ -37,10 +37,11 @@ public static class ArrayRecovery
     /// computation with whatever defined it — a field read, usually — leaving nothing to name as the
     /// array. <see cref="Run"/> is deliberately at the end of analysis, long after that.
     /// </remarks>
-    public static void RecoverComputedAccesses(MethodAnalysisContext method)
+    public static bool RecoverComputedAccesses(MethodAnalysisContext method)
     {
         var pointerSize = method.AppContext.Binary.PointerSizeBytes;
         var definitions = Definitions(method);
+        var changed = false;
 
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
@@ -48,9 +49,14 @@ public static class ArrayRecovery
             {
                 if (instruction.Operands[i] is MemoryOperand { Base: LocalVariable { Type: not SzArrayTypeAnalysisContext } computed } memory
                     && ComputedElementAddress(memory, computed, definitions, pointerSize) is { } folded)
+                {
                     instruction.SetOperand(i, folded);
+                    changed = true;
+                }
             }
         }
+
+        return changed;
     }
 
     private static Dictionary<LocalVariable, Instruction> Definitions(MethodAnalysisContext method)
