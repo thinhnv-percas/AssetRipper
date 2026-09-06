@@ -13,7 +13,7 @@ Where the run stands today:
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
 | `Method not found` placeholders | 4486, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 12686 |
+| `Unmanaged memory load` placeholders | 12592 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -255,27 +255,38 @@ undeclared. The ISIL is right — the display class is allocated, its field stor
 built over `<Play>b__0` — and ILSpy folds the closure into the enclosing method but then loses the
 delegate. Whether the emitted IL is at fault or the transform is has not been established.
 
-## 8b. The exported scripts do not compile
+## 8b. The exported scripts compile — on the second game
 
-Distinct from whether they read correctly. A user compiling `RunFromZombiesFullProject`'s exported
-scripts inside Unity got 26 errors, of four kinds. Two are fixed: attributes injected onto a lambda
-body (C# 10 syntax, three errors per lambda, 651 occurrences on the test game) and the argument-side
-aggregate above. Two are not:
+`RunFromZombiesFullProject` ships its own Unity source, and its exported scripts had 26 compile
+errors of four kinds. All four are closed, and its sixteen scripts now read as the source with no
+`(nint)`, no `Internal_` member, no attribute on a lambda and no cast of a float to a vector.
 
-- **A member the framework does not expose.** `Quaternion.Internal_FromEulerRad` is private, so
-  naming it is not compilable; the public equivalent is `Quaternion.Euler(euler * Mathf.Rad2Deg)`,
-  which needs a semantic mapping rather than a rename. The field case of the same problem —
-  `Quaternion.identityQuaternion` for `Quaternion.identity` — is handled, by preferring a public
-  static property whose name is a prefix of the field's, but the test game does not exercise it.
-- **A cast to `nint` of something that is not one.** `(nint)typeof(int)` and `(nint)someVector`,
-  where a local was typed `IntPtr` by an unresolved load and then assigned a real value. Downstream
-  of the loads rather than a defect of its own.
-- **A compiler-generated state machine's private field read from the enclosing type**, reported as
-  CS0122, which would be legal if the state machine were still nested. Not reproduced.
+- **An attribute on a lambda**, which is C# 10 while the scripts are exported at the version the game
+  was written in. The address, token and reconstructed source are no longer injected onto a lambda
+  body.
+- **An argument the ABI split across registers**, which is section 5b.
+- **A private member of a nested compiler-generated type, written from the type it is nested in.**
+  il2cpp inlines the constructor, so what the caller does is allocate and write the fields. A member
+  of a *game* assembly that a body reaches but a compiler would not is widened to internal; 841 of
+  them on the test game. A framework member is left alone, because the assembly the script is really
+  compiled against is not the recovered one — for those, a hidden static field is read through the
+  public property that returns it, and `Quaternion.Internal_FromEulerRad` is written as the
+  `Quaternion.Euler` it is the inside of.
+- **A cast to `nint` of something that is not one.** Two causes, both fixed: the class pointer a
+  static field read went through stayed live because only the generator knew the head of a type's
+  static storage is its first static field, and a comparison against a value the ABI keeps in several
+  registers did not know to read its first member.
 
-Measuring this properly wants the exported scripts actually compiled. Against the *recovered*
+Measuring this properly still wants the exported scripts actually compiled. Against the *recovered*
 assemblies that is possible with the .NET SDK alone and would catch accessibility, casts and syntax;
-against the real Unity assemblies it needs Unity.
+against the real Unity assemblies it needs Unity. Until then the check is by hand, on a game whose
+source is available.
+
+To reproduce: the game's APK is a Git LFS object in its repository and also a release asset, which is
+what to fetch — `curl -sSL -o demo.apk
+https://github.com/thinhabc01/RunFromZombiesFullProject/releases/download/v1/demo.apk`, unzip it into
+`Test/Input/RunFromZombies`, and rip that. It is Unity 2022.3.62f2, metadata v31.1, ARM64, and a run
+takes about 55 seconds.
 
 ## 9. Smaller things
 

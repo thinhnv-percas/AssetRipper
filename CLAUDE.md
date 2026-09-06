@@ -255,6 +255,30 @@ find it; `strings` without `-el` does find method and type names.
   the recovered assemblies, not compilable against the real ones. The pairing is a naming convention,
   not metadata: the public static property's name is a prefix of the field's.
 
+- **There is a second measurement game and its APK is a release asset.**
+  `RunFromZombiesFullProject` ships its own Unity source, so the recovery can be read against the
+  real thing. The APK in the repository is a Git LFS pointer, which an unauthorised session cannot
+  fetch, but the same file is a release asset and `curl` gets it:
+  `https://github.com/thinhabc01/RunFromZombiesFullProject/releases/download/v1/demo.apk`. Unzip into
+  `Test/Input/RunFromZombies` (gitignored) and rip that; Unity 2022.3.62f2, metadata v31.1, 55
+  seconds. Its sixteen scripts are small enough to read whole.
+- **An integer immediate stored where a float belongs is the float's bits.** The machine has no way
+  to write a float constant other than to materialise the bit pattern in an integer register and
+  store it; a genuine conversion would be an `scvtf`. Converting it as a number turned `-0.5f` into
+  `3.2044483E+09f`, which reads as a plausible number and is not one.
+- **A member of a game assembly that the recovered body reaches but a compiler would not is ours to
+  widen.** il2cpp inlines a constructor, so the caller allocates the object and writes its fields
+  directly, and where the type is compiler-generated those fields are private — which the type it is
+  nested in cannot reach. Widening to internal is honest for a type this export invented the source
+  for. A *framework* member is not: the assembly the exported script is compiled against is not the
+  recovered one, so that case wants the public API instead.
+- **A MakeStruct whose members all come from one place is that place.** A value read out of a field
+  arrives as the field plus loads at four byte steps past it that nothing named; a value returned by
+  a call arrives as the local the return register held plus the fields of it that
+  `DefineFloatAggregateReturn` named. Folding it back has to be a pass rather than a generator case,
+  or what the fold stops reading stays live — and it has to run after copy propagation, because the
+  members are still locals until then.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Resolving a bare call address through `MethodsByAddress` when exactly one method sits there.**
