@@ -279,7 +279,21 @@ find it; `strings` without `-el` does find method and type names.
   or what the fold stops reading stays live — and it has to run after copy propagation, because the
   members are still locals until then.
 
+- **A register that carries one member of an aggregate is often typed as the whole aggregate**, because
+  the same register held a whole one somewhere else in the method — `Vector3.MoveTowards` inlined
+  computes the moved position a component at a time into the registers the unmoved position was in.
+  The local then reads as a Vector3 and `position.x + step` comes out as `position + step`. The cure
+  is at the ends, as always: arithmetic takes its float type from the operands when the destination
+  is not one, and the result is stored into the destination's first member rather than over the whole
+  local.
+
 ### Things measured to be worth nothing — do not redo them
+
+- **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member
+  of a `MakeStruct` as its field's type.** Both are true, and both changed nothing once arithmetic
+  took its float type from its operands: the phi's inputs are all aggregates by the time it is typed,
+  and the MakeStruct members are already floats. Removing them left the output identical.
+
 
 - **Resolving a bare call address through `MethodsByAddress` when exactly one method sits there.**
   Resolves zero calls on both package 1.0.9 and `development`: the unresolved targets are il2cpp

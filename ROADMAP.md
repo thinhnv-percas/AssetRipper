@@ -258,7 +258,7 @@ delegate. Whether the emitted IL is at fault or the transform is has not been es
 ## 8b. The exported scripts compile — on the second game
 
 `RunFromZombiesFullProject` ships its own Unity source, and its exported scripts had 26 compile
-errors of four kinds. All four are closed, and its sixteen scripts now read as the source with no
+errors of four kinds, then 4 more of a fifth. All five are closed, and its sixteen scripts now read as the source with no
 `(nint)`, no `Internal_` member, no attribute on a lambda and no cast of a float to a vector.
 
 - **An attribute on a lambda**, which is C# 10 while the scripts are exported at the version the game
@@ -272,6 +272,11 @@ errors of four kinds. All four are closed, and its sixteen scripts now read as t
   compiled against is not the recovered one — for those, a hidden static field is read through the
   public property that returns it, and `Quaternion.Internal_FromEulerRad` is written as the
   `Quaternion.Euler` it is the inside of.
+- **A float added to a value the ABI keeps in several registers.** The register holding a vector's x
+  is the register that held the whole vector on the path where it did not change, so the local is
+  typed as a Vector3 and `position.x + step` reads as `position + step`. Arithmetic now takes its
+  float type from its operands where the destination is not a float, and stores the result into the
+  destination's first member.
 - **A cast to `nint` of something that is not one.** Two causes, both fixed: the class pointer a
   static field read went through stayed live because only the generator knew the head of a type's
   static storage is its first static field, and a comparison against a value the ABI keeps in several
