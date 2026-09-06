@@ -125,12 +125,41 @@ find it; `strings` without `-el` does find method and type names.
   whichever operand has one, an instance method on a value type takes its receiver by reference —
   fixes the rest, and is what turns a chain of casts of an untyped `object` back into the expression
   the source had.
+- **A shift or extend on the last register operand is where an index gets scaled.** `add x8, x0, w1,
+  sxtw #3` is `x0 + (long)(int)w1 * 8`. Dropping it does not look like a lifter bug, it looks like a
+  program that always reads element zero.
+- **An architecture with no scaled index addressing mode computes an element's address first**, so
+  the load reads `[address + elementsOffset]` and the array and the index are an instruction earlier.
+  The fold back has to run *inside* the type resolution fixpoint: it needs the array typed, and what
+  it produces types the element, which is the base of the next field access.
+- **A new operand kind has about six walkers to teach**: `Instruction.GetSources`, `SsaForm`,
+  `SsaSimplifier` (both `ReplaceUses` and `CollectReadLocals`), `CopyCoalescer`, `Simplifier`,
+  `DeadCodeEliminator`, and the local-declaration walk in `IlGenerator`. Missing one is silent: a
+  local used only inside the new operand is not counted as read, its definition is dropped as dead,
+  and the operand ends up indexed by nothing.
+- **The constructor a call names is routinely not the allocated type's.** A trivial constructor is
+  folded onto its base, so a closure's allocation is followed by `System.Object..ctor`; generic
+  sharing names one instantiation's constructor for every other. Fusing the allocation with what the
+  call names gives `(DisplayClass)new object()` and delegates of the wrong type.
+- **il2cpp's null and bounds checks are matched by shape and the shapes vary.** A64 branches on the
+  negation of a less-than for a bounds check; the helper that raises one of these never returns, so
+  the compiler puts the calls next to each other and the block that only *builds* the exception falls
+  straight into the one that *throws* a different one. Getting these right is what turns a `for` loop
+  full of `if (x == null) break;` back into a loop.
+- **An `fmov`'s immediate is as wide as the register it moves into**, and one eight byte store can
+  initialise two adjacent float fields — the value is a double only by accident of its width.
 - **A `Cpp2IlInstructionSet` subclass that forwards to another must forward the virtual members too.**
   `Arm64InstructionSetSelector` forwarded the abstract ones and inherited the base's defaults for the
   rest. `CallingConventionResolver` defaults to null, and every analysis pass that maps a call's raw
   registers onto the callee's signature is written to do nothing when it is absent — so ARM64 calls
   silently kept the whole register file as their arguments. That one line was worth 11605 `Method not
   found` placeholders.
+
+- **ILSpy can throw out of a transform on IL that verifies.** `ReplaceIfUnverifiable` only catches
+  what fails verification, and an assembly is decompiled as one parallel unit, so a transform crash
+  used to cost every script after it. `ScriptDecompiler` now reads the file name out of the failure,
+  skips that type and decompiles the assembly again. If a change suddenly loses a lot of files,
+  look for `was abandoned part way through` in the log before looking anywhere else.
 
 ### Things measured to be worth nothing — do not redo them
 

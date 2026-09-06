@@ -8,25 +8,30 @@ Where the run stands today:
 
 | | Count |
 |---|---|
-| `.cs` files exported | 3083 |
-| Decompilation errors | 0 |
+| `.cs` files exported | 3082 |
+| Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 9409 |
-| `Unmanaged memory load` placeholders | 29350 |
+| `Method not found` placeholders | 9332 |
+| `Unmanaged memory load` placeholders | 25383 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
+
+The other measurement is `RunFromZombiesFullProject`, an ARM64 game that ships its own Unity source,
+so the output can be read against the real thing. Its sixteen scripts carry three diagnostics in
+total, all of them calls into il2cpp runtime helpers (section 1), and no decompilation error.
 
 The output does not compile and is not meant to. The goal is that the logic reads correctly. These
 are the places it still does not.
 
 ## 1. Calls into the il2cpp runtime — about 6000 occurrences
 
-The largest single defect. Of the 9630 `Method not found` placeholders, most name an address that
-starts no managed method: they are il2cpp runtime helpers compiled into the same section as the
-generated code. 402 distinct addresses remain, the busiest of them (`@8D82A4`) called 1352 times;
-the top six account for 5781 of them. The binary is stripped of local symbols, so there is nothing
-in it to name them with, and Cpp2IL's key function scan does not recognise them.
+The largest single defect, and the only one left in the second test game's own scripts. Of the 9332
+`Method not found` placeholders, most name an address that starts no managed method: they are il2cpp
+runtime helpers compiled into the same section as the generated code. 401 distinct addresses remain,
+the busiest of them (`@8D82A4`) called 1352 times; the top six account for 5781 of them. The binary
+is stripped of local symbols, so there is nothing in it to name them with, and Cpp2IL's key function
+scan does not recognise them.
 
 The right fix is not naming them but recognising them: a call the lifter identifies becomes an ISIL
 operation and never reaches the generator as an address. That means extending
@@ -58,6 +63,16 @@ bound against the layout rather than a version formula, which took roughly a fif
 fail somewhere else in the match or in the excision, and each needs its own look: the scan loop is
 compiled several ways and the pass gives up silently on any of them.
 
+## 3c. Inlined type checks — about 4500 occurrences
+
+The second largest group, and one shape: `klass->typeHierarchyDepth` (0x128) shifted left by three,
+added to `klass->typeHierarchy` (0xC8), read at `[that - 8]` and compared against the target class.
+That is `il2cpp_codegen_class_is_assignable_from` inlined — every `is`, `as` and cast in the source.
+`Il2CppClass<T[]>+0x40` (`element_class`, about 2000 more) is the same idea for an array store check.
+Recovering these means an `isinst` opcode ISIL does not have, a pass to recognise the shape, and
+generator support for it; recognising the shape is the same exercise the class initialization guards
+needed, and the offsets are in the struct database.
+
 ## 3b. Untyped memory loads — the rest
 
 A load through a register the lifter never typed, so there is no way to tell a field read from a
@@ -87,7 +102,17 @@ body whose locals the analysis could not type. A recovered string literal now re
 project made, but the local is still `object` and every use of it is a cast. Same root cause as
 item 3.
 
-## 6. Calls into the middle of a known method — 1959 occurrences
+## 5b. Values the ABI keeps in several registers, as call arguments
+
+The read side is recovered — the extra registers of a *return* are named as the fields they carry,
+and the first register is read as the struct's first member wherever a float is wanted. The write
+side is not: ISIL has one operand per argument, so `Vector3.MoveTowards(a, b, t)` inlined into a
+caller passes only the vector's *x*, and `Quaternion.Euler(0f, y, 0f)` recovers as
+`Internal_FromEulerRad((Vector3)0)`. Doing better needs an operand kind that composes several values
+into one struct, which every pass that walks operands would have to learn — the same set of about six
+places that the element-access work already went through.
+
+## 6. Calls into the middle of a known method — 1954 occurrences
 
 Now labelled `inside <method> +0x4` rather than left as a bare address. The
 label is honest but it is not a resolution: what the address really is — an adjustor thunk, a shared
@@ -160,6 +185,24 @@ What they get wrong, on `ZambiesMovement.Update` against its source:
   seen to alias. Unity's float code stays in `s` registers, so this has not bitten yet.
 - 19 instructions across all assemblies still lift as `NotImplemented`, all of them exotic
   (`umlaleq`, `qdaddeq`, `mrc2`) and most of them literal pool bytes decoded as code.
+
+## 10. One type ILSpy will not read
+
+`EasyMobile/Internal/RuntimeHelper` in the first test game throws an `InvalidCastException` out of
+ILSpy's `DeclareVariables` transform (a `BlockStatement` where it wants an `Expression`). Nothing in
+the IL fails verification, so `ReplaceIfUnverifiable` does not catch it, and ILSpy decompiles an
+assembly as one parallel unit, so it used to cost every script after it in that assembly.
+`ScriptDecompiler` now reads the file name out of the failure, skips that type and decompiles the
+assembly again, so the cost is the one type. What triggers the ILSpy bug has not been narrowed down
+past "the corrected constructor" — the same body decompiles when the allocation is built with
+`System.Object`'s constructor instead, which is what made it `(DisplayClass)new object()`.
+
+## 11. A delegate over a closure
+
+`Array.Find(sounds, s => s.name == name)` recovers as `Array.Find(sounds, match)`, with `match`
+undeclared. The ISIL is right — the display class is allocated, its field stored, a `Predicate<Sound>`
+built over `<Play>b__0` — and ILSpy folds the closure into the enclosing method but then loses the
+delegate. Whether the emitted IL is at fault or the transform is has not been established.
 
 ## 9. Smaller things
 
