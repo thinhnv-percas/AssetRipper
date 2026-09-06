@@ -264,7 +264,141 @@ public static class LocalVariables
             changed |= TypeAddressedLocals(method);
             changed |= PropagateTypesOnce(method);
         }
+
+        // AssetRipper: last, because it is a guess where everything above is a deduction - it only
+        // looks at locals nothing else could name.
+        if (TypeCounters(method))
+            while (PropagateTypesOnce(method))
+            {
+            }
     }
+
+    /// <summary>
+    /// AssetRipper: types the locals that are only ever counted with as integers.
+    /// </summary>
+    /// <remarks>
+    /// A loop counter has no signature to take a type from — it is a register the compiler set to a
+    /// constant and decremented — so it stayed untyped and every appearance of it was a cast:
+    /// <c>object obj = 20; obj--; while ((nint)obj != 1)</c> for a <c>for</c> loop over twenty items.
+    /// A local that is only ever assigned integer constants and the results of arithmetic on itself,
+    /// and is never used as an address, an object or an argument, is an integer, and saying so is
+    /// what turns that back into a loop with a counter in it.
+    /// </remarks>
+    private static bool TypeCounters(MethodAnalysisContext method)
+    {
+        var candidates = new HashSet<LocalVariable>();
+        var definitions = new Dictionary<LocalVariable, List<Instruction>>();
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            if (instruction.Destination is not LocalVariable { Type: null } destination)
+                continue;
+
+            candidates.Add(destination);
+
+            if (!definitions.TryGetValue(destination, out var list))
+                definitions[destination] = list = [];
+
+            list.Add(instruction);
+        }
+
+        if (candidates.Count == 0)
+            return false;
+
+        // A local read from anywhere that wants an address, an object or a signature is not a counter.
+        foreach (var instruction in method.ControlFlowGraph.Instructions)
+        {
+            var isArithmetic = instruction.OpCode is OpCode.Add or OpCode.Subtract or OpCode.Multiply
+                or OpCode.Divide or OpCode.Modulo or OpCode.ShiftLeft or OpCode.ShiftRight
+                or OpCode.Phi or OpCode.Move or OpCode.ConditionalJump
+                or (>= OpCode.CheckEqual and <= OpCode.CheckLessOrEqual);
+
+            for (var i = 0; i < instruction.Operands.Count; i++)
+            {
+                switch (instruction.Operands[i])
+                {
+                    // anything but arithmetic, a comparison or a copy wants a value of a real type
+                    case LocalVariable local when !isArithmetic:
+                        candidates.Remove(local);
+                        break;
+                    case MemoryOperand { Base: LocalVariable memoryBase }:
+                        candidates.Remove(memoryBase);
+                        break;
+                    case FieldReference { Local: { } fieldLocal }:
+                        candidates.Remove(fieldLocal);
+                        break;
+                    case ArrayAccess access:
+                        candidates.Remove(access.Array);
+                        break;
+                    case ArrayLength length:
+                        candidates.Remove(length.Array);
+                        break;
+                    case AddressOf { Target: LocalVariable addressed }:
+                        candidates.Remove(addressed);
+                        break;
+                }
+            }
+        }
+
+        // Then keep only the ones whose every definition computes an integer from integers.
+        bool removedAny;
+        do
+        {
+            removedAny = false;
+
+            foreach (var candidate in candidates.ToList())
+            {
+                if (!definitions.TryGetValue(candidate, out var candidateDefinitions) || !candidateDefinitions.All(IsIntegerDefinition))
+                {
+                    candidates.Remove(candidate);
+                    removedAny = true;
+                }
+            }
+        } while (removedAny);
+
+        var typedAny = false;
+
+        foreach (var candidate in candidates)
+        {
+            candidate.Type = method.AppContext.SystemTypes.SystemInt32Type;
+            typedAny = true;
+        }
+
+        return typedAny;
+
+        bool IsIntegerDefinition(Instruction definition)
+        {
+            if (definition.OpCode is not (OpCode.Move or OpCode.Phi or OpCode.Add or OpCode.Subtract
+                or OpCode.Multiply or OpCode.Divide or OpCode.Modulo or OpCode.ShiftLeft or OpCode.ShiftRight))
+                return false;
+
+            var sawEvidence = false;
+
+            for (var i = 1; i < definition.Operands.Count; i++)
+            {
+                switch (definition.Operands[i])
+                {
+                    case Immediate { Value: >= int.MinValue and <= int.MaxValue }:
+                        sawEvidence = true;
+                        break;
+                    case LocalVariable source when candidates.Contains(source):
+                        break;
+                    case LocalVariable { Type: { } sourceType } when IsIntegerType(sourceType):
+                        sawEvidence = true;
+                        break;
+                    default:
+                        return false;
+                }
+            }
+
+            // a phi merely joins versions, so the evidence has to come from one of them
+            return sawEvidence || definition.OpCode == OpCode.Phi;
+        }
+    }
+
+    private static bool IsIntegerType(TypeAnalysisContext type) => type.FullName is
+        "System.Byte" or "System.SByte" or "System.Int16" or "System.UInt16"
+        or "System.Int32" or "System.UInt32" or "System.Int64" or "System.UInt64" or "System.Char";
 
     // A type-metadata global load (Move local, typeof(T)) puts the runtime class pointer for T into
     // the local - an Il2CppClass*, not an instance of T. That is known exactly from the instruction,
