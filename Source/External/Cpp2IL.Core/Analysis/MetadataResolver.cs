@@ -225,12 +225,12 @@ public static class MetadataResolver
                 FieldAnalysisContext? field;
                 if (genericOwner != null && staticOwner == null)
                 {
-                    // metadata has all-0 offsets for generic definitions, so recompute layout
-                    // TODO support user-defined value types
-                    if (genericOwner.GenericArguments.Any(a => a.IsValueType))
-                        continue;
-
-                    field = GenericInstanceFieldLayout.FindFieldAtOffset(genericOwner.GenericType, memory.Addend);
+                    // metadata has all-0 offsets for generic definitions, so recompute layout.
+                    // AssetRipper: with the instance's arguments, so a field of the type's own generic
+                    // parameter is sized as what it is. This used to bail whenever any argument was a
+                    // value type, which lost every field of a List<int> - none of whose fields is of
+                    // type T, so nothing about the layout depended on the argument at all.
+                    field = GenericInstanceFieldLayout.FindFieldAtOffset(genericOwner.GenericType, memory.Addend, genericOwner.GenericArguments);
                 }
                 else if (staticOwner == null && owner.GenericParameters.Count > 0)
                 {
