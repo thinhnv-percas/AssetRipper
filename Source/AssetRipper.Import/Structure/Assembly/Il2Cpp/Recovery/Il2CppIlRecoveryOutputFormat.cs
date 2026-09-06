@@ -4,6 +4,9 @@ using AsmResolver.DotNet.Signatures;
 using AsmResolver.PE.DotNet.Cil;
 using AssetRipper.CIL;
 using AssetRipper.Import.Logging;
+using Cpp2IL.Core;
+using Cpp2IL.Core.Graphs;
+using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core.OutputFormats;
 using LibCpp2IL.Elf;
@@ -122,6 +125,138 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		ReplaceIfUnverifiable(methodDefinition);
 		NamePlaceholderAddresses(methodDefinition.CilMethodBody);
+	}
+
+	/// <summary>Runs while the analysis is still there; see the base class.</summary>
+	protected override void OnBodyGenerated(MethodDefinition methodDefinition, MethodAnalysisContext methodContext)
+	{
+		ClassifyUnresolvedLoads(methodContext);
+	}
+
+	private readonly ConcurrentDictionary<string, int> unresolvedLoadKinds = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, string> unresolvedLoadExamples = new(StringComparer.Ordinal);
+
+	/// <summary>
+	/// Counts what the memory operands that reach the generator unresolved actually are.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Every one of them becomes an <c>Unmanaged memory load</c> placeholder, and from the output they
+	/// are indistinguishable: an offset off a register. The offset alone does not say why — the same
+	/// <c>+0x18</c> is a field of a class whose base was never typed, a field of a generic instance
+	/// whose layout could not be computed, and a member of a runtime struct that has no managed
+	/// meaning at all, and those want three different fixes.
+	/// </para>
+	/// <para>
+	/// So this classifies each one where the types are still in hand, before it is flattened into a
+	/// string, and the summary at the end of the run says how many of each there were with an example
+	/// of each. That is the list to work down.
+	/// </para>
+	/// </remarks>
+	private void ClassifyUnresolvedLoads(MethodAnalysisContext methodContext)
+	{
+		if (appContext is null || methodContext.ControlFlowGraph is not { } cfg)
+		{
+			return;
+		}
+
+		bool is32Bit = appContext.Binary.is32Bit;
+
+		foreach (Block block in cfg.Blocks)
+		{
+			foreach (Instruction instruction in block.Instructions)
+			{
+				foreach (IOperand operand in instruction.Operands)
+				{
+					if (operand is not MemoryOperand memory)
+					{
+						continue;
+					}
+
+					string kind = ClassifyOperand(memory, is32Bit);
+					unresolvedLoadKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
+					unresolvedLoadExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {instruction}");
+				}
+			}
+		}
+	}
+
+	private string ClassifyOperand(MemoryOperand memory, bool is32Bit)
+	{
+		if (memory.Base is null)
+		{
+			return memory.Index is null ? "absolute address" : "indexed, no base";
+		}
+
+		if (memory.Base is not LocalVariable local)
+		{
+			return $"base is a {memory.Base.GetType().Name}";
+		}
+
+		if (local.Type is null)
+		{
+			return "base has no type";
+		}
+
+		string offset = memory.Addend < 0 ? $"-0x{-memory.Addend:X}" : $"0x{memory.Addend:X}";
+
+		// negative or past what a uint can hold is never a named member of a runtime struct
+		uint? member = memory.Addend is >= 0 and <= uint.MaxValue ? (uint)memory.Addend : null;
+
+		switch (local.Type)
+		{
+			case RuntimeClassTypeAnalysisContext:
+				return $"Il2CppClass.{(member is { } classMember ? Il2CppClassUsefulOffsets.GetOffsetName(classMember, is32Bit) : null) ?? offset}";
+			case RuntimeMethodInfoAnalysisContext:
+				return $"Il2CppMethodInfo.{(member is { } methodMember ? Il2CppMethodInfoUsefulOffsets.GetOffsetName(methodMember, appContext!.Binary) : null) ?? offset}";
+			case StaticFieldStorageTypeAnalysisContext:
+				return $"static field storage at {offset}";
+			case SzArrayTypeAnalysisContext:
+				return $"array at {offset}";
+			case ByRefTypeAnalysisContext:
+				return $"byref at {offset}";
+		}
+
+		if (memory.Addend < 0)
+		{
+			return "negative offset off a typed base";
+		}
+
+		TypeAnalysisContext owner = local.Type;
+
+		if (owner is GenericInstanceTypeAnalysisContext generic)
+		{
+			return generic.GenericArguments.Any(a => a.IsValueType)
+				? "generic instance, value type argument"
+				: "generic instance, reference arguments";
+		}
+
+		if (owner.GenericParameters.Count > 0)
+		{
+			return "open generic type";
+		}
+
+		if (owner.IsValueType)
+		{
+			return "value type base";
+		}
+
+		long largest = 0;
+
+		for (TypeAnalysisContext? candidate = owner; candidate is not null; candidate = candidate.BaseType)
+		{
+			foreach (FieldAnalysisContext field in candidate.Fields)
+			{
+				if (!field.IsStatic && field.BackingData?.FieldOffset is { } fieldOffset && fieldOffset > largest)
+				{
+					largest = fieldOffset;
+				}
+			}
+		}
+
+		return memory.Addend > largest
+			? "past the last field of the base type"
+			: "between fields of the base type";
 	}
 
 	/// <summary>
@@ -665,6 +800,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		Report("failure", failureReasons);
 		Report("invalid body", invalidReasons);
+		ReportUnresolvedLoads();
 		ReportImbalanceShapes();
 
 		void ReportImbalanceShapes()
@@ -693,6 +829,25 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				{
 					Logger.Info(LogCategory.Import, $"      example: {example}");
 				}
+			}
+		}
+
+		void ReportUnresolvedLoads()
+		{
+			if (unresolvedLoadKinds.IsEmpty)
+			{
+				return;
+			}
+
+			int total = unresolvedLoadKinds.Values.Sum();
+
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {total} memory operands reached the generator unresolved, by kind:");
+
+			foreach ((string kind, int count) in unresolvedLoadKinds.OrderByDescending(pair => pair.Value))
+			{
+				string example = unresolvedLoadExamples.TryGetValue(kind, out string? found) ? found : "";
+				Logger.Info(LogCategory.Import, $"      {count,7} {kind}   e.g. {example}");
 			}
 		}
 

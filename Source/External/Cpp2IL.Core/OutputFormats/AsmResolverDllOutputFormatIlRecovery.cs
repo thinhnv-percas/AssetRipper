@@ -97,7 +97,19 @@ public class AsmResolverDllOutputFormatIlRecovery : AsmResolverDllOutputFormat
             instructions.Add(CilOpCodes.Throw);
         }
 
+        // AssetRipper: the last point at which the analysis is still there to look at. Anything that
+        // wants to know why a body came out as it did has to do it here, not after this returns.
+        OnBodyGenerated(methodDefinition, methodContext);
+
         methodContext.ReleaseAnalysisData();
+    }
+
+    /// <summary>
+    /// AssetRipper: called with the generated body and the analysis it came from, before the analysis
+    /// is released.
+    /// </summary>
+    protected virtual void OnBodyGenerated(MethodDefinition methodDefinition, MethodAnalysisContext methodContext)
+    {
     }
 
     public static void WriteControlFlowGraph(MethodAnalysisContext method, string outputPath)
