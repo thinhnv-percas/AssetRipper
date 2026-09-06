@@ -395,7 +395,8 @@ public static class IlGenerator
             case OpCode.Newobj:
                 // Try and fuse our Newobj + the follow up constructor CallVoid into one IL newobj.
                 // If we can't, just fall back to an Ldnull.
-                if (FindConstructorCall(context, instruction) is { Operands: [MethodAnalysisContext constructor, _, ..] } constructorCall)
+                if (FindConstructorCall(context, instruction) is { Operands: [MethodAnalysisContext found, _, ..] } constructorCall
+                    && ConstructorFor(instruction.Operands.Count > 1 ? instruction.Operands[1] : null, found) is { } constructor)
                 {
                     // Operands run [ctor, newObject, arguments..., methodInfo], so take only as many as
                     // the constructor declares (i.e. drop methodInfo)
@@ -680,6 +681,36 @@ public static class IlGenerator
     }
     
     private static int ConstructorReceiverIndex(Instruction constructorCall) => constructorCall.OpCode == OpCode.CallVoid ? 1 : 2;
+
+    /// <summary>
+    /// AssetRipper: the constructor to emit for an allocation of <paramref name="allocated"/>, given
+    /// the one the following call names.
+    /// </summary>
+    /// <remarks>
+    /// They routinely differ. A trivial constructor is folded onto its base, so a closure's allocation
+    /// is followed by a call to <c>System.Object..ctor</c> and fusing the two gave
+    /// <c>(DisplayClass)new object()</c>; and generic sharing names one instantiation's constructor for
+    /// every other, so a <c>Predicate&lt;Sound&gt;</c> was built by <c>Predicate&lt;object&gt;</c>'s and
+    /// the delegate the caller then passed was of neither type.
+    /// </remarks>
+    private static MethodAnalysisContext? ConstructorFor(IOperand? allocated, MethodAnalysisContext found)
+    {
+        if (allocated is not TypeAnalysisContext allocatedType || ReferenceEquals(found.DeclaringType, allocatedType))
+            return found;
+
+        // Generic sharing names one instantiation's constructor for every other, so re-instantiate it
+        // on the type actually being allocated.
+        if (allocatedType is GenericInstanceTypeAnalysisContext instance
+            && instance.GenericType.Methods.FirstOrDefault(m => m.Name == ".ctor" && m.Parameters.Count == found.Parameters.Count) is { } shared)
+            return new ConcreteGenericMethodAnalysisContext(shared, instance.GenericArguments, []);
+
+        // A trivial constructor is folded onto its base, so a closure's allocation is followed by a
+        // call to System.Object..ctor and fusing the two gave (DisplayClass)new object().
+        if (found is not { Parameters.Count: 0, DeclaringType.FullName: "System.Object" })
+            return found;
+
+        return allocatedType.Methods.FirstOrDefault(m => m is { Name: ".ctor", Parameters.Count: 0 }) ?? found;
+    }
 
     // Try find the follow up CallVoid for a constructor, after a Newobj.
     private static Instruction? FindConstructorCall(MethodAnalysisContext context, Instruction newobj)
