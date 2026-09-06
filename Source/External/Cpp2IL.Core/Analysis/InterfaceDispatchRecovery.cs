@@ -113,7 +113,10 @@ public static class InterfaceDispatchRecovery
 
         // fast path computes klass + vtableOffset + ((entryOffset + slot) << 4) (the +slot folds away for slot 0)
         if (MatchVTableEntryChain(definitions, vtableEntry, slot, VTableOffset(method)) is not { } klassLocal)
+        {
+            IsilDump.Trace(method, $"unrecognised vtable entry chain from {vtableEntry} (vtable at 0x{VTableOffset(method):X}, slot {slot})");
             return null;
+        }
 
         if (ResolveInterfaceSlot(declaringInterface, slot) is not { } resolved)
             return null;
@@ -290,13 +293,47 @@ public static class InterfaceDispatchRecovery
         if (!RegionIsSideEffectFree(region, match.SlowCall) || AnyValueEscapes(cfg, region, merge))
             return;
 
-        if (!MergePhisAreDead(cfg, merge, out var removable))
-            return;
+        // AssetRipper: the merge phis used to have to be dead for any of this to happen, and on A64
+        // they never are. The scan walks the interface offset table with four scratch registers, and
+        // the compiler reuses those registers afterwards, so SSA merges the walk's last value with
+        // whatever the next piece of code puts there and every one of the phis has a live-looking
+        // use. Requiring deadness left the whole lookup standing around an already-resolved call:
+        // two loads off Il2CppClass per interface call, and the never-resolved slow path helper with
+        // them, which was the single largest group of unresolved loads in the game measured.
+        //
+        // Nothing outside the region reads what the region computed (AnyValueEscapes), so the only
+        // values in question are what the phis carry, and after the scan is gone the honest answer
+        // for those is nothing. Give them a defined zero — or, where the head reaches the merge
+        // directly, the input it contributed — rather than an operand that no longer exists.
+        var headEdge = merge.Predecessors.IndexOf(head);
 
-        foreach (var instruction in removable)
+        foreach (var phi in merge.Instructions)
         {
-            instruction.OpCode = OpCode.Nop;
-            instruction.SetOperands();
+            if (phi.OpCode != OpCode.Phi || phi.Operands[0] is not LocalVariable destination)
+                continue;
+
+            var survivor = headEdge >= 0 && headEdge + 1 < phi.Operands.Count
+                ? phi.Operands[headEdge + 1]
+                : new Immediate(0);
+
+            phi.OpCode = OpCode.Move;
+            phi.SetOperands(destination, survivor);
+        }
+
+        // The VirtualInvokeData the lookup produced is gone with it, so a load off the pointer that
+        // used to hold it reads nothing. Leaving it would only trade the scan's placeholders for a
+        // load from a folded zero.
+        if (match.InvokeDataPhi.Operands[0] is LocalVariable invokeData)
+        {
+            foreach (var block in cfg.Blocks)
+            {
+                foreach (var instruction in block.Instructions)
+                {
+                    if (instruction is { OpCode: OpCode.Move, Operands: [LocalVariable loaded, MemoryOperand { Base: LocalVariable loadBase }] }
+                        && ReferenceEquals(loadBase, invokeData))
+                        instruction.SetOperands(loaded, new Immediate(0));
+                }
+            }
         }
 
         foreach (var successor in head.Successors)
@@ -424,48 +461,6 @@ public static class InterfaceDispatchRecovery
         }
 
         return false;
-    }
-
-    // They may only feed loads off the VirtualInvokeData pointer, which must themselves be dead
-    private static bool MergePhisAreDead(ISILControlFlowGraph cfg, Block merge, out List<Instruction> removable)
-    {
-        removable = [];
-
-        var useSites = new Dictionary<LocalVariable, List<Instruction>>();
-        foreach (var block in cfg.Blocks)
-        {
-            foreach (var instruction in block.Instructions)
-            {
-                foreach (var used in UsedLocals(instruction))
-                {
-                    if (!useSites.TryGetValue(used, out var sites))
-                        useSites[used] = sites = [];
-                    sites.Add(instruction);
-                }
-            }
-        }
-
-        foreach (var phi in merge.Instructions)
-        {
-            if (phi.OpCode != OpCode.Phi)
-                continue;
-
-            if (phi.Operands[0] is not LocalVariable phiDest)
-                return false;
-
-            foreach (var use in useSites.TryGetValue(phiDest, out var phiUses) ? phiUses : [])
-            {
-                if (use is not { OpCode: OpCode.Move, Operands: [LocalVariable loaded, MemoryOperand] }
-                    || (useSites.TryGetValue(loaded, out var loadUses) && loadUses.Count > 0))
-                    return false;
-
-                removable.Add(use);
-            }
-
-            removable.Add(phi);
-        }
-
-        return true;
     }
 
     private static bool Uses(Instruction instruction, HashSet<LocalVariable> candidates)

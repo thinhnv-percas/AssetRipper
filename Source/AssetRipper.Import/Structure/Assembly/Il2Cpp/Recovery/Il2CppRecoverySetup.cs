@@ -34,14 +34,18 @@ public static class Il2CppRecoverySetup
 
 		List<Cpp2IlProcessingLayer> layers =
 		[
-			// First, so a binary that cannot be recovered says so before attribute analysis spends
+			// Before anything analyses a method: the measured Il2CppClass offsets are what several
+			// analysis passes match against, and the diagnostic sample below analyses methods for
+			// real. Nothing here depends on the layers that follow.
+			new StructDbProcessingLayer(structDbDirectory),
+
+			// Then, so a binary that cannot be recovered says so before attribute analysis spends
 			// minutes on it.
 			new Il2CppRecoveryDiagnosticsProcessingLayer(),
 
 			// Order matters from here. Attribute analysis creates the lists the later layers append to.
 			new AttributeAnalysisProcessingLayer(),
 			new MethodOverrideNameFixer(),
-			new StructDbProcessingLayer(structDbDirectory),
 		];
 
 		if (injectAddressAttributes)

@@ -391,6 +391,7 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // field-resolution fixpoint - all while still in SSA form, so every local is
         // single-assignment and a type, once known, is stable for that value.
         MetadataResolver.ResolveAll(this);
+        Analysis.IsilDump.Stage(this, "after ResolveAll");
 
         // Resolve KeyFunctionAddress calls, then collect what removing the write barriers left dead.
         KeyFunctionRecovery.Run(this);
@@ -404,9 +405,11 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         InjectedCheckRemover.Run(this);
 
+        Analysis.IsilDump.Stage(this, "before InterfaceDispatchRecovery");
         InterfaceDispatchRecovery.Run(this);
 
         LocalVariables.ResolveTypesAndFields(this);
+        Analysis.IsilDump.Stage(this, "after ResolveTypesAndFields");
 
         // AssetRipper: again, because a class pointer read off an object rather than named by a
         // metadata usage is only typed by the resolution above, and the guard is recognised by its
@@ -466,6 +469,8 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         DeadCodeEliminator.Run(this);
 
         LocalVariables.RemoveUnused(this);
+
+        Analysis.IsilDump.Stage(this, "final");
     }
 
     public void AddWarning(string warning) => AnalysisWarnings.Add(warning);
