@@ -536,7 +536,7 @@ public static class LocalVariables
             if (instruction.Operands[1] is not MemoryOperand { Index: null, Scale: 0 } memory || memory.Addend != staticFieldsOffset)
                 continue;
 
-            if (memory.Base is not LocalVariable { Type: RuntimeClassTypeAnalysisContext { RepresentedType: var owner } })
+            if (memory.Base is not LocalVariable holder || OwningClass(method, holder) is not { } owner)
                 continue;
 
             destination.Type = new StaticFieldStorageTypeAnalysisContext(owner, owner.DeclaringAssembly);
@@ -544,6 +544,35 @@ public static class LocalVariables
         }
 
         return changed;
+    }
+
+    /// <summary>
+    /// AssetRipper: the class whose static storage this local points at.
+    /// </summary>
+    /// <remarks>
+    /// Usually the local is the class pointer itself. Where the address in the code is a pointer to
+    /// the metadata usage slot rather than the slot, both addresses resolve to the same usage, so the
+    /// pointer is what gets named as the class and the code dereferences it once more before reading
+    /// the storage off it. That extra hop is allowed for here, and only here: nothing else needs to
+    /// know which of the two levels was named, and a load at offset zero of a class pointer means
+    /// something different everywhere else.
+    /// </remarks>
+    private static TypeAnalysisContext? OwningClass(MethodAnalysisContext method, LocalVariable holder)
+    {
+        if (holder.Type is RuntimeClassTypeAnalysisContext { RepresentedType: var direct })
+            return direct;
+
+        if (holder.Type != null)
+            return null;
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            if (instruction is { OpCode: OpCode.Move, Operands: [LocalVariable destination, MemoryOperand { Index: null, Scale: 0, Addend: 0, Base: LocalVariable { Type: RuntimeClassTypeAnalysisContext { RepresentedType: var indirect } } }] }
+                && ReferenceEquals(destination, holder))
+                return indirect;
+        }
+
+        return null;
     }
 
     // A single propagation sweep over every move and phi. Returns whether it filled in any type.
