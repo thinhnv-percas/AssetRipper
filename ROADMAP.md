@@ -12,10 +12,15 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 9332, of which 1314 name the import they call |
-| `Unmanaged memory load` placeholders | 23243 |
+| `Method not found` placeholders | 7949, of which 1314 name the import they call |
+| `Unmanaged memory load` placeholders | 13026 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
+
+The run also prints a breakdown of what the unresolved memory loads *are*, classified where the
+types are still in hand, one line per kind with an example. Read it before picking anything up here:
+it is raised from the one place in the generator that gives up on a load, so its total matches the
+placeholder count, and it reorders as things are fixed.
 
 The other measurement is `RunFromZombiesFullProject`, an ARM64 game that ships its own Unity source,
 so the output can be read against the real thing. Its sixteen scripts carry three diagnostics in
@@ -24,21 +29,34 @@ total, all of them calls into il2cpp runtime helpers (section 1), and no decompi
 The output does not compile and is not meant to. The goal is that the logic reads correctly. These
 are the places it still does not.
 
-## 1. Calls into the il2cpp runtime — about 6000 occurrences
+## 1. Calls into the il2cpp runtime — about 5500 occurrences
 
-The largest single defect, and the only one left in the second test game's own scripts. Of the 9332
+The largest single defect, and the only one left in the second test game's own scripts. Of the 7949
 `Method not found` placeholders, most name an address that starts no managed method: they are il2cpp
-runtime helpers compiled into the same section as the generated code. 401 distinct addresses remain,
-the busiest of them (`@8D82A4`) called 1352 times; the top six account for 5781 of them. The binary
-is stripped of local symbols, so there is nothing in it to name them with, and Cpp2IL's key function
-scan does not recognise them.
+runtime helpers compiled into the same section as the generated code. The binary is stripped of local
+symbols, so there is nothing in it to name them with, and Cpp2IL's key function scan does not
+recognise them.
+
+**They are thunks.** Every one of the busy addresses in the 0x8D82xx range is a single `b` to the
+real function: `8D82A4` branches to `0x899F2C`, which takes `(obj, klass)`, returns null for a null
+object, reads `obj->klass`, and tests assignability — `il2cpp::vm::Object::IsInst`. It is called 1353
+times, mostly as the array store check and the `isinst`/`castclass` pair. The key function scan does
+follow a thunk for some entries (`il2cpp_codegen_object_new` is found at the thunk 0x8D82B4), so the
+gap is which functions it looks for, not the indirection. Note also that on this game
+`il2cpp_vm_object_is_inst` resolves to **0x8D8298, which is the class-init thunk** — the same address
+the scan assigns to `il2cpp_codegen_runtime_class_init`. That detection is wrong, not merely absent,
+which is worth fixing before adding more.
+
+Identifying `Object::IsInst` alone would turn 1353 calls into the `IsInst` opcode the generator
+already emits, and with the array store check recognised would take the `ArrayTypeMismatch` throw
+path (477 calls to `@8D82D8`) with it.
 
 The right fix is not naming them but recognising them: a call the lifter identifies becomes an ISIL
 operation and never reaches the generator as an address. That means extending
 `Cpp2IL.Core/Il2CppApiFunctions/NewArm64KeyFunctionAddresses` with signatures for the helpers, which
 is per-Unity-version reverse engineering, not a code change. Identifying the busiest handful — they
 cluster right next to `il2cpp_codegen_object_new` at 0x8D82B4 and
-`il2cpp_codegen_runtime_class_init` at 0x8D8298 — would account for most of the 18862.
+`il2cpp_codegen_runtime_class_init` at 0x8D8298 — would account for most of them.
 
 ## 2. Calls into the PLT — named, on ELF and ARM64
 
@@ -51,17 +69,20 @@ What is left of this: **ARMv7 stubs are a different shape and are not decoded**,
 game's PLT calls stay anonymous; and it is ELF only, so a Windows game would need the PE import
 table instead.
 
-## 3. Inlined interface dispatch — about 5300 occurrences
+## 3. Inlined interface dispatch — about 1950 occurrences
 
-The largest remaining group of `Unmanaged memory load` placeholders is one shape: a read of
-`Il2CppClass::interface_offsets_count` (0x126 on this game), `interfaceOffsets` (0xB0) and
-`typeHierarchyDepth` (0x128), which together are the inlined interface method lookup the compiler
-emits in place of a call to `il2cpp_codegen_get_interface_invoke_data`.
-`InterfaceDispatchRecovery` now matches the A64 shape of the fast path and measures the vtable
-bound against the layout rather than a version formula, which took roughly a fifth of them. The rest
-fail somewhere else in the match or in the excision, and each needs its own look: the scan loop is
-compiled several ways and the pass gives up silently on any of them. This is now the largest single
-group left, at 2740 reads of `interface_offsets_count` and 1211 of `interfaceOffsets`.
+A read of `Il2CppClass::interface_offsets_count` (0x126 on this game) and `interfaceOffsets` (0xB0),
+which together are the inlined interface method lookup the compiler emits in place of a call to
+`il2cpp_codegen_get_interface_invoke_data`. `InterfaceDispatchRecovery` matches the A64 shape of the
+fast path, measures the vtable bound against the layout rather than a version formula, and now
+excises the scan once the dispatch is resolved rather than requiring the merge phis to be dead —
+which on A64 they never are, because the scan walks the table with scratch registers the compiler
+reuses immediately afterwards. That took `interface_offsets_count` from 2713 to 1309 and
+`interfaceOffsets` from 1189 to 644.
+
+What is left is dispatches the *match* does not recognise, not the excision. `IsilDump` (see
+`CLAUDE.md`) prints "unrecognised vtable entry chain" with the instruction it was handed for each
+one; the scan loop is compiled several ways and each shape needs its own look.
 
 ## 3c. Inlined type checks — recovered
 
@@ -70,20 +91,47 @@ group left, at 2740 reads of `interface_offsets_count` and 1211 of `interfaceOff
 `isinst` and the null test the branch was already doing. 379 casts now read as `as` or `is` in the
 output, and the depth comparison that lets the walk be skipped is folded away with them.
 
-What is left: **`Il2CppClass<T[]>+0x40` — about 2000 reads of an array class's `element_class`** that
-are not the unbox shape. On the test game they appear as an argument to an unresolved runtime helper
-(section 1) rather than in a comparison, and the surrounding type propagation is visibly wrong there
-— a class pointer typed as the element type by the call it is passed to — so what the pattern is has
-not been established. Read the ISIL before assuming it is an array store check.
+`Il2CppClass<T[]>+0x40`, an array class's `element_class`, was 2365 more of these and is the array
+store check: `stelem.ref` compiles to a call testing the value against the element class, reached
+through the array's own class because the array's type is only known at runtime.
+`MetadataResolver.ResolveElementClassLoads` now names it as the runtime class of the element type,
+which is what a metadata usage of that type would have produced, so the load resolves. 188 are left,
+where the base is an `Il2CppClass<T>` rather than an array's.
+
+What is left of the check itself is the call around it, which is section 1: the helper is
+`Object::IsInst` and is not identified, so the whole check still reads as an unresolved call and an
+`ArrayTypeMismatch` throw path rather than disappearing the way a null or bounds check does.
 
 ## 3b. Untyped memory loads — the rest
 
 A load through a register the lifter never typed, so there is no way to tell a field read from a
-runtime struct access. Nothing local fixes this. It needs type propagation in Cpp2IL's own analysis,
-which merges types across branches; the current `LocalVariables` pass drops a type rather than guess
-one, and `RuntimeStructAccessAnnotator` on our side is a linear forward walk with the same limit.
+runtime struct access. The breakdown now says what each of these was defined by, which splits the
+group into shapes that want different fixes. What is left, largest first:
 
-## 4. Field accesses that still do not resolve — about 5100 occurrences
+- **1462 `Move from AddressOf(an untyped local)`** — a load off the address of a stack slot, so a
+  struct built on the stack. The slot itself is never typed, so nothing names the field. Typing the
+  slot from what is stored into it, or from the call that takes its address, would resolve the
+  whole group.
+- **949 `Add of an untyped local and Immediate`** — an address computed into a register before the
+  load, which is the same problem the array element work solved for arrays and has not been done for
+  anything else.
+- **548 `Move from an untyped base`** — a load through a pointer whose own base was unresolved. These
+  are cascades: they go when whatever defines the base is fixed, and until then they say nothing on
+  their own.
+
+`RuntimeStructAccessAnnotator` on our side is a linear forward walk and cannot help with any of
+them.
+
+## 3d. Generic sharing — resolved
+
+`RgctxResolver` had `MethodInfo::klass` at 0x20 and `MethodInfo::rgctx_data` at 0x38, both of which
+are the 2022 layout; before 2022 they are at 0x18 and 0x30. Nothing typed the class a shared body
+reads out of its `MethodInfo`, so the RGCTX table it points at was untyped and every entry read out
+of it was untyped in turn — 1111 loads at `MethodInfo+0x30`, 1019 at `MethodInfo::klass` and about
+2600 of the chains hanging off them. Both offsets now come from the tables, and `MethodInfo` is
+measured from the struct database the same way `Il2CppClass` is, so the 2022 games keep what they had.
+
+## 4. Field accesses that still do not resolve — about 3200 occurrences
 
 The typed ones that remain, after nested value type fields were fixed. Three known causes:
 
