@@ -675,6 +675,10 @@ public static class LocalVariables
             // arithmetic, and without saying so the result stays untyped and every use of it a cast.
             LocalVariable { Type: { } aggregate } when FloatAggregate.MemberCount(aggregate) >= 2
                 => method.AppContext.SystemTypes.SystemSingleType,
+            FieldReference { Field.FieldType: { } fieldType } when FloatAggregate.MemberCount(fieldType) >= 2
+                => method.AppContext.SystemTypes.SystemSingleType,
+            FieldReference { Field.FieldType: { FullName: "System.Single" } fieldSingle } => fieldSingle,
+            FieldReference { Field.FieldType: { FullName: "System.Double" } fieldDouble } => fieldDouble,
             _ => null,
         };
 

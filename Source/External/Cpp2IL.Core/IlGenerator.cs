@@ -899,17 +899,25 @@ public static class IlGenerator
                 if (field.Field.IsStatic)
                 {
                     instructions.Add(CilOpCodes.Ldsfld, field.Field.ToFieldDescriptor());
-                    break;
+                }
+                else
+                {
+                    LoadLocal(field.Local, method, locals);
+
+                    // A field reached through value type fields needs those loaded first. ldfld takes a
+                    // value type instance on the stack, so reads chain without needing addresses.
+                    foreach (var containing in field.ContainingFields)
+                        instructions.Add(CilOpCodes.Ldfld, containing.ToFieldDescriptor());
+
+                    instructions.Add(CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
                 }
 
-                LoadLocal(field.Local, method, locals);
+                // AssetRipper: a field of a type the ABI keeps in several vector registers is named by
+                // its first register, which carries its first member - so where a float is wanted, that
+                // member is what it is, and `destination.x` beats a cast of the whole vector.
+                if (expectedType is { } fieldWanted && IsFloat(fieldWanted) && FloatAggregate.FirstMember(field.Field.FieldType) is { } fieldMember)
+                    instructions.Add(CilOpCodes.Ldfld, fieldMember.ToFieldDescriptor());
 
-                // A field reached through value type fields needs those loaded first. ldfld takes a
-                // value type instance on the stack, so reads chain without needing addresses.
-                foreach (var containing in field.ContainingFields)
-                    instructions.Add(CilOpCodes.Ldfld, containing.ToFieldDescriptor());
-
-                instructions.Add(CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
                 break;
             case MemoryOperand memory:
                 if (memory.Index == null && memory.Addend == 0 && memory.Scale == 0
