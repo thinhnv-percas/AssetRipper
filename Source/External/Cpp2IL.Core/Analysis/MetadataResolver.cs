@@ -416,36 +416,35 @@ public static class MetadataResolver
             //Non-key function call. Try to find a single match
             if (!method.AppContext.MethodsByAddress.TryGetValue(target, out var targetMethods))
             {
-                // Not a managed method at all. It may be one of the runtime helpers built around an exception
-                // type, which either throw it themselves or build it and hand it back for the caller to raise.
-                if (ThrowHelperRecovery.GetThrownException(method.AppContext, target) is { } thrown)
+                // AssetRipper: a generated body reaches a runtime helper through a veneer — one branch
+                // instruction sitting between the runtime and the generated code — so the address in
+                // the call is never the helper's. Nothing that looks an address up finds anything
+                // without the hop, which is why the busiest unresolved call targets in a game all sit
+                // in one small range. Take it, then ask all the same questions again.
+                var thunked = FollowThunks(method.AppContext, target);
+
+                if (thunked != target)
                 {
-                    if (callInstruction.Destination is LocalVariable produced && method.ControlFlowGraph!.Instructions.Any(i => i.Sources.Any(s => ReferenceEquals(s, produced))))
+                    if (keyFunctionAddresses.IsKeyFunctionAddress(thunked))
                     {
-                        callInstruction.OpCode = OpCode.Newobj;
-                        callInstruction.SetOperands(produced, thrown);
+                        HandleKeyFunction(method.AppContext, callInstruction, thunked, keyFunctionAddresses);
+                        continue;
                     }
-                    else
-                    {
-                        callInstruction.OpCode = OpCode.Throw;
-                        callInstruction.SetOperands(thrown);
-                    }
+
+                    if (method.AppContext.MethodsByAddress.ContainsKey(thunked))
+                        target = thunked;
+                }
+
+                if (!method.AppContext.MethodsByAddress.TryGetValue(target, out targetMethods))
+                {
+                    // Not a managed method at all. It may be one of the runtime helpers built around an
+                    // exception type, which either throw it themselves or build it and hand it back for
+                    // the caller to raise.
+                    if (TryRewriteAsThrow(method, callInstruction, target) || (thunked != target && TryRewriteAsThrow(method, callInstruction, thunked)))
+                        continue;
 
                     continue;
                 }
-
-                // Otherwise it may be one of the raisers, which throw the exception they are given
-                var raisedIndex = callInstruction.OpCode == OpCode.CallVoid ? 1 : 2;
-
-                if (callInstruction.Operands.Count > raisedIndex && ThrowHelperRecovery.IsExceptionRaiser(method.AppContext, target))
-                {
-                    var raised = callInstruction.Operands[raisedIndex];
-
-                    callInstruction.OpCode = OpCode.Throw;
-                    callInstruction.SetOperands(raised);
-                }
-
-                continue;
             }
 
             // Duplicated/Shared method bodies are resolved later in ResolveCallsViaMethodInfo/ResolveAmbiguousCalls.
@@ -850,6 +849,57 @@ public static class MetadataResolver
             LocalVariable { Type: RuntimeMethodInfoAnalysisContext methodInfoLocal } => methodInfoLocal,
             _ => null
         };
+
+    /// <summary>AssetRipper: the function a chain of one-instruction veneers ends at.</summary>
+    private static ulong FollowThunks(ApplicationAnalysisContext appContext, ulong address)
+    {
+        for (var hop = 0; hop < 4; hop++)
+        {
+            var next = appContext.InstructionSet.GetThunkTarget(appContext, address);
+
+            if (next == 0 || next == address)
+                return address;
+
+            address = next;
+        }
+
+        return address;
+    }
+
+    /// <summary>
+    /// Whether the call is to a helper built around an exception type — one that throws it, or builds
+    /// it and hands it back for the caller to raise — and was rewritten accordingly.
+    /// </summary>
+    private static bool TryRewriteAsThrow(MethodAnalysisContext method, Instruction callInstruction, ulong target)
+    {
+        if (ThrowHelperRecovery.GetThrownException(method.AppContext, target) is { } thrown)
+        {
+            if (callInstruction.Destination is LocalVariable produced && method.ControlFlowGraph!.Instructions.Any(i => i.Sources.Any(s => ReferenceEquals(s, produced))))
+            {
+                callInstruction.OpCode = OpCode.Newobj;
+                callInstruction.SetOperands(produced, thrown);
+            }
+            else
+            {
+                callInstruction.OpCode = OpCode.Throw;
+                callInstruction.SetOperands(thrown);
+            }
+
+            return true;
+        }
+
+        // Otherwise it may be one of the raisers, which throw the exception they are given
+        var raisedIndex = callInstruction.OpCode == OpCode.CallVoid ? 1 : 2;
+
+        if (callInstruction.Operands.Count > raisedIndex && ThrowHelperRecovery.IsExceptionRaiser(method.AppContext, target))
+        {
+            callInstruction.OpCode = OpCode.Throw;
+            callInstruction.SetOperands(callInstruction.Operands[raisedIndex]);
+            return true;
+        }
+
+        return false;
+    }
 
     private static void HandleKeyFunction(ApplicationAnalysisContext appContext, Instruction instruction, ulong target, BaseKeyFunctionAddresses kFA)
     {

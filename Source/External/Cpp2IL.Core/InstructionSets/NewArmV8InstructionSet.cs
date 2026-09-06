@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Linq;
 using Disarm;
@@ -152,6 +153,42 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
     /// Decoded rather than computed from the section layout: the header and entry sizes of a PLT vary
     /// by toolchain, and indexing into it by arithmetic is right only until one of them changes.
     /// </remarks>
+    /// <summary>
+    /// AssetRipper: a veneer — one unconditional <c>B</c> and nothing else — and what it branches to.
+    /// </summary>
+    /// <remarks>
+    /// The il2cpp runtime helpers a generated body calls are reached this way: a table of single
+    /// branch instructions sits between the runtime and the generated code, and every call goes to
+    /// the veneer rather than the function. Nothing that looks a helper up by address finds it
+    /// without taking the hop, which is why the busiest unresolved call targets in a game are all in
+    /// one small address range.
+    /// </remarks>
+    public override ulong GetThunkTarget(ApplicationAnalysisContext context, ulong thunkAddress)
+    {
+        var binary = context.Binary;
+
+        if (!binary.TryMapVirtualAddressToRaw(thunkAddress, out var rawAddress))
+            return 0;
+
+        var raw = binary.GetRawBinaryContent();
+
+        if ((long)rawAddress + 4 > raw.Length)
+            return 0;
+
+        var word = BinaryPrimitives.ReadUInt32LittleEndian(raw.Slice((int)rawAddress, 4));
+
+        // B is 000101 followed by a signed 26 bit word displacement
+        if (word >> 26 != 0b000101)
+            return 0;
+
+        var displacement = (int)(word & 0x3FFFFFF);
+
+        if ((displacement & 0x2000000) != 0)
+            displacement -= 0x4000000;
+
+        return (ulong)((long)thunkAddress + displacement * 4L);
+    }
+
     public override ulong GetPltGotSlot(ApplicationAnalysisContext context, ulong address)
     {
         var binary = context.Binary;

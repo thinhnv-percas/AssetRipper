@@ -1,3 +1,4 @@
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Linq;
 using Disarm;
@@ -129,12 +130,80 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
         return matchingCall.Mnemonic != Arm64Mnemonic.INVALID ? matchingCall.BranchTarget : 0;
     }
 
-    protected override int GetCallerCount(ulong toWhere)
+    /// <summary>
+    /// AssetRipper: every function containing a <c>BL</c> to <paramref name="target"/>, by walking back
+    /// from the call site to the start of the function it sits in.
+    /// </summary>
+    protected override IEnumerable<ulong> FindCallersOf(ulong target)
     {
-        //Disassemble .text
         var disassembly = DisassembleTextSection();
 
-        //Find all jumps to the target address
-        return disassembly.Count(i => i.Mnemonic is Arm64Mnemonic.B or Arm64Mnemonic.BL && i.BranchTarget == toWhere);
+        for (var index = 0; index < disassembly.Count; index++)
+        {
+            if (disassembly[index].Mnemonic != Arm64Mnemonic.BL || disassembly[index].BranchTarget != target)
+                continue;
+
+            for (var back = 0; back <= MaxInstructionsInAFunction && index - back >= 0; back++)
+            {
+                if (!IsFunctionStart(disassembly, index - back))
+                    continue;
+
+                yield return disassembly[index - back].Address;
+                break;
+            }
+        }
+    }
+
+    // A runtime function long enough to exceed this is not one anything here is looking for.
+    private const int MaxInstructionsInAFunction = 4096;
+
+    protected override int GetCallerCount(ulong toWhere)
+        => BranchTargetCounts.GetValueOrDefault(toWhere);
+
+    /// <summary>
+    /// AssetRipper: how many <c>B</c> or <c>BL</c> instructions in the binary branch to each address.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This used to count over the disassembly of <c>.text</c>, which on an il2cpp .so holds the
+    /// runtime and none of the generated method bodies — those are in a section of their own, called
+    /// <c>il2cpp</c>. So a helper called 7999 times from managed code counted as 1, and every "which
+    /// of these is the one managed code calls" decision was made on noise.
+    /// </para>
+    /// <para>
+    /// The counts do not need a disassembler: on A64 both branches are one word with a signed 26 bit
+    /// word displacement, so the histogram is a scan. Disarm over 14MB of generated code, for a
+    /// number, would not be.
+    /// </para>
+    /// </remarks>
+    private Dictionary<ulong, int> BranchTargetCounts => field ??= BuildBranchTargetCounts();
+
+    private Dictionary<ulong, int> BuildBranchTargetCounts()
+    {
+        var counts = new Dictionary<ulong, int>();
+
+        foreach (var (virtualAddress, data) in _appContext.Binary.GetExecutableSections())
+        {
+            var words = data.Span;
+
+            for (var offset = 0; offset + 4 <= words.Length; offset += 4)
+            {
+                var word = BinaryPrimitives.ReadUInt32LittleEndian(words[offset..]);
+
+                // B is 000101iiii..., BL is 100101iiii...; the immediate is a signed word count
+                if ((word >> 26) is not (0b000101 or 0b100101))
+                    continue;
+
+                var displacement = (int)(word & 0x3FFFFFF);
+
+                if ((displacement & 0x2000000) != 0)
+                    displacement -= 0x4000000;
+
+                var target = (ulong)((long)virtualAddress + offset + displacement * 4L);
+                counts[target] = counts.GetValueOrDefault(target) + 1;
+            }
+        }
+
+        return counts;
     }
 }

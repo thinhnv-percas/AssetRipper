@@ -29,6 +29,13 @@ public static class KeyFunctionRecovery
         nameof(BaseKeyFunctionAddresses.il2cpp_codegen_raise_exception),
     ];
 
+    //Both take the object and the class to test it against, and return the object or null.
+    private static readonly HashSet<string> IsInstFunctions =
+    [
+        nameof(BaseKeyFunctionAddresses.il2cpp_vm_object_is_inst),
+        nameof(BaseKeyFunctionAddresses.il2cpp_codegen_object_is_inst),
+    ];
+
     //Both take the class to box as and a pointer to the value.
     private static readonly HashSet<string> BoxFunctions =
     [
@@ -55,6 +62,8 @@ public static class KeyFunctionRecovery
                 RewriteTypeObject(instruction);
             else if (keyFunction == nameof(BaseKeyFunctionAddresses.InternalCalls_Resolve))
                 RewriteInternalCallResolve(instruction, method);
+            else if (IsInstFunctions.Contains(keyFunction))
+                RewriteIsInst(instruction);
         }
     }
 
@@ -76,6 +85,36 @@ public static class KeyFunctionRecovery
 
         instruction.OpCode = OpCode.Throw;
         instruction.SetOperands(exception);
+    }
+
+    /// <summary>
+    /// AssetRipper: <c>Object::IsInst(obj, klass)</c> is <c>isinst</c>, which the generator emits.
+    /// </summary>
+    /// <remarks>
+    /// It is the busiest runtime helper in a game — every <c>isinst</c> and <c>castclass</c> in the
+    /// source, and the type check <c>stelem.ref</c> compiles to — so leaving it unrecognised costs
+    /// both the call and the class pointer load that feeds it.
+    /// </remarks>
+    private static void RewriteIsInst(Instruction instruction)
+    {
+        // function name, result, object, class.
+        if (instruction.OpCode != OpCode.Call || instruction.Operands is not [_, var result, var value, var klass, ..])
+            return;
+
+        // the class arrives either named by a metadata usage or through a local that one was loaded into
+        var testedType = klass switch
+        {
+            RuntimeClassTypeAnalysisContext { RepresentedType: { } represented } => represented,
+            LocalVariable { Type: RuntimeClassTypeAnalysisContext { RepresentedType: { } typed } } => typed,
+            TypeAnalysisContext type and not (RuntimeMethodInfoAnalysisContext or RuntimeFieldInfoAnalysisContext) => type,
+            _ => null,
+        };
+
+        if (testedType == null)
+            return;
+
+        instruction.OpCode = OpCode.IsInst;
+        instruction.SetOperands(result, testedType, value);
     }
 
     private static void RewriteBox(Instruction instruction)

@@ -530,6 +530,23 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
 
     public abstract ulong GetVirtualAddressOfPrimaryExecutableSection();
 
+    /// <summary>
+    /// AssetRipper: every executable region of the binary, virtual address first.
+    /// </summary>
+    /// <remarks>
+    /// An il2cpp .so puts the runtime in <c>.text</c> and the generated method bodies in a section of
+    /// its own, called <c>il2cpp</c>. Anything counting how often a runtime helper is called has to
+    /// look at both, because every one of those calls is in the second.
+    /// </remarks>
+    public virtual IEnumerable<(ulong VirtualAddress, ReadOnlyMemory<byte> Data)> GetExecutableSections()
+    {
+        var primary = GetEntirePrimaryExecutableSection();
+
+        return primary.Length > 0
+            ? [(GetVirtualAddressOfPrimaryExecutableSection(), (ReadOnlyMemory<byte>)primary.ToArray())]
+            : [];
+    }
+
     public virtual (ulong pCodeRegistration, ulong pMetadataRegistration) FindCodeAndMetadataReg(Il2CppMetadata metadata)
     {
         if (MetadataVersion == 0)

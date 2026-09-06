@@ -686,4 +686,26 @@ public sealed class ElfFile : ElfStyleRelocationsBinary
 
         return GetRawBinaryContent().Slice((int)primarySection.RawAddress, (int)primarySection.Size);
     }
+
+    // AssetRipper: see the base. On an il2cpp .so this is .text plus the section named "il2cpp",
+    // which holds every generated method body.
+    public override IEnumerable<(ulong VirtualAddress, ReadOnlyMemory<byte> Data)> GetExecutableSections()
+    {
+        var sections = new List<(ulong, ReadOnlyMemory<byte>)>();
+        var content = GetRawBinaryContent();
+
+        foreach (var section in _elfSectionHeaderEntries)
+        {
+            if ((section.Flags & ElfSectionHeaderFlags.SHF_EXECINSTR) == 0 || section.Size == 0
+                || section.Type == ElfSectionEntryType.SHT_NOBITS)
+                continue;
+
+            if (section.RawAddress + section.Size > (ulong)content.Length)
+                continue;
+
+            sections.Add((section.VirtualAddress, content.Slice((int)section.RawAddress, (int)section.Size).ToArray()));
+        }
+
+        return sections;
+    }
 }

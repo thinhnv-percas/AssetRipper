@@ -403,6 +403,7 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // Delete inlined GC write barriers
         WriteBarrierRecovery.Run(this);
 
+        Analysis.IsilDump.Stage(this, "before InjectedCheckRemover");
         InjectedCheckRemover.Run(this);
 
         Analysis.IsilDump.Stage(this, "before InterfaceDispatchRecovery");
@@ -418,6 +419,13 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         // AssetRipper: needs the same typing, for the same reason.
         TypeCheckRecovery.Run(this);
+
+        // AssetRipper: again, both of them. An array store check tests the value against the array's
+        // element class through Object::IsInst, and the class only gets typed by the resolution
+        // above, so the first time round the call is an unrecognised helper and the check it guards
+        // is an ordinary branch.
+        KeyFunctionRecovery.Run(this);
+        InjectedCheckRemover.Run(this);
 
         // Needs the MethodInfo* receivers typed, so runs after resolution unlike the class-init guards
         MetadataInitGuardRemover.RunRgctx(this);

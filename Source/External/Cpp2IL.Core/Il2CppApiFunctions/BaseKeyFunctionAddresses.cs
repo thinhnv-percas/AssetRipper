@@ -48,7 +48,10 @@ public abstract class BaseKeyFunctionAddresses
     public ulong il2cpp_vm_exception_raise; //Thunked from above
     public ulong il2cpp_codegen_raise_exception; //Thunked TO above. don't know real name.
 
-    public ulong il2cpp_vm_object_is_inst; //Not exported, not thunked. Can be located via the Type#IsInstanceOfType icall.
+    public ulong il2cpp_class_is_assignable_from; //Api function (exported)
+    public ulong il2cpp_vm_class_is_assignable_from; //Thunked from above
+    public ulong il2cpp_vm_object_is_inst; //Not exported. Located as the busiest caller of the above; see FindObjectIsInstViaAssignableFrom.
+    public ulong il2cpp_codegen_object_is_inst; //Thunked TO the above, called by managed method bodies
 
     public ulong il2cpp_codegen_write_barrier; //Not exported, not thunked. Located via corlib methods which store a reference into a field. Zero if the build has write barriers disabled.
 
@@ -115,8 +118,17 @@ public abstract class BaseKeyFunctionAddresses
         //New array of fixed size
         FindExport("il2cpp_array_new_specific", out il2cpp_array_new_specific);
 
+        //Class assignability, which is what Object::IsInst is found through
+        FindExport("il2cpp_class_is_assignable_from", out il2cpp_class_is_assignable_from);
+
+        if (il2cpp_class_is_assignable_from != 0)
+            il2cpp_vm_class_is_assignable_from = FindFunctionThisIsAThunkOf(il2cpp_class_is_assignable_from);
+
         //Object IsInst
-        il2cpp_vm_object_is_inst = GetObjectIsInstFromSystemType();
+        il2cpp_vm_object_is_inst = FindObjectIsInstViaAssignableFrom();
+
+        if (il2cpp_vm_object_is_inst == 0)
+            il2cpp_vm_object_is_inst = GetObjectIsInstFromSystemType();
 
         //GC write barrier
         il2cpp_codegen_write_barrier = GetWriteBarrier();
@@ -193,6 +205,17 @@ public abstract class BaseKeyFunctionAddresses
             il2cpp_codegen_object_new = list.FirstOrDefault().ptr;
 
             Logger.VerboseNewline($"Found at 0x{il2cpp_codegen_object_new:X}");
+        }
+
+        if (il2cpp_vm_object_is_inst != 0)
+        {
+            Logger.Verbose("\tLooking for il2cpp_codegen_object_is_inst as a thunk of vm::Object::IsInst...");
+
+            // AssetRipper: generated code calls the thunk, never the function, so without this every
+            // isinst, castclass and array store check in the game is an unresolved address.
+            il2cpp_codegen_object_is_inst = MostCalledThunkOf(il2cpp_vm_object_is_inst);
+
+            Logger.VerboseNewline($"Found at 0x{il2cpp_codegen_object_is_inst:X}");
         }
 
         if (il2cpp_type_get_object != 0)
@@ -307,6 +330,91 @@ public abstract class BaseKeyFunctionAddresses
     protected abstract ulong GetObjectIsInstFromSystemType();
 
     /// <summary>
+    /// AssetRipper: the functions containing a call to <paramref name="target"/>. Empty where the
+    /// instruction set has no way to look.
+    /// </summary>
+    protected virtual IEnumerable<ulong> FindCallersOf(ulong target) => [];
+
+    /// <summary>
+    /// AssetRipper: <c>il2cpp::vm::Object::IsInst</c>, found as the busiest caller of
+    /// <c>Class::IsAssignableFrom</c>.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// <see cref="GetObjectIsInstFromSystemType"/> assumes <c>System.Type::IsInstanceOfType</c> is the
+    /// one-line icall that ends in a call to IsInst. On Unity 2019.2 it is managed code that ends in a
+    /// virtual dispatch instead, and the heuristic — the last <c>BL</c> in the body — reads past the
+    /// end of the method and returns whatever the next function calls. On the game measured that was
+    /// the class-init thunk, which is not merely a miss: the address then collides with
+    /// <c>il2cpp_codegen_runtime_class_init</c> and whichever name comes first wins.
+    /// </para>
+    /// <para>
+    /// <c>il2cpp_class_is_assignable_from</c> is exported, so <c>Class::IsAssignableFrom</c> is known
+    /// exactly. IsInst is one of about a dozen functions that call it, and the only one managed code
+    /// calls at all — every <c>isinst</c>, <c>castclass</c> and array store check goes through it —
+    /// so counting callers separates it by three orders of magnitude. The count has to include the
+    /// thunks, because generated code calls those and not the function.
+    /// </para>
+    /// </remarks>
+    private ulong FindObjectIsInstViaAssignableFrom()
+    {
+        if (il2cpp_vm_class_is_assignable_from == 0)
+            return 0;
+
+        Logger.Verbose("\tLooking for vm::Object::IsInst as the busiest caller of Class::IsAssignableFrom...");
+
+        var best = 0ul;
+        var bestCount = 0;
+
+        foreach (var caller in FindCallersOf(il2cpp_vm_class_is_assignable_from).Distinct())
+        {
+            if (caller == 0 || caller == il2cpp_vm_class_is_assignable_from)
+                continue; // it calls itself recursively
+
+            var count = GetCallerCount(caller) + FindAllThunkFunctions(caller).Sum(GetCallerCount);
+
+            if (count > bestCount)
+            {
+                bestCount = count;
+                best = caller;
+            }
+        }
+
+        // Every cast in the game goes through it. Anything less is one of the runtime-internal callers
+        // and naming it IsInst would be worse than not finding it.
+        if (bestCount < MinimumIsInstCallers)
+        {
+            Logger.VerboseNewline($"Busiest caller has only {bestCount} callers of its own, which is too few. Aborting.");
+            return 0;
+        }
+
+        Logger.VerboseNewline($"Found at 0x{best:X} with {bestCount} callers.");
+        return best;
+    }
+
+    private const int MinimumIsInstCallers = 32;
+
+    /// <summary>AssetRipper: the thunk of <paramref name="function"/> that is called the most.</summary>
+    private ulong MostCalledThunkOf(ulong function)
+    {
+        var best = 0ul;
+        var bestCount = 0;
+
+        foreach (var thunk in FindAllThunkFunctions(function))
+        {
+            var count = GetCallerCount(thunk);
+
+            if (count > bestCount)
+            {
+                bestCount = count;
+                best = thunk;
+            }
+        }
+
+        return best;
+    }
+
+    /// <summary>
     /// Locates Il2CppCodeGenWriteBarrier, the GC write barrier emitted after every reference store into a
     /// heap object. Returns 0 where it can't be found, including builds which have write barriers disabled.
     /// </summary>
@@ -376,7 +484,10 @@ public abstract class BaseKeyFunctionAddresses
         AddResolved(il2cpp_vm_exception_raise);
         AddResolved(il2cpp_codegen_raise_exception);
 
+        AddResolved(il2cpp_class_is_assignable_from);
+        AddResolved(il2cpp_vm_class_is_assignable_from);
         AddResolved(il2cpp_vm_object_is_inst);
+        AddResolved(il2cpp_codegen_object_is_inst);
 
         AddResolved(il2cpp_codegen_write_barrier);
 
