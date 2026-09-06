@@ -116,6 +116,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Utils.BaseCallingConventionResolver.AggregateArgumentsComposed} call arguments the ABI " +
 				"spread over several vector registers were composed back into their value.");
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {IlGenerator.HiddenFieldsReadThroughAProperty} reads of a hidden static field " +
+				"were written as the public property that returns it.");
 			return assemblies;
 		}
 		finally

@@ -266,6 +266,55 @@ public static class IlGenerator
     /// </summary>
     public static Action<MethodAnalysisContext, IOperand>? UnresolvedMemoryLoad;
 
+    /// <summary>AssetRipper: how many hidden static fields were read through their public property.</summary>
+    public static int HiddenFieldsReadThroughAProperty;
+
+    /// <summary>
+    /// AssetRipper: the public getter to read a non-public static field through, when the type has one.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A property whose getter does nothing but return a static field is inlined, so the recovered
+    /// code names the field. That reads worse than the property and, in an exported script compiled
+    /// against the real framework assemblies rather than the recovered ones, does not compile at all:
+    /// <c>Quaternion.identityQuaternion</c> is private, so it is not a member the script can name.
+    /// </para>
+    /// <para>
+    /// The pairing is a convention rather than something the metadata records — the framework's
+    /// bodies are native, so there is no getter to read — but it is a narrow one: the property is
+    /// public and static, has the field's exact type, and its name is a prefix of the field's.
+    /// <c>identityQuaternion</c> is read through <c>identity</c>, <c>zeroVector</c> through
+    /// <c>zero</c>, <c>positiveInfinityVector</c> through <c>positiveInfinity</c>.
+    /// </para>
+    /// </remarks>
+    private static MethodAnalysisContext? PublicAccessorFor(FieldAnalysisContext field)
+    {
+        if ((field.Attributes & FieldAttributes.FieldAccessMask) == FieldAttributes.Public)
+            return null;
+
+        var owner = field.DeclaringType;
+
+        if (owner == null)
+            return null;
+
+        foreach (var property in owner.Properties)
+        {
+            if (property.Getter is not { IsStatic: true } getter
+                || (getter.Attributes & MethodAttributes.MemberAccessMask) != MethodAttributes.Public
+                || getter.Parameters.Count != 0)
+                continue;
+
+            if (property.Name.Length < 3 || property.Name.Length >= field.Name.Length
+                || !field.Name.StartsWith(property.Name, StringComparison.Ordinal))
+                continue;
+
+            if (getter.ReturnType.FullName == field.FieldType.FullName)
+                return getter;
+        }
+
+        return null;
+    }
+
     // Limit so we don't run into the 16mb limit (see AsmResolver issue #775)
     private static string Diagnostic(string message) 
         => message.Length <= 250 ? message : message[..250] + "…";
@@ -966,7 +1015,14 @@ public static class IlGenerator
             case FieldReference field:
                 if (field.Field.IsStatic)
                 {
-                    instructions.Add(CilOpCodes.Ldsfld, field.Field.ToFieldDescriptor());
+                    // AssetRipper: prefer the public property over a hidden backing field; see PublicAccessorFor.
+                    if (PublicAccessorFor(field.Field) is { } accessor)
+                    {
+                        System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        instructions.Add(CilOpCodes.Call, accessor.ToMethodDescriptor());
+                    }
+                    else
+                        instructions.Add(CilOpCodes.Ldsfld, field.Field.ToFieldDescriptor());
                 }
                 else
                 {
@@ -1013,8 +1069,23 @@ public static class IlGenerator
                         && (f.Attributes & FieldAttributes.Literal) == 0
                         && f.BackingData?.FieldOffset == 0) is { } storageHead)
                 {
-                    instructions.Add(expectedType is ByRefTypeAnalysisContext or PointerTypeAnalysisContext ? CilOpCodes.Ldsflda : CilOpCodes.Ldsfld,
-                        storageHead.ToFieldDescriptor());
+                    if (expectedType is ByRefTypeAnalysisContext or PointerTypeAnalysisContext)
+                    {
+                        instructions.Add(CilOpCodes.Ldsflda, storageHead.ToFieldDescriptor());
+                    }
+                    else if (PublicAccessorFor(storageHead) is { } storageAccessor)
+                    {
+                        // AssetRipper: the head of a type's static storage is its first static field,
+                        // which for a type like Quaternion is the backing field of a public constant —
+                        // read it through the property. See PublicAccessorFor.
+                        System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        instructions.Add(CilOpCodes.Call, storageAccessor.ToMethodDescriptor());
+                    }
+                    else
+                    {
+                        instructions.Add(CilOpCodes.Ldsfld, storageHead.ToFieldDescriptor());
+                    }
+
                     break;
                 }
 
