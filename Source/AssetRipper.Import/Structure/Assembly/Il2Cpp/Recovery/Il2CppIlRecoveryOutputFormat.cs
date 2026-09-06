@@ -162,6 +162,26 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		bool is32Bit = appContext.Binary.is32Bit;
 
+		// a local map: this runs in parallel over every method
+		Dictionary<LocalVariable, string> untypedBaseSources = [];
+
+		foreach (Block block in cfg.Blocks)
+		{
+			foreach (Instruction instruction in block.Instructions)
+			{
+				if (instruction.Destination is LocalVariable { Type: null } untyped)
+				{
+					untypedBaseSources[untyped] = instruction.OpCode switch
+					{
+						Cpp2IL.Core.ISIL.OpCode.Move when instruction.Operands.Count > 1 => $"Move from {DescribeSource(instruction.Operands[1])}",
+						Cpp2IL.Core.ISIL.OpCode.Phi => "Phi",
+						Cpp2IL.Core.ISIL.OpCode.Call or Cpp2IL.Core.ISIL.OpCode.IndirectCall => "a call's result",
+						_ => instruction.OpCode.ToString(),
+					};
+				}
+			}
+		}
+
 		foreach (Block block in cfg.Blocks)
 		{
 			foreach (Instruction instruction in block.Instructions)
@@ -173,7 +193,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 						continue;
 					}
 
-					string kind = ClassifyOperand(memory, is32Bit);
+					string kind = ClassifyOperand(memory, is32Bit, untypedBaseSources);
 					unresolvedLoadKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
 					unresolvedLoadExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {instruction}");
 				}
@@ -181,7 +201,18 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		}
 	}
 
-	private string ClassifyOperand(MemoryOperand memory, bool is32Bit)
+	private static string DescribeSource(IOperand operand) => operand switch
+	{
+		MemoryOperand { Base: null } => "an absolute address",
+		MemoryOperand { Base: LocalVariable { Type: { } baseType } } memory => $"[{baseType.Name} + 0x{memory.Addend:X}]",
+		MemoryOperand => "an untyped base",
+		LocalVariable { Type: { } sourceType } => sourceType.Name,
+		LocalVariable => "an untyped local",
+		FieldReference field => $"the field {field.Field.FieldType.Name}",
+		_ => operand.GetType().Name,
+	};
+
+	private string ClassifyOperand(MemoryOperand memory, bool is32Bit, Dictionary<LocalVariable, string> untypedBaseSources)
 	{
 		if (memory.Base is null)
 		{
@@ -195,7 +226,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		if (local.Type is null)
 		{
-			return "base has no type";
+			// what defined it is the question, so say that rather than just "no type"
+			string source = untypedBaseSources.TryGetValue(local, out string? found) ? found : "no definition";
+			return $"base has no type, from {source}";
 		}
 
 		string offset = memory.Addend < 0 ? $"-0x{-memory.Addend:X}" : $"0x{memory.Addend:X}";
