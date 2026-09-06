@@ -198,6 +198,52 @@ public static class MetadataResolver
     /// typed (a field load types its result, which is the base of the next load), more offsets
     /// resolve, so this is re-run until it stops finding new fields.
     /// </summary>
+    /// <summary>
+    /// AssetRipper: <c>[Il2CppClass&lt;T[]&gt; + element_class]</c> is the runtime class of T, which the
+    /// metadata already names.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This is the array store check: <c>stelem.ref</c> compiles to a call testing the value against
+    /// the array's element class, and the element class is reached through the array's own class
+    /// rather than named by a metadata usage, because the array type is only known at runtime. The
+    /// load has no managed meaning on its own, so it reached the generator as an unresolved memory
+    /// operand — the largest single group of them on the game measured, at 2365.
+    /// </para>
+    /// <para>
+    /// Once the base is typed the element class is not unknown at all: it is exactly the runtime class
+    /// of the array's element type, which is what a metadata usage of that type would have produced.
+    /// </para>
+    /// </remarks>
+    public static bool ResolveElementClassLoads(MethodAnalysisContext method)
+    {
+        if (!Il2CppClassUsefulOffsets.TryGetOffset("elementType", method.AppContext.Binary.is32Bit, out var elementClassOffset))
+            return false;
+
+        var changed = false;
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            for (var i = 0; i < instruction.Operands.Count; i++)
+            {
+                if (instruction.Operands[i] is not MemoryOperand { Index: null, Scale: 0, Base: LocalVariable arrayClass } memory
+                    || memory.Addend != elementClassOffset
+                    || arrayClass.Type is not RuntimeClassTypeAnalysisContext { RepresentedType: SzArrayTypeAnalysisContext { ElementType: { } elementType } })
+                    continue;
+
+                instruction.SetOperand(i, elementType);
+                changed = true;
+
+                // the same ground truth SeedRuntimeClassTypes applies to a metadata usage load, which
+                // has already run by the time this can fire
+                if (i == 1 && instruction.OpCode == OpCode.Move && instruction.Operands[0] is LocalVariable loaded)
+                    loaded.Type = new RuntimeClassTypeAnalysisContext(elementType, elementType.DeclaringAssembly);
+            }
+        }
+
+        return changed;
+    }
+
     public static bool ResolveFieldOffsets(MethodAnalysisContext method)
     {
         var changed = false;

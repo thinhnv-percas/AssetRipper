@@ -259,6 +259,7 @@ public static class LocalVariables
             changed |= MetadataResolver.ResolveVirtualCalls(method);
             changed |= PropagateFromCallParameters(method);
             changed |= MetadataResolver.ResolveFieldOffsets(method);
+            changed |= MetadataResolver.ResolveElementClassLoads(method);
             changed |= RgctxResolver.Run(method);
             changed |= PropagateStaticFieldStorage(method);
             changed |= TypeAddressedLocals(method);
