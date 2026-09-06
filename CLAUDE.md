@@ -155,6 +155,20 @@ find it; `strings` without `-el` does find method and type names.
   silently kept the whole register file as their arguments. That one line was worth 11605 `Method not
   found` placeholders.
 
+- **A pass that matches a shape must be written against the shape at the point it runs.** The final
+  analysed ISIL is heavily folded — a load is inside the instruction that consumed it, a type is
+  inside the comparison — and a pass in the middle of the pipeline sees neither. `TypeCheckRecovery`
+  matched nothing at first for exactly this reason: the comparison it wanted was against the local
+  the class pointer had been loaded into, not against `typeof(T)`. Dump the ISIL from a probe that
+  stops where the pass runs, not from the output.
+- **The Il2CppClass offsets a pattern keys on move between Unity versions**, so read them out of the
+  struct database rather than writing them down: `Il2CppClassUsefulOffsets.TryGetOffset` reads the
+  measured table `Il2CppClassOffsetPatcher` prepends. `typeHierarchyDepth` is 0x128 on 2019.2 and
+  0x130 on 2022.3, which is the difference between recovering every cast in a game and none of them.
+- **A new ISIL opcode is far cheaper than a new operand kind.** An opcode needs a case in
+  `Instruction.GetSources` and `GetOrSetDestination` and one in the generator; an operand kind needs
+  every walker in the pipeline. Append it after `Throw`: the enum's ranges are compared by value
+  (`>= CheckEqual and <= CheckLessOrEqual`), so inserting in the middle silently reclassifies things.
 - **ILSpy can throw out of a transform on IL that verifies.** `ReplaceIfUnverifiable` only catches
   what fails verification, and an assembly is decompiled as one parallel unit, so a transform crash
   used to cost every script after it. `ScriptDecompiler` now reads the file name out of the failure,

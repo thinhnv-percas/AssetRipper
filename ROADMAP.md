@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 9332 |
-| `Unmanaged memory load` placeholders | 25383 |
+| `Method not found` placeholders | 9332, of which 1314 name the import they call |
+| `Unmanaged memory load` placeholders | 23243 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -40,16 +40,15 @@ is per-Unity-version reverse engineering, not a code change. Identifying the bus
 cluster right next to `il2cpp_codegen_object_new` at 0x8D82B4 and
 `il2cpp_codegen_runtime_class_init` at 0x8D8298 — would account for most of the 18862.
 
-## 2. Calls into the PLT — 1794 occurrences
+## 2. Calls into the PLT — named, on ELF and ARM64
 
-24 distinct addresses in the ELF `.plt`, calls into libc and the C++ runtime. These are exactly
-nameable and nothing does it. An AArch64 PLT entry is 16 bytes after a 32 byte header, so stub *n*
-corresponds to relocation *n* in `.rela.plt`, whose symbol name is in `.dynsym` — on this binary,
-368 entries, and (0x6D2380 − 0x6D1940 − 32) / 16 lands exactly on one.
+1314 of them over 28 distinct addresses, and they now say which import they call: `_Unwind_Resume`,
+`__cxa_end_catch`, `memcpy`, `sinf`. `ElfFile` reads `.rela.plt` back, keyed by the GOT slot each
+relocation binds, and the ARM64 lifter decodes a stub to say which slot it reads — decoded rather
+than computed from the section layout, because a PLT's header and entry sizes vary by toolchain.
 
-`LibCpp2IL.Elf.ElfFile` reads section headers and relocations already but keeps neither the section
-list nor the symbol names accessible, so this needs a small public accessor added to the vendored
-`ElfFile` — a fourth `AssetRipper:` change. It is ELF only; a Windows game would need the PE import
+What is left of this: **ARMv7 stubs are a different shape and are not decoded**, so an armeabi-v7a
+game's PLT calls stay anonymous; and it is ELF only, so a Windows game would need the PE import
 table instead.
 
 ## 3. Inlined interface dispatch — about 5300 occurrences
@@ -61,17 +60,21 @@ emits in place of a call to `il2cpp_codegen_get_interface_invoke_data`.
 `InterfaceDispatchRecovery` now matches the A64 shape of the fast path and measures the vtable
 bound against the layout rather than a version formula, which took roughly a fifth of them. The rest
 fail somewhere else in the match or in the excision, and each needs its own look: the scan loop is
-compiled several ways and the pass gives up silently on any of them.
+compiled several ways and the pass gives up silently on any of them. This is now the largest single
+group left, at 2740 reads of `interface_offsets_count` and 1211 of `interfaceOffsets`.
 
-## 3c. Inlined type checks — about 4500 occurrences
+## 3c. Inlined type checks — recovered
 
-The second largest group, and one shape: `klass->typeHierarchyDepth` (0x128) shifted left by three,
-added to `klass->typeHierarchy` (0xC8), read at `[that - 8]` and compared against the target class.
-That is `il2cpp_codegen_class_is_assignable_from` inlined — every `is`, `as` and cast in the source.
-`Il2CppClass<T[]>+0x40` (`element_class`, about 2000 more) is the same idea for an array store check.
-Recovering these means an `isinst` opcode ISIL does not have, a pass to recognise the shape, and
-generator support for it; recognising the shape is the same exercise the class initialization guards
-needed, and the offsets are in the struct database.
+`TypeCheckRecovery` recognises the hierarchy walk (`obj->klass->typeHierarchy[T->typeHierarchyDepth
+- 1] == T`) and the unbox comparison of two classes' `element_class`, and rewrites both into an
+`isinst` and the null test the branch was already doing. 379 casts now read as `as` or `is` in the
+output, and the depth comparison that lets the walk be skipped is folded away with them.
+
+What is left: **`Il2CppClass<T[]>+0x40` — about 2000 reads of an array class's `element_class`** that
+are not the unbox shape. On the test game they appear as an argument to an unresolved runtime helper
+(section 1) rather than in a comparison, and the surrounding type propagation is visibly wrong there
+— a class pointer typed as the element type by the call it is passed to — so what the pattern is has
+not been established. Read the ISIL before assuming it is an array store check.
 
 ## 3b. Untyped memory loads — the rest
 
