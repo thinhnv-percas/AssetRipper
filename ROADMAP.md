@@ -369,6 +369,16 @@ What is left in the sixteen is faithful but verbose, and none of it is wrong:
   wrote twice may appear once - `Checker.OnTriggerEnter` writes the high score after the if/else rather
   than inside both arms, which is where the compiler put it.
 
+## 8e. A third game, and the largest
+
+`Impostor-Sort-Puzzle-Pro` (Unity 2022.3.62f2, metadata v31.1, ARM64) ships its own source too, and is
+three times the size of `RunFromZombiesFullProject` with Spine, DOTween, PlayMaker, Lean Pool and
+CodeStage AntiCheatToolkit on top. `docs/articles/ImpostorSortScriptAudit.md` is the record: what was
+fixed, what is faithful to the binary rather than to the source, and the six things still wrong, each
+with the ISIL that shows it. The largest remaining one is that an unresolved call keeps the whole
+register file as its arguments, which lets a later call read a register nothing wrote and pass `null`
+where the source passed a field.
+
 ## 9. Smaller things
 
 - **`Il2CppClassUsefulOffsets.GetVtableOffset` is a method in Cpp2IL, not data**, so the vtable bound

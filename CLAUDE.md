@@ -329,6 +329,32 @@ find it; `strings` without `-el` does find method and type names.
   where the wanted type is in hand. An integer *immediate* is the opposite case and stays as it was:
   there the bits are the float, because materialise-and-store is the only way to write a float constant.
 
+- **A float aggregate is lost on three sides, not two.** The return and the argument sides were already
+  handled; the *parameter* side is `DefineFloatAggregateParameters`. A Vector3 parameter arrives in V0
+  to V2, only V0 can be named as the parameter, and the other two read as `default(float)` — a setter
+  whose whole body is `field = value` stored value.x and zeroed the rest.
+- **A bounds check's condition can be an `Or` of two flags that are one comparison.** One `cmp` sets C
+  and Z, and "lower or same" is `!C || Z`; chasing only copies and inversions stops at the `Or` and
+  leaves the check in place. Reduce it only when one side is the carry of a `CheckLess` and the other
+  the zero flag of the same subtraction, or a real `||` gets mistaken for a check.
+- **A trivial property is inlined, so the field is what the body names — and the pairing is measurable.**
+  `button.onClick` recovers as `button.m_OnClick` and `stack.Count` as `stack._size`. A name rule
+  cannot cover the second, but a getter whose whole body is one load of the field off the receiver and
+  a return is that field's accessor whatever either is called. `InstanceAccessorFor` lifts the getter
+  once per field and caches it. Getters that also carry il2cpp's null check are not matched yet.
+- **A third measurement game: `Impostor-Sort-Puzzle-Pro`.** Release asset
+  `https://github.com/thinhabc01/Impostor-Sort-Puzzle-Pro/releases/download/v1/impostor-sort.apk`,
+  source at `https://github.com/thinhabc01/Impostor-Sort-Puzzle-Pro.git`; unzip into
+  `Test/Input/Impostor` (gitignored) and rip that. Unity 2022.3.62f2, metadata v31.1, ARM64, about four
+  minutes, 6014 bodies. 42 of its own scripts, seven Editor-only.
+  `docs/articles/ImpostorSortScriptAudit.md` records what is still wrong in it.
+- **An unresolved call keeps the whole register file as its arguments, and that hides what a later call
+  reads.** The sixteen raw sources of an unresolved call make every register look defined, so a
+  resolved call further on can read a register nothing wrote and pass its entry value: `moveItem(gpc.
+  currentBox, gpc.selectedBox, gpc.selectedImposter)` recovered with `null` for the first and third
+  arguments, from `v28 @ X3`, the entry version. Treating such a call as clobbering the caller-saved
+  registers would at least turn the silent null into a reported placeholder.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member
