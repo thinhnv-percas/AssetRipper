@@ -20,8 +20,13 @@ public sealed class PackageRemapEntry
 	public string Name { get; set; } = "";
 
 	/// <summary>
-	/// The version to write into the project's manifest. Empty takes the version from the package.
+	/// What to write into the project's manifest for this package, in place of what the source works out.
 	/// </summary>
+	/// <remarks>
+	/// Whatever the package manager takes goes here: a version, a <c>file:</c> path, a repository url.
+	/// Empty is the normal case and lets the source decide, which is a version for a package cache and
+	/// the path or the url for the other two kinds.
+	/// </remarks>
 	[JsonPropertyName("version")]
 	public string Version { get; set; } = "";
 
@@ -36,9 +41,10 @@ public sealed class PackageRemapEntry
 /// The package remapping settings that are per package rather than per run.
 /// </summary>
 /// <remarks>
-/// This is written back after every run with what was actually found, so the file is a record of the
-/// automation's decisions as much as a way to override them. Editing it and exporting again is how a
-/// package the locator could not place gets handled.
+/// A run adds an entry for every package it saw and never fills one in, so the file lists what there is
+/// to override without deciding anything. What a run actually worked out is in its report; putting it
+/// here would freeze it, and the next run would use the old answer however much the source had moved on.
+/// Editing this and exporting again is how a package the automation could not place gets handled.
 /// </remarks>
 public sealed class PackageRemapConfiguration
 {

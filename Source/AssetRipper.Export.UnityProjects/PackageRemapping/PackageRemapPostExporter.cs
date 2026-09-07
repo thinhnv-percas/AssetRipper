@@ -51,7 +51,7 @@ public sealed class PackageRemapPostExporter : IPostExporter
 		PackageRemapRun run = new(settings, fileSystem, configuration);
 		foreach (ResolvedPackage package in packages)
 		{
-			run.Consider(package.Directory);
+			run.Consider(package);
 		}
 
 		run.Finish();

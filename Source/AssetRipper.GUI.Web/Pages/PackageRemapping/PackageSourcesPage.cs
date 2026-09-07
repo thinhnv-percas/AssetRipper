@@ -49,6 +49,14 @@ public sealed class PackageSourcesPage : DefaultPage
 			writer.Write("everything else by a file name unique on both sides.");
 		}
 
+		using (new P(writer).WithClass("text-muted").End())
+		{
+			writer.Write("What the exported project's manifest asks for depends on where the package was found. A ");
+			writer.Write("package cache holds what a registry has, so a version is enough. A folder and a repository ");
+			writer.Write("are pointed at precisely because no registry has that package, so the manifest gets the path ");
+			writer.Write("or the url instead — a version would name something else.");
+		}
+
 		WriteSources(writer, configuration);
 		WriteAddForm(writer);
 		WriteScan(writer);
@@ -160,9 +168,9 @@ public sealed class PackageSourcesPage : DefaultPage
 				new Label(writer).WithClass("form-label").WithFor("kind").Close("Kind");
 				using (new Select(writer).WithClass("form-select").WithId("kind").WithName("kind").End())
 				{
-					WriteOption(writer, PackageSourceKind.Cache, "Package cache — a folder holding one package per subfolder");
-					WriteOption(writer, PackageSourceKind.Folder, "Local folder — one package, or a folder of them");
-					WriteOption(writer, PackageSourceKind.Git, "Git repository — cloned locally and read as a folder");
+					WriteOption(writer, PackageSourceKind.Cache, "Package cache — a folder holding one package per subfolder, asked for by version");
+					WriteOption(writer, PackageSourceKind.Folder, "Local folder — one package or a folder of them, asked for by file: path");
+					WriteOption(writer, PackageSourceKind.Git, "Git repository — cloned locally, asked for by repository url");
 				}
 			}
 
@@ -237,6 +245,7 @@ public sealed class PackageSourcesPage : DefaultPage
 				{
 					new Th(writer).Close("Package");
 					new Th(writer).Close("Version");
+					new Th(writer).Close("Manifest entry");
 				}
 
 				foreach (ResolvedPackage package in result.Packages)
@@ -245,6 +254,7 @@ public sealed class PackageSourcesPage : DefaultPage
 					{
 						new Td(writer).Close(package.Name.ToHtml());
 						new Td(writer).Close(package.Version.ToHtml());
+						new Td(writer).Close(package.Dependency.ToHtml());
 					}
 				}
 			}

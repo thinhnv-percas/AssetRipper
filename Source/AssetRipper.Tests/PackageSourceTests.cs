@@ -185,6 +185,40 @@ public sealed class PackageSourceTests
 	}
 
 	/// <summary>
+	/// A package out of a cache is one a registry has, so its version is what the project's manifest
+	/// needs and the only thing the package manager could be given.
+	/// </summary>
+	[Test]
+	public void ACachedPackageIsAskedForByVersion()
+	{
+		using Fixture fixture = new();
+		fixture.WritePackage(Path.Combine("Cache", "com.owner.thing@1.2.3"), "com.owner.thing", "1.2.3");
+
+		PackageSourceResult result = PackageSourceResolver.Resolve(
+			new PackageSource { Kind = PackageSourceKind.Cache, Location = Path.Combine(fixture.Root, "Cache") },
+			GitFetchMode.Never);
+
+		Assert.That(result.Packages.Single().Dependency, Is.EqualTo("1.2.3"));
+	}
+
+	/// <summary>
+	/// A package in a folder is one no registry has, which is the whole reason for pointing at the
+	/// folder, so a version would name a different package than the one the guids came out of.
+	/// </summary>
+	[Test]
+	public void APackageInAFolderIsAskedForByPath()
+	{
+		using Fixture fixture = new();
+		string directory = fixture.WritePackage(Path.Combine("Checkout", "com.owner.thing"), "com.owner.thing", "1.2.3");
+
+		PackageSourceResult result = PackageSourceResolver.Resolve(
+			new PackageSource { Kind = PackageSourceKind.Folder, Location = Path.Combine(fixture.Root, "Checkout") },
+			GitFetchMode.Never);
+
+		Assert.That(result.Packages.Single().Dependency, Is.EqualTo($"file:{Path.GetFullPath(directory).Replace('\\', '/')}"));
+	}
+
+	/// <summary>
 	/// The whole git path, against a repository on disk so it needs no network. Cloning a local path is
 	/// the same code as cloning a url, which is what makes this worth running.
 	/// </summary>
@@ -194,38 +228,94 @@ public sealed class PackageSourceTests
 		using Fixture fixture = new();
 
 		string repository = fixture.WritePackage("Repository", "com.owner.cloned", "1.0.0");
-		if (!TryRunGit(repository, "init", "--initial-branch", "main")
-			|| !TryRunGit(repository, "add", "package.json")
-			|| !TryRunGit(repository, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "--quiet", "-m", "The package"))
+		if (!TryMakeRepository(repository))
 		{
 			Assert.Ignore("git is not available");
 			return;
 		}
 
 		PackageSource source = new() { Kind = PackageSourceKind.Git, Location = repository };
-		string clone = GitPackageFetcher.GetCloneDirectory(source);
 
-		try
+		using CloneCleanup cleanup = new(source);
+		PackageSourceResult result = PackageSourceResolver.Resolve(source, GitFetchMode.Always);
+
+		Assert.Multiple(() =>
 		{
-			PackageSourceResult result = PackageSourceResolver.Resolve(source, GitFetchMode.Always);
+			Assert.That(result.Error, Is.Null);
+			Assert.That(result.Packages.Single().Name, Is.EqualTo("com.owner.cloned"));
+			Assert.That(GitPackageFetcher.IsCloned(source), Is.True);
+			Assert.That(result.Packages.Single().Dependency, Is.EqualTo(repository), "the repository is the package, so there is no path to add");
+		});
+	}
 
-			Assert.Multiple(() =>
-			{
-				Assert.That(result.Error, Is.Null);
-				Assert.That(result.Packages.Single().Name, Is.EqualTo("com.owner.cloned"));
-				Assert.That(GitPackageFetcher.IsCloned(source), Is.True);
-			});
+	/// <summary>
+	/// A repository holding several packages needs a path per package, not the subfolder the scan
+	/// started in: the package manager installs one package, and every one of them is somewhere else.
+	/// </summary>
+	[Test]
+	public void EachPackageInARepositoryIsAskedForByItsOwnPath()
+	{
+		using Fixture fixture = new();
+
+		fixture.WritePackage(Path.Combine("Repository", "Packages", "com.owner.first"), "com.owner.first", "1.0.0");
+		fixture.WritePackage(Path.Combine("Repository", "Packages", "com.owner.second"), "com.owner.second", "2.0.0");
+
+		string repository = Path.Combine(fixture.Root, "Repository");
+		if (!TryMakeRepository(repository))
+		{
+			Assert.Ignore("git is not available");
+			return;
 		}
-		finally
+
+		PackageSource source = new()
+		{
+			Kind = PackageSourceKind.Git,
+			Location = repository,
+			Revision = "main",
+			Subfolder = "Packages",
+		};
+
+		using CloneCleanup cleanup = new(source);
+		PackageSourceResult result = PackageSourceResolver.Resolve(source, GitFetchMode.Always);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(result.Error, Is.Null);
+			Assert.That(
+				result.Packages.Select(static package => package.Dependency),
+				Is.EqualTo(new[]
+				{
+					$"{repository}?path=Packages/com.owner.first#main",
+					$"{repository}?path=Packages/com.owner.second#main",
+				}));
+		});
+	}
+
+	/// <summary>
+	/// The clones live beside the executable, so a test that makes one takes it away again.
+	/// </summary>
+	private readonly struct CloneCleanup(PackageSource source) : IDisposable
+	{
+		public void Dispose()
 		{
 			try
 			{
-				Directory.Delete(clone, recursive: true);
+				Directory.Delete(GitPackageFetcher.GetCloneDirectory(source), recursive: true);
 			}
 			catch (IOException)
 			{
 			}
+			catch (UnauthorizedAccessException)
+			{
+			}
 		}
+	}
+
+	private static bool TryMakeRepository(string directory)
+	{
+		return TryRunGit(directory, "init", "--initial-branch", "main")
+			&& TryRunGit(directory, "add", "--all")
+			&& TryRunGit(directory, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "--quiet", "-m", "The packages");
 	}
 
 	private static bool TryRunGit(string workingDirectory, params string[] arguments)

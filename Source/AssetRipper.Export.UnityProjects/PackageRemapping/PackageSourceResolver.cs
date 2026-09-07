@@ -20,7 +20,12 @@ public enum GitFetchMode
 }
 
 /// <param name="Directory">The package's own folder, the one holding its manifest.</param>
-public readonly record struct ResolvedPackage(string Directory, string Name, string Version);
+/// <param name="Dependency">
+/// What the project's manifest has to say for the package manager to install this exact package: a
+/// version for one out of a registry, a <c>file:</c> path for one on disk, the repository url for one
+/// out of git. Empty when the source could not say.
+/// </param>
+public readonly record struct ResolvedPackage(string Directory, string Name, string Version, string Dependency);
 
 /// <summary>
 /// What one source turned out to hold.
@@ -117,8 +122,65 @@ public static class PackageSourceResolver
 			return result;
 		}
 
-		result.Packages.AddRange(FindPackages(directory));
+		// A git package's dependency is written against the clone's root rather than the folder the scan
+		// started in, because a repository holding several packages needs a path per package.
+		string root = source.Kind is PackageSourceKind.Git ? GitPackageFetcher.GetCloneDirectory(source) : directory;
+
+		foreach (ResolvedPackage package in FindPackages(directory))
+		{
+			result.Packages.Add(package with { Dependency = BuildDependency(source, root, package) });
+		}
+
 		return result;
+	}
+
+	/// <summary>
+	/// What the project's manifest says to install the package the source holds.
+	/// </summary>
+	/// <remarks>
+	/// A version only means anything for a package a registry has. The other two kinds exist precisely
+	/// because the package is somewhere a registry is not, so a version would name a different package
+	/// than the one the export just took the guids out of, or none at all.
+	/// <para>
+	/// A local package is written with an absolute path. The package manager also takes one relative to
+	/// the project's Packages folder, and a package worth pointing at this way is outside the project, so
+	/// the relative form would be a climb out of it that only holds while the export stays where it was
+	/// written.
+	/// </para>
+	/// </remarks>
+	private static string BuildDependency(PackageSource source, string root, ResolvedPackage package)
+	{
+		switch (source.Kind)
+		{
+			case PackageSourceKind.Git:
+				string path = GetRelativePath(root, package.Directory);
+				string text = source.Location;
+				if (path.Length > 0)
+				{
+					text += $"?path={path}";
+				}
+				if (source.Revision.Length > 0)
+				{
+					text += $"#{source.Revision}";
+				}
+				return text;
+
+			case PackageSourceKind.Folder:
+				return $"file:{Path.GetFullPath(package.Directory).Replace('\\', '/')}";
+
+			default:
+				return package.Version;
+		}
+	}
+
+	/// <summary>
+	/// Where a package sits inside its repository, in the form a manifest wants, or empty when it is the
+	/// repository itself.
+	/// </summary>
+	private static string GetRelativePath(string root, string directory)
+	{
+		string relative = Path.GetRelativePath(root, directory).Replace('\\', '/').Trim('/');
+		return relative is "." or "" ? "" : relative;
 	}
 
 	/// <summary>
@@ -162,7 +224,9 @@ public static class PackageSourceResolver
 		string manifest = Path.Join(directory, PackageManifestName);
 		if (File.Exists(manifest) && UnityPackageInfo.Read(manifest) is UnityPackageInfo info)
 		{
-			package = new ResolvedPackage(directory, info.Name, ResolveVersion(info, directory));
+			// The dependency is filled in by whoever knows the source; the version stands in until then.
+			string version = ResolveVersion(info, directory);
+			package = new ResolvedPackage(directory, info.Name, version, version);
 			return true;
 		}
 

@@ -405,8 +405,42 @@ public sealed class PackageRemapRunTests
 			Assert.That(outcome.AssembliesPaired, Is.Zero, "the package ships no assembly to pair one against");
 			Assert.That(outcome.ShadersPaired, Is.EqualTo(1));
 			Assert.That(outcome.OtherAssetsPaired, Is.EqualTo(1));
-			Assert.That(configuration.Find(PackageName)?.Version, Is.EqualTo(PackageVersion));
+			Assert.That(outcome.Version, Is.EqualTo(PackageVersion));
 		});
+	}
+
+	/// <summary>
+	/// The file is a list of what there is to override, and nothing a run worked out is written into it.
+	/// Freezing an answer there would have the next run use it however much the source had moved on.
+	/// </summary>
+	[Test]
+	public void TheConfigurationListsThePackageWithoutDecidingForIt()
+	{
+		using Fixture fixture = Build();
+		PackageRemapConfiguration configuration = new();
+		Run(fixture, configuration);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(configuration.Find(PackageName), Is.Not.Null);
+			Assert.That(configuration.Find(PackageName)!.Version, Is.Empty);
+		});
+	}
+
+	/// <summary>
+	/// A package the automation places wrongly is placed by hand, and whatever the package manager takes
+	/// goes in that box: a version, a path, a repository url.
+	/// </summary>
+	[Test]
+	public void AConfiguredDependencyIsWhatTheManifestGets()
+	{
+		using Fixture fixture = Build();
+		PackageRemapConfiguration configuration = new();
+		configuration.Packages.Add(new PackageRemapEntry { Name = PackageName, Version = "file:../../Elsewhere/com.unity.testpackage" });
+
+		Run(fixture, configuration);
+
+		Assert.That(File.ReadAllText(fixture.ManifestPath), Does.Contain($"\"{PackageName}\": \"file:../../Elsewhere/com.unity.testpackage\""));
 	}
 
 	[Test]

@@ -14,6 +14,12 @@ public sealed class PackageOutcome
 	public required string Name { get; init; }
 	public required string Version { get; init; }
 
+	/// <summary>
+	/// What the project's manifest is given for the package: a version, a <c>file:</c> path, or a
+	/// repository url, depending on where the package was found.
+	/// </summary>
+	public string Dependency { get; set; } = "";
+
 	public bool Skipped { get; set; }
 
 	/// <summary>
@@ -77,21 +83,39 @@ public sealed class PackageRemapRun
 	public IReadOnlyList<PackageOutcome> Outcomes => outcomes;
 
 	/// <summary>
-	/// Reads one official package and works out what it replaces.
+	/// Reads one official package folder, for a caller that has nothing but the folder.
 	/// </summary>
+	/// <remarks>
+	/// A folder alone says nothing about where the package came from, so the manifest gets its version,
+	/// which is right for the package cache and for nothing else.
+	/// </remarks>
 	public void Consider(string packageDirectory)
 	{
-		UnityPackageInfo? info = UnityPackageInfo.Read(Path.Join(packageDirectory, "package.json"));
+		UnityPackageInfo? info = UnityPackageInfo.Read(Path.Join(packageDirectory, PackageSourceResolver.PackageManifestName));
 		if (info is null)
 		{
 			return;
 		}
 
-		PackageRemapEntry entry = configuration.Find(info.Name) ?? Remember(new PackageRemapEntry { Name = info.Name });
-		string version = ResolveVersion(entry, info, packageDirectory);
-		entry.Version = version;
+		string version = PackageSourceResolver.ResolveVersion(info, packageDirectory);
+		Consider(new ResolvedPackage(packageDirectory, info.Name, version, version));
+	}
 
-		PackageOutcome outcome = new() { Name = info.Name, Version = version };
+	/// <summary>
+	/// Reads one official package and works out what it replaces.
+	/// </summary>
+	public void Consider(ResolvedPackage package)
+	{
+		string packageDirectory = package.Directory;
+
+		PackageRemapEntry entry = configuration.Find(package.Name) ?? Remember(new PackageRemapEntry { Name = package.Name });
+
+		// What the file says wins, and nothing is written back into it. What a run worked out belongs in
+		// the report: writing it here would freeze it, and the next run would put the old answer in the
+		// manifest however much the source had moved on.
+		string dependency = entry.Version.Length > 0 ? entry.Version : package.Dependency;
+
+		PackageOutcome outcome = new() { Name = package.Name, Version = package.Version, Dependency = dependency };
 		outcomes.Add(outcome);
 
 		if (entry.Skip)
@@ -173,30 +197,6 @@ public sealed class PackageRemapRun
 		DeleteRedundant();
 		AddToManifest();
 		LogSummary();
-	}
-
-	/// <summary>
-	/// Which version to ask the package manager for.
-	/// </summary>
-	/// <remarks>
-	/// A cached package's folder is named after the version it holds, which is the answer when its own
-	/// manifest does not carry one.
-	/// </remarks>
-	private static string ResolveVersion(PackageRemapEntry entry, UnityPackageInfo info, string packageDirectory)
-	{
-		if (entry.Version.Length > 0)
-		{
-			return entry.Version;
-		}
-
-		if (info.Version.Length > 0)
-		{
-			return info.Version;
-		}
-
-		string folderName = Path.GetFileName(packageDirectory.TrimEnd('/', '\\'));
-		int separator = folderName.LastIndexOf('@');
-		return separator >= 0 ? folderName[(separator + 1)..] : "";
 	}
 
 	private PackageRemapEntry Remember(PackageRemapEntry entry)
@@ -355,16 +355,16 @@ public sealed class PackageRemapRun
 		int added = 0;
 		foreach (PackageOutcome outcome in wanted)
 		{
-			if (outcome.Version.Length == 0)
+			if (outcome.Dependency.Length == 0)
 			{
-				// A version the package manager cannot resolve would fail the project's first import,
+				// A dependency the package manager cannot resolve would fail the project's first import,
 				// which is worse than leaving the entry out and saying which one to add.
-				Logger.Warning(LogCategory.Export, $"Package remapping: {outcome.Name} has no version, so it was left out of the manifest. Add it by hand or set one in {PackageRemapConfiguration.FileName}.");
+				Logger.Warning(LogCategory.Export, $"Package remapping: nothing can be written for {outcome.Name}, so it was left out of the manifest. Add it by hand or set one in {PackageRemapConfiguration.FileName}.");
 				outcome.AddedToManifest = false;
 				continue;
 			}
 
-			manifest.Dependencies[outcome.Name] = outcome.Version;
+			manifest.Dependencies[outcome.Name] = outcome.Dependency;
 			added++;
 		}
 
@@ -428,10 +428,10 @@ public sealed class PackageRemapRun
 		writer.WriteLine();
 
 		writer.WriteLine("## Packages");
-		writer.WriteLine("name,version,typesPaired,assemblies,shaders,otherAssets,filesDeleted,addedToManifest,skipped");
+		writer.WriteLine("name,version,dependency,typesPaired,assemblies,shaders,otherAssets,filesDeleted,addedToManifest,skipped");
 		foreach (PackageOutcome outcome in outcomes)
 		{
-			writer.WriteLine($"{outcome.Name},{outcome.Version},{outcome.TypesPaired},{outcome.AssembliesPaired},{outcome.ShadersPaired},{outcome.OtherAssetsPaired},{outcome.FilesDeleted},{outcome.AddedToManifest},{outcome.Skipped}");
+			writer.WriteLine($"{outcome.Name},{outcome.Version},{outcome.Dependency},{outcome.TypesPaired},{outcome.AssembliesPaired},{outcome.ShadersPaired},{outcome.OtherAssetsPaired},{outcome.FilesDeleted},{outcome.AddedToManifest},{outcome.Skipped}");
 		}
 
 		if (conflicts.Count > 0)
