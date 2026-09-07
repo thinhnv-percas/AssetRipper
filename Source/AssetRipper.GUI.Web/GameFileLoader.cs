@@ -67,7 +67,7 @@ public static class GameFileLoader
 		{
 			if (IsNonEmptyDirectory(path))
 			{
-				if (!await UserConsentsToDeletion())
+				if (!await MayReplaceExistingExport())
 				{
 					Logger.Info(LogCategory.Export, "User declined to delete existing export directory. Aborting export.");
 					return false;
@@ -89,7 +89,7 @@ public static class GameFileLoader
 		{
 			if (IsNonEmptyDirectory(path))
 			{
-				if (!await UserConsentsToDeletion())
+				if (!await MayReplaceExistingExport())
 				{
 					Logger.Info(LogCategory.Export, "User declined to delete existing export directory. Aborting export.");
 					return false;
@@ -137,9 +137,17 @@ public static class GameFileLoader
 		return Directory.Exists(path) && Directory.EnumerateFileSystemEntries(path).Any();
 	}
 
-	private static async Task<bool> UserConsentsToDeletion()
+	/// <summary>
+	/// Whether the export may replace what is already in the directory.
+	/// </summary>
+	/// <remarks>
+	/// Exporting to the same path repeatedly is the normal way to use this, and the directory is never
+	/// empty after the first time, so the question is asked every time and answered the same way. It is
+	/// only asked when <see cref="ExportSettings.ClearExportDirectory"/> has been turned off.
+	/// </remarks>
+	private static async Task<bool> MayReplaceExistingExport()
 	{
-		if (Headless)
+		if (Headless || Settings.ExportSettings.ClearExportDirectory)
 		{
 			return true;
 		}

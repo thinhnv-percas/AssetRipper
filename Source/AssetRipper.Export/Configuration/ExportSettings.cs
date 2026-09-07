@@ -65,6 +65,17 @@ public sealed record class ExportSettings
 	public string? DefaultExportPath { get; set; }
 
 	/// <summary>
+	/// Whether an export clears the folder it writes into instead of stopping to ask first.
+	/// </summary>
+	/// <remarks>
+	/// An export has always replaced the folder rather than merged into it, and the confirmation only
+	/// decided whether it stopped to ask. A path used for every rip is never empty after the first
+	/// export, so the question was asked every time and answered the same way every time. Turning this
+	/// off brings the prompt back.
+	/// </remarks>
+	public bool ClearExportDirectory { get; set; } = true;
+
+	/// <summary>
 	/// Where to write the log file. Empty writes a timestamped file next to the executable, as before.
 	/// </summary>
 	/// <remarks>
@@ -97,6 +108,7 @@ public sealed record class ExportSettings
 		Logger.Info(LogCategory.General, $"{nameof(TextExportMode)}: {TextExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(ExportUnreadableAssets)}: {ExportUnreadableAssets}");
 		Logger.Info(LogCategory.General, $"{nameof(PreferOriginalTextureExtension)}: {PreferOriginalTextureExtension}");
+		Logger.Info(LogCategory.General, $"{nameof(ClearExportDirectory)}: {ClearExportDirectory}");
 		if (!string.IsNullOrWhiteSpace(DefaultExportPath))
 		{
 			Logger.Info(LogCategory.General, $"{nameof(DefaultExportPath)}: {DefaultExportPath}");

@@ -233,6 +233,7 @@ public sealed partial class SettingsPage : DefaultPage
 							{
 								using (new Div(writer).WithClass("col").End())
 								{
+									WriteCheckBoxForClearExportDirectory(writer, Localization.ClearExportDirectory);
 								}
 								using (new Div(writer).WithClass("col").End())
 								{

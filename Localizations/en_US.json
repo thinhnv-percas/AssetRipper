@@ -69,6 +69,7 @@
     "class_id_type_name": "Class ID Type Name",
     "class_id_type_number": "Class ID Type Number",
     "class_name": "Class Name",
+    "clear_export_directory": "Clear the export folder without asking",
     "collection": "Collection",
     "collections": "Collections",
     "commands": "Commands",
