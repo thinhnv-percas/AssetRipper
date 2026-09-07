@@ -363,6 +363,95 @@ public static class IlGenerator
         return null;
     }
 
+    // The instance property that returns each non-public instance field, measured once from the getter.
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<FieldAnalysisContext, MethodAnalysisContext?> InstanceAccessors = new();
+
+    /// <summary>
+    /// AssetRipper: the public instance property whose getter returns nothing but
+    /// <paramref name="field"/>, or null when there is none.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A trivial property is inlined, so the field is what the body names: <c>button.onClick</c>
+    /// recovers as <c>button.m_OnClick</c> and <c>stack.Count</c> as <c>stack._size</c>. Against the
+    /// recovered assemblies that is fine; against the real ones it is a private member of a framework
+    /// type, and the export is compiled against those.
+    /// </para>
+    /// <para>
+    /// The pairing is measured rather than guessed from the name. <c>m_OnClick</c> and <c>onClick</c>
+    /// differ by a convention, <c>_size</c> and <c>Count</c> by nothing at all, and a name rule that
+    /// covered the second would pair fields with properties that merely sound alike. Reading the
+    /// getter's own body is exact: a getter that is one field load and a return is that field's
+    /// accessor, whatever either is called.
+    /// </para>
+    /// </remarks>
+    private static MethodAnalysisContext? InstanceAccessorFor(FieldAnalysisContext field)
+        => InstanceAccessors.GetOrAdd(field, static toMeasure =>
+        {
+            if ((toMeasure.Attributes & FieldAttributes.FieldAccessMask) == FieldAttributes.Public
+                || toMeasure.IsStatic || toMeasure.DeclaringType is not { } owner)
+                return null;
+
+            foreach (var property in owner.Properties)
+            {
+                if (property.Getter is not { IsStatic: false } getter
+                    || (getter.Attributes & MethodAttributes.MemberAccessMask) != MethodAttributes.Public
+                    || getter.Parameters.Count != 0 || getter.UnderlyingPointer == 0
+                    || getter.ReturnType.FullName != toMeasure.FieldType.FullName)
+                    continue;
+
+                if (ReturnsNothingButTheField(getter, toMeasure))
+                    return getter;
+            }
+
+            return null;
+        });
+
+    // Whether the getter's whole body is "load this field and return it".
+    private static bool ReturnsNothingButTheField(MethodAnalysisContext getter, FieldAnalysisContext field)
+    {
+        if (field.BackingData?.FieldOffset is not { } fieldOffset)
+            return false;
+
+        var offset = (long)fieldOffset;
+
+        List<Instruction> isil;
+
+        try
+        {
+            isil = getter.AppContext.InstructionSet.GetIsilFromMethod(getter);
+        }
+        catch
+        {
+            return false;
+        }
+
+        var loaded = false;
+
+        foreach (var instruction in isil)
+        {
+            switch (instruction.OpCode)
+            {
+                case OpCode.Nop or OpCode.Interrupt:
+                    continue;
+
+                // the field load, off the receiver register, at the field's own offset
+                case OpCode.Move when !loaded && instruction.Operands is [Register, MemoryOperand { Index: null, Scale: 0 } source]
+                    && source.Base is Register { Name: "X0" } && source.Addend == offset:
+                    loaded = true;
+                    continue;
+
+                case OpCode.Return when loaded:
+                    continue;
+
+                default:
+                    return false;
+            }
+        }
+
+        return loaded;
+    }
+
     // Limit so we don't run into the 16mb limit (see AsmResolver issue #775)
     private static string Diagnostic(string message) 
         => message.Length <= 250 ? message : message[..250] + "…";
@@ -1377,7 +1466,17 @@ public static class IlGenerator
                     foreach (var containing in field.ContainingFields)
                         instructions.Add(CilOpCodes.Ldfld, containing.ToFieldDescriptor());
 
-                    instructions.Add(CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
+                    // AssetRipper: a trivial property is inlined, so the field is what the body names.
+                    // Read it back through the property when one returns exactly it - `button.onClick`
+                    // rather than `button.m_OnClick`, which is private on the real assembly the export
+                    // is compiled against.
+                    if (field.ContainingFields.Count == 0 && InstanceAccessorFor(field.Field) is { } instanceAccessor)
+                    {
+                        System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        instructions.Add(CilOpCodes.Callvirt, instanceAccessor.ToMethodDescriptor());
+                    }
+                    else
+                        instructions.Add(CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
                 }
 
                 // AssetRipper: a field of a type the ABI keeps in several vector registers is named by
