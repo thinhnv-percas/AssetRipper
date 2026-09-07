@@ -38,6 +38,58 @@ public class SsaForm
         ssa.CollectRegisters(graph);
         ssa.InsertPhiFunctions(graph, dominatorInfo);
         ssa.Rename(graph.EntryBlock, dominatorInfo);
+
+        RetargetAddressTakesOverwrittenBeforeUse(graph);
+    }
+
+    /// <summary>
+    /// AssetRipper: points an address-take at the version of the slot that is written into it before
+    /// the address is used.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Versioning a slot whose address is taken is only sound while nothing writes the slot through
+    /// the other name. A spill does exactly that, and the two instructions come in either order: the
+    /// compiler takes the address of a stack slot, stores the value it wants boxed into that slot, and
+    /// calls the boxing helper with the address. Renaming gave the address the version live where the
+    /// address was computed — before the store — so the boxed value read as whatever the slot held
+    /// beforehand, which is nothing. <c>Debug.Log(progress)</c> came out as <c>Debug.Log((float)null)</c>.
+    /// </para>
+    /// <para>
+    /// The window is deliberately small: the same block, and only up to the first instruction that
+    /// reads the address. Anything wider is the general aliasing problem, which SSA cannot express and
+    /// <see cref="_clobbering"/> only approximates from the other side.
+    /// </para>
+    /// </remarks>
+    private static void RetargetAddressTakesOverwrittenBeforeUse(ISILControlFlowGraph graph)
+    {
+        foreach (var block in graph.Blocks)
+        {
+            for (var i = 0; i < block.Instructions.Count; i++)
+            {
+                var instruction = block.Instructions[i];
+
+                if (instruction is not { OpCode: OpCode.Move, Operands: [Register holder, AddressOf { Target: Register addressed }] })
+                    continue;
+
+                Register? written = null;
+
+                for (var j = i + 1; j < block.Instructions.Count; j++)
+                {
+                    var later = block.Instructions[j];
+
+                    if (later.Sources.Any(source => source is Register read && read.Equals(holder)))
+                        break;
+
+                    if (later.Destination is Register destination && destination.Number == addressed.Number
+                        && destination.Version != addressed.Version)
+                        written = destination;
+                }
+
+                if (written is { } slot)
+                    instruction.SetOperand(1, new AddressOf(slot));
+            }
+        }
     }
 
     // The address-takes whose slot is read again afterwards, and so have to be treated as definitions.

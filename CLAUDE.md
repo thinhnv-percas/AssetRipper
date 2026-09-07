@@ -287,6 +287,20 @@ find it; `strings` without `-el` does find method and type names.
   is not one, and the result is stored into the destination's first member rather than over the whole
   local.
 
+- **A decompiler folds a state machine back only if the kickoff has the exact shape**: allocate
+  `<Foo>d__1`, set `<>1__state`, return it. il2cpp inlines a trivial constructor, so the body
+  allocates, calls `System.Object::.ctor`, and stores the state field directly — and ILSpy leaves the
+  whole generated class in the output instead of a coroutine. `IlGenerator.InlinedConstructor`
+  reconstructs the call by matching the stores that follow a `Newobj` against a constructor whose
+  parameter names are the fields' names in order.
+- **An address-take is versioned where the address is computed, not where the slot is written.** SSA
+  can version a slot whose address is taken only while nothing writes it through the other name, and
+  a spill does exactly that: take the address of a stack slot, store into it, call the boxing helper
+  with the address. Renaming gives the address the version live *before* the store, so the boxed value
+  reads as nothing — `Debug.Log(progress)` becomes `object obj = default(object); (float)obj`.
+  `SsaForm.RetargetAddressTakesOverwrittenBeforeUse` points it at the version stored before the
+  address is first read, within the block only; wider is the general aliasing problem.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member

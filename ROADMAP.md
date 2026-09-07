@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 4486, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 12592 |
+| `Method not found` placeholders | 4388, of which 1361 name the import they call |
+| `Unmanaged memory load` placeholders | 12376 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -292,6 +292,35 @@ what to fetch — `curl -sSL -o demo.apk
 https://github.com/thinhabc01/RunFromZombiesFullProject/releases/download/v1/demo.apk`, unzip it into
 `Test/Input/RunFromZombies`, and rip that. It is Unity 2022.3.62f2, metadata v31.1, ARM64, and a run
 takes about 55 seconds.
+
+## 8c. Coroutines fold back into iterators
+
+A coroutine is a compiler-generated state machine, and a decompiler folds it back only if the kickoff
+method has the exact shape the compiler emits: allocate `<Foo>d__1`, set its `<>1__state` to −2, and
+return it. il2cpp inlines that constructor, so what the body did was allocate the object, call
+`System.Object::.ctor` on it, and store −2 into the field directly — one field short of the shape, and
+ILSpy left the whole state machine class in the output as thirty lines of `<>1__state` switching.
+
+`IlGenerator.InlinedConstructor` reconstructs the call: after a `Newobj` it collects the stores into
+the allocated object's own fields and looks for a constructor whose parameters are named after them
+in order, then emits `newobj` with those values and drops the stores and the base call.
+`ConstructorFor` no longer falls back to the base type's constructor when the allocated type has
+none, because `(DisplayClass)new object()` is worse than no allocation at all.
+
+Two smaller things were in the way of the body inside the loop:
+
+- **A 32 bit integer immediate where a float is wanted is the float's bits.** The machine has no
+  other way to write a float constant; a real conversion would be an `scvtf`. `-0.5f` was coming out
+  as `3.2044483E+09f`, which reads as a number and is not one.
+- **An address-take is versioned where the address is computed, not where the slot is written.**
+  Boxing a value spills it: take the address of a stack slot, store into the slot, call the helper
+  with the address. SSA renaming gave the address the version live at the address-take, so the boxed
+  value read as whatever was in the slot beforehand — `Debug.Log(progress)` became
+  `object obj = default(object); object message = (float)obj;`. `SsaForm` now retargets such an
+  address at the version stored into the slot before the address is first read, within the block.
+
+That last one costs 36 unmanaged memory loads on the test game, which is the usual shape: a load that
+was being dropped as dead is now kept and reported.
 
 ## 9. Smaller things
 

@@ -400,6 +400,7 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // Create locals
         SsaForm.Build(this);
         LocalVariables.CreateAll(this);
+        Analysis.IsilDump.Stage(this, "after CreateAll");
 
         // Fold the explicit per-comparison flag arithmetic back into single relational comparisons,
         // then eliminate the now-dead flag computations. Both run in SSA form, where each
