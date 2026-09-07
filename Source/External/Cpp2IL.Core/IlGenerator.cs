@@ -513,6 +513,28 @@ public static class IlGenerator
                     constructorCall.OpCode = OpCode.Nop;
                     constructorCall.SetOperands();
                 }
+                // AssetRipper: the constructor was inlined into the allocation; see InlinedConstructor.
+                else if (instruction.Operands is [_, TypeAnalysisContext inlinedOwner]
+                    && InlinedConstructor(context, instruction, inlinedOwner, out var inlinedStores) is { } inlinedCtor)
+                {
+                    for (var i = 0; i < inlinedStores.Count; i++)
+                        LoadOperand(inlinedStores[i].Operands[1], context, method, locals, writeLine, inlinedCtor.Parameters[i].ParameterType);
+
+                    instructions.Add(CilOpCodes.Newobj, inlinedCtor.ToMethodDescriptor());
+                    StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+
+                    foreach (var store in inlinedStores)
+                    {
+                        store.OpCode = OpCode.Nop;
+                        store.SetOperands();
+                    }
+
+                    if (FindConstructorCall(context, instruction) is { } baseCall)
+                    {
+                        baseCall.OpCode = OpCode.Nop;
+                        baseCall.SetOperands();
+                    }
+                }
                 else if (instruction.Operands is [_, TypeAnalysisContext allocatedType] && allocatedType.Methods.FirstOrDefault(m => m is { Name: ".ctor", Parameters.Count: 0 }) is { } parameterlessCtor)
                 {
                     // Nothing to fuse with, so the allocation was self-contained. The type is still right, so construct it bare.
@@ -876,7 +898,91 @@ public static class IlGenerator
         if (found is not { Parameters.Count: 0, DeclaringType.FullName: "System.Object" })
             return found;
 
-        return allocatedType.Methods.FirstOrDefault(m => m is { Name: ".ctor", Parameters.Count: 0 }) ?? found;
+        // Null rather than the base's constructor, so the caller can try the type's own; fusing them
+        // is what gave (DisplayClass)new object().
+        return allocatedType.Methods.FirstOrDefault(m => m is { Name: ".ctor", Parameters.Count: 0 });
+    }
+
+    /// <summary>
+    /// AssetRipper: the constructor of <paramref name="allocatedType"/> that the stores after an
+    /// allocation are the inside of, when there is one.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// il2cpp inlines a constructor whose body is a base call and a few field stores, which is every
+    /// compiler-generated one: an iterator state machine's <c>.ctor(int &lt;&gt;1__state)</c> assigns
+    /// its argument to <c>&lt;&gt;1__state</c> and nothing else. So the allocation is followed by
+    /// <c>System.Object..ctor</c> and the stores, and the type's real constructor is never called.
+    /// </para>
+    /// <para>
+    /// It matters beyond tidiness: a decompiler folds an iterator back into the <c>yield return</c>
+    /// method it came from only if the kickoff method is <c>newobj &lt;Foo&gt;d__1(0); ret</c>. Written
+    /// as an allocation plus a field store it is not that, so the state machine stays in the output as
+    /// a class of its own, which is what a coroutine looks like when the fold does not happen.
+    /// </para>
+    /// <para>
+    /// The match is by parameter name: a compiler-generated constructor names its parameter after the
+    /// field it assigns. That is narrow enough not to fire on a constructor written by hand, whose
+    /// parameters are named for what they mean rather than where they go.
+    /// </para>
+    /// </remarks>
+    private static MethodAnalysisContext? InlinedConstructor(MethodAnalysisContext context, Instruction newobj,
+        TypeAnalysisContext allocatedType, out List<Instruction> stores)
+    {
+        stores = [];
+
+        if (newobj.Operands[0] is not LocalVariable allocated)
+            return null;
+
+        var instructions = context.ControlFlowGraph!.Instructions;
+        var index = instructions.IndexOf(newobj);
+
+        if (index < 0)
+            return null;
+
+        var fields = new List<FieldAnalysisContext>();
+
+        for (var i = index + 1; i < instructions.Count && fields.Count < 8; i++)
+        {
+            var candidate = instructions[i];
+
+            if (candidate.OpCode == OpCode.Nop)
+                continue;
+
+            // the base call the inlined constructor kept
+            if (candidate is { OpCode: OpCode.CallVoid, Operands: [MethodAnalysisContext { Name: ".ctor" }, LocalVariable baseReceiver, ..] }
+                && ReferenceEquals(baseReceiver, allocated))
+                continue;
+
+            if (candidate is { OpCode: OpCode.Move, Operands: [FieldReference stored, _] }
+                && ReferenceEquals(stored.Local, allocated) && !stored.Field.IsStatic)
+            {
+                fields.Add(stored.Field);
+                stores.Add(candidate);
+                continue;
+            }
+
+            break;
+        }
+
+        if (fields.Count == 0)
+            return null;
+
+        foreach (var candidate in allocatedType.Methods)
+        {
+            if (candidate is not { IsStatic: false, Name: ".ctor" } || candidate.Parameters.Count != fields.Count)
+                continue;
+
+            var matches = true;
+
+            for (var i = 0; i < fields.Count && matches; i++)
+                matches = candidate.Parameters[i].ParameterName == fields[i].Name;
+
+            if (matches)
+                return candidate;
+        }
+
+        return null;
     }
 
     // Try find the follow up CallVoid for a constructor, after a Newobj.
@@ -1093,6 +1199,14 @@ public static class IlGenerator
                     instructions.Add(CilOpCodes.Ldc_R8, BitConverter.Int64BitsToDouble(bits.Value));
                 else
                     instructions.Add(CilOpCodes.Ldc_R4, BitConverter.Int32BitsToSingle((int)(uint)bits.Value));
+                break;
+            // AssetRipper: the same for a 32 bit integer. A register holding 0xFFFFFFFF stored into an
+            // int field is -1; read as a number it is 4294967295, which does not fit in an int32, so
+            // the load came out as an ldc.i8 and the field store was a type mismatch. Where that field
+            // was an iterator's state, it also cost the yield-return fold: a decompiler wants the
+            // state assignments to be constants of the field's own type.
+            case Immediate { Value: > int.MaxValue and <= uint.MaxValue } wide when expectedType is { FullName: "System.Int32" or "System.UInt32" }:
+                instructions.Add(CilOpCodes.Ldc_I4, unchecked((int)(uint)wide.Value));
                 break;
             case Immediate { Value: >= int.MinValue and <= int.MaxValue } immediate:
                 instructions.Add(CilOpCodes.Ldc_I4, (int)immediate.Value);
