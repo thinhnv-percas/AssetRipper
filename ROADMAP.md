@@ -325,6 +325,8 @@ was being dropped as dead is now kept and reported.
 
 ## 8d. The second game's scripts read as the source — line by line
 
+`docs/articles/RunFromZombiesScriptAudit.md` is the per-script record. In summary:
+
 All sixteen `Assembly-CSharp` scripts of `RunFromZombiesFullProject` have been compared against the
 Unity source they were built from. Thirteen were faithful already. Three were not, and every cause was
 a defect that applies to any game, not to this one:
