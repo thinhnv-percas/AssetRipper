@@ -707,6 +707,13 @@ public static class LocalVariables
 
     private static TypeAnalysisContext? IntegerResultType(IOperand operand, MethodAnalysisContext method)
     {
+        // AssetRipper: an array's length is an int, and saying so is what keeps arithmetic on it typed.
+        // Without it `array.Length - index` stayed unknown, so comparing the difference against zero -
+        // the zero flag of a bounds check - was emitted as a reference comparison and the guard read as
+        // `(object)(array.Length - index) == null`, which is not even valid IL.
+        if (operand is ArrayLength)
+            return method.AppContext.SystemTypes.SystemInt32Type;
+
         var type = operand switch
         {
             LocalVariable { Type: { } localType } => localType,

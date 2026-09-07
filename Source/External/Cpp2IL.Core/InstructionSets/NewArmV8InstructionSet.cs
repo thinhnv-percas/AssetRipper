@@ -249,6 +249,8 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         var instructions = new List<Instruction>();
         var addresses = new List<ulong>();
 
+        DefineFloatAggregateParameters(context, instructions, addresses); // AssetRipper
+
         foreach (var instruction in insns)
             ConvertInstructionStatement(instruction, instructions, addresses, context);
 
@@ -289,6 +291,56 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         adrpOffsets.Clear();
         stackAddresses.Clear();
         return instructions;
+    }
+
+    /// <summary>
+    /// AssetRipper: names the extra registers a float aggregate <em>parameter</em> arrived in, as the
+    /// members of that parameter they carry.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The third side of the same defect as <c>DefineFloatAggregateReturn</c> and
+    /// <c>ComposeFloatAggregateArguments</c>: AAPCS64 passes a homogeneous aggregate of up to four
+    /// floats in V0 to V3, only the first of which can be named as the parameter, so a Vector3
+    /// parameter's y and z arrive in registers nothing has defined. They read as <c>default(float)</c>,
+    /// and a property whose whole body is <c>field = value</c> came out storing value.x and then
+    /// zeroing the other two.
+    /// </para>
+    /// <para>
+    /// The moves are prepended, at an address no branch can name, so the indices the control flow graph
+    /// resolves jump targets by stay the positions they are assigned from.
+    /// </para>
+    /// </remarks>
+    private void DefineFloatAggregateParameters(MethodAnalysisContext context, List<Instruction> instructions, List<ulong> addresses)
+    {
+        if (context.Parameters.Count == 0)
+            return;
+
+        var slots = CallingConventions.ResolveForManaged(context);
+        var slot = context.IsStatic ? 0 : 1;
+        var entryAddress = context.UnderlyingPointer == 0 ? 0 : context.UnderlyingPointer - 4;
+
+        foreach (var parameter in context.Parameters)
+        {
+            if (slot >= slots.Length)
+                return;
+
+            var members = Arm64CallingConventionResolver.FloatAggregateMemberCount(parameter.ParameterType);
+
+            if (members >= 2 && slots[slot] is Register { Name: ['V', .. var index] } first
+                && int.TryParse(index, out var number) && number + members <= 8)
+            {
+                for (var member = 1; member < members; member++)
+                {
+                    addresses.Add(entryAddress);
+                    instructions.Add(new Instruction(instructions.Count, OpCode.Move,
+                        new Register(null, $"V{number + member}"),
+                        new MemoryOperand(first, addend: member * 4)));
+                }
+            }
+
+            slot++;
+        }
     }
 
     private void ConvertInstructionStatement(Arm64Instruction instruction, List<Instruction> instructions, List<ulong> addresses, MethodAnalysisContext context)

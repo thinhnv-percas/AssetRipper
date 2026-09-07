@@ -1,0 +1,100 @@
+Manifest-Version: 1.0
+Built-By: Signflinger
+Created-By: Android Gradle 7.4.2
+
+Name: AndroidManifest.xml
+SHA-256-Digest: iIxMOsQVco+CUNVnA2VzlGt/HfHMh+1Y01tFTgevpbU=
+
+Name: META-INF/com.android.games.engine.build_fingerprint
+SHA-256-Digest: YPyCeQ2+Po3MaZ7LrsX+Tdpt4S8lMYnuKTjajntTjug=
+
+Name: META-INF/com/android/build/gradle/app-metadata.properties
+SHA-256-Digest: pKhZciiDn8swt+/oEOgU3WaZ+rlFPYNU15keygYg8Tg=
+
+Name: assets/bin/Data/Managed/Metadata/global-metadata.dat
+SHA-256-Digest: B5OKQNA1DmOHGJBaUVTFj2H2712gO1dS3wMm9XAs9rA=
+
+Name: assets/bin/Data/Managed/Resources/mscorlib.dll-resources.dat
+SHA-256-Digest: xbqhdqW3LNVFJmNA5CEC05Ol5D04yVeWvIKJGLuVJ38=
+
+Name: assets/bin/Data/RuntimeInitializeOnLoads.json
+SHA-256-Digest: HX98g+DUtmUuUyYGdjv/x2EymngC7s5uIS7UNf3xhZI=
+
+Name: assets/bin/Data/ScriptingAssemblies.json
+SHA-256-Digest: MTgIDneKRn6Fkzmp8Ej9Bm+ApTXU6d/H+VKDW4Oo9vI=
+
+Name: assets/bin/Data/boot.config
+SHA-256-Digest: XydQUE4zliLk0JmU7ITBdeeO1058GIZ4RLuTSVj/8KE=
+
+Name: assets/bin/Data/data.unity3d
+SHA-256-Digest: Q0PXwOA/11XYCHgfgMz2HGAEYjc9XuTLgzJVPjmRrxE=
+
+Name: assets/bin/Data/sharedassets0.resource
+SHA-256-Digest: fnpzBm93QzNAGCHrieHR5EBWBr/T6aasmrZ7rLmhuBk=
+
+Name: assets/bin/Data/unity default resources
+SHA-256-Digest: qadKs2OIjePqFO8B54D4UaOV1Mb11bzrrXSio+R4XRY=
+
+Name: assets/bin/Data/unity_app_guid
+SHA-256-Digest: EJp56TAA8wYj/ZzDW3pcEUNS5w5ljOKmPBSnkYYg3m8=
+
+Name: classes.dex
+SHA-256-Digest: 9qPzWSryeUvfYEcaEyNkl6HaHFtWJEnVayp3zpU84lE=
+
+Name: lib/arm64-v8a/libil2cpp.so
+SHA-256-Digest: sKrTfHNGVgoiaL/jDPeywNyTEQHZkZsbJ3ZwvSMhL8c=
+
+Name: lib/arm64-v8a/libmain.so
+SHA-256-Digest: k0jNKbzexbZ3xxJLERouuyhb/WVQKCYZyP0XjymC610=
+
+Name: lib/arm64-v8a/libunity.so
+SHA-256-Digest: 3FHew+7vGe1T2vmkAE+iHexdZu5tf5RMavczgTEDtdY=
+
+Name: lib/armeabi-v7a/libil2cpp.so
+SHA-256-Digest: ox/WyBbaduvIij1bRLGvPrBxeipG+wlcHR2cdbS15Ao=
+
+Name: lib/armeabi-v7a/libmain.so
+SHA-256-Digest: XikrYpiaOq2EKqY7Hx89rGZ8jz31bj0hyDvd2iajaPI=
+
+Name: lib/armeabi-v7a/libunity.so
+SHA-256-Digest: oYue/MSYlBO13ZMvm0VkEk633QSiU+vMlpqOnTMyhpk=
+
+Name: res/De.png
+SHA-256-Digest: VydK+q4l+ooYQJRQ+0Cas9WkfJ/M/nvpF74DADEV7FE=
+
+Name: res/FN.png
+SHA-256-Digest: VL7mLPkXTLyop+JKScQEvIeNe0+9F7DmRNPBxE8nwCA=
+
+Name: res/H-.png
+SHA-256-Digest: DLGuJNC3sZmEjOJrXWPkwAkSCoGR51hbcS68nUiigyE=
+
+Name: res/Iw.png
+SHA-256-Digest: VydK+q4l+ooYQJRQ+0Cas9WkfJ/M/nvpF74DADEV7FE=
+
+Name: res/K0.png
+SHA-256-Digest: L2AuQpi6dUuZwc1X0grxJkD7xaTB7eE6R9+L3bO1b7M=
+
+Name: res/Ut.png
+SHA-256-Digest: l3MtcxFdRITqsV9HyI1N9PBHocWGmH6GZDswUGjTpcA=
+
+Name: res/W5.png
+SHA-256-Digest: WX3heU0nVgr8g6XCvT+8rXBWd1/RlZ+4sluIeYoFuxU=
+
+Name: res/YA.png
+SHA-256-Digest: L2AuQpi6dUuZwc1X0grxJkD7xaTB7eE6R9+L3bO1b7M=
+
+Name: res/b2.png
+SHA-256-Digest: WX3heU0nVgr8g6XCvT+8rXBWd1/RlZ+4sluIeYoFuxU=
+
+Name: res/l4.png
+SHA-256-Digest: DLGuJNC3sZmEjOJrXWPkwAkSCoGR51hbcS68nUiigyE=
+
+Name: res/mG.png
+SHA-256-Digest: l3MtcxFdRITqsV9HyI1N9PBHocWGmH6GZDswUGjTpcA=
+
+Name: res/oj.png
+SHA-256-Digest: VL7mLPkXTLyop+JKScQEvIeNe0+9F7DmRNPBxE8nwCA=
+
+Name: resources.arsc
+SHA-256-Digest: JwWmH8erU4lf9NvWiZ231zbYb6aGGNCYX7HL+4js940=
+

@@ -64,6 +64,64 @@ public static class InjectedCheckRemover
     {
         for (var depth = 0; depth < 8; depth++)
         {
+            // AssetRipper: one cmp sets both C and Z, and a bounds check branches on "lower or same",
+            // which the lifter models as `!C || Z` - an Or of two flags that are really one comparison.
+            // Stopping at the Or left every check of this shape in place, and the guard then read as
+            // `array.Length < index || (object)(array.Length - index) == null`.
+            if (definition is { OpCode: OpCode.Or, Operands: [_, LocalVariable left, LocalVariable right] }
+                && OneComparisonBehind(left, right, defOf) is { } comparison)
+                return comparison;
+
+            if (definition is not { OpCode: OpCode.Not or OpCode.Move } || definition.Operands.Count < 2
+                || definition.Operands[1] is not LocalVariable source || !defOf.TryGetValue(source, out var next))
+                return definition;
+
+            definition = next;
+        }
+
+        return definition;
+    }
+
+    /// <summary>
+    /// AssetRipper: the single comparison two flag locals were both computed from, when together they
+    /// say "less or equal": one is the carry of a <c>CheckLess</c> and the other the zero flag of the
+    /// same subtraction. Null when the two are unrelated, which is what keeps a real <c>||</c> from
+    /// being mistaken for a check.
+    /// </summary>
+    private static Instruction? OneComparisonBehind(LocalVariable left, LocalVariable right, Dictionary<LocalVariable, Instruction> defOf)
+    {
+        if (!defOf.TryGetValue(left, out var leftDefinition) || !defOf.TryGetValue(right, out var rightDefinition))
+            return null;
+
+        leftDefinition = ChaseCopies(leftDefinition, defOf);
+        rightDefinition = ChaseCopies(rightDefinition, defOf);
+
+        return Paired(leftDefinition, rightDefinition) ?? Paired(rightDefinition, leftDefinition);
+
+        Instruction? Paired(Instruction less, Instruction zero)
+        {
+            if (less.OpCode != OpCode.CheckLess || less.Operands.Count < 3)
+                return null;
+
+            if (zero is not { OpCode: OpCode.CheckEqual, Operands: [_, LocalVariable difference, Immediate { Value: 0 }] }
+                || !defOf.TryGetValue(difference, out var subtraction))
+                return null;
+
+            subtraction = ChaseCopies(subtraction, defOf);
+
+            if (subtraction is not { OpCode: OpCode.Subtract, Operands.Count: >= 3 }
+                || !Equals(subtraction.Operands[1], less.Operands[1]) || !Equals(subtraction.Operands[2], less.Operands[2]))
+                return null;
+
+            return less;
+        }
+    }
+
+    // The copies and inversions carrying a flag, without the Or reduction, so the reduction cannot recurse.
+    private static Instruction ChaseCopies(Instruction definition, Dictionary<LocalVariable, Instruction> defOf)
+    {
+        for (var depth = 0; depth < 8; depth++)
+        {
             if (definition is not { OpCode: OpCode.Not or OpCode.Move } || definition.Operands.Count < 2
                 || definition.Operands[1] is not LocalVariable source || !defOf.TryGetValue(source, out var next))
                 return definition;
