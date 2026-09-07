@@ -121,7 +121,8 @@ public sealed class PackageRemapRun
 					assemblyGuids.Add(match.OldGuid);
 					outcome.AssembliesPaired++;
 					break;
-				case "shader name":
+				case ExportPackageMatcher.ShaderNameKind:
+				case ExportPackageMatcher.ShaderFileNameKind:
 					outcome.ShadersPaired++;
 					break;
 				default:

@@ -184,6 +184,129 @@ public sealed class PackageRemapRunTests
 		Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"guid: {OfficialShaderGuid}"));
 	}
 
+	/// <summary>
+	/// The file name is what is left when the declared names disagree, which is what a package renaming
+	/// a shader between versions looks like from the export's side.
+	/// </summary>
+	[Test]
+	public void AShaderIsPairedByItsFileNameWhenTheDeclaredNamesDisagree()
+	{
+		const string RippedGuid = "10000000000000000000000000000001";
+		const string OfficialGuid = "10000000000000000000000000000002";
+
+		using Fixture fixture = Build();
+		Write(Path.Combine(fixture.PackagePath, "Shaders", "Sprites-Default.shader"), "Shader \"Sprites/Default Renamed\" {\n}\n", OfficialGuid);
+		Write(Path.Combine(fixture.AssetsPath, "Shader", "Sprites-Default.shader"), "Shader \"Sprites/Default\" {\n}\n", RippedGuid);
+		File.AppendAllText(fixture.Prefab, $"  m_Sprite: {{fileID: 4800000, guid: {RippedGuid}, type: 3}}\n");
+
+		Run(fixture, new PackageRemapConfiguration());
+
+		Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"guid: {OfficialGuid}"));
+	}
+
+	/// <summary>
+	/// The two ways of pairing a shader can point at different files, and the declared name is the one
+	/// that is right: it is what a material asks for, while a file name is only what someone called the
+	/// file. A package that ships both an old file name and the shader under a new one would otherwise
+	/// repoint every material at the wrong shader.
+	/// </summary>
+	[Test]
+	public void TheDeclaredNameDecidesWhenTheFileNameSaysOtherwise()
+	{
+		const string RippedGuid = "20000000000000000000000000000001";
+		const string SameFileNameGuid = "20000000000000000000000000000002";
+		const string SameShaderNameGuid = "20000000000000000000000000000003";
+
+		using Fixture fixture = Build();
+		Write(Path.Combine(fixture.PackagePath, "Shaders", "Lit.shader"), "Shader \"Package/Something Else\" {\n}\n", SameFileNameGuid);
+		Write(Path.Combine(fixture.PackagePath, "Shaders", "Renamed.shader"), "Shader \"Package/Lit\" {\n}\n", SameShaderNameGuid);
+		Write(Path.Combine(fixture.AssetsPath, "Shader", "Lit.shader"), "Shader \"Package/Lit\" {\n}\n", RippedGuid);
+		File.AppendAllText(fixture.Prefab, $"  m_Lit: {{fileID: 4800000, guid: {RippedGuid}, type: 3}}\n");
+
+		Run(fixture, new PackageRemapConfiguration());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"guid: {SameShaderNameGuid}"));
+			Assert.That(File.ReadAllText(fixture.Prefab), Does.Not.Contain(SameFileNameGuid));
+		});
+	}
+
+	/// <summary>
+	/// The yaml shader exporter writes a shader as a <c>.asset</c>, so nothing but the class id in its
+	/// header says it is one. Left to the file name match it could never pair with the package's
+	/// <c>.shader</c>, and every material using it would keep pointing at the ripped copy.
+	/// </summary>
+	[Test]
+	public void AShaderExportedAsAYamlAssetIsPaired()
+	{
+		const string RippedGuid = "30000000000000000000000000000001";
+		const string OfficialGuid = "30000000000000000000000000000002";
+
+		using Fixture fixture = Build();
+		Write(Path.Combine(fixture.PackagePath, "Shaders", "Whatever.shader"), "Shader \"Package/Yaml\" {\n}\n", OfficialGuid);
+		Write(
+			Path.Combine(fixture.AssetsPath, "Shader", "Package_Yaml.asset"),
+			"%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!48 &4800000\nShader:\n  m_ObjectHideFlags: 0\n  m_Name: Package/Yaml\n  m_ParsedForm:\n    m_Name: Package/Yaml\n",
+			RippedGuid);
+		File.AppendAllText(fixture.Prefab, $"  m_Yaml: {{fileID: 4800000, guid: {RippedGuid}, type: 3}}\n");
+
+		PackageRemapRun run = Run(fixture, new PackageRemapConfiguration());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"guid: {OfficialGuid}"));
+			Assert.That(run.Outcomes.Single().ShadersPaired, Is.EqualTo(2), "the yaml shader counts as a shader, not as some other asset");
+		});
+	}
+
+	/// <summary>
+	/// A shader graph declares nothing of its own: the package ships <c>Fancy.shadergraph</c> and the
+	/// export writes the shader it compiles into, called <c>Shader Graphs/Fancy</c>. The last segment of
+	/// that name is the only thing the two files have in common.
+	/// </summary>
+	[Test]
+	public void AShaderGraphIsPairedByTheSegmentItsShaderIsNamedAfter()
+	{
+		const string RippedGuid = "40000000000000000000000000000001";
+		const string OfficialGuid = "40000000000000000000000000000002";
+
+		using Fixture fixture = Build();
+		Write(Path.Combine(fixture.PackagePath, "Shaders", "Fancy.shadergraph"), "{\n  \"m_SGVersion\": 3\n}\n", OfficialGuid);
+		Write(Path.Combine(fixture.AssetsPath, "Shader", "Shader Graphs_Fancy.shader"), "Shader \"Shader Graphs/Fancy\" {\n}\n", RippedGuid);
+		File.AppendAllText(fixture.Prefab, $"  m_Fancy: {{fileID: 4800000, guid: {RippedGuid}, type: 3}}\n");
+
+		Run(fixture, new PackageRemapConfiguration());
+
+		Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"guid: {OfficialGuid}"));
+	}
+
+	/// <summary>
+	/// A name that occurs twice on either side identifies neither of the two, and pairing them anyway
+	/// would merge references that were distinct.
+	/// </summary>
+	[Test]
+	public void AShaderIsNotPairedByAFileNameTwoOfThemShare()
+	{
+		const string FirstGuid = "50000000000000000000000000000001";
+		const string SecondGuid = "50000000000000000000000000000002";
+		const string OfficialGuid = "50000000000000000000000000000003";
+
+		using Fixture fixture = Build();
+		Write(Path.Combine(fixture.PackagePath, "Shaders", "Ambiguous.shader"), "Shader \"Package/Ambiguous\" {\n}\n", OfficialGuid);
+		Write(Path.Combine(fixture.AssetsPath, "Shader", "Ambiguous.shader"), "Shader \"Game/One\" {\n}\n", FirstGuid);
+		Write(Path.Combine(fixture.AssetsPath, "Shader", "Nested", "Ambiguous.shader"), "Shader \"Game/Two\" {\n}\n", SecondGuid);
+		File.AppendAllText(fixture.Prefab, $"  m_First: {{fileID: 4800000, guid: {FirstGuid}, type: 3}}\n");
+
+		Run(fixture, new PackageRemapConfiguration());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain($"guid: {FirstGuid}"));
+			Assert.That(File.Exists(Path.Combine(fixture.AssetsPath, "Shader", "Ambiguous.shader")), Is.True);
+		});
+	}
+
 	[Test]
 	public void AnAssetIsPairedByFileNameWhenItIsUniqueOnBothSides()
 	{
