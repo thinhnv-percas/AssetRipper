@@ -23,8 +23,8 @@ it is raised from the one place in the generator that gives up on a load, so its
 placeholder count, and it reorders as things are fixed.
 
 The other measurement is `RunFromZombiesFullProject`, an ARM64 game that ships its own Unity source,
-so the output can be read against the real thing. Its sixteen scripts carry three diagnostics in
-total, all of them calls into il2cpp runtime helpers (section 1), and no decompilation error.
+so the output can be read against the real thing. Its sixteen scripts now carry no diagnostic of any
+kind and no decompilation error, and its one coroutine folds back into an iterator (section 8c).
 
 The output does not compile and is not meant to. The goal is that the logic reads correctly. These
 are the places it still does not.
