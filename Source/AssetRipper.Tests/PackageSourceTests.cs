@@ -249,6 +249,44 @@ public sealed class PackageSourceTests
 	}
 
 	/// <summary>
+	/// Updating a clone is deleting it and cloning again, and a clone is not a folder that deletes
+	/// cleanly: git writes the pack files in its object store read only, which on Windows is enough to
+	/// fail the delete outright and leave the source stuck at whatever it was fetched as.
+	/// </summary>
+	[Test]
+	public void AClonedSourceCanBeFetchedAgain()
+	{
+		using Fixture fixture = new();
+
+		string repository = fixture.WritePackage("Repository", "com.owner.cloned", "1.0.0");
+		if (!TryMakeRepository(repository))
+		{
+			Assert.Ignore("git is not available");
+			return;
+		}
+
+		PackageSource source = new() { Kind = PackageSourceKind.Git, Location = repository };
+
+		using CloneCleanup cleanup = new(source);
+		Assert.That(GitPackageFetcher.Fetch(source, update: true).Success, Is.True, "the first clone");
+
+		// Folders as well as files, so this reproduces on the systems where each of the two is what stops
+		// the delete: the file's attribute on Windows, the folder's write bit on everything else.
+		foreach (string path in Directory.EnumerateFileSystemEntries(GitPackageFetcher.GetCloneDirectory(source), "*", SearchOption.AllDirectories))
+		{
+			File.SetAttributes(path, File.GetAttributes(path) | FileAttributes.ReadOnly);
+		}
+
+		GitFetchResult second = GitPackageFetcher.Fetch(source, update: true);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(second.Success, Is.True, second.Message);
+			Assert.That(GitPackageFetcher.IsCloned(source), Is.True);
+		});
+	}
+
+	/// <summary>
 	/// A repository holding several packages needs a path per package, not the subfolder the scan
 	/// started in: the package manager installs one package, and every one of them is somewhere else.
 	/// </summary>

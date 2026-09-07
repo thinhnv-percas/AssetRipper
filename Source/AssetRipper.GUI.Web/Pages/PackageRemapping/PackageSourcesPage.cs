@@ -24,6 +24,11 @@ public sealed class PackageSourcesPage : DefaultPage
 	/// </summary>
 	public static List<PackageSourceResult>? LastScan { get; set; }
 
+	/// <summary>
+	/// What went wrong with the last thing a button did, for the actions with nothing else to show.
+	/// </summary>
+	public static string? LastMessage { get; set; }
+
 	public override string GetTitle() => "Package Sources";
 
 	/// <summary>
@@ -55,6 +60,11 @@ public sealed class PackageSourcesPage : DefaultPage
 			writer.Write("package cache holds what a registry has, so a version is enough. A folder and a repository ");
 			writer.Write("are pointed at precisely because no registry has that package, so the manifest gets the path ");
 			writer.Write("or the url instead — a version would name something else.");
+		}
+
+		if (LastMessage is string message)
+		{
+			new Div(writer).WithClass("alert alert-warning").Close(message.ToHtml());
 		}
 
 		WriteSources(writer, configuration);
@@ -94,7 +104,7 @@ public sealed class PackageSourcesPage : DefaultPage
 				new Button(writer).WithType("submit").WithClass("btn btn-secondary").WithName("action").WithValue("fetch").Close("Fetch git sources and scan");
 			}
 
-			new Div(writer).WithClass("form-text").Close("Scanning clones a git source that has never been fetched. Fetching replaces every clone with a fresh one.");
+			new Div(writer).WithClass("form-text").Close("Scanning clones a git source that has never been fetched. Update brings one repository down again, and Fetch does that for all of them.");
 		}
 	}
 
@@ -109,19 +119,15 @@ public sealed class PackageSourcesPage : DefaultPage
 
 			using (new Td(writer).End())
 			{
-				new Button(writer)
-					.WithType("submit")
-					.WithClass(source.Enabled ? "btn btn-sm btn-outline-secondary" : "btn btn-sm btn-outline-primary")
-					.WithName("action")
-					.WithValue($"toggle:{index}")
-					.Close(source.Enabled ? "Disable" : "Enable");
-				writer.Write(' ');
-				new Button(writer)
-					.WithType("submit")
-					.WithClass("btn btn-sm btn-outline-danger")
-					.WithName("action")
-					.WithValue($"remove:{index}")
-					.Close("Remove");
+				if (source.Kind is PackageSourceKind.Git)
+				{
+					// Only a git source has anywhere to update from. A folder is already what it is.
+					WriteRowButton(writer, "btn-outline-primary", $"update:{index}", "Update");
+				}
+
+				WriteRowButton(writer, "btn-outline-secondary", $"open:{index}", "Open folder");
+				WriteRowButton(writer, source.Enabled ? "btn-outline-secondary" : "btn-outline-primary", $"toggle:{index}", source.Enabled ? "Disable" : "Enable");
+				WriteRowButton(writer, "btn-outline-danger", $"remove:{index}", "Remove");
 			}
 		}
 	}
@@ -150,9 +156,20 @@ public sealed class PackageSourcesPage : DefaultPage
 			new Td(writer).Close("");
 			using (new Td(writer).End())
 			{
-				new A(writer).WithClass("btn btn-sm btn-outline-secondary").WithHref("/Settings/Edit").Close("From settings");
+				WriteRowButton(writer, "btn-outline-secondary", "opencache", "Open folder");
+				new A(writer).WithClass("btn btn-sm btn-outline-secondary").WithHref("/Settings/Edit").Close("Change in settings");
 			}
 		}
+	}
+
+	private static void WriteRowButton(TextWriter writer, string style, string action, string label)
+	{
+		new Button(writer)
+			.WithType("submit")
+			.WithClass($"btn btn-sm {style} me-1")
+			.WithName("action")
+			.WithValue(action)
+			.Close(label);
 	}
 
 	private static void WriteAddForm(TextWriter writer)

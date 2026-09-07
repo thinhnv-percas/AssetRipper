@@ -99,13 +99,13 @@ public static class GitPackageFetcher
 			return new GitFetchResult(true, directory, "Already cloned.");
 		}
 
+		if (!TryDelete(directory, out string? failure))
+		{
+			return new GitFetchResult(false, directory, $"The clone directory could not be prepared: {failure}");
+		}
+
 		try
 		{
-			if (Directory.Exists(directory))
-			{
-				Directory.Delete(directory, true);
-			}
-
 			Directory.CreateDirectory(WorkingDirectory);
 		}
 		catch (Exception exception)
@@ -134,6 +134,67 @@ public static class GitPackageFetcher
 		}
 
 		return Run(directory, "clone", "--depth", "1", "--", source.Location, directory);
+	}
+
+	/// <summary>
+	/// Removes a clone, whatever git left it marked as.
+	/// </summary>
+	/// <remarks>
+	/// A pack file in a repository's object store is written read only, which on Windows is enough to
+	/// make deleting the folder that holds it fail outright. Nothing here is meant to be kept, so the
+	/// attribute is cleared off everything first.
+	/// <para>
+	/// The retry is for the other reason a delete of a folder that was just read fails: a virus scanner
+	/// or a file manager still has a handle open, and a moment later it does not.
+	/// </para>
+	/// </remarks>
+	private static bool TryDelete(string directory, out string? failure)
+	{
+		failure = null;
+
+		for (int attempt = 0; ; attempt++)
+		{
+			if (!Directory.Exists(directory))
+			{
+				return true;
+			}
+
+			try
+			{
+				ClearReadOnly(directory);
+				Directory.Delete(directory, true);
+				return true;
+			}
+			catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+			{
+				failure = exception.Message;
+				if (attempt >= 2)
+				{
+					return false;
+				}
+
+				Thread.Sleep(200);
+			}
+		}
+	}
+
+	private static void ClearReadOnly(string directory)
+	{
+		foreach (string path in Directory.EnumerateFileSystemEntries(directory, "*", SearchOption.AllDirectories))
+		{
+			try
+			{
+				FileAttributes attributes = File.GetAttributes(path);
+				if ((attributes & FileAttributes.ReadOnly) != 0)
+				{
+					File.SetAttributes(path, attributes & ~FileAttributes.ReadOnly);
+				}
+			}
+			catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+			{
+				// The delete below is what reports a path that cannot be given up.
+			}
+		}
 	}
 
 	private static GitFetchResult Run(string directory, params string[] arguments)

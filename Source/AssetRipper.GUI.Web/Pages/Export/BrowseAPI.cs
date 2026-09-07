@@ -58,7 +58,7 @@ internal static class BrowseAPI
 		return Task.CompletedTask;
 	}
 
-	private static bool TryOpenInFileManager(string directory, [NotNullWhen(false)] out string? error)
+	internal static bool TryOpenInFileManager(string directory, [NotNullWhen(false)] out string? error)
 	{
 		try
 		{

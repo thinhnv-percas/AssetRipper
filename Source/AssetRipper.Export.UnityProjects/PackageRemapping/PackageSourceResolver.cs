@@ -62,6 +62,27 @@ public static class PackageSourceResolver
 	/// </summary>
 	public const string PackageManifestName = "package.json";
 
+	/// <summary>
+	/// The folder a source's own contents are in, which for a git source is its clone.
+	/// </summary>
+	/// <remarks>
+	/// Nothing is fetched and nothing is read. This is the answer to where a source is, which a caller
+	/// wants for a package's path in a manifest and for opening the folder.
+	/// </remarks>
+	public static string GetRoot(PackageSource source)
+	{
+		return source.Kind is PackageSourceKind.Git ? GitPackageFetcher.GetCloneDirectory(source) : source.Location;
+	}
+
+	/// <summary>
+	/// The folder a source's packages are looked for in, which is its root plus the subfolder.
+	/// </summary>
+	public static string GetDirectory(PackageSource source)
+	{
+		string root = GetRoot(source);
+		return source.Subfolder.Length > 0 ? Path.Join(root, source.Subfolder) : root;
+	}
+
 	public static List<PackageSourceResult> Resolve(IEnumerable<PackageSource> sources, GitFetchMode gitMode)
 	{
 		List<PackageSourceResult> results = [];
@@ -81,12 +102,11 @@ public static class PackageSourceResolver
 			return new PackageSourceResult { Source = source, Directory = "", Error = "The source has no location." };
 		}
 
-		string directory = source.Location;
+		string directory = GetRoot(source);
 		string? fetchMessage = null;
 
 		if (source.Kind is PackageSourceKind.Git)
 		{
-			directory = GitPackageFetcher.GetCloneDirectory(source);
 			bool cloned = GitPackageFetcher.IsCloned(source);
 
 			if (gitMode is GitFetchMode.Always || (gitMode is GitFetchMode.WhenMissing && !cloned))
@@ -109,6 +129,7 @@ public static class PackageSourceResolver
 			}
 		}
 
+		string root = directory;
 		if (source.Subfolder.Length > 0)
 		{
 			directory = Path.Join(directory, source.Subfolder);
@@ -124,8 +145,6 @@ public static class PackageSourceResolver
 
 		// A git package's dependency is written against the clone's root rather than the folder the scan
 		// started in, because a repository holding several packages needs a path per package.
-		string root = source.Kind is PackageSourceKind.Git ? GitPackageFetcher.GetCloneDirectory(source) : directory;
-
 		foreach (ResolvedPackage package in FindPackages(directory))
 		{
 			result.Packages.Add(package with { Dependency = BuildDependency(source, root, package) });

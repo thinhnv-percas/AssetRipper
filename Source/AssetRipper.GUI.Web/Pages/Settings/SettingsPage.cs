@@ -325,6 +325,14 @@ public sealed partial class SettingsPage : DefaultPage
 			.WithValue(Configuration.ExportSettings.OfficialPackageCachePath ?? "")
 			.Close();
 		new Div(writer).WithClass("form-text").Close("A Unity project's Library/PackageCache. When set, the export repoints its references at those packages instead of at the ripped copies. Leave empty to skip.");
+
+		// A cache is one source of packages and the only one that is a setting. The rest are a list, and
+		// this is where someone looking for where packages come from ends up first.
+		using (new Div(writer).WithClass("mt-2").End())
+		{
+			new A(writer).WithClass("btn btn-sm btn-outline-secondary").WithHref("/PackageSources").Close("Package sources");
+			new Div(writer).WithClass("form-text").Close("Local folders and git repositories to take the official packages from, beyond this cache.");
+		}
 	}
 
 	private static void WriteTextAreaForTargetVersion(TextWriter writer)

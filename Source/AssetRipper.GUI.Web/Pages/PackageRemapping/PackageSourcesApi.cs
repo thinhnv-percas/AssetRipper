@@ -1,4 +1,5 @@
 using AssetRipper.Export.UnityProjects.PackageRemapping;
+using AssetRipper.GUI.Web.Pages.Export;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System.Globalization;
@@ -20,6 +21,7 @@ public static class PackageSourcesApi
 		string action = Read(form, "action");
 
 		PackageRemapConfiguration configuration = PackageSourcesPage.LoadConfiguration();
+		PackageSourcesPage.LastMessage = null;
 
 		switch (action)
 		{
@@ -31,6 +33,9 @@ public static class PackageSourcesApi
 				break;
 			case "fetch":
 				PackageSourcesPage.LastScan = Scan(configuration, GitFetchMode.Always);
+				break;
+			case "opencache":
+				Open(GameFileLoader.Settings.ExportSettings.OfficialPackageCachePath);
 				break;
 			default:
 				Edit(action, configuration);
@@ -100,6 +105,14 @@ public static class PackageSourcesApi
 			case "toggle":
 				configuration.Sources[index].Enabled = !configuration.Sources[index].Enabled;
 				break;
+			case "update":
+				// Only this source is brought down again. Scanning the rest keeps the result below a
+				// picture of everything rather than of the one row that was pressed.
+				PackageSourcesPage.LastScan = Scan(configuration, GitFetchMode.WhenMissing, index);
+				return;
+			case "open":
+				Open(PackageSourceResolver.GetDirectory(configuration.Sources[index]));
+				return;
 			default:
 				return;
 		}
@@ -108,10 +121,37 @@ public static class PackageSourcesApi
 	}
 
 	/// <summary>
+	/// Shows a folder in the machine's file manager, which is how someone looks at what a source holds
+	/// rather than at what the scan made of it.
+	/// </summary>
+	private static void Open(string? directory)
+	{
+		if (string.IsNullOrWhiteSpace(directory))
+		{
+			PackageSourcesPage.LastMessage = "The source has no folder to open.";
+			return;
+		}
+
+		if (!Directory.Exists(directory))
+		{
+			PackageSourcesPage.LastMessage = $"There is nothing at {directory}. A git source has no folder until it is fetched.";
+			return;
+		}
+
+		if (!BrowseAPI.TryOpenInFileManager(directory, out string? error))
+		{
+			PackageSourcesPage.LastMessage = error;
+		}
+	}
+
+	/// <summary>
 	/// Scans every source, disabled ones included, since the page is where someone finds out what a
 	/// source holds before turning it on.
 	/// </summary>
-	private static List<PackageSourceResult> Scan(PackageRemapConfiguration configuration, GitFetchMode gitMode)
+	/// <param name="updateIndex">
+	/// The one source to bring down again, whatever the mode says for the rest. Negative updates none.
+	/// </param>
+	private static List<PackageSourceResult> Scan(PackageRemapConfiguration configuration, GitFetchMode gitMode, int updateIndex = -1)
 	{
 		List<PackageSource> sources = [.. configuration.Sources];
 
@@ -121,7 +161,13 @@ public static class PackageSourcesApi
 			sources.Add(new PackageSource { Kind = PackageSourceKind.Cache, Location = cachePath });
 		}
 
-		return PackageSourceResolver.Resolve(sources, gitMode);
+		List<PackageSourceResult> results = [];
+		for (int i = 0; i < sources.Count; i++)
+		{
+			results.Add(PackageSourceResolver.Resolve(sources[i], i == updateIndex ? GitFetchMode.Always : gitMode));
+		}
+
+		return results;
 	}
 
 	private static void Save(PackageRemapConfiguration configuration)
