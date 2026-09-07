@@ -102,7 +102,7 @@ public static class Simplifier
 
                             // A local with several definitions is not in SSA form, so its value at a join
                             // depends on the path taken; don't carry this definition across that join.
-                            var stopAtJoins = definitionCounts.TryGetValue(local, out var defs) && defs > 1;
+                                    var stopAtJoins = definitionCounts.TryGetValue(local, out var defs) && defs > 1;
 
                             // Replace local
                             ReplaceLocalsUntilReassignment(block, i + 1, local, instruction.Operands[1], stopAtJoins);
@@ -287,8 +287,15 @@ public static class Simplifier
             visited.EnsureCapacity(_graph.Blocks.Count);
 #endif
 
-            visited.Add(startBlock);
             remaining.Push((startBlock, startIndex));
+
+            // AssetRipper: the start block is deliberately not marked visited yet. A loop's back edge
+            // re-enters it, and a read *before* startIndex is then still a read after this instruction -
+            // which marking it up front hid. A counter's back-edge copy looked dead because the only
+            // instruction reading it, the decrement, sits at the top of the same block; dropping the copy
+            // left the counter singly defined, and the next constant pass carried its initial value across
+            // the loop header, so a 20 iteration loop became `while (20 != 1)`.
+            var startRevisited = false;
 
             usedByMemory = false;
 
@@ -362,6 +369,19 @@ public static class Simplifier
                 // Process successors
                 foreach (var successor in currentBlock.Successors)
                 {
+                    // AssetRipper: coming back round to the start block means scanning the part of it that
+                    // precedes startIndex, once.
+                    if (successor == startBlock)
+                    {
+                        if (!startRevisited && startIndex > 0)
+                        {
+                            startRevisited = true;
+                            remaining.Push((startBlock, 0));
+                        }
+
+                        continue;
+                    }
+
                     if (visited.Add(successor))
                         remaining.Push((successor, 0));
                 }

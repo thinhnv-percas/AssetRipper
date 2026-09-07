@@ -481,27 +481,46 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         }
 
         // the memory operand for the current instruction's access, offset by extraOffset (for the second reg of a pair)
-        IOperand MemOperand(long extraOffset = 0)
+        IOperand MemOperand(long extraOffset = 0, int size = 0)
         {
             var baseReg = instruction.MemBase;
             // writeback modes apply the offset to the base register itself, the access is at [base]
             var offset = (instruction.MemIndexMode == Arm64MemoryIndexMode.Offset ? instruction.MemOffset : 0) + extraOffset;
 
             if (baseReg == Arm64Register.INVALID)
-                return new MemoryOperand(addend: offset);
+                return new MemoryOperand(addend: offset, size: size);
 
             if (IsReg31(baseReg))
                 return new StackOffset((int)offset);
 
             if (instruction.MemAddendReg != Arm64Register.INVALID)
-                return new MemoryOperand(Reg(baseReg), Reg(instruction.MemAddendReg), offset, 1 << instruction.MemExtendOrShiftAmount);
+                return new MemoryOperand(Reg(baseReg), Reg(instruction.MemAddendReg), offset, 1 << instruction.MemExtendOrShiftAmount, size);
 
             // a load through a register holding an ADRP page address is really an absolute load
             if (adrpOffsets!.TryGetValue(NormalizeRegister(baseReg), out var page))
-                return new MemoryOperand(addend: (long)page + offset);
+                return new MemoryOperand(addend: (long)page + offset, size: size);
 
-            return new MemoryOperand(Reg(baseReg), addend: offset);
+            return new MemoryOperand(Reg(baseReg), addend: offset, size: size);
         }
+
+        // AssetRipper: how wide the access is, which the mnemonic names for a sub-word one and the
+        // register width gives otherwise. A store can cover more than the field its offset names.
+        int AccessWidth() => instruction.Mnemonic switch
+        {
+            Arm64Mnemonic.STRB or Arm64Mnemonic.STURB or Arm64Mnemonic.LDRB or Arm64Mnemonic.LDURB
+                or Arm64Mnemonic.LDRSB or Arm64Mnemonic.LDURSB => 1,
+            Arm64Mnemonic.STRH or Arm64Mnemonic.STURH or Arm64Mnemonic.LDRH or Arm64Mnemonic.LDURH
+                or Arm64Mnemonic.LDRSH or Arm64Mnemonic.LDURSH => 2,
+            _ => instruction.Op0Reg switch
+            {
+                >= Arm64Register.V0 and <= Arm64Register.V31 => 16,
+                >= Arm64Register.D0 and <= Arm64Register.D31 => 8,
+                >= Arm64Register.S0 and <= Arm64Register.S31 => 4,
+                >= Arm64Register.W0 and <= Arm64Register.W31 => 4,
+                >= Arm64Register.X0 and <= Arm64Register.X31 => 8,
+                _ => 0,
+            },
+        };
 
         // AssetRipper: the last register operand of a data processing instruction can carry a shift or
         // an extend, and that is where an array index gets scaled: `add x8, x0, w1, sxtw #3` is
@@ -742,7 +761,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             case Arm64Mnemonic.STURB:
             case Arm64Mnemonic.STURH:
                 EmitWriteback(beforeAccess: true);
-                Add(address, OpCode.Move, MemOperand(), ConvertOperand(instruction, 0));
+                Add(address, OpCode.Move, MemOperand(size: AccessWidth()), ConvertOperand(instruction, 0));
                 EmitWriteback(beforeAccess: false);
                 break;
             case Arm64Mnemonic.LDP:
@@ -803,15 +822,18 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     // a discarded result means this is only about the flags
                     var dest = IsReg31(instruction.Op0Reg) ? new Register(null, "TEMP") : ConvertOperand(instruction, 0);
 
+                    // AssetRipper: a subtract's flags are a function of its operands, and the destination
+                    // routinely aliases one of them - `subs w8, w8, #1` is how every countdown loop is
+                    // written. Emitting the flags after the write-back lets SSA rename the source to the
+                    // value just stored, so the flags describe one subtraction too many and the loop exits
+                    // an iteration early. Add's flags describe its result, so those stay where they are.
+                    if (setsFlags && isSubtract)
+                        EmitCompareFlags(src1, src2);
+
                     Add(address, isSubtract ? OpCode.Subtract : OpCode.Add, dest, src1, src2);
 
-                    if (setsFlags)
-                    {
-                        if (isSubtract)
-                            EmitCompareFlags(src1, src2);
-                        else
-                            EmitResultFlags(dest);
-                    }
+                    if (setsFlags && !isSubtract)
+                        EmitResultFlags(dest);
 
                     break;
                 }

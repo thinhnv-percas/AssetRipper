@@ -321,7 +321,7 @@ public static class MetadataResolver
                 if (genericOwner != null)
                     field = new ConcreteGenericFieldAnalysisContext(field, genericOwner);
 
-                instruction.SetOperand(i, new FieldReference(field, local, (int)memory.Addend));
+                instruction.SetOperand(i, new FieldReference(field, local, (int)memory.Addend) { AccessSize = memory.Size });
                 changed = true;
             }
         }

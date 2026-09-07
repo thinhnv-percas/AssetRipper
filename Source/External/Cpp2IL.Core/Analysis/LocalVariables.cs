@@ -523,6 +523,25 @@ public static class LocalVariables
 
     // Fills in a local's type only when it is currently unknown, keeping propagation monotonic (a
     // type, once set, is never changed) so the fixpoint terminates. Returns whether it set anything.
+    /// <summary>
+    /// AssetRipper: whether the access that resolved to this field is wider than the field itself, which
+    /// makes the value several fields packed side by side rather than this one. Only decidable for a
+    /// primitive field; anything else, and any access of unknown width, is taken at face value.
+    /// </summary>
+    private static bool IsWiderThanItsField(FieldReference field)
+    {
+        var width = field.Field.FieldType.FullName switch
+        {
+            "System.Boolean" or "System.Byte" or "System.SByte" => 1,
+            "System.Int16" or "System.UInt16" or "System.Char" => 2,
+            "System.Int32" or "System.UInt32" or "System.Single" => 4,
+            "System.Int64" or "System.UInt64" or "System.Double" => 8,
+            _ => 0,
+        };
+
+        return width > 0 && field.AccessSize > width;
+    }
+
     private static bool SetTypeIfUnknown(LocalVariable local, TypeAnalysisContext? type)
     {
         if (type == null || local.Type != null)
@@ -737,8 +756,12 @@ public static class LocalVariables
         if (destination is LocalVariable loadDest && source is FieldReference loadField)
             return SetTypeIfUnknown(loadDest, loadField.Field.FieldType);
 
-        // Move field, local: a field store types the stored value with the field's type.
-        if (destination is FieldReference storeField && source is LocalVariable storeSource)
+        // Move field, local: a field store types the stored value with the field's type - unless the
+        // store is wider than the field, in which case the value is several fields packed side by side
+        // and typing it as the first one loses the rest. Two adjacent bools written by one strh gave a
+        // Boolean local, so the 0x100 that means "the second one" arrived as `true`.
+        if (destination is FieldReference storeField && source is LocalVariable storeSource
+            && !IsWiderThanItsField(storeField))
             return SetTypeIfUnknown(storeSource, storeField.Field.FieldType);
 
         // An element of T[] is a T, whether we loaded it (reference arrays) or only computed its address

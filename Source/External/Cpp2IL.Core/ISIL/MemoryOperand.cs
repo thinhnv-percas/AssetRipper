@@ -6,12 +6,19 @@ namespace Cpp2IL.Core.ISIL;
 /// <summary>
 /// Memory operand in the format of [base+addend+index*scale]
 /// </summary>
-public struct MemoryOperand(IOperand? baseRegister = null, IOperand? indexRegister = null, long addend = 0, int scale = 0) : IOperand
+public struct MemoryOperand(IOperand? baseRegister = null, IOperand? indexRegister = null, long addend = 0, int scale = 0, int size = 0) : IOperand
 {
     public IOperand? Base = baseRegister;
     public IOperand? Index = indexRegister;
     public long Addend = addend;
     public int Scale = scale;
+
+    /// <summary>
+    /// AssetRipper: how many bytes the access covers, or 0 when the lifter did not say. A store can be
+    /// wider than the field its offset names - two adjacent <c>bool</c>s are written by one <c>strh</c>
+    /// - and without the width the fields past the first are silently lost.
+    /// </summary>
+    public int Size = size;
 
     public bool IsConstant => Base == null && Index == null && Scale == 0;
 

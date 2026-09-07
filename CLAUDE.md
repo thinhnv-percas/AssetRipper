@@ -301,6 +301,34 @@ find it; `strings` without `-el` does find method and type names.
   `SsaForm.RetargetAddressTakesOverwrittenBeforeUse` points it at the version stored before the
   address is first read, within the block only; wider is the general aliasing problem.
 
+- **A flag-setting instruction whose destination aliases a source needs its flags emitted before the
+  write-back.** `subs w8, w8, #1` is how every countdown loop is written, and `EmitCompareFlags(src1,
+  src2)` ran *after* the `Subtract`, so SSA renamed `src1` to the value just stored and the flags
+  described one subtraction too many. A `for (i = 0; i < 20; i++)` came out as `while (num != 1)` after
+  the decrement — nineteen iterations, and `Spawner` spawned nineteen rows of obstacles instead of
+  twenty. Add's flags describe its result, so those stay after.
+- **A store can be wider than the field its offset names.** Two adjacent `bool`s are written by one
+  `strh`, and the ISIL memory operand carried no width, so the generator wrote the field at the offset
+  and lost the rest: `Movement.right` was never assigned anywhere in the class, `if (right)` was dead
+  code and the character could only move one way. `MemoryOperand.Size` now carries the access width
+  from the lifter (store side only), `FieldReference.AccessSize` carries it past resolution, and
+  `IlGenerator.PackedFieldsCovered` splits the store when the covered fields tile the range exactly.
+  A wide store must also *not* type its value as the head field, or the packed word 0x100 arrives as
+  `true`.
+- **`Simplifier`'s "is this local read after here" walk could not see a read reached by a back edge.**
+  It marked the start block visited before walking, so a read *before* `startIndex` in that same block
+  was invisible even when the block is reachable from itself. A loop counter's back-edge copy therefore
+  looked dead, and dropping it left the counter with one definition — which turned off the
+  `stopAtJoins` guard, so the next constant pass carried the counter's initial value across the loop
+  header and the trip count became `while (20 != 1)`. The start block is now re-entered once, from
+  index 0. This only surfaced once the subtract's flags moved ahead of the write-back, because the
+  earlier order let `CopyCoalescer` merge the copy away.
+- **`scvtf` is lifted as a move**, along with every other conversion, so a local holding an integer
+  reaches a float destination with its integer type intact — `screenWidth = Screen.width` with no
+  `conv.r4`, which ILSpy annotates `Expected F4, but got I4`. The conversion belongs in the generator
+  where the wanted type is in hand. An integer *immediate* is the opposite case and stays as it was:
+  there the bits are the float, because materialise-and-store is the only way to write a float constant.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member

@@ -13,7 +13,7 @@ Where the run stands today:
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
 | `Method not found` placeholders | 4388, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 12376 |
+| `Unmanaged memory load` placeholders | 12426 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -24,7 +24,8 @@ placeholder count, and it reorders as things are fixed.
 
 The other measurement is `RunFromZombiesFullProject`, an ARM64 game that ships its own Unity source,
 so the output can be read against the real thing. Its sixteen scripts now carry no diagnostic of any
-kind and no decompilation error, and its one coroutine folds back into an iterator (section 8c).
+kind and no decompilation error, its one coroutine folds back into an iterator (section 8c), and all
+sixteen have been read against the source line by line (section 8d).
 
 The output does not compile and is not meant to. The goal is that the logic reads correctly. These
 are the places it still does not.
@@ -321,6 +322,50 @@ Two smaller things were in the way of the body inside the loop:
 
 That last one costs 36 unmanaged memory loads on the test game, which is the usual shape: a load that
 was being dropped as dead is now kept and reported.
+
+## 8d. The second game's scripts read as the source — line by line
+
+All sixteen `Assembly-CSharp` scripts of `RunFromZombiesFullProject` have been compared against the
+Unity source they were built from. Thirteen were faithful already. Three were not, and every cause was
+a defect that applies to any game, not to this one:
+
+- **A countdown loop ran one iteration short.** `subs w8, w8, #1` writes its destination and sets its
+  flags from its operands, and the lifter emitted the flag arithmetic after the write-back, so SSA
+  renamed the source to the value just stored. `for (int i = 0; i < 20; i++)` became `while (num != 1)`
+  after the decrement, and `Spawner` laid nineteen rows of obstacles per street instead of twenty.
+- **Two adjacent `bool` fields written by one `strh` lost the second one.** The ISIL memory operand
+  carried no access width, so a two byte store resolved to the one byte field at its offset and the
+  byte past it was dropped. `Movement.right` was assigned nowhere in the class, which made `if (right)`
+  unreachable and the character able to move only left. The width now reaches the generator, which
+  splits the store when the fields it covers tile the range exactly - by constant where the value is
+  one, and by shift and mask where it is not, which is how the keyboard path's packed `0x100` recovers
+  as `right = true; left = false`.
+- **An integer reaching a float field was not converted.** Every conversion, `scvtf` included, is
+  lifted as a move, so `screenWidth = Screen.width` stored an `int` into a `float` - IL that ILSpy
+  annotates `Expected F4, but got I4`. The conversion is now emitted at the load, where the wanted type
+  is known. 33 of these remain on Pinata, all in code the generator reaches by another route.
+
+Fixing the first exposed a fourth, in `Simplifier`: its "is this local read after here" walk marked the
+start block visited before walking, so a read *before* the starting index - which a loop's back edge
+reaches - was invisible. A counter's back-edge copy looked dead; dropping it left the counter singly
+defined, which turned off the pass's own join guard and let the counter's initial value cross the loop
+header. The trip count then read `while (20 != 1)`. The start block is re-entered once now.
+
+What is left in the sixteen is faithful but verbose, and none of it is wrong:
+
+- **`Vector3.MoveTowards` and `Mathf.Clamp01` are inlined**, so their arithmetic and their flag
+  temporaries are spelled out at each call site. This is what the binary contains; folding it back would
+  mean recognising a library function by its shape.
+- **A `new Vector3(x, y, z)` arrives as three member stores** into a `default(Vector3)`, and one
+  `Vector3 v = other` as a whole-struct assignment followed by redundant per-member copies.
+- **`BoxRaRot` converts degrees to radians and back.** il2cpp inlined `Quaternion.Euler` as a multiply
+  by `Deg2Rad` and a call to `Internal_FromEulerRad`; the recovery writes that call as
+  `Quaternion.Euler(arg * 57.29578f)`, so the two multiplies both survive. The result differs from the
+  source by about six parts in a hundred million. Cancelling them means seeing through the aggregate the
+  per-component multiply was folded into.
+- **Every branch may be inverted and every early return hoisted**, and a condition that the source
+  wrote twice may appear once - `Checker.OnTriggerEnter` writes the high score after the if/else rather
+  than inside both arms, which is where the compiler put it.
 
 ## 9. Smaller things
 

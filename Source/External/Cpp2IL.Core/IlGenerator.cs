@@ -423,6 +423,56 @@ public static class IlGenerator
             instructions.Add(target.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, target.Field.ToFieldDescriptor());
         }
 
+        // AssetRipper: one field store of a byte slice of a wider value, used to split a store wider than
+        // its field when the value is computed rather than constant.
+        void EmitSlicedFieldStore(FieldReference target, IOperand value, int byteOffset, int width)
+        {
+            if (!target.Field.IsStatic)
+            {
+                LoadLocal(target.Local, method, locals);
+                LoadContainingFields(target, instructions);
+            }
+
+            LoadOperand(value, context, method, locals, writeLine);
+
+            if (byteOffset > 0)
+            {
+                instructions.Add(CilOpCodes.Ldc_I4, byteOffset * 8);
+                instructions.Add(CilOpCodes.Shr_Un);
+            }
+
+            if (width < 4)
+            {
+                instructions.Add(CilOpCodes.Ldc_I4, (1 << (width * 8)) - 1);
+                instructions.Add(CilOpCodes.And);
+            }
+
+            if (target.Field.FieldType.FullName == "System.Boolean")
+            {
+                instructions.Add(CilOpCodes.Ldc_I4_0);
+                instructions.Add(CilOpCodes.Cgt_Un);
+            }
+
+            instructions.Add(target.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, target.Field.ToFieldDescriptor());
+        }
+
+        // AssetRipper: one field store of a constant integer, used to split a store wider than its field.
+        void EmitIntegerFieldStore(FieldReference target, long value)
+        {
+            if (!target.Field.IsStatic)
+            {
+                LoadLocal(target.Local, method, locals);
+                LoadContainingFields(target, instructions);
+            }
+
+            if (PrimitiveFieldWidth(target.Field.FieldType) == 8)
+                instructions.Add(CilOpCodes.Ldc_I8, value);
+            else
+                instructions.Add(CilOpCodes.Ldc_I4, (int)value);
+
+            instructions.Add(target.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, target.Field.ToFieldDescriptor());
+        }
+
         switch (instruction.OpCode)
         {
             case OpCode.Invalid:
@@ -452,6 +502,31 @@ public static class IlGenerator
 
                     EmitFieldStore(pairHead, BitConverter.Int32BitsToSingle((int)bits));
                     EmitFieldStore(new FieldReference(pairTail, pairHead.Local, pairHead.Offset + 4), BitConverter.Int32BitsToSingle((int)(bits >> 32)));
+                    break;
+                }
+
+                // AssetRipper: a store can be wider than the field its offset names. Two adjacent bools
+                // are written by one strh, and taking the store at the head field's width dropped every
+                // field past the first - `Movement.right` was never assigned anywhere in the class, so
+                // the branch reading it was unreachable and the character could only move one way.
+                if (instruction.Operands is [FieldReference { AccessSize: >= 2 } packedHead, { } packedValue]
+                    && PackedFieldsCovered(packedHead) is { } packed)
+                {
+                    foreach (var (member, byteOffset, width) in packed)
+                    {
+                        var slot = new FieldReference(member, packedHead.Local, packedHead.Offset + byteOffset);
+
+                        if (packedValue is Immediate constant)
+                        {
+                            var mask = width >= 8 ? -1L : (1L << (width * 8)) - 1;
+                            EmitIntegerFieldStore(slot, (constant.Value >> (byteOffset * 8)) & mask);
+                        }
+                        else
+                        {
+                            EmitSlicedFieldStore(slot, packedValue, byteOffset, width);
+                        }
+                    }
+
                     break;
                 }
 
@@ -1079,6 +1154,12 @@ public static class IlGenerator
     private static bool IsFloat(TypeAnalysisContext type) => type.FullName is "System.Single" or "System.Double";
 
     /// <summary>
+    /// AssetRipper: an integer type a conversion to float would be defined on.
+    /// </summary>
+    private static bool IsIntegral(TypeAnalysisContext? type) => type?.FullName is "System.SByte" or "System.Byte"
+        or "System.Int16" or "System.UInt16" or "System.Int32" or "System.UInt32" or "System.Int64" or "System.UInt64";
+
+    /// <summary>
     /// AssetRipper: the float type a comparison is between, taken from its operands.
     /// </summary>
     private static TypeAnalysisContext? FloatComparisonType(Instruction instruction, MethodAnalysisContext context)
@@ -1233,6 +1314,19 @@ public static class IlGenerator
                 {
                     instructions.Add(CilOpCodes.Ldloca, addressable);
                     instructions.Add(CilOpCodes.Ldfld, firstMember.ToFieldDescriptor());
+                    break;
+                }
+
+                // AssetRipper: the lifter treats scvtf as a move, so a local holding an integer arrives at
+                // a float destination with its integer type intact - ILSpy prints "Expected F4, but got
+                // I4" and the assignment does not verify. The conversion the machine performed belongs
+                // here, where the wanted type is in hand. An integer *immediate* is the opposite case and
+                // is handled above: there the bits are the float, because materialise-and-store is the
+                // only way to write a float constant.
+                if (expectedType is { } wantedFloatType && IsFloat(wantedFloatType) && IsIntegral(local.Type))
+                {
+                    LoadLocal(local, method, locals);
+                    instructions.Add(wantedFloatType.FullName == "System.Double" ? CilOpCodes.Conv_R8 : CilOpCodes.Conv_R4);
                     break;
                 }
 
@@ -1495,6 +1589,72 @@ public static class IlGenerator
     // negated field as the bitwise complement of an integer: ~(isPaused ? 1u : 0u) == 0.
     private static bool IsBoolean(IOperand operand, MethodAnalysisContext context) =>
         DestinationType(operand) == context.AppContext.SystemTypes.SystemBooleanType;
+
+    /// <summary>
+    /// AssetRipper: the width in bytes of a primitive field type, or 0 for anything else.
+    /// </summary>
+    private static int PrimitiveFieldWidth(TypeAnalysisContext type) => type.FullName switch
+    {
+        "System.Boolean" or "System.Byte" or "System.SByte" => 1,
+        "System.Int16" or "System.UInt16" or "System.Char" => 2,
+        "System.Int32" or "System.UInt32" => 4,
+        "System.Int64" or "System.UInt64" => 8,
+        _ => 0,
+    };
+
+    /// <summary>
+    /// AssetRipper: the primitive fields a store at <paramref name="head"/>'s offset covers, as
+    /// (field, byte offset from the head, width), when the store reaches past the head field and the
+    /// fields it reaches tile the range exactly. Null otherwise, which includes the ordinary case of a
+    /// store no wider than the field it names.
+    /// </summary>
+    /// <remarks>
+    /// The tiling requirement is what keeps this from guessing. A store that runs off the end of the
+    /// declared fields, overlaps one, or lands on a field this cannot size is left to the normal path,
+    /// which writes the head field and is at least right about that one.
+    /// </remarks>
+    private static List<(FieldAnalysisContext Field, int ByteOffset, int Width)>? PackedFieldsCovered(FieldReference head)
+    {
+        if (head.ContainingFields.Count > 0 || head.Field.IsStatic || head.Field.BackingData is not { } backing)
+            return null;
+
+        var headWidth = PrimitiveFieldWidth(head.Field.FieldType);
+
+        if (headWidth == 0 || headWidth >= head.AccessSize)
+            return null;
+
+        var start = backing.FieldOffset;
+        var covered = new List<(FieldAnalysisContext, int, int)>();
+        var filled = 0;
+
+        while (filled < head.AccessSize)
+        {
+            var wanted = start + filled;
+            FieldAnalysisContext? found = null;
+
+            foreach (var candidate in head.Field.DeclaringType!.Fields)
+            {
+                if (!candidate.IsStatic && candidate.BackingData?.FieldOffset == wanted)
+                {
+                    found = candidate;
+                    break;
+                }
+            }
+
+            if (found == null)
+                return null;
+
+            var width = PrimitiveFieldWidth(found.FieldType);
+
+            if (width == 0 || filled + width > head.AccessSize)
+                return null;
+
+            covered.Add((found, filled, width));
+            filled += width;
+        }
+
+        return covered.Count >= 2 ? covered : null;
+    }
 
     /// <summary>
     /// AssetRipper: the <c>System.Single</c> field four bytes after this one, if there is one.
