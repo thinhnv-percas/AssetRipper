@@ -192,6 +192,13 @@ public static class WebApplicationLauncher
 		}).ProducesHtmlPage();
 		app.MapPost("/PackageRemapping/Run", Pages.PackageRemapping.PackageRemapApi.HandleRunPostRequest);
 
+		app.MapGet("/PackageSources", (context) =>
+		{
+			context.Response.DisableCaching();
+			return Pages.PackageRemapping.PackageSourcesPage.Instance.WriteToResponse(context.Response);
+		}).ProducesHtmlPage();
+		app.MapPost("/PackageSources/Run", Pages.PackageRemapping.PackageSourcesApi.HandlePostRequest);
+
 		app.MapGet("/ConfigurationFiles", (context) =>
 		{
 			context.Response.DisableCaching();

@@ -45,6 +45,11 @@ public sealed class PackageRemapConfiguration
 	public const string FileName = "AssetRipper.PackageRemapping.json";
 
 	/// <summary>
+	/// Where the file lives, beside the executable, so the page and the export read the same one.
+	/// </summary>
+	public static string DefaultPath => Path.Join(AssetRipper.IO.Files.LocalFileSystem.ExecutingDirectory, FileName);
+
+	/// <summary>
 	/// Whether to delete the ripped files the official packages replace.
 	/// </summary>
 	/// <remarks>
@@ -57,6 +62,17 @@ public sealed class PackageRemapConfiguration
 
 	[JsonPropertyName("packages")]
 	public List<PackageRemapEntry> Packages { get; set; } = [];
+
+	/// <summary>
+	/// Where to look for the official packages, beyond the cache path in the export settings.
+	/// </summary>
+	/// <remarks>
+	/// A package cache only holds what a project has already resolved. A package taken straight from its
+	/// repository, or one checked out somewhere on disk, is not in any cache and is the only way to reach
+	/// a version the machine has never installed.
+	/// </remarks>
+	[JsonPropertyName("sources")]
+	public List<PackageSource> Sources { get; set; } = [];
 
 	public PackageRemapEntry? Find(string name)
 	{
@@ -123,6 +139,7 @@ public sealed class UnityPackageInfo
 
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Metadata, WriteIndented = true)]
 [JsonSerializable(typeof(PackageRemapConfiguration))]
+[JsonSerializable(typeof(PackageSource))]
 [JsonSerializable(typeof(UnityPackageInfo))]
 internal sealed partial class PackageRemapSerializerContext : JsonSerializerContext
 {

@@ -122,6 +122,10 @@ public abstract class DefaultPage : HtmlPage
 				}
 				using (new Li(writer).End())
 				{
+					new A(writer).WithClass("dropdown-item").WithHref("/PackageSources").Close("Package Sources");
+				}
+				using (new Li(writer).End())
+				{
 					new A(writer).WithClass("dropdown-item").WithHref("/PackageRemapping").Close("Package Remapping");
 				}
 				using (new Li(writer).End())
