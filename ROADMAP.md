@@ -13,7 +13,7 @@ Where the run stands today:
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
 | `Method not found` placeholders | 4388, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 12426 |
+| `Unmanaged memory load` placeholders | 12446 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -322,6 +322,20 @@ Two smaller things were in the way of the body inside the loop:
 
 That last one costs 36 unmanaged memory loads on the test game, which is the usual shape: a load that
 was being dropped as dead is now kept and reported.
+
+## 8f. Verifying a recovery against the source, repeatably
+
+`Test/Scripts/audit_recovered_scripts.py` compares a game's recovered scripts against the Unity source
+they were built from: it proves no member was lost and counts every diagnostic and every known-bad C#
+shape per file, so the reading starts with the files that need it.
+`docs/articles/RecoveredScriptVerification.md` is what it currently says — the per-file table, the
+defect catalogue with a count and a cause for each shape, and the list of things that are faithful to
+the binary rather than to the source and so must not be flagged.
+
+The headline: **no member is lost**, on either game that ships its source (177 of 177 on Impostor,
+9 of 9 on RunFromZombies). What is wrong is fidelity inside the bodies, and 915 `(nint)` casts and 995
+ILSpy type-mismatch comments on Impostor are one defect wearing many faces — a local nothing typed is
+declared `object` and used as a number, which is section 5.
 
 ## 8d. The second game's scripts read as the source — line by line
 

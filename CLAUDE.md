@@ -365,6 +365,24 @@ find it; `strings` without `-el` does find method and type names.
   is the *other* producer - a ref local assigned by dereferencing an untyped local - which is the
   untyped-locals problem, ROADMAP section 5.
 
+- **`Test/Scripts/audit_recovered_scripts.py` compares a recovery against the source it was built
+  from**, per assembly rather than per file, and counts every diagnostic and known-bad shape per file.
+  Run it before and after a change on a game that ships its source;
+  `docs/articles/RecoveredScriptVerification.md` is the standing record. Two traps it exists to avoid:
+  the exporter writes **one type per file**, so `UserResource.cs`'s four types come back as four files
+  and a per-file member diff invents six missing members; and **`#if UNITY_EDITOR` is not in the
+  build**, so five of `GameHelper`'s methods are correctly absent.
+- **The integer half of the type fixpoint had no seed.** Floats propagated from operands to
+  destinations and back, integers only from operands to a destination, so a loop counter nothing typed
+  stayed `object` and every use of it read `(nint)obj`. Two seeds: a comparison types its untyped
+  operand from whichever other operand is an integer (comparisons only - the same on `Add` would type
+  the base of every `[base + index]` computation, and a comparison against the immediate zero is a
+  null check, so neither seeds), and arithmetic whose operands are *all* known integers types its
+  result (all, not any, for the same reason).
+- **A value type local zeroed by an integer 0 needs `initobj`, not a store.** `Move <struct local>, 0`
+  emitted `ldc.i4.0; stloc`, which ILSpy wrote as `(Stack<object>.Enumerator)0` - a cast from an int
+  to a struct, which is not a conversion C# has.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member

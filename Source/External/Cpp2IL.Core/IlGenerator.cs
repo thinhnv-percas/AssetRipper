@@ -619,6 +619,18 @@ public static class IlGenerator
                     break;
                 }
 
+                // AssetRipper: a value type local zeroed by an integer 0. The machine clears the slot,
+                // and storing a 0 into it emitted `(Stack<object>.Enumerator)0` - a cast from an int to
+                // a struct, which is not a conversion C# has. `initobj` is what zeroing a value type is.
+                if (instruction.Operands is [LocalVariable { Type: { IsValueType: true } zeroed } zeroedLocal, Immediate { Value: 0 }]
+                    && !IsFloat(zeroed) && PrimitiveFieldWidth(zeroed) == 0
+                    && locals.TryGetValue(zeroedLocal, out var zeroedIl))
+                {
+                    instructions.Add(CilOpCodes.Ldloca, zeroedIl);
+                    instructions.Add(CilOpCodes.Initobj, zeroed.ToTypeSignature().ToTypeDefOrRef());
+                    break;
+                }
+
                 if (instruction.Operands[0] is FieldReference field) // stfld takes instance before value so LoadOperand StoreToOperand doesn't work
                 {
                     if (!field.Field.IsStatic)

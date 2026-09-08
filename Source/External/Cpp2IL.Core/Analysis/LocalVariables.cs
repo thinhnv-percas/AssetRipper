@@ -622,7 +622,7 @@ public static class LocalVariables
                     changed |= PropagatePhi(instruction);
                     break;
                 case OpCode.Add or OpCode.Subtract or OpCode.Multiply:
-                    changed |= PropagateArithmetic(instruction, method);
+                    changed |= PropagateArithmetic(instruction, method) || PropagateIntegerResultOfIntegers(instruction, method);
                     break;
                 case OpCode.Divide or OpCode.Modulo:
                     changed |= PropagateArithmetic(instruction, method) || PropagateIntegerResult(instruction, method);
@@ -630,6 +630,9 @@ public static class LocalVariables
                 case OpCode.And or OpCode.Or or OpCode.Xor or OpCode.Not or OpCode.Negate
                     or OpCode.ShiftLeft or OpCode.ShiftRight:
                     changed |= PropagateBooleanLogic(instruction, method) || PropagateIntegerResult(instruction, method);
+                    break;
+                case >= OpCode.CheckEqual and <= OpCode.CheckLessOrEqual:
+                    changed |= PropagateIntegerComparison(instruction, method);
                     break;
             }
         }
@@ -703,6 +706,76 @@ public static class LocalVariables
                 return SetTypeIfUnknown(destination, integerType);
 
         return false;
+    }
+
+    /// <summary>
+    /// AssetRipper: types the result of an addition, subtraction or multiplication whose operands are
+    /// <em>all</em> known integers.
+    /// </summary>
+    /// <remarks>
+    /// All of them, not any: `[base + index]` address arithmetic has an integer index beside a base
+    /// that is not one, and typing that result as an integer would be wrong. Two known integers cannot
+    /// be an address computation, so the result of one is a number. Without this the difference in
+    /// `num - list._size` stayed <c>object</c> and every use of it read `(nint)obj`.
+    /// </remarks>
+    private static bool PropagateIntegerResultOfIntegers(Instruction instruction, MethodAnalysisContext method)
+    {
+        if (instruction.Operands is not [LocalVariable { Type: null } destination, ..])
+            return false;
+
+        TypeAnalysisContext? widest = null;
+
+        for (var i = 1; i < instruction.Operands.Count; i++)
+        {
+            if (instruction.Operands[i] is Immediate)
+                continue;
+
+            if (IntegerResultType(instruction.Operands[i], method) is not { } operandType)
+                return false;
+
+            if (widest == null || operandType.FullName == "System.Int64")
+                widest = operandType;
+        }
+
+        return widest != null && SetTypeIfUnknown(destination, widest);
+    }
+
+    /// <summary>
+    /// AssetRipper: types an untyped operand of a comparison from whichever other operand has an
+    /// integer type.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This is the seed the integer side of the type fixpoint was missing. A loop counter that nothing
+    /// typed stayed <c>object</c>, and every use of it a cast: <c>obj = (nint)obj + 1;</c> and
+    /// <c>if ((nint)obj &gt;= gamePlayController.maxValueCols)</c>, neither of which is C# - a
+    /// reference cannot be cast to a native integer. The comparison against a typed <c>int</c> field
+    /// says what the counter is.
+    /// </para>
+    /// <para>
+    /// Only comparisons seed this, deliberately. The equivalent on <c>Add</c> would type the base of
+    /// every <c>[base + index]</c> address computation as an integer, since the index beside it is one.
+    /// A comparison is never address arithmetic. A comparison against the immediate zero does not seed
+    /// either, because that is the shape of a null check.
+    /// </para>
+    /// </remarks>
+    private static bool PropagateIntegerComparison(Instruction instruction, MethodAnalysisContext method)
+    {
+        TypeAnalysisContext? integerType = null;
+
+        for (var i = 1; i < instruction.Operands.Count && integerType == null; i++)
+            integerType = IntegerResultType(instruction.Operands[i], method);
+
+        if (integerType == null)
+            return false;
+
+        var changed = false;
+
+        for (var i = 1; i < instruction.Operands.Count; i++)
+            if (instruction.Operands[i] is LocalVariable { Type: null } untyped)
+                changed |= SetTypeIfUnknown(untyped, integerType);
+
+        return changed;
     }
 
     private static TypeAnalysisContext? IntegerResultType(IOperand operand, MethodAnalysisContext method)
