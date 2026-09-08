@@ -47,17 +47,30 @@ references, so the SDK's must not be), and prints the error count followed by a 
 codes with one example each. `KEEP_LOG=<path>` keeps the full log; the exit status is non-zero when
 there are errors, so it can gate a change.
 
-Two things about what it measures. It compiles against the *stubbed* framework rather than the real
-Unity assemblies, and a stub carries only what the game's il2cpp metadata carries — a member Unity
-strips from the build is absent here even though the export would compile against a real Unity
-install. And it compiles every file as one assembly, which is stricter than the exporter needs to be:
+Three things about what it measures.
+
+It compiles against the *stubbed* framework rather than the real Unity assemblies, and a stub carries
+only what the game's il2cpp metadata carries — a member Unity strips from the build is absent here
+even though the export would compile against a real Unity install.
+
+It compiles every file as one assembly, which is stricter than the exporter needs to be:
 duplicate-attribute and accessibility rules only bite in source.
+
+And **a declaration error hides every body error in the assembly.** Roslyn binds declarations first
+and stops there if that stage failed, so two missing attribute types made Pinata read as "3 errors"
+when its real count is 7139 — and silenced every analyzer, since none of them had a semantic model to
+work with. Both were `StructLayoutAttribute`, which is a pseudo-custom attribute: it lives in a type's
+flags rather than as an attribute, so a stripped build carries no such type for the exported
+`[StructLayout(...)]` to name. The harness shims it and `LayoutKind` in source. Any future
+declaration error will mask the same way, so a suspiciously small error count is a reason to read the
+log rather than to celebrate.
 
 | | Pinata | RunFromZombies | Impostor |
 |---|---:|---:|---:|
 | files compiled | 1108 | 22 | 63 |
 | errors, first run | 4999 | 2 | 765 |
-| errors now | 3 | 2 | 619 |
+| errors, declaration stage unmasked | 7139 | 2 | 765 |
+| errors now | 7066 | 2 | 603 |
 
 What the first run found, in the order it found it:
 
@@ -67,9 +80,8 @@ What the first run found, in the order it found it:
   recovered assembly was always valid; C# rejects the second unless the attribute type declares
   `AllowMultiple`, and the export is C#. Fixed by injecting that type through
   `AttributeInjectionUtils`, which applies `AttributeUsage` for every other injected attribute.
-- **Pinata's remaining 3 are `StructLayoutAttribute`.** It is a pseudo-custom attribute, stored in the
-  type's flags rather than as an attribute, so a stripped build carries no such type for the exported
-  `[StructLayout(...)]` to name. It compiles against a real framework.
+- **Pinata's `StructLayoutAttribute` errors were not 3 of 4999, they were the reason the other 7136
+  were invisible.** See the declaration-stage note above.
 - **RunFromZombies' 2 are both stripped members**, in one file. `Math.PI` is how ILSpy renders the
   constant `0.017453292f`, and `Quaternion.Euler(Vector3)` is the public method the recovery names in
   place of the inlined `Internal_FromEulerRad`; the game calls neither, so IL2CPP stripped both out of
@@ -78,12 +90,61 @@ What the first run found, in the order it found it:
 - **180 of Impostor's were `List<object>._size`**, the second half of the trivial-accessor pairing —
   see the defect catalogue below. 146 are now gone; the 34 that remain are *writes* to `_size`, which
   no getter can stand in for.
-- **The rest of Impostor's 619 is one defect**, section 5 of `ROADMAP.md`: a local nothing typed is
+- **`x._002Ector()`, 51 on Pinata and 21 on Impostor**, is a constructor called on an object that
+  already exists — a member no type has. 13 of Impostor's and 24 of Pinata's were the leftover half of
+  an allocation whose constructor call could not be fused, and are now either fused or dropped; see
+  the defect catalogue.
+- **The rest of Impostor's 603 is one defect**, section 5 of `ROADMAP.md`: a local nothing typed is
   declared `object`, and every use of it is a cast that C# does not have. 329 `CS0030`, 18 `CS0037`,
   10 `CS0019` and 5 `CS0165` are all that, and the `nint` in `Cannot convert type 'GamePlayController'
-  to 'nint'` is the tell. 49 `CS0122` are a separate item: `ObscuredInt`'s private fields, written
+  to 'nint'` is the tell. 48 `CS0122` are a separate item: `ObscuredInt`'s private fields, written
   directly because il2cpp inlined the struct's construction, from a game plugin assembly in which they
-  are private and another assembly's code is reaching them.
+  are private and another assembly's code is reaching them. The largest single class on Pinata is
+  4721 `CS1061` for `List<T>._items` and the rest of what il2cpp inlined out of the framework, which
+  is the write half of the accessor problem below.
+
+## What Microsoft.Unity.Analyzers says
+
+Set `ANALYZERS` to a directory of analyzer assemblies and the same script runs them:
+
+```
+curl -sSL -o a.nupkg https://www.nuget.org/api/v2/package/Microsoft.Unity.Analyzers
+unzip -q a.nupkg -d unity-analyzers
+ANALYZERS=unity-analyzers/analyzers/dotnet/cs Test/Scripts/compile_recovered_scripts.sh Test/Output
+```
+
+It is worth running because its rules are about Unity's own contract — a message with the wrong
+signature, a `GetComponent` for a type that is not a component, a `SerializeField` on something that
+cannot be serialised — which is the kind of thing a recovery gets wrong and a compiler does not mind.
+Most of its rules ship at Info severity, which the command line compiler does not print, so the script
+raises every `UNT` rule to warning; without that the first run reads as a clean sheet and is a silent
+one.
+
+| | Pinata | RunFromZombies | Impostor |
+|---|---:|---:|---:|
+| UNT findings | 224 | 35 | 21 |
+| attributable to the recovery | 0 | 0 | 0 |
+
+Every finding is in the source too, where there is source to check:
+
+- **`UNT0021`, 143 + 27 + 15** — a Unity message that is private rather than protected. Every Unity
+  script ever written trips this; it is a style rule and says nothing about the recovery.
+- **`UNT0001`, 6 + 3 + 2 empty messages** — read against the source, every one is empty there too:
+  `ObsJumper`, `ObsDropper` and `ZambiesMovement` all have `void Start() { }`, and Impostor's
+  `TestCube` has an empty `Start` and an empty `Update`.
+- **`UNT0013`, 4 on Impostor** — `[SerializeField] public SkeletonAnimation _animation;` and
+  `[SerializeField] private readonly string[] skinList`, both exactly as written in `Imposter.cs`, and
+  `[SerializeField] public GameObject effect;` in `Box.cs`.
+- **`UNT0005`, 2 on Pinata** — `Time.deltaTime` inside a `FixedUpdate`, in EpicToonFX's
+  `ETFXProjectileScript`. The asset does that.
+- **`UNT0039`, `UNT0041`, `UNT0025`, `UNT0028`, `UNT0016`** — `GetComponent` without
+  `[RequireComponent]`, `Animator.SetFloat` with a string rather than a hash, `Input.GetKey` with a
+  string, an allocating physics call, `Invoke` with a method name. All source-level style, all in Obi's
+  and EpicToonFX's samples and in the games' own scripts.
+
+Nothing fires from the families that would indicate a recovery defect — `UNT0006` for a message with
+the wrong signature, `UNT0010` and `UNT0011` for a component constructed with `new`. That is a real
+result, and it is the one the analyzers were run for.
 
 ## Nothing is missing
 
@@ -280,6 +341,7 @@ Every distinct shape, with what produces it. Counts are over `Impostor`'s `Assem
 | `if ((nint)obj >= gpc.maxValueCols)` on a loop counter | — | 0 | A comparison against a typed `int` now types the untyped side, which is the seed the integer half of the type fixpoint was missing. |
 | `list._size` read | 180 | 34 | The accessor pairing could not see a field of a generic instance: its `BackingData` is null, its declaring type is the instantiation, and every field of a generic type is at offset 0 in the metadata. It is measured on the definition against a computed offset, and the getter instantiated on the same arguments. The 34 left are writes. |
 | `[AttributeAttribute]` twice on one member | 4996 | 0 | Legal in metadata, rejected by C#. The injected attribute type now declares `AllowMultiple`. |
+| `x._002Ector()` on an object that exists | 21 on Impostor, 51 on Pinata | 8 and 27 | Three causes. An allocation whose constructor call could not be fused: `InlinedConstructor` compared parameter names to the fields stored after it positionally and pairwise, so `new Movement(currentBox, null, imposter)` missed — the stores arrive in the machine's order and the store of a null is dropped, since the object is already zeroed. Matched by name now, with a missing store read as a zero. A stray call anywhere else is dropped, the `newobj` having already constructed the object. Inside a constructor it is the base call: retargeted to the direct base where il2cpp folded a trivial constructor onto `System.Object`, and hoisted to the front, which is the only place C# can write one. What is left is a constructor whose body also carries a stack type mismatch, where ILSpy will not fold the call whatever position it is in. |
 
 ### Open, in the order they cost
 
@@ -366,10 +428,11 @@ recovered body as if a person had written it.
 | method bodies attempted | 18440 | 4636 | 6014 |
 | failed to convert | 0 | 0 | 0 |
 | `.cs` files exported | 3083 | — | — |
-| `Unmanaged memory load` | 11215 | 0 in its own scripts | 801 in its own scripts |
-| `Method not found` | 4394 | 0 | 228 |
+| `Unmanaged memory load` | 10843 | 0 in its own scripts | 801 in its own scripts |
+| `Method not found` | 4339 | 0 | 228 |
 | members lost | — | 0 of 9 | 0 of 177 |
-| compile errors | 3 | 2 | 619 |
+| compile errors | 7066 | 2 | 603 |
+| UNT findings, none the recovery's | 224 | 35 | 21 |
 
 Pinata's unresolved-load count moves up as more is recovered, not down: a load that was being dropped
 as dead code is reported once something starts keeping it. It is a count of what could not be

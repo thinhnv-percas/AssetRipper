@@ -371,10 +371,35 @@ find it; `strings` without `-el` does find method and type names.
   exactly the metadata it was recovered from and ranks what Roslyn rejects. Two cautions: the stub
   carries only what the game's metadata carries, so a member IL2CPP *stripped* from the build reads as
   a compile error even though the export is fine against a real Unity install (`Math.PI`,
-  `Quaternion.Euler(Vector3)`, `StructLayoutAttribute` — that is all five remaining errors on Pinata
-  and RunFromZombies together); and an error injected by the ripper is not a recovery defect at all —
-  4996 of Pinata's first 4999 were a duplicate `[AttributeAttribute]`, which is legal in metadata and
-  rejected only by C#.
+  `Quaternion.Euler(Vector3)`, `StructLayoutAttribute`); and an error injected by the ripper is not a
+  recovery defect at all — 4996 of Pinata's first 4999 were a duplicate `[AttributeAttribute]`, which
+  is legal in metadata and rejected only by C#.
+- **A declaration error hides every body error in the assembly, and silences every analyzer.** Roslyn
+  binds declarations first and stops there when that stage failed, so Pinata read as "3 errors" for a
+  long time and its real count is 7139. Both were `StructLayoutAttribute`, a pseudo-custom attribute
+  that lives in a type's flags rather than as an attribute and so exists as a type in no stripped
+  build; the harness shims it and `LayoutKind` in source. **A suspiciously small error count is a
+  reason to read the log, not to celebrate** — and an analyzer that reports nothing is the same
+  warning sign, since with no semantic model none of them run.
+- **Microsoft.Unity.Analyzers is worth running and faults nothing the recovery does.** Its rules are
+  about Unity's own contract rather than C#'s — a message with the wrong signature, a `GetComponent`
+  for a type that is not a component — so they catch what a compiler does not mind. `ANALYZERS=<dir>`
+  on the compile harness runs them; **most of its rules ship at Info severity, which the command line
+  compiler does not print at all**, so the harness raises every `UNT` rule to warning through a global
+  analyzer config, without which the run reads as a clean sheet and is a silent one. 224 findings on
+  Pinata, 35 on RunFromZombies, 21 on Impostor, every one of them present in the source too, and none
+  from the families that would indicate a defect (`UNT0006`, `UNT0010`, `UNT0011`). Do not re-run this
+  expecting to find recovery bugs in it; re-run it after a change that could introduce one.
+- **A constructor is not something C# can call on an object that already exists.** `x._002Ector()` is
+  what a decompiler writes for one, and there are three producers: an allocation whose constructor call
+  could not be fused (fixed by matching `InlinedConstructor` on parameter *names* rather than
+  positionally, and reading a missing store as the zero a fresh object already holds - worth 372
+  unresolved loads on Pinata as well, since the arguments stop being dead code); a stray call the
+  `newobj` already covers, which is dropped; and the base call inside a constructor, which is
+  retargeted to the direct base where il2cpp folded a trivial one onto `System.Object` and hoisted to
+  the front, since an initialiser is the only place C# can write one. **ILSpy will not fold a base call
+  in a method that carries a stack type mismatch**, whatever position it is in, so what is left of this
+  is section 5.
 - **A field of a generic instance carries no metadata of its own.**
   `ConcreteGenericFieldAnalysisContext` is `base(null, genericInstanceType)`: `BackingData` is null and
   `DeclaringType` is the instantiation, which has no properties — so anything measured off a field, the

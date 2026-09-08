@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 4394, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 11215 |
+| `Method not found` placeholders | 4339, of which 1361 name the import they call |
+| `Unmanaged memory load` placeholders | 10843 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -30,9 +30,10 @@ sixteen have been read against the source line by line (section 8d).
 The output is not required to compile — the goal is that the logic reads correctly — but it is now
 compiled anyway, because a compiler names defects a grep cannot see.
 `Test/Scripts/compile_recovered_scripts.sh` builds a game's exported scripts against the assemblies
-the rip shipped beside them and ranks what Roslyn rejects: 3 errors on Pinata, 2 on RunFromZombies,
-619 on Impostor, from 4999, 2 and 765 on its first run. Section 8g has the reading. These are the
-places the logic still does not read correctly.
+the rip shipped beside them and ranks what Roslyn rejects: 7066 errors on Pinata, 2 on
+RunFromZombies, 603 on Impostor. With `ANALYZERS` set it also runs Microsoft.Unity.Analyzers, which
+faults nothing the recovery did on any of the three. Section 8g has the reading. These are the places
+the logic still does not read correctly.
 
 ## 1. Calls into the il2cpp runtime — about 3100 occurrences
 
@@ -350,26 +351,51 @@ is non-zero when there are errors.
 
 It measures against the *stubbed* framework, which carries only what the game's metadata carries, so a
 member IL2CPP stripped from the build is absent here even where the export would compile against a real
-Unity install. Both of RunFromZombies' two remaining errors are exactly that (`Math.PI`, which is how
+Unity install. Both of RunFromZombies' two remaining errors are exactly that: `Math.PI`, which is how
 ILSpy renders `0.017453292f`, and `Quaternion.Euler(Vector3)`, which the recovery names in place of the
-inlined `Internal_FromEulerRad`), and so are all three of Pinata's (`StructLayoutAttribute`, a
-pseudo-attribute that is stored in a type's flags and so exists as a type in no stripped build).
+inlined `Internal_FromEulerRad`.
 
-Two classes have been fixed, and they were the two largest:
+**A declaration error hides every body error in the assembly**, and that is how Pinata read as 3
+errors when it has 7139. Roslyn binds declarations first and stops there if that stage failed, so two
+missing attribute types masked everything and, with no semantic model, silenced every analyzer as
+well. Both were `StructLayoutAttribute`, a pseudo-custom attribute stored in a type's flags rather
+than as an attribute, so a stripped build carries no such type for the exported `[StructLayout(...)]`
+to name; the harness shims it and `LayoutKind` in source. A suspiciously small error count is a reason
+to read the log.
 
-- **4996 of Pinata's 4999 were injected by the ripper.** A member carrying several attributes Cpp2IL
-  could not read gets an `AttributeAttribute` for each, and C# rejects the second unless the attribute
-  type declares `AllowMultiple`. Duplicates are legal in metadata, so nothing was ever wrong with the
-  assembly; the injection now goes through `AttributeInjectionUtils`, which applies `AttributeUsage`.
+Classes fixed so far, largest first:
+
+- **4996 of Pinata's first 4999 were injected by the ripper.** A member carrying several attributes
+  Cpp2IL could not read gets an `AttributeAttribute` for each, and C# rejects the second unless the
+  attribute type declares `AllowMultiple`. Duplicates are legal in metadata, so nothing was ever wrong
+  with the assembly; the injection now goes through `AttributeInjectionUtils`, which applies
+  `AttributeUsage`.
 - **180 of Impostor's were `List<object>._size`**, and 146 of those are gone. See section 8h.
+- **`x._002Ector()`, 51 on Pinata and 21 on Impostor, is down to 27 and 8.** See section 8i.
 
-What is left on Impostor is 619, and it is mostly one defect: 329 `CS0030`, 18 `CS0037`, 10 `CS0019`
+What is left on Impostor is 603, and it is mostly one defect: 329 `CS0030`, 18 `CS0037`, 10 `CS0019`
 and 5 `CS0165` are all a local nothing typed, declared `object` and used as a number or a list, which
-is section 5. The remaining named item is 49 `CS0122` — `ObscuredInt`'s private fields, written
+is section 5. The remaining named item is 48 `CS0122` — `ObscuredInt`'s private fields, written
 directly from another assembly because il2cpp inlined the struct's construction. A member of a *game*
 assembly that the recovered body reaches and a compiler would not is ours to widen; this one is
 private in a plugin assembly, so widening it means public rather than internal, and nothing does that
-yet.
+yet. Pinata's largest class is 4721 `CS1061` for `List<T>._items`, `_version` and the rest of what
+il2cpp inlined out of the framework — the write half of section 8h, which a getter cannot stand in
+for.
+
+### The analyzers
+
+`ANALYZERS=<dir>` runs Roslyn analyzers as well, and Microsoft.Unity.Analyzers is the one worth
+running: its rules are about Unity's own contract rather than C#'s, so they catch what a compiler does
+not mind. Most of them ship at Info severity, which the command line compiler does not print at all,
+so the harness writes a global analyzer config raising every `UNT` rule to warning — without it the
+run reads as a clean sheet and is a silent one.
+
+224 findings on Pinata, 35 on RunFromZombies, 21 on Impostor, and **none of them is the recovery's**:
+every one is in the source too where there is source to check, and the families that would indicate a
+defect (`UNT0006`, a message with the wrong signature; `UNT0010` and `UNT0011`, a component
+constructed with `new`) do not fire at all.
+`docs/articles/RecoveredScriptVerification.md` has the reading, finding by finding.
 
 ## 8h. The accessor pairing, for a field of a generic instance — recovered
 
@@ -388,6 +414,36 @@ instance; `OffsetOfField` reads the same walk the other way round to place a nam
 
 `_size` went from 180 to 34 on Impostor. The 34 that remain are *writes* — `list._size = n`, left by an
 inlined `Add` — and a getter cannot stand in for those.
+
+## 8i. A constructor called on an object that exists — mostly recovered
+
+`x._002Ector()` names a member no type has, 51 times on Pinata and 21 on Impostor, and it had three
+causes.
+
+**An allocation whose constructor call could not be fused leaves both halves broken.**
+`IlGenerator.InlinedConstructor` matched a constructor against the field stores that follow a `Newobj`
+by comparing parameter names to field names *positionally and pairwise*, and required as many stores
+as parameters. `new Movement(currentBox, null, imposter)` failed both: the stores arrive in whatever
+order the machine wrote them, and the store of the null is dropped altogether because a freshly
+allocated object is already zeroed. The recovered body was `Movement movement = null;
+movement._002Ector();`. Matching by name, with a missing store read as a zero and every store required
+to be accounted for, recovers the call — and is worth more than the error it fixes, because the
+arguments to those constructors stop being dead code: Pinata's unresolved loads fall from 11215 to
+10843 and its `Method not found` placeholders from 4394 to 4339.
+
+**A stray call anywhere else is dropped.** The `newobj` has already constructed the object, so the
+call adds nothing but an error.
+
+**Inside a constructor it is the base call**, and C# can only write one as an initialiser. il2cpp
+folds a trivial constructor onto its base, so a class two levels below `MonoBehaviour` can call
+`System.Object..ctor` — legal IL, rendered as `((object)this)._002Ector()`. That is retargeted to the
+direct base's parameterless constructor, and the call is hoisted to the front of the body, which is
+the only position a decompiler can turn into an initialiser.
+
+Impostor is at 8 and Pinata at 27. Six of Impostor's eight are in constructors whose bodies also carry
+an ILSpy stack type mismatch, and ILSpy will not fold the base call in a method with one whatever
+position it is in — so those are section 5, not this. The other two are a base call on a generic base
+type that the hoist did not move.
 
 ## 8d. The second game's scripts read as the source — line by line
 
