@@ -478,6 +478,10 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         SsaForm.Remove(this);
 
+        // A throw reaches nothing. The graph was built before the raise helpers were recognised as
+        // throws, so until now the block holding one still had the successor it fell into.
+        UnreachableAfterThrow.Run(this);
+
         // Phi removal leaves a copy per merged version, most of which can share one local
         CopyCoalescer.Run(this);
 

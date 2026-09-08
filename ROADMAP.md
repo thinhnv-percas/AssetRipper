@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 4388, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 12445 |
+| `Method not found` placeholders | 4394, of which 1361 name the import they call |
+| `Unmanaged memory load` placeholders | 11215 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 

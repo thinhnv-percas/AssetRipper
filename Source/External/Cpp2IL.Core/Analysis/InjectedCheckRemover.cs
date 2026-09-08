@@ -26,7 +26,7 @@ public static class InjectedCheckRemover
             if (terminator.OpCode != OpCode.ConditionalJump)
                 continue;
 
-            if (terminator.Operands[0] is not Block target || GetInjectedThrowType(target) is not { } thrownType)
+            if (terminator.Operands[0] is not Block target || GetInjectedThrowType(FollowToEpilogue(target)) is not { } thrownType)
                 continue;
 
             if (terminator.Operands[1] is not LocalVariable condition
@@ -152,6 +152,32 @@ public static class InjectedCheckRemover
         "System.ArrayTypeMismatchException",
     ];
 
+    /// <summary>
+    /// AssetRipper: the block a branch really lands in, past any that only merge values on the way.
+    /// </summary>
+    /// <remarks>
+    /// A dozen checks branching to one throw make the throw's block a join, and a join of nothing:
+    /// SSA gives it a phi for every register live there, and the compiler puts a landing block in
+    /// front of it that does nothing else. A check that targets that landing block is targeting the
+    /// throw.
+    /// </remarks>
+    private static Block FollowToEpilogue(Block block)
+    {
+        for (var depth = 0; depth < 4; depth++)
+        {
+            if (block.Successors.Count != 1)
+                return block;
+
+            foreach (var instruction in block.Instructions)
+                if (instruction.OpCode is not (OpCode.Nop or OpCode.Interrupt or OpCode.Phi))
+                    return block;
+
+            block = block.Successors[0];
+        }
+
+        return block;
+    }
+
     // The full name of the exception if this block does nothing but throw an injected check's exception, else null.
     private static string? GetInjectedThrowType(Block block)
     {
@@ -161,6 +187,12 @@ public static class InjectedCheckRemover
         {
             switch (instruction.OpCode)
             {
+                // AssetRipper: a phi is not code. It is the merge of the predecessors' values, and a
+                // block a dozen checks branch to has one for every register live there - which is why
+                // a throw block full of them was not recognised as a check's epilogue, and why every
+                // check pointing at it survived. Thirty-seven of them converging on one throw in a
+                // single method is what forces a decompiler into `goto`s.
+                case OpCode.Phi:
                 case OpCode.Nop or OpCode.Interrupt:
                 case OpCode.Return when thrown != null:
                     continue;

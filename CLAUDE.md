@@ -394,12 +394,32 @@ find it; `strings` without `-el` does find method and type names.
   which is what a loop-carried value is: `num` is live where `num + 1` is computed, so the copy on the
   back edge cannot be merged away. The pass now logs the three outcomes, and that line is the thing to
   read before trying to improve it. A further 3200 are kept because the types differ.
-- **The copies are not why the file has `goto`s.** They sit in groups before a `break` at a label, and
-  it is tempting to read the labels as their consequence; they are not. Removing the copies would
-  leave the labels where they are - the 41 `goto`s and 12 labels come from the block layout, and the
-  27-level nesting from ILSpy failing to structure it. What produces that layout has not been measured.
+- **A phi is not code, and treating it as code cost half the size of a recovered file.** A dozen null
+  checks branching to one `throw` make that block a join, so SSA gives it a phi for every register
+  live there - and `InjectedCheckRemover.GetInjectedThrowType` walked the block's instructions and gave
+  up on the first thing that was not a Nop, a Return, a Throw or a Newobj. So the epilogue of every
+  such check went unrecognised and all of them survived. Thirty-seven converging on one throw in
+  `DataController.GenarateRandomDataMap` is what forced ILSpy into `goto`s: it structures a graph but
+  does not duplicate blocks, so a check that cannot be removed can only be a jump. Skipping phis - and
+  following a landing block that holds nothing but phis to what it falls into - took that file from
+  2647 code lines to 1253, its `goto`s from 41 to 15, its nesting from 27 levels to 19, and Pinata's
+  unresolved loads from 12445 to 11215.
+- **A throw reaches nothing, and the graph is built before it is one.** The CFG comes from the lifted
+  ISIL, where a throw is still a call to an il2cpp raise helper, so its block falls through; the passes
+  that rewrite the call into `OpCode.Throw` do not revisit the edges. The throw block therefore had an
+  outgoing edge back into the code, and with an entry per check that made it an irreducible loop.
+  `UnreachableAfterThrow` runs after SSA destruction and detaches it. Worth 60 lines on that one file
+  on its own, and it has to run late: the throw does not exist when the graph is built.
 
 ### Things measured to be worth nothing — do not redo them
+- **Emitting the blocks in address order rather than the order the graph created them.** Splitting
+  appends, so a block split out late sits at the end of `Blocks` whatever address it covers, and it
+  looked as though a loop header landing after its own body were what forced the `goto`s. Sorting the
+  emission by the address of each block's first instruction measured *worse*: `DataController`'s
+  `goto`s went from 15 to 21. The generator gives every fall-through an explicit `br` and resolves
+  every target through a label, so the order is free - and ILSpy evidently does better with the graph
+  order than with the machine's. The `goto`s were the unremoved null checks, not the layout.
+
 - **Coalescing copies across different registers.** `CopyCoalescer` only considered copies between
   two versions of one register, and widening it to any local-to-local copy - letting the interference
   graph decide, which is the textbook formulation - made the output *worse*: Impostor's assembly fell

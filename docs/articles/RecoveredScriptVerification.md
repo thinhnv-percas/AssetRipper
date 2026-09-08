@@ -162,11 +162,50 @@ consider copies between different registers — the textbook formulation, lettin
 decide — was measured and made the output worse; comparing the two ends' types by name rather than by
 reference identity was the part worth keeping, and merges 1098 more.
 
-The second number worth quoting is that **the recovered file nests 27 levels deep**, with 41 `goto`s
-and 12 labels. It is tempting to read the labels as a consequence of the copies, since that is where
-the copies appear — they are not. Removing the copies would leave the labels where they are. What
-produces that block layout, and what would let ILSpy structure it into a loop, has not been measured
-yet; it is the open question behind everything in this section.
+The second number worth quoting was that **the recovered file nested 27 levels deep**, with 41
+`goto`s. It was tempting to read that as a consequence of the copies, since that is where the copies
+appear — it was not.
+
+**It was the null checks.** A dozen of them branching to one `throw` make that block a join, so SSA
+gives it a phi for every register live there — and the matcher that recognises a check's epilogue
+walked the block's instructions and gave up on the first thing that was not a Nop, a Return, a Throw
+or a Newobj. A phi is none of those, so the epilogue went unrecognised and every check pointing at it
+survived: thirty-seven of them converging on one throw in this one method. ILSpy structures a graph
+but does not duplicate blocks, so a check it cannot remove can only be a jump.
+
+A phi is not code — it is the merge of the predecessors' values. Skipping them, and following a
+landing block that holds nothing but phis to whatever it falls into, is the whole fix:
+
+| | before | after |
+|---|---:|---:|
+| `DataController.cs` code lines | 2647 | **1253** |
+| `goto`s in it | 41 | **15** |
+| labels | 12 | **5** |
+| deepest nesting | 27 | **19** |
+| `GenarateRandomDataMap` | 846 | **249** |
+| `GenarateRandomMap` | 815 | **238** |
+| `GenarateDataMap` | 361 | **225** |
+| the whole assembly | 13891 | **10864** |
+| its diagnostics | 2030 | **1694** |
+| Pinata's unresolved loads | 12445 | **11215** |
+
+`GenarateRandomDataMap` went from 13× its source to 3.8×, and now opens with the source's own first
+four statements in order. What is left in it is the untyped-locals problem and the unresolved loads,
+not structure.
+
+Two things were tried on the way and are recorded as worth nothing. **Emitting the blocks in address
+order** rather than the order the graph created them — on the theory that a loop header split out late
+lands after its own body — measured worse, taking `DataController`'s `goto`s from 15 to 21; the
+generator gives every fall-through an explicit `br`, so the order is free, and ILSpy does better with
+the graph order than with the machine's. **Coalescing copies across different registers** also
+measured worse, and the copies that matter cannot be coalesced anyway: `CopyCoalescer` reports 74262
+merged against 18738 kept *because the two locals are live at once*, which is what a loop-carried
+value is.
+
+One thing did come out of the throw investigation. A throw reaches nothing, but the graph is built
+from the lifted ISIL where a throw is still a call to an il2cpp raise helper — so its block fell
+through, and with an entry per check that made it an irreducible loop. `UnreachableAfterThrow` runs
+after SSA destruction, where the throw exists, and detaches it.
 
 ## The defect catalogue
 
