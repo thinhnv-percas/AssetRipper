@@ -15,12 +15,41 @@ public static class GenericInstanceFieldLayout
     public static FieldAnalysisContext? FindFieldAtOffset(TypeAnalysisContext definition, long targetOffset,
         IReadOnlyList<TypeAnalysisContext>? genericArguments = null)
     {
+        foreach (var (field, offset) in Layout(definition, genericArguments))
+            if (offset == targetOffset)
+                return field;
+
+        return null;
+    }
+
+    /// <summary>
+    /// AssetRipper: the offset of one named field, which is the same walk read the other way round.
+    /// </summary>
+    /// <remarks>
+    /// Pairing a private field with the property that returns it means matching the offset the
+    /// getter's body names against the field's own, and the metadata says 0 for every field of a
+    /// generic type - so <c>List&lt;T&gt;.Count</c> could not be recognised as the accessor for
+    /// <c>_size</c> without computing where <c>_size</c> is.
+    /// </remarks>
+    public static long? OffsetOfField(TypeAnalysisContext definition, FieldAnalysisContext target,
+        IReadOnlyList<TypeAnalysisContext>? genericArguments = null)
+    {
+        foreach (var (field, offset) in Layout(definition, genericArguments))
+            if (field == target)
+                return offset;
+
+        return null;
+    }
+
+    private static IEnumerable<(FieldAnalysisContext Field, long Offset)> Layout(TypeAnalysisContext definition,
+        IReadOnlyList<TypeAnalysisContext>? genericArguments)
+    {
         var pointerSize = definition.AppContext.Binary.PointerSizeBytes;
 
         // TODO Support anything outside the trivial case.
         for (var baseType = definition.BaseType; baseType != null; baseType = baseType.BaseType)
             if (baseType.Fields.Any(f => !f.IsStatic))
-                return null;
+                yield break;
 
         var offset = 2L * pointerSize;
 
@@ -30,17 +59,14 @@ public static class GenericInstanceFieldLayout
                 continue;
 
             if (GetSizeAndAlignment(Substitute(field.FieldType, genericArguments), pointerSize) is not var (size, alignment))
-                return null;
+                yield break;
 
             offset = (offset + alignment - 1) & ~(alignment - 1);
 
-            if (offset == targetOffset)
-                return field;
+            yield return (field, offset);
 
             offset += size;
         }
-
-        return null;
     }
 
     // AssetRipper: the argument a generic parameter stands for, when it is known.

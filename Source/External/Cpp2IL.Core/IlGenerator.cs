@@ -6,6 +6,7 @@ using AsmResolver.DotNet;
 using AsmResolver.DotNet.Code.Cil;
 using AsmResolver.DotNet.Signatures;
 using AsmResolver.PE.DotNet.Cil;
+using Cpp2IL.Core.Analysis;
 using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
@@ -386,10 +387,36 @@ public static class IlGenerator
     /// </para>
     /// </remarks>
     private static MethodAnalysisContext? InstanceAccessorFor(FieldAnalysisContext field)
+    {
+        // A field of a generic instance carries no metadata of its own - its BackingData is null and
+        // its declaring type is the instantiation, which has no properties at all. The pairing is a
+        // property of the definition, so it is measured there and the getter it finds is instantiated
+        // on the same arguments: `List<object>::get_Count` rather than `List<T>::get_Count`. Without
+        // this, every read of `_size` that il2cpp inlined named a member the framework does not have.
+        if (field is ConcreteGenericFieldAnalysisContext concrete)
+        {
+            if (concrete.DeclaringType is not GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments }
+                || AccessorDefinitionFor(concrete.BaseFieldContext) is not { DeclaringType: { } definitionOwner } definition
+                || definitionOwner.GenericParameters.Count != arguments.Count)
+                return null;
+
+            return new ConcreteGenericMethodAnalysisContext(definition, arguments, []);
+        }
+
+        return AccessorDefinitionFor(field);
+    }
+
+    private static MethodAnalysisContext? AccessorDefinitionFor(FieldAnalysisContext field)
         => InstanceAccessors.GetOrAdd(field, static toMeasure =>
         {
             if ((toMeasure.Attributes & FieldAttributes.FieldAccessMask) == FieldAttributes.Public
                 || toMeasure.IsStatic || toMeasure.DeclaringType is not { } owner)
+                return null;
+
+            // Every field of a generic type is at offset 0 in the metadata, so where the field's own
+            // offset is missing it is computed from the type's layout - the same walk that resolves a
+            // load off a generic instance, read the other way round.
+            if (OffsetOfInstanceField(toMeasure, owner) is not { } offset)
                 return null;
 
             foreach (var property in owner.Properties)
@@ -400,21 +427,24 @@ public static class IlGenerator
                     || getter.ReturnType.FullName != toMeasure.FieldType.FullName)
                     continue;
 
-                if (ReturnsNothingButTheField(getter, toMeasure))
+                if (ReturnsNothingButTheField(getter, offset))
                     return getter;
             }
 
             return null;
         });
 
-    // Whether the getter's whole body is "load this field and return it".
-    private static bool ReturnsNothingButTheField(MethodAnalysisContext getter, FieldAnalysisContext field)
+    // Where an instance field sits in its declaring type, measured when the metadata does not say.
+    private static long? OffsetOfInstanceField(FieldAnalysisContext field, TypeAnalysisContext owner)
+        => field.Offset > 0
+            ? field.Offset
+            : owner.GenericParameters.Count > 0
+                ? GenericInstanceFieldLayout.OffsetOfField(owner, field)
+                : null;
+
+    // Whether the getter's whole body is "load the field at this offset and return it".
+    private static bool ReturnsNothingButTheField(MethodAnalysisContext getter, long offset)
     {
-        if (field.BackingData?.FieldOffset is not { } fieldOffset)
-            return false;
-
-        var offset = (long)fieldOffset;
-
         List<Instruction> isil;
 
         try

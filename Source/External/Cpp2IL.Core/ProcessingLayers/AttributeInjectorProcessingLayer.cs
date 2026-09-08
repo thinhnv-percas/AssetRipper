@@ -155,21 +155,22 @@ public class AttributeInjectorProcessingLayer : Cpp2IlProcessingLayer
             return;
         }
 
-        var attributeAttributes = appContext.InjectTypeIntoAllAssemblies("Cpp2ILInjected", "AttributeAttribute", appContext.SystemTypes.SystemAttributeType);
-
-        var attributeTypeFields = attributeAttributes.InjectFieldToAllAssemblies("Type", appContext.SystemTypes.SystemTypeType, FieldAttributes.Public);
-        var attributeRvaFields = attributeAttributes.InjectFieldToAllAssemblies("RVA", appContext.SystemTypes.SystemStringType, FieldAttributes.Public);
-        var attributeOffsetFields = attributeAttributes.InjectFieldToAllAssemblies("Offset", appContext.SystemTypes.SystemStringType, FieldAttributes.Public);
-
-        var attributeConstructors = attributeAttributes.InjectConstructor(false);
+        // AssetRipper: one member routinely carries several attributes this pass could not recover, and
+        // each becomes an `AttributeAttribute` - two on a Unity field with both a Tooltip and a Range.
+        // Duplicate custom attributes are legal in metadata, so the recovered assembly was always
+        // valid, but C# rejects a second one unless the type says AllowMultiple, and the exported
+        // scripts are C#. This was 4996 of Pinata's 4999 compile errors, injected by the ripper rather
+        // than recovered from the game. The utility that applies AttributeUsage already exists; the
+        // three fields and the constructor are what this pass used to inject by hand.
+        var attributeAttributes = AttributeInjectionUtils.InjectThreeParameterAttribute(
+            appContext, "Cpp2ILInjected", "AttributeAttribute", AttributeTargets.All, true,
+            appContext.SystemTypes.SystemTypeType, "Type",
+            appContext.SystemTypes.SystemStringType, "RVA",
+            appContext.SystemTypes.SystemStringType, "Offset");
 
         foreach (var assemblyAnalysisContext in appContext.Assemblies)
         {
-            var typeField = attributeTypeFields[assemblyAnalysisContext];
-            var rvaField = attributeRvaFields[assemblyAnalysisContext];
-            var offsetField = attributeOffsetFields[assemblyAnalysisContext];
-
-            var attributeConstructor = attributeConstructors[assemblyAnalysisContext];
+            var (attributeConstructor, typeField, rvaField, offsetField) = attributeAttributes[assemblyAnalysisContext];
 
             var toProcess = assemblyAnalysisContext.Types
                 .SelectMany(ctx => ctx.Methods.SelectMany(m => m.Parameters.Cast<HasCustomAttributes>().Append(m))
