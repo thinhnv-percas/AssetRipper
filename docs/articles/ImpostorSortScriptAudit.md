@@ -61,6 +61,27 @@ the unnameable type. Converting each such operand to a native integer first make
 and the expression renders as the pointer arithmetic it is. 148 occurrences across the three games,
 all closed; comparisons are left alone, since `ceq` on two references is legitimate.
 
+**A float reaching a Vector3, and a zero reaching a Color.** `GetSizeScaleOfSprite` returns a
+`Vector3` and came out as `return (Vector3)(num6 / (nint)obj3);` — the machine computed the x
+component straight into the return value, whose type is the aggregate, and the rule that makes such
+arithmetic float arithmetic looked only at the operands. `GetColorFromString` came out as
+`return (Color)0;`, because a struct the recovery could not reassemble is zero in the register the ABI
+returns it in and the literal was loaded as a number. Neither is a conversion C# has. An aggregate
+*destination* now makes the arithmetic float arithmetic — with a scalar operand, or when the operand
+aggregates disagree with it, which is what `(Vector3)((object)bottomLeft + (object)quaternion)` was —
+and a zero where a value type is wanted is `default(T)`. This game's invalid struct casts go from 4
+to 0:
+
+```csharp
+// before                                    // after
+return (Vector3)(num6 / (nint)obj3);         float x = num6 / obj3;
+                                             Vector3 result = default(Vector3);
+                                             result.x = x;
+                                             return result;
+
+return (Color)0;                             return default(Color);
+```
+
 ## Faithful to the binary, not to the source
 
 Worth separating from defects, because the recovery is right and the source is not what shipped.

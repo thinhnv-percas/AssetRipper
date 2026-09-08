@@ -1260,6 +1260,31 @@ public static class IlGenerator
             }
         }
 
+        // AssetRipper: the destination can be the side that names the aggregate. A method returning a
+        // Vector3 has its return value typed as one, and the machine computed a component straight
+        // into it - `Vector3.one * scale / size` is three float operations, of which only the first
+        // was recovered. The arithmetic is still float arithmetic and its result is still that
+        // aggregate's first member; without this the division came out as `(Vector3)(num6 / ...)`,
+        // which is not a conversion C# has.
+        if (DestinationType(instruction.Operands[0]) is { } destination && FloatAggregate.MemberCount(destination) >= 2)
+        {
+            if (aggregates == 0 && scalar != null)
+                return scalar;
+
+            // AssetRipper: and when the operands are aggregates that disagree with the destination.
+            // A register that carried a Quaternion earlier in the method gets typed as one, so a
+            // Vector3 computed into it later reads as a Quaternion - and `bottomLeft + widthDistance
+            // * n` came out as `(Vector3)((object)bottomLeft + (object)quaternion)`. The types
+            // conflict, the destination is the one that is right, and the addition the machine did was
+            // of first members either way. Same-typed aggregates are left alone, in case the operation
+            // really was over the whole value.
+            for (var i = 1; i <= 2; i++)
+                if (DestinationType(instruction.Operands[i]) is { } operandType
+                    && FloatAggregate.MemberCount(operandType) >= 2
+                    && operandType.FullName != destination.FullName)
+                    return scalar ?? context.AppContext.SystemTypes.SystemSingleType;
+        }
+
         return aggregates > 0 ? scalar : null;
     }
 
@@ -1391,6 +1416,23 @@ public static class IlGenerator
         if (expectedType is { IsValueType: false } && IsZeroConstant(operand))
         {
             instructions.Add(CilOpCodes.Ldnull);
+            return;
+        }
+
+        // AssetRipper: the same on the value type side. A struct the recovery did not manage to put
+        // back together is zero in the register the ABI returns it in, and loading that as a literal
+        // read back as `(Color)0` - a cast from a number to a struct. Zero for a value type is
+        // `default`, which is what initobj says.
+        if (expectedType is { IsValueType: true } wantedStruct && IsZeroConstant(operand)
+            && !IsFloat(wantedStruct) && PrimitiveFieldWidth(wantedStruct) == 0
+            && wantedStruct.FullName != "System.IntPtr" && wantedStruct.FullName != "System.UIntPtr")
+        {
+            var zeroed = new CilLocalVariable(wantedStruct.ToTypeSignature());
+            method.CilMethodBody!.LocalVariables.Add(zeroed);
+
+            instructions.Add(CilOpCodes.Ldloca, zeroed);
+            instructions.Add(CilOpCodes.Initobj, wantedStruct.ToTypeSignature().ToTypeDefOrRef());
+            instructions.Add(CilOpCodes.Ldloc, zeroed);
             return;
         }
 

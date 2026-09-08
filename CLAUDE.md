@@ -411,6 +411,24 @@ find it; `strings` without `-el` does find method and type names.
   `UnreachableAfterThrow` runs after SSA destruction and detaches it. Worth 60 lines on that one file
   on its own, and it has to run late: the throw does not exist when the graph is built.
 
+- **The destination can be the side that names a float aggregate, and then it is the one that is
+  right.** `FloatArithmeticOperandType` required an *operand* to be an aggregate, so a method returning
+  a `Vector3` - whose return value is typed as one, with the machine computing a component straight
+  into it - fell through to `(Vector3)(num6 / ...)`, a conversion C# does not have. Two additions: an
+  aggregate destination with a scalar float operand is float arithmetic, and so is an aggregate
+  destination whose operand aggregates *disagree* with it in type, which is what
+  `(Vector3)((object)bottomLeft + (object)quaternion)` was - a register that carried a Quaternion
+  earlier in the method typed a Vector3 computed into it later. Same-typed aggregates are deliberately
+  left alone, in case the operation really was over the whole value.
+- **Zero for a value type is `default`, not a cast from a number.** A struct the recovery could not put
+  back together is zero in the register the ABI returns it in, and loading that as a literal read back
+  as `(Color)0`. `initobj` is what zeroing a value type is; the reference side of the same rule had
+  been emitting `ldnull` for years. Took Impostor's invalid struct casts to zero.
+- **`(Vector3)(long)intPtr` is not the arithmetic rule, it is section 5.** 39 of the 79 left on Pinata
+  are an `IntPtr`-typed local passed where a `Vector3` argument is wanted, in Obi's middleware.
+  Emitting `default(Vector3)` there would compile and would silently lose a value the cast at least
+  admits was there.
+
 ### Things measured to be worth nothing — do not redo them
 - **Emitting the blocks in address order rather than the order the graph created them.** Splitting
   appends, so a block split out late sits at the end of `Blocks` whatever address it covers, and it
