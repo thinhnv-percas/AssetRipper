@@ -124,7 +124,12 @@ public static class IlGenerator
             if (local.Type != null && local.Type != context.AppContext.SystemTypes.SystemVoidType)
                 ilType = local.Type.ToTypeSignature();
             else
+            {
                 ilType = module.CorLibTypeFactory.Object;
+
+                if (local.Type == null)
+                    UntypedLocal?.Invoke(context, local);
+            }
 
             var ilLocal = new CilLocalVariable(ilType);
             body.LocalVariables.Add(ilLocal);
@@ -282,6 +287,13 @@ public static class IlGenerator
     /// placeholder. Runs on the body-generation threads, so a handler has to be thread safe.
     /// </summary>
     public static Action<MethodAnalysisContext, IOperand>? UnresolvedMemoryLoad;
+
+    /// <summary>
+    /// AssetRipper: raised for every local the analysis could not type, which is declared
+    /// <c>object</c> and every use of which is therefore a cast. Runs on the body-generation threads,
+    /// so a handler has to be thread safe.
+    /// </summary>
+    public static Action<MethodAnalysisContext, LocalVariable>? UntypedLocal;
 
     /// <summary>
     /// AssetRipper: writes a call to a private framework method as the public one it is the inside of.
@@ -1924,6 +1936,21 @@ public static class IlGenerator
                 instructions.Add(CilOpCodes.Conv_I4);
                 break;
             case AddressOf { Target: LocalVariable addressed }:
+                // AssetRipper: il2cpp passes a pointer to a stack slot where the managed signature
+                // takes the value - the boxing helper does it, and so does every helper that returns
+                // through an argument. Where a reference is wanted, `ldloca` renders as
+                // `(object)(&obj2)`, a cast from a pointer to a reference that C# does not have, so
+                // the value at the address is what gets loaded. `OpCode.Box` already did this for the
+                // one case it knew about.
+                // A destination the analysis could not type is declared `object` too, so an address
+                // stored into it renders as `(object)(&obj2)` just the same.
+                if ((expectedType is null || (expectedType is { IsValueType: false } and not (ByRefTypeAnalysisContext or PointerTypeAnalysisContext)))
+                    && addressed.Type is not (ByRefTypeAnalysisContext or PointerTypeAnalysisContext))
+                {
+                    LoadLocal(addressed, method, locals);
+                    break;
+                }
+
                 instructions.Add(CilOpCodes.Ldloca, locals[addressed]);
                 break;
             case AddressOf { Target: ArrayAccess elementAddress }:
@@ -2117,6 +2144,13 @@ public static class IlGenerator
                 or MethodRgctxTableTypeAnalysisContext or StaticFieldStorageTypeAnalysisContext:
                 instructions.Add(CilOpCodes.Ldc_I4_0);
                 instructions.Add(CilOpCodes.Conv_I);
+                break;
+            case TypeAnalysisContext type when expectedType is { FullName: "System.RuntimeTypeHandle" }:
+                // AssetRipper: `Type.GetTypeFromHandle` takes the handle, and the recovered code
+                // reaches it holding the type - so the call came out as
+                // `GetTypeFromHandle((RuntimeTypeHandle)typeof(T))`, a cast C# does not have. The
+                // token is what a handle is.
+                instructions.Add(CilOpCodes.Ldtoken, type.ToTypeSignature().ToTypeDefOrRef());
                 break;
             case TypeAnalysisContext type:
                 //typeof(T)

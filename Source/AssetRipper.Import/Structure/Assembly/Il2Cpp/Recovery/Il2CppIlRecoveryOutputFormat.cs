@@ -109,6 +109,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		methodStarts = BuildMethodStarts(); // before the parallel body generation that reads it
 
 		IlGenerator.UnresolvedMemoryLoad += ClassifyUnresolvedLoad;
+		IlGenerator.UntypedLocal += ClassifyUntypedLocal;
 
 		try
 		{
@@ -132,6 +133,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		finally
 		{
 			IlGenerator.UnresolvedMemoryLoad -= ClassifyUnresolvedLoad;
+			IlGenerator.UntypedLocal -= ClassifyUntypedLocal;
 		}
 	}
 
@@ -153,6 +155,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 	private readonly ConcurrentDictionary<string, int> unresolvedLoadKinds = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, string> unresolvedLoadExamples = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, int> untypedLocalKinds = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, string> untypedLocalExamples = new(StringComparer.Ordinal);
 
 	/// <summary>
 	/// Widens a member of this assembly that the generated body reaches but a compiler would not let it.
@@ -369,6 +373,103 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		{
 			unresolvedLoadExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {ExampleFor(methodContext, operand)}");
 		}
+	}
+
+	/// <summary>
+	/// Counts an untyped local by what defines it, which is where a missing propagation rule shows.
+	/// </summary>
+	/// <remarks>
+	/// A local the analysis could not type is declared <c>object</c>, and every use of it becomes a cast
+	/// C# does not have - 78% of the errors the exported scripts still produce. The count on its own
+	/// says nothing about what to do; grouped by the opcode that writes the local, and by whether that
+	/// instruction's own operands were typed, it says which rule is missing and what it is worth.
+	/// </remarks>
+	private void ClassifyUntypedLocal(MethodAnalysisContext methodContext, LocalVariable local)
+	{
+		string kind = "written by nothing";
+		string example = local.Name ?? "";
+		int reads = 0;
+		string? firstRead = null;
+
+		if (methodContext.ControlFlowGraph is { } cfg)
+		{
+			bool found = false;
+
+			foreach (Instruction instruction in cfg.Instructions)
+			{
+				if (!found && instruction.Operands.Count > 0 && ReferenceEquals(instruction.Destination, local))
+				{
+					kind = DescribeDefinition(instruction);
+					example = instruction.ToString() ?? example;
+					found = true;
+				}
+
+				foreach (IOperand source in instruction.Sources)
+				{
+					if (!ReferenceEquals(source, local))
+					{
+						continue;
+					}
+
+					reads++;
+
+					if (firstRead is null)
+					{
+						firstRead = instruction.OpCode == OpCode.Call && instruction.Operands[0] is not MethodAnalysisContext
+							? "an unresolved call"
+							: instruction.OpCode == OpCode.Call && instruction.Operands[0] is MethodAnalysisContext resolved
+								? $"a call to {(resolved.IsStatic ? "a static" : "an instance")} method"
+								: instruction.OpCode.ToString();
+					}
+				}
+			}
+		}
+
+		// A local nothing reads costs an unused declaration and nothing else; one that is read is where
+		// a cast comes from. Weighting by that is the difference between a list to work down and a list
+		// of things that are already harmless.
+		kind = reads == 0 ? $"{kind} [never read]" : $"{kind}, first read by {firstRead}";
+
+		untypedLocalKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
+
+		if (!untypedLocalExamples.ContainsKey(kind))
+		{
+			untypedLocalExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {example}");
+		}
+	}
+
+	/// <summary>What defines the local, and how much of what defines it was itself typed.</summary>
+	private static string DescribeDefinition(Instruction instruction)
+	{
+		string opcode = instruction.OpCode.ToString();
+
+		if (instruction.OpCode == OpCode.Call)
+		{
+			return instruction.Operands[0] is MethodAnalysisContext callee
+				? $"{opcode} - the return of a resolved method ({(callee.ReturnType is null ? "no return type" : "typed")})"
+				: $"{opcode} - the return of a call whose target is unknown";
+		}
+
+		if (instruction.OpCode == OpCode.Move && instruction.Operands.Count > 1)
+		{
+			return instruction.Operands[1] switch
+			{
+				MemoryOperand => $"{opcode} from memory",
+				FieldReference => $"{opcode} from a field",
+				LocalVariable { Type: null } => $"{opcode} from another untyped local",
+				LocalVariable => $"{opcode} from a typed local",
+				Immediate or StackOffset => $"{opcode} of a constant",
+				_ => $"{opcode} of {instruction.Operands[1].GetType().Name}",
+			};
+		}
+
+		if (instruction.OpCode == OpCode.Phi)
+		{
+			int untyped = instruction.Operands.Skip(1).Count(o => o is LocalVariable { Type: null });
+			return $"{opcode} - a merge of {instruction.Operands.Count - 1} versions, {untyped} of them untyped";
+		}
+
+		return opcode;
 	}
 
 	/// <summary>The instruction the operand belongs to, which says far more than the operand alone.</summary>
@@ -1077,6 +1178,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		Report("failure", failureReasons);
 		Report("invalid body", invalidReasons);
 		ReportUnresolvedLoads();
+		ReportUntypedLocals();
 		ReportImbalanceShapes();
 
 		void ReportImbalanceShapes()
@@ -1105,6 +1207,25 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				{
 					Logger.Info(LogCategory.Import, $"      example: {example}");
 				}
+			}
+		}
+
+		void ReportUntypedLocals()
+		{
+			if (untypedLocalKinds.IsEmpty)
+			{
+				return;
+			}
+
+			int total = untypedLocalKinds.Values.Sum();
+
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {total} locals the analysis could not type, by what defines them:");
+
+			foreach ((string kind, int count) in untypedLocalKinds.OrderByDescending(pair => pair.Value))
+			{
+				string example = untypedLocalExamples.TryGetValue(kind, out string? found) ? found : "";
+				Logger.Info(LogCategory.Import, $"      {count,7} {kind}   e.g. {example}");
 			}
 		}
 

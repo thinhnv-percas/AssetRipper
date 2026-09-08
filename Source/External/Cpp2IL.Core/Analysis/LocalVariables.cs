@@ -629,7 +629,11 @@ public static class LocalVariables
                     break;
                 case OpCode.And or OpCode.Or or OpCode.Xor or OpCode.Not or OpCode.Negate
                     or OpCode.ShiftLeft or OpCode.ShiftRight:
-                    changed |= PropagateBooleanLogic(instruction, method) || PropagateIntegerResult(instruction, method);
+                    changed |= PropagateBooleanLogic(instruction, method) || PropagateIntegerResult(instruction, method)
+                        || PropagateBitwiseResult(instruction, method);
+                    break;
+                case OpCode.IsInst:
+                    changed |= PropagateTypeCheckResult(instruction);
                     break;
                 case >= OpCode.CheckEqual and <= OpCode.CheckLessOrEqual:
                     changed |= PropagateIntegerComparison(instruction, method);
@@ -652,6 +656,10 @@ public static class LocalVariables
             {
                 FloatLiteral => method.AppContext.SystemTypes.SystemSingleType,
                 DoubleLiteral => method.AppContext.SystemTypes.SystemDoubleType,
+                // AssetRipper: a string literal is a string, and an array's length is an int. Both were
+                // left untyped, so `object key = "MORPEH__SAVED_DATA"` and every use of it a cast.
+                StringLiteral => method.AppContext.SystemTypes.SystemStringType,
+                ArrayLength => method.AppContext.SystemTypes.SystemInt32Type,
                 _ => destination.Type,
             };
         }
@@ -778,6 +786,57 @@ public static class LocalVariables
         return changed;
     }
 
+    /// <summary>
+    /// AssetRipper: a shift or a bitwise operation produces an integer whatever its operands were.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The integer rules above all need an operand that is already known to be one, and a shift by a
+    /// constant of a register nothing typed has none: <c>ShiftLeft v317, v316, 4</c>. But there is no
+    /// such thing as shifting anything other than an integer - a float shifted is its bit pattern, and
+    /// il2cpp would have converted it first - so the result is one, and so is the operand.
+    /// </para>
+    /// <para>
+    /// Boolean logic is handled before this, so a condition assembled from flags stays boolean. The
+    /// width is taken from whichever operand has one and is Int32 otherwise, which is what a register
+    /// the machine shifted by a small constant is.
+    /// </para>
+    /// </remarks>
+    private static bool PropagateBitwiseResult(Instruction instruction, MethodAnalysisContext method)
+    {
+        if (instruction.Operands is not [LocalVariable { Type: null } destination, ..])
+            return false;
+
+        // Negate is arithmetic rather than bitwise and can be applied to a float, so it is left out.
+        if (instruction.OpCode is not (OpCode.And or OpCode.Or or OpCode.Xor or OpCode.Not
+            or OpCode.ShiftLeft or OpCode.ShiftRight))
+            return false;
+
+        // A float operand means this is a bit trick over one, and the result is not a number to name.
+        for (var i = 1; i < instruction.Operands.Count; i++)
+            if (FloatOperandType(instruction.Operands[i], method) != null)
+                return false;
+
+        var width = method.AppContext.SystemTypes.SystemInt32Type;
+
+        for (var i = 1; i < instruction.Operands.Count; i++)
+            if (IntegerResultType(instruction.Operands[i], method) is { FullName: "System.Int64" } wide)
+                width = wide;
+
+        return SetTypeIfUnknown(destination, width);
+    }
+
+    /// <summary>
+    /// AssetRipper: the result of a type check is the type that was checked for.
+    /// </summary>
+    /// <remarks>
+    /// <c>IsInst v99, typeof(System.String), "CN: "</c> leaves <c>v99</c> holding a string or null, and
+    /// nothing said so: 1114 locals on the test game, each of them the subject of a cast at every use.
+    /// </remarks>
+    private static bool PropagateTypeCheckResult(Instruction instruction)
+        => instruction.Operands is [LocalVariable { Type: null } destination, TypeAnalysisContext checked_, ..]
+            && SetTypeIfUnknown(destination, checked_);
+
     private static TypeAnalysisContext? IntegerResultType(IOperand operand, MethodAnalysisContext method)
     {
         // AssetRipper: an array's length is an int, and saying so is what keeps arithmetic on it typed.
@@ -791,8 +850,18 @@ public static class LocalVariables
         {
             LocalVariable { Type: { } localType } => localType,
             FieldReference field => field.Field.FieldType,
+            // AssetRipper: a read through a local the analysis typed as an integer is a dereference of
+            // a pointer to that integer, so the value is one - `[v62 (System.Int32)]` in a multiply of
+            // two of them, which is how a loop over an int array reaches the generator.
+            MemoryOperand { Index: null, Addend: 0, Scale: 0, Base: LocalVariable { Type: { } baseType } } => baseType,
             _ => null,
         };
+
+        // AssetRipper: an enum is its underlying integer for every purpose arithmetic has. Without
+        // this, `level - 3` on an `NtlmAuthLevel` left the difference untyped and every use of it a
+        // cast - 1352 subtractions and 1204 bitwise ands on the test game began at an enum operand.
+        if (type is { IsEnumType: true })
+            type = type.Fields.FirstOrDefault(f => !f.IsStatic)?.FieldType ?? type;
 
         return type?.FullName switch
         {
