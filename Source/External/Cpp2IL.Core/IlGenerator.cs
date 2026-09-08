@@ -942,12 +942,23 @@ public static class IlGenerator
                     floatConversion = comparisonType.FullName == "System.Double" ? CilOpCodes.Conv_R8 : CilOpCodes.Conv_R4;
                 }
 
+                // AssetRipper: arithmetic on an address or on a local nothing typed is arithmetic on a
+                // native integer, and saying so is what keeps the IL well formed. Without it `sub` had a
+                // managed pointer on one side and an object reference on the other, a shape no type
+                // names, and ILSpy wrote it out as `(ref *(_003F*)(&obj7)) - (ref *(_003F*)obj5)` -
+                // which is not C#. A comparison is left alone: `ceq` on two references is legitimate.
+                var toNativeInt = floatOperandType == null && instruction.OpCode is not (>= OpCode.CheckEqual and <= OpCode.CheckLessOrEqual);
+
                 LoadOperand(instruction.Operands[1], context, method, locals, writeLine, floatOperandType);
                 if (floatConversion is { } conv1)
                     instructions.Add(conv1);
+                else if (toNativeInt && NeedsNativeIntForArithmetic(instruction.Operands[1]))
+                    instructions.Add(CilOpCodes.Conv_I);
                 LoadOperand(instruction.Operands[2], context, method, locals, writeLine, floatOperandType);
                 if (floatConversion is { } conv2)
                     instructions.Add(conv2);
+                else if (toNativeInt && NeedsNativeIntForArithmetic(instruction.Operands[2]))
+                    instructions.Add(CilOpCodes.Conv_I);
 
                 switch (instruction.OpCode)
                 {
@@ -1241,6 +1252,19 @@ public static class IlGenerator
     }
 
     private static bool IsFloat(TypeAnalysisContext type) => type.FullName is "System.Single" or "System.Double";
+
+    /// <summary>
+    /// AssetRipper: whether an arithmetic operand reaches the stack as something arithmetic is not
+    /// defined on - an address, or a local nothing typed, which is declared as <c>object</c>.
+    /// </summary>
+    private static bool NeedsNativeIntForArithmetic(IOperand operand) => operand switch
+    {
+        AddressOf => true,
+        LocalVariable { Type: null } => true,
+        LocalVariable { Type: { } type } => !type.IsValueType,
+        FieldReference { Field.FieldType: { } fieldType } => !fieldType.IsValueType,
+        _ => false,
+    };
 
     /// <summary>
     /// AssetRipper: an integer type a conversion to float would be defined on.

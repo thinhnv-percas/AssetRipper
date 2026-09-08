@@ -53,6 +53,14 @@ on this game, up from 154.
 With those, `Imposter.cs` matches its source: `SetUp` is two statements and the `skinList` initialiser
 is back on the field declaration where the source has it.
 
+**Arithmetic on an address produced C# that does not parse.** An untyped local is declared `object`,
+so integer arithmetic reached `sub` with a managed pointer on one side and an object reference on the
+other — a shape no type names, and ILSpy wrote it as
+`object obj6 = (ref *(_003F*)(&obj7)) - (ref *(_003F*)obj5);`, where `_003F` is its mangling of `?`,
+the unnameable type. Converting each such operand to a native integer first makes the IL well formed
+and the expression renders as the pointer arithmetic it is. 148 occurrences across the three games,
+all closed; comparisons are left alone, since `ceq` on two references is legitimate.
+
 ## Faithful to the binary, not to the source
 
 Worth separating from defects, because the recovery is right and the source is not what shipped.
@@ -109,5 +117,9 @@ renders `base._002Ector()`, which is not valid C#. 16 occurrences. Hoisting the 
 same method get `AdManager.Instance` right, so this is a metadata usage resolving to the wrong class's
 static storage rather than a systematic failure.
 
-**6. `List`/`Stack`'s `_size` still appears** (375 reads). Their `Count` getter carries il2cpp's null
+**6. `ref T reference = ref *(T*)x` remains** — a ref local assigned by dereferencing a local nothing
+typed. A different producer from the arithmetic shape above, and part of the untyped-locals problem
+rather than a shape of its own: 3 lines left in this game's own scripts, 252 across Pinata.
+
+**7. `List`/`Stack`'s `_size` still appears** (375 reads). Their `Count` getter carries il2cpp's null
 check as well as the field load, so the measured accessor pairing does not match it yet.

@@ -355,6 +355,16 @@ find it; `strings` without `-el` does find method and type names.
   arguments, from `v28 @ X3`, the entry version. Treating such a call as clobbering the caller-saved
   registers would at least turn the silent null into a reported placeholder.
 
+- **Arithmetic on an address, or on a local nothing typed, is arithmetic on a native integer.** An
+  untyped local is declared `object`, so `sub` had a managed pointer on one side and an object
+  reference on the other - a shape no type names, which ILSpy wrote out as
+  `(ref *(_003F*)(&obj7)) - (ref *(_003F*)obj5)`, not C# at all (`_003F` is its mangling of `?`, the
+  unnameable type). A `conv.i` on each such operand makes the IL well formed and the expression
+  renders as pointer arithmetic instead: 148 occurrences across the three games, all gone. Comparisons
+  are left alone, because `ceq` on two references is legitimate. What remains of the `ref *(T*)` shape
+  is the *other* producer - a ref local assigned by dereferencing an untyped local - which is the
+  untyped-locals problem, ROADMAP section 5.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member
