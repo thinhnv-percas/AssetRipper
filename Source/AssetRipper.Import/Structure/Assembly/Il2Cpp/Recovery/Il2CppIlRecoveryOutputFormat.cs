@@ -118,8 +118,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Utils.BaseCallingConventionResolver.AggregateArgumentsComposed} call arguments the ABI " +
 				"spread over several vector registers were composed back into their value.");
 			Logger.Info(LogCategory.Import,
-				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened to internal " +
-				"because an inlined constructor writes them from outside the type that declares them.");
+				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened " +
+				"because a recovered body reaches them from outside the type, or the assembly, that declares them.");
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {IlGenerator.HiddenFieldsReadThroughAProperty} reads of a hidden static field " +
 				"were written as the public property that returns it.");
@@ -167,10 +167,19 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// which was the one CS0122 in the game reported.
 	/// </para>
 	/// <para>
-	/// Only members of the same assembly are widened, and only to internal. Those are types this
-	/// export invented the source for, so their accessibility is ours to state; a member of a
-	/// framework assembly is left alone, because the assembly the script is really compiled against is
-	/// not this one.
+	/// The same happens across the game's own assemblies, and far more often: il2cpp inlines the fast
+	/// path of a property, so <c>Assembly-CSharp</c> reaches straight into PlayMaker's
+	/// <c>FsmBool.value</c> and <c>NamedVariable.useVariable</c> - 4606 errors on the test game, more
+	/// than every other kind together. Those cannot be read back through the property, because the
+	/// property is not a trivial one: <c>FsmBool.Value</c> consults <c>CastVariable</c> first, and the
+	/// field access really is the inside of it.
+	/// </para>
+	/// <para>
+	/// So a member of any assembly this export invented the source for is widened - to internal within
+	/// the assembly, to public across two of them, and the owning type with it, since a public member
+	/// of an internal type is reachable by nobody. A member of a *framework* assembly is left alone,
+	/// because the assembly the script is really compiled against is not this one: there the answer is
+	/// the public API, and where there is no public API the error is honest.
 	/// </para>
 	/// </remarks>
 	private static void WidenMembersTheBodyCannotReach(MethodDefinition methodDefinition)
@@ -180,27 +189,137 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			return;
 		}
 
+		if (methodDefinition.DeclaringModule is not { RuntimeContext: { } runtime } module)
+		{
+			return;
+		}
+
 		foreach (CilInstruction instruction in body.Instructions)
 		{
-			// Only a definition, which is what a reference within this assembly resolves to when the
-			// generator emits it. A reference to another assembly is not ours to widen anyway.
-			if (instruction.Operand is not FieldDefinition field
-				|| field.DeclaringType is not { } owner
-				|| owner.DeclaringModule != methodDefinition.DeclaringModule
-				|| SameOrNestedIn(accessor, owner))
+			// A reference within this assembly arrives as the definition itself; one to another of the
+			// game's assemblies has to be resolved to find what to widen.
+			switch (instruction.Operand)
 			{
-				continue;
+				case IFieldDescriptor fieldDescriptor
+					when fieldDescriptor.Resolve(runtime, out FieldDefinition? field) == ResolutionStatus.Success && field is not null:
+					WidenField(field, accessor, module);
+					break;
+				case IMethodDescriptor methodDescriptor
+					when methodDescriptor.Resolve(runtime, out MethodDefinition? called) == ResolutionStatus.Success && called is not null:
+					WidenMethod(called, accessor, module);
+					break;
 			}
+		}
+	}
 
-			FieldAttributes access = field.Attributes & FieldAttributes.FieldAccessMask;
+	private static void WidenField(FieldDefinition field, TypeDefinition accessor, ModuleDefinition? from)
+	{
+		if (field.DeclaringType is not { } owner || !CanWiden(owner, accessor, from, out bool acrossAssemblies))
+		{
+			return;
+		}
 
-			if (access is FieldAttributes.Private or FieldAttributes.FamilyAndAssembly or FieldAttributes.Family)
+		FieldAttributes access = field.Attributes & FieldAttributes.FieldAccessMask;
+		FieldAttributes wanted = Widened(access, acrossAssemblies);
+
+		if (wanted != access)
+		{
+			field.Attributes = (field.Attributes & ~FieldAttributes.FieldAccessMask) | wanted;
+			Interlocked.Increment(ref widenedMemberCount);
+		}
+
+		WidenDeclaringTypes(owner, acrossAssemblies);
+	}
+
+	private static void WidenMethod(MethodDefinition method, TypeDefinition accessor, ModuleDefinition? from)
+	{
+		if (method.DeclaringType is not { } owner || !CanWiden(owner, accessor, from, out bool acrossAssemblies))
+		{
+			return;
+		}
+
+		MethodAttributes access = method.Attributes & MethodAttributes.MemberAccessMask;
+		MethodAttributes wanted = Widened(access, acrossAssemblies);
+
+		if (wanted != access)
+		{
+			method.Attributes = (method.Attributes & ~MethodAttributes.MemberAccessMask) | wanted;
+			Interlocked.Increment(ref widenedMemberCount);
+		}
+
+		WidenDeclaringTypes(owner, acrossAssemblies);
+	}
+
+	/// <summary>
+	/// Whether the accessibility of a member of <paramref name="owner"/> is this export's to state.
+	/// </summary>
+	private static bool CanWiden(TypeDefinition owner, TypeDefinition accessor, ModuleDefinition? from, out bool acrossAssemblies)
+	{
+		acrossAssemblies = owner.DeclaringModule != from;
+
+		if (!acrossAssemblies)
+		{
+			// Within one assembly, only what a nesting relationship does not already reach.
+			return !SameOrNestedIn(accessor, owner);
+		}
+
+		return owner.DeclaringModule?.Assembly?.Name is { } name
+			&& !Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(name);
+	}
+
+	/// <summary>
+	/// A public member of a type nobody can name is reachable by nobody, so the type goes with it.
+	/// </summary>
+	private static void WidenDeclaringTypes(TypeDefinition owner, bool acrossAssemblies)
+	{
+		if (!acrossAssemblies)
+		{
+			return;
+		}
+
+		for (TypeDefinition? type = owner; type is not null; type = type.DeclaringType)
+		{
+			TypeAttributes visibility = type.Attributes & TypeAttributes.VisibilityMask;
+			TypeAttributes wanted = type.DeclaringType is null ? TypeAttributes.Public : TypeAttributes.NestedPublic;
+
+			if (visibility != wanted)
 			{
-				field.Attributes = (field.Attributes & ~FieldAttributes.FieldAccessMask) | FieldAttributes.Assembly;
+				type.Attributes = (type.Attributes & ~TypeAttributes.VisibilityMask) | wanted;
 				Interlocked.Increment(ref widenedMemberCount);
 			}
 		}
 	}
+
+	/// <summary>
+	/// The accessibility to give a member so that it reaches the code that names it, without ever
+	/// reaching less than it did before.
+	/// </summary>
+	/// <remarks>
+	/// <c>protected</c> to <c>internal</c> is not a widening: a derived type in another assembly can
+	/// call a protected constructor and cannot call an internal one. Doing it to
+	/// <c>System.Attribute..ctor</c> made every attribute the export declares uncompilable - five
+	/// errors on a game that otherwise had two. Protected therefore becomes protected internal, which
+	/// is the union of the two, and everything already at internal or wider is left alone.
+	/// </remarks>
+	private static FieldAttributes Widened(FieldAttributes access, bool acrossAssemblies)
+		=> acrossAssemblies
+			? FieldAttributes.Public
+			: access switch
+			{
+				FieldAttributes.PrivateScope or FieldAttributes.Private or FieldAttributes.FamilyAndAssembly => FieldAttributes.Assembly,
+				FieldAttributes.Family => FieldAttributes.FamilyOrAssembly,
+				_ => access,
+			};
+
+	private static MethodAttributes Widened(MethodAttributes access, bool acrossAssemblies)
+		=> acrossAssemblies
+			? MethodAttributes.Public
+			: access switch
+			{
+				MethodAttributes.CompilerControlled or MethodAttributes.Private or MethodAttributes.FamilyAndAssembly => MethodAttributes.Assembly,
+				MethodAttributes.Family => MethodAttributes.FamilyOrAssembly,
+				_ => access,
+			};
 
 	private static bool SameOrNestedIn(TypeDefinition type, TypeDefinition owner)
 	{

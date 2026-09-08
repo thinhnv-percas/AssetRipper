@@ -131,6 +131,21 @@ public static class IlGenerator
             locals.Add(local, ilLocal);
         }
 
+        // AssetRipper: C# requires every `out` parameter to be assigned on every path out of a method,
+        // and a recovered body routinely never writes one - the store is in code the analysis dropped,
+        // or the parameter was only ever an ABI artefact. `initobj` on the address zeroes it whatever
+        // its type is, so one at the top of the body satisfies the rule without displacing a real
+        // store, which simply overwrites it.
+        foreach (var parameter in definition.Parameters)
+        {
+            if (parameter.Definition is not { IsOut: true }
+                || parameter.ParameterType is not ByReferenceTypeSignature { BaseType: { } outType })
+                continue;
+
+            body.Instructions.Add(CilOpCodes.Ldarg, parameter);
+            body.Instructions.Add(CilOpCodes.Initobj, outType.ToTypeDefOrRef());
+        }
+
         /* foreach (var instruction in context.ControlFlowGraph!.Instructions)
         {
             body.Instructions.Add(CilOpCodes.Ldstr, instruction.ToString());
@@ -316,6 +331,74 @@ public static class IlGenerator
 
     private const float RadiansToDegrees = 57.29578f;
 
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<MethodAnalysisContext, MethodAnalysisContext?> PublicWrappers = new();
+
+    /// <summary>
+    /// AssetRipper: the public method a non-public one is the inside of, when the names say so.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp inlines a wrapper into its caller, so the recovered body names the implementation:
+    /// <c>List&lt;T&gt;.Add</c> arrives as <c>AddWithResize</c>, which is private and so names a member
+    /// the framework does not expose - 181 errors on one game. The pairing is the same convention the
+    /// static-field one uses: the public method's name is a prefix of the private one's, and the two
+    /// signatures are identical. That is narrow enough that a coincidence has to share a name stem, a
+    /// return type and every parameter type; where more than one candidate matches, neither is taken.
+    /// </remarks>
+    private static MethodAnalysisContext? PublicWrapperFor(MethodAnalysisContext called)
+    {
+        // A method of a generic instance has no metadata of its own, so the pairing is measured on the
+        // definition and the result instantiated on the same arguments.
+        if (called is ConcreteGenericMethodAnalysisContext concrete)
+        {
+            if (concrete.DeclaringType is not GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments }
+                || WrapperDefinitionFor(concrete.BaseMethodContext) is not { DeclaringType: { } owner } definition
+                || owner.GenericParameters.Count != arguments.Count)
+                return null;
+
+            return new ConcreteGenericMethodAnalysisContext(definition, arguments, concrete.MethodGenericParameters);
+        }
+
+        return WrapperDefinitionFor(called);
+    }
+
+    private static MethodAnalysisContext? WrapperDefinitionFor(MethodAnalysisContext called)
+        => PublicWrappers.GetOrAdd(called, static target =>
+        {
+            if ((target.Attributes & MethodAttributes.MemberAccessMask) == MethodAttributes.Public
+                || target.Name is not { Length: > 0 } inside || target.DeclaringType is not { } owner)
+                return null;
+
+            MethodAnalysisContext? found = null;
+
+            foreach (var candidate in owner.Methods)
+            {
+                if (ReferenceEquals(candidate, target)
+                    || (candidate.Attributes & MethodAttributes.MemberAccessMask) != MethodAttributes.Public
+                    || candidate.IsStatic != target.IsStatic
+                    || candidate.Name is not { Length: > 0 } wrapper
+                    || wrapper.Length >= inside.Length
+                    || !inside.StartsWith(wrapper, StringComparison.Ordinal)
+                    || candidate.ReturnType.FullName != target.ReturnType.FullName
+                    || candidate.Parameters.Count != target.Parameters.Count)
+                    continue;
+
+                var matches = true;
+
+                for (var i = 0; i < candidate.Parameters.Count && matches; i++)
+                    matches = candidate.Parameters[i].ParameterType.FullName == target.Parameters[i].ParameterType.FullName;
+
+                if (!matches)
+                    continue;
+
+                if (found != null)
+                    return null;
+
+                found = candidate;
+            }
+
+            return found;
+        });
+
     /// <summary>AssetRipper: how many hidden static fields were read through their public property.</summary>
     public static int HiddenFieldsReadThroughAProperty;
 
@@ -363,6 +446,25 @@ public static class IlGenerator
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// AssetRipper: <c>System.Array.Empty&lt;T&gt;()</c>, when <paramref name="field"/> is the
+    /// internal field that call reads.
+    /// </summary>
+    private static MethodAnalysisContext? EmptyArrayOf(FieldAnalysisContext field, MethodAnalysisContext context)
+    {
+        if (field is not { Name: "Value", IsStatic: true }
+            || field.DeclaringType is not GenericInstanceTypeAnalysisContext { GenericArguments: [{ } element] } owner
+            || owner.GenericType.FullName is not ("System.EmptyArray`1" or "EmptyArray`1"))
+            return null;
+
+        var array = context.AppContext.GetAssemblyByName("mscorlib")?.GetTypeByFullName("System.Array");
+
+        if (array?.Methods.FirstOrDefault(m => m is { Name: "Empty", IsStatic: true, Parameters.Count: 0, GenericParameters.Count: 1 }) is not { } definition)
+            return null;
+
+        return new ConcreteGenericMethodAnalysisContext(definition, [], [element]);
     }
 
     // The instance property that returns each non-public instance field, measured once from the getter.
@@ -435,13 +537,19 @@ public static class IlGenerator
             return null;
         });
 
-    // Where an instance field sits in its declaring type, measured when the metadata does not say.
+    /// <summary>
+    /// Where an instance field sits in its declaring type.
+    /// </summary>
+    /// <remarks>
+    /// Every field of a generic type reads 0 in the metadata, so there the layout is computed instead.
+    /// Everywhere else the metadata is right, and 0 is a real offset: a value type's fields are
+    /// relative to its own data, so <c>Rect.m_XMin</c> genuinely is at 0 - which a test for a positive
+    /// offset reads as "not known" and so paired nothing on any struct in any game.
+    /// </remarks>
     private static long? OffsetOfInstanceField(FieldAnalysisContext field, TypeAnalysisContext owner)
-        => field.Offset > 0
-            ? field.Offset
-            : owner.GenericParameters.Count > 0
-                ? GenericInstanceFieldLayout.OffsetOfField(owner, field)
-                : null;
+        => owner.GenericParameters.Count > 0
+            ? GenericInstanceFieldLayout.OffsetOfField(owner, field)
+            : field.Offset >= 0 ? field.Offset : null;
 
     // Whether the getter's whole body is "load the field at this offset and return it".
     private static bool ReturnsNothingButTheField(MethodAnalysisContext getter, long offset)
@@ -865,6 +973,11 @@ public static class IlGenerator
 
                     targetMethod = baseConstructor;
                 }
+
+                // AssetRipper: a public wrapper is inlined, so the body names its inside; see
+                // PublicWrapperFor.
+                if (PublicWrapperFor(targetMethod) is { } publicWrapper)
+                    targetMethod = publicWrapper;
 
                 var importedMethod = targetMethod.ToMethodDescriptor();
 
@@ -1445,6 +1558,21 @@ public static class IlGenerator
     /// AssetRipper: whether an arithmetic operand reaches the stack as something arithmetic is not
     /// defined on - an address, or a local nothing typed, which is declared as <c>object</c>.
     /// </summary>
+    /// <summary>
+    /// AssetRipper: whether an operand of integer arithmetic has to be converted to a native integer
+    /// first.
+    /// </summary>
+    /// <remarks>
+    /// Any reference does. A local the analysis could not type is declared <c>object</c>, and `sub`
+    /// with one of those on one side and a managed pointer on the other is a shape no type names,
+    /// which ILSpy writes out as <c>(ref *(_003F*)(&amp;obj7))</c> - not C# at all. `conv.i` makes it
+    /// pointer arithmetic instead.
+    ///
+    /// Restricting this to an untyped operand was measured and is not worth it: a reference with a
+    /// known type in integer arithmetic is an unfolded element address, and without the conversion it
+    /// reads as <c>Oni.Contact[] + int</c>, which is the same defect reported as CS0019 instead of
+    /// CS0030 - 41 more errors across the three games, and a shape further from what it means.
+    /// </remarks>
     private static bool NeedsNativeIntForArithmetic(IOperand operand) => operand switch
     {
         AddressOf => true,
@@ -1677,6 +1805,14 @@ public static class IlGenerator
                     // and a property call cannot give one, so the address of the field is what it wants.
                     if (expectedType is ByRefTypeAnalysisContext or PointerTypeAnalysisContext)
                         instructions.Add(CilOpCodes.Ldsflda, field.Field.ToFieldDescriptor());
+                    // AssetRipper: `EmptyArray<T>.Value` is what `Array.Empty<T>()` returns, and the
+                    // framework type holding it is internal, so the field read is uncompilable while
+                    // the call is exactly equivalent. 515 errors on the test game from this one member.
+                    else if (EmptyArrayOf(field.Field, context) is { } empty)
+                    {
+                        System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        instructions.Add(CilOpCodes.Call, empty.ToMethodDescriptor());
+                    }
                     // prefer the public property over a hidden backing field; see PublicAccessorFor.
                     else if (PublicAccessorFor(field.Field) is { } accessor)
                     {
@@ -1688,21 +1824,40 @@ public static class IlGenerator
                 }
                 else
                 {
-                    LoadLocal(field.Local, method, locals);
+                    // AssetRipper: a trivial property is inlined, so the field is what the body names.
+                    // Read it back through the property when one returns exactly it - `button.onClick`
+                    // rather than `button.m_OnClick`, and `rect.x` rather than `rect.m_XMin`, both of
+                    // which are private on the real assembly the export is compiled against.
+                    var instanceAccessor = InstanceAccessorFor(field.Field);
+
+                    // A property on a value type takes its receiver by managed pointer, so every hop
+                    // to it has to be an address rather than a copy - and the address of a struct held
+                    // in a local can only be taken while it is still a local, never on the stack. A
+                    // struct reached through another struct's field is left to the plain read.
+                    var throughStruct = instanceAccessor != null && field.Field.DeclaringType is { IsValueType: true };
+                    var canTakeAddress = field.ContainingFields.Count == 0
+                        || field.Local.Type is { IsValueType: false };
+
+                    if (throughStruct && !canTakeAddress)
+                    {
+                        instanceAccessor = null;
+                        throughStruct = false;
+                    }
+
+                    if (throughStruct && field.ContainingFields.Count == 0)
+                        LoadLocalAddress(field.Local, method, locals);
+                    else
+                        LoadLocal(field.Local, method, locals);
 
                     // A field reached through value type fields needs those loaded first. ldfld takes a
                     // value type instance on the stack, so reads chain without needing addresses.
                     foreach (var containing in field.ContainingFields)
-                        instructions.Add(CilOpCodes.Ldfld, containing.ToFieldDescriptor());
+                        instructions.Add(throughStruct ? CilOpCodes.Ldflda : CilOpCodes.Ldfld, containing.ToFieldDescriptor());
 
-                    // AssetRipper: a trivial property is inlined, so the field is what the body names.
-                    // Read it back through the property when one returns exactly it - `button.onClick`
-                    // rather than `button.m_OnClick`, which is private on the real assembly the export
-                    // is compiled against.
-                    if (field.ContainingFields.Count == 0 && InstanceAccessorFor(field.Field) is { } instanceAccessor)
+                    if (instanceAccessor != null)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
-                        instructions.Add(CilOpCodes.Callvirt, instanceAccessor.ToMethodDescriptor());
+                        instructions.Add(throughStruct ? CilOpCodes.Call : CilOpCodes.Callvirt, instanceAccessor.ToMethodDescriptor());
                     }
                     else
                         instructions.Add(CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
@@ -2022,6 +2177,28 @@ public static class IlGenerator
     {
         foreach (var containing in field.ContainingFields)
             instructions.Add(CilOpCodes.Ldflda, containing.ToFieldDescriptor());
+    }
+
+    // AssetRipper: the address of what LoadLocal would push, for a receiver taken by reference.
+    private static void LoadLocalAddress(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
+    {
+        var instructions = method.CilMethodBody!.Instructions;
+
+        // A struct's own `this`, and a parameter already passed by reference, are addresses to begin
+        // with; taking their address again would give a pointer to the pointer.
+        if (local.IsThis)
+        {
+            var self = method.Parameters.ThisParameter!;
+            instructions.Add(self.ParameterType is ByReferenceTypeSignature ? CilOpCodes.Ldarg : CilOpCodes.Ldarga, self);
+            return;
+        }
+
+        var parameter = method.Parameters.FirstOrDefault(p => p.Name == local.Name);
+
+        if (parameter != null)
+            instructions.Add(parameter.ParameterType is ByReferenceTypeSignature ? CilOpCodes.Ldarg : CilOpCodes.Ldarga, parameter);
+        else
+            instructions.Add(CilOpCodes.Ldloca, locals[local]);
     }
 
     private static void LoadLocal(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
