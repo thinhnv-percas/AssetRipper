@@ -530,12 +530,101 @@ public static class IlGenerator
                     || getter.ReturnType.FullName != toMeasure.FieldType.FullName)
                     continue;
 
-                if (ReturnsNothingButTheField(getter, offset))
+                if (ReturnsNothingButTheField(getter, AccessorOffset(offset, owner)))
                     return getter;
             }
 
             return null;
         });
+
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<FieldAnalysisContext, MethodAnalysisContext?> InstanceSetters = new();
+
+    /// <summary>
+    /// AssetRipper: the public instance property whose setter does nothing but store into
+    /// <paramref name="field"/>, or null when there is none.
+    /// </summary>
+    /// <remarks>
+    /// The mirror of <see cref="InstanceAccessorFor"/>, and it matters as much: a recovered body writes
+    /// a struct a member at a time, so <c>Rect</c> arrives as four stores into <c>m_XMin</c>,
+    /// <c>m_YMin</c>, <c>m_Width</c> and <c>m_Height</c> - 338 errors on the test game, every one of
+    /// them a write rather than a read.
+    /// </remarks>
+    private static MethodAnalysisContext? InstanceSetterFor(FieldAnalysisContext field)
+    {
+        if (field is ConcreteGenericFieldAnalysisContext concrete)
+        {
+            if (concrete.DeclaringType is not GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments }
+                || SetterDefinitionFor(concrete.BaseFieldContext) is not { DeclaringType: { } definitionOwner } definition
+                || definitionOwner.GenericParameters.Count != arguments.Count)
+                return null;
+
+            return new ConcreteGenericMethodAnalysisContext(definition, arguments, []);
+        }
+
+        return SetterDefinitionFor(field);
+    }
+
+    private static MethodAnalysisContext? SetterDefinitionFor(FieldAnalysisContext field)
+        => InstanceSetters.GetOrAdd(field, static toMeasure =>
+        {
+            if ((toMeasure.Attributes & FieldAttributes.FieldAccessMask) == FieldAttributes.Public
+                || toMeasure.IsStatic || toMeasure.DeclaringType is not { } owner)
+                return null;
+
+            if (OffsetOfInstanceField(toMeasure, owner) is not { } offset)
+                return null;
+
+            foreach (var property in owner.Properties)
+            {
+                if (property.Setter is not { IsStatic: false } setter
+                    || (setter.Attributes & MethodAttributes.MemberAccessMask) != MethodAttributes.Public
+                    || setter.Parameters.Count != 1 || setter.UnderlyingPointer == 0
+                    || setter.Parameters[0].ParameterType.FullName != toMeasure.FieldType.FullName)
+                    continue;
+
+                if (StoresNothingButTheField(setter, AccessorOffset(offset, owner)))
+                    return setter;
+            }
+
+            return null;
+        });
+
+    // Whether the setter's whole body is "store the argument into the field at this offset".
+    private static bool StoresNothingButTheField(MethodAnalysisContext setter, long offset)
+    {
+        List<Instruction> isil;
+
+        try
+        {
+            isil = setter.AppContext.InstructionSet.GetIsilFromMethod(setter);
+        }
+        catch
+        {
+            return false;
+        }
+
+        var stored = false;
+
+        foreach (var instruction in isil)
+        {
+            switch (instruction.OpCode)
+            {
+                case OpCode.Nop or OpCode.Interrupt or OpCode.Return:
+                    continue;
+
+                // the store into the receiver, at the field's own offset
+                case OpCode.Move when !stored && instruction.Operands is [MemoryOperand { Index: null, Scale: 0 } destination, Register]
+                    && destination.Base is Register { Name: "X0" } && destination.Addend == offset:
+                    stored = true;
+                    continue;
+
+                default:
+                    return false;
+            }
+        }
+
+        return stored;
+    }
 
     /// <summary>
     /// Where an instance field sits in its declaring type.
@@ -550,6 +639,20 @@ public static class IlGenerator
         => owner.GenericParameters.Count > 0
             ? GenericInstanceFieldLayout.OffsetOfField(owner, field)
             : field.Offset >= 0 ? field.Offset : null;
+
+    /// <summary>
+    /// AssetRipper: the offset the body of an accessor names, given the field's own.
+    /// </summary>
+    /// <remarks>
+    /// They differ for a value type, and by exactly the object header. The metadata records a value
+    /// type's fields from the start of its data - <c>Rect.m_XMin</c> is 0 - while the generated body of
+    /// <c>Rect.x</c> stores at <c>[X0 + 0x10]</c>, because the receiver it is handed points at the
+    /// header. Measured on 2019.2: <c>set_x</c> lifts to <c>Move [X0+10], V0 | Return</c>. A class's
+    /// offsets are object-relative in the metadata already, so those need no adjustment - which is why
+    /// the pairing worked on <c>button.m_OnClick</c> and on no struct in any game.
+    /// </remarks>
+    private static long AccessorOffset(long offset, TypeAnalysisContext owner)
+        => owner.IsValueType ? offset + 2L * owner.AppContext.Binary.PointerSizeBytes : offset;
 
     // Whether the getter's whole body is "load the field at this offset and return it".
     private static bool ReturnsNothingButTheField(MethodAnalysisContext getter, long offset)
@@ -772,14 +875,40 @@ public static class IlGenerator
 
                 if (instruction.Operands[0] is FieldReference field) // stfld takes instance before value so LoadOperand StoreToOperand doesn't work
                 {
+                    // AssetRipper: the write half of the accessor pairing; see InstanceSetterFor. A
+                    // recovered body writes a struct a member at a time, so a Rect arrives as four
+                    // stores into m_XMin, m_YMin, m_Width and m_Height - all private on the real
+                    // assembly, and all writes, which is why pairing only the reads changed nothing.
+                    var setter = field.Field.IsStatic ? null : InstanceSetterFor(field.Field);
+                    var intoStruct = setter != null && field.Field.DeclaringType is { IsValueType: true };
+
+                    // The address of a struct held in a local can only be taken while it is a local.
+                    if (intoStruct && field.ContainingFields.Count > 0 && field.Local.Type is not { IsValueType: false })
+                    {
+                        setter = null;
+                        intoStruct = false;
+                    }
+
                     if (!field.Field.IsStatic)
                     {
-                        LoadLocal(field.Local, method, locals);
+                        if (intoStruct && field.ContainingFields.Count == 0)
+                            LoadLocalAddress(field.Local, method, locals);
+                        else
+                            LoadLocal(field.Local, method, locals);
+
                         LoadContainingFields(field, instructions);
                     }
 
                     LoadOperand(instruction.Operands[1], context, method, locals, writeLine, field.Field.FieldType);
-                    instructions.Add(field.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, field.Field.ToFieldDescriptor());
+
+                    if (setter != null)
+                    {
+                        System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        instructions.Add(intoStruct ? CilOpCodes.Call : CilOpCodes.Callvirt, setter.ToMethodDescriptor());
+                    }
+                    else
+                        instructions.Add(field.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, field.Field.ToFieldDescriptor());
+
                     break;
                 }
 
@@ -906,7 +1035,18 @@ public static class IlGenerator
                     {
                         instructions.Add(CilOpCodes.Ldloca, composedLocal);
                         LoadOperand(instruction.Operands[member + 2], context, method, locals, writeLine, composedFields[member].FieldType);
-                        instructions.Add(CilOpCodes.Stfld, composedFields[member].ToFieldDescriptor());
+
+                        // AssetRipper: the receiver is already an address here, so a member whose field
+                        // is private on the real assembly can be written through its property - which is
+                        // where a Rect's four stores come from, and why pairing the other store paths
+                        // changed nothing on them.
+                        if (InstanceSetterFor(composedFields[member]) is { } memberSetter)
+                        {
+                            System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                            instructions.Add(CilOpCodes.Call, memberSetter.ToMethodDescriptor());
+                        }
+                        else
+                            instructions.Add(CilOpCodes.Stfld, composedFields[member].ToFieldDescriptor());
                     }
                 }
 
@@ -2239,16 +2379,40 @@ public static class IlGenerator
                     break;
                 }
 
+                // AssetRipper: the write half of the accessor pairing. `position.m_XMin = 0f` is what a
+                // recovered body names, and the field is private on the real assembly; `position.x = 0f`
+                // is the same store through the property that does nothing but perform it.
+                var setter = InstanceSetterFor(field.Field);
+                var intoStruct = setter != null && field.Field.DeclaringType is { IsValueType: true };
+
+                if (intoStruct && field.ContainingFields.Count > 0 && field.Local.Type is not { IsValueType: false })
+                {
+                    setter = null;
+                    intoStruct = false;
+                }
+
                 // stfld wants the object underneath the value, but the value is already on the stack, so
                 // park it in a temporary while we load the object.
                 var scratch = new CilLocalVariable(fieldDescriptor.Signature!.FieldType);
                 method.CilMethodBody!.LocalVariables.Add(scratch);
 
                 instructions.Add(CilOpCodes.Stloc, scratch);
-                LoadLocal(field.Local, method, locals);
+
+                if (intoStruct && field.ContainingFields.Count == 0)
+                    LoadLocalAddress(field.Local, method, locals);
+                else
+                    LoadLocal(field.Local, method, locals);
+
                 LoadContainingFields(field, instructions);
                 instructions.Add(CilOpCodes.Ldloc, scratch);
-                instructions.Add(CilOpCodes.Stfld, fieldDescriptor);
+
+                if (setter != null)
+                {
+                    System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                    instructions.Add(intoStruct ? CilOpCodes.Call : CilOpCodes.Callvirt, setter.ToMethodDescriptor());
+                }
+                else
+                    instructions.Add(CilOpCodes.Stfld, fieldDescriptor);
                 break;
 
             case ArrayAccess arrayAccess:
