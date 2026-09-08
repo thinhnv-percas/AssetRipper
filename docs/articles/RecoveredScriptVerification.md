@@ -70,10 +70,9 @@ log rather than to celebrate.
 | files compiled | 1108 | 22 | 63 |
 | errors, first run | 4999 | 2 | 765 |
 | errors, declaration stage unmasked | 7139 | 2 | 765 |
-| errors now | 2119 | 2 | 553 |
+| errors now | 1970 | 2 | 500 |
 
-7906 to 2674 across the three. What is left is listed at the end of this section, and 78% of it is
-one defect.
+7906 to 2472 across the three. What is left is listed at the end of this section.
 
 What the first run found, in the order it found it:
 
@@ -110,25 +109,53 @@ What the first run found, in the order it found it:
 - **181 were `List<T>.AddWithResize`**, the private inside of `Add`, paired by the same
   name-and-signature convention.
 - **13 were an `out` parameter a recovered body never writes**, which C# requires on every path out.
+## What the untyped locals actually are
+
+Section 5 of `ROADMAP.md` has been "pervasive" since it was written, and most of the errors above are
+it, so the first thing needed was a count of what those locals are rather than how many. The count is
+raised from the one place in `IlGenerator` that declares a local as `object`, and grouped by the
+opcode that writes it and by whether anything reads it — the same discipline as the unresolved-load
+breakdown, and for the same reason.
+
+It reorders the problem completely. Of 51464 on Pinata:
+
+| | count | costs anything? |
+|---|---:|---|
+| a register's entry value, first read by an *unresolved* call | 21587 | no — the generator emits a placeholder for such a call and never loads its operands |
+| never read by anything | 6383 | no — an unused declaration |
+| the return of an unresolved call, never read | 3376 | no |
+| a register's entry value, first read by an `IndirectCall` | 3513 | no, same reason |
+| an unresolved memory load, never read | 2242 | no |
+| **arithmetic** — `Add`, `Subtract`, `And`, `ShiftLeft`, `Multiply`, `Xor`, `ShiftRight` | **~7100** | **yes** |
+| the return of an unresolved call, read | 832 | yes |
+| an unresolved memory load, read | 522 | yes |
+| `IsInst`, a constant, an `ArrayLength`, another untyped local | ~680 | yes |
+
+About 42000 of the 51464 are harmless, and three quarters of what is left is arithmetic. Five rules
+followed from that — an enum is its underlying integer; a shift or bitwise operation produces an
+integer whatever its operands were; the result of a type check is the type checked for; a string
+literal is a string and an array's length is an int; a read through an integer-typed local is a
+dereference of a pointer to one — and they typed 3164 of them, taking Pinata's `object` declarations
+from 14882 to 12330 and Impostor's audit total from 1687 diagnostics to 1512.
+
 ### What is left
 
 | code | Pinata | Impostor | what it is |
 |---|---:|---:|---|
-| CS0030 | 1589 | 329 | a local nothing typed, cast to something C# cannot cast it to |
-| CS1061 | 97 | 144 | `List<T>._items`, `_version`, and the writes to `_size` — framework internals il2cpp inlined, with no public API to name |
+| CS0030 | 1427 | 279 | a local typed as something other than what a use site wants — see below |
 | CS0122 | 147 | 35 | `ThrowHelper`, `Unsafe`, `Int32Enum` — internal framework *types* the recovered code names |
 | CS0149 | 118 | — | a delegate built from an `IntPtr` the analysis could not resolve to a method |
-| CS0019 | 115 | 10 | arithmetic on an untyped local, or on an unfolded element address |
-| CS0117 | 12 | 8 | a base constructor call ILSpy will not fold, in a body that also carries a stack type mismatch |
-| CS0037, CS0165, CS0039, CS0266, CS0023 | 31 | 23 | the same untyped locals, in their other guises |
+| CS0019 | 115 | 8 | arithmetic on an untyped local, or on an unfolded element address |
+| CS1061 | 112 | 146 | `List<T>._items`, `_version`, and the writes to `_size` — framework internals with no public API to name |
+| CS0117 | 11 | 5 | a base constructor call ILSpy will not fold, in a body that also carries a stack type mismatch |
+| CS0037, CS0165, CS0039, CS0266, CS0023 | 30 | 23 | the same typing problem in its other guises |
 | CS0246, CS0400, CS1612, CS1593, CS0234, CS7003 | 12 | 4 | a compiler-generated type name the export did not emit, and five one-offs |
 
-**2095 of the 2674 — 78% — are section 5 of `ROADMAP.md`**: a local the analysis could not type is
-declared `object`, and every use of it is a cast that does not exist. That is one defect, and it is the
-deepest one in the project rather than a list of small ones; the `nint` in `Cannot convert type
-'GamePlayController' to 'nint'` is the tell. The rest divides into framework members with no public
-API to name (241), internal framework types (182), unresolved function pointers (118), and about 60
-one-offs.
+The 1427 are a long tail rather than one shape: 185 `int` where a `Fsm` is wanted, 83 a `Type` where
+an `IntPtr` is, 50 a `float` where a `Vector3` is, 31 an `int` where an `InputField` is. Each is a
+local the analysis typed from one end and a use site wants the other — which is section 5 seen from
+the use side rather than the definition side, and the next thing to work on is a rule that types an
+untyped local *from* its use rather than only from what defines it.
 
 ## What Microsoft.Unity.Analyzers says
 
@@ -463,7 +490,7 @@ recovered body as if a person had written it.
 | `Unmanaged memory load` | 10843 | 0 in its own scripts | 801 in its own scripts |
 | `Method not found` | 4339 | 0 | 228 |
 | members lost | — | 0 of 9 | 0 of 177 |
-| compile errors | 2119 | 2 | 553 |
+| compile errors | 1970 | 2 | 500 |
 | UNT findings, none the recovery's | 224 | 35 | 21 |
 
 Pinata's unresolved-load count moves up as more is recovered, not down: a load that was being dropped

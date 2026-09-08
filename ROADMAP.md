@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 4339, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 10843 |
+| `Method not found` placeholders | 4342, of which 1361 name the import they call |
+| `Unmanaged memory load` placeholders | 10852 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -30,9 +30,10 @@ sixteen have been read against the source line by line (section 8d).
 The output is not required to compile — the goal is that the logic reads correctly — but it is now
 compiled anyway, because a compiler names defects a grep cannot see.
 `Test/Scripts/compile_recovered_scripts.sh` builds a game's exported scripts against the assemblies
-the rip shipped beside them and ranks what Roslyn rejects: 2119 errors on Pinata, 2 on
-RunFromZombies, 553 on Impostor, from 7139, 2 and 765. **78% of what is left is section 5** - a local
-the analysis could not type, declared `object`, every use of it a cast that does not exist. With `ANALYZERS` set it also runs Microsoft.Unity.Analyzers, which
+the rip shipped beside them and ranks what Roslyn rejects: 1970 errors on Pinata, 2 on
+RunFromZombies, 500 on Impostor, from 7139, 2 and 765. Most of what is left is section 5 - a local the
+analysis could not type, declared `object`, every use of it a cast that does not exist - and section
+5b now says what those locals actually are. With `ANALYZERS` set it also runs Microsoft.Unity.Analyzers, which
 faults nothing the recovery did on any of the three. Section 8g has the reading. These are the places
 the logic still does not read correctly.
 
@@ -154,6 +155,33 @@ body whose locals the analysis could not type. A recovered string literal now re
 `object key = "MORPEH__SAVED_DATA"` rather than `object key = 0`, which is the improvement this
 project made, but the local is still `object` and every use of it is a cast. Same root cause as
 item 3.
+
+## 5c. What the untyped locals are, measured
+
+The count on its own says nothing about what to do, so it is now raised from the one place in
+`IlGenerator` that declares a local as `object` and grouped by the opcode that writes it and by
+whether anything reads it. Read that breakdown in the log before picking anything up here.
+
+Of 51464 on Pinata, about 42000 cost nothing: 21587 are a register's entry value first read by an
+*unresolved* call, whose operands the generator never emits at all; 3513 the same through an
+`IndirectCall`; 6383 are read by nothing; 3376 and 2242 are the return of an unresolved call and an
+unresolved memory load that nothing reads. The population that actually costs a cast is about 9600,
+and three quarters of it is arithmetic.
+
+Five rules followed and are in: an enum is its underlying integer; a shift or bitwise operation
+produces an integer whatever its operands were; the result of a type check is the type checked for; a
+string literal is a string and an array's length is an int; a read through an integer-typed local is a
+dereference of a pointer to one. Together they typed 3164, took Pinata's `object` declarations from
+14882 to 12330 and Impostor's audit total from 1687 diagnostics to 1512 - the readability half, and
+the larger one, since the compile errors moved only from 2119 to 1970.
+
+**What is left is the same problem from the other side.** The 1427 `CS0030`s on Pinata are a long tail
+of a local typed from its definition and used somewhere that wants another type: 185 an `int` where a
+`Fsm` is wanted, 83 a `Type` where an `IntPtr` is, 50 a `float` where a `Vector3` is. The rule that
+would cover them types an untyped local *from its use* - the argument position of a resolved call, the
+value side of a store into a typed field, the other operand of a comparison - which is the
+constraint-based formulation the literature on typing machine code uses (retypd, and BinSub for the
+polymorphic version). `PropagateFromCallParameters` is the one instance of it that exists.
 
 ## 5b. Values the ABI keeps in several registers — recovered
 
