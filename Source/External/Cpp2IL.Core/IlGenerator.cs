@@ -236,6 +236,7 @@ public static class IlGenerator
             instructions.Add(CilOpCodes.Call, writeLine);
         }
 
+        HoistBaseConstructorCall(context, definition, instructions);
         EnsureTerminated(context, instructions);
     }
 
@@ -721,10 +722,15 @@ public static class IlGenerator
                 }
                 // AssetRipper: the constructor was inlined into the allocation; see InlinedConstructor.
                 else if (instruction.Operands is [_, TypeAnalysisContext inlinedOwner]
-                    && InlinedConstructor(context, instruction, inlinedOwner, out var inlinedStores) is { } inlinedCtor)
+                    && InlinedConstructor(context, instruction, inlinedOwner, out var inlinedStores, out var inlinedArguments) is { } inlinedCtor)
                 {
-                    for (var i = 0; i < inlinedStores.Count; i++)
-                        LoadOperand(inlinedStores[i].Operands[1], context, method, locals, writeLine, inlinedCtor.Parameters[i].ParameterType);
+                    for (var i = 0; i < inlinedCtor.Parameters.Count; i++)
+                    {
+                        if (inlinedArguments[i] is { } inlinedArgument)
+                            LoadOperand(inlinedArgument, context, method, locals, writeLine, inlinedCtor.Parameters[i].ParameterType);
+                        else
+                            PushDefaultOf(inlinedCtor.Parameters[i].ParameterType, instructions);
+                    }
 
                     instructions.Add(CilOpCodes.Newobj, inlinedCtor.ToMethodDescriptor());
                     StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
@@ -844,6 +850,21 @@ public static class IlGenerator
                 // EmitInlinedFrameworkCall.
                 if (EmitInlinedFrameworkCall(targetMethod, instruction, context, method, locals, writeLine))
                     break;
+
+                // AssetRipper: a constructor is not something C# can call on an object that already
+                // exists, and a decompiler writes such a call out as `x._002Ector()`, which names a
+                // member no type has. Inside a constructor the call is the base call and is kept -
+                // retargeted to the direct base where il2cpp folded a trivial one onto System.Object,
+                // and hoisted to the front afterwards. Anywhere else it is the leftover half of an
+                // allocation that could not be fused, and the object is constructed at the `newobj`
+                // already, so the call is dropped rather than written out.
+                if (targetMethod is { Name: ".ctor", IsStatic: false })
+                {
+                    if (BaseConstructorFor(context, targetMethod) is not { } baseConstructor)
+                        break;
+
+                    targetMethod = baseConstructor;
+                }
 
                 var importedMethod = targetMethod.ToMethodDescriptor();
 
@@ -1086,6 +1107,81 @@ public static class IlGenerator
         return instructions.ToList().GetRange(startIndex, instructions.Count - startIndex); // Return added IL
     }
     
+    /// <summary>
+    /// AssetRipper: the constructor a <c>.ctor</c> call inside a constructor should name, or null when
+    /// the call is not a base call at all.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp folds a trivial constructor onto its base, so a class two levels down from
+    /// <c>MonoBehaviour</c> can end up calling <c>System.Object..ctor</c> - legal IL, and rendered as
+    /// <c>((object)this)._002Ector()</c>, which is not C#. The direct base's parameterless constructor
+    /// is what the source called, so that is what gets named.
+    /// </remarks>
+    private static MethodAnalysisContext? BaseConstructorFor(MethodAnalysisContext context, MethodAnalysisContext called)
+    {
+        if (context.Name != ".ctor" || context.IsStatic || context.DeclaringType is not { } owner)
+            return null;
+
+        var declaring = called.DeclaringType?.FullName;
+
+        // `: this(...)` chaining, and the ordinary base call.
+        if (declaring == owner.FullName || declaring == owner.BaseType?.FullName)
+            return called;
+
+        if (called.Parameters.Count > 0 || owner.BaseType is not { } directBase)
+            return null;
+
+        // An ancestor's constructor, which is the folded case. Only a parameterless one can stand in.
+        for (var ancestor = directBase; ancestor != null; ancestor = ancestor.BaseType)
+            if (ancestor.FullName == declaring)
+                return directBase.Methods.FirstOrDefault(m => m is { IsStatic: false, Name: ".ctor", Parameters.Count: 0 });
+
+        return null;
+    }
+
+    /// <summary>
+    /// AssetRipper: moves a constructor's base call to the front of the body.
+    /// </summary>
+    /// <remarks>
+    /// C# can only express a base call as an initialiser, so a decompiler has to find it before the
+    /// rest of the body to write it that way at all. il2cpp emits it wherever it likes - after the
+    /// field stores, and in a recovered body after a diagnostic call as well - and then the call comes
+    /// out as <c>base._002Ector()</c>, which compiles nowhere. The pair is only moved when it is
+    /// exactly a bare load of <c>this</c> followed by the call, and when nothing branches to either.
+    /// </remarks>
+    private static void HoistBaseConstructorCall(MethodAnalysisContext context, MethodDefinition definition, CilInstructionCollection instructions)
+    {
+        if (context.Name != ".ctor" || context.IsStatic || definition.CilMethodBody is { ExceptionHandlers.Count: > 0 })
+            return;
+
+        for (var i = 1; i < instructions.Count; i++)
+        {
+            if (instructions[i].OpCode.Code != CilCode.Call
+                || instructions[i].Operand is not IMethodDescriptor called
+                || called.Name != ".ctor"
+                || called.Signature is not { ParameterTypes.Count: 0 }
+                || instructions[i - 1].OpCode.Code != CilCode.Ldarg_0)
+                continue;
+
+            if (i == 1)
+                return;
+
+            var receiver = instructions[i - 1];
+            var call = instructions[i];
+
+            foreach (var instruction in instructions)
+                if (instruction.Operand is CilInstructionLabel { Instruction: { } target }
+                    && (ReferenceEquals(target, receiver) || ReferenceEquals(target, call)))
+                    return;
+
+            instructions.RemoveAt(i);
+            instructions.RemoveAt(i - 1);
+            instructions.Insert(0, receiver);
+            instructions.Insert(1, call);
+            return;
+        }
+    }
+
     private static int ConstructorReceiverIndex(Instruction constructorCall) => constructorCall.OpCode == OpCode.CallVoid ? 1 : 2;
 
     /// <summary>
@@ -1138,15 +1234,19 @@ public static class IlGenerator
     /// a class of its own, which is what a coroutine looks like when the fold does not happen.
     /// </para>
     /// <para>
-    /// The match is by parameter name: a compiler-generated constructor names its parameter after the
-    /// field it assigns. That is narrow enough not to fire on a constructor written by hand, whose
-    /// parameters are named for what they mean rather than where they go.
+    /// The match is by parameter name: a constructor whose parameters are each named after a field of
+    /// the type is the only kind this can be. Order does not have to agree - the stores come out in
+    /// whatever order the machine wrote them - and a parameter with no store at all is one the call
+    /// passed a zero for, since a freshly allocated object is already zeroed and the compiler may drop
+    /// that store. `new Movement(currentBox, null, imposter)` recovered as `Movement movement = null;
+    /// movement._002Ector();` for exactly that reason: two stores against three parameters.
     /// </para>
     /// </remarks>
     private static MethodAnalysisContext? InlinedConstructor(MethodAnalysisContext context, Instruction newobj,
-        TypeAnalysisContext allocatedType, out List<Instruction> stores)
+        TypeAnalysisContext allocatedType, out List<Instruction> stores, out List<IOperand?> arguments)
     {
         stores = [];
+        arguments = [];
 
         if (newobj.Operands[0] is not LocalVariable allocated)
             return null;
@@ -1187,16 +1287,37 @@ public static class IlGenerator
 
         foreach (var candidate in allocatedType.Methods)
         {
-            if (candidate is not { IsStatic: false, Name: ".ctor" } || candidate.Parameters.Count != fields.Count)
+            if (candidate is not { IsStatic: false, Name: ".ctor" } || candidate.Parameters.Count < fields.Count)
                 continue;
 
-            var matches = true;
+            var byParameter = new IOperand?[candidate.Parameters.Count];
+            var matched = 0;
+            var everyParameterNamesAField = true;
 
-            for (var i = 0; i < fields.Count && matches; i++)
-                matches = candidate.Parameters[i].ParameterName == fields[i].Name;
+            for (var i = 0; i < candidate.Parameters.Count && everyParameterNamesAField; i++)
+            {
+                var name = candidate.Parameters[i].ParameterName;
+                var stored = fields.FindIndex(f => f.Name == name);
 
-            if (matches)
+                if (stored >= 0)
+                {
+                    byParameter[i] = stores[stored].Operands[1];
+                    matched++;
+                    continue;
+                }
+
+                // A parameter with no store is one the call passed a zero for: the object is freshly
+                // allocated and therefore already zeroed, so the compiler is free to drop the store.
+                // It still has to name a field, or this is not the constructor that was inlined.
+                everyParameterNamesAField = allocatedType.Fields.Any(f => !f.IsStatic && f.Name == name);
+            }
+
+            // Every store has to be accounted for, since they are all about to be removed.
+            if (everyParameterNamesAField && matched == fields.Count)
+            {
+                arguments = [.. byParameter];
                 return candidate;
+            }
         }
 
         return null;
