@@ -13,7 +13,7 @@ Where the run stands today:
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
 | `Method not found` placeholders | 4388, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 12446 |
+| `Unmanaged memory load` placeholders | 12445 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 

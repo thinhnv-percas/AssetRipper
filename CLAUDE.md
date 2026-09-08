@@ -386,16 +386,28 @@ find it; `strings` without `-el` does find method and type names.
 - **A recovered file is large because of copies, not because of inlining.** `DataController.cs` is 360
   source lines and 2690 recovered ones, but the ratio is per method: four of its nine are near 1:1 and
   three account for 2005 lines. Accounting for all 846 lines of the worst one, the largest single item
-  is **192 local-to-local copies** (`num11 = num31;`) that `CopyCoalescer` could not merge - phi
-  removal's one copy per merged version per predecessor edge - against 120 temporary declarations, ~90
-  lines of unfolded ARM64 flag arithmetic, 81 diagnostics, and only 13 lines of inlined `List`/`Stack`
-  internals. The copies sit in groups before a `break` at a label, which is a loop's back edge written
-  out by hand, and that `goto`/label structure is what defeats ILSpy's loop reconstruction: the file
-  nests **27 levels deep**. Coalescing is the next lever on readability, ahead of the type work -
-  removing the copies is what lets the labels go, and removing the labels is what lets a `for` loop be
-  a `for` loop.
+  is **192 local-to-local copies** (`num11 = num31;`) left by SSA destruction - one per merged version
+  per predecessor edge - against 120 temporary declarations, ~90 lines of unfolded ARM64 flag
+  arithmetic, 81 diagnostics, and only 13 lines of inlined `List`/`Stack` internals.
+- **Those copies are mostly genuine interference, so coalescing is not the lever.** `CopyCoalescer`
+  merges 74262 of them on the third game and keeps 18738 **because the two locals are live at once**,
+  which is what a loop-carried value is: `num` is live where `num + 1` is computed, so the copy on the
+  back edge cannot be merged away. The pass now logs the three outcomes, and that line is the thing to
+  read before trying to improve it. A further 3200 are kept because the types differ.
+- **The copies are not why the file has `goto`s.** They sit in groups before a `break` at a label, and
+  it is tempting to read the labels as their consequence; they are not. Removing the copies would
+  leave the labels where they are - the 41 `goto`s and 12 labels come from the block layout, and the
+  27-level nesting from ILSpy failing to structure it. What produces that layout has not been measured.
 
 ### Things measured to be worth nothing — do not redo them
+- **Coalescing copies across different registers.** `CopyCoalescer` only considered copies between
+  two versions of one register, and widening it to any local-to-local copy - letting the interference
+  graph decide, which is the textbook formulation - made the output *worse*: Impostor's assembly fell
+  60 lines but gained 7 diagnostics, and `DataController` itself grew from 2647 to 2737. The copies
+  that matter interfere, so the wider search only perturbs types and costs `Simplifier` some
+  propagation. Comparing the two ends' types **by name rather than by reference** is the part that was
+  worth having, and is kept: 1098 more copies merge on that game.
+
 
 - **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member
   of a `MakeStruct` as its field's type.** Both are true, and both changed nothing once arithmetic

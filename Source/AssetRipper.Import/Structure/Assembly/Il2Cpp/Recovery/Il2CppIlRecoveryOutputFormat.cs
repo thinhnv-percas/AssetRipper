@@ -123,6 +123,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {IlGenerator.HiddenFieldsReadThroughAProperty} reads of a hidden static field " +
 				"were written as the public property that returns it.");
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: SSA destruction left copies - {Cpp2IL.Core.Analysis.CopyCoalescer.Coalesced} coalesced, " +
+				$"{Cpp2IL.Core.Analysis.CopyCoalescer.RejectedForInterference} kept because the two locals are live at once, " +
+				$"{Cpp2IL.Core.Analysis.CopyCoalescer.RejectedForType} because their types differ.");
 			return assemblies;
 		}
 		finally

@@ -141,9 +141,8 @@ Taking the worst one, `GenarateRandomDataMap`, and accounting for all 846 lines:
 | ~236 | the method's own statements, one per operation, with no expression nesting |
 
 The largest single item is not the game's code and not the inlining: it is **192 lines of copies a
-compiler would never write.** They come from phi removal — one copy per merged SSA version on each
-predecessor edge — that `CopyCoalescer` could not merge because the two locals interfere. They sit in
-groups before a `break` at a label:
+compiler would never write.** They come from SSA destruction — one copy per merged version on each
+predecessor edge. They sit in groups before a `break` at a label:
 
 ```csharp
 IL_16f2:
@@ -153,14 +152,21 @@ num2 = (nint)typeof(Quaternion);
 break;
 ```
 
-That is a loop's back edge written out by hand. It is correct, and it is the reason for the second
-number worth quoting: **the recovered file nests 27 levels deep.** The `goto`/label structure those
-copies sit in is what defeats ILSpy's loop and `if`/`else` reconstruction, so every block nests inside
-the last one rather than closing. 41 `goto`s and 12 labels in the file.
+That is a loop's back edge written out by hand.
 
-Which makes coalescing the next lever on readability, ahead of anything in the catalogue below: it
-would remove the copies, and removing them is what lets the labels go, and removing the labels is what
-lets a `for` loop be a `for` loop.
+**And they cannot be coalesced away.** `CopyCoalescer` now reports its three outcomes, and on this game
+they are 74262 copies merged, 18738 kept **because the two locals are live at once**, and 3200 kept
+because their types differ. Interference is what a loop-carried value *is*: `num` is live at the point
+`num + 1` is computed, so the copy the back edge needs can never be merged. Widening the pass to
+consider copies between different registers — the textbook formulation, letting the interference graph
+decide — was measured and made the output worse; comparing the two ends' types by name rather than by
+reference identity was the part worth keeping, and merges 1098 more.
+
+The second number worth quoting is that **the recovered file nests 27 levels deep**, with 41 `goto`s
+and 12 labels. It is tempting to read the labels as a consequence of the copies, since that is where
+the copies appear — they are not. Removing the copies would leave the labels where they are. What
+produces that block layout, and what would let ILSpy structure it into a loop, has not been measured
+yet; it is the open question behind everything in this section.
 
 ## The defect catalogue
 

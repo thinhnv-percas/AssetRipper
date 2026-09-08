@@ -9,6 +9,10 @@ namespace Cpp2IL.Core.Analysis;
 // Merge the copies left behind by SSA destruction.
 public static class CopyCoalescer
 {
+    public static int Coalesced;
+    public static int RejectedForType;
+    public static int RejectedForInterference;
+
     public static void Run(MethodAnalysisContext method) => Run(method.ControlFlowGraph!);
 
     public static void Run(ISILControlFlowGraph cfg)
@@ -38,7 +42,7 @@ public static class CopyCoalescer
                 var a = groups.Find(group[0]);
                 var b = groups.Find(group[i]);
 
-                if (a == b || (a.Type != null && b.Type != null && !ReferenceEquals(a.Type, b.Type)))
+                if (a == b || DifferentTypes(a, b))
                     continue;
 
                 groups.Union(a, b);
@@ -51,12 +55,22 @@ public static class CopyCoalescer
             var b = groups.Find(source);
 
             // different types would need a cast at every use, so do this only when the types agree, or one side is null
-            if (a.Type != null && b.Type != null && !ReferenceEquals(a.Type, b.Type))
+            if (DifferentTypes(a, b))
+            {
+                System.Threading.Interlocked.Increment(ref RejectedForType);
+                continue;
+            }
+
+            if (a == b)
                 continue;
 
-            if (a == b || Interferes(interference, groups, a, b))
+            if (Interferes(interference, groups, a, b))
+            {
+                System.Threading.Interlocked.Increment(ref RejectedForInterference);
                 continue;
+            }
 
+            System.Threading.Interlocked.Increment(ref Coalesced);
             groups.Union(a, b);
         }
 
@@ -111,6 +125,19 @@ public static class CopyCoalescer
 
         return bySlot.Values.Where(versions => versions.Count > 1).ToList();
     }
+
+    /// <summary>
+    /// AssetRipper: whether two locals carry types that actually differ.
+    /// </summary>
+    /// <remarks>
+    /// This compared the type objects by reference, which rejected two locals of the same type
+    /// whenever they had been typed from different places - the system type table on one side and
+    /// metadata on the other are separate <see cref="TypeAnalysisContext"/> instances for the same
+    /// <c>System.Int32</c>. A name is what decides whether a use would need a cast.
+    /// </remarks>
+    private static bool DifferentTypes(LocalVariable a, LocalVariable b)
+        => a.Type != null && b.Type != null && !ReferenceEquals(a.Type, b.Type)
+            && a.Type.FullName != b.Type.FullName;
 
     private static bool Interferes(Dictionary<LocalVariable, HashSet<LocalVariable>> interference, DisjointSet groups, LocalVariable a, LocalVariable b)
     {
