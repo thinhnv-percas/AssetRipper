@@ -400,6 +400,32 @@ find it; `strings` without `-el` does find method and type names.
   the front, since an initialiser is the only place C# can write one. **ILSpy will not fold a base call
   in a method that carries a stack type mismatch**, whatever position it is in, so what is left of this
   is section 5.
+- **Most of the untyped locals cost nothing, and the breakdown is what says which.**
+  `IlGenerator.UntypedLocal` is raised from the one place that declares a local as `object`, and the
+  output format groups them by the opcode that writes them and by whether anything reads them. Of
+  51464 on Pinata, about 42000 are harmless: 21587 are a register's entry value first read by an
+  *unresolved* call, and the generator emits a placeholder for such a call rather than loading its
+  operands at all; 6383 are read by nothing. The ~9600 that cost a cast are three quarters arithmetic.
+  Read that log line before working on section 5.
+- **An enum is its underlying integer, a shift or bitwise result is an integer whatever its operands
+  were, and the result of a type check is the type checked for.** Three rules the fixpoint was missing,
+  worth 3164 typed locals and 2552 fewer `object` declarations in Pinata's exported source. The
+  integer rules that existed all required an operand *already* known to be an integer, which a shift
+  by a constant of a register nothing typed does not have - but nothing other than an integer is ever
+  shifted. Boolean logic must still run first or a condition assembled from flags stops being boolean.
+- **An address used where a reference is wanted is the value at that address.** il2cpp passes a
+  pointer to a stack slot where the managed signature takes the value, and `ldloca` there renders as
+  `(object)(&obj2)` - a cast from a pointer to a reference, which C# does not have. This applies
+  wherever the wanted type is a reference *and* wherever the destination is a local nothing typed,
+  since that is declared `object` and has the same problem. `Type.GetTypeFromHandle` is the same
+  family: reached holding the type, it came out as `GetTypeFromHandle((RuntimeTypeHandle)typeof(T))`,
+  and the token is what a handle is.
+- **What is left of section 5 is the same problem from the use side.** A local typed from its
+  definition and used somewhere that wants another type: an `int` where a `Fsm` is wanted, a `Type`
+  where an `IntPtr` is, a `float` where a `Vector3` is. The rule that covers them types an untyped
+  local *from its use* - the argument position of a resolved call, the value side of a store into a
+  typed field, the other operand of a comparison - which is the constraint-based formulation the
+  machine-code typing literature uses. `PropagateFromCallParameters` is the one instance that exists.
 - **The offsets in an accessor's body are object-relative even when the field's own are not.** The
   metadata records a value type's fields from the start of its data - `Rect.m_XMin` is 0 - while
   `Rect.set_x` lifts to `Move [X0+10], V0 | Return`, because the receiver il2cpp hands a value type's
