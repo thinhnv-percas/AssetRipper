@@ -400,6 +400,27 @@ find it; `strings` without `-el` does find method and type names.
   the front, since an initialiser is the only place C# can write one. **ILSpy will not fold a base call
   in a method that carries a stack type mismatch**, whatever position it is in, so what is left of this
   is section 5.
+- **The offsets in an accessor's body are object-relative even when the field's own are not.** The
+  metadata records a value type's fields from the start of its data - `Rect.m_XMin` is 0 - while
+  `Rect.set_x` lifts to `Move [X0+10], V0 | Return`, because the receiver il2cpp hands a value type's
+  method points at the object header. So the trivial-accessor pairing has to match the field's offset
+  *plus the header* for a value type and the field's own for a class, which is why it had always
+  worked on `button.m_OnClick` and never on a struct in any game. Two other things hid this: a test
+  for a *positive* offset, which reads a struct's first field as "not known"; and the fact that a
+  four-float struct is a float aggregate, so its stores come out of `OpCode.MakeStruct` and not the
+  general field-store path - pairing that path changed the error counts by nothing at all, which is
+  what a pass that never fires looks like. The write side matters more than the read side here: a
+  recovered body writes a struct a member at a time, so all 338 of Pinata's `Rect` errors were stores.
+- **A member of a game assembly is ours to widen across assemblies too, and `protected` to `internal`
+  is not a widening.** il2cpp inlines the fast path of a property, so `Assembly-CSharp` reaches
+  straight into PlayMaker's `FsmBool.value`: 4606 errors on Pinata, more than every other kind
+  together, and unfixable by pairing because `FsmBool.Value` consults `CastVariable` first - the field
+  access really is the inside of it. `Il2CppIlRecoveryOutputFormat.WidenMembersTheBodyCannotReach`
+  resolves cross-module references and widens to public, with the owning type, for any assembly that
+  is not `IsFrameworkAssembly`. Widening `System.Attribute..ctor` from protected to internal, on the
+  other hand, made every attribute the export declares uncompilable: a derived type in another
+  assembly can call a protected constructor and cannot call an internal one, so protected becomes
+  protected *internal*.
 - **A field of a generic instance carries no metadata of its own.**
   `ConcreteGenericFieldAnalysisContext` is `base(null, genericInstanceType)`: `BackingData` is null and
   `DeclaringType` is the instantiation, which has no properties — so anything measured off a field, the

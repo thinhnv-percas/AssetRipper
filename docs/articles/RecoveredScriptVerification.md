@@ -70,7 +70,10 @@ log rather than to celebrate.
 | files compiled | 1108 | 22 | 63 |
 | errors, first run | 4999 | 2 | 765 |
 | errors, declaration stage unmasked | 7139 | 2 | 765 |
-| errors now | 7066 | 2 | 603 |
+| errors now | 2119 | 2 | 553 |
+
+7906 to 2674 across the three. What is left is listed at the end of this section, and 78% of it is
+one defect.
 
 What the first run found, in the order it found it:
 
@@ -94,14 +97,38 @@ What the first run found, in the order it found it:
   already exists — a member no type has. 13 of Impostor's and 24 of Pinata's were the leftover half of
   an allocation whose constructor call could not be fused, and are now either fused or dropped; see
   the defect catalogue.
-- **The rest of Impostor's 603 is one defect**, section 5 of `ROADMAP.md`: a local nothing typed is
-  declared `object`, and every use of it is a cast that C# does not have. 329 `CS0030`, 18 `CS0037`,
-  10 `CS0019` and 5 `CS0165` are all that, and the `nint` in `Cannot convert type 'GamePlayController'
-  to 'nint'` is the tell. 48 `CS0122` are a separate item: `ObscuredInt`'s private fields, written
-  directly because il2cpp inlined the struct's construction, from a game plugin assembly in which they
-  are private and another assembly's code is reaching them. The largest single class on Pinata is
-  4721 `CS1061` for `List<T>._items` and the rest of what il2cpp inlined out of the framework, which
-  is the write half of the accessor problem below.
+- **4606 of Pinata's were one assembly reaching into another's private fields.** il2cpp inlines the
+  fast path of a property, so `Assembly-CSharp` names PlayMaker's `FsmBool.value` and
+  `NamedVariable.useVariable` directly, and `FsmBool.Value` is not a trivial property — it consults
+  `CastVariable` first, so the field access really is the inside of it and no pairing can replace it.
+  The widening pass that already covered this within one assembly now covers it across the game's
+  own assemblies; a framework member is still left alone.
+- **515 were `EmptyArray<T>.Value`** — an internal framework type holding exactly what
+  `Array.Empty<T>()` returns, so the call is written instead.
+- **338 were a `Rect` written a member at a time**, which is the write half of the accessor pairing and
+  took three tries to land; see the defect catalogue.
+- **181 were `List<T>.AddWithResize`**, the private inside of `Add`, paired by the same
+  name-and-signature convention.
+- **13 were an `out` parameter a recovered body never writes**, which C# requires on every path out.
+### What is left
+
+| code | Pinata | Impostor | what it is |
+|---|---:|---:|---|
+| CS0030 | 1589 | 329 | a local nothing typed, cast to something C# cannot cast it to |
+| CS1061 | 97 | 144 | `List<T>._items`, `_version`, and the writes to `_size` — framework internals il2cpp inlined, with no public API to name |
+| CS0122 | 147 | 35 | `ThrowHelper`, `Unsafe`, `Int32Enum` — internal framework *types* the recovered code names |
+| CS0149 | 118 | — | a delegate built from an `IntPtr` the analysis could not resolve to a method |
+| CS0019 | 115 | 10 | arithmetic on an untyped local, or on an unfolded element address |
+| CS0117 | 12 | 8 | a base constructor call ILSpy will not fold, in a body that also carries a stack type mismatch |
+| CS0037, CS0165, CS0039, CS0266, CS0023 | 31 | 23 | the same untyped locals, in their other guises |
+| CS0246, CS0400, CS1612, CS1593, CS0234, CS7003 | 12 | 4 | a compiler-generated type name the export did not emit, and five one-offs |
+
+**2095 of the 2674 — 78% — are section 5 of `ROADMAP.md`**: a local the analysis could not type is
+declared `object`, and every use of it is a cast that does not exist. That is one defect, and it is the
+deepest one in the project rather than a list of small ones; the `nint` in `Cannot convert type
+'GamePlayController' to 'nint'` is the tell. The rest divides into framework members with no public
+API to name (241), internal framework types (182), unresolved function pointers (118), and about 60
+one-offs.
 
 ## What Microsoft.Unity.Analyzers says
 
@@ -341,6 +368,11 @@ Every distinct shape, with what produces it. Counts are over `Impostor`'s `Assem
 | `if ((nint)obj >= gpc.maxValueCols)` on a loop counter | — | 0 | A comparison against a typed `int` now types the untyped side, which is the seed the integer half of the type fixpoint was missing. |
 | `list._size` read | 180 | 34 | The accessor pairing could not see a field of a generic instance: its `BackingData` is null, its declaring type is the instantiation, and every field of a generic type is at offset 0 in the metadata. It is measured on the definition against a computed offset, and the getter instantiated on the same arguments. The 34 left are writes. |
 | `[AttributeAttribute]` twice on one member | 4996 | 0 | Legal in metadata, rejected by C#. The injected attribute type now declares `AllowMultiple`. |
+| `FsmBool.value` from another assembly | 4606 | 0 | il2cpp inlines the fast path of a property, so one assembly names another's private field. The widening pass stopped at the assembly boundary; it now widens across the game's own assemblies, to public, with the owning type. `protected` becomes protected internal rather than internal, since a derived type in another assembly can call a protected constructor and cannot call an internal one - doing that to `System.Attribute..ctor` cost five errors on a game that had two. |
+| `position.m_XMin = 0f` | 338 | 0 | The accessor pairing had never matched a struct, for three reasons at once: the offset test required a positive number and a value type's fields start at 0; the offsets in an accessor's body are object-relative even when the field's are not, so `Rect.set_x` stores at `[X0+0x10]` while `m_XMin` is at 0; and a Rect is a float aggregate, so its stores come from `MakeStruct` rather than the general field-store path. |
+| `EmptyArray<T>.Value` | 515 | 0 | An internal framework type holding what `Array.Empty<T>()` returns. |
+| `list.AddWithResize(x)` | 0 | 181 | The private inside of `Add`, paired by name prefix and identical signature. |
+| an `out` parameter never written | 12 | 1 | `initobj` on its address at the top of the body. |
 | `x._002Ector()` on an object that exists | 21 on Impostor, 51 on Pinata | 8 and 27 | Three causes. An allocation whose constructor call could not be fused: `InlinedConstructor` compared parameter names to the fields stored after it positionally and pairwise, so `new Movement(currentBox, null, imposter)` missed — the stores arrive in the machine's order and the store of a null is dropped, since the object is already zeroed. Matched by name now, with a missing store read as a zero. A stray call anywhere else is dropped, the `newobj` having already constructed the object. Inside a constructor it is the base call: retargeted to the direct base where il2cpp folded a trivial constructor onto `System.Object`, and hoisted to the front, which is the only place C# can write one. What is left is a constructor whose body also carries a stack type mismatch, where ILSpy will not fold the call whatever position it is in. |
 
 ### Open, in the order they cost
@@ -431,7 +463,7 @@ recovered body as if a person had written it.
 | `Unmanaged memory load` | 10843 | 0 in its own scripts | 801 in its own scripts |
 | `Method not found` | 4339 | 0 | 228 |
 | members lost | — | 0 of 9 | 0 of 177 |
-| compile errors | 7066 | 2 | 603 |
+| compile errors | 2119 | 2 | 553 |
 | UNT findings, none the recovery's | 224 | 35 | 21 |
 
 Pinata's unresolved-load count moves up as more is recovered, not down: a load that was being dropped

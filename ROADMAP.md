@@ -30,8 +30,9 @@ sixteen have been read against the source line by line (section 8d).
 The output is not required to compile — the goal is that the logic reads correctly — but it is now
 compiled anyway, because a compiler names defects a grep cannot see.
 `Test/Scripts/compile_recovered_scripts.sh` builds a game's exported scripts against the assemblies
-the rip shipped beside them and ranks what Roslyn rejects: 7066 errors on Pinata, 2 on
-RunFromZombies, 603 on Impostor. With `ANALYZERS` set it also runs Microsoft.Unity.Analyzers, which
+the rip shipped beside them and ranks what Roslyn rejects: 2119 errors on Pinata, 2 on
+RunFromZombies, 553 on Impostor, from 7139, 2 and 765. **78% of what is left is section 5** - a local
+the analysis could not type, declared `object`, every use of it a cast that does not exist. With `ANALYZERS` set it also runs Microsoft.Unity.Analyzers, which
 faults nothing the recovery did on any of the three. Section 8g has the reading. These are the places
 the logic still does not read correctly.
 
@@ -365,6 +366,18 @@ to read the log.
 
 Classes fixed so far, largest first:
 
+- **4606 of Pinata's were one assembly reaching into another's private fields.** il2cpp inlines the
+  fast path of a property, so `Assembly-CSharp` names PlayMaker's `FsmBool.value` and
+  `NamedVariable.useVariable`, and neither can be read back through the property - `FsmBool.Value`
+  consults `CastVariable` first, so the field access is the inside of it. The widening pass now
+  crosses assembly boundaries for any assembly this export invented the source for, to public, with
+  the owning type. `protected` to `internal` is not a widening and cost five errors on RunFromZombies
+  before it became protected internal.
+- **338 were a Rect written a member at a time**, which is section 8j.
+- **515 were `EmptyArray<T>.Value`**, an internal framework type holding what `Array.Empty<T>()`
+  returns; 181 were `List<T>.AddWithResize`, the private inside of `Add`; 13 were an `out` parameter a
+  recovered body never writes.
+
 - **4996 of Pinata's first 4999 were injected by the ripper.** A member carrying several attributes
   Cpp2IL could not read gets an `AttributeAttribute` for each, and C# rejects the second unless the
   attribute type declares `AllowMultiple`. Duplicates are legal in metadata, so nothing was ever wrong
@@ -444,6 +457,32 @@ Impostor is at 8 and Pinata at 27. Six of Impostor's eight are in constructors w
 an ILSpy stack type mismatch, and ILSpy will not fold the base call in a method with one whatever
 position it is in — so those are section 5, not this. The other two are a base call on a generic base
 type that the hoist did not move.
+
+## 8j. A value type's fields, paired with their properties — recovered
+
+The accessor pairing that turns `button.m_OnClick` into `button.onClick` had never matched a single
+struct in any game, and three separate things were wrong at once. It is worth writing down because
+each of them looked like the whole answer.
+
+`OffsetOfInstanceField` tested for a **positive** offset. The metadata records a value type's fields
+from the start of its data, so `Rect.m_XMin` is 0 - read as "offset not known", and the pairing bailed
+before looking at a single property.
+
+**The offsets in an accessor's body are object-relative even when the field's are not.** `Rect.set_x`
+lifts to `Move [X0+10], V0 | Return` while `m_XMin` sits at 0: the receiver il2cpp hands a value
+type's method points at the object header, not at the data. So the offset to match against is the
+field's plus the header for a value type and the field's own for a class - which is exactly why this
+worked on every class and no struct. Guessing the direction of that adjustment was wrong the first
+time; the trace of `set_x`'s ISIL settled it in one run.
+
+**A Rect is four floats, so it is a float aggregate**, and its stores come from `OpCode.MakeStruct`
+rather than the general field-store path. Pairing only the general path changed nothing at all -
+identical error counts to the digit, which is what a pass that never fires looks like. Three store
+paths now take the property when one exists: `MakeStruct`, the `Move` case's own field store, and
+`StoreToOperand`. A property on a value type is called on the *address* of the local, so the receiver
+is loaded with `ldloca` and a chain through containing fields with `ldflda`.
+
+Worth 338 on Pinata, and its inaccessible-member errors fell from 467 to 147.
 
 ## 8d. The second game's scripts read as the source — line by line
 
