@@ -383,6 +383,18 @@ find it; `strings` without `-el` does find method and type names.
   emitted `ldc.i4.0; stloc`, which ILSpy wrote as `(Stack<object>.Enumerator)0` - a cast from an int
   to a struct, which is not a conversion C# has.
 
+- **A recovered file is large because of copies, not because of inlining.** `DataController.cs` is 360
+  source lines and 2690 recovered ones, but the ratio is per method: four of its nine are near 1:1 and
+  three account for 2005 lines. Accounting for all 846 lines of the worst one, the largest single item
+  is **192 local-to-local copies** (`num11 = num31;`) that `CopyCoalescer` could not merge - phi
+  removal's one copy per merged version per predecessor edge - against 120 temporary declarations, ~90
+  lines of unfolded ARM64 flag arithmetic, 81 diagnostics, and only 13 lines of inlined `List`/`Stack`
+  internals. The copies sit in groups before a `break` at a label, which is a loop's back edge written
+  out by hand, and that `goto`/label structure is what defeats ILSpy's loop reconstruction: the file
+  nests **27 levels deep**. Coalescing is the next lever on readability, ahead of the type work -
+  removing the copies is what lets the labels go, and removing the labels is what lets a `for` loop be
+  a `for` loop.
+
 ### Things measured to be worth nothing — do not redo them
 
 - **Preferring the scalar float when a phi merges one with a float aggregate, and typing every member

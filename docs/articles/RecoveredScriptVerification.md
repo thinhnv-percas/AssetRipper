@@ -102,6 +102,66 @@ Two things the table makes obvious and reading one file at a time does not:
   the one with the most inlined `List<T>` and `Stack<T>` work, which is where the untyped locals come
   from.
 
+## Why one file is seven times its source
+
+`DataController.cs` is 360 source lines and 2690 recovered ones. The ratio is not uniform, and where it
+comes from is worth knowing before reading any large recovered file.
+
+Per method, against the source method it came from:
+
+| Method | source | recovered | ratio |
+|---|---:|---:|---:|
+| `SetBackground` | 12 | 14 | 1.2× |
+| `Start` | 7 | 6 | 0.9× |
+| `LoadMap` | 29 | 34 | 1.2× |
+| `availableRandomList` | 13 | 59 | 4.5× |
+| `setUpRandomList` | 40 | 137 | 3.4× |
+| `GenarateDataMap` | 66 | 361 | 5.5× |
+| `AddOneBox` | 40 | 344 | 8.6× |
+| `GenarateRandomMap` | 66 | 815 | 12× |
+| `GenarateRandomDataMap` | 65 | 846 | 13× |
+
+So four methods are near 1:1 and three account for 2005 of the 2647 lines. The expansion is not a
+property of the recovery, it is a property of what those three methods do: nested loops over
+`Stack<int>` and `List<Stack<int>>`, six `new Vector3(...)`, and a ternary inside a constructor
+argument — all of which il2cpp inlines.
+
+Taking the worst one, `GenarateRandomDataMap`, and accounting for all 846 lines:
+
+| Lines | What |
+|---:|---|
+| 192 | **local-to-local copies that were never coalesced** — `num11 = num31;`, `flag8 = flag12;`, `vector = vector2;` |
+| 120 | flag, `num` and `obj` temporary declarations |
+| 99 | braces and blanks |
+| ~90 | the ARM64 flag arithmetic — `flag = num < 0`, `flag = !flag`, `num & num` — that `FlagConditionRecovery` did not fold |
+| 81 | diagnostic placeholder calls |
+| 13 | inlined `List`/`Stack` internals (`._size`, `._items`, `._version`) |
+| 8 | `goto` and labels |
+| 7 | per-member `Vector3` stores |
+| ~236 | the method's own statements, one per operation, with no expression nesting |
+
+The largest single item is not the game's code and not the inlining: it is **192 lines of copies a
+compiler would never write.** They come from phi removal — one copy per merged SSA version on each
+predecessor edge — that `CopyCoalescer` could not merge because the two locals interfere. They sit in
+groups before a `break` at a label:
+
+```csharp
+IL_16f2:
+num11 = num31;
+randomLevels = randomLevels2;
+num2 = (nint)typeof(Quaternion);
+break;
+```
+
+That is a loop's back edge written out by hand. It is correct, and it is the reason for the second
+number worth quoting: **the recovered file nests 27 levels deep.** The `goto`/label structure those
+copies sit in is what defeats ILSpy's loop and `if`/`else` reconstruction, so every block nests inside
+the last one rather than closing. 41 `goto`s and 12 labels in the file.
+
+Which makes coalescing the next lever on readability, ahead of anything in the catalogue below: it
+would remove the copies, and removing them is what lets the labels go, and removing the labels is what
+lets a `for` loop be a `for` loop.
+
 ## The defect catalogue
 
 Every distinct shape, with what produces it. Counts are over `Impostor`'s `Assembly-CSharp`.
