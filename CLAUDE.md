@@ -365,6 +365,23 @@ find it; `strings` without `-el` does find method and type names.
   is the *other* producer - a ref local assigned by dereferencing an untyped local - which is the
   untyped-locals problem, ROADMAP section 5.
 
+- **The exported scripts can be compiled, and that is the measurement that cannot be argued with.**
+  The rip ships every assembly it recovered and stubbed under `AuxiliaryFiles/GameAssemblies`, so
+  `Test/Scripts/compile_recovered_scripts.sh <rip output> [assembly]` builds the exported C# against
+  exactly the metadata it was recovered from and ranks what Roslyn rejects. Two cautions: the stub
+  carries only what the game's metadata carries, so a member IL2CPP *stripped* from the build reads as
+  a compile error even though the export is fine against a real Unity install (`Math.PI`,
+  `Quaternion.Euler(Vector3)`, `StructLayoutAttribute` — that is all five remaining errors on Pinata
+  and RunFromZombies together); and an error injected by the ripper is not a recovery defect at all —
+  4996 of Pinata's first 4999 were a duplicate `[AttributeAttribute]`, which is legal in metadata and
+  rejected only by C#.
+- **A field of a generic instance carries no metadata of its own.**
+  `ConcreteGenericFieldAnalysisContext` is `base(null, genericInstanceType)`: `BackingData` is null and
+  `DeclaringType` is the instantiation, which has no properties — so anything measured off a field, the
+  trivial-accessor pairing included, has to be measured on the definition and instantiated afterwards.
+  Every field of a generic type is also at offset 0 in the metadata;
+  `GenericInstanceFieldLayout.OffsetOfField` computes where one actually sits, which is the same walk
+  `FindFieldAtOffset` does read the other way round.
 - **`Test/Scripts/audit_recovered_scripts.py` compares a recovery against the source it was built
   from**, per assembly rather than per file, and counts every diagnostic and known-bad shape per file.
   Run it before and after a change on a game that ships its source;

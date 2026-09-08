@@ -6,7 +6,9 @@ file — what is wrong and what only looks wrong.
 
 `Test/Scripts/audit_recovered_scripts.py` does the mechanical half: it proves no member was lost and
 counts every diagnostic and every known-bad C# shape per file, so the reading starts with the files
-that need it. The judgement is still a person's.
+that need it. `Test/Scripts/compile_recovered_scripts.sh` does the half that cannot be argued with:
+it compiles the exported scripts and reports what the compiler rejects. The judgement is still a
+person's.
 
 ## Running it
 
@@ -28,6 +30,60 @@ python3 Test/Scripts/audit_recovered_scripts.py \
 The script skips what is not in a player build — `ThirdParties`, `GoogleMobileAds`, `Spine`,
 `Plugins`, any `Editor` directory, and anything inside `#if UNITY_EDITOR` — and it strips the
 attributes the recovery injects before comparing, since those are not part of the source.
+
+## Compiling it
+
+A grep guesses at what will not compile. A compiler knows. The rip output ships every assembly it
+recovered and every one it stubbed under `AuxiliaryFiles/GameAssemblies`, so the exported C# can be
+compiled against exactly the metadata it was recovered from:
+
+```
+Test/Scripts/compile_recovered_scripts.sh Test/Output Assembly-CSharp
+```
+
+The script finds the assemblies beside the scripts, references all of them but the one being
+compiled, runs Roslyn directly with `-nostdlib -noconfig` (the game's own `mscorlib` is among the
+references, so the SDK's must not be), and prints the error count followed by a table of C# error
+codes with one example each. `KEEP_LOG=<path>` keeps the full log; the exit status is non-zero when
+there are errors, so it can gate a change.
+
+Two things about what it measures. It compiles against the *stubbed* framework rather than the real
+Unity assemblies, and a stub carries only what the game's il2cpp metadata carries — a member Unity
+strips from the build is absent here even though the export would compile against a real Unity
+install. And it compiles every file as one assembly, which is stricter than the exporter needs to be:
+duplicate-attribute and accessibility rules only bite in source.
+
+| | Pinata | RunFromZombies | Impostor |
+|---|---:|---:|---:|
+| files compiled | 1108 | 22 | 63 |
+| errors, first run | 4999 | 2 | 765 |
+| errors now | 3 | 2 | 619 |
+
+What the first run found, in the order it found it:
+
+- **4996 of Pinata's 4999 were the ripper's own attribute injection.** A member that carries several
+  attributes Cpp2IL could not read gets an `AttributeAttribute` for each — a Unity field with both a
+  `Tooltip` and a `Range` gets two. Duplicate custom attributes are legal in metadata, so the
+  recovered assembly was always valid; C# rejects the second unless the attribute type declares
+  `AllowMultiple`, and the export is C#. Fixed by injecting that type through
+  `AttributeInjectionUtils`, which applies `AttributeUsage` for every other injected attribute.
+- **Pinata's remaining 3 are `StructLayoutAttribute`.** It is a pseudo-custom attribute, stored in the
+  type's flags rather than as an attribute, so a stripped build carries no such type for the exported
+  `[StructLayout(...)]` to name. It compiles against a real framework.
+- **RunFromZombies' 2 are both stripped members**, in one file. `Math.PI` is how ILSpy renders the
+  constant `0.017453292f`, and `Quaternion.Euler(Vector3)` is the public method the recovery names in
+  place of the inlined `Internal_FromEulerRad`; the game calls neither, so IL2CPP stripped both out of
+  the assemblies the stubs are built from. Sixteen recovered scripts, no diagnostics, and nothing the
+  compiler objects to that a real Unity reference would not resolve.
+- **180 of Impostor's were `List<object>._size`**, the second half of the trivial-accessor pairing —
+  see the defect catalogue below. 146 are now gone; the 34 that remain are *writes* to `_size`, which
+  no getter can stand in for.
+- **The rest of Impostor's 619 is one defect**, section 5 of `ROADMAP.md`: a local nothing typed is
+  declared `object`, and every use of it is a cast that C# does not have. 329 `CS0030`, 18 `CS0037`,
+  10 `CS0019` and 5 `CS0165` are all that, and the `nint` in `Cannot convert type 'GamePlayController'
+  to 'nint'` is the tell. 49 `CS0122` are a separate item: `ObscuredInt`'s private fields, written
+  directly because il2cpp inlined the struct's construction, from a game plugin assembly in which they
+  are private and another assembly's code is reaching them.
 
 ## Nothing is missing
 
@@ -222,6 +278,8 @@ Every distinct shape, with what produces it. Counts are over `Impostor`'s `Assem
 | `array.Length < i \|\| (object)(array.Length - i) == null` | every bounds check of that shape | 0 | The condition is an `Or` of two flags that are one comparison, and the chase stopped at the `Or`. |
 | `button.m_OnClick` | 12 | 3 | A trivial property is inlined, so the field is what the body names. The accessor is measured from the getter. |
 | `if ((nint)obj >= gpc.maxValueCols)` on a loop counter | — | 0 | A comparison against a typed `int` now types the untyped side, which is the seed the integer half of the type fixpoint was missing. |
+| `list._size` read | 180 | 34 | The accessor pairing could not see a field of a generic instance: its `BackingData` is null, its declaring type is the instantiation, and every field of a generic type is at offset 0 in the metadata. It is measured on the definition against a computed offset, and the getter instantiated on the same arguments. The 34 left are writes. |
+| `[AttributeAttribute]` twice on one member | 4996 | 0 | Legal in metadata, rejected by C#. The injected attribute type now declares `AllowMultiple`. |
 
 ### Open, in the order they cost
 
@@ -308,9 +366,10 @@ recovered body as if a person had written it.
 | method bodies attempted | 18440 | 4636 | 6014 |
 | failed to convert | 0 | 0 | 0 |
 | `.cs` files exported | 3083 | — | — |
-| `Unmanaged memory load` | 12446 | 0 in its own scripts | 801 in its own scripts |
-| `Method not found` | 4388 | 0 | 228 |
+| `Unmanaged memory load` | 11215 | 0 in its own scripts | 801 in its own scripts |
+| `Method not found` | 4394 | 0 | 228 |
 | members lost | — | 0 of 9 | 0 of 177 |
+| compile errors | 3 | 2 | 619 |
 
 Pinata's unresolved-load count moves up as more is recovered, not down: a load that was being dropped
 as dead code is reported once something starts keeping it. It is a count of what could not be

@@ -27,8 +27,12 @@ so the output can be read against the real thing. Its sixteen scripts now carry 
 kind and no decompilation error, its one coroutine folds back into an iterator (section 8c), and all
 sixteen have been read against the source line by line (section 8d).
 
-The output does not compile and is not meant to. The goal is that the logic reads correctly. These
-are the places it still does not.
+The output is not required to compile — the goal is that the logic reads correctly — but it is now
+compiled anyway, because a compiler names defects a grep cannot see.
+`Test/Scripts/compile_recovered_scripts.sh` builds a game's exported scripts against the assemblies
+the rip shipped beside them and ranks what Roslyn rejects: 3 errors on Pinata, 2 on RunFromZombies,
+619 on Impostor, from 4999, 2 and 765 on its first run. Section 8g has the reading. These are the
+places the logic still does not read correctly.
 
 ## 1. Calls into the il2cpp runtime — about 3100 occurrences
 
@@ -336,6 +340,54 @@ The headline: **no member is lost**, on either game that ships its source (177 o
 9 of 9 on RunFromZombies). What is wrong is fidelity inside the bodies, and 915 `(nint)` casts and 995
 ILSpy type-mismatch comments on Impostor are one defect wearing many faces — a local nothing typed is
 declared `object` and used as a number, which is section 5.
+
+## 8g. Compiling the recovered scripts — measured
+
+`Test/Scripts/compile_recovered_scripts.sh <rip output> [assembly]` compiles the exported C# against
+the recovered and stubbed assemblies the rip put under `AuxiliaryFiles/GameAssemblies`, and prints the
+errors ranked by C# error code with an example each. `KEEP_LOG=<path>` keeps the log; the exit status
+is non-zero when there are errors.
+
+It measures against the *stubbed* framework, which carries only what the game's metadata carries, so a
+member IL2CPP stripped from the build is absent here even where the export would compile against a real
+Unity install. Both of RunFromZombies' two remaining errors are exactly that (`Math.PI`, which is how
+ILSpy renders `0.017453292f`, and `Quaternion.Euler(Vector3)`, which the recovery names in place of the
+inlined `Internal_FromEulerRad`), and so are all three of Pinata's (`StructLayoutAttribute`, a
+pseudo-attribute that is stored in a type's flags and so exists as a type in no stripped build).
+
+Two classes have been fixed, and they were the two largest:
+
+- **4996 of Pinata's 4999 were injected by the ripper.** A member carrying several attributes Cpp2IL
+  could not read gets an `AttributeAttribute` for each, and C# rejects the second unless the attribute
+  type declares `AllowMultiple`. Duplicates are legal in metadata, so nothing was ever wrong with the
+  assembly; the injection now goes through `AttributeInjectionUtils`, which applies `AttributeUsage`.
+- **180 of Impostor's were `List<object>._size`**, and 146 of those are gone. See section 8h.
+
+What is left on Impostor is 619, and it is mostly one defect: 329 `CS0030`, 18 `CS0037`, 10 `CS0019`
+and 5 `CS0165` are all a local nothing typed, declared `object` and used as a number or a list, which
+is section 5. The remaining named item is 49 `CS0122` — `ObscuredInt`'s private fields, written
+directly from another assembly because il2cpp inlined the struct's construction. A member of a *game*
+assembly that the recovered body reaches and a compiler would not is ours to widen; this one is
+private in a plugin assembly, so widening it means public rather than internal, and nothing does that
+yet.
+
+## 8h. The accessor pairing, for a field of a generic instance — recovered
+
+A trivial property is inlined, so the field is what the body names, and reading it back through the
+property is what makes the export compile against a real framework. That was already true for
+`button.m_OnClick`; it was not true for `stack.Count` or `list.Count`, because a field of a generic
+instance has no metadata of its own — `ConcreteGenericFieldAnalysisContext` is constructed as
+`base(null, genericInstanceType)`, so its `BackingData` is null and its declaring type is the
+instantiation, which has no properties at all.
+
+So the pairing is measured on the *definition* and the getter it finds is instantiated on the same
+arguments, giving `List<object>::get_Count`. That needed one more thing: every field of a generic type
+is at offset 0 in the metadata, so the offset the getter's body names had nothing to be compared
+against. `GenericInstanceFieldLayout` already computes that layout to resolve a load off a generic
+instance; `OffsetOfField` reads the same walk the other way round to place a named field.
+
+`_size` went from 180 to 34 on Impostor. The 34 that remain are *writes* — `list._size = n`, left by an
+inlined `Add` — and a getter cannot stand in for those.
 
 ## 8d. The second game's scripts read as the source — line by line
 
