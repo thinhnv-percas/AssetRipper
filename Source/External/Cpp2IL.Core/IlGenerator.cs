@@ -1977,7 +1977,20 @@ public static class IlGenerator
                     && locals.TryGetValue(local, out var addressable))
                 {
                     instructions.Add(CilOpCodes.Ldloca, addressable);
-                    instructions.Add(CilOpCodes.Ldfld, firstMember.ToFieldDescriptor());
+
+                    // AssetRipper: and where that field is private on the real assembly, the property
+                    // that returns it is what names it - `rect.x` rather than `rect.m_XMin`. This is
+                    // the third store-or-load path a struct's members arrive through, and the one the
+                    // reads of a `Rect` use: the whole struct is the local, and the float wanted is its
+                    // first member, so nothing here is a FieldReference for the pairing to see.
+                    if (InstanceAccessorFor(firstMember) is { } memberAccessor)
+                    {
+                        System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        instructions.Add(CilOpCodes.Call, memberAccessor.ToMethodDescriptor());
+                    }
+                    else
+                        instructions.Add(CilOpCodes.Ldfld, firstMember.ToFieldDescriptor());
+
                     break;
                 }
 
@@ -2087,20 +2100,44 @@ public static class IlGenerator
                     foreach (var containing in field.ContainingFields)
                         instructions.Add(throughStruct ? CilOpCodes.Ldflda : CilOpCodes.Ldfld, containing.ToFieldDescriptor());
 
+                    // AssetRipper: where a float is wanted of a field the ABI keeps in several vector
+                    // registers, its first member is what the register holds. Naming that member
+                    // through its property needs the *field*'s address rather than a copy of it, so
+                    // the decision is made before the field is loaded at all.
+                    var aggregateMember = expectedType is { } fieldWanted && IsFloat(fieldWanted)
+                        ? FloatAggregate.FirstMember(field.Field.FieldType)
+                        : null;
+                    var memberAccessor = instanceAccessor == null && aggregateMember != null
+                        ? InstanceAccessorFor(aggregateMember)
+                        : null;
+
                     if (instanceAccessor != null)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
                         instructions.Add(throughStruct ? CilOpCodes.Call : CilOpCodes.Callvirt, instanceAccessor.ToMethodDescriptor());
                     }
                     else
-                        instructions.Add(CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
+                        instructions.Add(memberAccessor != null ? CilOpCodes.Ldflda : CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
+
+                    if (memberAccessor != null)
+                    {
+                        System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        instructions.Add(CilOpCodes.Call, memberAccessor.ToMethodDescriptor());
+                        break;
+                    }
+
+                    if (aggregateMember != null)
+                    {
+                        instructions.Add(CilOpCodes.Ldfld, aggregateMember.ToFieldDescriptor());
+                        break;
+                    }
+
+                    break;
                 }
 
-                // AssetRipper: a field of a type the ABI keeps in several vector registers is named by
-                // its first register, which carries its first member - so where a float is wanted, that
-                // member is what it is, and `destination.x` beats a cast of the whole vector.
-                if (expectedType is { } fieldWanted && IsFloat(fieldWanted) && FloatAggregate.FirstMember(field.Field.FieldType) is { } fieldMember)
-                    instructions.Add(CilOpCodes.Ldfld, fieldMember.ToFieldDescriptor());
+                // The static side, where the field's own address is taken above when one is needed.
+                if (expectedType is { } staticWanted && IsFloat(staticWanted) && FloatAggregate.FirstMember(field.Field.FieldType) is { } staticMember)
+                    instructions.Add(CilOpCodes.Ldfld, staticMember.ToFieldDescriptor());
 
                 break;
             case MemoryOperand memory:
