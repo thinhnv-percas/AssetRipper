@@ -70,9 +70,9 @@ log rather than to celebrate.
 | files compiled | 1108 | 22 | 63 |
 | errors, first run | 4999 | 2 | 765 |
 | errors, declaration stage unmasked | 7139 | 2 | 765 |
-| errors now | 1970 | 2 | 500 |
+| errors now | 1749 | 2 | 499 |
 
-7906 to 2472 across the three. What is left is listed at the end of this section.
+7906 to 2250 across the three. What is left is listed at the end of this section.
 
 What the first run found, in the order it found it:
 
@@ -142,11 +142,10 @@ from 14882 to 12330 and Impostor's audit total from 1687 diagnostics to 1512.
 
 | code | Pinata | Impostor | what it is |
 |---|---:|---:|---|
-| CS0030 | 1427 | 279 | a local typed as something other than what a use site wants — see below |
-| CS0122 | 147 | 35 | `ThrowHelper`, `Unsafe`, `Int32Enum` — internal framework *types* the recovered code names |
-| CS0149 | 118 | — | a delegate built from an `IntPtr` the analysis could not resolve to a method |
+| CS0030 | 1425 | 278 | a local typed as something other than what a use site wants — see below |
 | CS0019 | 115 | 8 | arithmetic on an untyped local, or on an unfolded element address |
-| CS1061 | 112 | 146 | `List<T>._items`, `_version`, and the writes to `_size` — framework internals with no public API to name |
+| CS1061 | 111 | 146 | `List<T>._items`, `_version`, and the writes to `_size` — framework internals with no public API to name |
+| CS0122 | 46 | 35 | `ColorBlock`'s members, and `Unsafe` — an internal framework type |
 | CS0117 | 11 | 5 | a base constructor call ILSpy will not fold, in a body that also carries a stack type mismatch |
 | CS0037, CS0165, CS0039, CS0266, CS0023 | 30 | 23 | the same typing problem in its other guises |
 | CS0246, CS0400, CS1612, CS1593, CS0234, CS7003 | 12 | 4 | a compiler-generated type name the export did not emit, and five one-offs |
@@ -490,7 +489,7 @@ recovered body as if a person had written it.
 | `Unmanaged memory load` | 10843 | 0 in its own scripts | 801 in its own scripts |
 | `Method not found` | 4339 | 0 | 228 |
 | members lost | — | 0 of 9 | 0 of 177 |
-| compile errors | 1970 | 2 | 500 |
+| compile errors | 1749 | 2 | 499 |
 | UNT findings, none the recovery's | 224 | 35 | 21 |
 
 Pinata's unresolved-load count moves up as more is recovered, not down: a load that was being dropped

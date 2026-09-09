@@ -12,8 +12,8 @@ Where the run stands today:
 | Decompilation errors | 1 type ILSpy will not read (section 10) |
 | Method bodies discarded as invalid | 0 |
 | Method bodies needing a downstream stack repair | 0 |
-| `Method not found` placeholders | 4342, of which 1361 name the import they call |
-| `Unmanaged memory load` placeholders | 10852 |
+| `Method not found` placeholders | 4288, of which 1361 name the import they call |
+| `Unmanaged memory load` placeholders | 10770 |
 | `Il2Cpp runtime handle` placeholders | 0 |
 | Instructions left unimplemented | 34 |
 
@@ -30,8 +30,8 @@ sixteen have been read against the source line by line (section 8d).
 The output is not required to compile — the goal is that the logic reads correctly — but it is now
 compiled anyway, because a compiler names defects a grep cannot see.
 `Test/Scripts/compile_recovered_scripts.sh` builds a game's exported scripts against the assemblies
-the rip shipped beside them and ranks what Roslyn rejects: 1970 errors on Pinata, 2 on
-RunFromZombies, 500 on Impostor, from 7139, 2 and 765. Most of what is left is section 5 - a local the
+the rip shipped beside them and ranks what Roslyn rejects: 1749 errors on Pinata, 2 on
+RunFromZombies, 499 on Impostor, from 7139, 2 and 765. Most of what is left is section 5 - a local the
 analysis could not type, declared `object`, every use of it a cast that does not exist - and section
 5b now says what those locals actually are. With `ANALYZERS` set it also runs Microsoft.Unity.Analyzers, which
 faults nothing the recovery did on any of the three. Section 8g has the reading. These are the places
@@ -486,6 +486,23 @@ an ILSpy stack type mismatch, and ILSpy will not fold the base call in a method 
 position it is in — so those are section 5, not this. The other two are a base call on a generic base
 type that the hoist did not move.
 
+## 8k. An inlined throw helper, and a delegate over an unknown pointer
+
+`System.ThrowHelper.ThrowArgumentOutOfRangeException()` was 147 errors on Pinata: il2cpp inlines the
+framework's collection code into its caller, so a game script calls a helper on a type that is
+internal to the framework the export compiles against. The helper never returns and is named after
+what it raises, so the throw is an exact rendering - the name past `Throw` is looked up in the game's
+own mscorlib and its parameterless constructor is raised.
+
+A delegate's two-argument constructor takes a receiver and a function pointer, which C# cannot write;
+a decompiler renders it `new Func<bool>(obj, method)`, which asks for a method name and is handed a
+value. That was all 118 `CS0149`s, and the pointer in every one comes from a memory load nothing
+resolved, so there is no method to name and the loss is reported instead.
+
+Both also *recover* rather than rename: unresolved loads fell from 10852 to 10770 and
+method-not-found from 4342 to 4288, because a throw helper that is recognised stops being an
+unresolved call.
+
 ## 8j. A value type's fields, paired with their properties — recovered
 
 The accessor pairing that turns `button.m_OnClick` into `button.onClick` had never matched a single
@@ -511,6 +528,14 @@ paths now take the property when one exists: `MakeStruct`, the `Move` case's own
 is loaded with `ldloca` and a chain through containing fields with `ldflda`.
 
 Worth 338 on Pinata, and its inaccessible-member errors fell from 467 to 147.
+
+**And then two more paths, both on the read side.** A `Rect` is four floats, so it is a float
+aggregate, and `rect.m_XMin + 4f` comes out of the `LocalVariable` case in `LoadOperand` as
+`ldloca rect; ldfld m_XMin` - nothing there is a `FieldReference` either. A *field* of an aggregate
+type does the same one step further out, and there the property needs the field's address rather than
+a copy, so whether to take one has to be decided before the field is loaded at all. Another 66, and
+`rect.m_XMin` is gone from the output entirely. What is left of the kind is `ColorBlock` - five
+`Color`s rather than a homogeneous run of floats, so it arrives by a different route again.
 
 ## 8d. The second game's scripts read as the source — line by line
 

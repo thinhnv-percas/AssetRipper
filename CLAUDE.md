@@ -426,6 +426,24 @@ find it; `strings` without `-el` does find method and type names.
   local *from its use* - the argument position of a resolved call, the value side of a store into a
   typed field, the other operand of a comparison - which is the constraint-based formulation the
   machine-code typing literature uses. `PropagateFromCallParameters` is the one instance that exists.
+- **A struct's members reach the generator through five paths, and the accessor pairing has to sit in
+  all of them.** Each time the pairing "obviously should" have fired and did not, the cause was that
+  the access never reaches the code the pairing is in - and the tell is always the same: trace it, see
+  it is never *called*, then find who emits the access instead. The five: `LoadOperand`'s
+  `FieldReference` case; the `Move` case's own field store (`StoreToOperand` is not on that path);
+  `OpCode.MakeStruct`, which is where a four-float struct's stores come from; `LoadOperand`'s
+  `LocalVariable` case, where a whole aggregate in a local with a float wanted loads its first member
+  directly; and the same rule one step out, on a *field* of an aggregate type, where the property needs
+  the field's address so the decision must precede the load. Identical error counts to the digit are
+  what a pass that never fires looks like.
+- **An inlined framework throw helper is the throw it performs.**
+  `System.ThrowHelper.ThrowArgumentOutOfRangeException()` names a type internal to the framework, and
+  the helper never returns and is named after what it raises - so the name past `Throw`, looked up in
+  the game's own mscorlib, is an exact rendering rather than a stand-in. Worth 147 errors and, because
+  a recognised helper stops being an unresolved call, 82 unresolved loads and 54 method-not-found
+  placeholders as well. **A delegate's two-argument constructor** (receiver plus function pointer) is
+  the opposite case: C# cannot write it at all, a decompiler renders it `new Func<bool>(obj, method)`,
+  and the pointer always comes from a load nothing resolved - so the honest output is a reported loss.
 - **The offsets in an accessor's body are object-relative even when the field's own are not.** The
   metadata records a value type's fields from the start of its data - `Rect.m_XMin` is 0 - while
   `Rect.set_x` lifts to `Move [X0+10], V0 | Return`, because the receiver il2cpp hands a value type's
