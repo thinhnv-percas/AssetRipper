@@ -341,6 +341,42 @@ public static class IlGenerator
         return true;
     }
 
+    // AssetRipper: whether a type is a delegate, whose constructor C# cannot call directly.
+    private static bool IsDelegate(TypeAnalysisContext type)
+    {
+        for (var candidate = type.BaseType; candidate != null; candidate = candidate.BaseType)
+            if (candidate.FullName is "System.MulticastDelegate" or "System.Delegate")
+                return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// AssetRipper: the exception an inlined framework throw helper raises, when that is what a call
+    /// is.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp inlines the framework's collection code into its caller, so a game script ends up
+    /// calling <c>System.ThrowHelper.ThrowArgumentOutOfRangeException()</c> - a method of a type that
+    /// is internal to the framework the export is compiled against, and so unnameable. The helper is
+    /// named after what it raises and never returns, so the throw is an exact rendering rather than a
+    /// stand-in.
+    /// </remarks>
+    private static MethodAnalysisContext? ThrownByHelper(MethodAnalysisContext called, MethodAnalysisContext context)
+    {
+        if (called is not { IsStatic: true, Name: { } name } || called.DeclaringType is not { Name: "ThrowHelper" })
+            return null;
+
+        if (!name.StartsWith("Throw", StringComparison.Ordinal) || name.Length <= "Throw".Length)
+            return null;
+
+        var corlib = context.AppContext.GetAssemblyByName("mscorlib");
+        var exception = corlib?.GetTypeByFullName($"System.{name["Throw".Length..]}")
+            ?? corlib?.GetTypeByFullName("System.Exception");
+
+        return exception?.Methods.FirstOrDefault(m => m is { IsStatic: false, Name: ".ctor", Parameters.Count: 0 });
+    }
+
     private const float RadiansToDegrees = 57.29578f;
 
     private static readonly System.Collections.Concurrent.ConcurrentDictionary<MethodAnalysisContext, MethodAnalysisContext?> PublicWrappers = new();
@@ -954,6 +990,25 @@ public static class IlGenerator
             case OpCode.Newobj:
                 // Try and fuse our Newobj + the follow up constructor CallVoid into one IL newobj.
                 // If we can't, just fall back to an Ldnull.
+                // AssetRipper: a delegate's two-argument constructor takes a receiver and a function
+                // pointer, and C# has no way to write that - a decompiler renders it as
+                // `new Func<bool>(obj, method)`, which asks for a method name and gets a value. The
+                // pointer here comes from a memory load nothing resolved, so there is no method to
+                // name: 118 errors on the test game. Reporting the loss compiles; the call does not.
+                if (instruction.Operands is [_, TypeAnalysisContext { } allocated]
+                    && IsDelegate(allocated)
+                    && FindConstructorCall(context, instruction) is { Operands: [MethodAnalysisContext { Parameters.Count: 2 }, ..] } pointerCall)
+                {
+                    instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Delegate over an unresolved function pointer: {allocated.Name}"));
+                    instructions.Add(CilOpCodes.Call, writeLine);
+                    instructions.Add(CilOpCodes.Ldnull);
+                    StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+
+                    pointerCall.OpCode = OpCode.Nop;
+                    pointerCall.SetOperands();
+                    break;
+                }
+
                 if (FindConstructorCall(context, instruction) is { Operands: [MethodAnalysisContext found, _, ..] } constructorCall
                     && ConstructorFor(instruction.Operands.Count > 1 ? instruction.Operands[1] : null, found) is { } constructor)
                 {
@@ -1110,6 +1165,17 @@ public static class IlGenerator
                 // EmitInlinedFrameworkCall.
                 if (EmitInlinedFrameworkCall(targetMethod, instruction, context, method, locals, writeLine))
                     break;
+
+                // AssetRipper: `ThrowHelper` is internal to the framework, so a call to it names a type
+                // the exported script cannot see - 147 errors on the test game, all of them the inside
+                // of a `throw`. The helper never returns and its name says which exception it raises,
+                // so the throw itself is what it means.
+                if (ThrownByHelper(targetMethod, context) is { } raised)
+                {
+                    instructions.Add(CilOpCodes.Newobj, raised.ToMethodDescriptor());
+                    instructions.Add(CilOpCodes.Throw);
+                    break;
+                }
 
                 // AssetRipper: a constructor is not something C# can call on an object that already
                 // exists, and a decompiler writes such a call out as `x._002Ector()`, which names a
