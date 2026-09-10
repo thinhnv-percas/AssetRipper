@@ -266,6 +266,9 @@ public static class LocalVariables
             // AssetRipper: inside the loop, because it needs the array typed and what it produces
             // types the element, which is the base of the next field access.
             changed |= ArrayRecovery.RecoverComputedAccesses(method);
+            // AssetRipper: and the same for a field, whose address the machine also computes ahead of
+            // the load whenever it is wanted more than once. See FoldComputedFieldAddresses.
+            changed |= MetadataResolver.FoldComputedFieldAddresses(method);
             changed |= PropagateTypesOnce(method);
         }
 

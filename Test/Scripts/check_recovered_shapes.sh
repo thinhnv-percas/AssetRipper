@@ -64,6 +64,12 @@ check DECOMP-0003 Common.cs 'throw ex;' 'throw new OutOfMemoryException'
 # field's declared type.
 check DECOMP-0007 ResourcesUtil.cs 'resourceDict.ContainsKey(statType)' 'Dictionary<System.Int32Enum, object>'
 
+# DECOMP-0009: an address the machine computed before the load - `Add v73, this, 88` and then
+# `Move v104, [v73]` - left the base untyped, so the load did not resolve, nor did the load off what
+# it produced. `GamePlayController.RewindPlay` came out as `(nint)this + 88` and
+# `((GameObject)0).SetActive(false)` for what the source writes as one field access.
+check DECOMP-0009 GamePlayController.cs 'SetActive' '(GameObject)0'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.

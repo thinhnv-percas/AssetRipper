@@ -842,6 +842,120 @@ public static class MetadataResolver
         return null;
     }
 
+    /// <summary>
+    /// AssetRipper: how many loads were folded back onto the base whose address an earlier
+    /// instruction computed.
+    /// </summary>
+    public static int ComputedFieldAddressesFolded;
+
+    private const int MaximumAddressFoldDepth = 4;
+
+    /// <summary>
+    /// AssetRipper: <c>[t + K]</c> where <c>t = base + J</c> is <c>[base + (J + K)]</c>, which is how a
+    /// field is reached when the machine computes its address before loading through it.
+    /// </summary>
+    /// <remarks>
+    /// The compiler does this whenever the address is wanted for more than one load, or is passed on,
+    /// and nothing typed the intermediate - so the load off it did not resolve, and neither did the
+    /// load off *what it produced*, because that had no type either. One missing rule cost three
+    /// resolutions in <c>GamePlayController.RewindPlay</c>:
+    /// <code>
+    /// 54 Add      v73, this (GamePlayController), 88
+    /// 69 Move     v104, [v73]
+    /// 77 CallVoid GameObject.SetActive, [v104+58], 0
+    /// </code>
+    /// which came out as <c>(nint)this + 88</c> and <c>((GameObject)0).SetActive(false)</c> for what
+    /// the source writes as one field access.
+    ///
+    /// This is the same shape <see cref="ArrayRecovery.RecoverComputedAccesses"/> handles for an
+    /// element, and it belongs in the same place - inside the type resolution fixpoint, because it
+    /// needs the base typed and what it produces types the next base. Only a constant is folded: an
+    /// <c>Add</c> of two locals is an index computation, which is the array path's business. Nothing
+    /// here decides which field the combined offset names; it only presents the base and the addend
+    /// that the machine really used, and <see cref="ResolveFieldOffsets"/> validates the rest as it
+    /// always did.
+    /// </remarks>
+    public static bool FoldComputedFieldAddresses(MethodAnalysisContext method)
+    {
+        var definitions = new Dictionary<LocalVariable, Instruction>();
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+            if (instruction.Destination is LocalVariable destination)
+                definitions[destination] = instruction;
+
+        var changed = false;
+
+        foreach (var instruction in method.ControlFlowGraph.Instructions)
+        {
+            for (var i = 0; i < instruction.Operands.Count; i++)
+            {
+                // Only a base nothing typed: a typed one already resolves, and rewriting it would
+                // move an access that is already right.
+                if (instruction.Operands[i] is not MemoryOperand { Index: null, Scale: 0, Base: LocalVariable { Type: null } computed } memory)
+                    continue;
+
+                if (ComputedBase(computed, memory.Addend, definitions) is not var (folded, addend))
+                    continue;
+
+                instruction.SetOperand(i, new MemoryOperand(folded, null, addend, 0, memory.Size));
+                System.Threading.Interlocked.Increment(ref ComputedFieldAddressesFolded);
+                changed = true;
+            }
+        }
+
+        return changed;
+    }
+
+    /// <summary>
+    /// AssetRipper: the operand a chain of constant additions started from, and the total offset,
+    /// or null when the chain does not start at something with a type.
+    /// </summary>
+    private static (IOperand Base, long Addend)? ComputedBase(LocalVariable computed, long addend,
+        Dictionary<LocalVariable, Instruction> definitions)
+    {
+        for (var depth = 0; depth < MaximumAddressFoldDepth; depth++)
+        {
+            if (!definitions.TryGetValue(computed, out var definition)
+                || definition is not { OpCode: OpCode.Add, Operands: [_, var left, var right] })
+                return null;
+
+            // One side is the constant; the other carries the address. Two locals is an index
+            // computation and not this.
+            var (carried, constant) = (left, right) switch
+            {
+                (_, Immediate immediateRight) => (left, immediateRight.Value),
+                (Immediate immediateLeft, _) => (right, immediateLeft.Value),
+                _ => (null, 0L),
+            };
+
+            if (carried == null)
+                return null;
+
+            addend += constant;
+
+            if (addend < 0)
+                return null;
+
+            switch (carried)
+            {
+                // A base with a type is where the chain ends and the access can be resolved from.
+                case LocalVariable { Type: not null }:
+                case FieldReference:
+                    return (carried, addend);
+
+                // Another computed address: keep folding.
+                case LocalVariable untyped:
+                    computed = untyped;
+                    continue;
+
+                default:
+                    return null;
+            }
+        }
+
+        return null;
+    }
+
     private static RuntimeMethodInfoAnalysisContext? AsMethodInfo(IOperand operand) =>
         operand switch
         {

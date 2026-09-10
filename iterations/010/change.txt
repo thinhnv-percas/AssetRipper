@@ -1,0 +1,1 @@
+Iteration 009 plus DECOMP-0009: MetadataResolver.FoldComputedFieldAddresses, folding [t+K] where t = base+J back onto [base+(J+K)], inside the type resolution fixpoint.
