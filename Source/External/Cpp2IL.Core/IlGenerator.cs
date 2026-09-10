@@ -1249,9 +1249,18 @@ public static class IlGenerator
                 if (PublicWrapperFor(targetMethod) is { } publicWrapper)
                     targetMethod = publicWrapper;
 
-                var importedMethod = targetMethod.ToMethodDescriptor();
-
                 var thisParamIndex = instruction.OpCode == OpCode.Call ? 2 : 1;
+
+                // AssetRipper: and a shared generic body is named by whichever instantiation the
+                // address was attributed to; see ReceiverInstantiationOf.
+                if (thisParamIndex < instruction.Operands.Count
+                    && ReceiverInstantiationOf(targetMethod, instruction.Operands[thisParamIndex]) is { } reinstantiated)
+                {
+                    System.Threading.Interlocked.Increment(ref SharedGenericCallsRetargeted);
+                    targetMethod = reinstantiated;
+                }
+
+                var importedMethod = targetMethod.ToMethodDescriptor();
 
                 if (!targetMethod.IsStatic) // Load 'this' param
                 {
@@ -1500,6 +1509,61 @@ public static class IlGenerator
     /// <c>((object)this)._002Ector()</c>, which is not C#. The direct base's parameterless constructor
     /// is what the source called, so that is what gets named.
     /// </remarks>
+    /// <summary>
+    /// AssetRipper: how many calls were retargeted from a shared generic instantiation onto the one
+    /// the receiver's own type names.
+    /// </summary>
+    public static int SharedGenericCallsRetargeted;
+
+    /// <summary>
+    /// AssetRipper: <paramref name="called"/> re-instantiated on the receiver's generic arguments,
+    /// when the two are instantiations of one definition and disagree.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp compiles one body per generic definition and shares it across instantiations, so the
+    /// method a call resolves to is whichever instantiation that address was attributed to - every
+    /// int-backed enum key shares <c>Dictionary&lt;System.Int32Enum, System.Object&gt;</c>, and every
+    /// reference type shares <c>System.Object</c>. `resourceDict.ContainsKey(statType)` came out as
+    /// `((Dictionary&lt;System.Int32Enum, object&gt;)(object)resourceDict).ContainsKey((System.Int32Enum)statType)`,
+    /// which names a type internal to the framework and casts a field whose declared type was known
+    /// exactly all along.
+    ///
+    /// The receiver's type is the stronger evidence: it comes from a field or parameter signature,
+    /// while the arguments on the resolved method are an artefact of which instantiation the linker
+    /// happened to emit. Nothing has to know which arguments are sharing placeholders - when the two
+    /// instantiations agree this is a no-op, and when they disagree the receiver wins. Only the
+    /// declaring type is re-instantiated; the method's own generic arguments are kept, since the
+    /// receiver says nothing about those.
+    /// </remarks>
+    private static MethodAnalysisContext? ReceiverInstantiationOf(MethodAnalysisContext called, IOperand receiver)
+    {
+        if (called.IsStatic
+            || called is not ConcreteGenericMethodAnalysisContext { TypeGenericParameters.Count: > 0 } concrete
+            || concrete.BaseMethodContext.DeclaringType is not { } definition)
+            return null;
+
+        if (ReceiverType(receiver) is not GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments } instance
+            || instance.GenericType.FullName != definition.FullName
+            || arguments.Count != concrete.TypeGenericParameters.Count)
+            return null;
+
+        var sameAlready = true;
+        for (var i = 0; i < arguments.Count && sameAlready; i++)
+            sameAlready = arguments[i].FullName == concrete.TypeGenericParameters[i].FullName;
+
+        if (sameAlready)
+            return null;
+
+        return new ConcreteGenericMethodAnalysisContext(concrete.BaseMethodContext, arguments, concrete.MethodGenericParameters);
+    }
+
+    private static TypeAnalysisContext? ReceiverType(IOperand receiver) => receiver switch
+    {
+        LocalVariable { Type: { } local } => local,
+        FieldReference { Field.FieldType: { } fieldType } => fieldType,
+        _ => null,
+    };
+
     private static MethodAnalysisContext? BaseConstructorFor(MethodAnalysisContext context, MethodAnalysisContext called)
     {
         if (context.Name != ".ctor" || context.IsStatic || context.DeclaringType is not { } owner)

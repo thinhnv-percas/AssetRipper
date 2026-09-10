@@ -57,6 +57,12 @@ check DECOMP-0002 TimeInGame.cs 'new DateTime(' 'default(DateTime).CompareTo'
 # the body had just built was left in a dead local beside the wrong throw.
 check DECOMP-0003 Common.cs 'throw ex;' 'throw new OutOfMemoryException'
 
+# DECOMP-0007: il2cpp shares one generic body across instantiations, so a call names whichever one
+# the address was attributed to - `Dictionary<Int32Enum, object>` for any int-backed enum key. The
+# receiver's own type says which instantiation it really is, and here it comes straight from the
+# field's declared type.
+check DECOMP-0007 ResourcesUtil.cs 'resourceDict.ContainsKey(statType)' 'Dictionary<System.Int32Enum, object>'
+
 echo
 if [ "$failures" -eq 0 ]; then
     echo "all shape checks passed"

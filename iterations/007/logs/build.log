@@ -1,0 +1,64 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  AssetRipper.AssemblyDumper.Downloader -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.Downloader/Release/AssetRipper.AssemblyDumper.Downloader.dll
+  AssetRipper.AssemblyDumper.NuGetFixer -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.NuGetFixer/Release/AssetRipper.AssemblyDumper.NuGetFixer.dll
+  AssetRipper.AssemblyDumper.Recompiler -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.Recompiler/Release/AssetRipper.AssemblyDumper.Recompiler.dll
+  AssetRipper.Numerics -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Numerics/Release/AssetRipper.Numerics.dll
+  AssetRipper.AssemblyDumper.Utils -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.AssemblyDumper.Utils/Release/AssetRipper.AssemblyDumper.Utils.dll
+  AssetRipper.Configuration -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Configuration/Release/AssetRipper.Configuration.dll
+  AssetRipper.IO.Files -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.IO.Files/Release/AssetRipper.IO.Files.dll
+  AssetRipper.Assets -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Assets/Release/AssetRipper.Assets.dll
+  AssetRipper.SerializationLogic -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.SerializationLogic/Release/AssetRipper.SerializationLogic.dll
+  AssetRipper.GUI.Localizations.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.GUI.Localizations.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.GUI.Localizations.SourceGenerator.dll
+  AssetRipper.SourceGenerated.Extensions.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.SourceGenerated.Extensions.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.SourceGenerated.Extensions.SourceGenerator.dll
+  WasmDisassembler -> /home/user/AssetRipper/Source/0Bins/Other/WasmDisassembler/Release/WasmDisassembler.dll
+  StableNameDotNet -> /home/user/AssetRipper/Source/0Bins/Other/StableNameDotNet/Release/StableNameDotNet.dll
+  LibCpp2IL -> /home/user/AssetRipper/Source/0Bins/Other/LibCpp2IL/Release/LibCpp2IL.dll
+  AssetRipper.Yaml -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Yaml/Release/AssetRipper.Yaml.dll
+  AssetRipper.GUI.Localizations -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Localizations/Release/AssetRipper.GUI.Localizations.dll
+  AssetRipper.Web -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Web/Release/AssetRipper.Web.dll
+  AssetRipper.IO.Files.SourceGenerator -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.IO.Files.SourceGenerator/Release/AssetRipper.IO.Files.SourceGenerator.dll
+  AssetRipper.Numerics.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Numerics.Tests/Release/AssetRipper.Numerics.Tests.dll
+  UnityEngine -> /home/user/AssetRipper/Source/0Bins/Other/UnityEngine/Release/UnityEngine.dll
+  AssetRipper.Tools.CabMapGenerator -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.CabMapGenerator/Release/AssetRipper.Tools.CabMapGenerator.dll
+  AssetRipper.Tools.FileExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.FileExtractor/Release/AssetRipper.Tools.FileExtractor.dll
+  AssetRipper.SourceGenerated.Extensions -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.SourceGenerated.Extensions/Release/AssetRipper.SourceGenerated.Extensions.dll
+  AssetRipper.Tools.JsonSerializer -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.JsonSerializer/Release/AssetRipper.Tools.JsonSerializer.dll
+  Cpp2IL.Core -> /home/user/AssetRipper/Source/0Bins/Other/Cpp2IL.Core/Release/Cpp2IL.Core.dll
+  AssetRipper.Processing.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.Processing.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.Processing.SourceGenerator.dll
+  AssetRipper.IO.Files.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.IO.Files.Tests/Release/AssetRipper.IO.Files.Tests.dll
+  AssetRipper.Tools.TypeTreeExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.TypeTreeExtractor/Release/AssetRipper.Tools.TypeTreeExtractor.dll
+  AssetRipper.Yaml.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Yaml.Tests/Release/AssetRipper.Yaml.Tests.dll
+  AssetRipper.SerializationLogic.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.SerializationLogic.Tests/Release/AssetRipper.SerializationLogic.Tests.dll
+  AssetRipper.Assets.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Assets.Tests/Release/AssetRipper.Assets.Tests.dll
+  AssetRipper.GUI.Licensing.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.GUI.Licensing.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.GUI.Licensing.SourceGenerator.dll
+  AssetRipper.DocExtraction -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.DocExtraction/Release/AssetRipper.DocExtraction.dll
+  AssetRipper.Import -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Import/Release/AssetRipper.Import.dll
+  AssetRipper.DocExtraction.ConsoleApp -> /home/user/AssetRipper/Source/0Bins/AssetRipper.DocExtraction.ConsoleApp/Release/AssetRipper.DocExtraction.ConsoleApp.dll
+  AssetRipper.AssemblyDumper.NativeEnumExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.NativeEnumExtractor/Release/AssetRipper.AssemblyDumper.NativeEnumExtractor.dll
+  AssetRipper.AssemblyDumper -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper/Release/AssetRipper.AssemblyDumper.dll
+  AssetRipper.GUI.Licensing -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Licensing/Release/AssetRipper.GUI.Licensing.dll
+  AssetRipper.Processing -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Processing/Release/AssetRipper.Processing.dll
+  AssetRipper.Export -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export/Release/AssetRipper.Export.dll
+  AssetRipper.Export.Modules.Audio -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.Modules.Audio/Release/AssetRipper.Export.Modules.Audio.dll
+  AssetRipper.Export.Modules.Textures -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.Modules.Textures/Release/AssetRipper.Export.Modules.Textures.dll
+  AssetRipper.Tools.MonoBehaviourTester -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.MonoBehaviourTester/Release/AssetRipper.Tools.MonoBehaviourTester.dll
+  AssetRipper.Tools.DependenceGrapher -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.DependenceGrapher/Release/AssetRipper.Tools.DependenceGrapher.dll
+  AssetRipper.Tools.Il2CppStructDbValidator -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.Il2CppStructDbValidator/Release/AssetRipper.Tools.Il2CppStructDbValidator.dll
+  AssetRipper.Tools.RawTextureExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.RawTextureExtractor/Release/AssetRipper.Tools.RawTextureExtractor.dll
+  AssetRipper.Export.Modules.Models -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.Modules.Models/Release/AssetRipper.Export.Modules.Models.dll
+  AssetRipper.Export.UnityProjects -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.UnityProjects/Release/AssetRipper.Export.UnityProjects.dll
+  AssetRipper.Export.PrimaryContent -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.PrimaryContent/Release/AssetRipper.Export.PrimaryContent.dll
+  AssetRipper.GUI.SourceGenerator -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.SourceGenerator/Release/AssetRipper.GUI.SourceGenerator.dll
+  AssetRipper.Tools.SystemTester -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.SystemTester/Release/AssetRipper.Tools.SystemTester.dll
+  AssetRipper.GUI.Web -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Web/Release/AssetRipper.GUI.Web.dll
+  AssetRipper.AssemblyDumper.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.AssemblyDumper.Tests/Release/AssetRipper.AssemblyDumper.Tests.dll
+  AssetRipper.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Tests/Release/AssetRipper.Tests.dll
+  AssetRipper.GUI.Web.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Web.Tests/Release/AssetRipper.GUI.Web.Tests.dll
+  AssetRipper.GUI.Free -> /home/user/AssetRipper/Source/0Bins/AssetRipper.GUI.Free/Release/AssetRipper.GUI.Free.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:10.73
