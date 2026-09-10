@@ -536,6 +536,41 @@ find it; `strings` without `-el` does find method and type names.
   Emitting `default(Vector3)` there would compile and would silently lose a value the cast at least
   admits was there.
 
+- **A body that threw out of the generator is invisible in every metric except the log.**
+  `AsmResolverDllOutputFormatIlRecovery.FillMethodBody` catches whatever `IlGenerator.GenerateIl`
+  throws and puts the exception text in the body, so the method still exports and reads as a `throw`.
+  It contributes no placeholders, no untyped locals and no unresolved loads, so 15 lost bodies on the
+  third game — `TimeInGame.CompareTo` among them — sat behind clean-looking numbers. Count
+  `Cpp2IL [Error] : Decompiling` in the log first, before any other measurement. The cause there was
+  that **generation is allowed to emit nothing for an instruction**, and a branch to one of those had
+  nothing to bind to: `instructionMap[target][0]` on an empty list, where the same guard was already
+  two loops above it for `blockEntryMap`.
+- **A value type's constructor call is not the leftover half of an allocation.** Dropping a `.ctor`
+  call outside a constructor is right for a reference type, whose object is constructed at the
+  `newobj`, and wrong for a value type: there is no allocation, il2cpp calls the constructor on the
+  address of the slot holding the value, and that is exactly what C# compiles `x = new T(...)` to and
+  what the receiver load already emits. `TimeInGame.CompareTo` built two `DateTime`s and compared
+  them, and came back as `return default(DateTime).CompareTo(value)` — compiles, and reports every
+  pair of times as equal.
+- **A throw helper's name is a guess, and what it is handed is a fact.**
+  `ThrowHelperRecovery.ResolveName` names a helper after the first string ending in `Exception` that
+  it or, failing that, a callee references. The generic raiser's implementation and the out-of-memory
+  helper both end in `adrp/add x1, <the same type_info>; mov x2, xzr; bl __cxa_throw`, so the two are
+  indistinguishable by name and `throw new UnityException(message)` came back as
+  `throw new OutOfMemoryException()` — 563 times on the third game, with the exception the body built
+  left dead in a local beside it. `IsExceptionRaiser` cannot separate them either: it is true for
+  every resolved helper, because they all reach the native throw. **An allocation in the argument slot
+  is what settles it** — a helper that builds its own exception has no use for one. Trace it through
+  straight copies, and through a phi only when *every* input is an allocation: taking a phi's first
+  input found an allocation from elsewhere in the method at a *bounds check* call site, which stopped
+  eight injected checks being recognised and cost 98 compile errors.
+- **`InspectPotentialThrowHelper` stops at `RET`, `BR` and an unconditional `B`, and a stub that ends
+  by falling into the next one has none of them.** `0xAD96B4`, `0xAD96BC` and `0xAD96C4` on the third
+  game are three two-instruction stubs (`str x30, [sp,#-16]!; bl <helper>`) laid out adjacently, so a
+  scan from the first collects all three helpers' calls. The first call target is still the right
+  answer for each, so it costs nothing today; any pass that reads that call list as one function's is
+  wrong.
+
 ### Things measured to be worth nothing — do not redo them
 - **Emitting the blocks in address order rather than the order the graph created them.** Splitting
   appends, so a block split out late sits at the end of `Blocks` whatever address it covers, and it
@@ -575,6 +610,26 @@ find it; `strings` without `-el` does find method and type names.
   generator.** Placeholders fell but stubs rose from 2490 to 3509, because the downstream code has no
   signature to load arguments from and unbalances the stack. This is why the fix belongs in the
   generator, where the signature is in hand.
+
+### The measurement harness
+
+`docs/agent/` maps the pipeline: `ARCHITECTURE.md` per stage, `DECOMPILER_PIPELINE.md` the call graph
+and the six representations a body passes through with the table that says which one a given defect
+first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
+is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
+
+Four scripts, and each measures something the others cannot:
+
+- `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
+  from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
+- `Test/Scripts/check_recovered_shapes.sh <rip output>` — golden checks stated as shapes rather than
+  counts, so each keeps meaning as the numbers around it move. A check whose file is missing FAILs.
+- `Test/Scripts/compile_recovered_scripts.sh <rip output> [assembly]` — Roslyn.
+- `Test/Scripts/audit_recovered_scripts.py` — against the source, per assembly.
+
+`iterations/` holds one immutable directory per run: the commit, the change that was in the working
+tree, the log, the metrics, the audit and the compile result. The generated projects themselves are
+gitignored, being large and reproducible from the rest.
 
 ### The `ref/devx` branch
 

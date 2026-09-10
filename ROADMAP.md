@@ -593,6 +593,21 @@ with the ISIL that shows it. The largest remaining one is that an unresolved cal
 register file as its arguments, which lets a later call read a register nothing wrote and pass `null`
 where the source passed a field.
 
+## 12. Measured against the third game's source, and fixed
+
+Three defects found by ripping `Impostor-Sort-Puzzle-Pro` and reading the result against its own
+source. `docs/articles/ImpostorSortScriptAudit.md` has them in full, `reports/regression-matrix.md`
+the numbers, `reports/issues.json` the evidence. In short: 15 method bodies were exported as a `throw`
+carrying the generator's own stack trace, and a body that threw contributes no placeholders so it was
+invisible in every other metric; a value type's constructor call was dropped along with the reference
+types', so `TimeInGame.CompareTo` compared two zeroed `DateTime`s; and a raiser handed a constructed
+exception was named after the out-of-memory helper it is indistinguishable from by name, so
+`throw new UnityException(message)` came back as `throw new OutOfMemoryException()` 563 times.
+
+Impostor's own scripts went from 1509 audit diagnostics to 1502 and its `Assembly-CSharp` from 499
+Roslyn errors to 497 - while compiling 15 more bodies than before. `AGENT_STATE.md` says where to pick
+up; the largest remaining item there is section 5.
+
 ## 9. Smaller things
 
 - **`Il2CppClassUsefulOffsets.GetVtableOffset` is a method in Cpp2IL, not data**, so the vtable bound

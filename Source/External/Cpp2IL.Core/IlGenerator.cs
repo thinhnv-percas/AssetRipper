@@ -230,7 +230,20 @@ public static class IlGenerator
                     continue;
                 }
 
-                ilBranch.Operand = new CilInstructionLabel(instructionMap[target][0]);
+                // AssetRipper: an ISIL instruction does not always generate code, so a branch to one of
+                // those has nothing to bind to. Control still reaches whatever follows it.
+                var branchTarget = ResolveBranchTarget(target,
+                    context.ControlFlowGraph.FindBlockByInstruction(target), instructionMap, blockEntryMap);
+
+                if (branchTarget == null)
+                {
+                    context.AddWarning($"Unable to resolve branch target: {instruction} --- {target}");
+                    ilBranch.OpCode = CilOpCodes.Nop;
+                    ilBranch.Operand = null;
+                    continue;
+                }
+
+                ilBranch.Operand = new CilInstructionLabel(branchTarget);
             }
         }
         
@@ -760,6 +773,38 @@ public static class IlGenerator
         return null;
     }
 
+    /// <summary>
+    /// AssetRipper: the CIL instruction a branch to <paramref name="target"/> should land on.
+    /// </summary>
+    /// <remarks>
+    /// Generation is allowed to emit nothing for an instruction - a constructor call the allocation
+    /// already covers is dropped rather than written out as a call on an object that exists - and
+    /// indexing the empty list that leaves behind threw out of the whole body, which cost every
+    /// method that jumped over such a call. Control reaches whatever follows the dropped instruction,
+    /// so the label is the first instruction at or after the target that did generate code, and the
+    /// entry of a successor block when nothing after it in its own block did.
+    /// </remarks>
+    public static CilInstruction? ResolveBranchTarget(Instruction target, Block? block,
+        Dictionary<Instruction, List<CilInstruction>> instructionMap,
+        Dictionary<Block, CilInstruction> blockEntryMap)
+    {
+        if (instructionMap.TryGetValue(target, out var generated) && generated.Count > 0)
+            return generated[0];
+
+        if (block == null)
+            return null;
+
+        for (var i = block.Instructions.IndexOf(target) + 1; i > 0 && i < block.Instructions.Count; i++)
+            if (instructionMap.TryGetValue(block.Instructions[i], out var later) && later.Count > 0)
+                return later[0];
+
+        foreach (var successor in block.Successors)
+            if (ResolveBlockEntryInstruction(successor, blockEntryMap) is { } entry)
+                return entry;
+
+        return null;
+    }
+
     private static CilInstruction? ResolveBlockEntryInstruction(Block block,
         Dictionary<Block, CilInstruction> blockEntryMap, HashSet<Block>? visited = null)
     {
@@ -1184,7 +1229,14 @@ public static class IlGenerator
                 // and hoisted to the front afterwards. Anywhere else it is the leftover half of an
                 // allocation that could not be fused, and the object is constructed at the `newobj`
                 // already, so the call is dropped rather than written out.
-                if (targetMethod is { Name: ".ctor", IsStatic: false })
+                //
+                // A value type's constructor is the exception, and dropping it lost real code. There is
+                // no allocation to fuse with: il2cpp calls the constructor on the address of the slot
+                // that holds the value, which is exactly what C# compiles `x = new T(...)` to and what
+                // the receiver load below already emits for a value type. `TimeInGame.CompareTo` built
+                // two DateTimes and compared them, and came back as `default(DateTime).CompareTo(default)`.
+                if (targetMethod is { Name: ".ctor", IsStatic: false }
+                    && targetMethod.DeclaringType is not { IsValueType: true })
                 {
                     if (BaseConstructorFor(context, targetMethod) is not { } baseConstructor)
                         break;

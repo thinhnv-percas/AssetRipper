@@ -1,0 +1,2 @@
+Base commit plus the DECOMP-0001 fix only:
+  IlGenerator.ResolveBranchTarget, and the branch-target loop calling it.

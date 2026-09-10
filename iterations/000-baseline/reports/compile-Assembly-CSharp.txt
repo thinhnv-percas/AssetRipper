@@ -1,0 +1,13 @@
+Assembly-CSharp: 63 files, 499 errors, 3012 warnings
+
+   278  CS0030   Cannot convert type 'int' to 'System.Collections.Generic.List<T>'
+   146  CS1061   'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+    35  CS0122   'Unsafe' is inaccessible due to its protection level
+    18  CS0037   Cannot convert null to 'nint' because it is a non-nullable value type
+     8  CS0019   Operator '&' cannot be applied to operands of type 'float' and 'int'
+     5  CS0165   Use of unassigned local variable 'num'
+     5  CS0117   'UserResource' does not contain a definition for '_002Ector'
+     2  CS7003   Unexpected use of an unbound generic name
+     2  CS0246   The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)
+
+full log: iterations/000-baseline/reports/compile-Assembly-CSharp.log

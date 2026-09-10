@@ -1,0 +1,3 @@
+Base commit plus DECOMP-0001 and DECOMP-0002:
+  IlGenerator.ResolveBranchTarget;
+  the `.ctor` drop in the OpCode.Call case exempting a value type.

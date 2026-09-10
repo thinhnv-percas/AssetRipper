@@ -872,6 +872,27 @@ public static class MetadataResolver
     /// </summary>
     private static bool TryRewriteAsThrow(MethodAnalysisContext method, Instruction callInstruction, ulong target)
     {
+        var raisedIndex = callInstruction.OpCode == OpCode.CallVoid ? 1 : 2;
+
+        // AssetRipper: a helper that is handed an exception raises that exception, and what it is
+        // handed is a fact from this body. The name below is a guess about the callee: it is the first
+        // string ending in "Exception" that the helper's own instructions or its callees reference, and
+        // the generic raiser's implementation references the out-of-memory one - both it and the
+        // out-of-memory helper wrap the object in a C++ exception and hand the same type_info to
+        // __cxa_throw. So `throw new UnityException(message)` came back as
+        // `throw new OutOfMemoryException()`, 563 times on the third game, with the constructed
+        // exception left in a dead local beside it. A helper that builds its own exception has no use
+        // for one, so an allocation in the argument slot settles which of the two this is.
+        if (callInstruction.Operands.Count > raisedIndex
+            && AllocatedInThisMethod(method, callInstruction.Operands[raisedIndex])
+            && ThrowHelperRecovery.IsExceptionRaiser(method.AppContext, target))
+        {
+            var raised = callInstruction.Operands[raisedIndex];
+            callInstruction.OpCode = OpCode.Throw;
+            callInstruction.SetOperands(raised);
+            return true;
+        }
+
         if (ThrowHelperRecovery.GetThrownException(method.AppContext, target) is { } thrown)
         {
             if (callInstruction.Destination is LocalVariable produced && method.ControlFlowGraph!.Instructions.Any(i => i.Sources.Any(s => ReferenceEquals(s, produced))))
@@ -889,14 +910,67 @@ public static class MetadataResolver
         }
 
         // Otherwise it may be one of the raisers, which throw the exception they are given
-        var raisedIndex = callInstruction.OpCode == OpCode.CallVoid ? 1 : 2;
-
         if (callInstruction.Operands.Count > raisedIndex && ThrowHelperRecovery.IsExceptionRaiser(method.AppContext, target))
         {
             callInstruction.OpCode = OpCode.Throw;
             callInstruction.SetOperands(callInstruction.Operands[raisedIndex]);
             return true;
         }
+
+        return false;
+    }
+
+    /// <summary>
+    /// AssetRipper: whether <paramref name="operand"/> is a value this method allocated, following the
+    /// copies and merges between the allocation and the use.
+    /// </summary>
+    /// <remarks>
+    /// An object reaches a raiser through a couple of register moves, because the compiler keeps the
+    /// exception in a callee-saved register across the constructor call. Only the allocation matters
+    /// here, not its type: nothing has typed anything yet at this point in the analysis.
+    ///
+    /// Straight copies, and a phi only when every one of its inputs is an allocation too. Following a
+    /// phi's *first* input found an allocation from elsewhere in the method at a bounds check call
+    /// site, so the check stopped being recognised and `throw new IndexOutOfRangeException()` became
+    /// `throw <an uninitialised local>` with the check left standing around it. Requiring all of them
+    /// keeps the merge honest: an injected check merges the register file of an unresolved call, which
+    /// is not an allocation on any path.
+    /// </remarks>
+    private static bool AllocatedInThisMethod(MethodAnalysisContext method, IOperand operand)
+    {
+        if (method.ControlFlowGraph is not { } graph)
+            return false;
+
+        return Allocated(graph, operand, 0, new HashSet<IOperand>(ReferenceEqualityComparer.Instance));
+    }
+
+    private const int MaximumAllocationHops = 8;
+
+    private static bool Allocated(ISILControlFlowGraph graph, IOperand operand, int depth, HashSet<IOperand> seen)
+    {
+        if (depth >= MaximumAllocationHops || operand is not LocalVariable || !seen.Add(operand))
+            return false;
+
+        var definition = graph.Instructions.FirstOrDefault(i =>
+            i.Destination is { } destination && ReferenceEquals(destination, operand));
+
+        if (definition == null)
+            return false;
+
+        if (definition.OpCode == OpCode.Newobj)
+            return true;
+
+        // The allocation before KeyFunctionRecovery rewrites it into Newobj, by the name
+        // MetadataResolver has already given it.
+        if (definition.OpCode == OpCode.Call && definition.Operands is [StringLiteral { Value: var named }, ..]
+            && KeyFunctionRecovery.ObjectNewFunctions.Contains(named))
+            return true;
+
+        if (definition.OpCode == OpCode.Move && definition.Sources.Count == 1)
+            return Allocated(graph, definition.Sources[0], depth + 1, seen);
+
+        if (definition.OpCode == OpCode.Phi && definition.Sources.Count > 0)
+            return definition.Sources.All(source => Allocated(graph, source, depth + 1, seen));
 
         return false;
     }

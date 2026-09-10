@@ -1,0 +1,3 @@
+Base commit plus DECOMP-0001, DECOMP-0002 and DECOMP-0003 in its final form:
+  straight copies, and a phi only when every one of its inputs is an allocation.
+This is the state committed as the head of claude/read-current-repository-daqxc1.

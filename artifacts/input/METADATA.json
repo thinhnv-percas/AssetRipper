@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/thinhabc01/Impostor-Sort-Puzzle-Pro",
+  "release": "v1",
+  "tag": "v1",
+  "asset": "impostor-sort.apk",
+  "platform": "Android",
+  "architecture": "arm64-v8a (armeabi-v7a also present, unused)",
+  "unityVersion": "2022.3.62f2",
+  "backend": "IL2CPP, global-metadata v31.1",
+  "sha256": "8e5ab4a9fa42d5f25a1933cd9f931624ee95589add77b7f6381c447dd9fc8aaf",
+  "size": 41001430,
+  "unpackedTo": "Test/Input/Impostor",
+  "unpackedVerified": "libil2cpp.so, global-metadata.dat and data.unity3d are byte-identical to the release asset; the tracked copy omits only META-INF/com/android/build/gradle/app-metadata.properties"
+}

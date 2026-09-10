@@ -1,0 +1,28 @@
+{
+  "iteration": "001",
+  "commit": "69a31182cfe6f4c30f5d1f46d5defd3bf412e55c",
+  "runSeconds": 57,
+  "csFiles": 819,
+  "generatorFailures": 0,
+  "assembliesAbandoned": 0,
+  "placeholders": {
+    "methodNotFound": 2424,
+    "unmanagedMemoryLoad": 5594,
+    "il2CppRuntimeHandle": 0,
+    "notImplementedInstruction": 303,
+    "unknownCallTarget": 152,
+    "unresolvedDelegate": 128,
+    "stackShift": 0,
+    "unresolvedBranchTarget": 0
+  },
+  "knownBadShapes": {
+    "constructorCalledOnInstance": 57
+  },
+  "analysis": {
+    "loadsGivenUpOn": 5733,
+    "untypedLocals": 22360,
+    "aggregateArgumentsComposed": 1347,
+    "membersWidened": 297,
+    "staticAccessorPairings": 5166
+  }
+}

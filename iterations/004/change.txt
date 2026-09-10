@@ -1,0 +1,2 @@
+Base commit plus DECOMP-0001, DECOMP-0002 and DECOMP-0003 restricted to straight copies:
+  no phi following at all. No regression, but it recovered less than 003 did.

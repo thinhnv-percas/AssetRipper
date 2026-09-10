@@ -1,0 +1,5 @@
+Base commit plus DECOMP-0001, DECOMP-0002 and the first cut of DECOMP-0003:
+  MetadataResolver.TryRewriteAsThrow preferring the raiser when the argument slot holds a value this
+  method allocated, tracing through Move *and* Phi and taking a phi's first input.
+Rejected: following a phi's first input reinterpreted bounds checks, so 8 injected checks stopped
+being removed and GameController.cs gained a diagnostic. See iterations/004.

@@ -14,7 +14,9 @@ namespace Cpp2IL.Core.Analysis;
 public static class KeyFunctionRecovery
 {
     //All of these have the same params in the same order so we treat them as equal.
-    private static readonly HashSet<string> ObjectNewFunctions =
+    // AssetRipper: internal rather than private, so MetadataResolver can ask whether a value was
+    // allocated without keeping a second copy of the list.
+    internal static readonly HashSet<string> ObjectNewFunctions =
     [
         "il2cpp_object_new",
         "il2cpp_vm_object_new",

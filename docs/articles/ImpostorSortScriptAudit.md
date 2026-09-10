@@ -94,6 +94,44 @@ Worth separating from defects, because the recovery is right and the source is n
   `wrongEffect.Play()`. Inlined by il2cpp; the binary has no call to recover.
 - **`Mathf`, `Vector3` and `Quaternion` helpers are inlined** throughout, as in the other two games.
 
+## Fixed since, by measurement against this game
+
+Three defects were found by ripping this game and reading the result against its source. The record is
+`reports/regression-matrix.md`; `reports/issues.json` has the evidence per issue.
+
+- **15 method bodies were exported as a `throw` carrying the generator's own stack trace**, among them
+  `TimeInGame.CompareTo`, which this game's source covers. `IlGenerator` indexed
+  `instructionMap[target][0]` for a branch target without checking the list was non-empty, and
+  generation is allowed to emit nothing - a constructor call the allocation already covers is dropped -
+  so a jump over one of those threw `ArgumentOutOfRangeException` out of the whole body. The same guard
+  was already two loops above it for `blockEntryMap`. **A body that threw contributes no placeholders,
+  so it is invisible in every metric except the count of `Cpp2IL [Error] : Decompiling` lines in the
+  log; count those first.**
+- **A value type's constructor call was dropped with the reference types'.** There is no allocation to
+  fuse with: il2cpp calls the constructor on the address of the slot holding the value, which is what
+  C# compiles `x = new T(...)` to and what the receiver load in the same case already emits. So
+  `TimeInGame.CompareTo` built two `DateTime`s and compared them, and came back as
+  `return default(DateTime).CompareTo(value)` - which compiles, and reports every pair of times as
+  equal.
+- **A raiser handed a constructed exception was named after the wrong exception**, 563 times.
+  `MetadataResolver.TryRewriteAsThrow` asked for a name first, and `ThrowHelperRecovery` names a helper
+  after the first string ending in `Exception` that it or a callee references; the generic raiser's
+  implementation at `0xB4F35C` and the out-of-memory helper at `0xB4F384` both end in
+  `adrp/add x1, <the same page+0xF88>; mov x2, xzr; bl __cxa_throw`, so the two are indistinguishable
+  by name. `Common.Assert` came back as `UnityException ex = new UnityException(message); throw new
+  OutOfMemoryException();` - the exception it built left dead in a local beside the wrong throw. What
+  settles it is the argument: a helper that builds its own exception has no use for one, so an
+  allocation in the argument slot means the call raises what it is given. **Trace it through straight
+  copies, and through a phi only when every input is an allocation**: a phi's first input found an
+  allocation from elsewhere in the method at a *bounds check* call site, which stopped eight injected
+  checks being recognised and cost 98 compile errors.
+- Also measured on this game: `0xAD96B4`, `0xAD96BC` and `0xAD96C4` are three two-instruction stubs
+  (`str x30, [sp,#-16]!; bl <helper>`) laid out adjacently **with no terminator between them**, so
+  `InspectPotentialThrowHelper` scanning from the first collects all three helpers' calls. It stops at
+  `RET`, `BR` and an unconditional `B`, and a stub that ends by falling into the next has none of them.
+  The first call target is still the right answer for each, so this costs nothing today, but any pass
+  that reads that call list as one function's is wrong.
+
 ## Still wrong
 
 Ordered by how much they cost. Each is stated with the evidence rather than a guess, so the next
@@ -118,7 +156,9 @@ unresolved call as clobbering the caller-saved registers would turn these silent
 placeholders.
 
 **2. A `foreach` over a struct enumerator is not recovered, and the exception objects of unremoved
-checks end up standing in for the enumerator's stack slot.** `Box.isDoneBox` is the worst body in the
+checks end up standing in for the enumerator's stack slot.** (`OutOfMemoryException` no longer appears
+here for the reason recorded above - it was the misnamed raiser, not a missing entry in
+`InjectedCheckRemover.InjectedExceptions`. The address-taken enumerator slot is still the real one.) `Box.isDoneBox` is the worst body in the
 game: it is `unsafe`, casts a `NullReferenceException` to a `Stack<Imposter>.Enumerator*`, and reads
 `->Current` off it. The `foreach` body's `imposter.id` reads are the two `Unmanaged memory load`
 placeholders left in the method. `OutOfMemoryException` also appears, and it is not in

@@ -1,0 +1,1 @@
+Iteration 005's fixes, with MetadataResolver reading KeyFunctionRecovery.ObjectNewFunctions instead of a copy of it. Expected to measure identically to 005; run to prove the refactor changed nothing.

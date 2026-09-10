@@ -1,0 +1,1 @@
+Working tree exactly at the recorded commit. No changes.
