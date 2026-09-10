@@ -604,9 +604,21 @@ types', so `TimeInGame.CompareTo` compared two zeroed `DateTime`s; and a raiser 
 exception was named after the out-of-memory helper it is indistinguishable from by name, so
 `throw new UnityException(message)` came back as `throw new OutOfMemoryException()` 563 times.
 
-Impostor's own scripts went from 1509 audit diagnostics to 1502 and its `Assembly-CSharp` from 499
-Roslyn errors to 497 - while compiling 15 more bodies than before. `AGENT_STATE.md` says where to pick
-up; the largest remaining item there is section 5.
+Four more followed from the same loop, each found by dumping the ISIL at the point the pass runs
+rather than from reading the output: a **shared generic call** not retargeted onto the receiver's
+instantiation, where the correct answer was already in the receiver's declared type (629 calls); the
+**generic field layout** bailing on any base type with fields and on any user-defined struct field,
+fixed and then gated on a self-check that reproduces every offset metadata carries (1394 exact, 0
+disagreeing, where the walk had 63 wrong before); a **load not folded back** onto the base whose
+address the machine computed for it, which cost three resolutions per occurrence; and a **runtime
+class** answering zero where a `RuntimeTypeHandle` was wanted, though it carries the type it is the
+class of.
+
+Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 1766 and its `Assembly-CSharp`
+from 499 Roslyn errors to 456 - while compiling 15 more bodies than before, and with the EXPECTED
+count unchanged at 47. `AGENT_STATE.md` says where to pick up. **Read
+`reports/UNTYPED_LOCAL_IMPACT.md` before starting on section 5**: 91% of the untyped locals provably
+cost nothing, and the four fixes above each removed more of them than a typing rule would have.
 
 ## 9. Smaller things
 

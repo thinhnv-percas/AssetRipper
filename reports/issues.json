@@ -142,5 +142,98 @@
     ],
     "regressionTest": "none yet",
     "confidence": 85
+  },
+  {
+    "id": "DECOMP-0007",
+    "severity": "ERROR",
+    "category": "GENERIC_INFERENCE",
+    "status": "FIXED",
+    "iterationFound": 7,
+    "iterationFixed": 8,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs, and 628 other calls",
+    "referenceFile": "Assets/_Impostor 3/Scripts/Resources/ResourcesUtil.cs",
+    "method": "ResourcesUtil::ContainStat, ::AddResource, ::GetResource",
+    "compilerError": "CS0122 (35), and CS0030 at the argument positions",
+    "observed": "`((Dictionary<System.Int32Enum, object>)(object)resourceDict).ContainsKey((System.Int32Enum)statType)` - a type internal to the framework, and a cast of a field whose declared type was known exactly.",
+    "expected": "`resourceDict.ContainsKey(statType)`",
+    "rootCause": "il2cpp compiles one body per generic definition and shares it across instantiations, so a call resolves to whichever instantiation the address was attributed to - every int-backed enum key shares Dictionary<System.Int32Enum, System.Object>. The receiver's type is the stronger evidence, coming from a field or parameter signature, so where the two are instantiations of one definition and disagree the receiver's arguments win. No placeholder list is needed: when they agree it is a no-op.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "IlGenerator.ReceiverInstantiationOf",
+    "evidence": [
+      "ISIL: Call Dictionary`2<System.Int32Enum, System.Object>.ContainsKey, returnVal1 (System.Boolean), this.resourceDict (Dictionary`2<TypeResources, UserResource>), statType (TypeResources)",
+      "iterations/008: 629 calls retargeted, Roslyn 497 -> 487, audit shared-generic shapes 120 -> 42"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0007",
+    "confidence": 100
+  },
+  {
+    "id": "DECOMP-0008",
+    "severity": "ERROR",
+    "category": "METADATA",
+    "status": "FIXED",
+    "iterationFound": 8,
+    "iterationFixed": 9,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs and 13 others",
+    "referenceFile": "Assets/_Impostor 3/Scripts/Resources/UserResource.cs",
+    "method": "UserResourceCollectionItem<T>::SetValue, ::AddValue",
+    "compilerError": "CS0030 (part of 275)",
+    "observed": "a load off a generic type's `this` reported as unresolved and then `(List<T>)0`; 1123 loads classified as 'generic instance, value type argument' or 'reference arguments'.",
+    "expected": "the field at that offset",
+    "rootCause": "GenericInstanceFieldLayout bailed if any base type had an instance field, and GetSizeAndAlignment returned null for a user-defined value type, truncating the layout at the first struct field. Both were marked TODO. Fixed by walking the whole base chain - and every base, not only one that declares fields, since ArgumentException's immediate base declares none and Exception above it declares 0x80 - and by taking a struct's size from il2cpp's recorded instance_size less the object header, which is exact where packing its fields is a guess.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "GenericInstanceFieldLayout",
+    "evidence": [
+      "the self-check the fix added: 827 reproduced / 582 too few / 63 disagreed before, 1394 / 78 / 0 after",
+      "CPP2IL_DUMP_LAYOUT: `_paramName meta=90 got=10` named the base-chain bug, `m_HashStack meta=4010 got=18` the fixed-buffer one",
+      "iterations/009: Roslyn 487 -> 462, audit 1502 -> 1410"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0008, which fails unless the run reports 0 disagreed",
+    "confidence": 100
+  },
+  {
+    "id": "DECOMP-0009",
+    "severity": "ERROR",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 9,
+    "iterationFixed": 10,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/GamePlayController.cs and 17 others",
+    "referenceFile": "Assets/_Impostor 3/Scripts/GamePlay/GamePlayController.cs",
+    "method": "GamePlayController::RewindPlay, and every body where an address is wanted more than once",
+    "compilerError": "CS0030 (111 of the reference-to-nint family), CS0019 (8)",
+    "observed": "`object obj = (nint)this + 88; ... ((GameObject)0).SetActive(value: false);` for what the source writes as `currentBox.effect.SetActive(false)`.",
+    "expected": "`if (currentBox != null) { currentBox.effect.SetActive(false); ... }`",
+    "rootCause": "The compiler computes a field's address ahead of the load whenever it is wanted more than once, and nothing typed the intermediate - so the load off it did not resolve, and neither did the load off what it produced. [t + K] where t = base + J is [base + (J + K)]; folding it presents the base and addend the machine really used and lets ResolveFieldOffsets validate as it always did. Must run inside the type fixpoint, because it needs the base typed and what it produces types the next base - the same place ArrayRecovery.RecoverComputedAccesses runs for an element.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "MetadataResolver.FoldComputedFieldAddresses",
+    "evidence": [
+      "ISIL: 54 Add v73, this (GamePlayController), 88 | 69 Move v104, [v73] | 77 CallVoid GameObject.SetActive, [v104+58], 0",
+      "iterations/010: audit 1410 -> 1220, unresolved loads 611 -> 521, nint casts 636 -> 545, method-not-found 229 -> 184, CS0019 8 -> 0"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0009",
+    "confidence": 100
+  },
+  {
+    "id": "DECOMP-0010",
+    "severity": "ERROR",
+    "category": "METADATA",
+    "status": "FIXED",
+    "iterationFound": 10,
+    "iterationFixed": 11,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/CSVSerializer.cs and others",
+    "referenceFile": "Assets/ThirdParties (CSVSerializer ships with the game)",
+    "method": "CSVSerializer::Deserialize<T>",
+    "compilerError": "CS0030, 'int' to 'System.RuntimeTypeHandle' (11)",
+    "observed": "`Type.GetTypeFromHandle((RuntimeTypeHandle)0)` - the type was in hand and the one thing the call exists for was thrown away.",
+    "expected": "`typeof(T)`",
+    "rootCause": "The RuntimeClassTypeAnalysisContext case in LoadOperand sat ahead of the cases that answer a wanted RuntimeTypeHandle or Type, so it emitted ldc.i4.0; conv.i. A runtime class carries its RepresentedType, which is what a handle is asking for - the same shape as the RuntimeMethodInfo and RuntimeFieldInfo cases immediately above it.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "IlGenerator.LoadOperand",
+    "evidence": [
+      "ISIL: 32 Call Type.GetTypeFromHandle, v51 (System.Type), typeof(Il2CppClass<T>)",
+      "iterations/011: (RuntimeTypeHandle)0 across the export 23 -> 10, Roslyn 460 -> 456"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0010",
+    "confidence": 100
   }
 ]

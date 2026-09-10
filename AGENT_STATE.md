@@ -4,10 +4,10 @@ Read this first after a restart, then `reports/regression-matrix.md` for the num
 `reports/issues.json` for the open items.
 
 ```
-Current iteration: 006 (complete)
+Current iteration: 011 (complete)
 
 Decompiler commit:
-  claude/read-current-repository-daqxc1, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+  claude/read-current-repository-daqxc1 @ 55f1490, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
 
 Input:
   Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
@@ -20,48 +20,82 @@ Reference:
   Unity 2022.3.62f2, matching the binary
 
 Current stage:
-  semantic validation against the reference source, on Assembly-CSharp
+  idle between iterations. Baseline for the next one is iteration 011.
+
+Where iteration 011 stands, against the baseline:
+  unrecovered method bodies      15 -> 0
+  audit REAL_ERROR             2162 -> 1766
+  audit SEMANTIC_RISK           301 -> 210
+  audit EXPECTED                 47 -> 47   (correctly unchanged; see DECOMP-0005)
+  Roslyn errors, Assembly-CSharp 499 -> 456
+  files with no diagnostic at all 20 -> 21
+  field layout self-check       n/a -> 1394 exact, 78 incomplete, 0 disagreed
+  run time                       58s -> 55s
+  tests                     274, 1 fail -> 279, 1 fail (the same pre-existing one)
+
+Current bug family:
+  none in flight. The next by measured impact is DECOMP-0004, and
+  reports/BUG_FAMILY_PRIORITY.md has the ranked table with the other axes.
+
+Current hypothesis:
+  The remaining 456 Roslyn errors are 156 EXPECTED (framework internals il2cpp inlined, DECOMP-0005)
+  and about 250 CS0030, of which the largest identified shapes are a literal zero cast to a
+  reference type (80, downstream of an unresolved load) and a reference value converted to nint
+  (~110, an address computation whose field identity is still lost). The nint family is what is left
+  of DECOMP-0009 where the base is untyped at both ends rather than at one.
+
+Evidence to start from:
+  - reports/UNTYPED_LOCAL_IMPACT.md: 91% of the 21448 untyped locals provably cost nothing. Do not
+    work from that count.
+  - reports/BUG_FAMILY_PRIORITY.md: the families with counts, category, and the files each touches.
+  - the run's own breakdowns: `memory loads the generator gave up on, by kind` and
+    `locals the analysis could not type, by what defines them`.
 
 Fixed:
   DECOMP-0001  15 method bodies exported as a throw carrying the generator's own stack trace
   DECOMP-0002  a value type's constructor call dropped, so the value stayed zero
   DECOMP-0003  a raiser handed a constructed exception named after the wrong exception
+  DECOMP-0007  a shared generic call not retargeted onto the receiver's instantiation
+  DECOMP-0008  the generic field layout bailing on a base with fields and on a user struct
+  DECOMP-0009  a load not folded back onto the base whose address was computed for it
+  DECOMP-0010  a runtime class answering zero where a RuntimeTypeHandle or Type was wanted
 
 Open:
-  DECOMP-0004  the untyped-locals family, ROADMAP section 5 - 275 CS0030 and most of the 1502
-               remaining audit diagnostics. The measured breakdown is in the run log.
-  (DECOMP-0005 was measured and closed WONT_FIX: the 146 CS1061 are writes to, and reads of,
-               framework generics' private fields that have no public equivalent at all)
-  DECOMP-0006  55 `base._002Ector(` - ILSpy will not fold a base call in a body that carries a
-               stack type mismatch, so this is blocked behind DECOMP-0004
-  and the seven items in docs/articles/ImpostorSortScriptAudit.md, of which #1 (an unresolved call
-  keeping the whole register file as its arguments) is the largest not yet started
-
-Current hypothesis:
-  Nothing in flight. DECOMP-0004 is now the largest remaining item by every measurement, and
-  DECOMP-0006 sits behind it. Item #1 in docs/articles/ImpostorSortScriptAudit.md - an unresolved
-  call keeping the whole register file as its arguments, which lets a later call read a register
-  nothing wrote and pass its entry value - is the largest that is independent of it.
-
-Next action:
-  Break down the 275 CS0030 by the opcode that wrote the local, from the untyped-local breakdown the
-  run already prints, before touching the type fixpoint. Do not start from the compile errors: the
-  breakdown says about 12375 of the 22219 untyped locals are a register's entry value first read by
-  an unresolved call, and the generator emits a placeholder for such a call rather than loading its
-  operands at all, so they cost nothing.
-
-Last successful stage:
-  iteration 006 - 0 generator failures, 1502 audit diagnostics (from 1509), 497 Roslyn errors
-  (from 499), all three shape checks passing, no regression in the test suite
-
-Last failure:
-  iteration 003 - following a phi's first input broke eight injected checks. Fixed in 004/005 by
-  requiring every input of the phi to be an allocation.
+  DECOMP-0004  the untyped-locals family, ROADMAP section 5. Read UNTYPED_LOCAL_IMPACT.md first.
+  DECOMP-0006  55 `base._002Ector(` - blocked behind DECOMP-0004, because ILSpy will not fold a base
+               call in a body that carries a stack type mismatch
+  and the items in docs/articles/ImpostorSortScriptAudit.md, of which #1 (an unresolved call keeping
+  the whole register file as its arguments) is the largest not yet started
 
 Measured and closed without a change:
-  DECOMP-0005. The read side of the accessor pairing already covers `List<T>._size`; what is left of
-  that family is writes to it and reads of `_items` and `_version`, none of which the real `List<T>`
-  exposes. See reports/issues.json for the numbers.
+  DECOMP-0005  the read side of the accessor pairing already covers List<T>._size; what is left of
+               that family is writes to it and reads of _items and _version, none of which the real
+               List<T> exposes. WONT_FIX, with the numbers, in reports/issues.json.
+
+Regression status:
+  clean. All seven shape checks pass, no file's audit total rose in any shipped iteration, and the
+  field layout self-check reports 0 disagreements - which is a gate, not a note: the shape checks
+  fail without it.
+
+Blocked Unity tests:
+  U1-U9 in reports/BLOCKED_UNITY_TESTS.md. Scripts in Test/Scripts/unity/ are written and refuse to
+  run without a real editor (exit 90). NOT passing. The verdict stays PASS_WITH_KNOWN_LIMITATIONS
+  until Test/Scripts/unity/run_all.sh has actually run.
+
+Next action:
+  Take the `(T)0` shape (80 errors). It is the downstream half of an unresolved load: the generator
+  pushes a zero for an operand it could not resolve, and where the wanted type is a reference or a
+  struct that reads as a cast from a number. LoadOperand already has both rules; find which path
+  reaches them with expectedType null. Probe rather than guess - the last four fixes were each found
+  by dumping the ISIL at the point the pass runs, and three of the four were somewhere other than
+  where the output suggested.
+
+Last successful stage:
+  iteration 011 - full validation, no regression.
+
+Last failure:
+  the mid-flight step in iteration 009 described in reports/regression-matrix.md, caught by the
+  layout self-check before it shipped.
 ```
 
 ## Environment notes

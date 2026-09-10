@@ -61,6 +61,35 @@ SHAPES = {
     "out_of_memory": "OutOfMemoryException",
 }
 
+# What each measure means for correctness, so the headline number is confirmed defects rather than a
+# raw count. A benign one is not hidden - it is still counted and still printed - but it does not get
+# to look like a defect, and a change that only moves benign counts is not an improvement.
+#
+#   REAL_ERROR    the recovery lost something the binary contains
+#   SEMANTIC_RISK it reads as valid C# and the meaning is suspect
+#   EXPECTED      the recovery is faithful and the shape is a property of what il2cpp did
+#   BENIGN        cosmetic: the output says the same thing in a way the source did not
+CATEGORIES = {
+    "unresolved_load": "REAL_ERROR",
+    "method_not_found": "REAL_ERROR",
+    "runtime_handle": "REAL_ERROR",
+    "not_implemented": "REAL_ERROR",
+    "invalid": "REAL_ERROR",
+    "type_mismatch": "REAL_ERROR",
+    "nint_cast": "REAL_ERROR",
+    "ref_deref": "REAL_ERROR",
+    "shared_generic": "SEMANTIC_RISK",
+    "null_reference": "SEMANTIC_RISK",
+    "out_of_memory": "SEMANTIC_RISK",
+    "mangled_ctor": "SEMANTIC_RISK",
+    # il2cpp inlined a framework member the real assembly does not expose. The export is right and a
+    # compiler is right to reject it; see DECOMP-0005 in reports/issues.json.
+    "backing_field": "EXPECTED",
+    "backing_size": "EXPECTED",
+    # a compiler-generated name, which the binary really does contain
+    "mangled_name": "BENIGN",
+}
+
 TYPE_MISMATCH = re.compile(r"Expected [A-Za-z0-9]+, but got [A-Za-z0-9]+")
 
 
@@ -164,6 +193,18 @@ def main():
 
     print("  ".join(["TOTAL".ljust(width)]
                     + [str(sum(row[column] for row in rows)).rjust(14) for column in columns]))
+
+    print()
+    print("by what each measure means for correctness:")
+    for category in ("REAL_ERROR", "SEMANTIC_RISK", "EXPECTED", "BENIGN"):
+        measures = [key for key, value in CATEGORIES.items() if value == category]
+        subtotal = sum(row[key] for row in rows for key in measures)
+        detail = ", ".join(f"{key} {sum(row[key] for row in rows)}"
+                           for key in sorted(measures, key=lambda k: -sum(row[k] for row in rows))
+                           if sum(row[key] for row in rows) > 0)
+        print(f"  {category:14} {subtotal:6}   {detail}")
+    print()
+    print("  the number to work from is REAL_ERROR; EXPECTED will not go to zero and should not")
 
     clean = [row["file"] for row in rows if row["total"] == 0]
     print(f"\n{len(clean)} of {len(rows)} files carry no diagnostic at all:")
