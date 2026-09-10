@@ -182,5 +182,13 @@ static storage rather than a systematic failure.
 typed. A different producer from the arithmetic shape above, and part of the untyped-locals problem
 rather than a shape of its own: 3 lines left in this game's own scripts, 252 across Pinata.
 
-**7. `List`/`Stack`'s `_size` still appears** (375 reads). Their `Count` getter carries il2cpp's null
-check as well as the field load, so the measured accessor pairing does not match it yet.
+**7. `List`/`Stack`'s `_size` still appears — but not on the read side, and the rest is not pairable.**
+Measured rather than assumed: all 180 `._size` in the export are *writes*, and `List<T>.Count` has no
+public setter. The read pairing works; the probe over `AccessorDefinitionFor` for `List`1::_size`
+rejects `Capacity` on its body and then matches `Count`, which is why no read is left. What remains of
+this family is 167 reads of `_items`, for which `List<T>` has no public property returning `T[]`, and
+360 uses of `_version`, which has no public surface at all. Every one is il2cpp having inlined
+`List<T>.Add` or an enumerator into the caller, and the assembly the export compiles against is the
+real `List<T>`. The export is faithful and the compiler is right to reject it; expressing an inlined
+body as the call it came from is a different problem from accessor pairing. Recorded as
+DECOMP-0005 / WONT_FIX in `reports/issues.json`.

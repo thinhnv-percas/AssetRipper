@@ -30,20 +30,25 @@ Fixed:
 Open:
   DECOMP-0004  the untyped-locals family, ROADMAP section 5 - 275 CS0030 and most of the 1502
                remaining audit diagnostics. The measured breakdown is in the run log.
-  DECOMP-0005  146 CS1061 for `bool.m_value` - a trivial accessor pairing that does not match
+  (DECOMP-0005 was measured and closed WONT_FIX: the 146 CS1061 are writes to, and reads of,
+               framework generics' private fields that have no public equivalent at all)
   DECOMP-0006  55 `base._002Ector(` - ILSpy will not fold a base call in a body that carries a
                stack type mismatch, so this is blocked behind DECOMP-0004
   and the seven items in docs/articles/ImpostorSortScriptAudit.md, of which #1 (an unresolved call
   keeping the whole register file as its arguments) is the largest not yet started
 
 Current hypothesis:
-  Nothing in flight. The next item by measured cost is DECOMP-0004; the next by confidence is
-  DECOMP-0005, where `bool.m_value` says a struct's trivial accessor pairing is missing the
-  primitive wrapper case.
+  Nothing in flight. DECOMP-0004 is now the largest remaining item by every measurement, and
+  DECOMP-0006 sits behind it. Item #1 in docs/articles/ImpostorSortScriptAudit.md - an unresolved
+  call keeping the whole register file as its arguments, which lets a later call read a register
+  nothing wrote and pass its entry value - is the largest that is independent of it.
 
 Next action:
   Break down the 275 CS0030 by the opcode that wrote the local, from the untyped-local breakdown the
-  run already prints, before touching the type fixpoint.
+  run already prints, before touching the type fixpoint. Do not start from the compile errors: the
+  breakdown says about 12375 of the 22219 untyped locals are a register's entry value first read by
+  an unresolved call, and the generator emits a placeholder for such a call rather than loading its
+  operands at all, so they cost nothing.
 
 Last successful stage:
   iteration 006 - 0 generator failures, 1502 audit diagnostics (from 1509), 497 Roslyn errors
@@ -52,6 +57,11 @@ Last successful stage:
 Last failure:
   iteration 003 - following a phi's first input broke eight injected checks. Fixed in 004/005 by
   requiring every input of the phi to be an allocation.
+
+Measured and closed without a change:
+  DECOMP-0005. The read side of the accessor pairing already covers `List<T>._size`; what is left of
+  that family is writes to it and reads of `_items` and `_version`, none of which the real `List<T>`
+  exposes. See reports/issues.json for the numbers.
 ```
 
 ## Environment notes

@@ -98,25 +98,27 @@
   },
   {
     "id": "DECOMP-0005",
-    "severity": "ERROR",
-    "category": "FIELD_RECONSTRUCTION",
-    "status": "OPEN",
+    "severity": "WARNING",
+    "category": "METADATA",
+    "status": "WONT_FIX",
     "iterationFound": 0,
     "iterationFixed": null,
     "generatedFile": "Assembly-CSharp, 146 sites",
     "referenceFile": "n/a - a framework member",
     "method": "various",
     "compilerError": "CS1061 (146)",
-    "observed": "`'bool' does not contain a definition for 'm_value'` - the recovery names the private backing field of a primitive wrapper",
-    "expected": "the value itself, or the public accessor",
-    "rootCause": "not yet investigated. The trivial-accessor pairing matches a getter whose whole body is one load of the field off the receiver; `System.Boolean.m_value` is the primitive's own storage and has no accessor to pair with, so the read has to become the value rather than a member access.",
+    "observed": "146 CS1061 in Assembly-CSharp naming a private field of a framework generic: 68 `List<T>._version`, 35 `_items`, 34 `_size`, 7 `bool.m_value`, 2 `_syncRoot`.",
+    "expected": "nothing better is available - see the root cause",
+    "rootCause": "Measured rather than assumed. The read side of the trivial-accessor pairing already covers `_size`: all 34 of its occurrences in Assembly-CSharp are *writes* (`list._size = num`), and `List<T>.Count` has no public setter, so there is nothing to pair with. `_items` is 35 reads and 0 writes, and `List<T>` has no public property returning `T[]` - the nearest is the indexer, which takes an argument the field access does not have. `_version` is an enumeration-invalidation counter with no public surface at all. So every one of these is il2cpp having inlined the body of `List<T>.Add` or an enumerator into the caller, and the assembly the export compiles against is the real `List<T>`, which has no public way to say what the recovered body does. The export is faithful and the compiler is right to reject it. Fixing it would mean expressing the inlined body as the call it was inlined from, which is a different and much larger problem than accessor pairing.",
     "affectedProject": "Source/External/Cpp2IL.Core",
     "affectedModule": "IlGenerator, the FieldReference load paths",
     "evidence": [
-      "iterations/005/reports/compile-Assembly-CSharp.txt: 146 CS1061, every one m_value"
+      "probe over AccessorDefinitionFor for List`1::_size: `Capacity body did not match, wantOffset=18` and then nothing for `Count`, which is what a successful pairing looks like",
+      "iterations/006 output: 180 `._size` across the export, 180 of them assignments; 167 `._items`, 0 assignments; 360 `._version`, 180 assignments",
+      "iterations/006/reports/compile-Assembly-CSharp.log.gz: 146 CS1061, every one of them one of those five names"
     ],
     "regressionTest": "none yet",
-    "confidence": 60
+    "confidence": 95
   },
   {
     "id": "DECOMP-0006",
