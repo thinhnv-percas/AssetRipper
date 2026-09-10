@@ -1,0 +1,1 @@
+Iteration 010 plus DECOMP-0010: a RuntimeClassTypeAnalysisContext answers with the type it represents where a RuntimeTypeHandle or a Type is wanted.

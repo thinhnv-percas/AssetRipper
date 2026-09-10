@@ -70,6 +70,12 @@ check DECOMP-0007 ResourcesUtil.cs 'resourceDict.ContainsKey(statType)' 'Diction
 # `((GameObject)0).SetActive(false)` for what the source writes as one field access.
 check DECOMP-0009 GamePlayController.cs 'SetActive' '(GameObject)0'
 
+# DECOMP-0010: a runtime class carries the type it is the class of, and the case that emitted a zero
+# for one sat ahead of the cases that know how to answer, so `Type.GetTypeFromHandle(typeof(T))` came
+# out as `Type.GetTypeFromHandle((RuntimeTypeHandle)0)`.
+# ILSpy folds `ldtoken T; call GetTypeFromHandle` back into `typeof(T)`, which is what the source says.
+check DECOMP-0010 CSVSerializer.cs 'Type typeFromHandle = typeof(T);' '(RuntimeTypeHandle)0'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.

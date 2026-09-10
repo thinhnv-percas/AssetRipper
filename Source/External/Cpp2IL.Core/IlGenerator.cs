@@ -2359,6 +2359,27 @@ public static class IlGenerator
                 instructions.Add(CilOpCodes.Ldc_I4_0);
                 instructions.Add(CilOpCodes.Conv_I);
                 break;
+            // AssetRipper: a runtime class carries the managed type it is the class of, so where a
+            // handle or a Type is wanted it can say which - and this case sat ahead of the two below
+            // that know how to answer, so it answered zero instead. `Type.GetTypeFromHandle(typeof(T))`
+            // came out as `Type.GetTypeFromHandle((RuntimeTypeHandle)0)`: the type was in hand and the
+            // one thing the call is for was thrown away. The same shape as the RuntimeMethodInfo and
+            // RuntimeFieldInfo cases above, which each special-case their own handle type.
+            case RuntimeClassTypeAnalysisContext { RepresentedType: { } representedClass }
+                when expectedType is { FullName: "System.RuntimeTypeHandle" }:
+                instructions.Add(CilOpCodes.Ldtoken, representedClass.ToTypeSignature().ToTypeDefOrRef());
+                break;
+            case RuntimeClassTypeAnalysisContext { RepresentedType: { } representedType }
+                when expectedType is { FullName: "System.Type" }:
+                var runtimeClassTypeFromHandle = module.CorLibTypeFactory.CorLibScope
+                    .CreateTypeReference("System", "Type")
+                    .CreateMemberReference("GetTypeFromHandle", MethodSignature.CreateStatic(
+                        module.CorLibTypeFactory.CorLibScope.CreateTypeReference("System", "Type").ToTypeSignature(false),
+                        [module.CorLibTypeFactory.CorLibScope.CreateTypeReference("System", "RuntimeTypeHandle").ToTypeSignature(true)]));
+
+                instructions.Add(CilOpCodes.Ldtoken, representedType.ToTypeSignature().ToTypeDefOrRef());
+                instructions.Add(CilOpCodes.Call, runtimeClassTypeFromHandle);
+                break;
             case RuntimeClassTypeAnalysisContext or RgctxTableTypeAnalysisContext
                 or MethodRgctxTableTypeAnalysisContext or StaticFieldStorageTypeAnalysisContext:
                 instructions.Add(CilOpCodes.Ldc_I4_0);
