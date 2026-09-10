@@ -4,7 +4,7 @@ Read this first after a restart, then `reports/regression-matrix.md` for the num
 `reports/issues.json` for the open items.
 
 ```
-Current iteration: 011 (complete)
+Current iteration: 013 (complete; 012 was a measured revert, see below)
 
 Decompiler commit:
   claude/read-current-repository-daqxc1 @ 55f1490, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
@@ -67,6 +67,17 @@ Open:
   and the items in docs/articles/ImpostorSortScriptAudit.md, of which #1 (an unresolved call keeping
   the whole register file as its arguments) is the largest not yet started
 
+Measured and reverted:
+  DECOMP-0011  typing the stand-in value a giving-up point pushes. `ldc.i4.0; conv.i` reads back as
+               `((GameObject)0).SetActive(false)` and `(RuntimeTypeHandle)0`, so pushing `ldnull` for
+               a reference and `initobj` for a struct looked obviously right. It measured worse on
+               every axis - REAL_ERROR 1766 to 2007, Roslyn 456 to 548, nint casts 545 to 703, 13
+               files worse - and excluding pointers, byrefs, arrays and open generic parameters
+               changed the result by nothing to the digit, so those were not the cause. Reverted;
+               iteration 013 confirms 011's numbers on the reverted tree. Recorded in CLAUDE.md under
+               "measured to be worth nothing" so it is not retried without first fixing what makes
+               the load unresolvable.
+
 Measured and closed without a change:
   DECOMP-0005  the read side of the accessor pairing already covers List<T>._size; what is left of
                that family is writes to it and reads of _items and _version, none of which the real
@@ -83,10 +94,15 @@ Blocked Unity tests:
   until Test/Scripts/unity/run_all.sh has actually run.
 
 Next action:
-  Take the `(T)0` shape (80 errors). It is the downstream half of an unresolved load: the generator
-  pushes a zero for an operand it could not resolve, and where the wanted type is a reference or a
-  struct that reads as a cast from a number. LoadOperand already has both rules; find which path
-  reaches them with expectedType null. Probe rather than guess - the last four fixes were each found
+  Not the `(T)0` shape - that was DECOMP-0011 and it is closed as worth negative value. The shape is
+  a *symptom* of an unresolved load, and the lever is the load.
+
+  The remaining unresolved loads, from the run's own breakdown, are led by 803 "past the last field
+  of the base type" and 368 "value type base". The first says the offset is beyond every field the
+  type chain declares, which after DECOMP-0008 means either the base is typed as the wrong type or
+  the access is into a nested value type past its own end - both diagnosable by dumping one and
+  comparing the offset against the layout the self-check now validates. Start there, on a method the
+  reference source covers, and probe rather than guess: each of this session's four fixes was found
   by dumping the ISIL at the point the pass runs, and three of the four were somewhere other than
   where the output suggested.
 
@@ -94,8 +110,8 @@ Last successful stage:
   iteration 011 - full validation, no regression.
 
 Last failure:
-  the mid-flight step in iteration 009 described in reports/regression-matrix.md, caught by the
-  layout self-check before it shipped.
+  DECOMP-0011, iteration 012 - reverted on measurement, not shipped. Before that, the mid-flight step
+  in iteration 009 described in reports/regression-matrix.md, caught by the layout self-check.
 ```
 
 ## Environment notes

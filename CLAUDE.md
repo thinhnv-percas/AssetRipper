@@ -580,6 +580,19 @@ find it; `strings` without `-el` does find method and type names.
   every target through a label, so the order is free - and ILSpy evidently does better with the graph
   order than with the machine's. The `goto`s were the unremoved null checks, not the layout.
 
+- **Typing the stand-in value a giving-up point pushes.** Every unresolved operand pushes
+  `ldc.i4.0; conv.i` - a native integer zero, whatever the use wanted - so a reference position read
+  back as `((GameObject)0).SetActive(false)` and a struct one as
+  `Type.GetTypeFromHandle((RuntimeTypeHandle)0)`. Pushing `ldnull` for a reference and `initobj` for a
+  struct instead measured **worse on every axis**: REAL_ERROR audit diagnostics 1766 to 2007, Roslyn
+  456 to 548, `nint_cast` 545 to 703, thirteen files worse. Excluding pointers, byrefs, arrays and
+  open generic parameters from the substitution changed the result by nothing at all, to the digit, so
+  those are not the cause. The reason appears to be that the wanted type at these positions is
+  routinely *not* what the value is - a native integer is what the machine had, and saying so keeps
+  the mismatch in one expression instead of propagating a reference into arithmetic. The ill-typed
+  placeholder is honest about a value that is genuinely an address. Do not retry this without first
+  fixing what makes the load unresolvable.
+
 - **Coalescing copies across different registers.** `CopyCoalescer` only considered copies between
   two versions of one register, and widening it to any local-to-local copy - letting the interference
   graph decide, which is the textbook formulation - made the output *worse*: Impostor's assembly fell
