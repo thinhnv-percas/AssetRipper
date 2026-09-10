@@ -36,6 +36,7 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 			$"{(appContext.Binary.is32Bit ? "32" : "64")}-bit, instruction set {instructionSetName}.");
 
 		ReportAssemblies(appContext);
+		ReportFieldLayoutSelfCheck(appContext);
 
 		if (!CanProduceMethodBodies(instructionSet))
 		{
@@ -58,6 +59,31 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 	/// Names the assemblies recovery will attempt, because a reader looking at the wrong one sees empty
 	/// bodies no matter how well recovery went: Cpp2IL stubs the framework assemblies by design.
 	/// </summary>
+	/// <summary>
+	/// How well the computed field layout reproduces the offsets metadata carries.
+	/// </summary>
+	/// <remarks>
+	/// The layout is computed only for generic definitions, whose metadata offsets are all zero, so
+	/// there is nothing to check it against where it is used. Every non-generic type carries the real
+	/// offsets and the same walk has to reproduce them, which makes this the one exact measurement of
+	/// it available. Read it before changing that walk: an off-by-a-field layout does not fail, it
+	/// names the wrong field.
+	/// </remarks>
+	private static void ReportFieldLayoutSelfCheck(ApplicationAnalysisContext appContext)
+	{
+		(int reproduced, int mismatched, int incomplete) = Cpp2IL.Core.Analysis.GenericInstanceFieldLayout.SelfCheck(appContext);
+		int total = reproduced + mismatched + incomplete;
+
+		if (total == 0)
+		{
+			return;
+		}
+
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp field layout self-check: of {total} non-generic types with measured offsets, " +
+			$"{reproduced} reproduced exactly, {incomplete} laid out too few fields, {mismatched} disagreed.");
+	}
+
 	private static void ReportAssemblies(ApplicationAnalysisContext appContext)
 	{
 		List<string> gameAssemblies = [];

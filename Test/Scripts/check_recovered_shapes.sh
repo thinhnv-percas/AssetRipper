@@ -10,7 +10,8 @@
 
 set -u
 
-output=${1:?usage: check_recovered_shapes.sh <rip output>}
+output=${1:?usage: check_recovered_shapes.sh <rip output> [run log]}
+log=${2:-$output/../logs/AssetRipper.log}
 failures=0
 
 find_script() {
@@ -62,6 +63,24 @@ check DECOMP-0003 Common.cs 'throw ex;' 'throw new OutOfMemoryException'
 # receiver's own type says which instantiation it really is, and here it comes straight from the
 # field's declared type.
 check DECOMP-0007 ResourcesUtil.cs 'resourceDict.ContainsKey(statType)' 'Dictionary<System.Int32Enum, object>'
+
+# DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
+# where metadata has none - a generic definition's offsets are all zero - so this is the only exact
+# check on it there is, and a layout that is off by a field does not fail, it names the wrong field.
+if [ -f "$log" ]; then
+    selfcheck=$(grep -o 'field layout self-check: .*' "$log" | tail -1)
+    if [ -z "$selfcheck" ]; then
+        printf 'FAIL  %-12s the run log has no field layout self-check\n' DECOMP-0008
+        failures=$((failures + 1))
+    elif echo "$selfcheck" | grep -q ', 0 disagreed'; then
+        printf 'PASS  %-12s %s\n' DECOMP-0008 "$selfcheck"
+    else
+        printf 'FAIL  %-12s %s\n' DECOMP-0008 "$selfcheck"
+        failures=$((failures + 1))
+    fi
+else
+    printf 'SKIP  %-12s no run log at %s\n' DECOMP-0008 "$log"
+fi
 
 echo
 if [ "$failures" -eq 0 ]; then

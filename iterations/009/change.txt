@@ -1,0 +1,1 @@
+Iteration 008 plus DECOMP-0008: GenericInstanceFieldLayout walks the whole base chain, sizes a user-defined value type, and takes a struct's size from il2cpp's recorded instance_size. Adds a self-check of the walk against the offsets metadata carries.
