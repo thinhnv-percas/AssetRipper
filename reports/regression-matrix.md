@@ -62,6 +62,32 @@ Baseline to iteration 011: **REAL_ERROR 2162 to 1766**, SEMANTIC_RISK 301 to 210
 unrecovered method bodies 15 to 0, files carrying no diagnostic at all 20 to 21, run time 58s to 55s.
 EXPECTED unchanged at 47, correctly.
 
+## Iterations 012 and 013
+
+012 is a change that measured worse and was reverted; 013 is the reverted tree, kept so the revert is
+verified rather than asserted. The REAL_ERROR and Roslyn columns across the whole run:
+
+| iteration | REAL_ERROR | Roslyn | note |
+|---|---:|---:|---|
+| 000-baseline | 2162 | 499 | |
+| 001 | 2162 | 499 | DECOMP-0001, 15 bodies recovered |
+| 002 | 2163 | 500 | DECOMP-0002 |
+| 003 | 2124 | **596** | DECOMP-0003 first cut - the phi regression |
+| 004 | 2155 | 498 | phi following removed |
+| 005 | 2150 | 497 | phi allowed when every input is an allocation |
+| 006 | 2150 | 497 | refactor only; identical by construction |
+| 007 | 2150 | 497 | baseline re-verification, no change |
+| 008 | 2150 | 487 | DECOMP-0007 |
+| 009 | 2049 | 462 | DECOMP-0008 |
+| 010 | 1768 | 460 | DECOMP-0009 |
+| 011 | 1766 | 456 | DECOMP-0010 |
+| 012 | **2007** | **548** | DECOMP-0011 - measured worse, reverted |
+| 013 | 1766 | 456 | the reverted tree; reproduces 011 exactly |
+
+Both of the two rows in bold are changes that looked right and were not, and both were caught by
+measurement within one iteration. Iteration 012's is recorded in `CLAUDE.md` under "things measured to
+be worth nothing", with the reason not to retry it.
+
 ## What did not regress
 
 - `dotnet test AssetRipper.slnx -c Release`: 274 tests at baseline, 279 after, one failure in both.
