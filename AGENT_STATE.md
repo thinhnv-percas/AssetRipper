@@ -4,10 +4,10 @@ Read this first after a restart, then `reports/regression-matrix.md` for the num
 `reports/issues.json` for the open items.
 
 ```
-Current iteration: 023 (complete; 020 and 022 were first cuts, superseded and not committed)
+Current iteration: 026 (complete; 020, 022, 024 and 025 were first cuts, not committed)
 
 Decompiler commit:
-  claude/read-current-repository-daqxc1 @ 3ceca87, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+  claude/read-current-repository-daqxc1 @ 53f98aa, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
 
 Input:
   Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
@@ -20,15 +20,15 @@ Reference:
   Unity 2022.3.62f2, matching the binary
 
 Current stage:
-  idle between iterations. Baseline for the next one is iteration 023.
+  idle between iterations. Baseline for the next one is iteration 026.
 
-Where iteration 023 stands, against the original baseline:
+Where iteration 026 stands, against the original baseline:
   unrecovered method bodies      15 -> 0
-  audit REAL_ERROR             2162 -> 1076
+  audit REAL_ERROR             2162 -> 1052
   audit SEMANTIC_RISK           301 -> 187
   audit EXPECTED                 47 -> 51
-  Roslyn errors, Assembly-CSharp 499 -> 403
-  unresolved loads              5702 -> 3689  (Assembly-CSharp 359 of them)
+  Roslyn errors, Assembly-CSharp 499 -> 389
+  unresolved loads              5702 -> 3569  (Assembly-CSharp 347 of them)
   loads with a System.Object base n/a -> 17   (69 before DECOMP-0016)
   typeHierarchyDepth loads      n/a  -> 139
   files with no diagnostic at all 20 -> 21
@@ -78,6 +78,7 @@ Fixed:
   DECOMP-0014  il2cpp's type-check shortcut not folded on the shape it actually has
   DECOMP-0015  a shared generic instantiation outranking the receiver inside the type fixpoint
   DECOMP-0016  System.Object at a use site taken as evidence when it is the top of the lattice
+  DECOMP-0017  two of the three shapes an element address is computed in not folded
 
 Open:
   DECOMP-0004  the untyped-locals family, ROADMAP section 5. Read UNTYPED_LOCAL_IMPACT.md first.
@@ -94,9 +95,10 @@ Measured and closed without a change:
                that family has no public equivalent at all. WONT_FIX, with the numbers.
 
 Regression status:
-  clean. All twelve shape checks pass, the field layout self-check reports 0 disagreements (a gate,
-  not a note), 0 unrecovered bodies, 0 generator failures. No file's audit total is worse than at
-  iteration 019.
+  clean. All thirteen shape checks pass, the field layout self-check reports 0 disagreements (a
+  gate, not a note), 0 unrecovered bodies, 0 generator failures. No file's audit total is worse than
+  at iteration 019. The checks match fixed strings, not patterns: DECOMP-0017's own check read
+  `[array2[num5]]` as a character class and failed against output that contained it.
 
 Blocked Unity tests:
   U1-U9 in reports/BLOCKED_UNITY_TESTS.md. Scripts in Test/Scripts/unity/ refuse to run without a
@@ -105,12 +107,14 @@ Blocked Unity tests:
 Next action:
   Four, roughly in order of what the evidence says they are worth.
 
-  (a) **659 loads whose base is defined by an `Add` nothing typed.** The largest single group in
-      reports/TYPE_PROVENANCE.json. An architecture with no scaled index addressing mode computes
-      an element's address first, so the array and the index are an instruction earlier;
-      `ArrayRecovery.RecoverComputedAccesses` and `MetadataResolver.FoldComputedFieldAddresses`
-      claim the ones whose base is already typed. These are the remainder - the same problem one
-      step back - so the question is what types the `Add`'s own base.
+  (a) **A field of a struct element: `array[i].y`.** The largest identifiable part of the 551
+      `Add`-defined bases left. The fold cannot name these as an ArrayAccess, because one element
+      of a `Vector3[]` is wider than one load of it and doing so reads a Vector3 as a float. They
+      need the element's *address* named as a local of the element's type, which is what
+      `ArrayRecovery.RecoverStructElementAddresses` produces - from the uses, at the end of
+      analysis, and only when the array is the base directly. Making it reach a computed base is
+      the work, and DECOMP-0017's negative result says to do it by extending the shape rather than
+      by walking the definition chain.
 
   (b) **About 600 runtime structure reads counted as unresolved loads.** `Il2CppClass` at
       `typeHierarchyDepth` (139), `0x28` (111), `interface_offsets_count` (84), `0xFC` (61),
@@ -141,11 +145,12 @@ Next action:
   read the per-assembly table in reports/TYPE_RECOVERY_ANALYSIS.md.
 
 Last successful stage:
-  iteration 023 - full validation, no file worse than 019, no regression.
+  iteration 026 - full validation, no file worse than 019, no regression.
 
 Last failure:
-  DECOMP-0011, iteration 012 - reverted on measurement, not shipped. Iterations 020 and 022 were
-  first cuts caught by the per-file audit diff and narrowed before shipping, not reverted.
+  DECOMP-0011, iteration 012 - reverted on measurement, not shipped. Iterations 020, 022, 024 and
+  025 were first cuts caught by measurement and narrowed before shipping. 024 and 025 are recorded
+  in CLAUDE.md under "measured to be worth nothing"; do not redo the affine generalisation.
 ```
 
 ## Environment notes

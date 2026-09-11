@@ -1,0 +1,2 @@
+DECOMP-0017: the computed element address fold rewritten on the affine evaluator, so a constant
+index, a non-power-of-two element size and an index left in the addressing mode all fold.

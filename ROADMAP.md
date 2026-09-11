@@ -632,9 +632,16 @@ outright. Both first cuts withheld evidence rather than ranking it and both meas
 same way: something weaker filled the gap. `reports/TYPE_RECOVERY_ANALYSIS.md` has the ranking as it
 now stands, the two defects worked through, and what is left by family and by assembly.
 
-Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 1076 and its `Assembly-CSharp`
-from 499 Roslyn errors to 403 - while compiling 15 more bodies than before. Unresolved loads across
-the whole rip are 5702 to 3689. **Assembly-CSharp holds 359 of those 3689**, and both of the easy
+One more is not a typing defect at all but is what most of the untyped bases turned out to be. An
+architecture with no scaled index addressing mode computes an element's address before the load, and
+**the fold for that matched one of the three shapes the compiler emits** - missing a constant index,
+which has no register at all, and an index left in the addressing mode. Generalising it onto the
+affine evaluator the struct-element path uses measured worse on every cut; the narrow shape is
+precise because the shape itself proves the array is the base.
+
+Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 1052 and its `Assembly-CSharp`
+from 499 Roslyn errors to 389 - while compiling 15 more bodies than before. Unresolved loads across
+the whole rip are 5702 to 3569. **Assembly-CSharp holds 347 of those 3569**, and both of the easy
 measurements cover only it, so count per assembly before concluding a change did nothing.
 `AGENT_STATE.md` says where to pick up. **Read `reports/UNTYPED_LOCAL_IMPACT.md` before starting on
 section 5**: 91% of the untyped locals provably cost nothing, and each of the fixes above removed

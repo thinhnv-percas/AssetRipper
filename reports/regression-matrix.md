@@ -96,6 +96,9 @@ verified rather than asserted. 007 and 014 are baseline re-verifications at the 
 | 021 | 1076 | 402 | DECOMP-0015 |
 | **022** | 1079 | 404 | DECOMP-0016 applied inside the fixpoint - two files worse, `obj as ItemResources` read as an int; deferred, not shipped |
 | 023 | 1076 | 403 | DECOMP-0016 - measured in unresolved loads, 3741 to 3689, almost all outside Assembly-CSharp |
+| **024** | not measured | not measured | DECOMP-0017 on the affine evaluator - unresolved loads 3689 to 4077; abandoned |
+| **025** | not measured | not measured | the same with single definitions and a reached-the-array guard - 4085; abandoned |
+| 026 | 1052 | 389 | DECOMP-0017, the two missing shapes without the chain walk |
 
 Both of the two rows in bold are changes that looked right and were not, and both were caught by
 measurement within one iteration. Iteration 012's is recorded in `CLAUDE.md` under "things measured to

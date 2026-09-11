@@ -633,6 +633,18 @@ find it; `strings` without `-el` does find method and type names.
   pass that recognises the shape rather than on a type.
 
 ### Things measured to be worth nothing — do not redo them
+- **Generalising the computed element address fold onto an affine evaluator.** The fold matches
+  `[t + elementsOffset]` where `t = array + scaled index`, and it misses two shapes the compiler
+  emits: a constant index, which has no register at all, and an index left in the addressing mode
+  when only the elements offset was added ahead of the load. Evaluating the whole address as an
+  affine function of one register with the array as the origin - which is the machinery
+  `RecoverStructElementAddresses` already uses - covers all three in one rule, and measured worse on
+  every cut: unresolved loads 3689 to 3969, and 4084 with the addend still restricted to the
+  elements offset, so it is not the relaxation that costs. Reading through a chain of definitions to
+  find the array produces an address that is arithmetically valid and belongs to another expression;
+  the narrow shape is precise because the shape itself proves the array is the base. Adding the two
+  missing shapes *without* the chain walk is worth 219 loads, and is what shipped.
+
 - **Emitting the blocks in address order rather than the order the graph created them.** Splitting
   appends, so a block split out late sits at the end of `Blocks` whatever address it covers, and it
   looked as though a loop header landing after its own body were what forced the `goto`s. Sorting the

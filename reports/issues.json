@@ -360,5 +360,30 @@
     "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0016",
     "confidence": 90,
     "note": "Withholding System.Object outright (iteration 022, not committed) made things worse: the local falls to TypeCounters, whose guess is weaker still, and `obj as ItemResources` came back `(int)(obj as ItemResources)`. The fixpoint runs twice instead - once withholding, once allowing - with TypeCounters still last, so each rank of evidence gets its turn in order. Assembly-CSharp holds none of this family, so its REAL_ERROR is unchanged and Roslyn moves by one inside the existing Box-to-float family; the per-assembly table in reports/TYPE_RECOVERY_ANALYSIS.md is what shows the change."
+  },
+  {
+    "id": "DECOMP-0017",
+    "severity": "ERROR",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 23,
+    "iterationFixed": 26,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/CSVReader.cs, CSVSerializer.cs, and 219 loads across the rip",
+    "referenceFile": "Assets/_Impostor 3/Scripts/Common/CSVReader.cs",
+    "method": "CSVReader::Read, CSVReader::ReadList",
+    "compilerError": "CS0030 at the `(string)0` the giving-up point pushes",
+    "observed": "`dictionary[(string)0] = value;` and `if (((string)0).Equals(\"\"))`, each preceded by `Cpp2ILHelpers.NoteDecompilerIssue(\"Unmanaged memory load: [v92 @ X23_v8+v245 (Il2CppMethodInfo)*8]\")`",
+    "expected": "`dictionary[array2[num5]] = value;` and `if (array4[num2].Equals(\"\"))`, against `entry[header[j]] = value;` and `if (!values[j].Equals(\"\"))` in the reference",
+    "rootCause": "An architecture with no scaled index addressing mode computes an element's address before the load, so the load reads [t + elementsOffset] and the array and the index are an instruction earlier. ComputedElementAddress matched one shape for t - array + (index << log2(elementSize)) - and the compiler emits three. A constant index has no register at all, the whole offset being folded into the add; and where the index is not wanted for anything else the compiler adds only the elements offset ahead of the load and leaves index * elementSize in the addressing mode.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "ArrayRecovery.ComputedElementAddress",
+    "evidence": [
+      "CPP2IL_DUMP_LOADS breakdown: 374 unresolved loads whose base is an Add of an array, of which 113 at addend 0x20 and 145 at addend 0 with an index in the addressing mode",
+      "reference source: `entry[header[j]] = value;` / `if (!values[j].Equals(\"\"))` / `value.TrimStart(TRIM_CHARS)`",
+      "unresolved loads 3689 -> 3569, REAL_ERROR 1076 -> 1052, Roslyn on Assembly-CSharp 403 -> 389, CSVReader 24 -> 9"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0017",
+    "confidence": 95,
+    "note": "Generalising this onto the affine evaluator the struct-element path uses was tried first (iterations 024 and 025, not committed) and measured worse on every cut - 3689 to 3969, and to 4084 with the addend still restricted, so the relaxation is not what costs. Reading through a chain of definitions to find the array gives an address that is arithmetically valid and belongs to another expression; the narrow shape is precise because the shape itself proves the array is the base. Recorded in CLAUDE.md. What is still not folded is an offset partway into a struct element - `array[i].y` - which would need the element's address named as a local of the element's type."
   }
 ]

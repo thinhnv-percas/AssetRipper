@@ -1,6 +1,6 @@
 {
   "iterationBefore": "021",
-  "iterationAfter": "023",
+  "iterationAfter": "026",
   "before": {
     "total": 3741,
     "byAssembly": {
@@ -85,20 +85,20 @@
     "baseTypedButOffsetUnplaced": 2159
   },
   "after": {
-    "total": 3689,
+    "total": 3569,
     "byAssembly": {
-      "spine-unity": 1839,
-      "DOTween": 835,
-      "Assembly-CSharp": 359,
-      "ACTk.Runtime": 227,
-      "spine-unity-examples": 214,
-      "GoogleMobileAds": 179,
+      "spine-unity": 1766,
+      "DOTween": 825,
+      "Assembly-CSharp": 347,
+      "ACTk.Runtime": 212,
+      "spine-unity-examples": 207,
+      "GoogleMobileAds": 177,
       "LeanPool": 19,
-      "Mono.Security": 17
+      "Mono.Security": 16
     },
     "byKind": {
-      "base has no type": 1503,
-      "value type base": 402,
+      "base has no type": 1395,
+      "value type base": 397,
       "past the last field of the base type": 333,
       "generic instance, value type argument": 209,
       "Il2CppClass.typeHierarchyDepth": 139,
@@ -118,23 +118,23 @@
       "array at 0x28": 21,
       "Il2CppMethodInfo.klass": 20,
       "Il2CppClass.static_fields": 16,
-      "array at 0x0": 13,
       "Il2CppClass.0x80": 13,
       "Il2CppClass.0x1D0": 12,
+      "array at 0x0": 11,
       "static field storage at 0x10": 11
     },
     "byDefiningInstruction": {
-      "Move:memory": 821,
+      "Move:memory": 818,
       "<none>": 798,
-      "Add": 781,
+      "Add": 668,
       "Move:AddressOf": 260,
       "Call": 144,
       "Move:type Il2CppClass<TKey>": 74,
-      "Move:type Il2CppMethodInfo": 54,
-      "Move:Immediate": 43,
+      "Move:type Il2CppMethodInfo": 53,
       "Move:type Il2CppClass<TValue>": 43,
+      "Move:Immediate": 42,
       "Move:type Dictionary`2<System.String, System.Object>": 41,
-      "Move:ArrayAccess": 35,
+      "Move:ArrayAccess": 37,
       "Move:local Int32": 35,
       "Newobj": 29,
       "Move:type Il2CppClass<T>": 28,
@@ -151,9 +151,9 @@
       "Move:field Int32": 12
     },
     "baseUntyped": {
-      "count": 1576,
+      "count": 1468,
       "byDefiningInstruction": {
-        "Add": 659,
+        "Add": 551,
         "Move:memory": 339,
         "<none>": 254,
         "Move:AddressOf": 245,
@@ -165,7 +165,7 @@
         "IndirectCall": 1
       }
     },
-    "baseTypedButOffsetUnplaced": 2113
+    "baseTypedButOffsetUnplaced": 2101
   },
   "note": "A load is given up on for one of two reasons and only the defining instruction tells them apart: the base has no usable type, or it has one and the layout could not place the offset in it. Counted where the generator gives up, so the total matches the placeholder count."
 }

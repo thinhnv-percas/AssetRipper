@@ -1,0 +1,2 @@
+DECOMP-0017: the computed element address fold also takes a constant index, and an index left in
+the addressing mode when only the elements offset was added ahead of the load.

@@ -1,0 +1,1 @@
+DECOMP-0017 second cut: single definitions for the affine walk, and the walk must reach the array.

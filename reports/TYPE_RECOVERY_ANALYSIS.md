@@ -1,7 +1,7 @@
 # Use-side type recovery
 
 What a local's type is taken from, where that goes wrong, and what is left. The numbers are the
-Impostor rip (Unity 2022.3.62f2, metadata v31.1, ARM64) at iterations 021 and 023;
+Impostor rip (Unity 2022.3.62f2, metadata v31.1, ARM64) at iterations 021, 023 and 026;
 `reports/TYPE_PROVENANCE.json` and `reports/OBJECT_BASE_TYPE_PROVENANCE.json` carry the rows.
 
 ## The order evidence is applied in
@@ -79,17 +79,35 @@ to 17.
 This is a use-site rule only. A field or a return whose declared type really is `System.Object` is
 that type and is left alone.
 
+## DECOMP-0017: an element address is computed in three shapes, and the fold took one
+
+Not a typing defect, but it is what most of the untyped bases turned out to be. An architecture
+with no scaled index addressing mode computes an element's address before the load, so the load
+reads `[t + elementsOffset]` and the array and the index are an instruction earlier.
+`ComputedElementAddress` matched `t = array + (index << log2(elementSize))` and missed two: a
+constant index, which has no register at all because the whole offset is folded into the add, and
+an index the compiler leaves in the addressing mode, having added only the elements offset ahead of
+the load. `entry[header[j]] = value` came back as `dictionary[(string)0] = value;`.
+
+Generalising the fold onto the affine evaluator that the struct-element path already uses covers all
+three in one rule and measured worse on every cut: 3689 unresolved loads to 3969, and to 4084 with
+the addend still restricted, so it is not the relaxation that costs. Reading through a chain of
+definitions to find the array gives an address that is arithmetically valid and belongs to another
+expression. The narrow shape is precise for a reason worth keeping: the shape itself proves the
+array is the base.
+
 ## What is left
 
-3689 loads are given up on, counted at the one place in `IlGenerator` that gives up, so the total
+3569 loads are given up on, counted at the one place in `IlGenerator` that gives up, so the total
 matches the placeholder count. They split in two:
 
-- **1576 have no usable base type.** By what defines the base: 659 an `Add` (a computed address the
-  array and field folds did not claim), 339 a load from memory nothing typed, 254 no definition in
-  the body at all (an entry value, or a stack slot written elsewhere), 245 an `AddressOf`, 51 a call.
-- **2113 have a base type and the offset could not be placed in it.** 402 a value type base, 333
-  past the last field of the base type, 209 a generic instance with a value type argument, and about
-  600 that are runtime structure reads rather than managed fields at all - `Il2CppClass` at
+- **1468 have no usable base type.** By what defines the base: 551 an `Add` (a computed address the
+  array and field folds still do not claim), 339 a load from memory nothing typed, 254 no definition
+  in the body at all (an entry value, or a stack slot written elsewhere), 245 an `AddressOf`, 51 a
+  call.
+- **2101 have a base type and the offset could not be placed in it.** A value type base, an offset
+  past the last field of the base type, a generic instance with a value type argument, and about 600
+  that are runtime structure reads rather than managed fields at all - `Il2CppClass` at
   `typeHierarchyDepth` (139), `0x28` (111), `interface_offsets_count` (84), `0xFC` (61),
   `cctor_finished` (49), `Il2CppMethodInfo` at `0x53` (53), static field storage at `0x8` (49).
 
@@ -99,11 +117,13 @@ walk, the interface offset scan, the class-init guard - the way `TypeCheckRecove
 `InterfaceDispatchRecovery` already recognise theirs. Counting them as unresolved loads overstates
 the typing problem by about a sixth.
 
-The next typing work is the 659 `Add`-defined bases. An architecture with no scaled index addressing
-mode computes an element's address first, so the array and the index are an instruction earlier;
-`ArrayRecovery.RecoverComputedAccesses` and `FoldComputedFieldAddresses` claim the ones whose base is
-already typed, and these are the remainder - where the base of the `Add` is itself untyped, which
-makes it the same problem one step back.
+Of the 551 `Add`-defined bases that remain, the largest identifiable group is an offset partway into
+a *struct* element - `array[i].y` on a `Vector3[]` or a `SubmeshInstruction[]`. Folding those to an
+`ArrayAccess` would be wrong: one element is wider than one load of it, so naming the access as the
+element reads a `Vector3` as a `float`. What they need is the element's address named as a local of
+the element's type, which is what `RecoverStructElementAddresses` produces from the uses and cannot
+produce from the shape alone. The next largest is the hierarchy walk, `[klass + 0xC8] + depth*8 - 8`,
+which belongs to the runtime-structure group above.
 
 ## Per assembly
 
@@ -111,18 +131,19 @@ Assembly-CSharp holds 359 of the 3689, under a tenth. spine-unity alone holds ha
 moves nothing in Assembly-CSharp has still moved something real, and the only way to see it is to
 count per assembly.
 
-| assembly | loads, 021 | loads, 023 | reference source available |
-| --- | --- | --- | --- |
-| spine-unity | 1863 | 1839 | yes, vendored at `Assets/ThirdParties/Spine/Runtime/spine-csharp` |
-| DOTween | 840 | 835 | no |
-| Assembly-CSharp | 359 | 359 | yes, the game's own scripts |
-| ACTk.Runtime | 243 | 227 | no |
-| spine-unity-examples | 221 | 214 | yes, same vendoring |
-| GoogleMobileAds | 179 | 179 | no |
-| LeanPool | 19 | 19 | no |
-| Mono.Security | 17 | 17 | no |
-| **total** | **3741** | **3689** | |
+| assembly | 021 | 023 | 026 | reference source available |
+| --- | --- | --- | --- | --- |
+| spine-unity | 1863 | 1839 | 1766 | yes, vendored at `Assets/ThirdParties/Spine/Runtime/spine-csharp` |
+| DOTween | 840 | 835 | 825 | no |
+| Assembly-CSharp | 359 | 359 | 347 | yes, the game's own scripts |
+| ACTk.Runtime | 243 | 227 | 212 | no |
+| spine-unity-examples | 221 | 214 | 207 | yes, same vendoring |
+| GoogleMobileAds | 179 | 179 | 177 | no |
+| LeanPool | 19 | 19 | 19 | no |
+| Mono.Security | 17 | 17 | 16 | no |
+| **total** | **3741** | **3689** | **3569** | |
 
-Assembly-CSharp's REAL_ERROR is 1076 at both iterations and its Roslyn count moves by one inside the
-existing `Box`-to-`float` family. Read against the table, that is what a fix landing entirely outside
-Assembly-CSharp looks like, not a fix that did nothing.
+Assembly-CSharp's REAL_ERROR is 1076 at both 021 and 023 and its Roslyn count moves by one inside
+the existing `Box`-to-`float` family: DECOMP-0016 landed entirely outside it. Read against the
+table, that is what a fix in another assembly looks like, not a fix that did nothing. DECOMP-0017 at
+026 lands in both, and both move — REAL_ERROR 1052, Roslyn 389.
