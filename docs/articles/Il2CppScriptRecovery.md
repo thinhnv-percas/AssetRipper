@@ -27,6 +27,41 @@ level on the implementation it has always used. On a binary that cannot be recov
 a warning saying so, rather than producing empty bodies without comment, and the import also reports
 how many methods recovery attempted and how many failed to convert.
 
+## iOS and `.ipa`
+
+An `.ipa` is a zip and is unpacked like an `.apk`, but two things about it differ from Android and
+both used to stop recovery before it began.
+
+**The app's executable is not the binary.** Unity 2019.3 moved the player, and with it every
+generated method body, into `Payload/<App>.app/Frameworks/UnityFramework.framework/UnityFramework`.
+What is left at `Payload/<App>.app/<App>` is a launcher of a few tens of kilobytes. Loading the
+launcher is not a worse recovery but no recovery at all: LibCpp2IL finds no code registration in it,
+initialisation throws, and the import falls back to the `Unknown` scripting backend with no scripts
+exported. `iOSGameStructure` takes the framework when it is present and the executable otherwise,
+which is what a build older than 2019.3 has.
+
+**An App Store build is encrypted.** A binary downloaded from the App Store carries
+`LC_ENCRYPTION_INFO_64` with a non-zero `cryptid`, and the range it covers is the whole `__TEXT`
+segment — the `il2cpp` section holding the method bodies, and `__cstring` besides. Decryption happens
+on the device at load time, so the bytes on disk are ciphertext and nothing can be lifted from them.
+It is worse than empty bodies: the code registration is found by locating the string `mscorlib.dll`
+and walking back to the module that names it, and that string is inside the encrypted range, so
+initialisation fails outright with `No codegen modules found for mscorlib`. That message reads like a
+corrupt or unsupported binary, so the import now says what is actually wrong before attempting the
+load:
+
+```
+The game assembly 'UnityFramework' is an encrypted Mach-O (FairPlay cryptid 1) over file offsets
+0x8000-0x2C38000. That range holds the native code and the string constants, so no method body can
+be recovered from it and IL2CPP initialization may fail outright. This is an App Store build; a
+decrypted dump of the same app imports normally.
+```
+
+A decrypted dump — taken from a device with a tool such as `frida-ios-dump`, or any build that did
+not go through the App Store — has `cryptid` zero and imports like any other ARM64 game. Assets are
+unaffected either way: `data.unity3d`, the resources and the streamed assets under `Data/Raw` are
+plain files, and they export from an encrypted `.ipa` exactly as they do from a decrypted one.
+
 ## Turning it on
 
 Set **Script Content Level** to **Level 3** on the Settings page. The **IL2Cpp Script Recovery**
@@ -268,6 +303,12 @@ to 3082. Decompilation errors are 0 either way.
 ## Known limits
 
 * ARMv7 and WebAssembly cannot produce method bodies at all, as above.
+* An App Store `.ipa` cannot produce method bodies at all, because its native code is encrypted. See
+  above.
+* On a Mach-O, a call into the C or C++ runtime is not named. The ELF reader resolves these through
+  the PLT and the dynamic linker's relocations (`Il2CppIlRecoveryOutputFormat.DescribePltStub`); the
+  Mach-O equivalent goes through `__stubs` and the lazy or chained bind info, which is not read. The
+  call reads as a bare address rather than `native memcpy`.
 * At Level 3 the whole import uses the ISIL-capable ARM64 implementation, including for reading raw
   method bytes, where it is stricter about address ranges than the older one. That is the trade for
   getting bodies; lower levels are unaffected.

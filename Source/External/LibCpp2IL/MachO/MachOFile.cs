@@ -92,9 +92,23 @@ public class MachOFile : Il2CppBinary
             ApplyChainedFixups(chainedFixups);
 
         LibLogger.VerboseNewline($"\tMach-O contains {Segments64.Length} segments, split into {Sections64.Length} sections.");
-        
+
+        // AssetRipper: an App Store build's __TEXT is FairPlay ciphertext on disk. See MachOEncryptionInfo.
+        EncryptionInfo = _loadCommands
+            .Where(c => c.Command is LoadCommandId.LC_ENCRYPTION_INFO or LoadCommandId.LC_ENCRYPTION_INFO_64)
+            .Select(c => MachOEncryptionInfo.FromCommandData(c.UnknownCommandData))
+            .FirstOrDefault(info => info is { IsEncrypted: true });
+
+        if (EncryptionInfo is { } encryption)
+            LibLogger.WarnNewline($"Mach-O is encrypted (FairPlay id {encryption.CryptId}) over file offsets 0x{encryption.CryptOffset:X}-0x{encryption.CryptOffset + encryption.CryptSize:X}. Native code in that range cannot be read.");
+
         LibLogger.VerboseNewline("Mach-O file read successfully.");
     }
+
+    /// <summary>
+    /// AssetRipper: the encrypted range this binary declares, or null when it declares none.
+    /// </summary>
+    public MachOEncryptionInfo? EncryptionInfo { get; }
 
     public override long RawLength => _raw.Length;
     public override byte GetByteAtRawAddress(ulong addr) => _raw[addr];
@@ -171,6 +185,33 @@ public class MachOFile : Il2CppBinary
     }
 
     public override ulong GetVirtualAddressOfPrimaryExecutableSection() => GetTextSection64().Address;
+
+    // AssetRipper: see the base. On an il2cpp Mach-O this is __text plus the section named "il2cpp",
+    // which holds every generated method body, and a handful of stub sections besides. Both carry the
+    // instruction attributes, so the flags are what this selects on rather than a list of names.
+    public override IEnumerable<(ulong VirtualAddress, ReadOnlyMemory<byte> Data)> GetExecutableSections()
+    {
+        var sections = new List<(ulong, ReadOnlyMemory<byte>)>();
+
+        foreach (var section in Sections64)
+        {
+            const MachOSectionFlags instructionAttributes = MachOSectionFlags.ATTR_PURE_INSTRUCTIONS | MachOSectionFlags.ATTR_SOME_INSTRUCTIONS;
+
+            if ((section.Flags & instructionAttributes) == 0 || section.Size == 0)
+                continue;
+
+            // A zero-fill section has no bytes in the file, and its Offset means nothing.
+            if ((section.Flags & MachOSectionFlags.TYPE_BITMASK) is MachOSectionFlags.TYPE_ZEROFILL or MachOSectionFlags.TYPE_GB_ZEROFILL)
+                continue;
+
+            if (section.Offset + section.Size > (ulong)_raw.Length)
+                continue;
+
+            sections.Add((section.Address, _raw.AsMemory((int)section.Offset, (int)section.Size)));
+        }
+
+        return sections;
+    }
     
     //Thanks to LukeFZ for this
     private void ApplyChainedFixups(MachOLinkEditDataCommand cmd)

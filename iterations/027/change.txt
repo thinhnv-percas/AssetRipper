@@ -1,0 +1,7 @@
+DECOMP-0018: iOS support. Take UnityFramework rather than the app's launcher executable as the
+il2cpp binary, return every executable Mach-O section rather than __text alone, and report a
+FairPlay-encrypted binary before the code registration search fails on it.
+
+Run against Test/Input/Impostor as a regression check: the changes are Mach-O and iOS only, and this
+game is an ARM64 ELF in an APK. Every field of metrics.json is identical to iteration 026, which is
+the result this run was for.

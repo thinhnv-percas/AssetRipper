@@ -2,6 +2,7 @@ using AssetRipper.Import.Logging;
 using Cpp2IL.Core.Api;
 using Cpp2IL.Core.InstructionSets;
 using Cpp2IL.Core.Model.Contexts;
+using LibCpp2IL.MachO;
 
 namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 
@@ -38,6 +39,13 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 		ReportAssemblies(appContext);
 		ReportFieldLayoutSelfCheck(appContext);
 
+		if (ReportEncryptedBinary(appContext))
+		{
+			// Sampling would only report that nothing decodes, which is already established.
+			progressCallback?.Invoke(1, 1);
+			return;
+		}
+
 		if (!CanProduceMethodBodies(instructionSet))
 		{
 			Logger.Warning(LogCategory.Import,
@@ -53,6 +61,34 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 		SampleLifting(appContext);
 
 		progressCallback?.Invoke(1, 1);
+	}
+
+	/// <summary>
+	/// Whether the binary's native code is encrypted, in which case nothing can be lifted from it.
+	/// </summary>
+	/// <remarks>
+	/// An iOS build downloaded from the App Store is FairPlay encrypted over its whole <c>__TEXT</c>
+	/// segment, which is where the generated method bodies live. The metadata is a separate file and is
+	/// not encrypted, so types, fields, signatures and offsets all come back exactly as they should —
+	/// only the bodies are unrecoverable, and without this the run looks identical to a lifter that
+	/// silently failed. Decrypting is a device operation: a dump taken from a jailbroken device, or a
+	/// build that never went through the App Store, has <c>cryptid</c> zero and recovers normally.
+	/// </remarks>
+	private static bool ReportEncryptedBinary(ApplicationAnalysisContext appContext)
+	{
+		if (appContext.Binary is not MachOFile machO || machO.EncryptionInfo is not { } encryption)
+		{
+			return false;
+		}
+
+		Logger.Warning(LogCategory.Import,
+			$"Il2Cpp recovery: this Mach-O is encrypted (FairPlay cryptid {encryption.CryptId}) over file offsets " +
+			$"0x{encryption.CryptOffset:X}–0x{encryption.CryptOffset + encryption.CryptSize:X}, which covers the generated " +
+			"method bodies. No method body can be recovered from it and every method will be exported empty. Class layouts, " +
+			"method signatures, field offsets and method addresses come from the metadata file and are unaffected. This is an " +
+			"App Store build; a decrypted dump of the same app recovers normally.");
+
+		return true;
 	}
 
 	/// <summary>

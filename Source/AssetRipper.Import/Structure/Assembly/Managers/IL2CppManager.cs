@@ -8,6 +8,7 @@ using Cpp2IL.Core.InstructionSets;
 using Cpp2IL.Core.OutputFormats;
 using Cpp2IL.Core.ProcessingLayers;
 using LibCpp2IL;
+using LibCpp2IL.MachO;
 using Cpp2IlApi = Cpp2IL.Core.Cpp2IlApi;
 
 namespace AssetRipper.Import.Structure.Assembly.Managers;
@@ -87,6 +88,8 @@ public sealed class IL2CppManager : BaseManager
 
 		ClearStaticState?.Invoke();
 
+		ReportEncryptedGameAssembly(GameAssemblyPath);
+
 		Cpp2IlApi.InitializeLibCpp2Il(GameAssemblyPath!, MetaDataPath!, UnityVersion, false);
 
 		Logger.SendStatusChange("loading_step_generate_dummy_dll");
@@ -115,6 +118,33 @@ public sealed class IL2CppManager : BaseManager
 		{
 			Add(assembly);
 		}
+	}
+
+	/// <summary>
+	/// Says so, before anything tries to read it, when the game assembly is an encrypted Mach-O.
+	/// </summary>
+	/// <remarks>
+	/// An iOS build downloaded from the App Store is FairPlay encrypted over its whole <c>__TEXT</c>
+	/// segment. That covers the generated method bodies, and it also covers <c>__cstring</c> — so the
+	/// search for the code registration, which works by finding the string <c>mscorlib.dll</c> and
+	/// walking back to the module that names it, finds nothing and initialisation fails outright with
+	/// "No codegen modules found for mscorlib". That message reads like a corrupt or unsupported binary
+	/// and the real cause is not visible anywhere, hence this line ahead of it. Decrypting is a device
+	/// operation: a dump from a jailbroken device, or any build that did not go through the App Store,
+	/// has <c>cryptid</c> zero and imports normally.
+	/// </remarks>
+	private static void ReportEncryptedGameAssembly(string? gameAssemblyPath)
+	{
+		if (string.IsNullOrEmpty(gameAssemblyPath) || MachOEncryptionInfo.ReadFromFile(gameAssemblyPath) is not { } encryption)
+		{
+			return;
+		}
+
+		Logger.Warning(LogCategory.Import,
+			$"The game assembly '{Path.GetFileName(gameAssemblyPath)}' is an encrypted Mach-O (FairPlay cryptid {encryption.CryptId}) " +
+			$"over file offsets 0x{encryption.CryptOffset:X}-0x{encryption.CryptOffset + encryption.CryptSize:X}. That range holds the " +
+			"native code and the string constants, so no method body can be recovered from it and IL2CPP initialization may fail " +
+			"outright. This is an App Store build; a decrypted dump of the same app imports normally.");
 	}
 
 	~IL2CppManager()

@@ -199,7 +199,24 @@ find it; `strings` without `-el` does find method and type names.
   `GetCallerCount` — which every "which of these does managed code call" decision in
   `BaseKeyFunctionAddresses` rests on — counted a helper called 7999 times as 1. `Il2CppBinary.
   GetExecutableSections` returns both. The counts do not need a disassembler either: on A64 `B` and
-  `BL` are one word with a signed 26 bit word displacement, so the histogram is a scan.
+  `BL` are one word with a signed 26 bit word displacement, so the histogram is a scan. **The same is
+  true of an iOS Mach-O and the override was missing there**: `__text` and a section named `il2cpp`,
+  24 MB of the latter on the game measured, and `MachOFile` inherited the base's primary-section-only
+  default.
+- **An iOS player is not the app's executable.** Since Unity 2019.3 it is
+  `Payload/<App>.app/Frameworks/UnityFramework.framework/UnityFramework`; what sits at
+  `Payload/<App>.app/<App>` is a launcher of a few tens of kilobytes with no il2cpp code in it at all.
+  Taking it is not a worse recovery but no recovery: no code registration is found, initialisation
+  throws, and the whole import falls back to the `Unknown` scripting backend with nothing exported.
+  The streaming assets are under `<App>.app/Data/Raw`, not beside `Payload`.
+- **An App Store `.ipa` is FairPlay encrypted and nothing can be lifted from it.**
+  `LC_ENCRYPTION_INFO_64` with `cryptid` 1 covers the whole `__TEXT` segment — the `il2cpp` section
+  and `__cstring` with it — and decryption happens on the device at load time. It does not present as
+  empty bodies: the code registration is found by locating the string `mscorlib.dll` and walking back
+  to the module naming it, so initialisation fails outright with `No codegen modules found for
+  mscorlib`, which reads like a corrupt binary. `MachOEncryptionInfo.ReadFromFile` answers from the
+  first few kilobytes of the file and `IL2CppManager` says so before attempting the load. A decrypted
+  dump has `cryptid` zero and imports like any other ARM64 game; assets export either way.
 - **`Object::IsInst` is not found by the route Cpp2IL uses.** It looks for the last call in
   `System.Type::IsInstanceOfType`, assuming the one-line icall; on 2019.2 that is managed code
   ending in a virtual dispatch, and the heuristic reads past the end of the method and returns what

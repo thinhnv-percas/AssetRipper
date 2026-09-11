@@ -17,7 +17,7 @@ everyone actually runs had none of them.
 
 ## Changes against upstream
 
-Every change is marked `AssetRipper:` at the point it applies. Three of them, all in IL generation:
+Every change is marked `AssetRipper:` at the point it applies.
 
 1. **A body can run off its own end** — `IlGenerator.EnsureTerminated`. A block whose only successor
    is the exit block gets no bridge, and the analysis warnings appended at the end finish on a call,
@@ -34,6 +34,17 @@ Every change is marked `AssetRipper:` at the point it applies. Three of them, al
 4. **A field inside a value type field was not a field** — `MetadataResolver.FindNestedFieldPath`,
    `FieldReference.ContainingFields`, and the reads and writes for them in `IlGenerator`. This is
    the `TODO: Support nested fields` in upstream's own resolver.
+5. **A Mach-O had one executable section** — `MachO/MachOFile.GetExecutableSections`, added, the same
+   change `ElfFile` already carries. `Il2CppBinary`'s default returns the primary section alone, which
+   on iOS is `__text`; every generated method body is in the section named `il2cpp` beside it, 24 MB
+   of it on the game measured here. Anything counting how often a runtime helper is called — which is
+   every "does managed code call this" decision in `BaseKeyFunctionAddresses` — saw none of those
+   calls.
+6. **An encrypted Mach-O said nothing about being encrypted** — `MachO/MachOEncryptionInfo.cs`, added,
+   and read in `MachOFile`'s constructor. An App Store build is FairPlay encrypted over its whole
+   `__TEXT` segment, so the code registration search — which finds the string `mscorlib.dll` and walks
+   back to the module naming it — finds nothing and initialisation fails with "No codegen modules
+   found for mscorlib". That reads as a corrupt binary and the real cause was nowhere in the output.
 
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),
@@ -42,5 +53,5 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
 
 ## Updating
 
-Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the three marked
+Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked
 changes. Then re-measure with `RUN-TEST.bat` — the numbers above are what to compare against.

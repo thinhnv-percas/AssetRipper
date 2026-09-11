@@ -1,4 +1,4 @@
-﻿using AssetRipper.Import.Structure.Assembly;
+using AssetRipper.Import.Structure.Assembly;
 using AssetRipper.Import.Structure.Platforms;
 using AssetRipper.IO.Files;
 
@@ -15,12 +15,12 @@ internal sealed class iOSGameStructure : PlatformGameStructure
 
 		Name = name;
 		GameDataPath = dataPath;
-		StreamingAssetsPath = FileSystem.Path.Join(rootPath, iOSStreamingName);
+		StreamingAssetsPath = FileSystem.Path.Join(dataPath, iOSStreamingName);
 		ResourcesPath = FileSystem.Path.Join(dataPath, ResourcesName);
 		ManagedPath = FileSystem.Path.Join(dataPath, ManagedName);
 		UnityPlayerPath = null;
 		Version = GetUnityVersionFromDataDirectory(GameDataPath);
-		Il2CppGameAssemblyPath = FileSystem.Path.Join(appPath, name);
+		Il2CppGameAssemblyPath = GetIl2CppGameAssemblyPath(appPath, name);
 		Il2CppMetaDataPath = FileSystem.Path.Join(ManagedPath, MetadataName, DefaultGlobalMetadataName);
 
 		if (HasIl2CppFiles())
@@ -37,6 +37,30 @@ internal sealed class iOSGameStructure : PlatformGameStructure
 		}
 
 		DataPaths = [GameDataPath];
+	}
+
+	/// <summary>
+	/// The Mach-O holding the il2cpp code, or null when neither candidate is present.
+	/// </summary>
+	/// <remarks>
+	/// Unity 2019.3 moved the player — and with it every generated method body — out of the app's own
+	/// executable and into <c>Frameworks/UnityFramework.framework/UnityFramework</c>. What is left at
+	/// <c>&lt;App&gt;.app/&lt;App&gt;</c> is a launcher of a few tens of kilobytes that contains no
+	/// il2cpp code at all, so taking it is not a worse recovery but no recovery: LibCpp2IL finds no
+	/// code registration in it, initialisation throws, and the whole import falls back to the
+	/// <c>Unknown</c> scripting backend with no scripts exported. Older builds have no framework and
+	/// the executable really is the binary, hence the two candidates.
+	/// </remarks>
+	private string? GetIl2CppGameAssemblyPath(string appPath, string appName)
+	{
+		string framework = FileSystem.Path.Join(appPath, FrameworksName, UnityFrameworkName + FrameworkExtension, UnityFrameworkName);
+		if (FileSystem.File.Exists(framework))
+		{
+			return framework;
+		}
+
+		string executable = FileSystem.Path.Join(appPath, appName);
+		return FileSystem.File.Exists(executable) ? executable : null;
 	}
 
 	public static bool Exists(string path, FileSystem fileSystem)
@@ -85,4 +109,7 @@ internal sealed class iOSGameStructure : PlatformGameStructure
 
 	private const string PayloadName = "Payload";
 	private const string AppExtension = ".app";
+	private const string FrameworksName = "Frameworks";
+	private const string FrameworkExtension = ".framework";
+	private const string UnityFrameworkName = "UnityFramework";
 }
