@@ -245,21 +245,23 @@ public static class LocalVariables
         // lets a field offset resolve, a field load types its result, and any of those can be the
         // receiver/base of the next step. Every pass is monotonic - it only resolves an operand or
         // fills a previously-unknown type - so the loop converges.
-        // AssetRipper: twice. The first pass withholds System.Object at a use site, which is the top
-        // of the lattice and so no information at all; the second lets it through, once everything
-        // that could name a value has had its chance. See IsObjectTop.
-        RunFixpoint(method, allowObjectTop: false);
-        RunFixpoint(method, allowObjectTop: true);
+        // AssetRipper: twice. The first pass withholds the two weakest sources of type evidence -
+        // System.Object at a use site, which is the top of the lattice and so no information at
+        // all, and a phi's join type flowing back over an input that has its own definition. The
+        // second lets them through, once everything that could name a value has had its chance.
+        // See IsObjectTop and PropagatePhi. TypeCounters, weaker still, stays last.
+        RunFixpoint(method, allowWeakEvidence: false);
+        RunFixpoint(method, allowWeakEvidence: true);
 
         // AssetRipper: last, because it is a guess where everything above is a deduction - it only
         // looks at locals nothing else could name.
         if (TypeCounters(method))
-            while (PropagateTypesOnce(method, allowObjectTop: true))
+            while (PropagateTypesOnce(method, allowWeakEvidence: true))
             {
             }
     }
 
-    private static void RunFixpoint(MethodAnalysisContext method, bool allowObjectTop)
+    private static void RunFixpoint(MethodAnalysisContext method, bool allowWeakEvidence)
     {
         var changed = true;
         var loopCount = 0;
@@ -276,7 +278,7 @@ public static class LocalVariables
             changed |= MetadataResolver.ResolveCallsViaMethodInfo(method);
             changed |= MetadataResolver.ResolveAmbiguousCalls(method);
             changed |= MetadataResolver.ResolveVirtualCalls(method);
-            changed |= PropagateFromCallParameters(method, allowObjectTop);
+            changed |= PropagateFromCallParameters(method, allowWeakEvidence);
             changed |= MetadataResolver.ResolveFieldOffsets(method);
             changed |= MetadataResolver.ResolveElementClassLoads(method);
             changed |= RgctxResolver.Run(method);
@@ -288,7 +290,7 @@ public static class LocalVariables
             // AssetRipper: and the same for a field, whose address the machine also computes ahead of
             // the load whenever it is wanted more than once. See FoldComputedFieldAddresses.
             changed |= MetadataResolver.FoldComputedFieldAddresses(method);
-            changed |= PropagateTypesOnce(method, allowObjectTop);
+            changed |= PropagateTypesOnce(method, allowWeakEvidence);
         }
     }
 
@@ -622,7 +624,7 @@ public static class LocalVariables
     }
 
     // A single propagation sweep over every move and phi. Returns whether it filled in any type.
-    private static bool PropagateTypesOnce(MethodAnalysisContext method, bool allowObjectTop)
+    private static bool PropagateTypesOnce(MethodAnalysisContext method, bool allowWeakEvidence)
     {
         var changed = false;
 
@@ -631,10 +633,10 @@ public static class LocalVariables
             switch (instruction.OpCode)
             {
                 case OpCode.Move:
-                    changed |= PropagateMove(instruction, method.AppContext.Binary.PointerSizeBytes, allowObjectTop);
+                    changed |= PropagateMove(instruction, method.AppContext.Binary.PointerSizeBytes, allowWeakEvidence);
                     break;
                 case OpCode.Phi:
-                    changed |= PropagatePhi(instruction);
+                    changed |= PropagatePhi(instruction, allowWeakEvidence);
                     break;
                 case OpCode.Add or OpCode.Subtract or OpCode.Multiply:
                     changed |= PropagateArithmetic(instruction, method) || PropagateIntegerResultOfIntegers(instruction, method);
@@ -921,7 +923,7 @@ public static class LocalVariables
     /// </remarks>
     private static bool IsObjectTop(TypeAnalysisContext? type) => type?.FullName == "System.Object";
 
-    private static bool PropagateMove(Instruction move, int pointerSize, bool allowObjectTop)
+    private static bool PropagateMove(Instruction move, int pointerSize, bool allowWeakEvidence)
     {
         var destination = move.Operands[0];
         var source = move.Operands[1];
@@ -932,7 +934,7 @@ public static class LocalVariables
         // permanent. See IsObjectTop.
         if (destination is LocalVariable destLocal && source is LocalVariable sourceLocal)
             return SetTypeIfUnknown(destLocal, sourceLocal.Type)
-                || ((allowObjectTop || !IsObjectTop(destLocal.Type)) && SetTypeIfUnknown(sourceLocal, destLocal.Type));
+                || ((allowWeakEvidence || !IsObjectTop(destLocal.Type)) && SetTypeIfUnknown(sourceLocal, destLocal.Type));
 
         // Move local, field: a field load types its result with the field's type. This is the edge
         // that lets the loaded value go on to be the base of a further field access.
@@ -978,7 +980,7 @@ public static class LocalVariables
 
     // A phi is a copy from each predecessor's value, so types flow both ways across it - mirroring
     // the bidirectional Move copies it decays into once SSA is destroyed.
-    private static bool PropagatePhi(Instruction phi)
+    private static bool PropagatePhi(Instruction phi, bool allowWeakEvidence)
     {
         if (phi.Operands[0] is not LocalVariable destination)
             return false;
@@ -1017,7 +1019,15 @@ public static class LocalVariables
         }
 
         // Backward: a typed phi result types each of its still-untyped inputs.
-        if (destination.Type != null)
+        //
+        // AssetRipper: weak evidence, so it waits for the second pass. A merge is a join, and
+        // saying an input has the join type is only true when nothing better defines the input -
+        // which under a monotonic fixpoint has to be established before this runs, not after. In
+        // `GameHelper.FindAllChild` the compiler reuses X8 for the list's class pointer and then
+        // for `list._items`, so the merge of the two was typed as the class and spread back over
+        // the array; `_items.Length` came out as `[Il2CppClass<List<Object>> + 0x18]` and the
+        // inlined `List.Add` fast path compared the count against nothing.
+        if (allowWeakEvidence && destination.Type != null)
         {
             for (var i = 1; i < phi.Operands.Count; i++)
             {
@@ -1029,7 +1039,7 @@ public static class LocalVariables
         return changed;
     }
 
-    private static bool PropagateFromCallParameters(MethodAnalysisContext method, bool allowObjectTop)
+    private static bool PropagateFromCallParameters(MethodAnalysisContext method, bool allowWeakEvidence)
     {
         var changed = false;
 
@@ -1138,7 +1148,7 @@ public static class LocalVariables
                 // state machine's `<>4__this` System.Object and thirteen field reads off it in that
                 // one method became unnameable offsets. Leaving it unknown costs nothing: a local
                 // nothing types is declared object anyway.
-                if (instruction.Operands[i] is LocalVariable local && (allowObjectTop || !IsObjectTop(parameterType)))
+                if (instruction.Operands[i] is LocalVariable local && (allowWeakEvidence || !IsObjectTop(parameterType)))
                     changed |= SetTypeIfUnknown(local, parameterType);
             }
         }

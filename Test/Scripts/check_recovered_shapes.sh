@@ -124,6 +124,12 @@ check DECOMP-0016 TimeCheatingDetector.cs 'TimeCheatingDetector timeCheatingDete
 # `entry[header[j]] = value` in the reference came back as `dictionary[(string)0] = value;`.
 check DECOMP-0017 CSVReader.cs 'dictionary[array2[num5]] = value;' 'dictionary[(string)0] = value;'
 
+# DECOMP-0018: a phi's join type flowed back over an input that had its own definition. The
+# compiler reuses X8 for the list's class pointer and then for `list._items`, so the merge of the
+# two was typed as the class and spread back over the array. `list.Add(t.gameObject)` inlined came
+# out comparing the count against nothing, with the element store lost entirely.
+check DECOMP-0018 GameHelper.cs 'if (list2.Count < items.Length)' 'if ((nint)count < (nint)0)'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.
