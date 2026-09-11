@@ -20,50 +20,73 @@ public static class DeadCodeEliminator
 {
     public static void Run(MethodAnalysisContext method) => Run(method.ControlFlowGraph!);
 
+    /// <remarks>
+    /// AssetRipper: mark and sweep from the instructions that have an effect, not a use count swept
+    /// to a fixpoint. A use count cannot see through a cycle - a loop-carried phi is used by the
+    /// next phi round the loop, so every phi in the cycle has a live-looking use even when nothing
+    /// outside the cycle reads any of them. The lifter emits the whole flag bundle for every
+    /// <c>cmp</c>, and SSA phis those flag registers at each join, so on A64 an entire recovered
+    /// comparison - the two class-pointer loads included - stayed in the body behind a ring of
+    /// phis that referred only to each other. The same shape is why InterfaceDispatchRecovery has
+    /// to zero its merge phis by hand rather than wait for them to die.
+    /// </remarks>
     public static void Run(ISILControlFlowGraph cfg)
     {
-        // Removing a dead definition can make its operands dead in turn, so iterate to a fixpoint.
-        // This is monotonic (each pass only nops instructions) and therefore always terminates.
-        var changed = true;
-        while (changed)
+        // Every definition, not the last one. The form is meant to be SSA, but a pass that rewrites
+        // an instruction can leave a local with more than one, and marking only one of them sweeps
+        // an assignment a live use still reaches - which reads as "use of unassigned local".
+        var definitions = new Dictionary<LocalVariable, List<Instruction>>();
+
+        foreach (var block in cfg.Blocks)
         {
-            changed = false;
-
-            var useCounts = CountUses(cfg);
-
-            foreach (var block in cfg.Blocks)
+            foreach (var instruction in block.Instructions)
             {
-                foreach (var instruction in block.Instructions)
-                {
-                    if (!IsRemovable(instruction.OpCode))
-                        continue;
+                if (instruction.Destination is not LocalVariable destination)
+                    continue;
 
-                    // Only definitions of a register local are candidates. Stores have a memory or
-                    // field destination (Destination is not a local) and are never dead.
-                    if (instruction.Destination is not LocalVariable destination)
-                        continue;
+                if (!definitions.TryGetValue(destination, out var list))
+                    definitions[destination] = list = [];
 
-                    if (useCounts.TryGetValue(destination, out var count) && count > 0)
-                        continue;
-
-                    instruction.OpCode = OpCode.Nop;
-                    instruction.SetOperands();
-                    changed = true;
-                }
+                list.Add(instruction);
             }
         }
-    }
 
-    private static Dictionary<LocalVariable, int> CountUses(ISILControlFlowGraph cfg)
-    {
-        var counts = new Dictionary<LocalVariable, int>();
+        // Roots: anything that is not a pure computation into a register. A store's destination is
+        // a memory or field operand rather than a local, so it is a root however removable its
+        // opcode looks.
+        var live = new HashSet<Instruction>();
+        var pending = new Stack<Instruction>();
 
         foreach (var block in cfg.Blocks)
             foreach (var instruction in block.Instructions)
-                foreach (var used in UsedLocals(instruction))
-                    counts[used] = counts.TryGetValue(used, out var c) ? c + 1 : 1;
+                if ((!IsRemovable(instruction.OpCode) || instruction.Destination is not LocalVariable)
+                    && live.Add(instruction))
+                    pending.Push(instruction);
 
-        return counts;
+        while (pending.Count > 0)
+        {
+            foreach (var used in UsedLocals(pending.Pop()))
+            {
+                if (!definitions.TryGetValue(used, out var defining))
+                    continue;
+
+                foreach (var definition in defining)
+                    if (live.Add(definition))
+                        pending.Push(definition);
+            }
+        }
+
+        foreach (var block in cfg.Blocks)
+        {
+            foreach (var instruction in block.Instructions)
+            {
+                if (live.Contains(instruction) || instruction.OpCode == OpCode.Nop)
+                    continue;
+
+                instruction.OpCode = OpCode.Nop;
+                instruction.SetOperands();
+            }
+        }
     }
 
     /// <summary>

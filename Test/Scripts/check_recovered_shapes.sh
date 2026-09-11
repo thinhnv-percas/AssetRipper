@@ -20,7 +20,9 @@ find_script() {
 
 # $1 issue, $2 file, $3 must contain, $4 must not contain (optional). Both are fixed strings:
 # a golden shape is the text itself, and a bracket or a dot read as a pattern makes a check pass or
-# fail for the wrong reason.
+# fail for the wrong reason. Cũng đừng neo vào tên biến do ILSpy sinh ra kèm số thứ tự
+# (`boundingBoxAttachment2`, `num5`): số đó đếm các biến đứng trước nó, nên bất kỳ thay đổi nào
+# làm thân hàm dài ra hay ngắn đi đều đổi nó và check hỏng vì lý do không liên quan.
 check() {
     local issue=$1 name=$2 wanted=$3 unwanted=${4:-}
     local file
@@ -110,7 +112,7 @@ check DECOMP-0015 GraphicController.cs 'List<Box>.Enumerator enumerator = Boxes.
 # `List<T>.Enumerator.MoveNext` returns `bool` whatever T is, and leaving that untyped let SSA
 # destruction merge the result with the receiver's register - `GUIManager x = (GUIManager)MoveNext()`
 # and a loop condition read off `this`. Only a type the substitution reached may be withheld.
-check DECOMP-0015 GUIManager.cs 'bool flag = enumerator2.MoveNext();' ')enumerator2.MoveNext()'
+check DECOMP-0015 GUIManager.cs '= enumerator2.MoveNext();' ')enumerator2.MoveNext()'
 
 # DECOMP-0016: a delegate's two-argument constructor takes its target as System.Object, so
 # `new OnlineTimeCallback(this, ...)` typed the state machine's `<>4__this` System.Object - the top
@@ -122,19 +124,19 @@ check DECOMP-0016 TimeCheatingDetector.cs 'TimeCheatingDetector timeCheatingDete
 # constant index has no register at all - the whole offset is folded into the add - and an index the
 # compiler leaves in the addressing mode has only the elements offset added ahead of the load.
 # `entry[header[j]] = value` in the reference came back as `dictionary[(string)0] = value;`.
-check DECOMP-0017 CSVReader.cs 'dictionary[array2[num5]] = value;' 'dictionary[(string)0] = value;'
+check DECOMP-0017 CSVReader.cs 'dictionary[array2[' 'dictionary[(string)0] = value;'
 
 # DECOMP-0018: a phi's join type flowed back over an input that had its own definition. The
 # compiler reuses X8 for the list's class pointer and then for `list._items`, so the merge of the
 # two was typed as the class and spread back over the array. `list.Add(t.gameObject)` inlined came
 # out comparing the count against nothing, with the element store lost entirely.
-check DECOMP-0018 GameHelper.cs 'if (list2.Count < items.Length)' 'if ((nint)count < (nint)0)'
+check DECOMP-0018 GameHelper.cs '.Count < items.Length)' 'if ((nint)count < (nint)0)'
 
-# DECOMP-0019: trên A64 một `cmp` lift thành một chùm cờ chứ không thành một phép so sánh, và
-# đẳng thức là cờ Z của một phép trừ. TypeCheckRecovery so khớp trên hai toán hạng của phép so
-# sánh nên trượt toàn bộ hình dạng này, và cú `attachment as BoundingBoxAttachment` trong Spine
-# quay về thành phép duyệt cây kế thừa mở sẵn.
-check DECOMP-0019 BoundingBoxFollower.cs 'BoundingBoxAttachment boundingBoxAttachment2 = attachment as BoundingBoxAttachment;' '(BoundingBoxAttachment)((boundingBoxAttachment == null) ? null : attachment)'
+# DECOMP-0020: một vòng phi chỉ tham chiếu lẫn nhau không chết đối với phép đếm lượt dùng, nên
+# toàn bộ chùm cờ của một `cmp` trên A64 - kể cả hai lệnh đọc class pointer nuôi nó - vẫn nằm lại
+# trong thân hàm sau khi phép so sánh đã được nhận diện. DCE quét từ gốc thay vì đếm lượt dùng.
+# `SkeletonJson.ReadSkeletonData` là chỗ dày nhất: 68 lệnh đọc typeHierarchyDepth còn lại.
+check DECOMP-0020 SkeletonJson.cs 'as Dictionary<string, object>;' '(Il2CppClass<System.Object>)+130]'
 
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
