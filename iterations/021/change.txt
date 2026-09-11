@@ -1,0 +1,2 @@
+Iteration 020 with DECOMP-0015 narrowed: a shared instantiation only withholds a return type when
+the substitution actually reached that type. MetadataResolver.ContainsSharingPlaceholder.

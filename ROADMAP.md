@@ -621,11 +621,24 @@ definition is shared generic code**, so `RgctxResolver.ResolveTypeEntry` must us
 parameters as the arguments, which `ResolveMethodEntry` already did; and **a phi whose inputs disagree
 must stay untyped**, where it had been taking the first one's type and spreading it backward.
 
-Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 1766 and its `Assembly-CSharp`
-from 499 Roslyn errors to 415 - while compiling 15 more bodies than before, and with the EXPECTED
-count unchanged at 47. REAL_ERROR is now 1153. `AGENT_STATE.md` says where to pick up. **Read
-`reports/UNTYPED_LOCAL_IMPACT.md` before starting on section 5**: 91% of the untyped locals provably
-cost nothing, and the four fixes above each removed more of them than a typing rule would have.
+Two more are the *order* the type fixpoint applies evidence in, which is the whole of the design
+where the fixpoint is monotonic - the first type a local receives is the one it keeps, so a weaker
+source arriving first is permanent. **A shared generic instantiation must not outrank the receiver**:
+`List<System.Object>.get_Item` typed its result before the field declaring `List<LinkedMesh>` had
+resolved, so `linkedMeshes[i].skin` could never come back. And **`System.Object` at a use site is
+the top of the lattice, not evidence**: a delegate's two-argument constructor takes its target as
+`System.Object`, which the copy rule then propagated backwards over a field metadata declares
+outright. Both first cuts withheld evidence rather than ranking it and both measured worse, in the
+same way: something weaker filled the gap. `reports/TYPE_RECOVERY_ANALYSIS.md` has the ranking as it
+now stands, the two defects worked through, and what is left by family and by assembly.
+
+Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 1076 and its `Assembly-CSharp`
+from 499 Roslyn errors to 403 - while compiling 15 more bodies than before. Unresolved loads across
+the whole rip are 5702 to 3689. **Assembly-CSharp holds 359 of those 3689**, and both of the easy
+measurements cover only it, so count per assembly before concluding a change did nothing.
+`AGENT_STATE.md` says where to pick up. **Read `reports/UNTYPED_LOCAL_IMPACT.md` before starting on
+section 5**: 91% of the untyped locals provably cost nothing, and each of the fixes above removed
+more of them than a typing rule would have.
 
 ## 9. Smaller things
 

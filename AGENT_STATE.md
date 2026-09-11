@@ -4,10 +4,10 @@ Read this first after a restart, then `reports/regression-matrix.md` for the num
 `reports/issues.json` for the open items.
 
 ```
-Current iteration: 018 (complete; 017 was the first cut of DECOMP-0014, superseded)
+Current iteration: 023 (complete; 020 and 022 were first cuts, superseded and not committed)
 
 Decompiler commit:
-  claude/read-current-repository-daqxc1 @ 00d1e5e, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+  claude/read-current-repository-daqxc1 @ 3ceca87, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
 
 Input:
   Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
@@ -20,16 +20,17 @@ Reference:
   Unity 2022.3.62f2, matching the binary
 
 Current stage:
-  idle between iterations. Baseline for the next one is iteration 018.
+  idle between iterations. Baseline for the next one is iteration 023.
 
-Where iteration 018 stands, against the original baseline:
+Where iteration 023 stands, against the original baseline:
   unrecovered method bodies      15 -> 0
-  audit REAL_ERROR             2162 -> 1153
-  audit SEMANTIC_RISK           301 -> 223
-  audit EXPECTED                 47 -> 47   (correctly unchanged; see DECOMP-0005)
-  Roslyn errors, Assembly-CSharp 499 -> 415
-  unresolved loads              5702 -> 3813
-  typeHierarchyDepth loads      n/a  -> 178 (252 before DECOMP-0014)
+  audit REAL_ERROR             2162 -> 1076
+  audit SEMANTIC_RISK           301 -> 187
+  audit EXPECTED                 47 -> 51
+  Roslyn errors, Assembly-CSharp 499 -> 403
+  unresolved loads              5702 -> 3689  (Assembly-CSharp 359 of them)
+  loads with a System.Object base n/a -> 17   (69 before DECOMP-0016)
+  typeHierarchyDepth loads      n/a  -> 139
   files with no diagnostic at all 20 -> 21
   field layout self-check       n/a -> 1394 exact, 78 incomplete, 0 disagreed
   run time                       58s -> 53s
@@ -39,24 +40,28 @@ Current bug family:
   none in flight.
 
 Current hypothesis:
-  The "past the last field of the base type" family is worked out and recorded in
-  reports/BASE_FIELD_OVERFLOW_ANALYSIS.md. Its one metadata-answerable cause is fixed (DECOMP-0012);
-  what is left of it - 246 bases typed System.Object, ~139 typed as an ancestor, 99 open generic
-  parameters - has no metadata answer and is the use-side typing problem.
+  Use-side typing is worked out and recorded in reports/TYPE_RECOVERY_ANALYSIS.md, with the
+  evidence ranks the fixpoint now applies in order and the per-assembly load table. Two ranks were
+  out of order and both are fixed: a shared generic instantiation outranking the receiver
+  (DECOMP-0015), and System.Object - the top of the lattice - outranking a field's declared type
+  (DECOMP-0016). What is left of the 3689 splits into 1576 whose base has no usable type and 2113
+  whose base is typed and whose offset could not be placed; about 600 of the second group are
+  runtime structure reads rather than managed fields, and are a pattern-recognition problem, not a
+  typing one.
 
-  The unresolved-load families left in Assembly-CSharp, which is the only assembly with a reference:
-    69  past the last field of the base type   (typing, no metadata answer)
-    45  base has no type, from Move from an untyped base
-    43  base has no type, from no definition
-    27  base has no type, from Move from AddressOf(an untyped local)
-    26  Il2CppClass.0x28
-    23  value type base
-  409 in total, of 3903 across the export.
+  The biggest single typing group left is 659 loads whose base is defined by an `Add` whose own
+  base is untyped - the computed-address problem one step back from where ArrayRecovery and
+  FoldComputedFieldAddresses already claim it.
 
 Evidence to start from:
+  - reports/TYPE_RECOVERY_ANALYSIS.md - the evidence ranking, both defects worked through, what is
+    left by family and by assembly. Read before touching the fixpoint.
+  - reports/TYPE_PROVENANCE.json - every unresolved load grouped by what defines its base, 021 and
+    023 side by side.
+  - reports/OBJECT_BASE_TYPE_PROVENANCE.json - the 69 System.Object-based loads and the 17 left.
   - reports/BASE_FIELD_OVERFLOW_ANALYSIS.md and .../CASES.json - the worked inventory, and the
     method: classify before counting. `CPP2IL_DUMP_LOADS=<file>` writes one row per load from the
-    same event the summary counts.
+    same event the summary counts; it now names the instruction that defined the base.
   - reports/UNTYPED_LOCAL_IMPACT.md - 91% of untyped locals provably cost nothing. Still true.
   - reports/BUG_FAMILY_PRIORITY.md - the compile-error families with category and files.
 
@@ -71,6 +76,8 @@ Fixed:
   DECOMP-0012  an RGCTX entry in shared generic code inflated with no arguments
   DECOMP-0013  a phi with disagreeing inputs taking the first one's type
   DECOMP-0014  il2cpp's type-check shortcut not folded on the shape it actually has
+  DECOMP-0015  a shared generic instantiation outranking the receiver inside the type fixpoint
+  DECOMP-0016  System.Object at a use site taken as evidence when it is the top of the lattice
 
 Open:
   DECOMP-0004  the untyped-locals family, ROADMAP section 5. Read UNTYPED_LOCAL_IMPACT.md first.
@@ -87,43 +94,58 @@ Measured and closed without a change:
                that family has no public equivalent at all. WONT_FIX, with the numbers.
 
 Regression status:
-  clean. All ten shape checks pass, the field layout self-check reports 0 disagreements (a gate, not
-  a note), 0 unrecovered bodies. One file, ResourcesUtil.cs, gained a single audit diagnostic at
-  iteration 016 - a `)(object)` cast that the wrong concrete type had been hiding.
+  clean. All twelve shape checks pass, the field layout self-check reports 0 disagreements (a gate,
+  not a note), 0 unrecovered bodies, 0 generator failures. No file's audit total is worse than at
+  iteration 019.
 
 Blocked Unity tests:
   U1-U9 in reports/BLOCKED_UNITY_TESTS.md. Scripts in Test/Scripts/unity/ refuse to run without a
   real editor (exit 90). NOT passing. The verdict stays PASS_WITH_KNOWN_LIMITATIONS.
 
 Next action:
-  Two things came out of DECOMP-0014 and neither is finished.
+  Four, roughly in order of what the evidence says they are worth.
 
-  (a) **The hierarchy walk itself**, 178 `typeHierarchyDepth` loads left. The shortcut in front of
-      the check is now folded; what remains is the walk it guards -
-      `obj->klass->typeHierarchy[T->typeHierarchyDepth - 1] == T` - which `TypeCheckRecovery` folds
-      only when *it* recovered the comparison. Where `Object::IsInst` was what got recovered, the
-      walk is left standing beside the `as` it duplicates. The same excision
-      `InterfaceDispatchRecovery` does for its scan is the model: nothing outside the region reads
-      what the region computed.
+  (a) **659 loads whose base is defined by an `Add` nothing typed.** The largest single group in
+      reports/TYPE_PROVENANCE.json. An architecture with no scaled index addressing mode computes
+      an element's address first, so the array and the index are an instruction earlier;
+      `ArrayRecovery.RecoverComputedAccesses` and `MetadataResolver.FoldComputedFieldAddresses`
+      claim the ones whose base is already typed. These are the remainder - the same problem one
+      step back - so the question is what types the `Add`'s own base.
 
-  (b) **An object's klass gets over-typed from a narrowed local.** `v1161 = [v563]` where v563 is
+  (b) **About 600 runtime structure reads counted as unresolved loads.** `Il2CppClass` at
+      `typeHierarchyDepth` (139), `0x28` (111), `interface_offsets_count` (84), `0xFC` (61),
+      `cctor_finished` (49), `Il2CppMethodInfo` at `0x53` (53), static field storage at `0x8` (49).
+      These have the right base and the right offset; what is missing is a pass that recognises the
+      shape, as `TypeCheckRecovery` and `InterfaceDispatchRecovery` do for theirs. The hierarchy
+      *walk* - `obj->klass->typeHierarchy[T->typeHierarchyDepth - 1] == T` - is the 139, and is (a)
+      from the previous state file, still unfinished.
+
+  (c) **An object's klass gets over-typed from a narrowed local.** `v1161 = [v563]` where v563 is
       typed `Spine.RotateTimeline` gives `Il2CppClass<Spine.RotateTimeline>`, but the object's class
-      is not known at compile time - that is the whole point of the check being there. It made the
-      same-type guard in (a) reject every real case, and it is the same family as DECOMP-0013: a type
-      asserted where none is known. Worth finding what types a klass load and making it decline when
-      the source local's type came from a cast rather than from an allocation.
+      is not known at compile time - that is the point of the check being there. Same family as
+      DECOMP-0013 and DECOMP-0016: a type asserted where none is known. Worth making a klass load
+      decline when the source local's type came from a cast rather than from an allocation.
+
+  (d) **The enumerator in an address-taken stack slot** is still typed from the shared
+      instantiation, which is what DECOMP-0015's shape check deliberately does not claim. il2cpp
+      stores the enumerator into a stack slot and calls MoveNext on its address; the slot's type
+      should come from the value stored into it, which is now correctly typed. A store-into-slot
+      propagation, not a call-retarget.
 
   Note for whoever takes these: spine-unity *is* verifiable. Spine's own source is vendored at
   `artifacts/reference/.../Assets/ThirdParties/Spine/Runtime/spine-csharp/`, so a recovery there can
   be read against it even though `audit_recovered_scripts.py` only covers Assembly-CSharp. That is
-  where most of the remaining runtime-struct leakage is, and it was nearly skipped for want of an
-  oracle that turned out to be present.
+  where half the remaining unresolved loads are.
+
+  And: Assembly-CSharp holds under a tenth of the loads. Before concluding a change did nothing,
+  read the per-assembly table in reports/TYPE_RECOVERY_ANALYSIS.md.
 
 Last successful stage:
-  iteration 018 - full validation, no file worse, no regression.
+  iteration 023 - full validation, no file worse than 019, no regression.
 
 Last failure:
-  DECOMP-0011, iteration 012 - reverted on measurement, not shipped.
+  DECOMP-0011, iteration 012 - reverted on measurement, not shipped. Iterations 020 and 022 were
+  first cuts caught by the per-file audit diff and narrowed before shipping, not reverted.
 ```
 
 ## Environment notes

@@ -1,0 +1,12 @@
+Assembly-CSharp: 63 files, 404 errors, 2436 warnings
+
+   192  CS0030   Cannot convert type 'Item' to 'nint'
+   167  CS1061   'Action<int, long>' does not contain a definition for 'invoke_impl' and no accessible extension method 'invoke_impl' accepting a first argument of type 'Action<int, long>' could be found (are you missing a using directive or an assembly reference?)
+    15  CS0037   Cannot convert null to 'nint' because it is a non-nullable value type
+    11  CS0122   'Unsafe' is inaccessible due to its protection level
+     5  CS0165   Use of unassigned local variable 'num'
+     5  CS0019   Operator '&' cannot be applied to operands of type 'float' and 'int'
+     4  CS0117   'ItemBase' does not contain a definition for '_002Ector'
+     2  CS7003   Unexpected use of an unbound generic name
+     2  CS0246   The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)
+     1  CS0029   Cannot implicitly convert type 'System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>>' to 'System.Exception'

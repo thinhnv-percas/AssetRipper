@@ -310,5 +310,55 @@
     "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0014, plus typeHierarchyDepthLoads in collect_metrics.sh",
     "confidence": 95,
     "note": "What remains of the 178 is the hierarchy *walk* rather than the shortcut - a different shape, not yet folded. None of this shows in the Assembly-CSharp audit or Roslyn count, because 226 of the 252 are in spine-unity."
+  },
+  {
+    "id": "DECOMP-0015",
+    "severity": "ERROR",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 19,
+    "iterationFixed": 21,
+    "generatedFile": "Assets/Scripts/spine-unity/Spine/SkeletonJson.cs, Assets/Scripts/Assembly-CSharp/GraphicController.cs, GUIManager.cs, UserResourceCollectionItem.cs",
+    "referenceFile": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonJson.cs, Assets/Scripts/GraphicController.cs",
+    "method": "Spine.SkeletonJson::ReadSkeletonData, GraphicController::ResetBoxes, GUIManager::SetDefaultGUI",
+    "compilerError": "CS0030 and CS0266 at each cast; the placeholder loads carry none",
+    "observed": "`List<object>.Enumerator enumerator = (List<object>.Enumerator)Boxes.GetEnumerator();` and `Move v5514 (System.String), [v1134 @ X0_v971 (System.Object)+18]` where the reference reads `linkedMeshes[i].skin`",
+    "expected": "`List<Box>.Enumerator enumerator = Boxes.GetEnumerator();` and the element typed LinkedMesh, so `.skin` resolves",
+    "rootCause": "il2cpp compiles one body per generic definition and shares it across instantiations, so the method a call address resolves to is whichever instantiation the linker attributed it to. The type fixpoint is monotonic, so that type was the one every value at the call site kept - List`1<System.Object>::get_Item typed its result System.Object before the field declaring List`1<LinkedMesh> had resolved, and no later evidence could displace it.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "MetadataResolver.RetargetSharedGenericCalls, LocalVariables.PropagateFromCallParameters",
+    "evidence": [
+      "stage dump 011 of Spine.SkeletonJson::ReadSkeletonData - the field and the call disagree in the same body: `Move v1133 (List`1<System.Object>), v1173.linkedMeshes (List`1<Spine.SkeletonJson+LinkedMesh>)`",
+      "reference source: `private List<LinkedMesh> linkedMeshes;` / `LinkedMesh linkedMesh = linkedMeshes[i];` / `linkedMesh.skin`",
+      "REAL_ERROR 1153 -> 1076, shared_generic 76 -> 39, Roslyn on Assembly-CSharp 415 -> 402, untyped locals 21102 -> 20665"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0015, both halves",
+    "confidence": 95,
+    "note": "The first attempt (iteration 020, not committed) withheld every type a shared instantiation mentioned, which is too much: List`1<T>+Enumerator::MoveNext returns bool whatever T is, and leaving that untyped let SSA destruction merge the result with the receiver's register - `GUIManager x = (GUIManager)MoveNext()` with the loop condition read off `this`. ContainsSharingPlaceholder requires the substitution to have reached the type in hand. The enumerator il2cpp keeps in an address-taken stack slot is still typed from the shared instantiation; that is a store-into-slot propagation, not this, and the shape check deliberately does not claim it."
+  },
+  {
+    "id": "DECOMP-0016",
+    "severity": "ERROR",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 21,
+    "iterationFixed": 23,
+    "generatedFile": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs, and 52 loads across spine-unity, DOTween and ACTk.Runtime",
+    "referenceFile": "none - ACTk is not vendored in the reference repository; the game's own metadata is the oracle here",
+    "method": "CodeStage.AntiCheat.Detectors.TimeCheatingDetector+<CheckForCheat>d__68::MoveNext",
+    "compilerError": "none - the reads are placeholders",
+    "observed": "`object obj = <>4__this;` followed by thirteen `Cpp2ILHelpers.NoteDecompilerIssue(\"Unmanaged memory load: [v44 @ X19_v2 (System.Object)+78]\")`, against a field metadata declares TimeCheatingDetector",
+    "expected": "`TimeCheatingDetector timeCheatingDetector = <>4__this;` and each field read resolved",
+    "rootCause": "A delegate's two-argument constructor takes its target as System.Object. PropagateFromCallParameters typed the argument copy from that parameter, PropagateMove copied it backwards into the local the field had been loaded into, and the field's own declared type - which arrives later in the same fixpoint - found the local already typed. System.Object is the top of the reference lattice: every reference converges there, so a use site declared System.Object carries no information about the value, and under a monotonic fixpoint recording it is permanent.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "LocalVariables.IsObjectTop, LocalVariables.RunFixpoint, PropagateMove, PropagateFromCallParameters",
+    "evidence": [
+      "stage dump 011: `39 Move v44 @ X19_v2 (System.Object), v16.<>4__this (TimeCheatingDetector)` and `309 Move v329 @ X1_v10 (System.Object), v44` feeding `312 CallVoid OnlineTimeCallback..ctor`",
+      "loads whose base resolved to System.Object: 69 -> 17 (reports/OBJECT_BASE_TYPE_PROVENANCE.json)",
+      "unresolved loads 3741 -> 3689; spine-unity 1863 -> 1839, ACTk.Runtime 243 -> 227, DOTween 840 -> 835, Assembly-CSharp 359 -> 359"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0016",
+    "confidence": 90,
+    "note": "Withholding System.Object outright (iteration 022, not committed) made things worse: the local falls to TypeCounters, whose guess is weaker still, and `obj as ItemResources` came back `(int)(obj as ItemResources)`. The fixpoint runs twice instead - once withholding, once allowing - with TypeCounters still last, so each rank of evidence gets its turn in order. Assembly-CSharp holds none of this family, so its REAL_ERROR is unchanged and Roslyn moves by one inside the existing Box-to-float family; the per-assembly table in reports/TYPE_RECOVERY_ANALYSIS.md is what shows the change."
   }
 ]

@@ -1,0 +1,3 @@
+DECOMP-0016 deferred: System.Object at a use site is applied in a second fixpoint pass, after
+everything that could name a value has had its chance and before TypeCounters, whose guess is
+weaker still.

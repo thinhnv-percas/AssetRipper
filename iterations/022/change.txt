@@ -1,0 +1,3 @@
+DECOMP-0016: System.Object at a use site is the top of the lattice, not evidence. A parameter
+declared System.Object no longer types its argument, and a copy no longer propagates System.Object
+backwards from the destination to the source.

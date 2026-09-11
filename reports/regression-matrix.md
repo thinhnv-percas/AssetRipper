@@ -91,6 +91,11 @@ verified rather than asserted. 007 and 014 are baseline re-verifications at the 
 | 016 | 1153 | 415 | DECOMP-0013 |
 | 017 | 1153 | 415 | DECOMP-0014 first cut, superseded |
 | 018 | 1153 | 415 | DECOMP-0014 - measured in typeHierarchyDepth loads, 252 to 178, not in these two columns |
+| 019 | 1153 | 415 | baseline re-verification |
+| **020** | 1115 | 406 | DECOMP-0015 first cut - five files worse, a `bool` return typed as a MonoBehaviour; narrowed, not shipped |
+| 021 | 1076 | 402 | DECOMP-0015 |
+| **022** | 1079 | 404 | DECOMP-0016 applied inside the fixpoint - two files worse, `obj as ItemResources` read as an int; deferred, not shipped |
+| 023 | 1076 | 403 | DECOMP-0016 - measured in unresolved loads, 3741 to 3689, almost all outside Assembly-CSharp |
 
 Both of the two rows in bold are changes that looked right and were not, and both were caught by
 measurement within one iteration. Iteration 012's is recorded in `CLAUDE.md` under "things measured to
@@ -109,3 +114,12 @@ be worth nothing", with the reason not to retry it.
   DECOMP-0014 addresses are in spine-unity. `typeHierarchyDepthLoads` in `collect_metrics.sh` is the
   row that moves, 252 to 178. A measurement that covers one assembly will not see work done in
   another, which is worth remembering before concluding a change did nothing.
+- The same holds for iteration 023, more sharply: Assembly-CSharp holds 359 of the 3689 unresolved
+  loads and none of the 52 DECOMP-0016 removed, so its REAL_ERROR is unchanged and Roslyn moves by
+  one inside the existing `Box`-to-`float` family. `reports/TYPE_RECOVERY_ANALYSIS.md` carries the
+  per-assembly table, which is now the artefact to read before calling a change inert.
+- Iterations 020 and 022 are the two first cuts above. Neither was committed. Both were caught by
+  the per-file audit diff within one iteration, and in both cases the cause was the same: a rule
+  that withheld evidence rather than ranking it, so something weaker filled the gap. 020's fix was
+  to require the substitution to have actually reached the type in hand; 022's was to apply the
+  weak evidence in a second pass rather than not at all.

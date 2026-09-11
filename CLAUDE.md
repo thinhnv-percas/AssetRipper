@@ -596,6 +596,42 @@ find it; `strings` without `-el` does find method and type names.
   file from 209 diagnostics to 129. This is the third time the same principle has paid: an honest
   unknown costs one reported load, a wrong concrete type costs every use downstream.
 
+- **A shared generic body is attributed to one instantiation, and the type fixpoint is monotonic.**
+  il2cpp compiles one body per generic definition and shares it, so the method a call address
+  resolves to is whichever instantiation the linker attributed it to - and the first type a local
+  receives is the one it keeps. `List<System.Object>.get_Item` typed its result `System.Object`
+  before the field declaring `List<LinkedMesh>` had resolved, and `linkedMeshes[i].skin` could never
+  come back. The receiver is the stronger evidence, so `MetadataResolver.RetargetSharedGenericCalls`
+  re-instantiates the callee on the receiver's own generic arguments, inside the fixpoint where the
+  field has had a turn. It is a no-op where the two agree, so nothing has to know which arguments
+  are placeholders. **Withholding a type because the callee is shared has to be narrow**: a shared
+  `List<T>.Enumerator.MoveNext` returns `bool` whatever T is, and refusing that left the local for
+  SSA destruction to merge with the receiver's register - `GUIManager x = (GUIManager)MoveNext()`
+  with the loop condition read off `this`. `ContainsSharingPlaceholder` requires the substitution to
+  have reached the type in hand.
+- **`System.Object` at a use site is the top of the lattice, not evidence.** Every reference type
+  converges on it, so a value reaching a position declared `System.Object` is known only to be a
+  reference - and recorded under a monotonic fixpoint, that is permanent. A delegate's two-argument
+  constructor takes its target as `System.Object`, so `new OnlineTimeCallback(this, ...)` typed the
+  argument copy, the copy rule propagated it backwards, and the state machine's `<>4__this` - a
+  field metadata declares `TimeCheatingDetector` - arrived to find the local already typed.
+  Thirteen field reads in one method became unnameable offsets. **Withholding it outright is worse**:
+  the local then falls to `TypeCounters`, whose guess is weaker still, and `obj as ItemResources`
+  came back `(int)(obj as ItemResources)`. The fixpoint runs twice instead, once withholding and
+  once allowing, with `TypeCounters` still last, so each rank of evidence gets its turn in order.
+  The rule is use-site only: a field or a return whose declared type really is `System.Object` is
+  that type.
+- **Assembly-CSharp holds under a tenth of the unresolved loads.** 359 of 3689 on the test game;
+  spine-unity alone holds half. Both measurements that are easy to reach - the Roslyn count and the
+  audit - cover only Assembly-CSharp, so a fix landing anywhere else reads as inert. Count per
+  assembly before concluding a change did nothing; `reports/TYPE_RECOVERY_ANALYSIS.md` carries the
+  table, and `CPP2IL_DUMP_LOADS` names the assembly on every row.
+- **A load is given up on for one of two reasons and the defining instruction is what tells them
+  apart.** 1576 of the 3689 have no usable base type; 2113 have one and the offset could not be
+  placed in it. Working the second list is typing work only sometimes - about 600 of them are
+  `Il2CppClass` and `Il2CppMethodInfo` reads with the right base and the right offset, waiting on a
+  pass that recognises the shape rather than on a type.
+
 ### Things measured to be worth nothing — do not redo them
 - **Emitting the blocks in address order rather than the order the graph created them.** Splitting
   appends, so a block split out late sits at the end of `Blocks` whatever address it covers, and it

@@ -1,0 +1,44 @@
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.AssemblyDumper.Tests/Release/AssetRipper.AssemblyDumper.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Assets.Tests/Release/AssetRipper.Assets.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Web.Tests/Release/AssetRipper.GUI.Web.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.IO.Files.Tests/Release/AssetRipper.IO.Files.Tests.dll (.NETCoreApp,Version=v10.0)
+
+Passed!  - Failed:     0, Passed:     9, Skipped:     0, Total:     9, Duration: 952 ms - AssetRipper.AssemblyDumper.Tests.dll (net10.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    57, Skipped:     0, Total:    57, Duration: 927 ms - AssetRipper.Assets.Tests.dll (net10.0)
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Numerics.Tests/Release/AssetRipper.Numerics.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.SerializationLogic.Tests/Release/AssetRipper.SerializationLogic.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:     8, Skipped:     0, Total:     8, Duration: 656 ms - AssetRipper.GUI.Web.Tests.dll (net10.0)
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Tests/Release/AssetRipper.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    65, Skipped:     0, Total:    65, Duration: 864 ms - AssetRipper.Numerics.Tests.dll (net10.0)
+
+Passed!  - Failed:     0, Passed:   137, Skipped:     0, Total:   137, Duration: 1 s - AssetRipper.IO.Files.Tests.dll (net10.0)
+Test run for /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Yaml.Tests/Release/AssetRipper.Yaml.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  Failed GetMainExportID_ValueGreaterThan100000_DebugAssertFails [54 ms]
+  Error Message:
+     Assert.That(() => ExportIdHandler.GetMainExportID(MockObject.Create(classID), value), Throws.Exception)
+  Expected: an exception to be thrown
+  But was:  no exception thrown
+
+  Stack Trace:
+     at AssetRipper.Tests.ExportIdHandlerTests.GetMainExportID_ValueGreaterThan100000_DebugAssertFails() in /home/user/AssetRipper/Source/AssetRipper.Tests/ExportIdHandlerTests.cs:line 31
+
+1)    at AssetRipper.Tests.ExportIdHandlerTests.GetMainExportID_ValueGreaterThan100000_DebugAssertFails() in /home/user/AssetRipper/Source/AssetRipper.Tests/ExportIdHandlerTests.cs:line 31
+
+
+
+Passed!  - Failed:     0, Passed:    48, Skipped:     0, Total:    48, Duration: 3 s - AssetRipper.SerializationLogic.Tests.dll (net10.0)
+
+Passed!  - Failed:     0, Passed:    11, Skipped:     0, Total:    11, Duration: 101 ms - AssetRipper.Yaml.Tests.dll (net10.0)
+
+Failed!  - Failed:     1, Passed:   278, Skipped:     0, Total:   279, Duration: 10 s - AssetRipper.Tests.dll (net10.0)
