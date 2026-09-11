@@ -513,5 +513,33 @@
     "regressionTest": "chua co - chua sua gi",
     "confidence": 90,
     "note": "Nhom A la diem dung hop le: phan tich tinh hien tai khong cung cap duoc thong tin can thiet, va do la ket qua chu khong phai that bai. Viec co the lam cho nhom A la nhan dien ca trinh tu alloca nhu scaffolding runtime va bo di - than ham ngan lai nhung cac load van khong co kieu, va the la dung. Nhom B la muc tieu tiep theo duoc khuyen nghi, voi hai rang buoc: chi viet lai khi offset la hang so va slot dich ton tai, va version SSA phai lay tu cung co che RetargetAddressTakesOverwrittenBeforeUse - chon sai version tao ra mot gia tri sai im lang, la loai loi duy nhat khong duoc phep. Xem reports/FRAME_SLOT_ANALYSIS.md."
+  },
+  {
+    "id": "DECOMP-0023",
+    "severity": "ERROR",
+    "category": "PLATFORM_SUPPORT",
+    "status": "FIXED",
+    "iterationFound": 34,
+    "iterationFixed": 34,
+    "platform": "IOS_ONLY (bieu hien), COMMON_ROOT_CAUSE (code dung chung)",
+    "generatedFile": "toan bo script iOS - truoc do khong qua noi buoc khoi tao binary",
+    "referenceFile": "origin/ref/devx:IL2CPP-REBUILD-GUIDE.md muc 6",
+    "method": "BinarySearcher.FindCodeRegistrationByModuleCount va bon guard trong LibCpp2IL",
+    "compilerError": "khong co",
+    "observed": "codereg 0x0 tren mot Mach-O bi FairPlay ma hoa, roi lan luot OutOfMemoryException, ArgumentException, KeyNotFoundException, IndexOutOfRangeException va Exception('Could not find section for virtual address 0x0')",
+    "expected": "codereg tim duoc; moi cho doc du lieu co the la ciphertext deu co bien va canh bao thay vi throw",
+    "rootCause": "FindCodeRegistrationPost2019 chi co mot duong: bat dau tu chuoi mscorlib.dll, nen no can __cstring doc duoc. Tren ban App Store, FairPlay ma hoa toan bo __TEXT ke ca __cstring. Nhung Il2CppCodeRegistration nam trong __DATA khong ma hoa, va no ket thuc bang cap (codeGenModulesCount, addrCodeGenModulePtrs) voi count dung bang so image metadata khai bao - nen tim duoc bang quet co rang buoc dem, khong can chuoi nao. BinarySearcher da dung ky thuat nay cho metadata registration tu truoc va chua bao gio dung cho code registration. Ngoai ra nam cho trong LibCpp2IL lay mot so ra tu bang roi tin no, nen mot bang ciphertext lam throw o tang khac han, mat toan bo phan khai bao va field offset ma nua doc duoc cua binary van con.",
+    "affectedProject": "Source/External/LibCpp2IL, Source/External/Cpp2IL.Core",
+    "affectedModule": "BinarySearcher.FindCodeRegistrationByModuleCount, Il2CppBinary.Init, Il2CppBinary.GetCodegenModuleByName, Il2CppBinary.GetMethodPointer, NewArm64Utils.GetArm64MethodBodyAtVirtualAddress, MachOFile ctor",
+    "evidence": [
+      "codereg 0x0 -> 0x2C723A8, va doc tung field xac nhan struct that: 30 reverse P/Invoke wrapper, 45816 generic method pointer, 10020 invoker pointer, 1891 unresolved virtual call, 541 interop data, 0 WinRT (dung cho iOS), codeGenModulesCount 57 voi bang 57 con tro map duoc het",
+      "sau do 'Initialized Binary in 78ms' va lop recovery cua AssetRipper chay: '14 assemblies will be attempted, 43 framework assemblies will be stubbed'",
+      "chan doan cuoi dung: 'no methods with native code were found in the game's own assemblies' - method pointer bang 0 vi ten module nam trong __cstring ma hoa",
+      "ranh gioi do tung con tro: chi genericMethodTable (0x296B40C) va methodSpecs (0x28C5E78) nam trong __TEXT.__const ma hoa; fieldOffsets, typeDefinitionsSizes, types, genericClasses, genericInsts deu trong __DATA",
+      "Android va Pinata giong het tung con so: 2870 load, 884 REAL_ERROR, 340 Roslyn, 9177 load Pinata, field layout 0 disagreement, 279 test"
+    ],
+    "regressionTest": "Test/Scripts/download_test_inputs.sh ios; Android va Pinata la cong regression",
+    "confidence": 90,
+    "note": "Phat hien duoc nho audit origin/ref/devx theo yeu cau, va no sua mot ket luan sai cua iteration 033 ('codereg khong the tim duoc tren ban ma hoa'). CLAUDE.md tung ghi ref/devx la 'no decompiler code, nothing further to take from it' - sai ca ba menh de, da sua. Con lai chua xac minh: typeDefinitionsSizes co con tro trong __DATA nhung gia tri vo ly (InstanceSize=2249170484 cho Mono.ValueTuple), hai gia thuyet la metareg false positive hoac ApplyChainedFixups khong phu trang do. Xem reports/IOS_RESEARCH.md muc 10."
   }
 ]

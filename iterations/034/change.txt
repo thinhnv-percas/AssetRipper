@@ -1,0 +1,2 @@
+DECOMP-0023: tìm code registration bằng module count (không cần chuỗi tên module), và bốn chỗ
+throw/allocate trên dữ liệu không đọc được trong LibCpp2IL chuyển thành cảnh báo + tiếp tục.

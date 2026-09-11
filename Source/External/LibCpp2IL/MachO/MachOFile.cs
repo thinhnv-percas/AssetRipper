@@ -17,6 +17,9 @@ public class MachOFile : Il2CppBinary
     private readonly MachOSegmentCommand[] Segments64;
     private readonly MachOSection[] Sections64;
     private readonly Dictionary<string, ulong> _exportAddressesDict;
+
+    /// <summary>AssetRipper: the encryption command, when the binary carries one.</summary>
+    public MachOEncryptionInfoCommand? Encryption { get; }
     private readonly Dictionary<ulong, string> _exportNamesDict;
 
     public MachOFile(MemoryStream input) : base(input)
@@ -93,19 +96,25 @@ public class MachOFile : Il2CppBinary
 
         LibLogger.VerboseNewline($"\tMach-O contains {Segments64.Length} segments, split into {Sections64.Length} sections.");
 
-        // AssetRipper: an App Store build's __TEXT is FairPlay ciphertext on disk, and everything
-        // downstream then fails somewhere unrelated - the code registration is found by matching
-        // codegen module *names*, which live in __cstring inside the encrypted range, so the search
-        // reports "No codegen modules found for mscorlib" and reads like a metadata problem when the
-        // metadata had already loaded. Say it here instead, where it is true.
-        if (_loadCommands.FirstOrDefault(c => c.Command is LoadCommandId.LC_ENCRYPTION_INFO or LoadCommandId.LC_ENCRYPTION_INFO_64)
-                ?.CommandData is MachOEncryptionInfoCommand { IsEncrypted: true } encryption)
+        // AssetRipper: an App Store build's __TEXT is FairPlay ciphertext on disk. Say so here, where
+        // it is true, rather than let it surface downstream as "No codegen modules found for
+        // mscorlib" - a message about the metadata, which had already loaded perfectly. But do not
+        // stop: __DATA is not encrypted, so the registration structs, the field offsets and the
+        // instance sizes are all still readable, and everything short of the machine code can be
+        // recovered. Only the method bodies are lost. DevXUnity-Unpacker reaches the same place and
+        // also warns rather than failing - see reports/IOS_RESEARCH.md.
+        Encryption = _loadCommands
+            .FirstOrDefault(c => c.Command is LoadCommandId.LC_ENCRYPTION_INFO or LoadCommandId.LC_ENCRYPTION_INFO_64)
+            ?.CommandData as MachOEncryptionInfoCommand;
+
+        if (Encryption is { IsEncrypted: true } encryption)
         {
-            throw new($"This Mach-O is encrypted: LC_ENCRYPTION_INFO names 0x{encryption.CryptSize:X} bytes "
+            LibLogger.WarnNewline($"Mach-O is encrypted: LC_ENCRYPTION_INFO names 0x{encryption.CryptSize:X} bytes "
                 + $"from file offset 0x{encryption.CryptOffset:X} with cryptid {encryption.CryptId}. That range covers "
-                + "__TEXT, so both the code and the C strings the code registration is found by are ciphertext on disk. "
-                + "This is how an App Store (FairPlay) build is distributed and no static tool can read it; supply a "
-                + "build that is not store-encrypted, or one decrypted on a device.");
+                + "__TEXT, so the machine code and the C strings are ciphertext on disk - this is how an App Store "
+                + "(FairPlay) build is distributed, and no method body can be recovered from it. __DATA is not "
+                + "encrypted, so metadata, the registration structs and field offsets still read. For method bodies, "
+                + "supply a build that is not store-encrypted.");
         }
 
         LibLogger.VerboseNewline("Mach-O file read successfully.");

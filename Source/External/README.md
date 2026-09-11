@@ -42,6 +42,17 @@ Every change is marked `AssetRipper:` at the point it applies.
    case in that switch has to consume its whole payload: the 64-bit encryption command carries four
    bytes of padding after `cryptid`, and leaving them unread makes the next load command parse from
    the middle of this one.
+6. **An encrypted Mach-O gave up far earlier than it had to** — `BinarySearcher
+   .FindCodeRegistrationByModuleCount`, added and wired as a fallback in
+   `Il2CppBinary.FindCodeAndMetadataReg`, plus bounds in `Il2CppBinary.Init` (adjustor thunk index,
+   generic method table entries), `GetCodegenModuleByName` (was indexing its dictionary although the
+   return type is nullable), `GetMethodPointer` (was indexing `[-1]`), and
+   `NewArm64Utils.GetArm64MethodBodyAtVirtualAddress` (was mapping virtual address 0).
+   `FindCodeRegistrationPost2019` needs the bytes of `mscorlib.dll`, which an App Store iOS build
+   keeps in an encrypted section; the struct itself is in `__DATA` and its `codeGenModulesCount` is
+   the image count the metadata already gives, so a count-constrained scan finds it with no strings.
+   The technique is the one `FindMetadataRegistrationPost24_5` has always used. Method taken from
+   `origin/ref/devx:IL2CPP-REBUILD-GUIDE.md` section 6.
 
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),

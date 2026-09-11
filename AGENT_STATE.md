@@ -5,10 +5,10 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 033 (hoàn tất; thêm fixture iOS, DECOMP-0021 sửa, DECOMP-0022 phân loại)
+Iteration hiện tại: 034 (hoàn tất; audit ref/devx, DECOMP-0023 sửa)
 
 Commit decompiler:
-  claude/read-current-repository-daqxc1 @ 37576f2, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+  claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
 
 Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và verify, không phụ thuộc máy:
 
@@ -31,14 +31,17 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Test/Input/JellyBlast, bundle io.heseri.blast, Unity 2022.3.53f1, metadata v31.1, arm64
     il2cpp: Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework
     metadata: Payload/JellyBlast.app/Data/Managed/Metadata/global-metadata.dat
-    UnityFramework mang LC_ENCRYPTION_INFO_64 cryptid 1, phủ toàn bộ __TEXT. Đây là bản App Store
-    và __TEXT là ciphertext trên đĩa. Chỉ nửa đầu pipeline kiểm tra được trên iOS; nửa sau là
-    KHÔNG KIỂM TRA ĐƯỢC, không phải PASS. Xem reports/IOS_INPUT_ANALYSIS.md.
+    UnityFramework mang LC_ENCRYPTION_INFO_64 cryptid 1, phủ toàn bộ __TEXT.
+    Ranh giới thật, đo từng con trỏ (reports/IOS_RESEARCH.md mục 6): metadata, CẢ HAI registration,
+    bảng codegen module, fieldOffsets, typeDefinitionsSizes, types, genericClasses, genericInsts đều
+    nằm trong __DATA và ĐỌC ĐƯỢC. Chỉ genericMethodTable và methodSpecs nằm trong __TEXT.__const
+    mã hoá, cùng với tên module trong __cstring và thân hàm trong __text.
+    Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 033 (Android giống 032 từng con số).
+  rảnh giữa hai iteration. Baseline cho iteration sau là 034 (Android giống 032 từng con số).
 
-Android — iteration 033 so với baseline gốc (giống 032 từng con số):
+Android — iteration 034 so với baseline gốc (giống 032 từng con số):
   method body không phục hồi được   15 -> 0
   generator failure                  ?  -> 0
   audit REAL_ERROR                 2162 -> 884
@@ -98,6 +101,9 @@ Bằng chứng để bắt đầu:
     và bảng nói rõ tầng nào kiểm tra được.
   - reports/CROSS_PLATFORM_MATRIX.md - đối chiếu hai nền tảng theo tầng và theo họ bug.
   - reports/FRAME_SLOT_ANALYSIS.md - 245 load AddressOf tách thành ba nhóm, đọc trước khi làm (a).
+  - reports/IOS_REFD_DEVX_ANALYSIS.md - audit branch ref/devx, và CLAUDE.md từng nói sai về nó.
+  - reports/IOS_RESEARCH.md - nghiên cứu iOS đầy đủ: ranh giới mã hoá đo từng con trỏ, những gì đã
+    xác minh và những gì chưa.
 
 Đã sửa:
   DECOMP-0001  15 method body xuất ra thành một throw mang stack trace của chính generator
@@ -116,6 +122,8 @@ Bằng chứng để bắt đầu:
   DECOMP-0018  kiểu hợp lưu của một phi lan ngược quá sớm vào input
   DECOMP-0020  DCE đếm lượt dùng nên không nhìn xuyên được một vòng phi
   DECOMP-0021  iOS: il2cpp nằm trong UnityFramework.framework, và Mach-O bị mã hoá báo sai tầng
+  DECOMP-0023  code registration chỉ tìm được qua chuỗi tên module; và năm chỗ trong LibCpp2IL
+               throw/allocate trên dữ liệu không đọc được
 
 Còn mở:
   DECOMP-0022  245 load qua một địa chỉ được lấy, đã PHÂN LOẠI thành ba nhóm. Nhóm A (109) cần
@@ -159,7 +167,24 @@ Trạng thái hai nền tảng:
   thuộc lift mã máy hoặc frame/stack thì cần, và hiện không làm được - trạng thái iOS phải ghi
   KHÔNG KIỂM TRA ĐƯỢC.
 
+QUAN TRỌNG — ĐỌC TRƯỚC KHI THIẾT KẾ BẤT CỨ GÌ MỚI:
+  Repository này có TÁM branch mà một clone mặc định không hiện. Chạy
+  `git fetch origin 'refs/heads/*:refs/remotes/origin/*'` rồi tìm trong chúng trước khi tự viết.
+  `origin/ref/devx` (39 commit, 20473 file) có một decompiler khác đã được dựng lại, cộng
+  IL2CPP-PIPELINE.md (734 dòng) và IL2CPP-REBUILD-GUIDE.md (1795 dòng) bằng tiếng Việt. Chính việc
+  audit nó ở iteration 034 đã sửa một kết luận mà CLAUDE.md đã ghi là chốt. Xem
+  reports/IOS_REFD_DEVX_ANALYSIS.md.
+
 Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
+
+  (0) **iOS: `typeDefinitionsSizes` cho giá trị vô lý dù con trỏ nằm trong `__DATA`.** Đây là chỗ
+      duy nhất còn chặn nhánh iOS. `InstanceSize=2249170484` cho `Mono.ValueTuple`. Hai giả thuyết,
+      chưa phân định: (a) metareg là false positive khớp đúng count; (b) `ApplyChainedFixups` không
+      phủ trang chứa con trỏ này nên nó còn ở dạng encoded — lưu ý `DYLD_CHAINED_PTR_64_OFFSET` đang
+      được xử lý y như `DYLD_CHAINED_PTR_64`, chỉ đúng khi image base bằng 0. Cách phân định: đối
+      chiếu vài con trỏ trong `__DATA` của bản Android (nơi mọi thứ đọc đúng) với giá trị thô trên
+      đĩa, rồi làm điều tương tự trên iOS. Nếu xong, kỳ vọng iOS xuất ra được toàn bộ phần khai báo
+      và field offset. Xem reports/IOS_RESEARCH.md mục 10.
 
   (a) **Nhóm B của DECOMP-0022: 124 load qua địa chỉ của một stack slot đã biết.** Đây là mục tiêu
       tiếp theo được khuyến nghị, và nó KHÔNG phải bài toán gán kiểu. `StackAnalyzer.NameForSlot`
@@ -214,8 +239,9 @@ Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
   gì, đọc bảng theo assembly trong reports/TYPE_RECOVERY_ANALYSIS.md.
 
 Giai đoạn thành công gần nhất:
-  iteration 033 - fixture iOS thêm vào và phân tích xong, DECOMP-0021 sửa, Android và Pinata không
-  đổi một con số nào.
+  iteration 034 - audit origin/ref/devx, DECOMP-0023 sửa, iOS đi từ "không qua nổi bước tìm
+  codereg" tới "binary khởi tạo xong, lớp recovery chạy và chẩn đoán đúng". Android và Pinata giống
+  hệt từng con số.
 
 Lần thất bại gần nhất:
   iteration 030 - DCE chỉ đánh dấu định nghĩa cuối. Tốt hơn trên MỌI cột dễ đọc và vẫn bị loại vì

@@ -10,6 +10,13 @@ public static class NewArm64Utils
 {
     public static List<Arm64Instruction> GetArm64MethodBodyAtVirtualAddress(Il2CppBinary binary, ulong virtAddress, bool managed = true, int count = -1)
     {
+        // AssetRipper: no address means no body. A method whose codegen module could not be
+        // identified has a pointer of zero - on a FairPlay-encrypted iOS build that is every method,
+        // because the module names are C strings in the encrypted section - and mapping zero threw
+        // out of key function discovery, which took the whole assembly manager with it.
+        if (virtAddress == 0 || !binary.TryMapVirtualAddressToRaw(virtAddress, out _))
+            return [];
+
         if (managed)
         {
             var startOfNext = MiscUtils.GetAddressOfNextFunctionStart(virtAddress, binary);

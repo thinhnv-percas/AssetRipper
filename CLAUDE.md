@@ -699,6 +699,34 @@ find it; `strings` without `-el` does find method and type names.
   operand chứ không phải gán kiểu, 23 là spill thường rải trên bảy method. Đúng như 850 load "past
   the last field" trước đây.
 
+- **Code registration can be found without any string, and that is what makes an encrypted iOS
+  binary partly readable.** `FindCodeRegistrationPost2019` starts from the bytes of `mscorlib.dll`,
+  so it needs `__cstring`; on an App Store build FairPlay encrypts the whole of `__TEXT` and that
+  search reports "No codegen modules found for mscorlib" long after the metadata loaded fine. But
+  `Il2CppCodeRegistration` itself lives in `__DATA`, which is *not* encrypted, and it ends in the
+  pair `(codeGenModulesCount, addrCodeGenModulePtrs)` whose count is exactly the number of images
+  the metadata declares — so a count-constrained scan finds it, confirmed by requiring that many
+  pointers all to map. `BinarySearcher` had used this technique for the *metadata* registration
+  since forever and never for the code one. Only two of the metadata registration's eight tables
+  (`genericMethodTable`, `methodSpecs`) are in the encrypted read-only data; `fieldOffsets`,
+  `typeDefinitionsSizes`, `types`, `genericClasses` and `genericInsts` are all in `__DATA`.
+- **Every read of data that might be unreadable needs a bound, and failure has to be a message
+  rather than an exception in another layer.** Five places in LibCpp2IL took a number out of a table
+  and trusted it: `max(adjustorThunk)` of a ciphertext table allocated on a billion
+  (`OutOfMemoryException`), a negative generic-method index threw `ArgumentException`,
+  `GetCodegenModuleByName` indexed its dictionary and threw `KeyNotFoundException` though its return
+  type was already nullable, `GetMethodPointer` indexed `[-1]`, and mapping virtual address 0 threw
+  out of key-function discovery. Each one cost *every declaration and every field offset* the
+  readable half of the binary would still have given. A method pointer of zero means "the body
+  address is not known", which is the honest answer, not a reason to abandon the assembly.
+- **DevXUnity-Unpacker, a commercial tool, reaches the same wall and also only warns.** Its Mach-O
+  reader handles `LC_ENCRYPTION_INFO` (case 33) and `LC_ENCRYPTION_INFO_64` (case 44) and logs
+  "cannot be processed" — it does not decrypt. Independent corroboration that acquiring plaintext is
+  not a host-side static-analysis problem; `frida-ios-dump`, `DumpDecrypted` and `bfdecrypt` are all
+  device-side acquisition that write back a Mach-O with `cryptid` 0. The architecture therefore
+  separates acquisition from parsing: the parser only needs to accept a second input that is not
+  store-encrypted.
+
 ### Things measured to be worth nothing — do not redo them
 - **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
   thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:
@@ -798,8 +826,24 @@ Four scripts, and each measures something the others cannot:
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are
 gitignored, being large and reproducible from the rest.
 
-### The `ref/devx` branch
+### The `ref/devx` branch — and seven others
 
-`ThinhNV-x-Percas/devx-decompile`, branch `ref/devx`, contains the IL2Cpp runtime struct database
-(742 layout files) and `tools/structdb_gen.py`, and nothing else. It has no decompiler code. Its
-contents are already absorbed into `StructDb/`; there is nothing further to take from it.
+**`ref/devx` is a branch of this repository, and the earlier description of it here was wrong on
+every count.** It is not in another repo, it is not just the struct database, and it does have
+decompiler code: 39 commits, 20473 files, a rebuilt DevXUnity-Unpacker (37 projects, dnSpy,
+ICSharpCode.Decompiler, Mono.Cecil), and two substantial Vietnamese design documents —
+`IL2CPP-PIPELINE.md` (734 lines, what DevX does, with file:line into `Recovered/`) and
+`IL2CPP-REBUILD-GUIDE.md` (1795 lines, which library to use at each step, with code).
+
+**A default clone here does not show it.** Run
+`git fetch origin 'refs/heads/*:refs/remotes/origin/*'` and seven more branches appear as well:
+`master`, `claude/decompile-iso-support-loglnw`, `claude/il2cpp-csharp-unity-gui-8p1fyk`,
+`claude/tool-gui-unity-preview-coemaf`, `claude/package-cache-shader-match-ktkpii`,
+`claude/codegraph-csharp-setup-07l07b`, `claude/convert-project-python-6mee7g`. Search them before
+designing anything new; `reports/IOS_REFD_DEVX_ANALYSIS.md` is the worked example of doing so, and
+it corrected a conclusion this file had already recorded as settled.
+
+Two things taken from it so far, both by hand rather than by cherry-pick (it is .NET Framework and
+Mono.Cecil, incompatible with this tree): the count-constrained registration scan, and treating an
+encrypted binary as a warning rather than a stop. The struct database itself is absorbed into
+`StructDb/`.

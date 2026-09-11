@@ -86,6 +86,91 @@ public class BinarySearcher(Il2CppBinary binary, Il2CppMetadata metadata, int me
 
     public IEnumerable<ulong> FindAllMappedWords(IEnumerable<uint> va) => va.SelectMany(a => FindAllMappedWords(a));
 
+    /// <summary>
+    /// AssetRipper: finds the code registration by the one count in it we already know, rather than
+    /// by the name of a codegen module.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="FindCodeRegistrationPost2019"/> starts from the string <c>mscorlib.dll</c>, so it
+    /// needs the C strings to be readable. On an App Store iOS build they are not: FairPlay encrypts
+    /// the whole of __TEXT, which is where __cstring lives, and the search reports
+    /// "No codegen modules found for mscorlib" although the metadata loaded perfectly. __DATA is not
+    /// encrypted, and <see cref="Il2CppCodeRegistration"/> lives there, ending in the pair
+    /// <c>(codeGenModulesCount, addrCodeGenModulePtrs)</c> - and that count is exactly the number of
+    /// images the metadata declares. So the struct can be found by a count-constrained scan with no
+    /// strings involved, which is also how the metadata registration has always been found.
+    ///
+    /// The confirmation is what makes this safe rather than a guess: the candidate has to carry the
+    /// right count *and* a pointer table of exactly that many entries, every one of which maps.
+    /// </remarks>
+    internal ulong FindCodeRegistrationByModuleCount()
+    {
+        var moduleCount = (ulong)metadata.imageDefinitions.Length;
+        var ptrSize = (ulong)(binary.is32Bit ? 4 : 8);
+        var structSize = (ulong)Il2CppCodeRegistration.GetStructSize(binary.is32Bit, binary.MetadataVersion);
+
+        //codeGenModulesCount is the second-to-last field, so the struct starts this far back from it
+        var backtrack = structSize - 2 * ptrSize;
+
+        var candidates = MapOffsetsToVirt(FindAllWords(moduleCount)).ToList();
+
+        LibLogger.VerboseNewline($"\t\t\tFound {candidates.Count} occurrences of the module count {moduleCount}");
+
+        foreach (var vaOfCount in candidates)
+        {
+            if (vaOfCount < backtrack)
+                continue;
+
+            var candidate = vaOfCount - backtrack;
+
+            Il2CppCodeRegistration registration;
+            try
+            {
+                registration = binary.ReadReadableAtVirtualAddress<Il2CppCodeRegistration>(candidate);
+            }
+            catch
+            {
+                continue;
+            }
+
+            if (registration.codeGenModulesCount != moduleCount || registration.addrCodeGenModulePtrs == 0)
+                continue;
+
+            if (!AllPointersMap(registration.addrCodeGenModulePtrs, (long)moduleCount))
+            {
+                LibLogger.VerboseNewline($"\t\t\t\t0x{candidate:X} has the right count but its module table does not map");
+                continue;
+            }
+
+            LibLogger.VerboseNewline($"\t\t\t\tFound CodeRegistration at 0x{candidate:X} by module count, with {moduleCount} mappable module pointers");
+            return candidate;
+        }
+
+        return 0;
+    }
+
+    /// <summary>AssetRipper: whether every entry of a pointer table at this address maps.</summary>
+    private bool AllPointersMap(ulong tableAddress, long count)
+    {
+        ulong[] pointers;
+        try
+        {
+            pointers = binary.ReadNUintArrayAtVirtualAddress(tableAddress, count);
+        }
+        catch
+        {
+            return false;
+        }
+
+        foreach (var pointer in pointers)
+        {
+            if (pointer == 0 || !binary.TryMapVirtualAddressToRaw(pointer, out _))
+                return false;
+        }
+
+        return true;
+    }
+
     public ulong FindCodeRegistrationPre2019()
     {
         //First item in the CodeRegistration is the number of methods.

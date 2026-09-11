@@ -26,7 +26,11 @@ iteration 033.
 | Nhận diện binary bị mã hoá | không áp dụng | PASS *(sau DECOMP-0021)* | IOS_ONLY |
 | Đọc `global-metadata.dat` | PASS | PASS | — |
 | Metadata registration | PASS | PASS | — |
-| Code registration | PASS | **KHÔNG KIỂM TRA ĐƯỢC** | FIXTURE_ENCRYPTED |
+| Code registration | PASS | **PASS** *(DECOMP-0023)* | quét theo count, không cần chuỗi |
+| Khởi tạo binary | PASS | **PASS** *(DECOMP-0023)* | "Initialized Binary in 78ms" |
+| Lớp recovery chạy và chẩn đoán đúng | PASS | **PASS** *(DECOMP-0023)* | 14 assembly attempted, 43 stubbed |
+| Method pointer | PASS | **không** | tra theo tên module, tên nằm trong `__cstring` mã hoá |
+| `typeDefinitionsSizes` | PASS | **chưa xác minh** | con trỏ ở `__DATA` nhưng giá trị vô lý — IOS_RESEARCH mục 10 |
 | Lift mã máy → ISIL | PASS | **KHÔNG KIỂM TRA ĐƯỢC** | FIXTURE_ENCRYPTED |
 | SSA, type recovery, DCE | PASS | **KHÔNG KIỂM TRA ĐƯỢC** | FIXTURE_ENCRYPTED |
 | Sinh CIL và C# | PASS | **KHÔNG KIỂM TRA ĐƯỢC** | FIXTURE_ENCRYPTED |
@@ -54,6 +58,8 @@ Cột iOS để trống ở đâu thì nghĩa là fixture hiện tại không ch
 | `object_base` | 19 | không đo được | thuần metadata | không | DECOMP-0016 |
 | il2cpp binary sai file trong bundle | không áp dụng | đã FAIL, giờ PASS | không | **IOS_ONLY** | **DECOMP-0021** |
 | Mach-O bị mã hoá báo sai tầng | không áp dụng | đã FAIL, giờ PASS | không | **IOS_ONLY** | **DECOMP-0021** |
+| codereg chỉ tìm được qua chuỗi tên module | không lộ ra (chuỗi đọc được) | đã FAIL, giờ PASS | **có** — cùng một đường tìm kiếm | biểu hiện chỉ ở iOS | **DECOMP-0023** |
+| throw/allocate trên dữ liệu không đọc được | không lộ ra | đã FAIL, giờ PASS | **có** — năm chỗ trong LibCpp2IL dùng chung | biểu hiện chỉ ở iOS | **DECOMP-0023** |
 
 ## Nguyên tắc rút ra cho các iteration sau
 

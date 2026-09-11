@@ -311,14 +311,46 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
             _genericMethodDictionary = new();
 
             var maxAdjustorThunkIndex = metadata.genericMethodTables.Length == 0 ? -1 : metadata.genericMethodTables.Max(t => t.adjustorThunk);
+
+            // AssetRipper: an adjustor thunk index is an index into a table of generic method
+            // pointers, so it cannot exceed how many of those there are. A table read out of a
+            // region this tool could not actually read - a FairPlay-encrypted __TEXT.__const on an
+            // App Store iOS build is the case that found this - gives ciphertext, and the maximum of
+            // ciphertext read as int32 is a number in the billions. Allocating on it threw
+            // OutOfMemoryException out of initialization, which loses every declaration and every
+            // field offset the readable half of the binary would still have given.
+            if (maxAdjustorThunkIndex >= _genericMethodPointers.Length)
+            {
+                LibLogger.WarnNewline($"\tGeneric method table gives a maximum adjustor thunk index of {maxAdjustorThunkIndex}, "
+                    + $"but there are only {_genericMethodPointers.Length} generic method pointers. The table this came from "
+                    + "could not be read - on an encrypted binary it is ciphertext - so adjustor thunks are being skipped.");
+                maxAdjustorThunkIndex = -1;
+            }
+
             var adjustorThunkPointers = _codeRegistration.genericAdjustorThunks != 0 && maxAdjustorThunkIndex >= 0
                 ? ReadNUintArrayAtVirtualAddress(_codeRegistration.genericAdjustorThunks, maxAdjustorThunkIndex + 1)
                 : [];
+
+            // AssetRipper: an entry of this table indexes the method specs, so an index outside them
+            // is not a method this table describes - it is a table that could not be read. On an
+            // App Store iOS build the generic method table and the method specs both live in
+            // __TEXT.__const, which FairPlay encrypts, so every entry is ciphertext and the first
+            // one threw out of initialization - losing every declaration and every field offset the
+            // unencrypted half of the binary would still have given. Skipping the unreadable entries
+            // is a no-op on a binary that reads, and the count says how many were lost.
+            var unreadableEntries = 0;
 
             foreach (var table in metadata.genericMethodTables)
             {
                 var genericMethodIndex = table.GenericMethodIndex;
                 var genericMethodPointerIndex = table.methodIndex;
+
+                if (genericMethodIndex < 0 || genericMethodIndex >= metadata.methodSpecs.Length || genericMethodPointerIndex < 0)
+                {
+                    unreadableEntries++;
+                    continue;
+                }
+
                 var adjustorThunkPtr = table.adjustorThunk >= 0 && table.adjustorThunk < adjustorThunkPointers.Length
                     ? adjustorThunkPointers[table.adjustorThunk]
                     : 0;
@@ -329,6 +361,13 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
                 {
                     _genericMethodDictionary.TryAdd(methodDefIndex, _genericMethodPointers[genericMethodPointerIndex]);
                 }
+            }
+
+            if (unreadableEntries > 0)
+            {
+                LibLogger.WarnNewline($"\t{unreadableEntries} of {metadata.genericMethodTables.Length} generic method table "
+                    + "entries index outside the method specs, so that table could not be read - on an encrypted binary it is "
+                    + "ciphertext. Generic method bodies from those entries are not mapped.");
             }
 
             LibLogger.VerboseNewline($"OK ({(DateTime.Now - start).TotalMilliseconds} ms)");
@@ -417,7 +456,12 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
     public Il2CppType GetType(Il2CppVariableWidthIndex<Il2CppType> index) => _types[index.Value];
     public ulong GetRawMetadataUsage(uint index) => _metadataUsages[index];
     public ulong[] GetCodegenModuleMethodPointers(int codegenModuleIndex) => _codeGenModuleMethodPointers[codegenModuleIndex];
-    public Il2CppCodeGenModule? GetCodegenModuleByName(string name) => _codeGenModulesByName[name];
+    // AssetRipper: the return is already nullable, but indexing threw on a miss. A codegen module's
+    // name is a C string in a read-only section, so on a FairPlay-encrypted iOS build every name is
+    // ciphertext and no lookup can succeed - which threw out of initialization and cost every
+    // declaration and every field offset the unencrypted half of the binary still had. A miss means
+    // the method pointer is unknown, not that nothing can be recovered.
+    public Il2CppCodeGenModule? GetCodegenModuleByName(string name) => _codeGenModulesByName.GetValueOrDefault(name);
     public int GetCodegenModuleIndex(Il2CppCodeGenModule module) => Array.IndexOf(_codeGenModules, module);
     public int GetCodegenModuleIndexByName(string name) => GetCodegenModuleByName(name) is { } module ? GetCodegenModuleIndex(module) : -1;
     public Il2CppTokenRangePair[] GetRgctxRangePairsForModule(Il2CppCodeGenModule module) => _codegenModuleRgctxRanges[GetCodegenModuleIndex(module)];
@@ -486,8 +530,20 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
                 return methodPointer;
             }
 
+            // AssetRipper: zero means "this method's body address is not known", which is the honest
+            // answer when the codegen module could not be identified - its name is a C string in a
+            // read-only section, and on a FairPlay-encrypted iOS build that section is ciphertext.
+            // Throwing here cost every declaration in the assembly, and the declarations come from
+            // the metadata, which read perfectly.
+            if (imageIndex < 0 || imageIndex >= _codeGenModuleMethodPointers.Length)
+                return 0;
+
             var ptrs = _codeGenModuleMethodPointers[imageIndex];
             var methodPointerIndex = methodToken & 0x00FFFFFFu;
+
+            if (methodPointerIndex == 0 || methodPointerIndex > ptrs.Length)
+                return 0;
+
             return ptrs[methodPointerIndex - 1];
         }
         else
@@ -572,6 +628,16 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
         {
             LibLogger.VerboseNewline("\t\t\tUsing mscorlib full-disassembly approach to get codereg, this may take a while...");
             pCodeRegistration = plusSearch.FindCodeRegistrationPost2019();
+
+            // AssetRipper: the route above needs the codegen module names, which are C strings in a
+            // read-only section. An App Store iOS build has that section encrypted while its data
+            // section is not, so fall back to finding the struct by the one count in it the metadata
+            // already tells us. See BinarySearcher.FindCodeRegistrationByModuleCount.
+            if (pCodeRegistration == 0)
+            {
+                LibLogger.VerboseNewline("\t\t\tThat found nothing; trying the module count instead...");
+                pCodeRegistration = plusSearch.FindCodeRegistrationByModuleCount();
+            }
         }
         else
             pCodeRegistration = plusSearch.FindCodeRegistrationPre2019();

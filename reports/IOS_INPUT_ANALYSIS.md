@@ -74,6 +74,15 @@ Cpp2IL : Got Binary codereg: 0x0, metareg: 0x2D234B8 in 38ms.
 `metareg` đi từ `0x0` lên `0x2D234B8`. Đây là phép đo chứng minh binary đúng đã được nạp:
 metadata registration là một cấu trúc nằm trong `__DATA`, và `__DATA` không bị mã hoá.
 
+> **Sửa ở iteration 034.** Phần dưới đây kết luận rằng code registration *không thể* tìm được trên
+> một bản bị mã hoá. Kết luận đó **sai**. Chuỗi tên module thì thật sự không đọc được, nhưng bản
+> thân `Il2CppCodeRegistration` nằm trong `__DATA` không mã hoá, và số `codeGenModulesCount` của nó
+> đúng bằng số image mà metadata khai báo — nên nó tìm được bằng một phép quét có ràng buộc đếm,
+> không cần chuỗi nào. Đã cài ở DECOMP-0023 và tìm ra `codereg: 0x2C723A8`. Bảng ranh giới chính
+> xác từng con trỏ ở `reports/IOS_RESEARCH.md` mục 6; phần audit dẫn tới nó ở
+> `reports/IOS_REFD_DEVX_ANALYSIS.md`. Giữ lại nguyên văn bên dưới vì cách đo (entropy, số lệnh
+> `ret`, số lần xuất hiện chuỗi) vẫn đúng và vẫn là cách phân biệt ciphertext với mã máy.
+
 ## Vấn đề thứ hai: `__TEXT` bị FairPlay mã hoá — FIXTURE_ENCRYPTED, không phải bug
 
 `codereg` vẫn là `0x0` sau khi sửa, và lý do là thuộc tính của fixture chứ không phải của tool.
@@ -154,8 +163,9 @@ nên được nói ở binary loader.
 | Đọc `global-metadata.dat` v31.1 | **có** | "Initialized Metadata in 278ms" |
 | Định vị il2cpp binary trong bundle | **có** | metareg 0x0 → 0x2D234B8 |
 | Tìm metadata registration trong `__DATA` | **có** | 0x2D234B8 |
-| Tìm code registration | **không** | tên module nằm trong `__cstring` bị mã hoá |
-| Bảng codegen module, method pointer | **không** | phụ thuộc codereg |
+| Tìm code registration | **có** *(DECOMP-0023)* | quét theo `codeGenModulesCount`, không cần chuỗi |
+| Bảng codegen module | **có** | 57 con trỏ, map được hết |
+| Method pointer | **không** | tra theo *tên* module, và tên nằm trong `__cstring` bị mã hoá |
 | Lift mã máy ARM64, ISIL, SSA, type recovery, sinh C# | **không** | `__TEXT` là ciphertext |
 | Field offset đo từ binary, field layout self-check | **không** | phụ thuộc codereg |
 

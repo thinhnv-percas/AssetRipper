@@ -106,6 +106,7 @@ verified rather than asserted. 007 and 014 are baseline re-verifications at the 
 | **031** | 884 | 340 | cùng bản với đánh dấu mọi định nghĩa, nhưng vẫn còn DECOMP-0019 |
 | 032 | 884 | 340 | DECOMP-0020 bản nhận, DECOMP-0019 đã revert |
 | 033 | 884 | 340 | DECOMP-0021 (iOS) — Android không đổi một con số nào, đây là điều cần |
+| 034 | 884 | 340 | DECOMP-0023 (iOS) — Android và Pinata giống hệt từng con số |
 
 Both of the two rows in bold are changes that looked right and were not, and both were caught by
 measurement within one iteration. Iteration 012's is recorded in `CLAUDE.md` under "things measured to

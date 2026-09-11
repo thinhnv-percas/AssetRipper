@@ -1,0 +1,12 @@
+== Android: Impostor-Sort-Puzzle-Pro v1
+  đã có trong cache, SHA256 khớp: impostor-sort.apk
+  il2cpp binary : /home/user/AssetRipper/Test/Input/Impostor/lib/arm64-v8a/libil2cpp.so (27434328 byte, ELF)
+  metadata      : /home/user/AssetRipper/Test/Input/Impostor/assets/bin/Data/Managed/Metadata/global-metadata.dat (4311244 byte, v31)
+  TRẠNG THÁI    : OK
+== iOS: Jelly Blast 1.1
+  đã có trong cache, SHA256 khớp: Jelly.Blast.1.1.ipa
+  .app          : /home/user/AssetRipper/Test/Input/JellyBlast/Payload/JellyBlast.app
+  il2cpp binary : /home/user/AssetRipper/Test/Input/JellyBlast/Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework (51406160 byte, Mach-O arm64)
+  metadata      : /home/user/AssetRipper/Test/Input/JellyBlast/Payload/JellyBlast.app/Data/Managed/Metadata/global-metadata.dat (7306348 byte, v31)
+  mã hoá        : cryptid=1 cryptoff=0x8000 cryptsize=0x2c30000
+  TRẠNG THÁI    : FIXTURE_ENCRYPTED - chỉ metadata đọc được; xem reports/IOS_INPUT_ANALYSIS.md
