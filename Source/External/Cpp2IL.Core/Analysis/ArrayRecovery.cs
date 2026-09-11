@@ -229,23 +229,41 @@ public static class ArrayRecovery
     private static ArrayAccess? ComputedElementAddress(MemoryOperand memory, LocalVariable computed,
         Dictionary<LocalVariable, Instruction> definitions, int pointerSize)
     {
-        if (memory.Index != null || memory.Scale != 0 || memory.Addend != ElementsOffset(pointerSize))
-            return null;
-
         if (!definitions.TryGetValue(computed, out var definition)
             || definition is not { OpCode: OpCode.Add, Operands: [_, var left, var right] })
             return null;
 
-        // either side can be the array; the other is the scaled index
+        // either side can be the array; the other is the scaled index or a constant offset
         var (array, scaled) = left is LocalVariable { Type: SzArrayTypeAnalysisContext } ? (left, right) : (right, left);
 
-        if (array is not LocalVariable { Type: SzArrayTypeAnalysisContext arrayType } arrayLocal
-            || scaled is not LocalVariable scaledIndex)
+        if (array is not LocalVariable { Type: SzArrayTypeAnalysisContext arrayType } arrayLocal)
             return null;
 
         var elementSize = ElementSize(arrayType.ElementType, pointerSize);
 
         if (elementSize == 0)
+            return null;
+
+        // AssetRipper: the compiler adds the elements offset ahead of the load and leaves the index
+        // in the addressing mode whenever the index is not also wanted for something else. The
+        // access is then `[t + index * elementSize]` with t = array + elementsOffset, which is the
+        // same element as the shapes below and cannot be reached by them.
+        if (scaled is Immediate { Value: var added } && added == ElementsOffset(pointerSize))
+            return memory.Addend == 0 && memory.Index != null && memory.Scale == elementSize
+                ? new ArrayAccess(arrayLocal, memory.Index)
+                : null;
+
+        if (memory.Index != null || memory.Scale != 0 || memory.Addend != ElementsOffset(pointerSize))
+            return null;
+
+        // AssetRipper: a constant index has no register at all - the whole offset is folded into the
+        // add - so the old shape, which required a shifted register, never saw one.
+        if (scaled is Immediate { Value: var constant })
+            return constant >= 0 && constant % elementSize == 0
+                ? new ArrayAccess(arrayLocal, new Immediate(constant / elementSize))
+                : null;
+
+        if (scaled is not LocalVariable scaledIndex)
             return null;
 
         // a one byte element needs no scaling, so the index arrives unshifted

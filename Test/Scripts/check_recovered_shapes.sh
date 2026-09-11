@@ -18,7 +18,9 @@ find_script() {
     find "$output" -name "$1" -path '*/Scripts/*' 2>/dev/null | head -1
 }
 
-# $1 issue, $2 file, $3 must contain, $4 must not contain (optional)
+# $1 issue, $2 file, $3 must contain, $4 must not contain (optional). Both are fixed strings:
+# a golden shape is the text itself, and a bracket or a dot read as a pattern makes a check pass or
+# fail for the wrong reason.
 check() {
     local issue=$1 name=$2 wanted=$3 unwanted=${4:-}
     local file
@@ -30,13 +32,13 @@ check() {
         return
     fi
 
-    if ! grep -q -- "$wanted" "$file"; then
+    if ! grep -qF -- "$wanted" "$file"; then
         printf 'FAIL  %-12s %s does not contain %s\n' "$issue" "$name" "$wanted"
         failures=$((failures + 1))
         return
     fi
 
-    if [ -n "$unwanted" ] && grep -q -- "$unwanted" "$file"; then
+    if [ -n "$unwanted" ] && grep -qF -- "$unwanted" "$file"; then
         printf 'FAIL  %-12s %s still contains %s\n' "$issue" "$name" "$unwanted"
         failures=$((failures + 1))
         return
@@ -115,6 +117,12 @@ check DECOMP-0015 GUIManager.cs 'bool flag = enumerator2.MoveNext();' ')enumerat
 # of the lattice, taken before the field that declares it could say otherwise. Thirteen field reads
 # off it in that one method became unnameable offsets.
 check DECOMP-0016 TimeCheatingDetector.cs 'TimeCheatingDetector timeCheatingDetector = _003C_003E4__this;' 'object obj = _003C_003E4__this;'
+
+# DECOMP-0017: the element address fold took only one of the three shapes the compiler emits. A
+# constant index has no register at all - the whole offset is folded into the add - and an index the
+# compiler leaves in the addressing mode has only the elements offset added ahead of the load.
+# `entry[header[j]] = value` in the reference came back as `dictionary[(string)0] = value;`.
+check DECOMP-0017 CSVReader.cs 'dictionary[array2[num5]] = value;' 'dictionary[(string)0] = value;'
 
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
