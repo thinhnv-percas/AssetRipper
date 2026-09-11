@@ -53,6 +53,25 @@ Every change is marked `AssetRipper:` at the point it applies.
    the image count the metadata already gives, so a count-constrained scan finds it with no strings.
    The technique is the one `FindMetadataRegistrationPost24_5` has always used. Method taken from
    `origin/ref/devx:IL2CPP-REBUILD-GUIDE.md` section 6.
+7. **Ciphertext was being handed on as a number** — `MachOFile.IsVirtualAddressEncrypted` and the
+   virtual `Il2CppBinary.IsVirtualAddressEncrypted` it overrides, with
+   `Il2CppTypeDefinition.RawSizesAreReadable`, `Il2CppBinary.CountEncryptedFieldOffsetTables`,
+   `Il2CppBinary.ReportEncryptedRegistrationRegions`, the encryption test in
+   `Il2CppBinary.GetFieldOffsetFromIndex`, and the replacement of the `Size > 1 << 30` throw in
+   `AsmResolverDllOutputFormat.ConfigureTypeSize`. On an App Store iOS build the registration and
+   every pointer table are in `__DATA` and read perfectly, while the structs they address are in
+   `__TEXT.__const` and are ciphertext. The old code read those bytes and treated them as sizes and
+   field offsets. The address's provenance is what separates the two cases, never the plausibility of
+   the value; the address is mapped through the segments, because a byte inside a segment but inside
+   none of its sections is still encrypted. `-1` was already this method's own "offset not known".
+8. **The two 64-bit chained pointer formats were treated as one, and a chain could leave its page** —
+   `MachOFile.ApplyChainedFixups` and `MachOFile.PreferredLoadAddress`.
+   `DYLD_CHAINED_PTR_64`'s target is an unslid virtual address and `DYLD_CHAINED_PTR_64_OFFSET`'s is
+   an offset from the image base (Apple `mach-o/fixup-chains.h`); they agree only on an image that
+   links at zero, which every Unity dylib does, so this is untestable on a real iOS fixture and is
+   covered by synthetic binaries in `AssetRipper.Tests/MachOChainedFixupTests.cs` instead. The walk is
+   also bounded by the page now: `next` reaches at most `4*0xFFF`, a chain belongs to one page, and an
+   unbounded walk runs into the next page's chain and rewrites correct pointers with no symptom.
 
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),

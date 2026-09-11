@@ -5,7 +5,7 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 034 (hoàn tất; audit ref/devx, DECOMP-0023 sửa)
+Iteration hiện tại: 035 (hoàn tất; DECOMP-0024 vùng mã hoá theo địa chỉ, DECOMP-0025 hai format chained pointer)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -32,10 +32,16 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     il2cpp: Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework
     metadata: Payload/JellyBlast.app/Data/Managed/Metadata/global-metadata.dat
     UnityFramework mang LC_ENCRYPTION_INFO_64 cryptid 1, phủ toàn bộ __TEXT.
-    Ranh giới thật, đo từng con trỏ (reports/IOS_RESEARCH.md mục 6): metadata, CẢ HAI registration,
-    bảng codegen module, fieldOffsets, typeDefinitionsSizes, types, genericClasses, genericInsts đều
-    nằm trong __DATA và ĐỌC ĐƯỢC. Chỉ genericMethodTable và methodSpecs nằm trong __TEXT.__const
-    mã hoá, cùng với tên module trong __cstring và thân hàm trong __text.
+    KHÔNG có LC_DYLD_CHAINED_FIXUPS — binary dùng LC_DYLD_INFO_ONLY, nên ApplyChainedFixups không
+    bao giờ chạy trên fixture này. __TEXT ở vm 0 và trong __DATA thì VA == file offset.
+    Ranh giới thật, đo từng con trỏ (reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md mục 3–4):
+    metadata, CẢ HAI registration, bảng codegen module và bảng types nằm trong __DATA và ĐỌC ĐƯỢC.
+    genericMethodTable và methodSpecs nằm trong __TEXT.__const mã hoá.
+    QUAN TRỌNG — iteration 034 ghi ở đây rằng "fieldOffsets, typeDefinitionsSizes ... ĐỌC ĐƯỢC", và
+    điều đó chỉ đúng với BẢNG chứ không đúng với ĐÍCH. Hai bảng đó nằm trong __DATA.__data và đọc
+    hoàn hảo (8702 con trỏ tăng đơn điệu, bước đúng 0x10, không có null), nhưng mọi con trỏ trong
+    chúng trỏ vào __TEXT.__const — entropy 7,999/8 so với 3,2–4,2 ở __DATA. Đó là nguồn của
+    InstanceSize=2249170484, và là lý do 5782/5782 field offset table cũng không đọc được.
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
@@ -177,14 +183,23 @@ QUAN TRỌNG — ĐỌC TRƯỚC KHI THIẾT KẾ BẤT CỨ GÌ MỚI:
 
 Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
 
-  (0) **iOS: `typeDefinitionsSizes` cho giá trị vô lý dù con trỏ nằm trong `__DATA`.** Đây là chỗ
-      duy nhất còn chặn nhánh iOS. `InstanceSize=2249170484` cho `Mono.ValueTuple`. Hai giả thuyết,
-      chưa phân định: (a) metareg là false positive khớp đúng count; (b) `ApplyChainedFixups` không
-      phủ trang chứa con trỏ này nên nó còn ở dạng encoded — lưu ý `DYLD_CHAINED_PTR_64_OFFSET` đang
-      được xử lý y như `DYLD_CHAINED_PTR_64`, chỉ đúng khi image base bằng 0. Cách phân định: đối
-      chiếu vài con trỏ trong `__DATA` của bản Android (nơi mọi thứ đọc đúng) với giá trị thô trên
-      đĩa, rồi làm điều tương tự trên iOS. Nếu xong, kỳ vọng iOS xuất ra được toàn bộ phần khai báo
-      và field offset. Xem reports/IOS_RESEARCH.md mục 10.
+  (0) **iOS: ĐÃ GIẢI QUYẾT ở iteration 035 — không còn blocker nào sửa được bằng phân tích tĩnh.**
+      `InstanceSize=2249170484` không phải (a) metareg false positive, cũng không phải (b)
+      `ApplyChainedFixups` sai — hai giả thuyết đã ghi ở đây trước đó. Cả hai đều sai. Registration
+      đúng (8702 con trỏ tăng đơn điệu bước 0x10, hai count độc lập khớp
+      `metadata.TypeDefinitionCount`, `metadataUsages == 0` đúng cho v31.1), và binary KHÔNG có
+      chained fixups. Đích của bảng nằm trong vùng FairPlay mã hoá, entropy 7,999/8. Đã sửa ở đúng
+      layer bằng `IsVirtualAddressEncrypted` — phép kiểm tra là provenance của địa chỉ, không phải
+      tính hợp lý của giá trị. Xem reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md.
+      Việc còn thiếu là plaintext của `__TEXT`, và đó là bài toán acquisition chứ không phải parser:
+      repository chỉ cần nhận thêm một input Mach-O `cryptid = 0`. KHÔNG tự viết FairPlay decryptor,
+      không đoán khoá, không brute-force.
+
+  (0b) **Chưa làm, đã đo một nửa: `AssetRipper.Import/Logging/Logger.cs:16` map MỌI warning của
+      Cpp2IL sang `LogType.Verbose`.** Đó là lý do cảnh báo Mach-O mã hoá thêm ở iteration 033 chưa
+      từng xuất hiện trong log nào. Iteration 035 đi vòng qua nó (báo cáo từ
+      `Il2CppRecoveryDiagnosticsProcessingLayer`, nơi `Logger.Warning` đến được file). Sửa thẳng dòng
+      đó sẽ làm hiện mọi warning của Cpp2IL cùng lúc — cần đo mức ồn trước, CHƯA đo.
 
   (a) **Nhóm B của DECOMP-0022: 124 load qua địa chỉ của một stack slot đã biết.** Đây là mục tiêu
       tiếp theo được khuyến nghị, và nó KHÔNG phải bài toán gán kiểu. `StackAnalyzer.NameForSlot`

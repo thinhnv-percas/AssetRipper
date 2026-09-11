@@ -1,0 +1,458 @@
+System : System Tester
+System : System Version: Unix 6.18.44.24
+System : Operating System: Linux x64
+System : AssetRipper Version: 1.3.14.0
+System : AssetRipper Build Type: Release Compiled
+System : UTC Current Time: Fri Sep 11 09:14:04 UTC 2026
+System : UTC Compile Time: Unknown
+
+General : Configuration Settings:
+General : ExportRootPath: /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.SystemTester/Release/Ripped
+General : ScriptContentLevel: Level3
+General : StreamingAssetsMode: Extract
+General : DefaultVersion: 0.0.0a0
+General : TargetVersion: 0.0.0a0
+General : EmitIl2CppOffsets: True
+General : ReconstructNativeBodies: True
+General : Il2CppStructDbPath: /home/user/AssetRipper/StructDb
+General : EnablePrefabOutlining: False
+General : EnableStaticMeshSeparation: True
+General : EnableAssetDeduplication: False
+General : BundledAssetsExportMode: DirectExport
+General : AudioExportFormat: Default
+General : ImageExportFormat: Png
+General : LightmapTextureExportFormat: Yaml
+General : ScriptExportMode: Decompiled
+General : ScriptLanguageVersion: AutoSafe
+General : ShaderExportMode: Dummy
+General : SpriteExportMode: Yaml
+General : TextExportMode: Parse
+General : ExportUnreadableAssets: False
+General : PreferOriginalTextureExtension: True
+General : ClearExportDirectory: True
+Import : Attempting to read files from Test/Input/JellyBlast
+Import : iOS game structure has been found at 'Test/Input/JellyBlast'
+Import : Collecting game files...
+Import : Asset bundle 'data.unity3d' has been found
+Import : Collecting Streaming Assets...
+Import : Files use the 'IL2Cpp' scripting backend.
+Import : Il2Cpp recovery installed: offset attributes on, body reconstruction on, struct database /home/user/AssetRipper/StructDb.
+Import : During Il2Cpp initialization, found Unity version: 2022.3.53f1
+Cpp2IL : Initializing Metadata...
+Cpp2IL : Using actual IL2CPP Metadata version 31.1
+Cpp2IL : Initialized Metadata in 312ms
+Cpp2IL : Using binary type Mach-O File (from LibCppIL)
+Cpp2IL : Searching Binary for Required Data...
+Cpp2IL [Error] : No codegen modules found for mscorlib! Aborting search.
+Cpp2IL : Got Binary codereg: 0x2C723A8, metareg: 0x2D234B8 in 54ms.
+Cpp2IL : Initializing Binary...
+Cpp2IL : Initialized Binary in 93ms
+Cpp2IL : Mapping pointers to Il2CppMethodDefinitions...
+Cpp2IL : Processed 58890 OK (92ms)
+Cpp2IL : Creating application model...
+Cpp2IL : Application model created in 844.4792ms
+Import : IL2CPP struct database: 370 Unity versions indexed from /home/user/AssetRipper/StructDb
+Import [Warning] : IL2CPP struct database has no layout for Unity 2022.3.53f1; using 2021.2.9f1 instead. Runtime field names in recovered method bodies may be wrong if the layout changed between these versions.
+Import : IL2CPP struct database: applied 9 measured Il2CppClass and 2 MethodInfo offsets for Unity 2021.2.9f1 (64-bit).
+Import : IL2CPP struct database loaded: Unity 2021.2.9f1, 64-bit, sizeof(Il2CppClass) = 312
+Import : Il2Cpp recovery: Unity 2022.3.53f1, metadata v31.1, 64-bit, instruction set Arm64InstructionSetSelector.
+Import [Warning] : Il2Cpp recovery: 5782 of 5782 field offset tables point into a region that is encrypted on disk, so those offsets are not readable and are reported as unknown rather than read as ciphertext. The field layout self-check below counts such a type as disagreeing; that is an unreadable input, not a recovery defect.
+Import [Warning] : Il2Cpp recovery: 8702 of 8702 type definition sizes point into a region that is encrypted on disk, so those sizes are not readable and no class layout is written for them. The pointer table itself is correct - this is an encrypted input, not a misread binary. An App Store (FairPlay) iOS build encrypts the whole of __TEXT, which is where il2cpp puts the size and field-offset structs, while leaving the tables that address them in __DATA. Declarations, signatures and metadata are recovered normally; type sizes and method bodies cannot be. Supply a build that is not store-encrypted to recover those.
+Import : Il2Cpp recovery: 14 assemblies will be attempted, 43 framework assemblies will be stubbed. Attempted: Assembly-CSharp, Assembly-CSharp-firstpass, DOTween, Facebook.Unity, Facebook.Unity.IOS, Facebook.Unity.Settings, GameAnalyticsSDK, Mono.Security, Newtonsoft.Json, PathCreator, RayFireAssembly, RFLib_DotNet_2018_ios, Voodoo.UI.Particles, __Generated
+Import [Warning] : Il2Cpp recovery: no methods with native code were found in the game's own assemblies, so there is nothing for recovery to work on. Check that the loaded files include the game's script assemblies.
+Import : Native source injection: reconstructed 0 method bodies.
+Cpp2IL : Finding key function addresses...
+Cpp2IL : Key function addresses found in 18.4762ms
+Import : Il2Cpp method body recovery attempted 9054 methods; 0 failed to convert. Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.
+Import : Il2Cpp method body recovery: 0 call arguments the ABI spread over several vector registers were composed back into their value.
+Import : Il2Cpp method body recovery: 277 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them.
+Import : Il2Cpp method body recovery: 0 reads of a hidden static field were written as the public property that returns it.
+Import : Il2Cpp method body recovery: 0 calls were retargeted from a shared generic instantiation onto the one the receiver's own type names.
+Import : Il2Cpp method body recovery: SSA destruction left copies - 0 coalesced, 0 kept because the two locals are live at once, 0 because their types differ.
+Import : Finished reading files
+Processing : Processing loaded assets...
+Processing : AttributePolyfillGenerator
+Processing : MonoExplicitPropertyRepairProcessor
+Processing : ObfuscationRepairProcessor
+Processing : ForwardingAssemblyGenerator
+Processing : NullRefReturnProcessor
+Processing : UnmanagedConstraintRecoveryProcessor
+Processing : RemoveAssemblyKeyFileAttributeProcessor
+Processing : InternalsVisibileToPublicKeyRemover
+Processing : SceneDefinitionProcessor
+Processing : Creating Scene Definitions
+Processing : OriginalPathProcessor
+Processing : MainAssetProcessor
+Processing : Main Asset Pairing
+Processing : AnimatorControllerProcessor
+Processing : Reconstruct AnimatorController Assets
+Processing : AudioMixerProcessor
+Processing : Reconstruct AudioMixer Assets
+Processing : EditorFormatProcessor
+Processing : Editor Format Conversion
+Processing : LightingDataProcessor
+Processing : Lighting Data Assets
+Processing : PrefabProcessor
+Processing : SpriteProcessor
+Processing : ScriptableObjectProcessor
+Processing : Processing Scriptable Object Groups
+Processing : Finished processing assets
+Export : Starting export
+Export : Attempting to export assets to /home/user/AssetRipper/Test/Output-ios...
+Export : Game files have these Unity versions: 2022.3.41f1 2022.3.53f1
+Export : Exporting to Unity version 2022.3.53f1
+Import [Warning] : Resource file 'Unity.VisualScripting.Flow.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.VisualScripting.Flow' hasn't been found
+Import [Warning] : Resource file 'Unity.Timeline.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Timeline' hasn't been found
+Import [Warning] : Resource file 'Unity.VisualScripting.State.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.VisualScripting.State' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.Poly2Tri.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.Poly2Tri' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.Csg.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.Csg' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.KdTree.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.KdTree' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.Stl.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.Stl' hasn't been found
+Import [Warning] : Resource file 'Unity.Recorder.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Recorder' hasn't been found
+Import : Resource file 'resources.resource' has been loaded
+ExportProgress : (1/308) Exporting 'EditorBuildSettings'
+ExportProgress : (2/308) Exporting 'EditorSettings'
+ExportProgress : (3/308) Exporting 'splash'
+ExportProgress : (4/308) Exporting 'FIshAnimation'
+ExportProgress : (5/308) Exporting 'AudioMixer'
+ExportProgress : (6/308) Exporting 'LightingData'
+ExportProgress : (7/308) Exporting 'Preload (SceneAsset)'
+ExportProgress : (8/308) Exporting 'LightingData'
+ExportProgress : (9/308) Exporting 'Main (SceneAsset)'
+ExportProgress : (10/308) Exporting 'Splash Screen Unity Logo'
+ExportProgress : (11/308) Exporting 'Cubemap'
+ExportProgress : (12/308) Exporting 'butterfly eyes'
+ExportProgress : (13/308) Exporting 'eyes'
+ExportProgress : (14/308) Exporting 'arrows'
+ExportProgress : (15/308) Exporting 'Square'
+ExportProgress : (16/308) Exporting 'foliage'
+ExportProgress : (17/308) Exporting 'activate 0'
+ExportProgress : (18/308) Exporting 'ChatGPT Image Jun 17, 2025 at 05_16_19 PM'
+ExportProgress : (19/308) Exporting 'seamless_perlin_128'
+ExportProgress : (20/308) Exporting 'ChatGPT Image Jun 17, 2025 at 09_56_54 PM'
+ExportProgress : (21/308) Exporting 'ChatGPT Image Jun 17, 2025 at 10_52_57 PM'
+ExportProgress : (22/308) Exporting 'Fish_Albedo'
+ExportProgress : (23/308) Exporting 'Fish Icon'
+ExportProgress : (24/308) Exporting 'bee tex'
+ExportProgress : (25/308) Exporting 'sparkle3'
+ExportProgress : (26/308) Exporting 'cross'
+ExportProgress : (27/308) Exporting 'settings_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48'
+ExportProgress : (28/308) Exporting 'flag'
+ExportProgress : (29/308) Exporting 'val'
+ExportProgress : (30/308) Exporting 'stoneTexture'
+ExportProgress : (31/308) Exporting 'polkadots'
+ExportProgress : (32/308) Exporting 'ChatGPT Image Jul 21, 2025, 03_09_57 PM'
+ExportProgress : (33/308) Exporting 'Whisk_5fcdb51987'
+ExportProgress : (34/308) Exporting 'Whisk_20258dbca0'
+ExportProgress : (35/308) Exporting 'Eyes_Albedo'
+ExportProgress : (36/308) Exporting 'rounded button back'
+ExportProgress : (37/308) Exporting 'rounded button'
+ExportProgress : (38/308) Exporting 'images-3'
+ExportProgress : (39/308) Exporting 'semicircle_texture'
+ExportProgress : (40/308) Exporting 'gradient'
+ExportProgress : (41/308) Exporting 'butterfly'
+ExportProgress : (42/308) Exporting '364f4f01-201a-40aa-9282-9f676ea49f7e'
+ExportProgress : (43/308) Exporting 'SoftCircle'
+ExportProgress : (44/308) Exporting 'splash ring 1'
+ExportProgress : (45/308) Exporting 'activate'
+ExportProgress : (46/308) Exporting '9SlicedNormal'
+ExportProgress : (47/308) Exporting 'Baloo-Regular SDF Outline Atlas'
+ExportProgress : (48/308) Exporting 'Cubemap'
+ExportProgress : (49/308) Exporting 'info'
+ExportProgress : (50/308) Exporting 'instrument'
+ExportProgress : (51/308) Exporting 'GridBox_NoDraw'
+ExportProgress : (52/308) Exporting 'GridBox_Default'
+ExportProgress : (53/308) Exporting 'GridBox_Collider'
+ExportProgress : (54/308) Exporting 'update_orange'
+ExportProgress : (55/308) Exporting 'delete'
+ExportProgress : (56/308) Exporting 'gaLogo'
+ExportProgress : (57/308) Exporting 'game'
+ExportProgress : (58/308) Exporting 'GridBox_Trigger'
+ExportProgress : (59/308) Exporting 'EmojiOne'
+ExportProgress : (60/308) Exporting 'icons'
+ExportProgress : (61/308) Exporting 'user'
+ExportProgress : (62/308) Exporting 'question'
+ExportProgress : (63/308) Exporting 'home'
+ExportProgress : (64/308) Exporting 'LiberationSans SDF Atlas'
+Export [Warning] : Unable to convert 'LiberationSans SDF Atlas' to bitmap
+ExportProgress [Warning] : Failed to export 'LiberationSans SDF Atlas' (TextureExportCollection)
+ExportProgress : (65/308) Exporting 'LiberationSans SDF Atlas'
+ExportProgress : (66/308) Exporting 'PlayerSettings'
+ExportProgress : (67/308) Exporting 'InputManager'
+ExportProgress : (68/308) Exporting 'TagManager'
+ExportProgress : (69/308) Exporting 'AudioManager'
+ExportProgress : (70/308) Exporting 'GraphicsSettings'
+ExportProgress : (71/308) Exporting 'TimeManager'
+ExportProgress : (72/308) Exporting 'DelayedCallManager'
+ExportProgress : (73/308) Exporting 'PhysicsManager'
+ExportProgress : (74/308) Exporting 'QualitySettings'
+ExportProgress : (75/308) Exporting 'NavMeshProjectSettings'
+ExportProgress : (76/308) Exporting 'Physics2DSettings'
+ExportProgress : (77/308) Exporting 'RuntimeInitializeOnLoadManager'
+ExportProgress : (78/308) Exporting 'StreamingManager'
+ExportProgress : (79/308) Exporting 'VFXManager'
+ExportProgress : (80/308) Exporting 'ScriptExportCollection'
+Export : Exporting scripts...
+Export : Decompiling Newtonsoft.Json
+Export : Decompiling Unity.TextMeshPro
+Export : Decompiling RayFireAssembly
+Export : Decompiling UnityEngine.UI
+Export : Decompiling Assembly-CSharp
+Export : Decompiling DOTween
+Export : Decompiling Unity.VisualScripting.Core
+Export : Decompiling Facebook.Unity
+Export : Decompiling Unity.Collections
+Export : Decompiling Assembly-CSharp-firstpass
+Export : Decompiling GameAnalyticsSDK
+Export : Decompiling RFLib_DotNet_2018_ios
+Export : Decompiling Unity.Burst
+Export : Decompiling PathCreator
+Export : Decompiling Voodoo.UI.Particles
+Export : Decompiling Unity.Mathematics
+Export : Decompiling Facebook.Unity.IOS
+Export : Decompiling Facebook.Unity.Settings
+Export : Decompiling Unity.Burst.Unsafe
+Export : Decompiling __Generated
+Export : Decompiling System.Runtime.CompilerServices.Unsafe
+ExportProgress : (81/308) Exporting 'Sprite'
+ExportProgress : (82/308) Exporting 'Preload'
+ExportProgress : (83/308) Exporting 'fever splash'
+ExportProgress : (84/308) Exporting 'explosion'
+ExportProgress : (85/308) Exporting 'remove fx'
+ExportProgress : (86/308) Exporting 'sparkle'
+ExportProgress : (87/308) Exporting 'transition'
+ExportProgress : (88/308) Exporting 'uibutton'
+ExportProgress : (89/308) Exporting 'arrows'
+ExportProgress : (90/308) Exporting 'background'
+ExportProgress : (91/308) Exporting 'bee'
+ExportProgress : (92/308) Exporting 'caterpillar'
+ExportProgress : (93/308) Exporting 'cliff'
+ExportProgress : (94/308) Exporting 'fluid'
+ExportProgress : (95/308) Exporting 'fluid_single'
+ExportProgress : (96/308) Exporting 'glass'
+ExportProgress : (97/308) Exporting 'glass2'
+ExportProgress : (98/308) Exporting 'honey'
+ExportProgress : (99/308) Exporting 'ice'
+ExportProgress : (100/308) Exporting 'metal'
+ExportProgress : (101/308) Exporting 'mud'
+ExportProgress : (102/308) Exporting 'octopus'
+ExportProgress : (103/308) Exporting 'particles emission'
+ExportProgress : (104/308) Exporting 'particles'
+ExportProgress : (105/308) Exporting 'powerup 0'
+ExportProgress : (106/308) Exporting 'powerup 1'
+ExportProgress : (107/308) Exporting 'powerup 2'
+ExportProgress : (108/308) Exporting 'snow'
+ExportProgress : (109/308) Exporting 'sponge'
+ExportProgress : (110/308) Exporting 'stone'
+ExportProgress : (111/308) Exporting 'vegetation'
+ExportProgress : (112/308) Exporting 'w_bubbles'
+ExportProgress : (113/308) Exporting 'wall'
+ExportProgress : (114/308) Exporting 'water'
+ExportProgress : (115/308) Exporting 'Shackle'
+ExportProgress : (116/308) Exporting 'lockerBody'
+ExportProgress : (117/308) Exporting 'Red'
+ExportProgress : (118/308) Exporting 'Eyes.001'
+ExportProgress : (119/308) Exporting 'Eyes'
+ExportProgress : (120/308) Exporting 'Fish'
+ExportProgress : (121/308) Exporting 'Mounth'
+ExportProgress : (122/308) Exporting 'Baloo-Regular Atlas Material'
+ExportProgress : (123/308) Exporting 'visual_sh_8'
+ExportProgress : (124/308) Exporting 'visual_sh_3'
+ExportProgress : (125/308) Exporting 'visual_sh_6'
+ExportProgress : (126/308) Exporting 'visual_sh_10'
+ExportProgress : (127/308) Exporting 'Cube'
+ExportProgress : (128/308) Exporting 'visual_sh_9'
+ExportProgress : (129/308) Exporting 'visual_sh_1'
+ExportProgress : (130/308) Exporting 'visual_sh_2'
+ExportProgress : (131/308) Exporting 'LockerBody'
+ExportProgress : (132/308) Exporting 'chain link'
+ExportProgress : (133/308) Exporting 'Pupils'
+ExportProgress : (134/308) Exporting 'Shackle'
+ExportProgress : (135/308) Exporting 'visual_sh_4'
+ExportProgress : (136/308) Exporting 'Fish'
+ExportProgress : (137/308) Exporting 'Mouth'
+ExportProgress : (138/308) Exporting 'Eyes'
+ExportProgress : (139/308) Exporting 'visual_sh_7'
+ExportProgress : (140/308) Exporting 'visual_sh_5'
+ExportProgress : (141/308) Exporting 'Custom/Honey_NoGrab'
+ExportProgress : (142/308) Exporting 'Custom/Fluid'
+ExportProgress : (143/308) Exporting 'Custom/ParticlesEmission'
+ExportProgress : (144/308) Exporting 'Custom/Bee'
+ExportProgress : (145/308) Exporting 'Custom/GradientBackground_LUT_World'
+ExportProgress : (146/308) Exporting 'Custom/FeverSplash'
+ExportProgress : (147/308) Exporting 'Custom/PowerUpParticles'
+ExportProgress : (148/308) Exporting 'Custom/Sponge'
+ExportProgress : (149/308) Exporting 'Custom/UITransition'
+ExportProgress : (150/308) Exporting 'Custom/Glass2'
+ExportProgress : (151/308) Exporting 'Hidden/WhiteMask'
+ExportProgress : (152/308) Exporting 'Custom/Ice'
+ExportProgress : (153/308) Exporting 'Custom/Water'
+ExportProgress : (154/308) Exporting 'Custom/Octopus'
+ExportProgress : (155/308) Exporting 'Custom/Octopus'
+ExportProgress : (156/308) Exporting 'Custom/Mud'
+ExportProgress : (157/308) Exporting 'TextMeshPro/Distance Field Overlay'
+ExportProgress : (158/308) Exporting 'Custom/Cliffs_Lambert'
+ExportProgress : (159/308) Exporting 'Custom/UIButton'
+ExportProgress : (160/308) Exporting 'Custom/SpecialFluid'
+ExportProgress : (161/308) Exporting 'Custom/SingleFluid'
+ExportProgress : (162/308) Exporting 'FluidCS'
+ExportProgress : (163/308) Exporting 'splash'
+ExportProgress : (164/308) Exporting 'Fish_Rig_CELEBRATION'
+ExportProgress : (165/308) Exporting 'Fish_Rig_IDLE'
+ExportProgress : (166/308) Exporting 'Fish_Rig_SWIM'
+ExportProgress : (167/308) Exporting 'collect fluid emission'
+ExportProgress : (168/308) Exporting 'collect fluid raw'
+ExportProgress : (169/308) Exporting 'collect fluid'
+ExportProgress : (170/308) Exporting 'emission'
+ExportProgress : (171/308) Exporting 'fluid'
+ExportProgress : (172/308) Exporting 'raw fluid'
+ExportProgress : (173/308) Exporting 'activate 0'
+ExportProgress : (174/308) Exporting 'ChatGPT Image Jun 17, 2025 at 05_16_19 PM'
+ExportProgress : (175/308) Exporting 'ChatGPT Image Jun 17, 2025 at 09_56_54 PM'
+ExportProgress : (176/308) Exporting 'ChatGPT Image Jun 17, 2025 at 10_52_57 PM'
+ExportProgress : (177/308) Exporting 'Fish Icon'
+ExportProgress : (178/308) Exporting 'cross'
+ExportProgress : (179/308) Exporting 'settings_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48'
+ExportProgress : (180/308) Exporting 'flag'
+ExportProgress : (181/308) Exporting 'rounded button back'
+ExportProgress : (182/308) Exporting 'rounded button'
+ExportProgress : (183/308) Exporting 'butterfly'
+ExportProgress : (184/308) Exporting 'activate'
+ExportProgress : (185/308) Exporting 'Square'
+ExportProgress : (186/308) Exporting 'level23'
+ExportProgress : (187/308) Exporting 'level9'
+ExportProgress : (188/308) Exporting 'level15'
+ExportProgress : (189/308) Exporting 'level14'
+ExportProgress : (190/308) Exporting 'level12'
+ExportProgress : (191/308) Exporting 'level4'
+ExportProgress : (192/308) Exporting 'level6'
+ExportProgress : (193/308) Exporting 'level13'
+ExportProgress : (194/308) Exporting 'level10'
+ExportProgress : (195/308) Exporting 'level16'
+ExportProgress : (196/308) Exporting 'level11'
+ExportProgress : (197/308) Exporting 'level18'
+ExportProgress : (198/308) Exporting 'level22'
+ExportProgress : (199/308) Exporting 'level19'
+ExportProgress : (200/308) Exporting 'GoldFish'
+ExportProgress : (201/308) Exporting 'level20'
+ExportProgress : (202/308) Exporting 'level8'
+ExportProgress : (203/308) Exporting 'level17'
+ExportProgress : (204/308) Exporting 'level3'
+ExportProgress : (205/308) Exporting 'level21'
+ExportProgress : (206/308) Exporting 'level7'
+ExportProgress : (207/308) Exporting 'collect sprite'
+ExportProgress : (208/308) Exporting 'explosion 0'
+ExportProgress : (209/308) Exporting 'explosion 1'
+ExportProgress : (210/308) Exporting 'powerup'
+ExportProgress : (211/308) Exporting 'butterfly'
+ExportProgress : (212/308) Exporting 'ice'
+ExportProgress : (213/308) Exporting 'stone'
+ExportProgress : (214/308) Exporting 'snow'
+ExportProgress : (215/308) Exporting 'level2'
+ExportProgress : (216/308) Exporting 'level5'
+ExportProgress : (217/308) Exporting 'level7.5'
+ExportProgress : (218/308) Exporting 'level1'
+ExportProgress : (219/308) Exporting 'goalUI'
+ExportProgress : (220/308) Exporting 'sponge'
+ExportProgress : (221/308) Exporting 'mud'
+ExportProgress : (222/308) Exporting 'bee'
+ExportProgress : (223/308) Exporting 'audioclip'
+ExportProgress : (224/308) Exporting 'chain link'
+ExportProgress : (225/308) Exporting 'coin particle'
+ExportProgress : (226/308) Exporting 'fever splash'
+ExportProgress : (227/308) Exporting 'icon quad prefab'
+ExportProgress : (228/308) Exporting 'confetti'
+ExportProgress : (229/308) Exporting 'octopus'
+ExportProgress : (230/308) Exporting 'caterpillar'
+ExportProgress : (231/308) Exporting 'collect text'
+ExportProgress : (232/308) Exporting '5 Moves Left'
+ExportProgress : (233/308) Exporting 'iceDust'
+ExportProgress : (234/308) Exporting 'water'
+ExportProgress : (235/308) Exporting 'Baloo-Regular SDF Outline'
+ExportProgress : (236/308) Exporting 'blue'
+ExportProgress : (237/308) Exporting 'disabled'
+ExportProgress : (238/308) Exporting 'orange'
+ExportProgress : (239/308) Exporting 'purple'
+ExportProgress : (240/308) Exporting 'red'
+ExportProgress : (241/308) Exporting 'Main'
+ExportProgress : (242/308) Exporting 'LiberationSans SDF - Drop Shadow'
+ExportProgress : (243/308) Exporting 'LiberationSans SDF - Outline'
+ExportProgress : (244/308) Exporting 'Collider'
+ExportProgress : (245/308) Exporting 'EdgePicker'
+ExportProgress : (246/308) Exporting 'EdgePickerHDRP'
+ExportProgress : (247/308) Exporting 'FacePicker'
+ExportProgress : (248/308) Exporting 'FacePickerHDRP'
+ExportProgress : (249/308) Exporting 'InvisibleFace'
+ExportProgress : (250/308) Exporting 'NoDraw'
+ExportProgress : (251/308) Exporting 'ProBuilderDefault'
+ExportProgress : (252/308) Exporting 'StandardVertexColorHDRP'
+ExportProgress : (253/308) Exporting 'StandardVertexColorLWRP'
+ExportProgress : (254/308) Exporting 'Trigger'
+ExportProgress : (255/308) Exporting 'UnlitVertexColor'
+ExportProgress : (256/308) Exporting 'VertexPicker'
+ExportProgress : (257/308) Exporting 'VertexPickerHDRP'
+ExportProgress : (258/308) Exporting 'LiberationSans'
+ExportProgress : (259/308) Exporting 'TextMeshPro/Sprite'
+ExportProgress : (260/308) Exporting 'LiberationSans SDF Material'
+ExportProgress : (261/308) Exporting 'LiberationSans SDF Material'
+ExportProgress : (262/308) Exporting 'TextMeshPro/Sprite'
+ExportProgress : (263/308) Exporting 'ProBuilder/Standard Vertex Color'
+ExportProgress : (264/308) Exporting 'ProBuilder/UnlitVertexColor'
+ExportProgress : (265/308) Exporting 'Hidden/ProBuilder/EdgePicker'
+ExportProgress : (266/308) Exporting 'Hidden/ProBuilder/VertexPicker'
+ExportProgress : (267/308) Exporting 'Hidden/ProBuilder/FacePicker'
+ExportProgress : (268/308) Exporting 'TextMeshPro/Sprite'
+ExportProgress : (269/308) Exporting 'Hidden/ProBuilder/HideVertices'
+ExportProgress : (270/308) Exporting 'sdftexturepreview'
+ExportProgress : (271/308) Exporting 'TextMeshPro/Mobile/Distance Field'
+ExportProgress : (272/308) Exporting 'PerformanceTestRunInfo'
+ExportProgress : (273/308) Exporting 'PerformanceTestRunSettings'
+ExportProgress : (274/308) Exporting 'LineBreaking Leading Characters'
+ExportProgress : (275/308) Exporting 'LineBreaking Following Characters'
+ExportProgress : (276/308) Exporting 'SDFTextureGeneratorCompute'
+ExportProgress : (277/308) Exporting 'bubble pop'
+ExportProgress : (278/308) Exporting 'fluid'
+ExportProgress : (279/308) Exporting 'squelch'
+ExportProgress : (280/308) Exporting 'fail'
+ExportProgress : (281/308) Exporting 'move'
+ExportProgress : (282/308) Exporting 'shatter'
+ExportProgress : (283/308) Exporting 'explode 1'
+ExportProgress : (284/308) Exporting 'charge up'
+ExportProgress : (285/308) Exporting 'icons_12'
+ExportProgress : (286/308) Exporting 'icons_4'
+ExportProgress : (287/308) Exporting 'icons_1'
+ExportProgress : (288/308) Exporting 'icons_2'
+ExportProgress : (289/308) Exporting 'icons_0'
+ExportProgress : (290/308) Exporting 'icons_5'
+ExportProgress : (291/308) Exporting 'icons_3'
+ExportProgress : (292/308) Exporting 'icons_11'
+ExportProgress : (293/308) Exporting 'icons_6'
+ExportProgress : (294/308) Exporting 'icons_8'
+ExportProgress : (295/308) Exporting 'icons_7'
+ExportProgress : (296/308) Exporting 'icons_10'
+ExportProgress : (297/308) Exporting 'icons_9'
+ExportProgress : (298/308) Exporting 'FacebookSettings'
+ExportProgress : (299/308) Exporting 'ApplicationData'
+ExportProgress : (300/308) Exporting 'AudioClipManager'
+ExportProgress : (301/308) Exporting 'DOTweenSettings'
+ExportProgress : (302/308) Exporting 'Settings'
+ExportProgress : (303/308) Exporting 'LiberationSans SDF - Fallback'
+ExportProgress : (304/308) Exporting 'LiberationSans SDF'
+ExportProgress : (305/308) Exporting 'EmojiOne'
+ExportProgress : (306/308) Exporting 'Default Style Sheet'
+ExportProgress : (307/308) Exporting 'TMP Settings'
+ExportProgress : (308/308) Exporting 'icons'
+Export : Finished exporting assets
+Export : Saving game assemblies...
+Export : Finished post-export
+Export : Ripped to /home/user/AssetRipper/Test/Output-ios

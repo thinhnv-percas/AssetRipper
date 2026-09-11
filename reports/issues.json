@@ -541,5 +541,43 @@
     "regressionTest": "Test/Scripts/download_test_inputs.sh ios; Android va Pinata la cong regression",
     "confidence": 90,
     "note": "Phat hien duoc nho audit origin/ref/devx theo yeu cau, va no sua mot ket luan sai cua iteration 033 ('codereg khong the tim duoc tren ban ma hoa'). CLAUDE.md tung ghi ref/devx la 'no decompiler code, nothing further to take from it' - sai ca ba menh de, da sua. Con lai chua xac minh: typeDefinitionsSizes co con tro trong __DATA nhung gia tri vo ly (InstanceSize=2249170484 cho Mono.ValueTuple), hai gia thuyet la metareg false positive hoac ApplyChainedFixups khong phu trang do. Xem reports/IOS_RESEARCH.md muc 10."
+  },
+  {
+    "id": "DECOMP-0024",
+    "severity": "ERROR",
+    "category": "PLATFORM_SUPPORT",
+    "status": "FIXED",
+    "iterationFound": 35,
+    "iterationFixed": 35,
+    "platform": "IOS_ONLY (bieu hien), COMMON_ROOT_CAUSE (code dung chung)",
+    "generatedFile": "toan bo type size va field offset cua ban rip iOS",
+    "referenceFile": "reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md",
+    "method": "MachOFile.IsVirtualAddressEncrypted, Il2CppBinary.IsVirtualAddressEncrypted (virtual), Il2CppTypeDefinition.RawSizesAreReadable, Il2CppBinary.CountEncryptedFieldOffsetTables, Il2CppBinary.ReportEncryptedRegistrationRegions, Il2CppBinary.GetFieldOffsetFromIndex, AsmResolverDllOutputFormat.ConfigureTypeSize, Il2CppRecoveryDiagnosticsProcessingLayer.ReportEncryptedRegions",
+    "compilerError": "khong co",
+    "observed": "Got invalid size for type Il2CppTypeDefinition[namespace='Mono', name='ValueTuple']: {InstanceSize=2249170484, NativeSize=1619002878, ...}; va field layout self-check bao 0 reproduced exactly / 2080 disagreed",
+    "expected": "mot gia tri khong doc duoc phai duoc bao la khong biet, khong phai doc ciphertext roi coi la so",
+    "rootCause": "Bang typeDefinitionsSizes va bang fieldOffsets nam trong __DATA.__data va doc hoan hao - 8702 con tro tang don dieu, buoc dung 0x10 = sizeof(Il2CppTypeDefinitionSizes), khong co null nao. Nhung moi con tro trong chung tro vao __TEXT.__const, nam trong vung LC_ENCRYPTION_INFO_64 khai bao (cryptoff 0x8000, cryptsize 0x2C30000, cryptid 1). Entropy tai dich la 7.999/8 so voi 3.2-4.2 trong __DATA. Hai gia thuyet da ghi thanh ho so deu SAI: metareg KHONG phai false positive (hai count doc lap khop metadata.TypeDefinitionCount, moi pointer map duoc, metadataUsages == 0 dung cho v31.1), va binary KHONG co LC_DYLD_CHAINED_FIXUPS - no dung LC_DYLD_INFO_ONLY - nen ApplyChainedFixups chua tung chay tren fixture nay.",
+    "fix": "Kiem tra theo provenance cua dia chi thay vi theo tinh hop ly cua gia tri. IsVirtualAddressEncrypted map dia chi qua SEGMENT (khong qua section: mot byte nam trong segment nhung ngoai moi section thi van bi ma hoa; mot offset vuot FileSize la vung zero-fill nen khong o tren dia va khong the la ciphertext) roi doi chieu voi vung LC_ENCRYPTION_INFO. GetFieldOffsetFromIndex tra -1, la sentinel 'khong biet' co san cua chinh ham do. ConfigureTypeSize bo qua va dem thay vi throw: kiem tra Size > 1<<30 cu la kiem tra GIA TRI, nen no bat duoc ciphertext lon va bo sot ciphertext nho, ca hai deu sai ly do. Bao cao dat o Il2CppRecoveryDiagnosticsProcessingLayer vi AssetRipper.Import/Logging/Logger.cs:16 map moi warning cua Cpp2IL sang LogType.Verbose.",
+    "verification": "iOS: 'Got invalid size' 1 -> 0; log bao 8702/8702 type size va 5782/5782 field offset table nam trong vung ma hoa. Android (Impostor): moi file .cs recovered GIONG HET BYTE-FOR-BYTE (md5 ca 819 file), metrics.json giong iteration 034 tren MOI field, 16 shape check PASS. IsVirtualAddressEncrypted tra false tren ELF nen khong co duong nao doi hanh vi Android - va phep so md5 la bang chung cho dieu do chu khong phai suy luan.",
+    "notes": "KHONG phai che symptom: phep kiem tra la dia chi den tu dau, khong bao gio la gia tri lon bao nhieu. Xem reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md muc 5."
+  },
+  {
+    "id": "DECOMP-0025",
+    "severity": "WARNING",
+    "category": "PLATFORM_SUPPORT",
+    "status": "FIXED",
+    "iterationFound": 35,
+    "iterationFixed": 35,
+    "platform": "IOS_ONLY, LATENT (khong fixture nao hien co kich hoat duoc)",
+    "generatedFile": "khong quan sat duoc tren fixture hien co",
+    "referenceFile": "Apple mach-o/fixup-chains.h @ fd8d0c4d52320ebf64db34f3cb280310d905c5ae; LLVM @ dc6825047c42442c5e18dd09d260bee983bc5712; LIEF @ d005663ac7bfab4feca435d01dfc87667907ce42; blacktop/go-macho @ 0b3c4a4cb4548a0d1284c1b5fc0de6f4422c0246",
+    "method": "MachOFile.ApplyChainedFixups, MachOFile.PreferredLoadAddress",
+    "compilerError": "khong co",
+    "observed": "DYLD_CHAINED_PTR_64_OFFSET duoc xu ly y het DYLD_CHAINED_PTR_64; va vong lap chain la while(true) khong co bien tren",
+    "expected": "DYLD_CHAINED_PTR_64 target la dia chi ao chua slide; DYLD_CHAINED_PTR_64_OFFSET target la offset tu image base, nen VA = preferredLoadAddress + unpackedTarget. Chain thuoc mot trang, next toi da 4*0xFFF = 16380 byte.",
+    "rootCause": "Hai format chia se struct dyld_chained_ptr_64_rebase va khac nhau dung mot diem, ghi ngay trong comment cua Apple: 'target : 36, // 64GB max image size (DYLD_CHAINED_PTR_64 => vmAddr, DYLD_CHAINED_PTR_64_OFFSET => runtimeOffset)'. Chung trung nhau tren mot image link o dia chi 0, va moi Unity dylib deu link o 0 - nen loi nay VO HINH tren moi fixture iOS thuc te. Vong lap khong chan cho phep mot next tro qua cuoi trang chay sang chain cua trang sau va ghi lai nhung con tro da dung, im lang.",
+    "fix": "Tach hai arm bang targetBias (0 cho _64, PreferredLoadAddress cho _64_OFFSET, la vmaddr cua __TEXT), va chan vong lap bang pageEnd. Cong bias vao gia tri DA compose, theo dung thu tu cua spec.",
+    "verification": "17 test tong hop trong Source/AssetRipper.Tests/MachOChainedFixupTests.cs, dung Mach-O trong bo nho voi image base 0 va 0x100000000, phu ca hai format, rebase, bind, high8, stride, pointer chain, multiple starts, START_NONE, bien trang, cryptid 0 va cryptid 1. Da kiem tra CA HAI fix deu bi phan biet: revert tung fix lam test tuong ung FAIL (ChainedPtr64OffsetAddsTheImageBaseToTheTarget, AChainDoesNotRunPastTheEndOfItsPage). Test suite 279 -> 296, 1 fail co san tu truoc khong doi.",
+    "notes": "Bon test dau tien viet ra la DEGENERATE va pass voi ca code chua sua: Rebase(target, 0, 0) == target, nen dang encoded va dang da rebase la cung mot so. Phai cho high8 != 0. KHONG copy tu go-macho (fixupchains.go 746-752 tru preferredLoadAddress cho CA HAI format, sai semantics) hay tu header public cua LIEF (ChainedPointerAnalysis.hpp 115-117 thieu << 56). Mot dieu KHONG phai bug: cong bias vao gia tri da compose so voi cong vao rieng field target cho CUNG ket qua voi moi image base thuc te, vi bit 36-55 cua mot gia tri unpacked luon bang 0 - test TheImageBaseIsAddedToTheComposedValue pin cong thuc chu khong bat collision."
   }
 ]

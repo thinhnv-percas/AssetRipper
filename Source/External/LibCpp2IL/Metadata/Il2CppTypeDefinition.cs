@@ -89,6 +89,26 @@ public class Il2CppTypeDefinition : ReadableClass
         }
     }
 
+    /// <summary>
+    /// AssetRipper: whether <see cref="RawSizes"/> reads a real size or the ciphertext that sits
+    /// where one would be.
+    /// </summary>
+    /// <remarks>
+    /// On an App Store iOS build the pointer table is in __DATA and reads perfectly - 8702 strictly
+    /// ascending pointers at a sixteen byte stride - while every one of its targets is in
+    /// __TEXT.__const, which FairPlay encrypts. Reading one gives a number of full entropy, and a
+    /// number of full entropy is indistinguishable from a large size. The provenance of the address
+    /// is what separates them, not the plausibility of the value.
+    /// </remarks>
+    public bool RawSizesAreReadable
+    {
+        get
+        {
+            var sizePtr = OwningContext.Binary.TypeDefinitionSizePointers[TypeIndex.Value];
+            return sizePtr != 0 && !OwningContext.Binary.IsVirtualAddressEncrypted(sizePtr);
+        }
+    }
+
     public int Size => RawSizes.native_size;
 
     public Il2CppInterfaceOffset[] InterfaceOffsets

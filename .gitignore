@@ -23,10 +23,12 @@ launchSettings.json
 # Rip output and logs from RUN-TEST.bat. Every run rewrites these, so tracking them
 # means every run dirties the tree; upload the log to share it instead.
 Test/Output/
+Test/Output-*/
 
 # Unpacked test games. Pinata is committed; anything else is fetched by hand.
 Test/Input/RunFromZombies/
 Test/AssetRipper.log
+Test/*.log
 Test/AssetRipper-recovery.log
 Test/Input/Impostor/
 Test/Input/JellyBlast/

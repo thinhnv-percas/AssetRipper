@@ -1,3 +1,4 @@
+using LibCpp2IL;
 using AssetRipper.Import.Logging;
 using Cpp2IL.Core.Api;
 using Cpp2IL.Core.InstructionSets;
@@ -35,6 +36,7 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 			$"Il2Cpp recovery: Unity {appContext.UnityVersion}, metadata v{appContext.MetadataVersion}, " +
 			$"{(appContext.Binary.is32Bit ? "32" : "64")}-bit, instruction set {instructionSetName}.");
 
+		ReportEncryptedRegions(appContext);
 		ReportAssemblies(appContext);
 		ReportFieldLayoutSelfCheck(appContext);
 
@@ -54,6 +56,57 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 
 		progressCallback?.Invoke(1, 1);
 	}
+
+	/// <summary>
+	/// Says, per registration table, which of them lie in a region that is ciphertext on disk.
+	/// </summary>
+	/// <remarks>
+	/// LibCpp2IL reports this too, but every Cpp2IL warning is mapped to <see cref="LogType.Verbose"/>
+	/// on the way into this log, so a reader never sees it. It has to be said here to be said at all.
+	/// The distinction the report exists to draw: a readable table whose targets are encrypted is not
+	/// a misidentified registration - the pointers are right and the structs they name cannot be read,
+	/// which is why an App Store build yields every declaration and no type size or method body.
+	/// Measured on Jelly Blast, whose <c>typeDefinitionsSizes</c> table is 8702 correct pointers into
+	/// a region of entropy 7.999 out of 8. See <c>reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md</c>.
+	/// </remarks>
+	private static void ReportEncryptedRegions(ApplicationAnalysisContext appContext)
+	{
+		Il2CppBinary binary = appContext.Binary;
+
+		ulong[] sizePointers = binary.TypeDefinitionSizePointers;
+		int encryptedSizes = 0;
+		for (int i = 0; i < sizePointers.Length; i++)
+		{
+			if (sizePointers[i] != 0 && binary.IsVirtualAddressEncrypted(sizePointers[i]))
+				encryptedSizes++;
+		}
+
+		(int encryptedFieldOffsets, int totalFieldOffsets) = binary.CountEncryptedFieldOffsetTables();
+
+		if (encryptedFieldOffsets > 0)
+		{
+			Logger.Warning(LogCategory.Import,
+				$"Il2Cpp recovery: {encryptedFieldOffsets} of {totalFieldOffsets} field offset tables point into a "
+				+ "region that is encrypted on disk, so those offsets are reported as unknown rather than read as "
+				+ "ciphertext - which would lay every field of the type out at a random offset with nothing "
+				+ "downstream able to tell. The field layout self-check therefore has nothing to measure on this "
+				+ "input; that is an unreadable input, not a recovery defect.");
+		}
+
+		if (encryptedSizes == 0)
+			return;
+
+		Logger.Warning(LogCategory.Import,
+			$"Il2Cpp recovery: {encryptedSizes} of {sizePointers.Length} type definition sizes point into a region "
+			+ "that is encrypted on disk, so those sizes are not readable and no class layout is written for them. "
+			+ "The pointer table itself is correct - this is an encrypted input, not a misread binary. An App Store "
+			+ "(FairPlay) iOS build encrypts the whole of __TEXT, which is where il2cpp puts the size and field-offset "
+			+ "structs, while leaving the tables that address them in __DATA. Declarations, signatures and metadata "
+			+ "are recovered normally; type sizes and method bodies cannot be. Supply a build that is not "
+			+ "store-encrypted to recover those.");
+	}
+
+
 
 	/// <summary>
 	/// Names the assemblies recovery will attempt, because a reader looking at the wrong one sees empty

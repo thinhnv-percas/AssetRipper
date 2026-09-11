@@ -5,6 +5,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AsmResolver.DotNet;
 using AsmResolver.DotNet.Builder;
@@ -288,6 +289,9 @@ public abstract class AsmResolverDllOutputFormat : Cpp2IlOutputFormat
         return ret;
     }
 
+    /// <summary>AssetRipper: type definitions whose size lives in a region that is ciphertext on disk.</summary>
+    internal static int UnreadableTypeSizes;
+
     private static void ConfigureTypeSize(Il2CppTypeDefinition il2CppDefinition, TypeDefinition asmResolverDefinition)
     {
         if (!il2CppDefinition.IsValueType || il2CppDefinition.IsEnumType)
@@ -300,6 +304,16 @@ public abstract class AsmResolverDllOutputFormat : Cpp2IlOutputFormat
 
         if (!il2CppDefinition.ClassSizeIsDefault)
         {
+            // AssetRipper: on a store-encrypted iOS binary the size pointer is readable and its
+            // target is not, so what comes back is ciphertext. Say the size is unknown - which it
+            // is - rather than reject it for being large: the test is where the bytes came from, not
+            // how big the number is. See reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md.
+            if (!il2CppDefinition.RawSizesAreReadable)
+            {
+                Interlocked.Increment(ref UnreadableTypeSizes);
+                return;
+            }
+
             if (il2CppDefinition.Size > 1 << 30)
                 throw new Exception($"Got invalid size for type {il2CppDefinition}: {il2CppDefinition.RawSizes}");
 

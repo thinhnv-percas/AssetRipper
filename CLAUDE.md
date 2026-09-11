@@ -699,6 +699,41 @@ find it; `strings` without `-el` does find method and type names.
   operand chứ không phải gán kiểu, 23 là spill thường rải trên bảy method. Đúng như 850 load "past
   the last field" trước đây.
 
+- **A value read through a correct pointer can still be ciphertext, and provenance is what says so.**
+  `InstanceSize=2249170484` for `Mono.ValueTuple` on the iOS fixture was neither a wrong registration
+  candidate nor a chained-fixup bug — the two hypotheses on record. The `typeDefinitionsSizes` table
+  is 8702 pointers in `__DATA`, strictly ascending at exactly a 16-byte stride, with no nulls: it is
+  right. Every target is in `__TEXT.__const`, which FairPlay encrypts, and reads at entropy 7.999 out
+  of 8 against 3.2 to 4.2 in `__DATA`. So the test has to be *where the bytes came from*, never how
+  plausible the number looks: `IsVirtualAddressEncrypted` maps an address through the **segments** —
+  a byte in a segment but in no section is still encrypted — and `RawSizesAreReadable`,
+  `CountEncryptedFieldOffsetTables` and `GetFieldOffsetFromIndex` all answer "not known" off that.
+  The old guard was `Size > 1 << 30`, which catches large ciphertext and passes small ciphertext, both
+  for the wrong reason. Field offsets are the same shape and matter more quietly: the pointer is in
+  `__DATA` and the offsets are not, so reading them lays every field of 5782 types at a random offset
+  with nothing downstream able to tell.
+- **The iOS fixture has no chained fixups.** It carries `LC_DYLD_INFO_ONLY`, not
+  `LC_DYLD_CHAINED_FIXUPS`, so `ApplyChainedFixups` never runs on it and could not have been the
+  cause of anything measured there. `__TEXT` is at vm 0 and `__DATA`'s vmaddr equals its file offset,
+  so in `__DATA` a virtual address *is* a file offset and needs no transformation at all.
+- **`DYLD_CHAINED_PTR_64` and `DYLD_CHAINED_PTR_64_OFFSET` differ in one respect and a dylib cannot
+  tell them apart.** The first format's target is an unslid virtual address, the second's is an offset
+  from the image base; `UnityFramework` is a dylib and links at zero, so they coincide there and the
+  bug is invisible on every iOS fixture. Test it on a synthetic binary with a non-zero image base or
+  not at all. A chain is also confined to its page — `next` reaches at most `4*0xFFF` — and an
+  unbounded walk runs into the following page's chain and rewrites pointers that were already correct,
+  silently.
+- **A test whose two outcomes are the same number is not a test.** `Rebase(target, 0, 0) == target`,
+  so four of the first chained-fixup tests asserted that a value equalled itself and passed against
+  the unfixed code. Reverting each fix and watching the test go red is the only thing that
+  establishes a test discriminates — the same "what a pass that never fires looks like" as everywhere
+  else in this file, on the test side.
+- **A warning routed to Verbose is a warning nobody reads.**
+  `AssetRipper.Import/Logging/Logger.cs:16` maps every Cpp2IL and LibCpp2IL warning to
+  `LogType.Verbose`, so the Mach-O encryption warning added in iteration 033 never once appeared in a
+  log. Anything a reader has to see belongs in AssetRipper's own diagnostics layer, where
+  `Logger.Warning` reaches the file. Do not add a diagnostic to LibCpp2IL and assume it is visible.
+
 - **Code registration can be found without any string, and that is what makes an encrypted iOS
   binary partly readable.** `FindCodeRegistrationPost2019` starts from the bytes of `mscorlib.dll`,
   so it needs `__cstring`; on an App Store build FairPlay encrypts the whole of `__TEXT` and that
@@ -847,3 +882,13 @@ Two things taken from it so far, both by hand rather than by cherry-pick (it is 
 Mono.Cecil, incompatible with this tree): the count-constrained registration scan, and treating an
 encrypted binary as a warning rather than a stop. The struct database itself is absorbed into
 `StructDb/`.
+
+**Where it ends: `ref/devx` has no chained fixup code at all** — zero hits for `ApplyChainedFixups`,
+`DYLD_CHAINED_PTR_64`, `LC_DYLD_CHAINED_FIXUPS` or `dyld_chained`, and `IL2CPP-REBUILD-GUIDE.md` §5.3
+says only to read `mach_header(_64)` and walk `LC_SEGMENT_64` for `(addr, size, offset)`. It reads
+segments and stops, so it rebases nothing. Anything about chained fixups has to come from Apple's
+`mach-o/fixup-chains.h`, LLVM or LIEF; the pinned revisions and the verbatim quotes are in
+`reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md` §6, along with two places not to copy from
+(`go-macho` has the semantics backwards, and LIEF's public header drops a `<< 56`). One thing in it
+*is* worth knowing and was checked rather than assumed: `typeDefinitionsSizes` is a table of pointers
+to the structs, not an array of structs, and AssetRipper already reads it that way.

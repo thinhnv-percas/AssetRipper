@@ -199,6 +199,8 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
 
         InBinaryMetadataSize += GetNumBytesReadSinceLastCallAndClear();
 
+        ReportEncryptedRegistrationRegions();
+
         if (metadata.MetadataVersion >= 24.2f)
         {
             LibLogger.VerboseNewline("\tReading code gen modules...");
@@ -411,7 +413,96 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
         return methodDefIndex;
     }
 
+    /// <summary>
+    /// AssetRipper: how many of the per-type field offset tables lie in a region that is ciphertext
+    /// on disk, and how many there are.
+    /// </summary>
+    /// <remarks>
+    /// The pointers themselves are in __DATA and read perfectly; on a store-encrypted iOS build the
+    /// offsets they address are in __TEXT. A caller that reports a layout mismatch needs to know the
+    /// difference between a layout that came out wrong and one that was never legible.
+    /// </remarks>
+    public (int Encrypted, int Total) CountEncryptedFieldOffsetTables()
+    {
+        var encrypted = 0;
+        var total = 0;
+
+        foreach (var pointer in _fieldOffsets)
+        {
+            if (pointer <= 0)
+                continue;
+
+            total++;
+
+            if (IsVirtualAddressEncrypted((ulong)pointer))
+                encrypted++;
+        }
+
+        return (encrypted, total);
+    }
+
+    /// <summary>
+    /// AssetRipper: says which of the registration's tables, and which of the structs they point to,
+    /// sit in a region that is ciphertext on disk.
+    /// </summary>
+    /// <remarks>
+    /// A store-encrypted iOS build reads its registration perfectly and then hands out ciphertext,
+    /// because the tables are in __DATA and the structs they address are in __TEXT.__const. Stating
+    /// that here, in one place and per table, is what stops it surfacing later as an implausible
+    /// number - and it is the only way to tell a wrong registration candidate from a right one whose
+    /// payload cannot be read. Silent on every platform that cannot encrypt.
+    /// </remarks>
+    private void ReportEncryptedRegistrationRegions()
+    {
+        if (!IsVirtualAddressEncrypted(_metadataRegistration.typeDefinitionsSizes)
+            && !IsVirtualAddressEncrypted(_codeRegistration.addrCodeGenModulePtrs)
+            && TypeDefinitionSizePointers.Length > 0
+            && !IsVirtualAddressEncrypted(TypeDefinitionSizePointers[0])
+            && (_types.Length == 0 || _typesByAddress.Keys.All(a => !IsVirtualAddressEncrypted(a))))
+            return; //Nothing encrypted, or a format that cannot be
+
+        LibLogger.WarnNewline("Some of the il2cpp registration lies in a region that is encrypted on disk. Per table:");
+
+        void Report(string name, ulong tableAddress, IEnumerable<ulong>? targets)
+        {
+            var tableState = IsVirtualAddressEncrypted(tableAddress) ? "ENCRYPTED" : "readable";
+            var targetList = targets?.ToArray();
+            var targetState = targetList is null or { Length: 0 }
+                ? "n/a"
+                : $"{targetList.Count(IsVirtualAddressEncrypted)} of {targetList.Length} ENCRYPTED";
+
+            LibLogger.WarnNewline($"\t{name,-24} table 0x{tableAddress:X} {tableState}, targets {targetState}");
+        }
+
+        Report("genericClasses", _metadataRegistration.genericClasses, null);
+        Report("genericInsts", _metadataRegistration.genericInsts, null);
+        Report("genericMethodTable", _metadataRegistration.genericMethodTable, null);
+        Report("types", _metadataRegistration.typeAddressListAddress, _typesByAddress.Keys);
+        Report("methodSpecs", _metadataRegistration.methodSpecs, null);
+        Report("fieldOffsets", _metadataRegistration.fieldOffsetListAddress, null);
+        Report("typeDefinitionsSizes", _metadataRegistration.typeDefinitionsSizes, TypeDefinitionSizePointers);
+        Report("codeGenModules", _codeRegistration.addrCodeGenModulePtrs, null);
+
+        LibLogger.WarnNewline("\tA readable table whose targets are encrypted is not a wrong registration - the "
+            + "pointers are right and the structs they name cannot be read. Type sizes and method bodies are lost; "
+            + "declarations are not.");
+    }
+
     public abstract byte GetByteAtRawAddress(ulong addr);
+
+    /// <summary>
+    /// AssetRipper: whether the bytes at <paramref name="virtualAddress"/> are ciphertext on disk.
+    /// </summary>
+    /// <remarks>
+    /// This is a question about a region, not about a file. An App Store iOS build encrypts exactly
+    /// one file-offset range - in practice the whole of __TEXT - and leaves __DATA alone, so the
+    /// registration structs, the type table and every pointer table read perfectly while the structs
+    /// those tables point *into* do not. Asking per address is what lets a reader say "this datum was
+    /// never readable" instead of handing ciphertext on as a number. Formats that cannot be encrypted
+    /// answer false.
+    /// </remarks>
+    public virtual bool IsVirtualAddressEncrypted(ulong virtualAddress) => false;
+
     public abstract long MapVirtualAddressToRaw(ulong uiAddr, bool throwOnError = true);
     public abstract ulong MapRawAddressToVirtual(uint offset, bool throwOnError = true);
     public abstract ulong GetRva(ulong pointer);
@@ -478,7 +569,13 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
             if (MetadataVersion > 21)
             {
                 var ptr = (ulong)_fieldOffsets[typeIndex.Value];
-                if (ptr > 0)
+
+                // AssetRipper: the pointer is in __DATA and reads fine; on a store-encrypted iOS
+                // build the offsets it addresses are in __TEXT and are ciphertext. -1 is this
+                // method's own "not known", and not knowing is the truth here - reading the bytes
+                // anyway lays every field of the type out at a random offset and nothing downstream
+                // can tell. Provenance decides this, not how plausible the number looks.
+                if (ptr > 0 && !IsVirtualAddressEncrypted(ptr))
                 {
                     var offsetOffset = (ulong)MapVirtualAddressToRaw(ptr) + 4ul * (ulong)fieldIndexInType;
                     GetLockOrThrow();

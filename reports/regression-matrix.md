@@ -151,3 +151,16 @@ cần có, vì thay đổi nằm hoàn toàn ở nhánh iOS và ở LibCpp2IL d�
   that withheld evidence rather than ranking it, so something weaker filled the gap. 020's fix was
   to require the substitution to have actually reached the type in hand; 022's was to apply the
   weak evidence in a second pass rather than not at all.
+- Iteration 035 là ví dụ về việc hai giả thuyết đã ghi thành hồ sơ đều sai, và chỉ có trace mới nói
+  ra điều đó. `InstanceSize=2249170484` trên iOS bị nghi là (a) metareg false positive hoặc (b)
+  `ApplyChainedFixups` sai. Trace đầu-cuối cho: bảng con trỏ **đúng** (8702 entry tăng đơn điệu,
+  bước 0x10, không null, hai count độc lập khớp `metadata.TypeDefinitionCount`), và binary **không
+  có** `LC_DYLD_CHAINED_FIXUPS` nên hàm bị nghi chưa từng chạy. Nguyên nhân là giả thuyết thứ ba:
+  đích của bảng nằm trong vùng FairPlay, entropy 7,999/8. Android giống hệt **byte-for-byte** cả 819
+  file `.cs` (md5), nên phép đo này là bằng chứng chứ không phải suy luận từ việc "ELF không mã hoá".
+  Test suite 279 -> 296 test, 1 fail có sẵn từ trước không đổi.
+- Cùng iteration đó, bốn test chained-fixup đầu tiên là **degenerate** và pass với cả code chưa sửa:
+  `Rebase(target, 0, 0) == target`, nên dạng encoded và dạng đã rebase là cùng một số. Cách duy nhất
+  xác lập một test có phân biệt được hay không là revert từng fix và xem nó đỏ. Đây đúng là hình dạng
+  "một pass không bao giờ chạy trông như thế nào" đã ghi nhiều lần trong bảng này, lần này ở phía
+  test chứ không phía production.

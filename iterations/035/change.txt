@@ -1,0 +1,9 @@
+DECOMP-0024: vùng mã hoá được kiểm tra theo từng địa chỉ, không theo từng file. Một giá trị đọc qua
+một con trỏ đúng vẫn có thể là ciphertext; phép kiểm tra là provenance của địa chỉ, không phải tính
+hợp lý của giá trị. Thay thế `Size > 1 << 30` throw, và `GetFieldOffsetFromIndex` trả -1.
+
+DECOMP-0025: `DYLD_CHAINED_PTR_64_OFFSET` cộng image base; chain bị chặn ở biên trang. Hai lỗi
+latent, vô hình trên mọi fixture iOS vì Unity dylib link ở địa chỉ 0 — bao bằng 17 test tổng hợp.
+
+Phân định hai giả thuyết đã ghi ở AGENT_STATE mục (0): CẢ HAI SAI. Registration đúng; binary không
+có chained fixups. Xem reports/IOS_TYPE_DEFINITIONS_SIZES_ANALYSIS.md.
