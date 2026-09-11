@@ -734,6 +734,34 @@ find it; `strings` without `-el` does find method and type names.
   log. Anything a reader has to see belongs in AssetRipper's own diagnostics layer, where
   `Logger.Warning` reaches the file. Do not add a diagnostic to LibCpp2IL and assume it is visible.
 
+- **A struct too big to return in registers comes back through a buffer the caller allocates, and the
+  reads off it are fields of the returned value.** AAPCS64 passes the address of a stack slot in X8 —
+  the indirect result register — and the callee writes there, so every `[X8 + k]` afterwards is an
+  unresolved load with an untyped base. The answer is *not* frame arithmetic. The slots the address
+  points into are never written under their own names, so there are no SSA versions to choose between
+  and nothing typed to land on; what the buffer holds is the call's return value, which the call
+  already names as its result operand. `ObscuredDouble::op_Increment` is the whole shape in six
+  instructions, and the *store* side of the same instructions names those exact offsets as fields,
+  confirming the mapping independently. Worth 121 loads of 211 in that family, and the failure it
+  fixes is not a missing load: `GameHelper.SetSizeByWidth` was dividing by zero in native-integer
+  arithmetic where the source reads `sprite.bounds.extents.x * 2`. Which register is the buffer comes
+  from the callee's own `CallingConventionResolver.HiddenReturnBufferRegister`, never a name written
+  down, so the same pass improves x86 with no architecture branch.
+- **A family named after a symptom is worth inventorying before it is worth working — a third time,
+  and this one had a wrong conclusion already written down.** `reports/FRAME_SLOT_ANALYSIS.md` called
+  these 124 loads "X8/X27 pointing into a known stack slot" and concluded that `&stack_-88 + 0x14` is
+  exactly `stack_-74`, with "choosing the SSA version" as the only difficulty left. Both premises were
+  false and the difficulty did not exist. Counting the same family by the *base register* rather than
+  by its shape split it immediately: 121 through X8 (a return buffer) and 89 through X29 (real frame
+  spill). Count by the thing that distinguishes the causes, not by the thing that names the symptom.
+- **Recovering a value precisely exposes the imprecision at the other end.** Typing the source of
+  `this.level = <4 bytes at offset 0>` turned a silent `(ObscuredInt)default(object)` into
+  `(ObscuredInt)obscuredInt.currentCryptoKey` — right value, visible mismatch — and ILSpy will not fold
+  a constructor's base call in a body carrying a stack type mismatch, so three files grew an
+  uncompilable `base._002Ector()`. The defect is on the *destination* side (the machine wrote 4 bytes
+  into a 24-byte field, so the destination is `this.level.currentCryptoKey`), and widening the source
+  to compensate is distorting one end to hide the other. Report the cost, fix the end that is wrong.
+
 - **Code registration can be found without any string, and that is what makes an encrypted iOS
   binary partly readable.** `FindCodeRegistrationPost2019` starts from the bytes of `mscorlib.dll`,
   so it needs `__cstring`; on an App Store build FairPlay encrypts the whole of `__TEXT` and that
@@ -776,6 +804,18 @@ find it; `strings` without `-el` does find method and type names.
   (2799 load, 2079 method-not-found, 13 lệnh đọc typeHierarchyDepth, 39 `as Dictionary`). Bug thật
   là DCE, không phải matcher. Đừng làm lại nếu không có bằng chứng rằng một trong các vùng đó còn
   sống.
+
+- **Widening a read at offset zero into the whole value.** Offset zero is the one ambiguous offset —
+  the address of a struct and the address of its first field are the same number, and the access width
+  does not survive to say which was meant — so the destination's type looks like the evidence that
+  separates them. It is not reachable evidence. Placed after `ResolveTypesAndFields` the destination is
+  still an untyped temporary; placed after copy propagation that temporary has already been typed *from
+  the narrow read*, so both ends agree and there is nothing to correct; comparing the types by name
+  rather than by reference (the `CopyCoalescer` lesson) changes nothing because that was never the
+  cause. Three placements, three results identical to the digit. The one formulation that would fire —
+  walking back through the copies to the field reference and widening its source — asserts the machine
+  stored 24 bytes when it stored 4, which is distorting the source to hide a destination-side defect.
+  Fix `FindNestedFieldPath` instead.
 
 - **Generalising the computed element address fold onto an affine evaluator.** The fold matches
   `[t + elementsOffset]` where `t = array + scaled index`, and it misses two shapes the compiler

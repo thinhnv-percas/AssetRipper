@@ -164,3 +164,20 @@ cần có, vì thay đổi nằm hoàn toàn ở nhánh iOS và ở LibCpp2IL d�
   xác lập một test có phân biệt được hay không là revert từng fix và xem nó đỏ. Đây đúng là hình dạng
   "một pass không bao giờ chạy trông như thế nào" đã ghi nhiều lần trong bảng này, lần này ở phía
   test chứ không phía production.
+- Iteration 036 là lần thứ ba một họ đặt tên theo triệu chứng phải phân loại lại trước khi làm, và là
+  lần đầu tiên kết luận cũ đã được **viết thành hồ sơ**. `FRAME_SLOT_ANALYSIS.md` nói 124 load ấy là
+  số học trên frame và "cái khó duy nhất còn lại" là chọn version SSA. Cả hai đều sai: `X8` là
+  indirect result register, các slot đích không tồn tại (callee ghi cả khối), nên không có version
+  nào để chọn. Thứ tách được nguyên nhân là **đếm theo thanh ghi của base** thay vì theo hình dạng
+  chung: 121 qua X8, 89 qua X29. Đếm theo thứ phân biệt được nguyên nhân, đừng đếm theo thứ đặt tên
+  cho triệu chứng.
+- Cùng iteration đó, một cột đi ngược và **không được gộp vào phần lãi**: `mangled_ctor` 4 → 7. Gán
+  kiểu chính xác cho phía nguồn làm hiện ra một khiếm khuyết phía đích (máy ghi 4 byte vào field 24
+  byte), và ILSpy không gấp được lệnh gọi base trong thân hàm mang stack type mismatch. Bù lại, hai
+  field trong `ItemDistinc..ctor` trước đó đều sai **im lặng** — gán số không. Một giá trị sai im lặng
+  thành một giá trị đúng kèm chẩn đoán nhìn thấy được là tiến bộ, nhưng phải ghi cả hai vế.
+- Và một lần nữa "giống hệt từng con số là hình dạng của một pass không bao giờ chạy": ba lần đặt
+  luật nới offset-0, ba lần 2773 load / REAL_ERROR 861 / mangled_ctor 7. Lần thứ ba đã sửa phép so
+  kiểu theo tên thay vì theo tham chiếu (bài học `CopyCoalescer`) và vẫn không chạy — vì nguyên nhân
+  là local đích đã bị gán kiểu từ chính lệnh đọc hẹp, không phải phép so sánh. Đã loại.
+

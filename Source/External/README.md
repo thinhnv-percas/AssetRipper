@@ -73,6 +73,14 @@ Every change is marked `AssetRipper:` at the point it applies.
    also bounded by the page now: `next` reaches at most `4*0xFFF`, a chain belongs to one page, and an
    unbounded walk runs into the next page's chain and rewrites correct pointers with no symptom.
 
+9. **A struct returned through memory read back as nothing** — `Analysis/IndirectReturnBufferRecovery.cs`,
+   added and called from `MethodAnalysisContext` before `LocalVariables.ResolveTypesAndFields`. A
+   return value too large for the registers is written by the callee into a buffer the caller names in
+   the indirect result register, so every read off that buffer had an untyped base and became an
+   unresolved load - and the value it stood for read as zero. The reads are fields of the value the
+   call already names as its result. Which register is the buffer comes from the callee's own
+   `CallingConventionResolver`, so no architecture is named here and x86 improves too.
+
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),
 each project targets only `net10.0`, and packing, SourceLink and package metadata are dropped. The

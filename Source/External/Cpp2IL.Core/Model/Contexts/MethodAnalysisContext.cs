@@ -430,6 +430,12 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         Analysis.IsilDump.Stage(this, "before InterfaceDispatchRecovery");
         InterfaceDispatchRecovery.Run(this);
 
+        // AssetRipper: before the resolution below, so that a read through a call's hidden return
+        // buffer is typed and its field resolved by the fixpoint that is already there rather than by
+        // a second one. After MetadataResolver.ResolveAll, because which register is the buffer comes
+        // from the callee's own calling convention.
+        IndirectReturnBufferRecovery.Run(this);
+
         LocalVariables.ResolveTypesAndFields(this);
         Analysis.IsilDump.Stage(this, "after ResolveTypesAndFields");
 

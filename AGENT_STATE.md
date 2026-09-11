@@ -5,7 +5,7 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 035 (hoàn tất; DECOMP-0024 vùng mã hoá theo địa chỉ, DECOMP-0025 hai format chained pointer)
+Iteration hiện tại: 036 (hoàn tất; DECOMP-0026 buffer trả về gián tiếp)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -201,7 +201,15 @@ Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
       `Il2CppRecoveryDiagnosticsProcessingLayer`, nơi `Logger.Warning` đến được file). Sửa thẳng dòng
       đó sẽ làm hiện mọi warning của Cpp2IL cùng lúc — cần đo mức ồn trước, CHƯA đo.
 
-  (a) **Nhóm B của DECOMP-0022: 124 load qua địa chỉ của một stack slot đã biết.** Đây là mục tiêu
+  (a) **Nhóm B của DECOMP-0022: XONG ở iteration 036, và mô tả dưới đây SAI.** Không phải số học
+      trên stack: `X8` là indirect result register của AAPCS64 và các "slot đích" không tồn tại —
+      callee ghi cả khối, nên không có version SSA nào để chọn. Câu trả lời là giá trị trả về của
+      lệnh gọi, và nó có kiểu. 121 load qua X8 còn 10; `GameHelper.SetSizeByWidth` từ chia cho số
+      không thành `bounds.m_Extents.x + bounds.m_Extents.x`. Xem
+      reports/INDIRECT_RETURN_BUFFER_ANALYSIS.md. Giữ đoạn cũ bên dưới làm ví dụ về một kết luận
+      nghe hợp lý mà sai.
+
+  (a-cũ) **[SAI] Nhóm B của DECOMP-0022: 124 load qua địa chỉ của một stack slot đã biết.** Đây là mục tiêu
       tiếp theo được khuyến nghị, và nó KHÔNG phải bài toán gán kiểu. `StackAnalyzer.NameForSlot`
       đặt tên slot theo chính offset của nó (`stack_-88`), nên `[&stack_-88 + 0x14]` chính xác là
       `stack_-74` bằng số học trên layout frame đã biết, và các slot đích đã có kiểu đúng. Cái khó

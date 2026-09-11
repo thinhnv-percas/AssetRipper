@@ -29,6 +29,7 @@ Test/Output-*/
 Test/Input/RunFromZombies/
 Test/AssetRipper.log
 Test/*.log
+Test/*.tsv
 Test/AssetRipper-recovery.log
 Test/Input/Impostor/
 Test/Input/JellyBlast/

@@ -645,6 +645,12 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		MemoryOperand { Base: null } => "an absolute address",
 		MemoryOperand { Base: LocalVariable { Type: { } baseType } } memory => $"[{baseType.Name} + 0x{memory.Addend:X}]",
 		MemoryOperand => "an untyped base",
+		// AssetRipper: name the slot, not just its kind. A stack slot's register name carries its own
+		// frame offset (StackAnalyzer.NameForSlot), so "AddressOf(stack_-88)" is what says whether a
+		// load through this address has an arithmetically determined destination - which is the whole
+		// of DECOMP-0022 group B. Without the name every such load reads as one undifferentiated family.
+		AddressOf { Target: LocalVariable { Register.Name: { } slot } } addressed when slot.StartsWith("stack_")
+			=> $"AddressOf({slot}{(addressed.Target is LocalVariable { Type: { } slotType } ? ", " + slotType.Name : "")})",
 		AddressOf { Target: LocalVariable { Type: { } addressedType } } => $"AddressOf({addressedType.Name})",
 		AddressOf { Target: LocalVariable } => "AddressOf(an untyped local)",
 		AddressOf addressOf => $"AddressOf({addressOf.Target.GetType().Name})",

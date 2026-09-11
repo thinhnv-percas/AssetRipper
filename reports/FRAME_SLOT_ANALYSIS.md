@@ -62,7 +62,23 @@ runtime và bỏ nó đi, giống cách `TypeCheckRecovery` và `InterfaceDispat
 của chúng. Như thế thân hàm ngắn lại và dễ đọc hơn, nhưng các load qua slot vẫn không có kiểu — và
 đó là đúng, vì chúng thật sự không có.
 
-## Nhóm B — làm được, và đây là cách
+## Nhóm B — ĐÃ SỬA Ở ITERATION 036, VÀ PHÂN LOẠI DƯỚI ĐÂY SAI
+
+> **Cảnh báo.** Phần còn lại của mục này giữ nguyên như khi viết, vì nó là ví dụ về một kết luận
+> nghe hợp lý mà sai. Hai tiền đề của nó đều không đúng:
+>
+> - `X8` không phải "một thanh ghi trỏ vào stack slot". Trên AAPCS64 nó là **indirect result
+>   register**, và `&stack_-88` ở đây là buffer cho một struct được **trả về qua bộ nhớ**.
+> - Các slot đích (`stack_-84`, `stack_-80`, …) **không tồn tại**: không lệnh nào ghi chúng dưới tên
+>   riêng, vì callee ghi cả khối. Nên không có version SSA nào để chọn — "cái khó duy nhất còn lại"
+>   là một bài toán không có thật.
+>
+> Câu trả lời đúng là giá trị trả về của lệnh gọi, thứ mà chính lệnh gọi đã đặt tên, và nó **có
+> kiểu** — điều số học trên slot không bao giờ cho được. Đếm lại theo thanh ghi của base: 121 trong
+> 211 load đi qua X8 (buffer trả về, đã xử lý), 89 qua X29 (nhóm A và C thật sự).
+> Xem `reports/INDIRECT_RETURN_BUFFER_ANALYSIS.md`.
+
+## Nhóm B — làm được, và đây là cách (bản gốc, sai)
 
 124 load còn lại không đi qua X29. Ví dụ sạch nhất là
 `Spine.Unity.SkeletonGraphic.MatchRectTransformMultipleRenderers`:

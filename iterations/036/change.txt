@@ -1,0 +1,6 @@
+DECOMP-0026: một struct quá lớn để trả về trong thanh ghi được trả về qua một buffer caller cấp phát,
+và các lệnh đọc trên buffer đó là field của giá trị trả về — không phải số học trên frame. Phân loại
+cũ (FRAME_SLOT_ANALYSIS nhóm B) sai ở cả hai tiền đề; đã đánh dấu và giữ lại làm ví dụ.
+
+Đã đo và loại: nới lệnh đọc ở offset 0 thành cả giá trị (ba lần đặt pass, ba lần giống hệt từng con
+số; dạng sẽ chạy được thì bóp méo phía nguồn để che khiếm khuyết phía đích).
