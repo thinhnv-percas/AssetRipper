@@ -18,6 +18,7 @@ was in the working tree for each.
 | DECOMP-0010 runtime class as handle | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | PASS | PASS |
 | DECOMP-0012 RGCTX in shared generic code | FAIL through 014, PASS from 015 | | | | | | | | | | | | PASS |
 | DECOMP-0013 a phi with disagreeing inputs | FAIL through 015, PASS from 016 | | | | | | | | | | | | PASS |
+| DECOMP-0014 the type-check shortcut | FAIL through 017, PASS from 018 | | | | | | | | | | | | PASS |
 | injected checks still removed | PASS | PASS | PASS | **FAIL** | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
 
 Two regressions were produced in this work and both were caught by measurement rather than review.
@@ -88,6 +89,8 @@ verified rather than asserted. 007 and 014 are baseline re-verifications at the 
 | 014 | 1766 | 456 | baseline re-verification |
 | 015 | 1307 | 448 | DECOMP-0012 |
 | 016 | 1153 | 415 | DECOMP-0013 |
+| 017 | 1153 | 415 | DECOMP-0014 first cut, superseded |
+| 018 | 1153 | 415 | DECOMP-0014 - measured in typeHierarchyDepth loads, 252 to 178, not in these two columns |
 
 Both of the two rows in bold are changes that looked right and were not, and both were caught by
 measurement within one iteration. Iteration 012's is recorded in `CLAUDE.md` under "things measured to
@@ -101,3 +104,8 @@ be worth nothing", with the reason not to retry it.
 - No file's audit total rose in any shipped iteration.
 - No shape check regressed once passing.
 - Files exported: 819 throughout.
+- Neither of the two columns above moves for iteration 018, and that is a property of the columns
+  rather than of the change: both are measured on `Assembly-CSharp`, and 226 of the 252 loads
+  DECOMP-0014 addresses are in spine-unity. `typeHierarchyDepthLoads` in `collect_metrics.sh` is the
+  row that moves, 252 to 178. A measurement that covers one assembly will not see work done in
+  another, which is worth remembering before concluding a change did nothing.

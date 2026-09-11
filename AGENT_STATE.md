@@ -4,10 +4,10 @@ Read this first after a restart, then `reports/regression-matrix.md` for the num
 `reports/issues.json` for the open items.
 
 ```
-Current iteration: 016 (complete)
+Current iteration: 018 (complete; 017 was the first cut of DECOMP-0014, superseded)
 
 Decompiler commit:
-  claude/read-current-repository-daqxc1 @ e5a16d6, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+  claude/read-current-repository-daqxc1 @ 00d1e5e, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
 
 Input:
   Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
@@ -20,15 +20,16 @@ Reference:
   Unity 2022.3.62f2, matching the binary
 
 Current stage:
-  idle between iterations. Baseline for the next one is iteration 016.
+  idle between iterations. Baseline for the next one is iteration 018.
 
-Where iteration 016 stands, against the original baseline:
+Where iteration 018 stands, against the original baseline:
   unrecovered method bodies      15 -> 0
   audit REAL_ERROR             2162 -> 1153
   audit SEMANTIC_RISK           301 -> 223
   audit EXPECTED                 47 -> 47   (correctly unchanged; see DECOMP-0005)
   Roslyn errors, Assembly-CSharp 499 -> 415
-  unresolved loads              5702 -> 3903
+  unresolved loads              5702 -> 3813
+  typeHierarchyDepth loads      n/a  -> 178 (252 before DECOMP-0014)
   files with no diagnostic at all 20 -> 21
   field layout self-check       n/a -> 1394 exact, 78 incomplete, 0 disagreed
   run time                       58s -> 53s
@@ -69,6 +70,7 @@ Fixed:
   DECOMP-0010  a runtime class answering zero where a RuntimeTypeHandle or Type was wanted
   DECOMP-0012  an RGCTX entry in shared generic code inflated with no arguments
   DECOMP-0013  a phi with disagreeing inputs taking the first one's type
+  DECOMP-0014  il2cpp's type-check shortcut not folded on the shape it actually has
 
 Open:
   DECOMP-0004  the untyped-locals family, ROADMAP section 5. Read UNTYPED_LOCAL_IMPACT.md first.
@@ -85,7 +87,7 @@ Measured and closed without a change:
                that family has no public equivalent at all. WONT_FIX, with the numbers.
 
 Regression status:
-  clean. All nine shape checks pass, the field layout self-check reports 0 disagreements (a gate, not
+  clean. All ten shape checks pass, the field layout self-check reports 0 disagreements (a gate, not
   a note), 0 unrecovered bodies. One file, ResourcesUtil.cs, gained a single audit diagnostic at
   iteration 016 - a `)(object)` cast that the wrong concrete type had been hiding.
 
@@ -94,24 +96,31 @@ Blocked Unity tests:
   real editor (exit 90). NOT passing. The verdict stays PASS_WITH_KNOWN_LIMITATIONS.
 
 Next action:
-  Two candidates, and the second is the one to take first because it is verifiable.
+  Two things came out of DECOMP-0014 and neither is finished.
 
-  (a) `Il2CppClass.typeHierarchyDepth`, 252 loads, is the inlined cast that TypeCheckRecovery did not
-      fold. It is the largest single self-contained family left - but 226 of the 252 are in
-      spine-unity, which ships no reference source here, so the result could not be checked against
-      an oracle.
+  (a) **The hierarchy walk itself**, 178 `typeHierarchyDepth` loads left. The shortcut in front of
+      the check is now folded; what remains is the walk it guards -
+      `obj->klass->typeHierarchy[T->typeHierarchyDepth - 1] == T` - which `TypeCheckRecovery` folds
+      only when *it* recovered the comparison. Where `Object::IsInst` was what got recovered, the
+      walk is left standing beside the `as` it duplicates. The same excision
+      `InterfaceDispatchRecovery` does for its scan is the model: nothing outside the region reads
+      what the region computed.
 
-  (b) `((DataController)(object)instance3).SetBackground(...)` in the newly recovered
-      DataController.GenarateDataMap, where the source calls `SetBackground(...)` on `this`. The
-      receiver is a `GameManager` local cast to `DataController` - a resolved call whose receiver is
-      wrong, which is worse than an unresolved one because it compiles. Small, verifiable against the
-      reference, and it appeared only once the surrounding code was recovered.
+  (b) **An object's klass gets over-typed from a narrowed local.** `v1161 = [v563]` where v563 is
+      typed `Spine.RotateTimeline` gives `Il2CppClass<Spine.RotateTimeline>`, but the object's class
+      is not known at compile time - that is the whole point of the check being there. It made the
+      same-type guard in (a) reject every real case, and it is the same family as DECOMP-0013: a type
+      asserted where none is known. Worth finding what types a klass load and making it decline when
+      the source local's type came from a cast rather than from an allocation.
 
-  Probe rather than guess: every fix this session and last was found by dumping the ISIL at the point
-  the pass runs, and most were somewhere other than where the output suggested.
+  Note for whoever takes these: spine-unity *is* verifiable. Spine's own source is vendored at
+  `artifacts/reference/.../Assets/ThirdParties/Spine/Runtime/spine-csharp/`, so a recovery there can
+  be read against it even though `audit_recovered_scripts.py` only covers Assembly-CSharp. That is
+  where most of the remaining runtime-struct leakage is, and it was nearly skipped for want of an
+  oracle that turned out to be present.
 
 Last successful stage:
-  iteration 016 - full validation, no regression beyond the one noted above.
+  iteration 018 - full validation, no file worse, no regression.
 
 Last failure:
   DECOMP-0011, iteration 012 - reverted on measurement, not shipped.
