@@ -614,9 +614,16 @@ address the machine computed for it, which cost three resolutions per occurrence
 class** answering zero where a `RuntimeTypeHandle` was wanted, though it carries the type it is the
 class of.
 
+Two more came out of inventorying the 850 loads reported as "past the last field of the base type"
+instead of counting them - that family is four unrelated causes, and the 361 that dominated it have no
+fields to be past, their base being the runtime generic context table. **An uninflated generic
+definition is shared generic code**, so `RgctxResolver.ResolveTypeEntry` must use the definition's own
+parameters as the arguments, which `ResolveMethodEntry` already did; and **a phi whose inputs disagree
+must stay untyped**, where it had been taking the first one's type and spreading it backward.
+
 Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 1766 and its `Assembly-CSharp`
-from 499 Roslyn errors to 456 - while compiling 15 more bodies than before, and with the EXPECTED
-count unchanged at 47. `AGENT_STATE.md` says where to pick up. **Read
+from 499 Roslyn errors to 415 - while compiling 15 more bodies than before, and with the EXPECTED
+count unchanged at 47. REAL_ERROR is now 1153. `AGENT_STATE.md` says where to pick up. **Read
 `reports/UNTYPED_LOCAL_IMPACT.md` before starting on section 5**: 91% of the untyped locals provably
 cost nothing, and the four fixes above each removed more of them than a typing rule would have.
 

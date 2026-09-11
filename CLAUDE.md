@@ -571,6 +571,31 @@ find it; `strings` without `-el` does find method and type names.
   answer for each, so it costs nothing today; any pass that reads that call list as one function's is
   wrong.
 
+- **A family named after a symptom is worth inventorying before it is worth working.** 850 loads were
+  reported as "past the last field of the base type". Classifying them rather than counting them said
+  four unrelated causes: 361 whose base is the runtime generic context table and so has *no fields to
+  be past*, 246 whose base is typed `System.Object`, 139 whose base is typed as an ancestor of the
+  real type, 99 open generic parameters. The one that dominated the family was the one the name fitted
+  worst, and it was the only one with a metadata answer. `CPP2IL_DUMP_LOADS=<file>` writes one row per
+  load from the same event the summary counts, so the inventory and the reported total are the same
+  set; `reports/BASE_FIELD_OVERFLOW_ANALYSIS.md` is the worked example.
+- **An uninflated generic definition is shared generic code, and its own parameters stand in for the
+  arguments.** `RgctxResolver.ResolveMethodEntry` knew this and said so in a comment;
+  `ResolveTypeEntry` passed `GenericArguments ?? []` and so failed to inflate every RGCTX entry that
+  mentions the type's own parameter. The cost is never one load: an unresolved slot leaves the class
+  pointer untyped, which leaves the class-init guard unmatched, which leaves the static field storage
+  unresolved. `SingletonMono<T>.Instance` was 39 unresolved loads and no recoverable logic; one
+  substitution took `Il2CppRgctx` in the export from 1345 to 12 and the REAL_ERROR audit count from
+  1766 to 1307.
+- **A phi whose inputs disagree must stay untyped.** `PropagatePhi` took the first typed input and
+  stopped, and the backward rule then spread that type to the phi's other inputs. The compiler reuses
+  a scratch register freely - X8 carries both a class's static field storage and ordinary objects - so
+  `phi(Il2CppStaticFields<UnityEngine.Quaternion>, GamePlayController)` is routine, and typing it as
+  the storage made `gpc.<field>` read as `[Il2CppStaticFields<UnityEngine.Quaternion>+3C]`, past the
+  end of a sixteen-byte block. 69 occurrences in `DataController.cs` alone, and fixing it took that
+  file from 209 diagnostics to 129. This is the third time the same principle has paid: an honest
+  unknown costs one reported load, a wrong concrete type costs every use downstream.
+
 ### Things measured to be worth nothing — do not redo them
 - **Emitting the blocks in address order rather than the order the graph created them.** Splitting
   appends, so a block split out late sits at the end of `Blocks` whatever address it covers, and it

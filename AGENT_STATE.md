@@ -4,10 +4,10 @@ Read this first after a restart, then `reports/regression-matrix.md` for the num
 `reports/issues.json` for the open items.
 
 ```
-Current iteration: 013 (complete; 012 was a measured revert, see below)
+Current iteration: 016 (complete)
 
 Decompiler commit:
-  claude/read-current-repository-daqxc1 @ 55f1490, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+  claude/read-current-repository-daqxc1 @ e5a16d6, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
 
 Input:
   Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
@@ -20,36 +20,44 @@ Reference:
   Unity 2022.3.62f2, matching the binary
 
 Current stage:
-  idle between iterations. Baseline for the next one is iteration 011.
+  idle between iterations. Baseline for the next one is iteration 016.
 
-Where iteration 011 stands, against the baseline:
+Where iteration 016 stands, against the original baseline:
   unrecovered method bodies      15 -> 0
-  audit REAL_ERROR             2162 -> 1766
-  audit SEMANTIC_RISK           301 -> 210
+  audit REAL_ERROR             2162 -> 1153
+  audit SEMANTIC_RISK           301 -> 223
   audit EXPECTED                 47 -> 47   (correctly unchanged; see DECOMP-0005)
-  Roslyn errors, Assembly-CSharp 499 -> 456
+  Roslyn errors, Assembly-CSharp 499 -> 415
+  unresolved loads              5702 -> 3903
   files with no diagnostic at all 20 -> 21
   field layout self-check       n/a -> 1394 exact, 78 incomplete, 0 disagreed
-  run time                       58s -> 55s
+  run time                       58s -> 53s
   tests                     274, 1 fail -> 279, 1 fail (the same pre-existing one)
 
 Current bug family:
-  none in flight. The next by measured impact is DECOMP-0004, and
-  reports/BUG_FAMILY_PRIORITY.md has the ranked table with the other axes.
+  none in flight.
 
 Current hypothesis:
-  The remaining 456 Roslyn errors are 156 EXPECTED (framework internals il2cpp inlined, DECOMP-0005)
-  and about 250 CS0030, of which the largest identified shapes are a literal zero cast to a
-  reference type (80, downstream of an unresolved load) and a reference value converted to nint
-  (~110, an address computation whose field identity is still lost). The nint family is what is left
-  of DECOMP-0009 where the base is untyped at both ends rather than at one.
+  The "past the last field of the base type" family is worked out and recorded in
+  reports/BASE_FIELD_OVERFLOW_ANALYSIS.md. Its one metadata-answerable cause is fixed (DECOMP-0012);
+  what is left of it - 246 bases typed System.Object, ~139 typed as an ancestor, 99 open generic
+  parameters - has no metadata answer and is the use-side typing problem.
+
+  The unresolved-load families left in Assembly-CSharp, which is the only assembly with a reference:
+    69  past the last field of the base type   (typing, no metadata answer)
+    45  base has no type, from Move from an untyped base
+    43  base has no type, from no definition
+    27  base has no type, from Move from AddressOf(an untyped local)
+    26  Il2CppClass.0x28
+    23  value type base
+  409 in total, of 3903 across the export.
 
 Evidence to start from:
-  - reports/UNTYPED_LOCAL_IMPACT.md: 91% of the 21448 untyped locals provably cost nothing. Do not
-    work from that count.
-  - reports/BUG_FAMILY_PRIORITY.md: the families with counts, category, and the files each touches.
-  - the run's own breakdowns: `memory loads the generator gave up on, by kind` and
-    `locals the analysis could not type, by what defines them`.
+  - reports/BASE_FIELD_OVERFLOW_ANALYSIS.md and .../CASES.json - the worked inventory, and the
+    method: classify before counting. `CPP2IL_DUMP_LOADS=<file>` writes one row per load from the
+    same event the summary counts.
+  - reports/UNTYPED_LOCAL_IMPACT.md - 91% of untyped locals provably cost nothing. Still true.
+  - reports/BUG_FAMILY_PRIORITY.md - the compile-error families with category and files.
 
 Fixed:
   DECOMP-0001  15 method bodies exported as a throw carrying the generator's own stack trace
@@ -59,59 +67,54 @@ Fixed:
   DECOMP-0008  the generic field layout bailing on a base with fields and on a user struct
   DECOMP-0009  a load not folded back onto the base whose address was computed for it
   DECOMP-0010  a runtime class answering zero where a RuntimeTypeHandle or Type was wanted
+  DECOMP-0012  an RGCTX entry in shared generic code inflated with no arguments
+  DECOMP-0013  a phi with disagreeing inputs taking the first one's type
 
 Open:
   DECOMP-0004  the untyped-locals family, ROADMAP section 5. Read UNTYPED_LOCAL_IMPACT.md first.
-  DECOMP-0006  55 `base._002Ector(` - blocked behind DECOMP-0004, because ILSpy will not fold a base
-               call in a body that carries a stack type mismatch
+  DECOMP-0006  `base._002Ector(` - blocked behind DECOMP-0004
   and the items in docs/articles/ImpostorSortScriptAudit.md, of which #1 (an unresolved call keeping
   the whole register file as its arguments) is the largest not yet started
 
 Measured and reverted:
-  DECOMP-0011  typing the stand-in value a giving-up point pushes. `ldc.i4.0; conv.i` reads back as
-               `((GameObject)0).SetActive(false)` and `(RuntimeTypeHandle)0`, so pushing `ldnull` for
-               a reference and `initobj` for a struct looked obviously right. It measured worse on
-               every axis - REAL_ERROR 1766 to 2007, Roslyn 456 to 548, nint casts 545 to 703, 13
-               files worse - and excluding pointers, byrefs, arrays and open generic parameters
-               changed the result by nothing to the digit, so those were not the cause. Reverted;
-               iteration 013 confirms 011's numbers on the reverted tree. Recorded in CLAUDE.md under
-               "measured to be worth nothing" so it is not retried without first fixing what makes
-               the load unresolvable.
+  DECOMP-0011  typing the stand-in value a giving-up point pushes. Worse on every axis; recorded in
+               CLAUDE.md under "measured to be worth nothing" with the reason not to retry it.
 
 Measured and closed without a change:
   DECOMP-0005  the read side of the accessor pairing already covers List<T>._size; what is left of
-               that family is writes to it and reads of _items and _version, none of which the real
-               List<T> exposes. WONT_FIX, with the numbers, in reports/issues.json.
+               that family has no public equivalent at all. WONT_FIX, with the numbers.
 
 Regression status:
-  clean. All seven shape checks pass, no file's audit total rose in any shipped iteration, and the
-  field layout self-check reports 0 disagreements - which is a gate, not a note: the shape checks
-  fail without it.
+  clean. All nine shape checks pass, the field layout self-check reports 0 disagreements (a gate, not
+  a note), 0 unrecovered bodies. One file, ResourcesUtil.cs, gained a single audit diagnostic at
+  iteration 016 - a `)(object)` cast that the wrong concrete type had been hiding.
 
 Blocked Unity tests:
-  U1-U9 in reports/BLOCKED_UNITY_TESTS.md. Scripts in Test/Scripts/unity/ are written and refuse to
-  run without a real editor (exit 90). NOT passing. The verdict stays PASS_WITH_KNOWN_LIMITATIONS
-  until Test/Scripts/unity/run_all.sh has actually run.
+  U1-U9 in reports/BLOCKED_UNITY_TESTS.md. Scripts in Test/Scripts/unity/ refuse to run without a
+  real editor (exit 90). NOT passing. The verdict stays PASS_WITH_KNOWN_LIMITATIONS.
 
 Next action:
-  Not the `(T)0` shape - that was DECOMP-0011 and it is closed as worth negative value. The shape is
-  a *symptom* of an unresolved load, and the lever is the load.
+  Two candidates, and the second is the one to take first because it is verifiable.
 
-  The remaining unresolved loads, from the run's own breakdown, are led by 803 "past the last field
-  of the base type" and 368 "value type base". The first says the offset is beyond every field the
-  type chain declares, which after DECOMP-0008 means either the base is typed as the wrong type or
-  the access is into a nested value type past its own end - both diagnosable by dumping one and
-  comparing the offset against the layout the self-check now validates. Start there, on a method the
-  reference source covers, and probe rather than guess: each of this session's four fixes was found
-  by dumping the ISIL at the point the pass runs, and three of the four were somewhere other than
-  where the output suggested.
+  (a) `Il2CppClass.typeHierarchyDepth`, 252 loads, is the inlined cast that TypeCheckRecovery did not
+      fold. It is the largest single self-contained family left - but 226 of the 252 are in
+      spine-unity, which ships no reference source here, so the result could not be checked against
+      an oracle.
+
+  (b) `((DataController)(object)instance3).SetBackground(...)` in the newly recovered
+      DataController.GenarateDataMap, where the source calls `SetBackground(...)` on `this`. The
+      receiver is a `GameManager` local cast to `DataController` - a resolved call whose receiver is
+      wrong, which is worse than an unresolved one because it compiles. Small, verifiable against the
+      reference, and it appeared only once the surrounding code was recovered.
+
+  Probe rather than guess: every fix this session and last was found by dumping the ISIL at the point
+  the pass runs, and most were somewhere other than where the output suggested.
 
 Last successful stage:
-  iteration 011 - full validation, no regression.
+  iteration 016 - full validation, no regression beyond the one noted above.
 
 Last failure:
-  DECOMP-0011, iteration 012 - reverted on measurement, not shipped. Before that, the mid-flight step
-  in iteration 009 described in reports/regression-matrix.md, caught by the layout self-check.
+  DECOMP-0011, iteration 012 - reverted on measurement, not shipped.
 ```
 
 ## Environment notes
