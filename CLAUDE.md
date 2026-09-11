@@ -632,7 +632,49 @@ find it; `strings` without `-el` does find method and type names.
   `Il2CppClass` and `Il2CppMethodInfo` reads with the right base and the right offset, waiting on a
   pass that recognises the shape rather than on a type.
 
+- **Kiểu hợp lưu của một phi lan ngược vào input là bằng chứng yếu.** Một phi là điểm hợp lưu; nói
+  rằng mỗi input mang kiểu của hợp lưu chỉ đúng khi không có gì tốt hơn định nghĩa input đó, và dưới
+  một fixpoint monotonic điều đó phải được xác lập *trước* khi luật chạy. Trình biên dịch tái sử
+  dụng X8 cho class pointer của `List<T>` rồi cho chính `list._items`, nên phi hợp nhất hai giá trị
+  đó nhận kiểu class và lan ngược lên cái mảng: `_items.Length` đọc thành
+  `[Il2CppClass<List<Object>> + 0x18]`, điều kiện fast path của `List.Add` so sánh với số không, và
+  nhánh ghi phần tử mất hẳn — trong một hàm mà nguồn chỉ có `list.Add(t.gameObject)`. Cách sửa là
+  xếp lại hạng, không phải cấm luật: hướng lan ngược chuyển xuống pass thứ hai của fixpoint, cùng
+  chỗ với `System.Object` tại use site, và `TypeCounters` vẫn cuối cùng.
+- **Một vòng phi không chết đối với phép đếm lượt dùng.** `DeadCodeEliminator` đếm lượt dùng rồi lặp
+  tới điểm bất động, và phép đếm không nhìn xuyên được một vòng: một phi mang giá trị qua vòng lặp
+  được dùng bởi chính phi tiếp theo, nên mọi phi trong vòng đều có vẻ còn dùng. Lifter sinh cả chùm
+  cờ cho mỗi `cmp` và SSA phi hoá các thanh ghi cờ tại mỗi điểm hợp lưu, nên trên A64 cả một phép so
+  sánh đã được nhận diện và thay thế — kể cả hai lệnh đọc class pointer nuôi nó — vẫn nằm lại sau
+  một vòng phi chỉ tham chiếu lẫn nhau. Mark and sweep từ các lệnh có hiệu ứng lấy đi 699 load,
+  đưa số lệnh đọc `typeHierarchyDepth` từ 139 xuống 18, và giảm thời gian chạy 42s xuống 38s. Đây
+  cùng là hình dạng đã ghi ở trên cho `InterfaceDispatchRecovery`, chỗ phải tự tay gán 0 cho các phi
+  hợp lưu thay vì chờ chúng chết. **Phải đánh dấu mọi định nghĩa của một local, không chỉ cái cuối**:
+  dạng biểu diễn được coi là SSA nhưng một pass viết lại lệnh có thể để một local có nhiều hơn một
+  định nghĩa, và bản chỉ đánh dấu cái cuối cho con số đẹp hơn nhiều (2458 load thay vì 2870, Roslyn
+  315 thay vì 340, REAL_ERROR 754 thay vì 884, 15 file tốt lên thay vì 7) trong khi xoá code còn
+  sống — CS0165 "use of unassigned local variable" từ 5 lên 12. Đó là bản duy nhất trong toàn bộ
+  quá trình tốt hơn trên *mọi* cột dễ đọc và vẫn phải bị loại.
+- **Đừng neo shape check vào tên biến do ILSpy sinh kèm số thứ tự.** `boundingBoxAttachment2`,
+  `num5`: số đó đếm các biến đứng trước nó, nên bất kỳ thay đổi nào làm thân hàm dài ra hay ngắn đi
+  đều đổi nó. Ba check hỏng ở iteration 030 vì đúng lý do đó, không liên quan gì đến ngữ nghĩa, và
+  mất một vòng để nhận ra. Neo vào chính câu lệnh (`.Count < items.Length)`, `dictionary[array2[`).
+
 ### Things measured to be worth nothing — do not redo them
+- **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
+  thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:
+  `Subtract d, a, b` rồi `CheckEqual z, d, 0`. `TypeCheckRecovery` so khớp mọi hình dạng của nó trên
+  hai toán hạng của phép so sánh nên không bao giờ nhìn thấy cặp giá trị thật sự đang được so sánh.
+  Lấy hai toán hạng của phép trừ là *chính xác* chứ không phải heuristic (`a - b == 0` đúng bằng
+  `a == b`), nó nhận thêm 82 phép kiểm tra kiểu (359 lên 441), và đối chiếu nguồn Spine dòng 158 thì
+  `var boundingBoxAttachment = attachment as BoundingBoxAttachment;` quay về đúng câu đó. **Và giá
+  trị của nó bằng không**: 82 lần nhận thêm đều nằm trong vùng code chết — trong
+  `BoundingBoxFollower` nó sinh ra cái `as` thứ ba trong khi nguồn chỉ có hai — nên khi
+  `DeadCodeEliminator` biết quét từ gốc, đo có và không có nó cho kết quả giống nhau tới từng con số
+  (2799 load, 2079 method-not-found, 13 lệnh đọc typeHierarchyDepth, 39 `as Dictionary`). Bug thật
+  là DCE, không phải matcher. Đừng làm lại nếu không có bằng chứng rằng một trong các vùng đó còn
+  sống.
+
 - **Generalising the computed element address fold onto an affine evaluator.** The fold matches
   `[t + elementsOffset]` where `t = array + scaled index`, and it misses two shapes the compiler
   emits: a constant index, which has no register at all, and an index left in the addressing mode

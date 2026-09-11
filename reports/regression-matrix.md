@@ -99,6 +99,12 @@ verified rather than asserted. 007 and 014 are baseline re-verifications at the 
 | **024** | not measured | not measured | DECOMP-0017 on the affine evaluator - unresolved loads 3689 to 4077; abandoned |
 | **025** | not measured | not measured | the same with single definitions and a reached-the-array guard - 4085; abandoned |
 | 026 | 1052 | 389 | DECOMP-0017, the two missing shapes without the chain walk |
+| 027 | 1052 | 389 | tái lập baseline, khớp 026 từng con số |
+| 028 | 896 | 350 | DECOMP-0018 - phi lan ngược chuyển xuống pass bằng chứng yếu |
+| 029 | 896 | 350 | DECOMP-0019 - 82 type check nhận thêm, sau bị chứng minh là vô giá trị |
+| **030** | 754 | 315 | DECOMP-0020 bản đầu, chỉ đánh dấu định nghĩa cuối - CS0165 5 lên 12, xoá code còn sống; không nhận |
+| **031** | 884 | 340 | cùng bản với đánh dấu mọi định nghĩa, nhưng vẫn còn DECOMP-0019 |
+| 032 | 884 | 340 | DECOMP-0020 bản nhận, DECOMP-0019 đã revert |
 
 Both of the two rows in bold are changes that looked right and were not, and both were caught by
 measurement within one iteration. Iteration 012's is recorded in `CLAUDE.md` under "things measured to
@@ -121,6 +127,15 @@ be worth nothing", with the reason not to retry it.
   loads and none of the 52 DECOMP-0016 removed, so its REAL_ERROR is unchanged and Roslyn moves by
   one inside the existing `Box`-to-`float` family. `reports/TYPE_RECOVERY_ANALYSIS.md` carries the
   per-assembly table, which is now the artefact to read before calling a change inert.
+- Iteration 030 là cảnh báo rõ nhất trong toàn bộ bảng này về việc chạy theo số. Nó tốt hơn 032
+  trên **mọi** cột dễ đọc — unresolved loads 2458 so với 2870, Roslyn 315 so với 340, REAL_ERROR
+  754 so với 884, 15 file tốt lên so với 7 — và nó xoá code còn sống. Thứ phát hiện ra là
+  CS0165 "use of unassigned local variable" tăng từ 5 lên 12, một con số nhỏ nằm trong một họ lỗi
+  nhỏ, bên cạnh những con số lớn đang đi đúng hướng. Nếu chỉ đọc REAL_ERROR và Roslyn thì bản đó
+  đã được commit.
+- Iteration 029 là cảnh báo ngược lại: một patch có lý luận đúng, chứng minh được bằng nguồn đối
+  chiếu (82 lần `obj as T` được phục hồi, Spine dòng 158), và giá trị thật bằng không — vì 82 lần
+  đó nằm trong vùng code chết mà DCE đáng lẽ phải thu gom. Bug thật là DCE. Patch đã revert.
 - Iterations 020 and 022 are the two first cuts above. Neither was committed. Both were caught by
   the per-file audit diff within one iteration, and in both cases the cause was the same: a rule
   that withheld evidence rather than ranking it, so something weaker filled the gap. 020's fix was

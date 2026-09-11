@@ -26,8 +26,8 @@ three places where the binary, not the source, is ground truth.
 
 ## Decompiler
 
-Branch `claude/read-current-repository-daqxc1`, base commit `69a31182`. Twenty-seven iterations,
-`iterations/000-baseline` through `iterations/026`, each with its commit, the change that was in the
+Branch `claude/read-current-repository-daqxc1`, base commit `69a31182`. Thirty-three iterations,
+`iterations/000-baseline` through `iterations/032`, each with its commit, the change that was in the
 working tree, the log, and its own measurements.
 
 ## Architecture and pipeline
@@ -40,7 +40,7 @@ defect below is anchored to the representation it first went wrong in, and was f
 
 ## Issues discovered
 
-Sixteen recorded: thirteen confirmed and fixed, one measured and reverted, one measured and closed
+Nineteen recorded: fifteen confirmed and fixed, two measured and reverted, one measured and closed
 without a change, two open with the evidence to start from. None was previously recorded. `reports/issues.json` carries the evidence per
 issue and `reports/BUG_FAMILY_PRIORITY.md` ranks what remains.
 
@@ -119,17 +119,18 @@ ships beside them, which is the only compilation measurement available here.
 | | baseline | iteration 011 | final (iteration 023) |
 |---|---|---|---|
 | `Assembly-CSharp` files | 63 | 63 | 63 |
-| Roslyn errors | 499 | 456 | **389** |
-| Roslyn warnings | 3012 | 2837 | 2424 |
+| Roslyn errors | 499 | 456 | **340** |
+| Roslyn warnings | 3012 | 2837 | 2339 |
 
-Down 110 while 15 more method bodies are being compiled at all. `reports/BUG_FAMILY_PRIORITY.md`
+Down 159 while 15 more method bodies are being compiled at all. `reports/BUG_FAMILY_PRIORITY.md`
 classifies what is left. A large part of it is EXPECTED — the export being right about a binary that
 inlined framework internals, which no change to the recovery can or should remove. The two largest
-remaining families are 177 `CS0030` (`Box` to `float`, an aggregate typing shape) and 167 `CS1061`
-(`invoke_impl` on a delegate, which is the delegate-over-an-unknown-pointer case in ROADMAP 8k).
+remaining families are 166 `CS1061` (`invoke_impl` on a delegate) and 109 `CS0030` (`Box` to
+`float`, an aggregate typing shape) — the first is the delegate-over-an-unknown-pointer case in
+ROADMAP 8k.
 
-**This measurement covers `Assembly-CSharp` only**, which holds 347 of the rip's 3569 unresolved
-loads. One of the fixes below lands almost entirely elsewhere and is invisible here; the per-assembly
+**This measurement covers `Assembly-CSharp` only**, which holds 292 of the rip's 2870 unresolved
+loads. Several of the fixes below land almost entirely elsewhere and are invisible here; the per-assembly
 table in `reports/TYPE_RECOVERY_ANALYSIS.md` is what shows them.
 
 ## Structural results
@@ -145,12 +146,12 @@ per assembly, counting every diagnostic and known-bad shape per file.
 
 | | baseline | iteration 011 | final (iteration 023) |
 |---|---|---|---|
-| **REAL_ERROR** — the recovery lost something the binary has | **2162** | 1766 | **1052** |
-| SEMANTIC_RISK — reads as valid C#, meaning suspect | 301 | 210 | 187 |
-| EXPECTED — faithful; a property of what il2cpp inlined | 47 | 47 | 51 |
+| **REAL_ERROR** — the recovery lost something the binary has | **2162** | 1766 | **884** |
+| SEMANTIC_RISK — reads as valid C#, meaning suspect | 301 | 210 | 167 |
+| EXPECTED — faithful; a property of what il2cpp inlined | 47 | 47 | 55 |
 | BENIGN — a compiler-generated name the source never wrote | 150 | 148 | 148 |
 | files carrying no diagnostic at all, of 46 | 20 | 21 | 21 |
-| unresolved loads across the whole rip | 5702 | — | 3569 |
+| unresolved loads across the whole rip | 5702 | — | 2870 |
 
 `audit_recovered_scripts.py` now reports those categories, because the raw total is a poor metric: it
 goes **up** when something previously discarded in silence starts being kept, and `EXPECTED` will not
@@ -199,8 +200,8 @@ collects all three helpers' calls.
 
 ## Regression testing
 
-`reports/regression-matrix.md` has the full table. **Six** regressions were produced and every one
-was caught by measurement rather than by review; four of them never shipped.
+`reports/regression-matrix.md` has the full table. **Eight** regressions were produced and every one
+was caught by measurement rather than by review; six of them never shipped.
 
 The second never shipped, and is the better illustration. Iteration 009's fix laid out the base chain
 but gated the recursion on the immediate base declaring instance fields; `ArgumentException`'s
@@ -253,7 +254,7 @@ the only exact check on a computation whose whole purpose is to run where metada
 
 ## Performance
 
-58 seconds at baseline, 55 at iteration 011, 54 at iteration 026, on 4 cores. No memory or
+58 seconds at baseline, 55 at iteration 011, 38 at iteration 032, on 4 cores. No memory or
 output-size change: 819 files throughout. Every analysis pass added runs inside loops that already
 existed, and the field-layout self-check runs once over 1472 types. DECOMP-0016 runs the type
 fixpoint twice per method and cost nothing measurable: the second pass starts from a settled state
@@ -269,7 +270,7 @@ and converges immediately for most bodies.
 - **No differential testing was possible** for the same reason: nothing here can execute either the
   reference source or the recovered project.
 - **Only `Assembly-CSharp` is compared by `audit_recovered_scripts.py`.** It holds 359 of the rip's
-  3569 unresolved loads — under a tenth — so both easy measurements cover a small slice of the
+  2870 unresolved loads — under a ninth — so both easy measurements cover a small slice of the
   output. spine-unity holds half, and *is* verifiable: Spine's own source is vendored in the
   reference repository at `Assets/ThirdParties/Spine/Runtime/spine-csharp/`, which was nearly
   overlooked for want of an oracle that turned out to be present. DOTween, GoogleMobileAds,
@@ -285,8 +286,9 @@ and converges immediately for most bodies.
 
 `reports/issues.json`, `reports/BUG_FAMILY_PRIORITY.md` and `AGENT_STATE.md` carry these with the
 evidence to start from. Two are open, one is closed as WONT_FIX with its measurement, and one is
-reverted with the reason not to retry it. `reports/TYPE_RECOVERY_ANALYSIS.md` classifies the 3569
-unresolved loads that remain: 1468 whose base has no usable type, 2101 whose base is typed and whose
+reverted with the reason not to retry it. `reports/TYPE_RECOVERY_ANALYSIS.md` classifies the 2870
+unresolved loads that remain: 930 whose base has no usable type at all, 651 that are runtime
+structure reads rather than managed fields, 440 a computed address, and the rest typed bases whose
 offset could not be placed — of which about 600 are `Il2CppClass` and `Il2CppMethodInfo` reads that
 are waiting on a pass to recognise the shape rather than on a type at all.
 
@@ -307,15 +309,15 @@ wrote and pass its entry value — is the largest thing not yet started.
 
 **PASS_WITH_KNOWN_LIMITATIONS**
 
-Thirteen confirmed defects were traced to the earliest incorrect transformation, fixed there, and each
-is covered by a check that fails without the fix — thirteen such checks now, in
+Fifteen confirmed defects were traced to the earliest incorrect transformation, fixed there, and each
+is covered by a check that fails without the fix — fifteen such checks now, in
 `Test/Scripts/check_recovered_shapes.sh`, plus the field-layout self-check as a gate. Two more were
 measured and not shipped: one closed as WONT_FIX, one reverted with the reason recorded so it is not
 retried. The generated project has no unrecovered method bodies and no generator failures, compiles
-to 110 fewer errors than the baseline while compiling strictly more code, and its REAL_ERROR audit
-count is down 51%. Unresolved loads across the whole rip are down from 5702 to 3569.
+to 159 fewer errors than the baseline while compiling strictly more code, and its REAL_ERROR audit
+count is down 59%. Unresolved loads across the whole rip are down from 5702 to 2870.
 
-Six regressions the loop produced were caught by measurement rather than review; four of them before
+Eight regressions the loop produced were caught by measurement rather than review; six of them before
 they shipped, in both cases by the per-file audit diff rather than by any headline number. The cause
 was the same both times: a rule that withheld evidence rather than ranking it, so something weaker
 filled the gap. That is the one methodological result worth carrying forward — in a monotonic
@@ -327,5 +329,5 @@ scene and prefab loading, player build, runtime smoke test, differential testing
 exercised in this container at all. They are registered as U1–U9 in
 `reports/BLOCKED_UNITY_TESTS.md`, the scripts to run them are written and wired
 (`Test/Scripts/unity/run_all.sh`), and every one of them exits 90 rather than reporting anything when
-no editor is present. 389 Roslyn errors and 1052 REAL_ERROR audit diagnostics remain, classified and
+no editor is present. 340 Roslyn errors and 884 REAL_ERROR audit diagnostics remain, classified and
 open rather than unknown. Calling that PASS would misreport what was measured.

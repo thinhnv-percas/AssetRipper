@@ -639,9 +639,19 @@ which has no register at all, and an index left in the addressing mode. Generali
 affine evaluator the struct-element path uses measured worse on every cut; the narrow shape is
 precise because the shape itself proves the array is the base.
 
-Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 1052 and its `Assembly-CSharp`
-from 499 Roslyn errors to 389 - while compiling 15 more bodies than before. Unresolved loads across
-the whole rip are 5702 to 3569. **Assembly-CSharp holds 347 of those 3569**, and both of the easy
+Ba cái nữa là *thứ tự* mà type fixpoint áp dụng bằng chứng, và một cái là phép thu gom code chết.
+**Kiểu hợp lưu của một phi không được lan ngược vào một input còn có định nghĩa của chính nó để
+nói**: trình biên dịch tái sử dụng X8 cho class pointer của `List<T>` rồi cho `list._items`, nên
+`_items.Length` đọc thành `[Il2CppClass<List<Object>> + 0x18]` và fast path của `List.Add` mất hẳn
+nhánh ghi phần tử. Và **một vòng phi không chết đối với phép đếm lượt dùng**: cả chùm cờ của một
+`cmp` trên A64 vẫn nằm lại sau khi phép so sánh đã được nhận diện, được giữ sống bởi một vòng phi
+chỉ tham chiếu lẫn nhau - `DeadCodeEliminator` chuyển sang quét từ gốc, lấy đi 699 load và đưa số
+lệnh đọc `typeHierarchyDepth` từ 139 xuống 18. Bản đầu của nó chỉ đánh dấu định nghĩa cuối của mỗi
+local, cho con số đẹp hơn trên *mọi* cột dễ đọc, và xoá code còn sống; nó bị loại.
+
+Impostor's own scripts went from 2162 REAL_ERROR audit diagnostics to 884 and its `Assembly-CSharp`
+from 499 Roslyn errors to 340 - while compiling 15 more bodies than before. Unresolved loads across
+the whole rip are 5702 to 2870. **Assembly-CSharp holds 292 of those 2870**, and both of the easy
 measurements cover only it, so count per assembly before concluding a change did nothing.
 `AGENT_STATE.md` says where to pick up. **Read `reports/UNTYPED_LOCAL_IMPACT.md` before starting on
 section 5**: 91% of the untyped locals provably cost nothing, and each of the fixes above removed

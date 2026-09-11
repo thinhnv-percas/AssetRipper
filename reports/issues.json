@@ -385,5 +385,81 @@
     "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0017",
     "confidence": 95,
     "note": "Generalising this onto the affine evaluator the struct-element path uses was tried first (iterations 024 and 025, not committed) and measured worse on every cut - 3689 to 3969, and to 4084 with the addend still restricted, so the relaxation is not what costs. Reading through a chain of definitions to find the array gives an address that is arithmetically valid and belongs to another expression; the narrow shape is precise because the shape itself proves the array is the base. Recorded in CLAUDE.md. What is still not folded is an offset partway into a struct element - `array[i].y` - which would need the element's address named as a local of the element's type."
+  },
+  {
+    "id": "DECOMP-0018",
+    "severity": "ERROR",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 27,
+    "iterationFixed": 28,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/GameHelper.cs, DataController.cs, UserResourceItem.cs, UserResourceCollectionItem.cs",
+    "referenceFile": "Assets/_Impostor 3/Scripts/Common/GameHelper.cs",
+    "method": "GameHelper::FindAllChild",
+    "compilerError": "khong co truc tiep; ket qua la mot placeholder va mot nhanh sai",
+    "observed": "`nint num = (nint)list2._items;` roi `Unmanaged memory load: [Il2CppClass<List<Object>> + 0x18]` va `if ((nint)count < (nint)0)`, voi lenh ghi phan tu mat han",
+    "expected": "`UnityEngine.Object[] items = list2._items; if (list2.Count < items.Length) { list2._size = count + 1; items[count] = gameObject; } else list2.Add(gameObject);` - dung than cua List<T>.Add ma il2cpp da inline, ung voi `list.Add(t.gameObject)` trong nguon",
+    "rootCause": "Huong lan nguoc cua PropagatePhi (kieu hop luu cua phi gan cho moi input con chua co kieu) chay ngay trong fixpoint. Trinh bien dich tai su dung X8 cho class pointer cua List roi cho chinh list._items, nen phi hop nhat hai gia tri do duoc gan kieu class va lan nguoc kieu ay len cai mang, truoc khi luat field type kip noi. Fixpoint la monotonic nen dieu do la vinh vien. Mot phi la diem hop luu: noi rang moi input mang kieu cua hop luu chi dung khi khong co gi tot hon dinh nghia input do, va dieu do phai duoc xac lap truoc khi luat chay.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "LocalVariables.PropagatePhi, LocalVariables.RunFixpoint",
+    "evidence": [
+      "stage dump 011 cua GameHelper.FindAllChild: `Phi v115 @ X8_v16 (Il2CppClass<List`1<Object>>), ..., v117 @ X8_v17, ...` va `Move v117 @ X8_v17 (Il2CppClass<List`1<Object>>), v50._items (UnityEngine.Object[])`",
+      "nguon doi chieu: `private static void FindAllChild(Transform t, ref List<Object> list) { list.Add(t.gameObject); foreach (Transform child in t) FindAllChild(child, ref list); }`",
+      "REAL_ERROR 1052 -> 896, SEMANTIC_RISK 187 -> 167, Roslyn tren Assembly-CSharp 389 -> 350, unresolved loads 3569 -> 3234, DataController 127 -> 60, thoi gian chay 53s -> 45s",
+      "Pinata (metadata v24.2) xac nhan doc lap: unresolved loads 9756 -> 9532, method-not-found 4081 -> 4052"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0018",
+    "confidence": 95,
+    "note": "Cach sua khong phai cam luat phi ma la xep lai thu hang bang chung: huong lan nguoc chuyen xuong pass thu hai cua fixpoint, cung cho voi System.Object tai use site (DECOMP-0016), sau khi field type / call return / allocation da co luot, va truoc TypeCounters van chay cuoi. Hai cho duy nhat xau di la hai lan CS0019 `object + int` trong DataController, va do la mot mat mat duoc bao chu khong phai mot gia tri sai im lang: bieu thuc khong bien dich duoc."
+  },
+  {
+    "id": "DECOMP-0019",
+    "severity": "WARNING",
+    "category": "IL2CPP",
+    "status": "REVERTED",
+    "iterationFound": 28,
+    "iterationFixed": null,
+    "generatedFile": "Assets/Scripts/spine-unity/Spine/SkeletonJson.cs, Spine/Unity/BoundingBoxFollower.cs",
+    "referenceFile": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/Following/BoundingBoxFollower.cs dong 158",
+    "method": "TypeCheckRecovery.Run",
+    "compilerError": "khong co",
+    "observed": "tren A64 mot `cmp` lift thanh ca mot chum co chu khong thanh mot phep so sanh: `Subtract d, a, b` roi `CheckLess` cho C, `CheckLess d, 0` cho N, `CheckEqual d, 0` cho Z. TypeCheckRecovery so khop moi hinh dang cua no tren hai toan hang cua phep so sanh nen khong bao gio nhin thay cap gia tri that su dang duoc so sanh.",
+    "expected": "lay hai toan hang cua phep tru khi phep so sanh la `CheckEqual z, d, 0` va `d` la mot `Subtract`; `a - b == 0` dung bang `a == b`",
+    "rootCause": "dung bai hoc 'mot pass so khop hinh dang phai duoc viet theo hinh dang tai dung diem no chay'",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "TypeCheckRecovery.ComparedPair",
+    "evidence": [
+      "so type check duoc nhan dien trong toan bo ban rip tang tu 359 len 441; trong Spine.SkeletonJson so cu `as Dictionary<string, object>` tang tu 39 len 78",
+      "nhung unresolved loads chi 3234 -> 3232, va sau khi DECOMP-0020 vao thi do voi/khong co no cho ket qua GIONG NHAU toi tung con so (2799 load, 2079 method-not-found, 13 lenh doc typeHierarchyDepth, 39 `as Dictionary`)",
+      "82 phep kiem tra kieu nhan ra them deu nam trong vung code chet - trong BoundingBoxFollower no sinh ra cai `as` thu ba trong khi nguon chi co hai - va DECOMP-0020 quet vung do di"
+    ],
+    "regressionTest": "khong co; hieu ung cua no khong the hien duoc thanh mot hinh dang van ban on dinh",
+    "confidence": 90,
+    "note": "Ly luan dung nhung gia tri do duoc bang khong sau khi DCE thuc su thu gom code chet. Da revert khoi production va ghi vao CLAUDE.md phan 'do ra khong dang gi'. Phat hien that su tu day la: 82 lan nhan dien deu o vung chet, tuc DCE moi la bug, khong phai matcher."
+  },
+  {
+    "id": "DECOMP-0020",
+    "severity": "ERROR",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 29,
+    "iterationFixed": 32,
+    "generatedFile": "Assets/Scripts/spine-unity/Spine/SkeletonJson.cs va 699 load tren toan ban rip",
+    "referenceFile": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonJson.cs",
+    "method": "DeadCodeEliminator.Run",
+    "compilerError": "khong co truc tiep; hau qua la hang tram placeholder va cac vung code khong doc duoc",
+    "observed": "sau khi mot phep so sanh da duoc nhan dien va thay the, phan con lai cua chum co A64 - ke ca hai lenh doc class pointer nuoi no - van nam lai trong than ham. `SkeletonJson.ReadSkeletonData` co 68 lenh doc typeHierarchyDepth con lai, va khoi code quanh chung la khoang hai muoi dong so hoc co khong doc duoc",
+    "expected": "chum co bi thu gom, chi con lai `obj as Dictionary<string, object>`",
+    "rootCause": "DeadCodeEliminator dem luot dung roi lap toi diem bat dong. Phep dem khong nhin xuyen duoc mot vong: mot phi mang gia tri qua vong lap duoc dung boi chinh phi tiep theo trong vong, nen moi phi trong vong deu co ve con duoc dung du khong co gi ben ngoai doc bat ky cai nao. Lifter sinh ca chum co cho moi cmp va SSA phi hoa cac thanh ghi co tai moi diem hop luu, nen hinh dang nay xuat hien o moi than ham tren A64.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "DeadCodeEliminator.Run",
+    "evidence": [
+      "dump ISIL cua SkeletonJson.ReadSkeletonData: `Phi v305 @ Z_v6, v306 @ Z_v185, v156 @ Z, v230 @ Z_v7, v307 @ Z_v8` va `Phi v314 @ C_v6, ...` - mot vong phi cua cac thanh ghi co",
+      "unresolved loads 3232 -> 2870, doc typeHierarchyDepth 139 -> 18, doc interface_offsets_count 84 -> 74, Roslyn 350 -> 340, REAL_ERROR 896 -> 884, thoi gian chay 42s -> 38s",
+      "Pinata: unresolved loads 9532 -> 9177, 3083 file khong doi, 0 generator failure, field layout 0 disagreement"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0020",
+    "confidence": 95,
+    "note": "Phai danh dau MOI dinh nghia cua mot local, khong chi cai cuoi. Ban dau (iteration 030) chi danh dau cai cuoi va cho con so dep hon nhieu - 2458 load, Roslyn 315, REAL_ERROR 754, 15 file tot len - nhung CS0165 'use of unassigned local variable' tang tu 5 len 12, la phan nhin thay duoc cua viec xoa code con song; phan khong nhin thay duoc la mot local giu lai gia tri cua mot dinh nghia khac. Con so dep hon do khong duoc nhan. Ba shape check hong o iteration 030 vi neo vao ten bien co so thu tu do ILSpy sinh, khong lien quan den ngu nghia; ca ba da doi sang hinh dang khong phu thuoc so thu tu."
   }
 ]

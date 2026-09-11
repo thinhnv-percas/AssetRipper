@@ -1,0 +1,2 @@
+DECOMP-0020: DeadCodeEliminator quét từ gốc (mark and sweep) thay vì đếm lượt dùng, đánh dấu mọi
+định nghĩa của một local. DECOMP-0019 đã được revert: đo trên nền này nó không đổi một con số nào.

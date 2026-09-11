@@ -1,102 +1,99 @@
 {
-  "iterationBefore": "021",
-  "iterationAfter": "026",
-  "before": {
-    "total": 3741,
-    "byAssembly": {
-      "spine-unity": 1863,
-      "DOTween": 840,
-      "Assembly-CSharp": 359,
-      "ACTk.Runtime": 243,
-      "spine-unity-examples": 221,
-      "GoogleMobileAds": 179,
-      "LeanPool": 19,
-      "Mono.Security": 17
-    },
-    "byKind": {
-      "base has no type": 1509,
-      "value type base": 394,
-      "past the last field of the base type": 386,
-      "generic instance, value type argument": 209,
-      "Il2CppClass.typeHierarchyDepth": 139,
-      "Il2CppClass.0x28": 111,
-      "Il2CppClass.interface_offsets_count": 84,
-      "between fields of the base type": 79,
-      "absolute address": 73,
-      "Il2CppClass.0xFC": 61,
-      "Il2CppMethodInfo.0x53": 53,
-      "Il2CppClass.cctor_finished": 49,
-      "static field storage at 0x8": 49,
-      "generic instance, reference arguments": 40,
-      "Il2CppClass.interfaceOffsets": 37,
-      "Il2CppClass.typeHierarchy": 33,
-      "negative offset off a typed base": 27,
-      "array at 0x20": 22,
-      "array at 0x28": 21,
-      "Il2CppMethodInfo.klass": 20,
-      "Il2CppClass.static_fields": 16,
-      "array at 0x0": 13,
-      "Il2CppClass.0x80": 13,
-      "Il2CppClass.0x1D0": 12,
-      "static field storage at 0x10": 11
-    },
-    "byDefiningInstruction": {
-      "Move:memory": 828,
-      "<none>": 811,
-      "Add": 781,
-      "Move:AddressOf": 260,
-      "Call": 145,
-      "Move:type Il2CppClass<TKey>": 74,
-      "Move:type Il2CppMethodInfo": 54,
-      "Move:Immediate": 49,
-      "Move:type Il2CppClass<TValue>": 43,
-      "Move:type Dictionary`2<System.String, System.Object>": 41,
-      "Move:ArrayAccess": 39,
-      "Move:local Int32": 35,
-      "Newobj": 29,
-      "Move:type Il2CppClass<T>": 28,
-      "Move:field Attachment": 25,
-      "Move:type List`1<System.Object>": 25,
-      "Move:local Il2CppMethodInfo": 23,
-      "Move:field TimeCheatingDetector": 23,
-      "Move:field Vector3[]": 21,
-      "Move:type Il2CppClass<System.EmptyArray`1<System.Object>>": 17,
-      "Move:field SkeletonGhostRenderer": 16,
-      "Move:field GamePlayController": 15,
-      "Move:ArrayLength": 14,
-      "Move:type TweenManager": 13,
-      "Move:type Il2CppClass<Spine.Collections.OrderedDictionary`2<TKey, TValue>+<GetEnumerator>d__34<TKey, TValue>>": 12
-    },
-    "baseUntyped": {
-      "count": 1582,
-      "byDefiningInstruction": {
-        "Add": 659,
-        "Move:memory": 345,
-        "<none>": 254,
-        "Move:AddressOf": 245,
-        "Call": 51,
-        "Move:type Il2CppClass<System.EmptyArray`1<System.Object>>": 17,
-        "Newobj": 8,
-        "Move:untyped local": 1,
-        "Move:type Il2CppClass<CodeStage.AntiCheat.Common.KeepAliveBehaviour`1<T>>": 1,
-        "IndirectCall": 1
+  "iterationTruoc": "027",
+  "iterationSau": "032",
+  "truoc": {
+    "total": 3569,
+    "theoAssembly": {
+      "spine-unity": {
+        "runtime_struct": 501,
+        "untyped_base": 463,
+        "computed_addr": 376,
+        "valuetype_base": 224,
+        "ancestor_base": 134,
+        "other": 47,
+        "generic_instance": 10,
+        "open_generic": 9,
+        "object_base": 2,
+        "tong": 1766
+      },
+      "DOTween": {
+        "generic_instance": 193,
+        "computed_addr": 146,
+        "runtime_struct": 109,
+        "ancestor_base": 107,
+        "untyped_base": 106,
+        "valuetype_base": 84,
+        "other": 55,
+        "open_generic": 20,
+        "object_base": 5,
+        "tong": 825
+      },
+      "Assembly-CSharp": {
+        "untyped_base": 161,
+        "runtime_struct": 98,
+        "ancestor_base": 36,
+        "valuetype_base": 22,
+        "generic_instance": 12,
+        "computed_addr": 8,
+        "other": 6,
+        "object_base": 3,
+        "open_generic": 1,
+        "tong": 347
+      },
+      "ACTk.Runtime": {
+        "runtime_struct": 79,
+        "untyped_base": 66,
+        "ancestor_base": 39,
+        "valuetype_base": 28,
+        "tong": 212
+      },
+      "spine-unity-examples": {
+        "untyped_base": 72,
+        "runtime_struct": 45,
+        "ancestor_base": 44,
+        "valuetype_base": 20,
+        "computed_addr": 20,
+        "other": 4,
+        "object_base": 2,
+        "tong": 207
+      },
+      "GoogleMobileAds": {
+        "runtime_struct": 86,
+        "untyped_base": 43,
+        "ancestor_base": 22,
+        "valuetype_base": 17,
+        "object_base": 5,
+        "other": 3,
+        "computed_addr": 1,
+        "tong": 177
+      },
+      "LeanPool": {
+        "runtime_struct": 8,
+        "untyped_base": 5,
+        "ancestor_base": 3,
+        "valuetype_base": 2,
+        "generic_instance": 1,
+        "tong": 19
+      },
+      "Mono.Security": {
+        "ancestor_base": 12,
+        "runtime_struct": 3,
+        "untyped_base": 1,
+        "tong": 16
       }
     },
-    "baseTypedButOffsetUnplaced": 2159
-  },
-  "after": {
-    "total": 3569,
-    "byAssembly": {
-      "spine-unity": 1766,
-      "DOTween": 825,
-      "Assembly-CSharp": 347,
-      "ACTk.Runtime": 212,
-      "spine-unity-examples": 207,
-      "GoogleMobileAds": 177,
-      "LeanPool": 19,
-      "Mono.Security": 16
+    "theoHo": {
+      "runtime_struct": 929,
+      "untyped_base": 917,
+      "computed_addr": 551,
+      "valuetype_base": 397,
+      "ancestor_base": 397,
+      "generic_instance": 216,
+      "other": 115,
+      "open_generic": 30,
+      "object_base": 17
     },
-    "byKind": {
+    "theoKind": {
       "base has no type": 1395,
       "value type base": 397,
       "past the last field of the base type": 333,
@@ -123,36 +120,9 @@
       "array at 0x0": 11,
       "static field storage at 0x10": 11
     },
-    "byDefiningInstruction": {
-      "Move:memory": 818,
-      "<none>": 798,
-      "Add": 668,
-      "Move:AddressOf": 260,
-      "Call": 144,
-      "Move:type Il2CppClass<TKey>": 74,
-      "Move:type Il2CppMethodInfo": 53,
-      "Move:type Il2CppClass<TValue>": 43,
-      "Move:Immediate": 42,
-      "Move:type Dictionary`2<System.String, System.Object>": 41,
-      "Move:ArrayAccess": 37,
-      "Move:local Int32": 35,
-      "Newobj": 29,
-      "Move:type Il2CppClass<T>": 28,
-      "Move:type List`1<System.Object>": 25,
-      "Move:local Il2CppMethodInfo": 23,
-      "Move:field Attachment": 22,
-      "Move:field Vector3[]": 21,
-      "Move:type Il2CppClass<System.EmptyArray`1<System.Object>>": 17,
-      "Move:field SkeletonGhostRenderer": 16,
-      "Move:field GamePlayController": 15,
-      "Move:ArrayLength": 14,
-      "Move:type TweenManager": 13,
-      "Move:type Il2CppClass<Spine.Collections.OrderedDictionary`2<TKey, TValue>+<GetEnumerator>d__34<TKey, TValue>>": 12,
-      "Move:field Int32": 12
-    },
-    "baseUntyped": {
-      "count": 1468,
-      "byDefiningInstruction": {
+    "baseKhongCoKieu": {
+      "so": 1468,
+      "theoLenhDinhNghia": {
         "Add": 551,
         "Move:memory": 339,
         "<none>": 254,
@@ -164,8 +134,139 @@
         "Move:type Il2CppClass<CodeStage.AntiCheat.Common.KeepAliveBehaviour`1<T>>": 1,
         "IndirectCall": 1
       }
-    },
-    "baseTypedButOffsetUnplaced": 2101
+    }
   },
-  "note": "A load is given up on for one of two reasons and only the defining instruction tells them apart: the base has no usable type, or it has one and the layout could not place the offset in it. Counted where the generator gives up, so the total matches the placeholder count."
+  "sau": {
+    "total": 2870,
+    "theoAssembly": {
+      "spine-unity": {
+        "untyped_base": 475,
+        "runtime_struct": 274,
+        "computed_addr": 268,
+        "ancestor_base": 85,
+        "valuetype_base": 35,
+        "other": 26,
+        "open_generic": 9,
+        "object_base": 3,
+        "generic_instance": 1,
+        "tong": 1176
+      },
+      "DOTween": {
+        "generic_instance": 193,
+        "computed_addr": 146,
+        "ancestor_base": 107,
+        "runtime_struct": 105,
+        "untyped_base": 104,
+        "valuetype_base": 75,
+        "other": 54,
+        "open_generic": 20,
+        "object_base": 5,
+        "tong": 809
+      },
+      "Assembly-CSharp": {
+        "untyped_base": 166,
+        "runtime_struct": 81,
+        "ancestor_base": 17,
+        "generic_instance": 12,
+        "computed_addr": 7,
+        "valuetype_base": 3,
+        "object_base": 3,
+        "other": 3,
+        "tong": 292
+      },
+      "ACTk.Runtime": {
+        "runtime_struct": 76,
+        "untyped_base": 66,
+        "ancestor_base": 38,
+        "valuetype_base": 28,
+        "tong": 208
+      },
+      "spine-unity-examples": {
+        "untyped_base": 77,
+        "ancestor_base": 35,
+        "valuetype_base": 25,
+        "runtime_struct": 23,
+        "computed_addr": 16,
+        "other": 5,
+        "object_base": 2,
+        "tong": 183
+      },
+      "GoogleMobileAds": {
+        "runtime_struct": 81,
+        "ancestor_base": 39,
+        "untyped_base": 37,
+        "object_base": 5,
+        "computed_addr": 3,
+        "valuetype_base": 2,
+        "tong": 167
+      },
+      "LeanPool": {
+        "runtime_struct": 8,
+        "untyped_base": 5,
+        "ancestor_base": 3,
+        "valuetype_base": 2,
+        "generic_instance": 1,
+        "tong": 19
+      },
+      "Mono.Security": {
+        "ancestor_base": 12,
+        "runtime_struct": 3,
+        "object_base": 1,
+        "tong": 16
+      }
+    },
+    "theoHo": {
+      "untyped_base": 930,
+      "runtime_struct": 651,
+      "computed_addr": 440,
+      "ancestor_base": 336,
+      "generic_instance": 207,
+      "valuetype_base": 170,
+      "other": 88,
+      "open_generic": 29,
+      "object_base": 19
+    },
+    "theoKind": {
+      "base has no type": 1301,
+      "past the last field of the base type": 301,
+      "generic instance, value type argument": 206,
+      "value type base": 170,
+      "Il2CppClass.0x28": 103,
+      "Il2CppClass.interface_offsets_count": 74,
+      "absolute address": 69,
+      "Il2CppClass.0xFC": 61,
+      "between fields of the base type": 54,
+      "Il2CppMethodInfo.0x53": 53,
+      "static field storage at 0x8": 48,
+      "Il2CppClass.interfaceOffsets": 37,
+      "Il2CppClass.cctor_finished": 36,
+      "generic instance, reference arguments": 30,
+      "array at 0x20": 22,
+      "array at 0x28": 20,
+      "Il2CppClass.typeHierarchyDepth": 18,
+      "Il2CppClass.static_fields": 16,
+      "Il2CppClass.0x80": 13,
+      "array at 0x0": 12,
+      "Il2CppClass.0x1D0": 12,
+      "static field storage at 0x10": 11,
+      "static field storage at 0x4": 10,
+      "array at 0x24": 9,
+      "Il2CppClass.0x1C8": 8
+    },
+    "baseKhongCoKieu": {
+      "so": 1370,
+      "theoLenhDinhNghia": {
+        "Add": 440,
+        "Move:memory": 346,
+        "<none>": 258,
+        "Move:AddressOf": 256,
+        "Call": 42,
+        "Move:type Il2CppClass<System.EmptyArray`1<System.Object>>": 17,
+        "Newobj": 8,
+        "Move:untyped local": 2,
+        "Move:type Il2CppClass<CodeStage.AntiCheat.Common.KeepAliveBehaviour`1<T>>": 1
+      }
+    }
+  },
+  "ghiChu": "Mỗi dòng đếm tại đúng chỗ IlGenerator bỏ cuộc, nên tổng khớp với số placeholder. Một load bị bỏ vì một trong hai lý do và chỉ lệnh định nghĩa base mới phân biệt được: base không có kiểu dùng được, hay có kiểu nhưng layout không đặt được offset vào đó."
 }

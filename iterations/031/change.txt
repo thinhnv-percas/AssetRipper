@@ -1,0 +1,1 @@
+DECOMP-0020 bản hai: mark-and-sweep đánh dấu MỌI định nghĩa của một local, không chỉ cái cuối.

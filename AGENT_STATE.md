@@ -1,172 +1,201 @@
-# Agent state
+# Trạng thái agent
 
-Read this first after a restart, then `reports/regression-matrix.md` for the numbers and
-`reports/issues.json` for the open items.
+Đọc file này trước tiên sau khi khởi động lại, rồi `reports/regression-matrix.md` cho số liệu và
+`reports/issues.json` cho các hạng mục còn mở. Từ iteration 027 trở đi, toàn bộ tài liệu và ghi chú
+phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Current iteration: 026 (complete; 020, 022, 024 and 025 were first cuts, not committed)
+Iteration hiện tại: 032 (hoàn tất; 030 và 031 là các bản đầu, không commit; DECOMP-0019 đã revert)
 
-Decompiler commit:
-  claude/read-current-repository-daqxc1 @ 53f98aa, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+Commit decompiler:
+  claude/read-current-repository-daqxc1 @ 35e9ec6, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
 
 Input:
   Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
   sha256 8e5ab4a9fa42d5f25a1933cd9f931624ee95589add77b7f6381c447dd9fc8aaf
-  unpacked at Test/Input/Impostor, verified byte-identical for libil2cpp.so,
-  global-metadata.dat and data.unity3d
+  giải nén tại Test/Input/Impostor, đã xác nhận giống từng byte cho libil2cpp.so,
+  global-metadata.dat và data.unity3d
 
-Reference:
+Nguồn đối chiếu:
   thinhabc01/Impostor-Sort-Puzzle-Pro @ a5b796283d7d7cc457b7c73ebf7b5869776d755b (tag v1)
-  Unity 2022.3.62f2, matching the binary
+  Unity 2022.3.62f2, khớp binary. Giải nén tại artifacts/reference/Impostor-Sort-Puzzle-Pro.
+  Game thứ hai: Test/Input/Pinata (đã commit trong repo, metadata v24.2) - dùng làm kiểm chứng
+  độc lập cho mọi thay đổi chạm vào lõi phân tích.
 
-Current stage:
-  idle between iterations. Baseline for the next one is iteration 026.
+Giai đoạn hiện tại:
+  rảnh giữa hai iteration. Baseline cho iteration sau là 032.
 
-Where iteration 026 stands, against the original baseline:
-  unrecovered method bodies      15 -> 0
-  audit REAL_ERROR             2162 -> 1052
-  audit SEMANTIC_RISK           301 -> 187
-  audit EXPECTED                 47 -> 51
-  Roslyn errors, Assembly-CSharp 499 -> 389
-  unresolved loads              5702 -> 3569  (Assembly-CSharp 347 of them)
-  loads with a System.Object base n/a -> 17   (69 before DECOMP-0016)
-  typeHierarchyDepth loads      n/a  -> 139
-  files with no diagnostic at all 20 -> 21
-  field layout self-check       n/a -> 1394 exact, 78 incomplete, 0 disagreed
-  run time                       58s -> 53s
-  tests                     274, 1 fail -> 279, 1 fail (the same pre-existing one)
+Iteration 032 so với baseline gốc:
+  method body không phục hồi được   15 -> 0
+  generator failure                  ?  -> 0
+  audit REAL_ERROR                 2162 -> 884
+  audit SEMANTIC_RISK                301 -> 167
+  audit EXPECTED                      47 -> 55
+  Roslyn errors, Assembly-CSharp     499 -> 340
+  unresolved loads                  5702 -> 2870  (Assembly-CSharp 292 trong đó)
+  đọc typeHierarchyDepth             n/a -> 18    (139 trước DECOMP-0020)
+  đọc interface_offsets_count        n/a -> 74
+  load có base là System.Object      n/a -> 19    (69 trước DECOMP-0016)
+  CS0165 use of unassigned local     n/a -> 5     (không đổi; xem DECOMP-0020)
+  file không có chẩn đoán nào, /46    20 -> 21
+  field layout self-check            n/a -> 1394 exact, 78 thiếu field, 0 disagreement
+  thời gian chạy                     58s -> 38s
+  test                          274, 1 fail -> 279, 1 fail (đúng lỗi có sẵn từ trước)
 
-Current bug family:
-  none in flight.
+  Pinata cùng chiều: unresolved loads 9756 -> 9177, method-not-found 4081 -> 4052,
+  3083 file không đổi, 0 generator failure, field layout 0 disagreement.
 
-Current hypothesis:
-  Use-side typing is worked out and recorded in reports/TYPE_RECOVERY_ANALYSIS.md, with the
-  evidence ranks the fixpoint now applies in order and the per-assembly load table. Two ranks were
-  out of order and both are fixed: a shared generic instantiation outranking the receiver
-  (DECOMP-0015), and System.Object - the top of the lattice - outranking a field's declared type
-  (DECOMP-0016). What is left of the 3689 splits into 1576 whose base has no usable type and 2113
-  whose base is typed and whose offset could not be placed; about 600 of the second group are
-  runtime structure reads rather than managed fields, and are a pattern-recognition problem, not a
-  typing one.
+Họ bug đang xử lý:
+  không có cái nào đang dở.
 
-  The biggest single typing group left is 659 loads whose base is defined by an `Add` whose own
-  base is untyped - the computed-address problem one step back from where ArrayRecovery and
-  FoldComputedFieldAddresses already claim it.
+Giả thuyết hiện tại:
+  Khôi phục kiểu từ phía sử dụng đã được làm rõ và ghi trong reports/TYPE_RECOVERY_ANALYSIS.md,
+  kèm mười hạng bằng chứng mà fixpoint áp dụng theo thứ tự và bảng load theo assembly. Ba hạng
+  từng nằm sai chỗ và cả ba đã sửa: một shared generic instantiation cao hơn receiver
+  (DECOMP-0015), System.Object - đỉnh của lattice - cao hơn kiểu khai báo của một field
+  (DECOMP-0016), và kiểu hợp lưu của một phi lan ngược cao hơn định nghĩa của chính input
+  (DECOMP-0018). Cả ba đều sửa bằng cách xếp lại hạng, không phải bằng cách cấm một nguồn.
 
-Evidence to start from:
-  - reports/TYPE_RECOVERY_ANALYSIS.md - the evidence ranking, both defects worked through, what is
-    left by family and by assembly. Read before touching the fixpoint.
-  - reports/TYPE_PROVENANCE.json - every unresolved load grouped by what defines its base, 021 and
-    023 side by side.
-  - reports/OBJECT_BASE_TYPE_PROVENANCE.json - the 69 System.Object-based loads and the 17 left.
-  - reports/BASE_FIELD_OVERFLOW_ANALYSIS.md and .../CASES.json - the worked inventory, and the
-    method: classify before counting. `CPP2IL_DUMP_LOADS=<file>` writes one row per load from the
-    same event the summary counts; it now names the instruction that defined the base.
-  - reports/UNTYPED_LOCAL_IMPACT.md - 91% of untyped locals provably cost nothing. Still true.
-  - reports/BUG_FAMILY_PRIORITY.md - the compile-error families with category and files.
+  DECOMP-0020 (DCE quét từ gốc) là thứ làm hiện ra giá trị của những cái trên: trước nó, code đã
+  được nhận diện và thay thế vẫn nằm lại trong thân hàm sau một vòng phi chỉ tham chiếu lẫn nhau.
 
-Fixed:
-  DECOMP-0001  15 method bodies exported as a throw carrying the generator's own stack trace
-  DECOMP-0002  a value type's constructor call dropped, so the value stayed zero
-  DECOMP-0003  a raiser handed a constructed exception named after the wrong exception
-  DECOMP-0007  a shared generic call not retargeted onto the receiver's instantiation
-  DECOMP-0008  the generic field layout bailing on a base with fields and on a user struct
-  DECOMP-0009  a load not folded back onto the base whose address was computed for it
-  DECOMP-0010  a runtime class answering zero where a RuntimeTypeHandle or Type was wanted
-  DECOMP-0012  an RGCTX entry in shared generic code inflated with no arguments
-  DECOMP-0013  a phi with disagreeing inputs taking the first one's type
-  DECOMP-0014  il2cpp's type-check shortcut not folded on the shape it actually has
-  DECOMP-0015  a shared generic instantiation outranking the receiver inside the type fixpoint
-  DECOMP-0016  System.Object at a use site taken as evidence when it is the top of the lattice
-  DECOMP-0017  two of the three shapes an element address is computed in not folded
+  2870 load còn lại chia theo họ (reports/TYPE_PROVENANCE.json):
+    930  untyped_base      base không có kiểu nào, không từ một Add
+    651  runtime_struct    đọc cấu trúc runtime của il2cpp, KHÔNG phải managed field
+    440  computed_addr     base là một Add mà array/field fold chưa nhận
+    336  ancestor_base     offset vượt field cuối của kiểu base, hoặc giữa hai field
+    207  generic_instance  generic instance có argument là value type
+    170  valuetype_base    base là một value type
+     88  other
+     29  open_generic      base là một generic parameter chưa khởi tạo
+     19  object_base       base phân giải thành System.Object
 
-Open:
-  DECOMP-0004  the untyped-locals family, ROADMAP section 5. Read UNTYPED_LOCAL_IMPACT.md first.
-  DECOMP-0006  `base._002Ector(` - blocked behind DECOMP-0004
-  and the items in docs/articles/ImpostorSortScriptAudit.md, of which #1 (an unresolved call keeping
-  the whole register file as its arguments) is the largest not yet started
+Bằng chứng để bắt đầu:
+  - reports/TYPE_RECOVERY_ANALYSIS.md - thứ hạng bằng chứng, bốn defect đã mổ xẻ, phần còn lại
+    theo họ và theo assembly. Đọc trước khi chạm vào fixpoint.
+  - reports/TYPE_PROVENANCE.json - mọi unresolved load nhóm theo lệnh định nghĩa base, 027 và 032
+    cạnh nhau. iterations/032/reports/unresolved-loads.tsv là dữ liệu thô từng dòng.
+  - reports/OBJECT_BASE_TYPE_PROVENANCE.json - 69 load có base System.Object và 17 còn lại.
+  - reports/BASE_FIELD_OVERFLOW_ANALYSIS.md - ví dụ mẫu về phương pháp: phân loại trước khi đếm.
+    `CPP2IL_DUMP_LOADS=<file>` ghi một dòng cho mỗi load, từ đúng sự kiện mà bản tóm tắt đếm, và
+    có nêu tên lệnh định nghĩa base.
+  - reports/UNTYPED_LOCAL_IMPACT.md - 91% untyped local chứng minh được là không tốn gì. Vẫn đúng.
+  - reports/BUG_FAMILY_PRIORITY.md - các họ lỗi biên dịch kèm phân loại và file.
 
-Measured and reverted:
-  DECOMP-0011  typing the stand-in value a giving-up point pushes. Worse on every axis; recorded in
-               CLAUDE.md under "measured to be worth nothing" with the reason not to retry it.
+Đã sửa:
+  DECOMP-0001  15 method body xuất ra thành một throw mang stack trace của chính generator
+  DECOMP-0002  lời gọi constructor của một value type bị bỏ, nên giá trị vẫn là không
+  DECOMP-0003  một raiser được đưa exception đã dựng lại bị đặt tên theo exception khác
+  DECOMP-0007  một shared generic call không được trỏ lại instantiation của receiver
+  DECOMP-0008  generic field layout bỏ cuộc ở base có field và ở struct người dùng định nghĩa
+  DECOMP-0009  một load không được fold lại về base mà địa chỉ của nó đã được tính sẵn
+  DECOMP-0010  một runtime class trả về không ở chỗ cần RuntimeTypeHandle hoặc Type
+  DECOMP-0012  một entry RGCTX trong shared generic code được inflate không có argument
+  DECOMP-0013  một phi có input mâu thuẫn lấy kiểu của input đầu tiên
+  DECOMP-0014  shortcut kiểm tra kiểu của il2cpp không được fold theo hình dạng thật
+  DECOMP-0015  shared generic instantiation cao hơn receiver trong type fixpoint
+  DECOMP-0016  System.Object tại use site bị coi là bằng chứng dù nó là đỉnh của lattice
+  DECOMP-0017  hai trong ba hình dạng tính địa chỉ phần tử không được fold
+  DECOMP-0018  kiểu hợp lưu của một phi lan ngược quá sớm vào input
+  DECOMP-0020  DCE đếm lượt dùng nên không nhìn xuyên được một vòng phi
 
-Measured and closed without a change:
-  DECOMP-0005  the read side of the accessor pairing already covers List<T>._size; what is left of
-               that family has no public equivalent at all. WONT_FIX, with the numbers.
+Còn mở:
+  DECOMP-0004  họ untyped local, ROADMAP mục 5. Đọc UNTYPED_LOCAL_IMPACT.md trước.
+  DECOMP-0006  `base._002Ector(` - bị chặn sau DECOMP-0004
+  và các hạng mục trong docs/articles/ImpostorSortScriptAudit.md, trong đó #1 (một unresolved call
+  giữ toàn bộ register file làm argument của nó) là cái lớn nhất chưa bắt đầu
 
-Regression status:
-  clean. All thirteen shape checks pass, the field layout self-check reports 0 disagreements (a
-  gate, not a note), 0 unrecovered bodies, 0 generator failures. No file's audit total is worse than
-  at iteration 019. The checks match fixed strings, not patterns: DECOMP-0017's own check read
-  `[array2[num5]]` as a character class and failed against output that contained it.
+Đo rồi revert:
+  DECOMP-0011  gán kiểu cho giá trị thay thế mà một điểm bỏ cuộc đẩy vào. Xấu hơn trên mọi trục.
+  DECOMP-0019  nhận diện cặp so sánh qua chùm cờ A64. Lý luận đúng, nhận thêm 82 type check, và
+               giá trị bằng không sau khi DECOMP-0020 vào: 82 lần đó đều ở vùng code chết.
+  Cả hai ghi trong CLAUDE.md phần "đo ra không đáng gì" kèm lý do không làm lại.
 
-Blocked Unity tests:
-  U1-U9 in reports/BLOCKED_UNITY_TESTS.md. Scripts in Test/Scripts/unity/ refuse to run without a
-  real editor (exit 90). NOT passing. The verdict stays PASS_WITH_KNOWN_LIMITATIONS.
+Đo rồi đóng không thay đổi gì:
+  DECOMP-0005  phía đọc của accessor pairing đã phủ List<T>._size; phần còn lại không có API công
+               khai tương đương. WONT_FIX, kèm số liệu.
 
-Next action:
-  Four, roughly in order of what the evidence says they are worth.
+Trạng thái regression:
+  sạch. Mười lăm shape check pass, field layout self-check 0 disagreement (đây là cổng, không phải
+  ghi chú), 0 method body không phục hồi được, 0 generator failure, CS0165 vẫn là 5 như baseline.
+  Hai file xấu đi so với baseline 027 (Extensions +6, GraphicController +2), cả hai chỉ là
+  type_mismatch dịch chỗ với unresolved_load không đổi.
 
-  (a) **A field of a struct element: `array[i].y`.** The largest identifiable part of the 551
-      `Add`-defined bases left. The fold cannot name these as an ArrayAccess, because one element
-      of a `Vector3[]` is wider than one load of it and doing so reads a Vector3 as a float. They
-      need the element's *address* named as a local of the element's type, which is what
-      `ArrayRecovery.RecoverStructElementAddresses` produces - from the uses, at the end of
-      analysis, and only when the array is the base directly. Making it reach a computed base is
-      the work, and DECOMP-0017's negative result says to do it by extending the shape rather than
-      by walking the definition chain.
+  Shape check so khớp chuỗi cố định, không phải pattern, và KHÔNG neo vào tên biến có số thứ tự do
+  ILSpy sinh. Mỗi check đã được kiểm chứng là fail ở đúng các iteration chưa có fix của nó:
+  019 fail 5, 020 fail 5, 023 fail 3, 026 fail 2, 027 fail 2, 028 fail 1, 029 fail 1, 032 pass hết.
 
-  (b) **About 600 runtime structure reads counted as unresolved loads.** `Il2CppClass` at
-      `typeHierarchyDepth` (139), `0x28` (111), `interface_offsets_count` (84), `0xFC` (61),
-      `cctor_finished` (49), `Il2CppMethodInfo` at `0x53` (53), static field storage at `0x8` (49).
-      These have the right base and the right offset; what is missing is a pass that recognises the
-      shape, as `TypeCheckRecovery` and `InterfaceDispatchRecovery` do for theirs. The hierarchy
-      *walk* - `obj->klass->typeHierarchy[T->typeHierarchyDepth - 1] == T` - is the 139, and is (a)
-      from the previous state file, still unfinished.
+Unity test bị chặn:
+  U1-U9 trong reports/BLOCKED_UNITY_TESTS.md. Script trong Test/Scripts/unity/ từ chối chạy khi
+  không có editor thật (exit 90). KHÔNG phải đang pass. Verdict vẫn là PASS_WITH_KNOWN_LIMITATIONS.
 
-  (c) **An object's klass gets over-typed from a narrowed local.** `v1161 = [v563]` where v563 is
-      typed `Spine.RotateTimeline` gives `Il2CppClass<Spine.RotateTimeline>`, but the object's class
-      is not known at compile time - that is the point of the check being there. Same family as
-      DECOMP-0013 and DECOMP-0016: a type asserted where none is known. Worth making a klass load
-      decline when the source local's type came from a cast rather than from an allocation.
+Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
 
-  (d) **The enumerator in an address-taken stack slot** is still typed from the shared
-      instantiation, which is what DECOMP-0015's shape check deliberately does not claim. il2cpp
-      stores the enumerator into a stack slot and calls MoveNext on its address; the slot's type
-      should come from the value stored into it, which is now correctly typed. A store-into-slot
-      propagation, not a call-retarget.
+  (a) **930 load có base không kiểu, không từ một Add.** Họ lớn nhất còn lại. Phân theo lệnh định
+      nghĩa base: 311 một lệnh đọc memory mà không gì gán kiểu, 254 không có định nghĩa nào trong
+      thân hàm (giá trị vào hàm, hoặc một stack slot bị ghi ở chỗ khác), 245 một `AddressOf` - phần
+      lớn là truy cập tương đối frame pointer `[X29 - 0x34]`, tức local/struct bị spill lên stack.
+      Nhóm 245 này cần dựng lại biến trên frame, không phải một luật gán kiểu; nhóm 311 thì là
+      "kiểu của giá trị tại một địa chỉ" và gần với DECOMP-0009 hơn.
 
-  Note for whoever takes these: spine-unity *is* verifiable. Spine's own source is vendored at
-  `artifacts/reference/.../Assets/ThirdParties/Spine/Runtime/spine-csharp/`, so a recovery there can
-  be read against it even though `audit_recovered_scripts.py` only covers Assembly-CSharp. That is
-  where half the remaining unresolved loads are.
+  (b) **651 lệnh đọc cấu trúc runtime bị đếm như unresolved load.** `Il2CppClass` ở `0x28`
+      (byval_arg bitfield: attrs/type/valuetype - 103 lần), `0xFC` (stack_slot_size - 61),
+      `interface_offsets_count` (74 lần trước DCE, còn lại sau), `cctor_finished`,
+      `Il2CppMethodInfo` ở `0x53`, static field storage ở `0x8`. Chúng có base đúng và offset
+      đúng; thiếu là một pass nhận ra hình dạng, như TypeCheckRecovery và InterfaceDispatchRecovery
+      đã làm cho phần của chúng. Offset đọc từ StructDb qua
+      `Il2CppClassUsefulOffsets.TryGetOffset`, đừng viết số xuống.
+      KHÔNG được ép một cấu trúc runtime thành managed field chỉ để giảm số đếm.
 
-  And: Assembly-CSharp holds under a tenth of the loads. Before concluding a change did nothing,
-  read the per-assembly table in reports/TYPE_RECOVERY_ANALYSIS.md.
+  (c) **Một field của struct element: `array[i].y`.** Phần lớn nhất còn nhận diện được của 440
+      `computed_addr`. Không thể fold thành `ArrayAccess` vì một element của `Vector3[]` rộng hơn
+      một lệnh load của nó, làm vậy sẽ đọc một Vector3 thành một float. Chúng cần *địa chỉ* của
+      element được đặt tên thành một local có kiểu của element, đúng thứ
+      `ArrayRecovery.RecoverStructElementAddresses` sinh ra - từ phía sử dụng, ở cuối phân tích, và
+      chỉ khi array là base trực tiếp. Kết quả âm của DECOMP-0017 nói: làm bằng cách mở rộng hình
+      dạng, không phải bằng cách đi ngược chuỗi định nghĩa.
 
-Last successful stage:
-  iteration 026 - full validation, no file worse than 019, no regression.
+  (d) **Một unresolved call giữ toàn bộ register file làm argument.** Mục #1 trong
+      ImpostorSortScriptAudit.md, chưa bắt đầu. Mười sáu nguồn thô của một call chưa giải quyết làm
+      mọi thanh ghi trông như đã được định nghĩa, nên một call đã giải quyết ở sau có thể đọc một
+      thanh ghi không ai ghi và truyền giá trị vào hàm. Đây là mất type provenance ở mức nghiêm
+      trọng nhất: nó tạo ra `null` im lặng thay vì một placeholder được báo.
 
-Last failure:
-  DECOMP-0011, iteration 012 - reverted on measurement, not shipped. Iterations 020, 022, 024 and
-  025 were first cuts caught by measurement and narrowed before shipping. 024 and 025 are recorded
-  in CLAUDE.md under "measured to be worth nothing"; do not redo the affine generalisation.
-```
+  Lưu ý cho người tiếp nhận: spine-unity *có* nguồn đối chiếu. Nguồn của Spine được vendored tại
+  `artifacts/reference/.../Assets/ThirdParties/Spine/Runtime/spine-csharp/`, nên một bản phục hồi ở
+  đó đọc được đối chiếu nguồn dù `audit_recovered_scripts.py` chỉ phủ Assembly-CSharp. Đó là chỗ
+  giữ hơn 40% unresolved load còn lại.
 
-## Environment notes
+  Và: Assembly-CSharp giữ chưa tới một phần chín số load. Trước khi kết luận một thay đổi không làm
+  gì, đọc bảng theo assembly trong reports/TYPE_RECOVERY_ANALYSIS.md.
 
-The container has no .NET SDK and no Unity. `dotnet` came from
-`https://dot.net/v1/dotnet-install.sh --channel 10.0 --install-dir /home/user/.dotnet`; add it to
-`PATH` and set `DOTNET_ROOT` for `Test/Scripts/compile_recovered_scripts.sh`, which finds Roslyn
-under it. There is no `/usr/bin/time`.
+Giai đoạn thành công gần nhất:
+  iteration 032 - kiểm định đầy đủ, CS0165 không đổi, Pinata cùng chiều, không regression.
 
-**Unity itself is unavailable here**, so Unity batchmode import, script compilation and any runtime
-smoke test could not be run. Roslyn against the assemblies the rip ships is the compilation
-measurement that was available; it is weaker than Unity's for Unity-specific assemblies and stricter
-in one direction, because a framework member IL2CPP stripped from the build reads as an error against
-the stub even though the export is fine against a real Unity install.
+Lần thất bại gần nhất:
+  iteration 030 - DCE chỉ đánh dấu định nghĩa cuối. Tốt hơn trên MỌI cột dễ đọc và vẫn bị loại vì
+  nó xoá code còn sống; dấu hiệu duy nhất là CS0165 từ 5 lên 12. Đây là ví dụ mạnh nhất trong repo
+  cho nguyên tắc semantic correctness > diagnostic reduction.
 
-## The loop, as commands
+## Ghi chú môi trường
+
+Container không có .NET SDK và không có Unity. `dotnet` lấy từ
+`https://dot.net/v1/dotnet-install.sh --channel 10.0 --install-dir /home/user/.dotnet`; thêm nó vào
+`PATH` và đặt `DOTNET_ROOT` cho `Test/Scripts/compile_recovered_scripts.sh`, script này tìm Roslyn
+bên dưới đó. Không có `/usr/bin/time`; dùng `date +%s`.
+
+**Unity không có ở đây**, nên Unity batchmode import, biên dịch script và mọi runtime smoke test
+đều không chạy được. Phép đo biên dịch có được là Roslyn chạy trên chính các assembly mà bản rip xuất kèm; nó yếu hơn
+phép đo của Unity với các assembly đặc thù Unity, và nghiêm hơn theo một hướng: một thành viên
+framework mà IL2CPP đã strip khỏi build sẽ đọc thành lỗi khi đối chiếu stub, dù bản xuất ra vẫn đúng
+so với một bản cài Unity thật.
+
+Thêm một phép đo bắt buộc cho mọi thay đổi chạm vào lõi phân tích: chạy lại cả `Test/Input/Pinata`
+(metadata v24.2, x86) và so `unresolved loads`, `method-not-found`, số file, `generator failure` và
+`field layout self-check`. Impostor là ARM64/v31.1, nên một thay đổi chỉ đúng cho một trong hai sẽ
+hiện ra ở đây.
+
+## Vòng lặp, viết thành lệnh
 
 ```
 dotnet build AssetRipper.slnx -c Release

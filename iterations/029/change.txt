@@ -1,0 +1,1 @@
+DECOMP-0019: TypeCheckRecovery nhận diện cặp so sánh khi A64 biểu diễn bằng flag bundle (Z của Subtract).

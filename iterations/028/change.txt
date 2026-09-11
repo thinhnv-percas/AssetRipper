@@ -1,0 +1,2 @@
+DECOMP-0018: kiểu của một phi lan ngược vào input là bằng chứng yếu, nên chuyển xuống pass thứ hai
+của type fixpoint, sau khi định nghĩa của chính input đã có lượt.
