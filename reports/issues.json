@@ -461,5 +461,57 @@
     "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0020",
     "confidence": 95,
     "note": "Phai danh dau MOI dinh nghia cua mot local, khong chi cai cuoi. Ban dau (iteration 030) chi danh dau cai cuoi va cho con so dep hon nhieu - 2458 load, Roslyn 315, REAL_ERROR 754, 15 file tot len - nhung CS0165 'use of unassigned local variable' tang tu 5 len 12, la phan nhin thay duoc cua viec xoa code con song; phan khong nhin thay duoc la mot local giu lai gia tri cua mot dinh nghia khac. Con so dep hon do khong duoc nhan. Ba shape check hong o iteration 030 vi neo vao ten bien co so thu tu do ILSpy sinh, khong lien quan den ngu nghia; ca ba da doi sang hinh dang khong phu thuoc so thu tu."
+  },
+  {
+    "id": "DECOMP-0021",
+    "severity": "ERROR",
+    "category": "PLATFORM_SUPPORT",
+    "status": "FIXED",
+    "iterationFound": 33,
+    "iterationFixed": 33,
+    "platform": "IOS_ONLY",
+    "generatedFile": "toan bo script cua ban rip iOS xuat ra thanh dummy class",
+    "referenceFile": "khong co nguon doi chieu cho Jelly Blast",
+    "method": "iOSGameStructure ctor, MachOFile ctor, MachOLoadCommand.Read",
+    "compilerError": "khong co - khong co script nao duoc phuc hoi de bien dich",
+    "observed": "Cpp2IL [Error] : No codegen modules found for mscorlib! Aborting search. / Got Binary codereg: 0x0, metareg: 0x0 - trong khi metadata da nap xong truoc do (Initialized Metadata in 260ms)",
+    "expected": "binary il2cpp duoc dinh vi dung, va neu binary bi ma hoa thi bao dung nguyen nhan tai loader",
+    "rootCause": "Il2CppGameAssemblyPath = Path.Join(appPath, name) tro vao app executable. Unity 2019.3 chuyen player vao mot framework nhung, nen tren fixture nay do la launcher 70896 byte khong chua ma managed nao, con il2cpp that nam o Frameworks/UnityFramework.framework/UnityFramework 51406160 byte. Rieng viec do lam thong bao loi hien ra o tang khac han noi co van de.",
+    "affectedProject": "Source/AssetRipper.Import, Source/External/LibCpp2IL",
+    "affectedModule": "iOSGameStructure.GetIl2CppBinaryPath, MachOEncryptionInfoCommand, MachOFile ctor",
+    "evidence": [
+      "chuoi 'il2cpp' xuat hien 243 lan trong UnityFramework va 0 lan trong app executable",
+      "sau khi sua: metadata registration 0x0 -> 0x2D234B8, vi no la cau truc trong __DATA va __DATA khong bi ma hoa",
+      "Android va Pinata khong doi mot con so nao: 2870 load, 884 REAL_ERROR, 340 Roslyn, 9177 load Pinata"
+    ],
+    "regressionTest": "Test/Scripts/download_test_inputs.sh in trang thai fixture; Android va Pinata la cong regression",
+    "confidence": 95,
+    "note": "Nua sau cua bug la FIXTURE_ENCRYPTED chu khong phai bug: UnityFramework mang LC_ENCRYPTION_INFO_64 cryptid 1 phu toan bo __TEXT. Entropy 7.997/8, 0 lenh ret trong 1MB, va cac chuoi mscorlib.dll / Assembly-CSharp.dll xuat hien 0 lan trong 51MB vi __cstring nam trong vung ma hoa. Code registration duoc nhan ra qua chinh ten module nen khong the tim duoc tren ban App Store. MachOFile gio bao dieu do tai loader. Luu y: moi case trong switch cua MachOLoadCommand.Read phai tieu thu het payload - dang 64-bit co bon byte padding sau cryptid, bo sot lam load command sau bi doc tu giua command nay (da gap, hien ra thanh OverflowException)."
+  },
+  {
+    "id": "DECOMP-0022",
+    "severity": "WARNING",
+    "category": "IL2CPP",
+    "status": "CLASSIFIED_NEEDS_RUNTIME_INFO",
+    "iterationFound": 33,
+    "iterationFixed": null,
+    "platform": "ANDROID_MEASURED_IOS_UNTESTABLE",
+    "generatedFile": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs va 244 load khac",
+    "referenceFile": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Collections/OrderedDictionary.cs dong 135",
+    "method": "Spine.Collections.OrderedDictionary`2.Insert va 6 method khac cua cung type",
+    "compilerError": "khong truc tiep; cac load la placeholder",
+    "observed": "245 load co base dinh nghia boi Move dest, AddressOf(x), truoc day ghi la mot ho 'frame-pointer spill' duy nhat",
+    "expected": "phan loai dung truoc khi lam",
+    "rootCause": "Khong phai mot ho. La ba: (A) 109 load X29 trong than fully shared generic, noi slot duoc cap phat dong bang mot trinh tu alloca doc Il2CppClass.stack_slot_size (offset 0xFC) roi tru vao SP va memset - kich thuoc va kieu cua nhung slot ay chi ton tai luc chay, vi chung la tham so kieu that su; (B) 124 load qua dia chi cua mot stack slot da biet, noi [&stack_-88 + 0x14] chinh xac la stack_-74 bang so hoc tren layout frame, va cac slot dich da co kieu dung; (C) 23 load X29 trong than khong generic, spill thuong.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "StackAnalyzer, SsaForm.RetargetAddressTakesOverwrittenBeforeUse",
+    "evidence": [
+      "87/109 cua nhom A nam trong OrderedDictionary`2, 12 nua trong state machine <GetEnumerator>d__34 cua no",
+      "trinh tu alloca doc duoc trong ban phuc hoi: [Il2CppClass<TKey>+FC], + 15, & 0x1FFFFFFF0, SP -= size, memset - 0xFC la stack_slot_size theo StructDb/2022.3.62f2-x64.json.gz",
+      "nhom B, SkeletonGraphic.MatchRectTransformMultipleRenderers: Move v537, &v190 @ stack_-88_v3 (Single) roi sau doc [v537], [v537+4] ... [v537+14] - nguon la `combinedBounds = bounds`, mot Bounds 24 byte = sau float o dung cac offset do"
+    ],
+    "regressionTest": "chua co - chua sua gi",
+    "confidence": 90,
+    "note": "Nhom A la diem dung hop le: phan tich tinh hien tai khong cung cap duoc thong tin can thiet, va do la ket qua chu khong phai that bai. Viec co the lam cho nhom A la nhan dien ca trinh tu alloca nhu scaffolding runtime va bo di - than ham ngan lai nhung cac load van khong co kieu, va the la dung. Nhom B la muc tieu tiep theo duoc khuyen nghi, voi hai rang buoc: chi viet lai khi offset la hang so va slot dich ton tai, va version SSA phai lay tu cung co che RetargetAddressTakesOverwrittenBeforeUse - chon sai version tao ra mot gia tri sai im lang, la loai loi duy nhat khong duoc phep. Xem reports/FRAME_SLOT_ANALYSIS.md."
   }
 ]

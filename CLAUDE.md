@@ -660,6 +660,45 @@ find it; `strings` without `-el` does find method and type names.
   đều đổi nó. Ba check hỏng ở iteration 030 vì đúng lý do đó, không liên quan gì đến ngữ nghĩa, và
   mất một vòng để nhận ra. Neo vào chính câu lệnh (`.Count < items.Length)`, `dictionary[array2[`).
 
+- **Trên iOS, il2cpp không nằm trong app executable.** Unity 2019.3 chuyển player vào một
+  framework nhúng, nên `Payload/<name>.app/<name>` là một launcher vài chục KB và mã managed nằm ở
+  `Frameworks/UnityFramework.framework/UnityFramework` — 70 KB so với 51 MB trên fixture Jelly Blast,
+  và chuỗi `il2cpp` xuất hiện 243 lần ở file sau, 0 lần ở file trước. Đưa sai file vào thì lỗi hiện
+  ra là "No codegen modules found for mscorlib", đọc như một vấn đề metadata trong khi metadata đã
+  nạp xong từ trước. Phép đo chứng minh binary đúng đã được nạp là **metadata registration đi từ
+  `0x0` lên một địa chỉ thật**, vì nó là cấu trúc trong `__DATA`.
+- **Một bản iOS tải từ App Store có `__TEXT` bị FairPlay mã hoá và không công cụ tĩnh nào đọc
+  được.** `LC_ENCRYPTION_INFO_64` với `cryptid` khác 0 phủ toàn bộ `__TEXT`, mang theo cả `__cstring`
+  — và code registration được nhận ra qua chính *tên module*, nên `mscorlib.dll` xuất hiện 0 lần
+  trong cả 51 MB. `__DATA` thì không bị mã hoá, nên metadata registration vẫn tìm được: nửa đầu
+  pipeline chạy, nửa sau thì không. Ba phép đo phân biệt ciphertext với mã máy mà không cần khoá:
+  entropy 7,997 trên 8 (so với 3,638 ở `__DATA`), **không có một lệnh `ret` nào** trong 1 MB, và tỉ
+  lệ khớp mặt nạ prologue đúng bằng tỉ lệ ngẫu nhiên. Sự tồn tại của `SC_Info/*.sinf` xác nhận đây
+  là bản từ store. `MachOFile` giờ báo điều này tại loader; **báo lỗi input tại input, đừng patch
+  tầng dưới để che**. Và lưu ý mọi case trong switch của `MachOLoadCommand.Read` phải tiêu thụ hết
+  payload của nó: dạng 64-bit có bốn byte padding sau `cryptid`, bỏ sót làm load command sau bị đọc
+  từ giữa command này.
+- **Một thân generic chia sẻ hoàn toàn cấp phát stack lúc chạy, và kiểu của những ô đó không tồn tại
+  tĩnh.** Trình tự là: đọc `Il2CppClass.stack_slot_size` (offset 0xFC trên 2022.3) của mỗi tham số
+  kiểu, cộng 15 rồi `and 0x1FFFFFFF0` để làm tròn lên bội số 16, trừ vào SP, rồi `memset`. 87 trong
+  109 load `[X29 - k]` không có kiểu của bản rip nằm trong đúng một type như thế,
+  `Spine.Collections.OrderedDictionary<TKey,TValue>`. Đây là điểm dừng hợp lệ chứ không phải thất
+  bại: `TKey`/`TValue` là tham số kiểu thật sự, không phải placeholder suy ra được, nên không có
+  bằng chứng tĩnh nào gán kiểu cho chúng. Việc *có thể* làm là nhận diện cả trình tự alloca như
+  scaffolding runtime và bỏ đi.
+- **`[&stack_-88 + 0x14]` chính xác là `stack_-74`, và đó là số học chứ không phải suy đoán.**
+  `StackAnalyzer.NameForSlot` đặt tên mỗi ô stack theo chính offset của nó, nên một lệnh đọc qua địa
+  chỉ của một ô với offset hằng số có đích xác định được, và các ô đích thường đã có kiểu đúng —
+  `combinedBounds = bounds` trong `SkeletonGraphic` là sáu lần load/store float ở đúng offset 0x0
+  đến 0x14 của một `Bounds`. 124 load thuộc hình dạng này. Cái khó duy nhất là **chọn version SSA**:
+  địa chỉ được lấy ở `stack_-88_v3` còn các ô được ghi ở `_v5`, và chọn sai version tạo ra một giá
+  trị sai im lặng. Phải dùng cùng cơ chế `SsaForm.RetargetAddressTakesOverwrittenBeforeUse`, và khi
+  không xác định được thì để nguyên placeholder.
+- **Một họ bug đặt tên theo triệu chứng vẫn phải phân loại trước khi làm — lần thứ hai.** "245
+  frame-pointer spill" là ba thứ khác nhau: 109 cần thông tin runtime, 124 là một phép viết lại
+  operand chứ không phải gán kiểu, 23 là spill thường rải trên bảy method. Đúng như 850 load "past
+  the last field" trước đây.
+
 ### Things measured to be worth nothing — do not redo them
 - **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
   thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:

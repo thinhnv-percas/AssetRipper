@@ -1,0 +1,2 @@
+DECOMP-0021: iOSGameStructure trỏ Il2CppGameAssemblyPath vào UnityFramework.framework thay vì
+app executable, và Mach-O bị FairPlay mã hoá giờ được báo ngay tại loader.

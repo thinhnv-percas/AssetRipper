@@ -58,3 +58,18 @@ UNITY=/path/to/Unity/2022.3.62f2/Editor/Unity \
 `run_all.sh` stops at the first failing stage, since every later one depends on it, and writes each
 stage's `Editor.log` into `iterations/<N>/reports/unity/`. Record the result in the iteration and in
 `AGENT_STATE.md`; only then may the verdict move off `PASS_WITH_KNOWN_LIMITATIONS`.
+
+## Ghi chú từ iteration 033: fixture iOS cũng bị chặn, vì lý do khác
+
+Ngoài U1-U9 (thiếu Unity), từ iteration 033 có thêm một hạng mục bị chặn vì thiếu **input**, không
+phải thiếu công cụ:
+
+| # | Kiểm tra | Vì sao bị chặn | Cần gì để chạy được |
+|---|---|---|---|
+| I1 | Lift mã máy ARM64 trên iOS | `__TEXT` của UnityFramework bị FairPlay mã hoá (`cryptid` 1, phủ toàn bộ `__TEXT`) | một bản build iOS không bị store mã hoá (ad-hoc / development / TestFlight trước khi store ký lại) |
+| I2 | Type recovery, DCE, sinh C# trên iOS | như I1 | như I1 |
+| I3 | Field layout self-check trên iOS | phụ thuộc code registration, mà nó được tìm qua tên module nằm trong `__cstring` đã mã hoá | như I1 |
+| I4 | So sánh C# sinh ra giữa Android và iOS theo từng method | như I1, và hai fixture hiện tại là hai game khác nhau với hai bản Unity khác nhau | như I1, tốt nhất là cùng project với một bản Android |
+
+Trạng thái của I1-I4 là **KHÔNG KIỂM TRA ĐƯỢC**, không phải FAIL và không phải PASS. Bằng chứng ở
+`reports/IOS_INPUT_ANALYSIS.md`. Repository không tìm cách giải mã fixture và không hướng dẫn làm.

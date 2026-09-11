@@ -5,27 +5,40 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 032 (hoàn tất; 030 và 031 là các bản đầu, không commit; DECOMP-0019 đã revert)
+Iteration hiện tại: 033 (hoàn tất; thêm fixture iOS, DECOMP-0021 sửa, DECOMP-0022 phân loại)
 
 Commit decompiler:
-  claude/read-current-repository-daqxc1 @ 35e9ec6, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
+  claude/read-current-repository-daqxc1 @ 37576f2, base 69a31182cfe6f4c30f5d1f46d5defd3bf412e55c
 
-Input:
-  Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
-  sha256 8e5ab4a9fa42d5f25a1933cd9f931624ee95589add77b7f6381c447dd9fc8aaf
-  giải nén tại Test/Input/Impostor, đã xác nhận giống từng byte cho libil2cpp.so,
-  global-metadata.dat và data.unity3d
+Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và verify, không phụ thuộc máy:
 
-Nguồn đối chiếu:
-  thinhabc01/Impostor-Sort-Puzzle-Pro @ a5b796283d7d7cc457b7c73ebf7b5869776d755b (tag v1)
-  Unity 2022.3.62f2, khớp binary. Giải nén tại artifacts/reference/Impostor-Sort-Puzzle-Pro.
-  Game thứ hai: Test/Input/Pinata (đã commit trong repo, metadata v24.2) - dùng làm kiểm chứng
-  độc lập cho mọi thay đổi chạm vào lõi phân tích.
+  ANDROID (TRẠNG THÁI: OK)
+    Impostor-Sort-Puzzle-Pro v1, impostor-sort.apk
+    sha256 8e5ab4a9fa42d5f25a1933cd9f931624ee95589add77b7f6381c447dd9fc8aaf
+    Test/Input/Impostor, ELF libil2cpp.so arm64-v8a, metadata v31.1, Unity 2022.3.62f2
+    Nguồn đối chiếu: thinhabc01/Impostor-Sort-Puzzle-Pro @ a5b7962 (tag v1),
+    giải nén tại artifacts/reference/Impostor-Sort-Puzzle-Pro. Spine vendored nên spine-unity
+    cũng đối chiếu được.
+
+  ANDROID thứ hai (TRẠNG THÁI: OK) — cổng kiểm chứng độc lập BẮT BUỘC
+    Test/Input/Pinata (đã commit trong repo), x86, metadata v24.2.
+    Khác cả kiến trúc lẫn metadata version so với Impostor, nên nó bắt được phần lớn loại lỗi
+    "đúng cho một codegen, sai cho codegen kia".
+
+  iOS (TRẠNG THÁI: FIXTURE_ENCRYPTED)
+    Jelly Blast 1.1, Jelly.Blast.1.1.ipa, 69.828.168 byte
+    sha256 4992cab50741c789c566b1456d6774073dba40578e12fd79113d22b410e94c48
+    Test/Input/JellyBlast, bundle io.heseri.blast, Unity 2022.3.53f1, metadata v31.1, arm64
+    il2cpp: Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework
+    metadata: Payload/JellyBlast.app/Data/Managed/Metadata/global-metadata.dat
+    UnityFramework mang LC_ENCRYPTION_INFO_64 cryptid 1, phủ toàn bộ __TEXT. Đây là bản App Store
+    và __TEXT là ciphertext trên đĩa. Chỉ nửa đầu pipeline kiểm tra được trên iOS; nửa sau là
+    KHÔNG KIỂM TRA ĐƯỢC, không phải PASS. Xem reports/IOS_INPUT_ANALYSIS.md.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 032.
+  rảnh giữa hai iteration. Baseline cho iteration sau là 033 (Android giống 032 từng con số).
 
-Iteration 032 so với baseline gốc:
+Android — iteration 033 so với baseline gốc (giống 032 từng con số):
   method body không phục hồi được   15 -> 0
   generator failure                  ?  -> 0
   audit REAL_ERROR                 2162 -> 884
@@ -81,6 +94,10 @@ Bằng chứng để bắt đầu:
     có nêu tên lệnh định nghĩa base.
   - reports/UNTYPED_LOCAL_IMPACT.md - 91% untyped local chứng minh được là không tốn gì. Vẫn đúng.
   - reports/BUG_FAMILY_PRIORITY.md - các họ lỗi biên dịch kèm phân loại và file.
+  - reports/IOS_INPUT_ANALYSIS.md - fixture iOS: nhận dạng, bảng section Mach-O, bằng chứng mã hoá,
+    và bảng nói rõ tầng nào kiểm tra được.
+  - reports/CROSS_PLATFORM_MATRIX.md - đối chiếu hai nền tảng theo tầng và theo họ bug.
+  - reports/FRAME_SLOT_ANALYSIS.md - 245 load AddressOf tách thành ba nhóm, đọc trước khi làm (a).
 
 Đã sửa:
   DECOMP-0001  15 method body xuất ra thành một throw mang stack trace của chính generator
@@ -98,8 +115,12 @@ Bằng chứng để bắt đầu:
   DECOMP-0017  hai trong ba hình dạng tính địa chỉ phần tử không được fold
   DECOMP-0018  kiểu hợp lưu của một phi lan ngược quá sớm vào input
   DECOMP-0020  DCE đếm lượt dùng nên không nhìn xuyên được một vòng phi
+  DECOMP-0021  iOS: il2cpp nằm trong UnityFramework.framework, và Mach-O bị mã hoá báo sai tầng
 
 Còn mở:
+  DECOMP-0022  245 load qua một địa chỉ được lấy, đã PHÂN LOẠI thành ba nhóm. Nhóm A (109) cần
+               thông tin runtime - đừng cố gán kiểu. Nhóm B (124) là mục tiêu tiếp theo.
+               Xem reports/FRAME_SLOT_ANALYSIS.md.
   DECOMP-0004  họ untyped local, ROADMAP mục 5. Đọc UNTYPED_LOCAL_IMPACT.md trước.
   DECOMP-0006  `base._002Ector(` - bị chặn sau DECOMP-0004
   và các hạng mục trong docs/articles/ImpostorSortScriptAudit.md, trong đó #1 (một unresolved call
@@ -129,14 +150,37 @@ Unity test bị chặn:
   U1-U9 trong reports/BLOCKED_UNITY_TESTS.md. Script trong Test/Scripts/unity/ từ chối chạy khi
   không có editor thật (exit 90). KHÔNG phải đang pass. Verdict vẫn là PASS_WITH_KNOWN_LIMITATIONS.
 
+Trạng thái hai nền tảng:
+  Xem reports/CROSS_PLATFORM_MATRIX.md. Tóm lại: phát hiện cấu trúc, đọc container ELF/Mach-O, đọc
+  metadata v31.1 và tìm metadata registration đều PASS trên cả hai. Code registration, lift mã máy,
+  type recovery, sinh C# và field layout self-check là KHÔNG KIỂM TRA ĐƯỢC trên iOS vì fixture bị
+  mã hoá. Quy tắc: một họ bug thuần metadata (ancestor, generic instance, value type base, open
+  generic) không đọc một byte mã máy nào nên dùng chung logic và không cần kiểm chứng chéo; một họ
+  thuộc lift mã máy hoặc frame/stack thì cần, và hiện không làm được - trạng thái iOS phải ghi
+  KHÔNG KIỂM TRA ĐƯỢC.
+
 Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
 
-  (a) **930 load có base không kiểu, không từ một Add.** Họ lớn nhất còn lại. Phân theo lệnh định
-      nghĩa base: 311 một lệnh đọc memory mà không gì gán kiểu, 254 không có định nghĩa nào trong
-      thân hàm (giá trị vào hàm, hoặc một stack slot bị ghi ở chỗ khác), 245 một `AddressOf` - phần
-      lớn là truy cập tương đối frame pointer `[X29 - 0x34]`, tức local/struct bị spill lên stack.
-      Nhóm 245 này cần dựng lại biến trên frame, không phải một luật gán kiểu; nhóm 311 thì là
-      "kiểu của giá trị tại một địa chỉ" và gần với DECOMP-0009 hơn.
+  (a) **Nhóm B của DECOMP-0022: 124 load qua địa chỉ của một stack slot đã biết.** Đây là mục tiêu
+      tiếp theo được khuyến nghị, và nó KHÔNG phải bài toán gán kiểu. `StackAnalyzer.NameForSlot`
+      đặt tên slot theo chính offset của nó (`stack_-88`), nên `[&stack_-88 + 0x14]` chính xác là
+      `stack_-74` bằng số học trên layout frame đã biết, và các slot đích đã có kiểu đúng. Cái khó
+      duy nhất là chọn version SSA: ở ví dụ mẫu địa chỉ được lấy ở `stack_-88_v3` còn các slot được
+      ghi ở `_v5`. Hai ràng buộc bắt buộc: chỉ viết lại khi offset là hằng số và slot đích tồn tại;
+      version phải lấy từ cùng cơ chế `SsaForm.RetargetAddressTakesOverwrittenBeforeUse` dùng, và
+      nếu không xác định được thì ĐỂ NGUYÊN placeholder - chọn sai version tạo ra một giá trị sai
+      im lặng, là loại lỗi duy nhất không được phép. Đọc reports/FRAME_SLOT_ANALYSIS.md trước.
+
+  (a2) **Nhóm A của DECOMP-0022: 109 load trong thân generic chia sẻ hoàn toàn — ĐỪNG cố gán kiểu.**
+      Đã có bằng chứng rõ ràng rằng nhóm này cần thông tin runtime: slot được cấp phát động bằng
+      một trình tự alloca đọc `Il2CppClass.stack_slot_size` (0xFC) rồi trừ vào SP và memset, nên
+      kích thước và kiểu của chúng chỉ tồn tại lúc chạy — chúng là tham số kiểu thật sự, không phải
+      placeholder suy ra được. Việc *có thể* làm: nhận diện cả trình tự alloca như scaffolding
+      runtime và bỏ đi, giống cách TypeCheckRecovery làm với phần của nó. Thân hàm ngắn lại, các
+      load vẫn không có kiểu, và thế là đúng. 61 lệnh đọc 0xFC trong bản rip đều thuộc đây.
+
+  (a3) **311 load `Move:memory` không kiểu và 254 load không có định nghĩa trong thân hàm.** Hai
+      nhóm còn lại của 930. Chưa phân loại. Làm giống cách đã làm với 245: phân loại trước khi đếm.
 
   (b) **651 lệnh đọc cấu trúc runtime bị đếm như unresolved load.** `Il2CppClass` ở `0x28`
       (byval_arg bitfield: attrs/type/valuetype - 103 lần), `0xFC` (stack_slot_size - 61),
@@ -170,7 +214,8 @@ Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
   gì, đọc bảng theo assembly trong reports/TYPE_RECOVERY_ANALYSIS.md.
 
 Giai đoạn thành công gần nhất:
-  iteration 032 - kiểm định đầy đủ, CS0165 không đổi, Pinata cùng chiều, không regression.
+  iteration 033 - fixture iOS thêm vào và phân tích xong, DECOMP-0021 sửa, Android và Pinata không
+  đổi một con số nào.
 
 Lần thất bại gần nhất:
   iteration 030 - DCE chỉ đánh dấu định nghĩa cuối. Tốt hơn trên MỌI cột dễ đọc và vẫn bị loại vì

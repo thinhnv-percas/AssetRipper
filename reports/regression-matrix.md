@@ -105,10 +105,19 @@ verified rather than asserted. 007 and 014 are baseline re-verifications at the 
 | **030** | 754 | 315 | DECOMP-0020 bản đầu, chỉ đánh dấu định nghĩa cuối - CS0165 5 lên 12, xoá code còn sống; không nhận |
 | **031** | 884 | 340 | cùng bản với đánh dấu mọi định nghĩa, nhưng vẫn còn DECOMP-0019 |
 | 032 | 884 | 340 | DECOMP-0020 bản nhận, DECOMP-0019 đã revert |
+| 033 | 884 | 340 | DECOMP-0021 (iOS) — Android không đổi một con số nào, đây là điều cần |
 
 Both of the two rows in bold are changes that looked right and were not, and both were caught by
 measurement within one iteration. Iteration 012's is recorded in `CLAUDE.md` under "things measured to
 be worth nothing", with the reason not to retry it.
+
+## Hai nền tảng
+
+Từ iteration 033, bảng này chỉ đo Android. Trạng thái iOS ở
+`reports/CROSS_PLATFORM_MATRIX.md`; hai cột REAL_ERROR và Roslyn **không tồn tại cho iOS** vì
+fixture bị FairPlay mã hoá nên không có script nào được phục hồi để đo. Đừng đọc "Android không đổi"
+thành "không có gì xảy ra": ở iteration 033, đúng việc Android không đổi một con số nào là kết quả
+cần có, vì thay đổi nằm hoàn toàn ở nhánh iOS và ở LibCpp2IL dùng chung.
 
 ## What did not regress
 
