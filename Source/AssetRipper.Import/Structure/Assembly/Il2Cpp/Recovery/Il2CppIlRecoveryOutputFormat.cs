@@ -376,7 +376,73 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		{
 			unresolvedLoadExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {ExampleFor(methodContext, operand)}");
 		}
+
+		RecordUnresolvedLoadCase(methodContext, memory, kind);
 	}
+
+	/// <summary>
+	/// Appends one line of evidence per unresolved load, when <c>CPP2IL_DUMP_LOADS</c> names a file.
+	/// </summary>
+	/// <remarks>
+	/// The summary says how many loads of each kind there are and shows one example, which is enough
+	/// to choose what to work on and not enough to work on it. A family of 850 is only worth treating
+	/// as one bug if the cases really do share a cause, and that cannot be read off a single example -
+	/// the last time a family was picked apart this way it turned out to be three causes and a
+	/// measurement artefact. Each line here carries what is needed to tell them apart: the base's
+	/// declared type, the offset asked for, and the largest offset any field of that type chain
+	/// declares, so "past the last field" can be checked rather than believed.
+	/// </remarks>
+	private void RecordUnresolvedLoadCase(MethodAnalysisContext methodContext, MemoryOperand memory, string kind)
+	{
+		if (unresolvedLoadCaseFile is null)
+		{
+			return;
+		}
+
+		TypeAnalysisContext? baseType = (memory.Base as LocalVariable)?.Type;
+		TypeAnalysisContext? owner = (baseType as StaticFieldStorageTypeAnalysisContext)?.OwnerType ?? baseType;
+
+		long largest = 0;
+		int fieldCount = 0;
+		for (TypeAnalysisContext? candidate = owner; candidate is not null; candidate = candidate.BaseType)
+		{
+			foreach (FieldAnalysisContext field in candidate.Fields)
+			{
+				if (!field.IsStatic && field.BackingData?.FieldOffset is { } fieldOffset)
+				{
+					fieldCount++;
+					if (fieldOffset > largest)
+					{
+						largest = fieldOffset;
+					}
+				}
+			}
+		}
+
+		string row = string.Join('\t',
+			kind,
+			methodContext.DeclaringType?.DeclaringAssembly?.Name ?? "",
+			methodContext.DeclaringType?.FullName ?? "",
+			methodContext.Name,
+			owner?.FullName ?? "<untyped>",
+			owner?.BaseType?.FullName ?? "",
+			owner?.GetType().Name ?? "",
+			memory.Addend.ToString("X"),
+			largest.ToString("X"),
+			fieldCount.ToString(),
+			memory.Size.ToString(),
+			memory.ToString());
+
+		lock (unresolvedLoadCaseLock)
+		{
+			unresolvedLoadCaseWriter ??= new StreamWriter(unresolvedLoadCaseFile, append: false);
+			unresolvedLoadCaseWriter.WriteLine(row);
+		}
+	}
+
+	private static readonly string? unresolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_LOADS");
+	private static readonly object unresolvedLoadCaseLock = new();
+	private static StreamWriter? unresolvedLoadCaseWriter;
 
 	/// <summary>
 	/// Counts an untyped local by what defines it, which is where a missing propagation rule shows.
@@ -1234,6 +1300,11 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		void ReportUnresolvedLoads()
 		{
+			lock (unresolvedLoadCaseLock)
+			{
+				unresolvedLoadCaseWriter?.Flush();
+			}
+
 			if (unresolvedLoadKinds.IsEmpty)
 			{
 				return;

@@ -1,0 +1,1 @@
+Iteration 014 plus DECOMP-0012: RgctxResolver.ResolveTypeEntry uses the definition's own generic parameters as the arguments when the instance is an uninflated definition, as ResolveMethodEntry already did.

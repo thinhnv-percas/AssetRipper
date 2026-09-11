@@ -1,0 +1,135 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  AssetRipper.AssemblyDumper.Downloader -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.Downloader/Release/AssetRipper.AssemblyDumper.Downloader.dll
+  AssetRipper.AssemblyDumper.Recompiler -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.Recompiler/Release/AssetRipper.AssemblyDumper.Recompiler.dll
+  AssetRipper.AssemblyDumper.NuGetFixer -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.NuGetFixer/Release/AssetRipper.AssemblyDumper.NuGetFixer.dll
+  AssetRipper.Numerics -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Numerics/Release/AssetRipper.Numerics.dll
+  AssetRipper.AssemblyDumper.Utils -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.AssemblyDumper.Utils/Release/AssetRipper.AssemblyDumper.Utils.dll
+  AssetRipper.Configuration -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Configuration/Release/AssetRipper.Configuration.dll
+  WasmDisassembler -> /home/user/AssetRipper/Source/0Bins/Other/WasmDisassembler/Release/WasmDisassembler.dll
+  AssetRipper.SerializationLogic -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.SerializationLogic/Release/AssetRipper.SerializationLogic.dll
+  AssetRipper.DocExtraction -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.DocExtraction/Release/AssetRipper.DocExtraction.dll
+  AssetRipper.IO.Files -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.IO.Files/Release/AssetRipper.IO.Files.dll
+  AssetRipper.Yaml -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Yaml/Release/AssetRipper.Yaml.dll
+  AssetRipper.AssemblyDumper.NativeEnumExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper.NativeEnumExtractor/Release/AssetRipper.AssemblyDumper.NativeEnumExtractor.dll
+  StableNameDotNet -> /home/user/AssetRipper/Source/0Bins/Other/StableNameDotNet/Release/StableNameDotNet.dll
+  AssetRipper.DocExtraction.ConsoleApp -> /home/user/AssetRipper/Source/0Bins/AssetRipper.DocExtraction.ConsoleApp/Release/AssetRipper.DocExtraction.ConsoleApp.dll
+  AssetRipper.Assets -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Assets/Release/AssetRipper.Assets.dll
+  AssetRipper.GUI.Licensing.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.GUI.Licensing.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.GUI.Licensing.SourceGenerator.dll
+  AssetRipper.GUI.Localizations.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.GUI.Localizations.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.GUI.Localizations.SourceGenerator.dll
+  AssetRipper.SourceGenerated.Extensions.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.SourceGenerated.Extensions.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.SourceGenerated.Extensions.SourceGenerator.dll
+  AssetRipper.Web -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Web/Release/AssetRipper.Web.dll
+  LibCpp2IL -> /home/user/AssetRipper/Source/0Bins/Other/LibCpp2IL/Release/LibCpp2IL.dll
+  AssetRipper.IO.Files.SourceGenerator -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.IO.Files.SourceGenerator/Release/AssetRipper.IO.Files.SourceGenerator.dll
+  AssetRipper.Processing.SourceGenerator -> /home/user/AssetRipper/Source/AssetRipper.Processing.SourceGenerator/bin/Release/netstandard2.0/AssetRipper.Processing.SourceGenerator.dll
+  AssetRipper.AssemblyDumper -> /home/user/AssetRipper/Source/0Bins/AssetRipper.AssemblyDumper/Release/AssetRipper.AssemblyDumper.dll
+  AssetRipper.IO.Files.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.IO.Files.Tests/Release/AssetRipper.IO.Files.Tests.dll
+  AssetRipper.Numerics.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Numerics.Tests/Release/AssetRipper.Numerics.Tests.dll
+  AssetRipper.Tools.FileExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.FileExtractor/Release/AssetRipper.Tools.FileExtractor.dll
+  AssetRipper.Tools.CabMapGenerator -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.CabMapGenerator/Release/AssetRipper.Tools.CabMapGenerator.dll
+  AssetRipper.Tools.TypeTreeExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.TypeTreeExtractor/Release/AssetRipper.Tools.TypeTreeExtractor.dll
+  AssetRipper.Tools.JsonSerializer -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.JsonSerializer/Release/AssetRipper.Tools.JsonSerializer.dll
+  AssetRipper.GUI.Localizations -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Localizations/Release/AssetRipper.GUI.Localizations.dll
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(9,16): warning CS0169: The field 'SphericalHarmonicsL2.shr2' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(23,16): warning CS0169: The field 'SphericalHarmonicsL2.shg0' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(5,16): warning CS0169: The field 'SphericalHarmonicsL2.shr0' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(25,16): warning CS0169: The field 'SphericalHarmonicsL2.shg1' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(7,16): warning CS0169: The field 'SphericalHarmonicsL2.shr1' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(53,16): warning CS0169: The field 'SphericalHarmonicsL2.shb6' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(29,16): warning CS0169: The field 'SphericalHarmonicsL2.shg3' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(47,16): warning CS0169: The field 'SphericalHarmonicsL2.shb3' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(33,16): warning CS0169: The field 'SphericalHarmonicsL2.shg5' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(17,16): warning CS0169: The field 'SphericalHarmonicsL2.shr6' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(19,16): warning CS0169: The field 'SphericalHarmonicsL2.shr7' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(21,16): warning CS0169: The field 'SphericalHarmonicsL2.shr8' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(35,16): warning CS0169: The field 'SphericalHarmonicsL2.shg6' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(43,16): warning CS0169: The field 'SphericalHarmonicsL2.shb1' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(11,16): warning CS0169: The field 'SphericalHarmonicsL2.shr3' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(55,16): warning CS0169: The field 'SphericalHarmonicsL2.shb7' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(27,16): warning CS0169: The field 'SphericalHarmonicsL2.shg2' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(41,16): warning CS0169: The field 'SphericalHarmonicsL2.shb0' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(15,16): warning CS0169: The field 'SphericalHarmonicsL2.shr5' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(45,16): warning CS0169: The field 'SphericalHarmonicsL2.shb2' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(49,16): warning CS0169: The field 'SphericalHarmonicsL2.shb4' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(39,16): warning CS0169: The field 'SphericalHarmonicsL2.shg8' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(31,16): warning CS0169: The field 'SphericalHarmonicsL2.shg4' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(57,16): warning CS0169: The field 'SphericalHarmonicsL2.shb8' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(51,16): warning CS0169: The field 'SphericalHarmonicsL2.shb5' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(37,16): warning CS0169: The field 'SphericalHarmonicsL2.shg7' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(13,16): warning CS0169: The field 'SphericalHarmonicsL2.shr4' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+  UnityEngine -> /home/user/AssetRipper/Source/0Bins/Other/UnityEngine/Release/UnityEngine.dll
+/home/user/AssetRipper/Source/AssetRipper.SourceGenerated.Extensions/SpriteMetaDataExtensions.cs(133,10): warning CS1030: #warning: 'TODO: SpriteConverter does not generate instance.Edges' [/home/user/AssetRipper/Source/AssetRipper.SourceGenerated.Extensions/AssetRipper.SourceGenerated.Extensions.csproj]
+  AssetRipper.SourceGenerated.Extensions -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.SourceGenerated.Extensions/Release/AssetRipper.SourceGenerated.Extensions.dll
+  AssetRipper.AssemblyDumper.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.AssemblyDumper.Tests/Release/AssetRipper.AssemblyDumper.Tests.dll
+  AssetRipper.Yaml.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Yaml.Tests/Release/AssetRipper.Yaml.Tests.dll
+  AssetRipper.Assets.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Assets.Tests/Release/AssetRipper.Assets.Tests.dll
+/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/FieldSerializationTests.cs(11,15): warning CS0169: The field 'FieldSerializationTests.CustomMonoBehaviourWithPrivateFields.field1' is never used [/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/AssetRipper.SerializationLogic.Tests.csproj]
+/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/FieldSerializationTests.cs(13,15): warning CS0169: The field 'FieldSerializationTests.CustomMonoBehaviourWithPrivateFields.field2' is never used [/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/AssetRipper.SerializationLogic.Tests.csproj]
+  Cpp2IL.Core -> /home/user/AssetRipper/Source/0Bins/Other/Cpp2IL.Core/Release/Cpp2IL.Core.dll
+  AssetRipper.SerializationLogic.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.SerializationLogic.Tests/Release/AssetRipper.SerializationLogic.Tests.dll
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(896,40): warning CS8604: Possible null reference argument for parameter 'reason' in 'string Il2CppIlRecoveryOutputFormat.Summarize(string reason)'. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(989,7): warning CS8602: Dereference of a possibly null reference. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(1091,7): warning CS8602: Dereference of a possibly null reference. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(1137,17): warning CS8602: Dereference of a possibly null reference. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+  AssetRipper.Import -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Import/Release/AssetRipper.Import.dll
+  AssetRipper.GUI.Licensing -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Licensing/Release/AssetRipper.GUI.Licensing.dll
+  AssetRipper.Tools.Il2CppStructDbValidator -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.Il2CppStructDbValidator/Release/AssetRipper.Tools.Il2CppStructDbValidator.dll
+  AssetRipper.Tools.DependenceGrapher -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.DependenceGrapher/Release/AssetRipper.Tools.DependenceGrapher.dll
+/home/user/AssetRipper/Source/AssetRipper.Processing/AnimatorControllers/AnimatorControllerProcessor.cs(122,10): warning CS1030: #warning: 'TODO: animator' [/home/user/AssetRipper/Source/AssetRipper.Processing/AssetRipper.Processing.csproj]
+  AssetRipper.Processing -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Processing/Release/AssetRipper.Processing.dll
+  AssetRipper.Export -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export/Release/AssetRipper.Export.dll
+  AssetRipper.Export.Modules.Audio -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.Modules.Audio/Release/AssetRipper.Export.Modules.Audio.dll
+  AssetRipper.Tools.RawTextureExtractor -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.RawTextureExtractor/Release/AssetRipper.Tools.RawTextureExtractor.dll
+  AssetRipper.Export.Modules.Textures -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.Modules.Textures/Release/AssetRipper.Export.Modules.Textures.dll
+  AssetRipper.Tools.MonoBehaviourTester -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.MonoBehaviourTester/Release/AssetRipper.Tools.MonoBehaviourTester.dll
+  AssetRipper.Export.Modules.Models -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.Modules.Models/Release/AssetRipper.Export.Modules.Models.dll
+  AssetRipper.Export.UnityProjects -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.UnityProjects/Release/AssetRipper.Export.UnityProjects.dll
+  AssetRipper.Export.PrimaryContent -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Export.PrimaryContent/Release/AssetRipper.Export.PrimaryContent.dll
+  AssetRipper.GUI.SourceGenerator -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.SourceGenerator/Release/AssetRipper.GUI.SourceGenerator.dll
+  AssetRipper.Tools.SystemTester -> /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.SystemTester/Release/AssetRipper.Tools.SystemTester.dll
+  AssetRipper.GUI.Web -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Web/Release/AssetRipper.GUI.Web.dll
+  AssetRipper.GUI.Free -> /home/user/AssetRipper/Source/0Bins/AssetRipper.GUI.Free/Release/AssetRipper.GUI.Free.dll
+  AssetRipper.GUI.Web.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.GUI.Web.Tests/Release/AssetRipper.GUI.Web.Tests.dll
+  AssetRipper.Tests -> /home/user/AssetRipper/Source/0Bins/Other/AssetRipper.Tests/Release/AssetRipper.Tests.dll
+
+Build succeeded.
+
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(9,16): warning CS0169: The field 'SphericalHarmonicsL2.shr2' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(23,16): warning CS0169: The field 'SphericalHarmonicsL2.shg0' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(5,16): warning CS0169: The field 'SphericalHarmonicsL2.shr0' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(25,16): warning CS0169: The field 'SphericalHarmonicsL2.shg1' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(7,16): warning CS0169: The field 'SphericalHarmonicsL2.shr1' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(53,16): warning CS0169: The field 'SphericalHarmonicsL2.shb6' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(29,16): warning CS0169: The field 'SphericalHarmonicsL2.shg3' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(47,16): warning CS0169: The field 'SphericalHarmonicsL2.shb3' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(33,16): warning CS0169: The field 'SphericalHarmonicsL2.shg5' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(17,16): warning CS0169: The field 'SphericalHarmonicsL2.shr6' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(19,16): warning CS0169: The field 'SphericalHarmonicsL2.shr7' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(21,16): warning CS0169: The field 'SphericalHarmonicsL2.shr8' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(35,16): warning CS0169: The field 'SphericalHarmonicsL2.shg6' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(43,16): warning CS0169: The field 'SphericalHarmonicsL2.shb1' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(11,16): warning CS0169: The field 'SphericalHarmonicsL2.shr3' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(55,16): warning CS0169: The field 'SphericalHarmonicsL2.shb7' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(27,16): warning CS0169: The field 'SphericalHarmonicsL2.shg2' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(41,16): warning CS0169: The field 'SphericalHarmonicsL2.shb0' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(15,16): warning CS0169: The field 'SphericalHarmonicsL2.shr5' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(45,16): warning CS0169: The field 'SphericalHarmonicsL2.shb2' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(49,16): warning CS0169: The field 'SphericalHarmonicsL2.shb4' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(39,16): warning CS0169: The field 'SphericalHarmonicsL2.shg8' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(31,16): warning CS0169: The field 'SphericalHarmonicsL2.shg4' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(57,16): warning CS0169: The field 'SphericalHarmonicsL2.shb8' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(51,16): warning CS0169: The field 'SphericalHarmonicsL2.shb5' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(37,16): warning CS0169: The field 'SphericalHarmonicsL2.shg7' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/UnityEngine/Rendering/SphericalHarmonicsL2.cs(13,16): warning CS0169: The field 'SphericalHarmonicsL2.shr4' is never used [/home/user/AssetRipper/Source/UnityEngine/UnityEngine.csproj]
+/home/user/AssetRipper/Source/AssetRipper.SourceGenerated.Extensions/SpriteMetaDataExtensions.cs(133,10): warning CS1030: #warning: 'TODO: SpriteConverter does not generate instance.Edges' [/home/user/AssetRipper/Source/AssetRipper.SourceGenerated.Extensions/AssetRipper.SourceGenerated.Extensions.csproj]
+/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/FieldSerializationTests.cs(11,15): warning CS0169: The field 'FieldSerializationTests.CustomMonoBehaviourWithPrivateFields.field1' is never used [/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/AssetRipper.SerializationLogic.Tests.csproj]
+/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/FieldSerializationTests.cs(13,15): warning CS0169: The field 'FieldSerializationTests.CustomMonoBehaviourWithPrivateFields.field2' is never used [/home/user/AssetRipper/Source/AssetRipper.SerializationLogic.Tests/AssetRipper.SerializationLogic.Tests.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(896,40): warning CS8604: Possible null reference argument for parameter 'reason' in 'string Il2CppIlRecoveryOutputFormat.Summarize(string reason)'. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(989,7): warning CS8602: Dereference of a possibly null reference. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(1091,7): warning CS8602: Dereference of a possibly null reference. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Import/Structure/Assembly/Il2Cpp/Recovery/Il2CppIlRecoveryOutputFormat.cs(1137,17): warning CS8602: Dereference of a possibly null reference. [/home/user/AssetRipper/Source/AssetRipper.Import/AssetRipper.Import.csproj]
+/home/user/AssetRipper/Source/AssetRipper.Processing/AnimatorControllers/AnimatorControllerProcessor.cs(122,10): warning CS1030: #warning: 'TODO: animator' [/home/user/AssetRipper/Source/AssetRipper.Processing/AssetRipper.Processing.csproj]
+    35 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:01:32.43

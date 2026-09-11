@@ -235,5 +235,30 @@
     ],
     "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0010",
     "confidence": 100
+  },
+  {
+    "id": "DECOMP-0012",
+    "severity": "ERROR",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 14,
+    "iterationFixed": 15,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/SingletonMono.cs, and 360 loads across five assemblies",
+    "referenceFile": "Assets/_Impostor 3/Scripts/Core/Singletons/SingletonMono.cs",
+    "method": "SingletonMono<T>::get_Instance, UserResourceCollectionItem<T>::SetValue, and every other shared generic body",
+    "compilerError": "CS0030 and CS1061 downstream; the loads themselves are placeholders, not errors",
+    "observed": "`SingletonMono<T>.Instance` recovered as placeholders end to end - 39 unresolved loads in one property, starting `Unmanaged memory load: [v54 (Il2CppRgctx<SingletonMono`1>)+8]`.",
+    "expected": "`lock (syncRoot) { if (instance == null) { instance = FindObjectOfType(typeof(T)) as T; ...`",
+    "rootCause": "RgctxResolver.ResolveTypeEntry passed `(instance as GenericInstanceTypeAnalysisContext)?.GenericArguments ?? []`. An uninflated definition is shared generic code - there is no instantiation - so the arguments were empty and every RGCTX entry mentioning the type's own parameter failed to inflate. ResolveMethodEntry twenty lines below already handles exactly this and says why in a comment; the type case never got the same treatment. The cost is never one load: an unresolved slot leaves the class pointer untyped, which leaves the class-init guard unmatched, which leaves the static field storage unresolved.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "RgctxResolver.ResolveTypeEntry (ISIL analysis, representation 4 of 6)",
+    "evidence": [
+      "reports/BASE_FIELD_OVERFLOW_CASES.json: all 361 have declaredInstanceFieldCount 0 and largestDeclaredFieldOffset 0, so the family name was vacuous for them",
+      "probe on the decline path: offsets all pointer-aligned and in range, entry types CLASS 878 / METHOD 693 / TYPE 29 - all handled - and owner a plain TypeAnalysisContext in every case",
+      "`Il2CppRgctx` in the exported scripts 1345 -> 12, and the twelve are inside [NativeSource] text rather than a body",
+      "iteration 015: REAL_ERROR 1766 -> 1307, Roslyn 456 -> 448, unresolved loads 4667 -> 3992, SingletonMono.cs 199 diagnostics -> 51"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0012",
+    "confidence": 100
   }
 ]

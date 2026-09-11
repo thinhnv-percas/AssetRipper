@@ -100,7 +100,16 @@ public static class RgctxResolver
         if (definition.Definition is not { } typeDefinition)
             return null;
 
-        var typeArguments = (instance as GenericInstanceTypeAnalysisContext)?.GenericArguments ?? [];
+        // AssetRipper: an uninflated definition is shared generic code, so its own parameters stand in
+        // for the arguments - the same treatment ResolveMethodEntry has always given the method case,
+        // and for the same reason. Passing nothing meant every entry that mentions the type's own
+        // parameter failed to inflate, and the whole chain below the slot went with it:
+        // `SingletonMono<T>.Instance` came back as placeholders end to end, because the unresolved
+        // slot left the class pointer untyped, which left the class-init guard unmatched, which left
+        // the static field storage unresolved.
+        IReadOnlyList<TypeAnalysisContext> typeArguments = instance is GenericInstanceTypeAnalysisContext genericInstance
+            ? genericInstance.GenericArguments
+            : definition.GenericParameters;
 
         return ResolveEntry(typeDefinition.RgctXs, index, typeArguments, [], instance.AppContext);
     }

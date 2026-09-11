@@ -76,6 +76,11 @@ check DECOMP-0009 GamePlayController.cs 'SetActive' '(GameObject)0'
 # ILSpy folds `ldtoken T; call GetTypeFromHandle` back into `typeof(T)`, which is what the source says.
 check DECOMP-0010 CSVSerializer.cs 'Type typeFromHandle = typeof(T);' '(RuntimeTypeHandle)0'
 
+# DECOMP-0012: shared generic code carries no instantiation, so an RGCTX slot read off the open
+# definition resolved with no type arguments and failed - taking the class-init guard and the static
+# field storage down with it. `SingletonMono<T>.Instance` was placeholders end to end.
+check DECOMP-0012 SingletonMono.cs 'Monitor.Enter(syncRoot' 'Rgctx<SingletonMono`1>)+'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.
