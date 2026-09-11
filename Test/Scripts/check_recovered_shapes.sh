@@ -130,6 +130,12 @@ check DECOMP-0017 CSVReader.cs 'dictionary[array2[num5]] = value;' 'dictionary[(
 # out comparing the count against nothing, with the element store lost entirely.
 check DECOMP-0018 GameHelper.cs 'if (list2.Count < items.Length)' 'if ((nint)count < (nint)0)'
 
+# DECOMP-0019: trên A64 một `cmp` lift thành một chùm cờ chứ không thành một phép so sánh, và
+# đẳng thức là cờ Z của một phép trừ. TypeCheckRecovery so khớp trên hai toán hạng của phép so
+# sánh nên trượt toàn bộ hình dạng này, và cú `attachment as BoundingBoxAttachment` trong Spine
+# quay về thành phép duyệt cây kế thừa mở sẵn.
+check DECOMP-0019 BoundingBoxFollower.cs 'BoundingBoxAttachment boundingBoxAttachment2 = attachment as BoundingBoxAttachment;' '(BoundingBoxAttachment)((boundingBoxAttachment == null) ? null : attachment)'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.

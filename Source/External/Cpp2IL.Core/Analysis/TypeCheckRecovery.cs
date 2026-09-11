@@ -52,8 +52,10 @@ public static class TypeCheckRecovery
                 var instruction = block.Instructions[i];
 
                 if (instruction.OpCode is not (OpCode.CheckEqual or OpCode.CheckNotEqual)
-                    || instruction.Operands is not [LocalVariable result, var left, var right])
+                    || instruction.Operands is not [LocalVariable result, _, _])
                     continue;
+
+                var (left, right) = ComparedPair(instruction, definitions);
 
                 IOperand? tested = null;
                 TypeAnalysisContext? checkedType = null;
@@ -111,6 +113,27 @@ public static class TypeCheckRecovery
 
         if (changed)
             DeadCodeEliminator.Run(cfg);
+    }
+
+    /// <summary>
+    /// AssetRipper: the two values a comparison actually compares.
+    /// </summary>
+    /// <remarks>
+    /// On A64 a <c>cmp</c> lifts to a bundle of flag computations rather than to one comparison,
+    /// and equality is the zero flag of a subtraction: <c>Subtract d, a, b</c> then
+    /// <c>CheckEqual z, d, 0</c>. That is <c>a == b</c> - the substitution is exact, not a
+    /// heuristic - and without taking it every pattern stated in terms of the two operands misses
+    /// on this architecture. The hierarchy walk is compared this way in every body on the test
+    /// game, which is why the walk was never folded even where the shortcut in front of it was.
+    /// </remarks>
+    private static (IOperand Left, IOperand Right) ComparedPair(Instruction comparison,
+        Dictionary<LocalVariable, Instruction> definitions)
+    {
+        if (comparison.Operands is [_, LocalVariable difference, Immediate { Value: 0 }]
+            && Definition(definitions, difference) is { OpCode: OpCode.Subtract, Operands: [_, var minuend, var subtrahend] })
+            return (minuend, subtrahend);
+
+        return (comparison.Operands[1], comparison.Operands[2]);
     }
 
     /// <summary>
