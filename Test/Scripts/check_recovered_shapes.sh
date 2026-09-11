@@ -110,6 +110,12 @@ check DECOMP-0015 GraphicController.cs 'List<Box>.Enumerator enumerator = Boxes.
 # and a loop condition read off `this`. Only a type the substitution reached may be withheld.
 check DECOMP-0015 GUIManager.cs 'bool flag = enumerator2.MoveNext();' ')enumerator2.MoveNext()'
 
+# DECOMP-0016: a delegate's two-argument constructor takes its target as System.Object, so
+# `new OnlineTimeCallback(this, ...)` typed the state machine's `<>4__this` System.Object - the top
+# of the lattice, taken before the field that declares it could say otherwise. Thirteen field reads
+# off it in that one method became unnameable offsets.
+check DECOMP-0016 TimeCheatingDetector.cs 'TimeCheatingDetector timeCheatingDetector = _003C_003E4__this;' 'object obj = _003C_003E4__this;'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.

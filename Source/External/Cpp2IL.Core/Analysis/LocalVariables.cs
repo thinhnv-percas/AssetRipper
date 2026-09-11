@@ -245,6 +245,22 @@ public static class LocalVariables
         // lets a field offset resolve, a field load types its result, and any of those can be the
         // receiver/base of the next step. Every pass is monotonic - it only resolves an operand or
         // fills a previously-unknown type - so the loop converges.
+        // AssetRipper: twice. The first pass withholds System.Object at a use site, which is the top
+        // of the lattice and so no information at all; the second lets it through, once everything
+        // that could name a value has had its chance. See IsObjectTop.
+        RunFixpoint(method, allowObjectTop: false);
+        RunFixpoint(method, allowObjectTop: true);
+
+        // AssetRipper: last, because it is a guess where everything above is a deduction - it only
+        // looks at locals nothing else could name.
+        if (TypeCounters(method))
+            while (PropagateTypesOnce(method, allowObjectTop: true))
+            {
+            }
+    }
+
+    private static void RunFixpoint(MethodAnalysisContext method, bool allowObjectTop)
+    {
         var changed = true;
         var loopCount = 0;
 
@@ -260,7 +276,7 @@ public static class LocalVariables
             changed |= MetadataResolver.ResolveCallsViaMethodInfo(method);
             changed |= MetadataResolver.ResolveAmbiguousCalls(method);
             changed |= MetadataResolver.ResolveVirtualCalls(method);
-            changed |= PropagateFromCallParameters(method);
+            changed |= PropagateFromCallParameters(method, allowObjectTop);
             changed |= MetadataResolver.ResolveFieldOffsets(method);
             changed |= MetadataResolver.ResolveElementClassLoads(method);
             changed |= RgctxResolver.Run(method);
@@ -272,15 +288,8 @@ public static class LocalVariables
             // AssetRipper: and the same for a field, whose address the machine also computes ahead of
             // the load whenever it is wanted more than once. See FoldComputedFieldAddresses.
             changed |= MetadataResolver.FoldComputedFieldAddresses(method);
-            changed |= PropagateTypesOnce(method);
+            changed |= PropagateTypesOnce(method, allowObjectTop);
         }
-
-        // AssetRipper: last, because it is a guess where everything above is a deduction - it only
-        // looks at locals nothing else could name.
-        if (TypeCounters(method))
-            while (PropagateTypesOnce(method))
-            {
-            }
     }
 
     /// <summary>
@@ -613,7 +622,7 @@ public static class LocalVariables
     }
 
     // A single propagation sweep over every move and phi. Returns whether it filled in any type.
-    private static bool PropagateTypesOnce(MethodAnalysisContext method)
+    private static bool PropagateTypesOnce(MethodAnalysisContext method, bool allowObjectTop)
     {
         var changed = false;
 
@@ -622,7 +631,7 @@ public static class LocalVariables
             switch (instruction.OpCode)
             {
                 case OpCode.Move:
-                    changed |= PropagateMove(instruction, method.AppContext.Binary.PointerSizeBytes);
+                    changed |= PropagateMove(instruction, method.AppContext.Binary.PointerSizeBytes, allowObjectTop);
                     break;
                 case OpCode.Phi:
                     changed |= PropagatePhi(instruction);
@@ -897,14 +906,33 @@ public static class LocalVariables
             _ => null,
         };
 
-    private static bool PropagateMove(Instruction move, int pointerSize)
+    /// <summary>
+    /// AssetRipper: whether <paramref name="type"/> is <c>System.Object</c>, which as a use-site
+    /// type carries no information.
+    /// </summary>
+    /// <remarks>
+    /// Every reference type converges on it, so a value reaching a position declared
+    /// <c>System.Object</c> tells us only that it is a reference. Recording that is worse than
+    /// recording nothing, because the fixpoint is monotonic and a local's first type is the one it
+    /// keeps: the field or parameter that would have named the value is then locked out for good.
+    /// A local left unknown is declared <c>object</c> in the output regardless, so nothing is lost
+    /// by waiting. This is a use-site rule only - a field or a return whose declared type really is
+    /// <c>System.Object</c> is that type, and is left alone.
+    /// </remarks>
+    private static bool IsObjectTop(TypeAnalysisContext? type) => type?.FullName == "System.Object";
+
+    private static bool PropagateMove(Instruction move, int pointerSize, bool allowObjectTop)
     {
         var destination = move.Operands[0];
         var source = move.Operands[1];
 
-        // Move local, local: copy a known type in whichever direction is missing it.
+        // Move local, local: copy a known type in whichever direction is missing it - but not
+        // System.Object backwards. Forwards it is honest: a local holding an object is an object.
+        // Backwards it is an upcast read as a definition, and under a monotonic fixpoint that is
+        // permanent. See IsObjectTop.
         if (destination is LocalVariable destLocal && source is LocalVariable sourceLocal)
-            return SetTypeIfUnknown(destLocal, sourceLocal.Type) || SetTypeIfUnknown(sourceLocal, destLocal.Type);
+            return SetTypeIfUnknown(destLocal, sourceLocal.Type)
+                || ((allowObjectTop || !IsObjectTop(destLocal.Type)) && SetTypeIfUnknown(sourceLocal, destLocal.Type));
 
         // Move local, field: a field load types its result with the field's type. This is the edge
         // that lets the loaded value go on to be the base of a further field access.
@@ -1001,7 +1029,7 @@ public static class LocalVariables
         return changed;
     }
 
-    private static bool PropagateFromCallParameters(MethodAnalysisContext method)
+    private static bool PropagateFromCallParameters(MethodAnalysisContext method, bool allowObjectTop)
     {
         var changed = false;
 
@@ -1102,7 +1130,15 @@ public static class LocalVariables
                     continue;
                 }
 
-                if (instruction.Operands[i] is LocalVariable local)
+                // AssetRipper: a parameter declared System.Object says nothing about the argument.
+                // Every reference converges there, so it is the top of the lattice, not evidence -
+                // and the fixpoint is monotonic, so taking it locks out whatever the value's own
+                // definition would have said. A delegate's two-argument constructor takes its target
+                // as System.Object, so `new OnlineTimeCallback(this, OnOnlineTimeReceived)` typed the
+                // state machine's `<>4__this` System.Object and thirteen field reads off it in that
+                // one method became unnameable offsets. Leaving it unknown costs nothing: a local
+                // nothing types is declared object anyway.
+                if (instruction.Operands[i] is LocalVariable local && (allowObjectTop || !IsObjectTop(parameterType)))
                     changed |= SetTypeIfUnknown(local, parameterType);
             }
         }
