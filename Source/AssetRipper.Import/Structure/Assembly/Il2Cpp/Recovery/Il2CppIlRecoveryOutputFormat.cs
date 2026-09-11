@@ -419,6 +419,36 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			}
 		}
 
+		// The instruction that defines the base, which is where the base's type came from - or did not.
+		// A load fails for one of two reasons and only this tells them apart: the layout could not
+		// place the offset, or nothing gave the base a usable type in the first place.
+		string baseDefinition = "<none>";
+		if (memory.Base is LocalVariable baseLocal && methodContext.ControlFlowGraph is { } graph)
+		{
+			foreach (Instruction candidate in graph.Instructions)
+			{
+				if (candidate.Destination is LocalVariable defined && ReferenceEquals(defined, baseLocal))
+				{
+					baseDefinition = candidate.OpCode.ToString();
+
+					if (candidate.OpCode is OpCode.Move or OpCode.IsInst && candidate.Operands.Count > 1)
+					{
+						baseDefinition += ":" + candidate.Operands[1] switch
+						{
+							MemoryOperand => "memory",
+							FieldReference reference => "field " + reference.Field.FieldType.Name,
+							LocalVariable { Type: { } copied } => "local " + copied.Name,
+							LocalVariable => "untyped local",
+							TypeAnalysisContext type => "type " + type.Name,
+							_ => candidate.Operands[1].GetType().Name,
+						};
+					}
+
+					break;
+				}
+			}
+		}
+
 		string row = string.Join('\t',
 			kind,
 			methodContext.DeclaringType?.DeclaringAssembly?.Name ?? "",
@@ -431,6 +461,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			largest.ToString("X"),
 			fieldCount.ToString(),
 			memory.Size.ToString(),
+			baseDefinition,
 			memory.ToString());
 
 		lock (unresolvedLoadCaseLock)
