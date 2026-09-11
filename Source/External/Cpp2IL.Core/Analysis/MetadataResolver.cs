@@ -956,6 +956,132 @@ public static class MetadataResolver
         return null;
     }
 
+    /// <summary>
+    /// AssetRipper: the arguments il2cpp uses when it shares one generic body across instantiations.
+    /// </summary>
+    /// <remarks>
+    /// A reference type argument shares as <c>System.Object</c>, an int-backed enum as
+    /// <c>System.Int32Enum</c>, and a fully shared parameter as the metadata type named below. A
+    /// declaring type built from these says which instantiation the linker happened to emit, not
+    /// which one the call site meant, so it is not evidence about the receiver.
+    /// </remarks>
+    private static readonly HashSet<string> SharingPlaceholders =
+    [
+        "System.Object",
+        "System.Int32Enum",
+        "Unity.IL2CPP.Metadata.__Il2CppFullySharedGenericType",
+    ];
+
+    /// <summary>
+    /// AssetRipper: whether <paramref name="type"/> is a generic instantiation il2cpp shares a body
+    /// for, rather than one the call site actually named.
+    /// </summary>
+    public static bool IsSharedInstantiation(TypeAnalysisContext? type)
+        => type is GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments }
+            && arguments.Any(argument => SharingPlaceholders.Contains(argument.FullName));
+
+    /// <summary>
+    /// AssetRipper: whether <paramref name="type"/> is, or is built out of, a type sharing put
+    /// there rather than the source.
+    /// </summary>
+    /// <remarks>
+    /// Only a type the substitution touched is unreliable. A shared body's <c>MoveNext</c> still
+    /// returns <see langword="bool"/> whatever the declaring type says, so refusing every type a
+    /// shared method mentions throws away evidence that is perfectly good - and an untyped local is
+    /// not free: SSA destruction merges it with whatever register version sits beside it, which is
+    /// how a <c>bool</c> return came back typed as the enclosing <c>MonoBehaviour</c>.
+    /// </remarks>
+    public static bool ContainsSharingPlaceholder(TypeAnalysisContext? type) => type switch
+    {
+        null => false,
+        GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments }
+            => arguments.Any(ContainsSharingPlaceholder),
+        WrappedTypeAnalysisContext wrapped => ContainsSharingPlaceholder(wrapped.ElementType),
+        _ => SharingPlaceholders.Contains(type.FullName ?? string.Empty),
+    };
+
+    /// <summary>
+    /// AssetRipper: <paramref name="called"/> re-instantiated on the receiver's generic arguments,
+    /// when the two are instantiations of one definition and disagree.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp compiles one body per generic definition and shares it, so the method a call resolves
+    /// to is whichever instantiation that address was attributed to. The receiver's type is the
+    /// stronger evidence - it comes from a field or parameter signature - so where the two disagree
+    /// the receiver wins. Nothing has to know which arguments are placeholders: when the two agree
+    /// this is a no-op. Only the declaring type is re-instantiated, since the receiver says nothing
+    /// about the method's own generic arguments.
+    /// </remarks>
+    public static MethodAnalysisContext? ReceiverInstantiationOf(MethodAnalysisContext called, IOperand receiver)
+    {
+        if (called.IsStatic
+            || called is not ConcreteGenericMethodAnalysisContext { TypeGenericParameters.Count: > 0 } concrete
+            || concrete.BaseMethodContext.DeclaringType is not { } definition)
+            return null;
+
+        if (ReceiverType(receiver) is not GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments } instance
+            || instance.GenericType.FullName != definition.FullName
+            || arguments.Count != concrete.TypeGenericParameters.Count)
+            return null;
+
+        var sameAlready = true;
+        for (var i = 0; i < arguments.Count && sameAlready; i++)
+            sameAlready = arguments[i].FullName == concrete.TypeGenericParameters[i].FullName;
+
+        if (sameAlready)
+            return null;
+
+        return new ConcreteGenericMethodAnalysisContext(concrete.BaseMethodContext, arguments, concrete.MethodGenericParameters);
+    }
+
+    private static TypeAnalysisContext? ReceiverType(IOperand receiver) => receiver switch
+    {
+        LocalVariable { Type: { } local } => local,
+        FieldReference { Field.FieldType: { } fieldType } => fieldType,
+        _ => null,
+    };
+
+    /// <summary>
+    /// AssetRipper: how many calls the analysis retargeted onto the receiver's instantiation.
+    /// </summary>
+    public static int SharedGenericCallsRetargetedInAnalysis;
+
+    /// <summary>
+    /// AssetRipper: retargets a shared generic call onto the instantiation the receiver names, inside
+    /// the type fixpoint so that what it produces can be typed.
+    /// </summary>
+    /// <remarks>
+    /// Doing this only at generation time, as it was first done, fixed the call that was written out
+    /// and nothing downstream of it: during the analysis the call still returned the shared
+    /// instantiation's type, so `foreach (Box box in Boxes)` kept an element typed
+    /// <c>System.Object</c> and every field read off it failed. In the fixpoint the retarget types
+    /// the return value, which types the next base, which resolves the next field.
+    /// </remarks>
+    public static bool RetargetSharedGenericCalls(MethodAnalysisContext method)
+    {
+        var changed = false;
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            if (instruction.OpCode is not (OpCode.Call or OpCode.CallVoid)
+                || instruction.Operands.Count == 0
+                || instruction.Operands[0] is not MethodAnalysisContext called)
+                continue;
+
+            var receiverIndex = instruction.OpCode == OpCode.CallVoid ? 1 : 2;
+
+            if (receiverIndex >= instruction.Operands.Count
+                || ReceiverInstantiationOf(called, instruction.Operands[receiverIndex]) is not { } reinstantiated)
+                continue;
+
+            instruction.SetOperand(0, reinstantiated);
+            System.Threading.Interlocked.Increment(ref SharedGenericCallsRetargetedInAnalysis);
+            changed = true;
+        }
+
+        return changed;
+    }
+
     private static RuntimeMethodInfoAnalysisContext? AsMethodInfo(IOperand operand) =>
         operand switch
         {

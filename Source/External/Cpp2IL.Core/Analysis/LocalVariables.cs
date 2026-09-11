@@ -254,6 +254,9 @@ public static class LocalVariables
                 throw new DecompilerException($"Type and field resolution not settling! (looped {MaxTypePropagationLoopCount} times)");
 
             changed = false;
+            // AssetRipper: before anything takes a type from a callee, put the callee right where the
+            // receiver says it is wrong. See MetadataResolver.RetargetSharedGenericCalls.
+            changed |= MetadataResolver.RetargetSharedGenericCalls(method);
             changed |= MetadataResolver.ResolveCallsViaMethodInfo(method);
             changed |= MetadataResolver.ResolveAmbiguousCalls(method);
             changed |= MetadataResolver.ResolveVirtualCalls(method);
@@ -1033,7 +1036,20 @@ public static class LocalVariables
             {
                 var producedType = calledMethod.Name is ".ctor" or ".cctor" ? calledMethod.DeclaringType : calledMethod.ReturnType;
 
-                if (producedType != method.AppContext.SystemTypes.SystemVoidType)
+                // AssetRipper: not a type generic sharing put there. The fixpoint is monotonic, so
+                // the first type a local is given is the one it keeps - and this rule runs before the
+                // field the value came from has resolved, so `List<System.Object>.get_Item` typed the
+                // element `System.Object` and `linkedMeshes[i].skin` could never resolve, even though
+                // the field is declared `List<LinkedMesh>` in metadata. Leaving the local untyped for
+                // one more turn of the loop lets the field say what it is, and
+                // RetargetSharedGenericCalls then puts the callee right. Both halves are needed: the
+                // declaring type says the body is shared, the return type says the substitution
+                // actually reached this value. `List<System.Object>+Enumerator.MoveNext` returns
+                // `bool` either way, and refusing that left the local for SSA destruction to merge
+                // with the receiver's register - a `bool` declared as the enclosing MonoBehaviour.
+                if (producedType != method.AppContext.SystemTypes.SystemVoidType
+                    && !(MetadataResolver.IsSharedInstantiation(calledMethod.DeclaringType)
+                        && MetadataResolver.ContainsSharingPlaceholder(producedType)))
                     changed |= SetTypeIfUnknown(returnValue, producedType);
             }
 
@@ -1052,7 +1068,8 @@ public static class LocalVariables
 
             // 'this' param
             if (!calledMethod.IsStatic
-                && instruction.Operands[thisParamIndex] is LocalVariable thisParam)
+                && instruction.Operands[thisParamIndex] is LocalVariable thisParam
+                && !MetadataResolver.IsSharedInstantiation(calledMethod.DeclaringType))
             {
                 changed |= SetTypeIfUnknown(thisParam, calledMethod.DeclaringType);
             }

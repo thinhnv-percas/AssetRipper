@@ -96,6 +96,20 @@ check DECOMP-0013 DataController.cs 'gpc' 'Il2CppStaticFields<UnityEngine.Quater
 # different shape from the shortcut this issue removed.
 check DECOMP-0014 AnimationState.cs 'as RotateTimeline'
 
+# DECOMP-0015: a call's target was taken from whichever instantiation the linker attributed the
+# shared body to, so `foreach (Box box in Boxes)` came back as
+# `(List<object>.Enumerator)Boxes.GetEnumerator()` with every field off the element unresolved.
+# The enumerator il2cpp keeps in an address-taken stack slot is still typed from the shared
+# instantiation - that is the store-into-slot case, not this one - so this asserts the call, not
+# every mention of the type in the file.
+check DECOMP-0015 GraphicController.cs 'List<Box>.Enumerator enumerator = Boxes.GetEnumerator();' '(List<object>.Enumerator)Boxes.GetEnumerator'
+
+# DECOMP-0015, the other side: withholding *every* type a shared body mentions is too much. A shared
+# `List<T>.Enumerator.MoveNext` returns `bool` whatever T is, and leaving that untyped let SSA
+# destruction merge the result with the receiver's register - `GUIManager x = (GUIManager)MoveNext()`
+# and a loop condition read off `this`. Only a type the substitution reached may be withheld.
+check DECOMP-0015 GUIManager.cs 'bool flag = enumerator2.MoveNext();' ')enumerator2.MoveNext()'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.
