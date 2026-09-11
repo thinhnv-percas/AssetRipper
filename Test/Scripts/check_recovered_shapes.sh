@@ -87,6 +87,15 @@ check DECOMP-0012 SingletonMono.cs 'Monitor.Enter(syncRoot' 'Rgctx<SingletonMono
 # block that is sixteen bytes long, and every use of it downstream was typed from that.
 check DECOMP-0013 DataController.cs 'gpc' 'Il2CppStaticFields<UnityEngine.Quaternion>'
 
+# DECOMP-0014: the fold that removes il2cpp's type-check shortcut required both sides of the depth
+# comparison to name a known type. The left side is the *object's* class depth, which by definition
+# names none, so it only ever fired on a shape that barely occurs - leaving three unnameable reads
+# and a branch around every `as` the recovery had already put back.
+# The `as` is the recovery; the shortcut around it is counted by `typeHierarchyDepthLoads` in the
+# metrics rather than asserted here, because what is left in this file is the hierarchy *walk*, a
+# different shape from the shortcut this issue removed.
+check DECOMP-0014 AnimationState.cs 'as RotateTimeline'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.

@@ -43,6 +43,13 @@ aggregates=$(grep -oE '[0-9]+ call arguments the ABI spread' "$log" | grep -oE '
 widened=$(grep -oE '[0-9]+ members of a game assembly were widened' "$log" | grep -oE '^[0-9]+' | tail -1)
 accessor_pairings=$(grep -oE '[0-9]+ reads of a hidden static field' "$log" | grep -oE '^[0-9]+' | tail -1)
 
+# Runtime-struct reads the generator gave up on. Each is a pattern il2cpp inlined that a recovery
+# pass is meant to fold back, so the count is how much of that machinery is still leaking into the
+# output - and none of it shows in an Assembly-CSharp measurement, because most of it is elsewhere.
+load_kind() { grep -oE "[0-9]+ Il2CppClass\.$1" "$log" | grep -oE '^[0-9]+' | tail -1; }
+type_hierarchy_depth=$(load_kind 'typeHierarchyDepth')
+interface_offsets=$(load_kind 'interface_offsets_count')
+
 seconds=$(grep -oE 'SECONDS=[0-9]+' "$iteration/logs/run-result.txt" 2>/dev/null | grep -oE '[0-9]+' | tail -1)
 
 cat > "$report" <<JSON
@@ -71,7 +78,9 @@ cat > "$report" <<JSON
     "untypedLocals": ${untyped_locals:-null},
     "aggregateArgumentsComposed": ${aggregates:-null},
     "membersWidened": ${widened:-null},
-    "staticAccessorPairings": ${accessor_pairings:-null}
+    "staticAccessorPairings": ${accessor_pairings:-null},
+    "typeHierarchyDepthLoads": ${type_hierarchy_depth:-null},
+    "interfaceOffsetCountLoads": ${interface_offsets:-null}
   }
 }
 JSON

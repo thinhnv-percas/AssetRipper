@@ -285,5 +285,30 @@
     ],
     "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0013",
     "confidence": 100
+  },
+  {
+    "id": "DECOMP-0014",
+    "severity": "WARNING",
+    "category": "IL2CPP",
+    "status": "FIXED",
+    "iterationFound": 16,
+    "iterationFixed": 18,
+    "generatedFile": "Assets/Scripts/spine-unity/Spine/AnimationState.cs, and 252 loads across the export",
+    "referenceFile": "Assets/ThirdParties/Spine/Runtime/spine-csharp/AnimationState.cs (Spine's source is vendored in the reference repository, so this assembly is verifiable too)",
+    "method": "Spine.AnimationState::Apply and every body with an inlined type check",
+    "compilerError": "none - the reads are placeholders, and the surrounding branch compiles",
+    "observed": "three unnameable `Il2CppClass<T>.typeHierarchyDepth` reads and a branch wrapped around every `as` the recovery had already put back: `nint num9 = (nint)typeof(RotateTimeline); <load> <load> <load> if (num10 >= 0) { rotateTimeline2 = items2[num7] as RotateTimeline; ... }`",
+    "expected": "`var rotateTimeline = timeline as RotateTimeline; if (rotateTimeline != null) { ... }`",
+    "rootCause": "FoldDepthRejections removes il2cpp's shortcut - `obj->klass->typeHierarchyDepth < T->typeHierarchyDepth` means not-a-T - but it required both sides of the comparison to name a known type. The left side is the *object's* class, which by definition names none, so the fold only ever fired on a shape that barely occurs. Two further gates blocked the rest: it ran only when this pass had itself recovered a walk, where most checks are recovered from the Object::IsInst call by KeyFunctionRecovery; and it rejected when both sides named the same type, which here is an artefact of the object's klass being over-typed from a local a cast had narrowed. Folding is answer-preserving in every case: if the object is a T the depths are equal, if it derives from T its depth is greater, if it is unrelated the full check below reaches the same answer - and `d < d` is false, so even a genuine self-comparison folds correctly.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "TypeCheckRecovery.FoldDepthRejections",
+    "evidence": [
+      "stage dump 005: `298 Move v1164, [v1161+130] | 299 Move v1165, [v1163+130] | 300 CheckLess v1166, v1164, v1165`, with v1161 the object's klass",
+      "probe on the decline path: 5 qualifying comparisons for Spine.RotateTimeline in AnimationState.Apply, all rejected by the same-type guard",
+      "typeHierarchyDepth loads 252 -> 178, unresolved loads across the export 3903 -> 3813"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0014, plus typeHierarchyDepthLoads in collect_metrics.sh",
+    "confidence": 95,
+    "note": "What remains of the 178 is the hierarchy *walk* rather than the shortcut - a different shape, not yet folded. None of this shows in the Assembly-CSharp audit or Roslyn count, because 226 of the 252 are in spine-unity."
   }
 ]

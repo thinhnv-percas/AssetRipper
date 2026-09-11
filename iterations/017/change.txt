@@ -1,0 +1,1 @@
+Iteration 016 plus the first cut of DECOMP-0014 (IsDepthRead widening only). Folded 16 of 252; the walkedTargets gate and the same-type guard still blocked the rest. Superseded by 018.

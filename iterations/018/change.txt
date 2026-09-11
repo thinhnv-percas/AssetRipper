@@ -1,0 +1,1 @@
+Iteration 016 plus DECOMP-0014 complete: FoldDepthRejections accepts a depth read off an unknown class, counts any recovered IsInst as a full check for that type, runs whether or not this pass rewrote anything, and no longer rejects when both sides name the same type.

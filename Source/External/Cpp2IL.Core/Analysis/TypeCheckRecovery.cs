@@ -95,8 +95,19 @@ public static class TypeCheckRecovery
             }
         }
 
-        if (changed)
-            changed |= FoldDepthRejections(cfg, definitions, walkedTargets, depthOffset);
+        // AssetRipper: every type this method performs a full check for, however that check was
+        // recovered. The walk above is one route; the other is `Object::IsInst`, which
+        // KeyFunctionRecovery rewrites into the same opcode from the call il2cpp makes when the
+        // inlined fast path falls through. The shortcut below sits in front of *both*, so gating the
+        // fold on the walk alone left it out of every body where the call was what got recovered -
+        // which on the third game is most of them.
+        foreach (var instruction in cfg.Instructions)
+            if (instruction is { OpCode: OpCode.IsInst, Operands: [_, TypeAnalysisContext tested, ..] })
+                walkedTargets.Add(tested.FullName ?? tested.Name);
+
+        // Not gated on `changed`: the fold's precondition is that a full check for the type exists in
+        // this method, not that this pass is what recovered it.
+        changed |= FoldDepthRejections(cfg, definitions, walkedTargets, depthOffset);
 
         if (changed)
             DeadCodeEliminator.Run(cfg);
@@ -122,12 +133,28 @@ public static class TypeCheckRecovery
             if (instruction.OpCode != OpCode.CheckLess || instruction.Operands is not [LocalVariable result, var left, var right])
                 continue;
 
-            if (DepthOwner(left, definitions, depthOffset) is not { } subject
-                || DepthOwner(right, definitions, depthOffset) is not { } target)
+            // AssetRipper: the left side is the *object's* class depth, and an object's class is not
+            // known at compile time, so requiring it to name a type meant this only ever fired on the
+            // rare shape where both sides are a named type's - never on the ordinary one, which left
+            // three unnameable reads and a branch around every `as` the pass had just put back. 252
+            // of them on the third game.
+            //
+            // Folding is answer-preserving whatever the object turns out to be: if it is a T the two
+            // depths are equal, if it derives from T its depth is greater, and if it is unrelated the
+            // walk below reaches "not a T" on its own. Only the right side has to be a type this
+            // method really did walk for, which is what keeps the direction from being guessed at.
+
+            if (!IsDepthRead(left, definitions, depthOffset)
+                || DepthOwner(right, definitions, depthOffset) is not { } target
+                || !walkedTargets.Contains(target.FullName ?? target.Name))
                 continue;
 
-            if (!walkedTargets.Contains(target.FullName ?? target.Name) || subject.FullName == target.FullName)
-                continue;
+            // Both sides naming the same type used to be rejected as "a type compared with itself,
+            // which says nothing" - but `d < d` is false, so folding it to false is exactly right,
+            // and the case is not even what it looks like: the left side is the object's klass, and
+            // it reads as the same type only because something upstream over-typed it from a local
+            // that a cast had already narrowed. Rejecting on it took out every check in
+            // `AnimationState.Apply`, which is the busiest of them.
 
             instruction.OpCode = OpCode.Move;
             instruction.SetOperands(result, new Immediate(0));
@@ -138,6 +165,14 @@ public static class TypeCheckRecovery
     }
 
     /// <summary>The type whose <c>typeHierarchyDepth</c> this operand reads.</summary>
+    /// <summary>
+    /// AssetRipper: whether <paramref name="operand"/> is a read of some class's
+    /// <c>typeHierarchyDepth</c>, whether or not the class it is read off is a known one.
+    /// </summary>
+    private static bool IsDepthRead(IOperand operand, Dictionary<LocalVariable, Instruction> definitions, long depthOffset)
+        => MemoryOperandOf(operand, definitions) is { Index: null, Scale: 0, Base: LocalVariable } memory
+            && memory.Addend == depthOffset;
+
     private static TypeAnalysisContext? DepthOwner(IOperand operand, Dictionary<LocalVariable, Instruction> definitions, long depthOffset)
         => MemoryOperandOf(operand, definitions) is { Index: null, Scale: 0, Base: LocalVariable owner } memory && memory.Addend == depthOffset
             ? WantedType(owner, definitions)
