@@ -260,5 +260,30 @@
     ],
     "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0012",
     "confidence": 100
+  },
+  {
+    "id": "DECOMP-0013",
+    "severity": "ERROR",
+    "category": "TYPE_RESOLUTION",
+    "status": "FIXED",
+    "iterationFound": 15,
+    "iterationFixed": 16,
+    "generatedFile": "Assets/Scripts/Assembly-CSharp/DataController.cs, and 174 static-storage loads across the export",
+    "referenceFile": "Assets/_Impostor 3/Scripts/GamePlay/DataController.cs",
+    "method": "DataController::GenarateDataMap, ::GenarateRandomMap, ::GenarateRandomDataMap",
+    "compilerError": "CS0030 and CS0019 downstream",
+    "observed": "`gpc.<field>` read as `[Il2CppStaticFields<UnityEngine.Quaternion>+3C]` - 69 occurrences in one file - which is past the end of a block sixteen bytes long, with every use of the value typed from that.",
+    "expected": "the field of GamePlayController at that offset",
+    "rootCause": "PropagatePhi's forward rule took the first typed input and stopped, so a merge of two unrelated values was typed as whichever the operand order put first. The ISIL says it outright: `Phi v308 (Il2CppStaticFields<UnityEngine.Quaternion>), v644 (Il2CppStaticFields<UnityEngine.Quaternion>), v582 (GamePlayController)`. The compiler reuses a scratch register freely and X8 carries both a class's static field storage and ordinary objects, so this shape is routine. The backward rule then spread the wrong type to the phi's other inputs.",
+    "affectedProject": "Source/External/Cpp2IL.Core",
+    "affectedModule": "LocalVariables.PropagatePhi (type fixpoint, representation 4 of 6)",
+    "evidence": [
+      "stage dump 005-after ResolveTypesAndFields: the phi with two disagreeing input types",
+      "Quaternion declares one static field of sixteen bytes, so offset 0x3C cannot be one of its statics",
+      "iteration 016: REAL_ERROR 1307 -> 1153, Roslyn 448 -> 415, DataController.cs 209 diagnostics -> 129",
+      "GenarateDataMap now reads line for line as its source, including `gpc.maxCols = firstLevelsData.fillBox`"
+    ],
+    "regressionTest": "Test/Scripts/check_recovered_shapes.sh DECOMP-0013",
+    "confidence": 100
   }
 ]

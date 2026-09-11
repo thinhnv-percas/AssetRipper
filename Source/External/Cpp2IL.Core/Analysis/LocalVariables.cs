@@ -954,17 +954,35 @@ public static class LocalVariables
 
         var changed = false;
 
-        // Forward: an untyped phi result takes the type of any typed input.
+        // Forward: an untyped phi result takes the type of its typed inputs, but only when they all
+        // say the same thing.
+        //
+        // AssetRipper: this used to take the first typed input and stop, so a merge of two unrelated
+        // values was typed as whichever the operand order happened to put first. The compiler reuses
+        // a scratch register freely, and X8 in particular carries both a class's static field storage
+        // and ordinary objects, so `phi(Il2CppStaticFields<UnityEngine.Quaternion>, GamePlayController)`
+        // is a real shape - and typing it as the storage made `gpc.<field>` read as
+        // `[Il2CppStaticFields<UnityEngine.Quaternion>+3C]`, past the end of a sixteen-byte block.
+        // The backward rule below then spread that type to the phi's other inputs. Where the inputs
+        // disagree the merge is genuinely unknown, and an honest unknown costs one reported load
+        // where a wrong concrete type costs every use downstream.
         if (destination.Type == null)
         {
+            TypeAnalysisContext? agreed = null;
+
             for (var i = 1; i < phi.Operands.Count; i++)
             {
-                if (phi.Operands[i] is LocalVariable { Type: { } inputType })
-                {
-                    changed = SetTypeIfUnknown(destination, inputType);
-                    break;
-                }
+                if (phi.Operands[i] is not LocalVariable { Type: { } inputType })
+                    continue;
+
+                if (agreed == null)
+                    agreed = inputType;
+                else if (agreed.FullName != inputType.FullName)
+                    return false;
             }
+
+            if (agreed != null)
+                changed = SetTypeIfUnknown(destination, agreed);
         }
 
         // Backward: a typed phi result types each of its still-untyped inputs.

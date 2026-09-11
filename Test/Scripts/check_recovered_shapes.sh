@@ -81,6 +81,12 @@ check DECOMP-0010 CSVSerializer.cs 'Type typeFromHandle = typeof(T);' '(RuntimeT
 # field storage down with it. `SingletonMono<T>.Instance` was placeholders end to end.
 check DECOMP-0012 SingletonMono.cs 'Monitor.Enter(syncRoot' 'Rgctx<SingletonMono`1>)+'
 
+# DECOMP-0013: a phi whose inputs disagree took the first one's type. `X8` carried a class's static
+# field storage on one edge and `this.gpc` on the other, and the merge was typed as the storage - so
+# `gpc.<field>` read as `[Il2CppStaticFields<UnityEngine.Quaternion>+3C]`, which is past the end of a
+# block that is sixteen bytes long, and every use of it downstream was typed from that.
+check DECOMP-0013 DataController.cs 'gpc' 'Il2CppStaticFields<UnityEngine.Quaternion>'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.
