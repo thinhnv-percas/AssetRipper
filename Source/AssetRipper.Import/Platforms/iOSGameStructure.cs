@@ -20,7 +20,7 @@ internal sealed class iOSGameStructure : PlatformGameStructure
 		ManagedPath = FileSystem.Path.Join(dataPath, ManagedName);
 		UnityPlayerPath = null;
 		Version = GetUnityVersionFromDataDirectory(GameDataPath);
-		Il2CppGameAssemblyPath = FileSystem.Path.Join(appPath, name);
+		Il2CppGameAssemblyPath = GetIl2CppBinaryPath(appPath, name);
 		Il2CppMetaDataPath = FileSystem.Path.Join(ManagedPath, MetadataName, DefaultGlobalMetadataName);
 
 		if (HasIl2CppFiles())
@@ -81,8 +81,31 @@ internal sealed class iOSGameStructure : PlatformGameStructure
 		return false;
 	}
 
+	/// <summary>
+	/// AssetRipper: il2cpp code lives in UnityFramework.framework, not in the app executable.
+	/// </summary>
+	/// <remarks>
+	/// Unity 2019.3 moved the player into an embedded framework, so the Mach-O named after the
+	/// bundle is a launcher of a few tens of kilobytes with no managed code in it at all - on the
+	/// test fixture, 70 KB against UnityFramework's 51 MB. Handing that one to LibCpp2IL fails with
+	/// "No codegen modules found for mscorlib", which reads like a metadata problem and is not one:
+	/// the metadata had already loaded, and the binary simply was not the game. Older builds do keep
+	/// il2cpp in the app executable, so that stays the fallback.
+	/// </remarks>
+	private string GetIl2CppBinaryPath(string appPath, string name)
+	{
+		string frameworkPath = FileSystem.Path.Join(appPath, FrameworksName, UnityFrameworkName + FrameworkExtension, UnityFrameworkName);
+
+		return FileSystem.File.Exists(frameworkPath)
+			? frameworkPath
+			: FileSystem.Path.Join(appPath, name);
+	}
+
 	private const string iOSStreamingName = "Raw";
 
 	private const string PayloadName = "Payload";
 	private const string AppExtension = ".app";
+	private const string FrameworksName = "Frameworks";
+	private const string UnityFrameworkName = "UnityFramework";
+	private const string FrameworkExtension = ".framework";
 }

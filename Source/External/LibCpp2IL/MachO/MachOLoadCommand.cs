@@ -42,6 +42,21 @@ public class MachOLoadCommand : ReadableClass
                 CommandData = reader.ReadReadableHereNoLock<MachOLinkEditDataCommand>();
                 break;
             }
+            // AssetRipper: read so an encrypted binary can be reported as one. See MachOEncryptionInfoCommand.
+            // The 64-bit form carries four bytes of padding after cryptid that the readable does not
+            // cover, and every case here has to consume its whole payload or the next command is read
+            // from the middle of this one.
+            case LoadCommandId.LC_ENCRYPTION_INFO:
+            case LoadCommandId.LC_ENCRYPTION_INFO_64:
+            {
+                CommandData = reader.ReadReadableHereNoLock<MachOEncryptionInfoCommand>();
+                int remaining = (int)CommandSize - 8 - MachOEncryptionInfoCommand.ReadSize;
+
+                if (remaining > 0)
+                    reader.ReadByteArrayAtRawAddressNoLock(-1, remaining);
+
+                break;
+            }
             default:
                 UnknownCommandData = reader.ReadByteArrayAtRawAddressNoLock(-1, (int)CommandSize - 8); // -8 because we've already read the 8 bytes of the header
                 break;

@@ -29,9 +29,11 @@ Test/Input/RunFromZombies/
 Test/AssetRipper.log
 Test/AssetRipper-recovery.log
 Test/Input/Impostor/
+Test/Input/JellyBlast/
 
 # Agent iteration artifacts: the generated Unity projects are large and reproducible from the
 # recorded commit, input hash and command. The logs and reports beside them are the record.
 /iterations/*/output/
 /artifacts/input/*.apk
+/artifacts/input/*.ipa
 /artifacts/reference/

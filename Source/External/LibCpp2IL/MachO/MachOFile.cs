@@ -92,7 +92,22 @@ public class MachOFile : Il2CppBinary
             ApplyChainedFixups(chainedFixups);
 
         LibLogger.VerboseNewline($"\tMach-O contains {Segments64.Length} segments, split into {Sections64.Length} sections.");
-        
+
+        // AssetRipper: an App Store build's __TEXT is FairPlay ciphertext on disk, and everything
+        // downstream then fails somewhere unrelated - the code registration is found by matching
+        // codegen module *names*, which live in __cstring inside the encrypted range, so the search
+        // reports "No codegen modules found for mscorlib" and reads like a metadata problem when the
+        // metadata had already loaded. Say it here instead, where it is true.
+        if (_loadCommands.FirstOrDefault(c => c.Command is LoadCommandId.LC_ENCRYPTION_INFO or LoadCommandId.LC_ENCRYPTION_INFO_64)
+                ?.CommandData is MachOEncryptionInfoCommand { IsEncrypted: true } encryption)
+        {
+            throw new($"This Mach-O is encrypted: LC_ENCRYPTION_INFO names 0x{encryption.CryptSize:X} bytes "
+                + $"from file offset 0x{encryption.CryptOffset:X} with cryptid {encryption.CryptId}. That range covers "
+                + "__TEXT, so both the code and the C strings the code registration is found by are ciphertext on disk. "
+                + "This is how an App Store (FairPlay) build is distributed and no static tool can read it; supply a "
+                + "build that is not store-encrypted, or one decrypted on a device.");
+        }
+
         LibLogger.VerboseNewline("Mach-O file read successfully.");
     }
 

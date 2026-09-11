@@ -17,7 +17,7 @@ everyone actually runs had none of them.
 
 ## Changes against upstream
 
-Every change is marked `AssetRipper:` at the point it applies. Three of them, all in IL generation:
+Every change is marked `AssetRipper:` at the point it applies.
 
 1. **A body can run off its own end** — `IlGenerator.EnsureTerminated`. A block whose only successor
    is the exit block gets no bridge, and the analysis warnings appended at the end finish on a call,
@@ -34,6 +34,14 @@ Every change is marked `AssetRipper:` at the point it applies. Three of them, al
 4. **A field inside a value type field was not a field** — `MetadataResolver.FindNestedFieldPath`,
    `FieldReference.ContainingFields`, and the reads and writes for them in `IlGenerator`. This is
    the `TODO: Support nested fields` in upstream's own resolver.
+5. **An encrypted Mach-O failed somewhere unrelated** — `MachO/MachOEncryptionInfoCommand.cs`,
+   added, read from the switch in `MachOLoadCommand.Read`, and checked in the `MachOFile`
+   constructor. An App Store build's `__TEXT` is FairPlay ciphertext on disk, which takes the
+   codegen module *names* with it, so the code registration search reported
+   "No codegen modules found for mscorlib" long after the metadata had loaded fine. Note that every
+   case in that switch has to consume its whole payload: the 64-bit encryption command carries four
+   bytes of padding after `cryptid`, and leaving them unread makes the next load command parse from
+   the middle of this one.
 
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),
@@ -42,5 +50,5 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
 
 ## Updating
 
-Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the three marked
+Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked
 changes. Then re-measure with `RUN-TEST.bat` — the numbers above are what to compare against.
