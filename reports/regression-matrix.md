@@ -193,4 +193,14 @@ cần có, vì thay đổi nằm hoàn toàn ở nhánh iOS và ở LibCpp2IL d�
 - Audit trên `Assembly-CSharp` không nhúc nhích (861/170) trong khi cả hai fixture đều tốt lên. Cả 5
   file đổi trên Impostor nằm ngoài assembly đó, và trên Pinata pass chạy 247 lần. Đếm theo assembly
   trước khi kết luận một thay đổi là trơ — đã ghi từ iteration 023 và vẫn đúng.
+- Iteration 038 không ship patch nào, và đó là kết quả đúng. Cluster B (283 load, computed element
+  address trên struct array) có nguyên nhân gốc **xác định chắc chắn** — `ElementSize` trả 0 cho mọi
+  struct và stride 12 của `Vector3` không khớp `ShiftLeft` — nhưng cả hai bản sửa đều đánh đổi một họ
+  hình dạng sai *mới* lấy vài chục load được báo: 2773 → 2736 kèm **7** cast `(float)array[i]` (baseline
+  có **0**), rồi 2773 → 2753 kèm **5** sau khi lọc bằng "base chỉ đọc ở một offset". Baseline có không.
+  Một họ cast không hợp lệ mới đắt hơn 37 load được báo.
+- Phép đếm theo nguyên nhân đổi hẳn thứ tự ưu tiên so với phép đếm theo triệu chứng. Cluster lớn nhất
+  trong 2773 load là **651 lệnh đọc cấu trúc của chính runtime**, nơi base đã có kiểu đúng và đơn giản
+  là không có managed field nào để đặt tên — không phải lỗi gán kiểu chút nào. Đứng thứ hai là 619 load
+  vẫn chưa phân loại. Xem ROOT_CAUSE_INVENTORY.md.
 

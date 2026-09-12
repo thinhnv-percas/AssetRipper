@@ -822,6 +822,24 @@ find it; `strings` without `-el` does find method and type names.
   separates acquisition from parsing: the parser only needs to accept a second input that is not
   store-encrypted.
 
+- **A computed element address over a struct array is not reachable by the fold, and making it
+  reachable is not enough.** `ElementSize` knows only the primitives and returns 0 for every struct,
+  so `ComputedElementAddress` leaves before it looks at anything; and a struct's stride is rarely a
+  power of two, so `Multiply t, i, 12` never matched the `ShiftLeft`-only index check.
+  `Vector3ArrayPlugin.EvaluateAndApply` is the whole shape. Fixing both recovers 37 loads and
+  introduces seven `(float)array[i]` casts where the baseline had none — because `[t + 0x20]` is the
+  address of the element *and* of its first member, which for a struct are different values of
+  different widths. This is the offset-zero ambiguity of iterations 036 and 037 one level further
+  out, and the missing capability is a `FieldReference` whose base is an `ArrayAccess` rather than a
+  `LocalVariable`. `AddressOf(ArrayAccess(…))` already exists, so the nesting is not foreign to the
+  IR; only `FieldReference` refuses it.
+- **Count the remaining defects by cause, not by the name of the symptom — and the largest cause may
+  not be a defect at all.** `ROOT_CAUSE_INVENTORY.md` groups all 2773 unresolved loads: the biggest
+  cluster is 651 reads of the *runtime's own* structs (`Il2CppClass`, `Il2CppMethodInfo`, static field
+  storage), where the base is correctly typed and there is simply no managed field to name. That is a
+  pattern to recognise and drop, not a typing failure, and counting by symptom had it mixed in with
+  genuine type-recovery gaps. The next largest, 619, is still unclassified: classify before working.
+
 ### Things measured to be worth nothing — do not redo them
 - **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
   thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:
@@ -836,6 +854,16 @@ find it; `strings` without `-el` does find method and type names.
   (2799 load, 2079 method-not-found, 13 lệnh đọc typeHierarchyDepth, 39 `as Dictionary`). Bug thật
   là DCE, không phải matcher. Đừng làm lại nếu không có bằng chứng rằng một trong các vùng đó còn
   sống.
+
+- **Folding a computed element address over a struct array.** Two formulations, both measured, both
+  rejected. Taking the stride from metadata and matching a `Multiply`-scaled index is correct as far
+  as it goes - loads 2773 to 2736 - but produces `(float)changeValue[i]`, `(float)localVertices[i]`,
+  `(float)wps[i]`: seven casts from a `Vector3` to a `float` against a baseline of zero, where the
+  source reads `array[i].x`. Restricting the fold to a base read at exactly one offset - the method's
+  own structural evidence that the element is wanted whole rather than taken apart - helps and does
+  not settle it: 2753 loads and five such casts, still not none, because an element read once at
+  `0x20` can equally be its first member. Do not retry either until a field reference can name an
+  array element as its base.
 
 - **Widening a read at offset zero into the whole value.** Offset zero is the one ambiguous offset —
   the address of a struct and the address of its first field are the same number, and the access width

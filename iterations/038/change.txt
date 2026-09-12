@@ -1,0 +1,8 @@
+Không có thay đổi code nào được ship.
+
+Việc của iteration này là phân loại 2773 unresolved load theo NGUYÊN NHÂN thay vì theo tên triệu
+chứng, và kết quả là ROOT_CAUSE_INVENTORY.md. Cluster lớn nhất (651) hoá ra không phải lỗi gán kiểu.
+
+Cluster B (283) được điều tra đầy đủ, nguyên nhân gốc xác định chắc chắn, và hai bản sửa đều bị LOẠI
+sau khi đo: cả hai tạo ra một họ cast (float)array[i] mới mà baseline không có. Ghi lại theo dạng
+Hypothesis / Experiment / Expected / Observed / Conclusion trong ROOT_CAUSE_INVENTORY.md mục 2.

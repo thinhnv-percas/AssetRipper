@@ -5,7 +5,7 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 037 (hoàn tất; DECOMP-0027 độ rộng phép ghi trong phân giải field)
+Iteration hiện tại: 038 (hoàn tất; phân loại nguyên nhân gốc, ROOT_CAUSE_INVENTORY.md — KHÔNG có patch nào được ship, một giả thuyết bị loại sau khi đo)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -182,6 +182,16 @@ QUAN TRỌNG — ĐỌC TRƯỚC KHI THIẾT KẾ BẤT CỨ GÌ MỚI:
   reports/IOS_REFD_DEVX_ANALYSIS.md.
 
 Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
+
+  (A0) **Nới base của `FieldReference` từ `LocalVariable` thành `IOperand`.** Đây là năng lực còn
+      thiếu chặn cả hai việc lớn nhất đang mở: cluster B của ROOT_CAUSE_INVENTORY (283 load, phải
+      diễn đạt được `array[i].field`) và phần còn lại của iteration 037. `AddressOf(ArrayAccess(...))`
+      đã tồn tại nên phép lồng không xa lạ với IR. `NestedFieldResolver` (037) đã lo sẵn phần chọn
+      field theo offset và độ rộng. Đọc ROOT_CAUSE_INVENTORY.md mục 2 trước — hai giả thuyết đã bị
+      loại ở đó, đừng làm lại.
+
+  (A1) **Phân loại cluster G (619 load).** Họ lớn nhất chưa ai mở ra, nhãn hiện tại là UNKNOWN.
+      Phân loại trước khi làm.
 
   (A) **Tách một phép ghi phủ nhiều nested field.** Đây là việc còn lại giữa ba `mangled_ctor` mới
       của 036 và một câu trả lời đúng, và bằng chứng đã đủ. `IlGenerator.PackedFieldsCovered` đã
