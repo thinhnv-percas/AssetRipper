@@ -12,12 +12,12 @@ Mức độ chắc chắn dùng đúng bốn nhãn: `CONFIRMED_ROOT_CAUSE`, `LIK
 | Cluster | Số | % | Hình dạng native/IR | Nguyên nhân | Layer | Mức chắc chắn | Trạng thái |
 |---|---:|---:|---|---|---|---|---|
 | **A** | 651 | 23,5% | `[klass + k]`, `[MethodInfo + k]`, `[static storage + 8]` | Đọc **cấu trúc của chính runtime**. Base đã có kiểu đúng; không có managed field nào để đặt tên. Không phải lỗi gán kiểu. | J. nhận diện pattern | CONFIRMED_ROOT_CAUSE | OPEN |
-| **B** | 283 | 10,2% | `Multiply t, i, stride` → `Add u, array, t` → `[u + 0x20(+f)]` | `ElementSize` chỉ biết primitive nên trả 0 cho mọi struct, và phép nhân stride không phải luỹ thừa hai không khớp `ShiftLeft`. Nhưng **fix không an toàn nếu thiếu độ rộng** — xem mục 2. | E/G. memory + type | CONFIRMED_ROOT_CAUSE | **REJECTED ở 038** |
+| **B** | 283 | 10,2% | `Multiply t, i, stride` → `Add u, array, t` → `[u + 0x20(+f)]` | Giới hạn **biểu diễn**: `FieldReference` nhận base là `LocalVariable` nên `array[i].field` không viết ra được. | E/G. memory + type | CONFIRMED_ROOT_CAUSE | **ĐÃ SỬA ở 039** |
 | **C** | 301 | 10,9% | `[base + k]` với k quá field cuối | Đã phân loại ở `reports/BASE_FIELD_OVERFLOW_ANALYSIS.md`: **bốn** nguyên nhân không liên quan nhau. | nhiều | SYMPTOM_ONLY | OPEN |
 | **D** | 424 | 15,3% | `generic instance, value type argument` (206), `value type base` (188), `generic instance, reference arguments` (30) | Layout của một instantiation generic, và base là value type nên không lấy được địa chỉ field ngoài. | H/I. field layout + generic | LIKELY_ROOT_CAUSE | OPEN |
 | **E** | 100 | 3,6% | `AddressOf(stack_*)` | Ba thứ khác nhau, đã phân loại ở `reports/FRAME_SLOT_ANALYSIS.md` + `reports/INDIRECT_RETURN_BUFFER_ANALYSIS.md`: buffer trả về (đã xử lý ở 036), alloca của thân generic chia sẻ (cần thông tin runtime), spill thường. | E. stack/memory | CONFIRMED_ROOT_CAUSE | PARTIALLY DONE |
 | **F** | 221 | 8,0% | base không có định nghĩa nào | Giá trị vào hàm của một thanh ghi, thường bị một lệnh gọi chưa phân giải đọc trước. | F. SSA/use-def | LIKELY_ROOT_CAUSE | OPEN |
-| **G** | 619 | 22,3% | base untyped từ Move / Add / call result | Họ lớn nhất còn lại và **chưa được phân loại**. Gần như chắc chắn là nhiều nguyên nhân. | G. type recovery | UNKNOWN | OPEN |
+| **G** | 619 | 22,3% | base untyped từ Move / Add / call result | **Đã phân loại ở iteration 039 — xem mục 4.** Phần lớn là *hoãn lại* chứ không phải nguyên nhân mới. | nhiều | SYMPTOM_ONLY | phân loại xong |
 | **H** | 69 | 2,5% | `[hằng số]` | Địa chỉ tuyệt đối; một phần là hằng số của compiler đã xử lý, phần còn lại chưa rõ. | C. lifting | UNKNOWN | OPEN |
 | **I** | 105 | 3,8% | còn lại | — | — | UNKNOWN | OPEN |
 
@@ -111,3 +111,53 @@ load được báo, đúng như đã ghi nhiều lần.
    A/C/E đã dạy.
 3. **Cluster A (651)** không phải việc gán kiểu: nó là nhận diện một hình dạng runtime rồi bỏ đi,
    giống cách `TypeCheckRecovery` và `InterfaceDispatchRecovery` làm phần của chúng.
+
+
+---
+
+## 4. Cluster G — phân loại (iteration 039)
+
+619 load, phân theo **định nghĩa của base**:
+
+| Sub | Số | Định nghĩa của base | Nguyên nhân | Mức chắc chắn |
+|---|---:|---|---|---|
+| G3 | 219 | `Move` từ một local khác cũng không có kiểu | **Hoãn lại.** Không phải nguyên nhân — chỉ đẩy câu hỏi lùi một bước. | SYMPTOM_ONLY |
+| G6 | 121 | `Add` của một local không kiểu với hằng số | **Hoãn lại.** Số học con trỏ trên thứ đã không có kiểu. | SYMPTOM_ONLY |
+| G2 | 113 | `Move` từ một lệnh đọc bộ nhớ đã có kiểu | Xem bên dưới — **hai nguyên nhân khác nhau trộn vào nhau**. | SYMPTOM_ONLY |
+| G7 | 56 | `Add` của một giá trị có kiểu (không phải mảng) | Số học trên một giá trị có kiểu; chưa điều tra. | UNKNOWN |
+| G1 | 43 | `AddressOf` của một local không kiểu | Cùng họ với cluster E nhưng không phải stack slot. | UNKNOWN |
+| G8 | 25 | kết quả của một lệnh gọi | Callee chưa phân giải, hoặc kiểu trả về là placeholder generic. | LIKELY_ROOT_CAUSE |
+| G4 | 18 | `Move` từ `RuntimeClassTypeAnalysisContext` | Con trỏ class dùng làm base — cùng họ cluster A. | LIKELY_ROOT_CAUSE |
+| G5 | 16 | `Move` từ thứ khác | — | UNKNOWN |
+| G10 | 8 | `Newobj` | Đối tượng vừa cấp phát làm base mà không có kiểu; đáng ngờ. | UNKNOWN |
+
+### Kết luận quan trọng: G phần lớn **không phải một nguyên nhân mới**
+
+**340 trong 619 (55%) là G3 + G6 — thuần tuý hoãn lại.** Chúng chỉ nói "base không có kiểu vì thứ
+định nghĩa nó cũng không có kiểu", nên nguyên nhân thật nằm ở gốc của chuỗi, không ở đây.
+
+Và G2 (113) khi mở ra thì là **hai họ đã có trong bảng**:
+
+```
+   8  Move from [Il2CppClass<Spine.RegionAttachment> + 0x0]
+   8  Move from [Il2CppMethodInfo + 0x0]
+   6  Move from [Il2CppClass<Spine.MeshAttachment> + 0x0]     ← cùng nguyên nhân cluster A
+   8  Move from [Int32 + 0x10]
+   7  Move from [Object + 0x10]                                ← System.Object ở đỉnh lattice
+```
+
+`[Il2CppClass<T> + 0x0]` là đọc cấu trúc runtime, đúng cluster A. `[Object + 0x10]` là đọc field đầu
+của một base chỉ biết là "một tham chiếu" — họ `System.Object` ở đỉnh lattice đã ghi trong CLAUDE.md.
+
+Nên **"cluster lớn thứ hai với 619 load" là một cách đọc sai**, đúng kiểu sai lầm mà bảng này được
+lập ra để tránh. Đếm theo định nghĩa trực tiếp của base vẫn còn là đếm theo triệu chứng.
+
+### Thí nghiệm cần làm trước khi đụng vào G
+
+`CPP2IL_DUMP_LOADS` ghi nguyên nhân của **định nghĩa trực tiếp**. Để biết G3 và G6 thật sự quy về
+đâu, cần thêm một cột: **nguyên nhân ở gốc chuỗi định nghĩa**, đi ngược qua `Move` và `Add` cho tới
+lệnh đầu tiên không phải hai thứ đó. Khi có cột ấy, 340 load kia sẽ tự phân về các cluster có thật,
+và rất có thể phần lớn rơi vào A (runtime struct) và D (generic layout) — hai cluster đã biết.
+
+**Không patch G trước khi có cột đó.** Không có subcluster nào của G đạt `CONFIRMED_ROOT_CAUSE`, nên
+theo đúng quy tắc của brief, không có gì ở đây đủ điều kiện để implement.

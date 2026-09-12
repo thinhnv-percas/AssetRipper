@@ -5,7 +5,7 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 038 (hoàn tất; phân loại nguyên nhân gốc, ROOT_CAUSE_INVENTORY.md — KHÔNG có patch nào được ship, một giả thuyết bị loại sau khi đo)
+Iteration hiện tại: 039 (hoàn tất; DECOMP-0028 field qua phần tử mảng — cluster B ĐÃ SỬA; cluster G đã phân loại, không patch)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -183,7 +183,8 @@ QUAN TRỌNG — ĐỌC TRƯỚC KHI THIẾT KẾ BẤT CỨ GÌ MỚI:
 
 Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
 
-  (A0) **Nới base của `FieldReference` từ `LocalVariable` thành `IOperand`.** Đây là năng lực còn
+  (A0) **[XONG ở 039]** Không nới `Local` thành `IOperand` — cách đó phá mọi pass thay thế base.
+      Thay vào đó `FieldReference.ElementIndex` mang chỉ số và `Local` vẫn là cái mảng. Xem mục cũ: Đây là năng lực còn
       thiếu chặn cả hai việc lớn nhất đang mở: cluster B của ROOT_CAUSE_INVENTORY (283 load, phải
       diễn đạt được `array[i].field`) và phần còn lại của iteration 037. `AddressOf(ArrayAccess(...))`
       đã tồn tại nên phép lồng không xa lạ với IR. `NestedFieldResolver` (037) đã lo sẵn phần chọn
