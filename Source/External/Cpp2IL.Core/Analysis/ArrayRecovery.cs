@@ -48,7 +48,7 @@ public static class ArrayRecovery
             for (var i = 0; i < instruction.Operands.Count; i++)
             {
                 if (instruction.Operands[i] is MemoryOperand { Base: LocalVariable { Type: not SzArrayTypeAnalysisContext } computed } memory
-                    && ComputedElementAddress(memory, computed, definitions, pointerSize) is { } folded)
+                    && ComputedElementAddress(memory, computed, definitions, pointerSize, method) is { } folded)
                 {
                     instruction.SetOperand(i, folded);
                     changed = true;
@@ -89,7 +89,7 @@ public static class ArrayRecovery
                 // the array and the index are an instruction earlier. Fold that back before the
                 // patterns below, which all expect the array to be the base.
                 if (memory.Base is LocalVariable { Type: not SzArrayTypeAnalysisContext } computed
-                    && ComputedElementAddress(memory, computed, definitions, pointerSize) is { } folded)
+                    && ComputedElementAddress(memory, computed, definitions, pointerSize, method) is { } folded)
                 {
                     instruction.SetOperand(i, folded);
                     continue;
@@ -226,8 +226,8 @@ public static class ArrayRecovery
     /// AssetRipper: <c>[t + elementsOffset]</c> where <c>t = array + (index &lt;&lt; log2(elementSize))</c>,
     /// which is how an element is reached where the address has to be computed before the load.
     /// </summary>
-    private static ArrayAccess? ComputedElementAddress(MemoryOperand memory, LocalVariable computed,
-        Dictionary<LocalVariable, Instruction> definitions, int pointerSize)
+    private static IOperand? ComputedElementAddress(MemoryOperand memory, LocalVariable computed,
+        Dictionary<LocalVariable, Instruction> definitions, int pointerSize, MethodAnalysisContext method)
     {
         if (!definitions.TryGetValue(computed, out var definition)
             || definition is not { OpCode: OpCode.Add, Operands: [_, var left, var right] })
@@ -239,21 +239,59 @@ public static class ArrayRecovery
         if (array is not LocalVariable { Type: SzArrayTypeAnalysisContext arrayType } arrayLocal)
             return null;
 
+        // AssetRipper: the table above knows only the primitives. A struct array's stride is in the
+        // metadata, and it is the same size the struct-element-address path already reads.
         var elementSize = ElementSize(arrayType.ElementType, pointerSize);
+        var isStruct = elementSize == 0;
 
-        if (elementSize == 0)
+        if (isStruct)
+            elementSize = MetadataElementSize(arrayType.ElementType, pointerSize);
+
+        if (elementSize <= 0)
             return null;
 
         // AssetRipper: the compiler adds the elements offset ahead of the load and leaves the index
         // in the addressing mode whenever the index is not also wanted for something else. The
         // access is then `[t + index * elementSize]` with t = array + elementsOffset, which is the
         // same element as the shapes below and cannot be reached by them.
+        // AssetRipper: a struct element is excluded for the same reason as the offset-zero case below -
+        // the element's address and its first member's are the same number, and reading one as the
+        // other gives `(float)array[i]`, a cast C# does not have.
         if (scaled is Immediate { Value: var added } && added == ElementsOffset(pointerSize))
-            return memory.Addend == 0 && memory.Index != null && memory.Scale == elementSize
+            return !isStruct && memory.Addend == 0 && memory.Index != null && memory.Scale == elementSize
                 ? new ArrayAccess(arrayLocal, memory.Index)
                 : null;
 
-        if (memory.Index != null || memory.Scale != 0 || memory.Addend != ElementsOffset(pointerSize))
+        if (memory.Index != null || memory.Scale != 0)
+            return null;
+
+        var intoElement = memory.Addend - ElementsOffset(pointerSize);
+
+        // AssetRipper: past the start of the element the offset itself proves a member was reached -
+        // nothing else lives there - so `[t + elementsOffset + f]` is `array[i].<member at f>`. At the
+        // start it is not proof: the element's address and its first member's address are the same
+        // number, and for a struct they are different values of different widths. That case is left
+        // unresolved rather than guessed; see ROOT_CAUSE_INVENTORY.md cluster B.
+        if (intoElement != 0)
+        {
+            if (isStruct && intoElement > 0 && intoElement < elementSize
+                && (scaled is LocalVariable scaledLocal ? ScaledIndexBehind(scaledLocal, elementSize, definitions) : null) is { } memberIndex
+                && MetadataResolver.FindNestedFieldPath(arrayType.ElementType, intoElement, 0, method) is { } path)
+            {
+                return new FieldReference(path[^1], arrayLocal, (int)memory.Addend)
+                {
+                    ContainingFields = path.GetRange(0, path.Count - 1),
+                    ElementIndex = memberIndex,
+                };
+            }
+
+            return null;
+        }
+
+        // At the start of the element, the element's address and its first member's address are the
+        // same number - and for a struct those are different values of different widths. A primitive
+        // element has no interior for the two to disagree about, so only it is folded here.
+        if (isStruct)
             return null;
 
         // AssetRipper: a constant index has no register at all - the whole offset is folded into the
@@ -270,12 +308,33 @@ public static class ArrayRecovery
         if (elementSize == 1)
             return new ArrayAccess(arrayLocal, scaledIndex);
 
-        if (!definitions.TryGetValue(scaledIndex, out var scaling)
-            || scaling is not { OpCode: OpCode.ShiftLeft, Operands: [_, var index, Immediate shift] }
-            || 1L << (int)shift.Value != elementSize)
+        return ScaledIndexBehind(scaledIndex, elementSize, definitions) is { } index ? new ArrayAccess(arrayLocal, index) : null;
+    }
+
+    /// <summary>
+    /// AssetRipper: the index behind a value scaled by <paramref name="elementSize"/>, or null when the
+    /// scaling is not exactly that.
+    /// </summary>
+    /// <remarks>
+    /// A shift is only available when the stride is a power of two, and a struct's rarely is: a
+    /// <c>Vector3</c> is twelve bytes, so the compiler emits a multiply and a shift-only match saw
+    /// nothing. Hitting the metadata stride exactly is what makes either form safe to read as an index.
+    /// </remarks>
+    public static IOperand? ScaledIndexBehind(LocalVariable scaled, long elementSize, Dictionary<LocalVariable, Instruction> definitions)
+    {
+        if (!definitions.TryGetValue(scaled, out var scaling))
             return null;
 
-        return new ArrayAccess(arrayLocal, index);
+        return scaling switch
+        {
+            { OpCode: OpCode.ShiftLeft, Operands: [_, var index, Immediate shift] }
+                when shift.Value is >= 0 and < 63 && 1L << (int)shift.Value == elementSize => index,
+            { OpCode: OpCode.Multiply, Operands: [_, var index, Immediate factor] }
+                when factor.Value == elementSize => index,
+            { OpCode: OpCode.Multiply, Operands: [_, Immediate factor, var index] }
+                when factor.Value == elementSize => index,
+            _ => null,
+        };
     }
 
     private static IOperand? ElementIndex(MemoryOperand memory, SzArrayTypeAnalysisContext arrayType, int pointerSize)

@@ -143,6 +143,8 @@ public static class EqualityBranchInverter
                     break;
                 case FieldReference field:
                     yield return field.Local;
+                    if (field.ElementIndex is LocalVariable fieldIndex) // AssetRipper: array[i].f reads i too
+                        yield return fieldIndex;
                     break;
                 case ArrayAccess array:
                     yield return array.Array;

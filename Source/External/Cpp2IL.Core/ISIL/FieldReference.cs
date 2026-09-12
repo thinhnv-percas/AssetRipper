@@ -22,6 +22,22 @@ public class FieldReference(FieldAnalysisContext field, LocalVariable local, int
     /// </summary>
     public int AccessSize;
 
+    /// <summary>
+    /// AssetRipper: the index into <see cref="Local"/> when the field is reached through an array
+    /// element rather than off the local itself - <c>array[i].x</c> rather than <c>value.x</c>.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="Local"/> stays the array, so every pass that substitutes it - copy coalescing, SSA
+    /// simplification - keeps working unchanged and substitutes the array, which is what it should do.
+    /// Only the index is new, and it is walked wherever <see cref="ArrayAccess.Index"/> already is.
+    /// The alternative, widening <see cref="Local"/> to an <c>IOperand</c>, breaks every one of those
+    /// substitutions.
+    /// </remarks>
+    public IOperand? ElementIndex;
+
     public override string ToString()
-        => $"{Local.Name}.{string.Join(".", ContainingFields.Select(f => f.Name).Append(Field.Name))} ({Field.FieldType.FullName})";
+    {
+        var root = ElementIndex is null ? Local.Name : $"{Local.Name}[{ElementIndex}]";
+        return $"{root}.{string.Join(".", ContainingFields.Select(f => f.Name).Append(Field.Name))} ({Field.FieldType.FullName})";
+    }
 }

@@ -96,6 +96,12 @@ public static class SsaSimplifier
                 // Same as a memory base: the object a field is read from must stay a local.
                 case FieldReference { Local: { } fieldLocal } field when resolved.TryGetValue(fieldLocal, out var fieldValue) && fieldValue is LocalVariable fieldReplacement:
                     field.Local = fieldReplacement;
+                    ReplaceFieldIndex(field, resolved); // AssetRipper
+                    break;
+
+                // AssetRipper: the array of an array[i].f did not move, but the index still can.
+                case FieldReference field:
+                    ReplaceFieldIndex(field, resolved);
                     break;
 
                 // AssetRipper: an element access reads the array and the index. The array, like a
@@ -147,6 +153,8 @@ public static class SsaSimplifier
                             break;
                         case FieldReference field when field.Local is { } fieldLocal:
                             reads.Add(fieldLocal);
+                            if (field.ElementIndex is LocalVariable fieldIndexRead) // AssetRipper
+                                reads.Add(fieldIndexRead);
                             break;
                         case ArrayAccess array: // AssetRipper
                             reads.Add(array.Array);
@@ -176,4 +184,11 @@ public static class SsaSimplifier
             FieldReference => false,
             _ => true
         };
+
+    /// <summary>AssetRipper: forward the index of an <c>array[i].field</c> like any other read.</summary>
+    private static void ReplaceFieldIndex(FieldReference field, Dictionary<LocalVariable, IOperand> resolved)
+    {
+        if (field.ElementIndex is LocalVariable index && resolved.TryGetValue(index, out var value) && value is LocalVariable replacement)
+            field.ElementIndex = replacement;
+    }
 }

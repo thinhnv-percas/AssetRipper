@@ -273,6 +273,8 @@ public static class CopyCoalescer
                     break;
                 case FieldReference field:
                     yield return field.Local;
+                    if (field.ElementIndex is LocalVariable fieldIndex) // AssetRipper: array[i].f reads i too
+                        yield return fieldIndex;
                     break;
                 case ArrayAccess array:
                     yield return array.Array;
@@ -311,6 +313,8 @@ public static class CopyCoalescer
                             break;
                         case FieldReference field:
                             field.Local = groups.Find(field.Local);
+                            if (field.ElementIndex is LocalVariable coalescedIndex) // AssetRipper
+                                field.ElementIndex = groups.Find(coalescedIndex);
                             break;
                         case ArrayAccess array:
                             array.Array = groups.Find(array.Array);

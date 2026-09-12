@@ -89,6 +89,8 @@ public static class IlGenerator
                     break;
                 case FieldReference field:
                     Declare(field.Local);
+                    if (field.ElementIndex is { } fieldIndex) // AssetRipper: array[i].f declares i too
+                        CollectLocals(fieldIndex);
                     break;
                 case MemoryOperand { Base: LocalVariable memoryBase } memory:
                     Declare(memoryBase);
@@ -984,10 +986,7 @@ public static class IlGenerator
 
                     if (!field.Field.IsStatic)
                     {
-                        if (intoStruct && field.ContainingFields.Count == 0)
-                            LoadLocalAddress(field.Local, method, locals);
-                        else
-                            LoadLocal(field.Local, method, locals);
+                        LoadFieldBase(field, intoStruct && field.ContainingFields.Count == 0, instructions, context, method, locals, writeLine);
 
                         LoadContainingFields(field, instructions);
                     }
@@ -2206,10 +2205,7 @@ public static class IlGenerator
                         throughStruct = false;
                     }
 
-                    if (throughStruct && field.ContainingFields.Count == 0)
-                        LoadLocalAddress(field.Local, method, locals);
-                    else
-                        LoadLocal(field.Local, method, locals);
+                    LoadFieldBase(field, throughStruct && field.ContainingFields.Count == 0, instructions, context, method, locals, writeLine);
 
                     // A field reached through value type fields needs those loaded first. ldfld takes a
                     // value type instance on the stack, so reads chain without needing addresses.
@@ -2594,6 +2590,37 @@ public static class IlGenerator
     }
 
     // AssetRipper: the address of what LoadLocal would push, for a receiver taken by reference.
+    /// <summary>
+    /// AssetRipper: puts the thing a field is read off onto the stack - the local, its address, or the
+    /// address of the array element the field lives in.
+    /// </summary>
+    /// <remarks>
+    /// An element of a struct array is only reachable by its address: <c>ldelem</c> would copy the
+    /// element, and a field written through a copy is written nowhere. <c>ldelema</c> is what C#
+    /// compiles <c>array[i].x = v</c> to, and it serves the read side equally well because
+    /// <c>ldfld</c> takes a managed pointer as happily as a value.
+    /// </remarks>
+    private static void LoadFieldBase(FieldReference field, bool wantAddress, CilInstructionCollection instructions,
+        MethodAnalysisContext context, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals,
+        IMethodDescriptor writeLine)
+    {
+        if (field.ElementIndex is { } index)
+        {
+            LoadLocal(field.Local, method, locals);
+            LoadOperand(index, context, method, locals, writeLine, null);
+            instructions.Add(CilOpCodes.Ldelema, ElementTypeOf(field.Local).ToTypeSignature().ToTypeDefOrRef());
+            return;
+        }
+
+        if (wantAddress)
+            LoadLocalAddress(field.Local, method, locals);
+        else
+            LoadLocal(field.Local, method, locals);
+    }
+
+    private static TypeAnalysisContext ElementTypeOf(LocalVariable array)
+        => array.Type is SzArrayTypeAnalysisContext { ElementType: { } element } ? element : array.Type!;
+
     private static void LoadLocalAddress(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
     {
         var instructions = method.CilMethodBody!.Instructions;
@@ -2672,10 +2699,7 @@ public static class IlGenerator
 
                 instructions.Add(CilOpCodes.Stloc, scratch);
 
-                if (intoStruct && field.ContainingFields.Count == 0)
-                    LoadLocalAddress(field.Local, method, locals);
-                else
-                    LoadLocal(field.Local, method, locals);
+                LoadFieldBase(field, intoStruct && field.ContainingFields.Count == 0, instructions, context, method, locals, writeLine);
 
                 LoadContainingFields(field, instructions);
                 instructions.Add(CilOpCodes.Ldloc, scratch);

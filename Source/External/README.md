@@ -88,6 +88,15 @@ Every change is marked `AssetRipper:` at the point it applies.
    Preferring the member inside needs the width to match it exactly and the offset to name one field,
    because at the start of a field the field itself is also a valid answer.
 
+11. **A field could not be read off an array element** — `ISIL/FieldReference.cs` gains `ElementIndex`,
+   `ArrayRecovery.ComputedElementAddress` produces it, `IlGenerator.LoadFieldBase` emits `ldelema`
+   for it, and the index is walked alongside `ArrayAccess.Index` in the declaration walk,
+   `SsaSimplifier`, `CopyCoalescer` and `EqualityBranchInverter`. `array[i].x` had no
+   representation, so a computed element address over a struct array could only be reported as an
+   unresolved load or folded to `(float)array[i]`, a cast C# does not have. `ElementSize` still
+   knows only the primitives; a struct stride comes from `MetadataElementSize`, and the index may be
+   scaled by a multiply rather than a shift because a struct stride is rarely a power of two.
+
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),
 each project targets only `net10.0`, and packing, SourceLink and package metadata are dropped. The

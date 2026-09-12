@@ -840,6 +840,24 @@ find it; `strings` without `-el` does find method and type names.
   pattern to recognise and drop, not a typing failure, and counting by symptom had it mixed in with
   genuine type-recovery gaps. The next largest, 619, is still unclassified: classify before working.
 
+- **A field reference can name an array element as its base, and that is what cluster B needed.**
+  `FieldReference.Local` stays the array and a new `ElementIndex` carries the index, so every pass that
+  substitutes the base — copy coalescing, SSA simplification — keeps working unchanged and substitutes
+  the array, which is right. Widening `Local` to an `IOperand` instead breaks all of those. Only the
+  index is new, and it is walked wherever `ArrayAccess.Index` already is: the local-declaration walk in
+  `IlGenerator`, `SsaSimplifier` (both directions), `CopyCoalescer` (both), `EqualityBranchInverter`.
+  Missing the declaration walk is not silent for once — it throws `KeyNotFoundException` out of the
+  generator — but that is luck, not design. The generator emits `ldelema` for such a base: `ldelem`
+  would copy the element and a field written through a copy is written nowhere.
+- **The asymmetry from iteration 037 is the rule for array elements too.** Past the start of an element
+  the offset itself proves a member was reached, because nothing else lives there, so
+  `[t + elementsOffset + f]` is `array[i].<member at f>` with no width needed. *At* the start it proves
+  nothing: the element's address and its first member's address are the same number, and for a struct
+  those are different values of different widths. Folding that to `array[i]` is what produced
+  `(float)changeValue[i]` in iteration 038. Both fold paths — the scaled-index one and the
+  elements-offset-added-ahead one — have to exclude a struct element at offset zero, and there are two
+  of them, so fixing one leaves the casts in place.
+
 ### Things measured to be worth nothing — do not redo them
 - **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
   thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:
@@ -855,8 +873,9 @@ find it; `strings` without `-el` does find method and type names.
   là DCE, không phải matcher. Đừng làm lại nếu không có bằng chứng rằng một trong các vùng đó còn
   sống.
 
-- **Folding a computed element address over a struct array.** Two formulations, both measured, both
-  rejected. Taking the stride from metadata and matching a `Multiply`-scaled index is correct as far
+- **Folding a computed element address over a struct array *into the element itself*.** Two
+  formulations, both measured, both rejected — and superseded in iteration 039 by folding into the
+  element's *member* instead, which needs no width. The rejected pair: Taking the stride from metadata and matching a `Multiply`-scaled index is correct as far
   as it goes - loads 2773 to 2736 - but produces `(float)changeValue[i]`, `(float)localVertices[i]`,
   `(float)wps[i]`: seven casts from a `Vector3` to a `float` against a baseline of zero, where the
   source reads `array[i].x`. Restricting the fold to a base read at exactly one offset - the method's

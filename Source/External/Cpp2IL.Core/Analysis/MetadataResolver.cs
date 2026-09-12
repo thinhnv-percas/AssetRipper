@@ -388,7 +388,7 @@ public static class MetadataResolver
     /// Finds the chain of fields that an access of <paramref name="accessSize"/> bytes at
     /// <paramref name="targetOffset"/> reaches, outermost first. Null when the offset reaches none.
     /// </summary>
-    private static List<FieldAnalysisContext>? FindNestedFieldPath(TypeAnalysisContext owner, long targetOffset,
+    public static List<FieldAnalysisContext>? FindNestedFieldPath(TypeAnalysisContext owner, long targetOffset,
         int accessSize, MethodAnalysisContext method)
         => NestedFieldResolver.Find<TypeAnalysisContext, FieldAnalysisContext>(
             owner,
