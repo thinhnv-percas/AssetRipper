@@ -104,6 +104,45 @@ public sealed class PackageSource
 	}
 
 	/// <summary>
+	/// What this source is, written as a package manager git dependency, or empty when it is not a git
+	/// source.
+	/// </summary>
+	/// <remarks>
+	/// The inverse of <see cref="FromGitUrl"/>, and the string Unity's package manager takes under
+	/// <em>Add package from git URL</em>. An export writes it into the project's manifest already; this
+	/// is for adding the package to a project by hand, which is what someone does when the project is
+	/// not the one that was just exported.
+	/// </remarks>
+	public string ToGitUrl() => Kind is PackageSourceKind.Git ? BuildGitUrl(Location, Subfolder, Revision) : "";
+
+	/// <summary>
+	/// A package manager git dependency, assembled from its three parts.
+	/// </summary>
+	/// <remarks>
+	/// One definition, because this is written in two places that have to agree: here, for the source as
+	/// a whole, and in <see cref="PackageSourceResolver"/>, for each package found inside it. A
+	/// repository holding several packages has a different path per package and the same everything
+	/// else.
+	/// </remarks>
+	public static string BuildGitUrl(string location, string path, string revision)
+	{
+		string text = location.Trim();
+
+		path = path.Replace('\\', '/').Trim('/');
+		if (path.Length > 0)
+		{
+			text += $"?path={path}";
+		}
+
+		if (revision.Length > 0)
+		{
+			text += $"#{revision}";
+		}
+
+		return text;
+	}
+
+	/// <summary>
 	/// How the source reads in a list, which is how it is told apart from the others.
 	/// </summary>
 	public string Describe()
