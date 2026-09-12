@@ -81,6 +81,13 @@ Every change is marked `AssetRipper:` at the point it applies.
    call already names as its result. Which register is the buffer comes from the callee's own
    `CallingConventionResolver`, so no architecture is named here and x86 improves too.
 
+10. **An exact offset match ignored how wide the access was** — `Analysis/NestedFieldResolver.cs`,
+   added, with `MetadataResolver`'s field resolution rewritten to consult it on both paths rather than
+   returning at the first field whose offset matches. Four bytes at the offset of a `Vector3` reached
+   its `x`; reading that as a write of the whole vector produced a cast from a float to a struct.
+   Preferring the member inside needs the width to match it exactly and the offset to name one field,
+   because at the start of a field the field itself is also a valid answer.
+
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),
 each project targets only `net10.0`, and packing, SourceLink and package metadata are dropped. The

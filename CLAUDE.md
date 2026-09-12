@@ -762,6 +762,38 @@ find it; `strings` without `-el` does find method and type names.
   into a 24-byte field, so the destination is `this.level.currentCryptoKey`), and widening the source
   to compensate is distorting one end to hide the other. Report the cost, fix the end that is wrong.
 
+- **An offset landing exactly on a field is not proof the field was accessed; the width is the rest of
+  the proof.** `MetadataResolver` had two paths — an exact offset match, which returned at once, and a
+  descent into a value type's interior when nothing matched — and only the second ever looked past the
+  offset. Four bytes written at the offset of a twelve-byte `Vector3` reached its `x`, and calling that
+  a write of the whole vector gives `worldPos = (Vector3)num`, a cast C# does not have that loses y and
+  z. The two positions are not symmetric and the asymmetry is the rule: past the start of a field the
+  field is not a valid answer at all, so the offset is the whole evidence; *at* the start it is also a
+  valid answer, so preferring the member inside needs the width to match that member exactly and the
+  offset to name only one field. `NestedFieldResolver` is written over delegates rather than over
+  `TypeAnalysisContext` so the search is testable without metadata behind it.
+- **`generatorFailures` catches the bug that makes every other number look good.** Moving a
+  `continue` inside a new guard let `field == null` fall through to
+  `new ConcreteGenericFieldAnalysisContext(null, …)` on the generic path, and 308 bodies threw. The
+  unresolved-load count read 2773 → 1615, which looks like the best result in the project's history
+  and is 308 methods producing nothing at all. Read that line first, every time.
+- **The premise of a task can be wrong even when two iterations and a brief agree on it.** The three
+  `mangled_ctor` iteration 036 exposed were diagnosed — here and in that iteration's own notes — as a
+  four-byte write into a twenty-four byte `ObscuredInt` field, wanting
+  `this.level.currentCryptoKey`. Tracing the decision point says `accessSize=16 size=20`: the write is
+  *sixteen* bytes and the struct is *twenty*, whose fields sit at 0x0, 0x4, 0x8, 0xC and 0x10 — so the
+  write tiles the first four exactly and the destination is not a nested field at all but a partial,
+  exactly-tiling copy. What is left is `IlGenerator.PackedFieldsCovered` one level deeper. And the
+  `Expected O, but got I4` is on the *source* side after all, which is iteration 036's offset-zero
+  ambiguity — now with the evidence it lacked, namely the width of the store that consumes the load.
+  Trace the numbers at the point the decision is made before believing a diagnosis, however well
+  attested.
+- **One symptom, at least two causes, and the count hides it.** Of the seven `mangled_ctor` on the test
+  game, `EventDispatcher..ctor` carries a `base._002Ector()` with **no stack type mismatch anywhere in
+  the body** — so "ILSpy will not fold a base call in a body carrying a mismatch" does not explain it,
+  and the four pre-existing ones are not the family the new three belong to. Classify before working,
+  even a family of seven.
+
 - **Code registration can be found without any string, and that is what makes an encrypted iOS
   binary partly readable.** `FindCodeRegistrationPost2019` starts from the bytes of `mscorlib.dll`,
   so it needs `__cstring`; on an App Store build FairPlay encrypts the whole of `__TEXT` and that

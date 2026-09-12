@@ -1,0 +1,7 @@
+DECOMP-0027: một offset rơi đúng lên một field không chứng minh cả field đó được truy cập — độ rộng
+là phần bằng chứng còn lại. Tách phần tìm kiếm ra NestedFieldResolver (viết qua delegate nên tự kiểm
+thử được), và cho cả hai đường phân giải field trong MetadataResolver dùng nó.
+
+Phát hiện chính: tiền đề của task SAI. Ba mangled_ctor của 036 không phải "ghi 4 byte vào field 24
+byte"; đo tại chỗ quyết định cho accessSize=16 size=20, và ObscuredInt có field ở 0x0/0x4/0x8/0xC/0x10
+nên 16 byte lát kín bốn field đầu. mangled_ctor vẫn là 7 — không giảm.

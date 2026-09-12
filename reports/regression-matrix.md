@@ -180,4 +180,17 @@ cần có, vì thay đổi nằm hoàn toàn ở nhánh iOS và ở LibCpp2IL d�
   luật nới offset-0, ba lần 2773 load / REAL_ERROR 861 / mangled_ctor 7. Lần thứ ba đã sửa phép so
   kiểu theo tên thay vì theo tham chiếu (bài học `CopyCoalescer`) và vẫn không chạy — vì nguyên nhân
   là local đích đã bị gán kiểu từ chính lệnh đọc hẹp, không phải phép so sánh. Đã loại.
+- Iteration 037 là lần đầu một tiền đề **đã được hai iteration và một brief đồng thuận** hoá ra sai.
+  Ba `mangled_ctor` của 036 được chẩn đoán là "ghi 4 byte vào field 24 byte". Trace tại đúng chỗ
+  quyết định cho `accessSize=16 size=20`, và `ObscuredInt` có field ở 0x0/0x4/0x8/0xC/0x10 — 16 byte
+  lát kín bốn field đầu. Đích không phải nested field mà là copy bộ phận lát kín. Đo tại điểm quyết
+  định trước khi tin một chẩn đoán, dù nó được ghi lại kỹ đến đâu.
+- Và một lần nữa `generatorFailures` là cột phải đọc trước. Bản đầu của 037 cho unresolved loads
+  2773 → **1615**, con số đẹp nhất từ trước tới nay, cùng với `generatorFailures` 0 → **308**: một
+  `continue` bị chuyển vào trong guard mới, nên `field == null` rơi xuống
+  `ConcreteGenericFieldAnalysisContext(null, …)`. 308 thân hàm không sinh ra gì, nên chúng không
+  đóng góp load nào.
+- Audit trên `Assembly-CSharp` không nhúc nhích (861/170) trong khi cả hai fixture đều tốt lên. Cả 5
+  file đổi trên Impostor nằm ngoài assembly đó, và trên Pinata pass chạy 247 lần. Đếm theo assembly
+  trước khi kết luận một thay đổi là trơ — đã ghi từ iteration 023 và vẫn đúng.
 

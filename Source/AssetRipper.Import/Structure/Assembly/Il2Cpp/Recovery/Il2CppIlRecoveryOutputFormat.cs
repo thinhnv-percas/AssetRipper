@@ -119,6 +119,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Utils.BaseCallingConventionResolver.AggregateArgumentsComposed} call arguments the ABI " +
 				"spread over several vector registers were composed back into their value.");
 			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: a write narrower than the field its offset lands on named a member inside it "
+				+ $"{Cpp2IL.Core.Analysis.MetadataResolver.NarrowWritesRefined} times; "
+				+ $"{Cpp2IL.Core.Analysis.MetadataResolver.NarrowWritesUnresolved} times no member accounted for the width, so the field stood.");
+			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened " +
 				"because a recovered body reaches them from outside the type, or the assembly, that declares them.");
 			Logger.Info(LogCategory.Import,

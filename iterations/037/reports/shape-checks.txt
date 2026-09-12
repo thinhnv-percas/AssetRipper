@@ -1,0 +1,18 @@
+PASS  DECOMP-0001  TimeInGame.cs
+PASS  DECOMP-0002  TimeInGame.cs
+PASS  DECOMP-0003  Common.cs
+PASS  DECOMP-0007  ResourcesUtil.cs
+PASS  DECOMP-0009  GamePlayController.cs
+PASS  DECOMP-0010  CSVSerializer.cs
+PASS  DECOMP-0012  SingletonMono.cs
+PASS  DECOMP-0013  DataController.cs
+PASS  DECOMP-0014  AnimationState.cs
+PASS  DECOMP-0015  GraphicController.cs
+PASS  DECOMP-0015  GUIManager.cs
+PASS  DECOMP-0016  TimeCheatingDetector.cs
+PASS  DECOMP-0017  CSVReader.cs
+PASS  DECOMP-0018  GameHelper.cs
+PASS  DECOMP-0020  SkeletonJson.cs
+SKIP  DECOMP-0008  no run log at Test/Output-037c/../logs/AssetRipper.log
+
+all shape checks passed

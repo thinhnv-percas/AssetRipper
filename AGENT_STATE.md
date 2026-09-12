@@ -5,7 +5,7 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 036 (hoàn tất; DECOMP-0026 buffer trả về gián tiếp)
+Iteration hiện tại: 037 (hoàn tất; DECOMP-0027 độ rộng phép ghi trong phân giải field)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -182,6 +182,16 @@ QUAN TRỌNG — ĐỌC TRƯỚC KHI THIẾT KẾ BẤT CỨ GÌ MỚI:
   reports/IOS_REFD_DEVX_ANALYSIS.md.
 
 Việc tiếp theo, theo thứ tự bằng chứng nói là đáng giá:
+
+  (A) **Tách một phép ghi phủ nhiều nested field.** Đây là việc còn lại giữa ba `mangled_ctor` mới
+      của 036 và một câu trả lời đúng, và bằng chứng đã đủ. `IlGenerator.PackedFieldsCovered` đã
+      làm đúng việc này cho trường hợp phẳng; ở đây sâu hơn một tầng. LƯU Ý: chẩn đoán cũ
+      ("ghi 4 byte vào field 24 byte, đích đúng là `this.level.currentCryptoKey`") mà cả iteration
+      036 lẫn brief 037 đều nêu là **SAI** — đo tại chỗ quyết định cho `accessSize=16 size=20`, và
+      `ObscuredInt` có field ở 0x0/0x4/0x8/0xC/0x10 nên 16 byte lát kín bốn field đầu. Đích là một
+      phép copy bộ phận lát kín, không phải một nested field. Xem
+      reports/NESTED_DESTINATION_ANALYSIS.md.
+
 
   (0) **iOS: ĐÃ GIẢI QUYẾT ở iteration 035 — không còn blocker nào sửa được bằng phân tích tĩnh.**
       `InstanceSize=2249170484` không phải (a) metareg false positive, cũng không phải (b)

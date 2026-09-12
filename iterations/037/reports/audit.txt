@@ -1,0 +1,66 @@
+source files in the build: 35
+members declared in them:  177
+present in the recovery:   177
+absent:                    0
+
+file                                    lines  unresolved_loa  method_not_fou   type_mismatch       nint_cast           total
+Extensions.cs                             691              63              25              56              98             144
+DataController.cs                        1077              26               0              31              27              62
+CSVSerializer.cs                          791              26              10              20              16              56
+GameHelper.cs                             438              14               7              33              27              54
+SingletonMono.cs                          276              20              12              19               5              51
+ResourcesUtil.cs                          366               7              19              21               6              47
+UserResourceCollectionItem.cs             276               8               0              17              12              25
+GraphicController.cs                      285              12               4               8               4              24
+Item.cs                                   139               0               8              14               3              22
+UserResourceItem.cs                       239               6               0              16               4              22
+SingletonMonoDontDestroy.cs               180              10               1              10               6              21
+EventDispatcher.cs                        217               9               6               2               9              17
+Common.cs                                 143               3               6               1               0              10
+GamePlayController.cs                     346               3               0               5               4               9
+GUIManager.cs                             438               0               2               6               7               8
+CSVHelper.cs                              308               0               5               2               3               7
+ItemResources.cs                           53               0               0               6               0               6
+RandNumber.cs                              61               2               0               4               1               6
+AdManager.cs                              377               1               0               4               0               5
+ItemDistinc.cs                             41               0               4               1               0               5
+CSVReader.cs                              273               1               0               3               4               4
+UserResourceInventory.cs                   54               0               4               0               0               4
+Box.cs                                    409               1               0               2               3               3
+ItemStack.cs                               39               0               0               3               0               3
+ItemArtifact.cs                            50               0               0               2               0               2
+DataCreatePlayer.cs                        71               0               0               0               0               0
+EventDispatcherExtension.cs                25               0               0               0               0               0
+EventID.cs                                 27               0               0               0               0               0
+Extension.cs                               48               0               0               0               0               0
+GDPR.cs                                    92               0               0               0               0               0
+GameController.cs                         130               0               0               0               0               0
+GameManager.cs                             67               0               0               0               0               0
+Imposter.cs                               108               0               0               0               0               0
+Inventory.cs                               16               0               0               0               0               0
+ItemBase.cs                                15               0               0               0               0               0
+ItemInventory.cs                           25               0               0               0               0               0
+Log.cs                                     62               0               0               0               0               0
+Movement.cs                                18               0               0               0               0               0
+RatingReviewManager.cs                     86               0               0               0               0               0
+TestCube.cs                                23               0               0               0               0               0
+TimeInGame.cs                             190               0               0               0               3               0
+TypeResources.cs                            7               0               0               0               0               0
+TypeResourcesValue.cs                       7               0               0               0               0               0
+TypeScene.cs                                7               0               0               0               0               0
+UserResource.cs                            34               0               0               0               0               0
+UtilityGame.cs                            135               0               0               0               0               0
+TOTAL                                    8760             212             113             286             242             617
+
+by what each measure means for correctness:
+  REAL_ERROR        861   type_mismatch 286, nint_cast 242, unresolved_load 212, method_not_found 113, not_implemented 6, ref_deref 2
+  SEMANTIC_RISK     170   null_reference 97, out_of_memory 46, shared_generic 20, mangled_ctor 7
+  EXPECTED           55   backing_field 28, backing_size 27
+  BENIGN            148   mangled_name 148
+
+  the number to work from is REAL_ERROR; EXPECTED will not go to zero and should not
+
+21 of 46 files carry no diagnostic at all:
+  DataCreatePlayer.cs, EventDispatcherExtension.cs, EventID.cs, Extension.cs, GDPR.cs, GameController.cs, GameManager.cs, Imposter.cs, Inventory.cs, ItemBase.cs, ItemInventory.cs, Log.cs, Movement.cs, RatingReviewManager.cs, TestCube.cs, TimeInGame.cs, TypeResources.cs, TypeResourcesValue.cs, TypeScene.cs, UserResource.cs, UtilityGame.cs
+
+rows written to iterations/037/reports/audit.json

@@ -294,28 +294,52 @@ public static class MetadataResolver
                             && f.BackingData?.FieldOffset == memory.Addend);
                 }
 
-                if (field == null)
+                // The offset can land inside a value type field rather than on a field boundary, which
+                // is a nested access: a Color at 0x38 makes a load from 0x3C its g component. And an
+                // offset that lands exactly on a field is not by itself proof that the whole field was
+                // accessed - four bytes written at the offset of a twenty-four byte struct reached its
+                // first member, and calling that a write of the struct gives an int assigned to a
+                // struct. Only a reference typed base is taken, because a store through the chain needs
+                // the address of the outer field and a value typed local on the stack is a copy.
+                if ((field == null || NarrowerThan(field, memory.Size, method))
+                    && staticOwner == null && genericOwner == null && !owner.IsValueType && owner.GenericParameters.Count == 0)
                 {
-                    // The offset can land inside a value type field rather than on a field boundary,
-                    // which is a nested access: a Color at 0x38 makes a load from 0x3C its g
-                    // component. Only a reference typed base is taken, because a store through the
-                    // chain needs the address of the outer field and a value typed local on the
-                    // stack is a copy.
-                    if (staticOwner != null || genericOwner != null || owner.IsValueType || owner.GenericParameters.Count > 0)
-                        continue;
+                    var path = FindNestedFieldPath(owner, memory.Addend, memory.Size, method);
 
-                    var path = FindNestedFieldPath(owner, memory.Addend);
-
-                    if (path == null)
-                        continue;
-
-                    instruction.SetOperand(i, new FieldReference(path[^1], local, (int)memory.Addend)
+                    if (path is { Count: > 1 })
                     {
-                        ContainingFields = path.GetRange(0, path.Count - 1),
-                    });
-                    changed = true;
-                    continue;
+                        if (field != null)
+                            System.Threading.Interlocked.Increment(ref NarrowWritesRefined);
+
+                        instruction.SetOperand(i, new FieldReference(path[^1], local, (int)memory.Addend)
+                        {
+                            ContainingFields = path.GetRange(0, path.Count - 1),
+                            AccessSize = memory.Size,
+                        });
+                        changed = true;
+                        continue;
+                    }
+
+                    if (field != null)
+                        System.Threading.Interlocked.Increment(ref NarrowWritesUnresolved);
+
+                    if (field == null)
+                    {
+                        if (path is not null)
+                        {
+                            instruction.SetOperand(i, new FieldReference(path[0], local, (int)memory.Addend) { AccessSize = memory.Size });
+                            changed = true;
+                        }
+
+                        continue;
+                    }
                 }
+
+                // No field at this offset and no chain reaching it, so there is nothing to name. This
+                // has to hold whether or not the search above was allowed to run: the code below
+                // instantiates the field on the owner's generic arguments and cannot take a null.
+                if (field == null)
+                    continue;
 
                 // make sure we have a full GIT for field access. open type is bad.
                 if (genericOwner != null)
@@ -330,22 +354,57 @@ public static class MetadataResolver
     }
 
     /// <summary>
-    /// Finds the chain of fields that reaches <paramref name="targetOffset"/>, outermost first,
-    /// descending into a value type field when the offset falls in its interior. Null when the
-    /// offset does not land on a field, which includes running off the end of the last one.
+    /// AssetRipper: whether the access is narrower than the field its offset lands on, so that what it
+    /// reached may be a member inside rather than the field itself.
     /// </summary>
-    private static List<FieldAnalysisContext>? FindNestedFieldPath(TypeAnalysisContext owner, long targetOffset, int depth = 0)
+    /// <summary>AssetRipper: writes narrower than the field their offset lands on that named a member inside it.</summary>
+    public static int NarrowWritesRefined;
+
+    /// <summary>AssetRipper: the same, but where no member accounted for the width, so the field stood.</summary>
+    public static int NarrowWritesUnresolved;
+
+    private static bool NarrowerThan(FieldAnalysisContext field, int accessSize, MethodAnalysisContext method)
     {
-        const int maximumDepth = 4;
+        if (accessSize <= 0)
+            return false; //The lifter did not say, so the width is no evidence either way
 
-        if (depth > maximumDepth || targetOffset < 0)
-            return null;
+        var size = SizeOf(field, method);
+        return size > 0 && accessSize < size;
+    }
 
-        // The field the offset falls in is the one with the greatest offset not past it. Inherited
-        // fields sit at their own offsets in the derived layout, so the whole chain is searched.
-        FieldAnalysisContext? containing = null;
-        var containingOffset = -1;
+    private static long SizeOf(FieldAnalysisContext field, MethodAnalysisContext method)
+    {
+        var pointerSize = method.AppContext.Binary.is32Bit ? 4 : 8;
+        var type = field.FieldType;
 
+        if (!type.IsValueType)
+            return pointerSize;
+
+        var unboxed = TypeSizes.UnboxedSize(type, pointerSize);
+        return unboxed > 0 ? unboxed : 0;
+    }
+
+    /// <summary>
+    /// Finds the chain of fields that an access of <paramref name="accessSize"/> bytes at
+    /// <paramref name="targetOffset"/> reaches, outermost first. Null when the offset reaches none.
+    /// </summary>
+    private static List<FieldAnalysisContext>? FindNestedFieldPath(TypeAnalysisContext owner, long targetOffset,
+        int accessSize, MethodAnalysisContext method)
+        => NestedFieldResolver.Find<TypeAnalysisContext, FieldAnalysisContext>(
+            owner,
+            targetOffset,
+            accessSize,
+            InstanceFieldsWithOffsets,
+            field => SizeOf(field, method),
+            InteriorOf);
+
+    /// <summary>
+    /// Every instance field of the type and of everything it inherits from, at its offset in this
+    /// layout - an inherited field sits at its own offset in the derived layout, so the chain is
+    /// walked rather than the offsets added.
+    /// </summary>
+    private static IEnumerable<(FieldAnalysisContext Field, long Offset)> InstanceFieldsWithOffsets(TypeAnalysisContext owner)
+    {
         for (var candidate = owner; candidate != null; candidate = candidate.BaseType)
         {
             foreach (var field in candidate.Fields)
@@ -353,35 +412,21 @@ public static class MetadataResolver
                 if (field.IsStatic || (field.Attributes & FieldAttributes.Literal) != 0)
                     continue;
 
-                if (field.BackingData is not { } data || data.FieldOffset > targetOffset || data.FieldOffset <= containingOffset)
-                    continue;
-
-                containing = field;
-                containingOffset = data.FieldOffset;
+                if (field.BackingData is { } data)
+                    yield return (field, data.FieldOffset);
             }
         }
+    }
 
-        if (containing == null)
-            return null;
+    /// <summary>
+    /// The type to descend into for a field, or null when it has no interior an offset can land in.
+    /// An enum is its underlying integer and a generic parameter has no layout here.
+    /// </summary>
+    private static TypeAnalysisContext? InteriorOf(FieldAnalysisContext field)
+    {
+        var type = field.FieldType;
 
-        if (containingOffset == targetOffset)
-            return [containing];
-
-        // Only a value type has an interior to descend into. Anything else means the offset has run
-        // past the end of the last field, where any answer would be a guess.
-        var fieldType = containing.FieldType;
-
-        if (!fieldType.IsValueType || fieldType.IsEnumType || fieldType.GenericParameters.Count > 0)
-            return null;
-
-        // A value type's own field offsets are relative to its data, so the search restarts at zero.
-        var inner = FindNestedFieldPath(fieldType, targetOffset - containingOffset, depth + 1);
-
-        if (inner == null)
-            return null;
-
-        inner.Insert(0, containing);
-        return inner;
+        return type.IsValueType && !type.IsEnumType && type.GenericParameters.Count == 0 ? type : null;
     }
 
     private static void ResolveCalls(MethodAnalysisContext method)
