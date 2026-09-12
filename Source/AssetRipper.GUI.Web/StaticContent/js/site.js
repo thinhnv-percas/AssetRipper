@@ -55,3 +55,53 @@ window.loadDynamicTextContent = function (root = document) {
 document.addEventListener("DOMContentLoaded", () => {
 	window.loadDynamicTextContent();
 });
+
+// For copying a value to the clipboard. Any element carrying a copy-text attribute copies it when
+// clicked, which is delegated off the document so it also covers rows rendered after load.
+//
+// The clipboard API only exists in a secure context. AssetRipper is normally reached on localhost,
+// which counts as one, but it can be bound to another address, so the selection fallback stays.
+document.addEventListener('click', function (event) {
+	const trigger = event.target.closest('[copy-text]');
+	if (!trigger) {
+		return;
+	}
+
+	event.preventDefault();
+	const text = trigger.getAttribute('copy-text');
+
+	const report = (ok) => {
+		const original = trigger.getAttribute('copy-label') ?? trigger.textContent;
+		trigger.setAttribute('copy-label', original);
+		trigger.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+		setTimeout(() => { trigger.textContent = original; }, 1200);
+	};
+
+	if (navigator.clipboard && window.isSecureContext) {
+		navigator.clipboard.writeText(text).then(() => report(true), () => report(copyBySelection(text)));
+		return;
+	}
+
+	report(copyBySelection(text));
+});
+
+// The pre-clipboard-API way: put the text in an off-screen field, select it, and ask the document to
+// copy the selection.
+function copyBySelection(text) {
+	const field = document.createElement('textarea');
+	field.value = text;
+	field.setAttribute('readonly', '');
+	field.style.position = 'fixed';
+	field.style.left = '-9999px';
+	document.body.appendChild(field);
+
+	try {
+		field.select();
+		return document.execCommand('copy');
+	} catch (error) {
+		console.error('Could not copy to the clipboard:', error);
+		return false;
+	} finally {
+		document.body.removeChild(field);
+	}
+}

@@ -62,9 +62,17 @@ public sealed class PackageSourcesPage : DefaultPage
 			writer.Write("or the url instead — a version would name something else.");
 		}
 
+		using (new P(writer).WithClass("text-muted").End())
+		{
+			writer.Write("A git source also carries the string Unity's package manager takes under ");
+			writer.Write("Add package from git URL. Copy it from the row to add the package to a project by hand — ");
+			writer.Write("a project other than the one being exported, which gets the same url written into its ");
+			writer.Write("manifest already.");
+		}
+
 		if (LastMessage is string message)
 		{
-			new Div(writer).WithClass("alert alert-warning").Close(message.ToHtml());
+			new Div(writer).WithClass("alert alert-warning").Close(message);
 		}
 
 		WriteSources(writer, configuration);
@@ -86,6 +94,7 @@ public sealed class PackageSourcesPage : DefaultPage
 					new Th(writer).Close("Location");
 					new Th(writer).Close("Revision");
 					new Th(writer).Close("Subfolder");
+					new Th(writer).Close("Unity git URL");
 					new Th(writer).Close("");
 				}
 
@@ -113,9 +122,23 @@ public sealed class PackageSourcesPage : DefaultPage
 		using (new Tr(writer).WithClass(source.Enabled ? "" : "text-muted").End())
 		{
 			new Td(writer).Close(source.Kind.ToString());
-			new Td(writer).Close(source.Location.ToHtml());
-			new Td(writer).Close(source.Revision.ToHtml());
-			new Td(writer).Close(source.Subfolder.ToHtml());
+			new Td(writer).Close(source.Location);
+			new Td(writer).Close(source.Revision);
+			new Td(writer).Close(source.Subfolder);
+
+			string gitUrl = source.ToGitUrl();
+			using (new Td(writer).End())
+			{
+				if (gitUrl.Length == 0)
+				{
+					// A folder or a cache is not something Unity can be handed a url for.
+					new Span(writer).WithClass("text-muted").Close("—");
+				}
+				else
+				{
+					WriteCopyable(writer, gitUrl);
+				}
+			}
 
 			using (new Td(writer).End())
 			{
@@ -151,14 +174,36 @@ public sealed class PackageSourcesPage : DefaultPage
 		using (new Tr(writer).End())
 		{
 			new Td(writer).Close("Cache");
-			new Td(writer).Close(path.ToHtml());
+			new Td(writer).Close(path);
 			new Td(writer).Close("");
 			new Td(writer).Close("");
+			new Td(writer).WithClass("text-muted").Close("—");
 			using (new Td(writer).End())
 			{
 				WriteRowButton(writer, "btn-outline-secondary", "opencache", "Open folder");
 				new A(writer).WithClass("btn btn-sm btn-outline-secondary").WithHref("/Settings/Edit").Close("Change in settings");
 			}
+		}
+	}
+
+	/// <summary>
+	/// A value shown as it will be pasted, with a button that puts it on the clipboard.
+	/// </summary>
+	/// <remarks>
+	/// The button is <c>type="button"</c> on purpose: every row lives inside the form the table is,
+	/// and a button without a type submits it. Copying is done by <c>site.js</c>, off the
+	/// <c>copy-text</c> attribute, so the value is never interpolated into script.
+	/// </remarks>
+	private static void WriteCopyable(TextWriter writer, string value)
+	{
+		using (new Div(writer).WithClass("d-flex align-items-center gap-2").End())
+		{
+			new Code(writer).WithClass("user-select-all text-break").Close(value);
+			new Button(writer)
+				.WithType("button")
+				.WithClass("btn btn-sm btn-outline-secondary flex-shrink-0")
+				.WithCustomAttribute("copy-text", value.ToHtml())
+				.Close("Copy");
 		}
 	}
 
@@ -232,21 +277,21 @@ public sealed class PackageSourcesPage : DefaultPage
 
 		foreach (PackageSourceResult result in scan)
 		{
-			new H3(writer).WithClass("h5").Close(result.Source.Describe().ToHtml());
+			new H3(writer).WithClass("h5").Close(result.Source.Describe());
 
 			if (result.Directory.Length > 0)
 			{
-				new P(writer).WithClass("text-muted small mb-1").Close(result.Directory.ToHtml());
+				new P(writer).WithClass("text-muted small mb-1").Close(result.Directory);
 			}
 
 			if (result.FetchMessage is string message && message.Length > 0)
 			{
-				new P(writer).WithClass("text-muted small mb-1").Close(message.ToHtml());
+				new P(writer).WithClass("text-muted small mb-1").Close(message);
 			}
 
 			if (result.Error is string error)
 			{
-				new P(writer).WithClass("text-danger").Close(error.ToHtml());
+				new P(writer).WithClass("text-danger").Close(error);
 				continue;
 			}
 
@@ -269,9 +314,22 @@ public sealed class PackageSourcesPage : DefaultPage
 				{
 					using (new Tr(writer).End())
 					{
-						new Td(writer).Close(package.Name.ToHtml());
-						new Td(writer).Close(package.Version.ToHtml());
-						new Td(writer).Close(package.Dependency.ToHtml());
+						new Td(writer).Close(package.Name);
+						new Td(writer).Close(package.Version);
+
+						// A repository holding several packages has a path per package, so this is the
+						// url to paste for that one rather than the source's own.
+						using (new Td(writer).End())
+						{
+							if (package.Dependency.Length == 0)
+							{
+								new Span(writer).WithClass("text-muted").Close("—");
+							}
+							else
+							{
+								WriteCopyable(writer, package.Dependency);
+							}
+						}
 					}
 				}
 			}

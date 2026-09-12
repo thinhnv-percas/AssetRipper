@@ -172,17 +172,7 @@ public static class PackageSourceResolver
 		switch (source.Kind)
 		{
 			case PackageSourceKind.Git:
-				string path = GetRelativePath(root, package.Directory);
-				string text = source.Location;
-				if (path.Length > 0)
-				{
-					text += $"?path={path}";
-				}
-				if (source.Revision.Length > 0)
-				{
-					text += $"#{source.Revision}";
-				}
-				return text;
+				return PackageSource.BuildGitUrl(source.Location, GetRelativePath(root, package.Directory), source.Revision);
 
 			case PackageSourceKind.Folder:
 				return $"file:{Path.GetFullPath(package.Directory).Replace('\\', '/')}";

@@ -65,6 +65,53 @@ public sealed class PackageSourceTests
 	}
 
 	/// <summary>
+	/// The url a source is added by is the url it can be pasted into Unity by, which means the two
+	/// directions have to agree exactly. A source that reads back as something else would be added to a
+	/// project by hand as a different package than the export repointed it at.
+	/// </summary>
+	[Test]
+	public void AGitSourceRoundTripsThroughItsUrl()
+	{
+		const string url = "https://github.com/owner/repo.git?path=Packages/com.owner.thing#v1.2.3";
+
+		PackageSource source = PackageSource.FromGitUrl(url);
+
+		Assert.That(source.ToGitUrl(), Is.EqualTo(url));
+	}
+
+	/// <summary>
+	/// A manifest writes the path without a leading slash, and Unity's own documentation writes it with
+	/// one. Both are taken, and what comes back out is the one form.
+	/// </summary>
+	[Test]
+	public void ALeadingSlashOnThePathIsNotKept()
+	{
+		PackageSource source = PackageSource.FromGitUrl("https://github.com/owner/repo.git?path=/Packages/com.owner.thing");
+
+		Assert.That(source.ToGitUrl(), Is.EqualTo("https://github.com/owner/repo.git?path=Packages/com.owner.thing"));
+	}
+
+	[Test]
+	public void AGitSourceWithNeitherPartIsJustItsUrl()
+	{
+		PackageSource source = PackageSource.FromGitUrl("https://github.com/owner/repo.git");
+
+		Assert.That(source.ToGitUrl(), Is.EqualTo("https://github.com/owner/repo.git"));
+	}
+
+	/// <summary>
+	/// A folder and a cache are pointed at precisely because no repository has them, so there is no url
+	/// to hand Unity and the page says so rather than showing a path that would not work.
+	/// </summary>
+	[Test]
+	public void AFolderSourceHasNoGitUrl()
+	{
+		PackageSource source = new() { Kind = PackageSourceKind.Folder, Location = "/packages/com.owner.thing" };
+
+		Assert.That(source.ToGitUrl(), Is.Empty);
+	}
+
+	/// <summary>
 	/// A folder is a package when it has a manifest of its own, and a folder of them otherwise. Both
 	/// shapes are what someone points at, and neither says which it is.
 	/// </summary>
