@@ -40,3 +40,9 @@ Test/Input/JellyBlast/
 /artifacts/input/*.apk
 /artifacts/input/*.ipa
 /artifacts/reference/
+
+# The pinned Microsoft.Net.Compilers.Toolset the Roslyn harness falls back to, and the tool it builds
+# to read the reference assemblies' visibility flags. Both are fetched or built, never edited.
+/artifacts/roslyn/
+/Test/Tools/*/bin/
+/Test/Tools/*/obj/

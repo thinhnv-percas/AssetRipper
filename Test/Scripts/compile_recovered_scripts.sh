@@ -27,12 +27,23 @@ if [ -z "$assemblies" ] || [ -z "$scripts" ]; then
     exit 2
 fi
 
-csc=$(find "${DOTNET_ROOT:-$HOME/.dotnet}" -name csc.dll -path '*Roslyn*' 2>/dev/null | sort | tail -1)
+# Finding the compiler is its own small problem, and getting it wrong is silent: this used to search
+# `${DOTNET_ROOT:-$HOME/.dotnet}`, and in a container where the SDK is installed for one user and the
+# harness runs as another, $HOME points somewhere with no SDK in it. Three iterations recorded
+# "Roslyn: NOT RUN" for that reason alone while a perfectly good csc.dll sat on the disk. Ask the CLI
+# where its SDKs are rather than guessing from an environment variable.
+csc=$(TOOLSET_DIR="${TOOLSET_DIR:-$(dirname "$0")/../../artifacts/roslyn}" bash "$(dirname "$0")/find_csc.sh")
+status=$?
 
-if [ -z "$csc" ]; then
-    echo "no Roslyn csc.dll under the .NET SDK" >&2
-    exit 2
+if [ $status -ne 0 ] || [ -z "$csc" ]; then
+    echo "ROSLYN_STATUS: TOOLCHAIN_ERROR"
+    echo "TOOLCHAIN_ERROR: no C# compiler available. $csc" >&2
+    echo "  Nothing was measured. Do not record this as zero errors." >&2
+    exit 3
 fi
+
+DOTNET=${DOTNET:-$(command -v dotnet || true)}
+[ -n "$DOTNET" ] || DOTNET=$(dirname "$csc")/../../../../dotnet
 
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
@@ -102,13 +113,17 @@ if [ -n "${ANALYZERS:-}" ]; then
 fi
 
 # shellcheck disable=SC2086
-dotnet "$csc" -nostdlib -noconfig -nologo -target:library -unsafe+ -langversion:9 \
+"$DOTNET" "$csc" -nostdlib -noconfig -nologo -target:library -unsafe+ -langversion:9 \
     -out:"$work/out.dll" $references $analyzers "@$work/sources.rsp" > "$work/log.txt" 2>&1
 
 files=$(($(wc -l < "$work/sources.rsp") - 1))
 errors=$(grep -c ': error ' "$work/log.txt")
 warnings=$(grep -c ': warning ' "$work/log.txt")
 
+# The status is stated rather than implied. A run that did not happen and a run that found nothing
+# both print "0 errors" otherwise, and three iterations recorded the first as if it were the second.
+echo "ROSLYN_STATUS: AVAILABLE_AND_RUN"
+echo "ROSLYN_COMPILER: $csc"
 echo "$assembly: $files files, $errors errors, $warnings warnings"
 echo
 
@@ -126,6 +141,14 @@ if [ -n "$analyzers" ]; then
         example=$(grep -m1 "$code:" "$work/log.txt" | sed "s/.*$code: //")
         printf '%6d  %-8s %s\n' "$count" "$code" "$example"
     done
+fi
+
+# An error count is a measurement of the recovery only once the errors are known to be the
+# recovery's. A missing reference assembly produces the same CS0246 an invented name does.
+classifier=$(dirname "$0")/classify_compile_errors.py
+if command -v python3 > /dev/null 2>&1 && [ -f "$classifier" ] && [ "$errors" -gt 0 ]; then
+    echo
+    python3 "$classifier" "$work/log.txt" "$scripts" "$assemblies" ${CLASSIFY_JSON:+--json "$CLASSIFY_JSON"}
 fi
 
 if [ -n "${KEEP_LOG:-}" ]; then
