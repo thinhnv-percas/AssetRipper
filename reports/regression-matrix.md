@@ -204,3 +204,31 @@ cần có, vì thay đổi nằm hoàn toàn ở nhánh iOS và ở LibCpp2IL d�
   là không có managed field nào để đặt tên — không phải lỗi gán kiểu chút nào. Đứng thứ hai là 619 load
   vẫn chưa phân loại. Xem ROOT_CAUSE_INVENTORY.md.
 
+
+## Iteration 040 — Roslyn thật, và nguyên nhân gốc cho mỗi load
+
+Không có thay đổi nào về recovery, nên mọi con số của bản rip bằng đúng 039 tới từng chữ số:
+2756 unresolved load, 0 generator failure, 819 file, 16/16 shape check PASS, `(float)array[i]` = 0,
+`array[i].field` 164.
+
+Hai thứ mới, cả hai là phép đo:
+
+| | 037–039 | 040 |
+|---|---|---|
+| Roslyn, Impostor Assembly-CSharp | ghi là `NOT RUN` | `AVAILABLE_AND_RUN`, **348 lỗi** (63 file) |
+| Roslyn, Pinata Assembly-CSharp | ghi là `NOT RUN` | `AVAILABLE_AND_RUN`, **1600 lỗi** (1108 file) |
+| Lỗi theo nguyên nhân | không có | Impostor 348/348 `DECOMPILER_ERROR`; Pinata 1599 + 1 `REFERENCE_ERROR` |
+| Unresolved load theo nguyên nhân gốc | chỉ theo hình dạng | 2756/2756 phân loại, 188 `UNKNOWN` |
+
+`NOT RUN` ở ba iteration trước **không phải là thiếu toolchain** mà là lỗi tìm đường dẫn của harness
+(DECOMP-0028): `csc.dll` vẫn nằm trên đĩa suốt thời gian đó. Một phép đo chưa từng chạy đọc giống hệt
+một phép đo không tìm thấy gì, nên `ROSLYN_STATUS` giờ được in thành một dòng riêng và `errors` trong
+`metrics.json` là `null` chứ không phải `0` khi chưa compile.
+
+Bảng chéo hình dạng × nguyên nhân (`reports/LOAD_PROVENANCE_ANALYSIS.md`) tách họ
+"past the last field of the base type" 301 load thành **147** thật sự quá field cuối và **154** có
+base không ghi offset cho một field nào — `largest` bằng 0 nên mọi addend dương đều "quá field cuối".
+Đó là metadata không có, không phải lỗi layout.
+
+Một kết quả âm tính: **0/2756 dòng đi qua một phi**. SSA đã bị destruct trước khi `IlGenerator` chạy,
+nên mọi code xử lý phi đặt ở điểm đo này là đúng và chết.

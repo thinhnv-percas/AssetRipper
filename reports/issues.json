@@ -617,5 +617,24 @@
     "fix": "Tach phan tim kiem ra NestedFieldResolver, viet qua delegate nen tu kiem thu duoc khong can metadata, va cho no nhan them accessSize. Hai vi tri KHONG doi xung va do la co y: o relative offset khac 0 thi field ngoai khong phai cau tra loi hop le nen offset la toan bo bang chung; o relative offset bang 0 thi field ngoai CUNG hop le, nen chon field trong phai co bang chung them - do rong khop DUNG field trong, va offset do chi duoc co mot field (hai field cung offset la layout chong lan). Visited state khoa theo (type, offset).",
     "verification": "Impostor (ARM64): pass chay 20 lan, 40 lan tu choi; loads 2773 = 2773, genFail 0, file 819, 16 shape check PASS; (Vector2)num 31 -> 27, 'Expected O, but got F' 338 -> 333 tren toan bo rip. Pinata (x86, v24.2): pass chay 247 lan; mnf 4052 = 4052, file 3083 = 3083, loads 9061 = 9061, genFail 0; (Vector2)num 7 -> 5, (Vector3)num 32 -> 29, (Quaternion)num 2 -> 1, 'Expected O, but got F' 309 -> 303. Test suite 307 -> 320, 1 fail co san khong doi. Ba guard (luat do rong, khoa cycle, guard chong lan) deu duoc test phan biet: revert tung cai lam test tuong ung FAIL.",
     "notes": "Audit tren Assembly-CSharp KHONG doi (861/170) vi ca 5 file doi deu nam ngoai assembly do - dung bai hoc 'Assembly-CSharp giu chua toi mot phan muoi so load'. QUAN TRONG: iteration nay KHONG giam mangled_ctor, va tien de cua task la SAI. Ghi 'bon byte vao field 24 byte' thuc te la 16 byte vao field 20 byte, lat kin bon field dau cua ObscuredInt (0x0/0x4/0x8/0xC). Dich khong phai mot nested field ma la mot phep copy bo phan lat kin; viec con lai la PackedFieldsCovered mot tang sau hon. Mot lan nua generatorFailures bat duoc loi tu gay: ban dau cho loads 2773 -> 1615 va genFail 0 -> 308 (mot continue bi chuyen vao trong guard, nen field == null roi xuong ConcreteGenericFieldAnalysisContext(null))."
+  },
+  {
+    "id": "DECOMP-0028",
+    "severity": "ERROR",
+    "category": "MEASUREMENT",
+    "status": "FIXED",
+    "iterationFound": 40,
+    "iterationFixed": 40,
+    "platform": "COMMON (moi fixture)",
+    "generatedFile": "khong co - loi cua harness, khong phai cua ban export",
+    "referenceFile": "iterations/040/reports/roslyn-impostor-summary.txt",
+    "method": "Test/Scripts/compile_recovered_scripts.sh; Test/Scripts/find_csc.sh",
+    "compilerError": "khong co - trinh bien dich khong bao gio chay",
+    "observed": "Ba iteration 037-039 ghi 'Roslyn: NOT RUN'. Mot phep do chua tung chay doc giong het mot phep do khong tim thay gi.",
+    "expected": "Roslyn chay, va status duoc noi ra thanh loi: AVAILABLE_AND_RUN / NOT_RUN / TOOLCHAIN_ERROR.",
+    "rootCause": "Harness tim csc.dll trong ${DOTNET_ROOT:-$HOME/.dotnet}. Trong container nay SDK cai cho mot user (/home/user/.dotnet) con harness chay duoi user khac (HOME=/root), nen find khong ra gi - trong khi csc.dll van nam tren dia suot thoi gian do.",
+    "fix": "find_csc.sh hoi chinh CLI (dotnet --list-sdks) thay vi doan tu bien moi truong, co bon tang (CSC_DLL, SDK, Microsoft.Net.Compilers.Toolset da giai nen, roi NuGet o phien ban ghim 4.14.0 - khong dung Microsoft.Net.Compilers da deprecated), va moi tang chay that csc -version. Harness in ROSLYN_STATUS thanh dong rieng va tra ve exit 3 khi khong co trinh bien dich.",
+    "verification": "Impostor Assembly-CSharp 63 file 348 loi; Pinata Assembly-CSharp 1108 file 1600 loi. test_roslyn_bootstrap.sh co 8 case; khoi phuc lai bug cu thi 5 trong 6 case bootstrap do. Case A ban dau SUY BIEN - no pass nguoc lai dung cai bug, vi tang tai NuGet da tra loi thay; da tat ca ba tang con lai. Case F cung vay: 'khong in loi nao' cung la thu mot trinh bien dich vang mat tao ra, nen F kiem luon assembly co duoc sinh ra khong.",
+    "notes": "Kem theo: classify_compile_errors.py chia loi thanh TOOLCHAIN / ROSLYN / REFERENCE / DECOMPILER, thu khong tach duoc thi UNCLASSIFIED. Thu tach duoc 'IL2CPP strip mat' khoi 'private' la co visibility trong bang metadata (Test/Tools/MemberVisibility) - log khong tach duoc vi C# bao mot thanh vien private cua type co so bang dung cau 'does not contain a definition' no dung cho thanh vien khong ton tai, va string heap cung khong, vi chinh cac assembly da recovery nam trong tap tham chieu va memberref cua chung mang moi ten ma export dat (invoke_impl 'co mat' trong sau DLL va khong duoc khai bao o mot cai nao). Cong cu do tu tai lap hai su that da ghi trong CLAUDE.md: Math.PI la ABSENT, List<T>._size la PRESENT_NONPUBLIC."
   }
 ]
