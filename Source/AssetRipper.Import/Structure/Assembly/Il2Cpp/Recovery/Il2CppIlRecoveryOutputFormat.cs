@@ -674,19 +674,19 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	{
 		if (owner is null)
 		{
-			return string.Join('\t', "NO_BASE_TYPE", "0", "0", "-");
+			return string.Join('\t', "NO_BASE_TYPE", "0", "0", "-", "NOT_APPLICABLE");
 		}
 
 		if (owner is RuntimeClassTypeAnalysisContext or RuntimeMethodInfoAnalysisContext or StaticFieldStorageTypeAnalysisContext)
 		{
-			return string.Join('\t', "RUNTIME_STRUCT", "0", "0", "-");
+			return string.Join('\t', "RUNTIME_STRUCT", "0", "0", "-", "NOT_APPLICABLE");
 		}
 
 		// A bare type parameter has no layout of its own at all: what T is laid out as is decided when
 		// the runtime instantiates it, and nothing static can say.
 		if (owner is GenericParameterTypeAnalysisContext)
 		{
-			return string.Join('\t', "OPEN_TYPE_PARAMETER", "0", "0", "-");
+			return string.Join('\t', "OPEN_TYPE_PARAMETER", "0", "0", "-", "NOT_APPLICABLE");
 		}
 
 		TypeAnalysisContext definition = owner is GenericInstanceTypeAnalysisContext instance ? instance.GenericType : owner;
@@ -700,7 +700,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		}
 		catch (Exception)
 		{
-			return string.Join('\t', "LAYOUT_THREW", "0", "0", "-");
+			return string.Join('\t', "LAYOUT_THREW", "0", "0", "-", "NOT_APPLICABLE");
 		}
 
 		long computedLargest = 0;
@@ -758,7 +758,73 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			at = memory.Addend > computedLargest ? "BEYOND_LAYOUT" : "NEGATIVE";
 		}
 
-		return string.Join('\t', state, layout.Count.ToString(), computedLargest.ToString("X"), at);
+		return string.Join('\t', state, layout.Count.ToString(), computedLargest.ToString("X"), at, CoordinateEvidence(definition, owner, memory));
+	}
+
+	/// <summary>
+	/// Which coordinate the offset in the code is measured from, judged by which reading lands on a field.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// The offsets in metadata and the offsets in the code are not always in the same frame, and the
+	/// frame is a property of <em>how the base pointer was obtained</em>, not of the type. Il2CppDumper
+	/// emits the two shapes as C structs and the difference is exactly one header:
+	/// <c>struct T_o { T_c *klass; void *monitor; T_Fields fields; }</c>, where the two pointers are
+	/// emitted only when the type is not a value type. So a class's metadata offsets already include
+	/// the 0x10 header and there is nothing to decide; a value type's do not.
+	/// </para>
+	/// <para>
+	/// A value type still reaches the code both ways. il2cpp hands a value type's own instance method a
+	/// receiver that points at the boxed object's header, so a field at metadata offset 0 is read at
+	/// <c>[this + 0x10]</c>; the same struct reached as a stack slot or as a field inside another
+	/// object is read at its own offset. Both are legitimate and no property of the type separates
+	/// them, so this reports which readings land on a field rather than picking one. BOTH means the
+	/// evidence does not separate them - which is the offset-zero ambiguity again, and a reason not to
+	/// act rather than a reason to guess.
+	/// </para>
+	/// </remarks>
+	private static string CoordinateEvidence(TypeAnalysisContext definition, TypeAnalysisContext owner, MemoryOperand memory)
+	{
+		if (!owner.IsValueType)
+		{
+			// A class's recorded offsets are already measured from the object, header included, so
+			// there is nothing to decide. Named apart from the value-type answers so the two are never
+			// counted together: only the value-type rows carry evidence about the header.
+			return "CLASS_OBJECT_RELATIVE";
+		}
+
+		long header = 2L * definition.AppContext.Binary.PointerSizeBytes;
+		bool valueRelative = false;
+		bool objectRelative = false;
+
+		for (TypeAnalysisContext? candidate = definition; candidate is not null; candidate = candidate.BaseType)
+		{
+			foreach (FieldAnalysisContext field in candidate.Fields)
+			{
+				if (field.IsStatic || field.BackingData?.FieldOffset is not { } recorded)
+				{
+					continue;
+				}
+
+				if (recorded == memory.Addend)
+				{
+					valueRelative = true;
+				}
+
+				if (recorded + header == memory.Addend)
+				{
+					objectRelative = true;
+				}
+			}
+		}
+
+		return (valueRelative, objectRelative) switch
+		{
+			(true, true) => "BOTH",
+			(true, false) => "VALUE_RELATIVE",
+			(false, true) => "OBJECT_RELATIVE",
+			_ => "NEITHER",
+		};
 	}
 
 	private static readonly string? unresolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_LOADS");
