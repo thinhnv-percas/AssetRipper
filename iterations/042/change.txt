@@ -1,0 +1,36 @@
+KHÔNG có thay đổi recovery nào được ship. Đây là kết quả đúng, không phải iteration thất bại.
+
+Hai ứng viên mà iteration 041 để lại đều được kiểm chứng và đều BỊ BÁC BỎ bằng phép đo, không phải
+bằng suy luận. Một ứng viên thứ ba được cân nhắc rồi loại vì quá nhỏ.
+
+A. Giả thuyết value-type header (041 đề xuất) — BỊ BÁC BỎ
+   Cột CoordinateEvidence mới thử cả hai cách đọc addend trên từng load. Trong số base là value
+   type: VALUE_RELATIVE 77, OBJECT_RELATIVE 29, BOTH 0, NEITHER 163. Bỏ các ca yếu (addend 0 khớp
+   field đầu tầm thường): 43 chống 14. Cộng 0x10 thành luật chung sẽ làm sai 77 để sửa 29.
+
+B. Restriction cho open-generic branch (041 đề xuất) — DEAD CODE
+   Probe đếm link owner.GenericParameters.Count > 0: reached 0 lần trên Pinata. Hợp nhất nó vào
+   BaseChainFieldSearch không đổi một file .cs nào trên cả hai fixture. Lỗi thúc đẩy nó
+   ('ComponentAction<T>' does not contain a definition for 'fsm') có nguyên nhân khác: fsm ĐÃ được
+   phân giải đúng về FsmStateAction.fsm và nó private. Một lần xuất hiện.
+
+C. Chạy lại field resolution muộn — PREMISE SAI
+   ResolveTypesAndFields chạy một lần rồi hàng chục pass lan kiểu chạy sau nó. Thêm một
+   ResolveFieldOffsets sau vòng propagation, vẫn trong SSA: gọi trên 11903 method, đổi 2. Rip giống
+   hệt tới từng chữ số. Có probe chứ không suy đoán, vì số giống hệt cũng là thứ một pass không bao
+   giờ chạy tạo ra.
+
+Thứ ĐƯỢC ship: cột CoordinateEvidence trên CPP2IL_DUMP_LOADS (đo, không kết luận), và
+docs/ITERATION_042_EXTERNAL_RESEARCH.md.
+
+Nhóm RESOLVABLE 48 của iteration 041 được phân loại và hoá ra là ÍT NHẤT BỐN nguyên nhân: receiver
+của method của chính struct (~7), value type tới theo đường khác (~15), base bị gán sai kiểu
+(System.Int32 trong thanh ghi scratch, ~5), và class đáng lẽ phải phân giải được (~2). Lần thứ năm
+một họ đặt tên theo triệu chứng hoá ra là nhiều nguyên nhân.
+
+Oracle ngoài mới: tools/measure-bodies.py của clericall/il2cpp-wasm-teardown, chạy thật trên rip
+này — Assembly-CSharp 96,06% live, toàn rip 62,97%, so với 0,00% tác giả đo trên export IL2CPP
+thường.
+
+Il2CppDecompiler: NOT_RUN (cần Ghidra + Il2CppDumper output + OPENAI_API_KEY). Không giả vờ đã
+đối chiếu runtime.

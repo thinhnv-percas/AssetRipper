@@ -260,3 +260,31 @@ chỉ phủ Assembly-CSharp. Pinata giảm **chỉ ở CS0030** (1246 → 1125) 
 Hai giả thuyết bị loại trước khi ship, cả hai đã được đo (`reports/GENERIC_BASE_FIELD_ANALYSIS.md`
 mục 3). Giả thuyết thứ hai chỉ bị **Pinata** bắt được — Impostor không thấy gì cả — nên cổng kiểm
 chứng độc lập lần này là thứ duy nhất ngăn một regression 186 lỗi.
+
+## Iteration 042 — hai giả thuyết bị bác bỏ, không ship thay đổi recovery
+
+| Metric | 041 | 042 | Delta |
+|---|---:|---:|---:|
+| Impostor unresolved loads | 2722 | 2722 | 0 |
+| ACTk.Runtime | 152 | 152 | 0 |
+| genFail | 0 | 0 | 0 |
+| REAL_ERROR | 861 | 861 | 0 |
+| Impostor Roslyn DECOMPILER / REFERENCE | 348 / 0 | 348 / 0 | 0 |
+| Pinata Roslyn DECOMPILER / REFERENCE | 1478 / 1 | 1478 / 1 | 0 |
+| shape checks | 16/16 | 16/16 | 0 |
+| `array[i].field` / `(float)array[i]` / `<>` | 164 / 0 / 5 | 164 / 0 / 5 | 0 |
+| tests (pre-existing failures) | 354 (1) | 354 (1) | 0 |
+
+Provenance không đổi vì không có thay đổi recovery: RUNTIME_STRUCT 684, TYPE_PROPAGATION 486,
+PAST_LAST_FIELD 416, GENERIC_LAYOUT 390, ARRAY_ELEMENT 250, UNKNOWN 188, MISSING_METADATA 184,
+NO_KNOWN_LAYOUT 52, RESOLVABLE 48, PHI_AMBIGUITY 24.
+
+Cột mới `CoordinateEvidence`, base là value type: VALUE_RELATIVE **77**, OBJECT_RELATIVE **29**,
+BOTH **0**, NEITHER 163. Bỏ ca yếu: 43 chống 14.
+
+Oracle ngoài mới (`measure-bodies.py`, `clericall/il2cpp-wasm-teardown`): Assembly-CSharp
+**96,06% live** (63 file, 254 method), toàn rip **62,97%** (819 file, 4780 method). Tác giả đo bản
+export IL2CPP thường được 0,00%.
+
+Ba thí nghiệm, ba kết quả âm tính, cả ba đều có probe chứng minh code thật sự chạy chứ không phải
+im lặng không khớp — chi tiết trong `iterations/042/change.txt` và `CLAUDE.md`.

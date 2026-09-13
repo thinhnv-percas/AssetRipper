@@ -5,8 +5,8 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 041 (hoàn tất; DECOMP-0029 field kế thừa từ lớp cơ sở generic — ĐÃ SỬA.
-                          Kèm: sửa ba nhãn provenance sai của 040, thêm cột trạng thái metadata)
+Iteration hiện tại: 042 (hoàn tất; KHÔNG ship thay đổi recovery nào — cả hai ứng viên của 041 đều
+                          bị bác bỏ bằng phép đo. Ship: cột CoordinateEvidence + nghiên cứu ngoài)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -46,7 +46,31 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 041e (Impostor) và 041dpin (Pinata).
+  rảnh giữa hai iteration. Baseline cho iteration sau là 042d (Impostor) và 041dpin (Pinata);
+  042d giống 041e tới từng chữ số vì 042 không đổi gì trong recovery.
+
+Iteration 042 — ba thứ phải biết trước khi làm tiếp:
+
+  1. **Hệ toạ độ của offset thuộc về CON TRỎ BASE, không thuộc về kiểu.** Class thì offset metadata
+     đã gồm header 0x10 nên không có gì phải quyết định. Một value type xuất hiện ở CẢ HAI hệ: lấy
+     từ `this` của chính method của struct thì il2cpp trao con trỏ vào header của object đã box
+     (`[this + 0x10]` cho field ở offset 0); cùng struct đó trong static storage / ô stack / field
+     của object khác thì đọc đúng ở offset metadata. Cột `CoordinateEvidence` trên
+     `CPP2IL_DUMP_LOADS` đo điều này trên từng load.
+
+  2. **Giả thuyết "+0x10 cho value type" của 041 BỊ BÁC BỎ**: 77 VALUE_RELATIVE chống 29
+     OBJECT_RELATIVE (43 chống 14 trên tập không nhập nhằng). `BOTH` = 0 nên bằng chứng CÓ tách
+     được trên từng load, nhưng "cách nào trúng thì lấy" là heuristic đã bị loại ba lần (036/037/038).
+     Muốn dùng phải có luật nói con trỏ base có được bằng cách nào.
+
+  3. **Ứng viên open-generic branch của 041 là DEAD CODE** — probe đếm 0 lần đạt tới trên Pinata.
+     Đừng làm lại. Lỗi `ComponentAction<T>.fsm` là field private của lớp cơ sở, cùng họ với
+     `List<T>._size`, không phải lỗi phân giải field.
+
+Iteration 042 — số liệu: mọi cột bằng đúng 041 (2722 load, genFail 0, 819 file, 16/16 shape,
+  Roslyn 348 DECOMPILER_ERROR / 0 REFERENCE_ERROR, REAL_ERROR 861, `array[i].field` 164,
+  `(float)array[i]` 0, Pinata 1478/1, test 354 với 1 fail có sẵn). Oracle ngoài mới:
+  `measure-bodies.py` cho Assembly-CSharp **96,06% live**, toàn rip 62,97%.
 
 Iteration 041 — số liệu:
   Impostor unresolved loads         2756 -> 2722  (−34, toàn bộ ở ACTk.Runtime 186 -> 152)

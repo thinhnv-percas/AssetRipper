@@ -1,0 +1,25 @@
+{
+  "total": 348,
+  "categories": {
+    "DECOMPILER_ERROR": 348,
+    "REFERENCE_ERROR": 0,
+    "ROSLYN_ERROR": 0,
+    "TOOLCHAIN_ERROR": 0,
+    "UNCLASSIFIED": 0
+  },
+  "byCode": {
+    "DECOMPILER_ERROR": {
+      "CS1061": 166,
+      "CS0030": 128,
+      "CS0117": 7,
+      "CS0122": 17,
+      "CS0165": 5,
+      "CS0037": 12,
+      "CS0019": 9,
+      "CS7003": 2,
+      "CS0246": 2
+    }
+  },
+  "referenceAssemblies": 42,
+  "referencesComplete": true
+}

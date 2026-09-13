@@ -655,5 +655,24 @@
     "fix": "Tach phep di chuoi ra BaseChainFieldSearch, viet qua delegate nen tu kiem thu duoc khong can metadata, va MetadataResolver di dung qua no. Moi mat xich duoc hoi theo cach no tra loi duoc: mat xich thuong thi offset metadata, generic instance thi layout tinh duoc. Hai rang buoc bat buoc: (1) field tra ve phai duoc instantiate tren mat xich da tra loi, vi layout tinh tren definition nen field do type mo khai bao; (2) mot mat xich CHI tra loi cho field NO TU KHAI BAO, vi layout phu ca chuoi base cua no.",
     "verification": "Impostor loads 2756 -> 2722 (-34, toan bo ACTk.Runtime 186 -> 152), genFail 0, file 819, 16 shape check PASS, cast <> 5 = 5, (float)array[i] 0 = 0, array[i].field 164 = 164, REAL_ERROR 861 = 861, Roslyn 348 = 348. '(nint)0 != 0' tren toan rip 134 -> 109. Pinata Roslyn 1600 -> 1479, CHI CS0030 giam (1246 -> 1125), khong ma loi moi nao; genFail 0, file 3083 = 3083, mnf 4052 = 4052. iOS khong doi. Test 343 -> 354, 1 fail co san khong doi. Bon lan pha code co chu y deu lam test do: quay lai hoi moi mat xich theo duong metadata, khong bao mat xich de instantiate, hoi generic instance ca hai duong, bo gioi han do sau.",
     "notes": "HAI GIA THUYET BI LOAI, ca hai suyt duoc ship. (1) Tra ve field nguyen trang sinh cast sang ACTkDetectorBase<>, thu C# khong viet duoc: 5 len 45 tren toan rip - NHUNG Roslyn tren ACTk.Runtime bao 4 loi ca truoc lan sau, vi file do co loi cu phap CS1525 co san va Roslyn dung o khau parse, nen 40 cast hong moi khong he duoc bao. Day la bay 'mot loi declaration che moi loi body' som hon mot tang: LOI PARSE CHE CA FILE. (2) Instantiate tren mat xich vua tra loi lam sai khi layout tra ve field cua mot to tien xa hon: ComponentAction<T> : FsmStateAction dat ca FsmStateAction.fsm, nen fsm bi khai bao tren ComponentAction<InputField> - 186 loi CS0117/CS1061 moi tren Pinata trong khi Impostor khong thay gi. Cong Pinata (x86, v24.2) lai mot lan nua bat duoc thu Impostor khong bat duoc."
+  },
+  {
+    "id": "DECOMP-0030",
+    "severity": "INFO",
+    "category": "MEASUREMENT",
+    "status": "REJECTED",
+    "iterationFound": 41,
+    "iterationFixed": 42,
+    "platform": "COMMON",
+    "generatedFile": "khong co - gia thuyet bi bac bo truoc khi viet code",
+    "referenceFile": "docs/ITERATION_042_EXTERNAL_RESEARCH.md muc E",
+    "method": "Il2CppIlRecoveryOutputFormat.CoordinateEvidence; GenericInstanceFieldLayout.LayoutOf",
+    "compilerError": "khong co",
+    "observed": "Iteration 041 de xuat: 48 load RESOLVABLE la do metadata ghi offset value type tu du lieu cua chinh no, con LayoutOf bat dau o 2*pointerSize. Ket luan tu nhien la cong 0x10.",
+    "expected": "Do truoc khi sua, vi nhap nhang offset-0 da bi loai ba lan (036, 037, 038).",
+    "rootCause": "He toa do KHONG phai thuoc tinh cua kieu ma cua CACH CON TRO BASE CO DUOC. Class thi offset metadata da gom header 0x10. Mot value type xuat hien o CA HAI he: lay tu `this` cua chinh method cua struct thi il2cpp trao con tro vao header cua object da box nen field o offset 0 doc o [this + 0x10]; cung struct do trong static storage / o stack / field cua object khac thi doc dung o offset metadata. Il2CppDumper phat bieu nua tinh cua dieu nay tuong minh: struct T_o { T_c *klass; void *monitor; T_Fields fields; } voi hai con tro chi phat ra khi !IsValueType.",
+    "fix": "KHONG SUA. Them cot CoordinateEvidence tren CPP2IL_DUMP_LOADS thu ca hai cach doc addend tren tung load va bao cach nao roi trung mot field. No khong ket luan, chi phoi bang chung.",
+    "verification": "Tren 2722 load Impostor, base la value type: VALUE_RELATIVE 77, OBJECT_RELATIVE 29, BOTH 0, NEITHER 163. Bo ca yeu (addend 0 khop field dau tam thuong, addend 0x10 tuong tu o chieu kia): 43 chong 14. Cong 0x10 thanh luat chung se lam sai 77 field identity de sua 29. Cot duoc kiem chung bang ca da truy tay: ObscuredDecimal.currentCryptoKey ghi o metadata 0x0, ma may doc [X0 + 0x10] voi X0 la this cua chinh method cua struct, cot bao OBJECT_RELATIVE - dung. Moi metric khac bang dung baseline.",
+    "notes": "BOTH = 0 la phat hien phu dang gia: hai cach doc khong bao gio cung trung, nen tren tung load bang chung CO tach duoc. Nhung 'cach nao trung thi lay' la heuristic chu khong phai luat, va dung loai suy doan da bi loai ba lan. Muon dung phai co luat noi con tro base co duoc bang cach nao. Hai gia thuyet khac cung bi bac bo trong iteration nay va deu co probe chung minh code that su chay: chay lai field resolution muon (goi tren 11903 method, doi 2) va restriction cho open-generic branch (link reached 0 lan tren Pinata, khong doi mot file .cs nao)."
   }
 ]

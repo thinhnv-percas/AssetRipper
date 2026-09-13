@@ -941,7 +941,49 @@ find it; `strings` without `-el` does find method and type names.
   at exactly the offset asked for and the generator still gave up** — which is how the generic-base
   defect above was found.
 
+- **The coordinate an offset is measured from belongs to the base pointer, not to the type.** A class's
+  recorded offsets already include the 0x10 header, so nothing is to be decided there. A value type
+  appears in *both* frames: reached as `this` of the struct's own instance method, il2cpp hands a
+  pointer to the boxed object's header, so a field at metadata offset 0 is read at `[this + 0x10]`;
+  the same struct in static storage, in a stack slot, or as a field of another object is read at its
+  own offset. `CoordinateEvidence` on `CPP2IL_DUMP_LOADS` tries both readings per load and says which
+  lands on a field. Il2CppDumper states the static half outright and independently -
+  `struct T_o { T_c *klass; void *monitor; T_Fields fields; }` with the two pointers emitted only
+  when the type is not a value type.
+- **`measure-bodies.py` from `clericall/il2cpp-wasm-teardown` is an outside oracle this project had
+  no equivalent of.** Every existing measure counts placeholders, Roslyn errors or diagnostics; none
+  answers "how many methods have a real body". It classifies each method empty / trivial stub / real,
+  and deliberately counts `throw null;` as a stub because that is Cpp2IL's own placeholder - "a fully
+  stubbed assembly otherwise scores 100% live". Its author measures **0.00%** on an ordinary IL2CPP
+  export; on this project's rip it measures **96.06%** for Assembly-CSharp and 62.97% across all 819
+  files. Worth re-running after any change that could stub bodies.
+
 ### Things measured to be worth nothing — do not redo them
+- **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
+  being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
+  **77 are VALUE_RELATIVE** (the addend is the raw metadata offset) against **29 OBJECT_RELATIVE** (the
+  addend is metadata + 0x10), and 43 against 14 once the cases where the first field matches trivially
+  are discounted. A blanket `+0x10` would corrupt 77 field identities to recover 29. `BOTH` is zero, so
+  the evidence does separate the two readings per load - but "whichever one lands" is a heuristic, not
+  a rule, and is the same offset-zero guess rejected in 036, 037 and 038. Anything here needs a rule
+  for *how the base pointer was obtained* first.
+- **Running field resolution a second time, late, for bases typed after the fixpoint.**
+  `LocalVariables.ResolveTypesAndFields` runs once and a dozen type-propagating passes follow it, so
+  it looked as though copy propagation must be typing bases that field resolution never gets a second
+  look at. A second `MetadataResolver.ResolveFieldOffsets` placed after the constant/copy propagation
+  loop, still inside SSA, was **called on 11903 methods and changed 2** - and the rip was identical to
+  the digit. Probed rather than assumed, because identical numbers are also what a pass that never
+  fires looks like. The premise is simply false: those bases are typed when the fixpoint runs.
+- **Applying the 041 declaring-type restriction to the open-generic branch.** Iteration 041 proposed
+  this as its own next step, and it is dead code: a probe counted the `owner.GenericParameters.Count > 0`
+  link as reached **0 times** on Pinata, and unifying it into `BaseChainFieldSearch` changed not one
+  `.cs` file on either fixture. The error that motivated it -
+  `'ComponentAction<T>' does not contain a definition for 'fsm'` - has a different cause: `fsm` is
+  resolved correctly to `FsmStateAction.fsm` and is *private*, which C# reports as "does not contain a
+  definition" when reached through a derived type. One occurrence, and in the same family as
+  `List<T>._size`.
+
+
 - **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
   thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:
   `Subtract d, a, b` rồi `CheckEqual z, d, 0`. `TypeCheckRecovery` so khớp mọi hình dạng của nó trên
