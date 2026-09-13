@@ -135,6 +135,21 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 		Logger.Info(LogCategory.Import,
 			$"Il2Cpp field layout self-check: of {total} non-generic types with measured offsets, " +
 			$"{reproduced} reproduced exactly, {incomplete} laid out too few fields, {mismatched} disagreed.");
+
+		// The check above skips every value type and every field recorded at offset zero, so it has
+		// never had anything to say about a struct. This one covers both, and counts the two readings
+		// separately rather than deciding which frame the walk is in.
+		(int valueFramed, int boxedFramed, int neither, int valueIncomplete) =
+			Cpp2IL.Core.Analysis.GenericInstanceFieldLayout.ValueTypeSelfCheck(appContext);
+		int valueTotal = valueFramed + boxedFramed + neither + valueIncomplete;
+
+		if (valueTotal > 0)
+		{
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp value-type layout self-check: of {valueTotal} non-generic structs with measured offsets, " +
+				$"{boxedFramed} reproduce at metadata+header, {valueFramed} at metadata itself, " +
+				$"{neither} at neither, {valueIncomplete} could not be laid out.");
+		}
 	}
 
 	private static void ReportAssemblies(ApplicationAnalysisContext appContext)

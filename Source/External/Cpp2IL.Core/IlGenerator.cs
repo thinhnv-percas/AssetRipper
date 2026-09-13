@@ -699,9 +699,20 @@ public static class IlGenerator
     /// offset reads as "not known" and so paired nothing on any struct in any game.
     /// </remarks>
     private static long? OffsetOfInstanceField(FieldAnalysisContext field, TypeAnalysisContext owner)
-        => owner.GenericParameters.Count > 0
-            ? GenericInstanceFieldLayout.OffsetOfField(owner, field)
-            : field.Offset >= 0 ? field.Offset : null;
+    {
+        if (owner.GenericParameters.Count <= 0)
+        {
+            return field.Offset >= 0 ? field.Offset : null;
+        }
+
+        // AssetRipper: the computed layout is object-framed for every type, including a struct, while
+        // the branch above is metadata-framed - so the two have to be brought into one frame before
+        // the caller adds the receiver's header to whichever it got. Without this the header landed
+        // twice on a generic value type and the pairing could not match anything.
+        return GenericInstanceFieldLayout.OffsetOfField(owner, field) is { } computed
+            ? FieldOffsetFrame.FromComputedLayout(computed, owner)
+            : null;
+    }
 
     /// <summary>
     /// AssetRipper: the offset the body of an accessor names, given the field's own.
@@ -715,7 +726,7 @@ public static class IlGenerator
     /// the pairing worked on <c>button.m_OnClick</c> and on no struct in any game.
     /// </remarks>
     private static long AccessorOffset(long offset, TypeAnalysisContext owner)
-        => owner.IsValueType ? offset + 2L * owner.AppContext.Binary.PointerSizeBytes : offset;
+        => FieldOffsetFrame.ToReceiverDisplacement(offset, owner);
 
     // Whether the getter's whole body is "load the field at this offset and return it".
     private static bool ReturnsNothingButTheField(MethodAnalysisContext getter, long offset)

@@ -113,6 +113,106 @@ public static class GenericInstanceFieldLayout
     }
 
     /// <summary>
+    /// AssetRipper: what the computed layout says about a <b>value type</b>, which
+    /// <see cref="SelfCheck"/> has never looked at.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// <see cref="SelfCheck"/> skips a value type, and it also skips every field recorded at offset
+    /// zero, so two things have gone unmeasured: whether the walk reproduces a struct's layout at all,
+    /// and which frame the offsets it produces are in. The walk starts every type at two pointers, the
+    /// object header - right for a class, whose metadata offsets already include it, and a question for
+    /// a struct, whose metadata offsets start at zero.
+    /// </para>
+    /// <para>
+    /// So this compares each computed offset against both readings and counts them separately rather
+    /// than deciding which is meant. A struct whose fields reproduce at <c>metadata + header</c> says
+    /// the walk is right and framed as a boxed object; one that reproduces at <c>metadata</c> says it
+    /// is framed as the value; one that does neither says the walk is wrong about structs and the
+    /// frame question does not arise yet.
+    /// </para>
+    /// </remarks>
+    public static (int ValueFramed, int BoxedFramed, int Neither, int Incomplete) ValueTypeSelfCheck(ApplicationAnalysisContext appContext)
+    {
+        var valueFramed = 0;
+        var boxedFramed = 0;
+        var neither = 0;
+        var incomplete = 0;
+        var header = 2L * appContext.Binary.PointerSizeBytes;
+
+        foreach (var assembly in appContext.Assemblies)
+        foreach (var type in assembly.Types)
+        {
+            if (type.GenericParameters.Count > 0 || !type.IsValueType || type.IsEnumType)
+                continue;
+
+            var expected = new List<(FieldAnalysisContext Field, long Offset)>();
+
+            // No `> 0` filter here, deliberately: a struct's first field is at zero and excluding it
+            // is how the class check came to have nothing to say about offset zero.
+            foreach (var field in type.Fields)
+                if (!field.IsStatic && (field.Attributes & FieldAttributes.Literal) == 0
+                    && field.BackingData?.FieldOffset is { } metadataOffset)
+                    expected.Add((field, metadataOffset));
+
+            if (expected.Count == 0)
+                continue;
+
+            Dictionary<FieldAnalysisContext, long> computed;
+
+            try
+            {
+                computed = Layout(type, null).ToDictionary(entry => entry.Field, entry => entry.Offset);
+            }
+            catch
+            {
+                incomplete++;
+                continue;
+            }
+
+            var allValue = true;
+            var allBoxed = true;
+            var missing = false;
+
+            foreach (var (field, metadataOffset) in expected)
+            {
+                if (!computed.TryGetValue(field, out var offset))
+                {
+                    missing = true;
+                    continue;
+                }
+
+                if (offset != metadataOffset)
+                    allValue = false;
+
+                if (offset != metadataOffset + header)
+                    allBoxed = false;
+            }
+
+            if (missing)
+                incomplete++;
+            else if (allBoxed)
+                boxedFramed++;
+            else if (allValue)
+                valueFramed++;
+            else
+            {
+                neither++;
+
+                if (System.Environment.GetEnvironmentVariable("CPP2IL_DUMP_LAYOUT") != null && neither <= 25)
+                {
+                    var detail = new List<string>();
+                    foreach (var (field, metadataOffset) in expected)
+                        detail.Add($"{field.Name}:{field.FieldType.Name} meta={metadataOffset:X} got={(computed.TryGetValue(field, out var o) ? o.ToString("X") : "-")}");
+                    System.Console.Error.WriteLine($"value-type layout neither: {type.FullName} [{string.Join(", ", detail)}]");
+                }
+            }
+        }
+
+        return (valueFramed, boxedFramed, neither, incomplete);
+    }
+
+    /// <summary>
     /// AssetRipper: the whole computed layout, for diagnostics that need to say what is known rather
     /// than ask about one offset.
     /// </summary>
