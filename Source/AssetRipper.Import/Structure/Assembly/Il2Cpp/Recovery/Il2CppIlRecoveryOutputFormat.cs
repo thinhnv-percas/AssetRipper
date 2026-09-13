@@ -5,6 +5,7 @@ using AsmResolver.PE.DotNet.Cil;
 using AsmResolver.PE.DotNet.Metadata.Tables;
 using AssetRipper.CIL;
 using AssetRipper.Import.Logging;
+using Cpp2IL.Core.Analysis;
 using Cpp2IL.Core;
 using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
@@ -466,6 +467,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			fieldCount.ToString(),
 			memory.Size.ToString(),
 			baseDefinition,
+			RootCauseOf(methodContext, memory),
 			memory.ToString());
 
 		lock (unresolvedLoadCaseLock)
@@ -473,6 +475,130 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			unresolvedLoadCaseWriter ??= new StreamWriter(unresolvedLoadCaseFile, append: false);
 			unresolvedLoadCaseWriter.WriteLine(row);
 		}
+	}
+
+	/// <summary>
+	/// Walks a load's base back to where its type was lost, and names that rather than the symptom.
+	/// </summary>
+	/// <remarks>
+	/// Every other column of the dump describes the load where it was given up on. That is the right
+	/// place to count it and the wrong place to explain it: a base typed <c>object</c> three copies
+	/// downstream of an unresolved call says nothing about the call, and grouping by what the load
+	/// looks like has now four times produced a family that turned out to be several causes. The walk
+	/// itself is <see cref="UnresolvedLoadProvenance"/>; what it means to end on a typed base is the
+	/// half that needs metadata, so it is passed in.
+	/// </remarks>
+	private string RootCauseOf(MethodAnalysisContext methodContext, MemoryOperand memory)
+	{
+		Dictionary<LocalVariable, List<Instruction>> definitions = DefinitionsFor(methodContext);
+
+		long offset = memory.Addend;
+
+		return UnresolvedLoadProvenance.Of(
+			memory.Base,
+			local => definitions.TryGetValue(local, out List<Instruction>? found) ? found : Array.Empty<Instruction>(),
+			local => local.Type is { } type ? ClassifyTypedOrigin(type, offset) : null,
+			static local => local.Type is SzArrayTypeAnalysisContext);
+	}
+
+	/// <summary>
+	/// Where the walk ends on a typed base, what about that type stopped the offset being placed.
+	/// </summary>
+	private string ClassifyTypedOrigin(TypeAnalysisContext type, long offset)
+	{
+		switch (type)
+		{
+			case RuntimeClassTypeAnalysisContext:
+			case RuntimeMethodInfoAnalysisContext:
+			case StaticFieldStorageTypeAnalysisContext:
+				// Correctly typed, and there is no managed field at the offset because the thing being
+				// read is the runtime's own struct. Not a typing failure at all.
+				return "RUNTIME_STRUCT:" + type.GetType().Name;
+
+			case SzArrayTypeAnalysisContext:
+				return "ARRAY_ELEMENT:array-typed-base";
+
+			case ByRefTypeAnalysisContext:
+				return "TYPE_PROPAGATION:byref-base";
+		}
+
+		if (type is GenericInstanceTypeAnalysisContext || type.GenericParameters.Count > 0)
+		{
+			// A generic instantiation's field offsets are not the definition's, and an open parameter
+			// has no layout at all until the runtime makes one.
+			return "GENERIC_LAYOUT:" + (type is GenericInstanceTypeAnalysisContext ? "instantiation" : "open-parameter");
+		}
+
+		long largest = 0;
+		int fields = 0;
+
+		for (TypeAnalysisContext? candidate = type; candidate is not null; candidate = candidate.BaseType)
+		{
+			foreach (FieldAnalysisContext field in candidate.Fields)
+			{
+				if (!field.IsStatic && field.BackingData?.FieldOffset is { } fieldOffset)
+				{
+					fields++;
+					if (fieldOffset > largest)
+					{
+						largest = fieldOffset;
+					}
+				}
+			}
+		}
+
+		if (fields == 0)
+		{
+			return "MISSING_METADATA:base-type-declares-no-field-offsets";
+		}
+
+		return offset > largest
+			? "PAST_LAST_FIELD:" + (type.IsValueType ? "value-type" : "class")
+			: "MISSING_METADATA:offset-within-the-layout-and-on-no-field";
+	}
+
+	[ThreadStatic] private static MethodAnalysisContext? definitionsOwner;
+	[ThreadStatic] private static Dictionary<LocalVariable, List<Instruction>>? definitionsCache;
+
+	/// <summary>
+	/// Every instruction that defines each local, cached per method as <see cref="SourcesFor"/> is.
+	/// </summary>
+	/// <remarks>
+	/// Every definition, not just the last: a pass that rewrites an instruction can leave a local with
+	/// more than one, and a walk that keeps only one of them silently picks a side. Keeping only the
+	/// last has already produced a better-looking number and deleted live code once in this project.
+	/// </remarks>
+	private static Dictionary<LocalVariable, List<Instruction>> DefinitionsFor(MethodAnalysisContext methodContext)
+	{
+		if (ReferenceEquals(definitionsOwner, methodContext) && definitionsCache is not null)
+		{
+			return definitionsCache;
+		}
+
+		Dictionary<LocalVariable, List<Instruction>> definitions = [];
+
+		if (methodContext.ControlFlowGraph is { } cfg)
+		{
+			foreach (Block block in cfg.Blocks)
+			{
+				foreach (Instruction instruction in block.Instructions)
+				{
+					if (instruction.Destination is LocalVariable destination)
+					{
+						if (!definitions.TryGetValue(destination, out List<Instruction>? already))
+						{
+							definitions[destination] = already = [];
+						}
+
+						already.Add(instruction);
+					}
+				}
+			}
+		}
+
+		definitionsOwner = methodContext;
+		definitionsCache = definitions;
+		return definitions;
 	}
 
 	private static readonly string? unresolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_LOADS");
