@@ -1,0 +1,38 @@
+Một bản sửa nhỏ có chứng minh, một phép đo mới, và một mô hình được phát biểu rõ.
+
+A. ValueTypeSelfCheck — phép đo chưa từng tồn tại
+
+   SelfCheck bỏ qua type.IsValueType VÀ metadataOffset > 0, nên nó chưa bao giờ có gì để nói về
+   struct, và cũng chưa bao giờ kiểm chứng field đầu của bất kỳ type nào. ValueTypeSelfCheck phủ cả
+   hai chỗ mù và đếm riêng hai cách đọc thay vì tự chọn một:
+
+     Impostor 598 struct: 547 ở metadata+header, 0 ở metadata, 11 ở không cái nào, 40 không dựng được
+     Pinata   458 struct: 435 ở metadata+header, 0 ở metadata,  5 ở không cái nào, 18 không dựng được
+
+   Kết luận: GenericInstanceFieldLayout ĐÚNG về thứ tự và alignment của struct, và nó trả về offset
+   trong khung của một object đã box. Không một struct nào tái lập ở khung metadata, trên cả hai
+   kiến trúc và cả hai metadata version.
+
+   11 và 5 ca "không cái nào" đều là union [StructLayout(LayoutKind.Explicit)] — System.Decimal có
+   ulomidLE chồng lên lo/mid ở meta=8. Phép đi tuần tự không diễn tả được field chồng nhau. Giới hạn
+   đúng, không phải lỗi.
+
+B. FieldOffsetFrame — bỏ một lần cộng header thừa
+
+   IlGenerator.OffsetOfInstanceField lấy offset từ layout tính được khi owner generic và từ metadata
+   trong mọi trường hợp khác — hai khung khác nhau — rồi AccessorOffset cộng header vào cả hai. Với
+   một generic value type header rơi vào hai lần.
+
+   Đo trên đường chạy thật: Impostor 2538 lượt đo, 60 owner generic mở, 2 trong đó là value type;
+   Pinata 7434 lượt, 128 owner generic mở, 5 là value type; ghép được 0 trên cả hai.
+
+   KHÔNG một file .cs nào đổi trên cả hai fixture. Giữ lại vì đường code đó CÓ chạy (60 và 128 lượt)
+   và cho câu trả lời sai ở đó — khác với ứng viên bị loại ở 042 nơi probe đếm 0 lượt đạt tới.
+
+   Bảy test synthetic, không dùng fixture. Ba lần phá code có chủ ý đều làm test đỏ.
+
+C. Một bẫy đo lường mới, đã sập một lần trong iteration này
+
+   Probe đầu tiên báo "total 0" cho một hàm rõ ràng có được gọi. Nguyên nhân: counter được in từ
+   Il2CppRecoveryDiagnosticsProcessingLayer, chạy TRƯỚC khi sinh thân hàm. Đọc counter của generator
+   phải đọc ở chỗ generator báo cáo. Suýt ghi thành "toàn bộ instance accessor pairing là code chết".

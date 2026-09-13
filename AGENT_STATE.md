@@ -5,8 +5,8 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 042 (hoàn tất; KHÔNG ship thay đổi recovery nào — cả hai ứng viên của 041 đều
-                          bị bác bỏ bằng phép đo. Ship: cột CoordinateEvidence + nghiên cứu ngoài)
+Iteration hiện tại: 043 (hoàn tất; mô hình layout được phát biểu và ĐO: LayoutOf ở khung boxed.
+                          Ship: ValueTypeSelfCheck, FieldOffsetFrame, bỏ một lần cộng header thừa)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -46,8 +46,29 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 042d (Impostor) và 041dpin (Pinata);
-  042d giống 041e tới từng chữ số vì 042 không đổi gì trong recovery.
+  rảnh giữa hai iteration. Baseline cho iteration sau là 043a (Impostor) và 043apin (Pinata);
+  cả hai giống 042d/041dpin tới từng chữ số vì 043 không đổi output.
+
+Iteration 043 — ba thứ phải biết trước khi làm tiếp:
+
+  1. **`GenericInstanceFieldLayout` trả về offset trong khung của object ĐÃ BOX**, kể cả với struct,
+     và nó đúng về thứ tự lẫn alignment. Đo: Impostor 547/598 và Pinata 435/458 tái lập ở
+     `metadata + header`, **0 ở chính metadata**. 11 và 5 ca còn lại là union explicit-layout
+     (`System.Decimal.ulomidLE` chồng lên `lo`/`mid`) — giới hạn đúng của phép đi tuần tự.
+     `FieldOffsetFrame` đặt tên hai khung; hai phép chuyển là nghịch đảo nhau.
+
+  2. **`SelfCheck` bỏ qua value type VÀ mọi field ở offset 0.** `ValueTypeSelfCheck` phủ cả hai.
+     Đừng đọc "1394 reproduced, 0 disagreed" như thể nó nói gì đó về struct — nó không.
+
+  3. **Counter của generator phải đọc ở chỗ generator báo cáo.**
+     `Il2CppRecoveryDiagnosticsProcessingLayer` chạy TRƯỚC khi sinh thân hàm, nên in một counter của
+     `IlGenerator` từ đó luôn cho 0. Bẫy này đã sập một lần trong iteration này và suýt được ghi
+     thành "toàn bộ instance accessor pairing là code chết".
+
+Iteration 043 — số liệu: mọi cột bằng đúng 042 (2722 load, genFail 0, 819 file, 16/16 shape,
+  Roslyn 348 DECOMPILER_ERROR / 0 REFERENCE_ERROR, REAL_ERROR 861, `array[i].field` 164,
+  `(float)array[i]` 0, Pinata 1478/1 mã lỗi giống hệt, 0 file .cs đổi). Test 354 -> 361, 1 fail
+  có sẵn. `measure-bodies.py` vẫn 96,06% live trên Assembly-CSharp.
 
 Iteration 042 — ba thứ phải biết trước khi làm tiếp:
 

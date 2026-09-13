@@ -958,6 +958,28 @@ find it; `strings` without `-el` does find method and type names.
   export; on this project's rip it measures **96.06%** for Assembly-CSharp and 62.97% across all 819
   files. Worth re-running after any change that could stub bodies.
 
+- **`GenericInstanceFieldLayout` lays every type out from the object, a struct included, so what it
+  returns is a boxed offset.** Measured for the first time in iteration 043, because `SelfCheck` skips
+  `IsValueType` *and* every field recorded at offset 0 and so had never had anything to say about a
+  struct: of 598 and 458 non-generic structs on the two games, **547 and 435 reproduce at
+  `metadata + header` and none at the metadata offset itself**. The walk is right about order and
+  alignment; it is simply in the other frame. The 11 and 5 that reproduce in neither are
+  `[StructLayout(LayoutKind.Explicit)]` unions - `System.Decimal.ulomidLE` overlaps `lo` and `mid` at
+  metadata 8 - which a sequential walk cannot express and should not try to.
+- **Two frames meeting in one expression is how a header gets added twice.**
+  `IlGenerator.OffsetOfInstanceField` took its offset from the computed layout for a generic owner and
+  from the metadata for everything else, then `AccessorOffset` added the header to both - so a generic
+  value type got it twice and the accessor pairing could not match anything. `FieldOffsetFrame` names
+  the two frames and its two conversions are inverses, so the same mistake cannot compose again. The
+  header is **two pointers**, not sixteen. Worth nothing measurable today (2 fields on one game, 5 on
+  the other, none of which paired before either) - kept because that branch *is* reached, 60 and 128
+  times, and is wrong where it is reached.
+- **A counter the generator increments has to be read where the generator reports.**
+  `Il2CppRecoveryDiagnosticsProcessingLayer` runs *before* bodies are generated, so an `IlGenerator`
+  counter printed from there is always 0. That read as "the whole instance accessor pairing is dead
+  code" and was one sentence away from being written down as a finding; moving the line to
+  `Il2CppIlRecoveryOutputFormat`, where the recovery counters are logged, turned 0 into 2538.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,

@@ -1,0 +1,32 @@
+{
+  "total": 1479,
+  "categories": {
+    "DECOMPILER_ERROR": 1478,
+    "REFERENCE_ERROR": 1,
+    "ROSLYN_ERROR": 0,
+    "TOOLCHAIN_ERROR": 0,
+    "UNCLASSIFIED": 0
+  },
+  "byCode": {
+    "DECOMPILER_ERROR": {
+      "CS0030": 1125,
+      "CS0246": 6,
+      "CS0023": 4,
+      "CS0117": 11,
+      "CS0019": 115,
+      "CS0122": 105,
+      "CS1061": 100,
+      "CS0149": 2,
+      "CS0400": 2,
+      "CS0165": 4,
+      "CS0206": 1,
+      "CS1593": 1,
+      "CS1612": 2
+    },
+    "REFERENCE_ERROR": {
+      "CS0234": 1
+    }
+  },
+  "referenceAssemblies": 86,
+  "referencesComplete": true
+}

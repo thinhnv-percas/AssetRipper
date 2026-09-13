@@ -1,0 +1,4 @@
+Import : Il2Cpp field layout self-check: of 1472 non-generic types with measured offsets, 1394 reproduced exactly, 78 laid out too few fields, 0 disagreed.
+Import : Il2Cpp value-type layout self-check: of 598 non-generic structs with measured offsets, 547 reproduce at metadata+header, 0 at metadata itself, 11 at neither, 40 could not be laid out.
+Import : Il2Cpp field layout self-check: of 3221 non-generic types with measured offsets, 3170 reproduced exactly, 51 laid out too few fields, 0 disagreed.
+Import : Il2Cpp value-type layout self-check: of 458 non-generic structs with measured offsets, 435 reproduce at metadata+header, 0 at metadata itself, 5 at neither, 18 could not be laid out.

@@ -288,3 +288,31 @@ export IL2CPP thường được 0,00%.
 
 Ba thí nghiệm, ba kết quả âm tính, cả ba đều có probe chứng minh code thật sự chạy chứ không phải
 im lặng không khớp — chi tiết trong `iterations/042/change.txt` và `CLAUDE.md`.
+
+## Iteration 043 — mô hình layout được đo, và một lần cộng header thừa
+
+| Metric | 042 | 043 | Delta |
+|---|---:|---:|---:|
+| Impostor unresolved loads | 2722 | 2722 | 0 |
+| genFail | 0 | 0 | 0 |
+| REAL_ERROR | 861 | 861 | 0 |
+| Impostor Roslyn DECOMPILER / REFERENCE | 348 / 0 | 348 / 0 | 0 |
+| Pinata Roslyn DECOMPILER / REFERENCE | 1478 / 1 | 1478 / 1 | 0 |
+| shape checks | 16/16 | 16/16 | 0 |
+| `array[i].field` / `(float)array[i]` / `<>` | 164 / 0 / 5 | 164 / 0 / 5 | 0 |
+| tests (pre-existing failures) | 354 (1) | 361 (1) | +7 |
+| file .cs đổi | — | **0** | — |
+
+Provenance không đổi: RUNTIME_STRUCT 684, TYPE_PROPAGATION 486, PAST_LAST_FIELD 416,
+GENERIC_LAYOUT 390, ARRAY_ELEMENT 250, UNKNOWN 188, MISSING_METADATA 184, NO_KNOWN_LAYOUT 52,
+RESOLVABLE 48, PHI_AMBIGUITY 24.
+
+Phép đo mới, và là thứ iteration này thực sự sinh ra:
+
+| fixture | struct có offset đo được | `metadata+header` | `metadata` | không cái nào | không dựng được |
+|---|---:|---:|---:|---:|---:|
+| Impostor | 598 | **547** | **0** | 11 | 40 |
+| Pinata | 458 | **435** | **0** | 5 | 18 |
+
+`SelfCheck` cũ (chỉ class) không đổi: Impostor 1394/1472 exact 0 disagree, Pinata 3170/3221 exact
+0 disagree.

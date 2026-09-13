@@ -674,5 +674,24 @@
     "fix": "KHONG SUA. Them cot CoordinateEvidence tren CPP2IL_DUMP_LOADS thu ca hai cach doc addend tren tung load va bao cach nao roi trung mot field. No khong ket luan, chi phoi bang chung.",
     "verification": "Tren 2722 load Impostor, base la value type: VALUE_RELATIVE 77, OBJECT_RELATIVE 29, BOTH 0, NEITHER 163. Bo ca yeu (addend 0 khop field dau tam thuong, addend 0x10 tuong tu o chieu kia): 43 chong 14. Cong 0x10 thanh luat chung se lam sai 77 field identity de sua 29. Cot duoc kiem chung bang ca da truy tay: ObscuredDecimal.currentCryptoKey ghi o metadata 0x0, ma may doc [X0 + 0x10] voi X0 la this cua chinh method cua struct, cot bao OBJECT_RELATIVE - dung. Moi metric khac bang dung baseline.",
     "notes": "BOTH = 0 la phat hien phu dang gia: hai cach doc khong bao gio cung trung, nen tren tung load bang chung CO tach duoc. Nhung 'cach nao trung thi lay' la heuristic chu khong phai luat, va dung loai suy doan da bi loai ba lan. Muon dung phai co luat noi con tro base co duoc bang cach nao. Hai gia thuyet khac cung bi bac bo trong iteration nay va deu co probe chung minh code that su chay: chay lai field resolution muon (goi tren 11903 method, doi 2) va restriction cho open-generic branch (link reached 0 lan tren Pinata, khong doi mot file .cs nao)."
+  },
+  {
+    "id": "DECOMP-0031",
+    "severity": "WARNING",
+    "category": "TYPE_RESOLUTION",
+    "status": "FIXED",
+    "iterationFound": 43,
+    "iterationFixed": 43,
+    "platform": "COMMON (2 field tren Impostor, 5 tren Pinata)",
+    "generatedFile": "khong co thay doi output tren ca hai fixture",
+    "referenceFile": "docs/ITERATION_043_LAYOUT_MODEL.md muc 8",
+    "method": "IlGenerator.OffsetOfInstanceField; IlGenerator.AccessorOffset; FieldOffsetFrame; GenericInstanceFieldLayout.ValueTypeSelfCheck",
+    "compilerError": "khong co",
+    "observed": "Phep ghep trivial accessor khong bao gio khop tren mot generic value type: header duoc cong hai lan, metadata + 0x10 + 0x10.",
+    "expected": "Mot lan, giong moi value type khac.",
+    "rootCause": "OffsetOfInstanceField lay offset tu GenericInstanceFieldLayout.OffsetOfField khi owner la generic va tu field.Offset trong moi truong hop khac. Hai nguon do o HAI KHUNG khac nhau: layout tinh duoc dat moi type tu dau object nen voi struct no la metadata + header, con metadata cua struct tinh tu dau du lieu cua chinh no. AccessorOffset cong header vao ca hai.",
+    "fix": "FieldOffsetFrame dat ten hai khung (FromComputedLayout / ToReceiverDisplacement) va hai phep chuyen la nghich dao nhau. OffsetOfInstanceField dua ket qua cua layout ve khung metadata truoc khi tra ve, nen AccessorOffset cong header dung mot lan cho moi nhanh. Header la 2 * pointerSize chu khong phai hang so 16.",
+    "verification": "ValueTypeSelfCheck (moi) do khung cua layout tren ca hai fixture: Impostor 547/598 va Pinata 435/458 tai lap o metadata+header, 0 o chinh metadata. Probe tren duong chay that: Impostor 2538 luot do offset / 60 owner generic mo / 2 la value type; Pinata 7434 / 128 / 5; ghep duoc 0 tren ca hai. Sau khi sua: KHONG mot file .cs nao doi tren ca hai fixture, moi metric bang dung baseline, Pinata ma loi giong het. Test 354 -> 361. Ba lan pha code co chu y deu lam test do.",
+    "notes": "Giu lai du khong doi output vi duong code do CO chay (60 va 128 luot) va cho cau tra loi sai o do - khac han ung vien bi loai o iteration 042, noi probe dem duoc 0 luot dat toi. 11 va 5 struct 'khong cai nao' la union [StructLayout(LayoutKind.Explicit)] (System.Decimal.ulomidLE chong len lo/mid o meta=8), gioi han dung cua phep di tuan tu chu khong phai loi. BAY DO LUONG: probe dau tien bao 'total 0' cho mot ham ro rang co duoc goi, vi counter duoc in tu Il2CppRecoveryDiagnosticsProcessingLayer chay TRUOC khi sinh than ham."
   }
 ]
