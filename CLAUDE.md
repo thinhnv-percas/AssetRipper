@@ -902,6 +902,45 @@ find it; `strings` without `-el` does find method and type names.
   errors were printed" is also what an absent compiler produces, so it has to assert the assembly was
   built. With the original bug restored, 5 of 6 go red.
 
+- **A field of a generic instance has no `BackingData` at all, so every `BackingData.FieldOffset`
+  comparison is silently false on one.** `ConcreteGenericFieldAnalysisContext` is
+  `base(null, genericInstanceType)`, which CLAUDE.md already recorded — what was missed is what that
+  means for *anything that searches by offset*: no offset above zero can ever match such a type, and
+  offset zero would match every one of its fields. `MetadataResolver`'s base-chain walk did exactly
+  that, so a field inherited from a generic base class could never be resolved, and
+  `TimeCheatingDetector : ACTkDetectorBase<TimeCheatingDetector>` — the ordinary shape of a
+  self-referencing singleton base — lost `started` and `isRunning` entirely: `if ((nint)0 != 0)`,
+  always false, the whole guard dead code. The offsets are in `GenericInstanceFieldLayout`, which the
+  same method already consults when the *owner* is a generic instance and never when it merely
+  inherits from one. Worth 34 loads and 25 dead branches on the test game, and 121 Roslyn errors on
+  Pinata.
+- **A computed layout covers the link's whole base chain, so the field it returns may belong to an
+  ancestor.** Instantiating it on the link that answered then declares the field on a type that does
+  not declare it: PlayMaker's `ComponentAction<T> : FsmStateAction` places `FsmStateAction.fsm`, and
+  attributing that to `ComponentAction<InputField>` was 186 new errors on Pinata — with **nothing at
+  all** visible on the ARM64 game. A link answers only for what it declares itself; the rest is left
+  to the link that does, which the walk reaches immediately afterwards and where the field is already
+  closed. The other half of the same rule is older and was rediscovered here: a field taken from a
+  computed layout is declared by the open *definition*, so naming it gives a cast to `Foo<>`, which is
+  not a type C# can spell — the code already guarded that for the owner case (`open type is bad`) and
+  the guard has to extend to an ancestor.
+- **A parse error hides a whole file, which is the declaration-error trap one stage earlier.** ACTk's
+  Roslyn count read 4 errors before and after a change that introduced 40 uncompilable casts, because
+  a pre-existing CS1525 stops the compiler before it binds anything in that file. When a change could
+  introduce a bad *shape*, count the shape across the whole rip; an assembly's error count only
+  measures the files that parse.
+- **Counting fields by `BackingData.FieldOffset` answers a different question from the one the name
+  suggests**, and iteration 040's provenance labels were wrong in three ways because of it. "Declares
+  no field offsets" conflated a bare type parameter (no static layout to be missing — 111 of 165), a
+  type with no instance fields at all (`System.Object`, `System.Array`, a pointer: a complete layout
+  that happens to be empty), and a genuine gap. "Offset within the layout and on no field" asserted
+  "on no field" without ever looking. And `PAST_LAST_FIELD` inherited the same error, since a type
+  that merely inherits from a generic instance read as having no layout, making every positive addend
+  "past the last field". Measuring from the computed layout instead moved 194 loads out of
+  MISSING_METADATA and exposed a new group worth reading: **`RESOLVABLE`, 48 loads where a field sits
+  at exactly the offset asked for and the generator still gave up** — which is how the generic-base
+  defect above was found.
+
 ### Things measured to be worth nothing — do not redo them
 - **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
   thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:

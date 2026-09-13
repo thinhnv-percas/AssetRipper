@@ -232,3 +232,31 @@ base không ghi offset cho một field nào — `largest` bằng 0 nên mọi ad
 
 Một kết quả âm tính: **0/2756 dòng đi qua một phi**. SSA đã bị destruct trước khi `IlGenerator` chạy,
 nên mọi code xử lý phi đặt ở điểm đo này là đúng và chết.
+
+## Iteration 041 — field kế thừa từ một lớp cơ sở generic
+
+| Metric | 040 | 041 | Delta |
+|---|---:|---:|---:|
+| Impostor unresolved loads | 2756 | 2722 | −34 |
+| — ACTk.Runtime | 186 | 152 | −34 |
+| Impostor genFail | 0 | 0 | 0 |
+| Impostor REAL_ERROR | 861 | 861 | 0 |
+| Impostor Roslyn DECOMPILER_ERROR | 348 | 348 | 0 |
+| Impostor Roslyn REFERENCE_ERROR | 0 | 0 | 0 |
+| shape checks | 16/16 | 16/16 | 0 |
+| `array[i].field` | 164 | 164 | 0 |
+| `(float)array[i]` | 0 | 0 | 0 |
+| cast `<>` (toàn rip) | 5 | 5 | 0 |
+| `(nint)0 != 0` (toàn rip) | 134 | 109 | −25 |
+| **Pinata Roslyn DECOMPILER_ERROR** | **1599** | **1478** | **−121** |
+| Pinata Roslyn REFERENCE_ERROR | 1 | 1 | 0 |
+| Pinata genFail / file / mnf | 0 / 3083 / 4052 | 0 / 3083 / 4052 | 0 |
+| test | 343 | 354 | +11 |
+| pre-existing failures | 1 | 1 | 0 |
+
+Impostor không đổi ở REAL_ERROR và Roslyn vì cả 34 load nằm trong ACTk.Runtime, còn hai phép đo đó
+chỉ phủ Assembly-CSharp. Pinata giảm **chỉ ở CS0030** (1246 → 1125) và không phát sinh mã lỗi mới.
+
+Hai giả thuyết bị loại trước khi ship, cả hai đã được đo (`reports/GENERIC_BASE_FIELD_ANALYSIS.md`
+mục 3). Giả thuyết thứ hai chỉ bị **Pinata** bắt được — Impostor không thấy gì cả — nên cổng kiểm
+chứng độc lập lần này là thứ duy nhất ngăn một regression 186 lỗi.

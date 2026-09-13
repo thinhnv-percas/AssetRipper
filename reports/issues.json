@@ -636,5 +636,24 @@
     "fix": "find_csc.sh hoi chinh CLI (dotnet --list-sdks) thay vi doan tu bien moi truong, co bon tang (CSC_DLL, SDK, Microsoft.Net.Compilers.Toolset da giai nen, roi NuGet o phien ban ghim 4.14.0 - khong dung Microsoft.Net.Compilers da deprecated), va moi tang chay that csc -version. Harness in ROSLYN_STATUS thanh dong rieng va tra ve exit 3 khi khong co trinh bien dich.",
     "verification": "Impostor Assembly-CSharp 63 file 348 loi; Pinata Assembly-CSharp 1108 file 1600 loi. test_roslyn_bootstrap.sh co 8 case; khoi phuc lai bug cu thi 5 trong 6 case bootstrap do. Case A ban dau SUY BIEN - no pass nguoc lai dung cai bug, vi tang tai NuGet da tra loi thay; da tat ca ba tang con lai. Case F cung vay: 'khong in loi nao' cung la thu mot trinh bien dich vang mat tao ra, nen F kiem luon assembly co duoc sinh ra khong.",
     "notes": "Kem theo: classify_compile_errors.py chia loi thanh TOOLCHAIN / ROSLYN / REFERENCE / DECOMPILER, thu khong tach duoc thi UNCLASSIFIED. Thu tach duoc 'IL2CPP strip mat' khoi 'private' la co visibility trong bang metadata (Test/Tools/MemberVisibility) - log khong tach duoc vi C# bao mot thanh vien private cua type co so bang dung cau 'does not contain a definition' no dung cho thanh vien khong ton tai, va string heap cung khong, vi chinh cac assembly da recovery nam trong tap tham chieu va memberref cua chung mang moi ten ma export dat (invoke_impl 'co mat' trong sau DLL va khong duoc khai bao o mot cai nao). Cong cu do tu tai lap hai su that da ghi trong CLAUDE.md: Math.PI la ABSENT, List<T>._size la PRESENT_NONPUBLIC."
+  },
+  {
+    "id": "DECOMP-0029",
+    "severity": "ERROR",
+    "category": "TYPE_RESOLUTION",
+    "status": "FIXED",
+    "iterationFound": 41,
+    "iterationFixed": 41,
+    "platform": "COMMON (ARM64 34 lan tren Impostor, x86 tren Pinata)",
+    "generatedFile": "ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs va cac detector khac",
+    "referenceFile": "reports/GENERIC_BASE_FIELD_ANALYSIS.md",
+    "method": "MetadataResolver.ResolveTypesAndFields; BaseChainFieldSearch.Find; GenericInstanceFieldLayout.FindFieldAtOffset",
+    "compilerError": "khong co (sinh nhanh chet)",
+    "observed": "if ((nint)0 != 0) - dieu kien luon sai, ca nhanh la code chet; toan bo guard IsStarted && IsRunning bi mat",
+    "expected": "if (!timeCheatingDetector.IsStarted || !timeCheatingDetector.IsRunning)",
+    "rootCause": "MetadataResolver di nguoc chuoi base va so f.BackingData?.FieldOffset o moi mat xich. Moi field cua mot generic instance la ConcreteGenericFieldAnalysisContext dung bang base(null, genericInstanceType), nen BackingData la null va phep so do KHONG BAO GIO khop - bat ke offset. Offset that chi ton tai trong layout GenericInstanceFieldLayout tinh, va layout do chi duoc hoi khi CHINH owner la generic instance, khong bao gio khi owner chi KE THUA tu mot cai. Hinh dang gay ra no la lop co so singleton tu tham chieu: TimeCheatingDetector : ACTkDetectorBase<TimeCheatingDetector>.",
+    "fix": "Tach phep di chuoi ra BaseChainFieldSearch, viet qua delegate nen tu kiem thu duoc khong can metadata, va MetadataResolver di dung qua no. Moi mat xich duoc hoi theo cach no tra loi duoc: mat xich thuong thi offset metadata, generic instance thi layout tinh duoc. Hai rang buoc bat buoc: (1) field tra ve phai duoc instantiate tren mat xich da tra loi, vi layout tinh tren definition nen field do type mo khai bao; (2) mot mat xich CHI tra loi cho field NO TU KHAI BAO, vi layout phu ca chuoi base cua no.",
+    "verification": "Impostor loads 2756 -> 2722 (-34, toan bo ACTk.Runtime 186 -> 152), genFail 0, file 819, 16 shape check PASS, cast <> 5 = 5, (float)array[i] 0 = 0, array[i].field 164 = 164, REAL_ERROR 861 = 861, Roslyn 348 = 348. '(nint)0 != 0' tren toan rip 134 -> 109. Pinata Roslyn 1600 -> 1479, CHI CS0030 giam (1246 -> 1125), khong ma loi moi nao; genFail 0, file 3083 = 3083, mnf 4052 = 4052. iOS khong doi. Test 343 -> 354, 1 fail co san khong doi. Bon lan pha code co chu y deu lam test do: quay lai hoi moi mat xich theo duong metadata, khong bao mat xich de instantiate, hoi generic instance ca hai duong, bo gioi han do sau.",
+    "notes": "HAI GIA THUYET BI LOAI, ca hai suyt duoc ship. (1) Tra ve field nguyen trang sinh cast sang ACTkDetectorBase<>, thu C# khong viet duoc: 5 len 45 tren toan rip - NHUNG Roslyn tren ACTk.Runtime bao 4 loi ca truoc lan sau, vi file do co loi cu phap CS1525 co san va Roslyn dung o khau parse, nen 40 cast hong moi khong he duoc bao. Day la bay 'mot loi declaration che moi loi body' som hon mot tang: LOI PARSE CHE CA FILE. (2) Instantiate tren mat xich vua tra loi lam sai khi layout tra ve field cua mot to tien xa hon: ComponentAction<T> : FsmStateAction dat ca FsmStateAction.fsm, nen fsm bi khai bao tren ComponentAction<InputField> - 186 loi CS0117/CS1061 moi tren Pinata trong khi Impostor khong thay gi. Cong Pinata (x86, v24.2) lai mot lan nua bat duoc thu Impostor khong bat duoc."
   }
 ]

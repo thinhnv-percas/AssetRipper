@@ -5,8 +5,8 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 040 (hoàn tất; A: dựng lại kiểm chứng Roslyn + phân loại lỗi theo nguyên nhân.
-                          B: cột RootCauseOrigin cho CPP2IL_DUMP_LOADS, đo lại cả 2756 load, KHÔNG patch)
+Iteration hiện tại: 041 (hoàn tất; DECOMP-0029 field kế thừa từ lớp cơ sở generic — ĐÃ SỬA.
+                          Kèm: sửa ba nhãn provenance sai của 040, thêm cột trạng thái metadata)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -46,7 +46,39 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 040b.
+  rảnh giữa hai iteration. Baseline cho iteration sau là 041e (Impostor) và 041dpin (Pinata).
+
+Iteration 041 — số liệu:
+  Impostor unresolved loads         2756 -> 2722  (−34, toàn bộ ở ACTk.Runtime 186 -> 152)
+  Impostor genFail                     0 -> 0
+  Impostor REAL_ERROR                861 -> 861   (34 load nằm ngoài Assembly-CSharp)
+  Impostor Roslyn                    348 -> 348   AVAILABLE_AND_RUN, 348/348 DECOMPILER_ERROR
+  Impostor file                      819 -> 819
+  shape check                      16/16 -> 16/16 PASS
+  `array[i].field`                   164 -> 164
+  `(float)array[i]`                    0 -> 0
+  cast `<>` toàn rip                   5 -> 5
+  `(nint)0 != 0` toàn rip            134 -> 109   nhánh chết thành điều kiện thật
+  Pinata Roslyn DECOMPILER_ERROR    1599 -> 1478  (−121, chỉ CS0030, không mã lỗi mới)
+  Pinata genFail / file / mnf          0 / 3083 / 4052 không đổi
+  iOS                                không đổi (1481 file, genFail 0)
+  test                       343, 1 fail -> 354, 1 fail (đúng lỗi có sẵn từ trước)
+
+Iteration 041 — ba thứ phải biết trước khi làm tiếp:
+
+  1. **Field của một generic instance không có BackingData.** Mọi field của một generic instance là
+     `ConcreteGenericFieldAnalysisContext` dựng bằng `base(null, ...)`, nên bất kỳ chỗ nào so
+     `BackingData.FieldOffset` đều không bao giờ khớp trên một type như thế — và offset 0 thì khớp
+     *mọi* field của nó. Offset thật chỉ có trong `GenericInstanceFieldLayout`.
+     `BaseChainFieldSearch` là chỗ chuỗi base hỏi đúng cách. Một mắt xích chỉ trả lời cho field
+     **nó tự khai báo**; nới điều này đáng 186 lỗi trên Pinata.
+
+  2. **Nhãn provenance của 040 đã được sửa, đừng trích số cũ.** MISSING_METADATA 378 -> 184,
+     PAST_LAST_FIELD 469 -> 416, GENERIC_LAYOUT 277 -> 390, thêm NO_KNOWN_LAYOUT 52 và
+     RESOLVABLE 48. Số load không đổi; chỉ nhãn sai được sửa.
+
+  3. **`RESOLVABLE` (48) là nhóm đáng đọc tiếp**, nhưng phải kiểm chứng giả định header trước —
+     xem `reports/GENERIC_BASE_FIELD_ANALYSIS.md` mục 7 và 8.
 
 Iteration 040 — hai thứ phải biết trước khi làm tiếp:
 

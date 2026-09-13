@@ -1,0 +1,60 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.401/Roslyn/bincore/csc.dll
+Assembly-CSharp: 1108 files, 1479 errors, 47297 warnings
+
+  1125  CS0030   Cannot convert type 'int' to 'TCP2_PlanarReflection'
+   115  CS0019   Operator '+' cannot be applied to operands of type 'object' and 'int'
+   105  CS0122   'AnimatorStateInfo.m_Path' is inaccessible due to its protection level
+   100  CS1061   'List<Transform>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<Transform>' could be found (are you missing a using directive or an assembly reference?)
+    11  CS0117   'MonoBehaviour' does not contain a definition for '_002Ector'
+     6  CS0246   The type or namespace name '_003CStart_003Ed__2' could not be found (are you missing a using directive or an assembly reference?)
+     4  CS0165   Use of unassigned local variable 'obj'
+     4  CS0023   Operator '~' cannot be applied to operand of type 'object'
+     2  CS1612   Cannot modify the return value of 'PointerEventData.position' because it is not a variable
+     2  CS0400   The type or namespace name '_003CPrivateImplementationDetails_003E' could not be found in the global namespace (are you missing an assembly reference?)
+     2  CS0149   Method name expected
+     1  CS1593   Delegate 'DOSetter<int>' does not take 0 arguments
+     1  CS0234   The type or namespace name 'Unsafe' does not exist in the namespace 'System.Runtime.CompilerServices' (are you missing an assembly reference?)
+     1  CS0206   A non ref-returning property or indexer may not be used as an out or ref value
+
+reference assemblies: 86
+errors classified: 1479
+
+DECOMPILER_ERROR     1478
+REFERENCE_ERROR         1
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+    1125  CS0030   invalid C# independent of the reference set
+          Cannot convert type 'int' to 'TCP2_PlanarReflection'
+     115  CS0019   invalid C# independent of the reference set
+          Operator '+' cannot be applied to operands of type 'object' and 'int'
+     105  CS0122   reaches a member of a referenced assembly that C# cannot
+          'AnimatorStateInfo.m_Path' is inaccessible due to its protection level
+     100  CS1061   reaches a non-public member of a referenced assembly
+          'List<Transform>' does not contain a definition for '_items' and no accessible extension method '_items' accep
+      11  CS0117   names a decompiler-mangled identifier
+          'MonoBehaviour' does not contain a definition for '_002Ector'
+       6  CS0246   names a decompiler-mangled identifier
+          The type or namespace name '_003CStart_003Ed__2' could not be found (are you missing a using directive or an a
+       4  CS0023   invalid C# independent of the reference set
+          Operator '~' cannot be applied to operand of type 'object'
+       4  CS0165   invalid C# independent of the reference set
+          Use of unassigned local variable 'obj'
+       2  CS0149   invalid C# independent of the reference set
+          Method name expected
+       2  CS1612   invalid C# independent of the reference set
+          Cannot modify the return value of 'PointerEventData.position' because it is not a variable
+       2  CS0400   names a decompiler-mangled identifier
+          The type or namespace name '_003CPrivateImplementationDetails_003E' could not be found in the global namespace
+       1  CS1593   invalid C# independent of the reference set
+          Delegate 'DOSetter<int>' does not take 0 arguments
+       1  CS0206   invalid C# independent of the reference set
+          A non ref-returning property or indexer may not be used as an out or ref value
+
+REFERENCE_ERROR
+       1  CS0234   absent from the reference assemblies - stripped from the build
+          The type or namespace name 'Unsafe' does not exist in the namespace 'System.Runtime.CompilerServices' (are you
+

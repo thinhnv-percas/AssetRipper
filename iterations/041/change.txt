@@ -1,0 +1,31 @@
+Một bản sửa recovery, một bản sửa phép đo.
+
+A. Field kế thừa từ một lớp cơ sở generic (commit ddcaa7e9)
+
+   MetadataResolver đi ngược chuỗi base và so BackingData.FieldOffset ở mỗi mắt xích. Mọi field của
+   một generic instance là ConcreteGenericFieldAnalysisContext dựng bằng base(null, ...), nên
+   BackingData là null và phép so đó không bao giờ khớp. Offset thật chỉ có trong layout mà
+   GenericInstanceFieldLayout tính, và layout đó chỉ được hỏi khi chính owner là generic instance,
+   không bao giờ khi owner chỉ kế thừa từ một cái.
+
+   Hình dạng: TimeCheatingDetector : ACTkDetectorBase<TimeCheatingDetector>.
+
+   Hai giả thuyết bị loại giữa chừng, ghi đầy đủ trong reports/GENERIC_BASE_FIELD_ANALYSIS.md muc 3:
+   trả field nguyên trạng (cast sang ACTkDetectorBase<>, 5 lên 45 trên toàn rip), và instantiate
+   trên mắt xích vừa trả lời (186 lỗi mới trên Pinata, Impostor không thấy gì).
+
+   Impostor 2756 -> 2722 load, 25 nhánh chết (nint)0 != 0 thành điều kiện thật.
+   Pinata Roslyn 1600 -> 1479, chỉ CS0030 giảm, không mã lỗi mới nào.
+
+B. Đo trạng thái metadata, và sửa nhãn provenance sai của 040 (commit ecff3a0a)
+
+   CPP2IL_DUMP_LOADS thêm bốn cột: layout kind, số field đặt được, offset lớn nhất, và thứ nằm ở
+   offset được hỏi. Đo bằng nó thì hai nhãn của 040 không đứng vững, cả hai vì đếm field bằng
+   BackingData: "base-type-declares-no-field-offsets" gộp tham số kiểu trần với type không có
+   instance field nào với lỗ hổng thật; "offset-within-the-layout-and-on-no-field" khẳng định "on no
+   field" mà chưa bao giờ kiểm tra.
+
+   MISSING_METADATA 378 -> 184, PAST_LAST_FIELD 469 -> 416, GENERIC_LAYOUT 277 -> 390,
+   NO_KNOWN_LAYOUT 52 mới, RESOLVABLE 48 mới. Số load không đổi.
+
+   RESOLVABLE là nhóm mới và là cách bug A được tìm ra (82 trước khi sửa, 48 còn lại).
