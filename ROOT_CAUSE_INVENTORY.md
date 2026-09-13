@@ -25,6 +25,26 @@ Mức độ chắc chắn dùng đúng bốn nhãn: `CONFIRMED_ROOT_CAUSE`, `LIK
 chút nào** — base đã đúng, chỉ là runtime struct không có managed field. Đếm theo triệu chứng
 ("unresolved load") gộp nó chung với những thứ hoàn toàn khác.
 
+## 1b. Iteration 040 — bảng này giờ đo được thay vì phân loại tay
+
+Bảng ở trên dựng bằng tay ở iteration 038 từ hình dạng của mỗi load. Từ iteration 040
+`CPP2IL_DUMP_LOADS` mang thêm cột `RootCauseOrigin` đi ngược các định nghĩa và tự nói nguyên nhân,
+nên **không cần phân loại tay nữa** — xem `reports/LOAD_PROVENANCE_ANALYSIS.md`.
+
+Hai chỗ phép đo sửa lại bảng tay:
+
+- **Cluster C (301, "past the last field", nhãn SYMPTOM_ONLY) tách được rồi**: 147 thật sự quá field
+  cuối, **154 có base không ghi offset cho một field nào cả** nên `largest` = 0 và mọi addend dương
+  đều "quá field cuối". Cái sau là metadata không có, không phải lỗi layout. Trạng thái đổi từ
+  SYMPTOM_ONLY sang hai nguyên nhân CONFIRMED riêng biệt.
+- **Cluster D và một phần cluster G nhập vào `ARRAY_ELEMENT`**: các load mà hình dạng gọi là
+  "base has no type, from Add of Single[] and Int32" là địa chỉ phần tử xác định, không phải lỗi
+  gán kiểu.
+
+Phân bố theo nguyên nhân (Impostor, 2756 load, 040b): `RUNTIME_STRUCT` 684, `TYPE_PROPAGATION` 486,
+`PAST_LAST_FIELD` 469, `MISSING_METADATA` 378, `GENERIC_LAYOUT` 277, `ARRAY_ELEMENT` 250,
+`UNKNOWN` 188, `PHI_AMBIGUITY` 24.
+
 ---
 
 ## 2. Cluster B — điều tra đầy đủ, và vì sao bị loại

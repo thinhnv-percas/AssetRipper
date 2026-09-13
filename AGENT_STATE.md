@@ -5,7 +5,8 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 039 (hoàn tất; DECOMP-0028 field qua phần tử mảng — cluster B ĐÃ SỬA; cluster G đã phân loại, không patch)
+Iteration hiện tại: 040 (hoàn tất; A: dựng lại kiểm chứng Roslyn + phân loại lỗi theo nguyên nhân.
+                          B: cột RootCauseOrigin cho CPP2IL_DUMP_LOADS, đo lại cả 2756 load, KHÔNG patch)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -45,7 +46,32 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 034 (Android giống 032 từng con số).
+  rảnh giữa hai iteration. Baseline cho iteration sau là 040b.
+
+Iteration 040 — hai thứ phải biết trước khi làm tiếp:
+
+  1. **Roslyn CHẠY ĐƯỢC, và vẫn chạy được suốt ba iteration trước.** "Roslyn: NOT RUN" ghi ở
+     037–039 là lỗi tìm đường dẫn của harness (`${DOTNET_ROOT:-$HOME/.dotnet}`, HOME=/root, SDK ở
+     /home/user/.dotnet), không phải thiếu toolchain. Con số thật, lần đầu:
+       Impostor Assembly-CSharp    63 file,  348 lỗi — 348/348 DECOMPILER_ERROR
+       Pinata   Assembly-CSharp  1108 file, 1600 lỗi — 1599 DECOMPILER_ERROR, 1 REFERENCE_ERROR
+     `compile_recovered_scripts.sh` giờ in `ROSLYN_STATUS` thành dòng riêng. **Không bao giờ ghi
+     "0 errors" khi chưa compile** — hai tình huống đó in giống hệt nhau nếu không nói rõ.
+
+  2. **Mỗi unresolved load giờ có nguyên nhân gốc**, không chỉ hình dạng. Xem
+     `reports/LOAD_PROVENANCE_ANALYSIS.md`. Bảng chéo hình dạng × nguyên nhân tách họ
+     "past the last field" 301 thành 147 thật + 154 base không ghi offset cho field nào.
+     **Phi không còn tồn tại ở điểm đo này** — SSA đã destruct trước IlGenerator, 0/2756 dòng đi
+     qua một phi.
+
+Iteration 040 — số liệu (Impostor, `Test/Output-040b`):
+  unresolved loads                  2756  (bằng 039c từng con số; 040 không sửa recovery)
+  generator failures                   0
+  Roslyn errors, Assembly-CSharp     348  AVAILABLE_AND_RUN, 348/348 DECOMPILER_ERROR
+  shape check                      16/16 PASS
+  `(float)array[i]`                    0
+  `array[i].field`                   164
+  test                       329, 1 fail -> 343, 1 fail (đúng lỗi có sẵn từ trước)
 
 Android — iteration 034 so với baseline gốc (giống 032 từng con số):
   method body không phục hồi được   15 -> 0

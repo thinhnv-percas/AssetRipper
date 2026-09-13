@@ -1,0 +1,42 @@
+Hai thay đổi, không cái nào động vào recovery.
+
+A. Kiểm chứng Roslyn tái lập được (commit 03408625)
+
+   "Roslyn: NOT RUN" ghi ở ba iteration 037-039 là lỗi tìm đường dẫn của harness, không phải thiếu
+   toolchain: compile_recovered_scripts.sh tìm trong ${DOTNET_ROOT:-$HOME/.dotnet}, HOME=/root, SDK ở
+   /home/user/.dotnet. csc.dll vẫn nằm trên đĩa suốt thời gian đó.
+
+   find_csc.sh hỏi chính CLI, có bốn tầng (CSC_DLL, SDK, toolset đã giải nén, NuGet ở phiên bản ghim
+   4.14.0), và mỗi tầng chạy thật csc -version. Harness in ROSLYN_STATUS thành dòng riêng.
+
+   classify_compile_errors.py chia lỗi thành TOOLCHAIN / ROSLYN / REFERENCE / DECOMPILER, thứ không
+   tách được thì UNCLASSIFIED. Test/Tools/MemberVisibility đọc cờ visibility từ bảng metadata, là
+   thứ duy nhất tách được "IL2CPP strip mất" khỏi "private" — log không tách được, string heap cũng
+   không (assembly đã recovery nằm trong chính tập tham chiếu).
+
+   Số đo đầu tiên: Impostor 348 lỗi (348/348 DECOMPILER_ERROR), Pinata 1600 (1599 + 1 REFERENCE).
+
+B. Cột RootCauseOrigin cho CPP2IL_DUMP_LOADS (commit 277c33ed)
+
+   UnresolvedLoadProvenance đi ngược định nghĩa qua Move / Add / phi, có chặn chu trình, và phân
+   loại thứ đường đi kết thúc ở đó. 2756/2756 load được phân loại.
+
+   Kết quả đáng kể nhất: họ "past the last field" 301 load tách làm 147 thật + 154 base không ghi
+   offset cho field nào (largest = 0 nên mọi addend dương đều "quá field cuối").
+
+   Kết quả âm tính phải ghi: 0/2756 đi qua một phi. SSA đã destruct trước IlGenerator.
+
+   KHÔNG patch cluster nào, theo brief muc 12.
+
+Sổ số liệu
+
+   collect_metrics.sh giờ ghi một khối "roslyn" với status rõ ràng (AVAILABLE_AND_RUN / NOT_RUN /
+   TOOLCHAIN_ERROR), số lỗi, và phân bố theo nguyên nhân. Khi chưa compile thì errors là null chứ
+   không phải 0 — một số 0 sẽ bị đọc thành kết quả.
+
+   038 được bổ sung khối đó với status NOT_RUN và ghi chú nguyên nhân (đo lại trên Test/Output-039c
+   ở iteration này cho 348 lỗi).
+
+   **039 không có thư mục iteration**: log chạy Impostor của nó không được giữ lại, nên không dựng
+   được sổ số liệu trung thực cho nó. Con số Roslyn của 039 được đo lại ở iteration này trên
+   Test/Output-039c và bằng 348, đúng bằng 040b — hợp lý, vì 040 không đổi gì trong recovery.

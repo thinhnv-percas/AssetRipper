@@ -15,6 +15,13 @@
     "stackShift": 0,
     "unresolvedBranchTarget": 0
   },
+  "roslyn": {
+    "status": "NOT_RUN",
+    "assembly": null,
+    "errors": null,
+    "byCause": null,
+    "note": "Khong compile. Ghi la NOT_RUN vi khong co lan compile nao, khong phai vi khong co loi. Nguyen nhan da xac dinh o iteration 040: harness tim csc.dll trong $HOME (TOOLCHAIN_ERROR), khong phai thieu toolchain. Do lai tren Test/Output-039c o 040: 348 loi."
+  },
   "knownBadShapes": {
     "constructorCalledOnInstance": 55
   },

@@ -52,6 +52,32 @@ interface_offsets=$(load_kind 'interface_offsets_count')
 
 seconds=$(grep -oE 'SECONDS=[0-9]+' "$iteration/logs/run-result.txt" 2>/dev/null | grep -oE '[0-9]+' | tail -1)
 
+# Roslyn's status is stated, never inferred. A compilation that never happened and one that found no
+# errors both leave no errors behind, and three iterations recorded the first as if it were the
+# second. ASSEMBLY is which assembly the errors belong to; without a compile there is no count at all,
+# and the field stays null rather than becoming a zero someone will later read as a result.
+roslyn_status=NOT_RUN
+roslyn_errors=null
+roslyn_assembly=null
+roslyn_summary="$iteration/reports/roslyn-impostor-summary.txt"
+
+if [ -f "$roslyn_summary" ]; then
+    roslyn_status=$(grep -oE '^ROSLYN_STATUS: [A-Z_]+' "$roslyn_summary" | head -1 | sed 's/^ROSLYN_STATUS: //')
+    roslyn_status=${roslyn_status:-NOT_RUN}
+    counted=$(grep -oE '^[^:]+: [0-9]+ files, [0-9]+ errors' "$roslyn_summary" | head -1)
+    if [ -n "$counted" ]; then
+        roslyn_errors=$(echo "$counted" | grep -oE '[0-9]+ errors' | grep -oE '^[0-9]+')
+        roslyn_assembly="\"${counted%%:*}\""
+    fi
+fi
+
+# The four causes an error can have, when the classifier ran beside the compile.
+roslyn_categories=null
+if [ -f "$iteration/reports/roslyn-classified.json" ] && command -v python3 > /dev/null 2>&1; then
+    roslyn_categories=$(python3 -c 'import json,sys; print(json.dumps(json.load(open(sys.argv[1]))["categories"]))' \
+        "$iteration/reports/roslyn-classified.json" 2>/dev/null || echo null)
+fi
+
 cat > "$report" <<JSON
 {
   "iteration": "$(basename "$iteration")",
@@ -69,6 +95,12 @@ cat > "$report" <<JSON
     "unresolvedDelegate": $unresolved_delegate,
     "stackShift": $stack_shift,
     "unresolvedBranchTarget": $unresolved_branch
+  },
+  "roslyn": {
+    "status": "$roslyn_status",
+    "assembly": $roslyn_assembly,
+    "errors": ${roslyn_errors:-null},
+    "byCause": $roslyn_categories
   },
   "knownBadShapes": {
     "constructorCalledOnInstance": $ctor_on_instance

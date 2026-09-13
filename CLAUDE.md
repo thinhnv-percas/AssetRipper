@@ -858,6 +858,50 @@ find it; `strings` without `-el` does find method and type names.
   elements-offset-added-ahead one — have to exclude a struct element at offset zero, and there are two
   of them, so fixing one leaves the casts in place.
 
+- **A measurement that has never run reads exactly like a measurement that found nothing.** Three
+  iterations recorded "Roslyn: NOT RUN" while a perfectly good `csc.dll` sat on the disk:
+  `compile_recovered_scripts.sh` searched `${DOTNET_ROOT:-$HOME/.dotnet}`, and in a container where
+  the SDK is installed for one user and the harness runs as another, `$HOME` points somewhere with no
+  SDK in it. Ask the CLI where its SDKs are (`dotnet --list-sdks`) rather than guessing from an
+  environment variable, run `csc -version` to prove what you found starts, and print the status as its
+  own line. The real numbers, first measured in iteration 040: **348** errors on Impostor's
+  Assembly-CSharp (63 files) and **1600** on Pinata's (1108 files).
+- **An error count is a measurement of the recovery only once the errors are known to be the
+  recovery's**, and the log alone cannot say. `classify_compile_errors.py` splits them four ways, and
+  the discriminator that is not in the log is **member visibility**: C# reports a private member of a
+  base type with the same "does not contain a definition" text it uses for a member that is not there,
+  and those two want opposite work — a member IL2CPP *stripped* is a defect of what we compile
+  against, a private member the export reached is a defect of the export. A string-heap probe cannot
+  separate them, because the recovered assemblies are themselves in the reference set and their
+  memberrefs carry every name the export names; `invoke_impl` is "present" in six DLLs and declared in
+  none of them. The metadata tables carry the flags, so `Test/Tools/MemberVisibility` reads them —
+  and it independently reproduced two facts already recorded here: `Math.PI` is ABSENT, `List<T>._size`
+  is PRESENT_NONPUBLIC. On the test game all 348 errors are the recovery's; on Pinata exactly one is
+  not.
+- **A load's cause is not where it was given up on.** Every other column of `CPP2IL_DUMP_LOADS`
+  describes the load at the generator, which is the right place to count it and the wrong place to
+  explain it — a base typed `object` three copies downstream of an unresolved call says nothing about
+  the call. `UnresolvedLoadProvenance` walks the definitions back and names what the walk ends on, and
+  the first thing that fell out is that the 301-strong "past the last field of the base type" family
+  is **two** causes: 147 genuinely past the last field, and 154 whose base type records no field
+  offsets at all, so `largest` is 0 and every positive addend is "past the last field". That is
+  metadata that is not there, not a layout failure — the same split `BASE_FIELD_OVERFLOW_ANALYSIS.md`
+  had to find by hand for the 850 family, now falling out of the measurement. "value type base" splits
+  97/90 the same way.
+- **No phi survives to the generator.** SSA is destructed before `IlGenerator` runs, so a pass or a
+  measurement placed there will never see one: 0 of 2756 dumped loads reach a phi, and every
+  disagreement the provenance walk finds comes from a local with more than one definition after SSA
+  destruction. Phi handling written for that point in the pipeline is correct and dead, which is the
+  exact shape of "what a pass that never fires looks like" — say so rather than leaving it to be
+  discovered again.
+- **A test whose subject can be answered by a second rule does not test the first one.** Two of the
+  eight Roslyn bootstrap cases passed against the very bug they were written for: case A found a
+  compiler through the NuGet fallback tier after the SDK tier failed, and a classifier case asked about
+  a type the export declares, which an earlier rule answers whatever the rule under test does. Shut off
+  every other route before believing a green case — and case F is the general form of it, since "no
+  errors were printed" is also what an absent compiler produces, so it has to assert the assembly was
+  built. With the original bug restored, 5 of 6 go red.
+
 ### Things measured to be worth nothing — do not redo them
 - **Nhận diện cặp so sánh qua chùm cờ A64 trong `TypeCheckRecovery`.** Trên A64 một `cmp` lift
   thành cả một chùm cờ chứ không thành một phép so sánh, và đẳng thức là cờ Z của một phép trừ:
