@@ -269,6 +269,10 @@ public static class MetadataResolver
                 var owner = staticOwner ?? local.Type;
                 var genericOwner = owner as GenericInstanceTypeAnalysisContext;
 
+                // AssetRipper: set when the field was found on a generic instance *ancestor* rather
+                // than on the owner, so that it can be instantiated against that ancestor below.
+                GenericInstanceTypeAnalysisContext? inheritedFromInstance = null;
+
                 FieldAnalysisContext? field;
                 if (genericOwner != null && staticOwner == null)
                 {
@@ -286,12 +290,30 @@ public static class MetadataResolver
                 else
                 {
                     // an inherited field exists on the base type but sits at the same offset in the
-                    // derived layout, so the whole chain is searched
-                    field = null;
-                    for (var candidateOwner = genericOwner?.GenericType ?? owner; candidateOwner != null && field == null; candidateOwner = candidateOwner.BaseType)
-                        field = candidateOwner.Fields.FirstOrDefault(f => f.IsStatic == (staticOwner != null)
+                    // derived layout, so the whole chain is searched. AssetRipper: and a link in that
+                    // chain can be a generic instance even when the owner is not - the ordinary shape
+                    // of a self-referencing singleton base, `TimeCheatingDetector :
+                    // ACTkDetectorBase<TimeCheatingDetector>` - which records no field offsets at all
+                    // and has to be asked through the computed layout instead. BaseChainFieldSearch
+                    // carries that distinction and says which link answered.
+                    bool wantStatic = staticOwner != null;
+
+                    var found = BaseChainFieldSearch.Find(
+                        genericOwner?.GenericType ?? owner,
+                        memory.Addend,
+                        static candidate => candidate.BaseType,
+                        candidate => !wantStatic && candidate is GenericInstanceTypeAnalysisContext,
+                        (candidate, offset) => candidate.Fields.FirstOrDefault(f => f.IsStatic == wantStatic
                             && (f.Attributes & FieldAttributes.Literal) == 0 // consts have no storage but their metadata offset is 0, which would match
-                            && f.BackingData?.FieldOffset == memory.Addend);
+                            && f.BackingData?.FieldOffset == offset),
+                        static (candidate, offset) => candidate is GenericInstanceTypeAnalysisContext instance
+                            ? GenericInstanceFieldLayout.FindFieldAtOffset(instance.GenericType, offset, instance.GenericArguments)
+                            : null,
+                        static found => found.DeclaringType,
+                        static candidate => candidate is GenericInstanceTypeAnalysisContext instance ? instance.GenericType : candidate);
+
+                    field = found.Field;
+                    inheritedFromInstance = found.InstantiateOn as GenericInstanceTypeAnalysisContext;
                 }
 
                 // The offset can land inside a value type field rather than on a field boundary, which
@@ -344,6 +366,8 @@ public static class MetadataResolver
                 // make sure we have a full GIT for field access. open type is bad.
                 if (genericOwner != null)
                     field = new ConcreteGenericFieldAnalysisContext(field, genericOwner);
+                else if (inheritedFromInstance != null && field is not ConcreteGenericFieldAnalysisContext)
+                    field = new ConcreteGenericFieldAnalysisContext(field, inheritedFromInstance);
 
                 instruction.SetOperand(i, new FieldReference(field, local, (int)memory.Addend) { AccessSize = memory.Size });
                 changed = true;
