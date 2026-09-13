@@ -468,6 +468,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			memory.Size.ToString(),
 			baseDefinition,
 			RootCauseOf(methodContext, memory),
+			MetadataStateOf(owner, memory, methodContext),
 			memory.ToString());
 
 		lock (unresolvedLoadCaseLock)
@@ -522,39 +523,88 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				return "TYPE_PROPAGATION:byref-base";
 		}
 
-		if (type is GenericInstanceTypeAnalysisContext || type.GenericParameters.Count > 0)
+		// A bare type parameter has no static layout at all: what T is laid out as is decided when the
+		// runtime instantiates it. Iteration 040 counted these by walking their fields, found none, and
+		// called them missing metadata - 111 of the 165 in that group. Nothing is missing; there is
+		// nothing to have.
+		if (type is GenericParameterTypeAnalysisContext)
 		{
-			// A generic instantiation's field offsets are not the definition's, and an open parameter
-			// has no layout at all until the runtime makes one.
-			return "GENERIC_LAYOUT:" + (type is GenericInstanceTypeAnalysisContext ? "instantiation" : "open-parameter");
+			return "GENERIC_LAYOUT:open-parameter";
 		}
 
-		long largest = 0;
-		int fields = 0;
-
-		for (TypeAnalysisContext? candidate = type; candidate is not null; candidate = candidate.BaseType)
+		if (type is GenericInstanceTypeAnalysisContext || type.GenericParameters.Count > 0)
 		{
-			foreach (FieldAnalysisContext field in candidate.Fields)
+			// A generic instantiation's field offsets are not the definition's, and an open definition
+			// records every one of its fields at zero.
+			return "GENERIC_LAYOUT:" + (type is GenericInstanceTypeAnalysisContext ? "instantiation" : "open-definition");
+		}
+
+		// The computed layout, not the recorded offsets. Reading BackingData answers a different
+		// question from the one the name suggests: it is null for every field of a generic instance, so
+		// a type that merely *inherits* from one reads as having no layout while the layout is right
+		// there - which is the defect this iteration fixed, and it was invisible in the old counting.
+		IReadOnlyList<(FieldAnalysisContext Field, long Offset)> layout;
+
+		try
+		{
+			layout = GenericInstanceFieldLayout.LayoutOf(type);
+		}
+		catch (Exception)
+		{
+			return "MISSING_METADATA:layout-could-not-be-computed";
+		}
+
+		if (layout.Count == 0)
+		{
+			bool declaresAny = false;
+
+			for (TypeAnalysisContext? candidate = type; candidate is not null && !declaresAny; candidate = candidate.BaseType)
 			{
-				if (!field.IsStatic && field.BackingData?.FieldOffset is { } fieldOffset)
+				foreach (FieldAnalysisContext field in candidate.Fields)
 				{
-					fields++;
-					if (fieldOffset > largest)
+					if (!field.IsStatic)
 					{
-						largest = fieldOffset;
+						declaresAny = true;
+						break;
 					}
 				}
 			}
+
+			// A type with no instance fields has a complete layout that happens to be empty - reading
+			// an offset off System.Object or System.Array is reaching past managed data into the
+			// object header, not a metadata gap. A type that declares fields the layout could not place
+			// is the gap.
+			return declaresAny
+				? "MISSING_METADATA:fields-declared-but-not-placed"
+				: "NO_KNOWN_LAYOUT:type-has-no-instance-fields";
 		}
 
-		if (fields == 0)
+		long largest = 0;
+
+		foreach ((FieldAnalysisContext _, long fieldOffset) in layout)
 		{
-			return "MISSING_METADATA:base-type-declares-no-field-offsets";
+			if (fieldOffset > largest)
+			{
+				largest = fieldOffset;
+			}
 		}
 
-		return offset > largest
-			? "PAST_LAST_FIELD:" + (type.IsValueType ? "value-type" : "class")
-			: "MISSING_METADATA:offset-within-the-layout-and-on-no-field";
+		if (offset > largest)
+		{
+			return "PAST_LAST_FIELD:" + (type.IsValueType ? "value-type" : "class");
+		}
+
+		// Inside the layout. Whether a field is actually *at* the offset was never checked by the old
+		// label, which said "on no field" without looking; it is checked here.
+		foreach ((FieldAnalysisContext field, long fieldOffset) in layout)
+		{
+			if (fieldOffset == offset)
+			{
+				return "RESOLVABLE:field-at-this-exact-offset";
+			}
+		}
+
+		return "MISSING_METADATA:inside-the-layout-between-fields";
 	}
 
 	[ThreadStatic] private static MethodAnalysisContext? definitionsOwner;
@@ -599,6 +649,116 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		definitionsOwner = methodContext;
 		definitionsCache = definitions;
 		return definitions;
+	}
+
+	/// <summary>
+	/// What the metadata actually holds about the base type at this offset, as four tab-separated
+	/// columns: layout kind, how many fields the computed layout places, the largest offset it
+	/// reaches, and what sits at the offset asked for.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Counting fields by <c>BackingData.FieldOffset</c> answers a different question from the one the
+	/// name suggests. Every field of a generic definition is recorded at offset 0, so such a type reads
+	/// as having no layout - while <see cref="GenericInstanceFieldLayout"/> computes one for it and the
+	/// resolver uses that. A bare type parameter genuinely has no static layout. A type with no
+	/// instance fields at all - <c>System.Object</c>, <c>System.Array</c>, a pointer - has a complete
+	/// layout that happens to be empty, which is not a gap either.
+	/// </para>
+	/// <para>
+	/// Those three are indistinguishable in "fields with a recorded offset = 0", and they want
+	/// completely different work, so they are separated here rather than being counted together.
+	/// </para>
+	/// </remarks>
+	private string MetadataStateOf(TypeAnalysisContext? owner, MemoryOperand memory, MethodAnalysisContext methodContext)
+	{
+		if (owner is null)
+		{
+			return string.Join('\t', "NO_BASE_TYPE", "0", "0", "-");
+		}
+
+		if (owner is RuntimeClassTypeAnalysisContext or RuntimeMethodInfoAnalysisContext or StaticFieldStorageTypeAnalysisContext)
+		{
+			return string.Join('\t', "RUNTIME_STRUCT", "0", "0", "-");
+		}
+
+		// A bare type parameter has no layout of its own at all: what T is laid out as is decided when
+		// the runtime instantiates it, and nothing static can say.
+		if (owner is GenericParameterTypeAnalysisContext)
+		{
+			return string.Join('\t', "OPEN_TYPE_PARAMETER", "0", "0", "-");
+		}
+
+		TypeAnalysisContext definition = owner is GenericInstanceTypeAnalysisContext instance ? instance.GenericType : owner;
+		IReadOnlyList<TypeAnalysisContext>? arguments = (owner as GenericInstanceTypeAnalysisContext)?.GenericArguments;
+
+		IReadOnlyList<(FieldAnalysisContext Field, long Offset)> layout;
+
+		try
+		{
+			layout = GenericInstanceFieldLayout.LayoutOf(definition, arguments);
+		}
+		catch (Exception)
+		{
+			return string.Join('\t', "LAYOUT_THREW", "0", "0", "-");
+		}
+
+		long computedLargest = 0;
+		foreach ((FieldAnalysisContext _, long offset) in layout)
+		{
+			if (offset > computedLargest)
+			{
+				computedLargest = offset;
+			}
+		}
+
+		// Declared instance fields, whether or not the layout could place them. The two counts differ
+		// exactly when a field could not be sized, which is the layout giving up rather than metadata
+		// being absent.
+		int declared = 0;
+		for (TypeAnalysisContext? candidate = definition; candidate is not null; candidate = candidate.BaseType)
+		{
+			foreach (FieldAnalysisContext field in candidate.Fields)
+			{
+				if (!field.IsStatic)
+				{
+					declared++;
+				}
+			}
+		}
+
+		string state = layout.Count switch
+		{
+			0 when declared == 0 => "NO_INSTANCE_FIELDS",
+			0 => "LAYOUT_INCOMPLETE",
+			_ when layout.Count < declared => "LAYOUT_PARTIAL",
+			_ => "LAYOUT_KNOWN",
+		};
+
+		string at = "-";
+
+		foreach ((FieldAnalysisContext field, long offset) in layout)
+		{
+			if (offset == memory.Addend)
+			{
+				at = "EXACT:" + field.Name;
+				break;
+			}
+		}
+
+		if (at == "-" && memory.Addend >= 0 && memory.Addend <= computedLargest)
+		{
+			// Inside the layout but not on a boundary, so it reaches a member of a value typed field -
+			// which is what FindNestedFieldPath answers, and whether it answers is the whole question.
+			List<FieldAnalysisContext>? path = MetadataResolver.FindNestedFieldPath(owner, memory.Addend, memory.Size, methodContext);
+			at = path is { Count: > 0 } ? "NESTED:" + string.Join(".", path.Select(f => f.Name)) : "INSIDE_NO_FIELD";
+		}
+		else if (at == "-")
+		{
+			at = memory.Addend > computedLargest ? "BEYOND_LAYOUT" : "NEGATIVE";
+		}
+
+		return string.Join('\t', state, layout.Count.ToString(), computedLargest.ToString("X"), at);
 	}
 
 	private static readonly string? unresolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_LOADS");

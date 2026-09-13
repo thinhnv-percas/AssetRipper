@@ -112,6 +112,20 @@ public static class GenericInstanceFieldLayout
         return (reproduced, mismatched, incomplete);
     }
 
+    /// <summary>
+    /// AssetRipper: the whole computed layout, for diagnostics that need to say what is known rather
+    /// than ask about one offset.
+    /// </summary>
+    /// <remarks>
+    /// The metadata offsets of a generic definition are all zero, so a diagnostic that reads
+    /// <c>BackingData.FieldOffset</c> concludes that such a type has no layout at all - which is not
+    /// the same thing as having none, and the difference decides whether a load is a metadata gap or a
+    /// resolver gap. This is the walk that already answers it for the resolver, exposed.
+    /// </remarks>
+    public static IReadOnlyList<(FieldAnalysisContext Field, long Offset)> LayoutOf(TypeAnalysisContext definition,
+        IReadOnlyList<TypeAnalysisContext>? genericArguments = null)
+        => (IReadOnlyList<(FieldAnalysisContext, long)>)Layout(definition, genericArguments);
+
     private static IEnumerable<(FieldAnalysisContext Field, long Offset)> Layout(TypeAnalysisContext definition,
         IReadOnlyList<TypeAnalysisContext>? genericArguments)
     {
