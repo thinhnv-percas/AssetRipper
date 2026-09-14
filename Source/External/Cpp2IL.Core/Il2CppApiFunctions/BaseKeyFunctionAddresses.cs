@@ -285,6 +285,39 @@ public abstract class BaseKeyFunctionAddresses
         {
             Logger.Verbose("\tLooking for il2cpp_codegen_initialize_runtime_metadata_inline as a thunk of the metadata init...");
             il2cpp_codegen_initialize_runtime_metadata_inline = FindAllThunkFunctions(il2cpp_codegen_initialize_runtime_metadata).FirstOrDefault();
+
+            // AssetRipper: the two are SIBLINGS, not parent and child, so that search can never find it.
+            // The comment on the field says what the shape is and the code looked for something else:
+            // the barrier variant is a stub that *calls* the real function and then issues the memory
+            // barrier, and the inline variant tail-jumps straight to that same real function. So the
+            // inline one is a thunk of what the barrier one calls, not a thunk of the barrier one.
+            //
+            //   il2cpp_codegen_initialize_runtime_metadata:  str x30, [sp,#-16]!  /  bl X  /  dmb ish
+            //   il2cpp_codegen_initialize_runtime_metadata_inline:                    b  X
+            //
+            // On the second measurement game those two sit twenty bytes apart in one veneer table, and
+            // the unfound one was the single busiest unresolved call target in the whole binary: 889
+            // calls from 268 methods, 40% of every `Method not found` placeholder in the export.
+            if (il2cpp_codegen_initialize_runtime_metadata_inline == 0)
+            {
+                var inner = FindFunctionThisIsAThunkOf(il2cpp_codegen_initialize_runtime_metadata, prioritiseCall: true);
+
+                if (inner != 0 && inner != il2cpp_codegen_initialize_runtime_metadata)
+                {
+                    foreach (var candidate in FindAllThunkFunctions(inner, 0, il2cpp_codegen_initialize_runtime_metadata, inner))
+                    {
+                        // Confirm rather than assume: a veneer is a function whose whole content is the
+                        // jump, so asking what it is a thunk of has to give the same answer back. A
+                        // wrong address here would rewrite real calls into metadata initialisation.
+                        if (FindFunctionThisIsAThunkOf(candidate) != inner)
+                            continue;
+
+                        il2cpp_codegen_initialize_runtime_metadata_inline = candidate;
+                        break;
+                    }
+                }
+            }
+
             Logger.VerboseNewline($"Found at 0x{il2cpp_codegen_initialize_runtime_metadata_inline:X}");
         }
 
