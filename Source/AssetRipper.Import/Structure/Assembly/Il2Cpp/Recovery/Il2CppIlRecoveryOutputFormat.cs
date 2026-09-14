@@ -110,6 +110,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		methodStarts = BuildMethodStarts(); // before the parallel body generation that reads it
 
 		IlGenerator.UnresolvedMemoryLoad += ClassifyUnresolvedLoad;
+		IlGenerator.UnresolvedCall += RecordUnresolvedCall;
 		IlGenerator.ResolvedMemoryLoad += RecordResolvedLoadCase;
 		IlGenerator.UntypedLocal += ClassifyUntypedLocal;
 
@@ -142,6 +143,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		finally
 		{
 			IlGenerator.UnresolvedMemoryLoad -= ClassifyUnresolvedLoad;
+			IlGenerator.UnresolvedCall -= RecordUnresolvedCall;
 			IlGenerator.ResolvedMemoryLoad -= RecordResolvedLoadCase;
 			IlGenerator.UntypedLocal -= ClassifyUntypedLocal;
 		}
@@ -1275,6 +1277,176 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	private static readonly object unresolvedLoadCaseLock = new();
 	private static StreamWriter? unresolvedLoadCaseWriter;
 
+	private static readonly string? unresolvedCallFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_CALLS");
+	private static readonly object unresolvedCallLock = new();
+	private static StreamWriter? unresolvedCallWriter;
+
+	/// <summary>
+	/// Appends one line per call that became a placeholder, when <c>CPP2IL_DUMP_CALLS</c> names a file.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// <c>Method not found</c> is the largest single placeholder kind in the export and had never been
+	/// classified. The count is one number covering at least three causes that want opposite work, and
+	/// the thing that separates them is how many managed methods sit on the address.
+	/// </para>
+	/// <para>
+	/// <b>None</b> means it is not a managed call: a runtime helper, a PLT stub, or a veneer whose one
+	/// jump nothing followed - so the work is recognition, in key-function recovery or the thunk hop.
+	/// <b>One</b> should already have resolved, since the generator looks the address up itself, so it
+	/// means the lookup ran before the address was final. <b>Several</b> is the opposite of "not
+	/// found": the model knows the method perfectly well and generic sharing put every instantiation
+	/// on one address, so the failure is choosing - and the receiver's own type is the evidence that
+	/// would choose, exactly as <c>RetargetSharedGenericCalls</c> already does for resolved calls.
+	/// </para>
+	/// </remarks>
+	private void RecordUnresolvedCall(MethodAnalysisContext methodContext, ulong address, int candidates)
+	{
+		string kind = candidates switch
+		{
+			< 0 => "NOT_AN_ADDRESS",
+			0 => "NO_MANAGED_METHOD",
+			1 => "ONE_CANDIDATE_UNRESOLVED",
+			_ => "SHARED_" + (candidates < 10 ? candidates.ToString() : candidates < 100 ? "10s" : "100s"),
+		};
+
+		unresolvedCallKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
+
+		if (unresolvedCallFile is null)
+		{
+			return;
+		}
+
+		// A veneer is a single jump between the runtime and the generated code, and every call to a
+		// helper goes through one. Whether this address is one is the difference between "nothing is
+		// there" and "nothing followed the jump", so it is asked rather than assumed.
+		ulong behindThunk = 0;
+		int behindThunkCandidates = 0;
+		if (candidates == 0 && appContext is not null && address != 0)
+		{
+			try
+			{
+				behindThunk = appContext.InstructionSet.GetThunkTarget(appContext, address);
+				if (behindThunk != 0 && appContext.MethodsByAddress.TryGetValue(behindThunk, out var behind))
+				{
+					behindThunkCandidates = behind.Count;
+				}
+			}
+			catch (Exception)
+			{
+				behindThunk = 0;
+			}
+		}
+
+		// The binary's own export table is ground truth for what a helper is called. Most are not
+		// exported - il2cpp's internal helpers have no symbol - but the ones that are need no guess.
+		string exported = "-";
+		string exportedBehind = "-";
+		if (appContext is not null)
+		{
+			try
+			{
+				if (address != 0 && appContext.Binary.TryGetExportedFunctionName(address, out string? named))
+				{
+					exported = named;
+				}
+
+				if (behindThunk != 0 && appContext.Binary.TryGetExportedFunctionName(behindThunk, out string? behindNamed))
+				{
+					exportedBehind = behindNamed;
+				}
+			}
+			catch (Exception)
+			{
+				exported = "<threw>";
+			}
+		}
+
+		string row = string.Join('\t',
+			kind,
+			methodContext.DeclaringType?.DeclaringAssembly?.Name ?? "",
+			methodContext.DeclaringType?.FullName ?? "",
+			methodContext.Name,
+			address.ToString("X"),
+			candidates.ToString(),
+			behindThunk.ToString("X"),
+			behindThunkCandidates.ToString(),
+			exported,
+			exportedBehind,
+			NativeShapeAt(address));
+
+		lock (unresolvedCallLock)
+		{
+			unresolvedCallWriter ??= new StreamWriter(unresolvedCallFile, append: false);
+			unresolvedCallWriter.WriteLine(row);
+		}
+	}
+
+	/// <summary>
+	/// What the first few instructions at a call target look like, which is what the target <em>is</em>.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// "No managed method at this address" is one label for at least three things, and the native code
+	/// separates them exactly. A PLT stub - <c>adrp x16 / ldr x17,[x16] / add x16 / br x17</c> - jumps
+	/// through the GOT to a function <em>imported from another shared library</em>, so no amount of
+	/// managed metadata will ever name it. A single <c>b</c> is a veneer, and what matters is what it
+	/// jumps to. Anything else is a real function in this binary with a prologue, so it is an internal
+	/// runtime helper that key-function recovery did not recognise.
+	/// </para>
+	/// <para>
+	/// Only the encodings that are unambiguous are decoded, and anything else is reported as a
+	/// prologue rather than guessed at. ARM64 only: on another architecture the shapes differ and the
+	/// answer is that this was not asked.
+	/// </para>
+	/// </remarks>
+	private string NativeShapeAt(ulong address)
+	{
+		if (appContext is null || address == 0 || appContext.Binary.is32Bit)
+		{
+			return "-";
+		}
+
+		uint[] words = new uint[4];
+
+		try
+		{
+			long offset = appContext.Binary.MapVirtualAddressToRaw(address);
+			if (offset <= 0)
+			{
+				return "UNMAPPED";
+			}
+
+			ReadOnlySpan<byte> content = appContext.Binary.GetRawBinaryContent();
+			for (int index = 0; index < words.Length; index++)
+			{
+				words[index] = BitConverter.ToUInt32(content.Slice((int)offset + index * 4, 4));
+			}
+		}
+		catch (Exception)
+		{
+			return "UNREADABLE";
+		}
+
+		// The AArch64 PLT entry, and the only four-instruction shape that ends in `br`.
+		if ((words[0] & 0x9F00001F) == 0x90000010            // adrp x16, page
+			&& (words[1] & 0xFFC003FF) == 0xF9400211         // ldr  x17, [x16, #imm]
+			&& (words[2] & 0xFFC003FF) == 0x91000210         // add  x16, x16, #imm
+			&& words[3] == 0xD61F0220)                       // br   x17
+		{
+			return "PLT_STUB";
+		}
+
+		if ((words[0] >> 26) == 0b000101)
+		{
+			return "VENEER_B";
+		}
+
+		return "FUNCTION_PROLOGUE";
+	}
+
+	private readonly ConcurrentDictionary<string, int> unresolvedCallKinds = new();
+
 	private static readonly string? resolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_RESOLVED_LOADS");
 	private static readonly object resolvedLoadCaseLock = new();
 	private static StreamWriter? resolvedLoadCaseWriter;
@@ -2209,6 +2381,23 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			lock (resolvedLoadCaseLock)
 			{
 				resolvedLoadCaseWriter?.Flush();
+			}
+
+			lock (unresolvedCallLock)
+			{
+				unresolvedCallWriter?.Flush();
+			}
+
+			if (!unresolvedCallKinds.IsEmpty)
+			{
+				Logger.Info(LogCategory.Import,
+					$"Il2Cpp method body recovery: {unresolvedCallKinds.Values.Sum()} calls became a placeholder, by how many "
+					+ "managed methods sit on the address:");
+
+				foreach ((string kind, int count) in unresolvedCallKinds.OrderByDescending(pair => pair.Value))
+				{
+					Logger.Info(LogCategory.Import, $"      {count,7} {kind}");
+				}
 			}
 
 			if (unresolvedLoadKinds.IsEmpty)

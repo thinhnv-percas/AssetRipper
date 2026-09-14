@@ -304,6 +304,21 @@ public static class IlGenerator
     public static Action<MethodAnalysisContext, IOperand>? UnresolvedMemoryLoad;
 
     /// <summary>
+    /// AssetRipper: raised for every call that becomes a <c>Method not found</c> or
+    /// <c>Unknown call target</c> placeholder, with the address and how many methods sit there.
+    /// </summary>
+    /// <remarks>
+    /// <c>Method not found</c> is 40% of every placeholder the export carries and had never been
+    /// classified - the count is one number for at least two causes that want opposite work. An
+    /// address with <em>no</em> method on it is not a managed call at all: a runtime helper, a PLT
+    /// stub, a veneer. An address with <em>several</em> is a method the model knows perfectly well,
+    /// shared by generic instantiation, where the failure is choosing rather than finding. Separating
+    /// them needs the candidate count, which exists only here. Runs on the body-generation threads,
+    /// so a handler has to be thread safe.
+    /// </remarks>
+    public static Action<MethodAnalysisContext, ulong, int>? UnresolvedCall;
+
+    /// <summary>
     /// AssetRipper: raised for every memory operand that <em>was</em> resolved to a field, which is
     /// the resolved analog of <see cref="UnresolvedMemoryLoad"/> at the same point in the pipeline.
     /// </summary>
@@ -1220,9 +1235,21 @@ public static class IlGenerator
                 if (instruction.Operands[0] is not MethodAnalysisContext targetMethod)
                 {
                     if (instruction.Operands[0] is Immediate targetAddress)
+                    {
+                        // How many methods sit on the address is the whole difference between "this is
+                        // not a managed call" and "this is a managed call the model cannot choose
+                        // between", so it is reported rather than the address alone.
+                        int here = context.AppContext.MethodsByAddress.TryGetValue(targetAddress.UnsignedValue, out var atAddress)
+                            ? atAddress.Count
+                            : 0;
+                        UnresolvedCall?.Invoke(context, targetAddress.UnsignedValue, here);
                         instructions.Add(CilOpCodes.Ldstr, $"Method not found @{targetAddress.UnsignedValue:X}");
+                    }
                     else // Probably key function. Just the target, the full operand dump is huge and blows the 16MB #US heap limit
+                    {
+                        UnresolvedCall?.Invoke(context, 0, -1);
                         instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Unknown call target operand: {instruction.Operands[0]}"));
+                    }
 
                     instructions.Add(CilOpCodes.Call, writeLine);
                     break;
