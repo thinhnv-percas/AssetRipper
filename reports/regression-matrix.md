@@ -444,3 +444,43 @@ Phép đo mới:
 | method Impostor (10 assembly) | 5482: 3865 CLEAN / 1375 PARTIAL / 242 UNTYPED / **0 mất thân** |
 | method Pinata (42 assembly) | 16365: 12750 / 2837 / 762 / **2 mất thân** |
 | tập trung placeholder | 5130 trong 1375 method, tệ nhất 113 |
+
+## Iteration 048 — hành vi của method, và ba con số đo sai
+
+**Phép đo đổi ở iteration này**, nên cột "baseline" dưới đây là 047 **đo lại** bằng phép đo đã sửa,
+không phải con số 047 đã công bố. Xem §3 của `docs/ITERATION_048.md`.
+
+| Chỉ số | 047 (đo lại) | 048 | Delta |
+|---|---:|---:|---:|
+| **method không có placeholder — Impostor** | 3902 | **3942** | **+40** |
+| **method không có placeholder — Pinata** | 13167 | **13176** | **+9** |
+| `PARTIAL` Impostor / Pinata | 1580 / 3196 | 1540 / 3187 | −40 / −9 |
+| placeholder Impostor / Pinata | 5862 / 14740 | 5753 / 14726 | −109 / −14 |
+| lời gọi libc thành toán tử C# | 0 | 22 / 7 | +22 / +7 |
+| `genFail` | 0 / 0 | 0 / 0 | 0 |
+| file `.cs` | 819 / 3083 | 819 / 3083 | 0 |
+| Roslyn Impostor / Pinata | 348-0 / 1478-1 | 348-0 / 1478-1 | 0 |
+| shape | 16/16 | 16/16 | 0 |
+| `_002Ector()` / `array[i].field` / `(float)array[i]` | 51 / 164 / 0 | 51 / 164 / 0 | 0 |
+| MANAGED_FIELD/UNKNOWN/RUNTIME_STRUCT/NATIVE_TEMPORARY/ARRAY_ACCESS | 901/761/651/343/66 | 903/763/651/343/66 | +2/+2/0/0/0 |
+| load bỏ cuộc | 2722 / 9245 | 2726 / 9248 | **+4 / +3** |
+| `Expected I4, but got I8` (Impostor) | 261 | 305 | **+44** |
+| test | 388 | 400 | +12 |
+
+Hai cột cuối là **cái giá, không phải hồi quy giấu đi**: phục hồi thêm một đoạn chương trình làm lộ
+ra những lệnh đọc trước đây bị bỏ đi cùng code chết (hình dạng đã ghi trong `CLAUDE.md`), và 44 mismatch
+còn lại là thanh ghi 64 bit thật đối diện local chưa có kiểu — ROADMAP §5, không phải của lift này.
+`MaskImmediate` đã lấy lại 31 trong 75 mismatch mà bản BFI đầu tiên gây ra.
+
+Phép đo mới:
+
+| | |
+|---|---|
+| họ placeholder theo điểm phát ra | 8 họ, Impostor 5853 / Pinata 14881 |
+| `NOT_IMPLEMENTED_INSTRUCTION` theo mã lệnh | `UNIMPLEMENTED` 93, `BFI` 80, `FABD` 48, `DUP` 43, `BFXIL` 12 |
+| `method_recovery_report.py` bỏ sót | 732 placeholder, 205 method "sạch giả" |
+| lời gọi thành placeholder theo số method tại địa chỉ | 2197 / 113 / 33 (từ 2219 / 113 / 33) |
+
+**Không** làm: §6 (cụm `MeshGenerator`), §7 (`OrderedDictionary`), §9 (`CALL_RESULT`), §14 (hai thân
+mất trên Pinata), §19 (Scorecard JSON), §20 (kho method vàng). `FABD` và `DUP` cố ý để lại: dạng
+vector, lift như scalar sẽ sai im lặng.

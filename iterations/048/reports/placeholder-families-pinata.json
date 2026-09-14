@@ -1,0 +1,857 @@
+{
+  "placeholders": 14871,
+  "scope": [
+    "AdjustSDK",
+    "AppMetricaSDK",
+    "AppMetricaSDK.Editor",
+    "Apple",
+    "AppsFlyerSDK",
+    "Assembly-CSharp",
+    "Assembly-CSharp-firstpass",
+    "ConditionalExpression",
+    "DOTween",
+    "DOTween.Modules",
+    "DOTweenPro",
+    "DOTweenPro.Scripts",
+    "EasyMobile",
+    "EasyMobile.Generated",
+    "Facebook.Unity",
+    "Facebook.Unity.Android",
+    "Facebook.Unity.IOS",
+    "Facebook.Unity.Settings",
+    "FacebookStore",
+    "Firebase.App",
+    "Firebase.Platform",
+    "GBG.Pinata.ECS",
+    "GameAnalyticsSDK",
+    "GameAnalyticsSDK.Playmaker",
+    "IronSourceSDK",
+    "LunarConsoleSDK",
+    "Mono.Security",
+    "Morpeh",
+    "Morpeh.Hypercasual",
+    "MyTrackerSDK",
+    "NiceVibrationsSDK",
+    "Obi",
+    "PlayMaker",
+    "Purchasing.Common",
+    "Security",
+    "Sirenix.OdinInspector.Attributes",
+    "Sirenix.Utilities",
+    "Stores",
+    "TenjinSDK",
+    "Tizen",
+    "UDP",
+    "winrt"
+  ],
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 8363,
+      "methods": 1812,
+      "assemblies": [
+        "AdjustSDK",
+        "AppMetricaSDK",
+        "AppsFlyerSDK",
+        "Assembly-CSharp",
+        "DOTween",
+        "DOTween.Modules",
+        "DOTweenPro",
+        "DOTweenPro.Scripts",
+        "EasyMobile",
+        "Facebook.Unity",
+        "Firebase.App",
+        "Firebase.Platform",
+        "GBG.Pinata.ECS",
+        "GameAnalyticsSDK",
+        "IronSourceSDK",
+        "LunarConsoleSDK",
+        "Morpeh",
+        "Morpeh.Hypercasual",
+        "MyTrackerSDK",
+        "NiceVibrationsSDK",
+        "Obi",
+        "PlayMaker",
+        "Purchasing.Common",
+        "Security",
+        "Sirenix.OdinInspector.Attributes",
+        "Sirenix.Utilities",
+        "Stores",
+        "TenjinSDK",
+        "UDP",
+        "winrt"
+      ],
+      "generatorSite": "IlGenerator.cs:2463",
+      "isilOperation": "LoadOperand, a MemoryOperand no field was found for",
+      "meaning": "a load whose base type or offset could not be placed",
+      "causes": [
+        {
+          "key": "X29_v1",
+          "count": 708,
+          "methods": 135
+        },
+        {
+          "key": "X0",
+          "count": 434,
+          "methods": 302
+        },
+        {
+          "key": "X29",
+          "count": 352,
+          "methods": 35
+        },
+        {
+          "key": "X8_v3",
+          "count": 273,
+          "methods": 93
+        },
+        {
+          "key": "X8_v1",
+          "count": 224,
+          "methods": 107
+        },
+        {
+          "key": "X11_v5",
+          "count": 207,
+          "methods": 206
+        },
+        {
+          "key": "X8_v7",
+          "count": 183,
+          "methods": 85
+        },
+        {
+          "key": "X1",
+          "count": 155,
+          "methods": 53
+        },
+        {
+          "key": "X8_v5",
+          "count": 142,
+          "methods": 57
+        },
+        {
+          "key": "X8_v4",
+          "count": 137,
+          "methods": 46
+        },
+        {
+          "key": "X8_v9",
+          "count": 105,
+          "methods": 44
+        },
+        {
+          "key": "X9_v2",
+          "count": 104,
+          "methods": 99
+        },
+        {
+          "key": "X8_v6",
+          "count": 101,
+          "methods": 43
+        },
+        {
+          "key": "X8_v10",
+          "count": 101,
+          "methods": 42
+        },
+        {
+          "key": "X8_v12",
+          "count": 99,
+          "methods": 50
+        },
+        {
+          "key": "X8_v8",
+          "count": 96,
+          "methods": 44
+        },
+        {
+          "key": "X8_v15",
+          "count": 87,
+          "methods": 48
+        },
+        {
+          "key": "X8_v14",
+          "count": 86,
+          "methods": 36
+        },
+        {
+          "key": "X0_v4",
+          "count": 85,
+          "methods": 79
+        },
+        {
+          "key": "(unnamed base)",
+          "count": 76,
+          "methods": 41
+        },
+        {
+          "key": "X8_v17",
+          "count": 75,
+          "methods": 32
+        },
+        {
+          "key": "X8_v24",
+          "count": 70,
+          "methods": 28
+        },
+        {
+          "key": "X8_v21",
+          "count": 63,
+          "methods": 24
+        },
+        {
+          "key": "X8_v11",
+          "count": 62,
+          "methods": 29
+        },
+        {
+          "key": "X20_v2",
+          "count": 58,
+          "methods": 48
+        },
+        {
+          "key": "X21_v10",
+          "count": 58,
+          "methods": 14
+        },
+        {
+          "key": "X8_v27",
+          "count": 56,
+          "methods": 22
+        },
+        {
+          "key": "X8_v13",
+          "count": 55,
+          "methods": 26
+        },
+        {
+          "key": "X0_v6",
+          "count": 55,
+          "methods": 50
+        },
+        {
+          "key": "X8_v26",
+          "count": 55,
+          "methods": 21
+        },
+        {
+          "key": "X0_v3",
+          "count": 53,
+          "methods": 12
+        },
+        {
+          "key": "X8_v16",
+          "count": 53,
+          "methods": 21
+        },
+        {
+          "key": "X8_v25",
+          "count": 50,
+          "methods": 19
+        },
+        {
+          "key": "X8_v28",
+          "count": 50,
+          "methods": 21
+        },
+        {
+          "key": "X8_v18",
+          "count": 47,
+          "methods": 18
+        },
+        {
+          "key": "X20_v6",
+          "count": 47,
+          "methods": 45
+        },
+        {
+          "key": "X8_v23",
+          "count": 46,
+          "methods": 19
+        },
+        {
+          "key": "X21_v6",
+          "count": 46,
+          "methods": 21
+        },
+        {
+          "key": "X8_v19",
+          "count": 45,
+          "methods": 19
+        },
+        {
+          "key": "X8_v22",
+          "count": 45,
+          "methods": 18
+        }
+      ]
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 2788,
+      "methods": 1413,
+      "assemblies": [
+        "AdjustSDK",
+        "AppMetricaSDK",
+        "AppsFlyerSDK",
+        "Assembly-CSharp",
+        "DOTween",
+        "DOTween.Modules",
+        "DOTweenPro",
+        "DOTweenPro.Scripts",
+        "EasyMobile",
+        "Facebook.Unity",
+        "Facebook.Unity.Settings",
+        "Firebase.App",
+        "Firebase.Platform",
+        "GBG.Pinata.ECS",
+        "GameAnalyticsSDK",
+        "GameAnalyticsSDK.Playmaker",
+        "IronSourceSDK",
+        "LunarConsoleSDK",
+        "Morpeh",
+        "Morpeh.Hypercasual",
+        "MyTrackerSDK",
+        "Obi",
+        "PlayMaker",
+        "Purchasing.Common",
+        "Security",
+        "Sirenix.Utilities",
+        "Stores",
+        "TenjinSDK",
+        "UDP"
+      ],
+      "generatorSite": "IlGenerator.cs:1328",
+      "isilOperation": "OpCode.Call / CallVoid, target is an Immediate",
+      "meaning": "an address with no managed method at it",
+      "causes": [
+        {
+          "key": "(address only)",
+          "count": 2788,
+          "methods": 1413
+        }
+      ]
+    },
+    "NATIVE_IMPORT": {
+      "count": 1200,
+      "methods": 406,
+      "assemblies": [
+        "AdjustSDK",
+        "AppMetricaSDK",
+        "AppsFlyerSDK",
+        "Assembly-CSharp",
+        "DOTween",
+        "DOTweenPro",
+        "EasyMobile",
+        "Facebook.Unity",
+        "Firebase.App",
+        "Firebase.Platform",
+        "GBG.Pinata.ECS",
+        "GameAnalyticsSDK",
+        "IronSourceSDK",
+        "LunarConsoleSDK",
+        "Morpeh",
+        "MyTrackerSDK",
+        "Obi",
+        "PlayMaker",
+        "Purchasing.Common",
+        "Security",
+        "Stores",
+        "TenjinSDK",
+        "UDP"
+      ],
+      "generatorSite": "IlGenerator.cs:1328",
+      "isilOperation": "OpCode.Call / CallVoid via a PLT slot",
+      "meaning": "a libc or C++ runtime import, named from .rela.plt",
+      "causes": [
+        {
+          "key": "__cxa_end_catch",
+          "count": 284,
+          "methods": 223
+        },
+        {
+          "key": "_Unwind_Resume",
+          "count": 263,
+          "methods": 263
+        },
+        {
+          "key": "__cxa_begin_catch",
+          "count": 235,
+          "methods": 219
+        },
+        {
+          "key": "memcpy",
+          "count": 75,
+          "methods": 31
+        },
+        {
+          "key": "modf",
+          "count": 58,
+          "methods": 24
+        },
+        {
+          "key": "__cxa_allocate_exception",
+          "count": 52,
+          "methods": 52
+        },
+        {
+          "key": "__cxa_throw",
+          "count": 49,
+          "methods": 49
+        },
+        {
+          "key": "memset",
+          "count": 36,
+          "methods": 29
+        },
+        {
+          "key": "sqrtf",
+          "count": 28,
+          "methods": 21
+        },
+        {
+          "key": "exp2f",
+          "count": 27,
+          "methods": 18
+        },
+        {
+          "key": "sinf",
+          "count": 22,
+          "methods": 19
+        },
+        {
+          "key": "cosf",
+          "count": 16,
+          "methods": 15
+        },
+        {
+          "key": "atan2f",
+          "count": 11,
+          "methods": 10
+        },
+        {
+          "key": "memmove",
+          "count": 8,
+          "methods": 8
+        },
+        {
+          "key": "exp2",
+          "count": 8,
+          "methods": 1
+        },
+        {
+          "key": "powf",
+          "count": 5,
+          "methods": 3
+        },
+        {
+          "key": "sin",
+          "count": 5,
+          "methods": 1
+        },
+        {
+          "key": "tanf",
+          "count": 4,
+          "methods": 4
+        },
+        {
+          "key": "asin",
+          "count": 3,
+          "methods": 1
+        },
+        {
+          "key": "log10f",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "pow",
+          "count": 2,
+          "methods": 1
+        },
+        {
+          "key": "cos",
+          "count": 2,
+          "methods": 1
+        },
+        {
+          "key": "ldexpf",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "asinf",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "atanf",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "logf",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "acosf",
+          "count": 1,
+          "methods": 1
+        }
+      ]
+    },
+    "INDIRECT_CALL": {
+      "count": 989,
+      "methods": 496,
+      "assemblies": [
+        "AdjustSDK",
+        "AppMetricaSDK",
+        "Assembly-CSharp",
+        "DOTween",
+        "DOTweenPro.Scripts",
+        "EasyMobile",
+        "Facebook.Unity",
+        "Firebase.App",
+        "Firebase.Platform",
+        "GBG.Pinata.ECS",
+        "GameAnalyticsSDK",
+        "IronSourceSDK",
+        "LunarConsoleSDK",
+        "Morpeh",
+        "Morpeh.Hypercasual",
+        "MyTrackerSDK",
+        "Obi",
+        "PlayMaker",
+        "Purchasing.Common",
+        "Security",
+        "Sirenix.Utilities",
+        "Stores",
+        "UDP"
+      ],
+      "generatorSite": "IlGenerator.cs:1446",
+      "isilOperation": "OpCode.IndirectCall",
+      "meaning": "a virtual or interface dispatch the passes did not resolve",
+      "causes": [
+        {
+          "key": "(dispatch)",
+          "count": 989,
+          "methods": 496
+        }
+      ]
+    },
+    "INDIRECT_JUMP": {
+      "count": 770,
+      "methods": 732,
+      "assemblies": [
+        "AdjustSDK",
+        "AppMetricaSDK",
+        "Assembly-CSharp",
+        "DOTween",
+        "DOTween.Modules",
+        "DOTweenPro",
+        "DOTweenPro.Scripts",
+        "EasyMobile",
+        "Facebook.Unity",
+        "Facebook.Unity.Android",
+        "Firebase.Platform",
+        "GBG.Pinata.ECS",
+        "GameAnalyticsSDK",
+        "IronSourceSDK",
+        "LunarConsoleSDK",
+        "Morpeh",
+        "MyTrackerSDK",
+        "NiceVibrationsSDK",
+        "Obi",
+        "PlayMaker",
+        "Purchasing.Common",
+        "Security",
+        "Sirenix.OdinInspector.Attributes",
+        "Sirenix.Utilities",
+        "Stores",
+        "UDP"
+      ],
+      "generatorSite": "IlGenerator.cs:1471",
+      "isilOperation": "OpCode.IndirectJump",
+      "meaning": "a computed branch, typically a switch table",
+      "causes": [
+        {
+          "key": "(computed branch)",
+          "count": 770,
+          "methods": 732
+        }
+      ]
+    },
+    "UNRESOLVED_DELEGATE": {
+      "count": 433,
+      "methods": 253,
+      "assemblies": [
+        "AppMetricaSDK",
+        "AppsFlyerSDK",
+        "Assembly-CSharp",
+        "DOTween",
+        "DOTween.Modules",
+        "DOTweenPro",
+        "DOTweenPro.Scripts",
+        "EasyMobile",
+        "Facebook.Unity",
+        "Firebase.Platform",
+        "GBG.Pinata.ECS",
+        "GameAnalyticsSDK",
+        "LunarConsoleSDK",
+        "Morpeh",
+        "MyTrackerSDK",
+        "Obi",
+        "Stores",
+        "UDP"
+      ],
+      "generatorSite": "IlGenerator.cs:1155",
+      "isilOperation": "OpCode.Newobj over a delegate type",
+      "meaning": "a delegate built over a function pointer nothing resolved",
+      "causes": [
+        {
+          "key": "TweenCallback",
+          "count": 255,
+          "methods": 125
+        },
+        {
+          "key": "Action",
+          "count": 74,
+          "methods": 54
+        },
+        {
+          "key": "UnityAction",
+          "count": 36,
+          "methods": 19
+        },
+        {
+          "key": "ActorBlueprintCallback",
+          "count": 16,
+          "methods": 7
+        },
+        {
+          "key": "ActorCallback",
+          "count": 12,
+          "methods": 12
+        },
+        {
+          "key": "LogCallback",
+          "count": 6,
+          "methods": 6
+        },
+        {
+          "key": "CollisionCallback",
+          "count": 6,
+          "methods": 6
+        },
+        {
+          "key": "ThreadStart",
+          "count": 3,
+          "methods": 3
+        },
+        {
+          "key": "AndroidJavaRunnable",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "ActorStepCallback",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "CameraCallback",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "SolverStepCallback",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "Trigger2DEvent",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "TriggerEvent",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "EaseFunction",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "UnityPurchasingCallback",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "WindowFunction",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "InitDelegate",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "HideUnityDelegate",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "SendOrPostCallback",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "ParameterizedThreadStart",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "UpdateFunction",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "RemoveDelegate",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "MatchEvaluator",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "UnityNativePurchasingCallback",
+          "count": 1,
+          "methods": 1
+        }
+      ]
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 299,
+      "methods": 208,
+      "assemblies": [
+        "AdjustSDK",
+        "AppMetricaSDK",
+        "Assembly-CSharp",
+        "DOTween",
+        "DOTweenPro.Scripts",
+        "EasyMobile",
+        "Facebook.Unity",
+        "Firebase.App",
+        "Firebase.Platform",
+        "GameAnalyticsSDK",
+        "IronSourceSDK",
+        "LunarConsoleSDK",
+        "Morpeh.Hypercasual",
+        "MyTrackerSDK",
+        "Obi",
+        "PlayMaker",
+        "Purchasing.Common",
+        "Security",
+        "Stores",
+        "UDP"
+      ],
+      "generatorSite": "IlGenerator.cs:1333",
+      "isilOperation": "OpCode.Call, target is not an Immediate",
+      "meaning": "a call whose target operand is a register or a memory read",
+      "causes": [
+        {
+          "key": "\\\"il2cpp_vm_object_unbox\\\"",
+          "count": 189,
+          "methods": 120
+        },
+        {
+          "key": "\\\"il2cpp_vm_class_is_assignable_from\\\"",
+          "count": 71,
+          "methods": 66
+        },
+        {
+          "key": "\\\"il2cpp_codegen_object_is_inst\\\"",
+          "count": 19,
+          "methods": 15
+        },
+        {
+          "key": "\\\"il2cpp_vm_object_box\\\"",
+          "count": 16,
+          "methods": 15
+        },
+        {
+          "key": "\\\"SzArrayNew\\\"",
+          "count": 4,
+          "methods": 3
+        }
+      ]
+    },
+    "OTHER": {
+      "count": 24,
+      "methods": 13,
+      "assemblies": [
+        "EasyMobile",
+        "Facebook.Unity",
+        "MyTrackerSDK"
+      ],
+      "generatorSite": "-",
+      "isilOperation": "-",
+      "meaning": "-",
+      "causes": [
+        {
+          "key": "Warning: Method ends with non empty stack (-30), the output ",
+          "count": 16,
+          "methods": 8
+        },
+        {
+          "key": "Warning: Method ends with non empty stack (-20), the output ",
+          "count": 6,
+          "methods": 3
+        },
+        {
+          "key": "Warning: 'this' local not found (operand: X0)",
+          "count": 2,
+          "methods": 2
+        }
+      ]
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 5,
+      "methods": 3,
+      "assemblies": [
+        "EasyMobile",
+        "LunarConsoleSDK"
+      ],
+      "generatorSite": "IlGenerator.cs:1019",
+      "isilOperation": "OpCode.NotImplemented",
+      "meaning": "the lifter has no rule for this native opcode",
+      "causes": [
+        {
+          "key": "REV",
+          "count": 2,
+          "methods": 2
+        },
+        {
+          "key": "DUP",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "UNIMPLEMENTED",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "USHL",
+          "count": 1,
+          "methods": 1
+        }
+      ]
+    }
+  }
+}

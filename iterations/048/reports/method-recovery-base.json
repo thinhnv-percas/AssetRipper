@@ -1,0 +1,361 @@
+{
+  "methods": 5482,
+  "nativeBytes": 1075252,
+  "verdicts": {
+    "RECOVERED_UNTYPED": 206,
+    "PARTIAL": 1580,
+    "RECOVERED_CLEAN": 3696
+  },
+  "diagnosticsByVerdict": {
+    "RECOVERED_UNTYPED": 0,
+    "PARTIAL": 5862,
+    "RECOVERED_CLEAN": 0
+  },
+  "byAssembly": {
+    "Assembly-CSharp": {
+      "RECOVERED_UNTYPED": 15,
+      "PARTIAL": 91,
+      "RECOVERED_CLEAN": 284
+    },
+    "__Generated": {
+      "RECOVERED_CLEAN": 2
+    },
+    "GoogleMobileAds": {
+      "RECOVERED_CLEAN": 337,
+      "PARTIAL": 374,
+      "RECOVERED_UNTYPED": 33
+    },
+    "spine-unity": {
+      "RECOVERED_CLEAN": 1293,
+      "RECOVERED_UNTYPED": 81,
+      "PARTIAL": 471
+    },
+    "LeanCommon": {
+      "RECOVERED_CLEAN": 15,
+      "PARTIAL": 2,
+      "RECOVERED_UNTYPED": 1
+    },
+    "ACTk.Runtime": {
+      "RECOVERED_CLEAN": 805,
+      "PARTIAL": 260,
+      "RECOVERED_UNTYPED": 24
+    },
+    "LeanPool": {
+      "RECOVERED_CLEAN": 57,
+      "PARTIAL": 15,
+      "RECOVERED_UNTYPED": 6
+    },
+    "spine-unity-examples": {
+      "RECOVERED_CLEAN": 361,
+      "PARTIAL": 124,
+      "RECOVERED_UNTYPED": 24
+    },
+    "DOTween": {
+      "RECOVERED_UNTYPED": 22,
+      "RECOVERED_CLEAN": 542,
+      "PARTIAL": 243
+    }
+  },
+  "worst": [
+    {
+      "diagnostics": 113,
+      "nativeBytes": 4352,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs"
+    },
+    {
+      "diagnostics": 76,
+      "nativeBytes": 19208,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/SkeletonJson.cs"
+    },
+    {
+      "diagnostics": 68,
+      "nativeBytes": 1092,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 66,
+      "nativeBytes": 1336,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 60,
+      "nativeBytes": 2048,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs"
+    },
+    {
+      "diagnostics": 53,
+      "nativeBytes": 2368,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs"
+    },
+    {
+      "diagnostics": 52,
+      "nativeBytes": 5772,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "diagnostics": 51,
+      "nativeBytes": 1060,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 45,
+      "nativeBytes": 16968,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/SkeletonJson.cs"
+    },
+    {
+      "diagnostics": 44,
+      "nativeBytes": 1384,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/CollectionExtensions.cs"
+    },
+    {
+      "diagnostics": 43,
+      "nativeBytes": 2852,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/DeformTimeline.cs"
+    },
+    {
+      "diagnostics": 41,
+      "nativeBytes": 668,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 38,
+      "nativeBytes": 1084,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 38,
+      "nativeBytes": 560,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 35,
+      "nativeBytes": 3072,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs"
+    },
+    {
+      "diagnostics": 34,
+      "nativeBytes": 636,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs"
+    },
+    {
+      "diagnostics": 34,
+      "nativeBytes": 608,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs"
+    },
+    {
+      "diagnostics": 27,
+      "nativeBytes": 776,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/ExposedList.cs"
+    },
+    {
+      "diagnostics": 27,
+      "nativeBytes": 752,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/ExposedList.cs"
+    },
+    {
+      "diagnostics": 27,
+      "nativeBytes": 544,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 26,
+      "nativeBytes": 336,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 25,
+      "nativeBytes": 1232,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/CubicBezierDecoder.cs"
+    },
+    {
+      "diagnostics": 25,
+      "nativeBytes": 1080,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs"
+    },
+    {
+      "diagnostics": 25,
+      "nativeBytes": 952,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Skin.cs"
+    },
+    {
+      "diagnostics": 25,
+      "nativeBytes": 768,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    },
+    {
+      "diagnostics": 25,
+      "nativeBytes": 496,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Color2Plugin.cs"
+    },
+    {
+      "diagnostics": 24,
+      "nativeBytes": 3264,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs"
+    },
+    {
+      "diagnostics": 24,
+      "nativeBytes": 180,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs"
+    },
+    {
+      "diagnostics": 23,
+      "nativeBytes": 784,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRendererInstruction.cs"
+    },
+    {
+      "diagnostics": 23,
+      "nativeBytes": 676,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs"
+    },
+    {
+      "diagnostics": 23,
+      "nativeBytes": 676,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs"
+    },
+    {
+      "diagnostics": 23,
+      "nativeBytes": 488,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs"
+    },
+    {
+      "diagnostics": 22,
+      "nativeBytes": 5520,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs"
+    },
+    {
+      "diagnostics": 22,
+      "nativeBytes": 276,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs"
+    },
+    {
+      "diagnostics": 21,
+      "nativeBytes": 1404,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs"
+    },
+    {
+      "diagnostics": 21,
+      "nativeBytes": 1404,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs"
+    },
+    {
+      "diagnostics": 21,
+      "nativeBytes": 1048,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Color2Plugin.cs"
+    },
+    {
+      "diagnostics": 21,
+      "nativeBytes": 768,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Tweener.cs"
+    },
+    {
+      "diagnostics": 20,
+      "nativeBytes": 928,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Utils/xxHash.cs"
+    },
+    {
+      "diagnostics": 19,
+      "nativeBytes": 4376,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs"
+    },
+    {
+      "diagnostics": 19,
+      "nativeBytes": 1896,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "diagnostics": 19,
+      "nativeBytes": 1896,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/BlendModeMaterialsAsset.cs"
+    },
+    {
+      "diagnostics": 19,
+      "nativeBytes": 1608,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Assembly-CSharp/SingletonMono.cs"
+    },
+    {
+      "diagnostics": 19,
+      "nativeBytes": 896,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Assembly-CSharp/GameHelper.cs"
+    },
+    {
+      "diagnostics": 19,
+      "nativeBytes": 888,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs"
+    },
+    {
+      "diagnostics": 19,
+      "nativeBytes": 436,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs"
+    },
+    {
+      "diagnostics": 18,
+      "nativeBytes": 1708,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs"
+    },
+    {
+      "diagnostics": 18,
+      "nativeBytes": 1284,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonDataAsset.cs"
+    },
+    {
+      "diagnostics": 18,
+      "nativeBytes": 1056,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/Path.cs"
+    },
+    {
+      "diagnostics": 18,
+      "nativeBytes": 632,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs"
+    }
+  ]
+}

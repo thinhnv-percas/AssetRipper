@@ -1,0 +1,36 @@
+SCOPE: the 10 assemblies recovery was attempted on; 3 stubbed assemblies excluded
+methods with a recorded native address: 5482
+native code accounted for: 1075252 bytes
+
+== by verdict ==
+  3696  RECOVERED_CLEAN     67.4%   diagnostics 0
+  1580  PARTIAL             28.8%   diagnostics 5862
+   206  RECOVERED_UNTYPED    3.8%   diagnostics 0
+
+methods with no placeholder in the body: 3902 of 5482 (71.2%)
+methods that lost their body entirely:   0
+
+== worst methods by placeholder count ==
+  113 placeholders    4352 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs
+   76 placeholders   19208 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/SkeletonJson.cs
+   68 placeholders    1092 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+   66 placeholders    1336 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+   60 placeholders    2048 bytes native  PARTIAL          Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs
+   53 placeholders    2368 bytes native  PARTIAL          Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs
+   52 placeholders    5772 bytes native  PARTIAL          Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs
+   51 placeholders    1060 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+   45 placeholders   16968 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/SkeletonJson.cs
+   44 placeholders    1384 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/Collections/CollectionExtensions.cs
+   43 placeholders    2852 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/DeformTimeline.cs
+   41 placeholders     668 bytes native  PARTIAL          Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+
+== by assembly, methods with no placeholder ==
+  1374 / 1845    74.5%  spine-unity
+   829 / 1089    76.1%  ACTk.Runtime
+   564 / 807     69.9%  DOTween
+   370 / 744     49.7%  GoogleMobileAds
+   385 / 509     75.6%  spine-unity-examples
+   299 / 390     76.7%  Assembly-CSharp
+    63 / 78      80.8%  LeanPool
+    16 / 18      88.9%  LeanCommon
+     2 / 2      100.0%  __Generated

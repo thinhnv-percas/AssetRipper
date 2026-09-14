@@ -1,0 +1,100 @@
+placeholders: 14871
+SCOPE: the 42 assemblies recovery was attempted on
+
+== by family ==
+family                          count  share  methods  asm  generator site         ISIL operation
+-------------------------------------------------------------------------------------------------
+UNMANAGED_MEMORY_LOAD            8363  56.2%     1812   30  IlGenerator.cs:2463    LoadOperand, a MemoryOperand no field was found for
+METHOD_NOT_FOUND                 2788  18.7%     1413   29  IlGenerator.cs:1328    OpCode.Call / CallVoid, target is an Immediate
+NATIVE_IMPORT                    1200   8.1%      406   23  IlGenerator.cs:1328    OpCode.Call / CallVoid via a PLT slot
+INDIRECT_CALL                     989   6.7%      496   23  IlGenerator.cs:1446    OpCode.IndirectCall
+INDIRECT_JUMP                     770   5.2%      732   26  IlGenerator.cs:1471    OpCode.IndirectJump
+UNRESOLVED_DELEGATE               433   2.9%      253   18  IlGenerator.cs:1155    OpCode.Newobj over a delegate type
+UNKNOWN_CALL_TARGET               299   2.0%      208   20  IlGenerator.cs:1333    OpCode.Call, target is not an Immediate
+OTHER                              24   0.2%       13    3  -                      -
+NOT_IMPLEMENTED_INSTRUCTION         5   0.0%        3    2  IlGenerator.cs:1019    OpCode.NotImplemented
+
+== what each family means ==
+  UNMANAGED_MEMORY_LOAD          a load whose base type or offset could not be placed
+  METHOD_NOT_FOUND               an address with no managed method at it
+  NATIVE_IMPORT                  a libc or C++ runtime import, named from .rela.plt
+  INDIRECT_CALL                  a virtual or interface dispatch the passes did not resolve
+  INDIRECT_JUMP                  a computed branch, typically a switch table
+  UNRESOLVED_DELEGATE            a delegate built over a function pointer nothing resolved
+  UNKNOWN_CALL_TARGET            a call whose target operand is a register or a memory read
+  OTHER                          ?
+  NOT_IMPLEMENTED_INSTRUCTION    the lifter has no rule for this native opcode
+
+== inside each family, by concrete cause ==
+
+  UNMANAGED_MEMORY_LOAD
+       708    135 methods  X29_v1
+       434    302 methods  X0
+       352     35 methods  X29
+       273     93 methods  X8_v3
+       224    107 methods  X8_v1
+       207    206 methods  X11_v5
+       183     85 methods  X8_v7
+       155     53 methods  X1
+       142     57 methods  X8_v5
+       137     46 methods  X8_v4
+       105     44 methods  X8_v9
+       104     99 methods  X9_v2
+    ... and 641 more distinct causes
+
+  METHOD_NOT_FOUND
+      2788   1413 methods  (address only)
+
+  NATIVE_IMPORT
+       284    223 methods  __cxa_end_catch
+       263    263 methods  _Unwind_Resume
+       235    219 methods  __cxa_begin_catch
+        75     31 methods  memcpy
+        58     24 methods  modf
+        52     52 methods  __cxa_allocate_exception
+        49     49 methods  __cxa_throw
+        36     29 methods  memset
+        28     21 methods  sqrtf
+        27     18 methods  exp2f
+        22     19 methods  sinf
+        16     15 methods  cosf
+    ... and 15 more distinct causes
+
+  INDIRECT_CALL
+       989    496 methods  (dispatch)
+
+  INDIRECT_JUMP
+       770    732 methods  (computed branch)
+
+  UNRESOLVED_DELEGATE
+       255    125 methods  TweenCallback
+        74     54 methods  Action
+        36     19 methods  UnityAction
+        16      7 methods  ActorBlueprintCallback
+        12     12 methods  ActorCallback
+         6      6 methods  LogCallback
+         6      6 methods  CollisionCallback
+         3      3 methods  ThreadStart
+         2      2 methods  AndroidJavaRunnable
+         2      2 methods  ActorStepCallback
+         2      2 methods  CameraCallback
+         2      2 methods  SolverStepCallback
+    ... and 13 more distinct causes
+
+  UNKNOWN_CALL_TARGET
+       189    120 methods  \"il2cpp_vm_object_unbox\"
+        71     66 methods  \"il2cpp_vm_class_is_assignable_from\"
+        19     15 methods  \"il2cpp_codegen_object_is_inst\"
+        16     15 methods  \"il2cpp_vm_object_box\"
+         4      3 methods  \"SzArrayNew\"
+
+  OTHER
+        16      8 methods  Warning: Method ends with non empty stack (-30), the output 
+         6      3 methods  Warning: Method ends with non empty stack (-20), the output 
+         2      2 methods  Warning: 'this' local not found (operand: X0)
+
+  NOT_IMPLEMENTED_INSTRUCTION
+         2      2 methods  REV
+         1      1 methods  DUP
+         1      1 methods  UNIMPLEMENTED
+         1      1 methods  USHL

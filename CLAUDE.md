@@ -1118,6 +1118,45 @@ find it; `strings` without `-el` does find method and type names.
   index 21 to 22, which `recovery_report.py` still read as 21 - caught only because the baseline was
   re-measured and compared, never by looking at the code.
 
+- **A placeholder family is an emission site, not a string.** The printed text carries the operand, so
+  every `Unmanaged memory load: [v24 @ X29_v1-58]` is its own string and a tally of the text reports
+  thousands of singletons and no family at all. `placeholder_families.py` attributes each placeholder
+  to the one `instructions.Add(CilOpCodes.Ldstr, …)` in `IlGenerator` that produced it, with the ISIL
+  operation that reached it and — where the text carries it — the native opcode underneath. Impostor's
+  5853: `UNMANAGED_MEMORY_LOAD` 2651, `METHOD_NOT_FOUND` 1573, `NATIVE_IMPORT` 485, `INDIRECT_CALL`
+  350, `NOT_IMPLEMENTED_INSTRUCTION` 303, `INDIRECT_JUMP` 254, `UNRESOLVED_DELEGATE` 128,
+  `UNKNOWN_CALL_TARGET` 107. The first three want opposite work — type recovery, call resolution and a
+  metadata limitation that no amount of work removes — which one total hides.
+- **A restated list of what counts drifts from the list that is printed, and the drift is silent.**
+  `method_recovery_report.py` carried a hand-copy of the family names: it spelled `"Unresolved
+  delegate"`, a string the generator **never prints** (the real one is `Delegate over an unresolved
+  function pointer`), and omitted `Indirect call` and `Indirect jump` outright. 732 placeholders
+  invisible, and every method whose only defect was one of those scored `RECOVERED_CLEAN` — 205 of
+  them. The list is now defined once, in `placeholder_families.MESSAGE_PREFIXES`, and imported. Any
+  comparison against an iteration at or before 047 has to re-measure **both** ends with it: the
+  published Impostor figure of 4107 clean methods is really 3902.
+- **`diff -rq --include='*.cs' A B` is not a GNU diff option.** It errors out, and with stderr
+  discarded that reads as "no files differ" — which is how three iterations reported an unchanged rip
+  without ever comparing one. Rebuilding `4dec5263` in a worktree and comparing properly said the
+  claims were true and the evidence was not. `Test/Scripts/diff_recovered_scripts.sh` is the real one.
+- **An unimplemented opcode names itself, and some of them need no inference at all.** `BFI` and
+  `BFXIL` were 92 of Impostor's 303 `NOT_IMPLEMENTED_INSTRUCTION`, and a bitfield *move* is exactly
+  `UBFIZ`/`UBFX` plus a read of the destination — the bits the field does not cover stay. Disarm hands
+  back the alias's own operands (`BFI W8, W9, 0x4, 0x8` is lsb 4, width 8), so there is no `BFM`
+  immr/imms to undo. The part that is easy to get wrong is **width, twice**: `~placed` has to be cut to
+  the register's width or the destination's whole high half arrives as ones, and the mask has to be
+  *written* at that width or the generator pushes an I8 into an I4 destination (75 stack type
+  mismatches, 31 of them recovered by writing it signed). Worth 29 methods and 88 placeholders. What is
+  left of the family is not the same kind of work: `FABD` (48) and `DUP` (43) are vector forms, and
+  lifting them as scalar would be wrong silently. And the whole family is **16** on the other fixture —
+  it is distributed by the instruction selection the compiler used for that build, not by the program.
+- **A recovered value can be lost without a placeholder saying so.** `ObscuredUShort.op_Implicit` came
+  back as `result = (flag ? ((ObscuredUShort)4294967296L) : ((ObscuredUShort)4294967296L))` — two
+  identical branches, so the value was gone — beside three `BFI`/`BFXIL` placeholders that named an
+  instruction rather than the loss. Nineteen files changed by that one lift, every one of them somewhere
+  a bitfield move belongs (ACTk's `Obscured*` pack a key and a value into a word, `xxHash`,
+  `MeshGenerator`, `SkeletonBinary`), which is what a rule matching the shape it aimed at looks like.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1256,7 +1295,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Four scripts, and each measures something the others cannot:
+Six scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1264,6 +1303,11 @@ Four scripts, and each measures something the others cannot:
   counts, so each keeps meaning as the numbers around it move. A check whose file is missing FAILs.
 - `Test/Scripts/compile_recovered_scripts.sh <rip output> [assembly]` — Roslyn.
 - `Test/Scripts/audit_recovered_scripts.py` — against the source, per assembly.
+- `Test/Scripts/placeholder_families.py` — every placeholder back to the `IlGenerator` line that
+  emitted it. It owns `MESSAGE_PREFIXES`, the one definition of what a placeholder is; anything else
+  that counts them imports it rather than restating it.
+- `Test/Scripts/diff_recovered_scripts.sh` — whether two rips differ at all, which is the check
+  `diff -rq --include` silently never performed.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are

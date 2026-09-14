@@ -1,0 +1,499 @@
+{
+  "methods": 16365,
+  "nativeBytes": 3287260,
+  "verdicts": {
+    "RECOVERED_CLEAN": 12523,
+    "PARTIAL": 3196,
+    "RECOVERED_UNTYPED": 630,
+    "EMPTY_BY_DESIGN": 14,
+    "EMPTY": 2
+  },
+  "diagnosticsByVerdict": {
+    "RECOVERED_CLEAN": 0,
+    "PARTIAL": 14740,
+    "RECOVERED_UNTYPED": 0,
+    "EMPTY_BY_DESIGN": 0,
+    "EMPTY": 0
+  },
+  "byAssembly": {
+    "Facebook.Unity.Settings": {
+      "RECOVERED_CLEAN": 43,
+      "PARTIAL": 1
+    },
+    "Security": {
+      "RECOVERED_CLEAN": 147,
+      "PARTIAL": 28,
+      "RECOVERED_UNTYPED": 11
+    },
+    "Facebook.Unity": {
+      "RECOVERED_CLEAN": 372,
+      "PARTIAL": 176,
+      "RECOVERED_UNTYPED": 18
+    },
+    "Morpeh.Hypercasual": {
+      "RECOVERED_CLEAN": 34,
+      "PARTIAL": 4
+    },
+    "AppsFlyerSDK": {
+      "RECOVERED_CLEAN": 29,
+      "PARTIAL": 11,
+      "RECOVERED_UNTYPED": 17
+    },
+    "LunarConsoleSDK": {
+      "PARTIAL": 97,
+      "RECOVERED_CLEAN": 241,
+      "RECOVERED_UNTYPED": 25
+    },
+    "Obi": {
+      "PARTIAL": 369,
+      "RECOVERED_CLEAN": 881,
+      "RECOVERED_UNTYPED": 38
+    },
+    "GameAnalyticsSDK.Playmaker": {
+      "RECOVERED_CLEAN": 32,
+      "PARTIAL": 1
+    },
+    "MyTrackerSDK": {
+      "RECOVERED_CLEAN": 104,
+      "PARTIAL": 74,
+      "RECOVERED_UNTYPED": 25
+    },
+    "IronSourceSDK": {
+      "RECOVERED_CLEAN": 191,
+      "RECOVERED_UNTYPED": 38,
+      "PARTIAL": 136
+    },
+    "Purchasing.Common": {
+      "RECOVERED_CLEAN": 14,
+      "PARTIAL": 13,
+      "RECOVERED_UNTYPED": 3
+    },
+    "GameAnalyticsSDK": {
+      "RECOVERED_CLEAN": 196,
+      "PARTIAL": 43,
+      "RECOVERED_UNTYPED": 32
+    },
+    "Assembly-CSharp": {
+      "PARTIAL": 781,
+      "RECOVERED_CLEAN": 4223,
+      "RECOVERED_UNTYPED": 167
+    },
+    "Firebase.Platform": {
+      "RECOVERED_CLEAN": 118,
+      "PARTIAL": 31,
+      "RECOVERED_UNTYPED": 5
+    },
+    "UDP": {
+      "RECOVERED_CLEAN": 163,
+      "PARTIAL": 34,
+      "RECOVERED_UNTYPED": 10
+    },
+    "Firebase.App": {
+      "RECOVERED_CLEAN": 120,
+      "PARTIAL": 12,
+      "RECOVERED_UNTYPED": 6
+    },
+    "AppMetricaSDK": {
+      "RECOVERED_CLEAN": 158,
+      "PARTIAL": 70,
+      "EMPTY_BY_DESIGN": 10,
+      "EMPTY": 2,
+      "RECOVERED_UNTYPED": 10
+    },
+    "DOTweenPro": {
+      "PARTIAL": 13,
+      "RECOVERED_CLEAN": 26
+    },
+    "Facebook.Unity.Android": {
+      "PARTIAL": 1,
+      "RECOVERED_CLEAN": 2
+    },
+    "ConditionalExpression": {
+      "RECOVERED_UNTYPED": 1
+    },
+    "Sirenix.Utilities": {
+      "RECOVERED_CLEAN": 18,
+      "PARTIAL": 9,
+      "RECOVERED_UNTYPED": 2
+    },
+    "DOTweenPro.Scripts": {
+      "RECOVERED_UNTYPED": 1,
+      "PARTIAL": 15,
+      "RECOVERED_CLEAN": 34
+    },
+    "EasyMobile": {
+      "RECOVERED_CLEAN": 2401,
+      "PARTIAL": 496,
+      "RECOVERED_UNTYPED": 62
+    },
+    "NiceVibrationsSDK": {
+      "RECOVERED_CLEAN": 15,
+      "PARTIAL": 10,
+      "RECOVERED_UNTYPED": 1
+    },
+    "TenjinSDK": {
+      "RECOVERED_CLEAN": 40,
+      "PARTIAL": 5,
+      "RECOVERED_UNTYPED": 20
+    },
+    "AdjustSDK": {
+      "RECOVERED_CLEAN": 274,
+      "PARTIAL": 55,
+      "RECOVERED_UNTYPED": 19,
+      "EMPTY_BY_DESIGN": 3
+    },
+    "DOTween.Modules": {
+      "RECOVERED_CLEAN": 66,
+      "RECOVERED_UNTYPED": 13,
+      "PARTIAL": 25
+    },
+    "FacebookStore": {
+      "RECOVERED_CLEAN": 7
+    },
+    "Facebook.Unity.IOS": {
+      "RECOVERED_CLEAN": 1
+    },
+    "GBG.Pinata.ECS": {
+      "RECOVERED_CLEAN": 153,
+      "PARTIAL": 65,
+      "RECOVERED_UNTYPED": 4
+    },
+    "winrt": {
+      "RECOVERED_CLEAN": 10,
+      "PARTIAL": 1
+    },
+    "Morpeh": {
+      "RECOVERED_CLEAN": 133,
+      "PARTIAL": 87,
+      "RECOVERED_UNTYPED": 9
+    },
+    "Sirenix.OdinInspector.Attributes": {
+      "RECOVERED_CLEAN": 14,
+      "PARTIAL": 1
+    },
+    "DOTween": {
+      "RECOVERED_CLEAN": 480,
+      "PARTIAL": 215,
+      "RECOVERED_UNTYPED": 27
+    },
+    "Stores": {
+      "RECOVERED_CLEAN": 358,
+      "PARTIAL": 115,
+      "RECOVERED_UNTYPED": 20
+    },
+    "Apple": {
+      "RECOVERED_CLEAN": 28
+    },
+    "Tizen": {
+      "RECOVERED_CLEAN": 6
+    },
+    "PlayMaker": {
+      "PARTIAL": 202,
+      "RECOVERED_CLEAN": 1391,
+      "EMPTY_BY_DESIGN": 1,
+      "RECOVERED_UNTYPED": 46
+    }
+  },
+  "worst": [
+    {
+      "diagnostics": 136,
+      "nativeBytes": 2572,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/MeshVoxelizer.cs"
+    },
+    {
+      "diagnostics": 128,
+      "nativeBytes": 2856,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/WeaponButtonSystem.cs"
+    },
+    {
+      "diagnostics": 94,
+      "nativeBytes": 1892,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiPath.cs"
+    },
+    {
+      "diagnostics": 93,
+      "nativeBytes": 2560,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/AttackSystem.cs"
+    },
+    {
+      "diagnostics": 68,
+      "nativeBytes": 8508,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Assembly-CSharp/TCP2_Demo.cs"
+    },
+    {
+      "diagnostics": 64,
+      "nativeBytes": 2236,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/EnemyHealthSystem.cs"
+    },
+    {
+      "diagnostics": 63,
+      "nativeBytes": 2276,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs"
+    },
+    {
+      "diagnostics": 54,
+      "nativeBytes": 1476,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/ShowHideEnemySystem.cs"
+    },
+    {
+      "diagnostics": 53,
+      "nativeBytes": 2684,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Stores/UnityEngine/Purchasing/Promo.cs"
+    },
+    {
+      "diagnostics": 53,
+      "nativeBytes": 1712,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Stores/UnityEngine/Purchasing/ProductDefinitionExtensions.cs"
+    },
+    {
+      "diagnostics": 53,
+      "nativeBytes": 1492,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/RectPlugin.cs"
+    },
+    {
+      "diagnostics": 53,
+      "nativeBytes": 1360,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GameStateSystem.cs"
+    },
+    {
+      "diagnostics": 50,
+      "nativeBytes": 1860,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/RewardedAdPlayerSystem.cs"
+    },
+    {
+      "diagnostics": 49,
+      "nativeBytes": 2704,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiRopeLineRenderer.cs"
+    },
+    {
+      "diagnostics": 48,
+      "nativeBytes": 1092,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/InitializeEnemiesSystem.cs"
+    },
+    {
+      "diagnostics": 46,
+      "nativeBytes": 1004,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/InAppPurchase/Providers/SubscriptionViewProvider.cs"
+    },
+    {
+      "diagnostics": 46,
+      "nativeBytes": 484,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Stores/UnityEngine/Purchasing/CloudCatalogImpl.cs"
+    },
+    {
+      "diagnostics": 45,
+      "nativeBytes": 1416,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/VoxelDistanceField.cs"
+    },
+    {
+      "diagnostics": 44,
+      "nativeBytes": 3116,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ParticleImpostorRendering.cs"
+    },
+    {
+      "diagnostics": 44,
+      "nativeBytes": 1580,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Stores/UnityEngine/Purchasing/ProfileData.cs"
+    },
+    {
+      "diagnostics": 44,
+      "nativeBytes": 1272,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/UIActiveWindowSystem.cs"
+    },
+    {
+      "diagnostics": 44,
+      "nativeBytes": 1120,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/AttackSystem.cs"
+    },
+    {
+      "diagnostics": 43,
+      "nativeBytes": 1292,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/InAppPurchasing.cs"
+    },
+    {
+      "diagnostics": 43,
+      "nativeBytes": 1256,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/GameServices.cs"
+    },
+    {
+      "diagnostics": 43,
+      "nativeBytes": 1136,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/SpawnWeaponsSystem.cs"
+    },
+    {
+      "diagnostics": 43,
+      "nativeBytes": 1040,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/UIActiveWindowSystem.cs"
+    },
+    {
+      "diagnostics": 42,
+      "nativeBytes": 1920,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiSolver.cs"
+    },
+    {
+      "diagnostics": 42,
+      "nativeBytes": 1788,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Advertising.cs"
+    },
+    {
+      "diagnostics": 42,
+      "nativeBytes": 1524,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/InitializeWeaponsSystem.cs"
+    },
+    {
+      "diagnostics": 42,
+      "nativeBytes": 1024,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/CollisionEnemiesSystem.cs"
+    },
+    {
+      "diagnostics": 41,
+      "nativeBytes": 260,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/Editor/Dialogs/MockLoginDialog.cs"
+    },
+    {
+      "diagnostics": 40,
+      "nativeBytes": 1772,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Internal/StrongToWeakDictionary.cs"
+    },
+    {
+      "diagnostics": 38,
+      "nativeBytes": 1836,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/Canvas/CanvasFacebook.cs"
+    },
+    {
+      "diagnostics": 38,
+      "nativeBytes": 1488,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiUtils.cs"
+    },
+    {
+      "diagnostics": 38,
+      "nativeBytes": 1288,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GameStateSystem.cs"
+    },
+    {
+      "diagnostics": 37,
+      "nativeBytes": 2216,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiPathSmoother.cs"
+    },
+    {
+      "diagnostics": 37,
+      "nativeBytes": 872,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiUtils.cs"
+    },
+    {
+      "diagnostics": 36,
+      "nativeBytes": 2428,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Stores/UnityEngine/Purchasing/AppleStoreImpl.cs"
+    },
+    {
+      "diagnostics": 36,
+      "nativeBytes": 2240,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Stores/UnityEngine/Purchasing/FakeStore.cs"
+    },
+    {
+      "diagnostics": 36,
+      "nativeBytes": 736,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/ActivateGameObjectFromListSystem.cs"
+    },
+    {
+      "diagnostics": 35,
+      "nativeBytes": 1084,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/Utilities.cs"
+    },
+    {
+      "diagnostics": 34,
+      "nativeBytes": 2544,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiActorBlueprint.cs"
+    },
+    {
+      "diagnostics": 33,
+      "nativeBytes": 10568,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/PlayMaker/HutongGames/PlayMaker/ActionData.cs"
+    },
+    {
+      "diagnostics": 33,
+      "nativeBytes": 1032,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/RectPlugin.cs"
+    },
+    {
+      "diagnostics": 33,
+      "nativeBytes": 932,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GameStateSystem.cs"
+    },
+    {
+      "diagnostics": 33,
+      "nativeBytes": 740,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiRope.cs"
+    },
+    {
+      "diagnostics": 33,
+      "nativeBytes": 712,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Obi/Obi/ObiRod.cs"
+    },
+    {
+      "diagnostics": 32,
+      "nativeBytes": 1116,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Color2Plugin.cs"
+    },
+    {
+      "diagnostics": 32,
+      "nativeBytes": 1044,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/Morpeh/Morpeh/Globals/ECS/GlobalEventComponentUpdater.cs"
+    },
+    {
+      "diagnostics": 32,
+      "nativeBytes": 1024,
+      "verdict": "PARTIAL",
+      "file": "Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/InAppPurchase/Systems/IAPShopSystem.cs"
+    }
+  ]
+}

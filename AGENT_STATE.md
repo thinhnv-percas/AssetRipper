@@ -497,6 +497,42 @@ shape 16/16, Roslyn 348/0 và 1478/1, `array[i].field` 164, `(float)array[i]` 0,
 MANAGED_FIELD/UNKNOWN/RUNTIME_STRUCT/NATIVE_TEMPORARY/ARRAY_ACCESS 901/761/651/343/66,
 test 386 -> 388 với 1 fail có sẵn.
 
+## Iteration 048 — bốn điều một session sau phải biết
+
+1. **Một họ placeholder là một ĐIỂM PHÁT RA, không phải một chuỗi.** Chữ in ra mang theo toán hạng,
+   nên đếm chữ cho ra hàng nghìn ca đơn lẻ và không họ nào cả. `placeholder_families.py` gắn mỗi
+   placeholder về đúng `instructions.Add(CilOpCodes.Ldstr, …)` đã sinh ra nó, kèm phép toán ISIL và —
+   nơi chữ có mang — mã lệnh máy. Impostor 5853: `UNMANAGED_MEMORY_LOAD` 2651, `METHOD_NOT_FOUND`
+   1573, `NATIVE_IMPORT` 485, `INDIRECT_CALL` 350, `NOT_IMPLEMENTED_INSTRUCTION` 303, `INDIRECT_JUMP`
+   254, `UNRESOLVED_DELEGATE` 128, `UNKNOWN_CALL_TARGET` 107. Ba họ đầu muốn ba loại công việc ngược
+   nhau, và phép đếm gộp giấu điều đó.
+
+2. **Phép đo của 047 đếm thiếu 732 placeholder và chấm 205 method là sạch trong khi không.**
+   `DIAGNOSTIC` trong `method_recovery_report.py` là một bản chép tay của danh sách họ: nó ghi
+   `"Unresolved delegate"`, một chuỗi generator **không bao giờ in ra**, và bỏ hẳn `Indirect call`
+   cùng `Indirect jump`. Danh sách giờ định nghĩa **một lần** ở
+   `placeholder_families.MESSAGE_PREFIXES` và được import. Con số của chính tôi tụt: method sạch
+   4107 → 3902, `PARTIAL` 1375 → 1580. Mọi so sánh với iteration ≤ 047 phải đo lại cả hai đầu bằng
+   phép đo này.
+
+3. **`diff -rq --include='*.cs' A B` không phải tuỳ chọn của GNU diff.** Nó báo lỗi, và nếu bỏ stderr
+   thì đọc thành "không file nào khác" — ba iteration đã báo bản rip không đổi bằng lệnh đó mà chưa
+   từng so một lần nào. Đã dựng lại worktree ở `4dec5263`, rip lại Impostor và so: **các khẳng định
+   ấy đúng, bằng chứng đằng sau thì không.** Dùng `Test/Scripts/diff_recovered_scripts.sh`.
+
+4. **Một mã lệnh chưa lift được thì tự nói tên nó ra, và có loại không cần suy luận gì.** `BFI` và
+   `BFXIL` chiếm 92 trong 303 `NOT_IMPLEMENTED_INSTRUCTION`; chúng là `UBFIZ`/`UBFX` cộng một lần
+   **đọc đích**. Phần dễ sai là **bề rộng**, hai lần: `~placed` phải cắt về bề rộng thanh ghi, và mặt
+   nạ phải viết ở bề rộng đó nếu không generator đẩy I8 vào đích I4. Còn lại trên Impostor:
+   `UNIMPLEMENTED` 93, `FABD` 48, `DUP` 43 — nhưng `FABD`/`DUP` là dạng vector, và lift chúng như
+   scalar sẽ sai **im lặng**. Trên Pinata cả họ chỉ có 16 ca: nó phân bố theo tập lệnh trình biên
+   dịch sinh ra cho fixture, không theo chương trình.
+
+Bảng số 048: Impostor method sạch **3902 → 3942**, Pinata **13167 → 13176**; placeholder 5862 → 5753
+và 14740 → 14726; load bỏ cuộc 2722 → 2726 và 9245 → 9248 (phục hồi thêm thì lộ ra lệnh đọc từng bị
+bỏ cùng code chết); genFail 0/0, `.cs` 819/3083, Roslyn 348-0 / 1478-1, shape 16/16, ctor 51,
+`array[i].field` 164, `(float)array[i]` 0, test 388 → 400 với 1 fail có sẵn.
+
 ## Ghi chú môi trường
 
 Container không có .NET SDK và không có Unity. `dotnet` lấy từ

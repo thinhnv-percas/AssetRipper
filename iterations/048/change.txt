@@ -1,0 +1,63 @@
+Brief 048: method behavior recovery. §2 ưu tiên số một là giải thích TOÀN BỘ placeholder theo họ
+nguyên nhân; §4 phát hiện method "sạch giả"; §22 phải có ít nhất một cải thiện HÀNH VI; §23 phải báo
+BEHAVIORALLY RECOVERED METHODS before -> after.
+
+A. Phân loại lời gọi theo hình dạng mã máy tại đích — commit 825ec3df
+
+   `Method not found` là 40% của mọi placeholder và chưa từng được phân loại. Thứ tách chúng ra là
+   số method managed tại địa chỉ đó: 2219 NO_MANAGED_METHOD / 113 NOT_AN_ADDRESS / 33 SHARED_2. Nên
+   giả thuyết "chọn giữa các instantiation" đáng 33 lời gọi, không phải hàng nghìn. 2219 ca đi tới
+   đúng 50 địa chỉ, 14 địa chỉ chiếm 91%, địa chỉ đầu bảng một mình 889 lời gọi.
+   Mã máy tại đích tách chính xác: 967 VENEER_B / 718 FUNCTION_PROLOGUE / còn lại PLT.
+
+   Một đính chính về công việc của chính tôi: tôi bắt đầu viết phần đọc `.rela.plt` rồi phát hiện
+   `ElfFile` ĐÃ CÓ `ProcessPltImports`. Phần tôi viết bị bỏ. Phép đo của tôi đếm ở generator, TRƯỚC
+   lớp đặt tên, nên tôi đọc khoảng chênh giữa hai góc nhìn thành một khoảng trống.
+
+B. fmodf là phép chia lấy dư — commit 73cd5905, sửa commit 65bf2dbf
+
+   22 lời gọi Impostor, 7 Pinata. Layout toán hạng là 18 chứ không phải 19 (bản đầu đếm đích hai
+   lần và không khớp một lần nào trong 2219 lời gọi trong khi trông y hệt một luật không có gì để
+   khớp — chỉ biến đếm tại từng guard mới tìm ra).
+
+   Lỗ hổng hình-fixture: `null!` làm `writeLine` không sao trên Impostor, nhưng trên Pinata một toán
+   hạng không nạp được phát ra lời gọi tới chính nó, ném ra khỏi generator, và 3083 file `.cs` còn 4.
+
+C. §2 + §4 — commit 08abd6b4
+
+   `placeholder_families.py` gắn mỗi placeholder về ĐIỂM PHÁT RA trong `IlGenerator`. Impostor 5853:
+   UNMANAGED_MEMORY_LOAD 2651 / METHOD_NOT_FOUND 1573 / NATIVE_IMPORT 485 / INDIRECT_CALL 350 /
+   NOT_IMPLEMENTED_INSTRUCTION 303 / INDIRECT_JUMP 254 / UNRESOLVED_DELEGATE 128 /
+   UNKNOWN_CALL_TARGET 107.
+
+   VÀ PHÉP ĐO CỦA 047 SAI: `DIAGNOSTIC` là bản chép tay của danh sách họ, ghi "Unresolved delegate"
+   (chuỗi generator không bao giờ in) và bỏ hẳn `Indirect call`/`Indirect jump`. 732 placeholder vô
+   hình, 205 method "sạch giả". Con số của chính tôi tụt: 4107 -> 3902 method sạch. Danh sách giờ
+   định nghĩa một lần và được import.
+
+   `diff_recovered_scripts.sh`: `diff -rq --include='*.cs'` KHÔNG phải tuỳ chọn GNU diff. Ba
+   iteration đã báo "0 file đổi" bằng lệnh đó mà chưa từng so. Đã dựng lại worktree ở 4dec5263, rip
+   lại và so: các khẳng định ấy ĐÚNG, bằng chứng thì không.
+
+D. BFI và BFXIL — commit c50bf45b
+
+   §2 chỉ thẳng vào đây: 92 trong 303 placeholder NOT_IMPLEMENTED_INSTRUCTION. Một bitfield move là
+   UBFIZ/UBFX cộng một lần đọc đích. Phần dễ sai là bề rộng của phần bù, hai lần: `~placed` phải cắt
+   về 32 bit, và mặt nạ phải viết ở bề rộng thanh ghi nếu không generator đẩy I8 vào đích I4.
+   3/5 test đỏ khi khôi phục lỗi thứ nhất.
+
+E. Gate cuối (baseline -> 048, phép đo đã sửa ở C dùng cho cả hai đầu):
+
+   method không placeholder   Impostor 3902 -> 3942 (+40)   Pinata 13167 -> 13176 (+9)
+   PARTIAL                             1580 -> 1540          3196 -> 3187
+   placeholder                         5862 -> 5753         14740 -> 14726
+   genFail 0/0   .cs 819/3083   Roslyn 348-0 / 1478-1   shape 16/16   ctor 51   arr 164/0
+   load bỏ cuộc 2722 -> 2726, 9245 -> 9248 (phục hồi thêm thì lộ ra lệnh đọc từng bị bỏ cùng code chết)
+   test 388 -> 400, 1 fail có sẵn
+
+   Unity vẫn UNITY_NOT_AVAILABLE; U1-U9 và I1-I4 vẫn NOT_RUN.
+
+F. KHÔNG làm: §6 (cụm 113 method MeshGenerator), §7 (OrderedDictionary), §9 (CALL_RESULT như nguồn
+   kiểu), §14 (hai thân mất trên Pinata), §19 (Recovery Scorecard JSON), §20 (kho method vàng).
+   §2 và §4 chiếm phần lớn thời gian, và §4 hoá ra là một lỗi trong phép đo của iteration trước,
+   phải sửa trước khi bất cứ con số nào đọc được.
