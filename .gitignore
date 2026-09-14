@@ -46,3 +46,6 @@ Test/Input/JellyBlast/
 /artifacts/roslyn/
 /Test/Tools/*/bin/
 /Test/Tools/*/obj/
+
+# Python bytecode from the measurement scripts.
+__pycache__/

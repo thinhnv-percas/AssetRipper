@@ -465,7 +465,7 @@ không phải con số 047 đã công bố. Xem §3 của `docs/ITERATION_048.md
 | MANAGED_FIELD/UNKNOWN/RUNTIME_STRUCT/NATIVE_TEMPORARY/ARRAY_ACCESS | 901/761/651/343/66 | 903/763/651/343/66 | +2/+2/0/0/0 |
 | load bỏ cuộc | 2722 / 9245 | 2726 / 9248 | **+4 / +3** |
 | `Expected I4, but got I8` (Impostor) | 261 | 305 | **+44** |
-| test | 388 | 400 | +12 |
+| test | 388 | 402 | +14 |
 
 Hai cột cuối là **cái giá, không phải hồi quy giấu đi**: phục hồi thêm một đoạn chương trình làm lộ
 ra những lệnh đọc trước đây bị bỏ đi cùng code chết (hình dạng đã ghi trong `CLAUDE.md`), và 44 mismatch

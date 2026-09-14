@@ -53,7 +53,7 @@ E. Gate cuối (baseline -> 048, phép đo đã sửa ở C dùng cho cả hai �
    placeholder                         5862 -> 5753         14740 -> 14726
    genFail 0/0   .cs 819/3083   Roslyn 348-0 / 1478-1   shape 16/16   ctor 51   arr 164/0
    load bỏ cuộc 2722 -> 2726, 9245 -> 9248 (phục hồi thêm thì lộ ra lệnh đọc từng bị bỏ cùng code chết)
-   test 388 -> 400, 1 fail có sẵn
+   test 388 -> 402, 1 fail có sẵn
 
    Unity vẫn UNITY_NOT_AVAILABLE; U1-U9 và I1-I4 vẫn NOT_RUN.
 

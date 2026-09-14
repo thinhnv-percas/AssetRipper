@@ -183,7 +183,7 @@ Không có cổng nào lùi:
 | Roslyn Impostor / Pinata | 348-0 / 1478-1 | **348-0 / 1478-1** |
 | shape | 16/16 | 16/16 |
 | `_002Ector()` / `array[i].field` / `(float)array[i]` | 51 / 164 / 0 | 51 / 164 / 0 |
-| test | 388 | **400** (1 fail có sẵn) |
+| test | 388 | **402** (1 fail có sẵn) |
 | load bỏ cuộc | 2722 / 9245 | 2726 / 9248 |
 
 Hai cột cuối tăng, và cả hai đều đã giải thích ở §5 chứ không được giấu đi.

@@ -531,7 +531,7 @@ test 386 -> 388 với 1 fail có sẵn.
 Bảng số 048: Impostor method sạch **3902 → 3942**, Pinata **13167 → 13176**; placeholder 5862 → 5753
 và 14740 → 14726; load bỏ cuộc 2722 → 2726 và 9245 → 9248 (phục hồi thêm thì lộ ra lệnh đọc từng bị
 bỏ cùng code chết); genFail 0/0, `.cs` 819/3083, Roslyn 348-0 / 1478-1, shape 16/16, ctor 51,
-`array[i].field` 164, `(float)array[i]` 0, test 388 → 400 với 1 fail có sẵn.
+`array[i].field` 164, `(float)array[i]` 0, test 388 → 402 với 1 fail có sẵn.
 
 ## Ghi chú môi trường
 
