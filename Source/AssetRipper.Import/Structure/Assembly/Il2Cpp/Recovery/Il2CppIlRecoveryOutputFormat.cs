@@ -904,6 +904,59 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				: null);
 	}
 
+	/// <summary>
+	/// Whether <paramref name="candidate"/> is the pointer side of an <c>Add</c>, and what it points into.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// The walk had a rule for <c>Add pointer, constant</c> and nothing else, so every other shape
+	/// read as "no idea" - 343 loads on the test game, which classifying rather than counting split
+	/// into eleven shapes, most with an exact answer. The answers are not new: an operand that names
+	/// storage in a <c>Move</c> names the same storage here, and this simply asks the same question of
+	/// a second opcode.
+	/// </para>
+	/// <para>
+	/// Between two registers the evidence is the type. Adding an integer to a pointer yields a pointer
+	/// and two pointers are never added, so the side typed as an array, a pointer or a reference is
+	/// the base - but only when it is typed. An untyped side beside an integer is *probably* the base
+	/// and is left unclassified, because "probably" is what this classification exists not to report.
+	/// </para>
+	/// </remarks>
+	private BasePointerOrigin.DefinitionLike? AddendOrigin(IOperand candidate, IOperand other) => candidate switch
+	{
+		FieldReference => new(BasePointerOrigin.DefinitionKind.FieldRead, null),
+		AddressOf { Target: ArrayAccess } or ArrayAccess => new(BasePointerOrigin.DefinitionKind.ArrayElementAddress, null),
+		AddressOf { Target: LocalVariable addressed } => new(BasePointerOrigin.DefinitionKind.CopyOfLocal, new IrLocal(addressed)),
+		MemoryOperand => new(BasePointerOrigin.DefinitionKind.LoadFromMemory, null),
+		LocalVariable based when other is Immediate => new(BasePointerOrigin.DefinitionKind.OffsetFromLocal, new IrLocal(based)),
+		LocalVariable based when DescribeAddend(based) is "array" or "pointer" or "reference"
+			&& other is LocalVariable => new(BasePointerOrigin.DefinitionKind.OffsetFromLocal, new IrLocal(based)),
+		_ => null,
+	};
+
+	/// <summary>
+	/// What one side of an <c>Add</c> of two locals is, for the purpose of deciding which is the base.
+	/// </summary>
+	/// <remarks>
+	/// Adding an integer to a pointer yields a pointer and adding two pointers is not a thing, so the
+	/// side that is not an integer is the base - but only where the types say so. This reports the two
+	/// sides rather than deciding, because whether they discriminate is a question to measure before
+	/// it is a rule to apply.
+	/// </remarks>
+	private static string DescribeAddend(IOperand operand) => operand is not LocalVariable local
+		? operand.GetType().Name
+		: local.Type switch
+	{
+		null => "untyped",
+		{ IsValueType: true } type when type.FullName is "System.Int32" or "System.Int64" or "System.UInt32"
+			or "System.UInt64" or "System.IntPtr" or "System.UIntPtr" or "System.Int16" or "System.UInt16"
+			or "System.Byte" or "System.SByte" => "integer",
+		SzArrayTypeAnalysisContext => "array",
+		PointerTypeAnalysisContext or ByRefTypeAnalysisContext => "pointer",
+		{ IsValueType: true } => "value",
+		_ => "reference",
+	};
+
 	private sealed record IrLocal(LocalVariable Local) : BasePointerOrigin.LocalLike;
 
 	/// <summary>What a local says about itself, before anything looks at what defined it.</summary>
@@ -941,19 +994,24 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 					FieldReference => new(BasePointerOrigin.DefinitionKind.FieldRead, null),
 					// The address of an element, which ArrayRecovery folds into this shape.
 					AddressOf { Target: ArrayAccess } => new(BasePointerOrigin.DefinitionKind.ArrayElementAddress, null),
+					// The address of a local points into that local's storage, so the walk continues
+					// there. Exact rather than inferred: taking an address does not change what is
+					// being addressed, which is the same reasoning OffsetFromLocal already rests on.
+					AddressOf { Target: LocalVariable addressed } => new(BasePointerOrigin.DefinitionKind.CopyOfLocal, new IrLocal(addressed)),
+					AddressOf { Target: FieldReference } => new(BasePointerOrigin.DefinitionKind.FieldRead, null),
 					MemoryOperand => new(BasePointerOrigin.DefinitionKind.LoadFromMemory, null),
-					_ => default,
+					_ => new(BasePointerOrigin.DefinitionKind.Other, null, "Move:" + operands[1].GetType().Name),
 				};
 
-			// Adding a constant to a pointer leaves it pointing into the same storage, so the base
-			// side is followed; adding two registers says nothing about which of them is the base.
+			// Adding to a pointer leaves it pointing into the same storage, so the pointer side is
+			// followed. Which side that is comes from the same evidence a Move already uses - an
+			// operand that names storage names it here too - and, between two registers, from the
+			// types: an integer added to a pointer is a pointer, and two pointers are never added.
 			case Cpp2IL.Core.ISIL.OpCode.Add when operands.Count > 2:
-				return (operands[1], operands[2]) switch
-				{
-					(LocalVariable based, Immediate) => new(BasePointerOrigin.DefinitionKind.OffsetFromLocal, new IrLocal(based)),
-					(Immediate, LocalVariable based) => new(BasePointerOrigin.DefinitionKind.OffsetFromLocal, new IrLocal(based)),
-					_ => default,
-				};
+				return AddendOrigin(operands[1], operands[2])
+					?? AddendOrigin(operands[2], operands[1])
+					?? new(BasePointerOrigin.DefinitionKind.Other, null,
+						"Add:" + DescribeAddend(operands[1]) + "+" + DescribeAddend(operands[2]));
 
 			case Cpp2IL.Core.ISIL.OpCode.Call:
 			case Cpp2IL.Core.ISIL.OpCode.IndirectCall:
@@ -964,7 +1022,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				return new(BasePointerOrigin.DefinitionKind.Allocation, null);
 
 			default:
-				return default;
+				return new(BasePointerOrigin.DefinitionKind.Other, null, instruction.OpCode.ToString());
 		}
 	}
 

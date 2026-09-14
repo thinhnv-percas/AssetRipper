@@ -86,7 +86,7 @@ internal sealed class Il2CppBasePointerOriginTests
 		fixture.Define(local, fixture.CallResult());
 		fixture.Define(local, fixture.FieldRead());
 
-		Assert.That(fixture.Of(local), Is.EqualTo(BasePointerOrigin.Unknown));
+		Assert.That(fixture.Of(local), Is.EqualTo(BasePointerOrigin.UnknownMerged));
 	}
 
 	[Test]
@@ -102,7 +102,7 @@ internal sealed class Il2CppBasePointerOriginTests
 		fixture.Define(a, fixture.CopyOf(b));
 		fixture.Define(b, fixture.CopyOf(a));
 
-		Assert.That(fixture.Of(a), Is.EqualTo(BasePointerOrigin.Unknown));
+		Assert.That(fixture.Of(a), Is.EqualTo(BasePointerOrigin.UnknownCycle));
 	}
 
 	[Test]
@@ -119,7 +119,7 @@ internal sealed class Il2CppBasePointerOriginTests
 			link = above;
 		}
 
-		Assert.That(fixture.Of(link), Is.EqualTo(BasePointerOrigin.Unknown));
+		Assert.That(fixture.Of(link), Is.EqualTo(BasePointerOrigin.UnknownDepth));
 	}
 
 	[Test]
@@ -140,7 +140,105 @@ internal sealed class Il2CppBasePointerOriginTests
 		Fixture.Slot local = fixture.Local("local");
 		fixture.Define(local, fixture.Opaque());
 
-		Assert.That(fixture.Of(local), Is.EqualTo(BasePointerOrigin.Unknown));
+		Assert.That(fixture.Of(local), Is.EqualTo(BasePointerOrigin.UnknownOpcode(null)));
+	}
+
+	[Test]
+	public void EveryDefinitionOfAMergedLocalAgreeing_IsThatOrigin()
+	{
+		// SSA destruction leaves one definition per merged version. Several of them is a reason to
+		// check, not a reason to give up: reaching the same storage by two routes is still that
+		// storage, and reporting UNKNOWN there discards an answer that was never in doubt.
+		Fixture fixture = new();
+		Fixture.Slot receiver = fixture.Local("this", BasePointerOrigin.This);
+		Fixture.Slot first = fixture.Local("first");
+		Fixture.Slot second = fixture.Local("second");
+		Fixture.Slot merged = fixture.Local("merged");
+
+		fixture.Define(first, fixture.CopyOf(receiver));
+		fixture.Define(second, fixture.CopyOf(receiver));
+		fixture.Define(merged, fixture.CopyOf(first));
+		fixture.Define(merged, fixture.CopyOf(second));
+
+		Assert.That(fixture.Of(merged), Is.EqualTo(BasePointerOrigin.This));
+	}
+
+	[Test]
+	public void DefinitionsOfAMergedLocalDisagreeing_IsUnknown()
+	{
+		Fixture fixture = new();
+		Fixture.Slot receiver = fixture.Local("this", BasePointerOrigin.This);
+		Fixture.Slot allocated = fixture.Local("allocated");
+		Fixture.Slot merged = fixture.Local("merged");
+
+		fixture.Define(allocated, fixture.Allocation());
+		fixture.Define(merged, fixture.CopyOf(receiver));
+		fixture.Define(merged, fixture.CopyOf(allocated));
+
+		Assert.That(fixture.Of(merged), Is.EqualTo(BasePointerOrigin.UnknownMerged));
+	}
+
+	[Test]
+	public void EveryBranchOfAMergeEndingInTheSameUnknown_KeepsThatReason()
+	{
+		// Agreeing on "no idea" is not an answer, and replacing the reason with a bare UNKNOWN would
+		// lose the one column that says which rule is missing.
+		Fixture fixture = new();
+		Fixture.Slot left = fixture.Local("left");
+		Fixture.Slot right = fixture.Local("right");
+		Fixture.Slot merged = fixture.Local("merged");
+
+		fixture.Define(left, fixture.Opaque("Or"));
+		fixture.Define(right, fixture.Opaque("Or"));
+		fixture.Define(merged, fixture.CopyOf(left));
+		fixture.Define(merged, fixture.CopyOf(right));
+
+		Assert.That(fixture.Of(merged), Is.EqualTo(BasePointerOrigin.UnknownOpcode("Or")));
+	}
+
+	[Test]
+	public void TwoBranchesReachingOneLocal_IsConvergenceNotACycle()
+	{
+		// Both definitions pass through the same copy. Sharing one visited set across the branches
+		// would report the second as a cycle and lose an origin that both branches agree on.
+		Fixture fixture = new();
+		Fixture.Slot slot = fixture.Local("stack_-8", BasePointerOrigin.StackSlot);
+		Fixture.Slot shared = fixture.Local("shared");
+		Fixture.Slot left = fixture.Local("left");
+		Fixture.Slot right = fixture.Local("right");
+		Fixture.Slot merged = fixture.Local("merged");
+
+		fixture.Define(shared, fixture.CopyOf(slot));
+		fixture.Define(left, fixture.CopyOf(shared));
+		fixture.Define(right, fixture.CopyOf(shared));
+		fixture.Define(merged, fixture.CopyOf(left));
+		fixture.Define(merged, fixture.CopyOf(right));
+
+		Assert.That(fixture.Of(merged), Is.EqualTo(BasePointerOrigin.StackSlot));
+	}
+
+	[Test]
+	public void ADefinitionWithNoRule_NamesTheOpcode()
+	{
+		// "No rule for this" as one bucket held 809 loads and five unrelated causes. The opcode is
+		// what separates a missing rule from nothing to say, so it is part of the answer.
+		Fixture fixture = new();
+		Fixture.Slot local = fixture.Local("local");
+		fixture.Define(local, fixture.Opaque("IsInst"));
+
+		Assert.That(fixture.Of(local), Is.EqualTo("UNKNOWN:OPCODE:IsInst"));
+	}
+
+	[Test]
+	public void ACycleAndAMergeAreDifferentAnswers()
+	{
+		Fixture fixture = new();
+		Fixture.Slot first = fixture.Local("first");
+		Fixture.Slot second = fixture.Local("second");
+		fixture.Define(first, fixture.CopyOf(second));
+		fixture.Define(second, fixture.CopyOf(first));
+
+		Assert.That(fixture.Of(first), Is.EqualTo(BasePointerOrigin.UnknownCycle));
 	}
 
 	private sealed class Fixture
@@ -176,7 +274,10 @@ internal sealed class Il2CppBasePointerOriginTests
 
 		internal BasePointerOrigin.DefinitionLike LoadFromMemory() => new(BasePointerOrigin.DefinitionKind.LoadFromMemory, null);
 
-		internal BasePointerOrigin.DefinitionLike Opaque() => default;
+		internal BasePointerOrigin.DefinitionLike Allocation() => new(BasePointerOrigin.DefinitionKind.Allocation, null);
+
+		internal BasePointerOrigin.DefinitionLike Opaque(string? opcode = null)
+			=> new(BasePointerOrigin.DefinitionKind.Other, null, opcode);
 
 		internal string Of(Slot local)
 			=> BasePointerOrigin.Of(

@@ -52,6 +52,25 @@ public static class BasePointerOrigin
     public const string Unknown = "UNKNOWN";
 
     /// <summary>
+    /// The walk reached a local with more than one definition, which SSA destruction routinely
+    /// leaves behind at a join. Picking one would be the guess this class exists to avoid.
+    /// </summary>
+    public const string UnknownMerged = "UNKNOWN:MERGED";
+
+    /// <summary>The walk came back to a local it had already visited.</summary>
+    public const string UnknownCycle = "UNKNOWN:CYCLE";
+
+    /// <summary>The walk followed <see cref="DepthLimit"/> copies without reaching an origin.</summary>
+    public const string UnknownDepth = "UNKNOWN:DEPTH";
+
+    /// <summary>
+    /// The defining instruction is one the walk has no rule for. The opcode is appended, because a
+    /// family named after a symptom has four times turned out to be several causes - and here the
+    /// opcode is exactly what separates "a rule is missing" from "there is nothing to say".
+    /// </summary>
+    public static string UnknownOpcode(string? opcode) => "UNKNOWN:OPCODE:" + (opcode ?? "none");
+
+    /// <summary>
     /// How far back a chain of copies is followed before the answer is <see cref="Unknown"/>.
     /// </summary>
     public const int DepthLimit = 16;
@@ -77,15 +96,26 @@ public static class BasePointerOrigin
         Func<LocalLike, DefinitionLike, bool> isReturnBufferOf,
         Func<LocalLike, string?> describeUndefined)
     {
-        HashSet<LocalLike> visited = [];
+        return Walk(baseLocal, definitions, describe, isReturnBufferOf, describeUndefined, [], 0);
+    }
+
+    private static string Walk(
+        LocalLike baseLocal,
+        Func<LocalLike, IReadOnlyList<DefinitionLike>> definitions,
+        Func<LocalLike, string?> describe,
+        Func<LocalLike, DefinitionLike, bool> isReturnBufferOf,
+        Func<LocalLike, string?> describeUndefined,
+        HashSet<LocalLike> visited,
+        int startDepth)
+    {
         LocalLike current = baseLocal;
 
-        for (int depth = 0; depth < DepthLimit; depth++)
+        for (int depth = startDepth; depth < DepthLimit; depth++)
         {
             if (!visited.Add(current))
             {
                 // A copy cycle says nothing, and following it further says nothing either.
-                return Unknown;
+                return UnknownCycle;
             }
 
             // What the local is in its own right outranks what defined it: a receiver is the receiver
@@ -107,9 +137,33 @@ public static class BasePointerOrigin
 
             if (defining.Count > 1)
             {
-                // A disagreement, and picking one of them would be exactly the guess this class
-                // exists to avoid.
-                return Unknown;
+                // SSA destruction leaves a local with one definition per merged version, and picking
+                // one of them would be the guess this class exists to avoid. But they need not
+                // disagree: where every definition leads to the same storage, that is the answer,
+                // and it is no less exact for having been reached several ways. Only a genuine
+                // disagreement is unknown.
+                string? agreed = null;
+
+                foreach (DefinitionLike candidate in defining)
+                {
+                    // Each branch gets its own visited set: two definitions reaching the same local
+                    // is convergence, not a cycle, and sharing the set would report the second as one.
+                    string reached = Continue(current, candidate, definitions, describe, isReturnBufferOf,
+                        describeUndefined, [.. visited], depth);
+
+                    if (agreed is null)
+                    {
+                        agreed = reached;
+                    }
+                    else if (agreed != reached)
+                    {
+                        return UnknownMerged;
+                    }
+                }
+
+                // Every branch ending in the same unknown is still unknown, and saying so keeps the
+                // reason rather than replacing it with "they agreed".
+                return agreed ?? UnknownMerged;
             }
 
             DefinitionLike definition = defining[0];
@@ -149,11 +203,43 @@ public static class BasePointerOrigin
                     continue;
 
                 default:
-                    return Unknown;
+                    return UnknownOpcode(definition.Opcode);
             }
         }
 
-        return Unknown;
+        return UnknownDepth;
+    }
+
+    /// <summary>Follows one definition of a local, which is one branch of a merge.</summary>
+    private static string Continue(
+        LocalLike current,
+        DefinitionLike definition,
+        Func<LocalLike, IReadOnlyList<DefinitionLike>> definitions,
+        Func<LocalLike, string?> describe,
+        Func<LocalLike, DefinitionLike, bool> isReturnBufferOf,
+        Func<LocalLike, string?> describeUndefined,
+        HashSet<LocalLike> visited,
+        int depth)
+    {
+        if (isReturnBufferOf(current, definition))
+        {
+            return ReturnBuffer;
+        }
+
+        return definition.Kind switch
+        {
+            DefinitionKind.CopyOfLocal when definition.Source is { } copied
+                => Walk(copied, definitions, describe, isReturnBufferOf, describeUndefined, visited, depth + 1),
+            DefinitionKind.OffsetFromLocal when definition.Source is { } origin
+                => Walk(origin, definitions, describe, isReturnBufferOf, describeUndefined, visited, depth + 1),
+            DefinitionKind.FieldRead => InstanceField,
+            DefinitionKind.ArrayElementAddress => ArrayElement,
+            DefinitionKind.Allocation => Allocation,
+            DefinitionKind.GenericContextRead => GenericContext,
+            DefinitionKind.CallResult => CallResult,
+            DefinitionKind.LoadFromMemory => LoadedPointer,
+            _ => UnknownOpcode(definition.Opcode),
+        };
     }
 
     /// <summary>A local, kept opaque so the walk can be tested without metadata behind it.</summary>
@@ -191,5 +277,9 @@ public static class BasePointerOrigin
     }
 
     /// <summary>A defining instruction reduced to what the walk needs.</summary>
-    public readonly record struct DefinitionLike(DefinitionKind Kind, LocalLike? Source);
+    /// <param name="Opcode">
+    /// What the instruction is, reported only when <see cref="Kind"/> is <see cref="DefinitionKind.Other"/>
+    /// so that "no rule for this" can be counted per opcode rather than as one bucket.
+    /// </param>
+    public readonly record struct DefinitionLike(DefinitionKind Kind, LocalLike? Source, string? Opcode = null);
 }
