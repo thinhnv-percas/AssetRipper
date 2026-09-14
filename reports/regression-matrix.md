@@ -386,3 +386,34 @@ Kết quả âm của iteration này, tất cả đã đo:
 - `ResolveFieldOffsets` lần hai sau `CopyCoalescer` — 2722 → 2722.
 - `ResolveFieldOffsets` lần hai ở cuối `Analyze` — 2722 → 2719 (3 load).
 - `ResolveFieldOffsets` duyệt mọi block thay vì walk BFS — 2722 → 2722, giữ lại vì đúng.
+
+## Iteration 046 — phân loại truy cập bộ nhớ theo thứ nó thật sự là
+
+Không đổi một byte nào của bản rip: 0 file `.cs` khác baseline trên **cả hai** fixture.
+
+| Chỉ số | 045 | 046 | Delta |
+|---|---:|---:|---:|
+| unresolved (Impostor / Pinata) | 2722 / 9245 | 2722 / 9245 | 0 |
+| genFail | 0 | 0 | 0 |
+| file `.cs` (Impostor / Pinata) | 819 / 3083 | 819 / 3083 | 0 |
+| Roslyn Impostor / Pinata | 348-0 / 1478-1 | 348-0 / 1478-1 | 0 |
+| Pinata CS0030 | 1125 | 1125 | 0 |
+| shape | 16/16 | 16/16 | 0 |
+| `array[i].field` / `(float)array[i]` | 164 / 0 | 164 / 0 | 0 |
+| `m_Script` gãy | 6 | 6 | 0 |
+| test | 376 | 386 | +10 |
+
+Phép đo mới, không có ở 045:
+
+| | 045 | 046 |
+|---|---:|---:|
+| load có nguồn gốc base chưa phân loại | **809** | **396** |
+| INSTANCE_FIELD / LOADED_POINTER / STACK_SLOT | 138 / 329 / 81 | 342 / 386 / 184 |
+| lệnh đọc cấu trúc runtime có tên | 0 | **651 / 651** |
+| MANAGED_FIELD / RUNTIME_STRUCT / NATIVE_TEMPORARY / ARRAY_ACCESS / UNKNOWN | — | 901 / 651 / 343 / 66 / 761 |
+| độ tin cậy EXACT / INFERRED / NONE | — | 997 / 964 / 761 |
+
+Những thứ **không** làm, mỗi thứ có lý do đo được: không patch resolver (045 đã đo: trả lời được 3
+trên 2722); không tạo managed field giả cho 651 lệnh đọc runtime (§11); không suy đoán base của
+`Add untyped, integer` (27 ca); không mở subsystem shader (fixture chỉ có GLES); không sửa 6 tham
+chiếu `m_Script` gãy (045 đã đo: 4 không có ứng viên, 2 chỉ có tên tài liệu).

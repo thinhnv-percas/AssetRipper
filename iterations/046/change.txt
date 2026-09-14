@@ -1,0 +1,44 @@
+Brief 046: end-to-end Unity project recovery, ưu tiên số 1 là root cause của 1241 load NO_OWNER.
+
+Iteration này không đổi một byte nào của bản rip. Mọi kết quả là PHÂN LOẠI, không phải phân giải,
+và §2 của brief nói đúng điều đó: mục tiêu là kéo UNKNOWN xuống, không phải kéo tổng về 0.
+
+A. "UNKNOWN" không phải một thứ — commit 2e223d00
+
+   809/2722 load có nguồn gốc base là UNKNOWN. Tách ra: 343 Add không có luật, 211 local nhiều
+   định nghĩa, 139 Move của AddressOf, 69 base không phải local, 47 rải bảy opcode.
+
+   Bốn có câu trả lời chính xác:
+   - AddressOf(local) trỏ vào chỗ lưu trữ của local đó (98 -> STACK_SLOT, 41 -> CYCLE).
+   - Toán hạng đặt tên chỗ lưu trữ trong Move cũng đặt tên nó trong Add. Giữa hai thanh ghi thì
+     KIỂU quyết định; bên không kiểu cạnh số nguyên *có lẽ* là base và 27 ca đó ở lại UNKNOWN.
+   - Nhiều định nghĩa chỉ là UNKNOWN khi chúng bất đồng (211 -> 160).
+   - Mọi nhánh cùng kết thúc ở một UNKNOWN thì giữ nguyên lý do.
+
+   809 -> 396. INSTANCE_FIELD 138->342, LOADED_POINTER 329->386, STACK_SLOT 81->184,
+   PARAMETER 394->433, ARRAY_ELEMENT 0->7.
+
+   Chi tiết phải đúng: mỗi nhánh của merge có tập visited RIÊNG. Hai định nghĩa qua cùng một local
+   là hội tụ chứ không phải chu trình. Có test riêng, và nó là thứ duy nhất bắt được lỗi đó.
+
+B. 651 lệnh đọc cấu trúc runtime, tất cả có tên — commit da5c7ba9
+
+   §11 cấm cả hai cách dễ (đếm là thất bại, hoặc bỏ im lặng). Cách thứ ba là gọi tên.
+   Il2CppClassOffsetPatcher.MemberNames dựng bảng ĐẦY ĐỦ từ struct database, tách hẳn khỏi
+   Il2CppClassUsefulOffsets (danh sách chọn lọc các pass key on).
+
+   651/651 có tên. Hai nhóm lớn nhất chưa ai đọc trước đây: 103 byval_arg.attrs và
+   61 stack_slot_size — gần như chắc chắn mỗi nhóm là MỘT hình dạng chưa nhận diện.
+
+C. recovery-report.json — commit 1f021b75
+
+   901 MANAGED_FIELD / 761 UNKNOWN / 651 RUNTIME_STRUCT / 343 NATIVE_TEMPORARY / 66 ARRAY_ACCESS.
+   997 EXACT / 964 INFERRED / 761 NONE, không gộp.
+
+D. Gate: 2722 và 9245 load, genFail 0, 819 và 3083 file, 0 file .cs đổi trên CẢ HAI fixture,
+   shape 16/16, Roslyn 348/0 và 1478/1, array[i].field 164, (float)array[i] 0, m_Script gãy 6.
+   Test 376 -> 386, 1 fail có sẵn. Mười test mới, đã chứng minh không suy biến.
+
+E. Một assertion của chính tôi sai và fixture bắt được: tôi khẳng định byte sau byval_arg phải có
+   tên, trong khi layout tổng hợp để một khoảng trống thật ở đó. Sửa thành khẳng định khoảng trống
+   là khoảng trống.

@@ -1,0 +1,174 @@
+resolved   16677
+unresolved 2722
+resolution rate 0.8597
+
+== RESOLVED: origin ==
+    6572  THIS
+    2937  PARAMETER
+    2718  INSTANCE_FIELD
+    1366  CALL_RESULT
+    1308  STATIC_FIELD
+    1074  UNKNOWN
+     536  ALLOCATION
+      76  ENTRY_VALUE
+      43  LOADED_POINTER
+      35  STACK_SLOT
+      12  RUNTIME_STRUCTURE
+
+== RESOLVED: coordinate frame ==
+   14491  CLASS_OBJECT_RELATIVE
+    1992  VALUE_RELATIVE
+     156  BOTH
+      30  NEITHER
+       8  OBJECT_RELATIVE
+
+== UNRESOLVED: origin ==
+     548  RUNTIME_STRUCTURE
+     433  PARAMETER
+     386  LOADED_POINTER
+     342  INSTANCE_FIELD
+     184  STACK_SLOT
+     160  UNKNOWN:MERGED
+     160  ENTRY_VALUE
+     103  STATIC_FIELD
+      95  CALL_RESULT
+      69  UNKNOWN
+      60  THIS
+      41  UNKNOWN:CYCLE
+      34  UNKNOWN:OPCODE:Add:Immediate+Immediate
+      27  UNKNOWN:OPCODE:Add:untyped+integer
+      19  UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext
+      17  UNKNOWN:OPCODE:Move:Immediate
+       8  ALLOCATION
+       7  ARRAY_ELEMENT
+       7  UNKNOWN:OPCODE:Add:untyped+untyped
+       5  UNKNOWN:OPCODE:Or
+       5  UNKNOWN:OPCODE:Move:ArrayAccess
+       5  UNKNOWN:OPCODE:Add:value+integer
+       4  UNKNOWN:OPCODE:Add:value+untyped
+       3  UNKNOWN:OPCODE:IsInst
+
+== UNRESOLVED: coordinate frame ==
+    1900  NOT_APPLICABLE
+     553  CLASS_OBJECT_RELATIVE
+     163  NEITHER
+      77  VALUE_RELATIVE
+      29  OBJECT_RELATIVE
+
+== origin x frame x status ==
+origin               frame                     resolved  unresolved    rate
+THIS                 CLASS_OBJECT_RELATIVE         6263          27   0.996
+INSTANCE_FIELD       CLASS_OBJECT_RELATIVE         2717         111   0.961
+PARAMETER            CLASS_OBJECT_RELATIVE         2276         237   0.906
+STATIC_FIELD         CLASS_OBJECT_RELATIVE         1162          30   0.975
+UNKNOWN              CLASS_OBJECT_RELATIVE          997           0   1.000
+CALL_RESULT          VALUE_RELATIVE                 888           0   1.000
+PARAMETER            VALUE_RELATIVE                 610           0   1.000
+RUNTIME_STRUCTURE    NOT_APPLICABLE                   0         548   0.000
+ALLOCATION           CLASS_OBJECT_RELATIVE          536           0   1.000
+CALL_RESULT          CLASS_OBJECT_RELATIVE          419          33   0.927
+LOADED_POINTER       NOT_APPLICABLE                   0         372   0.000
+THIS                 VALUE_RELATIVE                 262           0   1.000
+INSTANCE_FIELD       NOT_APPLICABLE                   0         224   0.000
+STATIC_FIELD         VALUE_RELATIVE                 110          43   0.719
+STACK_SLOT           NOT_APPLICABLE                   0         153   0.000
+ENTRY_VALUE          NOT_APPLICABLE                   0         141   0.000
+PARAMETER            NOT_APPLICABLE                   0         130   0.000
+UNKNOWN:MERGED       NOT_APPLICABLE                   0         104   0.000
+UNKNOWN              VALUE_RELATIVE                  77           0   1.000
+UNKNOWN              NOT_APPLICABLE                   0          69   0.000
+CALL_RESULT          BOTH                            59           0   1.000
+STATIC_FIELD         NEITHER                         28          30   0.483
+STACK_SLOT           CLASS_OBJECT_RELATIVE           35          21   0.625
+LOADED_POINTER       CLASS_OBJECT_RELATIVE           42          12   0.778
+UNKNOWN:MERGED       CLASS_OBJECT_RELATIVE            0          54   0.000
+PARAMETER            NEITHER                          0          52   0.000
+PARAMETER            BOTH                            51           0   1.000
+ENTRY_VALUE          CLASS_OBJECT_RELATIVE           32          19   0.627
+THIS                 BOTH                            45           0   1.000
+ENTRY_VALUE          VALUE_RELATIVE                  44           0   1.000
+CALL_RESULT          NOT_APPLICABLE                   0          42   0.000
+UNKNOWN:CYCLE        NOT_APPLICABLE                   0          41   0.000
+UNKNOWN:OPCODE:Add:Immediate+Immediate VALUE_RELATIVE                   0          34   0.000
+THIS                 NEITHER                          2          30   0.062
+UNKNOWN:OPCODE:Add:untyped+integer NOT_APPLICABLE                   0          27   0.000
+UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext NOT_APPLICABLE                   0          18   0.000
+UNKNOWN:OPCODE:Move:Immediate NEITHER                          0          15   0.000
+PARAMETER            OBJECT_RELATIVE                  0          14   0.000
+CALL_RESULT          NEITHER                          0          13   0.000
+RUNTIME_STRUCTURE    CLASS_OBJECT_RELATIVE           12           0   1.000
+STACK_SLOT           NEITHER                          0          10   0.000
+STATIC_FIELD         OBJECT_RELATIVE                  8           0   1.000
+ALLOCATION           NOT_APPLICABLE                   0           8   0.000
+ARRAY_ELEMENT        NOT_APPLICABLE                   0           7   0.000
+CALL_RESULT          OBJECT_RELATIVE                  0           7   0.000
+UNKNOWN:OPCODE:Add:untyped+untyped NOT_APPLICABLE                   0           7   0.000
+INSTANCE_FIELD       NEITHER                          0           6   0.000
+UNKNOWN:OPCODE:Or    NEITHER                          0           5   0.000
+UNKNOWN:OPCODE:Move:ArrayAccess CLASS_OBJECT_RELATIVE            0           5   0.000
+UNKNOWN:OPCODE:Add:value+integer NOT_APPLICABLE                   0           5   0.000
+UNKNOWN:OPCODE:Add:value+untyped NOT_APPLICABLE                   0           4   0.000
+THIS                 OBJECT_RELATIVE                  0           3   0.000
+UNKNOWN:OPCODE:IsInst CLASS_OBJECT_RELATIVE            0           3   0.000
+UNKNOWN:MERGED       OBJECT_RELATIVE                  0           2   0.000
+UNKNOWN:OPCODE:Move:Immediate OBJECT_RELATIVE                  0           2   0.000
+LOADED_POINTER       NEITHER                          0           2   0.000
+LOADED_POINTER       BOTH                             1           0   1.000
+INSTANCE_FIELD       VALUE_RELATIVE                   1           0   1.000
+INSTANCE_FIELD       OBJECT_RELATIVE                  0           1   0.000
+UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext CLASS_OBJECT_RELATIVE            0           1   0.000
+
+== shapes present when RESOLVED and absent when UNRESOLVED ==
+(a candidate missing rule only if the same shape never fails)
+     997  UNKNOWN / CLASS_OBJECT_RELATIVE
+     888  CALL_RESULT / VALUE_RELATIVE
+     610  PARAMETER / VALUE_RELATIVE
+     536  ALLOCATION / CLASS_OBJECT_RELATIVE
+     262  THIS / VALUE_RELATIVE
+      77  UNKNOWN / VALUE_RELATIVE
+      59  CALL_RESULT / BOTH
+      51  PARAMETER / BOTH
+      45  THIS / BOTH
+      44  ENTRY_VALUE / VALUE_RELATIVE
+      12  RUNTIME_STRUCTURE / CLASS_OBJECT_RELATIVE
+       8  STATIC_FIELD / OBJECT_RELATIVE
+       1  LOADED_POINTER / BOTH
+       1  INSTANCE_FIELD / VALUE_RELATIVE
+
+== shapes present when UNRESOLVED and absent when RESOLVED ==
+(nothing in the program resolves this shape: a genuinely missing capability)
+     548  RUNTIME_STRUCTURE / NOT_APPLICABLE
+     372  LOADED_POINTER / NOT_APPLICABLE
+     224  INSTANCE_FIELD / NOT_APPLICABLE
+     153  STACK_SLOT / NOT_APPLICABLE
+     141  ENTRY_VALUE / NOT_APPLICABLE
+     130  PARAMETER / NOT_APPLICABLE
+     104  UNKNOWN:MERGED / NOT_APPLICABLE
+      69  UNKNOWN / NOT_APPLICABLE
+      54  UNKNOWN:MERGED / CLASS_OBJECT_RELATIVE
+      52  PARAMETER / NEITHER
+      42  CALL_RESULT / NOT_APPLICABLE
+      41  UNKNOWN:CYCLE / NOT_APPLICABLE
+      34  UNKNOWN:OPCODE:Add:Immediate+Immediate / VALUE_RELATIVE
+      27  UNKNOWN:OPCODE:Add:untyped+integer / NOT_APPLICABLE
+      18  UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext / NOT_APPLICABLE
+      15  UNKNOWN:OPCODE:Move:Immediate / NEITHER
+      14  PARAMETER / OBJECT_RELATIVE
+      13  CALL_RESULT / NEITHER
+      10  STACK_SLOT / NEITHER
+       8  ALLOCATION / NOT_APPLICABLE
+       7  ARRAY_ELEMENT / NOT_APPLICABLE
+       7  CALL_RESULT / OBJECT_RELATIVE
+       7  UNKNOWN:OPCODE:Add:untyped+untyped / NOT_APPLICABLE
+       6  INSTANCE_FIELD / NEITHER
+       5  UNKNOWN:OPCODE:Or / NEITHER
+       5  UNKNOWN:OPCODE:Move:ArrayAccess / CLASS_OBJECT_RELATIVE
+       5  UNKNOWN:OPCODE:Add:value+integer / NOT_APPLICABLE
+       4  UNKNOWN:OPCODE:Add:value+untyped / NOT_APPLICABLE
+       3  THIS / OBJECT_RELATIVE
+       3  UNKNOWN:OPCODE:IsInst / CLASS_OBJECT_RELATIVE
+       2  UNKNOWN:MERGED / OBJECT_RELATIVE
+       2  UNKNOWN:OPCODE:Move:Immediate / OBJECT_RELATIVE
+       2  LOADED_POINTER / NEITHER
+       1  INSTANCE_FIELD / OBJECT_RELATIVE
+       1  UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext / CLASS_OBJECT_RELATIVE

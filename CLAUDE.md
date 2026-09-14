@@ -1052,6 +1052,41 @@ find it; `strings` without `-el` does find method and type names.
   attached to that GameObject means the component that wanted it is right there, so this is a
   different one. It never applies a repair.
 
+- **"No idea" is a family name too, and it split five ways.** 809 of 2722 loads had an `UNKNOWN`
+  base-pointer origin, which read as one problem and was five: 343 an `Add` the walk had no rule
+  for, 211 a local with more than one definition, 139 a `Move` of an `AddressOf`, 69 a base that is
+  not a local, 47 across seven other opcodes. Four had exact answers. `AddressOf(local)` points into
+  that local's storage, so the walk continues there - the same reasoning `OffsetFromLocal` already
+  rests on, and worth 98 loads reclassified as the X29 frame spills they are. An operand that names
+  storage in a `Move` names it in an `Add` too, so `FieldReference`, `MemoryOperand` and
+  `ArrayAccess` answer there as well; between two registers the *type* decides, because an integer
+  added to a pointer is a pointer and two pointers are never added - but only where the side is
+  typed, so 27 `untyped + integer` stay unknown rather than become a guess. And several definitions
+  is not disagreement: where every branch of a merge reaches the same storage that is the answer.
+  809 to 396, with the rip unchanged to the byte.
+- **Each branch of a merge needs its own visited set.** Two definitions passing through one local is
+  convergence, not a cycle; sharing the set reports the second branch as a cycle and loses an origin
+  both branches agree on. There is a test for exactly this and it is the only thing that catches it -
+  the merge rule alone passes its own tests with the sets shared.
+- **The runtime's own structures can be named, and that is the third option between counting them as
+  failures and dropping them.** 651 loads - the largest group - read `Il2CppClass` or `MethodInfo`
+  with a correctly typed base and no managed field at the offset, ever. `Il2CppClassUsefulOffsets` is
+  the curated list of offsets the *passes key on* and must stay that way, since an entry there
+  changes what the analysis does; the struct database carries the whole layout, so
+  `Il2CppClassOffsetPatcher.MemberNames` builds a separate naming table - 651 of 651 named, no
+  `<unnamed>` left. Three groups independently confirm what this file already recorded by other
+  routes (61 `stack_slot_size` are iteration 033's shared-generic alloca sequence; `cctor_finished`
+  and `initialized_and_no_error` are surviving class-init guards; `typeHierarchyDepth` is 18 as
+  recorded). **The two largest had never been read at all: 103 `byval_arg.attrs` and 61
+  `stack_slot_size`, and each is almost certainly one unrecognised shape rather than 164 separate
+  defects.** A member claims every byte it covers, because a load is at the offset it is at; a
+  bitfield says so in its name, because several share one byte.
+- **The count of unresolved loads mixes three populations that want opposite work.**
+  `recovery_report.py` splits Impostor's 2722: 901 `MANAGED_FIELD` (a real recovery defect), 651
+  `RUNTIME_STRUCT` (correctly recovered as what it is), 343 `NATIVE_TEMPORARY`, 66 `ARRAY_ACCESS`,
+  761 `UNKNOWN` - with 997 EXACT, 964 INFERRED and 761 NONE confidence, never added together. The
+  goal is to drive `UNKNOWN` down, not the total to zero.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,

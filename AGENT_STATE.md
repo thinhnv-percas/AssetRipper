@@ -5,10 +5,10 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 045 (hoàn tất; đo lường + công cụ validate, không đổi một byte nào của bản rip.
-                          Ship: ResolvedMemoryLoad + cột SEARCH_ANSWERS, crosstab_loads.py,
-                          classify_cs0030_operands.py, audit_script_references.py,
-                          validate_unity_project.py, ITERATION_045, RUNNABLE_PROJECT_RECOVERY)
+Iteration hiện tại: 046 (hoàn tất; phân loại truy cập bộ nhớ, không đổi một byte nào của bản rip.
+                          Ship: UNKNOWN tách thành năm nguyên nhân rồi trả lời bốn,
+                          Il2CppClassOffsetPatcher.MemberNames, recovery_report.py,
+                          ITERATION_046)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -446,6 +446,30 @@ Lần thất bại gần nhất:
 Bảng số 045: 2722 / 9245 load, genFail 0, 819 / 3083 file, 0 file .cs đổi so với baseline trên cả
 hai fixture, shape 16/16, Roslyn 348/0 và 1478/1, `array[i].field` 164, `(float)array[i]` 0,
 test 372 -> 376 với 1 fail có sẵn.
+
+## Iteration 046 — ba điều một session sau phải biết
+
+1. **"UNKNOWN" không phải một thứ, và bốn phần năm của nó có câu trả lời chính xác.** 809 load
+   không biết nguồn gốc base tách thành năm nguyên nhân; `AddressOf(local)` đi tiếp tới local đó,
+   một toán hạng đặt tên chỗ lưu trữ trong `Move` cũng đặt tên nó trong `Add`, và nhiều định nghĩa
+   chỉ là UNKNOWN khi chúng **bất đồng**. 809 -> 396. Mỗi nhánh của một merge phải có tập `visited`
+   riêng: hai định nghĩa cùng đi qua một local là hội tụ, không phải chu trình.
+
+2. **651 lệnh đọc cấu trúc runtime đều đã có tên, từ struct database.**
+   `Il2CppClassOffsetPatcher.MemberNames` là bảng ĐẦY ĐỦ, tách hẳn khỏi
+   `Il2CppClassUsefulOffsets` (danh sách chọn lọc mà các pass key on, thêm một mục vào đó là đổi
+   hành vi phân tích). Hai nhóm lớn nhất chưa ai đọc tên trước đây — **103 lần `byval_arg.attrs`,
+   61 lần `stack_slot_size`** — gần như chắc chắn mỗi nhóm là MỘT hình dạng chưa nhận diện. Đó là
+   hạng mục giá trị nhất còn lại.
+
+3. **`recovery_report.py` trả lời "truy cập này là cái gì", không phải "bao nhiêu cái hỏng".**
+   901 MANAGED_FIELD / 761 UNKNOWN / 651 RUNTIME_STRUCT / 343 NATIVE_TEMPORARY / 66 ARRAY_ACCESS,
+   với 997 EXACT + 964 INFERRED + 761 NONE. Mục tiêu là kéo UNKNOWN xuống, KHÔNG phải kéo tổng về
+   0: một lệnh đọc `stack_slot_size` đã được phục hồi đúng thành thứ nó là.
+
+Bảng số 046: 2722 / 9245 load, genFail 0, 819 / 3083 file, **0 file .cs đổi so với baseline trên cả
+hai fixture**, shape 16/16, Roslyn 348/0 và 1478/1, `array[i].field` 164, `(float)array[i]` 0,
+test 376 -> 386 với 1 fail có sẵn.
 
 ## Ghi chú môi trường
 
