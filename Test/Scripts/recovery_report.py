@@ -20,7 +20,7 @@ import pathlib
 import sys
 
 KIND, ASSEMBLY, TYPE, METHOD, OWNER = 0, 1, 2, 3, 4
-ROOT_CAUSE, ORIGIN, SEARCH, RUNTIME_MEMBER, MEMORY = 12, 18, 19, 20, 21
+ROOT_CAUSE, ORIGIN, SEARCH, RUNTIME_MEMBER, CONSUMER, MEMORY = 12, 18, 19, 20, 21, 22
 
 # Where a base pointer came from decides which of the three populations a load belongs to. An origin
 # is read off the IR, so this mapping carries no guess of its own.
