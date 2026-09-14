@@ -1,0 +1,16 @@
+CS0030 by the shape of the operand cast (total 1125)
+
+   680  LOCAL                   60.4%
+        e.g. TCP2_PlanarReflection.cs:106  TCP2_PlanarReflection tCP2_PlanarReflection = (TCP2_PlanarReflection)pixelLightCount;
+   247  LITERAL_ZERO_STANDIN    22.0%
+        e.g. TCP2_PlanarReflection.cs:114  tCP2_PlanarReflection2.UpdateCameraModes(current, (Camera)0);
+    83  PARENTHESISED            7.4%
+        e.g. TCP2_PlanarReflection.cs:152  Matrix4x4 matrix4x = (Matrix4x4)(&obj9) * (Matrix4x4)(&num2);
+    57  DEFAULT_OR_TYPEOF        5.1%
+        e.g. TCP2_PlanarReflection.cs:272  if ((IntPtr)0 == (IntPtr)typeof(IEnumerator))
+    55  MEMBER_OR_ELEMENT        4.9%
+        e.g. SpiralCurve.cs:121  ((ObiPath)0).AddControlPoint(position, inTangentVector, vector4, (Vector3)vector4.z, mass, num8, up.x, 1, (Col
+     2  OTHER                    0.2%
+        e.g. EpicToonFX/ETFXMouseOrbit.cs:111  bool flag = (byte)(int)"Mouse Y" != 0;
+     1  OTHER_LITERAL            0.1%
+        e.g. ProGrids/pg_Util.cs:1086  Vector3 result = ((!(vector.x < 0f)) ? ((Vector3)1f) : ((Vector3)(-1f)));

@@ -1,0 +1,37 @@
+{
+  "checked": 1993,
+  "findings": [
+    {
+      "sourceFile": "Pinata/Assets/Resources/prefabs/CandyBunch.prefab",
+      "sourceObject": "114703437598541787",
+      "sourceObjectName": "CandyBunch",
+      "property": "m_Script",
+      "line": 2251,
+      "fileID": "0",
+      "guid": null,
+      "expectedType": "MonoScript",
+      "candidateTarget": null,
+      "candidateGuid": null,
+      "candidateEvidence": null,
+      "reason": "NO_TARGET: m_Script is the null PPtr, so the serialized data named no MonoScript the rip could map",
+      "confidence": "NONE",
+      "repairStatus": "UNRESOLVED"
+    },
+    {
+      "sourceFile": "Pinata/Assets/Resources/prefabs/CandyFall.prefab",
+      "sourceObject": "114703437598541787",
+      "sourceObjectName": "CandyFall",
+      "property": "m_Script",
+      "line": 2251,
+      "fileID": "0",
+      "guid": null,
+      "expectedType": "MonoScript",
+      "candidateTarget": null,
+      "candidateGuid": null,
+      "candidateEvidence": null,
+      "reason": "NO_TARGET: m_Script is the null PPtr, so the serialized data named no MonoScript the rip could map",
+      "confidence": "NONE",
+      "repairStatus": "UNRESOLVED"
+    }
+  ]
+}

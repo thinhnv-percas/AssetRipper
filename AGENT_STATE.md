@@ -5,8 +5,10 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 044 (hoàn tất; mục tiêu dự án đổi sang APK/IPA -> Unity project chạy được.
-                          Ship: BasePointerOrigin, --shader-mode, RECOVERY_MATRIX, ARCHITECTURE)
+Iteration hiện tại: 045 (hoàn tất; đo lường + công cụ validate, không đổi một byte nào của bản rip.
+                          Ship: ResolvedMemoryLoad + cột SEARCH_ANSWERS, crosstab_loads.py,
+                          classify_cs0030_operands.py, audit_script_references.py,
+                          validate_unity_project.py, ITERATION_045, RUNNABLE_PROJECT_RECOVERY)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -415,6 +417,35 @@ Lần thất bại gần nhất:
   iteration 030 - DCE chỉ đánh dấu định nghĩa cuối. Tốt hơn trên MỌI cột dễ đọc và vẫn bị loại vì
   nó xoá code còn sống; dấu hiệu duy nhất là CS0165 từ 5 lên 12. Đây là ví dụ mạnh nhất trong repo
   cho nguyên tắc semantic correctness > diagnostic reduction.
+
+## Iteration 045 — bốn điều một session sau phải biết trước khi làm gì
+
+1. **Luật hệ toạ độ của 044 đã bị bác bỏ, và bác bỏ theo chiều ngược lại.** Đo trên dân số load
+   ĐÃ phân giải: THIS/PARAMETER/CALL_RESULT đọc value type là VALUE_RELATIVE **1761 lần**,
+   OBJECT_RELATIVE **0 lần**. 25 ca object-relative mà 044 nhìn thấy chính là 25 ca thất bại.
+   `OBJECT_RELATIVE` là dấu hiệu của thất bại chứ không phải một luật về khung. Đừng làm lại.
+
+2. **Phép tìm field không phải nút thắt, và họ `RESOLVABLE` 48 load là artefact.** Cột
+   `SEARCH_ANSWERS` chạy chính phép tìm tại điểm load được đếm: 1417 SEARCH_EMPTY, 1241 NO_OWNER,
+   61 NOT_A_FIELD_ACCESS, **3** SEARCH_ANSWERS. Con số 48 của iteration 040/044 đến từ việc đo bằng
+   `GenericInstanceFieldLayout`, vốn nằm ở khung boxed — cùng một sự thật đếm hai lần, không phải
+   hai bằng chứng độc lập.
+
+3. **CS0030 không phải một họ.** Brief nêu 1125 lần `int -> TCP2_PlanarReflection`; thông báo đó có
+   đúng một lần, 1125 là số của mã lỗi và thông báo đi kèm là cái đầu tiên trong log. Phân loại
+   theo hình dạng toán hạng: 60% là local dùng sai chỗ (229 cặp kiểu riêng biệt, lớn nhất 48), 22%
+   là `((Fsm)0)` tức phép đếm lại của unresolved load. Harness giờ in thông báo phổ biến nhất kèm
+   tỉ lệ, nên cái bẫy này không lặp lại được.
+
+4. **"4 m_Script gãy" là 6.** Hai GUID treo không bị đếm vì phép đếm cũ grep một chuỗi
+   (`fileID: 0`). `Test/Scripts/audit_script_references.py` và
+   `Test/Scripts/validate_unity_project.py` là hai công cụ mới; cả hai đều đã tự bắt được mình báo
+   FAIL sai ba lần, mỗi lần vì đọc "vắng mặt" thành "hỏng" (xem
+   `docs/RUNNABLE_PROJECT_RECOVERY.md` mục 4).
+
+Bảng số 045: 2722 / 9245 load, genFail 0, 819 / 3083 file, 0 file .cs đổi so với baseline trên cả
+hai fixture, shape 16/16, Roslyn 348/0 và 1478/1, `array[i].field` 164, `(float)array[i]` 0,
+test 372 -> 376 với 1 fail có sẵn.
 
 ## Ghi chú môi trường
 

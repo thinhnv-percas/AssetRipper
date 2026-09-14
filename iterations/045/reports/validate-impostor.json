@@ -1,0 +1,77 @@
+[
+  {
+    "area": "structure/Assets",
+    "verdict": "PASS",
+    "detail": "iterations/045/output/Impostor/Assets"
+  },
+  {
+    "area": "structure/ProjectSettings",
+    "verdict": "PASS",
+    "detail": "iterations/045/output/Impostor/ProjectSettings"
+  },
+  {
+    "area": "structure/Packages",
+    "verdict": "PASS",
+    "detail": "iterations/045/output/Impostor/Packages"
+  },
+  {
+    "area": "structure/ProjectVersion",
+    "verdict": "PASS",
+    "detail": "2022.3.62f2"
+  },
+  {
+    "area": "packages/manifest",
+    "verdict": "PASS",
+    "detail": "31 dependencies"
+  },
+  {
+    "area": "references/guids",
+    "verdict": "UNKNOWN",
+    "detail": "145 distinct GUIDs across 64 documents; 24 sites name Unity's own built-in resources and resolve in the editor; 3 GUIDs (4 sites) are declared by no .meta here and may belong to a package or to nothing"
+  },
+  {
+    "area": "references/m_Script",
+    "verdict": "FAIL",
+    "detail": "4 MonoBehaviour(s) with a null script pointer - each loses its component and every field on it"
+  },
+  {
+    "area": "scripts/present",
+    "verdict": "PASS",
+    "detail": "819 .cs files"
+  },
+  {
+    "area": "scripts/meta",
+    "verdict": "PASS",
+    "detail": "450 .cs.meta for 819 .cs; of the 155 non-generic component types, 0 have none - legitimate for one only ever added at runtime"
+  },
+  {
+    "area": "shaders/recovered",
+    "verdict": "WARN",
+    "detail": "3 shaders, 3 carry the stand-in unlit pass. A stand-in COMPILES, so the material is not pink and a pink check would report success while the shading is wrong"
+  },
+  {
+    "area": "scenes/present",
+    "verdict": "PASS",
+    "detail": "1 scene(s)"
+  },
+  {
+    "area": "scenes/buildSettings",
+    "verdict": "PASS",
+    "detail": "1 scene(s) in the build list - with none, a player build starts on an empty scene"
+  },
+  {
+    "area": "import/unity",
+    "verdict": "NOT_RUN",
+    "detail": "no Unity editor on this machine; NOT_RUN is not PASS"
+  },
+  {
+    "area": "build/unity",
+    "verdict": "NOT_RUN",
+    "detail": "idem"
+  },
+  {
+    "area": "runtime/unity",
+    "verdict": "NOT_RUN",
+    "detail": "idem"
+  }
+]

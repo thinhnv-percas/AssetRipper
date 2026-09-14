@@ -1,0 +1,77 @@
+[
+  {
+    "area": "structure/Assets",
+    "verdict": "PASS",
+    "detail": "iterations/045/output-pinata/Pinata/Assets"
+  },
+  {
+    "area": "structure/ProjectSettings",
+    "verdict": "PASS",
+    "detail": "iterations/045/output-pinata/Pinata/ProjectSettings"
+  },
+  {
+    "area": "structure/Packages",
+    "verdict": "PASS",
+    "detail": "iterations/045/output-pinata/Pinata/Packages"
+  },
+  {
+    "area": "structure/ProjectVersion",
+    "verdict": "PASS",
+    "detail": "2019.2.6f1"
+  },
+  {
+    "area": "packages/manifest",
+    "verdict": "PASS",
+    "detail": "31 dependencies"
+  },
+  {
+    "area": "references/guids",
+    "verdict": "PASS",
+    "detail": "495 distinct GUIDs across 300 documents; 67 sites name Unity's own built-in resources and resolve in the editor; 0 GUIDs (0 sites) are declared by no .meta here and may belong to a package or to nothing"
+  },
+  {
+    "area": "references/m_Script",
+    "verdict": "FAIL",
+    "detail": "2 MonoBehaviour(s) with a null script pointer - each loses its component and every field on it"
+  },
+  {
+    "area": "scripts/present",
+    "verdict": "PASS",
+    "detail": "3069 .cs files"
+  },
+  {
+    "area": "scripts/meta",
+    "verdict": "WARN",
+    "detail": "1721 .cs.meta for 3069 .cs; of the 213 non-generic component types, 2 have none - legitimate for one only ever added at runtime (e.g. IronSourceAppStateHandler.cs)"
+  },
+  {
+    "area": "shaders/recovered",
+    "verdict": "WARN",
+    "detail": "22 shaders, 22 carry the stand-in unlit pass. A stand-in COMPILES, so the material is not pink and a pink check would report success while the shading is wrong"
+  },
+  {
+    "area": "scenes/present",
+    "verdict": "PASS",
+    "detail": "1 scene(s)"
+  },
+  {
+    "area": "scenes/buildSettings",
+    "verdict": "PASS",
+    "detail": "1 scene(s) in the build list - with none, a player build starts on an empty scene"
+  },
+  {
+    "area": "import/unity",
+    "verdict": "NOT_RUN",
+    "detail": "no Unity editor on this machine; NOT_RUN is not PASS"
+  },
+  {
+    "area": "build/unity",
+    "verdict": "NOT_RUN",
+    "detail": "idem"
+  },
+  {
+    "area": "runtime/unity",
+    "verdict": "NOT_RUN",
+    "detail": "idem"
+  }
+]

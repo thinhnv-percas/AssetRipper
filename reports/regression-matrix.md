@@ -350,3 +350,39 @@ Không patch: mẫu chỉ gồm load không phân giải được, tức mẫu c
 Khảo sát pipeline: `docs/RECOVERY_MATRIX.md` (23 layer) và `docs/FULL_RECOVERY_ARCHITECTURE.md`
 (13 tầng). Build/runtime `UNITY_NOT_AVAILABLE`. Ba tiền đề của brief bị đo là sai (shader decompiler
 không có trong cây này; fixture chỉ có GLES nên không có DXBC/SPIR-V; GUID đã là per-script).
+
+## Iteration 045 — dân số đã phân giải, CS0030, tham chiếu script, validator
+
+Không đổi một byte nào của bản rip: 0 file `.cs` khác baseline trên **cả hai** fixture.
+
+| Chỉ số | 044 | 045 | Delta |
+|---|---:|---:|---:|
+| unresolved (Impostor) | 2722 | 2722 | 0 |
+| unresolved (Pinata) | 9245 | 9245 | 0 |
+| genFail | 0 | 0 | 0 |
+| file `.cs` (Impostor / Pinata) | 819 / 3083 | 819 / 3083 | 0 |
+| Roslyn Impostor DECOMPILER / REFERENCE | 348 / 0 | 348 / 0 | 0 |
+| Roslyn Pinata DECOMPILER / REFERENCE | 1478 / 1 | 1478 / 1 | 0 |
+| Pinata CS0030 | 1125 | 1125 | 0 |
+| shape | 16/16 | 16/16 | 0 |
+| `array[i].field` / `(float)array[i]` | 164 / 0 | 164 / 0 | 0 |
+| `m_Script` gãy (Impostor) | 4 *(đếm hụt)* | **6** | phép đếm cũ sai |
+| test | 372 | 376 | +4 |
+
+Phép đo mới, không có ở 044:
+
+| | |
+|---|---:|
+| load đã phân giải (Impostor) | 16677 |
+| tỉ lệ phân giải | 0,8597 |
+| SEARCH_EMPTY / NO_OWNER / NOT_A_FIELD_ACCESS / SEARCH_ANSWERS | 1417 / 1241 / 61 / **3** |
+| validate-unity-project Impostor | 9 PASS / 1 FAIL / 1 WARN / 1 UNKNOWN / 3 NOT_RUN |
+| validate-unity-project Pinata | 9 PASS / 1 FAIL / 2 WARN / 3 NOT_RUN |
+
+Kết quả âm của iteration này, tất cả đã đo:
+
+- Luật khung toạ độ theo nguồn gốc (khuyến nghị số 1 của 044) — **bác bỏ**, 1761 so với 24.
+- Họ `RESOLVABLE` 48 load (040, 044) — **artefact**, thật ra 3.
+- `ResolveFieldOffsets` lần hai sau `CopyCoalescer` — 2722 → 2722.
+- `ResolveFieldOffsets` lần hai ở cuối `Analyze` — 2722 → 2719 (3 load).
+- `ResolveFieldOffsets` duyệt mọi block thay vì walk BFS — 2722 → 2722, giữ lại vì đúng.

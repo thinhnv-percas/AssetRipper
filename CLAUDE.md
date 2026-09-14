@@ -1003,6 +1003,55 @@ find it; `strings` without `-el` does find method and type names.
   patch: the dump records only loads that were *given up on*, so those 68 are a sample of the
   failures, not of the program. Measure it over resolved loads before acting on it.
 
+- **A rule read off the failures alone is read off a biased sample, and the resolved half can invert
+  it.** `IlGenerator.ResolvedMemoryLoad` fires at the `FieldReference` case of `LoadOperand`, the
+  exact mirror of the one place a memory operand is given up on, so the two dumps are the same
+  measurement over the same pipeline stage: 16677 resolved against 2722 not. Iteration 044's
+  coordinate-frame finding - receiver and parameter reads of a value type are object-relative, 25 of
+  25 - is **false**: over the resolved population those same origins read **value-relative 1761 times
+  and object-relative never**. `OBJECT_RELATIVE` is a signature of failure, not a frame rule, and a
+  blanket header by origin would have corrupted 1761 correct resolutions to recover 24. Always
+  measure the shape over the successes before believing a pattern in the failures.
+- **Ask the pass, at the point the load is counted, whether it would answer.** Two very different
+  failures reach the generator as the same placeholder - a search that ran and found nothing, and an
+  operand the search never looked at - and no column describing the load distinguishes them.
+  `SearchFieldAtOffset` runs `ResolveFieldOffsets`' own search from the dump: 1417 `SEARCH_EMPTY`,
+  1241 `NO_OWNER`, 61 `NOT_A_FIELD_ACCESS`, **3** `SEARCH_ANSWERS`. That closes the `RESOLVABLE` 48
+  family of iterations 040 and 044: measured against metadata rather than against the computed
+  layout it is 3, because `GenericInstanceFieldLayout` is in the boxed frame and "a field sits at
+  exactly that offset" was the same fact counted twice, not independent evidence. The field search
+  is not the bottleneck. And a probe that mirrors a pass must mirror its guards too - without
+  `Index is null && Scale == 0` it reported 37, of which 34 were indexed operands "resolving" to
+  whatever sits at offset zero.
+- **`ISILControlFlowGraph.Instructions` is a breadth-first walk from the entry block**, so it omits
+  any block nothing reaches, while code generation emits every block in `Blocks` - `IlGenerator`
+  says so in a comment and iterates `Blocks` itself. Twelve analysis files use the walk.
+  `AllInstructions` is the one that matches what is emitted; pointing `ResolveFieldOffsets` at it
+  changed **nothing** (2722 to 2722), and it is kept for the alignment rather than for a number.
+- **An error code's count is not a family's count, and `grep -m1` invites the confusion.** The
+  compile summary printed one example per code taken as the *first* in the log; beside a count of
+  1125 that reads as 1125 of that message, and a whole iteration was briefed on exactly that
+  misreading (`Cannot convert type 'int' to 'TCP2_PlanarReflection'` occurs **once**). It now prints
+  the most common message with its share ("14 of 128"). Classified by the *shape of the operand being
+  cast*, read from the source, Pinata's 1125 CS0030 are 60% a local used where another type is wanted
+  (229 distinct type pairs, the largest 48), 22% `((Fsm)0)` - the stand-in an unresolved load pushes,
+  so a recount of the loads under another name - and the rest known families. There is nothing there
+  to fix as one thing.
+- **A check that is too strict is as wrong as one that is too lax, and costs more time.**
+  `validate_unity_project.py` reported FAIL three times on a project with no defect, each time for
+  reading *absent* as *broken*: 369 scripts with no `.cs.meta` (a plain class needs no GUID); two
+  `MonoBehaviour`s with none (only ever `AddComponent`ed, so never a MonoScript); 24 reference sites
+  to `0000000000000000f000000000000000` and `...e000000000000000` (Unity's own built-in resources,
+  which no project declares). What a project validator owes is a verdict it can defend - `UNKNOWN`
+  where an editor would be needed to decide, never `FAIL` to look thorough.
+- **Counting broken references by one of their shapes misses the other.** "4 `m_Script` at
+  `fileID: 0`", recorded in the 044 matrix, was a grep for one string; there are **six**, the other
+  two being GUIDs no `.cs.meta` declares. At import both lose the component and every field on it.
+  `Test/Scripts/audit_script_references.py` reports each with source, target, reason, candidate and
+  an evidence rank - GameObject name, then document name, then *counter*-evidence: a script already
+  attached to that GameObject means the component that wanted it is right there, so this is a
+  different one. It never applies a repair.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1012,6 +1061,10 @@ find it; `strings` without `-el` does find method and type names.
   the evidence does separate the two readings per load - but "whichever one lands" is a heuristic, not
   a rule, and is the same offset-zero guess rejected in 036, 037 and 038. Anything here needs a rule
   for *how the base pointer was obtained* first.
+- **Running field resolution a second time, late, for bases typed after the fixpoint — a third and
+  fourth placement.** Iteration 045 retried it after `CopyCoalescer` (2722 to **2722**) and at the
+  very end of `Analyze` (2722 to **2719**, three loads). The premise stays false at every placement:
+  those bases are typed when the fixpoint runs.
 - **Running field resolution a second time, late, for bases typed after the fixpoint.**
   `LocalVariables.ResolveTypesAndFields` runs once and a dozen type-propagating passes follow it, so
   it looked as though copy propagation must be typing bases that field resolution never gets a second

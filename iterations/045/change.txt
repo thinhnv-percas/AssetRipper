@@ -1,0 +1,44 @@
+Brief 045: chuyển từ measurement sang functional recovery. Bốn việc làm được, và ba trong bốn kết
+thúc bằng một kết luận âm có bằng chứng chứ không bằng một patch — đó là kết quả, không phải sự thiếu.
+
+A. Dân số load đã phân giải (commit c3469f74)
+
+   IlGenerator.ResolvedMemoryLoad phát ở nhánh FieldReference của LoadOperand, tấm gương của chỗ duy
+   nhất một memory operand bị bỏ cuộc. 16677 resolved / 2722 unresolved, tỉ lệ 0,8597.
+
+   LUẬT HỆ TOẠ ĐỘ CỦA 044 BỊ BÁC BỎ. Trên dân số đã phân giải, THIS/PARAMETER/CALL_RESULT đọc value
+   type là VALUE_RELATIVE 1761 lần và OBJECT_RELATIVE 0 lần. 25 ca object-relative mà 044 thấy chính
+   là 25 ca thất bại. Cộng header theo nguồn gốc sẽ phá 1761 ca đúng để cứu 24.
+
+   Cột SEARCH_ANSWERS chạy chính phép tìm field tại điểm đếm: 1417 SEARCH_EMPTY, 1241 NO_OWNER,
+   61 NOT_A_FIELD_ACCESS, 3 SEARCH_ANSWERS. Họ RESOLVABLE 48 load của iteration 040/044 là artefact
+   của việc đo bằng layout tính toán (khung boxed); thật ra là 3.
+
+   AllInstructions: Instructions là walk BFS từ entry block nên bỏ qua block không ai tới, trong khi
+   sinh code phát ra mọi block. Đo được: không đổi gì. Giữ vì nó đúng, không vì nó đáng một con số.
+
+B. CS0030 (commit b166ca69)
+
+   Tiền đề của brief sai hai lần. "1125 lần int -> TCP2_PlanarReflection": thông báo đó có ĐÚNG MỘT
+   lần; 1125 là số của mã lỗi và thông báo đi kèm là cái đầu tiên trong log do grep -m1. Đã sửa
+   harness in thông báo phổ biến nhất kèm tỉ lệ.
+
+   Phân loại theo hình dạng toán hạng: 680 LOCAL (60%), 247 LITERAL_ZERO_STANDIN (22%),
+   83 PARENTHESISED, 57 DEFAULT_OR_TYPEOF, 55 MEMBER_OR_ELEMENT. 22% là phép đếm lại của unresolved
+   load; 60% còn lại là 229 cặp kiểu riêng biệt, lớn nhất 48. Không có gì để patch như một thứ.
+
+C. Tham chiếu script (commit e4d78bde)
+
+   "4 m_Script gãy" là SÁU: thêm hai GUID treo mà phép đếm cũ (grep "fileID: 0") bỏ sót. 4 UNRESOLVED
+   + 2 AMBIGUOUS, không sửa cái nào. Thang bằng chứng ba bậc, bậc ba là bằng chứng NGƯỢC. Nhánh
+   CONFLICT đã kiểm bằng fixture tổng hợp vì nó không kích hoạt trên hai fixture thật.
+
+D. validate-unity-project (commit b71c1b61)
+
+   Ba lần tự báo FAIL sai, cả ba cùng đọc "vắng mặt" thành "hỏng": 369 script không .cs.meta (class
+   thường không cần GUID); 2 MonoBehaviour chỉ AddComponent lúc chạy; 24 chỗ trỏ built-in resources
+   của chính Unity. Kết quả cuối: Impostor 9 PASS / 1 FAIL / 1 WARN / 1 UNKNOWN / 3 NOT_RUN.
+
+E. Không đổi output: 2722 / 9245 load, genFail 0, 819 / 3083 file, 0 file .cs đổi trên CẢ HAI
+   fixture, shape 16/16, Roslyn 348/0 và 1478/1, array[i].field 164, (float)array[i] 0.
+   Test 372 -> 376, 1 fail có sẵn.
