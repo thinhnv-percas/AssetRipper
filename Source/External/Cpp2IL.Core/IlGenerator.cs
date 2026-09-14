@@ -304,6 +304,73 @@ public static class IlGenerator
     public static Action<MethodAnalysisContext, IOperand>? UnresolvedMemoryLoad;
 
     /// <summary>
+    /// AssetRipper: how many calls to a native import were emitted as the operation C# has for them.
+    /// </summary>
+    public static int NativeImportOperationsRecovered;
+
+    /// <summary>
+    /// AssetRipper: the operand count of a call nothing resolved - the target, the destination, then
+    /// X0 to X7 and V0 to V7.
+    /// </summary>
+    public const int RawRegisterFileOperandCount = 18;
+
+    /// <summary>AssetRipper: where V0 sits in that layout.</summary>
+    public const int FirstVectorRegisterOperand = 10;
+
+    /// <summary>
+    /// AssetRipper: whether a C library function is one C# has an exact operation for.
+    /// </summary>
+    public static bool IsNativeImportWithAnOperation(string import) => import is "fmodf" or "fmod";
+
+    /// <summary>
+    /// Emits a call to a C library function as the C# operation that is exactly equivalent to it.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Only <c>fmod</c> is taken, and only because it is a CIL opcode: <c>rem</c> on two floats is
+    /// what <c>fmodf</c> computes, with no framework method to resolve and no width to convert. Every
+    /// other libm import - <c>sin</c>, <c>atan2</c>, <c>pow</c> - would need a method looked up in the
+    /// game's own mscorlib and a float-to-double conversion decided, and each of those is a place to
+    /// be wrong, so they are left reported rather than guessed at.
+    /// </para>
+    /// <para>
+    /// The arguments are read at fixed positions because an <em>unresolved</em> call keeps the whole
+    /// register file: by definition nothing knew the callee, so nothing remapped the operands, and the
+    /// layout is the ABI's - the destination, then X0 to X7, then V0 to V7. That is asserted rather
+    /// than assumed: a call whose operand count is not exactly that layout is left alone.
+    /// </para>
+    /// </remarks>
+    private static bool EmitNativeImportOperation(ulong address, Instruction instruction, MethodAnalysisContext context,
+        MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
+    {
+        if (instruction.Operands.Count != RawRegisterFileOperandCount
+            || context.AppContext.Binary is not LibCpp2IL.Elf.ElfFile elf)
+            return false;
+
+        var slot = context.AppContext.InstructionSet.GetPltGotSlot(context.AppContext, address);
+
+        if (slot == 0 || !elf.TryGetPltImportName(slot, out var import) || !IsNativeImportWithAnOperation(import))
+            return false;
+
+        if (instruction.Operands[1] is not LocalVariable destination
+            || instruction.Operands[FirstVectorRegisterOperand] is not { } left
+            || instruction.Operands[FirstVectorRegisterOperand + 1] is not { } right)
+            return false;
+
+        var floatType = destination.Type is { IsValueType: true } typed && typed.FullName is "System.Single" or "System.Double"
+            ? destination.Type
+            : null;
+
+        LoadOperand(left, context, method, locals, null!, floatType);
+        LoadOperand(right, context, method, locals, null!, floatType);
+        method.CilMethodBody!.Instructions.Add(CilOpCodes.Rem);
+        StoreToOperand(instruction.Operands[1], context, method, locals, null!);
+
+        System.Threading.Interlocked.Increment(ref NativeImportOperationsRecovered);
+        return true;
+    }
+
+    /// <summary>
     /// AssetRipper: raised for every call that becomes a <c>Method not found</c> or
     /// <c>Unknown call target</c> placeholder, with the address and how many methods sit there.
     /// </summary>
@@ -1234,6 +1301,17 @@ public static class IlGenerator
 
                 if (instruction.Operands[0] is not MethodAnalysisContext targetMethod)
                 {
+                    // AssetRipper: a call into the procedure linkage table reaches a function in
+                    // another shared library, so no managed metadata will ever name it and it has
+                    // always become a placeholder. The dynamic linker's relocations do name it, and a
+                    // few of those names are an operation C# has outright - so the operation is what
+                    // the call means, and emitting it is recovery rather than a stand-in.
+                    if (instruction.Operands[0] is Immediate pltAddress
+                        && EmitNativeImportOperation(pltAddress.UnsignedValue, instruction, context, method, locals))
+                    {
+                        break;
+                    }
+
                     if (instruction.Operands[0] is Immediate targetAddress)
                     {
                         // How many methods sit on the address is the whole difference between "this is

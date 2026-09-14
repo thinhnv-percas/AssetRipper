@@ -2388,6 +2388,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				unresolvedCallWriter?.Flush();
 			}
 
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {IlGenerator.NativeImportOperationsRecovered} calls to a C library "
+				+ "function were emitted as the C# operation equivalent to it.");
+
 			if (!unresolvedCallKinds.IsEmpty)
 			{
 				Logger.Info(LogCategory.Import,
