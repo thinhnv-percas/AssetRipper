@@ -5,10 +5,9 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 046 (hoàn tất; phân loại truy cập bộ nhớ, không đổi một byte nào của bản rip.
-                          Ship: UNKNOWN tách thành năm nguyên nhân rồi trả lời bốn,
-                          Il2CppClassOffsetPatcher.MemberNames, recovery_report.py,
-                          ITERATION_046)
+Iteration hiện tại: 047 (hoàn tất; bằng chứng cho hai họ runtime + phép đo theo từng method,
+                          không đổi một byte nào của bản rip. Ship: cột consumer, gọi tên bitfield
+                          theo bit, method_recovery_report.py, ITERATION_047)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -470,6 +469,33 @@ test 372 -> 376 với 1 fail có sẵn.
 Bảng số 046: 2722 / 9245 load, genFail 0, 819 / 3083 file, **0 file .cs đổi so với baseline trên cả
 hai fixture**, shape 16/16, Roslyn 348/0 và 1478/1, `array[i].field` 164, `(float)array[i]` 0,
 test 376 -> 386 với 1 fail có sẵn.
+
+## Iteration 047 — ba điều một session sau phải biết
+
+1. **103 lệnh `byval_arg.attrs` của 046 thật ra là `byval_arg.valuetype`, và nhãn cũ SAI.** Một byte
+   nhiều bitfield dùng chung chỉ gọi được tên nhóm; thành viên nào bị đọc do BIT quyết định và bit
+   nằm ở lệnh tiêu thụ. 100 lệnh `CheckLess ,0` (thử dấu) + 3 lệnh `And ,0x80000000` = bit 31 =
+   `valuetype` theo struct database. Đó là phép thử value-type của thân generic chia sẻ trên tham số
+   kiểu MỞ, nên không có câu trả lời tĩnh - `RUNTIME_STRUCT` đúng nghĩa, giờ có bằng chứng.
+   `MethodInfo.is_generic` cũng đổi thành `is_inflated` theo cùng cách. Và 43/61 `stack_slot_size`
+   được tiêu thụ bởi `Add ,0xf` - đúng bước làm tròn của trình tự alloca iteration 033 mô tả.
+
+2. **`method_recovery_report.py` là phép đo đầu tiên theo TỪNG METHOD.** Impostor 5482 method:
+   70,5% CLEAN, 25,1% PARTIAL (mang toàn bộ 5130 placeholder), **0 mất hẳn thân**. Pinata 16365:
+   77,9% CLEAN, **đúng 2 mất hẳn thân** (`YandexAppMetricaReceipt`, `YandexAppMetricaConfig`, 76 byte
+   mỗi cái). Đó là con số §16 cần và không tổng nào đưa ra được. Placeholder TẬP TRUNG: 5130 trong
+   1375 method, tệ nhất 113.
+
+3. **Bốn lần phép đo tự báo sai trong một iteration, cả bốn phải sửa trước khi tin.** So khớp bằng
+   tham chiếu (operand event nhận không phải object trong graph); ngoặc nhọn bên trong chuỗi của
+   `[NativeSource]` (366 ca "mất thân" giả); assembly bị stub có chủ ý bị tính như thân bị mất (322
+   ca giả) - phải ĐỌC log chứ không đoán; và một cột mới đẩy chỉ số cột của một classifier khác.
+   Cái cuối chỉ bắt được vì baseline được đo lại và so.
+
+Bảng số 047: 2722 / 9245 load, genFail 0, 819 / 3083 file, **0 file .cs đổi trên cả hai fixture**,
+shape 16/16, Roslyn 348/0 và 1478/1, `array[i].field` 164, `(float)array[i]` 0,
+MANAGED_FIELD/UNKNOWN/RUNTIME_STRUCT/NATIVE_TEMPORARY/ARRAY_ACCESS 901/761/651/343/66,
+test 386 -> 388 với 1 fail có sẵn.
 
 ## Ghi chú môi trường
 

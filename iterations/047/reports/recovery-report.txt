@@ -1,0 +1,74 @@
+memory accesses the generator resolved:   16677
+memory accesses the generator gave up on: 2722
+
+== by what the access is ==
+   901  MANAGED_FIELD       33.1%
+   761  UNKNOWN             28.0%
+   651  RUNTIME_STRUCT      23.9%
+   343  NATIVE_TEMPORARY    12.6%
+    66  ARRAY_ACCESS         2.4%
+
+== by subcategory ==
+   429  MANAGED_FIELD      PARAMETER
+   376  UNKNOWN            LOADED_POINTER
+   318  MANAGED_FIELD      INSTANCE_FIELD
+   184  NATIVE_TEMPORARY   STACK_SLOT
+   160  UNKNOWN            UNKNOWN:MERGED
+   159  NATIVE_TEMPORARY   ENTRY_VALUE
+   116  RUNTIME_STRUCT     Il2CppClass.vtable[]
+   103  RUNTIME_STRUCT     Il2CppStaticFields
+   103  RUNTIME_STRUCT     Il2CppClass.byval_arg.valuetype
+    86  MANAGED_FIELD      CALL_RESULT
+    74  RUNTIME_STRUCT     Il2CppClass.interface_offsets_count
+    69  UNKNOWN            UNKNOWN
+    61  RUNTIME_STRUCT     Il2CppClass.stack_slot_size
+    60  MANAGED_FIELD      THIS
+    53  RUNTIME_STRUCT     MethodInfo.is_inflated
+    41  UNKNOWN            UNKNOWN:CYCLE
+    37  RUNTIME_STRUCT     Il2CppClass.interfaceOffsets
+    36  RUNTIME_STRUCT     Il2CppClass.cctor_finished
+    27  UNKNOWN            UNKNOWN:OPCODE:Add:untyped+integer
+    24  ARRAY_ACCESS       INSTANCE_FIELD
+    23  UNKNOWN            UNKNOWN:OPCODE:Add:Immediate+Immediate
+    19  UNKNOWN            UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext
+    18  RUNTIME_STRUCT     Il2CppClass.typeHierarchyDepth
+    17  UNKNOWN            UNKNOWN:OPCODE:Move:Immediate
+
+== confidence in the classification ==
+   997  EXACT
+   964  INFERRED
+   761  NONE
+
+== top methods still UNKNOWN ==
+    63  Spine.Unity.MeshGenerator.BuildMeshWithArrays
+    45  GoogleMobileAds.Android.Utils.GetAdRequestJavaObject
+    37  Spine.Collections.OrderedDictionary`2.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo
+    26  DG.Tweening.Plugins.PathPlugin.SetOrientation
+    23  Extensions+<>c__DisplayClass2_0`1.<Replace>b__0
+    20  Spine.Collections.OrderedDictionary`2.System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<TKey,TValue>>.get_Item
+    19  Spine.Collections.OrderedDictionary`2.get_Item
+    16  DG.Tweening.TweenExtensions.GotoWaypoint
+    15  Spine.DeformTimeline.Apply
+    15  Spine.Unity.MeshGenerator.AddSubmesh
+
+== top UNKNOWN provenance ==
+   376  LOADED_POINTER
+   160  UNKNOWN:MERGED
+    69  UNKNOWN
+    41  UNKNOWN:CYCLE
+    27  UNKNOWN:OPCODE:Add:untyped+integer
+    23  UNKNOWN:OPCODE:Add:Immediate+Immediate
+    19  UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext
+    17  UNKNOWN:OPCODE:Move:Immediate
+     7  UNKNOWN:OPCODE:Add:untyped+untyped
+     5  UNKNOWN:OPCODE:Or
+
+== UNKNOWN by assembly ==
+   373  spine-unity
+   143  DOTween
+    81  Assembly-CSharp
+    79  GoogleMobileAds
+    60  spine-unity-examples
+     9  ACTk.Runtime
+     9  Mono.Security
+     7  LeanPool

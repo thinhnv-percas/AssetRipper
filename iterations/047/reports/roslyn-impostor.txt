@@ -1,0 +1,8 @@
+Assembly-CSharp: 63 files, 348 errors, 2318 warnings
+errors classified: 348
+
+DECOMPILER_ERROR      348
+REFERENCE_ERROR         0
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0

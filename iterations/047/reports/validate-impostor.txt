@@ -1,0 +1,21 @@
+PASS     structure/Assets           iterations/047/output/Impostor/Assets
+PASS     structure/ProjectSettings  iterations/047/output/Impostor/ProjectSettings
+PASS     structure/Packages         iterations/047/output/Impostor/Packages
+PASS     structure/ProjectVersion   2022.3.62f2
+PASS     packages/manifest          31 dependencies
+UNKNOWN  references/guids           145 distinct GUIDs across 64 documents; 24 sites name Unity's own built-in resources and resolve in the editor; 3 GUIDs (4 sites) are declared by no .meta here and may belong to a package or to nothing
+FAIL     references/m_Script        4 MonoBehaviour(s) with a null script pointer - each loses its component and every field on it
+PASS     scripts/present            819 .cs files
+PASS     scripts/meta               450 .cs.meta for 819 .cs; of the 155 non-generic component types, 0 have none - legitimate for one only ever added at runtime
+WARN     shaders/recovered          3 shaders, 3 carry the stand-in unlit pass. A stand-in COMPILES, so the material is not pink and a pink check would report success while the shading is wrong
+PASS     scenes/present             1 scene(s)
+PASS     scenes/buildSettings       1 scene(s) in the build list - with none, a player build starts on an empty scene
+NOT_RUN  import/unity               no Unity editor on this machine; NOT_RUN is not PASS
+NOT_RUN  build/unity                idem
+NOT_RUN  runtime/unity              idem
+
+   9  PASS
+   3  NOT_RUN
+   1  UNKNOWN
+   1  FAIL
+   1  WARN

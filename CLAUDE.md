@@ -1087,6 +1087,37 @@ find it; `strings` without `-el` does find method and type names.
   761 `UNKNOWN` - with 997 EXACT, 964 INFERRED and 761 NONE confidence, never added together. The
   goal is to drive `UNKNOWN` down, not the total to zero.
 
+- **A bitfield storage unit names a group; the bit names the member, and the bit is in the consumer.**
+  Iteration 046 reported 103 loads as `Il2CppClass.byval_arg.attrs` - the first member to claim the
+  byte - and that label is **wrong**. Recording what consumes each load says 100 are
+  `CheckLess value, 0` (a sign test) and 3 are `And value, 0x80000000`: all of them bit 31, which the
+  struct database places as `byval_arg.valuetype`. So they are the value-type test shared generic code
+  performs on its own type parameter, and every base is `Il2CppClass<T>` - an *open* parameter, so
+  there is no static answer and `RUNTIME_STRUCT` is the right verdict, now with evidence instead of a
+  guess. `MethodInfo.is_generic` corrects to `is_inflated` the same way. And 43 of 61
+  `stack_slot_size` reads are consumed by `Add value, 0xf` - exactly the round-up of the alloca
+  sequence this file described from iteration 033, confirmed instruction for instruction by an
+  independent route.
+- **Every aggregate hides the distribution, and the distribution is the work list.**
+  `method_recovery_report.py` scores each method from its own `[Address(RVA, Length)]` and its body:
+  Impostor's 5482 recovered methods are 70.5% clean, 25.1% partial, and the partial quarter carries
+  **all** 5130 placeholders, the worst single method holding 113. Pinata's 16365 are 77.9% clean.
+  That is the first measure in the project ordered by method rather than by assembly.
+- **"A method that compiles but was replaced by an empty body is not recovered" is now measurable, and
+  it almost never happens.** 0 lost bodies on Impostor, exactly 2 on Pinata
+  (`YandexAppMetricaReceipt`, `YandexAppMetricaConfig`, 76 bytes each). Before this there was no
+  number at all for it.
+- **Four measurements reported themselves wrong in one iteration, and all four had to be fixed before
+  any of them could be believed.** Matching the consuming instruction *by reference* found nothing for
+  all 2722 loads - the operand the generator hands the event is not the object still in the graph, so
+  match by text. `[NativeSource(Body = "...")]` carries braces **inside a string**, so brace counting
+  closed a method body before it opened and reported 366 methods as having lost their body when every
+  one had one. Only a few assemblies are recovered and the rest are stubbed **by design**, so scoring
+  those as lost bodies invented 322 more - read the log's "Attempted:" line rather than guessing, and
+  say `SCOPE: UNKNOWN` when there is no log. And adding one column to the dump shifted `memory` from
+  index 21 to 22, which `recovery_report.py` still read as 21 - caught only because the baseline was
+  re-measured and compared, never by looking at the code.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,

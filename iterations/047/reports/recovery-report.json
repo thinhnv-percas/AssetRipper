@@ -1,0 +1,237 @@
+{
+  "resolved": 16677,
+  "unresolved": 2722,
+  "categories": {
+    "MANAGED_FIELD": 901,
+    "UNKNOWN": 761,
+    "ARRAY_ACCESS": 66,
+    "RUNTIME_STRUCT": 651,
+    "NATIVE_TEMPORARY": 343
+  },
+  "subcategories": {
+    "MANAGED_FIELD/THIS": 60,
+    "UNKNOWN/LOADED_POINTER": 376,
+    "MANAGED_FIELD/INSTANCE_FIELD": 318,
+    "UNKNOWN/UNKNOWN:MERGED": 160,
+    "UNKNOWN/UNKNOWN:OPCODE:Add:Immediate+Immediate": 23,
+    "ARRAY_ACCESS/INSTANCE_FIELD": 24,
+    "ARRAY_ACCESS/ARRAY_ELEMENT": 7,
+    "RUNTIME_STRUCT/Il2CppClass.interfaceOffsets": 37,
+    "RUNTIME_STRUCT/Il2CppClass.interface_offsets_count": 74,
+    "ARRAY_ACCESS/LOADED_POINTER": 10,
+    "UNKNOWN/UNKNOWN:OPCODE:Move:Immediate": 17,
+    "MANAGED_FIELD/PARAMETER": 429,
+    "ARRAY_ACCESS/UNKNOWN": 11,
+    "UNKNOWN/UNKNOWN": 69,
+    "NATIVE_TEMPORARY/STACK_SLOT": 184,
+    "NATIVE_TEMPORARY/ENTRY_VALUE": 159,
+    "RUNTIME_STRUCT/Il2CppClass.element_size": 3,
+    "RUNTIME_STRUCT/Il2CppClass.stack_slot_size": 61,
+    "MANAGED_FIELD/CALL_RESULT": 86,
+    "RUNTIME_STRUCT/Il2CppClass.namespaze": 1,
+    "RUNTIME_STRUCT/Il2CppClass.initialized_and_no_error": 6,
+    "RUNTIME_STRUCT/Il2CppClass.vtable[]": 116,
+    "UNKNOWN/UNKNOWN:OPCODE:Or": 5,
+    "UNKNOWN/UNKNOWN:OPCODE:Move:ArrayAccess": 5,
+    "UNKNOWN/UNKNOWN:OPCODE:Add:untyped+integer": 27,
+    "ARRAY_ACCESS/CALL_RESULT": 9,
+    "MANAGED_FIELD/ALLOCATION": 8,
+    "RUNTIME_STRUCT/Il2CppStaticFields": 103,
+    "RUNTIME_STRUCT/Il2CppClass.cctor_finished": 36,
+    "RUNTIME_STRUCT/Il2CppClass.byval_arg.valuetype": 103,
+    "UNKNOWN/UNKNOWN:CYCLE": 41,
+    "RUNTIME_STRUCT/Il2CppClass.fields": 13,
+    "RUNTIME_STRUCT/Il2CppClass.typeHierarchyDepth": 18,
+    "RUNTIME_STRUCT/Il2CppClass.typeHierarchy": 6,
+    "RUNTIME_STRUCT/MethodInfo.klass": 4,
+    "ARRAY_ACCESS/PARAMETER": 4,
+    "UNKNOWN/UNKNOWN:OPCODE:Add:value+untyped": 4,
+    "UNKNOWN/UNKNOWN:OPCODE:Add:value+integer": 5,
+    "UNKNOWN/UNKNOWN:OPCODE:Add:untyped+untyped": 7,
+    "ARRAY_ACCESS/ENTRY_VALUE": 1,
+    "UNKNOWN/UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext": 19,
+    "RUNTIME_STRUCT/MethodInfo.is_inflated": 53,
+    "RUNTIME_STRUCT/Il2CppClass.vtable": 1,
+    "RUNTIME_STRUCT/Il2CppClass.static_fields": 16,
+    "UNKNOWN/UNKNOWN:OPCODE:IsInst": 3
+  },
+  "confidence": {
+    "INFERRED": 964,
+    "NONE": 761,
+    "EXACT": 997
+  },
+  "top_unknown_methods": [
+    [
+      "Spine.Unity.MeshGenerator.BuildMeshWithArrays",
+      63
+    ],
+    [
+      "GoogleMobileAds.Android.Utils.GetAdRequestJavaObject",
+      45
+    ],
+    [
+      "Spine.Collections.OrderedDictionary`2.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo",
+      37
+    ],
+    [
+      "DG.Tweening.Plugins.PathPlugin.SetOrientation",
+      26
+    ],
+    [
+      "Extensions+<>c__DisplayClass2_0`1.<Replace>b__0",
+      23
+    ],
+    [
+      "Spine.Collections.OrderedDictionary`2.System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<TKey,TValue>>.get_Item",
+      20
+    ],
+    [
+      "Spine.Collections.OrderedDictionary`2.get_Item",
+      19
+    ],
+    [
+      "DG.Tweening.TweenExtensions.GotoWaypoint",
+      16
+    ],
+    [
+      "Spine.DeformTimeline.Apply",
+      15
+    ],
+    [
+      "Spine.Unity.MeshGenerator.AddSubmesh",
+      15
+    ],
+    [
+      "Spine.Collections.OrderedDictionary`2.Insert",
+      14
+    ],
+    [
+      "Spine.Unity.AttachmentTools.AtlasUtilities.GetRepackedSkin",
+      12
+    ],
+    [
+      "DG.Tweening.Plugins.Vector3ArrayPlugin.EvaluateAndApply",
+      12
+    ],
+    [
+      "Spine.Collections.OrderedDictionary`2+<GetEnumerator>d__34.MoveNext",
+      11
+    ],
+    [
+      "Spine.Unity.Examples.SkeletonRagdoll.Apply",
+      11
+    ],
+    [
+      "Spine.Skin.GetAttachments",
+      9
+    ],
+    [
+      "Mono.Security.ASN1.GetBytes",
+      9
+    ],
+    [
+      "Spine.Unity.Examples.SkeletonRagdoll.UpdateSpineSkeleton",
+      8
+    ],
+    [
+      "Spine.Unity.Examples.SkeletonRagdoll2D.UpdateSpineSkeleton",
+      8
+    ],
+    [
+      "CSVSerializer.DeserializeIdValue",
+      8
+    ]
+  ],
+  "top_unknown_provenance": [
+    [
+      "LOADED_POINTER",
+      376
+    ],
+    [
+      "UNKNOWN:MERGED",
+      160
+    ],
+    [
+      "UNKNOWN",
+      69
+    ],
+    [
+      "UNKNOWN:CYCLE",
+      41
+    ],
+    [
+      "UNKNOWN:OPCODE:Add:untyped+integer",
+      27
+    ],
+    [
+      "UNKNOWN:OPCODE:Add:Immediate+Immediate",
+      23
+    ],
+    [
+      "UNKNOWN:OPCODE:Move:RuntimeClassTypeAnalysisContext",
+      19
+    ],
+    [
+      "UNKNOWN:OPCODE:Move:Immediate",
+      17
+    ],
+    [
+      "UNKNOWN:OPCODE:Add:untyped+untyped",
+      7
+    ],
+    [
+      "UNKNOWN:OPCODE:Or",
+      5
+    ],
+    [
+      "UNKNOWN:OPCODE:Move:ArrayAccess",
+      5
+    ],
+    [
+      "UNKNOWN:OPCODE:Add:value+integer",
+      5
+    ],
+    [
+      "UNKNOWN:OPCODE:Add:value+untyped",
+      4
+    ],
+    [
+      "UNKNOWN:OPCODE:IsInst",
+      3
+    ]
+  ],
+  "unknown_by_assembly": [
+    [
+      "spine-unity",
+      373
+    ],
+    [
+      "DOTween",
+      143
+    ],
+    [
+      "Assembly-CSharp",
+      81
+    ],
+    [
+      "GoogleMobileAds",
+      79
+    ],
+    [
+      "spine-unity-examples",
+      60
+    ],
+    [
+      "ACTk.Runtime",
+      9
+    ],
+    [
+      "Mono.Security",
+      9
+    ],
+    [
+      "LeanPool",
+      7
+    ]
+  ]
+}

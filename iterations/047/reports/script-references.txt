@@ -1,0 +1,24 @@
+script references checked: 135
+broken: 6
+
+     4  UNRESOLVED
+     2  AMBIGUOUS
+
+Impostor/Assets/Resources/GoogleMobileAdsSettings.asset:12  &11400000 on '<unnamed>'
+        DANGLING_GUID: m_Script names guid 0ac90d295e10b38e51dafe5555b208a6, which no .cs.meta in the rip declares
+        repair=UNRESOLVED evidence=NONE candidate=None
+Impostor/Assets/Resources/managers/AdsManager.prefab:44  &114724804207875695 on 'AdsManager'
+        NO_TARGET: m_Script is the null PPtr, so the serialized data named no MonoScript the rip could map
+        repair=UNRESOLVED evidence=NONE candidate=None
+Impostor/Assets/Resources/managers/AdvertisementManager.prefab:44  &114724804207875695 on 'AdvertisementManager'
+        DANGLING_GUID: m_Script names guid d98c1dd4008f04b2e9800998ecf8427e, which no .cs.meta in the rip declares
+        repair=UNRESOLVED evidence=NONE candidate=None
+Impostor/Assets/Resources/managers/BaseTracking.prefab:44  &114724804207875695 on 'BaseTracking'
+        NO_TARGET: m_Script is the null PPtr, so the serialized data named no MonoScript the rip could map
+        repair=UNRESOLVED evidence=NONE candidate=None
+Impostor/Assets/Resources/managers/GameManager.prefab:96  &114884547391421755 on 'Reporter'
+        NO_TARGET: m_Script is the null PPtr, so the serialized data named no MonoScript the rip could map
+        repair=AMBIGUOUS evidence=DOCUMENT_NAME candidate=GameManager
+Impostor/Assets/Resources/managers/GameManager.prefab:108  &114099118695303065 on 'Reporter'
+        NO_TARGET: m_Script is the null PPtr, so the serialized data named no MonoScript the rip could map
+        repair=AMBIGUOUS evidence=DOCUMENT_NAME candidate=GameManager

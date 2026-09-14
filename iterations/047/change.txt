@@ -1,0 +1,31 @@
+Brief 047: native semantic recovery -> executable Unity project. §12 và §13 cấm mặc định "nhận diện
+rồi bỏ" với hai họ runtime; §14/§15 đòi phép đo theo từng method.
+
+Iteration này không đổi một byte nào của bản rip.
+
+A. Cột consumer, và nhãn của 046 sai — commit 3314cf72
+
+   Một byte nhiều bitfield dùng chung chỉ gọi được tên NHÓM. 046 in ra thành viên đầu tiên chiếm byte
+   (`attrs`). Thành viên thật do BIT quyết định, và bit nằm ở lệnh tiêu thụ:
+     100  CheckLess[1]:LocalVariable,0x0    -> thử dấu = bit 31
+       3  And[1]:LocalVariable,0x80000000   -> mặt nạ bit 31
+   Struct DB: bit 31 tại 0x28 là `byval_arg.valuetype`. Cả 103 là phép thử value-type của thân generic
+   chia sẻ trên tham số kiểu MỞ -> không có câu trả lời tĩnh, RUNTIME_STRUCT đúng nghĩa.
+   53 `MethodInfo.is_generic` -> `is_inflated`. 43/61 `stack_slot_size` tiêu thụ bởi `Add ,0xf` =
+   bước làm tròn alloca của iteration 033, xác nhận độc lập.
+
+B. method_recovery_report.py — commit f85fd18d
+
+   Impostor 5482 method: 3865 CLEAN (70,5%), 1375 PARTIAL (25,1%, mang TOÀN BỘ 5130 placeholder),
+   242 UNTYPED, 0 mất hẳn thân. Pinata 16365: 12750 / 2837 / 762 / 2 mất hẳn thân, có tên.
+   Placeholder tập trung: tệ nhất 113 (MeshGenerator).
+
+C. Sửa classifier đọc sai cột — commit tiếp theo. Thêm cột đẩy `memory` 21 -> 22.
+
+D. Bốn lần phép đo tự báo sai, cả bốn sửa trước khi tin:
+   tham chiếu vs văn bản; ngoặc trong chuỗi [NativeSource] (366 ca giả); assembly stub có chủ ý
+   (322 ca giả, phải ĐỌC log); chỉ số cột (bắt được nhờ so baseline).
+
+E. Gate: 2722 / 9245 load, genFail 0, 819 / 3083 file, 0 file .cs đổi trên CẢ HAI fixture,
+   shape 16/16, Roslyn 348/0 và 1478/1, 901/761/651/343/66, 997/964/761, m_Script gãy 6.
+   Test 386 -> 388, 1 fail có sẵn.

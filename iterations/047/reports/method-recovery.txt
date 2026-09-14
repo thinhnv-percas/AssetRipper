@@ -1,0 +1,36 @@
+SCOPE: the 10 assemblies recovery was attempted on; 3 stubbed assemblies excluded
+methods with a recorded native address: 5482
+native code accounted for: 1075252 bytes
+
+== by verdict ==
+  3865  RECOVERED_CLEAN     70.5%   diagnostics 0
+  1375  PARTIAL             25.1%   diagnostics 5130
+   242  RECOVERED_UNTYPED    4.4%   diagnostics 0
+
+methods with no placeholder in the body: 4107 of 5482 (74.9%)
+methods that lost their body entirely:   0
+
+== worst methods by placeholder count ==
+  113 placeholders    4352 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs
+   74 placeholders   19208 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/SkeletonJson.cs
+   64 placeholders    1092 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+   63 placeholders    1336 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+   56 placeholders    2048 bytes native  PARTIAL          Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs
+   53 placeholders    2368 bytes native  PARTIAL          Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs
+   52 placeholders    5772 bytes native  PARTIAL          Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs
+   44 placeholders   16968 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/SkeletonJson.cs
+   43 placeholders    2852 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/DeformTimeline.cs
+   43 placeholders    1060 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+   39 placeholders    1384 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/Collections/CollectionExtensions.cs
+   38 placeholders     668 bytes native  PARTIAL          Impostor/Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs
+
+== by assembly, methods with no placeholder ==
+  1447 / 1845    78.4%  spine-unity
+   836 / 1089    76.8%  ACTk.Runtime
+   590 / 807     73.1%  DOTween
+   426 / 744     57.3%  GoogleMobileAds
+   408 / 509     80.2%  spine-unity-examples
+   316 / 390     81.0%  Assembly-CSharp
+    66 / 78      84.6%  LeanPool
+    16 / 18      88.9%  LeanCommon
+     2 / 2      100.0%  __Generated

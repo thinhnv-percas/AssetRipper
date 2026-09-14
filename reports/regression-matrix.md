@@ -417,3 +417,30 @@ Những thứ **không** làm, mỗi thứ có lý do đo được: không patch
 trên 2722); không tạo managed field giả cho 651 lệnh đọc runtime (§11); không suy đoán base của
 `Add untyped, integer` (27 ca); không mở subsystem shader (fixture chỉ có GLES); không sửa 6 tham
 chiếu `m_Script` gãy (045 đã đo: 4 không có ứng viên, 2 chỉ có tên tài liệu).
+
+## Iteration 047 — bằng chứng cho hai họ runtime, và phép đo theo từng method
+
+Không đổi một byte nào của bản rip: 0 file `.cs` khác baseline trên **cả hai** fixture.
+
+| Chỉ số | 046 | 047 | Delta |
+|---|---:|---:|---:|
+| unresolved (Impostor / Pinata) | 2722 / 9245 | 2722 / 9245 | 0 |
+| genFail | 0 | 0 | 0 |
+| file `.cs` (Impostor / Pinata) | 819 / 3083 | 819 / 3083 | 0 |
+| Roslyn Impostor / Pinata | 348-0 / 1478-1 | 348-0 / 1478-1 | 0 |
+| shape | 16/16 | 16/16 | 0 |
+| `array[i].field` / `(float)array[i]` | 164 / 0 | 164 / 0 | 0 |
+| MANAGED_FIELD/UNKNOWN/RUNTIME_STRUCT/NATIVE_TEMPORARY/ARRAY_ACCESS | 901/761/651/343/66 | idem | 0 |
+| `m_Script` gãy | 6 | 6 | 0 |
+| test | 386 | 388 | +2 |
+
+Phép đo mới:
+
+| | |
+|---|---|
+| `byval_arg.attrs` (nhãn 046) | **`byval_arg.valuetype`** — sai, sửa bằng bit được kiểm tra |
+| `MethodInfo.is_generic` | **`is_inflated`** |
+| `stack_slot_size` | 43/61 tiêu thụ bởi `Add ,0xf` = alloca round-up |
+| method Impostor (10 assembly) | 5482: 3865 CLEAN / 1375 PARTIAL / 242 UNTYPED / **0 mất thân** |
+| method Pinata (42 assembly) | 16365: 12750 / 2837 / 762 / **2 mất thân** |
+| tập trung placeholder | 5130 trong 1375 method, tệ nhất 113 |

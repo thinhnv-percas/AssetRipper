@@ -1,0 +1,41 @@
+SCOPE: the 42 assemblies recovery was attempted on; 8 stubbed assemblies excluded
+methods with a recorded native address: 16365
+native code accounted for: 3287260 bytes
+
+== by verdict ==
+ 12750  RECOVERED_CLEAN     77.9%   diagnostics 0
+  2837  PARTIAL             17.3%   diagnostics 12565
+   762  RECOVERED_UNTYPED    4.7%   diagnostics 0
+    14  EMPTY_BY_DESIGN      0.1%   diagnostics 0
+     2  EMPTY                0.0%   diagnostics 0
+
+methods with no placeholder in the body: 13526 of 16365 (82.7%)
+methods that lost their body entirely:   2
+
+== worst methods by placeholder count ==
+  136 placeholders    2572 bytes native  PARTIAL          Pinata/Assets/Scripts/Obi/Obi/MeshVoxelizer.cs
+  120 placeholders    2856 bytes native  PARTIAL          Pinata/Assets/Scripts/GBG.Pinata.ECS/WeaponButtonSystem.cs
+   94 placeholders    1892 bytes native  PARTIAL          Pinata/Assets/Scripts/Obi/Obi/ObiPath.cs
+   89 placeholders    2560 bytes native  PARTIAL          Pinata/Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/AttackSystem.cs
+   68 placeholders    8508 bytes native  PARTIAL          Pinata/Assets/Scripts/Assembly-CSharp/TCP2_Demo.cs
+   63 placeholders    2276 bytes native  PARTIAL          Pinata/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs
+   57 placeholders    2236 bytes native  PARTIAL          Pinata/Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/EnemyHealthSystem.cs
+   53 placeholders    1712 bytes native  PARTIAL          Pinata/Assets/Scripts/Stores/UnityEngine/Purchasing/ProductDefinitionExtensions.cs
+   53 placeholders    1492 bytes native  PARTIAL          Pinata/Assets/Scripts/DOTween/DG/Tweening/Plugins/RectPlugin.cs
+   50 placeholders    1476 bytes native  PARTIAL          Pinata/Assets/Scripts/GBG.Pinata.ECS/GBG/Pinata/ECS/Systems/ShowHideEnemySystem.cs
+   49 placeholders    2704 bytes native  PARTIAL          Pinata/Assets/Scripts/Obi/Obi/ObiRopeLineRenderer.cs
+   48 placeholders    2684 bytes native  PARTIAL          Pinata/Assets/Scripts/Stores/UnityEngine/Purchasing/Promo.cs
+
+== by assembly, methods with no placeholder ==
+  4523 / 5171    87.5%  Assembly-CSharp
+  2515 / 2959    85.0%  EasyMobile
+  1441 / 1640    87.9%  PlayMaker
+   979 / 1288    76.0%  Obi
+   518 / 722     71.7%  DOTween
+   403 / 566     71.2%  Facebook.Unity
+   383 / 493     77.7%  Stores
+   234 / 365     64.1%  IronSourceSDK
+   289 / 363     79.6%  LunarConsoleSDK
+   296 / 351     84.3%  AdjustSDK
+   230 / 271     84.9%  GameAnalyticsSDK
+   180 / 250     72.0%  AppMetricaSDK

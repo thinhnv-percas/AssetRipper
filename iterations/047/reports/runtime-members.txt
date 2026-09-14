@@ -1,0 +1,17 @@
+    116 Il2CppClass.vtable[]
+    103 Il2CppStaticFields
+    103 Il2CppClass.byval_arg.valuetype
+     74 Il2CppClass.interface_offsets_count
+     61 Il2CppClass.stack_slot_size
+     53 MethodInfo.is_inflated
+     37 Il2CppClass.interfaceOffsets
+     36 Il2CppClass.cctor_finished
+     18 Il2CppClass.typeHierarchyDepth
+     16 Il2CppClass.static_fields
+     13 Il2CppClass.fields
+      6 Il2CppClass.typeHierarchy
+      6 Il2CppClass.initialized_and_no_error
+      4 MethodInfo.klass
+      3 Il2CppClass.element_size
+      1 Il2CppClass.vtable
+      1 Il2CppClass.namespaze
