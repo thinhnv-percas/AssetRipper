@@ -5,8 +5,8 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 043 (hoàn tất; mô hình layout được phát biểu và ĐO: LayoutOf ở khung boxed.
-                          Ship: ValueTypeSelfCheck, FieldOffsetFrame, bỏ một lần cộng header thừa)
+Iteration hiện tại: 044 (hoàn tất; mục tiêu dự án đổi sang APK/IPA -> Unity project chạy được.
+                          Ship: BasePointerOrigin, --shader-mode, RECOVERY_MATRIX, ARCHITECTURE)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -46,8 +46,29 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 043a (Impostor) và 043apin (Pinata);
-  cả hai giống 042d/041dpin tới từng chữ số vì 043 không đổi output.
+  rảnh giữa hai iteration. Baseline cho iteration sau là 044b (Impostor); giống 043a tới từng chữ số.
+
+Iteration 044 — bốn thứ phải biết trước khi làm tiếp:
+
+  1. **Luật về khung toạ độ đã có hình dạng, nhưng mẫu bị lệch.** `BasePointerOrigin` cho bảng chéo
+     tách sạch: STATIC_FIELD -> VALUE_RELATIVE 43/43, và THIS/PARAMETER/CALL_RESULT/INSTANCE_FIELD
+     -> OBJECT_RELATIVE 25/25, không ngoại lệ. NHƯNG dump chỉ ghi load *không phân giải được*, nên
+     đó là mẫu của phần thất bại. Phải đo trên cả load đã phân giải trước khi dùng luật này.
+
+  2. **Shader `Dummy` không rỗng và biên dịch được.** Nó phục hồi đúng Properties rồi gắn cùng một
+     pass unlit cho MỌI shader. Material không hồng, nên mọi validation kiểu "có hồng không" báo
+     PASS trong khi shading sai. `--shader-mode Yaml` giữ được subprogram và blob.
+
+  3. **`ShaderExportMode.Decompile` không tồn tại trong cây này** — nó rơi xuống Dummy; decompiler
+     là feature Premium upstream. Và fixture Impostor chỉ có GLES3/GLES, không có DXBC/SPIR-V/Metal,
+     nên công việc HLSLcc hay SPIR-V cần một fixture khác.
+
+  4. **Unity không có trên máy này.** Build và runtime validation là UNITY_NOT_AVAILABLE, đã kiểm
+     tra chứ không phỏng đoán. Roslyn, shape check, audit và `measure-bodies.py` vẫn chạy được.
+
+Iteration 044 — số liệu: mọi cột bằng đúng 043 (2722 load, genFail 0, 819 file, 16/16 shape,
+  Roslyn 348/0, `array[i].field` 164, `(float)array[i]` 0, 0 file .cs đổi). Test 361 -> 372.
+  Xem `docs/RECOVERY_MATRIX.md` cho 23 layer và `docs/FULL_RECOVERY_ARCHITECTURE.md` cho 13 tầng.
 
 Iteration 043 — ba thứ phải biết trước khi làm tiếp:
 

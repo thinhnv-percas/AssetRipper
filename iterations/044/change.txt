@@ -1,0 +1,44 @@
+Brief đổi mục tiêu dự án: từ "giảm unresolved load" sang "APK/IPA thành Unity project chạy được".
+Iteration này làm hai việc: phần core mà brief tự đặt tên (§11), và khảo sát đo được toàn pipeline.
+
+A. BasePointerOrigin (§11, "ITERATION 044 CORE") — commit d930b2af
+
+   Iteration 042 kết luận khung của offset thuộc về con trỏ base, và muốn dùng thì phải có luật nói
+   con trỏ base có được bằng cách nào. Đây là phần đó. Chỉ báo thứ IR nói thẳng ra; không có bằng
+   chứng thì UNKNOWN.
+
+   Phân bố 2722 load: UNKNOWN 809, RUNTIME_STRUCTURE 548, PARAMETER 394, LOADED_POINTER 329,
+   ENTRY_VALUE 160, INSTANCE_FIELD 138, STATIC_FIELD 103, CALL_RESULT 92, STACK_SLOT 81, THIS 60,
+   ALLOCATION 8.
+
+   KẾT QUẢ ĐÁNG GIÁ NHẤT: bảng chéo nguồn gốc × khung toạ độ tách SẠCH chỗ nguồn gốc đã biết.
+   STATIC_FIELD → VALUE_RELATIVE 43/43. THIS/PARAMETER/CALL_RESULT/INSTANCE_FIELD →
+   OBJECT_RELATIVE 25/25. Không một ngoại lệ. Khớp với vật lý il2cpp: static storage giữ giá trị
+   inline không header, struct box hoặc nhận qua receiver thì mang header.
+
+   KHÔNG PATCH, và lý do phải nói rõ: mẫu bị lệch. Dump chỉ ghi load KHÔNG phân giải được, nên 68
+   ca đó là mẫu của phần thất bại. Phải đo lại trên cả load đã phân giải trước khi dùng.
+
+B. --shader-mode và ma trận phục hồi — commit e473b4db
+
+   Ba tiền đề của brief bị đo là SAI:
+   - §23 "tận dụng AssetRipper shader decompilation": Decompile rơi xuống DummyShaderTextExporter;
+     không có decompiler trong cây này, nó là feature Premium upstream.
+   - §18/§19 SPIR-V và DXBC là hướng ưu tiên: GpuProgramType chỉ có 4 và 5 = GLES3 và GLES. Không
+     một chương trình DXBC/SPIR-V/Metal nào trên fixture.
+   - §9 "assembly-level GUID cần map thành per-script": đã là per-script, 450 GUID duy nhất /450.
+
+   Và một cái bẫy: Dummy KHÔNG rỗng. Nó phục hồi đúng Properties rồi gắn cùng một pass unlit cho
+   mọi shader. Thứ đó biên dịch được, material không hồng, nên kiểm tra "có hồng không" báo PASS
+   trong khi shading sai.
+
+   Yaml giữ được bytecode: 12 subprogram, 31 blob, 18 GpuProgramType trên một shader. §20 làm được
+   hôm nay, chỉ là harness chưa bật.
+
+C. Không đổi output: 2722 load, genFail 0, 819 file, 0 file .cs khác baseline, 16/16 shape,
+   Roslyn 348/0. Test 361 -> 372, 1 fail có sẵn.
+
+D. Một test tự phát hiện là suy biến và được ghi chú đúng như vậy: ACopyCycleTerminatesAsUnknown.
+   Với một định nghĩa mỗi local, chặn chu trình chỉ đổi khối lượng công việc chứ không đổi câu trả
+   lời — giới hạn độ sâu đằng nào cũng trả Unknown. Gỡ chặn chu trình KHÔNG làm test đỏ. Giữ lại
+   như một test chống treo, không phải bằng chứng rằng guard chịu lực.

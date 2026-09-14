@@ -980,6 +980,29 @@ find it; `strings` without `-el` does find method and type names.
   code" and was one sentence away from being written down as a finding; moving the line to
   `Il2CppIlRecoveryOutputFormat`, where the recovery counters are logged, turned 0 into 2538.
 
+- **A stand-in that compiles looks exactly like success.** `DummyShaderTextExporter` is not empty: it
+  reconstructs a shader's `Properties` exactly - names, types, defaults, `[Toggle]`,
+  `[HideInInspector]`, even `//CustomEditor` - and then gives **every** shader the same replacement
+  unlit pass (`mul(VP, mul(ObjectToWorld, pos))`, sample `_MainTex`). That compiles, so the material
+  is not pink, so any check that looks for pink materials reports success while the shading is wrong.
+  `ShaderExportMode.Decompile` is not in this repository at all - the dispatch has two branches and
+  `Decompile` falls through to Dummy; the GUI gates it behind `GameFileLoader.Premium`.
+  `--shader-mode Yaml` does preserve the compiled programs: 12 `m_SubPrograms`, 31 blobs and 18
+  `GpuProgramType` entries on one shader.
+- **Read the backend before planning shader work.** The test game's shaders carry `GpuProgramType` 4
+  and 5 only, which this repo's own `ShaderGpuProgramType55` names `GLES3` and `GLES`: there is not
+  one DXBC, SPIR-V or Metal program in it, so HLSLcc and SPIR-V work would apply to zero programs
+  and needs a different fixture. The blobs are compressed, so "GLES means GLSL text" is **not**
+  confirmed and must not be recorded as if it were.
+- **Where the base pointer came from is what the offset frame follows, and the two now cross-tab
+  cleanly.** `BasePointerOrigin` reports only what the IR states - a local flagged as the receiver, a
+  register the stack analyser named after a frame offset, a type that is static field storage - and
+  against the coordinate evidence it separates with no exceptions: static field storage reads
+  **value-relative 43/43**, while receiver, parameter, call result and instance field read
+  **object-relative 25/25**. That matches il2cpp's physics, and it is still **not** a licence to
+  patch: the dump records only loads that were *given up on*, so those 68 are a sample of the
+  failures, not of the program. Measure it over resolved loads before acting on it.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,

@@ -316,3 +316,37 @@ Phép đo mới, và là thứ iteration này thực sự sinh ra:
 
 `SelfCheck` cũ (chỉ class) không đổi: Impostor 1394/1472 exact 0 disagree, Pinata 3170/3221 exact
 0 disagree.
+
+## Iteration 044 — nguồn gốc con trỏ base, và khảo sát toàn pipeline
+
+| Metric | 043 | 044 | Delta |
+|---|---:|---:|---:|
+| Impostor unresolved loads | 2722 | 2722 | 0 |
+| genFail | 0 | 0 | 0 |
+| Impostor Roslyn DECOMPILER / REFERENCE | 348 / 0 | 348 / 0 | 0 |
+| shape checks | 16/16 | 16/16 | 0 |
+| `array[i].field` / `(float)array[i]` | 164 / 0 | 164 / 0 | 0 |
+| file .cs đổi | — | **0** | — |
+| tests (pre-existing failures) | 361 (1) | 372 (1) | +11 |
+
+Phép đo mới — nguồn gốc con trỏ base trên 2722 load: UNKNOWN 809, RUNTIME_STRUCTURE 548,
+PARAMETER 394, LOADED_POINTER 329, ENTRY_VALUE 160, INSTANCE_FIELD 138, STATIC_FIELD 103,
+CALL_RESULT 92, STACK_SLOT 81, THIS 60, ALLOCATION 8.
+
+Bảng chéo nguồn gốc × khung toạ độ, base là value type — **tách sạch chỗ nguồn gốc đã biết**:
+
+| khung | nguồn gốc | số |
+|---|---|---:|
+| VALUE_RELATIVE | STATIC_FIELD | **43** |
+| VALUE_RELATIVE | UNKNOWN | 34 |
+| OBJECT_RELATIVE | PARAMETER | 14 |
+| OBJECT_RELATIVE | CALL_RESULT | 7 |
+| OBJECT_RELATIVE | UNKNOWN | 4 |
+| OBJECT_RELATIVE | THIS | 3 |
+| OBJECT_RELATIVE | INSTANCE_FIELD | 1 |
+
+Không patch: mẫu chỉ gồm load không phân giải được, tức mẫu của phần thất bại.
+
+Khảo sát pipeline: `docs/RECOVERY_MATRIX.md` (23 layer) và `docs/FULL_RECOVERY_ARCHITECTURE.md`
+(13 tầng). Build/runtime `UNITY_NOT_AVAILABLE`. Ba tiền đề của brief bị đo là sai (shader decompiler
+không có trong cây này; fixture chỉ có GLES nên không có DXBC/SPIR-V; GUID đã là per-script).
