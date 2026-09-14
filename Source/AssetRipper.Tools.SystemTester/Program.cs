@@ -51,6 +51,7 @@ static class Program
 			  --output <dir>          Where to write the Unity project. Default: <exe directory>/Ripped
 			  --log <file>            Where to write the log. Default: AssetRipper.Tools.SystemTester.log
 			  --script-level <0-3>    Script content level. 3 recovers IL2Cpp method bodies. Default: 2
+			  --shader-mode <mode>    Dummy, Yaml or Decompile. Default: Dummy. See the note below.
 			  --reconstruct-bodies    Attach approximate C# to bodies IL recovery cannot express. Slow.
 			  --no-emit-offsets       Leave out the field offset and method address attributes.
 			  --struct-db <dir>       IL2Cpp struct layout directory. Default: the usual locations.
@@ -70,6 +71,16 @@ static class Program
 		public string OutputPath { get; set; } = Path.Join(AppContext.BaseDirectory, "Ripped");
 		public string LogPath { get; set; } = "AssetRipper.Tools.SystemTester.log";
 		public ScriptContentLevel ScriptContentLevel { get; set; } = ScriptContentLevel.Level2;
+
+		/// <summary>
+		/// How shaders are written out. Measurable from the command line because the default hides a
+		/// distinction that matters: <c>Dummy</c> reconstructs a shader's Properties exactly and then
+		/// gives every one of them the *same* stand-in unlit pass, which compiles - so a material
+		/// using it is not pink and a validation that only looks for pink materials reports success
+		/// while the shading is wrong. <c>Decompile</c> is an upstream Premium feature and is not in
+		/// this repository; it falls through to <c>Dummy</c>. See docs/RECOVERY_MATRIX.md.
+		/// </summary>
+		public ShaderExportMode ShaderExportMode { get; set; } = ShaderExportMode.Dummy;
 		public bool ReconstructNativeBodies { get; set; }
 		public bool EmitIl2CppOffsets { get; set; } = true;
 		public string? StructDbPath { get; set; }
@@ -89,6 +100,16 @@ static class Program
 					case "--log" when i + 1 < args.Length:
 						options.LogPath = Path.GetFullPath(args[++i]);
 						break;
+					case "--shader-mode" when i + 1 < args.Length:
+						if (!Enum.TryParse(args[++i], ignoreCase: true, out ShaderExportMode shaderMode))
+						{
+							error = $"--shader-mode must be one of {string.Join(", ", Enum.GetNames<ShaderExportMode>())}";
+							return false;
+						}
+
+						options.ShaderExportMode = shaderMode;
+						break;
+
 					case "--script-level" when i + 1 < args.Length:
 						string level = args[++i];
 						if (!int.TryParse(level, out int number) || number is < 0 or > 3)
@@ -211,6 +232,7 @@ static class Program
 		settings.ImportSettings.ReconstructNativeBodies = options.ReconstructNativeBodies;
 		settings.ImportSettings.Il2CppStructDbPath = options.StructDbPath;
 		settings.ExportSettings.ScriptExportMode = ScriptExportMode.Decompiled;
+		settings.ExportSettings.ShaderExportMode = options.ShaderExportMode;
 
 		settings.LogConfigurationValues();
 
