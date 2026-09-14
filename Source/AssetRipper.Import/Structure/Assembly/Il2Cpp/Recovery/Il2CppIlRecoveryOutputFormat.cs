@@ -469,6 +469,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			baseDefinition,
 			RootCauseOf(methodContext, memory),
 			MetadataStateOf(owner, memory, methodContext),
+			OriginOf(methodContext, memory),
 			memory.ToString());
 
 		lock (unresolvedLoadCaseLock)
@@ -825,6 +826,144 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			(false, true) => "OBJECT_RELATIVE",
 			_ => "NEITHER",
 		};
+	}
+
+	/// <summary>
+	/// Where the base pointer of an unresolved load came from, read off the IR.
+	/// </summary>
+	/// <remarks>
+	/// The classification itself is <see cref="BasePointerOrigin"/>; this is the adapter that gives it
+	/// the three things it asks about a local. Only what the IR states outright is reported: a local
+	/// flagged as the receiver, a register the stack analyser named after a frame offset, a type that
+	/// is static field storage or one of the runtime's own structures, a definition that is a field
+	/// read or an element address. Everything else is UNKNOWN, because the point of this column is to
+	/// make the frame question answerable by a rule rather than by a guess, and a guessed origin would
+	/// put the guess one step earlier.
+	/// </remarks>
+	private string OriginOf(MethodAnalysisContext methodContext, MemoryOperand memory)
+	{
+		if (memory.Base is not LocalVariable local)
+		{
+			return BasePointerOrigin.Unknown;
+		}
+
+		Dictionary<LocalVariable, List<Instruction>> definitions = DefinitionsFor(methodContext);
+
+		return BasePointerOrigin.Of(
+			new IrLocal(local),
+			candidate => definitions.TryGetValue(((IrLocal)candidate).Local, out List<Instruction>? found)
+				? found.ConvertAll(instruction => DescribeOriginDefinition(instruction))
+				: Array.Empty<BasePointerOrigin.DefinitionLike>(),
+			candidate => DescribeLocal(((IrLocal)candidate).Local),
+			(candidate, definition) => definition.Kind == BasePointerOrigin.DefinitionKind.Other
+				&& IsReturnBuffer(((IrLocal)candidate).Local, methodContext),
+			candidate => methodContext.ParameterOperands.Contains(((IrLocal)candidate).Local.Register)
+				? BasePointerOrigin.Parameter
+				: null);
+	}
+
+	private sealed record IrLocal(LocalVariable Local) : BasePointerOrigin.LocalLike;
+
+	/// <summary>What a local says about itself, before anything looks at what defined it.</summary>
+	private static string? DescribeLocal(LocalVariable local)
+	{
+		if (local.IsThis)
+		{
+			return BasePointerOrigin.This;
+		}
+
+		// StackAnalyzer names every frame slot after its own offset, so the name is the evidence.
+		if (local.Register.Name is { } name && name.StartsWith("stack_", StringComparison.Ordinal))
+		{
+			return BasePointerOrigin.StackSlot;
+		}
+
+		return local.Type switch
+		{
+			StaticFieldStorageTypeAnalysisContext => BasePointerOrigin.StaticField,
+			RuntimeClassTypeAnalysisContext or RuntimeMethodInfoAnalysisContext => BasePointerOrigin.RuntimeStructure,
+			_ => null,
+		};
+	}
+
+	private BasePointerOrigin.DefinitionLike DescribeOriginDefinition(Instruction instruction)
+	{
+		OperandList operands = instruction.Operands;
+
+		switch (instruction.OpCode)
+		{
+			case Cpp2IL.Core.ISIL.OpCode.Move when operands.Count > 1:
+				return operands[1] switch
+				{
+					LocalVariable copied => new(BasePointerOrigin.DefinitionKind.CopyOfLocal, new IrLocal(copied)),
+					FieldReference => new(BasePointerOrigin.DefinitionKind.FieldRead, null),
+					// The address of an element, which ArrayRecovery folds into this shape.
+					AddressOf { Target: ArrayAccess } => new(BasePointerOrigin.DefinitionKind.ArrayElementAddress, null),
+					MemoryOperand => new(BasePointerOrigin.DefinitionKind.LoadFromMemory, null),
+					_ => default,
+				};
+
+			// Adding a constant to a pointer leaves it pointing into the same storage, so the base
+			// side is followed; adding two registers says nothing about which of them is the base.
+			case Cpp2IL.Core.ISIL.OpCode.Add when operands.Count > 2:
+				return (operands[1], operands[2]) switch
+				{
+					(LocalVariable based, Immediate) => new(BasePointerOrigin.DefinitionKind.OffsetFromLocal, new IrLocal(based)),
+					(Immediate, LocalVariable based) => new(BasePointerOrigin.DefinitionKind.OffsetFromLocal, new IrLocal(based)),
+					_ => default,
+				};
+
+			case Cpp2IL.Core.ISIL.OpCode.Call:
+			case Cpp2IL.Core.ISIL.OpCode.IndirectCall:
+				return new(BasePointerOrigin.DefinitionKind.CallResult, null);
+
+			case Cpp2IL.Core.ISIL.OpCode.Newobj:
+			case Cpp2IL.Core.ISIL.OpCode.NewArr:
+				return new(BasePointerOrigin.DefinitionKind.Allocation, null);
+
+			default:
+				return default;
+		}
+	}
+
+	/// <summary>
+	/// Whether a call writes its return value through this local, which is what makes it the buffer
+	/// the caller allocated rather than an ordinary result.
+	/// </summary>
+	/// <remarks>
+	/// Which register carries the buffer comes from the callee's own calling convention, never a name
+	/// written down - the same source <see cref="Cpp2IL.Core.Analysis.IndirectReturnBufferRecovery"/>
+	/// reads it from, so the two agree by construction.
+	/// </remarks>
+	private bool IsReturnBuffer(LocalVariable local, MethodAnalysisContext methodContext)
+	{
+		if (appContext?.InstructionSet.CallingConventionResolver is not { } conventions
+			|| methodContext.ControlFlowGraph is not { } graph)
+		{
+			return false;
+		}
+
+		foreach (Instruction instruction in graph.Instructions)
+		{
+			if (!instruction.IsCall || instruction.Operands.Count == 0
+				|| instruction.Operands[0] is not MethodAnalysisContext callee
+				|| conventions.HiddenReturnBufferRegister(callee) is not { } buffer)
+			{
+				continue;
+			}
+
+			foreach (IOperand operand in instruction.Operands)
+			{
+				if (operand is LocalVariable argument
+					&& ReferenceEquals(argument, local)
+					&& argument.Register.Number == buffer.Number)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private static readonly string? unresolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_LOADS");
