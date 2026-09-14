@@ -21,7 +21,14 @@ import re
 import sys
 
 ADDRESS = re.compile(r'\[Address\(RVA = "0x([0-9A-Fa-f]+)"(?:, Offset = "[^"]*")?(?:, VA = "[^"]*")?(?:, Length = "0x([0-9A-Fa-f]+)")?\)\]')
-DIAGNOSTIC = re.compile(r'"(?:Unmanaged memory load|Method not found|Unknown call target|Unresolved delegate|Not implemented instruction|Il2Cpp runtime handle|Stack shift|Unresolved branch target)')
+# The families are defined once, in placeholder_families.py, and imported rather than restated. The
+# restated copy that used to sit here named "Unresolved delegate", which the generator never prints,
+# and omitted `Indirect call` and `Indirect jump` outright: 732 placeholders invisible, and every
+# method whose only defect was one of them scored RECOVERED_CLEAN.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from placeholder_families import MESSAGE_PREFIXES  # noqa: E402
+
+DIAGNOSTIC = re.compile('"(?:' + "|".join(re.escape(prefix) for prefix in MESSAGE_PREFIXES) + ')')
 GENERATOR_FAILURE = re.compile(r'throw new \w*Exception\("(?:Decompil|Object reference|Index was|The given key)')
 UNTYPED_LOCAL = re.compile(r'\bobject \w+(?:\s*=|;)')
 
