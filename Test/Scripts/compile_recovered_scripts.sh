@@ -127,9 +127,16 @@ echo "ROSLYN_COMPILER: $csc"
 echo "$assembly: $files files, $errors errors, $warnings warnings"
 echo
 
+# The message shown per code is the MOST COMMON one, with how many share it - not the first in the
+# log. A `grep -m1` example beside a count of 1125 reads as 1125 of that message, and an iteration
+# was planned on exactly that misreading: the code's dominant message was a different one entirely,
+# and the family turned out to be 275 distinct type pairs rather than one.
 grep -oE ': error CS[0-9]+' "$work/log.txt" | sort | uniq -c | sort -rn | while read -r count code; do
-    example=$(grep -m1 "${code#: }" "$work/log.txt" | sed 's/.*error CS[0-9]*: //')
-    printf '%6d  %-8s %s\n' "$count" "${code##*error }" "$example"
+    bare="${code##*error }"
+    top=$(grep ": error $bare: " "$work/log.txt" | sed "s/.*error $bare: //" | sort | uniq -c | sort -rn | head -1)
+    share=$(echo "$top" | awk '{print $1}')
+    example=$(echo "$top" | sed 's/^ *[0-9]* //')
+    printf '%6d  %-8s [most common: %s of %s] %s\n' "$count" "$bare" "$share" "$count" "$example"
 done
 
 # Analyzer diagnostics are warnings among tens of thousands of compiler ones, so they get their own
