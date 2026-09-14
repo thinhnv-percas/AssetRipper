@@ -341,7 +341,7 @@ public static class IlGenerator
     /// </para>
     /// </remarks>
     private static bool EmitNativeImportOperation(ulong address, Instruction instruction, MethodAnalysisContext context,
-        MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
+        MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine)
     {
         if (instruction.Operands.Count != RawRegisterFileOperandCount
             || context.AppContext.Binary is not LibCpp2IL.Elf.ElfFile elf)
@@ -361,10 +361,14 @@ public static class IlGenerator
             ? destination.Type
             : null;
 
-        LoadOperand(left, context, method, locals, null!, floatType);
-        LoadOperand(right, context, method, locals, null!, floatType);
+        // The real diagnostic target, not null: an operand that cannot be loaded cleanly emits a call
+        // to it, and passing null threw out of the generator on the second fixture and cost that
+        // assembly every file after it. It never happened on the first, which is what a fixture-shaped
+        // hole in a change looks like.
+        LoadOperand(left, context, method, locals, writeLine, floatType);
+        LoadOperand(right, context, method, locals, writeLine, floatType);
         method.CilMethodBody!.Instructions.Add(CilOpCodes.Rem);
-        StoreToOperand(instruction.Operands[1], context, method, locals, null!);
+        StoreToOperand(instruction.Operands[1], context, method, locals, writeLine);
 
         System.Threading.Interlocked.Increment(ref NativeImportOperationsRecovered);
         return true;
@@ -1307,7 +1311,7 @@ public static class IlGenerator
                     // few of those names are an operation C# has outright - so the operation is what
                     // the call means, and emitting it is recovery rather than a stand-in.
                     if (instruction.Operands[0] is Immediate pltAddress
-                        && EmitNativeImportOperation(pltAddress.UnsignedValue, instruction, context, method, locals))
+                        && EmitNativeImportOperation(pltAddress.UnsignedValue, instruction, context, method, locals, writeLine))
                     {
                         break;
                     }
