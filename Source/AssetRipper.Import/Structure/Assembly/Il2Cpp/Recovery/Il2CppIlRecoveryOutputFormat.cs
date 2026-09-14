@@ -473,12 +473,79 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			MetadataStateOf(owner, memory, methodContext),
 			OriginOf(methodContext, memory.Base),
 			SearchAnswersNow(owner, memory),
+			RuntimeFieldOf(baseType, memory),
 			memory.ToString());
 
 		lock (unresolvedLoadCaseLock)
 		{
 			unresolvedLoadCaseWriter ??= new StreamWriter(unresolvedLoadCaseFile, append: false);
 			unresolvedLoadCaseWriter.WriteLine(row);
+		}
+	}
+
+	/// <summary>
+	/// The runtime structure member a read of <c>Il2CppClass</c> or <c>MethodInfo</c> reaches, by name.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// A read of the runtime's own structures is the largest single group of unresolved loads and the
+	/// one least like the others: the base is correctly typed, there is no managed field at the offset,
+	/// and there never will be. Counting it as a recovery failure is wrong, and dropping it silently is
+	/// worse - so it is named instead, from the same measured tables every pass that keys on one of
+	/// these offsets reads (<c>Il2CppClassOffsetPatcher</c> prepends what it measured from the struct
+	/// database, so the names follow the Unity version rather than being written down).
+	/// </para>
+	/// <para>
+	/// An offset the tables do not name is reported as unnamed rather than guessed. That is the
+	/// difference between "this is a vtable slot" and "this is somewhere in a structure we know the
+	/// shape of", and only the first is a finished answer.
+	/// </para>
+	/// </remarks>
+	private string RuntimeFieldOf(TypeAnalysisContext? baseType, MemoryOperand memory)
+	{
+		if (appContext is null || memory.Addend is < 0 or > uint.MaxValue)
+		{
+			return "-";
+		}
+
+		uint offset = (uint)memory.Addend;
+		bool is32Bit = appContext.Binary.is32Bit;
+
+		switch (baseType)
+		{
+			case RuntimeClassTypeAnalysisContext:
+				if (Il2CppClassUsefulOffsets.GetOffsetName(offset, is32Bit) is { } named)
+				{
+					return "Il2CppClass." + named;
+				}
+
+				// The vtable is not one member but a run of them, so its name is the run and the slot
+				// is the rest of the answer. InterfaceDispatchRecovery is what turns one into a call.
+				if (Il2CppClassUsefulOffsets.IsPointerIntoVtable(offset, appContext.MetadataVersion, is32Bit))
+				{
+					return "Il2CppClass.vtable[]";
+				}
+
+				// The curated table names what the passes key on; the struct database names the rest.
+				return Il2CppClassOffsetPatcher.MemberNames("Il2CppClass").TryGetValue(offset, out string? measured)
+					? "Il2CppClass." + measured
+					: "Il2CppClass.<unnamed>";
+
+			case RuntimeMethodInfoAnalysisContext:
+				if (Il2CppMethodInfoUsefulOffsets.GetOffsetName(offset, appContext.Binary) is { } method)
+				{
+					return "MethodInfo." + method;
+				}
+
+				return Il2CppClassOffsetPatcher.MemberNames("MethodInfo").TryGetValue(offset, out string? measuredMethod)
+					? "MethodInfo." + measuredMethod
+					: "MethodInfo.<unnamed>";
+
+			case StaticFieldStorageTypeAnalysisContext:
+				return "Il2CppStaticFields";
+
+			default:
+				return "-";
 		}
 	}
 

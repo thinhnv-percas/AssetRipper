@@ -377,6 +377,61 @@ internal sealed class Il2CppStructDbTests
 	/// <summary>
 	/// A layout file in the shipped schema, holding the structs these tests read.
 	/// </summary>
+	[Test]
+	public void EveryMemberIsNamedByOffset_NotOnlyTheCuratedOnes()
+	{
+		// The curated list holds the offsets passes key on and deliberately stays small. Naming a read
+		// needs the whole layout, and naming is all it needs - so the two tables are separate, and
+		// this is the one that has to be complete.
+		Il2CppClassOffsetPatcher.Apply(Load());
+		IReadOnlyDictionary<uint, string> names = Il2CppClassOffsetPatcher.MemberNames("Il2CppClass");
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(names[0], Is.EqualTo("image"));
+			Assert.That(names[0x20], Is.EqualTo("byval_arg"));
+			// `name` is not in the curated list, so a curated-only lookup answers nothing here.
+			Assert.That(names[8], Is.EqualTo("name"));
+		});
+	}
+
+	[Test]
+	public void AMemberClaimsEveryByteItCovers()
+	{
+		// A load is at the offset it is at: reading the second half of a pointer is still reading that
+		// pointer, and reporting the byte as unnamed would say the layout does not cover it.
+		Il2CppClassOffsetPatcher.Apply(Load());
+		IReadOnlyDictionary<uint, string> names = Il2CppClassOffsetPatcher.MemberNames("Il2CppClass");
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(names[0x24], Is.EqualTo("byval_arg+4"));
+			Assert.That(names[0x2F], Is.EqualTo("byval_arg+15"));
+			// And it claims no byte past its width. The fixture's next member is at 0x40, so 0x30 is
+			// a genuine gap - naming it would be the layout claiming coverage it does not have.
+			Assert.That(names.ContainsKey(0x30), Is.False);
+			Assert.That(names[0x40], Is.EqualTo("element_class"));
+		});
+	}
+
+	[Test]
+	public void TheTableIsClearedWithTheOffsetsItSitsBeside()
+	{
+		// Per-run state: a name measured for one Unity version must not outlive it into the next run.
+		Il2CppClassOffsetPatcher.Apply(Load());
+		Assert.That(Il2CppClassOffsetPatcher.MemberNames("Il2CppClass"), Is.Not.Empty);
+
+		Il2CppClassOffsetPatcher.Restore();
+		Assert.That(Il2CppClassOffsetPatcher.MemberNames("Il2CppClass"), Is.Empty);
+	}
+
+	[Test]
+	public void AStructTheDatabaseDoesNotCarry_IsEmptyRatherThanThrowing()
+	{
+		Il2CppClassOffsetPatcher.Apply(Load());
+		Assert.That(Il2CppClassOffsetPatcher.MemberNames("Il2CppNotAThing"), Is.Empty);
+	}
+
 	private static string Layout(int pointerSize, int vtableOffset = 0x130, int classSize = 304)
 	{
 		bool is64 = pointerSize == 8;

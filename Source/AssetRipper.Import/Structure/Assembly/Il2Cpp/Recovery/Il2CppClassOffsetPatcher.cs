@@ -96,6 +96,7 @@ public static class Il2CppClassOffsetPatcher
 		}
 
 		bool is32Bit = db.Is32Bit;
+		RecordMemberNames(ClassStruct, layout);
 		List<Il2CppClassUsefulOffsets.UsefulOffset> measured = [];
 
 		foreach ((string cpp2IlName, string[] fieldNames) in interestingFields)
@@ -146,6 +147,7 @@ public static class Il2CppClassOffsetPatcher
 			return 0;
 		}
 
+		RecordMemberNames(MethodStruct, layout);
 		List<Il2CppMethodInfoUsefulOffsets.UsefulOffset> measured = [];
 
 		foreach ((string cpp2IlName, string[] fieldNames) in interestingMethodFields)
@@ -166,6 +168,63 @@ public static class Il2CppClassOffsetPatcher
 	}
 
 	/// <summary>Puts the built-in table back, discarding any patch.</summary>
+	/// <summary>
+	/// Every member of a runtime structure by offset, for naming a read rather than acting on one.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// <see cref="Il2CppClassUsefulOffsets"/> is a curated list of the offsets passes key on, and it
+	/// deliberately stays that way: an entry there changes what the analysis does. But the struct
+	/// database carries the <em>whole</em> layout, and a read of the runtime's own structures is the
+	/// largest group of unresolved loads - so naming one needs the full table, and naming is all it
+	/// needs. Kept apart so that a better diagnostic can never change a pass by accident.
+	/// </para>
+	/// <para>
+	/// A member is recorded at every byte it covers, because a load is at the offset it is at and a
+	/// read of the second half of a pointer is still a read of that pointer. Bitfields are recorded
+	/// too, with the caveat in the name: several share one byte, so the byte names a group.
+	/// </para>
+	/// </remarks>
+	public static IReadOnlyDictionary<uint, string> MemberNames(string structName)
+		=> memberNames.TryGetValue(structName, out Dictionary<uint, string>? found)
+			? found
+			: EmptyNames;
+
+	private static readonly Dictionary<uint, string> EmptyNames = [];
+
+	private static readonly Dictionary<string, Dictionary<uint, string>> memberNames = [];
+
+	private static void RecordMemberNames(string structName, StructDbStruct layout)
+	{
+		Dictionary<uint, string> names = [];
+
+		foreach (StructDbField field in layout.Fields)
+		{
+			if (field.Offset < 0)
+			{
+				continue;
+			}
+
+			// A bitfield's storage unit is shared, so the name says so rather than claiming the byte.
+			string name = field.IsBitField ? field.Name + " (bitfield)" : field.Name;
+			int width = field.IsBitField ? 1 : Math.Max(field.Size, 1);
+
+			for (int covered = 0; covered < width; covered++)
+			{
+				uint at = (uint)(field.Offset + covered);
+
+				// The first field to claim a byte keeps it: a union's later members would otherwise
+				// overwrite a name that is just as true.
+				if (!names.ContainsKey(at))
+				{
+					names[at] = covered == 0 ? name : $"{name}+{covered}";
+				}
+			}
+		}
+
+		memberNames[structName] = names;
+	}
+
 	public static void Restore()
 	{
 		lock (patchLock)
@@ -187,6 +246,10 @@ public static class Il2CppClassOffsetPatcher
 
 		Il2CppMethodInfoUsefulOffsets.UsefulOffsets.Clear();
 		Il2CppMethodInfoUsefulOffsets.UsefulOffsets.AddRange(pristineMethods);
+
+		// Per-run state like the offsets themselves: a name measured for one Unity version must not
+		// outlive it into the next run.
+		memberNames.Clear();
 	}
 
 	private static StructDbField? Find(StructDbStruct layout, string[] names)
