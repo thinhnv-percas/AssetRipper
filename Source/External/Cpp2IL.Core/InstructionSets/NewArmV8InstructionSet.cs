@@ -29,6 +29,35 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
 
     public override BaseCallingConventionResolver CallingConventionResolver => CallingConventions;
 
+    /// <summary>
+    /// AssetRipper: the two masks a bitfield move needs - the field itself, and what the destination
+    /// keeps.
+    /// </summary>
+    /// <remarks>
+    /// Extracted so it can be tested on its own, because the part that is easy to get wrong is not
+    /// the shifting. A 32 bit register keeps 32 bits, so the complement has to be cut to the
+    /// register's width; leaving it 64 bits wide sets the whole high half of the destination to ones,
+    /// which is arithmetic that looks plausible and is not.
+    /// </remarks>
+    public static (ulong Field, ulong Kept) BitfieldMoveMasks(bool isInsert, int lsb, int width, bool is64)
+    {
+        var field = width >= 64 ? ulong.MaxValue : (1UL << width) - 1;
+        var placed = isInsert ? field << lsb : field;
+        var kept = is64 ? ~placed : ~placed & 0xFFFFFFFFUL;
+        return (field, kept);
+    }
+
+    /// <summary>
+    /// AssetRipper: a mask written at the width of the register it applies to.
+    /// </summary>
+    /// <remarks>
+    /// The same bits, but a 32 bit mask whose top bit is set is a negative <c>int</c> and not a large
+    /// positive <c>long</c>. Writing it the wide way makes the generator push an I8 where the
+    /// destination is an I4: 75 stack type mismatches on the second fixture, against 88 placeholders
+    /// the lift removed.
+    /// </remarks>
+    public static long MaskImmediate(ulong mask, bool is64) => is64 ? unchecked((long)mask) : (int)(uint)mask;
+
     private static Immediate Imm(long value) => new(value);
     private static Immediate Imm(ulong value) => new(unchecked((long)value));
 
@@ -1014,6 +1043,37 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     var temp = new Register(null, "TEMP");
                     Add(address, OpCode.And, temp, ConvertOperand(instruction, 1), Imm((1L << (int)instruction.Op3Imm) - 1));
                     Add(address, OpCode.ShiftLeft, dest, temp, Imm(instruction.Op2Imm));
+                    break;
+                }
+            // AssetRipper: a bitfield *move* is UBFIZ/UBFX plus a read of the destination, and that read
+            // is the only difference - everything else is the same mask and shift, all of it named by
+            // the instruction rather than inferred. Disarm hands back the alias's own operands
+            // (`BFI W8, W9, 0x4, 0x8` decodes to lsb 4 and width 8), so there is no BFM immr/imms
+            // arithmetic to undo here.
+            case Arm64Mnemonic.BFI:
+            case Arm64Mnemonic.BFXIL:
+                {
+                    var dest = ConvertOperand(instruction, 0);
+                    var temp = new Register(null, "TEMP");
+                    var lsb = (int)instruction.Op2Imm;
+                    var width = (int)instruction.Op3Imm;
+                    var isInsert = instruction.Mnemonic is Arm64Mnemonic.BFI;
+                    var is64 = instruction.Op0Reg is >= Arm64Register.X0 and <= Arm64Register.X31;
+                    var (field, kept) = BitfieldMoveMasks(isInsert, lsb, width, is64);
+
+                    if (isInsert)
+                    {
+                        Add(address, OpCode.And, temp, ConvertOperand(instruction, 1), Imm(MaskImmediate(field, is64)));
+                        Add(address, OpCode.ShiftLeft, temp, temp, Imm(lsb));
+                    }
+                    else
+                    {
+                        Add(address, OpCode.ShiftRight, temp, ConvertOperand(instruction, 1), Imm(lsb));
+                        Add(address, OpCode.And, temp, temp, Imm(MaskImmediate(field, is64)));
+                    }
+
+                    Add(address, OpCode.And, dest, dest, Imm(MaskImmediate(kept, is64)));
+                    Add(address, OpCode.Or, dest, dest, temp);
                     break;
                 }
             case Arm64Mnemonic.MUL:
