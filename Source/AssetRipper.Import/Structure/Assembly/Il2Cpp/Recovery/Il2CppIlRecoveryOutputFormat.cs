@@ -1312,6 +1312,32 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		unresolvedCallKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
 
+		// AssetRipper: `METHOD_NOT_FOUND` is a symptom, and a symptom says nothing about whether the
+		// call is recoverable. The reason does, and every reason below is read off evidence already in
+		// hand at this point rather than guessed: how many managed methods sit on the address, and what
+		// the first four instructions there are.
+		string shape = NativeShapeAt(address);
+		string reason = candidates switch
+		{
+			< 0 => "INDIRECT_TARGET",
+			>= 2 => "GENERIC_SHARED",
+			_ => shape switch
+			{
+				// A PLT entry jumps through the GOT into another shared library. No amount of managed
+				// metadata will ever name it, so this is an external dependency and not a defect.
+				"PLT_STUB" => "NATIVE_ONLY",
+				// A single branch between the runtime and the generated code. Every call to a runtime
+				// helper goes through one, so this is a helper key-function recovery did not recognise.
+				"VENEER_B" => "RUNTIME_HELPER_VENEER",
+				"FUNCTION_PROLOGUE" => "RUNTIME_HELPER",
+				"UNMAPPED" => "REGISTRATION_MISSING",
+				"UNREADABLE" => "ANALYSIS_FAILURE",
+				_ => "UNKNOWN",
+			},
+		};
+
+		unresolvedCallReasons.AddOrUpdate(reason, 1, static (_, count) => count + 1);
+
 		if (unresolvedCallFile is null)
 		{
 			return;
@@ -1373,7 +1399,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			behindThunkCandidates.ToString(),
 			exported,
 			exportedBehind,
-			NativeShapeAt(address));
+			shape,
+			reason);
 
 		lock (unresolvedCallLock)
 		{
@@ -1446,6 +1473,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	}
 
 	private readonly ConcurrentDictionary<string, int> unresolvedCallKinds = new();
+
+	private readonly ConcurrentDictionary<string, int> unresolvedCallReasons = new();
 
 	private static readonly string? resolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_RESOLVED_LOADS");
 	private static readonly object resolvedLoadCaseLock = new();
@@ -2401,6 +2430,14 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				foreach ((string kind, int count) in unresolvedCallKinds.OrderByDescending(pair => pair.Value))
 				{
 					Logger.Info(LogCategory.Import, $"      {count,7} {kind}");
+				}
+
+				Logger.Info(LogCategory.Import,
+					"Il2Cpp method body recovery: the same calls, by what would have to change to resolve them:");
+
+				foreach ((string reason, int count) in unresolvedCallReasons.OrderByDescending(pair => pair.Value))
+				{
+					Logger.Info(LogCategory.Import, $"      {count,7} {reason}");
 				}
 			}
 
