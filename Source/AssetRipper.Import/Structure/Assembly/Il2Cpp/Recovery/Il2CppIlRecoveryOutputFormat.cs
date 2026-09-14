@@ -473,7 +473,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			MetadataStateOf(owner, memory, methodContext),
 			OriginOf(methodContext, memory.Base),
 			SearchAnswersNow(owner, memory),
-			RuntimeFieldOf(baseType, memory),
+			RuntimeFieldOf(baseType, memory, TestedBit(methodContext, memory)),
+			ConsumerOf(methodContext, memory),
 			memory.ToString());
 
 		lock (unresolvedLoadCaseLock)
@@ -481,6 +482,130 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			unresolvedLoadCaseWriter ??= new StreamWriter(unresolvedLoadCaseFile, append: false);
 			unresolvedLoadCaseWriter.WriteLine(row);
 		}
+	}
+
+	/// <summary>
+	/// Which bit of the loaded value the consuming instruction tests, when it tests exactly one.
+	/// </summary>
+	/// <remarks>
+	/// An offset names a storage unit; several bitfields share one, so the offset alone cannot say
+	/// which member was reached. The consumer can: a mask with one bit set names that bit, and a
+	/// signed less-than-zero test names the sign bit - which is how generated code reads the last
+	/// member of a 32-bit bitfield without a shift. Anything else returns null rather than a guess,
+	/// and the report falls back to naming the group.
+	/// </remarks>
+	private static int? TestedBit(MethodAnalysisContext methodContext, MemoryOperand memory)
+	{
+		if (methodContext.ControlFlowGraph is not { } graph)
+		{
+			return null;
+		}
+
+		string wanted = memory.ToString();
+
+		foreach (Instruction instruction in graph.AllInstructions)
+		{
+			bool carries = false;
+			long? mask = null;
+
+			foreach (IOperand operand in instruction.Operands)
+			{
+				if (operand?.ToString() == wanted)
+				{
+					carries = true;
+				}
+				else if (operand is Immediate immediate)
+				{
+					try
+					{
+						mask = Convert.ToInt64(immediate.Value);
+					}
+					catch (Exception)
+					{
+						return null;
+					}
+				}
+			}
+
+			if (!carries)
+			{
+				continue;
+			}
+
+			// `value < 0` on a 32-bit word is the sign bit, which is how the last member of a full
+			// bitfield is read: no shift, no mask, just the comparison.
+			if (instruction.OpCode is Cpp2IL.Core.ISIL.OpCode.CheckLess && mask == 0)
+			{
+				return 31;
+			}
+
+			if (instruction.OpCode is Cpp2IL.Core.ISIL.OpCode.And && mask is { } value and > 0
+				&& (value & (value - 1)) == 0)
+			{
+				return System.Numerics.BitOperations.TrailingZeroCount((ulong)value);
+			}
+
+			return null;
+		}
+
+		return null;
+	}
+
+	/// <summary>
+	/// The instruction that consumes this load, and what it does with the value.
+	/// </summary>
+	/// <remarks>
+	/// An offset names a member; what is done to the value afterwards names which <em>part</em> of it
+	/// was wanted. A bitfield storage unit is one byte that several members share, so the offset alone
+	/// cannot say which - but a mask and a shift can, and they are in the consuming instruction. This
+	/// is the evidence that settles "recognise this shape and drop it" against "this is several
+	/// shapes", which iteration 046 flagged and could not answer.
+	/// </remarks>
+	private static string ConsumerOf(MethodAnalysisContext methodContext, MemoryOperand memory)
+	{
+		if (methodContext.ControlFlowGraph is not { } graph)
+		{
+			return "-";
+		}
+
+		// Matched by text rather than by reference: the operand the generator hands this event is not
+		// always the object still sitting in the graph - an operand nested inside another, or one a
+		// late pass rebuilt, is equal without being identical, and reference equality reported "no
+		// consumer" for all 2722.
+		string wanted = memory.ToString();
+
+		foreach (Instruction instruction in graph.AllInstructions)
+		{
+			for (int i = 0; i < instruction.Operands.Count; i++)
+			{
+				if (instruction.Operands[i]?.ToString() != wanted)
+				{
+					continue;
+				}
+
+				// The opcode plus the other operands: for a mask or a shift the immediate is the whole
+				// answer, and for anything else the shape of the use is still what distinguishes it.
+				List<string> others = [];
+				for (int other = 0; other < instruction.Operands.Count; other++)
+				{
+					if (other != i)
+					{
+						others.Add(instruction.Operands[other] is Immediate immediate
+							? "0x" + Convert.ToString(Convert.ToInt64(immediate.Value), 16)
+							: instruction.Operands[other].GetType().Name);
+					}
+				}
+
+				// The slot matters: operand 0 is the destination, so the same memory operand there is a
+				// store rather than a load and the question "what was done with the value" is the
+				// wrong one to ask of it.
+				return others.Count == 0
+					? $"{instruction.OpCode}[{i}]"
+					: $"{instruction.OpCode}[{i}]:" + string.Join(",", others);
+			}
+		}
+
+		return "<no consumer>";
 	}
 
 	/// <summary>
@@ -501,7 +626,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// shape of", and only the first is a finished answer.
 	/// </para>
 	/// </remarks>
-	private string RuntimeFieldOf(TypeAnalysisContext? baseType, MemoryOperand memory)
+	private string RuntimeFieldOf(TypeAnalysisContext? baseType, MemoryOperand memory, int? testedBit)
 	{
 		if (appContext is null || memory.Addend is < 0 or > uint.MaxValue)
 		{
@@ -526,7 +651,14 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 					return "Il2CppClass.vtable[]";
 				}
 
-				// The curated table names what the passes key on; the struct database names the rest.
+				// The curated table names what the passes key on; the struct database names the rest -
+				// and where the byte is a bitfield unit, the bit the consumer tests says which member.
+				if (testedBit is { } bit
+					&& Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", offset, bit) is { } member)
+				{
+					return "Il2CppClass." + member;
+				}
+
 				return Il2CppClassOffsetPatcher.MemberNames("Il2CppClass").TryGetValue(offset, out string? measured)
 					? "Il2CppClass." + measured
 					: "Il2CppClass.<unnamed>";
@@ -535,6 +667,12 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				if (Il2CppMethodInfoUsefulOffsets.GetOffsetName(offset, appContext.Binary) is { } method)
 				{
 					return "MethodInfo." + method;
+				}
+
+				if (testedBit is { } methodBit
+					&& Il2CppClassOffsetPatcher.BitFieldMemberAt("MethodInfo", offset, methodBit) is { } methodMember)
+				{
+					return "MethodInfo." + methodMember;
 				}
 
 				return Il2CppClassOffsetPatcher.MemberNames("MethodInfo").TryGetValue(offset, out string? measuredMethod)

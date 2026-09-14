@@ -378,6 +378,44 @@ internal sealed class Il2CppStructDbTests
 	/// A layout file in the shipped schema, holding the structs these tests read.
 	/// </summary>
 	[Test]
+	public void ABitfieldMemberIsNamedByTheBitTheConsumerTests()
+	{
+		// A storage unit several bitfields share can only name the group from its offset. Which member
+		// was reached is decided by the bit, and the bit is in the consuming instruction - so the table
+		// supplies the members and their positions and the caller supplies the bit.
+		Il2CppClassOffsetPatcher.Apply(Load());
+
+		Assert.Multiple(() =>
+		{
+			// 0x28 on the fixture, as on the real 2022.3 layout: the bitfield unit inside byval_arg.
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0x28, 31), Is.EqualTo("byval_arg.valuetype"));
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0x28, 30), Is.EqualTo("byval_arg.byref"));
+			// A wide member owns every bit it spans, not only its first.
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0x28, 0), Is.EqualTo("byval_arg.attrs"));
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0x28, 15), Is.EqualTo("byval_arg.attrs"));
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0x28, 16), Is.EqualTo("byval_arg.type"));
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0x28, 23), Is.EqualTo("byval_arg.type"));
+		});
+	}
+
+	[Test]
+	public void ABitInNoMemberAndAnOffsetThatIsNotABitfieldUnit_AreBothNull()
+	{
+		// Naming a member the layout does not place there would be the guess the whole table exists to
+		// avoid; the caller falls back to naming the group.
+		Il2CppClassOffsetPatcher.Apply(Load());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMembers("Il2CppClass", 0), Is.Empty);
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0, 3), Is.Null);
+			// Bits 24 to 29 are declared by no member of the fixture's unit: a gap, not a member.
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppClass", 0x28, 26), Is.Null);
+			Assert.That(Il2CppClassOffsetPatcher.BitFieldMemberAt("Il2CppNotAThing", 8, 31), Is.Null);
+		});
+	}
+
+	[Test]
 	public void EveryMemberIsNamedByOffset_NotOnlyTheCuratedOnes()
 	{
 		// The curated list holds the offsets passes key on and deliberately stays small. Naming a read
@@ -465,6 +503,10 @@ internal sealed class Il2CppStructDbTests
 						{ "name": "image", "type": "Il2CppImage*", "offset": 0, "size": {{p}}, "arrayItemSize": 80 },
 						{ "name": "name", "type": "const char*", "offset": {{p}}, "size": {{p}} },
 						{ "name": "byval_arg", "type": "Il2CppType", "offset": {{byvalArg}}, "size": {{typeSize}} },
+						{ "name": "byval_arg.attrs", "type": "unsigned int", "offset": {{byvalArg + p}}, "bits": 16, "bitOffset": 0, "bitOrdinal": 0 },
+						{ "name": "byval_arg.type", "type": "Il2CppTypeEnum", "offset": {{byvalArg + p}}, "bits": 8, "bitOffset": 16, "bitOrdinal": 1 },
+						{ "name": "byval_arg.byref", "type": "unsigned int", "offset": {{byvalArg + p}}, "bits": 1, "bitOffset": 30, "bitOrdinal": 2 },
+						{ "name": "byval_arg.valuetype", "type": "unsigned int", "offset": {{byvalArg + p}}, "bits": 1, "bitOffset": 31, "bitOrdinal": 3 },
 						{ "name": "element_class", "type": "Il2CppClass*", "offset": {{byvalArg + 2 * typeSize}}, "size": {{p}}, "arrayItemSize": {{classSize}} },
 						{ "name": "static_fields", "type": "void*", "offset": {{staticFields}}, "size": {{p}} },
 						{ "name": "vtable", "type": "VirtualInvokeData[0]", "offset": {{vtableOffset}}, "size": 0, "realType": "VirtualInvokeData", "arrayItemSize": {{2 * p}} }

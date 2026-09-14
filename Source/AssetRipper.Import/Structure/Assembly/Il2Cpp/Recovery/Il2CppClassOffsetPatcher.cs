@@ -190,6 +190,38 @@ public static class Il2CppClassOffsetPatcher
 			? found
 			: EmptyNames;
 
+	/// <summary>
+	/// The bitfield members sharing the storage unit at <paramref name="offset"/>, with their bits.
+	/// </summary>
+	/// <remarks>
+	/// A byte that several bitfields share can only name the group, which is why <see cref="MemberNames"/>
+	/// says "(bitfield)" rather than claiming a member. Which member an access reached is decided by
+	/// the <em>bit</em> it tests, and that is in the consuming instruction rather than in the offset -
+	/// so the two halves meet here: the table supplies the members and their bit positions, the caller
+	/// supplies the bit.
+	/// </remarks>
+	public static IReadOnlyList<(string Name, int Bit, int Width)> BitFieldMembers(string structName, uint offset)
+		=> bitFieldMembers.TryGetValue(structName, out Dictionary<uint, List<(string, int, int)>>? byOffset)
+			&& byOffset.TryGetValue(offset, out List<(string, int, int)>? found)
+			? found
+			: [];
+
+	/// <summary>The bitfield member holding <paramref name="bit"/> of the unit at <paramref name="offset"/>.</summary>
+	public static string? BitFieldMemberAt(string structName, uint offset, int bit)
+	{
+		foreach ((string name, int at, int width) in BitFieldMembers(structName, offset))
+		{
+			if (bit >= at && bit < at + width)
+			{
+				return name;
+			}
+		}
+
+		return null;
+	}
+
+	private static readonly Dictionary<string, Dictionary<uint, List<(string Name, int Bit, int Width)>>> bitFieldMembers = [];
+
 	private static readonly Dictionary<uint, string> EmptyNames = [];
 
 	private static readonly Dictionary<string, Dictionary<uint, string>> memberNames = [];
@@ -197,12 +229,24 @@ public static class Il2CppClassOffsetPatcher
 	private static void RecordMemberNames(string structName, StructDbStruct layout)
 	{
 		Dictionary<uint, string> names = [];
+		Dictionary<uint, List<(string, int, int)>> bits = [];
 
 		foreach (StructDbField field in layout.Fields)
 		{
 			if (field.Offset < 0)
 			{
 				continue;
+			}
+
+			if (field.IsBitField && field.Bits is { } bitWidth)
+			{
+				uint unit = (uint)field.Offset;
+				if (!bits.TryGetValue(unit, out List<(string, int, int)>? group))
+				{
+					bits[unit] = group = [];
+				}
+
+				group.Add((field.Name, field.BitOffset ?? 0, bitWidth));
 			}
 
 			// A bitfield's storage unit is shared, so the name says so rather than claiming the byte.
@@ -223,6 +267,7 @@ public static class Il2CppClassOffsetPatcher
 		}
 
 		memberNames[structName] = names;
+		bitFieldMembers[structName] = bits;
 	}
 
 	public static void Restore()
@@ -250,6 +295,7 @@ public static class Il2CppClassOffsetPatcher
 		// Per-run state like the offsets themselves: a name measured for one Unity version must not
 		// outlive it into the next run.
 		memberNames.Clear();
+		bitFieldMembers.Clear();
 	}
 
 	private static StructDbField? Find(StructDbStruct layout, string[] names)
