@@ -248,7 +248,11 @@ public static class MetadataResolver
     {
         var changed = false;
 
-        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        // AssetRipper: over every block, not ControlFlowGraph.Instructions, which is a breadth-first
+        // walk from the entry block and so omits any block nothing reaches. Code generation emits
+        // those blocks regardless, so a field access inside one was never looked at here and reached
+        // the generator as a raw memory operand with a perfectly good base type.
+        foreach (var instruction in method.ControlFlowGraph!.AllInstructions)
         {
             for (var i = 0; i < instruction.Operands.Count; i++)
             {
@@ -259,10 +263,16 @@ public static class MetadataResolver
 
                 // Has to be [base (local) + addend (field offset)]
                 if (memory.Index != null || memory.Scale != 0)
+                {
+                    ProbeFieldSkip(method, memory, "COMPUTED_ADDRESS");
                     continue;
+                }
 
                 if (memory.Base is not LocalVariable local || local?.Type == null)
+                {
+                    ProbeFieldSkip(method, memory, memory.Base is LocalVariable ? "BASE_UNTYPED" : "BASE_NOT_LOCAL");
                     continue;
+                }
 
                 // check if static field access
                 var staticOwner = (local.Type as StaticFieldStorageTypeAnalysisContext)?.OwnerType;
@@ -361,7 +371,10 @@ public static class MetadataResolver
                 // has to hold whether or not the search above was allowed to run: the code below
                 // instantiates the field on the owner's generic arguments and cannot take a null.
                 if (field == null)
+                {
+                    ProbeFieldMiss(method, owner, memory.Addend);
                     continue;
+                }
 
                 // make sure we have a full GIT for field access. open type is bad.
                 if (genericOwner != null)
@@ -377,10 +390,128 @@ public static class MetadataResolver
         return changed;
     }
 
+
+    private static readonly string? fieldMissProbeFile = System.Environment.GetEnvironmentVariable("CPP2IL_DUMP_FIELD_MISS");
+    private static readonly object fieldMissProbeLock = new();
+    private static System.IO.StreamWriter? fieldMissProbeWriter;
+
+    /// <summary>
+    /// AssetRipper: runs the field search of <see cref="ResolveFieldOffsets"/> outside it, so that a
+    /// load reported unresolved can be asked whether the search would answer for it now.
+    /// </summary>
+    /// <remarks>
+    /// Two very different failures reach the generator as the same placeholder: a search that ran and
+    /// found nothing, and an operand the search never looked at. They want opposite work and nothing
+    /// in the dump distinguishes them, because every column there describes the load rather than the
+    /// pass. This answers it directly at the point the load is counted.
+    /// </remarks>
+    public static FieldAnalysisContext? SearchFieldAtOffset(TypeAnalysisContext owner, long addend, bool wantStatic)
+    {
+        if (owner is GenericInstanceTypeAnalysisContext genericOwner && !wantStatic)
+            return GenericInstanceFieldLayout.FindFieldAtOffset(genericOwner.GenericType, addend, genericOwner.GenericArguments);
+
+        if (!wantStatic && owner.GenericParameters.Count > 0)
+            return GenericInstanceFieldLayout.FindFieldAtOffset(owner, addend);
+
+        return BaseChainFieldSearch.Find(
+            (owner as GenericInstanceTypeAnalysisContext)?.GenericType ?? owner,
+            addend,
+            static candidate => candidate.BaseType,
+            candidate => !wantStatic && candidate is GenericInstanceTypeAnalysisContext,
+            (candidate, offset) => candidate.Fields.FirstOrDefault(f => f.IsStatic == wantStatic
+                && (f.Attributes & FieldAttributes.Literal) == 0
+                && f.BackingData?.FieldOffset == offset),
+            static (candidate, offset) => candidate is GenericInstanceTypeAnalysisContext instance
+                ? GenericInstanceFieldLayout.FindFieldAtOffset(instance.GenericType, offset, instance.GenericArguments)
+                : null,
+            static found => found.DeclaringType,
+            static candidate => candidate is GenericInstanceTypeAnalysisContext instance ? instance.GenericType : candidate).Field;
+    }
+
+    /// <summary>
+    /// AssetRipper: records what metadata actually says about a type whose field search came up empty.
+    /// </summary>
+    /// <remarks>
+    /// The unresolved-load dump reports where a load was given up on and what a <em>computed</em>
+    /// layout would have put at that offset, and those two disagreeing looks like a resolver defect.
+    /// It is not decidable from outside: the search reads <c>BackingData.FieldOffset</c> and the
+    /// computed layout reads nothing, so the only way to tell a missing rule from two layouts that
+    /// genuinely differ is to print the metadata offsets at the point the search failed.
+    /// </remarks>
+    private static void ProbeFieldMiss(MethodAnalysisContext method, TypeAnalysisContext owner, long addend)
+    {
+        if (fieldMissProbeFile is null)
+            return;
+
+        var recorded = new List<string>();
+        for (TypeAnalysisContext? link = owner; link is not null; link = link.BaseType)
+        {
+            foreach (var candidate in link.Fields)
+            {
+                if (candidate.IsStatic)
+                    continue;
+
+                recorded.Add(candidate.BackingData?.FieldOffset is { } offset
+                    ? $"{candidate.Name}@{offset:X}"
+                    : $"{candidate.Name}@none");
+            }
+        }
+
+        var row = string.Join('\t',
+            method.DeclaringType?.DeclaringAssembly?.Name ?? "",
+            method.DeclaringType?.FullName ?? "",
+            method.Name,
+            owner.FullName ?? "",
+            owner.GetType().Name,
+            addend.ToString("X"),
+            owner.IsValueType ? "VALUE" : "REF",
+            string.Join(",", recorded));
+
+        lock (fieldMissProbeLock)
+        {
+            fieldMissProbeWriter ??= new System.IO.StreamWriter(fieldMissProbeFile, append: false) { AutoFlush = true };
+            fieldMissProbeWriter.WriteLine(row);
+        }
+    }
+
+    /// <summary>
+    /// AssetRipper: records a memory operand the field search never looked at, and why.
+    /// </summary>
+    /// <remarks>
+    /// A load reported as unresolved with a perfectly good base type and a field at exactly its offset
+    /// reads as a defect in the search. It need not be one: the search runs inside the type fixpoint
+    /// and the type on the dump's row is the local's <em>final</em> type, so the operand may have been
+    /// skipped before the search on a base that had no type at all yet. The two want opposite work, so
+    /// the skips are recorded next to the misses rather than inferred from their absence.
+    /// </remarks>
+    private static void ProbeFieldSkip(MethodAnalysisContext method, MemoryOperand memory, string reason)
+    {
+        if (fieldMissProbeFile is null)
+            return;
+
+        var row = string.Join('\t',
+            method.DeclaringType?.DeclaringAssembly?.Name ?? "",
+            method.DeclaringType?.FullName ?? "",
+            method.Name,
+            "SKIP:" + reason,
+            (memory.Base as LocalVariable)?.Name ?? memory.Base?.GetType().Name ?? "<null>",
+            memory.Addend.ToString("X"),
+            (memory.Base as LocalVariable)?.Type?.FullName ?? "<untyped>",
+            memory.ToString());
+
+        lock (fieldMissProbeLock)
+        {
+            fieldMissProbeWriter ??= new System.IO.StreamWriter(fieldMissProbeFile, append: false) { AutoFlush = true };
+            fieldMissProbeWriter.WriteLine(row);
+        }
+    }
     /// <summary>
     /// AssetRipper: whether the access is narrower than the field its offset lands on, so that what it
     /// reached may be a member inside rather than the field itself.
     /// </summary>
+    /// <summary>AssetRipper: methods whose operands a late field-resolution pass still changed.</summary>
+    public static int LateResolutionChangedMethods;
+
     /// <summary>AssetRipper: writes narrower than the field their offset lands on that named a member inside it.</summary>
     public static int NarrowWritesRefined;
 

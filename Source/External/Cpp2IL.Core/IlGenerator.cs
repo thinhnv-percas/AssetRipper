@@ -304,6 +304,18 @@ public static class IlGenerator
     public static Action<MethodAnalysisContext, IOperand>? UnresolvedMemoryLoad;
 
     /// <summary>
+    /// AssetRipper: raised for every memory operand that <em>was</em> resolved to a field, which is
+    /// the resolved analog of <see cref="UnresolvedMemoryLoad"/> at the same point in the pipeline.
+    /// </summary>
+    /// <remarks>
+    /// Both events fire from the generator, so the two populations are directly comparable: a rule
+    /// read off the failures alone is a rule read off a biased sample, which is what stopped the
+    /// coordinate-frame finding of iteration 044 being acted on. Runs on the body-generation threads,
+    /// so a handler has to be thread safe.
+    /// </remarks>
+    public static Action<MethodAnalysisContext, FieldReference>? ResolvedMemoryLoad;
+
+    /// <summary>
     /// AssetRipper: raised for every local the analysis could not type, which is declared
     /// <c>object</c> and every use of which is therefore a cast. Runs on the body-generation threads,
     /// so a handler has to be thread safe.
@@ -2171,6 +2183,7 @@ public static class IlGenerator
                     ((SzArrayTypeAnalysisContext)arrayAccess.Array.Type!).ElementType.ToTypeSignature().ToTypeDefOrRef());
                 break;
             case FieldReference field:
+                ResolvedMemoryLoad?.Invoke(context, field);
                 if (field.Field.IsStatic)
                 {
                     // AssetRipper: an instance method on a value type takes its receiver by reference,

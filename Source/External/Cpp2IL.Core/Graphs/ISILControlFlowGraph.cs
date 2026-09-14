@@ -12,6 +12,18 @@ public class ISILControlFlowGraph
     public int Count => Blocks.Count;
     public List<Block> Blocks;
 
+    /// <summary>
+    /// AssetRipper: every instruction in the graph, in block order, including blocks no edge reaches.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="Instructions"/> is a breadth-first walk from the entry block, so it silently omits
+    /// any block nothing reaches - and code generation emits every block in <see cref="Blocks"/>,
+    /// unreachable ones included. A pass written against the walk therefore leaves those instructions
+    /// in whatever state the lifter produced, and the difference shows up much later as a load whose
+    /// base is perfectly well typed and which nothing ever tried to resolve.
+    /// </remarks>
+    public IEnumerable<Instruction> AllInstructions => Blocks.SelectMany(block => block.Instructions);
+
     public List<Instruction> Instructions
     {
         get

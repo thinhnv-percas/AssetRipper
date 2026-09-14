@@ -110,6 +110,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		methodStarts = BuildMethodStarts(); // before the parallel body generation that reads it
 
 		IlGenerator.UnresolvedMemoryLoad += ClassifyUnresolvedLoad;
+		IlGenerator.ResolvedMemoryLoad += RecordResolvedLoadCase;
 		IlGenerator.UntypedLocal += ClassifyUntypedLocal;
 
 		try
@@ -141,6 +142,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		finally
 		{
 			IlGenerator.UnresolvedMemoryLoad -= ClassifyUnresolvedLoad;
+			IlGenerator.ResolvedMemoryLoad -= RecordResolvedLoadCase;
 			IlGenerator.UntypedLocal -= ClassifyUntypedLocal;
 		}
 	}
@@ -469,13 +471,53 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			baseDefinition,
 			RootCauseOf(methodContext, memory),
 			MetadataStateOf(owner, memory, methodContext),
-			OriginOf(methodContext, memory),
+			OriginOf(methodContext, memory.Base),
+			SearchAnswersNow(owner, memory),
 			memory.ToString());
 
 		lock (unresolvedLoadCaseLock)
 		{
 			unresolvedLoadCaseWriter ??= new StreamWriter(unresolvedLoadCaseFile, append: false);
 			unresolvedLoadCaseWriter.WriteLine(row);
+		}
+	}
+
+	/// <summary>
+	/// Whether the resolver's own field search answers for this load, asked where the load is counted.
+	/// </summary>
+	/// <remarks>
+	/// A load reported unresolved with a well typed base and a field at exactly its offset reads as a
+	/// defect in the search. It need not be one: the search runs inside the type fixpoint and the type
+	/// on the row is the local's final one, so the same row is produced both by a search that ran and
+	/// found nothing and by an operand the search never looked at. Running the search here settles
+	/// which - SEARCH_ANSWERS means it was never asked, SEARCH_EMPTY means it was asked and had no
+	/// answer - and those want opposite work.
+	/// </remarks>
+	private static string SearchAnswersNow(TypeAnalysisContext? owner, MemoryOperand memory)
+	{
+		if (owner is null)
+		{
+			return "NO_OWNER";
+		}
+
+		// The resolver only ever looks at [base + addend]. An indexed operand is an element address,
+		// which the array path owns, so asking the field search about one answers a question nobody
+		// asked: every [base + index] would "resolve" to whatever sits at offset zero.
+		if (memory.Index is not null || memory.Scale != 0)
+		{
+			return "NOT_A_FIELD_ACCESS";
+		}
+
+		bool wantStatic = (memory.Base as LocalVariable)?.Type is StaticFieldStorageTypeAnalysisContext;
+
+		try
+		{
+			FieldAnalysisContext? found = MetadataResolver.SearchFieldAtOffset(owner, memory.Addend, wantStatic);
+			return found is null ? "SEARCH_EMPTY" : "SEARCH_ANSWERS:" + found.Name;
+		}
+		catch (Exception)
+		{
+			return "SEARCH_THREW";
 		}
 	}
 
@@ -759,7 +801,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			at = memory.Addend > computedLargest ? "BEYOND_LAYOUT" : "NEGATIVE";
 		}
 
-		return string.Join('\t', state, layout.Count.ToString(), computedLargest.ToString("X"), at, CoordinateEvidence(definition, owner, memory));
+		return string.Join('\t', state, layout.Count.ToString(), computedLargest.ToString("X"), at, CoordinateEvidence(definition, owner, memory.Addend));
 	}
 
 	/// <summary>
@@ -784,7 +826,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// act rather than a reason to guess.
 	/// </para>
 	/// </remarks>
-	private static string CoordinateEvidence(TypeAnalysisContext definition, TypeAnalysisContext owner, MemoryOperand memory)
+	private static string CoordinateEvidence(TypeAnalysisContext definition, TypeAnalysisContext owner, long addend)
 	{
 		if (!owner.IsValueType)
 		{
@@ -807,12 +849,12 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 					continue;
 				}
 
-				if (recorded == memory.Addend)
+				if (recorded == addend)
 				{
 					valueRelative = true;
 				}
 
-				if (recorded + header == memory.Addend)
+				if (recorded + header == addend)
 				{
 					objectRelative = true;
 				}
@@ -840,9 +882,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// make the frame question answerable by a rule rather than by a guess, and a guessed origin would
 	/// put the guess one step earlier.
 	/// </remarks>
-	private string OriginOf(MethodAnalysisContext methodContext, MemoryOperand memory)
+	private string OriginOf(MethodAnalysisContext methodContext, IOperand? baseOperand)
 	{
-		if (memory.Base is not LocalVariable local)
+		if (baseOperand is not LocalVariable local)
 		{
 			return BasePointerOrigin.Unknown;
 		}
@@ -969,6 +1011,70 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	private static readonly string? unresolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_LOADS");
 	private static readonly object unresolvedLoadCaseLock = new();
 	private static StreamWriter? unresolvedLoadCaseWriter;
+
+	private static readonly string? resolvedLoadCaseFile = Environment.GetEnvironmentVariable("CPP2IL_DUMP_RESOLVED_LOADS");
+	private static readonly object resolvedLoadCaseLock = new();
+	private static StreamWriter? resolvedLoadCaseWriter;
+
+	/// <summary>
+	/// Appends one line per load that <em>was</em> resolved to a field, when
+	/// <c>CPP2IL_DUMP_RESOLVED_LOADS</c> names a file.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Iteration 044 found that base-pointer origin and coordinate frame cross-tabulate with no
+	/// exceptions - static field storage reads value-relative, a receiver or a parameter reads
+	/// object-relative - and declined to act on it, because the only population it could see was the
+	/// loads that had been <em>given up on</em>. A rule inferred from the failures alone is inferred
+	/// from a biased sample: it says nothing about whether the same shape is already handled correctly
+	/// everywhere else, which is precisely what would make patching the resolver a regression.
+	/// </para>
+	/// <para>
+	/// This is the other half of the sample. It is raised from the generator's <c>FieldReference</c>
+	/// case, the exact mirror of the one place a memory operand is given up on, so the two files are
+	/// the same measurement over the same pipeline stage and the cross-tab can be read across both.
+	/// A pattern that appears in the resolved population and is absent from the unresolved one is a
+	/// candidate missing resolver rule; a pattern that appears in both is not.
+	/// </para>
+	/// </remarks>
+	private void RecordResolvedLoadCase(MethodAnalysisContext methodContext, FieldReference reference)
+	{
+		if (resolvedLoadCaseFile is null || appContext is null)
+		{
+			return;
+		}
+
+		TypeAnalysisContext? baseType = reference.Local.Type;
+		TypeAnalysisContext? owner = (baseType as StaticFieldStorageTypeAnalysisContext)?.OwnerType ?? baseType;
+
+		string frame = owner is null
+			? "UNKNOWN"
+			: CoordinateEvidence(owner, owner, reference.Offset);
+
+		string row = string.Join('\t',
+			"RESOLVED",
+			methodContext.DeclaringType?.DeclaringAssembly?.Name ?? "",
+			methodContext.DeclaringType?.FullName ?? "",
+			methodContext.Name,
+			owner?.FullName ?? "<untyped>",
+			owner?.GetType().Name ?? "",
+			reference.Offset.ToString("X"),
+			reference.AccessSize.ToString(),
+			OriginOf(methodContext, reference.Local),
+			frame,
+			reference.Field.DeclaringType?.FullName ?? "",
+			reference.Field.Name,
+			reference.Field.FieldType.FullName ?? "",
+			reference.Field.IsStatic ? "STATIC" : "INSTANCE",
+			reference.ElementIndex is null ? "-" : "ELEMENT",
+			reference.ContainingFields.Count == 0 ? "DIRECT" : "NESTED");
+
+		lock (resolvedLoadCaseLock)
+		{
+			resolvedLoadCaseWriter ??= new StreamWriter(resolvedLoadCaseFile, append: false);
+			resolvedLoadCaseWriter.WriteLine(row);
+		}
+	}
 
 	/// <summary>
 	/// Counts an untyped local by what defines it, which is where a missing propagation rule shows.
@@ -1835,6 +1941,11 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			lock (unresolvedLoadCaseLock)
 			{
 				unresolvedLoadCaseWriter?.Flush();
+			}
+
+			lock (resolvedLoadCaseLock)
+			{
+				resolvedLoadCaseWriter?.Flush();
 			}
 
 			if (unresolvedLoadKinds.IsEmpty)
