@@ -1,3 +1,5 @@
+using System.Reflection;
+using Cpp2IL.Core.Il2CppApiFunctions;
 using LibCpp2IL;
 using AssetRipper.Import.Logging;
 using Cpp2IL.Core.Api;
@@ -17,6 +19,79 @@ namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
 /// </remarks>
 public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingLayer
 {
+	/// <summary>
+	/// Which il2cpp runtime helpers were located, and which were not.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Every call a managed body makes to a helper that was <em>not</em> located becomes a
+	/// <c>Method not found</c> placeholder, and those placeholders name an address rather than a
+	/// cause - so the question "is this helper one we failed to find, or one that does not exist in
+	/// this build" has never been answerable from a log. A helper at address zero was not found; the
+	/// rest were. Both halves matter, because a helper genuinely absent from a build is not a defect
+	/// and a helper present but unlocated is the whole of one.
+	/// </para>
+	/// </remarks>
+	private static void ReportKeyFunctions(ApplicationAnalysisContext appContext)
+	{
+		BaseKeyFunctionAddresses addresses;
+		try
+		{
+			addresses = appContext.GetOrCreateKeyFunctionAddresses();
+		}
+		catch (Exception exception)
+		{
+			Logger.Warning(LogCategory.Import, $"Il2Cpp recovery: key function discovery threw: {exception.Message}");
+			return;
+		}
+
+		List<string> found = [];
+		List<string> missing = [];
+
+		foreach (var field in typeof(BaseKeyFunctionAddresses).GetFields(BindingFlags.Public | BindingFlags.Instance))
+		{
+			if (field.FieldType != typeof(ulong))
+			{
+				continue;
+			}
+
+			ulong value = (ulong)(field.GetValue(addresses) ?? 0UL);
+			if (value == 0)
+			{
+				missing.Add(field.Name);
+			}
+			else
+			{
+				found.Add($"{field.Name}=0x{value:X}");
+			}
+		}
+
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp recovery: {found.Count} il2cpp runtime helpers located, {missing.Count} not.");
+		Logger.Info(LogCategory.Import, $"Il2Cpp recovery: helpers located: {string.Join(", ", found)}");
+		Logger.Info(LogCategory.Import, $"Il2Cpp recovery: helpers not located: {string.Join(", ", missing)}");
+
+		if (Environment.GetEnvironmentVariable("CPP2IL_PROBE_METHOD_POINTERS") is { Length: > 0 } probe)
+		{
+			foreach (var assembly in appContext.Assemblies)
+			{
+				foreach (var type in assembly.Types)
+				{
+					if (type.FullName?.Contains(probe, StringComparison.Ordinal) != true)
+					{
+						continue;
+					}
+
+					foreach (var method in type.Methods)
+					{
+						Logger.Info(LogCategory.Import,
+							$"PROBE {type.FullName}::{method.Name} ptr=0x{method.UnderlyingPointer:X} params={method.Parameters.Count}");
+					}
+				}
+			}
+		}
+	}
+
 	/// <summary>
 	/// Methods to lift as a sample. Enough to be conclusive, small enough that the answer arrives in
 	/// seconds rather than after the whole run.
@@ -259,6 +334,8 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 				"nothing for recovery to work on. Check that the loaded files include the game's script assemblies.");
 			return;
 		}
+
+		ReportKeyFunctions(appContext);
 
 		Logger.Info(LogCategory.Import,
 			$"Il2Cpp recovery: sampled {sampled} methods from the game's assemblies — {lifted} lifted to ISIL, " +
