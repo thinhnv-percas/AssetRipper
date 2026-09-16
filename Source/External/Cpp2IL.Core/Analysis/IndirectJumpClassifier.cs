@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
+using LibCpp2IL;
 
 namespace Cpp2IL.Core.Analysis;
 
@@ -29,6 +30,7 @@ namespace Cpp2IL.Core.Analysis;
 public static class IndirectJumpClassifier
 {
     private static readonly Dictionary<string, int> KindCounts = [];
+    private static readonly Dictionary<string, int> CallKindCounts = [];
     private static readonly Lock CountLock = new();
 
     /// <summary>A snapshot of what has been counted so far, most common first.</summary>
@@ -41,12 +43,31 @@ public static class IndirectJumpClassifier
         }
     }
 
+    /// <summary>The same, for indirect <em>calls</em>, with the vtable shape broken out by reason.</summary>
+    public static IReadOnlyList<KeyValuePair<string, int>> CallCounts
+    {
+        get
+        {
+            lock (CountLock)
+                return [.. CallKindCounts.OrderByDescending(pair => pair.Value)];
+        }
+    }
+
+    private static void RecordCall(string kind)
+    {
+        lock (CountLock)
+            CallKindCounts[kind] = CallKindCounts.GetValueOrDefault(kind) + 1;
+    }
+
     public static void Reset()
     {
         Interlocked.Exchange(ref methodsSeen, 0);
 
         lock (CountLock)
+        {
             KindCounts.Clear();
+            CallKindCounts.Clear();
+        }
     }
 
     /// <summary>How many methods this pass has been run on, so the counts can be read against it.</summary>
@@ -70,11 +91,86 @@ public static class IndirectJumpClassifier
 
         foreach (var instruction in instructions)
         {
-            if (instruction.OpCode != OpCode.IndirectJump || instruction.Operands.Count == 0)
+            if (instruction.Operands.Count == 0)
                 continue;
 
-            Record(Classify(instruction.Operands[0], instructions));
+            if (instruction.OpCode == OpCode.IndirectJump)
+            {
+                Record(Classify(instruction.Operands[0], instructions));
+            }
+            else if (instruction.OpCode == OpCode.IndirectCall)
+            {
+                var kind = Classify(instruction.Operands[0], instructions);
+                RecordCall(kind == "VTABLE_SLOT" ? VirtualDispatchReason(method, instruction.Operands[0], instructions) : kind);
+            }
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: why <see cref="MetadataResolver.ResolveVirtualCalls"/> did not resolve a call that
+    /// reads a vtable slot - asked by running that resolver's own arithmetic and its own slot lookup,
+    /// not by restating either.
+    /// </summary>
+    /// <remarks>
+    /// The families want different work and reach the generator as the same placeholder: a receiver
+    /// whose class pointer was never typed is type-recovery work, an offset that does not divide is a
+    /// layout constant being wrong, and a slot past the end of the vtable is metadata that is not
+    /// there. A count of 233 says none of that.
+    /// </remarks>
+    private static string VirtualDispatchReason(MethodAnalysisContext method, IOperand target, List<Instruction> instructions)
+    {
+        if (SlotLoad(target, instructions) is not { } slotLoad)
+            return "VTABLE_NO_SLOT_LOAD";
+
+        if (slotLoad.Base is not LocalVariable klass)
+            return "VTABLE_BASE_NOT_LOCAL";
+
+        if (klass.Type is not RuntimeClassTypeAnalysisContext { RepresentedType: { } receiver })
+        {
+            // Naming the type it *is* rather than only what it is not: "not a class pointer" is a
+            // family name, and this project has had to split one of those at every step. And where
+            // the base is a MethodInfo the offset is the rest of the answer, because a call through
+            // `methodInfo->methodPointer` is shared generic code invoking whichever instantiation the
+            // runtime handed it - there is no static target, and counting it as a failed vtable
+            // resolution says the opposite.
+            if (klass.Type is RuntimeMethodInfoAnalysisContext)
+                return $"METHODINFO_POINTER_AT_0x{slotLoad.Addend:X}";
+
+            return klass.Type is null
+                ? "VTABLE_BASE_UNTYPED"
+                : "VTABLE_BASE_IS_" + klass.Type.GetType().Name.Replace("AnalysisContext", "");
+        }
+
+        var pointerSize = method.AppContext.Binary.PointerSizeBytes;
+        var vtableOffset = (long)Il2CppClassUsefulOffsets.GetVtableOffset(method.AppContext.MetadataVersion, method.AppContext.Binary.is32Bit);
+        var invokeDataSize = 2L * pointerSize;
+        var offset = slotLoad.Addend - vtableOffset;
+
+        if (offset < 0)
+            return "VTABLE_OFFSET_BEFORE_TABLE";
+
+        if (offset % invokeDataSize != 0)
+            return "VTABLE_OFFSET_MISALIGNED";
+
+        var slot = (int)(offset / invokeDataSize);
+
+        return MetadataResolver.ResolveVTableSlot(method.AppContext, receiver, slot) is not null
+            ? "VTABLE_RESOLVABLE"
+            : "VTABLE_SLOT_UNRESOLVED";
+    }
+
+    /// <summary>The load the call reads its target from, whether folded into the call or one Move away.</summary>
+    private static MemoryOperand? SlotLoad(IOperand target, List<Instruction> instructions)
+    {
+        if (target is MemoryOperand { Index: null, Scale: 0 } inlined)
+            return inlined;
+
+        if (target is not LocalVariable local)
+            return null;
+
+        var definition = instructions.FirstOrDefault(i => ReferenceEquals(i.Destination, local));
+
+        return definition is { OpCode: OpCode.Move, Operands: [_, MemoryOperand { Index: null, Scale: 0 } loaded] } ? loaded : null;
     }
 
     private static void Record(string kind)
@@ -113,11 +209,21 @@ public static class IndirectJumpClassifier
         FieldReference reference when IsRuntimeStructure(reference.Local.Type) => "VTABLE_SLOT",
         FieldReference => "MANAGED_FIELD",
         MemoryOperand { Base: LocalVariable based } when IsRuntimeStructure(based.Type) => "VTABLE_SLOT",
+        MemoryOperand { Base: LocalVariable { Type: { } loadedBase } } => "LOADED_FROM_" + Describe(loadedBase),
         MemoryOperand => "LOADED_POINTER",
         LocalVariable => "COPY_OF_LOCAL",
         Immediate => "CONSTANT_TARGET",
         _ => "OTHER_" + operand.GetType().Name,
     };
+
+    /// <summary>A short name for a base type, so a family can be split without printing full names.</summary>
+    private static string Describe(TypeAnalysisContext type) =>
+        type is RuntimeClassTypeAnalysisContext ? "Il2CppClass"
+        : type is RuntimeMethodInfoAnalysisContext ? "Il2CppMethodInfo"
+        : type is StaticFieldStorageTypeAnalysisContext ? "StaticFields"
+        : type.IsDelegate ? "delegate"
+        : type.IsValueType ? "valuetype"
+        : "reference";
 
     /// <summary>
     /// A pointer into one of the runtime's own structures, which is where a dispatch table lives.

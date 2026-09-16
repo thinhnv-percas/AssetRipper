@@ -2456,6 +2456,20 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				}
 			}
 
+			var callKinds = Cpp2IL.Core.Analysis.IndirectJumpClassifier.CallCounts;
+
+			if (callKinds.Count > 0)
+			{
+				Logger.Info(LogCategory.Import,
+					$"Il2Cpp method body recovery: {callKinds.Sum(pair => pair.Value)} indirect calls survived, by what the "
+					+ "target holds - and for a vtable slot, by what the virtual resolver would have said:");
+
+				foreach ((string kind, int count) in callKinds)
+				{
+					Logger.Info(LogCategory.Import, $"      {count,7} {kind}");
+				}
+			}
+
 			if (unresolvedLoadKinds.IsEmpty)
 			{
 				return;
