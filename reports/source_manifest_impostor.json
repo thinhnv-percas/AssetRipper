@@ -1,0 +1,4754 @@
+{
+  "fixture": "Impostor",
+  "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/impostor-src",
+  "rip": "/home/user/AssetRipper/Test/Out53i/Impostor",
+  "provenance": {
+    "remote": "https://github.com/thinhabc01/Impostor-Sort-Puzzle-Pro.git",
+    "commit": "a5b796283d7d7cc457b7c73ebf7b5869776d755b",
+    "described": "update",
+    "dirty": false
+  },
+  "source_files": 464,
+  "declared_types": 574,
+  "verdicts": {
+    "RECOVERED": 425,
+    "EDITOR_ONLY": 126,
+    "ASSEMBLY_ABSENT": 0,
+    "CONDITIONAL": 23,
+    "NOT_IN_BUILD": 0
+  },
+  "assemblies_in_source": [
+    "ACTk.Editor",
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "Assembly-CSharp-Editor",
+    "GoogleMobileAds",
+    "GoogleMobileAds.Editor",
+    "LeanCommon",
+    "LeanPool",
+    "spine-unity",
+    "spine-unity-editor",
+    "spine-unity-examples",
+    "spine-unity-examples-editor"
+  ],
+  "assemblies_in_rip": [
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "DOTween",
+    "GoogleMobileAds",
+    "LeanCommon",
+    "LeanPool",
+    "System.Runtime.CompilerServices.Unsafe",
+    "Unity.TextMeshPro",
+    "UnityEngine.UI",
+    "__Generated",
+    "spine-unity",
+    "spine-unity-examples"
+  ],
+  "type_recovery_rate": 1.0,
+  "types": [
+    {
+      "file": "Assets/AdManager.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "AdManager",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Editor/AnchorSnap.cs",
+      "assembly": "Assembly-CSharp-Editor",
+      "type": "AnchorSnapEditor",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Editor/EditorBuild.cs",
+      "assembly": "Assembly-CSharp-Editor",
+      "type": "EditorBuild",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Editor/OptimizeBorderSprite.cs",
+      "assembly": "Assembly-CSharp-Editor",
+      "type": "OptimizeBorderSprite",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Editor/PsdToUnity.cs",
+      "assembly": "Assembly-CSharp-Editor",
+      "type": "PsdToUnity",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Editor/ReplaceSpriteTool.cs",
+      "assembly": "Assembly-CSharp-Editor",
+      "type": "ReplaceSpriteTool",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Editor/ScreenshotUtility.cs",
+      "assembly": "Assembly-CSharp-Editor",
+      "type": "ScreenshotUtility",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Editor/SynPositionGameObject.cs",
+      "assembly": "Assembly-CSharp-Editor",
+      "type": "SynPositionGameObject",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/GDPR.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GDPR",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/AdLoader.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdLoader",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/BannerView.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "BannerView",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdErrorEventArgs.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdErrorEventArgs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdFailedToLoadEventArgs.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdFailedToLoadEventArgs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdPosition.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdPosition",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdRequest.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdRequest",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdSize.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Orientation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdSize.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdSize",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdValue.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdValue",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdValueEventArgs.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdValueEventArgs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdapterStatus.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdapterStatus",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/AdapterStatus.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdapterState",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/Gender.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Gender",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/MaxAdContentRating.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "MaxAdContentRating",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/NativeAdType.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "NativeAdType",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/RequestConfiguration.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RequestConfiguration",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/Reward.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Reward",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/ServerSideVerificationOptions.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "ServerSideVerificationOptions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/TagForChildDirectedTreatment.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "TagForChildDirectedTreatment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Core/TagForUnderAgeOfConsent.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "TagForUnderAgeOfConsent",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/CustomNativeEventArgs.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "CustomNativeEventArgs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/CustomNativeTemplateAd.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "CustomNativeTemplateAd",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/InitializationStatus.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InitializationStatus",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/InterstitialAd.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InterstitialAd",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/Mediation/MediationExtras.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "MediationExtras",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/MobileAds.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "MobileAds",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/ResponseInfo.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "ResponseInfo",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/RewardBasedVideoAd.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardBasedVideoAd",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/RewardedAd.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedAd",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Api/RewardedInterstitialAd.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedInterstitialAd",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/AdLoaderClientArgs.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdLoaderClientArgs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/CustomNativeClientEventArgs.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "CustomNativeClientEventArgs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/DummyClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "DummyClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IAdLoaderClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IAdLoaderClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IBannerClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IBannerClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IClientFactory.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IClientFactory",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/ICustomNativeTemplateClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "ICustomNativeTemplateClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IInitializationStatusClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IInitializationStatusClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IInterstitialClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IInterstitialClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IMobileAdsClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IMobileAdsClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IResponseInfoClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IResponseInfoClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IRewardBasedVideoAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IRewardBasedVideoAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IRewardedAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IRewardedAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/IRewardedInterstitialAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "IRewardedInterstitialAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/MobileAdsEventExecutor.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "MobileAdsEventExecutor",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/RewardedAdDummyClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedAdDummyClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/RewardedInterstitialAdDummyClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedInterstitialAdDummyClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Common/Utils.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Utils",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Editor/AndroidBuildPostProcessor.cs",
+      "assembly": "GoogleMobileAds.Editor",
+      "type": "AndroidBuildPostProcessor",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_ANDROID"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Editor/GoogleMobileAdsSettings.cs",
+      "assembly": "GoogleMobileAds.Editor",
+      "type": "GoogleMobileAdsSettings",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Editor/GoogleMobileAdsSettingsEditor.cs",
+      "assembly": "GoogleMobileAds.Editor",
+      "type": "GoogleMobileAdsSettingsEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Editor/ManifestProcessor.cs",
+      "assembly": "GoogleMobileAds.Editor",
+      "type": "ManifestProcessor",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_ANDROID",
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Editor/ManifestProcessor.cs",
+      "assembly": "GoogleMobileAds.Editor",
+      "type": "ManifestProcessor",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_ANDROID",
+        "!(UNITY_2018_1_OR_NEWER)"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Editor/PListProcessor.cs",
+      "assembly": "GoogleMobileAds.Editor",
+      "type": "PListProcessor",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_IPHONE || UNITY_IOS"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/AdLoaderClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdLoaderClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/BannerClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "BannerClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/CustomNativeTemplateClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "CustomNativeTemplateClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/DisplayMetrics.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "DisplayMetrics",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/InitializationStatusClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InitializationStatusClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/InterstitialClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InterstitialClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/MobileAdsClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "MobileAdsClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/RequestConfigurationClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RequestConfigurationClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/ResponseInfoClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "ResponseInfoClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/RewardBasedVideoAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardBasedVideoAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/RewardedAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/RewardedInterstitialAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedInterstitialAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Android/Utils.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Utils",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/GoogleMobileAdsClientFactory.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "GoogleMobileAdsClientFactory",
+      "editor_only": false,
+      "conditions": [
+        "!UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/BannerClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "BannerClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/BaseAdDummyClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "BaseAdDummyClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/ButtonBehaviour.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "ButtonBehaviour",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/Countdown.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Countdown",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/DummyAdBehaviour.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "DummyAdBehaviour",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/InitializationStatusDummyClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InitializationStatusDummyClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/InterstitialClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InterstitialClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/ResponseInfoDummyClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "ResponseInfoDummyClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/RewardedAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/RewardedInterstitialAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedInterstitialAdClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/Unity/RewardingAdBaseClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardingAdBaseClient",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/AdLoaderClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "NativeAdTypes",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/AdLoaderClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "AdLoaderClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/BannerClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "BannerClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/CustomNativeTemplateClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "CustomNativeTemplateClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/Externs.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Externs",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/GoogleMobileAdsClientFactory.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "GoogleMobileAdsClientFactory",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/InitializationStatusClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InitializationStatusClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/InterstitialClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "InterstitialClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/MobileAdsClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "MobileAdsClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/MonoPInvokeCallbackAttribute.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "MonoPInvokeCallbackAttribute",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/RequestConfigurationClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RequestConfigurationClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/ResponseInfoClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "ResponseInfoClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/RewardBasedVideoAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardBasedVideoAdClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/RewardedAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedAdClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/RewardedInterstitialAdClient.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "RewardedInterstitialAdClient",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/GoogleMobileAds/Platforms/iOS/Utils.cs",
+      "assembly": "GoogleMobileAds",
+      "type": "Utils",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_IOS"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Other Examples/Animation Tester/SpineAnimationTesterTool.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineAnimationTesterTool",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/AttackSpineboy.cs",
+      "assembly": "spine-unity-examples",
+      "type": "AttackSpineboy",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/DataAssetsFromExportsExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "DataAssetsFromExportsExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/DraggableTransform.cs",
+      "assembly": "spine-unity-examples",
+      "type": "DraggableTransform",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/FootSoldierExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "FootSoldierExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/BasicPlatformerController.cs",
+      "assembly": "spine-unity-examples",
+      "type": "BasicPlatformerController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/ConstrainedCamera.cs",
+      "assembly": "spine-unity-examples",
+      "type": "ConstrainedCamera",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/Raptor.cs",
+      "assembly": "spine-unity-examples",
+      "type": "Raptor",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/SpineBeginnerTwo.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineBeginnerTwo",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/SpineBlinkPlayer.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineBlinkPlayer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerInput.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyBeginnerInput",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerModel.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyBeginnerModel",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerModel.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineBeginnerBodyState",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerView.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyBeginnerView",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyTargetController.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyTargetController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Getting Started Scripts/TransitionDictionaryExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "TransitionDictionaryExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Goblins.cs",
+      "assembly": "spine-unity-examples",
+      "type": "Goblins",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/HandleEventWithAudioExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "HandleEventWithAudioExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/HeroEffectsHandlerExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "HeroEffectsHandlerExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/HurtFlashEffect.cs",
+      "assembly": "spine-unity-examples",
+      "type": "HurtFlashEffect",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/MaterialPropertyBlockExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "MaterialPropertyBlockExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/MaterialReplacementExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "MaterialReplacementExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mecanim as Logic/DummyMecanimControllerExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "DummyMecanimControllerExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mecanim as Logic/MecanimToAnimationHandleExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "MecanimToAnimationHandleExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mecanim as Logic/SkeletonAnimationHandleExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonAnimationHandleExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier/AnimationMatchModifierAsset.cs",
+      "assembly": "spine-unity-examples",
+      "type": "AnimationMatchModifierAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipAssetExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "EquipAssetExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipButtonExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "EquipButtonExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipSystemExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "EquipSystemExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipsVisualsComponentExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "EquipsVisualsComponentExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mix and Match Character Customize/MixAndMatchSkinsButtonExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "MixAndMatchSkinsButtonExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Mix and Match Character Customize/MixAndMatchSkinsExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "MixAndMatchSkinsExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/MixAndMatch.cs",
+      "assembly": "spine-unity-examples",
+      "type": "MixAndMatch",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/MixAndMatchGraphic.cs",
+      "assembly": "spine-unity-examples",
+      "type": "MixAndMatchGraphic",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/RaggedySpineboy.cs",
+      "assembly": "spine-unity-examples",
+      "type": "RaggedySpineboy",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/ReloadSceneOnKeyDown.cs",
+      "assembly": "spine-unity-examples",
+      "type": "ReloadSceneOnKeyDown",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Rotator.cs",
+      "assembly": "spine-unity-examples",
+      "type": "Rotator",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/BoneLocalOverride.cs",
+      "assembly": "spine-unity-examples",
+      "type": "BoneLocalOverride",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/CombinedSkin.cs",
+      "assembly": "spine-unity-examples",
+      "type": "CombinedSkin",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Ghost/SkeletonGhost.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonGhost",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Ghost/SkeletonGhostRenderer.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonGhostRenderer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Legacy/AtlasRegionAttacher.cs",
+      "assembly": "spine-unity-examples",
+      "type": "AtlasRegionAttacher",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Legacy/SpriteAttacher.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpriteAttacher",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Legacy/SpriteAttacher.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpriteAttachmentExtensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/OutlineSkeletonGraphic.cs",
+      "assembly": "spine-unity-examples",
+      "type": "OutlineSkeletonGraphic",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/RenderExistingMesh.cs",
+      "assembly": "spine-unity-examples",
+      "type": "RenderExistingMesh",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects/JitterEffectExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "JitterEffectExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects/TwoByTwoTransformEffectExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "TwoByTwoTransformEffectExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects/TwoByTwoTransformEffectExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "TwoByTwoTransformEffectExampleEditor",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SetRigidbodySolverIterations.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SetRigidbodySolverIterations",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonAnimationFixedTimestep.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonAnimationFixedTimestep",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonAnimationMulti/SkeletonAnimationMulti.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonAnimationMulti",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonColorInitialize.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonColorInitialize",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonGraphicMirror.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonGraphicMirror",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonGraphicPlayAnimationAtEvent.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonGraphicPlayAnimationAtEvent",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/SkeletonRagdoll2DInspector.cs",
+      "assembly": "spine-unity-examples-editor",
+      "type": "SkeletonRagdoll2DInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/SkeletonRagdollInspector.cs",
+      "assembly": "spine-unity-examples-editor",
+      "type": "SkeletonRagdollInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonRagdoll.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonRagdoll",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonRagdoll2D.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonRagdoll2D",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityEyeConstraint.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonUtilityEyeConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityGroundConstraint.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonUtilityGroundConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityKinematicShadow.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SkeletonUtilityKinematicShadow",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SlotTintBlackFollower.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SlotTintBlackFollower",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Sample Components/SpineEventUnityHandler.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineEventUnityHandler",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpawnFromSkeletonDataExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpawnFromSkeletonDataExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpawnSkeletonGraphicExample.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpawnSkeletonGraphicExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpineGauge.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineGauge",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/Spineboy.cs",
+      "assembly": "spine-unity-examples",
+      "type": "Spineboy",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpineboyBodyTilt.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyBodyTilt",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpineboyFacialExpression.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyFacialExpression",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpineboyFootplanter.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyFootplanter",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpineboyFreeze.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyFreeze",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpineboyPole.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyPole",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Spine Examples/Scripts/SpineboyPoleGraphic.cs",
+      "assembly": "spine-unity-examples",
+      "type": "SpineboyPoleGraphic",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CSVSerializer/CSVSerializer.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "CSVSerializer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ACTkEditorConstants.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ACTkEditorConstants",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ACTkMarker.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ACTkMarker",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ACTkMenuItems.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ACTkMenuItems",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Editors/InjectionDetectorEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "InjectionDetectorEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Editors/KeepAliveBehaviourEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "KeepAliveBehaviourEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Editors/ObscuredCheatingDetectorEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredCheatingDetectorEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Editors/SpeedHackDetectorEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "SpeedHackDetectorEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Editors/TimeCheatingDetectorEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "TimeCheatingDetectorEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Editors/WallHackDetectorEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "WallHackDetectorEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Genuine/CodeHash/PostProcess/CodeHashGeneratorPostprocessor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "CodeHashGeneratorPostprocessor",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Injection/AllowedAssembly.cs",
+      "assembly": "ACTk.Editor",
+      "type": "AllowedAssembly",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Injection/InjectionConstants.cs",
+      "assembly": "ACTk.Editor",
+      "type": "InjectionConstants",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Injection/InjectionRoutines.cs",
+      "assembly": "ACTk.Editor",
+      "type": "InjectionRoutines",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Injection/InjectionWhitelistBuilder.cs",
+      "assembly": "ACTk.Editor",
+      "type": "InjectionWhitelistBuilder",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Injection/PostProcess/BuildPostProcessor.Legacy.cs",
+      "assembly": "ACTk.Editor",
+      "type": "BuildPostProcessor",
+      "editor_only": true,
+      "conditions": [
+        "!UNITY_2018_3_OR_NEWER"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Injection/PostProcess/BuildPostProcessor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "BuildPostProcessor",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_2018_3_OR_NEWER"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Injection/UserWhitelistEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "UserWhitelistEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/MigrateUtils.cs",
+      "assembly": "ACTk.Editor",
+      "type": "MigrateUtils",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredBoolDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredBoolDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredDecimalDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredDecimalDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredDoubleDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredDoubleDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredFloatDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredFloatDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredIntDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredIntDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredLongDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredLongDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredQuaternionDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredQuaternionDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredShortDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredShortDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredStringDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredStringDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredUIntDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredUIntDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredULongDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredULongDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredVector2Drawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredVector2Drawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredVector2IntDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredVector2IntDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredVector3Drawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredVector3Drawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/ObscuredTypes/PropertyDrawers/ObscuredVector3IntDrawer.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ObscuredVector3IntDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/PrefsEditor/ACTkPrefsEditor.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ACTkPrefsEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/PrefsEditor/Plist.cs",
+      "assembly": "ACTk.Editor",
+      "type": "Plist",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/PrefsEditor/Plist.cs",
+      "assembly": "ACTk.Editor",
+      "type": "plistType",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/PrefsEditor/Plist.cs",
+      "assembly": "ACTk.Editor",
+      "type": "PlistDateConverter",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/PrefsEditor/PrefsRecord.cs",
+      "assembly": "ACTk.Editor",
+      "type": "PrefsRecord",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/ACTkEditorPrefsSettings.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ACTkEditorPrefsSettings",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/ACTkSettings.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ACTkSettings",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/SettingsGUI.cs",
+      "assembly": "ACTk.Editor",
+      "type": "SettingsGUI",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/SettingsPreferenceItem.cs",
+      "assembly": "ACTk.Editor",
+      "type": "SettingsPreferenceItem",
+      "editor_only": true,
+      "conditions": [
+        "!UNITY_2018_3_OR_NEWER"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/SettingsProviderWrapper.cs",
+      "assembly": "ACTk.Editor",
+      "type": "SettingsProviderWrapper",
+      "editor_only": true,
+      "conditions": [
+        "UNITY_2018_3_OR_NEWER"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/SettingsUtils.cs",
+      "assembly": "ACTk.Editor",
+      "type": "SettingsUtils",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/SettingsValidator.cs",
+      "assembly": "ACTk.Editor",
+      "type": "SettingsValidator",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Settings/SymbolsData.cs",
+      "assembly": "ACTk.Editor",
+      "type": "SymbolsData",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/ColorTools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ColorTools",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/DetectorTools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "DetectorTools",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/EditorTools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "EditorTools",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/GUITools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "GUITools",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/ReflectionTools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "ReflectionTools",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/TextureTools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "TextureTools",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/TextureTools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "Icons",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Editor/Scripts/Tools/TextureTools.cs",
+      "assembly": "ACTk.Editor",
+      "type": "Images",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Common/ACTkByte16.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ACTkByte16",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Common/ACTkByte4.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ACTkByte4",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Common/ACTkByte8.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ACTkByte8",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Common/ACTkConstants.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ACTkConstants",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Common/KeepAliveBehaviour.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ContainerHolder",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Common/KeepAliveBehaviour.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "KeepAliveBehaviour",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Detectors/Abstract/ACTkDetectorBase.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ACTkDetectorBase",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Detectors/InjectionDetector.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "InjectionDetector",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Detectors/ObscuredCheatingDetector.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredCheatingDetector",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Detectors/SpeedHackDetector.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "SpeedHackDetector",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Detectors/TimeCheatingDetector.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "TimeCheatingDetector",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Detectors/WallHackDetector.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "WallHackDetector",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/BuildHashes.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "BuildHashes",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/CodeHashGenerator.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "CodeHashGenerator",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/FileFilter.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "FileFilter",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/FileHash.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "FileHash",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/HashGeneratorResult.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "HashGeneratorResult",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/ICodeHashGenerator.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ICodeHashGenerator",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/Workers/AndroidWorker.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "AndroidWorker",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER",
+        "ACTK_ANDROID_DEVICE"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/Workers/BaseWorker.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "BaseWorker",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/Workers/StandaloneWindowsWorker.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "StandaloneWindowsWorker",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/Interfaces/IObscuredType.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "IObscuredType",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredBool.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredBool",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredByte.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredByte",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredChar.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredChar",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredDecimal.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredDecimal",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredDouble.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredDouble",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredFloat.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredFloat",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredInt.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredInt",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredLong.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredLong",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredQuaternion.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredQuaternion",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredSByte.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredSByte",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredShort.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredShort",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredString.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredString",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredUInt.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredUInt",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredULong.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredULong",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredUShort.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredUShort",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredVector2.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredVector2",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredVector2Int.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredVector2Int",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredVector3.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredVector3",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/ObscuredTypes/ObscuredVector3Int.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredVector3Int",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Storage/Prefs/ObscuredPrefs.Routines.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredPrefs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Storage/Prefs/ObscuredPrefs.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ObscuredPrefs",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Time/SpeedHackProofTime.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "SpeedHackProofTime",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Utils/Base64Utils.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "Base64Utils",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Utils/RandomUtils.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "RandomUtils",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Utils/StringUtils.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "StringUtils",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Utils/ThreadSafeRandom.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "ThreadSafeRandom",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Utils/TimeUtils.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "TimeUtils",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Utils/xxHash.cs",
+      "assembly": "ACTk.Runtime",
+      "type": "xxHash",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Common/Documentation/LeanGuide.cs",
+      "assembly": "LeanCommon",
+      "type": "LeanGuide",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Common/Documentation/LeanGuide.cs",
+      "assembly": "LeanCommon",
+      "type": "LeanGuide_Inspector",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Common/Scripts/LeanHelper.cs",
+      "assembly": "LeanCommon",
+      "type": "LeanHelper",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Common/Scripts/LeanInput.cs",
+      "assembly": "LeanCommon",
+      "type": "LeanInput",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Common/Scripts/LeanInspector.cs",
+      "assembly": "LeanCommon",
+      "type": "LeanInspector",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Examples/Scripts/LeanPoolDebugger.cs",
+      "assembly": "LeanPool",
+      "type": "LeanPoolDebugger",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Extras/Scripts/LeanPooledRigidbody.cs",
+      "assembly": "LeanPool",
+      "type": "LeanPooledRigidbody",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Extras/Scripts/LeanPooledRigidbody2D.cs",
+      "assembly": "LeanPool",
+      "type": "LeanPooledRigidbody2D",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Scripts/IPoolable.cs",
+      "assembly": "LeanPool",
+      "type": "IPoolable",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Scripts/LeanClassPool.cs",
+      "assembly": "LeanPool",
+      "type": "LeanClassPool",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Scripts/LeanGameObjectPool.cs",
+      "assembly": "LeanPool",
+      "type": "LeanGameObjectPool",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Scripts/LeanGameObjectPool.cs",
+      "assembly": "LeanPool",
+      "type": "LeanGameObjectPool_Inspector",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Lean/Pool/Scripts/LeanPool.cs",
+      "assembly": "LeanPool",
+      "type": "LeanPool",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Asset Types/AnimationReferenceAssetEditor.cs",
+      "assembly": "spine-unity-editor",
+      "type": "AnimationReferenceAssetEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Asset Types/SkeletonDataAssetInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonDataAssetInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Asset Types/SkeletonDataAssetInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonInspectorPreview",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Asset Types/SpineAtlasAssetInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineAtlasAssetInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Asset Types/SpineSpriteAtlasAssetInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineSpriteAtlasAssetInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/BoneFollowerGraphicInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "BoneFollowerGraphicInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/BoneFollowerInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "BoneFollowerInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/BoundingBoxFollowerGraphicInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "BoundingBoxFollowerGraphicInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/BoundingBoxFollowerInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "BoundingBoxFollowerInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/PointFollowerInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "PointFollowerInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonAnimationInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonAnimationInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonGraphicCustomMaterialsInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonGraphicCustomMaterialsInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonGraphicInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonGraphicInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonMecanimInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonMecanimInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonMecanimRootMotionInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonMecanimRootMotionInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonRendererCustomMaterialsInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonRendererCustomMaterialsInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonRendererInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonRendererInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonRootMotionBaseInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonRootMotionBaseInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonRootMotionInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonRootMotionInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonUtilityBoneInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonUtilityBoneInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Components/SkeletonUtilityInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonUtilityInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Menus.cs",
+      "assembly": "spine-unity-editor",
+      "type": "Menus",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Shaders/SpineShaderWithOutlineGUI.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineShaderWithOutlineGUI",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Shaders/SpineSpriteShaderGUI.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineSpriteShaderGUI",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineDrawerValuePair",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineTreeItemDrawerBase",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineSlotDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineSkinDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineAnimationDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineEventNameDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineIkConstraintDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineTransformConstraintDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpinePathConstraintDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineAttachmentDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineBoneDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineAtlasRegionDrawer",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/AssetDatabaseAvailabilityDetector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "AssetDatabaseAvailabilityDetector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/AssetUtility.cs",
+      "assembly": "spine-unity-editor",
+      "type": "AssetUtility",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/AssetUtility.cs",
+      "assembly": "spine-unity-editor",
+      "type": "EditorInstantiation",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/BuildSettings.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineEditorUtilities",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/BuildSettings.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineBuildEnvUtility",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/DataReloadHandler.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineEditorUtilities",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/Icons.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineEditorUtilities",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/Instantiation.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineEditorUtilities",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/Preferences.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineEditorUtilities",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/SpineEditorUtilities.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineEditorUtilities",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/SpineHandles.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineHandles",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/SpineInspectorUtility.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineInspectorUtility",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Utility/SpineMaskUtilities.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpineMaskUtilities",
+      "editor_only": true,
+      "conditions": [
+        "BUILT_IN_SPRITE_MASK_COMPONENT"
+      ],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Windows/SkeletonBaker.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonBaker",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Windows/SkeletonBakingWindow.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonBakingWindow",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Windows/SkeletonDebugWindow.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonDebugWindow",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Windows/SpinePreferences.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpinePreferences",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Editor/Windows/SpriteAtlasImportWindow.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SpriteAtlasImportWindow",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator/Editor/SkeletonPartsRendererInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonRenderPartInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator/Editor/SkeletonRenderSeparatorInspector.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SkeletonRenderSeparatorInspector",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Editor/spine-unity/Modules/SlotBlendModes/Editor/SlotBlendModesEditor.cs",
+      "assembly": "spine-unity-editor",
+      "type": "SlotBlendModesEditor",
+      "editor_only": true,
+      "conditions": [],
+      "verdict": "EDITOR_ONLY"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "Animation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "Timeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "MixBlend",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "MixDirection",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "TimelineType",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "IBoneTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "ISlotTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "CurveTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "RotateTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "TranslateTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "ScaleTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "ShearTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "ColorTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "TwoColorTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "AttachmentTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "DeformTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "EventTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "DrawOrderTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "IkConstraintTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "TransformConstraintTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "PathConstraintPositionTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "PathConstraintSpacingTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Animation.cs",
+      "assembly": "spine-unity",
+      "type": "PathConstraintMixTimeline",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/AnimationState.cs",
+      "assembly": "spine-unity",
+      "type": "AnimationState",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/AnimationState.cs",
+      "assembly": "spine-unity",
+      "type": "TrackEntry",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/AnimationState.cs",
+      "assembly": "spine-unity",
+      "type": "EventQueue",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/AnimationState.cs",
+      "assembly": "spine-unity",
+      "type": "Pool",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/AnimationStateData.cs",
+      "assembly": "spine-unity",
+      "type": "AnimationStateData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Atlas.cs",
+      "assembly": "spine-unity",
+      "type": "Atlas",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/AtlasAttachmentLoader.cs",
+      "assembly": "spine-unity",
+      "type": "AtlasAttachmentLoader",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/Attachment.cs",
+      "assembly": "spine-unity",
+      "type": "Attachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/Attachment.cs",
+      "assembly": "spine-unity",
+      "type": "IHasRendererObject",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/AttachmentLoader.cs",
+      "assembly": "spine-unity",
+      "type": "AttachmentLoader",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/AttachmentType.cs",
+      "assembly": "spine-unity",
+      "type": "AttachmentType",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/BoundingBoxAttachment.cs",
+      "assembly": "spine-unity",
+      "type": "BoundingBoxAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/ClippingAttachment.cs",
+      "assembly": "spine-unity",
+      "type": "ClippingAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/MeshAttachment.cs",
+      "assembly": "spine-unity",
+      "type": "MeshAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/PathAttachment.cs",
+      "assembly": "spine-unity",
+      "type": "PathAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/PointAttachment.cs",
+      "assembly": "spine-unity",
+      "type": "PointAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/RegionAttachment.cs",
+      "assembly": "spine-unity",
+      "type": "RegionAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Attachments/VertexAttachment.cs",
+      "assembly": "spine-unity",
+      "type": "VertexAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/BlendMode.cs",
+      "assembly": "spine-unity",
+      "type": "BlendMode",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Bone.cs",
+      "assembly": "spine-unity",
+      "type": "Bone",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/BoneData.cs",
+      "assembly": "spine-unity",
+      "type": "BoneData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/BoneData.cs",
+      "assembly": "spine-unity",
+      "type": "TransformMode",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Collections/OrderedDictionary.cs",
+      "assembly": "spine-unity",
+      "type": "OrderedDictionary",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Collections/OrderedDictionary.cs",
+      "assembly": "spine-unity",
+      "type": "OrderedDictionaryDebugView",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Collections/OrderedDictionary.cs",
+      "assembly": "spine-unity",
+      "type": "CollectionExtensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/ConstraintData.cs",
+      "assembly": "spine-unity",
+      "type": "ConstraintData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Event.cs",
+      "assembly": "spine-unity",
+      "type": "Event",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/EventData.cs",
+      "assembly": "spine-unity",
+      "type": "EventData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/ExposedList.cs",
+      "assembly": "spine-unity",
+      "type": "ExposedList",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/IUpdatable.cs",
+      "assembly": "spine-unity",
+      "type": "IUpdatable",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/IkConstraint.cs",
+      "assembly": "spine-unity",
+      "type": "IkConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/IkConstraintData.cs",
+      "assembly": "spine-unity",
+      "type": "IkConstraintData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Json.cs",
+      "assembly": "spine-unity",
+      "type": "Json",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Json.cs",
+      "assembly": "spine-unity",
+      "type": "Lexer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Json.cs",
+      "assembly": "spine-unity",
+      "type": "JsonDecoder",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/MathUtils.cs",
+      "assembly": "spine-unity",
+      "type": "MathUtils",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/MathUtils.cs",
+      "assembly": "spine-unity",
+      "type": "IInterpolation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/MathUtils.cs",
+      "assembly": "spine-unity",
+      "type": "Pow",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/MathUtils.cs",
+      "assembly": "spine-unity",
+      "type": "PowOut",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/PathConstraint.cs",
+      "assembly": "spine-unity",
+      "type": "PathConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/PathConstraintData.cs",
+      "assembly": "spine-unity",
+      "type": "PathConstraintData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/PathConstraintData.cs",
+      "assembly": "spine-unity",
+      "type": "PositionMode",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/PathConstraintData.cs",
+      "assembly": "spine-unity",
+      "type": "SpacingMode",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/PathConstraintData.cs",
+      "assembly": "spine-unity",
+      "type": "RotateMode",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Skeleton.cs",
+      "assembly": "spine-unity",
+      "type": "Skeleton",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonBinary.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonBinary",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonBounds.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonBounds",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonBounds.cs",
+      "assembly": "spine-unity",
+      "type": "Polygon",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonClipping.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonClipping",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonData.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SkeletonJson.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonJson",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Skin.cs",
+      "assembly": "spine-unity",
+      "type": "Skin",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Slot.cs",
+      "assembly": "spine-unity",
+      "type": "Slot",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/SlotData.cs",
+      "assembly": "spine-unity",
+      "type": "SlotData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/TransformConstraint.cs",
+      "assembly": "spine-unity",
+      "type": "TransformConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/TransformConstraintData.cs",
+      "assembly": "spine-unity",
+      "type": "TransformConstraintData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-csharp/Triangulator.cs",
+      "assembly": "spine-unity",
+      "type": "Triangulator",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/AnimationReferenceAsset.cs",
+      "assembly": "spine-unity",
+      "type": "AnimationReferenceAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/AtlasAssetBase.cs",
+      "assembly": "spine-unity",
+      "type": "AtlasAssetBase",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/EventDataReferenceAsset.cs",
+      "assembly": "spine-unity",
+      "type": "EventDataReferenceAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/RegionlessAttachmentLoader.cs",
+      "assembly": "spine-unity",
+      "type": "RegionlessAttachmentLoader",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/SkeletonDataAsset.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonDataAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/SkeletonDataCompatibility.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonDataCompatibility",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/SkeletonDataModifierAsset.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonDataModifierAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/SpineAtlasAsset.cs",
+      "assembly": "spine-unity",
+      "type": "SpineAtlasAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/SpineAtlasAsset.cs",
+      "assembly": "spine-unity",
+      "type": "MaterialsTextureLoader",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Asset Types/SpineSpriteAtlasAsset.cs",
+      "assembly": "spine-unity",
+      "type": "SpineSpriteAtlasAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/Following/BoneFollower.cs",
+      "assembly": "spine-unity",
+      "type": "BoneFollower",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/Following/BoneFollowerGraphic.cs",
+      "assembly": "spine-unity",
+      "type": "BoneFollowerGraphic",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/Following/BoundingBoxFollower.cs",
+      "assembly": "spine-unity",
+      "type": "BoundingBoxFollower",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/Following/BoundingBoxFollowerGraphic.cs",
+      "assembly": "spine-unity",
+      "type": "BoundingBoxFollowerGraphic",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/Following/PointFollower.cs",
+      "assembly": "spine-unity",
+      "type": "PointFollower",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonMecanimRootMotion.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonMecanimRootMotion",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonRootMotion.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonRootMotion",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonRootMotionBase.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonRootMotionBase",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonAnimation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonGraphic.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonGraphic",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonMecanim.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonMecanim",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonRenderSeparator/SkeletonPartsRenderer.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonPartsRenderer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonRenderSeparator/SkeletonRenderSeparator.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonRenderSeparator",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonRenderer.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonRenderer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonRendererCustomMaterials/SkeletonGraphicCustomMaterials.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonGraphicCustomMaterials",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonRendererCustomMaterials/SkeletonRendererCustomMaterials.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonRendererCustomMaterials",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonUtility/ActivateBasedOnFlipDirection.cs",
+      "assembly": "spine-unity",
+      "type": "ActivateBasedOnFlipDirection",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowLocationRigidbody.cs",
+      "assembly": "spine-unity",
+      "type": "FollowLocationRigidbody",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowLocationRigidbody2D.cs",
+      "assembly": "spine-unity",
+      "type": "FollowLocationRigidbody2D",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowSkeletonUtilityRootRotation.cs",
+      "assembly": "spine-unity",
+      "type": "FollowSkeletonUtilityRootRotation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtility.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonUtility",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtilityBone.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonUtilityBone",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtilityConstraint.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonUtilityConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Deprecated/SlotBlendModes/SlotBlendModes.cs",
+      "assembly": "spine-unity",
+      "type": "SlotBlendModes",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "UpdateMode",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "ISkeletonAnimation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "IHasSkeletonDataAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "ISkeletonComponent",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "IAnimationStateComponent",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "IHasSkeletonRenderer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "IHasSkeletonComponent",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/DoubleBuffered.cs",
+      "assembly": "spine-unity",
+      "type": "DoubleBuffered",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/MeshGenerator.cs",
+      "assembly": "spine-unity",
+      "type": "MeshGeneratorBuffers",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/MeshGenerator.cs",
+      "assembly": "spine-unity",
+      "type": "MeshGenerator",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/MeshRendererBuffers.cs",
+      "assembly": "spine-unity",
+      "type": "MeshRendererBuffers",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/SkeletonRendererInstruction.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonRendererInstruction",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/SpineMesh.cs",
+      "assembly": "spine-unity",
+      "type": "SpineMesh",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/SpineMesh.cs",
+      "assembly": "spine-unity",
+      "type": "SubmeshInstruction",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Modules/TK2D/SpriteCollectionAttachmentLoader.cs",
+      "assembly": "spine-unity",
+      "type": "SpriteCollectionAttachmentLoader",
+      "editor_only": false,
+      "conditions": [
+        "SPINE_TK2D"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/BlendModeMaterialsAsset.cs",
+      "assembly": "spine-unity",
+      "type": "BlendModeMaterialsAsset",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineAttributeBase",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineBone",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineSlot",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineAnimation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineEvent",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineIkConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineTransformConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpinePathConstraint",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineSkin",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineAttachment",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SpineAttributes.cs",
+      "assembly": "spine-unity",
+      "type": "SpineAtlasRegion",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/AtlasUtilities.cs",
+      "assembly": "spine-unity",
+      "type": "AtlasUtilities",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/AttachmentCloneExtensions.cs",
+      "assembly": "spine-unity",
+      "type": "AttachmentCloneExtensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/AttachmentRegionExtensions.cs",
+      "assembly": "spine-unity",
+      "type": "AttachmentRegionExtensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/MaterialChecks.cs",
+      "assembly": "spine-unity",
+      "type": "MaterialChecks",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/SkeletonExtensions.cs",
+      "assembly": "spine-unity",
+      "type": "SkeletonExtensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/SkeletonExtensions.cs",
+      "assembly": "spine-unity",
+      "type": "BoneMatrix",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/SkeletonExtensions.cs",
+      "assembly": "spine-unity",
+      "type": "SpineSkeletonExtensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/SkinUtilities.cs",
+      "assembly": "spine-unity",
+      "type": "SkinUtilities",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/TimelineExtensions.cs",
+      "assembly": "spine-unity",
+      "type": "TimelineExtensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimation.cs",
+      "assembly": "spine-unity",
+      "type": "WaitForSpineAnimation",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimationComplete.cs",
+      "assembly": "spine-unity",
+      "type": "WaitForSpineAnimationComplete",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimationEnd.cs",
+      "assembly": "spine-unity",
+      "type": "WaitForSpineAnimationEnd",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineEvent.cs",
+      "assembly": "spine-unity",
+      "type": "WaitForSpineEvent",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineTrackEntryEnd.cs",
+      "assembly": "spine-unity",
+      "type": "WaitForSpineTrackEntryEnd",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Data/FirstLevels.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "FirstLevels",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Data/FirstLevels.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "FirstLevelsPostprocessor",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Data/RandomLevels.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "RandomLevels",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/CsvReader.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "CsvReader",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionary.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SerializableDictionary",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawer.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SerializableKeyValueTemplate",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawer.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SerializableDictionaryDrawer",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "StringIntDictionaryDrawer",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SerializableStringIntTemplate",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "StringStringDictionaryDrawer",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SerializableStringStringTemplate",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryImplementations.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "StringIntDictionary",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryImplementations.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "StringStringDictionary",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializedPropertyExtension.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SerializedPropertyExtension",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/ConstData.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ConstData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/ConstData.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ConstPostprocessor",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/LanguageDataExample.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "LanguageDataExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/LanguageDataExample.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "LanguagePostprocessor",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/RankingData.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "RankingData",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/RankingData.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "RankingPostprocessor",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/ShopGroupExample.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ShopGroupExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/ShopGroupExample.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GroupPostprocessor",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/SpawnEnemy.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SpawnEnemyExample",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/SpawnEnemy.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SpawnEnemyPostprocessor",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Common/CSVHelper.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "CSVHelper",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Common/CSVReader.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "CSVReader",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Common/Extensions.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Extensions",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Common/Log.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Log",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Common/Random.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "RandNumber",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Common/ScriptableObjectUtility.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ScriptableObjectUtility",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_EDITOR"
+      ],
+      "verdict": "CONDITIONAL"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Common/UtilityGame.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "UtilityGame",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Controller/GameController.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GameController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Inventory/Inventory.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Inventory",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Inventory/ShortInventory.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ItemInventory",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Inventory/ShortInventory.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ItemResources",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Inventory/ShortInventory.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ItemArtifact",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Inventory/ShortInventory.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ItemStack",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Inventory/ShortInventory.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ItemDistinc",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Observer/Common.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Common",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Observer/EventDispatcher.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "EventDispatcher",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Observer/EventDispatcher.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "EventDispatcherExtension",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Singletons/SingletonMono.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SingletonMono",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/Singletons/SingletonMonoDontDestroy.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "SingletonMonoDontDestroy",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/StructStorage.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "TypeResourcesValue",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/TimeInGame.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "TimeInGame",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/DataUser/DataCreatePlayer.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "DataCreatePlayer",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/Box.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Box",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/DataController.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "DataController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/GUIManager.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GUIManager",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/GameHelper.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GameHelper",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/GameHelper.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Extension",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/GamePlayController.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Movement",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/GamePlayController.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GamePlayController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/GraphicController.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GraphicController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/Imposter.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Imposter",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/GamePlay/RatingReviewManager.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "RatingReviewManager",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Manager/GameManager.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "TypeScene",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Manager/GameManager.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "GameManager",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Resources/ItemBase.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ItemBase",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Resources/ItemBase.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Item",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Resources/ResourcesUtil.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ResourcesUtil",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Resources/UserResource.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "UserResource",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Resources/UserResource.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "UserResourceInventory",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Resources/UserResource.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "UserResourceItem",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Resources/UserResource.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "UserResourceCollectionItem",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/TestCube.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "TestCube",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    }
+  ]
+}

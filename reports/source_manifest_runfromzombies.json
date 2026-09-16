@@ -1,0 +1,172 @@
+{
+  "fixture": "RunFromZombies",
+  "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/rfz-src",
+  "rip": "/home/user/AssetRipper/Test/Out53z/RunFromZombies",
+  "provenance": {
+    "remote": "https://github.com/thinhabc01/RunFromZombiesFullProject",
+    "commit": "eb412521bc500e41892394312362a9fac4838764",
+    "described": "update build arm64-v8a",
+    "dirty": false
+  },
+  "source_files": 16,
+  "declared_types": 16,
+  "verdicts": {
+    "RECOVERED": 16,
+    "EDITOR_ONLY": 0,
+    "ASSEMBLY_ABSENT": 0,
+    "CONDITIONAL": 0,
+    "NOT_IN_BUILD": 0
+  },
+  "assemblies_in_source": [
+    "Assembly-CSharp"
+  ],
+  "assemblies_in_rip": [
+    "Assembly-CSharp",
+    "Newtonsoft.Json",
+    "System.Runtime.CompilerServices.Unsafe",
+    "Unity.Postprocessing.Runtime",
+    "Unity.Services.Analytics",
+    "Unity.Services.Core",
+    "Unity.Services.Core.Configuration",
+    "Unity.Services.Core.Device",
+    "Unity.Services.Core.Environments.Internal",
+    "Unity.Services.Core.Internal",
+    "Unity.Services.Core.Registration",
+    "Unity.Services.Core.Scheduler",
+    "Unity.Services.Core.Telemetry",
+    "Unity.Services.Core.Threading",
+    "UnityEngine.UI",
+    "__Generated"
+  ],
+  "type_recovery_rate": 1.0,
+  "types": [
+    {
+      "file": "Assets/Scripts/AudioManager.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "AudioManager",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/BoxRaRot.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "BoxRaRot",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/Checker.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Checker",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/HighScore.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "HighScore",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/MenuController.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "MenuController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/MenuMove.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "MenuMove",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/MoveBoard.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "MoveBoard",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/Movement.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Movement",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/ObsDropper.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ObsDropper",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/ObsJumper.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ObsJumper",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/ScoreScript.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ScoreScript",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/Sound.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Sound",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/Spawner.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "Spawner",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/StreetKiller.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "StreetKiller",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/UIController.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "UIController",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/Scripts/ZambiesMovement.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "ZambiesMovement",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    }
+  ]
+}
