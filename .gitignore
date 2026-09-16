@@ -22,6 +22,8 @@ launchSettings.json
 
 # Rip output and logs from RUN-TEST.bat. Every run rewrites these, so tracking them
 # means every run dirties the tree; upload the log to share it instead.
+# Rip output is large and reproducible from the rest of the tree. Iteration 052 committed 290 MB
+# of it through a `git add -A Test`, which these patterns exist to stop.
 Test/Output/
 Test/Output-*/
 Test/Output[0-9P]*/

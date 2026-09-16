@@ -5,9 +5,9 @@ rem ---------------------------------------------------------------------------
 rem Rip Test\Input\<name> to Test\Output at script content level 3, headless, in
 rem one command. No clicking, and the same arguments every run.
 rem
-rem   RUN-TEST.bat                  rips Test\Input\Pinata
+rem   RUN-TEST.bat                  rips Test\Input\Impostor
 rem   RUN-TEST.bat MyGame           rips Test\Input\MyGame
-rem   RUN-TEST.bat Pinata Debug     Debug build
+rem   RUN-TEST.bat Impostor Debug     Debug build
 rem
 rem Rips in Release. A failed Debug.Assert in a Debug build calls
 rem Environment.FailFast: the process ends with nothing written to the log. A
@@ -21,7 +21,7 @@ rem ---------------------------------------------------------------------------
 
 set "ROOT=%~dp0"
 set "NAME=%~1"
-if "%NAME%"=="" set "NAME=Pinata"
+if "%NAME%"=="" set "NAME=Impostor"
 set "CONFIG=%~2"
 if "%CONFIG%"=="" set "CONFIG=Release"
 

@@ -1,127 +1,50 @@
-# Ma trận phục hồi: APK/IPA → Unity project chạy được
+# Ma trận fixture
 
-Iteration 044. Mọi ô trong bảng là **đo được**, không phải suy đoán. Nơi không đo được thì ghi
-`NOT_RUN` hoặc `UNKNOWN`, không ghi `PASS`.
+Từ iteration 053, ba fixture dưới đây là ma trận mặc định. Mọi acceptance đo trên chúng.
 
-Fixture đo: `Test/Input/Impostor` (APK đã giải nén, Unity 2022.3.62f2, metadata v31.1, ARM64) và
-`Test/Input/Pinata` (x86, v24.2). iOS: `Test/Input/JellyBlast`, FairPlay-encrypted.
-
-Lệnh dựng lại: `Test/Scripts/collect_metrics.sh`, và bản rip `Test/Output-044b`.
-
----
-
-## 1. Bảng theo layer
-
-| Layer | Android | iOS | Bằng chứng |
+| | Impostor | RunFromZombies | JellyBlast v2 |
 |---|---|---|---|
-| Giải nén container | **PARTIAL** | **PARTIAL** | Đầu vào là thư mục đã giải nén, không phải file `.apk`/`.ipa`. Chưa đo được đường unzip. |
-| Chọn ABI | **UNKNOWN** | n/a | APK có *hai* ABI (`arm64-v8a`, `armeabi-v7a`); log chỉ nói `instruction set Arm64InstructionSetSelector`, không nói vì sao chọn cái đó. |
-| Unity version | **OK** | **OK** | `Unity 2022.3.62f2, metadata v31.1, 64-bit` đọc ra từ chính build. |
-| Metadata IL2CPP | **OK** | **PARTIAL** | iOS: `__DATA` đọc được, `__TEXT` mã hoá — xem `ENCRYPTED_NATIVE_INPUT` bên dưới. |
-| Binary IL2CPP | **OK** | **BLOCKED** | FairPlay `cryptid=1`. Không tự bypass DRM. |
-| Serialized assets | **OK** | NOT_RUN | 36 Texture2D, 29 Sprite, 7 Material, 6 AudioClip, 4 TextAsset, 2 Font, 2 AnimationClip, 1 AnimatorController. |
-| Scenes | **PARTIAL** | NOT_RUN | 1 scene, 103 GameObject, 113 MonoBehaviour, 29 Transform. |
-| Prefabs | **OK** | NOT_RUN | 6 prefab. |
-| Meshes | **UNKNOWN** | NOT_RUN | Không có thư mục Mesh trong bản rip; chưa xác định game có mesh hay không. |
-| Textures | **OK** | NOT_RUN | 36 PNG. |
-| Materials | **PARTIAL** | NOT_RUN | 7 material, tham chiếu tới shader **thay thế** — xem mục 2. |
-| Shaders | **PARTIAL** | NOT_RUN | Xem mục 2. Đây là ô quan trọng nhất và dễ đọc nhầm nhất. |
-| Shader variants | **UNKNOWN** | NOT_RUN | `m_KeywordNames` có mặt (3 lần); chưa đo variant nào được giữ. |
-| Animation | **PARTIAL** | NOT_RUN | 2 AnimationClip, 1 AnimatorController; chưa kiểm chứng curve. |
-| Audio | **OK** | NOT_RUN | 6 `.ogg`. |
-| Scripts | **OK** | NOT_RUN | 819 file `.cs`, 96,06% method có thân thật (đo bằng `measure-bodies.py`). |
-| Native plugins | **NOT_RUN** | NOT_RUN | `libmain.so`, `libunity.so` có trong APK; chưa phân loại. |
-| GUID references | **OK** | NOT_RUN | 450 GUID *duy nhất* trên 450 file `.cs.meta` — GUID theo từng script, không phải theo assembly. |
-| Addressables | **UNKNOWN** | NOT_RUN | Chưa dò. |
-| Resources | **OK** | NOT_RUN | 20 asset dưới `Resources`. |
-| StreamingAssets | **NONE_PRESENT** | NOT_RUN | Không có trong APK này. |
-| Runtime behavior | **NOT_RUN** | NOT_RUN | Cần Unity. |
-| Build | **UNITY_NOT_AVAILABLE** | **UNITY_NOT_AVAILABLE** | Không có Unity trên máy này. |
-| Run | **UNITY_NOT_AVAILABLE** | **UNITY_NOT_AVAILABLE** | idem. |
+| nguồn | `thinhabc01/Impostor-Sort-Puzzle-Pro` release v1 | `thinhabc01/RunFromZombiesFullProject` release v1 | `ThinhNV-x-Percas/jelly-blast` release v2 |
+| file | `impostor-sort.apk` | `demo.apk` | `io.heseri.blast-1.1.ipa` |
+| sha256 | `8e5ab4a9…c447dd9fc8aaf` | `b5d241baedbbd3b44c5f971338e229cbd748bf8963352474c14f6b73e5b55818` | `11093fbd6ea9a7094aff349aca838209b291818cd8a6cd772a47ea00ba6c6b7f` |
+| nền tảng | Android, ELF arm64-v8a | Android, ELF arm64-v8a | iOS, Mach-O arm64 |
+| Unity | 2022.3.62f2 | 2022.3.62f2 | 2022.3.53f1 |
+| metadata | v31.1 | v31.1 | v31.1 |
+| thư mục | `Test/Input/Impostor` | `Test/Input/RunFromZombies` | `Test/Input/JellyBlastV2` |
+| **có source đối chiếu** | có (42 script của game) | **có, toàn bộ project** | không |
+| vai trò | fixture chính | **source oracle** | cổng iOS |
 
----
+Cả ba đều gitignored; `Test/Scripts/download_test_inputs.sh` tải và verify.
 
-## 2. Shader — ô dễ đọc nhầm nhất, và ba sự thật đo được
+## Vì sao Pinata rời ma trận mặc định
 
-### 2.1 `Decompile` không tồn tại trong repository này
+Pinata (`Test/Input/Pinata`, x86, metadata v24.2) là cổng kiểm chứng độc lập từ iteration 027 đến
+052 và làm tốt việc đó: nó bắt được phần lớn loại lỗi "đúng cho một codegen, sai cho codegen kia".
+Nó rời ma trận **mặc định** từ 053 vì hai lý do nêu trong brief của iteration đó, không phải vì nó
+sai:
 
-`ShaderExportMode` có ba giá trị, nhưng phần dispatch chỉ có hai:
+- không có source để đối chiếu, nên nó không nói được điều gì về ngữ nghĩa mà chỉ nói về số lượng;
+- RunFromZombies vừa là Android vừa **có source**, nên nó thay được vai trò cổng kiểm chứng và làm
+  thêm được việc Pinata không làm được.
 
-```csharp
-OverrideExporter<IShader>(settings.ExportSettings.ShaderExportMode switch
-{
-    ShaderExportMode.Yaml => new YamlShaderExporter(),
-    _ => new DummyShaderTextExporter(),   // Decompile rơi vào đây
-});
-```
+Số liệu cuối cùng của Pinata nằm ở `reports/regression-matrix.md` mục 052. Nó **không còn ảnh hưởng
+acceptance**, và lệnh test mặc định không rip nó.
 
-`Decompile` **rơi xuống `DummyShaderTextExporter`**. Phần GUI gate nó sau `GameFileLoader.Premium`,
-tức một `ExportHandler` khác không có trong repo mã nguồn mở này. Kết luận:
-**shader decompilation là NOT_AVAILABLE trong cây này**, và giả định của brief §23 rằng có thể "tận
-dụng AssetRipper shader decompilation" là sai với repository này.
+## Trạng thái iOS
 
-### 2.2 `Dummy` không rỗng — và đó mới là chỗ nguy hiểm
+`reports/JELLYBLAST_V2.md` có bản fingerprint đầy đủ. Tóm tắt: **`IOS_DECRYPTED`** — `cryptid=0`,
+entropy `__TEXT` 6,541/8, 4225 lệnh `ret` trong 1 MiB, `mscorlib.dll` có mặt. Bản v1 là
+`IOS_ENCRYPTED` và mọi kết luận rút ra từ nó **không áp dụng cho v2**.
 
-`Dummy` phục hồi **chính xác** phần `Properties`: tên, kiểu, giá trị mặc định, cả `[Toggle]`,
-`[NoScaleOffset]`, `[HideInInspector]`, và cả `//CustomEditor`. Rồi nó gắn cho **mọi** shader cùng
-một pass unlit thay thế:
+## Con số hiện tại
 
-```hlsl
-output.pos = mul(unity_MatrixVP, mul(unity_ObjectToWorld, input.pos));
-return _MainTex.Sample(sampler_MainTex, input.uv.xy);
-```
-
-Thứ này **biên dịch được**. Nên material dùng nó **không hồng**, và một phép kiểm tra chỉ tìm
-material hồng sẽ báo PASS trong khi toàn bộ shading sai. Đây đúng dạng
-`SHADER_NOT_FOUND != SHADER_NOT_USED` của brief §34, ở chiều nguy hiểm hơn: một stand-in biên dịch
-được trông y hệt thành công.
-
-### 2.3 `Yaml` giữ được bytecode, và một cờ là đủ
-
-`--shader-mode Yaml` (thêm ở iteration này) xuất shader thành `.asset` YAML mang
-**12 `m_SubPrograms`, 31 blob, 18 `GpuProgramType`** trên riêng `Spine_Skeleton`, cùng hai script
-editor AssetRipper tự sinh (`AvoidSavingYamlShaders.cs`, `YamlShaderPostprocessor.cs`). Tức yêu cầu
-"ưu tiên giữ compiled shader artifact" của §20 **đã làm được hôm nay**, chỉ là harness chưa bao giờ
-bật nó.
-
-### 2.4 Backend thực tế của fixture này: **chỉ GLES**
-
-Đọc `GpuProgramType` trên toàn bộ shader đã xuất: chỉ có hai giá trị, **4** và **5**, mỗi giá trị 57
-lần. Theo chính enum trong repo (`ShaderGpuProgramType55`): `GLES3 = 4`, `GLES = 5`.
-
-Nghĩa là **không có một chương trình DXBC, SPIR-V hay Metal nào** trong fixture này. Công việc
-HLSLcc (§19), SPIR-V (§18) và Metal (§20) sẽ áp dụng cho **0 chương trình** ở đây. Muốn làm chúng
-thì phải có fixture khác — một build Vulkan hoặc một build Windows — chứ không phải Impostor.
-
-Blob thì bị nén (thử base64-decode ra dữ liệu entropy cao, không thấy `#version`, `gl_Position`,
-`uniform`), nên "GLES nên là GLSL văn bản" **chưa được xác nhận** và không được ghi là đã xác nhận.
-
----
-
-## 3. Những tiền đề của brief bị đo là sai
-
-| Tiền đề | Thực tế đo được |
-|---|---|
-| §9 "assembly-level synthetic GUID cần map thành per-script GUID" | Đã là per-script: 450 GUID duy nhất trên 450 `.cs.meta`. |
-| §23 "tận dụng AssetRipper shader decompilation" | Không có trong cây này; `Decompile` rơi xuống Dummy. |
-| §18/§19 SPIR-V và DXBC là hướng ưu tiên | 0 chương trình thuộc hai backend đó trên fixture. |
-
----
-
-## 4. Điểm số phục hồi, tách riêng (§33)
-
-Không gộp thành một con số.
-
-| Hạng mục | Trạng thái | Con số |
-|---|---|---|
-| Asset Recovery | PARTIAL | 36 texture, 29 sprite, 6 audio, 2 font, 4 text |
-| Script Recovery | **OK** | 819 file, 96,06% method có thân thật |
-| Behavior Recovery | PARTIAL | 2722 unresolved load, 348 lỗi Roslyn (Assembly-CSharp) |
-| Scene Recovery | PARTIAL | 1 scene / 103 GameObject |
-| Reference Recovery | PARTIAL | 4 `m_Script` trỏ `fileID: 0` |
-| Shader Recovery | **NOT_AVAILABLE (decompile)** / PARTIAL (surface + blob) | xem mục 2 |
-| Animation Recovery | UNKNOWN | 2 clip, chưa kiểm chứng |
-| Audio Recovery | OK | 6 clip |
-| Native Recovery | NOT_RUN | — |
-| Build Recovery | UNITY_NOT_AVAILABLE | — |
-| Runtime Recovery | UNITY_NOT_AVAILABLE | — |
+| | Impostor | RunFromZombies | JellyBlast v2 |
+|---|---|---|---|
+| `.cs` | 830 | 796 | 1501 |
+| method có địa chỉ native | 5482 | 3928 | 7485 |
+| `EXACT` | 2878 | 2285 | 2200 |
+| `body_recovery_rate` | 0,7630 | **0,8969** | 0,3269 |
+| `compile_pass_rate` | **0,9337** | **0,9761** | — |
+| `reference_resolution_rate` | 0,9940 | **1,0000** | 1,0000 |
+| field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** |
+| `generatorFailures` | 0 | 0 | 0 |
