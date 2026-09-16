@@ -129,6 +129,13 @@ echo "ROSLYN_COMPILER: $csc"
 # file of every diagnostic, so the distinct ones are countable without parsing anything else.
 faulted=$(grep ': error ' "$work/log.txt" | grep -oE '^[^(]+\.cs' | sort -u | wc -l)
 
+# AssetRipper: the raw diagnostics, where asked for. Clustering compile failures by root cause needs
+# every line with its file, its line number and its message, and the harness has always deleted the
+# only copy - so every previous attempt at that read a summary instead of the data.
+if [ -n "${ERRORS_TO:-}" ]; then
+    grep ': error ' "$work/log.txt" > "$ERRORS_TO" || true
+fi
+
 echo "$assembly: $files files, $errors errors, $warnings warnings"
 echo "$assembly: $((files - faulted)) of $files files compile clean"
 echo

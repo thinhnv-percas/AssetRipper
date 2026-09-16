@@ -128,6 +128,11 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened " +
 				"because a recovered body reaches them from outside the type, or the assembly, that declares them.");
+			DropEventsReadAsFields();
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {droppedEventDeclarationCount} event declarations were dropped because a " +
+				"recovered body reads the field they are built on - il2cpp inlines add_/remove_, and C# refuses to read an " +
+				"event from outside its declaring type whatever its accessibility. The field and the accessors stay.");
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {IlGenerator.HiddenFieldsReadThroughAProperty} reads of a hidden static field " +
 				"were written as the public property that returns it.");
@@ -218,6 +223,15 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			{
 				case IFieldDescriptor fieldDescriptor
 					when fieldDescriptor.Resolve(runtime, out FieldDefinition? field) == ResolutionStatus.Success && field is not null:
+					// Recorded before the widening decision, not after it: widening stops at a field
+					// the accessor can already reach, and a type reading its own event's storage is
+					// exactly that case - which is where this shape actually occurs. Recording it
+					// inside WidenField found 2 of 433.
+					if (field.DeclaringType is { } fieldOwner && !IsEventAccessor(methodDefinition))
+					{
+						eventStorageRead[(fieldOwner, field)] = true;
+					}
+
 					WidenField(field, accessor, module);
 					break;
 				case IMethodDescriptor methodDescriptor
@@ -244,8 +258,197 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Interlocked.Increment(ref widenedMemberCount);
 		}
 
-		WidenDeclaringTypes(owner, acrossAssemblies);
 	}
+
+	/// <summary>
+	/// AssetRipper: whether a method is an event's own add or remove accessor.
+	/// </summary>
+	/// <remarks>
+	/// Every accessor reads the storage it is the accessor for, so counting those would name every
+	/// event in the assembly and drop every declaration. What the C# compiler refuses is a read from
+	/// anywhere <em>else</em>.
+	/// </remarks>
+	private static bool IsEventAccessor(MethodDefinition method)
+		=> method.DeclaringType?.Events.Any(declaration =>
+			declaration.Semantics.Any(semantics => semantics.Method == method)) == true;
+
+	/// <summary>
+	/// AssetRipper: every (type, field) a recovered body read, for the event pairing below.
+	/// </summary>
+	private static readonly ConcurrentDictionary<(TypeDefinition Owner, FieldDefinition Field), bool> eventStorageRead = new();
+
+	/// <summary>
+	/// AssetRipper: drops an <c>event</c> declaration whose backing field a recovered body reads.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// il2cpp inlines <c>add_</c> and <c>remove_</c>, so a body that subscribes to an event touches
+	/// the compiler-generated field the event is built on rather than calling its accessors. In
+	/// metadata that is unremarkable - the field, the two methods and the event declaration are three
+	/// separate rows and nothing forbids reaching the first. In C# it is refused twice over: once
+	/// because an event may only appear on the left of <c>+=</c> or <c>-=</c> outside its declaring
+	/// type (CS0079), and again for whatever the read feeds (CS0030 casting an
+	/// <c>EventHandler&lt;T&gt;</c>). 433 errors on the test game across 17 files, the largest single
+	/// cause by a third, and every one of them the same shape.
+	/// </para>
+	/// <para>
+	/// Widening cannot fix it because accessibility is not what is refused. What is left is the
+	/// declaration: an event is a field, two methods and a row saying the three belong together, and
+	/// dropping the row leaves a delegate field that C# can both read and <c>+=</c> - the compiler
+	/// turns <c>x.OnFoo += h</c> on a delegate field into <c>Delegate.Combine</c>, which is what the
+	/// accessors did anyway. The field and the accessors stay, so nothing is removed from the
+	/// assembly; only the claim that they form an event.
+	/// </para>
+	/// <para>
+	/// The same limit as every other widening applies: a *framework* assembly is left alone, because
+	/// the assembly the exported script is really compiled against is not this one. And a body that
+	/// reaches the field from inside the declaring type is not refused in the first place, so it does
+	/// not cost the declaration.
+	/// </para>
+	/// </remarks>
+	private static void DropEventsReadAsFields()
+	{
+		HashSet<FieldDefinition> read = [];
+		HashSet<TypeDefinition> owners = [];
+
+		foreach (((TypeDefinition owner, FieldDefinition field), _) in eventStorageRead)
+		{
+			read.Add(field);
+			owners.Add(owner);
+		}
+
+		foreach (TypeDefinition owner in owners)
+		{
+			if (owner.DeclaringModule?.Assembly?.Name is not { } name
+				|| Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(name))
+			{
+				continue;
+			}
+
+			for (int index = owner.Events.Count - 1; index >= 0; index--)
+			{
+				EventDefinition declaration = owner.Events[index];
+
+				FieldDefinition? storage = StorageOf(declaration);
+
+				if (!EventDeclarationPolicy.ShouldDrop(
+					storageIsKnown: storage is not null,
+					storageReadOutsideAccessors: storage is not null && read.Contains(storage),
+					implementsInterfaceEvent: ImplementsAnInterfaceEvent(owner, declaration),
+					isFrameworkAssembly: false))
+				{
+					continue;
+				}
+
+				// The accessors carry SpecialName because they were accessors. Once they are ordinary
+				// methods a decompiler writes that flag out as `[SpecialName]`, and the attribute is
+				// one IL2CPP strips from a game's mscorlib - 532 CS0246 the first time round, for a
+				// flag that now means nothing.
+				foreach (MethodSemantics semantics in declaration.Semantics)
+				{
+					if (semantics.Method is { } accessorMethod)
+					{
+						accessorMethod.Attributes &= ~(MethodAttributes.SpecialName | MethodAttributes.RuntimeSpecialName);
+					}
+				}
+
+				owner.Events.RemoveAt(index);
+				Interlocked.Increment(ref droppedEventDeclarationCount);
+			}
+		}
+
+		eventStorageRead.Clear();
+	}
+
+	/// <summary>
+	/// AssetRipper: whether an event's accessors satisfy an interface the declaring type implements.
+	/// </summary>
+	/// <remarks>
+	/// Matched on the interface's own events rather than on an explicit method implementation row,
+	/// because il2cpp keeps implicit implementations implicit: <c>BannerClient.add_OnAdLoaded</c>
+	/// satisfies <c>IBannerClient.OnAdLoaded</c> by name and signature with nothing in metadata
+	/// saying so.
+	/// </remarks>
+	private static bool ImplementsAnInterfaceEvent(TypeDefinition owner, EventDefinition declaration)
+	{
+		string? name = declaration.Name?.Value;
+
+		if (name is null)
+		{
+			return false;
+		}
+
+		if (owner.DeclaringModule?.RuntimeContext is not { } runtime)
+		{
+			return false;
+		}
+
+		TypeDefinition? type = owner;
+
+		for (int depth = 0; type is not null && depth < 32; depth++)
+		{
+			foreach (InterfaceImplementation implementation in type.Interfaces)
+			{
+				if (implementation.Interface is { } contractReference
+					&& contractReference.Resolve(runtime, out TypeDefinition? contract) == ResolutionStatus.Success
+					&& contract is not null
+					&& contract.Events.Any(inherited => inherited.Name?.Value == name))
+				{
+					return true;
+				}
+			}
+
+			type = type.BaseType is { } baseReference
+				&& baseReference.Resolve(runtime, out TypeDefinition? resolvedBase) == ResolutionStatus.Success
+				? resolvedBase
+				: null;
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// AssetRipper: the field an event is built on, read out of its own accessors.
+	/// </summary>
+	/// <remarks>
+	/// There is no metadata row binding an event to its storage, and the name rule does not hold:
+	/// il2cpp keeps Unity's naming, so <c>OnAdOpening</c> is stored in <c>m_OnAdOpening</c> and
+	/// pairing by name found 2 of 433. What does bind them is the accessors - <c>add_</c> is the
+	/// method that writes the storage, and it is right there in the event row. The first field of the
+	/// declaring type that the accessor touches is that storage; an accessor that touches several is
+	/// not the simple shape and is left alone rather than guessed at.
+	/// </remarks>
+	private static FieldDefinition? StorageOf(EventDefinition declaration)
+		=> EventDeclarationPolicy.SingleTouchedField(TouchedFields(declaration));
+
+	private static IEnumerable<FieldDefinition> TouchedFields(EventDefinition declaration)
+	{
+		if (declaration.DeclaringType?.DeclaringModule?.RuntimeContext is not { } runtime)
+		{
+			yield break;
+		}
+
+		foreach (MethodSemantics semantics in declaration.Semantics)
+		{
+			if (semantics.Method?.CilMethodBody is not { } body)
+			{
+				continue;
+			}
+
+			foreach (CilInstruction instruction in body.Instructions)
+			{
+				if (instruction.Operand is IFieldDescriptor descriptor
+					&& descriptor.Resolve(runtime, out FieldDefinition? field) == ResolutionStatus.Success
+					&& field is not null
+					&& field.DeclaringType == declaration.DeclaringType)
+				{
+					yield return field;
+				}
+			}
+		}
+	}
+
+	private static int droppedEventDeclarationCount;
 
 	private static void WidenMethod(MethodDefinition method, TypeDefinition accessor, ModuleDefinition? from)
 	{

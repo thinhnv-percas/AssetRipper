@@ -1,0 +1,816 @@
+[
+  {
+    "cluster": "EVENT_BACKING_FIELD",
+    "category": "FIELD",
+    "count": 433,
+    "affected_files": [
+      "AdLoader.cs",
+      "AdLoaderClient.cs",
+      "BannerClient.cs",
+      "BannerView.cs",
+      "ButtonBehaviour.cs",
+      "DummyClient.cs",
+      "InterstitialAd.cs",
+      "InterstitialClient.cs",
+      "RewardBasedVideoAd.cs",
+      "RewardBasedVideoAdClient.cs",
+      "RewardedAd.cs",
+      "RewardedAdClient.cs",
+      "RewardedAdDummyClient.cs",
+      "RewardedInterstitialAd.cs",
+      "RewardedInterstitialAdClient.cs",
+      "RewardedInterstitialAdDummyClient.cs",
+      "RewardingAdBaseClient.cs"
+    ],
+    "codes": {
+      "CS0030": 239,
+      "CS0079": 194
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'System.EventHandler<System.EventArgs>' to 'int'",
+        "count": 132
+      },
+      {
+        "message": "Cannot convert type 'System.EventHandler<GoogleMobileAds.Api.AdValueEventArgs>' to 'int'",
+        "count": 28
+      },
+      {
+        "message": "Cannot convert type 'System.EventHandler<GoogleMobileAds.Api.AdFailedToLoadEventArgs>' to 'int'",
+        "count": 28
+      },
+      {
+        "message": "Cannot convert type 'System.EventHandler<GoogleMobileAds.Api.AdErrorEventArgs>' to 'int'",
+        "count": 24
+      },
+      {
+        "message": "Cannot convert type 'System.EventHandler<GoogleMobileAds.Api.Reward>' to 'int'",
+        "count": 17
+      },
+      {
+        "message": "Cannot convert type 'System.EventHandler<GoogleMobileAds.Common.CustomNativeClientEventArgs>' to 'int'",
+        "count": 8
+      },
+      {
+        "message": "The event 'InterstitialClient.OnAdFailedToLoad' can only appear on the left hand side of += or -=",
+        "count": 5
+      },
+      {
+        "message": "The event 'RewardedAdClient.OnAdFailedToShow' can only appear on the left hand side of += or -=",
+        "count": 5
+      }
+    ]
+  },
+  {
+    "cluster": "NATIVE_INT_CAST",
+    "category": "CAST",
+    "count": 413,
+    "affected_files": [
+      "AdLoader.cs",
+      "AdLoaderClient.cs",
+      "AdSize.cs",
+      "BannerClient.cs",
+      "BannerView.cs",
+      "Box.cs",
+      "ButtonBehaviour.cs",
+      "CSVHelper.cs",
+      "CSVReader.cs",
+      "Countdown.cs",
+      "CsvReader.cs",
+      "DataController.cs",
+      "DummyClient.cs",
+      "Extensions.cs",
+      "GUIManager.cs",
+      "GameHelper.cs",
+      "InterstitialAd.cs",
+      "InterstitialClient.cs",
+      "Item.cs",
+      "LeanGameObjectPool.cs",
+      "LeanPool.cs",
+      "LeanPoolDebugger.cs",
+      "MobileAdsEventExecutor.cs",
+      "RandNumber.cs",
+      "ResourcesUtil.cs",
+      "ResponseInfo.cs",
+      "RewardBasedVideoAd.cs",
+      "RewardBasedVideoAdClient.cs",
+      "RewardedAd.cs",
+      "RewardedAdClient.cs",
+      "RewardedAdDummyClient.cs",
+      "RewardedInterstitialAd.cs",
+      "RewardedInterstitialAdClient.cs",
+      "RewardedInterstitialAdDummyClient.cs",
+      "RewardingAdBaseClient.cs",
+      "SingletonMono.cs",
+      "SingletonMonoDontDestroy.cs",
+      "TimeInGame.cs",
+      "UserResourceCollectionItem.cs",
+      "UserResourceItem.cs",
+      "Utils.cs"
+    ],
+    "codes": {
+      "CS0030": 386,
+      "CS0037": 27
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'System.Type' to 'nint'",
+        "count": 33
+      },
+      {
+        "message": "Cannot convert null to 'nint' because it is a non-nullable value type",
+        "count": 27
+      },
+      {
+        "message": "Cannot convert type 'GoogleMobileAds.Common.DummyClient' to 'nint'",
+        "count": 21
+      },
+      {
+        "message": "Cannot convert type 'GoogleMobileAds.Api.RewardBasedVideoAd' to 'nint'",
+        "count": 16
+      },
+      {
+        "message": "Cannot convert type 'GoogleMobileAds.Android.RewardBasedVideoAdClient' to 'nint'",
+        "count": 16
+      },
+      {
+        "message": "Cannot convert type 'GoogleMobileAds.Api.RewardedAd' to 'nint'",
+        "count": 14
+      },
+      {
+        "message": "Cannot convert type 'GoogleMobileAds.Unity.RewardingAdBaseClient' to 'nint'",
+        "count": 14
+      },
+      {
+        "message": "Cannot convert type 'nint' to 'UnityEngine.AndroidJavaObject'",
+        "count": 14
+      }
+    ]
+  },
+  {
+    "cluster": "FRAMEWORK_PRIVATE_MEMBER",
+    "category": "TYPE",
+    "count": 214,
+    "affected_files": [
+      "AdRequest.cs",
+      "CSVHelper.cs",
+      "CSVReader.cs",
+      "CSVSerializer.cs",
+      "CsvReader.cs",
+      "DataController.cs",
+      "EventDispatcher.cs",
+      "GameHelper.cs",
+      "GraphicController.cs",
+      "LeanClassPool.cs",
+      "LeanGameObjectPool.cs",
+      "MobileAdsEventExecutor.cs",
+      "SerializableDictionary.cs",
+      "UserResourceCollectionItem.cs",
+      "UserResourceItem.cs",
+      "Utils.cs"
+    ],
+    "codes": {
+      "CS1061": 214
+    },
+    "messages": [
+      {
+        "message": "'List<string>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<string>' coul",
+        "count": 26
+      },
+      {
+        "message": "'List<string>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<string>' could be",
+        "count": 13
+      },
+      {
+        "message": "'List<string>' does not contain a definition for '_size' and no accessible extension method '_size' accepting a first argument of type 'List<string>' could be f",
+        "count": 13
+      },
+      {
+        "message": "'List<List<Dictionary<string, string>>>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument o",
+        "count": 10
+      },
+      {
+        "message": "'List<GameObject>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<GameObjec",
+        "count": 10
+      },
+      {
+        "message": "'List<T>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<T>' could be found",
+        "count": 8
+      },
+      {
+        "message": "'List<int>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<int>' could be f",
+        "count": 8
+      },
+      {
+        "message": "'List<Dictionary<string, string>>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "cluster": "INVALID_CAST",
+    "category": "CAST",
+    "count": 151,
+    "affected_files": [
+      "AdLoader.cs",
+      "AdLoaderClient.cs",
+      "AdManager.cs",
+      "AdRequest.cs",
+      "AdSize.cs",
+      "BannerClient.cs",
+      "Box.cs",
+      "CSVHelper.cs",
+      "CsvReader.cs",
+      "DataController.cs",
+      "DisplayMetrics.cs",
+      "GDPR.cs",
+      "GUIManager.cs",
+      "GamePlayController.cs",
+      "GraphicController.cs",
+      "InitializationStatusClient.cs",
+      "InitializationStatusDummyClient.cs",
+      "InterstitialClient.cs",
+      "Item.cs",
+      "ItemResources.cs",
+      "LeanClassPool.cs",
+      "LeanGameObjectPool.cs",
+      "LeanInput.cs",
+      "LeanPool.cs",
+      "MobileAdsClient.cs",
+      "MobileAdsEventExecutor.cs",
+      "RequestConfigurationClient.cs",
+      "ResourcesUtil.cs",
+      "RewardBasedVideoAdClient.cs",
+      "RewardedAdClient.cs",
+      "RewardedInterstitialAdClient.cs",
+      "RewardingAdBaseClient.cs",
+      "SingletonMono.cs",
+      "SingletonMonoDontDestroy.cs",
+      "UserResourceCollectionItem.cs",
+      "UserResourceItem.cs",
+      "Utils.cs"
+    ],
+    "codes": {
+      "CS0030": 131,
+      "CS0029": 20
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'int' to 'string'",
+        "count": 11
+      },
+      {
+        "message": "Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'",
+        "count": 6
+      },
+      {
+        "message": "Cannot convert type 'int' to 'UnityEngine.AndroidJavaObject'",
+        "count": 6
+      },
+      {
+        "message": "Cannot convert type 'int' to 'UnityEngine.Object'",
+        "count": 5
+      },
+      {
+        "message": "Cannot convert type 'int' to 'object[]'",
+        "count": 5
+      },
+      {
+        "message": "Cannot implicitly convert type 'GoogleMobileAds.Api.AdFailedToLoadEventArgs' to 'System.Exception'",
+        "count": 5
+      },
+      {
+        "message": "Cannot convert type 'System.Collections.Generic.Dictionary<object, object>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'",
+        "count": 5
+      },
+      {
+        "message": "Cannot convert type 'bool' to 'GoogleMobileAds.Unity.BaseAdDummyClient'",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "cluster": "MEMBER_NOT_FOUND",
+    "category": "FIELD",
+    "count": 47,
+    "affected_files": [
+      "BannerClient.cs",
+      "EaseManager.cs",
+      "GUIManager.cs",
+      "GamePlayController.cs",
+      "InterstitialClient.cs",
+      "LeanGameObjectPool.cs",
+      "LeanPool.cs",
+      "MathUtils.cs",
+      "RewardingAdBaseClient.cs",
+      "Utils.cs"
+    ],
+    "codes": {
+      "CS1061": 41,
+      "CS0117": 6
+    },
+    "messages": [
+      {
+        "message": "'Exception' does not contain a definition for '_message' and no accessible extension method '_message' accepting a first argument of type 'Exception' could be f",
+        "count": 9
+      },
+      {
+        "message": "'Math' does not contain a definition for 'PI'",
+        "count": 6
+      },
+      {
+        "message": "'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are yo",
+        "count": 5
+      },
+      {
+        "message": "'EventHandler<EventArgs>' does not contain a definition for 'invoke_impl' and no accessible extension method 'invoke_impl' accepting a first argument of type 'E",
+        "count": 4
+      },
+      {
+        "message": "'EventHandler<EventArgs>' does not contain a definition for 'method_code' and no accessible extension method 'method_code' accepting a first argument of type 'E",
+        "count": 4
+      },
+      {
+        "message": "'EventHandler<EventArgs>' does not contain a definition for 'method' and no accessible extension method 'method' accepting a first argument of type 'EventHandle",
+        "count": 4
+      },
+      {
+        "message": "'EventHandler<AdFailedToLoadEventArgs>' does not contain a definition for 'invoke_impl' and no accessible extension method 'invoke_impl' accepting a first argum",
+        "count": 3
+      },
+      {
+        "message": "'EventHandler<AdFailedToLoadEventArgs>' does not contain a definition for 'method_code' and no accessible extension method 'method_code' accepting a first argum",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "INACCESSIBLE",
+    "category": "TYPE",
+    "count": 32,
+    "affected_files": [
+      "AdManager.cs",
+      "AdRequest.cs",
+      "EventDispatcher.cs",
+      "EventSystem.cs",
+      "GameHelper.cs",
+      "Item.cs",
+      "LeanGameObjectPool.cs",
+      "LeanInput.cs",
+      "LeanPoolDebugger.cs",
+      "PanelEventHandler.cs",
+      "PanelRaycaster.cs",
+      "RequestConfigurationClient.cs"
+    ],
+    "codes": {
+      "CS0122": 32
+    },
+    "messages": [
+      {
+        "message": "'Int32Enum' is inaccessible due to its protection level",
+        "count": 16
+      },
+      {
+        "message": "'Bounds.m_Extents' is inaccessible due to its protection level",
+        "count": 6
+      },
+      {
+        "message": "'Unsafe' is inaccessible due to its protection level",
+        "count": 4
+      },
+      {
+        "message": "'BaseRuntimePanel' is inaccessible due to its protection level",
+        "count": 3
+      },
+      {
+        "message": "'IRuntimePanelComponent' is inaccessible due to its protection level",
+        "count": 2
+      },
+      {
+        "message": "'Touch.m_FingerId' is inaccessible due to its protection level",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "MANGLED_IDENTIFIER",
+    "category": "DECOMPILER",
+    "count": 25,
+    "affected_files": [
+      "AdLoader.cs",
+      "AdRequest.cs",
+      "BannerClient.cs",
+      "DisplayMetrics.cs",
+      "EventDispatcher.cs",
+      "InterstitialClient.cs",
+      "Item.cs",
+      "ItemArtifact.cs",
+      "ItemDistinc.cs",
+      "ItemStack.cs",
+      "RequestConfigurationClient.cs",
+      "ResourcesUtil.cs",
+      "RewardBasedVideoAdClient.cs",
+      "Utils.cs"
+    ],
+    "codes": {
+      "CS0117": 13,
+      "CS0246": 6,
+      "CS1061": 2,
+      "CS0030": 4
+    },
+    "messages": [
+      {
+        "message": "The type or namespace name '_003F' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 4
+      },
+      {
+        "message": "'object' does not contain a definition for '_002Ector'",
+        "count": 3
+      },
+      {
+        "message": "'ItemBase' does not contain a definition for '_002Ector'",
+        "count": 2
+      },
+      {
+        "message": "'ItemArtifact' does not contain a definition for '_002Ector'",
+        "count": 2
+      },
+      {
+        "message": "The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 2
+      },
+      {
+        "message": "'BaseAdDummyClient' does not contain a definition for '_002Ector' and no accessible extension method '_002Ector' accepting a first argument of type 'BaseAdDummy",
+        "count": 2
+      },
+      {
+        "message": "'BaseAdDummyClient' does not contain a definition for '_002Ector'",
+        "count": 2
+      },
+      {
+        "message": "'ItemInventory' does not contain a definition for '_002Ector'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OPERATOR",
+    "category": "CALL",
+    "count": 17,
+    "affected_files": [
+      "AdLoader.cs",
+      "Countdown.cs",
+      "DataController.cs",
+      "Extensions.cs",
+      "GameHelper.cs",
+      "LeanGameObjectPool.cs",
+      "RequestConfigurationClient.cs",
+      "Utils.cs"
+    ],
+    "codes": {
+      "CS0019": 17
+    },
+    "messages": [
+      {
+        "message": "Operator '+' cannot be applied to operands of type 'object' and 'int'",
+        "count": 8
+      },
+      {
+        "message": "Operator '<<' cannot be applied to operands of type 'object' and 'int'",
+        "count": 3
+      },
+      {
+        "message": "Operator '>>' cannot be applied to operands of type 'object' and 'int'",
+        "count": 3
+      },
+      {
+        "message": "Operator '&' cannot be applied to operands of type 'float' and 'int'",
+        "count": 2
+      },
+      {
+        "message": "Operator '&' cannot be applied to operands of type 'Scene' and 'long'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "ACCESSOR_VISIBILITY",
+    "category": "TYPE",
+    "count": 16,
+    "affected_files": [
+      "InitializationStatusDummyClient.cs",
+      "RequestConfiguration.cs",
+      "RequestConfigurationClient.cs",
+      "SkeletonMecanimRootMotion.cs",
+      "SkeletonRootMotion.cs",
+      "SkeletonUtilityEyeConstraint.cs",
+      "SkeletonUtilityGroundConstraint.cs"
+    ],
+    "codes": {
+      "CS0272": 11,
+      "CS0507": 5
+    },
+    "messages": [
+      {
+        "message": "The property or indexer 'RequestConfiguration.Builder.MaxAdContentRating' cannot be used in this context because the set accessor is inaccessible",
+        "count": 2
+      },
+      {
+        "message": "The property or indexer 'RequestConfiguration.Builder.TagForChildDirectedTreatment' cannot be used in this context because the set accessor is inaccessible",
+        "count": 2
+      },
+      {
+        "message": "The property or indexer 'RequestConfiguration.Builder.TagForUnderAgeOfConsent' cannot be used in this context because the set accessor is inaccessible",
+        "count": 2
+      },
+      {
+        "message": "The property or indexer 'RequestConfiguration.Builder.TestDeviceIds' cannot be used in this context because the set accessor is inaccessible",
+        "count": 2
+      },
+      {
+        "message": "The property or indexer 'AdapterStatus.Description' cannot be used in this context because the set accessor is inaccessible",
+        "count": 1
+      },
+      {
+        "message": "The property or indexer 'AdapterStatus.InitializationState' cannot be used in this context because the set accessor is inaccessible",
+        "count": 1
+      },
+      {
+        "message": "The property or indexer 'AdapterStatus.Latency' cannot be used in this context because the set accessor is inaccessible",
+        "count": 1
+      },
+      {
+        "message": "'SkeletonUtilityEyeConstraint.OnEnable()': cannot change access modifiers when overriding 'public' inherited member 'SkeletonUtilityConstraint.OnEnable()'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "ATTRIBUTE_ARGUMENT",
+    "category": "DECOMPILER",
+    "count": 12,
+    "affected_files": [
+      "AnimationReferenceAsset.cs",
+      "BlendModeMaterialsAsset.cs",
+      "EventDataReferenceAsset.cs",
+      "SkeletonDataAsset.cs",
+      "SpineAtlasAsset.cs",
+      "SpineSpriteAtlasAsset.cs"
+    ],
+    "codes": {
+      "CS0617": 12
+    },
+    "messages": [
+      {
+        "message": "'menuName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 6
+      },
+      {
+        "message": "'fileName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 3
+      },
+      {
+        "message": "'order' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties whi",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "UNASSIGNED_LOCAL",
+    "category": "CONTROL_FLOW",
+    "count": 5,
+    "affected_files": [
+      "GUIManager.cs",
+      "Item.cs"
+    ],
+    "codes": {
+      "CS0165": 5
+    },
+    "messages": [
+      {
+        "message": "Use of unassigned local variable 'enumerator2'",
+        "count": 2
+      },
+      {
+        "message": "Use of unassigned local variable 'audioSource'",
+        "count": 2
+      },
+      {
+        "message": "Use of unassigned local variable 'num'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "PARSE",
+    "category": "DECOMPILER",
+    "count": 4,
+    "affected_files": [
+      "ObscuredQuaternion.cs",
+      "ObscuredVector3.cs",
+      "TimeCheatingDetector.cs"
+    ],
+    "codes": {
+      "CS1525": 4
+    },
+    "messages": [
+      {
+        "message": "Invalid expression term 'ref'",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS7003",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "ResourcesUtil.cs",
+      "UserResourceItem.cs"
+    ],
+    "codes": {
+      "CS7003": 2
+    },
+    "messages": [
+      {
+        "message": "Unexpected use of an unbound generic name",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "UNSAFE",
+    "category": "DECOMPILER",
+    "count": 2,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS8172": 2
+    },
+    "messages": [
+      {
+        "message": "Cannot initialize a by-reference variable with a value",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1073",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS1073": 2
+    },
+    "messages": [
+      {
+        "message": "Unexpected token 'ref'",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1510",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS1510": 2
+    },
+    "messages": [
+      {
+        "message": "A ref or out value must be an assignable variable",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0106",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "__Il2CppFullySharedGenericStructType.cs",
+      "__Il2CppFullySharedGenericType.cs"
+    ],
+    "codes": {
+      "CS0106": 2
+    },
+    "messages": [
+      {
+        "message": "The modifier 'abstract' is not valid for this item",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0102",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "SpineboyBeginnerModel.cs"
+    ],
+    "codes": {
+      "CS0102": 2
+    },
+    "messages": [
+      {
+        "message": "The type 'SpineboyBeginnerModel' already contains a definition for 'StartAimEvent'",
+        "count": 1
+      },
+      {
+        "message": "The type 'SpineboyBeginnerModel' already contains a definition for 'StopAimEvent'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0191",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "MobileAds.cs"
+    ],
+    "codes": {
+      "CS0191": 1
+    },
+    "messages": [
+      {
+        "message": "A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0266",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "InterstitialClient.cs"
+    ],
+    "codes": {
+      "CS0266": 1
+    },
+    "messages": [
+      {
+        "message": "Cannot implicitly convert type 'object' to 'System.Exception'. An explicit conversion exists (are you missing a cast?)",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1729",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "RewardBasedVideoAdClient.cs"
+    ],
+    "codes": {
+      "CS1729": 1
+    },
+    "messages": [
+      {
+        "message": "'AndroidJavaProxy' does not contain a constructor that takes 0 arguments",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8174",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS8174": 1
+    },
+    "messages": [
+      {
+        "message": "A declaration of a by-reference variable must have an initializer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8701",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "IActivationFactory.cs"
+    ],
+    "codes": {
+      "CS8701": 1
+    },
+    "messages": [
+      {
+        "message": "Target runtime doesn't support default interface implementation.",
+        "count": 1
+      }
+    ]
+  }
+]
