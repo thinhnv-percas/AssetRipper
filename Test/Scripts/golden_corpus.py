@@ -121,8 +121,19 @@ def main() -> int:
 
     if arguments.select:
         chosen = select(rows, arguments.per_class)
-        pathlib.Path(arguments.select).write_text(json.dumps({"methods": chosen}, indent=2))
-        print(f"selected {len(chosen)} methods into {arguments.select}")
+
+        # Unioned, never replaced. A frozen entry that gets dropped is a hole in the net, and the
+        # hole is invisible: the corpus still reports "regressed 0" for a method it no longer looks
+        # at. The rule was written down and the code did not have it - a reselection replaced the
+        # file outright, which is how 61 frozen methods became 165 with no overlap guaranteed.
+        existing = pathlib.Path(arguments.corpus) if arguments.corpus else pathlib.Path(arguments.select)
+        kept = []
+        if existing.exists():
+            kept = json.loads(existing.read_text())["methods"]
+
+        merged = list(dict.fromkeys([*kept, *chosen]))
+        pathlib.Path(arguments.select).write_text(json.dumps({"methods": merged}, indent=2))
+        print(f"selected {len(chosen)}, kept {len(kept)} already frozen, {len(merged)} in {arguments.select}")
         return 0
 
     if not arguments.corpus:
@@ -150,6 +161,19 @@ def main() -> int:
             print(f"  {key}")
 
     exit_code = 0
+
+    # A corpus that matches nothing in the rip reports "improved 0, regressed 0" and looks exactly
+    # like a corpus that found no regression. It has happened: the keys are relative to the game
+    # directory inside the output, so pointing the check one level too high silently measured
+    # nothing, three times, while printing a clean result. A net that caught nothing has to say so.
+    if measured and len(missing) > len(wanted) // 2:
+        print(f"\nCORPUS_MISMATCH: only {len(measured)} of {len(wanted)} frozen methods are in this rip.")
+        exit_code = 3
+    elif not measured:
+        print(f"\nCORPUS_NOT_APPLICABLE: none of the {len(wanted)} frozen methods is in {root}.")
+        print("The keys are relative to the game directory inside the rip - try <output>/<GameName>.")
+        return 3
+
     if arguments.check:
         baseline = json.loads(pathlib.Path(arguments.check).read_text())["methods"]
         better, worse = [], []

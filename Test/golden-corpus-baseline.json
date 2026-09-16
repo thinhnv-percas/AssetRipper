@@ -1,5 +1,25 @@
 {
   "methods": {
+    "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Common/ContainerHolder.cs#0xBF3EB0": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 716,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/ACTkDetectorBase.cs#0xDD0608": {
       "status": "PARTIAL",
       "ir": [
@@ -63,6 +83,42 @@
         "NOT_IMPLEMENTED_INSTRUCTION"
       ]
     },
+    "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/AndroidWorker.cs#0xBEA514": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2256,
+      "placeholders": 1,
+      "families": [
+        "INDIRECT_JUMP"
+      ]
+    },
     "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/CodeHashGenerator.cs#0xBE8E5C": {
       "status": "EXACT",
       "ir": [
@@ -91,6 +147,71 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/StandaloneWindowsWorker.cs#0xBEB664": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 508,
+      "placeholders": 13,
+      "families": [
+        "INDIRECT_CALL",
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs#0xBD88B8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 672,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs#0xC826BC": {
       "status": "EXACT",
       "ir": [
@@ -112,6 +233,55 @@
         "STATIC_ACCESS"
       ],
       "nativeBytes": 1460,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs#0xBD70B8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2192,
+      "placeholders": 1,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/Assembly-CSharp/Box.cs#0xBFC5A0": {
+      "status": "FALLBACK",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1064,
       "placeholders": 0,
       "families": []
     },
@@ -146,6 +316,36 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/Assembly-CSharp/CSVReader.cs#0xBF78D4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1024,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/Assembly-CSharp/CSVReader.cs#0xBF7D8C": {
       "status": "HIGH_CONFIDENCE",
       "ir": [
@@ -173,6 +373,94 @@
         "STATIC_ACCESS"
       ],
       "nativeBytes": 1132,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/Assembly-CSharp/CSVReader.cs#0xBF8268": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1000,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/Assembly-CSharp/CSVSerializer.cs#0xBF5998": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 876,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/Assembly-CSharp/CSVSerializer.cs#0xBF6404": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 804,
       "placeholders": 0,
       "families": []
     },
@@ -208,6 +496,72 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/Assembly-CSharp/Extensions.cs#0xC71E68": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 608,
+      "placeholders": 32,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/Assembly-CSharp/Extensions.cs#0xC720C8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 636,
+      "placeholders": 32,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
     "Assets/Scripts/Assembly-CSharp/Extensions.cs#0xC71C80": {
       "status": "PARTIAL",
       "ir": [
@@ -240,6 +594,36 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xC018B4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 704,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/Assembly-CSharp/GameController.cs#0xBF9590": {
       "status": "HIGH_CONFIDENCE",
       "ir": [
@@ -258,6 +642,128 @@
         "STATIC_ACCESS"
       ],
       "nativeBytes": 700,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/Assembly-CSharp/GameHelper.cs#0xBFF63C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 896,
+      "placeholders": 15,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs#0x115CEF4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2000,
+      "placeholders": 8,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/Assembly-CSharp/UtilityGame.cs#0xBF92E4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN"
+      ],
+      "nativeBytes": 600,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs#0xC03400": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 664,
       "placeholders": 0,
       "families": []
     },
@@ -323,6 +829,108 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs#0xC03698": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 580,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2C478": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 528,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2C760": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 748,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs#0xC32F2C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2624,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
     "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs#0xC33CD0": {
       "status": "PARTIAL",
       "ir": [
@@ -350,6 +958,210 @@
         "INDIRECT_JUMP",
         "UNMANAGED_MEMORY_LOAD"
       ]
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs#0xC2F468": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1232,
+      "placeholders": 14,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs#0xC30C0C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2280,
+      "placeholders": 3,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs#0xC2E9A4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 540,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs#0xC2AF00": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 276,
+      "placeholders": 22,
+      "families": [
+        "INDIRECT_CALL",
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs#0xC2B014": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 436,
+      "placeholders": 19,
+      "families": [
+        "INDIRECT_CALL",
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs#0xC080CC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2096,
+      "placeholders": 10,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/CatmullRomDecoder.cs#0xC2966C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 504,
+      "placeholders": 0,
+      "families": []
     },
     "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/CubicBezierDecoder.cs#0xC28688": {
       "status": "PARTIAL",
@@ -385,6 +1197,32 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/CubicBezierDecoder.cs#0xC28B68": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 504,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PluginsManager.cs#0xC86C4C": {
       "status": "EXACT",
       "ir": [
@@ -407,6 +1245,31 @@
         "STATIC_ACCESS"
       ],
       "nativeBytes": 2656,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PluginsManager.cs#0xC866D0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 428,
       "placeholders": 0,
       "families": []
     },
@@ -503,6 +1366,147 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/DOTween/DG/Tweening/Sequence.cs#0xC0F2C4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1860,
+      "placeholders": 5,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs#0xC16730": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1240,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs#0xC16C98": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1240,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Tween.cs#0xC1C908": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 876,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/DOTween/DG/Tweening/Tweener.cs#0xCB981C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 768,
+      "placeholders": 15,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
     "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/AdLoaderClient.cs#0x133E578": {
       "status": "FALLBACK",
       "ir": [
@@ -532,6 +1536,101 @@
         "THROW"
       ],
       "nativeBytes": 1296,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs#0x133CD00": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/DisplayMetrics.cs#0x13473B8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2712,
+      "placeholders": 2,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs#0x133D2E4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
       "placeholders": 0,
       "families": []
     },
@@ -593,6 +1692,66 @@
         "THROW"
       ],
       "nativeBytes": 1516,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs#0x133DDC4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedInterstitialAdClient.cs#0x133E1CC": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
       "placeholders": 0,
       "families": []
     },
@@ -659,6 +1818,49 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/BannerView.cs#0x1355F44": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 1048,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs#0x1358ACC": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1296,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardBasedVideoAd.cs#0x135A66C": {
       "status": "FALLBACK",
       "ir": [
@@ -703,6 +1905,29 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardedInterstitialAd.cs#0x135D9A0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 908,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/LeanCommon/Lean/Common/LeanHelper.cs#0xC77758": {
       "status": "HIGH_CONFIDENCE",
       "ir": [
@@ -732,6 +1957,252 @@
         "THROW"
       ],
       "nativeBytes": 1416,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs#0x135F7F0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 944,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs#0x135EAF0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 428,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs#0x135FBA0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 588,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x13621DC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 824,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x1362B90": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 472,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x1362E1C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/SharpJson/JsonDecoder.cs#0x1521BD0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 504,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/SharpJson/JsonDecoder.cs#0x1521E64": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH"
+      ],
+      "nativeBytes": 440,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/AnimationState.cs#0x1527958": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 588,
       "placeholders": 0,
       "families": []
     },
@@ -800,6 +2271,109 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/spine-unity/Spine/Atlas.cs#0x152CD9C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 2928,
+      "placeholders": 6,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNKNOWN_CALL_TARGET"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Bone.cs#0x1530660": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2040,
+      "placeholders": 4,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Collections/CollectionExtensions.cs#0xDA5914": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1384,
+      "placeholders": 38,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
     "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0xDCD068": {
       "status": "PARTIAL",
       "ir": [
@@ -827,6 +2401,152 @@
       "families": [
         "INDIRECT_CALL",
         "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x11347F0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 668,
+      "placeholders": 41,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1134EE8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 560,
+      "placeholders": 38,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1135118": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1084,
+      "placeholders": 37,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1133608": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 544,
+      "placeholders": 26,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1133828": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1060,
+      "placeholders": 44,
+      "families": [
+        "INDIRECT_CALL",
         "NATIVE_IMPORT",
         "UNMANAGED_MEMORY_LOAD"
       ]
@@ -861,6 +2581,152 @@
         "INDIRECT_CALL",
         "METHOD_NOT_FOUND",
         "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/DeformTimeline.cs#0x1524C24": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH"
+      ],
+      "nativeBytes": 2852,
+      "placeholders": 43,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/ExposedList.cs#0xF4265C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 148,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/IkConstraint.cs#0x1532620": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2280,
+      "placeholders": 12,
+      "families": [
+        "NATIVE_IMPORT",
+        "NOT_IMPLEMENTED_INSTRUCTION"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/MeshAttachment.cs#0x152E8FC": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 940,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/PathConstraint.cs#0x1533E40": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1940,
+      "placeholders": 1,
+      "families": [
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
@@ -922,6 +2788,68 @@
         "THROW"
       ],
       "nativeBytes": 2924,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Skeleton.cs#0x15367B4": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 824,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Skeleton.cs#0x15385D8": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 836,
       "placeholders": 0,
       "families": []
     },
@@ -994,6 +2922,62 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153BE98": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2780,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153C974": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 644,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153A6E4": {
       "status": "PARTIAL",
       "ir": [
@@ -1029,6 +3013,39 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/spine-unity/Spine/SkeletonClipping.cs#0x153F94C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1912,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ]
+    },
     "Assets/Scripts/spine-unity/Spine/SkeletonClipping.cs#0x15400C4": {
       "status": "EXACT",
       "ir": [
@@ -1056,6 +3073,38 @@
       "nativeBytes": 1488,
       "placeholders": 0,
       "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/SkeletonJson.cs#0x1546700": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3100,
+      "placeholders": 3,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
     },
     "Assets/Scripts/spine-unity/Spine/SkeletonJson.cs#0x1547504": {
       "status": "PARTIAL",
@@ -1148,6 +3197,36 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/spine-unity/Spine/SpineSkeletonExtensions.cs#0x15506F0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 856,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
     "Assets/Scripts/spine-unity/Spine/Triangulator.cs#0x153E7AC": {
       "status": "EXACT",
       "ir": [
@@ -1204,6 +3283,39 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs#0x1573F84": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2692,
+      "placeholders": 3,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
     "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs#0x15753D8": {
       "status": "PARTIAL",
       "ir": [
@@ -1234,6 +3346,37 @@
         "UNKNOWN_CALL_TARGET",
         "UNMANAGED_MEMORY_LOAD"
       ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs#0x1574A5C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 772,
+      "placeholders": 0,
+      "families": []
     },
     "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/SkinUtilities.cs#0x1577E48": {
       "status": "PARTIAL",
@@ -1268,6 +3411,42 @@
       "placeholders": 1,
       "families": [
         "METHOD_NOT_FOUND"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/BlendModeMaterialsAsset.cs#0x156FE8C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1896,
+      "placeholders": 12,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
       ]
     },
     "Assets/Scripts/spine-unity/Spine/Unity/BoneFollowerGraphic.cs#0x1554D90": {
@@ -1397,6 +3576,40 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156D718": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2148,
+      "placeholders": 12,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
     "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x1565098": {
       "status": "PARTIAL",
       "ir": [
@@ -1470,6 +3683,64 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156E04C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 424,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156E66C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 584,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156E9E4": {
       "status": "FALLBACK",
       "ir": [
@@ -1498,6 +3769,43 @@
       "nativeBytes": 1788,
       "placeholders": 0,
       "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonDataAsset.cs#0x1550ECC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1284,
+      "placeholders": 11,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET"
+      ]
     },
     "Assets/Scripts/spine-unity/Spine/Unity/SkeletonDataCompatibility.cs#0x15521E4": {
       "status": "HIGH_CONFIDENCE",
@@ -1530,6 +3838,183 @@
         "THROW"
       ],
       "nativeBytes": 704,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155CD54": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 528,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155CF64": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 788,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x1556D94": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 932,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155D700": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1896,
+      "placeholders": 18,
+      "families": [
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155DF94": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 800,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155E6D8": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "CALL",
+        "NEWARR",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 620,
       "placeholders": 0,
       "families": []
     },
@@ -1567,6 +4052,97 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs#0x1558500": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 512,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonPartsRenderer.cs#0x1567774": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 472,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs#0x155A828": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 780,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotion.cs#0x1558DEC": {
       "status": "EXACT",
       "ir": [
@@ -1587,6 +4163,39 @@
         "NULL_CHECK"
       ],
       "nativeBytes": 348,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x1569330": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 788,
       "placeholders": 0,
       "families": []
     },
@@ -1613,6 +4222,29 @@
         "THROW"
       ],
       "nativeBytes": 1376,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x156A3D8": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 848,
       "placeholders": 0,
       "families": []
     },
@@ -1645,6 +4277,60 @@
         "STATIC_ACCESS"
       ],
       "nativeBytes": 1652,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtilityBone.cs#0x156B6B0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2052,
+      "placeholders": 2,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION"
+      ]
+    },
+    "Assets/Scripts/spine-unity/Spine/Unity/SpineAtlasAsset.cs#0x1552AA4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 928,
       "placeholders": 0,
       "families": []
     },
@@ -1705,6 +4391,67 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/spine-unity/Spine/Unity/SubmeshInstruction.cs#0x156FC68": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 524,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity/Spine/VertexAttachment.cs#0x152FD2C": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1080,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/AnimationMatchModifierAsset.cs#0x150F6E0": {
       "status": "FALLBACK",
       "ir": [
@@ -1756,6 +4503,59 @@
       "placeholders": 0,
       "families": []
     },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MixAndMatch.cs#0x1512840": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 944,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MixAndMatchGraphic.cs#0x1512EE8": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 912,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x151557C": {
       "status": "HIGH_CONFIDENCE",
       "ir": [
@@ -1788,6 +4588,122 @@
         "THROW"
       ],
       "nativeBytes": 1044,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x1515BBC": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1032,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs#0x151678C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 676,
+      "placeholders": 23,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs#0x1516A7C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 676,
+      "placeholders": 23,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x151B408": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 608,
       "placeholders": 0,
       "families": []
     },
@@ -1827,6 +4743,100 @@
         "UNMANAGED_MEMORY_LOAD"
       ]
     },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x1519BD0": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 948,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs#0x1513634": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3260,
+      "placeholders": 4,
+      "families": [
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ]
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs#0x151B970": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1052,
+      "placeholders": 0,
+      "families": []
+    },
     "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineAnimationTesterTool.cs#0x150A1E0": {
       "status": "FALLBACK",
       "ir": [
@@ -1854,6 +4864,37 @@
         "RETURN"
       ],
       "nativeBytes": 1168,
+      "placeholders": 0,
+      "families": []
+    },
+    "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineAnimationTesterTool.cs#0x150A6A8": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 684,
       "placeholders": 0,
       "families": []
     }
