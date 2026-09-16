@@ -27,9 +27,9 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from recovery_metrics import (  # noqa: E402
-    ADDRESS, attempted_assemblies, classify, fingerprint, methods, native_body, NATIVE_SOURCE,
+    ADDRESS, ISSUE, attempted_assemblies, classify, fingerprint, methods, native_body, NATIVE_SOURCE,
 )
-from placeholder_families import assembly_of  # noqa: E402
+from placeholder_families import assembly_of, family_of  # noqa: E402
 
 SIGNATURE = re.compile(r'^\s*(?:\[[^\]]*\]\s*)*((?:public|private|protected|internal|static|override|virtual|sealed|extern|unsafe|async|\s)*[\w<>\[\],.]+\s+[\w<>.]+\s*\([^)]*\))')
 
@@ -56,6 +56,8 @@ def harvest(root: pathlib.Path, log: pathlib.Path | None):
             rva = addresses[index][0] if index < len(addresses) else f"i{index}"
             index += 1
             status, placeholders, untyped, lost = classify(native, source, body)
+            families = {family_of(message)[0] for line in body.splitlines()
+                        if not line.lstrip().startswith("[") for message in ISSUE.findall(line)}
             yield (
                 f"{relative}#0x{rva}",
                 status,
@@ -63,6 +65,7 @@ def harvest(root: pathlib.Path, log: pathlib.Path | None):
                 sorted(fingerprint(body, "csharp")),
                 native,
                 placeholders,
+                sorted(families),
             )
 
 
@@ -77,7 +80,7 @@ def select(rows, per_class: int) -> list[str]:
     chosen: list[str] = []
     seen = set()
 
-    for name in sorted({cls for _, _, ir, _, _, _ in rows for cls in ir}):
+    for name in sorted({cls for row in rows for cls in row[2]}):
         for status in RANK:
             candidates = [
                 row for row in rows
@@ -87,6 +90,16 @@ def select(rows, per_class: int) -> list[str]:
             for row in candidates[:per_class]:
                 chosen.append(row[0])
                 seen.add(row[0])
+
+    # And the worst method carrying each placeholder family, so the corpus has a representative of
+    # every way recovery still fails - a vtable slot, a runtime helper, a delegate - not only of every
+    # operation class. These are by construction the hardest methods in the rip, which is the point.
+    for family in sorted({f for row in rows for f in row[6]}):
+        candidates = [row for row in rows if family in row[6] and row[0] not in seen]
+        candidates.sort(key=lambda row: (-row[5], -row[4], row[0]))
+        for row in candidates[:per_class]:
+            chosen.append(row[0])
+            seen.add(row[0])
 
     return sorted(chosen)
 
@@ -117,8 +130,9 @@ def main() -> int:
 
     wanted = set(json.loads(pathlib.Path(arguments.corpus).read_text())["methods"])
     measured = {
-        key: {"status": status, "ir": ir, "csharp": csharp, "nativeBytes": native, "placeholders": placeholders}
-        for key, status, ir, csharp, native, placeholders in rows
+        key: {"status": status, "ir": ir, "csharp": csharp, "nativeBytes": native,
+              "placeholders": placeholders, "families": families}
+        for key, status, ir, csharp, native, placeholders, families in rows
         if key in wanted
     }
 
