@@ -1,0 +1,312 @@
+{
+  "fixture": "Impostor",
+  "project_root": "/home/user/AssetRipper/Test/Out54i2/Impostor",
+  "unity_version": "2022.3.62f2",
+  "startup_scene": "Assets/_Impostor 3/Scenes/Tutorial.unity",
+  "startup_scene_source": "EditorBuildSettings",
+  "smoke_scenes": [
+    "Assets/_Impostor 3/Scenes/Tutorial.unity"
+  ],
+  "scenes": [
+    "Assets/_Impostor 3/Scenes/Tutorial.unity"
+  ],
+  "required_packages": {
+    "com.unity.modules.ai": "1.0.0",
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.cloth": "1.0.0",
+    "com.unity.modules.director": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.physics2d": "1.0.0",
+    "com.unity.modules.screencapture": "1.0.0",
+    "com.unity.modules.terrain": "1.0.0",
+    "com.unity.modules.terrainphysics": "1.0.0",
+    "com.unity.modules.tilemap": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.umbra": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.modules.unitywebrequestaudio": "1.0.0",
+    "com.unity.modules.unitywebrequesttexture": "1.0.0",
+    "com.unity.modules.unitywebrequestwww": "1.0.0",
+    "com.unity.modules.vehicles": "1.0.0",
+    "com.unity.modules.video": "1.0.0",
+    "com.unity.modules.vr": "1.0.0",
+    "com.unity.modules.wind": "1.0.0",
+    "com.unity.modules.xr": "1.0.0"
+  },
+  "required_native_plugins": [],
+  "lifecycle_declared": {
+    "Start": 54,
+    "Update": 44,
+    "Awake": 38,
+    "OnDestroy": 24,
+    "OnEnable": 46,
+    "LateUpdate": 18,
+    "FixedUpdate": 8
+  },
+  "smoke_methods": [
+    {
+      "method": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Common/KeepAliveBehaviour.cs#0xFB668C",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/GDPR.cs#0xBF55CC",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "FALLBACK",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/GameController.cs#0xBF9590",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/SingletonMono.cs#0x115DEF8",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2C478",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2C760",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2CB64",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2CE1C",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/GoogleMobileAds/Countdown.cs#0x133C5F8",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/CombinedSkin.cs#0x1515244",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/DraggableTransform.cs#0x150AFD8",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/FootSoldierExample.cs#0x150B1C4",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/JitterEffectExample.cs#0x15181EC",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/RenderExistingMesh.cs#0x1517CE4",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonAnimationHandleExample.cs#0x150EE84",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x1515BBC",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonUtilityKinematicShadow.cs#0x151DC14",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineAnimationTesterTool.cs#0x150A6A8",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/Spineboy.cs#0x151EE88",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyBeginnerInput.cs#0x150C920",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyBeginnerView.cs#0x150D2DC",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyFacialExpression.cs#0x151F5D0",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpriteAttacher.cs#0x15177D0",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/TwoByTwoTransformEffectExample.cs#0x151853C",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Prototyping/SpineEventUnityHandler.cs#0x1509B1C",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity-examples/Spine/Unity/Prototyping/SpineEventUnityHandler.cs#0x1509ED8",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/PathConstraint.cs#0x1533E40",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/BoneFollower.cs#0x1554760",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/BoneFollowerGraphic.cs#0x1554D90",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/FollowLocationRigidbody2D.cs#0x1568FC4",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155B954",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphicCustomMaterials.cs#0x1563250",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphicCustomMaterials.cs#0x1563378",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs#0x1568068",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs#0x156852C",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs#0x155ACE8",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRendererCustomMaterials.cs#0x1563D24",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRendererCustomMaterials.cs#0x1563E54",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotion.cs#0x1558DEC",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x156A3D8",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x156A728",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    }
+  ],
+  "runtime_status": "NOT_RUN",
+  "runtime_status_reason": "UNITY_NOT_AVAILABLE",
+  "expected_runtime_events": [
+    "Awake reached at least once",
+    "OnEnable reached at least once",
+    "Start reached at least once",
+    "Update reached at least once"
+  ]
+}

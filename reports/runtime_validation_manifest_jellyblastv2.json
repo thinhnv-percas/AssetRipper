@@ -1,0 +1,260 @@
+{
+  "fixture": "JellyBlastV2",
+  "project_root": "/home/user/AssetRipper/Test/Out54je/JellyBlastV2",
+  "unity_version": "2022.3.53f1",
+  "startup_scene": "Assets/Scenes/Preload.unity",
+  "startup_scene_source": "EditorBuildSettings",
+  "smoke_scenes": [
+    "Assets/Scenes/Preload.unity",
+    "Assets/Scenes/Main.unity"
+  ],
+  "scenes": [
+    "Assets/Scenes/Main.unity",
+    "Assets/Scenes/Preload.unity"
+  ],
+  "required_packages": {
+    "com.unity.modules.ai": "1.0.0",
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.cloth": "1.0.0",
+    "com.unity.modules.director": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.physics2d": "1.0.0",
+    "com.unity.modules.screencapture": "1.0.0",
+    "com.unity.modules.terrain": "1.0.0",
+    "com.unity.modules.terrainphysics": "1.0.0",
+    "com.unity.modules.tilemap": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.umbra": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.modules.unitywebrequestaudio": "1.0.0",
+    "com.unity.modules.unitywebrequesttexture": "1.0.0",
+    "com.unity.modules.unitywebrequestwww": "1.0.0",
+    "com.unity.modules.vehicles": "1.0.0",
+    "com.unity.modules.video": "1.0.0",
+    "com.unity.modules.vr": "1.0.0",
+    "com.unity.modules.wind": "1.0.0",
+    "com.unity.modules.xr": "1.0.0"
+  },
+  "required_native_plugins": [],
+  "lifecycle_declared": {
+    "Awake": 66,
+    "Start": 36,
+    "Update": 25,
+    "OnDestroy": 20,
+    "OnEnable": 54,
+    "LateUpdate": 10,
+    "FixedUpdate": 10
+  },
+  "smoke_methods": [
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/AudioManager.cs#0xFE79BC",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/CoinParticle.cs#0x101847C",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": null
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/CoinParticle.cs#0x1018590",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/ElasticScale.cs#0xFF6084",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/FBWindowsExampleTabsManager.cs#0xFDD2A0",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": null
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/FluidCompute.cs#0xFEFE68",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/FluidPhysicsCoupler.cs#0xFFDB00",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0xFFEE98",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/GameManager.cs#0x1009EA8",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/HorizontalFOV.cs#0x100D9D8",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/HueColorCycle.cs#0xFE5A48",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/InterpolateChild.cs#0x100EBF0",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/Level.cs#0x1011840",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/LevelCompleteScreen.cs#0x101F2D0",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/LevelFailedScreen.cs#0x101FD58",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/Lock.cs#0x1012D88",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/Menu.cs#0xFD8550",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/PathCollider2D.cs#0x10136E0",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/PathCollider2D.cs#0x1013B84",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/RayFire/ActivationEventScript.cs#0x1024F0C",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/RayFire/ActivationEventScript.cs#0x1025214",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/SettingsScreen.cs#0x1020A28",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/TextPopEffect.cs#0x1019D48",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x1059E4C",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x105A2E8",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Facebook.Unity/Facebook/Unity/CodelessCrawler.cs#0x10828A4",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/GameAnalyticsSDK/GameAnalyticsSDK/Events/GA_SpecialEvents.cs#0x10B3B14",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/RayFireAssembly/RayFire/RayfireActivator.cs#0x1E97764",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": null
+    },
+    {
+      "method": "Assets/Scripts/RayFireAssembly/RayFire/RayfireMan.cs#0x1EB1D90",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": null
+    },
+    {
+      "method": "Assets/Scripts/RayFireAssembly/RayFire/RayfireRecorder.cs#0x1EB5568",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/RayFireAssembly/RayFire/RayfireRigid.cs#0x1EB7E40",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/RayFireAssembly/RayFire/RayfireRigid.cs#0x1EB8ED8",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": null
+    }
+  ],
+  "runtime_status": "NOT_RUN",
+  "runtime_status_reason": "UNITY_NOT_AVAILABLE",
+  "expected_runtime_events": [
+    "Awake reached at least once",
+    "OnEnable reached at least once",
+    "Start reached at least once",
+    "Update reached at least once"
+  ]
+}

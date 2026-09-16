@@ -1,0 +1,127 @@
+{
+  "fixture": "RunFromZombies",
+  "project_root": "/home/user/AssetRipper/Test/Out54z2/RunFromZombies",
+  "unity_version": "2022.3.62f2",
+  "startup_scene": "Assets/Scenes/MenuScene.unity",
+  "startup_scene_source": "EditorBuildSettings",
+  "smoke_scenes": [
+    "Assets/Scenes/MenuScene.unity",
+    "Assets/Scenes/GameScene.unity"
+  ],
+  "scenes": [
+    "Assets/Scenes/GameScene.unity",
+    "Assets/Scenes/MenuScene.unity"
+  ],
+  "required_packages": {
+    "com.unity.modules.ai": "1.0.0",
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.cloth": "1.0.0",
+    "com.unity.modules.director": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.physics2d": "1.0.0",
+    "com.unity.modules.screencapture": "1.0.0",
+    "com.unity.modules.terrain": "1.0.0",
+    "com.unity.modules.terrainphysics": "1.0.0",
+    "com.unity.modules.tilemap": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.umbra": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.modules.unitywebrequestaudio": "1.0.0",
+    "com.unity.modules.unitywebrequesttexture": "1.0.0",
+    "com.unity.modules.unitywebrequestwww": "1.0.0",
+    "com.unity.modules.vehicles": "1.0.0",
+    "com.unity.modules.video": "1.0.0",
+    "com.unity.modules.vr": "1.0.0",
+    "com.unity.modules.wind": "1.0.0",
+    "com.unity.modules.xr": "1.0.0"
+  },
+  "required_native_plugins": [],
+  "lifecycle_declared": {
+    "Awake": 5,
+    "Start": 18,
+    "Update": 18,
+    "OnEnable": 33,
+    "OnDestroy": 5,
+    "LateUpdate": 3
+  },
+  "smoke_methods": [
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/AudioManager.cs#0xF0A894",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/BoxRaRot.cs#0xF0AB6C",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/Checker.cs#0xF0ABE4",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/MenuMove.cs#0xF0B37C",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/MoveBoard.cs#0xF0B570",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/Movement.cs#0xF0B834",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/ObsDropper.cs#0xF0BD7C",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/ObsJumper.cs#0xF0C010",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/ScoreScript.cs#0xF0C390",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/ZambiesMovement.cs#0xF0CE88",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    }
+  ],
+  "runtime_status": "NOT_RUN",
+  "runtime_status_reason": "UNITY_NOT_AVAILABLE",
+  "expected_runtime_events": [
+    "Awake reached at least once",
+    "OnEnable reached at least once",
+    "Start reached at least once",
+    "Update reached at least once"
+  ]
+}

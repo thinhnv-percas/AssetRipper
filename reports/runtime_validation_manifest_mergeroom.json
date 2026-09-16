@@ -1,0 +1,320 @@
+{
+  "fixture": "MergeRoom",
+  "project_root": "/home/user/AssetRipper/Test/Out54mr2/MergeRoom",
+  "unity_version": "2022.3.62f2",
+  "startup_scene": "Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity",
+  "startup_scene_source": "EditorBuildSettings",
+  "smoke_scenes": [
+    "Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity",
+    "Assets/Gtap_MergeRoom/Scenes/Level_1.unity"
+  ],
+  "scenes": [
+    "Assets/Gtap_MergeRoom/Scenes/Level_1.unity",
+    "Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity"
+  ],
+  "required_packages": {
+    "com.unity.modules.ai": "1.0.0",
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.cloth": "1.0.0",
+    "com.unity.modules.director": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.physics2d": "1.0.0",
+    "com.unity.modules.screencapture": "1.0.0",
+    "com.unity.modules.terrain": "1.0.0",
+    "com.unity.modules.terrainphysics": "1.0.0",
+    "com.unity.modules.tilemap": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.umbra": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.modules.unitywebrequestaudio": "1.0.0",
+    "com.unity.modules.unitywebrequesttexture": "1.0.0",
+    "com.unity.modules.unitywebrequestwww": "1.0.0",
+    "com.unity.modules.vehicles": "1.0.0",
+    "com.unity.modules.video": "1.0.0",
+    "com.unity.modules.vr": "1.0.0",
+    "com.unity.modules.wind": "1.0.0",
+    "com.unity.modules.xr": "1.0.0"
+  },
+  "required_native_plugins": [],
+  "lifecycle_declared": {
+    "Awake": 135,
+    "OnEnable": 150,
+    "Update": 128,
+    "OnDestroy": 64,
+    "Start": 100,
+    "LateUpdate": 29,
+    "FixedUpdate": 12
+  },
+  "smoke_methods": [
+    {
+      "method": "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/Examples/CameraController.cs#0x18B47EC",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "FALLBACK",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/AlmostEngine/AlmostEngine/Examples/ScreenshotSettingsDebug.cs#0x18A1B80",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/Extra/HideOnCapture.cs#0x18B724C",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/ScreenshotManager.cs#0x18A7D14",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/GameInstaller.cs#0x18CF8B4",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/GameInstaller.cs#0x18D0474",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/GameInstaller.cs#0x18D0560",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/Outline.cs#0x18C470C",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/RoomManager.cs#0x18D4BDC",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Assembly-CSharp/SettingsWindow.cs#0x18DD6E8",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineBrain.cs#0x18E3418",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineBrain.cs#0x18E38D4",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Coffee.UIParticle/Coffee/UIExtensions/UIParticle.cs#0x193A3DC",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "FALLBACK",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x1964378",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x1964450",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x1964CFC",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/EasySave3/ES3AutoSaveMgr.cs#0x196EDBC",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Feedbacks.Cinemachine/MoreMountains/FeedbacksForThirdParty/MMCinemachineCameraShaker.cs#0x29FF994",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Feedbacks.MMTools/MoreMountains/Tools/MMGhostCamera.cs#0x2A12940",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMF_Player.cs#0x2A0BD68",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMFlash.cs#0x2A8B5E4",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/FloatController.cs#0x2AE86BC",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAutoExecution.cs#0x2A95E88",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMCinemachineZone.cs#0x2AA9280",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMDebugMenuItemSlider.cs#0x2AB6DBC",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFader.cs#0x2ABFB94",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFaderDirectional.cs#0x2AC07A4",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMObjectPooler.cs#0x2ADE744",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPanningTexture.cs#0x2AFF7A0",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPlaylist.cs#0x2A9FB24",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPlaylist.cs#0x2A9FCB4",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPlotter.cs#0x2AB0838",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPoolableObject.cs#0x2ADEBD4",
+      "runtime_role": "LIFECYCLE_AWAKE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPreventPassingThrough.cs#0x2ADA0D4",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPreventPassingThrough3D.cs#0x2ADA9C8",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "HIGH_CONFIDENCE",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMSceneLoadingManager.cs#0x2AF7A8C",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMSoundManager.cs#0x2AA4A70",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "PARTIAL",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMTouchButton.cs#0x2AAD580",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "PARTIAL",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMUIFollowMouse.cs#0x2AC752C",
+      "runtime_role": "LIFECYCLE_START",
+      "status": "FALLBACK",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/TransformController.cs#0x2AEB538",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "EXACT",
+      "compile_status": "CLEAN"
+    },
+    {
+      "method": "Assets/Scripts/Tayx.Graphy/Tayx/Graphy/Advanced/G_AdvancedData.cs#0x323A36C",
+      "runtime_role": "LIFECYCLE_UPDATE",
+      "status": "FALLBACK",
+      "compile_status": "FAILS"
+    },
+    {
+      "method": "Assets/Scripts/Tayx.Graphy/Tayx/Graphy/Utils/G_Singleton.cs#0x2385660",
+      "runtime_role": "LIFECYCLE_DESTROY",
+      "status": "EXACT",
+      "compile_status": "FAILS"
+    }
+  ],
+  "runtime_status": "NOT_RUN",
+  "runtime_status_reason": "UNITY_NOT_AVAILABLE",
+  "expected_runtime_events": [
+    "Awake reached at least once",
+    "OnEnable reached at least once",
+    "Start reached at least once",
+    "Update reached at least once"
+  ]
+}
