@@ -1793,9 +1793,14 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		if (owner is GenericInstanceTypeAnalysisContext generic)
 		{
-			return generic.GenericArguments.Any(a => a.IsValueType)
-				? "generic instance, value type argument"
-				: "generic instance, reference arguments";
+			// AssetRipper: "a generic instance with a value type argument" names a property of the
+			// base type, not a cause - the same shape of label this project has had to split four
+			// times. What separates the causes is what the layout walk says when it is asked, so ask
+			// it: a layout that could not be computed at all is a sizing failure, an offset past the
+			// end of one that was computed is not this type's field at all, and an offset inside it
+			// landing on nothing is a member of a nested struct.
+			return "generic instance, " + GenericLayoutVerdict(generic, memory.Addend)
+				+ (generic.GenericArguments.Any(a => a.IsValueType) ? ", value type argument" : ", reference arguments");
 		}
 
 		if (owner.GenericParameters.Count > 0)
@@ -1824,6 +1829,46 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		return memory.Addend > largest
 			? "past the last field of the base type"
 			: "between fields of the base type";
+	}
+
+	/// <summary>
+	/// AssetRipper: what <see cref="GenericInstanceFieldLayout"/> says about an offset off a generic
+	/// instance, which is the only thing that separates the causes behind one label.
+	/// </summary>
+	/// <remarks>
+	/// The generator has already failed to place this offset, so the walk will fail again - the point
+	/// is <em>how</em>. A layout that comes back empty could not size some field and every offset in
+	/// it is unknown; an offset past the last field it laid means the base is not the type the load
+	/// thinks it is, which is a typing question rather than a layout one; and an offset inside the
+	/// laid range that lands on no field is a member of a struct field, which is the nested-field
+	/// search. Three different pieces of work behind one count.
+	/// </remarks>
+	private static string GenericLayoutVerdict(GenericInstanceTypeAnalysisContext generic, long addend)
+	{
+		List<(FieldAnalysisContext Field, long Offset)> laid;
+
+		try
+		{
+			laid = [.. GenericInstanceFieldLayout.LayoutOf(generic.GenericType, generic.GenericArguments)];
+		}
+		catch (Exception)
+		{
+			return "layout threw";
+		}
+
+		if (laid.Count == 0)
+		{
+			return "no layout";
+		}
+
+		if (laid.Any(entry => entry.Offset == addend))
+		{
+			// The walk answers and the generator still gave up, so the failure is downstream of the
+			// layout: worth knowing, because it is the one verdict that says this pass is not the gap.
+			return "layout answers";
+		}
+
+		return addend > laid.Max(entry => entry.Offset) ? "past the layout" : "inside the layout, on no field";
 	}
 
 	/// <summary>

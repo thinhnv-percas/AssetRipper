@@ -334,18 +334,31 @@ public static class MetadataResolver
                 // struct. Only a reference typed base is taken, because a store through the chain needs
                 // the address of the outer field and a value typed local on the stack is a copy.
                 if ((field == null || NarrowerThan(field, memory.Size, method))
-                    && staticOwner == null && genericOwner == null && !owner.IsValueType && owner.GenericParameters.Count == 0)
+                    && staticOwner == null && !owner.IsValueType
+                    && (genericOwner != null || owner.GenericParameters.Count == 0))
                 {
-                    var path = FindNestedFieldPath(owner, memory.Addend, memory.Size, method);
+                    var path = genericOwner != null
+                        ? FindNestedFieldPathOnGenericInstance(genericOwner, memory.Addend, memory.Size, method)
+                        : FindNestedFieldPath(owner, memory.Addend, memory.Size, method);
 
                     if (path is { Count: > 1 })
                     {
                         if (field != null)
                             System.Threading.Interlocked.Increment(ref NarrowWritesRefined);
 
-                        instruction.SetOperand(i, new FieldReference(path[^1], local, (int)memory.Addend)
+                        // The outermost field is declared by the open definition, so naming it as it
+                        // stands gives a cast to `Foo<>` - a type C# cannot spell. Everything below it
+                        // belongs to a concrete struct and needs nothing.
+                        var outer = genericOwner != null
+                            ? Instantiate(path[0], genericOwner)
+                            : path[0];
+
+                        var containing = path.GetRange(0, path.Count - 1);
+                        containing[0] = outer;
+
+                        instruction.SetOperand(i, new FieldReference(path.Count > 1 ? path[^1] : outer, local, (int)memory.Addend)
                         {
-                            ContainingFields = path.GetRange(0, path.Count - 1),
+                            ContainingFields = containing,
                             AccessSize = memory.Size,
                         });
                         changed = true;
@@ -359,7 +372,8 @@ public static class MetadataResolver
                     {
                         if (path is not null)
                         {
-                            instruction.SetOperand(i, new FieldReference(path[0], local, (int)memory.Addend) { AccessSize = memory.Size });
+                            var only = genericOwner != null ? Instantiate(path[0], genericOwner) : path[0];
+                            instruction.SetOperand(i, new FieldReference(only, local, (int)memory.Addend) { AccessSize = memory.Size });
                             changed = true;
                         }
 
@@ -552,6 +566,74 @@ public static class MetadataResolver
             InstanceFieldsWithOffsets,
             field => SizeOf(field, method),
             InteriorOf);
+
+    /// <summary>
+    /// AssetRipper: the same descent for an owner that is a generic instance, whose metadata offsets
+    /// are all zero and whose fields therefore have to come from the computed layout.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The descent was excluded for a generic owner outright, and measuring the family said what that
+    /// cost: of the generic-instance loads the generator gave up on, three quarters are <em>inside</em>
+    /// a layout the walk computed correctly and simply not on a field boundary - the ordinary shape of
+    /// reaching a member of a struct field, which is what this descent is for. The remainder split
+    /// into an offset past the layout (the base is not the type the load thinks it is, a typing
+    /// question) and no layout at all (a field that could not be sized). Only the first of those three
+    /// is this pass's.
+    /// </para>
+    /// <para>
+    /// Two things differ from the non-generic descent and both are the generic instance's doing. The
+    /// offsets come from <see cref="GenericInstanceFieldLayout"/>, which already walks the base chain,
+    /// so the chain is not walked again here. And a field declared of the type's own parameter has to
+    /// be substituted before it can be descended into: <c>T</c> has no interior, and the argument
+    /// standing in for it may be a struct with one.
+    /// </para>
+    /// </remarks>
+    public static List<FieldAnalysisContext>? FindNestedFieldPathOnGenericInstance(
+        GenericInstanceTypeAnalysisContext owner, long targetOffset, int accessSize, MethodAnalysisContext method)
+    {
+        return NestedFieldResolver.Find<TypeAnalysisContext, FieldAnalysisContext>(
+            owner,
+            targetOffset,
+            accessSize,
+            FieldsOf,
+            field => SizeOf(field, method),
+            InteriorOfSubstituted);
+
+        IEnumerable<(FieldAnalysisContext Field, long Offset)> FieldsOf(TypeAnalysisContext type)
+            => type is GenericInstanceTypeAnalysisContext instance
+                ? GenericInstanceFieldLayout.LayoutOf(instance.GenericType, instance.GenericArguments)
+                // Below the outermost level the type is a concrete struct reached through a field, so
+                // its own metadata offsets are real and are what the ordinary descent reads.
+                : InstanceFieldsWithOffsets(type);
+
+        TypeAnalysisContext? InteriorOfSubstituted(FieldAnalysisContext field)
+        {
+            TypeAnalysisContext type = field.FieldType;
+
+            if (type is GenericParameterTypeAnalysisContext { Index: var index }
+                && field.DeclaringType == owner.GenericType
+                && index < owner.GenericArguments.Count)
+            {
+                // A field declared `T` is whatever the instance says T is, and that is the only place
+                // the substitution is knowable - the field context itself carries the open type.
+                type = owner.GenericArguments[index];
+            }
+
+            return type.IsValueType && !type.IsEnumType && type.GenericParameters.Count == 0 ? type : null;
+        }
+    }
+
+    /// <summary>
+    /// AssetRipper: a field taken from a computed layout, closed on the instance that answered.
+    /// </summary>
+    /// <remarks>
+    /// A field the layout returns is declared by the open definition, and naming it as it stands is a
+    /// reference to <c>Foo&lt;&gt;</c>, which is not a type C# can spell. A field that is already
+    /// concrete is left alone rather than wrapped twice.
+    /// </remarks>
+    private static FieldAnalysisContext Instantiate(FieldAnalysisContext field, GenericInstanceTypeAnalysisContext instance)
+        => field is ConcreteGenericFieldAnalysisContext ? field : new ConcreteGenericFieldAnalysisContext(field, instance);
 
     /// <summary>
     /// Every instance field of the type and of everything it inherits from, at its offset in this
