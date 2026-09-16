@@ -125,8 +125,71 @@ public static class NativeBoundary
             }
         }
 
-        return new Verdict(Unknown, null);
+        // Last, and weaker than everything above it, but still evidence rather than a guess: an
+        // il2cpp binary holds generated method bodies in one executable region and the runtime's own
+        // code in another, and every managed method the model knows sits in the first. So a call
+        // target outside the span of every managed method is not generated code, and the only other
+        // executable code in the image is the runtime. It names nothing - the verdict is the kind,
+        // with no symbol - and it is deliberately the last rule, so it never overrides a name.
+        //
+        // Inside that span it stays UNKNOWN: an address there is generated code the model could not
+        // attribute, most often a shared body's interior, and calling that the runtime would be
+        // wrong in the quiet way.
+        var (lowest, highest) = ManagedCodeSpan(appContext);
+
+        return IsOutsideManagedCode(address, lowest, highest)
+            ? new Verdict(Il2CppRuntime, null)
+            : new Verdict(Unknown, null);
     }
+
+    /// <summary>
+    /// Whether an address is outside the span every managed method sits in.
+    /// </summary>
+    /// <remarks>
+    /// An empty span - a binary with no managed method at all - classifies nothing, because there is
+    /// no boundary to be on the far side of and answering "runtime" for every address would be a
+    /// verdict with nothing behind it.
+    /// </remarks>
+    public static bool IsOutsideManagedCode(ulong address, ulong lowest, ulong highest)
+        => lowest <= highest && (lowest != 0 || highest != ulong.MaxValue) && (address < lowest || address > highest);
+
+    /// <summary>
+    /// The lowest and highest address any managed method sits at, computed once per game.
+    /// </summary>
+    /// <remarks>
+    /// Read from the model rather than from a section name, so it needs nothing of the container
+    /// format and works the same on an ELF and a Mach-O. A binary with no managed method at all
+    /// spans nothing, and the rule that uses this then classifies nothing - which is right, because
+    /// there is no boundary to be on the far side of.
+    /// </remarks>
+    private static (ulong Lowest, ulong Highest) ManagedCodeSpan(ApplicationAnalysisContext appContext)
+    {
+        if (managedSpans.TryGetValue(appContext, out var known))
+        {
+            return known;
+        }
+
+        ulong lowest = ulong.MaxValue;
+        ulong highest = 0;
+
+        foreach (var address in appContext.MethodsByAddress.Keys)
+        {
+            if (address == 0)
+            {
+                continue;
+            }
+
+            lowest = Math.Min(lowest, address);
+            highest = Math.Max(highest, address);
+        }
+
+        var span = lowest > highest ? (0UL, ulong.MaxValue) : (lowest, highest);
+        managedSpans[appContext] = span;
+        return span;
+    }
+
+
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<ApplicationAnalysisContext, (ulong, ulong)> managedSpans = new();
 
     /// <summary>The symbol a procedure linkage table entry imports, when the target is one.</summary>
     private static string? ImportedSymbol(ApplicationAnalysisContext appContext, ulong address)

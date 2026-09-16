@@ -85,6 +85,41 @@ public class Il2CppNativeBoundaryTests
 	}
 
 	[Test]
+	public void ATargetOutsideTheManagedCodeSpanIsTheRuntime()
+	{
+		// An il2cpp binary keeps generated method bodies in one executable region and the runtime's
+		// own code in another, and every managed method the model knows sits in the first. So an
+		// address outside the span of every managed method is not generated code, and the only other
+		// executable code in the image is the runtime. Read from the model rather than from a section
+		// name, so it needs nothing of the container format.
+		Assert.Multiple(() =>
+		{
+			Assert.That(NativeBoundary.IsOutsideManagedCode(0x900000, 0xC00000, 0xF00000), Is.True, "below");
+			Assert.That(NativeBoundary.IsOutsideManagedCode(0x1000000, 0xC00000, 0xF00000), Is.True, "above");
+			Assert.That(NativeBoundary.IsOutsideManagedCode(0xD00000, 0xC00000, 0xF00000), Is.False, "inside");
+		});
+	}
+
+	[Test]
+	public void TheBoundsThemselvesAreInside()
+	{
+		// A managed method sits at each end, so neither end is outside.
+		Assert.Multiple(() =>
+		{
+			Assert.That(NativeBoundary.IsOutsideManagedCode(0xC00000, 0xC00000, 0xF00000), Is.False);
+			Assert.That(NativeBoundary.IsOutsideManagedCode(0xF00000, 0xC00000, 0xF00000), Is.False);
+		});
+	}
+
+	[Test]
+	public void ABinaryWithNoManagedMethodClassifiesNothingThisWay()
+	{
+		// The span is empty, so there is no boundary to be on the far side of. Answering "runtime"
+		// for every address would be a verdict with nothing behind it.
+		Assert.That(NativeBoundary.IsOutsideManagedCode(0xC00000, 0, ulong.MaxValue), Is.False);
+	}
+
+	[Test]
 	public void AVerdictRendersItsSymbolWhenItHasOne()
 	{
 		Assert.Multiple(() =>
