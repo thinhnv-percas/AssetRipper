@@ -25,6 +25,7 @@ launchSettings.json
 Test/Output/
 Test/Output-*/
 Test/Output[0-9P]*/
+Test/Out[0-9A-Za-z]*/
 Test/AR*.log
 
 # Unpacked test games. Pinata is committed; anything else is fetched by hand.

@@ -5,11 +5,12 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 051 (hoàn tất; interface call biên dịch thành tra cứu lúc chạy được phục hồi,
-                          LOADED_POINTER tách làm năm, compare-and-swap gọi tên bằng mã của nó.
-                          Ship: InterfaceInvokeDataRecovery, PointerProvenance, LoadedPointerKind,
-                          AtomicIntrinsicRecognizer, ba offset con trỏ hàm của MethodInfo được ĐO,
-                          chốt chặn đo giữa chừng bản export, sửa kho method vàng, ITERATION_051)
+Iteration hiện tại: 052 (hoàn tất; trọng tâm chuyển sang "project chạy được". Ship: phép đi xuống
+                          struct field trên generic instance, NativeBoundary + tầng Il2CppRuntime mà
+                          code sinh ra thật sự gọi, audit_project_references.py,
+                          validate_unity_stages.py (9 stage, BLOCKED không bao giờ là PASS),
+                          compile_pass_rate theo file, body_recovery_rate, kho vàng 165 -> 220 có
+                          trục vai trò lúc chạy, ITERATION_052)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -58,6 +59,12 @@ Giai đoạn hiện tại:
       Giờ nó trả CORPUS_NOT_APPLICABLE và mã lỗi 3.
     - recovery_metrics.py và placeholder_families.py TỪ CHỐI đo một bản rip mà log chưa ghi nhận
       export kết thúc. Chờ tiến trình thoát, đừng chờ một dòng log.
+    - compile_pass_rate KHÔNG ĐỌC MỘT MÌNH ĐƯỢC. Một export toàn khai báo biên dịch rất đẹp: fixture
+      iOS đạt 0.9722 so với 0.8952 của Android và không có một thân method nào. Luôn đọc
+      body_recovery_rate bên cạnh; validate_unity_stages.py in cả hai.
+    - Placeholder tới mã nguồn theo HAI hình dạng từ 052: NoteDecompilerIssue("m") và
+      Il2CppRuntime.Boundary("KIND", "m"). Định nghĩa duy nhất ở placeholder_families.messages();
+      bất cứ thứ gì đếm placeholder phải import nó chứ không viết lại.
 
 Iteration 044 — bốn thứ phải biết trước khi làm tiếp:
 

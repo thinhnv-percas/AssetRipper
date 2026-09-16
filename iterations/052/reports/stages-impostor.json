@@ -1,0 +1,134 @@
+{
+  "project": "Test/OutProbe/Impostor",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "830 scripts, 11971 KiB, 97 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "0.9940 of 1175 references resolve, 7 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "743 of 830 files compile clean, 1386 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 830,
+    "bytes": 12259065,
+    "trivial": 97,
+    "reference_resolution_rate": 0.9940425531914894,
+    "naming": 1175,
+    "unfollowable": 7,
+    "compile_pass_rate": 0.8951807228915662,
+    "compile_errors": 1386,
+    "assemblies": [
+      {
+        "assembly": "ACTk.Runtime",
+        "clean": 54,
+        "files": 57
+      },
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 37,
+        "files": 64
+      },
+      {
+        "assembly": "DOTween",
+        "clean": 105,
+        "files": 106
+      },
+      {
+        "assembly": "GoogleMobileAds",
+        "clean": 47,
+        "files": 80
+      },
+      {
+        "assembly": "LeanCommon",
+        "clean": 9,
+        "files": 10
+      },
+      {
+        "assembly": "LeanPool",
+        "clean": 10,
+        "files": 14
+      },
+      {
+        "assembly": "System.Runtime.CompilerServices.Unsafe",
+        "clean": 1,
+        "files": 1
+      },
+      {
+        "assembly": "Unity.TextMeshPro",
+        "clean": 119,
+        "files": 119
+      },
+      {
+        "assembly": "UnityEngine.UI",
+        "clean": 118,
+        "files": 121
+      },
+      {
+        "assembly": "__Generated",
+        "clean": 9,
+        "files": 12
+      },
+      {
+        "assembly": "spine-unity",
+        "clean": 159,
+        "files": 168
+      },
+      {
+        "assembly": "spine-unity-examples",
+        "clean": 75,
+        "files": 78
+      }
+    ]
+  },
+  "shaders": {
+    "DUMMY": 3
+  }
+}

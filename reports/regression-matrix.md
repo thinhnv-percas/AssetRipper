@@ -643,3 +643,59 @@ không đụng 34 ô vtable thật; không gọi tên `0xAD947C`; Unity `UNITY_N
 nguồn NOT_RUN (nguồn không có trong container).
 
 Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**.
+
+## Iteration 052 — từ "C# đọc được" sang "project chạy được"
+
+Baseline 051 tái lập đúng tới từng chữ số trên cả hai fixture (`iterations/052/BASELINE.md`).
+
+| | Impostor 051 | Impostor 052 | Pinata 051 | Pinata 052 |
+|---|---|---|---|---|
+| `EXACT` | 2852 | **2860** | 9634 | **9636** |
+| `HIGH_CONFIDENCE` | 157 | **163** | 463 | **467** |
+| `PARTIAL` | 1158 | **1142** | 3043 | **3036** |
+| `FALLBACK` | 1315 | 1317 | 3233 | 3234 |
+| phục hồi không kèm đồ thế chỗ | 3009 | **3023** | 10097 | **10103** |
+| placeholder | 4455 | **4297** | 14166 | **14068** |
+| unresolved load | 2712 | **2554** | — | — |
+| Roslyn Assembly-CSharp | 344 | 344 | 1481 | 1481 |
+| **field layout** | 1394 / **0 bất đồng** | 1394 / **0** | 3170 / **0** | 3170 / **0** |
+| `generatorFailures` | 0 | 0 | 0 | 0 |
+| `.cs` | 819 | 830 | 3083 | 3130 |
+
+`.cs` tăng là kiểu `Il2CppRuntime` tiêm vào mỗi assembly, không phải hồi quy.
+Golden corpus 165 → **220**, improved 0 regressed 0. Test 448 → **461**.
+
+### Phép đo mới — bản project đi được tới đâu
+
+| | Impostor | Pinata | JellyBlast (iOS) |
+|---|---|---|---|
+| stage đạt | A, B | A, B | A, B |
+| `compile_pass_rate` (theo file) | **0.8952** | **0.7589** | 0.9722 |
+| `body_recovery_rate` | **0.7598** | — | **NO_BODIES** |
+| `reference_resolution_rate` | **0.9940** | **0.9999** | **1.0000** |
+| tham chiếu không đi theo được | 7 | 2 | 1 |
+| `shader_dummy` | 3/3 | 22/22 | 30/30 |
+| stage E–I | BLOCKED `UNITY_NOT_AVAILABLE` | BLOCKED | BLOCKED |
+
+Tỉ lệ biên dịch của fixture iOS **cao hơn và không tốt hơn**: `__TEXT` bị FairPlay mã hoá nên 1473
+file toàn khai báo. `body_recovery_rate` in ngay bên cạnh để chặn cách đọc đó.
+
+### Phân loại ranh giới native
+
+| | Impostor | Pinata |
+|---|---|---|
+| `SYSTEM_API` | 490 | 1207 |
+| `UNKNOWN` | 416 | 2860 |
+| `IL2CPP_RUNTIME` | 339 | 237 |
+| `MANAGED` | 33 | 13 |
+| `EXTERNAL_DEPENDENCY` | 0 | 36 |
+
+**Không** làm, có chủ ý: không ánh xạ `0xAF4130` sang một overload cụ thể; không sinh `P_INVOKE`
+(không bằng chứng tại call site); không nới rộng framework member để dập CS1061; Unity
+`UNITY_NOT_AVAILABLE`.
+
+**Kết quả âm**: bước nhảy qua veneer trong `NativeBoundary` không đổi con số nào — veneer đã bị tiêu
+thụ sớm hơn trong pipeline. Cô lập lỗi decompiler (§13) đã có sẵn ở cả mức method lẫn mức type và đo
+được là **0 type bị bỏ qua, 0 assembly bỏ dở, 0 thân hàm thất bại** trên cả hai fixture.
+
+Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**.

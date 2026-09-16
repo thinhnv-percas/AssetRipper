@@ -1,0 +1,90 @@
+SCOPE: the 10 assemblies recovery was attempted on
+placeholders: 4309
+
+== by family ==
+family                          count  share  methods  asm  generator site         ISIL operation
+-------------------------------------------------------------------------------------------------
+UNMANAGED_MEMORY_LOAD            2515  58.4%      605    7  IlGenerator.cs:2463    LoadOperand, a MemoryOperand no field was found for
+METHOD_NOT_FOUND                  691  16.0%      533    7  IlGenerator.cs:1328    OpCode.Call / CallVoid, target is an Immediate
+NATIVE_IMPORT                     490  11.4%      183    8  IlGenerator.cs:1328    OpCode.Call / CallVoid via a PLT slot
+NOT_IMPLEMENTED_INSTRUCTION       211   4.9%       84    5  IlGenerator.cs:1019    OpCode.NotImplemented
+INDIRECT_CALL                     183   4.2%      127    6  IlGenerator.cs:1446    OpCode.IndirectCall
+INDIRECT_JUMP                     120   2.8%      118    7  IlGenerator.cs:1471    OpCode.IndirectJump
+UNKNOWN_CALL_TARGET                97   2.3%       62    6  IlGenerator.cs:1333    OpCode.Call, target is not an Immediate
+OTHER                               2   0.0%        1    1  -                      -
+
+== what each family means ==
+  UNMANAGED_MEMORY_LOAD          a load whose base type or offset could not be placed
+  METHOD_NOT_FOUND               an address with no managed method at it
+  NATIVE_IMPORT                  a libc or C++ runtime import, named from .rela.plt
+  NOT_IMPLEMENTED_INSTRUCTION    the lifter has no rule for this native opcode
+  INDIRECT_CALL                  a virtual or interface dispatch the passes did not resolve
+  INDIRECT_JUMP                  a computed branch, typically a switch table
+  UNKNOWN_CALL_TARGET            a call whose target operand is a register or a memory read
+  OTHER                          ?
+
+== inside each family, by concrete cause ==
+
+  UNMANAGED_MEMORY_LOAD
+       154     82 methods  X0
+       104     57 methods  SYSREG
+        94     33 methods  X29_v1
+        92     40 methods  X8_v3
+        81     22 methods  stack_
+        69     40 methods  (unnamed base)
+        65     25 methods  X1
+        59     29 methods  X9_v1
+        56     56 methods  X0_v2
+        48     20 methods  X8_v13
+        40     26 methods  X8_v4
+        40      4 methods  X29
+    ... and 323 more distinct causes
+
+  METHOD_NOT_FOUND
+       691    533 methods  (address only)
+
+  NATIVE_IMPORT
+        96     76 methods  __cxa_end_catch
+        89     37 methods  memcpy
+        76     75 methods  __cxa_begin_catch
+        73     25 methods  modf
+        55     54 methods  __stack_chk_fail
+        20     20 methods  __cxa_allocate_exception
+        20     20 methods  __cxa_throw
+        18     11 methods  memset
+        11      4 methods  atan2
+         8      4 methods  sin
+         6      6 methods  sincosf
+         5      5 methods  atan2f
+    ... and 6 more distinct causes
+
+  NOT_IMPLEMENTED_INSTRUCTION
+        93     39 methods  UNIMPLEMENTED
+        48     28 methods  FABD
+        43     28 methods  DUP
+         8      4 methods  USHL
+         6      4 methods  BIT
+         3      2 methods  FADDP
+         2      1 methods  BSL
+         2      1 methods  FCMGT
+         2      1 methods  BIF
+         1      1 methods  EXT
+         1      1 methods  SMULH
+         1      1 methods  CMHS
+    ... and 1 more distinct causes
+
+  INDIRECT_CALL
+       183    127 methods  (dispatch)
+
+  INDIRECT_JUMP
+       120    118 methods  (computed branch)
+
+  UNKNOWN_CALL_TARGET
+        54     35 methods  \"il2cpp_vm_object_unbox\"
+        20     20 methods  \"il2cpp_vm_class_is_assignable_from\"
+        15      3 methods  \"SzArrayNew\"
+         6      4 methods  \"il2cpp_codegen_object_is_inst\"
+         2      2 methods  \"il2cpp_vm_object_box\"
+
+  OTHER
+         2      1 methods  Warning: Method ends with non empty stack (-10), the output 

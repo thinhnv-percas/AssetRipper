@@ -1355,6 +1355,76 @@ find it; `strings` without `-el` does find method and type names.
   can. `recovery_metrics.py` and `placeholder_families.py` both stop on a log with no completion
   marker, and `Test/Scripts/test_measurement_completeness.sh` goes red if that guard is removed.
 
+- **A generic instance has struct fields too, and the descent into them was excluded outright.** The
+  offsets of a generic definition's fields are all zero in metadata, so the nested-field search reads
+  nothing there - which is a reason to supply the computed layout, not a reason to skip the search.
+  Classifying the 228 generic-instance loads by asking the layout walk itself split them three ways:
+  173 *inside* a layout computed correctly and simply not on a field boundary (the ordinary shape of
+  reaching a member of a struct field), 35 past the layout (the base is not the type the load thinks
+  it is - typing work), 20 with no layout at all (a field that could not be sized). Only the first is
+  this pass's, and it is three quarters of the family. Two things differ from the non-generic descent
+  and both are the instance's doing: the layout already walks the base chain, so walking it again
+  places every inherited field twice; and a field declared `T` has to be substituted before it can be
+  descended into, because `T` has no interior and the argument standing in for it may be a struct with
+  one. `CirclePlugin.SetFrom` came back as `if (!t.plugOptions.initialized)` where it had been an
+  unresolved load and an always-true `if ((nint)0 == 0)`. Worth 158 loads on one fixture and 98 on the
+  other, and the field taken from the layout must be closed on the instance or its name is a reference
+  to `Foo<>`.
+- **"A generic instance with a value type argument" is a property of the base type, not a cause** -
+  the fifth family this project has had to split that was named after its symptom. The brief that
+  asked for it named the wrong defect, and measuring before working is what said so.
+- **A native boundary is not a decompiler failure, and the two reach the generator as one
+  placeholder.** `NativeBoundary` separates them from evidence the binary carries: a relocation naming
+  the imported symbol, a located key function, how many managed methods sit on the address, an
+  instruction sequence recognised for what it does. On the test game 490 are the C library or the C++
+  ABI, 339 are the runtime's own compare-and-swap, 33 are managed, and 416 have no evidence at all -
+  `UNKNOWN`, which is a verdict and must never be counted as recovered. `P_INVOKE` is declared and
+  deliberately never produced: nothing at a call site distinguishes a P/Invoke's target from any other
+  imported symbol, and a verdict that cannot be evidenced is worse than one that is absent.
+- **The runtime compatibility layer is a representation, not a reimplementation.** `Il2CppRuntime.
+  Boundary(kind, detail)` takes the classification and the message that was already being printed, so
+  the emitted shape is unchanged - one string became two. That matters: replacing a placeholder with a
+  call that consumes the original operands was measured to unbalance the stack in about a thousand
+  methods and cost them their bodies. And the message text is passed through verbatim, because every
+  measurement in this project keys on it and a representational change that renamed things too would
+  make every earlier number incomparable for nothing.
+- **A placeholder now reaches the source two ways, and the extractor read one.** The moment the
+  generator started using `Il2CppRuntime.Boundary`, three families - `METHOD_NOT_FOUND`,
+  `NATIVE_IMPORT`, `UNKNOWN_CALL_TARGET` - read as zero, which is indistinguishable from having fixed
+  them. `placeholder_families.messages()` is the one definition of how a placeholder is read; anything
+  counting them imports it. `golden_corpus.py` then broke on the import it had copied from the other
+  side of that move - the same drift twice in one iteration, and loud only by luck.
+- **A null PPtr is not a broken reference, and counting it as one makes the measure meaningless.**
+  Unity writes `{fileID: 0}` for every optional slot of every object - `m_CorrespondingSourceObject`
+  on a GameObject that is not a prefab instance, `m_ProbeAnchor` on a renderer with none,
+  `m_SelectOnUp` under automatic navigation - and on the test game that is 2522 of 2526 apparent
+  losses. Reported as `NULL` and excluded from the rate, the project reads 0.9940 resolved; counted as
+  broken it reads 0.32, which is a check too strict, which is as wrong as one too lax and costs more
+  time. The one slot where null *is* a defect is `m_Script`: a MonoBehaviour that does not resolve
+  loses the component and every field on it.
+- **A compile rate cannot be read on its own, because an export made of declarations compiles
+  beautifully.** The iOS fixture scores 0.9722 against the Android fixture's 0.8952 and has **no
+  method bodies at all** - FairPlay encrypts the whole of `__TEXT`, so signatures come back and
+  bodies cannot. `validate_unity_stages.py` prints `body_recovery_rate` beside it and says
+  `NO_BODIES` rather than blaming a missing argument. And the rate is per *file*: one file with a
+  hundred errors and a hundred files with one are the same error count and completely different
+  projects, while per assembly is too coarse to move at all.
+- **A stage nobody ran has no result.** The nine stages between an export and a running game are
+  reported with `BLOCKED` where the tool to decide them is absent, never `PASS` and never `FAIL` -
+  reporting either is how a pipeline claims to run a game it has never started. Unity is not in this
+  container, so E through I are blocked on every fixture, and no runtime claim may rest on them.
+- **Decompiler failure isolation already exists at both levels and measures zero.**
+  `ReplaceIfUnverifiable` and `FillMethodBody` catch at the method, `DecompileWholeProject` skips a
+  type ILSpy cannot read and decompiles the assembly again (up to 16). On both fixtures: 0 types
+  skipped, 0 assemblies abandoned, 0 bodies failed to convert. Verified rather than built - do not
+  re-implement it.
+- **A golden corpus picked only by how badly recovery went is a corpus of the code least likely to
+  run.** The third selection axis is what a method is *for*: `Awake`, `Start`, `Update`, Unity
+  callbacks, coroutines, property getters, event accessors, constructors, static entry points -
+  matched on the declaration rather than the name, because a Unity message returns void and takes no
+  arguments and a helper of the same name does not. 165 to 220, and it immediately said what the
+  totals could not: `Color2Plugin` and `QuaternionPlugin` moved `PARTIAL` to `HIGH_CONFIDENCE`.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1493,7 +1563,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Eleven scripts, and each measures something the others cannot:
+Fourteen scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1511,8 +1581,8 @@ Eleven scripts, and each measures something the others cannot:
   much of a body came back rather than how many complaints it printed.
 - `Test/Scripts/instruction_coverage.py` — native opcodes the lifter has no rule for, per fixture,
   with the implemented set read out of the lifter's own switch.
-- `Test/Scripts/golden_corpus.py` — 165 frozen methods, one per (operation class, status) plus the
-  worst method carrying each placeholder family, checked one method at a time against
+- `Test/Scripts/golden_corpus.py` — 220 frozen methods, one per (operation class, status), the
+  worst method carrying each placeholder family, and one per runtime role, checked one method at a time against
   `Test/golden-corpus-baseline.json`. The only measure that can say a particular method got worse
   while the total got better, which is the shape this pipeline keeps producing. The list is unioned
   on reselection, never replaced: a frozen entry that gets dropped is a hole in the net.
@@ -1520,6 +1590,14 @@ Eleven scripts, and each measures something the others cannot:
   ranked by call sites, with the caller profile that decides whether one can be named at all.
 - `Test/Scripts/test_measurement_completeness.sh` — that a measurement refuses a rip still being
   written. Ten cases; two go red if the guard is removed.
+- `Test/Scripts/test_placeholder_extraction.sh` — that a placeholder is counted whichever of the two
+  call shapes carries it. Five cases; all go red if the second shape stops being read.
+- `Test/Scripts/audit_project_references.py` — every PPtr in every serialized document, resolved the
+  way the editor would. `NULL` is reported and excluded from the rate; only `m_Script` counts a null
+  as a loss.
+- `Test/Scripts/validate_unity_stages.py` — the nine stages between an export and a running game,
+  with `compile_pass_rate`, `body_recovery_rate`, `reference_resolution_rate` and the shader split.
+  Read `body_recovery_rate` before believing `compile_pass_rate`.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are

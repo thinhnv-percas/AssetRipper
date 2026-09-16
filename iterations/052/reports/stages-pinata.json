@@ -1,0 +1,309 @@
+{
+  "project": "Test/OutProbeP/Pinata",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2019.2.6f1"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "3130 scripts, 33335 KiB, 344 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "0.9999 of 35928 references resolve, 2 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "2364 of 3115 files compile clean, 5709 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 3130,
+    "bytes": 34135288,
+    "trivial": 344,
+    "reference_resolution_rate": 0.9999443331106658,
+    "naming": 35928,
+    "unfollowable": 2,
+    "compile_pass_rate": 0.758908507223114,
+    "compile_errors": 5709,
+    "assemblies": [
+      {
+        "assembly": "AdjustSDK",
+        "clean": 25,
+        "files": 29
+      },
+      {
+        "assembly": "AppMetricaSDK",
+        "clean": 36,
+        "files": 37
+      },
+      {
+        "assembly": "AppMetricaSDK.Editor",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Apple",
+        "clean": 11,
+        "files": 11
+      },
+      {
+        "assembly": "AppsFlyerSDK",
+        "clean": 10,
+        "files": 11
+      },
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 694,
+        "files": 1109
+      },
+      {
+        "assembly": "ConditionalExpression",
+        "clean": 10,
+        "files": 11
+      },
+      {
+        "assembly": "DOTween",
+        "clean": 53,
+        "files": 102
+      },
+      {
+        "assembly": "DOTween.Modules",
+        "clean": 11,
+        "files": 16
+      },
+      {
+        "assembly": "DOTweenPro",
+        "clean": 17,
+        "files": 20
+      },
+      {
+        "assembly": "DOTweenPro.Scripts",
+        "clean": 9,
+        "files": 12
+      },
+      {
+        "assembly": "EasyMobile",
+        "clean": 148,
+        "files": 267
+      },
+      {
+        "assembly": "EasyMobile.Generated",
+        "clean": 9,
+        "files": 9
+      },
+      {
+        "assembly": "Facebook.Unity",
+        "clean": 101,
+        "files": 102
+      },
+      {
+        "assembly": "Facebook.Unity.Android",
+        "clean": 8,
+        "files": 9
+      },
+      {
+        "assembly": "Facebook.Unity.IOS",
+        "clean": 9,
+        "files": 9
+      },
+      {
+        "assembly": "Facebook.Unity.Settings",
+        "clean": 8,
+        "files": 9
+      },
+      {
+        "assembly": "FacebookStore",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "Firebase.App",
+        "clean": 19,
+        "files": 22
+      },
+      {
+        "assembly": "Firebase.Platform",
+        "clean": 34,
+        "files": 39
+      },
+      {
+        "assembly": "GBG.Pinata.ECS",
+        "clean": 136,
+        "files": 142
+      },
+      {
+        "assembly": "GameAnalyticsSDK",
+        "clean": 21,
+        "files": 32
+      },
+      {
+        "assembly": "GameAnalyticsSDK.Playmaker",
+        "clean": 20,
+        "files": 20
+      },
+      {
+        "assembly": "IronSourceSDK",
+        "clean": 15,
+        "files": 22
+      },
+      {
+        "assembly": "LunarConsoleSDK",
+        "clean": 34,
+        "files": 53
+      },
+      {
+        "assembly": "Morpeh",
+        "clean": 60,
+        "files": 61
+      },
+      {
+        "assembly": "Morpeh.Hypercasual",
+        "clean": 24,
+        "files": 27
+      },
+      {
+        "assembly": "MyTrackerSDK",
+        "clean": 17,
+        "files": 23
+      },
+      {
+        "assembly": "NiceVibrationsSDK",
+        "clean": 9,
+        "files": 10
+      },
+      {
+        "assembly": "Obi",
+        "clean": 131,
+        "files": 135
+      },
+      {
+        "assembly": "PlayMaker",
+        "clean": 140,
+        "files": 142
+      },
+      {
+        "assembly": "Purchasing.Common",
+        "clean": 10,
+        "files": 13
+      },
+      {
+        "assembly": "Security",
+        "clean": 30,
+        "files": 42
+      },
+      {
+        "assembly": "Sirenix.OdinInspector.Attributes",
+        "clean": 26,
+        "files": 28
+      },
+      {
+        "assembly": "Sirenix.Utilities",
+        "clean": 13,
+        "files": 16
+      },
+      {
+        "assembly": "Stores",
+        "clean": 86,
+        "files": 121
+      },
+      {
+        "assembly": "System.Runtime.CompilerServices.Unsafe",
+        "clean": 1,
+        "files": 1
+      },
+      {
+        "assembly": "TenjinSDK",
+        "clean": 12,
+        "files": 13
+      },
+      {
+        "assembly": "Tizen",
+        "clean": 11,
+        "files": 11
+      },
+      {
+        "assembly": "UDP",
+        "clean": 27,
+        "files": 44
+      },
+      {
+        "assembly": "Unity.Compat",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.IAP.Generated",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "Unity.Tasks",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.TextMeshPro",
+        "clean": 110,
+        "files": 114
+      },
+      {
+        "assembly": "UnityEngine.Purchasing",
+        "clean": 45,
+        "files": 45
+      },
+      {
+        "assembly": "UnityEngine.UI",
+        "clean": 119,
+        "files": 120
+      },
+      {
+        "assembly": "winrt",
+        "clean": 11,
+        "files": 12
+      }
+    ]
+  },
+  "shaders": {
+    "DUMMY": 22
+  }
+}

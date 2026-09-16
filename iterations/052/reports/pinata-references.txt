@@ -1,0 +1,24 @@
+documents scanned: 318
+references found: 103557, of which 35928 name a target
+
+ 30332  EXACT      29.3%
+  5594  RESOLVED    5.4%
+     0  AMBIGUOUS   0.0%
+     0  BROKEN      0.0%
+     2  MISSING     0.0%
+ 67629  NULL       65.3%
+
+reference_resolution_rate: 0.9999 (35926 of 35928 that name a target)
+
+== by the property holding the reference, worst first ==
+property                      exact  resolved  ambig  broken  missing   null
+m_Script                          0      1992      0       0        2      0
+
+== by document kind ==
+.prefab       30862 naming a target,     2 not followable
+.unity         4511 naming a target,     0 not followable
+.asset          333 naming a target,     0 not followable
+.mat            135 naming a target,     0 not followable
+.guiskin         55 naming a target,     0 not followable
+.controller      32 naming a target,     0 not followable
+.anim             0 naming a target,     0 not followable
