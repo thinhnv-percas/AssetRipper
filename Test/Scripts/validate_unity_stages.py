@@ -51,7 +51,13 @@ def stage_a(root: pathlib.Path):
     missing = [name for name in required if not (root / name).is_dir()]
 
     if missing:
-        return FAIL, f"no {', '.join(missing)} in {root}"
+        # A rip output holds the game directory, which is the project; pointed one level too high the
+        # stages below still run and still print numbers, against the wrong tree. That is the same
+        # silent-wrong-root failure the golden corpus had, so say which directory was meant.
+        candidates = [child.name for child in sorted(root.iterdir()) if child.is_dir()
+                      and all((child / name).is_dir() for name in required)] if root.is_dir() else []
+        suggestion = f" - try {root / candidates[0]}" if candidates else ""
+        return FAIL, f"no {', '.join(missing)} in {root}{suggestion}"
 
     version = root / "ProjectSettings" / "ProjectVersion.txt"
 
@@ -237,6 +243,14 @@ def main() -> int:
 
     verdict, detail = stage_a(root)
     stages.append(("A", "project generated", verdict, detail))
+
+    # Nothing below this measures anything about a directory that is not a Unity project, and a
+    # number computed over the wrong tree is worse than no number at all.
+    if verdict == FAIL:
+        print(f"project: {root}\n")
+        print(f"A  project generated         {verdict}     {detail}")
+        print("\nPROJECT_ROOT_MISMATCH: no stage below A was run.")
+        return 2
 
     verdict, detail, extra = stage_b(root)
     stages.append(("B", "scripts generated", verdict, detail))
