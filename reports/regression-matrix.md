@@ -584,3 +584,62 @@ Phép đo mới:
 bằng chứng); không đụng 34 ô vtable thật, `INDIRECT_JUMP`, memory load, shader, reference.
 
 Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**.
+
+## Iteration 051 — con trỏ đến từ đâu, và ai nói tên nó
+
+Baseline 050 tái lập đúng tới từng chữ số trước khi đổi bất cứ thứ gì (`iterations/051/BASELINE.md`).
+
+### Impostor
+
+| | 050 | 051 | Δ |
+|---|---|---|---|
+| `EXACT` | 2852 | 2852 | 0 |
+| `HIGH_CONFIDENCE` | 157 | 157 | 0 |
+| `PARTIAL` | 1158 | 1158 | 0 |
+| `FALLBACK` | 1315 | 1315 | 0 |
+| phục hồi không kèm đồ thế chỗ | 3009 | 3009 | 0 |
+| placeholder | 4502 | **4455** | −47 |
+| `METHOD_NOT_FOUND` | 715 | **691** | −24 |
+| `INDIRECT_CALL` | 207 | **183** | −24 |
+| `LOADED_POINTER` | 236 | **188** | −48 |
+| unresolved load | 2711 | 2712 | +1 |
+| Roslyn Assembly-CSharp | 344 | 344 | 0 |
+| **field layout** | 1394 / **0 bất đồng** | 1394 / **0** | 0 |
+| `.cs` / `genFail` | 819 / 0 | 819 / 0 | 0 |
+
+### Pinata (§21)
+
+| | 050 | 051 | Δ |
+|---|---|---|---|
+| `EXACT` | 9634 | 9634 | 0 |
+| `PARTIAL` | 3043 | 3043 | 0 |
+| phục hồi không kèm đồ thế chỗ | 10097 | 10097 | 0 |
+| placeholder | 14233 | **14166** | −67 |
+| Roslyn Assembly-CSharp | 1481 | 1481 | 0 |
+| **field layout** | 3170 / **0 bất đồng** | 3170 / **0** | 0 |
+| `.cs` / `genFail` | 3083 / 0 | 3083 / 0 | 0 |
+
+Trạng thái ngữ nghĩa không đổi là đúng như mong đợi: 48 và 90 dispatch phục hồi được nằm rải trong
+những method vốn đã mang nhiều placeholder khác.
+
+Phép đo mới:
+
+| | Impostor | Pinata |
+|---|---|---|
+| interface dispatch phục hồi | 48 | 90 |
+| `LOADED_POINTER:NATIVE_POINTER` (ranh giới runtime) | 124 | 197 |
+| `LOADED_POINTER:UNKNOWN:*` | 62 | 881 |
+| `ATOMIC_COMPARE_EXCHANGE` | **339** | 238 |
+| `ATOMIC_EXCHANGE` | 0 | 16 |
+
+Kho method vàng: **phép đo cũ là rỗng** — 0/61 method khớp, mà vẫn in `improved 0, regressed 0`. Sau
+khi sửa: 61/61 có mặt, improved 0 regressed 0 giữa 050 và 051; kho mở rộng lên 165, bản rip 050 đối
+chiếu baseline mới cũng improved 0 regressed 0.
+
+Test 414 → **448** (1 lỗi có sẵn).
+
+**Không** làm, có chủ ý: không ánh xạ `0xAF4130` (có luật nhận diện, chưa có luật chọn overload);
+không đụng 34 ô vtable thật; không gọi tên `0xAD947C`; Unity `UNITY_NOT_AVAILABLE`; audit đối chiếu
+nguồn NOT_RUN (nguồn không có trong container).
+
+Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**.

@@ -1291,6 +1291,70 @@ find it; `strings` without `-el` does find method and type names.
   catastrophic-looking regression that was a mid-export snapshot. The per-assembly counts were
   identical the moment the run finished. Wait for the process, not for a line in its log.
 
+- **An interface call il2cpp compiled as a runtime lookup is still an interface call, and the lookup's
+  own arguments are the whole answer.** Where the receiver's class is known at compile time the
+  compiler emits the interface offset and slot inline, which `InterfaceDispatchRecovery` matches;
+  where it is not — shared generic code, or a receiver typed as the interface — it calls a helper with
+  `(receiver, Il2CppClass* of the interface, slot)` and calls through the `VirtualInvokeData` it hands
+  back. The helper is not exported and no managed method sits there, so the whole dispatch reaches the
+  generator as one indirect call: the largest `LOADED_POINTER` group on the test game. The slot is the
+  index of the method *within the interface* — `vtable[interfaceOffset + slot]`, the offset from the
+  receiver's class at run time and the slot from the interface — so the answer is exactly
+  `interface.Methods[slot]`, which is what the C# source named. `ExposedList<T>.AddCollection` comes
+  back as `collection.Count` and `collection.CopyTo`, `ICollection<T>` slots 0 and 5. Nothing needs the
+  helper's address and nothing may use one.
+- **A `Call`'s operand 0 is its target and operand 1 its return value, so its arguments begin at 2.**
+  Reading them from 1 is off by one at every site and matches nothing at all, which is indistinguishable
+  from a pass that never fires.
+- **A pointer is almost never used where it was made, so a pass that reads only the operand in front of
+  it matches nothing.** All 592 interface dispatches were at least one `Move` or one `Phi` from the call
+  that produced their pointer. `PointerProvenance` is that backward walk, kept in one place and testable
+  without metadata: a merge answers only when every branch reaches the same producer, a revisit
+  contributes nothing rather than recursing.
+- **A helper with an inline fast path must be matched forwards, from the lookup to the dispatch.** The
+  pointer the dispatch reads is a phi of the helper's result and an address the compiler computed
+  itself, and a backward walk correctly refuses to pick one input of a merge. Forwards asks a question
+  with one answer — what does this lookup's result reach — and both branches of that merge are the same
+  dispatch, which is why the fast path exists. `InterfaceInvokeDataRecovery` runs twice for the same
+  reason placements keep needing to be doubled here: inside SSA the phi is explicit, and out of SSA the
+  load has been folded into the dispatch and a slot that was a register has become a constant. Neither
+  placement sees what the other does; one alone gets 16 of 48.
+- **`MethodInfo` carries three function pointers and 2022 moved two of them.** `methodPointer` is 0 in
+  every layout; `virtualMethodPointer` was *inserted* as the second field in 2022, so `invoker_method`
+  is at one pointer before it and two after, and `klass` moves with it (0x18 → 0x20). They mean three
+  different things — a direct call, a dispatch that needs the receiver, and the runtime's
+  reflection-style trampoline that names no managed target at all — so a label keyed on a raw offset,
+  like the old `METHODINFO_POINTER_AT_0x10`, reads as a different family on the next build. Measured
+  from the struct database, with no fallback entry: a layout that is not known answers "not known".
+- **A compare-and-swap can be named by its instructions, and that is the discovery rule iteration 050
+  lacked.** A64 has exactly one way to write one before LSE — an exclusive load, a comparison, an
+  exclusive store to the *same* address — and the encodings are unambiguous. The width and ordering
+  bits must stay outside the mask: of the test game's four compare-and-swap entry points one is the
+  32-bit form and one uses plain `LDXR`. Three of the four are reachable from
+  `Interlocked::CompareExchange` through thunks and confirm what the family is; the fourth, `0xAF4130`
+  with its 339 event-accessor callers, is only reachable this way. `AtomicIntrinsicRecognizer` reports
+  and does not rewrite: a wrong mapping corrupts 339 accessors silently, and choosing the overload
+  (`ref object` / `ref int` / generic) is a second decision the evidence does not settle.
+- **`LOADED_POINTER` is a symptom and it splits five ways.** On the test game: 124 produced by an
+  unresolved call — a runtime boundary, not a type-recovery failure — 38 a register's entry value, 22
+  producers that disagree, 2 a `MethodInfo`'s own entry point. Two thirds of what is left is not
+  somewhere to add typing rules. Pinata's distribution is nothing like it (769 disagreeing, 61 delegate,
+  24 array, 18 stack), the same way every family here is distributed by the compiler's instruction
+  selection rather than by the program.
+- **The golden corpus was measuring nothing, three times, and printing `improved 0, regressed 0`.** Its
+  keys are relative to the *game directory inside* the rip, so `Test/Output051b` matches 0 of 61 while
+  `Test/Output051b/Impostor` matches 61 of 61 — and nothing said so. It now answers
+  `CORPUS_NOT_APPLICABLE` with a non-zero exit. The union-on-reselection rule recorded in this file was
+  also never in the code: `--select` ignored `--corpus` and overwrote the file, so a reselection would
+  have replaced all 61 frozen entries with 165 new ones. Both fixed; the corpus is 165 now, with the
+  original 61 a subset.
+- **A measurement must refuse a rip that is still being written.** Iteration 050's watch fired on a log
+  line rather than on the process and reported 280 `.cs` files against 819 and 1845 methods against
+  5482 — the worst-looking regression in the project's history, and a snapshot of a directory being
+  filled in. No count can separate "this rip is small" from "this rip is not finished"; only the log
+  can. `recovery_metrics.py` and `placeholder_families.py` both stop on a log with no completion
+  marker, and `Test/Scripts/test_measurement_completeness.sh` goes red if that guard is removed.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1429,7 +1493,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Ten scripts, and each measures something the others cannot:
+Eleven scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1447,13 +1511,15 @@ Ten scripts, and each measures something the others cannot:
   much of a body came back rather than how many complaints it printed.
 - `Test/Scripts/instruction_coverage.py` — native opcodes the lifter has no rule for, per fixture,
   with the implemented set read out of the lifter's own switch.
-- `Test/Scripts/golden_corpus.py` — 61 frozen methods, one per (operation class, status) plus the
+- `Test/Scripts/golden_corpus.py` — 165 frozen methods, one per (operation class, status) plus the
   worst method carrying each placeholder family, checked one method at a time against
   `Test/golden-corpus-baseline.json`. The only measure that can say a particular method got worse
   while the total got better, which is the shape this pipeline keeps producing. The list is unioned
   on reselection, never replaced: a frozen entry that gets dropped is a hole in the net.
 - `Test/Scripts/runtime_helper_report.py` — the runtime helpers managed code still calls unresolved,
   ranked by call sites, with the caller profile that decides whether one can be named at all.
+- `Test/Scripts/test_measurement_completeness.sh` — that a measurement refuses a rip still being
+  written. Ten cases; two go red if the guard is removed.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are

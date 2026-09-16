@@ -5,9 +5,11 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 047 (hoàn tất; bằng chứng cho hai họ runtime + phép đo theo từng method,
-                          không đổi một byte nào của bản rip. Ship: cột consumer, gọi tên bitfield
-                          theo bit, method_recovery_report.py, ITERATION_047)
+Iteration hiện tại: 051 (hoàn tất; interface call biên dịch thành tra cứu lúc chạy được phục hồi,
+                          LOADED_POINTER tách làm năm, compare-and-swap gọi tên bằng mã của nó.
+                          Ship: InterfaceInvokeDataRecovery, PointerProvenance, LoadedPointerKind,
+                          AtomicIntrinsicRecognizer, ba offset con trỏ hàm của MethodInfo được ĐO,
+                          chốt chặn đo giữa chừng bản export, sửa kho method vàng, ITERATION_051)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -47,7 +49,15 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là 044b (Impostor); giống 043a tới từng chữ số.
+  rảnh giữa hai iteration. Baseline cho iteration sau là Test/Output051b (Impostor) và
+  Test/Output051p (Pinata), log Test/AR051b.log và Test/AR051p.log, chép trong iterations/051/logs.
+
+  HAI CÁI BẪY ĐO ĐÃ SỬA Ở 051, ĐỌC TRƯỚC KHI ĐO:
+    - golden_corpus.py nhận root là THƯ MỤC GAME bên trong bản rip (Test/Output051b/Impostor), không
+      phải thư mục output. Chĩa sai một cấp thì 0/61 khớp và nó vẫn in "improved 0, regressed 0".
+      Giờ nó trả CORPUS_NOT_APPLICABLE và mã lỗi 3.
+    - recovery_metrics.py và placeholder_families.py TỪ CHỐI đo một bản rip mà log chưa ghi nhận
+      export kết thúc. Chờ tiến trình thoát, đừng chờ một dòng log.
 
 Iteration 044 — bốn thứ phải biết trước khi làm tiếp:
 

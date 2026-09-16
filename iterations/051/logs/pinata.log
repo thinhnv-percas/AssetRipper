@@ -1,0 +1,1264 @@
+System : System Tester
+System : System Version: Unix 6.18.44.33
+System : Operating System: Linux x64
+System : AssetRipper Version: 1.3.14.0
+System : AssetRipper Build Type: Release Compiled
+System : UTC Current Time: Wed Sep 16 08:39:50 UTC 2026
+System : UTC Compile Time: Unknown
+
+General : Configuration Settings:
+General : ExportRootPath: /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.SystemTester/Release/Ripped
+General : ScriptContentLevel: Level3
+General : StreamingAssetsMode: Extract
+General : DefaultVersion: 0.0.0a0
+General : TargetVersion: 0.0.0a0
+General : EmitIl2CppOffsets: True
+General : ReconstructNativeBodies: True
+General : Il2CppStructDbPath: /home/user/AssetRipper/StructDb
+General : EnablePrefabOutlining: False
+General : EnableStaticMeshSeparation: True
+General : EnableAssetDeduplication: False
+General : BundledAssetsExportMode: DirectExport
+General : AudioExportFormat: Default
+General : ImageExportFormat: Png
+General : LightmapTextureExportFormat: Yaml
+General : ScriptExportMode: Decompiled
+General : ScriptLanguageVersion: AutoSafe
+General : ShaderExportMode: Dummy
+General : SpriteExportMode: Yaml
+General : TextExportMode: Parse
+General : ExportUnreadableAssets: False
+General : PreferOriginalTextureExtension: True
+General : ClearExportDirectory: True
+Import : Attempting to read files from Test/Input/Pinata
+Import : Android game structure has been found at 'Test/Input/Pinata'
+Import : Collecting game files...
+Import : Asset bundle 'data.unity3d' has been found
+Import : Files use the 'IL2Cpp' scripting backend.
+Import : Il2Cpp recovery installed: offset attributes on, body reconstruction on, struct database /home/user/AssetRipper/StructDb.
+Import : During Il2Cpp initialization, found Unity version: 2019.2.6f1
+Cpp2IL : Initializing Metadata...
+Cpp2IL : Using actual IL2CPP Metadata version 24.2
+Cpp2IL : Initialized Metadata in 209ms
+Cpp2IL : Using binary type ELF (from LibCpp2IL)
+Cpp2IL : Searching Binary for Required Data...
+Cpp2IL : Got Binary codereg: 0x1EA0DE0, metareg: 0x1EA18E8 in 40ms.
+Cpp2IL : Initializing Binary...
+Cpp2IL : Initialized Binary in 84ms
+Cpp2IL : Mapping Globals...
+Cpp2IL : OK (24ms)
+Cpp2IL : Mapping pointers to Il2CppMethodDefinitions...
+Cpp2IL : Processed 45831 OK (73ms)
+Cpp2IL : Creating application model...
+Cpp2IL : Application model created in 719.9618ms
+Import : IL2CPP struct database: 370 Unity versions indexed from /home/user/AssetRipper/StructDb
+Import : IL2CPP struct database: applied 9 measured Il2CppClass and 3 MethodInfo offsets for Unity 2019.2.6f1 (64-bit).
+Import : IL2CPP struct database loaded: Unity 2019.2.6f1, 64-bit, sizeof(Il2CppClass) = 304
+Import : Il2Cpp recovery: Unity 2019.2.6f1, metadata v24.2, 64-bit, instruction set Arm64InstructionSetSelector.
+Import : Il2Cpp recovery: 42 assemblies will be attempted, 42 framework assemblies will be stubbed. Attempted: AdjustSDK, Apple, AppMetricaSDK, AppMetricaSDK.Editor, AppsFlyerSDK, Assembly-CSharp, Assembly-CSharp-firstpass, ConditionalExpression, DOTween, DOTween.Modules, DOTweenPro, DOTweenPro.Scripts, EasyMobile, EasyMobile.Generated, Facebook.Unity, Facebook.Unity.Android, Facebook.Unity.IOS, Facebook.Unity.Settings, FacebookStore, Firebase.App, Firebase.Platform, GameAnalyticsSDK, GameAnalyticsSDK.Playmaker, GBG.Pinata.ECS, IronSourceSDK, LunarConsoleSDK, Mono.Security, Morpeh, Morpeh.Hypercasual, MyTrackerSDK, NiceVibrationsSDK, Obi, PlayMaker, Purchasing.Common, Security, Sirenix.OdinInspector.Attributes, Sirenix.Utilities, Stores, TenjinSDK, Tizen, UDP, winrt
+Import : Il2Cpp field layout self-check: of 3221 non-generic types with measured offsets, 3170 reproduced exactly, 51 laid out too few fields, 0 disagreed.
+Import : Il2Cpp value-type layout self-check: of 458 non-generic structs with measured offsets, 435 reproduce at metadata+header, 0 at metadata itself, 5 at neither, 18 could not be laid out.
+Import : Il2Cpp recovery: 29 il2cpp runtime helpers located, 6 not.
+Import : Il2Cpp recovery: helpers located: il2cpp_codegen_initialize_method=0x8D8204, il2cpp_runtime_class_init_export=0x86CF04, il2cpp_runtime_class_init_actual=0x8931A4, il2cpp_codegen_runtime_class_init=0x8D8298, il2cpp_object_new=0x86CE8C, il2cpp_vm_object_new=0x89178C, il2cpp_codegen_object_new=0x8D82B4, il2cpp_array_new_specific=0x86C930, il2cpp_vm_array_new_specific=0x88B6F8, SzArrayNew=0x8D8214, il2cpp_type_get_object=0x86CF90, il2cpp_vm_reflection_get_type_object=0x89C870, il2cpp_resolve_icall=0x86C914, InternalCalls_Resolve=0x894B8C, il2cpp_string_new=0x86CF1C, il2cpp_vm_string_new=0x88BC1C, il2cpp_string_new_wrapper=0x86CF20, il2cpp_vm_string_newWrapper=0x8A110C, il2cpp_codegen_string_new_wrapper=0x8D83F8, il2cpp_value_box=0x86CEB4, il2cpp_vm_object_box=0x88C348, il2cpp_object_unbox=0x86CEB0, il2cpp_vm_object_unbox=0x88C2BC, il2cpp_raise_exception=0x86CC9C, il2cpp_vm_exception_raise=0x89053C, il2cpp_class_is_assignable_from=0x86C958, il2cpp_vm_class_is_assignable_from=0x88D70C, il2cpp_vm_object_is_inst=0x899F2C, il2cpp_codegen_object_is_inst=0x8D82A4
+Import : Il2Cpp recovery: helpers not located: il2cpp_codegen_initialize_runtime_metadata, il2cpp_codegen_initialize_runtime_metadata_inline, il2cpp_vm_metadatacache_initializemethodmetadata, il2cpp_codegen_raise_exception, il2cpp_codegen_write_barrier, AddrPInvokeLookup
+Import : Il2Cpp recovery: sampled 200 methods from the game's assemblies — 200 lifted to ISIL, 0 produced none, 0 over the 30000 byte analysis cap, 0 threw.
+Import : Native source injection: reconstructed 16632 method bodies.
+Import [Warning] : Native source injection hit the 4194304 character per-assembly budget in Assembly-CSharp; later methods in those assemblies have no reconstruction. Raise NativeSourceOptions.CharacterBudgetPerAssembly to cover more.
+Cpp2IL : Finding key function addresses...
+Cpp2IL : Key function addresses found in 0.0042ms
+Import : Il2Cpp method body recovery attempted 18440 methods; 0 failed to convert. Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.
+Import : Il2Cpp method body recovery: 7 calls to a C library function were emitted as the C# operation equivalent to it.
+Import : Il2Cpp method body recovery: 90 interface dispatches compiled as a runtime lookup were resolved to the interface method the slot names.
+Import : Il2Cpp method body recovery: 4737 calls became a placeholder, by how many managed methods sit on the address:
+Import :          4388 NO_MANAGED_METHOD
+Import :           336 NOT_AN_ADDRESS
+Import :             6 SHARED_10s
+Import :             4 SHARED_2
+Import :             2 SHARED_3
+Import :             1 SHARED_100s
+Import : Il2Cpp method body recovery: the same calls, by what would have to change to resolve them:
+Import :          2614 RUNTIME_HELPER
+Import :          1463 NATIVE_ONLY
+Import :           336 INDIRECT_TARGET
+Import :           238 ATOMIC_COMPARE_EXCHANGE
+Import :            57 RUNTIME_HELPER_VENEER
+Import :            16 ATOMIC_EXCHANGE
+Import :            13 GENERIC_SHARED
+Import : Il2Cpp method body recovery: 1591 indirect jumps survived across 53571 analysed method bodies, by what the target register holds:
+Import :           782 VTABLE_SLOT
+Import :           386 LOADED_POINTER:UNKNOWN:PRODUCERS_DISAGREE
+Import :           352 DEFINED_BY_Add
+Import :            20 LOADED_FROM_delegate
+Import :            15 DEFINITIONS_DISAGREE
+Import :            14 LOADED_POINTER:NATIVE_POINTER
+Import :            10 LOADED_POINTER:UNKNOWN:ENTRY_VALUE
+Import :             7 LOADED_FROM_valuetype
+Import :             2 LOADED_POINTER:VTABLE_POINTER
+Import :             2 LOADED_FROM_reference
+Import :             1 LOADED_POINTER:METHOD_POINTER
+Import : Il2Cpp method body recovery: 2031 indirect calls survived, by what the target holds - and for a vtable slot, by what the virtual resolver would have said:
+Import :           769 LOADED_POINTER:UNKNOWN:PRODUCERS_DISAGREE
+Import :           220 LOADED_FROM_reference
+Import :           197 LOADED_POINTER:NATIVE_POINTER
+Import :           184 DEFINITIONS_DISAGREE
+Import :           126 LOADED_FROM_delegate
+Import :            98 LOADED_POINTER:UNKNOWN:ENTRY_VALUE
+Import :            72 VTABLE_SLOT_UNRESOLVED
+Import :            66 LOADED_FROM_valuetype
+Import :            61 LOADED_POINTER:DELEGATE_POINTER
+Import :            55 MANAGED_FIELD
+Import :            39 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Box
+Import :            32 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Move
+Import :            24 LOADED_POINTER:ARRAY_DATA_POINTER
+Import :            18 LOADED_POINTER:STACK_POINTER
+Import :            18 VTABLE_BASE_IS_StaticFieldStorageType
+Import :            14 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Add
+Import :            12 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Newobj
+Import :            10 LOADED_POINTER:IL2CPP_CLASS_POINTER
+Import :             6 VTABLE_RESOLVABLE
+Import :             6 OTHER_ArrayAccess
+Import :             4 LOADED_POINTER:FIELD_POINTER
+Import : Il2Cpp method body recovery: 9241 memory loads the generator gave up on, by kind:
+Import :          1316 Il2CppClass.interface_offsets_count   e.g. ASN1.GetBytes: 71 CheckEqual v924 @ TEMP_v48 (System.Boolean), [v921 @ X8_v43 (Il2CppClass<System.Collections.IEnumerator>)+126], 0
+Import :          1043 base has no type, from Add of an untyped local and Immediate   e.g. MD4Managed.Encode: 107 Move output[v265 @ X13_v12 (System.Int32)], [v253 @ X10_v7+2]
+Import :           711 base has no type, from Move from AddressOf(stack_-10)   e.g. BitConverterLE.ToUInt16: 15 Return [v4 @ X29_v1-4]
+Import :           658 Il2CppClass.interfaceOffsets   e.g. ASN1.GetBytes: 75 Add v989 @ X11_v23, [v921 @ X8_v43 (Il2CppClass<System.Collections.IEnumerator>)+B0], 8
+Import :           610 past the last field of the base type   e.g. PKCS12.ReadSafeBag: 133 Call PKCS12.Decrypt, v698 @ X0_v104 (System.Byte[]), this @ X0 (Mono.Security.X509.PKCS12), [v619 @ X0_v97 (System.Object)+10], v685 @ X0_v100 (System.Byte[]), [v619 @ X0_v97 (System.Object)+20], v690 @ X0_v102 (System.Byte[])
+Import :           487 base has no type, from Move from AddressOf(an untyped local)   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 894 Move v1569 @ X8_v105, [v21 @ X29-68]
+Import :           393 value type base   e.g. PrimalityTests.GetSPPRounds: 200 Add v224 @ X8_v13, [v222 @ X9_v2 (System.Int32)+confidence @ X1 (Mono.Math.Prime.ConfidenceFactor)*4], v222 @ X9_v2 (System.Int32)
+Import :           373 base has no type, from Move from an untyped base   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 453 CheckLess v1282 @ C_v62 (System.Boolean), [v1279 @ X8_v93+128], [v1280 @ X1_v70+128]
+Import :           318 Il2CppClass.cctor_finished   e.g. ASN1.ToString: 163 Move v188 @ X8_v18 (System.Int32), [v372 @ X22_v11 (Il2CppClass<System.EmptyArray`1<System.Object>>)+E0]
+Import :           317 Il2CppClass.0x12E   e.g. ASN1.ToString: 143 Move v188 @ X8_v18 (System.Int32), [v358 @ X22_v8 (Il2CppClass<System.EmptyArray`1<System.Object>>)+12E]
+Import :           266 between fields of the base type   e.g. MessageBase.PrepareMessage: 101 Move v46[10], [this @ X0 (Mono.Security.Protocol.Ntlm.MessageBase)+12]
+Import :           194 base has no type, from a call's result   e.g. PKCS12.get_Keys: 189 Call String.Equals, v1675 @ X0_v93 (System.Boolean), [v1306 @ X0_v84+10], [v240 @ X27_v26 (System.String)]
+Import :           127 generic instance, value type argument   e.g. UDPImpl.RetrieveProducts: 148 Move v150 @ X3_v5, [v256 @ X0_v16 (System.Action`2<System.Boolean, System.String>)+8]
+Import :           126 Il2CppMethodInfo.0x48   e.g. FakeStore.StoreRetrieveProducts: 768 ShiftLeft v994 @ TEMPSHIFT_v7 (System.Int32), [v991 @ X1_v13 (Il2CppMethodInfo)+48], 4
+Import :            99 base has no type, from Add of Vector3[] and Int32   e.g. Vector3ArrayPlugin.ConvertToStartValue: 85 Move v187 @ V0_v6 (UnityEngine.Vector3), [v281 @ X12_v10+14]
+Import :            77 absolute address   e.g. Type2Message.get_Nonce: 9 And v14 @ TEMP_v1 (System.Int32), [2027AAD], 1
+Import :            70 Il2CppClass.static_fields   e.g. StrongToWeakDictionary`2.get_Pairs: 61 Move v79 @ X8_v9 (Il2CppStaticFields<EasyMobile.Internal.StrongToWeakDictionary`2<TKey, TValue>+<>c<TKey, TValue>>), [v68 @ X21_v3 (Il2CppClass<EasyMobile.Internal.StrongToWeakDictionary`2<TKey, TValue>+<>c<TKey, TValue>>)+B8]
+Import :            64 Il2CppClass.0x12F   e.g. JSONSerializer.DeserializeFailureReason: 153 And v488 @ TEMP_v25 (System.Int32), [v486 @ X8_v25 (Il2CppClass<System.Enum>)+12F], 2
+Import :            62 base has no type, from Move from [Voxel[3] + 0x10]   e.g. MeshVoxelizer.AppendOverlappingVoxels: 240 CheckLess v775 @ C_v24 (System.Boolean), v774 @ X11_v10, [v745 @ X9_v9+10]
+Import :            56 generic instance, reference arguments   e.g. MainThreadProperty`1.get_Value: 88 CheckEqual v115 @ Z_v15 (System.Boolean), [this @ X0 (Firebase.Platform.MainThreadProperty`1<T>)+1C], 0
+Import :            56 base has no type, from no definition   e.g. JSONStore.get_storeCatalog: 240 Call String.op_Equality, v808 @ X0_v63 (System.Boolean), v796.<storeSpecificId>k__BackingField (System.String), [v478 @ stack_-88+18]
+Import :            50 base has no type, from Add of an untyped local and Int32   e.g. Vector3ArrayPlugin.EvaluateAndApply: 456 Multiply v1049 @ V1_v59 (System.Single), v447 @ V0_v6 (System.Single), [v1043 @ X8_v76+20]
+Import :            40 Il2CppClass.0x160   e.g. Parser.ParseString: 286 Move v266 @ X2_v3, [v307 @ X8_v8 (Il2CppClass<System.Text.StringBuilder>)+160]
+Import :            39 Il2CppClass.0x168   e.g. Parser.ParseString: 287 Move v299 @ X1_v5, [v307 @ X8_v8 (Il2CppClass<System.Text.StringBuilder>)+168]
+Import :            37 Il2CppClass.0x178   e.g. Type2Message..ctor: 48 Move v67 @ X2_v1, [v63 @ X8_v10 (Il2CppClass<Mono.Security.Protocol.Ntlm.Type2Message>)+178]
+Import :            37 Il2CppClass.0x188   e.g. Oid.GetOidName: 80 Move v98 @ X2_v1, [v91 @ X8_v11 (Il2CppClass<System.Collections.Specialized.StringDictionary>)+188]
+Import :            36 base has no type, from Subtract   e.g. ProductDefinitionExtensions.DecodeJSON: 202 Move v243 @ V1_v14, [v357 @ X30_v24-100]
+Import :            33 Il2CppClass.0x170   e.g. Type2Message..ctor: 47 Move v66 @ X3_v1, [v63 @ X8_v10 (Il2CppClass<Mono.Security.Protocol.Ntlm.Type2Message>)+170]
+Import :            33 base has no type, from Move from [Object + 0x18]   e.g. PlayMakerTriggerEnter.OnTriggerEnter: 99 CheckEqual v234 @ TEMP_v26 (System.Boolean), [v110 @ X8_v15+141], 0
+Import :            32 Il2CppClass.0x180   e.g. Oid.GetOidName: 79 Move v97 @ X3_v1, [v91 @ X8_v11 (Il2CppClass<System.Collections.Specialized.StringDictionary>)+180]
+Import :            29 Il2CppClass.typeHierarchyDepth   e.g. Asn1Node.ClearAll: 69 ShiftLeft v47 @ TEMPSHIFT_v6 (System.Int32), [v51 @ X1_v8 (Il2CppClass<LipingShare.LCLib.Asn1Processor.Asn1Node>)+128], 3
+Import :            26 base has no type, from Add of an untyped base and Int32   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 477 CheckNotEqual v1325 @ TEMPCOND_v45 (System.Boolean), [v1314 @ X8_v95-8], v1280 @ X1_v70
+Import :            24 Il2CppClass.0x198   e.g. CrossPlatformId.get_Id: 2 Move v3 @ X1_v1, [v0 @ X8_v1 (Il2CppClass<EasyMobile.CrossPlatformId>)+198]
+Import :            22 static field storage at 0x8   e.g. StrongToWeakDictionary`2.get_Pairs: 62 Move v111 @ X21_v5 (System.Func`2<System.Collections.Generic.KeyValuePair`2<TKey, EasyMobile.Internal.StrongToWeakDictionary`2<TKey, TValue>+WeakReference`1<TKey, TValue, TValue>>, System.Collections.Generic.KeyValuePair`2<TKey, EasyMobile.Internal.StrongToWeakDictionary`2<TKey, TValue>+WeakReference`1<TKey, TValue, TValue>>>), [v79 @ X8_v9 (Il2CppStaticFields<EasyMobile.Internal.StrongToWeakDictionary`2<TKey, TValue>+<>c<TKey, TValue>>)+8]
+Import :            22 base has no type, from Move from [IObiConstraints + 0x28]   e.g. ObiRod.RebuildElementsFromConstraintsInternal: 75 CheckEqual v329 @ TEMP_v10 (System.Boolean), [v232 @ X20_v6+18], 0
+Import :            22 Il2CppClass.0x5C8   e.g. UIFakeStore.InstantiateDialog: 281 Move v427 @ X2_v6 (System.IntPtr), [v230 @ X9_v14 (Il2CppClass<UnityEngine.UI.Text>)+5C8]
+Import :            21 base has no type, from Move from AddressOf(stack_-70)   e.g. Dispatcher.PollJobs: 106 CheckEqual v174 @ Z_v6 (System.Boolean), [v55 @ X23_v1+v97 @ X28_v2*4], 64
+Import :            19 Il2CppClass.0x2A8   e.g. InstallRootCerts.IsCertBugPresent: 53 Move v138 @ X1_v5 (System.Int32), [v151 @ X8_v18 (Il2CppClass<System.Type>)+2A8]
+Import :            18 Il2CppClass.0x2A0   e.g. FirebaseEditorDispatcher.ListenToPlayState: 191 Move v71 @ X4_v2, [v118 @ X8_v37 (Il2CppClass<System.Reflection.EventInfo>)+2A0]
+Import :            18 base has no type, from Move from [Vector3Int[3] + 0x10]   e.g. VoxelDistanceField.JumpFlood: 258 CheckLess v694 @ C_v32 (System.Boolean), v238 @ X22_v13 (System.Int32), [v568 @ X9_v15+10]
+Import :            18 Il2CppClass.0x5C0   e.g. AdClientImpl.IsInterstitialAdReady: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+5C0]
+Import :            18 base has no type, from Move from AddressOf(stack_-80)   e.g. JSONSerializer.EncodeProductDef: 626 CheckEqual v794 @ Z_v7 (System.Boolean), [v54 @ X25_v1+v650 @ X23_v3 (System.Int32)*4], 447
+Import :            17 Il2CppClass.0x338   e.g. ASN1.GetBytes: 268 CheckNotEqual v816 @ TEMPCOND_v44 (System.Boolean), [v233 @ X8_v27 (Il2CppClass<System.Collections.ArrayList>)+338], 1
+Import :            17 Il2CppClass.0x268   e.g. ASN1.get_Item: 25 Move v171 @ X1_v5 (Il2CppClass<Mono.Security.ASN1>), [v44 @ X8_v4 (Il2CppClass<System.Collections.ArrayList>)+268]
+Import :            16 base has no type, from Move from an absolute address   e.g. TweenExtensions.GotoWaypoint: 158 CheckLess v93 @ C_v6 (System.Boolean), [v89 @ X9_v2+128], [v90 @ X8_v28 (Il2CppClass<DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions>>)+128]
+Import :            16 base has no type, from Move from AddressOf(stack_-1E0)   e.g. ObiSolver.UpdateVisibility: 105 Move v1209 @ V1_v17, [v25 @ X19_v1+174]
+Import :            16 Il2CppClass.0x298   e.g. ASN1.get_Item: 46 Move v158 @ X2_v4 (Il2CppMethodInfo), [v126 @ X8_v10 (Il2CppClass<System.Collections.ArrayList>)+298]
+Import :            15 base has no type, from Add of Quaternion[] and Int32   e.g. ObiActor.LoadBlueprintParticles: 348 MakeStruct v161 @ AGGE36C38_1_v6 (UnityEngine.Quaternion), typeof(UnityEngine.Quaternion), [v1360 @ X8_v83+20], v744[v540 @ X25_v5 (System.Int32)].y (System.Single), v744[v540 @ X25_v5 (System.Int32)].z (System.Single), v744[v540 @ X25_v5 (System.Int32)].w (System.Single)
+Import :            14 base has no type, from Add of [WeaponSetup + 0x10] and Int32   e.g. GameStateSystem.MenuLogic: 237 Move v182 @ X8_v28, [v708 @ X8_v27+20]
+Import :            13 byref at 0x8, from no definition   e.g. Entity.Has: 10 And v11 @ X8_v5 (System.Int64), [mask @ X1 (Morpeh.Utils.FastBitMask&)+8], v10 @ TEMP_v5 (System.Int64)
+Import :            13 base has no type, from Move from [SetTextFromVariableSystem + 0x0]   e.g. SetTextFromVariableSystem.OnUpdate: 129 CheckLess v468 @ C_v13 (System.Boolean), [v133 @ X21_v8+18], v90 @ X27_v7 (System.Int32)
+Import :            12 base has no type, from Add of an untyped local and an untyped local   e.g. Vector3ArrayPlugin.EvaluateAndApply: 140 MakeStruct v529 @ AGG10DF030_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v871 @ X8_v106+20], [v871 @ X8_v106+24], [v871 @ X8_v106+28]
+Import :            12 Il2CppClass.typeHierarchy   e.g. Asn1Node.ClearAll: 70 Add v228 @ X8_v12, [v203 @ X8_v9 (Il2CppClass<LipingShare.LCLib.Asn1Processor.Asn1Node>)+C8], v47 @ TEMPSHIFT_v6 (System.Int32)
+Import :            12 static field storage at 0x10   e.g. Promo.ProvideProductsToAds: 86 CallVoid Dictionary`2<System.String, System.Object>.Add, v352 @ X0_v54 (System.Collections.Generic.Dictionary`2<System.String, System.Object>), "productId", [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+10]
+Import :            12 base has no type, from Add of the field Vector3[] and Int32   e.g. DOTweenPath.Awake: 268 MakeStruct v303 @ AGG163B8F0_0_v10 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v337 @ X25_v11+20], [v337 @ X25_v11+24], [v337 @ X25_v11+28]
+Import :            11 base has no type, from Move from AddressOf(stack_-60)   e.g. MainThreadProperty`1.get_Value: 288 CheckEqual v150 @ Z_v5 (System.Boolean), [v52 @ X25_v1+v136 @ X26_v1 (System.Int32)*4], 222
+Import :            11 Il2CppClass.0x290   e.g. NamedVariable.get_TypeConstraint: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<HutongGames.PlayMaker.NamedVariable>)+290]
+Import :            11 byref at 0x8, from a call's result   e.g. BaseGlobalEvent`1.get_BatchedChanges: 30 Return [v47 @ X0_v6 (Morpeh.Globals.ECS.GlobalEventComponent`1<TData>&)+8]
+Import :            11 base has no type, from Move from [Il2CppClass<ProGrids.pg_Util> + 0x0]   e.g. pg_Util.SnapIsEnabled: 509 And v710 @ TEMP_v47 (System.Int32), [v767 @ X0_v47+12F], 2
+Import :            11 base has no type, from Add of Vector3[] and an untyped local   e.g. Vector3ArrayPlugin.EvaluateAndApply: 139 MakeStruct v530 @ AGG10DF030_0_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v869 @ X9_v30+20], changeValue[v819 @ X8_v104].y (System.Single), changeValue[v819 @ X8_v104].z (System.Single)
+Import :            11 Il2CppClass.0x1E8   e.g. PKCS12.GetBytes: 569 Move v993 @ X1_v195 (Il2CppClass<Mono.Security.X509.X509Certificate>), [v2004 @ X8_v326 (Il2CppClass<Mono.Security.X509.X509Certificate>)+1E8]
+Import :            10 base has no type, from Move from AddressOf(stack_-50)   e.g. InstallRootCerts.DecodeDefaultCollection: 150 CheckEqual v448 @ Z_v16 (System.Boolean), [v44 @ X22_v1+v225 @ X23_v8 (System.Int32)*4], 90
+Import :            10 Il2CppClass.vtable   e.g. CrossPlatformId.op_Equality: 3 Move v3 @ X3_v1, [v2 @ X8_v1 (Il2CppClass<EasyMobile.CrossPlatformId>)+130]
+Import :            10 base has no type, from Add of Color[] and Int32   e.g. TextureUtilities.PointScale: 127 Move [v394 @ X9_v16+20], [v393 @ X12_v11+20]
+Import :            10 byref at 0x4, from no definition   e.g. ColorUtils.ToRGBA: 11 Multiply v11 @ V1_v2, [value @ X0 (UnityEngine.Color&)+4], v12 @ V4
+Import :            10 base has no type, from Move from AddressOf(stack_-C0)   e.g. InstallRootCerts.InstallDefaultCRLs: 321 CheckNotEqual v1568 @ TEMPCOND_v46 (System.Boolean), [v55 @ X27_v1+v992 @ X26_v9*4], 158
+Import :             9 base has no type, from Newobj   e.g. ArrayShuffle.OnEnter: 49 Subtract v343 @ X22_v8 (System.Int32), [v128 @ X0_v10+18], 1
+Import :             9 base has no type, from Move from AddressOf(stack_-2A0)   e.g. ObiPathSmoother.GenerateSmoothChunks: 121 Move v60 @ V0 (System.Single), [v2459 @ X8_v25+30]
+Import :             9 array at 0x20, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 152 MakeStruct v527 @ AGG10DF048_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [changeValue @ X7 (UnityEngine.Vector3[])+20], [changeValue @ X7 (UnityEngine.Vector3[])+24], [changeValue @ X7 (UnityEngine.Vector3[])+28]
+Import :             9 Il2CppClass.0x1D8   e.g. JSONNode.set_AsBool: 43 Move v63 @ X2_v1, [v47 @ X10_v1 (Il2CppClass<com.adjust.sdk.JSONNode>)+1D8]
+Import :             9 Il2CppClass.0x428   e.g. <>c__DisplayClass33_0.<DOValue>b__1: 5 Move v5 @ X1_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+428]
+Import :             9 static field storage at 0x20   e.g. Promo.ProvideProductsToAds: 101 Move v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>), [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+20]
+Import :             9 base has no type, from Add of AddressOf(stack_-1E0) and Immediate   e.g. ObiSolver.UpdateVisibility: 209 Move v1208 @ V2_v17, [v1192 @ X28_v15+30]
+Import :             9 Il2CppClass.0x848   e.g. FsmProperty.SetValue: 73 Move v646 @ X2_v8, [v261 @ X8_v13 (Il2CppClass<System.Type>)+848]
+Import :             8 base has no type, from Move from [Object + 0x10]   e.g. IronSourceEvents.onRewardedVideoAdLoadFailedDemandOnly: 96 Call IronSourceEvents.getErrorFromErrorObject, v206 @ X0_v12 (IronSourceError), v204 @ X0_v11 (IronSourceEvents), [v205 @ X8_v12+28]
+Import :             8 Il2CppClass.0x228   e.g. Asn1Node.ResetDataLengthFieldWidth: 60 Move v83 @ X1_v5, [v90 @ X8_v11 (Il2CppClass<System.IO.MemoryStream>)+228]
+Import :             8 base has no type, from IsInst   e.g. <>__AnonType0`3.Equals: 68 Move v106 @ X2_v5, [v45 @ X0_v3+15]
+Import :             8 base has no type, from Move from [Il2CppMethodInfo + 0x0]   e.g. <>c.<get_Pairs>b__4_1: 4 Move v4 @ X3_v1, [v2 @ X8_v1+180]
+Import :             8 base has no type, from Add of Color32[] and Int32   e.g. GifEncoder.GetImagePixels: 89 Move v65[v148 @ X10_v8 (System.Int32)], [v280 @ X12_v8+20]
+Import :             8 array at 0x28, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 152 MakeStruct v527 @ AGG10DF048_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [changeValue @ X7 (UnityEngine.Vector3[])+20], [changeValue @ X7 (UnityEngine.Vector3[])+24], [changeValue @ X7 (UnityEngine.Vector3[])+28]
+Import :             8 Il2CppClass.0x1C8   e.g. SequentialSearchPrimeGeneratorBase.GenerateNewPrime: 3 Move v4 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Mono.Math.Prime.Generator.SequentialSearchPrimeGeneratorBase>)+1C8]
+Import :             8 Il2CppClass.0x1C0   e.g. SequentialSearchPrimeGeneratorBase.GenerateNewPrime: 2 Move v3 @ X4_v1, [v0 @ X8_v1 (Il2CppClass<Mono.Math.Prime.Generator.SequentialSearchPrimeGeneratorBase>)+1C0]
+Import :             8 Il2CppClass.0x1D0   e.g. JSONNode.set_AsBool: 42 Move v62 @ X3_v1, [v47 @ X10_v1 (Il2CppClass<com.adjust.sdk.JSONNode>)+1D0]
+Import :             8 Il2CppClass.0x1E0   e.g. UnitySynchronizationContext.Send: 104 Move v129 @ X3_v4, [v160 @ X8_v14 (Il2CppClass<System.Threading.ManualResetEvent>)+1E0]
+Import :             8 base has no type, from Move from [Int32 + 0x0]   e.g. ProductDefinitionExtensions.DecodeJSON: 145 CheckLess v981 @ C_v58 (System.Boolean), [v977 @ X10_v18+128], [v978 @ X9_v33+128]
+Import :             8 base has no type, from Move from [Tween + 0x118]   e.g. TweenManager.Despawn: 120 CheckLess v429 @ TEMPCOND_v31 (System.Boolean), [v747 @ X20_v19+18], 1
+Import :             7 Il2CppClass.0x258   e.g. MD4Managed..ctor: 54 Move v68 @ X1_v7, [v63 @ X8_v4 (Il2CppClass<Mono.Security.Cryptography.MD4Managed>)+258]
+Import :             7 base has no type, from Add of RuntimePlatform[] and Int32   e.g. Settings.GetAvailablePlatforms: 76 Move v168 @ X21_v5 (UnityEngine.RuntimePlatform), [v223 @ X8_v17+20]
+Import :             7 base has no type, from Add of the field GridCell[] and Int32   e.g. ObiParticleGridDebugger.OnDrawGizmos: 61 CheckLessOrEqual v221 @ TEMPCOND_v7 (System.Boolean), [v209 @ X8_v4+38], 0
+Import :             7 base has no type, from Add of Voxel[3] and Int32   e.g. MeshVoxelizer.FloodFill: 254 CheckEqual v1028 @ TEMP_v64 (System.Boolean), [v1027 @ X8_v83+20], 0
+Import :             7 Il2CppClass.0x1A8   e.g. BigInteger.GeneratePseudoPrime: 34 Move v52 @ X2_v1, [v46 @ X8_v5 (Il2CppClass<Mono.Math.Prime.Generator.SequentialSearchPrimeGeneratorBase>)+1A8]
+Import :             7 base has no type, from Move from AddressOf(stack_-200)   e.g. ObiSolver.UpdateVisibility: 136 CheckNotEqual v149 @ TEMPCOND_v41 (System.Boolean), [v56 @ X26_v1+v130 @ X27_v3 (System.Int32)*4], 78
+Import :             7 Il2CppClass.0x250   e.g. MD4Managed..ctor: 53 Move v67 @ X2_v1, [v63 @ X8_v4 (Il2CppClass<Mono.Security.Cryptography.MD4Managed>)+250]
+Import :             7 base has no type, from Add of the field IconName[] and Int32   e.g. EditorConsentDialogClickableText.Start: 70 CallVoid Dictionary`2<System.String, UnityEngine.Sprite>.Add, this.iconList (System.Collections.Generic.Dictionary`2<System.String, UnityEngine.Sprite>), [v180 @ X8_v8+20], v50[v133 @ X9_v3 (System.Int32)].sprite (UnityEngine.Sprite)
+Import :             7 Il2CppClass.0x1A0   e.g. BigInteger.GeneratePseudoPrime: 33 Move v51 @ X3_v1, [v46 @ X8_v5 (Il2CppClass<Mono.Math.Prime.Generator.SequentialSearchPrimeGeneratorBase>)+1A0]
+Import :             7 base has no type, from Move from AddressOf(stack_-100)   e.g. StrongToWeakDictionary`2.CullDeadEntries: 345 CheckNotEqual v615 @ TEMPCOND_v14 (System.Boolean), [v54 @ X24_v1+v672 @ X25_v7 (System.Int32)*4], 140
+Import :             7 Il2CppClass.0x318   e.g. GifEncoder.Finish: 30 Move v186 @ X2_v3 (Il2CppMethodInfo), [v49 @ X8_v20 (Il2CppClass<System.IO.FileStream>)+318]
+Import :             6 byref at 0x8, from Add of Entity and Immediate   e.g. Entity.AddComponent: 229 CheckLess v346 @ TEMPCOND_v7 (System.Boolean), [v332 @ X8_v28 (System.Int32[]&)+8], 1
+Import :             6 base has no type, from Move from [Il2CppClass<com.adjust.sdk.JSONArray> + 0x0]   e.g. JSONNode.Parse: 227 CheckLess v931 @ C_v70 (System.Boolean), [v929 @ X9_v31 (Il2CppClass<com.adjust.sdk.JSONNode>)+128], [v930 @ X8_v70+128]
+Import :             6 Il2CppClass.0x310   e.g. GifEncoder.WriteGraphicCtrlExt: 89 Move v110 @ X3_v1, [v123 @ X8_v14 (Il2CppClass<System.IO.FileStream>)+310]
+Import :             6 array at 0x24, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 152 MakeStruct v527 @ AGG10DF048_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [changeValue @ X7 (UnityEngine.Vector3[])+20], [changeValue @ X7 (UnityEngine.Vector3[])+24], [changeValue @ X7 (UnityEngine.Vector3[])+28]
+Import :             6 base has no type, from Add of Calculation[] and Int32   e.g. CurveFsmAction.OnUpdate: 203 Move v809 @ X8_v32, [v808 @ X8_v31+20]
+Import :             6 Il2CppClass.0x260   e.g. PKCS12.set_Password: 171 Move v122 @ X7_v1, [v168 @ X8_v16 (Il2CppClass<System.Text.Encoding>)+260]
+Import :             6 base has no type, from Move from AddressOf(stack_-F0)   e.g. Advertising.DestroyAllBannerAds: 176 CheckNotEqual v200 @ TEMPCOND_v9 (System.Boolean), [v54 @ X23_v1+v116 @ X24_v5*4], 115
+Import :             6 base has no type, from Move from AddressOf(stack_-E0)   e.g. PKCS7.Verify: 146 CheckNotEqual v371 @ TEMPCOND_v17 (System.Boolean), [v56 @ X25_v1+v97 @ X26_v5*4], 131
+Import :             6 base has no type, from Add of ControlPoint[] and Int32   e.g. CubicBezierDecoder.SetWaypointsLengths: 126 Move [v156 @ X9_v7 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20], [v169 @ X11_v7+20]
+Import :             5 Il2CppClass.0x358   e.g. ASN1Convert.ToDateTime: 35 Move v71 @ X2_v6, [v68 @ X8_v11 (Il2CppClass<System.Text.Encoding>)+358]
+Import :             5 byref at 0x38, from a call's result   e.g. WeaponButtonProvider.Initialize: 62 Move v114 @ X8_v10, [v53 @ X0_v3 (WeaponButtonComponent&)+38]
+Import :             5 base has no type, from Move from [ObiActor + 0x88]   e.g. ObiRopeChainRenderer.UpdateRenderer: 134 Move v288 @ X24_v19 (System.Int32), [v1215 @ X8_v26+18]
+Import :             5 base has no type, from Move from [Il2CppClass<System.Type> + 0x88]   e.g. ReflectionUtils.GetAssemblyTypes: 81 Move v338 @ X8_v16 (System.Int32), [v111 @ X20_v8+18]
+Import :             5 Il2CppClass.0x280   e.g. AppleStoreImpl.ProcessMessage: 157 Move v243 @ X5_v1, [v347 @ X8_v29 (Il2CppClass<UnityEngine.Purchasing.AppleStoreImpl>)+280]
+Import :             5 Il2CppClass.0x248   e.g. FirebaseEditorDispatcher.ListenToPlayState: 133 Move v74 @ X3_v10, [v118 @ X8_v37 (Il2CppClass<System.Reflection.EventInfo>)+248]
+Import :             5 base has no type, from Move from [Component + 0x48]   e.g. <AttachHook>d__13.MoveNext: 222 Subtract v578 @ X1_v14 (System.Int32), [v378 @ X8_v17+24], 1
+Import :             5 Il2CppClass.0x518   e.g. RunFSM.OnEnter: 47 Move v69 @ X1_v8, [v74 @ X8_v6 (Il2CppClass<HutongGames.PlayMaker.Actions.RunFSM>)+518]
+Import :             5 array at 0x24, from Move from the field Vector3[]   e.g. PathPlugin.SetChangeValue: 170 MakeStruct v125 @ AGG10D8914_0_v6 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v278 @ X8_v20 (UnityEngine.Vector3[])+20], [v278 @ X8_v20 (UnityEngine.Vector3[])+24], [v278 @ X8_v20 (UnityEngine.Vector3[])+28]
+Import :             5 array at 0x28, from Move from the field Vector3[]   e.g. PathPlugin.SetChangeValue: 170 MakeStruct v125 @ AGG10D8914_0_v6 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v278 @ X8_v20 (UnityEngine.Vector3[])+20], [v278 @ X8_v20 (UnityEngine.Vector3[])+24], [v278 @ X8_v20 (UnityEngine.Vector3[])+28]
+Import :             5 array at 0x20, from Move from the field Vector3[]   e.g. PathPlugin.SetChangeValue: 170 MakeStruct v125 @ AGG10D8914_0_v6 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v278 @ X8_v20 (UnityEngine.Vector3[])+20], [v278 @ X8_v20 (UnityEngine.Vector3[])+24], [v278 @ X8_v20 (UnityEngine.Vector3[])+28]
+Import :             5 base has no type, from Move from AddressOf(stack_-D0)   e.g. AppsFlyer.ConvertHashMap: 319 CheckNotEqual v816 @ TEMPCOND_v22 (System.Boolean), [v55 @ X26_v1+v403 @ X27_v3*4], 179
+Import :             5 byref at 0x48, from a call's result   e.g. WeaponButtonProvider.Initialize: 108 Move v118 @ X8_v16, [v53 @ X0_v3 (WeaponButtonComponent&)+48]
+Import :             5 byref at 0x10, from a call's result   e.g. ActivateGameObjectProvider.Initialize: 34 Move v54 @ X8_v8, [v47 @ X0_v3 (ActivateGameObjectComponent&)+10]
+Import :             5 base has no type, from Move from AddressOf(stack_-90)   e.g. MainThreadDispatcher.Update: 344 CheckEqual v101 @ Z_v17 (System.Boolean), [v49 @ X24_v1+v143 @ X20_v19 (System.Collections.Generic.List`1<System.Action>)*4], 226
+Import :             5 Il2CppClass.0x420   e.g. <>c__DisplayClass33_0.<DOValue>b__1: 4 Move v4 @ X2_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+420]
+Import :             5 Il2CppClass.0x430   e.g. AdClientImpl.HideBannerAd: 53 Move v79 @ X3_v1, [v92 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+430]
+Import :             5 Il2CppClass.0x278   e.g. AppleStoreImpl.ProcessMessage: 417 Move v270 @ X2_v4, [v348 @ X8_v16 (Il2CppClass<UnityEngine.Purchasing.AppleStoreImpl>)+278]
+Import :             5 base has no type, from Move from [Il2CppClass<Mono.Security.X509.SafeBag> + 0x0]   e.g. PKCS12.get_Keys: 158 CheckLess v1386 @ C_v39 (System.Boolean), [v1384 @ X8_v47+128], [v1385 @ X1_v40+128]
+Import :             5 Il2CppClass.0x1B8   e.g. <>__AnonType0`3.Equals: 72 Move v103 @ X3_v5, [v118 @ X8_v17 (Il2CppClass<System.Collections.Generic.EqualityComparer`1<<InstallationRequired>__T>>)+1B8]
+Import :             5 array at 0x0, from Move from the field ObiStructuralElement[]   e.g. ObiRopeBase.CalculateLength: 81 Move v292 @ X8_v11 (Obi.ObiStructuralElement), [v396 @ X8_v10 (Obi.ObiStructuralElement[])+v237 @ X22_v6 (System.Int32)*8]
+Import :             5 Il2CppClass.0x438   e.g. AdClientImpl.HideBannerAd: 54 Move v77 @ X2_v2, [v92 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+438]
+Import :             5 Il2CppClass.0x3F8   e.g. ReflectionUtils.GetPublicFields: 5 Move v5 @ X2_v1, [v2 @ X8_v1 (Il2CppClass<System.Type>)+3F8]
+Import :             5 static field storage at 0x18   e.g. Promo.ProvideProductsToAds: 146 CallVoid Dictionary`2<System.String, System.Object>.Add, v352 @ X0_v54 (System.Collections.Generic.Dictionary`2<System.String, System.Object>), "localizedTitle", [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+18]
+Import :             5 Il2CppClass.0x270   e.g. AppleStoreImpl.ProcessMessage: 416 Move v246 @ X3_v1, [v348 @ X8_v16 (Il2CppClass<UnityEngine.Purchasing.AppleStoreImpl>)+270]
+Import :             5 Il2CppClass.0x288   e.g. AppleStoreImpl.ProcessMessage: 158 Move v241 @ X4_v1, [v347 @ X8_v29 (Il2CppClass<UnityEngine.Purchasing.AppleStoreImpl>)+288]
+Import :             5 byref at 0x40, from a call's result   e.g. WeaponButtonProvider.Initialize: 85 Move v116 @ X8_v13, [v53 @ X0_v3 (WeaponButtonComponent&)+40]
+Import :             5 Il2CppClass.0x190   e.g. CrossPlatformId.get_Id: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<EasyMobile.CrossPlatformId>)+190]
+Import :             5 byref at 0x28, from a call's result   e.g. SubscriptionViewProvider.Initialize: 233 CheckEqual v418 @ TEMP_v32 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+28], 0
+Import :             5 Il2CppClass.0x510   e.g. RunFSM.OnEnter: 46 Move v67 @ X2_v4, [v74 @ X8_v6 (Il2CppClass<HutongGames.PlayMaker.Actions.RunFSM>)+510]
+Import :             5 base has no type, from Move from AddressOf(stack_-A0)   e.g. InstallRootCerts.Install: 1128 CheckNotEqual v1691 @ TEMPCOND_v9 (System.Boolean), [v54 @ X26_v1+v165 @ X24_v4 (System.Int32)*4], 523
+Import :             4 base has no type, from Add of the field Quaternion[] and Int32   e.g. ObiActorBlueprint.GetParticleOrientation: 63 Return [v110 @ X8_v9+20]
+Import :             4 Il2CppClass.0x150   e.g. X509CertificateCollection.GetHashCode: 9 Move v11 @ X2_v1, [v10 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+150]
+Import :             4 static field storage at 0xC   e.g. CacheComponents`1.Add: 302 CheckGreater v307 @ TEMPCOND_v4 (System.Boolean), [v270 @ X8_v20 (Il2CppStaticFields<Morpeh.CacheComponents`1<T>>)+8], [v359 @ X8_v23 (Il2CppStaticFields<Morpeh.CacheComponents`1<T>>)+C]
+Import :             4 byref at 0x50, from a call's result   e.g. SubscriptionViewProvider.Initialize: 76 CheckEqual v381 @ TEMP_v14 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+50], 0
+Import :             4 array at 0x0, from Move from the field UInt32[]   e.g. Kernel.AddSameSign: 241 Move [v163 @ X8_v5 (System.UInt32[])+v327 @ X10_v11 (System.Int32)*4], [v159 @ X20_v3 (System.UInt32[])+v327 @ X10_v11 (System.Int32)*4]
+Import :             4 base has no type, from Move from [Matrix4x4 + 0xB8]   e.g. PlayMakerGUI.get_GUIMatrix: 36 Move returnBuffer.m03 (System.Single), [v53 @ X8_v4+A0]
+Import :             4 static field storage at 0x38   e.g. CacheComponents`1.Add: 103 Move v115 @ X8_v12, [v113 @ X8_v11 (Il2CppStaticFields<Morpeh.CacheComponents`1<T>>)+38]
+Import :             4 byref at 0x30, from a call's result   e.g. WeaponButtonProvider.Initialize: 37 Move v60 @ X8_v6, [v53 @ X0_v3 (WeaponButtonComponent&)+30]
+Import :             4 base has no type, from Move from [Il2CppClass<System.Collections.ArrayList> + 0x0]   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 453 CheckLess v1282 @ C_v62 (System.Boolean), [v1279 @ X8_v93+128], [v1280 @ X1_v70+128]
+Import :             4 byref at 0x10, from no definition   e.g. Entity.Has: 17 And v19 @ X8_v7 (System.Int64), [mask @ X1 (Morpeh.Utils.FastBitMask&)+10], v22 @ TEMP_v8 (System.Int64)
+Import :             4 Il2CppClass.0x418   e.g. <>c__DisplayClass33_0.<DOValue>b__0: 5 Move v5 @ X1_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+418]
+Import :             4 base has no type, from Move from [Int32 + 0x10]   e.g. Promo.InitiatePurchasingCommand: 272 Move v1280 @ X8_v11 (System.String), [v1195 @ X8_v9+20]
+Import :             4 Il2CppClass.0x2B8   e.g. PKCS12.Decrypt: 147 CheckNotEqual v253 @ TEMPCOND_v2 (System.Boolean), [v58 @ X8_v8 (Il2CppClass<System.Security.Cryptography.SymmetricAlgorithm>)+2B8], 1
+Import :             4 Il2CppClass.0x2C8   e.g. JSONSerializer.EncodeProductDef: 215 Move v176 @ X3_v22 (Il2CppMethodInfo), [v772 @ X8_v46 (Il2CppClass<System.Reflection.PropertyInfo>)+2C8]
+Import :             4 base has no type, from Move from AddressOf(stack_-350)   e.g. ObiRopeLineRenderer.UpdateRenderer: 699 MakeStruct v5370 @ AGGC3DF78_0_v32 (UnityEngine.Vector4), typeof(UnityEngine.Vector4), [v5600 @ X8_v83+30], [v5600 @ X8_v83+34], [v5600 @ X8_v83+38], [v5600 @ X8_v83+3C]
+Import :             4 base has no type, from Add of [Il2CppClass<System.Collections.Generic.Dictionary`2<System.String, System.Object>> + 0xC8] and Int32   e.g. PurchaseForwardCallback.ConvertInventory: 279 CheckNotEqual v669 @ TEMPCOND_v11 (System.Boolean), [v682 @ X8_v20-8], v678 @ X1_v13 (System.String)
+Import :             4 Il2CppClass.elementType   e.g. PKCS12.GetBytes: 2968 Move v465 @ X8_v36 (System.Security.Cryptography.RandomNumberGenerator), [v335 @ X25_v7 (Il2CppClass<Mono.Security.X509.SafeBag>)+40]
+Import :             4 array at 0x28, from Move from the field ControlPoint[]   e.g. CubicBezierDecoder.FinalizePath: 359 Move [v34 @ X29_v1-38], [v363 @ X8_v26 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+28]
+Import :             4 Il2CppClass.0x158   e.g. X509CertificateCollection.GetHashCode: 10 Move v12 @ X1_v2, [v10 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+158]
+Import :             4 base has no type, from Move from [Il2CppClass<System.Collections.Generic.Dictionary`2<System.String, System.Object>> + 0x0]   e.g. ProductDefinitionExtensions.DecodeJSON: 91 CheckLess v439 @ C_v24 (System.Boolean), [v435 @ X8_v37+128], [v436 @ X1_v26+128]
+Import :             3 byref at 0x18, from no definition   e.g. Entity.Has: 24 And v39 @ TEMP_v12 (System.Int64), [mask @ X1 (Morpeh.Utils.FastBitMask&)+18], v44 @ TEMP_v11 (System.Int64)
+Import :             3 base has no type, from Move from AddressOf(stack_-130)   e.g. TCP2_PlanarReflection.OnWillRenderObject: 264 Move [v36 @ X29_v1-D0], [v1288 @ X8_v26+10]
+Import :             3 Il2CppClass.0x2B0   e.g. X509CertificateCollection.Add: 34 Move v62 @ X3_v1, [v56 @ X8_v10 (Il2CppClass<System.Collections.ArrayList>)+2B0]
+Import :             3 Il2CppClass.0x2C0   e.g. JSONData..ctor: 15 Move v20 @ X3_v1, [v15 @ X8_v1 (Il2CppClass<com.adjust.sdk.JSONData>)+2C0]
+Import :             3 base has no type, from Move from [U + 0x18]   e.g. ObiPathDataChannel`2.Evaluate: 29 Move v48 @ X8_v2, [v41 @ X8_v1+C0]
+Import :             3 base has no type, from Add of ProfileInfo[] and Int32   e.g. ObiProfiler.UpdateProfilerInfo: 106 Call Math.Min, v247 @ V0_v6 (System.Double), this.frameStart (System.Double), [v233 @ X8_v14+20]
+Import :             3 byref at 0x70, from a call's result   e.g. SubscriptionViewProvider.Initialize: 189 CheckEqual v407 @ TEMP_v26 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+70], 0
+Import :             3 base has no type, from Add of [Il2CppClass<com.adjust.sdk.JSONNode> + 0xC8] and Int32   e.g. JSONNode.Parse: 246 CheckEqual v895 @ Z_v48 (System.Boolean), [v1023 @ X9_v33-8], v930 @ X8_v70
+Import :             3 base has no type, from Add of Vector3Int[3] and an untyped local   e.g. VoxelDistanceField.JumpFloodPass: 390 Move v1252 @ X9_v28 (UnityEngine.Vector3Int), [v1304 @ X8_v42+20]
+Import :             3 Il2CppClass.0x330   e.g. X509CertificateCollection.System.Collections.IEnumerable.GetEnumerator: 9 Move v11 @ X2_v1, [v10 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+330]
+Import :             3 base has no type, from Add of Vector3[] and Immediate   e.g. Vector3ArrayPlugin.GetSpeedBasedDuration: 53 Divide v45 @ V0_v6 (System.Single), v45 @ V0_v6 (System.Single), [v54 @ X24_v6+v58 @ X22_v7 (System.Int32)*4]
+Import :             3 array at 0x0, from Move from the field GameObject[]   e.g. ObiRopeChainRenderer.UpdateRenderer: 370 Call Object.op_Inequality, v1189 @ X0_v95 (System.Boolean), [v2013 @ X8_v51 (UnityEngine.GameObject[])+v524 @ X26_v19 (System.Int32)*8], 0
+Import :             3 Il2CppClass.0x10   e.g. PKCS12.GetBytes: 2961 CheckEqual v2014 @ TEMP_v14 (System.Boolean), [v335 @ X25_v7 (Il2CppClass<Mono.Security.X509.SafeBag>)+10], 0
+Import :             3 base has no type, from Move from AddressOf(stack_-278)   e.g. ObiRopeLineRenderer.UpdateRenderer: 459 MakeStruct v3519 @ AGGC3DD60_1_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v8243 @ X8_v71+C], [v8243 @ X8_v71+10], [v8243 @ X8_v71+14]
+Import :             3 base has no type, from Move from AddressOf(stack_-1C8)   e.g. ObiRopeExtrudedRenderer.UpdateRenderer: 381 MakeStruct v2295 @ AGGC3CCD8_0_v26 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v6205 @ X8_v67+18], [v6205 @ X8_v67+1C], [v6205 @ X8_v67+20]
+Import :             3 byref at 0x68, from a call's result   e.g. SubscriptionViewProvider.Initialize: 166 CheckEqual v402 @ TEMP_v24 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+68], 0
+Import :             3 byref at 0x20, from a call's result   e.g. SubscriptionViewProvider.Initialize: 220 CheckEqual v414 @ TEMP_v29 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+20], 0
+Import :             3 base has no type, from Add of Single[] and Int32   e.g. Path.ConvertToConstantPathPerc: 176 Move v35 @ V4_v3 (System.Int32), [v377 @ X8_v6+1C]
+Import :             3 static field storage at 0x6C   e.g. DOTweenComponent.OnDestroy: 104 Add v122 @ X9_v2 (System.Boolean), [v237 @ X8_v23 (Il2CppStaticFields<DG.Tweening.DOTween>)+6C], v237.safeModeReport (DG.Tweening.Core.SafeModeReport)
+Import :             3 base has no type, from Move from AddressOf(stack_-D0, Single)   e.g. ShowHideEnemySystem.OnUpdate: -1 Move v209 @ V0_v6 (UnityEngine.Vector3), [v67 @ X8_v6+10]
+Import :             3 base has no type, from Move from AddressOf(stack_-158)   e.g. ObiRopeLineRenderer.UpdateRenderer: 330 MakeStruct v3633 @ AGGC3DC68_0_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v8172 @ X8_v61], [v8172 @ X8_v61+4], [v8172 @ X8_v61+8]
+Import :             3 base has no type, from Move from AddressOf(stack_-128)   e.g. AppMetrica.SetupMetrica: 74 Move [v30 @ X21_v1+36], [v30 @ X21_v1+E]
+Import :             3 base has no type, from Add of MemberInfo[] and Int32   e.g. FsmProperty.Init: 137 Call ReflectionUtils.GetMemberUnderlyingType, v375 @ X0_v18 (System.Type), [v397 @ X9_v20+20]
+Import :             3 Il2CppClass.0x1F8   e.g. InteropObject.Equals: 75 Move v80 @ X2_v1, [v131 @ X8_v6 (Il2CppClass<EasyMobile.Internal.InteropObject>)+1F8]
+Import :             3 base has no type, from Move from [Boolean + 0xE8]   e.g. Vector3ArrayPlugin.EvaluateAndApply: 181 CheckNotEqual v579 @ TEMPCOND_v49 (System.Boolean), [v502 @ X8_v90+A8], 2
+Import :             3 Il2CppClass.0x3D8   e.g. ReflectionUtils`1.GetField: 48 Move v69 @ X3_v1, [v62 @ X8_v6 (Il2CppClass<System.Type>)+3D8]
+Import :             3 base has no type, from Move from AddressOf(stack_-210)   e.g. ObiRopeExtrudedRenderer.UpdateRenderer: 415 MakeStruct v2259 @ AGGC3CD10_0_v26 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v6238 @ X8_v72+24], [v6238 @ X8_v72+28], [v6238 @ X8_v72+2C]
+Import :             3 Il2CppClass.0x240   e.g. FirebaseEditorDispatcher.ListenToPlayState: 132 Move v71 @ X4_v2, [v118 @ X8_v37 (Il2CppClass<System.Reflection.EventInfo>)+240]
+Import :             3 static field storage at 0x70   e.g. DOTweenComponent.OnDestroy: 105 Add v122 @ X9_v2 (System.Boolean), v122 @ X9_v2 (System.Boolean), [v237 @ X8_v23 (Il2CppStaticFields<DG.Tweening.DOTween>)+70]
+Import :             3 Il2CppClass.0x2E8   e.g. Asn1Parser.LoadData: 64 Move v116 @ X4_v1, [v110 @ X8_v18 (Il2CppClass<System.IO.Stream>)+2E8]
+Import :             3 Il2CppClass.0x1B0   e.g. <>__AnonType0`3.Equals: 71 Move v99 @ X4_v1, [v118 @ X8_v17 (Il2CppClass<System.Collections.Generic.EqualityComparer`1<<InstallationRequired>__T>>)+1B0]
+Import :             3 byref at 0x12E, from Move from an untyped base   e.g. ComponentsBag`1..cctor: 330 Move v547 @ X8_v28, [v529 @ X25_v6 (System.Int32[]&)+12E]
+Import :             3 base has no type, from Add of the field Vector2[] and Int32   e.g. EditorConsentDialogClickableText.UpdateQuadImage: 675 Move v793 @ V0_v31 (UnityEngine.Vector3), [v762 @ X8_v102+20]
+Import :             3 byref at 0x58, from a call's result   e.g. SubscriptionViewProvider.Initialize: 130 CheckEqual v393 @ TEMP_v19 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+58], 0
+Import :             3 Il2CppClass.0x1F0   e.g. InteropObject.Equals: 74 Move v82 @ X3_v1, [v131 @ X8_v6 (Il2CppClass<EasyMobile.Internal.InteropObject>)+1F0]
+Import :             3 static field storage at 0x74   e.g. DOTweenComponent.OnDestroy: 103 Move v42 @ X8_v3 (System.Boolean), [v237 @ X8_v23 (Il2CppStaticFields<DG.Tweening.DOTween>)+74]
+Import :             3 base has no type, from Add of Tween and Immediate   e.g. Vector3ArrayPlugin.EvaluateAndApply: 335 Move v435 @ V1_v5 (System.Single), [v733 @ X9_v16+v520 @ X26_v5 (System.Int32)*4]
+Import :             3 byref at 0x60, from a call's result   e.g. SubscriptionViewProvider.Initialize: 143 CheckEqual v397 @ TEMP_v22 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+60], 0
+Import :             3 Il2CppClass.0x3D0   e.g. ReflectionUtils`1.GetField: 47 Move v68 @ X4_v1, [v62 @ X8_v6 (Il2CppClass<System.Type>)+3D0]
+Import :             3 byref at 0x40, from no definition   e.g. SpawnWeaponsSystem.<OnUpdate>g__Spawn|4_0: 31 Call GameObject.get_transform, v57 @ X0_v6 (UnityEngine.Transform), [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+40]
+Import :             2 Il2CppClass.0x3F0   e.g. ReflectionUtils.GetPublicFields: 4 Move v4 @ X3_v1, [v2 @ X8_v1 (Il2CppClass<System.Type>)+3F0]
+Import :             2 base has no type, from Add of the field RuntimePlatform[] and Int32   e.g. GameAnalytics.InternalInitialize: 149 CheckEqual v246 @ Z_v15 (System.Boolean), [v520 @ X8_v37+20], 11
+Import :             2 Il2CppClass.0x348   e.g. FsmInt.get_Value: 19 Move v35 @ X1_v3, [v27 @ X8_v1 (Il2CppClass<HutongGames.PlayMaker.NamedVariable>)+348]
+Import :             2 Il2CppClass.0x390   e.g. EditorConsentDialogToggleUI.Awake: 145 Move v211 @ X2_v7, [v204 @ X8_v11 (Il2CppClass<UnityEngine.UI.LayoutElement>)+390]
+Import :             2 array at 0x2C, from no definition   e.g. CatmullRomDecoder.FinalizePath: 120 Move v88 @ V8_v3 (UnityEngine.Vector3), [wps @ X2 (UnityEngine.Vector3[])+2C]
+Import :             2 Il2CppClass.0x368   e.g. Type3Message.DecodeString: 25 Move v37 @ X4_v1, [v31 @ X8_v2 (Il2CppClass<System.Text.Encoding>)+368]
+Import :             2 static field storage at 0x28   e.g. Promo.ProvideProductsToAds: 163 CallVoid Dictionary`2<System.String, System.Object>.Add, v352 @ X0_v54 (System.Collections.Generic.Dictionary`2<System.String, System.Object>), "isoCurrencyCode", [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+28]
+Import :             2 array at 0x34, from no definition   e.g. CatmullRomDecoder.FinalizePath: 122 Move v84 @ V10_v3 (UnityEngine.Vector3), [wps @ X2 (UnityEngine.Vector3[])+34]
+Import :             2 Il2CppClass.0x2E0   e.g. Asn1Parser.LoadData: 63 Move v115 @ X5_v1, [v110 @ X8_v18 (Il2CppClass<System.IO.Stream>)+2E0]
+Import :             2 static field storage at 0x1C   e.g. ActionHelpers.MousePick: 70 Move returnBuffer.m_Distance (System.Single), [v114 @ X8_v5 (Il2CppStaticFields<HutongGames.PlayMaker.ActionHelpers>)+1C]
+Import :             2 Il2CppClass.0x238   e.g. JSONClass.Serialize: 45 Move v84 @ X2_v1 (Il2CppMethodInfo), [v98 @ X8_v12 (Il2CppClass<System.IO.BinaryWriter>)+238]
+Import :             2 base has no type, from Add of Vector2[] and Int32   e.g. ObiNativeVector2List.OnAfterDeserialize: -1 MakeStruct Vector2_arg @ V0_v4 (UnityEngine.Vector2), typeof(UnityEngine.Vector2), [v184 @ X8_v10+20], v114[v117 @ X20_v6 (System.Int32)].y (System.Single)
+Import :             2 Il2CppClass.0x6A8   e.g. Advertising.GetDataPrivacyConsent: 39 Move v59 @ X1_v1, [v55 @ X8_v7 (Il2CppClass<EasyMobile.AdClientImpl>)+6A8]
+Import :             2 Il2CppClass.0x2F0   e.g. JSONNode.SaveToStream: 35 Move v55 @ X3_v1, [v49 @ X8_v5 (Il2CppClass<com.adjust.sdk.JSONNode>)+2F0]
+Import :             2 base has no type, from Add of ButtonScaleAnimator and Immediate   e.g. ButtonScaleAnimator.OnPointerDown: 56 Call TweenSettingsExtensions.SetEase, v67 @ X0_v11 (DG.Tweening.Tweener), v20 @ X0_v4 (DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, UnityEngine.Vector3, DG.Tweening.Plugins.Options.VectorOptions>), [v24 @ X0_v5+8]
+Import :             2 byref at 0xC0, from Move from an untyped base   e.g. ComponentsBag`1..cctor: 349 Move v455 @ X8_v29, [v211 @ X24_v7 (System.Int32[]&)+C0]
+Import :             2 Il2CppClass.0x498   e.g. AdClientImpl.IsRewardedAdReady: 54 Move v78 @ X2_v2, [v93 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+498]
+Import :             2 base has no type, from Move from [Il2CppClass<Firebase.Platform.Services> + 0x0]   e.g. InstallRootCerts.InstallDefaultCRLs: 896 Move v1295 @ X8_v32, [v179 @ X0_v41+B8]
+Import :             2 base has no type, from Add of Il2CppClass<System.Reflection.MemberInfo> and Int32   e.g. ReflectionUtils.GetMemberUnderlyingType: 171 Move v275 @ X2_v3, [v274 @ X8_v13+130]
+Import :             2 base has no type, from Move from [<GetEnumerator>d__2<T> + 0x58]   e.g. <GetEnumerator>d__2.MoveNext: 45 CheckGreaterOrEqual v32 @ TEMPCOND_v5 (System.Boolean), v55 @ X9_v6 (System.Int32), [v11 @ X8_v1+18]
+Import :             2 Il2CppClass.0x340   e.g. FsmInt.get_Value: 18 Move v22 @ X2_v1, [v27 @ X8_v1 (Il2CppClass<HutongGames.PlayMaker.NamedVariable>)+340]
+Import :             2 base has no type, from Add of [Il2CppClass<System.Object> + 0xC8] and Int32   e.g. FsmProperty.GetValue: 932 CheckNotEqual v718 @ TEMPCOND_v14 (System.Boolean), [v1354 @ X8_v71-8], v773 @ X1_v37 (Il2CppClass<UnityEngine.Object>)
+Import :             2 Il2CppClass.0x34   e.g. PKCS12.GetBytes: 2999 Call PKCS12.MAC, v2331 @ X0_v58 (System.Byte[]), v2280 @ X0_v57 (System.Byte[]), [v335 @ X25_v7 (Il2CppClass<Mono.Security.X509.SafeBag>)+10], v2032 @ X0_v51 (System.Byte[]), [v335 @ X25_v7 (Il2CppClass<Mono.Security.X509.SafeBag>)+34], v2280 @ X0_v57 (System.Byte[])
+Import :             2 Il2CppClass.0x350   e.g. FsmUtility.ByteArrayToString: 31 Move v59 @ X3_v1, [v69 @ X8_v7 (Il2CppClass<System.Text.UTF8Encoding>)+350]
+Import :             2 array at 0x30, from no definition   e.g. CatmullRomDecoder.FinalizePath: 121 Move v86 @ V9_v3 (UnityEngine.Vector3), [wps @ X2 (UnityEngine.Vector3[])+30]
+Import :             2 base has no type, from Move from AddressOf(stack_-120)   e.g. YandexAppMetricaExtensionsAndroid.ToAndroidUserProfile: 244 CheckNotEqual v510 @ TEMPCOND_v15 (System.Boolean), [v55 @ X23_v1+v567 @ X26_v6 (System.Int32)*4], 112
+Import :             2 Il2CppClass.0x360   e.g. Type3Message.DecodeString: 24 Move v36 @ X5_v1, [v31 @ X8_v2 (Il2CppClass<System.Text.Encoding>)+360]
+Import :             2 base has no type, from Add of [ComponentsBag`1<TabComponent>& + 0x0] and Int32   e.g. UITabSystem.OnUpdate: 62 Call BaseGlobalEvent`1<System.Int32>.get_IsPublished, v400 @ X0_v32 (System.Boolean), [v106 @ X8_v34+20]
+Import :             2 Il2CppClass.0x220   e.g. Asn1Node.ResetDataLengthFieldWidth: 59 Move v74 @ X2_v1, [v90 @ X8_v11 (Il2CppClass<System.IO.MemoryStream>)+220]
+Import :             2 base has no type, from Move from AddressOf(stack_-1D8)   e.g. ObiRopeMeshRenderer.UpdateRenderer: 291 MakeStruct v497 @ AGGC3F358_1_v25 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v3666 @ X8_v52], [v3666 @ X8_v52+4], [v3666 @ X8_v52+8]
+Import :             2 base has no type, from Move from AddressOf(stack_-258)   e.g. ObiRopeExtrudedRenderer.UpdateRenderer: 562 MakeStruct v2203 @ AGGC3CE50_0_v28 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v6344 @ X8_v87], [v6344 @ X8_v87+4], [v6344 @ X8_v87+8]
+Import :             2 base has no type, from Move from AddressOf(stack_-2C0)   e.g. ObiRopeLineRenderer.UpdateRenderer: 514 MakeStruct v3479 @ AGGC3DDD8_0_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v3779 @ X8_v73], [v3779 @ X8_v73+4], [v3779 @ X8_v73+8]
+Import :             2 array at 0x20, from Move from the field Color[]   e.g. G_CUIColorPicker.Setup: 312 Move [v694 @ X0_v34 (UnityEngine.Color[])+50], [v249 @ X9_v6 (UnityEngine.Color[])+20]
+Import :             2 base has no type, from Move from an untyped local   e.g. SerializableKeyValuePair`2.FromKeyValuePair: 27 Move v76 @ X8_v6, [v75 @ X22_v5+C0]
+Import :             2 static field storage at 0x4   e.g. CVar..ctor: 44 Move this.m_range.max (System.Single), [v61 @ X8_v5 (Il2CppStaticFields<LunarConsolePlugin.CVarValueRange>)+4]
+Import :             2 base has no type, from Add of FsmColor[] and Int32   e.g. ColorInterpolate.OnUpdate: 69 Move v310 @ X8_v32, [v398 @ X8_v31+20]
+Import :             2 byref at 0xC, from no definition   e.g. ColorUtils.ToRGBA: 8 Multiply v8 @ V2_v2 (System.Single), [value @ X0 (UnityEngine.Color&)+C], 255f
+Import :             2 base has no type, from Move from AddressOf(stack_-308)   e.g. ObiRopeLineRenderer.UpdateRenderer: 570 MakeStruct v3837 @ AGGC3DE48_0_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v4046 @ X8_v76], [v4046 @ X8_v76+4], [v4046 @ X8_v76+8]
+Import :             2 base has no type, from Move from [Il2CppStaticFields<Morpeh.Filter+ComponentsBag`1<T>> + 0x18]   e.g. ComponentsBag`1.Get: 93 CheckLess v106 @ C_v2 (System.Boolean), [index @ X0 (System.Int32&)], [v97 @ X8_v10+18]
+Import :             2 base has no type, from Add of the field ParamDataType[] and Int32   e.g. ActionData.FindField: 160 CheckNotEqual v235 @ TEMPCOND_v13 (System.Boolean), v445 @ X0_v24 (HutongGames.PlayMaker.ParamDataType), [v214 @ X8_v10+20]
+Import :             2 base has no type, from Add of Vector4[] and Int32   e.g. ObiActor.LoadBlueprintParticles: -1 MakeStruct Vector4_arg @ V0_v17 (UnityEngine.Vector4), typeof(UnityEngine.Vector4), [v1436 @ X8_v45+20], v760[v540 @ X25_v5 (System.Int32)].y (System.Single), v760[v540 @ X25_v5 (System.Int32)].z (System.Single), v760[v540 @ X25_v5 (System.Int32)].w (System.Single)
+Import :             2 base has no type, from Move from AddressOf(stack_-B8)   e.g. ObiPathSmoother.CalculateChunkLength: 118 MakeStruct v83 @ AGGC2FAB8_0_v3 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v324 @ X8_v6], [v324 @ X8_v6+4], [v324 @ X8_v6+8]
+Import :             2 base has no type, from Add of RaycastHit2D[] and Int32   e.g. GetNextLineCast2d.DoGetNextCollider: 55 Move v263 @ V0_v5 (System.Single), [v261 @ X8_v8+20]
+Import :             2 base has no type, from Move from [Int32[]& + 0xC0]   e.g. ComponentsBag`1..cctor: 351 Move v312 @ X1_v3 (System.Int32), [v455 @ X8_v29+18]
+Import :             2 base has no type, from Move from [Il2CppClass<DG.Tweening.DOTween> + 0x0]   e.g. Tweener.DoChangeEndValue: 244 Add v492 @ X0_v26, [v489 @ X0_v25+B8], 104
+Import :             2 base has no type, from Move from AddressOf(stack_-190)   e.g. ObiRopeMeshRenderer.UpdateRenderer: 290 MakeStruct v500 @ AGGC3F358_0_v25 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v3644 @ X8_v51], [v3644 @ X8_v51+4], [v3644 @ X8_v51+8]
+Import :             2 base has no type, from Move from AddressOf(stack_-1A0)   e.g. ObiRopeLineRenderer.UpdateRenderer: 331 MakeStruct v3631 @ AGGC3DC68_1_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v8177 @ X8_v62], [v8177 @ X8_v62+4], [v8177 @ X8_v62+8]
+Import :             2 Il2CppClass.0x3E8   e.g. GameroomFacebook.Init: 34 Move v53 @ X8_v7 (System.IntPtr), [v52 @ X8_v6 (Il2CppClass<Facebook.Unity.Gameroom.GameroomFacebook>)+3E8]
+Import :             2 base has no type, from Move from [StringBuilder + 0x0]   e.g. EditorConsentDialogClickableText.GetOutputText: 341 CheckLess v1681 @ C_v55 (System.Boolean), [v519 @ X8_v118+128], [v512 @ X1_v73 (System.String)+128]
+Import :             2 base has no type, from Move from AddressOf(stack_-230)   e.g. ObiRopeLineRenderer.UpdateRenderer: 415 MakeStruct v3559 @ AGGC3DD10_0_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v8209 @ X8_v68], [v8209 @ X8_v68+4], [v8209 @ X8_v68+8]
+Import :             2 base has no type, from Move from AddressOf(stack_-138)   e.g. ObiRopeExtrudedRenderer.UpdateRenderer: 303 MakeStruct v2367 @ AGGC3CC44_1_v26 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v6166 @ X8_v59], [v6166 @ X8_v59+4], [v6166 @ X8_v59+8]
+Import :             2 Il2CppClass.0x398   e.g. EditorConsentDialogToggleUI.Awake: 146 Move v212 @ X1_v7, [v204 @ X8_v11 (Il2CppClass<UnityEngine.UI.LayoutElement>)+398]
+Import :             2 base has no type, from Move from [RaycastHit2D + 0xB8]   e.g. Fsm.GetLastRaycastHit2DInfo: 64 Call Dictionary`2<HutongGames.PlayMaker.Fsm, UnityEngine.RaycastHit2D>.get_Item, returnVal2 @ X0_v6 (UnityEngine.RaycastHit2D), [v56 @ X8_v4+70], fsm @ X0 (HutongGames.PlayMaker.Fsm)
+Import :             2 Il2CppClass.0x6A0   e.g. Advertising.GetDataPrivacyConsent: 38 Move v58 @ X2_v1, [v55 @ X8_v7 (Il2CppClass<EasyMobile.AdClientImpl>)+6A0]
+Import :             2 base has no type, from Add of [ComponentsBag`1<TabComponent>& + 0x8] and Immediate   e.g. UITabSystem.OnUpdate: 66 ShiftLeft v416 @ TEMPSHIFT_v17 (System.Int32), [v65 @ X23_v7+v67 @ X21_v11 (System.Int32)*4], 5
+Import :             2 Il2CppClass.0x2F8   e.g. JSONNode.SaveToStream: 36 Move v56 @ X2_v2, [v49 @ X8_v5 (Il2CppClass<com.adjust.sdk.JSONNode>)+2F8]
+Import :             2 base has no type, from Move from [Single[2] + 0x10]   e.g. ObiTerrainShapeTracker.UpdateHeightData: 158 CheckLess v482 @ C_v18 (System.Boolean), v234 @ X13_v8 (System.Int32), [v472 @ X15_v8+10]
+Import :             2 Il2CppClass.0x490   e.g. AdClientImpl.IsRewardedAdReady: 53 Move v80 @ X3_v1, [v93 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+490]
+Import :             2 static field storage at 0x24   e.g. ComponentsBag`1.Create: 223 CheckGreater v252 @ TEMPCOND_v2 (System.Boolean), [v210 @ X8_v21 (Il2CppStaticFields<Morpeh.Filter+ComponentsBag`1<T>>)+24], [v239 @ X8_v24 (Il2CppStaticFields<Morpeh.Filter+ComponentsBag`1<T>>)+20]
+Import :             2 byref at 0x18, from a call's result   e.g. WeaponButtonProvider.<Initialize>b__4_3: 30 CallVoid GlobalEvent.Publish, [v45 @ X0_v3 (WeaponButtonComponent&)+18]
+Import :             1 Il2CppClass.0x5E8   e.g. AdClientImpl.ShowInterstitialAd: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+5E8]
+Import :             1 Il2CppClass.0x380   e.g. UiRebuild.DoAction: 46 Move v69 @ X3_v1, [v65 @ X8_v7 (Il2CppClass<UnityEngine.UI.Graphic>)+380]
+Import :             1 base has no type, from Move from [Il2CppClass<Firebase.FirebaseApp> + 0x0]   e.g. FirebaseApp.InitializeAppUtilCallbacks: 451 Move v622 @ X8_v26, [v165 @ X0_v26+B8]
+Import :             1 base has no type, from Add of Single[] and Immediate   e.g. LinearDecoder.GetPoint: 84 CheckGreaterOrEqual v331 @ TEMPCOND_v10 (System.Boolean), [v268 @ X13_v5+v91 @ X11_v3 (System.Int32)*4], perc @ V0 (System.Single)
+Import :             1 Il2CppClass.0x588   e.g. AdClientImpl.DestroyBannerAd: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+588]
+Import :             1 Il2CppClass.0x540   e.g. AdClientImpl.ShowBannerAd: 41 Move v63 @ X5_v1, [v59 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+540]
+Import :             1 array at 0x3C, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 91 MakeStruct v174 @ AGGB123F8_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v313 @ X8_v7 (UnityEngine.Color[])+30], [v313 @ X8_v7 (UnityEngine.Color[])+34], [v313 @ X8_v7 (UnityEngine.Color[])+38], [v313 @ X8_v7 (UnityEngine.Color[])+3C]
+Import :             1 Il2CppClass.0x208   e.g. JSONData.Serialize: 158 Move v133 @ X1_v23, [v156 @ X8_v23 (Il2CppClass<System.IO.BinaryWriter>)+208]
+Import :             1 byref at 0x4, from a call's result   e.g. GameStateSystem.PlayingLogic: 91 CheckEqual v428 @ TEMP_v9 (System.Boolean), [v175 @ X0_v10 (GameStateComponent&)+4], 0
+Import :             1 Il2CppClass.0x4B8   e.g. EditorFacebook.Pay: 37 CallVoid Callback`1<Facebook.Unity.ResultContainer>..ctor, v48 @ X0_v3 (Facebook.Unity.Utilities+Callback`1<Facebook.Unity.ResultContainer>), this @ X0 (Facebook.Unity.Editor.EditorFacebook), [v52 @ X8_v7 (Il2CppClass<Facebook.Unity.Editor.EditorFacebook>)+4B8]
+Import :             1 base has no type, from Move from [OpenURLComponent& + 0x10]   e.g. OpenURLProvider.Initialize: 55 CallVoid UnityEvent.AddListener, [v54 @ X8_v8+E8], v60 @ X0_v10 (UnityEngine.Events.UnityAction)
+Import :             1 static field storage at 0x160   e.g. Promo.ProvideProductsToAds: 111 Move v216 @ X9_v8 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>), [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+160]
+Import :             1 Il2CppMethodInfo.methodPointer   e.g. YandexAppMetricaExtensionsAndroid.ToAndroidAppMetricaConfig: 1237 CheckEqual v2905 @ Z_v9 (System.Boolean), [v2685 @ X26_v4 (Il2CppMethodInfo)+v2704 @ X28_v2 (System.Int32)*4], 807
+Import :             1 Il2CppClass.0x218   e.g. AdLocation..ctor: 53 Move v72 @ X3_v1, [v91 @ X8_v6 (Il2CppClass<System.Collections.Hashtable>)+218]
+Import :             1 negative offset off a typed base   e.g. Tracker.TrackPurchaseEvent: 487 CheckEqual v2188 @ Z_v87 (System.Boolean), [v2165 @ X11_v37 (System.Int32)-8], typeof(System.IDisposable)
+Import :             1 Il2CppClass.0x720   e.g. IronSourceClientImpl.ToIronSourceBannerSize: 53 Move v58 @ X3_v1, [v53 @ X8_v4 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+720]
+Import :             1 Il2CppClass.0x560   e.g. AdClientImpl.HideBannerAd: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+560]
+Import :             1 base has no type, from Move from [Behaviour + 0x68]   e.g. ObiSolver.PushActiveParticles: 85 CheckLess v301 @ C_v13 (System.Boolean), v123 @ X9_v7 (System.Int32), [v110 @ X10_v7+18]
+Import :             1 Il2CppClass.0x730   e.g. AudienceNetworkClientImpl.SetupTestMode: 4 Move v5 @ X3_v1, [v2 @ X8_v1 (Il2CppClass<EasyMobile.AudienceNetworkClientImpl>)+730]
+Import :             1 Il2CppClass.0x4D8   e.g. MobileFacebook.set_ShareDialogMode: 3 Move v4 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Facebook.Unity.Mobile.MobileFacebook>)+4D8]
+Import :             1 base has no type, from Add of the field Color[] and Int32   e.g. ObiActorBlueprint.GetParticleColor: 36 Return [v55 @ X8_v2+20]
+Import :             1 array at 0x48, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 124 MakeStruct v159 @ AGGB12438_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v314 @ X8_v8 (UnityEngine.Color[])+40], [v314 @ X8_v8 (UnityEngine.Color[])+44], [v314 @ X8_v8 (UnityEngine.Color[])+48], [v314 @ X8_v8 (UnityEngine.Color[])+4C]
+Import :             1 array at 0x40, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 124 MakeStruct v159 @ AGGB12438_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v314 @ X8_v8 (UnityEngine.Color[])+40], [v314 @ X8_v8 (UnityEngine.Color[])+44], [v314 @ X8_v8 (UnityEngine.Color[])+48], [v314 @ X8_v8 (UnityEngine.Color[])+4C]
+Import :             1 Il2CppClass.0x740   e.g. IronSourceClientImpl.SetupAdvancedSetting: 4 Move v5 @ X3_v1, [v2 @ X8_v1 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+740]
+Import :             1 base has no type, from Move from [WeaponButtonComponent& + 0x30]   e.g. WeaponButtonProvider.Initialize: 58 CallVoid UnityEvent.AddListener, [v60 @ X8_v6+E8], v66 @ X0_v10 (UnityEngine.Events.UnityAction)
+Import :             1 base has no type, from Add of [Il2CppClass<System.String> + 0xC8] and Int32   e.g. Promo.InitiatePurchasingCommand: 230 CheckNotEqual v899 @ TEMPCSEL_v31 (System.Boolean), [v888 @ X10_v53-8], typeof(System.Collections.Generic.List`1<System.Object>)
+Import :             1 base has no type, from Move from [SubscriptionViewComponent& + 0x40]   e.g. SubscriptionViewProvider.Initialize: 302 CallVoid UnityEvent.AddListener, [v430 @ X8_v25+E8], v436 @ X0_v33 (UnityEngine.Events.UnityAction)
+Import :             1 Il2CppClass.0x6B8   e.g. Advertising.GrantDataPrivacyConsent: 39 Move v59 @ X1_v1, [v55 @ X8_v7 (Il2CppClass<EasyMobile.AdClientImpl>)+6B8]
+Import :             1 byref at 0x5, from a call's result   e.g. GameStateSystem.PlayingLogic: 94 CheckEqual v429 @ TEMP_v23 (System.Boolean), [v175 @ X0_v10 (GameStateComponent&)+5], 0
+Import :             1 base has no type, from Add of AddressOf(stack_-98, Il2CppClass<System.Collections.Generic.Dictionary`2<T, U>+Enumerator<T, U>>) and Immediate   e.g. SerializableDictionaryBase`3.OnBeforeSerialize: 217 Move v214 @ V0_v5 (System.Collections.Generic.Dictionary`2<T, U>+Enumerator<T, U>), [v221 @ X22_v2+10]
+Import :             1 Il2CppClass.0x6C8   e.g. Advertising.RevokeDataPrivacyConsent: 39 Move v59 @ X1_v1, [v55 @ X8_v7 (Il2CppClass<EasyMobile.AdClientImpl>)+6C8]
+Import :             1 array at 0x30, from Move from the field LoadScoreRequest[]   e.g. GameServices.DoNextLoadScoreRequest: 104 Move v45.request.leaderboardId (System.String), [v357 @ X8_v14 (LoadScoreRequest[])+30]
+Import :             1 byref at 0x60, from no definition   e.g. SpawnWeaponsSystem.<OnUpdate>g__Spawn|4_0: 107 MakeStruct v64 @ AGGCCAF88_1_v2 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+58], [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+5C], [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+60]
+Import :             1 base has no type, from Add of [ComponentsBag`1<Morpeh.Hypercasual.SaveStringComponent>& + 0x8] and Immediate   e.g. SaveSystem.LostFocus: 159 ShiftLeft v327 @ TEMPSHIFT_v7 (System.Int32), [v330 @ X10_v6+v384 @ X9_v10 (System.Int32)*4], 4
+Import :             1 base has no type, from Move from [Component + 0x18]   e.g. PlayMakerFSM.FindFsmOnGameObject: 89 Call String.op_Equality, v104 @ X0_v36 (System.Boolean), [v110 @ X8_v21+30], fsmName @ X1 (System.String)
+Import :             1 base has no type, from Move from [WeaponButtonComponent& + 0x40]   e.g. WeaponButtonProvider.Initialize: 104 CallVoid UnityEvent.AddListener, [v116 @ X8_v13+E8], v101 @ X0_v20 (UnityEngine.Events.UnityAction)
+Import :             1 Il2CppClass.0x6E8   e.g. AdClientImpl.get_DataPrivacyConsent: 2 Move v3 @ X1_v1, [v0 @ X8_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+6E8]
+Import :             1 array at 0x28, from Add of Vector3[] and Int32   e.g. CatmullRomDecoder.SetWaypointsLengths: 144 Move [v257 @ X8_v17 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+28], [v614 @ X11_v6 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+28]
+Import :             1 base has no type, from Move from [Object + 0x80]   e.g. ObiParticleAttachment.Disable: 261 CheckLess v497 @ C_v20 (System.Boolean), v174 @ X22_v15 (System.Int32), [v190 @ X9_v15+18]
+Import :             1 base has no type, from Add of Array and an untyped local   e.g. DeriveBytes.Derive: 380 Move v546[v569 @ X8_v38 (System.Int32)], [v856 @ X9_v20+20]
+Import :             1 base has no type, from Move from [EnemyPartsComponent& + 0x0]   e.g. EnemyPartsProvider.OnValidate: 339 CheckEqual v184 @ Z_v5 (System.Boolean), v64._size (System.Int32), [v638 @ X8_v19+18]
+Import :             1 base has no type, from Add of Contact[] and Int32   e.g. CollisionEventHandler.OnDrawGizmos: 208 MakeStruct v450 @ AGG9FE0B0_0_v6 (UnityEngine.Vector4), typeof(UnityEngine.Vector4), [v622 @ X8_v22+20], v587[v293 @ X20_v8 (System.Int32)].point.y (System.Single), v587[v293 @ X20_v8 (System.Int32)].point.z (System.Single), v587[v293 @ X20_v8 (System.Int32)].point.w (System.Single)
+Import :             1 Il2CppClass.0x88   e.g. ReflectionUtils.GetAssemblyTypes: 78 Move v111 @ X20_v8, [v207 @ X20_v5 (Il2CppClass<System.Type>)+88]
+Import :             1 array at 0x24, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 58 MakeStruct v234 @ AGGB123BC_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v75 @ X8_v3 (UnityEngine.Color[])+20], [v75 @ X8_v3 (UnityEngine.Color[])+24], [v75 @ X8_v3 (UnityEngine.Color[])+28], [v75 @ X8_v3 (UnityEngine.Color[])+2C]
+Import :             1 byref at 0x8, from Add of Filter and Immediate   e.g. Filter.Select: 216 Add v376 @ X10_v5 (System.Int32), [v261 @ X8_v20 (System.Int32[]&)+8], 3
+Import :             1 array at 0x58, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 165 MakeStruct v132 @ AGGB12484_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v315 @ X8_v9 (UnityEngine.Color[])+50], [v315 @ X8_v9 (UnityEngine.Color[])+54], [v315 @ X8_v9 (UnityEngine.Color[])+58], [v315 @ X8_v9 (UnityEngine.Color[])+5C]
+Import :             1 base has no type, from Move from [NullReferenceException + 0x8]   e.g. ComponentsBag`1..cctor: 356 CheckLess v567 @ C_v11 (System.Boolean), v301 @ X26_v4 (System.Int32), [v213 @ X28_v6+18]
+Import :             1 base has no type, from Add of CVar and Immediate   e.g. CVar.get_HasRange: 18 Call Single.IsNaN, v19 @ X0_v7 (System.Boolean), [v0 @ X0_v1+4]
+Import :             1 base has no type, from Add of Scene and Int32   e.g. CodelessCrawler.GenViewJson: 97 CallVoid CodelessCrawler.GenChild, [v275 @ X8_v50+20], v57 @ X0_v7 (System.Text.StringBuilder)
+Import :             1 Il2CppClass.0x548   e.g. AdClientImpl.ShowBannerAd: 42 Move v64 @ X4_v1, [v59 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+548]
+Import :             1 base has no type, from Move from [Il2CppClass<EM_Moments.Encoder.NeuQuant> + 0x0]   e.g. NeuQuant.Learn: 387 Move v748 @ X8_v28, [v499 @ X0_v16+B8]
+Import :             1 Il2CppClass.0x200   e.g. JSONData.Serialize: 157 Move v118 @ X2_v13, [v156 @ X8_v23 (Il2CppClass<System.IO.BinaryWriter>)+200]
+Import :             1 base has no type, from Add of [Il2CppClass<UnityEngine.SphereCollider> + 0xC8] and Int32   e.g. ObiCollider.CreateTracker: 321 CheckNotEqual v157 @ TEMPCOND_v9 (System.Boolean), [v616 @ X8_v24-8], v256 @ X1_v6
+Import :             1 Il2CppClass.0x210   e.g. AdLocation..ctor: 52 Move v74 @ X4_v1, [v91 @ X8_v6 (Il2CppClass<System.Collections.Hashtable>)+210]
+Import :             1 base has no type, from Move from AddressOf(stack_-1E8)   e.g. ObiRopeLineRenderer.UpdateRenderer: 500 Multiply v3679 @ V14_v35 (System.Single), [v8203 @ X8_v67+40], this.thicknessScale (System.Single)
+Import :             1 base has no type, from Add of [ComponentsBag`1<Morpeh.Hypercasual.SaveIntComponent>& + 0x0] and Int32   e.g. SaveSystem.LostFocus: 115 Move [v301 @ X11_v7+v352 @ X9_v13 (System.Int32)*16], [v300 @ X12_v13+20]
+Import :             1 base has no type, from Add of [ComponentsBag`1<Morpeh.Hypercasual.SaveIntComponent>& + 0x8] and Immediate   e.g. SaveSystem.LostFocus: 112 ShiftLeft v299 @ TEMPSHIFT_v9 (System.Int32), [v302 @ X10_v7+v352 @ X9_v13 (System.Int32)*4], 4
+Import :             1 Il2CppClass.0x230   e.g. JSONData.Serialize: 68 Move v113 @ X3_v1, [v179 @ X8_v29 (Il2CppClass<System.IO.BinaryWriter>)+230]
+Import :             1 base has no type, from Move from [WeaponButtonComponent& + 0x38]   e.g. WeaponButtonProvider.Initialize: 81 CallVoid UnityEvent.AddListener, [v114 @ X8_v10+E8], v99 @ X0_v15 (UnityEngine.Events.UnityAction)
+Import :             1 base has no type, from Move from [Il2CppStaticFields<Morpeh.CacheComponents`1<T>> + 0x38]   e.g. CacheComponents`1.Add: 132 CheckLess v156 @ TEMPCOND_v2 (System.Boolean), [v115 @ X8_v12+20], 1
+Import :             1 base has no type, from Move from Immediate   e.g. PKCS12.set_Password: 133 CheckEqual v234 @ TEMP_v19 (System.Boolean), [v127 @ X24_v2+AD0], 0
+Import :             1 base has no type, from Move from [Object + 0x78]   e.g. ObiParticleAttachment.Disable: 130 CheckLess v488 @ C_v24 (System.Boolean), v172 @ X22_v11 (System.Int32), [v187 @ X9_v18+18]
+Import :             1 base has no type, from Move from [TabComponent& + 0x10]   e.g. TabProvider.Initialize: 55 CallVoid UnityEvent.AddListener, [v54 @ X8_v8+E8], v60 @ X0_v10 (UnityEngine.Events.UnityAction)
+Import :             1 base has no type, from Add of RaycastHit[] and Int32   e.g. RaycastAll.DoRaycast: 297 Move v931 @ V1_v23 (System.Single), [v373 @ X8_v46+20]
+Import :             1 array at 0x4C, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 124 MakeStruct v159 @ AGGB12438_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v314 @ X8_v8 (UnityEngine.Color[])+40], [v314 @ X8_v8 (UnityEngine.Color[])+44], [v314 @ X8_v8 (UnityEngine.Color[])+48], [v314 @ X8_v8 (UnityEngine.Color[])+4C]
+Import :             1 base has no type, from Move from [WeaponButtonComponent& + 0x48]   e.g. WeaponButtonProvider.Initialize: 127 CallVoid UnityEvent.AddListener, [v118 @ X8_v16+E8], v103 @ X0_v25 (UnityEngine.Events.UnityAction)
+Import :             1 base has no type, from Move from AddressOf(stack_-120, Single)   e.g. ObiRopeMeshRenderer.PreprocessInputMesh: 191 Move [v40 @ X29_v1-B0], [v1021 @ X8_v20+10]
+Import :             1 Il2CppClass.0x400   e.g. EditorFacebook.GetAppLink: 71 Move v90 @ X3_v4, [v106 @ X8_v16 (Il2CppClass<Facebook.Unity.Editor.EditorFacebook>)+400]
+Import :             1 base has no type, from Move from [SubscriptionViewComponent& + 0x38]   e.g. SubscriptionViewProvider.Initialize: 359 CallVoid UnityEvent.AddListener, [v478 @ X8_v35+E8], v466 @ X0_v42 (UnityEngine.Events.UnityAction)
+Import :             1 base has no type, from Move from AddressOf(stack_-B0)   e.g. ObiUpdater.Substep: 179 CheckNotEqual v283 @ TEMPCOND_v4 (System.Boolean), [v53 @ X22_v1+v357 @ X25_v2 (System.Int32)*4], 96
+Import :             1 base has no type, from Add of LogType[] and Int32   e.g. FirebaseLogger.CurrentStackTraceLogTypeIsIncompatibleWithNativeLogs: 101 Move v396 @ X22_v9, [v326 @ X8_v22+20]
+Import :             1 base has no type, from Move from [SubscriptionViewComponent& + 0x50]   e.g. SubscriptionViewProvider.Initialize: 340 CallVoid UnityEvent.AddListener, [v476 @ X8_v32+E8], v464 @ X0_v39 (UnityEngine.Events.UnityAction)
+Import :             1 array at 0x28, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 58 MakeStruct v234 @ AGGB123BC_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v75 @ X8_v3 (UnityEngine.Color[])+20], [v75 @ X8_v3 (UnityEngine.Color[])+24], [v75 @ X8_v3 (UnityEngine.Color[])+28], [v75 @ X8_v3 (UnityEngine.Color[])+2C]
+Import :             1 Il2CppClass.0x410   e.g. <>c__DisplayClass33_0.<DOValue>b__0: 4 Move v4 @ X2_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+410]
+Import :             1 base has no type, from Move from [SetStateGameObjectListComponent& + 0x8]   e.g. SetStateGameObjectListProvider.Initialize: 55 CallVoid UnityEvent.AddListener, [v54 @ X8_v8+E8], v60 @ X0_v10 (UnityEngine.Events.UnityAction)
+Import :             1 base has no type, from Add of Byte[] and Immediate   e.g. ASN1..ctor: 99 And v243 @ X13_v8 (System.Int32), [v120 @ X12_v5+v122 @ X9_v6 (System.Int32)], 255
+Import :             1 Il2CppClass.0x600   e.g. AdClientImpl.LoadRewardedAd: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+600]
+Import :             1 Il2CppClass.0x440   e.g. AdClientImpl.DestroyBannerAd: 53 Move v79 @ X3_v1, [v92 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+440]
+Import :             1 array at 0x20, from Move from the field LoadScoreRequest[]   e.g. GameServices.DoNextLoadScoreRequest: 106 Move v45.request (EasyMobile.GameServices+LoadScoreRequest), [v357 @ X8_v14 (LoadScoreRequest[])+20]
+Import :             1 base has no type, from Add of the field ObiStructuralElement[] and Int32   e.g. ObiRope.RebuildConstraintsFromElements: 427 Move v693 @ X8_v90, [v1103 @ X8_v89+20]
+Import :             1 array at 0x34, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 91 MakeStruct v174 @ AGGB123F8_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v313 @ X8_v7 (UnityEngine.Color[])+30], [v313 @ X8_v7 (UnityEngine.Color[])+34], [v313 @ X8_v7 (UnityEngine.Color[])+38], [v313 @ X8_v7 (UnityEngine.Color[])+3C]
+Import :             1 base has no type, from Add of [ComponentsBag`1<Morpeh.Hypercasual.SaveStringComponent>& + 0x0] and Int32   e.g. SaveSystem.LostFocus: 162 Move [v329 @ X11_v6+v384 @ X9_v10 (System.Int32)*16], [v328 @ X12_v9+20]
+Import :             1 byref at 0x50, from no definition   e.g. SpawnWeaponsSystem.<OnUpdate>g__Spawn|4_0: 127 CallVoid Transform.SetParent, v120 @ X0_v20 (UnityEngine.Transform), [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+50], 0
+Import :             1 base has no type, from Add of an untyped base and Immediate   e.g. TweenExtensions.GotoWaypoint: 326 Add v491 @ V0_v1 (System.Int32), v491 @ V0_v1 (System.Int32), [v390 @ X12_v2+v414 @ X10_v9 (System.Int32)*4]
+Import :             1 Il2CppClass.0x620   e.g. AdClientImpl.IsRewardedAdReady: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+620]
+Import :             1 Il2CppClass.0x460   e.g. AdClientImpl.IsInterstitialAdReady: 53 Move v80 @ X3_v1, [v93 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+460]
+Import :             1 Il2CppClass.0x820   e.g. <>c__DisplayClass6_0.<ResolveMethod>b__0: 151 Move v244 @ X3_v1, [v273 @ X8_v15 (Il2CppClass<System.Type>)+820]
+Import :             1 array at 0x20, from Add of Vector3[] and Int32   e.g. CatmullRomDecoder.SetWaypointsLengths: 142 Move [v257 @ X8_v17 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20], [v614 @ X11_v6 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20]
+Import :             1 array at 0x20, from Move from the field ControlPoint[]   e.g. CubicBezierDecoder.FinalizePath: 345 Move [v34 @ X29_v1-34], [v363 @ X8_v26 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20]
+Import :             1 array at 0x5C, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 165 MakeStruct v132 @ AGGB12484_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v315 @ X8_v9 (UnityEngine.Color[])+50], [v315 @ X8_v9 (UnityEngine.Color[])+54], [v315 @ X8_v9 (UnityEngine.Color[])+58], [v315 @ X8_v9 (UnityEngine.Color[])+5C]
+Import :             1 base has no type, from Move from AddressOf(stack_-180)   e.g. ObiRopeExtrudedRenderer.UpdateRenderer: 375 Multiply v6225 @ V9_v30 (System.Single), [v6198 @ X8_v66+40], this.thicknessScale (System.Single)
+Import :             1 byref at 0x5C, from no definition   e.g. SpawnWeaponsSystem.<OnUpdate>g__Spawn|4_0: 107 MakeStruct v64 @ AGGCCAF88_1_v2 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+58], [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+5C], [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+60]
+Import :             1 Il2CppClass.0x640   e.g. AdClientImpl.ShowRewardedAd: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+640]
+Import :             1 array at 0x24, from Add of Vector3[] and Int32   e.g. CatmullRomDecoder.SetWaypointsLengths: 143 Move [v257 @ X8_v17 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+24], [v614 @ X11_v6 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+24]
+Import :             1 Il2CppClass.0x840   e.g. FsmObject.TestTypeConstraint: 92 Move v142 @ X3_v4, [v157 @ X8_v12 (Il2CppClass<System.Type>)+840]
+Import :             1 static field storage at 0x30   e.g. Promo.ProvideProductsToAds: 168 Move v216 @ X9_v8 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>), [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+30]
+Import :             1 Il2CppClass.0x660   e.g. IronSourceClientImpl.OnRewardedVideoClosed: 27 Move v48 @ X9_v2, [v41 @ X8_v3 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+660]
+Import :             1 array at 0x40, from Move from the field LoadScoreRequest[]   e.g. GameServices.DoNextLoadScoreRequest: 102 Move v45.request.timeScope (UnityEngine.SocialPlatforms.TimeScope), [v357 @ X8_v14 (LoadScoreRequest[])+40]
+Import :             1 base has no type, from Add of Il2CppClass<UnityEngine.Purchasing.INativeAppleStore> and Immediate   e.g. AppleStoreImpl.OnProductsRetrieved: 487 Move v877 @ X2_v5 (System.Int32), [v615 @ X0_v5+8]
+Import :             1 Il2CppClass.0x670   e.g. IronSourceClientImpl.OnRewardedVideoClosed: 24 Move v48 @ X9_v2, [v41 @ X8_v3 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+670]
+Import :             1 base has no type, from Add of Int32 and Immediate   e.g. MetaUpgradeButtonUISystem.UpdateUI: 108 Call IEntity.GetComponent, v489 @ X0_v49 (GBG.Pinata.ECS.UI.Components.MetaUpgradeButtonComponent&), [v485 @ X0_v47+8]
+Import :             1 Il2CppClass.0x5A0   e.g. AdClientImpl.LoadInterstitialAd: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+5A0]
+Import :             1 Il2CppClass.0x408   e.g. EditorFacebook.GetAppLink: 72 Move v92 @ X2_v5, [v106 @ X8_v16 (Il2CppClass<Facebook.Unity.Editor.EditorFacebook>)+408]
+Import :             1 Il2CppClass.0x3C8   e.g. GameroomFacebook.ActivateApp: 36 Move v55 @ X4_v1, [v48 @ X8_v7 (Il2CppClass<Facebook.Unity.Gameroom.GameroomFacebook>)+3C8]
+Import :             1 array at 0x54, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 165 MakeStruct v132 @ AGGB12484_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v315 @ X8_v9 (UnityEngine.Color[])+50], [v315 @ X8_v9 (UnityEngine.Color[])+54], [v315 @ X8_v9 (UnityEngine.Color[])+58], [v315 @ X8_v9 (UnityEngine.Color[])+5C]
+Import :             1 Il2CppClass.0x5B0   e.g. <>c__DisplayClass36_0.<DOText>b__0: 4 Move v4 @ X2_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Text>)+5B0]
+Import :             1 Il2CppClass.0x568   e.g. AdClientImpl.HideBannerAd: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+568]
+Import :             1 base has no type, from Add of [Il2CppClass<LipingShare.LCLib.Asn1Processor.Asn1Node> + 0xC8] and Int32   e.g. Asn1Node.ClearAll: 71 Move v148 @ X8_v3 (System.Collections.ArrayList), [v228 @ X8_v12-8]
+Import :             1 base has no type, from Move from [Il2CppClass<UnityEngine.Object> + 0x0]   e.g. LunarConsoleLegacyAction.Invoke: 351 CallVoid Log.e, [v386 @ X20_v18+28], "Exception while invoking action '{0}'", v142 @ X0_v56 (System.Object[])
+Import :             1 array at 0x38, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 91 MakeStruct v174 @ AGGB123F8_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v313 @ X8_v7 (UnityEngine.Color[])+30], [v313 @ X8_v7 (UnityEngine.Color[])+34], [v313 @ X8_v7 (UnityEngine.Color[])+38], [v313 @ X8_v7 (UnityEngine.Color[])+3C]
+Import :             1 array at 0x30, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 91 MakeStruct v174 @ AGGB123F8_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v313 @ X8_v7 (UnityEngine.Color[])+30], [v313 @ X8_v7 (UnityEngine.Color[])+34], [v313 @ X8_v7 (UnityEngine.Color[])+38], [v313 @ X8_v7 (UnityEngine.Color[])+3C]
+Import :             1 base has no type, from Move from [SubscriptionViewComponent& + 0x48]   e.g. SubscriptionViewProvider.Initialize: 321 CallVoid UnityEvent.AddListener, [v474 @ X8_v29+E8], v462 @ X0_v36 (UnityEngine.Events.UnityAction)
+Import :             1 byref at 0x20, from no definition   e.g. CacheComponents`1.Set: 98 Move [v107 @ X8_v11+40], [value @ X1 (T&)+20]
+Import :             1 Il2CppClass.0x608   e.g. AdClientImpl.LoadRewardedAd: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+608]
+Import :             1 base has no type, from Move from [String + 0x58]   e.g. ComponentsBag`1..cctor: 313 CheckLess v506 @ C_v9 (System.Boolean), [v505 @ X9_v7+20], [v453 @ X8_v25+18]
+Import :             1 array at 0x2C, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 58 MakeStruct v234 @ AGGB123BC_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v75 @ X8_v3 (UnityEngine.Color[])+20], [v75 @ X8_v3 (UnityEngine.Color[])+24], [v75 @ X8_v3 (UnityEngine.Color[])+28], [v75 @ X8_v3 (UnityEngine.Color[])+2C]
+Import :             1 Il2CppClass.0x5E0   e.g. AdClientImpl.ShowInterstitialAd: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+5E0]
+Import :             1 Il2CppClass.0x448   e.g. AdClientImpl.DestroyBannerAd: 54 Move v77 @ X2_v2, [v92 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+448]
+Import :             1 Il2CppClass.0x388   e.g. UiRebuild.DoAction: 47 Move v70 @ X2_v2, [v65 @ X8_v7 (Il2CppClass<UnityEngine.UI.Graphic>)+388]
+Import :             1 base has no type, from Move from [SetStateGameObjectComponent& + 0x8]   e.g. SetStateGameObjectProvider.Initialize: 55 CallVoid UnityEvent.AddListener, [v54 @ X8_v8+E8], v60 @ X0_v10 (UnityEngine.Events.UnityAction)
+Import :             1 Il2CppClass.0x580   e.g. AdClientImpl.DestroyBannerAd: 38 Move v58 @ X3_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+580]
+Import :             1 Il2CppClass.0x628   e.g. AdClientImpl.IsRewardedAdReady: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+628]
+Import :             1 Il2CppClass.0x468   e.g. AdClientImpl.IsInterstitialAdReady: 54 Move v78 @ X2_v2, [v93 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+468]
+Import :             1 Il2CppClass.0x828   e.g. <>c__DisplayClass6_0.<ResolveMethod>b__0: 152 Move v262 @ X2_v9, [v273 @ X8_v15 (Il2CppClass<System.Type>)+828]
+Import :             1 Il2CppClass.0x728   e.g. IronSourceClientImpl.ToIronSourceBannerSize: 54 Move v59 @ X2_v1, [v53 @ X8_v4 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+728]
+Import :             1 Il2CppMethodInfo.rgctx_data   e.g. ClassUtils.GetObjectField: 123 Move v306 @ X8_v15, [methodInfo @ X2 (Il2CppMethodInfo)+30]
+Import :             1 Il2CppClass.0x648   e.g. AdClientImpl.ShowRewardedAd: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+648]
+Import :             1 Il2CppClass.0x738   e.g. AudienceNetworkClientImpl.SetupTestMode: 5 Move v6 @ X2_v1, [v2 @ X8_v1 (Il2CppClass<EasyMobile.AudienceNetworkClientImpl>)+738]
+Import :             1 Il2CppClass.0x4D0   e.g. MobileFacebook.set_ShareDialogMode: 2 Move v3 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Facebook.Unity.Mobile.MobileFacebook>)+4D0]
+Import :             1 Il2CppClass.0x748   e.g. IronSourceClientImpl.SetupAdvancedSetting: 5 Move v6 @ X2_v1, [v2 @ X8_v1 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+748]
+Import :             1 byref at 0x58, from no definition   e.g. SpawnWeaponsSystem.<OnUpdate>g__Spawn|4_0: 107 MakeStruct v64 @ AGGCCAF88_1_v2 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+58], [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+5C], [data @ X0 (GBG.Pinata.ECS.Components.HandComponent&)+60]
+Import :             1 Il2CppClass.0x668   e.g. IronSourceClientImpl.OnRewardedVideoClosed: 28 Move v47 @ X2_v1, [v41 @ X8_v3 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+668]
+Import :             1 Il2CppClass.0x6B0   e.g. Advertising.GrantDataPrivacyConsent: 38 Move v58 @ X2_v1, [v55 @ X8_v7 (Il2CppClass<EasyMobile.AdClientImpl>)+6B0]
+Import :             1 array at 0x50, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 165 MakeStruct v132 @ AGGB12484_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v315 @ X8_v9 (UnityEngine.Color[])+50], [v315 @ X8_v9 (UnityEngine.Color[])+54], [v315 @ X8_v9 (UnityEngine.Color[])+58], [v315 @ X8_v9 (UnityEngine.Color[])+5C]
+Import :             1 base has no type, from Add of Int32[] and Int32   e.g. GraphColoring.Colorize: 92 Subtract v121 @ X2_v6 (System.Int32), [v564 @ X8_v12+24], constraintIndices[v139 @ X24_v5 (System.Int32)]
+Import :             1 Il2CppClass.0x678   e.g. IronSourceClientImpl.OnRewardedVideoClosed: 25 Move v47 @ X2_v1, [v41 @ X8_v3 (Il2CppClass<EasyMobile.IronSourceClientImpl>)+678]
+Import :             1 Il2CppClass.0x6C0   e.g. Advertising.RevokeDataPrivacyConsent: 38 Move v58 @ X2_v1, [v55 @ X8_v7 (Il2CppClass<EasyMobile.AdClientImpl>)+6C0]
+Import :             1 array at 0x44, from Move from the field Color[]   e.g. <>c__DisplayClass13_0.<Setup>b__2: 124 MakeStruct v159 @ AGGB12438_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v314 @ X8_v8 (UnityEngine.Color[])+40], [v314 @ X8_v8 (UnityEngine.Color[])+44], [v314 @ X8_v8 (UnityEngine.Color[])+48], [v314 @ X8_v8 (UnityEngine.Color[])+4C]
+Import :             1 base has no type, from Add of Il2CppMethodInfo and Int32   e.g. Gif.ToTextureArray: 98 CallVoid Texture2D.SetPixels32, v213 @ X0_v9 (UnityEngine.Texture2D), [v249 @ X8_v12+20]
+Import :             1 base has no type, from Add of Single[2] and Int32   e.g. ObiTerrainShapeTracker.UpdateHeightData: 200 Move [v433 @ X16_v11+20], [v496 @ X15_v12+20]
+Import :             1 array at 0x0, from Move from the field Tween[]   e.g. TweenManager.Despawn: 479 CheckEqual v671 @ TEMP_v63 (System.Boolean), [v213 @ X23_v15 (DG.Tweening.Tween[])+v64 @ X22_v12 (System.Int32)*8], 0
+Import :             1 Il2CppClass.0x5A8   e.g. AdClientImpl.LoadInterstitialAd: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+5A8]
+Import :             1 Il2CppClass.0x308   e.g. Asn1Node.ListDecode: 185 Move v224 @ X4_v7, [v489 @ X8_v32 (Il2CppClass<System.IO.MemoryStream>)+308]
+Import :             1 Il2CppClass.0x6E0   e.g. AdClientImpl.get_DataPrivacyConsent: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+6E0]
+Import :             1 Il2CppClass.0x3C0   e.g. GameroomFacebook.ActivateApp: 34 Move v53 @ X5_v1, [v48 @ X8_v7 (Il2CppClass<Facebook.Unity.Gameroom.GameroomFacebook>)+3C0]
+Import :             1 Il2CppClass.0x5B8   e.g. <>c__DisplayClass36_0.<DOText>b__0: 5 Move v5 @ X1_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Text>)+5B8]
+Import :             1 Il2CppClass.0x20   e.g. AppleStoreImpl.OnProductsRetrieved: 404 CallVoid ProductDescription..ctor, v1502 @ X0_v136 (UnityEngine.Purchasing.Extension.ProductDescription), [v66 @ X8_v28 (Il2CppClass<UnityEngine.Purchasing.INativeAppleStore>)+10], [v66 @ X8_v28 (Il2CppClass<UnityEngine.Purchasing.INativeAppleStore>)+20], v292 @ X0_v41 (System.String), v931.<transactionID>k__BackingField (System.String)
+Import :             1 base has no type, from Move from [ActivateGameObjectComponent& + 0x10]   e.g. ActivateGameObjectProvider.Initialize: 55 CallVoid UnityEvent.AddListener, [v54 @ X8_v8+E8], v60 @ X0_v10 (UnityEngine.Events.UnityAction)
+Import :             1 array at 0x0, from Move from Single[]   e.g. LinearDecoder.SetTimeToLengthTables: 200 Add v343 @ V0_v6 (System.Single), v343 @ V0_v6 (System.Single), [v301 @ X20_v2 (System.Single[])+v406 @ X8_v8 (System.Int32)*4]
+Import : Il2Cpp method body recovery: 45121 locals the analysis could not type, by what defines them:
+Import :         21002 written by nothing, first read by an unresolved call   e.g. Kernel.modInverse: v40
+Import :          6928 written by nothing [never read]   e.g. PKCS12.ReadSafeBag: v42
+Import :          3000 Call - the return of a call whose target is unknown [never read]   e.g. Kernel.modInverse: 110 Call "il2cpp_codegen_object_is_inst", v580 @ X0_v92, v194 @ X0_v18 (Mono.Math.BigInteger), [v577 @ X8_v71+40], v72 @ X2_v11 (Il2CppMethodInfo), v40 @ X3, v41 @ X4, v42 @ X5, v43 @ X6, v44 @ X7, v45 @ V0, v46 @ V1, v47 @ V2, v48 @ V3, v49 @ V4, v50 @ V5, v51 @ V6, v52 @ V7
+Import :          1836 Move from memory [never read]   e.g. Kernel.modInverse: 107 Move v577 @ X8_v71, [v245 @ X0_v15 (Mono.Math.BigInteger[])]
+Import :          1637 written by nothing, first read by IndirectCall   e.g. PKCS12.RemoveCertificate: v42
+Import :          1498 Add, first read by Add   e.g. MD4Managed.GG: 9 Add v15 @ X8_v2, v10 @ X9_v4 (System.Int32), [a @ X1 (System.UInt32&)]
+Import :          1042 Call - the return of a resolved method (typed) [never read]   e.g. MD2Managed.HashFinal: 44 Call MD2Managed.HashCore, v67 @ X0_v20, v36 @ X0_v1 (Mono.Security.Cryptography.MD2Managed), v55 @ X0_v18 (System.Byte[]), 0, v41 @ X20_v2 (System.Int32)
+Import :           984 Subtract, first read by CheckEqual   e.g. ASN1..ctor: 36 Subtract v110 @ TEMP1_v4, data.Length, 1
+Import :           846 IsInst [never read]   e.g. DistinguishedName.ToString: 35 IsInst v99 @ X0_v37, typeof(System.String), "CN: "
+Import :           749 Add [never read]   e.g. ASN1..ctor: 74 Add v120 @ X12_v5, data @ X1 (System.Byte[]), 34
+Import :           630 Add, first read by ShiftLeft   e.g. ASN1.GetBytes: 105 Add v1040 @ X9_v46, [v989 @ X11_v23], 1
+Import :           530 Add, first read by an unresolved call   e.g. ASN1.ToString: 35 Add v61 @ X0_v4, this @ X0 (Mono.Security.ASN1), 16
+Import :           419 Call - the return of a call whose target is unknown, first read by an unresolved call   e.g. PKCS1.CreateFromName: 371 Call 6D2380, v397 @ X0_v16, v354 @ X20_v4 (System.InvalidCastException), v324 @ X1_v7 (Il2CppClass<System.Security.Cryptography.HashAlgorithm>), v408 @ X2_v4 (Il2CppMethodInfo), v23 @ X3, v24 @ X4, v25 @ X5, v26 @ X6, v27 @ X7, v28 @ V0, v29 @ V1, v30 @ V2, v31 @ V3, v32 @ V4, v33 @ V5, v34 @ V6, v35 @ V7
+Import :           374 Move of AddressOf [never read]   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 13 Move v21 @ X29, &v21 @ X29
+Import :           329 IsInst, first read by CheckEqual   e.g. CrossPlatformValidator.Validate: 233 IsInst v877 @ X0_v149, typeof(UnityEngine.Purchasing.Security.AppleInAppPurchaseReceipt), v767 @ X0_v143 (UnityEngine.Purchasing.Security.GooglePlayReceipt)
+Import :           282 written by nothing, first read by MakeStruct   e.g. ShortcutExtensions.DOScale: v61
+Import :           279 IndirectCall [never read]   e.g. LicenseForwardCallback.dontAllow: 123 IndirectCall [v219 @ X0_v9], v138 @ X0_v11, this._listener (UnityEngine.UDP.ILicensingListener), v142 @ X21_v4 (System.Int32), message @ X2 (System.String), [v219 @ X0_v9+8], v30 @ X4, v31 @ X5, v32 @ X6, v33 @ X7, v34 @ V0, v35 @ V1, v36 @ V2, v37 @ V3, v38 @ V4, v39 @ V5, v40 @ V6, v41 @ V7
+Import :           261 Move of a constant [never read]   e.g. MessageBase.CheckHeader: 114 Move v154 @ stack_-44_v2, 0
+Import :           193 Move of ArrayLength, first read by CheckLess   e.g. DistinguishedName.ToString: 38 Move v225 @ X8_v17, v45.Length
+Import :           179 Subtract, first read by an unresolved call   e.g. Serializer.SerializeOther: 199 Subtract v287 @ X0_v17, &v11 @ stack_-10_v2, 20
+Import :           166 Call - the return of a call whose target is unknown, first read by And   e.g. PKCS1.CreateFromName: 333 Call "il2cpp_vm_class_is_assignable_from", v403 @ X0_v21, typeof(System.Object), [v400 @ X8_v14 (Il2CppClass<System.Security.Cryptography.CryptographicException>)], v408 @ X2_v4 (Il2CppMethodInfo), v23 @ X3, v24 @ X4, v25 @ X5, v26 @ X6, v27 @ X7, v28 @ V0, v29 @ V1, v30 @ V2, v31 @ V3, v32 @ V4, v33 @ V5, v34 @ V6, v35 @ V7
+Import :           125 Box, first read by CheckEqual   e.g. StoreService.javaArrayFromCSList: 74 Box v350 @ X0_v22, typeof(System.Int32), &v347 @ X8_v16 (System.Int32)
+Import :           122 written by nothing, first read by Move   e.g. Asn1Node.ListDecode: v223
+Import :           117 Xor, first read by And   e.g. RectPlugin.GetSpeedBasedDuration: 57 Xor v77 @ TEMP2_v1, v84 @ V0_v3 (System.Single), v84 @ V0_v3 (System.Single)
+Import :            91 Add, first read by CheckEqual   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 1132 Add v1744 @ TEMP_v70, [v21 @ X29-5C], 1
+Import :            91 Add, first read by Move   e.g. MD4Managed.FF: 7 Add v13 @ X8_v2, v11 @ X9_v3 (System.Int32), [a @ X1 (System.UInt32&)]
+Import :            83 Multiply, first read by Add   e.g. Kernel.Multiply: 79 Multiply v196 @ TEMP_v7, [v62 @ X10_v2 (System.Int32)], [v143 @ X8_v4 (System.Int32)]
+Import :            71 Move from memory, first read by IndirectCall   e.g. PKCS12.GetBytes: 1281 Move v408 @ X0_v125, [v21 @ X29-78]
+Import :            63 Move of a constant, first read by an unresolved call   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: -1 Move v448 @ X1_v3, 0
+Import :            56 Move from memory, first read by Add   e.g. Vector3ArrayPlugin.EvaluateAndApply: 23 Move v42 @ X25_v1, [v38 @ X29_v1+10]
+Import :            56 Subtract [never read]   e.g. RSAKey.ParseNode: 171 Subtract v301 @ X1_v18, v230.Length, 1
+Import :            48 Box, first read by IndirectCall   e.g. ProductCatalogPayout..ctor: 25 Box v46 @ X0_v3, typeof(UnityEngine.Purchasing.ProductCatalogPayout+ProductCatalogPayoutType), &v44 @ stack_-24_v1
+Import :            47 Call - the return of a call whose target is unknown, first read by CheckEqual   e.g. PKCS12.GetBytes: 1233 Call "il2cpp_codegen_object_is_inst", v2910 @ X0_v123, v2328 @ X0_v120 (System.Collections.IEnumerator), [v469 @ X19_v22 (Il2CppClass<System.IDisposable>)], v125 @ X2_v22 (System.NullReferenceException), v99 @ X3_v7 (System.Int32), v94 @ X4_v7 (System.Byte[]), v40 @ X5, v41 @ X6, v42 @ X7, v43 @ V0, v44 @ V1, v45 @ V2, v46 @ V3, v47 @ V4, v48 @ V5, v49 @ V6, v50 @ V7
+Import :            44 Move from memory, first read by an unresolved call   e.g. Asn1Node.ListDecode: 185 Move v224 @ X4_v7, [v489 @ X8_v32 (Il2CppClass<System.IO.MemoryStream>)+308]
+Import :            38 IndirectCall, first read by And   e.g. PurchaseForwardCallback.GetValueOfDictionary: 74 IndirectCall [v222 @ X0_v7], v228 @ X0_v9, dictionary @ X0 (System.Collections.Generic.IDictionary`2<System.String, System.Object>), key @ X1 (System.String), [v222 @ X0_v7+8], methodInfo @ X3 (Il2CppMethodInfo), v33 @ X4, v34 @ X5, v35 @ X6, v36 @ X7, v37 @ V0, v38 @ V1, v39 @ V2, v40 @ V3, v41 @ V4, v42 @ V5, v43 @ V6, v44 @ V7
+Import :            38 Call - the return of a resolved method (typed), first read by IndirectCall   e.g. AndroidAgent.getPlacementInfo: 100 Call Dictionary`2<System.String, System.Object>.get_Item, v126 @ X0_v21, v200 @ X0_v19 (System.Object), "placement_name"
+Import :            33 Move of a constant, first read by Add   e.g. MessageBase.CheckHeader: -1 Move v52 @ X22_v2, 4294967295
+Import :            30 Subtract, first read by CheckLess   e.g. X509Cert.CheckCertTime: 21 Subtract v39 @ TEMP1_v2, v35 @ X0_v6, 1
+Import :            30 Subtract, first read by Box   e.g. InstallRootCerts.InstallDefaultCRLs: 765 Subtract v1281 @ X1_v20, &v21 @ X29, 140
+Import :            26 IndirectCall, first read by CheckEqual   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 621 IndirectCall [v1693 @ X0_v178], v1698 @ X0_v180, v1388 @ X0_v162 (System.Collections.IEnumerator), [v1693 @ X0_v178+8], v569 @ X2_v38 (System.Collections.IDictionary), this._iterations (System.Int32), v693 @ X0_v31 (System.Byte[]), v42 @ X5, v43 @ X6, v44 @ X7, v45 @ V0, v46 @ V1, v47 @ V2, v48 @ V3, v49 @ V4, v50 @ V5, v51 @ V6, v52 @ V7
+Import :            26 Call - the return of a call whose target is unknown, first read by IndirectCall   e.g. StoreListener.OnInitialized: 108 Call 8D8294, v341 @ X0_v13, [v337 @ X0_v11+8], methodof(UnityEngine.Purchasing.IExtensionProvider::GetExtension), [v84 @ X20_v4 (Il2CppMethodInfo)+48], methodInfo @ X3 (Il2CppMethodInfo), v28 @ X4, v29 @ X5, v30 @ X6, v31 @ X7, v32 @ V0, v33 @ V1, v34 @ V2, v35 @ V3, v36 @ V4, v37 @ V5, v38 @ V6, v39 @ V7
+Import :            24 Call - the return of a call whose target is unknown, first read by CheckLess   e.g. SubscriptionInfo..ctor: 399 Call E95580, v545 @ X0_v20, &v541 @ X8_v23 (System.DateTime), 0, v376 @ X2_v1 (Il2CppMethodInfo), 0, v34 @ X4, v35 @ X5, v36 @ X6, v37 @ X7, v38 @ V0, v39 @ V1, v40 @ V2, v41 @ V3, v42 @ V4, v43 @ V5, v44 @ V6, v45 @ V7
+Import :            24 Move of AddressOf, first read by an unresolved call   e.g. Type3Message.GetBytes: -1 Move v225 @ X6_v6, &v222 @ stack_-70_v6 (System.Byte[])
+Import :            23 Move from another untyped local, first read by an unresolved call   e.g. JSONNode.Parse: -1 Move v1091 @ X3_v12, v942 @ X3_v9
+Import :            22 Call - the return of a resolved method (typed), first read by And   e.g. PKCS12.get_Keys: 102 Call IEnumerator.MoveNext, v1007 @ X0_v81, v285 @ X0_v77 (System.Collections.IEnumerator)
+Import :            22 Move from another untyped local, first read by Move   e.g. InstallRootCerts.InstallDefaultCRLs: -1 Move v891 @ X3_v8, v337 @ X3_v1
+Import :            21 Subtract, first read by Multiply   e.g. TweenExtensions.GotoWaypoint: 389 Subtract v563 @ X8_v43, v557 @ X8_v42, v561 @ X9_v11 (System.Int32)
+Import :            20 written by nothing, first read by CheckEqual   e.g. AppleStoreImpl.SetStorePromotionOrder: v133
+Import :            19 Add, first read by CheckLess   e.g. MD4Managed.Encode: 24 Add v175 @ X11_v4, v51 @ X8_v4, 1
+Import :            18 Call - the return of a resolved method (typed), first read by a call to an instance method   e.g. AppleReceiptParser.Parse: 458 Call Dictionary`2<System.String, System.Object>.set_Item, v475 @ X0_v9, v445 @ X0_v7 (System.NullReferenceException), v432 @ X1_v2 (System.String), v430 @ X2_v2 (UnityEngine.Purchasing.Security.PKCS7)
+Import :            18 Move from memory, first read by Move   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 1131 Move v941 @ X9_v22, [v21 @ X29-5C]
+Import :            18 Move of TypeAnalysisContext [never read]   e.g. SignerInfo..ctor: -1 Move v271 @ X8_v7, typeof(UnityEngine.Purchasing.Security.InvalidPKCS7Data)
+Import :            17 Move from memory, first read by CheckEqual   e.g. <Send>c__AnonStorey4.<>m__0: 62 Move v124 @ X20_v6, [v134 @ X0_v12]
+Import :            17 IndirectCall, first read by IsInst   e.g. ASN1.GetBytes: 112 IndirectCall [v1057 @ X0_v72], v1062 @ X0_v74, v236 @ X0_v42 (System.Collections.IEnumerator), [v1057 @ X0_v72+8], v1045 @ X2_v26 (System.Int32), v37 @ X3 (System.Int32), v38 @ X4 (System.Int32), v39 @ X5, v40 @ X6, v41 @ X7, v42 @ V0, v43 @ V1, v44 @ V2, v45 @ V3, v46 @ V4, v47 @ V5, v48 @ V6, v49 @ V7
+Import :            16 Add, first read by Multiply   e.g. BannerAdSize.GetHashCode: 27 Add v47 @ X9_v1, v38 @ X0_v4, v46 @ TEMP_v1
+Import :            16 Move from another untyped local [never read]   e.g. Color2Plugin.EvaluateAndApply: -1 Move v461 @ stack_-2C0_v4, v203 @ stack_-200_v4
+Import :            15 Call - the return of a resolved method (typed), first read by CheckEqual   e.g. AppleReceiptParser.Parse: 163 Call Dictionary`2<System.String, System.Object>.get_Item, v770 @ X0_v71, v171._mostRecentReceiptData (System.Collections.Generic.Dictionary`2<System.String, System.Object>), "k_PKCS7Key"
+Import :            15 written by nothing, first read by Multiply   e.g. ColorUtils.ToRGBA: v12
+Import :            14 Move from a typed local, first read by an unresolved call   e.g. JSONStore.OnPurchaseSucceeded: -1 Move v103 @ X3_v4, transactionID @ X3 (System.String)
+Import :            13 written by nothing, first read by CheckNotEqual   e.g. PKCS12.GetExistingParameters: v76
+Import :            13 Add, first read by ShiftRight   e.g. DeriveBytes.Adjust: 26 Add v186 @ X8_v5, -4294967296, v185 @ TEMPSHIFT_v3 (System.Int32)
+Import :            13 IndirectCall, first read by Move   e.g. PKCS12.GetBytes: 2915 IndirectCall [v1612 @ X8_v13+170], v1614 @ X0_v20, v1607 @ X0_v19, [v1612 @ X8_v13+178], v133 @ X2_v7 (System.String), v99 @ X3_v7 (System.Int32), v94 @ X4_v7 (System.Byte[]), v40 @ X5, v41 @ X6, v42 @ X7, v43 @ V0, v44 @ V1, v45 @ V2, v46 @ V3, v47 @ V4, v48 @ V5, v49 @ V6, v50 @ V7
+Import :            13 Subtract, first read by Add   e.g. BigInteger..ctor: 86 Subtract v169 @ X13_v5, v138.Length, 2
+Import :            12 Negate, first read by an unresolved call   e.g. ObiRope.ApplyTearing: 354 Negate v67 @ V0_v6, [v418 @ X9_v28]
+Import :            12 Subtract, first read by IndirectCall   e.g. AppMetrica.SetupMetrica: 188 Subtract v272 @ X1_v7, &v25 @ stack_-10_v2, 176
+Import :            10 Move of a constant, first read by IndirectCall   e.g. AppConfigExtensions.GetState: -1 Move v67 @ X2_v14, 2
+Import :            10 IndirectCall, first read by CheckLess   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 1226 IndirectCall [v750 @ X8_v41+260], v744 @ X0_v68, [v381 @ X8_v40+20], [v750 @ X8_v41+268], 0, this._iterations (System.Int32), v693 @ X0_v31 (System.Byte[]), v42 @ X5, v43 @ X6, v44 @ X7, v45 @ V0, v46 @ V1, v47 @ V2, v48 @ V3, v49 @ V4, v50 @ V5, v51 @ V6, v52 @ V7
+Import :            10 Move from another untyped local, first read by Add   e.g. InstallRootCerts.InstallDefaultCRLs: -1 Move v895 @ X26_v7, v992 @ X26_v9
+Import :             9 Call - the return of a call whose target is unknown, first read by Subtract   e.g. X509Cert.CheckCertTime: 18 Call E94E94, v35 @ X0_v6, &v12 @ X1_v1 (System.DateTime), this.<ValidBefore>k__BackingField (System.DateTime), 0, v16 @ X3, v17 @ X4, v18 @ X5, v19 @ X6, v20 @ X7, v21 @ V0, v22 @ V1, v23 @ V2, v24 @ V3, v25 @ V4, v26 @ V5, v27 @ V6, v28 @ V7
+Import :             9 Call - the return of a resolved method (typed), first read by IsInst   e.g. PurchaseForwardCallback.GetValueOfDictionary: 122 Call IDictionary`2<System.String, System.Object>.get_Item, v364 @ X0_v14, dictionary @ X0 (System.Collections.Generic.IDictionary`2<System.String, System.Object>), key @ X1 (System.String)
+Import :             8 Move of TypeAnalysisContext, first read by an unresolved call   e.g. Parser.ParseNumber: -1 Move v215 @ X0_v7, typeof(System.Double)
+Import :             7 IndirectCall, first read by IndirectCall   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 445 IndirectCall [v1246 @ X0_v148], v947 @ X0_v150, v844 @ X0_v57 (System.Collections.IEnumerator), [v1246 @ X0_v148+8], v259 @ X2_v32 (System.Collections.IDictionary), this._iterations (System.Int32), v693 @ X0_v31 (System.Byte[]), v42 @ X5, v43 @ X6, v44 @ X7, v45 @ V0, v46 @ V1, v47 @ V2, v48 @ V3, v49 @ V4, v50 @ V5, v51 @ V6, v52 @ V7
+Import :             7 Subtract, first read by a call to an instance method   e.g. CloudCatalogImpl.ParseProductsFromJSON: 478 Subtract v647 @ X0_v7, &v21 @ X29, 112
+Import :             7 Add, first read by Not   e.g. InAppPurchasing.InitializePurchasing: 60 Add v106 @ X9_v3, v85.sIsInitializing (System.Boolean), 7
+Import :             7 Add, first read by Subtract   e.g. Kernel.Subtract: 90 Add v310 @ X14_v6, v132[v120 @ X12_v3 (System.Int32)], v125 @ X13_v3 (System.Boolean)
+Import :             7 Move from memory, first read by CheckNotEqual   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 450 Move v1280 @ X1_v70, [v862 @ X28_v12 (Il2CppClass<System.Collections.ArrayList>)]
+Import :             6 Move from memory, first read by MakeStruct   e.g. RectPlugin.SetFrom: 37 Move v124 @ X24_v3, [t @ X1 (DG.Tweening.Core.TweenerCore`3<UnityEngine.Rect, UnityEngine.Rect, DG.Tweening.Plugins.Options.RectOptions>)+138]
+Import :             6 Move from memory, first read by Multiply   e.g. TweenExtensions.GotoWaypoint: 347 Move v241 @ V1_v3, [20220A0]
+Import :             6 Move of a constant, first read by MakeStruct   e.g. ClipPlayerUI.Resize: 115 Move v230 @ stack_-28_v3, 0
+Import :             6 Newobj, first read by CallVoid   e.g. ArrayShuffle.OnEnter: 35 Newobj v128 @ X0_v10, typeof(System.Collections.Generic.List`1<System.Object>)
+Import :             6 written by nothing, first read by Add   e.g. EditorConsentDialogClickableText.OnPopulateMesh: v411
+Import :             6 Move from another untyped local, first read by IndirectCall   e.g. FakeStore.StoreRetrieveProducts: -1 Move v81 @ X6_v4, v165 @ X6_v6
+Import :             5 Move from another untyped local, first read by MakeStruct   e.g. CubicBezierDecoder.SetTimeToLengthTables: -1 Move v143 @ V10_v6, v343 @ V2_v4
+Import :             5 Move from memory, first read by And   e.g. SerializableKeyValuePair`2.FromKeyValuePair: 14 Move v48 @ X8_v13, [v68 @ X22_v9+12E]
+Import :             5 Move of a constant, first read by Move   e.g. InstallRootCerts.InstallDefaultCRLs: -1 Move v337 @ X3_v1, 0
+Import :             5 Add, first read by IndirectCall   e.g. Filter..ctor: 169 Add v230 @ X21_v5, this @ X0 (Morpeh.Filter), 80
+Import :             5 IsInst, first read by a call to an instance method   e.g. GA_Wrapper.configureAvailableCustomDimensions01: 47 IsInst v67 @ X0_v48, typeof(System.Collections.Generic.IList`1<System.Object>), v49 @ X20_v2 (System.Object)
+Import :             4 Subtract, first read by And   e.g. Obfuscator.DeObfuscate: 84 Subtract v211 @ X28_v5, order.Length, 2
+Import :             4 Multiply, first read by Subtract   e.g. Obfuscator.DeObfuscate: 86 Multiply v279 @ X8_v19, order.Length, 20
+Import :             4 Add, first read by And   e.g. DeriveBytes.Adjust: 79 Add v194 @ X15_v6, v115 @ X10_v7, v122 @ X8_v11 (System.Int32)
+Import :             4 Move from a typed local, first read by Move   e.g. CloudCatalogImpl.CreateInstance: -1 Move v367 @ X20_v3, v83 @ X0_v51 (UnityEngine.Purchasing.AsyncWebUtil)
+Import :             4 Add, first read by Box   e.g. Participant.ToString: 68 Add v103 @ X22_v5, this @ X0 (EasyMobile.Participant), 32
+Import :             4 Add, first read by a call to an instance method   e.g. SubscriptionInfo..ctor: 468 Add v826 @ X23_v5, this @ X0 (UnityEngine.Purchasing.SubscriptionInfo), 104
+Import :             4 Multiply, first read by Move   e.g. TweenSettingsExtensions.SetLoops: 48 Multiply v50 @ V0_v2, [t @ X0 (T)+A0], v38 @ X8_v5 (System.Int32)
+Import :             4 Multiply, first read by Multiply   e.g. ObiCatmullRomInterpolator3D.Evaluate: 16 Multiply v20 @ V23_v1, [v10 @ X29_v1+30], [v10 @ X29_v1+30]
+Import :             4 Move from memory, first read by CheckLess   e.g. TextureUtilities.PointScale: 55 Move v131 @ X8_v12, [obj @ X0 (System.Object)+10]
+Import :             3 Move of a constant, first read by Multiply   e.g. JObject.MakeFloat: -1 Move v101 @ X23_v2, 1
+Import :             3 Box, first read by an unresolved call   e.g. PInvokeUtil.IsNull: 23 Box v41 @ X0_v3, typeof(System.IntPtr), &v39 @ stack_-28_v1
+Import :             3 IndirectCall, first read by Xor   e.g. <>__AnonType0`3.GetHashCode: 21 IndirectCall [v37 @ X8_v5 (Il2CppClass<System.Collections.Generic.EqualityComparer`1<<Platform>__T>>)+1C0], v41 @ X0_v5, v21 @ X0_v2 (System.Collections.Generic.EqualityComparer`1<<Platform>__T>), this.<Platform> (<Platform>__T), [v37 @ X8_v5 (Il2CppClass<System.Collections.Generic.EqualityComparer`1<<Platform>__T>>)+1C8], v23 @ X3, v24 @ X4, v25 @ X5, v26 @ X6, v27 @ X7, v28 @ V0, v29 @ V1, v30 @ V2, v31 @ V3, v32 @ V4, v33 @ V5, v34 @ V6, v35 @ V7
+Import :             3 Call - the return of a resolved method (typed), first read by Subtract   e.g. StringUtils.Join: 148 Call ICollection`1<T>.get_Count, v458 @ X0_v22, list @ X0 (System.Collections.Generic.IList`1<T>)
+Import :             3 Move of ArrayLength, first read by CheckEqual   e.g. Kernel.modInverse: 263 Move v458 @ X8_v61, v245.Length
+Import :             3 Move from a typed local [never read]   e.g. Parser.ParseNumber: -1 Move v97 @ X8_v3, v62 @ stack_-30_v3 (System.Int64)
+Import :             3 Move of ArrayLength [never read]   e.g. MessageBase.Decode: 23 Move v43 @ X8_v30, message.Length
+Import :             3 Call - the return of a call whose target is unknown, first read by Add   e.g. BannerAdSize.GetHashCode: 18 Call DC3558, v38 @ X0_v4, &v33 @ X8_v2 (System.Int32), 0, v19 @ X2, v20 @ X3, v21 @ X4, v22 @ X5, v23 @ X6, v24 @ X7, v25 @ V0, v26 @ V1, v27 @ V2, v28 @ V3, v29 @ V4, v30 @ V5, v31 @ V6, v32 @ V7
+Import :             3 Call - the return of a call whose target is unknown, first read by Move   e.g. AndroidNativeGif.DoExportGif: 122 Call F74EC4, v151 @ X0_v29, v409 @ X0_v28, 0, 0, v39 @ X3, v40 @ X4, v41 @ X5, v42 @ X6, v43 @ X7, v44 @ V0, v45 @ V1, v46 @ V2, v47 @ V3, v48 @ V4, v49 @ V5, v50 @ V6, v51 @ V7
+Import :             3 Move of a constant, first read by CheckNotEqual   e.g. AppsFlyer.ConvertHashMap: -1 Move v273 @ X1_v8, 1
+Import :             2 Call - the return of a resolved method (typed), first read by Add   e.g. GlobalEventComponentUpdater`1.Update: 110 Call Action`1<System.Collections.Generic.IEnumerable`1<T>>.Invoke, v524 @ X0_v58, v350 @ stack_-58 (System.Action`1<System.Collections.Generic.IEnumerable`1<T>>), &v51 @ stack_-64_v1
+Import :             2 Move of RuntimeMethodInfoAnalysisContext, first read by an unresolved call   e.g. Vector3Plugin.SetFrom: -1 Move v92 @ X1_v2, methodof(DG.Tweening.Core.DOGetter`1<UnityEngine.Vector3>::Invoke)
+Import :             2 Subtract, first read by Not   e.g. StoreReview.GetRemainingDelayAfterInstallation: 64 Subtract v84 @ X8_v11, v79.mDelayAfterInstallation (System.UInt32), v51 @ X0_v5 (System.DateTime)
+Import :             2 written by nothing, first read by IsInst   e.g. Utilities.TryGetValue: v104
+Import :             2 Call - the return of a call whose target is unknown, first read by Not   e.g. WeaponParametersComponent.op_Inequality: 9 Call CCD998, v12 @ X0_v1, left @ X0 (WeaponParametersComponent), &v9 @ V0_v1 (System.Boolean), methodInfo @ X2 (Il2CppMethodInfo), v15 @ X3, v16 @ X4, v17 @ X5, v18 @ X6, v19 @ X7, right.Bought (System.Boolean), v20 @ V1, v21 @ V2, v22 @ V3, v23 @ V4, v24 @ V5, v25 @ V6, v26 @ V7
+Import :             2 Move from a typed local, first read by Add   e.g. MeshVoxelizer.AppendOverlappingVoxels: -1 Move v376 @ X23_v8, this @ X0 (Obi.MeshVoxelizer)
+Import :             2 written by nothing, first read by Divide   e.g. <>c__DisplayClass13_0.<Setup>b__4: v46
+Import :             2 Negate, first read by Divide   e.g. ETFXPitchRandomizer.Start: 39 Negate v85 @ V0_v2, this.randomPercent (System.Single)
+Import :             2 ShiftRight, first read by Add   e.g. ForceSliderToMultipleOf3.UpdateValue: 7 ShiftRight v8 @ X11_v1, v7 @ X9_v3 (System.Single), 63
+Import :             2 Move from another untyped local, first read by CheckNotEqual   e.g. Advertising.LoadAllInterstitialAds: -1 Move v341 @ X1_v7, v416 @ X1_v28
+Import :             2 Move from memory, first read by Xor   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: -1 Move v1936 @ X9_v24, [v21 @ X29-5C]
+Import :             2 IndirectCall, first read by Add   e.g. ObiConstraints`1.GetActiveConstraintCount: 90 IndirectCall [v439 @ X0_v28], v149 @ X0_v30, v59 @ stack_-78, [v439 @ X0_v28+8], v327 @ X2_v2 (System.Int32), v30 @ X3, v31 @ X4, v32 @ X5, v33 @ X6, v34 @ X7, v224 @ stack_-88_v2 (Il2CppClass<System.Collections.Generic.List`1<T>+Enumerator<T>>), v36 @ V1, v37 @ V2, v38 @ V3, v39 @ V4, v40 @ V5, v41 @ V6, v42 @ V7
+Import :             2 Negate, first read by Subtract   e.g. TCP2_PlanarReflection.OnWillRenderObject: 217 Negate v1268 @ V0_v10, v1266 @ V0_v9 (System.Single)
+Import :             2 Move of TypeAnalysisContext, first read by IsInst   e.g. FsmProperty.GetValue: -1 Move v988 @ X8_v22, typeof(System.Int32)
+Import :             2 Box, first read by Move   e.g. DOTweenAnimation.ReEvaluateRelativeTween: 172 Box v381 @ X0_v33, typeof(UnityEngine.Vector3), &v465 @ V0_v6 (UnityEngine.Vector3)
+Import :             2 Newobj [never read]   e.g. GameroomFacebook.FeedShare: 103 Newobj v116 @ X0_v17, typeof(Facebook.Unity.Gameroom.GameroomFacebook+OnComplete)
+Import :             2 IsInst, first read by an unresolved call   e.g. ObiRope.ApplyTearing: 170 IsInst v633 @ X0_v23, typeof(Obi.IObiConstraintsBatch), v630 @ X0_v20
+Import :             2 Add, first read by Divide   e.g. ObiPath.GetClosestControlPointIndex: 29 Add v37 @ X8_v1, v16 @ X0_v1 (System.Int32), v34 @ TEMPCOND_v2 (System.Boolean)
+Import :             2 Call - the return of a call whose target is unknown, first read by CheckNotEqual   e.g. LogView.OnGUI: 130 Call 16717C4, v229 @ X0_v75, &v48 @ stack_-88, 0, 68, v31 @ X3, v32 @ X4, v33 @ X5, v34 @ X6, v35 @ X7, v132 @ V0_v1 (System.Single), v37 @ V1, v38 @ V2, v39 @ V3, v40 @ V4, v41 @ V5, v42 @ V6, v43 @ V7
+Import :             2 written by nothing, first read by Subtract   e.g. <>c__DisplayClass13_0.<Setup>b__2: v62
+Import :             2 written by nothing, first read by a call to an instance method   e.g. JSONSerializer.DeserializeSubscriptionDescriptions: v341
+Import :             2 Move from a field, first read by an unresolved call   e.g. SetRandomRotation.DoRandomRotation: -1 Move v54 @ V9_v6, v63.y (System.Single)
+Import :             2 Add, first read by CheckGreaterOrEqual   e.g. MessageBase.CheckHeader: 43 Add v112 @ X9_v4, v52 @ X22_v2, 1
+Import :             2 Multiply, first read by ShiftRight   e.g. Obfuscator.DeObfuscate: 111 Multiply v365 @ X9_v12, data.Length, 1717986919
+Import :             1 Not, first read by And   e.g. StringPlugin.EvaluateAndApply: 289 Not v618 @ TEMP_v20, v119 @ V0_v10 (System.Double)
+Import :             1 Move from another untyped local, first read by Multiply   e.g. ObiChainConstraintsBatch.SetParameters: -1 Move v89 @ V1_v2, v172 @ stack_-24
+Import :             1 Move from a typed local, first read by CheckEqual   e.g. StoreCatalogImpl.handleCachedCatalog: -1 Move v144 @ X8_v11, v187 @ Z_v18 (System.Boolean)
+Import :             1 Multiply, first read by And   e.g. ColorUtils.ToRGBA: 11 Multiply v11 @ V1_v2, [value @ X0 (UnityEngine.Color&)+4], v12 @ V4
+Import :             1 Box, first read by IsInst   e.g. <>c__DisplayClass14_0`1.<StartUI>b__0: 30 Box v53 @ X0_v3, typeof(System.Int32), &codeValue @ X2 (System.Int32)
+Import :             1 And, first read by CheckEqual   e.g. Flash.WeightedEase: 41 And v64 @ TEMP_v13, overshootOrAmplitude @ V0 (System.Single), 1
+Import :             1 IndirectCall, first read by an unresolved call   e.g. <>c.<get_Pairs>b__4_2: 15 IndirectCall [v19 @ X1_v1], v21 @ X0_v4, methodInfo @ X2 (Il2CppMethodInfo), [v18 @ X8_v2+38], methodInfo @ X2 (Il2CppMethodInfo), v11 @ X3, v22 @ X4, v23 @ X5, v24 @ X6, v25 @ X7, v26 @ V0, v27 @ V1, v28 @ V2, v29 @ V3, v30 @ V4, v31 @ V5, v32 @ V6, v33 @ V7
+Import :             1 IndirectCall, first read by a call to an instance method   e.g. MockLoginDialog.<SendSuccessResult>b__4_0: 162 IndirectCall [v390 @ X0_v20], v108 @ X0_v22, graphResult @ X1 (Facebook.Unity.IGraphResult), [v390 @ X0_v20+8], v67 @ X2_v7 (System.Int32), v28 @ X3, v29 @ X4, v30 @ X5, v31 @ X6, v32 @ X7, v33 @ V0, v34 @ V1, v35 @ V2, v36 @ V3, v37 @ V4, v38 @ V5, v39 @ V6, v40 @ V7
+Import :             1 IndirectCall, first read by Divide   e.g. ParticleImpostorRendering.UpdateMeshes: 109 IndirectCall [v582 @ X0_v91], v587 @ X0_v93, collection @ X1 (Obi.IObiParticleCollection), [v582 @ X0_v91+8], v870 @ X2_v42 (System.Int32), v1416 @ X3_v43, v1414 @ X4_v43, v1418 @ X5_v43, v57 @ X6, v58 @ X7, v59 @ V0, v60 @ V1, v61 @ V2, v62 @ V3, v63 @ V4, v64 @ V5, v65 @ V6, v66 @ V7
+Import :             1 IndirectCall, first read by Or   e.g. ObiPath.FlushEvents: 236 IndirectCall [v764 @ X0_v36], v769 @ X0_v38, v437 @ X0_v35 (Obi.IObiPathDataChannel), [v764 @ X0_v36+8], v282 @ X2_v14 (System.Int32), v35 @ X3, v36 @ X4, v37 @ X5, v38 @ X6, v39 @ X7, v40 @ V0, v41 @ V1, v42 @ V2, v43 @ V3, v44 @ V4, v45 @ V5, v46 @ V6, v47 @ V7
+Import :             1 Call - the return of a call whose target is unknown, first read by Multiply   e.g. BannerAdSize.GetHashCode: 12 Call E8F13C, v18 @ X0_v2, &v14 @ X8_v1 (System.Boolean), 0, v19 @ X2, v20 @ X3, v21 @ X4, v22 @ X5, v23 @ X6, v24 @ X7, v25 @ V0, v26 @ V1, v27 @ V2, v28 @ V3, v29 @ V4, v30 @ V5, v31 @ V6, v32 @ V7
+Import :             1 Subtract, first read by Move   e.g. Kernel.Subtract: 172 Subtract v421 @ X11_v14, [v293 @ X13_v12], 1
+Import :             1 IsInst, first read by Add   e.g. CallMethod.DoMethodCall: 136 IsInst v460 @ X0_v44, typeof(System.Object[]), v563 @ X0_v43 (System.Object)
+Import :             1 Move of AddressOf, first read by Move   e.g. IAPDemo.Awake: -1 Move v1470 @ X26_v13, &v55 @ stack_-A0
+Import :             1 Subtract, first read by CheckNotEqual   e.g. AnalyticsSystem.OnUpdate: 105 Subtract v116 @ X9_v22, v859 @ X8_v38 (Il2CppClass<IYandexAppMetrica>), 1
+Import :             1 written by nothing, first read by And   e.g. TweenSettingsExtensions.SetPathForwardDirection: v37
+Import :             1 Move from memory, first read by Subtract   e.g. TweenExtensions.GotoWaypoint: 348 Move v557 @ X8_v42, [2022104]
+Import :             1 Move from a typed local, first read by IndirectCall   e.g. WeaponButtonSystem.OnUpdate: -1 Move v906 @ V3_v19, v2071 @ V4_v19 (System.Single)
+Import :             1 Move from a typed local, first read by IsInst   e.g. GraphResult.Init: -1 Move v57 @ X20_v3, v69 @ X0_v5 (System.String)
+Import :             1 IndirectCall, first read by Subtract   e.g. ObiActorBlueprint.DeactivateConstraintsWithInactiveParticles: 230 IndirectCall [v927 @ X0_v38], v625 @ X0_v40, v840 @ X0_v34 (Obi.IObiConstraintsBatch), [v927 @ X0_v38+8], v583 @ X2_v16 (System.Int32), v485 @ X3_v4 (Il2CppMethodInfo), v42 @ X4, v43 @ X5, v44 @ X6, v45 @ X7, v46 @ V0, v47 @ V1, v48 @ V2, v49 @ V3, v50 @ V4, v51 @ V5, v52 @ V6, v53 @ V7
+Import :             1 written by nothing, first read by CheckGreaterOrEqual   e.g. ObiPinConstraintsBatch.BreakConstraints: v32
+Import :             1 IsInst, first read by IsInst   e.g. ObiRope.ApplyTearing: 161 IsInst v630 @ X0_v20, typeof(Obi.IStructuralConstraintBatch), v627 @ X0_v19 (Obi.IObiConstraintsBatch)
+Import :             1 written by nothing, first read by Or   e.g. ColorUtils.ToRGBA: v18
+Import :             1 Multiply, first read by MakeStruct   e.g. ScaleGUI.OnGUI: 112 Multiply v294 @ V0_v18, v284 @ stack_-90_v3, v291 @ X0_v43 (System.Int32)
+Import :             1 Call - the return of a resolved method (typed), first read by CheckLess   e.g. ObiNativeList`1.AddRange: 93 Call ICollection`1<T>.get_Count, v315 @ X0_v25, v59 @ X0_v4 (System.Collections.IEnumerator)
+Import :             1 IndirectCall, first read by CheckNotEqual   e.g. PKCS12.RemoveCertificate: 308 IndirectCall [v242 @ X8_v47 (Il2CppClass<System.Object>)+260], v215 @ X0_v65, v618 @ X0_v60 (System.Object), [v242 @ X8_v47 (Il2CppClass<System.Object>)+268], 0, methodInfo @ X3 (Il2CppMethodInfo), v42 @ X4, v43 @ X5, v44 @ X6, v45 @ X7, v46 @ V0, v47 @ V1, v48 @ V2, v49 @ V3, v50 @ V4, v51 @ V5, v52 @ V6, v53 @ V7
+Import :             1 Multiply, first read by an unresolved call   e.g. JObject.MakeFloat: 85 Multiply v111 @ X8_v7, v101 @ X23_v2, exponent @ X6 (System.UInt64)
+Import :             1 Subtract, first read by CheckLessOrEqual   e.g. CatmullRomDecoder.GetPoint: 139 Subtract v109 @ X11_v5, v168 @ X9_v3, 1
+Import :             1 Divide, first read by Multiply   e.g. RewardSystem.OnUpdate: 162 Divide v716 @ V0_v8, v313 @ X8_v33, [v507 @ X0_v65]
+Import :             1 Negate, first read by CheckGreaterOrEqual   e.g. ObiPinConstraintsBatch.BreakConstraints: 89 Negate v115 @ V1_v3, v181[v164 @ X21_v4 (System.Int32)]
+Import :             1 And, first read by Or   e.g. ColorUtils.ToRGBA: 21 And v21 @ X10_v3, v8 @ V2_v2 (System.Single), 255
+Import :             1 Move from memory, first read by a call to an instance method   e.g. ProductDefinitionExtensions.DecodeJSON: 84 Move v329 @ X23_v9, [v21 @ X29-70]
+Import :             1 Move of ArrayAccess [never read]   e.g. NeuQuant.ColorMap: 152 Move v332 @ X8_v24, v77[v175 @ X23_v6 (System.Int32)]
+Import :             1 Call - the return of a resolved method (typed), first read by CheckNotEqual   e.g. MoolahStoreImpl.VaildateProductProcess: 343 Call Dictionary`2<System.String, System.Object>.get_Item, v921 @ X0_v76, v617 @ stack_-98, "localizedPrice"
+Import :             1 Subtract, first read by Divide   e.g. EnemyHealthSystem.OnUpdate: 611 Subtract v517 @ X9_v36, [v1459 @ X0_v79], [v480 @ X23_v27]
+Import :             1 Call - the return of a call whose target is unknown, first read by ShiftLeft   e.g. <>c__DisplayClass11_0.<SendEvent>b__1: 30 Call 115BDD8, v52 @ X0_v4, v49 @ X20_v4 (System.Nullable`1<System.Int32>), methodof(System.Nullable`1<System.Int32>::get_Value), methodInfo @ X2 (Il2CppMethodInfo), v209 @ X3_v3, v30 @ X4, v31 @ X5, v32 @ X6, v33 @ X7, v34 @ V0, v35 @ V1, v36 @ V2, v37 @ V3, v38 @ V4, v39 @ V5, v40 @ V6, v41 @ V7
+Import :             1 And, first read by Add   e.g. Flash.WeightedEase: 59 And v81 @ X8_v13, overshootOrAmplitude @ V0 (System.Single), 1
+Import :             1 Move from another untyped local, first read by CallVoid   e.g. <>c__DisplayClass42_0.<DoNextLoadScoreRequest>b__1: -1 Move v66 @ X2_v1, v410 @ X0_v18
+Import :             1 Move of a constant, first read by And   e.g. Promo.InitiatePurchasingCommand: -1 Move v380 @ X8_v3, 0
+Import :             1 written by nothing, first read by ShiftLeft   e.g. ActionData.SaveActionField: v817
+Import :             1 Move of a constant, first read by Xor   e.g. AttackSystem.GetInputs: -1 Move v255 @ X23_v10, 4294967295
+Import : Il2Cpp method body recovery: 5484 call arguments the ABI spread over several vector registers were composed back into their value.
+Import : Il2Cpp method body recovery: a write narrower than the field its offset lands on named a member inside it 247 times; 103 times no member accounted for the width, so the field stood.
+Import : Il2Cpp method body recovery: 828 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them.
+Import : Il2Cpp method body recovery: 10521 reads of a hidden static field were written as the public property that returns it.
+Import : Il2Cpp method body recovery: 0 calls were retargeted from a shared generic instantiation onto the one the receiver's own type names.
+Import : Il2Cpp method body recovery: SSA destruction left copies - 43347 coalesced, 5376 kept because the two locals are live at once, 3303 because their types differ.
+Import : Finished reading files
+Processing : Processing loaded assets...
+Processing : AttributePolyfillGenerator
+Processing : MonoExplicitPropertyRepairProcessor
+Processing : ObfuscationRepairProcessor
+Processing : ForwardingAssemblyGenerator
+Processing : NullRefReturnProcessor
+Processing : UnmanagedConstraintRecoveryProcessor
+Processing : RemoveAssemblyKeyFileAttributeProcessor
+Processing : InternalsVisibileToPublicKeyRemover
+Processing : SceneDefinitionProcessor
+Processing : Creating Scene Definitions
+Processing : OriginalPathProcessor
+Processing : MainAssetProcessor
+Processing : Main Asset Pairing
+Processing : AnimatorControllerProcessor
+Processing : Reconstruct AnimatorController Assets
+Processing : AudioMixerProcessor
+Processing : Reconstruct AudioMixer Assets
+Processing : EditorFormatProcessor
+Processing : Editor Format Conversion
+Processing : LightingDataProcessor
+Processing : Lighting Data Assets
+Processing : PrefabProcessor
+Processing : SpriteProcessor
+Processing : ScriptableObjectProcessor
+Processing : Processing Scriptable Object Groups
+Processing : Finished processing assets
+Export : Starting export
+Export : Attempting to export assets to /home/user/AssetRipper/Test/Output051p...
+Export : Game files have these Unity versions: 2019.2.0a7 2019.2.6f1
+Export : Exporting to Unity version 2019.2.6f1
+Import [Warning] : Resource file 'Sirenix.OdinInspector.Editor.dll' hasn't been found
+Import [Warning] : Assembly 'Sirenix.OdinInspector.Editor' hasn't been found
+Import [Warning] : Resource file 'Sirenix.Serialization.dll' hasn't been found
+Import [Warning] : Assembly 'Sirenix.Serialization' hasn't been found
+Import [Warning] : Resource file 'DemiLib.dll' hasn't been found
+Import [Warning] : Assembly 'DemiLib' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.UI.Tests.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.UI.Tests' hasn't been found
+Import [Warning] : Resource file 'Unity.Timeline.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Timeline' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.TestRunner.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.TestRunner' hasn't been found
+Import [Warning] : Resource file 'Unity.MemoryProfiler.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.MemoryProfiler' hasn't been found
+Import [Warning] : Resource file 'Unity.TextMeshPro.Tests.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.TextMeshPro.Tests' hasn't been found
+Import [Warning] : Resource file 'Unity.IAP.Purchasing.RunTimeTests.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.IAP.Purchasing.RunTimeTests' hasn't been found
+Import [Warning] : Resource file 'Unity.Timeline.Package.Tests.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Timeline.Package.Tests' hasn't been found
+Import [Warning] : Resource file 'Morpeh.Tests.Runtime.dll' hasn't been found
+Import [Warning] : Assembly 'Morpeh.Tests.Runtime' hasn't been found
+Import [Warning] : Resource file 'Sirenix.Utilities.Editor.dll' hasn't been found
+Import [Warning] : Assembly 'Sirenix.Utilities.Editor' hasn't been found
+Import [Warning] : Resource file 'Editor.dll' hasn't been found
+Import [Warning] : Assembly 'Editor' hasn't been found
+Import [Warning] : Resource file 'GameAnalytics.SamsungTV.dll' hasn't been found
+Import [Warning] : Assembly 'GameAnalytics.SamsungTV' hasn't been found
+Import [Warning] : Resource file 'GameAnalytics.dll' hasn't been found
+Import [Warning] : Assembly 'GameAnalytics' hasn't been found
+Import [Warning] : Resource file 'Sirenix.Serialization.Config.dll' hasn't been found
+Import [Warning] : Assembly 'Sirenix.Serialization.Config' hasn't been found
+ExportProgress : (1/442) Exporting 'EditorBuildSettings'
+ExportProgress : (2/442) Exporting 'EditorSettings'
+ExportProgress : (3/442) Exporting 'WeaponAnimatorLeft'
+ExportProgress : (4/442) Exporting 'WeaponAnimatorRight'
+ExportProgress : (5/442) Exporting 'IconPinata'
+ExportProgress : (6/442) Exporting 'Point'
+ExportProgress : (7/442) Exporting 'LightingData'
+ExportProgress : (8/442) Exporting 'MainScene (SceneAsset)'
+ExportProgress : (9/442) Exporting 'LogoGB'
+ExportProgress : (10/442) Exporting 'Dosis-SemiBold SDF Atlas'
+ExportProgress : (11/442) Exporting 'Level_1'
+ExportProgress : (12/442) Exporting 'cloud_2x2_hard'
+ExportProgress : (13/442) Exporting 'ButtonCollect'
+ExportProgress : (14/442) Exporting 'circle'
+ExportProgress : (15/442) Exporting 'TileScroll'
+ExportProgress : (16/442) Exporting 'ButtonMedium'
+ExportProgress : (17/442) Exporting 'etfx_shield2'
+ExportProgress : (18/442) Exporting 'close'
+ExportProgress : (19/442) Exporting 'TileScore'
+ExportProgress : (20/442) Exporting 'IconWinPalm'
+ExportProgress : (21/442) Exporting 'IconGem'
+ExportProgress : (22/442) Exporting 'IconLevels'
+ExportProgress : (23/442) Exporting 'IconBonusCoins'
+ExportProgress : (24/442) Exporting 'ActiveSlot'
+ExportProgress : (25/442) Exporting 'ButtonCollectFree'
+ExportProgress : (26/442) Exporting 'TileWin'
+ExportProgress : (27/442) Exporting 'IconCoinSmall'
+ExportProgress : (28/442) Exporting 'IconStar'
+ExportProgress : (29/442) Exporting 'coin_texture'
+ExportProgress : (30/442) Exporting 'ButtonTab_vip'
+ExportProgress : (31/442) Exporting 'IconSmallGem'
+ExportProgress : (32/442) Exporting 'ProgressBar'
+ExportProgress : (33/442) Exporting 'ButtonTab_inactive'
+ExportProgress : (34/442) Exporting 'IconSpeed'
+ExportProgress : (35/442) Exporting 'IconAmmo'
+ExportProgress : (36/442) Exporting 'glow'
+ExportProgress : (37/442) Exporting 'text'
+ExportProgress : (38/442) Exporting 'TileSlotGun'
+ExportProgress : (39/442) Exporting 'ButtonStore'
+ExportProgress : (40/442) Exporting 'ProgressBarGreen'
+ExportProgress : (41/442) Exporting 'TCP2_Ramp_3Levels'
+ExportProgress : (42/442) Exporting 'CandyBar'
+ExportProgress : (43/442) Exporting 'ButtonSmall'
+ExportProgress : (44/442) Exporting 'TileCircleWin'
+ExportProgress : (45/442) Exporting 'IconWinPiniata'
+ExportProgress : (46/442) Exporting 'ring'
+ExportProgress : (47/442) Exporting 'ButtonTab_active'
+ExportProgress : (48/442) Exporting 'IconPower'
+ExportProgress : (49/442) Exporting 'IconCoin'
+ExportProgress : (50/442) Exporting 'Shadow_V2'
+ExportProgress : (51/442) Exporting 'Level_1'
+ExportProgress : (52/442) Exporting 'TileX2'
+ExportProgress : (53/442) Exporting 'IconOfflineReward'
+ExportProgress : (54/442) Exporting '+100'
+ExportProgress : (55/442) Exporting 'IconGuns'
+ExportProgress : (56/442) Exporting 'magic_orb2'
+ExportProgress : (57/442) Exporting 'RopeTexture'
+ExportProgress : (58/442) Exporting 'ButtonUpgrade'
+ExportProgress : (59/442) Exporting 'IconVip'
+ExportProgress : (60/442) Exporting 'ButtonMediumGem'
+ExportProgress : (61/442) Exporting 'Level_2'
+ExportProgress : (62/442) Exporting 'video-player'
+ExportProgress : (63/442) Exporting 'TileReward'
+ExportProgress : (64/442) Exporting 'IconUnlock'
+ExportProgress : (65/442) Exporting 'TileTopPanel'
+ExportProgress : (66/442) Exporting 'confetti'
+ExportProgress : (67/442) Exporting 'LiberationSans SDF Atlas'
+ExportProgress : (68/442) Exporting 'LiberationSans SDF Atlas'
+ExportProgress : (69/442) Exporting 'katana'
+ExportProgress : (70/442) Exporting 'Gun_4'
+ExportProgress : (71/442) Exporting 'scroll_peg'
+ExportProgress : (72/442) Exporting 'TCP2_Plastic'
+ExportProgress : (73/442) Exporting 'particle'
+ExportProgress : (74/442) Exporting 'Gun_5'
+ExportProgress : (75/442) Exporting 'Gun_3'
+ExportProgress : (76/442) Exporting 'Eye_Center'
+ExportProgress : (77/442) Exporting 'thread_bck'
+ExportProgress : (78/442) Exporting 'checker'
+ExportProgress : (79/442) Exporting 'Mount'
+ExportProgress : (80/442) Exporting 'Bag_Icon'
+ExportProgress : (81/442) Exporting 'Eye_Down'
+ExportProgress : (82/442) Exporting 'gaLogo'
+ExportProgress : (83/442) Exporting 'profiler_toolbar'
+ExportProgress : (84/442) Exporting 'Gun_1'
+ExportProgress : (85/442) Exporting 'Pen'
+ExportProgress : (86/442) Exporting 'profiler_bck'
+ExportProgress : (87/442) Exporting 'Bag_Star'
+ExportProgress : (88/442) Exporting 'Head_Lama'
+ExportProgress : (89/442) Exporting 'task_bck'
+ExportProgress : (90/442) Exporting 'Eye_Up'
+ExportProgress : (91/442) Exporting 'Dollar_Icon'
+ExportProgress : (92/442) Exporting 'bat'
+ExportProgress : (93/442) Exporting 'EmojiOne'
+ExportProgress : (94/442) Exporting 'Gun_locked'
+ExportProgress : (95/442) Exporting 'Gun_2'
+ExportProgress : (96/442) Exporting 'PlayerSettings'
+ExportProgress : (97/442) Exporting 'InputManager'
+ExportProgress : (98/442) Exporting 'TagManager'
+ExportProgress : (99/442) Exporting 'AudioManager'
+ExportProgress : (100/442) Exporting 'GraphicsSettings'
+ExportProgress : (101/442) Exporting 'TimeManager'
+ExportProgress : (102/442) Exporting 'DelayedCallManager'
+ExportProgress : (103/442) Exporting 'PhysicsManager'
+ExportProgress : (104/442) Exporting 'QualitySettings'
+ExportProgress : (105/442) Exporting 'NavMeshProjectSettings'
+ExportProgress : (106/442) Exporting 'Physics2DSettings'
+ExportProgress : (107/442) Exporting 'RuntimeInitializeOnLoadManager'
+ExportProgress : (108/442) Exporting 'UnityConnectSettings'
+ExportProgress : (109/442) Exporting 'StreamingManager'
+ExportProgress : (110/442) Exporting 'VFXManager'
+ExportProgress : (111/442) Exporting 'ScriptExportCollection'
+Export : Exporting scripts...
+Export : Decompiling Purchasing.Common
+Export : Decompiling Apple
+Export : Decompiling FacebookStore
+Export : Decompiling Security
+Export : Decompiling Tizen
+Export : Decompiling UDP
+Export : Decompiling Unity.Compat
+Export : Decompiling Unity.Tasks
+Export : Decompiling UnityEngine.Purchasing
+Export : Decompiling UnityEngine.UI
+Export : Decompiling winrt
+Export : Decompiling Firebase.Platform
+Export : Decompiling IronSourceSDK
+Export : Decompiling Stores
+Export : Decompiling Unity.IAP.Generated
+Export : Decompiling AdjustSDK
+Export : Decompiling AppMetricaSDK
+Export : Decompiling AppsFlyerSDK
+Export : Decompiling DOTween
+Export : Decompiling EasyMobile
+Export : Decompiling Facebook.Unity.Settings
+Export : Decompiling Firebase.App
+Export : Decompiling GameAnalyticsSDK
+Export : Decompiling LunarConsoleSDK
+Export : Decompiling Morpeh
+Export : Decompiling MyTrackerSDK
+Export : Decompiling NiceVibrationsSDK
+Export : Decompiling PlayMaker
+Export : Decompiling Sirenix.OdinInspector.Attributes
+Export : Decompiling Sirenix.Utilities
+Export : Decompiling TenjinSDK
+Export : Decompiling ConditionalExpression
+Export : Decompiling DOTween.Modules
+Export : Decompiling DOTweenPro
+Export : Decompiling Facebook.Unity
+Export : Decompiling Morpeh.Hypercasual
+Export : Decompiling Obi
+Export : Decompiling Unity.TextMeshPro
+Export : Decompiling AppMetricaSDK.Editor
+Export : Decompiling DOTweenPro.Scripts
+Export : Decompiling EasyMobile.Generated
+Export : Decompiling Facebook.Unity.Android
+Export : Decompiling Facebook.Unity.IOS
+Export : Decompiling GBG.Pinata.ECS
+Export : Decompiling GameAnalyticsSDK.Playmaker
+Export : Decompiling Assembly-CSharp
+Export : Decompiling Assembly-CSharp-firstpass
+Export : Decompiling System.Runtime.CompilerServices.Unsafe
+ExportProgress : (112/442) Exporting 'LogoGB'
+ExportProgress : (113/442) Exporting 'Dosis-SemiBold SDF Material'
+ExportProgress : (114/442) Exporting 'cloud_2x2_hard'
+ExportProgress : (115/442) Exporting 'confetti'
+ExportProgress : (116/442) Exporting 'circle'
+ExportProgress : (117/442) Exporting 'glow'
+ExportProgress : (118/442) Exporting 'magic_orb2'
+ExportProgress : (119/442) Exporting 'ring (additive)'
+ExportProgress : (120/442) Exporting 'etfx_shield2'
+ExportProgress : (121/442) Exporting '+100'
+ExportProgress : (122/442) Exporting 'Coin_material'
+ExportProgress : (123/442) Exporting 'Rope'
+ExportProgress : (124/442) Exporting 'Shadow'
+ExportProgress : (125/442) Exporting 'Star'
+ExportProgress : (126/442) Exporting 'System'
+ExportProgress : (127/442) Exporting 'PinataBack'
+ExportProgress : (128/442) Exporting 'Dosis-SemiBold SDF - Outline 1'
+ExportProgress : (129/442) Exporting 'Dosis-SemiBold SDF - Outline'
+ExportProgress : (130/442) Exporting 'Dosis-Medium'
+ExportProgress : (131/442) Exporting 'Dosis-Light'
+ExportProgress : (132/442) Exporting 'Dosis-ExtraBold'
+ExportProgress : (133/442) Exporting 'Dosis-Regular'
+ExportProgress : (134/442) Exporting 'Dosis-SemiBold'
+ExportProgress : (135/442) Exporting 'Dosis-SemiBold'
+ExportProgress : (136/442) Exporting 'Dosis-ExtraLight'
+ExportProgress : (137/442) Exporting 'Dosis-Bold'
+ExportProgress : (138/442) Exporting 'LiberationSans'
+ExportProgress : (139/442) Exporting 'LiberationSans SDF Material'
+ExportProgress : (140/442) Exporting 'LiberationSans SDF Material'
+ExportProgress : (141/442) Exporting 'Cube'
+ExportProgress : (142/442) Exporting 'Shadow'
+ExportProgress : (143/442) Exporting 'GoldCoin'
+ExportProgress : (144/442) Exporting 'ETFX_Shield'
+ExportProgress : (145/442) Exporting 'Kirnu/Marvelous/LinearGradientBGImage'
+ExportProgress : (146/442) Exporting 'tmp_sdf'
+ExportProgress : (147/442) Exporting 'Hidden/Toony Colors Pro 2/Variants/Mobile RimOutline'
+ExportProgress : (148/442) Exporting 'Toony Colors Pro 2/Standard PBS'
+ExportProgress : (149/442) Exporting 'tmp_sdf-mobile'
+ExportProgress : (150/442) Exporting 'WeaponAttackLeft'
+ExportProgress : (151/442) Exporting 'WeaponAttackRight'
+ExportProgress : (152/442) Exporting 'WeaponIdleLeft'
+ExportProgress : (153/442) Exporting 'WeaponIdleRight'
+ExportProgress : (154/442) Exporting 'PinataWin'
+ExportProgress : (155/442) Exporting 'TileDecor'
+ExportProgress : (156/442) Exporting 'text_0'
+ExportProgress : (157/442) Exporting 'text_3'
+ExportProgress : (158/442) Exporting 'Level_1'
+ExportProgress : (159/442) Exporting 'ButtonCollect'
+ExportProgress : (160/442) Exporting 'TileScroll'
+ExportProgress : (161/442) Exporting 'ButtonMedium'
+ExportProgress : (162/442) Exporting 'close'
+ExportProgress : (163/442) Exporting 'TileScore'
+ExportProgress : (164/442) Exporting 'IconWinPalm'
+ExportProgress : (165/442) Exporting 'IconGem'
+ExportProgress : (166/442) Exporting 'IconLevels'
+ExportProgress : (167/442) Exporting 'IconBonusCoins'
+ExportProgress : (168/442) Exporting 'ActiveSlot'
+ExportProgress : (169/442) Exporting 'ButtonCollectFree'
+ExportProgress : (170/442) Exporting 'TileWin'
+ExportProgress : (171/442) Exporting 'IconCoinSmall'
+ExportProgress : (172/442) Exporting 'IconStar'
+ExportProgress : (173/442) Exporting 'ButtonTab_vip'
+ExportProgress : (174/442) Exporting 'IconSmallGem'
+ExportProgress : (175/442) Exporting 'ProgressBar'
+ExportProgress : (176/442) Exporting 'ButtonTab_inactive'
+ExportProgress : (177/442) Exporting 'IconSpeed'
+ExportProgress : (178/442) Exporting 'IconAmmo'
+ExportProgress : (179/442) Exporting 'TileSlotGun'
+ExportProgress : (180/442) Exporting 'ButtonStore'
+ExportProgress : (181/442) Exporting 'ProgressBarGreen'
+ExportProgress : (182/442) Exporting 'CandyBar'
+ExportProgress : (183/442) Exporting 'ButtonSmall'
+ExportProgress : (184/442) Exporting 'TileCircleWin'
+ExportProgress : (185/442) Exporting 'IconWinPiniata'
+ExportProgress : (186/442) Exporting 'ButtonTab_active'
+ExportProgress : (187/442) Exporting 'IconPower'
+ExportProgress : (188/442) Exporting 'IconCoin'
+ExportProgress : (189/442) Exporting 'TileX2'
+ExportProgress : (190/442) Exporting 'IconOfflineReward'
+ExportProgress : (191/442) Exporting 'IconGuns'
+ExportProgress : (192/442) Exporting 'ButtonUpgrade'
+ExportProgress : (193/442) Exporting 'IconVip'
+ExportProgress : (194/442) Exporting 'ButtonMediumGem'
+ExportProgress : (195/442) Exporting 'Level_2'
+ExportProgress : (196/442) Exporting 'video-player'
+ExportProgress : (197/442) Exporting 'TileReward'
+ExportProgress : (198/442) Exporting 'IconUnlock'
+ExportProgress : (199/442) Exporting 'TileTopPanel'
+ExportProgress : (200/442) Exporting 'text_2'
+ExportProgress : (201/442) Exporting 'text_1'
+ExportProgress : (202/442) Exporting 'text_4'
+ExportProgress : (203/442) Exporting 'AppMetrica'
+ExportProgress : (204/442) Exporting 'Adjust'
+ExportProgress : (205/442) Exporting 'GameAnalytics'
+ExportProgress : (206/442) Exporting 'WeaponButton'
+ExportProgress : (207/442) Exporting 'AppsFlyerTrackerCallbacks'
+ExportProgress : (208/442) Exporting 'control point'
+ExportProgress : (209/442) Exporting 'start 2'
+ExportProgress : (210/442) Exporting 'start 2'
+ExportProgress : (211/442) Exporting 'start 2'
+ExportProgress : (212/442) Exporting 'AttackBegin'
+ExportProgress : (213/442) Exporting 'AttackEnd'
+ExportProgress : (214/442) Exporting 'BeginTransitionToMenu'
+ExportProgress : (215/442) Exporting 'EndTransitionToMenu'
+ExportProgress : (216/442) Exporting 'EnemyIsDead'
+ExportProgress : (217/442) Exporting 'EnemyIsKicked'
+ExportProgress : (218/442) Exporting 'EnemyIsNotDead'
+ExportProgress : (219/442) Exporting 'ShowMainMenu'
+ExportProgress : (220/442) Exporting 'Attack System'
+ExportProgress : (221/442) Exporting 'Collision Enemies System'
+ExportProgress : (222/442) Exporting 'Enemy Health System'
+ExportProgress : (223/442) Exporting 'Game State System'
+ExportProgress : (224/442) Exporting 'Initialize Enemies System'
+ExportProgress : (225/442) Exporting 'Initialize Weapons System'
+ExportProgress : (226/442) Exporting 'Meta Attack Speed Upgrade System'
+ExportProgress : (227/442) Exporting 'Meta Bonus Gold Upgrade System'
+ExportProgress : (228/442) Exporting 'Meta Offline Reward Upgrade System'
+ExportProgress : (229/442) Exporting 'Reward System'
+ExportProgress : (230/442) Exporting 'Rewarded Ad Player System'
+ExportProgress : (231/442) Exporting 'Show Hide Enemy System'
+ExportProgress : (232/442) Exporting 'Spawn Enemies System'
+ExportProgress : (233/442) Exporting 'Spawn Weapons System'
+ExportProgress : (234/442) Exporting 'Vibration System'
+ExportProgress : (235/442) Exporting 'AttackSpeedLevel'
+ExportProgress : (236/442) Exporting 'BonusGoldLevel'
+ExportProgress : (237/442) Exporting 'Coins'
+ExportProgress : (238/442) Exporting 'CurrentWeaponAmmo'
+ExportProgress : (239/442) Exporting 'Diamonds'
+ExportProgress : (240/442) Exporting 'Level'
+ExportProgress : (241/442) Exporting 'LevelCoinReward'
+ExportProgress : (242/442) Exporting 'NextLevel'
+ExportProgress : (243/442) Exporting 'OfflineRewardLevel'
+ExportProgress : (244/442) Exporting 'Consumable Products Config'
+ExportProgress : (245/442) Exporting 'In App Config'
+ExportProgress : (246/442) Exporting 'IAPPurchaseClick'
+ExportProgress : (247/442) Exporting 'IAPRestoreEvent'
+ExportProgress : (248/442) Exporting 'RewardMultiplierGlobal'
+ExportProgress : (249/442) Exporting 'IAP Purchase System'
+ExportProgress : (250/442) Exporting 'IAP Shop System'
+ExportProgress : (251/442) Exporting 'Open URL System'
+ExportProgress : (252/442) Exporting 'Pinata Purchases System'
+ExportProgress : (253/442) Exporting 'Pinata Subscribe System'
+ExportProgress : (254/442) Exporting 'Set State Game Object List System'
+ExportProgress : (255/442) Exporting 'Set State Game Object System'
+ExportProgress : (256/442) Exporting 'Subscribe System'
+ExportProgress : (257/442) Exporting 'Subscribe View System'
+ExportProgress : (258/442) Exporting 'AttackSpeedUpgradeClick'
+ExportProgress : (259/442) Exporting 'BonusGoldUpgradeClick'
+ExportProgress : (260/442) Exporting 'FakeClick'
+ExportProgress : (261/442) Exporting 'OfflineRewardUpgradeClick'
+ExportProgress : (262/442) Exporting 'OnAmmoUpgradeClick'
+ExportProgress : (263/442) Exporting 'OnBuyWeaponClick'
+ExportProgress : (264/442) Exporting 'OnPowerUpgradeClick'
+ExportProgress : (265/442) Exporting 'OnSelectWeaponClick'
+ExportProgress : (266/442) Exporting 'ShowLoseScreen'
+ExportProgress : (267/442) Exporting 'ShowWinScreen'
+ExportProgress : (268/442) Exporting 'TapToPlayButtonEvent'
+ExportProgress : (269/442) Exporting 'UITabSelect'
+ExportProgress : (270/442) Exporting 'Activate GameObject From List System'
+ExportProgress : (271/442) Exporting 'Activate GameObject System'
+ExportProgress : (272/442) Exporting 'Create Weapon Button System'
+ExportProgress : (273/442) Exporting 'Meta Attack Speed Upgrade Button State Switcher System'
+ExportProgress : (274/442) Exporting 'Meta Attack Speed Upgrade Button UI System'
+ExportProgress : (275/442) Exporting 'Meta Bonus Gold Upgrade Button State Switcher System'
+ExportProgress : (276/442) Exporting 'Meta Bonus Gold Upgrade Button UI System'
+ExportProgress : (277/442) Exporting 'Meta Offline Reward Upgrade Button State Switcher System'
+ExportProgress : (278/442) Exporting 'Meta Offline Reward Upgrade Button UI System'
+ExportProgress : (279/442) Exporting 'Set Text From Variable System'
+ExportProgress : (280/442) Exporting 'UI Tab System'
+ExportProgress : (281/442) Exporting 'Weapon Button System'
+ExportProgress : (282/442) Exporting 'LoadSceneEvent'
+ExportProgress : (283/442) Exporting 'SendAnalyticsEvent'
+ExportProgress : (284/442) Exporting 'Analytics System'
+ExportProgress : (285/442) Exporting 'InterstitialCompletedEvent'
+ExportProgress : (286/442) Exporting 'NoInternetEvent'
+ExportProgress : (287/442) Exporting 'RewardedCompletedEvent'
+ExportProgress : (288/442) Exporting 'RewardedSkippedEvent'
+ExportProgress : (289/442) Exporting 'ShowInterstitialEvent'
+ExportProgress : (290/442) Exporting 'ShowRewardedEvent'
+ExportProgress : (291/442) Exporting 'Advertising System'
+ExportProgress : (292/442) Exporting 'Timer'
+ExportProgress : (293/442) Exporting 'Scene Load System'
+ExportProgress : (294/442) Exporting 'DefaultRopeSection'
+ExportProgress : (295/442) Exporting 'Pinata Rope'
+ExportProgress : (296/442) Exporting 'Dosis-SemiBold SDF'
+ExportProgress : (297/442) Exporting 'LiberationSans SDF - Fallback'
+ExportProgress : (298/442) Exporting 'LiberationSans SDF'
+ExportProgress : (299/442) Exporting 'start 2'
+ExportProgress : (300/442) Exporting 'start 2'
+ExportProgress : (301/442) Exporting 'start 2'
+ExportProgress : (302/442) Exporting 'extrudedMesh'
+ExportProgress : (303/442) Exporting 'MainScene'
+ExportProgress : (304/442) Exporting 'Blue'
+ExportProgress : (305/442) Exporting 'BluetPen'
+ExportProgress : (306/442) Exporting 'CandyRed'
+ExportProgress : (307/442) Exporting 'Eye_Base'
+ExportProgress : (308/442) Exporting 'Eye_Center'
+ExportProgress : (309/442) Exporting 'Eye_Down'
+ExportProgress : (310/442) Exporting 'Eye_Up'
+ExportProgress : (311/442) Exporting 'PlasticGlance'
+ExportProgress : (312/442) Exporting 'PlasticMat'
+ExportProgress : (313/442) Exporting 'Rubben'
+ExportProgress : (314/442) Exporting 'Gold'
+ExportProgress : (315/442) Exporting 'GoldMatt'
+ExportProgress : (316/442) Exporting 'GoldMattHead'
+ExportProgress : (317/442) Exporting 'Green'
+ExportProgress : (318/442) Exporting 'GreenPen'
+ExportProgress : (319/442) Exporting 'IronDark'
+ExportProgress : (320/442) Exporting 'IronDarkMatt'
+ExportProgress : (321/442) Exporting 'IronDarkMattHead'
+ExportProgress : (322/442) Exporting 'Latune'
+ExportProgress : (323/442) Exporting 'LeatherDark'
+ExportProgress : (324/442) Exporting 'Mint'
+ExportProgress : (325/442) Exporting 'MintPen'
+ExportProgress : (326/442) Exporting 'Red'
+ExportProgress : (327/442) Exporting 'RedPen'
+ExportProgress : (328/442) Exporting 'Red_Black'
+ExportProgress : (329/442) Exporting 'Red_Dark'
+ExportProgress : (330/442) Exporting 'Sackcloth'
+ExportProgress : (331/442) Exporting 'SackclothDollar'
+ExportProgress : (332/442) Exporting 'Violet'
+ExportProgress : (333/442) Exporting 'VioletHead'
+ExportProgress : (334/442) Exporting 'VioletLight'
+ExportProgress : (335/442) Exporting 'VioletPen'
+ExportProgress : (336/442) Exporting 'Brown'
+ExportProgress : (337/442) Exporting 'Iron'
+ExportProgress : (338/442) Exporting 'Base'
+ExportProgress : (339/442) Exporting 'Metal'
+ExportProgress : (340/442) Exporting 'Base'
+ExportProgress : (341/442) Exporting 'Metal'
+ExportProgress : (342/442) Exporting 'WhiteStar'
+ExportProgress : (343/442) Exporting 'DistanceFieldRendering'
+ExportProgress : (344/442) Exporting 'InstancedStandard'
+ExportProgress : (345/442) Exporting 'Particle'
+ExportProgress : (346/442) Exporting 'LiberationSans SDF - Drop Shadow'
+ExportProgress : (347/442) Exporting 'LiberationSans SDF - Outline'
+ExportProgress : (348/442) Exporting 'TextMeshPro/Sprite'
+ExportProgress : (349/442) Exporting 'Bag_Left'
+ExportProgress : (350/442) Exporting 'Mount'
+ExportProgress : (351/442) Exporting 'Body_P10'
+ExportProgress : (352/442) Exporting 'Eyes_Center'
+ExportProgress : (353/442) Exporting 'Eyes_Down'
+ExportProgress : (354/442) Exporting 'Body_P1'
+ExportProgress : (355/442) Exporting 'BoxingGlove'
+ExportProgress : (356/442) Exporting 'Body_P4'
+ExportProgress : (357/442) Exporting 'Body_P7'
+ExportProgress : (358/442) Exporting 'Hair'
+ExportProgress : (359/442) Exporting 'Body_P2'
+ExportProgress : (360/442) Exporting 'Body_P12'
+ExportProgress : (361/442) Exporting 'Bag_Right'
+ExportProgress : (362/442) Exporting 'Pen'
+ExportProgress : (363/442) Exporting 'Eyes_UP'
+ExportProgress : (364/442) Exporting 'Body_P9'
+ExportProgress : (365/442) Exporting 'Body_P6'
+ExportProgress : (366/442) Exporting 'Monocle'
+ExportProgress : (367/442) Exporting 'Bat'
+ExportProgress : (368/442) Exporting 'Head_P1'
+ExportProgress : (369/442) Exporting 'Hat_Cylinder'
+ExportProgress : (370/442) Exporting 'Nails'
+ExportProgress : (371/442) Exporting 'Body_P3'
+ExportProgress : (372/442) Exporting 'Mouth'
+ExportProgress : (373/442) Exporting 'Eyes'
+ExportProgress : (374/442) Exporting 'Head_P2'
+ExportProgress : (375/442) Exporting 'Body_P8'
+ExportProgress : (376/442) Exporting 'Body_P11'
+ExportProgress : (377/442) Exporting 'Body_P5'
+ExportProgress : (378/442) Exporting 'Ear_Right'
+ExportProgress : (379/442) Exporting 'Katana'
+ExportProgress : (380/442) Exporting 'Ear_Left'
+ExportProgress : (381/442) Exporting 'litparticles'
+ExportProgress : (382/442) Exporting 'tmp_bitmap'
+ExportProgress : (383/442) Exporting 'tmp_bitmap-mobile'
+ExportProgress : (384/442) Exporting 'tmp_bitmap-custom-atlas'
+ExportProgress : (385/442) Exporting 'particleshader'
+ExportProgress : (386/442) Exporting 'distancefieldslice'
+ExportProgress : (387/442) Exporting 'tmp_sdf-surface-mobile'
+ExportProgress : (388/442) Exporting 'simpleparticleshader'
+ExportProgress : (389/442) Exporting 'standardvertexcolors'
+ExportProgress : (390/442) Exporting 'tmp_sdf-mobile overlay'
+ExportProgress : (391/442) Exporting 'Hidden/Toony Colors Pro 2/Variants/Mobile Specular'
+ExportProgress : (392/442) Exporting 'tmp_sdf-mobile masking'
+ExportProgress : (393/442) Exporting 'Toony Colors Pro 2/Mobile'
+ExportProgress : (394/442) Exporting 'tmp_sprite'
+ExportProgress : (395/442) Exporting 'tmp_sdf overlay'
+ExportProgress : (396/442) Exporting 'tmp_sdf-surface'
+ExportProgress : (397/442) Exporting 'Hidden/Toony Colors Pro 2/Variants/Mobile Rim'
+ExportProgress : (398/442) Exporting 'PlayMakerAssemblies'
+ExportProgress : (399/442) Exporting 'BillingMode'
+ExportProgress : (400/442) Exporting 'LineBreaking Leading Characters'
+ExportProgress : (401/442) Exporting 'LineBreaking Following Characters'
+ExportProgress : (402/442) Exporting 'LamaAvatar'
+ExportProgress : (403/442) Exporting 'PenAvatar'
+ExportProgress : (404/442) Exporting 'ObiEllipsoids'
+ExportProgress : (405/442) Exporting 'TMPro_Properties'
+ExportProgress : (406/442) Exporting 'TMPro'
+ExportProgress : (407/442) Exporting 'TMPro_Surface'
+ExportProgress : (408/442) Exporting 'ObiParticles'
+ExportProgress : (409/442) Exporting 'ObiUtils'
+ExportProgress : (410/442) Exporting 'Gun_4'
+ExportProgress : (411/442) Exporting 'Gun_5'
+ExportProgress : (412/442) Exporting 'Gun_3'
+ExportProgress : (413/442) Exporting 'Gun_1'
+ExportProgress : (414/442) Exporting 'Gun_locked'
+ExportProgress : (415/442) Exporting 'Gun_2'
+ExportProgress : (416/442) Exporting 'UIFakeStoreCanvas'
+ExportProgress : (417/442) Exporting 'Lama_Fortnite'
+ExportProgress : (418/442) Exporting 'Lama_Gold'
+ExportProgress : (419/442) Exporting 'Lama_Iran'
+ExportProgress : (420/442) Exporting 'Lama_Silver'
+ExportProgress : (421/442) Exporting 'Lama_UncleSam'
+ExportProgress : (422/442) Exporting 'Weapon_Katana'
+ExportProgress : (423/442) Exporting 'Weapon_BoxingGlove'
+ExportProgress : (424/442) Exporting 'Weapon_Bat'
+ExportProgress : (425/442) Exporting 'Weapon_Mount'
+ExportProgress : (426/442) Exporting 'CandyBunch'
+ExportProgress : (427/442) Exporting 'CandyFall'
+ExportProgress : (428/442) Exporting 'DOTweenSettings'
+ExportProgress : (429/442) Exporting 'EM_Settings'
+ExportProgress : (430/442) Exporting 'FacebookSettings'
+ExportProgress : (431/442) Exporting 'LevelComplete'
+ExportProgress : (432/442) Exporting 'CurrentEnemyHealth'
+ExportProgress : (433/442) Exporting 'CurrentEnemyID'
+ExportProgress : (434/442) Exporting 'CurrentWeaponID'
+ExportProgress : (435/442) Exporting 'WeaponsSetup'
+ExportProgress : (436/442) Exporting 'GameConfig'
+ExportProgress : (437/442) Exporting 'KeysConfig'
+ExportProgress : (438/442) Exporting 'ProfilerSkin'
+ExportProgress : (439/442) Exporting 'Settings'
+ExportProgress : (440/442) Exporting 'EmojiOne'
+ExportProgress : (441/442) Exporting 'Default Style Sheet'
+ExportProgress : (442/442) Exporting 'TMP Settings'
+Export : Finished exporting assets
+Export : Saving game assemblies...
+Export : Finished post-export
+Export : Ripped to /home/user/AssetRipper/Test/Output051p
