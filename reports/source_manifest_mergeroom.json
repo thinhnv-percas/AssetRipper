@@ -1,7 +1,7 @@
 {
   "fixture": "MergeRoom",
   "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/mr-src",
-  "rip": "/home/user/AssetRipper/Test/Out54mr/MergeRoom",
+  "rip": "/home/user/AssetRipper/Test/Out54mr2/MergeRoom",
   "provenance": {
     "remote": "https://github.com/thinhabc01/Merge-Room.git",
     "commit": "63e88b331bbe947801aa5a7893e44cc6d522107d",

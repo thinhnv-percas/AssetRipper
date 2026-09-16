@@ -1,0 +1,667 @@
+[
+  {
+    "cluster": "FRAMEWORK_PRIVATE_MEMBER",
+    "category": "TYPE",
+    "count": 192,
+    "affected_files": [
+      "CSVHelper.cs",
+      "CSVReader.cs",
+      "CSVSerializer.cs",
+      "CsvReader.cs",
+      "DataController.cs",
+      "EventDispatcher.cs",
+      "GameHelper.cs",
+      "GraphicController.cs",
+      "LeanClassPool.cs",
+      "LeanGameObjectPool.cs",
+      "SerializableDictionary.cs",
+      "UserResourceCollectionItem.cs",
+      "UserResourceItem.cs"
+    ],
+    "codes": {
+      "CS1061": 192
+    },
+    "messages": [
+      {
+        "message": "'List<string>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<string>' coul",
+        "count": 22
+      },
+      {
+        "message": "'List<string>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<string>' could be",
+        "count": 11
+      },
+      {
+        "message": "'List<string>' does not contain a definition for '_size' and no accessible extension method '_size' accepting a first argument of type 'List<string>' could be f",
+        "count": 11
+      },
+      {
+        "message": "'List<List<Dictionary<string, string>>>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument o",
+        "count": 10
+      },
+      {
+        "message": "'List<GameObject>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<GameObjec",
+        "count": 10
+      },
+      {
+        "message": "'List<T>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<T>' could be found",
+        "count": 8
+      },
+      {
+        "message": "'List<Dictionary<string, string>>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type",
+        "count": 8
+      },
+      {
+        "message": "'List<int>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<int>' could be f",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "cluster": "INVALID_CAST",
+    "category": "CAST",
+    "count": 82,
+    "affected_files": [
+      "AdManager.cs",
+      "Box.cs",
+      "CSVHelper.cs",
+      "CsvReader.cs",
+      "DataController.cs",
+      "GDPR.cs",
+      "GUIManager.cs",
+      "GamePlayController.cs",
+      "GraphicController.cs",
+      "Item.cs",
+      "ItemResources.cs",
+      "LeanClassPool.cs",
+      "LeanGameObjectPool.cs",
+      "LeanInput.cs",
+      "LeanPool.cs",
+      "ResourcesUtil.cs",
+      "SingletonMono.cs",
+      "SingletonMonoDontDestroy.cs",
+      "UserResourceCollectionItem.cs",
+      "UserResourceItem.cs"
+    ],
+    "codes": {
+      "CS0030": 82
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'",
+        "count": 6
+      },
+      {
+        "message": "Cannot convert type 'int' to 'UnityEngine.Object'",
+        "count": 5
+      },
+      {
+        "message": "Cannot convert type 'int' to 'string'",
+        "count": 4
+      },
+      {
+        "message": "Cannot convert type 'T' to 'int'",
+        "count": 3
+      },
+      {
+        "message": "Cannot convert type 'int' to 'UnityEngine.GameObject'",
+        "count": 3
+      },
+      {
+        "message": "Cannot convert type 'CodeStage.AntiCheat.ObscuredTypes.ObscuredLong*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredLong'",
+        "count": 3
+      },
+      {
+        "message": "Cannot convert type 'T' to 'T*'",
+        "count": 3
+      },
+      {
+        "message": "Cannot convert type 'UnityEngine.GameObject' to 'UnityEngine.GameObject*'",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "NATIVE_INT_CAST",
+    "category": "CAST",
+    "count": 81,
+    "affected_files": [
+      "Box.cs",
+      "CSVHelper.cs",
+      "CSVReader.cs",
+      "CsvReader.cs",
+      "DataController.cs",
+      "Extensions.cs",
+      "GUIManager.cs",
+      "GameHelper.cs",
+      "Item.cs",
+      "LeanGameObjectPool.cs",
+      "LeanPool.cs",
+      "LeanPoolDebugger.cs",
+      "RandNumber.cs",
+      "ResourcesUtil.cs",
+      "SingletonMono.cs",
+      "SingletonMonoDontDestroy.cs",
+      "TimeInGame.cs",
+      "UserResourceCollectionItem.cs",
+      "UserResourceItem.cs"
+    ],
+    "codes": {
+      "CS0030": 70,
+      "CS0037": 11
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'System.Type' to 'nint'",
+        "count": 18
+      },
+      {
+        "message": "Cannot convert null to 'nint' because it is a non-nullable value type",
+        "count": 11
+      },
+      {
+        "message": "Cannot convert type 'nint' to 'T'",
+        "count": 8
+      },
+      {
+        "message": "Cannot convert type 'T' to 'nint'",
+        "count": 7
+      },
+      {
+        "message": "Cannot convert type 'UnityEngine.Vector3' to 'nint'",
+        "count": 4
+      },
+      {
+        "message": "Cannot convert type 'System.Collections.Generic.IList<T>' to 'nint'",
+        "count": 4
+      },
+      {
+        "message": "Cannot convert type 'UnityEngine.Sprite[]' to 'nint'",
+        "count": 4
+      },
+      {
+        "message": "Cannot convert type 'string[]' to 'nint'",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "INACCESSIBLE",
+    "category": "TYPE",
+    "count": 26,
+    "affected_files": [
+      "AdManager.cs",
+      "EventDispatcher.cs",
+      "EventSystem.cs",
+      "GameHelper.cs",
+      "Item.cs",
+      "LeanGameObjectPool.cs",
+      "LeanInput.cs",
+      "LeanPoolDebugger.cs",
+      "PanelEventHandler.cs",
+      "PanelRaycaster.cs"
+    ],
+    "codes": {
+      "CS0122": 26
+    },
+    "messages": [
+      {
+        "message": "'Int32Enum' is inaccessible due to its protection level",
+        "count": 10
+      },
+      {
+        "message": "'Bounds.m_Extents' is inaccessible due to its protection level",
+        "count": 6
+      },
+      {
+        "message": "'Unsafe' is inaccessible due to its protection level",
+        "count": 4
+      },
+      {
+        "message": "'BaseRuntimePanel' is inaccessible due to its protection level",
+        "count": 3
+      },
+      {
+        "message": "'IRuntimePanelComponent' is inaccessible due to its protection level",
+        "count": 2
+      },
+      {
+        "message": "'Touch.m_FingerId' is inaccessible due to its protection level",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "MEMBER_NOT_FOUND",
+    "category": "FIELD",
+    "count": 22,
+    "affected_files": [
+      "EaseManager.cs",
+      "GUIManager.cs",
+      "GamePlayController.cs",
+      "LeanGameObjectPool.cs",
+      "LeanPool.cs",
+      "MathUtils.cs"
+    ],
+    "codes": {
+      "CS1061": 16,
+      "CS0117": 6
+    },
+    "messages": [
+      {
+        "message": "'Exception' does not contain a definition for '_message' and no accessible extension method '_message' accepting a first argument of type 'Exception' could be f",
+        "count": 9
+      },
+      {
+        "message": "'Math' does not contain a definition for 'PI'",
+        "count": 6
+      },
+      {
+        "message": "'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are yo",
+        "count": 4
+      },
+      {
+        "message": "'Exception' does not contain a definition for '_className' and no accessible extension method '_className' accepting a first argument of type 'Exception' could ",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0470",
+    "category": "OTHER",
+    "count": 16,
+    "affected_files": [
+      "RewardedAdClient.cs",
+      "RewardedInterstitialAdClient.cs"
+    ],
+    "codes": {
+      "CS0470": 16
+    },
+    "messages": [
+      {
+        "message": "Method 'RewardingAdBaseClient.add_OnAdLoaded(EventHandler<EventArgs>)' cannot implement interface accessor 'IRewardedAdClient.OnAdLoaded.add' for type 'Rewarded",
+        "count": 1
+      },
+      {
+        "message": "Method 'RewardingAdBaseClient.remove_OnAdLoaded(EventHandler<EventArgs>)' cannot implement interface accessor 'IRewardedAdClient.OnAdLoaded.remove' for type 'Re",
+        "count": 1
+      },
+      {
+        "message": "Method 'RewardingAdBaseClient.add_OnUserEarnedReward(EventHandler<Reward>)' cannot implement interface accessor 'IRewardedAdClient.OnUserEarnedReward.add' for t",
+        "count": 1
+      },
+      {
+        "message": "Method 'RewardingAdBaseClient.remove_OnUserEarnedReward(EventHandler<Reward>)' cannot implement interface accessor 'IRewardedAdClient.OnUserEarnedReward.remove'",
+        "count": 1
+      },
+      {
+        "message": "Method 'RewardingAdBaseClient.add_OnAdLoaded(EventHandler<EventArgs>)' cannot implement interface accessor 'IRewardedInterstitialAdClient.OnAdLoaded.add' for ty",
+        "count": 1
+      },
+      {
+        "message": "Method 'RewardingAdBaseClient.remove_OnAdLoaded(EventHandler<EventArgs>)' cannot implement interface accessor 'IRewardedInterstitialAdClient.OnAdLoaded.remove' ",
+        "count": 1
+      },
+      {
+        "message": "Method 'RewardingAdBaseClient.add_OnAdFailedToLoad(EventHandler<AdFailedToLoadEventArgs>)' cannot implement interface accessor 'IRewardedInterstitialAdClient.On",
+        "count": 1
+      },
+      {
+        "message": "Method 'RewardingAdBaseClient.remove_OnAdFailedToLoad(EventHandler<AdFailedToLoadEventArgs>)' cannot implement interface accessor 'IRewardedInterstitialAdClient",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "ATTRIBUTE_ARGUMENT",
+    "category": "DECOMPILER",
+    "count": 12,
+    "affected_files": [
+      "AnimationReferenceAsset.cs",
+      "BlendModeMaterialsAsset.cs",
+      "EventDataReferenceAsset.cs",
+      "SkeletonDataAsset.cs",
+      "SpineAtlasAsset.cs",
+      "SpineSpriteAtlasAsset.cs"
+    ],
+    "codes": {
+      "CS0617": 12
+    },
+    "messages": [
+      {
+        "message": "'menuName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 6
+      },
+      {
+        "message": "'fileName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 3
+      },
+      {
+        "message": "'order' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties whi",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "OPERATOR",
+    "category": "CALL",
+    "count": 10,
+    "affected_files": [
+      "DataController.cs",
+      "Extensions.cs",
+      "GameHelper.cs",
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS0019": 10
+    },
+    "messages": [
+      {
+        "message": "Operator '+' cannot be applied to operands of type 'object' and 'int'",
+        "count": 6
+      },
+      {
+        "message": "Operator '<<' cannot be applied to operands of type 'object' and 'int'",
+        "count": 2
+      },
+      {
+        "message": "Operator '&' cannot be applied to operands of type 'float' and 'int'",
+        "count": 1
+      },
+      {
+        "message": "Operator '&' cannot be applied to operands of type 'Scene' and 'long'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "MANGLED_IDENTIFIER",
+    "category": "DECOMPILER",
+    "count": 9,
+    "affected_files": [
+      "EventDispatcher.cs",
+      "Item.cs",
+      "ItemArtifact.cs",
+      "ItemDistinc.cs",
+      "ItemStack.cs",
+      "ResourcesUtil.cs"
+    ],
+    "codes": {
+      "CS0117": 7,
+      "CS0246": 2
+    },
+    "messages": [
+      {
+        "message": "'ItemBase' does not contain a definition for '_002Ector'",
+        "count": 2
+      },
+      {
+        "message": "'ItemArtifact' does not contain a definition for '_002Ector'",
+        "count": 2
+      },
+      {
+        "message": "The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 2
+      },
+      {
+        "message": "'ItemInventory' does not contain a definition for '_002Ector'",
+        "count": 1
+      },
+      {
+        "message": "'SingletonMonoDontDestroy<ResourcesUtil>' does not contain a definition for '_002Ector'",
+        "count": 1
+      },
+      {
+        "message": "'SingletonMono<EventDispatcher>' does not contain a definition for '_002Ector'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0535",
+    "category": "OTHER",
+    "count": 8,
+    "affected_files": [
+      "RewardedAdClient.cs",
+      "RewardedInterstitialAdClient.cs"
+    ],
+    "codes": {
+      "CS0535": 8
+    },
+    "messages": [
+      {
+        "message": "'RewardedAdClient' does not implement interface member 'IRewardedAdClient.OnAdLoaded'",
+        "count": 1
+      },
+      {
+        "message": "'RewardedAdClient' does not implement interface member 'IRewardedAdClient.OnUserEarnedReward'",
+        "count": 1
+      },
+      {
+        "message": "'RewardedInterstitialAdClient' does not implement interface member 'IRewardedInterstitialAdClient.OnAdLoaded'",
+        "count": 1
+      },
+      {
+        "message": "'RewardedInterstitialAdClient' does not implement interface member 'IRewardedInterstitialAdClient.OnAdFailedToLoad'",
+        "count": 1
+      },
+      {
+        "message": "'RewardedInterstitialAdClient' does not implement interface member 'IRewardedInterstitialAdClient.OnUserEarnedReward'",
+        "count": 1
+      },
+      {
+        "message": "'RewardedInterstitialAdClient' does not implement interface member 'IRewardedInterstitialAdClient.OnAdFailedToPresentFullScreenContent'",
+        "count": 1
+      },
+      {
+        "message": "'RewardedInterstitialAdClient' does not implement interface member 'IRewardedInterstitialAdClient.OnAdDidPresentFullScreenContent'",
+        "count": 1
+      },
+      {
+        "message": "'RewardedInterstitialAdClient' does not implement interface member 'IRewardedInterstitialAdClient.OnAdDidDismissFullScreenContent'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "UNASSIGNED_LOCAL",
+    "category": "CONTROL_FLOW",
+    "count": 5,
+    "affected_files": [
+      "GUIManager.cs",
+      "Item.cs"
+    ],
+    "codes": {
+      "CS0165": 5
+    },
+    "messages": [
+      {
+        "message": "Use of unassigned local variable 'enumerator2'",
+        "count": 2
+      },
+      {
+        "message": "Use of unassigned local variable 'audioSource'",
+        "count": 2
+      },
+      {
+        "message": "Use of unassigned local variable 'num'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "ACCESSOR_VISIBILITY",
+    "category": "TYPE",
+    "count": 5,
+    "affected_files": [
+      "SkeletonMecanimRootMotion.cs",
+      "SkeletonRootMotion.cs",
+      "SkeletonUtilityEyeConstraint.cs",
+      "SkeletonUtilityGroundConstraint.cs"
+    ],
+    "codes": {
+      "CS0507": 5
+    },
+    "messages": [
+      {
+        "message": "'SkeletonRootMotion.Start()': cannot change access modifiers when overriding 'protected internal' inherited member 'SkeletonRootMotionBase.Start()'",
+        "count": 1
+      },
+      {
+        "message": "'SkeletonMecanimRootMotion.Start()': cannot change access modifiers when overriding 'protected internal' inherited member 'SkeletonRootMotionBase.Start()'",
+        "count": 1
+      },
+      {
+        "message": "'SkeletonUtilityEyeConstraint.OnEnable()': cannot change access modifiers when overriding 'public' inherited member 'SkeletonUtilityConstraint.OnEnable()'",
+        "count": 1
+      },
+      {
+        "message": "'SkeletonUtilityEyeConstraint.OnDisable()': cannot change access modifiers when overriding 'public' inherited member 'SkeletonUtilityConstraint.OnDisable()'",
+        "count": 1
+      },
+      {
+        "message": "'SkeletonUtilityGroundConstraint.OnEnable()': cannot change access modifiers when overriding 'public' inherited member 'SkeletonUtilityConstraint.OnEnable()'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "PARSE",
+    "category": "DECOMPILER",
+    "count": 4,
+    "affected_files": [
+      "ObscuredQuaternion.cs",
+      "ObscuredVector3.cs",
+      "TimeCheatingDetector.cs"
+    ],
+    "codes": {
+      "CS1525": 4
+    },
+    "messages": [
+      {
+        "message": "Invalid expression term 'ref'",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS7003",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "ResourcesUtil.cs",
+      "UserResourceItem.cs"
+    ],
+    "codes": {
+      "CS7003": 2
+    },
+    "messages": [
+      {
+        "message": "Unexpected use of an unbound generic name",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "UNSAFE",
+    "category": "DECOMPILER",
+    "count": 2,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS8172": 2
+    },
+    "messages": [
+      {
+        "message": "Cannot initialize a by-reference variable with a value",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1073",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS1073": 2
+    },
+    "messages": [
+      {
+        "message": "Unexpected token 'ref'",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1510",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS1510": 2
+    },
+    "messages": [
+      {
+        "message": "A ref or out value must be an assignable variable",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0106",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "__Il2CppFullySharedGenericStructType.cs",
+      "__Il2CppFullySharedGenericType.cs"
+    ],
+    "codes": {
+      "CS0106": 2
+    },
+    "messages": [
+      {
+        "message": "The modifier 'abstract' is not valid for this item",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8174",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "LeanGameObjectPool.cs"
+    ],
+    "codes": {
+      "CS8174": 1
+    },
+    "messages": [
+      {
+        "message": "A declaration of a by-reference variable must have an initializer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8701",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "IActivationFactory.cs"
+    ],
+    "codes": {
+      "CS8701": 1
+    },
+    "messages": [
+      {
+        "message": "Target runtime doesn't support default interface implementation.",
+        "count": 1
+      }
+    ]
+  }
+]

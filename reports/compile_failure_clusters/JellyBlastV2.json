@@ -1,0 +1,1202 @@
+[
+  {
+    "cluster": "NATIVE_INT_CAST",
+    "category": "CAST",
+    "count": 1862,
+    "affected_files": [
+      "BezierPath.cs",
+      "CubicBezierUtility.cs",
+      "FacebookSettings.cs",
+      "GAState.cs",
+      "GAValidator.cs",
+      "GA_MiniJSON.cs",
+      "GA_SpecialEvents.cs",
+      "GA_Wrapper.cs",
+      "Game.cs",
+      "GameAnalytics.cs",
+      "MathUtility.cs",
+      "MinMax3D.cs",
+      "Organization.cs",
+      "PathCreator.cs",
+      "PathCreatorData.cs",
+      "RFActivation.cs",
+      "RFActivationEvent.cs",
+      "RFBackupCluster.cs",
+      "RFBricks.cs",
+      "RFCache.cs",
+      "RFCluster.cs",
+      "RFCollapse.cs",
+      "RFCombineMesh.cs",
+      "RFConnectivityEvent.cs",
+      "RFCustom.cs",
+      "RFDemolitionCluster.cs",
+      "RFDemolitionEvent.cs",
+      "RFDemolitionMesh.cs",
+      "RFDictionary.cs",
+      "RFEvent.cs",
+      "RFExplosionEvent.cs",
+      "RFFace.cs",
+      "RFFade.cs",
+      "RFFadingEvent.cs",
+      "RFFragment.cs",
+      "RFFragmentProperties.cs",
+      "RFHexagon.cs",
+      "RFJointProperties.cs",
+      "RFLimitations.cs",
+      "RFMaterial.cs",
+      "RFMaterialPresets.cs",
+      "RFMesh.cs",
+      "RFParticlePool.cs",
+      "RFParticleRendering.cs",
+      "RFParticles.cs",
+      "RFPhysic.cs",
+      "RFPoolingEmitter.cs",
+      "RFPoolingFragment.cs",
+      "RFPoolingParticles.cs",
+      "RFReferenceDemolition.cs",
+      "RFReset.cs",
+      "RFRestrictionEvent.cs",
+      "RFRigidRootDemolition.cs",
+      "RFRuntimeCaching.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFShatterAdvanced.cs",
+      "RFShatterBatch.cs",
+      "RFShell.cs",
+      "RFShotEvent.cs",
+      "RFSlice.cs",
+      "RFSliceEvent.cs",
+      "RFSound.cs",
+      "RFStorage.cs",
+      "RFStress.cs",
+      "RFSurface.cs",
+      "RFTriangle.cs",
+      "RayfireActivator.cs",
+      "RayfireBlade.cs",
+      "RayfireBomb.cs",
+      "RayfireCluster.cs",
+      "RayfireCombine.cs",
+      "RayfireConnectivity.cs",
+      "RayfireDebris.cs",
+      "RayfireDust.cs",
+      "RayfireGun.cs",
+      "RayfireMan.cs",
+      "RayfireRecorder.cs",
+      "RayfireRestriction.cs",
+      "RayfireRigid.cs",
+      "RayfireRigidRoot.cs",
+      "RayfireShatter.cs",
+      "RayfireShell.cs",
+      "RayfireSnapshot.cs",
+      "RayfireSound.cs",
+      "RayfireUnyielding.cs",
+      "RayfireVortex.cs",
+      "RayfireWind.cs",
+      "Settings.cs",
+      "Studio.cs",
+      "VertexPath.cs",
+      "VertexPathUtility.cs"
+    ],
+    "codes": {
+      "CS0030": 1797,
+      "CS0037": 65
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'string[]' to 'nint'",
+        "count": 130
+      },
+      {
+        "message": "Cannot convert type 'RayFire.RayfireRigid' to 'nint'",
+        "count": 107
+      },
+      {
+        "message": "Cannot convert type 'UnityEngine.Vector3[]' to 'nint'",
+        "count": 94
+      },
+      {
+        "message": "Cannot convert type 'RayFire.RFShard' to 'nint'",
+        "count": 77
+      },
+      {
+        "message": "Cannot convert null to 'nint' because it is a non-nullable value type",
+        "count": 65
+      },
+      {
+        "message": "Cannot convert type 'RayFire.RayfireShatter' to 'nint'",
+        "count": 60
+      },
+      {
+        "message": "Cannot convert type 'System.Delegate' to 'nint'",
+        "count": 52
+      },
+      {
+        "message": "Cannot convert type 'RayFire.RFCluster' to 'nint'",
+        "count": 48
+      }
+    ]
+  },
+  {
+    "cluster": "INVALID_CAST",
+    "category": "CAST",
+    "count": 1746,
+    "affected_files": [
+      "BezierPath.cs",
+      "CubicBezierUtility.cs",
+      "FacebookSettings.cs",
+      "GAState.cs",
+      "GAValidator.cs",
+      "GA_Debug.cs",
+      "GA_MiniJSON.cs",
+      "GA_Setup.cs",
+      "GA_SpecialEvents.cs",
+      "GA_Wrapper.cs",
+      "GameAnalytics.cs",
+      "GameAnalyticsATTClient.cs",
+      "GlobalDisplaySettings.cs",
+      "MathUtility.cs",
+      "Organization.cs",
+      "PathCreatorData.cs",
+      "RFActivation.cs",
+      "RFActivationEvent.cs",
+      "RFBackupCluster.cs",
+      "RFBricks.cs",
+      "RFCache.cs",
+      "RFCluster.cs",
+      "RFCombineMesh.cs",
+      "RFCustom.cs",
+      "RFDamage.cs",
+      "RFDemolitionCluster.cs",
+      "RFDemolitionMesh.cs",
+      "RFDictionary.cs",
+      "RFFade.cs",
+      "RFFragment.cs",
+      "RFFragmentProperties.cs",
+      "RFHexagon.cs",
+      "RFJointProperties.cs",
+      "RFLimitations.cs",
+      "RFManDemolition.cs",
+      "RFMaterialPresets.cs",
+      "RFMesh.cs",
+      "RFNoise.cs",
+      "RFParticleCollisionDebris.cs",
+      "RFParticles.cs",
+      "RFPhysic.cs",
+      "RFPoolingEmitter.cs",
+      "RFPoolingFragment.cs",
+      "RFPoolingParticles.cs",
+      "RFReferenceDemolition.cs",
+      "RFReset.cs",
+      "RFRuntimeCaching.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFShatterAdvanced.cs",
+      "RFShell.cs",
+      "RFSlice.cs",
+      "RFSound.cs",
+      "RFStorage.cs",
+      "RFStress.cs",
+      "RFSurface.cs",
+      "RFVoxels.cs",
+      "RayfireActivator.cs",
+      "RayfireBlade.cs",
+      "RayfireBomb.cs",
+      "RayfireCluster.cs",
+      "RayfireCombine.cs",
+      "RayfireConnectivity.cs",
+      "RayfireDebris.cs",
+      "RayfireDust.cs",
+      "RayfireGun.cs",
+      "RayfireMan.cs",
+      "RayfireRecorder.cs",
+      "RayfireRestriction.cs",
+      "RayfireRigid.cs",
+      "RayfireRigidRoot.cs",
+      "RayfireShatter.cs",
+      "RayfireShell.cs",
+      "RayfireSound.cs",
+      "RayfireUnyielding.cs",
+      "RayfireVortex.cs",
+      "RayfireWind.cs",
+      "Settings.cs",
+      "Studio.cs",
+      "VertexPath.cs",
+      "VertexPathUtility.cs"
+    ],
+    "codes": {
+      "CS0030": 1737,
+      "CS0029": 9
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'int' to 'string'",
+        "count": 434
+      },
+      {
+        "message": "Cannot convert type 'int' to 'UnityEngine.Vector3'",
+        "count": 76
+      },
+      {
+        "message": "Cannot convert type 'int' to 'System.Collections.Generic.List<System.Collections.Generic.Dictionary<int, int>>'",
+        "count": 68
+      },
+      {
+        "message": "Cannot convert type 'float' to 'UnityEngine.Vector3'",
+        "count": 66
+      },
+      {
+        "message": "Cannot convert type 'float' to 'System.Collections.Generic.List<object>.Enumerator'",
+        "count": 64
+      },
+      {
+        "message": "Cannot convert type 'int' to 'System.Collections.Generic.List<object>'",
+        "count": 57
+      },
+      {
+        "message": "Cannot convert type 'int' to 'UnityEngine.Object'",
+        "count": 51
+      },
+      {
+        "message": "Cannot convert type 'int' to 'System.Diagnostics.Stopwatch'",
+        "count": 43
+      }
+    ]
+  },
+  {
+    "cluster": "FRAMEWORK_PRIVATE_MEMBER",
+    "category": "TYPE",
+    "count": 1637,
+    "affected_files": [
+      "BezierPath.cs",
+      "CubicBezierUtility.cs",
+      "FacebookSettings.cs",
+      "GA_MiniJSON.cs",
+      "RFBackupCluster.cs",
+      "RFCache.cs",
+      "RFCluster.cs",
+      "RFCollapse.cs",
+      "RFCombineMesh.cs",
+      "RFCustom.cs",
+      "RFDemolitionCluster.cs",
+      "RFDemolitionMesh.cs",
+      "RFDictionary.cs",
+      "RFFace.cs",
+      "RFFade.cs",
+      "RFFragment.cs",
+      "RFHexagon.cs",
+      "RFJointProperties.cs",
+      "RFMesh.cs",
+      "RFPhysic.cs",
+      "RFPoolingEmitter.cs",
+      "RFPoolingParticles.cs",
+      "RFReset.cs",
+      "RFRuntimeCaching.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFShatterAdvanced.cs",
+      "RFShatterBatch.cs",
+      "RFSound.cs",
+      "RFStorage.cs",
+      "RFStress.cs",
+      "RFTriangle.cs",
+      "RayfireActivator.cs",
+      "RayfireBomb.cs",
+      "RayfireCluster.cs",
+      "RayfireCombine.cs",
+      "RayfireConnectivity.cs",
+      "RayfireDebris.cs",
+      "RayfireDust.cs",
+      "RayfireGun.cs",
+      "RayfireMan.cs",
+      "RayfireRecorder.cs",
+      "RayfireRigid.cs",
+      "RayfireRigidRoot.cs",
+      "RayfireShatter.cs",
+      "RayfireUnyielding.cs",
+      "RayfireVortex.cs",
+      "RayfireWind.cs",
+      "Settings.cs",
+      "VertexPathUtility.cs"
+    ],
+    "codes": {
+      "CS1061": 1635,
+      "CS0122": 2
+    },
+    "messages": [
+      {
+        "message": "'List<int>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<int>' could be f",
+        "count": 150
+      },
+      {
+        "message": "'List<RFShard>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<RFShard>' co",
+        "count": 147
+      },
+      {
+        "message": "'List<Vector3>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<Vector3>' co",
+        "count": 114
+      },
+      {
+        "message": "'List<int>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<int>' could be found",
+        "count": 78
+      },
+      {
+        "message": "'List<int>' does not contain a definition for '_size' and no accessible extension method '_size' accepting a first argument of type 'List<int>' could be found (",
+        "count": 75
+      },
+      {
+        "message": "'List<RFShard>' does not contain a definition for '_size' and no accessible extension method '_size' accepting a first argument of type 'List<RFShard>' could be",
+        "count": 74
+      },
+      {
+        "message": "'List<RFShard>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<RFShard>' could ",
+        "count": 74
+      },
+      {
+        "message": "'List<RFCluster>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<RFCluster>",
+        "count": 67
+      }
+    ]
+  },
+  {
+    "cluster": "INACCESSIBLE",
+    "category": "TYPE",
+    "count": 450,
+    "affected_files": [
+      "AssemblyInfo.cs",
+      "BezierPath.cs",
+      "CubicBezierUtility.cs",
+      "EventSystem.cs",
+      "GA_Setup.cs",
+      "GA_Wrapper.cs",
+      "GameAnalytics.cs",
+      "IOSWrapper.cs",
+      "PanelEventHandler.cs",
+      "PanelRaycaster.cs",
+      "RFActivation.cs",
+      "RFCluster.cs",
+      "RFCombineMesh.cs",
+      "RFCustom.cs",
+      "RFDemolitionCluster.cs",
+      "RFDemolitionMesh.cs",
+      "RFFragment.cs",
+      "RFHexagon.cs",
+      "RFJointProperties.cs",
+      "RFLimitations.cs",
+      "RFMesh.cs",
+      "RFParticles.cs",
+      "RFPhysic.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFShatterAdvanced.cs",
+      "RayfireActivator.cs",
+      "RayfireBomb.cs",
+      "RayfireCluster.cs",
+      "RayfireCombine.cs",
+      "RayfireConnectivity.cs",
+      "RayfireDebris.cs",
+      "RayfireDust.cs",
+      "RayfireRigidRoot.cs",
+      "RayfireShatter.cs",
+      "RayfireSound.cs",
+      "RayfireVortex.cs",
+      "VertexPath.cs",
+      "VertexPathUtility.cs",
+      "__JobReflectionRegistrationOutput__1221673671587648887.cs"
+    ],
+    "codes": {
+      "CS0122": 450
+    },
+    "messages": [
+      {
+        "message": "'Bounds.m_Extents' is inaccessible due to its protection level",
+        "count": 177
+      },
+      {
+        "message": "'Unsafe' is inaccessible due to its protection level",
+        "count": 126
+      },
+      {
+        "message": "'Bounds.m_Center' is inaccessible due to its protection level",
+        "count": 83
+      },
+      {
+        "message": "'Int32Enum' is inaccessible due to its protection level",
+        "count": 16
+      },
+      {
+        "message": "'GA_MiniJSON.Serializer' is inaccessible due to its protection level",
+        "count": 6
+      },
+      {
+        "message": "'ContactPoint.m_Point' is inaccessible due to its protection level",
+        "count": 6
+      },
+      {
+        "message": "'BurstCompiler.StaticTypeReinitAttribute' is inaccessible due to its protection level",
+        "count": 6
+      },
+      {
+        "message": "'ContactPoint.m_Normal' is inaccessible due to its protection level",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "cluster": "OPERATOR",
+    "category": "CALL",
+    "count": 434,
+    "affected_files": [
+      "BezierPath.cs",
+      "CubicBezierUtility.cs",
+      "GA_MiniJSON.cs",
+      "GA_SpecialEvents.cs",
+      "GA_Wrapper.cs",
+      "GameAnalyticsATTClient.cs",
+      "MathUtility.cs",
+      "RFActivation.cs",
+      "RFBricks.cs",
+      "RFCluster.cs",
+      "RFCollapse.cs",
+      "RFCombineMesh.cs",
+      "RFDemolitionCluster.cs",
+      "RFFade.cs",
+      "RFFragment.cs",
+      "RFJointProperties.cs",
+      "RFManDemolition.cs",
+      "RFMesh.cs",
+      "RFNoise.cs",
+      "RFParticleLimitations.cs",
+      "RFParticlePool.cs",
+      "RFPhysic.cs",
+      "RFPoolingEmitter.cs",
+      "RFPoolingFragment.cs",
+      "RFRadial.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFShatterAdvanced.cs",
+      "RFShatterBatch.cs",
+      "RFShatterCluster.cs",
+      "RFShell.cs",
+      "RFSound.cs",
+      "RFStress.cs",
+      "RayfireActivator.cs",
+      "RayfireBomb.cs",
+      "RayfireCluster.cs",
+      "RayfireConnectivity.cs",
+      "RayfireGun.cs",
+      "RayfireRecorder.cs",
+      "RayfireRestriction.cs",
+      "RayfireRigid.cs",
+      "RayfireShatter.cs",
+      "RayfireVortex.cs",
+      "RayfireWind.cs",
+      "VertexPath.cs",
+      "VertexPathUtility.cs"
+    ],
+    "codes": {
+      "CS0019": 434
+    },
+    "messages": [
+      {
+        "message": "Operator '^' cannot be applied to operands of type 'float' and 'float'",
+        "count": 139
+      },
+      {
+        "message": "Operator '+' cannot be applied to operands of type 'object' and 'int'",
+        "count": 39
+      },
+      {
+        "message": "Operator '>>' cannot be applied to operands of type 'double' and 'int'",
+        "count": 25
+      },
+      {
+        "message": "Operator '^' cannot be applied to operands of type 'int' and 'float'",
+        "count": 24
+      },
+      {
+        "message": "Operator '-' cannot be applied to operands of type 'int' and 'object'",
+        "count": 18
+      },
+      {
+        "message": "Operator '<<' cannot be applied to operands of type 'object' and 'int'",
+        "count": 14
+      },
+      {
+        "message": "Operator '-' cannot be applied to operands of type 'object' and 'int'",
+        "count": 14
+      },
+      {
+        "message": "Operator '&' cannot be applied to operands of type 'float' and 'int'",
+        "count": 14
+      }
+    ]
+  },
+  {
+    "cluster": "UNASSIGNED_LOCAL",
+    "category": "CONTROL_FLOW",
+    "count": 126,
+    "affected_files": [
+      "BezierPath.cs",
+      "GA_MiniJSON.cs",
+      "GameAnalytics.cs",
+      "RFCluster.cs",
+      "RFReferenceDemolition.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFShell.cs",
+      "RFStress.cs",
+      "RayfireCluster.cs",
+      "RayfireCombine.cs",
+      "RayfireGun.cs",
+      "RayfireShatter.cs",
+      "VertexPath.cs"
+    ],
+    "codes": {
+      "CS0165": 126
+    },
+    "messages": [
+      {
+        "message": "Use of unassigned local variable 'array'",
+        "count": 4
+      },
+      {
+        "message": "Use of unassigned local variable 'enumerator5'",
+        "count": 4
+      },
+      {
+        "message": "Use of unassigned local variable 'num28'",
+        "count": 3
+      },
+      {
+        "message": "Use of unassigned local variable 'obj16'",
+        "count": 3
+      },
+      {
+        "message": "Use of unassigned local variable 'num6'",
+        "count": 3
+      },
+      {
+        "message": "Use of unassigned local variable 'num30'",
+        "count": 3
+      },
+      {
+        "message": "Use of unassigned local variable 'obj10'",
+        "count": 2
+      },
+      {
+        "message": "Use of unassigned local variable 'num37'",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "MANGLED_IDENTIFIER",
+    "category": "DECOMPILER",
+    "count": 117,
+    "affected_files": [
+      "AssemblyInfo.cs",
+      "BezierPath.cs",
+      "FacebookSettings.cs",
+      "GA_Design.cs",
+      "GA_MiniJSON.cs",
+      "GA_Progression.cs",
+      "Game.cs",
+      "GameAnalytics.cs",
+      "GlobalDisplaySettings.cs",
+      "MinMax3D.cs",
+      "Organization.cs",
+      "RFActivation.cs",
+      "RFBricks.cs",
+      "RFCache.cs",
+      "RFCluster.cs",
+      "RFCombineMesh.cs",
+      "RFCustom.cs",
+      "RFDemolitionCluster.cs",
+      "RFDemolitionMesh.cs",
+      "RFDictionary.cs",
+      "RFFade.cs",
+      "RFFlash.cs",
+      "RFFragment.cs",
+      "RFFragmentProperties.cs",
+      "RFHexagon.cs",
+      "RFJointProperties.cs",
+      "RFLimitations.cs",
+      "RFManDemolition.cs",
+      "RFMaterial.cs",
+      "RFMaterialPresets.cs",
+      "RFMesh.cs",
+      "RFMirrored.cs",
+      "RFNoise.cs",
+      "RFParticleCollisionDebris.cs",
+      "RFParticleCollisionDust.cs",
+      "RFParticleDynamicDebris.cs",
+      "RFParticleDynamicDust.cs",
+      "RFParticleEmission.cs",
+      "RFParticleLimitations.cs",
+      "RFParticleNoise.cs",
+      "RFParticlePool.cs",
+      "RFParticleRendering.cs",
+      "RFPhysic.cs",
+      "RFPoolingEmitter.cs",
+      "RFPoolingFragment.cs",
+      "RFPoolingParticles.cs",
+      "RFRadial.cs",
+      "RFReferenceDemolition.cs",
+      "RFReset.cs",
+      "RFRigidRootDemolition.cs",
+      "RFRuntimeCaching.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFShatterAdvanced.cs",
+      "RFShatterBatch.cs",
+      "RFShatterCluster.cs",
+      "RFShell.cs",
+      "RFSlice.cs",
+      "RFSound.cs",
+      "RFSplinters.cs",
+      "RFStorage.cs",
+      "RFStress.cs",
+      "RFSurface.cs",
+      "RFTets.cs",
+      "RayfireActivator.cs",
+      "RayfireBlade.cs",
+      "RayfireBomb.cs",
+      "RayfireCluster.cs",
+      "RayfireConnectivity.cs",
+      "RayfireDebris.cs",
+      "RayfireDust.cs",
+      "RayfireGun.cs",
+      "RayfireMan.cs",
+      "RayfireRecorder.cs",
+      "RayfireRestriction.cs",
+      "RayfireRigid.cs",
+      "RayfireRigidRoot.cs",
+      "RayfireShatter.cs",
+      "RayfireVortex.cs",
+      "RayfireWind.cs",
+      "Settings.cs",
+      "Studio.cs",
+      "VertexPath.cs",
+      "VertexPathUtility.cs"
+    ],
+    "codes": {
+      "CS0117": 91,
+      "CS0246": 18,
+      "CS0030": 3,
+      "CS1061": 5
+    },
+    "messages": [
+      {
+        "message": "'object' does not contain a definition for '_002Ector'",
+        "count": 72
+      },
+      {
+        "message": "'MonoBehaviour' does not contain a definition for '_002Ector'",
+        "count": 16
+      },
+      {
+        "message": "The type or namespace name '_003F' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 12
+      },
+      {
+        "message": "'BezierPath' does not contain a definition for '_002Ector' and no accessible extension method '_002Ector' accepting a first argument of type 'BezierPath' could ",
+        "count": 4
+      },
+      {
+        "message": "'ScriptableObject' does not contain a definition for '_002Ector'",
+        "count": 3
+      },
+      {
+        "message": "The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 2
+      },
+      {
+        "message": "Cannot convert type 'int?' to '_003F?'",
+        "count": 1
+      },
+      {
+        "message": "Cannot convert type 'float?' to '_003F?'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "MEMBER_NOT_FOUND",
+    "category": "FIELD",
+    "count": 47,
+    "affected_files": [
+      "EaseManager.cs",
+      "GA_MiniJSON.cs",
+      "MathUtility.cs",
+      "RFCluster.cs",
+      "RFHexagon.cs",
+      "RFShard.cs",
+      "RFShatter.cs",
+      "RFStress.cs",
+      "RayfireCluster.cs",
+      "RayfireRecorder.cs",
+      "RayfireWind.cs"
+    ],
+    "codes": {
+      "CS0117": 21,
+      "CS1061": 26
+    },
+    "messages": [
+      {
+        "message": "'int' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'int' could be found (are you ",
+        "count": 15
+      },
+      {
+        "message": "'Math' does not contain a definition for 'PI'",
+        "count": 8
+      },
+      {
+        "message": "'Quaternion' does not contain a definition for 'Internal_ToEulerRad'",
+        "count": 6
+      },
+      {
+        "message": "'Quaternion' does not contain a definition for 'Internal_MakePositive'",
+        "count": 6
+      },
+      {
+        "message": "'float' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'float' could be found (are ",
+        "count": 5
+      },
+      {
+        "message": "'Exception' does not contain a definition for '_message' and no accessible extension method '_message' accepting a first argument of type 'Exception' could be f",
+        "count": 2
+      },
+      {
+        "message": "'string' does not contain a definition for 'CreateString' and no accessible extension method 'CreateString' accepting a first argument of type 'string' could be",
+        "count": 1
+      },
+      {
+        "message": "'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are yo",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "ATTRIBUTE_ARGUMENT",
+    "category": "DECOMPILER",
+    "count": 41,
+    "affected_files": [
+      "ApplicationData.cs",
+      "AudioClipManager.cs",
+      "CollectionHelper.cs",
+      "FixedList.cs",
+      "FixedList128Bytes.cs",
+      "FixedList32Bytes.cs",
+      "FixedList4096Bytes.cs",
+      "FixedList512Bytes.cs",
+      "FixedList64Bytes.cs",
+      "FluidPhysicsCoupler.cs",
+      "HashMapHelper.cs",
+      "KVPair.cs",
+      "KeyValue.cs",
+      "Memory.cs",
+      "NativeArrayExtensions.cs",
+      "NativeParallelHashMap.cs",
+      "NativeParallelMultiHashMap.cs",
+      "NativeParallelMultiHashMapIterator.cs",
+      "UIButtonStyle.cs",
+      "UnsafeHashMap.cs",
+      "UnsafeList.cs",
+      "UnsafeParallelHashMap.cs",
+      "UnsafeParallelHashMapBase.cs",
+      "UnsafeParallelHashMapData.cs",
+      "UnsafeParallelMultiHashMap.cs",
+      "UnsafeQueue.cs",
+      "UnsafeRingQueue.cs"
+    ],
+    "codes": {
+      "CS0617": 41
+    },
+    "messages": [
+      {
+        "message": "'GenericTypeArguments' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write",
+        "count": 30
+      },
+      {
+        "message": "'fileName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 3
+      },
+      {
+        "message": "'menuName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 3
+      },
+      {
+        "message": "'order' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties whi",
+        "count": 3
+      },
+      {
+        "message": "'CompileSynchronously' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8174",
+    "category": "OTHER",
+    "count": 37,
+    "affected_files": [
+      "RFFragment.cs",
+      "RFShatter.cs"
+    ],
+    "codes": {
+      "CS8174": 37
+    },
+    "messages": [
+      {
+        "message": "A declaration of a by-reference variable must have an initializer",
+        "count": 37
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0149",
+    "category": "OTHER",
+    "count": 30,
+    "affected_files": [
+      "BezierPath.cs",
+      "FacebookSettings.cs",
+      "GameAnalytics.cs",
+      "PathCreator.cs",
+      "PathCreatorData.cs",
+      "RFCombineMesh.cs",
+      "RFFragment.cs",
+      "RFReset.cs",
+      "RFShatter.cs",
+      "RFSlice.cs",
+      "RayfireCluster.cs"
+    ],
+    "codes": {
+      "CS0149": 30
+    },
+    "messages": [
+      {
+        "message": "Method name expected",
+        "count": 30
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0266",
+    "category": "OTHER",
+    "count": 21,
+    "affected_files": [
+      "RFShatter.cs",
+      "RFShell.cs",
+      "RFSurface.cs",
+      "VertexPath.cs"
+    ],
+    "codes": {
+      "CS0266": 21
+    },
+    "messages": [
+      {
+        "message": "Cannot implicitly convert type 'object' to 'int'. An explicit conversion exists (are you missing a cast?)",
+        "count": 13
+      },
+      {
+        "message": "Cannot implicitly convert type 'double' to 'int'. An explicit conversion exists (are you missing a cast?)",
+        "count": 7
+      },
+      {
+        "message": "Cannot implicitly convert type 'object' to 'System.Exception'. An explicit conversion exists (are you missing a cast?)",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "ACCESSOR_VISIBILITY",
+    "category": "TYPE",
+    "count": 15,
+    "affected_files": [
+      "CoinsScreen.cs",
+      "ConfettiScreen.cs",
+      "FailScreen.cs",
+      "GameplayScreen.cs",
+      "LevelCompleteScreen.cs",
+      "LevelFailedScreen.cs",
+      "LevelIntroScreen.cs",
+      "UIParticle.cs",
+      "VertexPathUtility.cs",
+      "WinScreen.cs"
+    ],
+    "codes": {
+      "CS0507": 10,
+      "CS0272": 5
+    },
+    "messages": [
+      {
+        "message": "The property or indexer 'MinMax3D.Min' cannot be used in this context because the set accessor is inaccessible",
+        "count": 4
+      },
+      {
+        "message": "'LevelFailedScreen.OnStartShow()': cannot change access modifiers when overriding 'protected internal' inherited member 'Viewport.OnStartShow()'",
+        "count": 1
+      },
+      {
+        "message": "'LevelCompleteScreen.OnStartShow()': cannot change access modifiers when overriding 'protected internal' inherited member 'Viewport.OnStartShow()'",
+        "count": 1
+      },
+      {
+        "message": "'CoinsScreen.OnStartShow()': cannot change access modifiers when overriding 'protected internal' inherited member 'Viewport.OnStartShow()'",
+        "count": 1
+      },
+      {
+        "message": "'WinScreen.OnStartShow()': cannot change access modifiers when overriding 'protected internal' inherited member 'Viewport.OnStartShow()'",
+        "count": 1
+      },
+      {
+        "message": "'FailScreen.OnStartShow()': cannot change access modifiers when overriding 'protected internal' inherited member 'Viewport.OnStartShow()'",
+        "count": 1
+      },
+      {
+        "message": "'GameplayScreen.Awake()': cannot change access modifiers when overriding 'protected internal' inherited member 'Viewport.Awake()'",
+        "count": 1
+      },
+      {
+        "message": "'ConfettiScreen.OnStartShow()': cannot change access modifiers when overriding 'protected internal' inherited member 'Viewport.OnStartShow()'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1612",
+    "category": "OTHER",
+    "count": 13,
+    "affected_files": [
+      "MinMax3D.cs",
+      "VertexPathUtility.cs"
+    ],
+    "codes": {
+      "CS1612": 13
+    },
+    "messages": [
+      {
+        "message": "Cannot modify the return value of 'MinMax3D.Max' because it is not a variable",
+        "count": 7
+      },
+      {
+        "message": "Cannot modify the return value of 'MinMax3D.Min' because it is not a variable",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "cluster": "UNSAFE",
+    "category": "DECOMPILER",
+    "count": 13,
+    "affected_files": [
+      "RFCombineMesh.cs",
+      "RFShatter.cs"
+    ],
+    "codes": {
+      "CS8172": 13
+    },
+    "messages": [
+      {
+        "message": "Cannot initialize a by-reference variable with a value",
+        "count": 13
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1073",
+    "category": "OTHER",
+    "count": 13,
+    "affected_files": [
+      "RFCombineMesh.cs",
+      "RFShatter.cs"
+    ],
+    "codes": {
+      "CS1073": 13
+    },
+    "messages": [
+      {
+        "message": "Unexpected token 'ref'",
+        "count": 13
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1510",
+    "category": "OTHER",
+    "count": 13,
+    "affected_files": [
+      "RFCombineMesh.cs",
+      "RFShatter.cs"
+    ],
+    "codes": {
+      "CS1510": 13
+    },
+    "messages": [
+      {
+        "message": "A ref or out value must be an assignable variable",
+        "count": 13
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0170",
+    "category": "OTHER",
+    "count": 3,
+    "affected_files": [
+      "BezierPath.cs",
+      "RFShatter.cs"
+    ],
+    "codes": {
+      "CS0170": 3
+    },
+    "messages": [
+      {
+        "message": "Use of possibly unassigned field 'x'",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0023",
+    "category": "OTHER",
+    "count": 3,
+    "affected_files": [
+      "RFCollapse.cs"
+    ],
+    "codes": {
+      "CS0023": 3
+    },
+    "messages": [
+      {
+        "message": "Operator '~' cannot be applied to operand of type 'float'",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0216",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "Namespace.cs",
+      "int2.cs"
+    ],
+    "codes": {
+      "CS0216": 2
+    },
+    "messages": [
+      {
+        "message": "The operator 'int2.operator <(int2, int)' requires a matching operator '>' to also be defined",
+        "count": 1
+      },
+      {
+        "message": "The operator 'Namespace.operator ==(Namespace, Namespace)' requires a matching operator '!=' to also be defined",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0106",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "__Il2CppFullySharedGenericStructType.cs",
+      "__Il2CppFullySharedGenericType.cs"
+    ],
+    "codes": {
+      "CS0106": 2
+    },
+    "messages": [
+      {
+        "message": "The modifier 'abstract' is not valid for this item",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0053",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "FB.cs"
+    ],
+    "codes": {
+      "CS0053": 1
+    },
+    "messages": [
+      {
+        "message": "Inconsistent accessibility: property type 'IFacebook' is less accessible than property 'FB.FacebookImpl'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0052",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "JProperty.cs"
+    ],
+    "codes": {
+      "CS0052": 1
+    },
+    "messages": [
+      {
+        "message": "Inconsistent accessibility: field type 'JProperty.JPropertyList' is less accessible than field 'JProperty._content'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0103",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "RFShatter.cs"
+    ],
+    "codes": {
+      "CS0103": 1
+    },
+    "messages": [
+      {
+        "message": "The name '_003CItem1_003Ek__BackingField' does not exist in the current context",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0250",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "RFShatter.cs"
+    ],
+    "codes": {
+      "CS0250": 1
+    },
+    "messages": [
+      {
+        "message": "Do not directly call your base type Finalize method. It is called automatically from your destructor.",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8701",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "IActivationFactory.cs"
+    ],
+    "codes": {
+      "CS8701": 1
+    },
+    "messages": [
+      {
+        "message": "Target runtime doesn't support default interface implementation.",
+        "count": 1
+      }
+    ]
+  }
+]

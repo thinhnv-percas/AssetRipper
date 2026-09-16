@@ -197,7 +197,56 @@ def load(path: pathlib.Path) -> tuple[list[dict], list[dict]]:
     return [{"method": key, "fixture": None} for key in stored.get("methods", [])], []
 
 
-def entry_for(key: str, fixture: str, rows_by_key: dict, declared: set[str] | None) -> dict:
+def referenced_types(root: pathlib.Path) -> set[str]:
+    """Every script type a serialized document points at through `m_Script`.
+
+    Read from the rip rather than from the reference audit, because the audit reports what did *not*
+    resolve and this needs what did. A MonoScript is named by the GUID its `.cs.meta` declares, so
+    the index is meta-GUID to type name and the scan is for that GUID in an `m_Script` line.
+    """
+    guids = {}
+    for meta in root.rglob("*.cs.meta"):
+        for line in meta.read_text(encoding="utf-8", errors="replace").splitlines():
+            if line.startswith("guid:"):
+                guids[line.split(":", 1)[1].strip()] = meta.name[: -len(".cs.meta")]
+                break
+
+    if not guids:
+        return set()
+
+    named = set()
+    for suffix in ("*.unity", "*.prefab", "*.asset", "*.mat", "*.controller", "*.anim"):
+        for document in root.rglob(suffix):
+            for line in document.read_text(encoding="utf-8", errors="replace").splitlines():
+                if "m_Script:" not in line or "guid:" not in line:
+                    continue
+                guid = line.split("guid:", 1)[1].split(",")[0].strip()
+                if guid in guids:
+                    named.add(guids[guid])
+    return named
+
+
+def files_with_errors(errors: pathlib.Path | None) -> set[str] | None:
+    """The files Roslyn rejected, from a raw diagnostic dump, or None when there is none.
+
+    Keyed by the path as the corpus keys it - relative to the game directory - so the two line up
+    without either having to know where the rip sits.
+    """
+    if errors is None or not errors.exists():
+        return None
+    failing = set()
+    for line in errors.read_text(encoding="utf-8", errors="replace").splitlines():
+        match = re.match(r"^(?P<path>[^(]+)\(\d+,\d+\): error ", line)
+        if not match:
+            continue
+        parts = pathlib.PurePosixPath(match.group("path")).parts
+        if "Assets" in parts:
+            failing.add(str(pathlib.PurePosixPath(*parts[parts.index("Assets"):])))
+    return failing
+
+
+def entry_for(key: str, fixture: str, rows_by_key: dict, declared: set[str] | None,
+              failing: set[str] | None, referenced: set[str] | None) -> dict:
     """A frozen record: what the method is, what it reached, and whether its source exists."""
     status, ir, _, _, _, _, declaration_text = rows_by_key[key]
     path = key.split("#", 1)[0]
@@ -212,6 +261,12 @@ def entry_for(key: str, fixture: str, rows_by_key: dict, declared: set[str] | No
         # None, not False, where no manifest was supplied: "not known" and "not there" are different
         # answers and only one of them is evidence.
         "source_available": None if declared is None else f"{assembly}::{type_name}" in declared,
+        # Whether the file this method is in compiles, and whether anything in the project points at
+        # its type. Both are per file rather than per method, which is what the evidence supports:
+        # Roslyn reports a file and a `m_Script` names a type.
+        "compile_status": None if failing is None else ("FAILS" if path in failing else "CLEAN"),
+        "reference_status": (None if referenced is None
+                             else ("REFERENCED" if type_name in referenced else "NOT_REFERENCED")),
     }
 
 
@@ -224,6 +279,9 @@ def main() -> int:
     parser.add_argument("--check")
     parser.add_argument("--json")
     parser.add_argument("--manifest", help="a source_manifest.py report, for source_available")
+    parser.add_argument("--errors", help="a raw Roslyn diagnostic dump, for compile_status")
+    parser.add_argument("--references", action="store_true",
+                        help="scan the rip for m_Script targets, for reference_status")
     parser.add_argument("--fixture", help="the fixture this rip is of (default: the directory name)")
     parser.add_argument("--retire-unresolved", metavar="FIXTURES",
                         help="retire every entry still belonging to no fixture, recording that these "
@@ -237,6 +295,8 @@ def main() -> int:
     rows = list(harvest(root, log))
     rows_by_key = {row[0]: (row[1], row[2], row[3], row[4], row[5], row[6], row[7]) for row in rows}
     declared = source_types(pathlib.Path(arguments.manifest) if arguments.manifest else None)
+    failing = files_with_errors(pathlib.Path(arguments.errors) if arguments.errors else None)
+    referenced = referenced_types(root) if arguments.references else None
 
     if arguments.select:
         chosen = select(rows, arguments.per_class)
@@ -258,7 +318,7 @@ def main() -> int:
 
         for key in dict.fromkeys([*chosen, *adoptable]):
             identity = (fixture, key)
-            record = entry_for(key, fixture, rows_by_key, declared)
+            record = entry_for(key, fixture, rows_by_key, declared, failing, referenced)
             # An entry frozen before fixtures were recorded is adopted by the fixture that resolves
             # it rather than duplicated, so a reselection does not double the corpus.
             legacy = by_identity.pop((None, key), None)

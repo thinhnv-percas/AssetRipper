@@ -1,0 +1,162 @@
+[
+  {
+    "cluster": "INACCESSIBLE",
+    "category": "TYPE",
+    "count": 25,
+    "affected_files": [
+      "CorePackageInitializer.cs",
+      "EventSystem.cs",
+      "PanelEventHandler.cs",
+      "PanelRaycaster.cs",
+      "ProjectConfiguration.cs",
+      "StreamingAssetsConfigurationLoader.cs"
+    ],
+    "codes": {
+      "CS0122": 25
+    },
+    "messages": [
+      {
+        "message": "'IJsonSerializer' is inaccessible due to its protection level",
+        "count": 6
+      },
+      {
+        "message": "'ProjectConfiguration' is inaccessible due to its protection level",
+        "count": 4
+      },
+      {
+        "message": "'SerializableProjectConfiguration' is inaccessible due to its protection level",
+        "count": 4
+      },
+      {
+        "message": "'BaseRuntimePanel' is inaccessible due to its protection level",
+        "count": 3
+      },
+      {
+        "message": "'IRuntimePanelComponent' is inaccessible due to its protection level",
+        "count": 2
+      },
+      {
+        "message": "'IDiagnosticsComponentProvider' is inaccessible due to its protection level",
+        "count": 1
+      },
+      {
+        "message": "'ActionScheduler' is inaccessible due to its protection level",
+        "count": 1
+      },
+      {
+        "message": "'InstallationId' is inaccessible due to its protection level",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "INVALID_CAST",
+    "category": "CAST",
+    "count": 5,
+    "affected_files": [
+      "MenuMove.cs",
+      "ObsDropper.cs",
+      "ObsJumper.cs",
+      "ZambiesMovement.cs"
+    ],
+    "codes": {
+      "CS0030": 5
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'float' to 'UnityEngine.Vector3'",
+        "count": 5
+      }
+    ]
+  },
+  {
+    "cluster": "PARSE",
+    "category": "DECOMPILER",
+    "count": 4,
+    "affected_files": [
+      "JArray.cs",
+      "JConstructor.cs",
+      "JObject.cs",
+      "JProperty.cs"
+    ],
+    "codes": {
+      "CS1525": 4
+    },
+    "messages": [
+      {
+        "message": "Invalid expression term 'ref'",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8701",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "IActivationFactory.cs",
+      "IUnityServices.cs"
+    ],
+    "codes": {
+      "CS8701": 2
+    },
+    "messages": [
+      {
+        "message": "Target runtime doesn't support default interface implementation.",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0106",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "__Il2CppFullySharedGenericStructType.cs",
+      "__Il2CppFullySharedGenericType.cs"
+    ],
+    "codes": {
+      "CS0106": 2
+    },
+    "messages": [
+      {
+        "message": "The modifier 'abstract' is not valid for this item",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "MEMBER_NOT_FOUND",
+    "category": "FIELD",
+    "count": 1,
+    "affected_files": [
+      "BoxRaRot.cs"
+    ],
+    "codes": {
+      "CS0117": 1
+    },
+    "messages": [
+      {
+        "message": "'Math' does not contain a definition for 'PI'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS7036",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "BoxRaRot.cs"
+    ],
+    "codes": {
+      "CS7036": 1
+    },
+    "messages": [
+      {
+        "message": "There is no argument given that corresponds to the required parameter 'y' of 'Quaternion.Euler(float, float, float)'",
+        "count": 1
+      }
+    ]
+  }
+]

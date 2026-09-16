@@ -1,0 +1,1763 @@
+[
+  {
+    "cluster": "NATIVE_INT_CAST",
+    "category": "CAST",
+    "count": 1525,
+    "affected_files": [
+      "AnimatableProperty.cs",
+      "ArrayUtilities.cs",
+      "AssetListAttribute.cs",
+      "AssetSelectorAttribute.cs",
+      "AsyncDestroyTrigger.cs",
+      "AsyncMethodBuilderAttribute.cs",
+      "AsyncTriggerBase.cs",
+      "AsyncTriggerHandler.cs",
+      "AsyncUniTaskVoid.cs",
+      "AutoResetUniTaskCompletionSource.cs",
+      "BakingCamera.cs",
+      "ButtonAttribute.cs",
+      "CameraController.cs",
+      "CancellationTokenExtensions.cs",
+      "ColorExtensions.cs",
+      "ColorPaletteAttribute.cs",
+      "CombineInstanceArrayPool.cs",
+      "CombineInstanceEx.cs",
+      "ContinuationQueue.cs",
+      "CustomContextMenuAttribute.cs",
+      "CustomLogger.cs",
+      "CustomValueDrawerAttribute.cs",
+      "DeepReflection.cs",
+      "DefaultLoggers.cs",
+      "DelegateExtensions.cs",
+      "DetailedInfoBoxAttribute.cs",
+      "DictionaryDrawerSettings.cs",
+      "DisableIfAttribute.cs",
+      "DoubleLookupDictionary.cs",
+      "EmitUtilities.cs",
+      "EnableIfAttribute.cs",
+      "GUIColorAttribute.cs",
+      "GUILayoutOptions.cs",
+      "G_AdvancedData.cs",
+      "G_AudioGraph.cs",
+      "G_AudioManager.cs",
+      "G_AudioMonitor.cs",
+      "G_AudioText.cs",
+      "G_ExtensionMethods.cs",
+      "G_FloatString.cs",
+      "G_FpsGraph.cs",
+      "G_FpsManager.cs",
+      "G_FpsMonitor.cs",
+      "G_FpsText.cs",
+      "G_GraphShader.cs",
+      "G_IntString.cs",
+      "G_RamGraph.cs",
+      "G_RamManager.cs",
+      "G_RamText.cs",
+      "G_Singleton.cs",
+      "GarbageFreeIterators.cs",
+      "GlobalConfigAttribute.cs",
+      "GraphyDebugger.cs",
+      "GraphyManager.cs",
+      "HapticController.cs",
+      "HapticPatterns.cs",
+      "HapticSource.cs",
+      "HideIfAttribute.cs",
+      "HideIfGroupAttribute.cs",
+      "HorizontalGroupAttribute.cs",
+      "ImmutableHashSet.cs",
+      "ImmutableList.cs",
+      "InfoBoxAttribute.cs",
+      "InlineButtonAttribute.cs",
+      "JNIHelpers.cs",
+      "LabelTextAttribute.cs",
+      "LinqExtensions.cs",
+      "ListDrawerSettingsAttribute.cs",
+      "ListExtensions.cs",
+      "ListExtras.cs",
+      "LofeltHaptics.cs",
+      "MathUtilities.cs",
+      "MaxValueAttribute.cs",
+      "MemberAliasFieldInfo.cs",
+      "MemberAliasMethodInfo.cs",
+      "MemberAliasPropertyInfo.cs",
+      "MemberInfoExtensions.cs",
+      "MeshExtensions.cs",
+      "MeshHelper.cs",
+      "MeshPool.cs",
+      "MethodInfoExtensions.cs",
+      "MinMaxSliderAttribute.cs",
+      "MinValueAttribute.cs",
+      "MinimumQueue.cs",
+      "ModifiedMaterial.cs",
+      "MoveNextSource.cs",
+      "MultiDimArrayUtilities.cs",
+      "MultiDisplayUtils.cs",
+      "OdinRegisterAttributeAttribute.cs",
+      "OnCollectionChangedAttribute.cs",
+      "OnInspectorDisposeAttribute.cs",
+      "OnInspectorGUIAttribute.cs",
+      "OnInspectorInitAttribute.cs",
+      "OnStateUpdateAttribute.cs",
+      "OnValueChangedAttribute.cs",
+      "ParticleSystemExtensions.cs",
+      "PathUtilities.cs",
+      "PathUtils.cs",
+      "PlayerLoopHelper.cs",
+      "PlayerLoopRunner.cs",
+      "ProgressBarAttribute.cs",
+      "PropertyGroupAttribute.cs",
+      "PropertyRangeAttribute.cs",
+      "PropertyTooltipAttribute.cs",
+      "ReferenceEqualityComparer.cs",
+      "RequiredAttribute.cs",
+      "SceneUtils.cs",
+      "SerializableDictionary.cs",
+      "ShowIfAttribute.cs",
+      "ShowIfGroupAttribute.cs",
+      "Singleton.cs",
+      "SirenixAssetPaths.cs",
+      "SirenixBuildNameAttribute.cs",
+      "SirenixBuildVersionAttribute.cs",
+      "SirenixEditorConfigAttribute.cs",
+      "SirenixGlobalConfigAttribute.cs",
+      "StatePool.cs",
+      "StateTuple.cs",
+      "StringExtensions.cs",
+      "SuffixLabelAttribute.cs",
+      "TabGroupAttribute.cs",
+      "TaskPool.cs",
+      "TitleAttribute.cs",
+      "TitleGroupAttribute.cs",
+      "ToggleAttribute.cs",
+      "ToggleGroupAttribute.cs",
+      "TriggerEvent.cs",
+      "TypeExtensions.cs",
+      "TypeFilterAttribute.cs",
+      "TypeInfoBoxAttribute.cs",
+      "UIParticle.cs",
+      "UIParticleUpdater.cs",
+      "UniTask.cs",
+      "UniTaskCompletionSource.cs",
+      "UniTaskCompletionSourceCore.cs",
+      "UniTaskExtensions.cs",
+      "UniTaskScheduler.cs",
+      "UniTaskSynchronizationContext.cs",
+      "UnityExtensions.cs",
+      "UnityVersion.cs",
+      "UnsafeUtilities.cs",
+      "ValidateInputAttribute.cs",
+      "ValueDropdownAttribute.cs",
+      "ValueDropdownItem.cs",
+      "ValueDropdownList.cs",
+      "Vector2IntFormatter.cs",
+      "Vector3IntFormatter.cs"
+    ],
+    "codes": {
+      "CS0030": 1485,
+      "CS0037": 40
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'System.Type' to 'nint'",
+        "count": 183
+      },
+      {
+        "message": "Cannot convert type 'string[]' to 'nint'",
+        "count": 83
+      },
+      {
+        "message": "Cannot convert type 'Cysharp.Threading.Tasks.Triggers.AsyncTriggerHandler<T>' to 'nint'",
+        "count": 82
+      },
+      {
+        "message": "Cannot convert type 'TElement[*,*]' to 'nint'",
+        "count": 60
+      },
+      {
+        "message": "Cannot convert type 'System.Collections.Generic.IList<T>' to 'nint'",
+        "count": 45
+      },
+      {
+        "message": "Cannot convert null to 'nint' because it is a non-nullable value type",
+        "count": 40
+      },
+      {
+        "message": "Cannot convert type 'T[]' to 'nint'",
+        "count": 32
+      },
+      {
+        "message": "Cannot convert type 'nint' to 'T'",
+        "count": 32
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0433",
+    "category": "OTHER",
+    "count": 1122,
+    "affected_files": [
+      "Cinemachine3rdPersonAim.cs",
+      "CinemachineBlendListCamera.cs",
+      "CinemachineBrain.cs",
+      "CinemachineCameraOffset.cs",
+      "CinemachineClearShot.cs",
+      "CinemachineCollider.cs",
+      "CinemachineConfiner.cs",
+      "CinemachineConfiner2D.cs",
+      "CinemachineDollyCart.cs",
+      "CinemachineExternalCamera.cs",
+      "CinemachineFollowZoom.cs",
+      "CinemachineMixer.cs",
+      "CinemachineMixingCamera.cs",
+      "CinemachineRecomposer.cs",
+      "CinemachineShot.cs",
+      "CinemachineShotPlayable.cs",
+      "CinemachineTouchInputMapper.cs",
+      "CinemachineTrack.cs",
+      "ICameraOverrideStack.cs"
+    ],
+    "codes": {
+      "CS0433": 1122
+    },
+    "messages": [
+      {
+        "message": "The type 'TokenAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0, Cultur",
+        "count": 500
+      },
+      {
+        "message": "The type 'AddressAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0, Cult",
+        "count": 225
+      },
+      {
+        "message": "The type 'NativeSourceAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0,",
+        "count": 225
+      },
+      {
+        "message": "The type 'FieldOffsetAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0, ",
+        "count": 172
+      }
+    ]
+  },
+  {
+    "cluster": "INVALID_CAST",
+    "category": "CAST",
+    "count": 623,
+    "affected_files": [
+      "AsyncAwakeTrigger.cs",
+      "AsyncDestroyTrigger.cs",
+      "AsyncParticleUpdateJobScheduledTrigger.cs",
+      "AsyncStartTrigger.cs",
+      "AsyncTriggerBase.cs",
+      "AsyncTriggerHandler.cs",
+      "AsyncUniTaskVoid.cs",
+      "AutoResetUniTaskCompletionSource.cs",
+      "CameraController.cs",
+      "ColorExtensions.cs",
+      "CombineInstanceArrayPool.cs",
+      "CombineInstanceEx.cs",
+      "ContinuationQueue.cs",
+      "DeepReflection.cs",
+      "DoubleLookupDictionary.cs",
+      "EmitUtilities.cs",
+      "FieldInfoExtensions.cs",
+      "GUIColorAttribute.cs",
+      "GUILayoutOptions.cs",
+      "G_AdvancedData.cs",
+      "G_AudioManager.cs",
+      "G_AudioMonitor.cs",
+      "G_ExtensionMethods.cs",
+      "G_FpsGraph.cs",
+      "G_FpsManager.cs",
+      "G_RamManager.cs",
+      "GarbageFreeIterators.cs",
+      "GlobalConfig.cs",
+      "GraphyDebugger.cs",
+      "GraphyManager.cs",
+      "HapticController.cs",
+      "HapticPatterns.cs",
+      "HideIfGroupAttribute.cs",
+      "HorizontalGroupAttribute.cs",
+      "ImmutableList.cs",
+      "JNIHelpers.cs",
+      "LinqExtensions.cs",
+      "ListExtensions.cs",
+      "MathUtilities.cs",
+      "MemberAliasFieldInfo.cs",
+      "MemberAliasMethodInfo.cs",
+      "MemberInfoExtensions.cs",
+      "MeshExtensions.cs",
+      "MeshHelper.cs",
+      "MethodInfoExtensions.cs",
+      "MinimumQueue.cs",
+      "MoveNextSource.cs",
+      "MultiDimArrayUtilities.cs",
+      "PathUtilities.cs",
+      "PathUtils.cs",
+      "PlayerLoopHelper.cs",
+      "PlayerLoopRunner.cs",
+      "ProgressBarAttribute.cs",
+      "PropertyInfoExtensions.cs",
+      "RectExtensions.cs",
+      "ReferenceEqualityComparer.cs",
+      "SerializableDictionary.cs",
+      "ShowIfGroupAttribute.cs",
+      "Singleton.cs",
+      "StatePool.cs",
+      "StateTuple.cs",
+      "TabGroupAttribute.cs",
+      "TaskPool.cs",
+      "TitleGroupAttribute.cs",
+      "ToggleGroupAttribute.cs",
+      "TriggerEvent.cs",
+      "TypeExtensions.cs",
+      "UIParticle.cs",
+      "UIParticleUpdater.cs",
+      "UniTask.cs",
+      "UniTaskCompletionSource.cs",
+      "UniTaskCompletionSourceCore.cs",
+      "UniTaskExtensions.cs",
+      "UnsafeUtilities.cs",
+      "ValueDropdownList.cs",
+      "ValueStopwatch.cs",
+      "Vector2IntFormatter.cs",
+      "Vector3IntFormatter.cs"
+    ],
+    "codes": {
+      "CS0030": 613,
+      "CS0029": 6,
+      "CS0037": 4
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'Cysharp.Threading.Tasks.UniTaskCompletionSourceCore<T>' to 'Cysharp.Threading.Tasks.UniTaskCompletionSourceCore<T>*'",
+        "count": 73
+      },
+      {
+        "message": "Cannot convert type 'int' to 'string'",
+        "count": 29
+      },
+      {
+        "message": "Cannot convert type 'System.InvalidCastException' to 'Cysharp.Threading.Tasks.UniTask'",
+        "count": 28
+      },
+      {
+        "message": "Cannot convert type 'int' to 'Cysharp.Threading.Tasks.ITriggerHandler<T>'",
+        "count": 17
+      },
+      {
+        "message": "Cannot convert type 'float*' to 'UnityEngine.Matrix4x4'",
+        "count": 16
+      },
+      {
+        "message": "Cannot convert type 'bool' to 'Tayx.Graphy.GraphyManager'",
+        "count": 13
+      },
+      {
+        "message": "Cannot convert type 'int' to 'TFirstKey'",
+        "count": 12
+      },
+      {
+        "message": "Cannot convert type 'object' to 'Cysharp.Threading.Tasks.UniTaskCompletionSourceCore<object>*'",
+        "count": 12
+      }
+    ]
+  },
+  {
+    "cluster": "ACCESSOR_VISIBILITY",
+    "category": "TYPE",
+    "count": 351,
+    "affected_files": [
+      "ES3Cloud.cs",
+      "MMAudioFilterDistortionShaker.cs",
+      "MMAudioFilterEchoShaker.cs",
+      "MMAudioFilterHighPassShaker.cs",
+      "MMAudioFilterLowPassShaker.cs",
+      "MMAudioFilterReverbShaker.cs",
+      "MMAudioSourcePitchShaker.cs",
+      "MMAudioSourceSequencer.cs",
+      "MMAudioSourceStereoPanShaker.cs",
+      "MMAudioSourceVolumeShaker.cs",
+      "MMBloomShaker_URP.cs",
+      "MMCameraClippingPlanesShaker.cs",
+      "MMCameraFieldOfViewShaker.cs",
+      "MMCameraOrthographicSizeShaker.cs",
+      "MMChannelMixerShaker_URP.cs",
+      "MMChromaticAberrationShaker_URP.cs",
+      "MMCinemachineClippingPlanesShaker.cs",
+      "MMCinemachineFieldOfViewShaker.cs",
+      "MMCinemachineOrthographicSizeShaker.cs",
+      "MMColorAdjustmentsShaker_URP.cs",
+      "MMDebugMenuRadioButton.cs",
+      "MMDebugMenuSwitch.cs",
+      "MMDepthOfFieldShaker_URP.cs",
+      "MMF_Animation.cs",
+      "MMF_AnimatorSpeed.cs",
+      "MMF_AudioFilterDistortion.cs",
+      "MMF_AudioFilterEcho.cs",
+      "MMF_AudioFilterHighPass.cs",
+      "MMF_AudioFilterLowPass.cs",
+      "MMF_AudioFilterReverb.cs",
+      "MMF_AudioSourcePitch.cs",
+      "MMF_AudioSourceStereoPan.cs",
+      "MMF_AudioSourceVolume.cs",
+      "MMF_Bloom.cs",
+      "MMF_Bloom_URP.cs",
+      "MMF_Broadcast.cs",
+      "MMF_CameraClippingPlanes.cs",
+      "MMF_CameraFieldOfView.cs",
+      "MMF_CameraOrthographicSize.cs",
+      "MMF_CameraShake.cs",
+      "MMF_CameraZoom.cs",
+      "MMF_ChannelMixer_URP.cs",
+      "MMF_ChromaticAberration.cs",
+      "MMF_ChromaticAberration_URP.cs",
+      "MMF_CinemachineImpulse.cs",
+      "MMF_CinemachineImpulseSource.cs",
+      "MMF_ColorAdjustments_URP.cs",
+      "MMF_ColorGrading.cs",
+      "MMF_DepthOfField.cs",
+      "MMF_DepthOfField_URP.cs",
+      "MMF_DestinationTransform.cs",
+      "MMF_Enable.cs",
+      "MMF_Events.cs",
+      "MMF_Fade.cs",
+      "MMF_FeedbackBase.cs",
+      "MMF_Feedbacks.cs",
+      "MMF_FilmGrain_URP.cs",
+      "MMF_Flash.cs",
+      "MMF_Flicker.cs",
+      "MMF_FloatController.cs",
+      "MMF_Fog.cs",
+      "MMF_GlobalPPVolumeAutoBlend.cs",
+      "MMF_GlobalPPVolumeAutoBlend_URP.cs",
+      "MMF_Graphic.cs",
+      "MMF_GraphicCrossFade.cs",
+      "MMF_Image.cs",
+      "MMF_ImageAlpha.cs",
+      "MMF_ImageFill.cs",
+      "MMF_ImageTextureOffset.cs",
+      "MMF_ImageTextureScale.cs",
+      "MMF_InstantiateObject.cs",
+      "MMF_LensDistortion.cs",
+      "MMF_LensDistortion_URP.cs",
+      "MMF_Light.cs",
+      "MMF_Looper.cs",
+      "MMF_MMSoundManagerSound.cs",
+      "MMF_Material.cs",
+      "MMF_MotionBlur_URP.cs",
+      "MMF_NVClip.cs",
+      "MMF_NVContinuous.cs",
+      "MMF_PPMovingFilter.cs",
+      "MMF_PaniniProjection_URP.cs",
+      "MMF_Particles.cs",
+      "MMF_ParticlesInstantiation.cs",
+      "MMF_Pause.cs",
+      "MMF_Position.cs",
+      "MMF_PositionShake.cs",
+      "MMF_Property.cs",
+      "MMF_RadioSignal.cs",
+      "MMF_Rotation.cs",
+      "MMF_RotationShake.cs",
+      "MMF_Scale.cs",
+      "MMF_ScaleShake.cs",
+      "MMF_SetActive.cs",
+      "MMF_ShaderController.cs",
+      "MMF_Sound.cs",
+      "MMF_SpriteRenderer.cs",
+      "MMF_SquashAndStretch.cs",
+      "MMF_TMPAlpha.cs",
+      "MMF_TMPColor.cs",
+      "MMF_TMPDilate.cs",
+      "MMF_TMPOutlineColor.cs",
+      "MMF_TMPSoftness.cs",
+      "MMF_TMPTextReveal.cs",
+      "MMF_TextColor.cs",
+      "MMF_TextureOffset.cs",
+      "MMF_TextureScale.cs",
+      "MMF_TimescaleModifier.cs",
+      "MMF_Vignette.cs",
+      "MMF_Vignette_URP.cs",
+      "MMF_WhiteBalance_URP.cs",
+      "MMF_Wiggle.cs",
+      "MMFeedbackAnimation.cs",
+      "MMFeedbackAnimatorSpeed.cs",
+      "MMFeedbackAudioFilterDistortion.cs",
+      "MMFeedbackAudioFilterEcho.cs",
+      "MMFeedbackAudioFilterHighPass.cs",
+      "MMFeedbackAudioFilterLowPass.cs",
+      "MMFeedbackAudioFilterReverb.cs",
+      "MMFeedbackAudioSource.cs",
+      "MMFeedbackAudioSourcePitch.cs",
+      "MMFeedbackAudioSourceStereoPan.cs",
+      "MMFeedbackAudioSourceVolume.cs",
+      "MMFeedbackBase.cs",
+      "MMFeedbackBloom.cs",
+      "MMFeedbackBloom_URP.cs",
+      "MMFeedbackCameraClippingPlanes.cs",
+      "MMFeedbackCameraFieldOfView.cs",
+      "MMFeedbackCameraOrthographicSize.cs",
+      "MMFeedbackCameraShake.cs",
+      "MMFeedbackCameraZoom.cs",
+      "MMFeedbackChannelMixer_URP.cs",
+      "MMFeedbackChromaticAberration.cs",
+      "MMFeedbackChromaticAberration_URP.cs",
+      "MMFeedbackCinemachineImpulse.cs",
+      "MMFeedbackColorAdjustments_URP.cs",
+      "MMFeedbackColorGrading.cs",
+      "MMFeedbackDepthOfField.cs",
+      "MMFeedbackDepthOfField_URP.cs",
+      "MMFeedbackDestinationTransform.cs",
+      "MMFeedbackEnable.cs",
+      "MMFeedbackEvents.cs",
+      "MMFeedbackFade.cs",
+      "MMFeedbackFeedbacks.cs",
+      "MMFeedbackFilmGrain_URP.cs",
+      "MMFeedbackFlash.cs",
+      "MMFeedbackFlicker.cs",
+      "MMFeedbackFloatController.cs",
+      "MMFeedbackFog.cs",
+      "MMFeedbackGlobalPPVolumeAutoBlend.cs",
+      "MMFeedbackGlobalPPVolumeAutoBlend_URP.cs",
+      "MMFeedbackImage.cs",
+      "MMFeedbackImageAlpha.cs",
+      "MMFeedbackInstantiateObject.cs",
+      "MMFeedbackLensDistortion.cs",
+      "MMFeedbackLensDistortion_URP.cs",
+      "MMFeedbackLight.cs",
+      "MMFeedbackLooper.cs",
+      "MMFeedbackMMSoundManagerSound.cs",
+      "MMFeedbackMaterial.cs",
+      "MMFeedbackMotionBlur_URP.cs",
+      "MMFeedbackNVClip.cs",
+      "MMFeedbackNVContinuous.cs",
+      "MMFeedbackPPMovingFilter.cs",
+      "MMFeedbackPaniniProjection_URP.cs",
+      "MMFeedbackParticles.cs",
+      "MMFeedbackParticlesInstantiation.cs",
+      "MMFeedbackPause.cs",
+      "MMFeedbackPosition.cs",
+      "MMFeedbackProperty.cs",
+      "MMFeedbackRadioSignal.cs",
+      "MMFeedbackRotation.cs",
+      "MMFeedbackScale.cs",
+      "MMFeedbackSetActive.cs",
+      "MMFeedbackShaderController.cs",
+      "MMFeedbackSound.cs",
+      "MMFeedbackSpriteRenderer.cs",
+      "MMFeedbackSquashAndStretch.cs",
+      "MMFeedbackTMPAlpha.cs",
+      "MMFeedbackTMPColor.cs",
+      "MMFeedbackTMPDilate.cs",
+      "MMFeedbackTMPOutlineColor.cs",
+      "MMFeedbackTMPSoftness.cs",
+      "MMFeedbackTMPTextReveal.cs",
+      "MMFeedbackTextColor.cs",
+      "MMFeedbackTextureOffset.cs",
+      "MMFeedbackTextureScale.cs",
+      "MMFeedbackTimescaleModifier.cs",
+      "MMFeedbackVignette.cs",
+      "MMFeedbackVignette_URP.cs",
+      "MMFeedbackWhiteBalance_URP.cs",
+      "MMFeedbackWiggle.cs",
+      "MMFeedbacksSequencer.cs",
+      "MMFeedbacksShaker.cs",
+      "MMFilmGrainShaker_URP.cs",
+      "MMFloatingTextMeshPro.cs",
+      "MMGyroParallax.cs",
+      "MMLensDistortionShaker_URP.cs",
+      "MMLightShaker.cs",
+      "MMMotionBlurShaker_URP.cs",
+      "MMPaniniProjectionShaker_URP.cs",
+      "MMPositionShaker.cs",
+      "MMRotationShaker.cs",
+      "MMScaleShaker.cs",
+      "MMSoundManager.cs",
+      "MMSoundSequencer.cs",
+      "MMSpriteRendererShaker.cs",
+      "MMTouchFollowerJoystick.cs",
+      "MMVignetteShaker_URP.cs",
+      "MMWhiteBalanceShaker_URP.cs",
+      "XDocumentWrapper.cs"
+    ],
+    "codes": {
+      "CS0507": 351
+    },
+    "messages": [
+      {
+        "message": "'ES3Cloud.Reset()': cannot change access modifiers when overriding 'protected internal' inherited member 'ES3WebClass.Reset()'",
+        "count": 1
+      },
+      {
+        "message": "'MMF_Wiggle.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMF_Feedback.CustomStopFeedback(Vecto",
+        "count": 1
+      },
+      {
+        "message": "'MMFeedbackAnimation.CustomInitialization(GameObject)': cannot change access modifiers when overriding 'public' inherited member 'MMFeedback.CustomInitializatio",
+        "count": 1
+      },
+      {
+        "message": "'MMFeedbackAnimation.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMFeedback.CustomStopFeedbac",
+        "count": 1
+      },
+      {
+        "message": "'MMF_CameraShake.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMF_Feedback.CustomStopFeedback(",
+        "count": 1
+      },
+      {
+        "message": "'MMFeedbackTimescaleModifier.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMFeedback.CustomSto",
+        "count": 1
+      },
+      {
+        "message": "'MMF_InstantiateObject.CustomInitialization(MMF_Player)': cannot change access modifiers when overriding 'public' inherited member 'MMF_Feedback.CustomInitializ",
+        "count": 1
+      },
+      {
+        "message": "'MMFeedbackAudioSource.CustomInitialization(GameObject)': cannot change access modifiers when overriding 'public' inherited member 'MMFeedback.CustomInitializat",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OPERATOR",
+    "category": "CALL",
+    "count": 289,
+    "affected_files": [
+      "AsyncTriggerHandler.cs",
+      "CancellationTokenExtensions.cs",
+      "ColorExtensions.cs",
+      "DeepReflection.cs",
+      "DefaultLoggers.cs",
+      "FieldInfoExtensions.cs",
+      "GUILayoutOptions.cs",
+      "G_AudioGraph.cs",
+      "G_AudioManager.cs",
+      "G_AudioText.cs",
+      "G_FpsGraph.cs",
+      "G_FpsManager.cs",
+      "G_FpsMonitor.cs",
+      "G_FpsText.cs",
+      "G_IntString.cs",
+      "G_RamManager.cs",
+      "GarbageFreeIterators.cs",
+      "GraphyDebugger.cs",
+      "HapticPatterns.cs",
+      "HapticSource.cs",
+      "ImmutableList.cs",
+      "LinqExtensions.cs",
+      "ListExtensions.cs",
+      "LofeltHaptics.cs",
+      "MathUtilities.cs",
+      "MemberInfoExtensions.cs",
+      "MeshExtensions.cs",
+      "MethodInfoExtensions.cs",
+      "MultiDimArrayUtilities.cs",
+      "ParticleSystemExtensions.cs",
+      "PlayerLoopHelper.cs",
+      "PropertyInfoExtensions.cs",
+      "RectExtensions.cs",
+      "TriggerEvent.cs",
+      "TypeExtensions.cs",
+      "UIParticle.cs",
+      "UIParticleUpdater.cs",
+      "UniTaskScheduler.cs",
+      "UniTaskSynchronizationContext.cs"
+    ],
+    "codes": {
+      "CS0019": 289
+    },
+    "messages": [
+      {
+        "message": "Operator '<<' cannot be applied to operands of type 'object' and 'int'",
+        "count": 86
+      },
+      {
+        "message": "Operator '+' cannot be applied to operands of type 'object' and 'int'",
+        "count": 61
+      },
+      {
+        "message": "Operator '^' cannot be applied to operands of type 'float' and 'float'",
+        "count": 38
+      },
+      {
+        "message": "Operator '-' cannot be applied to operands of type 'object' and 'int'",
+        "count": 34
+      },
+      {
+        "message": "Operator '&' cannot be applied to operands of type 'object' and 'int'",
+        "count": 6
+      },
+      {
+        "message": "Operator '+' cannot be applied to operands of type 'MethodInfo' and 'int'",
+        "count": 5
+      },
+      {
+        "message": "Operator '+' cannot be applied to operands of type 'ContinuationQueue' and 'int'",
+        "count": 5
+      },
+      {
+        "message": "Operator '<<' cannot be applied to operands of type 'float' and 'int'",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "cluster": "INACCESSIBLE",
+    "category": "TYPE",
+    "count": 245,
+    "affected_files": [
+      "AsyncTriggerHandler.cs",
+      "AsyncUniTaskVoid.cs",
+      "AsyncUniTaskVoidMethodBuilder.cs",
+      "BakingCamera.cs",
+      "CancellationTokenExtensions.cs",
+      "CombineInstanceEx.cs",
+      "CorePackageInitializer.cs",
+      "DeepReflection.cs",
+      "DoubleLookupDictionary.cs",
+      "EmitUtilities.cs",
+      "EventSystem.cs",
+      "GarbageFreeIterators.cs",
+      "HapticPatterns.cs",
+      "InputEvent.cs",
+      "ListExtensions.cs",
+      "MathUtilities.cs",
+      "MultiDimArrayUtilities.cs",
+      "PanelEventHandler.cs",
+      "PanelRaycaster.cs",
+      "PlayerLoopHelper.cs",
+      "PlayerLoopRunner.cs",
+      "ProjectConfiguration.cs",
+      "RectExtensions.cs",
+      "StreamingAssetsConfigurationLoader.cs",
+      "TaskPool.cs",
+      "TriggerEvent.cs",
+      "TypeExtensions.cs",
+      "UniTask.cs",
+      "UniTaskCompletionSourceCore.cs",
+      "ValueDropdownItem.cs",
+      "ValueDropdownList.cs"
+    ],
+    "codes": {
+      "CS0122": 245
+    },
+    "messages": [
+      {
+        "message": "'Unsafe' is inaccessible due to its protection level",
+        "count": 122
+      },
+      {
+        "message": "'Rect.m_XMin' is inaccessible due to its protection level",
+        "count": 56
+      },
+      {
+        "message": "'Rect.m_Width' is inaccessible due to its protection level",
+        "count": 24
+      },
+      {
+        "message": "'Rect.m_Height' is inaccessible due to its protection level",
+        "count": 8
+      },
+      {
+        "message": "'IJsonSerializer' is inaccessible due to its protection level",
+        "count": 6
+      },
+      {
+        "message": "'ProjectConfiguration' is inaccessible due to its protection level",
+        "count": 4
+      },
+      {
+        "message": "'SerializableProjectConfiguration' is inaccessible due to its protection level",
+        "count": 4
+      },
+      {
+        "message": "'BaseRuntimePanel' is inaccessible due to its protection level",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "FRAMEWORK_PRIVATE_MEMBER",
+    "category": "TYPE",
+    "count": 192,
+    "affected_files": [
+      "CombineInstanceEx.cs",
+      "DeepReflection.cs",
+      "G_AdvancedData.cs",
+      "G_AudioManager.cs",
+      "G_FpsManager.cs",
+      "G_RamManager.cs",
+      "GraphyDebugger.cs",
+      "ListExtras.cs",
+      "MeshHelper.cs",
+      "ModifiedMaterial.cs",
+      "SceneUtils.cs",
+      "SerializableDictionary.cs",
+      "TabGroupAttribute.cs",
+      "UIParticle.cs",
+      "UIParticleUpdater.cs",
+      "UniTaskCompletionSource.cs"
+    ],
+    "codes": {
+      "CS1061": 192
+    },
+    "messages": [
+      {
+        "message": "'List<Text>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<Text>' could be",
+        "count": 16
+      },
+      {
+        "message": "'List<Material>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<Material>' ",
+        "count": 12
+      },
+      {
+        "message": "'List<bool>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<bool>' could be",
+        "count": 10
+      },
+      {
+        "message": "'List<TValue>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<TValue>' coul",
+        "count": 8
+      },
+      {
+        "message": "'List<Text>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<Text>' could be fou",
+        "count": 8
+      },
+      {
+        "message": "'List<Text>' does not contain a definition for '_size' and no accessible extension method '_size' accepting a first argument of type 'List<Text>' could be found",
+        "count": 8
+      },
+      {
+        "message": "'List<Material>' does not contain a definition for '_size' and no accessible extension method '_size' accepting a first argument of type 'List<Material>' could ",
+        "count": 6
+      },
+      {
+        "message": "'List<Material>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<Material>' coul",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "cluster": "MANGLED_IDENTIFIER",
+    "category": "DECOMPILER",
+    "count": 152,
+    "affected_files": [
+      "AnimatableProperty.cs",
+      "AssetListAttribute.cs",
+      "AsyncDestroyTrigger.cs",
+      "AsyncMethodBuilderAttribute.cs",
+      "AsyncTriggerBase.cs",
+      "AsyncTriggerHandler.cs",
+      "AsyncUniTaskVoid.cs",
+      "ButtonAttribute.cs",
+      "CameraController.cs",
+      "ColorPaletteAttribute.cs",
+      "CombineInstanceEx.cs",
+      "ContinuationQueue.cs",
+      "CustomContextMenuAttribute.cs",
+      "CustomLogger.cs",
+      "CustomValueDrawerAttribute.cs",
+      "DetailedInfoBoxAttribute.cs",
+      "DictionaryDrawerSettings.cs",
+      "DisableIfAttribute.cs",
+      "EnableIfAttribute.cs",
+      "GUIColorAttribute.cs",
+      "GUILayoutOptions.cs",
+      "G_AdvancedData.cs",
+      "G_AudioManager.cs",
+      "G_AudioMonitor.cs",
+      "G_FpsManager.cs",
+      "G_GraphShader.cs",
+      "G_RamManager.cs",
+      "GlobalConfigAttribute.cs",
+      "GraphyDebugger.cs",
+      "GraphyManager.cs",
+      "HapticSource.cs",
+      "HideIfAttribute.cs",
+      "HideIfGroupAttribute.cs",
+      "ImmutableHashSet.cs",
+      "ImmutableList.cs",
+      "InfoBoxAttribute.cs",
+      "InlineButtonAttribute.cs",
+      "LabelTextAttribute.cs",
+      "LinqExtensions.cs",
+      "MaxValueAttribute.cs",
+      "MemberAliasFieldInfo.cs",
+      "MemberAliasMethodInfo.cs",
+      "MemberAliasPropertyInfo.cs",
+      "MinMaxSliderAttribute.cs",
+      "MinValueAttribute.cs",
+      "MinimumQueue.cs",
+      "OdinRegisterAttributeAttribute.cs",
+      "OnCollectionChangedAttribute.cs",
+      "OnInspectorDisposeAttribute.cs",
+      "OnInspectorGUIAttribute.cs",
+      "OnInspectorInitAttribute.cs",
+      "OnStateUpdateAttribute.cs",
+      "OnValueChangedAttribute.cs",
+      "PlayerLoopRunner.cs",
+      "ProgressBarAttribute.cs",
+      "PropertyGroupAttribute.cs",
+      "PropertyRangeAttribute.cs",
+      "PropertyTooltipAttribute.cs",
+      "RequiredAttribute.cs",
+      "SearchableAttribute.cs",
+      "ShowIfAttribute.cs",
+      "ShowIfGroupAttribute.cs",
+      "SirenixBuildNameAttribute.cs",
+      "SirenixBuildVersionAttribute.cs",
+      "SirenixEditorConfigAttribute.cs",
+      "SirenixGlobalConfigAttribute.cs",
+      "SuffixLabelAttribute.cs",
+      "TabGroupAttribute.cs",
+      "TitleAttribute.cs",
+      "TitleGroupAttribute.cs",
+      "ToggleAttribute.cs",
+      "ToggleGroupAttribute.cs",
+      "TypeFilterAttribute.cs",
+      "TypeInfoBoxAttribute.cs",
+      "UIParticle.cs",
+      "UniTask.cs",
+      "ValidateInputAttribute.cs",
+      "ValueDropdownAttribute.cs"
+    ],
+    "codes": {
+      "CS0117": 141,
+      "CS0246": 11
+    },
+    "messages": [
+      {
+        "message": "'Attribute' does not contain a definition for '_002Ector'",
+        "count": 58
+      },
+      {
+        "message": "'object' does not contain a definition for '_002Ector'",
+        "count": 42
+      },
+      {
+        "message": "'ShowInInspectorAttribute' does not contain a definition for '_002Ector'",
+        "count": 16
+      },
+      {
+        "message": "The type or namespace name '_0021_00210' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 11
+      },
+      {
+        "message": "'MonoBehaviour' does not contain a definition for '_002Ector'",
+        "count": 7
+      },
+      {
+        "message": "'PropertyGroupAttribute' does not contain a definition for '_002Ector'",
+        "count": 7
+      },
+      {
+        "message": "'PropertyInfo' does not contain a definition for '_002Ector'",
+        "count": 2
+      },
+      {
+        "message": "'FieldInfo' does not contain a definition for '_002Ector'",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "MISSING_TYPE",
+    "category": "REFERENCE",
+    "count": 87,
+    "affected_files": [
+      "Cinemachine3rdPersonAim.cs",
+      "CinemachineBlendListCamera.cs",
+      "CinemachineBrain.cs",
+      "CinemachineCameraOffset.cs",
+      "CinemachineClearShot.cs",
+      "CinemachineCollider.cs",
+      "CinemachineConfiner.cs",
+      "CinemachineConfiner2D.cs",
+      "CinemachineDollyCart.cs",
+      "CinemachineExternalCamera.cs",
+      "CinemachineFollowZoom.cs",
+      "CinemachineMixingCamera.cs",
+      "CinemachineRecomposer.cs",
+      "ES3Reflection.cs",
+      "EmitUtilities.cs"
+    ],
+    "codes": {
+      "CS0246": 87
+    },
+    "messages": [
+      {
+        "message": "The type or namespace name 'DocumentationSortingAttribute' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 11
+      },
+      {
+        "message": "The type or namespace name 'DocumentationSorting' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 11
+      },
+      {
+        "message": "The type or namespace name 'SaveDuringPlayAttribute' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 8
+      },
+      {
+        "message": "The type or namespace name 'SaveDuringPlay' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 8
+      },
+      {
+        "message": "The type or namespace name 'NoSaveDuringPlayAttribute' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 8
+      },
+      {
+        "message": "The type or namespace name 'NoSaveDuringPlay' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 8
+      },
+      {
+        "message": "The type or namespace name 'CinemachineBlendDefinition' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 5
+      },
+      {
+        "message": "The type or namespace name 'VcamTargetPropertyAttribute' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 5
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0023",
+    "category": "OTHER",
+    "count": 51,
+    "affected_files": [
+      "GraphyManager.cs",
+      "LinqExtensions.cs",
+      "MathUtilities.cs",
+      "TypeExtensions.cs"
+    ],
+    "codes": {
+      "CS0023": 51
+    },
+    "messages": [
+      {
+        "message": "Operator '~' cannot be applied to operand of type 'object'",
+        "count": 49
+      },
+      {
+        "message": "Operator '~' cannot be applied to operand of type 'float'",
+        "count": 1
+      },
+      {
+        "message": "Operator '~' cannot be applied to operand of type 'Keyboard'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0115",
+    "category": "OTHER",
+    "count": 44,
+    "affected_files": [
+      "Cinemachine3rdPersonAim.cs",
+      "CinemachineBlendListCamera.cs",
+      "CinemachineClearShot.cs",
+      "CinemachineCollider.cs",
+      "CinemachineConfiner.cs",
+      "CinemachineExternalCamera.cs",
+      "CinemachineFollowZoom.cs",
+      "CinemachineMixingCamera.cs",
+      "CinemachineRecomposer.cs"
+    ],
+    "codes": {
+      "CS0115": 44
+    },
+    "messages": [
+      {
+        "message": "'CinemachineRecomposer.PrePipelineMutateCameraStateCallback(CinemachineVirtualCameraBase, ref CameraState, float)': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachineMixingCamera.State': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachineMixingCamera.LookAt': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachineMixingCamera.Follow': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachineMixingCamera.OnTargetObjectWarped(Transform, Vector3)': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachineMixingCamera.ForceCameraPosition(Vector3, Quaternion)': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachineMixingCamera.OnEnable()': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachineMixingCamera.OnValidate()': no suitable method found to override",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "MEMBER_NOT_FOUND",
+    "category": "FIELD",
+    "count": 43,
+    "affected_files": [
+      "CameraController.cs",
+      "ClipperOffset.cs",
+      "DeepReflection.cs",
+      "DoubleLookupDictionary.cs",
+      "EaseManager.cs",
+      "G_AdvancedData.cs",
+      "G_AudioManager.cs",
+      "G_FpsManager.cs",
+      "G_RamManager.cs",
+      "MathUtilities.cs",
+      "MeshHelper.cs",
+      "SirenixAssetPaths.cs",
+      "TypeExtensions.cs",
+      "UniTask.cs",
+      "UniTaskCompletionSource.cs",
+      "UnsafeUtilities.cs"
+    ],
+    "codes": {
+      "CS0117": 13,
+      "CS1061": 30
+    },
+    "messages": [
+      {
+        "message": "'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are yo",
+        "count": 12
+      },
+      {
+        "message": "'Math' does not contain a definition for 'PI'",
+        "count": 10
+      },
+      {
+        "message": "'Func<TValue, bool>' does not contain a definition for 'method' and no accessible extension method 'method' accepting a first argument of type 'Func<TValue, boo",
+        "count": 4
+      },
+      {
+        "message": "'string' does not contain a definition for 'CreateString' and no accessible extension method 'CreateString' accepting a first argument of type 'string' could be",
+        "count": 2
+      },
+      {
+        "message": "'IntPtr' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'IntPtr' could be found (ar",
+        "count": 2
+      },
+      {
+        "message": "'Action<object>' does not contain a definition for 'method' and no accessible extension method 'method' accepting a first argument of type 'Action<object>' coul",
+        "count": 2
+      },
+      {
+        "message": "'Vector3' does not contain a definition for 'upVector'",
+        "count": 1
+      },
+      {
+        "message": "'List<TFirstKey>' does not contain a definition for 'AddWithResize'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "ATTRIBUTE_ARGUMENT",
+    "category": "DECOMPILER",
+    "count": 28,
+    "affected_files": [
+      "CoreSettings.cs",
+      "CustomToonShader.cs",
+      "Detail.cs",
+      "ErrorStatus.cs",
+      "GameSettings.cs",
+      "MMAchievementList.cs",
+      "MMDebugMenuData.cs",
+      "MMLootTableGameObjectSO.cs",
+      "MMSequence.cs",
+      "MMSoundManagerSettingsSO.cs",
+      "Player.cs",
+      "SimpleLocalizationLanguagesAsset.cs",
+      "TileRangeExpansionJob.cs",
+      "TilingJob.cs",
+      "UpdateNameRequest.cs",
+      "ZBinningJob.cs"
+    ],
+    "codes": {
+      "CS0617": 28
+    },
+    "messages": [
+      {
+        "message": "'menuName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 9
+      },
+      {
+        "message": "'fileName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties ",
+        "count": 6
+      },
+      {
+        "message": "'Name' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties whic",
+        "count": 4
+      },
+      {
+        "message": "'FloatMode' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties",
+        "count": 3
+      },
+      {
+        "message": "'DisableSafetyChecks' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write ",
+        "count": 3
+      },
+      {
+        "message": "'OptimizeFor' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properti",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "cluster": "UNASSIGNED_LOCAL",
+    "category": "CONTROL_FLOW",
+    "count": 20,
+    "affected_files": [
+      "AsyncTriggerHandler.cs",
+      "DeepReflection.cs",
+      "EmitUtilities.cs",
+      "ImmutableList.cs",
+      "LinqExtensions.cs",
+      "MultiDimArrayUtilities.cs",
+      "TriggerEvent.cs",
+      "UIParticleUpdater.cs"
+    ],
+    "codes": {
+      "CS0165": 20
+    },
+    "messages": [
+      {
+        "message": "Use of unassigned local variable 'obj'",
+        "count": 5
+      },
+      {
+        "message": "Use of unassigned local variable 'ex'",
+        "count": 4
+      },
+      {
+        "message": "Use of unassigned local variable 'obj5'",
+        "count": 3
+      },
+      {
+        "message": "Use of unassigned local variable 'obj18'",
+        "count": 3
+      },
+      {
+        "message": "Use of unassigned local variable 'matrix4x'",
+        "count": 1
+      },
+      {
+        "message": "Use of unassigned local variable 'obj6'",
+        "count": 1
+      },
+      {
+        "message": "Use of unassigned local variable 'flag17'",
+        "count": 1
+      },
+      {
+        "message": "Use of unassigned local variable 'flag10'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0266",
+    "category": "OTHER",
+    "count": 20,
+    "affected_files": [
+      "ArrayUtilities.cs",
+      "DeepReflection.cs",
+      "EmitUtilities.cs",
+      "ListExtensions.cs",
+      "PathUtilities.cs",
+      "PlayerLoopHelper.cs",
+      "TypeExtensions.cs"
+    ],
+    "codes": {
+      "CS0266": 20
+    },
+    "messages": [
+      {
+        "message": "Cannot implicitly convert type 'object' to 'System.Exception'. An explicit conversion exists (are you missing a cast?)",
+        "count": 11
+      },
+      {
+        "message": "Cannot implicitly convert type 'object' to 'int'. An explicit conversion exists (are you missing a cast?)",
+        "count": 7
+      },
+      {
+        "message": "Cannot implicitly convert type 'System.Collections.Generic.IEnumerable<T>' to 'System.Exception'. An explicit conversion exists (are you missing a cast?)",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0171",
+    "category": "OTHER",
+    "count": 15,
+    "affected_files": [
+      "GarbageFreeIterators.cs",
+      "UniTask.cs",
+      "ValueDropdownItem.cs"
+    ],
+    "codes": {
+      "CS0171": 15
+    },
+    "messages": [
+      {
+        "message": "Field 'ValueDropdownItem<T>.Text' must be fully assigned before control is returned to the caller. Consider updating to language version '11.0' to auto-default ",
+        "count": 1
+      },
+      {
+        "message": "Field 'ValueDropdownItem<T>.Value' must be fully assigned before control is returned to the caller. Consider updating to language version '11.0' to auto-default",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.HashsetIterator<T>.isNull' must be fully assigned before control is returned to the caller. Consider updating to language version '1",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.HashsetIterator<T>.hashset' must be fully assigned before control is returned to the caller. Consider updating to language version '",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.HashsetIterator<T>.enumerator' must be fully assigned before control is returned to the caller. Consider updating to language versio",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.DictionaryIterator<T1, T2>.dictionary' must be fully assigned before control is returned to the caller. Consider updating to languag",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.DictionaryIterator<T1, T2>.enumerator' must be fully assigned before control is returned to the caller. Consider updating to languag",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.DictionaryIterator<T1, T2>.isNull' must be fully assigned before control is returned to the caller. Consider updating to language ve",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0426",
+    "category": "OTHER",
+    "count": 12,
+    "affected_files": [
+      "Cinemachine3rdPersonAim.cs",
+      "CinemachineBrain.cs",
+      "CinemachineCameraOffset.cs",
+      "CinemachineCollider.cs",
+      "CinemachineConfiner.cs",
+      "CinemachineConfiner2D.cs",
+      "CinemachineDollyCart.cs",
+      "CinemachineFollowZoom.cs",
+      "CinemachineRecomposer.cs"
+    ],
+    "codes": {
+      "CS0426": 12
+    },
+    "messages": [
+      {
+        "message": "The type name 'Stage' does not exist in the type 'CinemachineCore'",
+        "count": 9
+      },
+      {
+        "message": "The type name 'UpdateFilter' does not exist in the type 'CinemachineCore'",
+        "count": 1
+      },
+      {
+        "message": "The type name 'BakedSolution' does not exist in the type 'ConfinerOven'",
+        "count": 1
+      },
+      {
+        "message": "The type name 'PositionUnits' does not exist in the type 'CinemachinePathBase'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0103",
+    "category": "OTHER",
+    "count": 12,
+    "affected_files": [
+      "CinemachineBlendListCamera.cs",
+      "CinemachineBrain.cs",
+      "CinemachineClearShot.cs",
+      "CinemachineCollider.cs",
+      "CinemachineConfiner.cs",
+      "CinemachineDollyCart.cs",
+      "CinemachineExternalCamera.cs",
+      "CinemachineFollowZoom.cs",
+      "CinemachineMixingCamera.cs",
+      "DoubleLookupDictionary.cs"
+    ],
+    "codes": {
+      "CS0103": 12
+    },
+    "messages": [
+      {
+        "message": "The name 'DocumentationSortingAttribute' does not exist in the current context",
+        "count": 11
+      },
+      {
+        "message": "The name '__ldftn' does not exist in the current context",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1510",
+    "category": "OTHER",
+    "count": 7,
+    "affected_files": [
+      "AsyncUniTaskVoid.cs",
+      "AsyncUniTaskVoidMethodBuilder.cs",
+      "EmitUtilities.cs",
+      "HapticPatterns.cs",
+      "TypeExtensions.cs"
+    ],
+    "codes": {
+      "CS1510": 7
+    },
+    "messages": [
+      {
+        "message": "A ref or out value must be an assignable variable",
+        "count": 7
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0188",
+    "category": "OTHER",
+    "count": 7,
+    "affected_files": [
+      "DeepReflection.cs",
+      "GarbageFreeIterators.cs",
+      "HapticPatterns.cs",
+      "ValueDropdownItem.cs"
+    ],
+    "codes": {
+      "CS0188": 7
+    },
+    "messages": [
+      {
+        "message": "The 'this' object cannot be used before all of its fields have been assigned. Consider updating to language version '11.0' to auto-default the unassigned fields",
+        "count": 7
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1729",
+    "category": "OTHER",
+    "count": 7,
+    "affected_files": [
+      "HideIfGroupAttribute.cs",
+      "ShowIfGroupAttribute.cs",
+      "TabGroupAttribute.cs",
+      "TitleGroupAttribute.cs",
+      "ToggleGroupAttribute.cs"
+    ],
+    "codes": {
+      "CS1729": 7
+    },
+    "messages": [
+      {
+        "message": "'PropertyGroupAttribute' does not contain a constructor that takes 0 arguments",
+        "count": 7
+      }
+    ]
+  },
+  {
+    "cluster": "PARSE",
+    "category": "DECOMPILER",
+    "count": 6,
+    "affected_files": [
+      "Vector3DictionaryKeyPathProvider.cs",
+      "Vector4DictionaryKeyPathProvider.cs"
+    ],
+    "codes": {
+      "CS1525": 6
+    },
+    "messages": [
+      {
+        "message": "Invalid expression term 'ref'",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "cluster": "UNSAFE",
+    "category": "DECOMPILER",
+    "count": 6,
+    "affected_files": [
+      "AsyncUniTaskVoid.cs",
+      "AsyncUniTaskVoidMethodBuilder.cs",
+      "EmitUtilities.cs",
+      "TypeExtensions.cs"
+    ],
+    "codes": {
+      "CS8172": 6
+    },
+    "messages": [
+      {
+        "message": "Cannot initialize a by-reference variable with a value",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1073",
+    "category": "OTHER",
+    "count": 6,
+    "affected_files": [
+      "AsyncUniTaskVoid.cs",
+      "AsyncUniTaskVoidMethodBuilder.cs",
+      "EmitUtilities.cs",
+      "TypeExtensions.cs"
+    ],
+    "codes": {
+      "CS1073": 6
+    },
+    "messages": [
+      {
+        "message": "Unexpected token 'ref'",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0039",
+    "category": "OTHER",
+    "count": 6,
+    "affected_files": [
+      "AsyncTriggerHandler.cs",
+      "AutoResetUniTaskCompletionSource.cs",
+      "MoveNextSource.cs",
+      "UniTask.cs"
+    ],
+    "codes": {
+      "CS0039": 6
+    },
+    "messages": [
+      {
+        "message": "Cannot convert type 'int' to 'System.OperationCanceledException' via a reference conversion, boxing conversion, unboxing conversion, wrapping conversion, or nul",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0191",
+    "category": "OTHER",
+    "count": 5,
+    "affected_files": [
+      "AsyncDestroyTrigger.cs",
+      "DeepReflection.cs"
+    ],
+    "codes": {
+      "CS0191": 5
+    },
+    "messages": [
+      {
+        "message": "A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)",
+        "count": 5
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0052",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "Cell.cs",
+      "JProperty.cs"
+    ],
+    "codes": {
+      "CS0052": 2
+    },
+    "messages": [
+      {
+        "message": "Inconsistent accessibility: field type 'Cell.State' is less accessible than field 'Cell._state'",
+        "count": 1
+      },
+      {
+        "message": "Inconsistent accessibility: field type 'JProperty.JPropertyList' is less accessible than field 'JProperty._content'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8174",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "AsyncUniTaskVoid.cs",
+      "TypeExtensions.cs"
+    ],
+    "codes": {
+      "CS8174": 2
+    },
+    "messages": [
+      {
+        "message": "A declaration of a by-reference variable must have an initializer",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS1605",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "UniTask.cs"
+    ],
+    "codes": {
+      "CS1605": 2
+    },
+    "messages": [
+      {
+        "message": "Cannot use 'this' as a ref or out value because it is read-only",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0106",
+    "category": "OTHER",
+    "count": 2,
+    "affected_files": [
+      "__Il2CppFullySharedGenericStructType.cs",
+      "__Il2CppFullySharedGenericType.cs"
+    ],
+    "codes": {
+      "CS0106": 2
+    },
+    "messages": [
+      {
+        "message": "The modifier 'abstract' is not valid for this item",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0102",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "GameManager.cs"
+    ],
+    "codes": {
+      "CS0102": 1
+    },
+    "messages": [
+      {
+        "message": "The type 'GameManager' already contains a definition for 'OnStateChanged'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0144",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "TabGroupAttribute.cs"
+    ],
+    "codes": {
+      "CS0144": 1
+    },
+    "messages": [
+      {
+        "message": "Cannot create an instance of the abstract type or interface 'PropertyGroupAttribute'",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0619",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "AssemblyInfo.cs"
+    ],
+    "codes": {
+      "CS0619": 1
+    },
+    "messages": [
+      {
+        "message": "'EmittedAssemblyAttribute.EmittedAssemblyAttribute()' is obsolete: 'This attribute cannot be used in code, and is only meant to be applied to dynamically emitte",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0149",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "TypeExtensions.cs"
+    ],
+    "codes": {
+      "CS0149": 1
+    },
+    "messages": [
+      {
+        "message": "Method name expected",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0216",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "int2.cs"
+    ],
+    "codes": {
+      "CS0216": 1
+    },
+    "messages": [
+      {
+        "message": "The operator 'int2.operator <(int2, int2)' requires a matching operator '>' to also be defined",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8377",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "ListBufferExtensions.cs"
+    ],
+    "codes": {
+      "CS8377": 1
+    },
+    "messages": [
+      {
+        "message": "The type 'T' must be a non-nullable value type, along with all fields at any level of nesting, in order to use it as parameter 'T' in the generic type or method",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS8701",
+    "category": "OTHER",
+    "count": 1,
+    "affected_files": [
+      "IActivationFactory.cs"
+    ],
+    "codes": {
+      "CS8701": 1
+    },
+    "messages": [
+      {
+        "message": "Target runtime doesn't support default interface implementation.",
+        "count": 1
+      }
+    ]
+  }
+]
