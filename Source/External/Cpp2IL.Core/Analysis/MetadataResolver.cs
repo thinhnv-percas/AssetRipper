@@ -69,13 +69,14 @@ public static class MetadataResolver
     {
         var libContext = method.AppContext.LibCpp2IlContext;
         var slotHolders = FindUsageSlotHolders(method);
+        var pageBases = FindPageBases(method);
 
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
             if (instruction.OpCode != OpCode.Move)
                 continue;
 
-            if (instruction.Operands[0] is not LocalVariable)
+            if (instruction.Operands[0] is not LocalVariable destination)
                 continue;
 
             var address = instruction.Operands[1] switch
@@ -83,7 +84,11 @@ public static class MetadataResolver
                 MemoryOperand { Base: null, Index: null, Scale: 0 } memory => (ulong)memory.Addend,
                 MemoryOperand { Base: LocalVariable holder, Index: null, Scale: 0 } memory
                     when slotHolders.TryGetValue(holder, out var slot) => (ulong)((long)slot + memory.Addend),
-                Immediate immediate => immediate.UnsignedValue,
+                MemoryOperand { Base: LocalVariable holder, Index: null, Scale: 0 } memory
+                    when pageBases.TryGetValue(holder, out var page) => (ulong)((long)page + memory.Addend),
+                // An immediate that the method goes on to read at an offset is a page base, not a
+                // slot: see FindPageBases.
+                Immediate immediate when !pageBases.ContainsKey(destination) => immediate.UnsignedValue,
                 _ => 0ul,
             };
 
@@ -125,6 +130,81 @@ public static class MetadataResolver
                 && method.AppContext.ResolveContextForField(fieldUsage.AsField()) is { DeclaringType.DeclaringAssembly: { } fieldAssembly } fieldContext)
                 instruction.SetOperand(1, new RuntimeFieldInfoAnalysisContext(fieldContext, fieldAssembly));
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: locals holding the base of a page of metadata usage slots rather than one slot.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A64 cannot materialise a full address in one instruction: <c>adrp</c> produces the base of a
+    /// 4 KiB page and the offset within it arrives separately. Where the same page holds several
+    /// slots the compiler computes the base once and reuses it, so the <c>add</c> cannot be folded
+    /// back into the <c>adrp</c> and the base survives as a register.
+    /// </para>
+    /// <para>
+    /// That base is not a usage, and the trouble is that on metadata v27 and later it reads exactly
+    /// like one. There is no usage table to check an address against any more: a global is decoded
+    /// from the value found <em>at</em> the address, whose top three bits are the kind and whose low
+    /// bits are an index. A page base points at the first slot of the page, which holds a perfectly
+    /// valid token - of whatever slot happens to sit there. So the base resolved to an arbitrary
+    /// type, the offsets that name the real slots were left as unresolved loads, and both went
+    /// unnoticed because the result is a plausible type rather than a failure.
+    /// </para>
+    /// <para>
+    /// The measurement that says so is the distribution: 15144 class-pointer mentions across 277
+    /// distinct types on the iOS fixture, the busiest being
+    /// <c>Facebook.Unity.Windows.IWindowsFacebook</c> 3614 times in assemblies that cannot reach it.
+    /// <c>GAState.Init</c> is the shape in one method - the class pointer, the type handle and the
+    /// resource path are all read at an offset from a base that had itself been named a type.
+    /// </para>
+    /// <para>
+    /// A base is told from a slot by what the method does with it: reading through it at a non-zero
+    /// offset is something no code does to a usage slot, whose value is the pointer it wanted. So
+    /// the immediate is left alone as the address it is, and each <c>[base + offset]</c> resolves
+    /// the usage at that offset.
+    /// </para>
+    /// </remarks>
+    private static Dictionary<LocalVariable, ulong> FindPageBases(MethodAnalysisContext method)
+    {
+        var libContext = method.AppContext.LibCpp2IlContext;
+        var candidates = new Dictionary<LocalVariable, ulong>();
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            if (instruction is not { OpCode: OpCode.Move, Operands: [LocalVariable destination, Immediate immediate] })
+                continue;
+
+            var address = immediate.UnsignedValue;
+
+            if (address == 0 || !libContext.Binary.TryMapVirtualAddressToRaw(address, out var raw)
+                || raw < 0 || raw >= libContext.Binary.RawLength)
+                continue;
+
+            candidates[destination] = address;
+        }
+
+        if (candidates.Count == 0)
+            return candidates;
+
+        var used = new HashSet<LocalVariable>();
+
+        foreach (var instruction in method.ControlFlowGraph.AllInstructions)
+        {
+            foreach (var operand in instruction.Operands)
+            {
+                if (operand is MemoryOperand { Base: LocalVariable local, Index: null, Scale: 0, Addend: not 0 }
+                    && candidates.ContainsKey(local))
+                    used.Add(local);
+            }
+        }
+
+        var bases = new Dictionary<LocalVariable, ulong>();
+
+        foreach (var local in used)
+            bases[local] = candidates[local];
+
+        return bases;
     }
 
     /// <summary>
