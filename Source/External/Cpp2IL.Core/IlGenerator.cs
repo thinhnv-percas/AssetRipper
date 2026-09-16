@@ -958,6 +958,30 @@ public static class IlGenerator
         return loaded;
     }
 
+    /// <summary>
+    /// AssetRipper: the boundary an unresolved call target names, when the operand is a symbol.
+    /// </summary>
+    /// <remarks>
+    /// The lifter writes a key function's target as its own name in quotes, so the operand reads
+    /// <c>"il2cpp_vm_object_unbox"</c>. That is the binary's naming, not an inference, and it is the
+    /// same evidence a PLT relocation carries - so it goes through the same classifier. An operand
+    /// that is not a quoted name has nothing to read and stays UNKNOWN.
+    /// </remarks>
+    private static NativeBoundary.Verdict SymbolVerdict(IOperand operand)
+    {
+        var text = operand.ToString() ?? "";
+        var quoted = text.Trim();
+
+        if (quoted.Length < 3 || quoted[0] != '"' || quoted[^1] != '"')
+            return new NativeBoundary.Verdict(NativeBoundary.Unknown, null);
+
+        var symbol = quoted[1..^1];
+
+        return symbol.Length == 0
+            ? new NativeBoundary.Verdict(NativeBoundary.Unknown, null)
+            : new NativeBoundary.Verdict(NativeBoundary.KindOfSymbol(symbol), symbol);
+    }
+
     // Limit so we don't run into the 16mb limit (see AsmResolver issue #775)
     private static string Diagnostic(string message) 
         => message.Length <= 250 ? message : message[..250] + "…";
@@ -1456,8 +1480,16 @@ public static class IlGenerator
                     else // Probably key function. Just the target, the full operand dump is huge and blows the 16MB #US heap limit
                     {
                         UnresolvedCall?.Invoke(context, 0, -1);
+
+                        // AssetRipper: this operand is often not unknown at all - it is the runtime
+                        // function's own name. 97 of Impostor's 112 UNKNOWN boundaries, 628 of
+                        // Merge-Room's 662 and 792 of the iOS fixture's 814 carry no address, and
+                        // what they carry instead is a quoted symbol: `il2cpp_vm_object_unbox`,
+                        // `il2cpp_codegen_object_is_inst`, `il2cpp_vm_class_is_assignable_from`.
+                        // The binary named those, so classifying them is reading evidence rather
+                        // than guessing, and KindOfSymbol is the same rule a relocation goes through.
                         EmitBoundary(instructions, context, writeLine,
-                            new NativeBoundary.Verdict(NativeBoundary.Unknown, null),
+                            SymbolVerdict(instruction.Operands[0]),
                             Diagnostic($"Unknown call target operand: {instruction.Operands[0]}"));
                     }
 

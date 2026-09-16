@@ -22,7 +22,11 @@ import re
 import struct
 import sys
 
-BOUNDARY = re.compile(r'Il2CppRuntime\.Boundary\("(?P<kind>[A-Z_]+)(?::[^"]*)?",\s*"[^"@]*@(?P<address>[0-9A-F]+)"\)')
+# The kind carries a digit (`IL2CPP_RUNTIME`) and the detail no longer ends at the address - it
+# gained a ` (inside <method> +0x..)` suffix. Both were exact matches once and silently stopped
+# matching, so this reported "0 UNKNOWN call sites" on a rip carrying 15 of them, which reads exactly
+# like a rip with none.
+BOUNDARY = re.compile(r'Il2CppRuntime\.Boundary\("(?P<kind>[A-Z0-9_]+)(?::[^"]*)?",\s*"[^"@]*@(?P<address>[0-9A-Fa-f]+)')
 
 # AArch64 encodings, enough to say what a function's opening does without a disassembler.
 def decode(word: int) -> str:
