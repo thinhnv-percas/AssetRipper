@@ -12,6 +12,13 @@ public static class Il2CppMethodInfoUsefulOffsets
 
     public static readonly List<UsefulOffset> UsefulOffsets =
     [
+        // AssetRipper: MethodInfo::methodPointer, the entry point of the method the MethodInfo names.
+        // First field in every layout the struct database records, but read through the table like
+        // every other offset so a measured layout can override it - writing an offset down has been
+        // the same bug three times in this project.
+        new UsefulOffset("methodPointer", 0x00, typeof(IntPtr), true),
+        new UsefulOffset("methodPointer", 0x00, typeof(IntPtr), false),
+
         new UsefulOffset("klass", X86_KLASS_OFFSET, typeof(ushort), true),
 
         //64-bit offsets:

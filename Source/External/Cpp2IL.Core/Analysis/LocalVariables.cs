@@ -278,6 +278,11 @@ public static class LocalVariables
             changed |= MetadataResolver.ResolveCallsViaMethodInfo(method);
             changed |= MetadataResolver.ResolveAmbiguousCalls(method);
             changed |= MetadataResolver.ResolveVirtualCalls(method);
+
+            // AssetRipper: in the same fixpoint, for the same reason - the MethodInfo base is typed
+            // by the resolution above, so a call through its methodPointer only becomes resolvable
+            // once that has had a turn.
+            changed |= MetadataResolver.ResolveMethodInfoPointerCalls(method);
             changed |= PropagateFromCallParameters(method, allowWeakEvidence);
             changed |= MetadataResolver.ResolveFieldOffsets(method);
             changed |= MetadataResolver.ResolveElementClassLoads(method);

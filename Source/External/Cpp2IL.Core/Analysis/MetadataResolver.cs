@@ -934,6 +934,69 @@ public static class MetadataResolver
         return changed;
     }
 
+    /// <summary>
+    /// AssetRipper: a call through <c>methodInfo-&gt;methodPointer</c> where the MethodInfo is a
+    /// resolved metadata usage is a direct call to the method that usage names.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// These reach the generator as <c>Indirect call</c> and read like a dispatch nothing could
+    /// resolve, which is how 182 of them on the test game were taken for unresolved vtable slots.
+    /// They are not vtable reads at all: the base is a <c>MethodInfo*</c>, and the struct database
+    /// places <c>methodPointer</c> at its offset 0 - the entry point of the method the MethodInfo
+    /// names. So where the analysis has already typed that base as a
+    /// <see cref="RuntimeMethodInfoAnalysisContext"/>, the callee is named and the call is direct.
+    /// </para>
+    /// <para>
+    /// The neighbouring fields are deliberately not treated the same way. <c>virtualMethodPointer</c>
+    /// at 8 is the virtual entry and <c>invoker_method</c> at 0x10 is the runtime's reflection-style
+    /// invoker, which takes the pointer, the MethodInfo, a receiver and a boxed argument array - so a
+    /// call through it is not a call to that method's body in this shape, and saying it is would be
+    /// wrong in the quiet way this project keeps paying for.
+    /// </para>
+    /// </remarks>
+    public static bool ResolveMethodInfoPointerCalls(MethodAnalysisContext method)
+    {
+        if (!Il2CppMethodInfoUsefulOffsets.TryGetOffset("methodPointer", method.AppContext.Binary.is32Bit, out var pointerOffset))
+            return false;
+
+        var changed = false;
+        var loads = new Dictionary<LocalVariable, MemoryOperand>();
+
+        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        {
+            if (instruction.OpCode == OpCode.Move
+                && instruction.Operands[0] is LocalVariable destination
+                && instruction.Operands[1] is MemoryOperand { Index: null, Scale: 0 } load)
+                loads[destination] = load;
+        }
+
+        foreach (var instruction in method.ControlFlowGraph.Instructions)
+        {
+            if (instruction.OpCode != OpCode.IndirectCall || instruction.Operands.Count == 0)
+                continue;
+
+            var target = instruction.Operands[0] switch
+            {
+                MemoryOperand { Index: null, Scale: 0 } inlined => inlined,
+                LocalVariable local when loads.TryGetValue(local, out var loaded) => loaded,
+                _ => (MemoryOperand?)null,
+            };
+
+            if (target is not { } slot
+                || slot.Addend != pointerOffset
+                || slot.Base is not LocalVariable { Type: RuntimeMethodInfoAnalysisContext { RepresentedMethod: { } callee } })
+                continue;
+
+            instruction.OpCode = OpCode.Call; // same operand layout as IndirectCall, and it is resolved now
+            instruction.SetOperand(0, callee);
+            callee.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, callee, method);
+            changed = true;
+        }
+
+        return changed;
+    }
+
     // Offset of Il2CppClass::vtable, VirtualInvokeData entries of {methodPtr, MethodInfo*}.
     // TODO this is almost certainly not correct on every version
     
@@ -1006,7 +1069,11 @@ public static class MetadataResolver
         };
     }
 
-    private static MethodAnalysisContext? ResolveVTableSlot(ApplicationAnalysisContext appContext, TypeAnalysisContext type, int slot)
+    /// <summary>
+    /// AssetRipper: public so a probe can ask the resolver its own question rather than restating it.
+    /// A probe that restates a pass drifts from it, and this project has paid for that twice.
+    /// </summary>
+    public static MethodAnalysisContext? ResolveVTableSlot(ApplicationAnalysisContext appContext, TypeAnalysisContext type, int slot)
     {
         var definition = (type as GenericInstanceTypeAnalysisContext)?.GenericType.Definition ?? type.Definition;
 

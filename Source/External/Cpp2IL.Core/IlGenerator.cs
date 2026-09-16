@@ -1150,8 +1150,35 @@ public static class IlGenerator
                 // name: 118 errors on the test game. Reporting the loss compiles; the call does not.
                 if (instruction.Operands is [_, TypeAnalysisContext { } allocated]
                     && IsDelegate(allocated)
-                    && FindConstructorCall(context, instruction) is { Operands: [MethodAnalysisContext { Parameters.Count: 2 }, ..] } pointerCall)
+                    && FindConstructorCall(context, instruction) is { Operands: [MethodAnalysisContext { Parameters.Count: 2 } delegateConstructor, ..] } pointerCall)
                 {
+                    // AssetRipper: the comment below was right that C# cannot write the two-argument
+                    // form - and wrong that there is no method to name. il2cpp passes the MethodInfo
+                    // of the target alongside the pointer, the analysis types that operand as a
+                    // RuntimeMethodInfo, and that context carries the method it points at. So where it
+                    // is present this is `ldftn <method>; newobj Delegate::.ctor(object, native int)`,
+                    // which is exactly what C# compiles a method group to and what a decompiler reads
+                    // back as one. Only where no operand names a method is the loss real.
+                    var delegateTarget = TargetOfDelegateConstruction(pointerCall);
+
+                    if (MethodPointerOfDelegateConstruction(pointerCall) is { } pointedAt)
+                    {
+                        if (delegateTarget is null)
+                            instructions.Add(CilOpCodes.Ldnull);
+                        else
+                            LoadOperand(delegateTarget, context, method, locals, writeLine, delegateConstructor.Parameters[0].ParameterType);
+
+                        instructions.Add(CilOpCodes.Ldftn, pointedAt.ToMethodDescriptor());
+                        instructions.Add(CilOpCodes.Newobj, delegateConstructor.ToMethodDescriptor());
+                        StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+
+                        System.Threading.Interlocked.Increment(ref DelegateConstructionsRecovered);
+
+                        pointerCall.OpCode = OpCode.Nop;
+                        pointerCall.SetOperands();
+                        break;
+                    }
+
                     instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Delegate over an unresolved function pointer: {allocated.Name}"));
                     instructions.Add(CilOpCodes.Call, writeLine);
                     instructions.Add(CilOpCodes.Ldnull);
@@ -1761,6 +1788,60 @@ public static class IlGenerator
     }
 
     private static int ConstructorReceiverIndex(Instruction constructorCall) => constructorCall.OpCode == OpCode.CallVoid ? 1 : 2;
+
+    /// <summary>AssetRipper: how many delegate constructions were emitted rather than reported as lost.</summary>
+    public static int DelegateConstructionsRecovered;
+
+    /// <summary>
+    /// AssetRipper: the method a delegate construction points at, when an operand names one.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp hands the delegate constructor the target, the raw function pointer and the target's
+    /// <c>MethodInfo*</c>. The pointer itself is a load nothing resolves, but the MethodInfo is a
+    /// metadata usage, so the analysis types it as a <see cref="RuntimeMethodInfoAnalysisContext"/>
+    /// carrying the method - either as the operand or as the type of the local holding it. A method
+    /// operand outright counts too, for the same reason.
+    /// </remarks>
+    private static MethodAnalysisContext? MethodPointerOfDelegateConstruction(Instruction constructorCall)
+    {
+        for (var i = ConstructorReceiverIndex(constructorCall) + 1; i < constructorCall.Operands.Count; i++)
+        {
+            switch (constructorCall.Operands[i])
+            {
+                case RuntimeMethodInfoAnalysisContext methodInfo:
+                    return methodInfo.RepresentedMethod;
+                case LocalVariable { Type: RuntimeMethodInfoAnalysisContext local }:
+                    return local.RepresentedMethod;
+                case MethodAnalysisContext named:
+                    return named;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// AssetRipper: the receiver a delegate closes over, or null for one over a static method.
+    /// </summary>
+    /// <remarks>
+    /// The first argument after the allocated object. A static method's delegate is constructed with
+    /// a null there, which the machine writes as a zero immediate rather than as an absent argument.
+    /// </remarks>
+    /// <summary>AssetRipper: the rule above, reachable from a test without metadata behind it.</summary>
+    public static IOperand? TargetOfDelegateConstructionForTests(Instruction constructorCall)
+        => TargetOfDelegateConstruction(constructorCall);
+
+    private static IOperand? TargetOfDelegateConstruction(Instruction constructorCall)
+    {
+        var index = ConstructorReceiverIndex(constructorCall) + 1;
+
+        if (index >= constructorCall.Operands.Count)
+            return null;
+
+        var operand = constructorCall.Operands[index];
+
+        return operand is Immediate { UnsignedValue: 0 } ? null : operand;
+    }
 
     /// <summary>
     /// AssetRipper: the constructor to emit for an allocation of <paramref name="allocated"/>, given
