@@ -516,6 +516,9 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         LocalVariables.RemoveUnused(this);
 
+        // AssetRipper: measurement only, and last, so it sees exactly what the generator will.
+        IndirectJumpClassifier.Run(this);
+
         Analysis.IsilDump.Stage(this, "final");
     }
 

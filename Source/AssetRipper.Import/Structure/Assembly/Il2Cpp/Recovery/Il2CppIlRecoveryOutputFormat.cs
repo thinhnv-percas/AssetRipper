@@ -2441,6 +2441,21 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				}
 			}
 
+			var jumpKinds = Cpp2IL.Core.Analysis.IndirectJumpClassifier.Counts;
+
+			if (jumpKinds.Count > 0)
+			{
+				Logger.Info(LogCategory.Import,
+					$"Il2Cpp method body recovery: {jumpKinds.Sum(pair => pair.Value)} indirect jumps survived across "
+					+ $"{Cpp2IL.Core.Analysis.IndirectJumpClassifier.MethodsSeen} analysed method bodies, "
+					+ "by what the target register holds:");
+
+				foreach ((string kind, int count) in jumpKinds)
+				{
+					Logger.Info(LogCategory.Import, $"      {count,7} {kind}");
+				}
+			}
+
 			if (unresolvedLoadKinds.IsEmpty)
 			{
 				return;
