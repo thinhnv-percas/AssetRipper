@@ -1,0 +1,644 @@
+{
+  "placeholders": 4768,
+  "scope": [
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "DOTween",
+    "GoogleMobileAds",
+    "LeanCommon",
+    "LeanPool",
+    "Mono.Security",
+    "__Generated",
+    "spine-unity",
+    "spine-unity-examples"
+  ],
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 2645,
+      "methods": 628,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "LeanPool",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:2463",
+      "isilOperation": "LoadOperand, a MemoryOperand no field was found for",
+      "meaning": "a load whose base type or offset could not be placed",
+      "causes": [
+        {
+          "key": "X1",
+          "count": 209,
+          "methods": 47
+        },
+        {
+          "key": "X0",
+          "count": 162,
+          "methods": 83
+        },
+        {
+          "key": "SYSREG",
+          "count": 102,
+          "methods": 57
+        },
+        {
+          "key": "X8_v3",
+          "count": 91,
+          "methods": 39
+        },
+        {
+          "key": "X29_v1",
+          "count": 87,
+          "methods": 33
+        },
+        {
+          "key": "stack_",
+          "count": 81,
+          "methods": 22
+        },
+        {
+          "key": "(unnamed base)",
+          "count": 69,
+          "methods": 40
+        },
+        {
+          "key": "X9_v1",
+          "count": 58,
+          "methods": 29
+        },
+        {
+          "key": "X0_v2",
+          "count": 56,
+          "methods": 56
+        },
+        {
+          "key": "X8_v13",
+          "count": 47,
+          "methods": 20
+        },
+        {
+          "key": "X8_v4",
+          "count": 41,
+          "methods": 26
+        },
+        {
+          "key": "X29",
+          "count": 41,
+          "methods": 4
+        },
+        {
+          "key": "X8_v1",
+          "count": 39,
+          "methods": 21
+        },
+        {
+          "key": "X8_v15",
+          "count": 34,
+          "methods": 13
+        },
+        {
+          "key": "X8_v18",
+          "count": 32,
+          "methods": 16
+        },
+        {
+          "key": "X4",
+          "count": 27,
+          "methods": 5
+        },
+        {
+          "key": "X9_v2",
+          "count": 27,
+          "methods": 24
+        },
+        {
+          "key": "X3",
+          "count": 27,
+          "methods": 6
+        },
+        {
+          "key": "X8_v5",
+          "count": 26,
+          "methods": 10
+        },
+        {
+          "key": "X8_v11",
+          "count": 24,
+          "methods": 10
+        },
+        {
+          "key": "X10_v15",
+          "count": 24,
+          "methods": 10
+        },
+        {
+          "key": "X19_v2",
+          "count": 22,
+          "methods": 3
+        },
+        {
+          "key": "X8_v9",
+          "count": 21,
+          "methods": 9
+        },
+        {
+          "key": "X8_v16",
+          "count": 21,
+          "methods": 9
+        },
+        {
+          "key": "X9_v8",
+          "count": 21,
+          "methods": 11
+        },
+        {
+          "key": "X8_v7",
+          "count": 20,
+          "methods": 11
+        },
+        {
+          "key": "X0_v9",
+          "count": 20,
+          "methods": 6
+        },
+        {
+          "key": "X8_v6",
+          "count": 20,
+          "methods": 9
+        },
+        {
+          "key": "X8_v10",
+          "count": 19,
+          "methods": 12
+        },
+        {
+          "key": "X8_v19",
+          "count": 17,
+          "methods": 9
+        },
+        {
+          "key": "X8_v2",
+          "count": 17,
+          "methods": 8
+        },
+        {
+          "key": "X0_v29",
+          "count": 16,
+          "methods": 5
+        },
+        {
+          "key": "X10_v7",
+          "count": 16,
+          "methods": 13
+        },
+        {
+          "key": "X8_v8",
+          "count": 16,
+          "methods": 11
+        },
+        {
+          "key": "X8_v14",
+          "count": 16,
+          "methods": 8
+        },
+        {
+          "key": "X8_v21",
+          "count": 16,
+          "methods": 5
+        },
+        {
+          "key": "X6",
+          "count": 16,
+          "methods": 2
+        },
+        {
+          "key": "X9_v9",
+          "count": 15,
+          "methods": 7
+        },
+        {
+          "key": "X8_v12",
+          "count": 15,
+          "methods": 6
+        },
+        {
+          "key": "X24_v5",
+          "count": 15,
+          "methods": 1
+        }
+      ]
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 713,
+      "methods": 534,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "LeanPool",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1328",
+      "isilOperation": "OpCode.Call / CallVoid, target is an Immediate",
+      "meaning": "an address with no managed method at it",
+      "causes": [
+        {
+          "key": "(address only)",
+          "count": 713,
+          "methods": 534
+        }
+      ]
+    },
+    "NATIVE_IMPORT": {
+      "count": 485,
+      "methods": 183,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "LeanCommon",
+        "LeanPool",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1328",
+      "isilOperation": "OpCode.Call / CallVoid via a PLT slot",
+      "meaning": "a libc or C++ runtime import, named from .rela.plt",
+      "causes": [
+        {
+          "key": "__cxa_end_catch",
+          "count": 96,
+          "methods": 76
+        },
+        {
+          "key": "memcpy",
+          "count": 85,
+          "methods": 37
+        },
+        {
+          "key": "__cxa_begin_catch",
+          "count": 76,
+          "methods": 75
+        },
+        {
+          "key": "modf",
+          "count": 73,
+          "methods": 25
+        },
+        {
+          "key": "__stack_chk_fail",
+          "count": 54,
+          "methods": 54
+        },
+        {
+          "key": "__cxa_allocate_exception",
+          "count": 20,
+          "methods": 20
+        },
+        {
+          "key": "__cxa_throw",
+          "count": 20,
+          "methods": 20
+        },
+        {
+          "key": "memset",
+          "count": 18,
+          "methods": 11
+        },
+        {
+          "key": "atan2",
+          "count": 11,
+          "methods": 4
+        },
+        {
+          "key": "sin",
+          "count": 8,
+          "methods": 4
+        },
+        {
+          "key": "sincosf",
+          "count": 6,
+          "methods": 6
+        },
+        {
+          "key": "atan2f",
+          "count": 5,
+          "methods": 5
+        },
+        {
+          "key": "cos",
+          "count": 4,
+          "methods": 3
+        },
+        {
+          "key": "acos",
+          "count": 3,
+          "methods": 2
+        },
+        {
+          "key": "asin",
+          "count": 3,
+          "methods": 1
+        },
+        {
+          "key": "powf",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "sincos",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "expf",
+          "count": 1,
+          "methods": 1
+        }
+      ]
+    },
+    "INDIRECT_JUMP": {
+      "count": 254,
+      "methods": 227,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "LeanPool",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1471",
+      "isilOperation": "OpCode.IndirectJump",
+      "meaning": "a computed branch, typically a switch table",
+      "causes": [
+        {
+          "key": "(computed branch)",
+          "count": 254,
+          "methods": 227
+        }
+      ]
+    },
+    "INDIRECT_CALL": {
+      "count": 233,
+      "methods": 144,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1446",
+      "isilOperation": "OpCode.IndirectCall",
+      "meaning": "a virtual or interface dispatch the passes did not resolve",
+      "causes": [
+        {
+          "key": "(dispatch)",
+          "count": 233,
+          "methods": 144
+        }
+      ]
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 211,
+      "methods": 84,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1019",
+      "isilOperation": "OpCode.NotImplemented",
+      "meaning": "the lifter has no rule for this native opcode",
+      "causes": [
+        {
+          "key": "UNIMPLEMENTED",
+          "count": 93,
+          "methods": 39
+        },
+        {
+          "key": "FABD",
+          "count": 48,
+          "methods": 28
+        },
+        {
+          "key": "DUP",
+          "count": 43,
+          "methods": 28
+        },
+        {
+          "key": "USHL",
+          "count": 8,
+          "methods": 4
+        },
+        {
+          "key": "BIT",
+          "count": 6,
+          "methods": 4
+        },
+        {
+          "key": "FADDP",
+          "count": 3,
+          "methods": 2
+        },
+        {
+          "key": "BSL",
+          "count": 2,
+          "methods": 1
+        },
+        {
+          "key": "FCMGT",
+          "count": 2,
+          "methods": 1
+        },
+        {
+          "key": "BIF",
+          "count": 2,
+          "methods": 1
+        },
+        {
+          "key": "EXT",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "SMULH",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "CMHS",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "ZIP1",
+          "count": 1,
+          "methods": 1
+        }
+      ]
+    },
+    "UNRESOLVED_DELEGATE": {
+      "count": 128,
+      "methods": 85,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1155",
+      "isilOperation": "OpCode.Newobj over a delegate type",
+      "meaning": "a delegate built over a function pointer nothing resolved",
+      "causes": [
+        {
+          "key": "SkeletonRendererDelegate",
+          "count": 22,
+          "methods": 13
+        },
+        {
+          "key": "UpdateBonesDelegate",
+          "count": 19,
+          "methods": 12
+        },
+        {
+          "key": "Action",
+          "count": 17,
+          "methods": 12
+        },
+        {
+          "key": "TweenCallback",
+          "count": 13,
+          "methods": 11
+        },
+        {
+          "key": "UnityAction",
+          "count": 13,
+          "methods": 7
+        },
+        {
+          "key": "TrackEntryEventDelegate",
+          "count": 11,
+          "methods": 10
+        },
+        {
+          "key": "TrackEntryDelegate",
+          "count": 7,
+          "methods": 3
+        },
+        {
+          "key": "EaseFunction",
+          "count": 7,
+          "methods": 7
+        },
+        {
+          "key": "MeshGeneratorDelegate",
+          "count": 6,
+          "methods": 4
+        },
+        {
+          "key": "SkeletonUtilityDelegate",
+          "count": 4,
+          "methods": 3
+        },
+        {
+          "key": "InstructionDelegate",
+          "count": 4,
+          "methods": 3
+        },
+        {
+          "key": "OnClipAppliedDelegate",
+          "count": 2,
+          "methods": 1
+        },
+        {
+          "key": "AndroidJavaRunnable",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "OnlineTimeCallback",
+          "count": 1,
+          "methods": 1
+        },
+        {
+          "key": "ParameterizedThreadStart",
+          "count": 1,
+          "methods": 1
+        }
+      ]
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 97,
+      "methods": 62,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1333",
+      "isilOperation": "OpCode.Call, target is not an Immediate",
+      "meaning": "a call whose target operand is a register or a memory read",
+      "causes": [
+        {
+          "key": "\\\"il2cpp_vm_object_unbox\\\"",
+          "count": 54,
+          "methods": 35
+        },
+        {
+          "key": "\\\"il2cpp_vm_class_is_assignable_from\\\"",
+          "count": 20,
+          "methods": 20
+        },
+        {
+          "key": "\\\"SzArrayNew\\\"",
+          "count": 15,
+          "methods": 3
+        },
+        {
+          "key": "\\\"il2cpp_codegen_object_is_inst\\\"",
+          "count": 6,
+          "methods": 4
+        },
+        {
+          "key": "\\\"il2cpp_vm_object_box\\\"",
+          "count": 2,
+          "methods": 2
+        }
+      ]
+    },
+    "OTHER": {
+      "count": 2,
+      "methods": 1,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "generatorSite": "-",
+      "isilOperation": "-",
+      "meaning": "-",
+      "causes": [
+        {
+          "key": "Warning: Method ends with non empty stack (-10), the output ",
+          "count": 2,
+          "methods": 1
+        }
+      ]
+    }
+  }
+}

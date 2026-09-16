@@ -484,3 +484,47 @@ Phép đo mới:
 **Không** làm: §6 (cụm `MeshGenerator`), §7 (`OrderedDictionary`), §9 (`CALL_RESULT`), §14 (hai thân
 mất trên Pinata), §19 (Scorecard JSON), §20 (kho method vàng). `FABD` và `DUP` cố ý để lại: dạng
 vector, lift như scalar sẽ sai im lặng.
+
+## Iteration 049 — phục hồi lời gọi, và một phép đo dám hạ điểm chính mình
+
+**Phép đo đổi lần nữa.** Cột "048" dưới đây là 048 **đo lại** bằng `recovery_metrics.py`, không phải
+con số 048 đã công bố. 048 báo "3942 method không có placeholder"; 1203 trong số đó là đồ thế chỗ.
+
+| Chỉ số (Impostor) | 048 (đo lại) | 049 | Delta |
+|---|---:|---:|---:|
+| **method `EXACT`** | 2594 | **2775** | **+181** |
+| `HIGH_CONFIDENCE` | 145 | 152 | +7 |
+| `PARTIAL` | 1540 | **1318** | **−222** |
+| `FALLBACK` | 1203 | 1237 | +34 |
+| `MISSING` | 0 | 0 | 0 |
+| **phục hồi không kèm đồ thế chỗ** | 2739 | **2927** | **+188** |
+| placeholder | 5753 | **4756** | −997 |
+| `METHOD_NOT_FOUND` | 1573 | **713** | −860 |
+| `INDIRECT_CALL` | 350 | **233** | −117 |
+| `NOT_IMPLEMENTED_INSTRUCTION` | 303 | 211 | −92 |
+| `UNKNOWN_CALL_TARGET` | 107 | 97 | −10 |
+| lời gọi thành placeholder | 2343 | **1444** | −899 |
+| load bỏ cuộc | 2726 | 2716 | −10 |
+| Roslyn | 348-0 | **345-0** | −3 |
+| shape / `.cs` / `genFail` | 16-16 / 819 / 0 | 16-16 / 819 / 0 | 0 |
+| test | 402 | 407 | +5 |
+
+**Pinata: y hệt 048 ở mọi con số** — 4779 lời gọi, 9248 load, 3083 `.cs`, 14726 placeholder,
+`genFail` 0. Metadata v24.2 không có bản metadata-init có barrier nên nhánh mới không chạy ở đó.
+
+`FALLBACK` tăng 34 là **trung thực, không phải hồi quy giấu đi**: bỏ placeholder đi làm lộ ra những
+method mà thân hàm vẫn còn thiếu thứ khác; chúng chuyển từ `PARTIAL` sang `FALLBACK` chứ không biến
+mất.
+
+Phép đo mới:
+
+| | |
+|---|---|
+| trạng thái ngữ nghĩa | `EXACT`/`HIGH_CONFIDENCE`/`PARTIAL`/`FALLBACK`/`MISSING` |
+| helper runtime | 30 tìm thấy / 5 không (sau fix), từ 29/6 |
+| mã lý do lời gọi | 718 RUNTIME_HELPER / 512 NATIVE_ONLY / 103 INDIRECT_TARGET / 78 VENEER / 33 GENERIC_SHARED |
+| mã lệnh chưa lift | 14 opcode, 216 placeholder, gần như toàn dạng vector |
+
+**Không** làm: §10/§11/§12 (generic/virtual/interface call recovery — 233 ô vtable là việc kế tiếp),
+§22 (tầng ngữ nghĩa SIMD), §27 (golden corpus), §25 (Unity runtime — `UNITY_NOT_AVAILABLE`).
+Và **không** ánh xạ `0xAF4130`: ngữ nghĩa chắc chắn, cách tìm ra tổng quát thì chưa có.

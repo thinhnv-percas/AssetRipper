@@ -1,0 +1,20 @@
+fixtures: Impostor, Pinata
+lifter cases found in NewArmV8InstructionSet: 146
+opcodes with no rule, observed: 14  placeholders: 216
+
+opcode            count  methods  asm  nativeBytes  lifter case  fixtures
+-------------------------------------------------------------------------
+UNIMPLEMENTED        94       40    6        40492  none         Impostor,Pinata
+FABD                 48       28    5        18308  none         Impostor
+DUP                  44       29    5        32028  none         Impostor,Pinata
+USHL                  9        5    4         7900  none         Impostor,Pinata
+BIT                   6        4    2         8776  none         Impostor
+FADDP                 3        2    1         1656  none         Impostor
+BSL                   2        1    1         4352  none         Impostor
+FCMGT                 2        1    1          552  none         Impostor
+BIF                   2        1    1          552  none         Impostor
+REV                   2        2    1           36  none         Pinata
+EXT                   1        1    1          600  none         Impostor
+SMULH                 1        1    1          808  none         Impostor
+CMHS                  1        1    1          120  none         Impostor
+ZIP1                  1        1    1         1136  none         Impostor

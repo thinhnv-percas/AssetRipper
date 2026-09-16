@@ -1,0 +1,66 @@
+Brief 049: call recovery + authoritative metrics. §2 đòi một harness đo duy nhất; §4 đòi trạng thái
+ngữ nghĩa thay cho "không có placeholder"; §7 đặt call recovery làm ưu tiên số 1; §17 đòi mã lý do;
+§29 đòi ít nhất một trong METHOD_NOT_FOUND / INDIRECT_CALL / UNKNOWN_CALL_TARGET giảm bằng phục hồi
+ngữ nghĩa thật.
+
+A. Báo cáo helper runtime — commit 373ebb00
+
+   Mỗi lời gọi tới helper KHÔNG tìm thấy thành một placeholder mang địa chỉ chứ không mang nguyên
+   nhân. `ReportKeyFunctions` in cả hai nửa: 30 tìm thấy, 5 không. Đúng một dòng log này chỉ ra
+   `il2cpp_codegen_initialize_runtime_metadata_inline`.
+
+B. Hai biến thể metadata init là ANH EM — commit 516b621e
+
+   `FindAllThunkFunctions(bản có barrier)` tìm hàm nào nhảy TỚI bản có barrier. Không bao giờ có.
+     0xAD9498  str x30,[sp,#-16]! / bl 0xB28874 / dmb ish
+     0xAD94AC  b  0xB28874
+   Bản inline là thunk của cái mà bản barrier GỌI. 889 lời gọi từ 268 method = 40% của mọi
+   Method not found. Ứng viên được xác nhận bằng cách hỏi ngược, không giả định.
+   METHOD_NOT_FOUND 1573 -> 713. Pinata không đổi (v24.2 không có bản barrier).
+
+C. recovery_metrics.py — commit 0d19f495
+
+   Trạng thái ngữ nghĩa EXACT / HIGH_CONFIDENCE / PARTIAL / FALLBACK / MISSING, so lớp phép toán mà
+   [NativeSource] (kết xuất của ISIL đã phân tích) gọi tên với lớp phép toán thân C# gọi tên.
+   048 báo "3942 method không placeholder"; 1203 trong số đó là đồ thế chỗ.
+
+   PHÉP ĐO TỰ BÁO SAI HAI LẦN trước khi tin được, cả hai đều là quá chặt:
+     - một lời gọi viết khác nhau ở hai phía; một pattern cho cả hai làm phía C# không khớp gì cả
+       (2304 ca giả, thật là 54);
+     - field phải so bằng TÊN THÀNH VIÊN vì C# viết this.field thành field trần (1655 ca giả,
+       thật là 662).
+
+D. Mã lý do — commit 843ad4a7
+
+   718 RUNTIME_HELPER / 512 NATIVE_ONLY / 103 INDIRECT_TARGET / 78 RUNTIME_HELPER_VENEER /
+   33 GENERIC_SHARED. 512 ca không bao giờ sửa được bằng metadata.
+
+E. instruction_coverage.py — commit tiếp theo
+
+   14 mã lệnh, 216 placeholder. Phần còn lại gần như toàn dạng VECTOR; §22 cấm lift như scalar.
+   Hai ca scalar cộng lại là 3 placeholder.
+
+F. Delegate invoke — commit 748392e8
+
+   Pass đã tồn tại nhưng viết cho hình dạng ở SAI ĐIỂM: đòi MemoryOperand trong khi chạy sau phép
+   phân giải biến nó thành FieldReference tên `invoke_impl`. Cộng nửa còn thiếu là delegate generic
+   (generic instance context không khai báo thành viên nào của riêng nó).
+   INDIRECT_CALL 350 -> 233, và 233 đúng bằng số ô vtable đếm độc lập.
+
+G. Gate cuối (Impostor 048 -> 049, đo bằng recovery_metrics cho cả hai đầu):
+
+   EXACT                2594 -> 2775 (+181)     PARTIAL     1540 -> 1318 (-222)
+   không đồ thế chỗ     2739 -> 2927 (+188)     FALLBACK    1203 -> 1237 (+34, trung thực)
+   placeholder          5753 -> 4756            lời gọi ph.  2343 -> 1444
+   METHOD_NOT_FOUND     1573 -> 713             INDIRECT_CALL 350 -> 233
+   Roslyn 348-0 -> 345-0   shape 16/16   .cs 819   genFail 0   load 2726 -> 2716
+   test 402 -> 407, 1 fail có sẵn
+   Pinata: y hệt 048 ở mọi con số.
+
+   Unity UNITY_NOT_AVAILABLE; U1-U9 và I1-I4 NOT_RUN; shader vẫn DUMMY, không bao giờ là PASS.
+
+H. KHÔNG làm: §10/§11/§12 (generic/virtual/interface call recovery — 233 ô vtable là việc kế tiếp),
+   §22 (tầng ngữ nghĩa SIMD), §27 (golden corpus), §25 (Unity runtime).
+   VÀ KHÔNG ánh xạ 0xAF4130: ngữ nghĩa chắc chắn (vòng ldaxr/stlxr = Interlocked.CompareExchange,
+   339/339 caller là event accessor) nhưng KHÔNG có cách tìm ra nó tổng quát, và sai sẽ hỏng im lặng
+   339 event accessor. Ghi lại làm bằng chứng, không vá.

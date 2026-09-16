@@ -533,6 +533,47 @@ và 14740 → 14726; load bỏ cuộc 2722 → 2726 và 9245 → 9248 (phục h�
 bỏ cùng code chết); genFail 0/0, `.cs` 819/3083, Roslyn 348-0 / 1478-1, shape 16/16, ctor 51,
 `array[i].field` 164, `(float)array[i]` 0, test 388 → 402 với 1 fail có sẵn.
 
+## Iteration 049 — năm điều một session sau phải biết
+
+1. **Phép đo của 048 vẫn còn quá dễ dãi, và 049 hạ điểm chính nó.** "Không có placeholder" không
+   phải phục hồi: một thân hàm đọc `return default;` trong khi native có field read, so sánh, nhánh
+   và lời gọi thì không mang placeholder nào và đã mất tất cả. `Test/Scripts/recovery_metrics.py`
+   chấm `EXACT` / `HIGH_CONFIDENCE` / `PARTIAL` / `FALLBACK` / `MISSING` bằng cách so lớp phép toán
+   mà `[NativeSource]` — bản kết xuất của **ISIL đã phân tích** — gọi tên với lớp phép toán thân C#
+   gọi tên. Trong 3942 method "không placeholder" của 048, **1203 là đồ thế chỗ**. Mọi so sánh với
+   iteration ≤ 048 phải đo lại **cả hai đầu** bằng harness này.
+
+2. **Hai biến thể metadata init là ANH EM, không phải cha con** — và một dòng log là thứ tìm ra nó.
+   `il2cpp_codegen_initialize_runtime_metadata` là stub `bl X; dmb ish`; bản `_inline` là `b X`,
+   cùng X. Code đi tìm "hàm nào nhảy TỚI bản có barrier", thứ không tồn tại. 889 lời gọi từ 268
+   method — 40% của mọi `Method not found`. `ReportKeyFunctions` in ra helper nào tìm thấy và helper
+   nào không; ba cái còn lại chưa tìm ra là `il2cpp_codegen_raise_exception`,
+   `il2cpp_codegen_write_barrier`, `il2cpp_codegen_initialize_method`, và cách tìm anh-em-veneer này
+   là thứ nên thử trước với chúng.
+
+3. **`DelegateInvokeRecovery` là ví dụ thứ N của "pass viết cho hình dạng ở sai điểm".** Nó đòi một
+   `MemoryOperand` addend 24, còn nó chạy *sau* phép phân giải biến operand đó thành một
+   `FieldReference` tên `invoke_impl`. Và nửa còn thiếu là **delegate generic**: một generic instance
+   context không khai báo thành viên nào của riêng nó, nên hỏi nó `Invoke` — hay hỏi nó có phải
+   delegate không — đều không ra gì, trong khi phần lớn delegate là generic.
+
+4. **`INDIRECT_CALL` tách sạch bằng chính chữ nó in ra**: `X.invoke_impl` là delegate invoke,
+   `[base + offset]` là ô vtable. Sau 049 còn đúng **233 ô vtable** và 0 delegate. Đó là việc kế
+   tiếp có giá trị cao nhất, và nó cần `InterfaceOffsets` + `VTable` của `Il2CppTypeDefinition`.
+
+5. **`0xAF4130` cố ý KHÔNG được ánh xạ.** 339 lời gọi, **339/339 caller là event accessor**, và mã
+   máy ở đó (`ldaxr x8,[x0] / cmp x8,x2 / stlxr w9,x1,[x0]`) là một vòng compare-and-swap đúng thứ
+   tự tham số của `Interlocked.CompareExchange`. Ngữ nghĩa chắc chắn; **cách tìm ra nó một cách tổng
+   quát thì chưa có** — mọi chuỗi thunk từ `Interlocked::CompareExchange` dẫn tới `0xAF41A4` /
+   `0xAF41CC` / `0xAF4164` chứ không tới `0xAF4130` — và ánh xạ sai sẽ hỏng im lặng 339 event
+   accessor. Đừng vá nếu chưa có đường tìm.
+
+Bảng số 049 (Impostor, phép đo mới cho cả hai đầu): `EXACT` 2594 → **2775**, `PARTIAL` 1540 → 1318,
+`FALLBACK` 1203 → 1237 (tăng và trung thực: lộ ra chứ không biến mất), phục hồi không kèm đồ thế chỗ
+2739 → **2927**; placeholder 5753 → 4756; `METHOD_NOT_FOUND` 1573 → 713; `INDIRECT_CALL` 350 → 233;
+lời gọi thành placeholder 2343 → 1444; load 2726 → 2716; Roslyn 348 → **345**; shape 16/16, `.cs`
+819, `genFail` 0; test 402 → 407. **Pinata y hệt 048 ở mọi con số.**
+
 ## Ghi chú môi trường
 
 Container không có .NET SDK và không có Unity. `dotnet` lấy từ

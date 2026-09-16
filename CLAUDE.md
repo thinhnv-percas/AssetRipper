@@ -1157,6 +1157,69 @@ find it; `strings` without `-el` does find method and type names.
   a bitfield move belongs (ACTk's `Obscured*` pack a key and a value into a word, `xxHash`,
   `MeshGenerator`, `SkeletonBinary`), which is what a rule matching the shape it aimed at looks like.
 
+- **"No placeholder" is not recovery, and the evidence to say so is already in the export.**
+  `[NativeSource(Body = "...")]` renders the *analysed ISIL*, not the machine code, so the operations
+  it names are the operations the analysis recovered; comparing those operation classes against the
+  ones the C# body names separates a real body from a stand-in. `recovery_metrics.py` scores
+  `EXACT` / `HIGH_CONFIDENCE` / `PARTIAL` / `FALLBACK` / `MISSING` on that, and of iteration 048's
+  3942 "methods with no placeholder" on the test game, **1203 are stand-ins**. Any comparison against
+  an iteration at or before 048 has to re-measure both ends with it.
+- **That measure reported itself wrong twice before it could be believed, both times by being too
+  strict.** A call is written differently on the two sides - the IR rendering writes `Type::Method(`,
+  `"helper"(` or `0xADDR(` and C# writes `receiver.Method(` - so one pattern for both matched nothing
+  at all on the C# side and the deficit was the whole IR side: 2304 methods reported as having lost
+  their calls, against a true 54. And field access has to be compared by **member name**, not by the
+  shape of the access, because C# writes `this.field` as bare `field`: 1655 false losses against a
+  true 662. A check that is too strict is as wrong as one that is too lax.
+- **The two metadata-init variants are siblings, not parent and child.**
+  `il2cpp_codegen_initialize_runtime_metadata` is a stub that *calls* the real function and then
+  issues the memory barrier; `..._inline` tail-jumps to that same function without it. So
+  `FindAllThunkFunctions(the barrier one)` - looking for a function that jumps *to* the barrier stub -
+  can never find it, and the comment on the field had described the real shape all along. On the test
+  game the two sit twenty bytes apart in one veneer table (`0xAD9498` / `0xAD94AC`) and the unfound
+  one was the busiest unresolved call target in the binary: **889 calls from 268 methods, 40% of every
+  `Method not found` placeholder**. The consuming code already existed; the whole gap was finding the
+  address. Worth `METHOD_NOT_FOUND` 1573 → 713, and 92 fewer `NOT_IMPLEMENTED_INSTRUCTION` as a
+  side-effect, because dropping scaffolding takes dead code with it.
+- **Report which runtime helpers were located and which were not.** A call to a helper that was not
+  found becomes a placeholder naming an address rather than a cause, so "is this one we failed to
+  find, or one this build does not have" was never answerable from a log. `ReportKeyFunctions` prints
+  both halves, and that one line is what found the sibling bug above. Still unlocated on the test
+  game: `il2cpp_codegen_raise_exception`, `il2cpp_codegen_write_barrier`,
+  `il2cpp_codegen_initialize_method` - try the sibling-veneer search on those first.
+- **An unresolved call's reason is not its symptom, and the reason is readable where it is counted.**
+  How many managed methods sit on the address, plus the first four instructions there, separate
+  `RUNTIME_HELPER` (718), `NATIVE_ONLY` (512 - a PLT entry into another shared library, which no
+  managed metadata will ever name and which is therefore not a defect), `INDIRECT_TARGET` (103),
+  `RUNTIME_HELPER_VENEER` (78) and `GENERIC_SHARED` (33). A third of the family is an external
+  dependency, and counting it as a decompiler failure had hidden that.
+- **`INDIRECT_CALL` splits cleanly on the text it already prints**: `X.invoke_impl` is a delegate
+  invoke, `[base + offset]` is a vtable slot. 117 and 233 on the test game. `DelegateInvokeRecovery`
+  already handled the first and never fired, because it matched a raw `MemoryOperand` with addend 24
+  while running *after* the resolution that turns that operand into a `FieldReference` literally named
+  `invoke_impl` - the same "a pass that matches a shape must be written against the shape at the point
+  it runs" as everywhere else in this file. The other half was **generic delegates**: a generic
+  instance context carries its arguments and its definition and declares no members of its own, so
+  asking it for `Invoke`, or even whether it is a delegate, answers nothing - and most delegates are
+  generic (`DOGetter<Vector2>`, `Predicate<T>`, `Action<T>`). Both together took 350 to exactly 233,
+  which is the vtable count measured independently.
+- **`0xAF4130` on the test game is `Interlocked.CompareExchange` and is deliberately not mapped.**
+  339 calls, **339 of 339 callers are `add_`/`remove_` event accessors**, and the machine code is
+  `ldaxr x8,[x0] / cmp x8,x2 / stlxr w9,x1,[x0]` - a compare-and-swap loop whose argument order is
+  exactly `(ref location, value, comparand)`. The semantics are certain; the *discovery rule* is not,
+  because no managed method sits there and every thunk chain from
+  `System.Threading.Interlocked::CompareExchange` ends at `0xAF41A4`, `0xAF41CC` or `0xAF4164`
+  instead. A wrong mapping would silently corrupt 339 event accessors, so this is recorded as evidence
+  rather than patched. Do not map it without a general way to find it.
+- **Almost every ARM64 opcode the lifter still has no rule for is a vector form.** After BFI/BFXIL:
+  `FABD` 48, `DUP` 44, `USHL` 9, `BIT`/`BSL`/`BIF` 10, `FADDP`/`FCMGT`/`EXT`/`CMHS`/`ZIP1` 9 - against
+  `REV` 2 and `SMULH` 1, the only scalars left, three placeholders between them. Lifting a vector form
+  as scalar is wrong silently, so this needs a SIMD semantic layer (lane count, lane type, vector
+  width) before any of it is worth touching. `Test/Scripts/instruction_coverage.py` reports it, and
+  reads the implemented set out of the lifter's own switch rather than guessing - an opcode that *has*
+  a case and still reports unimplemented is a different defect. The largest entry, `UNIMPLEMENTED` 94,
+  is Disarm failing to decode at all: a disassembler gap, not a lifter one.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1295,7 +1358,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Six scripts, and each measures something the others cannot:
+Eight scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1308,6 +1371,11 @@ Six scripts, and each measures something the others cannot:
   that counts them imports it rather than restating it.
 - `Test/Scripts/diff_recovered_scripts.sh` — whether two rips differ at all, which is the check
   `diff -rq --include` silently never performed.
+- `Test/Scripts/recovery_metrics.py` — the authoritative one: semantic status per method, against the
+  IR the export itself carries. Read this before any other number; it is the only one that says how
+  much of a body came back rather than how many complaints it printed.
+- `Test/Scripts/instruction_coverage.py` — native opcodes the lifter has no rule for, per fixture,
+  with the implemented set read out of the lifter's own switch.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are

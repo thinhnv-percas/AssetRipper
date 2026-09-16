@@ -1,0 +1,33 @@
+SCOPE: the 10 assemblies recovery was attempted on
+methods with a recorded native address: 5482
+native code accounted for: 1075252 bytes
+placeholders: 5753
+
+== by semantic status ==
+  2594  EXACT             47.3%
+   145  HIGH_CONFIDENCE    2.6%
+  1540  PARTIAL           28.1%
+  1203  FALLBACK          21.9%
+     0  MISSING            0.0%
+
+methods recovered without a stand-in: 2739 of 5482 (50.0%)
+
+== what a FALLBACK lost, by operation class ==
+   662  FIELD
+   490  NEWOBJ
+   119  BRANCH
+    54  CALL
+     9  ARRAY_READ
+     7  ARRAY_WRITE
+     4  THROW
+
+== placeholder families ==
+  2655  UNMANAGED_MEMORY_LOAD            196 files
+  1573  METHOD_NOT_FOUND                 163 files
+   485  NATIVE_IMPORT                     81 files
+   350  INDIRECT_CALL                     72 files
+   254  INDIRECT_JUMP                     94 files
+   211  NOT_IMPLEMENTED_INSTRUCTION       54 files
+   128  UNRESOLVED_DELEGATE               53 files
+   107  UNKNOWN_CALL_TARGET               40 files
+     2  OTHER                              1 files

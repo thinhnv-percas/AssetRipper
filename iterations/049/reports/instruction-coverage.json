@@ -1,0 +1,344 @@
+{
+  "fixtures": [
+    "Impostor",
+    "Pinata"
+  ],
+  "lifterCases": [
+    "ADD",
+    "ADDS",
+    "ADR",
+    "ADRP",
+    "AND",
+    "ANDS",
+    "ASR",
+    "AUTIASP",
+    "AUTIBSP",
+    "B",
+    "BC",
+    "BFI",
+    "BFXIL",
+    "BIC",
+    "BICS",
+    "BL",
+    "BLR",
+    "BR",
+    "BRK",
+    "BTI",
+    "BTI_C",
+    "BTI_J",
+    "BTI_JC",
+    "CBNZ",
+    "CBZ",
+    "CCMN",
+    "CCMP",
+    "CINC",
+    "CMN",
+    "CMP",
+    "CNEG",
+    "CSEL",
+    "CSET",
+    "CSETM",
+    "CSINC",
+    "CSINV",
+    "CSNEG",
+    "EON",
+    "EOR",
+    "EXTR",
+    "FABS",
+    "FADD",
+    "FCCMP",
+    "FCCMPE",
+    "FCMP",
+    "FCMPE",
+    "FCSEL",
+    "FCVT",
+    "FCVTAS",
+    "FCVTAU",
+    "FCVTMS",
+    "FCVTMU",
+    "FCVTNS",
+    "FCVTNU",
+    "FCVTPS",
+    "FCVTPU",
+    "FCVTZS",
+    "FCVTZU",
+    "FDIV",
+    "FMAX",
+    "FMAXNM",
+    "FMIN",
+    "FMINNM",
+    "FMOV",
+    "FMUL",
+    "FNEG",
+    "FNMUL",
+    "FRINTA",
+    "FRINTI",
+    "FRINTM",
+    "FRINTN",
+    "FRINTP",
+    "FRINTX",
+    "FRINTZ",
+    "FSQRT",
+    "FSUB",
+    "LDP",
+    "LDPSW",
+    "LDR",
+    "LDRB",
+    "LDRH",
+    "LDRSB",
+    "LDRSH",
+    "LDRSW",
+    "LDUR",
+    "LDURB",
+    "LDURH",
+    "LDURSB",
+    "LDURSH",
+    "LDURSW",
+    "LSL",
+    "LSR",
+    "MADD",
+    "MNEG",
+    "MOV",
+    "MOVI",
+    "MOVK",
+    "MOVN",
+    "MOVZ",
+    "MRS",
+    "MSUB",
+    "MUL",
+    "MVN",
+    "NEG",
+    "NOP",
+    "ORN",
+    "ORR",
+    "PACIASP",
+    "PACIBSP",
+    "RET",
+    "RETAA",
+    "RETAB",
+    "SBFIZ",
+    "SBFX",
+    "SCVTF",
+    "SDIV",
+    "SMADDL",
+    "SMNEGL",
+    "SMSUBL",
+    "SMULL",
+    "STP",
+    "STR",
+    "STRB",
+    "STRH",
+    "STUR",
+    "STURB",
+    "STURH",
+    "SUB",
+    "SUBS",
+    "SXTB",
+    "SXTH",
+    "SXTW",
+    "TBNZ",
+    "TBZ",
+    "TST",
+    "UBFIZ",
+    "UBFX",
+    "UCVTF",
+    "UDF",
+    "UDIV",
+    "UMADDL",
+    "UMNEGL",
+    "UMSUBL",
+    "UMULL",
+    "UXTB",
+    "UXTH"
+  ],
+  "opcodes": {
+    "UNIMPLEMENTED": {
+      "count": 94,
+      "methods": 40,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "LunarConsoleSDK",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeBytes": 40492,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor",
+        "Pinata"
+      ]
+    },
+    "FABD": {
+      "count": 48,
+      "methods": 28,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeBytes": 18308,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "DUP": {
+      "count": 44,
+      "methods": 29,
+      "assemblies": [
+        "ACTk.Runtime",
+        "DOTween",
+        "LunarConsoleSDK",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeBytes": 32028,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor",
+        "Pinata"
+      ]
+    },
+    "USHL": {
+      "count": 9,
+      "methods": 5,
+      "assemblies": [
+        "ACTk.Runtime",
+        "LunarConsoleSDK",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeBytes": 7900,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor",
+        "Pinata"
+      ]
+    },
+    "BIT": {
+      "count": 6,
+      "methods": 4,
+      "assemblies": [
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeBytes": 8776,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "FADDP": {
+      "count": 3,
+      "methods": 2,
+      "assemblies": [
+        "DOTween"
+      ],
+      "nativeBytes": 1656,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "BSL": {
+      "count": 2,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeBytes": 4352,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "FCMGT": {
+      "count": 2,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity-examples"
+      ],
+      "nativeBytes": 552,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "BIF": {
+      "count": 2,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity-examples"
+      ],
+      "nativeBytes": 552,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "REV": {
+      "count": 2,
+      "methods": 2,
+      "assemblies": [
+        "EasyMobile"
+      ],
+      "nativeBytes": 36,
+      "lifterCase": false,
+      "fixtures": [
+        "Pinata"
+      ]
+    },
+    "EXT": {
+      "count": 1,
+      "methods": 1,
+      "assemblies": [
+        "Assembly-CSharp"
+      ],
+      "nativeBytes": 600,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "SMULH": {
+      "count": 1,
+      "methods": 1,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "nativeBytes": 808,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "CMHS": {
+      "count": 1,
+      "methods": 1,
+      "assemblies": [
+        "DOTween"
+      ],
+      "nativeBytes": 120,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    },
+    "ZIP1": {
+      "count": 1,
+      "methods": 1,
+      "assemblies": [
+        "DOTween"
+      ],
+      "nativeBytes": 1136,
+      "lifterCase": false,
+      "fixtures": [
+        "Impostor"
+      ]
+    }
+  }
+}
