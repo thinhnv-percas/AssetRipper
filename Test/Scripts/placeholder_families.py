@@ -130,6 +130,26 @@ def assembly_of(path: pathlib.Path, root: pathlib.Path) -> str:
     return "<root>"
 
 
+# The lines the exporter writes once it has finished writing files. A log that has neither is a log
+# of a run that is still going, or of one that died - and reading a rip while it is still being
+# written is not a measurement of it.
+COMPLETION_MARKERS = ("Ripped to", "Finished post-export")
+
+
+def run_is_complete(log: pathlib.Path | None) -> bool | None:
+    """Whether the run this log belongs to finished writing.
+
+    Iteration 050 measured a rip while the export was still running - a watch fired on a line in the
+    log rather than on the process - and reported 280 .cs files against 819 and 1845 methods against
+    5482. That reads as a catastrophic regression and is a snapshot of a directory being filled in.
+    None when there is no log to ask, because "not known" and "not finished" want different words.
+    """
+    if log is None or not log.exists():
+        return None
+    text = log.read_text(encoding="utf-8", errors="replace")
+    return any(marker in text for marker in COMPLETION_MARKERS)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("root")
@@ -139,9 +159,17 @@ def main() -> int:
 
     root = pathlib.Path(arguments.root)
 
+    log = pathlib.Path(arguments.log) if arguments.log else None
+
+    if run_is_complete(log) is False:
+        # The same refusal recovery_metrics.py makes, for the same reason: a count from half a rip
+        # is worse than no count, because it looks like a count.
+        print(f"SCOPE: INCOMPLETE - {log} records no finished export, so this rip is still being written")
+        return 2
+
     attempted = None
-    if arguments.log:
-        for line in pathlib.Path(arguments.log).read_text(encoding="utf-8", errors="replace").splitlines():
+    if log is not None and log.exists():
+        for line in log.read_text(encoding="utf-8", errors="replace").splitlines():
             if "assemblies will be attempted" in line and "Attempted:" in line:
                 attempted = {name.strip() for name in line.split("Attempted:", 1)[1].split(",")}
                 break
@@ -177,11 +205,14 @@ def main() -> int:
                 detail_methods[family][key].add(method_key)
                 total += 1
 
-    print(f"placeholders: {total}")
+    # Scope first, count second, the same order recovery_metrics.py prints them in: what a number
+    # covers has to be read before the number, and a reader who takes the first line of each should
+    # get the same kind of thing from both.
     if attempted is None:
         print("SCOPE: UNKNOWN - no log given, so assemblies stubbed by design are counted with the rest")
     else:
         print(f"SCOPE: the {len(attempted)} assemblies recovery was attempted on")
+    print(f"placeholders: {total}")
 
     print("\n== by family ==")
     header = f"{'family':<30}{'count':>7}{'share':>7}{'methods':>9}{'asm':>5}  {'generator site':<22} ISIL operation"

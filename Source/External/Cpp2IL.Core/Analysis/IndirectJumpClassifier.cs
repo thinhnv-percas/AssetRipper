@@ -96,14 +96,38 @@ public static class IndirectJumpClassifier
 
             if (instruction.OpCode == OpCode.IndirectJump)
             {
-                Record(Classify(instruction.Operands[0], instructions));
+                Record(Refine(method, Classify(instruction.Operands[0], instructions), instruction.Operands[0], instructions));
             }
             else if (instruction.OpCode == OpCode.IndirectCall)
             {
                 var kind = Classify(instruction.Operands[0], instructions);
-                RecordCall(kind == "VTABLE_SLOT" ? VirtualDispatchReason(method, instruction.Operands[0], instructions) : kind);
+                RecordCall(kind == "VTABLE_SLOT"
+                    ? VirtualDispatchReason(method, instruction.Operands[0], instructions)
+                    : Refine(method, kind, instruction.Operands[0], instructions));
             }
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: the kind of pointer behind a bare "loaded pointer", which on its own is a symptom
+    /// rather than a cause.
+    /// </summary>
+    /// <remarks>
+    /// Every other label this class produces is read off the operand in front of it, which is enough
+    /// when the operand says something. <c>LOADED_POINTER</c> is what is left when it does not, and
+    /// the causes behind it want opposite work - so it alone is refined by walking the base back to
+    /// what produced it. Everything else is left exactly as it was, because a label that changes
+    /// meaning is worse than one that is coarse.
+    /// </remarks>
+    private static string Refine(MethodAnalysisContext method, string kind, IOperand target, List<Instruction> instructions)
+    {
+        if (kind != "LOADED_POINTER" || SlotLoad(target, instructions) is not { } load)
+            return kind;
+
+        return kind + ":" + LoadedPointerKind.Of(
+            load,
+            local => [.. instructions.Where(i => ReferenceEquals(i.Destination, local))],
+            (type, addend) => LoadedPointerKind.FromType(type, addend, method));
     }
 
     /// <summary>

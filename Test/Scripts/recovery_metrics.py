@@ -29,7 +29,7 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from placeholder_families import MESSAGE_PREFIXES, family_of, assembly_of  # noqa: E402
+from placeholder_families import MESSAGE_PREFIXES, family_of, assembly_of, run_is_complete  # noqa: E402
 
 ADDRESS = re.compile(r'\[Address\(RVA = "0x([0-9A-Fa-f]+)"(?:, Offset = "[^"]*")?(?:, VA = "[^"]*")?(?:, Length = "0x([0-9A-Fa-f]+)")?\)\]')
 NATIVE_SOURCE = re.compile(r'\[NativeSource\(Body = "(.*)"\)\]')
@@ -204,7 +204,9 @@ def classify(native: int, source: str, body: str):
 
 
 def attempted_assemblies(log: pathlib.Path | None):
-    if log is None:
+    # A path that is not there says nothing, the same as no path at all. Reading it would raise, and
+    # a measurement that dies on a bad --log is a measurement nobody can use ad hoc.
+    if log is None or not log.exists():
         return None
     for line in log.read_text(encoding="utf-8", errors="replace").splitlines():
         if "assemblies will be attempted" in line and "Attempted:" in line:
@@ -220,7 +222,17 @@ def main() -> int:
     arguments = parser.parse_args()
 
     root = pathlib.Path(arguments.root)
-    attempted = attempted_assemblies(pathlib.Path(arguments.log) if arguments.log else None)
+    log = pathlib.Path(arguments.log) if arguments.log else None
+    complete = run_is_complete(log)
+
+    if complete is False:
+        # Refusing is the whole point: a number from half a rip is worse than no number, because it
+        # looks like a number.
+        print(f"SCOPE: INCOMPLETE - {log} records no finished export, so this rip is still being written")
+        print("Wait for the process to exit, then measure. Nothing is reported from a partial run.")
+        return 2
+
+    attempted = attempted_assemblies(log)
 
     statuses = collections.Counter()
     per_assembly = collections.defaultdict(collections.Counter)
