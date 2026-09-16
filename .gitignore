@@ -24,7 +24,7 @@ launchSettings.json
 # means every run dirties the tree; upload the log to share it instead.
 Test/Output/
 Test/Output-*/
-Test/Output[0-9]*/
+Test/Output[0-9P]*/
 Test/AR*.log
 
 # Unpacked test games. Pinata is committed; anything else is fetched by hand.

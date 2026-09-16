@@ -1325,6 +1325,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			{
 				// A PLT entry jumps through the GOT into another shared library. No amount of managed
 				// metadata will ever name it, so this is an external dependency and not a defect.
+				"ATOMIC_COMPARE_EXCHANGE" or "ATOMIC_EXCHANGE" => shape,
 				"PLT_STUB" => "NATIVE_ONLY",
 				// A single branch between the runtime and the generated code. Every call to a runtime
 				// helper goes through one, so this is a helper key-function recovery did not recognise.
@@ -1435,6 +1436,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		}
 
 		uint[] words = new uint[4];
+		string? atomic = null;
 
 		try
 		{
@@ -1449,10 +1451,27 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			{
 				words[index] = BitConverter.ToUInt32(content.Slice((int)offset + index * 4, 4));
 			}
+
+			// Named by what the code does, never by where it sits. One address on the test game takes
+			// 339 unresolved calls, every caller an event accessor, and it is a compare-and-swap loop
+			// that no thunk chain from Interlocked reaches - so it can only be named this way, and an
+			// address written down would be right on one build and silently wrong on the next.
+			int window = Math.Min(AtomicIntrinsicRecognizer.WindowInstructions * 4, content.Length - (int)offset);
+			atomic = AtomicIntrinsicRecognizer.Classify(content.Slice((int)offset, Math.Max(window, 0))) switch
+			{
+				AtomicIntrinsicRecognizer.Shape.CompareExchange => "ATOMIC_COMPARE_EXCHANGE",
+				AtomicIntrinsicRecognizer.Shape.ExchangeWithoutComparison => "ATOMIC_EXCHANGE",
+				_ => null,
+			};
 		}
 		catch (Exception)
 		{
 			return "UNREADABLE";
+		}
+
+		if (atomic is not null)
+		{
+			return atomic;
 		}
 
 		// The AArch64 PLT entry, and the only four-instruction shape that ends in `br`.
