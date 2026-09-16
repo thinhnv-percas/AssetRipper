@@ -1,0 +1,395 @@
+{
+  "fixture": "MergeRoom",
+  "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/mr-src",
+  "rip": "/home/user/AssetRipper/Test/Out54mr/MergeRoom",
+  "shaders_in_source": 24,
+  "shaders_in_rip": 34,
+  "paired": 5,
+  "verdicts": {
+    "EXACT": 0,
+    "SEMANTICALLY_EQUIVALENT": 0,
+    "PARTIAL": 0,
+    "FALLBACK": 0,
+    "DUMMY": 5,
+    "NOT_EXPORTED": 19,
+    "NO_SOURCE": 29
+  },
+  "property_recovery_rate": 1.0,
+  "property_exact_rate": 0.5385,
+  "dummy_in_rip": 34,
+  "shaders": [
+    {
+      "shader": "Custom/Outline Fill",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 2,
+        "exported_properties": 2,
+        "properties_matched": 2,
+        "properties_equivalent": 0,
+        "properties_differ": [],
+        "source_structure": 8,
+        "exported_structure": 2,
+        "source_programs": 1,
+        "exported_programs": 1
+      }
+    },
+    {
+      "shader": "Custom/Outline Mask",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 1,
+        "exported_properties": 1,
+        "properties_matched": 1,
+        "properties_equivalent": 0,
+        "properties_differ": [],
+        "source_structure": 7,
+        "exported_structure": 2,
+        "source_programs": 0,
+        "exported_programs": 1
+      }
+    },
+    {
+      "shader": "DELTation/Toon Shader",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Graphy/Graph Mobile",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Graphy/Graph Standard",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Core/FallbackError",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Shader Graph/FallbackError",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/BillboardWavingDoublePass",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/Vertexlit",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/WavingDoublePass",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/Blit",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/CameraMotionVectors",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/CopyDepth",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/Debug/DebugReplacement",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/FallbackError",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/FallbackLoading",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/LensFlareDataDriven",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/MaterialError",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/ObjectMotionVectors",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/Sampling",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/StencilDeferred",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/XR/XRMirrorView",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal Render Pipeline/XR/XROcclusionMesh",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal/BlitHDROverlay",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal/CoreBlit",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal/CoreBlitColorAndDepth",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/Universal/HDRDebugView",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "LevoriCollection/Skybox",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "MoreMountains/MM2DReflection",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMAdvancedToon",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMBoilingLine",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMControlledEmission",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMMatcap",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMRipple",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMSkybox",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMStandardEmission",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMToon",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "MoreMountains/MMVFX",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Shader Graphs/Ghost",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "TextMeshPro/Bitmap",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Bitmap Custom Atlas",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Distance Field",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 37,
+        "exported_properties": 37,
+        "properties_matched": 19,
+        "properties_equivalent": 18,
+        "properties_differ": [],
+        "source_structure": 9,
+        "exported_structure": 2,
+        "source_programs": 1,
+        "exported_programs": 1
+      }
+    },
+    {
+      "shader": "TextMeshPro/Distance Field (Surface)",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Distance Field Overlay",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Bitmap",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 27,
+        "exported_properties": 27,
+        "properties_matched": 10,
+        "properties_equivalent": 17,
+        "properties_differ": [],
+        "source_structure": 9,
+        "exported_structure": 2,
+        "source_programs": 1,
+        "exported_programs": 1
+      }
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field (Surface)",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field - Masking",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field Overlay",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field SSD",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Sprite",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 11,
+        "exported_properties": 11,
+        "properties_matched": 10,
+        "properties_equivalent": 1,
+        "properties_differ": [],
+        "source_structure": 9,
+        "exported_structure": 2,
+        "source_programs": 1,
+        "exported_programs": 1
+      }
+    },
+    {
+      "shader": "Universal Render Pipeline/Particles/Unlit",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    }
+  ]
+}

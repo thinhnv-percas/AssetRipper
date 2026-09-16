@@ -1,7 +1,7 @@
 {
   "fixture": "RunFromZombies",
   "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/rfz-src",
-  "rip": "/home/user/AssetRipper/Test/Out53z/RunFromZombies",
+  "rip": "/home/user/AssetRipper/Test/Out53zb/RunFromZombies",
   "provenance": {
     "remote": "https://github.com/thinhabc01/RunFromZombiesFullProject",
     "commit": "eb412521bc500e41892394312362a9fac4838764",
@@ -12,9 +12,11 @@
   "declared_types": 16,
   "verdicts": {
     "RECOVERED": 16,
+    "RECOVERED_ELSEWHERE": 0,
     "EDITOR_ONLY": 0,
     "ASSEMBLY_ABSENT": 0,
     "CONDITIONAL": 0,
+    "NOT_IN_METADATA": 0,
     "NOT_IN_BUILD": 0
   },
   "assemblies_in_source": [
@@ -39,6 +41,9 @@
     "__Generated"
   ],
   "type_recovery_rate": 1.0,
+  "source_matches_build": true,
+  "types_in_build_not_in_source": [],
+  "types_in_build_not_in_source_count": 0,
   "types": [
     {
       "file": "Assets/Scripts/AudioManager.cs",

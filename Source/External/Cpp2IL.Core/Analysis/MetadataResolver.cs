@@ -65,6 +65,12 @@ public static class MetadataResolver
     /// naming the method it refers to (also used to type the local - see <see cref="LocalVariables"/>),
     /// or likewise a <see cref="RuntimeFieldInfoAnalysisContext"/> for a FieldInfo* usage.
     /// </summary>
+    private static ulong Counted(ulong address)
+    {
+        System.Threading.Interlocked.Increment(ref UsagesThroughAPageBase);
+        return address;
+    }
+
     private static void ResolveMetadataUsages(MethodAnalysisContext method)
     {
         var libContext = method.AppContext.LibCpp2IlContext;
@@ -85,10 +91,13 @@ public static class MetadataResolver
                 MemoryOperand { Base: LocalVariable holder, Index: null, Scale: 0 } memory
                     when slotHolders.TryGetValue(holder, out var slot) => (ulong)((long)slot + memory.Addend),
                 MemoryOperand { Base: LocalVariable holder, Index: null, Scale: 0 } memory
-                    when pageBases.TryGetValue(holder, out var page) => (ulong)((long)page + memory.Addend),
-                // An immediate that the method goes on to read at an offset is a page base, not a
-                // slot: see FindPageBases.
-                Immediate immediate when !pageBases.ContainsKey(destination) => immediate.UnsignedValue,
+                    when pageBases.TryGetValue(holder, out var page)
+                    => Counted((ulong)((long)page + memory.Addend)),
+                // An immediate the method goes on to read at an offset is a page base, not a slot:
+                // see FindPageBases. The local that reads it may be a copy of this one, so the
+                // address rather than the local is what says so.
+                Immediate immediate when !pageBases.ContainsValue(immediate.UnsignedValue)
+                    => immediate.UnsignedValue,
                 _ => 0ul,
             };
 
@@ -165,44 +174,78 @@ public static class MetadataResolver
     /// the usage at that offset.
     /// </para>
     /// </remarks>
+    /// <summary>How many page bases were recognised, and how many usages were resolved through one.</summary>
+    public static long PageBasesFound;
+
+    /// <summary>How many metadata usages were reached as an offset from a page base.</summary>
+    public static long UsagesThroughAPageBase;
+
     private static Dictionary<LocalVariable, ulong> FindPageBases(MethodAnalysisContext method)
     {
         var libContext = method.AppContext.LibCpp2IlContext;
-        var candidates = new Dictionary<LocalVariable, ulong>();
+        var definitions = new Dictionary<LocalVariable, List<Instruction>>();
 
-        foreach (var instruction in method.ControlFlowGraph!.Instructions)
+        foreach (var instruction in method.ControlFlowGraph!.AllInstructions)
         {
-            if (instruction is not { OpCode: OpCode.Move, Operands: [LocalVariable destination, Immediate immediate] })
-                continue;
-
-            var address = immediate.UnsignedValue;
-
-            if (address == 0 || !libContext.Binary.TryMapVirtualAddressToRaw(address, out var raw)
-                || raw < 0 || raw >= libContext.Binary.RawLength)
-                continue;
-
-            candidates[destination] = address;
-        }
-
-        if (candidates.Count == 0)
-            return candidates;
-
-        var used = new HashSet<LocalVariable>();
-
-        foreach (var instruction in method.ControlFlowGraph.AllInstructions)
-        {
-            foreach (var operand in instruction.Operands)
+            if (instruction.Operands.Count > 0 && instruction.Operands[0] is LocalVariable defined)
             {
-                if (operand is MemoryOperand { Base: LocalVariable local, Index: null, Scale: 0, Addend: not 0 }
-                    && candidates.ContainsKey(local))
-                    used.Add(local);
+                if (!definitions.TryGetValue(defined, out var list))
+                    definitions[defined] = list = [];
+
+                list.Add(instruction);
             }
         }
 
+        IReadOnlyList<Instruction> DefinitionsOf(LocalVariable local)
+            => definitions.TryGetValue(local, out var list) ? list : [];
+
         var bases = new Dictionary<LocalVariable, ulong>();
 
-        foreach (var local in used)
-            bases[local] = candidates[local];
+        foreach (var instruction in method.ControlFlowGraph.AllInstructions)
+        {
+            // The offset reaches the base one of two ways and both have to be read. A load names it
+            // in its own addressing mode, `[base + 0x458]`; but where the slot's *address* is what
+            // is wanted - which is what the metadata-init helper takes - the `add` stands on its own
+            // and the base is never a memory operand at all. Reading only the first found 1154 bases
+            // on the iOS fixture and changed nothing, because the ones that had been named a type
+            // were all of the second kind.
+            var usedWithAnOffset = instruction is
+                { OpCode: OpCode.Add, Operands: [_, LocalVariable added, Immediate { UnsignedValue: not 0 }] }
+                ? added
+                : null;
+
+            foreach (var operand in instruction.Operands)
+            {
+                var local = operand is MemoryOperand { Base: LocalVariable memoryBase, Index: null, Scale: 0, Addend: not 0 }
+                    ? memoryBase
+                    : usedWithAnOffset;
+
+                if (local is null || bases.ContainsKey(local))
+                    continue;
+
+                // The ADRP is almost never the instruction in front of the load: the compiler
+                // computes the page once and the register allocator copies it, so the base reaching
+                // the load is some number of moves away. Walking back is what every other pass here
+                // had to learn to do.
+                if (PointerProvenance.Producer(local, DefinitionsOf) is not
+                    { OpCode: OpCode.Move, Operands: [_, Immediate immediate] })
+                    continue;
+
+                var address = immediate.UnsignedValue;
+
+                // A page base is page-aligned, because that is what adrp produces. Without the test
+                // the rule reads every constant something is added to as a base - 80968 of them on
+                // the iOS fixture against 1154 loads - and suppresses usages that resolve correctly.
+                if (address == 0 || (address & 0xFFF) != 0
+                    || !libContext.Binary.TryMapVirtualAddressToRaw(address, out var raw)
+                    || raw < 0 || raw >= libContext.Binary.RawLength)
+                    continue;
+
+                bases[local] = address;
+            }
+        }
+
+        System.Threading.Interlocked.Add(ref PageBasesFound, bases.Count);
 
         return bases;
     }

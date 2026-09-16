@@ -8,13 +8,15 @@
     "described": "update",
     "dirty": false
   },
-  "source_files": 464,
-  "declared_types": 574,
+  "source_files": 465,
+  "declared_types": 579,
   "verdicts": {
-    "RECOVERED": 425,
+    "RECOVERED": 430,
+    "RECOVERED_ELSEWHERE": 0,
     "EDITOR_ONLY": 126,
     "ASSEMBLY_ABSENT": 0,
-    "CONDITIONAL": 23,
+    "CONDITIONAL": 1,
+    "NOT_IN_METADATA": 22,
     "NOT_IN_BUILD": 0
   },
   "assemblies_in_source": [
@@ -46,6 +48,9 @@
     "spine-unity-examples"
   ],
   "type_recovery_rate": 1.0,
+  "source_matches_build": true,
+  "types_in_build_not_in_source": [],
+  "types_in_build_not_in_source_count": 0,
   "types": [
     {
       "file": "Assets/AdManager.cs",
@@ -773,7 +778,7 @@
       "conditions": [
         "UNITY_IOS"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/GoogleMobileAds/Platforms/iOS/AdLoaderClient.cs",
@@ -813,7 +818,7 @@
       "conditions": [
         "UNITY_IOS"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/GoogleMobileAds/Platforms/iOS/GoogleMobileAdsClientFactory.cs",
@@ -1317,7 +1322,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/Spine Examples/Scripts/Sample Components/SetRigidbodySolverIterations.cs",
@@ -2112,6 +2117,16 @@
     {
       "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/ICodeHashGenerator.cs",
       "assembly": "ACTk.Runtime",
+      "type": "HashGeneratorResultHandler",
+      "editor_only": false,
+      "conditions": [
+        "UNITY_2018_1_OR_NEWER"
+      ],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Scripts/Genuine/CodeHash/ICodeHashGenerator.cs",
+      "assembly": "ACTk.Runtime",
       "type": "ICodeHashGenerator",
       "editor_only": false,
       "conditions": [
@@ -2398,7 +2413,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Lean/Common/Scripts/LeanHelper.cs",
@@ -2424,7 +2439,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Lean/Pool/Examples/Scripts/LeanPoolDebugger.cs",
@@ -2482,7 +2497,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Lean/Pool/Scripts/LeanPool.cs",
@@ -3873,6 +3888,14 @@
     {
       "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
       "assembly": "spine-unity",
+      "type": "UpdateBonesDelegate",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/ISkeletonAnimation.cs",
+      "assembly": "spine-unity",
       "type": "ISkeletonAnimation",
       "editor_only": false,
       "conditions": [],
@@ -3922,6 +3945,14 @@
       "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/DoubleBuffered.cs",
       "assembly": "spine-unity",
       "type": "DoubleBuffered",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Mesh Generation/MeshGenerator.cs",
+      "assembly": "spine-unity",
+      "type": "MeshGeneratorDelegate",
       "editor_only": false,
       "conditions": [],
       "verdict": "RECOVERED"
@@ -3982,7 +4013,7 @@
       "conditions": [
         "SPINE_TK2D"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/BlendModeMaterialsAsset.cs",
@@ -4112,7 +4143,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Spine/Runtime/spine-unity/Utility/SkeletonExtensions.cs",
@@ -4210,7 +4241,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Data/RandomLevels.cs",
@@ -4244,7 +4275,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawer.cs",
@@ -4254,7 +4285,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
@@ -4264,7 +4295,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
@@ -4274,7 +4305,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
@@ -4284,7 +4315,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryDrawerImplementations.cs",
@@ -4294,7 +4325,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/CsvReader/Scripts/Dictionary/SerializableDictionaryImplementations.cs",
@@ -4320,7 +4351,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/ConstData.cs",
@@ -4338,7 +4369,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/LanguageDataExample.cs",
@@ -4356,7 +4387,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/RankingData.cs",
@@ -4374,7 +4405,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/ShopGroupExample.cs",
@@ -4392,7 +4423,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/ThirdParties/Zitga.CsvReader/Tutorials/SpawnEnemy.cs",
@@ -4410,7 +4441,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/_Impostor 3/Scripts/Common/CSVHelper.cs",
@@ -4460,7 +4491,7 @@
       "conditions": [
         "UNITY_EDITOR"
       ],
-      "verdict": "CONDITIONAL"
+      "verdict": "NOT_IN_METADATA"
     },
     {
       "file": "Assets/_Impostor 3/Scripts/Common/UtilityGame.cs",
@@ -4551,6 +4582,14 @@
       "verdict": "RECOVERED"
     },
     {
+      "file": "Assets/_Impostor 3/Scripts/Core/Observer/EventID.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "EventID",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
       "file": "Assets/_Impostor 3/Scripts/Core/Singletons/SingletonMono.cs",
       "assembly": "Assembly-CSharp",
       "type": "SingletonMono",
@@ -4562,6 +4601,14 @@
       "file": "Assets/_Impostor 3/Scripts/Core/Singletons/SingletonMonoDontDestroy.cs",
       "assembly": "Assembly-CSharp",
       "type": "SingletonMonoDontDestroy",
+      "editor_only": false,
+      "conditions": [],
+      "verdict": "RECOVERED"
+    },
+    {
+      "file": "Assets/_Impostor 3/Scripts/Core/StructStorage.cs",
+      "assembly": "Assembly-CSharp",
+      "type": "TypeResources",
       "editor_only": false,
       "conditions": [],
       "verdict": "RECOVERED"

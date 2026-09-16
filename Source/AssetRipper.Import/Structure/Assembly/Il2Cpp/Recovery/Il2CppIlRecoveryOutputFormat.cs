@@ -126,6 +126,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				+ $"{Cpp2IL.Core.Analysis.MetadataResolver.NarrowWritesRefined} times; "
 				+ $"{Cpp2IL.Core.Analysis.MetadataResolver.NarrowWritesUnresolved} times no member accounted for the width, so the field stood.");
 			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.MetadataResolver.PageBasesFound} locals held the base of a page "
+				+ $"of metadata usage slots rather than one slot; {Cpp2IL.Core.Analysis.MetadataResolver.UsagesThroughAPageBase} usages "
+				+ "were resolved at an offset from one.");
+			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened " +
 				"because a recovered body reaches them from outside the type, or the assembly, that declares them.");
 			DropEventsReadAsFields();
