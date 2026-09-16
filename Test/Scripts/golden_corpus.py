@@ -17,6 +17,17 @@ whether the list was chosen to flatter a result.
 
 `--check` exits non-zero when a method's status moves the wrong way. A method that improves is
 reported and never fails the run.
+
+An entry is a record, not a path. A key is a path and an address, and neither is unique across
+fixtures: an address that matched something in one game matched nothing in another, and the corpus
+reported that as "not present" without being able to say which game it belonged to. So every entry
+carries the fixture it was frozen from, and a measurement only looks at the entries belonging to the
+fixture being measured. It also carries what the entry is for (`runtime_role`), what it reached when
+it was frozen (`semantic_fingerprint`, `status`), and whether the programmer's own text exists for it
+(`source_available`) - which is what says whether a regression in it can be read against the source.
+
+An entry that resolves in no current fixture is retired with its reason rather than deleted: a
+dropped entry is a hole in the net, and a hole reports "regressed 0" for a method nobody looks at.
 """
 import argparse
 import collections
@@ -87,6 +98,22 @@ RUNTIME_ROLES = {
     "CONSTRUCTOR": re.compile(r"\bpublic \w+\([^)]*\)\s*$"),
     "STATIC_ENTRY": re.compile(r"\bpublic static \w[\w<>,\[\] ]* \w+\("),
 }
+
+
+def role_of(declaration_text: str) -> str:
+    """What this method is for, as far as a running game cares, or GENERAL when nothing says."""
+    for role, pattern in sorted(RUNTIME_ROLES.items()):
+        if pattern.search(declaration_text):
+            return role
+    return "GENERAL"
+
+
+def source_types(manifest: pathlib.Path | None) -> set[str] | None:
+    """The types the source project declares, from a source manifest, or None when there is none."""
+    if manifest is None or not manifest.exists():
+        return None
+    report = json.loads(manifest.read_text())
+    return {f"{entry['assembly']}::{entry['type']}" for entry in report["types"]}
 
 
 def declaration(body: str) -> str:
@@ -160,6 +187,34 @@ def select(rows, per_class: int) -> list[str]:
     return sorted(chosen)
 
 
+def load(path: pathlib.Path) -> tuple[list[dict], list[dict]]:
+    """A corpus file, as (entries, retired). The old list-of-keys form loads with no fixture."""
+    if not path.exists():
+        return [], []
+    stored = json.loads(path.read_text())
+    if "entries" in stored:
+        return stored["entries"], stored.get("retired", [])
+    return [{"method": key, "fixture": None} for key in stored.get("methods", [])], []
+
+
+def entry_for(key: str, fixture: str, rows_by_key: dict, declared: set[str] | None) -> dict:
+    """A frozen record: what the method is, what it reached, and whether its source exists."""
+    status, ir, _, _, _, _, declaration_text = rows_by_key[key]
+    path = key.split("#", 1)[0]
+    assembly = pathlib.PurePosixPath(path).parts[2] if len(pathlib.PurePosixPath(path).parts) > 2 else ""
+    type_name = pathlib.PurePosixPath(path).stem
+    return {
+        "method": key,
+        "fixture": fixture,
+        "runtime_role": role_of(declaration_text),
+        "semantic_fingerprint": ir,
+        "status": status,
+        # None, not False, where no manifest was supplied: "not known" and "not there" are different
+        # answers and only one of them is evidence.
+        "source_available": None if declared is None else f"{assembly}::{type_name}" in declared,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("root")
@@ -168,12 +223,20 @@ def main() -> int:
     parser.add_argument("--corpus")
     parser.add_argument("--check")
     parser.add_argument("--json")
+    parser.add_argument("--manifest", help="a source_manifest.py report, for source_available")
+    parser.add_argument("--fixture", help="the fixture this rip is of (default: the directory name)")
+    parser.add_argument("--retire-unresolved", metavar="FIXTURES",
+                        help="retire every entry still belonging to no fixture, recording that these "
+                             "fixtures were swept and none of them resolved it")
     parser.add_argument("--per-class", type=int, default=3)
     arguments = parser.parse_args()
 
     root = pathlib.Path(arguments.root)
+    fixture = arguments.fixture or root.resolve().name
     log = pathlib.Path(arguments.log) if arguments.log else None
     rows = list(harvest(root, log))
+    rows_by_key = {row[0]: (row[1], row[2], row[3], row[4], row[5], row[6], row[7]) for row in rows}
+    declared = source_types(pathlib.Path(arguments.manifest) if arguments.manifest else None)
 
     if arguments.select:
         chosen = select(rows, arguments.per_class)
@@ -183,33 +246,73 @@ def main() -> int:
         # at. The rule was written down and the code did not have it - a reselection replaced the
         # file outright, which is how 61 frozen methods became 165 with no overlap guaranteed.
         existing = pathlib.Path(arguments.corpus) if arguments.corpus else pathlib.Path(arguments.select)
-        kept = []
-        if existing.exists():
-            kept = json.loads(existing.read_text())["methods"]
+        kept, retired = load(existing)
 
-        merged = list(dict.fromkeys([*kept, *chosen]))
-        pathlib.Path(arguments.select).write_text(json.dumps({"methods": merged}, indent=2))
-        print(f"selected {len(chosen)}, kept {len(kept)} already frozen, {len(merged)} in {arguments.select}")
+        by_identity = {(entry.get("fixture"), entry["method"]): entry for entry in kept}
+
+        # A legacy entry this rip resolves belongs to this fixture, whether or not the reselection
+        # picked it again. Adopting only the chosen ones leaves entries no fixture claims, which is
+        # the hole this record format exists to close.
+        adoptable = [key for (owner, key) in list(by_identity)
+                     if owner is None and key in rows_by_key]
+
+        for key in dict.fromkeys([*chosen, *adoptable]):
+            identity = (fixture, key)
+            record = entry_for(key, fixture, rows_by_key, declared)
+            # An entry frozen before fixtures were recorded is adopted by the fixture that resolves
+            # it rather than duplicated, so a reselection does not double the corpus.
+            legacy = by_identity.pop((None, key), None)
+            if legacy is not None and identity not in by_identity:
+                record.setdefault("frozen_before_fixtures", True)
+            by_identity[identity] = record
+
+        if arguments.retire_unresolved:
+            for identity in [identity for identity in list(by_identity) if identity[0] is None]:
+                entry = by_identity.pop(identity)
+                retired.append({
+                    "method": entry["method"],
+                    "reason": "RESOLVES_IN_NO_FIXTURE",
+                    "fixtures_swept": arguments.retire_unresolved,
+                })
+
+        merged = [by_identity[identity] for identity in sorted(by_identity, key=lambda i: (i[0] or "", i[1]))]
+        pathlib.Path(arguments.select).write_text(
+            json.dumps({"entries": merged, "retired": retired}, indent=2))
+        print(f"selected {len(chosen)} for {fixture}, kept {len(kept)} already frozen, "
+              f"{len(merged)} entries and {len(retired)} retired in {arguments.select}")
         return 0
 
     if not arguments.corpus:
         parser.error("one of --select or --corpus is required")
 
-    wanted = set(json.loads(pathlib.Path(arguments.corpus).read_text())["methods"])
+    entries, retired = load(pathlib.Path(arguments.corpus))
+    # An entry belonging to another fixture is not a miss - it is somebody else's method. Only the
+    # entries frozen from this fixture, plus the untagged legacy ones, are this run's to answer for.
+    mine = [entry for entry in entries if entry.get("fixture") in (None, fixture)]
+    elsewhere = len(entries) - len(mine)
+    wanted = {entry["method"] for entry in mine}
+
     measured = {
         key: {"status": status, "ir": ir, "csharp": csharp, "nativeBytes": native,
-              "placeholders": placeholders, "families": families}
-        for key, status, ir, csharp, native, placeholders, families, _ in rows
+              "placeholders": placeholders, "families": families, "fixture": fixture,
+              "runtimeRole": role_of(declaration_text)}
+        for key, status, ir, csharp, native, placeholders, families, declaration_text in rows
         if key in wanted
     }
 
     missing = sorted(wanted - measured.keys())
     statuses = collections.Counter(entry["status"] for entry in measured.values())
+    roles = collections.Counter(entry["runtimeRole"] for entry in measured.values())
 
-    print(f"corpus: {len(wanted)} methods, {len(measured)} found, {len(missing)} not present in this rip\n")
+    print(f"corpus: {len(entries)} entries, {len(mine)} for {fixture} "
+          f"({elsewhere} for other fixtures, {len(retired)} retired), "
+          f"{len(measured)} found, {len(missing)} not present in this rip\n")
     print("== by semantic status ==")
     for status in RANK:
         print(f"{statuses[status]:5d}  {status}")
+    print("\n== by runtime role ==")
+    for role, count in sorted(roles.items(), key=lambda item: (-item[1], item[0])):
+        print(f"{count:5d}  {role}")
 
     if missing:
         print("\n== not present ==")
@@ -222,35 +325,38 @@ def main() -> int:
     # like a corpus that found no regression. It has happened: the keys are relative to the game
     # directory inside the output, so pointing the check one level too high silently measured
     # nothing, three times, while printing a clean result. A net that caught nothing has to say so.
-    if measured and len(missing) > len(wanted) // 2:
-        print(f"\nCORPUS_MISMATCH: only {len(measured)} of {len(wanted)} frozen methods are in this rip.")
+    if measured and len(missing) > len(mine) // 2:
+        print(f"\nCORPUS_MISMATCH: only {len(measured)} of {len(mine)} frozen methods are in this rip.")
         exit_code = 3
     elif not measured:
-        print(f"\nCORPUS_NOT_APPLICABLE: none of the {len(wanted)} frozen methods is in {root}.")
+        print(f"\nCORPUS_NOT_APPLICABLE: none of the {len(mine)} frozen methods for {fixture} is in {root}.")
         print("The keys are relative to the game directory inside the rip - try <output>/<GameName>.")
         return 3
 
     if arguments.check:
-        baseline = json.loads(pathlib.Path(arguments.check).read_text())["methods"]
+        stored = json.loads(pathlib.Path(arguments.check).read_text())["methods"]
         better, worse = [], []
         for key, entry in sorted(measured.items()):
-            if key not in baseline:
+            before_entry = stored.get(f"{fixture}::{key}") or stored.get(key)
+            if before_entry is None:
                 continue
-            before, after = RANK.index(baseline[key]["status"]), RANK.index(entry["status"])
+            before, after = RANK.index(before_entry["status"]), RANK.index(entry["status"])
             if after < before:
-                better.append((key, baseline[key]["status"], entry["status"]))
+                better.append((key, before_entry["status"], entry["status"]))
             elif after > before:
-                worse.append((key, baseline[key]["status"], entry["status"]))
+                worse.append((key, before_entry["status"], entry["status"]))
 
         print(f"\n== against baseline ==\nimproved {len(better)}, regressed {len(worse)}")
         for key, before, after in better:
             print(f"  IMPROVED  {before} -> {after}  {key}")
         for key, before, after in worse:
             print(f"  REGRESSED {before} -> {after}  {key}")
-        exit_code = 1 if worse else 0
+        exit_code = 1 if worse else exit_code
 
     if arguments.json:
-        pathlib.Path(arguments.json).write_text(json.dumps({"methods": measured}, indent=2))
+        pathlib.Path(arguments.json).write_text(
+            json.dumps({"methods": {f"{fixture}::{key}": entry for key, entry in measured.items()}},
+                       indent=2))
 
     return exit_code
 
