@@ -38,13 +38,33 @@ entropy `__TEXT` 6,541/8, 4225 lệnh `ret` trong 1 MiB, `mscorlib.dll` có mặ
 
 ## Con số hiện tại
 
+Đo trên bản rip cuối của iteration 053 (`Test/Out53ish`, `Test/Out53zb`, `Test/Out53jb`), sau khi
+tiến trình rip thoát chứ không theo một dòng log.
+
 | | Impostor | RunFromZombies | JellyBlast v2 |
 |---|---|---|---|
 | `.cs` | 830 | 796 | 1501 |
 | method có địa chỉ native | 5482 | 3928 | 7485 |
-| `EXACT` | 2878 | 2285 | 2200 |
-| `body_recovery_rate` | 0,7630 | **0,8969** | 0,3269 |
-| `compile_pass_rate` | **0,9337** | **0,9761** | — |
-| `reference_resolution_rate` | 0,9940 | **1,0000** | 1,0000 |
+| `EXACT` | 2878 (52,5%) | 2285 (58,2%) | 2200 (29,4%) |
+| `FALLBACK` | 1299 | 405 | 369 |
+| placeholder | 4309 | 5820 | 48458 |
+| `body_recovery_rate` | 0,7630 | **0,8969** | 0,9507 |
+| `compile_pass_rate` | **0,9337** | **0,9761** | 0,8866 |
+| lỗi Roslyn | 484 | 40 | 8638 |
+| `reference_resolution_rate` | 0,9942 | **1,0000** | 1,0000 (2/113286 không theo được) |
+| `semantic_equivalence_rate` | — | **1,0000** (36/36) | — |
+| `type_recovery_rate` | **1,0000** (425/425) | **1,0000** (16/16) | — |
+| `property_recovery_rate` (shader) | **1,0000** (45/45) | — | — |
+| `shader_exact` | 0 / 3 | 0 / 24 | 0 / 30 |
 | field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** |
 | `generatorFailures` | 0 | 0 | 0 |
+| golden corpus | 213, improved 0 regressed 0 | 188, improved 0 regressed 0 | 190, improved 0 regressed 0 |
+| stage E–I | BLOCKED | BLOCKED | BLOCKED |
+
+### Lỗi Roslyn của Jelly Blast không so được với iteration trước
+
+1938 → 8638 **không phải regression**. Bản rip trước phép sửa event mang lỗi khai báo CS0102 — một
+event và một field trùng tên trong `RFEvent` và `BezierPath` — và Roslyn bind khai báo trước rồi
+dừng, nên ba lỗi ấy che toàn bộ lỗi thân hàm của cả `RayFireAssembly` (119/120 file đọc là "sạch")
+và `PathCreator`. Bỏ khai báo event trùng khiến hai assembly ấy lần đầu bind được. Không có con số
+"trước" đúng để so, vì phép đo cũ chưa từng chạy tới thân hàm.

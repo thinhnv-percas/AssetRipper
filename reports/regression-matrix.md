@@ -699,3 +699,51 @@ thụ sớm hơn trong pipeline. Cô lập lỗi decompiler (§13) đã có sẵ
 được là **0 type bị bỏ qua, 0 assembly bỏ dở, 0 thân hàm thất bại** trên cả hai fixture.
 
 Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**.
+
+## Iteration 053
+
+Ma trận đổi: Impostor, RunFromZombies, Jelly Blast v2. Pinata rời ma trận mặc định — số liệu cuối
+cùng của nó là mục 052 ở trên, và nó không còn ảnh hưởng acceptance.
+
+| | Impostor | RunFromZombies | JellyBlast v2 |
+|---|---|---|---|
+| `.cs` | 830 | 796 | 1501 |
+| method có địa chỉ native | 5482 | 3928 | 7485 |
+| `EXACT` | 2878 | 2285 | 2200 |
+| placeholder | 4309 | 5820 | 48458 |
+| `compile_pass_rate` | **0.9337** | **0.9761** | 0.8866 |
+| lỗi Roslyn | **484** (từ 1386) | 40 | 8638 (xem dưới) |
+| `body_recovery_rate` | 0.7630 | **0.8969** | 0.9507 |
+| `reference_resolution_rate` | **0.9942** | **1.0000** | 1.0000 |
+| `semantic_equivalence_rate` | — | **1.0000** (36/36) | — |
+| `type_recovery_rate` | **1.0000** (425/425) | **1.0000** (16/16) | — |
+| `property_recovery_rate` (shader) | **1.0000** (45/45) | — | — |
+| `shader_exact` / `shader_dummy` | 0 / 3 | 0 / 24 | 0 / 30 |
+| field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** |
+| `generatorFailures` | **0** | **0** | **0** |
+| golden corpus | 213 improved 0 regressed 0 | 188 improved 0 regressed 0 | 190 improved 0 regressed 0 |
+| stage E–I | BLOCKED | BLOCKED | BLOCKED |
+
+### Ranh giới native sau luật khoảng địa chỉ managed
+
+| | Impostor | RunFromZombies |
+|---|---|---|
+| `IL2CPP_RUNTIME` | 645 | 939 |
+| `SYSTEM_API` | 490 | 752 |
+| `UNKNOWN` | **112** (từ 416) | 281 |
+| `MANAGED` | 33 | 30 |
+
+112 cái còn lại của Impostor **không mang địa chỉ nào cả** (dạng `Unknown call target operand`), nên
+không luật nào đọc địa chỉ có thể nói gì về chúng.
+
+### Lỗi Roslyn của Jelly Blast: 1938 → 8638 không phải regression
+
+Bản rip trước phép sửa event mang CS0102 — event trùng tên field trong `RFEvent` và `BezierPath` —
+và Roslyn bind khai báo trước rồi dừng, nên ba lỗi ấy che toàn bộ lỗi thân hàm của `RayFireAssembly`
+(119/120 file đọc là "sạch") và `PathCreator`. Bỏ khai báo event trùng khiến hai assembly lần đầu
+bind được. Không có con số "trước" đúng để so.
+
+**Kết quả âm**: golden corpus improved 0 regressed 0 trên cả ba fixture sau mọi thay đổi của 053 —
+không thay đổi nào của iteration này làm xấu một method cụ thể nào trong 591 entry.
+
+Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`**.

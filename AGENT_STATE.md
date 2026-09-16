@@ -5,12 +5,14 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 052 (hoàn tất; trọng tâm chuyển sang "project chạy được". Ship: phép đi xuống
-                          struct field trên generic instance, NativeBoundary + tầng Il2CppRuntime mà
-                          code sinh ra thật sự gọi, audit_project_references.py,
-                          validate_unity_stages.py (9 stage, BLOCKED không bao giờ là PASS),
-                          compile_pass_rate theo file, body_recovery_rate, kho vàng 165 -> 220 có
-                          trục vai trò lúc chạy, ITERATION_052)
+Iteration hiện tại: 053 (hoàn tất; trọng tâm "source oracle + project chạy được". Ship: source_oracle
+                          (semantic_equivalence_rate 1,0000 trên RunFromZombies), source_manifest,
+                          bỏ khai báo event mà thân hàm đọc xuyên qua (Roslyn Impostor 1386 -> 484),
+                          luật khoảng địa chỉ managed cho NativeBoundary (UNKNOWN 416 -> 112),
+                          golden corpus có fixture/vai trò/nguồn (220 -> 591 entry, 16 retired),
+                          shader_oracle + sửa Color bị ghi thành Vector (property rate -> 1,0000),
+                          runtime_equivalence + Test/Tools/RuntimeEquivalence, validator từ chối gốc
+                          project sai, ITERATION_053)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -25,10 +27,16 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     giải nén tại artifacts/reference/Impostor-Sort-Puzzle-Pro. Spine vendored nên spine-unity
     cũng đối chiếu được.
 
-  ANDROID thứ hai (TRẠNG THÁI: OK) — cổng kiểm chứng độc lập BẮT BUỘC
-    Test/Input/Pinata (đã commit trong repo), x86, metadata v24.2.
-    Khác cả kiến trúc lẫn metadata version so với Impostor, nên nó bắt được phần lớn loại lỗi
-    "đúng cho một codegen, sai cho codegen kia".
+  ANDROID thứ hai (TRẠNG THÁI: OK) — SOURCE ORACLE
+    Test/Input/RunFromZombies, ELF arm64-v8a, metadata v31.1, Unity 2022.3.62f2.
+    thinhabc01/RunFromZombiesFullProject @ eb41252 — TOÀN BỘ project Unity, nên nó là oracle ngữ
+    nghĩa: Test/Scripts/source_oracle.py so từng method với chính văn bản lập trình viên viết.
+    semantic_equivalence_rate 1,0000 (36/36).
+
+  PINATA — RỜI MA TRẬN MẶC ĐỊNH TỪ 053
+    Test/Input/Pinata (đã commit trong repo), x86, metadata v24.2. Không có source đối chiếu, nên
+    nó chỉ nói được về số lượng. Lệnh test mặc định KHÔNG rip nó; nó không còn ảnh hưởng acceptance.
+    Số liệu cuối cùng: reports/regression-matrix.md mục 052. Xem docs/RECOVERY_MATRIX.md.
 
   iOS (TRẠNG THÁI: FIXTURE_ENCRYPTED)
     Jelly Blast 1.1, Jelly.Blast.1.1.ipa, 69.828.168 byte
@@ -50,8 +58,13 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là Test/Output051b (Impostor) và
-  Test/Output051p (Pinata), log Test/AR051b.log và Test/AR051p.log, chép trong iterations/051/logs.
+  rảnh giữa hai iteration. Baseline cho iteration sau là Test/Out53ish (Impostor), Test/Out53zb
+  (RunFromZombies) và Test/Out53jb (JellyBlastV2); log Test/AR53ish.log, Test/AR53zb.log,
+  Test/AR53jb.log. Con số đầy đủ ở docs/RECOVERY_MATRIX.md.
+
+  LƯU Ý KHI SO VỚI 052 TRỞ VỀ TRƯỚC: lỗi Roslyn của Jelly Blast đi 1938 -> 8638 và đó KHÔNG phải
+  regression. Bản cũ mang lỗi khai báo CS0102 (event trùng tên field) che toàn bộ lỗi thân hàm của
+  RayFireAssembly và PathCreator; bỏ khai báo event khiến chúng lần đầu bind được.
 
   HAI CÁI BẪY ĐO ĐÃ SỬA Ở 051, ĐỌC TRƯỚC KHI ĐO:
     - golden_corpus.py nhận root là THƯ MỤC GAME bên trong bản rip (Test/Output051b/Impostor), không

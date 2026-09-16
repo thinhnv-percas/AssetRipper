@@ -1425,6 +1425,47 @@ find it; `strings` without `-el` does find method and type names.
   arguments and a helper of the same name does not. 165 to 220, and it immediately said what the
   totals could not: `Color2Plugin` and `QuaternionPlugin` moved `PARTIAL` to `HIGH_CONFIDENCE`.
 
+- **A declaration error hides every body error in the assembly — and removing one looks exactly like
+  a regression.** Dropping the event declarations that a recovered body reads through (worth 1386 →
+  484 Roslyn errors on the test game, for CS0079) also removed a duplicate-member CS0102 on the iOS
+  fixture: `RFEvent` declared both an event `LocalEvent` and a field of that name. Roslyn binds
+  declarations first and stops there, so those three errors had been masking every body error in
+  `RayFireAssembly`, which read as **119 of 120 files clean**. With them gone the assembly bound for
+  the first time and the count went 1938 → 8638. There is no "before" number to compare against,
+  because the old measurement never reached a body. This is the second time this trap has been
+  recorded and the first time it arrived from a fix that was not aiming at it — so when an error
+  count jumps, check whether a declaration error just stopped hiding things before calling it a
+  regression.
+- **A measurement that accepts the wrong root is the corpus bug in another tool.**
+  `validate_unity_stages.py` pointed at the rip output rather than at the game directory inside it
+  ran all eight remaining stages and printed a full set of numbers — 1600 errors, `compile_pass_rate`
+  0.8962, `body_recovery_rate` 0.8027 — every one of them over a tree that is not a Unity project.
+  Stage A now names the subdirectory it meant and nothing below it runs. A number computed over the
+  wrong tree is worse than no number.
+- **The source is an oracle for what came back and says nothing about what did not.** The source
+  oracle pairs a method with a method, so it is silent about everything the recovery never produced;
+  `source_manifest.py` enumerates the source instead and names each absence. Three are legitimate and
+  must be named rather than counted — a file under an `Editor` folder or in an `Editor`-only asmdef,
+  an assembly missing from the rip, and a declaration inside a preprocessor region (22 `UNITY_EDITOR`
+  and one `SPINE_TK2D` on the test game). With those named, `NOT_IN_BUILD` is 0 on both fixtures that
+  ship source, and the rate is per declared *type*: the exporter writes one type per file, so pairing
+  by file name invents a loss for every extra type a source file holds.
+- **A stand-in's properties can be perfect and the shading still replaced, so the stand-in is checked
+  for first.** The shader oracle decides `DUMMY` before any degree of success and reports
+  `property_recovery_rate` beside the verdicts rather than inside them. It also found a real defect
+  the reconstruction had always had: `SerializedPropertyType.Color` was written as `Vector`, though
+  the two are distinct in the serialized shader and in ShaderLab — a Color property gets the colour
+  picker and is converted out of gamma space on assignment. The type was in the metadata and was
+  discarded; fixing it took the rate 0.5111 → 1.0000, with every shader still `DUMMY` and
+  `shader_exact` still 0.
+- **Almost nothing in a Unity game can be executed without Unity, and the number is worth having
+  anyway.** `runtime_equivalence.py` tiers each paired method by what it would need: on the source
+  oracle's own game **0 of 36** are executable, because every method reaches the engine; on the test
+  game 141 of 1814 are. The runner exists and discriminates (proved on synthetic assemblies:
+  `x*2` against `x+x` is EQUIVALENT, `x+1` against `x+2` is DIFFERENT with the failing vectors), and
+  every planned case is `NOT_RUN` until an oracle assembly exists. A rate over zero executed cases is
+  `None`, never a pass.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1563,7 +1604,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Fourteen scripts, and each measures something the others cannot:
+Eighteen scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1581,11 +1622,15 @@ Fourteen scripts, and each measures something the others cannot:
   much of a body came back rather than how many complaints it printed.
 - `Test/Scripts/instruction_coverage.py` — native opcodes the lifter has no rule for, per fixture,
   with the implemented set read out of the lifter's own switch.
-- `Test/Scripts/golden_corpus.py` — 220 frozen methods, one per (operation class, status), the
-  worst method carrying each placeholder family, and one per runtime role, checked one method at a time against
-  `Test/golden-corpus-baseline.json`. The only measure that can say a particular method got worse
-  while the total got better, which is the shape this pipeline keeps producing. The list is unioned
-  on reselection, never replaced: a frozen entry that gets dropped is a hole in the net.
+- `Test/Scripts/golden_corpus.py` — 591 frozen entries across the three fixtures, one per
+  (operation class, status), the worst method carrying each placeholder family, and one per runtime
+  role, checked one method at a time against `Test/golden-corpus-baseline.json`. The only measure
+  that can say a particular method got worse while the total got better, which is the shape this
+  pipeline keeps producing. An entry is a record — `method`, `fixture`, `runtime_role`,
+  `semantic_fingerprint`, `status`, `source_available` — because a path and an address are not
+  unique across fixtures. The list is unioned on reselection, never replaced, and an entry that
+  resolves in no fixture is `retired` with its reason rather than deleted: a frozen entry that gets
+  dropped is a hole in the net.
 - `Test/Scripts/runtime_helper_report.py` — the runtime helpers managed code still calls unresolved,
   ranked by call sites, with the caller profile that decides whether one can be named at all.
 - `Test/Scripts/test_measurement_completeness.sh` — that a measurement refuses a rip still being
@@ -1597,7 +1642,21 @@ Fourteen scripts, and each measures something the others cannot:
   as a loss.
 - `Test/Scripts/validate_unity_stages.py` — the nine stages between an export and a running game,
   with `compile_pass_rate`, `body_recovery_rate`, `reference_resolution_rate` and the shader split.
-  Read `body_recovery_rate` before believing `compile_pass_rate`.
+  Read `body_recovery_rate` before believing `compile_pass_rate`. It takes the **game directory
+  inside** the rip; pointed at the output root it now stops at `PROJECT_ROOT_MISMATCH` rather than
+  running eight stages against the wrong tree.
+- `Test/Scripts/source_oracle.py` — each recovered method against the programmer's own text, by the
+  operations both sides reach rather than by string equality. Only for a fixture that ships source.
+- `Test/Scripts/source_manifest.py` — the other half of the oracle: what the source declares that
+  the rip does not have, with the reason (`EDITOR_ONLY`, `ASSEMBLY_ABSENT`, `CONDITIONAL`) rather
+  than a count. Per declared type, never per file — the exporter writes one type per file.
+- `Test/Scripts/shader_oracle.py` — an exported shader against the ShaderLab it was built from.
+  `DUMMY` is decided before any degree of success, and `property_recovery_rate` is reported beside
+  the verdicts and never folded into them.
+- `Test/Scripts/runtime_equivalence.py` and `Test/Tools/RuntimeEquivalence` — the only measure that
+  runs the recovered IL. The planner tiers each paired method by what it would need to execute; the
+  runner loads both assemblies and compares. A case that did not run is `NOT_RUN` with the reason,
+  and a rate over zero executed cases is `None`.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are
