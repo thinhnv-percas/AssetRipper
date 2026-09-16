@@ -23,6 +23,33 @@ public static class IlGenerator
     private const string HelpersTypeName = "Cpp2ILHelpers";
     private const string NoteIssueMethodName = "NoteDecompilerIssue";
 
+    /// <summary>
+    /// AssetRipper: the runtime compatibility layer the recovered scripts are compiled against.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A recovered body reaches operations C# has no way to write: a call into the il2cpp runtime, a
+    /// function in another shared library, an atomic sequence whose managed overload the evidence
+    /// does not settle. Until now each of those became a diagnostic <em>string</em>, which says
+    /// nothing about what the boundary is and which a reader has to parse to find out. Naming them
+    /// through one type instead gives the exported project a single place where the managed/native
+    /// line is declared - the thing that has to be filled in, or stubbed, or shimmed, before the
+    /// project can run.
+    /// </para>
+    /// <para>
+    /// It is deliberately not an il2cpp reimplementation. The one method takes the boundary's kind
+    /// and the detail that was already being reported, so the change is representational: the same
+    /// facts, typed and classified instead of prose. Nothing about the shape of the emitted code
+    /// changes - one string became two - which matters, because replacing a placeholder with a call
+    /// that consumes the original operands was measured to unbalance the stack in about a thousand
+    /// methods and cost them their bodies.
+    /// </para>
+    /// </remarks>
+    private const string RuntimeTypeName = "Il2CppRuntime";
+
+    /// <summary>The one entry point: what kind of boundary this is, and which one.</summary>
+    private const string BoundaryMethodName = "Boundary";
+
     public static void InjectHelpersType(ApplicationAnalysisContext appContext)
     {
         var helpersType = appContext.InjectTypeIntoAllAssemblies(
@@ -36,6 +63,18 @@ public static class IlGenerator
             appContext.SystemTypes.SystemVoidType,
             MethodAttributes.Public | MethodAttributes.Static,
             [appContext.SystemTypes.SystemStringType]);
+
+        var runtimeType = appContext.InjectTypeIntoAllAssemblies(
+            HelpersNamespace,
+            RuntimeTypeName,
+            null,
+            TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Abstract | TypeAttributes.Sealed);
+
+        runtimeType.InjectMethodToAllAssemblies(
+            BoundaryMethodName,
+            appContext.SystemTypes.SystemVoidType,
+            MethodAttributes.Public | MethodAttributes.Static,
+            [appContext.SystemTypes.SystemStringType, appContext.SystemTypes.SystemStringType]);
     }
 
     public static void GenerateIl(MethodAnalysisContext context, MethodDefinition definition)
@@ -373,6 +412,59 @@ public static class IlGenerator
         System.Threading.Interlocked.Increment(ref NativeImportOperationsRecovered);
         return true;
     }
+
+    /// <summary>
+    /// AssetRipper: emits a call's boundary through the runtime compatibility layer, or reports it
+    /// the old way where that layer could not be injected.
+    /// </summary>
+    /// <remarks>
+    /// The detail string is passed through untouched. Every measurement this project has keys on the
+    /// text of these messages, and a representational change that also renamed them would make every
+    /// number before it incomparable for no gain - the classification is new information beside the
+    /// old, not instead of it.
+    /// </remarks>
+    private static void EmitBoundary(CilInstructionCollection instructions, MethodAnalysisContext context,
+        IMethodDescriptor writeLine, NativeBoundary.Verdict verdict, string detail)
+    {
+        if (BoundaryEntryPoint(context) is not { } boundary)
+        {
+            instructions.Add(CilOpCodes.Ldstr, detail);
+            instructions.Add(CilOpCodes.Call, writeLine);
+            return;
+        }
+
+        instructions.Add(CilOpCodes.Ldstr, verdict.ToString());
+        instructions.Add(CilOpCodes.Ldstr, detail);
+        instructions.Add(CilOpCodes.Call, boundary);
+        System.Threading.Interlocked.Increment(ref BoundariesDeclared);
+    }
+
+    /// <summary>
+    /// AssetRipper: how many calls were emitted through the runtime compatibility layer.
+    /// </summary>
+    public static int BoundariesDeclared;
+
+    /// <summary>
+    /// The injected boundary method as this assembly sees it, resolved once per assembly.
+    /// </summary>
+    /// <remarks>
+    /// The type is injected into every assembly, so each one references its own copy; looking it up
+    /// per call would be a metadata search per placeholder. Null where the injection did not happen,
+    /// which keeps a run that cannot inject producing bodies rather than failing.
+    /// </remarks>
+    private static IMethodDescriptor? BoundaryEntryPoint(MethodAnalysisContext context)
+    {
+        if (context.DeclaringType?.DeclaringAssembly is not { } assembly)
+        {
+            return null;
+        }
+
+        return boundaryEntryPoints.GetOrAdd(assembly, static resolved => resolved
+            .GetTypeByFullName($"{HelpersNamespace}.{RuntimeTypeName}")?.Methods
+            .FirstOrDefault(m => m.Name == BoundaryMethodName)?.ToMethodDescriptor());
+    }
+
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<AssemblyAnalysisContext, IMethodDescriptor?> boundaryEntryPoints = new();
 
     /// <summary>
     /// AssetRipper: raised for every call that becomes a <c>Method not found</c> or
@@ -1352,15 +1444,23 @@ public static class IlGenerator
                             ? atAddress.Count
                             : 0;
                         UnresolvedCall?.Invoke(context, targetAddress.UnsignedValue, here);
-                        instructions.Add(CilOpCodes.Ldstr, $"Method not found @{targetAddress.UnsignedValue:X}");
+
+                        // AssetRipper: the message is unchanged, deliberately - every measurement in
+                        // this project keys on its text, and this change is about what the emitted
+                        // code *says the call is*, not about what it is called. The verdict goes in
+                        // front of it, so the same string is now classified rather than only reported.
+                        EmitBoundary(instructions, context, writeLine,
+                            NativeBoundary.Of(context.AppContext, targetAddress.UnsignedValue),
+                            $"Method not found @{targetAddress.UnsignedValue:X}");
                     }
                     else // Probably key function. Just the target, the full operand dump is huge and blows the 16MB #US heap limit
                     {
                         UnresolvedCall?.Invoke(context, 0, -1);
-                        instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Unknown call target operand: {instruction.Operands[0]}"));
+                        EmitBoundary(instructions, context, writeLine,
+                            new NativeBoundary.Verdict(NativeBoundary.Unknown, null),
+                            Diagnostic($"Unknown call target operand: {instruction.Operands[0]}"));
                     }
 
-                    instructions.Add(CilOpCodes.Call, writeLine);
                     break;
                 }
 

@@ -29,11 +29,11 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from placeholder_families import MESSAGE_PREFIXES, family_of, assembly_of, run_is_complete  # noqa: E402
+from placeholder_families import MESSAGE_PREFIXES, family_of, assembly_of, run_is_complete, messages  # noqa: E402
 
 ADDRESS = re.compile(r'\[Address\(RVA = "0x([0-9A-Fa-f]+)"(?:, Offset = "[^"]*")?(?:, VA = "[^"]*")?(?:, Length = "0x([0-9A-Fa-f]+)")?\)\]')
 NATIVE_SOURCE = re.compile(r'\[NativeSource\(Body = "(.*)"\)\]')
-ISSUE = re.compile(r'NoteDecompilerIssue\("((?:[^"\\]|\\.)*)"\)')
+# The one definition of how a placeholder reaches the source lives beside the family names.
 PLACEHOLDER = re.compile('"(?:' + "|".join(re.escape(p) for p in MESSAGE_PREFIXES) + ')')
 GENERATOR_FAILURE = re.compile(r'throw new \w*Exception\("(?:Decompil|Object reference|Index was|The given key)')
 UNTYPED_LOCAL = re.compile(r'\bobject \w+(?:\s*=|;)')
@@ -270,7 +270,7 @@ def main() -> int:
         for line in text.splitlines():
             if line.lstrip().startswith("["):
                 continue
-            for message in ISSUE.findall(line):
+            for message in messages(line):
                 family, _ = family_of(message)
                 families[family] += 1
                 family_methods[family].add(str(path))

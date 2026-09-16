@@ -29,7 +29,22 @@ import re
 import sys
 
 ADDRESS = re.compile(r'\[Address\(RVA = "0x([0-9A-Fa-f]+)"')
-ISSUE = re.compile(r'NoteDecompilerIssue\("((?:[^"\\]|\\.)*)"\)')
+# A placeholder reaches the exported source two ways now, and both have to be read or a
+# representational change reads as a family disappearing. `NoteDecompilerIssue("m")` is the
+# diagnostic; `Il2CppRuntime.Boundary("KIND", "m")` is the runtime compatibility layer, where the
+# first argument classifies the boundary and the second is the same message the diagnostic carried.
+# The message is what every family here keys on, so it is the group captured in both.
+ISSUE = re.compile(
+    r'NoteDecompilerIssue\("((?:[^"\\]|\\.)*)"\)'
+    r'|Il2CppRuntime\.Boundary\("(?:[^"\\]|\\.)*",\s*"((?:[^"\\]|\\.)*)"\)')
+
+
+def messages(text: str):
+    """Every placeholder message in a body, whichever shape carried it."""
+    return [diagnostic or boundary for diagnostic, boundary in ISSUE.findall(text)]
+
+
+BOUNDARY = re.compile(r'Il2CppRuntime\.Boundary\("([A-Z_]+)(?::((?:[^"\\]|\\.)*))?"')
 NATIVE_IMPORT = re.compile(r"^Method not found @[0-9A-Fa-f]+ \(native ([^)]+)\)$")
 NOT_IMPLEMENTED = re.compile(r"^Not implemented instruction: .*Instruction ([A-Z0-9_]+) not yet implemented")
 MEMORY_BASE = re.compile(r"^Unmanaged memory load: \[[^@]*@ ([A-Za-z0-9_]+)")
@@ -196,7 +211,7 @@ def main() -> int:
                     method_key = f"{path}#{address.group(1)}"
                 continue
 
-            for message in ISSUE.findall(line):
+            for message in messages(line):
                 family, key = family_of(message)
                 counts[family] += 1
                 methods[family].add(method_key)
