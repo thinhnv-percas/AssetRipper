@@ -533,3 +533,54 @@ Trạng thái tổng của bản phục hồi: **`RECOVERY_VALIDATED_STATICALLY`
 **Không** làm: §10/§11/§12 (generic/virtual/interface call recovery — 233 ô vtable là việc kế tiếp),
 §22 (tầng ngữ nghĩa SIMD), §27 (golden corpus), §25 (Unity runtime — `UNITY_NOT_AVAILABLE`).
 Và **không** ánh xạ `0xAF4130`: ngữ nghĩa chắc chắn, cách tìm ra tổng quát thì chưa có.
+
+## Iteration 050 — 233 "lời gọi vtable" không phải vtable
+
+| Chỉ số (Impostor) | 049 | 050 | Delta |
+|---|---:|---:|---:|
+| **method `EXACT`** | 2841 | **2852** | +11 |
+| `HIGH_CONFIDENCE` | 156 | 157 | +1 |
+| `PARTIAL` | 1235 | **1158** | **−77** |
+| `FALLBACK` | 1250 | 1315 | +65 |
+| `MISSING` | 0 | 0 | 0 |
+| **phục hồi không kèm đồ thế chỗ** | 2997 | **3009** | **+12** |
+| placeholder | 4617 | **4502** | −115 |
+| `UNRESOLVED_DELEGATE` | 128 | **0** | **−128** |
+| `INDIRECT_CALL` | 233 | **207** | −26 |
+| `INDIRECT_JUMP` | 120 | 120 | 0 |
+| `METHOD_NOT_FOUND` | 713 | 715 | +2 |
+| load bỏ cuộc | 2711 | 2711 | 0 |
+| Roslyn | 342-0 | 344-0 | +2 |
+| **field layout** | 1394 exact / **0 bất đồng** | 1394 / **0** | 0 |
+| shape / `.cs` / `genFail` | 16-16 / 819 / 0 | 16-16 / 819 / 0 | 0 |
+| golden corpus | 48 | **61** | 0 hồi quy |
+| test | 407 | **414** | +7 |
+
+| Chỉ số (Pinata) | 049 | 050 | Delta |
+|---|---:|---:|---:|
+| `EXACT` | 9580 | **9634** | +54 |
+| `PARTIAL` | 3187 | **3043** | −144 |
+| `FALLBACK` | 3140 | 3233 | +93 |
+| phục hồi không kèm đồ thế chỗ | 10036 | **10097** | +61 |
+| placeholder | 14726 | **14233** | −493 |
+| `UNRESOLVED_DELEGATE` | 433 | **122** | −311 |
+| load bỏ cuộc | 9248 | **9241** | −7 |
+| **field layout** | 3170 / **0 bất đồng** | 3170 / **0** | 0 |
+| `.cs` / `genFail` | 3083 / 0 | 3083 / 0 | 0 |
+
+**§19 cross-fixture: luật chạy tốt trên cả hai fixture**, không phải một luật chỉ đúng cho Android.
+
+`FALLBACK` tăng 65 và 93 là **trung thực**: bỏ placeholder làm lộ ra method vẫn còn thiếu thứ khác.
+Roslyn +2 là 3 ca CS0030 thêm trừ 1 ca CS0037 bớt, cùng nguyên nhân — code từng chết nay còn sống.
+
+Phép đo mới:
+
+| | |
+|---|---|
+| lời gọi gián tiếp theo đích | 236 loaded / 126 `invoker_method` / 56 `methodPointer` / **34 ô vtable thật** / 16 khác |
+| runtime helper | 796 lời gọi tới **30 địa chỉ**, 0/30 được export đặt tên, chỉ 3 có call site đồng nhất |
+
+**Không** làm, có chủ ý: không vá `0xAF4130` (§10); không ánh xạ thêm runtime helper (27/30 chưa đủ
+bằng chứng); không đụng 34 ô vtable thật, `INDIRECT_JUMP`, memory load, shader, reference.
+
+Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**.

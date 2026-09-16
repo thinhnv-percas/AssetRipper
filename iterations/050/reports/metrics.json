@@ -1,0 +1,406 @@
+{
+  "scope": [
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "DOTween",
+    "GoogleMobileAds",
+    "LeanCommon",
+    "LeanPool",
+    "Mono.Security",
+    "__Generated",
+    "spine-unity",
+    "spine-unity-examples"
+  ],
+  "methods": 5482,
+  "nativeBytes": 1075252,
+  "placeholders": 4502,
+  "status": {
+    "HIGH_CONFIDENCE": 157,
+    "PARTIAL": 1158,
+    "FALLBACK": 1315,
+    "EXACT": 2852
+  },
+  "byAssembly": {
+    "Assembly-CSharp": {
+      "HIGH_CONFIDENCE": 10,
+      "PARTIAL": 63,
+      "FALLBACK": 75,
+      "EXACT": 242
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "GoogleMobileAds": {
+      "EXACT": 271,
+      "FALLBACK": 125,
+      "PARTIAL": 320,
+      "HIGH_CONFIDENCE": 28
+    },
+    "spine-unity": {
+      "EXACT": 787,
+      "HIGH_CONFIDENCE": 52,
+      "PARTIAL": 318,
+      "FALLBACK": 688
+    },
+    "LeanCommon": {
+      "EXACT": 14,
+      "PARTIAL": 2,
+      "HIGH_CONFIDENCE": 1,
+      "FALLBACK": 1
+    },
+    "ACTk.Runtime": {
+      "EXACT": 776,
+      "PARTIAL": 147,
+      "FALLBACK": 143,
+      "HIGH_CONFIDENCE": 23
+    },
+    "LeanPool": {
+      "FALLBACK": 26,
+      "EXACT": 36,
+      "PARTIAL": 12,
+      "HIGH_CONFIDENCE": 4
+    },
+    "spine-unity-examples": {
+      "FALLBACK": 102,
+      "EXACT": 311,
+      "PARTIAL": 80,
+      "HIGH_CONFIDENCE": 16
+    },
+    "DOTween": {
+      "HIGH_CONFIDENCE": 23,
+      "EXACT": 414,
+      "PARTIAL": 216,
+      "FALLBACK": 154
+    }
+  },
+  "lostOperationClasses": {
+    "FIELD": 711,
+    "NEWOBJ": 562,
+    "CALL": 55,
+    "ARRAY_WRITE": 7,
+    "BRANCH": 120,
+    "ARRAY_READ": 10,
+    "THROW": 4
+  },
+  "fingerprintIr": {
+    "COMPARE": 2347,
+    "STATIC_ACCESS": 3914,
+    "CALL": 3613,
+    "NULL_CHECK": 2063,
+    "LOOP": 2362,
+    "BRANCH": 2364,
+    "INSTANCEOF": 349,
+    "ARITHMETIC": 1887,
+    "ARRAY_READ": 464,
+    "NEWOBJ": 1564,
+    "ARRAY_WRITE": 224,
+    "CAST": 56,
+    "THROW": 18
+  },
+  "fingerprintCSharp": {
+    "COMPARE": 2121,
+    "CAST": 816,
+    "CALL": 4499,
+    "THROW": 880,
+    "NULL_CHECK": 1670,
+    "NEWOBJ": 1354,
+    "BRANCH": 2255,
+    "RETURN": 3269,
+    "ARITHMETIC": 1749,
+    "STATIC_ACCESS": 2329,
+    "ARRAY_READ": 577,
+    "LOOP": 801,
+    "ARRAY_WRITE": 225,
+    "NEWARR": 180,
+    "FIELD_ADDRESS": 154,
+    "INSTANCEOF": 12,
+    "SWITCH": 26
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 2672,
+      "files": 195
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 715,
+      "files": 101
+    },
+    "NATIVE_IMPORT": {
+      "count": 490,
+      "files": 81
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 211,
+      "files": 54
+    },
+    "INDIRECT_CALL": {
+      "count": 207,
+      "files": 40
+    },
+    "INDIRECT_JUMP": {
+      "count": 120,
+      "files": 66
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 97,
+      "files": 38
+    },
+    "OTHER": {
+      "count": 2,
+      "files": 1
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 3424,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/AnimationMatchModifierAsset.cs"
+    },
+    {
+      "nativeBytes": 1788,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs"
+    },
+    {
+      "nativeBytes": 1732,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/StringPlugin.cs"
+    },
+    {
+      "nativeBytes": 1652,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 1648,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RequestConfigurationClient.cs"
+    },
+    {
+      "nativeBytes": 1616,
+      "lost": "ARRAY_READ,FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Skin.cs"
+    },
+    {
+      "nativeBytes": 1592,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardBasedVideoAd.cs"
+    },
+    {
+      "nativeBytes": 1560,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs"
+    },
+    {
+      "nativeBytes": 1472,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardedAd.cs"
+    },
+    {
+      "nativeBytes": 1352,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 1304,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/Deprecated/SlotBlendModes.cs"
+    },
+    {
+      "nativeBytes": 1296,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs"
+    },
+    {
+      "nativeBytes": 1296,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/AdLoaderClient.cs"
+    },
+    {
+      "nativeBytes": 1288,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/BoneFollowerGraphic.cs"
+    },
+    {
+      "nativeBytes": 1240,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 1240,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 1168,
+      "lost": "FIELD,THROW",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineAnimationTesterTool.cs"
+    },
+    {
+      "nativeBytes": 1156,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs"
+    },
+    {
+      "nativeBytes": 1080,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/VertexAttachment.cs"
+    },
+    {
+      "nativeBytes": 1064,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Box.cs"
+    },
+    {
+      "nativeBytes": 1052,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs"
+    },
+    {
+      "nativeBytes": 1048,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/BannerView.cs"
+    },
+    {
+      "nativeBytes": 1032,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs"
+    },
+    {
+      "nativeBytes": 948,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs"
+    },
+    {
+      "nativeBytes": 944,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MixAndMatch.cs"
+    },
+    {
+      "nativeBytes": 940,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/MeshAttachment.cs"
+    },
+    {
+      "nativeBytes": 912,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MixAndMatchGraphic.cs"
+    },
+    {
+      "nativeBytes": 876,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Tween.cs"
+    },
+    {
+      "nativeBytes": 876,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/CSVSerializer.cs"
+    },
+    {
+      "nativeBytes": 848,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 836,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Skeleton.cs"
+    },
+    {
+      "nativeBytes": 824,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Skeleton.cs"
+    },
+    {
+      "nativeBytes": 804,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs"
+    },
+    {
+      "nativeBytes": 804,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/CSVSerializer.cs"
+    },
+    {
+      "nativeBytes": 800,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 788,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 760,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs"
+    },
+    {
+      "nativeBytes": 756,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 752,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Box.cs"
+    },
+    {
+      "nativeBytes": 716,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/MaterialsTextureLoader.cs"
+    },
+    {
+      "nativeBytes": 716,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 716,
+      "lost": "ARRAY_READ,ARRAY_WRITE,BRANCH",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Common/ContainerHolder.cs"
+    },
+    {
+      "nativeBytes": 704,
+      "lost": "THROW",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SpineSpriteAtlasAsset.cs"
+    },
+    {
+      "nativeBytes": 684,
+      "lost": "FIELD,THROW",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineAnimationTesterTool.cs"
+    },
+    {
+      "nativeBytes": 684,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 676,
+      "lost": "FIELD,NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/Skeleton.cs"
+    },
+    {
+      "nativeBytes": 668,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MixAndMatchSkinsExample.cs"
+    },
+    {
+      "nativeBytes": 656,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs"
+    },
+    {
+      "nativeBytes": 640,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/EquipsVisualsComponentExample.cs"
+    },
+    {
+      "nativeBytes": 636,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/RaggedySpineboy.cs"
+    }
+  ]
+}

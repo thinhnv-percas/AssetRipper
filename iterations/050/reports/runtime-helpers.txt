@@ -1,0 +1,32 @@
+runtime helpers: 30 addresses, 796 call sites
+
+   address  calls  methods  asm  shape                 behind  caller profile
+-------------------------------------------------------------------------------------------------
+    AF4130    339      339    5  FUNCTION_PROLOGUE          0  event accessor 339/339 (all)
+    B3490C     79       67    7  FUNCTION_PROLOGUE          0  ordinary method 77/79
+    9DACB4     74       69    7  FUNCTION_PROLOGUE          0  ordinary method 68/74
+    BD3CD0     71       69    7  FUNCTION_PROLOGUE          0  ordinary method 65/71
+    AD94B0     53       49    1  VENEER_B              B277D0  ordinary method 48/53
+    AD947C     53       49    1  FUNCTION_PROLOGUE          0  ordinary method 48/53
+    B349B4     35       19    3  FUNCTION_PROLOGUE          0  ordinary method 35/35 (all)
+    AD94BC     15        5    2  VENEER_B              B1BAE8  ordinary method 14/15
+    B348B0     14        9    4  FUNCTION_PROLOGUE          0  ordinary method 11/14
+    AD94B4     12        4    1  FUNCTION_PROLOGUE          0  ordinary method 12/12 (all)
+    AD94E8     10        4    2  VENEER_B              AFB118  ordinary method 5/10
+    AC7A4C      6        2    1  FUNCTION_PROLOGUE          0  ordinary method 5/6
+    BEEA54      4        2    2  FUNCTION_PROLOGUE          0  ordinary method 4/4 (all)
+    BF7EB8      4        3    3  FUNCTION_PROLOGUE          0  ordinary method 4/4 (all)
+    AD95AC      4        2    1  FUNCTION_PROLOGUE          0  ordinary method 4/4 (all)
+    AD94C0      3        2    2  FUNCTION_PROLOGUE          0  ordinary method 3/3 (all)
+    AD98B4      3        2    2  FUNCTION_PROLOGUE          0  ordinary method 3/3 (all)
+    9DE264      2        2    1  FUNCTION_PROLOGUE          0  ordinary method 2/2 (all)
+    BEE544      2        1    1  FUNCTION_PROLOGUE          0  ordinary method 2/2 (all)
+    BEE74C      2        1    1  FUNCTION_PROLOGUE          0  ordinary method 2/2 (all)
+
+... and 10 more addresses, 11 call sites between them
+
+addresses the binary's export table names: 0
+addresses whose call sites are all one kind of member (>=10 calls): 3
+      AF4130    339 calls, all event accessor
+      B349B4     35 calls, all ordinary method
+      AD94B4     12 calls, all ordinary method

@@ -1,0 +1,2 @@
+Assembly-CSharp: 63 files, 344 errors, 2289 warnings
+errors classified: 344

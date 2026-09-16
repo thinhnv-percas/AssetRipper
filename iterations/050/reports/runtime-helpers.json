@@ -1,0 +1,473 @@
+{
+  "callSites": 796,
+  "helpers": [
+    {
+      "address": "AF4130",
+      "calls": 339,
+      "methods": 339,
+      "assemblies": [
+        "ACTk.Runtime",
+        "DOTween",
+        "GoogleMobileAds",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "event accessor": 339
+      }
+    },
+    {
+      "address": "B3490C",
+      "calls": 79,
+      "methods": 67,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "LeanCommon",
+        "LeanPool",
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 77,
+        "constructor": 2
+      }
+    },
+    {
+      "address": "9DACB4",
+      "calls": 74,
+      "methods": 69,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "LeanPool",
+        "Mono.Security",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 68,
+        "constructor": 4,
+        "property accessor": 2
+      }
+    },
+    {
+      "address": "BD3CD0",
+      "calls": 71,
+      "methods": 69,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "LeanPool",
+        "Mono.Security",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 65,
+        "constructor": 4,
+        "property accessor": 2
+      }
+    },
+    {
+      "address": "AD94B0",
+      "calls": 53,
+      "methods": 49,
+      "assemblies": [
+        "GoogleMobileAds"
+      ],
+      "nativeShape": "VENEER_B",
+      "behindVeneer": "B277D0",
+      "exportedName": "-",
+      "callerShapes": {
+        "constructor": 3,
+        "ordinary method": 48,
+        "property accessor": 2
+      }
+    },
+    {
+      "address": "AD947C",
+      "calls": 53,
+      "methods": 49,
+      "assemblies": [
+        "GoogleMobileAds"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "constructor": 3,
+        "ordinary method": 48,
+        "property accessor": 2
+      }
+    },
+    {
+      "address": "B349B4",
+      "calls": 35,
+      "methods": 19,
+      "assemblies": [
+        "Assembly-CSharp",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 35
+      }
+    },
+    {
+      "address": "AD94BC",
+      "calls": 15,
+      "methods": 5,
+      "assemblies": [
+        "Assembly-CSharp",
+        "spine-unity"
+      ],
+      "nativeShape": "VENEER_B",
+      "behindVeneer": "B1BAE8",
+      "exportedName": "-",
+      "callerShapes": {
+        "constructor": 1,
+        "ordinary method": 14
+      }
+    },
+    {
+      "address": "B348B0",
+      "calls": 14,
+      "methods": 9,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "GoogleMobileAds",
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "constructor": 2,
+        "ordinary method": 11,
+        "property accessor": 1
+      }
+    },
+    {
+      "address": "AD94B4",
+      "calls": 12,
+      "methods": 4,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 12
+      }
+    },
+    {
+      "address": "AD94E8",
+      "calls": 10,
+      "methods": 4,
+      "assemblies": [
+        "Assembly-CSharp",
+        "GoogleMobileAds"
+      ],
+      "nativeShape": "VENEER_B",
+      "behindVeneer": "AFB118",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 5,
+        "property accessor": 5
+      }
+    },
+    {
+      "address": "AC7A4C",
+      "calls": 6,
+      "methods": 2,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "constructor": 1,
+        "ordinary method": 5
+      }
+    },
+    {
+      "address": "BEEA54",
+      "calls": 4,
+      "methods": 2,
+      "assemblies": [
+        "ACTk.Runtime",
+        "DOTween"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 4
+      }
+    },
+    {
+      "address": "BF7EB8",
+      "calls": 4,
+      "methods": 3,
+      "assemblies": [
+        "ACTk.Runtime",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 4
+      }
+    },
+    {
+      "address": "AD95AC",
+      "calls": 4,
+      "methods": 2,
+      "assemblies": [
+        "Assembly-CSharp"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 4
+      }
+    },
+    {
+      "address": "AD94C0",
+      "calls": 3,
+      "methods": 2,
+      "assemblies": [
+        "Assembly-CSharp",
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 3
+      }
+    },
+    {
+      "address": "AD98B4",
+      "calls": 3,
+      "methods": 2,
+      "assemblies": [
+        "Assembly-CSharp",
+        "DOTween"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 3
+      }
+    },
+    {
+      "address": "9DE264",
+      "calls": 2,
+      "methods": 2,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 2
+      }
+    },
+    {
+      "address": "BEE544",
+      "calls": 2,
+      "methods": 1,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 2
+      }
+    },
+    {
+      "address": "BEE74C",
+      "calls": 2,
+      "methods": 1,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 2
+      }
+    },
+    {
+      "address": "BEEC1C",
+      "calls": 2,
+      "methods": 1,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 2
+      }
+    },
+    {
+      "address": "1854CA0",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "constructor": 1
+      }
+    },
+    {
+      "address": "9E5D78",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 1
+      }
+    },
+    {
+      "address": "1854D98",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 1
+      }
+    },
+    {
+      "address": "1854DA8",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 1
+      }
+    },
+    {
+      "address": "1854D08",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "DOTween"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 1
+      }
+    },
+    {
+      "address": "1854DB0",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "spine-unity"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 1
+      }
+    },
+    {
+      "address": "BEE8D4",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 1
+      }
+    },
+    {
+      "address": "9DD83C",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "ACTk.Runtime"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "ordinary method": 1
+      }
+    },
+    {
+      "address": "1854C48",
+      "calls": 1,
+      "methods": 1,
+      "assemblies": [
+        "GoogleMobileAds"
+      ],
+      "nativeShape": "FUNCTION_PROLOGUE",
+      "behindVeneer": "0",
+      "exportedName": "-",
+      "callerShapes": {
+        "event accessor": 1
+      }
+    }
+  ]
+}

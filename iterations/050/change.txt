@@ -1,0 +1,51 @@
+Brief 050: vtable, runtime helper, semantic call recovery. §3 đặt 233 call site vtable làm mục tiêu
+chính; §7 cấm ánh xạ thêm helper trước khi phân tích hết; §10 cấm vá 0xAF4130 theo địa chỉ;
+§13 đòi kho method vàng lên 60+; §14 đòi field layout giữ 1394 exact / 0 bất đồng;
+§21 đòi ít nhất một phục hồi ngữ nghĩa thật.
+
+A. Marker đầu iteration — commit 174492c0
+   Baseline 049 tái lập đúng từng con số. Không divergence.
+
+B. Báo cáo runtime helper — commit a4bf9710
+   796 lời gọi tới ĐÚNG 30 địa chỉ. 0/30 được export table đặt tên. Chỉ 3 địa chỉ có call site đồng
+   nhất một loại thành viên với >=10 lời gọi. Nên 27 địa chỉ còn lại KHÔNG đặt tên được từ điểm gọi
+   và phải đọc mã máy — đó là KẾT LUẬN của §7, và là lý do iteration này không ánh xạ thêm helper.
+
+C. §3 sai tiền đề — commit 6d19d91f
+   Hỏi chính ResolveVirtualCalls tại điểm generator bỏ cuộc (ResolveVTableSlot mở public để probe
+   dùng đúng hàm của pass, không chép lại). 468 lời gọi gián tiếp:
+     236 LOADED_POINTER / 126 METHODINFO_POINTER_AT_0x10 / 56 METHODINFO_POINTER_AT_0x0
+      34 VTABLE_SLOT_UNRESOLVED / 16 LOADED_FROM_*
+     0 VTABLE_BASE_UNTYPED, 0 offset lệch, 0 VTABLE_RESOLVABLE.
+   182 ca "ô vtable" thực ra đọc một trường của MethodInfo. Ô vtable thật chỉ có 34.
+
+D. Hai phục hồi ngữ nghĩa — commit 0347c766
+   1. Con trỏ hàm của delegate: MethodInfo* của đích được truyền kèm, phân tích đã gán kiểu nó là
+      RuntimeMethodInfoAnalysisContext, và context đó MANG THEO method. Nên đây là
+      ldftn + newobj Delegate::.ctor(object, native int). Receiver bằng 0 phải thành ldnull.
+   2. Lời gọi qua methodInfo->methodPointer (offset 0, đọc từ bảng) là lời gọi TRỰC TIẾP.
+      virtualMethodPointer (0x08) và invoker_method (0x10) CỐ Ý không đối xử như vậy.
+
+E. Kho method vàng 48 -> 61 — commit 03811894
+   Thêm trục: method tệ nhất mang mỗi họ placeholder. Kho được HỢP chứ không thay thế.
+   Phân biệt được: trên bản rip trước hai fix, chỉ đúng 2 method 050 đưa lên và 1 method bị đẩy
+   từ PARTIAL xuống FALLBACK.
+
+F. Gate cuối (049 -> 050):
+   Impostor  EXACT 2841 -> 2852   PARTIAL 1235 -> 1158   FALLBACK 1250 -> 1315 (trung thực)
+             placeholder 4617 -> 4502   UNRESOLVED_DELEGATE 128 -> 0   INDIRECT_CALL 233 -> 207
+             không đồ thế chỗ 2997 -> 3009   Roslyn 342 -> 344   load 2711
+   Pinata    EXACT 9580 -> 9634   PARTIAL 3187 -> 3043   placeholder 14726 -> 14233
+             UNRESOLVED_DELEGATE 433 -> 122   không đồ thế chỗ 10036 -> 10097   load 9248 -> 9241
+   .cs 819 / 3083, genFail 0 / 0, shape 16/16
+   field layout 1394/0 và 3170/0 BẤT ĐỒNG — bất biến §14 giữ nguyên trên cả hai fixture
+   golden corpus 61, 0 hồi quy; test 407 -> 414, 1 fail có sẵn
+
+G. KHÔNG làm, có chủ ý:
+   - không vá 0xAF4130 (§10): ngữ nghĩa chắc chắn, cách tìm tổng quát chưa có
+   - không ánh xạ thêm runtime helper: 27/30 địa chỉ chưa đủ bằng chứng từ điểm gọi
+   - không đụng 34 ô vtable thật: công việc ở đó là metadata, và cần đo thêm
+   - không đụng INDIRECT_JUMP, memory load, shader, reference
+
+H. Trạng thái tổng: RECOVERY_VALIDATED_STATICALLY, không phải FULLY_RECOVERED.
+   Unity UNITY_NOT_AVAILABLE; U1-U9 và I1-I4 NOT_RUN.

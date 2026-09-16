@@ -1253,6 +1253,44 @@ find it; `strings` without `-el` does find method and type names.
   renderings spell the same operation differently often enough that only the per-method check carries
   that meaning.
 
+- **The "233 unresolved vtable call sites" were not vtable reads, and asking the pass is what says
+  so.** `MetadataResolver.ResolveVTableSlot` is public so a probe runs the resolver's own arithmetic
+  and its own lookup rather than restating them - a probe that restates a pass drifts from it, which
+  this project has paid for twice. Of 468 indirect calls surviving at the end of `Analyze`: 236
+  `LOADED_POINTER`, 126 through `MethodInfo.invoker_method`, 56 through `MethodInfo.methodPointer`,
+  **34 genuine vtable slots**, 16 other - and **zero** with an untyped base, zero with a misaligned
+  offset, zero the resolver would have answered. So the real vtable population is 34, all of them
+  "the slot lookup found nothing", which is metadata work and not type recovery.
+- **`MethodInfo` carries three function pointers at three offsets and only one of them is a direct
+  call.** The struct database places `methodPointer` at 0x00, `virtualMethodPointer` at 0x08,
+  `invoker_method` at 0x10 and `klass` at 0x20. A call through `methodPointer` where the MethodInfo
+  is a resolved metadata usage **is** a direct call to the method that usage names -
+  `ResolveMethodInfoPointerCalls` runs in the same fixpoint as `ResolveVirtualCalls`, because that is
+  what types the base. A call through `invoker_method` is **not**: that is the runtime's
+  reflection-style invoker, taking the pointer, the MethodInfo, a receiver and a boxed argument
+  array. Treating the two alike would be wrong in the quiet way. Read the offsets from the table;
+  writing one down has been the same bug three times.
+- **A delegate's function pointer is nameable, and the comment saying otherwise was half right.**
+  C# genuinely cannot write the two-argument constructor - but il2cpp passes the target's
+  `MethodInfo*` alongside the raw pointer, the analysis types that operand as a
+  `RuntimeMethodInfoAnalysisContext`, and that context carries the method. So it is
+  `ldftn <method>; newobj Delegate::.ctor(object, native int)`, exactly what C# compiles a method
+  group to and what a decompiler reads back as one. A **zero** where the receiver goes is a delegate
+  over a *static* method and has to become `ldnull`, or the delegate closes over address zero.
+  `UNRESOLVED_DELEGATE` 128 → 0 on one fixture and 433 → 122 on the other, and
+  `SkeletonUtility.OnEnable` came back as `skeletonAnimation.UpdateLocal -= UpdateLocal;` where it
+  had been a placeholder and a null.
+- **27 of 30 runtime helpers cannot be named from their call sites, and that is the finding.** 796
+  unresolved calls reach exactly 30 addresses; **none of the 30 is named by the binary's export
+  table**; and only 3 have call sites uniformly one kind of member with at least ten calls. So the
+  rest need machine code read, and `runtime_helper_report.py` ranks them by call sites with the
+  caller profile that decides - a helper every one of whose callers is an event accessor is a
+  different kind of fact from one called from sixty-nine unrelated methods.
+- **A metric read while the export is still writing is not a metric.** A watch that fired on the
+  recovery summary line reported 280 `.cs` files and 1845 methods against 819 and 5482 - a
+  catastrophic-looking regression that was a mid-export snapshot. The per-assembly counts were
+  identical the moment the run finished. Wait for the process, not for a line in its log.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1391,7 +1429,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Nine scripts, and each measures something the others cannot:
+Ten scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1409,10 +1447,13 @@ Nine scripts, and each measures something the others cannot:
   much of a body came back rather than how many complaints it printed.
 - `Test/Scripts/instruction_coverage.py` — native opcodes the lifter has no rule for, per fixture,
   with the implemented set read out of the lifter's own switch.
-- `Test/Scripts/golden_corpus.py` — 48 frozen methods, one per (operation class, status), checked one
-  method at a time against `Test/golden-corpus-baseline.json`. The only measure that can say a
-  particular method got worse while the total got better, which is the shape this pipeline keeps
-  producing.
+- `Test/Scripts/golden_corpus.py` — 61 frozen methods, one per (operation class, status) plus the
+  worst method carrying each placeholder family, checked one method at a time against
+  `Test/golden-corpus-baseline.json`. The only measure that can say a particular method got worse
+  while the total got better, which is the shape this pipeline keeps producing. The list is unioned
+  on reselection, never replaced: a frozen entry that gets dropped is a hole in the net.
+- `Test/Scripts/runtime_helper_report.py` — the runtime helpers managed code still calls unresolved,
+  ranked by call sites, with the caller profile that decides whether one can be named at all.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are

@@ -591,6 +591,44 @@ Bảng số 049 (Impostor, phép đo mới cho cả hai đầu): `EXACT` 2594 �
 
 Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**, không phải `FULLY_RECOVERED` — Unity chưa chạy.
 
+## Iteration 050 — bốn điều một session sau phải biết
+
+1. **"233 lời gọi vtable" không phải vtable, và hỏi chính pass là cách biết.** `ResolveVTableSlot`
+   được mở public để probe chạy đúng hàm của pass chứ không chép lại. 468 lời gọi gián tiếp:
+   236 `LOADED_POINTER`, 126 `METHODINFO_POINTER_AT_0x10` (`invoker_method`), 56 ở `0x0`
+   (`methodPointer`), **34 ô vtable thật**, 16 khác — và **0** base không có kiểu, **0** offset lệch,
+   **0** `VTABLE_RESOLVABLE`. Ô vtable thật là 34 chứ không phải 233, và tất cả thuộc loại "tra slot
+   không ra", tức việc metadata chứ không phải type recovery.
+
+2. **`MethodInfo` có ba con trỏ hàm ở ba offset và chỉ một trong ba là lời gọi trực tiếp.** Struct
+   database: `methodPointer` 0x00, `virtualMethodPointer` 0x08, `invoker_method` 0x10, `klass` 0x20.
+   Lời gọi qua `methodPointer` khi MethodInfo là metadata usage đã phân giải **là** lời gọi trực tiếp
+   tới method đó. Qua `invoker_method` thì **không**: đó là invoker kiểu reflection nhận con trỏ,
+   MethodInfo, receiver và mảng tham số đã box. Đối xử hai cái như nhau sẽ sai im lặng.
+
+3. **Con trỏ hàm của một delegate gọi tên được, và comment cũ nói ngược lại.** il2cpp truyền
+   `MethodInfo*` của đích kèm con trỏ thô; phân tích gán kiểu nó là
+   `RuntimeMethodInfoAnalysisContext`, mang theo method. Nên đây là `ldftn` + `newobj` chứ không phải
+   một mất mát. Receiver bằng **0** là delegate trên method tĩnh và phải thành `ldnull`, không phải
+   một receiver ở địa chỉ 0. Worth `UNRESOLVED_DELEGATE` 128 → 0 và 433 → 122.
+
+4. **27 trong 30 runtime helper không đặt tên được từ điểm gọi.** 796 lời gọi tới đúng 30 địa chỉ,
+   **0/30 được export table đặt tên**, và chỉ 3 có call site đồng nhất một loại thành viên với ≥10
+   lời gọi. Đó là kết luận, không phải bước trung gian: phần còn lại phải đọc mã máy, và iteration
+   này cố ý không ánh xạ thêm cái nào. `0xAF4130` vẫn không vá, theo §10.
+
+Bảng số 050 (Impostor / Pinata): `EXACT` 2841 → **2852** và 9580 → **9634**; `PARTIAL` 1235 → 1158
+và 3187 → 3043; phục hồi không kèm đồ thế chỗ 2997 → **3009** và 10036 → **10097**; placeholder
+4617 → **4502** và 14726 → **14233**; `UNRESOLVED_DELEGATE` 128 → **0** và 433 → **122**;
+`INDIRECT_CALL` 233 → 207; load 2711 và 9248 → 9241; Roslyn 342 → 344; `.cs` 819 / 3083, `genFail`
+0/0, shape 16/16; **field layout 1394/0 và 3170/0 bất đồng**; golden corpus 48 → **61**, 0 hồi quy;
+test 407 → 414.
+
+Việc kế tiếp có giá trị cao nhất: **236 `LOADED_POINTER`** — lời gọi gián tiếp qua base không có
+kiểu. Đó là việc của type recovery, không phải call resolution.
+
+Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**.
+
 ## Ghi chú môi trường
 
 Container không có .NET SDK và không có Unity. `dotnet` lấy từ
