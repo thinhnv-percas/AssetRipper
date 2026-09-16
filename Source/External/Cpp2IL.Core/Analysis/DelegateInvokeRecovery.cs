@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core.Utils;
@@ -15,19 +16,61 @@ public static class DelegateInvokeRecovery
 
         var invokeImplOffset = InvokeImplOffset(method.AppContext.Binary.is32Bit);
 
-        foreach (var instruction in instructions)
+        foreach (var block in method.ControlFlowGraph.Blocks)
         {
-            if (instruction.OpCode != OpCode.IndirectCall)
-                continue;
+            // A copy, because a tail call gains a Return in the block it sits in.
+            foreach (var instruction in block.Instructions.ToList())
+            {
+                if (instruction.OpCode is not (OpCode.IndirectCall or OpCode.IndirectJump))
+                    continue;
 
-            if (GetDelegateBeingInvoked(instruction, instructions, invokeImplOffset) is not { } delegateLocal)
-                continue;
+                if (GetDelegateBeingInvoked(instruction, instructions, invokeImplOffset) is not { } delegateLocal)
+                    continue;
 
-            if (InvokeOf(delegateLocal.Type) is not { } invoke)
-                continue;
+                if (InvokeOf(delegateLocal.Type) is not { } invoke)
+                    continue;
 
-            RewriteAsInvoke(instruction, delegateLocal, invoke, method);
+                var isTailCall = instruction.OpCode == OpCode.IndirectJump;
+
+                if (!RewriteAsInvoke(instruction, delegateLocal, invoke, method))
+                    continue;
+
+                if (isTailCall)
+                    AppendReturn(block, instruction, invoke, method);
+            }
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: a tail-called delegate invoke is a call followed by a return, and the return has
+    /// to be written out because the jump that used to end the block is gone.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A delegate invoke in tail position is the majority of what survives as
+    /// <c>OpCode.IndirectJump</c> - 288 of 515 on the test game, against 135 vtable slots and 60
+    /// computed targets - so this is the same recovery as the call case and not a separate family.
+    /// </para>
+    /// <para>
+    /// The return cannot be left implicit. The generator bridges a block that does not end in a jump
+    /// or a return to its successor, and an indirect jump's block has none, so without this the block
+    /// would end with no terminator at all.
+    /// </para>
+    /// </remarks>
+    private static void AppendReturn(Block block, Instruction call, MethodAnalysisContext invoke, MethodAnalysisContext caller)
+    {
+        var index = block.Instructions.IndexOf(call);
+
+        if (index < 0)
+            return;
+
+        // The caller returns what the delegate returned, unless one of the two is void - in which
+        // case there is nothing to carry across and the return stands alone.
+        List<IOperand> operands = !caller.IsVoid && !invoke.IsVoid && call.Operands.Count > 1
+            ? [call.Operands[1]]
+            : [];
+
+        block.Instructions.Insert(index + 1, new Instruction(call.Index, OpCode.Return, operands));
     }
 
     /// <summary>
@@ -120,11 +163,11 @@ public static class DelegateInvokeRecovery
         return instance is null ? invoke : new ConcreteGenericMethodAnalysisContext(invoke, instance.GenericArguments, []);
     }
 
-    private static void RewriteAsInvoke(Instruction call, LocalVariable delegateLocal, MethodAnalysisContext invoke, MethodAnalysisContext caller)
+    private static bool RewriteAsInvoke(Instruction call, LocalVariable delegateLocal, MethodAnalysisContext invoke, MethodAnalysisContext caller)
     {
         if (invoke.AppContext.InstructionSet.CallingConventionResolver is not { } callingConventions
             || !callingConventions.HasRawArgumentLayout(call, invoke.AppContext))
-            return;
+            return false;
 
         if (invoke.IsVoid)
             call.RemoveOperandAt(1);
@@ -136,5 +179,6 @@ public static class DelegateInvokeRecovery
         call.SetOperand(invoke.IsVoid ? 1 : 2, delegateLocal);
 
         callingConventions.RemapRawArguments(call, invoke, caller);
+        return true;
     }
 }
