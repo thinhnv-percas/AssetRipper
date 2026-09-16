@@ -1,0 +1,195 @@
+{
+  "fixture": "RunFromZombies",
+  "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/rfz-src",
+  "rip": "/home/user/AssetRipper/Test/Out53z/RunFromZombies",
+  "shaders_in_source": 1,
+  "shaders_in_rip": 24,
+  "paired": 0,
+  "verdicts": {
+    "EXACT": 0,
+    "SEMANTICALLY_EQUIVALENT": 0,
+    "PARTIAL": 0,
+    "FALLBACK": 0,
+    "DUMMY": 0,
+    "NOT_EXPORTED": 1,
+    "NO_SOURCE": 24
+  },
+  "property_recovery_rate": null,
+  "property_exact_rate": null,
+  "dummy_in_rip": 24,
+  "shaders": [
+    {
+      "shader": "Hidden/PostProcessing/Bloom",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Copy",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/CopyStd",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/CopyStdFromDoubleWide",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/CopyStdFromTexArray",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Debug/Histogram",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Debug/LightMeter",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Debug/Overlays",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Debug/Vectorscope",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Debug/Waveform",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/DeferredFog",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/DepthOfField",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/DiscardAlpha",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/FinalPass",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/GrainBaker",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Lut2DBaker",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/MotionBlur",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/MultiScaleVO",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/ScalableAO",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/ScreenSpaceReflections",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/SubpixelMorphologicalAntialiasing",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/TemporalAntialiasing",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Texture2DLerp",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Hidden/PostProcessing/Uber",
+      "verdict": "NO_SOURCE",
+      "evidence": {
+        "dummy": true
+      }
+    },
+    {
+      "shader": "Supercyan/FreeCelShader",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    }
+  ]
+}

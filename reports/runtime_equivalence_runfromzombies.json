@@ -1,0 +1,17 @@
+{
+  "fixture": "RunFromZombies",
+  "paired_methods": 36,
+  "tiers": {
+    "EXECUTABLE_WITHOUT_UNITY": 0,
+    "REQUIRES_UNITY": 25,
+    "REQUIRES_INSTANCE": 11
+  },
+  "cases_planned": 0,
+  "outcomes": {
+    "NOT_RUN": 36
+  },
+  "cases_run": 0,
+  "runtime_equivalence_rate": null,
+  "not_run_reason": "UNITY_NOT_AVAILABLE_AND_NO_RESULTS_SUPPLIED",
+  "cases": []
+}

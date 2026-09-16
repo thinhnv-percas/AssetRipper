@@ -1,0 +1,2818 @@
+{
+  "cases": [
+    {
+      "type": "Animation",
+      "method": "BinarySearch",
+      "signature": "int BinarySearch(float[] values, float target)",
+      "arguments": [
+        [
+          0,
+          0.0
+        ],
+        [
+          0,
+          1.0
+        ],
+        [
+          0,
+          -1.0
+        ],
+        [
+          0,
+          0.5
+        ],
+        [
+          0,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Animation",
+      "method": "BinarySearch",
+      "signature": "int BinarySearch(float[] values, float target, int step)",
+      "arguments": [
+        [
+          0,
+          0.0,
+          0
+        ],
+        [
+          0,
+          1.0,
+          1
+        ],
+        [
+          0,
+          -1.0,
+          -1
+        ],
+        [
+          0,
+          0.5,
+          2147483647
+        ],
+        [
+          0,
+          1e+30,
+          -2147483648
+        ],
+        [
+          0,
+          0.0,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Animation",
+      "method": "LinearSearch",
+      "signature": "int LinearSearch(float[] values, float target, int step)",
+      "arguments": [
+        [
+          0,
+          0.0,
+          0
+        ],
+        [
+          0,
+          1.0,
+          1
+        ],
+        [
+          0,
+          -1.0,
+          -1
+        ],
+        [
+          0,
+          0.5,
+          2147483647
+        ],
+        [
+          0,
+          1e+30,
+          -2147483648
+        ],
+        [
+          0,
+          0.0,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Base64Utils",
+      "method": "FromBase64ToString",
+      "signature": "string FromBase64ToString(string value)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Base64Utils",
+      "method": "ToBase64",
+      "signature": "string ToBase64(string value)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "CSVHelper",
+      "method": "GetIdFromFileName",
+      "signature": "int GetIdFromFileName(string filename)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Common",
+      "method": "Assert",
+      "signature": "void Assert(bool condition)",
+      "arguments": [
+        [
+          true
+        ],
+        [
+          false
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Common",
+      "method": "Assert",
+      "signature": "void Assert(bool condition, string message)",
+      "arguments": [
+        [
+          true,
+          ""
+        ],
+        [
+          false,
+          "a"
+        ],
+        [
+          true,
+          "0"
+        ],
+        [
+          false,
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "CsvReader",
+      "method": "ConvertSnakeCaseToCamelCase",
+      "signature": "string ConvertSnakeCaseToCamelCase(string snakeCase)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "CsvReader",
+      "method": "IsValidKeyFormat",
+      "signature": "bool IsValidKeyFormat(string key)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "DecimalLongBytesUnion",
+      "method": "XorDecimalToDecimal",
+      "signature": "decimal XorDecimalToDecimal(decimal value, long key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          -1
+        ],
+        [
+          0,
+          9223372036854775807
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "DoubleLongBytesUnion",
+      "method": "Migrate",
+      "signature": "long Migrate(long value, byte fromVersion, byte toVersion)",
+      "arguments": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          9223372036854775807,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "DoubleLongBytesUnion",
+      "method": "XorDoubleToLong",
+      "signature": "long XorDoubleToLong(double value, long key)",
+      "arguments": [
+        [
+          0.0,
+          0
+        ],
+        [
+          1.0,
+          1
+        ],
+        [
+          -1.0,
+          -1
+        ],
+        [
+          0.5,
+          9223372036854775807
+        ],
+        [
+          0.0,
+          7
+        ],
+        [
+          1.0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "DoubleLongBytesUnion",
+      "method": "XorLongToDouble",
+      "signature": "double XorLongToDouble(long value, long key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          9223372036854775807,
+          9223372036854775807
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "FloatIntBytesUnion",
+      "method": "Migrate",
+      "signature": "int Migrate(int value, byte fromVersion, byte toVersion)",
+      "arguments": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          2147483647,
+          0,
+          0
+        ],
+        [
+          -2147483648,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "FloatIntBytesUnion",
+      "method": "XorFloatToInt",
+      "signature": "int XorFloatToInt(float value, int key)",
+      "arguments": [
+        [
+          0.0,
+          0
+        ],
+        [
+          1.0,
+          1
+        ],
+        [
+          -1.0,
+          -1
+        ],
+        [
+          0.5,
+          2147483647
+        ],
+        [
+          1e+30,
+          -2147483648
+        ],
+        [
+          0.0,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "FloatIntBytesUnion",
+      "method": "XorIntToFloat",
+      "signature": "float XorIntToFloat(int value, int key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          2147483647,
+          2147483647
+        ],
+        [
+          -2147483648,
+          -2147483648
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "GameHelper",
+      "method": "Round",
+      "signature": "float Round(float value, int digits)",
+      "arguments": [
+        [
+          0.0,
+          0
+        ],
+        [
+          1.0,
+          1
+        ],
+        [
+          -1.0,
+          -1
+        ],
+        [
+          0.5,
+          2147483647
+        ],
+        [
+          1e+30,
+          -2147483648
+        ],
+        [
+          0.0,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "IntAndAtlasRegionKey",
+      "method": "InverseLerp",
+      "signature": "float InverseLerp(float a, float b, float value)",
+      "arguments": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "LeanHelper",
+      "method": "DampenFactor",
+      "signature": "float DampenFactor(float dampening, float elapsed)",
+      "arguments": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "LeanPool",
+      "method": "DespawnAll",
+      "signature": "void DespawnAll()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "LinkedMesh",
+      "method": "ToColor",
+      "signature": "float ToColor(string hexString, int colorIndex, int expectedLength = 8)",
+      "arguments": [
+        [
+          "",
+          0,
+          0
+        ],
+        [
+          "a",
+          1,
+          1
+        ],
+        [
+          "0",
+          -1,
+          -1
+        ],
+        [
+          "hello",
+          2147483647,
+          2147483647
+        ],
+        [
+          "",
+          -2147483648,
+          -2147483648
+        ],
+        [
+          "a",
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "Atan2",
+      "signature": "float Atan2(float y, float x)",
+      "arguments": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "Clamp",
+      "signature": "float Clamp(float value, float min, float max)",
+      "arguments": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "Cos",
+      "signature": "float Cos(float radians)",
+      "arguments": [
+        [
+          0.0
+        ],
+        [
+          1.0
+        ],
+        [
+          -1.0
+        ],
+        [
+          0.5
+        ],
+        [
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "CosDeg",
+      "signature": "float CosDeg(float degrees)",
+      "arguments": [
+        [
+          0.0
+        ],
+        [
+          1.0
+        ],
+        [
+          -1.0
+        ],
+        [
+          0.5
+        ],
+        [
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "RandomTriangle",
+      "signature": "float RandomTriangle(float min, float max)",
+      "arguments": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "RandomTriangle",
+      "signature": "float RandomTriangle(float min, float max, float mode)",
+      "arguments": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "Sin",
+      "signature": "float Sin(float radians)",
+      "arguments": [
+        [
+          0.0
+        ],
+        [
+          1.0
+        ],
+        [
+          -1.0
+        ],
+        [
+          0.5
+        ],
+        [
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MathUtils",
+      "method": "SinDeg",
+      "signature": "float SinDeg(float degrees)",
+      "arguments": [
+        [
+          0.0
+        ],
+        [
+          1.0
+        ],
+        [
+          -1.0
+        ],
+        [
+          0.5
+        ],
+        [
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "MobileAdsEventExecutor",
+      "method": "IsActive",
+      "signature": "bool IsActive()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredBool",
+      "method": "Decrypt",
+      "signature": "bool Decrypt(int value)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          2147483647
+        ],
+        [
+          -2147483648
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredBool",
+      "method": "Decrypt",
+      "signature": "bool Decrypt(int value, byte key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          2147483647,
+          0
+        ],
+        [
+          -2147483648,
+          0
+        ],
+        [
+          7,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredBool",
+      "method": "Encrypt",
+      "signature": "int Encrypt(bool value)",
+      "arguments": [
+        [
+          true
+        ],
+        [
+          false
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredBool",
+      "method": "Encrypt",
+      "signature": "int Encrypt(bool value, byte key)",
+      "arguments": [
+        [
+          true,
+          0
+        ],
+        [
+          false,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredBool",
+      "method": "GenerateKey",
+      "signature": "byte GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredBool",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(byte newKey)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredByte",
+      "method": "Decrypt",
+      "signature": "byte Decrypt(byte value, byte key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredByte",
+      "method": "Encrypt",
+      "signature": "byte Encrypt(byte value, byte key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredByte",
+      "method": "EncryptDecrypt",
+      "signature": "byte EncryptDecrypt(byte value)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredByte",
+      "method": "EncryptDecrypt",
+      "signature": "byte EncryptDecrypt(byte value, byte key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredByte",
+      "method": "GenerateKey",
+      "signature": "byte GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredByte",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(byte newKey)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredChar",
+      "method": "Decrypt",
+      "signature": "char Decrypt(char value, char key)",
+      "arguments": [
+        [
+          "a",
+          "a"
+        ],
+        [
+          "0",
+          "0"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredChar",
+      "method": "Encrypt",
+      "signature": "char Encrypt(char value, char key)",
+      "arguments": [
+        [
+          "a",
+          "a"
+        ],
+        [
+          "0",
+          "0"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredChar",
+      "method": "EncryptDecrypt",
+      "signature": "char EncryptDecrypt(char value)",
+      "arguments": [
+        [
+          "a"
+        ],
+        [
+          "0"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredChar",
+      "method": "EncryptDecrypt",
+      "signature": "char EncryptDecrypt(char value, char key)",
+      "arguments": [
+        [
+          "a",
+          "a"
+        ],
+        [
+          "0",
+          "0"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredChar",
+      "method": "GenerateKey",
+      "signature": "char GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredChar",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(char newKey)",
+      "arguments": [
+        [
+          "a"
+        ],
+        [
+          "0"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredCheatingDetector",
+      "method": "Dispose",
+      "signature": "void Dispose()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredCheatingDetector",
+      "method": "StopDetection",
+      "signature": "void StopDetection()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredInt",
+      "method": "Decrypt",
+      "signature": "int Decrypt(int value)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          2147483647
+        ],
+        [
+          -2147483648
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredInt",
+      "method": "Decrypt",
+      "signature": "int Decrypt(int value, int key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          2147483647,
+          2147483647
+        ],
+        [
+          -2147483648,
+          -2147483648
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredInt",
+      "method": "Encrypt",
+      "signature": "int Encrypt(int value)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          2147483647
+        ],
+        [
+          -2147483648
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredInt",
+      "method": "Encrypt",
+      "signature": "int Encrypt(int value, int key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          2147483647,
+          2147483647
+        ],
+        [
+          -2147483648,
+          -2147483648
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredInt",
+      "method": "GenerateKey",
+      "signature": "int GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredInt",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(int newKey)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          2147483647
+        ],
+        [
+          -2147483648
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredLong",
+      "method": "Decrypt",
+      "signature": "long Decrypt(long value)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          9223372036854775807
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredLong",
+      "method": "Decrypt",
+      "signature": "long Decrypt(long value, long key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          9223372036854775807,
+          9223372036854775807
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredLong",
+      "method": "Encrypt",
+      "signature": "long Encrypt(long value)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          9223372036854775807
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredLong",
+      "method": "Encrypt",
+      "signature": "long Encrypt(long value, long key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          9223372036854775807,
+          9223372036854775807
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredLong",
+      "method": "GenerateKey",
+      "signature": "long GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredLong",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(long newKey)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          9223372036854775807
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredSByte",
+      "method": "Decrypt",
+      "signature": "sbyte Decrypt(sbyte value, sbyte key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredSByte",
+      "method": "Encrypt",
+      "signature": "sbyte Encrypt(sbyte value, sbyte key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredSByte",
+      "method": "EncryptDecrypt",
+      "signature": "sbyte EncryptDecrypt(sbyte value)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredSByte",
+      "method": "EncryptDecrypt",
+      "signature": "sbyte EncryptDecrypt(sbyte value, sbyte key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredSByte",
+      "method": "GenerateKey",
+      "signature": "sbyte GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredSByte",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(sbyte newKey)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredShort",
+      "method": "Decrypt",
+      "signature": "short Decrypt(short value, short key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredShort",
+      "method": "Encrypt",
+      "signature": "short Encrypt(short value, short key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredShort",
+      "method": "EncryptDecrypt",
+      "signature": "short EncryptDecrypt(short value)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredShort",
+      "method": "EncryptDecrypt",
+      "signature": "short EncryptDecrypt(short value, short key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredShort",
+      "method": "GenerateKey",
+      "signature": "short GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredShort",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(short newKey)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredString",
+      "method": "ArraysEquals",
+      "signature": "bool ArraysEquals(char[] a1, char[] a2)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredString",
+      "method": "Decrypt",
+      "signature": "string Decrypt(char[] value, string key)",
+      "arguments": [
+        [
+          0,
+          ""
+        ],
+        [
+          0,
+          "a"
+        ],
+        [
+          0,
+          "0"
+        ],
+        [
+          0,
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredString",
+      "method": "EncryptDecrypt",
+      "signature": "string EncryptDecrypt(string value)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredString",
+      "method": "EncryptDecrypt",
+      "signature": "string EncryptDecrypt(string value, string key)",
+      "arguments": [
+        [
+          "",
+          ""
+        ],
+        [
+          "a",
+          "a"
+        ],
+        [
+          "0",
+          "0"
+        ],
+        [
+          "hello",
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredString",
+      "method": "GetStringObsolete",
+      "signature": "string GetStringObsolete(byte[] bytes)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredString",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(string newKey)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUInt",
+      "method": "Decrypt",
+      "signature": "int Decrypt(uint value)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          4294967295
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUInt",
+      "method": "Decrypt",
+      "signature": "uint Decrypt(uint value, uint key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          4294967295,
+          4294967295
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUInt",
+      "method": "Encrypt",
+      "signature": "int Encrypt(uint value)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          4294967295
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUInt",
+      "method": "Encrypt",
+      "signature": "uint Encrypt(uint value, uint key)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          4294967295,
+          4294967295
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUInt",
+      "method": "GenerateKey",
+      "signature": "uint GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUInt",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(uint newKey)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          4294967295
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredULong",
+      "method": "Decrypt",
+      "signature": "ulong Decrypt(ulong value)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredULong",
+      "method": "Decrypt",
+      "signature": "ulong Decrypt(ulong value, ulong key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredULong",
+      "method": "Encrypt",
+      "signature": "ulong Encrypt(ulong value)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredULong",
+      "method": "Encrypt",
+      "signature": "ulong Encrypt(ulong value, ulong key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredULong",
+      "method": "GenerateKey",
+      "signature": "ulong GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredULong",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(ulong newKey)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUShort",
+      "method": "Decrypt",
+      "signature": "ushort Decrypt(ushort value, ushort key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUShort",
+      "method": "Encrypt",
+      "signature": "ushort Encrypt(ushort value, ushort key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUShort",
+      "method": "EncryptDecrypt",
+      "signature": "ushort EncryptDecrypt(ushort value)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUShort",
+      "method": "EncryptDecrypt",
+      "signature": "ushort EncryptDecrypt(ushort value, ushort key)",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUShort",
+      "method": "GenerateKey",
+      "signature": "ushort GenerateKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ObscuredUShort",
+      "method": "SetNewCryptoKey",
+      "signature": "void SetNewCryptoKey(ushort newKey)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "PathConstraint",
+      "method": "AddAfterPosition",
+      "signature": "void AddAfterPosition(float p, float[] temp, int i, float[] output, int o)",
+      "arguments": [
+        [
+          0.0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1.0,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          -1.0,
+          0,
+          -1,
+          0,
+          -1
+        ],
+        [
+          0.5,
+          0,
+          2147483647,
+          0,
+          2147483647
+        ],
+        [
+          1e+30,
+          0,
+          -2147483648,
+          0,
+          -2147483648
+        ],
+        [
+          0.0,
+          0,
+          7,
+          0,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "PathConstraint",
+      "method": "AddBeforePosition",
+      "signature": "void AddBeforePosition(float p, float[] temp, int i, float[] output, int o)",
+      "arguments": [
+        [
+          0.0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1.0,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          -1.0,
+          0,
+          -1,
+          0,
+          -1
+        ],
+        [
+          0.5,
+          0,
+          2147483647,
+          0,
+          2147483647
+        ],
+        [
+          1e+30,
+          0,
+          -2147483648,
+          0,
+          -2147483648
+        ],
+        [
+          0.0,
+          0,
+          7,
+          0,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandNumber",
+      "method": "Random",
+      "signature": "int Random(int inclusiveMin, int exclusiveMax)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          2147483647,
+          2147483647
+        ],
+        [
+          -2147483648,
+          -2147483648
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandNumber",
+      "method": "Random01",
+      "signature": "float Random01()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandNumber",
+      "method": "ResetRandom",
+      "signature": "void ResetRandom()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateByteKey",
+      "signature": "byte GenerateByteKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateCharKey",
+      "signature": "char GenerateCharKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateIntKey",
+      "signature": "int GenerateIntKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateLongKey",
+      "signature": "long GenerateLongKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateRandomString",
+      "signature": "string GenerateRandomString(int length)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          2147483647
+        ],
+        [
+          -2147483648
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateSByteKey",
+      "signature": "sbyte GenerateSByteKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateShortKey",
+      "signature": "short GenerateShortKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateUIntKey",
+      "signature": "uint GenerateUIntKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateULongKey",
+      "signature": "ulong GenerateULongKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "RandomUtils",
+      "method": "GenerateUShortKey",
+      "signature": "ushort GenerateUShortKey()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "SpeedHackDetector",
+      "method": "Dispose",
+      "signature": "void Dispose()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "SpeedHackDetector",
+      "method": "StopDetection",
+      "signature": "void StopDetection()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "SpeedHackProofTime",
+      "method": "Init",
+      "signature": "void Init()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "StringUtils",
+      "method": "BytesToString",
+      "signature": "string BytesToString(byte[] input)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "StringUtils",
+      "method": "BytesToString",
+      "signature": "string BytesToString(byte[] input, int index, int count)",
+      "arguments": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ],
+        [
+          0,
+          2147483647,
+          2147483647
+        ],
+        [
+          0,
+          -2147483648,
+          -2147483648
+        ],
+        [
+          0,
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "StringUtils",
+      "method": "HashBytesToHexString",
+      "signature": "string HashBytesToHexString(byte[] input)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ThreadSafeRandom",
+      "method": "Next",
+      "signature": "int Next()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ThreadSafeRandom",
+      "method": "Next",
+      "signature": "int Next(int maxExclusive)",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          -1
+        ],
+        [
+          2147483647
+        ],
+        [
+          -2147483648
+        ],
+        [
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ThreadSafeRandom",
+      "method": "Next",
+      "signature": "int Next(int minInclusive, int maxExclusive)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          2147483647,
+          2147483647
+        ],
+        [
+          -2147483648,
+          -2147483648
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ThreadSafeRandom",
+      "method": "NextBytes",
+      "signature": "void NextBytes(byte[] buffer)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ThreadSafeRandom",
+      "method": "NextChars",
+      "signature": "void NextChars(char[] buffer)",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "ThreadSafeRandom",
+      "method": "NextLong",
+      "signature": "long NextLong(long minInclusive, long maxExclusive)",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          9223372036854775807,
+          9223372036854775807
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "TimeUtils",
+      "method": "GetEnvironmentTicks",
+      "signature": "long GetEnvironmentTicks()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "TimeUtils",
+      "method": "GetReliableTicks",
+      "signature": "long GetReliableTicks()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Triangulator",
+      "method": "IsConcave",
+      "signature": "bool IsConcave(int index, int vertexCount, float[] vertices, int[] indices)",
+      "arguments": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          -1,
+          0,
+          0
+        ],
+        [
+          2147483647,
+          2147483647,
+          0,
+          0
+        ],
+        [
+          -2147483648,
+          -2147483648,
+          0,
+          0
+        ],
+        [
+          7,
+          7,
+          0,
+          0
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Triangulator",
+      "method": "PositiveArea",
+      "signature": "bool PositiveArea(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y)",
+      "arguments": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30,
+          1e+30,
+          1e+30,
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Triangulator",
+      "method": "Winding",
+      "signature": "int Winding(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y)",
+      "arguments": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        [
+          1e+30,
+          1e+30,
+          1e+30,
+          1e+30,
+          1e+30,
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "UtilityGame",
+      "method": "ConvertKMT",
+      "signature": "string ConvertKMT(float num)",
+      "arguments": [
+        [
+          0.0
+        ],
+        [
+          1.0
+        ],
+        [
+          -1.0
+        ],
+        [
+          0.5
+        ],
+        [
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "DisableMediationInitialization",
+      "signature": "void DisableMediationInitialization()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "GetDeviceSafeWidth",
+      "signature": "int GetDeviceSafeWidth()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "GetDeviceScale",
+      "signature": "float GetDeviceScale()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "GetScreenWidth",
+      "signature": "int GetScreenWidth()",
+      "arguments": [
+        []
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "Initialize",
+      "signature": "void Initialize(string appId)",
+      "arguments": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ],
+        [
+          "0"
+        ],
+        [
+          "hello"
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "SetApplicationMuted",
+      "signature": "void SetApplicationMuted(bool muted)",
+      "arguments": [
+        [
+          true
+        ],
+        [
+          false
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "SetApplicationVolume",
+      "signature": "void SetApplicationVolume(float volume)",
+      "arguments": [
+        [
+          0.0
+        ],
+        [
+          1.0
+        ],
+        [
+          -1.0
+        ],
+        [
+          0.5
+        ],
+        [
+          1e+30
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "Utils",
+      "method": "SetiOSAppPauseOnBackground",
+      "signature": "void SetiOSAppPauseOnBackground(bool pause)",
+      "arguments": [
+        [
+          true
+        ],
+        [
+          false
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    },
+    {
+      "type": "xxHash",
+      "method": "CalculateHash",
+      "signature": "uint CalculateHash(byte[] buf, int len, uint seed)",
+      "arguments": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          4294967295
+        ],
+        [
+          0,
+          2147483647,
+          7
+        ],
+        [
+          0,
+          -2147483648,
+          0
+        ],
+        [
+          0,
+          7,
+          1
+        ]
+      ],
+      "why": "static, primitives in and out, no Unity type named",
+      "outcome": "NOT_RUN"
+    }
+  ]
+}

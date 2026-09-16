@@ -1,0 +1,297 @@
+{
+  "fixture": "Impostor",
+  "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/impostor-src",
+  "rip": "/home/user/AssetRipper/Test/Out53ish/Impostor",
+  "shaders_in_source": 49,
+  "shaders_in_rip": 3,
+  "paired": 3,
+  "verdicts": {
+    "EXACT": 0,
+    "SEMANTICALLY_EQUIVALENT": 0,
+    "PARTIAL": 0,
+    "FALLBACK": 0,
+    "DUMMY": 3,
+    "NOT_EXPORTED": 46,
+    "NO_SOURCE": 0
+  },
+  "property_recovery_rate": 1.0,
+  "property_exact_rate": 0.5333,
+  "dummy_in_rip": 3,
+  "shaders": [
+    {
+      "shader": "Hidden/Internal-SpriteDepthNormalsTexture",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Hidden/Spine/Bones",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Hidden/Sprite-CameraDepthNormalsTexture",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Hidden/Sprite-CameraDepthTexture",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Hidden/Sprite-CameraNormalsTexture",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Blend Modes/Skeleton PMA Additive",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Blend Modes/Skeleton PMA Multiply",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Blend Modes/Skeleton PMA Screen",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Blend Modes/Skeleton PMA Additive",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Blend Modes/Skeleton PMA Multiply",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Blend Modes/Skeleton PMA Screen",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/OutlineOnly-ZWrite",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Skeleton",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Skeleton Fill",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Skeleton Lit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Skeleton Lit ZWrite",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Skeleton Tint",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Skeleton Tint Black",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/SkeletonGraphic",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/SkeletonGraphic Tint Black",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Special/Skeleton Grayscale",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Sprite/Pixel Lit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Sprite/Unlit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Outline/Sprite/Vertex Lit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Skeleton",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 7,
+        "exported_properties": 7,
+        "properties_matched": 4,
+        "properties_equivalent": 3,
+        "properties_differ": [],
+        "source_structure": 16,
+        "exported_structure": 2,
+        "source_programs": 2,
+        "exported_programs": 1
+      }
+    },
+    {
+      "shader": "Spine/Skeleton Fill",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Skeleton Lit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Skeleton Lit ZWrite",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Skeleton Tint",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Skeleton Tint Black",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/SkeletonGraphic",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/SkeletonGraphic Tint Black",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Special/Skeleton Grayscale",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Special/SkeletonGhost",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Sprite/Pixel Lit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Sprite/Unlit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "Spine/Sprite/Vertex Lit",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Bitmap",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Bitmap Custom Atlas",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Distance Field",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Distance Field (Surface)",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Distance Field Overlay",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Bitmap",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 27,
+        "exported_properties": 27,
+        "properties_matched": 10,
+        "properties_equivalent": 17,
+        "properties_differ": [],
+        "source_structure": 9,
+        "exported_structure": 2,
+        "source_programs": 1,
+        "exported_programs": 1
+      }
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field (Surface)",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field - Masking",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field Overlay",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Mobile/Distance Field SSD",
+      "verdict": "NOT_EXPORTED",
+      "evidence": {}
+    },
+    {
+      "shader": "TextMeshPro/Sprite",
+      "verdict": "DUMMY",
+      "evidence": {
+        "source_properties": 11,
+        "exported_properties": 11,
+        "properties_matched": 10,
+        "properties_equivalent": 1,
+        "properties_differ": [],
+        "source_structure": 8,
+        "exported_structure": 2,
+        "source_programs": 1,
+        "exported_programs": 1
+      }
+    }
+  ]
+}

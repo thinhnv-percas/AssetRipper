@@ -147,7 +147,14 @@ public sealed class DummyShaderTextExporter : ShaderExporterBase
 
 		switch (_this.GetType_())
 		{
+			// Color and Vector are distinct in the serialized shader and distinct in ShaderLab: a
+			// Color property gets the colour picker in the material inspector and is converted out
+			// of gamma space when it is assigned, a Vector is four numbers. Writing both as Vector
+			// discards a type the metadata carries.
 			case SerializedPropertyType.Color:
+				writer.Write("Color");
+				break;
+
 			case SerializedPropertyType.Vector:
 				writer.Write("Vector");
 				break;
