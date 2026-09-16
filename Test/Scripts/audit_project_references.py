@@ -41,6 +41,34 @@ import sys
 POINTER = re.compile(
     r"^\s*(?:- )?(?P<property>[A-Za-z_][A-Za-z0-9_]*): \{fileID: (?P<fileID>-?\d+)"
     r"(?:, guid: (?P<guid>[0-9a-f]+), type: (?P<type>\d+))?\}")
+
+# A PPtr that is an element of a list has no property of its own - `m_Materials`, a font asset's
+# atlas list, a GameObject's components are all written this way. Reading only the named form missed
+# them entirely, which is the "counting broken references by one of their shapes misses the other"
+# defect one iteration further on: the texture two documents reach was reported as reached by one.
+LIST_POINTER = re.compile(
+    r"^\s*- \{fileID: (?P<fileID>-?\d+)"
+    r"(?:, guid: (?P<guid>[0-9a-f]+), type: (?P<type>\d+))?\}")
+
+# The property a list belongs to, so an element can be attributed to it.
+PROPERTY_LINE = re.compile(r"^\s*(?P<property>[A-Za-z_][A-Za-z0-9_]*):\s*$")
+
+
+def pointers(lines):
+    """(line number, property, match) for every PPtr in a document, named or in a list."""
+    holder = "<list>"
+
+    for number, line in enumerate(lines, start=1):
+        if (named := PROPERTY_LINE.match(line)) is not None:
+            holder = named["property"]
+            continue
+
+        if (match := POINTER.match(line)) is not None:
+            yield number, match["property"], match
+            continue
+
+        if (match := LIST_POINTER.match(line)) is not None:
+            yield number, holder, match
 ANCHOR = re.compile(r"^--- !u!(?P<class>\d+) &(?P<anchor>\d+)")
 META_GUID = re.compile(r"^guid: (?P<guid>[0-9a-f]+)")
 
@@ -90,7 +118,7 @@ def documents(root: pathlib.Path):
             yield path
 
 
-def classify(match: re.Match, anchors: set[str], guids: dict[str, list[str]]) -> tuple[str, str]:
+def classify(match: re.Match, anchors: set[str], guids: dict[str, list[str]], holder: str) -> tuple[str, str]:
     """The verdict for one PPtr, and the evidence behind it."""
     file_id = match["fileID"]
     guid = match["guid"]
@@ -98,7 +126,7 @@ def classify(match: re.Match, anchors: set[str], guids: dict[str, list[str]]) ->
     if guid is None:
         if file_id == "0":
             return ((MISSING, "a required slot holds the null PPtr")
-                    if match["property"] in REQUIRED_PROPERTIES
+                    if holder in REQUIRED_PROPERTIES
                     else (NULL, "an optional slot, empty"))
         return (EXACT, "anchor in this document") if file_id in anchors else (BROKEN, f"no anchor &{file_id} in this document")
 
@@ -115,6 +143,24 @@ def classify(match: re.Match, anchors: set[str], guids: dict[str, list[str]]) ->
     return BROKEN, f"no .meta in the rip declares guid {guid}"
 
 
+def absence_evidence(guid: str | None, references: int, guids: dict[str, list[str]]) -> str:
+    """Why a GUID resolves to nothing: an asset the build does not carry, or one this rip mislaid.
+
+    The two want opposite work and look identical in the audit. What separates them is whether the
+    rip assigns that kind of asset GUIDs correctly at all: a texture four materials reach by the GUID
+    its own .meta declares, and two more reach by a GUID nothing declares, is two textures - one in
+    the build and one not - rather than one texture whose GUID went wrong.
+    """
+    if guid is None:
+        return "no guid to place"
+
+    if guid in guids:
+        return "declared"
+
+    return (f"referenced by {references} document(s) and declared by none - "
+            f"{'consistent with an asset absent from the build' if references > 1 else 'a single dangling reference'}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("root", help="the game directory inside the rip output")
@@ -129,6 +175,17 @@ def main() -> int:
         return 2
 
     guids = guid_index(root)
+    # How many documents name each GUID, for the absence evidence below.
+    referenced = collections.Counter()
+
+    for path in documents(root):
+        try:
+            for _, _, match in pointers(path.read_text(encoding="utf-8", errors="replace").splitlines()):
+                if match["guid"]:
+                    referenced[match["guid"]] += 1
+        except OSError:
+            continue
+
     verdicts = collections.Counter()
     by_property = collections.defaultdict(collections.Counter)
     by_document_kind = collections.defaultdict(collections.Counter)
@@ -146,21 +203,18 @@ def main() -> int:
         anchors = {match["anchor"] for line in lines if (match := ANCHOR.match(line))}
         relative = str(path.relative_to(root))
 
-        for number, line in enumerate(lines, start=1):
-            match = POINTER.match(line)
-            if not match:
-                continue
-
-            verdict, evidence = classify(match, anchors, guids)
+        for number, holder, match in pointers(lines):
+            verdict, evidence = classify(match, anchors, guids, holder)
             verdicts[verdict] += 1
-            by_property[match["property"]][verdict] += 1
+            by_property[holder][verdict] += 1
             by_document_kind[path.suffix][verdict] += 1
 
             if verdict in (AMBIGUOUS, BROKEN, MISSING):
                 findings.append({
-                    "document": relative, "line": number, "property": match["property"],
+                    "document": relative, "line": number, "property": holder,
                     "fileID": match["fileID"], "guid": match["guid"],
                     "verdict": verdict, "evidence": evidence,
+                    "absence": absence_evidence(match["guid"], referenced[match["guid"]] if match["guid"] else 0, guids),
                 })
 
     total = sum(verdicts.values())
@@ -205,6 +259,7 @@ def main() -> int:
         for finding in findings:
             print(f"{finding['document']}:{finding['line']}  {finding['property']}  "
                   f"{finding['verdict']}: {finding['evidence']}")
+            print(f"    {finding['absence']}")
 
     if arguments.json:
         pathlib.Path(arguments.json).write_text(json.dumps({
