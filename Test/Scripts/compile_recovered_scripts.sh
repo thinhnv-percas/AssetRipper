@@ -124,7 +124,13 @@ warnings=$(grep -c ': warning ' "$work/log.txt")
 # both print "0 errors" otherwise, and three iterations recorded the first as if it were the second.
 echo "ROSLYN_STATUS: AVAILABLE_AND_RUN"
 echo "ROSLYN_COMPILER: $csc"
+# Files, not errors, is what a compile pass rate is over: one file with a hundred errors and a
+# hundred files with one are the same error count and completely different projects. Roslyn names the
+# file of every diagnostic, so the distinct ones are countable without parsing anything else.
+faulted=$(grep ': error ' "$work/log.txt" | grep -oE '^[^(]+\.cs' | sort -u | wc -l)
+
 echo "$assembly: $files files, $errors errors, $warnings warnings"
+echo "$assembly: $((files - faulted)) of $files files compile clean"
 echo
 
 # The message shown per code is the MOST COMMON one, with how many share it - not the first in the
