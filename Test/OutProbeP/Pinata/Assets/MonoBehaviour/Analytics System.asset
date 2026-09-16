@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46e609326dd93eb1b11b52a89bc4bfe, type: 3}
+  m_Name: Analytics System
+  m_EditorClassIdentifier:
+  evnt: {fileID: 11400000, guid: 0e1a730a821167943b7ebff9beb386e0, type: 2}
+  appMetrica: {fileID: 1709254077376921, guid: acaa181ae9c1db045b9430805fb5e8cd, type: 2}
+  gameAnalytics: {fileID: 1709254077376921, guid: 89a1c1ec082bd5d41b64453de795cab9, type: 2}
+  adjust: {fileID: 1709254077376921, guid: c7f124eb28c7d8543b117d7a1eaf4cbe, type: 2}
+  appsFlyer: {fileID: 1709254077376921, guid: 5ba035f85ec1a5746a149fa2c71ad3f9, type: 2}

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd12be8d19a217d46ab501b5e914c22, type: 3}
+  m_Name: KeysConfig
+  m_EditorClassIdentifier:
+  Analytics:
+    Tenjin: N5CB9RQ2U2YFARGWAMUMP1ZDG7VMZADS
+    AppsFlyer: zcKrZYJWnrWWctCxcLNnyT
+    Adjust: stc7vimmioe8
+    AppMetrica:
+      iOS: 96d787b3-257f-4615-a18c-fd7e50e2f7d7
+      Android: 00282739-ef0e-4f7f-9a2e-acd6344be11b
+    MyTracker:
+      iOS: 85904830876877767428
+      Android: 62988504367717372134
+  Advertising:
+    IronSource:
+      iOS:
+      Android:
+    Admob:
+      iOS:
+      Android:
+      DontUseIronSource: 0
+  iOS:
+    appID: 1491932497
+    frameworks: []
+    flags: []
+    plistKeys:
+      StringKeys:
+      - Name: GADApplicationIdentifier
+        Value: ca-app-pub-3931733387388856~1347512517
+      - Name: NSCalendarsUsageDescription
+        Value: Adding events
+      - Name: NSPhotoLibraryUsageDescription
+        Value: Taking selfies
+      - Name: NSCameraUsageDescription
+        Value: Taking selfies
+      - Name: NSMotionUsageDescription
+        Value: Interactive ad controls
+      - Name: NSLocationWhenInUseUsageDescription
+        Value: Serving App Ads
+      - Name: NSLocationWhenInUseUsageDescription
+        Value: Serving App Ads
+      IntKeys: []
+      BoolKeys:
+      - Name: ITSAppUsesNonExemptEncryption
+        Value: 0
+      FloatKeys: []
+  Android:
+    keystoreName: pinata.keystore
+    keystorePass: bCdizVquSWNfV
+    keyaliasName: pinata
+    keyaliasPass: pinata1984

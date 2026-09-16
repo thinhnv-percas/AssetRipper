@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8fa237f77a163d2ccadf228e8d447e, type: 3}
+  m_Name: In App Config
+  m_EditorClassIdentifier:
+  AndroidAgreementText: These purchases are auto-renewable subscription. Payment will be charged to your Google account at the confirmation of purchase or at the end of the trial period of purchase. The subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and turn off auto-renewal of subscription by going to your account settings on the Google Play after purchase. Any unused portion of a free trial period will be forfeited when the user purchases a subscription to that publication, where applicable.
+  IOSAgreementText: These purchases are auto-renewable subscription. Payment will be charged to your AppStore account at the confirmation of purchase or at the end of the trial period of purchase. The subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and turn off auto-renewal of subscription by going to your account settings on the AppStore after purchase. Any unused portion of a free trial period will be forfeited when the user purchases a subscription to that publication, where applicable.

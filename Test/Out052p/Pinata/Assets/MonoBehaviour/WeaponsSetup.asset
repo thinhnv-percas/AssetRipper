@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcde0b3184098ed940aef05a50935afe, type: 3}
+  m_Name: WeaponsSetup
+  m_EditorClassIdentifier:
+  value:
+    Collection:
+    - Id: 0
+      Icon: {fileID: 21300000, guid: 082d0ee30dab3594687cc1963560002e, type: 2}
+      WeaponPrefab: {fileID: 1709254077376921, guid: 4e25a331b5e36994daad1515f2627aca, type: 2}
+      WeaponParametersComponent:
+        Bought: 1
+        Ammo: 13
+        Power: 27
+        Speed: 1000
+        Cooldown: 0.6
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 100
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 0
+        AmmoUpgradePrice: 63
+        AmmoUpgradeInterpolation: 1
+        PowerUpgradePrice: 57
+        PowerUpgradeInterpolation: 2
+    - Id: 1
+      Icon: {fileID: 21300000, guid: cd656d9b579af114f81ccd29eb03a111, type: 2}
+      WeaponPrefab: {fileID: 1709254077376921, guid: 0b341185af0f5eb40a8ed52585593e64, type: 2}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 18
+        Power: 51
+        Speed: 1000
+        Cooldown: 0.4
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 100
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 1200
+        AmmoUpgradePrice: 97
+        AmmoUpgradeInterpolation: 1
+        PowerUpgradePrice: 88
+        PowerUpgradeInterpolation: 4
+    - Id: 2
+      Icon: {fileID: 21300000, guid: 8681fe85d42f78947b8c77111a568dac, type: 2}
+      WeaponPrefab: {fileID: 1709254077376921, guid: 5977da1452cb648409de294cf992a9c4, type: 2}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 16
+        Power: 97
+        Speed: 1000
+        Cooldown: 0.2
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 100
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 3200
+        AmmoUpgradePrice: 189
+        AmmoUpgradeInterpolation: 1
+        PowerUpgradePrice: 171
+        PowerUpgradeInterpolation: 6
+    - Id: 3
+      Icon: {fileID: 21300000, guid: db34d4a1edf2beb4eab1c6ad529a2c4c, type: 2}
+      WeaponPrefab: {fileID: 0}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 18
+        Power: 184
+        Speed: 1000
+        Cooldown: 0.1
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 100
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 12000
+        AmmoUpgradePrice: 488
+        AmmoUpgradeInterpolation: 1
+        PowerUpgradePrice: 442
+        PowerUpgradeInterpolation: 8
+    - Id: 4
+      Icon: {fileID: 21300000, guid: 9ef7bb640d620a541a5375875ea47905, type: 2}
+      WeaponPrefab: {fileID: 1709254077376921, guid: 58a933acaf8a5f440a5b13b67c9a95dc, type: 2}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 20
+        Power: 350
+        Speed: 1000
+        Cooldown: 0.05
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 100
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 27500
+        AmmoUpgradePrice: 1464
+        AmmoUpgradeInterpolation: 1
+        PowerUpgradePrice: 1326
+        PowerUpgradeInterpolation: 10
+    - Id: 5
+      Icon: {fileID: 21300000, guid: 5215628d5d5c5e946a78ad981d0be887, type: 2}
+      WeaponPrefab: {fileID: 0}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 22
+        Power: 700
+        Speed: 1000
+        Cooldown: 0
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 0
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 1500000
+        AmmoUpgradePrice: 0
+        AmmoUpgradeInterpolation: 0
+        PowerUpgradePrice: 0
+        PowerUpgradeInterpolation: 0
+    - Id: 6
+      Icon: {fileID: 21300000, guid: 5215628d5d5c5e946a78ad981d0be887, type: 2}
+      WeaponPrefab: {fileID: 0}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 24
+        Power: 1350
+        Speed: 1000
+        Cooldown: 0
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 0
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 2500000
+        AmmoUpgradePrice: 0
+        AmmoUpgradeInterpolation: 0
+        PowerUpgradePrice: 0
+        PowerUpgradeInterpolation: 0
+    - Id: 7
+      Icon: {fileID: 21300000, guid: 5215628d5d5c5e946a78ad981d0be887, type: 2}
+      WeaponPrefab: {fileID: 0}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 26
+        Power: 2650
+        Speed: 1000
+        Cooldown: 0
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 0
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 3600000
+        AmmoUpgradePrice: 0
+        AmmoUpgradeInterpolation: 0
+        PowerUpgradePrice: 0
+        PowerUpgradeInterpolation: 0
+    - Id: 8
+      Icon: {fileID: 21300000, guid: 5215628d5d5c5e946a78ad981d0be887, type: 2}
+      WeaponPrefab: {fileID: 0}
+      WeaponParametersComponent:
+        Bought: 0
+        Ammo: 28
+        Power: 3800
+        Speed: 1000
+        Cooldown: 0
+      WeaponUpgradeParametersComponent:
+        UpgradesLimit: 0
+        CurrentAmmoUpgrade: 0
+        CurrentPowerUpgrade: 0
+        BuyPrice: 7600000
+        AmmoUpgradePrice: 0
+        AmmoUpgradeInterpolation: 0
+        PowerUpgradePrice: 0
+        PowerUpgradeInterpolation: 0
+  customKey: 22ac9f8d633f4be1a30023a7344e944d
+  AutoSave: 1

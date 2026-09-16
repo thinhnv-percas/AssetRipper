@@ -1,0 +1,302 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d7381f0e3b4d50f98930a0cffda2db, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier:
+  UI:
+    MinimumOpacity: 0.3
+    MaximumOpacity: 1
+  GlobalIntegers:
+    keyData:
+    - Coins
+    - Level
+    - CurrentWeaponAmmo
+    - NextLevel
+    - LevelCoinReward
+    valueData:
+    - {fileID: 11400000, guid: 9133d9c83e143684f9dbe6a1cff9ecf2, type: 2}
+    - {fileID: 11400000, guid: e27d5a825356c7d4b8365163e86a875d, type: 2}
+    - {fileID: 11400000, guid: d98a10b68bdb8d34d80f498f6a40e316, type: 2}
+    - {fileID: 11400000, guid: b02c5ade84820074c8438648f7c3b50b, type: 2}
+    - {fileID: 11400000, guid: a3ddce2d5b36c394faf9181ce21a4392, type: 2}
+  GlobalEvents:
+    keyData:
+    - EnemyIsDead
+    - AttackBegin
+    - AttackEnd
+    - ShowLoseScreen
+    - FakeClick
+    - LevelComplete
+    - ShowWinScreen
+    - ShowMainMenu
+    - Playing
+    valueData:
+    - {fileID: 11400000, guid: 8bf052cb70426b04eaf74c2a6ee2d1a2, type: 2}
+    - {fileID: 11400000, guid: dd41fb2ebce437b4582b9b636c2b70ac, type: 2}
+    - {fileID: 11400000, guid: 838b8f613b40e5b43acd064180aa030b, type: 2}
+    - {fileID: 11400000, guid: c2c6beddc37da564ab7d432d706434fd, type: 2}
+    - {fileID: 11400000, guid: 412dd406b1784994a89a6e9725330da5, type: 2}
+    - {fileID: 11400000, guid: d7fde7a9dd9dcab44971b307c1931fd5, type: 2}
+    - {fileID: 11400000, guid: 8bf052cb70426b04eaf74c2a6ee2d1a2, type: 2}
+    - {fileID: 11400000, guid: e844ef46dd0041740b1f42d8da34e906, type: 2}
+    - {fileID: 11400000, guid: 908aa41317c32104782e71f18bbdb64f, type: 2}
+  GlobalEventsInt:
+    keyData:
+    - EnemyIsKicked
+    valueData:
+    - {fileID: 11400000, guid: 68e01d4d7d2c64240bef5d94123ba8a3, type: 2}
+  Enemy:
+    CurrentEnemy: {fileID: 11400000, guid: c844cf220aed94148800516e7534931d, type: 2}
+    CurrentEnemyHealth: {fileID: 11400000, guid: 673560f423d857f418bb2535360c8867, type: 2}
+    EnemiesSetup:
+    - Id: 0
+      Health: 324
+      BaseReward: 500
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 1
+      Health: 351
+      BaseReward: 500
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 2
+      Health: 378
+      BaseReward: 500
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 3
+      Health: 621
+      BaseReward: 500
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 4
+      Health: 816
+      BaseReward: 550
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 5
+      Health: 1270
+      BaseReward: 1650
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 6
+      Health: 1800
+      BaseReward: 1200
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 7
+      Health: 2060
+      BaseReward: 1500
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 8
+      Health: 2369
+      BaseReward: 1950
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 9
+      Health: 2987
+      BaseReward: 3000
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 10
+      Health: 3399
+      BaseReward: 2750
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 11
+      Health: 3768
+      BaseReward: 3250
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 12
+      Health: 4050
+      BaseReward: 3550
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 13
+      Health: 4396
+      BaseReward: 3800
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 14
+      Health: 7112
+      BaseReward: 8300
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 15
+      Health: 7620
+      BaseReward: 5900
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 16
+      Health: 8636
+      BaseReward: 7000
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 17
+      Health: 10100
+      BaseReward: 8050
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 18
+      Health: 11716
+      BaseReward: 8750
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 19
+      Health: 16796
+      BaseReward: 19400
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 20
+      Health: 15240
+      BaseReward: 13570
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 21
+      Health: 17272
+      BaseReward: 16100
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 22
+      Health: 20200
+      BaseReward: 18515
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 23
+      Health: 23432
+      BaseReward: 20125
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 24
+      Health: 33592
+      BaseReward: 44620
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 25
+      Health: 30480
+      BaseReward: 31211
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 26
+      Health: 34544
+      BaseReward: 37030
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 27
+      Health: 40400
+      BaseReward: 42584
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 28
+      Health: 46864
+      BaseReward: 46287
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 29
+      Health: 67184
+      BaseReward: 102626
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 30
+      Health: 60960
+      BaseReward: 71785
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 31
+      Health: 69088
+      BaseReward: 85169
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 32
+      Health: 80800
+      BaseReward: 97944
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 33
+      Health: 93728
+      BaseReward: 106461
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 34
+      Health: 13468
+      BaseReward: 236039
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 35
+      Health: 121920
+      BaseReward: 165106
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 36
+      Health: 138176
+      BaseReward: 195888
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 37
+      Health: 161600
+      BaseReward: 225272
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 38
+      Health: 187456
+      BaseReward: 244860
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 39
+      Health: 268736
+      BaseReward: 542891
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 40
+      Health: 243840
+      BaseReward: 379744
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 41
+      Health: 276352
+      BaseReward: 450544
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 42
+      Health: 323200
+      BaseReward: 518125
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 43
+      Health: 374912
+      BaseReward: 563180
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 44
+      Health: 53472
+      BaseReward: 1248650
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+    - Id: 45
+      Health: 487680
+      BaseReward: 873411
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8243008e7afff424b9ab6e4c2eeb6db3, type: 2}
+    - Id: 46
+      Health: 552704
+      BaseReward: 1036251
+      EnemyPrefab: {fileID: 1709254077376921, guid: 7392673991c43934f8c29bf37f849331, type: 2}
+    - Id: 47
+      Health: 646400
+      BaseReward: 1191688
+      EnemyPrefab: {fileID: 1709254077376921, guid: 8f038a2416395de4a9cfcb896d36fc67, type: 2}
+    - Id: 48
+      Health: 749842
+      BaseReward: 1295314
+      EnemyPrefab: {fileID: 1709254077376921, guid: 10ae9716ddc92a24e8b5bf02818b88d8, type: 2}
+    - Id: 49
+      Health: 1074944
+      BaseReward: 2871896
+      EnemyPrefab: {fileID: 1709254077376921, guid: fa5bb35986a93f84fa783e3453871bba, type: 2}
+  Weapon:
+    CurrentWeapon: {fileID: 11400000, guid: e39801b3ce5422843bdadbd3e66d6df4, type: 2}
+    Data: {fileID: 11400000, guid: d817e26b1522a3844b59f9e4fb1785b8, type: 2}
+  MetaUpgradeConfigs:
+    keyData:
+    - AttackSpeed
+    - BonusGold
+    - OfflineReward
+    valueData:
+    - Data:
+      - BoostValue: 0
+        NextUpgradeCost: 100
+      - BoostValue: 8
+        NextUpgradeCost: 170
+      - BoostValue: 15
+        NextUpgradeCost: 290
+      - BoostValue: 23
+        NextUpgradeCost: 495
+      - BoostValue: 30
+        NextUpgradeCost: 835
+    - Data:
+      - BoostValue: 0
+        NextUpgradeCost: 100
+      - BoostValue: 6
+        NextUpgradeCost: 170
+      - BoostValue: 10
+        NextUpgradeCost: 290
+      - BoostValue: 14
+        NextUpgradeCost: 495
+      - BoostValue: 17
+        NextUpgradeCost: 835
+    - Data:
+      - BoostValue: 0
+        NextUpgradeCost: 100
+      - BoostValue: 8
+        NextUpgradeCost: 170
+      - BoostValue: 15
+        NextUpgradeCost: 290
+      - BoostValue: 24
+        NextUpgradeCost: 490
+      - BoostValue: 33
+        NextUpgradeCost: 835

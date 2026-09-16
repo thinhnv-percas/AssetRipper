@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acbda8a2ce0229df59bb21cc4353f5a, type: 3}
+  m_Name: Rewarded Ad Player System
+  m_EditorClassIdentifier:
+  InterstitialCompleted: {fileID: 11400000, guid: e57333d47f9e50d4fb2d620ec80d2b1f, type: 2}
+  RewardedCompleted: {fileID: 11400000, guid: 8fc2dd014b8be9e4d96b6a20713dea7a, type: 2}
+  RewardedSkipped: {fileID: 11400000, guid: 8971dd175e0160f46b6f8d4d27b2adf4, type: 2}
+  Timer: {fileID: 11400000, guid: fbb1790b24d753c4da1d088615ea0d60, type: 2}
+  Coins: {fileID: 11400000, guid: 9133d9c83e143684f9dbe6a1cff9ecf2, type: 2}
+  LevelReward: {fileID: 11400000, guid: a3ddce2d5b36c394faf9181ce21a4392, type: 2}

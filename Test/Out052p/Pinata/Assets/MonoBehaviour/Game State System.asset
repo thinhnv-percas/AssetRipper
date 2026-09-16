@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e9b08c0354cb3fb8c03485b3589021, type: 3}
+  m_Name: Game State System
+  m_EditorClassIdentifier:
+  BeginTransitionToMenu: {fileID: 11400000, guid: dc7486d8876a1af48885d798f0d6541a, type: 2}
+  EndTransitionToMenu: {fileID: 11400000, guid: 904a1531f869e28438747fde6d8e87ff, type: 2}
+  TapToPlay: {fileID: 11400000, guid: 908aa41317c32104782e71f18bbdb64f, type: 2}
+  ShowMainMenu: {fileID: 11400000, guid: e844ef46dd0041740b1f42d8da34e906, type: 2}
+  ShowWinScreen: {fileID: 11400000, guid: 8bf052cb70426b04eaf74c2a6ee2d1a2, type: 2}
+  ShowLoseScreen: {fileID: 11400000, guid: c2c6beddc37da564ab7d432d706434fd, type: 2}
+  EnemyIsNotDead: {fileID: 11400000, guid: 8a4da021262f6a5428d8206ccc73dd65, type: 2}
+  Level: {fileID: 11400000, guid: e27d5a825356c7d4b8365163e86a875d, type: 2}
+  NextLevel: {fileID: 11400000, guid: b02c5ade84820074c8438648f7c3b50b, type: 2}
+  CurrentWeaponAmmo: {fileID: 11400000, guid: d98a10b68bdb8d34d80f498f6a40e316, type: 2}
+  Coins: {fileID: 11400000, guid: 9133d9c83e143684f9dbe6a1cff9ecf2, type: 2}
+  LevelCoinReward: {fileID: 11400000, guid: a3ddce2d5b36c394faf9181ce21a4392, type: 2}

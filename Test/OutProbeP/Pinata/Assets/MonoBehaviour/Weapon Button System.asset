@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14868bb64669f2bf4642a1011f9c4152, type: 3}
+  m_Name: Weapon Button System
+  m_EditorClassIdentifier:
+  Coins: {fileID: 11400000, guid: 95c12dcc1f0127d45b027eeb8dda0f8a, type: 2}
+  OnSelectWeaponClick: {fileID: 11400000, guid: fac1b80f8d4a17c439bc0b1907f596fb, type: 2}
+  OnAmmoUpgradeClick: {fileID: 11400000, guid: 85fdfd43db3e0a04e9c4ec79b6418452, type: 2}
+  OnPowerUpgradeClick: {fileID: 11400000, guid: 9d34f8f045015ae47889d943fcb45e06, type: 2}
+  OnBuyWeaponClick: {fileID: 11400000, guid: 4e3ec1decf7af23428d446c35551fb14, type: 2}

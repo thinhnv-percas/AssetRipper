@@ -27,9 +27,9 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from recovery_metrics import (  # noqa: E402
-    ADDRESS, ISSUE, attempted_assemblies, classify, fingerprint, methods, native_body, NATIVE_SOURCE,
+    ADDRESS, attempted_assemblies, classify, fingerprint, methods, native_body, NATIVE_SOURCE,
 )
-from placeholder_families import assembly_of, family_of  # noqa: E402
+from placeholder_families import assembly_of, family_of, messages  # noqa: E402
 
 SIGNATURE = re.compile(r'^\s*(?:\[[^\]]*\]\s*)*((?:public|private|protected|internal|static|override|virtual|sealed|extern|unsafe|async|\s)*[\w<>\[\],.]+\s+[\w<>.]+\s*\([^)]*\))')
 
@@ -57,7 +57,7 @@ def harvest(root: pathlib.Path, log: pathlib.Path | None):
             index += 1
             status, placeholders, untyped, lost = classify(native, source, body)
             families = {family_of(message)[0] for line in body.splitlines()
-                        if not line.lstrip().startswith("[") for message in ISSUE.findall(line)}
+                        if not line.lstrip().startswith("[") for message in messages(line)}
             yield (
                 f"{relative}#0x{rva}",
                 status,
@@ -66,7 +66,55 @@ def harvest(root: pathlib.Path, log: pathlib.Path | None):
                 native,
                 placeholders,
                 sorted(families),
+                declaration(body),
             )
+
+
+# What a method is, as far as a running game cares. A corpus picked only by how badly recovery went
+# is a corpus of the code least likely to run; these are the entry points a project actually executes,
+# and a regression in one of them is worth more than a regression in the worst method in the rip.
+# Matched on the declaration rather than on a name alone, so `Update` the message and `Update` some
+# helper of the same name are not conflated - a Unity message is void and takes no arguments.
+RUNTIME_ROLES = {
+    "LIFECYCLE_AWAKE": re.compile(r"\bvoid (Awake|OnEnable)\(\)"),
+    "LIFECYCLE_START": re.compile(r"\bvoid Start\(\)"),
+    "LIFECYCLE_UPDATE": re.compile(r"\bvoid (Update|LateUpdate|FixedUpdate)\(\)"),
+    "LIFECYCLE_DESTROY": re.compile(r"\bvoid (OnDisable|OnDestroy|OnApplicationQuit|OnApplicationPause)\("),
+    "UNITY_CALLBACK": re.compile(r"\bvoid (OnCollision|OnTrigger|OnMouse|OnGUI|OnBecame|OnWillRender|OnDrawGizmos)\w*\("),
+    "COROUTINE": re.compile(r"\bIEnumerator \w+\("),
+    "PROPERTY_GETTER": re.compile(r"\bpublic .*\bget_\w+\(\)"),
+    "EVENT_ACCESSOR": re.compile(r"\b(add|remove)_\w+\("),
+    "CONSTRUCTOR": re.compile(r"\bpublic \w+\([^)]*\)\s*$"),
+    "STATIC_ENTRY": re.compile(r"\bpublic static \w[\w<>,\[\] ]* \w+\("),
+}
+
+
+def declaration(body: str) -> str:
+    """A method's declaration, through the same pattern the rest of this file reads one with."""
+    for line in body.splitlines():
+        match = SIGNATURE.match(line)
+        if match:
+            return match.group(1)[:200]
+    return ""
+
+
+def select_runtime(rows, per_role: int) -> list[str]:
+    """One method per (runtime role, status), so the corpus covers what a project executes."""
+    chosen: list[str] = []
+    seen = set()
+
+    for role, pattern in sorted(RUNTIME_ROLES.items()):
+        for status in RANK:
+            candidates = [
+                row for row in rows
+                if row[1] == status and row[0] not in seen and pattern.search(row[7])
+            ]
+            candidates.sort(key=lambda row: (-row[4], row[0]))
+            for row in candidates[:per_role]:
+                chosen.append(row[0])
+                seen.add(row[0])
+
+    return chosen
 
 
 def select(rows, per_class: int) -> list[str]:
@@ -100,6 +148,14 @@ def select(rows, per_class: int) -> list[str]:
         for row in candidates[:per_class]:
             chosen.append(row[0])
             seen.add(row[0])
+
+    # And the entry points a running project executes, which nothing above selects for: the axes so
+    # far are how a method was recovered and how it failed, neither of which knows what a method is
+    # for.
+    for key in select_runtime(rows, per_class):
+        if key not in seen:
+            chosen.append(key)
+            seen.add(key)
 
     return sorted(chosen)
 
@@ -143,7 +199,7 @@ def main() -> int:
     measured = {
         key: {"status": status, "ir": ir, "csharp": csharp, "nativeBytes": native,
               "placeholders": placeholders, "families": families}
-        for key, status, ir, csharp, native, placeholders, families in rows
+        for key, status, ir, csharp, native, placeholders, families, _ in rows
         if key in wanted
     }
 

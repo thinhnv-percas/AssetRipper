@@ -1,0 +1,50 @@
+using Cpp2ILInjected;
+
+[Token(Token = "0x200001A")]
+public enum EventID
+{
+	[Token(Token = "0x4000041")]
+	None = 0,
+	[Token(Token = "0x4000042")]
+	EnemyDead = 1,
+	[Token(Token = "0x4000043")]
+	PlayerDead = 2,
+	[Token(Token = "0x4000044")]
+	SpawnEnemy = 3,
+	[Token(Token = "0x4000045")]
+	SpawnPlayer = 4,
+	[Token(Token = "0x4000046")]
+	Revive = 5,
+	[Token(Token = "0x4000047")]
+	ChangeGold = 6,
+	[Token(Token = "0x4000048")]
+	ChangeGem = 7,
+	[Token(Token = "0x4000049")]
+	ChangeStamina = 8,
+	[Token(Token = "0x400004A")]
+	Evolve = 9,
+	[Token(Token = "0x400004B")]
+	BreakShield = 10,
+	[Token(Token = "0x400004C")]
+	HaveShield = 11,
+	[Token(Token = "0x400004D")]
+	IngameGetExpItem = 12,
+	[Token(Token = "0x400004E")]
+	FinishJusticeWheel = 13,
+	[Token(Token = "0x400004F")]
+	FinishRingOfFire = 14,
+	[Token(Token = "0x4000050")]
+	EnemyOutOfRange = 15,
+	[Token(Token = "0x4000051")]
+	AddIconCooldown = 16,
+	[Token(Token = "0x4000052")]
+	ChangeEquipArtifact = 17,
+	[Token(Token = "0x4000053")]
+	UpgradeArtifact = 18,
+	[Token(Token = "0x4000054")]
+	UpdateSlideLoading = 19,
+	[Token(Token = "0x4000055")]
+	KillEnemy = 20,
+	[Token(Token = "0x4000056")]
+	PickSkill = 21
+}

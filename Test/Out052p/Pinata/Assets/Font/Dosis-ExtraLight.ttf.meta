@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: 682e7f028ee0ba647a16f42b72254251
+timeCreated: 1789552641
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  externalObjects: {}
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Dosis
+  fontNames:
+  - Dosis
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a7a21077b2d04f04c90f159104abb22f, type: 3}
+  - {fileID: 12800000, guid: 9f033d55bf78f2f459ede24b94269b92, type: 3}
+  - {fileID: 12800000, guid: 11895caee7af7bb48a24429ec617f6e4, type: 3}
+  - {fileID: 12800000, guid: 4985a4f6c561cfd45b67e5b7aaf975b7, type: 3}
+  - {fileID: 12800000, guid: dc663121dc089cc4582cffdbdf466231, type: 3}
+  customCharacters:
+  fontRenderingMode: 0
+  output:
+    hasEmptyFontData: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData:
+  assetBundleName:
+  assetBundleVariant:

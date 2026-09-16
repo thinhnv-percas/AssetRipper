@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aecad6ca7183d91dd6dd9ae07199177e, type: 3}
+  m_Name: Advertising System
+  m_EditorClassIdentifier:
+  ShowInterstitial: {fileID: 11400000, guid: 12f81cfc40b7381498c1a13b1079df5a, type: 2}
+  ShowRewarded: {fileID: 11400000, guid: fd0aebbbae8936b4a9bdf37f4993abe0, type: 2}
+  InterstitialCompleted: {fileID: 11400000, guid: e57333d47f9e50d4fb2d620ec80d2b1f, type: 2}
+  RewardedCompleted: {fileID: 11400000, guid: 8fc2dd014b8be9e4d96b6a20713dea7a, type: 2}
+  RewardedSkipped: {fileID: 11400000, guid: 8971dd175e0160f46b6f8d4d27b2adf4, type: 2}
+  NoInternet: {fileID: 11400000, guid: 46a95c8b3e87d5a4b8c20c4865808f92, type: 2}
+  Timer: {fileID: 11400000, guid: fbb1790b24d753c4da1d088615ea0d60, type: 2}
