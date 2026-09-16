@@ -492,27 +492,28 @@ con số 048 đã công bố. 048 báo "3942 method không có placeholder"; 120
 
 | Chỉ số (Impostor) | 048 (đo lại) | 049 | Delta |
 |---|---:|---:|---:|
-| **method `EXACT`** | 2594 | **2775** | **+181** |
-| `HIGH_CONFIDENCE` | 145 | 152 | +7 |
-| `PARTIAL` | 1540 | **1318** | **−222** |
-| `FALLBACK` | 1203 | 1237 | +34 |
+| **method `EXACT`** | 2594 | **2841** | **+247** |
+| `HIGH_CONFIDENCE` | 145 | 156 | +11 |
+| `PARTIAL` | 1540 | **1235** | **−305** |
+| `FALLBACK` | 1203 | 1250 | +47 |
 | `MISSING` | 0 | 0 | 0 |
-| **phục hồi không kèm đồ thế chỗ** | 2739 | **2927** | **+188** |
-| placeholder | 5753 | **4756** | −997 |
+| **phục hồi không kèm đồ thế chỗ** | 2739 | **2997** | **+258** |
+| placeholder | 5753 | **4617** | −1136 |
 | `METHOD_NOT_FOUND` | 1573 | **713** | −860 |
 | `INDIRECT_CALL` | 350 | **233** | −117 |
+| `INDIRECT_JUMP` | 254 | **120** | −134 |
 | `NOT_IMPLEMENTED_INSTRUCTION` | 303 | 211 | −92 |
 | `UNKNOWN_CALL_TARGET` | 107 | 97 | −10 |
 | lời gọi thành placeholder | 2343 | **1444** | −899 |
-| load bỏ cuộc | 2726 | 2716 | −10 |
-| Roslyn | 348-0 | **345-0** | −3 |
+| load bỏ cuộc | 2726 | 2711 | −15 |
+| Roslyn | 348-0 | **342-0** | −6 |
 | shape / `.cs` / `genFail` | 16-16 / 819 / 0 | 16-16 / 819 / 0 | 0 |
 | test | 402 | 407 | +5 |
 
 **Pinata: y hệt 048 ở mọi con số** — 4779 lời gọi, 9248 load, 3083 `.cs`, 14726 placeholder,
 `genFail` 0. Metadata v24.2 không có bản metadata-init có barrier nên nhánh mới không chạy ở đó.
 
-`FALLBACK` tăng 34 là **trung thực, không phải hồi quy giấu đi**: bỏ placeholder đi làm lộ ra những
+`FALLBACK` tăng 47 là **trung thực, không phải hồi quy giấu đi**: bỏ placeholder đi làm lộ ra những
 method mà thân hàm vẫn còn thiếu thứ khác; chúng chuyển từ `PARTIAL` sang `FALLBACK` chứ không biến
 mất.
 
@@ -524,6 +525,10 @@ Phép đo mới:
 | helper runtime | 30 tìm thấy / 5 không (sau fix), từ 29/6 |
 | mã lý do lời gọi | 718 RUNTIME_HELPER / 512 NATIVE_ONLY / 103 INDIRECT_TARGET / 78 VENEER / 33 GENERIC_SHARED |
 | mã lệnh chưa lift | 14 opcode, 216 placeholder, gần như toàn dạng vector |
+| indirect jump theo đích | Impostor 288 delegate / 135 vtable / 60 computed / 30 loaded; Pinata **0 delegate** / 780 vtable / 444 loaded / 352 computed |
+| kho method vàng | 48 method đóng băng, 11 `EXACT` / 11 `HIGH_CONFIDENCE` / 13 `PARTIAL` / 13 `FALLBACK` |
+
+Trạng thái tổng của bản phục hồi: **`RECOVERY_VALIDATED_STATICALLY`**, không phải `FULLY_RECOVERED`.
 
 **Không** làm: §10/§11/§12 (generic/virtual/interface call recovery — 233 ô vtable là việc kế tiếp),
 §22 (tầng ngữ nghĩa SIMD), §27 (golden corpus), §25 (Unity runtime — `UNITY_NOT_AVAILABLE`).

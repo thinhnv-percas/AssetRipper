@@ -1220,6 +1220,39 @@ find it; `strings` without `-el` does find method and type names.
   a case and still reports unimplemented is a different defect. The largest entry, `UNIMPLEMENTED` 94,
   is Disarm failing to decode at all: a disassembler gap, not a lifter one.
 
+- **`INDIRECT_JUMP` splits the same way `INDIRECT_CALL` does, and the largest family is not a jump
+  table.** `IndirectJumpClassifier` runs last in `Analyze`, so it sees exactly what the generator
+  will, and it rewrites nothing: 288 `DELEGATE_INVOKE`, 135 `VTABLE_SLOT`, 60 `DEFINED_BY_Add` - the
+  *only* candidates for a switch table - and 30 `LOADED_POINTER` on the test game. So the answer to
+  "classify the indirect jumps" is that most of them are a delegate tail-invoke, which the pass one
+  commit earlier already knew how to resolve; extending it to `IndirectJump` took 254 to 120. **The
+  return has to be written out**: the generator bridges a block that does not end in a jump or a
+  return to its successor, and an indirect jump's block has none, so leaving it implicit gives a block
+  with no terminator at all. And the other fixture has **zero** `DELEGATE_INVOKE` among 1591 jumps
+  (780 vtable, 444 loaded pointer, 352 computed) - this family is distributed by the compiler's
+  instruction selection for that build, exactly like `NOT_IMPLEMENTED_INSTRUCTION`.
+- **A counter that does not say what it covers cannot be compared with anything.** The jump
+  classifier's first number was 515 against 254 placeholders in the export, and the gap is not a bug:
+  analysis runs over 11903 method bodies including the assemblies that are then stubbed, while the
+  export counts 5482. Reporting "N jumps across M analysed bodies" is the difference between a number
+  and a number someone can use.
+- **A golden corpus chosen worst-first can only ever report improvement.** Selecting the hardest
+  method per operation class gave 39 methods that were all `FALLBACK`, and the regression actually
+  worth catching is an `EXACT` method falling out of `EXACT`. `Test/golden-corpus.json` takes one
+  method per *(operation class, status)* instead - 48 methods, 11/11/13/13 across the four statuses -
+  and it discriminates: run against the 048 rip it names the 3 methods 049 lifted and the 2 it pushed
+  from `PARTIAL` to `FALLBACK`, which is the "removing a placeholder reveals what is still missing"
+  effect visible per method rather than only in a total.
+- **Enriching a fingerprint means saying which classes count as loss, not adding them all to the
+  test.** Sixteen operation classes are reported per side; six count as behaviour lost when absent.
+  Every exclusion has a reason that has to be statable: a void method has no `RETURN` in the IR
+  rendering, a comparison folded into an `if` is still the comparison, constant folding legitimately
+  removes `ARITHMETIC`, a decompiler drops a `CAST` the type system no longer needs, il2cpp's
+  `NULL_CHECK`s are removed *on purpose*, and `LOOP`/`SWITCH` are legitimately written as the `goto`
+  that `BRANCH` already covers. The per-side table is explicitly **not** a loss measurement - the two
+  renderings spell the same operation differently often enough that only the per-method check carries
+  that meaning.
+
 ### Things measured to be worth nothing — do not redo them
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
@@ -1358,7 +1391,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Eight scripts, and each measures something the others cannot:
+Nine scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1376,6 +1409,10 @@ Eight scripts, and each measures something the others cannot:
   much of a body came back rather than how many complaints it printed.
 - `Test/Scripts/instruction_coverage.py` — native opcodes the lifter has no rule for, per fixture,
   with the implemented set read out of the lifter's own switch.
+- `Test/Scripts/golden_corpus.py` — 48 frozen methods, one per (operation class, status), checked one
+  method at a time against `Test/golden-corpus-baseline.json`. The only measure that can say a
+  particular method got worse while the total got better, which is the shape this pipeline keeps
+  producing.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are

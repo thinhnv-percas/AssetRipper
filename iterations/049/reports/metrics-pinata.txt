@@ -21,6 +21,24 @@ methods recovered without a stand-in: 10036 of 16365 (61.3%)
    199  THROW
    186  ARRAY_WRITE
 
+== semantic fingerprint, methods reaching each operation class (per side, not a loss) ==
+class                 IR      C#   delta
+STATIC_ACCESS      10875    6468   -4407
+CALL               10536   12694   +2158
+ARITHMETIC          8940    3295   -5645
+COMPARE             7170    5067   -2103
+NULL_CHECK          6819    3979   -2840
+BRANCH              6544    5919    -625
+LOOP                6542    1744   -4798
+NEWOBJ              4343    3370    -973
+ARRAY_READ          1461    1150    -311
+ARRAY_WRITE          738     516    -222
+CAST                 681    3086   +2405
+INSTANCEOF           540      63    -477
+THROW                259    1914   +1655
+RETURN                 1    6561   +6560
+SWITCH                 1      43     +42
+
 == placeholder families ==
   8363  UNMANAGED_MEMORY_LOAD            706 files
   2788  METHOD_NOT_FOUND                 549 files

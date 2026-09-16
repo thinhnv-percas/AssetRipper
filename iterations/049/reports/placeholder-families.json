@@ -1,5 +1,5 @@
 {
-  "placeholders": 4768,
+  "placeholders": 4629,
   "scope": [
     "ACTk.Runtime",
     "Assembly-CSharp",
@@ -14,7 +14,7 @@
   ],
   "families": {
     "UNMANAGED_MEMORY_LOAD": {
-      "count": 2645,
+      "count": 2640,
       "methods": 628,
       "assemblies": [
         "ACTk.Runtime",
@@ -31,7 +31,7 @@
       "causes": [
         {
           "key": "X1",
-          "count": 209,
+          "count": 204,
           "methods": 47
         },
         {
@@ -363,29 +363,6 @@
         }
       ]
     },
-    "INDIRECT_JUMP": {
-      "count": 254,
-      "methods": 227,
-      "assemblies": [
-        "ACTk.Runtime",
-        "Assembly-CSharp",
-        "DOTween",
-        "GoogleMobileAds",
-        "LeanPool",
-        "spine-unity",
-        "spine-unity-examples"
-      ],
-      "generatorSite": "IlGenerator.cs:1471",
-      "isilOperation": "OpCode.IndirectJump",
-      "meaning": "a computed branch, typically a switch table",
-      "causes": [
-        {
-          "key": "(computed branch)",
-          "count": 254,
-          "methods": 227
-        }
-      ]
-    },
     "INDIRECT_CALL": {
       "count": 233,
       "methods": 144,
@@ -578,6 +555,29 @@
           "key": "ParameterizedThreadStart",
           "count": 1,
           "methods": 1
+        }
+      ]
+    },
+    "INDIRECT_JUMP": {
+      "count": 120,
+      "methods": 118,
+      "assemblies": [
+        "ACTk.Runtime",
+        "Assembly-CSharp",
+        "DOTween",
+        "GoogleMobileAds",
+        "LeanPool",
+        "spine-unity",
+        "spine-unity-examples"
+      ],
+      "generatorSite": "IlGenerator.cs:1471",
+      "isilOperation": "OpCode.IndirectJump",
+      "meaning": "a computed branch, typically a switch table",
+      "causes": [
+        {
+          "key": "(computed branch)",
+          "count": 120,
+          "methods": 118
         }
       ]
     },

@@ -266,6 +266,42 @@
     "ARRAY_READ": 207,
     "ARRAY_WRITE": 186
   },
+  "fingerprintIr": {
+    "CALL": 10536,
+    "STATIC_ACCESS": 10875,
+    "BRANCH": 6544,
+    "ARITHMETIC": 8940,
+    "NULL_CHECK": 6819,
+    "NEWOBJ": 4343,
+    "COMPARE": 7170,
+    "LOOP": 6542,
+    "ARRAY_READ": 1461,
+    "THROW": 259,
+    "CAST": 681,
+    "ARRAY_WRITE": 738,
+    "INSTANCEOF": 540,
+    "RETURN": 1,
+    "SWITCH": 1
+  },
+  "fingerprintCSharp": {
+    "RETURN": 6561,
+    "BRANCH": 5919,
+    "NULL_CHECK": 3979,
+    "CALL": 12694,
+    "NEWOBJ": 3370,
+    "COMPARE": 5067,
+    "ARITHMETIC": 3295,
+    "THROW": 1914,
+    "ARRAY_READ": 1150,
+    "STATIC_ACCESS": 6468,
+    "CAST": 3086,
+    "ARRAY_WRITE": 516,
+    "NEWARR": 609,
+    "SWITCH": 43,
+    "LOOP": 1744,
+    "FIELD_ADDRESS": 412,
+    "INSTANCEOF": 63
+  },
   "families": {
     "UNMANAGED_MEMORY_LOAD": {
       "count": 8363,

@@ -225,26 +225,68 @@ Golden corpus (§27) chưa dựng. §10/§11/§12 (generic / virtual / interface
 233 ô vtable là công việc kế tiếp có giá trị cao nhất, và nó cần bảng interface offset + vtable của
 metadata chứ không phải heuristic.
 
+## 10b. §14 — indirect jump, phân loại rồi mới làm
+
+Brief thứ hai đòi phân loại `INDIRECT_JUMP`. `IndirectJumpClassifier` chạy **cuối cùng** trong
+`Analyze`, nên nó thấy đúng thứ generator sẽ thấy, và nó **không viết lại lệnh nào**. Tên là hình
+dạng đọc được từ IR, không phải ngữ nghĩa phải suy ra: không cái gì được gọi là bảng nhảy trừ khi
+đích được tính bằng số học.
+
+Impostor, trước khi sửa gì:
+
+| | |
+|---:|---|
+| 288 | `DELEGATE_INVOKE` |
+| 135 | `VTABLE_SLOT` |
+| 60 | `DEFINED_BY_Add` — **ứng viên duy nhất** cho một bảng nhảy |
+| 30 | `LOADED_POINTER` |
+| 2 | `OTHER_ArrayLength` |
+
+Nên câu trả lời của §14 là: **họ lớn nhất không phải bảng nhảy**, mà là delegate tail-invoke — đúng
+thứ §5 vừa làm cho `IndirectCall`, chỉ khác vị trí. Mở rộng `DelegateInvokeRecovery` sang
+`IndirectJump` lấy `INDIRECT_JUMP` từ **254 xuống 120**.
+
+Cú `return` phải được viết ra chứ không để ngầm: generator nối một block không kết thúc bằng jump
+hay return sang successor của nó, mà block của một cú nhảy gián tiếp không có successor — thiếu nó
+thì block không có lệnh kết thúc nào cả.
+
+**Pinata có 0 `DELEGATE_INVOKE`** trong 1591 cú nhảy (780 vtable, 444 loaded pointer, 352 computed),
+nên không đổi gì ở đó. Họ này phân bố theo lựa chọn lệnh của trình biên dịch cho từng build, đúng
+như `NOT_IMPLEMENTED_INSTRUCTION`.
+
+## 10c. §23 — kho method vàng
+
+`Test/Scripts/golden_corpus.py` + `Test/golden-corpus.json`: **48 method** đóng băng, chọn bằng máy
+chứ không bằng tay — mỗi lớp phép toán góp một method ở mỗi trạng thái nó có, thân native lớn nhất
+trước. Nên kho trải đều cả hai trục (11 `EXACT`, 11 `HIGH_CONFIDENCE`, 13 `PARTIAL`, 13 `FALLBACK`)
+thay vì toàn method khó, thứ chỉ có thể báo tốt lên.
+
+Kho này **phân biệt được**: chạy trên bản rip 048, nó chỉ đúng 3 method mà 049 đưa lên
+`EXACT`/`HIGH_CONFIDENCE` (`CSVHelper`, `CsvReader`, `Skeleton`) và 2 method mà 049 đẩy từ `PARTIAL`
+xuống `FALLBACK` (`Utils`, `AnimationState`) — hiệu ứng "bỏ placeholder làm lộ ra chỗ còn thiếu", giờ
+nhìn thấy theo **từng method** chứ không chỉ trong tổng.
+
 ## 11. §26 + §30 — bảng tổng kết
 
 Đo bằng `recovery_metrics.py` cho **cả hai đầu**, không phải bằng phép đo của 048.
 
 | Impostor | 048 | 049 | delta |
 |---|---:|---:|---:|
-| **method `EXACT`** | 2594 | **2775** | **+181** |
-| `HIGH_CONFIDENCE` | 145 | 152 | +7 |
-| `PARTIAL` | 1540 | **1318** | **−222** |
-| `FALLBACK` | 1203 | 1237 | +34 |
+| **method `EXACT`** | 2594 | **2841** | **+247** |
+| `HIGH_CONFIDENCE` | 145 | 156 | +11 |
+| `PARTIAL` | 1540 | **1235** | **−305** |
+| `FALLBACK` | 1203 | 1250 | +47 |
 | `MISSING` | 0 | 0 | 0 |
-| **phục hồi không kèm đồ thế chỗ** | 2739 | **2927** | **+188** |
-| placeholder | 5753 | **4756** | **−997** |
+| **phục hồi không kèm đồ thế chỗ** | 2739 | **2997** | **+258** |
+| placeholder | 5753 | **4617** | **−1136** |
 | `METHOD_NOT_FOUND` | 1573 | **713** | −860 |
 | `INDIRECT_CALL` | 350 | **233** | −117 |
+| `INDIRECT_JUMP` | 254 | **120** | −134 |
 | `NOT_IMPLEMENTED_INSTRUCTION` | 303 | 211 | −92 |
 | `UNKNOWN_CALL_TARGET` | 107 | 97 | −10 |
 | lời gọi thành placeholder | 2343 | **1444** | −899 |
-| load bỏ cuộc | 2726 | 2716 | −10 |
-| Roslyn | 348-0 | **345-0** | −3 |
+| load bỏ cuộc | 2726 | 2711 | −15 |
+| Roslyn | 348-0 | **342-0** | −6 |
 | shape / `.cs` / `genFail` | 16-16 / 819 / 0 | 16-16 / 819 / 0 | 0 |
 | test | 402 | **407** | +5 |
 
@@ -252,7 +294,7 @@ metadata chứ không phải heuristic.
 |---|---:|---:|
 | tất cả | 4779 lời gọi, 9248 load, 3083 `.cs`, 14726 placeholder, genFail 0 | **y hệt** |
 
-`FALLBACK` **tăng 34 và đó là trung thực**: bỏ placeholder đi làm lộ ra những method mà thân hàm vẫn
+`FALLBACK` **tăng 47 và đó là trung thực**: bỏ placeholder đi làm lộ ra những method mà thân hàm vẫn
 còn thiếu thứ khác. Chúng chuyển từ `PARTIAL` sang `FALLBACK` chứ không biến mất.
 
 ### BEHAVIORALLY RECOVERED
@@ -300,3 +342,36 @@ một vòng compare-and-swap, tức `Interlocked.CompareExchange(ref location, v
 `0xAF41CC` / `0xAF4164` chứ không tới `0xAF4130`. Ngữ nghĩa thì chắc chắn, còn **cách tìm ra nó một
 cách tổng quát thì chưa có**, và ánh xạ sai sẽ làm hỏng im lặng 339 event accessor. Ghi lại làm bằng
 chứng, không vá.
+
+## 13. §27 — báo cáo cuối, theo trạng thái
+
+| # | Mục | Trạng thái | Ghi chú |
+|---|---|---|---|
+| 1 | Baseline | **FIXED** | tái lập 048 đúng từng con số bằng harness mới |
+| 2 | Root cause | **FIXED** | metadata init anh-em; pass viết cho hình dạng ở sai điểm (hai lần) |
+| 3 | Files changed | — | 6 file nguồn, 4 script, 1 test file, 1 corpus |
+| 4 | Commits | — | 11 commit, mỗi fix một commit |
+| 5 | Tests | **IMPROVED** | 402 → 407, 1 fail có sẵn; 5 test delegate, 3 đỏ khi bỏ luật |
+| 6 | Method status before/after | **IMPROVED** | `EXACT` 2594 → 2841, không đồ thế chỗ 2739 → 2997 |
+| 7 | Placeholder before/after | **IMPROVED** | 5753 → 4617 |
+| 8 | Call resolution | **IMPROVED** | lời gọi thành placeholder 2343 → 1444 |
+| 9 | Indirect call | **IMPROVED** | 350 → 233, và 233 còn lại là ô vtable đếm độc lập |
+| 10 | Generic resolution | **IMPROVED** | delegate generic instantiate lại; generic call recovery nói chung **UNCHANGED** |
+| 11 | Field layout validation | **UNCHANGED** | 1394 exact / 0 disagreeing, vẫn PASS |
+| 12 | Suspicious load classification | **UNCHANGED** | `recovery_report.py` của 046 giữ nguyên; load 2726 → 2711 là hiệu ứng phụ |
+| 13 | Semantic fingerprint | **FIXED** | 16 lớp, 6 lớp tính là mất, phần còn lại nói rõ vì sao không |
+| 14 | Golden corpus | **FIXED** | 48 method đóng băng, chứng minh phân biệt được |
+| 15 | Roslyn | **IMPROVED** | 348 → 342 (Impostor), 1479 không đổi (Pinata) |
+| 16 | Reference recovery | **UNCHANGED** | 6 `m_Script` gãy như 045 đã đo |
+| 17 | Shader status | **DUMMY** | không chạm; dummy không bao giờ là PASS |
+| 18 | Unity status | **NOT_RUN** | `UNITY_NOT_AVAILABLE`, U1–U9 và I1–I4 |
+| 19 | Known limitations | — | §12 dưới đây |
+| 20 | Next highest-value | — | 233 ô vtable + 718 `RUNTIME_HELPER` |
+
+Trạng thái tổng của bản phục hồi, theo đúng §29 của brief:
+
+```
+RECOVERY_VALIDATED_STATICALLY
+```
+
+**không** phải `FULLY_RECOVERED`. Unity chưa chạy, nên không có bằng chứng runtime nào cả.

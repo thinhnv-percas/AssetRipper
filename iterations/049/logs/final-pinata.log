@@ -1,9 +1,9 @@
 System : System Tester
-System : System Version: Unix 6.18.44.24
+System : System Version: Unix 6.18.44.33
 System : Operating System: Linux x64
 System : AssetRipper Version: 1.3.14.0
 System : AssetRipper Build Type: Release Compiled
-System : UTC Current Time: Mon Sep 14 15:20:31 UTC 2026
+System : UTC Current Time: Wed Sep 16 03:08:59 UTC 2026
 System : UTC Compile Time: Unknown
 
 General : Configuration Settings:
@@ -39,18 +39,18 @@ Import : Il2Cpp recovery installed: offset attributes on, body reconstruction on
 Import : During Il2Cpp initialization, found Unity version: 2019.2.6f1
 Cpp2IL : Initializing Metadata...
 Cpp2IL : Using actual IL2CPP Metadata version 24.2
-Cpp2IL : Initialized Metadata in 220ms
+Cpp2IL : Initialized Metadata in 190ms
 Cpp2IL : Using binary type ELF (from LibCpp2IL)
 Cpp2IL : Searching Binary for Required Data...
-Cpp2IL : Got Binary codereg: 0x1EA0DE0, metareg: 0x1EA18E8 in 44ms.
+Cpp2IL : Got Binary codereg: 0x1EA0DE0, metareg: 0x1EA18E8 in 38ms.
 Cpp2IL : Initializing Binary...
-Cpp2IL : Initialized Binary in 101ms
+Cpp2IL : Initialized Binary in 70ms
 Cpp2IL : Mapping Globals...
-Cpp2IL : OK (28ms)
+Cpp2IL : OK (19ms)
 Cpp2IL : Mapping pointers to Il2CppMethodDefinitions...
-Cpp2IL : Processed 45831 OK (64ms)
+Cpp2IL : Processed 45831 OK (58ms)
 Cpp2IL : Creating application model...
-Cpp2IL : Application model created in 831.6693ms
+Cpp2IL : Application model created in 619.4732ms
 Import : IL2CPP struct database: 370 Unity versions indexed from /home/user/AssetRipper/StructDb
 Import : IL2CPP struct database: applied 9 measured Il2CppClass and 2 MethodInfo offsets for Unity 2019.2.6f1 (64-bit).
 Import : IL2CPP struct database loaded: Unity 2019.2.6f1, 64-bit, sizeof(Il2CppClass) = 304
@@ -65,7 +65,7 @@ Import : Il2Cpp recovery: sampled 200 methods from the game's assemblies — 200
 Import : Native source injection: reconstructed 16632 method bodies.
 Import [Warning] : Native source injection hit the 4194304 character per-assembly budget in Assembly-CSharp; later methods in those assemblies have no reconstruction. Raise NativeSourceOptions.CharacterBudgetPerAssembly to cover more.
 Cpp2IL : Finding key function addresses...
-Cpp2IL : Key function addresses found in 0.0023ms
+Cpp2IL : Key function addresses found in 0.0047ms
 Import : Il2Cpp method body recovery attempted 18440 methods; 0 failed to convert. Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.
 Import : Il2Cpp method body recovery: 7 calls to a C library function were emitted as the C# operation equivalent to it.
 Import : Il2Cpp method body recovery: 4779 calls became a placeholder, by how many managed methods sit on the address:
@@ -81,15 +81,20 @@ Import :          1479 NATIVE_ONLY
 Import :           336 INDIRECT_TARGET
 Import :            57 RUNTIME_HELPER_VENEER
 Import :            13 GENERIC_SHARED
+Import : Il2Cpp method body recovery: 1591 indirect jumps survived across 53571 analysed method bodies, by what the target register holds:
+Import :           780 VTABLE_SLOT
+Import :           444 LOADED_POINTER
+Import :           352 DEFINED_BY_Add
+Import :            15 DEFINITIONS_DISAGREE
 Import : Il2Cpp method body recovery: 9248 memory loads the generator gave up on, by kind:
 Import :          1312 Il2CppClass.interface_offsets_count   e.g. ChallengeResponse2.GetResponse: 88 CheckEqual v262 @ TEMP_v13 (System.Boolean), [v259 @ X8_v16 (Il2CppClass<System.Security.Cryptography.ICryptoTransform>)+126], 0
 Import :          1044 base has no type, from Add of an untyped local and Immediate   e.g. ChallengeResponse2.GetResponse: 98 CheckEqual v309 @ Z_v15 (System.Boolean), [v304 @ X11_v18-8], typeof(System.Security.Cryptography.ICryptoTransform)
 Import :           711 base has no type, from Move from AddressOf(stack_-10)   e.g. PKCS12.AddPrivateKey: 80 CheckEqual v339 @ TEMP_v14 (System.Boolean), [v10 @ X29_v1-14], 0
 Import :           656 Il2CppClass.interfaceOffsets   e.g. ChallengeResponse2.GetResponse: 92 Add v304 @ X11_v18, [v259 @ X8_v16 (Il2CppClass<System.Security.Cryptography.ICryptoTransform>)+B0], 8
-Import :           616 past the last field of the base type   e.g. PKCS12.ReadSafeBag: 133 Call PKCS12.Decrypt, v698 @ X0_v104 (System.Byte[]), this @ X0 (Mono.Security.X509.PKCS12), [v619 @ X0_v97 (System.Object)+10], v685 @ X0_v100 (System.Byte[]), [v619 @ X0_v97 (System.Object)+20], v690 @ X0_v102 (System.Byte[])
+Import :           616 past the last field of the base type   e.g. ASN1.GetBytes: 189 Add v853 @ X21_v10 (System.Int32), v853 @ X21_v10 (System.Int32), [v1206 @ X0_v86 (System.Object)+18]
 Import :           485 base has no type, from Move from AddressOf(an untyped local)   e.g. PKCS12.GetExistingParameters: 82 Move [v15 @ X29-60], [v15 @ X29-A0]
 Import :           389 value type base   e.g. ChallengeResponse2.Compute: 48 Add v71 @ X8_v9, [v69 @ X9_v2 (System.Int32)+level @ X1 (Mono.Security.Protocol.Ntlm.NtlmAuthLevel)*4], v69 @ X9_v2 (System.Int32)
-Import :           384 base has no type, from Move from an untyped base   e.g. MiniJsonExtensions.GetString: 47 Move v78 @ X2_v4, [v90 @ X8_v8+160]
+Import :           384 base has no type, from Move from an untyped base   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 453 CheckLess v1282 @ C_v62 (System.Boolean), [v1279 @ X8_v93+128], [v1280 @ X1_v70+128]
 Import :           318 Il2CppClass.cctor_finished   e.g. ASN1.ToString: 163 Move v188 @ X8_v18 (System.Int32), [v372 @ X22_v11 (Il2CppClass<System.EmptyArray`1<System.Object>>)+E0]
 Import :           317 Il2CppClass.0x12E   e.g. ASN1.ToString: 143 Move v188 @ X8_v18 (System.Int32), [v358 @ X22_v8 (Il2CppClass<System.EmptyArray`1<System.Object>>)+12E]
 Import :           266 between fields of the base type   e.g. MessageBase.PrepareMessage: 101 Move v46[10], [this @ X0 (Mono.Security.Protocol.Ntlm.MessageBase)+12]
@@ -110,7 +115,7 @@ Import :            37 Il2CppClass.0x178   e.g. Type2Message..ctor: 48 Move v67 
 Import :            37 Il2CppClass.0x188   e.g. Oid.GetOidName: 80 Move v98 @ X2_v1, [v91 @ X8_v11 (Il2CppClass<System.Collections.Specialized.StringDictionary>)+188]
 Import :            36 base has no type, from Subtract   e.g. ProductDefinitionExtensions.DecodeJSON: 202 Move v243 @ V1_v14, [v357 @ X30_v24-100]
 Import :            33 Il2CppClass.0x170   e.g. Type2Message..ctor: 47 Move v66 @ X3_v1, [v63 @ X8_v10 (Il2CppClass<Mono.Security.Protocol.Ntlm.Type2Message>)+170]
-Import :            33 base has no type, from Move from [Object + 0x18]   e.g. PlayMakerTriggerEnter.OnTriggerEnter: 99 CheckEqual v234 @ TEMP_v26 (System.Boolean), [v110 @ X8_v15+141], 0
+Import :            33 base has no type, from Move from [Object + 0x18]   e.g. PlayMakerAnimatorIK.OnAnimatorIK: 99 CheckEqual v216 @ TEMP_v25 (System.Boolean), [v110 @ X8_v15+1E5], 0
 Import :            32 Il2CppClass.0x180   e.g. Oid.GetOidName: 79 Move v97 @ X3_v1, [v91 @ X8_v11 (Il2CppClass<System.Collections.Specialized.StringDictionary>)+180]
 Import :            29 Il2CppClass.typeHierarchyDepth   e.g. Asn1Node.ClearAll: 69 ShiftLeft v47 @ TEMPSHIFT_v6 (System.Int32), [v51 @ X1_v8 (Il2CppClass<LipingShare.LCLib.Asn1Processor.Asn1Node>)+128], 3
 Import :            26 base has no type, from Add of an untyped base and Int32   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 477 CheckNotEqual v1325 @ TEMPCOND_v45 (System.Boolean), [v1314 @ X8_v95-8], v1280 @ X1_v70
@@ -129,19 +134,19 @@ Import :            17 Il2CppClass.0x268   e.g. ASN1.get_Item: 25 Move v171 @ X1
 Import :            16 base has no type, from Move from an absolute address   e.g. TweenExtensions.GotoWaypoint: 158 CheckLess v93 @ C_v6 (System.Boolean), [v89 @ X9_v2+128], [v90 @ X8_v28 (Il2CppClass<DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions>>)+128]
 Import :            16 base has no type, from Move from AddressOf(stack_-1E0)   e.g. ObiSolver.UpdateVisibility: 105 Move v1209 @ V1_v17, [v25 @ X19_v1+174]
 Import :            16 Il2CppClass.0x298   e.g. PKCS12.Encrypt: 187 CheckNotEqual v234 @ TEMPCOND_v4 (System.Boolean), [v58 @ X8_v12 (Il2CppClass<System.Security.Cryptography.SymmetricAlgorithm>)+298], 1
-Import :            15 base has no type, from Add of Quaternion[] and Int32   e.g. ObiNativeQuaternionList.OnAfterDeserialize: -1 MakeStruct Quaternion_arg @ V0_v4 (UnityEngine.Quaternion), typeof(UnityEngine.Quaternion), [v194 @ X8_v10+20], v120[v123 @ X20_v6 (System.Int32)].y (System.Single), v120[v123 @ X20_v6 (System.Int32)].z (System.Single), v120[v123 @ X20_v6 (System.Int32)].w (System.Single)
+Import :            15 base has no type, from Add of Quaternion[] and Int32   e.g. ObiActor.LoadBlueprintParticles: 348 MakeStruct v161 @ AGGE36C38_1_v6 (UnityEngine.Quaternion), typeof(UnityEngine.Quaternion), [v1360 @ X8_v83+20], v744[v540 @ X25_v5 (System.Int32)].y (System.Single), v744[v540 @ X25_v5 (System.Int32)].z (System.Single), v744[v540 @ X25_v5 (System.Int32)].w (System.Single)
 Import :            14 base has no type, from Add of [WeaponSetup + 0x10] and Int32   e.g. GameStateSystem.MenuLogic: 237 Move v182 @ X8_v28, [v708 @ X8_v27+20]
 Import :            13 byref at 0x8, from no definition   e.g. Entity.Has: 10 And v11 @ X8_v5 (System.Int64), [mask @ X1 (Morpeh.Utils.FastBitMask&)+8], v10 @ TEMP_v5 (System.Int64)
 Import :            13 base has no type, from Move from [SetTextFromVariableSystem + 0x0]   e.g. SetTextFromVariableSystem.OnUpdate: 129 CheckLess v468 @ C_v13 (System.Boolean), [v133 @ X21_v8+18], v90 @ X27_v7 (System.Int32)
-Import :            12 base has no type, from Add of an untyped local and an untyped local   e.g. CatmullRomDecoder.FinalizePath: 208 MakeStruct v406 @ AGG108040C_0_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v426 @ X8_v17], [v426 @ X8_v17+4], [v426 @ X8_v17+8]
+Import :            12 base has no type, from Add of an untyped local and an untyped local   e.g. Vector3ArrayPlugin.EvaluateAndApply: 140 MakeStruct v529 @ AGG10DF030_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v871 @ X8_v106+20], [v871 @ X8_v106+24], [v871 @ X8_v106+28]
 Import :            12 Il2CppClass.typeHierarchy   e.g. Asn1Node.ClearAll: 70 Add v228 @ X8_v12, [v203 @ X8_v9 (Il2CppClass<LipingShare.LCLib.Asn1Processor.Asn1Node>)+C8], v47 @ TEMPSHIFT_v6 (System.Int32)
 Import :            12 static field storage at 0x10   e.g. Promo.ProvideProductsToAds: 86 CallVoid Dictionary`2<System.String, System.Object>.Add, v352 @ X0_v54 (System.Collections.Generic.Dictionary`2<System.String, System.Object>), "productId", [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+10]
 Import :            12 base has no type, from Add of the field Vector3[] and Int32   e.g. DOTweenPath.Awake: 268 MakeStruct v303 @ AGG163B8F0_0_v10 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v337 @ X25_v11+20], [v337 @ X25_v11+24], [v337 @ X25_v11+28]
 Import :            11 base has no type, from Move from AddressOf(stack_-60)   e.g. MainThreadProperty`1.get_Value: 288 CheckEqual v150 @ Z_v5 (System.Boolean), [v52 @ X25_v1+v136 @ X26_v1 (System.Int32)*4], 222
 Import :            11 Il2CppClass.0x290   e.g. NamedVariable.get_TypeConstraint: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<HutongGames.PlayMaker.NamedVariable>)+290]
 Import :            11 base has no type, from Move from [Il2CppClass<ProGrids.pg_Util> + 0x0]   e.g. pg_Util.SnapIsEnabled: 509 And v710 @ TEMP_v47 (System.Int32), [v767 @ X0_v47+12F], 2
-Import :            11 base has no type, from Add of Vector3[] and an untyped local   e.g. CatmullRomDecoder.FinalizePath: 100 Move [v182 @ X22_v5 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20], [v373 @ X8_v21+20]
-Import :            11 Il2CppClass.0x1E8   e.g. UnitySynchronizationContext.Send: 105 Move v132 @ X2_v4, [v160 @ X8_v14 (Il2CppClass<System.Threading.ManualResetEvent>)+1E8]
+Import :            11 base has no type, from Add of Vector3[] and an untyped local   e.g. Vector3ArrayPlugin.EvaluateAndApply: 139 MakeStruct v530 @ AGG10DF030_0_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v869 @ X9_v30+20], changeValue[v819 @ X8_v104].y (System.Single), changeValue[v819 @ X8_v104].z (System.Single)
+Import :            11 Il2CppClass.0x1E8   e.g. PKCS12.GetBytes: 569 Move v993 @ X1_v195 (Il2CppClass<Mono.Security.X509.X509Certificate>), [v2004 @ X8_v326 (Il2CppClass<Mono.Security.X509.X509Certificate>)+1E8]
 Import :            10 base has no type, from Move from AddressOf(stack_-50)   e.g. InstallRootCerts.DecodeDefaultCollection: 150 CheckEqual v448 @ Z_v16 (System.Boolean), [v44 @ X22_v1+v225 @ X23_v8 (System.Int32)*4], 90
 Import :            10 Il2CppClass.vtable   e.g. CrossPlatformId.op_Equality: 3 Move v3 @ X3_v1, [v2 @ X8_v1 (Il2CppClass<EasyMobile.CrossPlatformId>)+130]
 Import :            10 base has no type, from Add of Color[] and Int32   e.g. TextureUtilities.PointScale: 127 Move [v394 @ X9_v16+20], [v393 @ X12_v11+20]
@@ -149,7 +154,7 @@ Import :            10 byref at 0x4, from no definition   e.g. ColorUtils.ToRGBA
 Import :            10 base has no type, from Move from AddressOf(stack_-C0)   e.g. InstallRootCerts.InstallDefaultCRLs: 321 CheckNotEqual v1568 @ TEMPCOND_v46 (System.Boolean), [v55 @ X27_v1+v992 @ X26_v9*4], 158
 Import :             9 base has no type, from Newobj   e.g. ArrayShuffle.OnEnter: 49 Subtract v343 @ X22_v8 (System.Int32), [v128 @ X0_v10+18], 1
 Import :             9 base has no type, from Move from AddressOf(stack_-2A0)   e.g. ObiPathSmoother.GenerateSmoothChunks: 121 Move v60 @ V0 (System.Single), [v2459 @ X8_v25+30]
-Import :             9 array at 0x20, from no definition   e.g. CubicBezierDecoder.FinalizePath: 150 Move [v535 @ X0_v8 (UnityEngine.Vector3[])+20], [wps @ X2 (UnityEngine.Vector3[])+20]
+Import :             9 array at 0x20, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 152 MakeStruct v527 @ AGG10DF048_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [changeValue @ X7 (UnityEngine.Vector3[])+20], [changeValue @ X7 (UnityEngine.Vector3[])+24], [changeValue @ X7 (UnityEngine.Vector3[])+28]
 Import :             9 Il2CppClass.0x1D8   e.g. JSONNode.set_AsBool: 43 Move v63 @ X2_v1, [v47 @ X10_v1 (Il2CppClass<com.adjust.sdk.JSONNode>)+1D8]
 Import :             9 Il2CppClass.0x428   e.g. <>c__DisplayClass33_0.<DOValue>b__1: 5 Move v5 @ X1_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+428]
 Import :             9 static field storage at 0x20   e.g. Promo.ProvideProductsToAds: 101 Move v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>), [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+20]
@@ -161,7 +166,7 @@ Import :             8 byref at 0x8, from a call's result   e.g. SaveSystem.Lost
 Import :             8 base has no type, from IsInst   e.g. <>__AnonType0`3.Equals: 68 Move v106 @ X2_v5, [v45 @ X0_v3+15]
 Import :             8 base has no type, from Move from [Il2CppMethodInfo + 0x0]   e.g. <>c.<get_Pairs>b__4_1: 4 Move v4 @ X3_v1, [v2 @ X8_v1+180]
 Import :             8 base has no type, from Add of Color32[] and Int32   e.g. GifEncoder.GetImagePixels: 89 Move v65[v148 @ X10_v8 (System.Int32)], [v280 @ X12_v8+20]
-Import :             8 array at 0x28, from no definition   e.g. CubicBezierDecoder.FinalizePath: 152 Move [v535 @ X0_v8 (UnityEngine.Vector3[])+28], [wps @ X2 (UnityEngine.Vector3[])+28]
+Import :             8 array at 0x28, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 152 MakeStruct v527 @ AGG10DF048_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [changeValue @ X7 (UnityEngine.Vector3[])+20], [changeValue @ X7 (UnityEngine.Vector3[])+24], [changeValue @ X7 (UnityEngine.Vector3[])+28]
 Import :             8 Il2CppClass.0x1C8   e.g. SequentialSearchPrimeGeneratorBase.GenerateNewPrime: 3 Move v4 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Mono.Math.Prime.Generator.SequentialSearchPrimeGeneratorBase>)+1C8]
 Import :             8 Il2CppClass.0x1C0   e.g. SequentialSearchPrimeGeneratorBase.GenerateNewPrime: 2 Move v3 @ X4_v1, [v0 @ X8_v1 (Il2CppClass<Mono.Math.Prime.Generator.SequentialSearchPrimeGeneratorBase>)+1C0]
 Import :             8 Il2CppClass.0x1D0   e.g. JSONNode.set_AsBool: 42 Move v62 @ X3_v1, [v47 @ X10_v1 (Il2CppClass<com.adjust.sdk.JSONNode>)+1D0]
@@ -182,14 +187,14 @@ Import :             7 Il2CppClass.0x318   e.g. GifEncoder.Finish: 30 Move v186 
 Import :             6 byref at 0x8, from Add of Entity and Immediate   e.g. Entity.AddComponent: 229 CheckLess v346 @ TEMPCOND_v7 (System.Boolean), [v332 @ X8_v28 (System.Int32[]&)+8], 1
 Import :             6 base has no type, from Move from [Il2CppClass<com.adjust.sdk.JSONArray> + 0x0]   e.g. JSONNode.Parse: 227 CheckLess v931 @ C_v70 (System.Boolean), [v929 @ X9_v31 (Il2CppClass<com.adjust.sdk.JSONNode>)+128], [v930 @ X8_v70+128]
 Import :             6 Il2CppClass.0x310   e.g. GifEncoder.WriteGraphicCtrlExt: 89 Move v110 @ X3_v1, [v123 @ X8_v14 (Il2CppClass<System.IO.FileStream>)+310]
-Import :             6 array at 0x24, from no definition   e.g. CubicBezierDecoder.FinalizePath: 151 Move [v535 @ X0_v8 (UnityEngine.Vector3[])+24], [wps @ X2 (UnityEngine.Vector3[])+24]
+Import :             6 array at 0x24, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 152 MakeStruct v527 @ AGG10DF048_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [changeValue @ X7 (UnityEngine.Vector3[])+20], [changeValue @ X7 (UnityEngine.Vector3[])+24], [changeValue @ X7 (UnityEngine.Vector3[])+28]
 Import :             6 base has no type, from Add of Calculation[] and Int32   e.g. AnimateFsmAction.UpdateAnimation: 66 Move v355 @ X8_v18, [v354 @ X8_v17+20]
 Import :             6 Il2CppClass.0x260   e.g. PKCS12.set_Password: 171 Move v122 @ X7_v1, [v168 @ X8_v16 (Il2CppClass<System.Text.Encoding>)+260]
 Import :             6 base has no type, from Move from AddressOf(stack_-F0)   e.g. Advertising.DestroyAllBannerAds: 176 CheckNotEqual v200 @ TEMPCOND_v9 (System.Boolean), [v54 @ X23_v1+v116 @ X24_v5*4], 115
 Import :             6 base has no type, from Move from AddressOf(stack_-E0)   e.g. PKCS12.GetExistingParameters: 186 CheckNotEqual v361 @ TEMPCOND_v5 (System.Boolean), [v52 @ X23_v1+v136 @ X24_v1 (System.Int32)*4], 96
 Import :             6 base has no type, from Add of ControlPoint[] and Int32   e.g. CubicBezierDecoder.SetWaypointsLengths: 126 Move [v156 @ X9_v7 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20], [v169 @ X11_v7+20]
 Import :             5 Il2CppClass.0x358   e.g. ASN1Convert.ToDateTime: 35 Move v71 @ X2_v6, [v68 @ X8_v11 (Il2CppClass<System.Text.Encoding>)+358]
-Import :             5 byref at 0x38, from a call's result   e.g. SubscriptionViewProvider.Initialize: 99 CheckEqual v386 @ TEMP_v16 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+38], 0
+Import :             5 byref at 0x38, from a call's result   e.g. WeaponButtonProvider.Initialize: 62 Move v114 @ X8_v10, [v53 @ X0_v3 (WeaponButtonComponent&)+38]
 Import :             5 base has no type, from Move from [ObiActor + 0x88]   e.g. ObiRopeChainRenderer.UpdateRenderer: 134 Move v288 @ X24_v19 (System.Int32), [v1215 @ X8_v26+18]
 Import :             5 base has no type, from Move from [Il2CppClass<System.Type> + 0x88]   e.g. ReflectionUtils.GetAssemblyTypes: 81 Move v338 @ X8_v16 (System.Int32), [v111 @ X20_v8+18]
 Import :             5 Il2CppClass.0x280   e.g. AppleStoreImpl.ProcessMessage: 157 Move v243 @ X5_v1, [v347 @ X8_v29 (Il2CppClass<UnityEngine.Purchasing.AppleStoreImpl>)+280]
@@ -200,8 +205,8 @@ Import :             5 array at 0x24, from Move from the field Vector3[]   e.g. 
 Import :             5 array at 0x28, from Move from the field Vector3[]   e.g. Path.CloneIncremental: 90 MakeStruct v181 @ AGG1082ED8_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v99 @ X8_v5 (UnityEngine.Vector3[])+20], [v99 @ X8_v5 (UnityEngine.Vector3[])+24], [v99 @ X8_v5 (UnityEngine.Vector3[])+28]
 Import :             5 array at 0x20, from Move from the field Vector3[]   e.g. Path.CloneIncremental: 90 MakeStruct v181 @ AGG1082ED8_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v99 @ X8_v5 (UnityEngine.Vector3[])+20], [v99 @ X8_v5 (UnityEngine.Vector3[])+24], [v99 @ X8_v5 (UnityEngine.Vector3[])+28]
 Import :             5 base has no type, from Move from AddressOf(stack_-D0)   e.g. AppsFlyer.ConvertHashMap: 319 CheckNotEqual v816 @ TEMPCOND_v22 (System.Boolean), [v55 @ X26_v1+v403 @ X27_v3*4], 179
-Import :             5 byref at 0x48, from a call's result   e.g. SubscriptionViewProvider.Initialize: 53 CheckEqual v153 @ TEMP_v12 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+48], 0
-Import :             5 byref at 0x10, from a call's result   e.g. OpenURLProvider.Initialize: 34 Move v54 @ X8_v8, [v47 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.OpenURLComponent&)+10]
+Import :             5 byref at 0x48, from a call's result   e.g. WeaponButtonProvider.Initialize: 108 Move v118 @ X8_v16, [v53 @ X0_v3 (WeaponButtonComponent&)+48]
+Import :             5 byref at 0x10, from a call's result   e.g. ActivateGameObjectProvider.Initialize: 34 Move v54 @ X8_v8, [v47 @ X0_v3 (ActivateGameObjectComponent&)+10]
 Import :             5 base has no type, from Move from AddressOf(stack_-90)   e.g. MainThreadDispatcher.Update: 344 CheckEqual v101 @ Z_v17 (System.Boolean), [v49 @ X24_v1+v143 @ X20_v19 (System.Collections.Generic.List`1<System.Action>)*4], 226
 Import :             5 Il2CppClass.0x420   e.g. <>c__DisplayClass33_0.<DOValue>b__1: 4 Move v4 @ X2_v1, [v3 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+420]
 Import :             5 Il2CppClass.0x430   e.g. AdClientImpl.HideBannerAd: 53 Move v79 @ X3_v1, [v92 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+430]
@@ -213,9 +218,9 @@ Import :             5 Il2CppClass.0x3F8   e.g. ReflectionUtils.GetPublicFields:
 Import :             5 static field storage at 0x18   e.g. Promo.ProvideProductsToAds: 146 CallVoid Dictionary`2<System.String, System.Object>.Add, v352 @ X0_v54 (System.Collections.Generic.Dictionary`2<System.String, System.Object>), "localizedTitle", [v103 @ X8_v32 (Il2CppStaticFields<UnityEngine.Purchasing.Promo>)+18]
 Import :             5 Il2CppClass.0x270   e.g. AppleStoreImpl.ProcessMessage: 416 Move v246 @ X3_v1, [v348 @ X8_v16 (Il2CppClass<UnityEngine.Purchasing.AppleStoreImpl>)+270]
 Import :             5 Il2CppClass.0x288   e.g. AppleStoreImpl.ProcessMessage: 158 Move v241 @ X4_v1, [v347 @ X8_v29 (Il2CppClass<UnityEngine.Purchasing.AppleStoreImpl>)+288]
-Import :             5 byref at 0x40, from a call's result   e.g. SubscriptionViewProvider.Initialize: 40 CheckEqual v62 @ TEMP_v6 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+40], 0
+Import :             5 byref at 0x40, from a call's result   e.g. WeaponButtonProvider.Initialize: 85 Move v116 @ X8_v13, [v53 @ X0_v3 (WeaponButtonComponent&)+40]
 Import :             5 Il2CppClass.0x190   e.g. CrossPlatformId.get_Id: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<EasyMobile.CrossPlatformId>)+190]
-Import :             5 byref at 0x28, from a call's result   e.g. SubscriptionViewProvider.Initialize: 233 CheckEqual v418 @ TEMP_v32 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+28], 0
+Import :             5 byref at 0x28, from a call's result   e.g. SpawnWeaponsSystem.OnUpdate: 299 Call Object.op_Inequality, v988 @ X0_v53 (System.Boolean), [v973 @ X0_v49 (GBG.Pinata.ECS.Components.HandComponent&)+28], 0
 Import :             5 Il2CppClass.0x510   e.g. RunFSM.OnEnter: 46 Move v67 @ X2_v4, [v74 @ X8_v6 (Il2CppClass<HutongGames.PlayMaker.Actions.RunFSM>)+510]
 Import :             5 base has no type, from Move from AddressOf(stack_-A0)   e.g. InstallRootCerts.Install: 1128 CheckNotEqual v1691 @ TEMPCOND_v9 (System.Boolean), [v54 @ X26_v1+v165 @ X24_v4 (System.Int32)*4], 523
 Import :             4 base has no type, from Add of the field Quaternion[] and Int32   e.g. ObiActorBlueprint.GetParticleOrientation: 63 Return [v110 @ X8_v9+20]
@@ -225,7 +230,7 @@ Import :             4 byref at 0x50, from a call's result   e.g. SubscriptionVi
 Import :             4 array at 0x0, from Move from the field UInt32[]   e.g. Kernel.AddSameSign: 241 Move [v163 @ X8_v5 (System.UInt32[])+v327 @ X10_v11 (System.Int32)*4], [v159 @ X20_v3 (System.UInt32[])+v327 @ X10_v11 (System.Int32)*4]
 Import :             4 base has no type, from Move from [Matrix4x4 + 0xB8]   e.g. PlayMakerGUI.get_GUIMatrix: 36 Move returnBuffer.m03 (System.Single), [v53 @ X8_v4+A0]
 Import :             4 static field storage at 0x38   e.g. CacheComponents`1.Add: 103 Move v115 @ X8_v12, [v113 @ X8_v11 (Il2CppStaticFields<Morpeh.CacheComponents`1<T>>)+38]
-Import :             4 byref at 0x30, from a call's result   e.g. SubscriptionViewProvider.Initialize: 256 CheckEqual v423 @ TEMP_v34 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+30], 0
+Import :             4 byref at 0x30, from a call's result   e.g. WeaponButtonProvider.Initialize: 37 Move v60 @ X8_v6, [v53 @ X0_v3 (WeaponButtonComponent&)+30]
 Import :             4 Il2CppClass.0x1B8   e.g. JSONClass.Serialize: 32 Move v84 @ X2_v1 (Il2CppMethodInfo), [v50 @ X8_v9 (Il2CppClass<System.IO.BinaryWriter>)+1B8]
 Import :             4 base has no type, from Move from [Il2CppClass<System.Collections.ArrayList> + 0x0]   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 453 CheckLess v1282 @ C_v62 (System.Boolean), [v1279 @ X8_v93+128], [v1280 @ X1_v70+128]
 Import :             4 byref at 0x10, from no definition   e.g. Entity.Has: 17 And v19 @ X8_v7 (System.Int64), [mask @ X1 (Morpeh.Utils.FastBitMask&)+10], v22 @ TEMP_v8 (System.Int64)
@@ -251,7 +256,7 @@ Import :             3 base has no type, from Add of Vector3Int[3] and an untype
 Import :             3 Il2CppClass.0x330   e.g. X509CertificateCollection.System.Collections.IEnumerable.GetEnumerator: 9 Move v11 @ X2_v1, [v10 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+330]
 Import :             3 base has no type, from Add of Vector3[] and Immediate   e.g. Vector3ArrayPlugin.GetSpeedBasedDuration: 53 Divide v45 @ V0_v6 (System.Single), v45 @ V0_v6 (System.Single), [v54 @ X24_v6+v58 @ X22_v7 (System.Int32)*4]
 Import :             3 array at 0x0, from Move from the field GameObject[]   e.g. ObiRopeChainRenderer.UpdateRenderer: 370 Call Object.op_Inequality, v1189 @ X0_v95 (System.Boolean), [v2013 @ X8_v51 (UnityEngine.GameObject[])+v524 @ X26_v19 (System.Int32)*8], 0
-Import :             3 Il2CppClass.0x10   e.g. AppleStoreImpl.OnProductsRetrieved: 404 CallVoid ProductDescription..ctor, v1502 @ X0_v136 (UnityEngine.Purchasing.Extension.ProductDescription), [v66 @ X8_v28 (Il2CppClass<UnityEngine.Purchasing.INativeAppleStore>)+10], [v66 @ X8_v28 (Il2CppClass<UnityEngine.Purchasing.INativeAppleStore>)+20], v292 @ X0_v41 (System.String), v931.<transactionID>k__BackingField (System.String)
+Import :             3 Il2CppClass.0x10   e.g. PKCS12.GetBytes: 2961 CheckEqual v2014 @ TEMP_v14 (System.Boolean), [v335 @ X25_v7 (Il2CppClass<Mono.Security.X509.SafeBag>)+10], 0
 Import :             3 base has no type, from Move from AddressOf(stack_-278)   e.g. ObiRopeLineRenderer.UpdateRenderer: 459 MakeStruct v3519 @ AGGC3DD60_1_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v8243 @ X8_v71+C], [v8243 @ X8_v71+10], [v8243 @ X8_v71+14]
 Import :             3 base has no type, from Move from AddressOf(stack_-1C8)   e.g. ObiRopeExtrudedRenderer.UpdateRenderer: 381 MakeStruct v2295 @ AGGC3CCD8_0_v26 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v6205 @ X8_v67+18], [v6205 @ X8_v67+1C], [v6205 @ X8_v67+20]
 Import :             3 byref at 0x68, from a call's result   e.g. SubscriptionViewProvider.Initialize: 166 CheckEqual v402 @ TEMP_v24 (System.Boolean), [v51 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+68], 0
@@ -318,7 +323,7 @@ Import :             2 byref at 0xC, from no definition   e.g. ColorUtils.ToRGBA
 Import :             2 base has no type, from Move from AddressOf(stack_-308)   e.g. ObiRopeLineRenderer.UpdateRenderer: 570 MakeStruct v3837 @ AGGC3DE48_0_v32 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v4046 @ X8_v76], [v4046 @ X8_v76+4], [v4046 @ X8_v76+8]
 Import :             2 base has no type, from Move from [Il2CppStaticFields<Morpeh.Filter+ComponentsBag`1<T>> + 0x18]   e.g. ComponentsBag`1.Get: 93 CheckLess v106 @ C_v2 (System.Boolean), [index @ X0 (System.Int32&)], [v97 @ X8_v10+18]
 Import :             2 base has no type, from Add of the field ParamDataType[] and Int32   e.g. ActionData.FindField: 160 CheckNotEqual v235 @ TEMPCOND_v13 (System.Boolean), v445 @ X0_v24 (HutongGames.PlayMaker.ParamDataType), [v214 @ X8_v10+20]
-Import :             2 base has no type, from Add of Vector4[] and Int32   e.g. ObiNativeVector4List.OnAfterDeserialize: -1 MakeStruct Vector4_arg @ V0_v4 (UnityEngine.Vector4), typeof(UnityEngine.Vector4), [v194 @ X8_v10+20], v120[v123 @ X20_v6 (System.Int32)].y (System.Single), v120[v123 @ X20_v6 (System.Int32)].z (System.Single), v120[v123 @ X20_v6 (System.Int32)].w (System.Single)
+Import :             2 base has no type, from Add of Vector4[] and Int32   e.g. ObiActor.LoadBlueprintParticles: -1 MakeStruct Vector4_arg @ V0_v17 (UnityEngine.Vector4), typeof(UnityEngine.Vector4), [v1436 @ X8_v45+20], v760[v540 @ X25_v5 (System.Int32)].y (System.Single), v760[v540 @ X25_v5 (System.Int32)].z (System.Single), v760[v540 @ X25_v5 (System.Int32)].w (System.Single)
 Import :             2 base has no type, from Move from AddressOf(stack_-B8)   e.g. ObiPathSmoother.CalculateChunkLength: 118 MakeStruct v83 @ AGGC2FAB8_0_v3 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v324 @ X8_v6], [v324 @ X8_v6+4], [v324 @ X8_v6+8]
 Import :             2 base has no type, from Add of RaycastHit2D[] and Int32   e.g. GetNextLineCast2d.DoGetNextCollider: 55 Move v263 @ V0_v5 (System.Single), [v261 @ X8_v8+20]
 Import :             2 base has no type, from Move from [Int32[]& + 0xC0]   e.g. ComponentsBag`1..cctor: 351 Move v312 @ X1_v3 (System.Int32), [v455 @ X8_v29+18]
@@ -338,7 +343,7 @@ Import :             2 Il2CppClass.0x2F8   e.g. JSONNode.SaveToStream: 36 Move v
 Import :             2 base has no type, from Move from [Single[2] + 0x10]   e.g. ObiTerrainShapeTracker.UpdateHeightData: 158 CheckLess v482 @ C_v18 (System.Boolean), v234 @ X13_v8 (System.Int32), [v472 @ X15_v8+10]
 Import :             2 Il2CppClass.0x490   e.g. AdClientImpl.IsRewardedAdReady: 53 Move v80 @ X3_v1, [v93 @ X8_v9 (Il2CppClass<EasyMobile.AdClientImpl>)+490]
 Import :             2 static field storage at 0x24   e.g. ComponentsBag`1.Create: 223 CheckGreater v252 @ TEMPCOND_v2 (System.Boolean), [v210 @ X8_v21 (Il2CppStaticFields<Morpeh.Filter+ComponentsBag`1<T>>)+24], [v239 @ X8_v24 (Il2CppStaticFields<Morpeh.Filter+ComponentsBag`1<T>>)+20]
-Import :             2 byref at 0x18, from a call's result   e.g. SubscriptionViewProvider.<Initialize>b__1_2: 27 Move this.SubscriptionName (System.String), [v45 @ X0_v3 (GBG.Pinata.ECS.InAppPurchase.Components.SubscriptionViewComponent&)+18]
+Import :             2 byref at 0x18, from a call's result   e.g. WeaponButtonProvider.<Initialize>b__4_3: 30 CallVoid GlobalEvent.Publish, [v45 @ X0_v3 (WeaponButtonComponent&)+18]
 Import :             1 Il2CppClass.0x5E8   e.g. AdClientImpl.ShowInterstitialAd: 39 Move v59 @ X2_v1, [v53 @ X9_v1 (Il2CppClass<EasyMobile.AdClientImpl>)+5E8]
 Import :             1 Il2CppClass.0x380   e.g. UiRebuild.DoAction: 46 Move v69 @ X3_v1, [v65 @ X8_v7 (Il2CppClass<UnityEngine.UI.Graphic>)+380]
 Import :             1 base has no type, from Move from [Il2CppClass<Firebase.FirebaseApp> + 0x0]   e.g. FirebaseApp.InitializeAppUtilCallbacks: 451 Move v622 @ X8_v26, [v165 @ X0_v26+B8]
@@ -490,8 +495,8 @@ Import :             1 base has no type, from Move from [ActivateGameObjectCompo
 Import :             1 array at 0x0, from Move from Single[]   e.g. LinearDecoder.SetTimeToLengthTables: 200 Add v343 @ V0_v6 (System.Single), v343 @ V0_v6 (System.Single), [v301 @ X20_v2 (System.Single[])+v406 @ X8_v8 (System.Int32)*4]
 Import : Il2Cpp method body recovery: 46775 locals the analysis could not type, by what defines them:
 Import :         20760 written by nothing, first read by an unresolved call   e.g. PKCS12.Encrypt: v38
-Import :          6524 written by nothing [never read]   e.g. ChallengeResponse2.Compute: v45
-Import :          3571 written by nothing, first read by IndirectCall   e.g. AppConfigExtensions.GetState: v35
+Import :          6524 written by nothing [never read]   e.g. MD2Managed..ctor: v23
+Import :          3571 written by nothing, first read by IndirectCall   e.g. InstallRootCerts.Install: v38
 Import :          3041 Call - the return of a call whose target is unknown [never read]   e.g. PKCS12.Encrypt: 191 Call 6D2490, v290 @ X0_v11, v269 @ X0_v10, [v58 @ X8_v12 (Il2CppClass<System.Security.Cryptography.SymmetricAlgorithm>)+298], v93 @ X2_v3 (System.Byte[]), v89 @ X3_v4 (System.Int32), v84 @ X4_v3 (System.Byte[]), methodInfo @ X5 (Il2CppMethodInfo), v38 @ X6, v39 @ X7, v40 @ V0, v41 @ V1, v42 @ V2, v43 @ V3, v44 @ V4, v45 @ V5, v46 @ V6, v47 @ V7
 Import :          1843 Move from memory [never read]   e.g. MD2Managed..ctor: 46 Move v60 @ X2_v1, [v56 @ X8_v4 (Il2CppClass<Mono.Security.Cryptography.MD2Managed>)+250]
 Import :          1532 Add, first read by Add   e.g. Kernel.Multiply: 91 Add v247 @ X16_v9, v225 @ X16_v8 (System.Int32), [v244 @ X15_v8 (System.Int32)]
@@ -510,9 +515,9 @@ Import :           265 Move of a constant [never read]   e.g. MessageBase.CheckH
 Import :           193 Move of ArrayLength, first read by CheckLess   e.g. DistinguishedName.ToString: 38 Move v225 @ X8_v17, v45.Length
 Import :           179 Subtract, first read by an unresolved call   e.g. Serializer.SerializeOther: 199 Subtract v287 @ X0_v17, &v11 @ stack_-10_v2, 20
 Import :           166 Call - the return of a call whose target is unknown, first read by And   e.g. ASN1.get_Item: 106 Call "il2cpp_vm_class_is_assignable_from", v238 @ X0_v17, typeof(System.ArgumentOutOfRangeException), [v153 @ X8_v8], v158 @ X2_v4 (Il2CppMethodInfo), v26 @ X3, v27 @ X4, v28 @ X5, v29 @ X6, v30 @ X7, v31 @ V0, v32 @ V1, v33 @ V2, v34 @ V3, v35 @ V4, v36 @ V5, v37 @ V6, v38 @ V7
-Import :           125 Box, first read by CheckEqual   e.g. Asn1Node.GetText: 836 Box v190 @ X0_v55, typeof(System.Int64), &v174 @ X8_v4 (System.Int64)
+Import :           125 Box, first read by CheckEqual   e.g. StoreService.javaArrayFromCSList: 74 Box v350 @ X0_v22, typeof(System.Int32), &v347 @ X8_v16 (System.Int32)
 Import :           119 written by nothing, first read by Move   e.g. Asn1Node.ListDecode: v223
-Import :           117 Xor, first read by And   e.g. Path.GetWaypointIndexFromPerc: 80 Xor v167 @ TEMP3_v10, v126 @ V1_v7 (System.Single), v179 @ TEMP1_v10 (System.Single)
+Import :           117 Xor, first read by And   e.g. DOTween.Punch: 83 Xor v123 @ TEMP2_v3, v159 @ V0_v4 (System.Single), 2
 Import :            91 Add, first read by CheckEqual   e.g. Kernel.RightShift: 98 Add v227 @ TEMP_v22, v230 @ X8_v19, 1
 Import :            91 Add, first read by Move   e.g. Kernel.Multiply: 80 Add v197 @ X16_v5, [v142 @ X11_v4 (System.Int32)], v196 @ TEMP_v7
 Import :            83 Multiply, first read by Add   e.g. Kernel.Multiply: 79 Multiply v196 @ TEMP_v7, [v62 @ X10_v2 (System.Int32)], [v143 @ X8_v4 (System.Int32)]
@@ -523,11 +528,11 @@ Import :            61 Move from memory, first read by Add   e.g. PKCS12.GetByte
 Import :            56 Subtract [never read]   e.g. RSAKey.ParseNode: 171 Subtract v301 @ X1_v18, v230.Length, 1
 Import :            48 Box, first read by IndirectCall   e.g. AppleStoreImpl.SetStorePromotionVisibility: 34 Box v79 @ X0_v12, typeof(UnityEngine.Purchasing.AppleStorePromotionVisibility), &visibility @ X2 (UnityEngine.Purchasing.AppleStorePromotionVisibility)
 Import :            48 IndirectCall, first read by IndirectCall   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 445 IndirectCall [v1246 @ X0_v148], v947 @ X0_v150, v844 @ X0_v57 (System.Collections.IEnumerator), [v1246 @ X0_v148+8], v259 @ X2_v32 (System.Collections.IDictionary), this._iterations (System.Int32), v693 @ X0_v31 (System.Byte[]), v42 @ X5, v43 @ X6, v44 @ X7, v45 @ V0, v46 @ V1, v47 @ V2, v48 @ V3, v49 @ V4, v50 @ V5, v51 @ V6, v52 @ V7
-Import :            47 Call - the return of a call whose target is unknown, first read by CheckEqual   e.g. <>__AnonType0`3.ToString: 143 Call E8F14C, v380 @ X0_v23, &v125 @ X8_v9, 0, v27 @ X2, v28 @ X3, v29 @ X4, v30 @ X5, v31 @ X6, v32 @ X7, v33 @ V0, v34 @ V1, v35 @ V2, v36 @ V3, v37 @ V4, v38 @ V5, v39 @ V6, v40 @ V7
-Import :            45 Move from memory, first read by an unresolved call   e.g. Asn1Node.ListDecode: 185 Move v224 @ X4_v7, [v489 @ X8_v32 (Il2CppClass<System.IO.MemoryStream>)+308]
+Import :            47 Call - the return of a call whose target is unknown, first read by CheckEqual   e.g. PKCS12.GetBytes: 1233 Call "il2cpp_codegen_object_is_inst", v2910 @ X0_v123, v2328 @ X0_v120 (System.Collections.IEnumerator), [v469 @ X19_v22 (Il2CppClass<System.IDisposable>)], v125 @ X2_v22 (System.NullReferenceException), v99 @ X3_v7 (System.Int32), v94 @ X4_v7 (System.Byte[]), v40 @ X5, v41 @ X6, v42 @ X7, v43 @ V0, v44 @ V1, v45 @ V2, v46 @ V3, v47 @ V4, v48 @ V5, v49 @ V6, v50 @ V7
+Import :            45 Move from memory, first read by an unresolved call   e.g. InstallRootCerts.IsCertBugPresent: 108 Move v104 @ X1_v7, [v190 @ X8_v12]
 Import :            38 Call - the return of a resolved method (typed), first read by IndirectCall   e.g. AndroidAgent.getPlacementInfo: 100 Call Dictionary`2<System.String, System.Object>.get_Item, v126 @ X0_v21, v200 @ X0_v19 (System.Object), "placement_name"
 Import :            33 IndirectCall, first read by CheckEqual   e.g. PKCS12.Pkcs8ShroudedKeyBagSafeBag: 621 IndirectCall [v1693 @ X0_v178], v1698 @ X0_v180, v1388 @ X0_v162 (System.Collections.IEnumerator), [v1693 @ X0_v178+8], v569 @ X2_v38 (System.Collections.IDictionary), this._iterations (System.Int32), v693 @ X0_v31 (System.Byte[]), v42 @ X5, v43 @ X6, v44 @ X7, v45 @ V0, v46 @ V1, v47 @ V2, v48 @ V3, v49 @ V4, v50 @ V5, v51 @ V6, v52 @ V7
-Import :            33 Move of a constant, first read by Add   e.g. MD4Managed.Encode: -1 Move v51 @ X8_v4, 4294967295
+Import :            33 Move of a constant, first read by Add   e.g. MessageBase.CheckHeader: -1 Move v52 @ X22_v2, 4294967295
 Import :            31 Subtract, first read by CheckLess   e.g. X509Cert.CheckCertTime: 21 Subtract v39 @ TEMP1_v2, v35 @ X0_v6, 1
 Import :            30 Subtract, first read by Box   e.g. InstallRootCerts.InstallDefaultCRLs: 765 Subtract v1281 @ X1_v20, &v21 @ X29, 140
 Import :            26 Call - the return of a call whose target is unknown, first read by IndirectCall   e.g. StoreListener.OnInitialized: 108 Call 8D8294, v341 @ X0_v13, [v337 @ X0_v11+8], methodof(UnityEngine.Purchasing.IExtensionProvider::GetExtension), [v84 @ X20_v4 (Il2CppMethodInfo)+48], methodInfo @ X3 (Il2CppMethodInfo), v28 @ X4, v29 @ X5, v30 @ X6, v31 @ X7, v32 @ V0, v33 @ V1, v34 @ V2, v35 @ V3, v36 @ V4, v37 @ V5, v38 @ V6, v39 @ V7
@@ -535,7 +540,7 @@ Import :            24 Call - the return of a call whose target is unknown, firs
 Import :            24 Move of AddressOf, first read by an unresolved call   e.g. Parser.ParseNumber: -1 Move v93 @ X3_v1, &v186 @ stack_-28_v3 (System.Double)
 Import :            24 Move from another untyped local, first read by Move   e.g. InstallRootCerts.InstallDefaultCRLs: -1 Move v891 @ X3_v8, v337 @ X3_v1
 Import :            23 Move from another untyped local, first read by an unresolved call   e.g. JSONNode.Parse: -1 Move v1091 @ X3_v12, v942 @ X3_v9
-Import :            23 IndirectCall, first read by Move   e.g. AndroidAgent.getPlacementInfo: 106 IndirectCall [v301 @ X8_v20+160], v303 @ X0_v22, v126 @ X0_v21, [v301 @ X8_v20+168], methodof(System.Collections.Generic.Dictionary`2<System.String, System.Object>::get_Item), methodof(UnityEngine.AndroidJavaObject::Call), v27 @ X4, v28 @ X5, v29 @ X6, v30 @ X7, v31 @ V0, v32 @ V1, v33 @ V2, v34 @ V3, v35 @ V4, v36 @ V5, v37 @ V6, v38 @ V7
+Import :            23 IndirectCall, first read by Move   e.g. PKCS12.GetBytes: 2915 IndirectCall [v1612 @ X8_v13+170], v1614 @ X0_v20, v1607 @ X0_v19, [v1612 @ X8_v13+178], v133 @ X2_v7 (System.String), v99 @ X3_v7 (System.Int32), v94 @ X4_v7 (System.Byte[]), v40 @ X5, v41 @ X6, v42 @ X7, v43 @ V0, v44 @ V1, v45 @ V2, v46 @ V3, v47 @ V4, v48 @ V5, v49 @ V6, v50 @ V7
 Import :            21 Subtract, first read by Multiply   e.g. TweenExtensions.GotoWaypoint: 389 Subtract v563 @ X8_v43, v557 @ X8_v42, v561 @ X9_v11 (System.Int32)
 Import :            20 written by nothing, first read by CheckEqual   e.g. AppleStoreImpl.SetStorePromotionOrder: v133
 Import :            19 Add, first read by CheckLess   e.g. Kernel.RightShift: 67 Add v77 @ X15_v6, v177 @ X8_v14, v55 @ X22_v5 (System.Int32)
@@ -577,7 +582,7 @@ Import :             6 written by nothing, first read by Add   e.g. EditorConsen
 Import :             6 Move from another untyped local, first read by IndirectCall   e.g. FakeStore.StoreRetrieveProducts: -1 Move v81 @ X6_v4, v165 @ X6_v6
 Import :             5 Move from another untyped local, first read by MakeStruct   e.g. CubicBezierDecoder.SetTimeToLengthTables: -1 Move v143 @ V10_v6, v343 @ V2_v4
 Import :             5 Move from memory, first read by And   e.g. SerializableKeyValuePair`2.FromKeyValuePair: 14 Move v48 @ X8_v13, [v68 @ X22_v9+12E]
-Import :             5 Subtract, first read by a call to an instance method   e.g. ProductDefinitionExtensions.DecodeJSON: 563 Subtract v526 @ X0_v6, &v21 @ X29, 128
+Import :             5 Subtract, first read by a call to an instance method   e.g. CloudCatalogImpl.ParseProductsFromJSON: 478 Subtract v647 @ X0_v7, &v21 @ X29, 112
 Import :             5 Subtract, first read by And   e.g. Obfuscator.DeObfuscate: 84 Subtract v211 @ X28_v5, order.Length, 2
 Import :             5 Move of a constant, first read by Move   e.g. InstallRootCerts.InstallDefaultCRLs: -1 Move v337 @ X3_v1, 0
 Import :             5 IsInst, first read by a call to an instance method   e.g. GA_Wrapper.configureAvailableCustomDimensions01: 47 IsInst v67 @ X0_v48, typeof(System.Collections.Generic.IList`1<System.Object>), v49 @ X20_v2 (System.Object)
@@ -695,7 +700,7 @@ Processing : ScriptableObjectProcessor
 Processing : Processing Scriptable Object Groups
 Processing : Finished processing assets
 Export : Starting export
-Export : Attempting to export assets to /tmp/claude-0/i49dp/out...
+Export : Attempting to export assets to /tmp/claude-0/i49fp/out...
 Export : Game files have these Unity versions: 2019.2.0a7 2019.2.6f1
 Export : Exporting to Unity version 2019.2.6f1
 Import [Warning] : Resource file 'Sirenix.OdinInspector.Editor.dll' hasn't been found
@@ -1224,4 +1229,4 @@ ExportProgress : (442/442) Exporting 'TMP Settings'
 Export : Finished exporting assets
 Export : Saving game assemblies...
 Export : Finished post-export
-Export : Ripped to /tmp/claude-0/i49dp/out
+Export : Ripped to /tmp/claude-0/i49fp/out

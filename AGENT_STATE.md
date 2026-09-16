@@ -533,7 +533,7 @@ và 14740 → 14726; load bỏ cuộc 2722 → 2726 và 9245 → 9248 (phục h�
 bỏ cùng code chết); genFail 0/0, `.cs` 819/3083, Roslyn 348-0 / 1478-1, shape 16/16, ctor 51,
 `array[i].field` 164, `(float)array[i]` 0, test 388 → 402 với 1 fail có sẵn.
 
-## Iteration 049 — năm điều một session sau phải biết
+## Iteration 049 — bảy điều một session sau phải biết
 
 1. **Phép đo của 048 vẫn còn quá dễ dãi, và 049 hạ điểm chính nó.** "Không có placeholder" không
    phải phục hồi: một thân hàm đọc `return default;` trong khi native có field read, so sánh, nhánh
@@ -568,11 +568,28 @@ bỏ cùng code chết); genFail 0/0, `.cs` 819/3083, Roslyn 348-0 / 1478-1, sha
    `0xAF41CC` / `0xAF4164` chứ không tới `0xAF4130` — và ánh xạ sai sẽ hỏng im lặng 339 event
    accessor. Đừng vá nếu chưa có đường tìm.
 
-Bảng số 049 (Impostor, phép đo mới cho cả hai đầu): `EXACT` 2594 → **2775**, `PARTIAL` 1540 → 1318,
-`FALLBACK` 1203 → 1237 (tăng và trung thực: lộ ra chứ không biến mất), phục hồi không kèm đồ thế chỗ
-2739 → **2927**; placeholder 5753 → 4756; `METHOD_NOT_FOUND` 1573 → 713; `INDIRECT_CALL` 350 → 233;
-lời gọi thành placeholder 2343 → 1444; load 2726 → 2716; Roslyn 348 → **345**; shape 16/16, `.cs`
-819, `genFail` 0; test 402 → 407. **Pinata y hệt 048 ở mọi con số.**
+6. **`INDIRECT_JUMP` cũng tách sạch, và họ lớn nhất không phải bảng nhảy.** `IndirectJumpClassifier`
+   chạy cuối `Analyze` và chỉ đếm: 288 `DELEGATE_INVOKE`, 135 `VTABLE_SLOT`, 60 `DEFINED_BY_Add` (ứng
+   viên **duy nhất** cho một bảng nhảy), 30 `LOADED_POINTER`. Nên phần lớn là delegate tail-invoke —
+   cùng phép phục hồi ở điều 3, chỉ khác vị trí — và mở rộng sang `IndirectJump` lấy 254 xuống 120.
+   Cú `return` phải viết ra: generator nối một block không kết thúc bằng jump/return sang successor,
+   mà block của cú nhảy gián tiếp không có successor nào. **Pinata có 0 `DELEGATE_INVOKE`** trong
+   1591 cú nhảy, nên không đổi gì ở đó.
+
+7. **Kho method vàng là `Test/golden-corpus.json`, 48 method, chọn bằng máy.** Mỗi lớp phép toán góp
+   một method ở mỗi trạng thái nó có, nên kho trải đều cả hai trục thay vì toàn method khó — thứ chỉ
+   có thể báo tốt lên. Nó **phân biệt được**: chạy trên bản rip 048 nó chỉ đúng 3 method 049 đưa lên
+   và 2 method 049 đẩy từ `PARTIAL` xuống `FALLBACK`. Chạy
+   `golden_corpus.py <rip> --log <log> --corpus Test/golden-corpus.json --check Test/golden-corpus-baseline.json`
+   trước khi tin bất kỳ con số tổng nào.
+
+Bảng số 049 (Impostor, phép đo mới cho cả hai đầu): `EXACT` 2594 → **2841**, `PARTIAL` 1540 → 1235,
+`FALLBACK` 1203 → 1250 (tăng và trung thực: lộ ra chứ không biến mất), phục hồi không kèm đồ thế chỗ
+2739 → **2997**; placeholder 5753 → 4617; `METHOD_NOT_FOUND` 1573 → 713; `INDIRECT_CALL` 350 → 233;
+`INDIRECT_JUMP` 254 → 120; lời gọi thành placeholder 2343 → 1444; load 2726 → 2711; Roslyn 348 →
+**342**; shape 16/16, `.cs` 819, `genFail` 0; test 402 → 407. **Pinata y hệt 048 ở mọi con số.**
+
+Trạng thái tổng: **`RECOVERY_VALIDATED_STATICALLY`**, không phải `FULLY_RECOVERED` — Unity chưa chạy.
 
 ## Ghi chú môi trường
 

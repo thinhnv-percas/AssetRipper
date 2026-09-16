@@ -1,33 +1,49 @@
 SCOPE: the 10 assemblies recovery was attempted on
 methods with a recorded native address: 5482
 native code accounted for: 1075252 bytes
-placeholders: 4756
+placeholders: 4617
 
 == by semantic status ==
-  2775  EXACT             50.6%
-   152  HIGH_CONFIDENCE    2.8%
-  1318  PARTIAL           24.0%
-  1237  FALLBACK          22.6%
+  2841  EXACT             51.8%
+   156  HIGH_CONFIDENCE    2.8%
+  1235  PARTIAL           22.5%
+  1250  FALLBACK          22.8%
      0  MISSING            0.0%
 
-methods recovered without a stand-in: 2927 of 5482 (53.4%)
+methods recovered without a stand-in: 2997 of 5482 (54.7%)
 
 == what a FALLBACK lost, by operation class ==
-   694  FIELD
-   493  NEWOBJ
-   119  BRANCH
+   698  FIELD
+   501  NEWOBJ
+   120  BRANCH
     54  CALL
      9  ARRAY_READ
      7  ARRAY_WRITE
      4  THROW
 
+== semantic fingerprint, methods reaching each operation class (per side, not a loss) ==
+class                 IR      C#   delta
+STATIC_ACCESS       3914    2348   -1566
+CALL                3611    4500    +889
+BRANCH              2364    2253    -111
+LOOP                2362     801   -1561
+COMPARE             2347    2119    -228
+NULL_CHECK          2063    1668    -395
+ARITHMETIC          1887    1748    -139
+NEWOBJ              1564    1350    -214
+ARRAY_READ           464     577    +113
+INSTANCEOF           349      12    -337
+ARRAY_WRITE          224     225      +1
+CAST                  56     814    +758
+THROW                 18     880    +862
+
 == placeholder families ==
-  2645  UNMANAGED_MEMORY_LOAD            195 files
+  2640  UNMANAGED_MEMORY_LOAD            195 files
    713  METHOD_NOT_FOUND                 101 files
    485  NATIVE_IMPORT                     81 files
-   254  INDIRECT_JUMP                     94 files
    233  INDIRECT_CALL                     40 files
    211  NOT_IMPLEMENTED_INSTRUCTION       54 files
    128  UNRESOLVED_DELEGATE               53 files
+   120  INDIRECT_JUMP                     66 files
     97  UNKNOWN_CALL_TARGET               38 files
      2  OTHER                              1 files

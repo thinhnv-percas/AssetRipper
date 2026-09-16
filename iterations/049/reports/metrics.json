@@ -13,35 +13,35 @@
   ],
   "methods": 5482,
   "nativeBytes": 1075252,
-  "placeholders": 4756,
+  "placeholders": 4617,
   "status": {
-    "HIGH_CONFIDENCE": 152,
-    "PARTIAL": 1318,
-    "FALLBACK": 1237,
-    "EXACT": 2775
+    "HIGH_CONFIDENCE": 156,
+    "PARTIAL": 1235,
+    "FALLBACK": 1250,
+    "EXACT": 2841
   },
   "byAssembly": {
     "Assembly-CSharp": {
       "HIGH_CONFIDENCE": 10,
-      "PARTIAL": 73,
+      "PARTIAL": 72,
       "FALLBACK": 67,
-      "EXACT": 240
+      "EXACT": 241
     },
     "__Generated": {
       "FALLBACK": 1,
       "EXACT": 1
     },
     "GoogleMobileAds": {
-      "EXACT": 231,
-      "FALLBACK": 114,
-      "PARTIAL": 371,
+      "EXACT": 271,
+      "FALLBACK": 121,
+      "PARTIAL": 324,
       "HIGH_CONFIDENCE": 28
     },
     "spine-unity": {
-      "EXACT": 767,
-      "HIGH_CONFIDENCE": 51,
-      "PARTIAL": 367,
-      "FALLBACK": 660
+      "EXACT": 781,
+      "HIGH_CONFIDENCE": 52,
+      "PARTIAL": 348,
+      "FALLBACK": 664
     },
     "LeanCommon": {
       "EXACT": 14,
@@ -50,8 +50,8 @@
       "FALLBACK": 1
     },
     "ACTk.Runtime": {
-      "EXACT": 774,
-      "PARTIAL": 151,
+      "EXACT": 776,
+      "PARTIAL": 149,
       "FALLBACK": 141,
       "HIGH_CONFIDENCE": 23
     },
@@ -63,29 +63,63 @@
     },
     "spine-unity-examples": {
       "FALLBACK": 84,
-      "EXACT": 308,
-      "PARTIAL": 102,
+      "EXACT": 311,
+      "PARTIAL": 99,
       "HIGH_CONFIDENCE": 15
     },
     "DOTween": {
-      "HIGH_CONFIDENCE": 20,
-      "EXACT": 404,
-      "PARTIAL": 240,
-      "FALLBACK": 143
+      "HIGH_CONFIDENCE": 23,
+      "EXACT": 410,
+      "PARTIAL": 229,
+      "FALLBACK": 145
     }
   },
   "lostOperationClasses": {
-    "FIELD": 694,
-    "NEWOBJ": 493,
+    "FIELD": 698,
+    "NEWOBJ": 501,
     "CALL": 54,
     "ARRAY_WRITE": 7,
-    "BRANCH": 119,
+    "BRANCH": 120,
     "ARRAY_READ": 9,
     "THROW": 4
   },
+  "fingerprintIr": {
+    "NULL_CHECK": 2063,
+    "STATIC_ACCESS": 3914,
+    "INSTANCEOF": 349,
+    "COMPARE": 2347,
+    "CALL": 3611,
+    "BRANCH": 2364,
+    "LOOP": 2362,
+    "ARITHMETIC": 1887,
+    "NEWOBJ": 1564,
+    "ARRAY_READ": 464,
+    "ARRAY_WRITE": 224,
+    "CAST": 56,
+    "THROW": 18
+  },
+  "fingerprintCSharp": {
+    "NULL_CHECK": 1668,
+    "THROW": 880,
+    "NEWOBJ": 1350,
+    "RETURN": 3267,
+    "CAST": 814,
+    "COMPARE": 2119,
+    "CALL": 4500,
+    "BRANCH": 2253,
+    "ARITHMETIC": 1748,
+    "STATIC_ACCESS": 2348,
+    "ARRAY_READ": 577,
+    "LOOP": 801,
+    "NEWARR": 180,
+    "ARRAY_WRITE": 225,
+    "INSTANCEOF": 12,
+    "FIELD_ADDRESS": 155,
+    "SWITCH": 26
+  },
   "families": {
     "UNMANAGED_MEMORY_LOAD": {
-      "count": 2645,
+      "count": 2640,
       "files": 195
     },
     "METHOD_NOT_FOUND": {
@@ -95,10 +129,6 @@
     "NATIVE_IMPORT": {
       "count": 485,
       "files": 81
-    },
-    "INDIRECT_JUMP": {
-      "count": 254,
-      "files": 94
     },
     "INDIRECT_CALL": {
       "count": 233,
@@ -111,6 +141,10 @@
     "UNRESOLVED_DELEGATE": {
       "count": 128,
       "files": 53
+    },
+    "INDIRECT_JUMP": {
+      "count": 120,
+      "files": 66
     },
     "UNKNOWN_CALL_TARGET": {
       "count": 97,
@@ -148,9 +182,19 @@
       "file": "Assets/Scripts/spine-unity/Spine/Skin.cs"
     },
     {
+      "nativeBytes": 1592,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardBasedVideoAd.cs"
+    },
+    {
       "nativeBytes": 1560,
       "lost": "FIELD",
       "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs"
+    },
+    {
+      "nativeBytes": 1472,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardedAd.cs"
     },
     {
       "nativeBytes": 1352,
@@ -161,6 +205,11 @@
       "nativeBytes": 1304,
       "lost": "FIELD",
       "file": "Assets/Scripts/spine-unity/Spine/Unity/Deprecated/SlotBlendModes.cs"
+    },
+    {
+      "nativeBytes": 1296,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs"
     },
     {
       "nativeBytes": 1296,
@@ -196,6 +245,11 @@
       "nativeBytes": 1052,
       "lost": "FIELD",
       "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs"
+    },
+    {
+      "nativeBytes": 1048,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/BannerView.cs"
     },
     {
       "nativeBytes": 1032,
@@ -351,26 +405,6 @@
       "nativeBytes": 616,
       "lost": "NEWOBJ",
       "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
-    },
-    {
-      "nativeBytes": 616,
-      "lost": "NEWOBJ",
-      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
-    },
-    {
-      "nativeBytes": 616,
-      "lost": "FIELD,NEWOBJ",
-      "file": "Assets/Scripts/spine-unity/Spine/Skeleton.cs"
-    },
-    {
-      "nativeBytes": 612,
-      "lost": "FIELD",
-      "file": "Assets/Scripts/Assembly-CSharp/Box.cs"
-    },
-    {
-      "nativeBytes": 604,
-      "lost": "NEWOBJ",
-      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs"
     }
   ]
 }

@@ -47,20 +47,42 @@ F. Delegate invoke — commit 748392e8
    (generic instance context không khai báo thành viên nào của riêng nó).
    INDIRECT_CALL 350 -> 233, và 233 đúng bằng số ô vtable đếm độc lập.
 
-G. Gate cuối (Impostor 048 -> 049, đo bằng recovery_metrics cho cả hai đầu):
+G. Indirect jump + kho method vàng — commit 3b9fed13, 695b78ec, và corpus
 
-   EXACT                2594 -> 2775 (+181)     PARTIAL     1540 -> 1318 (-222)
-   không đồ thế chỗ     2739 -> 2927 (+188)     FALLBACK    1203 -> 1237 (+34, trung thực)
-   placeholder          5753 -> 4756            lời gọi ph.  2343 -> 1444
+   `IndirectJumpClassifier` chạy CUỐI `Analyze` và chỉ đếm, không viết lại gì. Impostor trước khi
+   sửa: 288 DELEGATE_INVOKE / 135 VTABLE_SLOT / 60 DEFINED_BY_Add (ứng viên DUY NHẤT cho bảng nhảy)
+   / 30 LOADED_POINTER. Nên họ lớn nhất KHÔNG phải bảng nhảy mà là delegate tail-invoke — cùng phép
+   phục hồi ở F, chỉ khác vị trí. Mở rộng sang IndirectJump: 254 -> 120.
+   Cú return phải viết ra, vì generator nối một block không kết thúc bằng jump/return sang successor
+   và block của cú nhảy gián tiếp không có successor nào.
+   Pinata có 0 DELEGATE_INVOKE trong 1591 cú nhảy, nên không đổi gì ở đó.
+
+   `Test/golden-corpus.json`: 48 method đóng băng, chọn bằng máy — mỗi lớp phép toán một method ở
+   mỗi trạng thái nó có. Bản chọn worst-first đầu tiên cho 39 method TOÀN FALLBACK, thứ chỉ có thể
+   báo tốt lên; bản theo (lớp, trạng thái) cho 11/11/13/13 và PHÂN BIỆT ĐƯỢC: chạy trên bản rip 048
+   nó chỉ đúng 3 method 049 đưa lên và 2 method 049 đẩy từ PARTIAL xuống FALLBACK.
+
+H. Gate cuối (Impostor 048 -> 049, đo bằng recovery_metrics cho cả hai đầu):
+
+   EXACT                2594 -> 2841 (+247)     PARTIAL     1540 -> 1235 (-305)
+   không đồ thế chỗ     2739 -> 2997 (+258)     FALLBACK    1203 -> 1250 (+47, trung thực)
+   placeholder          5753 -> 4617            lời gọi ph.  2343 -> 1444
    METHOD_NOT_FOUND     1573 -> 713             INDIRECT_CALL 350 -> 233
-   Roslyn 348-0 -> 345-0   shape 16/16   .cs 819   genFail 0   load 2726 -> 2716
+   INDIRECT_JUMP         254 -> 120
+   Roslyn 348-0 -> 342-0   shape 16/16   .cs 819   genFail 0   load 2726 -> 2711
    test 402 -> 407, 1 fail có sẵn
    Pinata: y hệt 048 ở mọi con số.
 
    Unity UNITY_NOT_AVAILABLE; U1-U9 và I1-I4 NOT_RUN; shader vẫn DUMMY, không bao giờ là PASS.
 
-H. KHÔNG làm: §10/§11/§12 (generic/virtual/interface call recovery — 233 ô vtable là việc kế tiếp),
+I. KHÔNG làm: §10/§11/§12 (generic/virtual/interface call recovery — 233 ô vtable là việc kế tiếp),
    §22 (tầng ngữ nghĩa SIMD), §27 (golden corpus), §25 (Unity runtime).
    VÀ KHÔNG ánh xạ 0xAF4130: ngữ nghĩa chắc chắn (vòng ldaxr/stlxr = Interlocked.CompareExchange,
    339/339 caller là event accessor) nhưng KHÔNG có cách tìm ra nó tổng quát, và sai sẽ hỏng im lặng
    339 event accessor. Ghi lại làm bằng chứng, không vá.
+
+J. Trạng thái tổng, theo §29 của brief thứ hai:
+
+   RECOVERY_VALIDATED_STATICALLY
+
+   KHÔNG phải FULLY_RECOVERED. Unity chưa chạy nên không có bằng chứng runtime nào cả.

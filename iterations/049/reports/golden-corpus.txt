@@ -1,0 +1,8 @@
+corpus: 48 methods, 48 found, 0 not present in this rip
+
+== by semantic status ==
+   11  EXACT
+   11  HIGH_CONFIDENCE
+   13  PARTIAL
+   13  FALLBACK
+    0  MISSING

@@ -1,9 +1,9 @@
 System : System Tester
-System : System Version: Unix 6.18.44.24
+System : System Version: Unix 6.18.44.33
 System : Operating System: Linux x64
 System : AssetRipper Version: 1.3.14.0
 System : AssetRipper Build Type: Release Compiled
-System : UTC Current Time: Mon Sep 14 15:18:45 UTC 2026
+System : UTC Current Time: Wed Sep 16 03:07:56 UTC 2026
 System : UTC Compile Time: Unknown
 
 General : Configuration Settings:
@@ -39,16 +39,16 @@ Import : Il2Cpp recovery installed: offset attributes on, body reconstruction on
 Import : During Il2Cpp initialization, found Unity version: 2022.3.62f2
 Cpp2IL : Initializing Metadata...
 Cpp2IL : Using actual IL2CPP Metadata version 31.1
-Cpp2IL : Initialized Metadata in 121ms
+Cpp2IL : Initialized Metadata in 102ms
 Cpp2IL : Using binary type ELF (from LibCpp2IL)
 Cpp2IL : Searching Binary for Required Data...
-Cpp2IL : Got Binary codereg: 0x185AF98, metareg: 0x18E3608 in 81ms.
+Cpp2IL : Got Binary codereg: 0x185AF98, metareg: 0x18E3608 in 52ms.
 Cpp2IL : Initializing Binary...
-Cpp2IL : Initialized Binary in 87ms
+Cpp2IL : Initialized Binary in 76ms
 Cpp2IL : Mapping pointers to Il2CppMethodDefinitions...
-Cpp2IL : Processed 33436 OK (116ms)
+Cpp2IL : Processed 33436 OK (81ms)
 Cpp2IL : Creating application model...
-Cpp2IL : Application model created in 870.2827ms
+Cpp2IL : Application model created in 553.6418ms
 Import : IL2CPP struct database: 370 Unity versions indexed from /home/user/AssetRipper/StructDb
 Import : IL2CPP struct database: applied 9 measured Il2CppClass and 2 MethodInfo offsets for Unity 2022.3.62f2 (64-bit).
 Import : IL2CPP struct database loaded: Unity 2022.3.62f2, 64-bit, sizeof(Il2CppClass) = 312
@@ -62,7 +62,7 @@ Import : Il2Cpp recovery: helpers not located: il2cpp_codegen_initialize_method,
 Import : Il2Cpp recovery: sampled 200 methods from the game's assemblies — 200 lifted to ISIL, 0 produced none, 0 over the 30000 byte analysis cap, 0 threw.
 Import : Native source injection: reconstructed 5740 method bodies.
 Cpp2IL : Finding key function addresses...
-Cpp2IL : Key function addresses found in 0.006ms
+Cpp2IL : Key function addresses found in 0.0045ms
 Import : Il2Cpp method body recovery attempted 6014 methods; 0 failed to convert. Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.
 Import : Il2Cpp method body recovery: 22 calls to a C library function were emitted as the C# operation equivalent to it.
 Import : Il2Cpp method body recovery: 1444 calls became a placeholder, by how many managed methods sit on the address:
@@ -75,10 +75,16 @@ Import :           512 NATIVE_ONLY
 Import :           103 INDIRECT_TARGET
 Import :            78 RUNTIME_HELPER_VENEER
 Import :            33 GENERIC_SHARED
-Import : Il2Cpp method body recovery: 2716 memory loads the generator gave up on, by kind:
-Import :           301 past the last field of the base type   e.g. DeformTimeline.Apply: 118 CheckEqual v469 @ Z_v7 (System.Boolean), [v150 @ X24_v5 (Spine.Attachment)+38], this.attachment (Spine.VertexAttachment)
+Import : Il2Cpp method body recovery: 247 indirect jumps survived across 11903 analysed method bodies, by what the target register holds:
+Import :           135 VTABLE_SLOT
+Import :            60 DEFINED_BY_Add
+Import :            30 LOADED_POINTER
+Import :            20 DELEGATE_INVOKE
+Import :             2 OTHER_ArrayLength
+Import : Il2Cpp method body recovery: 2711 memory loads the generator gave up on, by kind:
+Import :           301 past the last field of the base type   e.g. VertexAttachment.CopyTo: 40 CallVoid Array.Copy, this.bones (System.Int32[]), 0, v46 @ X0_v10 (System.Int32[]), 0, [v64 @ X0_v11 (System.Array)+18]
 Import :           216 base has no type, from Move from an untyped base   e.g. ExposedList`1.ConvertAll: 194 CheckNotEqual v272 @ TEMPCOND_v7 (System.Boolean), [v260 @ X8_v12+28], [v24 @ X29_v1-8]
-Import :           203 generic instance, value type argument   e.g. SkeletonMecanimRootMotion.GetRemainingRootMotion: 36 Call SkeletonRootMotionBase.GetAnimationRootMotion, returnVal2 @ V0_v1 (UnityEngine.Vector2), this @ X0 (Spine.Unity.SkeletonMecanimRootMotion), layerIndex @ X1 (System.Int32), [v48 @ X0_v5 (System.Collections.Generic.KeyValuePair`2<Spine.Animation, System.Single>)+28], v48 @ X0_v5 (System.Collections.Generic.KeyValuePair`2<Spine.Animation, System.Single>)
+Import :           198 generic instance, value type argument   e.g. SkeletonMecanimRootMotion.GetRemainingRootMotion: 36 Call SkeletonRootMotionBase.GetAnimationRootMotion, returnVal2 @ V0_v1 (UnityEngine.Vector2), this @ X0 (Spine.Unity.SkeletonMecanimRootMotion), layerIndex @ X1 (System.Int32), [v48 @ X0_v5 (System.Collections.Generic.KeyValuePair`2<Spine.Animation, System.Single>)+28], v48 @ X0_v5 (System.Collections.Generic.KeyValuePair`2<Spine.Animation, System.Single>)
 Import :           189 base has no type, from no definition   e.g. ExposedList`1.ConvertAll: 20 Move [v24 @ X29_v1-8], [v27 @ SYSREG+28]
 Import :           182 value type base   e.g. Lexer.ParseString: 311 ShiftLeft v427 @ TEMPSHIFT_v9 (System.Int32), [v127 @ X24_v4 (System.Int32)+v495 @ X9_v12 (System.Int32)], 2
 Import :           103 Il2CppClass.0x28   e.g. OrderedDictionary`2.IndexOf: 29 CheckLess v35 @ N_v1 (System.Boolean), [v22 @ X8_v3 (Il2CppClass<TKey>)+28], 0
@@ -112,7 +118,7 @@ Import :            12 Il2CppClass.0x1D0   e.g. BoundingBoxFollower.Initialize: 
 Import :            12 base has no type, from Move from AddressOf(stack_-30)   e.g. OrderedDictionary`2.GetKey: 51 CheckNotEqual v70 @ TEMPCOND_v2 (System.Boolean), [v15 @ SYSREG+28], [v12 @ X29_v1-8]
 Import :            11 static field storage at 0x10   e.g. Utils.GetAdRequestJavaObject: 1081 Move v118 @ X0_v9 (UnityEngine.AndroidJavaObject), [v113 @ X8_v9 (Il2CppStaticFields<System.EmptyArray`1<System.Object>>)+10]
 Import :            11 array at 0x28, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 115 Subtract v421 @ V1_v81 (System.Single), v420 @ V2_v29, [changeValue @ X7 (UnityEngine.Vector3[])+28]
-Import :            10 base has no type, from Add of an untyped base and Int32   e.g. TweenExtensions.GotoWaypoint: 171 CheckEqual v203 @ Z_v7 (System.Boolean), [v197 @ X9_v5-8], typeof(DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions>)
+Import :            10 base has no type, from Add of an untyped base and Int32   e.g. MeshGenerator.BuildMeshWithArrays: 324 Move v2012 @ X13_v54, [v2030 @ X12_v58+20]
 Import :            10 static field storage at 0x4   e.g. SkeletonRootMotion.CalculateAnimationsMovementDelta: 101 Subtract v349 @ V1_v10 (System.Single), v336.y (System.Single), [v302 @ X8_v15 (Il2CppStaticFields<UnityEngine.Vector2>)+4]
 Import :            10 array at 0x20, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 109 Move v978 @ V4_v6 (UnityEngine.Vector3), [changeValue @ X7 (UnityEngine.Vector3[])+20]
 Import :             9 base has no type, from Add of [Attachment + 0x28] and Immediate   e.g. DeformTimeline.Apply: 1116 Subtract v1948 @ V1_v54 (System.Single), v1947 @ V1_v53 (System.Single), [v79 @ X14_v12+v807 @ X8_v72 (System.Int32)*4]
@@ -124,13 +130,13 @@ Import :             8 base has no type, from Newobj   e.g. SpineAtlasAsset.Crea
 Import :             7 array at 0x28, from Move from the field Vector3[]   e.g. PathPlugin.SetChangeValue: 190 MakeStruct v599 @ AGGC23558_0_v7 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v272 @ X8_v43 (UnityEngine.Vector3[])+20], [v272 @ X8_v43 (UnityEngine.Vector3[])+24], [v272 @ X8_v43 (UnityEngine.Vector3[])+28]
 Import :             7 array at 0x20, from Move from the field Vector3[]   e.g. PathPlugin.SetChangeValue: 190 MakeStruct v599 @ AGGC23558_0_v7 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v272 @ X8_v43 (UnityEngine.Vector3[])+20], [v272 @ X8_v43 (UnityEngine.Vector3[])+24], [v272 @ X8_v43 (UnityEngine.Vector3[])+28]
 Import :             7 Il2CppClass.0x190   e.g. Path.GetPoint: 17 Move v21 @ X4_v1, [v16 @ X8_v1 (Il2CppClass<DG.Tweening.Plugins.Core.PathCore.ABSPathDecoder>)+190]
-Import :             7 static field storage at 0x2C   e.g. DOTweenUtils.Angle2D: 76 Multiply v94 @ V2_v6 (System.Single), v52 @ V8_v2 (System.Single), [v53 @ X8_v6 (Il2CppStaticFields<UnityEngine.Vector2>)+2C]
+Import :             7 static field storage at 0x2C   e.g. <JumpRoutine>d__19.MoveNext: 149 Multiply v204 @ V2_v1 (System.Single), v306 @ V0_v5 (System.Single), [v309 @ X8_v8 (Il2CppStaticFields<UnityEngine.Vector3>)+2C]
 Import :             7 base has no type, from Move from [Object + 0x10]   e.g. MeshGenerator.RequiresMultipleSubmeshesByDrawOrder: 172 CheckEqual v260 @ TEMP_v21 (System.Boolean), [v167 @ X8_v21+30], 0
 Import :             7 Il2CppClass.0x180   e.g. AttachmentCloneExtensions.GetCopy: 70 Move v89 @ X1_v1, [v40 @ X8_v3 (Il2CppClass<Spine.Attachment>)+180]
 Import :             7 base has no type, from Add of ArrayAccess and Immediate   e.g. DeformTimeline.Apply: 496 Add v1281 @ V0_v31, [v680 @ X10_v16+v795 @ X8_v43 (System.Int32)*4], [v235 @ X11_v14+v795 @ X8_v43 (System.Int32)*4]
 Import :             7 base has no type, from Add of an untyped local and an untyped local   e.g. CubicBezierDecoder.FinalizePath: 367 Subtract v668 @ V1_v5 (System.Single), [v447 @ X0_v7 (UnityEngine.Vector3[])+28], [v636 @ X9_v16+8]
 Import :             6 Il2CppClass.0x135   e.g. ExposedList`1..cctor: 52 And v70 @ TEMP_v16 (System.Int32), [v68 @ X0_v11 (Il2CppClass<Spine.ExposedList`1<T>>)+135], 1
-Import :             6 array at 0x0, from a call's result   e.g. RenderExistingMesh.UpdateMaterials: 103 Call Dictionary`2<UnityEngine.Material, UnityEngine.Material>.ContainsKey, v311 @ X0_v19 (System.Boolean), this.replacementMaterialDict (System.Collections.Generic.Dictionary`2<UnityEngine.Material, UnityEngine.Material>), [v126 @ X0_v13 (UnityEngine.Material[])+v71 @ X24_v7 (System.Int32)*8]
+Import :             6 array at 0x0, from a call's result   e.g. Hierarchy..ctor: 92 Call String.Concat, v121 @ X0_v30 (System.String), v121 @ X0_v30 (System.String), [v94 @ X0_v27 (System.String[])+v123 @ X20_v9 (System.Int32)*8]
 Import :             6 base has no type, from Move from [Single + 0x20]   e.g. SkeletonRagdoll.Apply: 329 MakeStruct v1759 @ AGG151D344_1_v29 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v1725 @ X8_v128+74], [v1725 @ X8_v128+80], 0
 Import :             6 base has no type, from Move from [TweenerCore`3<System.UInt64, System.UInt64, DG.Tweening.Plugins.Options.NoOptions> + 0x150]   e.g. UlongPlugin.SetFrom: 35 Move v75 @ X3_v1, [v46 @ X8_v3+18]
 Import :             6 base has no type, from Add of Vector3[] and an untyped local   e.g. Vector3ArrayPlugin.EvaluateAndApply: 110 Add v723 @ V0_v100, [v424 @ X11_v8+20], [v425 @ X10_v23+20]
@@ -145,11 +151,11 @@ Import :             6 array at 0x0, from Move from the field T[]   e.g. Exposed
 Import :             6 base has no type, from Move from [TweenerCore`3<System.Double, System.Double, DG.Tweening.Plugins.Options.NoOptions> + 0x150]   e.g. DoublePlugin.SetFrom: 36 Move v76 @ X2_v1, [v52 @ X8_v3+18]
 Import :             6 array at 0x24, from Move from the field Vector3[]   e.g. PathPlugin.SetChangeValue: 190 MakeStruct v599 @ AGGC23558_0_v7 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v272 @ X8_v43 (UnityEngine.Vector3[])+20], [v272 @ X8_v43 (UnityEngine.Vector3[])+24], [v272 @ X8_v43 (UnityEngine.Vector3[])+28]
 Import :             5 base has no type, from Move from an untyped local   e.g. SkeletonGraphic.UpdateMeshMultipleCanvasRenderers: 638 CheckNotEqual v742 @ TEMPCOND_v11 (System.Boolean), [v242 @ stack_-188_v2+28], [v27 @ SYSREG+28]
-Import :             5 static field storage at 0x1C   e.g. ShortcutExtensions.LookAt: 158 Move v207 @ V1_v4 (System.Single), [v254 @ X8_v15 (Il2CppStaticFields<UnityEngine.Vector3>)+1C]
+Import :             5 static field storage at 0x1C   e.g. TweenSettingsExtensions.SetPathForwardDirection: 261 Move v81 @ V4_v2 (System.Single), [v437 @ X8_v15 (Il2CppStaticFields<UnityEngine.Vector3>)+1C]
 Import :             5 base has no type, from Add of Boolean and Int32   e.g. Vector3ArrayPlugin.EvaluateAndApply: 347 Multiply v836 @ V1_v62 (System.Single), v984 @ V0_v24 (System.Single), [v833 @ X8_v56+20]
 Import :             5 base has no type, from Move from AddressOf(stack_-40)   e.g. OrderedDictionary`2.Remove: 70 CheckEqual v88 @ TEMP_v7 (System.Boolean), [v16 @ X29_v1-C], 0
 Import :             5 Il2CppClass.0x208   e.g. SpeedHackDetector.StopDetection: 77 Move v91 @ X2_v2, [v100 @ X8_v13 (Il2CppClass<CodeStage.AntiCheat.Detectors.SpeedHackDetector>)+208]
-Import :             5 static field storage at 0x20   e.g. ShortcutExtensions.LookAt: 159 Move v205 @ V2_v4 (System.Single), [v254 @ X8_v15 (Il2CppStaticFields<UnityEngine.Vector3>)+20]
+Import :             5 static field storage at 0x20   e.g. TweenSettingsExtensions.SetPathForwardDirection: 262 Move v79 @ V5_v2 (System.Single), [v437 @ X8_v15 (Il2CppStaticFields<UnityEngine.Vector3>)+20]
 Import :             5 Il2CppClass.0x210   e.g. SpeedHackDetector.StopDetection: 78 Move v93 @ X1_v2, [v100 @ X8_v13 (Il2CppClass<CodeStage.AntiCheat.Detectors.SpeedHackDetector>)+210]
 Import :             4 base has no type, from Add of the field ControlPoint[] and Int32   e.g. CubicBezierDecoder.SetWaypointsLengths: 125 Move [v262 @ X9_v8 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+30], [v144 @ X11_v6+30]
 Import :             4 static field storage at 0xC   e.g. DOTween.Shake: 266 Move v307 @ V8_v8 (System.Single), [v737 @ X8_v40 (Il2CppStaticFields<UnityEngine.Quaternion>)+C]
@@ -168,14 +174,14 @@ Import :             3 Il2CppClass.0x104   e.g. ExposedList`1.ConvertAll: 100 Mu
 Import :             3 Il2CppClass.0x1A0   e.g. AnimationState.ApplyRotateTimeline: 74 Move v440 @ X5_v1, [v435 @ X8_v53 (Il2CppClass<Spine.RotateTimeline>)+1A0]
 Import :             3 base has no type, from Move from [Enumerator<T> + 0x0]   e.g. Enumerator.MoveNext: 35 CheckGreaterOrEqual v51 @ TEMPCOND_v4 (System.Boolean), [this @ X0 (Spine.ExposedList`1<T>+Enumerator<T>)+8], [v38 @ X9_v3+18]
 Import :             3 Il2CppClass.0x1B8   e.g. SpineAtlasAsset.Reset: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Spine.Unity.SpineAtlasAsset>)+1B8]
-Import :             3 Il2CppClass.0x218   e.g. StringUtils.CharsToBytes: 10 Move v11 @ X3_v1, [v9 @ X8_v1 (Il2CppClass<System.Text.Encoding>)+218]
+Import :             3 Il2CppClass.0x218   e.g. ACTkDetectorBase`1.OnDisable: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<CodeStage.AntiCheat.Detectors.ACTkDetectorBase`1<T>>)+218]
 Import :             3 static field storage at 0x28   e.g. <JumpRoutine>d__19.MoveNext: 150 Multiply v213 @ V1_v3 (System.Single), v306 @ V0_v5 (System.Single), [v309 @ X8_v8 (Il2CppStaticFields<UnityEngine.Vector3>)+28]
 Import :             3 base has no type, from Add of [Il2CppClass<Spine.RegionAttachment> + 0xC8] and Int32   e.g. MeshGenerator.AddSubmesh: 341 CheckEqual v1719 @ Z_v79 (System.Boolean), [v1713 @ X11_v36-8], v1697 @ X10_v16
 Import :             3 array at 0x30, from Move from the field SubmeshInstruction[]   e.g. SkeletonGraphic.UpdateMeshSingleCanvasRenderer: 275 Call Object.op_Inequality, v246 @ X0_v32 (System.Boolean), [v281 @ X8_v18 (Spine.Unity.SubmeshInstruction[])+30], 0
 Import :             3 Il2CppClass.0x198   e.g. AnimationState.ApplyRotateTimeline: 73 Move v439 @ X6_v1, [v435 @ X8_v53 (Il2CppClass<Spine.RotateTimeline>)+198]
 Import :             3 Il2CppClass.0x1C0   e.g. SpineAtlasAsset.Reset: 2 Move v3 @ X1_v1, [v0 @ X8_v1 (Il2CppClass<Spine.Unity.SpineAtlasAsset>)+1C0]
 Import :             3 base has no type, from Move from [Boolean + 0xF0]   e.g. Vector3ArrayPlugin.EvaluateAndApply: 134 CheckNotEqual v535 @ TEMPCOND_v49 (System.Boolean), [v351 @ X9_v21+A8], 2
-Import :             3 Il2CppClass.0x220   e.g. StringUtils.CharsToBytes: 11 Move v12 @ X2_v1, [v9 @ X8_v1 (Il2CppClass<System.Text.Encoding>)+220]
+Import :             3 Il2CppClass.0x220   e.g. ACTkDetectorBase`1.OnDisable: 2 Move v3 @ X1_v1, [v0 @ X8_v1 (Il2CppClass<CodeStage.AntiCheat.Detectors.ACTkDetectorBase`1<T>>)+220]
 Import :             3 base has no type, from Add of Tween and Immediate   e.g. Vector3ArrayPlugin.EvaluateAndApply: 252 Add v705 @ V0_v5 (System.Single), v705 @ V0_v5 (System.Single), [v658 @ X10_v12+v692 @ X8_v64 (System.Int32)*4]
 Import :             3 Il2CppClass.0x188   e.g. Path.GetPoint: 16 Move v20 @ X5_v1, [v16 @ X8_v1 (Il2CppClass<DG.Tweening.Plugins.Core.PathCore.ABSPathDecoder>)+188]
 Import :             3 base has no type, from Add of Vector2[] and Int32   e.g. MeshGenerator.SolveTangents2DTriangles: 142 Subtract v109 @ V3_v5, [v393 @ X14_v5], [v44 @ X14_v6+20]
@@ -271,12 +277,12 @@ Import :             1 Il2CppClass.0x2B8   e.g. StringUtils.BytesToChars: 10 Mov
 Import :             1 base has no type, from Add of Vector2[] and Immediate   e.g. SkeletonUtility.SetColliderPointsLocal: 93 Multiply v184 @ V1_v6 (System.Single), [v162 @ X10_v3+v201 @ X8_v7 (System.Int32)*8], scale @ V0 (System.Single)
 Import :             1 base has no type, from Add of the field Vector2[] and Int32   e.g. MeshGenerator.BuildMeshWithArrays: 2272 Move v251 @ X14_v7, [v2782 @ X14_v6+20]
 Import :             1 Il2CppClass.0x280   e.g. TimelineExtensions.FindTranslateTimelineForBone: 97 Move v96 @ X2_v3 (Il2CppMethodInfo), [v210 @ X8_v13 (Il2CppClass<System.Type>)+280]
-Import : Il2Cpp method body recovery: 16173 locals the analysis could not type, by what defines them:
-Import :          8859 written by nothing, first read by an unresolved call   e.g. TrackEntry.add_Event: v23
-Import :          2552 written by nothing [never read]   e.g. TrackEntry.OnStart: v7
+Import : Il2Cpp method body recovery: 14871 locals the analysis could not type, by what defines them:
+Import :          8858 written by nothing, first read by an unresolved call   e.g. TrackEntry.add_Event: v23
+Import :          1257 written by nothing [never read]   e.g. Lexer.ParseString: v38
 Import :           666 Call - the return of a call whose target is unknown [never read]   e.g. VertexAttachment..ctor: 9 Call 1854CA0, v13 @ X0_v1, this @ X0 (Spine.VertexAttachment), name @ X1 (System.String), methodInfo @ X2 (Il2CppMethodInfo), v17 @ X3, v18 @ X4, v19 @ X5, v20 @ X6, v21 @ X7, v22 @ V0, v23 @ V1, v24 @ V2, v25 @ V3, v26 @ V4, v27 @ V5, v28 @ V6, v29 @ V7
 Import :           511 written by nothing, first read by IndirectCall   e.g. ExposedList`1..ctor: v30
-Import :           482 Move from memory [never read]   e.g. Enumerator.MoveNext: 22 Move v38 @ X9_v3, [this @ X0 (Spine.ExposedList`1<T>+Enumerator<T>)]
+Import :           477 Move from memory [never read]   e.g. Enumerator.MoveNext: 22 Move v38 @ X9_v3, [this @ X0 (Spine.ExposedList`1<T>+Enumerator<T>)]
 Import :           359 Add, first read by an unresolved call   e.g. TrackEntry.add_Event: 20 Add v40 @ X20_v2, this @ X0 (Spine.TrackEntry), 88
 Import :           335 Add [never read]   e.g. Enumerator.MoveNext: 53 Add v138 @ X8_v7, [v38 @ X9_v3+10], [this @ X0 (Spine.ExposedList`1<T>+Enumerator<T>)+8]
 Import :           270 Call - the return of a resolved method (typed) [never read]   e.g. ExposedList`1..ctor: 75 Call ExposedList`1<T>.CheckCollection, v180 @ X0_v14, v47 @ X0_v3 (System.Collections.Generic.ICollection`1<T>), typeof(Il2CppClass<System.Collections.Generic.ICollection`1<T>>)
@@ -285,7 +291,7 @@ Import :           155 IsInst, first read by CheckEqual   e.g. EventTimeline.Set
 Import :           144 Xor, first read by And   e.g. TrackEntry.get_IsComplete: 9 Xor v10 @ TEMP2_v1, this.trackTime (System.Single), v4 @ V0_v2 (System.Single)
 Import :           128 Subtract, first read by Move   e.g. ExposedList`1..ctor: 69 Subtract v86 @ X9_v10, v128 @ X9_v8, 1
 Import :           127 IndirectCall [never read]   e.g. ExposedList`1..ctor: 123 IndirectCall [v180 @ X0_v14], v186 @ X0_v16, v47 @ X0_v3 (System.Collections.Generic.ICollection`1<T>), [v180 @ X0_v14+8], v181 @ X2_v3 (Il2CppMethodInfo), v30 @ X3, v31 @ X4, v32 @ X5, v33 @ X6, v34 @ X7, v35 @ V0, v36 @ V1, v37 @ V2, v38 @ V3, v39 @ V4, v40 @ V5, v41 @ V6, v42 @ V7
-Import :           122 Call - the return of a call whose target is unknown, first read by an unresolved call   e.g. Animation.Apply: 53 Call 1854EF0, v183 @ X0_v32, v61 @ X0_v1 (Spine.Animation), skeleton @ X1 (Spine.Skeleton), loop @ X2 (System.Boolean), events @ X3 (Spine.ExposedList`1<Spine.Event>), blend @ X4 (Spine.MixBlend), direction @ X5 (Spine.MixDirection), methodInfo @ X6 (Il2CppMethodInfo), v55 @ X7, time @ V1 (System.Single), v61.duration (System.Single), alpha @ V2 (System.Single), v56 @ V3, v57 @ V4, v58 @ V5, v59 @ V6, v60 @ V7
+Import :           122 Call - the return of a call whose target is unknown, first read by an unresolved call   e.g. ExposedList`1.AddEnumerable: 269 Call 1854E70, v237 @ X0_v27, v192 @ X0_v12 (System.OutOfMemoryException), v343 @ X1_v6 (System.Int32), v319 @ X2_v6, v26 @ X3, v27 @ X4, v28 @ X5, v29 @ X6, v30 @ X7, v31 @ V0, v32 @ V1, v33 @ V2, v34 @ V3, v35 @ V4, v36 @ V5, v37 @ V6, v38 @ V7
 Import :            80 written by nothing, first read by Multiply   e.g. Bone.UpdateWorldTransform: v267
 Import :            79 Move of AddressOf [never read]   e.g. ExposedList`1.ConvertAll: 13 Move v24 @ X29_v1, &v25 @ stack_-60_v2
 Import :            78 Subtract, first read by IndirectCall   e.g. OrderedDictionary`2.GetKey: 27 Subtract v35 @ X3_v2, &v13 @ stack_-30_v2, 32
@@ -304,10 +310,10 @@ Import :            29 Call - the return of a call whose target is unknown, firs
 Import :            28 written by nothing, first read by MakeStruct   e.g. PointFollower.LateUpdate: v455
 Import :            26 Move from memory, first read by an unresolved call   e.g. OrderedDictionary`2.set_Item: -1 Move v105 @ X1_v15, [v24 @ X29_v1-40]
 Import :            22 Box, first read by CheckEqual   e.g. CompatibilityProblemInfo.DescriptionString: 194 Box v459 @ X0_v15, typeof(System.Int32), &v456 @ X8_v16 (System.Int32)
-Import :            18 Multiply, first read by Subtract   e.g. CatmullRomDecoder.GetPoint: 207 Multiply v378 @ V20_v3, [v347 @ X10_v4 (System.Single)+20], 0
+Import :            18 Multiply, first read by Subtract   e.g. MeshGenerator.SolveTangents2DTriangles: 238 Multiply v23 @ V3_v6, v29 @ V6_v7, v424 @ V3.S0
 Import :            18 Move from memory, first read by Add   e.g. Pool`1.Reset: 34 Move v56 @ X8_v8, [v38 @ X0_v3]
 Import :            18 Move of RuntimeClassTypeAnalysisContext [never read]   e.g. KeepAliveBehaviour`1.get_GetOrCreateInstance: -1 Move v219 @ X0_v36, typeof(Il2CppClass<CodeStage.AntiCheat.Common.KeepAliveBehaviour`1<T>>)
-Import :            16 Move of a constant, first read by an unresolved call   e.g. SkeletonGraphic.UpdateMeshMultipleCanvasRenderers: -1 Move v281 @ X6_v2, 0
+Import :            16 Move of a constant, first read by an unresolved call   e.g. SkeletonClipping.ClipStart: -1 Move v154 @ X7_v2, 0
 Import :            15 Multiply, first read by Move   e.g. AtlasUtilities.CopyTextureApplyPMA: 120 Multiply v210 @ V0_v5, [v105 @ X10_v5], v237 @ V1.S0
 Import :            14 Call - the return of a resolved method (typed), first read by And   e.g. ExposedList`1.FindAllList: 64 Call Predicate`1<T>.Invoke, v194 @ X0_v12, match @ X1 (System.Predicate`1<T>), [v123 @ X8_v10 (T[])+v108 @ X23_v4 (System.Int32)]
 Import :            13 Add, first read by ShiftLeft   e.g. ExposedList`1.AddCollection: 122 Add v284 @ X9_v9, [v272 @ X10_v7], 5
@@ -315,8 +321,8 @@ Import :            12 Move from another untyped local, first read by an unresol
 Import :            11 Add, first read by MakeStruct   e.g. Color2Plugin.SetFrom: 59 Add v70 @ V7_v2, [t @ X1 (DG.Tweening.Core.TweenerCore`3<DG.Tweening.Color2, DG.Tweening.Color2, DG.Tweening.Plugins.Options.ColorOptions>)+160], [t @ X1 (DG.Tweening.Core.TweenerCore`3<DG.Tweening.Color2, DG.Tweening.Color2, DG.Tweening.Plugins.Options.ColorOptions>)+160]
 Import :            11 Negate, first read by Multiply   e.g. IkConstraint.Apply: 647 Negate v950 @ V0_v30, v729 @ V10_v9 (System.Single)
 Import :            11 Move from memory, first read by IndirectCall   e.g. SkeletonDataAsset.GetSkeletonData: 249 Move v294 @ X21_v13, [v496 @ X0_v35]
-Import :            10 Move of a constant [never read]   e.g. EventQueue.Start: 55 Move v70 @ stack_-38_v2, 0
 Import :             9 Call - the return of a resolved method (typed), first read by a call to an instance method   e.g. SkeletonJson.ReadSkeletonData: 5241 Call Dictionary`2<System.String, System.Object>.get_Item, v5525 @ X0_v648, v4938 @ X0_v638 (System.InvalidCastException), v4933 @ X1_v373 (System.String)
+Import :             9 Move of a constant [never read]   e.g. EventQueue.Start: 55 Move v70 @ stack_-38_v2, 0
 Import :             9 Call - the return of a resolved method (typed), first read by CheckEqual   e.g. SkeletonJson.ReadSkeletonData: 4943 Call Dictionary`2<System.Object, System.Object>.get_Item, v3309 @ X0_v727, v4890 @ stack_-138_v104 (System.Collections.Generic.Dictionary`2<System.String, System.Object>), "parent"
 Import :             9 Add, first read by Subtract   e.g. Vector3ArrayPlugin.EvaluateAndApply: 112 Add v420 @ V2_v29, changeValue[v664 @ X10_v21].z (System.Single), [v425 @ X10_v23+28]
 Import :             8 Move from memory, first read by CheckEqual   e.g. MeshGenerator.AddSubmesh: 318 Move v1697 @ X10_v16, [v1466 @ X27_v10 (Il2CppClass<Spine.RegionAttachment>)]
@@ -325,7 +331,7 @@ Import :             8 written by nothing, first read by CheckLessOrEqual   e.g.
 Import :             7 written by nothing, first read by Add   e.g. Sequence.DoPrepend: v1
 Import :             7 written by nothing, first read by Subtract   e.g. AnimationPairComparer.System.Collections.Generic.IEqualityComparer<Spine.AnimationStateData.AnimationPair>.Equals: v14
 Import :             7 Move from another untyped local, first read by Move   e.g. AnimationState.ApplyEventTimelinesOnly: -1 Move v519 @ X5_v9, v519 @ X5_v9
-Import :             7 written by nothing, first read by CheckEqual   e.g. AdLoaderClient..ctor: v546
+Import :             7 written by nothing, first read by CheckEqual   e.g. SkeletonRagdoll.UpdateSpineSkeleton: v274
 Import :             6 IndirectCall, first read by an unresolved call   e.g. OrderedDictionary`2.System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Insert: 79 IndirectCall [v78 @ X1_v3 (Il2CppMethodInfo)+10], v98 @ X0_v6, [v78 @ X1_v3 (Il2CppMethodInfo)], methodof(Spine.Collections.OrderedDictionary`2<TKey, TValue>::Insert), this @ X0 (Spine.Collections.OrderedDictionary`2<TKey, TValue>), v95 @ X3_v3, v92 @ X22_v2, v55 @ X5, v56 @ X6, v57 @ X7, v58 @ V0, v59 @ V1, v60 @ V2, v61 @ V3, v62 @ V4, v63 @ V5, v64 @ V6, v65 @ V7
 Import :             6 Move from memory, first read by Move   e.g. OrderedDictionary`2.System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<TKey,TValue>>.set_Item: 117 Move v327 @ X28_v4, [v52 @ X28_v1]
 Import :             6 Multiply, first read by Multiply   e.g. CubicBezier.GetPointOnSegment: 15 Multiply v24 @ V23_v1, v7 @ stack_20, v7 @ stack_20
@@ -346,7 +352,7 @@ Import :             4 Move from another untyped local, first read by Subtract  
 Import :             4 IndirectCall, first read by Add   e.g. LongPlugin.SetFrom: 19 IndirectCall [v19 @ X8_v4+18], v49 @ X0_v6, [v19 @ X8_v4+40], [v19 @ X8_v4+28], fromValue @ X2 (System.Int64), setImmediately @ X3 (System.Boolean), isRelative @ X4 (System.Boolean), methodInfo @ X5 (Il2CppMethodInfo), v38 @ X6, v39 @ X7, v40 @ V0, v41 @ V1, v42 @ V2, v43 @ V3, v44 @ V4, v45 @ V5, v46 @ V6, v47 @ V7
 Import :             4 Divide, first read by Multiply   e.g. LinearDecoder.GetPoint: 180 Divide v363 @ V1_v9, v291 @ V10_v4, v348 @ V1_v7
 Import :             4 Subtract, first read by Add   e.g. DeformTimeline.Apply: 1191 Subtract v1853 @ V0_v27, [v202 @ X12_v13+v808 @ X8_v40 (System.Int32)*4], [v222 @ X13_v9+v808 @ X8_v40 (System.Int32)*4]
-Import :             4 Move from memory, first read by CheckNotEqual   e.g. Sequence.ApplyInternalCycle: 185 Move v360 @ X1_v21, [v510 @ X29_v17 (Il2CppClass<DG.Tweening.Tween>)]
+Import :             4 Move from memory, first read by CheckNotEqual   e.g. MeshGenerator.BuildMeshWithArrays: 741 Move v385 @ X10_v27, [v2480 @ X3_v26 (Il2CppClass<Spine.MeshAttachment>)]
 Import :             4 Move from a typed local, first read by an unresolved call   e.g. AnimationState.ApplyMixingFrom: -1 Move v313 @ X2_v7, v309 @ X2_v3 (Spine.Skeleton)
 Import :             3 written by nothing, first read by CheckNotEqual   e.g. Skin.AttachAll: v733
 Import :             3 Add, first read by CheckEqual   e.g. TweenExtensions.GotoWaypoint: 323 Add v487 @ TEMP_v23, [1A350A4], 1
@@ -355,7 +361,7 @@ Import :             3 Subtract, first read by And   e.g. ObscuredVector3Int.op_
 Import :             3 written by nothing, first read by Xor   e.g. ObscuredDecimal.InternalDecrypt: v27
 Import :             3 Move of AddressOf, first read by an unresolved call   e.g. BoundingBoxFollower.Initialize: -1 Move v418 @ X4_v8, &v236 @ stack_-34_v4 (System.Int32)
 Import :             3 IndirectCall, first read by Move   e.g. SkeletonDataAsset.GetSkeletonData: 310 IndirectCall [v554 @ X8_v21+188], v368 @ X0_v54, v294 @ X21_v13, [v554 @ X8_v21+190], v206 @ X2_v3, v29 @ X3, v30 @ X4, v31 @ X5, v32 @ X6, v33 @ X7, v198 @ V0_v2, v35 @ V1, v36 @ V2, v37 @ V3, v38 @ V4, v39 @ V5, v40 @ V6, v41 @ V7
-Import :             3 Move of RuntimeMethodInfoAnalysisContext, first read by CheckNotEqual   e.g. SkeletonRagdoll.SetSkeletonPosition: -1 Move v140 @ X1_v4, methodof(System.Collections.Generic.Dictionary`2<Spine.Bone, UnityEngine.Transform>+ValueCollection<Spine.Bone, UnityEngine.Transform>+Enumerator<Spine.Bone, UnityEngine.Transform>::MoveNext)
+Import :             3 Move of RuntimeMethodInfoAnalysisContext, first read by CheckNotEqual   e.g. BlendModeMaterialsAsset.ApplyMaterials: -1 Move v622 @ X1_v5, methodof(Spine.ExposedList`1<Spine.Skin>+Enumerator<Spine.Skin>::MoveNext)
 Import :             3 Subtract, first read by MakeStruct   e.g. SpecialPluginsUtils.SetCameraShakePosition: 138 Subtract v121 @ V6_v6, [v151 @ X25_v7+28], v47 @ V2
 Import :             3 Move from memory, first read by a call to an instance method   e.g. AtlasUtilities.GetRepackedSkin: 1118 Move v742 @ X21_v13, [v768 @ X8_v40+20]
 Import :             3 Add, first read by Or   e.g. ObscuredVector3Int.op_Addition: 37 Add v59 @ X9_v1, v56 @ X0_v7 (UnityEngine.Vector3Int), v52 @ X0_v5 (UnityEngine.Vector3Int)
@@ -363,9 +369,10 @@ Import :             3 Subtract, first read by Divide   e.g. MixAndMatchSkinsExa
 Import :             3 Subtract, first read by Or   e.g. ObscuredVector3Int.op_Subtraction: 37 Subtract v59 @ X9_v1, v52 @ X0_v5 (UnityEngine.Vector3Int), v56 @ X0_v7 (UnityEngine.Vector3Int)
 Import :             3 Move from another untyped local, first read by IndirectCall   e.g. OrderedDictionary`2.RemoveAt: -1 Move v140 @ X4_v1, v184 @ X22_v7
 Import :             2 Move from memory, first read by CheckGreaterOrEqual   e.g. MeshGenerator.BuildMeshWithArrays: 2173 Move v351 @ X27_v7, [v2560 @ X8_v16+28]
-Import :             2 And, first read by CheckEqual   e.g. Flash.WeightedEase: 50 And v92 @ TEMP_v10, overshootOrAmplitude @ V0 (System.Single), 1
+Import :             2 And, first read by CheckEqual   e.g. ObscuredDouble.GetHashCode: 6 And v8 @ TEMP_v1, v6 @ X9_v1 (System.Double), 9218868437227405312
 Import :             2 IndirectCall, first read by IndirectCall   e.g. KeyCollection.GetEnumerator: 26 IndirectCall [v30 @ X1_v3 (Il2CppMethodInfo)], v32 @ X0_v6, this.dictionary (System.Collections.Generic.Dictionary`2<TKey, System.Int32>), methodof(System.Collections.Generic.Dictionary`2<TKey, System.Int32>::get_Keys), v97 @ X2_v1, v96 @ X3_v1, v95 @ X4_v1, v36 @ X5, v37 @ X6, v38 @ X7, v39 @ V0, v40 @ V1, v41 @ V2, v42 @ V3, v43 @ V4, v44 @ V5, v45 @ V6, v46 @ V7
 Import :             2 written by nothing, first read by IsInst   e.g. BlendModeMaterialsAsset.ApplyMaterials: v1383
+Import :             2 written by nothing, first read by CallVoid   e.g. ExposedList`1.RemoveAt: v50
 Import :             2 Subtract, first read by CheckLess   e.g. SpineAtlasAsset.CreateRuntimeInstance: 95 Subtract v440 @ X9_v5, v412.Length, 1
 Import :             2 Move from a typed local, first read by And   e.g. Vector3ArrayPlugin.EvaluateAndApply: -1 Move v1310 @ V0_v49, v810 @ stack_-48_v5 (System.Double)
 Import :             2 Move of a constant, first read by Move   e.g. SkeletonRagdoll.Remove: -1 Move v88 @ X3_v1, 0
@@ -390,7 +397,6 @@ Import :             1 Add, first read by Multiply   e.g. OrderedDictionary`2.Sy
 Import :             1 Move of FloatLiteral, first read by Divide   e.g. SkeletonRootMotionBase.AdjustRootMotionToDistance: -1 Move v44 @ V0_v1, 0.0001f
 Import :             1 IndirectCall, first read by CheckLess   e.g. OrderedDictionary`2.Insert: 66 IndirectCall [v114 @ X1_v17 (Il2CppMethodInfo)], v116 @ X0_v35, this.values (System.Collections.Generic.List`1<TValue>), methodof(System.Collections.Generic.List`1<TValue>::get_Count), [v38 @ X8_v3 (Il2CppClass<TKey>)+FC], value @ X3 (TValue), methodInfo @ X4 (Il2CppMethodInfo), v70 @ X5, v71 @ X6, v72 @ X7, v73 @ V0, v74 @ V1, v75 @ V2, v76 @ V3, v77 @ V4, v78 @ V5, v79 @ V6, v80 @ V7
 Import :             1 Move of ArrayLength, first read by CheckLess   e.g. RenderExistingMesh.UpdateMaterials: 52 Move v264 @ X1_v9, v126.Length
-Import :             1 written by nothing, first read by CallVoid   e.g. ExposedList`1.RemoveAt: v50
 Import :             1 Move from a typed local, first read by Add   e.g. AtlasUtilities.GetRepackedSkin: -1 Move v2568 @ X22_v11, v2355 @ X0_v232 (System.Collections.Generic.List`1<UnityEngine.Texture2D>[])
 Import :             1 IndirectCall, first read by CheckEqual   e.g. OrderedDictionary`2.Insert: 139 IndirectCall [v201 @ X1_v21 (Il2CppMethodInfo)], v209 @ X0_v42, v411 @ X0_v41 (System.Collections.Generic.List`1<TKey>), methodof(System.Collections.Generic.List`1<TKey>::get_Count), v193 @ X2_v12 (System.Collections.Generic.Dictionary`2<TKey, System.Int32>), v138 @ X3_v3 (TValue), v131 @ X4_v3 (Il2CppMethodInfo), v70 @ X5, v71 @ X6, v72 @ X7, v73 @ V0, v74 @ V1, v75 @ V2, v76 @ V3, v77 @ V4, v78 @ V5, v79 @ V6, v80 @ V7
 Import :             1 Move from memory, first read by CallVoid   e.g. AtlasUtilities.GetRepackedSkin: 730 Move v1099 @ X0_v201, [v1115 @ X8_v143+20]
@@ -399,7 +405,6 @@ Import :             1 IndirectCall, first read by Xor   e.g. AnimationPairCompa
 Import :             1 Move of a constant, first read by Add   e.g. ObscuredULong.Increment: -1 Move v30 @ X9_v2, -1
 Import :             1 Multiply, first read by CheckLess   e.g. Vector3ArrayPlugin.EvaluateAndApply: 154 Multiply v399 @ X8_v67, v352 @ X9_v23, v726 @ X8_v66 (System.Int32)
 Import :             1 IndirectCall, first read by CheckGreaterOrEqual   e.g. OrderedDictionary`2.RemoveAt: 79 IndirectCall [v157 @ X1_v12 (Il2CppMethodInfo)], v165 @ X0_v24, v228 @ X0_v23 (System.Collections.Generic.List`1<TKey>), methodof(System.Collections.Generic.List`1<TKey>::get_Count), v209 @ X2_v11 (System.Collections.Generic.Dictionary`2<TKey, System.Int32>), v146 @ X3_v1, v140 @ X4_v1, v62 @ X5, v63 @ X6, v64 @ X7, v65 @ V0, v66 @ V1, v67 @ V2, v68 @ V3, v69 @ V4, v70 @ V5, v71 @ V6, v72 @ V7
-Import :             1 Move of DoubleLiteral, first read by Multiply   e.g. DoublePlugin.EvaluateAndApply: -1 Move v180 @ V1_v6, 1d
 Import :             1 IndirectCall, first read by CheckNotEqual   e.g. <GetEnumerator>d__34.MoveNext: 207 IndirectCall [v168 @ X1_v9 (Il2CppMethodInfo)], v453 @ X0_v17, [v114 @ X24_v2 (System.Int32)+18], methodof(System.Collections.Generic.List`1<TKey>::get_Count), [v35 @ X9_v1 (Il2CppClass<TValue>)+FC], v246 @ X3_v6, v244 @ X4_v4, v83 @ X5, v84 @ X6, v85 @ X7, v86 @ V0, v87 @ V1, v88 @ V2, v89 @ V3, v90 @ V4, v91 @ V5, v92 @ V6, v93 @ V7
 Import :             1 ShiftRight, first read by Xor   e.g. ObscuredDouble.GetHashCode: 17 ShiftRight v17 @ X9_v2, v16 @ X8_v2 (System.Double), 32
 Import :             1 Negate, first read by Subtract   e.g. IkConstraint.Apply: 60 Negate v157 @ V0_v3, bone.ashearX (System.Single)
@@ -422,7 +427,7 @@ Import :             1 Move from another untyped local, first read by ShiftLeft 
 Import :             1 Move of a constant, first read by CheckNotEqual   e.g. AtlasRegionAttacher.Apply: -1 Move v166 @ X1_v3, 0
 Import : Il2Cpp method body recovery: 1347 call arguments the ABI spread over several vector registers were composed back into their value.
 Import : Il2Cpp method body recovery: a write narrower than the field its offset lands on named a member inside it 20 times; 40 times no member accounted for the width, so the field stood.
-Import : Il2Cpp method body recovery: 306 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them.
+Import : Il2Cpp method body recovery: 307 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them.
 Import : Il2Cpp method body recovery: 5498 reads of a hidden static field were written as the public property that returns it.
 Import : Il2Cpp method body recovery: 3 calls were retargeted from a shared generic instantiation onto the one the receiver's own type names.
 Import : Il2Cpp method body recovery: SSA destruction left copies - 17282 coalesced, 3148 kept because the two locals are live at once, 1843 because their types differ.
@@ -455,7 +460,7 @@ Processing : ScriptableObjectProcessor
 Processing : Processing Scriptable Object Groups
 Processing : Finished processing assets
 Export : Starting export
-Export : Attempting to export assets to /tmp/claude-0/i49d/out...
+Export : Attempting to export assets to /tmp/claude-0/i49f/out...
 Export : Game files have these Unity versions: 2022.3.54f1 2022.3.62f2
 Export : Exporting to Unity version 2022.3.62f2
 Import [Warning] : Resource file 'DemiLib.dll' hasn't been found
@@ -645,4 +650,4 @@ ExportProgress : (140/140) Exporting 'TMP Settings'
 Export : Finished exporting assets
 Export : Saving game assemblies...
 Export : Finished post-export
-Export : Ripped to /tmp/claude-0/i49d/out
+Export : Ripped to /tmp/claude-0/i49f/out
