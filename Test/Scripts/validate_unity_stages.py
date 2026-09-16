@@ -171,6 +171,38 @@ def stage_d(root: pathlib.Path, rip: pathlib.Path, assembly: str | None):
             {"compile_pass_rate": rate, "compile_errors": errors, "assemblies": detail})
 
 
+def body_status(rip: pathlib.Path, log: str | None):
+    """How much of the native code came back, from the authoritative semantic measure."""
+    if log is None:
+        return {}
+
+    result = subprocess.run(
+        [sys.executable, str(HERE / "recovery_metrics.py"), str(rip), "--log", log],
+        capture_output=True, text=True)
+
+    counts = {}
+
+    for line in result.stdout.splitlines():
+        match = re.match(r"\s*(\d+)\s+(EXACT|HIGH_CONFIDENCE|PARTIAL|FALLBACK|MISSING)\b", line)
+        if match:
+            counts[match.group(2)] = int(match.group(1))
+
+    total = sum(counts.values())
+
+    if total == 0:
+        # Not "no log": a log was read and the answer is that nothing in this rip carries a native
+        # address, so no body was recovered at all. The iOS fixture is exactly this - FairPlay
+        # encrypts the whole of __TEXT, so declarations and signatures come back and method bodies
+        # cannot - and it is the case a compile rate on its own reports as near perfect.
+        return {"body_status": {}, "bodies_attempted": 0}
+
+    # A body is recovered when the analysis put real operations in it. FALLBACK and MISSING are
+    # stand-ins, and a project made of stand-ins compiles.
+    recovered = counts.get("EXACT", 0) + counts.get("HIGH_CONFIDENCE", 0) + counts.get("PARTIAL", 0)
+
+    return {"body_recovery_rate": recovered / total, "body_status": counts, "bodies_attempted": total}
+
+
 def shader_status(root: pathlib.Path):
     """Every exported shader, by what it actually is."""
     counts = collections.Counter()
@@ -189,6 +221,7 @@ def main() -> int:
     parser.add_argument("root", help="the game directory inside the rip output")
     parser.add_argument("--rip", help="the rip output directory, for the compile harness; defaults to the parent")
     parser.add_argument("--assembly", help="restrict the compile stage to one assembly")
+    parser.add_argument("--log", help="the run log, so the body measure can be read beside the compile rate")
     parser.add_argument("--json")
     arguments = parser.parse_args()
 
@@ -226,6 +259,14 @@ def main() -> int:
                          ("H", "MonoBehaviour lifecycle"), ("I", "gameplay smoke test")]:
         stages.append((letter, name, BLOCKED, blocked))
 
+    # A compile rate read on its own is the "a stand-in that compiles looks exactly like success"
+    # trap in another place. An export whose bodies are empty compiles beautifully: the iOS fixture,
+    # whose __TEXT is FairPlay-encrypted so no method body can be read at all, scores 0.9654 against
+    # the Android fixture's 0.8952. So where the log is available the body measure is printed beside
+    # it, and where it is not, that is said rather than left out.
+    bodies = body_status(rip, arguments.log)
+    metrics.update(bodies)
+
     shaders = shader_status(root)
     total_shaders = sum(shaders.values())
 
@@ -237,6 +278,14 @@ def main() -> int:
 
     print("\n== metrics ==")
     print(f"compile_pass_rate          {format_rate(metrics.get('compile_pass_rate'))}")
+    if "body_recovery_rate" in metrics:
+        print(f"body_recovery_rate         {format_rate(metrics['body_recovery_rate'])}"
+              f"  ({metrics['bodies_attempted']} methods carry a native address)")
+    elif metrics.get("bodies_attempted") == 0:
+        print("body_recovery_rate         NO_BODIES  (nothing in this rip carries a native address, "
+              "so the compile rate is over declarations)")
+    else:
+        print("body_recovery_rate         UNKNOWN  (no --log, so the compile rate cannot be read alone)")
     print(f"reference_resolution_rate  {format_rate(metrics.get('reference_resolution_rate'))}")
     print(f"scene_load_rate            BLOCKED ({blocked})")
     print(f"prefab_load_rate           BLOCKED ({blocked})")
