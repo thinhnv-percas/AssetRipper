@@ -48,6 +48,17 @@ public static class Il2CppClassOffsetPatcher
 	[
 		("klass", ["klass"]),
 		("rgctx_data", ["rgctx_data"]),
+
+		// AssetRipper: the three function pointers a MethodInfo carries, which a call through one of
+		// them has to tell apart - methodPointer is the method's own entry point, virtualMethodPointer
+		// needs the dispatch context to mean anything, and invoker_method is the runtime's
+		// reflection-style trampoline and names no managed target at all. They are measured rather
+		// than written down because 2022 inserted virtualMethodPointer between the first two, so
+		// invoker_method is at one pointer before it and two after. No fallback entry is added for
+		// either: a build whose layout is not known should answer "not known" rather than the
+		// offsets of some other version.
+		("virtualMethodPointer", ["virtualMethodPointer"]),
+		("invoker_method", ["invoker_method"]),
 	];
 
 	private static readonly object patchLock = new();

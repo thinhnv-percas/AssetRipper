@@ -134,7 +134,7 @@ public static class IndirectJumpClassifier
             // runtime handed it - there is no static target, and counting it as a failed vtable
             // resolution says the opposite.
             if (klass.Type is RuntimeMethodInfoAnalysisContext)
-                return $"METHODINFO_POINTER_AT_0x{slotLoad.Addend:X}";
+                return MethodInfoPointerKind(slotLoad.Addend, method.AppContext.Binary.is32Bit);
 
             return klass.Type is null
                 ? "VTABLE_BASE_UNTYPED"
@@ -157,6 +157,30 @@ public static class IndirectJumpClassifier
         return MetadataResolver.ResolveVTableSlot(method.AppContext, receiver, slot) is not null
             ? "VTABLE_RESOLVABLE"
             : "VTABLE_SLOT_UNRESOLVED";
+    }
+
+    /// <summary>
+    /// Which of a <c>MethodInfo</c>'s three function pointers a call reads, named from the measured
+    /// layout rather than from the offset it happens to be at on one build.
+    /// </summary>
+    /// <remarks>
+    /// The three mean different things and want different work: <c>methodPointer</c> is the method's
+    /// own entry point and resolves to a direct call, <c>virtualMethodPointer</c> is what dispatch
+    /// would have chosen and needs the receiver, and <c>invoker_method</c> is the runtime's
+    /// reflection-style trampoline, which names no managed target at all and is a runtime boundary
+    /// rather than a failure. Unity 2022 inserted the second between the other two, so the offset a
+    /// label is keyed on moves - reporting the raw offset instead names one build's layout and reads
+    /// as a different family on the next.
+    /// </remarks>
+    private static string MethodInfoPointerKind(long addend, bool is32Bit)
+    {
+        foreach (string name in (string[])["methodPointer", "virtualMethodPointer", "invoker_method"])
+        {
+            if (Il2CppMethodInfoUsefulOffsets.TryGetOffset(name, is32Bit, out long offset) && offset == addend)
+                return "METHODINFO_" + name.ToUpperInvariant();
+        }
+
+        return $"METHODINFO_UNNAMED_AT_0x{addend:X}";
     }
 
     /// <summary>The load the call reads its target from, whether folded into the call or one Move away.</summary>

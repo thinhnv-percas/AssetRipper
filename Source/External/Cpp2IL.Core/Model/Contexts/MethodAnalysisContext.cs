@@ -475,6 +475,11 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // AssetRipper: after the propagation above, because the shape it matches — a field read and
         // the loads just past it — only exists once the loads have been folded into their uses. Before
         // the elimination below, so that what the fold stops reading dies with it.
+        // AssetRipper: after the propagation above, because the slot the lookup was called with is
+        // an argument register until constant folding makes it a constant, and the shape this
+        // matches is not there until it is one.
+        InterfaceInvokeDataRecovery.Run(this);
+
         StaticFieldStorageHead.Run(this);
         MakeStructFolder.Run(this);
         DeadCodeEliminator.Run(this);
@@ -508,6 +513,12 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         // Near-last, as it depends on the final block layout
         EqualityBranchInverter.Run(this);
+
+        // AssetRipper: again, out of SSA. The first run is inside SSA, where a phi makes the merge of
+        // the lookup's fast and slow paths explicit; this one sees the folded form, where a load has
+        // been folded into the dispatch that consumed it and a slot that was still a register has
+        // become a constant. Neither placement sees what the other does.
+        InterfaceInvokeDataRecovery.Run(this);
 
         // Every call that was going to resolve now has. Any argument registers it ended up
         // not using are just keeping their definitions alive, so drop them.

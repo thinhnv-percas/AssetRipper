@@ -2421,6 +2421,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: {IlGenerator.NativeImportOperationsRecovered} calls to a C library "
 				+ "function were emitted as the C# operation equivalent to it.");
 
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.InterfaceInvokeDataRecovery.Recovered} interface dispatches "
+				+ "compiled as a runtime lookup were resolved to the interface method the slot names.");
+
 			if (!unresolvedCallKinds.IsEmpty)
 			{
 				Logger.Info(LogCategory.Import,
