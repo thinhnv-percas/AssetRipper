@@ -58,20 +58,48 @@ ARITHMETIC = re.compile(r'(?:\s[-+*/%]\s|<<|>>|\s&\s|\s\|\s|\s\^\s)')
 THROW = re.compile(r'\bthrow\b')
 RETURN = re.compile(r'\breturn\b')
 
+NEWARR = re.compile(r'\bnew\s+[\w.<>]+\s*\[')
+SWITCH = re.compile(r'\bswitch\b')
+LOOP = re.compile(r'\b(?:while|for|foreach)\b|\bgoto L_[0-9A-Fa-f]+;[\s\S]{0,0}')
+CAST = re.compile(r'\((?:[A-Z]\w*|[\w.]+\.[A-Z]\w*)\)\s*\w|\bas\s+[A-Z]')
+INSTANCEOF = re.compile(r'\bis\s+[A-Z]|\bIsInst\b')
+STATIC_ACCESS = re.compile(r'\bIl2CppStaticFields\b|\b[A-Z]\w*\.[A-Z_]\w*\b')
+NULL_CHECK = re.compile(r'==\s*null|!=\s*null|==\s*0\b')
+FIELD_ADDRESS = re.compile(r'&\w+\.\w+|\bref\s')
+
 CLASSES = [
     ("NEWOBJ", NEWOBJ),
+    ("NEWARR", NEWARR),
     ("ARRAY_WRITE", ARRAY_WRITE),
     ("ARRAY_READ", ARRAY_READ),
     ("BRANCH", BRANCH),
+    ("SWITCH", SWITCH),
+    ("LOOP", LOOP),
     ("COMPARE", COMPARE),
     ("ARITHMETIC", ARITHMETIC),
+    ("CAST", CAST),
+    ("INSTANCEOF", INSTANCEOF),
+    ("STATIC_ACCESS", STATIC_ACCESS),
+    ("NULL_CHECK", NULL_CHECK),
+    ("FIELD_ADDRESS", FIELD_ADDRESS),
     ("THROW", THROW),
     ("RETURN", RETURN),
 ]
 
-# Classes whose absence from the C# means behaviour was lost. `RETURN` and `COMPARE` are deliberately
-# not here: a void method has no return in the IR rendering, and a comparison folded into an `if` is
-# still the comparison. What cannot be folded away is reaching memory or reaching another method.
+# Every class above is *reported*, and only these count as behaviour lost when absent. The rest are
+# deliberately excluded, each for a reason a measurement of this kind has to be able to state:
+#
+#   RETURN, COMPARE   a void method has no return in the IR rendering, and a comparison folded into
+#                     an `if` is still the comparison
+#   ARITHMETIC        constant folding legitimately removes it
+#   CAST, INSTANCEOF  a decompiler removes a cast the type system no longer needs
+#   STATIC_ACCESS     the pattern cannot tell a static field from a type name in a call
+#   NULL_CHECK        il2cpp's injected checks are removed on purpose, and that is the point
+#   LOOP, SWITCH      the same control flow is legitimately written as `goto`, which BRANCH covers
+#   FIELD_ADDRESS     an address-of disappears when the value is used directly
+#   NEWARR            covered by NEWOBJ for the purpose of "did an allocation survive"
+#
+# What cannot be folded away is reaching memory or reaching another method.
 SUBSTANTIVE = {"CALL", "ARRAY_WRITE", "ARRAY_READ", "BRANCH", "NEWOBJ", "THROW"}
 
 # Field access is compared by the MEMBER NAMES the IR reaches, not by the shape of the access, because
@@ -197,6 +225,8 @@ def main() -> int:
     statuses = collections.Counter()
     per_assembly = collections.defaultdict(collections.Counter)
     lost_classes = collections.Counter()
+    ir_classes = collections.Counter()
+    csharp_classes = collections.Counter()
     families = collections.Counter()
     family_methods = collections.defaultdict(set)
     fallbacks = []
@@ -211,6 +241,11 @@ def main() -> int:
         text = path.read_text(encoding="utf-8", errors="replace")
         for native, source, body in methods(text):
             status, placeholders, untyped, lost = classify(native, source, body)
+            if source:
+                for name in fingerprint(source, "ir"):
+                    ir_classes[name] += 1
+                for name in fingerprint(body, "csharp"):
+                    csharp_classes[name] += 1
             statuses[status] += 1
             per_assembly[assembly][status] += 1
             native_total += native
@@ -247,6 +282,16 @@ def main() -> int:
         for name, count in lost_classes.most_common():
             print(f"{count:6d}  {name}")
 
+    # Two renderings of the same program, counted per side. The delta is NOT a loss measurement: the
+    # two sides spell the same operation differently often enough that only the classes in
+    # SUBSTANTIVE - the ones checked per method, above - carry that meaning. A class whose C# count is
+    # the higher of the two is a pattern that matches more freely on that side, nothing more.
+    print("\n== semantic fingerprint, methods reaching each operation class (per side, not a loss) ==")
+    print(f"{'class':<16}{'IR':>8}{'C#':>8}{'delta':>8}")
+    for name in sorted(ir_classes, key=lambda n: -ir_classes[n]):
+        delta = csharp_classes[name] - ir_classes[name]
+        print(f"{name:<16}{ir_classes[name]:>8}{csharp_classes[name]:>8}{delta:>+8}")
+
     print("\n== placeholder families ==")
     for family, count in families.most_common():
         print(f"{count:6d}  {family:<30} {len(family_methods[family]):5d} files")
@@ -260,6 +305,8 @@ def main() -> int:
             "status": dict(statuses),
             "byAssembly": {a: dict(c) for a, c in per_assembly.items()},
             "lostOperationClasses": dict(lost_classes),
+            "fingerprintIr": dict(ir_classes),
+            "fingerprintCSharp": dict(csharp_classes),
             "families": {f: {"count": c, "files": len(family_methods[f])} for f, c in families.most_common()},
             "worstFallbacks": [
                 {"nativeBytes": n, "lost": l, "file": f}
