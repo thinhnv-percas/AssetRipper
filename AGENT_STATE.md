@@ -5,14 +5,13 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 053 (hoàn tất; trọng tâm "source oracle + project chạy được". Ship: source_oracle
-                          (semantic_equivalence_rate 1,0000 trên RunFromZombies), source_manifest,
-                          bỏ khai báo event mà thân hàm đọc xuyên qua (Roslyn Impostor 1386 -> 484),
-                          luật khoảng địa chỉ managed cho NativeBoundary (UNKNOWN 416 -> 112),
-                          golden corpus có fixture/vai trò/nguồn (220 -> 591 entry, 16 retired),
-                          shader_oracle + sửa Color bị ghi thành Vector (property rate -> 1,0000),
-                          runtime_equivalence + Test/Tools/RuntimeEquivalence, validator từ chối gốc
-                          project sai, ITERATION_053)
+Iteration hiện tại: 054 (hoàn tất; trọng tâm "compile fidelity + Merge-Room + ranh giới runtime".
+                          Ship: page base của metadata usage (JellyBlast EXACT 2200 -> 2517,
+                          placeholder 48458 -> 37857, Roslyn 8638 -> 6630), gọi tên ranh giới native
+                          từ symbol binary tự đặt (UNKNOWN 112/281/814/662 -> 15/5/22/34), fixture
+                          Merge-Room, source_manifest biết NOT_IN_METADATA / RECOVERED_ELSEWHERE /
+                          source_matches_build, runtime_validation_manifest, golden corpus 591 -> 887
+                          phủ bốn fixture, ITERATION_054)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -32,6 +31,13 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     thinhabc01/RunFromZombiesFullProject @ eb41252 — TOÀN BỘ project Unity, nên nó là oracle ngữ
     nghĩa: Test/Scripts/source_oracle.py so từng method với chính văn bản lập trình viên viết.
     semantic_equivalence_rate 1,0000 (36/36).
+
+  ANDROID thứ ba (TRẠNG THÁI: OK) — fixture lớn nhất, thêm ở 054
+    Test/Input/MergeRoom, ELF arm64-v8a, metadata v31, Unity 2022.3.62f2.
+    APK: thinhabc01/Merge-Room release v1, sha256 fdd2b98f…36ff2, 73.821.977 byte.
+    Source: thinhabc01/Merge-Room @ 63e88b33 — KHỚP build theo phép kiểm ngược.
+    29 assembly recovery, 4009 .cs, 15.276 method có địa chỉ native.
+    reports/MERGE_ROOM.md là fingerprint và baseline đầy đủ.
 
   PINATA — RỜI MA TRẬN MẶC ĐỊNH TỪ 053
     Test/Input/Pinata (đã commit trong repo), x86, metadata v24.2. Không có source đối chiếu, nên
@@ -58,13 +64,20 @@ Fixture — chạy Test/Scripts/download_test_inputs.sh all để tải và veri
     Iteration 033 kết luận "codereg không thể tìm được" — SAI, đã sửa ở DECOMP-0023.
 
 Giai đoạn hiện tại:
-  rảnh giữa hai iteration. Baseline cho iteration sau là Test/Out53ish (Impostor), Test/Out53zb
-  (RunFromZombies) và Test/Out53jb (JellyBlastV2); log Test/AR53ish.log, Test/AR53zb.log,
-  Test/AR53jb.log. Con số đầy đủ ở docs/RECOVERY_MATRIX.md.
+  rảnh giữa hai iteration. Baseline cho iteration sau là Test/Out54i3 (Impostor), Test/Out54z4
+  (RunFromZombies), Test/Out54j2 (JellyBlastV2) và Test/Out54m3 (MergeRoom); log Test/AR54i3.log,
+  Test/AR54z4.log, Test/AR54j2.log, Test/AR54m3.log. Con số đầy đủ ở docs/RECOVERY_MATRIX.md.
 
-  LƯU Ý KHI SO VỚI 052 TRỞ VỀ TRƯỚC: lỗi Roslyn của Jelly Blast đi 1938 -> 8638 và đó KHÔNG phải
-  regression. Bản cũ mang lỗi khai báo CS0102 (event trùng tên field) che toàn bộ lỗi thân hàm của
-  RayFireAssembly và PathCreator; bỏ khai báo event khiến chúng lần đầu bind được.
+  MỤC TIÊU TIẾP THEO đã có bằng chứng, không cần điều tra lại:
+    - reports/INJECTED_TYPE_COLLISION.md: CS0433 1315 lỗi trên Merge-Room, sửa bằng NotPublic nhưng
+      phải đo lại cả hai đầu vì ILSpy đổi [Address( thành [Cpp2ILInjected.Address(.
+    - reports/FRAMEWORK_PRIVATE_MEMBER.md: List<T>._size 398 lỗi là recovery mistake, phép ghép
+      accessor trượt vì ReturnsNothingButTheField đòi thân getter đúng một lệnh Move rồi Return.
+
+  LƯU Ý KHI SO VỚI 052 TRỞ VỀ TRƯỚC: lỗi Roslyn của Jelly Blast đi 1938 -> 8638 ở 053 và đó KHÔNG
+  phải regression. Bản cũ mang lỗi khai báo CS0102 (event trùng tên field) che toàn bộ lỗi thân hàm
+  của RayFireAssembly và PathCreator; bỏ khai báo event khiến chúng lần đầu bind được. Mốc so sánh
+  đúng là 8638, và 054 đưa xuống 6630.
 
   HAI CÁI BẪY ĐO ĐÃ SỬA Ở 051, ĐỌC TRƯỚC KHI ĐO:
     - golden_corpus.py nhận root là THƯ MỤC GAME bên trong bản rip (Test/Output051b/Impostor), không

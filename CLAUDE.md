@@ -1466,7 +1466,64 @@ find it; `strings` without `-el` does find method and type names.
   every planned case is `NOT_RUN` until an oracle assembly exists. A rate over zero executed cases is
   `None`, never a pass.
 
+- **A64 cannot name an address in one instruction, and from metadata v27 the page base reads exactly
+  like a usage.** `adrp` produces the base of a 4 KiB page and the offset arrives separately; where a
+  page holds several usage slots the compiler computes the base once and reuses it, so the `add`
+  cannot be folded back and the base survives as a register. There is no usage table to check an
+  address against any more - a global is decoded from the value found *at* the address - so a page
+  base, which points at the first slot of its page, always reads as a perfectly valid token of
+  whatever sits there. The iOS fixture named **15144 class pointers across 277 types**, the busiest
+  `Facebook.Unity.Windows.IWindowsFacebook` 3614 times in assemblies that cannot reach it, and
+  `GAState.Init` had its class pointer, its type handle *and* its resource path all read at an offset
+  from a base that had itself been named a type. The fix reported itself wrong twice: matching the
+  local that receives the immediate never fires (the `adrp` is never the instruction in front of the
+  use - that is what `PointerProvenance` exists for), and walking back through the copies found 1154
+  bases and **still changed nothing**, because the offset reaches the base two ways and only one is a
+  memory operand: where the slot's *address* is wanted, which is what the metadata-init helper takes,
+  the `add` stands alone. A page base is page-aligned, and without that test the rule reads every
+  constant something is added to as a base - 80968 against 1154. Worth EXACT 2200 → 2517, placeholders
+  48458 → 37857 and Roslyn 8638 → 6630 on that fixture, at a cost of 36 methods falling to FALLBACK:
+  those had *looked* like they had operations because a wrong type was asserted.
+- **Most of what `UNKNOWN` covers is not anonymous - it is the runtime function's own name.** 97 of
+  112 on the test game, 628 of 662, 792 of 814 and 276 of 281 across the four fixtures carry **no
+  address at all**, and what they carry instead is a quoted symbol: `il2cpp_vm_object_unbox`,
+  `il2cpp_codegen_object_is_inst`, `il2cpp_vm_class_is_assignable_from`. The binary named those, so
+  classifying them reads evidence rather than guessing - and `NativeBoundary.KindOfSymbol` already
+  existed, being the rule a PLT relocation goes through; the operand branch had simply never asked
+  it. `UNKNOWN` 112/281/814/662 → 15/5/22/34, no address written down anywhere. What is left all
+  carries an address and clusters into ordinary function prologues (`STP STP STP ADRP`), which is to
+  say individual functions rather than a family - the honest end of that road.
+- **A metric's own regex rots, and it rots silently.** `cluster_runtime_boundaries.py` required the
+  boundary kind to be `[A-Z_]+`, so `IL2CPP_RUNTIME` stopped matching the moment a digit appeared in
+  a kind name, and it required the detail to end at the address, which stopped being true when the
+  message grew a ` (inside <method> +0x..)` suffix. It reported "0 UNKNOWN call sites" on a rip
+  carrying 15 - indistinguishable from a rip with none. Two exact matches, both silently broken.
+- **"Not in the rip" is three different facts and the metadata settles one of them.** A source tree
+  routinely carries SDKs a build excludes, so an absence is only recovery loss once the build is known
+  to have had the type. `NOT_IN_METADATA` reads that from the build's own `global-metadata.dat`,
+  searching **between two NULs**: a bare substring search reported `Menu`, `Settings`, `Game` and
+  `Pay` as present because each is a substring of another identifier, and eleven types the build never
+  had read as loss. `RECOVERED_ELSEWHERE` is the second - which assembly a file compiles into is
+  Unity's decision from asmdefs and package layout, so `DOTweenModuleUtils` lands in `DOTween` where
+  the source tree reads `Assembly-CSharp`. And `source_matches_build` runs the check the other way
+  round, because a type in the build that the source never declares cannot be a recovery artefact.
+  Merge-Room's `type_recovery_rate` 0.9145 → 0.9943 on those three, with no test relaxed.
+- **A recovered project has no native plugins at all.** All four fixtures report zero: the native
+  libraries live in the APK's `lib/` and the export does not carry them, so anything reaching a
+  P/Invoke will fail the moment it runs. `runtime_validation_manifest.py` says so rather than leaving
+  a reader to find out.
+
 ### Things measured to be worth nothing — do not redo them
+- **Making the exporter's own injected types internal.** They are injected into *every* assembly and
+  public, so a file referencing two recovered assemblies sees two `TokenAttribute`s - CS0433, 1315
+  errors across 23 files on the largest fixture, none of them a recovery defect. `NotPublic` is the
+  right answer and a one-line change that builds and emits `internal sealed` as intended, and it was
+  reverted: ILSpy writes an internal attribute out fully qualified, so `[Address(` and
+  `[NativeSource(` stop matching and `recovery_metrics.py` reads a perfectly ordinary rip as
+  `NO_BODIES` with all five semantic statuses at zero. The fix has to land with a pass over every
+  measurement that keys on that text *and* a re-measurement of both ends of every comparison, which
+  is an iteration with its own baseline rather than something to slip into one comparing against the
+  last. `reports/INJECTED_TYPE_COLLISION.md` carries it.
 - **Adding the object header to a value type's offsets, the iteration 041 proposal.** Measured before
   being written, and the measurement refutes it: of the value-typed bases among 2722 unresolved loads,
   **77 are VALUE_RELATIVE** (the addend is the raw metadata offset) against **29 OBJECT_RELATIVE** (the
@@ -1604,7 +1661,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Eighteen scripts, and each measures something the others cannot:
+Twenty scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1653,6 +1710,13 @@ Eighteen scripts, and each measures something the others cannot:
 - `Test/Scripts/shader_oracle.py` — an exported shader against the ShaderLab it was built from.
   `DUMMY` is decided before any degree of success, and `property_recovery_rate` is reported beside
   the verdicts and never folded into them.
+- `Test/Scripts/runtime_validation_manifest.py` — what a Unity-enabled environment would need to open
+  a recovered project and run it: editor version, the startup scene read from `EditorBuildSettings`,
+  packages, native plugins, the Unity messages the scripts declare, and the smoke methods taken from
+  the golden corpus. The artefact itself carries `runtime_status: NOT_RUN`, so nothing downstream can
+  read it as a result.
+- `Test/Scripts/cluster_runtime_boundaries.py` — the `UNKNOWN` call targets that still carry an
+  address, grouped by the machine code at the target rather than by the address.
 - `Test/Scripts/runtime_equivalence.py` and `Test/Tools/RuntimeEquivalence` — the only measure that
   runs the recovered IL. The planner tiers each paired method by what it would need to execute; the
   runner loads both assemblies and compares. A case that did not run is `NOT_RUN` with the reason,

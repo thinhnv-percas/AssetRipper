@@ -1,8 +1,24 @@
 # IL2Cpp script recovery — what is still wrong
 
-Everything here is measured on `Test/Input/Pinata` (Unity 2019.2.6f1, metadata v24.2, ARM64,
-18440 methods attempted) at script content level 3, on the current `Source/External` build.
-`CLAUDE.md` has the command; a run takes about 95 seconds.
+**Số liệu dưới đây là của Pinata và đã cũ.** Từ iteration 053 Pinata rời ma trận mặc định, và từ
+054 ma trận là bốn fixture — Impostor, RunFromZombies, Merge-Room, JellyBlastV2. Con số hiện tại ở
+`docs/RECOVERY_MATRIX.md`; phần còn lại của file này vẫn đúng về *loại* khiếm khuyết, chỉ không còn
+đúng về lượng.
+
+Ba mục tiêu tiếp theo đã có bằng chứng, không cần điều tra lại:
+
+- `reports/FRAMEWORK_PRIVATE_MEMBER.md` — `List<T>._size` 398 lỗi là recovery mistake: `Count` là
+  accessor tầm thường của nó và phép ghép accessor trượt vì `ReturnsNothingButTheField` đòi thân
+  getter đúng một lệnh Move rồi Return, nên null check của il2cpp làm hỏng. `_items` 429 lỗi là một
+  phép ghép accessor thứ hai (indexer). `_version` 800 lỗi là giới hạn thật của framework.
+- `reports/INJECTED_TYPE_COLLISION.md` — CS0433 1315 lỗi trên Merge-Room, sửa bằng `NotPublic` nhưng
+  phải đo lại cả hai đầu của mọi so sánh vì ILSpy đổi `[Address(` thành `[Cpp2ILInjected.Address(`.
+- Phần 5 dưới đây (untyped local) vẫn là cụm `NATIVE_INT_CAST` lớn nhất trên cả bốn fixture.
+
+---
+
+Everything in the sections below is measured on `Test/Input/Pinata` (Unity 2019.2.6f1, metadata
+v24.2, ARM64, 18440 methods attempted) at script content level 3.
 
 Where the run stands today:
 

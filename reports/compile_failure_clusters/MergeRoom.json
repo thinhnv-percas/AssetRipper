@@ -194,7 +194,7 @@
   {
     "cluster": "OTHER:CS0433",
     "category": "OTHER",
-    "count": 1122,
+    "count": 1315,
     "affected_files": [
       "Cinemachine3rdPersonAim.cs",
       "CinemachineBlendListCamera.cs",
@@ -208,33 +208,37 @@
       "CinemachineExternalCamera.cs",
       "CinemachineFollowZoom.cs",
       "CinemachineMixer.cs",
-      "CinemachineMixingCamera.cs",
+      "CinemachinePath.cs",
+      "CinemachinePipeline.cs",
+      "CinemachinePixelPerfect.cs",
       "CinemachineRecomposer.cs",
       "CinemachineShot.cs",
       "CinemachineShotPlayable.cs",
+      "CinemachineSmoothPath.cs",
+      "CinemachineStateDrivenCamera.cs",
       "CinemachineTouchInputMapper.cs",
       "CinemachineTrack.cs",
       "ICameraOverrideStack.cs"
     ],
     "codes": {
-      "CS0433": 1122
+      "CS0433": 1315
     },
     "messages": [
       {
         "message": "The type 'TokenAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0, Cultur",
-        "count": 500
+        "count": 587
       },
       {
         "message": "The type 'AddressAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0, Cult",
-        "count": 225
+        "count": 264
       },
       {
         "message": "The type 'NativeSourceAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0,",
-        "count": 225
+        "count": 264
       },
       {
         "message": "The type 'FieldOffsetAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'AlmostEngine, Version=0.0.0.0, ",
-        "count": 172
+        "count": 200
       }
     ]
   },
@@ -600,11 +604,11 @@
         "count": 1
       },
       {
-        "message": "'MMF_CameraShake.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMF_Feedback.CustomStopFeedback(",
+        "message": "'MMFeedbackTimescaleModifier.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMFeedback.CustomSto",
         "count": 1
       },
       {
-        "message": "'MMFeedbackTimescaleModifier.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMFeedback.CustomSto",
+        "message": "'MMF_CameraShake.CustomStopFeedback(Vector3, float)': cannot change access modifiers when overriding 'public' inherited member 'MMF_Feedback.CustomStopFeedback(",
         "count": 1
       },
       {
@@ -949,11 +953,11 @@
         "count": 7
       },
       {
-        "message": "'PropertyInfo' does not contain a definition for '_002Ector'",
+        "message": "'FieldInfo' does not contain a definition for '_002Ector'",
         "count": 2
       },
       {
-        "message": "'FieldInfo' does not contain a definition for '_002Ector'",
+        "message": "'PropertyInfo' does not contain a definition for '_002Ector'",
         "count": 2
       }
     ]
@@ -961,7 +965,7 @@
   {
     "cluster": "MISSING_TYPE",
     "category": "REFERENCE",
-    "count": 87,
+    "count": 119,
     "affected_files": [
       "Cinemachine3rdPersonAim.cs",
       "CinemachineBlendListCamera.cs",
@@ -974,46 +978,103 @@
       "CinemachineDollyCart.cs",
       "CinemachineExternalCamera.cs",
       "CinemachineFollowZoom.cs",
-      "CinemachineMixingCamera.cs",
+      "CinemachinePath.cs",
       "CinemachineRecomposer.cs",
+      "CinemachineSmoothPath.cs",
+      "CinemachineStateDrivenCamera.cs",
       "ES3Reflection.cs",
       "EmitUtilities.cs"
     ],
     "codes": {
-      "CS0246": 87
+      "CS0246": 119
     },
     "messages": [
       {
         "message": "The type or namespace name 'DocumentationSortingAttribute' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 11
+        "count": 16
       },
       {
         "message": "The type or namespace name 'DocumentationSorting' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 11
-      },
-      {
-        "message": "The type or namespace name 'SaveDuringPlayAttribute' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 8
-      },
-      {
-        "message": "The type or namespace name 'SaveDuringPlay' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 8
+        "count": 16
       },
       {
         "message": "The type or namespace name 'NoSaveDuringPlayAttribute' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 8
+        "count": 13
       },
       {
         "message": "The type or namespace name 'NoSaveDuringPlay' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 8
+        "count": 13
+      },
+      {
+        "message": "The type or namespace name 'SaveDuringPlayAttribute' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 10
+      },
+      {
+        "message": "The type or namespace name 'SaveDuringPlay' could not be found (are you missing a using directive or an assembly reference?)",
+        "count": 10
       },
       {
         "message": "The type or namespace name 'CinemachineBlendDefinition' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 5
+        "count": 7
       },
       {
         "message": "The type or namespace name 'VcamTargetPropertyAttribute' could not be found (are you missing a using directive or an assembly reference?)",
-        "count": 5
+        "count": 7
+      }
+    ]
+  },
+  {
+    "cluster": "OTHER:CS0115",
+    "category": "OTHER",
+    "count": 60,
+    "affected_files": [
+      "Cinemachine3rdPersonAim.cs",
+      "CinemachineBlendListCamera.cs",
+      "CinemachineClearShot.cs",
+      "CinemachineCollider.cs",
+      "CinemachineConfiner.cs",
+      "CinemachineExternalCamera.cs",
+      "CinemachineFollowZoom.cs",
+      "CinemachinePath.cs",
+      "CinemachineRecomposer.cs",
+      "CinemachineSmoothPath.cs",
+      "CinemachineStateDrivenCamera.cs"
+    ],
+    "codes": {
+      "CS0115": 60
+    },
+    "messages": [
+      {
+        "message": "'CinemachineRecomposer.PrePipelineMutateCameraStateCallback(CinemachineVirtualCameraBase, ref CameraState, float)': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachinePath.MinPos': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachinePath.MaxPos': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachinePath.Looped': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachinePath.DistanceCacheSampleStepsPerSegment': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachinePath.EvaluateLocalPosition(float)': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachinePath.EvaluateLocalTangent(float)': no suitable method found to override",
+        "count": 1
+      },
+      {
+        "message": "'CinemachinePath.EvaluateLocalOrientation(float)': no suitable method found to override",
+        "count": 1
       }
     ]
   },
@@ -1041,59 +1102,6 @@
       },
       {
         "message": "Operator '~' cannot be applied to operand of type 'Keyboard'",
-        "count": 1
-      }
-    ]
-  },
-  {
-    "cluster": "OTHER:CS0115",
-    "category": "OTHER",
-    "count": 44,
-    "affected_files": [
-      "Cinemachine3rdPersonAim.cs",
-      "CinemachineBlendListCamera.cs",
-      "CinemachineClearShot.cs",
-      "CinemachineCollider.cs",
-      "CinemachineConfiner.cs",
-      "CinemachineExternalCamera.cs",
-      "CinemachineFollowZoom.cs",
-      "CinemachineMixingCamera.cs",
-      "CinemachineRecomposer.cs"
-    ],
-    "codes": {
-      "CS0115": 44
-    },
-    "messages": [
-      {
-        "message": "'CinemachineRecomposer.PrePipelineMutateCameraStateCallback(CinemachineVirtualCameraBase, ref CameraState, float)': no suitable method found to override",
-        "count": 1
-      },
-      {
-        "message": "'CinemachineMixingCamera.State': no suitable method found to override",
-        "count": 1
-      },
-      {
-        "message": "'CinemachineMixingCamera.LookAt': no suitable method found to override",
-        "count": 1
-      },
-      {
-        "message": "'CinemachineMixingCamera.Follow': no suitable method found to override",
-        "count": 1
-      },
-      {
-        "message": "'CinemachineMixingCamera.OnTargetObjectWarped(Transform, Vector3)': no suitable method found to override",
-        "count": 1
-      },
-      {
-        "message": "'CinemachineMixingCamera.ForceCameraPosition(Vector3, Quaternion)': no suitable method found to override",
-        "count": 1
-      },
-      {
-        "message": "'CinemachineMixingCamera.OnEnable()': no suitable method found to override",
-        "count": 1
-      },
-      {
-        "message": "'CinemachineMixingCamera.OnValidate()': no suitable method found to override",
         "count": 1
       }
     ]
@@ -1295,6 +1303,38 @@
     ]
   },
   {
+    "cluster": "OTHER:CS0103",
+    "category": "OTHER",
+    "count": 17,
+    "affected_files": [
+      "CinemachineBlendListCamera.cs",
+      "CinemachineBrain.cs",
+      "CinemachineClearShot.cs",
+      "CinemachineCollider.cs",
+      "CinemachineConfiner.cs",
+      "CinemachineDollyCart.cs",
+      "CinemachineExternalCamera.cs",
+      "CinemachineFollowZoom.cs",
+      "CinemachinePath.cs",
+      "CinemachineSmoothPath.cs",
+      "CinemachineStateDrivenCamera.cs",
+      "DoubleLookupDictionary.cs"
+    ],
+    "codes": {
+      "CS0103": 17
+    },
+    "messages": [
+      {
+        "message": "The name 'DocumentationSortingAttribute' does not exist in the current context",
+        "count": 16
+      },
+      {
+        "message": "The name '__ldftn' does not exist in the current context",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cluster": "OTHER:CS0171",
     "category": "OTHER",
     "count": 15,
@@ -1316,6 +1356,18 @@
         "count": 1
       },
       {
+        "message": "Field 'GarbageFreeIterators.ListIterator<T>.isNull' must be fully assigned before control is returned to the caller. Consider updating to language version '11.0",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.ListIterator<T>.list' must be fully assigned before control is returned to the caller. Consider updating to language version '11.0' ",
+        "count": 1
+      },
+      {
+        "message": "Field 'GarbageFreeIterators.ListIterator<T>.enumerator' must be fully assigned before control is returned to the caller. Consider updating to language version '",
+        "count": 1
+      },
+      {
         "message": "Field 'GarbageFreeIterators.HashsetIterator<T>.isNull' must be fully assigned before control is returned to the caller. Consider updating to language version '1",
         "count": 1
       },
@@ -1326,25 +1378,13 @@
       {
         "message": "Field 'GarbageFreeIterators.HashsetIterator<T>.enumerator' must be fully assigned before control is returned to the caller. Consider updating to language versio",
         "count": 1
-      },
-      {
-        "message": "Field 'GarbageFreeIterators.DictionaryIterator<T1, T2>.dictionary' must be fully assigned before control is returned to the caller. Consider updating to languag",
-        "count": 1
-      },
-      {
-        "message": "Field 'GarbageFreeIterators.DictionaryIterator<T1, T2>.enumerator' must be fully assigned before control is returned to the caller. Consider updating to languag",
-        "count": 1
-      },
-      {
-        "message": "Field 'GarbageFreeIterators.DictionaryIterator<T1, T2>.isNull' must be fully assigned before control is returned to the caller. Consider updating to language ve",
-        "count": 1
       }
     ]
   },
   {
     "cluster": "OTHER:CS0426",
     "category": "OTHER",
-    "count": 12,
+    "count": 13,
     "affected_files": [
       "Cinemachine3rdPersonAim.cs",
       "CinemachineBrain.cs",
@@ -1354,15 +1394,20 @@
       "CinemachineConfiner2D.cs",
       "CinemachineDollyCart.cs",
       "CinemachineFollowZoom.cs",
+      "CinemachinePixelPerfect.cs",
       "CinemachineRecomposer.cs"
     ],
     "codes": {
-      "CS0426": 12
+      "CS0426": 13
     },
     "messages": [
       {
         "message": "The type name 'Stage' does not exist in the type 'CinemachineCore'",
-        "count": 9
+        "count": 10
+      },
+      {
+        "message": "The type name 'PositionUnits' does not exist in the type 'CinemachinePathBase'",
+        "count": 1
       },
       {
         "message": "The type name 'UpdateFilter' does not exist in the type 'CinemachineCore'",
@@ -1370,40 +1415,6 @@
       },
       {
         "message": "The type name 'BakedSolution' does not exist in the type 'ConfinerOven'",
-        "count": 1
-      },
-      {
-        "message": "The type name 'PositionUnits' does not exist in the type 'CinemachinePathBase'",
-        "count": 1
-      }
-    ]
-  },
-  {
-    "cluster": "OTHER:CS0103",
-    "category": "OTHER",
-    "count": 12,
-    "affected_files": [
-      "CinemachineBlendListCamera.cs",
-      "CinemachineBrain.cs",
-      "CinemachineClearShot.cs",
-      "CinemachineCollider.cs",
-      "CinemachineConfiner.cs",
-      "CinemachineDollyCart.cs",
-      "CinemachineExternalCamera.cs",
-      "CinemachineFollowZoom.cs",
-      "CinemachineMixingCamera.cs",
-      "DoubleLookupDictionary.cs"
-    ],
-    "codes": {
-      "CS0103": 12
-    },
-    "messages": [
-      {
-        "message": "The name 'DocumentationSortingAttribute' does not exist in the current context",
-        "count": 11
-      },
-      {
-        "message": "The name '__ldftn' does not exist in the current context",
         "count": 1
       }
     ]

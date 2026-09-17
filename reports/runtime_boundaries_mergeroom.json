@@ -1,0 +1,78 @@
+[
+  {
+    "shape": "STP STP STP ADRP ? ?",
+    "calls": 7,
+    "addresses": [
+      "18B7AAC",
+      "196E2C4",
+      "2B03570",
+      "2B03688"
+    ]
+  },
+  {
+    "shape": "? ? STR_imm ? ? MOVZ",
+    "calls": 7,
+    "addresses": [
+      "18DF31C"
+    ]
+  },
+  {
+    "shape": "? STP ? LDR_imm ? ?",
+    "calls": 4,
+    "addresses": [
+      "1A98E78",
+      "1A98F48",
+      "1A990E8",
+      "1C44F4C"
+    ]
+  },
+  {
+    "shape": "? STP STP ? ? CBZ/CBNZ",
+    "calls": 4,
+    "addresses": [
+      "2DB61AC"
+    ]
+  },
+  {
+    "shape": "STP STP STP ? ? MOVZ",
+    "calls": 3,
+    "addresses": [
+      "1EDA730"
+    ]
+  },
+  {
+    "shape": "SUB_imm STP STP STP STP ?",
+    "calls": 3,
+    "addresses": [
+      "2DB6938"
+    ]
+  },
+  {
+    "shape": "SUB_imm STP STP STP ADRP ?",
+    "calls": 2,
+    "addresses": [
+      "2DB6388"
+    ]
+  },
+  {
+    "shape": "SUB_imm STR_imm STP STP STP ADRP",
+    "calls": 2,
+    "addresses": [
+      "2DB6A78"
+    ]
+  },
+  {
+    "shape": "STP STP ADRP ? ? ?",
+    "calls": 1,
+    "addresses": [
+      "18DF104"
+    ]
+  },
+  {
+    "shape": "? STP ADRP ? ? CBZ/CBNZ",
+    "calls": 1,
+    "addresses": [
+      "18DF224"
+    ]
+  }
+]

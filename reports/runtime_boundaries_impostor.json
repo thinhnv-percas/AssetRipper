@@ -1,0 +1,26 @@
+[
+  {
+    "shape": "STP STP STP ADRP ? ?",
+    "calls": 8,
+    "addresses": [
+      "BEE544",
+      "BEE74C",
+      "BEEA54"
+    ]
+  },
+  {
+    "shape": "? ? STR_imm ? ? MOVZ",
+    "calls": 4,
+    "addresses": [
+      "BF7EB8"
+    ]
+  },
+  {
+    "shape": "SUB_imm STP STP STP ADRP ?",
+    "calls": 3,
+    "addresses": [
+      "BEE8D4",
+      "BEEC1C"
+    ]
+  }
+]

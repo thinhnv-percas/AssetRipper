@@ -1,27 +1,27 @@
 # Compile failures by root cause
 
-4896 errors across 424 files.
+5143 errors across 428 files.
 
 | cluster | category | errors | files | most common message |
 |---|---|---|---|---|
 | `NATIVE_INT_CAST` | CAST | 1525 | 147 | Cannot convert type 'System.Type' to 'nint' |
-| `OTHER:CS0433` | OTHER | 1122 | 19 | The type 'TokenAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToke |
+| `OTHER:CS0433` | OTHER | 1315 | 23 | The type 'TokenAttribute' exists in both 'AlmostEngine.Shared, Version=0.0.0.0, Culture=neutral, PublicKeyToke |
 | `INVALID_CAST` | CAST | 623 | 78 | Cannot convert type 'Cysharp.Threading.Tasks.UniTaskCompletionSourceCore<T>' to 'Cysharp.Threading.Tasks.UniTa |
 | `ACCESSOR_VISIBILITY` | TYPE | 351 | 211 | 'ES3Cloud.Reset()': cannot change access modifiers when overriding 'protected internal' inherited member 'ES3W |
 | `OPERATOR` | CALL | 289 | 39 | Operator '<<' cannot be applied to operands of type 'object' and 'int' |
 | `INACCESSIBLE` | TYPE | 245 | 31 | 'Unsafe' is inaccessible due to its protection level |
 | `FRAMEWORK_PRIVATE_MEMBER` | TYPE | 192 | 16 | 'List<Text>' does not contain a definition for '_version' and no accessible extension method '_version' accept |
 | `MANGLED_IDENTIFIER` | DECOMPILER | 152 | 78 | 'Attribute' does not contain a definition for '_002Ector' |
-| `MISSING_TYPE` | REFERENCE | 87 | 15 | The type or namespace name 'DocumentationSortingAttribute' could not be found (are you missing a using directi |
+| `MISSING_TYPE` | REFERENCE | 119 | 17 | The type or namespace name 'DocumentationSortingAttribute' could not be found (are you missing a using directi |
+| `OTHER:CS0115` | OTHER | 60 | 11 | 'CinemachineRecomposer.PrePipelineMutateCameraStateCallback(CinemachineVirtualCameraBase, ref CameraState, flo |
 | `OTHER:CS0023` | OTHER | 51 | 4 | Operator '~' cannot be applied to operand of type 'object' |
-| `OTHER:CS0115` | OTHER | 44 | 9 | 'CinemachineRecomposer.PrePipelineMutateCameraStateCallback(CinemachineVirtualCameraBase, ref CameraState, flo |
 | `MEMBER_NOT_FOUND` | FIELD | 43 | 16 | 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a fi |
 | `ATTRIBUTE_ARGUMENT` | DECOMPILER | 28 | 16 | 'menuName' is not a valid named attribute argument. Named attribute arguments must be fields which are not rea |
 | `UNASSIGNED_LOCAL` | CONTROL_FLOW | 20 | 8 | Use of unassigned local variable 'obj' |
 | `OTHER:CS0266` | OTHER | 20 | 7 | Cannot implicitly convert type 'object' to 'System.Exception'. An explicit conversion exists (are you missing  |
+| `OTHER:CS0103` | OTHER | 17 | 12 | The name 'DocumentationSortingAttribute' does not exist in the current context |
 | `OTHER:CS0171` | OTHER | 15 | 3 | Field 'ValueDropdownItem<T>.Text' must be fully assigned before control is returned to the caller. Consider up |
-| `OTHER:CS0426` | OTHER | 12 | 9 | The type name 'Stage' does not exist in the type 'CinemachineCore' |
-| `OTHER:CS0103` | OTHER | 12 | 10 | The name 'DocumentationSortingAttribute' does not exist in the current context |
+| `OTHER:CS0426` | OTHER | 13 | 10 | The type name 'Stage' does not exist in the type 'CinemachineCore' |
 | `OTHER:CS1510` | OTHER | 7 | 5 | A ref or out value must be an assignable variable |
 | `OTHER:CS0188` | OTHER | 7 | 4 | The 'this' object cannot be used before all of its fields have been assigned. Consider updating to language ve |
 | `OTHER:CS1729` | OTHER | 7 | 5 | 'PropertyGroupAttribute' does not contain a constructor that takes 0 arguments |

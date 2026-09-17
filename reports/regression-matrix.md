@@ -747,3 +747,51 @@ bind được. Không có con số "trước" đúng để so.
 không thay đổi nào của iteration này làm xấu một method cụ thể nào trong 591 entry.
 
 Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`**.
+
+## Iteration 054
+
+Ma trận **bốn** fixture: Impostor, RunFromZombies, Merge-Room (mới), JellyBlastV2. Pinata không nằm
+trong acceptance. Đo trên `Test/Out54i3`, `Test/Out54z4`, `Test/Out54j2`, `Test/Out54m3`.
+
+| | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
+|---|---|---|---|---|
+| `.cs` | 830 | 796 | 1473 | 3998 |
+| method có địa chỉ native | 5482 | 3928 | 7485 | 15.276 |
+| `EXACT` | 2878 | 2285 | **2517** (053: 2200) | 6648 |
+| placeholder | 4297 | 5964 | **38.527** (053: 48.458) | 37.757 |
+| `compile_pass_rate` | 0.9337 | 0.9761 | **0.8880** (053: 0.8866) | 0.8927 |
+| lỗi Roslyn | 484 | 40 | **6630** (053: 8638) | 5143 |
+| `body_recovery_rate` | 0.7630 | 0.8969 | 0.9459 (053: 0.9507) | 0.9021 |
+| `reference_resolution_rate` | 0.9942 | 1.0000 | 1.0000 | 0.9998 |
+| `semantic_equivalence_rate` | — | **1.0000** | — | — |
+| `type_recovery_rate` | 1.0000 | 1.0000 | — | **0.9943** |
+| `shader_exact` / `shader_dummy` | 0 / 3 | 0 / 24 | 0 / 30 | 0 / 34 |
+| field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** | 3947 / **0** |
+| `generatorFailures` | **0** | **0** | **0** | **0** |
+| golden corpus | 216, 0/0 | 194, 0/0 | 222, 0/0 | 255, 0/0 |
+| stage E–I | BLOCKED | BLOCKED | BLOCKED | BLOCKED |
+
+### Ranh giới native
+
+| | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
+|---|---|---|---|---|
+| `IL2CPP_RUNTIME` | 725 | 1210 | 8821 | 12.008 |
+| `SYSTEM_API` | 490 | 752 | — | 2558 |
+| `EXTERNAL_DEPENDENCY` | 15 | 5 | 477 | 25 |
+| `MANAGED` | 33 | 30 | 1433 | 103 |
+| `UNKNOWN` | **15** (053: 112) | **5** (053: 281) | **22** (053: 814) | **34** |
+
+Toàn bộ `UNKNOWN` còn lại đều mang địa chỉ và đã được gom theo hình dạng machine code: Impostor 15
+site / 6 địa chỉ / 3 hình dạng, Merge-Room 34 / 16 / 10, và các hình dạng đều là prologue hàm bình
+thường — từng hàm riêng biệt chứ không phải một họ.
+
+### Regression duy nhất, có giải thích
+
+Merge-Room `compile_pass_rate` 0.8937 → 0.8927. Toàn bộ chênh lệch là CS0433 1122 → 1315, tức kiểu
+do chính exporter tiêm vào va nhau; mọi cụm khác không đổi một con số nào. Xem
+`reports/INJECTED_TYPE_COLLISION.md`.
+
+**Kết quả âm**: đổi kiểu tiêm vào sang `internal` sửa được CS0433 nhưng làm mọi phép đo neo vào
+`[Address(` và `[NativeSource(` mù — đã hoàn tác, ghi lại kèm cách sửa đúng.
+
+Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`**.
