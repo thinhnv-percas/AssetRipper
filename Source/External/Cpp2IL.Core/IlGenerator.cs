@@ -200,6 +200,17 @@ public static class IlGenerator
         body.Instructions.Add(CilOpCodes.Ldstr, "-------------------------------------------------------------------------");
         body.Instructions.Add(CilOpCodes.Call, _importer!.ImportMethod(_writeLine!)); */
 
+        // AssetRipper: everything below records what it emits into the method's semantic IR. The
+        // scope has to cover the whole of generation and nothing else: a record filed by the generator
+        // as it emits cannot describe a different program from the one it emits, which is the entire
+        // point - both measurement defects iteration 056 found were a second derivation from text.
+        using var semanticScope = RecoveredSemanticIr.Begin(context);
+
+        // AssetRipper: a loop is a back edge, which is a fact about the graph rather than about any
+        // one instruction, so it is recorded here rather than at an emission site. Without it a
+        // recovered `for` and a recovered straight line carry the same operations and read alike.
+        RecordLoops(context);
+
         // Generate IL
         Dictionary<Instruction, List<CilInstruction>> instructionMap = [];
         Dictionary<Block, CilInstruction> blockEntryMap = [];
@@ -423,9 +434,83 @@ public static class IlGenerator
     /// number before it incomparable for no gain - the classification is new information beside the
     /// old, not instead of it.
     /// </remarks>
+    /// <summary>
+    /// AssetRipper: one <c>LOOP</c> per back edge in the graph being emitted.
+    /// </summary>
+    /// <remarks>
+    /// A back edge is an edge to a block that starts no later than the one it leaves, which over the
+    /// block order the generator emits is exactly a loop. Counted per edge rather than per header, so
+    /// two edges back to one header are two loops - which is what a reader of the output sees.
+    /// </remarks>
+    private static void RecordLoops(MethodAnalysisContext context)
+    {
+        if (!RecoveredSemanticIr.IsRecording || context.ControlFlowGraph is not { } graph)
+            return;
+
+        foreach (var block in graph.Blocks)
+        {
+            if (block.Instructions.Count == 0)
+                continue;
+
+            foreach (var successor in block.Successors)
+            {
+                if (successor.Instructions.Count > 0
+                    && successor.Instructions[0].Index <= block.Instructions[0].Index)
+                    RecoveredSemanticIr.Record(SemanticOperation.Loop);
+            }
+        }
+    }
+
+    /// <summary>
+    /// AssetRipper: the property an accessor belongs to, which is the name the export writes out.
+    /// </summary>
+    private static string NameOfAccessor(MethodAnalysisContext accessor)
+        => accessor.Name.StartsWith("get_", StringComparison.Ordinal) || accessor.Name.StartsWith("set_", StringComparison.Ordinal)
+            ? accessor.Name["get_".Length..]
+            : accessor.Name;
+
+    /// <summary>
+    /// AssetRipper: records a resolved call as the operation it is.
+    /// </summary>
+    /// <remarks>
+    /// <c>LIST_ADD</c> is a call the recovery put back rather than an opcode, so it is named by its
+    /// callee - which is the fact, not an inference: <see cref="Analysis.InlineListAddRecovery"/>
+    /// retargeted the call onto <c>List&lt;T&gt;.Add</c> and nothing else produces one here. The
+    /// virtual/interface split comes from the callee's own declaring type, because the generator emits
+    /// one <c>call</c> for all of them and the distinction would otherwise be lost.
+    /// </remarks>
+    private static void RecordCall(MethodAnalysisContext target)
+    {
+        if (!RecoveredSemanticIr.IsRecording)
+            return;
+
+        var owner = target.DeclaringType;
+        var definition = (owner as GenericInstanceTypeAnalysisContext)?.GenericType ?? owner;
+
+        var operation = definition?.FullName switch
+        {
+            "System.Collections.Generic.List`1" when target.Name == "Add" => SemanticOperation.ListAdd,
+            _ when definition is { IsInterface: true } => SemanticOperation.InterfaceCall,
+            _ when definition is { IsDelegate: true } && target.Name == "Invoke" => SemanticOperation.DelegateCall,
+            _ when target.IsVirtual && !target.IsStatic => SemanticOperation.VirtualCall,
+            _ => SemanticOperation.Call,
+        };
+
+        RecoveredSemanticIr.Record(operation, target.FullName);
+    }
+
+    /// <remarks>
+    /// AssetRipper: every native boundary the generator emits is recorded here, at the one place it is
+    /// emitted, so a measurement never has to recognise one from the string it printed.
+    /// </remarks>
     private static void EmitBoundary(CilInstructionCollection instructions, MethodAnalysisContext context,
         IMethodDescriptor writeLine, NativeBoundary.Verdict verdict, string detail)
     {
+        // Recorded once, whichever shape carries it - a placeholder reaches the source two ways and an
+        // extractor that reads one of them reports the other family as zero, which is what happened
+        // when the boundary call was introduced.
+        RecoveredSemanticIr.Record(SemanticOperation.RuntimeBoundary, verdict.Kind);
+
         if (BoundaryEntryPoint(context) is not { } boundary)
         {
             instructions.Add(CilOpCodes.Ldstr, detail);
@@ -1152,6 +1237,8 @@ public static class IlGenerator
             }
 
             instructions.Add(CilOpCodes.Ldc_R4, value);
+            RecoveredSemanticIr.Record(
+                target.Field.IsStatic ? SemanticOperation.StoreStatic : SemanticOperation.StoreField, target.Field.Name);
             instructions.Add(target.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, target.Field.ToFieldDescriptor());
         }
 
@@ -1302,10 +1389,16 @@ public static class IlGenerator
                     if (setter != null)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        RecoveredSemanticIr.Record(SemanticOperation.PropertyWrite, NameOfAccessor(setter));
                         instructions.Add(intoStruct ? CilOpCodes.Call : CilOpCodes.Callvirt, setter.ToMethodDescriptor());
                     }
                     else
+                    {
+                        RecoveredSemanticIr.Record(
+                            field.Field.IsStatic ? SemanticOperation.StoreStatic : SemanticOperation.StoreField,
+                            field.Field.Name);
                         instructions.Add(field.Field.IsStatic ? CilOpCodes.Stsfld : CilOpCodes.Stfld, field.Field.ToFieldDescriptor());
+                    }
 
                     break;
                 }
@@ -1317,6 +1410,7 @@ public static class IlGenerator
                     LoadLocal(target.Array, method, locals);
                     LoadOperand(target.Index, context, method, locals, writeLine);
                     LoadOperand(instruction.Operands[1], context, method, locals, writeLine, stored);
+                    RecoveredSemanticIr.Record(SemanticOperation.ArrayStore, target.Array.Name);
                     instructions.Add(CilOpCodes.Stelem, stored.ToTypeSignature().ToTypeDefOrRef());
                     break;
                 }
@@ -1329,6 +1423,7 @@ public static class IlGenerator
                 if (instruction.Operands is [_, SzArrayTypeAnalysisContext { ElementType: { } newArrayElement }, { } length])
                 {
                     LoadOperand(length, context, method, locals, writeLine);
+                    RecoveredSemanticIr.Record(SemanticOperation.NewArray, newArrayElement.FullName);
                     instructions.Add(CilOpCodes.Newarr, newArrayElement.ToTypeSignature().ToTypeDefOrRef());
                 }
                 else
@@ -1366,7 +1461,8 @@ public static class IlGenerator
                             LoadOperand(delegateTarget, context, method, locals, writeLine, delegateConstructor.Parameters[0].ParameterType);
 
                         instructions.Add(CilOpCodes.Ldftn, pointedAt.ToMethodDescriptor());
-                        instructions.Add(CilOpCodes.Newobj, delegateConstructor.ToMethodDescriptor());
+                        RecoveredSemanticIr.Record(SemanticOperation.NewObject, delegateConstructor.DeclaringType?.FullName ?? "");
+                    instructions.Add(CilOpCodes.Newobj, delegateConstructor.ToMethodDescriptor());
                         StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
 
                         System.Threading.Interlocked.Increment(ref DelegateConstructionsRecovered);
@@ -1395,6 +1491,7 @@ public static class IlGenerator
                     for (var i = 0; i < constructorArgs.Count; i++)
                         LoadOperand(constructorArgs[i], context, method, locals, writeLine, constructor.Parameters[i].ParameterType);
 
+                    RecoveredSemanticIr.Record(SemanticOperation.NewObject, constructor.DeclaringType?.FullName ?? "");
                     instructions.Add(CilOpCodes.Newobj, constructor.ToMethodDescriptor());
                     StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
 
@@ -1413,6 +1510,7 @@ public static class IlGenerator
                             PushDefaultOf(inlinedCtor.Parameters[i].ParameterType, instructions);
                     }
 
+                    RecoveredSemanticIr.Record(SemanticOperation.NewObject, inlinedCtor.DeclaringType?.FullName ?? "");
                     instructions.Add(CilOpCodes.Newobj, inlinedCtor.ToMethodDescriptor());
                     StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
 
@@ -1431,6 +1529,7 @@ public static class IlGenerator
                 else if (instruction.Operands is [_, TypeAnalysisContext allocatedType] && allocatedType.Methods.FirstOrDefault(m => m is { Name: ".ctor", Parameters.Count: 0 }) is { } parameterlessCtor)
                 {
                     // Nothing to fuse with, so the allocation was self-contained. The type is still right, so construct it bare.
+                    RecoveredSemanticIr.Record(SemanticOperation.NewObject, parameterlessCtor.DeclaringType?.FullName ?? "");
                     instructions.Add(CilOpCodes.Newobj, parameterlessCtor.ToMethodDescriptor());
                     StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
                 }
@@ -1446,6 +1545,7 @@ public static class IlGenerator
                 if (instruction.Operands is [_, TypeAnalysisContext checkedType, var checkedValue])
                 {
                     LoadOperand(checkedValue, context, method, locals, writeLine);
+                    RecoveredSemanticIr.Record(SemanticOperation.IsInst, checkedType.FullName);
                     instructions.Add(CilOpCodes.Isinst, checkedType.ToTypeSignature().ToTypeDefOrRef());
                 }
                 else
@@ -1459,6 +1559,7 @@ public static class IlGenerator
                 {
                     // il2cpp_value_box takes the value by address, but IL boxes it by value
                     LoadOperand(boxedValue is AddressOf { Target: LocalVariable byRef } ? byRef : boxedValue, context, method, locals, writeLine, boxedType);
+                    RecoveredSemanticIr.Record(SemanticOperation.Box, boxedType.FullName);
                     instructions.Add(CilOpCodes.Box, boxedType.ToTypeSignature().ToTypeDefOrRef());
                 }
                 else
@@ -1490,7 +1591,10 @@ public static class IlGenerator
                             instructions.Add(CilOpCodes.Call, memberSetter.ToMethodDescriptor());
                         }
                         else
+                        {
+                            RecoveredSemanticIr.Record(SemanticOperation.StoreField, composedFields[member].Name);
                             instructions.Add(CilOpCodes.Stfld, composedFields[member].ToFieldDescriptor());
+                        }
                     }
                 }
 
@@ -1499,12 +1603,16 @@ public static class IlGenerator
             case OpCode.Throw:
                 if (instruction.Operands is [TypeAnalysisContext exceptionType]
                     && exceptionType.Methods.FirstOrDefault(m => m.Name == ".ctor" && m.Parameters.Count == 0) is { } exceptionCtor)
+                {
+                    RecoveredSemanticIr.Record(SemanticOperation.NewObject, exceptionCtor.DeclaringType?.FullName ?? "");
                     instructions.Add(CilOpCodes.Newobj, exceptionCtor.ToMethodDescriptor());
+                }
                 else if (instruction.Operands is [LocalVariable or FieldReference])
                     LoadOperand(instruction.Operands[0], context, method, locals, writeLine); // an already-constructed exception
                 else
                     instructions.Add(CilOpCodes.Ldnull);
 
+                RecoveredSemanticIr.Record(SemanticOperation.Throw);
                 instructions.Add(CilOpCodes.Throw);
                 break;
 
@@ -1588,7 +1696,9 @@ public static class IlGenerator
                 // so the throw itself is what it means.
                 if (ThrownByHelper(targetMethod, context) is { } raised)
                 {
+                    RecoveredSemanticIr.Record(SemanticOperation.NewObject, raised.DeclaringType?.FullName ?? "");
                     instructions.Add(CilOpCodes.Newobj, raised.ToMethodDescriptor());
+                    RecoveredSemanticIr.Record(SemanticOperation.Throw);
                     instructions.Add(CilOpCodes.Throw);
                     break;
                 }
@@ -1668,6 +1778,7 @@ public static class IlGenerator
                         PushDefaultOf(parameterType, instructions);
                 }
 
+                RecordCall(targetMethod);
                 instructions.Add(CilOpCodes.Call, importedMethod);
 
                 // the lifter's guess at whether the callee returns anything can disagree with the
@@ -1683,6 +1794,7 @@ public static class IlGenerator
                 break;
 
             case OpCode.IndirectCall:
+                RecoveredSemanticIr.Record(SemanticOperation.IndirectCall);
                 instructions.Add(CilOpCodes.Ldstr, Diagnostic($"Indirect call: {instruction.Operands[0]} (should have been resolved before IL gen)"));
                 instructions.Add(CilOpCodes.Call, writeLine);
                 break;
@@ -1695,6 +1807,7 @@ public static class IlGenerator
                     else
                         instructions.Add(CilOpCodes.Ldnull); // ret still pops a value even if we lost track of it
                 }
+                RecoveredSemanticIr.Record(SemanticOperation.Return);
                 instructions.Add(CilOpCodes.Ret);
                 break;
 
@@ -1704,6 +1817,7 @@ public static class IlGenerator
 
             case OpCode.ConditionalJump:
                 LoadOperand(instruction.Operands[1], context, method, locals, writeLine);
+                RecoveredSemanticIr.Record(SemanticOperation.Branch);
                 instructions.Add(CilOpCodes.Brtrue, new CilInstructionLabel());
                 break;
 
@@ -1736,6 +1850,12 @@ public static class IlGenerator
             case OpCode.And:
             case OpCode.Or:
             case OpCode.Xor:
+                RecoveredSemanticIr.Record(
+                    instruction.OpCode is >= OpCode.CheckEqual and <= OpCode.CheckLessOrEqual
+                        ? SemanticOperation.Compare
+                        : SemanticOperation.Arithmetic,
+                    instruction.OpCode.ToString());
+
                 // klass pointer read => GetType
                 if (instruction.OpCode is OpCode.CheckEqual or OpCode.CheckNotEqual
                     && TryEmitExactTypeComparison(instruction, context, method, locals, writeLine))
@@ -2527,10 +2647,14 @@ public static class IlGenerator
                     if (InstanceAccessorFor(firstMember) is { } memberAccessor)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        RecoveredSemanticIr.Record(SemanticOperation.PropertyRead, NameOfAccessor(memberAccessor));
                         instructions.Add(CilOpCodes.Call, memberAccessor.ToMethodDescriptor());
                     }
                     else
+                    {
+                        RecoveredSemanticIr.Record(SemanticOperation.LoadField, firstMember.Name);
                         instructions.Add(CilOpCodes.Ldfld, firstMember.ToFieldDescriptor());
+                    }
 
                     break;
                 }
@@ -2551,6 +2675,7 @@ public static class IlGenerator
                 LoadLocal(local, method, locals);
                 break;
             case ArrayLength arrayLength:
+                RecoveredSemanticIr.Record(SemanticOperation.ArrayLength, arrayLength.Array.Name);
                 LoadLocal(arrayLength.Array, method, locals);
                 instructions.Add(CilOpCodes.Ldlen);
                 instructions.Add(CilOpCodes.Conv_I4);
@@ -2571,15 +2696,18 @@ public static class IlGenerator
                     break;
                 }
 
+                RecoveredSemanticIr.Record(SemanticOperation.ObjectAddress, addressed.Name);
                 instructions.Add(CilOpCodes.Ldloca, locals[addressed]);
                 break;
             case AddressOf { Target: ArrayAccess elementAddress }:
+                RecoveredSemanticIr.Record(SemanticOperation.ObjectAddress, elementAddress.Array.Name);
                 LoadLocal(elementAddress.Array, method, locals);
                 LoadOperand(elementAddress.Index, context, method, locals, writeLine);
                 instructions.Add(CilOpCodes.Ldelema,
                     ((SzArrayTypeAnalysisContext)elementAddress.Array.Type!).ElementType.ToTypeSignature().ToTypeDefOrRef());
                 break;
             case ArrayAccess arrayAccess:
+                RecoveredSemanticIr.Record(SemanticOperation.ArrayLoad, arrayAccess.Array.Name);
                 LoadLocal(arrayAccess.Array, method, locals);
                 LoadOperand(arrayAccess.Index, context, method, locals, writeLine);
                 instructions.Add(CilOpCodes.Ldelem,
@@ -2592,23 +2720,34 @@ public static class IlGenerator
                     // AssetRipper: an instance method on a value type takes its receiver by reference,
                     // and a property call cannot give one, so the address of the field is what it wants.
                     if (expectedType is ByRefTypeAnalysisContext or PointerTypeAnalysisContext)
+                    {
+                        RecoveredSemanticIr.Record(SemanticOperation.FieldAddress, field.Field.Name);
                         instructions.Add(CilOpCodes.Ldsflda, field.Field.ToFieldDescriptor());
+                    }
                     // AssetRipper: `EmptyArray<T>.Value` is what `Array.Empty<T>()` returns, and the
                     // framework type holding it is internal, so the field read is uncompilable while
                     // the call is exactly equivalent. 515 errors on the test game from this one member.
                     else if (EmptyArrayOf(field.Field, context) is { } empty)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        RecoveredSemanticIr.Record(SemanticOperation.Call, empty.FullName);
                         instructions.Add(CilOpCodes.Call, empty.ToMethodDescriptor());
                     }
                     // prefer the public property over a hidden backing field; see PublicAccessorFor.
                     else if (PublicAccessorFor(field.Field) is { } accessor)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        // AssetRipper: recorded as the property, because that is what the export says.
+                        // Recording the field here and calling it lost is the measurement defect that
+                        // cost iteration 056 an entire baseline.
+                        RecoveredSemanticIr.Record(SemanticOperation.PropertyRead, NameOfAccessor(accessor));
                         instructions.Add(CilOpCodes.Call, accessor.ToMethodDescriptor());
                     }
                     else
+                    {
+                        RecoveredSemanticIr.Record(SemanticOperation.LoadStatic, field.Field.Name);
                         instructions.Add(CilOpCodes.Ldsfld, field.Field.ToFieldDescriptor());
+                    }
                 }
                 else
                 {
@@ -2653,14 +2792,21 @@ public static class IlGenerator
                     if (instanceAccessor != null)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        RecoveredSemanticIr.Record(SemanticOperation.PropertyRead, NameOfAccessor(instanceAccessor));
                         instructions.Add(throughStruct ? CilOpCodes.Call : CilOpCodes.Callvirt, instanceAccessor.ToMethodDescriptor());
                     }
                     else
+                    {
+                        if (memberAccessor == null)
+                            RecoveredSemanticIr.Record(SemanticOperation.LoadField, field.Field.Name);
+
                         instructions.Add(memberAccessor != null ? CilOpCodes.Ldflda : CilOpCodes.Ldfld, field.Field.ToFieldDescriptor());
+                    }
 
                     if (memberAccessor != null)
                     {
                         System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                        RecoveredSemanticIr.Record(SemanticOperation.PropertyRead, NameOfAccessor(memberAccessor));
                         instructions.Add(CilOpCodes.Call, memberAccessor.ToMethodDescriptor());
                         break;
                     }
@@ -3134,10 +3280,14 @@ public static class IlGenerator
                 if (setter != null)
                 {
                     System.Threading.Interlocked.Increment(ref HiddenFieldsReadThroughAProperty);
+                    RecoveredSemanticIr.Record(SemanticOperation.PropertyWrite, NameOfAccessor(setter));
                     instructions.Add(intoStruct ? CilOpCodes.Call : CilOpCodes.Callvirt, setter.ToMethodDescriptor());
                 }
                 else
+                {
+                    RecoveredSemanticIr.Record(SemanticOperation.StoreField, field.Field.Name);
                     instructions.Add(CilOpCodes.Stfld, fieldDescriptor);
+                }
                 break;
 
             case ArrayAccess arrayAccess:
@@ -3150,6 +3300,7 @@ public static class IlGenerator
                 LoadLocal(arrayAccess.Array, method, locals);
                 LoadOperand(arrayAccess.Index, context, method, locals, writeLine);
                 instructions.Add(CilOpCodes.Ldloc, elementScratch);
+                RecoveredSemanticIr.Record(SemanticOperation.ArrayStore, arrayAccess.Array.Name);
                 instructions.Add(CilOpCodes.Stelem, elementType.ToTypeSignature().ToTypeDefOrRef());
                 break;
 
