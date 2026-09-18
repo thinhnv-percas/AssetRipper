@@ -1,7 +1,9 @@
 using AssetRipper.Import.Structure.Assembly.Il2Cpp.StructDb;
+using Cpp2IL.Core;
 using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
+using System.Linq;
 using System.Text;
 
 namespace AssetRipper.Import.Structure.Assembly.Il2Cpp.Recovery;
@@ -20,8 +22,21 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, 
 	/// <summary>Formats <paramref name="method"/>, which must already have been analysed.</summary>
 	/// <param name="method">The analysed method.</param>
 	/// <param name="maxLines">Stop after this many statements and say so, so one pathological method cannot dominate the output.</param>
+	/// <remarks>
+	/// AssetRipper: the graph's blocks, not <see cref="MethodAnalysisContext.ConvertedIsil"/>, because
+	/// that is the flat list the graph was built from and it still holds every instruction of every
+	/// block a pass has since detached. Code generation emits <c>ControlFlowGraph.Blocks</c>, so
+	/// rendering the flat list describes a body that is not the one exported - and this rendering is
+	/// what every semantic measurement in the project reads as "what the analysis recovered". A pass
+	/// that folds a region away therefore read as a loss: the operations it removed stayed on the IR
+	/// side of the comparison and vanished from the C# side, which is the shape of a regression and
+	/// the opposite of what happened.
+	/// </remarks>
 	public string Write(MethodAnalysisContext method, int maxLines = 400)
-		=> WriteInstructions(method.ConvertedIsil, annotator?.Annotate(method), maxLines);
+		=> WriteInstructions(
+			method.ControlFlowGraph is { } graph ? graph.AllInstructions.ToList() : method.ConvertedIsil,
+			annotator?.Annotate(method),
+			maxLines);
 
 	/// <summary>
 	/// Formats an ISIL instruction list directly, for callers that have one without a method around it.
@@ -346,7 +361,17 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, 
 	{
 		string rendered = field.ToString();
 		int declaredType = rendered.LastIndexOf(" (", StringComparison.Ordinal);
-		return declaredType < 0 ? rendered : rendered[..declaredType];
+		rendered = declaredType < 0 ? rendered : rendered[..declaredType];
+
+		// AssetRipper: a field il2cpp reached because it inlined the property that returns it is
+		// written back as the property, so the rendering has to say so too - otherwise this reads
+		// `list._size` where the exported body reads `list.Count`, and a measure comparing the two
+		// counts a member the export deliberately renamed as one the export lost.
+		string written = IlGenerator.NameReadsAreWrittenUnder(field.Field);
+
+		return written == field.Field.Name || !rendered.EndsWith("." + field.Field.Name, StringComparison.Ordinal)
+			? rendered
+			: string.Concat(rendered.AsSpan(0, rendered.Length - field.Field.Name.Length), written);
 	}
 
 	private static string FormatImmediate(long value)

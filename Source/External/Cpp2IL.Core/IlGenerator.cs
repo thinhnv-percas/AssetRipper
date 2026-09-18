@@ -742,6 +742,27 @@ public static class IlGenerator
     /// accessor, whatever either is called.
     /// </para>
     /// </remarks>
+    /// <summary>
+    /// AssetRipper: the name a read of this field is written under, which is the accessor's own where
+    /// the pairing fires and the field's where it does not.
+    /// </summary>
+    /// <remarks>
+    /// Exposed because the ISIL rendering that every semantic measurement in this project reads as
+    /// "what the analysis recovered" is produced before generation, so it names <c>_size</c> where the
+    /// generated body says <c>Count</c> - and a measure comparing the two then reports a member the
+    /// export deliberately renamed as a member the export lost. Asking the generator rather than
+    /// restating its rule is the point: the pairing is measured off the getter's body, and a metric
+    /// that rewrote that rule in its own terms would drift from it.
+    /// </remarks>
+    public static string NameReadsAreWrittenUnder(FieldAnalysisContext field)
+    {
+        var accessor = InstanceAccessorFor(field);
+
+        return accessor is null || !accessor.Name.StartsWith("get_", StringComparison.Ordinal)
+            ? field.Name
+            : accessor.Name["get_".Length..];
+    }
+
     private static MethodAnalysisContext? InstanceAccessorFor(FieldAnalysisContext field)
     {
         // A field of a generic instance carries no metadata of its own - its BackingData is null and
