@@ -1,3 +1,4 @@
+using AssetRipper.Assets.Metadata;
 using AssetRipper.Export.Configuration;
 using AssetRipper.Import.Logging;
 using AssetRipper.Processing;
@@ -116,8 +117,13 @@ public sealed class NativePluginPostExporter : IPostExporter
 				continue;
 			}
 
-			CopyFramework(bundle, fileSystem.Path.Join(destinationRoot, name), fileSystem);
-			ReportArchitectures(name, fileSystem.Path.Join(bundle, TrimBundleSuffix(name)), fileSystem);
+			string destination = fileSystem.Path.Join(destinationRoot, name);
+			CopyFramework(bundle, destination, fileSystem);
+
+			IReadOnlyList<string> architectures =
+				ReportArchitectures(name, fileSystem.Path.Join(bundle, TrimBundleSuffix(name)), fileSystem);
+
+			WritePluginImporter(destination, architectures, fileSystem);
 			preserved++;
 		}
 
@@ -133,8 +139,9 @@ public sealed class NativePluginPostExporter : IPostExporter
 			}
 
 			fileSystem.Directory.Create(destinationRoot);
-			CopyFile(file, fileSystem.Path.Join(destinationRoot, name), fileSystem);
-			ReportArchitectures(name, file, fileSystem);
+			string dylibDestination = fileSystem.Path.Join(destinationRoot, name);
+			CopyFile(file, dylibDestination, fileSystem);
+			WritePluginImporter(dylibDestination, ReportArchitectures(name, file, fileSystem), fileSystem);
 			preserved++;
 		}
 	}
@@ -177,12 +184,12 @@ public sealed class NativePluginPostExporter : IPostExporter
 		return false;
 	}
 
-	private static void ReportArchitectures(string name, string binary, FileSystem fileSystem)
+	private static IReadOnlyList<string> ReportArchitectures(string name, string binary, FileSystem fileSystem)
 	{
 		if (!fileSystem.File.Exists(binary))
 		{
 			Logger.Info(LogCategory.Export, $"Native plugins: {name} carries no binary at its bundle name.");
-			return;
+			return [];
 		}
 
 		using Stream stream = fileSystem.File.OpenRead(binary);
@@ -191,7 +198,80 @@ public sealed class NativePluginPostExporter : IPostExporter
 		Logger.Info(LogCategory.Export, architectures.Count == 0
 			? $"Native plugins: {name} is not a Mach-O, so its architecture is not known."
 			: $"Native plugins: {name} carries {string.Join(", ", architectures)}.");
+
+		return architectures;
 	}
+
+	/// <summary>
+	/// AssetRipper: the <c>.meta</c> Unity needs to import a native plugin as one.
+	/// </summary>
+	/// <remarks>
+	/// Without it Unity imports a framework with default settings - every platform enabled, no CPU
+	/// set, not added to the embedded binaries - and an iOS framework that is not embedded is not
+	/// loaded at run time however correctly it was copied. So carrying the file and not carrying this
+	/// is a preservation rate that overstates itself.
+	///
+	/// Only what the package itself evidences is written: the platform, because an <c>.ipa</c>'s
+	/// <c>Frameworks</c> directory is iOS by construction, and the CPU, read from the Mach-O header.
+	/// Everything a build would need beyond that - whether the framework is a dependency of another,
+	/// what it links against - is not in the package and is left at Unity's default rather than
+	/// guessed at.
+	/// </remarks>
+	private static void WritePluginImporter(string destination, IReadOnlyList<string> architectures, FileSystem fileSystem)
+	{
+		string cpu = architectures.Count == 1 ? UnityCpuName(architectures[0]) : "AnyCPU";
+
+		string meta = string.Join("\n",
+		[
+			"fileFormatVersion: 2",
+			$"guid: {UnityGuid.NewGuid()}",
+			"PluginImporter:",
+			"  externalObjects: {}",
+			"  serializedVersion: 2",
+			"  iconMap: {}",
+			"  executionOrder: {}",
+			"  defineConstraints: []",
+			"  isPreloaded: 0",
+			"  isOverridable: 0",
+			"  isExplicitlyReferenced: 0",
+			"  validateReferences: 1",
+			"  platformData:",
+			"  - first:",
+			"      Any:",
+			"    second:",
+			"      enabled: 0",
+			"      settings: {}",
+			"  - first:",
+			"      Editor: Editor",
+			"    second:",
+			"      enabled: 0",
+			"      settings:",
+			"        DefaultValueInitialized: true",
+			"  - first:",
+			"      iPhone: iOS",
+			"    second:",
+			"      enabled: 1",
+			"      settings:",
+			"        AddToEmbeddedBinaries: true",
+			$"        CPU: {cpu}",
+			"  userData:",
+			"  assetBundleName:",
+			"  assetBundleVariant:",
+			"",
+		]);
+
+		fileSystem.File.WriteAllText($"{destination}.meta", meta);
+	}
+
+	/// <summary>Unity's own name for a Mach-O CPU type, or <c>AnyCPU</c> where it has none.</summary>
+	private static string UnityCpuName(string architecture) => architecture switch
+	{
+		"arm64" => "ARM64",
+		"armv7" => "ARMv7",
+		"x86_64" => "X64",
+		"x86" => "X86",
+		_ => "AnyCPU",
+	};
 
 	private static bool IsInsideAFramework(string path, FileSystem fileSystem)
 	{

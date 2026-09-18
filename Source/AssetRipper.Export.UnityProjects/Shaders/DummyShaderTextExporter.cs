@@ -49,6 +49,13 @@ public sealed class DummyShaderTextExporter : ShaderExporterBase
 	public static bool ExportShader(IShader shader, TextWriter writer)
 	{
 		// Technically, this outputs invalid shader code for Unity 5.5 because HLSLPROGRAM was not introduced until Unity 5.6.
+		// AssetRipper: the shader's own structure where the asset carries one. Falls through to the
+		// single canned pass below only when it does not, so nothing that used to export stops.
+		if (StructuredShaderTextExporter.TryExport(shader, writer))
+		{
+			return true;
+		}
+
 		if (shader.Has_ParsedForm())
 		{
 			writer.Write($"Shader \"{shader.ParsedForm.Name}\" {{\n");
@@ -96,6 +103,15 @@ public sealed class DummyShaderTextExporter : ShaderExporterBase
 			writer.Write('}');
 		}
 		return true;
+	}
+
+	/// <summary>AssetRipper: the Properties block, which the structured exporter reuses verbatim.</summary>
+	internal static void ExportProperties(IShader shader, TextWriter writer)
+	{
+		if (shader.Has_ParsedForm())
+		{
+			Export(shader.ParsedForm.PropInfo, writer);
+		}
 	}
 
 	private static void Export(ISerializedProperties _this, TextWriter writer)

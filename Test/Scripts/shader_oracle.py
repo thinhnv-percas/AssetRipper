@@ -34,6 +34,14 @@ import sys
 DECLARATION = re.compile(r'^\s*Shader\s+"(?P<name>[^"]+)"', re.MULTILINE)
 DUMMY_MARKER = "DummyShaderTextExporter"
 
+# The structured exporter writes the shader's own subshaders, passes, tags and render state, and a
+# replacement for the program stages only. That is a different artefact from the stand-in - a reader
+# can tell a nine-pass post-processing shader from a one-pass blit again - but the shading is still
+# not the shader's, so a shader carrying this marker can never be EXACT or SEMANTICALLY_EQUIVALENT
+# however well its properties and structure agree. Calling a replacement equivalent is the same
+# mistake as calling a stand-in recovered, one step further along.
+REPLACEMENT_MARKER = "AssetRipperReplacementProgram"
+
 # A property line: `[Attr] _Name ("Display", Type) = default`. The display string is deliberately not
 # compared - it is localisation, not shading - while the attributes are, because `[HideInInspector]`
 # and `[Toggle]` change what the material inspector and the variant collection do.
@@ -176,6 +184,8 @@ def compare(source_text, exported_text):
     if is_dummy(exported_text):
         return DUMMY, evidence
 
+    evidence["programs_replaced"] = REPLACEMENT_MARKER in exported_text
+
     source_programs, exported_programs = programs(source_code), programs(exported_code)
     if source_programs and not exported_programs:
         return DUMMY, evidence
@@ -183,9 +193,14 @@ def compare(source_text, exported_text):
     properties_agree = source_properties and (matched | equivalent) == set(source_properties)
     structures_agree = structure(source_code) == structure(exported_code)
 
-    if properties_agree and structures_agree and source_programs == exported_programs:
+    if evidence["programs_replaced"]:
+        # Structure recovered, shading not. PARTIAL is the ceiling, and it is reached only when the
+        # structure really does agree - otherwise the ordinary tests below decide.
+        if properties_agree and structures_agree:
+            return PARTIAL, evidence
+    elif properties_agree and structures_agree and source_programs == exported_programs:
         return EXACT, evidence
-    if properties_agree and structures_agree:
+    elif properties_agree and structures_agree:
         return EQUIVALENT, evidence
     if properties_agree or (matched and len(matched | equivalent) >= len(source_properties) // 2):
         return PARTIAL, evidence

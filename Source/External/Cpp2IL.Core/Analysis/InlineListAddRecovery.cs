@@ -183,7 +183,7 @@ public static class InlineListAddRecovery
 
         if (!GuardTestsCapacityOf(terminator, receivers, definitions, recognisers, out var itemsOfReceiver))
             return Reject($"{itemsOfReceiver ?? "no comparison against the receiver's size"}"
-                + $"; the receiver is {Describe(receiver, definitions)}");
+                + $"; the receiver is {DescribeReceiver(receiver, definitions)}");
 
         // And the fast path must be the one that updates this receiver's size.
         if (!StoresTo(fast, receivers, recognisers, "_size"))
@@ -320,6 +320,49 @@ public static class InlineListAddRecovery
 
         failure = "the branch condition is more than eight copies from a comparison";
         return false;
+    }
+
+    /// <summary>
+    /// AssetRipper: whether a receiver that is not the list is the *element address* of one.
+    /// </summary>
+    /// <remarks>
+    /// Iteration 056 found 159 candidates on one fixture whose receiver is a local defined by an
+    /// <c>Add</c>, and recorded that as the shared-<c>AddWithResize</c>-address hazard. The address is
+    /// not shared - exactly one managed method sits on it, and nothing in the resolver picks
+    /// <c>[0]</c> out of several. So the defect is on the argument side, and this says which: a
+    /// receiver computed from the list's own backing array is the fast path's element address handed
+    /// to the call in the receiver's register, which is an argument-mapping failure rather than a
+    /// call-resolution one and wants the opposite work.
+    /// </remarks>
+    private static string DescribeReceiver(IOperand receiver, Dictionary<LocalVariable, Instruction> definitions)
+    {
+        if (receiver is not LocalVariable local || !definitions.TryGetValue(local, out var definition))
+            return Describe(receiver, definitions);
+
+        if (definition.OpCode != OpCode.Add || definition.Operands.Count < 3)
+            return Describe(receiver, definitions);
+
+        // `(base + scaled index) + constant` is an element address, not a list. Traced rather than
+        // assumed: of one fixture's 145 such candidates, 119 are an Add of an Add and an immediate,
+        // 14 name `_items` inside that inner Add outright, and the rest are the same shape one copy
+        // further out.
+        var scaled = definition.Operands[1] is LocalVariable inner
+            && definitions.TryGetValue(inner, out var innerDefinition)
+            && innerDefinition.OpCode == OpCode.Add;
+
+        return scaled && definition.Operands[2] is Immediate
+            ? "an element address rather than a list - the fast path's own address in the receiver register"
+            : $"Add of {Trace(definition.Operands[1], definitions)} and {Trace(definition.Operands[2], definitions)}";
+    }
+
+    /// <summary>An operand and, where it is a local, what defines it - two steps, no further.</summary>
+    private static string Trace(IOperand operand, Dictionary<LocalVariable, Instruction> definitions)
+    {
+        if (operand is not LocalVariable local || !definitions.TryGetValue(local, out var definition))
+            return DescribeShallow(operand);
+
+        var source = definition.Operands.Count > 1 ? DescribeShallow(definition.Operands[1]) : "nothing";
+        return $"({definition.OpCode} {source})";
     }
 
     /// <summary>What the far side of a capacity test turned out to be, for the rejection breakdown.</summary>
