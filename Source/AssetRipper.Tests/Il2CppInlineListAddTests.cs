@@ -93,6 +93,17 @@ internal sealed class Il2CppInlineListAddTests
 	}
 
 	[Test]
+	public void AReceiverReachedThroughACopyIsStillTheSameList()
+	{
+		// SSA destruction and copy coalescing leave the list reaching the call and the list the
+		// capacity test reads as two locals holding one value.
+		Fixture fixture = new() { ReceiverReachesTheCallThroughACopy = true };
+
+		Assert.That(fixture.Run(fixture.ListAddShape()), Is.True);
+		Assert.That(fixture.CallTarget, Is.SameAs(Fixture.AddSentinel));
+	}
+
+	[Test]
 	public void TheCapacityTestMustReadTheSameListTheCallDoes()
 	{
 		// Two lists in one method: the guard tests one and the slow path adds to the other, so the
@@ -171,6 +182,7 @@ internal sealed class Il2CppInlineListAddTests
 		public bool FastPathHasAnotherPredecessor { get; init; }
 		public bool GuardIsUnconditional { get; init; }
 		public bool FastPathUpdatesSize { get; init; } = true;
+		public bool ReceiverReachesTheCallThroughACopy { get; init; }
 
 		/// <summary>Only ever reported; the rule never sees it.</summary>
 		public string Operation { get; init; } = "Add";
@@ -220,8 +232,17 @@ internal sealed class Il2CppInlineListAddTests
 				Move(new ArrayAccess(Items, new Immediate(0)), Value));
 
 			Call = new Instruction(next++, OpCode.CallVoid);
-			Call.SetOperands(CallIsAddWithResize ? AddWithResizeSentinel : OtherCallee, Receiver, Value);
-			Block slow = Block(Call);
+			LocalVariable called = Receiver;
+			Instruction? copy = null;
+
+			if (ReceiverReachesTheCallThroughACopy)
+			{
+				called = new LocalVariable("copy", new(null, "X9"));
+				copy = Move(called, Receiver);
+			}
+
+			Call.SetOperands(CallIsAddWithResize ? AddWithResizeSentinel : OtherCallee, called, Value);
+			Block slow = copy is null ? Block(Call) : Block(copy, Call);
 
 			Instruction terminator;
 
@@ -266,6 +287,7 @@ internal sealed class Il2CppInlineListAddTests
 				&& ReferenceEquals(memory.Base, receiver)
 				&& memory.Addend == OffsetOf(name),
 			AddFor = operand => ReferenceEquals(operand, AddWithResizeSentinel) ? AddSentinel : null,
+			SameValue = ReferenceEquals,
 		});
 
 		/// <summary>A field read, as the addend the resolution would have keyed on.</summary>

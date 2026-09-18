@@ -61,6 +61,9 @@ public static class InlineListAddRecovery
 
         /// <summary>The <c>Add</c> to call in place of the given <c>AddWithResize</c> target.</summary>
         public required Func<IOperand, IOperand?> AddFor { get; init; }
+
+        /// <summary>Whether two operands name the same value, for a receiver that is not a local.</summary>
+        public required Func<IOperand, IOperand, bool> SameValue { get; init; }
     }
 
     /// <summary>The recognisers backed by the metadata, which is what the pipeline runs with.</summary>
@@ -71,6 +74,17 @@ public static class InlineListAddRecovery
             && reference.Field.Name == name
             && reference.ContainingFields.Count == 0
             && ReferenceEquals(reference.Local, receiver),
+        SameValue = static (left, right) => (left, right) switch
+        {
+            (LocalVariable a, LocalVariable b) => ReferenceEquals(a, b),
+            (FieldReference a, FieldReference b) => ReferenceEquals(a.Field, b.Field)
+                && ReferenceEquals(a.Local, b.Local)
+                && a.ElementIndex is null
+                && b.ElementIndex is null
+                && a.ContainingFields.Count == 0
+                && b.ContainingFields.Count == 0,
+            _ => false,
+        },
         AddFor = static operand => operand is MethodAnalysisContext method ? MethodNamed(method, "Add") : null,
     };
 
@@ -129,8 +143,7 @@ public static class InlineListAddRecovery
         if (call.Operands.Count < argumentStart + 2)
             return Reject("call carries no receiver and value");
 
-        if (call.Operands[argumentStart] is not LocalVariable receiver)
-            return Reject("receiver is not a local");
+        var receiver = call.Operands[argumentStart];
 
         // The guard is the block the slow path is branched to from. Anything else - several
         // predecessors, or a predecessor that does not end in a two-way branch - means the region
@@ -158,18 +171,29 @@ public static class InlineListAddRecovery
 
         // The capacity test is what ties the region to this receiver: it reads this list's size and
         // the length of the array this list's _items holds.
-        if (!GuardTestsCapacityOf(cfg, terminator, receiver, recognisers, out var itemsOfReceiver))
-            return Reject(itemsOfReceiver ?? "no comparison against the receiver's size");
+        var definitions = DefinitionsIn(cfg);
+
+        if (receiver is not LocalVariable && IsWrittenAnywhere(cfg, receiver, recognisers))
+            return Reject($"the receiver is {DescribeShallow(receiver)}, which the body also writes");
+
+        var receivers = AliasesOf(receiver, definitions, recognisers);
+
+        if (receivers.Count == 0)
+            return Reject($"nothing holds the receiver, which is {DescribeShallow(receiver)}");
+
+        if (!GuardTestsCapacityOf(terminator, receivers, definitions, recognisers, out var itemsOfReceiver))
+            return Reject($"{itemsOfReceiver ?? "no comparison against the receiver's size"}"
+                + $"; the receiver is {Describe(receiver, definitions)}");
 
         // And the fast path must be the one that updates this receiver's size.
-        if (!StoresTo(fast, receiver, "_size", recognisers))
+        if (!StoresTo(fast, receivers, recognisers, "_size"))
             return Reject("fast path does not update the receiver's size");
 
         if (recognisers.AddFor(call.Operands[0]) is not { } add)
             return Reject("List<T>.Add not found on the declaring type");
 
         // The version bump is Add's own, so it goes with the call rather than staying beside it.
-        DropVersionBump(guard, receiver, recognisers);
+        DropVersionBump(guard, receivers, recognisers);
 
         call.SetOperand(0, add);
 
@@ -203,7 +227,7 @@ public static class InlineListAddRecovery
     /// instead would take a second Add's bump on the same list with it, and if that one did not go on
     /// to match, its version would stop being incremented at all.
     /// </remarks>
-    private static void DropVersionBump(Block guard, LocalVariable receiver, Recognisers recognisers)
+    private static void DropVersionBump(Block guard, IReadOnlyCollection<LocalVariable> receivers, Recognisers recognisers)
     {
         var block = guard;
 
@@ -213,7 +237,7 @@ public static class InlineListAddRecovery
             {
                 if (instruction.OpCode != OpCode.Move
                     || instruction.Operands.Count == 0
-                    || !recognisers.IsFieldOf(instruction.Operands[0], receiver, "_version"))
+                    || !IsFieldOfAny(instruction.Operands[0], receivers, recognisers, "_version"))
                     continue;
 
                 instruction.OpCode = OpCode.Nop;
@@ -233,9 +257,9 @@ public static class InlineListAddRecovery
     /// can tell "the shape is not here" from "the shape is here and one half of it did not resolve".
     /// </param>
     private static bool GuardTestsCapacityOf(
-        ISILControlFlowGraph cfg,
         Instruction terminator,
-        LocalVariable receiver,
+        IReadOnlyCollection<LocalVariable> receivers,
+        Dictionary<LocalVariable, Instruction> definitions,
         Recognisers recognisers,
         out string? failure)
     {
@@ -244,8 +268,6 @@ public static class InlineListAddRecovery
         if (terminator.Operands.Count < 2 || terminator.Operands[1] is not LocalVariable condition)
             return false;
 
-        var definitions = DefinitionsIn(cfg);
-
         // The condition reaches the comparison through the inversions the lifter leaves behind: A64
         // has no branch on "not less than", so the guard is the negation of the capacity test.
         var current = condition;
@@ -253,7 +275,10 @@ public static class InlineListAddRecovery
         for (var depth = 0; depth < 8; depth++)
         {
             if (!definitions.TryGetValue(current, out var definition))
+            {
+                failure = "the branch condition has no single definition";
                 return false;
+            }
 
             switch (definition.OpCode)
             {
@@ -263,28 +288,37 @@ public static class InlineListAddRecovery
 
                 case OpCode.CheckLess or OpCode.CheckGreater or OpCode.CheckLessOrEqual or OpCode.CheckGreaterOrEqual:
                     if (definition.Operands.Count < 3)
+                    {
+                        failure = "comparison carries no operands";
                         return false;
+                    }
 
-                    var size = recognisers.IsFieldOf(definition.Operands[1], receiver, "_size")
+                    var size = ResolvesToFieldOf(definition.Operands[1], receivers, "_size", definitions, recognisers)
                         ? definition.Operands[2]
-                        : recognisers.IsFieldOf(definition.Operands[2], receiver, "_size")
+                        : ResolvesToFieldOf(definition.Operands[2], receivers, "_size", definitions, recognisers)
                             ? definition.Operands[1]
                             : null;
 
                     if (size is null)
+                    {
+                        failure = $"{definition.OpCode} of {Describe(definition.Operands[1], definitions)} "
+                            + $"and {Describe(definition.Operands[2], definitions)}, neither the receiver's size";
                         return false;
+                    }
 
-                    if (IsLengthOfTheReceiversItems(size, receiver, definitions, recognisers))
+                    if (IsLengthOfTheReceiversItems(size, receivers, definitions, recognisers))
                         return true;
 
                     failure = $"size compared against {Describe(size, definitions)}";
                     return false;
 
                 default:
+                    failure = $"the branch condition is defined by {definition.OpCode}";
                     return false;
             }
         }
 
+        failure = "the branch condition is more than eight copies from a comparison";
         return false;
     }
 
@@ -295,14 +329,14 @@ public static class InlineListAddRecovery
         {
             return definitions.TryGetValue(length.Array, out var lengthDefinition)
                 ? $"ArrayLength of a local defined by {lengthDefinition.OpCode} {DescribeShallow(lengthDefinition.Operands.Count > 1 ? lengthDefinition.Operands[1] : null)}"
-                : "ArrayLength of a local defined outside the block";
+                : "ArrayLength of a local with no single definition";
         }
 
         if (operand is LocalVariable local)
         {
             return definitions.TryGetValue(local, out var definition)
                 ? $"local defined by {definition.OpCode} {DescribeShallow(definition.Operands.Count > 1 ? definition.Operands[1] : null)}"
-                : "local defined outside the block";
+                : "a local with no single definition";
         }
 
         return DescribeShallow(operand);
@@ -324,27 +358,159 @@ public static class InlineListAddRecovery
     /// </summary>
     private static bool IsLengthOfTheReceiversItems(
         IOperand operand,
-        LocalVariable receiver,
+        IReadOnlyCollection<LocalVariable> receivers,
+        Dictionary<LocalVariable, Instruction> definitions,
+        Recognisers recognisers)
+        => operand is ArrayLength length
+            && ResolvesToFieldOf(length.Array, receivers, "_items", definitions, recognisers);
+
+    /// <summary>
+    /// Every local holding the same value as the receiver: the value it was copied from, and every
+    /// copy made of it.
+    /// </summary>
+    /// <remarks>
+    /// SSA destruction and copy coalescing leave the list reaching the call and the list the capacity
+    /// test reads as two locals holding one value, and comparing them by identity turned down the
+    /// largest single group of sites on one fixture - 159 of them, every one a comparison that did
+    /// read <c>_size</c> against the length of <c>_items</c>. A <c>Move</c> between locals is a copy,
+    /// so the values are the same value and the aliasing is sound rather than a guess.
+    /// </remarks>
+    private static HashSet<LocalVariable> AliasesOf(
+        IOperand receiver,
         Dictionary<LocalVariable, Instruction> definitions,
         Recognisers recognisers)
     {
-        if (operand is not ArrayLength length)
-            return false;
+        HashSet<LocalVariable> aliases = [];
 
-        if (recognisers.IsFieldOf(length.Array, receiver, "_items"))
-            return true;
+        if (receiver is LocalVariable local)
+        {
+            aliases.Add(local);
+            var current = local;
 
-        return definitions.TryGetValue(length.Array, out var definition)
-            && definition.OpCode == OpCode.Move
-            && definition.Operands.Count > 1
-            && recognisers.IsFieldOf(definition.Operands[1], receiver, "_items");
+            // Back to the value this one was copied from, so that copies made of *that* count too.
+            for (var depth = 0; depth < 8; depth++)
+            {
+                if (!definitions.TryGetValue(current, out var definition)
+                    || definition.OpCode != OpCode.Move
+                    || definition.Operands.Count < 2
+                    || definition.Operands[1] is not LocalVariable source
+                    || !aliases.Add(source))
+                    break;
+
+                current = source;
+            }
+        }
+        else
+        {
+            // A receiver that is not a local is a field read the call kept inline - `this.cameras
+            // .Add(x)`. The guard reads the list's size off a local that was loaded from that same
+            // field, so the two are tied by what they were loaded from rather than by identity. Only
+            // sound while nothing writes that field, which is checked before this is called.
+            foreach (var (candidate, definition) in definitions)
+            {
+                if (definition.OpCode == OpCode.Move
+                    && definition.Operands.Count > 1
+                    && recognisers.SameValue(definition.Operands[1], receiver))
+                    aliases.Add(candidate);
+            }
+        }
+
+        // And forward, to every copy made of anything in the set.
+        for (var pass = 0; pass < 8; pass++)
+        {
+            var grew = false;
+
+            foreach (var (copy, definition) in definitions)
+            {
+                if (definition.OpCode == OpCode.Move
+                    && definition.Operands.Count > 1
+                    && definition.Operands[1] is LocalVariable source
+                    && aliases.Contains(source)
+                    && aliases.Add(copy))
+                    grew = true;
+            }
+
+            if (!grew)
+                break;
+        }
+
+        return aliases;
     }
 
-    private static bool StoresTo(Block block, LocalVariable receiver, string field, Recognisers recognisers)
+    /// <summary>
+    /// Whether the body stores to this operand anywhere. Two reads of one field are the same value
+    /// only while nothing writes it in between, and the cheap sound answer is "nowhere at all".
+    /// </summary>
+    private static bool IsWrittenAnywhere(ISILControlFlowGraph cfg, IOperand receiver, Recognisers recognisers)
+        => cfg.AllInstructions.Any(instruction =>
+            instruction.OpCode == OpCode.Move
+            && instruction.Operands.Count > 0
+            && recognisers.SameValue(instruction.Operands[0], receiver));
+
+    private static bool IsFieldOfAny(
+        IOperand operand,
+        IReadOnlyCollection<LocalVariable> receivers,
+        Recognisers recognisers,
+        string name)
+    {
+        foreach (var receiver in receivers)
+        {
+            if (recognisers.IsFieldOf(operand, receiver, name))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Whether an operand is the named field of the receiver, either read straight into the
+    /// instruction or copied into a local first.
+    /// </summary>
+    /// <remarks>
+    /// Whether a field read reaches its use inline or through a local is the constant folder's
+    /// business and varies from one call site to the next: on one fixture the backing array is always
+    /// copied and the size never is, and on the next both happen. Requiring the operand itself to be
+    /// the field turned down a fifth of the sites for a difference that carries no meaning. The copy
+    /// must have a single definition, which is what keeps this from following a name reused elsewhere.
+    /// </remarks>
+    private static bool ResolvesToFieldOf(
+        IOperand operand,
+        IReadOnlyCollection<LocalVariable> receivers,
+        string name,
+        Dictionary<LocalVariable, Instruction> definitions,
+        Recognisers recognisers)
+    {
+        if (IsFieldOfAny(operand, receivers, recognisers, name))
+            return true;
+
+        var current = operand;
+
+        for (var depth = 0; depth < 4; depth++)
+        {
+            if (current is not LocalVariable local
+                || !definitions.TryGetValue(local, out var definition)
+                || definition.OpCode != OpCode.Move
+                || definition.Operands.Count < 2)
+                return false;
+
+            if (IsFieldOfAny(definition.Operands[1], receivers, recognisers, name))
+                return true;
+
+            current = definition.Operands[1];
+        }
+
+        return false;
+    }
+
+    private static bool StoresTo(
+        Block block,
+        IReadOnlyCollection<LocalVariable> receivers,
+        Recognisers recognisers,
+        string field)
         => block.Instructions.Any(instruction =>
             instruction.OpCode == OpCode.Move
             && instruction.Operands.Count > 0
-            && recognisers.IsFieldOf(instruction.Operands[0], receiver, field));
+            && IsFieldOfAny(instruction.Operands[0], receivers, recognisers, field));
 
     /// <summary>
     /// The one definition of each local written anywhere in the body. A local written twice is left

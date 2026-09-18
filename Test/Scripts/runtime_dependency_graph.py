@@ -29,6 +29,7 @@ import collections
 import json
 import pathlib
 import re
+import struct
 import sys
 
 BOUNDARY = re.compile(r'Il2CppRuntime\.Boundary\("(?P<kind>[A-Z0-9_]+)(?::(?P<symbol>[^"]*))?",\s*"(?P<detail>[^"]*)"')
@@ -45,8 +46,11 @@ ENGINE_BUILT = re.compile(r"^lib_burst_generated")
 
 # Named rather than pattern-matched, because these are the two libraries the recovery *replaces* and
 # getting either wrong ships the game twice or drops the engine.
-REPLACED_BY_RECOVERY = {"libil2cpp.so", "UnityFramework"}
-UNITY_PLAYER = {"libunity.so", "libmain.so", "libunity.dylib"}
+REPLACED_BY_RECOVERY = {"libil2cpp.so", "libil2cpp.dylib"}
+
+# `UnityFramework` carries both the player and il2cpp on iOS - Unity 2019.3 moved the player into an
+# embedded framework - so it is one entry under the engine, which is what names it.
+UNITY_PLAYER = {"libunity.so", "libmain.so", "libunity.dylib", "UnityFramework", "UnityFramework.framework"}
 
 # A system library on either platform. `libswift*` is the Swift runtime, which the toolchain supplies.
 SYSTEM = re.compile(r"^(libc|libm|libdl|libz|liblog|libandroid|libGLES|libEGL|libOpenSL|libvulkan|"
@@ -54,6 +58,11 @@ SYSTEM = re.compile(r"^(libc|libm|libdl|libz|liblog|libandroid|libGLES|libEGL|li
 
 
 def kind_of(name):
+    """What supplies this library. Kept in step with `NativeLibraryClassifier` on the export side:
+    a measurement that classifies differently from the thing it measures reports a rate nobody can
+    act on."""
+    if name.endswith(".framework"):
+        name = name[: -len(".framework")]
     if name in REPLACED_BY_RECOVERY:
         return IL2CPP_RUNTIME
     if name in UNITY_PLAYER:
@@ -63,6 +72,60 @@ def kind_of(name):
     if SYSTEM.match(name):
         return SYSTEM_LIBRARY
     return GAME_NATIVE_PLUGIN
+
+
+# CPU types, as Mach-O writes them. The high bit of the type is the 64-bit ABI flag.
+ABI64 = 0x0100_0000
+CPU_NAMES = {7: "x86", 7 | ABI64: "x86_64", 12: "armv7", 12 | ABI64: "arm64"}
+
+
+def mach_o_architectures(path):
+    """The architectures a Mach-O carries, read from the file.
+
+    An iOS package has no per-architecture directory the way an APK's `lib/<abi>/` does, so there is
+    no path to read an architecture out of - a framework is one file that may be thin or fat. Writing
+    `arm64` down instead would record a simulator build, or an older armv7 one, wrongly with nothing
+    downstream able to tell.
+    """
+    try:
+        with path.open("rb") as handle:
+            head = handle.read(8)
+
+            if len(head) < 8:
+                return []
+
+            (big,) = struct.unpack(">I", head[:4])
+
+            if big in (0xCAFEBABE, 0xCAFEBABF):
+                entry_size = 32 if big == 0xCAFEBABF else 20
+                (count,) = struct.unpack(">I", head[4:8])
+
+                if not 0 < count <= 32:
+                    return []
+
+                names = []
+                for index in range(count):
+                    handle.seek(8 + index * entry_size)
+                    entry = handle.read(4)
+                    if len(entry) < 4:
+                        break
+                    (cpu,) = struct.unpack(">i", entry)
+                    names.append(CPU_NAMES.get(cpu, f"cpu_{cpu}"))
+                return names
+
+            (little,) = struct.unpack("<I", head[:4])
+
+            if little in (0xFEEDFACF, 0xFEEDFACE):
+                (cpu,) = struct.unpack("<i", head[4:8])
+                return [CPU_NAMES.get(cpu, f"cpu_{cpu}")]
+
+            if little in (0xCFFAEDFE, 0xCEFAEDFE):
+                (cpu,) = struct.unpack(">i", head[4:8])
+                return [CPU_NAMES.get(cpu, f"cpu_{cpu}")]
+    except OSError:
+        return []
+
+    return []
 
 
 def libraries(package):
@@ -84,13 +147,23 @@ def libraries(package):
         parts = path.relative_to(package).parts
         architecture = next((p for p in parts if p in
                              ("arm64-v8a", "armeabi-v7a", "x86", "x86_64", "arm64")), None)
+        bundle = next((p for p in parts if p.endswith(".framework")), None)
+        platform = "android" if suffix == ".so" else "ios"
+
+        # On iOS the path carries no architecture at all, so it comes out of the binary.
+        if architecture is None and platform == "ios":
+            architecture = ",".join(mach_o_architectures(path)) or None
+
         found.append({
             "name": path.name,
             "path": str(path.relative_to(package)),
-            "platform": "android" if suffix == ".so" else "ios",
+            "platform": platform,
             "architecture": architecture,
+            "framework": bundle,
             "bytes": path.stat().st_size,
-            "kind": kind_of(path.name),
+            # A framework is classified by its bundle name, which is what names the plugin - Unity
+            # imports the bundle, not the binary inside it.
+            "kind": kind_of(bundle or path.name),
         })
 
     return found
