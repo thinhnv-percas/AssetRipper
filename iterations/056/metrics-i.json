@@ -1,0 +1,403 @@
+{
+  "scope": [
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "DOTween",
+    "GoogleMobileAds",
+    "LeanCommon",
+    "LeanPool",
+    "Mono.Security",
+    "__Generated",
+    "spine-unity",
+    "spine-unity-examples"
+  ],
+  "methods": 5482,
+  "nativeBytes": 1075252,
+  "placeholders": 4293,
+  "status": {
+    "HIGH_CONFIDENCE": 212,
+    "PARTIAL": 1142,
+    "EXACT": 3782,
+    "FALLBACK": 346
+  },
+  "byAssembly": {
+    "Assembly-CSharp": {
+      "HIGH_CONFIDENCE": 15,
+      "PARTIAL": 63,
+      "EXACT": 292,
+      "FALLBACK": 20
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "GoogleMobileAds": {
+      "EXACT": 336,
+      "PARTIAL": 320,
+      "FALLBACK": 59,
+      "HIGH_CONFIDENCE": 29
+    },
+    "spine-unity": {
+      "EXACT": 1376,
+      "HIGH_CONFIDENCE": 84,
+      "PARTIAL": 318,
+      "FALLBACK": 67
+    },
+    "LeanCommon": {
+      "EXACT": 15,
+      "PARTIAL": 2,
+      "HIGH_CONFIDENCE": 1
+    },
+    "ACTk.Runtime": {
+      "EXACT": 872,
+      "PARTIAL": 147,
+      "FALLBACK": 46,
+      "HIGH_CONFIDENCE": 24
+    },
+    "LeanPool": {
+      "EXACT": 56,
+      "PARTIAL": 12,
+      "HIGH_CONFIDENCE": 6,
+      "FALLBACK": 4
+    },
+    "spine-unity-examples": {
+      "EXACT": 355,
+      "PARTIAL": 80,
+      "FALLBACK": 51,
+      "HIGH_CONFIDENCE": 23
+    },
+    "DOTween": {
+      "HIGH_CONFIDENCE": 30,
+      "EXACT": 479,
+      "PARTIAL": 200,
+      "FALLBACK": 98
+    }
+  },
+  "lostOperationClasses": {
+    "NEWOBJ": 201,
+    "FIELD": 72,
+    "CALL": 17,
+    "ARRAY_READ": 4,
+    "ARRAY_WRITE": 4,
+    "BRANCH": 56
+  },
+  "fingerprintIr": {
+    "INSTANCEOF": 417,
+    "LOOP": 2283,
+    "COMPARE": 2267,
+    "CALL": 3250,
+    "BRANCH": 2285,
+    "STATIC_ACCESS": 3626,
+    "NULL_CHECK": 2059,
+    "ARITHMETIC": 1771,
+    "NEWOBJ": 1033,
+    "ARRAY_READ": 402,
+    "CAST": 18,
+    "ARRAY_WRITE": 156
+  },
+  "fingerprintCSharp": {
+    "RETURN": 3265,
+    "NEWOBJ": 1354,
+    "COMPARE": 2103,
+    "CALL": 4517,
+    "BRANCH": 2247,
+    "CAST": 786,
+    "THROW": 880,
+    "NULL_CHECK": 1668,
+    "ARITHMETIC": 1722,
+    "STATIC_ACCESS": 2316,
+    "LOOP": 801,
+    "ARRAY_READ": 543,
+    "NEWARR": 180,
+    "INSTANCEOF": 12,
+    "FIELD_ADDRESS": 154,
+    "ARRAY_WRITE": 174,
+    "SWITCH": 25
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 2511,
+      "files": 189
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 691,
+      "files": 101
+    },
+    "NATIVE_IMPORT": {
+      "count": 490,
+      "files": 81
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 211,
+      "files": 54
+    },
+    "INDIRECT_CALL": {
+      "count": 183,
+      "files": 34
+    },
+    "INDIRECT_JUMP": {
+      "count": 120,
+      "files": 66
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 97,
+      "files": 38
+    },
+    "OTHER": {
+      "count": 2,
+      "files": 1
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 1592,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardBasedVideoAd.cs"
+    },
+    {
+      "nativeBytes": 1472,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardedAd.cs"
+    },
+    {
+      "nativeBytes": 1352,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 1296,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs"
+    },
+    {
+      "nativeBytes": 1296,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/AdLoaderClient.cs"
+    },
+    {
+      "nativeBytes": 1240,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 1240,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 1052,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs"
+    },
+    {
+      "nativeBytes": 1048,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/BannerView.cs"
+    },
+    {
+      "nativeBytes": 1032,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs"
+    },
+    {
+      "nativeBytes": 948,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs"
+    },
+    {
+      "nativeBytes": 848,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 800,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 788,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 760,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs"
+    },
+    {
+      "nativeBytes": 756,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 752,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/Assembly-CSharp/Box.cs"
+    },
+    {
+      "nativeBytes": 716,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 684,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 624,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/Assembly-CSharp/GDPR.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Skeleton.cs"
+    },
+    {
+      "nativeBytes": 600,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/Assembly-CSharp/Imposter.cs"
+    },
+    {
+      "nativeBytes": 596,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 592,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardedInterstitialAd.cs"
+    },
+    {
+      "nativeBytes": 592,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 592,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 592,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 584,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 584,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Time/SpeedHackProofTime.cs"
+    },
+    {
+      "nativeBytes": 580,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 560,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 556,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 556,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 540,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 540,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 532,
+      "lost": "BRANCH",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 524,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs"
+    },
+    {
+      "nativeBytes": 524,
+      "lost": "FIELD",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 524,
+      "lost": "BRANCH",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 520,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/spine-unity/Spine/Unity/WaitForSpineAnimation.cs"
+    },
+    {
+      "nativeBytes": 516,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Unity/RewardingAdBaseClient.cs"
+    },
+    {
+      "nativeBytes": 512,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/DOVirtual.cs"
+    },
+    {
+      "nativeBytes": 504,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 504,
+      "lost": "NEWOBJ",
+      "file": "Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 504,
+      "lost": "ARRAY_WRITE",
+      "file": "Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/BuildHashes.cs"
+    }
+  ]
+}

@@ -1564,6 +1564,58 @@ find it; `strings` without `-el` does find method and type names.
   fifty methods is noise rather than a regression, and any conclusion drawn from a smaller movement
   there needs a second run before it is believed.
 
+- **The ISIL rendering every semantic measurement rests on described a different program from the one
+  exported, in two independent ways, and fixing them moved more numbers than any recovery change in
+  the project's history.** `[NativeSource(Body = …)]` is what `recovery_metrics.py`, the golden corpus
+  and the source oracle all read as "what the analysis recovered". First, `PseudoCSharpWriter`
+  rendered `MethodAnalysisContext.ConvertedIsil` - the flat list the CFG was *built from* - while
+  `IlGenerator` emits `ControlFlowGraph.Blocks`; a pass that detaches a block does not touch the flat
+  list, so every instruction of every dead block stayed in the rendering, and **a pass that folds a
+  region away therefore read as a loss**. Second, the trivial-accessor pairing runs at CIL emission
+  rather than on ISIL, so the rendering says `list._size` where the exported body says `list.Count`
+  and `unmentioned_members` counted a member the export deliberately *renamed* as one it lost - 591
+  methods on one fixture, every one of them losing only `FIELD`, which is the signature of a
+  measurement defect rather than a recovery one. `IlGenerator.NameReadsAreWrittenUnder` answers with
+  the generator's own pairing decision; restating the rule in the metric would drift from it. Together
+  they moved EXACT 2285→2513, 2879→3776, 6634→7605, 2517→2855 across the four fixtures **with the
+  recovery unchanged**. Any comparison against an iteration at or before 055 has to re-measure both
+  ends, and a jump of that size is a reason to check what the measure started counting differently,
+  not a reason to celebrate.
+- **An array initialiser is an array write, and the fingerprint could not see one.** `new char[2] { '#',
+  'c' }` is what a decompiler writes for `array[0] = '#'; array[1] = 'c';`, and
+  `recovery_metrics.ARRAY_WRITE` matched only the indexed form. It surfaced only once folding an
+  inlined `List<T>.Add` removed a method's *other* array write and left the initialisers as the only
+  ones - the third time this file has recorded "a check that is too strict is as wrong as one that is
+  too lax", and the third time the two sides of the comparison spelled one operation differently.
+
+- **An inlined framework operation is one defect, not one per member it names, and the framework's own
+  private helper is the evidence that names it.** il2cpp inlines the fast path of `List<T>.Add`, so a
+  caller ends up naming `_items`, `_size` and `_version`; iteration 055 measured those per call site
+  and found they are one shape. The anchor for putting the call back is the *slow* path:
+  `AddWithResize` is private to `List<T>` and the framework calls it from `Add` and nowhere else, so a
+  resolved call to it names the operation, the receiver and the value outright. That is what keeps an
+  ordinary array write, a custom collection with the same field names, an indexer setter, `Insert`,
+  `RemoveAt` and a dictionary write out of the family - none of them reaches the pass at all. The
+  control-flow checks that follow do not identify the operation; they establish that the region about
+  to be deleted is *this* receiver's fast path. **And they caught a wrong anchor**: 159 of one
+  fixture's 1346 candidates have a receiver defined by an `Add` - a pointer computed by arithmetic,
+  not a list - because `AddWithResize`'s address is shared, exactly as this file records for method
+  addresses generally. 3055 candidates, 2087 folded; reads of `List<T>`'s private members fell 63% to
+  85% per fixture and `RayFireAssembly`'s Roslyn count 4462→3457.
+- **A resolved `Call` is the semantic node; a new opcode would not be.** `LIST_ADD` is represented as a
+  `CallVoid` to `List<T>::Add` itself, so dead code elimination, copy coalescing and type propagation
+  all keep working unchanged - a new opcode needs six walkers taught and missing one is silent. The
+  pass has to run after `ArrayRecovery`, where `items.Length` is an `ArrayLength` rather than a load at
+  an offset, and out of SSA, where deleting the fast path leaves no phi in the merge to repair.
+- **An iOS `.framework` is a directory and Unity imports the directory.** Iteration 055's plugin
+  exporter enumerated `*.so`; an `.ipa` has none, so it ran zero times and reported zero plugins -
+  indistinguishable from a package with none. The bundle is copied whole (binary, `Info.plist`,
+  headers, resources), minus `_CodeSignature`, which signs the app rather than the project. The
+  architecture has to come out of the Mach-O header because an iOS path carries none at all, unlike an
+  APK's `lib/<abi>/`. `UnityFramework` is the engine, not a game plugin: it carries both the player and
+  il2cpp, so a classifier keyed on the bundle name must strip `.framework` first or a 51 MB engine
+  reads as the game's own library. JellyBlast v2 went 0/6 to 6/6.
+
 ### Things measured to be worth nothing — do not redo them
 - **Making the exporter's own injected types internal.** They are injected into *every* assembly and
   public, so a file referencing two recovered assemblies sees two `TokenAttribute`s - CS0433, 1315
@@ -1712,7 +1764,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Twenty-two scripts, and each measures something the others cannot:
+Twenty-three scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1772,6 +1824,11 @@ Twenty-two scripts, and each measures something the others cannot:
   cast, because the compiler's message is the same for all of them.
 - `Test/Scripts/runtime_dependency_graph.py` — the native libraries a package ships, classified into
   the four kinds a project must not carry and the one it must, with what the project actually carries.
+  It reads an iOS binary's architecture out of the Mach-O header, because an `.ipa` path carries none,
+  and classifies a `.framework` by its bundle name rather than by the binary inside it.
+- `Test/Scripts/inline_list_add_report.py` — what the inlined-framework-operation recovery was offered
+  and what it took, per fixture, with every rejection under the reason the pass rejected it for. A
+  family that matches nothing and a family that is never reached print the same match count otherwise.
 - `Test/Scripts/runtime_equivalence.py` and `Test/Tools/RuntimeEquivalence` — the only measure that
   runs the recovered IL. The planner tiers each paired method by what it would need to execute; the
   runner loads both assemblies and compares. A case that did not run is `NOT_RUN` with the reason,

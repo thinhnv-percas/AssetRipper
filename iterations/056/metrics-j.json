@@ -1,0 +1,383 @@
+{
+  "scope": [
+    "Assembly-CSharp",
+    "Assembly-CSharp-firstpass",
+    "DOTween",
+    "Facebook.Unity",
+    "Facebook.Unity.IOS",
+    "Facebook.Unity.Settings",
+    "GameAnalyticsSDK",
+    "Mono.Security",
+    "Newtonsoft.Json",
+    "PathCreator",
+    "RFLib_DotNet_2018_ios",
+    "RayFireAssembly",
+    "Voodoo.UI.Particles",
+    "__Generated"
+  ],
+  "methods": 7485,
+  "nativeBytes": 2241332,
+  "placeholders": 38236,
+  "status": {
+    "EXACT": 2867,
+    "PARTIAL": 4493,
+    "HIGH_CONFIDENCE": 81,
+    "FALLBACK": 44
+  },
+  "byAssembly": {
+    "Facebook.Unity.Settings": {
+      "EXACT": 2,
+      "PARTIAL": 44
+    },
+    "Facebook.Unity": {
+      "PARTIAL": 664,
+      "HIGH_CONFIDENCE": 6,
+      "EXACT": 455,
+      "FALLBACK": 7
+    },
+    "Voodoo.UI.Particles": {
+      "EXACT": 36,
+      "PARTIAL": 69,
+      "FALLBACK": 1,
+      "HIGH_CONFIDENCE": 1
+    },
+    "RFLib_DotNet_2018_ios": {
+      "EXACT": 43,
+      "PARTIAL": 26,
+      "HIGH_CONFIDENCE": 1
+    },
+    "PathCreator": {
+      "EXACT": 50,
+      "PARTIAL": 73,
+      "FALLBACK": 6,
+      "HIGH_CONFIDENCE": 3
+    },
+    "GameAnalyticsSDK": {
+      "PARTIAL": 282,
+      "EXACT": 71,
+      "HIGH_CONFIDENCE": 5
+    },
+    "Assembly-CSharp": {
+      "EXACT": 473,
+      "PARTIAL": 610,
+      "FALLBACK": 4,
+      "HIGH_CONFIDENCE": 17
+    },
+    "__Generated": {
+      "FALLBACK": 2
+    },
+    "RayFireAssembly": {
+      "PARTIAL": 820,
+      "EXACT": 646,
+      "FALLBACK": 5,
+      "HIGH_CONFIDENCE": 13
+    },
+    "Newtonsoft.Json": {
+      "EXACT": 749,
+      "PARTIAL": 1369,
+      "FALLBACK": 14,
+      "HIGH_CONFIDENCE": 23
+    },
+    "Facebook.Unity.IOS": {
+      "PARTIAL": 34,
+      "EXACT": 45
+    },
+    "DOTween": {
+      "HIGH_CONFIDENCE": 12,
+      "PARTIAL": 502,
+      "EXACT": 297,
+      "FALLBACK": 5
+    }
+  },
+  "lostOperationClasses": {
+    "BRANCH": 28,
+    "CALL": 14,
+    "FIELD": 3,
+    "ARRAY_READ": 2
+  },
+  "fingerprintIr": {
+    "ARITHMETIC": 5165,
+    "CALL": 5162,
+    "NEWOBJ": 2182,
+    "BRANCH": 3901,
+    "COMPARE": 3785,
+    "NULL_CHECK": 3479,
+    "STATIC_ACCESS": 5119,
+    "LOOP": 3901,
+    "ARRAY_READ": 472,
+    "ARRAY_WRITE": 163,
+    "INSTANCEOF": 18,
+    "CAST": 34
+  },
+  "fingerprintCSharp": {
+    "RETURN": 4198,
+    "ARITHMETIC": 5119,
+    "CALL": 6674,
+    "STATIC_ACCESS": 5224,
+    "NEWOBJ": 2620,
+    "THROW": 1305,
+    "COMPARE": 3773,
+    "NULL_CHECK": 2889,
+    "BRANCH": 3899,
+    "CAST": 1585,
+    "ARRAY_READ": 673,
+    "LOOP": 1440,
+    "ARRAY_WRITE": 210,
+    "SWITCH": 32,
+    "FIELD_ADDRESS": 291,
+    "INSTANCEOF": 9,
+    "NEWARR": 1
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 24486,
+      "files": 459
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 9763,
+      "files": 484
+    },
+    "INDIRECT_CALL": {
+      "count": 1228,
+      "files": 144
+    },
+    "INDIRECT_JUMP": {
+      "count": 883,
+      "files": 146
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 792,
+      "files": 169
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 405,
+      "files": 75
+    },
+    "OTHER": {
+      "count": 9,
+      "files": 4
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 1536,
+      "lost": "FIELD",
+      "file": "JellyBlastV2/Assets/Scripts/RayFireAssembly/RayFire/RayfireCluster.cs"
+    },
+    {
+      "nativeBytes": 268,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "ARRAY_READ",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeParser.cs"
+    },
+    {
+      "nativeBytes": 212,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Voodoo.UI.Particles/Voodoo/UI/Particles/Utils/ListExtensions.cs"
+    },
+    {
+      "nativeBytes": 196,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/DOTween/DG/Tweening/Plugins/RectOffsetPlugin.cs"
+    },
+    {
+      "nativeBytes": 184,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/StringUtils.cs"
+    },
+    {
+      "nativeBytes": 176,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/PathCreator/PathCreation/Utility/CubicBezierUtility.cs"
+    },
+    {
+      "nativeBytes": 176,
+      "lost": "ARRAY_READ",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeParser.cs"
+    },
+    {
+      "nativeBytes": 172,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/PathCreator/PathCreation/Utility/CubicBezierUtility.cs"
+    },
+    {
+      "nativeBytes": 168,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/PathCreator/PathCreation/Utility/CubicBezierUtility.cs"
+    },
+    {
+      "nativeBytes": 140,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/DOTween/DG/Tweening/Tweener.cs"
+    },
+    {
+      "nativeBytes": 136,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Assembly-CSharp/AudioManager.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Assembly-CSharp/AudioManager.cs"
+    },
+    {
+      "nativeBytes": 128,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Facebook.Unity/Facebook/Unity/CodelessCrawler.cs"
+    },
+    {
+      "nativeBytes": 124,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/PathCreator/PathCreation/BezierPath.cs"
+    },
+    {
+      "nativeBytes": 116,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/DOTween/DG/Tweening/Plugins/UintPlugin.cs"
+    },
+    {
+      "nativeBytes": 112,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Facebook.Unity/Facebook/Unity/Editor/Dialogs/MockShareDialog.cs"
+    },
+    {
+      "nativeBytes": 112,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs"
+    },
+    {
+      "nativeBytes": 112,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs"
+    },
+    {
+      "nativeBytes": 108,
+      "lost": "BRANCH,CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Facebook.Unity/Facebook/Unity/ShareResult.cs"
+    },
+    {
+      "nativeBytes": 100,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/PathCreator/PathCreation/BezierPath.cs"
+    },
+    {
+      "nativeBytes": 92,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/RayFireAssembly/RayFire/RayfireUnyielding.cs"
+    },
+    {
+      "nativeBytes": 92,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs"
+    },
+    {
+      "nativeBytes": 80,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    },
+    {
+      "nativeBytes": 72,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/__Generated/System/__Il2CppComObject.cs"
+    },
+    {
+      "nativeBytes": 72,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/__Generated/System/__Il2CppComDelegate.cs"
+    },
+    {
+      "nativeBytes": 72,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Assembly-CSharp/EasingFunction.cs"
+    },
+    {
+      "nativeBytes": 68,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Facebook.Unity/Facebook/Unity/ComponentFactory.cs"
+    },
+    {
+      "nativeBytes": 52,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/PathCreator/PathCreation/Utility/MathUtility.cs"
+    },
+    {
+      "nativeBytes": 44,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/RayFireAssembly/RayFire/RayfireWind.cs"
+    },
+    {
+      "nativeBytes": 44,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs"
+    },
+    {
+      "nativeBytes": 32,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlElementWrapper.cs"
+    },
+    {
+      "nativeBytes": 28,
+      "lost": "CALL",
+      "file": "JellyBlastV2/Assets/Scripts/Facebook.Unity/Facebook/Unity/Constants.cs"
+    },
+    {
+      "nativeBytes": 28,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/MathUtils.cs"
+    },
+    {
+      "nativeBytes": 24,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Assembly-CSharp/FBWindowsInitManager.cs"
+    },
+    {
+      "nativeBytes": 16,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ReflectionUtils.cs"
+    },
+    {
+      "nativeBytes": 12,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Facebook.Unity/Facebook/Unity/ResultBase.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH,FIELD",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonPrimitiveContract.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH,FIELD",
+      "file": "JellyBlastV2/Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonPrimitiveContract.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/Facebook.Unity/Facebook/Unity/ResultBase.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/DOTween/DG/Tweening/Core/SafeModeReport.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH",
+      "file": "JellyBlastV2/Assets/Scripts/DOTween/DG/Tweening/Core/SafeModeReport.cs"
+    }
+  ]
+}

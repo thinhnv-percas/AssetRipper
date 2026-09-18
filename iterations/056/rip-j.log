@@ -1,0 +1,1327 @@
+System : System Tester
+System : System Version: Unix 6.18.44.33
+System : Operating System: Linux x64
+System : AssetRipper Version: 1.3.14.0
+System : AssetRipper Build Type: Release Compiled
+System : UTC Current Time: Fri Sep 18 10:24:19 UTC 2026
+System : UTC Compile Time: Unknown
+
+General : Configuration Settings:
+General : ExportRootPath: /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.SystemTester/Release/Ripped
+General : ScriptContentLevel: Level3
+General : StreamingAssetsMode: Extract
+General : DefaultVersion: 0.0.0a0
+General : TargetVersion: 0.0.0a0
+General : EmitIl2CppOffsets: True
+General : ReconstructNativeBodies: True
+General : Il2CppStructDbPath: /home/user/AssetRipper/StructDb
+General : EnablePrefabOutlining: False
+General : EnableStaticMeshSeparation: True
+General : EnableAssetDeduplication: False
+General : BundledAssetsExportMode: DirectExport
+General : AudioExportFormat: Default
+General : ImageExportFormat: Png
+General : LightmapTextureExportFormat: Yaml
+General : ScriptExportMode: Decompiled
+General : ScriptLanguageVersion: AutoSafe
+General : ShaderExportMode: Dummy
+General : SpriteExportMode: Yaml
+General : TextExportMode: Parse
+General : ExportUnreadableAssets: False
+General : PreferOriginalTextureExtension: True
+General : ClearExportDirectory: True
+Import : Attempting to read files from Test/Input/JellyBlastV2
+Import : iOS game structure has been found at 'Test/Input/JellyBlastV2'
+Import : Collecting game files...
+Import : Asset bundle 'data.unity3d' has been found
+Import : Collecting Streaming Assets...
+Import : Files use the 'IL2Cpp' scripting backend.
+Import : Il2Cpp recovery installed: offset attributes on, body reconstruction on, struct database /home/user/AssetRipper/StructDb.
+Import : During Il2Cpp initialization, found Unity version: 2022.3.53f1
+Cpp2IL : Initializing Metadata...
+Cpp2IL : Using actual IL2CPP Metadata version 31.1
+Cpp2IL : Initialized Metadata in 190ms
+Cpp2IL : Using binary type Mach-O File (from LibCppIL)
+Cpp2IL : Searching Binary for Required Data...
+Cpp2IL : Got Binary codereg: 0x2C723A8, metareg: 0x2D234B8 in 137ms.
+Cpp2IL : Initializing Binary...
+Cpp2IL : Initialized Binary in 112ms
+Cpp2IL : Mapping pointers to Il2CppMethodDefinitions...
+Cpp2IL : Processed 58890 OK (85ms)
+Cpp2IL : Creating application model...
+Cpp2IL : Application model created in 1155.1456ms
+Import : IL2CPP struct database: 370 Unity versions indexed from /home/user/AssetRipper/StructDb
+Import [Warning] : IL2CPP struct database has no layout for Unity 2022.3.53f1; using 2021.2.9f1 instead. Runtime field names in recovered method bodies may be wrong if the layout changed between these versions.
+Import : IL2CPP struct database: applied 9 measured Il2CppClass and 4 MethodInfo offsets for Unity 2021.2.9f1 (64-bit).
+Import : IL2CPP struct database loaded: Unity 2021.2.9f1, 64-bit, sizeof(Il2CppClass) = 312
+Import : Il2Cpp recovery: Unity 2022.3.53f1, metadata v31.1, 64-bit, instruction set Arm64InstructionSetSelector.
+Import : Il2Cpp recovery: 14 assemblies will be attempted, 43 framework assemblies will be stubbed. Attempted: Assembly-CSharp, Assembly-CSharp-firstpass, DOTween, Facebook.Unity, Facebook.Unity.IOS, Facebook.Unity.Settings, GameAnalyticsSDK, Mono.Security, Newtonsoft.Json, PathCreator, RayFireAssembly, RFLib_DotNet_2018_ios, Voodoo.UI.Particles, __Generated
+Import : Il2Cpp field layout self-check: of 2800 non-generic types with measured offsets, 2654 reproduced exactly, 146 laid out too few fields, 0 disagreed.
+Import : Il2Cpp value-type layout self-check: of 855 non-generic structs with measured offsets, 721 reproduce at metadata+header, 0 at metadata itself, 20 at neither, 114 could not be laid out.
+Import : Il2Cpp recovery: 29 il2cpp runtime helpers located, 6 not.
+Import : Il2Cpp recovery: helpers located: il2cpp_codegen_initialize_runtime_metadata=0xF3F214, il2cpp_codegen_initialize_runtime_metadata_inline=0xF3F22C, il2cpp_runtime_class_init_export=0xF3D6BC, il2cpp_runtime_class_init_actual=0xF99C94, il2cpp_codegen_runtime_class_init=0xF3F368, il2cpp_object_new=0xF3D66C, il2cpp_vm_object_new=0xF73860, il2cpp_codegen_object_new=0xF3F48C, il2cpp_array_new_specific=0xF3CCB0, il2cpp_vm_array_new_specific=0xF73230, SzArrayNew=0xF3F2CC, il2cpp_type_get_object=0xF3D74C, il2cpp_vm_reflection_get_type_object=0xF75550, il2cpp_resolve_icall=0xF3CC94, InternalCalls_Resolve=0xF84798, il2cpp_string_new=0xF3D6D4, il2cpp_vm_string_new=0xF712C8, il2cpp_string_new_wrapper=0xF3D6D8, il2cpp_vm_string_newWrapper=0xF712C8, il2cpp_codegen_string_new_wrapper=0xF3D6D4, il2cpp_value_box=0xF3D694, il2cpp_vm_object_box=0xF7379C, il2cpp_object_unbox=0xF3D690, il2cpp_vm_object_unbox=0xE22C00, il2cpp_raise_exception=0xF3D260, il2cpp_vm_exception_raise=0xF82FD8, il2cpp_class_is_assignable_from=0xF3CCE0, il2cpp_vm_class_is_assignable_from=0xF9E4C0, il2cpp_vm_object_is_inst=0xF3F368
+Import : Il2Cpp recovery: helpers not located: il2cpp_codegen_initialize_method, il2cpp_vm_metadatacache_initializemethodmetadata, il2cpp_codegen_raise_exception, il2cpp_codegen_object_is_inst, il2cpp_codegen_write_barrier, AddrPInvokeLookup
+Import : Il2Cpp recovery: sampled 200 methods from the game's assemblies — 200 lifted to ISIL, 0 produced none, 0 over the 30000 byte analysis cap, 0 threw.
+Import : Native source injection: reconstructed 8646 method bodies.
+Cpp2IL : Finding key function addresses...
+Cpp2IL : Key function addresses found in 0.0043ms
+Import : Il2Cpp method body recovery attempted 9068 methods; 0 failed to convert. Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.
+Import : Il2Cpp method body recovery: 0 calls to a C library function were emitted as the C# operation equivalent to it.
+Import : Il2Cpp method body recovery: 36 interface dispatches compiled as a runtime lookup were resolved to the interface method the slot names.
+Import : Il2Cpp method body recovery: 12547 calls became a placeholder, by how many managed methods sit on the address:
+Import :          9865 NO_MANAGED_METHOD
+Import :          1654 SHARED_2
+Import :          1028 NOT_AN_ADDRESS
+Import : Il2Cpp method body recovery: the same calls, by what would have to change to resolve them:
+Import :          5968 RUNTIME_HELPER_VENEER
+Import :          3828 RUNTIME_HELPER
+Import :          1654 GENERIC_SHARED
+Import :          1028 INDIRECT_TARGET
+Import :            69 ATOMIC_COMPARE_EXCHANGE
+Import : Il2Cpp method body recovery: 1852 indirect jumps survived across 17829 analysed method bodies, by what the target register holds:
+Import :           779 VTABLE_SLOT
+Import :           425 LOADED_POINTER:UNKNOWN:PRODUCERS_DISAGREE
+Import :           193 DEFINED_BY_Add
+Import :           181 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Add
+Import :           162 LOADED_POINTER:NATIVE_POINTER
+Import :            66 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Newobj
+Import :            24 LOADED_POINTER:UNKNOWN:ENTRY_VALUE
+Import :             8 LOADED_FROM_valuetype
+Import :             6 MANAGED_FIELD
+Import :             4 LOADED_FROM_reference
+Import :             2 LOADED_FROM_delegate
+Import :             2 OTHER_ArrayLength
+Import : Il2Cpp method body recovery: 3169 indirect calls survived, by what the target holds - and for a vtable slot, by what the virtual resolver would have said:
+Import :          1298 LOADED_POINTER:UNKNOWN:PRODUCERS_DISAGREE
+Import :           616 LOADED_POINTER:NATIVE_POINTER
+Import :           493 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Add
+Import :           389 LOADED_FROM_reference
+Import :           110 LOADED_FROM_valuetype
+Import :            86 VTABLE_SLOT_UNRESOLVED
+Import :            58 LOADED_POINTER:UNKNOWN:ENTRY_VALUE
+Import :            40 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Newobj
+Import :            23 METHODINFO_INVOKER_METHOD
+Import :            10 DEFINITIONS_DISAGREE
+Import :             8 LOADED_POINTER:FIELD_POINTER
+Import :             6 LOADED_POINTER:VTABLE_POINTER
+Import :             6 VTABLE_NO_SLOT_LOAD
+Import :             6 LOADED_POINTER:STACK_POINTER
+Import :             6 VTABLE_RESOLVABLE
+Import :             4 MANAGED_FIELD
+Import :             2 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Subtract
+Import :             2 LOADED_POINTER:METHOD_POINTER
+Import :             2 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Move
+Import :             2 VTABLE_OFFSET_BEFORE_TABLE
+Import :             2 LOADED_POINTER:IL2CPP_CLASS_POINTER
+Import : Il2Cpp method body recovery: 28105 memory loads the generator gave up on, by kind:
+Import :          7033 base has no type, from Move from [Int32 + 0x0]   e.g. DateTimeUtils.TryParseMicrosoftDate: 149 CheckEqual v166 @ TEMP_v14 (System.Boolean), [v164 @ X0_v14+E0], 0
+Import :          4583 base has no type, from Move from an untyped base   e.g. JsonConvert.EnsureFloatFormat: 75 Move v110 @ X19_v2 (System.String), [v109 @ X8_v11+18]
+Import :          2074 base has no type, from Add of an untyped local and Immediate   e.g. JsonWriter.ResolveConvertibleValue: 138 CheckEqual v290 @ Z_v7 (System.Boolean), [v276 @ X10_v5-8], [v241 @ X8_v9 (System.Int32)]
+Import :          2040 Il2CppClass.0x12E   e.g. JsonWriter.ResolveConvertibleValue: 128 Move v277 @ X9_v6, [v243 @ X8_v10 (Il2CppClass<System.IConvertible>)+12E]
+Import :          1986 absolute address   e.g. JsonTextWriter.WriteValue: 38 And v57 @ TEMP_v24 (System.Int32), [302D77E], 1
+Import :          1355 past the last field of the base type   e.g. DefaultJsonNameTable.AddEntry: 120 Return [v110 @ X0_v10 (System.Object)+10]
+Import :          1013 Il2CppClass.interfaceOffsets   e.g. JsonWriter.ResolveConvertibleValue: 132 Add v276 @ X10_v5, [v243 @ X8_v10 (Il2CppClass<System.IConvertible>)+B0], 8
+Import :           847 value type base   e.g. DateTimeUtils.TryParseDateTimeOffsetMicrosoft: 53 CheckEqual v79 @ TEMP_v11 (System.Boolean), [text @ X0 (Newtonsoft.Json.Utilities.StringReference)+E0], 0
+Import :           714 base has no type, from Move from AddressOf(stack_-10)   e.g. JsonReader.get_Path: 66 Move [v8 @ X29_v1-30], 0
+Import :           618 base has no type, from a call's result   e.g. EmptyArrayContainer`1..cctor: 65 Move v75 @ X8_v17, [v58 @ X0_v17+C0]
+Import :           326 Il2CppClass.typeHierarchyDepth   e.g. JsonReader.ReadAsString: 215 CheckLess v371 @ C_v14 (System.Boolean), [v368 @ X8_v22 (Il2CppClass<System.Uri>)+130], [v367 @ X9_v14+130]
+Import :           320 generic instance, inside the layout, on no field, value type argument   e.g. JsonPosition.BuildPath: 128 Move v308 @ V0_v4 (Newtonsoft.Json.JsonPosition), [currentPosition @ X1 (System.Nullable`1<Newtonsoft.Json.JsonPosition>)+8]
+Import :           312 Il2CppClass.typeHierarchy   e.g. JsonReader.ReadAsString: 228 Add v391 @ X10_v5, [v368 @ X8_v22 (Il2CppClass<System.Uri>)+C8], v390 @ TEMPSHIFT_v4 (System.Int32)
+Import :           276 base has no type, from Newobj   e.g. ImmutableCollectionsUtils..cctor: 146 Add v118 @ X9_v3, [v67 @ X0_v3+1C], 1
+Import :           244 between fields of the base type   e.g. JsonSerializerSettings.get_MissingMemberHandling: 24 Return [this @ X0 (Newtonsoft.Json.JsonSerializerSettings)+98]
+Import :           214 Il2CppClass.0x135   e.g. EmptyArrayContainer`1..cctor: 30 And v50 @ TEMP_v7 (System.Int32), [v47 @ X0_v6 (Il2CppClass<Newtonsoft.Json.Utilities.CollectionUtils+EmptyArrayContainer`1>)+135], 1
+Import :           142 base has no type, from Add of an untyped base and Int32   e.g. JsonWriter.AutoComplete: 80 CheckEqual v150 @ Z_v6 (System.Boolean), [v158 @ X9_v6+20], 9
+Import :           119 base has no type, from no definition   e.g. BidirectionalDictionary`2.Set: 65 Move v53 @ X3_v12, [v265 @ X0_v64+8]
+Import :           113 base has no type, from Move from an untyped local   e.g. JsonConvert.SerializeObject: 28 CheckEqual v69 @ TEMP_v29 (System.Boolean), [v97 @ X0_v28+E0], 0
+Import :           109 generic instance, no layout, reference arguments   e.g. CollectionUtils.AddRange: 95 Move v490 @ X2_v6 (Il2CppMethodInfo), [initial @ X0 (System.Collections.Generic.IList`1<T>)+8]
+Import :           107 base has no type, from Move from AddressOf(an untyped local)   e.g. JsonTextReader.ReadAsInt32: 64 CheckNotEqual v91 @ TEMPCOND_v3 (System.Boolean), [v118 @ X9_v4], [v9 @ X29-28]
+Import :           107 Il2CppClass.0x28   e.g. CollectionWrapper`1.Add: 48 CheckLess v70 @ N_v11 (System.Boolean), [v56 @ X24_v1 (Il2CppClass<T>)+28], 0
+Import :            88 base has no type, from Add of an untyped local and Int32   e.g. JsonWriter.AutoComplete: 74 Add v158 @ X9_v6, [v107 @ X8_v7+20], v139 @ TEMPSHIFT_v5 (System.Int32)
+Import :            75 base has no type, from Add of the field NativeArray`1<Unity.Mathematics.float2> and Int32   e.g. Block.CheckClear: 74 Subtract v419 @ V0_v9 (System.Single), v403.y (System.Single), [v395 @ X8_v16+4]
+Import :            63 base has no type, from Add of the field Vector3[] and Int32   e.g. RFDemolitionMesh.MeshesToObjects: 240 Add v245 @ V2_v6 (System.Single), v258.z (System.Single), [v435 @ X8_v20+28]
+Import :            60 base has no type, from Add of [Il2CppClass<System.Object> + 0xC8] and Int32   e.g. ReflectionUtils.GetAttributes: 78 CheckEqual v86 @ Z_v16 (System.Boolean), [v80 @ X10_v16-8], v55 @ X0_v13
+Import :            56 Il2CppClass.0xFC   e.g. <>c__55`2.<BuildMapCreator>b__55_1: 20 Add v26 @ X9_v3, [v22 @ X9_v1 (Il2CppClass<TKey>)+FC], 15
+Import :            51 Il2CppClass.0x200   e.g. JsonWriter.WriteEnd: 52 Move v34 @ X1_v1, [v29 @ X9_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+200]
+Import :            50 generic instance, past the layout, value type argument   e.g. <>c__DisplayClass55_0`2.<BuildMapCreator>b__0: 79 CheckEqual v156 @ TEMP_v15 (System.Boolean), [v110 @ X0_v16 (System.Func`2<System.Collections.Generic.KeyValuePair`2<TKey, TValue>, System.Tuple`2<TKey, TValue>>)+E0], 0
+Import :            36 base has no type, from Move from Immediate   e.g. JsonReader.ReadDateTimeOffsetString: 210 And v295 @ TEMP_v21 (System.Int32), [v71 @ X24_v3+791], 1
+Import :            36 Il2CppClass.0x190   e.g. JsonWriter.set_StringEscapeHandling: 19 Move v23 @ X1_v3, [v21 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+190]
+Import :            36 Il2CppClass.0x290   e.g. JsonTextWriter.WriteValue: 80 Move v64 @ X1_v1, [v62 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+290]
+Import :            35 Il2CppClass.0x288   e.g. JsonTextWriter.WriteValue: 79 Move v63 @ X2_v1, [v62 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+288]
+Import :            34 base has no type, from Move from [Object + 0x10]   e.g. XmlNodeConverter.SerializeGroupedNodes: 515 CheckLess v1596 @ C_v66 (System.Boolean), [v435 @ X0_v98 (System.Object)+18], [v1476 @ X9_v58+18]
+Import :            32 array at 0x20, from a call's result   e.g. PathPlugin.SetChangeValue: 341 Move [v332 @ X0_v22 (UnityEngine.Vector3[])+20], v440 @ V0_v4 (UnityEngine.Vector3)
+Import :            30 base has no type, from Move from [StringBuilder + 0x0]   e.g. CatalogResult.ToString: 129 Move v438 @ X9_v27, [v384 @ X8_v22+12E]
+Import :            30 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XObject> + 0xC8] and Int32   e.g. XDocumentWrapper.get_ChildNodes: 93 CheckNotEqual v122 @ TEMPCOND_v4 (System.Boolean), [v195 @ X8_v7-8], v86 @ X1_v2
+Import :            29 Il2CppClass.0x180   e.g. JsonTextReader.ParseProperty: -1 Move v35 @ X4_v6, [v278 @ X8_v24 (Il2CppClass<Newtonsoft.Json.JsonNameTable>)+180]
+Import :            28 generic instance, past the layout, reference arguments   e.g. <GetEnumerator>d__2.MoveNext: 83 Move v148 @ X8_v68, [this @ X0 (Newtonsoft.Json.Serialization.DefaultContractResolver+EnumerableDictionaryWrapper`2<TEnumeratorKey, TEnumeratorValue>+<GetEnumerator>d__2<TEnumeratorKey, TEnumeratorValue>)+28]
+Import :            28 Il2CppClass.0x2A0   e.g. CollectionUtils.ResolveEnumerableCollectionConstructor: 315 Move v180 @ X2_v7, [v556 @ X8_v23 (Il2CppClass<System.Type>)+2A0]
+Import :            27 base has no type, from Add of [Il2CppClass<System.Reflection.MemberInfo> + 0xC8] and Int32   e.g. ReflectionDelegateFactory.CreateGet: 54 CheckEqual v130 @ Z_v9 (System.Boolean), [v124 @ X11_v8-8], v51 @ X10_v4
+Import :            26 base has no type, from Move from [Object + 0x30]   e.g. RayfireActivator.RigidListActivationCheck: 220 CallVoid RayfireActivator.AddForce, this @ X0 (RayFire.RayfireActivator), [v133 @ X8_v24+40]
+Import :            25 Il2CppClass.0x1D0   e.g. JsonSerializer.ApplySerializerSettings: 637 Move v102 @ X2_v19 (Il2CppMethodInfo), [v989 @ X8_v68 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+1D0]
+Import :            25 Il2CppClass.cctor_finished   e.g. EnumUtils.ParseEnum: 239 CheckEqual v823 @ TEMP_v60 (System.Boolean), [v821 @ X0_v156 (Il2CppClass<System.ArgumentException>)+E0], 0
+Import :            25 base has no type, from Add of Vector3[] and Int32   e.g. RFCombineMesh.GetCombinedMesh: 267 Negate v874 @ V0_v6, [v863 @ X8_v115+20]
+Import :            25 base has no type, from Add of an untyped local and an untyped local   e.g. RFTriangle.SetTriangles: 371 Move [v317 @ X0_v40 (System.Object)+14], [v349 @ X8_v33+20]
+Import :            25 negative offset off a typed base   e.g. DefaultContractResolver.GetSerializableMembers: 225 CheckEqual v435 @ Z_v65 (System.Boolean), [v420 @ X10_v68 (System.Int32)-8], [v211 @ X8_v116 (System.Int32)]
+Import :            24 byref at 0x4, from no definition   e.g. FluidSolver.<RadialDestroyRoutine>g__ShouldHitAtPosition|183_0: 33 Subtract v60 @ V9_v2 (System.Single), pos.y (System.Single), [ @ X1 (<>c__DisplayClass183_0&)+4]
+Import :            24 Il2CppClass.0x1A0   e.g. JsonWriter.Dispose: 33 Move v38 @ X1_v1, [v36 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1A0]
+Import :            23 Il2CppClass.0x168   e.g. EnumUtils.InternalFlagsFormat: 248 Move v321 @ X2_v6, [v371 @ X8_v13 (Il2CppClass<System.Text.StringBuilder>)+168]
+Import :            23 Il2CppClass.0x210   e.g. JsonTextWriter.WriteValue: 107 Move v77 @ X2_v7, [v90 @ X8_v12 (Il2CppClass<System.IO.TextWriter>)+210]
+Import :            23 Il2CppClass.0x310   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+310]
+Import :            23 array at 0x2C, from a call's result   e.g. DOTweenModuleSprite.DOGradientColor: 109 MakeStruct v291 @ AGGFC9B60_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+20], [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+24], [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+28], [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+2C]
+Import :            23 Il2CppClass.0x170   e.g. EnumUtils.InternalFlagsFormat: 249 Move v354 @ X1_v7, [v371 @ X8_v13 (Il2CppClass<System.Text.StringBuilder>)+170]
+Import :            22 Il2CppClass.0x208   e.g. JsonTextWriter.WriteValue: 106 Move v65 @ X3_v3, [v90 @ X8_v12 (Il2CppClass<System.IO.TextWriter>)+208]
+Import :            22 base has no type, from Add of [Vector3[]& + 0x0] and Int32   e.g. RFFragment.Compute: 303 Call F3F1B4, v936 @ X0_v87, v935 @ X0_v86, v412[v451 @ X23_v13 (System.Int32)], v321 @ X2_v21 (UnityEngine.Mesh[]&), v314 @ X3_v7 (UnityEngine.Vector3[]&), v537 @ X4_v3 (UnityEngine.Mesh), v306 @ X5_v5 (System.Int32), v303 @ X6_v5 (System.Collections.Generic.List`1<System.Collections.Generic.Dictionary`2<System.Int32, System.Int32>>&), v355 @ X7_v5 (System.Collections.Generic.List`1<System.Int32>), [v955 @ X9_v23+20], [v955 @ X9_v23+24], [v955 @ X9_v23+28], v53 @ V3, v54 @ V4, v55 @ V5, v56 @ V6, v57 @ V7
+Import :            22 array at 0x28, from a call's result   e.g. PathPlugin.SetChangeValue: 430 Move [v855 @ X8_v21+8], [v332 @ X0_v22 (UnityEngine.Vector3[])+28]
+Import :            21 base has no type, from Add of the field CollectParticleData[] and Int32   e.g. FluidCollectDisplay.FixedUpdate: 83 CheckEqual v404 @ Z_v7 (System.Boolean), [v462 @ X8_v8-14], 2
+Import :            21 array at 0x30, from a call's result   e.g. DOTweenModuleSprite.DOGradientColor: 85 CheckLess v279 @ C_v5 (System.Boolean), [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+30], 0
+Import :            20 Il2CppClass.0x1E0   e.g. JsonWriter.WriteEnd: 63 Move v66 @ X1_v2, [v62 @ X9_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1E0]
+Import :            19 Il2CppClass.0x250   e.g. JsonTextWriter.WriteValue: 53 Move v74 @ X2_v2, [v72 @ X8_v6 (Il2CppClass<System.IO.TextWriter>)+250]
+Import :            19 base has no type, from Move from an absolute address   e.g. JValue.GetValueType: 496 CheckLess v640 @ C_v45 (System.Boolean), [v265 @ X8_v20+130], [v172 @ X9_v54+130]
+Import :            19 array at 0x28, from Move from the field Vector3[]   e.g. RayfireBlade.TriggerExit: 155 Add v293 @ V1_v6 (System.Single), [v99 @ X8_v10 (UnityEngine.Vector3[])+28], [v52 @ X9_v3 (UnityEngine.Vector3[])+28]
+Import :            18 base has no type, from Add of the field NativeArray`1<FluidPhysicsCoupler+BodyData> and Int32   e.g. PositionProjectJob.Execute: 111 Multiply v418 @ V0_v13, [v344 @ X8_v13+1C], [v344 @ X8_v13+1C]
+Import :            18 base has no type, from Subtract   e.g. DictionaryWrapper`2.get_Item: 154 Move v287 @ X8_v35, [v219 @ X3_v1+20]
+Import :            18 base has no type, from Move from [List`1<System.Char> + 0x0]   e.g. JavaScriptUtils..cctor: 397 Move v1058 @ X9_v104, [v1016 @ X8_v34+12E]
+Import :            18 Il2CppClass.0x2D0   e.g. ReflectionUtils.GetFullyQualifiedTypeName: 72 Move v101 @ X1_v1, [v99 @ X8_v3 (Il2CppClass<System.Type>)+2D0]
+Import :            17 array at 0x44, from a call's result   e.g. VertexPathUtility.SplitBezierPathByAngleError: 839 Multiply v1523 @ V2_v22 (System.Single), [v677 @ X0_v32 (UnityEngine.Vector3[])+44], v1021 @ V2.S0
+Import :            17 base has no type, from Move from [Object + 0x18]   e.g. ReflectionUtils.GetChildPrivateProperties: 183 Move v94 @ X25_v10, [v266 @ X8_v49+10]
+Import :            17 base has no type, from Move from [String + 0x0]   e.g. PurchasePage.<LoadPurchases>b__12_0: 220 Move v894 @ X9_v54, [v843 @ X8_v28+12E]
+Import :            17 Il2CppClass.0x230   e.g. JsonTextWriter.WriteValue: 63 Move v128 @ X4_v1, [v126 @ X8_v26 (Il2CppClass<System.IO.TextWriter>)+230]
+Import :            17 base has no type, from Add of an untyped base and an untyped local   e.g. RFTriangle.SetTriangles: 214 MakeStruct v117 @ AGG1E46F54_1_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v588 @ X8_v22+20], [v588 @ X8_v22+24], [v588 @ X8_v22+28]
+Import :            17 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Linq.JToken> + 0xC8] and Int32   e.g. JProperty.SetItem: 67 CheckEqual v181 @ Z_v12 (System.Boolean), [v282 @ X10_v11-8], v145 @ X9_v12
+Import :            16 Il2CppClass.0x198   e.g. JsonWriter.Dispose: 32 Move v37 @ X2_v1, [v36 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+198]
+Import :            16 array at 0x4C, from a call's result   e.g. VertexPathUtility.SplitBezierPathByAngleError: 815 Multiply v1502 @ V5_v9 (System.Single), v1501 @ V4_v12 (System.Single), [v677 @ X0_v32 (UnityEngine.Vector3[])+4C]
+Import :            16 array at 0x24, from a call's result   e.g. DOTweenModuleSprite.DOGradientColor: 109 MakeStruct v291 @ AGGFC9B60_1_v4 (UnityEngine.Color), typeof(UnityEngine.Color), [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+20], [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+24], [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+28], [v94 @ X0_v5 (UnityEngine.GradientColorKey[])+2C]
+Import :            16 Il2CppClass.0x1B0   e.g. ReflectionObject.Create: 269 Move v744 @ X1_v27, [v672 @ X8_v15 (Il2CppClass<System.Reflection.MemberInfo>)+1B0]
+Import :            16 Il2CppClass.0x1C0   e.g. JsonWriter.WriteEnd: 41 Move v93 @ X1_v7, [v116 @ X9_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1C0]
+Import :            16 Il2CppClass.0x248   e.g. JsonTextWriter.WriteValue: 52 Move v73 @ X3_v1, [v72 @ X8_v6 (Il2CppClass<System.IO.TextWriter>)+248]
+Import :            16 Il2CppClass.0x1C8   e.g. TraceJsonReader.get_Path: 8 Move v10 @ X2_v1, [v9 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+1C8]
+Import :            15 Il2CppClass.0x390   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+390]
+Import :            15 base has no type, from Move from [Object + 0x0]   e.g. PurchasePage.<LoadProducts>b__11_0: 282 Move v1011 @ X9_v50, [v968 @ X8_v31+12E]
+Import :            15 generic instance, inside the layout, on no field, reference arguments   e.g. StructMultiKey`2.GetHashCode: 15 Move v47 @ X0_v5, [this @ X0 (Newtonsoft.Json.Utilities.StructMultiKey`2<T1, T2>)+8]
+Import :            15 byref at 0x1C, from no definition   e.g. FluidSolver.<RadialDestroyRoutine>g__ShouldHitAtPosition|183_0: 111 Subtract v217 @ TEMP1_v11 (System.Single), [ @ X1 (<>c__DisplayClass183_0&)+1C], v202 @ V0_v8 (System.Single)
+Import :            15 array at 0x20, from no definition   e.g. RFCluster.GetBoundsBound: 35 Subtract v66 @ V0_v1, [bounds @ X0 (UnityEngine.Bounds[])+20], [bounds @ X0 (UnityEngine.Bounds[])+2C]
+Import :            14 base has no type, from Add of the field Vector2[] and Int32   e.g. FluidCollectDisplay.OnPreComputeUpdate: 305 Subtract v839 @ V1_v25, [v837 @ X10_v17+20], [v707 @ X12_v7-10]
+Import :            14 Il2CppClass.0x298   e.g. <>c__DisplayClass44_1.<GetChildPrivateProperties>b__2: 101 Move v78 @ X3_v1, [v99 @ X8_v11 (Il2CppClass<System.Type>)+298]
+Import :            14 array at 0x20, from Move from the field Vector3[]   e.g. RayfireBlade.TriggerExit: 154 Add v292 @ V0_v6 (System.Single), [v99 @ X8_v10 (UnityEngine.Vector3[])+20], [v52 @ X9_v3 (UnityEngine.Vector3[])+20]
+Import :            14 array at 0x2C, from no definition   e.g. RFCluster.GetBoundsBound: 35 Subtract v66 @ V0_v1, [bounds @ X0 (UnityEngine.Bounds[])+20], [bounds @ X0 (UnityEngine.Bounds[])+2C]
+Import :            13 base has no type, from Add of StringReference and Int32   e.g. DateTimeUtils.TryReadOffset: 140 CheckNotEqual v140 @ TEMPCOND_v9 (System.Boolean), [v70 @ X8_v5+20], 45
+Import :            13 Il2CppClass.0x2F0   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2F0]
+Import :            13 array at 0x34, from a call's result   e.g. BezierPath..ctor: 297 MakeStruct v568 @ AGG1E3AD3C_1_v5 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v65 @ X0_v4 (UnityEngine.Vector3[])+2C], [v65 @ X0_v4 (UnityEngine.Vector3[])+30], [v65 @ X0_v4 (UnityEngine.Vector3[])+34]
+Import :            12 base has no type, from Move from [<Start>d__9 + 0x0]   e.g. <Start>d__9.MoveNext: 326 Move v1093 @ X9_v57, [v944 @ X8_v74+12E]
+Import :            12 base has no type, from Move from [ArrayList + 0x0]   e.g. AuthenticodeDeformatter.VerifySignature: 424 Move v1486 @ X9_v43, [v1355 @ X8_v71+12E]
+Import :            12 Il2CppClass.0x178   e.g. DynamicProxyMetaObject`1.GetDynamicMemberNames: 41 Move v68 @ X3_v1, [v70 @ X8_v5 (Il2CppClass<Newtonsoft.Json.Utilities.DynamicProxy`1<T>>)+178]
+Import :            12 base has no type, from Move from [IEnumerator + 0x0]   e.g. PKCS12.GetBytes: 1711 Move v3702 @ X9_v181, [v3597 @ X8_v34+12E]
+Import :            12 array at 0x48, from a call's result   e.g. BezierPath.CalculateBoundsWithTransform: -1 Move v1048 @ V6_v6 (UnityEngine.Vector3), [v546 @ X0_v15 (UnityEngine.Vector3[])+48]
+Import :            12 base has no type, from Add of the field NativeArray`1<Unity.Mathematics.float4> and Int32   e.g. <>c__DisplayClass5_0.<OnSolverAddParticles>b__0: 122 MakeStruct v21 @ AGGFF1F94_0_v3 (Unity.Mathematics.float4), typeof(Unity.Mathematics.float4), [v142 @ X8_v11], [v142 @ X8_v11+4], [v142 @ X8_v11+8], [v142 @ X8_v11+C]
+Import :            12 Il2CppClass.static_fields   e.g. <>c__DisplayClass55_0`2.<BuildMapCreator>b__0: 51 Move v185 @ X8_v19 (Il2CppStaticFields<Newtonsoft.Json.Utilities.FSharpUtils+<>c__55`2<TKey, TValue>>), [v182 @ X0_v17 (Il2CppClass<Newtonsoft.Json.Utilities.FSharpUtils+<>c__55`2<TKey, TValue>>)+B8]
+Import :            12 byref at 0x8, from no definition   e.g. FluidSolver.<RadialDestroyRoutine>g__ShouldHitAtPosition|183_0: 61 CheckLess v87 @ C_v19 (System.Boolean), v72 @ V0_v3 (System.Single), [ @ X1 (<>c__DisplayClass183_0&)+8]
+Import :            12 Il2CppClass.0x1A8   e.g. TypeExtensions.MemberType: 7 Move v9 @ X2_v1, [v8 @ X8_v1 (Il2CppClass<System.Reflection.MemberInfo>)+1A8]
+Import :            12 array at 0x40, from a call's result   e.g. VertexPathUtility.SplitBezierPathByAngleError: 492 Call CubicBezierUtility.EstimateCurveLength, v1213 @ V0_v20 (System.Single), v264 @ AGG1E41608_0_v4 (UnityEngine.Vector3), v259 @ AGG1E41608_1_v4 (UnityEngine.Vector3), &v677[2], [v677 @ X0_v32 (UnityEngine.Vector3[])+40]
+Import :            12 base has no type, from Add of Bounds[] and Int32   e.g. RFPhysic.GetIgnoreListShort: 170 Add v756 @ V5_v13, [v800 @ X8_v12+20], [v800 @ X8_v12+2C]
+Import :            12 array at 0x28, from no definition   e.g. RFCluster.GetBoundsBound: 36 Subtract v122 @ V3_v2, [bounds @ X0 (UnityEngine.Bounds[])+28], [bounds @ X0 (UnityEngine.Bounds[])+34]
+Import :            12 byref at 0x18, from no definition   e.g. FluidSolver.<RadialDestroyRoutine>g__ShouldHitAtPosition|183_0: 98 CheckEqual v141 @ Z_v6 (System.Boolean), [ @ X1 (<>c__DisplayClass183_0&)+18], 1
+Import :            12 base has no type, from Add of the field UInt32[] and Immediate   e.g. Kernel.Subtract: 113 Subtract v163 @ X2_v5, [v232 @ X16_v3+v199 @ X1_v7 (System.Int32)], v364 @ X0_v16
+Import :            12 base has no type, from Add of [Il2CppClass<UnityEngine.Component> + 0xC8] and Int32   e.g. RayfireActivator.OnParticleCollision: 148 CheckNotEqual v77 @ TEMPCSEL_v3 (System.Boolean), [v319 @ X9_v5-8], v192 @ X8_v9
+Import :            11 Il2CppClass.0x1F0   e.g. <>c.<GetMemberInfoFromType>b__39_0: 8 Move v10 @ X8_v2, [v8 @ X8_v1 (Il2CppClass<System.Reflection.ParameterInfo>)+1F0]
+Import :            11 Il2CppClass.0x228   e.g. JsonTextWriter.WriteValue: 62 Move v127 @ X5_v1, [v126 @ X8_v26 (Il2CppClass<System.IO.TextWriter>)+228]
+Import :            11 Il2CppClass.0x2B0   e.g. JsonWriter.WriteRawValue: 19 Move v24 @ X2_v1, [v22 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2B0]
+Import :            11 array at 0x0, from Move from the field Collider[]   e.g. RayfireBomb.SetObstacleHash: 136 Call Collider.get_attachedRigidbody, v567 @ X0_v43 (UnityEngine.Rigidbody), [v480 @ X8_v12 (UnityEngine.Collider[])+v108 @ X22_v8 (System.Int32)*8]
+Import :            10 Il2CppClass.0x18   e.g. RFDemolitionCluster.SetupPlaneShards: 148 Move v355 @ X23_v15 (System.Int32), [v328 @ X8_v9 (Il2CppClass<System.Collections.Generic.List`1<RayFire.RFCluster>>)+18]
+Import :            10 array at 0x38, from a call's result   e.g. VertexPathUtility.SplitBezierPathByAngleError: 837 Multiply v1521 @ V2_v21 (System.Single), [v677 @ X0_v32 (UnityEngine.Vector3[])+38], v1021 @ V2.S0
+Import :            10 Il2CppClass.0x240   e.g. JsonWriter.WriteToken: 29 Move v50 @ X5_v1, [v48 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+240]
+Import :            10 Il2CppClass.0x140   e.g. JsonSerializer.SetupReader: 86 Move v171 @ X2_v22 (System.Globalization.CultureInfo&), [v87 @ X8_v76 (Il2CppClass<System.Globalization.CultureInfo>)+140]
+Import :            10 base has no type, from Add of String and Int32   e.g. TweenerCore`3.ApplyTween: 498 CheckEqual v977 @ TEMP_v90 (System.Boolean), [v980 @ X8_v93+20], 0
+Import :            10 byref at 0x10, from no definition   e.g. RFShatter.DetachMesh: 170 ShiftLeft v194 @ TEMPSHIFT_v3 (System.Int32), [out_mesh_data @ X1 (safeMeshData&)+10], 1
+Import :            10 base has no type, from Add of [Il2CppClass<System.Security.Cryptography.AsymmetricAlgorithm> + 0xC8] and Int32   e.g. PrivateKeyInfo.Encode: 48 CheckEqual v121 @ Z_v7 (System.Boolean), [v115 @ X11_v6-8], v44 @ X10_v3
+Import :            10 Il2CppClass.0x2A8   e.g. JsonWriter.WriteRawValue: 18 Move v23 @ X3_v1, [v22 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2A8]
+Import :            10 Il2CppClass.0x1B8   e.g. JsonWriter.WriteEnd: 40 Move v96 @ X2_v5, [v116 @ X9_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1B8]
+Import :            10 base has no type, from Add of [Il2CppClass<UnityEngine.Object> + 0xC8] and Int32   e.g. ApplicationManager.get_appData: 106 CheckNotEqual v189 @ TEMPCSEL_v5 (System.Boolean), [v178 @ X10_v12-8], v157 @ X8_v13
+Import :            10 byref at 0xC, from no definition   e.g. MathUtility.ConstrainRot: 35 MakeStruct v48 @ AGG1E45D24_0_v3 (UnityEngine.Quaternion), typeof(UnityEngine.Quaternion), [rot @ X0 (UnityEngine.Quaternion&)], [rot @ X0 (UnityEngine.Quaternion&)+4], [rot @ X0 (UnityEngine.Quaternion&)+8], [rot @ X0 (UnityEngine.Quaternion&)+C]
+Import :            10 Il2CppClass.0x2C8   e.g. ReflectionUtils.GetFullyQualifiedTypeName: 71 Move v100 @ X2_v1, [v99 @ X8_v3 (Il2CppClass<System.Type>)+2C8]
+Import :             9 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Serialization.IContractResolver> + 0xC8] and Int32   e.g. JsonSerializer.SetupReader: 483 CheckNotEqual v799 @ TEMPCOND_v10 (System.Boolean), [v914 @ X10_v9-8], v835 @ X9_v11
+Import :             9 Il2CppMethodInfo.invoker_method   e.g. StringReferenceExtensions.StartsWith: 26 CheckLessOrEqual v35 @ TEMPCOND_v5 (System.Boolean), [methodInfo @ X2 (Il2CppMethodInfo)+10], v21 @ X9_v3 (System.Int32)
+Import :             9 array at 0x24, from Move from the field Vector3[]   e.g. PathPlugin.SetChangeValue: 209 MakeStruct v661 @ AGG104A33C_0_v9 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v356 @ X8_v40 (UnityEngine.Vector3[])+20], [v356 @ X8_v40 (UnityEngine.Vector3[])+24], [v356 @ X8_v40 (UnityEngine.Vector3[])+28]
+Import :             9 base has no type, from Move from [IList`1<Facebook.Unity.SubscribableProduct> + 0x0]   e.g. Utilities.ParseSubscribableCatalogFromResult: 166 Move v730 @ X9_v42, [v678 @ X8_v30+12E]
+Import :             9 base has no type, from Add of [Il2CppClass<Mono.Security.X509.X509Certificate> + 0xC8] and Int32   e.g. X509CertificateEnumerator.get_Current: 109 CheckNotEqual v239 @ TEMPCOND_v6 (System.Boolean), [v250 @ X8_v14-8], v91 @ X1_v5
+Import :             9 base has no type, from Add of Vector2[] and Immediate   e.g. DOTweenModulePhysics2D.DOLocalPath: 147 Move duration @ V0 (System.Single), [v316 @ X12_v4+v346 @ X9_v6 (System.Int32)*8]
+Import :             9 array at 0x38, from no definition   e.g. CubicBezierUtility.EvaluateCurve: 104 Multiply v112 @ V3_v3 (System.Single), [points @ X0 (UnityEngine.Vector3[])+38], v184 @ V4.S0
+Import :             9 base has no type, from Move from [IList`1<Facebook.Unity.Product> + 0x0]   e.g. Utilities.ParseCatalogFromResult: 166 Move v730 @ X9_v42, [v678 @ X8_v30+12E]
+Import :             9 Il2CppClass.0x260   e.g. JsonSerializer.ApplySerializerSettings: 528 Move v102 @ X2_v19 (Il2CppMethodInfo), [v859 @ X8_v89 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+260]
+Import :             9 base has no type, from Move from [JContainer + 0x0]   e.g. JContainer..ctor: 205 Move v755 @ X9_v21, [v688 @ X8_v35+12E]
+Import :             8 Il2CppClass.0x1D8   e.g. JsonWriter.WriteEnd: 62 Move v65 @ X2_v2, [v62 @ X9_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1D8]
+Import :             8 Il2CppClass.0x500   e.g. JArray.Add: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+500]
+Import :             8 base has no type, from Move from [Object + 0x38]   e.g. RayfireActivator.RigidListActivationCheck: 104 CheckEqual v299 @ TEMP_v17 (System.Boolean), [v132 @ X8_v11+20], 0
+Import :             8 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XElement> + 0xC8] and Int32   e.g. XElementWrapper.get_Element: 51 CheckNotEqual v60 @ TEMPCOND_v4 (System.Boolean), [v98 @ X8_v9-8], v42 @ X1_v2
+Import :             8 static field storage at 0x8   e.g. <>c__DisplayClass55_0`2.<BuildMapCreator>b__0: 52 Move v75 @ X22_v7 (System.Func`2<System.Collections.Generic.KeyValuePair`2<TKey, TValue>, System.Tuple`2<TKey, TValue>>), [v185 @ X8_v19 (Il2CppStaticFields<Newtonsoft.Json.Utilities.FSharpUtils+<>c__55`2<TKey, TValue>>)+8]
+Import :             8 Il2CppMethodInfo.0x130   e.g. <GetEnumerator>d__64.MoveNext: 229 CheckLess v525 @ C_v13 (System.Boolean), [v524 @ X8_v30+130], [v125 @ X1_v13 (Il2CppMethodInfo)+130]
+Import :             8 array at 0x34, from no definition   e.g. RFCluster.GetBoundsBound: 36 Subtract v122 @ V3_v2, [bounds @ X0 (UnityEngine.Bounds[])+28], [bounds @ X0 (UnityEngine.Bounds[])+34]
+Import :             8 base has no type, from Move from [IEnumerable`1<System.Object> + 0x10]   e.g. ReflectionUtils.GetFieldsAndProperties: 666 CheckLess v1543 @ C_v35 (System.Boolean), [v1069 @ X0_v46 (System.Collections.Generic.IEnumerable`1<System.Object>)+18], [v521 @ X9_v38+18]
+Import :             8 base has no type, from Move from [JsonSerializerInternalReader + 0xB8]   e.g. JsonSerializerInternalReader.PopulateObject: 127 Move v318 @ X25_v42 (System.Func`2<System.Object, System.Object>), [v370 @ X8_v181+18]
+Import :             8 base has no type, from Move from [Object + 0x60]   e.g. RayfireBomb.SetProjectiles: 492 CheckEqual v979 @ TEMP_v39 (System.Boolean), [v494 @ X8_v43+100], 0
+Import :             8 base has no type, from Move from [Int32 + 0x18]   e.g. RFFragment.Compute: 380 Add v995 @ X9_v29, [v445 @ X24_v15+1C], 1
+Import :             8 base has no type, from Move from AddressOf(stack_-130, CombineInstance)   e.g. CombineInstanceEx.Clear: 99 Move [v24 @ X22_v1+40], [v330 @ X0_v13 (UnityEngine.CombineInstance)+40]
+Import :             7 base has no type, from Add of CollectParticleData[] and Int32   e.g. FluidCollectDisplay.FixedUpdate: 301 Add v309 @ V0_v9 (System.Single), [v329 @ X28_v9-8], v569 @ V0_v8 (System.Single)
+Import :             7 array at 0xC, from Move from the field Mesh[]   e.g. RayfireShatter.CreateFragments: 259 Move v178 @ V3_v4 (System.Single), [v63 @ X8_v3 (UnityEngine.Mesh[])+C]
+Import :             7 Il2CppClass.0x458   e.g. JArray.Insert: 1 Move v2 @ X6_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+458]
+Import :             7 byref at 0x20, from no definition   e.g. RFShatter.DetachMesh: 262 Add v1706 @ X11_v45, [in_mesh_data @ X2 (safeMeshData&)+20], v1705 @ TEMPSHIFT_v83 (System.Int32)
+Import :             7 Il2CppClass.0x1E8   e.g. <>c.<GetMemberInfoFromType>b__39_0: 7 Move v9 @ X2_v1, [v8 @ X8_v1 (Il2CppClass<System.Reflection.ParameterInfo>)+1E8]
+Import :             7 Il2CppClass.0x220   e.g. JsonSerializer.ApplySerializerSettings: 440 Move v102 @ X2_v19 (Il2CppMethodInfo), [v724 @ X8_v105 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+220]
+Import :             7 Il2CppClass.0x4A0   e.g. JArray.set_Item: 2 Move v3 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+4A0]
+Import :             7 Il2CppClass.0x498   e.g. JArray.set_Item: 1 Move v2 @ X4_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+498]
+Import :             7 base has no type, from Move from [Int32 + 0x20]   e.g. DiscriminatedUnionConverter.ReadJson: 336 CheckEqual v932 @ TEMP_v27 (System.Boolean), [v127 @ X25_v13+18], 0
+Import :             7 Il2CppClass.0x460   e.g. JArray.Insert: 2 Move v3 @ X5_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+460]
+Import :             7 base has no type, from Move from [NullReferenceException + 0xB8]   e.g. Sequence.Setup: 24 Move s.autoKill (System.Boolean), [v61 @ X8_v17+48]
+Import :             7 byref at 0x14, from no definition   e.g. RFShatter.DetachMesh: 222 ShiftLeft v242 @ TEMPSHIFT_v7 (System.Int32), [out_mesh_data @ X1 (safeMeshData&)+14], 1
+Import :             7 base has no type, from Move from [Single + 0x70]   e.g. RayfireCluster.ClusterizeClusterByAmount: 394 Add v1495 @ X9_v15, [v1488 @ X0_v115+1C], 1
+Import :             7 Il2CppClass.0x4F8   e.g. JArray.Add: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+4F8]
+Import :             7 byref at 0x8, from Move from Decimal&   e.g. ConvertUtils.DecimalTryParse: 1076 Move [v1580 @ X23_v8 (System.Decimal&)+8], [v1580 @ X23_v8 (System.Decimal&)+8]
+Import :             7 Il2CppClass.0x270   e.g. ReflectionUtils.GetMemberUnderlyingType: 256 Move v318 @ X1_v10, [v172 @ X9_v5 (Il2CppClass<System.Reflection.MemberInfo>)+270]
+Import :             7 base has no type, from Add of an untyped base and Immediate   e.g. RFParticles..cctor: 100 Move [v94 @ X0_v9+50], [v299 @ X8_v16+30]
+Import :             7 base has no type, from Add of Vector3[] and an untyped local   e.g. RFShell.GetBridgeMesh: 151 Move [v310 @ X7_v7+20], [v638 @ X4_v6+20]
+Import :             7 base has no type, from Add of Single[] and Immediate   e.g. DOTween.ToArray: 154 Move [v332 @ X12_v6+v328 @ X15_v11 (System.Int32)], [v330 @ X13_v6+v328 @ X15_v11 (System.Int32)]
+Import :             6 base has no type, from Move from [Object + 0xB0]   e.g. RayfireCluster.RoughnessPassClusters: 152 CheckEqual v327 @ TEMP_v19 (System.Boolean), [v798 @ X8_v20+18], 0
+Import :             6 base has no type, from Move from [TweenerCore`3<System.Int32, System.Int32, DG.Tweening.Plugins.Options.NoOptions> + 0x140]   e.g. IntPlugin.SetFrom: 42 Move v94 @ X3_v1, [v63 @ X8_v4+18]
+Import :             6 Il2CppClass.0x3D0   e.g. JsonWriter.WriteValue: 31 Move v52 @ X3_v1, [v50 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3D0]
+Import :             6 base has no type, from Add of [NativeArray`1<Unity.Mathematics.float4>& + 0x0] and an untyped local   e.g. FluidPhysicsCoupler.SampleSDF: 203 Subtract v253 @ V17_v3, [v224 @ X13_v3+4], [v220 @ X12_v3+4]
+Import :             6 base has no type, from Move from [Hashtable + 0x0]   e.g. GA_Wrapper.DictionaryToJsonString: 106 Move v366 @ X9_v25, [v322 @ X8_v22+12E]
+Import :             6 base has no type, from Add of [safeMeshData& + 0x20] and Int32   e.g. RFShatter.DetachMesh: 266 Move [v1707 @ X11_v46+20], [v1706 @ X11_v45+20]
+Import :             6 base has no type, from Move from [TweenerCore`3<System.UInt64, System.UInt64, DG.Tweening.Plugins.Options.NoOptions> + 0x150]   e.g. UlongPlugin.SetFrom: 42 Move v94 @ X3_v1, [v63 @ X8_v4+18]
+Import :             6 base has no type, from Move from AddressOf(stack_-190)   e.g. CombineInstanceArrayPool.Get: 218 Move [v20 @ X29_v1-70], [v832 @ X8_v16+40]
+Import :             6 array at 0x0, from Move from Vector3[]   e.g. RFShatter.sl_element_mesh_par: 877 CallVoid List`1<System.Int32>.AddWithResize, v931 @ X0_v97 (System.Collections.Generic.List`1<System.Int32>), [v377 @ X21_v31 (UnityEngine.Vector3[])+v1111 @ X26_v31 (System.Int32)*4]
+Import :             6 base has no type, from Move from [Object + 0xB8]   e.g. FSharpUtils.EnsureInitialized: 22 CheckEqual v51 @ TEMP_v29 (System.Boolean), [v173 @ X8_v4+8], 0
+Import :             6 Il2CppClass.0x370   e.g. JsonConvert.SerializeObjectInternal: 100 Move v225 @ X4_v4, [v178 @ X8_v18 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+370]
+Import :             6 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.JsonReader> + 0xC8] and Int32   e.g. JsonSerializer.SetupReader: 430 CheckNotEqual v797 @ TEMPCOND_v8 (System.Boolean), [v865 @ X9_v9-8], v760 @ X8_v11
+Import :             6 Il2CppClass.0x4B0   e.g. TraceJsonWriter.WriteValue: 49 Move v95 @ X2_v4 (System.Boolean), [v117 @ X8_v8 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+4B0]
+Import :             6 byref at 0x28, from no definition   e.g. RFShatter.DetachMesh: 448 Add v1602 @ X16_v39, [in_mesh_data @ X2 (safeMeshData&)+28], v1601 @ TEMPSHIFT_v69 (System.Int32)
+Import :             6 base has no type, from Move from AddressOf(stack_-118)   e.g. CombineInstanceEx.Combine: 80 Move [v16 @ X29_v1-60], [v471 @ X20_v8+40]
+Import :             6 base has no type, from Add of [Il2CppClass<System.Xml.XmlNode> + 0xC8] and Int32   e.g. XmlNodeWrapper.get_ChildNodes: 246 CheckNotEqual v727 @ TEMPCOND_v19 (System.Boolean), [v742 @ X8_v47-8], v194 @ X1_v17 (Newtonsoft.Json.Converters.IXmlNode)
+Import :             6 Il2CppClass.0x308   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+308]
+Import :             6 base has no type, from Move from [IList`1<T> + 0x0]   e.g. CollectionUtils.AddRange: 104 Move v422 @ X9_v32, [v382 @ X8_v24+12E]
+Import :             6 base has no type, from Add of [Il2CppClass<Mono.Security.ASN1> + 0xC8] and Int32   e.g. PrivateKeyInfo.GetBytes: 279 CheckNotEqual v827 @ TEMPCOND_v22 (System.Boolean), [v838 @ X9_v27-8], v155 @ X1_v29 (Mono.Security.ASN1)
+Import :             6 base has no type, from Move from [IDictionary`2<System.String, System.Object> + 0x0]   e.g. MethodArguments.ToStringDict: 120 Move v382 @ X9_v25, [v338 @ X8_v22+12E]
+Import :             6 array at 0x2C, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 327 Move [v368 @ X0_v15 (System.Collections.Generic.IEnumerable`1<UnityEngine.Vector3>)+38], [v403 @ X9_v8 (UnityEngine.Vector3[])+2C]
+Import :             6 base has no type, from Move from [TweenerCore`3<UnityEngine.RectOffset, UnityEngine.RectOffset, DG.Tweening.Plugins.Options.NoOptions> + 0x150]   e.g. RectOffsetPlugin.SetFrom: 102 Move v111 @ X3_v1, [v72 @ X8_v3+18]
+Import :             6 Il2CppClass.0x238   e.g. JsonWriter.WriteToken: 28 Move v49 @ X6_v1, [v48 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+238]
+Import :             6 Il2CppClass.0x280   e.g. JsonReader.Dispose: 33 Move v38 @ X1_v1, [v36 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonReader>)+280]
+Import :             6 byref at 0x30, from no definition   e.g. RFShatter.DetachMesh: 581 Add v1640 @ X16_v31, [in_mesh_data @ X2 (safeMeshData&)+30], v1639 @ TEMPSHIFT_v60 (System.Int32)
+Import :             6 base has no type, from Move from [TweenerCore`3<System.Int64, System.Int64, DG.Tweening.Plugins.Options.NoOptions> + 0x150]   e.g. LongPlugin.SetFrom: 42 Move v94 @ X3_v1, [v63 @ X8_v4+18]
+Import :             6 base has no type, from Move from [TweenerCore`3<System.Double, System.Double, DG.Tweening.Plugins.Options.NoOptions> + 0x150]   e.g. DoublePlugin.SetFrom: 45 Move v97 @ X2_v1, [v69 @ X8_v4+18]
+Import :             6 base has no type, from Move from [TweenerCore`3<UnityEngine.Quaternion, UnityEngine.Quaternion, DG.Tweening.Plugins.Options.NoOptions> + 0x160]   e.g. PureQuaternionPlugin.SetFrom: 66 Move v118 @ X2_v1, [v67 @ X8_v3+18]
+Import :             6 base has no type, from Move from [FBWindowsLoginManager + 0x0]   e.g. FBWindowsLoginManager.AuthCallback: 296 Move v838 @ X9_v26, [v794 @ X8_v37+12E]
+Import :             6 base has no type, from Move from AddressOf(stack_-180)   e.g. CombineInstanceEx.Combine: 136 Move [v16 @ X29_v1-60], [v514 @ X8_v19+40]
+Import :             6 base has no type, from Move from AddressOf(stack_-128)   e.g. CombineInstanceArrayPool.Get: 152 Move [v20 @ X29_v1-70], [v365 @ X21_v7+40]
+Import :             6 base has no type, from Add of ArrayAccess and Int32   e.g. TextPopEffect.Update: 417 Subtract v1035 @ V3_v9 (System.Single), [v781 @ X14_v8+28], v792 @ V1_v13 (System.Single)
+Import :             6 Il2CppClass.0x258   e.g. JToken.System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JToken>)+258]
+Import :             5 Il2CppClass.0x8D0   e.g. DefaultSerializationBinder.GetGenericTypeFromTypeName: 405 Move v278 @ X2_v9, [v287 @ X8_v15 (Il2CppClass<System.Type>)+8D0]
+Import :             5 base has no type, from Move from [Object + 0x20]   e.g. GameManager.CheckFishHitWater: 336 CheckEqual v457 @ TEMP_v41 (System.Boolean), [v467 @ X8_v39+10], 0
+Import :             5 Il2CppClass.0x278   e.g. JsonReader.Dispose: 32 Move v37 @ X2_v1, [v36 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonReader>)+278]
+Import :             5 base has no type, from Move from [Boolean + 0xF0]   e.g. Vector3ArrayPlugin.EvaluateAndApply: 142 CheckNotEqual v499 @ TEMPCOND_v54 (System.Boolean), [v186 @ X9_v22+A8], 2
+Import :             5 array at 0x14, from Move from the field Mesh[]   e.g. RayfireShatter.CreateFragments: 286 Move v183 @ V2_v7 (System.Single), [v63 @ X8_v3 (UnityEngine.Mesh[])+14]
+Import :             5 base has no type, from Add of NativeArray`1<FluidPhysicsCoupler+ForceBundle> and Int32   e.g. FluidPhysicsCoupler.Step: 498 Add v1427 @ V0_v35, [v637 @ X8_v51+C], [v422 @ X25_v14+v1428 @ X8_v54 (System.Int32)]
+Import :             5 Il2CppClass.0x2E8   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2E8]
+Import :             5 Il2CppClass.0x620   e.g. EditorFacebook.OnLoginComplete: 30 Move v51 @ X2_v1, [v49 @ X8_v3 (Il2CppClass<Facebook.Unity.Editor.EditorFacebook>)+620]
+Import :             5 array at 0x44, from no definition   e.g. CubicBezierUtility.EvaluateCurve: 106 Multiply v186 @ V0_v4 (System.Single), [points @ X0 (UnityEngine.Vector3[])+44], v187 @ V0.S0
+Import :             5 Il2CppClass.0x5F0   e.g. FBWindowsGraphAPIManager.OnEnable: 47 Move v107 @ X2_v2, [v105 @ X8_v11 (Il2CppClass<UnityEngine.UI.Text>)+5F0]
+Import :             5 array at 0x40, from no definition   e.g. Vector3ArrayPlugin.EvaluateAndApply: 1009 Move v602 @ X0_v8 (UnityEngine.Vector3), [startValue @ X6 (UnityEngine.Vector3[])+40]
+Import :             5 Il2CppClass.0x1F8   e.g. JsonWriter.WriteEnd: 51 Move v33 @ X2_v1, [v29 @ X9_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1F8]
+Import :             5 base has no type, from Move from [Behaviour + 0x30]   e.g. RayfireRecorder.SetRigidPlay: 94 CallVoid RFPhysic.SetSimulationType, [v252 @ X9_v5+40], 3, [v264 @ X0_v29 (UnityEngine.Behaviour)+28], [v252 @ X9_v5+2E], [v252 @ X9_v5+30], [v252 @ X9_v5+34]
+Import :             5 base has no type, from Add of [safeMeshData& + 0x28] and Int32   e.g. RFShatter.DetachMesh: 452 Move [v1603 @ X16_v40+20], [v1602 @ X16_v39+20]
+Import :             5 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Serialization.JsonContainerContract> + 0xC8] and Int32   e.g. JsonSerializerInternalReader.SetPropertyValue: 275 CheckNotEqual v141 @ TEMPCSEL_v6 (System.Boolean), [v693 @ X9_v32-8], v212 @ X8_v45
+Import :             5 array at 0x10, from Move from the field Mesh[]   e.g. RayfireShatter.CreateFragments: 285 Move v185 @ V1_v7 (System.Single), [v63 @ X8_v3 (UnityEngine.Mesh[])+10]
+Import :             5 base has no type, from Add of Int32 and Immediate   e.g. TournamentResult.ToString: 248 Call StringBuilder.AppendFormat, v383 @ X0_v58 (System.Text.StringBuilder), v60 @ X0_v3 (System.Text.StringBuilder), [v102 @ X25_v7 (System.Int32)], v755 @ X0_v55 (System.Object), [v752 @ X0_v53+8]
+Import :             5 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XContainer> + 0xC8] and Int32   e.g. XDocumentWrapper.get_HasChildNodes: 51 CheckNotEqual v63 @ TEMPCOND_v4 (System.Boolean), [v119 @ X8_v9-8], v42 @ X1_v2
+Import :             5 base has no type, from Move from [JsonReader + 0x0]   e.g. JsonReader.ReadAsString: 204 Move v586 @ X9_v19, [v512 @ X8_v30+12E]
+Import :             5 byref at 0x20, from Move from safeMeshData&   e.g. RFShatter.ConvertMesh: 869 Move v2021 @ X9_v97, [v1510 @ X26_v25 (safeMeshData&)+20]
+Import :             5 Il2CppClass.0x618   e.g. EditorFacebook.OnLoginComplete: 29 Move v50 @ X3_v1, [v49 @ X8_v3 (Il2CppClass<Facebook.Unity.Editor.EditorFacebook>)+618]
+Import :             5 array at 0x0, from Move from the field UInt32[]   e.g. BigInteger.GetBytes: 334 Move returnVal2[v331 @ X12_v9 (System.Int32)], [v280 @ X11_v10 (System.UInt32[])+v293 @ X10_v8 (System.Int32)]
+Import :             5 base has no type, from Move from [Object + 0xE8]   e.g. RayfireCluster.RoughnessPassShards: 260 CheckGreaterOrEqual v1120 @ TEMPCOND_v39 (System.Boolean), v1153 @ X25_v20 (System.Int32), [v1166 @ X0_v72+18]
+Import :             5 Il2CppClass.0x188   e.g. JsonWriter.set_StringEscapeHandling: 18 Move v22 @ X2_v2, [v21 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+188]
+Import :             5 Il2CppClass.0x20   e.g. DefaultContractResolver.GetSerializableMembers: 355 Move v1719 @ X8_v141, [v1640 @ X8_v139 (Il2CppClass<System.Type>)+20]
+Import :             5 Il2CppClass.0x5E8   e.g. FBWindowsGraphAPIManager.OnEnable: 46 Move v106 @ X3_v2, [v105 @ X8_v11 (Il2CppClass<UnityEngine.UI.Text>)+5E8]
+Import :             5 Il2CppClass.0x4A8   e.g. JArray.Clear: 1 Move v2 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+4A8]
+Import :             5 array at 0x0, from Move from the field Vector2[]   e.g. FluidCollectDisplay.FixedUpdate: 105 Move [v337 @ X9_v7-10], [v346 @ X8_v10 (UnityEngine.Vector2[])+v174 @ X24_v4 (System.Int32)*8]
+Import :             5 Il2CppClass.0x2E0   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2E0]
+Import :             5 Il2CppClass.0x380   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+380]
+Import :             4 base has no type, from Move from [Il2CppClass<Mono.Security.X509.X509Certificate> + 0x1E0]   e.g. AuthenticodeDeformatter.VerifySignature: 374 CheckLess v1474 @ C_v57 (System.Boolean), [v473 @ X9_v49 (Il2CppClass<Mono.Security.ASN1>)+130], [v652 @ X1_v21+130]
+Import :             4 base has no type, from Move from AddressOf(stack_-B8, Vector3)   e.g. RayfireBomb.CollidersFilter: 331 Subtract v1399 @ V1_v12 (System.Single), [v1184 @ X8_v62+4], this.bombPosition.y (System.Single)
+Import :             4 Il2CppClass.0x560   e.g. GameplayScreen.OnUserMove: 62 Move v116 @ X2_v3, [v151 @ X8_v6 (Il2CppClass<TMPro.TextMeshProUGUI>)+560]
+Import :             4 Il2CppClass.0x360   e.g. JsonConvert.DeserializeObject: 90 Move v234 @ X3_v3 (Il2CppMethodInfo), [v211 @ X8_v16 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+360]
+Import :             4 array at 0x0, from Move from the field Int32[]   e.g. RFDictionary.GetDictionary: 76 CallVoid Dictionary`2<System.Int32, System.Int32>.Add, v48 @ X0_v3 (System.Collections.Generic.Dictionary`2<System.Int32, System.Int32>), [v157 @ X8_v11 (System.Int32[])+v153 @ X22_v9 (System.Int32)*4], [v130 @ X9_v7 (System.Int32[])+v153 @ X22_v9 (System.Int32)*4]
+Import :             4 array at 0x34, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 328 Move [v368 @ X0_v15 (System.Collections.Generic.IEnumerable`1<UnityEngine.Vector3>)+40], [v403 @ X9_v8 (UnityEngine.Vector3[])+34]
+Import :             4 Il2CppClass.0x300   e.g. JsonConvert.SerializeObjectInternal: 81 Move v211 @ X1_v6 (System.IO.TextWriter), [v102 @ X8_v17 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+300]
+Import :             4 Il2CppClass.0x388   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+388]
+Import :             4 base has no type, from Add of the field float2[] and Int32   e.g. FluidSoundFX.OnFluidStep: 90 Subtract v67 @ V2_v5, [v87 @ X9_v5 (Unity.Collections.NativeArray`1<Unity.Mathematics.float2>)+v82 @ X10_v5 (System.Int32)], [v77 @ X11_v4+20]
+Import :             4 base has no type, from Add of [Il2CppClass<DG.Tweening.Tween> + 0xC8] and Int32   e.g. Sequence.DoStartup: 250 CheckNotEqual v439 @ TEMPCOND_v9 (System.Boolean), [v465 @ X8_v12-8], v366 @ X1_v6
+Import :             4 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Converters.IXmlNode> + 0xC8] and Int32   e.g. XmlElementWrapper.SetAttributeNode: 56 CheckNotEqual v69 @ TEMPCOND_v5 (System.Boolean), [v118 @ X8_v10-8], v49 @ X1_v4
+Import :             4 base has no type, from Add of [Il2CppClass<System.Runtime.CompilerServices.CallSiteBinder> + 0xC8] and Int32   e.g. BinderWrapper.GetMember: 178 CheckNotEqual v155 @ TEMPCOND_v9 (System.Boolean), [v325 @ X8_v25-8], v181 @ X1_v18
+Import :             4 base has no type, from Add of Int32[] and Immediate   e.g. CollectionUtils.CopyFromJaggedToMultidimensionalArray: 200 Move [v422 @ X10_v9+v536 @ X12_v6 (System.Int32)], [v421 @ X11_v9+v536 @ X12_v6 (System.Int32)]
+Import :             4 Il2CppClass.0x218   e.g. JsonProperty.WritePropertyName: 12 Move v15 @ X4_v1, [v14 @ X9_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+218]
+Import :             4 base has no type, from Move from [safeMeshData& + 0x20]   e.g. RFShatter.DetachMesh: 366 CheckLess v1673 @ C_v148 (System.Boolean), v431 @ X13_v41, [v456 @ X12_v51+18]
+Import :             4 base has no type, from Move from [Il2CppMethodInfo + 0x0]   e.g. EnumUtils.InitializeValuesAndNames: 300 Move v111 @ X3_v15 (System.Int32), [v721 @ X8_v55+180]
+Import :             4 byref at 0x28, from Move from safeMeshData&   e.g. RFShatter.ConvertMesh: 906 Move v2010 @ X10_v47, [v1510 @ X26_v25 (safeMeshData&)+28]
+Import :             4 Il2CppClass.0x418   e.g. ReflectionUtils.EnsureNotByRefType: 19 Move v49 @ X2_v1, [v51 @ X8_v1 (Il2CppClass<System.Type>)+418]
+Import :             4 byref at 0x30, from Move from safeMeshData&   e.g. RFShatter.ConvertMesh: 957 Move v2031 @ X9_v121, [v1510 @ X26_v25 (safeMeshData&)+30]
+Import :             4 byref at 0x0, from Add of List`1<System.Int32>& and Immediate   e.g. RFShatter.ConvertMesh: 1545 ShiftLeft v3047 @ TEMPSHIFT_v52 (System.Int32), [v986 @ X21_v16 (System.Collections.Generic.List`1<System.Int32>&)+v2782 @ X26_v31 (System.Int32)], 1
+Import :             4 base has no type, from Move from [Int32 + 0x8]   e.g. RFFragment.Compute: 451 Add v133 @ X10_v9, [v155 @ X9_v12+1C], 1
+Import :             4 base has no type, from Move from [Tween + 0x120]   e.g. TweenManager.Despawn: 124 CheckLess v79 @ TEMPCOND_v38 (System.Boolean), [v207 @ X8_v83+18], 1
+Import :             4 base has no type, from Move from AddressOf(stack_-98, Keyframe)   e.g. RFParticles.SetRotationOverLifeTime: 78 Move v55 @ V0_v3 (System.Single), [v247 @ X21_v5+20]
+Import :             4 array at 0x0, from Move from [Mesh[]& + 0x0]   e.g. RFShatterAdvanced.RemovePlanar: 144 Call RFShatterAdvanced.IsCoplanar, v543 @ X0_v52 (System.Boolean), [v527 @ X8_v19 (UnityEngine.Mesh[])+v235 @ X28_v8 (System.Int32)*8], [v540 @ X8_v56]
+Import :             4 base has no type, from Add of [safeMeshData& + 0x30] and Int32   e.g. RFShatter.DetachMesh: 585 Move [v1641 @ X16_v32+20], [v1640 @ X16_v31+20]
+Import :             4 base has no type, from Add of [Il2CppClass<UnityEngine.MeshCollider> + 0xC8] and Int32   e.g. RFPhysic.GlobalReset: 150 CheckEqual v194 @ Z_v3 (System.Boolean), [v284 @ X9_v4-8], v228 @ X8_v12
+Import :             4 base has no type, from Move from [Object + 0x70]   e.g. RayfireCluster.RoughnessPassClusters: 717 Move v1332 @ X22_v14 (System.Int32), [v1197 @ X8_v45+18]
+Import :             4 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Linq.JContainer> + 0xC8] and Int32   e.g. JProperty.SetItem: 106 CheckNotEqual v305 @ TEMPCOND_v10 (System.Boolean), [v332 @ X9_v9-8], v284 @ X1_v12
+Import :             4 base has no type, from Add of NullReferenceException and Int32   e.g. RFShell.GetBridgeMesh: 425 Move [v275 @ X20_v3 (UnityEngine.Vector3[])+20], [v351 @ X10_v4+20]
+Import :             4 static field storage at 0x12E   e.g. JEnumerable`1.GetEnumerator: 74 Move v204 @ X9_v4, [v224 @ X8_v34 (Il2CppStaticFields<Newtonsoft.Json.Linq.JEnumerable`1<T>>)+12E]
+Import :             4 base has no type, from Move from [UIParticle + 0xB8]   e.g. UIParticleUpdater.BakeMesh: 977 Move v1276 @ X8_v120, [v2741 @ X8_v119+10]
+Import :             4 base has no type, from Move from [Il2CppClass<UnityEngine.Transform> + 0x20]   e.g. RFShatter.sl_element_mesh_par: 492 Move v2777 @ X8_v295, [v2776 @ X8_v294+C0]
+Import :             4 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Serialization.NamingStrategy> + 0xC8] and Int32   e.g. JsonTypeReflector.CreateNamingStrategyInstance: 94 CheckNotEqual v91 @ TEMPCOND_v4 (System.Boolean), [v193 @ X8_v13-8], v131 @ X1_v6
+Import :             4 base has no type, from Add of [safeMeshData& + 0x38] and Int32   e.g. RFShatter.DetachMesh: 668 Move [v1772 @ X12_v41+20], [v1771 @ X12_v40+20]
+Import :             4 byref at 0x38, from Move from safeMeshData&   e.g. RFShatter.ConvertMesh: 1007 Move v2026 @ X9_v120, [v1510 @ X26_v25 (safeMeshData&)+38]
+Import :             4 Il2CppClass.0x420   e.g. ReflectionUtils.EnsureNotByRefType: 20 Move v56 @ X1_v4, [v51 @ X8_v1 (Il2CppClass<System.Type>)+420]
+Import :             4 base has no type, from Add of the field Single[] and Immediate   e.g. VertexPath.GetClosestDistanceAlongPath: 84 Subtract v150 @ V2_v4 (System.Single), v25[v79 @ X9_v3 (System.Int32)], [v91 @ X8_v2+v90 @ X10_v3 (System.Int32)]
+Import :             3 Il2CppClass.0x350   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+350]
+Import :             3 base has no type, from Move from [IXmlNode + 0x0]   e.g. XmlNodeConverter.SerializeGroupedNodes: 983 Move v1672 @ X9_v14, [v1589 @ X8_v18+12E]
+Import :             3 Il2CppClass.0x2D8   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2D8]
+Import :             3 Il2CppClass.0x3B8   e.g. JsonWriter.WriteValue: 30 Move v51 @ X4_v1, [v50 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3B8]
+Import :             3 Il2CppClass.0x348   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+348]
+Import :             3 base has no type, from Move from [<GetEnumerator>d__2<TEnumeratorKey, TEnumeratorValue> + 0x28]   e.g. <GetEnumerator>d__2.MoveNext: 88 Move v256 @ X24_v11, [v148 @ X8_v68+10]
+Import :             3 base has no type, from Move from [ICollection`1<T> + 0x0]   e.g. CollectionWrapper`1.System.Collections.IEnumerable.GetEnumerator: 29 Move v103 @ X9_v3, [v48 @ X8_v5+12E]
+Import :             3 base has no type, from Move from [IEnumerable`1<T> + 0x0]   e.g. CollectionUtils.IndexOf: 160 Add v658 @ X10_v20, [v615 @ X8_v31+B0], 8
+Import :             3 base has no type, from Move from [XContainerWrapper + 0x0]   e.g. XContainerWrapper.get_ChildNodes: 255 Move v791 @ X9_v29, [v748 @ X8_v45+12E]
+Import :             3 base has no type, from Add of Char[] and Int32   e.g. DefaultJsonNameTable.Get: 265 CheckNotEqual v571 @ TEMPCOND_v22 (System.Boolean), v396 @ X0_v25 (System.Char), [v625 @ X8_v31+20]
+Import :             3 base has no type, from Move from [GetTournamentsResult + 0x0]   e.g. GetTournamentsResult..ctor: 213 Move v795 @ X9_v29, [v738 @ X8_v34+12E]
+Import :             3 Il2CppClass.0x440   e.g. JContainer.RemoveItemAt: 468 Move v562 @ X2_v10, [v598 @ X8_v17 (Il2CppClass<Newtonsoft.Json.Linq.JContainer>)+440]
+Import :             3 base has no type, from Add of Tween and Immediate   e.g. Vector3ArrayPlugin.EvaluateAndApply: 264 Add v691 @ V0_v5 (System.Single), v691 @ V0_v5 (System.Single), [v639 @ X10_v10+v678 @ X8_v73 (System.Int32)*4]
+Import :             3 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XDocument> + 0xC8] and Int32   e.g. XDocumentWrapper.get_Document: 51 CheckNotEqual v60 @ TEMPCOND_v4 (System.Boolean), [v98 @ X8_v9-8], v42 @ X1_v2
+Import :             3 Il2CppClass.0x3C8   e.g. JsonWriter.WriteValue: 30 Move v51 @ X4_v1, [v50 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3C8]
+Import :             3 Il2CppClass.0x468   e.g. JArray.RemoveAt: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+468]
+Import :             3 Il2CppClass.0x358   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+358]
+Import :             3 Il2CppClass.0x4C8   e.g. JArray.Contains: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+4C8]
+Import :             3 Il2CppClass.0x488   e.g. JArray.get_Item: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+488]
+Import :             3 base has no type, from Add of Mesh& and Immediate   e.g. RFShatter.ConvertMesh: 670 Call Dictionary`2<System.Object, System.Object>.get_Count, v2377 @ X0_v256 (System.Int32), [v991 @ X22_v41+v1482 @ X20_v69 (System.Int32)*8]
+Import :             3 base has no type, from Add of [Il2CppClass<UnityEngine.Collider> + 0xC8] and Int32   e.g. RFActivation.ActivateRigid: 142 CheckNotEqual v536 @ TEMPCSEL_v7 (System.Boolean), [v525 @ X10_v10-8], v471 @ X9_v17
+Import :             3 array at 0x0, from Move from the field TMP_MeshInfo[]   e.g. TextPopEffect.CacheVertexPositions: 63 Move v157 @ X8_v8 (TMPro.TMP_MeshInfo), [v191 @ X8_v7 (TMPro.TMP_MeshInfo[])+v123 @ X24_v5 (System.Int32)]
+Import :             3 base has no type, from Move from [safeMeshData& + 0x30]   e.g. RFShatter.ConvertMesh: 964 CheckLess v3364 @ C_v167 (System.Boolean), v2014 @ X10_v53, [v2031 @ X9_v121+18]
+Import :             3 Il2CppClass.0x450   e.g. JArray.IndexOf: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+450]
+Import :             3 base has no type, from Move from [XElementWrapper + 0x0]   e.g. XElementWrapper.get_Attributes: 340 Move v999 @ X9_v31, [v957 @ X8_v56+12E]
+Import :             3 Il2CppClass.0x2F8   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2F8]
+Import :             3 Il2CppClass.0x398   e.g. JsonWriter.WriteValue: 30 Move v51 @ X4_v1, [v50 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+398]
+Import :             3 Il2CppClass.0x478   e.g. JArray.Remove: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+478]
+Import :             3 Il2CppClass.0x368   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+368]
+Import :             3 Il2CppClass.0x4D8   e.g. JArray.CopyTo: 1 Move v2 @ X4_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+4D8]
+Import :             3 base has no type, from Move from [Int32 + 0x10]   e.g. DefaultSerializationBinder.GetGenericTypeFromTypeName: 237 CheckLess v594 @ C_v25 (System.Boolean), [v321 @ X0_v18 (System.Int32)+18], [v195 @ X9_v11+18]
+Import :             3 base has no type, from Add of Mesh and Int32   e.g. RFShatter.ConvertMesh: 1849 CallVoid List`1<System.Int32>.Add, v1364 @ X0_v40 (System.Collections.Generic.List`1<System.Int32>), [v3548 @ X9_v64+20]
+Import :             3 base has no type, from Add of [Type + 0x18] and Int32   e.g. EnumUtils.ParseEnum: 141 Move v657 @ X20_v2 (System.UInt64), [v584 @ X8_v72+20]
+Import :             3 array at 0x3C, from a call's result   e.g. VertexPathUtility.SplitBezierPathEvenly: 758 Multiply v1715 @ V1_v38 (System.Single), [v690 @ X0_v44 (UnityEngine.Vector3[])+3C], v1716 @ V3.S0
+Import :             3 base has no type, from Add of Single[] and Int32   e.g. RayfireActivator.GetSegment: 60 CheckLessOrEqual v93 @ TEMPCOND_v7 (System.Boolean), [v45 @ X11_v2+24], ration @ V0 (System.Single)
+Import :             3 array at 0x40, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 266 Move [v368 @ X0_v15 (System.Collections.Generic.IEnumerable`1<UnityEngine.Vector3>)+28], [v399 @ X10_v4 (UnityEngine.Vector3[])+40]
+Import :             3 Il2CppClass.0x320   e.g. JsonWriter.WriteValue: 34 Move v55 @ X1_v2, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+320]
+Import :             3 base has no type, from Add of the field Vector3[] and an untyped local   e.g. VertexPath.GetPointAtTime: 40 MakeStruct v45 @ AGG1E43DDC_0_v3 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v98 @ X8_v4+20], [v98 @ X8_v4+24], [v98 @ X8_v4+28]
+Import :             3 Il2CppClass.0x480   e.g. JArray.Remove: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+480]
+Import :             3 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Linq.JObject> + 0xC8] and Int32   e.g. JsonSerializerInternalReader.ReadMetadataPropertiesToken: 132 CheckNotEqual v134 @ TEMPCOND_v10 (System.Boolean), [v437 @ X8_v15-8], v322 @ X1_v16
+Import :             3 base has no type, from Add of [Object + 0x18] and Int32   e.g. Kernel.DwordDivMod: 143 CheckEqual v424 @ TEMP_v26 (System.Boolean), [v423 @ X10_v9+20], 0
+Import :             3 Il2CppClass.0x378   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+378]
+Import :             3 base has no type, from Add of Int32[] and Int32   e.g. RFShatter.SetInputMesh: 483 ShiftLeft v210 @ TEMPSHIFT_v30 (System.Int32), [v1289 @ X8_v150+20], 3
+Import :             3 Il2CppClass.0x558   e.g. GameplayScreen.UpdateMoveCounter: 60 Move v100 @ X3_v1, [v109 @ X8_v5 (Il2CppClass<TMPro.TextMeshProUGUI>)+558]
+Import :             3 array at 0x38, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 265 Move [v368 @ X0_v15 (System.Collections.Generic.IEnumerable`1<UnityEngine.Vector3>)+20], [v399 @ X10_v4 (UnityEngine.Vector3[])+38]
+Import :             3 base has no type, from Add of [ReflectionDelegateFactory + 0x0] and Int32   e.g. ReflectionObject.Create: 145 Move v71 @ X0_v5 (Newtonsoft.Json.Utilities.ReflectionDelegateFactory), [v456 @ X8_v92+140]
+Import :             3 Il2CppClass.0x2C0   e.g. DefaultContractResolver.CreateObjectContract: 201 Move v434 @ X2_v7 (System.IntPtr), [v381 @ X8_v50 (Il2CppClass<Newtonsoft.Json.Serialization.DefaultContractResolver>)+2C0]
+Import :             3 Il2CppClass.0x3A0   e.g. JsonWriter.WriteValue: 31 Move v52 @ X3_v1, [v50 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3A0]
+Import :             3 base has no type, from Move from [Object + 0x40]   e.g. RayfireRigidRoot.SetShards: 632 CallVoid RFSound.InitializationSound, [v1155 @ X0_v76 (UnityEngine.Object)+D8], [v648 @ X8_v56+A0]
+Import :             3 Il2CppClass.0x470   e.g. JArray.RemoveAt: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+470]
+Import :             3 Il2CppClass.0x330   e.g. JsonWriter.WriteValue: 34 Move v55 @ X1_v2, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+330]
+Import :             3 Il2CppClass.0x4D0   e.g. JArray.Contains: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+4D0]
+Import :             3 Il2CppClass.0x490   e.g. JArray.get_Item: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+490]
+Import :             3 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Serialization.JsonArrayContract> + 0xC8] and Int32   e.g. JsonSerializerInternalReader.Populate: 186 CheckNotEqual v95 @ TEMPCOND_v21 (System.Boolean), [v619 @ X8_v51-8], v309 @ X1_v43
+Import :             3 base has no type, from Move from AddressOf(stack_-140)   e.g. UIParticleUpdater.GetScaledMatrix: 245 Move [v12 @ X29_v1-60], [v452 @ X8_v7+10]
+Import :             3 base has no type, from Add of Mesh& and Int32   e.g. RFShatter.ConvertMesh: 521 CheckEqual v709 @ TEMP_v154 (System.Boolean), [v2467 @ X8_v273+20], 0
+Import :             3 Il2CppClass.0x438   e.g. JContainer.RemoveItemAt: 467 Move v547 @ X3_v4, [v598 @ X8_v17 (Il2CppClass<Newtonsoft.Json.Linq.JContainer>)+438]
+Import :             3 base has no type, from Move from [RayfireRigid + 0x70]   e.g. <LivingCor>d__25.MoveNext: 135 Move v86 @ V8_v8 (System.Single), [v114 @ X8_v12+24]
+Import :             3 generic instance, no layout, value type argument   e.g. FluidSolver.RemoveAllPairsWith: 115 Move v178 @ X1_v7 (System.UInt64), [v83 @ stack_-80_v3 (Unity.Collections.NativeArray`1<System.UInt64>+Enumerator<System.UInt64>)+v182 @ X24_v6*8]
+Import :             3 base has no type, from Move from [safeMeshData& + 0x38]   e.g. RFShatter.ConvertMesh: 1014 CheckLess v3436 @ C_v161 (System.Boolean), v2336 @ X8_v247, [v2026 @ X9_v120+18]
+Import :             3 Il2CppClass.0x340   e.g. JsonWriter.WriteValue: 39 Move v60 @ X2_v2, [v58 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+340]
+Import :             3 Il2CppClass.0x4E0   e.g. JArray.CopyTo: 2 Move v3 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+4E0]
+Import :             3 base has no type, from Move from [Component + 0x30]   e.g. RFDemolitionMesh.SliceMesh: 391 CheckEqual v408 @ TEMP_v45 (System.Boolean), [v293 @ X9_v10+40], 0
+Import :             3 base has no type, from Move from [Type + 0x0]   e.g. TypeExtensions.ImplementInterface: 179 Move v700 @ X9_v24, [v571 @ X8_v31+12E]
+Import :             3 Il2CppClass.0x268   e.g. ReflectionUtils.GetMemberUnderlyingType: 255 Move v317 @ X2_v4, [v172 @ X9_v5 (Il2CppClass<System.Reflection.MemberInfo>)+268]
+Import :             3 base has no type, from Move from AddressOf(stack_-200)   e.g. RFShatter.SetCenterParameter: 306 Move [v38 @ X29_v1-E0], [v617 @ X8_v16+10]
+Import :             3 base has no type, from Add of Array and an untyped local   e.g. DeriveBytes.Derive: 412 Move [v984 @ X10_v22+20], [v1068 @ X8_v29+20]
+Import :             3 byref at 0x38, from no definition   e.g. RFShatter.DetachMesh: 664 Add v1771 @ X12_v40, [in_mesh_data @ X2 (safeMeshData&)+38], v1770 @ TEMPSHIFT_v56 (System.Int32)
+Import :             3 Il2CppClass.0x448   e.g. JArray.IndexOf: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+448]
+Import :             3 base has no type, from Move from [AppRequestResult + 0x0]   e.g. AppRequestResult..ctor: 277 Move v899 @ X9_v34, [v856 @ X8_v40+12E]
+Import :             3 base has no type, from Add of UInt32[] and Immediate   e.g. Kernel.PlusEq: 115 Add v389 @ X2_v5, v258 @ X2_v4 (System.Int32), [v245 @ X5_v3+v155 @ X6_v4 (System.Int32)]
+Import :             3 Il2CppClass.0x338   e.g. JsonWriter.WriteValue: 38 Move v59 @ X3_v1, [v58 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+338]
+Import :             3 base has no type, from Add of AddressOf(stack_-EC, Vector3) and Immediate   e.g. ImageSliceWithUV.ModifyMesh: 403 Move [v644 @ X22_v6+10], [v644 @ X22_v6+10]
+Import :             3 Il2CppClass.0x3C0   e.g. JsonWriter.WriteValue: 31 Move v52 @ X3_v1, [v50 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3C0]
+Import :             3 array at 0x30, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 358 MakeStruct v385 @ AGG1E3CDFC_2_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v559 @ X8_v23 (UnityEngine.Vector3[])+2C], [v559 @ X8_v23 (UnityEngine.Vector3[])+30], [v559 @ X8_v23 (UnityEngine.Vector3[])+34]
+Import :             2 Il2CppClass.0x518   e.g. EntityKeyMemberConverter.WriteJson: 281 Move v437 @ X9_v7, [v451 @ X8_v11 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+518]
+Import :             2 base has no type, from Add of [Il2CppClass<UnityEngine.GameObject> + 0xC8] and Int32   e.g. PathPlugin.SetChangeValue: 93 CheckNotEqual v515 @ TEMPCOND_v23 (System.Boolean), [v504 @ X8_v49-8], v390 @ X1_v25
+Import :             2 base has no type, from Add of float2[] and Immediate   e.g. FluidSolver.AddParticles: 132 Move [v340 @ X8_v14 (Unity.Collections.NativeArray`1<Unity.Mathematics.float2>)+v191 @ X22_v7 (System.Int32)], [v284 @ X8_v11+v133 @ X24_v5 (System.Int32)*8]
+Import :             2 array at 0x0, from Move from [RFDictionary[]& + 0x0]   e.g. RFShatterAdvanced.RemovePlanar: 117 CallVoid List`1<System.Object>.AddWithResize, v268 @ X0_v12, [v300 @ X8_v40 (RayFire.RFDictionary[])+v235 @ X28_v8 (System.Int32)*8]
+Import :             2 base has no type, from Add of [Il2CppClass<System.Collections.Generic.Dictionary`2<System.String, System.Object>> + 0xC8] and Int32   e.g. FBSDKEventBinding..ctor: 334 CheckNotEqual v646 @ TEMPCOND_v17 (System.Boolean), [v670 @ X8_v33-8], v630 @ X1_v37 (System.Collections.Generic.Dictionary`2<System.String, System.Object>)
+Import :             2 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.JsonWriter> + 0xC8] and Int32   e.g. BsonObjectIdConverter.WriteJson: 85 CheckEqual v169 @ Z_v6 (System.Boolean), [v180 @ X10_v6-8], v142 @ X9_v4
+Import :             2 array at 0x38, from Move from the field ControlPoint[]   e.g. CatmullRomDecoder.SetWaypointsLengths: 239 Move [v414 @ X3_v7 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+38], [v291 @ X8_v41 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+38]
+Import :             2 array at 0x2C, from Move from the field Vector3[]   e.g. RayfireBlade.TriggerExit: 205 Add v307 @ V1_v11 (System.Single), [v99 @ X8_v10 (UnityEngine.Vector3[])+2C], [v52 @ X9_v3 (UnityEngine.Vector3[])+2C]
+Import :             2 byref at 0x4, from Move from safeMeshData&   e.g. RFShatter.ConvertMesh: 744 ShiftLeft v1785 @ TEMPSHIFT_v44 (System.Int32), [v1510 @ X26_v25 (safeMeshData&)+4], 1
+Import :             2 base has no type, from Move from [<>c__55`2<TKey, TValue> + 0xC0]   e.g. <>c__55`2..cctor: 115 Move v142 @ X0_v13 (Il2CppClass<Newtonsoft.Json.Utilities.FSharpUtils+<>c__55`2<TKey, TValue>>), [v144 @ X8_v16+10]
+Import :             2 base has no type, from Add of Array and Int32   e.g. PKCS1.Verify_v15: 256 CheckEqual v558 @ TEMP_v25 (System.Boolean), [v557 @ X8_v15+20], 0
+Import :             2 base has no type, from Move from [Object + 0xA8]   e.g. RayfireCluster.RoughnessPassClusters: 146 CheckLess v264 @ TEMPCOND_v8 (System.Boolean), [v797 @ X8_v18+18], 3
+Import :             2 base has no type, from Move from [Il2CppClass<Newtonsoft.Json.Linq.JToken> + 0xC8]   e.g. JObject.ValidateToken: 81 CheckNotEqual v224 @ TEMPCOND_v8 (System.Boolean), [v213 @ X10_v7+v124 @ X9_v8*8], v174 @ X1_v6 (System.String)
+Import :             2 Il2CppClass.0x104   e.g. DictionaryWrapper`2.CopyTo: 343 Multiply v1012 @ TEMP_v49, [v1010 @ X8_v75 (Il2CppClass<System.Collections.Generic.KeyValuePair`2<TKey, TValue>[]>)+104], v171 @ X21_v2 (System.Int32)
+Import :             2 base has no type, from Move from [Boolean + 0x20]   e.g. TweenerCore`3.ChangeEndValue: 19 Move v36 @ X8_v2, [v34 @ X8_v1+C0]
+Import :             2 base has no type, from Add of Vector3[] and Immediate   e.g. Vector3ArrayPlugin.GetSpeedBasedDuration: 109 Divide v143 @ V0_v11 (System.Single), v361 @ V0_v10 (System.Single), [v131 @ X24_v6+v181 @ X8_v16 (System.Int32)]
+Import :             2 base has no type, from Move from [<>c<TKey, TValue> + 0xC0]   e.g. <>c..cctor: 115 Move v142 @ X0_v13 (Il2CppClass<Newtonsoft.Json.Utilities.DictionaryWrapper`2<TKey, TValue>+<>c<TKey, TValue>>), [v144 @ X8_v16+10]
+Import :             2 Il2CppClass.0x5E0   e.g. FacebookBase.OnInitComplete: 115 Move v135 @ X2_v6, [v145 @ X8_v12 (Il2CppClass<Facebook.Unity.FacebookBase>)+5E0]
+Import :             2 base has no type, from Add of UInt64[] and Int32   e.g. EnumUtils.InternalFlagsFormat: 84 Subtract v418 @ X26_v14 (System.UInt64), v418 @ X26_v14 (System.UInt64), [v191 @ X28_v9+v195 @ X25_v10 (System.Int32)*8]
+Import :             2 Il2CppMethodInfo.klass   e.g. Vector3ArrayPlugin.GetSpeedBasedDuration: 32 CheckLess v48 @ TEMPCOND_v3 (System.Boolean), [methodInfo @ X3 (Il2CppMethodInfo)+18], 1
+Import :             2 base has no type, from Add of [Il2CppClass<UnityEngine.Transform> + 0xC8] and Int32   e.g. Level.CollectBlocksRecursive: 202 CheckNotEqual v226 @ TEMPCOND_v16 (System.Boolean), [v678 @ X8_v26-8], v190 @ X1_v3 (UnityEngine.Transform)
+Import :             2 base has no type, from Add of [Il2CppClass<Mono.Security.X509.X509Extension> + 0xC8] and Int32   e.g. X509Chain.IsParent: 153 CheckNotEqual v68 @ TEMPCOND_v9 (System.Boolean), [v319 @ X8_v22-8], v175 @ X1_v13
+Import :             2 base has no type, from Move from [Il2CppClass<System.Collections.Generic.List`1<Newtonsoft.Json.Serialization.JsonProperty>> + 0xC8]   e.g. JsonPropertyCollection..ctor: 85 CheckNotEqual v155 @ TEMPCOND_v3 (System.Boolean), [v143 @ X11_v3+v144 @ X10_v3*8], v118 @ X8_v13
+Import :             2 Il2CppClass.0x3E0   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3E0]
+Import :             2 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Serialization.JsonDictionaryContract> + 0xC8] and Int32   e.g. JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters: 1480 CheckNotEqual v588 @ TEMPCOND_v45 (System.Boolean), [v3112 @ X8_v127-8], v856 @ X1_v65
+Import :             2 base has no type, from Move from [safeMeshData& + 0x50]   e.g. RFShatter.ConvertMesh: 410 Move v1271 @ X24_v42 (UnityEngine.Mesh&), [v1441 @ X8_v293+v678 @ X23_v44 (System.Int32)*4]
+Import :             2 array at 0x34, from Move from the field Vector3[]   e.g. RayfireBlade.TriggerExit: 200 Add v303 @ V0_v9 (System.Single), [v99 @ X8_v10 (UnityEngine.Vector3[])+34], [v52 @ X9_v3 (UnityEngine.Vector3[])+34]
+Import :             2 array at 0x0, from Move from the field CollectParticleData[]   e.g. FluidCollectDisplay.OnPreComputeUpdate: 342 Add v450 @ V1_v15, [v694 @ X8_v20 (CollectParticleData[])+v286 @ X24_v4 (System.Int32)], 1045220557
+Import :             2 base has no type, from Move from [Int32 + 0xB0]   e.g. RFCluster.GetNeibClusterArea: 137 CheckGreaterOrEqual v379 @ TEMPCOND_v20 (System.Boolean), v405 @ X22_v17 (System.Int32), [v757 @ X8_v30+18]
+Import :             2 Il2CppClass.0x3D8   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3D8]
+Import :             2 base has no type, from Add of [safeMeshData& + 0x38] and Immediate   e.g. RFShatter.ConvertMesh: 1050 Move v1933 @ V17_v15 (System.Single), [v3375 @ X8_v249+v2012 @ X10_v51*4]
+Import :             2 array at 0x4C, from no definition   e.g. CubicBezierUtility.SplitCurve: 192 Subtract v393 @ V4_v5 (System.Single), [points @ X0 (UnityEngine.Vector3[])+4C], [points @ X0 (UnityEngine.Vector3[])+40]
+Import :             2 Il2CppClass.0x520   e.g. EntityKeyMemberConverter.WriteJson: 282 Move v435 @ X2_v10, [v451 @ X8_v11 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+520]
+Import :             2 array at 0x0, from a call's result   e.g. Singleton`1.get_Instance: 414 CheckEqual v566 @ TEMP_v78 (System.Boolean), [v387 @ X0_v51 (T[])+v530 @ X23_v9 (System.Int32)*8], 0
+Import :             2 base has no type, from Move from [Int32 + 0x50]   e.g. JObject.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.CopyTo: 302 CallVoid KeyValuePair`2<System.Object, System.Object>..ctor, &v597 @ stack_-90_v13 (System.Collections.Generic.KeyValuePair`2<System.Object, System.Object>), [v150 @ X0_v48 (System.Int32)+58], [v777 @ X8_v47+10]
+Import :             2 base has no type, from Move from RuntimeClassTypeAnalysisContext   e.g. <>c__DisplayClass55_0`2.<BuildMapCreator>b__0: 168 Add v401 @ X0_v47 (System.Func`2<System.Collections.Generic.KeyValuePair`2<TKey, TValue>, System.Tuple`2<TKey, TValue>>), [v400 @ X0_v46+B8], 8
+Import :             2 base has no type, from Move from AddressOf(stack_-60)   e.g. JsonTextReader.ReadAsDateTimeOffset: 54 Move [v16 @ X8+10], [v48 @ X20_v2+10]
+Import :             2 base has no type, from Move from [StructMultiKey`2<System.Type, Newtonsoft.Json.Serialization.NamingStrategy> + 0x0]   e.g. EnumUtils.InitializeValuesAndNames: 448 IndirectCall [v250 @ X8_v21+688], v291 @ X0_v1 (System.NullReferenceException), key @ X0 (Newtonsoft.Json.Utilities.StructMultiKey`2<System.Type, Newtonsoft.Json.Serialization.NamingStrategy>), v81[0], 56, [v250 @ X8_v21+690], v97 @ X4_v4, v45 @ X5, v46 @ X6, v47 @ X7, v48 @ V0, v49 @ V1, v50 @ V2, v51 @ V3, v52 @ V4, v53 @ V5, v54 @ V6, v55 @ V7
+Import :             2 base has no type, from Add of RFShard[] and Immediate   e.g. RFShard.SortByDistanceToPoint: 88 Move v173 @ X8_v21, [v103 @ X26_v6+v112 @ X23_v7 (System.Int32)*8]
+Import :             2 Il2CppClass.elementType   e.g. CanvasFacebook.FormatAuthResponse: 186 Move v61 @ X0_v3 (System.Object), [v292 @ X8_v65 (Il2CppClass<Facebook.Unity.ResultContainer>)+40]
+Import :             2 base has no type, from Move from [JsonContract + 0x0]   e.g. JsonSerializerInternalReader.PopulateDictionary: 163 CheckLess v543 @ C_v36 (System.Boolean), [v540 @ X10_v20+130], [v539 @ X9_v45+130]
+Import :             2 base has no type, from Add of [Il2CppClass<System.Reflection.MethodBase> + 0xC8] and Int32   e.g. LateBoundReflectionDelegateFactory.CreateMethodCall: 99 CheckNotEqual v202 @ TEMPCSEL_v5 (System.Boolean), [v259 @ X10_v3-8], v156 @ X9_v8
+Import :             2 array at 0x3C, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 390 MakeStruct v383 @ AGG1E3CE38_2_v4 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [v560 @ X8_v25 (UnityEngine.Vector3[])+38], [v560 @ X8_v25 (UnityEngine.Vector3[])+3C], [v560 @ X8_v25 (UnityEngine.Vector3[])+40]
+Import :             2 base has no type, from Move from [Il2CppClass<Singleton`1> + 0xC0]   e.g. Singleton`1.get_Instance: 205 Move v227 @ X0_v157 (Il2CppClass<Singleton`1<T>>), [v239 @ X8_v15+10]
+Import :             2 Il2CppClass.0x770   e.g. DefaultContractResolver.GetCallbackMethodsForType: -1 Move v266 @ X2_v3 (System.Collections.Generic.List`1<Newtonsoft.Json.Serialization.SerializationCallback>&), [v459 @ X8_v18 (Il2CppClass<System.Type>)+770]
+Import :             2 base has no type, from Move from [IEnumerable`1<System.String> + 0x10]   e.g. <>c__DisplayClass4_1.<SendSuccessResult>b__1: 580 CheckLess v1387 @ C_v59 (System.Boolean), [v602 @ X0_v78 (System.Collections.Generic.IEnumerable`1<System.String>)+18], [v1025 @ X9_v57+18]
+Import :             2 array at 0x0, from Move from Transform   e.g. RFShatter.sl_element_mesh_par: 650 ShiftLeft v3082 @ TEMPSHIFT_v75 (System.Int32), [v1838 @ X22_v5 (UnityEngine.Mesh[])+v2573 @ X26_v41 (System.Int32)], 1
+Import :             2 base has no type, from Move from [Func`2<System.Collections.DictionaryEntry, System.Collections.Generic.KeyValuePair`2<TKey, TValue>> + 0xB8]   e.g. DictionaryWrapper`2.GetEnumerator: 118 Move v111 @ X21_v7 (System.Func`2<System.Collections.DictionaryEntry, System.Collections.Generic.KeyValuePair`2<TKey, TValue>>), [v326 @ X9_v30+8]
+Import :             2 base has no type, from Add of [safeMeshData& + 0x30] and Immediate   e.g. RFShatter.ConvertMesh: 1000 Move v554 @ V7_v3 (System.Int32), [v3300 @ X9_v122+v2005 @ X11_v42*4]
+Import :             2 static field storage at 0x10   e.g. JEnumerable`1.GetEnumerator: 141 Move v70 @ X0_v40 (Il2CppClass<Newtonsoft.Json.Linq.JEnumerable`1<T>>), [v224 @ X8_v34 (Il2CppStaticFields<Newtonsoft.Json.Linq.JEnumerable`1<T>>)+10]
+Import :             2 Il2CppClass.0x318   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v44 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+318]
+Import :             2 base has no type, from Add of [Il2CppClass<System.Type> + 0xC8] and Int32   e.g. JsonTypeReflector.GetAssociateMetadataTypeFromAttribute: 237 CheckNotEqual v240 @ TEMPCOND_v10 (System.Boolean), [v433 @ X8_v19-8], v270 @ X1_v13
+Import :             2 base has no type, from Add of [Il2CppClass<System.Collections.Generic.IList`1<Newtonsoft.Json.Linq.JToken>> + 0xC8] and Int32   e.g. JPropertyKeyedCollection.IndexOfReference: 60 CheckNotEqual v69 @ TEMPCOND_v4 (System.Boolean), [v116 @ X8_v11-8], v51 @ X1_v3
+Import :             2 byref at 0x18, from a call's result   e.g. RFShatter.WeldMeshes: 566 CheckLess v1299 @ C_v39 (System.Boolean), v274 @ X26_v15 (System.Int32), [v290 @ X0_v56 (System.Collections.Generic.List`1<System.Collections.Generic.Dictionary`2<System.Int32, System.Int32>>&)+18]
+Import :             2 array at 0x0, from Move from the field RayfireUnyielding[]   e.g. RayfireUnyielding.SetUnyielding: 236 CallVoid RayfireUnyielding.GetRigidRootUnyShardList, [v236 @ X8_v12 (RayFire.RayfireUnyielding[])+v246 @ X20_v12 (System.Int32)*8], rr @ X0 (RayFire.RayfireRigidRoot)
+Import :             2 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Serialization.JsonContract> + 0xC8] and Int32   e.g. JsonSerializerInternalReader.EnsureArrayContract: 56 CheckNotEqual v81 @ TEMPCOND_v4 (System.Boolean), [v70 @ X9_v5-8], v51 @ X8_v6
+Import :             2 base has no type, from Move from [JToken + 0x50]   e.g. JToken.EnsureValue: 78 Move v156 @ X19_v4 (Newtonsoft.Json.Linq.JToken), [v101 @ X8_v12+10]
+Import :             2 Il2CppClass.0x5D8   e.g. FacebookBase.OnInitComplete: 114 Move v131 @ X3_v3, [v145 @ X8_v12 (Il2CppClass<Facebook.Unity.FacebookBase>)+5D8]
+Import :             2 base has no type, from Move from [T2 + 0x20]   e.g. TweenerCore`3.ChangeStartValue: 57 Move v68 @ X8_v5, [v67 @ X8_v4+C0]
+Import :             2 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Bson.BsonObject> + 0xC8] and Int32   e.g. BsonWriter.AddToken: 54 CheckEqual v75 @ Z_v11 (System.Boolean), [v69 @ X11_v5-8], v52 @ X10_v3
+Import :             2 Il2CppClass.0x160   e.g. X509CertificateCollection.GetHashCode: 9 Move v11 @ X1_v1, [v9 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+160]
+Import :             2 base has no type, from Move from AddressOf(stack_-2D0, Single)   e.g. UIParticleUpdater.BakeMesh: 1001 Call "SzArrayNew", particle @ X0 (Voodoo.UI.Particles.UIParticle), particle @ X0 (Voodoo.UI.Particles.UIParticle), v2767 @ X0_v201 (System.Int32), 0, v514 @ X3_v5 (UnityEngine.Matrix4x4), v287 @ X4_v4, v54 @ X5, v55 @ X6, v56 @ X7, [v2650 @ X8_v67+20], [v2650 @ X8_v67+30], v2271 @ V2_v16 (System.Single), v2717 @ V3_v11 (System.Single), v709 @ V4_v4 (System.Single), v62 @ V5, v544 @ V6_v3 (System.Int32), v64 @ V7
+Import :             2 Il2CppClass.0x328   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+328]
+Import :             2 base has no type, from Add of the field StringReference and Int32   e.g. JsonTextReader.ParseReadNumber: 221 CheckEqual v246 @ Z_v9 (System.Boolean), [v299 @ X10_v5+20], 46
+Import :             2 byref at 0x18, from Move from Mesh&   e.g. RFShatter.ConvertMesh: 650 Move v1639 @ X19_v31 (System.Collections.Generic.List`1<System.Int32>&), [v1273 @ X24_v28 (UnityEngine.Mesh&)+18]
+Import :             2 base has no type, from Move from [safeMeshData& + 0x28]   e.g. RFShatter.ConvertMesh: 913 CheckLess v2962 @ C_v138 (System.Boolean), v2001 @ X11_v37, [v2010 @ X10_v47+18]
+Import :             2 base has no type, from Move from [safeMeshData& + 0x48]   e.g. RFShatter.ConvertMesh: -1 Move v2583 @ X1_v144 (System.Int32), [v718 @ X8_v268+v678 @ X23_v44 (System.Int32)*4]
+Import :             2 base has no type, from Move from [Component + 0x40]   e.g. RayfireRigidRoot.AwakeMethods: 143 CallVoid RFSound.InitializationSound, [302D0D8], [v159 @ X8_v15+A0]
+Import :             2 base has no type, from Move from [Component + 0x70]   e.g. <LivingCor>d__25.MoveNext: 202 CheckEqual v141 @ TEMP_v10 (System.Boolean), [v199 @ X0_v8+38], 0
+Import :             2 base has no type, from Move from [Int32 + 0xE8]   e.g. RayfireCluster.GetNeibShardArea: 135 CheckGreaterOrEqual v373 @ TEMPCOND_v18 (System.Boolean), v399 @ X22_v16 (System.Int32), [v705 @ X8_v29+18]
+Import :             2 Il2CppClass.0x660   e.g. CollectionUtils.ResolveEnumerableCollectionConstructor: 95 Move v180 @ X2_v7, [v227 @ X8_v10 (Il2CppClass<System.Type>)+660]
+Import :             2 Il2CppClass.0x158   e.g. X509CertificateCollection.GetHashCode: 8 Move v10 @ X2_v1, [v9 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+158]
+Import :             2 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.JsonConverter> + 0xC8] and Int32   e.g. JsonTypeReflector.GetJsonConverter: 113 CheckNotEqual v90 @ TEMPCOND_v4 (System.Boolean), [v215 @ X8_v14-8], v127 @ X1_v6
+Import :             2 Il2CppClass.0x6C0   e.g. ReflectionObject.Create: 237 Move v213 @ X3_v5 (Il2CppMethodInfo), [v329 @ X8_v11 (Il2CppClass<System.Type>)+6C0]
+Import :             2 Il2CppMethodInfo.0x50   e.g. ReflectionDelegateFactory.CreateGet: 95 ShiftLeft v245 @ TEMPSHIFT_v5 (System.Int32), [v242 @ X1_v10 (Il2CppMethodInfo)+50], 4
+Import :             2 Il2CppClass.rgctx_data   e.g. Singleton`1.get_Instance: 204 Move v239 @ X8_v15, [v90 @ X0_v4 (Il2CppClass<Singleton`1>)+C0]
+Import :             2 base has no type, from Move from [Object + 0x48]   e.g. RFDemolitionMesh.ChildrenToFragments: 230 CheckEqual v131 @ Z_v5 (System.Boolean), [v194 @ X8_v11+28], 4
+Import :             2 base has no type, from Move from [Expression + 0xC0]   e.g. DynamicProxyMetaObject`1.GetArgs: 241 Move v285 @ X0_v38 (Il2CppClass<Newtonsoft.Json.Utilities.DynamicProxyMetaObject`1<T>+<>c<T>>), [v301 @ X8_v35+1C8]
+Import :             2 Il2CppClass.vtable   e.g. MiscellaneousUtils.ValueEquals: 103 Move v296 @ X3_v1 (System.Int32), [v392 @ X8_v14 (Il2CppClass<System.Object>)+138]
+Import :             1 array at 0x0, from Move from the field Single[]   e.g. CoinsScreen.ShowCoinAnim: 397 Add v122 @ V0_v24 (System.Single), [v463 @ X8_v45 (System.Single[])+v374 @ X28_v7 (System.Int32)*4], v360 @ V0_v23 (System.Single)
+Import :             1 base has no type, from Move from [Il2CppClass<System.Type> + 0x20]   e.g. DefaultContractResolver.GetSerializableMembers: 356 Move v1531 @ X8_v142, [v1719 @ X8_v141+C0]
+Import :             1 generic instance, layout answers, value type argument   e.g. CombineInstanceEx.Clear: 155 Add v316 @ X8_v5, [v259 @ X0_v12 (System.Collections.Generic.List`1<UnityEngine.CombineInstance>)+1C], 1
+Import :             1 array at 0x20, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 299 Move [v368 @ X0_v15 (System.Collections.Generic.IEnumerable`1<UnityEngine.Vector3>)+2C], [v403 @ X9_v8 (UnityEngine.Vector3[])+20]
+Import :             1 Il2CppClass.0x590   e.g. TypeExtensions.IsEnum: 8 Move v10 @ X1_v1, [v8 @ X8_v1 (Il2CppClass<System.Type>)+590]
+Import :             1 base has no type, from Move from AddressOf(stack_-247)   e.g. FluidSolver.Awake: 225 Move this.octopusIds (Unity.Collections.NativeArray`1<System.Int32>), [v206 @ X8_v10+FF]
+Import :             1 base has no type, from Move from [JContainer + 0x50]   e.g. JContainer.ReadContentFrom: 139 CheckEqual v206 @ TEMP_v14 (System.Boolean), [v162 @ X8_v16+10], 0
+Import :             1 Il2CppClass.0x670   e.g. JObject.InternalPropertyChanging: 9 Move v12 @ X2_v1, [v9 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JObject>)+670]
+Import :             1 base has no type, from Move from [Rigidbody + 0x38]   e.g. RayfireGun.ImpactRigid: 728 CheckEqual v1256 @ TEMP_v34 (System.Boolean), [v587 @ X8_v36+21], 0
+Import :             1 Il2CppClass.0x430   e.g. <>c__DisplayClass33_0.<DOValue>b__1: 9 Move v11 @ X1_v1, [v9 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+430]
+Import :             1 base has no type, from Move from [Object + 0x118]   e.g. GameAnalytics.InternalInitialize: 849 CheckLess v283 @ TEMPCOND_v4 (System.Boolean), [v752 @ X8_v17+18], 1
+Import :             1 base has no type, from Move from AddressOf(stack_-D0, Vector3)   e.g. SecondaryImageColor.ModifyMesh: 132 Move [v336 @ X23_v4+3C], [v336 @ X23_v4+3C]
+Import :             1 Il2CppClass.0x690   e.g. DefaultContractResolver.SetIsSpecifiedActions: 110 Move v89 @ X3_v3, [v225 @ X8_v27 (Il2CppClass<System.Type>)+690]
+Import :             1 base has no type, from Add of FluidPhysicsCoupler and Immediate   e.g. FluidPhysicsCoupler.Step: 498 Add v1427 @ V0_v35, [v637 @ X8_v51+C], [v422 @ X25_v14+v1428 @ X8_v54 (System.Int32)]
+Import :             1 base has no type, from Move from AddressOf(stack_-267)   e.g. FluidSolver.Awake: 248 Move this.regionHasHead (Unity.Collections.NativeArray`1<System.Boolean>), [v227 @ X9_v4+FF]
+Import :             1 Il2CppClass.0x800   e.g. ReflectionUtils.GetChildPrivateProperties: 93 Move v193 @ X2_v7 (System.Reflection.BindingFlags), [v263 @ X8_v12 (Il2CppClass<System.Type>)+800]
+Import :             1 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Utilities.FSharpFunction> + 0xC8] and Int32   e.g. DiscriminatedUnionConverter.CreateUnion: 185 CheckNotEqual v814 @ TEMPCOND_v28 (System.Boolean), [v871 @ X8_v170-8], v848 @ X1_v57
+Import :             1 base has no type, from Add of [Il2CppClass<Facebook.Unity.Mobile.IOS.IOSFacebook> + 0xC8] and Int32   e.g. <>c__DisplayClass36_0.<Init>b__3: 83 CheckNotEqual v145 @ TEMPCOND_v4 (System.Boolean), [v134 @ X8_v12-8], v78 @ X1_v2
+Import :             1 Il2CppClass.0x4B8   e.g. XmlNodeWrapper.get_HasAttributes: 80 Move v86 @ X2_v1, [v43 @ X8_v5 (Il2CppClass<System.Xml.XmlNode>)+4B8]
+Import :             1 Il2CppClass.0x828   e.g. TypeExtensions.BaseType: 7 Move v9 @ X2_v1, [v8 @ X8_v1 (Il2CppClass<System.Type>)+828]
+Import :             1 base has no type, from Move from [Decimal + 0xB8]   e.g. BoxedPrimitives.Get: 57 Move returnVal1 @ X0_v6 (System.Object), [v82 @ X8_v11+B0]
+Import :             1 array at 0x10, from Move from [Mesh[]& + 0x0]   e.g. RFShatter.SimpleCompute: 295 CallVoid Array.Clear, [v252 @ X8_v7 (UnityEngine.Mesh[])+10], 0, v252.Length
+Import :             1 Il2CppClass.0x3A8   e.g. JsonWriter.WriteValue: 32 Move v53 @ X3_v1, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3A8]
+Import :             1 Il2CppClass.0x528   e.g. EditorFacebook.LogInWithReadPermissions: 1 Move v2 @ X4_v1, [v0 @ X8_v1 (Il2CppClass<Facebook.Unity.Editor.EditorFacebook>)+528]
+Import :             1 base has no type, from Add of UInt32[] and Int32   e.g. BigInteger.op_Multiply: 289 Multiply v657 @ TEMP_v36, [v658 @ X17_v10-4], [v538 @ X9_v13 (System.UInt32[])]
+Import :             1 base has no type, from Add of [Il2CppClass<T> + 0xC8] and Int32   e.g. Extensions.Convert: 182 CheckNotEqual v138 @ TEMPCOND_v9 (System.Boolean), [v334 @ X9_v10-8], v311 @ X8_v13
+Import :             1 base has no type, from Move from [EmissionModule + 0xB8]   e.g. RFParticles.SetEmission: 65 Add v131 @ X0_v12 (UnityEngine.ParticleSystem+Burst), [v100 @ X8_v5+58], 32
+Import :             1 base has no type, from Add of [Il2CppClass<UnityEngine.Rigidbody> + 0xC8] and Int32   e.g. Physics.SetOrientationOnPath: 95 CheckNotEqual v90 @ TEMPCOND_v3 (System.Boolean), [v191 @ X8_v9-8], v130 @ X1_v2
+Import :             1 byref at 0x40, from no definition   e.g. RFShatter.ConvertMesh: 444 Move v1443 @ X8_v271, [v265 @ X3_v4 (safeMeshData&)+40]
+Import :             1 base has no type, from Move from [GetTournamentsResult + 0x10]   e.g. GetTournamentsResult..ctor: 282 CheckLess v855 @ C_v23 (System.Boolean), [this @ X0 (Facebook.Unity.GetTournamentsResult)+18], [v840 @ X9_v26+18]
+Import :             1 byref at 0x58, from no definition   e.g. RFShatter.ConvertMesh: 414 Move v1442 @ X8_v292, [v265 @ X3_v4 (safeMeshData&)+58]
+Import :             1 base has no type, from Move from AddressOf(stack_-2B7)   e.g. FluidSolver.Awake: 307 Move this.splashImpulse (Unity.Collections.NativeArray`1<System.Single>), [v281 @ X9_v8+FF]
+Import :             1 base has no type, from Move from [Object + 0x120]   e.g. GameAnalytics.InternalInitialize: 971 CheckLess v284 @ TEMPCOND_v6 (System.Boolean), [v757 @ X8_v22+18], 1
+Import :             1 array at 0x40, from Move from the field ControlPoint[]   e.g. CatmullRomDecoder.SetWaypointsLengths: 240 Move [v414 @ X3_v7 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+40], [v291 @ X8_v41 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+40]
+Import :             1 base has no type, from Add of RayfireBomb and Immediate   e.g. RayfireBomb.SetProjectiles: 250 Move [v417 @ X0_v16 (System.Object)+30], [v638 @ X8_v7+8]
+Import :             1 base has no type, from Move from AddressOf(stack_-217)   e.g. FluidSolver.Awake: 190 Move this.powerUpIds (Unity.Collections.NativeArray`1<System.Int32>), [v174 @ X9_v1+FF]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Collections.Generic.List`1<Newtonsoft.Json.Converters.IXmlNode>> + 0xC8] and Int32   e.g. XmlNodeConverter.SerializeGroupedNodes: 792 CheckEqual v1235 @ Z_v26 (System.Boolean), [v1339 @ X9_v30-8], v1257 @ X8_v35
+Import :             1 base has no type, from Move from AddressOf(stack_-2C7)   e.g. FluidSolver.Awake: 319 Move this.viscosityStrengths (Unity.Collections.NativeArray`1<System.Single>), [v292 @ X9_v9+FF]
+Import :             1 Il2CppClass.0x5A8   e.g. WindowsFacebook.ActivateApp: 41 Move v64 @ X5_v1, [v63 @ X8_v3 (Il2CppClass<Facebook.Unity.Windows.WindowsFacebook>)+5A8]
+Import :             1 generic instance, layout answers, reference arguments   e.g. RFShatter.Compute: 1363 Move v631 @ X8_v6 (System.Collections.Generic.List`1<System.Collections.Generic.Dictionary`2<System.Int32, System.Int32>>), [v631 @ X8_v6 (System.Collections.Generic.List`1<System.Collections.Generic.Dictionary`2<System.Int32, System.Int32>>)+20]
+Import :             1 array at 0x4, from Move from the field Mesh[]   e.g. RayfireShatter.CreateFragments: 264 MakeStruct v516 @ AGG1EC0A54_1_v3 (UnityEngine.Quaternion), typeof(UnityEngine.Quaternion), [v63 @ X8_v3 (UnityEngine.Mesh[])], [v63 @ X8_v3 (UnityEngine.Mesh[])+4], [v63 @ X8_v3 (UnityEngine.Mesh[])+8], [v63 @ X8_v3 (UnityEngine.Mesh[])+C]
+Import :             1 base has no type, from Move from AddressOf(stack_-270, Single)   e.g. RFShatter.GetCombinedSubMesh: -1 Move v200 @ stack_-220_v4 (System.Int32), [v837 @ X8_v28+10]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XNode> + 0xC8] and Int32   e.g. XmlNodeConverter.ReadJson: 660 CheckNotEqual v390 @ TEMPCOND_v24 (System.Boolean), [v1171 @ X8_v51-8], v775 @ X1_v41
+Import :             1 base has no type, from Move from AddressOf(stack_-2E7)   e.g. FluidSolver.Awake: 346 Move this.idToIndex (Unity.Collections.NativeParallelHashMap`2<System.Int32, System.Int32>), [v317 @ X9_v11+FF]
+Import :             1 base has no type, from Move from AddressOf(stack_-297)   e.g. FluidSolver.Awake: 284 Move this.waterDensities (Unity.Collections.NativeArray`1<System.Single>), [v260 @ X9_v7+FF]
+Import :             1 base has no type, from Move from [safeMeshData& + 0x40]   e.g. RFShatter.ConvertMesh: 459 Move v660 @ X25_v4 (UnityEngine.Mesh), [v1443 @ X8_v271+v678 @ X23_v44 (System.Int32)*4]
+Import :             1 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Converters.IXmlElement> + 0xC8] and Int32   e.g. XmlNodeConverter.AddJsonArrayAttribute: 185 CheckNotEqual v407 @ TEMPCOND_v6 (System.Boolean), [v396 @ X10_v6-8], v380 @ X9_v8
+Import :             1 base has no type, from Move from [Object + 0x148]   e.g. GameAnalytics.InternalInitialize: 379 CheckGreaterOrEqual v278 @ TEMPCOND_v24 (System.Boolean), v438 @ X22_v22 (System.Int32), [v732 @ X8_v324+18]
+Import :             1 base has no type, from Add of [Il2CppClass<Mono.Security.Interface.MonoTlsProvider> + 0xC8] and Int32   e.g. MonoTlsProviderFactory.GetProvider: 51 CheckNotEqual v60 @ TEMPCOND_v4 (System.Boolean), [v98 @ X8_v9-8], v42 @ X1_v2
+Import :             1 base has no type, from Move from [Component + 0x98]   e.g. <HandleStartShow>d__13.MoveNext: 288 Call Random.Range, v427 @ X0_v53 (System.Int32), 0, [v104 @ X26_v7+18]
+Import :             1 base has no type, from Add of NativeArray`1<Unity.Mathematics.float2> and Int32   e.g. FluidDisplay.OnPreComputeUpdate: 433 And v603 @ X9_v11 (System.Int32), [v601 @ X9_v9+4], 2147483647
+Import :             1 byref at 0x48, from no definition   e.g. RFShatter.ConvertMesh: 377 Move v718 @ X8_v268, [v265 @ X3_v4 (safeMeshData&)+48]
+Import :             1 base has no type, from Add of String[] and Int32   e.g. EnumUtils.InternalFlagsFormat: 90 Call StringBuilder.Insert, v556 @ X0_v21 (System.Text.StringBuilder), v151 @ X0_v7 (System.Text.StringBuilder), 0, [v486 @ X9_v21+v195 @ X25_v10 (System.Int32)*8]
+Import :             1 static field storage at 0xB0   e.g. JEnumerable`1.GetEnumerator: 96 Add v203 @ X10_v5, [v224 @ X8_v34 (Il2CppStaticFields<Newtonsoft.Json.Linq.JEnumerable`1<T>>)+B0], 8
+Import :             1 array at 0x24, from Move from the field Mesh[]   e.g. RayfireShatter.CreateFragments: 560 Divide v1141 @ V3_v8 (System.Single), [v63 @ X8_v3 (UnityEngine.Mesh[])+24], this.rescaleFix (System.Single)
+Import :             1 base has no type, from Add of [Il2CppClass<DG.Tweening.Plugins.Core.ABSTweenPlugin`3<T1, T2, TPlugOptions>> + 0xC8] and Int32   e.g. PluginsManager.GetDefaultPlugin: 277 CheckNotEqual v594 @ TEMPCSEL_v2 (System.Boolean), [v683 @ X8_v12-8], v559 @ X0_v13 (Il2CppClass<DG.Tweening.Plugins.Core.ABSTweenPlugin`3<T1, T2, TPlugOptions>>)
+Import :             1 Il2CppClass.0x658   e.g. JObject.set_Item: 78 Move v84 @ X3_v1, [v83 @ X8_v5 (Il2CppClass<Newtonsoft.Json.Linq.JObject>)+658]
+Import :             1 base has no type, from Move from [MonoBehaviour + 0x40]   e.g. <LivingCor>d__26.MoveNext: 72 CheckNotEqual v132 @ TEMPCOND_v13 (System.Boolean), [v189 @ X8_v22+20], 8
+Import :             1 base has no type, from Move from [MonoBehaviour + 0x70]   e.g. <LivingCor>d__25.MoveNext: 74 CheckNotEqual v156 @ TEMPCOND_v14 (System.Boolean), [v210 @ X8_v18+20], 8
+Import :             1 base has no type, from Move from [Object + 0x128]   e.g. GameAnalytics.InternalInitialize: 1093 CheckLess v285 @ TEMPCOND_v8 (System.Boolean), [v762 @ X8_v27+18], 1
+Import :             1 array at 0x28, from Move from the field ControlPoint[]   e.g. CubicBezierDecoder.FinalizePath: 404 Subtract v512 @ V8_v11 (System.Single), [v266 @ X8_v24 (UnityEngine.Vector3[])+28], [v181 @ X9_v14 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+28]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XAttribute> + 0xC8] and Int32   e.g. XAttributeWrapper.get_Attribute: 51 CheckNotEqual v60 @ TEMPCOND_v4 (System.Boolean), [v98 @ X8_v9-8], v42 @ X1_v2
+Import :             1 base has no type, from Add of [Il2CppClass<Facebook.Unity.Purchase> + 0xC8] and Int32   e.g. PurchaseResult..ctor: 305 CheckNotEqual v325 @ TEMPCOND_v15 (System.Boolean), [v749 @ X9_v30-8], v362 @ X8_v31
+Import :             1 array at 0x30, from no definition   e.g. CubicBezierUtility.Normal: 58 MakeStruct v90 @ AGG1E45090_1_v1 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [points @ X0 (UnityEngine.Vector3[])+2C], [points @ X0 (UnityEngine.Vector3[])+30], [points @ X0 (UnityEngine.Vector3[])+34]
+Import :             1 base has no type, from Add of [Il2CppClass<System.ComponentModel.PropertyDescriptor> + 0xC8] and Int32   e.g. JObject.System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner: 61 CheckNotEqual v102 @ TEMPCSEL_v1 (System.Boolean), [v91 @ X9_v4-8], v46 @ X8_v6
+Import :             1 base has no type, from Move from [Boolean + 0x10]   e.g. JsonSerializerInternalReader.CreateNewDictionary: 52 CheckEqual v257 @ TEMP_v61 (System.Boolean), [v250 @ X0_v68+E0], 0
+Import :             1 base has no type, from Move from Object   e.g. JValue.System.IComparable.CompareTo: 55 Move v176 @ X0_v5 (Newtonsoft.Json.Linq.JTokenType), [v173 @ X8_v6+30]
+Import :             1 base has no type, from Move from AddressOf(stack_-2D7)   e.g. FluidSolver.Awake: 331 Move this.nearPressureMultipliers (Unity.Collections.NativeArray`1<System.Single>), [v303 @ X9_v10+FF]
+Import :             1 array at 0x20, from Add of the field Vector3[] and Int32   e.g. CatmullRomDecoder.SetWaypointsLengths: 142 Move [v270 @ X9_v7+20], [v532 @ X10_v6 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20]
+Import :             1 base has no type, from Move from [Rigidbody + 0x30]   e.g. RayfireGun.ImpactRigid: 886 CallVoid List`1<UnityEngine.Rigidbody>.Add, v84 @ X0_v3 (System.Collections.Generic.List`1<UnityEngine.Rigidbody>), [v594 @ X8_v23+40]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Security.Cryptography.HMAC> + 0xC8] and Int32   e.g. PKCS12.MAC: 89 CheckNotEqual v137 @ TEMPCOND_v5 (System.Boolean), [v231 @ X8_v22-8], v167 @ X1_v13 (System.Byte[])
+Import :             1 Il2CppClass.0x4C0   e.g. XmlNodeWrapper.get_HasAttributes: 81 Move v87 @ X1_v4, [v43 @ X8_v5 (Il2CppClass<System.Xml.XmlNode>)+4C0]
+Import :             1 array at 0x0, from Move from the field Vector3[][]   e.g. TextPopEffect.CacheVertexPositions: 121 CallVoid Array.Copy, [v158 @ X8_v11 (TMPro.TMP_MeshInfo[])+v123 @ X24_v5 (System.Int32)], [v136 @ X9_v9 (UnityEngine.Vector3[][])+v126 @ X23_v5 (System.Int32)], [v141 @ X0_v16 (System.Array)+18]
+Import :             1 Il2CppClass.0x830   e.g. TypeExtensions.BaseType: 8 Move v10 @ X1_v1, [v8 @ X8_v1 (Il2CppClass<System.Type>)+830]
+Import :             1 base has no type, from Move from AddressOf(stack_-237)   e.g. FluidSolver.Awake: 214 Move this.clumpIds (Unity.Collections.NativeArray`1<System.Int32>), [v196 @ X9_v3+FF]
+Import :             1 Il2CppClass.0x8C8   e.g. DefaultSerializationBinder.GetGenericTypeFromTypeName: 404 Move v276 @ X3_v5, [v287 @ X8_v15 (Il2CppClass<System.Type>)+8C8]
+Import :             1 Il2CppClass.0x530   e.g. EditorFacebook.LogInWithReadPermissions: 2 Move v3 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Facebook.Unity.Editor.EditorFacebook>)+530]
+Import :             1 Il2CppClass.0x400   e.g. ReflectionUtils.GetBaseDefinition: 47 Move v82 @ X1_v6, [v80 @ X8_v7 (Il2CppClass<System.Reflection.MethodInfo>)+400]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XText> + 0xC8] and Int32   e.g. XTextWrapper.get_Text: 51 CheckNotEqual v60 @ TEMPCOND_v4 (System.Boolean), [v98 @ X8_v9-8], v42 @ X1_v2
+Import :             1 base has no type, from Add of [Il2CppClass<Facebook.Unity.Subscription> + 0xC8] and Int32   e.g. SubscriptionResult..ctor: 305 CheckNotEqual v325 @ TEMPCOND_v15 (System.Boolean), [v749 @ X9_v30-8], v362 @ X8_v31
+Import :             1 Il2CppClass.0x588   e.g. TypeExtensions.IsEnum: 7 Move v9 @ X2_v1, [v8 @ X8_v1 (Il2CppClass<System.Type>)+588]
+Import :             1 base has no type, from Move from [Object + 0x50]   e.g. RayfireRigidRoot.SetShards: 637 Move v650 @ X8_v49, [v1250 @ X8_v48+58]
+Import :             1 base has no type, from Add of the field Vector4[] and Int32   e.g. FluidCompute.RemoveParticles: 309 Move [v666 @ X10_v18+20], [v77 @ X11_v17+20]
+Import :             1 base has no type, from Move from AddressOf(stack_-C0, Color2)   e.g. Color2Plugin.SetFrom: 56 Move t.endValue.cb (UnityEngine.Color), [v194 @ X8_v20+10]
+Import :             1 Il2CppClass.0x668   e.g. JObject.InternalPropertyChanging: 8 Move v11 @ X3_v1, [v9 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JObject>)+668]
+Import :             1 Il2CppClass.0x428   e.g. <>c__DisplayClass33_0.<DOValue>b__1: 8 Move v10 @ X2_v1, [v9 @ X8_v1 (Il2CppClass<UnityEngine.UI.Slider>)+428]
+Import :             1 base has no type, from Move from AddressOf(stack_-257)   e.g. FluidSolver.Awake: 236 Move this.inOctopusHead (Unity.Collections.NativeArray`1<System.Boolean>), [v216 @ X8_v11+FF]
+Import :             1 array at 0x28, from Add of the field Vector3[] and Int32   e.g. CatmullRomDecoder.SetWaypointsLengths: 143 Move [v270 @ X9_v7+28], [v532 @ X10_v6 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+28]
+Import :             1 base has no type, from Move from [Boolean + 0xC0]   e.g. CollectionWrapper`1.VerifyValueType: 70 Call Type.GetTypeFromHandle, v115 @ X0_v18 (System.Type), [v95 @ X8_v4+B8]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Collections.Generic.IEnumerable`1<T>> + 0xC8] and Int32   e.g. Extensions.Value: 62 CheckNotEqual v71 @ TEMPCOND_v3 (System.Boolean), [v109 @ X9_v4-8], v52 @ X8_v8
+Import :             1 base has no type, from Move from [Object + 0x130]   e.g. GameAnalytics.InternalInitialize: 1215 CheckLess v286 @ TEMPCOND_v10 (System.Boolean), [v767 @ X8_v32+18], 1
+Import :             1 base has no type, from Move from AddressOf(stack_-C0)   e.g. RFShatter.CenterMesh: 563 Move [out_center @ X3 (UnityEngine.Vector3&)+8], [v507 @ X8_v5+8]
+Import :             1 base has no type, from Move from [XObject + 0x30]   e.g. XElementWrapper.get_LocalName: 62 Return [v94 @ X8_v11+18]
+Import :             1 array at 0x28, from Move from ArrayAccess   e.g. BezierPath.SplitSegment: 300 Move [v368 @ X0_v15 (System.Collections.Generic.IEnumerable`1<UnityEngine.Vector3>)+34], [v403 @ X9_v8 (UnityEngine.Vector3[])+28]
+Import :             1 base has no type, from Add of the field Vector2[] and Immediate   e.g. FluidCollectDisplay.RemoveParticle: 161 Move [v321 @ X8_v13+index @ X1 (System.Int32)*8], [v321 @ X8_v13+v46 @ X23_v6 (System.Int32)*8]
+Import :             1 array at 0x8, from Move from the field Mesh[]   e.g. RayfireShatter.CreateFragments: 264 MakeStruct v516 @ AGG1EC0A54_1_v3 (UnityEngine.Quaternion), typeof(UnityEngine.Quaternion), [v63 @ X8_v3 (UnityEngine.Mesh[])], [v63 @ X8_v3 (UnityEngine.Mesh[])+4], [v63 @ X8_v3 (UnityEngine.Mesh[])+8], [v63 @ X8_v3 (UnityEngine.Mesh[])+C]
+Import :             1 array at 0x0, from no definition   e.g. RFFragment.CacheMeshesMult: 176 CallVoid Object.set_name, [v209 @ stack_-68_v5 (UnityEngine.Mesh[])+v293 @ X24_v9 (System.Int32)*8], v238 @ X0_v34 (System.String)
+Import :             1 base has no type, from Add of [Il2CppClass<UnityEngine.RenderTexture> + 0xC8] and Int32   e.g. DebugSDF.OnDrawGizmos: 89 CheckNotEqual v166 @ TEMPCOND_v3 (System.Boolean), [v359 @ X9_v4-8], v226 @ X8_v7
+Import :             1 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.JsonSerializer> + 0xC8] and Int32   e.g. JToken.ToObject: 111 CheckNotEqual v129 @ TEMPCOND_v12 (System.Boolean), [v118 @ X9_v14-8], v101 @ X8_v19
+Import :             1 base has no type, from Move from AddressOf(stack_-227)   e.g. FluidSolver.Awake: 202 Move this.fishIds (Unity.Collections.NativeArray`1<System.Int32>), [v185 @ X9_v2+FF]
+Import :             1 Il2CppClass.0x5B0   e.g. WindowsFacebook.ActivateApp: 42 Move v65 @ X4_v1, [v63 @ X8_v3 (Il2CppClass<Facebook.Unity.Windows.WindowsFacebook>)+5B0]
+Import :             1 Il2CppClass.0x3F8   e.g. ReflectionUtils.GetBaseDefinition: 46 Move v81 @ X2_v5, [v80 @ X8_v7 (Il2CppClass<System.Reflection.MethodInfo>)+3F8]
+Import :             1 base has no type, from Add of IEnumerable`1<System.Object> and Immediate   e.g. RFDemolitionCluster.ClusterizeDetachShards: 409 Add v810 @ X0_v19, [v296 @ X21_v7+v294 @ X20_v8 (System.Int32)*8], 240
+Import :             1 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Linq.JProperty> + 0xC8] and Int32   e.g. JObject.Property: 185 CheckNotEqual v157 @ TEMPCOND_v9 (System.Boolean), [v410 @ X8_v12-8], v392 @ X1_v8
+Import :             1 base has no type, from Add of [Il2CppClass<System.Data.DataColumn> + 0xC8] and Int32   e.g. DataTableConverter.WriteJson: 473 CheckNotEqual v1274 @ TEMPCOND_v33 (System.Boolean), [v1322 @ X8_v70-8], v188 @ X1_v17 (Newtonsoft.Json.JsonWriter)
+Import :             1 Il2CppClass.0x898   e.g. DataTableConverter.GetColumnDataType: 142 Move v174 @ X2_v3, [v207 @ X8_v11 (Il2CppClass<System.Type>)+898]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Exception> + 0xC8] and Int32   e.g. JsonSerializerInternalBase.IsErrorHandled: 345 CheckEqual v598 @ Z_v17 (System.Boolean), [v592 @ X9_v23-8], v579 @ X8_v35
+Import :             1 Il2CppClass.0x8A0   e.g. DataTableConverter.GetColumnDataType: 143 Move v196 @ X1_v10, [v207 @ X8_v11 (Il2CppClass<System.Type>)+8A0]
+Import :             1 array at 0x20, from Move from the field ControlPoint[]   e.g. CubicBezierDecoder.FinalizePath: 402 Subtract v505 @ V15_v10 (System.Single), [v266 @ X8_v24 (UnityEngine.Vector3[])+20], [v181 @ X9_v14 (DG.Tweening.Plugins.Core.PathCore.ControlPoint[])+20]
+Import :             1 Il2CppMethodInfo.0x40   e.g. ResultBase.GetCancelledValue: 208 CheckNotEqual v401 @ TEMPCOND_v11 (System.Boolean), [v423 @ X0_v15], [v319 @ X1_v4 (Il2CppMethodInfo)+40]
+Import :             1 Il2CppClass.0x2B8   e.g. JsonSerializerProxy.get_ContractResolver: 8 Move v10 @ X2_v1, [v9 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+2B8]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Uri> + 0xC8] and Int32   e.g. JsonReader.ReadAsString: 234 CheckEqual v397 @ Z_v13 (System.Boolean), [v391 @ X10_v5-8], v367 @ X9_v14
+Import :             1 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XProcessingInstruction> + 0xC8] and Int32   e.g. XProcessingInstructionWrapper.get_ProcessingInstruction: 51 CheckNotEqual v60 @ TEMPCOND_v4 (System.Boolean), [v98 @ X8_v9-8], v42 @ X1_v2
+Import :             1 Il2CppMethodInfo.virtualMethodPointer   e.g. DictionaryWrapper`2.Contains: 219 Move v149 @ X0_v13, [v280 @ X1_v6 (Il2CppMethodInfo)+8]
+Import :             1 Il2CppClass.0x3B0   e.g. JsonWriter.WriteValue: 33 Move v54 @ X2_v2, [v45 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+3B0]
+Import :             1 base has no type, from Add of [Il2CppClass<System.Xml.Linq.XComment> + 0xC8] and Int32   e.g. XCommentWrapper.get_Text: 51 CheckNotEqual v60 @ TEMPCOND_v4 (System.Boolean), [v98 @ X8_v9-8], v42 @ X1_v2
+Import :             1 base has no type, from Move from [XObject + 0x28]   e.g. XAttributeWrapper.get_LocalName: 62 Return [v94 @ X8_v11+18]
+Import :             1 base has no type, from Move from [safeMeshData& + 0x58]   e.g. RFShatter.ConvertMesh: 428 Move v1548 @ X25_v16 (safeMeshData&), [v1442 @ X8_v292+v678 @ X23_v44 (System.Int32)*4]
+Import :             1 array at 0x1C, from Move from [Mesh[]& + 0x0]   e.g. RFShatter.SimpleCompute: 276 Add v178 @ X9_v4, [v252 @ X8_v7 (UnityEngine.Mesh[])+1C], 1
+Import :             1 base has no type, from Add of [Il2CppClass<System.Data.DataRow> + 0xC8] and Int32   e.g. DataTableConverter.WriteJson: 315 CheckNotEqual v991 @ TEMPCOND_v43 (System.Boolean), [v1008 @ X8_v80-8], v188 @ X1_v17 (Newtonsoft.Json.JsonWriter)
+Import :             1 base has no type, from Move from AddressOf(stack_-287)   e.g. FluidSolver.Awake: 272 Move this.isHoneyCoated (Unity.Collections.NativeArray`1<System.Boolean>), [v249 @ X9_v6+FF]
+Import :             1 array at 0x24, from no definition   e.g. CubicBezierUtility.Normal: 57 MakeStruct v93 @ AGG1E45090_0_v1 (UnityEngine.Vector3), typeof(UnityEngine.Vector3), [points @ X0 (UnityEngine.Vector3[])+20], [points @ X0 (UnityEngine.Vector3[])+24], [points @ X0 (UnityEngine.Vector3[])+28]
+Import :             1 base has no type, from Move from [Object + 0x138]   e.g. GameAnalytics.InternalInitialize: 1337 CheckLess v116 @ TEMPCOND_v12 (System.Boolean), [v772 @ X8_v37+18], 1
+Import :             1 base has no type, from Add of IReadOnlyList`1<UnityEngine.Vector2> and Immediate   e.g. RoundedPathMeshCreator.BuildMesh: 1200 Subtract v2098 @ V0_v62, [v841 @ X11_v14+v2135 @ X12_v16 (System.Int32)], v2097 @ V1_v47
+Import :             1 base has no type, from Add of [Il2CppClass<System.Reflection.FieldInfo> + 0xC8] and Int32   e.g. DefaultContractResolver.GetSerializableMembers: 487 CheckNotEqual v523 @ TEMPCOND_v41 (System.Boolean), [v1584 @ X9_v74-8], v1497 @ X8_v137
+Import :             1 base has no type, from Add of Boolean and Immediate   e.g. JsonSerializerInternalReader.CalculatePropertyDetails: 259 Call F3F1B4, v225 @ X0_v87, [v24 @ X29_v1+18], v989 @ X0_v85 (Newtonsoft.Json.Serialization.JsonContract), [v916 @ X0_v77+8], containerContract @ X3 (Newtonsoft.Json.Serialization.JsonContainerContract), containerProperty @ X4 (Newtonsoft.Json.Serialization.JsonProperty), reader @ X5 (Newtonsoft.Json.JsonReader), target @ X6 (System.Object), useExistingValue @ X7 (System.Boolean&), v54 @ V0, v55 @ V1, v56 @ V2, v57 @ V3, v58 @ V4, v59 @ V5, v60 @ V6, v61 @ V7
+Import :             1 base has no type, from Add of [Il2CppClass<System.Data.DataTable> + 0xC8] and Int32   e.g. DataSetConverter.ReadJson: 268 CheckNotEqual v422 @ TEMPCOND_v16 (System.Boolean), [v605 @ X9_v22-8], v449 @ X1_v29
+Import :             1 base has no type, from Move from AddressOf(stack_-277)   e.g. FluidSolver.Awake: 260 Move this.isWater (Unity.Collections.NativeArray`1<System.Boolean>), [v238 @ X9_v5+FF]
+Import :             1 array at 0x0, from Move from Mesh[]   e.g. RFFragment.CacheMeshesMult: 149 CallVoid Mesh.RecalculateTangents, [v263 @ X8_v22 (UnityEngine.Mesh[])+v293 @ X24_v9 (System.Int32)*8]
+Import :             1 base has no type, from Move from AddressOf(stack_-24B)   e.g. FluidPhysicsCoupler.Step: 200 Move [v991 @ X8_v78+1C], [v634 @ X8_v61+FF]
+Import :             1 base has no type, from Move from AddressOf(stack_-2A7)   e.g. FluidSolver.Awake: 295 Move this.spongeIds (Unity.Collections.NativeArray`1<System.Int32>), [v270 @ X8_v16+FF]
+Import :             1 byref at 0x50, from no definition   e.g. RFShatter.ConvertMesh: 396 Move v1441 @ X8_v293, [v265 @ X3_v4 (safeMeshData&)+50]
+Import : Il2Cpp method body recovery: 87720 locals the analysis could not type, by what defines them:
+Import :         41569 written by nothing, first read by an unresolved call   e.g. NullableAttribute..ctor: v29
+Import :         11106 Move from memory [never read]   e.g. JsonTextWriter.WriteValue: 52 Move v73 @ X3_v1, [v72 @ X8_v6 (Il2CppClass<System.IO.TextWriter>)+248]
+Import :          7779 Call - the return of a call whose target is unknown [never read]   e.g. NullableAttribute..ctor: 46 Call F3F1B4, v63 @ X0_v9, v55 @ X19_v2, v49 @ X0_v4 (System.Byte[]), methodInfo @ X2 (Il2CppMethodInfo), v29 @ X3, v30 @ X4, v31 @ X5, v32 @ X6, v33 @ X7, v34 @ V0, v35 @ V1, v36 @ V2, v37 @ V3, v38 @ V4, v39 @ V5, v40 @ V6, v41 @ V7
+Import :          4563 written by nothing [never read]   e.g. JsonTextWriter.WriteValue: v33
+Import :          4373 Add, first read by an unresolved call   e.g. NullableAttribute..ctor: 36 Add v55 @ X19_v2, this @ X0 (System.Runtime.CompilerServices.NullableAttribute), 16
+Import :          3077 Add, first read by Add   e.g. DefaultJsonNameTable.Get: 87 Add v361 @ X11_v9, v436 @ X11_v7, 32
+Import :          1460 Subtract, first read by Move   e.g. JsonWriter.ResolveConvertibleValue: 154 Subtract v254 @ X9_v9, v277 @ X9_v6, 1
+Import :          1459 Add [never read]   e.g. JsonTextWriter.WriteValue: 52 Add v111 @ X8_v6, [v99 @ X0_v19+B8], 8
+Import :          1379 Move from memory, first read by Subtract   e.g. JsonWriter.ResolveConvertibleValue: 128 Move v277 @ X9_v6, [v243 @ X8_v10 (Il2CppClass<System.IConvertible>)+12E]
+Import :           816 written by nothing, first read by IndirectCall   e.g. BidirectionalDictionary`2.Set: v181
+Import :           670 Add, first read by ShiftLeft   e.g. JsonWriter.ResolveConvertibleValue: 162 Add v297 @ X9_v8, [v276 @ X10_v5], 16
+Import :           627 Call - the return of a call whose target is unknown, first read by an unresolved call   e.g. DefaultJsonNameTable.Grow: 156 Call F3F1B4, v217 @ X0_v8, v57 @ X20_v2, v63 @ X0_v3 (Entry[]), v39 @ X2, v40 @ X3, v41 @ X4, v42 @ X5, v43 @ X6, v44 @ X7, v45 @ V0, v46 @ V1, v47 @ V2, v48 @ V3, v49 @ V4, v50 @ V5, v51 @ V6, v52 @ V7
+Import :           617 Move of a constant [never read]   e.g. JsonTextWriter.WriteValue: 83 Move v87 @ X22_v4, 50515968
+Import :           540 Call - the return of a resolved method (typed) [never read]   e.g. JsonWriter.WriteValue: 1141 Call JsonWriter.WriteNull, v182 @ X0_v25, v44 @ X0_v1 (Newtonsoft.Json.JsonWriter)
+Import :           509 Call - the return of a call whose target is unknown, first read by CheckEqual   e.g. DefaultJsonNameTable.AddEntry: 71 Call F3F36C, v136 @ X0_v17, v110 @ X0_v10 (System.Object), typeof(Newtonsoft.Json.DefaultJsonNameTable+Entry), hashCode @ X2 (System.Int32), methodInfo @ X3 (Il2CppMethodInfo), v37 @ X4, v38 @ X5, v39 @ X6, v40 @ X7, v41 @ V0, v42 @ V1, v43 @ V2, v44 @ V3, v45 @ V4, v46 @ V5, v47 @ V6, v48 @ V7
+Import :           502 Move from memory, first read by Add   e.g. JsonConvert.SerializeObjectInternal: 113 Move v261 @ X8_v13, [v254 @ X21_v7]
+Import :           408 Xor, first read by And   e.g. MathUtils.ApproxEquals: 79 Xor v79 @ TEMP3_v3, v93 @ V2_v1 (System.Double), v87 @ TEMP1_v3 (System.Double)
+Import :           405 Move of AddressOf [never read]   e.g. JsonReader.get_Path: 5 Move v8 @ X29_v1, &v9 @ stack_-10_v2
+Import :           396 IndirectCall [never read]   e.g. JsonConvert.DeserializeObject: 144 IndirectCall [v368 @ X0_v20], v270 @ X0_v22, v245 @ X21_v7, [v368 @ X0_v20+8], v137 @ X2_v2 (System.Type), v234 @ X3_v3 (Il2CppMethodInfo), v35 @ X4, v36 @ X5, v37 @ X6, v38 @ X7, v39 @ V0, v40 @ V1, v41 @ V2, v42 @ V3, v43 @ V4, v44 @ V5, v45 @ V6, v46 @ V7
+Import :           378 Add, first read by Move   e.g. DefaultJsonNameTable.Get: 65 Add v189 @ X24_v7, v343 @ X10_v7 (System.Int32), v339 @ X9_v7
+Import :           355 Move from memory, first read by an unresolved call   e.g. DefaultJsonNameTable.Get: 36 Move v72 @ X0_v6, [v62 @ X23_v6 (System.Int32)]
+Import :           329 Move of a constant, first read by an unresolved call   e.g. JsonReader.ReadAsInt32: -1 Move v188 @ X3_v1, 0
+Import :           313 IndirectCall, first read by CheckEqual   e.g. BidirectionalDictionary`2.Set: 84 IndirectCall [v304 @ X0_v67], v311 @ X0_v69, v20 @ X23_v1 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>), first @ X1 (TFirst), &v291 @ stack_-48_v7 (TSecond), [v304 @ X0_v67+8], v181 @ X4, v182 @ X5, v183 @ X6, v184 @ X7, v185 @ V0, v186 @ V1, v187 @ V2, v188 @ V3, v189 @ V4, v190 @ V5, v191 @ V6, v192 @ V7
+Import :           238 Newobj, first read by CallVoid   e.g. EnumUtils..cctor: 51 Newobj v63 @ X0_v3, [v25 @ X25_v2 (System.Int32)]
+Import :           215 Move from memory, first read by CheckNotEqual   e.g. BinderWrapper.GetMember: 150 Move v181 @ X1_v18, [v322 @ X8_v22 (System.Int32)]
+Import :           212 Multiply, first read by Add   e.g. DateTimeUtils.TryParseDateTimeMicrosoft: 67 Multiply v170 @ TEMP_v18, v64 @ stack_-50_v2 (System.TimeSpan), 10000
+Import :           158 Subtract, first read by Multiply   e.g. RFCluster.GetBoundsBound: 112 Subtract v132 @ V4_v3, v68 @ V1_v2, v66 @ V0_v1
+Import :           157 Call - the return of a call whose target is unknown, first read by Move   e.g. BoxedPrimitives..cctor: 57 Call "il2cpp_vm_object_box", v69 @ X0_v3, [v32 @ X20_v2 (System.Int32)], v68 @ X1_v1, v46 @ X2, v47 @ X3, v48 @ X4, v49 @ X5, v50 @ X6, v51 @ X7, v52 @ V0, v53 @ V1, v54 @ V2, v55 @ V3, v56 @ V4, v57 @ V5, v58 @ V6, v59 @ V7
+Import :           142 written by nothing, first read by Multiply   e.g. RFBricks.get_SizeVariation: v6
+Import :           140 Move from another untyped local, first read by an unresolved call   e.g. JsonReader.ReadAsString: -1 Move v178 @ X3_v3, v178 @ X3_v3
+Import :           137 Move of AddressOf, first read by Move   e.g. CollectionUtils.AddRange: -1 Move v192 @ stack_-40_v3, &v52 @ stack_-38
+Import :           133 Move from another untyped local, first read by Move   e.g. DefaultJsonNameTable.Add: -1 Move v286 @ X22_v6, v307 @ X22_v15
+Import :           127 Move from memory, first read by IndirectCall   e.g. BidirectionalDictionary`2.Set: 65 Move v53 @ X3_v12, [v265 @ X0_v64+8]
+Import :           123 Move from memory, first read by Move   e.g. NoThrowGetBinderMember.FallbackGetMember: 18 Move v95 @ X21_v17, [v21 @ X21_v2 (System.Int32)]
+Import :           106 Call - the return of a call whose target is unknown, first read by And   e.g. EnumUtils.TryToString: 105 Call 10E33A8, v97 @ X0_v15, v89.Values (System.UInt64[]), v96 @ X0_v12 (System.UInt64), [v208 @ X8_v12 (System.Int32)]
+Import :           101 Subtract, first read by CheckEqual   e.g. DateTimeUtils.TryParseMicrosoftDate: 71 Subtract v96 @ TEMP1_v8, v222 @ X27_v4 (System.Int32), -1
+Import :            97 Move from memory, first read by CheckEqual   e.g. JsonReader.ReadAsString: 211 Move v367 @ X9_v14, [v366 @ X8_v21 (System.Int32)]
+Import :            97 written by nothing, first read by Move   e.g. JsonTextReader.ParseReadString: v319
+Import :            92 Subtract, first read by an unresolved call   e.g. BoxedPrimitives..cctor: 56 Subtract v68 @ X1_v1, &v25 @ stack_-10_v2, 129
+Import :            81 IndirectCall, first read by And   e.g. BidirectionalDictionary`2.Set: 94 IndirectCall [v223 @ X8_v38+138], v219 @ X0_v62, v291 @ stack_-48_v7 (TSecond), second @ X2 (TSecond), [v223 @ X8_v38+140], v53 @ X3_v12, v181 @ X4, v182 @ X5, v183 @ X6, v184 @ X7, v185 @ V0, v186 @ V1, v187 @ V2, v188 @ V3, v189 @ V4, v190 @ V5, v191 @ V6, v192 @ V7
+Import :            78 Call - the return of a call whose target is unknown, first read by Add   e.g. JsonWriter..cctor: 56 Call "SzArrayNew", v54 @ X0_v3, [v21 @ X20_v2 (System.Int32)], 8, v33 @ X2, v34 @ X3, v35 @ X4, v36 @ X5, v37 @ X6, v38 @ X7, v39 @ V0, v40 @ V1, v41 @ V2, v42 @ V3, v43 @ V4, v44 @ V5, v45 @ V6, v46 @ V7
+Import :            72 Subtract, first read by CheckLess   e.g. DateTimeUtils.TryReadOffset: 73 Subtract v195 @ X8_v9, v193 @ X8_v8 (System.Int32), offset @ X2 (System.TimeSpan&)
+Import :            67 written by nothing, first read by CheckEqual   e.g. DateTimeUtils.TryParseDateTimeMicrosoft: v67
+Import :            56 Add, first read by CheckLess   e.g. JavaScriptUtils.FirstCharToEscape: 112 Add v285 @ X8_v8, v123 @ X0_v12 (System.Char), 4294959064
+Import :            52 Add, first read by And   e.g. <>c__55`2.<BuildMapCreator>b__55_1: 20 Add v26 @ X9_v3, [v22 @ X9_v1 (Il2CppClass<TKey>)+FC], 15
+Import :            51 Move of a constant, first read by Move   e.g. FSharpUtils..ctor: -1 Move v110 @ X3_v7, 0
+Import :            43 Multiply, first read by Subtract   e.g. RFCluster.GetBoundsBound: 125 Multiply v145 @ V4_v4, v132 @ V4_v3, 63
+Import :            42 Move of a constant, first read by IndirectCall   e.g. JsonPosition.FormatMessage: -1 Move v494 @ X2_v9, 0
+Import :            40 Add, first read by CheckEqual   e.g. EnumUtils.InternalFlagsFormat: 105 Add v293 @ X21_v11, v88 @ X23_v13, v195 @ X25_v10 (System.Int32)
+Import :            40 Add, first read by Subtract   e.g. StringReferenceExtensions.EndsWith: 55 Add v253 @ X8_v6, v21 @ X8_v3 (System.Int32), text @ X1 (System.String)
+Import :            38 Move of AddressOf, first read by an unresolved call   e.g. JsonReader.ReadInt32String: -1 Move v171 @ X3_v5, &v89 @ stack_-3C_v5 (System.Int32)
+Import :            37 Add, first read by Multiply   e.g. DateTimeUtils.GetDateValues: 91 Add v112 @ X8_v11, v83 @ X8_v10 (System.Int64), v111 @ TEMP_v7
+Import :            37 Move from memory, first read by a call to an instance method   e.g. ConvertUtils.GetTypeCode: 25 Move v69 @ X0_v8, [v57 @ X8_v59]
+Import :            34 Move of AddressOf, first read by CallVoid   e.g. DefaultContractResolver.GetCallbackMethodsForType: -1 Move v274 @ stack_-98_v3, &v109 @ stack_-A0_v5 (System.Collections.Generic.List`1<System.Object>+Enumerator<System.Object>)
+Import :            34 Call - the return of a call whose target is unknown, first read by IndirectCall   e.g. FSharpUtils..ctor: 164 Call F3F364, v306 @ X0_v17, [v304 @ X8_v12+140], v302 @ X1_v8, v293 @ X2_v5 (System.Reflection.BindingFlags), v292 @ X3_v3, v40 @ X4, v41 @ X5, v42 @ X6, v43 @ X7, v44 @ V0, v45 @ V1, v46 @ V2, v47 @ V3, v48 @ V4, v49 @ V5, v50 @ V6, v51 @ V7
+Import :            34 Subtract, first read by IndirectCall   e.g. <>c__55`2.<BuildMapCreator>b__55_1: 35 Subtract v41 @ X3_v1, &v9 @ X29, 56
+Import :            33 IndirectCall, first read by CheckLess   e.g. JsonSerializer.SerializeInternal: 497 IndirectCall [v1310 @ X0_v38], v1184 @ X0_v40, v363 @ X0_v33 (Newtonsoft.Json.Serialization.ITraceWriter), [v1310 @ X0_v38+8], 0, v127 @ X3_v2 (System.Type), methodInfo @ X4 (Il2CppMethodInfo), v45 @ X5, v46 @ X6, v47 @ X7, v48 @ V0, v49 @ V1, v50 @ V2, v51 @ V3, v52 @ V4, v53 @ V5, v54 @ V6, v55 @ V7
+Import :            33 written by nothing, first read by MakeStruct   e.g. RFFragment.SetBricks: v276
+Import :            32 Move from a typed local, first read by an unresolved call   e.g. CollectionUtils.IndexOf: -1 Move v333 @ X22_v9, collection @ X0 (System.Collections.Generic.IEnumerable`1<T>)
+Import :            31 Move from memory, first read by CallVoid   e.g. DiscriminatedUnionConverter.CreateUnion: 760 Move v304 @ X0_v105, [v367 @ X20_v13]
+Import :            30 Subtract [never read]   e.g. JsonPropertyCollection..ctor: 74 Subtract v144 @ X10_v3, [v118 @ X8_v13+130], 1
+Import :            26 written by nothing, first read by Add   e.g. RFCluster.CompareTo: v43
+Import :            25 IndirectCall, first read by Move   e.g. JsonWriter.ResolveConvertibleValue: 171 IndirectCall [v302 @ X0_v7], v306 @ X0_v9, convertible @ X0 (System.IConvertible), v224 @ X0_v21 (System.Type), v129 @ X0_v6 (System.Globalization.CultureInfo), [v302 @ X0_v7+8], v37 @ X4, v38 @ X5, v39 @ X6, v40 @ X7, v41 @ V0, v42 @ V1, v43 @ V2, v44 @ V3, v45 @ V4, v46 @ V5, v47 @ V6, v48 @ V7
+Import :            23 Subtract, first read by Add   e.g. DateTimeUtils.GetDateValues: 242 Subtract v366 @ X8_v20, v273 @ X9_v15, [v364 @ X8_v18+20]
+Import :            23 Move from another untyped local [never read]   e.g. JsonTextReader.ParseReadString: -1 Move v512 @ stack_-90_v2, v321 @ stack_-68_v5
+Import :            20 Move of a constant, first read by Add   e.g. ConvertUtils.TryHexTextToInt: -1 Move v196 @ X14_v6, 4294967248
+Import :            19 IndirectCall, first read by CheckGreaterOrEqual   e.g. JsonSerializer.SerializeInternal: 526 IndirectCall [v1365 @ X0_v41], v1183 @ X0_v43, v363 @ X0_v33 (Newtonsoft.Json.Serialization.ITraceWriter), [v1365 @ X0_v41+8], v185 @ X2_v2, v127 @ X3_v2 (System.Type), methodInfo @ X4 (Il2CppMethodInfo), v45 @ X5, v46 @ X6, v47 @ X7, v48 @ V0, v49 @ V1, v50 @ V2, v51 @ V3, v52 @ V4, v53 @ V5, v54 @ V6, v55 @ V7
+Import :            18 Move from memory, first read by Multiply   e.g. RFShard.GetSlicePlane: 124 Move v174 @ V13_v1, [v115 @ X8_v22]
+Import :            18 Move from another untyped local, first read by IndirectCall   e.g. EnumUtils.InitializeValuesAndNames: -1 Move v98 @ X4_v5, v97 @ X4_v4
+Import :            17 Subtract, first read by Subtract   e.g. JsonWriter.WriteToken: 140 Subtract v316 @ X8_v9, v308 @ X0_v9 (System.Int32), v315 @ X0_v12 (System.Boolean)
+Import :            17 Call - the return of a resolved method (typed), first read by CheckEqual   e.g. BidirectionalDictionary`2.Set: 69 Call IDictionary`2<TFirst, TSecond>.TryGetValue, v294 @ X0_v66, v20 @ X23_v1 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>), first @ X1 (TFirst), &v291 @ stack_-48_v7 (TSecond)
+Import :            17 Multiply, first read by Multiply   e.g. FluidCollectDisplay.FixedUpdate: 320 Multiply v269 @ V11_v8, [v573 @ X28_v10-8], v570 @ V0.S0
+Import :            17 written by nothing, first read by Subtract   e.g. RFCluster.CompareTo: v114
+Import :            16 Subtract, first read by CallVoid   e.g. <GetEnumerator>d__2.MoveNext: 351 Subtract v662 @ X0_v28, &v17 @ X29, 88
+Import :            16 written by nothing, first read by ShiftLeft   e.g. Block.CheckClear: v190
+Import :            15 Box, first read by IndirectCall   e.g. CollectionWrapper`1.Add: 142 Box v113 @ X0_v10, typeof(Il2CppClass<T>), v130 @ X19_v8
+Import :            15 Multiply, first read by Move   e.g. DOTween.Punch: 318 Multiply v777 @ V1_v33, [v795 @ X10_v13-10], v811 @ V0.S0
+Import :            15 Newobj, first read by Add   e.g. DOVirtual.Float: 135 Newobj v211 @ X0_v19, [v189 @ X25_v4 (System.Int32)]
+Import :            15 Multiply, first read by ShiftRight   e.g. Base64Encoder.StoreLeftOverBytes: 28 Multiply v52 @ X9_v3, [count @ X3 (System.Int32&)], 1431655766
+Import :            14 Move from another untyped local, first read by Add   e.g. RFPhysic.GetIgnoreListFast: -1 Move v161 @ X2_v6, v90 @ X12_v4
+Import :            13 IndirectCall, first read by an unresolved call   e.g. CollectionUtils.GetDimensions: 62 IndirectCall [v737 @ X0_v29], v743 @ X0_v31, v131 @ X19_v4 (System.Collections.IList), 0, [v737 @ X0_v29+8], v39 @ X3, v40 @ X4, v41 @ X5, v42 @ X6, v43 @ X7, v44 @ V0, v45 @ V1, v46 @ V2, v47 @ V3, v48 @ V4, v49 @ V5, v50 @ V6, v51 @ V7
+Import :            13 Negate, first read by Divide   e.g. RayfireBomb.CollidersFilter: 344 Negate v1412 @ V0_v23, v1406 @ V0_v22 (System.Single)
+Import :            12 Add, first read by MakeStruct   e.g. SpriteCollectDisplay.Update: 201 Add v491 @ V0_v15, [v195 @ stack_-A8 (UnityEngine.Component)+30], v489 @ V0_v14
+Import :            12 Add, first read by ShiftRight   e.g. DateTimeUtils.GetDateValues: 106 Add v127 @ X13_v7, v126 @ X13_v6 (System.Int32), v122 @ X23_v3
+Import :            12 ShiftLeft, first read by Or   e.g. RFBricks.get_Num: 71 ShiftLeft v33 @ X9_v3, v36 @ V3_v4 (System.Single), 32
+Import :            12 Multiply, first read by MakeStruct   e.g. Butterfly.Init: 80 Multiply v74 @ V2_v2, [v98 @ X8_v10+14], 1055286886
+Import :            12 Call - the return of a resolved method (typed), first read by an unresolved call   e.g. <>c__DisplayClass80_0.<CreateShouldSerializeTest>b__0: 89 Call MethodCall`2<System.Object, System.Object>.Invoke, v143 @ X0_v7, v135 @ X21_v4 (Newtonsoft.Json.Utilities.MethodCall`2<System.Object, System.Object>), o @ X1 (System.Object), [v137 @ X8_v5]
+Import :            12 Move from memory, first read by ShiftLeft   e.g. JToken.EnsureValue: 57 Move v151 @ X11_v3, [v153 @ X10_v3+130]
+Import :            11 IndirectCall, first read by IndirectCall   e.g. EnumUtils.InitializeValuesAndNames: 140 IndirectCall [v252 @ X8_v25+688], v236 @ X0_v41, key @ X0 (Newtonsoft.Json.Utilities.StructMultiKey`2<System.Type, Newtonsoft.Json.Serialization.NamingStrategy>), v81[v154 @ X24_v7 (System.Int32)], 56, [v252 @ X8_v25+690], v98 @ X4_v5, v45 @ X5, v46 @ X6, v47 @ X7, v48 @ V0, v49 @ V1, v50 @ V2, v51 @ V3, v52 @ V4, v53 @ V5, v54 @ V6, v55 @ V7
+Import :            11 Subtract, first read by a call to an instance method   e.g. JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters: 845 Subtract v1860 @ X0_v66, &v25 @ stack_-10_v2, 128
+Import :            11 IndirectCall, first read by Subtract   e.g. JContainer.get_Last: 68 IndirectCall [v94 @ X0_v14], v119 @ X0_v16, v43 @ X0_v3 (System.Collections.Generic.IList`1<Newtonsoft.Json.Linq.JToken>), [v94 @ X0_v14+8], 0, v22 @ X3, v23 @ X4, v24 @ X5, v25 @ X6, v26 @ X7, v27 @ V0, v28 @ V1, v29 @ V2, v30 @ V3, v31 @ V4, v32 @ V5, v33 @ V6, v34 @ V7
+Import :            11 Multiply, first read by an unresolved call   e.g. RFMesh..ctor: 634 Multiply v91 @ V15_v8, [v271 @ X27_v10-8], 1148846080
+Import :            10 written by nothing, first read by CallVoid   e.g. XmlNodeConverter.ReadArrayElements: v369
+Import :            10 Negate, first read by Move   e.g. RFShatterAdvanced.IsCoplanar: 694 Negate v1135 @ V0_v34, v103 @ V3_v16 (System.Single)
+Import :            10 Call - the return of a resolved method (typed), first read by And   e.g. JsonSerializerInternalReader.CalculatePropertyDetails: 476 Call Nullable`1<System.Int32Enum>.GetValueOrDefault, v228 @ X0_v19, &v660 @ X8_v18 (System.Nullable`1<System.Int32Enum>), v246._defaultValueHandling (Newtonsoft.Json.DefaultValueHandling)
+Import :            10 Divide, first read by Multiply   e.g. RemoveParticleFX.OnRemoveParticles: 204 Divide v792 @ X9_v8, [v782 @ X8_v33 (Unity.Collections.NativeArray`1<System.Int32>)+v693 @ X9_v7*4], [v742 @ X8_v36+18]
+Import :             9 written by nothing, first read by Divide   e.g. RFMesh.SetCompressedUv: v3
+Import :             8 Call - the return of a resolved method (typed), first read by Move   e.g. <>c__DisplayClass52_0.<CreateFSharpFuncCall>b__0: 32 Call MethodCall`2<System.Object, System.Object>.Invoke, v53 @ X0_v4, this.call (Newtonsoft.Json.Utilities.MethodCall`2<System.Object, System.Object>), target @ X1 (System.Object), args @ X2 (System.Object[])
+Import :             8 IndirectCall, first read by CheckNotEqual   e.g. CollectionUtils.ResolveEnumerableCollectionConstructor: 188 IndirectCall [v469 @ X0_v53], v494 @ X0_v55, v209 @ X0_v27 (System.Reflection.ParameterInfo[]), [v469 @ X0_v53+8], 0, methodInfo @ X3 (Il2CppMethodInfo), v45 @ X4, v46 @ X5, v47 @ X6, v48 @ X7, v49 @ V0, v50 @ V1, v51 @ V2, v52 @ V3, v53 @ V4, v54 @ V5, v55 @ V6, v56 @ V7
+Import :             8 Add, first read by Divide   e.g. RoadMeshCreator.CreateRoadMesh: 1270 Add v843 @ X9_v5, [v813 @ X23_v2 (System.Array)+20], v784 @ X27_v2 (System.Array)
+Import :             8 Move from a field, first read by an unresolved call   e.g. JsonTextReader.ParseReadString: -1 Move v515 @ X3_v3, this._dateFormatString (System.String)
+Import :             7 Not, first read by And   e.g. JsonConvert.ToString: 66 Not v100 @ TEMP_v19, v135 @ V8_v4 (System.Single)
+Import :             7 Move from memory, first read by MakeStruct   e.g. FluidCompute.LateUpdate: 135 Move v439 @ V13_v6, [v1007 @ X8_v67+C]
+Import :             7 Move from a typed local, first read by Move   e.g. JsonSerializerInternalReader.SetPropertyValue: -1 Move v535 @ X6_v6, target @ X6 (System.Object)
+Import :             7 Call - the return of a resolved method (typed), first read by CheckNotEqual   e.g. RayfireCluster.RoughnessPassShards: 1105 Call List`1<System.Object>.get_Item, v805 @ X0_v7, [v517 @ X20_v2 (System.Int32)+70], v491 @ X19_v3 (System.Int32)
+Import :             7 Subtract, first read by ShiftRight   e.g. DefaultJsonNameTable.Get: 122 Subtract v467 @ X9_v10, v189 @ X24_v7, v466 @ TEMPSHIFT_v7 (System.Int32)
+Import :             6 Move from memory, first read by And   e.g. <>c__55`2..cctor: 26 Move v77 @ X9_v3, [v59 @ X0_v41 (Il2CppClass<Newtonsoft.Json.Utilities.FSharpUtils+<>c__55`2>)+135]
+Import :             6 Move from memory, first read by Newobj   e.g. RFTriangle.SetTriangles: 292 Move v443 @ X0_v39, [v294 @ X24_v4 (System.Int32)]
+Import :             6 Add, first read by CheckGreaterOrEqual   e.g. RayfireCluster.RoughnessPassClusters: 680 Add v232 @ X9_v9, [v962 @ X0_v35+18], 1
+Import :             5 Call - the return of a resolved method (typed), first read by Add   e.g. RFDemolitionCluster.SetupPlaneShards: 239 Call List`1<System.Object>.get_Item, v278 @ X0_v47, [v140 @ X22_v7 (System.Collections.Generic.List`1<RayFire.RFCluster>)], v355 @ X23_v15 (System.Int32)
+Import :             5 Call - the return of a call whose target is unknown, first read by CheckLess   e.g. JsonSerializerInternalReader.ReadMetadataProperties: 413 Call BF4D78, v763 @ X0_v97, 0, [v222 @ X25_v10 (System.Int32)], this.TraceWriter (Newtonsoft.Json.Serialization.ITraceWriter), [v795 @ X0_v91+8], v466 @ X4_v2 (Newtonsoft.Json.Serialization.JsonProperty), v464 @ X5_v2 (Newtonsoft.Json.Serialization.JsonContainerContract), v462 @ X6_v2 (Newtonsoft.Json.Serialization.JsonProperty), v468 @ X7_v2 (System.Object), v52 @ V0, v53 @ V1, v54 @ V2, v55 @ V3, v56 @ V4, v57 @ V5, v58 @ V6, v59 @ V7
+Import :             5 written by nothing, first read by CheckNotEqual   e.g. Level.GetColliderYExtents: v294
+Import :             5 Call - the return of a call whose target is unknown, first read by IsInst   e.g. Extensions.Convert: 70 Call F3F36C, v332 @ X0_v84, v110 @ X20_v5 (T), typeof(Il2CppClass<U>), v128 @ X2_v10 (System.IFormatProvider), v120 @ X3_v8, v30 @ X4, v31 @ X5, v32 @ X6, v33 @ X7, v34 @ V0, v35 @ V1, v36 @ V2, v37 @ V3, v38 @ V4, v39 @ V5, v40 @ V6, v41 @ V7
+Import :             5 Negate, first read by MakeStruct   e.g. <>c__DisplayClass23_0.<ShowHide>b__0: 205 Negate v153 @ V8_v5, v300 @ V8_v4 (System.Single)
+Import :             5 Move from memory, first read by Divide   e.g. WaterDensityJob.Execute: 68 Move v166 @ V11_v12, [v129 @ X9_v25]
+Import :             5 Call - the return of a call whose target is unknown, first read by Newobj   e.g. <>c__55`2..cctor: 52 Call F7055C, v53 @ X0_v31, v52 @ X0_v30 (Il2CppClass<Newtonsoft.Json.Utilities.FSharpUtils+<>c__55`2<TKey, TValue>>), v28 @ X1, v29 @ X2, v30 @ X3, v31 @ X4, v32 @ X5, v33 @ X6, v34 @ X7, v35 @ V0, v36 @ V1, v37 @ V2, v38 @ V3, v39 @ V4, v40 @ V5, v41 @ V6, v42 @ V7
+Import :             5 Move from a typed local, first read by CheckNotEqual   e.g. RFCluster.TrisNeib: -1 Move v308 @ X1_v1, otherCluster @ X1 (RayFire.RFCluster)
+Import :             4 Subtract, first read by CheckGreaterOrEqual   e.g. RFCluster.GetBoundsBound: 56 Subtract v229 @ V6_v5, [v212 @ X9_v3-C], [v212 @ X9_v3]
+Import :             4 Move from memory, first read by CheckLessOrEqual   e.g. Base64Encoder.FulfillFromLeftover: 26 Move v38 @ X10_v2, [count @ X3 (System.Int32&)]
+Import :             4 Negate, first read by Multiply   e.g. RFStress.SetStressConnections: 398 Negate v759 @ V0_v24, v482.grvCache.y (System.Single)
+Import :             4 Move from another untyped local, first read by CheckEqual   e.g. RFStress.GetPathAstar: -1 Move v377 @ X23_v10, v385 @ X0_v16
+Import :             4 Move from a typed local, first read by Add   e.g. HSBColor.Lerp: -1 Move v321 @ V0_v16, v346 @ V0_v12 (System.Single)
+Import :             4 Add, first read by CallVoid   e.g. FixedRadiusNeighborSearchJob.Execute: 93 Add v126 @ X0_v3, this @ X0 (FixedRadiusNeighborSearchJob), 24
+Import :             4 IndirectCall, first read by Add   e.g. <>f__AnonymousType0`1.GetHashCode: 17 IndirectCall [v33 @ X8_v3+1C8], v36 @ X0_v4, v16 @ X0_v2, this.<Key>i__Field (<Key>j__TPar), [v33 @ X8_v3+1D0], v18 @ X3, v19 @ X4, v20 @ X5, v21 @ X6, v22 @ X7, v23 @ V0, v24 @ V1, v25 @ V2, v26 @ V3, v27 @ V4, v28 @ V5, v29 @ V6, v30 @ V7
+Import :             4 Subtract, first read by MakeStruct   e.g. RFFragment.SetTet: 136 Subtract v230 @ V0_v7, v229 @ V1_v4 (System.Int32), 1
+Import :             4 Subtract, first read by ShiftLeft   e.g. StringReferenceExtensions.EndsWith: 56 Subtract v48 @ X22_v7, v253 @ X8_v6, [methodInfo @ X2 (Il2CppMethodInfo)+10]
+Import :             4 ShiftLeft, first read by Add   e.g. FluidPhysicsCoupler.SampleSDF: 169 ShiftLeft v219 @ TEMPSHIFT_v2, v217 @ X10_v8 (System.Single), 4
+Import :             4 Move from another untyped local, first read by CallVoid   e.g. JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters: -1 Move v314 @ stack_-C8_v6, v2498 @ X8_v59
+Import :             3 And, first read by CheckEqual   e.g. UnixDateTimeConverter.WriteJson: 136 And v376 @ TEMP_v18, v160 @ X1_v9 (System.Double), -9223372036854775808
+Import :             3 Call - the return of a call whose target is unknown, first read by CallVoid   e.g. ReflectionUtils.GetChildPrivateFields: 105 Call 113CF18, v233 @ X0_v28, v205 @ X0_v14 (System.Reflection.FieldInfo[]), v174 @ X23_v7, [v73 @ X27_v3 (System.Int32)]
+Import :             3 Move from a typed local, first read by And   e.g. CirclePlugin.GetPositionOnCircle: -1 Move v157 @ X8_v6, v77 @ stack_-58_v2 (System.Single)
+Import :             3 Move from a typed local, first read by Multiply   e.g. RFHexagon.GetHexPointCLoudV2: -1 Move v417 @ V14_v6, centerDirection @ V3 (UnityEngine.Quaternion)
+Import :             3 Move from a typed local, first read by Subtract   e.g. HSBColor..ctor: -1 Move v112 @ V7_v3, col @ V0 (UnityEngine.Color)
+Import :             3 Subtract, first read by CheckLessOrEqual   e.g. TweenManager.GetTweener: 102 Subtract v367 @ X10_v11, [v333 @ X8_v16 (System.Int32)+80], 1
+Import :             3 Move of ArrayLength, first read by Subtract   e.g. DOTween.ToArray: -1 Move v397 @ X10_v10, durations.Length
+Import :             3 IndirectCall, first read by CheckLessOrEqual   e.g. JsonSerializer.ApplySerializerSettings: 297 IndirectCall [v584 @ X0_v121], v281 @ X0_v123, v243 @ X22_v7 (System.Collections.Generic.IList`1<Newtonsoft.Json.JsonConverter>), [v584 @ X0_v121+8], 0, v78 @ X3_v3, v36 @ X4, v37 @ X5, v38 @ X6, v39 @ X7, v40 @ V0, v41 @ V1, v42 @ V2, v43 @ V3, v44 @ V4, v45 @ V5, v46 @ V6, v47 @ V7
+Import :             2 Move from another untyped local, first read by Multiply   e.g. CouplerJob.Execute: -1 Move v682 @ V5_v10, v651 @ stack_-F8
+Import :             2 Move of a constant, first read by Multiply   e.g. GameManager.Update: -1 Move v95 @ V12_v6, 1045220557
+Import :             2 Multiply, first read by And   e.g. RFFragment.SetTet: 103 Multiply v206 @ V2_v4, v205 @ V2_v3 (System.Int32), v207 @ V1.S0
+Import :             2 IndirectCall, first read by CheckGreater   e.g. JsonSerializer.ApplySerializerSettings: 319 IndirectCall [v704 @ X0_v124], v282 @ X0_v126, v243 @ X22_v7 (System.Collections.Generic.IList`1<Newtonsoft.Json.JsonConverter>), [v704 @ X0_v124+8], v102 @ X2_v19 (Il2CppMethodInfo), v78 @ X3_v3, v36 @ X4, v37 @ X5, v38 @ X6, v39 @ X7, v40 @ V0, v41 @ V1, v42 @ V2, v43 @ V3, v44 @ V4, v45 @ V5, v46 @ V6, v47 @ V7
+Import :             2 IndirectCall, first read by a call to an instance method   e.g. XmlNodeConverter.IsArray: 84 IndirectCall [v141 @ X0_v53], v301 @ X0_v18, node @ X1 (Newtonsoft.Json.Converters.IXmlNode), [v141 @ X0_v53+8], 3, v29 @ X3, v30 @ X4, v31 @ X5, v32 @ X6, v33 @ X7, v229 @ V0_v2 (System.Collections.Generic.List`1<System.Object>+Enumerator<System.Object>), v35 @ V1, v36 @ V2, v37 @ V3, v38 @ V4, v39 @ V5, v40 @ V6, v41 @ V7
+Import :             2 Negate, first read by an unresolved call   e.g. TextPopEffect.Update: 232 Negate v560 @ V0_v14, v920 @ V0_v13 (System.Single)
+Import :             2 Move of ArrayLength, first read by CheckLess   e.g. StringUtils.ToCamelCase: 93 Move v347 @ X8_v10, v150.Length
+Import :             2 Move from memory, first read by CheckGreater   e.g. DOTweenComponent.Update: 177 Move v321 @ X19_v14, [v519 @ X8_v46+30]
+Import :             2 Move from another untyped local, first read by CheckNotEqual   e.g. Level.AssignLocksToSections: -1 Move v531 @ X1_v2, v386 @ X1_v4
+Import :             2 Call - the return of a resolved method (typed), first read by Subtract   e.g. JsonDynamicContract.TrySetMember: 58 Call Func`4<System.Runtime.CompilerServices.CallSite, System.Object, System.Object, System.Object>.Invoke, v139 @ X0_v8, v66.Target (System.Func`4<System.Runtime.CompilerServices.CallSite, System.Object, System.Object, System.Object>), v66 @ X0_v6 (System.Runtime.CompilerServices.CallSite`1<System.Func`4<System.Runtime.CompilerServices.CallSite, System.Object, System.Object, System.Object>>), dynamicProvider @ X1 (System.Dynamic.IDynamicMetaObjectProvider), value @ X3 (System.Object)
+Import :             2 written by nothing, first read by CheckGreaterOrEqual   e.g. FluidSolver.RemoveAllPairsWith: v94
+Import :             2 Call - the return of a call whose target is unknown, first read by Subtract   e.g. RFReset.DestroyFragments: 112 Call 112DCD0, v249 @ X0_v10, scr.fragments (System.Collections.Generic.List`1<RayFire.RayfireRigid>), v193 @ X22_v4, [v151 @ X25_v5 (System.Int32)]
+Import :             2 Negate, first read by Subtract   e.g. MathUtils.ApproxEquals: 59 Negate v97 @ V0_v5, v123 @ V0_v4 (System.Double)
+Import :             2 Add, first read by Or   e.g. FluidSolver.CollectNearbyParticles: 454 Add v1163 @ X8_v30, v373 @ X26_v10, -4294967296
+Import :             2 Move of RuntimeClassTypeAnalysisContext [never read]   e.g. <>c__DisplayClass55_0`2.<BuildMapCreator>b__0: -1 Move v400 @ X0_v46, typeof(Il2CppClass<Newtonsoft.Json.Utilities.FSharpUtils+<>c__55`2<TKey, TValue>>)
+Import :             2 Move from a typed local [never read]   e.g. JValue.System.IComparable.CompareTo: -1 Move v173 @ X8_v6, this @ X0 (Newtonsoft.Json.Linq.JValue)
+Import :             2 Subtract, first read by Divide   e.g. Chain.EvenTByArc: 559 Subtract v995 @ V6_v8, [v78 @ X0_v3+24], [v78 @ X0_v3+20]
+Import :             2 ShiftRight, first read by And   e.g. FluidPhysicsCoupler.SampleSDF: 101 ShiftRight v145 @ X10_v3, v144 @ X9_v2 (System.Single), 23
+Import :             2 Move of ArrayLength [never read]   e.g. SavePage.OnLogSaveFileBtnClick: 45 Move v72 @ X9_v2, v57.Length
+Import :             2 Call - the return of a call whose target is unknown, first read by ShiftLeft   e.g. FluidDisplay.OnPreComputeUpdate: 121 Call 17E75E4, v346 @ X0_v17, v632 @ X0_v16, v333[v199 @ X22_v8 (System.Int32)], [v195 @ X23_v9 (System.Int32)]
+Import :             2 Move from another untyped local, first read by ShiftLeft   e.g. DensityJob.Execute: -1 Move v530 @ X8_v25, v402 @ stack_-A4_v3
+Import :             1 Move of ArrayAccess, first read by an unresolved call   e.g. RayfireShatter.CreateFragments: 558 Move v96 @ V5_v2, v63[0]
+Import :             1 Move from memory, first read by CheckGreaterOrEqual   e.g. RayfireRigidRoot.ShardFilter: 168 Move v75 @ V0_v3, [v507 @ X8_v51+14]
+Import :             1 Call - the return of a call whose target is unknown, first read by Xor   e.g. RFReset.FragmentReuseState: 240 Call 1129E30, v319 @ X0_v16, scr.fragments (System.Collections.Generic.List`1<RayFire.RayfireRigid>), v316 @ X20_v6, [v200 @ X24_v3 (System.Int32)]
+Import :             1 Add, first read by CheckLessOrEqual   e.g. Level.GetColliderYExtents: 204 Add v487 @ V0_v7, [v490 @ X0_v29 (UnityEngine.Bounds)+4], [v490 @ X0_v29 (UnityEngine.Bounds)+10]
+Import :             1 Move of ArrayLength, first read by an unresolved call   e.g. RFShatter.SetPoints: 37 Move v191 @ X2_v3, pts.Length
+Import :             1 Negate, first read by Add   e.g. PathCollider2D.UpdateCollider: 231 Negate v123 @ V10_v9, v550 @ V10_v8 (System.Single)
+Import :             1 Move from another untyped local, first read by Xor   e.g. DefaultJsonNameTable.Get: -1 Move v362 @ X24_v9, v189 @ X24_v7
+Import :             1 Subtract, first read by Not   e.g. DateTimeUtils.ToUniversalTicks: 145 Subtract v245 @ X8_v13, v235 @ X0_v15 (System.Int64), offset @ X1 (System.TimeSpan)
+Import :             1 Call - the return of a resolved method (typed), first read by a call to an instance method   e.g. FBSDKEventBinding..ctor: 219 Call Dictionary`2<System.String, System.Object>.get_Item, v572 @ X0_v45, dict @ X1 (System.Collections.Generic.Dictionary`2<System.String, System.Object>), [v154 @ X25_v9 (System.Int32)]
+Import :             1 Move from another untyped local, first read by a call to an instance method   e.g. RayfireUnyielding.SetUnyieldingFragments: -1 Move v181 @ X24_v13, v977 @ X0_v29
+Import :             1 written by nothing, first read by ShiftRight   e.g. TweenSettingsExtensions.SetPathForwardDirection: v35
+Import :             1 Or, first read by And   e.g. UIParticleUpdater.ModifyScale: 99 Or v68 @ V3_v4, v47 @ V4, 8f
+Import :             1 Move of a constant, first read by CheckGreaterOrEqual   e.g. FluidSolver.RemoveAllPairsWith: -1 Move v182 @ X24_v6, 1
+Import :             1 Subtract, first read by And   e.g. ConvertUtils.DecimalTryParse: 1137 Subtract v2215 @ X8_v40, 4294967268, v1238 @ X19_v16 (System.Int32)
+Import :             1 Call - the return of a resolved method (typed), first read by Newobj   e.g. CachedAttributeGetter`1..cctor: 150 Call Func`2<System.Object, T>..ctor, v137 @ X0_v6, v136 @ X0_v5 (Il2CppClass<Newtonsoft.Json.Utilities.ThreadSafeStore`2<System.Object, T>>), 0, v104 @ X21_v1 (System.IntPtr)
+Import :             1 Call - the return of a resolved method (typed), first read by IndirectCall   e.g. MyTween.KillAll: 43 Call List`1<System.Object>.get_Item, v128 @ X0_v8, v133 @ X8_v6, 0
+Import :             1 written by nothing, first read by And   e.g. UIParticleUpdater.ModifyScale: v304
+Import :             1 Move from memory, first read by Negate   e.g. <HandleStartShow>d__13.MoveNext: 313 Move v318 @ V0_v27, [v422 @ X0_v33 (UnityEngine.Component)+30]
+Import :             1 Move from a typed local, first read by IndirectCall   e.g. EntityKeyMemberConverter.WriteJson: -1 Move v439 @ X1_v11, v417 @ stack_-58_v3 (System.String)
+Import :             1 Move from a typed local, first read by CheckLess   e.g. HSBColor.FromColor: -1 Move v35 @ V7_v1, color @ V0 (UnityEngine.Color)
+Import :             1 Move from a field, first read by Move   e.g. RemoveParticleFX.OnRemoveParticles: -1 Move v196 @ V1_v1, v858.m_GradientMax (UnityEngine.Gradient)
+Import :             1 written by nothing, first read by Or   e.g. UIParticleUpdater.ModifyScale: v47
+Import :             1 Call - the return of a resolved method (typed), first read by CallVoid   e.g. <GetTexture>d__1.MoveNext: 81 Call Dictionary`2<System.Object, System.Object>.get_Item, v129 @ X0_v34, [v148 @ X8_v18], this.id (System.String)
+Import :             1 Multiply, first read by CheckGreaterOrEqual   e.g. Vector3ArrayPlugin.EvaluateAndApply: 159 Multiply v359 @ X8_v75, v497 @ X9_v31, [isRelative @ X3 (System.Boolean)+A4]
+Import :             1 Move of ArrayLength, first read by CheckEqual   e.g. EnumUtils.InternalFlagsFormat: 39 Move v264 @ X24_v10, v59.Length
+Import :             1 Move from a field, first read by Add   e.g. CouplerJob.ResolveBody: -1 Move v114 @ V4_v7, this.invFluidMass (System.Single)
+Import :             1 Move from another untyped local, first read by Subtract   e.g. RFCluster.GetBoundsBound: -1 Move v129 @ V2_v7, v128 @ V2_v3
+Import :             1 Move from memory, first read by Xor   e.g. StructMultiKey`2.GetHashCode: -1 Move v57 @ X0_v2, [this @ X0 (Newtonsoft.Json.Utilities.StructMultiKey`2<T1, T2>)+8]
+Import :             1 Multiply, first read by Divide   e.g. <FadeMoveDownCor>d__34.MoveNext: 243 Multiply v524 @ V1_v15, v470 @ V8_v8, 1067030938
+Import :             1 Move of ArrayLength, first read by And   e.g. RFShatter.SetInputMesh: 829 Move v1134 @ X9_v53, v523.Length
+Import :             1 Move from another untyped local, first read by CheckGreater   e.g. JsonWriter.CalculateLevelsToComplete: -1 Move v320 @ X22_v1, v154 @ X22_v5
+Import :             1 Box, first read by Move   e.g. JEnumerable`1.GetEnumerator: 56 Box v30 @ X0_v31, typeof(Il2CppClass<Newtonsoft.Json.Linq.JEnumerable`1<T>>), &v225 @ X8_v35 (Newtonsoft.Json.Linq.JEnumerable`1<T>)
+Import :             1 Move of AddressOf, first read by IndirectCall   e.g. CallbackManager.OnFacebookResponse: -1 Move v391 @ X2_v8, &v65 @ stack_-48_v7 (System.Object)
+Import :             1 Multiply, first read by ShiftLeft   e.g. RFShatter.sl_element_mesh_par: 278 Multiply v1749 @ X8_v245, [v28 @ X29_v1-70], [v28 @ X29_v1-7C]
+Import :             1 Subtract, first read by CheckGreater   e.g. JObject.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.CopyTo: 131 Subtract v356 @ X8_v28, array.Length, arrayIndex @ X2 (System.Int32)
+Import :             1 Move from memory, first read by CheckLess   e.g. Debugger.ShouldLogSafeModeCapturedError: 18 Move v57 @ X8_v8, [v43 @ X8_v15+C]
+Import :             1 Move of AddressOf, first read by Add   e.g. DefaultContractResolver.GetSerializableMembers: -1 Move v1385 @ X8_v43, &v443 @ stack_-68_v14
+Import :             1 Call - the return of a call whose target is unknown, first read by CheckNotEqual   e.g. ReflectionUtils.GetFieldsAndProperties: 374 Call 112D568, v1045 @ X0_v44, v1041 @ X0_v43 (System.Collections.Generic.IEnumerable`1<System.Object>), [v1043 @ X8_v36 (System.Int32)]
+Import :             1 Move of ArrayLength, first read by ShiftRight   e.g. BigInteger..ctor: 31 Move v208 @ X8_v6, inData.Length
+Import :             1 IndirectCall, first read by ShiftLeft   e.g. ConvertUtils.GetTypeInformation: 82 IndirectCall [v154 @ X0_v9], v186 @ X0_v6, convertable @ X0 (System.IConvertible), [v154 @ X0_v9+8], 0, v30 @ X3, v31 @ X4, v32 @ X5, v33 @ X6, v34 @ X7, v35 @ V0, v36 @ V1, v37 @ V2, v38 @ V3, v39 @ V4, v40 @ V5, v41 @ V6, v42 @ V7
+Import :             1 Move from another untyped local, first read by CheckGreaterOrEqual   e.g. RFCluster.GetBoundsBound: -1 Move v123 @ V3_v6, v122 @ V3_v2
+Import :             1 Add, first read by Xor   e.g. DefaultJsonNameTable.Get: 60 Add v339 @ X9_v7, [v337 @ X9_v5], length @ X3 (System.Int32)
+Import :             1 Move of ArrayLength, first read by ShiftLeft   e.g. RFShatter.SetInputMesh: 380 Move v545 @ X8_v123, v552.Length
+Import :             1 And, first read by Add   e.g. Flash.WeightedEase: 119 And v141 @ X8_v9, v139 @ TEMPCOND_v9 (System.Boolean), v127 @ X8_v8 (System.Single)
+Import :             1 Subtract, first read by Or   e.g. DateTimeUtils.WriteDateTimeOffset: 194 Subtract v458 @ X12_v2, v309 @ X22_v3 (System.TimeSpan), v286 @ TEMP_v5 (System.Int32)
+Import :             1 Call - the return of a call whose target is unknown, first read by Box   e.g. CollectionWrapper`1.System.Collections.IList.IndexOf: 61 Call F3F37C, v85 @ X0_v22, value @ X1 (System.Object), typeof(Il2CppClass<T>), v54 @ X22_v2, v30 @ X3, v31 @ X4, v32 @ X5, v33 @ X6, v34 @ X7, v35 @ V0, v36 @ V1, v37 @ V2, v38 @ V3, v39 @ V4, v40 @ V5, v41 @ V6, v42 @ V7
+Import :             1 Move of a constant, first read by CheckNotEqual   e.g. RayfireBomb.SetForce: -1 Move v277 @ X1_v3, 0
+Import :             1 ShiftLeft, first read by Move   e.g. FluidSolver.CollectNearbyParticles: 415 ShiftLeft v1109 @ X9_v12, v1098 @ V0_v13 (System.Single), 32
+Import : Il2Cpp method body recovery: 2452 call arguments the ABI spread over several vector registers were composed back into their value.
+Import : Il2Cpp method body recovery: a write narrower than the field its offset lands on named a member inside it 264 times; 198 times no member accounted for the width, so the field stood.
+Import : Il2Cpp method body recovery: 80966 locals held the base of a page of metadata usage slots rather than one slot; 110 usages were resolved at an offset from one.
+Import : Il2Cpp method body recovery: 467 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them.
+Import : Il2Cpp method body recovery: 18 event declarations were dropped because a recovered body reads the field they are built on - il2cpp inlines add_/remove_, and C# refuses to read an event from outside its declaring type whatever its accessibility. The field and the accessors stay.
+Import : Il2Cpp accessor pairing probe: 1145 non-public instance fields had no candidate getter at all; 656 rejections were a getter for another field; 25 getters read the field's own offset and were still turned down.
+Import : Il2Cpp accessor pairing probe: 1x MinMax3D.<Min>k__BackingField @10: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x SecondaryImageColor.secondaryColor @28: Move Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x Bounds.m_Center @10: Move Move Move Add Add Add Return
+Import : Il2Cpp accessor pairing probe: 1x X509Extension.extnValue @20: ShiftStack Move Move Move Move Move Move Move CheckEqual ConditionalJump Move Move
+Import : Il2Cpp accessor pairing probe: 1x Shadow.m_EffectColor @28: Move Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonTextReader._lineStartPos @90: Move Move Subtract Return
+Import : Il2Cpp accessor pairing probe: 1x ChallengeResponse._lmpwd @20: ShiftStack Move Move Move Move Move Move CheckEqual Not ConditionalJump Move Move
+Import : Il2Cpp accessor pairing probe: 1x Bounds.m_Center @10: Move Move Move Move Move Move Add Add Add Return
+Import : Il2Cpp accessor pairing probe: 1x MonoTlsSettings.<CertificateValidationTime>k__BackingField @20: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x Product.<PriceAmount>k__BackingField @38: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonTextReader._charPos @8C: Move Move Subtract Return
+Import : Il2Cpp accessor pairing probe: 1x JsonSerializer._context @60: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x PointerEventData.<position>k__BackingField @104: Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x Bounds.m_Center @10: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x AccessToken.<LastRefresh>k__BackingField @30: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x ContactPoint.m_Point @10: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x Shadow.m_EffectDistance @38: Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x SubscribableProduct.<PriceAmount>k__BackingField @38: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x MinMax3D.<Max>k__BackingField @1C: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonProperty._defaultValue @20: Move CheckEqual ConditionalJump Move Return Move Return
+Import : Il2Cpp accessor pairing probe: 1x Bounds.m_Center @10: Move Move Move Move Move Move Subtract Subtract Subtract Return
+Import : Il2Cpp accessor pairing probe: 1x UIParticle.m_Scale3D @E0: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x ChallengeResponse._ntpwd @28: ShiftStack Move Move Move Move Move Move CheckEqual Not ConditionalJump Move Move
+Import : Il2Cpp accessor pairing probe: 1x Profile.<Birthday>k__BackingField @58: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x Exception._className @10: ShiftStack Move Move Move Move Move Move Move Move Move Move And
+Import : Il2Cpp method body recovery: 5088 reads of a hidden static field were written as the public property that returns it.
+Import : Il2Cpp method body recovery: 6 calls were retargeted from a shared generic instantiation onto the one the receiver's own type names.
+Import : Il2Cpp inline operation recovery: 1252 candidate sites, 870 rewritten into the operation they came from.
+Import : Il2Cpp inline operation recovery: 870x ListAdd
+Import : Il2Cpp inline operation recovery: rejected 96x - ListAdd:size compared against ArrayLength of a local with no single definition; the receiver is local defined by Newobj memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 91x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Newobj memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 40x - ListAdd:nothing holds the receiver, which is memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 19x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is a local with no single definition
+Import : Il2Cpp inline operation recovery: rejected 18x - ListAdd:slow path has 2 predecessors
+Import : Il2Cpp inline operation recovery: rejected 16x - ListAdd:size compared against ArrayLength of a local with no single definition; the receiver is a local with no single definition
+Import : Il2Cpp inline operation recovery: rejected 14x - ListAdd:CheckLess of a local with no single definition and ArrayLength of a local with no single definition, neither the receiver's size; the receiver is a local with no single definition
+Import : Il2Cpp inline operation recovery: rejected 12x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 8x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x18
+Import : Il2Cpp inline operation recovery: rejected 8x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x8
+Import : Il2Cpp inline operation recovery: rejected 4x - ListAdd:CheckLess of a local with no single definition and ArrayLength of a local with no single definition, neither the receiver's size; the receiver is local defined by Newobj memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 4x - ListAdd:the receiver is field _attributes, which the body also writes
+Import : Il2Cpp inline operation recovery: rejected 4x - ListAdd:the receiver is field _childNodes, which the body also writes
+Import : Il2Cpp inline operation recovery: rejected 4x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x88
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:the branch condition is defined by CheckEqual; the receiver is local defined by Newobj memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:the receiver is field positionList, which the body also writes
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:the branch condition is defined by CheckEqual; the receiver is a local with no single definition
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:the branch condition is defined by CheckEqual; the receiver is local defined by Move field frontPrior
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x28
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:CheckLess of field _entries and ArrayLength of a local defined by Move field _buckets, neither the receiver's size; the receiver is local defined by Newobj memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:nothing holds the receiver, which is memory+0xFFFFFFFFFFFFFF60
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:CheckLess of a local with no single definition and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is local defined by Newobj memory+0x0
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:nothing holds the receiver, which is memory+0xA8
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:the receiver is field mFilters, which the body also writes
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:CheckLess of memory+0x18 and ArrayLength of a local with no single definition, neither the receiver's size; the receiver is a local with no single definition
+Import : Il2Cpp method body recovery: SSA destruction left copies - 72031 coalesced, 22861 kept because the two locals are live at once, 4418 because their types differ.
+Import : Finished reading files
+Processing : Processing loaded assets...
+Processing : AttributePolyfillGenerator
+Processing : MonoExplicitPropertyRepairProcessor
+Processing : ObfuscationRepairProcessor
+Processing : ForwardingAssemblyGenerator
+Processing : NullRefReturnProcessor
+Processing : UnmanagedConstraintRecoveryProcessor
+Processing : RemoveAssemblyKeyFileAttributeProcessor
+Processing : InternalsVisibileToPublicKeyRemover
+Processing : SceneDefinitionProcessor
+Processing : Creating Scene Definitions
+Processing : OriginalPathProcessor
+Processing : MainAssetProcessor
+Processing : Main Asset Pairing
+Processing : AnimatorControllerProcessor
+Processing : Reconstruct AnimatorController Assets
+Processing : AudioMixerProcessor
+Processing : Reconstruct AudioMixer Assets
+Processing : EditorFormatProcessor
+Processing : Editor Format Conversion
+Processing : LightingDataProcessor
+Processing : Lighting Data Assets
+Processing : PrefabProcessor
+Processing : SpriteProcessor
+Processing : ScriptableObjectProcessor
+Processing : Processing Scriptable Object Groups
+Processing : Finished processing assets
+Export : Starting export
+Export : Attempting to export assets to /home/user/AssetRipper/Test/Out56F-j...
+Export : Game files have these Unity versions: 2022.3.41f1 2022.3.53f1
+Export : Exporting to Unity version 2022.3.53f1
+Import [Warning] : Resource file 'Unity.VisualScripting.Flow.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.VisualScripting.Flow' hasn't been found
+Import [Warning] : Resource file 'Unity.Timeline.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Timeline' hasn't been found
+Import [Warning] : Resource file 'Unity.VisualScripting.State.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.VisualScripting.State' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.Poly2Tri.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.Poly2Tri' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.Csg.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.Csg' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.KdTree.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.KdTree' hasn't been found
+Import [Warning] : Resource file 'Unity.ProBuilder.Stl.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.ProBuilder.Stl' hasn't been found
+Import [Warning] : Resource file 'Unity.Recorder.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Recorder' hasn't been found
+Import : Resource file 'resources.resource' has been loaded
+ExportProgress : (1/308) Exporting 'EditorBuildSettings'
+ExportProgress : (2/308) Exporting 'EditorSettings'
+ExportProgress : (3/308) Exporting 'splash'
+ExportProgress : (4/308) Exporting 'FIshAnimation'
+ExportProgress : (5/308) Exporting 'AudioMixer'
+ExportProgress : (6/308) Exporting 'LightingData'
+ExportProgress : (7/308) Exporting 'Preload (SceneAsset)'
+ExportProgress : (8/308) Exporting 'LightingData'
+ExportProgress : (9/308) Exporting 'Main (SceneAsset)'
+ExportProgress : (10/308) Exporting 'Splash Screen Unity Logo'
+ExportProgress : (11/308) Exporting 'Cubemap'
+ExportProgress : (12/308) Exporting 'butterfly eyes'
+ExportProgress : (13/308) Exporting 'eyes'
+ExportProgress : (14/308) Exporting 'arrows'
+ExportProgress : (15/308) Exporting 'Square'
+ExportProgress : (16/308) Exporting 'foliage'
+ExportProgress : (17/308) Exporting 'activate 0'
+ExportProgress : (18/308) Exporting 'ChatGPT Image Jun 17, 2025 at 05_16_19 PM'
+ExportProgress : (19/308) Exporting 'seamless_perlin_128'
+ExportProgress : (20/308) Exporting 'ChatGPT Image Jun 17, 2025 at 09_56_54 PM'
+ExportProgress : (21/308) Exporting 'ChatGPT Image Jun 17, 2025 at 10_52_57 PM'
+ExportProgress : (22/308) Exporting 'Fish_Albedo'
+ExportProgress : (23/308) Exporting 'Fish Icon'
+ExportProgress : (24/308) Exporting 'bee tex'
+ExportProgress : (25/308) Exporting 'sparkle3'
+ExportProgress : (26/308) Exporting 'cross'
+ExportProgress : (27/308) Exporting 'settings_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48'
+ExportProgress : (28/308) Exporting 'flag'
+ExportProgress : (29/308) Exporting 'val'
+ExportProgress : (30/308) Exporting 'stoneTexture'
+ExportProgress : (31/308) Exporting 'polkadots'
+ExportProgress : (32/308) Exporting 'ChatGPT Image Jul 21, 2025, 03_09_57 PM'
+ExportProgress : (33/308) Exporting 'Whisk_5fcdb51987'
+ExportProgress : (34/308) Exporting 'Whisk_20258dbca0'
+ExportProgress : (35/308) Exporting 'Eyes_Albedo'
+ExportProgress : (36/308) Exporting 'rounded button back'
+ExportProgress : (37/308) Exporting 'rounded button'
+ExportProgress : (38/308) Exporting 'images-3'
+ExportProgress : (39/308) Exporting 'semicircle_texture'
+ExportProgress : (40/308) Exporting 'gradient'
+ExportProgress : (41/308) Exporting 'butterfly'
+ExportProgress : (42/308) Exporting '364f4f01-201a-40aa-9282-9f676ea49f7e'
+ExportProgress : (43/308) Exporting 'SoftCircle'
+ExportProgress : (44/308) Exporting 'splash ring 1'
+ExportProgress : (45/308) Exporting 'activate'
+ExportProgress : (46/308) Exporting '9SlicedNormal'
+ExportProgress : (47/308) Exporting 'Baloo-Regular SDF Outline Atlas'
+ExportProgress : (48/308) Exporting 'Cubemap'
+ExportProgress : (49/308) Exporting 'info'
+ExportProgress : (50/308) Exporting 'instrument'
+ExportProgress : (51/308) Exporting 'GridBox_NoDraw'
+ExportProgress : (52/308) Exporting 'GridBox_Default'
+ExportProgress : (53/308) Exporting 'GridBox_Collider'
+ExportProgress : (54/308) Exporting 'update_orange'
+ExportProgress : (55/308) Exporting 'delete'
+ExportProgress : (56/308) Exporting 'gaLogo'
+ExportProgress : (57/308) Exporting 'game'
+ExportProgress : (58/308) Exporting 'GridBox_Trigger'
+ExportProgress : (59/308) Exporting 'EmojiOne'
+ExportProgress : (60/308) Exporting 'icons'
+ExportProgress : (61/308) Exporting 'user'
+ExportProgress : (62/308) Exporting 'question'
+ExportProgress : (63/308) Exporting 'home'
+ExportProgress : (64/308) Exporting 'LiberationSans SDF Atlas'
+Export [Warning] : Unable to convert 'LiberationSans SDF Atlas' to bitmap
+ExportProgress [Warning] : Failed to export 'LiberationSans SDF Atlas' (TextureExportCollection)
+ExportProgress : (65/308) Exporting 'LiberationSans SDF Atlas'
+ExportProgress : (66/308) Exporting 'PlayerSettings'
+ExportProgress : (67/308) Exporting 'InputManager'
+ExportProgress : (68/308) Exporting 'TagManager'
+ExportProgress : (69/308) Exporting 'AudioManager'
+ExportProgress : (70/308) Exporting 'GraphicsSettings'
+ExportProgress : (71/308) Exporting 'TimeManager'
+ExportProgress : (72/308) Exporting 'DelayedCallManager'
+ExportProgress : (73/308) Exporting 'PhysicsManager'
+ExportProgress : (74/308) Exporting 'QualitySettings'
+ExportProgress : (75/308) Exporting 'NavMeshProjectSettings'
+ExportProgress : (76/308) Exporting 'Physics2DSettings'
+ExportProgress : (77/308) Exporting 'RuntimeInitializeOnLoadManager'
+ExportProgress : (78/308) Exporting 'StreamingManager'
+ExportProgress : (79/308) Exporting 'VFXManager'
+ExportProgress : (80/308) Exporting 'ScriptExportCollection'
+Export : Exporting scripts...
+Export : Decompiling Newtonsoft.Json
+Export : Decompiling Unity.TextMeshPro
+Export : Decompiling RayFireAssembly
+Export : Decompiling UnityEngine.UI
+Export : Decompiling Assembly-CSharp
+Export : Decompiling DOTween
+Export : Decompiling Unity.VisualScripting.Core
+Export : Decompiling Facebook.Unity
+Export : Decompiling Unity.Collections
+Export : Decompiling Assembly-CSharp-firstpass
+Export : Decompiling GameAnalyticsSDK
+Export : Decompiling RFLib_DotNet_2018_ios
+Export : Decompiling Unity.Burst
+Export : Decompiling PathCreator
+Export : Decompiling Voodoo.UI.Particles
+Export : Decompiling Unity.Mathematics
+Export : Decompiling Facebook.Unity.IOS
+Export : Decompiling Facebook.Unity.Settings
+Export : Decompiling Unity.Burst.Unsafe
+Export : Decompiling __Generated
+Export : Decompiling System.Runtime.CompilerServices.Unsafe
+ExportProgress : (81/308) Exporting 'Sprite'
+ExportProgress : (82/308) Exporting 'Preload'
+ExportProgress : (83/308) Exporting 'fever splash'
+ExportProgress : (84/308) Exporting 'explosion'
+ExportProgress : (85/308) Exporting 'remove fx'
+ExportProgress : (86/308) Exporting 'sparkle'
+ExportProgress : (87/308) Exporting 'transition'
+ExportProgress : (88/308) Exporting 'uibutton'
+ExportProgress : (89/308) Exporting 'arrows'
+ExportProgress : (90/308) Exporting 'background'
+ExportProgress : (91/308) Exporting 'bee'
+ExportProgress : (92/308) Exporting 'caterpillar'
+ExportProgress : (93/308) Exporting 'cliff'
+ExportProgress : (94/308) Exporting 'fluid'
+ExportProgress : (95/308) Exporting 'fluid_single'
+ExportProgress : (96/308) Exporting 'glass'
+ExportProgress : (97/308) Exporting 'glass2'
+ExportProgress : (98/308) Exporting 'honey'
+ExportProgress : (99/308) Exporting 'ice'
+ExportProgress : (100/308) Exporting 'metal'
+ExportProgress : (101/308) Exporting 'mud'
+ExportProgress : (102/308) Exporting 'octopus'
+ExportProgress : (103/308) Exporting 'particles emission'
+ExportProgress : (104/308) Exporting 'particles'
+ExportProgress : (105/308) Exporting 'powerup 0'
+ExportProgress : (106/308) Exporting 'powerup 1'
+ExportProgress : (107/308) Exporting 'powerup 2'
+ExportProgress : (108/308) Exporting 'snow'
+ExportProgress : (109/308) Exporting 'sponge'
+ExportProgress : (110/308) Exporting 'stone'
+ExportProgress : (111/308) Exporting 'vegetation'
+ExportProgress : (112/308) Exporting 'w_bubbles'
+ExportProgress : (113/308) Exporting 'wall'
+ExportProgress : (114/308) Exporting 'water'
+ExportProgress : (115/308) Exporting 'Shackle'
+ExportProgress : (116/308) Exporting 'lockerBody'
+ExportProgress : (117/308) Exporting 'Red'
+ExportProgress : (118/308) Exporting 'Eyes.001'
+ExportProgress : (119/308) Exporting 'Eyes'
+ExportProgress : (120/308) Exporting 'Fish'
+ExportProgress : (121/308) Exporting 'Mounth'
+ExportProgress : (122/308) Exporting 'Baloo-Regular Atlas Material'
+ExportProgress : (123/308) Exporting 'visual_sh_8'
+ExportProgress : (124/308) Exporting 'visual_sh_3'
+ExportProgress : (125/308) Exporting 'visual_sh_6'
+ExportProgress : (126/308) Exporting 'visual_sh_10'
+ExportProgress : (127/308) Exporting 'Cube'
+ExportProgress : (128/308) Exporting 'visual_sh_9'
+ExportProgress : (129/308) Exporting 'visual_sh_1'
+ExportProgress : (130/308) Exporting 'visual_sh_2'
+ExportProgress : (131/308) Exporting 'LockerBody'
+ExportProgress : (132/308) Exporting 'chain link'
+ExportProgress : (133/308) Exporting 'Pupils'
+ExportProgress : (134/308) Exporting 'Shackle'
+ExportProgress : (135/308) Exporting 'visual_sh_4'
+ExportProgress : (136/308) Exporting 'Fish'
+ExportProgress : (137/308) Exporting 'Mouth'
+ExportProgress : (138/308) Exporting 'Eyes'
+ExportProgress : (139/308) Exporting 'visual_sh_7'
+ExportProgress : (140/308) Exporting 'visual_sh_5'
+ExportProgress : (141/308) Exporting 'Custom/Honey_NoGrab'
+ExportProgress : (142/308) Exporting 'Custom/Fluid'
+ExportProgress : (143/308) Exporting 'Custom/ParticlesEmission'
+ExportProgress : (144/308) Exporting 'Custom/Bee'
+ExportProgress : (145/308) Exporting 'Custom/GradientBackground_LUT_World'
+ExportProgress : (146/308) Exporting 'Custom/FeverSplash'
+ExportProgress : (147/308) Exporting 'Custom/PowerUpParticles'
+ExportProgress : (148/308) Exporting 'Custom/Sponge'
+ExportProgress : (149/308) Exporting 'Custom/UITransition'
+ExportProgress : (150/308) Exporting 'Custom/Glass2'
+ExportProgress : (151/308) Exporting 'Hidden/WhiteMask'
+ExportProgress : (152/308) Exporting 'Custom/Ice'
+ExportProgress : (153/308) Exporting 'Custom/Water'
+ExportProgress : (154/308) Exporting 'Custom/Octopus'
+ExportProgress : (155/308) Exporting 'Custom/Octopus'
+ExportProgress : (156/308) Exporting 'Custom/Mud'
+ExportProgress : (157/308) Exporting 'TextMeshPro/Distance Field Overlay'
+ExportProgress : (158/308) Exporting 'Custom/Cliffs_Lambert'
+ExportProgress : (159/308) Exporting 'Custom/UIButton'
+ExportProgress : (160/308) Exporting 'Custom/SpecialFluid'
+ExportProgress : (161/308) Exporting 'Custom/SingleFluid'
+ExportProgress : (162/308) Exporting 'FluidCS'
+ExportProgress : (163/308) Exporting 'splash'
+ExportProgress : (164/308) Exporting 'Fish_Rig_CELEBRATION'
+ExportProgress : (165/308) Exporting 'Fish_Rig_IDLE'
+ExportProgress : (166/308) Exporting 'Fish_Rig_SWIM'
+ExportProgress : (167/308) Exporting 'collect fluid emission'
+ExportProgress : (168/308) Exporting 'collect fluid raw'
+ExportProgress : (169/308) Exporting 'collect fluid'
+ExportProgress : (170/308) Exporting 'emission'
+ExportProgress : (171/308) Exporting 'fluid'
+ExportProgress : (172/308) Exporting 'raw fluid'
+ExportProgress : (173/308) Exporting 'activate 0'
+ExportProgress : (174/308) Exporting 'ChatGPT Image Jun 17, 2025 at 05_16_19 PM'
+ExportProgress : (175/308) Exporting 'ChatGPT Image Jun 17, 2025 at 09_56_54 PM'
+ExportProgress : (176/308) Exporting 'ChatGPT Image Jun 17, 2025 at 10_52_57 PM'
+ExportProgress : (177/308) Exporting 'Fish Icon'
+ExportProgress : (178/308) Exporting 'cross'
+ExportProgress : (179/308) Exporting 'settings_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48'
+ExportProgress : (180/308) Exporting 'flag'
+ExportProgress : (181/308) Exporting 'rounded button back'
+ExportProgress : (182/308) Exporting 'rounded button'
+ExportProgress : (183/308) Exporting 'butterfly'
+ExportProgress : (184/308) Exporting 'activate'
+ExportProgress : (185/308) Exporting 'Square'
+ExportProgress : (186/308) Exporting 'level23'
+ExportProgress : (187/308) Exporting 'level9'
+ExportProgress : (188/308) Exporting 'level15'
+ExportProgress : (189/308) Exporting 'level14'
+ExportProgress : (190/308) Exporting 'level12'
+ExportProgress : (191/308) Exporting 'level4'
+ExportProgress : (192/308) Exporting 'level6'
+ExportProgress : (193/308) Exporting 'level13'
+ExportProgress : (194/308) Exporting 'level10'
+ExportProgress : (195/308) Exporting 'level16'
+ExportProgress : (196/308) Exporting 'level11'
+ExportProgress : (197/308) Exporting 'level18'
+ExportProgress : (198/308) Exporting 'level22'
+ExportProgress : (199/308) Exporting 'level19'
+ExportProgress : (200/308) Exporting 'GoldFish'
+ExportProgress : (201/308) Exporting 'level20'
+ExportProgress : (202/308) Exporting 'level8'
+ExportProgress : (203/308) Exporting 'level17'
+ExportProgress : (204/308) Exporting 'level3'
+ExportProgress : (205/308) Exporting 'level21'
+ExportProgress : (206/308) Exporting 'level7'
+ExportProgress : (207/308) Exporting 'collect sprite'
+ExportProgress : (208/308) Exporting 'explosion 0'
+ExportProgress : (209/308) Exporting 'explosion 1'
+ExportProgress : (210/308) Exporting 'powerup'
+ExportProgress : (211/308) Exporting 'butterfly'
+ExportProgress : (212/308) Exporting 'ice'
+ExportProgress : (213/308) Exporting 'stone'
+ExportProgress : (214/308) Exporting 'snow'
+ExportProgress : (215/308) Exporting 'level2'
+ExportProgress : (216/308) Exporting 'level5'
+ExportProgress : (217/308) Exporting 'level7.5'
+ExportProgress : (218/308) Exporting 'level1'
+ExportProgress : (219/308) Exporting 'goalUI'
+ExportProgress : (220/308) Exporting 'sponge'
+ExportProgress : (221/308) Exporting 'mud'
+ExportProgress : (222/308) Exporting 'bee'
+ExportProgress : (223/308) Exporting 'audioclip'
+ExportProgress : (224/308) Exporting 'chain link'
+ExportProgress : (225/308) Exporting 'coin particle'
+ExportProgress : (226/308) Exporting 'fever splash'
+ExportProgress : (227/308) Exporting 'icon quad prefab'
+ExportProgress : (228/308) Exporting 'confetti'
+ExportProgress : (229/308) Exporting 'octopus'
+ExportProgress : (230/308) Exporting 'caterpillar'
+ExportProgress : (231/308) Exporting 'collect text'
+ExportProgress : (232/308) Exporting '5 Moves Left'
+ExportProgress : (233/308) Exporting 'iceDust'
+ExportProgress : (234/308) Exporting 'water'
+ExportProgress : (235/308) Exporting 'Baloo-Regular SDF Outline'
+ExportProgress : (236/308) Exporting 'blue'
+ExportProgress : (237/308) Exporting 'disabled'
+ExportProgress : (238/308) Exporting 'orange'
+ExportProgress : (239/308) Exporting 'purple'
+ExportProgress : (240/308) Exporting 'red'
+ExportProgress : (241/308) Exporting 'Main'
+ExportProgress : (242/308) Exporting 'LiberationSans SDF - Drop Shadow'
+ExportProgress : (243/308) Exporting 'LiberationSans SDF - Outline'
+ExportProgress : (244/308) Exporting 'Collider'
+ExportProgress : (245/308) Exporting 'EdgePicker'
+ExportProgress : (246/308) Exporting 'EdgePickerHDRP'
+ExportProgress : (247/308) Exporting 'FacePicker'
+ExportProgress : (248/308) Exporting 'FacePickerHDRP'
+ExportProgress : (249/308) Exporting 'InvisibleFace'
+ExportProgress : (250/308) Exporting 'NoDraw'
+ExportProgress : (251/308) Exporting 'ProBuilderDefault'
+ExportProgress : (252/308) Exporting 'StandardVertexColorHDRP'
+ExportProgress : (253/308) Exporting 'StandardVertexColorLWRP'
+ExportProgress : (254/308) Exporting 'Trigger'
+ExportProgress : (255/308) Exporting 'UnlitVertexColor'
+ExportProgress : (256/308) Exporting 'VertexPicker'
+ExportProgress : (257/308) Exporting 'VertexPickerHDRP'
+ExportProgress : (258/308) Exporting 'LiberationSans'
+ExportProgress : (259/308) Exporting 'TextMeshPro/Sprite'
+ExportProgress : (260/308) Exporting 'LiberationSans SDF Material'
+ExportProgress : (261/308) Exporting 'LiberationSans SDF Material'
+ExportProgress : (262/308) Exporting 'TextMeshPro/Sprite'
+ExportProgress : (263/308) Exporting 'ProBuilder/Standard Vertex Color'
+ExportProgress : (264/308) Exporting 'ProBuilder/UnlitVertexColor'
+ExportProgress : (265/308) Exporting 'Hidden/ProBuilder/EdgePicker'
+ExportProgress : (266/308) Exporting 'Hidden/ProBuilder/VertexPicker'
+ExportProgress : (267/308) Exporting 'Hidden/ProBuilder/FacePicker'
+ExportProgress : (268/308) Exporting 'TextMeshPro/Sprite'
+ExportProgress : (269/308) Exporting 'Hidden/ProBuilder/HideVertices'
+ExportProgress : (270/308) Exporting 'sdftexturepreview'
+ExportProgress : (271/308) Exporting 'TextMeshPro/Mobile/Distance Field'
+ExportProgress : (272/308) Exporting 'PerformanceTestRunInfo'
+ExportProgress : (273/308) Exporting 'PerformanceTestRunSettings'
+ExportProgress : (274/308) Exporting 'LineBreaking Leading Characters'
+ExportProgress : (275/308) Exporting 'LineBreaking Following Characters'
+ExportProgress : (276/308) Exporting 'SDFTextureGeneratorCompute'
+ExportProgress : (277/308) Exporting 'bubble pop'
+ExportProgress : (278/308) Exporting 'fluid'
+ExportProgress : (279/308) Exporting 'squelch'
+ExportProgress : (280/308) Exporting 'fail'
+ExportProgress : (281/308) Exporting 'move'
+ExportProgress : (282/308) Exporting 'shatter'
+ExportProgress : (283/308) Exporting 'explode 1'
+ExportProgress : (284/308) Exporting 'charge up'
+ExportProgress : (285/308) Exporting 'icons_12'
+ExportProgress : (286/308) Exporting 'icons_4'
+ExportProgress : (287/308) Exporting 'icons_1'
+ExportProgress : (288/308) Exporting 'icons_2'
+ExportProgress : (289/308) Exporting 'icons_0'
+ExportProgress : (290/308) Exporting 'icons_5'
+ExportProgress : (291/308) Exporting 'icons_3'
+ExportProgress : (292/308) Exporting 'icons_11'
+ExportProgress : (293/308) Exporting 'icons_6'
+ExportProgress : (294/308) Exporting 'icons_8'
+ExportProgress : (295/308) Exporting 'icons_7'
+ExportProgress : (296/308) Exporting 'icons_10'
+ExportProgress : (297/308) Exporting 'icons_9'
+ExportProgress : (298/308) Exporting 'FacebookSettings'
+ExportProgress : (299/308) Exporting 'ApplicationData'
+ExportProgress : (300/308) Exporting 'AudioClipManager'
+ExportProgress : (301/308) Exporting 'DOTweenSettings'
+ExportProgress : (302/308) Exporting 'Settings'
+ExportProgress : (303/308) Exporting 'LiberationSans SDF - Fallback'
+ExportProgress : (304/308) Exporting 'LiberationSans SDF'
+ExportProgress : (305/308) Exporting 'EmojiOne'
+ExportProgress : (306/308) Exporting 'Default Style Sheet'
+ExportProgress : (307/308) Exporting 'TMP Settings'
+ExportProgress : (308/308) Exporting 'icons'
+Export : Finished exporting assets
+Export : Saving game assemblies...
+Export : Native plugins: FBSDKCoreKit_Basics.framework carries arm64.
+Export : Native plugins: FBSDKGamingServicesKit.framework carries arm64.
+Export : Native plugins: FBSDKLoginKit.framework carries arm64.
+Export : Native plugins: FBSDKCoreKit.framework carries arm64.
+Export : Native plugins: FBAEMKit.framework carries arm64.
+Export : Native plugins: FBSDKShareKit.framework carries arm64.
+Export : Native plugins: 6 libraries the game shipped were copied into Assets/Plugins; 19 were the il2cpp runtime, the Unity player, Burst output or a platform library and are deliberately not carried.
+Export : Finished post-export
+Export : Ripped to /home/user/AssetRipper/Test/Out56F-j

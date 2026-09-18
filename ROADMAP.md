@@ -5,19 +5,24 @@
 `docs/RECOVERY_MATRIX.md`; phần còn lại của file này vẫn đúng về *loại* khiếm khuyết, chỉ không còn
 đúng về lượng.
 
-Ba mục tiêu tiếp theo đã có bằng chứng, không cần điều tra lại:
+Các mục tiêu tiếp theo đã có bằng chứng, không cần điều tra lại. **Lưu ý trước tiên**: từ iteration
+056 hai lỗi trong chính phép đo đã được sửa (`docs/ITERATION_056.md` mục 2), nên mọi con số công bố
+ở iteration ≤ 055 không so trực tiếp được với số mới — phải đo lại cả hai đầu.
 
 - `reports/NATIVE_INT_CAST.md` — `OBJECT_REFERENCE` 9558 cast trên JellyBlastV2 là cụm lớn nhất còn
   lại, và phải sửa từ phía *nguồn* (làm cho load phân giải được) chứ không phía cast: gán kiểu cho
   giá trị stand-in đã đo và tệ hơn trên mọi cột. `FIELD_ADDRESS` 2079 phần lớn là đối số write
   barrier — định vị được `il2cpp_codegen_write_barrier` sẽ bỏ cả lời gọi lẫn số học địa chỉ, và đó
   là đòn có giá trị nhất còn lại.
-- `reports/FRAMEWORK_PRIVATE_MEMBER.md` — **đã đo lại ở 055 và ba tiền đề cũ đều sai**: 1627 lỗi là
-  một `List<T>.Add` bị inline, không phải ba họ member. Phép ghép accessor *đang chạy* cho `_size`;
-  cả 429 site `_items` đọc toàn bộ mảng nên indexer khớp 0 site. Earliest wrong transformation là
-  lệnh ghi phần tử, đã sửa ở 055.
-- `reports/RUNTIME_DEPENDENCY_GRAPH.md` — sáu framework Facebook SDK của JellyBlastV2 chưa preserve
-  vì layout `.framework` của iOS khác một `.so`.
+- `reports/FRAMEWORK_PRIVATE_MEMBER.md` và `reports/INLINE_LIST_ADD.md` — **xong ở 056**.
+  `InlineListAddRecovery` gấp 2087 trong 3055 site `List<T>.Add` bị inline trở lại thành lời gọi;
+  lệnh đọc member private giảm 63–85% mỗi fixture, `RayFireAssembly` 4462 → 3457 lỗi Roslyn. Phần
+  còn lại: ~200 site mà cả hai vế của capacity test chưa resolve thành field (việc của type
+  recovery), và 159 site trên Merge-Room mà neo `AddWithResize` là một địa chỉ dùng chung — pass từ
+  chối đúng, chỗ cần sửa nằm ở phân giải call.
+- `reports/RUNTIME_DEPENDENCY_GRAPH.md` và `reports/IOS_NATIVE_PLUGIN.md` — **xong ở 056**: sáu
+  framework Facebook SDK của JellyBlastV2 được giữ nguyên bundle, 0/6 → 6/6. Còn thiếu `.meta`
+  `PluginImporter` cho chúng.
 - `reports/INJECTED_TYPE_COLLISION.md` — CS0433 1315 lỗi trên Merge-Room, sửa bằng `NotPublic` nhưng
   phải đo lại cả hai đầu của mọi so sánh vì ILSpy đổi `[Address(` thành `[Cpp2ILInjected.Address(`.
 - Phần 5 dưới đây (untyped local) vẫn là cụm `NATIVE_INT_CAST` lớn nhất trên cả bốn fixture.

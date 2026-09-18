@@ -52,28 +52,41 @@ entropy `__TEXT` 6,541/8, 4225 lệnh `ret` trong 1 MiB, `mscorlib.dll` có mặ
 
 ## Con số hiện tại
 
-Đo trên bản rip cuối của iteration 055 (`Test/Out55i2`, `Test/Out55z5`, `Test/Out55j2`,
-`Test/Out55m3`), sau khi tiến trình rip thoát chứ không theo một dòng log.
+Đo trên bản rip cuối của iteration 056 (`Test/Out56F-i`, `Out56F-z`, `Out56F-j`, `Out56F-m`), sau khi
+tiến trình rip thoát chứ không theo một dòng log.
+
+**Không so được với số của iteration ≤ 055.** Iteration 056 sửa hai lỗi trong chính phép đo — bản kết
+xuất ISIL trước đó kể một chương trình khác với thứ được xuất ra (`docs/ITERATION_056.md` mục 2) — nên
+mọi so sánh phải đo lại **cả hai đầu**. Cột "055" dưới đây là bản rip 055 đo lại bằng phép đo mới,
+không phải số đã công bố ở 055.
 
 | | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
 |---|---|---|---|---|
-| `.cs` | 830 | 796 | 1473 | 3998 |
-| method có địa chỉ native | 5482 | 3928 | 7485 | 15.224 |
-| `EXACT` | 2879 | 2285 | 2517 | 6633 |
-| `FALLBACK` | 1299 | 405 | 405 | 1488 |
-| placeholder | 4297 | 5964 | 38.524 | 37.622 |
-| **lệnh ghi phần tử phục hồi** | — | — | **903** (054: 676) | — |
-| `body_recovery_rate` | 0,7630 | **0,8969** | 0,9459 | 0,9023 |
-| `compile_pass_rate` | **0,9337** | **0,9761** | 0,8880 | **0,8939** (054: 0,8927) |
+| method có địa chỉ native | 5482 | 3928 | 7485 | 15.269 |
+| `EXACT` | **3782** (055 đo lại: 3776) | **2513** (2513) | **2867** (2855) | **7671** (7605) |
+| `FALLBACK` | 346 | 150 | 44 | 386 |
+| placeholder | 4293 | 5962 | 38.236 | 37.507 |
+| **`List.Add` inline được gấp lại** | **267** / 297 | **130** / 160 | **870** / 1252 | **820** / 1346 |
+| lệnh đọc member private `List<T>` | 736 → **216** | 304 → **46** | 2648 → **988** | 1665 → **380** |
+| `body_recovery_rate` | 0,9369 | 0,9618 | 0,9941 | 0,9747 |
+| `compile_pass_rate` | 0,9337 | **0,9761** | 0,8880 | 0,8929 |
 | `reference_resolution_rate` | 0,9942 | **1,0000** | **1,0000** | 0,9998 |
 | `semantic_equivalence_rate` | — | **1,0000** (36/36) | — | — |
-| `native_plugin_preservation_rate` | — (0 plugin) | — (0 plugin) | 0 / 6 | **1,0000** (2/2) |
+| `native_plugin_preservation_rate` | — (0 plugin) | — (0 plugin) | **1,0000** (6/6, 055: 0/6) | **1,0000** (2/2) |
 | `shader_exact` | 0 / 3 | 0 / 24 | 0 / 30 | 0 / 34 |
-| ranh giới `UNKNOWN` | 15 | 5 | 22 | 34 |
 | field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** | 3947 / **0** |
 | `generatorFailures` | 0 | 0 | 0 | 0 |
-| golden corpus | 216, +1/−0 | 194, 0/0 | 222, 0/0 | 255, 0/0 |
+| golden corpus | +1 / −0 | 0 / 0 | +2 / −0 | +8 / −0 |
 | stage E–I | BLOCKED | BLOCKED | BLOCKED | BLOCKED |
+
+Roslyn, trên assembly chịu ảnh hưởng nặng nhất của mỗi fixture (trước → sau):
+
+| Impostor `Assembly-CSharp` | JellyBlast `RayFireAssembly` | Merge-Room `Assembly-CSharp` | RFZ `Assembly-CSharp` |
+|---:|---:|---:|---:|
+| 342 → **200** | 4462 → **3457** | 6 → 6 | 7 → 7 |
+
+Hai cột cuối không đổi vì `Assembly-CSharp` của chúng gần như không có site nào — **đếm theo từng
+assembly trước khi kết luận một thay đổi không làm gì.**
 
 ### Merge-Room không tất định — đừng đọc chênh lệch nhỏ là regression
 
@@ -81,9 +94,10 @@ Bốn bản rip Merge-Room trên cùng một build cho **15.276 / 15.273 / 15.24
 chỉ native, chênh tới 52 (0,3%). Impostor cho đúng 5482 ba lần. Trên Merge-Room, một chênh lệch dưới
 ~50 method là nhiễu; ba fixture kia ổn định.
 
-### Native plugin: kết luận của 054 sai với một nửa ma trận
+### Native plugin
 
 Impostor và RunFromZombies **không có plugin nào của game** — 6 thư viện của mỗi cái là đúng hai bản
 il2cpp runtime và bốn bản Unity player, không thứ nào được phép đi vào project. Chỉ Merge-Room
-(`liblofelt_sdk.so`, hai ABI) và JellyBlast v2 (sáu framework Facebook SDK) có plugin thật.
-`reports/RUNTIME_DEPENDENCY_GRAPH.md` là bản ghi.
+(`liblofelt_sdk.so`, hai ABI) và JellyBlast v2 (sáu framework Facebook SDK) có plugin thật, và từ
+iteration 056 cả hai đều được giữ đủ. `reports/RUNTIME_DEPENDENCY_GRAPH.md` và
+`reports/IOS_NATIVE_PLUGIN.md` là bản ghi.
