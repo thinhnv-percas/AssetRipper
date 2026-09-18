@@ -226,8 +226,44 @@ public static class ArrayRecovery
     /// AssetRipper: <c>[t + elementsOffset]</c> where <c>t = array + (index &lt;&lt; log2(elementSize))</c>,
     /// which is how an element is reached where the address has to be computed before the load.
     /// </summary>
+    /// <summary>
+    /// AssetRipper: the shapes that name the array directly, and then the one where the elements
+    /// offset arrived as an instruction of its own.
+    /// </summary>
+    /// <remarks>
+    /// The order is the whole design. `t1 = array + (i &lt;&lt; 3); t2 = t1 + elementsOffset; [t2] = value`
+    /// is how an inlined <c>List&lt;T&gt;.Add</c> writes the element it appends, and that shape reached
+    /// none of the rules below because the add they look at is the outer one. But `t = array +
+    /// elementsOffset` - the elements-offset-ahead rule, which already worked - matches the unwrap
+    /// just as well, and unwrapping it recurses onto the array itself and answers nothing: one method
+    /// of the golden corpus lost both its `ARRAY_READ` and its `ARRAY_WRITE` that way. Testing the
+    /// inner local's type or its defining opcode to tell the two apart is too strong in both
+    /// directions - a computed element address is routinely typed as the array and routinely arrives
+    /// through a copy - so the rules that name the array directly simply go first, and the unwrap is
+    /// what is left when they answer nothing.
+    /// </remarks>
     private static IOperand? ComputedElementAddress(MemoryOperand memory, LocalVariable computed,
         Dictionary<LocalVariable, Instruction> definitions, int pointerSize, MethodAnalysisContext method)
+    {
+        if (DirectElementAddress(memory, computed, definitions, pointerSize, method, 0) is { } direct)
+            return direct;
+
+        if (!definitions.TryGetValue(computed, out var outer)
+            || outer is not { OpCode: OpCode.Add, Operands: [_, var first, var second] }
+            || ElementsOffsetAddedSeparately(first, second, pointerSize) is not { } inner)
+            return null;
+
+        return DirectElementAddress(memory, inner, definitions, pointerSize, method,
+            ElementsOffset(pointerSize));
+    }
+
+    /// <param name="extraAddend">
+    /// The part of the element's offset that arrived as its own instruction rather than as the memory
+    /// operand's addend.
+    /// </param>
+    private static IOperand? DirectElementAddress(MemoryOperand memory, LocalVariable computed,
+        Dictionary<LocalVariable, Instruction> definitions, int pointerSize, MethodAnalysisContext method,
+        long extraAddend)
     {
         if (!definitions.TryGetValue(computed, out var definition)
             || definition is not { OpCode: OpCode.Add, Operands: [_, var left, var right] })
@@ -258,14 +294,14 @@ public static class ArrayRecovery
         // the element's address and its first member's are the same number, and reading one as the
         // other gives `(float)array[i]`, a cast C# does not have.
         if (scaled is Immediate { Value: var added } && added == ElementsOffset(pointerSize))
-            return !isStruct && memory.Addend == 0 && memory.Index != null && memory.Scale == elementSize
+            return !isStruct && memory.Addend + extraAddend == 0 && memory.Index != null && memory.Scale == elementSize
                 ? new ArrayAccess(arrayLocal, memory.Index)
                 : null;
 
         if (memory.Index != null || memory.Scale != 0)
             return null;
 
-        var intoElement = memory.Addend - ElementsOffset(pointerSize);
+        var intoElement = memory.Addend + extraAddend - ElementsOffset(pointerSize);
 
         // AssetRipper: past the start of the element the offset itself proves a member was reached -
         // nothing else lives there - so `[t + elementsOffset + f]` is `array[i].<member at f>`. At the
@@ -278,7 +314,7 @@ public static class ArrayRecovery
                 && (scaled is LocalVariable scaledLocal ? ScaledIndexBehind(scaledLocal, elementSize, definitions) : null) is { } memberIndex
                 && MetadataResolver.FindNestedFieldPath(arrayType.ElementType, intoElement, 0, method) is { } path)
             {
-                return new FieldReference(path[^1], arrayLocal, (int)memory.Addend)
+                return new FieldReference(path[^1], arrayLocal, (int)(memory.Addend + extraAddend))
                 {
                     ContainingFields = path.GetRange(0, path.Count - 1),
                     ElementIndex = memberIndex,
@@ -309,6 +345,26 @@ public static class ArrayRecovery
             return new ArrayAccess(arrayLocal, scaledIndex);
 
         return ScaledIndexBehind(scaledIndex, elementSize, definitions) is { } index ? new ArrayAccess(arrayLocal, index) : null;
+    }
+
+    /// <summary>
+    /// AssetRipper: the local an <c>add</c> of exactly the elements offset was applied to, or null.
+    /// </summary>
+    /// <remarks>
+    /// Deliberately only the elements offset and no other constant: that number is what makes the
+    /// shape an element address rather than arbitrary pointer arithmetic, and it is the same constant
+    /// every other rule in this file keys on.
+    /// </remarks>
+    private static LocalVariable? ElementsOffsetAddedSeparately(IOperand left, IOperand right, int pointerSize)
+    {
+        var offset = ElementsOffset(pointerSize);
+
+        return (left, right) switch
+        {
+            (LocalVariable inner, Immediate { Value: var value }) when value == offset => inner,
+            (Immediate { Value: var value }, LocalVariable inner) when value == offset => inner,
+            _ => null,
+        };
     }
 
     /// <summary>
