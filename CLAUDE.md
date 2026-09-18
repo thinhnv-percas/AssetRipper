@@ -1764,7 +1764,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Twenty-three scripts, and each measures something the others cannot:
+Twenty-four scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1829,6 +1829,11 @@ Twenty-three scripts, and each measures something the others cannot:
 - `Test/Scripts/inline_list_add_report.py` — what the inlined-framework-operation recovery was offered
   and what it took, per fixture, with every rejection under the reason the pass rejected it for. A
   family that matches nothing and a family that is never reached print the same match count otherwise.
+- `Test/Scripts/runtime_smoke_contract.py` — one scenario per (scene, object, component, Unity
+  message): what the scene serialises going in, and what would have to be observed coming out. The
+  three readable halves are stated as facts; `expected_state` and `expected_event` are `UNKNOWN` with
+  a reason, because a contract that guessed one would fail a correct recovery or pass a broken one and
+  the file could not say which.
 - `Test/Scripts/runtime_equivalence.py` and `Test/Tools/RuntimeEquivalence` — the only measure that
   runs the recovered IL. The planner tiers each paired method by what it would need to execute; the
   runner loads both assemblies and compares. A case that did not run is `NOT_RUN` with the reason,
