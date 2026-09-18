@@ -1,7 +1,7 @@
 {
   "fixture": "MergeRoom",
   "package": "Test/Input/MergeRoom",
-  "project": "Test/Out55m/MergeRoom",
+  "project": "Test/Out55m3/MergeRoom",
   "libraries_in_package": 10,
   "by_kind": {
     "ENGINE_BUILD_OUTPUT": 2,
@@ -10,16 +10,16 @@
     "UNITY_ENGINE": 4
   },
   "native_boundaries_by_verdict": {
-    "IL2CPP_RUNTIME": 12079,
-    "SYSTEM_API": 2583,
-    "UNKNOWN": 38,
+    "IL2CPP_RUNTIME": 12060,
+    "SYSTEM_API": 2588,
+    "UNKNOWN": 34,
     "MANAGED": 103,
     "EXTERNAL_DEPENDENCY": 25
   },
   "distinct_symbols_reached": 31,
   "game_native_plugins": 2,
-  "game_native_plugins_preserved": 0,
-  "native_plugin_preservation_rate": 0.0,
+  "game_native_plugins_preserved": 2,
+  "native_plugin_preservation_rate": 1.0,
   "libraries": [
     {
       "name": "lib_burst_generated.so",
@@ -50,9 +50,12 @@
       "architecture": "arm64-v8a",
       "bytes": 727072,
       "kind": "GAME_NATIVE_PLUGIN",
-      "packaged_into_project": [],
+      "packaged_into_project": [
+        "Assets/Plugins/Android/armeabi-v7a/liblofelt_sdk.so",
+        "Assets/Plugins/Android/arm64-v8a/liblofelt_sdk.so"
+      ],
       "required_by_symbols": [],
-      "resolved": false
+      "resolved": true
     },
     {
       "name": "libmain.so",
@@ -105,9 +108,12 @@
       "architecture": "armeabi-v7a",
       "bytes": 501376,
       "kind": "GAME_NATIVE_PLUGIN",
-      "packaged_into_project": [],
+      "packaged_into_project": [
+        "Assets/Plugins/Android/armeabi-v7a/liblofelt_sdk.so",
+        "Assets/Plugins/Android/arm64-v8a/liblofelt_sdk.so"
+      ],
       "required_by_symbols": [],
-      "resolved": false
+      "resolved": true
     },
     {
       "name": "libmain.so",
@@ -266,8 +272,8 @@
     "modf": [
       "Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs",
       "Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs",
-      "Assets/Scripts/Cinemachine/Cinemachine/CinemachinePath.cs",
-      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs"
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/FloatPlugin.cs"
     ],
     "powf": [
       "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFloatExtensions.cs",
@@ -280,9 +286,9 @@
     ],
     "sincosf": [
       "Assets/Scripts/Assembly-CSharp/ExtensionDraw.cs",
-      "Assets/Scripts/Cinemachine/Cinemachine/CinemachinePath.cs",
-      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineSmoothPath.cs",
-      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs"
+      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAim.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMMaths.cs"
     ],
     "sinf": [
       "Assets/Scripts/AlmostEngine/AlmostEngine/Examples/Bounce.cs",

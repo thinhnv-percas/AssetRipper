@@ -5,13 +5,12 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 054 (hoàn tất; trọng tâm "compile fidelity + Merge-Room + ranh giới runtime".
-                          Ship: page base của metadata usage (JellyBlast EXACT 2200 -> 2517,
-                          placeholder 48458 -> 37857, Roslyn 8638 -> 6630), gọi tên ranh giới native
-                          từ symbol binary tự đặt (UNKNOWN 112/281/814/662 -> 15/5/22/34), fixture
-                          Merge-Room, source_manifest biết NOT_IN_METADATA / RECOVERED_ELSEWHERE /
-                          source_matches_build, runtime_validation_manifest, golden corpus 591 -> 887
-                          phủ bốn fixture, ITERATION_054)
+Iteration hiện tại: 055 (hoàn tất; trọng tâm "framework compatibility + runtime dependency". Ship:
+                          phục hồi lệnh ghi phần tử khi elements offset cộng ở lệnh riêng (JellyBlast
+                          676 -> 903 lệnh ghi), cluster_native_int_casts.py, runtime_dependency_graph.py,
+                          NativePluginPostExporter (Merge-Room 2/2 plugin preserved), ITERATION_055.
+                          Và ba tiền đề của brief bị phép đo lật: _size/_items/_version là MỘT
+                          List<T>.Add bị inline, không phải ba họ member.)
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
@@ -69,10 +68,19 @@ Giai đoạn hiện tại:
   Test/AR54z4.log, Test/AR54j2.log, Test/AR54m3.log. Con số đầy đủ ở docs/RECOVERY_MATRIX.md.
 
   MỤC TIÊU TIẾP THEO đã có bằng chứng, không cần điều tra lại:
-    - reports/INJECTED_TYPE_COLLISION.md: CS0433 1315 lỗi trên Merge-Room, sửa bằng NotPublic nhưng
-      phải đo lại cả hai đầu vì ILSpy đổi [Address( thành [Cpp2ILInjected.Address(.
-    - reports/FRAMEWORK_PRIVATE_MEMBER.md: List<T>._size 398 lỗi là recovery mistake, phép ghép
-      accessor trượt vì ReturnsNothingButTheField đòi thân getter đúng một lệnh Move rồi Return.
+    - il2cpp_codegen_write_barrier vẫn chưa định vị được, và lời gọi nó giữ sống toàn bộ số học địa
+      chỉ quanh mỗi lệnh ghi field: 2079 nint cast FIELD_ADDRESS trên JellyBlastV2 là nó. Thử
+      sibling-veneer search như đã làm cho metadata-init ở 049.
+    - reports/NATIVE_INT_CAST.md: OBJECT_REFERENCE 9558 là cụm lớn nhất và phải sửa từ phía *nguồn*
+      (làm load phân giải được), không phía cast — gán kiểu cho stand-in đã đo và tệ hơn mọi cột.
+    - reports/INJECTED_TYPE_COLLISION.md: CS0433 1315 lỗi trên Merge-Room. Assembly Recovered.Runtime
+      dùng chung là kiến trúc đúng nhưng đổi hình dạng mọi phép đo neo vào — cần iteration có
+      baseline riêng.
+    - reports/RUNTIME_DEPENDENCY_GRAPH.md: sáu framework Facebook SDK của JellyBlastV2 chưa preserve
+      vì layout .framework của iOS khác một .so.
+
+  MERGE-ROOM KHÔNG TẤT ĐỊNH: bốn bản rip cùng build cho 15.276/15.273/15.246/15.224 method có địa chỉ
+  native. Chênh dưới ~50 là nhiễu trên fixture đó. Impostor cho đúng 5482 ba lần.
 
   LƯU Ý KHI SO VỚI 052 TRỞ VỀ TRƯỚC: lỗi Roslyn của Jelly Blast đi 1938 -> 8638 ở 053 và đó KHÔNG
   phải regression. Bản cũ mang lỗi khai báo CS0102 (event trùng tên field) che toàn bộ lỗi thân hàm

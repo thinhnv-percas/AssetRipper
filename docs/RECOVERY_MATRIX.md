@@ -52,39 +52,38 @@ entropy `__TEXT` 6,541/8, 4225 lệnh `ret` trong 1 MiB, `mscorlib.dll` có mặ
 
 ## Con số hiện tại
 
-Đo trên bản rip cuối của iteration 054 (`Test/Out54i3`, `Test/Out54z4`, `Test/Out54j2`,
-`Test/Out54m3`), sau khi tiến trình rip thoát chứ không theo một dòng log.
+Đo trên bản rip cuối của iteration 055 (`Test/Out55i2`, `Test/Out55z5`, `Test/Out55j2`,
+`Test/Out55m3`), sau khi tiến trình rip thoát chứ không theo một dòng log.
 
 | | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
 |---|---|---|---|---|
 | `.cs` | 830 | 796 | 1473 | 3998 |
-| method có địa chỉ native | 5482 | 3928 | 7485 | 15.276 |
-| `EXACT` | 2878 | 2285 | **2517** (053: 2200) | 6648 |
-| `FALLBACK` | 1299 | 405 | 405 | 1495 |
-| placeholder | 4297 | 5964 | **38.527** (053: 48.458) | 37.757 |
-| `body_recovery_rate` | 0,7630 | **0,8969** | 0,9459 | 0,9021 |
-| `compile_pass_rate` | **0,9337** | **0,9761** | **0,8880** (053: 0,8866) | 0,8927 |
-| lỗi Roslyn | 484 | 40 | **6630** (053: 8638) | 5143 |
+| method có địa chỉ native | 5482 | 3928 | 7485 | 15.224 |
+| `EXACT` | 2879 | 2285 | 2517 | 6633 |
+| `FALLBACK` | 1299 | 405 | 405 | 1488 |
+| placeholder | 4297 | 5964 | 38.524 | 37.622 |
+| **lệnh ghi phần tử phục hồi** | — | — | **903** (054: 676) | — |
+| `body_recovery_rate` | 0,7630 | **0,8969** | 0,9459 | 0,9023 |
+| `compile_pass_rate` | **0,9337** | **0,9761** | 0,8880 | **0,8939** (054: 0,8927) |
 | `reference_resolution_rate` | 0,9942 | **1,0000** | **1,0000** | 0,9998 |
 | `semantic_equivalence_rate` | — | **1,0000** (36/36) | — | — |
-| `type_recovery_rate` | **1,0000** (430/430) | **1,0000** (16/16) | — | **0,9943** |
-| `property_recovery_rate` (shader) | **1,0000** | — | — | **1,0000** |
+| `native_plugin_preservation_rate` | — (0 plugin) | — (0 plugin) | 0 / 6 | **1,0000** (2/2) |
 | `shader_exact` | 0 / 3 | 0 / 24 | 0 / 30 | 0 / 34 |
-| ranh giới `UNKNOWN` | **15** (053: 112) | **5** (053: 281) | **22** (053: 814) | **34** |
+| ranh giới `UNKNOWN` | 15 | 5 | 22 | 34 |
 | field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** | 3947 / **0** |
 | `generatorFailures` | 0 | 0 | 0 | 0 |
-| golden corpus | 216, 0/0 | 194, 0/0 | 222, 0/0 | 255, 0/0 |
+| golden corpus | 216, +1/−0 | 194, 0/0 | 222, 0/0 | 255, 0/0 |
 | stage E–I | BLOCKED | BLOCKED | BLOCKED | BLOCKED |
 
-### Merge-Room `compile_pass_rate` 0,8937 → 0,8927
+### Merge-Room không tất định — đừng đọc chênh lệch nhỏ là regression
 
-Toàn bộ chênh lệch là **CS0433, 1122 → 1315**: `TokenAttribute` và bảy kiểu khác do chính exporter
-tiêm vào *mọi* assembly ở mức public, nên một file tham chiếu hai assembly recovered nhìn thấy hai
-kiểu cùng tên. Không lỗi nào trong đó là defect của recovery, mọi cụm khác không đổi một con số nào,
-và `reports/INJECTED_TYPE_COLLISION.md` ghi cách sửa cùng lý do nó bị hoãn.
+Bốn bản rip Merge-Room trên cùng một build cho **15.276 / 15.273 / 15.246 / 15.224** method có địa
+chỉ native, chênh tới 52 (0,3%). Impostor cho đúng 5482 ba lần. Trên Merge-Room, một chênh lệch dưới
+~50 method là nhiễu; ba fixture kia ổn định.
 
-### Lỗi Roslyn của Jelly Blast không so được với 052 trở về trước
+### Native plugin: kết luận của 054 sai với một nửa ma trận
 
-1938 → 8638 ở 053 **không phải regression**: bản cũ mang lỗi khai báo CS0102 che toàn bộ lỗi thân
-hàm của `RayFireAssembly` và `PathCreator`. Mốc so sánh đúng là 8638 của 053, và 054 đưa nó xuống
-6630.
+Impostor và RunFromZombies **không có plugin nào của game** — 6 thư viện của mỗi cái là đúng hai bản
+il2cpp runtime và bốn bản Unity player, không thứ nào được phép đi vào project. Chỉ Merge-Room
+(`liblofelt_sdk.so`, hai ABI) và JellyBlast v2 (sáu framework Facebook SDK) có plugin thật.
+`reports/RUNTIME_DEPENDENCY_GRAPH.md` là bản ghi.

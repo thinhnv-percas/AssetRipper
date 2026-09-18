@@ -1513,6 +1513,57 @@ find it; `strings` without `-el` does find method and type names.
   P/Invoke will fail the moment it runs. `runtime_validation_manifest.py` says so rather than leaving
   a reader to find out.
 
+- **A family named by its member names is a family named by its symptom, and this one was one method.**
+  1627 compile errors across `List<T>._size`, `_items` and `_version` read as three problems and three
+  fixes - a getter pairing too strict, a missing indexer pairing, a framework limitation - and
+  measuring them *per call site* rather than per member name said all three premises were false. Every
+  one of the 429 `_items` errors reads the whole backing array into a local (so an indexer pairing
+  matches none of them); every one of the 398 `_size` errors is a *store* (so `Count`, which has no
+  setter, cannot help, and a probe on `InstanceAccessorFor` shows `_size` pairs successfully every
+  time, so its reads were already `list.Count`); and all four shapes together are one inlined
+  `List<T>.Add`, whose own slow path calls `List<T>.Add` by name right there in the same block. The
+  earliest wrong transformation is none of the three: it is the element store,
+  `(nint)items + (i << 3)` then `+ 32` then a write that went to a local instead of through the
+  address. Ask the pass whether it would answer before believing a story about why it does not.
+- **The elements offset can arrive as its own instruction, and the fix is an ordering, not a test.**
+  `t1 = array + (i << 3); t2 = t1 + elementsOffset; [t2] = value` reached none of the element-address
+  rules because they all look at the outer add. One unwrap puts the offset back where the addend would
+  have carried it - but `t = array + elementsOffset`, the elements-offset-ahead rule that already
+  worked, matches that unwrap just as well, and unwrapping it recurses onto the array itself and
+  answers nothing: a golden-corpus method lost both its `ARRAY_READ` and its `ARRAY_WRITE` that way.
+  Telling the two apart by the inner local's *type* or by its defining opcode is too strong in both
+  directions - a computed element address is routinely typed as the array it came from, and routinely
+  arrives through a copy - so the rules that name the array directly go first and the unwrap is the
+  fallback. Worth 676 → 903 recovered element stores on the iOS fixture, and on the source-oracle game
+  `entry.Next = (Entry)next` (assigning the *address*) plus `next = entry` (a store into nothing)
+  became `entry.Next = array[num8]` and `array[num8] = entry`.
+- **`Cannot convert type 'X' to 'nint'` is one message over four causes.**
+  `cluster_native_int_casts.py` splits it by the producer of the value being cast, because a pointer
+  the machine really had, a handle, a reference the typing lost and a metadata address want opposite
+  work. On the iOS fixture's 17313 casts: `OBJECT_REFERENCE` 9558, `POINTER` 2756, `FIELD_ADDRESS`
+  2079, `UNKNOWN` 1746, `ARRAY` 825. `ARRAY` is where this cluster meets the framework-member cluster
+  and is the same defect as the element store above. `OBJECT_REFERENCE` is the one with a negative
+  result already on record and has to be fixed from the *source* side. `FIELD_ADDRESS` is mostly write
+  barrier arguments, kept alive because `il2cpp_codegen_write_barrier` is still unlocated - locating it
+  drops the call and the arithmetic with it, which is the highest-value lever left here.
+- **Four of the five kinds of native library must NOT go into a recovered project, and iteration 054's
+  "zero native plugins is a blocker" was wrong for half the matrix.** The il2cpp runtime is what the
+  recovery replaces, so copying it ships the game twice; the Unity player is the editor's;
+  `lib_burst_generated.so` is Burst's output, compiled from the managed source the project already
+  has; a platform library is on the device. What is left is what the developer added, and that is the
+  only kind whose absence is a blocker. Measured: the test game and the source-oracle game ship
+  **zero** game plugins - their six libraries each are exactly two il2cpp runtimes and four Unity
+  players - while Merge-Room needs `liblofelt_sdk.so` for the two ABIs (`Lofelt.NiceVibrations` exists
+  to P/Invoke into it) and the iOS fixture needs six Facebook SDK frameworks.
+  `NativePluginPostExporter` copies the one kind into `Assets/Plugins/Android/<ABI>/`; an iOS
+  `.framework` is a directory Unity imports differently and is reported MISSING rather than copied
+  wrongly.
+- **One fixture's method count is not reproducible, and only one.** Four Merge-Room rips of the same
+  build report 15276 / 15273 / 15246 / 15224 methods carrying a native address - a spread of 52, or
+  0.3% - while Impostor reports exactly 5482 three times. So on Merge-Room a difference under about
+  fifty methods is noise rather than a regression, and any conclusion drawn from a smaller movement
+  there needs a second run before it is believed.
+
 ### Things measured to be worth nothing — do not redo them
 - **Making the exporter's own injected types internal.** They are injected into *every* assembly and
   public, so a file referencing two recovered assemblies sees two `TokenAttribute`s - CS0433, 1315
@@ -1661,7 +1712,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Twenty scripts, and each measures something the others cannot:
+Twenty-two scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1717,6 +1768,10 @@ Twenty scripts, and each measures something the others cannot:
   read it as a result.
 - `Test/Scripts/cluster_runtime_boundaries.py` — the `UNKNOWN` call targets that still carry an
   address, grouped by the machine code at the target rather than by the address.
+- `Test/Scripts/cluster_native_int_casts.py` — every `nint` cast by the producer of the value being
+  cast, because the compiler's message is the same for all of them.
+- `Test/Scripts/runtime_dependency_graph.py` — the native libraries a package ships, classified into
+  the four kinds a project must not carry and the one it must, with what the project actually carries.
 - `Test/Scripts/runtime_equivalence.py` and `Test/Tools/RuntimeEquivalence` — the only measure that
   runs the recovered IL. The planner tiers each paired method by what it would need to execute; the
   runner loads both assemblies and compares. A case that did not run is `NOT_RUN` with the reason,

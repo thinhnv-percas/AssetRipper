@@ -7,10 +7,17 @@
 
 Ba mục tiêu tiếp theo đã có bằng chứng, không cần điều tra lại:
 
-- `reports/FRAMEWORK_PRIVATE_MEMBER.md` — `List<T>._size` 398 lỗi là recovery mistake: `Count` là
-  accessor tầm thường của nó và phép ghép accessor trượt vì `ReturnsNothingButTheField` đòi thân
-  getter đúng một lệnh Move rồi Return, nên null check của il2cpp làm hỏng. `_items` 429 lỗi là một
-  phép ghép accessor thứ hai (indexer). `_version` 800 lỗi là giới hạn thật của framework.
+- `reports/NATIVE_INT_CAST.md` — `OBJECT_REFERENCE` 9558 cast trên JellyBlastV2 là cụm lớn nhất còn
+  lại, và phải sửa từ phía *nguồn* (làm cho load phân giải được) chứ không phía cast: gán kiểu cho
+  giá trị stand-in đã đo và tệ hơn trên mọi cột. `FIELD_ADDRESS` 2079 phần lớn là đối số write
+  barrier — định vị được `il2cpp_codegen_write_barrier` sẽ bỏ cả lời gọi lẫn số học địa chỉ, và đó
+  là đòn có giá trị nhất còn lại.
+- `reports/FRAMEWORK_PRIVATE_MEMBER.md` — **đã đo lại ở 055 và ba tiền đề cũ đều sai**: 1627 lỗi là
+  một `List<T>.Add` bị inline, không phải ba họ member. Phép ghép accessor *đang chạy* cho `_size`;
+  cả 429 site `_items` đọc toàn bộ mảng nên indexer khớp 0 site. Earliest wrong transformation là
+  lệnh ghi phần tử, đã sửa ở 055.
+- `reports/RUNTIME_DEPENDENCY_GRAPH.md` — sáu framework Facebook SDK của JellyBlastV2 chưa preserve
+  vì layout `.framework` của iOS khác một `.so`.
 - `reports/INJECTED_TYPE_COLLISION.md` — CS0433 1315 lỗi trên Merge-Room, sửa bằng `NotPublic` nhưng
   phải đo lại cả hai đầu của mọi so sánh vì ILSpy đổi `[Address(` thành `[Cpp2ILInjected.Address(`.
 - Phần 5 dưới đây (untyped local) vẫn là cụm `NATIVE_INT_CAST` lớn nhất trên cả bốn fixture.

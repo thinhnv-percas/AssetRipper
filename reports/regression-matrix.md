@@ -795,3 +795,51 @@ do chính exporter tiêm vào va nhau; mọi cụm khác không đổi một con
 `[Address(` và `[NativeSource(` mù — đã hoàn tác, ghi lại kèm cách sửa đúng.
 
 Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`**.
+
+## Iteration 055
+
+Đo trên `Test/Out55i2`, `Test/Out55z5`, `Test/Out55j2`, `Test/Out55m3`.
+
+| | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
+|---|---|---|---|---|
+| `EXACT` | 2879 | 2285 | 2517 | 6633 |
+| placeholder | 4297 | 5964 | 38.524 | 37.622 |
+| **lệnh ghi phần tử phục hồi** | — | — | **903** (054: 676) | — |
+| `compile_pass_rate` | 0.9337 | 0.9761 | 0.8880 | **0.8939** (054: 0.8927) |
+| `body_recovery_rate` | 0.7630 | 0.8969 | 0.9459 | 0.9023 |
+| `reference_resolution_rate` | 0.9942 | 1.0000 | 1.0000 | 0.9998 |
+| `semantic_equivalence_rate` | — | **1.0000** | — | — |
+| `native_plugin_preservation_rate` | — | — | 0/6 | **1.0000** (2/2) |
+| field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** | 3947 / **0** |
+| `generatorFailures` | **0** | **0** | **0** | **0** |
+| golden corpus | 216, +1/−0 | 194, 0/0 | 222, 0/0 | 255, 0/0 |
+
+### `nint` cast theo producer
+
+| producer | JellyBlastV2 | RunFromZombies |
+|---|---|---|
+| `OBJECT_REFERENCE` | 9558 | 1440 |
+| `POINTER` | 2756 | 276 |
+| `FIELD_ADDRESS` | 2079 | 205 |
+| `UNKNOWN` | 1746 | 785 |
+| `ARRAY` | 825 | 46 |
+| `INTEGER` | 285 | 153 |
+| `HANDLE` | 64 | 78 |
+
+### Native library theo loại
+
+| | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
+|---|---|---|---|---|
+| `IL2CPP_RUNTIME` | 2 | 2 | 1 | 2 |
+| `UNITY_ENGINE` | 4 | 4 | — | 4 |
+| `ENGINE_BUILD_OUTPUT` | — | — | — | 2 |
+| `SYSTEM_LIBRARY` | — | — | 18 | — |
+| `GAME_NATIVE_PLUGIN` | **0** | **0** | 6 | 2 |
+
+**Kết quả âm / không làm**: assembly hỗ trợ dùng chung (§6) và `Recovered.FrameworkCompat` (§5) —
+xem `reports/INJECTED_TYPE_COLLISION.md`; cả hai đổi hình dạng mà mọi phép đo neo vào.
+
+**Caveat**: Merge-Room không tất định — bốn bản rip cùng build cho 15.276/15.273/15.246/15.224
+method. Chênh dưới ~50 là nhiễu trên fixture đó.
+
+Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`**.
