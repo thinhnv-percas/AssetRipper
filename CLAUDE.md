@@ -1616,6 +1616,65 @@ find it; `strings` without `-el` does find method and type names.
   il2cpp, so a classifier keyed on the bundle name must strip `.framework` first or a 51 MB engine
   reads as the game's own library. JellyBlast v2 went 0/6 to 6/6.
 
+- **A measurement that re-derives what a body does from a rendering of it will drift, and the cure is
+  for the generator to record what it emits as it emits it.** Three defects in two iterations had one
+  cause: the semantic measurements parsed `[NativeSource(Body = …)]` on one side and the decompiled C#
+  on the other and compared what each *seemed* to name. `RecoveredSemanticIr` is filed by `IlGenerator`
+  at the emission site, so every canonicalisation it performs - the accessor pairing, the folded
+  `List<T>.Add`, a packed store split across the fields it covers - is recorded as the decision is
+  taken. It is a *record*, not a second IR: nothing downstream reads it back, and the proof that it
+  changes nothing is that the rip is byte-identical to the previous baseline on all four fixtures. A
+  measurement that can change the artefact it measures is worse than no measurement. Two operations in
+  the canonical set are declared and never produced - `CAST` and `UNBOX`, because the generator emits
+  neither `castclass` nor `unbox` - and saying so is part of the measurement rather than a gap in it.
+- **A field the generator writes out as a property must be recorded as the property.** The instrumented
+  sites are the ones that *decide*: `LoadOperand`'s static and instance field branches, the
+  float-aggregate first-member load, `StoreToOperand`, the `Move` case's own field store (which is
+  where almost every store actually goes - `StoreToOperand` sees so few that instrumenting only it
+  reported **0 STORE_FIELD against 5916 LOAD_FIELD**, which is the shape of a pass that never fires),
+  and the packed/composed store helpers. A `LOOP` is a back edge, which is a fact about the graph
+  rather than about an instruction, so it is recorded from the graph.
+- **A name-level check needs an exclusion list, and every entry has to be defensible.** Comparing the
+  IR's own spelling against the C# reports as lost: an operator (`op_Equality` is `==`),
+  `GetTypeFromHandle` (`typeof`), `Item`/`Chars` (an indexer is `x[i]`), `Invoke` (a delegate is
+  `d(x)`), `Concat` (`a + b`), a base `.ctor` inside a constructor (an elided initialiser), and any
+  compiler-generated `<…>` member (the construct it belongs to was folded back into `yield`/a lambda).
+  Without them the check reported 856 FALLBACK where the true figure is 278.
+- **A generic argument carries dots, so strip it before taking the last segment.** `List\`1<System.Int32>`
+  read as `Int32>` - a name that appears in no source - so every generic method read as having lost its
+  allocation.
+
+- **A serialized shader carries all of ShaderLab except the program bodies, and throwing that away is
+  why an export could only ever be a stand-in.** The subshaders, their LOD and tags, each pass with its
+  name, type, tags and render state, the keyword sets each variant was compiled for and the backend
+  each program was compiled to are all in the asset. `DummyShaderTextExporter` reconstructed the
+  `Properties` block exactly and gave every shader one canned unlit pass, so a twenty-pass
+  post-processing shader and a one-pass blit came out identical. Writing the real structure is
+  transcription rather than decompilation: passes written went **0 → 96 / 3 / 48 / 29** across the four
+  fixtures, with `Properties` unchanged to the line. The program stages are still replacements and the
+  output says so - `AssetRipperReplacementProgram` - so `shader_exact` stays 0 and the oracle's ceiling
+  for such a shader is `PARTIAL`.
+- **Never key a measurement on the *absence* of a marker.** `validate_unity_stages.py` called a shader
+  exact when it did not carry `//DummyShaderTextExporter`, so the moment a better exporter stopped
+  writing that marker it reported **24 of 24 exact** for shaders whose shading is still a replacement.
+  The same defect as iteration 056's, one layer out: a measurement anchored to a string, and the string
+  moved. A replacement has to name itself, and the measurement has to read *that*.
+- **Nothing in the shader pipeline can be graded above "structure recovered" without a source shader,
+  and no fixture has one.** RunFromZombies' source project declares zero shaders, so
+  `shader_oracle.py` answers `property_recovery_rate: None (0 of 0)`. Acquiring a fixture that ships
+  ShaderLab is the cheapest next step, and it has to come before any attempt at the program blobs -
+  which are not even loaded in the default export mode, and whose "GLES means GLSL text" reading is
+  still unconfirmed.
+
+- **Nothing in the call resolver picks `MethodsByAddress[address][0]`.** `ResolveCalls` commits only
+  when exactly one method sits at the address, `ResolveAmbiguousCalls` matches on the receiver's type
+  through its base chain, and `PreferredOf` runs only for candidates `AreInterchangeable` finds to have
+  identical signatures and shared bodies, where the choice carries no meaning. So the 159 `AddWithResize`
+  candidates iteration 056 attributed to a shared address are not that: traced, 119 of 145 have a
+  receiver that is `Add of (Add …) and Immediate` and 14 name `_items` inside the inner add - the fast
+  path's own **element address** arriving in the receiver register. That is an argument-mapping defect,
+  not a call-resolution one, and it wants the opposite work.
+
 ### Things measured to be worth nothing — do not redo them
 - **Making the exporter's own injected types internal.** They are injected into *every* assembly and
   public, so a file referencing two recovered assemblies sees two `TokenAttribute`s - CS0433, 1315
@@ -1764,7 +1823,7 @@ and the six representations a body passes through with the table that says which
 first went wrong in, `REFERENCE.md` how far the third game's source can be trusted. `AGENT_STATE.md`
 is where a session picks up; `reports/issues.json` and `reports/regression-matrix.md` are the record.
 
-Twenty-four scripts, and each measures something the others cannot:
+Twenty-six scripts, and each measures something the others cannot:
 
 - `Test/Scripts/collect_metrics.sh <iteration>` — every placeholder kind and every recovery counter
   from one run into one comparable JSON. **`generatorFailures` first**, for the reason above.
@@ -1829,6 +1888,13 @@ Twenty-four scripts, and each measures something the others cannot:
 - `Test/Scripts/inline_list_add_report.py` — what the inlined-framework-operation recovery was offered
   and what it took, per fixture, with every rejection under the reason the pass rejected it for. A
   family that matches nothing and a family that is never reached print the same match count otherwise.
+- `Test/Scripts/semantic_ir.py` — the operations the generator recorded while it emitted each body,
+  read from `AuxiliaryFiles/SemanticIR`. The one source of truth for what a recovered method does;
+  everything that used to parse a rendering to find out should read this instead.
+- `Test/Scripts/method_semantic_contract.py` — one contract per method out of that record: what it
+  reads, writes, calls, allocates, branches on and where it leaves managed code, with a semantic
+  status measured against the IR the generator filed for that very body. Stricter than
+  `recovery_metrics.py`, which compares operation *classes*: this compares the members' own names.
 - `Test/Scripts/runtime_smoke_contract.py` — one scenario per (scene, object, component, Unity
   message): what the scene serialises going in, and what would have to be observed coming out. The
   three readable halves are stated as facts; `expected_state` and `expected_event` are `UNKNOWN` with

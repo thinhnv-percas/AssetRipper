@@ -9,6 +9,12 @@ Các mục tiêu tiếp theo đã có bằng chứng, không cần điều tra l
 056 hai lỗi trong chính phép đo đã được sửa (`docs/ITERATION_056.md` mục 2), nên mọi con số công bố
 ở iteration ≤ 055 không so trực tiếp được với số mới — phải đo lại cả hai đầu.
 
+- `reports/SHADER_RECOVERY.md` — **rào rẻ nhất tiếp theo của toàn bộ dự án**: không fixture nào ship
+  shader nguồn, nên không verdict shader nào vượt được `STRUCTURE_ONLY` bằng bằng chứng. Cấu trúc
+  ShaderLab đã về đầy đủ ở 057 (pass viết ra 0 → 96/3/48/29); thân program thì chưa, và blob thậm chí
+  không được nạp ở chế độ xuất mặc định.
+- `reports/METHOD_SEMANTIC_CONTRACT.md` — 145 site `List.Add` còn lại có receiver là *địa chỉ phần tử*
+  của mảng nền chứ không phải list: việc của ánh xạ đối số, không phải của phân giải lời gọi.
 - `reports/NATIVE_INT_CAST.md` — `OBJECT_REFERENCE` 9558 cast trên JellyBlastV2 là cụm lớn nhất còn
   lại, và phải sửa từ phía *nguồn* (làm cho load phân giải được) chứ không phía cast: gán kiểu cho
   giá trị stand-in đã đo và tệ hơn trên mọi cột. `FIELD_ADDRESS` 2079 phần lớn là đối số write

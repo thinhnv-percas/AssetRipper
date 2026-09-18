@@ -1,0 +1,435 @@
+{
+ "note": "Frozen shader corpus. `source_shader` is null on every entry because no fixture ships a source shader to compare against - that is the blocker on any verdict above STRUCTURE_ONLY, not an omission here.",
+ "entries": [
+  {
+   "fixture": "RunFromZombies",
+   "family": "multi-pass",
+   "shader": "Hidden/PostProcessing/Bloom",
+   "file": "Assets/Shader/Hidden_PostProcessing_Bloom.shader",
+   "property_fingerprint": [],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 9,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 9,
+    "real_program_comments": 9
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "family": "texture",
+   "shader": "Hidden/PostProcessing/Copy",
+   "file": "Assets/Shader/Hidden_PostProcessing_Copy.shader",
+   "property_fingerprint": [],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 2,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 2,
+    "real_program_comments": 2
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "family": "texture",
+   "shader": "Hidden/PostProcessing/CopyStd",
+   "file": "Assets/Shader/Hidden_PostProcessing_CopyStd.shader",
+   "property_fingerprint": [
+    "_MainTex"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 2,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 2,
+    "real_program_comments": 2
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "family": "multi-pass",
+   "shader": "Hidden/PostProcessing/Debug/Overlays",
+   "file": "Assets/Shader/Hidden_PostProcessing_Debug_Overlays.shader",
+   "property_fingerprint": [],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 7,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 7,
+    "real_program_comments": 7
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "Impostor",
+   "family": "transparent",
+   "shader": "Spine/Skeleton",
+   "file": "Assets/Shader/Spine_Skeleton.shader",
+   "property_fingerprint": [
+    "[NoScaleOffset] _MainTex",
+    "_Cutoff"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 2,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 2,
+    "real_program_comments": 2
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "Impostor",
+   "family": "transparent",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "file": "Assets/Shader/TextMeshPro_Mobile_Distance Field.shader",
+   "property_fingerprint": [
+    "[HDR] _FaceColor",
+    "[HDR] _OutlineColor",
+    "[HDR] _UnderlayColor",
+    "_FaceDilate",
+    "_MainTex",
+    "_OutlineSoftness",
+    "_OutlineWidth",
+    "_ScaleRatioA",
+    "_ScaleRatioB",
+    "_ScaleRatioC",
+    "_ShaderFlags",
+    "_UnderlayDilate",
+    "_UnderlayOffsetX",
+    "_UnderlayOffsetY",
+    "_UnderlaySoftness",
+    "_WeightBold",
+    "_WeightNormal"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "transparent",
+   "shader": "Custom/Outline Fill",
+   "file": "Assets/Resources/shaders/outlinefill.shader",
+   "property_fingerprint": [
+    "[Enum",
+    "_OutlineColor",
+    "_OutlineWidth"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "transparent",
+   "shader": "Custom/Outline Mask",
+   "file": "Assets/Resources/shaders/outlinemask.shader",
+   "property_fingerprint": [
+    "[Enum"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "simple unlit",
+   "shader": "DELTation/Toon Shader",
+   "file": "Assets/Shader/DELTation_Toon Shader.shader",
+   "property_fingerprint": [
+    "_BaseMap"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 0,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 0,
+    "real_program_comments": 0
+   },
+   "source_shader": null,
+   "status": "UNKNOWN",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "texture",
+   "shader": "Hidden/Core/FallbackError",
+   "file": "Assets/Shader/Hidden_Core_FallbackError.shader",
+   "property_fingerprint": [],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "texture",
+   "shader": "Hidden/Shader Graph/FallbackError",
+   "file": "Assets/Shader/Hidden_Shader Graph_FallbackError.shader",
+   "property_fingerprint": [],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "multi-pass",
+   "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/BillboardWavingDoublePass",
+   "file": "Assets/Shader/Hidden_TerrainEngine_Details_UniversalPipeline_BillboardWavingDoublePass.shader",
+   "property_fingerprint": [
+    "_MainTex",
+    "_WavingTint"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 3,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 3,
+    "real_program_comments": 3
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "multi-pass",
+   "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/Vertexlit",
+   "file": "Assets/Shader/Hidden_TerrainEngine_Details_UniversalPipeline_Vertexlit.shader",
+   "property_fingerprint": [
+    "_MainTex"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 4,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 4,
+    "real_program_comments": 4
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "MergeRoom",
+   "family": "simple unlit",
+   "shader": "Hidden/Universal/BlitHDROverlay",
+   "file": "Assets/Shader/Hidden_Universal_BlitHDROverlay.shader",
+   "property_fingerprint": [],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 0,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 0,
+    "real_program_comments": 0
+   },
+   "source_shader": null,
+   "status": "UNKNOWN",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "family": "texture",
+   "shader": "Unlit/SDFTexturePreview",
+   "file": "Assets/Resources/sdftexturepreview.shader",
+   "property_fingerprint": [
+    "_MainTex"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "family": "transparent",
+   "shader": "Custom/Bee",
+   "file": "Assets/Shader/Custom_Bee.shader",
+   "property_fingerprint": [
+    "_RawFieldTex"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "family": "texture",
+   "shader": "Custom/Cliffs_Lambert",
+   "file": "Assets/Shader/Custom_Cliffs_Lambert.shader",
+   "property_fingerprint": [
+    "_MainTex"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "family": "transparent",
+   "shader": "Custom/FeverSplash",
+   "file": "Assets/Shader/Custom_FeverSplash.shader",
+   "property_fingerprint": [
+    "_Color",
+    "_Interpolator",
+    "_MainTex",
+    "_Range"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 1,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 1,
+    "real_program_comments": 1
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "family": "multi-pass",
+   "shader": "ProBuilder/Standard Vertex Color",
+   "file": "Assets/Shader/ProBuilder_Standard Vertex Color.shader",
+   "property_fingerprint": [
+    "_Color",
+    "_MainTex"
+   ],
+   "pass_fingerprint": {
+    "subshaders": 1,
+    "passes": 3,
+    "usepass": 0,
+    "grabpass": 0
+   },
+   "program_fingerprint": {
+    "replacement_stages": 3,
+    "real_program_comments": 3
+   },
+   "source_shader": null,
+   "status": "STRUCTURE_ONLY",
+   "status_reason": "subshaders, passes, tags and render state read from the asset; program stages replaced"
+  }
+ ]
+}

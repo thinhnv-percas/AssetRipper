@@ -1,7 +1,7 @@
 {
   "fixtures": {
     "RunFromZombies": {
-      "log": "Test/Out56F-z.log",
+      "log": "Test/Out57H-z.log",
       "complete": true,
       "candidate_sites": 160,
       "matched_sites": 130,
@@ -19,15 +19,10 @@
         "ListAdd:slow path has 2 predecessors": 2,
         "ListAdd:size compared against ArrayLength of a local with no single definition; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 2
       },
-      "status": "OK",
-      "private_member_reads_left": {
-        "items": 12,
-        "version": 24,
-        "size": 10
-      }
+      "status": "OK"
     },
     "Impostor": {
-      "log": "Test/Out56F-i.log",
+      "log": "Test/Out57H-i.log",
       "complete": true,
       "candidate_sites": 297,
       "matched_sites": 267,
@@ -47,15 +42,10 @@
         "ListAdd:the branch condition is defined by CheckEqual; the receiver is local defined by Move field AttachmentVerts": 2,
         "ListAdd:the branch condition is defined by CheckNotEqual; the receiver is local defined by Newobj TypeAnalysisContext": 2
       },
-      "status": "OK",
-      "private_member_reads_left": {
-        "version": 122,
-        "items": 39,
-        "size": 55
-      }
+      "status": "OK"
     },
     "MergeRoom": {
-      "log": "Test/Out56F-m.log",
+      "log": "Test/Out57H-m.log",
       "complete": true,
       "candidate_sites": 1346,
       "matched_sites": 820,
@@ -64,12 +54,13 @@
         "ListAdd": 820
       },
       "rejections": {
-        "ListAdd:CheckLess of field _size and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is local defined by Add local": 159,
         "ListAdd:guard does not end in a conditional branch": 136,
+        "ListAdd:CheckLess of field _size and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is an element address rather than a list - the fast path's own address in the receiver register": 133,
         "ListAdd:slow path has 2 predecessors": 46,
         "ListAdd:the branch condition is defined by CheckNotEqual; the receiver is local defined by Call local": 35,
         "ListAdd:fast path has 2 predecessors": 31,
         "ListAdd:the branch condition is defined by CheckNotEqual; the receiver is local defined by Newobj TypeAnalysisContext": 27,
+        "ListAdd:CheckLess of field _size and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is Add of local and Immediate": 26,
         "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 14,
         "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x0": 12,
         "ListAdd:the branch condition is defined by CheckNotEqual; the receiver is a local with no single definition": 10,
@@ -77,28 +68,22 @@
         "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Newobj RuntimeClassTypeAnalysisContext": 6,
         "ListAdd:fast path has 3 predecessors": 6,
         "ListAdd:slow path has 3 predecessors": 6,
-        "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Add local": 4,
+        "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is an element address rather than a list - the fast path's own address in the receiver register": 4,
         "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is a local with no single definition": 4,
         "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x60": 2,
-        "ListAdd:the branch condition is defined by Not; the receiver is local defined by Add local": 2,
         "ListAdd:fast path has 5 predecessors": 2,
         "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x8": 2,
         "ListAdd:the branch condition is defined by CheckEqual; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 2,
         "ListAdd:CheckLess of a local with no single definition and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 2,
+        "ListAdd:the branch condition is defined by Not; the receiver is Add of local and Immediate": 2,
         "ListAdd:CheckLess of a local with no single definition and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is a local with no single definition": 2,
         "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0xFFFFFFFFFFFFFFF8": 2,
-        "ListAdd:CheckLess of a local with no single definition and a local with no single definition, neither the receiver's size; the receiver is field m_normals": 2,
-        "ListAdd:size compared against ArrayLength of a local with no single definition; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 2
+        "ListAdd:CheckLess of a local with no single definition and a local with no single definition, neither the receiver's size; the receiver is field m_normals": 2
       },
-      "status": "OK",
-      "private_member_reads_left": {
-        "version": 203,
-        "size": 81,
-        "items": 96
-      }
+      "status": "OK"
     },
     "JellyBlastV2": {
-      "log": "Test/Out56F-j.log",
+      "log": "Test/Out57H-j.log",
       "complete": true,
       "candidate_sites": 1252,
       "matched_sites": 870,
@@ -133,12 +118,7 @@
         "ListAdd:the receiver is field mFilters, which the body also writes": 2,
         "ListAdd:CheckLess of memory+0x18 and ArrayLength of a local with no single definition, neither the receiver's size; the receiver is a local with no single definition": 2
       },
-      "status": "OK",
-      "private_member_reads_left": {
-        "version": 541,
-        "items": 253,
-        "size": 194
-      }
+      "status": "OK"
     }
   },
   "candidate_sites": 3055,
@@ -152,7 +132,7 @@
     "ListAdd:CheckLess of a local with no single definition and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 4,
     "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is a local with no single definition": 25,
     "ListAdd:slow path has 2 predecessors": 72,
-    "ListAdd:size compared against ArrayLength of a local with no single definition; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 4,
+    "ListAdd:size compared against ArrayLength of a local with no single definition; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext": 2,
     "ListAdd:the receiver is field randomList, which the body also writes": 4,
     "ListAdd:guard does not end in a conditional branch": 140,
     "ListAdd:fast path has 2 predecessors": 35,
@@ -161,17 +141,18 @@
     "ListAdd:the branch condition is defined by CheckNotEqual; the receiver is local defined by Call local": 37,
     "ListAdd:the branch condition is defined by CheckEqual; the receiver is local defined by Move field AttachmentVerts": 2,
     "ListAdd:the branch condition is defined by CheckNotEqual; the receiver is local defined by Newobj TypeAnalysisContext": 29,
-    "ListAdd:CheckLess of field _size and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is local defined by Add local": 159,
+    "ListAdd:CheckLess of field _size and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is an element address rather than a list - the fast path's own address in the receiver register": 133,
+    "ListAdd:CheckLess of field _size and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is Add of local and Immediate": 26,
     "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x0": 24,
     "ListAdd:the branch condition is defined by CheckNotEqual; the receiver is a local with no single definition": 10,
     "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Newobj RuntimeClassTypeAnalysisContext": 6,
     "ListAdd:fast path has 3 predecessors": 6,
     "ListAdd:slow path has 3 predecessors": 6,
-    "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Add local": 4,
+    "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is an element address rather than a list - the fast path's own address in the receiver register": 4,
     "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x60": 2,
-    "ListAdd:the branch condition is defined by Not; the receiver is local defined by Add local": 2,
     "ListAdd:fast path has 5 predecessors": 2,
     "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0x8": 10,
+    "ListAdd:the branch condition is defined by Not; the receiver is Add of local and Immediate": 2,
     "ListAdd:CheckLess of a local with no single definition and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is a local with no single definition": 2,
     "ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Move memory+0xFFFFFFFFFFFFFFF8": 2,
     "ListAdd:CheckLess of a local with no single definition and a local with no single definition, neither the receiver's size; the receiver is field m_normals": 2,

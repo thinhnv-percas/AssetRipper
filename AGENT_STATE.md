@@ -5,19 +5,20 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 056 (hoàn tất; trọng tâm "inline List.Add + iOS native framework". Ship:
-                          InlineListAddRecovery (3055 candidate, 2087 gấp lại thành list.Add — lệnh
-                          đọc member private của List<T> giảm 63-85% trên cả bốn fixture, Roslyn
-                          RayFireAssembly 4462 -> 3457, Impostor Assembly-CSharp 342 -> 200);
-                          native plugin iOS dạng .framework (JellyBlast 0/6 -> 6/6); và HAI phép sửa
-                          đo lường lớn — bản kết xuất ISIL trước đó mô tả một chương trình KHÁC với
-                          thứ được xuất ra, xem ITERATION_056 mục 2. Mọi so sánh với iteration <= 055
-                          phải đo lại CẢ HAI đầu.)
+Iteration hiện tại: 057 (hoàn tất; trọng tâm "semantic source of truth + shader structure". Ship:
+                          RecoveredSemanticIr — generator TỰ GHI thứ nó sinh ra, ra
+                          AuxiliaryFiles/SemanticIR, nên phép đo và mã sinh ra không còn đọc hai
+                          chương trình khác nhau (bản rip giống HỆT baseline 056 tới từng byte, đó là
+                          bằng chứng chứ không phải tuyên bố); method semantic contract cho bốn
+                          fixture; cấu trúc ShaderLab thật (pass viết ra 0 -> 96/3/48/29, shader_exact
+                          vẫn 0 và bản thay thế tự gọi tên mình); .meta PluginImporter cho framework
+                          iOS. Method recovery KHÔNG đổi: 057 đổi cách đo, không đổi thứ được đo.)
 
-Cảnh báo cho phiên sau: baseline của 056 KHÔNG so được với số của 055 và trước đó. Hai phép sửa
-  đo lường (PseudoCSharpWriter đi theo Blocks thay vì ConvertedIsil; field đã ghép accessor được
-  kết xuất dưới tên accessor) dịch EXACT lên 2285->2513 / 2879->3776 / 6634->7605 / 2517->2855 mà
-  KHÔNG phục hồi thêm gì. Dòng đó là phép đo trở nên trung thực, không phải chất lượng tăng.
+Cảnh báo cho phiên sau: baseline 056 vẫn là mốc so sánh hợp lệ cho method recovery (057 không đổi gì
+  ở đó). NHƯNG shader thì đổi: mọi số shader trước 057 đo trên một bản xuất chỉ có một pass đóng hộp.
+  Và đừng neo phép đo vào SỰ VẮNG MẶT của một chuỗi — validate_unity_stages.py quyết định shader
+  "exact" bằng việc thiếu dấu //DummyShaderTextExporter, nên nó báo 24/24 exact ngay khi exporter mới
+  ngừng viết dấu đó. Cùng lớp lỗi 056 mất một baseline để tìm.
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182

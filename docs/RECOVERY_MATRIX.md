@@ -52,41 +52,34 @@ entropy `__TEXT` 6,541/8, 4225 lệnh `ret` trong 1 MiB, `mscorlib.dll` có mặ
 
 ## Con số hiện tại
 
-Đo trên bản rip cuối của iteration 056 (`Test/Out56F-i`, `Out56F-z`, `Out56F-j`, `Out56F-m`), sau khi
-tiến trình rip thoát chứ không theo một dòng log.
+Đo trên bản rip cuối của iteration 057 (`Test/Out57H-{z,i,m,j}`), sau khi tiến trình thoát.
 
-**Không so được với số của iteration ≤ 055.** Iteration 056 sửa hai lỗi trong chính phép đo — bản kết
-xuất ISIL trước đó kể một chương trình khác với thứ được xuất ra (`docs/ITERATION_056.md` mục 2) — nên
-mọi so sánh phải đo lại **cả hai đầu**. Cột "055" dưới đây là bản rip 055 đo lại bằng phép đo mới,
-không phải số đã công bố ở 055.
+**Method recovery không đổi so với 056.** Iteration 057 đổi *cách đo* (một nguồn sự thật ngữ nghĩa do
+generator tự ghi) và *shader / native plugin*; nó không đụng vào recovery của method, và bản rip giống
+hệt baseline 056 tới từng byte ở phần `.cs`.
 
 | | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
 |---|---|---|---|---|
 | method có địa chỉ native | 5482 | 3928 | 7485 | 15.269 |
-| `EXACT` | **3782** (055 đo lại: 3776) | **2513** (2513) | **2867** (2855) | **7671** (7605) |
+| `EXACT` | 3782 | 2513 | 2867 | 7671 |
 | `FALLBACK` | 346 | 150 | 44 | 386 |
 | placeholder | 4293 | 5962 | 38.236 | 37.507 |
-| **`List.Add` inline được gấp lại** | **267** / 297 | **130** / 160 | **870** / 1252 | **820** / 1346 |
-| lệnh đọc member private `List<T>` | 736 → **216** | 304 → **46** | 2648 → **988** | 1665 → **380** |
+| **thân hàm có semantic IR** | **5963** | **4615** | **8983** | **17.913** |
+| contract `EXACT` (chặt hơn, theo tên) | 3704 | 2433 | 2722 | 7670 |
+| **shader: pass được viết ra** | **3** (trước 0) | **96** (trước 0) | **29** (trước 0) | **48** (trước 0) |
+| `shader_exact` | 0 / 3 | 0 / 24 | 0 / 30 | 0 / 34 |
+| `shader_structure_only` | 3 / 3 | 24 / 24 | 30 / 30 | 34 / 34 |
+| `shader_dummy` | 0 | 0 | 0 | 0 |
 | `body_recovery_rate` | 0,9369 | 0,9618 | 0,9941 | 0,9747 |
 | `compile_pass_rate` | 0,9337 | **0,9761** | 0,8880 | 0,8929 |
 | `reference_resolution_rate` | 0,9942 | **1,0000** | **1,0000** | 0,9998 |
 | `semantic_equivalence_rate` | — | **1,0000** (36/36) | — | — |
-| `native_plugin_preservation_rate` | — (0 plugin) | — (0 plugin) | **1,0000** (6/6, 055: 0/6) | **1,0000** (2/2) |
-| `shader_exact` | 0 / 3 | 0 / 24 | 0 / 30 | 0 / 34 |
+| `native_plugin_preservation_rate` | — (0 plugin) | — (0 plugin) | **1,0000** (6/6) + `.meta` | **1,0000** (2/2) |
+| ranh giới `UNKNOWN` | 15 | 5 | 22 | 34 |
 | field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** | 3947 / **0** |
 | `generatorFailures` | 0 | 0 | 0 | 0 |
-| golden corpus | +1 / −0 | 0 / 0 | +2 / −0 | +8 / −0 |
+| golden corpus (056 → 057) | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
 | stage E–I | BLOCKED | BLOCKED | BLOCKED | BLOCKED |
-
-Roslyn, trên assembly chịu ảnh hưởng nặng nhất của mỗi fixture (trước → sau):
-
-| Impostor `Assembly-CSharp` | JellyBlast `RayFireAssembly` | Merge-Room `Assembly-CSharp` | RFZ `Assembly-CSharp` |
-|---:|---:|---:|---:|
-| 342 → **200** | 4462 → **3457** | 6 → 6 | 7 → 7 |
-
-Hai cột cuối không đổi vì `Assembly-CSharp` của chúng gần như không có site nào — **đếm theo từng
-assembly trước khi kết luận một thay đổi không làm gì.**
 
 ### Merge-Room không tất định — đừng đọc chênh lệch nhỏ là regression
 
@@ -94,10 +87,7 @@ Bốn bản rip Merge-Room trên cùng một build cho **15.276 / 15.273 / 15.24
 chỉ native, chênh tới 52 (0,3%). Impostor cho đúng 5482 ba lần. Trên Merge-Room, một chênh lệch dưới
 ~50 method là nhiễu; ba fixture kia ổn định.
 
-### Native plugin
+### Shader: số trước 057 không so được
 
-Impostor và RunFromZombies **không có plugin nào của game** — 6 thư viện của mỗi cái là đúng hai bản
-il2cpp runtime và bốn bản Unity player, không thứ nào được phép đi vào project. Chỉ Merge-Room
-(`liblofelt_sdk.so`, hai ABI) và JellyBlast v2 (sáu framework Facebook SDK) có plugin thật, và từ
-iteration 056 cả hai đều được giữ đủ. `reports/RUNTIME_DEPENDENCY_GRAPH.md` và
-`reports/IOS_NATIVE_PLUGIN.md` là bản ghi.
+Trước 057 mọi shader xuất ra là một pass đóng hộp, nên bất kỳ số shader nào công bố ở iteration ≤ 056
+đo trên một artefact khác. `shader_exact` vẫn **0** ở cả hai bên, và đó là số duy nhất so được.

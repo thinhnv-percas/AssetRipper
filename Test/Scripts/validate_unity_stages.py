@@ -35,6 +35,13 @@ PASS, FAIL, BLOCKED, UNKNOWN = "PASS", "FAIL", "BLOCKED", "UNKNOWN"
 
 DUMMY_MARKER = "//DummyShaderTextExporter"
 
+# The structured exporter writes the shader's own subshaders, passes, tags and render state, and a
+# replacement for the program stages only - so it does not carry the stand-in's marker. Keying
+# "exact" on the absence of that marker therefore read every structured shader as exact the moment
+# the marker stopped being written, which is the same defect iteration 056 spent a baseline on: a
+# measurement anchored to a string, and the string changed. The replacement names itself too.
+REPLACEMENT_MARKER = "AssetRipperReplacementProgram"
+
 # A body the generator gave up on entirely. Counted so stage B can say "files exist" without that
 # being read as "files have content".
 EMPTY_BODY = re.compile(r"\{\s*\}")
@@ -215,9 +222,14 @@ def shader_status(root: pathlib.Path):
 
     for path in root.rglob("*.shader"):
         text = path.read_text(encoding="utf-8", errors="replace")
-        # The exporter names itself in the output, so this needs no inference: a shader carrying that
-        # marker has had its whole program replaced by one unlit pass, whatever its properties say.
-        counts["DUMMY" if DUMMY_MARKER in text else "EXACT_OR_BETTER"] += 1
+        # Each exporter names itself in the output, so this needs no inference.
+        if DUMMY_MARKER in text:
+            counts["DUMMY"] += 1
+        elif REPLACEMENT_MARKER in text:
+            # Structure recovered from the asset, shading replaced. Never exact.
+            counts["STRUCTURE_ONLY"] += 1
+        else:
+            counts["EXACT_OR_BETTER"] += 1
 
     return counts
 
@@ -305,6 +317,8 @@ def main() -> int:
     print(f"prefab_load_rate           BLOCKED ({blocked})")
     print(f"runtime_smoke_pass_rate    BLOCKED ({blocked})")
     print(f"shader_exact               {shaders['EXACT_OR_BETTER']} of {total_shaders}")
+    print(f"shader_structure_only      {shaders['STRUCTURE_ONLY']} of {total_shaders}"
+          "  (subshaders, passes, tags and render state from the asset; programs replaced)")
     print(f"shader_dummy               {shaders['DUMMY']} of {total_shaders}")
 
     if arguments.json:

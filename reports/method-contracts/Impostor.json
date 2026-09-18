@@ -1,6 +1,6 @@
 {
  "fixture": "Impostor",
- "root": "Test/Out57F-i",
+ "root": "Test/Out57H-i",
  "methods": 5963,
  "status": {
   "EXACT": 3704,
@@ -38274,52 +38274,6 @@
    "assembly": "Assembly-CSharp"
   },
   {
-   "rva": "0xBF52CC",
-   "method": "AdManager+<>c__DisplayClass17_0::<ShowToast>b__0",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [
-    "<>4__this",
-    "context",
-    "message",
-    "toast"
-   ],
-   "fields_written": [
-    "toast"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 4,
-   "calls": [
-    "UnityEngine.AndroidJavaObject::Call",
-    "UnityEngine.AndroidJavaObject::CallStatic",
-    "UnityEngine.AndroidJavaObject::GetStatic"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.ArrayTypeMismatchException",
-    "System.Object",
-    "UnityEngine.AndroidJavaClass",
-    "UnityEngine.AndroidJavaObject"
-   ],
-   "branches": 8,
-   "loops": 1,
-   "exceptions": 1,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "ARRAY_STORE",
-    "CALL",
-    "STORE_FIELD",
-    "THROW"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
    "rva": "0xBF8268",
    "method": "CSVReader::ReadSpecialSplit",
    "file": "Assets/Scripts/Assembly-CSharp/CSVReader.cs",
@@ -38365,6 +38319,52 @@
     "CALL",
     "LIST_ADD",
     "VIRTUAL_CALL"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
+   "rva": "0xBF52CC",
+   "method": "AdManager+<>c__DisplayClass17_0::<ShowToast>b__0",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [
+    "<>4__this",
+    "context",
+    "message",
+    "toast"
+   ],
+   "fields_written": [
+    "toast"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 4,
+   "calls": [
+    "UnityEngine.AndroidJavaObject::Call",
+    "UnityEngine.AndroidJavaObject::CallStatic",
+    "UnityEngine.AndroidJavaObject::GetStatic"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.ArrayTypeMismatchException",
+    "System.Object",
+    "UnityEngine.AndroidJavaClass",
+    "UnityEngine.AndroidJavaObject"
+   ],
+   "branches": 8,
+   "loops": 1,
+   "exceptions": 1,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "ARRAY_STORE",
+    "CALL",
+    "STORE_FIELD",
+    "THROW"
    ],
    "assembly": "Assembly-CSharp"
   },
@@ -40017,6 +40017,40 @@
    "assembly": "Assembly-CSharp"
   },
   {
+   "rva": "0xBF8834",
+   "method": "Extensions::DelayReal",
+   "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Single",
+    "System.Action"
+   ],
+   "return_type": "System.Collections.IEnumerator",
+   "fields_read": [],
+   "fields_written": [
+    "<>1__state",
+    "callback",
+    "time"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "STORE_FIELD"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
    "rva": "0xDA7BA8",
    "method": "Zitga.CsvTools.CsvReader::DeserializeIdValue",
    "file": "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs",
@@ -40051,40 +40085,6 @@
    "side_effects": [
     "CALL",
     "RUNTIME_BOUNDARY"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
-   "rva": "0xBF8834",
-   "method": "Extensions::DelayReal",
-   "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Single",
-    "System.Action"
-   ],
-   "return_type": "System.Collections.IEnumerator",
-   "fields_read": [],
-   "fields_written": [
-    "<>1__state",
-    "callback",
-    "time"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "STORE_FIELD"
    ],
    "assembly": "Assembly-CSharp"
   },
@@ -42212,6 +42212,48 @@
    "assembly": "Assembly-CSharp"
   },
   {
+   "rva": "0xBFA12C",
+   "method": "ItemResources::Sub",
+   "file": "Assets/Scripts/Assembly-CSharp/ItemResources.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Int64"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "currentCryptoKey",
+    "fakeValueActive",
+    "inited",
+    "value"
+   ],
+   "fields_written": [
+    "fakeValueActive",
+    "inited",
+    "value"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "CodeStage.AntiCheat.ObscuredTypes.ObscuredLong::op_Implicit",
+    "UnityEngine.Mathf::Max"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL",
+    "STORE_FIELD"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
    "rva": "0xC04BC8",
    "method": "Zitga.CsvTools.CsvReader::CreateIdValue",
    "file": "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs",
@@ -42259,48 +42301,6 @@
    "side_effects": [
     "CALL",
     "VIRTUAL_CALL"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
-   "rva": "0xBFA12C",
-   "method": "ItemResources::Sub",
-   "file": "Assets/Scripts/Assembly-CSharp/ItemResources.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Int64"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "currentCryptoKey",
-    "fakeValueActive",
-    "inited",
-    "value"
-   ],
-   "fields_written": [
-    "fakeValueActive",
-    "inited",
-    "value"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "CodeStage.AntiCheat.ObscuredTypes.ObscuredLong::op_Implicit",
-    "UnityEngine.Mathf::Max"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL",
-    "STORE_FIELD"
    ],
    "assembly": "Assembly-CSharp"
   },
@@ -44066,6 +44066,33 @@
    "assembly": "Assembly-CSharp"
   },
   {
+   "rva": "0xBF8A54",
+   "method": "Extensions+<DelayReal>d__6::System.Collections.Generic.IEnumerator<System.Object>.get_Current",
+   "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Object",
+   "fields_read": [
+    "<>2__current"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "Assembly-CSharp"
+  },
+  {
    "rva": "0xC05700",
    "method": "Zitga.CsvTools.Tutorials.FirstLevels+FirstLevelsData::.ctor",
    "file": "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/Tutorials/FirstLevels.cs",
@@ -44092,33 +44119,6 @@
    "side_effects": [
     "CALL"
    ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
-   "rva": "0xBF8A54",
-   "method": "Extensions+<DelayReal>d__6::System.Collections.Generic.IEnumerator<System.Object>.get_Current",
-   "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Object",
-   "fields_read": [
-    "<>2__current"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "Assembly-CSharp"
   },
   {
@@ -44319,6 +44319,35 @@
    "assembly": "Assembly-CSharp"
   },
   {
+   "rva": "0xBF8988",
+   "method": "Extensions+<Delay>d__4::System.Collections.IEnumerator.Reset",
+   "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.NotSupportedException"
+   ],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 1,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "THROW"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
    "rva": "0xC0154C",
    "method": "GUIManager::WatchVideo3",
    "file": "Assets/Scripts/Assembly-CSharp/GUIManager.cs",
@@ -44355,35 +44384,6 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
-   "rva": "0xBF8988",
-   "method": "Extensions+<Delay>d__4::System.Collections.IEnumerator.Reset",
-   "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.NotSupportedException"
-   ],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 1,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "THROW"
    ],
    "assembly": "Assembly-CSharp"
   },
@@ -45969,38 +45969,6 @@
    "assembly": "Assembly-CSharp"
   },
   {
-   "rva": "0x11FA5F4",
-   "method": "UserResourceInventory`1::AddValue",
-   "file": "Assets/Scripts/Assembly-CSharp/UserResourceInventory.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Int32",
-    "System.Int64"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.NotImplementedException"
-   ],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 1,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "THROW"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
    "rva": "0xBFB23C",
    "method": "TimeInGame::.ctor",
    "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs",
@@ -46042,6 +46010,38 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
+   "rva": "0x11FA5F4",
+   "method": "UserResourceInventory`1::AddValue",
+   "file": "Assets/Scripts/Assembly-CSharp/UserResourceInventory.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Int32",
+    "System.Int64"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.NotImplementedException"
+   ],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 1,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "THROW"
    ],
    "assembly": "Assembly-CSharp"
   },
@@ -46525,35 +46525,6 @@
    "assembly": "Assembly-CSharp"
   },
   {
-   "rva": "0xC0332C",
-   "method": "TestCube::.ctor",
-   "file": "Assets/Scripts/Assembly-CSharp/TestCube.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.MonoBehaviour::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
    "rva": "0xBFC0AC",
    "method": "Box::moveItem",
    "file": "Assets/Scripts/Assembly-CSharp/Box.cs",
@@ -46610,6 +46581,35 @@
     "CALL",
     "STORE_FIELD",
     "VIRTUAL_CALL"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
+   "rva": "0xC0332C",
+   "method": "TestCube::.ctor",
+   "file": "Assets/Scripts/Assembly-CSharp/TestCube.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.MonoBehaviour::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "Assembly-CSharp"
   },
@@ -49853,40 +49853,6 @@
    "assembly": "Assembly-CSharp"
   },
   {
-   "rva": "0xBFB328",
-   "method": "TimeInGame::GetMonth",
-   "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs",
-   "status": "EXACT",
-   "parameters": [
-    "TimeInGame",
-    "TimeInGame"
-   ],
-   "return_type": "System.Int32",
-   "fields_read": [
-    "Month"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "TimeInGame::GetYear"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
    "rva": "0xBFB668",
    "method": "TimeInGame::CountDays",
    "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs",
@@ -49908,6 +49874,40 @@
     "System.DateTime::get_Now",
     "System.DateTime::op_Subtraction",
     "System.TimeSpan::get_TotalDays"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
+   "rva": "0xBFB328",
+   "method": "TimeInGame::GetMonth",
+   "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs",
+   "status": "EXACT",
+   "parameters": [
+    "TimeInGame",
+    "TimeInGame"
+   ],
+   "return_type": "System.Int32",
+   "fields_read": [
+    "Month"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "TimeInGame::GetYear"
    ],
    "virtual_calls": [],
    "interface_calls": [],
@@ -50524,35 +50524,6 @@
    "assembly": "Assembly-CSharp"
   },
   {
-   "rva": "0xC05710",
-   "method": "Zitga.CsvTools.Tutorials.RandomLevels+RandomLevelsData::.ctor",
-   "file": "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/Tutorials/RandomLevels.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Object::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
    "rva": "0xBF8808",
    "method": "Extensions::StartDelayMethodRealTime",
    "file": "Assets/Scripts/Assembly-CSharp/Extensions.cs",
@@ -50606,6 +50577,35 @@
    "array_writes": 0,
    "calls": [
     "TimeInGame::GetMinutes"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
+   "rva": "0xC05710",
+   "method": "Zitga.CsvTools.Tutorials.RandomLevels+RandomLevelsData::.ctor",
+   "file": "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/Tutorials/RandomLevels.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Object::.ctor"
    ],
    "virtual_calls": [],
    "interface_calls": [],
@@ -53657,36 +53657,6 @@
    "assembly": "DOTween"
   },
   {
-   "rva": "0xC1F2A8",
-   "method": "DG.Tweening.Plugins.PathPlugin::ConvertToStartValue",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions>",
-    "UnityEngine.Vector3"
-   ],
-   "return_type": "DG.Tweening.Plugins.Core.PathCore.Path",
-   "fields_read": [
-    "endValue"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "DOTween"
-  },
-  {
    "rva": "0xC32754",
    "method": "DG.Tweening.Core.DOTweenUtils::Vector3FromAngle",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs",
@@ -53716,6 +53686,36 @@
    "side_effects": [
     "RUNTIME_BOUNDARY"
    ],
+   "assembly": "DOTween"
+  },
+  {
+   "rva": "0xC1F2A8",
+   "method": "DG.Tweening.Plugins.PathPlugin::ConvertToStartValue",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions>",
+    "UnityEngine.Vector3"
+   ],
+   "return_type": "DG.Tweening.Plugins.Core.PathCore.Path",
+   "fields_read": [
+    "endValue"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "DOTween"
   },
   {
@@ -54137,6 +54137,39 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC1A178",
+   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass42_0::<DOLocalRotate>b__1",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [
+    "UnityEngine.Quaternion"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "target"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.Transform::set_localRotation"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0D154",
    "method": "DG.Tweening.TweenExtensions::WaitForElapsedLoops",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -54167,39 +54200,6 @@
    "delegate_calls": 0,
    "allocations": [],
    "branches": 2,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC1A178",
-   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass42_0::<DOLocalRotate>b__1",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [
-    "UnityEngine.Quaternion"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "target"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.Transform::set_localRotation"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
@@ -56972,6 +56972,35 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC11760",
+   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass15_0::.ctor",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Object::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0D070",
    "method": "DG.Tweening.TweenExtensions::WaitForKill",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -57001,35 +57030,6 @@
    "delegate_calls": 0,
    "allocations": [],
    "branches": 2,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC11760",
-   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass15_0::.ctor",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Object::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
@@ -57569,35 +57569,6 @@
    "assembly": "DOTween"
   },
   {
-   "rva": "0xC0D8B0",
-   "method": "DG.Tweening.TweenExtensions::IsActive",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.Tween"
-   ],
-   "return_type": "System.Boolean",
-   "fields_read": [
-    "active"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "DOTween"
-  },
-  {
    "rva": "0xC089C8",
    "method": "DG.Tweening.DOTween::To",
    "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs",
@@ -57631,6 +57602,35 @@
    "side_effects": [
     "CALL"
    ],
+   "assembly": "DOTween"
+  },
+  {
+   "rva": "0xC0D8B0",
+   "method": "DG.Tweening.TweenExtensions::IsActive",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.Tween"
+   ],
+   "return_type": "System.Boolean",
+   "fields_read": [
+    "active"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "DOTween"
   },
   {
@@ -59300,48 +59300,6 @@
    "assembly": "DOTween"
   },
   {
-   "rva": "0xC0E87C",
-   "method": "DG.Tweening.Sequence::DoInsertCallback",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/Sequence.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.Sequence",
-    "DG.Tweening.TweenCallback",
-    "System.Single"
-   ],
-   "return_type": "DG.Tweening.Sequence",
-   "fields_read": [
-    "_sequencedObjs",
-    "duration"
-   ],
-   "fields_written": [
-    "duration",
-    "lastTweenInsertTime",
-    "sequencedEndPosition",
-    "sequencedPosition"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "DG.Tweening.Core.SequenceCallback"
-   ],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "LIST_ADD",
-    "STORE_FIELD"
-   ],
-   "assembly": "DOTween"
-  },
-  {
    "rva": "0xC1CD80",
    "method": "DG.Tweening.Plugins.CirclePlugin::SetFrom",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs",
@@ -59387,6 +59345,48 @@
    "side_effects": [
     "CALL",
     "DELEGATE_CALL",
+    "STORE_FIELD"
+   ],
+   "assembly": "DOTween"
+  },
+  {
+   "rva": "0xC0E87C",
+   "method": "DG.Tweening.Sequence::DoInsertCallback",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/Sequence.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.Sequence",
+    "DG.Tweening.TweenCallback",
+    "System.Single"
+   ],
+   "return_type": "DG.Tweening.Sequence",
+   "fields_read": [
+    "_sequencedObjs",
+    "duration"
+   ],
+   "fields_written": [
+    "duration",
+    "lastTweenInsertTime",
+    "sequencedEndPosition",
+    "sequencedPosition"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "DG.Tweening.Core.SequenceCallback"
+   ],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "LIST_ADD",
     "STORE_FIELD"
    ],
    "assembly": "DOTween"
@@ -61645,6 +61645,35 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC148E0",
+   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass44_0::.ctor",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Object::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0E56C",
    "method": "DG.Tweening.Sequence::DoInsert",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Sequence.cs",
@@ -61698,35 +61727,6 @@
     "CALL",
     "LIST_ADD",
     "STORE_FIELD"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC148E0",
-   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass44_0::.ctor",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Object::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
    ],
    "assembly": "DOTween"
   },
@@ -62289,6 +62289,41 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC3396C",
+   "method": "DG.Tweening.Core.Easing.Flash::Ease",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/Flash.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Single",
+    "System.Single",
+    "System.Single",
+    "System.Single"
+   ],
+   "return_type": "System.Single",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "DG.Tweening.Core.Easing.Flash::WeightedEase",
+    "UnityEngine.Mathf::Ceil"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 3,
+   "loops": 5,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC1FFEC",
    "method": "DG.Tweening.Plugins.Core.PathCore.Path::ConvertToConstantPathPerc",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/Path.cs",
@@ -62317,41 +62352,6 @@
    "allocations": [],
    "branches": 9,
    "loops": 12,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC3396C",
-   "method": "DG.Tweening.Core.Easing.Flash::Ease",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/Flash.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Single",
-    "System.Single",
-    "System.Single",
-    "System.Single"
-   ],
-   "return_type": "System.Single",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "DG.Tweening.Core.Easing.Flash::WeightedEase",
-    "UnityEngine.Mathf::Ceil"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 3,
-   "loops": 5,
    "exceptions": 0,
    "runtime_boundaries": [],
    "side_effects": [
@@ -65956,46 +65956,6 @@
    "assembly": "DOTween"
   },
   {
-   "rva": "0xC0B90C",
-   "method": "DG.Tweening.TweenExtensions::Complete",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.Tween",
-    "System.Boolean"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "active",
-    "isSequenced"
-   ],
-   "fields_written": [],
-   "static_fields_read": [
-    "_logPriority"
-   ],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "DG.Tweening.Core.Debugger::LogInvalidTween",
-    "DG.Tweening.Core.Debugger::LogNestedTween",
-    "DG.Tweening.Core.Debugger::LogNullTween",
-    "DG.Tweening.Core.TweenManager::Complete"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 6,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
    "rva": "0xC2D290",
    "method": "DG.Tweening.Core.DOTweenComponent::OnApplicationPause",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs",
@@ -66032,6 +65992,46 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
+   ],
+   "assembly": "DOTween"
+  },
+  {
+   "rva": "0xC0B90C",
+   "method": "DG.Tweening.TweenExtensions::Complete",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.Tween",
+    "System.Boolean"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "active",
+    "isSequenced"
+   ],
+   "fields_written": [],
+   "static_fields_read": [
+    "_logPriority"
+   ],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "DG.Tweening.Core.Debugger::LogInvalidTween",
+    "DG.Tweening.Core.Debugger::LogNestedTween",
+    "DG.Tweening.Core.Debugger::LogNullTween",
+    "DG.Tweening.Core.TweenManager::Complete"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 6,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "DOTween"
   },
@@ -67985,37 +67985,6 @@
    "assembly": "DOTween"
   },
   {
-   "rva": "0xC282C0",
-   "method": "DG.Tweening.Plugins.Options.StringOptions::Reset",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Options/StringOptions.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [
-    "changeValueStrippedLength",
-    "richTextEnabled",
-    "scrambleMode"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "STORE_FIELD"
-   ],
-   "assembly": "DOTween"
-  },
-  {
    "rva": "0xC08E38",
    "method": "DG.Tweening.DOTween::CompleteAndReturnKilledTot",
    "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs",
@@ -68044,6 +68013,37 @@
    "runtime_boundaries": [],
    "side_effects": [
     "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
+   "rva": "0xC282C0",
+   "method": "DG.Tweening.Plugins.Options.StringOptions::Reset",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Options/StringOptions.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [
+    "changeValueStrippedLength",
+    "richTextEnabled",
+    "scrambleMode"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "STORE_FIELD"
    ],
    "assembly": "DOTween"
   },
@@ -71297,6 +71297,36 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC35348",
+   "method": "DG.Tweening.Core.Easing.EaseManager+<>c::<ToEaseFunction>b__4_11",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [
+    "System.Single",
+    "System.Single",
+    "System.Single",
+    "System.Single"
+   ],
+   "return_type": "System.Single",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC2A62C",
    "method": "DG.Tweening.Plugins.Core.PathCore.Path::AssignDecoder",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/Path.cs",
@@ -71339,36 +71369,6 @@
     "STORE_FIELD",
     "STORE_STATIC"
    ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC35348",
-   "method": "DG.Tweening.Core.Easing.EaseManager+<>c::<ToEaseFunction>b__4_11",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [
-    "System.Single",
-    "System.Single",
-    "System.Single",
-    "System.Single"
-   ],
-   "return_type": "System.Single",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "DOTween"
   },
   {
@@ -72661,6 +72661,44 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC32F0C",
+   "method": "DG.Tweening.Core.Easing.EaseManager::Evaluate",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.Tween",
+    "System.Single",
+    "System.Single",
+    "System.Single",
+    "System.Single"
+   ],
+   "return_type": "System.Single",
+   "fields_read": [
+    "customEase",
+    "easeType"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "DG.Tweening.Core.Easing.EaseManager::Evaluate"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC21AFC",
    "method": "DG.Tweening.Plugins.QuaternionPlugin::SetChangeValue",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/QuaternionPlugin.cs",
@@ -72702,44 +72740,6 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC32F0C",
-   "method": "DG.Tweening.Core.Easing.EaseManager::Evaluate",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.Tween",
-    "System.Single",
-    "System.Single",
-    "System.Single",
-    "System.Single"
-   ],
-   "return_type": "System.Single",
-   "fields_read": [
-    "customEase",
-    "easeType"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "DG.Tweening.Core.Easing.EaseManager::Evaluate"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
    ],
    "assembly": "DOTween"
   },
@@ -77583,6 +77583,37 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC1BABC",
+   "method": "DG.Tweening.TweenParams::OnStepComplete",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/TweenParams.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.TweenCallback"
+   ],
+   "return_type": "DG.Tweening.TweenParams",
+   "fields_read": [],
+   "fields_written": [
+    "onStepComplete"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "STORE_FIELD"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0D338",
    "method": "DG.Tweening.TweenExtensions::WaitForStart",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -77617,37 +77648,6 @@
    "runtime_boundaries": [],
    "side_effects": [
     "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC1BABC",
-   "method": "DG.Tweening.TweenParams::OnStepComplete",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/TweenParams.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.TweenCallback"
-   ],
-   "return_type": "DG.Tweening.TweenParams",
-   "fields_read": [],
-   "fields_written": [
-    "onStepComplete"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "STORE_FIELD"
    ],
    "assembly": "DOTween"
   },
@@ -79296,6 +79296,38 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC09944",
+   "method": "DG.Tweening.DOTween::PlayForward",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Object",
+    "System.Object"
+   ],
+   "return_type": "System.Int32",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "DG.Tweening.Core.TweenManager::FilteredOperation"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 2,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0D240",
    "method": "DG.Tweening.TweenExtensions::WaitForPosition",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -79320,38 +79352,6 @@
     "DG.Tweening.Core.DOTweenComponent::WaitForPosition",
     "DG.Tweening.Core.Debugger::LogInvalidTween",
     "UnityEngine.MonoBehaviour::StartCoroutine"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 2,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC09944",
-   "method": "DG.Tweening.DOTween::PlayForward",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Object",
-    "System.Object"
-   ],
-   "return_type": "System.Int32",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "DG.Tweening.Core.TweenManager::FilteredOperation"
    ],
    "virtual_calls": [],
    "interface_calls": [],
@@ -82003,6 +82003,40 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC19B70",
+   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass20_0::<DOFade>b__1",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [
+    "UnityEngine.Color"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "property",
+    "target"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.Material::SetColor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xCAE7AC",
    "method": "DG.Tweening.TweenExtensions::Pause",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -82030,40 +82064,6 @@
    "delegate_calls": 0,
    "allocations": [],
    "branches": 6,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC19B70",
-   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass20_0::<DOFade>b__1",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [
-    "UnityEngine.Color"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "property",
-    "target"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.Material::SetColor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
@@ -82708,6 +82708,38 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC194D4",
+   "method": "DG.Tweening.ShortcutExtensions::DORestart",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs",
+   "status": "EXACT",
+   "parameters": [
+    "UnityEngine.Component",
+    "System.Boolean"
+   ],
+   "return_type": "System.Int32",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "DG.Tweening.DOTween::Restart"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0CB14",
    "method": "DG.Tweening.TweenExtensions::GotoWaypoint",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -82743,38 +82775,6 @@
    "allocations": [],
    "branches": 19,
    "loops": 6,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC194D4",
-   "method": "DG.Tweening.ShortcutExtensions::DORestart",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs",
-   "status": "EXACT",
-   "parameters": [
-    "UnityEngine.Component",
-    "System.Boolean"
-   ],
-   "return_type": "System.Int32",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "DG.Tweening.DOTween::Restart"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
    "side_effects": [
@@ -84139,6 +84139,35 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC13080",
+   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass29_0::.ctor",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Object::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0D708",
    "method": "DG.Tweening.TweenExtensions::ElapsedPercentage",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -84179,6 +84208,39 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC1A370",
+   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass52_0::<DOPunchPosition>b__1",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [
+    "UnityEngine.Vector3"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "target"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.Transform::set_localPosition"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0B7D0",
    "method": "DG.Tweening.EaseFactory::StopMotion",
    "file": "Assets/Scripts/DOTween/DG/Tweening/EaseFactory.cs",
@@ -84204,68 +84266,6 @@
     "DG.Tweening.Core.Easing.EaseCurve",
     "DG.Tweening.EaseFunction"
    ],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC13080",
-   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass29_0::.ctor",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Object::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC1A370",
-   "method": "DG.Tweening.ShortcutExtensions+<>c__DisplayClass52_0::<DOPunchPosition>b__1",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [
-    "UnityEngine.Vector3"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "target"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.Transform::set_localPosition"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
    "branches": 0,
    "loops": 0,
    "exceptions": 0,
@@ -88283,6 +88283,35 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC08F34",
+   "method": "DG.Tweening.DOTween::FlipAll",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Int32",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "DG.Tweening.Core.TweenManager::FilteredOperation"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC23EDC",
    "method": "DG.Tweening.Plugins.UintPlugin::SetRelativeEndValue",
    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/UintPlugin.cs",
@@ -88313,35 +88342,6 @@
    "runtime_boundaries": [],
    "side_effects": [
     "STORE_FIELD"
-   ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC08F34",
-   "method": "DG.Tweening.DOTween::FlipAll",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Int32",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "DG.Tweening.Core.TweenManager::FilteredOperation"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
    ],
    "assembly": "DOTween"
   },
@@ -88689,6 +88689,33 @@
    "assembly": "DOTween"
   },
   {
+   "rva": "0xC35058",
+   "method": "DG.Tweening.Core.Easing.EaseManager::IsFlashEase",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.Ease"
+   ],
+   "return_type": "System.Boolean",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "DOTween"
+  },
+  {
    "rva": "0xC0BF58",
    "method": "DG.Tweening.TweenExtensions::GotoWithCallbacks",
    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenExtensions.cs",
@@ -88719,33 +88746,6 @@
    "side_effects": [
     "CALL"
    ],
-   "assembly": "DOTween"
-  },
-  {
-   "rva": "0xC35058",
-   "method": "DG.Tweening.Core.Easing.EaseManager::IsFlashEase",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.Ease"
-   ],
-   "return_type": "System.Boolean",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "DOTween"
   },
   {
@@ -93209,36 +93209,6 @@
    "assembly": "DOTween"
   },
   {
-   "rva": "0xC1E4E0",
-   "method": "DG.Tweening.Plugins.Vector3ArrayPlugin::SetFrom",
-   "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs",
-   "status": "EXACT",
-   "parameters": [
-    "DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, UnityEngine.Vector3[], DG.Tweening.Plugins.Options.Vector3ArrayOptions>",
-    "UnityEngine.Vector3[]",
-    "System.Boolean",
-    "System.Boolean"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "DOTween"
-  },
-  {
    "rva": "0xC08A7C",
    "method": "DG.Tweening.DOTween::Sequence",
    "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs",
@@ -93267,6 +93237,36 @@
    "side_effects": [
     "CALL"
    ],
+   "assembly": "DOTween"
+  },
+  {
+   "rva": "0xC1E4E0",
+   "method": "DG.Tweening.Plugins.Vector3ArrayPlugin::SetFrom",
+   "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs",
+   "status": "EXACT",
+   "parameters": [
+    "DG.Tweening.Core.TweenerCore`3<UnityEngine.Vector3, UnityEngine.Vector3[], DG.Tweening.Plugins.Options.Vector3ArrayOptions>",
+    "UnityEngine.Vector3[]",
+    "System.Boolean",
+    "System.Boolean"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "DOTween"
   },
   {
@@ -93776,33 +93776,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x1357E00",
-   "method": "GoogleMobileAds.Api.AdSize::get_Orientation",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdSize.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "GoogleMobileAds.Api.Orientation",
-   "fields_read": [
-    "orientation"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x1354390",
    "method": "GoogleMobileAds.Common.RewardedInterstitialAdDummyClient::remove_OnAdFailedToPresentFullScreenContent",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Common/RewardedInterstitialAdDummyClient.cs",
@@ -93839,6 +93812,33 @@
     "RUNTIME_BOUNDARY",
     "THROW"
    ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x1357E00",
+   "method": "GoogleMobileAds.Api.AdSize::get_Orientation",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdSize.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "GoogleMobileAds.Api.Orientation",
+   "fields_read": [
+    "orientation"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "GoogleMobileAds"
   },
   {
@@ -95736,37 +95736,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x133CAC4",
-   "method": "DummyAdBehaviour::DestroyAd",
-   "file": "Assets/Scripts/GoogleMobileAds/DummyAdBehaviour.cs",
-   "status": "EXACT",
-   "parameters": [
-    "UnityEngine.GameObject"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.Object::Destroy"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x1355930",
    "method": "GoogleMobileAds.Api.AdLoader::<.ctor>b__1_1",
    "file": null,
@@ -95806,6 +95775,37 @@
     "CALL",
     "DELEGATE_CALL",
     "VIRTUAL_CALL"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x133CAC4",
+   "method": "DummyAdBehaviour::DestroyAd",
+   "file": "Assets/Scripts/GoogleMobileAds/DummyAdBehaviour.cs",
+   "status": "EXACT",
+   "parameters": [
+    "UnityEngine.GameObject"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.Object::Destroy"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -97642,6 +97642,33 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x1355C40",
+   "method": "GoogleMobileAds.Api.AdLoader+Builder::get_CustomNativeTemplateClickHandlers",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Collections.Generic.Dictionary`2<System.String, System.Action`2<GoogleMobileAds.Api.CustomNativeTemplateAd, System.String>>",
+   "fields_read": [
+    "<CustomNativeTemplateClickHandlers>k__BackingField"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x1342E3C",
    "method": "GoogleMobileAds.Unity.RewardingAdBaseClient::Show",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Unity/RewardingAdBaseClient.cs",
@@ -97693,33 +97720,6 @@
     "STORE_FIELD",
     "VIRTUAL_CALL"
    ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x1355C40",
-   "method": "GoogleMobileAds.Api.AdLoader+Builder::get_CustomNativeTemplateClickHandlers",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Collections.Generic.Dictionary`2<System.String, System.Action`2<GoogleMobileAds.Api.CustomNativeTemplateAd, System.String>>",
-   "fields_read": [
-    "<CustomNativeTemplateClickHandlers>k__BackingField"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "GoogleMobileAds"
   },
   {
@@ -98456,35 +98456,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x135824C",
-   "method": "GoogleMobileAds.Api.MaxAdContentRating::get_PG",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/MaxAdContentRating.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "GoogleMobileAds.Api.MaxAdContentRating",
-   "fields_read": [],
-   "fields_written": [
-    "Value"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "PROPERTY_WRITE"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x1355714",
    "method": "GoogleMobileAds.Api.AdLoader::set_CustomNativeTemplateClickHandlers",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
@@ -98512,6 +98483,35 @@
    "runtime_boundaries": [],
    "side_effects": [
     "STORE_FIELD"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x135824C",
+   "method": "GoogleMobileAds.Api.MaxAdContentRating::get_PG",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/MaxAdContentRating.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "GoogleMobileAds.Api.MaxAdContentRating",
+   "fields_read": [],
+   "fields_written": [
+    "Value"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "PROPERTY_WRITE"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -98588,6 +98588,39 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x135574C",
+   "method": "GoogleMobileAds.Api.AdLoader::LoadAd",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
+   "status": "EXACT",
+   "parameters": [
+    "GoogleMobileAds.Api.AdRequest"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "adLoaderClient"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [
+    "GoogleMobileAds.Common.IAdLoaderClient::LoadAd"
+   ],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "INTERFACE_CALL"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x13593FC",
    "method": "GoogleMobileAds.Api.InterstitialAd::add_OnAdClosed",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs",
@@ -98623,39 +98656,6 @@
     "CALL",
     "RUNTIME_BOUNDARY",
     "THROW"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x135574C",
-   "method": "GoogleMobileAds.Api.AdLoader::LoadAd",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
-   "status": "EXACT",
-   "parameters": [
-    "GoogleMobileAds.Api.AdRequest"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "adLoaderClient"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [
-    "GoogleMobileAds.Common.IAdLoaderClient::LoadAd"
-   ],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "INTERFACE_CALL"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -99812,31 +99812,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x13422E8",
-   "method": "GoogleMobileAds.Unity.RewardedInterstitialAdClient::CreateRewardedInterstitialAd",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Unity/RewardedInterstitialAdClient.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x1349218",
    "method": "GoogleMobileAds.Android.InterstitialClient::ShowInterstitial",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs",
@@ -99869,6 +99844,31 @@
     "CALL",
     "RUNTIME_BOUNDARY"
    ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x13422E8",
+   "method": "GoogleMobileAds.Unity.RewardedInterstitialAdClient::CreateRewardedInterstitialAd",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Unity/RewardedInterstitialAdClient.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "GoogleMobileAds"
   },
   {
@@ -100122,6 +100122,33 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x1355C30",
+   "method": "GoogleMobileAds.Api.AdLoader+Builder::get_TemplateIds",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Collections.Generic.HashSet`1<System.String>",
+   "fields_read": [
+    "<TemplateIds>k__BackingField"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x13584AC",
    "method": "GoogleMobileAds.Api.RequestConfiguration+Builder::set_MaxAdContentRating",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RequestConfiguration.cs",
@@ -100189,33 +100216,6 @@
     "RUNTIME_BOUNDARY",
     "THROW"
    ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x1355C30",
-   "method": "GoogleMobileAds.Api.AdLoader+Builder::get_TemplateIds",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Collections.Generic.HashSet`1<System.String>",
-   "fields_read": [
-    "<TemplateIds>k__BackingField"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "GoogleMobileAds"
   },
   {
@@ -101108,6 +101108,33 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x135573C",
+   "method": "GoogleMobileAds.Api.AdLoader::get_TemplateIds",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Collections.Generic.HashSet`1<System.String>",
+   "fields_read": [
+    "TemplateIds"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x1345238",
    "method": "GoogleMobileAds.Android.BannerClient::add_OnAdFailedToLoad",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs",
@@ -101147,64 +101174,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x135573C",
-   "method": "GoogleMobileAds.Api.AdLoader::get_TemplateIds",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Collections.Generic.HashSet`1<System.String>",
-   "fields_read": [
-    "TemplateIds"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x134B528",
-   "method": "GoogleMobileAds.Api.RequestConfiguration+Builder::SetTagForUnderAgeOfConsent",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RequestConfiguration.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Nullable`1<GoogleMobileAds.Api.TagForUnderAgeOfConsent>"
-   ],
-   "return_type": "GoogleMobileAds.Api.RequestConfiguration+Builder",
-   "fields_read": [],
-   "fields_written": [
-    "<TagForUnderAgeOfConsent>k__BackingField"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "STORE_FIELD"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x1349D58",
    "method": "GoogleMobileAds.Android.MobileAdsClient::DisableMediationInitialization",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/MobileAdsClient.cs",
@@ -101237,6 +101206,37 @@
     "ARRAY_STORE",
     "CALL",
     "THROW"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x134B528",
+   "method": "GoogleMobileAds.Api.RequestConfiguration+Builder::SetTagForUnderAgeOfConsent",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RequestConfiguration.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Nullable`1<GoogleMobileAds.Api.TagForUnderAgeOfConsent>"
+   ],
+   "return_type": "GoogleMobileAds.Api.RequestConfiguration+Builder",
+   "fields_read": [],
+   "fields_written": [
+    "<TagForUnderAgeOfConsent>k__BackingField"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "STORE_FIELD"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -106257,6 +106257,48 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x134974C",
+   "method": "GoogleMobileAds.Android.InterstitialClient::onPaidEvent",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Int32",
+    "System.Int64",
+    "System.String"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "OnPaidEvent"
+   ],
+   "fields_written": [
+    "AdValue",
+    "CurrencyCode",
+    "Precision",
+    "Value"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 1,
+   "allocations": [
+    "GoogleMobileAds.Api.AdValue",
+    "GoogleMobileAds.Api.AdValueEventArgs"
+   ],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "DELEGATE_CALL",
+    "PROPERTY_WRITE"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x13583A4",
    "method": "GoogleMobileAds.Api.RequestConfiguration::set_MaxAdContentRating",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RequestConfiguration.cs",
@@ -106317,48 +106359,6 @@
    "runtime_boundaries": [],
    "side_effects": [
     "CALL",
-    "PROPERTY_WRITE"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x134974C",
-   "method": "GoogleMobileAds.Android.InterstitialClient::onPaidEvent",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Int32",
-    "System.Int64",
-    "System.String"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "OnPaidEvent"
-   ],
-   "fields_written": [
-    "AdValue",
-    "CurrencyCode",
-    "Precision",
-    "Value"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 1,
-   "allocations": [
-    "GoogleMobileAds.Api.AdValue",
-    "GoogleMobileAds.Api.AdValueEventArgs"
-   ],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "DELEGATE_CALL",
     "PROPERTY_WRITE"
    ],
    "assembly": "GoogleMobileAds"
@@ -108269,37 +108269,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x1358A28",
-   "method": "GoogleMobileAds.Api.InitializationStatus::getAdapterStatusMap",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InitializationStatus.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Collections.Generic.Dictionary`2<System.String, GoogleMobileAds.Api.AdapterStatus>",
-   "fields_read": [
-    "client"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [
-    "GoogleMobileAds.Common.IInitializationStatusClient::getAdapterStatusMap"
-   ],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "INTERFACE_CALL"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x134BE58",
    "method": "GoogleMobileAds.Android.RewardBasedVideoAdClient::remove_OnAdClosed",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs",
@@ -108339,45 +108308,33 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x13576A4",
-   "method": "GoogleMobileAds.Api.AdRequest+Builder::.ctor",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdRequest.cs",
+   "rva": "0x1358A28",
+   "method": "GoogleMobileAds.Api.InitializationStatus::getAdapterStatusMap",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InitializationStatus.cs",
    "status": "EXACT",
    "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [
-    "<Birthday>k__BackingField",
-    "<ChildDirectedTreatmentTag>k__BackingField",
-    "<Extras>k__BackingField",
-    "<Gender>k__BackingField",
-    "<Keywords>k__BackingField",
-    "<MediationExtras>k__BackingField",
-    "<TestDevices>k__BackingField"
+   "return_type": "System.Collections.Generic.Dictionary`2<System.String, GoogleMobileAds.Api.AdapterStatus>",
+   "fields_read": [
+    "client"
    ],
+   "fields_written": [],
    "static_fields_read": [],
    "static_fields_written": [],
    "array_reads": 0,
    "array_writes": 0,
-   "calls": [
-    "System.Object::.ctor"
-   ],
+   "calls": [],
    "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.Collections.Generic.Dictionary`2<System.String, System.String>",
-    "System.Collections.Generic.HashSet`1<System.String>",
-    "System.Collections.Generic.List`1<GoogleMobileAds.Api.Mediation.MediationExtras>",
-    "System.Collections.Generic.List`1<System.String>"
+   "interface_calls": [
+    "GoogleMobileAds.Common.IInitializationStatusClient::getAdapterStatusMap"
    ],
+   "delegate_calls": 0,
+   "allocations": [],
    "branches": 0,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
    "side_effects": [
-    "CALL",
-    "STORE_FIELD"
+    "INTERFACE_CALL"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -108411,6 +108368,49 @@
     "System.Collections.Generic.Dictionary`2<System.String, System.Action`2<GoogleMobileAds.Api.CustomNativeTemplateAd, System.String>>",
     "System.Collections.Generic.HashSet`1<GoogleMobileAds.Api.NativeAdType>",
     "System.Collections.Generic.HashSet`1<System.String>"
+   ],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL",
+    "STORE_FIELD"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x13576A4",
+   "method": "GoogleMobileAds.Api.AdRequest+Builder::.ctor",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdRequest.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [
+    "<Birthday>k__BackingField",
+    "<ChildDirectedTreatmentTag>k__BackingField",
+    "<Extras>k__BackingField",
+    "<Gender>k__BackingField",
+    "<Keywords>k__BackingField",
+    "<MediationExtras>k__BackingField",
+    "<TestDevices>k__BackingField"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Object::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.Collections.Generic.Dictionary`2<System.String, System.String>",
+    "System.Collections.Generic.HashSet`1<System.String>",
+    "System.Collections.Generic.List`1<GoogleMobileAds.Api.Mediation.MediationExtras>",
+    "System.Collections.Generic.List`1<System.String>"
    ],
    "branches": 0,
    "loops": 0,
@@ -109420,37 +109420,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x1359A10",
-   "method": "GoogleMobileAds.Api.InterstitialAd::Destroy",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [
-    "client"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [
-    "GoogleMobileAds.Common.IInterstitialClient::DestroyInterstitial"
-   ],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "INTERFACE_CALL"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x134C118",
    "method": "GoogleMobileAds.Android.RewardBasedVideoAdClient::remove_OnAdLeavingApplication",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs",
@@ -109486,6 +109455,37 @@
     "CALL",
     "RUNTIME_BOUNDARY",
     "THROW"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x1359A10",
+   "method": "GoogleMobileAds.Api.InterstitialAd::Destroy",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [
+    "client"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [
+    "GoogleMobileAds.Common.IInterstitialClient::DestroyInterstitial"
+   ],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "INTERFACE_CALL"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -110940,6 +110940,45 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x13542E0",
+   "method": "GoogleMobileAds.Common.RewardedInterstitialAdDummyClient::add_OnAdFailedToPresentFullScreenContent",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Common/RewardedInterstitialAdDummyClient.cs",
+   "status": "PARTIAL",
+   "parameters": [
+    "System.EventHandler`1<GoogleMobileAds.Api.AdErrorEventArgs>"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "OnAdFailedToPresentFullScreenContent"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Delegate::Combine"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.InvalidCastException"
+   ],
+   "branches": 3,
+   "loops": 2,
+   "exceptions": 1,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "RUNTIME_BOUNDARY",
+    "THROW"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x134014C",
    "method": "GoogleMobileAds.Unity.BannerClient::ShowBannerView",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Unity/BannerClient.cs",
@@ -110980,45 +111019,6 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x13542E0",
-   "method": "GoogleMobileAds.Common.RewardedInterstitialAdDummyClient::add_OnAdFailedToPresentFullScreenContent",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Common/RewardedInterstitialAdDummyClient.cs",
-   "status": "PARTIAL",
-   "parameters": [
-    "System.EventHandler`1<GoogleMobileAds.Api.AdErrorEventArgs>"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "OnAdFailedToPresentFullScreenContent"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Delegate::Combine"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.InvalidCastException"
-   ],
-   "branches": 3,
-   "loops": 2,
-   "exceptions": 1,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "RUNTIME_BOUNDARY",
-    "THROW"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -111943,6 +111943,37 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x134CCF4",
+   "method": "GoogleMobileAds.Android.RewardBasedVideoAdClient+<>c::.cctor",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs",
+   "status": "FALLBACK",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [
+    "<>9"
+   ],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "GoogleMobileAds.Android.RewardBasedVideoAdClient+<>c"
+   ],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "STORE_STATIC"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x1357FE0",
    "method": "GoogleMobileAds.Api.AdSize::.cctor",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdSize.cs",
@@ -111977,37 +112008,6 @@
    "runtime_boundaries": [],
    "side_effects": [
     "STORE_FIELD",
-    "STORE_STATIC"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x134CCF4",
-   "method": "GoogleMobileAds.Android.RewardBasedVideoAdClient+<>c::.cctor",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs",
-   "status": "FALLBACK",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [
-    "<>9"
-   ],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "GoogleMobileAds.Android.RewardBasedVideoAdClient+<>c"
-   ],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
     "STORE_STATIC"
    ],
    "assembly": "GoogleMobileAds"
@@ -112240,6 +112240,34 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x134CD60",
+   "method": "GoogleMobileAds.Android.RewardBasedVideoAdClient+<>c::<.ctor>b__25_2",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [
+    "System.Object",
+    "System.EventArgs"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x1358FDC",
    "method": "GoogleMobileAds.Api.InterstitialAd::add_OnAdLoaded",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs",
@@ -112276,34 +112304,6 @@
     "RUNTIME_BOUNDARY",
     "THROW"
    ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x134CD60",
-   "method": "GoogleMobileAds.Android.RewardBasedVideoAdClient+<>c::<.ctor>b__25_2",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [
-    "System.Object",
-    "System.EventArgs"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "GoogleMobileAds"
   },
   {
@@ -113342,35 +113342,6 @@
    "assembly": "GoogleMobileAds"
   },
   {
-   "rva": "0x135832C",
-   "method": "GoogleMobileAds.Api.MaxAdContentRating::get_Unspecified",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/MaxAdContentRating.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "GoogleMobileAds.Api.MaxAdContentRating",
-   "fields_read": [],
-   "fields_written": [
-    "Value"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "PROPERTY_WRITE"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
    "rva": "0x1356A40",
    "method": "GoogleMobileAds.Api.BannerView::add_OnAdLeavingApplication",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/BannerView.cs",
@@ -113406,6 +113377,35 @@
     "CALL",
     "RUNTIME_BOUNDARY",
     "THROW"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
+   "rva": "0x135832C",
+   "method": "GoogleMobileAds.Api.MaxAdContentRating::get_Unspecified",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/MaxAdContentRating.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "GoogleMobileAds.Api.MaxAdContentRating",
+   "fields_read": [],
+   "fields_written": [
+    "Value"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "PROPERTY_WRITE"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -114223,6 +114223,40 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x1354954",
+   "method": "GoogleMobileAds.Common.RewardedInterstitialAdDummyClient::Show",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Common/RewardedInterstitialAdDummyClient.cs",
+   "status": "PARTIAL",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.String::Concat",
+    "UnityEngine.Debug::Log"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "INDIRECT_CALL",
+    "RUNTIME_BOUNDARY"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x1352FE4",
    "method": "GoogleMobileAds.Common.RewardedAdDummyClient::add_OnAdFailedToShow",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Common/RewardedAdDummyClient.cs",
@@ -114258,40 +114292,6 @@
     "CALL",
     "RUNTIME_BOUNDARY",
     "THROW"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x1354954",
-   "method": "GoogleMobileAds.Common.RewardedInterstitialAdDummyClient::Show",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Common/RewardedInterstitialAdDummyClient.cs",
-   "status": "PARTIAL",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.String::Concat",
-    "UnityEngine.Debug::Log"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "INDIRECT_CALL",
-    "RUNTIME_BOUNDARY"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -116719,6 +116719,33 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x135570C",
+   "method": "GoogleMobileAds.Api.AdLoader::get_CustomNativeTemplateClickHandlers",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Collections.Generic.Dictionary`2<System.String, System.Action`2<GoogleMobileAds.Api.CustomNativeTemplateAd, System.String>>",
+   "fields_read": [
+    "CustomNativeTemplateClickHandlers"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x134ABAC",
    "method": "GoogleMobileAds.Android.MobileAdsClient::GetDeviceScale",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/MobileAdsClient.cs",
@@ -116749,33 +116776,6 @@
    "side_effects": [
     "CALL"
    ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x135570C",
-   "method": "GoogleMobileAds.Api.AdLoader::get_CustomNativeTemplateClickHandlers",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Collections.Generic.Dictionary`2<System.String, System.Action`2<GoogleMobileAds.Api.CustomNativeTemplateAd, System.String>>",
-   "fields_read": [
-    "CustomNativeTemplateClickHandlers"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "GoogleMobileAds"
   },
   {
@@ -121277,6 +121277,45 @@
    "assembly": "GoogleMobileAds"
   },
   {
+   "rva": "0x135544C",
+   "method": "GoogleMobileAds.Api.AdLoader::add_OnAdFailedToLoad",
+   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
+   "status": "PARTIAL",
+   "parameters": [
+    "System.EventHandler`1<GoogleMobileAds.Api.AdFailedToLoadEventArgs>"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "OnAdFailedToLoad"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Delegate::Combine"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.InvalidCastException"
+   ],
+   "branches": 3,
+   "loops": 2,
+   "exceptions": 1,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "RUNTIME_BOUNDARY",
+    "THROW"
+   ],
+   "assembly": "GoogleMobileAds"
+  },
+  {
    "rva": "0x1355C38",
    "method": "GoogleMobileAds.Api.AdLoader+Builder::set_TemplateIds",
    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
@@ -121335,45 +121374,6 @@
    "runtime_boundaries": [],
    "side_effects": [
     "DELEGATE_CALL"
-   ],
-   "assembly": "GoogleMobileAds"
-  },
-  {
-   "rva": "0x135544C",
-   "method": "GoogleMobileAds.Api.AdLoader::add_OnAdFailedToLoad",
-   "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/AdLoader.cs",
-   "status": "PARTIAL",
-   "parameters": [
-    "System.EventHandler`1<GoogleMobileAds.Api.AdFailedToLoadEventArgs>"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "OnAdFailedToLoad"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Delegate::Combine"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.InvalidCastException"
-   ],
-   "branches": 3,
-   "loops": 2,
-   "exceptions": 1,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "RUNTIME_BOUNDARY",
-    "THROW"
    ],
    "assembly": "GoogleMobileAds"
   },
@@ -123465,6 +123465,35 @@
    "assembly": "LeanPool"
   },
   {
+   "rva": "0x1363598",
+   "method": "Lean.Pool.Examples.LeanPoolDebugger::.ctor",
+   "file": "Assets/Scripts/LeanPool/Lean/Pool/Examples/LeanPoolDebugger.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.MonoBehaviour::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "LeanPool"
+  },
+  {
    "rva": "0x135F7F0",
    "method": "Lean.Pool.LeanGameObjectPool::TrySpawn",
    "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs",
@@ -123526,35 +123555,6 @@
    "assembly": "LeanPool"
   },
   {
-   "rva": "0x1363598",
-   "method": "Lean.Pool.Examples.LeanPoolDebugger::.ctor",
-   "file": "Assets/Scripts/LeanPool/Lean/Pool/Examples/LeanPoolDebugger.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.MonoBehaviour::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "LeanPool"
-  },
-  {
    "rva": "0x1363078",
    "method": "Lean.Pool.Extras.LeanPooledRigidbody::OnSpawn",
    "file": "Assets/Scripts/LeanPool/Lean/Pool/Extras/LeanPooledRigidbody.cs",
@@ -123577,6 +123577,39 @@
    "exceptions": 0,
    "runtime_boundaries": [],
    "side_effects": [],
+   "assembly": "LeanPool"
+  },
+  {
+   "rva": "0x1363158",
+   "method": "Lean.Pool.Extras.LeanPooledRigidbody2D::OnDespawn",
+   "file": "Assets/Scripts/LeanPool/Lean/Pool/Extras/LeanPooledRigidbody2D.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [
+    "zero"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.Component::GetComponent",
+    "UnityEngine.Rigidbody2D::set_angularVelocity",
+    "UnityEngine.Rigidbody2D::set_velocity"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
    "assembly": "LeanPool"
   },
   {
@@ -123619,14 +123652,14 @@
    "assembly": "LeanPool"
   },
   {
-   "rva": "0x1363158",
-   "method": "Lean.Pool.Extras.LeanPooledRigidbody2D::OnDespawn",
-   "file": "Assets/Scripts/LeanPool/Lean/Pool/Extras/LeanPooledRigidbody2D.cs",
+   "rva": "0x13633B4",
+   "method": "Lean.Pool.Examples.LeanPoolDebugger::Update",
+   "file": "Assets/Scripts/LeanPool/Lean/Pool/Examples/LeanPoolDebugger.cs",
    "status": "EXACT",
    "parameters": [],
    "return_type": "System.Void",
    "fields_read": [
-    "zero"
+    "cachedPool"
    ],
    "fields_written": [],
    "static_fields_read": [],
@@ -123634,15 +123667,18 @@
    "array_reads": 0,
    "array_writes": 0,
    "calls": [
-    "UnityEngine.Component::GetComponent",
-    "UnityEngine.Rigidbody2D::set_angularVelocity",
-    "UnityEngine.Rigidbody2D::set_velocity"
+    "Lean.Pool.Examples.LeanPoolDebugger::Exists",
+    "System.String::Concat",
+    "UnityEngine.Behaviour::set_enabled",
+    "UnityEngine.Debug::LogWarning",
+    "UnityEngine.Object::get_name",
+    "UnityEngine.Object::op_Equality"
    ],
    "virtual_calls": [],
    "interface_calls": [],
    "delegate_calls": 0,
    "allocations": [],
-   "branches": 0,
+   "branches": 2,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
@@ -123695,42 +123731,6 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
-   ],
-   "assembly": "LeanPool"
-  },
-  {
-   "rva": "0x13633B4",
-   "method": "Lean.Pool.Examples.LeanPoolDebugger::Update",
-   "file": "Assets/Scripts/LeanPool/Lean/Pool/Examples/LeanPoolDebugger.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [
-    "cachedPool"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Lean.Pool.Examples.LeanPoolDebugger::Exists",
-    "System.String::Concat",
-    "UnityEngine.Behaviour::set_enabled",
-    "UnityEngine.Debug::LogWarning",
-    "UnityEngine.Object::get_name",
-    "UnityEngine.Object::op_Equality"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 2,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
    ],
    "assembly": "LeanPool"
   },
@@ -124235,6 +124235,49 @@
    "assembly": "LeanPool"
   },
   {
+   "rva": "0x13628FC",
+   "method": "Lean.Pool.LeanPool::DespawnAll",
+   "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs",
+   "status": "PARTIAL",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [
+    "m_value"
+   ],
+   "fields_written": [],
+   "static_fields_read": [
+    "Instances"
+   ],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Lean.Pool.LeanGameObjectPool::DespawnAll",
+    "System.Collections.Generic.LinkedList`1<Lean.Pool.LeanGameObjectPool>::GetEnumerator"
+   ],
+   "virtual_calls": [
+    "System.Collections.Generic.Dictionary`2<System.Object, System.Object>::Clear",
+    "System.Collections.Generic.LinkedList`1<Lean.Pool.LeanGameObjectPool>+Enumerator<Lean.Pool.LeanGameObjectPool>::Dispose",
+    "System.Collections.Generic.LinkedList`1<Lean.Pool.LeanGameObjectPool>+Enumerator<Lean.Pool.LeanGameObjectPool>::MoveNext"
+   ],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.NullReferenceException",
+    "System.OutOfMemoryException"
+   ],
+   "branches": 5,
+   "loops": 2,
+   "exceptions": 1,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL",
+    "THROW",
+    "VIRTUAL_CALL"
+   ],
+   "assembly": "LeanPool"
+  },
+  {
    "rva": "0x1361530",
    "method": "Lean.Pool.LeanGameObjectPool::Update",
    "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs",
@@ -124278,49 +124321,6 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD",
-    "THROW",
-    "VIRTUAL_CALL"
-   ],
-   "assembly": "LeanPool"
-  },
-  {
-   "rva": "0x13628FC",
-   "method": "Lean.Pool.LeanPool::DespawnAll",
-   "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs",
-   "status": "PARTIAL",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [
-    "m_value"
-   ],
-   "fields_written": [],
-   "static_fields_read": [
-    "Instances"
-   ],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Lean.Pool.LeanGameObjectPool::DespawnAll",
-    "System.Collections.Generic.LinkedList`1<Lean.Pool.LeanGameObjectPool>::GetEnumerator"
-   ],
-   "virtual_calls": [
-    "System.Collections.Generic.Dictionary`2<System.Object, System.Object>::Clear",
-    "System.Collections.Generic.LinkedList`1<Lean.Pool.LeanGameObjectPool>+Enumerator<Lean.Pool.LeanGameObjectPool>::Dispose",
-    "System.Collections.Generic.LinkedList`1<Lean.Pool.LeanGameObjectPool>+Enumerator<Lean.Pool.LeanGameObjectPool>::MoveNext"
-   ],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.NullReferenceException",
-    "System.OutOfMemoryException"
-   ],
-   "branches": 5,
-   "loops": 2,
-   "exceptions": 1,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL",
     "THROW",
     "VIRTUAL_CALL"
    ],
@@ -132604,35 +132604,6 @@
    "assembly": "spine-unity-examples"
   },
   {
-   "rva": "0x151556C",
-   "method": "Spine.Unity.Examples.CombinedSkin::.ctor",
-   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/CombinedSkin.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.MonoBehaviour::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "spine-unity-examples"
-  },
-  {
    "rva": "0x151B6E4",
    "method": "Spine.Unity.Examples.SkeletonRagdoll2D::Start",
    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs",
@@ -132660,6 +132631,35 @@
    "runtime_boundaries": [],
    "side_effects": [
     "STORE_FIELD"
+   ],
+   "assembly": "spine-unity-examples"
+  },
+  {
+   "rva": "0x151556C",
+   "method": "Spine.Unity.Examples.CombinedSkin::.ctor",
+   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/CombinedSkin.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.MonoBehaviour::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "spine-unity-examples"
   },
@@ -135271,6 +135271,37 @@
    "assembly": "spine-unity-examples"
   },
   {
+   "rva": "0x151B6B8",
+   "method": "Spine.Unity.Examples.SkeletonRagdoll2D::set_RootRigidbody",
+   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs",
+   "status": "EXACT",
+   "parameters": [
+    "UnityEngine.Rigidbody2D"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [
+    "<RootRigidbody>k__BackingField"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "STORE_FIELD"
+   ],
+   "assembly": "spine-unity-examples"
+  },
+  {
    "rva": "0x150CAB0",
    "method": "Spine.Unity.Examples.SpineboyBeginnerModel::TryShoot",
    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyBeginnerModel.cs",
@@ -135303,37 +135334,6 @@
    "side_effects": [
     "CALL",
     "DELEGATE_CALL",
-    "STORE_FIELD"
-   ],
-   "assembly": "spine-unity-examples"
-  },
-  {
-   "rva": "0x151B6B8",
-   "method": "Spine.Unity.Examples.SkeletonRagdoll2D::set_RootRigidbody",
-   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs",
-   "status": "EXACT",
-   "parameters": [
-    "UnityEngine.Rigidbody2D"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [
-    "<RootRigidbody>k__BackingField"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
     "STORE_FIELD"
    ],
    "assembly": "spine-unity-examples"
@@ -136577,33 +136577,6 @@
    "assembly": "spine-unity-examples"
   },
   {
-   "rva": "0x1508658",
-   "method": "HurtFlashEffect+<FlashRoutine>d__9::System.Collections.Generic.IEnumerator<System.Object>.get_Current",
-   "file": "Assets/Scripts/spine-unity-examples/HurtFlashEffect.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Object",
-   "fields_read": [
-    "<>2__current"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "spine-unity-examples"
-  },
-  {
    "rva": "0x151469C",
    "method": "Spine.Unity.Examples.SkeletonRagdoll2D::get_EstimatedSkeletonPosition",
    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs",
@@ -136634,6 +136607,33 @@
    "side_effects": [
     "CALL"
    ],
+   "assembly": "spine-unity-examples"
+  },
+  {
+   "rva": "0x1508658",
+   "method": "HurtFlashEffect+<FlashRoutine>d__9::System.Collections.Generic.IEnumerator<System.Object>.get_Current",
+   "file": "Assets/Scripts/spine-unity-examples/HurtFlashEffect.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Object",
+   "fields_read": [
+    "<>2__current"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "spine-unity-examples"
   },
   {
@@ -142501,33 +142501,6 @@
    "assembly": "spine-unity-examples"
   },
   {
-   "rva": "0x1514E08",
-   "method": "Spine.Unity.Examples.RaggedySpineboy+<WaitUntilStopped>d__11::System.Collections.Generic.IEnumerator<System.Object>.get_Current",
-   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/RaggedySpineboy.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Object",
-   "fields_read": [
-    "<>2__current"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "spine-unity-examples"
-  },
-  {
    "rva": "0x151B74C",
    "method": "Spine.Unity.Examples.SkeletonRagdoll2D::get_RigidbodyArray",
    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs",
@@ -142574,6 +142547,33 @@
     "THROW",
     "VIRTUAL_CALL"
    ],
+   "assembly": "spine-unity-examples"
+  },
+  {
+   "rva": "0x1514E08",
+   "method": "Spine.Unity.Examples.RaggedySpineboy+<WaitUntilStopped>d__11::System.Collections.Generic.IEnumerator<System.Object>.get_Current",
+   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/RaggedySpineboy.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Object",
+   "fields_read": [
+    "<>2__current"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "spine-unity-examples"
   },
   {
@@ -143265,38 +143265,6 @@
    "assembly": "spine-unity-examples"
   },
   {
-   "rva": "0x1520BF0",
-   "method": "Spine.Unity.Examples.SpineGauge::Awake",
-   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineGauge.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [
-    "skeletonRenderer"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "UnityEngine.Component::GetComponent"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL",
-    "STORE_FIELD"
-   ],
-   "assembly": "spine-unity-examples"
-  },
-  {
    "rva": "0x150E668",
    "method": "Spine.Unity.Examples.MaterialPropertyBlockExample::Update",
    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MaterialPropertyBlockExample.cs",
@@ -143330,6 +143298,38 @@
    "delegate_calls": 0,
    "allocations": [],
    "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL",
+    "STORE_FIELD"
+   ],
+   "assembly": "spine-unity-examples"
+  },
+  {
+   "rva": "0x1520BF0",
+   "method": "Spine.Unity.Examples.SpineGauge::Awake",
+   "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineGauge.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [
+    "skeletonRenderer"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "UnityEngine.Component::GetComponent"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
@@ -147248,6 +147248,33 @@
    "assembly": "spine-unity"
   },
   {
+   "rva": "0x153E388",
+   "method": "Spine.Polygon::get_Vertices",
+   "file": "Assets/Scripts/spine-unity/Spine/Polygon.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Single[]",
+   "fields_read": [
+    "Vertices"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "spine-unity"
+  },
+  {
    "rva": "0xE93408",
    "method": "Spine.ExposedList`1+Enumerator::MoveNext",
    "file": "Assets/Scripts/spine-unity/Spine/ExposedList.cs",
@@ -147277,33 +147304,6 @@
     "CALL",
     "STORE_FIELD"
    ],
-   "assembly": "spine-unity"
-  },
-  {
-   "rva": "0x153E388",
-   "method": "Spine.Polygon::get_Vertices",
-   "file": "Assets/Scripts/spine-unity/Spine/Polygon.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Single[]",
-   "fields_read": [
-    "Vertices"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "spine-unity"
   },
   {
@@ -150051,37 +150051,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x15725BC",
-   "method": "Spine.Unity.WaitForSpineTrackEntryEnd::NowWaitFor",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/WaitForSpineTrackEntryEnd.cs",
-   "status": "EXACT",
-   "parameters": [
-    "Spine.TrackEntry"
-   ],
-   "return_type": "Spine.Unity.WaitForSpineTrackEntryEnd",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Spine.Unity.WaitForSpineTrackEntryEnd::SafeSubscribe"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x156A234",
    "method": "Spine.Unity.SkeletonUtility::get_Skeleton",
    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs",
@@ -150112,6 +150081,37 @@
    "side_effects": [
     "CALL",
     "INTERFACE_CALL"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x15725BC",
+   "method": "Spine.Unity.WaitForSpineTrackEntryEnd::NowWaitFor",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/WaitForSpineTrackEntryEnd.cs",
+   "status": "EXACT",
+   "parameters": [
+    "Spine.TrackEntry"
+   ],
+   "return_type": "Spine.Unity.WaitForSpineTrackEntryEnd",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Spine.Unity.WaitForSpineTrackEntryEnd::SafeSubscribe"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "spine-unity"
   },
@@ -153808,6 +153808,33 @@
    "assembly": "spine-unity"
   },
   {
+   "rva": "0x1561A80",
+   "method": "Spine.Unity.SkeletonRenderer::get_CustomMaterialOverride",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Collections.Generic.Dictionary`2<UnityEngine.Material, UnityEngine.Material>",
+   "fields_read": [
+    "CustomMaterialOverride"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "spine-unity"
+  },
+  {
    "rva": "0x1573900",
    "method": "Spine.Unity.AttachmentTools.AtlasUtilities::ToAtlasRegionPMAClone",
    "file": "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs",
@@ -153840,33 +153867,6 @@
    "side_effects": [
     "CALL"
    ],
-   "assembly": "spine-unity"
-  },
-  {
-   "rva": "0x1561A80",
-   "method": "Spine.Unity.SkeletonRenderer::get_CustomMaterialOverride",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Collections.Generic.Dictionary`2<UnityEngine.Material, UnityEngine.Material>",
-   "fields_read": [
-    "CustomMaterialOverride"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "spine-unity"
   },
   {
@@ -168866,33 +168866,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x152FCCC",
-   "method": "Spine.VertexAttachment::get_Id",
-   "file": "Assets/Scripts/spine-unity/Spine/VertexAttachment.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Int32",
-   "fields_read": [
-    "Id"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x152A2D4",
    "method": "Spine.AnimationState::ExpandToIndex",
    "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs",
@@ -168925,6 +168898,33 @@
    "side_effects": [
     "CALL"
    ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x152FCCC",
+   "method": "Spine.VertexAttachment::get_Id",
+   "file": "Assets/Scripts/spine-unity/Spine/VertexAttachment.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Int32",
+   "fields_read": [
+    "Id"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "spine-unity"
   },
   {
@@ -174988,14 +174988,14 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x1525E04",
-   "method": "Spine.IkConstraintTimeline::get_IkConstraintIndex",
-   "file": "Assets/Scripts/spine-unity/Spine/IkConstraintTimeline.cs",
+   "rva": "0x153E398",
+   "method": "Spine.Polygon::get_Count",
+   "file": "Assets/Scripts/spine-unity/Spine/Polygon.cs",
    "status": "EXACT",
    "parameters": [],
    "return_type": "System.Int32",
    "fields_read": [
-    "IkConstraintIndex"
+    "Count"
    ],
    "fields_written": [],
    "static_fields_read": [],
@@ -175015,14 +175015,14 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x153E398",
-   "method": "Spine.Polygon::get_Count",
-   "file": "Assets/Scripts/spine-unity/Spine/Polygon.cs",
+   "rva": "0x1525E04",
+   "method": "Spine.IkConstraintTimeline::get_IkConstraintIndex",
+   "file": "Assets/Scripts/spine-unity/Spine/IkConstraintTimeline.cs",
    "status": "EXACT",
    "parameters": [],
    "return_type": "System.Int32",
    "fields_read": [
-    "Count"
+    "IkConstraintIndex"
    ],
    "fields_written": [],
    "static_fields_read": [],
@@ -184657,40 +184657,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x152E2D4",
-   "method": "Spine.MeshAttachment::.ctor",
-   "file": "Assets/Scripts/spine-unity/Spine/MeshAttachment.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.String"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [
-    "R"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Spine.VertexAttachment::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL",
-    "PROPERTY_WRITE"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x152A750",
    "method": "Spine.AnimationState::NewTrackEntry",
    "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs",
@@ -184743,6 +184709,40 @@
     "CALL",
     "PROPERTY_WRITE",
     "STORE_FIELD"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x152E2D4",
+   "method": "Spine.MeshAttachment::.ctor",
+   "file": "Assets/Scripts/spine-unity/Spine/MeshAttachment.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.String"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [
+    "R"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Spine.VertexAttachment::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL",
+    "PROPERTY_WRITE"
    ],
    "assembly": "spine-unity"
   },
@@ -187393,46 +187393,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x157109C",
-   "method": "Spine.Unity.SkeletonExtensions::SetColor",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonExtensions.cs",
-   "status": "EXACT",
-   "parameters": [
-    "Spine.Slot",
-    "UnityEngine.Color"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "a",
-    "b",
-    "g",
-    "r"
-   ],
-   "fields_written": [
-    "A",
-    "B",
-    "G",
-    "R"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "PROPERTY_WRITE"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0xDCD068",
    "method": "Spine.Collections.OrderedDictionary`2+<GetEnumerator>d__34::MoveNext",
    "file": "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs",
@@ -187474,6 +187434,46 @@
     "STORE_FIELD",
     "THROW",
     "VIRTUAL_CALL"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x157109C",
+   "method": "Spine.Unity.SkeletonExtensions::SetColor",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonExtensions.cs",
+   "status": "EXACT",
+   "parameters": [
+    "Spine.Slot",
+    "UnityEngine.Color"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "a",
+    "b",
+    "g",
+    "r"
+   ],
+   "fields_written": [
+    "A",
+    "B",
+    "G",
+    "R"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "PROPERTY_WRITE"
    ],
    "assembly": "spine-unity"
   },
@@ -190427,35 +190427,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x1572498",
-   "method": "Spine.Unity.WaitForSpineEvent::System.Collections.IEnumerator.Reset",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/WaitForSpineEvent.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [
-    "m_WasFired"
-   ],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "STORE_FIELD"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x155C234",
    "method": "Spine.Unity.SkeletonGraphic::MatchRectTransformWithBounds",
    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs",
@@ -190485,6 +190456,35 @@
    "runtime_boundaries": [],
    "side_effects": [
     "CALL"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x1572498",
+   "method": "Spine.Unity.WaitForSpineEvent::System.Collections.IEnumerator.Reset",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/WaitForSpineEvent.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [
+    "m_WasFired"
+   ],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "STORE_FIELD"
    ],
    "assembly": "spine-unity"
   },
@@ -191810,37 +191810,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x152A068",
-   "method": "Spine.EventQueue::Complete",
-   "file": "Assets/Scripts/spine-unity/Spine/EventQueue.cs",
-   "status": "EXACT",
-   "parameters": [
-    "Spine.TrackEntry"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "eventQueueEntries"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "LIST_ADD"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x155CB74",
    "method": "Spine.Unity.SkeletonGraphic::remove_UpdateComplete",
    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs",
@@ -191876,6 +191845,37 @@
     "CALL",
     "RUNTIME_BOUNDARY",
     "THROW"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x152A068",
+   "method": "Spine.EventQueue::Complete",
+   "file": "Assets/Scripts/spine-unity/Spine/EventQueue.cs",
+   "status": "EXACT",
+   "parameters": [
+    "Spine.TrackEntry"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "eventQueueEntries"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "LIST_ADD"
    ],
    "assembly": "spine-unity"
   },
@@ -193357,6 +193357,33 @@
    "assembly": "spine-unity"
   },
   {
+   "rva": "0x152B4C8",
+   "method": "Spine.AnimationState::get_Tracks",
+   "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "Spine.ExposedList`1<Spine.TrackEntry>",
+   "fields_read": [
+    "Tracks"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "spine-unity"
+  },
+  {
    "rva": "0x1524944",
    "method": "Spine.AttachmentTimeline::Apply",
    "file": "Assets/Scripts/spine-unity/Spine/AttachmentTimeline.cs",
@@ -193402,33 +193429,6 @@
    "side_effects": [
     "CALL"
    ],
-   "assembly": "spine-unity"
-  },
-  {
-   "rva": "0x152B4C8",
-   "method": "Spine.AnimationState::get_Tracks",
-   "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "Spine.ExposedList`1<Spine.TrackEntry>",
-   "fields_read": [
-    "Tracks"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "spine-unity"
   },
   {
@@ -194787,6 +194787,45 @@
    "assembly": "spine-unity"
   },
   {
+   "rva": "0x152BC10",
+   "method": "Spine.TrackEntry::add_End",
+   "file": "Assets/Scripts/spine-unity/Spine/TrackEntry.cs",
+   "status": "PARTIAL",
+   "parameters": [
+    "Spine.AnimationState+TrackEntryDelegate"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "End"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Delegate::Combine"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.InvalidCastException"
+   ],
+   "branches": 3,
+   "loops": 1,
+   "exceptions": 1,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "RUNTIME_BOUNDARY",
+    "THROW"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
    "rva": "0x1531ADC",
    "method": "Spine.IkConstraint::.ctor",
    "file": "Assets/Scripts/spine-unity/Spine/IkConstraint.cs",
@@ -194844,45 +194883,6 @@
     "STORE_FIELD",
     "THROW",
     "VIRTUAL_CALL"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
-   "rva": "0x152BC10",
-   "method": "Spine.TrackEntry::add_End",
-   "file": "Assets/Scripts/spine-unity/Spine/TrackEntry.cs",
-   "status": "PARTIAL",
-   "parameters": [
-    "Spine.AnimationState+TrackEntryDelegate"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "End"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Delegate::Combine"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.InvalidCastException"
-   ],
-   "branches": 3,
-   "loops": 1,
-   "exceptions": 1,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "RUNTIME_BOUNDARY",
-    "THROW"
    ],
    "assembly": "spine-unity"
   },
@@ -197781,35 +197781,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x156CC64",
-   "method": "Spine.Unity.SkeletonUtilityBone::HandleOnReset",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtilityBone.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Spine.Unity.SkeletonUtilityBone::Reset"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x155F3C8",
    "method": "Spine.Unity.SkeletonMecanim::ApplyAnimation",
    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs",
@@ -197844,6 +197815,35 @@
    "side_effects": [
     "CALL",
     "DELEGATE_CALL"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x156CC64",
+   "method": "Spine.Unity.SkeletonUtilityBone::HandleOnReset",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtilityBone.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Spine.Unity.SkeletonUtilityBone::Reset"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "spine-unity"
   },
@@ -199782,36 +199782,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x155AB34",
-   "method": "Spine.Unity.SkeletonAnimation::Update",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonAnimation.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Spine.Unity.SkeletonAnimation::Update",
-    "UnityEngine.Time::get_deltaTime"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x1561684",
    "method": "Spine.Unity.SkeletonMecanim+MecanimTranslator+AnimationClipEqualityComparer::.cctor",
    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs",
@@ -199839,6 +199809,36 @@
    "runtime_boundaries": [],
    "side_effects": [
     "STORE_STATIC"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x155AB34",
+   "method": "Spine.Unity.SkeletonAnimation::Update",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonAnimation.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Spine.Unity.SkeletonAnimation::Update",
+    "UnityEngine.Time::get_deltaTime"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "spine-unity"
   },
@@ -200800,33 +200800,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x154E380",
-   "method": "Spine.Slot::get_G",
-   "file": "Assets/Scripts/spine-unity/Spine/Slot.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Single",
-   "fields_read": [
-    "G"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x153DDE4",
    "method": "Spine.SkeletonBounds::AabbIntersectsSegment",
    "file": "Assets/Scripts/spine-unity/Spine/SkeletonBounds.cs",
@@ -200855,6 +200828,33 @@
    "delegate_calls": 0,
    "allocations": [],
    "branches": 14,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x154E380",
+   "method": "Spine.Slot::get_G",
+   "file": "Assets/Scripts/spine-unity/Spine/Slot.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Single",
+   "fields_read": [
+    "G"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
@@ -202440,33 +202440,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x1553530",
-   "method": "Spine.Unity.MaterialsTextureLoader::Unload",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/MaterialsTextureLoader.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Object"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x15230DC",
    "method": "Spine.TranslateTimeline::Apply",
    "file": "Assets/Scripts/spine-unity/Spine/TranslateTimeline.cs",
@@ -202515,6 +202488,33 @@
     "CALL",
     "PROPERTY_WRITE"
    ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x1553530",
+   "method": "Spine.Unity.MaterialsTextureLoader::Unload",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/MaterialsTextureLoader.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Object"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "spine-unity"
   },
   {
@@ -203788,6 +203788,45 @@
    "assembly": "spine-unity"
   },
   {
+   "rva": "0x1561804",
+   "method": "Spine.Unity.SkeletonRenderer::remove_generateMeshOverride",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs",
+   "status": "PARTIAL",
+   "parameters": [
+    "Spine.Unity.SkeletonRenderer+InstructionDelegate"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [
+    "generateMeshOverride"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Delegate::Remove"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.InvalidCastException"
+   ],
+   "branches": 3,
+   "loops": 1,
+   "exceptions": 1,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "RUNTIME_BOUNDARY",
+    "THROW"
+   ],
+   "assembly": "spine-unity"
+  },
+  {
    "rva": "0x1573F84",
    "method": "Spine.Unity.AttachmentTools.AtlasUtilities::GetRepackedAttachments",
    "file": "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs",
@@ -203913,45 +203952,6 @@
    "side_effects": [
     "INDIRECT_CALL",
     "RUNTIME_BOUNDARY"
-   ],
-   "assembly": "spine-unity"
-  },
-  {
-   "rva": "0x1561804",
-   "method": "Spine.Unity.SkeletonRenderer::remove_generateMeshOverride",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs",
-   "status": "PARTIAL",
-   "parameters": [
-    "Spine.Unity.SkeletonRenderer+InstructionDelegate"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [
-    "generateMeshOverride"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Delegate::Remove"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.InvalidCastException"
-   ],
-   "branches": 3,
-   "loops": 1,
-   "exceptions": 1,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "RUNTIME_BOUNDARY",
-    "THROW"
    ],
    "assembly": "spine-unity"
   },
@@ -209382,33 +209382,6 @@
    "assembly": "spine-unity"
   },
   {
-   "rva": "0x1553534",
-   "method": "Spine.Unity.SpineSpriteAtlasAsset::get_IsLoaded",
-   "file": "Assets/Scripts/spine-unity/Spine/Unity/SpineSpriteAtlasAsset.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Boolean",
-   "fields_read": [
-    "atlas"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "spine-unity"
-  },
-  {
    "rva": "0x1522640",
    "method": "Spine.CurveTimeline::.ctor",
    "file": "Assets/Scripts/spine-unity/Spine/CurveTimeline.cs",
@@ -209444,6 +209417,33 @@
     "STORE_FIELD",
     "THROW"
    ],
+   "assembly": "spine-unity"
+  },
+  {
+   "rva": "0x1553534",
+   "method": "Spine.Unity.SpineSpriteAtlasAsset::get_IsLoaded",
+   "file": "Assets/Scripts/spine-unity/Spine/Unity/SpineSpriteAtlasAsset.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Boolean",
+   "fields_read": [
+    "atlas"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "spine-unity"
   },
   {

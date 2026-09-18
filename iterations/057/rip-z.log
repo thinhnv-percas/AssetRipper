@@ -1,0 +1,875 @@
+System : System Tester
+System : System Version: Unix 6.18.44.33
+System : Operating System: Linux x64
+System : AssetRipper Version: 1.3.14.0
+System : AssetRipper Build Type: Release Compiled
+System : UTC Current Time: Fri Sep 18 17:06:56 UTC 2026
+System : UTC Compile Time: Unknown
+
+General : Configuration Settings:
+General : ExportRootPath: /home/user/AssetRipper/Source/0Bins/AssetRipper.Tools.SystemTester/Release/Ripped
+General : ScriptContentLevel: Level3
+General : StreamingAssetsMode: Extract
+General : DefaultVersion: 0.0.0a0
+General : TargetVersion: 0.0.0a0
+General : EmitIl2CppOffsets: True
+General : ReconstructNativeBodies: True
+General : Il2CppStructDbPath: /home/user/AssetRipper/StructDb
+General : EnablePrefabOutlining: False
+General : EnableStaticMeshSeparation: True
+General : EnableAssetDeduplication: False
+General : BundledAssetsExportMode: DirectExport
+General : AudioExportFormat: Default
+General : ImageExportFormat: Png
+General : LightmapTextureExportFormat: Yaml
+General : ScriptExportMode: Decompiled
+General : ScriptLanguageVersion: AutoSafe
+General : ShaderExportMode: Dummy
+General : SpriteExportMode: Yaml
+General : TextExportMode: Parse
+General : ExportUnreadableAssets: False
+General : PreferOriginalTextureExtension: True
+General : ClearExportDirectory: True
+Import : Attempting to read files from Test/Input/RunFromZombies
+Import : Android game structure has been found at 'Test/Input/RunFromZombies'
+Import : Collecting game files...
+Import : Asset bundle 'data.unity3d' has been found
+Import : Files use the 'IL2Cpp' scripting backend.
+Import : Il2Cpp recovery installed: offset attributes on, body reconstruction on, struct database /home/user/AssetRipper/StructDb.
+Import : During Il2Cpp initialization, found Unity version: 2022.3.62f2
+Cpp2IL : Initializing Metadata...
+Cpp2IL : Using actual IL2CPP Metadata version 31.1
+Cpp2IL : Initialized Metadata in 143ms
+Cpp2IL : Using binary type ELF (from LibCpp2IL)
+Cpp2IL : Searching Binary for Required Data...
+Cpp2IL : Got Binary codereg: 0x20C56F8, metareg: 0x2169A70 in 110ms.
+Cpp2IL : Initializing Binary...
+Cpp2IL : Initialized Binary in 78ms
+Cpp2IL : Mapping pointers to Il2CppMethodDefinitions...
+Cpp2IL : Processed 51393 OK (77ms)
+Cpp2IL : Creating application model...
+Cpp2IL : Application model created in 1036.2116ms
+Import : IL2CPP struct database: 370 Unity versions indexed from /home/user/AssetRipper/StructDb
+Import : IL2CPP struct database: applied 9 measured Il2CppClass and 4 MethodInfo offsets for Unity 2022.3.62f2 (64-bit).
+Import : IL2CPP struct database loaded: Unity 2022.3.62f2, 64-bit, sizeof(Il2CppClass) = 312
+Import : Il2Cpp recovery: Unity 2022.3.62f2, metadata v31.1, 64-bit, instruction set Arm64InstructionSetSelector.
+Import : Il2Cpp recovery: 4 assemblies will be attempted, 49 framework assemblies will be stubbed. Attempted: Assembly-CSharp, Mono.Security, Newtonsoft.Json, __Generated
+Import : Il2Cpp field layout self-check: of 2283 non-generic types with measured offsets, 2165 reproduced exactly, 118 laid out too few fields, 0 disagreed.
+Import : Il2Cpp value-type layout self-check: of 770 non-generic structs with measured offsets, 570 reproduce at metadata+header, 0 at metadata itself, 13 at neither, 187 could not be laid out.
+Import : Il2Cpp recovery: 30 il2cpp runtime helpers located, 5 not.
+Import : Il2Cpp recovery: helpers located: il2cpp_codegen_initialize_runtime_metadata=0xE0A578, il2cpp_codegen_initialize_runtime_metadata_inline=0xE0A58C, il2cpp_runtime_class_init_export=0xE3D40C, il2cpp_runtime_class_init_actual=0xE50BFC, il2cpp_codegen_runtime_class_init=0xE0A67C, il2cpp_object_new=0xE3D3C0, il2cpp_vm_object_new=0xE6DF78, il2cpp_codegen_object_new=0xE0A790, il2cpp_array_new_specific=0xE3CAA0, il2cpp_vm_array_new_specific=0xE6D9C4, SzArrayNew=0xE0A5EC, il2cpp_type_get_object=0xE3D498, il2cpp_vm_reflection_get_type_object=0xE6FA6C, il2cpp_resolve_icall=0xE3CA84, InternalCalls_Resolve=0xE871F4, il2cpp_string_new=0xE3D424, il2cpp_vm_string_new=0xE6ADE8, il2cpp_string_new_wrapper=0xE3D428, il2cpp_vm_string_newWrapper=0xE6ADE8, il2cpp_codegen_string_new_wrapper=0xE3D424, il2cpp_value_box=0xE3D3E4, il2cpp_vm_object_box=0xE6DED4, il2cpp_object_unbox=0xE3D3E0, il2cpp_vm_object_unbox=0xE6E3D4, il2cpp_raise_exception=0xE3D014, il2cpp_vm_exception_raise=0xE85BF4, il2cpp_class_is_assignable_from=0xE3CAD4, il2cpp_vm_class_is_assignable_from=0xE5A0F4, il2cpp_vm_object_is_inst=0xE6E184, il2cpp_codegen_object_is_inst=0xE0A680
+Import : Il2Cpp recovery: helpers not located: il2cpp_codegen_initialize_method, il2cpp_vm_metadatacache_initializemethodmetadata, il2cpp_codegen_raise_exception, il2cpp_codegen_write_barrier, AddrPInvokeLookup
+Import : Il2Cpp recovery: sampled 200 methods from the game's assemblies — 200 lifted to ISIL, 0 produced none, 0 over the 30000 byte analysis cap, 0 threw.
+Import : Native source injection: reconstructed 4551 method bodies.
+Cpp2IL : Finding key function addresses...
+Cpp2IL : Key function addresses found in 0.0044ms
+Import : Il2Cpp method body recovery attempted 4640 methods; 0 failed to convert. Framework assemblies are stubbed by design, and a method whose native code produced no ISIL keeps an empty body.
+Import : Il2Cpp method body recovery: 1 calls to a C library function were emitted as the C# operation equivalent to it.
+Import : Il2Cpp method body recovery: 177 interface dispatches compiled as a runtime lookup were resolved to the interface method the slot names.
+Import : Il2Cpp method body recovery: 2312 calls became a placeholder, by how many managed methods sit on the address:
+Import :          1979 NO_MANAGED_METHOD
+Import :           303 NOT_AN_ADDRESS
+Import :            30 SHARED_2
+Import : Il2Cpp method body recovery: the same calls, by what would have to change to resolve them:
+Import :          1099 RUNTIME_HELPER
+Import :           839 NATIVE_ONLY
+Import :           303 INDIRECT_TARGET
+Import :            32 RUNTIME_HELPER_VENEER
+Import :            30 GENERIC_SHARED
+Import :             9 ATOMIC_COMPARE_EXCHANGE
+Import : Il2Cpp method body recovery: 1065 indirect jumps survived across 9366 analysed method bodies, by what the target register holds:
+Import :           824 VTABLE_SLOT
+Import :           187 DEFINED_BY_Add
+Import :            30 LOADED_POINTER:UNKNOWN:PRODUCERS_DISAGREE
+Import :             8 DEFINITIONS_DISAGREE
+Import :             8 LOADED_FROM_valuetype
+Import :             6 LOADED_POINTER:NATIVE_POINTER
+Import :             2 LOADED_FROM_delegate
+Import : Il2Cpp method body recovery: 382 indirect calls survived, by what the target holds - and for a vtable slot, by what the virtual resolver would have said:
+Import :            88 VTABLE_SLOT_UNRESOLVED
+Import :            58 LOADED_POINTER:UNKNOWN:PRODUCERS_DISAGREE
+Import :            52 LOADED_POINTER:NATIVE_POINTER
+Import :            46 LOADED_FROM_reference
+Import :            33 METHODINFO_INVOKER_METHOD
+Import :            25 LOADED_POINTER:UNKNOWN:ENTRY_VALUE
+Import :            24 LOADED_POINTER:FIELD_POINTER
+Import :            14 VTABLE_RESOLVABLE
+Import :            12 LOADED_FROM_valuetype
+Import :             8 MANAGED_FIELD
+Import :             7 LOADED_POINTER:VTABLE_POINTER
+Import :             4 LOADED_POINTER:STACK_POINTER
+Import :             4 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Move
+Import :             3 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Newobj
+Import :             2 LOADED_POINTER:METHOD_POINTER
+Import :             2 LOADED_POINTER:UNKNOWN:PRODUCED_BY_Subtract
+Import : Il2Cpp method body recovery: 3421 memory loads the generator gave up on, by kind:
+Import :           318 Il2CppClass.interface_offsets_count   e.g. JsonConvert.DeserializeObject: 93 Move v391 @ X9_v14, [v264 @ X8_v11 (Il2CppClass<Newtonsoft.Json.JsonTextReader>)+12E]
+Import :           282 past the last field of the base type   e.g. JsonObjectAttribute.get_ItemNullValueHandling: 21 Return [this @ X0 (Newtonsoft.Json.JsonObjectAttribute)+80]
+Import :           259 base has no type, from no definition   e.g. JsonConverter`1.WriteJson: 18 Move [v20 @ X29_v1-8], [v23 @ SYSREG+28]
+Import :           254 base has no type, from Add of an untyped local and Immediate   e.g. JsonConvert.DeserializeObject: 103 CheckEqual v396 @ Z_v14 (System.Boolean), [v390 @ X10_v15-8], [v262 @ X23_v6 (Il2CppClass<System.IDisposable>)]
+Import :           160 Il2CppClass.interfaceOffsets   e.g. JsonConvert.DeserializeObject: 97 Add v390 @ X10_v15, [v264 @ X8_v11 (Il2CppClass<Newtonsoft.Json.JsonTextReader>)+B0], 8
+Import :           153 base has no type, from Move from an untyped base   e.g. JsonConvert.DeserializeObject: 31 Move v53 @ X9_v1, [v70 @ X8_v4+8]
+Import :           146 value type base   e.g. JsonReader.ReadAsBytes: 141 ShiftLeft v182 @ TEMPSHIFT_v1 (System.Int32), [v179 @ X9_v4 (System.Int32)+v205 @ X0_v4 (Newtonsoft.Json.JsonToken)], 2
+Import :           126 between fields of the base type   e.g. JsonSerializer.get_FloatFormatHandling: 21 Return [this @ X0 (Newtonsoft.Json.JsonSerializer)+9C]
+Import :            98 Il2CppClass.0x28   e.g. CollectionWrapper`1.Add: 47 CheckLess v70 @ N_v10 (System.Boolean), [v57 @ X8_v5 (Il2CppClass<T>)+28], 0
+Import :            57 Il2CppClass.0xFC   e.g. JsonConverter`1.WriteJson: 40 Add v64 @ X9_v2, [v62 @ X1_v1 (Il2CppClass<T>)+FC], 15
+Import :            56 Il2CppClass.0x135   e.g. <>c__1`1..cctor: 25 Move v54 @ X9_v3, [v41 @ X8_v4 (Il2CppClass<Newtonsoft.Json.Utilities.AotHelper+<>c__1`1>)+135]
+Import :            47 Il2CppClass.0x240   e.g. JsonTextWriter.WriteValueAsync: 13 Move v13 @ X8_v3, [v10 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+240]
+Import :            42 Il2CppClass.0x660   e.g. JsonTextWriter.WriteValue: 75 Move v62 @ X1_v1, [v55 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+660]
+Import :            41 Il2CppClass.0x658   e.g. JsonTextWriter.WriteValue: 74 Move v61 @ X2_v1, [v55 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+658]
+Import :            39 generic instance, no layout, reference arguments   e.g. JsonValidatingReader.WriteToken: 139 Move v900 @ X8_v130 (Il2CppStaticFields<Newtonsoft.Json.JsonValidatingReader+<>c>), [v482 @ X0_v43 (System.Collections.Generic.IEnumerator`1<Newtonsoft.Json.Schema.JsonSchemaModel>)+10]
+Import :            32 base has no type, from Move from AddressOf(stack_-50)   e.g. JsonConverter`1.WriteJson: 103 CheckNotEqual v172 @ TEMPCOND_v2 (System.Boolean), [v23 @ SYSREG+28], [v20 @ X29_v1-8]
+Import :            31 base has no type, from Add of an untyped local and Int32   e.g. <ParsePostValueAsync>d__4.MoveNext: 135 Move v7 @ X21 (System.Char), [v240 @ X9_v18+20]
+Import :            29 base has no type, from Move from AddressOf(stack_-60)   e.g. JsonConverter`1.ReadJson: 15 Move [v24 @ X29_v1-50], objectType @ X2 (System.Type)
+Import :            28 Il2CppClass.0x238   e.g. JsonTextWriter.WriteValueAsync: 12 Move v12 @ X3_v2, [v10 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+238]
+Import :            25 Il2CppClass.static_fields   e.g. AotHelper.EnsureType: 43 Move v63 @ X8_v7 (Il2CppStaticFields<Newtonsoft.Json.Utilities.AotHelper+<>c__1`1<T>>), [v62 @ X0_v6 (Il2CppClass<Newtonsoft.Json.Utilities.AotHelper+<>c__1`1<T>>)+B8]
+Import :            24 Il2CppClass.0x210   e.g. JsonTextWriter.WriteStartObject: 14 Move v14 @ X2_v2, [v11 @ X8_v1 (Il2CppClass<System.IO.TextWriter>)+210]
+Import :            23 Il2CppMethodInfo.0x50   e.g. ConvertUtils.CreateCastConverter: 134 ShiftLeft v70 @ TEMPSHIFT_v5 (System.Int32), [v230 @ X1_v12 (Il2CppMethodInfo)+50], 4
+Import :            23 Il2CppClass.typeHierarchyDepth   e.g. JsonPropertyCollection..ctor: 79 CheckLess v96 @ C_v3 (System.Boolean), [v92 @ X9_v3 (Il2CppClass<System.Collections.Generic.List`1<Newtonsoft.Json.Serialization.JsonProperty>>)+130], [v93 @ X1_v5 (Il2CppClass<System.Collections.Generic.List`1<Newtonsoft.Json.Serialization.JsonProperty>>)+130]
+Import :            23 static field storage at 0x8   e.g. AotHelper.EnsureType: 44 Move v84 @ X20_v2 (System.Action), [v63 @ X8_v7 (Il2CppStaticFields<Newtonsoft.Json.Utilities.AotHelper+<>c__1`1<T>>)+8]
+Import :            22 Il2CppClass.0x208   e.g. JsonTextWriter.WriteStartObject: 13 Move v13 @ X3_v2, [v11 @ X8_v1 (Il2CppClass<System.IO.TextWriter>)+208]
+Import :            21 base has no type, from Move from AddressOf(an untyped local)   e.g. <DoReadAsDateTimeOffsetAsync>d__47.MoveNext: 70 Move [v1 @ X29-30], v104 @ X0_v44
+Import :            20 Il2CppClass.0x230   e.g. JsonTextWriter.WriteValue: 60 Move v115 @ X4_v1, [v108 @ X9_v6 (Il2CppClass<System.IO.TextWriter>)+230]
+Import :            20 base has no type, from Move from AddressOf(stack_-40)   e.g. JsonConvert.DeserializeObject: 72 CheckNotEqual v95 @ TEMPCOND_v1 (System.Boolean), [v19 @ SYSREG+28], [v16 @ X29_v1-8]
+Import :            19 Il2CppClass.0x1D0   e.g. JsonConverter`1.WriteJson: 184 Call 20BF420, v229 @ X0_v3, v221 @ X0_v2, [v153 @ X8_v21 (Il2CppClass<Newtonsoft.Json.JsonConverter`1<T>>)+1D0], this @ X0 (Newtonsoft.Json.JsonConverter`1<T>), v213 @ X3_v1, serializer @ X3 (Newtonsoft.Json.JsonSerializer), v43 @ X5, v44 @ X6, v45 @ X7, v46 @ V0, v47 @ V1, v48 @ V2, v49 @ V3, v50 @ V4, v51 @ V5, v52 @ V6, v53 @ V7
+Import :            17 Il2CppClass.0x170   e.g. ReflectionUtils.RemoveAssemblyDetails: 164 Move v190 @ X1_v4, [v183 @ X8_v6 (Il2CppClass<System.Text.StringBuilder>)+170]
+Import :            17 Il2CppClass.0x1C8   e.g. <>c__DisplayClass10_0.<BindBinaryOperation>b__0: 10 Move v11 @ X5_v1, [v6 @ X9_v1 (Il2CppClass<System.Dynamic.BinaryOperationBinder>)+1C8]
+Import :            17 Il2CppClass.0x168   e.g. ReflectionUtils.RemoveAssemblyDetails: 163 Move v189 @ X2_v3, [v183 @ X8_v6 (Il2CppClass<System.Text.StringBuilder>)+168]
+Import :            16 Il2CppClass.0x250   e.g. JsonReader.ReadAsString: 108 Move v229 @ X1_v4, [v223 @ X8_v6 (Il2CppClass<Newtonsoft.Json.JsonReader>)+250]
+Import :            15 Il2CppClass.0x2A0   e.g. JsonConverter`1.CanConvert: 42 Move v61 @ X2_v1, [v54 @ X8_v5 (Il2CppClass<System.Type>)+2A0]
+Import :            15 base has no type, from Move from [ASN1 + 0xB8]   e.g. X501.AppendEntry: 178 Call ASN1.CompareArray, v232 @ X0_v67 (System.Boolean), v519 @ X0_v66 (Mono.Security.ASN1), v450.m_aValue (System.Byte[]), [v521 @ X8_v35+8]
+Import :            14 Il2CppClass.0x200   e.g. <>c.<GetAttributeConstructor>b__47_0: 43 Move v62 @ X3_v1, [v56 @ X8_v4 (Il2CppClass<System.Reflection.ConstructorInfo>)+200]
+Import :            14 Il2CppClass.cctor_finished   e.g. DefaultJsonNameTable.Add: 31 CheckEqual v107 @ TEMP_v9 (System.Boolean), [v105 @ X0_v20 (Il2CppClass<Newtonsoft.Json.DefaultJsonNameTable>)+E0], 0
+Import :            14 base has no type, from a call's result   e.g. JsonTextWriter.WriteValueAsync: 120 Call JsonTextWriter.WriteValueAsync, returnVal2 @ X0_v8 (System.Threading.Tasks.Task), this @ X0 (Newtonsoft.Json.JsonTextWriter), [v86 @ X0_v6], [v86 @ X0_v6+8]
+Import :            13 Il2CppClass.0x588   e.g. JsonWriter.WriteEnd: 36 Move v44 @ X2_v1, [v47 @ X8_v7 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+588]
+Import :            13 generic instance, inside the layout, on no field, value type argument   e.g. JsonPosition.BuildPath: 120 Move v277 @ V0_v5 (Newtonsoft.Json.JsonPosition), [currentPosition @ X1 (System.Nullable`1<Newtonsoft.Json.JsonPosition>)+8]
+Import :            13 Il2CppClass.0x590   e.g. JsonWriter.WriteEnd: 37 Move v42 @ X1_v1, [v47 @ X8_v7 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+590]
+Import :            13 Il2CppClass.0x180   e.g. DynamicProxyMetaObject`1.GetDynamicMemberNames: 41 Move v57 @ X2_v1, [v63 @ X8_v4 (Il2CppClass<Newtonsoft.Json.Utilities.DynamicProxy`1<T>>)+180]
+Import :            13 Il2CppClass.elementType   e.g. JsonTextReader.ReadAsInt32: 40 CheckNotEqual v61 @ TEMPCOND_v2 (System.Boolean), [v47 @ X0_v3 (System.Object)], [v48 @ X1_v2 (Il2CppClass<System.Nullable`1<System.Int32>>)+40]
+Import :            12 Il2CppClass.0x290   e.g. JsonReader.ReadForType: 16 Move v100 @ X1_v3 (Il2CppMethodInfo), [v19 @ X8_v9 (Il2CppClass<Newtonsoft.Json.JsonReader>)+290]
+Import :            12 base has no type, from IsInst   e.g. JToken.Annotation: 44 CheckLess v168 @ TEMPCOND_v4 (System.Boolean), [v50 @ X0_v4+18], 1
+Import :            11 Il2CppClass.0x2D0   e.g. ReflectionUtils.GetMemberValue: 100 Move v276 @ X2_v13, [v182 @ X8_v14 (Il2CppClass<System.Reflection.MemberInfo>)+2D0]
+Import :            11 Il2CppClass.0x228   e.g. JsonTextWriter.WriteValue: 59 Move v114 @ X5_v1, [v108 @ X9_v6 (Il2CppClass<System.IO.TextWriter>)+228]
+Import :            11 Il2CppClass.0x1A8   e.g. TypeExtensions.MemberType: 5 Move v5 @ X2_v1, [v4 @ X8_v1 (Il2CppClass<System.Reflection.MemberInfo>)+1A8]
+Import :            11 Il2CppClass.0x1B0   e.g. TypeExtensions.MemberType: 6 Move v6 @ X1_v1, [v4 @ X8_v1 (Il2CppClass<System.Reflection.MemberInfo>)+1B0]
+Import :            10 Il2CppClass.0x2F0   e.g. ReflectionUtils.SetMemberValue: 150 Move v208 @ X4_v1, [v127 @ X8_v7 (Il2CppClass<System.Reflection.MemberInfo>)+2F0]
+Import :            10 Il2CppClass.0x248   e.g. JsonTextReader.FinishReadQuotedStringValue: 128 Move v67 @ X2_v1, [v61 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonTextReader>)+248]
+Import :            10 Il2CppClass.0x6E8   e.g. JsonWriter.WriteValue: 28 Move v46 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6E8]
+Import :            10 Il2CppClass.0x698   e.g. JsonSerializerInternalWriter.WriteReferenceIdProperty: 208 Move v189 @ X3_v3, [v184 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+698]
+Import :            10 base has no type, from Move from an untyped local   e.g. JsonConvert.DeserializeObject: 75 And v102 @ TEMP_v9 (System.Int32), [v107 @ X1_v4+135], 1
+Import :            10 byref at 0x8, from no definition   e.g. ConvertUtils.DecimalTryParse: 1060 Move [v330 @ X3_v4 (System.Decimal&)+8], [v330 @ X3_v4 (System.Decimal&)+8]
+Import :            10 Il2CppMethodInfo.invoker_method   e.g. <>c.<GetRequiredProperties>b__28_0: 23 Return [methodInfo @ X2 (Il2CppMethodInfo)+10]
+Import :            10 Il2CppClass.0x260   e.g. JsonValidatingReader.get_ValueType: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+260]
+Import :            10 Il2CppClass.0x6A0   e.g. JsonSerializerInternalWriter.WriteReferenceIdProperty: 209 Move v190 @ X2_v4, [v184 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6A0]
+Import :            10 Il2CppClass.0x6F0   e.g. JsonWriter.WriteValue: 29 Move v47 @ X1_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6F0]
+Import :             9 Il2CppClass.typeHierarchy   e.g. JsonPropertyCollection..ctor: 90 Move v147 @ X10_v5, [v92 @ X9_v3 (Il2CppClass<System.Collections.Generic.List`1<Newtonsoft.Json.Serialization.JsonProperty>>)+C8]
+Import :             9 Il2CppClass.0x198   e.g. <>c__DisplayClass42_0.<CreateObjectContract>b__0: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Serialization.NamingStrategy>)+198]
+Import :             9 Il2CppClass.0x1A0   e.g. <>c__DisplayClass42_0.<CreateObjectContract>b__0: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Serialization.NamingStrategy>)+1A0]
+Import :             9 Il2CppClass.0x298   e.g. JsonConverter`1.CanConvert: 41 Move v60 @ X3_v1, [v54 @ X8_v5 (Il2CppClass<System.Type>)+298]
+Import :             9 static field storage at 0x0   e.g. JsonConvert.ToString: 47 Return [v45 @ X8_v4 (Il2CppStaticFields<Newtonsoft.Json.JsonConvert>)+v57 @ X9_v2 (System.Int32)]
+Import :             8 Il2CppClass.0x1F0   e.g. JsonTextWriter.DoWriteRawValueAsync: 50 Move v69 @ X3_v3, [v64 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+1F0]
+Import :             8 Il2CppClass.0x190   e.g. <MoveToContentFromNonContentAsync>d__14.MoveNext: 59 Move v235 @ X2_v2 (Il2CppMethodInfo), [v113 @ X8_v19 (Il2CppClass<Newtonsoft.Json.JsonReader>)+190]
+Import :             7 Il2CppClass.0x178   e.g. DynamicProxyMetaObject`1.GetDynamicMemberNames: 40 Move v59 @ X3_v1, [v63 @ X8_v4 (Il2CppClass<Newtonsoft.Json.Utilities.DynamicProxy`1<T>>)+178]
+Import :             7 Il2CppClass.0x2C0   e.g. JsonWriter.WriteTokenAsync: 34 Move v55 @ X6_v1, [v50 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2C0]
+Import :             7 Il2CppClass.0x280   e.g. JsonValidatingReader.get_Path: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+280]
+Import :             7 Il2CppClass.0x258   e.g. JsonValidatingReader.get_ValueType: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+258]
+Import :             7 Il2CppClass.0x688   e.g. JArray.set_Item: 53 Move v96 @ X4_v1, [v92 @ X8_v7 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+688]
+Import :             7 Il2CppClass.0x1E8   e.g. JsonTextWriter.DoWriteRawValueAsync: 49 Move v68 @ X4_v1, [v64 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonTextWriter>)+1E8]
+Import :             7 Il2CppClass.0x2C8   e.g. ReflectionUtils.GetMemberValue: 99 Move v275 @ X3_v10, [v182 @ X8_v14 (Il2CppClass<System.Reflection.MemberInfo>)+2C8]
+Import :             7 Il2CppClass.0x1C0   e.g. JsonWriter.AutoCompleteAsync: 197 Move v277 @ X2_v3, [v334 @ X8_v20 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1C0]
+Import :             7 Il2CppClass.0x1E0   e.g. JsonConverter`1.ReadJson: 127 Move v170 @ X1_v4, [v165 @ X9_v3 (Il2CppClass<Newtonsoft.Json.JsonConverter`1<T>>)+1E0]
+Import :             7 Il2CppClass.0x690   e.g. JArray.set_Item: 54 Move v97 @ X3_v2, [v92 @ X8_v7 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+690]
+Import :             6 Il2CppClass.0x218   e.g. JsonValidatingReader.get_QuoteChar: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+218]
+Import :             6 negative offset off a typed base   e.g. JsonValidatingReader.WriteToken: 859 CheckEqual v743 @ Z_v12 (System.Boolean), [v787 @ X10_v7 (System.Int32)-8], typeof(System.IDisposable)
+Import :             6 generic instance, past the layout, reference arguments   e.g. <GetEnumerator>d__2.MoveNext: 83 Move v108 @ X8_v63, [this @ X0 (Newtonsoft.Json.Serialization.DefaultContractResolver+EnumerableDictionaryWrapper`2<TEnumeratorKey, TEnumeratorValue>+<GetEnumerator>d__2<TEnumeratorKey, TEnumeratorValue>)+28]
+Import :             6 Il2CppClass.0x310   e.g. CollectionWrapper`1.System.Collections.IList.Add: 57 Move v80 @ X1_v4, [v77 @ X8_v12 (Il2CppClass<Newtonsoft.Json.Utilities.CollectionWrapper`1<T>>)+310]
+Import :             6 base has no type, from Move from [IEnumerator`1<T> + 0x0]   e.g. <Convert>d__14`2.MoveNext: 68 Add v408 @ X10_v24, [v318 @ X8_v41+B0], 8
+Import :             6 Il2CppClass.0x220   e.g. JsonValidatingReader.get_QuoteChar: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+220]
+Import :             6 Il2CppClass.0x8F0   e.g. DefaultContractResolver.CreateDictionaryContract: 299 Move v219 @ X2_v6, [v539 @ X8_v35 (Il2CppClass<System.Type>)+8F0]
+Import :             6 Il2CppClass.0x278   e.g. JsonValidatingReader.get_Path: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+278]
+Import :             6 Il2CppClass.0x1D8   e.g. JsonTextWriter.Flush: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<System.IO.TextWriter>)+1D8]
+Import :             6 Il2CppClass.0x188   e.g. FSharpUtils.CreateSeq: 71 Move v115 @ X3_v1, [v128 @ X8_v10 (Il2CppClass<Newtonsoft.Json.Utilities.ReflectionDelegateFactory>)+188]
+Import :             6 Il2CppClass.0x678   e.g. JsonWriter.WriteRawValue: 20 Move v23 @ X3_v1, [v18 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+678]
+Import :             6 generic instance, inside the layout, on no field, reference arguments   e.g. StructMultiKey`2.GetHashCode: 29 IndirectCall [v73 @ X8_v5+158], v77 @ X0_v2 (System.Int32), [this @ X0 (Newtonsoft.Json.Utilities.StructMultiKey`2<T1, T2>)+8], [v73 @ X8_v5+160], v18 @ X2, v19 @ X3, v20 @ X4, v21 @ X5, v22 @ X6, v23 @ X7, v24 @ V0, v25 @ V1, v26 @ V2, v27 @ V3, v28 @ V4, v29 @ V5, v30 @ V6, v31 @ V7
+Import :             6 Il2CppClass.0x680   e.g. JsonWriter.WriteRawValue: 21 Move v24 @ X2_v1, [v18 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+680]
+Import :             5 Il2CppClass.0x570   e.g. JsonSerializer.Serialize: 34 Move v54 @ X4_v1, [v49 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+570]
+Import :             5 Il2CppClass.0x650   e.g. JArray.Insert: 4 Move v5 @ X5_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+650]
+Import :             5 base has no type, from Move from List`1<Newtonsoft.Json.Converters.IXmlNode>   e.g. XmlNodeConverter.SerializeGroupedNodes: 503 CheckLess v1469 @ C_v55 (System.Boolean), [v103 @ X29_v14+18], [v349 @ X8_v67+18]
+Import :             5 Il2CppClass.0x1F8   e.g. <>c.<GetAttributeConstructor>b__47_0: 42 Move v61 @ X4_v1, [v56 @ X8_v4 (Il2CppClass<System.Reflection.ConstructorInfo>)+1F8]
+Import :             5 Il2CppClass.0x5B0   e.g. JsonWriter.WriteEnd: 45 Move v42 @ X1_v1, [v39 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5B0]
+Import :             5 Il2CppClass.0x568   e.g. JsonSerializer.Serialize: 33 Move v53 @ X5_v1, [v49 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+568]
+Import :             5 Il2CppClass.0x648   e.g. JArray.Insert: 3 Move v4 @ X6_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+648]
+Import :             5 Il2CppClass.0x288   e.g. ReflectionUtils.GetMemberUnderlyingType: 238 Move v301 @ X2_v2, [v183 @ X8_v7 (Il2CppClass<System.Reflection.MemberInfo>)+288]
+Import :             5 Il2CppClass.0x5A8   e.g. JsonWriter.WriteEnd: 44 Move v44 @ X2_v1, [v39 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5A8]
+Import :             5 base has no type, from Move from [JToken + 0x58]   e.g. JObject.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.CopyTo: 230 CallVoid KeyValuePair`2<System.Object, System.Object>..ctor, &v427 @ stack_-60_v12 (System.Collections.Generic.KeyValuePair`2<System.Object, System.Object>), [v780 @ X0_v78 (Newtonsoft.Json.Linq.JToken)+60], [v962 @ X8_v40+10]
+Import :             4 base has no type, from Add of ArrayAccess and Int32   e.g. JsonWriter.AutoComplete: 69 CheckEqual v133 @ Z_v6 (System.Boolean), [v141 @ X9_v6+20], 9
+Import :             4 Il2CppClass.0x700   e.g. JsonWriter.WriteValue: 31 Move v50 @ X1_v2, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+700]
+Import :             4 base has no type, from Move from [Object + 0x58]   e.g. JPropertyKeyedCollection.Compare: 253 CheckEqual v613 @ Z_v24 (System.Boolean), [v377 @ X8_v34+10], 0
+Import :             4 Il2CppClass.0x390   e.g. JsonSerializerProxy.set_MetadataPropertyHandling: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+390]
+Import :             4 Il2CppClass.0x550   e.g. JsonSerializer.Populate: 33 Move v53 @ X3_v1, [v48 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+550]
+Import :             4 Il2CppClass.0x560   e.g. JsonSerializer.Deserialize: 3 Move v4 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+560]
+Import :             4 Il2CppClass.0x2E0   e.g. DefaultContractResolver.GetClrTypeFullName: 80 Move v66 @ X1_v3, [v61 @ X8_v5 (Il2CppClass<System.Type>)+2E0]
+Import :             4 Il2CppClass.0x6B8   e.g. JsonWriter.WriteValue: 28 Move v46 @ X3_v1, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6B8]
+Import :             4 Il2CppClass.0x6C8   e.g. JsonWriter.WriteValue: 30 Move v49 @ X3_v1, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6C8]
+Import :             4 base has no type, from Subtract   e.g. JToken.Value: 19 Move v51 @ X8_v3, [v90 @ X3_v1+38]
+Import :             4 Il2CppClass.0x330   e.g. JsonReader.Dispose: 16 Move v18 @ X1_v1, [v16 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonReader>)+330]
+Import :             4 Il2CppClass.0x558   e.g. JsonSerializer.Deserialize: 2 Move v3 @ X4_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+558]
+Import :             4 base has no type, from Add of StringReference and Int32   e.g. StringReferenceExtensions.StartsWith: 69 Subtract v183 @ TEMP1_v8 (System.Int32), v189 @ X9_v7 (System.Int32), [v232 @ X8_v7+20]
+Import :             4 base has no type, from Move from [Il2CppClass<Newtonsoft.Json.Serialization.DefaultContractResolver+<>c> + 0x0]   e.g. DefaultContractResolver.GetSerializableMembers: 1014 Move v2097 @ X8_v30, [v2157 @ X0_v45+B8]
+Import :             4 base has no type, from Move from [Il2CppClass<Newtonsoft.Json.Linq.JToken> + 0xC8]   e.g. JObject.ValidateToken: 78 CheckNotEqual v214 @ TEMPCOND_v8 (System.Boolean), [v203 @ X10_v7+v118 @ X9_v8*8], typeof(Newtonsoft.Json.Linq.JProperty)
+Import :             4 Il2CppClass.0x630   e.g. JContainer.RemoveItemAt: 398 Move v400 @ X2_v15, [v442 @ X8_v27 (Il2CppClass<Newtonsoft.Json.Linq.JContainer>)+630]
+Import :             4 Il2CppClass.0x8E8   e.g. DefaultSerializationBinder.GetGenericTypeFromTypeName: 253 Move v245 @ X3_v5, [v262 @ X8_v15 (Il2CppClass<System.Type>)+8E8]
+Import :             4 Il2CppClass.0x1B8   e.g. JsonWriter.AutoCompleteAsync: 196 Move v280 @ X3_v3, [v334 @ X8_v20 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+1B8]
+Import :             4 Il2CppClass.0x628   e.g. JContainer.RemoveItemAt: 397 Move v389 @ X3_v4, [v442 @ X8_v27 (Il2CppClass<Newtonsoft.Json.Linq.JContainer>)+628]
+Import :             4 Il2CppClass.0x270   e.g. JsonValidatingReader.get_Depth: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+270]
+Import :             4 Il2CppMethodInfo.klass   e.g. DefaultContractResolver.GetSerializableMembers: 715 CheckLess v2195 @ C_v68 (System.Boolean), [v170 @ X0_v14 (System.Collections.Generic.IEnumerable`1<System.Object>)+18], [v2212 @ X8_v101 (Il2CppMethodInfo)+18]
+Import :             4 Il2CppClass.0x2D8   e.g. DefaultContractResolver.GetClrTypeFullName: 79 Move v65 @ X2_v1, [v61 @ X8_v5 (Il2CppClass<System.Type>)+2D8]
+Import :             4 Il2CppClass.0x2E8   e.g. ReflectionUtils.SetMemberValue: 149 Move v207 @ X5_v1, [v127 @ X8_v7 (Il2CppClass<System.Reflection.MemberInfo>)+2E8]
+Import :             4 Il2CppClass.0x6C0   e.g. JsonWriter.WriteValue: 29 Move v47 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6C0]
+Import :             4 Il2CppClass.0x6D0   e.g. JsonWriter.WriteValue: 31 Move v50 @ X2_v2, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6D0]
+Import :             3 Il2CppClass.0x380   e.g. JsonSerializerInternalReader.Populate: 209 Move v691 @ X1_v25 (System.String), [v598 @ X8_v17 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+380]
+Import :             3 base has no type, from Move from [Il2CppStaticFields<Newtonsoft.Json.Utilities.DateTimeUtils> + 0x0]   e.g. DateTimeUtils.GetDateValues: 206 CheckLess v219 @ C_v13 (System.Boolean), v263 @ X11_v10 (System.Int32), [v212 @ X8_v16+18]
+Import :             3 Il2CppClass.0x2B0   e.g. DefaultContractResolver.ResolveDictionaryKey: 11 Move v23 @ X2_v1, [v20 @ X9_v1 (Il2CppClass<Newtonsoft.Json.Serialization.DefaultContractResolver>)+2B0]
+Import :             3 base has no type, from Move from [Object + 0x20]   e.g. DiscriminatedUnionConverter.WriteJson: 257 CheckEqual v545 @ TEMP_v29 (System.Boolean), [v543 @ X8_v27+18], 0
+Import :             3 base has no type, from Move from RuntimeClassTypeAnalysisContext   e.g. JsonValidatingReader.WriteToken: 701 Move v900 @ X8_v130 (Il2CppStaticFields<Newtonsoft.Json.JsonValidatingReader+<>c>), [v1626 @ X0_v141+B8]
+Import :             3 Il2CppClass.0x140   e.g. JsonSerializer.SetupReader: 77 Move v167 @ X2_v1 (System.Globalization.CultureInfo&), [v74 @ X8_v48 (Il2CppClass<System.Globalization.CultureInfo>)+140]
+Import :             3 Il2CppClass.0x6F8   e.g. JsonWriter.WriteValue: 30 Move v49 @ X2_v2, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6F8]
+Import :             3 Il2CppClass.0x350   e.g. JsonSerializerProxy.set_ObjectCreationHandling: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+350]
+Import :             3 Il2CppClass.0x548   e.g. JsonSerializer.Populate: 32 Move v52 @ X4_v1, [v48 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+548]
+Import :             3 Il2CppClass.0x370   e.g. CollectionWrapper`1.System.Collections.IList.Remove: 59 Move v69 @ X1_v2 (Il2CppMethodInfo), [v124 @ X8_v14 (Il2CppClass<Newtonsoft.Json.Utilities.CollectionWrapper`1<T>>)+370]
+Import :             3 Il2CppClass.-0x8   e.g. DefaultContractResolver.GetSerializableMembers: 894 CheckEqual v1365 @ Z_v42 (System.Boolean), [v1340 @ X10_v42 (Il2CppClass<System.IDisposable>)-8], typeof(System.IDisposable)
+Import :             3 base has no type, from Add of [ReflectionDelegateFactory + 0x0] and Int32   e.g. ReflectionObject.Create: 148 Move v69 @ X0_v5 (Newtonsoft.Json.Utilities.ReflectionDelegateFactory), [v551 @ X8_v82+140]
+Import :             3 base has no type, from Add of Byte[] and an untyped local   e.g. BigInteger..ctor: 139 ShiftLeft v437 @ X14_v6 (System.Int32), [v433 @ X13_v9+1D], 24
+Import :             3 Il2CppClass.0x420   e.g. ReflectionUtils.EnsureNotByRefType: 20 Move v49 @ X1_v4, [v42 @ X8_v1 (Il2CppClass<System.Type>)+420]
+Import :             3 Il2CppClass.0x610   e.g. JsonWriter.WriteToken: 32 Move v52 @ X5_v1, [v47 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+610]
+Import :             3 Il2CppClass.0x268   e.g. JsonValidatingReader.get_Depth: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+268]
+Import :             3 Il2CppClass.0x640   e.g. JArray.IndexOf: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+640]
+Import :             3 Il2CppClass.0x670   e.g. JArray.Remove: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+670]
+Import :             3 Il2CppClass.0x3B8   e.g. ReflectionUtils.GetMemberUnderlyingType: 201 Move v301 @ X2_v2, [v149 @ X8_v9 (Il2CppClass<System.Reflection.MemberInfo>)+3B8]
+Import :             3 Il2CppClass.0x418   e.g. ReflectionUtils.EnsureNotByRefType: 19 Move v40 @ X2_v1, [v42 @ X8_v1 (Il2CppClass<System.Type>)+418]
+Import :             3 Il2CppClass.0x2A8   e.g. DefaultContractResolver.ResolveDictionaryKey: 10 Move v22 @ X3_v1, [v20 @ X9_v1 (Il2CppClass<Newtonsoft.Json.Serialization.DefaultContractResolver>)+2A8]
+Import :             3 Il2CppClass.0x388   e.g. JsonSerializerProxy.set_MetadataPropertyHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+388]
+Import :             3 Il2CppClass.0x5F0   e.g. JsonProperty.WritePropertyName: 10 Move v25 @ X3_v2, [v7 @ X9_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5F0]
+Import :             3 base has no type, from Move from AddressOf(stack_-30)   e.g. JsonTextReader.ReadAsDouble: 62 CheckNotEqual v105 @ TEMPCOND_v3 (System.Boolean), [v15 @ SYSREG+28], [v12 @ X29_v1-8]
+Import :             3 Il2CppClass.0x638   e.g. JArray.IndexOf: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+638]
+Import :             3 Il2CppClass.0x668   e.g. JArray.Remove: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JArray>)+668]
+Import :             3 Il2CppClass.0x3C0   e.g. ReflectionUtils.GetMemberUnderlyingType: 202 Move v315 @ X1_v3, [v149 @ X8_v9 (Il2CppClass<System.Reflection.MemberInfo>)+3C0]
+Import :             3 Il2CppClass.0x3D0   e.g. TypeExtensions.IsGenericTypeDefinition: 6 Move v6 @ X1_v1, [v4 @ X8_v1 (Il2CppClass<System.Type>)+3D0]
+Import :             3 Il2CppClass.0x328   e.g. JsonReader.Dispose: 15 Move v17 @ X2_v1, [v16 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonReader>)+328]
+Import :             2 Il2CppClass.0x338   e.g. CollectionWrapper`1.System.Collections.ICollection.CopyTo: 38 Move v62 @ X4_v1, [v57 @ X8_v4 (Il2CppClass<Newtonsoft.Json.Utilities.CollectionWrapper`1<T>>)+338]
+Import :             2 Il2CppClass.0x3F0   e.g. ReflectionUtils.GetBaseDefinition: 53 Move v79 @ X1_v6, [v88 @ X8_v5 (Il2CppClass<System.Reflection.MethodInfo>)+3F0]
+Import :             2 Il2CppClass.0x348   e.g. JsonSerializerProxy.set_ObjectCreationHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+348]
+Import :             2 Il2CppClass.0x4B8   e.g. JsonSerializerProxy.set_StringEscapeHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4B8]
+Import :             2 Il2CppClass.0x368   e.g. JsonSerializerProxy.set_ConstructorHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+368]
+Import :             2 Il2CppClass.0x4C8   e.g. JsonSerializerProxy.get_DateFormatString: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4C8]
+Import :             2 Il2CppClass.0x378   e.g. JsonSerializerProxy.get_MetadataPropertyHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+378]
+Import :             2 base has no type, from Add of [Il2CppClass<Newtonsoft.Json.Serialization.NamingStrategy> + 0xC8] and Int32   e.g. StringEnumConverter.get_CamelCaseText: 43 Subtract v81 @ TEMP1_v4, [v77 @ X9_v5-8], typeof(Newtonsoft.Json.Serialization.CamelCaseNamingStrategy)
+Import :             2 base has no type, from Add of the field UInt32[] and Immediate   e.g. Kernel.SingleByteDivideInPlace: 29 And v136 @ X13_v5 (System.Int32), [v52 @ X11_v4+v56 @ X8_v4 (System.UInt32)*4], 4294967295
+Import :             2 base has no type, from Move from [Int32 + 0xB8]   e.g. JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters: 902 Move v1489 @ X27_v74 (System.Func`2<Newtonsoft.Json.Serialization.JsonProperty, System.String>), [v3300 @ X9_v201+10]
+Import :             2 Il2CppClass.0x300   e.g. JsonSerializerProxy.get_NullValueHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+300]
+Import :             2 Il2CppClass.0x320   e.g. JsonSerializerProxy.get_DefaultValueHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+320]
+Import :             2 Il2CppClass.0x160   e.g. X509CertificateCollection.GetHashCode: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+160]
+Import :             2 Il2CppClass.0x340   e.g. CollectionWrapper`1.System.Collections.ICollection.CopyTo: 39 Move v63 @ X3_v1, [v57 @ X8_v4 (Il2CppClass<Newtonsoft.Json.Utilities.CollectionWrapper`1<T>>)+340]
+Import :             2 Il2CppClass.0x360   e.g. JsonSerializerProxy.get_ConstructorHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+360]
+Import :             2 base has no type, from Add of Char[] and Int32   e.g. DefaultJsonNameTable.TextEquals: 64 Subtract v184 @ TEMP1_v8 (System.Int32), v154 @ X9_v6 (System.Int32), [v229 @ X8_v7+20]
+Import :             2 base has no type, from Move from AddressOf(stack_-70)   e.g. JsonTextReader.ReadAsDateTimeOffset: 53 Move [v19 @ X8+10], [v51 @ X20_v2+10]
+Import :             2 static field storage at 0x12E   e.g. JEnumerable`1.GetEnumerator: 79 Move v136 @ X9_v4, [v157 @ X8_v16 (Il2CppStaticFields<Newtonsoft.Json.Linq.JEnumerable`1<T>>)+12E]
+Import :             2 Il2CppClass.0x3C8   e.g. TypeExtensions.IsGenericTypeDefinition: 5 Move v5 @ X2_v1, [v4 @ X8_v1 (Il2CppClass<System.Type>)+3C8]
+Import :             2 base has no type, from Add of the field StringReference and Int32   e.g. JsonTextReader.ParseReadNumber: 209 CheckEqual v235 @ Z_v13 (System.Boolean), [v312 @ X9_v13+20], 46
+Import :             2 Il2CppClass.0x3E8   e.g. ReflectionUtils.GetBaseDefinition: 52 Move v75 @ X2_v6, [v88 @ X8_v5 (Il2CppClass<System.Reflection.MethodInfo>)+3E8]
+Import :             2 Il2CppClass.0x5D0   e.g. JsonWriter.WriteEnd: 41 Move v42 @ X1_v1, [v25 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5D0]
+Import :             2 Il2CppClass.0x608   e.g. JsonWriter.WriteToken: 31 Move v51 @ X6_v1, [v47 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+608]
+Import :             2 Il2CppClass.0x5E0   e.g. JsonWriter.WritePropertyName: 2 Move v3 @ X2_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5E0]
+Import :             2 Il2CppClass.0x2B8   e.g. JsonWriter.WriteTokenAsync: 33 Move v54 @ X7_v1, [v50 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+2B8]
+Import :             2 Il2CppClass.0x398   e.g. ReflectionUtils.IsOverridenGenericMember: 162 Move v162 @ X2_v6, [v207 @ X8_v17 (Il2CppClass<System.Type>)+398]
+Import :             2 Il2CppClass.0x4C0   e.g. JsonSerializerProxy.set_StringEscapeHandling: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4C0]
+Import :             2 Il2CppClass.0x4D0   e.g. JsonSerializerProxy.get_DateFormatString: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4D0]
+Import :             2 base has no type, from Move from [JContainer + 0x58]   e.g. <ReadContentFromAsync>d__1.MoveNext: 143 CheckEqual v206 @ TEMP_v31 (System.Boolean), [v342 @ X9_v16+10], 0
+Import :             2 base has no type, from Add of the field IntPtr[] and Int32   e.g. <ReadStringIntoBufferAsync>d__9.MoveNext: 985 CheckNotEqual v1130 @ TEMPCOND_v16 (System.Boolean), [v1481 @ X11_v13+20], 92
+Import :             2 base has no type, from Move from AddressOf(stack_-C0)   e.g. JsonTextReader.ParseReadNumber: 1340 Call JsonTextReader.ThrowReaderError, v384 @ X0_v46 (Newtonsoft.Json.JsonReaderException), v354 @ X19_v3 (Newtonsoft.Json.JsonReaderException), v443 @ X0_v44 (System.String), [v421 @ X20_v8+v430 @ X8_v17 (System.Int32)*8]
+Import :             2 Il2CppClass.0x3A0   e.g. ReflectionUtils.IsOverridenGenericMember: 163 Move v172 @ X1_v12, [v207 @ X8_v17 (Il2CppClass<System.Type>)+3A0]
+Import :             2 Il2CppClass.0x308   e.g. JsonSerializerProxy.set_NullValueHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+308]
+Import :             2 Il2CppClass.0x6E0   e.g. JsonWriter.WriteValue: 31 Move v50 @ X2_v2, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6E0]
+Import :             2 base has no type, from Add of [JsonReader + 0x8C] and Immediate   e.g. <ParseValueAsync>d__8.MoveNext: 446 Move v662 @ X10_v13 (System.Int32), [v666 @ X8_v21+18]
+Import :             2 Il2CppClass.0x318   e.g. JsonSerializerProxy.get_DefaultValueHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+318]
+Import :             2 Il2CppClass.0x158   e.g. X509CertificateCollection.GetHashCode: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<System.Collections.ArrayList>)+158]
+Import :             2 Il2CppClass.0x5C8   e.g. JsonWriter.WriteEnd: 40 Move v44 @ X2_v1, [v25 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5C8]
+Import :             2 absolute address   e.g. JsonReader.ReadAsBytes: 277 And v287 @ TEMP_v11 (System.Int32), [2357C90], 1
+Import :             2 Il2CppClass.0x5D8   e.g. JsonWriter.WritePropertyName: 1 Move v2 @ X3_v1, [v0 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5D8]
+Import :             2 base has no type, from Move from [Il2CppClass<System.Collections.Generic.List`1<Newtonsoft.Json.Serialization.JsonProperty>> + 0xC8]   e.g. JsonPropertyCollection..ctor: 102 CheckNotEqual v159 @ TEMPCOND_v5 (System.Boolean), [v147 @ X10_v5+v148 @ X9_v5*8], typeof(System.Collections.Generic.List`1<Newtonsoft.Json.Serialization.JsonProperty>)
+Import :             1 Il2CppClass.0x520   e.g. JsonSerializerProxy.set_MaxDepth: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+520]
+Import :             1 Il2CppClass.0x5E8   e.g. JsonProperty.WritePropertyName: 9 Move v24 @ X4_v1, [v7 @ X9_v1 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5E8]
+Import :             1 Il2CppClass.0x530   e.g. JsonSerializerProxy.get_CheckAdditionalContent: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+530]
+Import :             1 Il2CppClass.0x5F8   e.g. JsonSerializerInternalWriter.HandleError: 30 Move v88 @ X9_v1, [v80 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+5F8]
+Import :             1 base has no type, from Move from [Object + 0x10]   e.g. DataTableConverter.WriteJson: 292 Move v961 @ X0_v81, [v967 @ X8_v49+40]
+Import :             1 Il2CppClass.0x4A8   e.g. JsonSerializerProxy.get_StringEscapeHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4A8]
+Import :             1 Il2CppClass.0x358   e.g. JsonSerializerProxy.get_ConstructorHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+358]
+Import :             1 Il2CppClass.0x540   e.g. JsonSerializerProxy.set_CheckAdditionalContent: 8 Move v9 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+540]
+Import :             1 Il2CppClass.0x710   e.g. JsonWriter.WriteValue: 37 Move v55 @ X2_v2, [v45 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+710]
+Import :             1 Il2CppClass.0x720   e.g. JsonWriter.WriteValue: 29 Move v47 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+720]
+Import :             1 Il2CppClass.0x730   e.g. JsonWriter.WriteValue: 29 Move v47 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+730]
+Import :             1 Il2CppClass.0x4D8   e.g. JsonSerializerProxy.set_DateFormatString: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4D8]
+Import :             1 Il2CppClass.0x6A8   e.g. JsonWriter.WriteValue: 28 Move v46 @ X3_v1, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6A8]
+Import :             1 Il2CppClass.0x740   e.g. JsonWriter.WriteValue: 29 Move v47 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+740]
+Import :             1 Il2CppClass.0x4E8   e.g. JsonSerializerProxy.get_Culture: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4E8]
+Import :             1 array at 0x0, from Move from the field PropertyInfo[]   e.g. DiscriminatedUnionConverter.ReadJson: 381 Call PropertyInfo.get_PropertyType, v225 @ X0_v94 (System.Type), [v258 @ X8_v28 (System.Reflection.PropertyInfo[])+v123 @ X25_v18 (System.Int32)*8]
+Import :             1 Il2CppClass.0x750   e.g. JsonWriter.WriteValue: 29 Move v47 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+750]
+Import :             1 Il2CppClass.0x4F8   e.g. JsonSerializerProxy.set_Culture: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4F8]
+Import :             1 Il2CppClass.0x488   e.g. JsonSerializerProxy.get_FloatFormatHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+488]
+Import :             1 Il2CppClass.0x760   e.g. JsonWriter.WriteValue: 29 Move v47 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+760]
+Import :             1 Il2CppClass.0x498   e.g. JsonSerializerProxy.set_FloatFormatHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+498]
+Import :             1 Il2CppClass.0x6D8   e.g. JsonWriter.WriteValue: 30 Move v49 @ X3_v1, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6D8]
+Import :             1 Il2CppClass.0x770   e.g. JsonWriter.WriteValue: 31 Move v49 @ X3_v1, [v42 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+770]
+Import :             1 Il2CppClass.0x508   e.g. JsonSerializerProxy.get_MaxDepth: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+508]
+Import :             1 base has no type, from Add of Array and an untyped local   e.g. DeriveBytes.Derive: 374 Move v335[v368 @ X8_v35 (System.Int32)], [v808 @ X9_v19+20]
+Import :             1 Il2CppClass.0x518   e.g. JsonSerializerProxy.set_MaxDepth: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+518]
+Import :             1 base has no type, from Move from [Boolean + 0xC0]   e.g. CollectionWrapper`1.VerifyValueType: 64 Call Type.GetTypeFromHandle, v102 @ X0_v18 (System.Type), [v87 @ X8_v6+B8]
+Import :             1 Il2CppClass.0x528   e.g. JsonSerializerProxy.get_CheckAdditionalContent: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+528]
+Import :             1 Il2CppClass.0x538   e.g. JsonSerializerProxy.set_CheckAdditionalContent: 7 Move v8 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+538]
+Import :             1 Il2CppClass.0x3A8   e.g. JsonSerializerProxy.get_ContractResolver: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+3A8]
+Import :             1 Il2CppClass.0x8D0   e.g. BinaryConverter.WriteJson: 14 Move v40 @ X2_v2, [v36 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+8D0]
+Import :             1 Il2CppClass.vtable   e.g. JContainer.IsTokenUnchanged: 60 Move v135 @ X3_v1, [v40 @ X8_v5 (Il2CppClass<Newtonsoft.Json.Linq.JToken>)+138]
+Import :             1 base has no type, from Move from AddressOf(stack_-20)   e.g. <>c__1`1.<EnsureType>b__1_0: 36 CheckNotEqual v50 @ TEMPCOND_v1 (System.Boolean), [v9 @ SYSREG+28], [v6 @ X29_v1-8]
+Import :             1 static field storage at 0x1   e.g. JsonTypeReflector.get_DynamicCodeGeneration: 68 Return [v83 @ X8_v8 (Il2CppStaticFields<Newtonsoft.Json.Serialization.JsonTypeReflector>)+1]
+Import :             1 base has no type, from Move from Immediate   e.g. PKCS12.set_Password: 119 CheckEqual v213 @ TEMP_v16 (System.Boolean), [v124 @ X24_v2+857], 0
+Import :             1 array at 0x0, from Move from the field UInt32[]   e.g. Kernel.DwordDivMod: 73 And v304 @ X13_v8 (System.Int32), [v132 @ X8_v14 (System.UInt32[])+v111 @ X11_v7 (System.Int32)*4], 4294967295
+Import :             1 Il2CppClass.0x400   e.g. JsonSerializerProxy.set_Formatting: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+400]
+Import :             1 Il2CppClass.0x910   e.g. JObject.set_Item: 36 Move v50 @ X2_v4, [v44 @ X8_v2 (Il2CppClass<Newtonsoft.Json.Linq.JObject>)+910]
+Import :             1 Il2CppMethodInfo.0x88   e.g. JsonSchemaModelBuilder.BuildNodeModel: 253 Move v842 @ X22_v29 (System.Collections.Generic.Dictionary`2<Newtonsoft.Json.Schema.JsonSchemaNode, Newtonsoft.Json.Schema.JsonSchemaModel>), [v229 @ X28_v4 (Il2CppMethodInfo)+88]
+Import :             1 static field storage at 0x3   e.g. JsonTypeReflector.get_FullyTrusted: 83 Return [v82 @ X8_v8 (Il2CppStaticFields<Newtonsoft.Json.Serialization.JsonTypeReflector>)+3]
+Import :             1 Il2CppClass.0x410   e.g. JsonSerializerProxy.get_DateFormatHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+410]
+Import :             1 Il2CppClass.0x920   e.g. JObject.InternalPropertyChanging: 7 Move v8 @ X2_v1, [v4 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JObject>)+920]
+Import :             1 Il2CppClass.0x430   e.g. JsonSerializerProxy.get_DateTimeZoneHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+430]
+Import :             1 Il2CppClass.0x7A8   e.g. JsonWriter.WriteValue: 30 Move v49 @ X3_v1, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+7A8]
+Import :             1 Il2CppClass.0x600   e.g. JsonSerializerInternalWriter.HandleError: 31 Move v111 @ X1_v2, [v80 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+600]
+Import :             1 Il2CppClass.0x8B8   e.g. DataTableConverter.GetColumnDataType: 130 Move v146 @ X2_v3, [v163 @ X8_v13 (Il2CppClass<System.Type>)+8B8]
+Import :             1 Il2CppClass.0x440   e.g. JsonSerializerProxy.set_DateTimeZoneHandling: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+440]
+Import :             1 Il2CppClass.0x8C8   e.g. BinaryConverter.WriteJson: 13 Move v39 @ X3_v1, [v36 @ X8_v2 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+8C8]
+Import :             1 Il2CppClass.0x450   e.g. JsonSerializerProxy.get_DateParseHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+450]
+Import :             1 Il2CppClass.0x460   e.g. JsonSerializerProxy.set_DateParseHandling: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+460]
+Import :             1 Il2CppClass.0x470   e.g. JsonSerializerProxy.get_FloatParseHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+470]
+Import :             1 base has no type, from Add of IndexOutOfRangeException and Int32   e.g. ConvertUtils.Int64TryParse: 179 Subtract v299 @ X9_v6 (System.Int32), [v494 @ X9_v7+20], 48
+Import :             1 base has no type, from Move from [<GetEnumerator>d__2<TEnumeratorKey, TEnumeratorValue> + 0x28]   e.g. <GetEnumerator>d__2.MoveNext: 88 Move v254 @ X24_v10, [v108 @ X8_v63+10]
+Import :             1 Il2CppClass.0x788   e.g. JsonWriter.WriteValue: 30 Move v48 @ X4_v1, [v42 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+788]
+Import :             1 Il2CppClass.0x850   e.g. TypeExtensions.BaseType: 6 Move v6 @ X1_v1, [v4 @ X8_v1 (Il2CppClass<System.Type>)+850]
+Import :             1 Il2CppClass.0x798   e.g. JsonWriter.WriteValue: 28 Move v46 @ X4_v1, [v42 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+798]
+Import :             1 Il2CppMethodInfo.virtualMethodPointer   e.g. DictionaryWrapper`2.Contains: 195 Move v151 @ X0_v8, [v231 @ X1_v1 (Il2CppMethodInfo)+8]
+Import :             1 static field storage at 0xB0   e.g. JEnumerable`1.GetEnumerator: 83 Add v145 @ X10_v5, [v157 @ X8_v16 (Il2CppStaticFields<Newtonsoft.Json.Linq.JEnumerable`1<T>>)+B0], 8
+Import :             1 Il2CppClass.0x908   e.g. JObject.set_Item: 35 Move v49 @ X3_v1, [v44 @ X8_v2 (Il2CppClass<Newtonsoft.Json.Linq.JObject>)+908]
+Import :             1 base has no type, from Add of Int32 and Immediate   e.g. JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters: 2401 Move v3009 @ X1_v2 (Il2CppClass<System.IDisposable>), [v4030 @ X0_v17+8]
+Import :             1 Il2CppClass.0x408   e.g. JsonSerializerProxy.get_DateFormatHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+408]
+Import :             1 Il2CppClass.0x918   e.g. JObject.InternalPropertyChanging: 6 Move v7 @ X3_v1, [v4 @ X8_v1 (Il2CppClass<Newtonsoft.Json.Linq.JObject>)+918]
+Import :             1 Il2CppClass.0x3D8   e.g. JsonSerializerProxy.set_Context: 6 Move v6 @ X4_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+3D8]
+Import :             1 byref at 0x10, from Move from AddressOf(stack_-A0, <DoReadAsDecimalAsync>d__49)   e.g. <DoReadAsDecimalAsync>d__49.MoveNext: 135 Move [v1 @ X29-30], [v47 @ X20_v2 (<DoReadAsDecimalAsync>d__49&)+10]
+Import :             1 Il2CppClass.0x428   e.g. JsonSerializerProxy.get_DateTimeZoneHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+428]
+Import :             1 Il2CppClass.0x438   e.g. JsonSerializerProxy.set_DateTimeZoneHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+438]
+Import :             1 Il2CppClass.0x7A0   e.g. JsonWriter.WriteValue: 29 Move v47 @ X3_v1, [v42 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+7A0]
+Import :             1 Il2CppClass.0x3F8   e.g. JsonSerializerProxy.set_Formatting: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+3F8]
+Import :             1 Il2CppClass.0x448   e.g. JsonSerializerProxy.get_DateParseHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+448]
+Import :             1 Il2CppClass.0x7B0   e.g. JsonWriter.WriteValue: 31 Move v50 @ X2_v2, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+7B0]
+Import :             1 Il2CppClass.0x708   e.g. JsonWriter.WriteValue: 36 Move v54 @ X3_v1, [v45 @ X8_v4 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+708]
+Import :             1 Il2CppClass.0x4A0   e.g. JsonSerializerProxy.set_FloatFormatHandling: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4A0]
+Import :             1 Il2CppClass.0x458   e.g. JsonSerializerProxy.set_DateParseHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+458]
+Import :             1 Il2CppClass.0x580   e.g. JsonSerializerInternalReader.CreateJObject: 47 Move v163 @ X1_v11 (Il2CppClass<System.String>), [v65 @ X8_v17 (Il2CppClass<Newtonsoft.Json.Linq.JTokenWriter>)+580]
+Import :             1 Il2CppClass.0x718   e.g. JsonWriter.WriteValue: 28 Move v46 @ X3_v1, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+718]
+Import :             1 Il2CppClass.0x4B0   e.g. JsonSerializerProxy.get_StringEscapeHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4B0]
+Import :             1 Il2CppClass.0x468   e.g. JsonSerializerProxy.get_FloatParseHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+468]
+Import :             1 byref at 0x10, from Move from AddressOf(stack_-A0, <DoReadAsDateTimeOffsetAsync>d__47)   e.g. <DoReadAsDateTimeOffsetAsync>d__47.MoveNext: 135 Move [v1 @ X29-40], [v47 @ X20_v2 (<DoReadAsDateTimeOffsetAsync>d__47&)+10]
+Import :             1 Il2CppClass.0x728   e.g. JsonWriter.WriteValue: 28 Move v46 @ X3_v1, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+728]
+Import :             1 Il2CppClass.0x478   e.g. JsonSerializerProxy.set_FloatParseHandling: 6 Move v6 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+478]
+Import :             1 base has no type, from Add of [Type + 0x18] and Int32   e.g. EnumUtils.ParseEnum: 149 Move v694 @ X20_v2 (System.UInt64), [v597 @ X9_v27+20]
+Import :             1 Il2CppClass.0x738   e.g. JsonWriter.WriteValue: 28 Move v46 @ X3_v1, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+738]
+Import :             1 Il2CppClass.0x848   e.g. TypeExtensions.BaseType: 5 Move v5 @ X2_v1, [v4 @ X8_v1 (Il2CppClass<System.Type>)+848]
+Import :             1 base has no type, from Move from [IEnumerable`1<System.Object> + 0x10]   e.g. DefaultContractResolver.GetSerializableMembers: 489 CheckLess v1987 @ C_v96 (System.Boolean), [v170 @ X0_v14 (System.Collections.Generic.IEnumerable`1<System.Object>)+18], [v476 @ X8_v147+18]
+Import :             1 Il2CppClass.0x780   e.g. JsonWriter.WriteValue: 31 Move v50 @ X2_v2, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+780]
+Import :             1 Il2CppClass.0x748   e.g. JsonWriter.WriteValue: 28 Move v46 @ X3_v1, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+748]
+Import :             1 Il2CppClass.0x2F8   e.g. JsonSerializerProxy.get_NullValueHandling: 6 Move v6 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+2F8]
+Import :             1 Il2CppClass.0x4E0   e.g. JsonSerializerProxy.set_DateFormatString: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4E0]
+Import :             1 Il2CppClass.0x6B0   e.g. JsonWriter.WriteValue: 29 Move v47 @ X2_v2, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+6B0]
+Import :             1 Il2CppClass.0x790   e.g. JsonWriter.WriteValue: 31 Move v49 @ X3_v1, [v42 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+790]
+Import :             1 Il2CppClass.0x758   e.g. JsonWriter.WriteValue: 28 Move v46 @ X3_v1, [v38 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+758]
+Import :             1 Il2CppClass.0x4F0   e.g. JsonSerializerProxy.get_Culture: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+4F0]
+Import :             1 Il2CppClass.0x480   e.g. JsonSerializerProxy.set_FloatParseHandling: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+480]
+Import :             1 Il2CppClass.0x768   e.g. JsonWriter.WriteValue: 30 Move v48 @ X4_v1, [v42 @ X8_v5 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+768]
+Import :             1 Il2CppClass.0x8C0   e.g. DataTableConverter.GetColumnDataType: 131 Move v157 @ X1_v8, [v163 @ X8_v13 (Il2CppClass<System.Type>)+8C0]
+Import :             1 Il2CppClass.0x104   e.g. DictionaryWrapper`2.CopyTo: 326 Multiply v1223 @ TEMP_v59, [v1221 @ X8_v70 (Il2CppClass<System.Collections.Generic.KeyValuePair`2<TKey, TValue>[]>)+104], v416 @ X28_v11 (System.Int32)
+Import :             1 base has no type, from Add of [Il2CppClass<System.Xml.XmlNode> + 0xC8] and Int32   e.g. XmlNodeWrapper.WrapNode: 120 CheckNotEqual v223 @ TEMPCOND_v6 (System.Boolean), [v212 @ X8_v10-8], v87 @ X1_v4
+Import :             1 Il2CppClass.0x490   e.g. JsonSerializerProxy.get_FloatFormatHandling: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+490]
+Import :             1 Il2CppClass.0x3B0   e.g. JsonSerializerProxy.get_ContractResolver: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+3B0]
+Import :             1 Il2CppClass.0x778   e.g. JsonWriter.WriteValue: 30 Move v49 @ X3_v1, [v41 @ X8_v3 (Il2CppClass<Newtonsoft.Json.JsonWriter>)+778]
+Import :             1 Il2CppClass.0x500   e.g. JsonSerializerProxy.set_Culture: 7 Move v7 @ X2_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+500]
+Import :             1 Il2CppClass.0x510   e.g. JsonSerializerProxy.get_MaxDepth: 7 Move v7 @ X1_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+510]
+Import :             1 Il2CppClass.0x3E0   e.g. JsonSerializerProxy.set_Context: 7 Move v7 @ X3_v1, [v5 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonSerializer>)+3E0]
+Import : Il2Cpp method body recovery: 18628 locals the analysis could not type, by what defines them:
+Import :          7501 written by nothing, first read by an unresolved call   e.g. <HandleNullAsync>d__35.MoveNext: v22
+Import :          5043 written by nothing [never read]   e.g. JsonConverter`1.WriteJson: v21
+Import :          1203 Move from memory [never read]   e.g. <HandleNullAsync>d__35.MoveNext: 277 Move v499 @ X8_v7, [v477 @ X0_v15 (System.Runtime.CompilerServices.ConfiguredTaskAwaitable`1<System.Boolean>)]
+Import :          1175 Call - the return of a call whose target is unknown [never read]   e.g. DefaultJsonNameTable.Get: 111 Call E0A5C4, v212 @ X0_v10, typeof(Newtonsoft.Json.DefaultJsonNameTable), key @ X1 (System.Char[]), start @ X2 (System.Int32), length @ X3 (System.Int32), methodInfo @ X4 (Il2CppMethodInfo), v33 @ X5, v34 @ X6, v35 @ X7, v36 @ V0, v37 @ V1, v38 @ V2, v39 @ V3, v40 @ V4, v41 @ V5, v42 @ V6, v43 @ V7
+Import :           630 written by nothing, first read by IndirectCall   e.g. JsonSerializer.SetupReader: v44
+Import :           573 Call - the return of a resolved method (typed) [never read]   e.g. JsonSerializer.ApplySerializerSettings: 120 Call JsonSerializer.set_TypeNameHandling, v382 @ X0_v114, serializer @ X0 (Newtonsoft.Json.JsonSerializer), [settings @ X1 (Newtonsoft.Json.JsonSerializerSettings)+CC]
+Import :           296 Add, first read by Add   e.g. DefaultJsonNameTable.Get: 80 Add v271 @ X10_v10, v296 @ X10_v8, 32
+Import :           287 Call - the return of a call whose target is unknown, first read by an unresolved call   e.g. <MatchAndSetAsync>d__21.MoveNext: 232 Call F0A7CC, v319 @ X0_v37, v303 @ X20_v5 (System.OutOfMemoryException), v294 @ X1_v12 (Il2CppMethodInfo), v292 @ X2_v6, 0, v23 @ X4, v24 @ X5, v25 @ X6, v26 @ X7, this.<>u__1 (System.Runtime.CompilerServices.ConfiguredTaskAwaitable`1<System.Boolean>+ConfiguredTaskAwaiter<System.Boolean>), v28 @ V1, v29 @ V2, v30 @ V3, v31 @ V4, v32 @ V5, v33 @ V6, v34 @ V7
+Import :           203 Subtract, first read by Move   e.g. JsonConverter`1.ReadJson: 114 Subtract v164 @ X8_v12, &v25 @ stack_-60_v2, 12
+Import :           174 IsInst, first read by CheckEqual   e.g. JsonConvert.SerializeXNode: 49 IsInst v73 @ X0_v14, typeof(Newtonsoft.Json.JsonConverter), v46 @ X0_v3 (Newtonsoft.Json.Converters.XmlNodeConverter)
+Import :           172 Move from memory, first read by Subtract   e.g. JsonConvert.DeserializeObject: 178 Move v361 @ X9_v7, [v188 @ X8_v6 (Il2CppClass<Newtonsoft.Json.JsonTextReader>)+12E]
+Import :           132 Add [never read]   e.g. DefaultJsonNameTable.TextEquals: 59 Add v229 @ X8_v7, str2 @ X1 (System.Char[]), v152 @ TEMPSHIFT_v5 (System.Int32)
+Import :            92 Call - the return of a call whose target is unknown, first read by And   e.g. <MatchAndSetAsync>d__21.MoveNext: 199 Call "il2cpp_vm_class_is_assignable_from", v326 @ X0_v44, typeof(System.Exception), [v324 @ X8_v14], 0, 0, v23 @ X4, v24 @ X5, v25 @ X6, v26 @ X7, this.<>u__1 (System.Runtime.CompilerServices.ConfiguredTaskAwaitable`1<System.Boolean>+ConfiguredTaskAwaiter<System.Boolean>), v28 @ V1, v29 @ V2, v30 @ V3, v31 @ V4, v32 @ V5, v33 @ V6, v34 @ V7
+Import :            77 Move of a constant, first read by an unresolved call   e.g. JsonTextReader.Read: -1 Move v319 @ X3_v3, 0
+Import :            64 Move of AddressOf [never read]   e.g. JsonConverter`1.WriteJson: 11 Move v20 @ X29_v1, &v21 @ stack_-50_v2
+Import :            63 IndirectCall [never read]   e.g. JsonConverter`1.ReadJson: 131 IndirectCall [v170 @ X1_v4+10], v174 @ X0_v9, [v170 @ X1_v4+8], [v165 @ X9_v3 (Il2CppClass<Newtonsoft.Json.JsonConverter`1<T>>)+1E0], this @ X0 (Newtonsoft.Json.JsonConverter`1<T>), v221 @ X3_v2, v47 @ X20_v1 (Il2CppClass<T>), methodInfo @ X5 (Il2CppMethodInfo), v57 @ X6, v58 @ X7, v59 @ V0, v60 @ V1, v61 @ V2, v62 @ V3, v63 @ V4, v64 @ V5, v65 @ V6, v66 @ V7
+Import :            63 Call - the return of a call whose target is unknown, first read by CheckEqual   e.g. JsonValidatingReader.get_CurrentMemberSchemas: 131 Call "il2cpp_codegen_object_is_inst", v313 @ X0_v123, this._model (Newtonsoft.Json.Schema.JsonSchemaModel), [v310 @ X8_v44 (Il2CppClass<System.Collections.Generic.IEnumerable`1<Newtonsoft.Json.Schema.JsonSchemaModel>>)+40], v35 @ X2 (System.Int32), v474 @ X3_v1, v37 @ X4, v38 @ X5, v39 @ X6, v40 @ X7, v41 @ V0, v42 @ V1, v43 @ V2, v44 @ V3, v45 @ V4, v46 @ V5, v47 @ V6, v48 @ V7
+Import :            62 Add, first read by And   e.g. JsonConverter`1.WriteJson: 40 Add v64 @ X9_v2, [v62 @ X1_v1 (Il2CppClass<T>)+FC], 15
+Import :            62 Add, first read by CallVoid   e.g. <ReadArrayIntoByteArrayAsync>d__5.MoveNext: 208 Add v217 @ X0_v62, this @ X0 (Newtonsoft.Json.JsonReader+<ReadArrayIntoByteArrayAsync>d__5), 8
+Import :            50 Add, first read by ShiftLeft   e.g. BidirectionalDictionary`2.Set: 62 Add v257 @ X9_v34, [v243 @ X10_v26], 7
+Import :            48 Subtract, first read by an unresolved call   e.g. JsonConverter`1.WriteJson: 42 Subtract v66 @ X24_v2, &v60 @ stack_-70_v1, v65 @ X9_v3 (System.Int32)
+Import :            39 written by nothing, first read by Move   e.g. <ParseCommentAsync>d__16.MoveNext: v1087
+Import :            38 Move from memory, first read by IndirectCall   e.g. JsonReader.MoveToContent: 6 Move v41 @ X1_v2, [v4 @ X8_v1 (Il2CppClass<Newtonsoft.Json.JsonReader>)+240]
+Import :            31 Add, first read by Move   e.g. JsonTextWriter.WriteNumberToBuffer: 80 Add v85 @ X15_v5, v202 @ X15_v4, 48
+Import :            28 Subtract, first read by CheckEqual   e.g. JsonReader.SetStateBasedOnCurrent: 8 Subtract v12 @ TEMP1_v1, this._currentPosition (Newtonsoft.Json.JsonPosition), 3
+Import :            28 Move from memory, first read by an unresolved call   e.g. JsonTextReader.FinishReadQuotedStringValue: 188 Move v105 @ V0_v2, [this @ X0 (Newtonsoft.Json.JsonTextReader)]
+Import :            28 Subtract, first read by IndirectCall   e.g. JsonConverter`1.WriteJson: 85 Subtract v213 @ X3_v1, &v21 @ stack_-50_v2, 32
+Import :            26 Call - the return of a call whose target is unknown, first read by Move   e.g. JsonConverter`1.WriteJson: 71 Call E0A690, v152 @ X0_v41, value @ X2 (System.Object), typeof(Il2CppClass<T>), v66 @ X24_v2, serializer @ X3 (Newtonsoft.Json.JsonSerializer), methodInfo @ X4 (Il2CppMethodInfo), v43 @ X5, v44 @ X6, v45 @ X7, v46 @ V0, v47 @ V1, v48 @ V2, v49 @ V3, v50 @ V4, v51 @ V5, v52 @ V6, v53 @ V7
+Import :            22 Move of a constant [never read]   e.g. BoxedPrimitives..cctor: 60 Move v74 @ stack_-88_v1, 0
+Import :            21 Move from a typed local, first read by an unresolved call   e.g. <ParseConstructorAsync>d__25.MoveNext: -1 Move v171 @ X20_v5, v216 @ X0_v26 (System.NullReferenceException)
+Import :            19 Move from another untyped local, first read by Move   e.g. ConvertUtils.DecimalTryParse: -1 Move v440 @ stack_-B0_v6, v1346 @ X12_v23
+Import :            18 Move from another untyped local, first read by an unresolved call   e.g. JsonConverter`1.ReadJson: -1 Move v123 @ X0_v5, v152 @ X26_v3
+Import :            17 Move from memory, first read by Add   e.g. <ParsePostValueAsync>d__4.MoveNext: 116 Move v412 @ X9_v17, [v47 @ X20_v2 (Newtonsoft.Json.JsonReader)+80]
+Import :            17 Call - the return of a call whose target is unknown, first read by IndirectCall   e.g. ConvertUtils.CreateCastConverter: 137 Call E0A678, v234 @ X0_v25, [v232 @ X8_v18+140], methodof(Newtonsoft.Json.Utilities.ReflectionDelegateFactory::CreateMethodCall), 0, v76 @ X3_v5, v30 @ X4, v31 @ X5, v32 @ X6, v33 @ X7, v34 @ V0, v35 @ V1, v36 @ V2, v37 @ V3, v38 @ V4, v39 @ V5, v40 @ V6, v41 @ V7
+Import :            17 Add, first read by an unresolved call   e.g. JsonValidatingReader.add_ValidationEventHandler: 20 Add v40 @ X20_v2, this @ X0 (Newtonsoft.Json.JsonValidatingReader), 160
+Import :            14 Call - the return of a resolved method (typed), first read by And   e.g. BidirectionalDictionary`2.Set: 71 Call IDictionary`2<TFirst, TSecond>.TryGetValue, v265 @ X0_v22, v14 @ X23_v1 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>), first @ X1 (TFirst), &v142 @ stack_-38_v5 (TSecond)
+Import :            13 Move from memory, first read by And   e.g. <>c__1`1..cctor: 25 Move v54 @ X9_v3, [v41 @ X8_v4 (Il2CppClass<Newtonsoft.Json.Utilities.AotHelper+<>c__1`1>)+135]
+Import :            13 Subtract, first read by CheckLess   e.g. DateTimeParser.ParseDate: 84 Subtract v127 @ X8_v14, [v131 @ X21_v5 (System.Int32&)], 1
+Import :            13 Move of TypeAnalysisContext [never read]   e.g. ConvertUtils.FromBigInteger: -1 Move v150 @ X8_v5, typeof(System.Decimal)
+Import :            12 Call - the return of a resolved method (typed), first read by a call to an instance method   e.g. CollectionUtils.AddRange: 184 Call IEnumerator`1<T>.get_Current, v696 @ X0_v53, v264 @ X0_v45 (System.Collections.IEnumerator)
+Import :            12 Move of AddressOf, first read by an unresolved call   e.g. JsonPosition.BuildPath: -1 Move v247 @ X3_v2, &v227 @ stack_-48_v2 (System.Char[])
+Import :            12 Subtract, first read by Add   e.g. DateTimeUtils.GetDateValues: 271 Subtract v348 @ X8_v19, v217 @ X9_v15, [v346 @ X8_v17+20]
+Import :            11 Subtract, first read by a call to an instance method   e.g. <DoReadAsDateTimeAsync>d__45.MoveNext: 103 Subtract v80 @ X0_v3, &v13 @ stack_-30_v2, 16
+Import :            10 Multiply, first read by Add   e.g. JsonTextWriter.WriteNumberToBuffer: 67 Multiply v115 @ TEMP_v11, v187 @ X13_v3 (System.Int32), 4294967286
+Import :             9 Add, first read by CheckEqual   e.g. DateTimeParser.ParseTime: 293 Add v201 @ TEMP_v43, v527 @ X8_v35, 1
+Import :             9 IndirectCall, first read by And   e.g. BidirectionalDictionary`2.Set: 82 IndirectCall [v192 @ X8_v34+138], v184 @ X0_v62, v142 @ stack_-38_v5 (TSecond), second @ X2 (TSecond), [v192 @ X8_v34+140], [v262 @ X0_v20+8], v146 @ X4, v147 @ X5, v148 @ X6, v149 @ X7, v150 @ V0, v151 @ V1, v152 @ V2, v153 @ V3, v154 @ V4, v155 @ V5, v156 @ V6, v157 @ V7
+Import :             9 Call - the return of a resolved method (typed), first read by CheckEqual   e.g. CollectionUtils.IsNullOrEmpty: 69 Call ICollection`1<T>.get_Count, v167 @ X0_v10, collection @ X0 (System.Collections.Generic.ICollection`1<T>)
+Import :             9 Subtract [never read]   e.g. DateTimeParser.ParseTime: 314 Subtract v477 @ X9_v11, 7, v431 @ X21_v9
+Import :             8 Add, first read by CheckLess   e.g. Base64Encoder.StoreLeftOverBytes: 108 Add v212 @ X14_v6, v240 @ X14_v5, v127 @ X8_v11 (System.Int32)
+Import :             7 written by nothing, first read by CheckEqual   e.g. DateTimeUtils.TryParseDateTimeIso: v206
+Import :             6 Call - the return of a resolved method (typed), first read by Move   e.g. <DoReadAsDateTimeAsync>d__45.MoveNext: 64 Call Task`1<System.Object>.ConfigureAwait, v102 @ X0_v42, v63 @ X0_v41 (System.Threading.Tasks.Task`1<System.Object>), 0
+Import :             6 Box, first read by CheckEqual   e.g. BinderWrapper.CreateSharpArgumentInfoArray: 181 Box v182 @ X0_v33, typeof(System.Int32), &v105 @ stack_-64_v6
+Import :             5 IndirectCall, first read by an unresolved call   e.g. JsonConverter`1.WriteJson: 91 IndirectCall [v219 @ X1_v2 (Il2CppMethodInfo)+10], v221 @ X0_v2, [v219 @ X1_v2 (Il2CppMethodInfo)+8], [v153 @ X8_v21 (Il2CppClass<Newtonsoft.Json.JsonConverter`1<T>>)+1D0], this @ X0 (Newtonsoft.Json.JsonConverter`1<T>), v213 @ X3_v1, serializer @ X3 (Newtonsoft.Json.JsonSerializer), v43 @ X5, v44 @ X6, v45 @ X7, v46 @ V0, v47 @ V1, v48 @ V2, v49 @ V3, v50 @ V4, v51 @ V5, v52 @ V6, v53 @ V7
+Import :             5 IndirectCall, first read by CheckLess   e.g. PKCS12.CertificateSafeBag: 444 IndirectCall [v937 @ X8_v92 (Il2CppClass<System.Object>)+298], v930 @ X0_v149, v228 @ X0_v147 (System.Object), [v937 @ X8_v92 (Il2CppClass<System.Object>)+2A0], 0, methodInfo @ X3 (Il2CppMethodInfo), v37 @ X4, v38 @ X5, v39 @ X6, v40 @ X7, v41 @ V0, v42 @ V1, v43 @ V2, v44 @ V3, v45 @ V4, v46 @ V5, v47 @ V6, v48 @ V7
+Import :             5 Call - the return of a call whose target is unknown, first read by a call to an instance method   e.g. JavaScriptUtils..cctor: 618 Call F8D190, v326 @ X0_v46, v354 @ X19_v8 (System.Collections.Generic.List`1<System.Char>), v325 @ X0_v44, [v126 @ X26_v3 (Il2CppMethodInfo)]
+Import :             4 IndirectCall, first read by IndirectCall   e.g. EnumUtils.InitializeValuesAndNames: 142 IndirectCall [v237 @ X8_v21+6A8], v217 @ X0_v51, key @ X0 (Newtonsoft.Json.Utilities.StructMultiKey`2<System.Type, Newtonsoft.Json.Serialization.NamingStrategy>), v67[v139 @ X24_v7 (System.Int32)], 56, [v237 @ X8_v21+6B0], v84 @ X4_v6 (Il2CppMethodInfo), v41 @ X5, v42 @ X6, v43 @ X7, v44 @ V0, v45 @ V1, v46 @ V2, v47 @ V3, v48 @ V4, v49 @ V5, v50 @ V6, v51 @ V7
+Import :             4 Move of a constant, first read by Add   e.g. ConvertUtils.TryHexTextToInt: -1 Move v201 @ X14_v6, 4294967248
+Import :             4 Xor, first read by And   e.g. MathUtils.ApproxEquals: 66 Xor v70 @ TEMP3_v4, v84 @ V2_v3 (System.Double), v78 @ TEMP1_v4 (System.Double)
+Import :             4 Call - the return of a resolved method (typed), first read by IsInst   e.g. <>c__DisplayClass80_0.<CreateShouldSerializeTest>b__0: 61 Call MethodCall`2<System.Object, System.Object>.Invoke, v81 @ X0_v13, this.shouldSerializeCall (Newtonsoft.Json.Utilities.MethodCall`2<System.Object, System.Object>), o @ X1 (System.Object), v75.Value (System.Object[])
+Import :             4 Move from another untyped local [never read]   e.g. CollectionUtils.ContainsValue: -1 Move v869 @ X0_v58, v841 @ X0_v62
+Import :             4 Move from memory, first read by CheckNotEqual   e.g. <ParseUnquotedPropertyAsync>d__33.MoveNext: 65 Move v348 @ X9_v4, [v44 @ X20_v2 (Newtonsoft.Json.JsonReader)+8C]
+Import :             3 Subtract, first read by Subtract   e.g. <WriteTokenAsync>d__30.MoveNext: 283 Subtract v469 @ X8_v37, v328 @ X0_v77 (System.Int32), v467 @ TEMPCOND_v21 (System.Boolean)
+Import :             3 IndirectCall, first read by CheckEqual   e.g. JsonReader.MoveToContent: 7 IndirectCall v43 @ X9_v2, v47 @ X0_v2, v12 @ X0_v1 (Newtonsoft.Json.JsonReader), v41 @ X1_v2, v48 @ X2, v49 @ X3, v50 @ X4, v51 @ X5, v52 @ X6, v53 @ X7, v54 @ V0, v55 @ V1, v56 @ V2, v57 @ V3, v58 @ V4, v59 @ V5, v60 @ V6, v61 @ V7
+Import :             3 Multiply, first read by Subtract   e.g. DeriveBytes.Derive: 97 Multiply v491 @ TEMP_v44, v535 @ X11_v14 (System.Int32), v134.Length
+Import :             3 Add, first read by a call to an instance method   e.g. <GetEnumerator>d__2.MoveNext: 389 Add v568 @ X0_v49, v500 @ X8_v58, 8
+Import :             3 IndirectCall, first read by CheckNotEqual   e.g. JsonSerializer.ResetReader: 198 IndirectCall [v289 @ X8_v10 (Il2CppClass<Newtonsoft.Json.Serialization.IContractResolver>)+278], v285 @ X0_v8, v133 @ X0_v7 (Newtonsoft.Json.Serialization.IContractResolver), [v289 @ X8_v10 (Il2CppClass<Newtonsoft.Json.Serialization.IContractResolver>)+280], previousCulture @ X2 (System.Globalization.CultureInfo), previousDateTimeZoneHandling @ X3 (System.Nullable`1<Newtonsoft.Json.DateTimeZoneHandling>), previousDateParseHandling @ X4 (System.Nullable`1<Newtonsoft.Json.DateParseHandling>), previousFloatParseHandling @ X5 (System.Nullable`1<Newtonsoft.Json.FloatParseHandling>), previousMaxDepth @ X6 (System.Nullable`1<System.Int32>), previousDateFormatString @ X7 (System.String), v44 @ V0, v45 @ V1, v46 @ V2, v47 @ V3, v48 @ V4, v49 @ V5, v50 @ V6, v51 @ V7
+Import :             3 Add, first read by Subtract   e.g. DateTimeParser.ParseTime: 300 Add v431 @ X21_v9, v527 @ X8_v35, 1
+Import :             3 Move from memory, first read by a call to an instance method   e.g. <GetEnumerator>d__2.MoveNext: 203 Move v198 @ X24_v3, [v441 @ X8_v22+30]
+Import :             3 Move of RuntimeClassTypeAnalysisContext [never read]   e.g. JsonValidatingReader.WriteToken: -1 Move v1626 @ X0_v141, typeof(Il2CppClass<System.EmptyArray`1<Newtonsoft.Json.JsonConverter>>)
+Import :             3 Move from a field, first read by an unresolved call   e.g. CollectionWrapper`1.CopyTo: -1 Move v171 @ X0_v6, this._genericCollection (System.Collections.Generic.ICollection`1<T>)
+Import :             3 Multiply, first read by ShiftRight   e.g. Base64Encoder.StoreLeftOverBytes: 25 Multiply v46 @ X9_v3, [count @ X3 (System.Int32&)], 1431655766
+Import :             3 Subtract, first read by Box   e.g. DictionaryEnumerator`2.get_Current: 337 Subtract v241 @ X1_v17, &v25 @ stack_-60_v2, 48
+Import :             2 Not, first read by And   e.g. JsonConvert.EnsureFloatFormat: 40 Not v58 @ TEMP_v5, value @ V0 (System.Double)
+Import :             2 Move of RuntimeMethodInfoAnalysisContext, first read by an unresolved call   e.g. JsonSerializerInternalReader.PopulateMultidimensionalArray: -1 Move v156 @ X2_v8, methodof(System.Collections.Generic.Stack`1<System.Collections.IList>::Push)
+Import :             2 written by nothing, first read by CheckNotEqual   e.g. <Convert>d__14`2.MoveNext: v101
+Import :             2 Add, first read by Multiply   e.g. DateTimeUtils.GetDateValues: 93 Add v112 @ X8_v11, v81 @ X8_v10 (System.Int64), v111 @ TEMP_v7
+Import :             2 Add, first read by ShiftRight   e.g. DateTimeUtils.GetDateValues: 111 Add v130 @ X10_v8, v128 @ X10_v7 (System.Int32), v126 @ X23_v2
+Import :             2 written by nothing, first read by IsInst   e.g. XmlNodeConverter.ReadArrayElements: v522
+Import :             2 Move of a constant, first read by IndirectCall   e.g. <Convert>d__14`2.MoveNext: -1 Move v138 @ X2_v11, 0
+Import :             2 Newobj, first read by CallVoid   e.g. JsonSchemaModelBuilder.BuildNodeModel: 245 Newobj v1114 @ X0_v92, [v205 @ X25_v12 (Il2CppClass<System.Collections.Generic.Dictionary`2<System.String, Newtonsoft.Json.Schema.JsonSchemaModel>>)]
+Import :             2 Move from memory, first read by Move   e.g. <ParseValueAsync>d__8.MoveNext: 442 Move v666 @ X8_v21, [v446 @ X20_v21 (Newtonsoft.Json.JsonReader)+80]
+Import :             2 written by nothing, first read by CallVoid   e.g. <Convert>d__14`2.MoveNext: v38
+Import :             2 Move from a typed local, first read by Move   e.g. EnumUtils.InitializeValuesAndNames: -1 Move v203 @ X23_v5, v256 @ X0_v37 (System.UInt64[])
+Import :             2 IndirectCall, first read by Move   e.g. JsonSerializer.SetupReader: 350 IndirectCall [v551 @ X8_v19 (Il2CppClass<Newtonsoft.Json.Serialization.IContractResolver>)+278], v547 @ X0_v9, v189 @ X0_v8 (Newtonsoft.Json.Serialization.IContractResolver), [v551 @ X8_v19 (Il2CppClass<Newtonsoft.Json.Serialization.IContractResolver>)+280], v171 @ X2_v5 (Il2CppMethodInfo), previousDateTimeZoneHandling @ X3 (System.Nullable`1<Newtonsoft.Json.DateTimeZoneHandling>&), previousDateParseHandling @ X4 (System.Nullable`1<Newtonsoft.Json.DateParseHandling>&), previousFloatParseHandling @ X5 (System.Nullable`1<Newtonsoft.Json.FloatParseHandling>&), previousMaxDepth @ X6 (System.Nullable`1<System.Int32>&), previousDateFormatString @ X7 (System.String&), v44 @ V0, v45 @ V1, v46 @ V2, v47 @ V3, v48 @ V4, v49 @ V5, v50 @ V6, v51 @ V7
+Import :             2 Call - the return of a resolved method (typed), first read by CheckLess   e.g. JsonSchemaWriter.WriteSchema: 972 Call ICollection`1<Newtonsoft.Json.Schema.JsonSchema>.get_Count, v1484 @ X0_v17, v473.<Extends>k__BackingField (System.Collections.Generic.IList`1<Newtonsoft.Json.Schema.JsonSchema>)
+Import :             2 Box, first read by Move   e.g. JEnumerable`1.GetEnumerator: 57 Box v26 @ X0_v26, typeof(Il2CppClass<Newtonsoft.Json.Linq.JEnumerable`1<T>>), &v158 @ X8_v17 (Newtonsoft.Json.Linq.JEnumerable`1<T>)
+Import :             2 IsInst [never read]   e.g. <Annotations>d__185`1.MoveNext: 60 IsInst v261 @ X0_v29, typeof(System.Object[]), v91._annotations (System.Object)
+Import :             2 Newobj [never read]   e.g. <>c__2`1.<EnsureList>b__2_0: 61 Newobj v78 @ X0_v15, typeof(Il2CppClass<Newtonsoft.Json.Utilities.CollectionWrapper`1<T>>)
+Import :             2 written by nothing, first read by CheckLess   e.g. DateTimeUtils.TryParseDateTime: v125
+Import :             1 Subtract, first read by CallVoid   e.g. <GetEnumerator>d__2.MoveNext: 320 Subtract v681 @ X0_v26, &v21 @ stack_-50_v2, 64
+Import :             1 Move of StringLiteral, first read by CheckNotEqual   e.g. Extensions.Validate: -1 Move v223 @ X1_v8, "schema"
+Import :             1 Move of a constant, first read by CheckEqual   e.g. JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters: -1 Move v2319 @ X21_v66, 28
+Import :             1 Move of SzArrayTypeAnalysisContext, first read by an unresolved call   e.g. ConvertUtils.TryConvertInternal: -1 Move v477 @ X1_v17, typeof(System.Byte[])
+Import :             1 Move from memory, first read by CheckLessOrEqual   e.g. Base64Encoder.FulfillFromLeftover: 16 Move v37 @ X10_v4, [count @ X3 (System.Int32&)]
+Import :             1 And, first read by CheckEqual   e.g. UnixDateTimeConverter.WriteJson: 159 And v344 @ TEMP_v10, v156 @ X1_v7 (System.Double), -9223372036854775808
+Import :             1 Move of SzArrayTypeAnalysisContext [never read]   e.g. DeriveBytes.set_Salt: -1 Move v52 @ X19_v4, typeof(System.Byte[])
+Import :             1 Move of a constant, first read by Move   e.g. DefaultContractResolver.GetSerializableMembers: -1 Move v1344 @ X3_v19, 0
+Import :             1 Move from a typed local, first read by IndirectCall   e.g. EntityKeyMemberConverter.WriteJson: -1 Move v432 @ X1_v9, v411 @ stack_-48_v3 (System.String)
+Import :             1 Move from a typed local, first read by IsInst   e.g. PKCS12.GetBytes: -1 Move v580 @ X25_v21, v843 @ X0_v17 (Mono.Security.X509.X509CertificateCollection+X509CertificateEnumerator)
+Import :             1 Call - the return of a resolved method (typed), first read by Subtract   e.g. JsonDynamicContract.TrySetMember: 55 Call Func`4<System.Runtime.CompilerServices.CallSite, System.Object, System.Object, System.Object>.Invoke, v133 @ X0_v8, v61.Target (System.Func`4<System.Runtime.CompilerServices.CallSite, System.Object, System.Object, System.Object>), v61 @ X0_v6 (System.Runtime.CompilerServices.CallSite`1<System.Func`4<System.Runtime.CompilerServices.CallSite, System.Object, System.Object, System.Object>>), dynamicProvider @ X1 (System.Dynamic.IDynamicMetaObjectProvider), value @ X3 (System.Object)
+Import :             1 Box, first read by CallVoid   e.g. JsonSerializerInternalReader.SetPropertyValue: 486 Box v365 @ X0_v15, typeof(System.Boolean), &v299 @ stack_-7C_v3 (System.Int32)
+Import :             1 written by nothing, first read by Or   e.g. JsonSchemaBuilder.ProcessType: v1000
+Import :             1 Call - the return of a resolved method (typed), first read by CallVoid   e.g. DictionaryWrapper`2.System.Collections.IDictionary.GetEnumerator: 178 Call IEnumerable`1<System.Collections.Generic.KeyValuePair`2<TKey, TValue>>.GetEnumerator, v337 @ X0_v4, v325 @ X20_v6 (System.Collections.Generic.IReadOnlyDictionary`2<TKey, TValue>)
+Import :             1 Move of RuntimeMethodInfoAnalysisContext, first read by CheckNotEqual   e.g. XmlNodeConverter.IsArray: -1 Move v122 @ X1_v1, methodof(System.Collections.Generic.List`1<Newtonsoft.Json.Converters.IXmlNode>+Enumerator<Newtonsoft.Json.Converters.IXmlNode>::MoveNext)
+Import :             1 Move from a typed local, first read by CallVoid   e.g. XmlNodeConverter.SerializeGroupedNodes: -1 Move v103 @ X29_v14, v92 @ stack_-68_v10 (System.Object)
+Import :             1 Negate, first read by Subtract   e.g. MathUtils.ApproxEquals: 46 Negate v88 @ V0_v6, v103 @ V0_v5 (System.Double)
+Import :             1 Move of GenericInstanceTypeAnalysisContext [never read]   e.g. JsonTextReader.FinishReadQuotedNumber: -1 Move v132 @ X8_v6, typeof(System.Nullable`1<System.Double>)
+Import :             1 Move from another untyped local, first read by Add   e.g. BigInteger..ctor: -1 Move v70 @ X12_v5, v243 @ X11_v2
+Import :             1 Subtract, first read by ShiftLeft   e.g. StringReferenceExtensions.EndsWith: 41 Subtract v48 @ X22_v5, v201 @ X9_v5, [methodInfo @ X2 (Il2CppMethodInfo)+10]
+Import :             1 written by nothing, first read by Add   e.g. XmlNodeConverter.ReadAttributeElements: v656
+Import :             1 Call - the return of a resolved method (typed), first read by CheckNotEqual   e.g. JsonSchemaWriter.WriteSchema: 1040 Call ICollection`1<Newtonsoft.Json.Schema.JsonSchema>.get_Count, v435 @ X0_v22, v522 @ X21_v10 (System.Collections.Generic.IList`1<Newtonsoft.Json.Schema.JsonSchema>)
+Import :             1 Move from a typed local [never read]   e.g. JsonTextReader.ReadNumberValue: -1 Move v158 @ X1_v15, v69 @ X1_v1 (Newtonsoft.Json.ReadType)
+Import :             1 written by nothing, first read by Subtract   e.g. DateTimeUtils.TryReadOffset: v80
+Import :             1 Move of TypeAnalysisContext, first read by an unresolved call   e.g. JsonTextReader.ParseReadString: -1 Move v432 @ X0_v10, typeof(System.DateTimeOffset)
+Import :             1 Move of ArrayLength [never read]   e.g. ASN1.ToString: 75 Move v138 @ X9_v4, v156.Length
+Import :             1 Move of ArrayLength, first read by Subtract   e.g. MD4Managed.Decode: -1 Move v42 @ X10_v4, output.Length
+Import :             1 written by nothing, first read by CheckLessOrEqual   e.g. ConvertUtils.DecimalTryParse: v2109
+Import :             1 Add, first read by CheckGreaterOrEqual   e.g. MessageBase.CheckHeader: 36 Add v99 @ X8_v9, v87 @ X22_v3, 1
+Import :             1 Call - the return of a resolved method (typed), first read by an unresolved call   e.g. DiscriminatedUnionConverter.CreateUnion: 219 Call MethodCall`2<System.Object, System.Object>.Invoke, v253 @ X0_v50, v315 @ X20_v14 (Newtonsoft.Json.Utilities.MethodCall`2<System.Object, System.Object>), 0, v251 @ X0_v47
+Import : Il2Cpp method body recovery: 46 call arguments the ABI spread over several vector registers were composed back into their value.
+Import : Il2Cpp method body recovery: a write narrower than the field its offset lands on named a member inside it 0 times; 14 times no member accounted for the width, so the field stood.
+Import : Il2Cpp method body recovery: 288 locals held the base of a page of metadata usage slots rather than one slot; 0 usages were resolved at an offset from one.
+Import : Il2Cpp method body recovery: 389 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them.
+Import : Il2Cpp method body recovery: 8 event declarations were dropped because a recovered body reads the field they are built on - il2cpp inlines add_/remove_, and C# refuses to read an event from outside its declaring type whatever its accessibility. The field and the accessors stay.
+Import : Il2Cpp accessor pairing probe: 632 non-public instance fields had no candidate getter at all; 438 rejections were a getter for another field; 16 getters read the field's own offset and were still turned down.
+Import : Il2Cpp accessor pairing probe: 1x ChallengeResponse._ntpwd @28: ShiftStack Move Move Move CheckEqual Not ConditionalJump Move Move Move ShiftStack Call
+Import : Il2Cpp accessor pairing probe: 1x X509Store._certificates @18: ShiftStack Move Move Move Move CheckEqual Not ConditionalJump Move Move Call Move
+Import : Il2Cpp accessor pairing probe: 1x JsonSchemaModel.<Maximum>k__BackingField @48: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonSelectSettings.<RegexMatchTimeout>k__BackingField @10: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonSchema.<Minimum>k__BackingField @60: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonSerializer._context @60: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonSchema.<DivisibleBy>k__BackingField @50: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonProperty._defaultValue @20: Move CheckEqual ConditionalJump Move Return Move Return
+Import : Il2Cpp accessor pairing probe: 1x X509Extension.extnValue @20: ShiftStack Move Move Move Move CheckEqual Not ConditionalJump Move Move Move Move
+Import : Il2Cpp accessor pairing probe: 1x JsonSchemaModel.<Minimum>k__BackingField @38: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonTextReader._lineStartPos @90: Move Move Subtract Return
+Import : Il2Cpp accessor pairing probe: 1x JsonSchemaModel.<DivisibleBy>k__BackingField @28: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x ChallengeResponse._lmpwd @20: ShiftStack Move Move Move CheckEqual Not ConditionalJump Move Move Move ShiftStack Call
+Import : Il2Cpp accessor pairing probe: 1x MonoTlsSettings.<CertificateValidationTime>k__BackingField @20: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonSchema.<Maximum>k__BackingField @70: Move Move Move Return
+Import : Il2Cpp accessor pairing probe: 1x JsonTextReader._charPos @8C: Move Move Subtract Return
+Import : Il2Cpp method body recovery: 2826 reads of a hidden static field were written as the public property that returns it.
+Import : Il2Cpp method body recovery: 13 calls were retargeted from a shared generic instantiation onto the one the receiver's own type names.
+Import : Il2Cpp inline operation recovery: 160 candidate sites, 130 rewritten into the operation they came from.
+Import : Il2Cpp inline operation recovery: 130x ListAdd
+Import : Il2Cpp inline operation recovery: rejected 10x - ListAdd:CheckLess of a local with no single definition and ArrayLength of a local with no single definition, neither the receiver's size; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext
+Import : Il2Cpp inline operation recovery: rejected 8x - ListAdd:fast path has 4 predecessors
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:the branch condition is defined by CheckEqual; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:CheckLess of a local with no single definition and ArrayLength of a local defined by Move field _items, neither the receiver's size; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:CheckLess of memory+0x18 and memory+0x18, neither the receiver's size; the receiver is a local with no single definition
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:slow path has 2 predecessors
+Import : Il2Cpp inline operation recovery: rejected 2x - ListAdd:size compared against ArrayLength of a local with no single definition; the receiver is local defined by Newobj GenericInstanceTypeAnalysisContext
+Import : Il2Cpp method body recovery: SSA destruction left copies - 21631 coalesced, 3389 kept because the two locals are live at once, 2341 because their types differ.
+Import : Finished reading files
+Processing : Processing loaded assets...
+Processing : AttributePolyfillGenerator
+Processing : MonoExplicitPropertyRepairProcessor
+Processing : ObfuscationRepairProcessor
+Processing : ForwardingAssemblyGenerator
+Processing : NullRefReturnProcessor
+Processing : UnmanagedConstraintRecoveryProcessor
+Processing : RemoveAssemblyKeyFileAttributeProcessor
+Processing : InternalsVisibileToPublicKeyRemover
+Processing : SceneDefinitionProcessor
+Processing : Creating Scene Definitions
+Processing : OriginalPathProcessor
+Processing : MainAssetProcessor
+Processing : Main Asset Pairing
+Processing : AnimatorControllerProcessor
+Processing : Reconstruct AnimatorController Assets
+Processing : AudioMixerProcessor
+Processing : Reconstruct AudioMixer Assets
+Processing : EditorFormatProcessor
+Processing : Editor Format Conversion
+Processing : LightingDataProcessor
+Processing : Lighting Data Assets
+Processing : PrefabProcessor
+Processing : SpriteProcessor
+Processing : ScriptableObjectProcessor
+Processing : Processing Scriptable Object Groups
+Processing : Finished processing assets
+Export : Starting export
+Export : Attempting to export assets to /home/user/AssetRipper/Test/Out57H-z...
+Export : Game files have these Unity versions: 2022.3.54f1 2022.3.62f2
+Export : Exporting to Unity version 2022.3.62f2
+Import [Warning] : Resource file 'UnityEngine.Purchasing.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing' hasn't been found
+Import [Warning] : Resource file 'Cinemachine.dll' hasn't been found
+Import [Warning] : Assembly 'Cinemachine' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Advertisements.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Advertisements' hasn't been found
+Import [Warning] : Resource file 'Unity.Timeline.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Timeline' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.TestRunner.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.TestRunner' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.Stores.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.Stores' hasn't been found
+Import [Warning] : Resource file 'Unity.TextMeshPro.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.TextMeshPro' hasn't been found
+Import [Warning] : Resource file 'Unity.Services.Core.Networking.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Services.Core.Networking' hasn't been found
+Import [Warning] : Resource file 'Purchasing.Common.dll' hasn't been found
+Import [Warning] : Assembly 'Purchasing.Common' hasn't been found
+Import [Warning] : Resource file 'Unity.AI.Navigation.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.AI.Navigation' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.Codeless.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.Codeless' hasn't been found
+Import [Warning] : Resource file 'Unity.Services.Core.Components.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Services.Core.Components' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.SecurityCore.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.SecurityCore' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.WinRTCore.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.WinRTCore' hasn't been found
+Import [Warning] : Resource file 'Unity.Services.Core.Analytics.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Services.Core.Analytics' hasn't been found
+Import [Warning] : Resource file 'Unity.Services.Core.Environments.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Services.Core.Environments' hasn't been found
+Import [Warning] : Resource file 'Unity.Analytics.DataPrivacy.dll' hasn't been found
+Import [Warning] : Assembly 'Unity.Analytics.DataPrivacy' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.AppleCore.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.AppleCore' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.AppleMacosStub.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.AppleMacosStub' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.WinRTStub.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.WinRTStub' hasn't been found
+Import [Warning] : Resource file 'UnityEngine.Purchasing.AppleStub.dll' hasn't been found
+Import [Warning] : Assembly 'UnityEngine.Purchasing.AppleStub' hasn't been found
+Import : Resource file 'sharedassets0.resource' has been loaded
+Import : Resource file 'sharedassets1.resource' has been loaded
+ExportProgress : (1/219) Exporting 'EditorBuildSettings'
+ExportProgress : (2/219) Exporting 'EditorSettings'
+ExportProgress : (3/219) Exporting 'ZombieController'
+ExportProgress : (4/219) Exporting 'CharacterController'
+ExportProgress : (5/219) Exporting 'TextController'
+ExportProgress : (6/219) Exporting 'LightingData'
+ExportProgress : (7/219) Exporting 'MenuScene (SceneAsset)'
+ExportProgress : (8/219) Exporting 'LightingData'
+ExportProgress : (9/219) Exporting 'GameScene (SceneAsset)'
+ExportProgress : (10/219) Exporting 'Splash Screen Unity Logo'
+ExportProgress : (11/219) Exporting 'free_zombie_body_diffuse'
+ExportProgress : (12/219) Exporting 'Sidewalk_texture'
+ExportProgress : (13/219) Exporting 'toppng.com-blood-splatter-v1484181538-transparent-blood-smear-874x870'
+ExportProgress : (14/219) Exporting 'free_zombie_head_diffuse'
+ExportProgress : (15/219) Exporting 'Bench texture'
+ExportProgress : (16/219) Exporting 'big trash bin texture'
+ExportProgress : (17/219) Exporting 'leafes tree 1'
+ExportProgress : (18/219) Exporting 'Cubemap'
+ExportProgress : (19/219) Exporting 'LDR_LLL1_28'
+ExportProgress : (20/219) Exporting 'LDR_LLL1_26'
+ExportProgress : (21/219) Exporting 'LDR_LLL1_35'
+ExportProgress : (22/219) Exporting 'LDR_LLL1_1'
+ExportProgress : (23/219) Exporting 'LDR_LLL1_30'
+ExportProgress : (24/219) Exporting 'LDR_LLL1_61'
+ExportProgress : (25/219) Exporting 'LDR_LLL1_47'
+ExportProgress : (26/219) Exporting 'LDR_LLL1_16'
+ExportProgress : (27/219) Exporting 'LDR_LLL1_44'
+ExportProgress : (28/219) Exporting 'LDR_LLL1_40'
+ExportProgress : (29/219) Exporting 'LDR_LLL1_2'
+ExportProgress : (30/219) Exporting 'LDR_LLL1_37'
+ExportProgress : (31/219) Exporting 't_box_1_normal'
+ExportProgress : (32/219) Exporting 'LDR_LLL1_15'
+ExportProgress : (33/219) Exporting 'LDR_LLL1_34'
+ExportProgress : (34/219) Exporting 'LDR_LLL1_24'
+ExportProgress : (35/219) Exporting 'LDR_LLL1_36'
+ExportProgress : (36/219) Exporting 'LDR_LLL1_3'
+ExportProgress : (37/219) Exporting 'LDR_LLL1_7'
+ExportProgress : (38/219) Exporting 'LDR_LLL1_1'
+ExportProgress : (39/219) Exporting 'LDR_LLL1_49'
+ExportProgress : (40/219) Exporting 'LDR_LLL1_60'
+ExportProgress : (41/219) Exporting 'LDR_LLL1_63'
+ExportProgress : (42/219) Exporting 'smoke_n'
+ExportProgress : (43/219) Exporting 'LDR_LLL1_0'
+ExportProgress : (44/219) Exporting 'LDR_LLL1_39'
+ExportProgress : (45/219) Exporting 'LDR_LLL1_55'
+ExportProgress : (46/219) Exporting 'LDR_LLL1_0'
+ExportProgress : (47/219) Exporting 'free_male_1_body_diffuse'
+ExportProgress : (48/219) Exporting 'LDR_LLL1_13'
+ExportProgress : (49/219) Exporting 'LDR_LLL1_31'
+ExportProgress : (50/219) Exporting 'LDR_LLL1_20'
+ExportProgress : (51/219) Exporting 'LDR_LLL1_4'
+ExportProgress : (52/219) Exporting 'LDR_LLL1_7'
+ExportProgress : (53/219) Exporting 'LDR_LLL1_56'
+ExportProgress : (54/219) Exporting 'LDR_LLL1_9'
+ExportProgress : (55/219) Exporting 'LDR_LLL1_43'
+ExportProgress : (56/219) Exporting 'LDR_LLL1_19'
+ExportProgress : (57/219) Exporting 'AreaTex'
+ExportProgress : (58/219) Exporting 'LDR_LLL1_18'
+ExportProgress : (59/219) Exporting 'LDR_LLL1_11'
+ExportProgress : (60/219) Exporting 'LDR_LLL1_6'
+ExportProgress : (61/219) Exporting 'LDR_LLL1_58'
+ExportProgress : (62/219) Exporting 'LDR_LLL1_32'
+ExportProgress : (63/219) Exporting 'LDR_LLL1_46'
+ExportProgress : (64/219) Exporting 'smoke_thin'
+ExportProgress : (65/219) Exporting 'LDR_LLL1_54'
+ExportProgress : (66/219) Exporting 'LDR_LLL1_38'
+ExportProgress : (67/219) Exporting 't_box_1_occlusion'
+ExportProgress : (68/219) Exporting 'LDR_LLL1_12'
+ExportProgress : (69/219) Exporting 'LDR_LLL1_6'
+ExportProgress : (70/219) Exporting 't_box_1_albedo'
+ExportProgress : (71/219) Exporting 'LDR_LLL1_62'
+ExportProgress : (72/219) Exporting 'LDR_LLL1_5'
+ExportProgress : (73/219) Exporting 'LDR_LLL1_2'
+ExportProgress : (74/219) Exporting 't_box_1_metallic'
+ExportProgress : (75/219) Exporting 'LDR_LLL1_29'
+ExportProgress : (76/219) Exporting 'zombie'
+ExportProgress : (77/219) Exporting 'LDR_LLL1_5'
+ExportProgress : (78/219) Exporting 'LDR_LLL1_10'
+ExportProgress : (79/219) Exporting 'LDR_LLL1_48'
+ExportProgress : (80/219) Exporting 'LDR_LLL1_42'
+ExportProgress : (81/219) Exporting 'LDR_LLL1_4'
+ExportProgress : (82/219) Exporting 'LDR_LLL1_33'
+ExportProgress : (83/219) Exporting 'LDR_LLL1_21'
+ExportProgress : (84/219) Exporting 'LDR_LLL1_45'
+ExportProgress : (85/219) Exporting 'LDR_LLL1_27'
+ExportProgress : (86/219) Exporting 'LDR_LLL1_17'
+ExportProgress : (87/219) Exporting 'LDR_LLL1_23'
+ExportProgress : (88/219) Exporting 'LDR_LLL1_3'
+ExportProgress : (89/219) Exporting 'LDR_LLL1_8'
+ExportProgress : (90/219) Exporting 'Tripfive-EX'
+ExportProgress : (91/219) Exporting 'LDR_LLL1_53'
+ExportProgress : (92/219) Exporting 'LDR_LLL1_41'
+ExportProgress : (93/219) Exporting 'LDR_LLL1_52'
+ExportProgress : (94/219) Exporting 'LDR_LLL1_51'
+ExportProgress : (95/219) Exporting 'LDR_LLL1_50'
+ExportProgress : (96/219) Exporting 'LDR_LLL1_59'
+ExportProgress : (97/219) Exporting 'SearchTex'
+ExportProgress : (98/219) Exporting 'LDR_LLL1_22'
+ExportProgress : (99/219) Exporting 'free_male_1_head_diffuse'
+ExportProgress : (100/219) Exporting 'LDR_LLL1_57'
+ExportProgress : (101/219) Exporting 'LDR_LLL1_25'
+ExportProgress : (102/219) Exporting 'LDR_LLL1_14'
+ExportProgress : (103/219) Exporting 'Cubemap'
+ExportProgress : (104/219) Exporting 'GlobalPost Profile'
+ExportProgress : (105/219) Exporting 'PlayerSettings'
+ExportProgress : (106/219) Exporting 'InputManager'
+ExportProgress : (107/219) Exporting 'TagManager'
+ExportProgress : (108/219) Exporting 'AudioManager'
+ExportProgress : (109/219) Exporting 'GraphicsSettings'
+ExportProgress : (110/219) Exporting 'TimeManager'
+ExportProgress : (111/219) Exporting 'DelayedCallManager'
+ExportProgress : (112/219) Exporting 'PhysicsManager'
+ExportProgress : (113/219) Exporting 'QualitySettings'
+ExportProgress : (114/219) Exporting 'NavMeshProjectSettings'
+ExportProgress : (115/219) Exporting 'Physics2DSettings'
+ExportProgress : (116/219) Exporting 'RuntimeInitializeOnLoadManager'
+ExportProgress : (117/219) Exporting 'UnityConnectSettings'
+ExportProgress : (118/219) Exporting 'StreamingManager'
+ExportProgress : (119/219) Exporting 'VFXManager'
+ExportProgress : (120/219) Exporting 'ScriptExportCollection'
+Export : Exporting scripts...
+Export : Decompiling Newtonsoft.Json
+Export : Decompiling UnityEngine.UI
+Export : Decompiling Unity.Postprocessing.Runtime
+Export : Decompiling Unity.Services.Analytics
+Export : Decompiling Unity.Services.Core.Internal
+Export : Decompiling Unity.Services.Core
+Export : Decompiling Unity.Services.Core.Registration
+Export : Decompiling Assembly-CSharp
+Export : Decompiling Unity.Services.Core.Configuration
+Export : Decompiling Unity.Services.Core.Scheduler
+Export : Decompiling Unity.Services.Core.Device
+Export : Decompiling Unity.Services.Core.Threading
+Export : Decompiling Unity.Services.Core.Telemetry
+Export : Decompiling Unity.Services.Core.Environments.Internal
+Export : Decompiling __Generated
+Export : Decompiling System.Runtime.CompilerServices.Unsafe
+ExportProgress : (121/219) Exporting 'Sprite'
+ExportProgress : (122/219) Exporting 'A'
+ExportProgress : (123/219) Exporting 'A1'
+ExportProgress : (124/219) Exporting 'A2'
+ExportProgress : (125/219) Exporting 'A3'
+ExportProgress : (126/219) Exporting 'B1'
+ExportProgress : (127/219) Exporting 'G2'
+ExportProgress : (128/219) Exporting 'J1'
+ExportProgress : (129/219) Exporting 'J2'
+ExportProgress : (130/219) Exporting 'K4'
+ExportProgress : (131/219) Exporting 'K7'
+ExportProgress : (132/219) Exporting 'Big_trash_bin'
+ExportProgress : (133/219) Exporting 'SideWay'
+ExportProgress : (134/219) Exporting 'bench'
+ExportProgress : (135/219) Exporting 'tree leaf'
+ExportProgress : (136/219) Exporting 'Night'
+ExportProgress : (137/219) Exporting 'Windows no light'
+ExportProgress : (138/219) Exporting 'free_zombie_body_low'
+ExportProgress : (139/219) Exporting 'free_zombie_head_low'
+ExportProgress : (140/219) Exporting 'ZOMBIE'
+ExportProgress : (141/219) Exporting 'Big trash bin'
+ExportProgress : (142/219) Exporting 'bench'
+ExportProgress : (143/219) Exporting 'Sidewalk_05'
+ExportProgress : (144/219) Exporting 'Tree 1'
+ExportProgress : (145/219) Exporting 'Street_'
+ExportProgress : (146/219) Exporting 'zombie_zombie4'
+ExportProgress : (147/219) Exporting 'Building_I'
+ExportProgress : (148/219) Exporting 'Cylinder'
+ExportProgress : (149/219) Exporting 'Building_A1'
+ExportProgress : (150/219) Exporting 'door 2'
+ExportProgress : (151/219) Exporting 'Fire_escape_leader'
+ExportProgress : (152/219) Exporting 'door 1'
+ExportProgress : (153/219) Exporting 'zombie_walk_forward'
+ExportProgress : (154/219) Exporting 'This Can't be the End (Orchestral, Horror)'
+ExportProgress : (155/219) Exporting 'toppng.com-blood-splatter-v1484181538-transparent-blood-smear-874x870'
+ExportProgress : (156/219) Exporting 'MenuScene'
+ExportProgress : (157/219) Exporting 'PlaneMat'
+ExportProgress : (158/219) Exporting 'm_cardboardBox_1'
+ExportProgress : (159/219) Exporting 'Smoke_thin'
+ExportProgress : (160/219) Exporting 'Tripfive-EX'
+ExportProgress : (161/219) Exporting 'free_male_1_body_low'
+ExportProgress : (162/219) Exporting 'free_male_1_head_low'
+ExportProgress : (163/219) Exporting 'C_man_1_FBX2013'
+ExportProgress : (164/219) Exporting 'box_1'
+ExportProgress : (165/219) Exporting 'Hidden/PostProcessing/CopyStdFromTexArray'
+ExportProgress : (166/219) Exporting 'Hidden/PostProcessing/GrainBaker'
+ExportProgress : (167/219) Exporting 'Hidden/PostProcessing/DepthOfField'
+ExportProgress : (168/219) Exporting 'Hidden/PostProcessing/MotionBlur'
+ExportProgress : (169/219) Exporting 'Hidden/PostProcessing/Debug/Waveform'
+ExportProgress : (170/219) Exporting 'Hidden/PostProcessing/Texture2DLerp'
+ExportProgress : (171/219) Exporting 'Hidden/PostProcessing/Uber'
+ExportProgress : (172/219) Exporting 'Hidden/PostProcessing/DeferredFog'
+ExportProgress : (173/219) Exporting 'Hidden/PostProcessing/CopyStd'
+ExportProgress : (174/219) Exporting 'Hidden/PostProcessing/TemporalAntialiasing'
+ExportProgress : (175/219) Exporting 'Hidden/PostProcessing/DiscardAlpha'
+ExportProgress : (176/219) Exporting 'Hidden/PostProcessing/MultiScaleVO'
+ExportProgress : (177/219) Exporting 'Hidden/PostProcessing/Lut2DBaker'
+ExportProgress : (178/219) Exporting 'Hidden/PostProcessing/SubpixelMorphologicalAntialiasing'
+ExportProgress : (179/219) Exporting 'Hidden/PostProcessing/Debug/Vectorscope'
+ExportProgress : (180/219) Exporting 'Hidden/PostProcessing/Debug/LightMeter'
+ExportProgress : (181/219) Exporting 'Hidden/PostProcessing/Debug/Overlays'
+ExportProgress : (182/219) Exporting 'Hidden/PostProcessing/Bloom'
+ExportProgress : (183/219) Exporting 'Hidden/PostProcessing/Copy'
+ExportProgress : (184/219) Exporting 'Hidden/PostProcessing/ScalableAO'
+ExportProgress : (185/219) Exporting 'Hidden/PostProcessing/CopyStdFromDoubleWide'
+ExportProgress : (186/219) Exporting 'Hidden/PostProcessing/FinalPass'
+ExportProgress : (187/219) Exporting 'Hidden/PostProcessing/Debug/Histogram'
+ExportProgress : (188/219) Exporting 'Hidden/PostProcessing/ScreenSpaceReflections'
+ExportProgress : (189/219) Exporting 'Histogram'
+ExportProgress : (190/219) Exporting 'Texture3DLerp'
+ExportProgress : (191/219) Exporting 'AutoExposure'
+ExportProgress : (192/219) Exporting 'MultiScaleVORender'
+ExportProgress : (193/219) Exporting 'Lut3DBaker'
+ExportProgress : (194/219) Exporting 'MultiScaleVODownsample1'
+ExportProgress : (195/219) Exporting 'MultiScaleVOUpsample'
+ExportProgress : (196/219) Exporting 'GaussianDownsample'
+ExportProgress : (197/219) Exporting 'ExposureHistogram'
+ExportProgress : (198/219) Exporting 'Waveform'
+ExportProgress : (199/219) Exporting 'Vectorscope'
+ExportProgress : (200/219) Exporting 'MultiScaleVODownsample2'
+ExportProgress : (201/219) Exporting 'TextAnim'
+ExportProgress : (202/219) Exporting 'idle'
+ExportProgress : (203/219) Exporting 'run'
+ExportProgress : (204/219) Exporting 'Hit & Damage 5'
+ExportProgress : (205/219) Exporting 'Hope - Loop Free'
+ExportProgress : (206/219) Exporting 'Zombie003_Attack_A_001'
+ExportProgress : (207/219) Exporting 'Zombie003_Idle_A_003'
+ExportProgress : (208/219) Exporting 'Stone footstep 8'
+ExportProgress : (209/219) Exporting 'common_people@mposeAvatar'
+ExportProgress : (210/219) Exporting 'Character_Pack_Zombie_SampleAvatar'
+ExportProgress : (211/219) Exporting 'Tripfive-EX'
+ExportProgress : (212/219) Exporting 'zombie'
+ExportProgress : (213/219) Exporting 'Obstacle'
+ExportProgress : (214/219) Exporting 'Dropboard'
+ExportProgress : (215/219) Exporting 'Cardboard'
+ExportProgress : (216/219) Exporting 'Street'
+ExportProgress : (217/219) Exporting 'PostProcessResources'
+ExportProgress : (218/219) Exporting 'GameScene'
+ExportProgress : (219/219) Exporting 'BillingMode'
+Export : Finished exporting assets
+Export : Saving game assemblies...
+Export : Native plugins: 0 libraries the game shipped were copied into Assets/Plugins; 6 were the il2cpp runtime, the Unity player, Burst output or a platform library and are deliberately not carried.
+Export : Semantic IR: 4615 method bodies across 3 assemblies written to AuxiliaryFiles/SemanticIR, recorded by the generator as it emitted them.
+Export : Finished post-export
+Export : Ripped to /home/user/AssetRipper/Test/Out57H-z
