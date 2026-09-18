@@ -153,6 +153,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {IlGenerator.SharedGenericCallsRetargeted} calls were retargeted from a " +
 				"shared generic instantiation onto the one the receiver's own type names.");
+			LogInlineOperations();
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: SSA destruction left copies - {Cpp2IL.Core.Analysis.CopyCoalescer.Coalesced} coalesced, " +
 				$"{Cpp2IL.Core.Analysis.CopyCoalescer.RejectedForInterference} kept because the two locals are live at once, " +
@@ -165,6 +166,33 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			IlGenerator.UnresolvedCall -= RecordUnresolvedCall;
 			IlGenerator.ResolvedMemoryLoad -= RecordResolvedLoadCase;
 			IlGenerator.UntypedLocal -= ClassifyUntypedLocal;
+		}
+	}
+
+	/// <summary>
+	/// AssetRipper: what the inlined framework operations recovery was offered and what it took.
+	/// </summary>
+	/// <remarks>
+	/// The rejections are printed with the totals because a family that matches nothing and a family
+	/// that is never reached report the same match count otherwise, and this project has twice spent
+	/// an iteration on a pass that never fired.
+	/// </remarks>
+	private static void LogInlineOperations()
+	{
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp inline operation recovery: {Cpp2IL.Core.Analysis.InlineOperationRecovery.Candidates} candidate sites, "
+			+ $"{Cpp2IL.Core.Analysis.InlineOperationRecovery.Matched} rewritten into the operation they came from.");
+
+		foreach (KeyValuePair<string, int> family in Cpp2IL.Core.Analysis.InlineOperationRecovery.MatchesByFamily
+			.OrderByDescending(pair => pair.Value))
+		{
+			Logger.Info(LogCategory.Import, $"Il2Cpp inline operation recovery: {family.Value}x {family.Key}");
+		}
+
+		foreach (KeyValuePair<string, int> reason in Cpp2IL.Core.Analysis.InlineOperationRecovery.Rejections
+			.OrderByDescending(pair => pair.Value).Take(25))
+		{
+			Logger.Info(LogCategory.Import, $"Il2Cpp inline operation recovery: rejected {reason.Value}x - {reason.Key}");
 		}
 	}
 

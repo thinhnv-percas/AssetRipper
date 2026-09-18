@@ -509,6 +509,11 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         LocalVariables.TypeAddressedLocals(this);
 
+        // AssetRipper: after ArrayRecovery, because the capacity test it matches reads the backing
+        // array's length, which is a load at an offset until that pass makes it an ArrayLength; and
+        // out of SSA, so deleting the fast path leaves no phi in the merge to repair.
+        InlineOperationRecovery.Run(this);
+
         ConstantBranchFolder.Run(this);
 
         // Near-last, as it depends on the final block layout
