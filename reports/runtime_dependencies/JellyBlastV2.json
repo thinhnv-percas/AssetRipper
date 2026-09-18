@@ -1,0 +1,330 @@
+{
+  "fixture": "JellyBlastV2",
+  "package": "Test/Input/JellyBlastV2",
+  "project": "Test/Out55j2/JellyBlastV2",
+  "libraries_in_package": 25,
+  "by_kind": {
+    "GAME_NATIVE_PLUGIN": 6,
+    "IL2CPP_RUNTIME": 1,
+    "SYSTEM_LIBRARY": 18
+  },
+  "native_boundaries_by_verdict": {
+    "MANAGED": 1576,
+    "IL2CPP_RUNTIME": 9003,
+    "EXTERNAL_DEPENDENCY": 495,
+    "UNKNOWN": 22
+  },
+  "distinct_symbols_reached": 5,
+  "game_native_plugins": 6,
+  "game_native_plugins_preserved": 0,
+  "native_plugin_preservation_rate": 0.0,
+  "libraries": [
+    {
+      "name": "FBAEMKit",
+      "path": "Payload/JellyBlast.app/Frameworks/FBAEMKit.framework/FBAEMKit",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 607792,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "FBSDKCoreKit",
+      "path": "Payload/JellyBlast.app/Frameworks/FBSDKCoreKit.framework/FBSDKCoreKit",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 3957872,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "FBSDKCoreKit_Basics",
+      "path": "Payload/JellyBlast.app/Frameworks/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 162672,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "FBSDKGamingServicesKit",
+      "path": "Payload/JellyBlast.app/Frameworks/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 1146784,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "FBSDKLoginKit",
+      "path": "Payload/JellyBlast.app/Frameworks/FBSDKLoginKit.framework/FBSDKLoginKit",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 937072,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "FBSDKShareKit",
+      "path": "Payload/JellyBlast.app/Frameworks/FBSDKShareKit.framework/FBSDKShareKit",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 817392,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "UnityFramework",
+      "path": "Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 51406160,
+      "kind": "IL2CPP_RUNTIME",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftAVFoundation.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftAVFoundation.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 124960,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftCore.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftCore.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 4394592,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftCoreAudio.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftCoreAudio.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 80464,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftCoreFoundation.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftCoreFoundation.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 73072,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftCoreGraphics.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftCoreGraphics.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 145264,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftCoreImage.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftCoreImage.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 73712,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftCoreLocation.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftCoreLocation.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 81072,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftCoreMedia.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftCoreMedia.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 79600,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftDarwin.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftDarwin.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 104448,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftDispatch.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftDispatch.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 215648,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftFoundation.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftFoundation.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 2041232,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftMetal.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftMetal.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 77952,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftObjectiveC.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftObjectiveC.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 79728,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftQuartzCore.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftQuartzCore.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 74752,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftUIKit.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftUIKit.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 129040,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswift_Concurrency.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswift_Concurrency.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 417072,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftos.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftos.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 79200,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libswiftsimd.dylib",
+      "path": "Payload/JellyBlast.app/Frameworks/libswiftsimd.dylib",
+      "platform": "ios",
+      "architecture": null,
+      "bytes": 212176,
+      "kind": "SYSTEM_LIBRARY",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    }
+  ],
+  "symbols_reached": {
+    "AtomicCompareExchange": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/PathCreation/Examples/PathSceneTool.cs",
+      "Assets/Scripts/Assembly-CSharp/BFS/Essential/Tween.cs",
+      "Assets/Scripts/Assembly-CSharp/Fish.cs",
+      "Assets/Scripts/Assembly-CSharp/GameManager.cs"
+    ],
+    "SzArrayNew": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/ClosedPathCollider.cs",
+      "Assets/Plugins/Assembly-CSharp-firstpass/DG/Tweening/DOTweenModulePhysics2D.cs",
+      "Assets/Plugins/Assembly-CSharp-firstpass/DebugSDF.cs",
+      "Assets/Plugins/Assembly-CSharp-firstpass/PathCreation/Examples/RoadMeshCreator.cs"
+    ],
+    "il2cpp_vm_class_is_assignable_from": [
+      "Assets/Scripts/Facebook.Unity/Facebook/Unity/Mobile/Android/AndroidFacebook.cs",
+      "Assets/Scripts/Facebook.Unity/Facebook/Unity/Purchase.cs",
+      "Assets/Scripts/Facebook.Unity/Facebook/Unity/Subscription.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs"
+    ],
+    "il2cpp_vm_object_box": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/DebugSDF.cs",
+      "Assets/Scripts/Assembly-CSharp/FluidCompute.cs",
+      "Assets/Scripts/Assembly-CSharp/Level.cs",
+      "Assets/Scripts/Assembly-CSharp/SavePage.cs"
+    ],
+    "il2cpp_vm_object_unbox": [
+      "Assets/Scripts/Assembly-CSharp/FBWindowsGraphAPIManager.cs",
+      "Assets/Scripts/Assembly-CSharp/FloatConverter.cs",
+      "Assets/Scripts/Assembly-CSharp/FluidPhysicsCoupler.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs"
+    ]
+  }
+}

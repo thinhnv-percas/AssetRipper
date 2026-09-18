@@ -1,0 +1,166 @@
+{
+  "fixture": "RunFromZombies",
+  "package": "Test/Input/RunFromZombies",
+  "project": "Test/Out55z4/RunFromZombies",
+  "libraries_in_package": 6,
+  "by_kind": {
+    "IL2CPP_RUNTIME": 2,
+    "UNITY_ENGINE": 4
+  },
+  "native_boundaries_by_verdict": {
+    "IL2CPP_RUNTIME": 1210,
+    "SYSTEM_API": 752,
+    "EXTERNAL_DEPENDENCY": 5,
+    "MANAGED": 30,
+    "UNKNOWN": 5
+  },
+  "distinct_symbols_reached": 13,
+  "game_native_plugins": 0,
+  "game_native_plugins_preserved": 0,
+  "native_plugin_preservation_rate": null,
+  "libraries": [
+    {
+      "name": "libil2cpp.so",
+      "path": "lib/arm64-v8a/libil2cpp.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 37002936,
+      "kind": "IL2CPP_RUNTIME",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libmain.so",
+      "path": "lib/arm64-v8a/libmain.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 6728,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libunity.so",
+      "path": "lib/arm64-v8a/libunity.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 17303960,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libil2cpp.so",
+      "path": "lib/armeabi-v7a/libil2cpp.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 31932268,
+      "kind": "IL2CPP_RUNTIME",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libmain.so",
+      "path": "lib/armeabi-v7a/libmain.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 8588,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libunity.so",
+      "path": "lib/armeabi-v7a/libunity.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 13127752,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    }
+  ],
+  "symbols_reached": {
+    "AtomicCompareExchange": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JObject.cs"
+    ],
+    "SzArrayNew": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DiscriminatedUnionConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/JavaScriptUtils.cs"
+    ],
+    "__cxa_allocate_exception": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonReader.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/StringEnumConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/VersionConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs"
+    ],
+    "__cxa_begin_catch": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonReader.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DataSetConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DataTableConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/StringEnumConverter.cs"
+    ],
+    "__cxa_end_catch": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonReader.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DataSetConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DataTableConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/StringEnumConverter.cs"
+    ],
+    "__cxa_throw": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonReader.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/StringEnumConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/VersionConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs"
+    ],
+    "__stack_chk_fail": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/CustomCreationConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConverter.cs"
+    ],
+    "il2cpp_codegen_object_is_inst": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/BinaryConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DataSetConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DiscriminatedUnionConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/KeyValuePairConverter.cs"
+    ],
+    "il2cpp_vm_class_is_assignable_from": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonReader.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/StringEnumConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/VersionConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs"
+    ],
+    "il2cpp_vm_object_box": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/IsoDateTimeConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/JavaScriptDateTimeConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/UnixDateTimeConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs"
+    ],
+    "il2cpp_vm_object_unbox": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/BinaryConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DiscriminatedUnionConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/IsoDateTimeConverter.cs"
+    ],
+    "memcpy": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/CustomCreationConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    ],
+    "memset": [
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/CustomCreationConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConverter.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+    ]
+  }
+}

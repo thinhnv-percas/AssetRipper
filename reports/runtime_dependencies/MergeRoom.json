@@ -1,0 +1,300 @@
+{
+  "fixture": "MergeRoom",
+  "package": "Test/Input/MergeRoom",
+  "project": "Test/Out55m/MergeRoom",
+  "libraries_in_package": 10,
+  "by_kind": {
+    "ENGINE_BUILD_OUTPUT": 2,
+    "IL2CPP_RUNTIME": 2,
+    "GAME_NATIVE_PLUGIN": 2,
+    "UNITY_ENGINE": 4
+  },
+  "native_boundaries_by_verdict": {
+    "IL2CPP_RUNTIME": 12079,
+    "SYSTEM_API": 2583,
+    "UNKNOWN": 38,
+    "MANAGED": 103,
+    "EXTERNAL_DEPENDENCY": 25
+  },
+  "distinct_symbols_reached": 31,
+  "game_native_plugins": 2,
+  "game_native_plugins_preserved": 0,
+  "native_plugin_preservation_rate": 0.0,
+  "libraries": [
+    {
+      "name": "lib_burst_generated.so",
+      "path": "lib/arm64-v8a/lib_burst_generated.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 59352,
+      "kind": "ENGINE_BUILD_OUTPUT",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libil2cpp.so",
+      "path": "lib/arm64-v8a/libil2cpp.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 63135680,
+      "kind": "IL2CPP_RUNTIME",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "liblofelt_sdk.so",
+      "path": "lib/arm64-v8a/liblofelt_sdk.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 727072,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libmain.so",
+      "path": "lib/arm64-v8a/libmain.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 6728,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libunity.so",
+      "path": "lib/arm64-v8a/libunity.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 25175672,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "lib_burst_generated.so",
+      "path": "lib/armeabi-v7a/lib_burst_generated.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 56980,
+      "kind": "ENGINE_BUILD_OUTPUT",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libil2cpp.so",
+      "path": "lib/armeabi-v7a/libil2cpp.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 54919260,
+      "kind": "IL2CPP_RUNTIME",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "liblofelt_sdk.so",
+      "path": "lib/armeabi-v7a/liblofelt_sdk.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 501376,
+      "kind": "GAME_NATIVE_PLUGIN",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libmain.so",
+      "path": "lib/armeabi-v7a/libmain.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 8588,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libunity.so",
+      "path": "lib/armeabi-v7a/libunity.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 18246472,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    }
+  ],
+  "symbols_reached": {
+    "AtomicCompareExchange": [
+      "Assets/Scripts/Assembly-CSharp/GameManager.cs",
+      "Assets/Scripts/Assembly-CSharp/ItemController.cs",
+      "Assets/Scripts/Assembly-CSharp/JoystickVirtual.cs",
+      "Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs"
+    ],
+    "SzArrayNew": [
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/PathUtils.cs",
+      "Assets/Scripts/Assembly-CSharp/RoomObject.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/LinearDecoder.cs",
+      "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/JavaScriptUtils.cs"
+    ],
+    "__cxa_allocate_exception": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/DG/Tweening/DOTweenModuleUnityVersion.cs",
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/PathUtils.cs",
+      "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/AndroidUtils.cs",
+      "Assets/Scripts/AlmostEngine/NativeShare.cs"
+    ],
+    "__cxa_begin_catch": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/DG/Tweening/DOTweenModuleUnityVersion.cs",
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/PathUtils.cs",
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/SerializableDictionary.cs",
+      "Assets/Scripts/AlmostEngine/AlmostEngine/Example/Preview/PlatformActivate.cs"
+    ],
+    "__cxa_end_catch": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/DG/Tweening/DOTweenModuleUnityVersion.cs",
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/PathUtils.cs",
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/SerializableDictionary.cs",
+      "Assets/Scripts/AlmostEngine/AlmostEngine/Example/Preview/PlatformActivate.cs"
+    ],
+    "__cxa_throw": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/DG/Tweening/DOTweenModuleUnityVersion.cs",
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/PathUtils.cs",
+      "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/AndroidUtils.cs",
+      "Assets/Scripts/AlmostEngine/NativeShare.cs"
+    ],
+    "__stack_chk_fail": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionList.cs",
+      "Assets/Scripts/Assembly-CSharp/StageRoom.cs",
+      "Assets/Scripts/Assembly-CSharp/StateMachine.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/TweenSettingsExtensions.cs"
+    ],
+    "acos": [
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineConfiner2D.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMConeOfVision.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMConeOfVision2D.cs"
+    ],
+    "asin": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs"
+    ],
+    "atan2f": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionVector.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CircleOptions.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAim.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMMaths.cs"
+    ],
+    "atanf": [
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/Examples/CameraController.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineCollider.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineFollowZoom.cs"
+    ],
+    "cos": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs"
+    ],
+    "cosf": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMLineRendererCircle.cs",
+      "Assets/Scripts/Sirenix.Utilities/Sirenix/Utilities/MathUtilities.cs"
+    ],
+    "exp2f": [
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMMaths.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMTween.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMTweenDefinitions.cs"
+    ],
+    "expf": [
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAudioAnalyzer.cs"
+    ],
+    "il2cpp_codegen_object_is_inst": [
+      "Assets/Scripts/Assembly-CSharp/PoolManager.cs",
+      "Assets/Scripts/Assembly-CSharp/StateMachine.cs",
+      "Assets/Scripts/EasySave3/ES3File.cs",
+      "Assets/Scripts/EasySave3/ES3Internal/ES3Reflection.cs"
+    ],
+    "il2cpp_vm_class_is_assignable_from": [
+      "Assets/Plugins/Assembly-CSharp-firstpass/DG/Tweening/DOTweenModuleUnityVersion.cs",
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/PathUtils.cs",
+      "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/AndroidUtils.cs",
+      "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/ScreenshotConfig.cs"
+    ],
+    "il2cpp_vm_object_box": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionString.cs",
+      "Assets/Scripts/EasySave3/ES3Types/ES3Type_MeshRenderer.cs",
+      "Assets/Scripts/EasySave3/ES3Types/ES3Type_NoiseModule.cs",
+      "Assets/Scripts/EasySave3/ES3Types/ES3Type_RenderTexture.cs"
+    ],
+    "il2cpp_vm_object_unbox": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Core/TweenerCore.cs",
+      "Assets/Scripts/EasySave3/ES3.cs"
+    ],
+    "log10": [
+      "Assets/Scripts/Sirenix.Utilities/Sirenix/Utilities/MathUtilities.cs"
+    ],
+    "log10f": [
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMSoundManagerSettingsSO.cs",
+      "Assets/Scripts/Sirenix.Utilities/Sirenix/Utilities/MathUtilities.cs",
+      "Assets/Scripts/Tayx.Graphy/Tayx/Graphy/Audio/G_AudioGraph.cs",
+      "Assets/Scripts/Tayx.Graphy/Tayx/Graphy/Audio/G_AudioMonitor.cs"
+    ],
+    "logf": [
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAudioAnalyzer.cs"
+    ],
+    "memcpy": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionList.cs",
+      "Assets/Scripts/Assembly-CSharp/PlayerInput.cs",
+      "Assets/Scripts/Assembly-CSharp/RoomObject.cs",
+      "Assets/Scripts/Assembly-CSharp/StateMachine.cs"
+    ],
+    "memmove": [
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineBrain.cs",
+      "Assets/Scripts/Coffee.UIParticle/Coffee/UIExtensions/UIParticleUpdater.cs"
+    ],
+    "memset": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionList.cs",
+      "Assets/Scripts/EasySave3/ES3Spreadsheet.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/ListExtensions.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMArrayExtensions.cs"
+    ],
+    "modf": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs",
+      "Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachinePath.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs"
+    ],
+    "powf": [
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFloatExtensions.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMRadioSignal.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMTween.cs",
+      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMTweenDefinitions.cs"
+    ],
+    "sin": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs"
+    ],
+    "sincosf": [
+      "Assets/Scripts/Assembly-CSharp/ExtensionDraw.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachinePath.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineSmoothPath.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs"
+    ],
+    "sinf": [
+      "Assets/Scripts/AlmostEngine/AlmostEngine/Examples/Bounce.cs",
+      "Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMPositionShaker.cs",
+      "Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMRotationShaker.cs",
+      "Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMScaleShaker.cs"
+    ],
+    "tanf": [
+      "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/Examples/CameraController.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineCollider.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineConfiner2D.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineFollowZoom.cs"
+    ]
+  }
+}

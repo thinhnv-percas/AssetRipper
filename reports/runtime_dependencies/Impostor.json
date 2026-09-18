@@ -1,0 +1,213 @@
+{
+  "fixture": "Impostor",
+  "package": "Test/Input/Impostor",
+  "project": "Test/Out55i/Impostor",
+  "libraries_in_package": 6,
+  "by_kind": {
+    "IL2CPP_RUNTIME": 2,
+    "UNITY_ENGINE": 4
+  },
+  "native_boundaries_by_verdict": {
+    "IL2CPP_RUNTIME": 725,
+    "MANAGED": 33,
+    "SYSTEM_API": 490,
+    "UNKNOWN": 15,
+    "EXTERNAL_DEPENDENCY": 15
+  },
+  "distinct_symbols_reached": 24,
+  "game_native_plugins": 0,
+  "game_native_plugins_preserved": 0,
+  "native_plugin_preservation_rate": null,
+  "libraries": [
+    {
+      "name": "libil2cpp.so",
+      "path": "lib/arm64-v8a/libil2cpp.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 27434328,
+      "kind": "IL2CPP_RUNTIME",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libmain.so",
+      "path": "lib/arm64-v8a/libmain.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 6728,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libunity.so",
+      "path": "lib/arm64-v8a/libunity.so",
+      "platform": "android",
+      "architecture": "arm64-v8a",
+      "bytes": 17320136,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libil2cpp.so",
+      "path": "lib/armeabi-v7a/libil2cpp.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 23467364,
+      "kind": "IL2CPP_RUNTIME",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libmain.so",
+      "path": "lib/armeabi-v7a/libmain.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 8588,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    },
+    {
+      "name": "libunity.so",
+      "path": "lib/armeabi-v7a/libunity.so",
+      "platform": "android",
+      "architecture": "armeabi-v7a",
+      "bytes": 13154312,
+      "kind": "UNITY_ENGINE",
+      "packaged_into_project": [],
+      "required_by_symbols": [],
+      "resolved": false
+    }
+  ],
+  "symbols_reached": {
+    "AtomicCompareExchange": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/ACTkDetectorBase.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/CodeHashGenerator.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs"
+    ],
+    "SzArrayNew": [
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/LinearDecoder.cs",
+      "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs",
+      "Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs"
+    ],
+    "__cxa_allocate_exception": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/StandaloneWindowsWorker.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs",
+      "Assets/Scripts/Assembly-CSharp/Item.cs"
+    ],
+    "__cxa_begin_catch": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/BuildHashes.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/StandaloneWindowsWorker.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs"
+    ],
+    "__cxa_end_catch": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/BuildHashes.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/StandaloneWindowsWorker.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs"
+    ],
+    "__cxa_throw": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/StandaloneWindowsWorker.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs",
+      "Assets/Scripts/Assembly-CSharp/Item.cs"
+    ],
+    "__stack_chk_fail": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredDecimal.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs",
+      "Assets/Scripts/Assembly-CSharp/CSVSerializer.cs",
+      "Assets/Scripts/Assembly-CSharp/Extensions.cs"
+    ],
+    "acos": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs",
+      "Assets/Scripts/spine-unity/Spine/IkConstraint.cs"
+    ],
+    "asin": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs"
+    ],
+    "atan2": [
+      "Assets/Scripts/spine-unity/Spine/IkConstraint.cs",
+      "Assets/Scripts/spine-unity/Spine/MathUtils.cs",
+      "Assets/Scripts/spine-unity/Spine/PathConstraint.cs"
+    ],
+    "atan2f": [
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CircleOptions.cs",
+      "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs",
+      "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs",
+      "Assets/Scripts/spine-unity/Spine/Unity/BoneFollower.cs"
+    ],
+    "cos": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs",
+      "Assets/Scripts/spine-unity/Spine/MathUtils.cs"
+    ],
+    "expf": [
+      "Assets/Scripts/LeanCommon/Lean/Common/LeanHelper.cs"
+    ],
+    "il2cpp_codegen_object_is_inst": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/AndroidWorker.cs",
+      "Assets/Scripts/Assembly-CSharp/GameHelper.cs",
+      "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs",
+      "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs"
+    ],
+    "il2cpp_vm_class_is_assignable_from": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/StandaloneWindowsWorker.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs",
+      "Assets/Scripts/Assembly-CSharp/Item.cs"
+    ],
+    "il2cpp_vm_object_box": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs",
+      "Assets/Scripts/spine-unity/Spine/ExposedList.cs"
+    ],
+    "il2cpp_vm_object_unbox": [
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredBool.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredByte.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredChar.cs",
+      "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredDecimal.cs"
+    ],
+    "memcpy": [
+      "Assets/Scripts/Assembly-CSharp/CSVSerializer.cs",
+      "Assets/Scripts/Assembly-CSharp/Extensions.cs",
+      "Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs"
+    ],
+    "memset": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs",
+      "Assets/Scripts/spine-unity/Spine/Collections/CollectionExtensions.cs",
+      "Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs"
+    ],
+    "modf": [
+      "Assets/Scripts/Assembly-CSharp/GameHelper.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/FloatPlugin.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/IntPlugin.cs"
+    ],
+    "powf": [
+      "Assets/Scripts/Assembly-CSharp/GameHelper.cs"
+    ],
+    "sin": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs",
+      "Assets/Scripts/spine-unity/Spine/IkConstraint.cs",
+      "Assets/Scripts/spine-unity/Spine/MathUtils.cs"
+    ],
+    "sincos": [
+      "Assets/Scripts/spine-unity/Spine/IkConstraint.cs"
+    ],
+    "sincosf": [
+      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs",
+      "Assets/Scripts/spine-unity/Spine/Unity/BoneFollower.cs",
+      "Assets/Scripts/spine-unity/Spine/Unity/PointFollower.cs",
+      "Assets/Scripts/spine-unity/Spine/Unity/SkeletonExtensions.cs"
+    ]
+  }
+}

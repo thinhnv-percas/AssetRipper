@@ -1,0 +1,69 @@
+{
+  "fixture": "JellyBlastV2",
+  "total": 17313,
+  "producers": {
+    "POINTER": {
+      "casts": 2756,
+      "files": 255,
+      "samples": [
+        "obj = (nint)obj + 8;",
+        "obj3 = (nint)obj3 + 12;",
+        "obj3 = (nint)obj3 + 12;"
+      ]
+    },
+    "ARRAY": {
+      "casts": 825,
+      "files": 139,
+      "samples": [
+        "object obj = (nint)array + 36;",
+        "object obj3 = (nint)array + 40;",
+        "object obj3 = (nint)array + 40;"
+      ]
+    },
+    "FIELD_ADDRESS": {
+      "casts": 2079,
+      "files": 317,
+      "samples": [
+        "object obj = (nint)this + 40;",
+        "object obj2 = (nint)this + 48;",
+        "obj2 = (nint)this + 40;"
+      ]
+    },
+    "OBJECT_REFERENCE": {
+      "casts": 9558,
+      "files": 409,
+      "samples": [
+        "int num4 = num3 & (nint)obj;",
+        "object obj2 = (nint)obj + 16;",
+        "int num8 = (int)((nint)obj3 & (nint)obj4);"
+      ]
+    },
+    "HANDLE": {
+      "casts": 64,
+      "files": 25,
+      "samples": [
+        "if (fluidSolver.octopusHeadParticleCount > (nint)intPtr)",
+        "hashSet = (HashSet<int>)(nint)intPtr3;",
+        "hashSet = (HashSet<int>)(nint)intPtr3;"
+      ]
+    },
+    "INTEGER": {
+      "casts": 285,
+      "files": 60,
+      "samples": [
+        "int num2 = (int)((nint)num | (nint)8);",
+        "object obj = (nint)num + (nint)32;",
+        "int num2 = (int)((nint)num | (nint)8);"
+      ]
+    },
+    "UNKNOWN": {
+      "casts": 1746,
+      "files": 246,
+      "samples": [
+        "object obj4 = (nint)path + 32;",
+        "object obj4 = (nint)path + 32;",
+        "nint num3 = (nint)poly;"
+      ]
+    }
+  }
+}

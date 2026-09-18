@@ -1,0 +1,69 @@
+{
+  "fixture": "RunFromZombies",
+  "total": 2983,
+  "producers": {
+    "POINTER": {
+      "casts": 276,
+      "files": 47,
+      "samples": [
+        "object obj2 = (nint)obj + num4;",
+        "int num2 = (int)((nint)obj3 & 0x1FFFFFFF0L);",
+        "obj9 = (nint)obj9 + 16;"
+      ]
+    },
+    "ARRAY": {
+      "casts": 46,
+      "files": 22,
+      "samples": [
+        "nint num = (nint)array2;",
+        "nint num2 = (nint)array;",
+        "nint num3 = (nint)array;"
+      ]
+    },
+    "FIELD_ADDRESS": {
+      "casts": 205,
+      "files": 28,
+      "samples": [
+        "nint num = (nint)this;",
+        "nint num = (nint)this;",
+        "nint num6 = (nint)this;"
+      ]
+    },
+    "OBJECT_REFERENCE": {
+      "casts": 1440,
+      "files": 92,
+      "samples": [
+        "nint num = (nint)writer;",
+        "nint num = (nint)writer;",
+        "nint num = (nint)writer;"
+      ]
+    },
+    "HANDLE": {
+      "casts": 78,
+      "files": 23,
+      "samples": [
+        "text2 = (string)(nint)intPtr;",
+        "return ToString(value, (DateFormatHandling)(nint)intPtr);",
+        "DateTimeUtils.WriteDateTimeOffsetString(stringWriter, value, format, (string?)(nint)intPtr, null);"
+      ]
+    },
+    "INTEGER": {
+      "casts": 153,
+      "files": 25,
+      "samples": [
+        "if ((nint)num4 < (nint)0)",
+        "flag8 = (nint)num6 < (nint)0;",
+        "int num5 = (int)((nint)num4 - (nint)0);"
+      ]
+    },
+    "UNKNOWN": {
+      "casts": 785,
+      "files": 87,
+      "samples": [
+        "nint num = (nint)t;",
+        "nint num = (nint)t;",
+        "nint num6 = (nint)typeof(BsonType);"
+      ]
+    }
+  }
+}
