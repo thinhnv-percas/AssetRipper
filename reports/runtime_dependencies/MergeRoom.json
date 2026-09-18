@@ -1,7 +1,7 @@
 {
   "fixture": "MergeRoom",
   "package": "Test/Input/MergeRoom",
-  "project": "Test/Out55m3/MergeRoom",
+  "project": "Test/Out56F-m/MergeRoom",
   "libraries_in_package": 10,
   "by_kind": {
     "ENGINE_BUILD_OUTPUT": 2,
@@ -10,8 +10,8 @@
     "UNITY_ENGINE": 4
   },
   "native_boundaries_by_verdict": {
-    "IL2CPP_RUNTIME": 12060,
-    "SYSTEM_API": 2588,
+    "IL2CPP_RUNTIME": 11891,
+    "SYSTEM_API": 2592,
     "UNKNOWN": 34,
     "MANAGED": 103,
     "EXTERNAL_DEPENDENCY": 25
@@ -26,6 +26,7 @@
       "path": "lib/arm64-v8a/lib_burst_generated.so",
       "platform": "android",
       "architecture": "arm64-v8a",
+      "framework": null,
       "bytes": 59352,
       "kind": "ENGINE_BUILD_OUTPUT",
       "packaged_into_project": [],
@@ -37,6 +38,7 @@
       "path": "lib/arm64-v8a/libil2cpp.so",
       "platform": "android",
       "architecture": "arm64-v8a",
+      "framework": null,
       "bytes": 63135680,
       "kind": "IL2CPP_RUNTIME",
       "packaged_into_project": [],
@@ -48,6 +50,7 @@
       "path": "lib/arm64-v8a/liblofelt_sdk.so",
       "platform": "android",
       "architecture": "arm64-v8a",
+      "framework": null,
       "bytes": 727072,
       "kind": "GAME_NATIVE_PLUGIN",
       "packaged_into_project": [
@@ -62,6 +65,7 @@
       "path": "lib/arm64-v8a/libmain.so",
       "platform": "android",
       "architecture": "arm64-v8a",
+      "framework": null,
       "bytes": 6728,
       "kind": "UNITY_ENGINE",
       "packaged_into_project": [],
@@ -73,6 +77,7 @@
       "path": "lib/arm64-v8a/libunity.so",
       "platform": "android",
       "architecture": "arm64-v8a",
+      "framework": null,
       "bytes": 25175672,
       "kind": "UNITY_ENGINE",
       "packaged_into_project": [],
@@ -84,6 +89,7 @@
       "path": "lib/armeabi-v7a/lib_burst_generated.so",
       "platform": "android",
       "architecture": "armeabi-v7a",
+      "framework": null,
       "bytes": 56980,
       "kind": "ENGINE_BUILD_OUTPUT",
       "packaged_into_project": [],
@@ -95,6 +101,7 @@
       "path": "lib/armeabi-v7a/libil2cpp.so",
       "platform": "android",
       "architecture": "armeabi-v7a",
+      "framework": null,
       "bytes": 54919260,
       "kind": "IL2CPP_RUNTIME",
       "packaged_into_project": [],
@@ -106,6 +113,7 @@
       "path": "lib/armeabi-v7a/liblofelt_sdk.so",
       "platform": "android",
       "architecture": "armeabi-v7a",
+      "framework": null,
       "bytes": 501376,
       "kind": "GAME_NATIVE_PLUGIN",
       "packaged_into_project": [
@@ -120,6 +128,7 @@
       "path": "lib/armeabi-v7a/libmain.so",
       "platform": "android",
       "architecture": "armeabi-v7a",
+      "framework": null,
       "bytes": 8588,
       "kind": "UNITY_ENGINE",
       "packaged_into_project": [],
@@ -131,6 +140,7 @@
       "path": "lib/armeabi-v7a/libunity.so",
       "platform": "android",
       "architecture": "armeabi-v7a",
+      "framework": null,
       "bytes": 18246472,
       "kind": "UNITY_ENGINE",
       "packaged_into_project": [],
@@ -272,8 +282,8 @@
     "modf": [
       "Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs",
       "Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs",
-      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs",
-      "Assets/Scripts/DOTween/DG/Tweening/Plugins/FloatPlugin.cs"
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachinePath.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs"
     ],
     "powf": [
       "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFloatExtensions.cs",
@@ -286,9 +296,9 @@
     ],
     "sincosf": [
       "Assets/Scripts/Assembly-CSharp/ExtensionDraw.cs",
-      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs",
-      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAim.cs",
-      "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMMaths.cs"
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachinePath.cs",
+      "Assets/Scripts/Cinemachine/Cinemachine/CinemachineSmoothPath.cs",
+      "Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs"
     ],
     "sinf": [
       "Assets/Scripts/AlmostEngine/AlmostEngine/Examples/Bounce.cs",

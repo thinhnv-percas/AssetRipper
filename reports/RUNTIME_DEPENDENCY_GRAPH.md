@@ -23,6 +23,28 @@ có thư viện native, và gọi đó là blocker runtime mà không nói thư 
 | Merge-Room | 10 | **2** (`liblofelt_sdk.so`, hai ABI) | 2 / 2 |
 | JellyBlast v2 | 25 | **6** (Facebook SDK framework) | 0 / 6 |
 
+### Cập nhật iteration 056
+
+`IOSNativePluginPostExporter` — thực ra là một nhánh thứ hai trong chính `NativePluginPostExporter` —
+đưa JellyBlast v2 từ **0 / 6** lên **6 / 6**. Chi tiết ở `reports/IOS_NATIVE_PLUGIN.md`. Ba thay đổi
+trong chính phép đo này:
+
+- `kind_of` bỏ hậu tố `.framework` trước khi phân loại, nên `UnityFramework.framework` được đọc là
+  `UNITY_ENGINE` chứ không phải một plugin của game. Trước khi sửa, phép đo báo JellyBlast có **7**
+  game plugin, trong đó một cái nặng 51 MB là chính engine.
+- Kiến trúc của một binary iOS đọc từ **header Mach-O**, vì đường dẫn của một `.ipa` không mang kiến
+  trúc ở đâu cả. Cả 25 binary của JellyBlast là `arm64` thin.
+- Mỗi mục mang thêm `framework`, tên bundle chứa nó, vì Unity import bundle chứ không import binary.
+
+Bảng sau khi sửa:
+
+| | thư viện trong package | game native plugin | preserved |
+|---|---|---|---|
+| Impostor | 6 | 0 | — |
+| RunFromZombies | 6 | 0 | — |
+| Merge-Room | 10 | 2 | **2 / 2** |
+| JellyBlast v2 | 25 | 6 | **6 / 6** |
+
 **Kết luận của 054 sai với một nửa ma trận**: Impostor và RunFromZombies không có plugin nào của
 game cả — 6 thư viện của chúng là đúng hai bản il2cpp runtime và bốn bản Unity player, không thứ nào
 được phép đi vào project. Không có blocker nào ở đó để sửa.
