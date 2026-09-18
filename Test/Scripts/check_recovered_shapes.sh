@@ -130,7 +130,14 @@ check DECOMP-0017 CSVReader.cs 'dictionary[array2[' 'dictionary[(string)0] = val
 # compiler reuses X8 for the list's class pointer and then for `list._items`, so the merge of the
 # two was typed as the class and spread back over the array. `list.Add(t.gameObject)` inlined came
 # out comparing the count against nothing, with the element store lost entirely.
-check DECOMP-0018 GameHelper.cs '.Count < items.Length)' 'if ((nint)count < (nint)0)'
+#
+# Restated at iteration 056: the good shape used to be the inlined capacity test, because that was
+# the most of the operation the recovery could reach. `InlineListAddRecovery` now folds the whole
+# fast path back into the call, so the shape that says the same thing - that the list operation came
+# back rather than degenerating into a comparison against nothing - is the call itself. The bad
+# shape is unchanged, which is what keeps the check meaning what it meant. Anchored on the argument
+# rather than on `list2`, because ILSpy numbers its generated names by how many locals precede them.
+check DECOMP-0018 GameHelper.cs '.Add(gameObject);' 'if ((nint)count < (nint)0)'
 
 # DECOMP-0020: một vòng phi chỉ tham chiếu lẫn nhau không chết đối với phép đếm lượt dùng, nên
 # toàn bộ chùm cờ của một `cmp` trên A64 - kể cả hai lệnh đọc class pointer nuôi nó - vẫn nằm lại

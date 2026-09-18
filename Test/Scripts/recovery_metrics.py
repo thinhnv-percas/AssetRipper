@@ -50,7 +50,13 @@ CALL_CSHARP = re.compile(r'\b\w+' + CSHARP_KEYWORD + r'\s*\(')
 NEWOBJ = re.compile(r'\bnew\s')
 FIELD_WRITE = re.compile(r'(?:\w|\])\.\w+\s*=[^=]')
 FIELD_READ = re.compile(r'=\s*[^=]*(?:\w|\])\.\w+')
-ARRAY_WRITE = re.compile(r'\w\[[^\]]+\]\s*=[^=]')
+# An array initialiser is an array write. A decompiler renders `array[0] = '#'; array[1] = 'c';` as
+# `new char[2] { '#', 'c' }`, so matching only the indexed-assignment form reports the write as lost
+# on the C# side while the IR rendering still has it - which is the same "a call is written
+# differently on the two sides" trap this file has already been caught by twice. The one case that
+# forced it: a method whose only other array write was an inlined `List<T>.Add` fast path, so folding
+# that back left the initialisers as the only writes and the method read as having lost one.
+ARRAY_WRITE = re.compile(r'\w\[[^\]]+\]\s*=[^=]|\bnew\s+[\w.<>]+\s*\[[^\]]*\]\s*\{')
 ARRAY_READ = re.compile(r'=\s*[^=]*\w\[[^\]]+\]')
 BRANCH = re.compile(r'\b(?:if|goto|else|switch|while|for)\b')
 COMPARE = re.compile(r'(?:==|!=|<=|>=|\s<\s|\s>\s)')
