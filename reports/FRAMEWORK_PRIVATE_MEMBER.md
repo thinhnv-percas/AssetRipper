@@ -1,49 +1,80 @@
-# `FRAMEWORK_PRIVATE_MEMBER` — ba thứ khác nhau dưới một cái tên
+# `FRAMEWORK_PRIVATE_MEMBER` — một `List<T>.Add` bị inline, không phải ba họ member
 
-Iteration 054, §7. Cụm này là cụm lỗi biên dịch lớn nhất còn lại sau khi sửa page base:
-**1637 lỗi / 50 file** trên JellyBlastV2 và **192 / 13** trên Impostor. Brief cấm chữa nó bằng cách
-public hoá mọi framework member, và yêu cầu phân biệt *framework real limitation* với *recovery
-mistake* với *compatibility API requirement*. Đây là phép phân biệt đó, đo chứ không đoán.
+Iteration 055 đo lại cụm này ở mức từng *call site* chứ chỉ theo tên member, và cả ba tiền đề của
+iteration 054 (cùng brief 055 §3, §4, §5) đều sai.
 
-## Đo theo member, không theo owner
+## Phân loại từng site, không phải từng tên
 
-| member | JellyBlastV2 | có public API đọc được không |
-|---|---|---|
-| `List<T>._version` | 800 | **không** |
-| `List<T>._items` | 429 | **không** (có `this[int]`, xem dưới) |
-| `List<T>._size` | 398 | **có** — `Count` |
-| `object::_002Ector` | 96 | không phải member (xem `MANGLED_IDENTIFIER`) |
-| `int::m_value` | 22 | không |
-| `Math::PI` | 8 | **bị strip khỏi build**, không phải defect |
-| `Dictionary<T>::_entries` | 7 | không |
+Đọc chính dòng nguồn mà Roslyn chỉ tới, 1627 lỗi trên JellyBlastV2 phân bố thành **đúng bốn hình
+dạng**, không một ngoại lệ nào:
 
-`List<T>` chiếm **1627 của 1780** — cụm này về bản chất là một kiểu, không phải một họ.
+| số | member | hình dạng | dòng nguồn |
+|---|---|---|---|
+| 429 | `_items` | READ_WHOLE | `string[] items = list._items;` |
+| 408 | `_version` | READ_WHOLE | `int version = list._version + 1;` |
+| 398 | `_size` | STORE_WHOLE | `list._size = size;` |
+| 392 | `_version` | STORE_WHOLE | `list._version = version;` |
 
-## Ba phân loại
+Không có **một** lệnh đọc `_size` nào, và không có **một** lệnh đọc phần tử `_items[i]` nào.
 
-**1. `recovery mistake` — `_size`, 398 lỗi.** `List<T>.Count` là một property tầm thường trả về
-`_size`, và phép ghép accessor (`IlGenerator.InstanceAccessorFor`) tồn tại đúng để viết
-`list.Count`. Nó không khớp ở đây. `ReturnsNothingButTheField` đòi thân getter đúng bằng *một* lệnh
-Move từ `[X0 + offset]` rồi Return; bất cứ thứ gì khác — null check của il2cpp, class-init guard —
-làm nó trả về false. CLAUDE.md đã ghi đúng khoảng trống này ("Getters that also carry il2cpp's null
-check are not matched yet"). Đây là việc của recovery và là mục tiêu tiếp theo có biên giới rõ.
+## Vì sao ba tiền đề đều sai
 
-**2. `framework real limitation` — `_version` và `_entries`, 807 lỗi.** `_version` là bộ đếm sửa
-đổi mà enumerator dùng để ném `InvalidOperationException`. Không có API công khai nào đọc nó, ở bất
-kỳ phiên bản nào của framework. Code recovered chạm vào nó vì il2cpp **inline `foreach`**, nên thân
-hàm thật sự đọc field đó. Bản recovery đúng về máy và không thể biên dịch được — đây là chỗ một
-compatibility surrogate là câu trả lời duy nhất, chứ không phải nới accessibility.
+**`_size` không phải recovery mistake, và phép ghép accessor *đang chạy*.** Một probe ghi lại quyết
+định của `InstanceAccessorFor` cho từng field cho thấy `List<T>._size` **ghép thành công mọi lần**
+(`asked, concrete=True` rồi `paired`), nên mọi lệnh *đọc* `_size` đã được viết thành `list.Count` từ
+trước. `ReturnsNothingButTheField` không hề quá nghiêm ở đây: trên RunFromZombies chỉ có **16**
+getter đọc đúng offset của field mình mà bị từ chối, và không cái nào là `_size`. 398 lỗi còn lại là
+**lệnh ghi**, và `Count` là property chỉ đọc — không có setter để ghép.
 
-**3. `compatibility API requirement` — `_items`, 429 lỗi.** `_items` là mảng nền. il2cpp inline
-`get_Item` thành `_items[i]` cộng một bounds check so với `_size`, và `InjectedCheckRemover` bỏ
-check đó đi — nên `list._items[i]` đúng bằng `list[i]` tại mọi chỗ nó xuất hiện. Đây là một phép
-ghép accessor thứ hai (indexer thay vì property), không phải một giới hạn.
+**`_items` không cần indexer.** Cả 429 site đọc *toàn bộ* mảng nền vào một local, không index nó.
+`this[int]` không diễn đạt được `string[] items = list._items;`, nên phép ghép indexer mà brief §4
+yêu cầu sẽ khớp đúng **0** site — hình dạng "một pass không bao giờ chạy".
 
-`Math.PI` (8) là họ khác hẳn và đã được ghi từ trước: member bị IL2CPP strip khỏi build, nên nó là
-khiếm khuyết của bộ assembly ta biên dịch *với*, không phải của bản export.
+**Và cả bốn hình dạng là một method.** Đọc nguyên một site:
+
+```csharp
+int version = list._version + 1;
+list._version = version;
+string[] items = list._items;
+if (list.Count < items.Length)          // <- _size đã thành Count, phép ghép có chạy
+{
+    int size = list.Count + 1;
+    list._size = size;
+    int num4 = list.Count << 3;         // index * sizeof(element)
+    object obj4 = (nint)items + num4;
+    object obj5 = (nint)obj4 + 32;      // + elementsOffset
+    obj5 = obj2;                        // lệnh ghi phần tử, giá trị đã mất
+}
+else
+    list.Add((string)obj2);             // <- nhánh chậm tự gọi tên Add
+```
+
+Đó là `List<T>.Add` bị inline, nguyên văn: bump version, đọc `_items` và `_size`, so với dung lượng,
+ghi `_size + 1`, ghi phần tử, và nhánh chậm gọi `AddWithResize` mà generic sharing quy về `Add`.
+Nhánh `else` **tự gọi tên `List<T>.Add`** — bằng chứng đối chiếu có ngay tại chỗ khớp.
+
+## Cái gì thật sự là earliest wrong transformation
+
+Không phải bốn phép ghép accessor. Là **lệnh ghi phần tử**:
+
+```
+num4 = Count << 3
+obj4 = (nint)items + num4
+obj5 = (nint)obj4 + 32
+obj5 = value
+```
+
+Phép fold địa chỉ phần tử (`ComputedElementAddress`) không khớp hình dạng này vì `elementsOffset`
+được cộng ở **một lệnh riêng** thay vì làm addend của memory operand, và mảng nằm trong một local
+chứa kết quả đọc field. Vì thế `items[size] = item` biến thành số học native-int — và đó cũng chính
+là cụm `NATIVE_INT_CAST` mà brief §7 nói tới. Hai hạng mục là **một** khiếm khuyết.
+
+Chừng nào lệnh ghi phần tử còn chưa phục hồi được thì giá trị được thêm vào list vẫn mất, nên nhận
+diện được cả vùng thành `list.Add(item)` cũng chỉ sinh ra `list.Add(<giá trị đã mất>)`. Sửa lệnh ghi
+trước; nhận diện vùng sau.
 
 ## Không làm
 
-Không nới accessibility của member framework: assembly mà script exported được biên dịch với không
-phải assembly recovered, nên nới nó chỉ che lỗi chứ không làm code đúng hơn. Không đổi public API
-signature để dập CS1061.
+Không nới accessibility của member framework. Không thêm setter cho `Count`. Không ghép indexer cho
+một site đọc toàn bộ mảng. Không nhận diện vùng `Add` trước khi giá trị nó thêm vào còn phục hồi
+được — làm ngược thứ tự chỉ đổi một lỗi biên dịch thành một lệnh gọi sai im lặng.

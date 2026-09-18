@@ -775,6 +775,8 @@ public static class IlGenerator
             if (OffsetOfInstanceField(toMeasure, owner) is not { } offset)
                 return null;
 
+            var sawCandidate = false;
+
             foreach (var property in owner.Properties)
             {
                 if (property.Getter is not { IsStatic: false } getter
@@ -783,12 +785,70 @@ public static class IlGenerator
                     || getter.ReturnType.FullName != toMeasure.FieldType.FullName)
                     continue;
 
+                sawCandidate = true;
+
                 if (ReturnsNothingButTheField(getter, AccessorOffset(offset, owner)))
                     return getter;
+
+                RecordRejectedGetter(toMeasure, getter, AccessorOffset(offset, owner));
             }
+
+            if (!sawCandidate)
+                System.Threading.Interlocked.Increment(ref AccessorsWithNoCandidate);
 
             return null;
         });
+
+    /// <summary>
+    /// AssetRipper: probe - how a getter that was the right shape on paper still failed to pair.
+    /// </summary>
+    /// <remarks>
+    /// The pairing's rejection is silent, so "the accessor pairing does not fire on `List&lt;T&gt;`"
+    /// could mean the candidate was never found or that its body was not one load and a return. Those
+    /// want opposite work, and no count in the run separates them.
+    /// </remarks>
+    public static long AccessorsWithNoCandidate;
+
+    /// <summary>Rejections that were simply a getter for a different field of the same type.</summary>
+    public static long GettersForAnotherField;
+
+    /// <summary>The opcode sequence of each getter that read the field's own offset and was rejected.</summary>
+    public static readonly System.Collections.Concurrent.ConcurrentDictionary<string, int> RejectedGetterShapes = new();
+
+    private static void RecordRejectedGetter(FieldAnalysisContext field, MethodAnalysisContext getter, long offset)
+    {
+        List<Instruction> isil;
+
+        try
+        {
+            isil = getter.AppContext.InstructionSet.GetIsilFromMethod(getter);
+        }
+        catch
+        {
+            RejectedGetterShapes.AddOrUpdate("<lift threw>", 1, static (_, count) => count + 1);
+            return;
+        }
+
+        // Most rejections are simply the wrong property: the loop tries every getter that returns the
+        // field's type, so a type with six string properties produces five rejections per string
+        // field and they say nothing. The ones that matter are the getters that *do* read this
+        // field's offset and were still turned down, because there the shape is what failed.
+        var readsTheField = isil.Any(instruction => instruction is
+        {
+            OpCode: OpCode.Move,
+            Operands: [Register, MemoryOperand { Index: null, Scale: 0, Base: Register { Name: "X0" } } source],
+        } && source.Addend == offset);
+
+        if (!readsTheField)
+        {
+            System.Threading.Interlocked.Increment(ref GettersForAnotherField);
+            return;
+        }
+
+        var shape = string.Join(" ", isil.Take(12).Select(instruction => instruction.OpCode.ToString()));
+        var key = $"{field.DeclaringType?.Name}.{field.Name} @{offset:X}: {shape}";
+        RejectedGetterShapes.AddOrUpdate(key, 1, static (_, count) => count + 1);
+    }
 
     private static readonly System.Collections.Concurrent.ConcurrentDictionary<FieldAnalysisContext, MethodAnalysisContext?> InstanceSetters = new();
 

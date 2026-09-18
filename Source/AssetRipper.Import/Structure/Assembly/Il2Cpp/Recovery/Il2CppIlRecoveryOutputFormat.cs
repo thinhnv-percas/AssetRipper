@@ -138,6 +138,16 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				"recovered body reads the field they are built on - il2cpp inlines add_/remove_, and C# refuses to read an " +
 				"event from outside its declaring type whatever its accessibility. The field and the accessors stay.");
 			Logger.Info(LogCategory.Import,
+				$"Il2Cpp accessor pairing probe: {IlGenerator.AccessorsWithNoCandidate} non-public instance fields had no "
+				+ $"candidate getter at all; {IlGenerator.GettersForAnotherField} rejections were a getter "
+				+ $"for another field; {IlGenerator.RejectedGetterShapes.Count} getters read the field's own offset and "
+				+ "were still turned down.");
+			foreach (KeyValuePair<string, int> shape in IlGenerator.RejectedGetterShapes
+				.OrderByDescending(pair => pair.Value).Take(25))
+			{
+				Logger.Info(LogCategory.Import, $"Il2Cpp accessor pairing probe: {shape.Value}x {shape.Key}");
+			}
+			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {IlGenerator.HiddenFieldsReadThroughAProperty} reads of a hidden static field " +
 				"were written as the public property that returns it.");
 			Logger.Info(LogCategory.Import,
