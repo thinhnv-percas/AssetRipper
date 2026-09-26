@@ -1,0 +1,749 @@
+[
+ {
+  "name": "GUI/Text Shader",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/BlitCopy",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitCopyDepth",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitCopyHDRTonemap",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitCopyWithDepth",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitToDepth",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 2,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitToDepth_MSAA",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 2,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Compositing",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/ConvertTexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/CubeBlend",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/CubeBlur",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/CubeCopy",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/FrameDebuggerRenderTargetDisplay",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 42,
+  "source_text_programs": 9
+ },
+ {
+  "name": "Hidden/Internal-Colored",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/Internal-CombineDepthNormals",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-CubemapToEquirect",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-DebugPattern",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 8,
+  "source_text_programs": 2
+ },
+ {
+  "name": "Hidden/Internal-DeferredReflections",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 11,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Hidden/Internal-DeferredShading",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 130,
+  "source_text_programs": 63
+ },
+ {
+  "name": "Hidden/Internal-DepthNormalsTexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 30,
+  "source_text_programs": 12
+ },
+ {
+  "name": "Hidden/Internal-Flare",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUIRoundedRect",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUIRoundedRectWithColorPerBorder",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITextureBlit",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITextureClip",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITextureClipText",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-Halo",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 7,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/Internal-Loading",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/Internal-MotionVectors",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 9,
+  "source_text_programs": 2
+ },
+ {
+  "name": "Hidden/Internal-ODSWorldTexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 28,
+  "source_text_programs": 10
+ },
+ {
+  "name": "Hidden/Internal-ScreenSpaceShadows",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 45,
+  "source_text_programs": 22
+ },
+ {
+  "name": "Hidden/Internal-StencilWrite",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-UIRAtlasBlitCopy",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-UIRDefault",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-UIRDefaultWorld",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/InternalClear",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/InternalErrorShader",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 35,
+  "source_text_programs": 7
+ },
+ {
+  "name": "Hidden/PostProcessing/Bloom",
+  "guid": "c1e1d3119c6fd4646aea0b4b74cacc1a",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Bloom.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 24,
+  "source_text_programs": 12
+ },
+ {
+  "name": "Hidden/PostProcessing/Copy",
+  "guid": "cdbdb71de5f9c454b980f6d0e87f0afb",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Copy.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/CopyStd",
+  "guid": "4bf4cff0d0bac3d43894e2e8839feb40",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/CopyStd.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/CopyStdFromDoubleWide",
+  "guid": "e8ce9961912f3214586fe8709b9012c1",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/CopyStdFromDoubleWide.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/CopyStdFromTexArray",
+  "guid": "02d2da9bc88d25c4d878c1ed4e0b3854",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/CopyStdFromTexArray.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 3,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Histogram",
+  "guid": "f7ea35cfb33fcad4ab8f2429ec103bef",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Histogram.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 1,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/LightMeter",
+  "guid": "b34a29e523cb9d545881e193a079f2df",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/LightMeter.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 1,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Overlays",
+  "guid": "b958ad1c92bd3d64c9e61318b8681dab",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Overlays.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 23,
+  "source_text_programs": 9
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Vectorscope",
+  "guid": "a71093f2a4fe26a40805c22739e10e4a",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Vectorscope.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 1,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Waveform",
+  "guid": "3020ac7ece79a7f4eb789a236f8bd6c5",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Waveform.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 1,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/DeferredFog",
+  "guid": "4117fce9491711c4094d33a048e36e73",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/DeferredFog.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 10,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Hidden/PostProcessing/DepthOfField",
+  "guid": "0ef78d24e85a44f4da9d5b5eaa00e50b",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/DepthOfField.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 19,
+  "source_text_programs": 8
+ },
+ {
+  "name": "Hidden/PostProcessing/DiscardAlpha",
+  "guid": "5ab0816423f0dfe45841cab3b05ec9ef",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/DiscardAlpha.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/FinalPass",
+  "guid": "f75014305794b3948a3c6d5ccd550e05",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/FinalPass.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 78,
+  "source_text_programs": 45
+ },
+ {
+  "name": "Hidden/PostProcessing/GrainBaker",
+  "guid": "0d8afcb51cc9f0349a6d190da929b838",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/GrainBaker.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Lut2DBaker",
+  "guid": "7ad194cbe7d006f4bace915156972026",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Lut2DBaker.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 19,
+  "source_text_programs": 8
+ },
+ {
+  "name": "Hidden/PostProcessing/MotionBlur",
+  "guid": "2c459b89a7c8b1a4fbefe0d81341651c",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/MotionBlur.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 6
+ },
+ {
+  "name": "Hidden/PostProcessing/MultiScaleVO",
+  "guid": "67f9497810829eb4791ec19e95781e51",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/MultiScaleVO.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 1,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/ScalableAO",
+  "guid": "d7640629310e79646af0f46eb55ae466",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/ScalableAO.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 39,
+  "source_text_programs": 19
+ },
+ {
+  "name": "Hidden/PostProcessing/ScreenSpaceReflections",
+  "guid": "f997a3dc9254c44459323cced085150c",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/ScreenSpaceReflections.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 9,
+  "source_text_programs": 2
+ },
+ {
+  "name": "Hidden/PostProcessing/SubpixelMorphologicalAntialiasing",
+  "guid": "81af42a93ade3dd46a9b583d4eec76d6",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/SubpixelMorphologicalAntialiasing.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 17,
+  "source_text_programs": 7
+ },
+ {
+  "name": "Hidden/PostProcessing/TemporalAntialiasing",
+  "guid": "51bcf79c50dc92e47ba87821b61100c3",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/TemporalAntialiasing.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Texture2DLerp",
+  "guid": "34a819c9e33402547a81619693adc8d5",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Texture2DLerp.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 7,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Uber",
+  "guid": "382151503e2a43a4ebb7366d1632731d",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Uber.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 0,
+  "programs": 3621,
+  "source_text_programs": 1628
+ },
+ {
+  "name": "Hidden/TextCore/Distance Field SSD",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VR/BlitFromTex2DToTexArraySlice",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VR/BlitTexArraySlice",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 2,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VideoComposite",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VideoDecode",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 36,
+  "source_text_programs": 20
+ },
+ {
+  "name": "Hidden/VideoDecodeAndroid",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 26,
+  "source_text_programs": 14
+ },
+ {
+  "name": "Legacy Shaders/Diffuse",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 82,
+  "source_text_programs": 38
+ },
+ {
+  "name": "Legacy Shaders/VertexLit",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 30,
+  "source_text_programs": 12
+ },
+ {
+  "name": "Mobile/VertexLit",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 30,
+  "source_text_programs": 12
+ },
+ {
+  "name": "Mobile/VertexLit (Only Directional Lights)",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 37,
+  "source_text_programs": 20
+ },
+ {
+  "name": "Particles/Standard Surface",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 583,
+  "source_text_programs": 320
+ },
+ {
+  "name": "Skybox/Procedural",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 10,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Sprites/Default",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 13,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Sprites/Mask",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 13,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Standard",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 1385,
+  "source_text_programs": 746
+ },
+ {
+  "name": "UI/Default",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 11,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Hidden/PostProcessing/Editor/ConvertToLog",
+  "guid": "fe144c7e314047f4bb779d555c5405ac",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Editor/ConvertToLog.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Editor/CurveGrid",
+  "guid": "5bb6ef6f3e1b20348b4fdb01e4c404e2",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Editor/CurveGrid.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Editor/Trackball",
+  "guid": "de7f3ac52268a194383c7d62c2a343c1",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Editor/Trackball.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/TMP/Internal/Editor/Distance Field SSD",
+  "guid": "9c442dc870b456e48b615cd8add0e9ef",
+  "source": "artifacts/reference/packages/com.unity.textmeshpro-3.0.7/package/Editor Resources/Shaders/TMP_SDF Internal Editor.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Supercyan/FreeCelShader",
+  "guid": "3304ffc6cab6fe743b9065b5a6894989",
+  "source": "artifacts/reference/RunFromZombiesFullProject/Assets/Store/Supercyan Character Pack Zombie Sample/Shaders/FreeCelShader.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ }
+]

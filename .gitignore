@@ -56,3 +56,8 @@ Test/Input/MergeRoom/
 
 # Python bytecode from the measurement scripts.
 __pycache__/
+
+# Per-method behaviour contracts: one JSON per fixture, 127 MB across four, and reproducible from a
+# rip in seconds with `Test/Scripts/method_behavior_contract.py`. The report beside them is the
+# record; the dumps are not.
+/reports/method-behavior/

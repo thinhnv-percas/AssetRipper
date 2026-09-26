@@ -1,6 +1,6 @@
 {
  "fixture": "RunFromZombies",
- "root": "Test/Out57H-z",
+ "root": "Test/Out58H-z",
  "methods": 4615,
  "status": {
   "EXACT": 2433,
@@ -1302,6 +1302,35 @@
    "assembly": "Assembly-CSharp"
   },
   {
+   "rva": "0xF0D190",
+   "method": "UnitySourceGeneratedAssemblyMonoScriptTypes_v1::.ctor",
+   "file": null,
+   "status": "NOT_EXPORTED",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Object::.ctor"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "Assembly-CSharp"
+  },
+  {
    "rva": "0xF0C7E4",
    "method": "Spawner::Update",
    "file": "Assets/Scripts/Assembly-CSharp/Spawner.cs",
@@ -1324,35 +1353,6 @@
    "delegate_calls": 0,
    "allocations": [],
    "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "Assembly-CSharp"
-  },
-  {
-   "rva": "0xF0D190",
-   "method": "UnitySourceGeneratedAssemblyMonoScriptTypes_v1::.ctor",
-   "file": null,
-   "status": "NOT_EXPORTED",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Object::.ctor"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
    "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
@@ -7373,6 +7373,38 @@
    "assembly": "Mono.Security"
   },
   {
+   "rva": "0x1756370",
+   "method": "Mono.Math.BigInteger::op_LessThanOrEqual",
+   "file": null,
+   "status": "ASSEMBLY_NOT_EXPORTED",
+   "parameters": [
+    "Mono.Math.BigInteger",
+    "Mono.Math.BigInteger"
+   ],
+   "return_type": "System.Boolean",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Mono.Math.BigInteger+Kernel::Compare"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "Mono.Security"
+  },
+  {
    "rva": "0x174E8B4",
    "method": "Mono.Security.Cryptography.PKCS1::Verify_v15",
    "file": null,
@@ -7414,38 +7446,6 @@
    "side_effects": [
     "CALL",
     "VIRTUAL_CALL"
-   ],
-   "assembly": "Mono.Security"
-  },
-  {
-   "rva": "0x1756370",
-   "method": "Mono.Math.BigInteger::op_LessThanOrEqual",
-   "file": null,
-   "status": "ASSEMBLY_NOT_EXPORTED",
-   "parameters": [
-    "Mono.Math.BigInteger",
-    "Mono.Math.BigInteger"
-   ],
-   "return_type": "System.Boolean",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Mono.Math.BigInteger+Kernel::Compare"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
    ],
    "assembly": "Mono.Security"
   },
@@ -8151,6 +8151,33 @@
    "assembly": "Mono.Security"
   },
   {
+   "rva": "0x173A574",
+   "method": "Mono.Security.PKCS7+SignerInfo::get_IssuerName",
+   "file": null,
+   "status": "ASSEMBLY_NOT_EXPORTED",
+   "parameters": [],
+   "return_type": "System.String",
+   "fields_read": [
+    "IssuerName"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "Mono.Security"
+  },
+  {
    "rva": "0x1738FBC",
    "method": "Mono.Security.BitConverterLE::UShortFromBytes",
    "file": null,
@@ -8166,33 +8193,6 @@
    "static_fields_read": [],
    "static_fields_written": [],
    "array_reads": 2,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Mono.Security"
-  },
-  {
-   "rva": "0x173A574",
-   "method": "Mono.Security.PKCS7+SignerInfo::get_IssuerName",
-   "file": null,
-   "status": "ASSEMBLY_NOT_EXPORTED",
-   "parameters": [],
-   "return_type": "System.String",
-   "fields_read": [
-    "IssuerName"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
    "array_writes": 0,
    "calls": [],
    "virtual_calls": [],
@@ -13026,33 +13026,6 @@
    "assembly": "Mono.Security"
   },
   {
-   "rva": "0x174CD10",
-   "method": "Mono.Security.Interface.MonoTlsSettings::get_ClientCertificateIssuers",
-   "file": null,
-   "status": "ASSEMBLY_NOT_EXPORTED",
-   "parameters": [],
-   "return_type": "System.String[]",
-   "fields_read": [
-    "ClientCertificateIssuers"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Mono.Security"
-  },
-  {
    "rva": "0x17415EC",
    "method": "Mono.Security.X509.PKCS12+DeriveBytes::Derive",
    "file": null,
@@ -13100,6 +13073,33 @@
     "CALL",
     "VIRTUAL_CALL"
    ],
+   "assembly": "Mono.Security"
+  },
+  {
+   "rva": "0x174CD10",
+   "method": "Mono.Security.Interface.MonoTlsSettings::get_ClientCertificateIssuers",
+   "file": null,
+   "status": "ASSEMBLY_NOT_EXPORTED",
+   "parameters": [],
+   "return_type": "System.String[]",
+   "fields_read": [
+    "ClientCertificateIssuers"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "Mono.Security"
   },
   {
@@ -13752,38 +13752,6 @@
    "assembly": "Mono.Security"
   },
   {
-   "rva": "0x1755D80",
-   "method": "Mono.Math.BigInteger::op_RightShift",
-   "file": null,
-   "status": "ASSEMBLY_NOT_EXPORTED",
-   "parameters": [
-    "Mono.Math.BigInteger",
-    "System.Int32"
-   ],
-   "return_type": "Mono.Math.BigInteger",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Mono.Math.BigInteger+Kernel::RightShift"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "Mono.Security"
-  },
-  {
    "rva": "0x173A57C",
    "method": "Mono.Security.PKCS7+SignerInfo::get_SerialNumber",
    "file": null,
@@ -13813,6 +13781,38 @@
    "runtime_boundaries": [],
    "side_effects": [
     "VIRTUAL_CALL"
+   ],
+   "assembly": "Mono.Security"
+  },
+  {
+   "rva": "0x1755D80",
+   "method": "Mono.Math.BigInteger::op_RightShift",
+   "file": null,
+   "status": "ASSEMBLY_NOT_EXPORTED",
+   "parameters": [
+    "Mono.Math.BigInteger",
+    "System.Int32"
+   ],
+   "return_type": "Mono.Math.BigInteger",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Mono.Math.BigInteger+Kernel::RightShift"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "Mono.Security"
   },
@@ -17249,43 +17249,6 @@
    "assembly": "Mono.Security"
   },
   {
-   "rva": "0x1752B7C",
-   "method": "Mono.Security.Authenticode.AuthenticodeBase::ReadFirstBlock",
-   "file": null,
-   "status": "ASSEMBLY_NOT_EXPORTED",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Locale::GetText",
-    "Mono.Security.Authenticode.AuthenticodeBase::ProcessFirstBlock"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "System.NotSupportedException",
-    "System.Object"
-   ],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 1,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "RUNTIME_BOUNDARY",
-    "THROW"
-   ],
-   "assembly": "Mono.Security"
-  },
-  {
    "rva": "0x1751534",
    "method": "Mono.Math.BigInteger::.ctor",
    "file": null,
@@ -17324,6 +17287,43 @@
     "ARRAY_STORE",
     "CALL",
     "STORE_FIELD"
+   ],
+   "assembly": "Mono.Security"
+  },
+  {
+   "rva": "0x1752B7C",
+   "method": "Mono.Security.Authenticode.AuthenticodeBase::ReadFirstBlock",
+   "file": null,
+   "status": "ASSEMBLY_NOT_EXPORTED",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Locale::GetText",
+    "Mono.Security.Authenticode.AuthenticodeBase::ProcessFirstBlock"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "System.NotSupportedException",
+    "System.Object"
+   ],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 1,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "RUNTIME_BOUNDARY",
+    "THROW"
    ],
    "assembly": "Mono.Security"
   },
@@ -18923,33 +18923,6 @@
    "assembly": "Mono.Security"
   },
   {
-   "rva": "0x174ADFC",
-   "method": "Mono.Security.Protocol.Ntlm.MessageBase::get_Type",
-   "file": null,
-   "status": "ASSEMBLY_NOT_EXPORTED",
-   "parameters": [],
-   "return_type": "System.Int32",
-   "fields_read": [
-    "Type"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Mono.Security"
-  },
-  {
    "rva": "0x173CCF0",
    "method": "Mono.Security.X509.PKCS12+DeriveBytes::.ctor",
    "file": null,
@@ -18976,6 +18949,33 @@
    "side_effects": [
     "CALL"
    ],
+   "assembly": "Mono.Security"
+  },
+  {
+   "rva": "0x174ADFC",
+   "method": "Mono.Security.Protocol.Ntlm.MessageBase::get_Type",
+   "file": null,
+   "status": "ASSEMBLY_NOT_EXPORTED",
+   "parameters": [],
+   "return_type": "System.Int32",
+   "fields_read": [
+    "Type"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "Mono.Security"
   },
   {
@@ -26622,6 +26622,37 @@
    "assembly": "Newtonsoft.Json"
   },
   {
+   "rva": "0x195FFC0",
+   "method": "Newtonsoft.Json.JsonReader+<SkipAsync>d__1::SetStateMachine",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Runtime.CompilerServices.IAsyncStateMachine"
+   ],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Runtime.CompilerServices.AsyncTaskMethodBuilder::SetStateMachine"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
    "rva": "0x1138490",
    "method": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::System.Collections.ICollection.CopyTo",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs",
@@ -26660,37 +26691,6 @@
     "CALL",
     "RUNTIME_BOUNDARY",
     "THROW"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
-   "rva": "0x195FFC0",
-   "method": "Newtonsoft.Json.JsonReader+<SkipAsync>d__1::SetStateMachine",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Runtime.CompilerServices.IAsyncStateMachine"
-   ],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Runtime.CompilerServices.AsyncTaskMethodBuilder::SetStateMachine"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -38611,45 +38611,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19C0784",
-   "method": "Newtonsoft.Json.Serialization.DefaultContractResolver+<>c__DisplayClass80_0::<CreateShouldSerializeTest>b__0",
-   "file": null,
-   "status": "FOLDED_BY_DECOMPILER",
-   "parameters": [
-    "System.Object"
-   ],
-   "return_type": "System.Boolean",
-   "fields_read": [
-    "shouldSerializeCall"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "System.Array::Empty"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 1,
-   "allocations": [
-    "System.InvalidCastException"
-   ],
-   "branches": 1,
-   "loops": 1,
-   "exceptions": 0,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "DELEGATE_CALL",
-    "RUNTIME_BOUNDARY"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x198BAF8",
    "method": "Newtonsoft.Json.JsonValidatingReader::ValidateInteger",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs",
@@ -38704,6 +38665,45 @@
     "CALL",
     "RUNTIME_BOUNDARY",
     "VIRTUAL_CALL"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x19C0784",
+   "method": "Newtonsoft.Json.Serialization.DefaultContractResolver+<>c__DisplayClass80_0::<CreateShouldSerializeTest>b__0",
+   "file": null,
+   "status": "FOLDED_BY_DECOMPILER",
+   "parameters": [
+    "System.Object"
+   ],
+   "return_type": "System.Boolean",
+   "fields_read": [
+    "shouldSerializeCall"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "System.Array::Empty"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 1,
+   "allocations": [
+    "System.InvalidCastException"
+   ],
+   "branches": 1,
+   "loops": 1,
+   "exceptions": 0,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "DELEGATE_CALL",
+    "RUNTIME_BOUNDARY"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -45166,6 +45166,33 @@
    "assembly": "Newtonsoft.Json"
   },
   {
+   "rva": "0x19F8FBC",
+   "method": "Newtonsoft.Json.Linq.JProperty::get_Name",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JProperty.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.String",
+   "fields_read": [
+    "Name"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
    "rva": "0x19E8428",
    "method": "Newtonsoft.Json.Schema.JsonSchemaModelBuilder::.ctor",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaModelBuilder.cs",
@@ -45199,33 +45226,6 @@
     "CALL",
     "STORE_FIELD"
    ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
-   "rva": "0x19F8FBC",
-   "method": "Newtonsoft.Json.Linq.JProperty::get_Name",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JProperty.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.String",
-   "fields_read": [
-    "Name"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {
@@ -51554,33 +51554,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19E6570",
-   "method": "Newtonsoft.Json.Schema.JsonSchemaModel::get_UniqueItems",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaModel.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Boolean",
-   "fields_read": [
-    "UniqueItems"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x19FA9C8",
    "method": "Newtonsoft.Json.Linq.JPropertyDescriptor::get_PropertyType",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyDescriptor.cs",
@@ -51607,6 +51580,33 @@
    "side_effects": [
     "CALL"
    ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x19E6570",
+   "method": "Newtonsoft.Json.Schema.JsonSchemaModel::get_UniqueItems",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaModel.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Boolean",
+   "fields_read": [
+    "UniqueItems"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {
@@ -60241,6 +60241,38 @@
    "assembly": "Newtonsoft.Json"
   },
   {
+   "rva": "0x1958480",
+   "method": "Newtonsoft.Json.JsonConvert::DeserializeXNode",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.String",
+    "System.String"
+   ],
+   "return_type": "System.Xml.Linq.XDocument",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Newtonsoft.Json.JsonConvert::DeserializeXNode"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
    "rva": "0x1136ECC",
    "method": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::GetEnumerator",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs",
@@ -60269,38 +60301,6 @@
    ],
    "branches": 12,
    "loops": 9,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
-   "rva": "0x1958480",
-   "method": "Newtonsoft.Json.JsonConvert::DeserializeXNode",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.String",
-    "System.String"
-   ],
-   "return_type": "System.Xml.Linq.XDocument",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Newtonsoft.Json.JsonConvert::DeserializeXNode"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
    "exceptions": 0,
    "runtime_boundaries": [],
    "side_effects": [
@@ -69774,6 +69774,43 @@
    "assembly": "Newtonsoft.Json"
   },
   {
+   "rva": "0x19F9600",
+   "method": "Newtonsoft.Json.Linq.JProperty::ClearItems",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JProperty.cs",
+   "status": "PARTIAL",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Newtonsoft.Json.Utilities.StringUtils::FormatWith",
+    "System.Globalization.CultureInfo::get_InvariantCulture",
+    "System.Type::GetTypeFromHandle"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "Newtonsoft.Json.JsonException"
+   ],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 1,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "CALL",
+    "RUNTIME_BOUNDARY",
+    "THROW"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
    "rva": "0x19616B8",
    "method": "Newtonsoft.Json.JsonSerializer::.ctor",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs",
@@ -69814,43 +69851,6 @@
     "CALL",
     "PROPERTY_WRITE",
     "STORE_FIELD"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
-   "rva": "0x19F9600",
-   "method": "Newtonsoft.Json.Linq.JProperty::ClearItems",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JProperty.cs",
-   "status": "PARTIAL",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Newtonsoft.Json.Utilities.StringUtils::FormatWith",
-    "System.Globalization.CultureInfo::get_InvariantCulture",
-    "System.Type::GetTypeFromHandle"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "Newtonsoft.Json.JsonException"
-   ],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 1,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "CALL",
-    "RUNTIME_BOUNDARY",
-    "THROW"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -71373,37 +71373,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19DAAF8",
-   "method": "Newtonsoft.Json.Serialization.KebabCaseNamingStrategy::ResolvePropertyName",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/KebabCaseNamingStrategy.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.String"
-   ],
-   "return_type": "System.String",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Newtonsoft.Json.Utilities.StringUtils::ToKebabCase"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x19D6D48",
    "method": "Newtonsoft.Json.Serialization.JsonSerializerInternalWriter::OnSerializing",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalWriter.cs",
@@ -71446,6 +71415,37 @@
    "side_effects": [
     "CALL",
     "INTERFACE_CALL"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x19DAAF8",
+   "method": "Newtonsoft.Json.Serialization.KebabCaseNamingStrategy::ResolvePropertyName",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/KebabCaseNamingStrategy.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.String"
+   ],
+   "return_type": "System.String",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Newtonsoft.Json.Utilities.StringUtils::ToKebabCase"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -72748,39 +72748,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x1137E4C",
-   "method": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::System.Collections.IDictionary.get_IsFixedSize",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Boolean",
-   "fields_read": [
-    "_dictionary",
-    "_genericDictionary",
-    "_readOnlyDictionary"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [
-    "System.Collections.IDictionary::get_IsFixedSize"
-   ],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 2,
-   "loops": 2,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "INTERFACE_CALL"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x1956F44",
    "method": "Newtonsoft.Json.JsonSerializerSettings::.ctor",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializerSettings.cs",
@@ -72811,6 +72778,39 @@
    "side_effects": [
     "CALL",
     "PROPERTY_WRITE"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x1137E4C",
+   "method": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::System.Collections.IDictionary.get_IsFixedSize",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Boolean",
+   "fields_read": [
+    "_dictionary",
+    "_genericDictionary",
+    "_readOnlyDictionary"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [
+    "System.Collections.IDictionary::get_IsFixedSize"
+   ],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 2,
+   "loops": 2,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "INTERFACE_CALL"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -75406,6 +75406,37 @@
    "assembly": "Newtonsoft.Json"
   },
   {
+   "rva": "0x198D7E0",
+   "method": "Newtonsoft.Json.JsonValidatingReader::ValidateArray",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs",
+   "status": "EXACT",
+   "parameters": [
+    "Newtonsoft.Json.Schema.JsonSchemaModel"
+   ],
+   "return_type": "System.Boolean",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [
+    "Newtonsoft.Json.JsonValidatingReader::TestType"
+   ],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "CALL"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
    "rva": "0x1A28660",
    "method": "Newtonsoft.Json.Converters.XmlNodeConverter::ReadElement",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlNodeConverter.cs",
@@ -75456,37 +75487,6 @@
     "CALL",
     "THROW",
     "VIRTUAL_CALL"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
-   "rva": "0x198D7E0",
-   "method": "Newtonsoft.Json.JsonValidatingReader::ValidateArray",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs",
-   "status": "EXACT",
-   "parameters": [
-    "Newtonsoft.Json.Schema.JsonSchemaModel"
-   ],
-   "return_type": "System.Boolean",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [
-    "Newtonsoft.Json.JsonValidatingReader::TestType"
-   ],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "CALL"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -89573,39 +89573,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x11C6C98",
-   "method": "Newtonsoft.Json.Utilities.DynamicProxy`1::GetDynamicMemberNames",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DynamicProxy.cs",
-   "status": "EXACT",
-   "parameters": [
-    "T"
-   ],
-   "return_type": "System.Collections.Generic.IEnumerable`1<System.String>",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [
-    "Empty"
-   ],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [
-    "IL2CPP_RUNTIME"
-   ],
-   "side_effects": [
-    "RUNTIME_BOUNDARY"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x19DE9D0",
    "method": "Newtonsoft.Json.Schema.JsonSchemaResolver::.ctor",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaResolver.cs",
@@ -89636,6 +89603,39 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x11C6C98",
+   "method": "Newtonsoft.Json.Utilities.DynamicProxy`1::GetDynamicMemberNames",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DynamicProxy.cs",
+   "status": "EXACT",
+   "parameters": [
+    "T"
+   ],
+   "return_type": "System.Collections.Generic.IEnumerable`1<System.String>",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [
+    "Empty"
+   ],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [
+    "IL2CPP_RUNTIME"
+   ],
+   "side_effects": [
+    "RUNTIME_BOUNDARY"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -94937,6 +94937,33 @@
    "assembly": "Newtonsoft.Json"
   },
   {
+   "rva": "0x1A0ED0C",
+   "method": "Newtonsoft.Json.Linq.JsonPath.ArrayMultipleIndexFilter+<ExecuteFilter>d__2::System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken>.get_Current",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JsonPath/ArrayMultipleIndexFilter.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "Newtonsoft.Json.Linq.JToken",
+   "fields_read": [
+    "<>2__current"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
    "rva": "0x1964E2C",
    "method": "Newtonsoft.Json.JsonTextReader::ReadFromFinishedAsync",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs",
@@ -94967,33 +94994,6 @@
    "side_effects": [
     "CALL"
    ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
-   "rva": "0x1A0ED0C",
-   "method": "Newtonsoft.Json.Linq.JsonPath.ArrayMultipleIndexFilter+<ExecuteFilter>d__2::System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken>.get_Current",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JsonPath/ArrayMultipleIndexFilter.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "Newtonsoft.Json.Linq.JToken",
-   "fields_read": [
-    "<>2__current"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {
@@ -101521,35 +101521,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x1A0346C",
-   "method": "Newtonsoft.Json.Linq.JToken::op_Implicit",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs",
-   "status": "EXACT",
-   "parameters": [
-    "System.Uri"
-   ],
-   "return_type": "Newtonsoft.Json.Linq.JToken",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [
-    "Newtonsoft.Json.Linq.JValue"
-   ],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x1A20528",
    "method": "Newtonsoft.Json.Converters.XmlDocumentWrapper::CreateElement",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs",
@@ -101580,6 +101551,35 @@
    "side_effects": [
     "CALL"
    ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x1A0346C",
+   "method": "Newtonsoft.Json.Linq.JToken::op_Implicit",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs",
+   "status": "EXACT",
+   "parameters": [
+    "System.Uri"
+   ],
+   "return_type": "Newtonsoft.Json.Linq.JToken",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [
+    "Newtonsoft.Json.Linq.JValue"
+   ],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {
@@ -112288,15 +112288,15 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19DB170",
-   "method": "Newtonsoft.Json.Serialization.NamingStrategy::get_ProcessExtensionDataNames",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/NamingStrategy.cs",
+   "rva": "0x19FA94C",
+   "method": "Newtonsoft.Json.Linq.JPropertyDescriptor::ShouldSerializeValue",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyDescriptor.cs",
    "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Boolean",
-   "fields_read": [
-    "ProcessExtensionDataNames"
+   "parameters": [
+    "System.Object"
    ],
+   "return_type": "System.Boolean",
+   "fields_read": [],
    "fields_written": [],
    "static_fields_read": [],
    "static_fields_written": [],
@@ -112315,15 +112315,15 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19FA94C",
-   "method": "Newtonsoft.Json.Linq.JPropertyDescriptor::ShouldSerializeValue",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyDescriptor.cs",
+   "rva": "0x19DB170",
+   "method": "Newtonsoft.Json.Serialization.NamingStrategy::get_ProcessExtensionDataNames",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/NamingStrategy.cs",
    "status": "EXACT",
-   "parameters": [
-    "System.Object"
-   ],
+   "parameters": [],
    "return_type": "System.Boolean",
-   "fields_read": [],
+   "fields_read": [
+    "ProcessExtensionDataNames"
+   ],
    "fields_written": [],
    "static_fields_read": [],
    "static_fields_written": [],
@@ -115849,14 +115849,14 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19DC078",
-   "method": "Newtonsoft.Json.Serialization.TraceJsonReader::get_ValueType",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/TraceJsonReader.cs",
-   "status": "PARTIAL",
+   "rva": "0x1A0E628",
+   "method": "Newtonsoft.Json.Linq.JsonPath.ArrayIndexFilter+<ExecuteFilter>d__4::System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken>.get_Current",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JsonPath/ArrayIndexFilter.cs",
+   "status": "EXACT",
    "parameters": [],
-   "return_type": "System.Type",
+   "return_type": "Newtonsoft.Json.Linq.JToken",
    "fields_read": [
-    "_innerReader"
+    "<>2__current"
    ],
    "fields_written": [],
    "static_fields_read": [],
@@ -115876,14 +115876,14 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x1A0E628",
-   "method": "Newtonsoft.Json.Linq.JsonPath.ArrayIndexFilter+<ExecuteFilter>d__4::System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken>.get_Current",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JsonPath/ArrayIndexFilter.cs",
-   "status": "EXACT",
+   "rva": "0x19DC078",
+   "method": "Newtonsoft.Json.Serialization.TraceJsonReader::get_ValueType",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/TraceJsonReader.cs",
+   "status": "PARTIAL",
    "parameters": [],
-   "return_type": "Newtonsoft.Json.Linq.JToken",
+   "return_type": "System.Type",
    "fields_read": [
-    "<>2__current"
+    "_innerReader"
    ],
    "fields_written": [],
    "static_fields_read": [],
@@ -125511,37 +125511,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x113866C",
-   "method": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::System.Collections.ICollection.get_IsSynchronized",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Boolean",
-   "fields_read": [
-    "_dictionary"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [
-    "System.Collections.ICollection::get_IsSynchronized"
-   ],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [
-    "INTERFACE_CALL"
-   ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x11C14BC",
    "method": "Newtonsoft.Json.Utilities.DynamicProxyMetaObject`1::.ctor",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DynamicProxyMetaObject.cs",
@@ -125576,6 +125545,37 @@
    "side_effects": [
     "CALL",
     "STORE_FIELD"
+   ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x113866C",
+   "method": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::System.Collections.ICollection.get_IsSynchronized",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Boolean",
+   "fields_read": [
+    "_dictionary"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [
+    "System.Collections.ICollection::get_IsSynchronized"
+   ],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [
+    "INTERFACE_CALL"
    ],
    "assembly": "Newtonsoft.Json"
   },
@@ -129102,33 +129102,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19E6420",
-   "method": "Newtonsoft.Json.Schema.JsonSchemaModel::get_Type",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaModel.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "Newtonsoft.Json.Schema.JsonSchemaType",
-   "fields_read": [
-    "Type"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x1A08D5C",
    "method": "Newtonsoft.Json.Linq.JTokenWriter::WriteValue",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JTokenWriter.cs",
@@ -129162,6 +129135,33 @@
     "CALL",
     "VIRTUAL_CALL"
    ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x19E6420",
+   "method": "Newtonsoft.Json.Schema.JsonSchemaModel::get_Type",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaModel.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "Newtonsoft.Json.Schema.JsonSchemaType",
+   "fields_read": [
+    "Type"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {
@@ -151968,6 +151968,33 @@
    "assembly": "Newtonsoft.Json"
   },
   {
+   "rva": "0x1A0E668",
+   "method": "Newtonsoft.Json.Linq.JsonPath.ArrayIndexFilter+<ExecuteFilter>d__4::System.Collections.IEnumerator.get_Current",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JsonPath/ArrayIndexFilter.cs",
+   "status": "EXACT",
+   "parameters": [],
+   "return_type": "System.Object",
+   "fields_read": [
+    "<>2__current"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
    "rva": "0x19B5C4C",
    "method": "Newtonsoft.Json.Serialization.CamelCaseNamingStrategy::.ctor",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/CamelCaseNamingStrategy.cs",
@@ -151994,33 +152021,6 @@
    "side_effects": [
     "CALL"
    ],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
-   "rva": "0x1A0E668",
-   "method": "Newtonsoft.Json.Linq.JsonPath.ArrayIndexFilter+<ExecuteFilter>d__4::System.Collections.IEnumerator.get_Current",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JsonPath/ArrayIndexFilter.cs",
-   "status": "EXACT",
-   "parameters": [],
-   "return_type": "System.Object",
-   "fields_read": [
-    "<>2__current"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {
@@ -157555,33 +157555,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x19F2BC8",
-   "method": "Newtonsoft.Json.Linq.JContainer+<GetDescendants>d__36::System.IDisposable.Dispose",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs",
-   "status": "PARTIAL",
-   "parameters": [],
-   "return_type": "System.Void",
-   "fields_read": [
-    "<>1__state"
-   ],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 1,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x1A0DAA0",
    "method": "Newtonsoft.Json.Linq.JsonPath.ArrayIndexFilter::ExecuteFilter",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JsonPath/ArrayIndexFilter.cs",
@@ -157620,6 +157593,33 @@
     "CALL",
     "STORE_FIELD"
    ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x19F2BC8",
+   "method": "Newtonsoft.Json.Linq.JContainer+<GetDescendants>d__36::System.IDisposable.Dispose",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs",
+   "status": "PARTIAL",
+   "parameters": [],
+   "return_type": "System.Void",
+   "fields_read": [
+    "<>1__state"
+   ],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 1,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {
@@ -161056,31 +161056,6 @@
    "assembly": "Newtonsoft.Json"
   },
   {
-   "rva": "0x1964320",
-   "method": "Newtonsoft.Json.JsonSerializerSettings::get_FloatFormatHandling",
-   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializerSettings.cs",
-   "status": "PARTIAL",
-   "parameters": [],
-   "return_type": "Newtonsoft.Json.FloatFormatHandling",
-   "fields_read": [],
-   "fields_written": [],
-   "static_fields_read": [],
-   "static_fields_written": [],
-   "array_reads": 0,
-   "array_writes": 0,
-   "calls": [],
-   "virtual_calls": [],
-   "interface_calls": [],
-   "delegate_calls": 0,
-   "allocations": [],
-   "branches": 0,
-   "loops": 0,
-   "exceptions": 0,
-   "runtime_boundaries": [],
-   "side_effects": [],
-   "assembly": "Newtonsoft.Json"
-  },
-  {
    "rva": "0x1A09240",
    "method": "Newtonsoft.Json.Linq.JTokenWriter::WriteValue",
    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JTokenWriter.cs",
@@ -161117,6 +161092,31 @@
     "CALL",
     "VIRTUAL_CALL"
    ],
+   "assembly": "Newtonsoft.Json"
+  },
+  {
+   "rva": "0x1964320",
+   "method": "Newtonsoft.Json.JsonSerializerSettings::get_FloatFormatHandling",
+   "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializerSettings.cs",
+   "status": "PARTIAL",
+   "parameters": [],
+   "return_type": "Newtonsoft.Json.FloatFormatHandling",
+   "fields_read": [],
+   "fields_written": [],
+   "static_fields_read": [],
+   "static_fields_written": [],
+   "array_reads": 0,
+   "array_writes": 0,
+   "calls": [],
+   "virtual_calls": [],
+   "interface_calls": [],
+   "delegate_calls": 0,
+   "allocations": [],
+   "branches": 0,
+   "loops": 0,
+   "exceptions": 0,
+   "runtime_boundaries": [],
+   "side_effects": [],
    "assembly": "Newtonsoft.Json"
   },
   {

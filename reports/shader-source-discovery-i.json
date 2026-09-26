@@ -1,0 +1,1190 @@
+[
+ {
+  "name": "GUI/Text Shader",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/BlitCopy",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitCopyDepth",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitCopyHDRTonemap",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitCopyWithDepth",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitToDepth",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 2,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/BlitToDepth_MSAA",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 2,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Compositing",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/ConvertTexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/CubeBlend",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/CubeBlur",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/CubeCopy",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/FrameDebuggerRenderTargetDisplay",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 42,
+  "source_text_programs": 9
+ },
+ {
+  "name": "Hidden/Internal-Colored",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/Internal-CombineDepthNormals",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-CubemapToEquirect",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-DebugPattern",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 8,
+  "source_text_programs": 2
+ },
+ {
+  "name": "Hidden/Internal-DeferredReflections",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 11,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Hidden/Internal-DeferredShading",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 130,
+  "source_text_programs": 63
+ },
+ {
+  "name": "Hidden/Internal-DepthNormalsTexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 30,
+  "source_text_programs": 12
+ },
+ {
+  "name": "Hidden/Internal-Flare",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUIRoundedRect",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUIRoundedRectWithColorPerBorder",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITextureBlit",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITextureClip",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-GUITextureClipText",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-Halo",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-Loading",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/Internal-MotionVectors",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 9,
+  "source_text_programs": 2
+ },
+ {
+  "name": "Hidden/Internal-ODSWorldTexture",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 28,
+  "source_text_programs": 10
+ },
+ {
+  "name": "Hidden/Internal-ScreenSpaceShadows",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 45,
+  "source_text_programs": 22
+ },
+ {
+  "name": "Hidden/Internal-StencilWrite",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-UIRAtlasBlitCopy",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-UIRDefault",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-UIRDefaultWorld",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 6,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/InternalClear",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Hidden/InternalErrorShader",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 35,
+  "source_text_programs": 7
+ },
+ {
+  "name": "Hidden/TextCore/Distance Field SSD",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VR/BlitFromTex2DToTexArraySlice",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VR/BlitTexArraySlice",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 2,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VideoComposite",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 4,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/VideoDecode",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 36,
+  "source_text_programs": 20
+ },
+ {
+  "name": "Hidden/VideoDecodeAndroid",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 26,
+  "source_text_programs": 14
+ },
+ {
+  "name": "Legacy Shaders/Diffuse",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 46,
+  "source_text_programs": 21
+ },
+ {
+  "name": "Legacy Shaders/Particles/Additive",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 7,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Legacy Shaders/Particles/Additive (Soft)",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 7,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Legacy Shaders/Particles/Alpha Blended",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 7,
+  "source_text_programs": 1
+ },
+ {
+  "name": "Legacy Shaders/VertexLit",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 18,
+  "source_text_programs": 6
+ },
+ {
+  "name": "Spine/Skeleton",
+  "guid": "1e8a610c9e01c3648bac42585e5fc676",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 2,
+  "programs": 9,
+  "source_text_programs": 2
+ },
+ {
+  "name": "Sprites/Default",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 13,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Sprites/Mask",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 13,
+  "source_text_programs": 4
+ },
+ {
+  "name": "TextMeshPro/Mobile/Distance Field",
+  "guid": "fe393ace9b354375a9cb14cdbbc28be4",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 4,
+  "programs": 29,
+  "source_text_programs": 14
+ },
+ {
+  "name": "TextMeshPro/Sprite",
+  "guid": "cf81c85f95fe47e1a27f6ae460cf182c",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_Sprite.shader",
+  "build_presence": "EXPORTED",
+  "material_usage": 1,
+  "programs": 11,
+  "source_text_programs": 4
+ },
+ {
+  "name": "UI/Default",
+  "guid": null,
+  "source": null,
+  "build_presence": "IN_BUILD_NOT_EXPORTED",
+  "material_usage": 0,
+  "programs": 11,
+  "source_text_programs": 4
+ },
+ {
+  "name": "Hidden/ACTk/WallHackTexture",
+  "guid": "daa473204a35ad242922f896f206d931",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/CodeStage/AntiCheatToolkit/Runtime/Shaders/WallHackTexture.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Internal-SpriteDepthNormalsTexture",
+  "guid": "abbda12fddbb0b048a842a3835470d30",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Sprite/SpriteDepthNormalsTexture.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Bloom",
+  "guid": "c1e1d3119c6fd4646aea0b4b74cacc1a",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Bloom.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Copy",
+  "guid": "cdbdb71de5f9c454b980f6d0e87f0afb",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Copy.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/CopyStd",
+  "guid": "4bf4cff0d0bac3d43894e2e8839feb40",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/CopyStd.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/CopyStdFromDoubleWide",
+  "guid": "e8ce9961912f3214586fe8709b9012c1",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/CopyStdFromDoubleWide.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/CopyStdFromTexArray",
+  "guid": "02d2da9bc88d25c4d878c1ed4e0b3854",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/CopyStdFromTexArray.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Histogram",
+  "guid": "f7ea35cfb33fcad4ab8f2429ec103bef",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Histogram.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/LightMeter",
+  "guid": "b34a29e523cb9d545881e193a079f2df",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/LightMeter.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Overlays",
+  "guid": "b958ad1c92bd3d64c9e61318b8681dab",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Overlays.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Vectorscope",
+  "guid": "a71093f2a4fe26a40805c22739e10e4a",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Vectorscope.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Debug/Waveform",
+  "guid": "3020ac7ece79a7f4eb789a236f8bd6c5",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Debug/Waveform.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/DeferredFog",
+  "guid": "4117fce9491711c4094d33a048e36e73",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/DeferredFog.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/DepthOfField",
+  "guid": "0ef78d24e85a44f4da9d5b5eaa00e50b",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/DepthOfField.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/DiscardAlpha",
+  "guid": "5ab0816423f0dfe45841cab3b05ec9ef",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/DiscardAlpha.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Editor/ConvertToLog",
+  "guid": "fe144c7e314047f4bb779d555c5405ac",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Editor/ConvertToLog.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Editor/CurveGrid",
+  "guid": "5bb6ef6f3e1b20348b4fdb01e4c404e2",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Editor/CurveGrid.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Editor/Trackball",
+  "guid": "de7f3ac52268a194383c7d62c2a343c1",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Editor/Trackball.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/FinalPass",
+  "guid": "f75014305794b3948a3c6d5ccd550e05",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/FinalPass.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/GrainBaker",
+  "guid": "0d8afcb51cc9f0349a6d190da929b838",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/GrainBaker.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Lut2DBaker",
+  "guid": "7ad194cbe7d006f4bace915156972026",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Lut2DBaker.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/MotionBlur",
+  "guid": "2c459b89a7c8b1a4fbefe0d81341651c",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/MotionBlur.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/MultiScaleVO",
+  "guid": "67f9497810829eb4791ec19e95781e51",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/MultiScaleVO.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/ScalableAO",
+  "guid": "d7640629310e79646af0f46eb55ae466",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/ScalableAO.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/ScreenSpaceReflections",
+  "guid": "f997a3dc9254c44459323cced085150c",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/ScreenSpaceReflections.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/SubpixelMorphologicalAntialiasing",
+  "guid": "81af42a93ade3dd46a9b583d4eec76d6",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/SubpixelMorphologicalAntialiasing.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/TemporalAntialiasing",
+  "guid": "51bcf79c50dc92e47ba87821b61100c3",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/TemporalAntialiasing.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Texture2DLerp",
+  "guid": "34a819c9e33402547a81619693adc8d5",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Texture2DLerp.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/PostProcessing/Uber",
+  "guid": "382151503e2a43a4ebb7366d1632731d",
+  "source": "artifacts/reference/packages/com.unity.postprocessing-3.4.0/package/PostProcessing/Shaders/Builtins/Uber.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Spine/Bones",
+  "guid": "66988de88a15abd4e8846c6805485f57",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Utility/Hidden-Spine-Bones.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Sprite-CameraDepthNormalsTexture",
+  "guid": "4794ea6b2d07cc546ba97a809b5f9ada",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Sprite/CameraDepthNormalsTexture.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Sprite-CameraDepthTexture",
+  "guid": "f768a57e040cc48489ad8c7392a31154",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Sprite/CameraDepthTexture.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/Sprite-CameraNormalsTexture",
+  "guid": "537141eca02c6df4bb8b4f77567e9de2",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Sprite/CameraNormalsTexture.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Hidden/TMP/Internal/Editor/Distance Field SSD",
+  "guid": "9c442dc870b456e48b615cd8add0e9ef",
+  "source": "artifacts/reference/packages/com.unity.textmeshpro-3.0.7/package/Editor Resources/Shaders/TMP_SDF Internal Editor.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Blend Modes/Skeleton PMA Additive",
+  "guid": "53efa1d97f5d9f74285d4330cda14e36",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Additive.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Blend Modes/Skeleton PMA Multiply",
+  "guid": "8bdcdc7ee298e594a9c20c61d25c33b6",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Multiply.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Blend Modes/Skeleton PMA Screen",
+  "guid": "4e8caa36c07aacf4ab270da00784e4d9",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Screen.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Blend Modes/Skeleton PMA Additive",
+  "guid": "0299ffae826705448b6c80ccc6a53b75",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Additive-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Blend Modes/Skeleton PMA Multiply",
+  "guid": "4b3566a937643b8498d1ec6df5880b77",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Multiply-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Blend Modes/Skeleton PMA Screen",
+  "guid": "e61a8d94e453ff641a7e39c4b11cac95",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Screen-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/OutlineOnly-ZWrite",
+  "guid": "177da18c3d2e0aa4cb39990ea011973c",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-OutlineOnly-ZWrite.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Skeleton",
+  "guid": "28b5cf4804845fe4b868531fd0bb81d5",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Skeleton Fill",
+  "guid": "e158cbe58baa093438feb3d691f3daba",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Fill-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Skeleton Lit",
+  "guid": "10fab3f69a099be4391fe8a1ad880c65",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Lit-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Skeleton Lit ZWrite",
+  "guid": "756be4f2f738f6c4583bb1c90e16bf0b",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Lit-ZWrite-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Skeleton Tint",
+  "guid": "4f1fdc166fed03649835949d3b79cba3",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Tint-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Skeleton Tint Black",
+  "guid": "49cf725a1e40e7742be92917f83946c3",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-TintBlack-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/SkeletonGraphic",
+  "guid": "8f5d14d2a7fedb84998c50eb96c8b748",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/SkeletonGraphic/Spine-SkeletonGraphic-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/SkeletonGraphic Tint Black",
+  "guid": "d55d64dd09c46af40a319933a62fa1b2",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/SkeletonGraphic/Spine-SkeletonGraphic-TintBlack-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Special/Skeleton Grayscale",
+  "guid": "1d3e1518ae643a749b086bc7972893d2",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Special-Skeleton-Grayscale-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Sprite/Pixel Lit",
+  "guid": "a27d4b27c8ecd9840a03558ccc5ad8a3",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesPixelLit-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Sprite/Unlit",
+  "guid": "276c07e3bdd5719458187a5823e9d96a",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesUnlit-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Outline/Sprite/Vertex Lit",
+  "guid": "30ef5dd318033004588a6481c092416a",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesVertexLit-Outline.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Skeleton Fill",
+  "guid": "45495790b394f894a967dbf44489b57b",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Fill.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Skeleton Lit",
+  "guid": "bd83c75f51f5e23498ae22ffcdfe92c3",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Lit.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Skeleton Lit ZWrite",
+  "guid": "fde05abf1f7be4b4da1caf8c8de1823a",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Lit-ZWrite.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Skeleton Tint",
+  "guid": "522f03282fd79be47b306e2ef4b593fd",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Tint.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Skeleton Tint Black",
+  "guid": "deee23ab4aa38564ead2ac05e112c169",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-TintBlack.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/SkeletonGraphic",
+  "guid": "fa95b0fb6983c0f40a152e6f9aa82bfb",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/SkeletonGraphic Tint Black",
+  "guid": "f64c7bc238bb2c246b8ca1912b2b6b9c",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-TintBlack.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Special/HiddenPass",
+  "guid": "913475501bf19374c84390868a9d6d3d",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Utility/HiddenPass.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Special/Skeleton Grayscale",
+  "guid": "ea7e7c05f36541b4bb280f98ebda8ba1",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Special-Skeleton-Grayscale.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Special/SkeletonGhost",
+  "guid": "3873d4699ee8a4b4da8fa6b8c229b94d",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/Spine Examples/Scripts/Sample Components/Ghost/Shaders/Spine-Special-Skeleton-Ghost.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Sprite/Pixel Lit",
+  "guid": "6f7a5a97a82637f478494bc40ea8c8a2",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesPixelLit.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Sprite/Unlit",
+  "guid": "64005298b9a80bb4899eabd5140dc4a8",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesUnlit.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "Spine/Sprite/Vertex Lit",
+  "guid": "2ce511398fb980f41b7d316c51534590",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesVertexLit.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Bitmap",
+  "guid": "128e987d567d4e2c824d754223b3f3b0",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_Bitmap.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Bitmap Custom Atlas",
+  "guid": "48bb5f55d8670e349b6e614913f9d910",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Distance Field",
+  "guid": "68e6db2ebdc24f95958faec2be5558d6",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Distance Field (Surface)",
+  "guid": "f7ada0af4f174f0694ca6a487b8f543d",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF-Surface.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Distance Field Overlay",
+  "guid": "dd89cf5b9246416f84610a006f916af7",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF Overlay.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Distance Field SSD",
+  "guid": "14eb328de4b8eb245bb7cea29e4ac00b",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF SSD.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Mobile/Bitmap",
+  "guid": "1e3b057af24249748ff873be7fafee47",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Mobile/Distance Field (Surface)",
+  "guid": "85187c2149c549c5b33f0cdb02836b17",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Mobile/Distance Field - Masking",
+  "guid": "bc1ede39bf3643ee8e493720e4259791",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Mobile/Distance Field Overlay",
+  "guid": "a02a7d8c237544f1962732b55a9aebf1",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ },
+ {
+  "name": "TextMeshPro/Mobile/Distance Field SSD",
+  "guid": "c8d12adcee749c344b8117cf7c7eb912",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader",
+  "build_presence": "NOT_IN_BUILD",
+  "material_usage": 0,
+  "programs": 0,
+  "source_text_programs": 0
+ }
+]

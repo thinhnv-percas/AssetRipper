@@ -1,0 +1,199 @@
+[
+ {
+  "shader": "Spine/Skeleton",
+  "exported": "Test/Out58H-i/Impostor/Assets/Shader/Spine_Skeleton.shader",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton.shader",
+  "recovered_program_count": 2,
+  "source_program_count": 2,
+  "render_state_differences": [
+   "Zwrite: source ['Off', 'On'] exported ['Off']"
+  ],
+  "missing_properties": [],
+  "source_operations": [
+   "DISCARD",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DIV",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MAX",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "expanded_operations": [],
+  "missing_operations": [],
+  "extra_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DIV",
+   "LOAD_UNIFORM",
+   "MAX",
+   "VECTOR_MUL"
+  ],
+  "notes": [
+   "render state: [\"Zwrite: source ['Off', 'On'] exported ['Off']\"]"
+  ],
+  "status": "PARTIAL"
+ },
+ {
+  "shader": "TextMeshPro/Mobile/Distance Field",
+  "exported": "Test/Out58H-i/Impostor/Assets/Shader/TextMeshPro_Mobile_Distance Field.shader",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader",
+  "recovered_program_count": 14,
+  "source_program_count": 1,
+  "render_state_differences": [],
+  "missing_properties": [],
+  "source_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DIV",
+   "DOT",
+   "LERP",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_NORMAL",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MIN",
+   "MUL",
+   "NORMALIZE",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DIV",
+   "DOT",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_NORMAL",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MAX",
+   "MIN",
+   "MUL",
+   "NORMALIZE",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "expanded_operations": [
+   "LERP"
+  ],
+  "missing_operations": [],
+  "extra_operations": [
+   "LOAD_SAMPLER",
+   "LOAD_UNIFORM",
+   "MAX"
+  ],
+  "notes": [
+   "absent but expandable by a shader compiler: ['LERP']"
+  ],
+  "status": "SEMANTICALLY_EQUIVALENT"
+ },
+ {
+  "shader": "TextMeshPro/Sprite",
+  "exported": "Test/Out58H-i/Impostor/Assets/Shader/TextMeshPro_Sprite.shader",
+  "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro/Assets/ThirdParties/TextMesh Pro/Shaders/TMP_Sprite.shader",
+  "recovered_program_count": 4,
+  "source_program_count": 1,
+  "render_state_differences": [],
+  "missing_properties": [],
+  "source_operations": [
+   "ADD",
+   "DISCARD",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "BRANCH",
+   "COMPARE",
+   "DISCARD",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE"
+  ],
+  "expanded_operations": [
+   "VECTOR_MUL"
+  ],
+  "missing_operations": [],
+  "extra_operations": [
+   "BRANCH",
+   "COMPARE"
+  ],
+  "notes": [
+   "absent but expandable by a shader compiler: ['VECTOR_MUL']"
+  ],
+  "status": "SEMANTICALLY_EQUIVALENT"
+ }
+]

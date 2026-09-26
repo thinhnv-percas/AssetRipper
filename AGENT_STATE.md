@@ -5,20 +5,26 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 057 (hoàn tất; trọng tâm "semantic source of truth + shader structure". Ship:
-                          RecoveredSemanticIr — generator TỰ GHI thứ nó sinh ra, ra
-                          AuxiliaryFiles/SemanticIR, nên phép đo và mã sinh ra không còn đọc hai
-                          chương trình khác nhau (bản rip giống HỆT baseline 056 tới từng byte, đó là
-                          bằng chứng chứ không phải tuyên bố); method semantic contract cho bốn
-                          fixture; cấu trúc ShaderLab thật (pass viết ra 0 -> 96/3/48/29, shader_exact
-                          vẫn 0 và bản thay thế tự gọi tên mình); .meta PluginImporter cho framework
-                          iOS. Method recovery KHÔNG đổi: 057 đổi cách đo, không đổi thứ được đo.)
+Iteration hiện tại: 058 (hoàn tất; trọng tâm "hành vi của method + chương trình shader thật". Ship:
+                          hợp đồng hành vi (đồ thị + luồng giá trị + hiệu ứng) dựng trên chính
+                          RecoveredSemanticIr, KHÔNG tạo IR thứ hai; oracle hành vi so với nguồn;
+                          corpus hành vi 293 entry; **một lỗi logic thật được tìm và sửa** — lấy địa
+                          chỉ của một tham số ra `ldloca` của local generator tự bịa, nên
+                          ObscuredBool.op_Implicit trả giải mã của số KHÔNG và TimeInGame lấy ngày từ
+                          default(DateTime); và chương trình shader: blob GLES **là mã nguồn GLSL**,
+                          96 khối GLSL thật viết vào ShaderLab qua ba fixture Android, 13 shader đạt
+                          SEMANTICALLY_EQUIVALENT, shader_exact vẫn 0.)
 
-Cảnh báo cho phiên sau: baseline 056 vẫn là mốc so sánh hợp lệ cho method recovery (057 không đổi gì
-  ở đó). NHƯNG shader thì đổi: mọi số shader trước 057 đo trên một bản xuất chỉ có một pass đóng hộp.
-  Và đừng neo phép đo vào SỰ VẮNG MẶT của một chuỗi — validate_unity_stages.py quyết định shader
-  "exact" bằng việc thiếu dấu //DummyShaderTextExporter, nên nó báo 24/24 exact ngay khi exporter mới
-  ngừng viết dấu đó. Cùng lớp lỗi 056 mất một baseline để tìm.
+Cảnh báo cho phiên sau:
+  - `shader_exact` KHÔNG còn do validate_unity_stages.py in ra. Nó quyết "exact" bằng SỰ VẮNG MẶT của
+    dấu bản thay thế, nên ngay khi một pass mang được chương trình thật nó báo 10/34. Dùng
+    shader_semantic_equivalence.py, so với ShaderLab nguồn.
+  - Bản ghi semantic IR nay có SÁU phần tử mỗi entry (op, detail, block, result, operands, type).
+    Bất cứ thứ gì `for a, b in body["operations"]` sẽ vỡ. Đọc qua semantic_ir.operations()/details().
+  - Merge-Room: hai bản rip 058 của cùng build khác nhau ở một file .cs, và 16.317 vs 15.282 method
+    chỉ vì ILSpy bỏ dở assembly Cinemachine ở một lần. Đừng đọc chênh lệch ở fixture đó là kết quả.
+  - method_semantic_contract.py nhận `--game <đường dẫn thư mục game>`, không phải tên. Đưa tên thì
+    nó báo 0 EXACT và 4007 ASSEMBLY_NOT_EXPORTED — đọc y như một regression thảm hoạ.
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182

@@ -1,0 +1,524 @@
+[
+ {
+  "shader": "DELTation/Toon Shader",
+  "exported": "Test/Out58H-m/MergeRoom/Assets/Shader/DELTation_Toon Shader.shader",
+  "source": "artifacts/reference/Merge-Room/Assets/Gtap_MergeRoom/Graphics/Shaders/ToonShader/Shaders/ToonShader.shader",
+  "recovered_program_count": 0,
+  "source_program_count": 5,
+  "render_state_differences": [
+   "ColorMask: source ['0'] exported ['All']",
+   "Cull: source ['Off'] exported ['Back']",
+   "Tags: source ['ignoreprojector=true', 'lightmode=depthnormals', 'lightmode=depthonly', 'lightmode=meta', 'lightmode=shadowcaster', 'lightmode=universalforward', 'renderpipeline=universalrenderpipeline', 'rendertype=opaque'] exported ['ignoreprojector=true', 'renderpipeline=universalrenderpipeline', 'rendertype=opaque']"
+  ],
+  "missing_properties": [],
+  "source_operations": [],
+  "recovered_operations": [],
+  "status": "FALLBACK",
+  "notes": [
+   "the structure came back and no program did"
+  ]
+ },
+ {
+  "shader": "Graphy/Graph Mobile",
+  "exported": "Test/Out58H-m/MergeRoom/Assets/Shader/Graphy_Graph Mobile.shader",
+  "source": "artifacts/reference/Merge-Room/Assets/Graphy - Ultimate Stats Monitor/Shaders/GraphMobile.shader",
+  "recovered_program_count": 1,
+  "source_program_count": 1,
+  "render_state_differences": [],
+  "missing_properties": [],
+  "source_operations": [
+   "BRANCH",
+   "COMPARE",
+   "DIV",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "COMPARE",
+   "DIV",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "expanded_operations": [],
+  "missing_operations": [
+   "BRANCH"
+  ],
+  "extra_operations": [
+   "ADD"
+  ],
+  "notes": [
+   "operations the source reaches and the program does not: ['BRANCH']"
+  ],
+  "status": "PARTIAL"
+ },
+ {
+  "shader": "Graphy/Graph Standard",
+  "exported": "Test/Out58H-m/MergeRoom/Assets/Shader/Graphy_Graph Standard.shader",
+  "source": "artifacts/reference/Merge-Room/Assets/Graphy - Ultimate Stats Monitor/Shaders/GraphStandard.shader",
+  "recovered_program_count": 1,
+  "source_program_count": 1,
+  "render_state_differences": [],
+  "missing_properties": [],
+  "source_operations": [
+   "BRANCH",
+   "COMPARE",
+   "DIV",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "COMPARE",
+   "DIV",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "expanded_operations": [],
+  "missing_operations": [
+   "BRANCH"
+  ],
+  "extra_operations": [
+   "ADD"
+  ],
+  "notes": [
+   "operations the source reaches and the program does not: ['BRANCH']"
+  ],
+  "status": "PARTIAL"
+ },
+ {
+  "shader": "Hidden/Core/FallbackError",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Shader Graph/FallbackError",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/BillboardWavingDoublePass",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/Vertexlit",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/TerrainEngine/Details/UniversalPipeline/WavingDoublePass",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/Blit",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/CameraMotionVectors",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/CopyDepth",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/Debug/DebugReplacement",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/FallbackError",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/FallbackLoading",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/LensFlareDataDriven",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/MaterialError",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/ObjectMotionVectors",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/Sampling",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/StencilDeferred",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/XR/XRMirrorView",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal Render Pipeline/XR/XROcclusionMesh",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal/BlitHDROverlay",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal/CoreBlit",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal/CoreBlitColorAndDepth",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Hidden/Universal/HDRDebugView",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "LevoriCollection/Skybox",
+  "exported": "Test/Out58H-m/MergeRoom/Assets/Shader/LevoriCollection_Skybox.shader",
+  "source": "artifacts/reference/Merge-Room/Assets/Gtap_MergeRoom/Graphics/Shaders/Skybox.shader",
+  "recovered_program_count": 0,
+  "source_program_count": 1,
+  "status": "DUMMY",
+  "notes": [
+   "every pass carries the replacement stage"
+  ]
+ },
+ {
+  "shader": "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "Shader Graphs/Ghost",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ },
+ {
+  "shader": "TextMeshPro/Distance Field",
+  "exported": "Test/Out58H-m/MergeRoom/Assets/Shader/TextMeshPro_Distance Field.shader",
+  "source": "artifacts/reference/Merge-Room/Assets/TextMesh Pro/Shaders/TMP_SDF.shader",
+  "recovered_program_count": 2,
+  "source_program_count": 1,
+  "render_state_differences": [],
+  "missing_properties": [],
+  "source_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DIV",
+   "DOT",
+   "LERP",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_NORMAL",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MIN",
+   "MUL",
+   "NORMALIZE",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DIV",
+   "DOT",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_NORMAL",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MAX",
+   "MIN",
+   "MUL",
+   "NORMALIZE",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "expanded_operations": [
+   "LERP"
+  ],
+  "missing_operations": [],
+  "extra_operations": [
+   "LOAD_SAMPLER",
+   "MAX"
+  ],
+  "notes": [
+   "absent but expandable by a shader compiler: ['LERP']"
+  ],
+  "status": "SEMANTICALLY_EQUIVALENT"
+ },
+ {
+  "shader": "TextMeshPro/Mobile/Distance Field",
+  "exported": "Test/Out58H-m/MergeRoom/Assets/Shader/TextMeshPro_Mobile_Distance Field.shader",
+  "source": "artifacts/reference/Merge-Room/Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader",
+  "recovered_program_count": 7,
+  "source_program_count": 1,
+  "render_state_differences": [],
+  "missing_properties": [],
+  "source_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DIV",
+   "DOT",
+   "LERP",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_NORMAL",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MIN",
+   "MUL",
+   "NORMALIZE",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DIV",
+   "DOT",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_NORMAL",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MAX",
+   "MIN",
+   "MUL",
+   "NORMALIZE",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE",
+   "VECTOR_MUL"
+  ],
+  "expanded_operations": [
+   "LERP"
+  ],
+  "missing_operations": [],
+  "extra_operations": [
+   "LOAD_SAMPLER",
+   "LOAD_UNIFORM",
+   "MAX"
+  ],
+  "notes": [
+   "absent but expandable by a shader compiler: ['LERP']"
+  ],
+  "status": "SEMANTICALLY_EQUIVALENT"
+ },
+ {
+  "shader": "TextMeshPro/Sprite",
+  "exported": "Test/Out58H-m/MergeRoom/Assets/Shader/TextMeshPro_Sprite.shader",
+  "source": "artifacts/reference/Merge-Room/Assets/TextMesh Pro/Shaders/TMP_Sprite.shader",
+  "recovered_program_count": 2,
+  "source_program_count": 1,
+  "render_state_differences": [],
+  "missing_properties": [],
+  "source_operations": [
+   "ADD",
+   "DISCARD",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "SUB",
+   "TEXTURE_SAMPLE"
+  ],
+  "recovered_operations": [
+   "ADD",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_UNIFORM",
+   "LOAD_VERTEX_COLOR",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MUL",
+   "RETURN",
+   "STORE_COLOR",
+   "STORE_POSITION",
+   "TEXTURE_SAMPLE"
+  ],
+  "expanded_operations": [
+   "SUB"
+  ],
+  "missing_operations": [
+   "DISCARD"
+  ],
+  "extra_operations": [],
+  "notes": [
+   "operations the source reaches and the program does not: ['DISCARD']",
+   "absent but expandable by a shader compiler: ['SUB']"
+  ],
+  "status": "PARTIAL"
+ },
+ {
+  "shader": "Universal Render Pipeline/Particles/Unlit",
+  "status": "NOT_APPLICABLE",
+  "notes": [
+   "no source shader of this name in the project"
+  ]
+ }
+]

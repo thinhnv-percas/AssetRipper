@@ -714,3 +714,22 @@ more of them than a typing rule would have.
   `Il2CppRecoveryDiagnosticsProcessingLayer` warns about the architecture up front. ARMv7 was in the
   same position until `Source/External/Cpp2IL.Core/InstructionSets/ArmV7InstructionSet.cs` was
   written; see section 8.
+
+## Sau iteration 058 — mục tiêu tiếp theo, đã có bằng chứng
+
+1. **Entry không phải chương trình trong bảng blob của shader.** Một pass chỉ viết ra chương trình
+   thật nếu entry tại `BlobIndex` của nó đọc ra mã nguồn; trên RunFromZombies 13/24 shader không có
+   pass nào như thế. Bảng entry xen kẽ chương trình với thứ khác, và
+   `ISerializedProgram.ParameterBlobIndices` là ứng viên rõ nhất chưa được đọc.
+   `reports/SHADER_PROGRAM_RECOVERY.md` mục 5.
+2. **197 `FALLBACK` và 16 `MISMATCH` của oracle hành vi trên Merge-Room**, gần như toàn bộ là Easy
+   Save 3 và đều mang "loops: source N, recovered 0" — cả thân vòng lặp biến mất. Đây là nhóm lớn
+   nhất còn lại mà có oracle để đối chiếu.
+3. **Ánh xạ đối số cho 159 site `List<T>.Add`** có receiver là địa chỉ phần tử.
+   `reports/LIST_ADD_ARGUMENT_PROVENANCE.md` mục 3. Không nới recogniser.
+4. **140 site "guard does not end in a conditional branch"** — nhóm bị từ chối lớn nhất, chưa phân
+   loại. Đếm theo terminator thật sự trước khi làm.
+5. **Metal trên iOS.** JellyBlast v2 không có một byte mã nguồn shader nào; muốn đi tiếp cần trình
+   dịch ngược Metal, và đó là một dự án riêng.
+6. **URP source cho Merge-Room.** 25 shader `NOT_APPLICABLE` vì registry công khai trả 404 cho
+   `com.unity.render-pipelines.universal@14.0.12`. Lấy được nó là 25 shader nữa có oracle.

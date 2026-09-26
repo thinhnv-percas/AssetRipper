@@ -41,6 +41,7 @@ DUMMY_MARKER = "//DummyShaderTextExporter"
 # the marker stopped being written, which is the same defect iteration 056 spent a baseline on: a
 # measurement anchored to a string, and the string changed. The replacement names itself too.
 REPLACEMENT_MARKER = "AssetRipperReplacementProgram"
+RECOVERED_MARKER = "AssetRipperRecoveredProgram"
 
 # A body the generator gave up on entirely. Counted so stage B can say "files exist" without that
 # being read as "files have content".
@@ -226,10 +227,16 @@ def shader_status(root: pathlib.Path):
         if DUMMY_MARKER in text:
             counts["DUMMY"] += 1
         elif REPLACEMENT_MARKER in text:
-            # Structure recovered from the asset, shading replaced. Never exact.
+            # Structure recovered from the asset, shading replaced.
             counts["STRUCTURE_ONLY"] += 1
+        elif RECOVERED_MARKER in text:
+            # Every pass carries the shader's own compiled program. That is not the same as being
+            # exact, and calling it exact here is the same defect as before one layer out: this
+            # script never compares anything against a source shader, so it cannot say. Exactness is
+            # `shader_semantic_equivalence.py`'s to decide, against the ShaderLab the build came from.
+            counts["PROGRAMS_RECOVERED"] += 1
         else:
-            counts["EXACT_OR_BETTER"] += 1
+            counts["UNKNOWN"] += 1
 
     return counts
 
@@ -316,10 +323,14 @@ def main() -> int:
     print(f"scene_load_rate            BLOCKED ({blocked})")
     print(f"prefab_load_rate           BLOCKED ({blocked})")
     print(f"runtime_smoke_pass_rate    BLOCKED ({blocked})")
-    print(f"shader_exact               {shaders['EXACT_OR_BETTER']} of {total_shaders}")
+    print(f"shader_programs_recovered  {shaders['PROGRAMS_RECOVERED']} of {total_shaders}"
+          "  (every pass carries the shader's own compiled program)")
     print(f"shader_structure_only      {shaders['STRUCTURE_ONLY']} of {total_shaders}"
-          "  (subshaders, passes, tags and render state from the asset; programs replaced)")
+          "  (subshaders, passes, tags and render state from the asset; at least one program replaced)")
     print(f"shader_dummy               {shaders['DUMMY']} of {total_shaders}")
+    print(f"shader_unknown             {shaders['UNKNOWN']} of {total_shaders}")
+    print("shader_exact               NOT_MEASURED_HERE (shader_semantic_equivalence.py decides it "
+          "against the source ShaderLab)")
 
     if arguments.json:
         pathlib.Path(arguments.json).write_text(json.dumps({

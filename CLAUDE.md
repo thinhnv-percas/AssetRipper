@@ -1675,6 +1675,66 @@ find it; `strings` without `-el` does find method and type names.
   path's own **element address** arriving in the receiver register. That is an argument-mapping defect,
   not a call-resolution one, and it wants the opposite work.
 
+- **Taking the address of a parameter must be `ldarga`, and one of the two sites did not.**
+  `LoadOperand`'s `AddressOf { Target: LocalVariable }` case called `Ldloca locals[addressed]`
+  directly, bypassing `LoadLocalAddress` - the only code that knows a `LocalVariable` is routinely a
+  *parameter*. Where it was one, the generator took the address of a local it had invented and that
+  nothing ever wrote. The result is not a placeholder: it is a body that compiles, reads plausibly
+  and answers wrongly every time. `ObscuredBool.op_Implicit` returned the decryption of *zero*;
+  `TimeInGame` read Day/Month/Year out of `default(DateTime)`; `LayerMaskExtension.IncludesAny`
+  answered for a mask of zero whatever it was given. On the deterministic fixture **16 files changed
+  content and every aggregate stayed identical to the digit** - 5482 methods, 4293 placeholders,
+  EXACT 3782. No counting metric in this project can see a defect of that shape, which is why the
+  source behaviour oracle exists.
+- **A behaviour contract is what a method does; a semantic status is how well it scored.** The two
+  catch different things and neither subsumes the other. `logic-behavior-corpus.json` freezes the
+  contract - members read and written, calls made, loops and branches, the operation each branch
+  condition was decided by - and it did **not** catch the parameter bug above, because that changed
+  the *value read* and not the *operation performed*. `source_behavior_oracle.py` did, by comparing
+  against the programmer's own text. Keep both.
+- **A shader's compiled GLES program is GLSL source text, and this file said for five iterations that
+  it was not confirmed.** Nobody had opened a blob. `ShaderProgramProbe` LZ4-decompresses each
+  platform's segments, reads the entry table at the head of the decompressed blob and *measures* each
+  sub-program: 3079 of 6704 on one fixture are plain GLSL, carrying `#ifdef VERTEX` **and**
+  `#ifdef FRAGMENT` in one blob - which is exactly the form Unity's `GLSLPROGRAM` block takes, so
+  recovering a shader program here is extraction rather than decompilation. iOS is the opposite and
+  settles the other half: JellyBlast compiles only to Metal, 0 of 1164 sub-programs are source, and
+  no amount of extraction work will change that.
+- **From Unity 2021 a shader's sub-programs moved to `m_PlayerSubPrograms`**, a list per hardware
+  tier of a *different type* (`SerializedPlayerSubProgram`) carrying the same four members. A reader
+  of `m_SubPrograms` alone sees "Vertex 0 variant(s)" on a shader with hundreds, and no pass can be
+  matched back to the program it compiled to - 0 programs recovered out of 3079 that were readable.
+- **An extracted program must stop at the end of its own printable run.** Several entries in a large
+  shader's table carry a length that reaches the end of the whole platform blob; running to the last
+  printable byte of that span takes everything after the program with it. One 8 MB "shader", 3 GB for
+  one rip, and a full disk.
+- **Blend, ColorMask, Offset and Stencil are in the asset and were being thrown away.** A program
+  that is right under blending that is not does not draw what the shader drew - which is what the
+  comparison against source reported on the first shader it ran on.
+- **Never anchor a measurement to the *absence* of a marker - the second time.** Iteration 057 lost a
+  baseline to `validate_unity_stages.py` calling a shader exact when it did not carry the dummy
+  marker. The same script then called a shader exact when it did not carry the *replacement* marker,
+  so the moment a pass carried a real program it reported `shader_exact 10 of 34`. It now reports
+  `shader_programs_recovered`, and says `shader_exact NOT_MEASURED_HERE`: that script compares nothing
+  against a source shader, so it has no standing to decide.
+- **Three of the four fixtures ship source shaders, and the claim that none did was never checked.**
+  The packages a game embeds - TextMesh Pro, Spine, post-processing - are source in the project tree,
+  and a package that is not can be fetched at the version `Packages/manifest.json` pins
+  (`https://packages.unity.com/<name>/-/<name>-<version>.tgz`). 24 of 24 exported shaders on one
+  fixture have an oracle. URP is not on that registry, which is why 25 of Merge-Room's are
+  `NOT_APPLICABLE` - an oracle that is missing, not a recovery that is.
+- **A source-side oracle parser is a measurement and fails like one.** Five defects in one iteration,
+  each reading exactly like a recovery defect: `scoreCounter++` is a write with no `=` in it;
+  `transform.position = …` is a property write the recovery correctly names as its setter call;
+  `Debug.LogFormat("Button A Pressed for the first time")` reads as a `for` loop because a string is
+  not code; a one-line method's own name sits in the text its body was collected from and reads as a
+  recursive call; and an `async` method's body is in a state machine exactly as a coroutine's is.
+- **`method_semantic_contract.py --game` takes a path, not a name.** Given a name it reports 0 EXACT
+  and 4007 `ASSEMBLY_NOT_EXPORTED`, which reads as the worst regression in the project's history.
+- **The semantic IR record is six wide now** - operation, detail, block, result, operands, type - and
+  anything doing `for operation, detail in body["operations"]` breaks silently. Read it through
+  `semantic_ir.operations()` / `semantic_ir.details()`, which are defined once.
+
 ### Things measured to be worth nothing — do not redo them
 - **Making the exporter's own injected types internal.** They are injected into *every* assembly and
   public, so a file referencing two recovered assemblies sees two `TokenAttribute`s - CS0433, 1315
@@ -1888,6 +1948,22 @@ Twenty-six scripts, and each measures something the others cannot:
 - `Test/Scripts/inline_list_add_report.py` — what the inlined-framework-operation recovery was offered
   and what it took, per fixture, with every rejection under the reason the pass rejected it for. A
   family that matches nothing and a family that is never reached print the same match count otherwise.
+- `Test/Scripts/method_behavior_contract.py` — one behaviour contract per method out of the
+  generator's own record: effects, calls, allocations, the control-flow graph with each branch's
+  condition traced back to the operation that decided it, and the value-flow chains. The only measure
+  that can say a body runs the right operations under the wrong condition.
+- `Test/Scripts/source_behavior_oracle.py` — that contract against the behaviour of the programmer's
+  own text, asymmetric about calls because il2cpp inlines framework methods. `--self-test` has nine
+  cases, each red if the rule it names is removed.
+- `Test/Scripts/logic_behavior_corpus.py` — 293 frozen behaviour contracts, selected by what a method
+  is *for* rather than by how badly it was recovered.
+- `Test/Scripts/shader_source_discovery.py` — which shaders in a build have source to compare
+  against, with GUID, path, material usage and build presence.
+- `Test/Scripts/shader_semantic_ir.py` — GLSL and Cg reduced to one vocabulary, so the compiled
+  program and the source shader can be compared at all.
+- `Test/Scripts/shader_semantic_equivalence.py` — an exported shader against the ShaderLab it was
+  built from. `DUMMY` is decided before any degree of success, and render state is compared before
+  program semantics.
 - `Test/Scripts/semantic_ir.py` — the operations the generator recorded while it emitted each body,
   read from `AuxiliaryFiles/SemanticIR`. The one source of truth for what a recovered method does;
   everything that used to parse a rendering to find out should read this instead.
