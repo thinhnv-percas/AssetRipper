@@ -2,6 +2,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
+using Cpp2IL.Core.Graphs;
+using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
 
 namespace Cpp2IL.Core.Analysis;
@@ -60,8 +62,47 @@ public enum SemanticOperation
     ListAdd,
 }
 
-/// <summary>One recorded operation: what it was, and what it named.</summary>
-public readonly record struct SemanticEntry(SemanticOperation Operation, string Detail);
+/// <summary>
+/// AssetRipper: one recorded operation - what it was, what it named, where in the graph it sits, and
+/// which values it consumed and produced.
+/// </summary>
+/// <remarks>
+/// A sequence of operation names says a method compares something and branches; it cannot say
+/// <em>what</em> it compared, so a recovery that compares the wrong field reads identically to one
+/// that compares the right one. <see cref="Result"/> and <see cref="Operands"/> name the values by
+/// the ISIL local they live in, which is what lets a reader chain them: the load that produced a
+/// value and the comparison that consumed it name the same local.
+/// </remarks>
+public readonly record struct SemanticEntry(
+    SemanticOperation Operation,
+    string Detail,
+    int Block,
+    string Result,
+    IReadOnlyList<string> Operands,
+    string ResultType);
+
+/// <summary>
+/// AssetRipper: one basic block of the graph the generator emitted from.
+/// </summary>
+/// <remarks>
+/// Recorded from <see cref="Cpp2IL.Core.Graphs.ISILControlFlowGraph.Blocks"/>, which is the list the
+/// generator iterates - not the breadth-first walk, which omits any block nothing reaches while the
+/// generator emits it anyway.
+/// <para>
+/// Exception edges are deliberately absent rather than guessed at. The graph is built from the lifted
+/// ISIL, where a throw is still a call to an il2cpp raise helper; the passes that rewrite it into
+/// <c>OpCode.Throw</c> do not revisit the edges, and <c>UnreachableAfterThrow</c> then detaches the
+/// block. So a throwing block has no outgoing edge to record, and there are no handlers in a recovered
+/// body for one to reach.
+/// </para>
+/// </remarks>
+public sealed record SemanticBlock(
+    int Id,
+    IReadOnlyList<int> Successors,
+    IReadOnlyList<int> Predecessors,
+    string Terminator,
+    string Condition,
+    bool IsLoopHeader);
 
 /// <summary>
 /// AssetRipper: what a method body was recovered as, recorded by the generator as it emits.
@@ -94,6 +135,11 @@ public sealed class RecoveredSemanticIr
     private static RecoveredSemanticIr? _current;
 
     private readonly List<SemanticEntry> _entries = [];
+    private readonly List<SemanticBlock> _blocks = [];
+
+    /// <summary>The block whose instructions the generator is emitting, and the instruction itself.</summary>
+    private int _block = -1;
+    private Instruction? _instruction;
 
     /// <summary>Every body recorded in this run, keyed by assembly and then by method.</summary>
     /// <remarks>
@@ -113,6 +159,9 @@ public sealed class RecoveredSemanticIr
     public string? GeneratorFailure { get; set; }
 
     public IReadOnlyList<SemanticEntry> Entries => _entries;
+
+    /// <summary>The graph the body was emitted from, in the generator's own iteration order.</summary>
+    public IReadOnlyList<SemanticBlock> Blocks => _blocks;
 
     /// <summary>
     /// Starts recording for one method. The returned scope must be disposed, which is what files the
@@ -138,7 +187,120 @@ public sealed class RecoveredSemanticIr
     /// is the whole reason this cannot drift from what is exported.
     /// </summary>
     public static void Record(SemanticOperation operation, string detail = "")
-        => _current?._entries.Add(new SemanticEntry(operation, detail));
+    {
+        if (_current is not { } recorder)
+            return;
+
+        var instruction = recorder._instruction;
+        recorder._entries.Add(new SemanticEntry(
+            operation,
+            detail,
+            recorder._block,
+            instruction?.Destination is { } destination ? Describe(destination) : "",
+            instruction is null ? [] : DescribeOperands(instruction),
+            instruction?.Destination is LocalVariable { Type: { } type } ? type.FullName : ""));
+    }
+
+    /// <summary>The block the generator is about to emit, so every operation says where it sits.</summary>
+    public static void EnterBlock(Block block)
+    {
+        if (_current is { } recorder)
+            recorder._block = block.ID;
+    }
+
+    /// <summary>
+    /// The instruction the generator is about to emit code for, so every operation it records names
+    /// the values that instruction reads and writes without any site having to pass them.
+    /// </summary>
+    public static void EnterInstruction(Instruction instruction)
+    {
+        if (_current is { } recorder)
+            recorder._instruction = instruction;
+    }
+
+    /// <summary>
+    /// Records the shape of the graph, from the same list the generator emits from.
+    /// </summary>
+    /// <remarks>
+    /// A loop header is a block some successor of which jumps back to it - the same back-edge test the
+    /// <see cref="SemanticOperation.Loop"/> entries use, recorded here per block so a comparison can
+    /// ask which block carries the loop rather than only how many loops there are.
+    /// </remarks>
+    public static void RecordGraph(ISILControlFlowGraph graph)
+    {
+        if (_current is not { } recorder)
+            return;
+
+        foreach (var block in graph.Blocks)
+        {
+            if (block == graph.EntryBlock || block == graph.ExitBlock || block.Instructions.Count == 0)
+                continue;
+
+            var terminator = block.Instructions[^1];
+            var isLoopHeader = block.Predecessors.Exists(predecessor =>
+                predecessor.Instructions.Count > 0
+                && predecessor.Instructions[0].Index >= block.Instructions[0].Index);
+
+            recorder._blocks.Add(new SemanticBlock(
+                block.ID,
+                [.. block.Successors.ConvertAll(successor => successor.ID)],
+                [.. block.Predecessors.ConvertAll(predecessor => predecessor.ID)],
+                terminator.OpCode.ToString(),
+                terminator.OpCode is OpCode.ConditionalJump && terminator.Operands.Count > 1
+                    ? Describe(terminator.Operands[1])
+                    : "",
+                isLoopHeader));
+        }
+    }
+
+    /// <summary>
+    /// Names a value so that the operation producing it and the operation consuming it say the same
+    /// thing. A local's name is its identity through SSA destruction; anything else is described by
+    /// what it reads, which is what makes <c>field.hp -&gt; compare -&gt; branch</c> a readable chain.
+    /// </summary>
+    internal static string Describe(IOperand operand) => operand switch
+    {
+        LocalVariable local => local.Name,
+        Register register => register.ToString(),
+        Immediate immediate => $"#{immediate.Value}",
+        FieldReference field => $"{Describe(field.Local)}.{field.Field?.Name ?? "?"}",
+        ArrayAccess array => $"{Describe(array.Array)}[]",
+        ArrayLength length => $"{Describe(length.Array)}.Length",
+        AddressOf address => $"&{Describe(address.Target)}",
+        StringLiteral => "\"…\"",
+        Instruction instruction => $"@{instruction.Index}",
+        MethodAnalysisContext method => method.FullName,
+        TypeAnalysisContext type => type.FullName,
+        Block block => $"block{block.ID}",
+        null => "",
+        _ => operand.GetType().Name,
+    };
+
+    /// <summary>
+    /// What the instruction reads, described.
+    /// </summary>
+    /// <remarks>
+    /// The operands rather than <c>Sources</c>: a field load's source is a <c>FieldReference</c>, and
+    /// <c>Sources</c> reports the registers read, which for that shape is nothing at all - so a
+    /// <c>LOAD_FIELD</c> recorded from it names no value it read and the chain breaks exactly where it
+    /// is most wanted. The destination is skipped, since it is already recorded as the result.
+    /// </remarks>
+    private static List<string> DescribeOperands(Instruction instruction)
+    {
+        var operands = instruction.Operands;
+        var destination = instruction.Destination;
+        List<string> described = new(operands.Count);
+
+        for (var index = 0; index < operands.Count; index++)
+        {
+            if (ReferenceEquals(operands[index], destination))
+                continue;
+
+            described.Add(Describe(operands[index]));
+        }
+
+        return described;
+    }
 
     /// <summary>Whether anything is recording, so a caller can skip building a detail string.</summary>
     public static bool IsRecording => _current is not null;
@@ -149,6 +311,7 @@ public sealed class RecoveredSemanticIr
 
         public void Dispose()
         {
+            recorder._instruction = null;
             _current = null;
 
             if (recorder.Rva == 0)
@@ -199,6 +362,24 @@ public sealed class RecoveredSemanticIr
             if (body.GeneratorFailure is { } failure)
                 builder.Append("    \"generatorFailure\": ").Append(Quote(failure)).Append(",\n");
 
+            builder.Append("    \"blocks\": [");
+
+            for (var index = 0; index < body._blocks.Count; index++)
+            {
+                if (index > 0)
+                    builder.Append(", ");
+
+                var block = body._blocks[index];
+                builder.Append("{\"id\": ").Append(block.Id);
+                builder.Append(", \"successors\": ").Append(Numbers(block.Successors));
+                builder.Append(", \"predecessors\": ").Append(Numbers(block.Predecessors));
+                builder.Append(", \"terminator\": ").Append(Quote(block.Terminator));
+                builder.Append(", \"condition\": ").Append(Quote(block.Condition));
+                builder.Append(", \"loopHeader\": ").Append(block.IsLoopHeader ? "true" : "false");
+                builder.Append('}');
+            }
+
+            builder.Append("],\n");
             builder.Append("    \"operations\": [");
 
             for (var index = 0; index < body._entries.Count; index++)
@@ -207,7 +388,12 @@ public sealed class RecoveredSemanticIr
                     builder.Append(", ");
 
                 var entry = body._entries[index];
-                builder.Append('[').Append(Quote(Name(entry.Operation))).Append(", ").Append(Quote(entry.Detail)).Append(']');
+                builder.Append('[').Append(Quote(Name(entry.Operation))).Append(", ").Append(Quote(entry.Detail));
+                builder.Append(", ").Append(entry.Block);
+                builder.Append(", ").Append(Quote(entry.Result));
+                builder.Append(", ").Append(Strings(entry.Operands));
+                builder.Append(", ").Append(Quote(entry.ResultType));
+                builder.Append(']');
             }
 
             builder.Append("]\n  }");
@@ -254,6 +440,40 @@ public sealed class RecoveredSemanticIr
         SemanticOperation.ListAdd => "LIST_ADD",
         _ => operation.ToString(),
     };
+
+    private static string Numbers(IReadOnlyList<int> values)
+    {
+        StringBuilder builder = new();
+        builder.Append('[');
+
+        for (var index = 0; index < values.Count; index++)
+        {
+            if (index > 0)
+                builder.Append(", ");
+
+            builder.Append(values[index]);
+        }
+
+        builder.Append(']');
+        return builder.ToString();
+    }
+
+    private static string Strings(IReadOnlyList<string> values)
+    {
+        StringBuilder builder = new();
+        builder.Append('[');
+
+        for (var index = 0; index < values.Count; index++)
+        {
+            if (index > 0)
+                builder.Append(", ");
+
+            builder.Append(Quote(values[index]));
+        }
+
+        builder.Append(']');
+        return builder.ToString();
+    }
 
     private static string Quote(string value)
     {

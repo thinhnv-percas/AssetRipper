@@ -211,6 +211,12 @@ public static class IlGenerator
         // recovered `for` and a recovered straight line carry the same operations and read alike.
         RecordLoops(context);
 
+        // AssetRipper: the graph itself, from the same list the loop below emits from. A sequence of
+        // operations cannot say which of them are under a condition and which run every time; the
+        // edges can, and a comparison against source has to have them to say anything about control
+        // flow at all.
+        RecoveredSemanticIr.RecordGraph(context.ControlFlowGraph!);
+
         // Generate IL
         Dictionary<Instruction, List<CilInstruction>> instructionMap = [];
         Dictionary<Block, CilInstruction> blockEntryMap = [];
@@ -224,8 +230,15 @@ public static class IlGenerator
             if (block.Instructions.Count == 0)
                 continue;
 
+            RecoveredSemanticIr.EnterBlock(block);
+
             foreach (var instruction in block.Instructions)
             {
+                // AssetRipper: naming the instruction here is what gives every operation recorded
+                // below it the values it reads and writes, without each of the two dozen recording
+                // sites having to pass them - and without any of them being able to name a different
+                // instruction from the one being emitted.
+                RecoveredSemanticIr.EnterInstruction(instruction);
                 var generated = GenerateInstructions(instruction, context, definition, locals, writeLine);
                 instructionMap.Add(instruction, generated);
 
