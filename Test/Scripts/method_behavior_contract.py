@@ -115,6 +115,7 @@ def contract(body):
 
     return {
         "method": body.get("method", ""),
+        "native_length": body.get("nativeLength", -1),
         "declaringType": body.get("declaringType", ""),
         "returns": body.get("returnType", ""),
         "parameters": body.get("parameters", []),

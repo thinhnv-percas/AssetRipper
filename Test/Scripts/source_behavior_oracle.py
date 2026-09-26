@@ -55,6 +55,11 @@ INCREMENT = re.compile(r"(?:(?:this\.)?([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)\s*(?:\+
 
 # Written by the language rather than called: counting these as calls the recovery lost would report
 # every method with a cast or a `new` as incomplete.
+# How small a native body has to be before "it makes no call" is read off its size. Deliberately
+# tight: two A64 instructions plus a little. A larger body that reaches nothing is a loss, and saying
+# so is the point of the measure.
+INLINE_BODY_BYTES = 16
+
 NOT_A_CALL = {
     "if", "while", "for", "foreach", "switch", "catch", "lock", "using", "return", "new",
     "typeof", "sizeof", "nameof", "default", "checked", "unchecked", "fixed", "yield",
@@ -122,6 +127,8 @@ def recovered_behavior(contract: dict) -> dict:
             named.add(call.split("::")[-1])
 
     return {
+        "native_length": contract.get("native_length", -1),
+        "boundaries": len(contract.get("runtime_boundaries", [])),
         "property_writes": {call.split("::")[-1][len("set_"):]
                             for kind in ("calls", "virtual_calls", "interface_calls")
                             for call in calls.get(kind, [])
@@ -146,6 +153,16 @@ def verdict(source: dict, found: dict, declared_fields: set[str], project_member
 
     if not found["field_writes"] and not found["field_reads"] and not found["calls"]:
         if source["field_writes"] or source["field_reads"] or source["calls"]:
+            # A body of a few bytes that reaches no runtime boundary is one the analysis recovered
+            # whole, so a call the source names is absent from the *machine code* - il2cpp inlined it,
+            # which is what it does to a one-line forwarding method. `AndroidOnly.IsGoodPlatform`
+            # returns `DeviceInfo.IsAndroid()`, its native body is eight bytes, and `return true;` is
+            # the right recovery. Without the length the two are indistinguishable.
+            if 0 <= found["native_length"] <= INLINE_BODY_BYTES and found["boundaries"] == 0:
+                return "SEMANTICALLY_EQUIVALENT", [
+                    f"the body is {found['native_length']} bytes of machine code and reaches no "
+                    "runtime boundary, so what the source calls was inlined"]
+
             return "FALLBACK", ["recovered body reaches no effect and no call"]
         return "EXACT", []
 
@@ -213,7 +230,8 @@ def self_test() -> int:
     base_source = {"field_writes": {"hp"}, "field_reads": {"hp"}, "calls": {"Die"},
                    "loops": 0, "branches": 1, "throws": 0, "coroutine": False}
     base_found = {"field_writes": {"hp"}, "field_reads": {"hp"}, "calls": {"Die"},
-                  "property_writes": set(), "loops": 0, "branches": 1, "throws": 0}
+                  "property_writes": set(), "loops": 0, "branches": 1, "throws": 0,
+                  "native_length": 256, "boundaries": 0}
     declared = {"hp", "score"}
     members = {"Die", "Player"}
 
@@ -227,6 +245,12 @@ def self_test() -> int:
          {**base_source, "calls": {"Die", "MoveTowards"}}, base_found, "SEMANTICALLY_EQUIVALENT"),
         ("nothing recovered", base_source,
          {**base_found, "field_writes": set(), "field_reads": set(), "calls": set()}, "FALLBACK"),
+        ("nothing recovered from a body too small to call anything", base_source,
+         {**base_found, "field_writes": set(), "field_reads": set(), "calls": set(),
+          "native_length": 8}, "SEMANTICALLY_EQUIVALENT"),
+        ("nothing recovered from a small body that left managed code", base_source,
+         {**base_found, "field_writes": set(), "field_reads": set(), "calls": set(),
+          "native_length": 8, "boundaries": 1}, "FALLBACK"),
         ("a coroutine", {**base_source, "coroutine": True}, base_found, "NOT_AVAILABLE"),
         ("a property write matched by its setter",
          base_source, {**base_found, "field_writes": set(), "calls": {"Die", "set_hp"}},

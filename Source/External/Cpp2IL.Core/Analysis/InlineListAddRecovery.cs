@@ -336,24 +336,36 @@ public static class InlineListAddRecovery
     /// </remarks>
     private static string DescribeReceiver(IOperand receiver, Dictionary<LocalVariable, Instruction> definitions)
     {
-        if (receiver is not LocalVariable local || !definitions.TryGetValue(local, out var definition))
-            return Describe(receiver, definitions);
+        // Asked of the provenance analysis rather than matched here. The shape this used to match -
+        // `(base + scaled index) + constant` - is one of several ways the compiler builds an element
+        // address, and a rule written per caller drifts from the rule the rest of the pipeline uses.
+        var classification = PointerClassifier.Classify(receiver, new PointerClassifier.Facts(
+            local => definitions.TryGetValue(local, out var definition) ? [definition] : [],
+            static local => false,
+            static local => local.Type?.FullName?.StartsWith("Il2CppStaticFields", StringComparison.Ordinal) ?? false,
+            static local => false,
+            static local => local.Type is SzArrayTypeAnalysisContext,
+            ElementsOffset));
 
-        if (definition.OpCode != OpCode.Add || definition.Operands.Count < 3)
-            return Describe(receiver, definitions);
-
-        // `(base + scaled index) + constant` is an element address, not a list. Traced rather than
-        // assumed: of one fixture's 145 such candidates, 119 are an Add of an Add and an immediate,
-        // 14 name `_items` inside that inner Add outright, and the rest are the same shape one copy
-        // further out.
-        var scaled = definition.Operands[1] is LocalVariable inner
-            && definitions.TryGetValue(inner, out var innerDefinition)
-            && innerDefinition.OpCode == OpCode.Add;
-
-        return scaled && definition.Operands[2] is Immediate
-            ? "an element address rather than a list - the fast path's own address in the receiver register"
-            : $"Add of {Trace(definition.Operands[1], definitions)} and {Trace(definition.Operands[2], definitions)}";
+        return classification.Kind switch
+        {
+            PointerKind.ArrayElement =>
+                "an element address rather than a list - the fast path's own address in the receiver "
+                + $"register ({classification.Path})",
+            PointerKind.Array =>
+                $"the backing array rather than the list that owns it ({classification.Path})",
+            PointerKind.Object => $"an object, {classification.Path}",
+            // The classification is reported even when it is not one of the three that decide, so a
+            // reader can see what the analysis made of the receiver rather than only the raw shape.
+            _ => $"{Describe(receiver, definitions)} [{classification}]",
+        };
     }
+
+    /// <summary>
+    /// Where an array's elements begin, which is what tells the address of an element from the array.
+    /// </summary>
+    /// <remarks>Four pointers: the object header, the type handle, the length and its padding.</remarks>
+    private const int ElementsOffset = 0x20;
 
     /// <summary>An operand and, where it is a local, what defines it - two steps, no further.</summary>
     private static string Trace(IOperand operand, Dictionary<LocalVariable, Instruction> definitions)
