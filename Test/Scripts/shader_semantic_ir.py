@@ -155,8 +155,29 @@ SAMPLER_DECLARATION = re.compile(
 VECTOR_WIDTH = re.compile(r"\b(?:vec|float|half|fixed|ivec|int)([234])\s*\(")
 
 
+# What is actually sampled, as opposed to what is declared. A shader routinely declares a sampler it
+# only uses under a keyword, and a compiler strips an unused uniform - so comparing declarations
+# reports a texture as lost that the base variant correctly never reads.
+SAMPLED = re.compile(
+    r"\b(?:tex2D\w*|texCUBE\w*|texture2D\w*|textureCube\w*|textureLod|texture)\s*\(\s*(\w+)"
+    r"|\bSAMPLE_TEXTURE2D\w*\s*\(\s*(\w+)")
+
+
 def samplers(text: str) -> set[str]:
-    """The samplers and textures a program declares, by name."""
+    """The samplers and textures a program actually reads, by name."""
+    found = set()
+
+    for first, second in SAMPLED.findall(strip(text)):
+        name = first or second
+
+        if name and not name.startswith("sampler"):
+            found.add(name)
+
+    return found
+
+
+def declared_samplers(text: str) -> set[str]:
+    """The samplers and textures a program declares, which is not the same set."""
     return set(SAMPLER_DECLARATION.findall(strip(text)))
 
 
@@ -170,9 +191,90 @@ def vector_widths(text: str) -> dict:
     return found
 
 
-def source_programs(shader_path: pathlib.Path) -> list[str]:
-    """Every program block a source `.shader` carries."""
-    return PROGRAM_BLOCK.findall(shader_path.read_text(encoding="utf-8", errors="replace"))
+# The keywords a pass declares. A variant is a choice among these, and the *base* variant - the one
+# the exported ShaderLab carries - is the one with none of them enabled.
+MULTI_COMPILE = re.compile(r"#\s*pragma\s+(?:multi_compile|shader_feature)\w*\s+([^\n]*)")
+IFDEF = re.compile(r"^[ \t]*#[ \t]*(ifdef|ifndef|if|elif|else|endif)\b(.*)$", re.M)
+
+
+def declared_keywords(text: str) -> set[str]:
+    """Every keyword the shader's own pragmas name."""
+    found = set()
+
+    for line in MULTI_COMPILE.findall(text):
+        for token in line.split():
+            if token and token != "_" and not token.startswith("-"):
+                found.add(token)
+
+    return found
+
+
+def base_variant(text: str) -> str:
+    """
+    The program text as the *base* variant compiles: every keyword the shader declares is off.
+
+    The recovered program in an exported pass is the variant compiled with no keywords, so comparing
+    it against the whole source reports every keyword-gated operation as lost. `Graphy/Graph Mobile`
+    samples `_AlphaTex` under `ETC1_EXTERNAL_ALPHA`, and the base variant does not sample it because
+    it was not compiled to. That is the same defect as reading a C# file whole, one language over.
+
+    Only the keywords the shader itself declares are resolved. Anything else - a platform macro, a
+    version gate - keeps both branches, so the error leans towards reporting a loss.
+    """
+    keywords = declared_keywords(text)
+
+    if not keywords:
+        return text
+
+    output = []
+    stack = []
+
+    for line in text.splitlines():
+        match = IFDEF.match(line)
+
+        if match is None:
+            output.append(line if all(frame[0] for frame in stack) else "")
+            continue
+
+        keyword, rest = match[1], match[2].strip()
+
+        if keyword == "ifdef":
+            value = False if rest in keywords else None
+            stack.append([value is not False, value is True])
+        elif keyword == "ifndef":
+            value = True if rest in keywords else None
+            stack.append([value is not False, value is True])
+        elif keyword == "if":
+            # `#if defined(X)` and `#if X`, where X is one of the shader's own keywords.
+            named = re.findall(r"[A-Za-z_]\w*", rest)
+            value = False if len(named) == 1 and named[0] in keywords else (
+                False if len(named) == 2 and named[0] == "defined" and named[1] in keywords else None)
+            stack.append([value is not False, value is True])
+        elif keyword == "elif" and stack:
+            stack[-1] = [not stack[-1][1], stack[-1][1]]
+        elif keyword == "else" and stack:
+            stack[-1][0] = not stack[-1][1]
+        elif keyword == "endif" and stack:
+            stack.pop()
+
+        output.append("")
+
+    return "\n".join(output)
+
+
+def source_programs(shader_path: pathlib.Path, base_only: bool = True) -> list[str]:
+    """Every program block a source `.shader` carries, as the base variant compiles them."""
+    text = shader_path.read_text(encoding="utf-8", errors="replace")
+    blocks = PROGRAM_BLOCK.findall(text)
+    keywords = declared_keywords(text)
+
+    if not base_only or not keywords:
+        return blocks
+
+    # The pragmas may sit outside the block that uses them, so the keyword set is taken from the whole
+    # file and applied to each block.
+    return [base_variant(f"{chr(10).join(f'#pragma multi_compile {k}' for k in keywords)}\n{block}")
+            for block in blocks]
 
 
 def source_shader_name(shader_path: pathlib.Path) -> str | None:

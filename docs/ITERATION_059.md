@@ -107,12 +107,30 @@ byte — 870 trong số đó có bảng tên hàm đủ in được để một 
 `IMetalShaderDecompiler` được khai báo và **cố ý không hiện thực**. Verdict `METAL_BINARY_ONLY` quyết
 **trước** khi tìm oracle, vì "build này chỉ biên dịch sang Metal" đúng bất kể có nguồn hay không.
 
-## 8. Unity
+## 8. Số cuối, và cái gì so được
+
+Xem `docs/RECOVERY_MATRIX.md`. Hai điều phải nói ra:
+
+**Oracle hành vi Merge-Room đi 0,6951 → 0,7284**, `FALLBACK` 197 → 114, `MISMATCH` 16 → 15. Phần lớn
+chuyển động đó là **phép đo trở nên trung thực** (preprocessor + bằng chứng inline), không phải phục
+hồi tốt lên. Phần thật sự của phục hồi là bản sửa ở mục 3, và nó không đổi một con số đếm nào.
+
+**Verdict shader so được với 058 chỉ ở `shader_exact` (0 ở cả hai).** Trước 059 phép so đọc toàn văn
+shader nguồn; nay nó so với **biến thể gốc**, vì đó là biến thể mà ShaderLab xuất ra mang. Merge-Room
+đi 1/7 → 3/7 vì lý do đó: `TextMeshPro/Distance Field` mất `SIN`/`COS` chỉ vì chúng nằm dưới một
+keyword mà biến thể gốc không bật.
+
+`Graphy/Graph Mobile` vẫn `PARTIAL` và đó là câu trả lời **đúng**: nó lấy mẫu `_AlphaTex` dưới
+`#if UNITY_TEXTURE_ALPHASPLIT_ALLOWED`, một macro nền tảng mà không có gì trong repo này xác định
+được cho build đó. Giữ cả hai nhánh và báo `PARTIAL` là trung thực; xoá nó đi để lấy một
+`SEMANTICALLY_EQUIVALENT` thì không.
+
+## 9. Unity
 
 **BLOCKED.** Unity không có trong container: stage E–I `BLOCKED`, `runtime_status: NOT_RUN`. Không có
 tuyên bố runtime nào.
 
-## 9. Giới hạn đã biết
+## 10. Giới hạn đã biết
 
 - 25 shader URP của Merge-Room vẫn `NO_SOURCE_ORACLE`: registry công khai trả 404 cho
   `com.unity.render-pipelines.universal@14.0.12`. **BLOCKED**, thiếu oracle chứ không thiếu phục hồi.
