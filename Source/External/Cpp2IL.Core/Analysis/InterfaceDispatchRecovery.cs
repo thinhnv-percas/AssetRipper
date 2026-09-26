@@ -46,7 +46,7 @@ public static class InterfaceDispatchRecovery
                     continue;
 
                 RewriteDispatch(method, instruction, block, match, definitions);
-                TryExciseLookup(cfg, match, definitions, homeBlock);
+                TryExciseLookup(cfg, match, definitions, homeBlock, method);
                 changed = true;
             }
         }
@@ -276,22 +276,46 @@ public static class InterfaceDispatchRecovery
     }
 
     // Bailing here is fine, it just leaves the (already resolved) call with dead lookup around it
-    private static void TryExciseLookup(ISILControlFlowGraph cfg, Match match, Dictionary<LocalVariable, Instruction> definitions, Dictionary<Instruction, Block> homeBlock)
+    private static void TryExciseLookup(ISILControlFlowGraph cfg, Match match, Dictionary<LocalVariable, Instruction> definitions, Dictionary<Instruction, Block> homeBlock, MethodAnalysisContext? method = null)
     {
         var merge = match.Merge;
 
         if (!homeBlock.TryGetValue(match.SlowCall, out var slowBlock))
+        {
+            IsilDump.Trace(method, "excise: the slow call has no home block");
             return;
+        }
 
         if (Definition(definitions, match.KlassLocal) is not { } klassDefinition
             || !homeBlock.TryGetValue(klassDefinition, out var head) || head == merge)
+        {
+            IsilDump.Trace(method, "excise: the klass load has no home block, or it is the merge");
             return;
+        }
 
-        if (!TryCollectRegion(cfg, head, merge, out var region) || !region.Contains(slowBlock))
+        if (!TryCollectRegion(cfg, head, merge, out var region))
+        {
+            IsilDump.Trace(method, "excise: the region between the klass load and the merge is not closed");
             return;
+        }
 
-        if (!RegionIsSideEffectFree(region, match.SlowCall) || AnyValueEscapes(cfg, region, merge))
+        if (!region.Contains(slowBlock))
+        {
+            IsilDump.Trace(method, "excise: the slow path is outside the region");
             return;
+        }
+
+        if (!RegionIsSideEffectFree(region, match.SlowCall))
+        {
+            IsilDump.Trace(method, "excise: the region has a side effect besides the slow call");
+            return;
+        }
+
+        if (AnyValueEscapes(cfg, region, merge))
+        {
+            IsilDump.Trace(method, "excise: a value the region computed is read outside it");
+            return;
+        }
 
         // AssetRipper: the merge phis used to have to be dead for any of this to happen, and on A64
         // they never are. The scan walks the interface offset table with four scratch registers, and

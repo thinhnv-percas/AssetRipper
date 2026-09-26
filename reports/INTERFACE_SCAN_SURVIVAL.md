@@ -41,26 +41,49 @@ bản phục hồi đã đúng; cái sai là kích thước và độ nhiễu, c
 ép ILSpy dựng thêm cấu trúc (CLAUDE.md đã ghi hiệu ứng này cho các injected check
 không xoá được).
 
-## `PROVEN`: `TryExciseLookup` không chạy, và một điều kiện của nó là nghi phạm
+## `PROVEN`: không phải `InterfaceDispatchRecovery` giải quyết nó
 
-`InterfaceDispatchRecovery.TryExciseLookup` tồn tại đúng để xoá vùng này, và
-iteration trước đã sửa nó ở chỗ "đòi các phi phải chết" — nhưng ở đây nó vẫn không
-chạy: nếu có, `head` đã được nối thẳng tới `merge` và năm block kia đã biến mất.
+Năm điều kiện của `InterfaceDispatchRecovery.TryExciseLookup` đều được gắn một
+`IsilDump.Trace` riêng và dump lại `AIState::EnterState`: **không điều kiện nào
+in ra một dòng nào**. Nghĩa là `TryExciseLookup` chưa bao giờ được gọi cho lời gọi
+này, tức là `MatchDispatch` đã trả về null — `InterfaceDispatchRecovery` không
+khớp nó.
 
-Nó có năm điều kiện: `head == merge`; `TryCollectRegion`;
-`region.Contains(slowBlock)`; `RegionIsSideEffectFree`; `AnyValueEscapes`.
-**`UNKNOWN`: chưa đo điều kiện nào trong năm điều kiện đó là điều kiện chặn.**
-Cách đo là thêm một `IsilDump.Trace` cho mỗi nhánh rồi dump `AIState::EnterState`
-— cùng cách iteration 060 dùng để tìm ra ba nguyên nhân im lặng của
-`MethodSlotDispatchRecovery`.
+Cái giải quyết nó là `InterfaceInvokeDataRecovery`, pass khớp *xuôi* từ lookup tới
+dispatch. Và pass đó **cố ý chỉ xoá lời gọi lookup**:
 
-**`INFERRED`**: ứng viên mạnh nhất là `v125 = [v900 + 8]` ở block 116 — phép đọc
-MethodInfo ẩn khỏi vtable entry, vẫn còn đó và vẫn giữ `v900` sống, nên giữ cả
-vùng quét sống. `RewriteDispatch` *có* đặt tên phép đọc đó thành
-`RuntimeMethodInfoAnalysisContext`, nhưng chỉ khi base của nó được định nghĩa bởi
-**chính phi** mà pass đã khớp; ở đây base là `v900`, giá trị nhánh nhanh, không
-phải phi. Đây đúng là hình dạng mà `MethodSlotDispatchRecovery` đã phải xử lý ở
-iteration 060: giải phóng MethodInfo ẩn là điều kiện để scaffolding chết.
+```csharp
+// The lookup is what the dispatch used to need; once the call names its method nothing
+// reads it. It has to be removed here rather than left to dead code elimination, which
+// keeps an unresolved call for its side effects.
+foreach (var lookup in lookupsOf[dispatch])
+{
+    lookup.OpCode = OpCode.Nop;
+    lookup.SetOperands();
+}
+```
+
+Chính tài liệu của pass nói helper có một **fast path nội tuyến**, và đó là lý do
+phép khớp phải đi xuôi. Nhưng fast path đó — toàn bộ vòng quét bảng interface
+offset — không được xoá ở đâu cả. `InterfaceDispatchRecovery` có máy móc để xoá
+(`TryExciseLookup`), nhưng nó chỉ chạy cho những site chính nó khớp.
+
+**`PROVEN`: dead code elimination không thể xoá được vùng này.** Vùng kết thúc
+bằng các lệnh nhảy có điều kiện (block 27, 115, 29), và một nhánh là hiệu ứng điều
+khiển — mark-and-sweep giữ lại mọi thứ mà một nhánh phụ thuộc vào. Xoá nó bắt buộc
+phải là phẫu thuật luồng điều khiển, đúng thứ `TryExciseLookup` làm.
+
+## Việc còn lại, và vì sao nó chưa được làm ở 060
+
+Dùng lại `TryExciseLookup` từ `InterfaceInvokeDataRecovery` không phải một dòng:
+pass đó làm việc trên một danh sách lệnh phẳng, không có khái niệm block hay vùng,
+nên nó chưa có `head` (block định nghĩa klass local) lẫn `merge` để đưa vào.
+
+Và **ngữ nghĩa của bản phục hồi ở đây đã đúng rồi** — lời gọi đúng method, đúng
+receiver. Cái phải trả là kích thước, độ nhiễu, và cấu trúc thừa mà ILSpy phải
+dựng. Phẫu thuật luồng điều khiển để đổi lấy những thứ đó, trong khi nó có thể xoá
+nhầm mã còn sống, là một việc xứng đáng có iteration riêng với baseline riêng, chứ
+không phải một thứ nhét vào cuối một iteration đang đo dở.
 
 ## Đừng làm gì trước khi đo
 

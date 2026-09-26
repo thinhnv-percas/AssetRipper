@@ -764,10 +764,14 @@ chính barrier đó, không phải công việc của `MetadataResolver`. Xem
    Sau khi vtable đã rút từ 3562 xuống 953, ba nhóm lớn nhất là `LOADED_POINTER` 3241,
    `STACK_SLOT` 2605 và `UNKNOWN:MERGED` 1315. Đếm theo nguyên nhân trước khi làm — `recovery_report.py`
    trên một bản dump `CPP2IL_DUMP_LOADS` là phép đo đó.
-2. **Quét interface offset nội tuyến vẫn còn nguyên: 930 `interface_offsets_count`, 840
-   `MethodInfo.slot`, 478 `interfaceOffsets`.** `MethodSlotDispatchRecovery` giải quyết nhánh generic
-   virtual; nhánh *interface* dùng cùng phép đọc slot nhưng cộng thêm interface offset của receiver,
-   và `InterfaceDispatchRecovery` chỉ khớp hình dạng có slot là hằng số.
+2. **Quét interface offset nội tuyến sống sót sau một lời gọi ĐÃ giải quyết: 930
+   `interface_offsets_count`, 840 `MethodInfo.slot`, 478 `interfaceOffsets`, tổng 2248.** Đã truy ra
+   và **không phải** lỗi type recovery: `InterfaceInvokeDataRecovery` giải quyết lời gọi và cố ý chỉ
+   xoá lời gọi lookup, để nguyên fast path nội tuyến; `InterfaceDispatchRecovery.TryExciseLookup` có
+   máy móc để xoá nhưng chỉ chạy cho site chính nó khớp, và đo bằng trace thì nó chưa từng được gọi
+   cho những site này. Dead code elimination không xoá được vì vùng kết thúc bằng nhánh có điều kiện.
+   Cần phẫu thuật luồng điều khiển, xứng đáng một iteration riêng với baseline riêng.
+   `reports/INTERFACE_SCAN_SURVIVAL.md`.
 3. **`Il2CppStaticFields` 701 load và `Il2CppClass.fields` 415.** Nhóm `RUNTIME_STRUCT` lớn nhất sau
    vtable. `Il2CppClass.fields` gần như chắc chắn là code reflection đi qua
    `il2cpp::vm::Field::GetInstanceFieldDataPointer` (đã định danh, xem
