@@ -751,3 +751,33 @@ more of them than a typing rule would have.
 6. **Những gì còn lại của oracle hành vi Merge-Room** sau khi preprocessor đã trung thực: xem
    `docs/ITERATION_059.md` mục 9 và bảng cuối `docs/RECOVERY_MATRIX.md`.
 
+
+## Sau iteration 060 — mục tiêu tiếp theo, đã có bằng chứng
+
+Hai mục đầu của danh sách 059 đã xong và câu trả lời của cả hai nằm ở tầng khác với chỗ chúng được
+nêu: 136 site "guard does not end in a conditional branch" là hệ quả của write barrier chưa được
+định vị (còn 6 site sau khi định vị được), và 16 receiver `this + 0x20` là đối số địa chỉ field của
+chính barrier đó, không phải công việc của `MetadataResolver`. Xem
+`reports/LIST_ADD_GUARD_TERMINATORS.md` và `reports/THIS_OFFSET_PROVENANCE.md`.
+
+1. **Phân rã `UNMANAGED_MEMORY_LOAD` còn lại trên Merge-Room: 17.894, 63 % của mọi placeholder.**
+   Sau khi vtable đã rút từ 3562 xuống 953, ba nhóm lớn nhất là `LOADED_POINTER` 3241,
+   `STACK_SLOT` 2605 và `UNKNOWN:MERGED` 1315. Đếm theo nguyên nhân trước khi làm — `recovery_report.py`
+   trên một bản dump `CPP2IL_DUMP_LOADS` là phép đo đó.
+2. **Quét interface offset nội tuyến vẫn còn nguyên: 930 `interface_offsets_count`, 840
+   `MethodInfo.slot`, 478 `interfaceOffsets`.** `MethodSlotDispatchRecovery` giải quyết nhánh generic
+   virtual; nhánh *interface* dùng cùng phép đọc slot nhưng cộng thêm interface offset của receiver,
+   và `InterfaceDispatchRecovery` chỉ khớp hình dạng có slot là hằng số.
+3. **`Il2CppStaticFields` 701 load và `Il2CppClass.fields` 415.** Nhóm `RUNTIME_STRUCT` lớn nhất sau
+   vtable. `Il2CppClass.fields` gần như chắc chắn là code reflection đi qua
+   `il2cpp::vm::Field::GetInstanceFieldDataPointer` (đã định danh, xem
+   `reports/RUNTIME_HELPER_IDENTIFICATION.md`), tức là một ranh giới native chứ không phải khiếm
+   khuyết phục hồi — nhưng chưa đếm.
+4. **Ba regression golden corpus mang từ trước** (`CinemachineCollider`, `MMSpawnAround`,
+   `DictionaryKeyUtility`). Chúng có mặt cả khi đo chính bản rip của 059 nên không do 060; chưa ai
+   điều tra vì sao. `MMSpawnAround` có file giống hệt nhau giữa hai bản rip, nên nguyên nhân là một
+   thay đổi phép đo ở 059 hoặc sớm hơn.
+5. **Phần brief 060 chưa làm**: §3–§5 `StorageLocation` với alias/lifetime; §9–§13 shader variant
+   fidelity và `ICompiledShaderProgram`; §14–§15 value flow trong behaviour contract; §17–§18
+   `RuntimeScenario`.
+6. **URP source cho Merge-Room** và **Metal trên iOS** — không đổi so với 059.
