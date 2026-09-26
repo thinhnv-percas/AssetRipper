@@ -252,6 +252,7 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
             return 0;
         }
 
+        var sites = scanned.GetValueOrDefault(best);
         var runnerUp = 0;
 
         foreach (var candidate in scanned)
@@ -260,9 +261,23 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
                 runnerUp = candidate.Value;
         }
 
-        WriteBarrierEvidence = $"{scanned.GetValueOrDefault(best)} call sites have the shape "
-            + $"(next busiest {runnerUp}), {anchored.GetValueOrDefault(best)} of "
-            + $"{WriteBarrierAnchors.Length} corlib anchors agree";
+        var evidence = $"0x{best:X}: {sites} call sites have the shape (next busiest {runnerUp}), "
+            + $"{anchored.GetValueOrDefault(best)} of {WriteBarrierAnchors.Length} corlib anchors agree";
+
+        // A leader is not evidence; a margin is. Every reference store in the program performs the
+        // barrier, so a real one is called thousands of times and stands orders of magnitude clear:
+        // Merge-Room measures 4064 against 459. A build with write barriers disabled has no such
+        // call at all, and then the busiest target of a shape that also matches ordinary code is
+        // noise - Impostor and RunFromZombies both measure 76 against 75, one site of margin, with
+        // no corlib anchor agreeing. Taking that would map a helper onto whatever function happened
+        // to win a coin toss, which is silent in exactly the way a wrong mapping always is.
+        if (anchorBest == 0 && (sites < 500 || sites < runnerUp * 4))
+        {
+            WriteBarrierEvidence = evidence + "; not decisive, so not taken";
+            return 0;
+        }
+
+        WriteBarrierEvidence = evidence;
 
         return best;
     }

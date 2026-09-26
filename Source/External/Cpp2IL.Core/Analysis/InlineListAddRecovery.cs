@@ -151,20 +151,7 @@ public static class InlineListAddRecovery
         if (slowBlock.Predecessors.Count != 1)
             return Reject($"slow path has {slowBlock.Predecessors.Count} predecessors");
 
-        // Walk back through blocks with one way in and one way out. The CFG splits a block at a call,
-        // so the conditional that guards the slow path is not always its immediate predecessor; a
-        // chain like that is straight-line code, so the conditional still dominates the slow path and
-        // nothing else reaches it. `slowSide` stays the conditional's own successor, because the
-        // chain's instructions are on the slow path and jumping past them would delete real work.
         var guard = slowBlock.Predecessors[0];
-        var slowSide = slowBlock;
-
-        while (guard.Predecessors.Count == 1 && guard.Successors.Count == 1
-            && (guard.Instructions.Count == 0 || guard.Instructions[^1].OpCode != OpCode.ConditionalJump))
-        {
-            slowSide = guard;
-            guard = guard.Predecessors[0];
-        }
 
         if (guard.Instructions.Count == 0 || guard.Instructions[^1] is not { OpCode: OpCode.ConditionalJump } terminator)
         {
@@ -173,38 +160,20 @@ public static class InlineListAddRecovery
             // times; the opcode is what separates the causes.
             var last = guard.Instructions.Count == 0 ? null : guard.Instructions[^1];
 
-            // How far back a conditional branch is, through blocks that have one way in and one way
-            // out. A chain like that is straight-line code: the conditional still dominates the slow
-            // path, and nothing else reaches it. Measured before anything is done about it.
-            var steps = 0;
-            var walk = guard;
-
-            while (steps < 8 && walk.Predecessors.Count == 1 && walk.Successors.Count == 1)
-            {
-                walk = walk.Predecessors[0];
-                steps++;
-
-                if (walk.Instructions.Count > 0 && walk.Instructions[^1].OpCode == OpCode.ConditionalJump)
-                    break;
-            }
-
-            var found = walk.Instructions.Count > 0
-                && walk.Instructions[^1].OpCode == OpCode.ConditionalJump
-                && walk.Successors.Count == 2;
-
+            // Both counts, because they are what says whether there is anything to walk back
+            // through: the walk above needs one way in and one way out, so a block with several
+            // predecessors is a join and the chain ends there whatever its terminator is.
             return Reject("guard ends in "
                 + (last is null ? "nothing - the block is empty" : last.OpCode.ToString())
-                + $", with {guard.Successors.Count} successors"
-                + (found ? $"; a conditional branch is {steps} straight-line block(s) back"
-                         : "; no conditional branch within eight straight-line blocks"));
+                + $", with {guard.Successors.Count} successors and {guard.Predecessors.Count} predecessors");
         }
 
         if (guard.Successors.Count != 2)
             return Reject($"guard has {guard.Successors.Count} successors");
 
-        var fast = guard.Successors[0] == slowSide ? guard.Successors[1] : guard.Successors[0];
+        var fast = guard.Successors[0] == slowBlock ? guard.Successors[1] : guard.Successors[0];
 
-        if (fast == slowSide)
+        if (fast == slowBlock)
             return Reject("both edges of the guard reach the slow path");
 
         // The fast path must be this branch's alone, or deleting it takes code with it that another
@@ -235,15 +204,6 @@ public static class InlineListAddRecovery
         if (recognisers.AddFor(call.Operands[0]) is not { } add)
             return Reject("List<T>.Add not found on the declaring type");
 
-        // The walk above finds the conditional through a chain of straight-line blocks, which is what
-        // lets the reason say why a site was turned down. Rewriting across such a chain is a
-        // different operation from rewriting a direct guard, and iteration 060 measured that no site
-        // reaching here has one: of the 136 that fall through to the slow path, 52 have a conditional
-        // a few blocks back and every one of those is il2cpp's null check on a fresh allocation, not
-        // the capacity test. So this refuses rather than carrying an untested rewrite.
-        if (slowSide != slowBlock)
-            return Reject("the guard is separated from the slow path by straight-line blocks");
-
         // The version bump is Add's own, so it goes with the call rather than staying beside it.
         DropVersionBump(guard, receivers, recognisers);
 
@@ -252,7 +212,7 @@ public static class InlineListAddRecovery
         // Every path now reaches the call. The loads that fed the capacity test, and the whole fast
         // path, are left with nothing reading them for the graph tidy-up to collect.
         terminator.OpCode = OpCode.Jump;
-        terminator.SetOperands(slowSide);
+        terminator.SetOperands(slowBlock);
 
         guard.Successors.Remove(fast);
         fast.Predecessors.Remove(guard);
