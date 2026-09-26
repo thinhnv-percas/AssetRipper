@@ -71,6 +71,14 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 		Logger.Info(LogCategory.Import, $"Il2Cpp recovery: helpers located: {string.Join(", ", found)}");
 		Logger.Info(LogCategory.Import, $"Il2Cpp recovery: helpers not located: {string.Join(", ", missing)}");
 
+		// The write barrier is the one helper found by the shape of its call sites rather than by a
+		// name or a thunk chain, so what the search saw is worth printing whichever way it went: a
+		// helper that was not found and a helper this build does not have read the same otherwise.
+		if (BaseKeyFunctionAddresses.WriteBarrierEvidence is { Length: > 0 } evidence)
+		{
+			Logger.Info(LogCategory.Import, $"Il2Cpp recovery: write barrier: {evidence}.");
+		}
+
 		if (Environment.GetEnvironmentVariable("CPP2IL_PROBE_METHOD_POINTERS") is { Length: > 0 } probe)
 		{
 			foreach (var assembly in appContext.Assemblies)

@@ -9,17 +9,6 @@ namespace Cpp2IL.Core.Il2CppApiFunctions;
 
 public class X86KeyFunctionAddresses : BaseKeyFunctionAddresses
 {
-    // Corlib methods which assign a reference to a field and so are followed by a write barrier. Several,
-    // because any one of them can be stripped, and because agreement between them rules out a false match.
-    private static readonly (string Namespace, string Type, string Method)[] WriteBarrierAnchors =
-    [
-        ("System.Threading.Tasks", "Task`1", "GetAwaiter"),
-        ("System.Threading.Tasks", "Task", "GetAwaiter"),
-        ("System.Threading", "ExecutionContext", "get_LogicalCallContext"),
-        ("System.Threading", "CancellationTokenSource", "get_Token"),
-        ("System", "BadImageFormatException", "get_Message"),
-    ];
-
     private InstructionList? _cachedDisassembledBytes;
 
     private InstructionList DisassembleTextSection()

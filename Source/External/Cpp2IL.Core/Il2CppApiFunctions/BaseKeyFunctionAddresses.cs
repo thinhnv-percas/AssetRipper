@@ -448,6 +448,30 @@ public abstract class BaseKeyFunctionAddresses
     }
 
     /// <summary>
+    /// AssetRipper: corlib methods which assign a reference to a field and so are followed by a write
+    /// barrier. Several, because any one of them can be stripped, and because agreement between them
+    /// rules out a false match.
+    /// </summary>
+    /// <remarks>
+    /// Shared by every architecture's locator rather than restated per architecture: a list restated
+    /// in two places drifts from the one that is used, which this project has paid for before.
+    /// </remarks>
+    protected static readonly (string Namespace, string Type, string Method)[] WriteBarrierAnchors =
+    [
+        ("System.Threading.Tasks", "Task`1", "GetAwaiter"),
+        ("System.Threading.Tasks", "Task", "GetAwaiter"),
+        ("System.Threading", "ExecutionContext", "get_LogicalCallContext"),
+        ("System.Threading", "CancellationTokenSource", "get_Token"),
+        ("System", "BadImageFormatException", "get_Message"),
+    ];
+
+    /// <summary>
+    /// AssetRipper: how the write barrier was located, for the diagnostic that reports it. Empty
+    /// where the search did not run or found nothing.
+    /// </summary>
+    public static string WriteBarrierEvidence { get; protected set; } = "";
+
+    /// <summary>
     /// Locates Il2CppCodeGenWriteBarrier, the GC write barrier emitted after every reference store into a
     /// heap object. Returns 0 where it can't be found, including builds which have write barriers disabled.
     /// </summary>

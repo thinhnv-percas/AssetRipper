@@ -2,6 +2,7 @@ using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Linq;
 using Disarm;
+using Disarm.InternalDisassembly;
 using Cpp2IL.Core.Logging;
 using Cpp2IL.Core.Utils;
 
@@ -201,6 +202,212 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
 
                 var target = (ulong)((long)virtualAddress + offset + displacement * 4L);
                 counts[target] = counts.GetValueOrDefault(target) + 1;
+            }
+        }
+
+        return counts;
+    }
+
+    /// <summary>
+    /// AssetRipper: locates <c>Il2CppCodeGenWriteBarrier</c> on A64.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The base class returned 0 for every architecture but x86, so on every ARM64 fixture the
+    /// barrier was never found and every call to it stayed a <c>Method not found</c> placeholder -
+    /// taking the field address it is handed with it, which then arrives in whatever register the
+    /// next call reads. A <c>List&lt;T&gt;.Add</c> receiver on Merge-Room reads
+    /// <c>this + 0x20</c> for exactly this reason.
+    /// </para>
+    /// <para>
+    /// The barrier is not exported and no managed method sits on it, so it is found by its call
+    /// sites. It is called immediately after a reference is stored into a heap object, with the
+    /// address of the slot just written: <c>str x2, [x0, #0x20]; add x0, x0, #0x20; bl barrier</c>.
+    /// Two routes agree on it. The corlib anchors are the x86 route, precise but strippable; the
+    /// histogram is a decoder-free scan of every executable section for that shape, which separates
+    /// the barrier from anything else by orders of magnitude because every reference store in the
+    /// program performs it. Where both answer and disagree, neither is trusted.
+    /// </para>
+    /// </remarks>
+    protected override ulong GetWriteBarrier()
+    {
+        var anchored = AnchoredWriteBarrierVotes();
+        var scanned = ScannedWriteBarrierCounts();
+
+        var anchorBest = Busiest(anchored);
+        var scanBest = Busiest(scanned);
+
+        if (anchorBest != 0 && scanBest != 0 && anchorBest != scanBest)
+        {
+            WriteBarrierEvidence = $"the corlib anchors say 0x{anchorBest:X} and the call-site scan "
+                + $"says 0x{scanBest:X}; neither is taken";
+            return 0;
+        }
+
+        var best = anchorBest != 0 ? anchorBest : scanBest;
+
+        if (best == 0)
+        {
+            WriteBarrierEvidence = "no call site has the shape of a barrier; write barriers disabled?";
+            return 0;
+        }
+
+        var runnerUp = 0;
+
+        foreach (var candidate in scanned)
+        {
+            if (candidate.Key != best && candidate.Value > runnerUp)
+                runnerUp = candidate.Value;
+        }
+
+        WriteBarrierEvidence = $"{scanned.GetValueOrDefault(best)} call sites have the shape "
+            + $"(next busiest {runnerUp}), {anchored.GetValueOrDefault(best)} of "
+            + $"{WriteBarrierAnchors.Length} corlib anchors agree";
+
+        return best;
+    }
+
+    private static ulong Busiest(Dictionary<ulong, int> counts)
+    {
+        var best = 0ul;
+        var bestCount = 0;
+
+        foreach (var candidate in counts)
+        {
+            if (candidate.Value > bestCount)
+            {
+                best = candidate.Key;
+                bestCount = candidate.Value;
+            }
+        }
+
+        return best;
+    }
+
+    /// <summary>The barrier call in each corlib method known to store a reference into a field.</summary>
+    private Dictionary<ulong, int> AnchoredWriteBarrierVotes()
+    {
+        var votes = new Dictionary<ulong, int>();
+
+        foreach (var (@namespace, typeName, methodName) in WriteBarrierAnchors)
+        {
+            var method = ReflectionCache.GetType(typeName, @namespace)?.Methods?.FirstOrDefault(m => m.Name == methodName);
+
+            if (method == null || method.MethodPointer == 0)
+                continue;
+
+            var body = NewArm64Utils.GetArm64MethodBodyAtVirtualAddress(_appContext.Binary, method.MethodPointer, false);
+
+            foreach (var target in GuardedCallTargets(body).Distinct())
+                votes[target] = votes.GetValueOrDefault(target) + 1;
+        }
+
+        return votes;
+    }
+
+    /// <summary>
+    /// Every <c>BL</c> in <paramref name="body"/> preceded by a store into a slot and an
+    /// <c>ADD X0</c> of that same slot's address.
+    /// </summary>
+    private static IEnumerable<ulong> GuardedCallTargets(List<Arm64Instruction> body)
+    {
+        const int window = 6;
+
+        for (var index = 0; index < body.Count; index++)
+        {
+            if (body[index].Mnemonic != Arm64Mnemonic.BL)
+                continue;
+
+            var start = index - window < 0 ? 0 : index - window;
+
+            for (var a = start; a < index; a++)
+            {
+                var add = body[a];
+
+                if (add.Mnemonic != Arm64Mnemonic.ADD || add.Op0Reg != Arm64Register.X0
+                    || add.Op1Kind != Arm64OperandKind.Register || add.Op2Kind != Arm64OperandKind.Immediate)
+                    continue;
+
+                for (var storeIndex = start; storeIndex < index; storeIndex++)
+                {
+                    var store = body[storeIndex];
+
+                    if (store.Mnemonic != Arm64Mnemonic.STR || store.MemBase != add.Op1Reg
+                        || store.MemAddendReg != Arm64Register.INVALID
+                        || store.MemIndexMode != Arm64MemoryIndexMode.Offset
+                        || store.MemOffset != add.Op2Imm)
+                        continue;
+
+                    yield return body[index].BranchTarget;
+                    goto next;
+                }
+            }
+
+            next: ;
+        }
+    }
+
+    /// <summary>
+    /// How many call sites in the whole binary have the barrier's shape, per target.
+    /// </summary>
+    /// <remarks>
+    /// A64 encodings are fixed width, so this needs no disassembler and can cover every executable
+    /// section - which matters, because the generated code is in a section called <c>il2cpp</c>
+    /// rather than in <c>.text</c> and that is where every reference store in the program is.
+    /// <c>STR Xt, [Xn, #imm12]</c> is <c>1111100100</c>, <c>ADD Xd, Xn, #imm12</c> with no shift is
+    /// <c>1001000100</c>, and the store's immediate is scaled by eight where the add's is not.
+    /// </remarks>
+    private Dictionary<ulong, int> ScannedWriteBarrierCounts()
+    {
+        const int window = 6;
+        var counts = new Dictionary<ulong, int>();
+
+        foreach (var (virtualAddress, data) in _appContext.Binary.GetExecutableSections())
+        {
+            var words = data.Span;
+            var count = words.Length / 4;
+
+            for (var index = 0; index < count; index++)
+            {
+                var word = BinaryPrimitives.ReadUInt32LittleEndian(words[(index * 4)..]);
+
+                if (word >> 26 != 0b100101)
+                    continue;
+
+                var start = index - window < 0 ? 0 : index - window;
+
+                for (var a = start; a < index; a++)
+                {
+                    var add = BinaryPrimitives.ReadUInt32LittleEndian(words[(a * 4)..]);
+
+                    // ADD X0, Xn, #imm12
+                    if (add >> 22 != 0b1001000100 || (add & 0x1F) != 0)
+                        continue;
+
+                    var offset = (add >> 10) & 0xFFF;
+                    var register = (add >> 5) & 0x1F;
+
+                    for (var storeIndex = start; storeIndex < index; storeIndex++)
+                    {
+                        var store = BinaryPrimitives.ReadUInt32LittleEndian(words[(storeIndex * 4)..]);
+
+                        // STR Xt, [Xn, #imm12 * 8], the same base and the same slot
+                        if (store >> 22 != 0b1111100100 || ((store >> 5) & 0x1F) != register
+                            || ((store >> 10) & 0xFFF) * 8 != offset)
+                            continue;
+
+                        var displacement = (int)(word & 0x3FFFFFF);
+
+                        if ((displacement & 0x2000000) != 0)
+                            displacement -= 0x4000000;
+
+                        var target = (ulong)((long)virtualAddress + index * 4L + displacement * 4L);
+                        counts[target] = counts.GetValueOrDefault(target) + 1;
+                        goto next;
+                    }
+                }
+
+                next: ;
             }
         }
 
