@@ -155,6 +155,18 @@ public sealed class RecoveredSemanticIr
     public IReadOnlyList<string> Parameters { get; init; } = [];
     public ulong Rva { get; init; }
 
+    /// <summary>
+    /// How many bytes of machine code the method had.
+    /// </summary>
+    /// <remarks>
+    /// A fact about the input, recorded because it bounds what the body can possibly do. A source
+    /// method reading <c>return DeviceInfo.IsAndroid();</c> whose native body is eight bytes did not
+    /// make that call - there is no room for one - so the call is absent because il2cpp inlined it,
+    /// not because the recovery lost it. Without this the two are indistinguishable and a perfect
+    /// recovery reads as a body that lost everything.
+    /// </remarks>
+    public int NativeLength { get; init; }
+
     /// <summary>Set when the generator threw; the body that was exported is a stand-in.</summary>
     public string? GeneratorFailure { get; set; }
 
@@ -176,6 +188,7 @@ public sealed class RecoveredSemanticIr
             ReturnType = context.ReturnType?.FullName ?? "",
             Parameters = [.. context.Parameters.ConvertAll(parameter => parameter.ParameterType?.FullName ?? "")],
             Rva = context.Rva,
+            NativeLength = context.RawBytes.Length,
         };
 
         _current = recorder;
@@ -347,6 +360,7 @@ public sealed class RecoveredSemanticIr
             builder.Append("    \"method\": ").Append(Quote(body.Method)).Append(",\n");
             builder.Append("    \"declaringType\": ").Append(Quote(body.DeclaringType)).Append(",\n");
             builder.Append("    \"returnType\": ").Append(Quote(body.ReturnType)).Append(",\n");
+            builder.Append("    \"nativeLength\": ").Append(body.NativeLength).Append(",\n");
             builder.Append("    \"parameters\": [");
 
             for (var index = 0; index < body.Parameters.Count; index++)

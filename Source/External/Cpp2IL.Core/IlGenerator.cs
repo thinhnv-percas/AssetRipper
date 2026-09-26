@@ -3214,43 +3214,98 @@ public static class IlGenerator
     private static TypeAnalysisContext ElementTypeOf(LocalVariable array)
         => array.Type is SzArrayTypeAnalysisContext { ElementType: { } element } ? element : array.Type!;
 
+    /// <summary>
+    /// Where a lifted local lives, asked of the one rule all three of load, store and address use.
+    /// </summary>
+    private static LocalStorageSite StorageOf(LocalVariable local, MethodDefinition method)
+    {
+        List<string> names = new(method.Parameters.Count);
+        List<bool> byReference = new(method.Parameters.Count);
+
+        foreach (var parameter in method.Parameters)
+        {
+            names.Add(parameter.Name ?? "");
+            byReference.Add(parameter.ParameterType is ByReferenceTypeSignature);
+        }
+
+        return LocalStorage.For(local.Name, local.IsThis, names, byReference);
+    }
+
     private static void LoadLocalAddress(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
     {
         var instructions = method.CilMethodBody!.Instructions;
+        var site = StorageOf(local, method);
 
         // A struct's own `this`, and a parameter already passed by reference, are addresses to begin
         // with; taking their address again would give a pointer to the pointer.
-        if (local.IsThis)
+        if (site.Kind == LocalStorageKind.This)
         {
             var self = method.Parameters.ThisParameter!;
             instructions.Add(self.ParameterType is ByReferenceTypeSignature ? CilOpCodes.Ldarg : CilOpCodes.Ldarga, self);
             return;
         }
 
-        var parameter = method.Parameters.FirstOrDefault(p => p.Name == local.Name);
+        if (site.Kind == LocalStorageKind.Parameter)
+        {
+            var parameter = method.Parameters[site.ParameterIndex];
+            instructions.Add(site.ByReference ? CilOpCodes.Ldarg : CilOpCodes.Ldarga, parameter);
+            return;
+        }
 
-        if (parameter != null)
-            instructions.Add(parameter.ParameterType is ByReferenceTypeSignature ? CilOpCodes.Ldarg : CilOpCodes.Ldarga, parameter);
-        else
-            instructions.Add(CilOpCodes.Ldloca, locals[local]);
+        instructions.Add(CilOpCodes.Ldloca, locals[local]);
+    }
+
+    /// <summary>
+    /// Writes a value to where a local lives - which for a local that <em>is</em> a parameter is the
+    /// parameter, not a local the generator invented for it.
+    /// </summary>
+    /// <remarks>
+    /// The mirror of <see cref="LoadLocal"/>, and it has to be, because the two together decide where
+    /// one value lives. Without it a parameter-named local is read through <c>ldarg</c> and written
+    /// through <c>stloc</c>: two storages for one value, so every write is lost and every read
+    /// afterwards returns the argument the caller passed. That is the same defect iteration 058 found
+    /// on the address side, which had exactly one of its two sites routed through the helper.
+    /// </remarks>
+    private static void StoreLocal(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
+    {
+        var instructions = method.CilMethodBody!.Instructions;
+        var site = StorageOf(local, method);
+
+        if (site.Kind == LocalStorageKind.This)
+        {
+            // `this` is not assignable in C# and a recovered body that writes it is writing over the
+            // receiver register, which is an ABI artefact rather than a store the source made.
+            instructions.Add(CilOpCodes.Pop);
+            return;
+        }
+
+        if (site.Kind == LocalStorageKind.Parameter)
+        {
+            instructions.Add(CilOpCodes.Starg, method.Parameters[site.ParameterIndex]);
+            return;
+        }
+
+        instructions.Add(CilOpCodes.Stloc, locals[local]);
     }
 
     private static void LoadLocal(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
     {
         var instructions = method.CilMethodBody!.Instructions;
+        var site = StorageOf(local, method);
 
-        if (local.IsThis)
+        if (site.Kind == LocalStorageKind.This)
         {
             instructions.Add(CilOpCodes.Ldarg_0);
             return;
         }
 
-        var parameter = method.Parameters.FirstOrDefault(p => p.Name == local.Name);
+        if (site.Kind == LocalStorageKind.Parameter)
+        {
+            instructions.Add(CilOpCodes.Ldarg, method.Parameters[site.ParameterIndex]);
+            return;
+        }
 
-        if (parameter != null)
-            instructions.Add(CilOpCodes.Ldarg, parameter);
-        else
-            instructions.Add(CilOpCodes.Ldloc, locals[local]);
+        instructions.Add(CilOpCodes.Ldloc, locals[local]);
     }
 
     private static void StoreToOperand(IOperand operand, MethodAnalysisContext context, MethodDefinition method,
@@ -3261,7 +3316,7 @@ public static class IlGenerator
         switch (operand)
         {
             case LocalVariable local:
-                instructions.Add(CilOpCodes.Stloc, locals[local]);
+                StoreLocal(local, method, locals);
                 break;
 
             case FieldReference field:
@@ -3329,7 +3384,7 @@ public static class IlGenerator
                     && memory.Base is LocalVariable local2)
                 {
                     // Can pointer assignments just be ignored because it's C#? (Move [local], 123)
-                    instructions.Add(CilOpCodes.Stloc, locals[local2]);
+                    StoreLocal(local2, method, locals);
                     break;
                 }
                 instructions.Add(CilOpCodes.Pop);
