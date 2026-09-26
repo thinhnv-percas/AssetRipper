@@ -48,6 +48,14 @@ CALL_IR = re.compile(r'(?:::\w+|"[^"]+"|0x[0-9A-Fa-f]+)\(')
 CSHARP_KEYWORD = r'(?<!\bif)(?<!\bwhile)(?<!\bfor)(?<!\bforeach)(?<!\bswitch)(?<!\bcatch)(?<!\breturn)(?<!\bnew)(?<!\block)(?<!\busing)(?<!\bsizeof)(?<!\btypeof)(?<!\bnameof)(?<!\bdefault)'
 CALL_CSHARP = re.compile(r'\b\w+' + CSHARP_KEYWORD + r'\s*\(')
 NEWOBJ = re.compile(r'\bnew\s')
+# C# has four ways to write the allocation of a delegate and only one of them says `new`: a lambda,
+# an anonymous method, a method group, or the constructor. The IR rendering always says `new`, so a
+# pattern that only reads `new` reports every one of the other three as an allocation lost. Measured
+# on Merge-Room: 415 methods scored FALLBACK for a missing NEWOBJ, and of those 101 have a lambda in
+# the C#, 213 an anonymous method (`delegate {`) and 85 a bare identifier assigned to a delegate -
+# the recovery had brought every one of them back. `DOTweenModuleUI.DOFillAmount` is the shape:
+# `v131 = new DOGetter\`1<Single>()` against `DOGetter<float> getter = delegate { ... }`.
+NEWOBJ_CSHARP = re.compile(r'\bnew\s|=>|\bdelegate\b')
 FIELD_WRITE = re.compile(r'(?:\w|\])\.\w+\s*=[^=]')
 FIELD_READ = re.compile(r'=\s*[^=]*(?:\w|\])\.\w+')
 # An array initialiser is an array write. A decompiler renders `array[0] = '#'; array[1] = 'c';` as
@@ -120,7 +128,32 @@ def fingerprint(text: str, side: str) -> set[str]:
     found = {name for name, pattern in CLASSES if pattern.search(text)}
     if (CALL_IR if side == "ir" else CALL_CSHARP).search(text):
         found.add("CALL")
+    if side == "csharp" and NEWOBJ_CSHARP.search(text):
+        found.add("NEWOBJ")
     return found
+
+
+# The fourth form a delegate allocation takes in C# is a bare method group - `Action<T> x = Method;` -
+# which carries neither `new` nor `=>` nor `delegate`. What it does carry is the delegate's own type,
+# because C# cannot write the conversion without a target type to convert to. So an allocation whose
+# type the C# names is present whatever syntax was used, and one the C# never names anywhere is the
+# loss this class is for. Same reasoning as `unmentioned_members`, one operation class out.
+IR_ALLOCATION = re.compile(r'\bnew\s+([\w.`<>,+]+)')
+
+
+def allocations_named(source: str, body: str) -> bool:
+    """Whether the C# names the type of every allocation the IR made."""
+    allocated = IR_ALLOCATION.findall(source)
+    if not allocated:
+        return False
+
+    words = set(re.findall(r'[A-Za-z_]\w*', body))
+    for name in allocated:
+        simple = re.split(r'[.+]', re.split(r'[`<]', name)[0])[-1]
+        if simple and simple not in words:
+            return False
+
+    return True
 
 
 def unmentioned_members(source: str, body: str) -> set[str]:
@@ -199,7 +232,10 @@ def classify(native: int, source: str, body: str):
     # No placeholder is where the old measure stopped. The IR says what the body should reach.
     lost = []
     if source:
-        lost = sorted((fingerprint(source, "ir") & SUBSTANTIVE) - fingerprint(body, "csharp"))
+        present = fingerprint(body, "csharp")
+        if "NEWOBJ" not in present and allocations_named(source, body):
+            present.add("NEWOBJ")
+        lost = sorted((fingerprint(source, "ir") & SUBSTANTIVE) - present)
         if unmentioned_members(source, body):
             lost.append("FIELD")
             lost.sort()
@@ -220,12 +256,56 @@ def attempted_assemblies(log: pathlib.Path | None):
     return None
 
 
+# Each case is red if the rule it names is removed, which is the only thing that establishes a rule
+# discriminates. Every one of the four delegate forms, and the two shapes that must still be a loss.
+SELF_TEST = [
+    ("a lambda is an allocation",
+     "v1 = new System.Func`2<System.Int32,System.Int32>();",
+     "Func<int, int> f = x => x + 1;", True),
+    ("an anonymous method is an allocation",
+     "v1 = new DG.Tweening.Core.DOGetter`1<System.Single>();",
+     "DOGetter<float> getter = delegate { return target.fillAmount; };", True),
+    ("a method group is an allocation",
+     "v1 = new System.Action`1<GameState>();",
+     "Action<GameState> value = OnGameStateChange;", True),
+    ("a constructor is an allocation",
+     "v1 = new System.Text.StringBuilder();",
+     "StringBuilder sb = new StringBuilder();", True),
+    ("an allocation the C# never names anywhere is lost",
+     "v1 = new System.Collections.Generic.List`1<System.Boolean>();",
+     "int num = 0; num++;", False),
+    ("an exception the C# never names anywhere is lost",
+     "v1 = new System.NullReferenceException();",
+     "return target.fillAmount;", False),
+]
+
+
+def self_test() -> int:
+    failures = 0
+
+    for name, source, body, expected in SELF_TEST:
+        present = fingerprint(body, "csharp")
+        if "NEWOBJ" not in present and allocations_named(source, body):
+            present.add("NEWOBJ")
+        got = "NEWOBJ" in present
+        if got != expected:
+            failures += 1
+        print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: allocation seen = {got}")
+
+    print(f"{len(SELF_TEST) - failures} of {len(SELF_TEST)} cases pass")
+    return 1 if failures else 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("root")
+    parser.add_argument("root", nargs="?")
     parser.add_argument("--log")
     parser.add_argument("--json")
+    parser.add_argument("--self-test", action="store_true")
     arguments = parser.parse_args()
+
+    if arguments.self_test:
+        return self_test()
 
     root = pathlib.Path(arguments.root)
     log = pathlib.Path(arguments.log) if arguments.log else None
