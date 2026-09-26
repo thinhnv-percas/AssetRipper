@@ -93,6 +93,11 @@ def defines_for(unity_version: str, platform: str) -> dict:
 
     known[f"UNITY_{major}"] = True
     known[f"UNITY_{major}_{minor}"] = True
+
+    # The build's own version, so a gate above the table's range is answered by comparing rather than
+    # by not being in the table. `UNITY_2023_1_OR_NEWER` on a 2022.3 build is definitely false, and
+    # leaving it unknown keeps a branch the build certainly did not compile.
+    known["__version__"] = (major, minor)
     return known
 
 
@@ -106,7 +111,16 @@ def _value(token: str, defines: dict):
         return defines[token]
 
     match = _VERSION_GATE.match(token)
-    return None if match is None else defines.get(token)
+
+    if match is None:
+        return None
+
+    version = defines.get("__version__")
+
+    if version is None:
+        return None
+
+    return (int(match[1]), int(match[2])) <= version
 
 
 def evaluate(expression: str, defines: dict):
@@ -233,3 +247,56 @@ def compile_text(text: str, defines: dict) -> str:
         output.append("")
 
     return "\n".join(output)
+
+
+def _self_test() -> int:
+    """That each rule decides something, and that an unknown symbol decides nothing.
+
+    This file is load-bearing for every source oracle in the harness: if it removed the wrong branch,
+    a correct recovery would read as a loss and a lost one as correct, in silence. Each case is red
+    if the rule it names is removed.
+    """
+    defines = defines_for("2022.3", "android")
+    cases = [
+        ("the editor branch is not in the build", "#if UNITY_EDITOR\nA();\n#endif", [], ["A()"]),
+        ("this platform is", "#if UNITY_ANDROID\nA();\n#else\nB();\n#endif", ["A()"], ["B()"]),
+        ("the other platform is not", "#if UNITY_IOS\nA();\n#else\nB();\n#endif", ["B()"], ["A()"]),
+        ("a version gate this build satisfies",
+         "#if UNITY_2019_1_OR_NEWER\nA();\n#else\nB();\n#endif", ["A()"], ["B()"]),
+        ("a version gate it does not",
+         "#if UNITY_2023_1_OR_NEWER\nA();\n#else\nB();\n#endif", ["B()"], ["A()"]),
+        ("an unknown symbol keeps both branches",
+         "#if SOME_PROJECT_FLAG\nA();\n#else\nB();\n#endif", ["A()", "B()"], []),
+        ("negation", "#if !UNITY_EDITOR\nA();\n#endif", ["A()"], []),
+        ("conjunction with an unknown is unknown",
+         "#if UNITY_ANDROID && SOME_FLAG\nA();\n#endif", ["A()"], []),
+        ("conjunction with a false is false",
+         "#if UNITY_EDITOR && SOME_FLAG\nA();\n#endif", [], ["A()"]),
+        ("disjunction with a true is true",
+         "#if UNITY_ANDROID || SOME_FLAG\nA();\n#else\nB();\n#endif", ["A()"], ["B()"]),
+        ("elif after a false if",
+         "#if UNITY_IOS\nA();\n#elif UNITY_ANDROID\nB();\n#else\nC();\n#endif", ["B()"], ["A()", "C()"]),
+        ("nesting", "#if UNITY_ANDROID\n#if UNITY_EDITOR\nA();\n#endif\nB();\n#endif", ["B()"], ["A()"]),
+        ("an unbalanced directive does not throw", "#if UNITY_ANDROID\nA();", ["A()"], []),
+    ]
+
+    failures = 0
+
+    for name, text, wanted, unwanted in cases:
+        compiled = compile_text(text, defines)
+        missing = [token for token in wanted if token not in compiled]
+        present = [token for token in unwanted if token in compiled]
+
+        if missing or present:
+            print(f"FAIL {name}: missing {missing}, still present {present}")
+            failures += 1
+        else:
+            print(f"ok   {name}")
+
+    print(f"{len(cases) - failures}/{len(cases)} cases")
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(_self_test())
