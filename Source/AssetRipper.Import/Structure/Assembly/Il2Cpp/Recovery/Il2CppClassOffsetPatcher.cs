@@ -59,6 +59,13 @@ public static class Il2CppClassOffsetPatcher
 		// offsets of some other version.
 		("virtualMethodPointer", ["virtualMethodPointer"]),
 		("invoker_method", ["invoker_method"]),
+
+		// AssetRipper: MethodInfo::slot, the index into the receiver's vtable. il2cpp reads it at run
+		// time rather than baking a constant wherever the dispatch is in a shared generic body, so a
+		// virtual or interface call there reads `[MethodInfo<M> + slot]` and indexes the vtable with
+		// it. Measured, never written down: it sits after `flags`/`iflags`, which moved in 2022 with
+		// everything else in this struct.
+		("slot", ["slot"]),
 	];
 
 	private static readonly object patchLock = new();

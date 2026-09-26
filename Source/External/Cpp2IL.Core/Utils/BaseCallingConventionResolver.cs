@@ -45,13 +45,25 @@ public abstract class BaseCallingConventionResolver
         return integerRegisters.Concat(floatRegisters).Select(name => (IOperand)new Register(null, name)).ToArray();
     }
 
-    public bool HasRawArgumentLayout(Instruction call, ApplicationAnalysisContext app)
+    /// <param name="requireRegisterNames">
+    /// AssetRipper: whether each operand must still be named after the register whose slot it sits
+    /// in. It is true everywhere the layout has not been touched, and false for a pass that runs
+    /// after copy propagation, where every argument slot holds the value that was moved into it and
+    /// so carries that value's own home register instead - <c>reader @ X1</c> in the X0 slot. The
+    /// slot order survives that substitution and the names do not, so the count is the test that is
+    /// still meaningful; a caller passing false must know the call has never been remapped, which a
+    /// call it has itself just rewritten from an indirect one has not.
+    /// </param>
+    public bool HasRawArgumentLayout(Instruction call, ApplicationAnalysisContext app, bool requireRegisterNames = true)
     {
         var (integerRegisters, floatRegisters) = RawRegisters(app);
         var argBase = ArgBase(call);
 
         if (call.Operands.Count != argBase + integerRegisters.Length + floatRegisters.Length)
             return false;
+
+        if (!requireRegisterNames)
+            return true;
 
         for (var i = 0; i < integerRegisters.Length; i++)
             if (RegisterName(call.Operands[argBase + i]) != integerRegisters[i])
@@ -70,11 +82,11 @@ public abstract class BaseCallingConventionResolver
     /// the ABI spread over several vector registers is composed back into its value; without it, only
     /// the first register is named and the rest are dropped, which is what always used to happen.
     /// </param>
-    public void RemapRawArguments(Instruction call, MethodAnalysisContext resolved, MethodAnalysisContext? caller = null)
+    public void RemapRawArguments(Instruction call, MethodAnalysisContext resolved, MethodAnalysisContext? caller = null, bool requireRegisterNames = true)
     {
         var app = resolved.AppContext;
 
-        if (!HasRawArgumentLayout(call, app))
+        if (!HasRawArgumentLayout(call, app, requireRegisterNames))
             return;
 
         var (integerRegisters, floatRegisters) = RawRegisters(app);

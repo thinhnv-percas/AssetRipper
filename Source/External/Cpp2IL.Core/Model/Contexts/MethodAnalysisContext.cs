@@ -480,6 +480,14 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // matches is not there until it is one.
         InterfaceInvokeDataRecovery.Run(this);
 
+        // AssetRipper: the other half of the same family. Where the compiler knew the slot it baked
+        // one in, which the pass above matches; in a shared generic body it reads it out of the
+        // MethodInfo the call site already names, and that needs the base typed - so here, after the
+        // resolution, and again after SSA destruction for the same reason the pass above is run
+        // twice: the two placements see different shapes of the same lookup.
+        Analysis.IsilDump.Stage(this, "before MethodSlotDispatchRecovery");
+        MethodSlotDispatchRecovery.Run(this);
+
         StaticFieldStorageHead.Run(this);
         MakeStructFolder.Run(this);
         DeadCodeEliminator.Run(this);
@@ -524,6 +532,14 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // been folded into the dispatch that consumed it and a slot that was still a register has
         // become a constant. Neither placement sees what the other does.
         InterfaceInvokeDataRecovery.Run(this);
+
+        // AssetRipper: the other half of the same family. Where the compiler knew the slot it baked
+        // one in, which the pass above matches; in a shared generic body it reads it out of the
+        // MethodInfo the call site already names, and that needs the base typed - so here, after the
+        // resolution, and again after SSA destruction for the same reason the pass above is run
+        // twice: the two placements see different shapes of the same lookup.
+        Analysis.IsilDump.Stage(this, "before MethodSlotDispatchRecovery");
+        MethodSlotDispatchRecovery.Run(this);
 
         // Every call that was going to resolve now has. Any argument registers it ended up
         // not using are just keeping their definitions alive, so drop them.
