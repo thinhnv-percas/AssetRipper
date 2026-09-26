@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using Cpp2IL.Core.Graphs;
@@ -83,8 +85,68 @@ public static class InlineOperationRecovery
             MatchedMethods.AddOrUpdate(method.FullName, 1, static (_, count) => count + 1);
     }
 
-    internal static void CountRejection(Family family, string reason)
-        => Rejections.AddOrUpdate($"{family}:{reason}", 1, static (_, count) => count + 1);
+    /// <summary>
+    /// Writes every rejection reason with its count and examples, where
+    /// <c>CPP2IL_DUMP_REJECTIONS</c> names a file.
+    /// </summary>
+    /// <remarks>
+    /// The log prints the twenty-five largest reasons, which is a truncated measurement: the moment a
+    /// reason is made more specific it splits into several smaller ones and the family disappears
+    /// from the log altogether - which reads exactly like a family that stopped occurring. The file
+    /// carries all of them.
+    /// </remarks>
+    public static void DumpRejections()
+    {
+        var path = Environment.GetEnvironmentVariable("CPP2IL_DUMP_REJECTIONS");
+
+        if (string.IsNullOrEmpty(path))
+            return;
+
+        List<string> lines = [];
+
+        foreach (var (reason, count) in Rejections)
+        {
+            var examples = RejectionExamples.TryGetValue(reason, out var named) ? string.Join(" | ", named) : "";
+            lines.Add($"{count}\t{reason}\t{examples}");
+        }
+
+        lines.Sort(static (left, right) =>
+            int.Parse(right.Split('\t')[0]).CompareTo(int.Parse(left.Split('\t')[0])));
+
+        try
+        {
+            File.WriteAllLines(path, lines);
+        }
+        catch (IOException)
+        {
+            // A dump that cannot be written is not a reason to fail a rip.
+        }
+    }
+
+    /// <summary>Up to three methods per reason, so a family has an example and not only a count.</summary>
+    /// <remarks>
+    /// A count says how big a family is; an example says what it is. Seven times now this project has
+    /// had to split a family named after its symptom, and every time the split came from reading
+    /// cases rather than from the total.
+    /// </remarks>
+    public static readonly ConcurrentDictionary<string, List<string>> RejectionExamples = new();
+
+    internal static void CountRejection(Family family, string reason, MethodAnalysisContext? method = null)
+    {
+        var key = $"{family}:{reason}";
+        Rejections.AddOrUpdate(key, 1, static (_, count) => count + 1);
+
+        if (method is null)
+            return;
+
+        var examples = RejectionExamples.GetOrAdd(key, static _ => []);
+
+        lock (examples)
+        {
+            if (examples.Count < 3)
+                examples.Add(method.FullName ?? method.Name);
+        }
+    }
 
     /// <summary>
     /// Runs every implemented family over one body.
@@ -118,6 +180,7 @@ public static class InlineOperationRecovery
         Interlocked.Exchange(ref _candidates, 0);
         Interlocked.Exchange(ref _matched, 0);
         Rejections.Clear();
+        RejectionExamples.Clear();
         MatchesByFamily.Clear();
         MatchedMethods.Clear();
     }

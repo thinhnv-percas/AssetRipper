@@ -189,10 +189,17 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import, $"Il2Cpp inline operation recovery: {family.Value}x {family.Key}");
 		}
 
+		Cpp2IL.Core.Analysis.InlineOperationRecovery.DumpRejections();
+
 		foreach (KeyValuePair<string, int> reason in Cpp2IL.Core.Analysis.InlineOperationRecovery.Rejections
 			.OrderByDescending(pair => pair.Value).Take(25))
 		{
-			Logger.Info(LogCategory.Import, $"Il2Cpp inline operation recovery: rejected {reason.Value}x - {reason.Key}");
+			string examples = Cpp2IL.Core.Analysis.InlineOperationRecovery.RejectionExamples
+				.TryGetValue(reason.Key, out List<string>? named) && named.Count > 0
+				? $" [e.g. {string.Join(", ", named)}]"
+				: "";
+
+			Logger.Info(LogCategory.Import, $"Il2Cpp inline operation recovery: rejected {reason.Value}x - {reason.Key}{examples}");
 		}
 	}
 
