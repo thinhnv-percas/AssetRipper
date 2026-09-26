@@ -151,17 +151,60 @@ public static class InlineListAddRecovery
         if (slowBlock.Predecessors.Count != 1)
             return Reject($"slow path has {slowBlock.Predecessors.Count} predecessors");
 
+        // Walk back through blocks with one way in and one way out. The CFG splits a block at a call,
+        // so the conditional that guards the slow path is not always its immediate predecessor; a
+        // chain like that is straight-line code, so the conditional still dominates the slow path and
+        // nothing else reaches it. `slowSide` stays the conditional's own successor, because the
+        // chain's instructions are on the slow path and jumping past them would delete real work.
         var guard = slowBlock.Predecessors[0];
+        var slowSide = slowBlock;
+
+        while (guard.Predecessors.Count == 1 && guard.Successors.Count == 1
+            && (guard.Instructions.Count == 0 || guard.Instructions[^1].OpCode != OpCode.ConditionalJump))
+        {
+            slowSide = guard;
+            guard = guard.Predecessors[0];
+        }
 
         if (guard.Instructions.Count == 0 || guard.Instructions[^1] is not { OpCode: OpCode.ConditionalJump } terminator)
-            return Reject("guard does not end in a conditional branch");
+        {
+            // Named by the terminator it actually has. "Does not end in a conditional branch" is a
+            // symptom, and this project has had to split a family named after its symptom seven
+            // times; the opcode is what separates the causes.
+            var last = guard.Instructions.Count == 0 ? null : guard.Instructions[^1];
+
+            // How far back a conditional branch is, through blocks that have one way in and one way
+            // out. A chain like that is straight-line code: the conditional still dominates the slow
+            // path, and nothing else reaches it. Measured before anything is done about it.
+            var steps = 0;
+            var walk = guard;
+
+            while (steps < 8 && walk.Predecessors.Count == 1 && walk.Successors.Count == 1)
+            {
+                walk = walk.Predecessors[0];
+                steps++;
+
+                if (walk.Instructions.Count > 0 && walk.Instructions[^1].OpCode == OpCode.ConditionalJump)
+                    break;
+            }
+
+            var found = walk.Instructions.Count > 0
+                && walk.Instructions[^1].OpCode == OpCode.ConditionalJump
+                && walk.Successors.Count == 2;
+
+            return Reject("guard ends in "
+                + (last is null ? "nothing - the block is empty" : last.OpCode.ToString())
+                + $", with {guard.Successors.Count} successors"
+                + (found ? $"; a conditional branch is {steps} straight-line block(s) back"
+                         : "; no conditional branch within eight straight-line blocks"));
+        }
 
         if (guard.Successors.Count != 2)
             return Reject($"guard has {guard.Successors.Count} successors");
 
-        var fast = guard.Successors[0] == slowBlock ? guard.Successors[1] : guard.Successors[0];
+        var fast = guard.Successors[0] == slowSide ? guard.Successors[1] : guard.Successors[0];
 
-        if (fast == slowBlock)
+        if (fast == slowSide)
             return Reject("both edges of the guard reach the slow path");
 
         // The fast path must be this branch's alone, or deleting it takes code with it that another
@@ -192,6 +235,15 @@ public static class InlineListAddRecovery
         if (recognisers.AddFor(call.Operands[0]) is not { } add)
             return Reject("List<T>.Add not found on the declaring type");
 
+        // The walk above finds the conditional through a chain of straight-line blocks, which is what
+        // lets the reason say why a site was turned down. Rewriting across such a chain is a
+        // different operation from rewriting a direct guard, and iteration 060 measured that no site
+        // reaching here has one: of the 136 that fall through to the slow path, 52 have a conditional
+        // a few blocks back and every one of those is il2cpp's null check on a fresh allocation, not
+        // the capacity test. So this refuses rather than carrying an untested rewrite.
+        if (slowSide != slowBlock)
+            return Reject("the guard is separated from the slow path by straight-line blocks");
+
         // The version bump is Add's own, so it goes with the call rather than staying beside it.
         DropVersionBump(guard, receivers, recognisers);
 
@@ -200,7 +252,7 @@ public static class InlineListAddRecovery
         // Every path now reaches the call. The loads that fed the capacity test, and the whole fast
         // path, are left with nothing reading them for the graph tidy-up to collect.
         terminator.OpCode = OpCode.Jump;
-        terminator.SetOperands(slowBlock);
+        terminator.SetOperands(slowSide);
 
         guard.Successors.Remove(fast);
         fast.Predecessors.Remove(guard);
@@ -211,9 +263,9 @@ public static class InlineListAddRecovery
 
         return true;
 
-        static bool Reject(string reason)
+        bool Reject(string reason)
         {
-            InlineOperationRecovery.CountRejection(Kind, reason);
+            InlineOperationRecovery.CountRejection(Kind, reason, method);
             return false;
         }
     }
@@ -355,6 +407,9 @@ public static class InlineListAddRecovery
             PointerKind.Array =>
                 $"the backing array rather than the list that owns it ({classification.Path})",
             PointerKind.Object => $"an object, {classification.Path}",
+            // The base's own type is what says whether `this + 0x20` is a field of the receiver or
+            // the first element of an array the receiver is. Reported rather than guessed at.
+            PointerKind.This => $"{classification}, chain {ChainOf(receiver, definitions)}",
             // The classification is reported even when it is not one of the three that decide, so a
             // reader can see what the analysis made of the receiver rather than only the raw shape.
             _ => $"{Describe(receiver, definitions)} [{classification}]",
@@ -366,6 +421,65 @@ public static class InlineListAddRecovery
     /// </summary>
     /// <remarks>Four pointers: the object header, the type handle, the length and its padding.</remarks>
     private const int ElementsOffset = 0x20;
+
+    /// <summary>
+    /// Every step of the walk from a receiver back to what defines it, with what the IR says about
+    /// each local: its name, whether it is flagged as the method's receiver, and its type.
+    /// </summary>
+    /// <remarks>
+    /// Every step, rather than the first typed one, because the interesting case is a disagreement
+    /// part way along: a local flagged as the receiver is emitted as <c>ldarg.0</c>, so a flag
+    /// reached through a local the fixpoint typed as something else is a register the compiler
+    /// reused, not a field of <c>this</c>. Stopping at the first typed local hides exactly that.
+    /// </remarks>
+    private static string ChainOf(IOperand receiver, Dictionary<LocalVariable, Instruction> definitions)
+    {
+        var steps = new List<string>();
+        var current = receiver;
+
+        for (var step = 0; step < 8; step++)
+        {
+            if (current is not LocalVariable local)
+            {
+                steps.Add(DescribeShallow(current));
+                break;
+            }
+
+            var defined = definitions.TryGetValue(local, out var definition);
+
+            steps.Add($"{local.Name}[isThis={local.IsThis}][{local.Type?.FullName ?? "untyped"}]"
+                + (defined ? $"<-{definition!.OpCode}" : "<-nothing"));
+
+            if (!defined || definition!.Operands.Count < 2)
+                break;
+
+            current = definition.Operands[1];
+        }
+
+        return string.Join(" ", steps);
+    }
+
+    /// <summary>The type the IR gives the base of a receiver, or "not typed".</summary>
+    private static string TypeOf(IOperand receiver, Dictionary<LocalVariable, Instruction> definitions)
+    {
+        var current = receiver;
+
+        for (var step = 0; step < 8; step++)
+        {
+            if (current is not LocalVariable local)
+                break;
+
+            if (local.Type is { } type)
+                return type.FullName ?? "not named";
+
+            if (!definitions.TryGetValue(local, out var definition) || definition.Operands.Count < 2)
+                break;
+
+            current = definition.Operands[1];
+        }
+
+        return "not typed";
+    }
 
     /// <summary>An operand and, where it is a local, what defines it - two steps, no further.</summary>
     private static string Trace(IOperand operand, Dictionary<LocalVariable, Instruction> definitions)

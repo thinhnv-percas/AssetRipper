@@ -161,6 +161,20 @@ internal sealed class Il2CppPointerClassifierTests
 	}
 
 	[Test]
+	public void ACopyIntoAnUntypedLocalStillCarriesProvenance()
+	{
+		// A copy carries what it was copied from, which is what the whole walk is for. Iteration
+		// 060 rested on this while tracing `List<T>.Add` receivers reported as `this + 0x20`: the
+		// walk not stopping at a copy is why the chain reached the `Add` that really defines them.
+		Fixture fixture = new();
+		var receiver = fixture.Local("this", isThis: true);
+		var copy = fixture.Local("v9");
+		fixture.Define(copy, OpCode.Move, receiver);
+
+		Assert.That(fixture.Classify(copy).Kind, Is.EqualTo(PointerKind.This));
+	}
+
+	[Test]
 	public void AFieldReferenceNamesItsField()
 	{
 		Fixture fixture = new();
