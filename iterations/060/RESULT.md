@@ -51,3 +51,21 @@ allocation delegate và chỉ một cách nói `new`. 415 method trên Merge-Roo
 Test: 509 ca, 508 pass, một fail có sẵn (`GetMainExportID_..._DebugAssertFails`, chỉ đỏ ở build
 Release). Golden corpus đóng băng lại ở cuối iteration, cố ý: 887 entry, 531 cập nhật, 0 thêm, 0 mất.
 Unity không có: stage E–I `BLOCKED`, `runtime_status: NOT_RUN`.
+
+## Bốn chỉ số vòng ngoài, đo lại ở 060
+
+| | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
+|---|---:|---:|---:|---:|
+| `body_recovery_rate` | 0,9369 → **0,9692** | 0,9618 → **0,9488** | 0,9941 → **0,9888** | 0,9724 → **0,9646** |
+| `compile_pass_rate` | 0,9337 → 0,9337 | 0,9761 → 0,9761 | 0,8880 → 0,8873 | 0,8993 → **0,9073** |
+| `reference_resolution_rate` | 0,9942 | 1,0000 | 1,0000 | 0,9998 |
+| `shader_programs_recovered` | 2/3 | 1/24 | 0/30 | 8/34 |
+
+`body_recovery_rate` là `1 − (FALLBACK + MISSING) / total`, nên một method thôi mang placeholder sẽ
+*bắt đầu* được chấm, và rơi vào `FALLBACK` nếu bản phục hồi của nó còn thiếu thao tác nào. Chỉ số
+này do đó giảm chính xác khi recovery tốt lên đủ để phơi ra chỗ còn thiếu — `placeholder` và `EXACT`
+đi đúng chiều ở cả bốn fixture và golden corpus không có regression mới nào. Cùng hình dạng với
+"recovering more of a program raises the placeholder count" đã ghi trong CLAUDE.md, ở một chỉ số khác.
+
+Không đo lại ở 060: `behaviour_equivalence_rate`, `semantic_equivalence_rate`, hợp đồng hành vi, các
+verdict shader, ranh giới `UNKNOWN`, field layout, corpus hành vi.

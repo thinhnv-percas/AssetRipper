@@ -52,57 +52,54 @@ entropy `__TEXT` 6,541/8, 4225 lệnh `ret` trong 1 MiB, `mscorlib.dll` có mặ
 
 ## Con số hiện tại
 
-Đo trên bản rip cuối của iteration 059 (`Test/Out59G-{z,i,m,j}`), sau khi tiến trình thoát. Baseline
-là `Test/Out58H-*` tại commit `7babffb8`.
+Đo trên bản rip cuối của iteration 060 (`Test/Out61c-{m,z,j,i}`), sau khi tiến trình thoát. Baseline
+là `Test/Out59G-*` tại commit `f6071e73`.
 
-**Recovery của method đổi ở một chỗ**: ghi vào một lifted local mà thực ra là *tham số* nay ra `starg`
-chứ không phải `stloc` vào một local generator tự bịa (`docs/ITERATION_059.md` mục 3). Trên Impostor —
-fixture tất định — **46 file đổi nội dung và mọi con số tổng y nguyên**; 37 trên RunFromZombies, 85
-trên JellyBlast, 180 trên Merge-Room. Cùng số lệnh, khác chỗ ghi.
+**Recovery đổi ở ba chỗ, cả ba là lỗi nghĩa-binary ≠ nghĩa-phục hồi ở tầng thấp hơn chỗ triệu chứng**
+(`docs/ITERATION_060.md`): `il2cpp_codegen_write_barrier` được định vị trên ARM64; virtual dispatch ở
+vị trí tail call được giải quyết; generic virtual dispatch đọc slot lúc chạy được nhận diện.
 
-**Phần lớn chuyển động của oracle Merge-Room là phép đo trở nên trung thực, không phải phục hồi tốt
-lên.** `source_preprocessor` rút file nguồn về chương trình mà build đã biên dịch; trước nó 192
-method bị báo `FALLBACK` trên những bản phục hồi *chính xác*. Hai thứ được ghi riêng vì lý do đó.
+**Và phép đo `EXACT` đã đổi** (MEASUREMENT_CHANGE): C# viết một delegate allocation bằng bốn cách và
+`recovery_metrics.py` chỉ đọc `new`. Cột `EXACT`/`FALLBACK`/`body_recovery_rate` của 059 và của 060
+**không cùng thước**; mọi so sánh qua ranh giới đó phải đo lại cả hai đầu.
 
 | | Impostor | RunFromZombies | JellyBlast v2 | Merge-Room |
 |---|---:|---:|---:|---:|
-| method có địa chỉ native | 5482 | 3928 | 7485 | 16.317 |
-| `EXACT` | 3782 | 2515 | 2867 | 8170 |
-| `FALLBACK` | 346 | 150 | 44 | 450 |
-| placeholder | 4293 | 5962 | 38.236 | 39.533 |
-| hợp đồng hành vi | 5963 | 4615 | 8983 | 17.913 |
-| — điều kiện nhánh truy được về nơi sinh | 8754 | 8536 | 24.924 | 30.534 |
-| `behaviour_equivalence_rate` | — | **1,0000** (35/35) | — | **0,7284** (2178/2990) |
-| — `MISMATCH` (058 → 059) | — | 0 → 0 | — | 16 → **15** |
-| — `FALLBACK` (058 → 059) | — | 0 → 0 | — | 197 → **114** |
-| `semantic_equivalence_rate` (lớp thao tác) | — | **1,0000** (36/36) | — | — |
-| **shader: hàng ánh xạ blob** | **1644** | **13.143** | **2532** | **978** |
-| — có `ParameterBlobIndices` | 1644 | 13.143 | 2532 | 978 |
-| — chỉ số chương trình ∩ chỉ số tham số | **0** | **0** | **0** | **0** |
-| **biến thể phục hồi / chương trình khác nhau** | **551 / 133** | **7153 / 1312** | 0 | **298 / 96** |
-| khối GLSL viết vào ShaderLab | 3 | 43 | 0 | 50 |
-| shader `SEMANTICALLY_EQUIVALENT` | **2** / 3 | **9** / 24 | — | **3** / 7 |
-| `shader_exact` | 0 | 0 | 0 | 0 |
-| `METAL_BINARY_ONLY` | 0 | 0 | **29** | 0 |
-| `NO_SOURCE_ORACLE` | 0 | 0 | 0 | 25 |
-| `body_recovery_rate` | 0,9369 | 0,9618 | 0,9941 | 0,9724 |
-| `compile_pass_rate` | 0,9337 | **0,9761** | 0,8880 | 0,8993 |
-| `reference_resolution_rate` | 0,9942 | **1,0000** | **1,0000** | 0,9998 |
-| ranh giới `UNKNOWN` | 15 | 5 | 22 | 41 |
-| field layout | 1394 / **0** | 2165 / **0** | 2654 / **0** | 3947 / **0** |
-| `generatorFailures` | 0 | 0 | 0 | 0 |
-| golden corpus regression (058 → 059) | **0** | **0** | **0** | **0** |
-| corpus hành vi | 84/84 | 50/50 | 73/73 | 86/86 |
+| method có địa chỉ native | 5482 | 3928 | 7485 | 16.023 |
+| `EXACT` | **4011** | **2770** | **3005** | **11.131** |
+| `FALLBACK` | 162 | 114 | 44 | 566 |
+| placeholder | 4293 → **4137** | 5962 → **4681** | 38.236 → **37.290** | 39.533 → **26.309** |
+| method không còn chỗ thay thế | **77,2 %** | **75,7 %** | **41,3 %** | **74,7 %** |
+| `body_recovery_rate` | 0,9369 → **0,9692** | 0,9618 → **0,9488** | 0,9941 → **0,9888** | 0,9724 → **0,9646** |
+| `compile_pass_rate` | 0,9337 → **0,9337** | 0,9761 → **0,9761** | 0,8880 → **0,8873** | 0,8993 → **0,9073** |
+| `reference_resolution_rate` | **0,9942** | **1,0000** | **1,0000** | **0,9998** |
+| `shader_programs_recovered` | 2 / 3 | 1 / 24 | 0 / 30 | 8 / 34 |
+| `il2cpp_codegen_write_barrier` | không đủ bằng chứng | không đủ bằng chứng | hai đường bất đồng | **0x179CDFC** |
+| `generatorFailures` / lỗi `Decompiling` | **0** | **0** | **0** | **0** |
+| golden corpus regression mới | **0** | **0** | **0** | **0** |
 | stage E–I | BLOCKED | BLOCKED | BLOCKED | BLOCKED |
+
+### `body_recovery_rate` giảm ở ba fixture, và đó không phải regression
+
+Công thức là `1 − (FALLBACK + MISSING) / total`, nên một method thôi mang placeholder sẽ *bắt đầu*
+được chấm — và nếu bản phục hồi của nó còn thiếu thao tác nào thì nó rơi vào `FALLBACK`. Chỉ số này
+do đó giảm chính xác khi recovery tốt lên đủ để phơi ra chỗ còn thiếu. `placeholder` và `EXACT` đi
+đúng chiều ở cả bốn fixture; `golden corpus` không có regression mới nào. Đây là hình dạng CLAUDE.md
+đã ghi từ lâu: "recovering more of a program raises the placeholder count" — cùng một hiệu ứng, ở
+một chỉ số khác.
 
 ### Cái gì so được với iteration trước, và cái gì không
 
-**So được:** mọi con số method (recovery đổi đúng một chỗ, và chỗ đó không đổi số lượng gì), mọi
-invariant, golden corpus, `compile_pass_rate`, `reference_resolution_rate`.
+**So được:** `placeholder`, `compile_pass_rate`, `reference_resolution_rate`, `generatorFailures`,
+mọi invariant.
 
-**Không so được:** `behaviour_equivalence_rate` và các verdict shader. Oracle hành vi trước 059 đọc
-toàn văn file nguồn; verdict shader trước 059 so với toàn văn shader nguồn thay vì với biến thể gốc.
-Cả hai bên của bất kỳ so sánh nào qua ranh giới đó phải đo lại.
+**Không so được:** `EXACT`, `FALLBACK`, `body_recovery_rate` và golden corpus — phép đo `EXACT` đổi ở
+060 và baseline corpus đã đóng băng lại. Cả hai bên của bất kỳ so sánh nào qua ranh giới đó phải đo
+lại.
+
+**Không đo lại ở 060:** `behaviour_equivalence_rate`, `semantic_equivalence_rate`, hợp đồng hành vi,
+các verdict shader, ranh giới `UNKNOWN`, field layout, corpus hành vi. Số của chúng trong
+`iterations/059/RESULT.md` là số 059, không phải số hiện tại.
 
 ### Merge-Room vẫn không tất định
 

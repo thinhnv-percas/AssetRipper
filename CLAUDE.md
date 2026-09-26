@@ -1787,7 +1787,78 @@ find it; `strings` without `-el` does find method and type names.
   1164 sub-programs are Metal libraries. Classify by the backend *the asset names*, never by the bytes:
   870 of them carry enough printable name table to read as source text otherwise.
 
+- **`GetWriteBarrier` returned 0 for every architecture but x86, and the cost was never one
+  placeholder.** il2cpp emits a GC write barrier after every reference store into a heap object,
+  handing it the address of the slot just written; with the helper unlocated the call becomes a
+  `Method not found` placeholder and the address arithmetic feeding it stays alive, so it sits in
+  whatever register the next call reads. That is where `List<T>.Add` receivers reading `this + 0x20`
+  came from, and where `_ = (nint)this + 112;` came from. The barrier is not exported and no managed
+  method sits on it, so it is found by the shape of its call sites: `str x2, [x0, #0x20]; add x0, x0,
+  #0x20; bl barrier`. Two independent routes - the corlib anchors x86 already used, and a
+  decoder-free scan of **every** executable section, which matters because the generated code is in a
+  section called `il2cpp` rather than `.text`. **A leader is not evidence; a margin is**: Merge-Room
+  measures 4064 call sites against 459 with 3 of 5 anchors agreeing, while Impostor and
+  RunFromZombies both measure 76 against 75 with no anchor agreeing - a coin toss, refused. Worth
+  40292 → 32385 placeholders on the one fixture that has it, and nothing at all on the three that do
+  not.
+- **A method whose last statement is a virtual call compiles to `br`, not `bl`.** `ResolveVirtualCalls`
+  and `ResolveMethodInfoPointerCalls` only ever looked at `IndirectCall`, and the slot load then stays
+  live: 3562 of Merge-Room's 20807 unresolved loads were `Il2CppClass.vtable[]`, with 930
+  `interface_offsets_count`, 840 `MethodInfo.slot` and 478 `interfaceOffsets` beside them - one shape
+  counted four ways. `DelegateInvokeRecovery` had to learn this for the delegate half of the family in
+  iteration 051 and the other two resolvers never did. The `Return` has to be written out, because the
+  generator bridges a block that ends in neither a jump nor a return to its successor and an indirect
+  jump's block has neither. `INDIRECT_JUMP` 1849 → 381 on Merge-Room, and every fixture improved.
+- **A generic virtual call cannot have a constant slot, so it reads one at run time - and the slot
+  never reaches the call's target.** The body is shared across instantiations, so the compiler reads
+  `method->slot` out of the metadata usage the call site already names, indexes the receiver's vtable
+  with it, and hands the override it finds - with the generic method's own `MethodInfo` - to a runtime
+  helper that inflates one for the other; the call goes through the helper's *result*. A pass that
+  walks back from the target therefore finds nothing, which is how the first version of
+  `MethodSlotDispatchRecovery` measured identical to its baseline to the digit. The shape is in the
+  helper's arguments, and what settles it is that the slot read and the usage name the **same**
+  method. The helper's address is never used, so nothing depends on naming it. Three things each made
+  the pass silent in turn: the target arrives in two shapes because the pass runs twice (a separate
+  load inside SSA, folded into the operand after copy propagation); `HasRawArgumentLayout` requires
+  each operand to still be *named* after the register whose slot it occupies, which copy propagation
+  has already destroyed (the X0 slot holds a local whose home register is X1), so only the count is
+  still meaningful there; and the entry-point load inside SSA reads the very value being freed, so
+  without nopping it first the helper can never be excised. `ES3Type_BoxCollider::ReadComponent` came
+  back as `reader.Read<Vector3>()`.
+- **C# writes a delegate allocation four ways and only one of them says `new`.** A lambda, an
+  anonymous method, a method group, or the constructor - while the IR rendering always says `new`. So
+  `recovery_metrics.py` reported 415 methods on Merge-Room as having lost an allocation that the
+  recovery had brought back in full: 101 with a lambda in the C#, 213 with `delegate {`, 85 with a
+  bare identifier assigned to a delegate-typed local. The method-group form carries neither `new` nor
+  `=>` nor `delegate`, but it must carry the delegate's own *type*, because C# cannot write the
+  conversion without a target type - so an allocation whose type the C# names is present whatever
+  syntax was used. Fourth time this file has recorded "a check that is too strict is as wrong as one
+  that is too lax", and the fourth time the two sides spelled one operation differently.
+- **Two runtime helpers can be identified from the struct database and still not be worth naming.**
+  On Merge-Room `0x17E4D30` is an eight-instruction leaf computing `instance + FieldInfo.offset`,
+  subtracting the object header when `Il2CppClass.byval_arg.valuetype` is set - the two-coordinate
+  rule this file has recorded many times, written out in the runtime - and `0x17939F8` builds a
+  three-word `Il2CppGenericMethod` from two `MethodInfo`s and looks it up. Between them 1237 of 5347
+  runtime-helper call sites. `NativeBoundary` already classifies both correctly as `RUNTIME_HELPER`,
+  and reading a call site of the first shows the `FieldInfo` comes from a class's `fields` array at
+  run time - reflection - so the field is not statically known and C# has no syntax for "the address
+  of this field, given a FieldInfo". `reports/RUNTIME_HELPER_IDENTIFICATION.md` records the evidence
+  rather than a pass with nothing to emit.
+
 ### Things measured to be worth nothing — do not redo them
+- **A copy into a differently-typed local as evidence of register reuse.** Written, tested, and
+  refuted by the data it was written for. The `List<T>.Add` receivers reported as `this + 0x20` have
+  no copy in them at all: the chain reads
+  `v1350[isThis=False][List<Text>] <- Add  this[isThis=True][G_AdvancedData] <- nothing`, an
+  arithmetic on `this` with no `Move` anywhere. The real cause was the unlocated write barrier, three
+  layers down. Print *every* step of a provenance walk rather than stopping at the first typed local -
+  the place worth reading is where two facts disagree.
+- **Walking back through straight-line blocks to find `List<T>.Add`'s capacity test.** The walk could
+  never take a step, and the measurement placed right after it could not either, because it began from
+  the block the walk had just stopped at. The reason is on the predecessor side, not the terminator
+  side: the 84 remaining guards have one successor and *several* predecessors, which is a join, so
+  there is no straight-line chain to walk. The rejection reason now prints both counts.
+
 - **Making the exporter's own injected types internal.** They are injected into *every* assembly and
   public, so a file referencing two recovered assemblies sees two `TokenAttribute`s - CS0433, 1315
   errors across 23 files on the largest fixture, none of them a recovery defect. `NotPublic` is the

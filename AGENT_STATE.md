@@ -5,29 +5,36 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 059 (hoàn tất; trọng tâm "trung thực về hành vi + bảng blob shader". Ship:
-                          source_preprocessor — mọi source oracle trước đây đọc TOÀN VĂN file nguồn
-                          trong khi build chỉ biên dịch MỘT nhánh #if, nên 192 method của Merge-Room
-                          báo FALLBACK trên những bản phục hồi CHÍNH XÁC; LocalStorage — một lifted
-                          local sống ở đúng một chỗ và cả load/store/address đều hỏi cùng một luật
-                          (058 mới sửa 1 trong 3 site; site ghi vẫn stloc vào local bịa trong khi
-                          site đọc ldarg vào tham số, 46 file trên Impostor); PointerClassifier —
-                          Array / ArrayElement / Object phân biệt được, dùng cho lý do từ chối của
-                          List.Add mà KHÔNG nới recogniser; và ParameterBlobIndices — CHỨNG MINH bảng
-                          blob shader phân hoạch thành chương trình và khối tham số, hai tập chỉ số
-                          không giao nhau 148/148 và 166/166 cặp trên hai fixture.)
+Iteration hiện tại: 060 (hoàn tất; trọng tâm "storage provenance + trung thực hành vi Unity". Ba lỗi
+                          dạng nghĩa-binary ≠ nghĩa-phục hồi, cả ba ở tầng thấp hơn chỗ triệu chứng:
+                          il2cpp_codegen_write_barrier chưa bao giờ được định vị trên ARM64 — lớp cơ
+                          sở trả 0 cho mọi kiến trúc trừ x86, nên mỗi lần ghi reference vào field để
+                          lại một Method not found cộng một phép tính địa chỉ field còn sống, rồi
+                          phép tính đó nằm trong thanh ghi mà lời gọi kế tiếp đọc; virtual dispatch ở
+                          vị trí tail call không được giải quyết vì hai resolver chỉ nhìn
+                          IndirectCall; và generic virtual dispatch đọc method->slot lúc chạy, nhận
+                          diện qua chính đối số của runtime helper chứ không cần tên helper.
+                          Merge-Room placeholder 39.533 → 26.309, không còn chỗ thay thế 74,7%.)
 
 Cảnh báo cho phiên sau:
-  - Tiền đề "197 FALLBACK của Merge-Room là loops bị mất" SAI. Chỉ 6/192 có vòng lặp trong nguồn.
-    Đo trước khi làm, lần thứ bảy.
-  - Mọi oracle so với nguồn phải đi qua source_preprocessor.defines_for(unity, platform). Không có
-    nó thì nhánh editor và nhánh nền tảng kia bị so với một bản phục hồi của nhánh thứ ba.
-  - Bản ghi semantic IR nay có `nativeLength`. Một thân tám byte không chạm ranh giới runtime nào thì
-    KHÔNG gọi gì cả — đó là cách phân biệt inline với mất mát.
-  - shader_exact KHÔNG do validate_unity_stages.py quyết (từ 058). Status shader nay có thêm
-    PROGRAM_RECOVERED, NO_SOURCE_ORACLE, METAL_BINARY_ONLY.
-  - WriteVariantPrograms giải nén lại blob của platform cho TỪNG biến thể; trên fixture nhiều shader
-    nó là phần chậm nhất của export.
+  - Phép đo EXACT ĐÃ ĐỔI ở 060 (MEASUREMENT_CHANGE): C# viết một delegate allocation bằng bốn cách và
+    recovery_metrics.py chỉ đọc `new`. Mọi so sánh với iteration ≤ 060 phải đo lại CẢ HAI đầu.
+  - Golden corpus baseline đã đóng băng lại ở cuối 060. 887 entry, 531 cập nhật. Ba regression mang
+    từ trước (CinemachineCollider, MMSpawnAround, DictionaryKeyUtility) vẫn mở.
+  - Write barrier CHỈ được nhận trên Merge-Room. Ba fixture kia đo 76 so với 75 — một site chênh lệch,
+    không anchor nào đồng ý — hoặc hai đường bất đồng, nên luật từ chối. Đừng nới ngưỡng đó.
+  - Hai kết quả âm đã ghi, đừng làm lại: luật "bản sao vào local có kiểu khác là dùng lại thanh ghi"
+    trong PointerClassifier (bị chính chuỗi định nghĩa bác bỏ — receiver được định nghĩa bởi một Add
+    trên local mang cờ IsThis, không có Move nào); và phép đi ngược qua block thẳng hàng trong
+    InlineListAddRecovery (không bao giờ bước được một bước — guard là điểm hợp lưu, nhiều predecessor).
+  - MethodSlotDispatchRecovery chỉ chạy được khi cả ba đúng: đích tới ở hai hình dạng (trong SSA là
+    một lệnh riêng, sau copy propagation đã gập vào toán hạng); HasRawArgumentLayout phải bỏ kiểm tra
+    tên thanh ghi vì copy propagation đã thay giá trị vào từng ô; và phép đọc entry point trong SSA
+    phải Nop trước, nếu không phép cắt bỏ helper không bao giờ chạy.
+  - Hai runtime helper đông nhất còn lại trên Merge-Room đã định danh từ struct database nhưng CỐ Ý
+    không đặt tên: reports/RUNTIME_HELPER_IDENTIFICATION.md nói vì sao đặt tên không giảm con số nào.
+  - Phần brief 060 chưa làm: §3–§5 StorageLocation với alias/lifetime, §9–§13 shader variant fidelity,
+    §14–§15 value flow, §17–§18 RuntimeScenario.
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182
