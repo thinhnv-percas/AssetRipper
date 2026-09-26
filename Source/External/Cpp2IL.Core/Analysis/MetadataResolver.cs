@@ -1176,10 +1176,14 @@ public static class MetadataResolver
                 loads[destination] = load;
         }
 
-        foreach (var instruction in method.ControlFlowGraph.Instructions)
+        foreach (var block in method.ControlFlowGraph.Blocks)
+        // A copy, because a tail call gains a Return in the block it sits in.
+        foreach (var instruction in block.Instructions.ToList())
         {
-            if (instruction.OpCode != OpCode.IndirectCall || instruction.Operands.Count == 0)
+            if (instruction.OpCode is not (OpCode.IndirectCall or OpCode.IndirectJump) || instruction.Operands.Count == 0)
                 continue;
+
+            var isTailCall = instruction.OpCode == OpCode.IndirectJump;
 
             var target = instruction.Operands[0] switch
             {
@@ -1196,6 +1200,10 @@ public static class MetadataResolver
             instruction.OpCode = OpCode.Call; // same operand layout as IndirectCall, and it is resolved now
             instruction.SetOperand(0, callee);
             callee.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(instruction, callee, method);
+
+            if (isTailCall)
+                AppendReturn(block, instruction, callee, method);
+
             changed = true;
         }
 
@@ -1228,10 +1236,14 @@ public static class MetadataResolver
                 loads[destination] = load;
         }
 
-        foreach (var instruction in method.ControlFlowGraph.Instructions)
+        foreach (var block in method.ControlFlowGraph.Blocks)
+        // A copy, because a tail call gains a Return in the block it sits in.
+        foreach (var instruction in block.Instructions.ToList())
         {
-            if (instruction.OpCode != OpCode.IndirectCall)
+            if (instruction.OpCode is not (OpCode.IndirectCall or OpCode.IndirectJump))
                 continue;
+
+            var isTailCall = instruction.OpCode == OpCode.IndirectJump;
 
             if (SlotLoad(instruction.Operands[0]) is not { } target
                 || target.Base is not LocalVariable { Type: RuntimeClassTypeAnalysisContext { RepresentedType: { } receiverType } } klassLocal)
@@ -1260,6 +1272,9 @@ public static class MetadataResolver
                     && methodInfoLoad.Addend == target.Addend + pointerSize)
                     instruction.SetOperand(i, new RuntimeMethodInfoAnalysisContext(resolved, assembly));
             }
+
+            if (isTailCall)
+                AppendReturn(block, instruction, resolved, method);
 
             changed = true;
         }
@@ -1743,5 +1758,41 @@ public static class MetadataResolver
 
             instr.SetOperand(0, new FieldReference(field, local, (int)memory.Addend));
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: a virtual call in tail position is a call followed by a return, and the return
+    /// has to be written out because the jump that used to end the block is gone.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A method whose last statement is a virtual call compiles to <c>br</c> through the vtable
+    /// rather than <c>bl</c>, and both resolvers above only ever looked at <c>IndirectCall</c>. The
+    /// cost is not one placeholder: the slot load stays live, so on Merge-Room 3562 of the 20807
+    /// unresolved loads are <c>Il2CppClass.vtable[]</c>, with 930
+    /// <c>interface_offsets_count</c>, 840 <c>MethodInfo.slot</c> and 478 <c>interfaceOffsets</c>
+    /// beside them - the same shape counted four ways. <c>DelegateInvokeRecovery</c> already had to
+    /// learn this for the delegate half of the family in iteration 051.
+    /// </para>
+    /// <para>
+    /// The return cannot be left implicit. The generator bridges a block that does not end in a jump
+    /// or a return to its successor, and an indirect jump's block has neither, so without this the
+    /// block would end with no terminator at all.
+    /// </para>
+    /// </remarks>
+    private static void AppendReturn(Block block, Instruction call, MethodAnalysisContext callee, MethodAnalysisContext caller)
+    {
+        var index = block.Instructions.IndexOf(call);
+
+        if (index < 0)
+            return;
+
+        // The caller returns what the callee returned, unless one of the two is void - in which case
+        // there is nothing to carry across and the return stands alone.
+        List<IOperand> operands = !caller.IsVoid && !callee.IsVoid && call.Operands.Count > 1
+            ? [call.Operands[1]]
+            : [];
+
+        block.Instructions.Insert(index + 1, new Instruction(call.Index, OpCode.Return, operands));
     }
 }

@@ -137,10 +137,12 @@ internal sealed class Il2CppInlineListAddTests
 	public void ACallReachedUnconditionallyIsNotAFastPathsSlowHalf()
 	{
 		// An AddWithResize with no capacity test in front of it has no inlined fast path to fold.
+		// The reason names the terminator the guard actually has, rather than the one it lacks:
+		// iteration 060 split this family and found it is six terminators, not one symptom.
 		Fixture fixture = new() { GuardIsUnconditional = true };
 
 		Assert.That(fixture.Run(fixture.ListAddShape()), Is.False);
-		Assert.That(fixture.Rejections, Has.Some.Contains("conditional"));
+		Assert.That(fixture.Rejections, Has.Some.Contains("guard ends in Jump"));
 	}
 
 	[Test]
