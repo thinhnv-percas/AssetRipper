@@ -198,9 +198,13 @@ public static class MethodSlotDispatchRecovery
             return null;
         }
 
-        // The direct form: the target was read off something the slot itself indexed.
+        // Only the helper form. A direct one - the target read off something the slot itself
+        // indexed, with no inflation in between - was written, corrected (it walked from the
+        // defining instruction, and `Instruction` is an `IOperand`, so it compiled and matched no
+        // case at all), and then measured: it fires on no site of any fixture. A dispatch that needs
+        // no inflation has a constant slot, which is `InterfaceDispatchRecovery`'s shape.
         if (producer.OpCode is not (OpCode.Call or OpCode.CallVoid))
-            return SlotRead(producer, definitions, slotOffset) is { } direct ? (direct, holder, entryLoad) : null;
+            return null;
 
         // The helper form: one argument is the usage, another is derived from that usage's slot.
         for (var i = 1; i < producer.Operands.Count; i++)
