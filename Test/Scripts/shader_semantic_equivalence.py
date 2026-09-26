@@ -42,6 +42,17 @@ TAG = re.compile(r'"(\w+)"\s*=\s*"([^"]*)"')
 # line-oriented read of `Cull Off ZWrite Off ZTest Always` reports Cull as
 # "Off ZWrite Off ZTest Always" - which is a difference in the measurement, not in the shader, and it
 # reported eleven shaders as PARTIAL on the first run.
+# What ShaderLab uses when a pass sets nothing.
+DEFAULTS = {"Cull": "Back", "Zwrite": "On", "Ztest": "LEqual", "ColorMask": "All",
+            "Lighting": "Off", "Blend": "Off"}
+
+# An operation a shader compiler is free to expand into arithmetic rather than preserve: HLSLcc
+# writes `lerp(a, b, t)` as `a + t * (b - a)` and `saturate` as a clamp of literals. Its absence from
+# the compiled program is not evidence the recovery lost anything. The rest are instructions or
+# accesses that survive compilation, and their absence is a real difference.
+DERIVABLE = {"LERP", "CLAMP", "MIN", "MAX", "NORMALIZE", "LENGTH", "VECTOR_MUL", "MATRIX_MUL",
+             "ADD", "SUB", "MUL", "DIV", "RETURN", "COMPARE"}
+
 ARITY = {"cull": 1, "zwrite": 1, "ztest": 1, "colormask": 1, "alphatomask": 1,
          "lighting": 1, "zclip": 1, "blendop": 1, "offset": 2}
 WORD = re.compile(r"[A-Za-z_]\w*|[-+]?\d*\.?\d+|[,]")
@@ -82,9 +93,35 @@ def render_state(text: str) -> dict:
         index += 1
 
     result = {key: sorted(value) for key, value in state.items()}
-    result["Tags"] = sorted({f"{name}={value}" for name, value in TAG.findall(stripped)})
+
+    # ShaderLab's own defaults. A shader that writes `ZTest LEqual` and one that writes nothing set
+    # the same state, and comparing presence rather than value reported the two as different.
+    for key, default in DEFAULTS.items():
+        if not result.get(key):
+            result[key] = [default]
+
+    # Tag names and values are case-insensitive in ShaderLab, and the asset does not preserve the
+    # case the programmer typed: `IgnoreProjector` comes back `IGNOREPROJECTOR`.
+    result["Tags"] = sorted({f"{name}={value}".lower() for name, value in TAG.findall(stripped)})
     result["Stencil"] = ["present"] if re.search(r"^\s*Stencil\s*\{", stripped, re.M | re.I) else []
     return result
+
+
+# The literals ShaderLab accepts for each single-valued state. Anything else in that position is a
+# material property driving the state - `ZTest [unity_GUIZTestMode]`, `Cull [_CullMode]` - which has
+# no fixed value, so there is nothing to compare and reporting a difference would be inventing one.
+LITERALS = {
+    "Cull": {"Off", "Front", "Back"},
+    "Zwrite": {"On", "Off"},
+    "Ztest": {"Less", "Greater", "LEqual", "GEqual", "Equal", "NotEqual", "Always", "Never", "Disabled"},
+    "ColorMask": {"All", "None", "RGBA", "RGB", "RG", "R", "G", "B", "A", "0"},
+    "Lighting": {"On", "Off"},
+}
+
+
+def comparable(key: str, value: str) -> bool:
+    literals = LITERALS.get(key)
+    return value in literals if literals else not value.startswith("_")
 
 
 def properties(text: str) -> set[str]:
@@ -117,11 +154,19 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
 
     exported_state = render_state(exported_text)
     source_state = render_state(source_text)
-    state_differences = [
-        f"{key}: source {source_state.get(key, [])} exported {exported_state.get(key, [])}"
-        for key in set(exported_state) | set(source_state)
-        if exported_state.get(key, []) != source_state.get(key, [])
-    ]
+    # Only state the source sets and the export does not. A build legitimately carries state the
+    # source did not write - a tag the pipeline adds, a pass the variant stripped - and counting
+    # those as differences measures the build, not the recovery. A value the source drives from a
+    # material property (`Cull [_CullMode]`) has no fixed value to compare at all.
+    state_differences = []
+
+    for key in sorted(set(exported_state) | set(source_state)):
+        wanted = [value for value in source_state.get(key, []) if comparable(key, value)]
+        missing = [value for value in wanted if value not in exported_state.get(key, [])]
+
+        if missing:
+            state_differences.append(
+                f"{key}: source {wanted} exported {exported_state.get(key, [])}")
 
     exported_properties = properties(exported_text)
     source_properties = properties(source_text)
@@ -145,7 +190,9 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
         result["notes"] = ["the source shader carries no program block to compare against"]
         return result
 
-    missing_operations = sorted(set(source_operations) - set(recovered_operations))
+    missing_operations = sorted(set(source_operations) - set(recovered_operations) - DERIVABLE)
+    expanded_operations = sorted((set(source_operations) - set(recovered_operations)) & DERIVABLE)
+    result["expanded_operations"] = expanded_operations
     extra_operations = sorted(set(recovered_operations) - set(source_operations))
     result["missing_operations"] = missing_operations
     result["extra_operations"] = extra_operations
@@ -154,6 +201,8 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
 
     if missing_operations:
         notes.append(f"operations the source reaches and the program does not: {missing_operations}")
+    if expanded_operations:
+        notes.append(f"absent but expandable by a shader compiler: {expanded_operations}")
     if state_differences:
         notes.append(f"render state: {state_differences}")
     if missing_properties:

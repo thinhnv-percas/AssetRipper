@@ -331,6 +331,16 @@ public static class ShaderProgramProbe
 		return entries;
 	}
 
+	/// <summary>
+	/// What one sub-program's bytes are, as a seam a test can reach without a shader behind it.
+	/// </summary>
+	public static SubProgramEvidence ClassifyBytes(byte[] bytes, string backend = "?")
+		=> Classify(0, backend, 0, 0, bytes.Length, bytes);
+
+	/// <summary>The source text of one sub-program's bytes, for the same reason.</summary>
+	public static string SourceTextOfBytes(byte[] bytes)
+		=> SourceTextOf(bytes, Encoding.Latin1.GetString(bytes));
+
 	private static SubProgramEvidence Classify(int platform, string backend, int index, int offset, int length, byte[] blob)
 	{
 		ReadOnlySpan<byte> bytes = blob.AsSpan(offset, length);

@@ -2710,7 +2710,14 @@ public static class IlGenerator
                 }
 
                 RecoveredSemanticIr.Record(SemanticOperation.ObjectAddress, addressed.Name);
-                instructions.Add(CilOpCodes.Ldloca, locals[addressed]);
+
+                // AssetRipper: through the helper, because the addressed value is routinely a
+                // *parameter*. `ldloca` on a local this method invented for it takes the address of a
+                // slot nothing ever wrote, and the parameter is silently dropped:
+                // `LayerMaskExtension.IncludesAny(this LayerMask layerMask, …)` lifts to
+                // `get_value(&layerMask @ X0)` and came back as `default(LayerMask).value` - a method
+                // that compiles, reads plausibly, and answers for a mask of zero whatever it is given.
+                LoadLocalAddress(addressed, method, locals);
                 break;
             case AddressOf { Target: ArrayAccess elementAddress }:
                 RecoveredSemanticIr.Record(SemanticOperation.ObjectAddress, elementAddress.Array.Name);

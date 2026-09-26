@@ -39,7 +39,10 @@ from semantic_ir import load  # noqa: E402
 
 # `x.y = `, `x = `, `x += ` at statement level. The name before the last dot is not taken: what is
 # wanted is the member being written, which is the last segment.
-ASSIGNMENT = re.compile(r"(?:^|[;{}\s])(?:this\.)?([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)\s*(?:[-+*/|&^]|<<|>>)?=(?!=)")
+ASSIGNMENT = re.compile(r"(?:^|[;{}\s])(?:this\.)?([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)\s*(?:[-+*/|&^]|<<|>>|\?\?)?=(?!=)")
+# A string is not code. `Debug.LogFormat("Button A Pressed for the first time")` read as a `for` loop
+# the recovery had lost - nine methods reported MISMATCH for a word inside a message.
+STRING = re.compile(r'@?"(?:\\.|[^"\\\n])*"|\$?"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'')
 CALL = re.compile(r"([A-Za-z_]\w*)\s*\(")
 LOOP = re.compile(r"\b(for|foreach|while|do)\b")
 BRANCH = re.compile(r"\b(if|else\s+if|switch|case)\b|\?[^:]{1,60}:")
@@ -59,20 +62,39 @@ NOT_A_CALL = {
 
 def source_behavior(body: str, declared_fields: set[str]) -> dict:
     """What the programmer's text says the method does."""
-    code = source_oracle.code_only(body)
+    # Comments, then strings, then the declaration line itself: a one-line method's own name sits in
+    # the text its body was collected from, and reads as a call the method makes to itself.
+    code = STRING.sub('""', source_oracle.code_only(body))
+    code = code.split("{", 1)[1] if "{" in code else code
 
     writes = set()
+    write_only = collections.Counter()
+
     for match in ASSIGNMENT.finditer(code):
         name = match[1].split(".")[-1]
         if name in declared_fields or "." in match[1]:
             writes.add(name)
+
+            # A plain `=` writes and does not read; `+=` and `++` do both. Counting the two alike
+            # made a field the method only assigns - `isNext = false` - read as a read the recovery
+            # had lost.
+            if match[0].rstrip().endswith("="):
+                compound = match[0].rstrip()[:-1].rstrip()[-1:] in "-+*/|&^" or match[0].count("<<") or match[0].count(">>")
+                if not compound:
+                    write_only[name] += 1
 
     for match in INCREMENT.finditer(code):
         name = (match[1] or match[2]).split(".")[-1]
         if name in declared_fields or "." in (match[1] or match[2]):
             writes.add(name)
 
-    reads = {name for name in declared_fields if re.search(rf"\b{re.escape(name)}\b", code)}
+    reads = set()
+
+    for name in declared_fields:
+        appearances = len(re.findall(rf"\b{re.escape(name)}\b", code))
+
+        if appearances and appearances > write_only[name]:
+            reads.add(name)
 
     calls = {name for name in CALL.findall(code) if name not in NOT_A_CALL}
 
@@ -83,7 +105,9 @@ def source_behavior(body: str, declared_fields: set[str]) -> dict:
         "loops": len(LOOP.findall(code)),
         "branches": len(BRANCH.findall(code)),
         "throws": len(THROW.findall(code)),
-        "coroutine": "yield " in code,
+        # An `async` method's body is moved into a state machine exactly as a coroutine's is, and
+        # what is left behind is a kickoff. Comparing that against the source measures the compiler.
+        "coroutine": "yield " in code or "await " in code,
     }
 
 

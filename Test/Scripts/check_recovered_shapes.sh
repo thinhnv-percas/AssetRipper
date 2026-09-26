@@ -145,6 +145,14 @@ check DECOMP-0018 GameHelper.cs '.Add(gameObject);' 'if ((nint)count < (nint)0)'
 # `SkeletonJson.ReadSkeletonData` là chỗ dày nhất: 68 lệnh đọc typeHierarchyDepth còn lại.
 check DECOMP-0020 SkeletonJson.cs 'as Dictionary<string, object>;' '(Il2CppClass<System.Object>)+130]'
 
+# DECOMP-0021: lấy địa chỉ của một tham số phải ra `ldarga`, không phải `ldloca` của một local mà
+# generator tự bịa. `AddressOf` trong `LoadOperand` gọi thẳng `Ldloca locals[...]`, bỏ qua
+# `LoadLocalAddress` - nên mọi method nhận một struct rồi gọi method của nó đọc từ một ô chưa ai ghi.
+# `ObscuredBool.op_Implicit` trả về giải mã của số không, và `TimeInGame` lấy ngày tháng từ
+# `default(DateTime)`. Biên dịch được, đọc rất hợp lý, và trả lời sai mọi lần.
+check DECOMP-0021 ObscuredBool.cs 'return value.InternalDecrypt();' 'ObscuredBool obscuredBool = default(ObscuredBool);'
+check DECOMP-0021 TimeInGame.cs 'Day = dateTime.Day;' 'DateTime dateTime2 = default(DateTime);'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.
