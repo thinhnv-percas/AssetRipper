@@ -173,6 +173,7 @@ public class ExportHandler
 		yield return new DllPostExporter();
 		yield return new NativePlugins.NativePluginPostExporter();
 		yield return new Scripts.SemanticIrPostExporter();
+		yield return new Shaders.ShaderProgramPostExporter();
 		yield return new PathIdMapExporter();
 		yield return new PackageRemapping.PackageRemapPostExporter();
 	}

@@ -55,6 +55,10 @@ public static class StructuredShaderTextExporter
 			return false;
 		}
 
+		// Read once per shader: the probe caches, so the report and the exported text describe the
+		// same decompression rather than two that could disagree.
+		ShaderProgramProbe.ShaderEvidence evidence = ShaderProgramProbe.Probe(shader);
+
 		writer.Write($"Shader \"{model.Name}\" {{\n");
 		DummyShaderTextExporter.ExportProperties(shader, writer);
 		writer.Write("\t// AssetRipper: the structure below is the shader's own - subshaders, passes, tags\n");
@@ -74,7 +78,7 @@ public static class StructuredShaderTextExporter
 
 			foreach (var pass in subShader.Passes)
 			{
-				WritePass(writer, pass);
+				WritePass(writer, shader, pass, evidence);
 			}
 
 			writer.Write("\t}\n");
@@ -96,7 +100,7 @@ public static class StructuredShaderTextExporter
 		return true;
 	}
 
-	private static void WritePass(TextWriter writer, ShaderSemanticModel.PassModel pass)
+	private static void WritePass(TextWriter writer, IShader shader, ShaderSemanticModel.PassModel pass, ShaderProgramProbe.ShaderEvidence? evidence)
 	{
 		// A UsePass or GrabPass names another pass rather than carrying one, so writing a body for it
 		// would invent a pass the shader does not have.
@@ -160,14 +164,81 @@ public static class StructuredShaderTextExporter
 				}
 
 				backends.Append(program.Stage).Append(' ').Append(program.VariantCount).Append(" variant(s) [")
-					.Append(string.Join('/', program.Backends.Distinct())).Append(']');
+					.Append(string.Join('/', program.Backends.Distinct())).Append("] blobs ")
+					.Append(string.Join(',', program.BlobIndices.Take(8)));
 			}
 
 			writer.Write($"\t\t\t// real programs: {backends}\n");
 		}
 
-		writer.Write(ReplacementProgram.Replace("\r", ""));
+		if (RecoveredProgram(shader, pass, evidence) is { } recovered)
+		{
+			writer.Write(recovered);
+		}
+		else
+		{
+			writer.Write(ReplacementProgram.Replace("\r", ""));
+		}
+
 		writer.Write("\n\t\t}\n");
+	}
+
+	/// <summary>
+	/// The pass's own compiled program, written as ShaderLab can carry it, or null when none of its
+	/// variants was read as source.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// A GLES sub-program blob is HLSLcc's output and holds <em>both</em> stages of the pass, guarded
+	/// by <c>#ifdef VERTEX</c> and <c>#ifdef FRAGMENT</c> - which is exactly the form Unity's
+	/// <c>GLSLPROGRAM</c> block expects, so it goes in verbatim rather than being translated. That is
+	/// why this is extraction and not decompilation.
+	/// </para>
+	/// <para>
+	/// One variant is written, and the comment says which and how many there were. A pass compiled for
+	/// several keyword sets has one program per set and ShaderLab cannot carry them all in one block;
+	/// writing the first and saying so is honest, and silently writing one of many as though it were
+	/// the pass would not be.
+	/// </para>
+	/// </remarks>
+	private static string? RecoveredProgram(IShader shader, ShaderSemanticModel.PassModel pass, ShaderProgramProbe.ShaderEvidence? evidence)
+	{
+		if (evidence is null)
+		{
+			return null;
+		}
+
+		foreach (var program in pass.Programs)
+		{
+			for (int variant = 0; variant < program.BlobIndices.Count && variant < program.Backends.Count; variant++)
+			{
+				string? source = ShaderProgramProbe.SourceFor(shader, program.Backends[variant], program.BlobIndices[variant]);
+
+				if (source is not { Length: > 0 })
+				{
+					continue;
+				}
+
+				// Both stages live in the one blob, so a pass whose vertex program was recovered has
+				// its fragment program too. Taking the first that reads as source and stopping is
+				// what avoids writing the same text twice under two stage names.
+				StringBuilder built = new();
+				built.Append("\t\t\tGLSLPROGRAM\n");
+				built.Append("\t\t\t// AssetRipperRecoveredProgram: ").Append(program.Backends[variant])
+					.Append(", variant ").Append(variant + 1).Append(" of ").Append(program.VariantCount)
+					.Append(", blob index ").Append(program.BlobIndices[variant]).Append('\n');
+
+				foreach (string line in source.Replace("\r", "").Split('\n'))
+				{
+					built.Append("\t\t\t").Append(line).Append('\n');
+				}
+
+				built.Append("\t\t\tENDGLSL");
+				return built.ToString();
+			}
+		}
+
+		return null;
 	}
 
 	private static void WriteTags(TextWriter writer, IReadOnlyDictionary<string, string> tags, int indent)

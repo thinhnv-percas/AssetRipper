@@ -92,6 +92,16 @@ public sealed class ShaderSemanticModel
 
 		/// <summary>The keyword sets the variants are compiled for, one entry per variant.</summary>
 		public required IReadOnlyList<IReadOnlyList<string>> KeywordSets { get; init; }
+
+		/// <summary>
+		/// Each variant's index into its own backend's compiled-program table, one entry per variant.
+		/// </summary>
+		/// <remarks>
+		/// This is what connects a pass in the parsed form to the bytes of the program it was compiled
+		/// to. Without it the exported ShaderLab can only describe the structure around a program; with
+		/// it the program itself can be written out where it was read as source.
+		/// </remarks>
+		public required IReadOnlyList<int> BlobIndices { get; init; }
 	}
 
 	public static ShaderSemanticModel? Read(IShader shader)
@@ -119,24 +129,51 @@ public sealed class ShaderSemanticModel
 				{
 					List<string> programBackends = [];
 					List<IReadOnlyList<string>> keywordSets = [];
+					List<int> blobIndices = [];
+
+					// From Unity 2021 the sub-programs moved out of `m_SubPrograms` into
+					// `m_PlayerSubPrograms`, a list per hardware tier of a different type that carries
+					// the same four things. A reader of only the first list sees zero variants on a
+					// shader that has hundreds - which is what "Vertex 0 variant(s) []" in the exported
+					// comment meant, and why no pass could be matched back to a compiled program.
+					List<(uint BlobIndex, int GpuProgramType, IEnumerable<ushort> KeywordIndices)> variants = [];
 
 					foreach (var subProgram in program.SubPrograms)
 					{
-						string backend = ((ShaderGpuProgramType55)subProgram.GpuProgramType).ToString();
+						variants.Add((subProgram.BlobIndex, subProgram.GpuProgramType, subProgram.KeywordIndices));
+					}
+
+					if (variants.Count == 0 && program.Has_PlayerSubPrograms())
+					{
+						foreach (var tier in program.PlayerSubPrograms)
+						{
+							foreach (var subProgram in tier)
+							{
+								variants.Add((subProgram.BlobIndex, subProgram.GpuProgramType, subProgram.KeywordIndices));
+							}
+						}
+					}
+
+					foreach (var (blobIndex, gpuProgramType, keywordIndices) in variants)
+					{
+						string backend = ((ShaderGpuProgramType55)gpuProgramType).ToString();
 						programBackends.Add(backend);
 						backends[backend] = backends.GetValueOrDefault(backend) + 1;
 
-						keywordSets.Add([.. subProgram.KeywordIndices
+						keywordSets.Add([.. keywordIndices
 							.Where(index => index < keywords.Count)
 							.Select(index => keywords[index])]);
+
+						blobIndices.Add((int)blobIndex);
 					}
 
 					programs.Add(new ProgramModel
 					{
 						Stage = stage.ToString(),
-						VariantCount = program.SubPrograms.Count,
+						VariantCount = variants.Count,
 						Backends = programBackends,
 						KeywordSets = keywordSets,
+						BlobIndices = blobIndices,
 					});
 				}
 
