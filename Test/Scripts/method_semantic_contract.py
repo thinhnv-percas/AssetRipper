@@ -94,7 +94,7 @@ def bodies_by_rva(game):
 
 def detail_names(body, wanted):
     """The distinct names the recorded operations carry, for the operations asked for."""
-    return sorted({detail for operation, detail in body["operations"] if operation in wanted and detail})
+    return sorted({detail for operation, detail in semantic_ir.details(body) if operation in wanted and detail})
 
 
 def contract_for(rva, body, exported, assembly, exported_assemblies):
@@ -248,7 +248,7 @@ def lost(body, csharp):
     """Substantive operations the IR recorded that the exported C# does not name."""
     missing = []
 
-    for operation, detail in body["operations"]:
+    for operation, detail in semantic_ir.details(body):
         if operation not in semantic_ir.SUBSTANTIVE:
             continue
 

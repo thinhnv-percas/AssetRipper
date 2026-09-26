@@ -80,6 +80,18 @@ public sealed class ShaderSemanticModel
 		public required string Lighting { get; init; }
 		public required bool AlphaToMask { get; init; }
 		public required bool StencilIsDefault { get; init; }
+
+		/// <summary>The blend the pass sets, as ShaderLab spells it, or empty where it sets none.</summary>
+		/// <remarks>
+		/// Blend, colour mask, depth offset and stencil are all in the asset and were all being thrown
+		/// away. A program that is right under blending that is not does not draw what the shader drew
+		/// - a comparison against source reported exactly that on the first shader it was run on.
+		/// </remarks>
+		public required string Blend { get; init; }
+
+		public required string ColorMask { get; init; }
+		public required string Offset { get; init; }
+		public required IReadOnlyList<string> Stencil { get; init; }
 	}
 
 	public sealed class ProgramModel
@@ -193,6 +205,10 @@ public sealed class ShaderSemanticModel
 						Lighting = state.LightingValue,
 						AlphaToMask = state.AlphaToMaskValue,
 						StencilIsDefault = state.StencilIsDefault,
+						Blend = BlendOf(state),
+						ColorMask = ColorMaskOf(state),
+						Offset = OffsetOf(state),
+						Stencil = StencilOf(state),
 					},
 					Programs = programs,
 				});
@@ -222,6 +238,118 @@ public sealed class ShaderSemanticModel
 			Keywords = keywords,
 			ProgramsByBackend = backends,
 		};
+	}
+
+	/// <summary>
+	/// The pass's blend, written the way ShaderLab writes it - and only when it is not the default.
+	/// </summary>
+	/// <remarks>
+	/// `One Zero` is no blending, which ShaderLab expresses by writing nothing; the alpha pair is
+	/// written separately only when it differs from the colour pair, and the blend op only when it is
+	/// not Add, for the same reason the rest of the state is written that way.
+	/// </remarks>
+	private static string BlendOf(AssetRipper.SourceGenerated.Subclasses.SerializedShaderState.ISerializedShaderState state)
+	{
+		var blend = state.RtBlend0;
+
+		if (blend is null)
+		{
+			return "";
+		}
+
+		string source = blend.SrcBlendValue.ToString();
+		string destination = blend.DestBlendValue.ToString();
+		string sourceAlpha = blend.SrcBlendAlphaValue.ToString();
+		string destinationAlpha = blend.DestBlendAlphaValue.ToString();
+
+		bool opaque = source is "One" && destination is "Zero"
+			&& sourceAlpha is "One" && destinationAlpha is "Zero";
+
+		if (opaque)
+		{
+			return "";
+		}
+
+		string written = sourceAlpha == source && destinationAlpha == destination
+			? $"{source} {destination}"
+			: $"{source} {destination}, {sourceAlpha} {destinationAlpha}";
+
+		string operation = blend.BlendOpValue.ToString();
+
+		return operation is "Add" ? written : $"{written}\n\t\t\tBlendOp {operation}";
+	}
+
+	private static string ColorMaskOf(AssetRipper.SourceGenerated.Subclasses.SerializedShaderState.ISerializedShaderState state)
+	{
+		var blend = state.RtBlend0;
+
+		if (blend is null)
+		{
+			return "";
+		}
+
+		string mask = blend.ColMaskValue.ToString();
+
+		// RGBA is everything, which is the default and is not written.
+		return mask is "RGBA" or "15" ? "" : mask;
+	}
+
+	private static string OffsetOf(AssetRipper.SourceGenerated.Subclasses.SerializedShaderState.ISerializedShaderState state)
+	{
+		float factor = state.OffsetFactor?.Value ?? 0;
+		float units = state.OffsetUnits?.Value ?? 0;
+
+		return factor == 0 && units == 0
+			? ""
+			: $"{factor.ToString(System.Globalization.CultureInfo.InvariantCulture)}, " +
+			  $"{units.ToString(System.Globalization.CultureInfo.InvariantCulture)}";
+	}
+
+	/// <summary>The stencil block's lines, or empty when the pass leaves stencil at its default.</summary>
+	private static List<string> StencilOf(AssetRipper.SourceGenerated.Subclasses.SerializedShaderState.ISerializedShaderState state)
+	{
+		if (state.StencilIsDefault)
+		{
+			return [];
+		}
+
+		List<string> lines = [];
+
+		if (!state.StencilRefIsDefault)
+		{
+			lines.Add($"Ref {state.StencilRef.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
+		}
+
+		if (!state.StencilReadMaskIsDefault)
+		{
+			lines.Add($"ReadMask {state.StencilReadMask.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
+		}
+
+		if (!state.StencilWriteMaskIsDefault)
+		{
+			lines.Add($"WriteMask {state.StencilWriteMask.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
+		}
+
+		AddStencilOperation(lines, state.StencilOp, "");
+		AddStencilOperation(lines, state.StencilOpFront, "Front");
+		AddStencilOperation(lines, state.StencilOpBack, "Back");
+		return lines;
+	}
+
+	private static void AddStencilOperation(
+		List<string> lines,
+		AssetRipper.SourceGenerated.Subclasses.SerializedStencilOp.ISerializedStencilOp? operation,
+		string suffix)
+	{
+		if (operation is null || operation.IsDefault)
+		{
+			return;
+		}
+
+		lines.Add($"Comp{suffix} {operation.CompValue}");
+		lines.Add($"Pass{suffix} {operation.PassValue}");
+		lines.Add($"Fail{suffix} {operation.FailValue}");
+		lines.Add($"ZFail{suffix} {operation.ZFailValue}");
 	}
 
 	private static Dictionary<string, string> TagsOf(AssetRipper.SourceGenerated.Subclasses.SerializedTagMap.ISerializedTagMap tags)

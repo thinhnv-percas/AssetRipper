@@ -152,6 +152,33 @@ public static class StructuredShaderTextExporter
 			writer.Write("\t\t\tAlphaToMask On\n");
 		}
 
+		if (pass.State.Blend.Length > 0)
+		{
+			writer.Write($"\t\t\tBlend {pass.State.Blend}\n");
+		}
+
+		if (pass.State.ColorMask.Length > 0)
+		{
+			writer.Write($"\t\t\tColorMask {pass.State.ColorMask}\n");
+		}
+
+		if (pass.State.Offset.Length > 0)
+		{
+			writer.Write($"\t\t\tOffset {pass.State.Offset}\n");
+		}
+
+		if (pass.State.Stencil.Count > 0)
+		{
+			writer.Write("\t\t\tStencil {\n");
+
+			foreach (string line in pass.State.Stencil)
+			{
+				writer.Write($"\t\t\t\t{line}\n");
+			}
+
+			writer.Write("\t\t\t}\n");
+		}
+
 		if (pass.Programs.Count > 0)
 		{
 			StringBuilder backends = new();

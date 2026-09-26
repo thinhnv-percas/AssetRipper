@@ -66,8 +66,18 @@ def methods(root):
 
 
 def operations(body):
-    """The operation names one body performs, in order."""
-    return [operation for operation, _ in body["operations"]]
+    """The operation names one body performs, in order.
+
+    Read by position rather than by unpacking: the record gained a block index, a result, its operands
+    and its type, and any reader that unpacked a fixed width broke silently the moment it did. An
+    entry's first element is its operation name and always will be.
+    """
+    return [entry[0] for entry in body["operations"]]
+
+
+def details(body):
+    """(operation, detail) for each recorded operation."""
+    return [(entry[0], entry[1] if len(entry) > 1 else "") for entry in body["operations"]]
 
 
 def fingerprint(body):
