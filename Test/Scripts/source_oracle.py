@@ -31,6 +31,7 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import source_preprocessor  # noqa: E402
 from recovery_metrics import CLASSES, CALL_CSHARP, SUBSTANTIVE  # noqa: E402
 
 # A method declaration and the brace that opens its body, as either side writes one. Deliberately
@@ -159,8 +160,13 @@ def fields(text: str) -> set[str]:
     return found
 
 
-def harvest(root: pathlib.Path, skip: tuple[str, ...] = ()):
-    """Every method body in a tree of C#, keyed by (type, name, arity)."""
+def harvest(root: pathlib.Path, skip: tuple[str, ...] = (), defines: dict | None = None):
+    """Every method body in a tree of C#, keyed by (type, name, arity).
+
+    With `defines`, each file is first reduced to the program the build compiled: a source file is
+    routinely three programs at once behind `#if`, and comparing the whole text against a recovery of
+    one of them reports the other two as lost. See `source_preprocessor`.
+    """
     found = {}
     declared_fields = collections.defaultdict(set)
 
@@ -169,6 +175,9 @@ def harvest(root: pathlib.Path, skip: tuple[str, ...] = ()):
             continue
 
         text = path.read_text(encoding="utf-8", errors="replace")
+
+        if defines is not None:
+            text = source_preprocessor.compile_text(text, defines)
 
         for type_name, name, arity, body in bodies(text):
             found.setdefault((type_name, name, arity), body)

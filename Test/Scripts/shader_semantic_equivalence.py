@@ -139,6 +139,17 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
         "source": str(source),
     }
 
+    backends = ir.backends_of(rip, shader_name)
+
+    # A build compiled only to Metal has no shading-language source anywhere in it, and no amount of
+    # extraction reaches one. That is a fact about the input and has its own verdict: counting it as
+    # a recovery that fell back would put it in the same bucket as a program that was there and was
+    # missed.
+    if backends and backends <= {"Metal", "Vulkan"}:
+        result["status"] = "METAL_BINARY_ONLY"
+        result["notes"] = ["every compiled program in this shader is a Metal library"]
+        return result
+
     recovered_programs = ir.recovered_programs(rip, shader_name)
     source_programs = ir.source_programs(source)
 
@@ -183,6 +194,13 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
     if not recovered_programs:
         result["status"] = "FALLBACK"
         result["notes"] = ["the structure came back and no program did"]
+        return result
+
+    if not source.is_file():
+        # The program came back and there is nothing to grade it against. Saying so is a different
+        # fact from saying it is equivalent, and from saying it is not.
+        result["status"] = "PROGRAM_RECOVERED"
+        result["notes"] = ["the program came back; no source shader to compare it with"]
         return result
 
     if not source_programs:
@@ -257,12 +275,24 @@ def main() -> int:
         match = re.search(r'Shader\s+"([^"]+)"', text)
         name = match[1] if match else path.stem
 
+        # Decided before the oracle is looked for: "this build compiled only to Metal" is a fact
+        # about the input that holds whether or not a source shader exists, and it is the one a
+        # reader needs. Reporting NO_SOURCE_ORACLE instead would suggest that finding the source
+        # would change something.
+        backends = ir.backends_of(rip, name)
+
+        if backends and backends <= {"Metal", "Vulkan"}:
+            counts["METAL_BINARY_ONLY"] += 1
+            results.append({"shader": name, "status": "METAL_BINARY_ONLY",
+                            "notes": [f"every compiled program is a {'/'.join(sorted(backends))} library"]})
+            continue
+
         source = by_name.get(name)
 
         if source is None:
-            counts["NOT_APPLICABLE"] += 1
-            results.append({"shader": name, "status": "NOT_APPLICABLE",
-                            "notes": ["no source shader of this name in the project"]})
+            counts["NO_SOURCE_ORACLE"] += 1
+            results.append({"shader": name, "status": "NO_SOURCE_ORACLE",
+                            "notes": ["no source shader of this name in the project or its packages"]})
             continue
 
         result = compare(path, source, rip, name)
@@ -272,10 +302,13 @@ def main() -> int:
         if arguments.verbose:
             print(f"{result['status']:24} {name}  {'; '.join(result.get('notes', []))}")
 
-    for status in ("EXACT", "SEMANTICALLY_EQUIVALENT", "PARTIAL", "FALLBACK",
-                   "DUMMY", "FAILED", "UNKNOWN", "NOT_APPLICABLE"):
+    for status in ("EXACT", "SEMANTICALLY_EQUIVALENT", "PROGRAM_RECOVERED", "PARTIAL", "FALLBACK",
+                   "DUMMY", "METAL_BINARY_ONLY", "FAILED", "UNKNOWN", "NO_SOURCE_ORACLE",
+                   "NOT_APPLICABLE"):
         print(f"{status:24} {counts[status]}")
 
+    # Only shaders an oracle could grade. A shader with no source, and one whose programs are a Metal
+    # library, are both outside the question the rate asks.
     compared = sum(counts[status] for status in
                    ("EXACT", "SEMANTICALLY_EQUIVALENT", "PARTIAL", "FALLBACK", "DUMMY", "UNKNOWN"))
 

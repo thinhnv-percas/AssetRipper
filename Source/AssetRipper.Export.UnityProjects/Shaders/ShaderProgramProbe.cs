@@ -41,6 +41,12 @@ public static class ShaderProgramProbe
 
 		/// <summary>The blob would not decompress, so nothing can be said about its contents.</summary>
 		Undecodable,
+
+		/// <summary>
+		/// A compiled Metal library. Not source, and not reachable by extraction: see
+		/// <see cref="IMetalShaderDecompiler"/>, which is declared and deliberately unimplemented.
+		/// </summary>
+		MetalLibrary,
 	}
 
 	public sealed record SubProgramEvidence(
@@ -160,11 +166,18 @@ public static class ShaderProgramProbe
 	/// project has read blobs for are listed; anything else is "not known", which is what stops a
 	/// program being taken out of the wrong platform's table.
 	/// </summary>
+	public static string? PlatformNameOf(string gpuProgramType) => PlatformOf(gpuProgramType);
+
 	private static string? PlatformOf(string gpuProgramType) => gpuProgramType switch
 	{
 		"GLES" => nameof(GPUPlatform.Gles20),
 		"GLES3" or "GLES31" or "GLES31AEP" => nameof(GPUPlatform.Gles3x),
 		"GLCore32" or "GLCore41" or "GLCore43" => nameof(GPUPlatform.GlCore),
+		// Metal's two program types are one platform in the blob table. Without them every row of an
+		// iOS build's mapping reads NOT_IN_TABLE, which says nothing about the build and everything
+		// about the table not being consulted.
+		"MetalVS" or "MetalFS" => nameof(GPUPlatform.Metal),
+		"SPIRV" => nameof(GPUPlatform.Vulkan),
 		_ => null,
 	};
 
@@ -371,11 +384,23 @@ public static class ShaderProgramProbe
 				markers.Add(marker);
 		}
 
-		ProgramEncoding encoding = markers.Count > 0
-			? ProgramEncoding.SourceText
-			: ratio > 0.9
-				? ProgramEncoding.PrintableNoMarkers
-				: ProgramEncoding.Binary;
+		// A Metal library says what it is in its own header, and it is not source whatever its name
+		// table happens to contain - a library naming `_main` and `xlatMtlMain` carries enough
+		// printable text to trip a marker search that did not look for the header first.
+		// The asset names the backend, which is stronger evidence than a byte scan: a sub-program
+		// compiled to Metal is a Metal library whether or not Unity kept Apple's own header on it,
+		// and 870 of one fixture's carry enough printable name table to read as text otherwise.
+		var metal = MetalShaderLibrary.Read(bytes);
+		bool isMetal = metal.IsMetalLibrary
+			|| string.Equals(backend, nameof(GPUPlatform.Metal), StringComparison.Ordinal);
+
+		ProgramEncoding encoding = isMetal
+			? ProgramEncoding.MetalLibrary
+			: markers.Count > 0
+				? ProgramEncoding.SourceText
+				: ratio > 0.9
+					? ProgramEncoding.PrintableNoMarkers
+					: ProgramEncoding.Binary;
 
 		StringBuilder head = new();
 

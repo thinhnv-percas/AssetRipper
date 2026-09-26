@@ -237,7 +237,28 @@ public static class StructuredShaderTextExporter
 
 		foreach (var program in pass.Programs)
 		{
+			// The base variant first - the one compiled with no keywords is what the pass does before
+			// any of them are enabled, and writing whichever happened to be first in the table put a
+			// keyword-specific program in the pass instead.
+			List<int> order = [];
+
 			for (int variant = 0; variant < program.BlobIndices.Count && variant < program.Backends.Count; variant++)
+			{
+				if (variant < program.KeywordSets.Count && program.KeywordSets[variant].Count == 0)
+				{
+					order.Add(variant);
+				}
+			}
+
+			for (int variant = 0; variant < program.BlobIndices.Count && variant < program.Backends.Count; variant++)
+			{
+				if (!order.Contains(variant))
+				{
+					order.Add(variant);
+				}
+			}
+
+			foreach (int variant in order)
 			{
 				string? source = ShaderProgramProbe.SourceFor(shader, program.Backends[variant], program.BlobIndices[variant]);
 
@@ -253,7 +274,34 @@ public static class StructuredShaderTextExporter
 				built.Append("\t\t\tGLSLPROGRAM\n");
 				built.Append("\t\t\t// AssetRipperRecoveredProgram: ").Append(program.Backends[variant])
 					.Append(", variant ").Append(variant + 1).Append(" of ").Append(program.VariantCount)
-					.Append(", blob index ").Append(program.BlobIndices[variant]).Append('\n');
+					.Append(", blob index ").Append(program.BlobIndices[variant]);
+
+				if (variant < program.KeywordSets.Count)
+				{
+					built.Append(", keywords ").Append(
+						program.KeywordSets[variant].Count == 0 ? "<none>" : string.Join('+', program.KeywordSets[variant]));
+				}
+
+				built.Append('\n');
+
+				// Which keyword sets this pass was compiled for, so a reader knows the program below
+				// is one of a set rather than the whole pass. Every one of them is written out under
+				// AuxiliaryFiles/ShaderVariants.
+				HashSet<string> sets = [];
+
+				foreach (var keywords in program.KeywordSets)
+				{
+					sets.Add(keywords.Count == 0 ? "<none>" : string.Join('+', keywords));
+				}
+
+				built.Append("\t\t\t// variant keyword sets: ").Append(string.Join(" | ", sets.Take(12)));
+
+				if (sets.Count > 12)
+				{
+					built.Append(" | … ").Append(sets.Count - 12).Append(" more");
+				}
+
+				built.Append('\n');
 
 				foreach (string line in source.Replace("\r", "").Split('\n'))
 				{

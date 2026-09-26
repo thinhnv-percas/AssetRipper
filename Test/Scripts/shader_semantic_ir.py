@@ -157,6 +157,17 @@ def recovered_programs(rip: pathlib.Path, shader_name: str) -> list[str]:
     return found
 
 
+def backends_of(rip: pathlib.Path, shader_name: str) -> set:
+    """Which compiled-program backends a shader carries, from the rip's own report."""
+    report = rip / "AuxiliaryFiles" / "ShaderPrograms.json"
+
+    if not report.is_file():
+        return set()
+
+    return {record.get("backend") for record in json.loads(report.read_text())
+            if record.get("shader") == shader_name and record.get("backend")}
+
+
 def merge(programs: list[str], language: str) -> dict:
     """The operations a whole shader reaches, over all of its programs."""
     total = {}

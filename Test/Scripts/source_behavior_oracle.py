@@ -34,6 +34,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import source_oracle  # noqa: E402
+import source_preprocessor  # noqa: E402
 import method_behavior_contract as behavior  # noqa: E402
 from semantic_ir import load  # noqa: E402
 
@@ -252,6 +253,10 @@ def main() -> int:
     parser.add_argument("source", nargs="?")
     parser.add_argument("rip", nargs="?")
     parser.add_argument("--self-test", action="store_true")
+    # The build's own facts, not a guess: a player build defines no UNITY_EDITOR and exactly one
+    # platform, and comparing against the other branches reports a correct recovery as a total loss.
+    parser.add_argument("--platform", default="android", choices=("android", "ios"))
+    parser.add_argument("--unity", default="2022.3")
     parser.add_argument("--json")
     parser.add_argument("--verbose", action="store_true")
     arguments = parser.parse_args()
@@ -259,7 +264,8 @@ def main() -> int:
     if arguments.self_test:
         return self_test()
 
-    harvested, declared = source_oracle.harvest(pathlib.Path(arguments.source))
+    defines = source_preprocessor.defines_for(arguments.unity, arguments.platform)
+    harvested, declared = source_oracle.harvest(pathlib.Path(arguments.source), defines=defines)
     bodies = load(pathlib.Path(arguments.rip))
 
     if not bodies:
@@ -283,19 +289,21 @@ def main() -> int:
     results = {}
     counts = collections.Counter()
 
-    for (type_name, name, _arity), body in harvested.items():
+    # Keyed by arity too: a type with two overloads of one name wrote twice into the report and the
+    # last won, so the JSON held fewer rows than the printed count and the two disagreed by five.
+    for (type_name, name, arity), body in harvested.items():
         contract = contracts.get((type_name, name))
 
         if contract is None:
             counts["NOT_AVAILABLE"] += 1
-            results[f"{type_name}.{name}"] = {"status": "NOT_AVAILABLE", "notes": []}
+            results[f"{type_name}.{name}/{arity}"] = {"status": "NOT_AVAILABLE", "notes": []}
             continue
 
         source = source_behavior(body, declared.get(type_name, set()))
         found = recovered_behavior(contract)
         status, notes = verdict(source, found, declared.get(type_name, set()), project_members)
         counts[status] += 1
-        results[f"{type_name}.{name}"] = {
+        results[f"{type_name}.{name}/{arity}"] = {
             "status": status,
             "notes": notes,
             "source": {key: sorted(value) if isinstance(value, set) else value for key, value in source.items()},

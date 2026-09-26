@@ -38,10 +38,13 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 		fileSystem.File.WriteAllText(path, ShaderProgramExtractor.ToJson(evidence));
 
 		WriteRecoveredPrograms(gameData, evidence, settings, fileSystem);
+		WriteBlobMapping(gameData, settings, fileSystem);
+		WriteVariantPrograms(gameData, settings, fileSystem);
 
 		int programs = 0;
 		int source = 0;
 		int binary = 0;
+		int metal = 0;
 		int unknown = 0;
 
 		foreach (var shader in evidence)
@@ -54,6 +57,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 				{
 					case ShaderProgramProbe.ProgramEncoding.SourceText: source++; break;
 					case ShaderProgramProbe.ProgramEncoding.Binary: binary++; break;
+					case ShaderProgramProbe.ProgramEncoding.MetalLibrary: metal++; break;
 					default: unknown++; break;
 				}
 			}
@@ -61,7 +65,8 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 
 		Logger.Info(LogCategory.Export,
 			$"Shader programs: {programs} sub-programs across {evidence.Count} shaders - " +
-			$"{source} shading-language source, {binary} binary, {unknown} not established. " +
+			$"{source} shading-language source, {binary} binary, {metal} Metal library, " +
+			$"{unknown} not established. " +
 			$"Written to AuxiliaryFiles/{FileName}.");
 	}
 
@@ -72,6 +77,134 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 	/// One shader at a time, fetching the bytes and letting them go again: holding every program of
 	/// a game alive at once exhausted the container on the first fixture this was run against.
 	/// </remarks>
+	/// <summary>
+	/// Writes every recovered variant, deduplicated by the bytes rather than by the keyword set.
+	/// </summary>
+	/// <remarks>
+	/// A pass is compiled once per keyword set, and ShaderLab can carry one program per pass - so the
+	/// exported pass holds one and this holds all of them, named by what they were compiled for. Two
+	/// variants that compiled to the same program share one file: dropping the duplicates by identity
+	/// keeps the set honest about how many distinct programs there are, where dropping them by
+	/// keyword set would lose which keywords reach which program.
+	/// </remarks>
+	private static void WriteVariantPrograms(
+		GameData gameData, FullConfiguration settings, FileSystem fileSystem)
+	{
+		string directory = fileSystem.Path.Join(settings.AuxiliaryFilesPath, "ShaderVariants");
+		Dictionary<string, string> byContent = [];
+		List<string> manifest = [];
+		bool created = false;
+		int written = 0;
+		int shared = 0;
+		long budget = 0;
+		int omitted = 0;
+
+		foreach (IUnityObjectBase asset in gameData.GameBundle.FetchAssets())
+		{
+			if (asset is not IShader shader)
+			{
+				continue;
+			}
+
+			var evidence = ShaderProgramProbe.Probe(shader);
+
+			foreach (var row in ShaderBlobMapping.Read(shader))
+			{
+				if (row.ProgramEncoding != "SOURCETEXT")
+				{
+					continue;
+				}
+
+				var program = FindEntry(evidence, row);
+
+				if (program is null || ShaderProgramProbe.TextOf(shader, program) is not { Length: > 0 } text)
+				{
+					continue;
+				}
+
+				string key = $"{text.Length}:{text.GetHashCode():x8}";
+				string keywords = row.Keywords.Count == 0 ? "_base" : string.Join('+', row.Keywords);
+
+				if (byContent.TryGetValue(key, out string? existing))
+				{
+					shared++;
+					manifest.Add(Row(row, keywords, existing));
+					continue;
+				}
+
+				if (budget + text.Length > 128L * 1024 * 1024)
+				{
+					omitted++;
+					continue;
+				}
+
+				if (!created)
+				{
+					fileSystem.Directory.Create(directory);
+					created = true;
+				}
+
+				string name = $"ShaderVariants/{Sanitise(row.Shader)}_{row.SubShader}_{row.Pass}_{row.Stage}_{row.Backend}_{row.BlobIndex}.glsl";
+				fileSystem.File.WriteAllText(fileSystem.Path.Join(settings.AuxiliaryFilesPath, name), text);
+				byContent[key] = name;
+				budget += text.Length;
+				written++;
+				manifest.Add(Row(row, keywords, name));
+			}
+		}
+
+		if (manifest.Count == 0)
+		{
+			return;
+		}
+
+		fileSystem.File.WriteAllText(
+			fileSystem.Path.Join(settings.AuxiliaryFilesPath, "ShaderVariants.json"),
+			"[\n" + string.Join(",\n", manifest) + "\n]\n");
+
+		Logger.Info(LogCategory.Export,
+			$"Shader variants: {manifest.Count} recovered variant programs - {written} distinct, " +
+			$"{shared} sharing a program with another variant, {omitted} past the write budget. " +
+			"Written to AuxiliaryFiles/ShaderVariants.json.");
+	}
+
+	private static string Row(ShaderBlobMapping.Row row, string keywords, string file)
+		=> "  {\"shader\": \"" + Escape(row.Shader) + "\", \"subShader\": " + row.SubShader
+			+ ", \"pass\": " + row.Pass + ", \"passName\": \"" + Escape(row.PassName)
+			+ "\", \"stage\": \"" + row.Stage + "\", \"backend\": \"" + row.Backend
+			+ "\", \"variant\": " + row.Variant + ", \"keywords\": \"" + Escape(keywords)
+			+ "\", \"blobIndex\": " + row.BlobIndex + ", \"size\": " + row.ProgramSize
+			+ ", \"file\": \"" + Escape(file) + "\"}";
+
+	private static string Escape(string value)
+		=> value.Replace("\\", "\\\\").Replace("\"", "\\\"");
+
+	private static string Sanitise(string value)
+	{
+		System.Text.StringBuilder builder = new(value.Length);
+
+		foreach (char character in value)
+		{
+			builder.Append(char.IsLetterOrDigit(character) ? character : '_');
+		}
+
+		return builder.ToString();
+	}
+
+	private static ShaderProgramProbe.SubProgramEvidence? FindEntry(
+		ShaderProgramProbe.ShaderEvidence evidence, ShaderBlobMapping.Row row)
+	{
+		foreach (var program in evidence.SubPrograms)
+		{
+			if (program.Index == row.BlobIndex && program.Offset == row.ProgramOffset)
+			{
+				return program;
+			}
+		}
+
+		return null;
+	}
+
 	private static void WriteRecoveredPrograms(
 		GameData gameData,
 		List<ShaderProgramProbe.ShaderEvidence> evidence,
@@ -135,5 +268,62 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 				$"Shader programs: {omitted} recovered programs were not written out, the {Budget / (1024 * 1024)} MB " +
 				"budget for extracted source having been reached. Their position and encoding are in the report.");
 		}
+	}
+
+	/// <summary>
+	/// Writes which blob entry each sub-program owns, program and parameter block alike.
+	/// </summary>
+	/// <remarks>
+	/// The entry table interleaves the two, and the asset says which is which. Written whatever the
+	/// outcome: a row whose program index resolves to a binary entry is a fact about the build, and
+	/// the only way to tell it apart from a reading mistake is to have both indices beside the bytes.
+	/// </remarks>
+	private static void WriteBlobMapping(GameData gameData, FullConfiguration settings, FileSystem fileSystem)
+	{
+		List<ShaderBlobMapping.Row> rows = [];
+
+		foreach (IUnityObjectBase asset in gameData.GameBundle.FetchAssets())
+		{
+			if (asset is IShader shader)
+			{
+				rows.AddRange(ShaderBlobMapping.Read(shader));
+			}
+		}
+
+		if (rows.Count == 0)
+		{
+			return;
+		}
+
+		fileSystem.File.WriteAllText(
+			fileSystem.Path.Join(settings.AuxiliaryFilesPath, "ShaderBlobMapping.json"),
+			ShaderBlobMapping.ToJson(rows));
+
+		int withParameterBlob = 0;
+		int programIsSource = 0;
+		int parameterIsBinary = 0;
+
+		foreach (var row in rows)
+		{
+			if (row.ParameterBlobIndex >= 0)
+			{
+				withParameterBlob++;
+			}
+
+			if (row.ProgramEncoding == "SOURCETEXT")
+			{
+				programIsSource++;
+			}
+
+			if (row.ParameterEncoding is "BINARY" or "PRINTABLENOMARKERS")
+			{
+				parameterIsBinary++;
+			}
+		}
+
+		Logger.Info(LogCategory.Export,
+			$"Shader blob mapping: {rows.Count} sub-program rows, {withParameterBlob} with a parameter " +
+			$"blob index recorded, {programIsSource} whose program entry is shading-language source, " +
+			$"{parameterIsBinary} whose parameter entry is binary. Written to AuxiliaryFiles/ShaderBlobMapping.json.");
 	}
 }

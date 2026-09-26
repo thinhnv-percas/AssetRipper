@@ -114,6 +114,18 @@ public sealed class ShaderSemanticModel
 		/// it the program itself can be written out where it was read as source.
 		/// </remarks>
 		public required IReadOnlyList<int> BlobIndices { get; init; }
+
+		/// <summary>
+		/// Each variant's index into the same table for its <em>parameter</em> blob, or -1 where the
+		/// asset records none.
+		/// </summary>
+		/// <remarks>
+		/// `m_ParameterBlobIndices` is a list per hardware tier of one index per sub-program, exactly
+		/// parallel to `m_PlayerSubPrograms`. It is what the entry table interleaves with the
+		/// programs: a sub-program owns two entries, its compiled code and its parameter block, and
+		/// reading the table without this cannot say which is which.
+		/// </remarks>
+		public required IReadOnlyList<int> ParameterBlobIndices { get; init; }
 	}
 
 	public static ShaderSemanticModel? Read(IShader shader)
@@ -142,31 +154,48 @@ public sealed class ShaderSemanticModel
 					List<string> programBackends = [];
 					List<IReadOnlyList<string>> keywordSets = [];
 					List<int> blobIndices = [];
+					List<int> parameterBlobIndices = [];
 
 					// From Unity 2021 the sub-programs moved out of `m_SubPrograms` into
 					// `m_PlayerSubPrograms`, a list per hardware tier of a different type that carries
 					// the same four things. A reader of only the first list sees zero variants on a
 					// shader that has hundreds - which is what "Vertex 0 variant(s) []" in the exported
 					// comment meant, and why no pass could be matched back to a compiled program.
-					List<(uint BlobIndex, int GpuProgramType, IEnumerable<ushort> KeywordIndices)> variants = [];
+					List<(uint BlobIndex, int GpuProgramType, IEnumerable<ushort> KeywordIndices, int ParameterBlob)> variants = [];
 
 					foreach (var subProgram in program.SubPrograms)
 					{
-						variants.Add((subProgram.BlobIndex, subProgram.GpuProgramType, subProgram.KeywordIndices));
+						variants.Add((subProgram.BlobIndex, subProgram.GpuProgramType, subProgram.KeywordIndices, -1));
 					}
 
 					if (variants.Count == 0 && program.Has_PlayerSubPrograms())
 					{
-						foreach (var tier in program.PlayerSubPrograms)
+						for (int tier = 0; tier < program.PlayerSubPrograms.Count; tier++)
 						{
-							foreach (var subProgram in tier)
+							var subPrograms = program.PlayerSubPrograms[tier];
+
+							for (int index = 0; index < subPrograms.Count; index++)
 							{
-								variants.Add((subProgram.BlobIndex, subProgram.GpuProgramType, subProgram.KeywordIndices));
+								var subProgram = subPrograms[index];
+
+								// The parameter blob index is recorded per tier and per sub-program,
+								// in the same shape as the sub-programs themselves, so it is read by
+								// the same two indices rather than by a search.
+								int parameterBlob = -1;
+
+								if (program.Has_ParameterBlobIndices()
+									&& tier < program.ParameterBlobIndices.Count
+									&& index < program.ParameterBlobIndices[tier].Count)
+								{
+									parameterBlob = (int)program.ParameterBlobIndices[tier][index];
+								}
+
+								variants.Add((subProgram.BlobIndex, subProgram.GpuProgramType, subProgram.KeywordIndices, parameterBlob));
 							}
 						}
 					}
 
-					foreach (var (blobIndex, gpuProgramType, keywordIndices) in variants)
+					foreach (var (blobIndex, gpuProgramType, keywordIndices, parameterBlob) in variants)
 					{
 						string backend = ((ShaderGpuProgramType55)gpuProgramType).ToString();
 						programBackends.Add(backend);
@@ -177,6 +206,7 @@ public sealed class ShaderSemanticModel
 							.Select(index => keywords[index])]);
 
 						blobIndices.Add((int)blobIndex);
+						parameterBlobIndices.Add(parameterBlob);
 					}
 
 					programs.Add(new ProgramModel
@@ -186,6 +216,7 @@ public sealed class ShaderSemanticModel
 						Backends = programBackends,
 						KeywordSets = keywordSets,
 						BlobIndices = blobIndices,
+						ParameterBlobIndices = parameterBlobIndices,
 					});
 				}
 
