@@ -5,26 +5,29 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 058 (hoàn tất; trọng tâm "hành vi của method + chương trình shader thật". Ship:
-                          hợp đồng hành vi (đồ thị + luồng giá trị + hiệu ứng) dựng trên chính
-                          RecoveredSemanticIr, KHÔNG tạo IR thứ hai; oracle hành vi so với nguồn;
-                          corpus hành vi 293 entry; **một lỗi logic thật được tìm và sửa** — lấy địa
-                          chỉ của một tham số ra `ldloca` của local generator tự bịa, nên
-                          ObscuredBool.op_Implicit trả giải mã của số KHÔNG và TimeInGame lấy ngày từ
-                          default(DateTime); và chương trình shader: blob GLES **là mã nguồn GLSL**,
-                          96 khối GLSL thật viết vào ShaderLab qua ba fixture Android, 13 shader đạt
-                          SEMANTICALLY_EQUIVALENT, shader_exact vẫn 0.)
+Iteration hiện tại: 059 (hoàn tất; trọng tâm "trung thực về hành vi + bảng blob shader". Ship:
+                          source_preprocessor — mọi source oracle trước đây đọc TOÀN VĂN file nguồn
+                          trong khi build chỉ biên dịch MỘT nhánh #if, nên 192 method của Merge-Room
+                          báo FALLBACK trên những bản phục hồi CHÍNH XÁC; LocalStorage — một lifted
+                          local sống ở đúng một chỗ và cả load/store/address đều hỏi cùng một luật
+                          (058 mới sửa 1 trong 3 site; site ghi vẫn stloc vào local bịa trong khi
+                          site đọc ldarg vào tham số, 46 file trên Impostor); PointerClassifier —
+                          Array / ArrayElement / Object phân biệt được, dùng cho lý do từ chối của
+                          List.Add mà KHÔNG nới recogniser; và ParameterBlobIndices — CHỨNG MINH bảng
+                          blob shader phân hoạch thành chương trình và khối tham số, hai tập chỉ số
+                          không giao nhau 148/148 và 166/166 cặp trên hai fixture.)
 
 Cảnh báo cho phiên sau:
-  - `shader_exact` KHÔNG còn do validate_unity_stages.py in ra. Nó quyết "exact" bằng SỰ VẮNG MẶT của
-    dấu bản thay thế, nên ngay khi một pass mang được chương trình thật nó báo 10/34. Dùng
-    shader_semantic_equivalence.py, so với ShaderLab nguồn.
-  - Bản ghi semantic IR nay có SÁU phần tử mỗi entry (op, detail, block, result, operands, type).
-    Bất cứ thứ gì `for a, b in body["operations"]` sẽ vỡ. Đọc qua semantic_ir.operations()/details().
-  - Merge-Room: hai bản rip 058 của cùng build khác nhau ở một file .cs, và 16.317 vs 15.282 method
-    chỉ vì ILSpy bỏ dở assembly Cinemachine ở một lần. Đừng đọc chênh lệch ở fixture đó là kết quả.
-  - method_semantic_contract.py nhận `--game <đường dẫn thư mục game>`, không phải tên. Đưa tên thì
-    nó báo 0 EXACT và 4007 ASSEMBLY_NOT_EXPORTED — đọc y như một regression thảm hoạ.
+  - Tiền đề "197 FALLBACK của Merge-Room là loops bị mất" SAI. Chỉ 6/192 có vòng lặp trong nguồn.
+    Đo trước khi làm, lần thứ bảy.
+  - Mọi oracle so với nguồn phải đi qua source_preprocessor.defines_for(unity, platform). Không có
+    nó thì nhánh editor và nhánh nền tảng kia bị so với một bản phục hồi của nhánh thứ ba.
+  - Bản ghi semantic IR nay có `nativeLength`. Một thân tám byte không chạm ranh giới runtime nào thì
+    KHÔNG gọi gì cả — đó là cách phân biệt inline với mất mát.
+  - shader_exact KHÔNG do validate_unity_stages.py quyết (từ 058). Status shader nay có thêm
+    PROGRAM_RECOVERED, NO_SOURCE_ORACLE, METAL_BINARY_ONLY.
+  - WriteVariantPrograms giải nén lại blob của platform cho TỪNG biến thể; trên fixture nhiều shader
+    nó là phần chậm nhất của export.
 
 Commit decompiler:
   claude/read-current-repository-daqxc1 @ (xem iterations/034/source-commit.txt), base 69a31182

@@ -42,6 +42,37 @@ ALLOCATIONS = {"NEW_OBJECT", "NEW_ARRAY"}
 SIDE_EFFECTING = WRITES | STATIC_WRITES | ARRAY_WRITES | set(CALLS) | {"THROW", "RUNTIME_BOUNDARY"}
 
 
+def receiver_of(operands, parameters):
+    """Which storage a field access or call went through, read off the operand the generator recorded.
+
+    The record already names the base - `this.destination`, `layerMask.value`, `v27.items` - because
+    a field reference is described as `{base}.{field}`. Naming the *kind* of that base is what tells
+    `this.field` from `parameter.field` from `local.field`, which is the distinction a defect like
+    iteration 058's turns on: a receiver that should have been the parameter and was a local the
+    generator invented.
+    """
+    for operand in operands:
+        base = operand.split(".")[0].lstrip("&")
+
+        if not base:
+            continue
+
+        if base == "this":
+            return "THIS"
+        if base in parameters:
+            return "PARAMETER"
+        if base.endswith("[]"):
+            return "ARRAY_ELEMENT"
+        if base.startswith("stack_"):
+            return "STACK"
+        if base.startswith("#"):
+            continue
+
+        return "LOCAL"
+
+    return "UNKNOWN"
+
+
 def contract(body):
     """The behaviour contract of one recorded body."""
     operations = body.get("operations", [])
@@ -57,7 +88,14 @@ def contract(body):
     produced_by = {}
     flow = []
 
+    # A method's parameters are named in the record, and a lifted local named after one *is* it.
+    parameter_names = set(body.get("parameterNames", []))
+    receivers = collections.Counter()
+
     for operation, detail, block, result, operands, result_type in _rows(operations):
+        if operation in READS or operation in WRITES:
+            receivers[f"{operation}:{receiver_of(operands, parameter_names)}"] += 1
+
         if operation in READS:
             effects["field_reads"].append(detail)
         elif operation in WRITES:
@@ -124,6 +162,9 @@ def contract(body):
         "allocations": sorted(set(allocations)),
         "throws": throws,
         "runtime_boundaries": sorted(set(boundaries)),
+        # Which storage each field access went through, which a sequence of operation names cannot
+        # say and which is where the defects of iterations 058 and 059 both lived.
+        "receivers": dict(receivers),
         "side_effect_count": sum(
             1 for operation, *_ in _rows(operations) if operation in SIDE_EFFECTING),
         "control": {

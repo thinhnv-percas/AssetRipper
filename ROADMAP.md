@@ -733,3 +733,21 @@ more of them than a typing rule would have.
    dịch ngược Metal, và đó là một dự án riêng.
 6. **URP source cho Merge-Room.** 25 shader `NOT_APPLICABLE` vì registry công khai trả 404 cho
    `com.unity.render-pipelines.universal@14.0.12`. Lấy được nó là 25 shader nữa có oracle.
+
+## Sau iteration 059 — mục tiêu tiếp theo, đã có bằng chứng
+
+1. **136 site `List<T>.Add` "guard does not end in a conditional branch"** — nhóm bị từ chối lớn
+   nhất còn lại, chưa phân loại. Đếm theo *terminator thật sự* trước khi làm; đây sẽ là lần thứ tám
+   dự án phải tách một họ đặt tên theo triệu chứng.
+2. **16 receiver `this + 0x20`** mà `PointerClassifier` gọi tên: một field ở offset 0x20 của receiver
+   chưa phân giải được, không phải địa chỉ phần tử. Đó là công việc của `MetadataResolver`, và nó
+   đứng ngay cạnh `List<T>.Add` nên dễ đo.
+3. **URP source cho Merge-Room.** 25 shader `NO_SOURCE_ORACLE` vì registry công khai trả 404 cho
+   `com.unity.render-pipelines.universal@14.0.12`. Lấy được nó là 25 shader nữa có oracle.
+4. **Metal trên iOS.** `IMetalShaderDecompiler` đã khai báo và cố ý để trống. 1164/1164 sub-program
+   của JellyBlast là thư viện Metal; muốn đi tiếp cần một trình dịch ngược, và đó là dự án riêng.
+5. **`WriteVariantPrograms` giải nén lại blob cho từng biến thể.** O(số biến thể × kích thước blob).
+   Một cache theo (shader, platform) thu gọn được gần hết.
+6. **Những gì còn lại của oracle hành vi Merge-Room** sau khi preprocessor đã trung thực: xem
+   `docs/ITERATION_059.md` mục 9 và bảng cuối `docs/RECOVERY_MATRIX.md`.
+

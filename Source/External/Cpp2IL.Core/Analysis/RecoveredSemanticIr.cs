@@ -153,6 +153,17 @@ public sealed class RecoveredSemanticIr
     public string DeclaringType { get; init; } = "";
     public string ReturnType { get; init; } = "";
     public IReadOnlyList<string> Parameters { get; init; } = [];
+
+    /// <summary>
+    /// The parameters' names.
+    /// </summary>
+    /// <remarks>
+    /// A lifted local named after a parameter <em>is</em> that parameter, so the names are what let a
+    /// reader tell <c>this.field</c> from <c>parameter.field</c> from <c>local.field</c> in the
+    /// operands recorded beside each operation. Without them that distinction cannot be made from the
+    /// record at all, and it is where the defects of iterations 058 and 059 both lived.
+    /// </remarks>
+    public IReadOnlyList<string> ParameterNames { get; init; } = [];
     public ulong Rva { get; init; }
 
     /// <summary>
@@ -187,6 +198,7 @@ public sealed class RecoveredSemanticIr
             DeclaringType = context.DeclaringType?.FullName ?? "",
             ReturnType = context.ReturnType?.FullName ?? "",
             Parameters = [.. context.Parameters.ConvertAll(parameter => parameter.ParameterType?.FullName ?? "")],
+            ParameterNames = [.. context.Parameters.ConvertAll(parameter => parameter.Name ?? "")],
             Rva = context.Rva,
             NativeLength = context.RawBytes.Length,
         };
@@ -369,6 +381,17 @@ public sealed class RecoveredSemanticIr
                     builder.Append(", ");
 
                 builder.Append(Quote(body.Parameters[index]));
+            }
+
+            builder.Append("],\n");
+            builder.Append("    \"parameterNames\": [");
+
+            for (var index = 0; index < body.ParameterNames.Count; index++)
+            {
+                if (index > 0)
+                    builder.Append(", ");
+
+                builder.Append(Quote(body.ParameterNames[index]));
             }
 
             builder.Append("],\n");

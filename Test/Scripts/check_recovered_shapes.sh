@@ -153,6 +153,13 @@ check DECOMP-0020 SkeletonJson.cs 'as Dictionary<string, object>;' '(Il2CppClass
 check DECOMP-0021 ObscuredBool.cs 'return value.InternalDecrypt();' 'ObscuredBool obscuredBool = default(ObscuredBool);'
 check DECOMP-0021 TimeInGame.cs 'Day = dateTime.Day;' 'DateTime dateTime2 = default(DateTime);'
 
+# DECOMP-0022: ghi vào một lifted local mà thực ra là *tham số* phải ra `starg`, không phải `stloc`
+# vào một local generator tự bịa. Site đọc đã dùng `ldarg` từ trước, nên trước khi sửa một thân hàm
+# có tham số `ref`/`out` ghi vào một chỗ và đọc từ chỗ khác: người gọi không bao giờ thấy giá trị.
+# 46 file trên Impostor. `LocalStorage` là luật duy nhất mà cả ba lần dùng đều hỏi.
+check DECOMP-0022 ObscuredBool.cs 'key = ref *(byte*)' 'ref byte reference = ref *(byte*)'
+check DECOMP-0022 TimeCheatingDetector.cs 'result = ref *(OnlineTimeResult*)' 'ref OnlineTimeResult reference;'
+
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.

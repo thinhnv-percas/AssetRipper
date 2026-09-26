@@ -191,6 +191,17 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
     result["source_operations"] = sorted(source_operations)
     result["recovered_operations"] = sorted(recovered_operations)
 
+    # Identity, not shape: two programs reaching the same operations that sample different textures
+    # do different things, and a comparison of operation sets alone cannot see it.
+    source_samplers = ir.samplers(" ".join(source_programs))
+    recovered_samplers = ir.samplers(" ".join(recovered_programs))
+    missing_samplers = sorted(
+        name for name in source_samplers
+        if name not in recovered_samplers and not name.startswith("unity_"))
+    result["source_samplers"] = sorted(source_samplers)
+    result["recovered_samplers"] = sorted(recovered_samplers)
+    result["missing_samplers"] = missing_samplers
+
     if not recovered_programs:
         result["status"] = "FALLBACK"
         result["notes"] = ["the structure came back and no program did"]
@@ -219,6 +230,8 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
 
     if missing_operations:
         notes.append(f"operations the source reaches and the program does not: {missing_operations}")
+    if missing_samplers:
+        notes.append(f"textures the source samples and the program does not: {missing_samplers}")
     if expanded_operations:
         notes.append(f"absent but expandable by a shader compiler: {expanded_operations}")
     if state_differences:
@@ -228,7 +241,7 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
 
     result["notes"] = notes
 
-    if missing_operations:
+    if missing_operations or missing_samplers:
         result["status"] = "PARTIAL"
     elif state_differences or missing_properties:
         # The program means the same thing under state that does not, which is not the same drawing.

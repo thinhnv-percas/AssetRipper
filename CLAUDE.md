@@ -1735,6 +1735,58 @@ find it; `strings` without `-el` does find method and type names.
   anything doing `for operation, detail in body["operations"]` breaks silently. Read it through
   `semantic_ir.operations()` / `semantic_ir.details()`, which are defined once.
 
+- **A source file is routinely three programs at once, and every source oracle was reading all three.**
+  Unity compiles a player with a fixed set of preprocessor symbols; the text on disk carries the
+  editor branch, the other platform's branch and the version-gated branch beside the one that was
+  built. `DeviceInfo.IsIOS` is `#if UNITY_EDITOR … #if UNITY_IOS return true; #else return false;` and
+  an Android build compiles `return false;` - which is exactly what came back, while the oracle read
+  the whole text, found a call the recovery did not make, and reported a body that lost everything.
+  192 of Merge-Room's methods read that way. `ES3Stream.CopyTo` - "loops: source 1, recovered 0", the
+  shape a whole iteration was briefed to investigate as the top method-recovery defect - is
+  `#if UNITY_2019_1_OR_NEWER source.CopyTo(destination); #else <a loop> #endif`. **Only 6 of the 192
+  had a loop in the source at all.** `source_preprocessor.py` evaluates the directives against symbols
+  that *follow* from the fixture's platform and Unity version, and keeps both branches of anything it
+  cannot establish, so the error leans towards reporting a loss.
+- **A lifted local lives in exactly one place and every use of it has to agree.** Iteration 058 fixed
+  the address-of site; the *store* site was still `stloc` into a local the generator invented while
+  the load site was `ldarg` into the parameter - two storages for one value, so every write was lost
+  and every read afterwards returned the caller's argument. A `ref` or `out` parameter assigned into
+  a local named `reference`, 46 files on one fixture, every aggregate identical to the digit.
+  `LocalStorage.For` is now the one rule all three ask, and a test states the invariant outright.
+  When the same question is answered in more than one place, it will eventually be answered
+  differently, and the difference will be silent.
+- **A body of eight bytes makes no call, and that is how inlining is told from loss.** A source method
+  reading `return DeviceInfo.IsAndroid();` whose recovered body reaches nothing looks identical to one
+  the recovery failed on. `RecoveredSemanticIr` now records `nativeLength`: a body that small which
+  reaches no runtime boundary is one the analysis recovered whole, so the call is absent from the
+  *machine code* and il2cpp inlined it. Without the number the two cases are indistinguishable.
+- **An array, the address of one of its elements, and the object that owns it are three values, and
+  the first two share a static type.** `PointerClassifier` answers what a pointer points into and how
+  it was built - kind, coordinate frame, path - so the question is asked once instead of per caller.
+  Pointed at `InlineListAddRecovery`'s rejections it split iteration 058's "133 element address"
+  family: genuine element addresses with their paths, 35 receivers that are a call's result, 25 that
+  are fresh allocations, and **16 that are `this + 0x20`** - an unresolved field of the receiver, not
+  an element address at all, which the shape match had been calling one.
+- **`ISerializedProgram.ParameterBlobIndices` is the other half of the blob table, and the proof is
+  that the two never meet.** It is `AssetList<AssetList<uint>>` parallel to `m_PlayerSubPrograms`, so
+  a sub-program owns two entries: its compiled code and its parameter block. Per (shader, backend),
+  the set of program indices and the set of parameter indices are **disjoint in 148 of 148 pairs on
+  one fixture and 166 of 166 on another** - two builds, two platforms, three backend families. So the
+  interleaving iteration 058 found in the entry table is not a puzzle about the table; it is two
+  index lists partitioning one store. And the 13 shaders with no recovered program are not a reading
+  mistake: 2523 program entries are zero bytes and 1241 are one byte, which is a variant stripped from
+  the build. 87 exported passes, 43 with a source variant, 43 GLSL blocks written - the ceiling is met.
+- **A pass has one program and a shader has thousands of variants, so they go to different places.**
+  The exported ShaderLab carries the *base* variant - the one compiled with no keywords, not whichever
+  was first in the table - and `AuxiliaryFiles/ShaderVariants.json` maps every variant to its source,
+  deduplicated by content: 7153 variants, 1312 distinct programs. Deduplicating by keyword set instead
+  would lose which keywords reach which program.
+- **A backend the mapping does not know reads as a table that was never consulted.** `MetalVS` and
+  `MetalFS` were missing from the backend → platform map, so all 2532 rows of the iOS fixture's blob
+  mapping said `NOT_IN_TABLE` - a number about the reader, not about the build. With them: 1164 of
+  1164 sub-programs are Metal libraries. Classify by the backend *the asset names*, never by the bytes:
+  870 of them carry enough printable name table to read as source text otherwise.
+
 ### Things measured to be worth nothing — do not redo them
 - **Making the exporter's own injected types internal.** They are injected into *every* assembly and
   public, so a file referencing two recovered assemblies sees two `TokenAttribute`s - CS0433, 1315
@@ -1948,6 +2000,9 @@ Twenty-six scripts, and each measures something the others cannot:
 - `Test/Scripts/inline_list_add_report.py` — what the inlined-framework-operation recovery was offered
   and what it took, per fixture, with every rejection under the reason the pass rejected it for. A
   family that matches nothing and a family that is never reached print the same match count otherwise.
+- `Test/Scripts/source_preprocessor.py` — the C# a build compiled, from the C# a programmer wrote.
+  Every source oracle imports it; without it a file's editor branch and its other platform's branch
+  are compared against a recovery of neither.
 - `Test/Scripts/method_behavior_contract.py` — one behaviour contract per method out of the
   generator's own record: effects, calls, allocations, the control-flow graph with each branch's
   condition traced back to the operation that decided it, and the value-flow chains. The only measure

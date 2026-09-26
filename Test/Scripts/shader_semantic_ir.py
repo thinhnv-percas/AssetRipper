@@ -27,9 +27,25 @@ OPERATIONS = [
     "DOT", "CROSS", "NORMALIZE", "LENGTH",
     "MIN", "MAX", "CLAMP", "LERP",
     "MATRIX_MUL", "VECTOR_MUL",
+    "SIN", "COS",
     "COMPARE", "BRANCH", "DISCARD",
     "STORE_POSITION", "STORE_COLOR", "STORE_NORMAL", "RETURN",
 ]
+
+# The vocabulary is the one iteration 058 established. The brief for 059 names several of these
+# differently - `UNIFORM_READ` for `LOAD_UNIFORM`, `WRITE_COLOR` for `STORE_COLOR` - and they are the
+# same operations. Renaming them would make every number published before this iteration
+# incomparable for nothing, so the mapping is written down instead.
+ALTERNATE_NAMES = {
+    "LOAD_UNIFORM": "UNIFORM_READ",
+    "LOAD_SAMPLER": "SAMPLER_READ",
+    "LOAD_VERTEX_POSITION": "ATTRIBUTE_READ",
+    "VECTOR_MUL": "VECTOR_CONSTRUCT",
+    "MATRIX_MUL": "MATRIX_MULTIPLY",
+    "STORE_POSITION": "WRITE_POSITION",
+    "STORE_COLOR": "WRITE_COLOR",
+    "STORE_NORMAL": "WRITE_NORMAL",
+}
 
 # The arithmetic operators, matched away from the places they are not arithmetic: a `+` inside a
 # preprocessor line or a comment is not a program adding two things.
@@ -61,6 +77,8 @@ GLSL = {
     "LERP": r"\bmix\s*\(",
     "MATRIX_MUL": r"\bhlslcc_mtx\w*\b|\bmat[234]\s*\(",
     "VECTOR_MUL": r"\bvec[234]\s*\(",
+    "SIN": r"\bsin\s*\(",
+    "COS": r"\bcos\s*\(",
     "COMPARE": r"[<>]=?|==|!=|\bgreaterThan\b|\blessThan\b",
     "BRANCH": r"\bif\s*\(|\bswitch\s*\(",
     "DISCARD": r"\bdiscard\b",
@@ -94,6 +112,8 @@ HLSL = {
     "LERP": r"\blerp\s*\(",
     "MATRIX_MUL": r"\bmul\s*\(|\bfloat4x4\b|\bUnityObjectToClipPos\s*\(",
     "VECTOR_MUL": r"\bfloat[234]\s*\(|\bhalf[234]\s*\(|\bfixed[234]\s*\(",
+    "SIN": r"\bsin\s*\(",
+    "COS": r"\bcos\s*\(",
     "COMPARE": r"[<>]=?|==|!=",
     "BRANCH": r"\bif\s*\(|\bswitch\s*\(",
     "DISCARD": r"\bclip\s*\(|\bdiscard\b",
@@ -123,6 +143,31 @@ def operations(text: str, language: str) -> dict:
     return {name: len(pattern.findall(cleaned))
             for name, pattern in patterns.items()
             if pattern.search(cleaned)}
+
+
+# What a program samples, which is identity rather than shape: two programs that reach the same
+# operations and sample different textures do different things.
+SAMPLER_DECLARATION = re.compile(
+    r"\b(?:uniform\s+)?(?:lowp|mediump|highp\s+)?(?:sampler2D|samplerCube|sampler3D|sampler2DArray|"
+    r"Texture2D|TextureCube|sampler2D_float)\s+(\w+)")
+
+# `vec3(...)`, `float4(...)`: the width a program builds its values at.
+VECTOR_WIDTH = re.compile(r"\b(?:vec|float|half|fixed|ivec|int)([234])\s*\(")
+
+
+def samplers(text: str) -> set[str]:
+    """The samplers and textures a program declares, by name."""
+    return set(SAMPLER_DECLARATION.findall(strip(text)))
+
+
+def vector_widths(text: str) -> dict:
+    """{width: count} for the vector constructions a program performs."""
+    found = {}
+
+    for width in VECTOR_WIDTH.findall(strip(text)):
+        found[int(width)] = found.get(int(width), 0) + 1
+
+    return found
 
 
 def source_programs(shader_path: pathlib.Path) -> list[str]:
