@@ -5,6 +5,16 @@
 `docs/RECOVERY_MATRIX.md`; phần còn lại của file này vẫn đúng về *loại* khiếm khuyết, chỉ không còn
 đúng về lượng.
 
+**Từ iteration 061** (`docs/ITERATION_061.md`) ba mục có bằng chứng và thứ tự rõ:
+
+- `reports/INTERFACE_SCAN_REGIONS.md` — 340 interface dispatch trên Merge-Room **chưa bao giờ được
+  giải quyết** (lời gọi vẫn là indirect call qua slot vùng quét tính ra). Đây là việc recovery, trước
+  mọi việc dọn mã; 88 vùng đã chứng minh chết là việc sau.
+- `reports/SHADER_VARIANT_BINDING.md` §3 — ShaderLab export mang một program mỗi pass; 4/9 và 6/30
+  binding material vẽ bằng base variant. Cần ghi mỗi variant dưới guard keyword của nó.
+- `reports/STORAGE_IDENTITY.md` — 22 / 68 / 103 / 81 vị trí máy nằm ở nhiều chỗ IL khi địa chỉ bị lấy;
+  chưa xác lập cái nào là mất giá trị thật.
+
 Các mục tiêu tiếp theo đã có bằng chứng, không cần điều tra lại. **Lưu ý trước tiên**: từ iteration
 056 hai lỗi trong chính phép đo đã được sửa (`docs/ITERATION_056.md` mục 2), nên mọi con số công bố
 ở iteration ≤ 055 không so trực tiếp được với số mới — phải đo lại cả hai đầu.

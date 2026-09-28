@@ -5,18 +5,29 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 060 (hoàn tất; trọng tâm "storage provenance + trung thực hành vi Unity". Ba lỗi
-                          dạng nghĩa-binary ≠ nghĩa-phục hồi, cả ba ở tầng thấp hơn chỗ triệu chứng:
-                          il2cpp_codegen_write_barrier chưa bao giờ được định vị trên ARM64 — lớp cơ
-                          sở trả 0 cho mọi kiến trúc trừ x86, nên mỗi lần ghi reference vào field để
-                          lại một Method not found cộng một phép tính địa chỉ field còn sống, rồi
-                          phép tính đó nằm trong thanh ghi mà lời gọi kế tiếp đọc; virtual dispatch ở
-                          vị trí tail call không được giải quyết vì hai resolver chỉ nhìn
-                          IndirectCall; và generic virtual dispatch đọc method->slot lúc chạy, nhận
-                          diện qua chính đối số của runtime helper chứ không cần tên helper.
-                          Merge-Room placeholder 39.533 → 26.309, không còn chỗ thay thế 74,7%.)
+Iteration hiện tại: 061 (hoàn tất; trọng tâm "native cross-oracle + Unity build/validation pipeline".
+                          LibCpp2IL được kiểm chéo với một reader độc lập và r2unity: 0 DISAGREE
+                          trên 4 fixture. Bốn lỗi nghĩa-binary ≠ nghĩa-phục hồi: bốn chỗ ldloca bỏ
+                          qua luật lưu trữ (member đầu của parameter Vector3 đọc ra 0); bảng entry
+                          shader blob segmented đọc stride 8 thay vì 12 (mọi program gán nhầm
+                          variant); Pinata exit 134 từ 057; material vẽ bằng base variant (đo, chưa
+                          sửa). Mới: IUnityBuildProvider, serialized reference graph, StorageIdentity,
+                          runtime snapshot, lifecycle contract, InterfaceScanRegionClassifier.)
 
 Cảnh báo cho phiên sau:
+  - Ba trong bốn lỗi của 061 KHÔNG đổi một aggregate nào: EXACT, placeholder, Roslyn đứng yên tới từng
+    chữ số khi member đầu của mọi parameter Vector3 đọc ra 0. Đọc diff và chạy
+    serialized_reference_graph / runtime_snapshot / shader_variant_binding, đừng chỉ đọc tổng.
+  - ShaderBlobMapping/ShaderVariants/ShaderPrograms của mọi rip ≤ 061 (trước commit sửa stride) gán
+    program cho sai variant. Mọi kết luận shader dựa trên chúng phải đo lại. `keywords: null` nghĩa là
+    bản build không ghi keyword, KHÔNG phải "không keyword".
+  - Pinata lại rip được; đưa nó trở lại ma trận để một lỗi riêng của phiên bản cũ không ẩn thêm 4
+    iteration nữa.
+  - 340/592 vùng quét interface "thoát" trên Merge-Room là dispatch CHƯA giải quyết, không phải mã chết.
+    Đừng xoá vùng quét nào ngoài 88 vùng đã chứng minh, và chỉ trong iteration có baseline riêng.
+  - r2unity không áp relocation ELF và nối method theo thứ tự hàng; mọi DISAGREE của nó đã giải thích.
+    Đừng "sửa" recovery vì r2unity khác.
+  - Container không có Unity: mọi build/runtime là BLOCKED/NOT_RUN.
   - Phép đo EXACT ĐÃ ĐỔI ở 060 (MEASUREMENT_CHANGE): C# viết một delegate allocation bằng bốn cách và
     recovery_metrics.py chỉ đọc `new`. Mọi so sánh với iteration ≤ 060 phải đo lại CẢ HAI đầu.
   - Golden corpus baseline đã đóng băng lại ở cuối 060. 887 entry, 531 cập nhật. Ba regression mang

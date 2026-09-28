@@ -1845,6 +1845,58 @@ find it; `strings` without `-el` does find method and type names.
   of this field, given a FieldInfo". `reports/RUNTIME_HELPER_IDENTIFICATION.md` records the evidence
   rather than a pass with nothing to emit.
 
+- **LibCpp2IL đã được kiểm chéo, và nó đúng.** `CPP2IL_DUMP_NATIVE_FACTS=<file>` ghi ra những gì
+  LibCpp2IL đọc; `Test/Scripts/il2cpp_native_reader.py` đọc lại cùng các bảng mà không chung code
+  (tìm registration theo count, không theo chuỗi; nối method theo `methodPointers[rid-1]`; áp
+  relocation ELF). Trên bốn fixture: 227.215 method entry, 143.133 field offset, 34.095 type size,
+  209.562 generic entry, **0 DISAGREE**. Một lỗi native mapping còn lại phải được tìm ở tầng sau
+  registration. `reports/NATIVE_CROSS_ORACLE.md`.
+- **r2unity là oracle độc lập nhưng có hai lỗ hổng đã chứng minh.** Nó đọc qua `r_bin` của radare2,
+  không áp `R_AARCH64_RELATIVE`, nên mọi con trỏ trong `.data.rel.ro` của một `libil2cpp.so` đọc ra 0;
+  và nó nối method theo thứ tự hàng thay vì theo rid của token. Mọi DISAGREE của nó trên bốn fixture
+  là phép nối đó (0 chưa giải thích), và trọng tài thứ ba — lệnh đầu của getter auto-property phải load
+  đúng offset của backing field — chọn READER ở mọi trường hợp phân biệt được. Đừng sửa recovery vì
+  r2unity khác.
+- **Một lỗi lưu trữ không đổi một con số tổng hợp nào — lần thứ ba.** Bốn chỗ trong `IlGenerator`
+  (`initobj` zeroing, `MakeStruct`, ghi và đọc member đầu của float aggregate) lấy thẳng `locals[...]`
+  rồi `ldloca`, trong khi IL local được khai báo cho *mọi* lifted local kể cả parameter. Member đầu
+  của một parameter `Vector3` đọc ra 0: `ObscuredVector3.Encrypt` mã hoá `x` thành 0, `Vector3Plugin`
+  của DOTween tính mọi tween từ `default(Vector3)`. 30 + 161 + 46 file đổi, EXACT/placeholder/Roslyn
+  đứng yên. `Il2CppStorageIdentityTests.OnlyTheStorageHelpersIndexTheInventedLocals` đọc source
+  generator và yêu cầu chỉ ba helper index map đó.
+- **Bảng entry của một shader blob segmented là `(offset, length, segment)`, 12 byte.** Đọc cặp 8 byte
+  thì chỉ một trong ba entry đúng; mọi program bị gán cho keyword của variant khác, entry `(x, 0)`
+  thành "variant bị strip" (457 và 291 trên hai fixture — tất cả là đọc sai), và entry `(0, n)` là
+  một đoạn từ đầu blob chạy qua nhiều program — chính là "length chạy tới cuối blob" của 058, lúc đó bị
+  cắt ở extractor thay vì sửa ở tầng đọc. Layout được bảng tự mô tả: program đầu phải bắt đầu ngay sau
+  bảng, và chỉ một layout khớp. Bằng chứng không cần công cụ: `_UnderlayColor` chỉ ở dưới
+  `UNDERLAY_ON` trong source TMP.
+- **Một oracle gộp operation của mọi program thì mù với việc gán nhầm variant.**
+  `shader_semantic_equivalence.py` cho kết quả giống hệt trước và sau khi sửa stride. Binding phải đo
+  riêng: `shader_variant_binding.py`.
+- **Một fixture ra khỏi ma trận là một fixture không ai chạy.** Pinata (2019.2) exit 134 từ iteration
+  057 — `KeywordNames` không tồn tại trước 2021 — và bốn iteration không thấy. Một thành phần mới của
+  exporter đọc một serialized form thay đổi theo phiên bản phải rơi về đường cũ khi đọc lỗi, không kết
+  thúc cả process; và *không được ghi* phải được ghi là `null`, không phải rỗng — rỗng biến mọi variant
+  thành base variant.
+- **Một class không phải identity nếu thiếu assembly.** Feel khai báo hai
+  `MoreMountains.FeedbacksForThirdParty.MMAutoFocus`, một cho URP và một cho post-processing; mọi phép
+  đo khoá theo namespace + tên sẽ so nhầm hai cái đó.
+- **Symbol mà project tự nói không phải là unknown.** Scripting define của player trong
+  `ProjectSettings.asset` và `versionDefines` của asmdef sở hữu file (đúng khi package có trong
+  manifest ở phiên bản biểu thức chấp nhận, sai khi không) là bằng chứng;
+  `source_preprocessor.project_defines`. Và `compile_text(..., "drop")` là cận thứ hai: code chỉ có ở
+  bản đọc giữ branch mơ hồ là UNKNOWN, không phải mất.
+- **Một walker phải bỏ qua *vị trí* đích, không phải mọi operand bằng đích.** `Add v, v, 16` dùng một
+  object local ở cả hai vị trí; bỏ qua theo tham chiếu làm lệnh tăng "không đọc gì".
+  `InterfaceScanRegionClassifier` báo 0 vùng chết vì thế, và `StorageIdentities.Analyze` có cùng lỗi.
+  `StorageIdentities.DestinationPosition` là quy tắc duy nhất.
+- **Vùng quét interface sống sót phần lớn KHÔNG phải scaffolding.** 060 đọc một method và kết luận
+  lời gọi đã giải quyết; phép đo trên 869 vùng nói 340 là indirect call qua chính slot vùng tính ra —
+  dispatch chưa bao giờ được giải quyết. Chỉ 88 vùng chết đã chứng minh. `reports/INTERFACE_SCAN_REGIONS.md`.
+- **MSBuild đọc `X.cs.txt` là culture `cs` (tiếng Séc)** và đưa embedded resource vào satellite
+  assembly; tên `.template` cộng `WithCulture="false"`.
+
 ### Things measured to be worth nothing — do not redo them
 - **A copy into a differently-typed local as evidence of register reuse.** Written, tested, and
   refuted by the data it was written for. The `List<T>.Add` receivers reported as `this + 0x20` have
@@ -2106,6 +2158,18 @@ Twenty-six scripts, and each measures something the others cannot:
   runs the recovered IL. The planner tiers each paired method by what it would need to execute; the
   runner loads both assemblies and compares. A case that did not run is `NOT_RUN` with the reason,
   and a rate over zero executed cases is `None`.
+
+- `Test/Scripts/native_cross_oracle.py` + `il2cpp_native_reader.py` — LibCpp2IL so với một reader
+  độc lập và r2unity; `--self-test` 8 case.
+- `Test/Scripts/serialized_reference_graph.py` — scene → GameObject → component → field → target, source
+  so với recovered theo identity ngữ nghĩa, prefab instance được mở rộng.
+- `Test/Scripts/runtime_snapshot.py` — snapshot không có instance ID; so initial state, và sẵn schema
+  cho snapshot runtime (NOT_RUN ở đây).
+- `Test/Scripts/lifecycle_contract.py` — message Unity và execution order, theo (assembly, class).
+- `Test/Scripts/shader_variant_binding.py` — material → keyword → variant → program có phải cái export
+  mang theo không.
+- `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
+  không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are
