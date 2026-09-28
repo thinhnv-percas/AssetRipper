@@ -1,0 +1,7 @@
+== Assets/Scenes/GameScene.unity: MEASURED {"ABSENT_IN_RECOVERED": 18, "ABSENT_IN_SOURCE": 307, "DIFFERENT": 5, "EQUAL": 9131, "UNKNOWN": 9}
+== Assets/Scenes/MenuScene.unity: MEASURED {"ABSENT_IN_RECOVERED": 2, "ABSENT_IN_SOURCE": 486, "DIFFERENT": 32, "EQUAL": 5695, "UNKNOWN": 10}
+TOTAL {"ABSENT_IN_RECOVERED": 20, "ABSENT_IN_SOURCE": 793, "DIFFERENT": 37, "EQUAL": 14826, "UNKNOWN": 19}
+value_equality_rate 0.9975 runtime_status NOT_RUN
+      33 MeshCollider.m_CookingOptions
+       3 MeshRenderer.m_StitchLightmapSeams
+       1 AudioSource.m_audioClip

@@ -550,6 +550,7 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         // AssetRipper: measurement only, and last, so it sees exactly what the generator will.
         IndirectJumpClassifier.Run(this);
+        InterfaceScanRegionClassifier.Run(this);
 
         Analysis.IsilDump.Stage(this, "final");
     }

@@ -159,6 +159,21 @@ internal sealed class Il2CppStorageIdentityTests
 	}
 
 	[Test]
+	public void AnIncrementInPlaceIsAReadAndAWrite()
+	{
+		// `Add v, v, 1` names one local object in two positions. Skipping every operand equal to the
+		// destination made it read nothing, which cost a loop step its place in a scan region.
+		var counter = Local("v4");
+		var storage = Analyze(At(OpCode.Move, counter, new Immediate(0)), At(OpCode.Add, counter, counter, new Immediate(1)));
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(storage[counter].DefinitionSites, Has.Count.EqualTo(2));
+			Assert.That(storage[counter].UseSites, Has.Count.EqualTo(1));
+		});
+	}
+
+	[Test]
 	public void TheReceiverIsObjectRelativeEvenForAStruct()
 	{
 		var self = Local("this", isThis: true);

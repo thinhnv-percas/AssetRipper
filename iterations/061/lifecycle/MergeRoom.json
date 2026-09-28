@@ -1,0 +1,17 @@
+{
+ "classes": 294,
+ "differences": [
+  {
+   "class": "AlmostEngine.Shared:AlmostEngine.AutoSwitchToNewInputSystem",
+   "differences": [
+    "MESSAGE_UNDER_UNDECIDED_BRANCH Start"
+   ]
+  }
+ ],
+ "lifecycle_match_rate": 1.0,
+ "tally": {
+  "MATCH": 294,
+  "MESSAGES_COMPARED": 636,
+  "MESSAGE_UNDER_UNDECIDED_BRANCH": 1
+ }
+}

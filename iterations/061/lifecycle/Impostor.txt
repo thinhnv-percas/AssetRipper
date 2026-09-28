@@ -1,0 +1,3 @@
+classes compared 115: {"MATCH": 115, "MESSAGES_COMPARED": 223, "MESSAGE_UNDER_UNDECIDED_BRANCH": 1}
+lifecycle_match_rate 1.0
+  ACTk.Runtime:CodeStage.AntiCheat.Detectors.WallHackDetector: MESSAGE_UNDER_UNDECIDED_BRANCH OnGUI

@@ -101,6 +101,88 @@ def defines_for(unity_version: str, platform: str) -> dict:
     return known
 
 
+def _version_tuple(text: str):
+    parts = []
+    for piece in text.split("-")[0].split("."):
+        digits = "".join(ch for ch in piece if ch.isdigit())
+        parts.append(int(digits) if digits else 0)
+    return tuple(parts + [0] * (3 - len(parts)))
+
+
+def _version_satisfies(installed: str, expression: str):
+    """True/False for the simple forms asmdef versionDefines use; None for anything else."""
+    expression = expression.strip()
+    if not expression:
+        return True
+    if expression[0] in "[(" and expression[-1] in "])" and "," in expression:
+        low, high = (part.strip() for part in expression[1:-1].split(",", 1))
+        value = _version_tuple(installed)
+        if low and (value < _version_tuple(low) or (expression[0] == "(" and value == _version_tuple(low))):
+            return False
+        if high and (value > _version_tuple(high) or (expression[-1] == ")" and value == _version_tuple(high))):
+            return False
+        return True
+    if expression[0].isdigit():
+        return _version_tuple(installed) >= _version_tuple(expression)
+    return None
+
+
+def project_defines(project: "pathlib.Path", platform: str, asmdef: "pathlib.Path | None" = None) -> dict:
+    """What a project itself states about its symbols, for one platform and one assembly.
+
+    Two sources, both evidence the project carries: the player's scripting define symbols for the
+    platform in `ProjectSettings.asset` (listed means defined), and the owning asmdef's
+    `versionDefines`, each defined exactly when the package it names is installed at a version the
+    expression accepts - so a versionDefine whose package is absent is *false*, not unknown. A symbol
+    neither source mentions stays unknown: a `csc.rsp` or another mechanism may define it.
+    """
+    import json as _json
+    import pathlib as _pathlib
+    import re as _re
+
+    project = _pathlib.Path(project)
+    known = {}
+    settings = project / "ProjectSettings" / "ProjectSettings.asset"
+    names = {"android": ("Android",), "ios": ("iPhone", "iOS")}[platform]
+    try:
+        text = settings.read_text(encoding="utf-8", errors="replace")
+        block = text.split("scriptingDefineSymbols:", 1)[1]
+        for line in block.split("\n")[1:]:
+            match = _re.match(r"^\s{4,}([^:]+): (.*)$", line)
+            if not match:
+                break
+            if match.group(1).strip() in names:
+                for symbol in match.group(2).split(";"):
+                    if symbol.strip():
+                        known[symbol.strip()] = True
+    except (OSError, IndexError):
+        pass
+
+    if asmdef is not None:
+        packages = {}
+        try:
+            packages = _json.loads((project / "Packages" / "manifest.json").read_text()).get("dependencies", {})
+        except (OSError, ValueError):
+            pass
+        try:
+            definition = _json.loads(_pathlib.Path(asmdef).read_text(encoding="utf-8-sig"))
+        except (OSError, ValueError):
+            definition = {}
+        for entry in definition.get("versionDefines", []) or []:
+            symbol, package = entry.get("define"), entry.get("name", "")
+            if not symbol or known.get(symbol):
+                continue
+            if package in packages:
+                verdict = _version_satisfies(str(packages[package]), entry.get("expression", ""))
+                if verdict is not None:
+                    known[symbol] = verdict
+            elif package.startswith("com.") and not package.startswith("com.unity.modules."):
+                # A package the manifest does not list is not installed. Built-in modules and the
+                # editor's own packages are not in the manifest either, so those stay unknown.
+                known[symbol] = False
+    return known
+
+
 def _value(token: str, defines: dict):
     """True, False, or None for a symbol whose value is not established."""
     if token == "true":
@@ -206,41 +288,52 @@ def evaluate(expression: str, defines: dict):
     return result if position == len(tokens) else None
 
 
-def compile_text(text: str, defines: dict) -> str:
+def compile_text(text: str, defines: dict, undecided: str = "keep") -> str:
     """The file as the build compiled it, with lines under a false branch removed.
 
     A region whose condition is not established keeps every branch, so the comparison still sees the
-    code and can still report it lost. Directive lines themselves become blank so that line numbers -
-    which nothing here depends on, but a reader might - do not move.
+    code and can still report it lost. With `undecided="drop"` those regions are removed instead,
+    which is the other bound: code present only in the kept reading and absent from the dropped one
+    is code whose presence in the build this file cannot decide. Directive lines themselves become
+    blank so that line numbers - which nothing here depends on, but a reader might - do not move.
     """
     output = []
 
-    # One frame per open `#if`: (emitting, decided) where `decided` says a branch has already been
-    # taken, so an `#elif` after it is dead.
+    # One frame per open `#if`: [emitting, taken, certain] - `taken` says a branch has definitely
+    # been taken, so an `#elif` after it is dead; `certain` says whether this frame's choice is known.
     stack = []
+
+    def live():
+        if undecided == "drop":
+            return all(frame[0] and frame[2] for frame in stack)
+        return all(frame[0] for frame in stack)
 
     for line in text.splitlines():
         match = DIRECTIVE.match(line)
 
         if match is None:
-            output.append(line if all(frame[0] for frame in stack) else "")
+            output.append(line if live() else "")
             continue
 
         keyword, rest = match[1], match[2]
 
         if keyword == "if":
             value = evaluate(rest, defines)
-            stack.append([value is not False, value is True])
+            stack.append([value is not False, value is True, value is not None])
         elif keyword == "elif" and stack:
             if stack[-1][1]:
                 stack[-1][0] = False
+                stack[-1][2] = True
             else:
                 value = evaluate(rest, defines)
-                stack[-1] = [value is not False, value is True]
+                certain = stack[-1][2] and value is not None
+                stack[-1] = [value is not False, value is True, certain]
         elif keyword == "else" and stack:
             # The else of a branch that was definitely taken is dead; the else of an undecided one is
             # kept, because either might be what the build compiled.
             stack[-1][0] = not stack[-1][1]
+            if stack[-1][1]:
+                stack[-1][2] = True
         elif keyword == "endif" and stack:
             stack.pop()
 

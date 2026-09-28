@@ -1,0 +1,19 @@
+== Assets/Gtap_MergeRoom/Scenes/Level_1.unity: MEASURED {"ABSENT_IN_SOURCE": 3267, "DIFFERENT": 2063, "EQUAL": 269820, "UNKNOWN": 431}
+== Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity: MEASURED {"EQUAL": 602, "UNKNOWN": 11}
+TOTAL {"ABSENT_IN_SOURCE": 3267, "DIFFERENT": 2063, "EQUAL": 270422, "UNKNOWN": 442}
+value_equality_rate 0.9924 runtime_status NOT_RUN
+     222 MeshRenderer.m_StitchLightmapSeams
+     153 ParticleSystem.CustomDataModule.vectorLabel1_0
+     153 ParticleSystem.CustomDataModule.vectorLabel0_3
+     153 ParticleSystem.CustomDataModule.vectorLabel0_2
+     153 ParticleSystem.CustomDataModule.vectorLabel0_1
+     153 ParticleSystem.CustomDataModule.vectorLabel1_3
+     153 ParticleSystem.CustomDataModule.colorLabel0
+     153 ParticleSystem.CustomDataModule.vectorLabel0_0
+     153 ParticleSystem.CustomDataModule.vectorLabel1_1
+     153 ParticleSystem.CustomDataModule.colorLabel1
+     153 ParticleSystem.CustomDataModule.vectorLabel1_2
+     153 ParticleSystemRenderer.m_SelectedEditorRenderState
+     153 ParticleSystemRenderer.m_StitchLightmapSeams
+       2 SpriteRenderer.m_SelectedEditorRenderState
+       2 SpriteRenderer.m_StitchLightmapSeams

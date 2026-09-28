@@ -1,0 +1,352 @@
+{
+ "differentFields": {
+  "MeshRenderer.m_StitchLightmapSeams": 222,
+  "ParticleSystem.CustomDataModule.colorLabel0": 153,
+  "ParticleSystem.CustomDataModule.colorLabel1": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel0_0": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel0_1": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel0_2": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel0_3": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel1_0": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel1_1": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel1_2": 153,
+  "ParticleSystem.CustomDataModule.vectorLabel1_3": 153,
+  "ParticleSystemRenderer.m_SelectedEditorRenderState": 153,
+  "ParticleSystemRenderer.m_StitchLightmapSeams": 153,
+  "Script:UnityEngine.Rendering.Universal.UniversalAdditionalLightData~positional.m_Version": 1,
+  "SpriteRenderer.m_SelectedEditorRenderState": 2,
+  "SpriteRenderer.m_StitchLightmapSeams": 2
+ },
+ "runtime_status": "NOT_RUN",
+ "scenes": [
+  {
+   "differentFields": {
+    "MeshRenderer.m_StitchLightmapSeams": 222,
+    "ParticleSystem.CustomDataModule.colorLabel0": 153,
+    "ParticleSystem.CustomDataModule.colorLabel1": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel0_0": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel0_1": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel0_2": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel0_3": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel1_0": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel1_1": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel1_2": 153,
+    "ParticleSystem.CustomDataModule.vectorLabel1_3": 153,
+    "ParticleSystemRenderer.m_SelectedEditorRenderState": 153,
+    "ParticleSystemRenderer.m_StitchLightmapSeams": 153,
+    "Script:UnityEngine.Rendering.Universal.UniversalAdditionalLightData~positional.m_Version": 1,
+    "SpriteRenderer.m_SelectedEditorRenderState": 2,
+    "SpriteRenderer.m_StitchLightmapSeams": 2
+   },
+   "examples": [
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "ScriptHolder/CameraGrid/GridBack",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "ScriptHolder/CameraGrid/GridBack",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "ScriptHolder/CameraGrid/Finger/Sprite",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "ScriptHolder/CameraGrid/Finger/Sprite",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_0",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "X"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_3",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "W"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_2",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "Z"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_1",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "Y"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_3",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "W"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.colorLabel0",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "Color"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_0",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "X"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_1",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "Y"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.colorLabel1",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "Color"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_2",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": null,
+     "source": "Z"
+    },
+    {
+     "component": "ParticleSystemRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "ParticleSystemRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "Script:UnityEngine.Rendering.Universal.UniversalAdditionalLightData~positional",
+     "field": "m_Version",
+     "object": "Directional Light",
+     "recovered": 3,
+     "source": 1
+    },
+    {
+     "component": "MeshRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "RoomManager/ChildrenBase",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "MeshRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Model",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "MeshRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Host",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_0",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "X"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_3",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "W"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_2",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "Z"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_1",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "Y"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_3",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "W"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.colorLabel0",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "Color"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_0",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "X"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_1",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "Y"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.colorLabel1",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "Color"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_2",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": null,
+     "source": "Z"
+    },
+    {
+     "component": "ParticleSystemRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "ParticleSystemRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_0",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "X"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_3",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "W"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_2",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "Z"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_1",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "Y"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_3",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "W"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.colorLabel0",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "Color"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel0_0",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "X"
+    },
+    {
+     "component": "ParticleSystem",
+     "field": "CustomDataModule.vectorLabel1_1",
+     "object": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail",
+     "recovered": null,
+     "source": "Y"
+    }
+   ],
+   "scene": "Assets/Gtap_MergeRoom/Scenes/Level_1.unity",
+   "status": "MEASURED",
+   "value_equality_rate": 0.9924,
+   "values": {
+    "ABSENT_IN_SOURCE": 3267,
+    "DIFFERENT": 2063,
+    "EQUAL": 269820,
+    "UNKNOWN": 431
+   }
+  },
+  {
+   "differentFields": {},
+   "examples": [],
+   "scene": "Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity",
+   "status": "MEASURED",
+   "value_equality_rate": 1.0,
+   "values": {
+    "EQUAL": 602,
+    "UNKNOWN": 11
+   }
+  }
+ ],
+ "total": {
+  "ABSENT_IN_SOURCE": 3267,
+  "DIFFERENT": 2063,
+  "EQUAL": 270422,
+  "UNKNOWN": 442
+ },
+ "value_equality_rate": 0.9924
+}

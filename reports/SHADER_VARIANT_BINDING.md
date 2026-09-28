@@ -59,8 +59,9 @@ thấy một program bị gán nhầm variant. Đó là lý do lỗi sống qua 
 
 Trên Pinata (2019.2), `ShaderSemanticModel.Read` ném `ArgumentNullException`: một serialized shader
 trước 2021 không có bảng tên keyword và không có `KeywordIndices`. Exception thoát khỏi export và kết
-thúc cả process với exit 134 — nên Pinata không rip được từ khi structured exporter xuất hiện. Hai sửa
-đổi:
+thúc cả process với exit 134. Dòng đó có từ iteration 057 (`9b268002`, 2026-09-18); rip Pinata cuối
+cùng trên đĩa là 2026-09-16, nên Pinata không rip được suốt từ 057 và không lần chạy nào thấy điều đó —
+ma trận bốn fixture không có Pinata. Hai sửa đổi:
 
 - `StructuredShaderTextExporter.TryExport` bắt lỗi đọc cấu trúc và rơi về canned pass như hợp đồng của
   nó vẫn nói, kèm một warning có tên shader. Một lỗi đọc cấu trúc của một shader không còn là lỗi của

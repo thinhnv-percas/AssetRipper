@@ -1,0 +1,6 @@
+== Assets/_Impostor 3/Scenes/Tutorial.unity: MEASURED {"ABSENT_IN_SOURCE": 324, "DIFFERENT": 18, "EQUAL": 4894, "UNKNOWN": 26}
+TOTAL {"ABSENT_IN_SOURCE": 324, "DIFFERENT": 18, "EQUAL": 4894, "UNKNOWN": 26}
+value_equality_rate 0.9963 runtime_status NOT_RUN
+       6 SpriteRenderer.m_SelectedEditorRenderState
+       6 SpriteRenderer.m_StitchLightmapSeams
+       3 MeshRenderer.m_StitchLightmapSeams

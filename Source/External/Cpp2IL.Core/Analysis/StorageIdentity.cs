@@ -124,13 +124,15 @@ public static class StorageIdentities
 
         foreach (var instruction in instructions)
         {
-            var destination = instruction.Destination;
+            var destinationAt = DestinationPosition(instruction);
 
             for (var position = 0; position < instruction.Operands.Count; position++)
             {
                 var operand = instruction.Operands[position];
 
-                if (ReferenceEquals(operand, destination) && operand is LocalVariable written)
+                // Only the destination's own position is a write: `Add v, v, 1` names one local as both
+                // the value written and a value read, and it is both.
+                if (position == destinationAt && operand is LocalVariable written)
                 {
                     Add(definitions, written, instruction.Index);
                     continue;
@@ -254,6 +256,17 @@ public static class StorageIdentities
         }
 
         return hazards;
+    }
+
+    /// <summary>
+    /// The position of <paramref name="instruction"/>'s destination among its operands, or -1. A
+    /// call's return value is operand 1, everything else that writes writes operand 0.
+    /// </summary>
+    public static int DestinationPosition(Instruction instruction)
+    {
+        if (instruction.Destination is null)
+            return -1;
+        return instruction.OpCode is OpCode.Call or OpCode.IndirectCall ? 1 : 0;
     }
 
     private static bool AddressLeaves(Instruction instruction, int position)

@@ -1,0 +1,17 @@
+{
+ "classes": 115,
+ "differences": [
+  {
+   "class": "ACTk.Runtime:CodeStage.AntiCheat.Detectors.WallHackDetector",
+   "differences": [
+    "MESSAGE_UNDER_UNDECIDED_BRANCH OnGUI"
+   ]
+  }
+ ],
+ "lifecycle_match_rate": 1.0,
+ "tally": {
+  "MATCH": 115,
+  "MESSAGES_COMPARED": 223,
+  "MESSAGE_UNDER_UNDECIDED_BRANCH": 1
+ }
+}

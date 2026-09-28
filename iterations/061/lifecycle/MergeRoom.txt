@@ -1,0 +1,3 @@
+classes compared 294: {"MATCH": 294, "MESSAGES_COMPARED": 636, "MESSAGE_UNDER_UNDECIDED_BRANCH": 1}
+lifecycle_match_rate 1.0
+  AlmostEngine.Shared:AlmostEngine.AutoSwitchToNewInputSystem: MESSAGE_UNDER_UNDECIDED_BRANCH Start

@@ -1,0 +1,140 @@
+{
+ "differentFields": {
+  "MeshRenderer.m_StitchLightmapSeams": 3,
+  "SpriteRenderer.m_SelectedEditorRenderState": 6,
+  "SpriteRenderer.m_StitchLightmapSeams": 6
+ },
+ "runtime_status": "NOT_RUN",
+ "scenes": [
+  {
+   "differentFields": {
+    "MeshRenderer.m_StitchLightmapSeams": 3,
+    "SpriteRenderer.m_SelectedEditorRenderState": 6,
+    "SpriteRenderer.m_StitchLightmapSeams": 6
+   },
+   "examples": [
+    {
+     "component": "MeshRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red)",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red)/ui_5backstepplus (1)",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red)/ui_5backstepplus (1)",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "MeshRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (1)",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (1)/ui_5backstepplus (2)",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (1)/ui_5backstepplus (2)",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "MeshRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (2)",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (2)/ui_5backstepplus",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (2)/ui_5backstepplus",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "GameScreen/Background",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "GameScreen/Background",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "Tutorial/noun_Hand",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "Tutorial/noun_Hand",
+     "recovered": 0,
+     "source": 1
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_SelectedEditorRenderState",
+     "object": "ui_rate_task",
+     "recovered": 3,
+     "source": 0
+    },
+    {
+     "component": "SpriteRenderer",
+     "field": "m_StitchLightmapSeams",
+     "object": "ui_rate_task",
+     "recovered": 0,
+     "source": 1
+    }
+   ],
+   "scene": "Assets/_Impostor 3/Scenes/Tutorial.unity",
+   "status": "MEASURED",
+   "value_equality_rate": 0.9963,
+   "values": {
+    "ABSENT_IN_SOURCE": 324,
+    "DIFFERENT": 18,
+    "EQUAL": 4894,
+    "UNKNOWN": 26
+   }
+  }
+ ],
+ "total": {
+  "ABSENT_IN_SOURCE": 324,
+  "DIFFERENT": 18,
+  "EQUAL": 4894,
+  "UNKNOWN": 26
+ },
+ "value_equality_rate": 0.9963
+}

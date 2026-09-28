@@ -1,0 +1,2 @@
+classes compared 14: {"MATCH": 14, "MESSAGES_COMPARED": 27}
+lifecycle_match_rate 1.0

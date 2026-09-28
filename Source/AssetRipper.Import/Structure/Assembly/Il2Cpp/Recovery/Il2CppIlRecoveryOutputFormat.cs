@@ -2857,6 +2857,27 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				}
 			}
 
+			var scanRegions = Cpp2IL.Core.Analysis.InterfaceScanRegionClassifier.Counts;
+
+			if (scanRegions.Count > 0)
+			{
+				Logger.Info(LogCategory.Import,
+					$"Il2Cpp method body recovery: {scanRegions.Sum(pair => pair.Value)} interface offset scan regions survived in "
+					+ $"{Cpp2IL.Core.Analysis.InterfaceScanRegionClassifier.BodiesWithScans} bodies, "
+					+ $"by what the proof said ({Cpp2IL.Core.Analysis.InterfaceScanRegionClassifier.InstructionsInProvenRegions} instructions and "
+					+ $"{Cpp2IL.Core.Analysis.InterfaceScanRegionClassifier.LoadsInProvenRegions} memory reads in the regions proven dead; nothing removed):");
+
+				foreach ((var verdict, int count) in scanRegions)
+				{
+					Logger.Info(LogCategory.Import, $"      {count,7} {verdict}");
+				}
+
+				foreach ((string shape, int count) in Cpp2IL.Core.Analysis.InterfaceScanRegionClassifier.EscapeCounts)
+				{
+					Logger.Info(LogCategory.Import, $"      {count,7}   escapes into: {shape}");
+				}
+			}
+
 			if (unresolvedLoadKinds.IsEmpty)
 			{
 				return;

@@ -70,6 +70,10 @@ và rip giống hệt khi có hay không có handler.
 | Address-taken / escaping | 911 / 751 | 1357 / 893 |
 | **Hazard**: một vị trí máy nằm ở nhiều chỗ IL khi địa chỉ bị lấy | **22** (21 escaping) | **103** (102 escaping) |
 
+Số của bảng trên đo trước khi sửa walker (`Add v, v, 1` từng được đếm là hai định nghĩa và không lần
+đọc nào, xem `INTERFACE_SCAN_REGIONS.md`); sau sửa Impostor là Temporary 34513 / Local 23554, hazard
+không đổi (22). Merge-Room 68 hazard, JellyBlastV2 81.
+
 Hazard là dạng tổng quát của lỗi 058/059: ghi qua địa chỉ tới một chỗ, đọc một chỗ khác không thấy.
 Gần như tất cả đều là ô spill (`stack:-58` trong `ObscuredPrefs.DecryptValue`, `stack:-C0` trong
 `Spine.Skin.AddSkin`) có địa chỉ được đưa cho một call. **UNKNOWN**: chưa xác lập được cái nào là mất
