@@ -1,0 +1,7 @@
+== MergeRoom ==
+anchors  code AGREE (AR 0x37fd758, reader 0x37fd758, r2unity 0x0)  metadata AGREE
+methodPointers {"compared": 83496, "nonZeroInReader": 74410, "codegenModuleEntry_AR_vs_READER": {"AGREE": 83496}, "finalAttribution_AR_vs_READER": {"AGREE": 76926, "AR_INTERPRETATION": 6570}, "R2UNITY_anchorFromReader_vs_READER": {"DISAGREE": 31107, "AGREE": 52389}, "R2UNITY_ownDiscovery_vs_READER": {"DISAGREE": 76863, "AGREE": 6633}, "R2UNITY_ownDiscoveryRelocated_vs_READER": {"DISAGREE": 74710, "AGREE": 8786}, "R2UNITY_disagreementCause": {"R2UNITY_SEQUENTIAL_SCATTER": 31107, "UNEXPLAINED": 0}, "R2UNITY_getterArbiter": {"NEITHER": 91, "ONLY_READER": 359, "BOTH": 4}, "genericMethodPointerCount": {"AR": 82624, "READER": 82624, "R2UNITY": 82624, "status": "AGREE"}}
+fieldLayout    {"AR_vs_READER": {"AGREE": 55733}, "R2UNITY": "R2UNITY_UNAVAILABLE", "valueTypeFrame": {"valueTypeInstanceRawIncludesHeader": 8104, "valueTypeStatic": 13614, "valueTypeGenericDefinitionNoLayout": 412}}
+typeSizes      {"AR_vs_READER": {"AGREE": 12895}, "R2UNITY": "R2UNITY_UNAVAILABLE"}
+generic        {"rows": 82828, "AR_vs_READER": {"AGREE": 82828}, "byInstantiationShape": {"class:AGREE": 66749, "class+method:AGREE": 351, "method:AGREE": 15728}, "R2UNITY": "R2UNITY_UNAVAILABLE"}
+generic focus  {"System.Collections.Generic.List`1::Add:AGREE": 173, "System.Collections.Generic.List`1::get_Item:AGREE": 173}

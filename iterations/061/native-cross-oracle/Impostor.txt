@@ -1,0 +1,7 @@
+== Impostor ==
+anchors  code AGREE (AR 0x185af98, reader 0x185af98, r2unity 0x0)  metadata AGREE
+methodPointers {"compared": 33436, "nonZeroInReader": 29143, "codegenModuleEntry_AR_vs_READER": {"AGREE": 33436}, "finalAttribution_AR_vs_READER": {"AGREE": 30392, "AR_INTERPRETATION": 3044}, "R2UNITY_anchorFromReader_vs_READER": {"DISAGREE": 11846, "AGREE": 21590}, "R2UNITY_ownDiscovery_vs_READER": {"DISAGREE": 29149, "AGREE": 4287}, "R2UNITY_ownDiscoveryRelocated_vs_READER": {"DISAGREE": 29228, "AGREE": 4208}, "R2UNITY_disagreementCause": {"R2UNITY_SEQUENTIAL_SCATTER": 11846, "UNEXPLAINED": 0}, "R2UNITY_getterArbiter": {"NEITHER": 25, "ONLY_READER": 148, "BOTH": 13}, "genericMethodPointerCount": {"AR": 36473, "READER": 36473, "R2UNITY": 36473, "status": "AGREE"}}
+fieldLayout    {"AR_vs_READER": {"AGREE": 21208}, "R2UNITY": "R2UNITY_UNAVAILABLE", "valueTypeFrame": {"valueTypeInstanceRawIncludesHeader": 3558, "valueTypeStatic": 5833, "valueTypeGenericDefinitionNoLayout": 239}}
+typeSizes      {"AR_vs_READER": {"AGREE": 5012}, "R2UNITY": "R2UNITY_UNAVAILABLE"}
+generic        {"rows": 36577, "AR_vs_READER": {"AGREE": 36577}, "byInstantiationShape": {"class:AGREE": 30039, "class+method:AGREE": 99, "method:AGREE": 6439}, "R2UNITY": "R2UNITY_UNAVAILABLE"}
+generic focus  {"System.Collections.Generic.List`1::Add:AGREE": 80, "System.Collections.Generic.List`1::get_Item:AGREE": 80}

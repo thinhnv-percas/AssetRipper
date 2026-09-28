@@ -122,6 +122,7 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 		ReportEncryptedRegions(appContext);
 		ReportAssemblies(appContext);
 		ReportFieldLayoutSelfCheck(appContext);
+		NativeFactsDump.WriteIfRequested(appContext);
 
 		if (!CanProduceMethodBodies(instructionSet))
 		{

@@ -1,0 +1,257 @@
+{
+  "anchors": {
+    "codeRegistration": {
+      "AR": "0x20c56f8",
+      "READER": "0x20c56f8",
+      "R2UNITY": "0x0",
+      "status": "AGREE"
+    },
+    "metadataRegistration": {
+      "AR": "0x2169a70",
+      "READER": "0x2169a70",
+      "R2UNITY": "0x0",
+      "status": "AGREE"
+    },
+    "r2unityOwnDiscovery": {
+      "version": 31,
+      "unity_range": "2023.x-6000.x",
+      "has_ptrs": true,
+      "native_source": "heuristic",
+      "code_registration": 0,
+      "metadata_registration": 0,
+      "method_pointers": 8461814,
+      "code_gen_modules": 0,
+      "native_tables": {}
+    },
+    "r2unityOwnDiscoveryOnRelocatedCopy": {
+      "version": 31,
+      "unity_range": "2023.x-6000.x",
+      "has_ptrs": true,
+      "native_source": "heuristic",
+      "code_registration": 0,
+      "metadata_registration": 0,
+      "method_pointers": 35486224,
+      "code_gen_modules": 0,
+      "native_tables": {}
+    },
+    "readerNotes": []
+  },
+  "methodPointers": {
+    "compared": 51393,
+    "nonZeroInReader": 45524,
+    "codegenModuleEntry_AR_vs_READER": {
+      "AGREE": 51393
+    },
+    "finalAttribution_AR_vs_READER": {
+      "AGREE": 47457,
+      "AR_INTERPRETATION": 3936
+    },
+    "R2UNITY_anchorFromReader_vs_READER": {
+      "DISAGREE": 17815,
+      "AGREE": 33578
+    },
+    "R2UNITY_ownDiscovery_vs_READER": {
+      "DISAGREE": 45526,
+      "AGREE": 5867
+    },
+    "R2UNITY_ownDiscoveryRelocated_vs_READER": {
+      "DISAGREE": 45753,
+      "AGREE": 5640
+    },
+    "R2UNITY_disagreementCause": {
+      "R2UNITY_SEQUENTIAL_SCATTER": 17815,
+      "UNEXPLAINED": 0
+    },
+    "R2UNITY_getterArbiter": {
+      "NEITHER": 27,
+      "ONLY_READER": 238,
+      "BOTH": 4
+    },
+    "genericMethodPointerCount": {
+      "AR": 44058,
+      "READER": 44058,
+      "R2UNITY": 44058,
+      "status": "AGREE"
+    }
+  },
+  "fieldLayout": {
+    "AR_vs_READER": {
+      "AGREE": 30189
+    },
+    "R2UNITY": "R2UNITY_UNAVAILABLE",
+    "valueTypeFrame": {
+      "valueTypeInstanceRawIncludesHeader": 4773,
+      "valueTypeStatic": 8788,
+      "valueTypeGenericDefinitionNoLayout": 278
+    }
+  },
+  "typeSizes": {
+    "AR_vs_READER": {
+      "AGREE": 7486
+    },
+    "R2UNITY": "R2UNITY_UNAVAILABLE"
+  },
+  "generic": {
+    "rows": 44205,
+    "AR_vs_READER": {
+      "AGREE": 44205
+    },
+    "byInstantiationShape": {
+      "class:AGREE": 36731,
+      "class+method:AGREE": 399,
+      "method:AGREE": 7075
+    },
+    "focus": {
+      "System.Collections.Generic.List`1::Add:AGREE": 92,
+      "System.Collections.Generic.List`1::get_Item:AGREE": 92
+    },
+    "R2UNITY": "R2UNITY_UNAVAILABLE"
+  },
+  "examples": {
+    "methodR2Disagree": [
+      {
+        "index": 3,
+        "name": ".ctor",
+        "R2UNITY": "0x175c588",
+        "READER": "0x175cca0"
+      },
+      {
+        "index": 4,
+        "name": ".ctor",
+        "R2UNITY": "0x175cae4",
+        "READER": "0x175cd0c"
+      },
+      {
+        "index": 5,
+        "name": "get_Error",
+        "R2UNITY": "0x175cc38",
+        "READER": "0x175cd18"
+      },
+      {
+        "index": 6,
+        "name": "get_RawErrno",
+        "R2UNITY": "0x175cca0",
+        "READER": "0x175cb68"
+      },
+      {
+        "index": 7,
+        "name": "GetErrorMessage",
+        "R2UNITY": "0x175cd0c",
+        "READER": "0x175cbd4"
+      },
+      {
+        "index": 8,
+        "name": "ToString",
+        "R2UNITY": "0x175cd18",
+        "READER": "0x175ce20"
+      },
+      {
+        "index": 33,
+        "name": "GetName",
+        "R2UNITY": "0x175cb68",
+        "READER": "0x175d5d4"
+      },
+      {
+        "index": 9,
+        "name": "GetLastErrorInfo",
+        "R2UNITY": "0x175cbd4",
+        "READER": "0x175cef4"
+      }
+    ],
+    "methodGenericAttribution": [
+      {
+        "index": 478,
+        "name": "IsCachedInvalidHandle",
+        "module": "0x0",
+        "AR": "0x1537218"
+      },
+      {
+        "index": 654,
+        "name": "Create",
+        "module": "0x0",
+        "AR": "0xfcdf08"
+      },
+      {
+        "index": 863,
+        "name": ".ctor",
+        "module": "0x0",
+        "AR": "0x10f6268"
+      },
+      {
+        "index": 864,
+        "name": "Invoke",
+        "module": "0x0",
+        "AR": "0x10f62f4"
+      },
+      {
+        "index": 865,
+        "name": ".ctor",
+        "module": "0x0",
+        "AR": "0x10faf8c"
+      },
+      {
+        "index": 866,
+        "name": "Invoke",
+        "module": "0x0",
+        "AR": "0x10fb018"
+      },
+      {
+        "index": 867,
+        "name": ".ctor",
+        "module": "0x0",
+        "AR": "0x10fbba0"
+      },
+      {
+        "index": 868,
+        "name": "Invoke",
+        "module": "0x0",
+        "AR": "0x10fbc2c"
+      }
+    ]
+  },
+  "r2unityAnchoredInput": "RELOCATED_BY_READER + ANCHOR_FROM_READER",
+  "fixture": "RunFromZombies",
+  "structDb": "2022.3.62f2",
+  "binary": {
+    "format": "ELF",
+    "relocations": 225108,
+    "encryptedRanges": [],
+    "chainedFixups": false
+  },
+  "r2unityAnchored": {
+    "version": 31,
+    "unity_range": "2023.x-6000.x",
+    "has_ptrs": true,
+    "native_source": "override",
+    "code_registration": 34363128,
+    "metadata_registration": 0,
+    "method_pointers": 35874304,
+    "code_gen_modules": 35874304,
+    "native_tables": {
+      "reversePInvokeWrappers": {
+        "count": 9,
+        "va": 34432096
+      },
+      "genericMethodPointers": {
+        "count": 44058,
+        "va": 34683296
+      },
+      "genericAdjustorThunks": {
+        "count": 44058,
+        "va": 34478336
+      },
+      "invokerPointers": {
+        "count": 8604,
+        "va": 34363264
+      },
+      "unresolvedInstanceCallPointers": {
+        "count": 1865,
+        "va": 34432168
+      },
+      "interopData": {
+        "count": 465,
+        "va": 35874736
+      }
+    }
+  }
+}

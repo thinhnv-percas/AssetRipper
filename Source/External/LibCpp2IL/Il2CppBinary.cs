@@ -51,6 +51,69 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
 
     public abstract long RawLength { get; }
 
+    /// <summary>AssetRipper: the virtual address <c>Il2CppCodeRegistration</c> was read from, or 0.</summary>
+    public ulong CodeRegistrationAddress { get; private set; }
+
+    /// <summary>AssetRipper: the virtual address <c>Il2CppMetadataRegistration</c> was read from, or 0.</summary>
+    public ulong MetadataRegistrationAddress { get; private set; }
+
+    /// <summary>AssetRipper: the generic method pointer table as read, indexed by a generic method table entry's <c>methodIndex</c>.</summary>
+    public IReadOnlyList<ulong> GenericMethodPointers => _genericMethodPointers;
+
+    /// <summary>
+    /// AssetRipper: a field offset exactly as the native table holds it, with no conversion into the
+    /// value type frame. <see cref="GetFieldOffsetFromIndex"/> subtracts the object header for an
+    /// instance field of a value type; this does not, because a cross-check has to compare what the
+    /// binary says before comparing what either reader made of it. Null where the table cannot be
+    /// read, including a table whose bytes are ciphertext.
+    /// </summary>
+    public int? ReadRawFieldOffset(int typeIndex, int fieldIndexInType)
+    {
+        if (MetadataVersion <= 21 || typeIndex < 0 || typeIndex >= _fieldOffsets.Length)
+            return null;
+
+        var ptr = (ulong)_fieldOffsets[typeIndex];
+
+        if (ptr == 0 || IsVirtualAddressEncrypted(ptr) || !TryMapVirtualAddressToRaw(ptr + 4ul * (ulong)fieldIndexInType, out var raw))
+            return null;
+
+        GetLockOrThrow();
+        try
+        {
+            Position = raw;
+            return (int)ReadPrimitive(typeof(int))!;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            ReleaseLock();
+        }
+    }
+
+    /// <summary>AssetRipper: the <c>Il2CppTypeDefinitionSizes</c> of a type, or null where it cannot be read.</summary>
+    public Il2CppTypeDefinitionSizes? ReadTypeDefinitionSizes(int typeIndex)
+    {
+        if (typeIndex < 0 || typeIndex >= TypeDefinitionSizePointers.Length)
+            return null;
+
+        var ptr = TypeDefinitionSizePointers[typeIndex];
+
+        if (ptr == 0 || IsVirtualAddressEncrypted(ptr))
+            return null;
+
+        try
+        {
+            return ReadReadableAtVirtualAddress<Il2CppTypeDefinitionSizes>(ptr);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
     public int PointerSizeBytes => is32Bit ? 4 : 8;
 
     public int NumTypes => _types.Length;
@@ -117,6 +180,11 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
 
         _codeRegistration = cr;
         _metadataRegistration = mr;
+
+        // AssetRipper: recorded so an independent reader can check where the two structs were found.
+        // Zero when the fallback locator produced a struct without saying where it read it from.
+        CodeRegistrationAddress = pCodeRegistration;
+        MetadataRegistrationAddress = pMetadataRegistration;
         
         InBinaryMetadataSize += GetNumBytesReadSinceLastCallAndClear();
 
