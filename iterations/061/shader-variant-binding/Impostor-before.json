@@ -1,0 +1,95 @@
+{
+ "bindings": {
+  "BOUND_EXACT": 2,
+  "BOUND_MODULO_ENGINE": 2,
+  "NO_COMPILED_VARIANT": 2,
+  "PROGRAM_NOT_RECOVERED": 2,
+  "VARIANT_BINDING_WRONG": 1
+ },
+ "examples": {
+  "NO_COMPILED_VARIANT": [
+   {
+    "backend": "GLES",
+    "exportedKeywords": [
+     "OUTLINE_ON",
+     "UNDERLAY_ON"
+    ],
+    "exportedVariant": 3,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF Material_0.mat",
+    "material": "LiberationSans SDF Material",
+    "materialKeywords": [
+     "OUTLINE_ON"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   },
+   {
+    "backend": "GLES",
+    "exportedKeywords": [
+     "OUTLINE_ON",
+     "UNDERLAY_ON"
+    ],
+    "exportedVariant": 3,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat",
+    "material": "LiberationSans SDF - Outline",
+    "materialKeywords": [
+     "OUTLINE_ON"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   }
+  ],
+  "VARIANT_BINDING_WRONG": [
+   {
+    "backend": "GLES",
+    "exportedKeywords": [
+     "OUTLINE_ON",
+     "UNDERLAY_ON"
+    ],
+    "exportedVariant": 3,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF Material.mat",
+    "material": "LiberationSans SDF Material",
+    "materialKeywords": [],
+    "pass": "0.0",
+    "selectableVariants": [
+     1,
+     4,
+     7,
+     10,
+     25,
+     28,
+     31,
+     34
+    ],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   }
+  ]
+ },
+ "game": "Impostor",
+ "materialScope": {
+  "BUILTIN_SHADER": 4
+ },
+ "materials": 11,
+ "perShader": {
+  "Spine/Skeleton": {
+   "BOUND_MODULO_ENGINE": 2,
+   "PROGRAM_NOT_RECOVERED": 2,
+   "materials": 2
+  },
+  "TextMeshPro/Mobile/Distance Field": {
+   "BOUND_EXACT": 1,
+   "NO_COMPILED_VARIANT": 2,
+   "VARIANT_BINDING_WRONG": 1,
+   "materials": 4
+  },
+  "TextMeshPro/Sprite": {
+   "BOUND_EXACT": 1,
+   "materials": 1
+  }
+ },
+ "status": "MEASURED",
+ "variant_binding_decided": 7,
+ "variant_binding_rate": 0.5714
+}

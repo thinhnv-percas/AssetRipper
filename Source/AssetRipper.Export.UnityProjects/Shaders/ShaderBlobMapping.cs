@@ -31,7 +31,7 @@ public static class ShaderBlobMapping
 		string Stage,
 		int Variant,
 		string Backend,
-		IReadOnlyList<string> Keywords,
+		IReadOnlyList<string>? Keywords,
 		int BlobIndex,
 		int ParameterBlobIndex,
 		string ProgramEncoding,
@@ -78,7 +78,7 @@ public static class ShaderBlobMapping
 							program.Stage,
 							variant,
 							backend,
-							variant < program.KeywordSets.Count ? program.KeywordSets[variant] : [],
+							!program.KeywordsKnown ? null : variant < program.KeywordSets.Count ? program.KeywordSets[variant] : [],
 							program.BlobIndices[variant],
 							parameterBlob,
 							code?.Encoding.ToString().ToUpperInvariant() ?? "NOT_IN_TABLE",
@@ -137,19 +137,27 @@ public static class ShaderBlobMapping
 			builder.Append(", \"stage\": ").Append(Quote(row.Stage));
 			builder.Append(", \"variant\": ").Append(row.Variant);
 			builder.Append(", \"backend\": ").Append(Quote(row.Backend));
-			builder.Append(", \"keywords\": [");
-
-			for (int keyword = 0; keyword < row.Keywords.Count; keyword++)
+			if (row.Keywords is null)
 			{
-				if (keyword > 0)
+				// Not recorded by this version: null, which a reader cannot mistake for "no keywords".
+				builder.Append(", \"keywords\": null");
+			}
+			else
+			{
+				builder.Append(", \"keywords\": [");
+
+				for (int keyword = 0; keyword < row.Keywords.Count; keyword++)
 				{
-					builder.Append(", ");
+					if (keyword > 0)
+					{
+						builder.Append(", ");
+					}
+
+					builder.Append(Quote(row.Keywords[keyword]));
 				}
 
-				builder.Append(Quote(row.Keywords[keyword]));
+				builder.Append(']');
 			}
-
-			builder.Append(']');
 			builder.Append(", \"blobIndex\": ").Append(row.BlobIndex);
 			builder.Append(", \"parameterBlobIndex\": ").Append(row.ParameterBlobIndex);
 			builder.Append(", \"programEncoding\": ").Append(Quote(row.ProgramEncoding));

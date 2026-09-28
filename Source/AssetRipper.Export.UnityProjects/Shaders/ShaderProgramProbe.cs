@@ -207,7 +207,7 @@ public static class ShaderProgramProbe
 					? ((GPUPlatform)shader.Platforms[platform]).ToString()
 					: "?";
 
-				var entries = ReadEntryTable(decompressed);
+				var entries = ReadEntryTable(decompressed, segments[platform].ConvertAll(segment => segment.Decompressed));
 
 				// The index is the entry's position in this platform's table, because that is what a
 				// sub-program's BlobIndex names. A running counter across platforms would look the
@@ -312,36 +312,102 @@ public static class ShaderProgramProbe
 
 	/// <summary>
 	/// The sub-program entry table at the head of a decompressed platform blob: a count, then one
-	/// (offset, length) pair per sub-program, both into the same buffer.
+	/// entry per sub-program - <c>(offset, length)</c> in a flat blob, <c>(offset, length, segment)</c>
+	/// in a segmented one.
 	/// </summary>
 	/// <remarks>
-	/// Read defensively and validated against the buffer rather than trusted: a table that does not
-	/// fit is reported as no entries, which is the honest answer, not a reason to throw somewhere else.
+	/// <para>
+	/// AssetRipper: iteration 061 found this reading every blob with the two-int stride. A segmented
+	/// blob's table carries a third int per entry, the segment, so only every third pair lined up with
+	/// a real entry and the others read as <c>(0, n)</c> - a span from the start of the blob, header
+	/// included, that ran through several programs. Every recovered program was therefore attributed
+	/// to the wrong variant's keywords, and a "program" could be several programs end to end, which is
+	/// the "length that reaches the end of the whole platform blob" iteration 058 had to cut short.
+	/// </para>
+	/// <para>
+	/// The layout is not assumed from the Unity version or from the asset's shape. Each layout says
+	/// where the first program must begin - immediately after the table it describes - and only the
+	/// right one can agree with the offsets it reads. A table that fits neither, or both, is reported
+	/// as no entries: that is the honest answer, and a guess here misattributes every program.
+	/// </para>
+	/// <para>
+	/// An entry that does not fit keeps its position as an empty entry, because its position is the
+	/// <c>BlobIndex</c> a sub-program names; dropping it would shift every later program by one.
+	/// </para>
 	/// </remarks>
-	private static List<(int Offset, int Length)> ReadEntryTable(byte[] blob)
+	/// <param name="blob">The platform's decompressed blob, all of its segments concatenated.</param>
+	/// <param name="segmentLengths">Each segment's decompressed length, in order.</param>
+	public static List<(int Offset, int Length)> ReadEntryTable(byte[] blob, IReadOnlyList<int> segmentLengths)
 	{
-		List<(int, int)> entries = [];
-
 		if (blob.Length < 4)
-			return entries;
+			return [];
 
 		int count = BitConverter.ToInt32(blob, 0);
 
-		if (count <= 0 || count > 0x100000 || 4 + count * 8 > blob.Length)
-			return entries;
+		if (count <= 0 || count > 0x100000)
+			return [];
+
+		List<int> segmentStarts = [0];
+		foreach (int length in segmentLengths)
+			segmentStarts.Add(segmentStarts[^1] + length);
+
+		List<(int, int)>? chosen = null;
+
+		foreach (int stride in (ReadOnlySpan<int>)[12, 8])
+		{
+			var read = ReadEntries(blob, count, stride, segmentStarts);
+
+			if (read is null)
+				continue;
+
+			if (chosen is not null)
+				return [];   // both layouts agree with the bytes: not decidable, so not decided
+
+			chosen = read;
+		}
+
+		return chosen ?? [];
+	}
+
+	private static List<(int, int)>? ReadEntries(byte[] blob, int count, int stride, List<int> segmentStarts)
+	{
+		int header = 4 + count * stride;
+
+		if (header > blob.Length)
+			return null;
+
+		List<(int, int)> entries = new(count);
+		int firstProgram = int.MaxValue;
 
 		for (int index = 0; index < count; index++)
 		{
-			int offset = BitConverter.ToInt32(blob, 4 + index * 8);
-			int length = BitConverter.ToInt32(blob, 8 + index * 8);
+			int at = 4 + index * stride;
+			int offset = BitConverter.ToInt32(blob, at);
+			int length = BitConverter.ToInt32(blob, at + 4);
+			int segment = stride == 12 ? BitConverter.ToInt32(blob, at + 8) : 0;
 
-			if (offset < 0 || length < 0 || offset + length > blob.Length)
+			if (segment < 0 || segment + 1 >= segmentStarts.Count || offset < 0 || length < 0)
+			{
+				entries.Add((0, 0));
 				continue;
+			}
 
-			entries.Add((offset, length));
+			long absolute = (long)segmentStarts[segment] + offset;
+
+			if (absolute + length > blob.Length || (segment > 0 && offset + length > segmentStarts[segment + 1] - segmentStarts[segment]))
+			{
+				entries.Add((0, 0));
+				continue;
+			}
+
+			if (segment == 0 && length > 0)
+				firstProgram = Math.Min(firstProgram, offset);
+
+			entries.Add(((int)absolute, length));
 		}
 
-		return entries;
+		// The table describes itself: the first program in the first segment begins where it ends.
+		return firstProgram == header ? entries : null;
 	}
 
 	/// <summary>

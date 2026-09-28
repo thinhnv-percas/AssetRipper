@@ -35,6 +35,9 @@ public static class ShaderProgramExtractor
 				builder.Append(", \"platform\": ").Append(program.Platform);
 				builder.Append(", \"backend\": ").Append(Quote(program.Backend));
 				builder.Append(", \"encoding\": ").Append(Quote(program.Encoding.ToString().ToUpperInvariant()));
+				var (kind, recoverability) = CompiledShaderProgram.KindOf(program);
+				builder.Append(", \"programKind\": ").Append(Quote(kind.ToString()));
+				builder.Append(", \"recoverability\": ").Append(Quote(recoverability.ToString()));
 				builder.Append(", \"compressed\": true");
 				builder.Append(", \"blobShape\": ").Append(Quote(shader.BlobShape));
 				builder.Append(", \"offset\": ").Append(program.Offset);

@@ -1,0 +1,122 @@
+{
+ "bindings": {
+  "BOUND_EXACT": 3,
+  "BOUND_MODULO_ENGINE": 2,
+  "VARIANT_BINDING_WRONG": 4
+ },
+ "examples": {
+  "VARIANT_BINDING_WRONG": [
+   {
+    "backend": "GLES",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Material/TextMeshPro_Sprite.mat",
+    "material": "TextMeshPro/Sprite",
+    "materialKeywords": [
+     "UNITY_UI_CLIP_RECT"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     3,
+     4,
+     11,
+     12,
+     19,
+     20
+    ],
+    "shader": "TextMeshPro/Sprite"
+   },
+   {
+    "backend": "GLES",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF Material_0.mat",
+    "material": "LiberationSans SDF Material",
+    "materialKeywords": [
+     "OUTLINE_ON"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     2,
+     5,
+     8,
+     11,
+     26,
+     29,
+     32,
+     35
+    ],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   },
+   {
+    "backend": "GLES",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Drop Shadow.mat",
+    "material": "LiberationSans SDF - Drop Shadow",
+    "materialKeywords": [
+     "OUTLINE_ON",
+     "UNDERLAY_ON"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     3,
+     6,
+     9,
+     12,
+     27,
+     30,
+     33,
+     36
+    ],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   },
+   {
+    "backend": "GLES",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat",
+    "material": "LiberationSans SDF - Outline",
+    "materialKeywords": [
+     "OUTLINE_ON"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     2,
+     5,
+     8,
+     11,
+     26,
+     29,
+     32,
+     35
+    ],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   }
+  ]
+ },
+ "game": "Impostor",
+ "materialScope": {
+  "BUILTIN_SHADER": 4
+ },
+ "materials": 11,
+ "perShader": {
+  "Spine/Skeleton": {
+   "BOUND_EXACT": 2,
+   "BOUND_MODULO_ENGINE": 2,
+   "materials": 2
+  },
+  "TextMeshPro/Mobile/Distance Field": {
+   "BOUND_EXACT": 1,
+   "VARIANT_BINDING_WRONG": 3,
+   "materials": 4
+  },
+  "TextMeshPro/Sprite": {
+   "VARIANT_BINDING_WRONG": 1,
+   "materials": 1
+  }
+ },
+ "status": "MEASURED",
+ "variant_binding_decided": 9,
+ "variant_binding_rate": 0.5556
+}

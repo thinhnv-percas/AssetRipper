@@ -1,0 +1,15 @@
+game JellyBlastV2: 60 materials; scope {"BUILTIN_SHADER": 18, "MATERIAL_WITHOUT_SHADER": 5}
+bindings {"PROGRAM_NOT_RECOVERED": 43}
+variant_binding_rate None over 0 decided
+  Custom/SpecialFluid: {"PROGRAM_NOT_RECOVERED": 3, "materials": 3}
+  Custom/Glass2: {"PROGRAM_NOT_RECOVERED": 4, "materials": 2}
+  Custom/PowerUpParticles: {"PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  Custom/UITransition: {"PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  Custom/Octopus: {"PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  TextMeshPro/Distance Field Overlay: {"PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  Custom/Mud: {"PROGRAM_NOT_RECOVERED": 2, "materials": 2}
+  Custom/Ice: {"PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  Custom/UIButton: {"PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  Custom/ParticlesEmission: {"PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  Custom/Water: {"PROGRAM_NOT_RECOVERED": 4, "materials": 2}
+  TextMeshPro/Sprite: {"PROGRAM_NOT_RECOVERED": 2, "materials": 2}

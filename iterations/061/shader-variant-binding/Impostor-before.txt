@@ -1,0 +1,11 @@
+game Impostor: 11 materials; scope {"BUILTIN_SHADER": 4}
+bindings {"BOUND_EXACT": 2, "BOUND_MODULO_ENGINE": 2, "NO_COMPILED_VARIANT": 2, "PROGRAM_NOT_RECOVERED": 2, "VARIANT_BINDING_WRONG": 1}
+variant_binding_rate 0.5714 over 7 decided
+  TextMeshPro/Mobile/Distance Field: {"BOUND_EXACT": 1, "NO_COMPILED_VARIANT": 2, "VARIANT_BINDING_WRONG": 1, "materials": 4}
+  Spine/Skeleton: {"BOUND_MODULO_ENGINE": 2, "PROGRAM_NOT_RECOVERED": 2, "materials": 2}
+  TextMeshPro/Sprite: {"BOUND_EXACT": 1, "materials": 1}
+-- VARIANT_BINDING_WRONG
+   {'material': 'LiberationSans SDF Material', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF Material.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES', 'materialKeywords': [], 'exportedVariant': 3, 'exportedKeywords': ['OUTLINE_ON', 'UNDERLAY_ON'], 'selectableVariants': [1, 4, 7, 10, 25, 28, 31, 34]}
+-- NO_COMPILED_VARIANT
+   {'material': 'LiberationSans SDF Material', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF Material_0.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES', 'materialKeywords': ['OUTLINE_ON'], 'exportedVariant': 3, 'exportedKeywords': ['OUTLINE_ON', 'UNDERLAY_ON'], 'selectableVariants': []}
+   {'material': 'LiberationSans SDF - Outline', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES', 'materialKeywords': ['OUTLINE_ON'], 'exportedVariant': 3, 'exportedKeywords': ['OUTLINE_ON', 'UNDERLAY_ON'], 'selectableVariants': []}

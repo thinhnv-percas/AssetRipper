@@ -1,0 +1,14 @@
+game Pinata: 64 materials; scope {"BUILTIN_SHADER": 17}
+bindings {"KEYWORDS_NOT_RECORDED": 53}
+variant_binding_rate None over 0 decided
+  Hidden/Toony Colors Pro 2/Variants/Mobile Specular: {"KEYWORDS_NOT_RECORDED": 12, "materials": 12}
+  Hidden/Toony Colors Pro 2/Variants/Mobile RimOutline: {"KEYWORDS_NOT_RECORDED": 20, "materials": 20}
+  Toony Colors Pro 2/Mobile: {"KEYWORDS_NOT_RECORDED": 2, "materials": 2}
+  Hidden/Toony Colors Pro 2/Variants/Mobile Rim: {"KEYWORDS_NOT_RECORDED": 1, "materials": 1}
+  Kirnu/Marvelous/LinearGradientBGImage: {"KEYWORDS_NOT_RECORDED": 1, "materials": 1}
+  TextMeshPro/Sprite: {"KEYWORDS_NOT_RECORDED": 1, "materials": 1}
+  Toony Colors Pro 2/Standard PBS: {"KEYWORDS_NOT_RECORDED": 6, "materials": 1}
+  Obi/DistanceFieldSlice: {"KEYWORDS_NOT_RECORDED": 1, "materials": 1}
+  Obi/Simple Particles: {"KEYWORDS_NOT_RECORDED": 2, "materials": 1}
+  TextMeshPro/Mobile/Distance Field: {"KEYWORDS_NOT_RECORDED": 4, "materials": 4}
+  TextMeshPro/Distance Field: {"KEYWORDS_NOT_RECORDED": 3, "materials": 3}

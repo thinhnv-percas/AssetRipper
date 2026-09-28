@@ -1,0 +1,60 @@
+{
+ "bindings": {
+  "KEYWORDS_NOT_RECORDED": 53
+ },
+ "examples": {},
+ "game": "Pinata",
+ "materialScope": {
+  "BUILTIN_SHADER": 17
+ },
+ "materials": 64,
+ "perShader": {
+  "Hidden/Toony Colors Pro 2/Variants/Mobile Rim": {
+   "KEYWORDS_NOT_RECORDED": 1,
+   "materials": 1
+  },
+  "Hidden/Toony Colors Pro 2/Variants/Mobile RimOutline": {
+   "KEYWORDS_NOT_RECORDED": 20,
+   "materials": 20
+  },
+  "Hidden/Toony Colors Pro 2/Variants/Mobile Specular": {
+   "KEYWORDS_NOT_RECORDED": 12,
+   "materials": 12
+  },
+  "Kirnu/Marvelous/LinearGradientBGImage": {
+   "KEYWORDS_NOT_RECORDED": 1,
+   "materials": 1
+  },
+  "Obi/DistanceFieldSlice": {
+   "KEYWORDS_NOT_RECORDED": 1,
+   "materials": 1
+  },
+  "Obi/Simple Particles": {
+   "KEYWORDS_NOT_RECORDED": 2,
+   "materials": 1
+  },
+  "TextMeshPro/Distance Field": {
+   "KEYWORDS_NOT_RECORDED": 3,
+   "materials": 3
+  },
+  "TextMeshPro/Mobile/Distance Field": {
+   "KEYWORDS_NOT_RECORDED": 4,
+   "materials": 4
+  },
+  "TextMeshPro/Sprite": {
+   "KEYWORDS_NOT_RECORDED": 1,
+   "materials": 1
+  },
+  "Toony Colors Pro 2/Mobile": {
+   "KEYWORDS_NOT_RECORDED": 2,
+   "materials": 2
+  },
+  "Toony Colors Pro 2/Standard PBS": {
+   "KEYWORDS_NOT_RECORDED": 6,
+   "materials": 1
+  }
+ },
+ "status": "MEASURED",
+ "variant_binding_decided": 0,
+ "variant_binding_rate": null
+}

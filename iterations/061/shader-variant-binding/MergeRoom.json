@@ -1,0 +1,177 @@
+{
+ "bindings": {
+  "BOUND_EXACT": 23,
+  "BOUND_MODULO_ENGINE": 1,
+  "NO_MARKED_PASS": 310,
+  "PROGRAM_NOT_RECOVERED": 5,
+  "VARIANT_BINDING_WRONG": 6
+ },
+ "examples": {
+  "VARIANT_BINDING_WRONG": [
+   {
+    "backend": "GLES3",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Material/circle_AB.mat",
+    "material": "circle_AB",
+    "materialKeywords": [
+     "_FADING_ON",
+     "_SOFTPARTICLES_ON",
+     "_SURFACE_TYPE_TRANSPARENT"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     2
+    ],
+    "shader": "Universal Render Pipeline/Particles/Unlit"
+   },
+   {
+    "backend": "GLES3",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Material/cloud_2x2_default_AB.mat",
+    "material": "cloud_2x2_default_AB",
+    "materialKeywords": [
+     "_FADING_ON",
+     "_SOFTPARTICLES_ON",
+     "_SURFACE_TYPE_TRANSPARENT"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     2
+    ],
+    "shader": "Universal Render Pipeline/Particles/Unlit"
+   },
+   {
+    "backend": "GLES3",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Material/PolySprite_ADD.mat",
+    "material": "PolySprite_ADD",
+    "materialKeywords": [
+     "_FADING_ON",
+     "_SOFTPARTICLES_ON",
+     "_SURFACE_TYPE_TRANSPARENT"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     2
+    ],
+    "shader": "Universal Render Pipeline/Particles/Unlit"
+   },
+   {
+    "backend": "GLES3",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Material/TextMeshPro_Sprite.mat",
+    "material": "TextMeshPro/Sprite",
+    "materialKeywords": [
+     "UNITY_UI_CLIP_RECT"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     3,
+     4
+    ],
+    "shader": "TextMeshPro/Sprite"
+   },
+   {
+    "backend": "GLES3",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Drop Shadow.mat",
+    "material": "LiberationSans SDF - Drop Shadow",
+    "materialKeywords": [
+     "OUTLINE_ON",
+     "UNDERLAY_ON"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     3,
+     6,
+     9,
+     12
+    ],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   },
+   {
+    "backend": "GLES3",
+    "exportedKeywords": [],
+    "exportedVariant": 1,
+    "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat",
+    "material": "LiberationSans SDF - Outline",
+    "materialKeywords": [
+     "OUTLINE_ON"
+    ],
+    "pass": "0.0",
+    "selectableVariants": [
+     2,
+     5,
+     8,
+     11
+    ],
+    "shader": "TextMeshPro/Mobile/Distance Field"
+   }
+  ]
+ },
+ "game": "MergeRoom",
+ "materialScope": {
+  "BUILTIN_SHADER": 1
+ },
+ "materials": 333,
+ "perShader": {
+  "Custom/Outline Fill": {
+   "BOUND_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Outline Mask": {
+   "BOUND_EXACT": 1,
+   "materials": 1
+  },
+  "DELTation/Toon Shader": {
+   "NO_MARKED_PASS": 310,
+   "materials": 310
+  },
+  "Graphy/Graph Standard": {
+   "BOUND_EXACT": 6,
+   "materials": 6
+  },
+  "LevoriCollection/Skybox": {
+   "BOUND_EXACT": 1,
+   "materials": 1
+  },
+  "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft": {
+   "BOUND_EXACT": 3,
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Shader Graphs/Ghost": {
+   "BOUND_EXACT": 3,
+   "BOUND_MODULO_ENGINE": 1,
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "TextMeshPro/Distance Field": {
+   "BOUND_EXACT": 3,
+   "materials": 3
+  },
+  "TextMeshPro/Mobile/Distance Field": {
+   "BOUND_EXACT": 2,
+   "VARIANT_BINDING_WRONG": 2,
+   "materials": 4
+  },
+  "TextMeshPro/Sprite": {
+   "VARIANT_BINDING_WRONG": 1,
+   "materials": 1
+  },
+  "Universal Render Pipeline/Particles/Unlit": {
+   "BOUND_EXACT": 3,
+   "PROGRAM_NOT_RECOVERED": 3,
+   "VARIANT_BINDING_WRONG": 3,
+   "materials": 3
+  }
+ },
+ "status": "MEASURED",
+ "variant_binding_decided": 30,
+ "variant_binding_rate": 0.8
+}

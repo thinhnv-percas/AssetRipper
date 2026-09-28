@@ -1,0 +1,11 @@
+game Impostor: 11 materials; scope {"BUILTIN_SHADER": 4}
+bindings {"BOUND_EXACT": 3, "BOUND_MODULO_ENGINE": 2, "VARIANT_BINDING_WRONG": 4}
+variant_binding_rate 0.5556 over 9 decided
+  TextMeshPro/Mobile/Distance Field: {"BOUND_EXACT": 1, "VARIANT_BINDING_WRONG": 3, "materials": 4}
+  TextMeshPro/Sprite: {"VARIANT_BINDING_WRONG": 1, "materials": 1}
+  Spine/Skeleton: {"BOUND_EXACT": 2, "BOUND_MODULO_ENGINE": 2, "materials": 2}
+-- VARIANT_BINDING_WRONG
+   {'material': 'TextMeshPro/Sprite', 'file': 'Assets/Material/TextMeshPro_Sprite.mat', 'shader': 'TextMeshPro/Sprite', 'pass': '0.0', 'backend': 'GLES', 'materialKeywords': ['UNITY_UI_CLIP_RECT'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [3, 4, 11, 12, 19, 20]}
+   {'material': 'LiberationSans SDF Material', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF Material_0.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES', 'materialKeywords': ['OUTLINE_ON'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [2, 5, 8, 11, 26, 29, 32, 35]}
+   {'material': 'LiberationSans SDF - Drop Shadow', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF - Drop Shadow.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES', 'materialKeywords': ['OUTLINE_ON', 'UNDERLAY_ON'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [3, 6, 9, 12, 27, 30, 33, 36]}
+   {'material': 'LiberationSans SDF - Outline', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES', 'materialKeywords': ['OUTLINE_ON'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [2, 5, 8, 11, 26, 29, 32, 35]}

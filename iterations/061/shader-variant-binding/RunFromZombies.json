@@ -1,0 +1,13 @@
+{
+ "bindings": {},
+ "examples": {},
+ "game": "RunFromZombies",
+ "materialScope": {
+  "BUILTIN_SHADER": 24
+ },
+ "materials": 24,
+ "perShader": {},
+ "status": "MEASURED",
+ "variant_binding_decided": 0,
+ "variant_binding_rate": null
+}

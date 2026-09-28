@@ -123,7 +123,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 				}
 
 				string key = $"{text.Length}:{text.GetHashCode():x8}";
-				string keywords = row.Keywords.Count == 0 ? "_base" : string.Join('+', row.Keywords);
+				string keywords = row.Keywords is null ? "_unknown" : row.Keywords.Count == 0 ? "_base" : string.Join('+', row.Keywords);
 
 				if (byContent.TryGetValue(key, out string? existing))
 				{

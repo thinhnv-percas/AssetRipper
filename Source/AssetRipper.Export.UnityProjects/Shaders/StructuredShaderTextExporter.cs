@@ -1,3 +1,4 @@
+using AssetRipper.Import.Logging;
 using AssetRipper.SourceGenerated.Classes.ClassID_48;
 using System.Text;
 
@@ -50,7 +51,24 @@ public static class StructuredShaderTextExporter
 	/// </summary>
 	public static bool TryExport(IShader shader, TextWriter writer)
 	{
-		if (ShaderSemanticModel.Read(shader) is not { } model || model.SubShaders.Count == 0)
+		ShaderSemanticModel? model;
+
+		// AssetRipper: reading the structure is new code over a serialized form that varies by version,
+		// and an exception out of it used to end the whole export rather than this one shader. The
+		// contract is to fall through to the canned pass when the structure cannot be read, so a
+		// failure to read it is exactly that case - reported, not fatal.
+		try
+		{
+			model = ShaderSemanticModel.Read(shader);
+		}
+		catch (Exception exception)
+		{
+			Logger.Warning(LogCategory.Export,
+				$"Shader structure could not be read for '{(shader.Has_ParsedForm() ? shader.ParsedForm.Name.String : shader.Name.String)}': {exception.Message}");
+			return false;
+		}
+
+		if (model is null || model.SubShaders.Count == 0)
 		{
 			return false;
 		}

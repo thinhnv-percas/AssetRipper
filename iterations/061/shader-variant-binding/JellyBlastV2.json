@@ -1,0 +1,125 @@
+{
+ "bindings": {
+  "PROGRAM_NOT_RECOVERED": 43
+ },
+ "examples": {},
+ "game": "JellyBlastV2",
+ "materialScope": {
+  "BUILTIN_SHADER": 18,
+  "MATERIAL_WITHOUT_SHADER": 5
+ },
+ "materials": 60,
+ "perShader": {
+  "Custom/Bee": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/Cliffs_Lambert": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/FeverSplash": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/Fluid": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/Glass2": {
+   "PROGRAM_NOT_RECOVERED": 4,
+   "materials": 2
+  },
+  "Custom/GradientBackground_LUT_World": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/Honey_NoGrab": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/Ice": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/Mud": {
+   "PROGRAM_NOT_RECOVERED": 2,
+   "materials": 2
+  },
+  "Custom/Octopus": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/ParticlesEmission": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/PowerUpParticles": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/SingleFluid": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/SpecialFluid": {
+   "PROGRAM_NOT_RECOVERED": 3,
+   "materials": 3
+  },
+  "Custom/Sponge": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/UIButton": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/UITransition": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Custom/Water": {
+   "PROGRAM_NOT_RECOVERED": 4,
+   "materials": 2
+  },
+  "Hidden/ProBuilder/EdgePicker": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Hidden/ProBuilder/FacePicker": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Hidden/ProBuilder/HideVertices": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "Hidden/ProBuilder/VertexPicker": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "ProBuilder/Standard Vertex Color": {
+   "PROGRAM_NOT_RECOVERED": 3,
+   "materials": 1
+  },
+  "ProBuilder/UnlitVertexColor": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "TextMeshPro/Distance Field Overlay": {
+   "PROGRAM_NOT_RECOVERED": 1,
+   "materials": 1
+  },
+  "TextMeshPro/Mobile/Distance Field": {
+   "PROGRAM_NOT_RECOVERED": 4,
+   "materials": 4
+  },
+  "TextMeshPro/Sprite": {
+   "PROGRAM_NOT_RECOVERED": 2,
+   "materials": 2
+  }
+ },
+ "status": "MEASURED",
+ "variant_binding_decided": 0,
+ "variant_binding_rate": null
+}

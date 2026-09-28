@@ -1,0 +1,21 @@
+game MergeRoom: 333 materials; scope {"BUILTIN_SHADER": 1}
+bindings {"BOUND_EXACT": 23, "BOUND_MODULO_ENGINE": 1, "NO_MARKED_PASS": 310, "PROGRAM_NOT_RECOVERED": 5, "VARIANT_BINDING_WRONG": 6}
+variant_binding_rate 0.8 over 30 decided
+  Universal Render Pipeline/Particles/Unlit: {"BOUND_EXACT": 3, "PROGRAM_NOT_RECOVERED": 3, "VARIANT_BINDING_WRONG": 3, "materials": 3}
+  TextMeshPro/Mobile/Distance Field: {"BOUND_EXACT": 2, "VARIANT_BINDING_WRONG": 2, "materials": 4}
+  TextMeshPro/Sprite: {"VARIANT_BINDING_WRONG": 1, "materials": 1}
+  DELTation/Toon Shader: {"NO_MARKED_PASS": 310, "materials": 310}
+  PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft: {"BOUND_EXACT": 3, "PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  Graphy/Graph Standard: {"BOUND_EXACT": 6, "materials": 6}
+  Shader Graphs/Ghost: {"BOUND_EXACT": 3, "BOUND_MODULO_ENGINE": 1, "PROGRAM_NOT_RECOVERED": 1, "materials": 1}
+  TextMeshPro/Distance Field: {"BOUND_EXACT": 3, "materials": 3}
+  LevoriCollection/Skybox: {"BOUND_EXACT": 1, "materials": 1}
+  Custom/Outline Fill: {"BOUND_EXACT": 1, "materials": 1}
+  Custom/Outline Mask: {"BOUND_EXACT": 1, "materials": 1}
+-- VARIANT_BINDING_WRONG
+   {'material': 'circle_AB', 'file': 'Assets/Material/circle_AB.mat', 'shader': 'Universal Render Pipeline/Particles/Unlit', 'pass': '0.0', 'backend': 'GLES3', 'materialKeywords': ['_FADING_ON', '_SOFTPARTICLES_ON', '_SURFACE_TYPE_TRANSPARENT'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [2]}
+   {'material': 'cloud_2x2_default_AB', 'file': 'Assets/Material/cloud_2x2_default_AB.mat', 'shader': 'Universal Render Pipeline/Particles/Unlit', 'pass': '0.0', 'backend': 'GLES3', 'materialKeywords': ['_FADING_ON', '_SOFTPARTICLES_ON', '_SURFACE_TYPE_TRANSPARENT'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [2]}
+   {'material': 'PolySprite_ADD', 'file': 'Assets/Material/PolySprite_ADD.mat', 'shader': 'Universal Render Pipeline/Particles/Unlit', 'pass': '0.0', 'backend': 'GLES3', 'materialKeywords': ['_FADING_ON', '_SOFTPARTICLES_ON', '_SURFACE_TYPE_TRANSPARENT'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [2]}
+   {'material': 'TextMeshPro/Sprite', 'file': 'Assets/Material/TextMeshPro_Sprite.mat', 'shader': 'TextMeshPro/Sprite', 'pass': '0.0', 'backend': 'GLES3', 'materialKeywords': ['UNITY_UI_CLIP_RECT'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [3, 4]}
+   {'material': 'LiberationSans SDF - Drop Shadow', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF - Drop Shadow.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES3', 'materialKeywords': ['OUTLINE_ON', 'UNDERLAY_ON'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [3, 6, 9, 12]}
+   {'material': 'LiberationSans SDF - Outline', 'file': 'Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat', 'shader': 'TextMeshPro/Mobile/Distance Field', 'pass': '0.0', 'backend': 'GLES3', 'materialKeywords': ['OUTLINE_ON'], 'exportedVariant': 1, 'exportedKeywords': [], 'selectableVariants': [2, 5, 8, 11]}

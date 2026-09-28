@@ -1,0 +1,3 @@
+game RunFromZombies: 24 materials; scope {"BUILTIN_SHADER": 24}
+bindings {}
+variant_binding_rate None over 0 decided

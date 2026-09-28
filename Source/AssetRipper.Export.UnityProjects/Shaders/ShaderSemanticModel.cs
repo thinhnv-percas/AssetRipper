@@ -102,8 +102,18 @@ public sealed class ShaderSemanticModel
 		/// <summary>The backends the variants were compiled to, e.g. <c>GLES3</c>.</summary>
 		public required IReadOnlyList<string> Backends { get; init; }
 
-		/// <summary>The keyword sets the variants are compiled for, one entry per variant.</summary>
+		/// <summary>
+		/// The keyword sets the variants are compiled for, one entry per variant - or empty when the
+		/// asset does not record them (see <see cref="KeywordsKnown"/>).
+		/// </summary>
 		public required IReadOnlyList<IReadOnlyList<string>> KeywordSets { get; init; }
+
+		/// <summary>
+		/// Whether <see cref="KeywordSets"/> says anything. Before 2021 a serialized shader carries no
+		/// keyword name table, so a variant's keywords are not known - which is not the same fact as a
+		/// variant compiled with none, and reading it as that makes every variant the base one.
+		/// </summary>
+		public bool KeywordsKnown { get; init; } = true;
 
 		/// <summary>
 		/// Each variant's index into its own backend's compiled-program table, one entry per variant.
@@ -136,7 +146,9 @@ public sealed class ShaderSemanticModel
 		}
 
 		var form = shader.ParsedForm;
-		List<string> keywords = [.. form.KeywordNames.Select(keyword => keyword.String)];
+		// AssetRipper: a serialized shader carries a keyword name table only from 2021; before that the
+		// list is absent, not empty, and reading it threw out of the export and ended the whole rip.
+		List<string> keywords = form.Has_KeywordNames() ? [.. form.KeywordNames.Select(keyword => keyword.String)] : [];
 		Dictionary<string, int> backends = [];
 
 		List<SubShaderModel> subShaders = [];
@@ -161,7 +173,7 @@ public sealed class ShaderSemanticModel
 					// the same four things. A reader of only the first list sees zero variants on a
 					// shader that has hundreds - which is what "Vertex 0 variant(s) []" in the exported
 					// comment meant, and why no pass could be matched back to a compiled program.
-					List<(uint BlobIndex, int GpuProgramType, IEnumerable<ushort> KeywordIndices, int ParameterBlob)> variants = [];
+					List<(uint BlobIndex, int GpuProgramType, IEnumerable<ushort>? KeywordIndices, int ParameterBlob)> variants = [];
 
 					foreach (var subProgram in program.SubPrograms)
 					{
@@ -195,15 +207,20 @@ public sealed class ShaderSemanticModel
 						}
 					}
 
+					bool keywordsKnown = form.Has_KeywordNames() && variants.TrueForAll(variant => variant.KeywordIndices is not null);
+
 					foreach (var (blobIndex, gpuProgramType, keywordIndices, parameterBlob) in variants)
 					{
 						string backend = ((ShaderGpuProgramType55)gpuProgramType).ToString();
 						programBackends.Add(backend);
 						backends[backend] = backends.GetValueOrDefault(backend) + 1;
 
-						keywordSets.Add([.. keywordIndices
-							.Where(index => index < keywords.Count)
-							.Select(index => keywords[index])]);
+						if (keywordsKnown)
+						{
+							keywordSets.Add([.. keywordIndices!
+								.Where(index => index < keywords.Count)
+								.Select(index => keywords[index])]);
+						}
 
 						blobIndices.Add((int)blobIndex);
 						parameterBlobIndices.Add(parameterBlob);
@@ -215,6 +232,7 @@ public sealed class ShaderSemanticModel
 						VariantCount = variants.Count,
 						Backends = programBackends,
 						KeywordSets = keywordSets,
+						KeywordsKnown = keywordsKnown,
 						BlobIndices = blobIndices,
 						ParameterBlobIndices = parameterBlobIndices,
 					});
