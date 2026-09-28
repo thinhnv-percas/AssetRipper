@@ -1,0 +1,10 @@
+Import : Il2Cpp method body recovery: storage identity over 4615 bodies: Temporary 33171, Local 19873, Parameter 4183, This 3347, Spill 1126; 1357 address-taken, 893 escaping.
+Import : Il2Cpp method body recovery: storage hazards: 103 machine locations held in more than one IL place while their address is taken, in 103 bodies (102 with the address escaping).
+Import :       stack escaping   e.g. Newtonsoft.Json.JsonPosition::BuildPath stack:-D8 in 2 locals
+Import :       stack local   e.g. Newtonsoft.Json.Utilities.ConvertUtils::FromBigInteger stack:-58 in 2 locals
+Import : Il2Cpp method body recovery: 46 call arguments the ABI spread over several vector registers were composed back into their value.
+Import : Il2Cpp method body recovery: a write narrower than the field its offset lands on named a member inside it 0 times; 14 times no member accounted for the width, so the field stood.
+Import : Il2Cpp method body recovery: 288 locals held the base of a page of metadata usage slots rather than one slot; 0 usages were resolved at an offset from one.
+Import : Il2Cpp method body recovery: 390 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them.
+Import : Il2Cpp method body recovery: 7 event declarations were dropped because a recovered body reads the field they are built on - il2cpp inlines add_/remove_, and C# refuses to read an event from outside its declaring type whatever its accessibility. The field and the accessors stay.
+Import : Il2Cpp accessor pairing probe: 632 non-public instance fields had no candidate getter at all; 438 rejections were a getter for another field; 16 getters read the field's own offset and were still turned down.

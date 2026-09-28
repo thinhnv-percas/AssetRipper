@@ -206,6 +206,22 @@ public static class IlGenerator
         // point - both measurement defects iteration 056 found were a second derivation from text.
         using var semanticScope = RecoveredSemanticIr.Begin(context);
 
+        if (StorageAnalyzed is { } storageAnalyzed)
+        {
+            List<string> parameterNames = new(definition.Parameters.Count);
+            List<bool> parameterByReference = new(definition.Parameters.Count);
+            foreach (var parameter in definition.Parameters)
+            {
+                parameterNames.Add(parameter.Name ?? "");
+                parameterByReference.Add(parameter.ParameterType is ByReferenceTypeSignature);
+            }
+
+            var storage = StorageIdentities.Analyze(
+                context.ControlFlowGraph!.Blocks.SelectMany(block => block.Instructions),
+                parameterNames, parameterByReference, local => local.Type is { IsValueType: true });
+            storageAnalyzed(context, storage, StorageIdentities.Hazards(storage));
+        }
+
         // AssetRipper: a loop is a back edge, which is a fact about the graph rather than about any
         // one instruction, so it is recorded here rather than at an emission site. Without it a
         // recovered `for` and a recovered straight line carry the same operations and read alike.
@@ -597,6 +613,13 @@ public static class IlGenerator
     /// so a handler has to be thread safe.
     /// </summary>
     public static Action<MethodAnalysisContext, LocalVariable>? UntypedLocal;
+
+    /// <summary>
+    /// AssetRipper: raised once per generated body with the storage of every local in it and the
+    /// machine locations it holds in more than one IL place while their address is taken. A
+    /// measurement, not an input: nothing in generation reads it back.
+    /// </summary>
+    public static Action<MethodAnalysisContext, IReadOnlyDictionary<LocalVariable, StorageIdentity>, IReadOnlyList<StorageHazard>>? StorageAnalyzed;
 
     /// <summary>
     /// AssetRipper: writes a call to a private framework method as the public one it is the inside of.
@@ -1367,9 +1390,9 @@ public static class IlGenerator
                 // a struct, which is not a conversion C# has. `initobj` is what zeroing a value type is.
                 if (instruction.Operands is [LocalVariable { Type: { IsValueType: true } zeroed } zeroedLocal, Immediate { Value: 0 }]
                     && !IsFloat(zeroed) && PrimitiveFieldWidth(zeroed) == 0
-                    && locals.TryGetValue(zeroedLocal, out var zeroedIl))
+                    && locals.ContainsKey(zeroedLocal))
                 {
-                    instructions.Add(CilOpCodes.Ldloca, zeroedIl);
+                    LoadLocalAddress(zeroedLocal, method, locals);
                     instructions.Add(CilOpCodes.Initobj, zeroed.ToTypeSignature().ToTypeDefOrRef());
                     break;
                 }
@@ -1585,13 +1608,13 @@ public static class IlGenerator
             // is stored back into its field, which is the value the call was really passed.
             case OpCode.MakeStruct:
                 if (instruction.Operands is [LocalVariable composed, TypeAnalysisContext composedType, ..]
-                    && locals.TryGetValue(composed, out var composedLocal))
+                    && locals.ContainsKey(composed))
                 {
                     var composedFields = composedType.Fields.Where(f => !f.IsStatic).ToList();
 
                     for (var member = 0; member < composedFields.Count && member + 2 < instruction.Operands.Count; member++)
                     {
-                        instructions.Add(CilOpCodes.Ldloca, composedLocal);
+                        LoadLocalAddress(composed, method, locals);
                         LoadOperand(instruction.Operands[member + 2], context, method, locals, writeLine, composedFields[member].FieldType);
 
                         // AssetRipper: the receiver is already an address here, so a member whose field
@@ -1962,13 +1985,13 @@ public static class IlGenerator
                 // aggregate, so it is that aggregate's first member the register holds.
                 if (floatOperandType != null && instruction.Operands[0] is LocalVariable arithmeticResult
                     && FloatAggregate.FirstMember(arithmeticResult.Type) is { } resultMember
-                    && locals.TryGetValue(arithmeticResult, out var resultLocal))
+                    && locals.ContainsKey(arithmeticResult))
                 {
                     var scratch = new CilLocalVariable(floatOperandType.ToTypeSignature());
                     method.CilMethodBody!.LocalVariables.Add(scratch);
 
                     instructions.Add(CilOpCodes.Stloc, scratch);
-                    instructions.Add(CilOpCodes.Ldloca, resultLocal);
+                    LoadLocalAddress(arithmeticResult, method, locals);
                     instructions.Add(CilOpCodes.Ldloc, scratch);
                     instructions.Add(CilOpCodes.Stfld, resultMember.ToFieldDescriptor());
                     break;
@@ -2648,9 +2671,9 @@ public static class IlGenerator
                 // field is what the register holds — not the whole struct to be cast.
                 if (expectedType is { } wanted && IsFloat(wanted)
                     && FloatAggregate.FirstMember(local.Type) is { } firstMember
-                    && locals.TryGetValue(local, out var addressable))
+                    && locals.ContainsKey(local))
                 {
-                    instructions.Add(CilOpCodes.Ldloca, addressable);
+                    LoadLocalAddress(local, method, locals);
 
                     // AssetRipper: and where that field is private on the real assembly, the property
                     // that returns it is what names it - `rect.x` rather than `rect.m_XMin`. This is

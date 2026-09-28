@@ -64,6 +64,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	private readonly ConcurrentDictionary<string, int> imbalanceShapes = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, string> imbalanceExamples = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, int> imbalanceNonBoundaryDetail = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, int> storageKinds = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, string> storageHazardExamples = new(StringComparer.Ordinal);
+	private int storageBodies, storageHazardBodies, storageHazards, storageEscapingHazards, storageAddressTaken, storageEscaping;
 
 	private int failedMethodCount;
 	private int invalidMethodCount;
@@ -113,6 +116,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		IlGenerator.UnresolvedCall += RecordUnresolvedCall;
 		IlGenerator.ResolvedMemoryLoad += RecordResolvedLoadCase;
 		IlGenerator.UntypedLocal += ClassifyUntypedLocal;
+		IlGenerator.StorageAnalyzed += RecordStorage;
 
 		try
 		{
@@ -166,6 +170,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			IlGenerator.UnresolvedCall -= RecordUnresolvedCall;
 			IlGenerator.ResolvedMemoryLoad -= RecordResolvedLoadCase;
 			IlGenerator.UntypedLocal -= ClassifyUntypedLocal;
+			IlGenerator.StorageAnalyzed -= RecordStorage;
 		}
 	}
 
@@ -1820,6 +1825,46 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// says nothing about what to do; grouped by the opcode that writes the local, and by whether that
 	/// instruction's own operands were typed, it says which rule is missing and what it is worth.
 	/// </remarks>
+	private void RecordStorage(
+		MethodAnalysisContext methodContext,
+		IReadOnlyDictionary<Cpp2IL.Core.ISIL.LocalVariable, Cpp2IL.Core.Analysis.StorageIdentity> storage,
+		IReadOnlyList<Cpp2IL.Core.Analysis.StorageHazard> hazards)
+	{
+		Interlocked.Increment(ref storageBodies);
+
+		foreach (Cpp2IL.Core.Analysis.StorageIdentity identity in storage.Values)
+		{
+			storageKinds.AddOrUpdate(identity.Kind.ToString(), 1, (_, count) => count + 1);
+			if (identity.AddressTaken)
+			{
+				Interlocked.Increment(ref storageAddressTaken);
+			}
+			if (identity.Escapes)
+			{
+				Interlocked.Increment(ref storageEscaping);
+			}
+		}
+
+		if (hazards.Count == 0)
+		{
+			return;
+		}
+
+		Interlocked.Increment(ref storageHazardBodies);
+		foreach (Cpp2IL.Core.Analysis.StorageHazard hazard in hazards)
+		{
+			Interlocked.Increment(ref storageHazards);
+			if (hazard.Escapes)
+			{
+				Interlocked.Increment(ref storageEscapingHazards);
+			}
+
+			string shape = hazard.AliasGroup.Split(':')[0] + (hazard.Escapes ? " escaping" : " local");
+			storageHazardExamples.TryAdd(shape,
+				$"{methodContext.DeclaringType?.FullName}::{methodContext.Name} {hazard.AliasGroup} in {hazard.Locals.Count} locals");
+		}
+	}
+
 	private void ClassifyUntypedLocal(MethodAnalysisContext methodContext, LocalVariable local)
 	{
 		string kind = "written by nothing";
@@ -2666,7 +2711,29 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		Report("invalid body", invalidReasons);
 		ReportUnresolvedLoads();
 		ReportUntypedLocals();
+		ReportStorage();
 		ReportImbalanceShapes();
+
+		void ReportStorage()
+		{
+			if (storageBodies == 0)
+			{
+				return;
+			}
+
+			string kinds = string.Join(", ", storageKinds.OrderByDescending(pair => pair.Value).Select(pair => $"{pair.Key} {pair.Value}"));
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: storage identity over {storageBodies} bodies: {kinds}; " +
+				$"{storageAddressTaken} address-taken, {storageEscaping} escaping.");
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: storage hazards: {storageHazards} machine locations held in more than one IL place " +
+				$"while their address is taken, in {storageHazardBodies} bodies ({storageEscapingHazards} with the address escaping).");
+
+			foreach ((string group, string example) in storageHazardExamples.OrderBy(pair => pair.Key, StringComparer.Ordinal).Take(8))
+			{
+				Logger.Info(LogCategory.Import, $"      {group}   e.g. {example}");
+			}
+		}
 
 		void ReportImbalanceShapes()
 		{

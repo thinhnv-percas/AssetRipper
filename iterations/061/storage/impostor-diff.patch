@@ -1,0 +1,2503 @@
+--- Test/Out61c-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs	2026-09-26 16:14:41.711916764 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs	2026-09-28 09:46:42.599302627 +0000
+@@ -1397,14 +1397,13 @@
+ 			//IL_00d3: Unknown result type (might be due to invalid IL or missing references)
+ 			//IL_00d8: Expected O, but got Unknown
+ 			Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-			Color color = default(Color);
+-			if (!(color.r > 5f))
++			if (!(a.r > 5f))
+ 			{
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-				if (!(color.r > 5f))
++				if (!(a.r > 5f))
+ 				{
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-					float num = color.r - 5f;
++					float num = a.r - 5f;
+ 					bool flag = num < 0f;
+ 					bool flag2 = num == 0f;
+ 					object obj = a ^ 5f;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredQuaternion.cs	2026-09-26 16:14:40.503916720 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredQuaternion.cs	2026-09-28 09:46:41.619302569 +0000
+@@ -106,8 +106,7 @@
+ 		public static RawEncryptedQuaternion Encrypt(Quaternion value, int key)
+ 		{
+-			Quaternion quaternion = default(Quaternion);
+-			return Encrypt(quaternion.x, value.y, value.z, value.w, key);
++			return Encrypt(value.x, value.y, value.z, value.w, key);
+ 		}
+ 
+ 		[Token(Token = "0x60001B0")]
+@@ -191,14 +190,13 @@
+ 		{
+ 			ObscuredCheatingDetector _003CInstance_003Ek__BackingField = KeepAliveBehaviour<ObscuredCheatingDetector>.Instance;
+ 			Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-			Quaternion quaternion = default(Quaternion);
+-			if (quaternion.x < _003CInstance_003Ek__BackingField.quaternionEpsilon)
++			if (q1.x < _003CInstance_003Ek__BackingField.quaternionEpsilon)
+ 			{
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-				if (quaternion.x < _003CInstance_003Ek__BackingField.quaternionEpsilon)
++				if (q1.x < _003CInstance_003Ek__BackingField.quaternionEpsilon)
+ 				{
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-					if (quaternion.x < _003CInstance_003Ek__BackingField.quaternionEpsilon)
++					if (q1.x < _003CInstance_003Ek__BackingField.quaternionEpsilon)
+ 					{
+ 						Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+ 						float num = q2.w - _003CInstance_003Ek__BackingField.quaternionEpsilon;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredVector2.cs	2026-09-26 16:14:40.995916738 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredVector2.cs	2026-09-28 09:46:41.779302578 +0000
+@@ -254,8 +254,7 @@
+ 		public static RawEncryptedVector2 Encrypt(Vector2 value, int key)
+ 		{
+-			Vector2 vector = default(Vector2);
+-			return Encrypt(vector.x, value.y, key);
++			return Encrypt(value.x, value.y, key);
+ 		}
+ 
+ 		[Token(Token = "0x60002A2")]
+@@ -331,11 +330,10 @@
+ 		{
+ 			ObscuredCheatingDetector _003CInstance_003Ek__BackingField = KeepAliveBehaviour<ObscuredCheatingDetector>.Instance;
+ 			Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-			Vector2 vector3 = default(Vector2);
+-			if (vector3.x < _003CInstance_003Ek__BackingField.vector2Epsilon)
++			if (vector1.x < _003CInstance_003Ek__BackingField.vector2Epsilon)
+ 			{
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-				float num = vector3.x - _003CInstance_003Ek__BackingField.vector2Epsilon;
++				float num = vector1.x - _003CInstance_003Ek__BackingField.vector2Epsilon;
+ 				return num < 0f;
+ 			}
+ 			return false;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredVector3.cs	2026-09-26 16:14:41.483916756 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredVector3.cs	2026-09-28 09:46:42.019302593 +0000
+@@ -347,8 +347,7 @@
+ 		public static RawEncryptedVector3 Encrypt(Vector3 value, int key)
+ 		{
+-			Vector3 vector = default(Vector3);
+-			return Encrypt(vector.x, value.y, value.z, key);
++			return Encrypt(value.x, value.y, value.z, key);
+ 		}
+ 
+ 		[Token(Token = "0x60002E2")]
+@@ -431,14 +430,13 @@
+ 		{
+ 			ObscuredCheatingDetector _003CInstance_003Ek__BackingField = KeepAliveBehaviour<ObscuredCheatingDetector>.Instance;
+ 			Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-			Vector3 vector3 = default(Vector3);
+-			if (vector3.x < _003CInstance_003Ek__BackingField.vector3Epsilon)
++			if (vector1.x < _003CInstance_003Ek__BackingField.vector3Epsilon)
+ 			{
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-				if (vector3.x < _003CInstance_003Ek__BackingField.vector3Epsilon)
++				if (vector1.x < _003CInstance_003Ek__BackingField.vector3Epsilon)
+ 				{
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction FABD not yet implemented.\"");
+-					float num = vector3.x - _003CInstance_003Ek__BackingField.vector3Epsilon;
++					float num = vector1.x - _003CInstance_003Ek__BackingField.vector3Epsilon;
+ 					return num < 0f;
+ 				}
+ 			}
+@@ -605,8 +603,7 @@
+ 			//IL_00c5: Expected native int or pointer, but got O
+ 			//IL_00cf: Expected O, but got Ref
+ 			Vector3 vector = ((ObscuredVector3*)b)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector2.x + vector.x;
++			float num = a.x + vector.x;
+ 			float num2 = a.y + vector.y;
+ 			float num3 = a.z + vector.z;
+ 			ObscuredVector3 obscuredVector = default(ObscuredVector3);
+@@ -632,8 +629,7 @@
+ 			//IL_00c5: Expected native int or pointer, but got O
+ 			//IL_00cf: Expected O, but got Ref
+ 			Vector3 vector = ((ObscuredVector3*)a)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector2.x + vector.x;
++			float num = b.x + vector.x;
+ 			float num2 = b.y + vector.y;
+ 			float num3 = b.z + vector.z;
+ 			ObscuredVector3 obscuredVector = default(ObscuredVector3);
+@@ -686,8 +682,7 @@
+ 			//IL_00c5: Expected native int or pointer, but got O
+ 			//IL_00cf: Expected O, but got Ref
+ 			Vector3 vector = ((ObscuredVector3*)b)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector2.x - vector.x;
++			float num = a.x - vector.x;
+ 			float num2 = a.y - vector.y;
+ 			float num3 = a.z - vector.z;
+ 			ObscuredVector3 obscuredVector = default(ObscuredVector3);
+@@ -713,8 +708,7 @@
+ 			//IL_00c5: Expected native int or pointer, but got O
+ 			//IL_00cf: Expected O, but got Ref
+ 			Vector3 vector = ((ObscuredVector3*)a)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = vector.x - b.x;
+ 			float num2 = vector.y - b.y;
+ 			float num3 = vector.z - b.z;
+ 			ObscuredVector3 obscuredVector = default(ObscuredVector3);
+@@ -867,8 +861,7 @@
+ 		public unsafe static bool operator ==(Vector3 lhs, ObscuredVector3 rhs)
+ 		{
+ 			Vector3 vector = ((ObscuredVector3*)rhs)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector2.x - vector.x;
++			float num = lhs.x - vector.x;
+ 			float num2 = lhs.y - vector.y;
+ 			float num3 = lhs.z - vector.z;
+ 			float num4 = num * num;
+@@ -886,8 +879,7 @@
+ 		public unsafe static bool operator ==(ObscuredVector3 lhs, Vector3 rhs)
+ 		{
+ 			Vector3 vector = ((ObscuredVector3*)lhs)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = vector.x - rhs.x;
+ 			float num2 = vector.y - rhs.y;
+ 			float num3 = vector.z - rhs.z;
+ 			float num4 = num * num;
+@@ -925,8 +917,7 @@
+ 		public unsafe static bool operator !=(Vector3 lhs, ObscuredVector3 rhs)
+ 		{
+ 			Vector3 vector = ((ObscuredVector3*)rhs)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector2.x - vector.x;
++			float num = lhs.x - vector.x;
+ 			float num2 = lhs.y - vector.y;
+ 			float num3 = lhs.z - vector.z;
+ 			float num4 = num * num;
+@@ -945,8 +936,7 @@
+ 		public unsafe static bool operator !=(ObscuredVector3 lhs, Vector3 rhs)
+ 		{
+ 			Vector3 vector = ((ObscuredVector3*)lhs)->InternalDecrypt();
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = vector.x - rhs.x;
+ 			float num2 = vector.y - rhs.y;
+ 			float num3 = vector.z - rhs.z;
+ 			float num4 = num * num;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs	2026-09-26 16:14:41.143916743 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs	2026-09-28 09:46:41.899302585 +0000
+@@ -766,8 +766,7 @@
+ 		private static string EncryptVector2Value(string key, Vector2 value)
+ 		{
+ 			byte[] array = new byte[8];
+-			Vector2 vector = default(Vector2);
+-			byte[] bytes = BitConverter.GetBytes(vector.x);
++			byte[] bytes = BitConverter.GetBytes(value.x);
+ 			Buffer.BlockCopy(bytes, 0, array, 0, 4);
+ 			byte[] bytes2 = BitConverter.GetBytes(value.y);
+ 			Buffer.BlockCopy(bytes2, 0, array, 4, 4);
+@@ -835,8 +834,7 @@
+ 		private static string EncryptVector3Value(string key, Vector3 value)
+ 		{
+ 			byte[] array = new byte[12];
+-			Vector3 vector = default(Vector3);
+-			byte[] bytes = BitConverter.GetBytes(vector.x);
++			byte[] bytes = BitConverter.GetBytes(value.x);
+ 			Buffer.BlockCopy(bytes, 0, array, 0, 4);
+ 			byte[] bytes2 = BitConverter.GetBytes(value.y);
+ 			Buffer.BlockCopy(bytes2, 0, array, 4, 4);
+@@ -908,8 +906,7 @@
+ 		{
+ 			//IL_00ba: Expected I4, but got O
+ 			byte[] array = new byte[16];
+-			Quaternion quaternion = default(Quaternion);
+-			byte[] bytes = BitConverter.GetBytes(quaternion.x);
++			byte[] bytes = BitConverter.GetBytes(value.x);
+ 			Buffer.BlockCopy(bytes, 0, array, 0, 4);
+ 			byte[] bytes2 = BitConverter.GetBytes(value.y);
+ 			Buffer.BlockCopy(bytes2, 0, array, 4, 4);
+@@ -1065,8 +1062,7 @@
+ 		private static string EncryptRectValue(string key, Rect value)
+ 		{
+ 			byte[] array = new byte[16];
+-			Rect rect = default(Rect);
+-			byte[] bytes = BitConverter.GetBytes(rect.m_XMin);
++			byte[] bytes = BitConverter.GetBytes(value.m_XMin);
+ 			Buffer.BlockCopy(bytes, 0, array, 0, 4);
+ 			byte[] bytes2 = BitConverter.GetBytes(value.m_YMin);
+ 			Buffer.BlockCopy(bytes2, 0, array, 4, 4);
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs	2026-09-26 16:14:39.603916687 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenUtils.cs	2026-09-28 09:46:41.047302535 +0000
+@@ -42,9 +42,7 @@
+ 			//IL_020b: Expected O, but got F4
+ 			//IL_0214: Unknown result type (might be due to invalid IL or missing references)
+ 			//IL_0219: Expected I4, but got Unknown
+-			Vector3 vector = default(Vector3);
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = to.x - from.x;
+ 			nint num2 = (nint)typeof(Vector2);
+ 			float num3 = to.y - from.y;
+ 			nint num4 = (nint)Vector2.zero;
+@@ -100,26 +98,23 @@
+ 			//IL_006a: Expected F4, but got O
+ 			//IL_0077: Expected F4, but got O
+ 			//IL_0084: Expected F4, but got O
+-			Vector3 vector = default(Vector3);
+-			Vector3 vector2 = default(Vector3);
+-			float x = vector.x - vector2.x;
++			float x = point.x - pivot.x;
+ 			float y = point.y - pivot.y;
+ 			float z = point.z - pivot.z;
+ 			Quaternion quaternion = default(Quaternion);
+-			Quaternion quaternion2 = default(Quaternion);
+-			quaternion.x = quaternion2.x;
++			quaternion.x = rotation.x;
+ 			object obj = default(object);
+ 			quaternion.y = (float)obj;
+ 			object obj2 = default(object);
+ 			quaternion.z = (float)obj2;
+ 			object obj3 = default(object);
+ 			quaternion.w = (float)obj3;
+-			Vector3 vector3 = default(Vector3);
+-			vector3.x = x;
+-			vector3.y = y;
+-			vector3.z = z;
+-			Vector3 vector4 = quaternion * vector3;
+-			return pivot + vector4;
++			Vector3 vector = default(Vector3);
++			vector.x = x;
++			vector.y = y;
++			vector.z = z;
++			Vector3 vector2 = quaternion * vector;
++			return pivot + vector2;
+ 		}
+ 
+ 		[Token(Token = "0x600045C")]
+@@ -132,8 +127,7 @@
+ 			Il2CppRuntime.Boundary("SYSTEM_API:sincosf", "Method not found @1854F30 (native sincosf)");
+ 			object obj = default(object);
+ 			float num3 = (float)obj * radius;
+-			Vector2 vector = default(Vector2);
+-			float x = vector.x + num3;
++			float x = center.x + num3;
+ 			Vector2 result = default(Vector2);
+ 			result.x = x;
+ 			return result;
+@@ -156,10 +150,8 @@
+ 			//IL_019a: Expected O, but got F4
+ 			//IL_051b: Expected O, but got F4
+ 			//IL_0528: Expected O, but got F4
+-			Vector3 vector = default(Vector3);
+-			float num = Mathf.Abs(vector.x);
+-			Vector3 vector2 = default(Vector3);
+-			float num2 = Mathf.Abs(vector2.x);
++			float num = Mathf.Abs(a.x);
++			float num2 = Mathf.Abs(b.x);
+ 			float num3 = num - num2;
+ 			bool flag = num3 < 0f;
+ 			bool flag2 = num3 == 0f;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs	2026-09-26 16:14:39.011916665 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs	2026-09-28 09:46:40.767302518 +0000
+@@ -127,30 +127,29 @@
+ 			float y;
+ 			float z;
+ 			float w2;
+-			Quaternion quaternion2;
++			Quaternion quaternion;
+ 			if (isRelative)
+ 			{
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [t @ X1 (DG.Tweening.Core.TweenerCore`3<UnityEngine.Quaternion, UnityEngine.Quaternion, DG.Tweening.Plugins.Options.NoOptions>)+158]");
+ 				object obj = 0;
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Indirect call: [v31 @ X8_v4+18] (should have been resolved before IL gen)");
+-				Quaternion quaternion = default(Quaternion);
+-				float num = quaternion.x * fromValue.w;
+-				float num2 = fromValue.w * quaternion.x;
++				float num = fromValue.x * fromValue.w;
++				float num2 = fromValue.w * fromValue.x;
+ 				float num3 = fromValue.y * fromValue.w;
+ 				float num4 = fromValue.w * fromValue.y;
+ 				float num5 = fromValue.z * fromValue.w;
+ 				float num6 = fromValue.w * fromValue.z;
+ 				float num7 = fromValue.z * fromValue.y;
+-				float num8 = quaternion.x * fromValue.z;
++				float num8 = fromValue.x * fromValue.z;
+ 				float num9 = num + num2;
+-				float num10 = fromValue.y * quaternion.x;
++				float num10 = fromValue.y * fromValue.x;
+ 				float num11 = num3 + num4;
+ 				float num12 = fromValue.w * fromValue.w;
+-				float num13 = quaternion.x * quaternion.x;
++				float num13 = fromValue.x * fromValue.x;
+ 				float num14 = num5 + num6;
+ 				float num15 = fromValue.y * fromValue.z;
+-				float num16 = fromValue.z * quaternion.x;
+-				float num17 = quaternion.x * fromValue.y;
++				float num16 = fromValue.z * fromValue.x;
++				float num17 = fromValue.x * fromValue.y;
+ 				float num18 = fromValue.y * fromValue.y;
+ 				float num19 = num12 - num13;
+ 				float num20 = num7 + num9;
+@@ -162,15 +161,15 @@
+ 				y = num21 - num16;
+ 				z = num22 - num17;
+ 				float num26 = fromValue.w * t.endValue.x;
+-				float num27 = quaternion.x * t.endValue.w;
++				float num27 = fromValue.x * t.endValue.w;
+ 				float num28 = fromValue.y * t.endValue.z;
+ 				float num29 = fromValue.z * t.endValue.y;
+ 				float num30 = fromValue.w * t.endValue.y;
+ 				float num31 = fromValue.y * t.endValue.w;
+ 				float num32 = fromValue.z * t.endValue.x;
+-				float num33 = quaternion.x * t.endValue.z;
+-				float num34 = quaternion.x * t.endValue.y;
+-				float num35 = quaternion.x * t.endValue.x;
++				float num33 = fromValue.x * t.endValue.z;
++				float num34 = fromValue.x * t.endValue.y;
++				float num35 = fromValue.x * t.endValue.x;
+ 				float num36 = fromValue.y * t.endValue.x;
+ 				float num37 = fromValue.y * t.endValue.y;
+ 				float num38 = fromValue.w * t.endValue.z;
+@@ -194,16 +193,16 @@
+ 				t.endValue.z = z2;
+ 				t.endValue.w = w;
+ 				w2 = num24 - num23;
+-				quaternion2 = (Quaternion)num25;
++				quaternion = (Quaternion)num25;
+ 			}
+ 			else
+ 			{
+-				quaternion2 = fromValue;
++				quaternion = fromValue;
+ 				y = fromValue.y;
+ 				z = fromValue.z;
+ 				w2 = fromValue.w;
+ 			}
+-			t.startValue.x = quaternion2.x;
++			t.startValue.x = quaternion.x;
+ 			t.startValue.y = y;
+ 			t.startValue.z = z;
+ 			t.startValue.w = w2;
+@@ -312,14 +311,13 @@
+ 			IntPtr intPtr = default(IntPtr);
+ 			float t2 = EaseManager.Evaluate(t.easeType, t.customEase, elapsed, (nint)intPtr, t.easeOvershootOrAmplitude, t.easePeriod);
+ 			Quaternion b = default(Quaternion);
+-			Quaternion quaternion = default(Quaternion);
+-			b.x = quaternion.x;
++			b.x = changeValue.x;
+ 			object obj = default(object);
+ 			b.y = (float)obj;
+ 			b.z = (float)updateNotice;
+ 			object obj2 = default(object);
+ 			b.w = (float)obj2;
+-			Quaternion quaternion2 = Quaternion.Slerp(startValue, b, t2);
++			Quaternion quaternion = Quaternion.Slerp(startValue, b, t2);
+ 			setter((Quaternion)(nint)setter.method);
+ 		}
+ 
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/DOCurve.cs	2026-09-26 16:14:36.951916590 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/DOCurve.cs	2026-09-28 09:46:39.579302447 +0000
+@@ -28,15 +28,12 @@
+ 				object obj3 = (nint)obj2 * (nint)obj;
+ 				float num6 = num4 * (float)obj;
+ 				float num7 = (float)obj2 * num3;
+-				Vector3 vector = default(Vector3);
+-				float num8 = vector.x * num5;
+-				Vector3 vector2 = default(Vector3);
+-				float num9 = vector2.x * num6;
++				float num8 = startPoint.x * num5;
++				float num9 = startControlPoint.x * num6;
+ 				object obj4 = default(object);
+ 				float num10 = (float)obj4 * num7;
+ 				float num11 = num8 + num9;
+-				Vector3 vector3 = default(Vector3);
+-				float num12 = vector3.x * (float)obj3;
++				float num12 = endPoint.x * (float)obj3;
+ 				float num13 = num10 + num11;
+ 				float x = num12 + num13;
+ 				Vector3 result = default(Vector3);
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/DOTween.cs	2026-09-26 16:14:37.595916613 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/DOTween.cs	2026-09-28 09:46:39.995302472 +0000
+@@ -575,8 +575,7 @@
+ 		public static TweenerCore<Color, Color, ColorOptions> To(DOGetter<Color> getter, DOSetter<Color> setter, Color endValue, float duration)
+ 		{
+ 			//IL_002b: Expected O, but got I
+-			Color color = default(Color);
+-			return ApplyTo(getter, setter, default(Color), color.r, (ABSTweenPlugin<Color, Color, ColorOptions>)0);
++			return ApplyTo(getter, setter, default(Color), endValue.r, (ABSTweenPlugin<Color, Color, ColorOptions>)0);
+ 		}
+ 
+ 		[Token(Token = "0x600002F")]
+@@ -712,8 +711,7 @@
+ 			bool flag7 = !flag4;
+ 			float num6 = ((!(flag6 && flag7)) ? 3E-45f : num3);
+ 			float[] array = new float[num6];
+-			Vector3 vector = default(Vector3);
+-			float num7 = vector.x * vector.x;
++			float num7 = direction.x * direction.x;
+ 			float num8 = direction.y * direction.y;
+ 			float num9 = direction.z * direction.z;
+ 			float num10 = num7 + num8;
+@@ -744,7 +742,7 @@
+ 			}
+ 			while (num6 != (float)num20);
+ 			Vector3[] array2 = new Vector3[num6];
+-			float num22 = vector.x / num12;
++			float num22 = direction.x / num12;
+ 			float num23 = direction.y / num12;
+ 			float num24 = num6 - float.Epsilon;
+ 			float num25 = direction.z / num12;
+@@ -762,7 +760,7 @@
+ 							float num27 = num * num12;
+ 							float num28 = num27 * num27;
+ 							bool flag9 = !(num11 > num28);
+-							Vector3 vector2 = direction;
++							Vector3 vector = direction;
+ 							float num29 = direction.z;
+ 							float num30 = direction.y;
+ 							if (!flag9)
+@@ -770,9 +768,9 @@
+ 								num29 = num25 * num27;
+ 								float num31 = num22 * num27;
+ 								num30 = num23 * num27;
+-								vector2 = (Vector3)num31;
++								vector = (Vector3)num31;
+ 							}
+-							Vector3 vector3 = 0 - vector2;
++							Vector3 vector2 = 0 - vector;
+ 							float num32 = 0f - num30;
+ 							num33 = 0f - num29;
+ 						}
+@@ -780,7 +778,7 @@
+ 						{
+ 							float num34 = num12 * num12;
+ 							bool flag10 = !(num11 > num34);
+-							Vector3 vector3 = direction;
++							Vector3 vector2 = direction;
+ 							num33 = direction.z;
+ 							float num32 = direction.y;
+ 							if (!flag10)
+@@ -788,7 +786,7 @@
+ 								num33 = num25 * num12;
+ 								float num35 = num22 * num12;
+ 								num32 = num23 * num12;
+-								vector3 = (Vector3)num35;
++								vector2 = (Vector3)num35;
+ 							}
+ 							if (num26 >= array2.Length)
+ 							{
+@@ -874,11 +872,10 @@
+ 			//IL_0704: Expected O, but got F4
+ 			//IL_0d23: Expected O, but got F4
+ 			bool flag = !vectorBased;
+-			Vector3 vector = default(Vector3);
+-			float num = vector.x;
++			float num = strength.x;
+ 			if (!flag)
+ 			{
+-				float num2 = vector.x * vector.x;
++				float num2 = strength.x * strength.x;
+ 				float num3 = strength.y * strength.y;
+ 				float num4 = num2 + num3;
+ 				float num5 = strength.z * strength.z;
+@@ -936,7 +933,7 @@
+ 			int num26 = 0;
+ 			float num27 = num;
+ 			float num28 = num21;
+-			Vector3 vector2 = strength;
++			Vector3 vector = strength;
+ 			float num29 = strength.z;
+ 			float num30 = strength.y;
+ 			Quaternion quaternion3 = default(Quaternion);
+@@ -1009,21 +1006,21 @@
+ 				}
+ 				continue;
+ 				IL_038a:
+-				Vector3 vector3 = DOTweenUtils.Vector3FromAngle(num28, num27);
++				Vector3 vector2 = DOTweenUtils.Vector3FromAngle(num28, num27);
+ 				if (vectorBased)
+ 				{
+ 					quaternion3.x = quaternion.x;
+ 					quaternion3.y = y;
+ 					quaternion3.z = z;
+ 					quaternion3.w = w;
+-					Vector3 vector4 = quaternion3 * vector3;
+-					float num39 = vector4.y;
+-					float num40 = vector4.x * vector4.x;
+-					float num41 = vector4.y * vector4.y;
+-					float num42 = vector4.z * vector4.z;
++					Vector3 vector3 = quaternion3 * vector2;
++					float num39 = vector3.y;
++					float num40 = vector3.x * vector3.x;
++					float num41 = vector3.y * vector3.y;
++					float num42 = vector3.z * vector3.z;
+ 					float num43 = num40 + num41;
+ 					float num44 = num42 + num43;
+-					float num45 = vector2.x * vector2.x;
++					float num45 = vector.x * vector.x;
+ 					if (num44 > num45)
+ 					{
+ 						float num46 = Mathf.Sqrt(num44);
+@@ -1031,23 +1028,23 @@
+ 						Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v997 @ X0_v62 (Il2CppClass<System.Math>)+E0]");
+ 						if ((nint)0 != 0)
+ 						{
+-							float num48 = vector4.x / num46;
+-							float num49 = vector2.x * num48;
+-							vector4 = (Vector3)num49;
++							float num48 = vector3.x / num46;
++							float num49 = vector.x * num48;
++							vector3 = (Vector3)num49;
+ 						}
+ 						else
+ 						{
+-							float num50 = vector4.x / num46;
+-							float num51 = vector2.x * num50;
++							float num50 = vector3.x / num46;
++							float num51 = vector.x * num50;
+ 							Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [1A3575A]");
+ 							if ((nint)0 == 0)
+ 							{
+ 								_ = 1;
+ 							}
+-							vector4 = (Vector3)num51;
++							vector3 = (Vector3)num51;
+ 						}
+ 					}
+-					float num52 = vector4.x * vector4.x;
++					float num52 = vector3.x * vector3.x;
+ 					float num53 = num41 + num52;
+ 					float num54 = num42 + num53;
+ 					float num55 = num30 * num30;
+@@ -1077,11 +1074,11 @@
+ 					float num62 = num42 + num61;
+ 					float num63 = num29 * num29;
+ 					bool flag8 = !(num62 > num63);
+-					float num64 = vector4.z;
++					float num64 = vector3.z;
+ 					if (!flag8)
+ 					{
+ 						float num65 = Mathf.Sqrt(num62);
+-						float num66 = vector4.z / num65;
++						float num66 = vector3.z / num65;
+ 						num64 = num29 * num66;
+ 					}
+ 					float num67 = num64 * num64;
+@@ -1093,7 +1090,7 @@
+ 					{
+ 						Cpp2ILHelpers.NoteDecompilerIssue("Not implemented instruction: \"Instruction DUP not yet implemented.\"");
+ 						num69 = num64 / num68;
+-						num70 = vector4.x / 1E-05f;
++						num70 = vector3.x / 1E-05f;
+ 					}
+ 					else
+ 					{
+@@ -1117,13 +1114,13 @@
+ 					if (num77 > num78)
+ 					{
+ 						float num79 = Mathf.Sqrt(num77);
+-						float num80 = vector2.x / num79;
++						float num80 = vector.x / num79;
+ 						float num81 = num30 / num79;
+ 						float num82 = num29 / num79;
+ 						float num83 = num80 * num27;
+ 						float num84 = num81 * num27;
+ 						float num85 = num82 * num27;
+-						vector2 = (Vector3)num83;
++						vector = (Vector3)num83;
+ 						num29 = num85;
+ 						num30 = num84;
+ 					}
+@@ -1136,9 +1133,9 @@
+ 						bool flag9 = num26 < array2.Length;
+ 						bool flag10 = !flag9;
+ 						bool flag11 = !flag10;
+-						z2 = vector3.z;
+-						float y2 = vector3.y;
+-						Vector3 vector5 = vector3;
++						z2 = vector2.z;
++						float y2 = vector2.y;
++						Vector3 vector4 = vector2;
+ 						if (!flag11)
+ 						{
+ 							break;
+@@ -1150,10 +1147,10 @@
+ 						quaternion4.y = y;
+ 						quaternion4.z = z;
+ 						quaternion4.w = w;
+-						Vector3 vector6 = quaternion4 * vector3;
+-						z2 = vector6.z;
+-						float y2 = vector6.y;
+-						Vector3 vector5 = vector6;
++						Vector3 vector5 = quaternion4 * vector2;
++						z2 = vector5.z;
++						float y2 = vector5.y;
++						Vector3 vector4 = vector5;
+ 					}
+ 					float num86 = num27 - num11;
+ 					bool flag12 = !fadeOut;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/DOVirtual.cs	2026-09-26 16:14:37.015916592 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/DOVirtual.cs	2026-09-28 09:46:39.635302451 +0000
+@@ -174,12 +174,10 @@
+ 		public static Vector3 EasedValue(Vector3 from, Vector3 to, float lifetimePercentage, Ease easeType)
+ 		{
+-			Vector3 vector = default(Vector3);
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = to.x - from.x;
+ 			float num2 = EaseManager.Evaluate(easeType, null, lifetimePercentage, 1f, DOTween.defaultEaseOvershootOrAmplitude, DOTween.defaultEasePeriod);
+ 			float num3 = num * num2;
+-			float x = vector2.x + num3;
++			float x = from.x + num3;
+ 			Vector3 result = default(Vector3);
+ 			result.x = x;
+ 			return result;
+@@ -190,12 +188,10 @@
+ 		public static Vector3 EasedValue(Vector3 from, Vector3 to, float lifetimePercentage, Ease easeType, float overshoot)
+ 		{
+-			Vector3 vector = default(Vector3);
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = to.x - from.x;
+ 			float num2 = EaseManager.Evaluate(easeType, null, lifetimePercentage, 1f, overshoot, DOTween.defaultEasePeriod);
+ 			float num3 = num * num2;
+-			float x = vector2.x + num3;
++			float x = from.x + num3;
+ 			Vector3 result = default(Vector3);
+ 			result.x = x;
+ 			return result;
+@@ -206,12 +202,10 @@
+ 		public static Vector3 EasedValue(Vector3 from, Vector3 to, float lifetimePercentage, Ease easeType, float amplitude, float period)
+ 		{
+-			Vector3 vector = default(Vector3);
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = to.x - from.x;
+ 			float num2 = EaseManager.Evaluate(easeType, null, lifetimePercentage, 1f, amplitude, period);
+ 			float num3 = num * num2;
+-			float x = vector2.x + num3;
++			float x = from.x + num3;
+ 			Vector3 result = default(Vector3);
+ 			result.x = x;
+ 			return result;
+@@ -224,12 +218,10 @@
+ 		{
+ 			EaseCurve easeCurve2 = new EaseCurve(easeCurve);
+ 			EaseFunction customEase = easeCurve2.Evaluate;
+-			Vector3 vector = default(Vector3);
+-			Vector3 vector2 = default(Vector3);
+-			float num = vector.x - vector2.x;
++			float num = to.x - from.x;
+ 			float num2 = EaseManager.Evaluate(Ease.INTERNAL_Custom, customEase, lifetimePercentage, 1f, DOTween.defaultEaseOvershootOrAmplitude, DOTween.defaultEasePeriod);
+ 			float num3 = num * num2;
+-			float x = vector2.x + num3;
++			float x = from.x + num3;
+ 			Vector3 result = default(Vector3);
+ 			result.x = x;
+ 			return result;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/CircleOptions.cs	2026-09-26 16:14:37.463916608 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/CircleOptions.cs	2026-09-28 09:46:39.995302472 +0000
+@@ -58,24 +58,22 @@
+ 			center = endValue;
+ 			_ = endValue.y;
+ 			bool flag = !relativeCenter;
+-			Vector2 vector = default(Vector2);
+-			float num = vector.x;
++			float num = endValue.x;
+ 			float num2 = endValue.y;
+-			Vector2 vector2 = default(Vector2);
+ 			if (!flag)
+ 			{
+-				num = vector2.x + vector.x;
++				num = startValue.x + endValue.x;
+ 				num2 = startValue.y + endValue.y;
+ 				center = (Vector2)num;
+ 			}
+-			float num3 = num - vector2.x;
++			float num3 = num - startValue.x;
+ 			float num4 = num2 - startValue.y;
+ 			float num5 = num3 * num3;
+ 			float num6 = num4 * num4;
+ 			float f = num5 + num6;
+ 			float num7 = Mathf.Sqrt(f);
+ 			radius = num7;
+-			float num8 = vector2.x - center.x;
++			float num8 = startValue.x - center.x;
+ 			float num9 = startValue.y;
+ 			Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [this @ X0 (DG.Tweening.Plugins.CircleOptions)+C]");
+ 			float num10 = num9 - 0f;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs	2026-09-26 16:14:37.555916612 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs	2026-09-28 09:46:40.039302475 +0000
+@@ -71,12 +71,11 @@
+ 			CircleOptions circleOptions = (CircleOptions)((nint)t + 316);
+ 			CirclePlugin circlePlugin;
+ 			float num;
+-			Vector2 vector = default(Vector2);
+ 			if (t.plugOptions.initialized)
+ 			{
+ 				bool flag = !isRelative;
+ 				circlePlugin = this;
+-				num = vector.x;
++				num = fromValue.x;
+ 				if (!flag)
+ 				{
+ 					goto IL_0075;
+@@ -85,7 +84,7 @@
+ 			else
+ 			{
+ 				object obj = t.getter();
+-				t.startValue.x = vector.x;
++				t.startValue.x = fromValue.x;
+ 				t.startValue.y = fromValue.y;
+ 				Vector2 endValue = default(Vector2);
+ 				endValue.x = t.endValue.x;
+@@ -96,11 +95,11 @@
+ 					goto IL_0075;
+ 				}
+ 				circlePlugin = (CirclePlugin)circleOptions;
+-				num = vector.x;
++				num = fromValue.x;
+ 			}
+ 			goto IL_01c6;
+ 			IL_0075:
+-			num = vector.x + t.plugOptions.startValueDegrees;
++			num = fromValue.x + t.plugOptions.startValueDegrees;
+ 			y = t.plugOptions.startValueDegrees + (float)t.plugOptions;
+ 			t.plugOptions.endValueDegrees = y;
+ 			circlePlugin = (CirclePlugin)circleOptions;
+@@ -196,11 +195,10 @@
+ 			//IL_00e4: Expected F4, but got I4
+ 			float num = options.startValueDegrees;
+ 			float num3;
+-			Vector2 vector = default(Vector2);
+ 			if (t.loopType == LoopType.Incremental)
+ 			{
+ 				int num2 = t.completedLoops - (t.isComplete ? 1 : 0);
+-				num3 = vector.x * (float)num2;
++				num3 = changeValue.x * (float)num2;
+ 				num += num3;
+ 			}
+ 			if (t.isSequenced)
+@@ -214,7 +212,7 @@
+ 					{
+ 						num3 = t.loops;
+ 					}
+-					num3 = vector.x * num3;
++					num3 = changeValue.x * num3;
+ 					int num4 = sequenceParent.completedLoops - (sequenceParent.isComplete ? 1 : 0);
+ 					num3 *= (float)num4;
+ 					num += num3;
+@@ -222,7 +220,7 @@
+ 			}
+ 			float num5 = EaseManager.Evaluate(t.easeType, t.customEase, elapsed, duration, t.easeOvershootOrAmplitude, t.easePeriod);
+ 			num3 = options.endValueDegrees;
+-			float num6 = vector.x * num5;
++			float num6 = changeValue.x * num5;
+ 			float degrees = num + num6;
+ 			Vector2 positionOnCircle = ((CirclePlugin)t.easeType).GetPositionOnCircle((CircleOptions)(&num3), degrees);
+ 			setter((Vector2)(nint)setter.method);
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/ColorPlugin.cs	2026-09-26 16:14:37.659916616 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/ColorPlugin.cs	2026-09-28 09:46:40.107302479 +0000
+@@ -163,29 +163,27 @@
+ 			//IL_0330: Expected O, but got I
+ 			bool flag = t.loopType != LoopType.Incremental;
+ 			float num = startValue.b;
+-			Color color = default(Color);
+-			float num2 = color.r;
++			float num2 = startValue.r;
+ 			float num3 = startValue.a;
+-			Color color2 = default(Color);
+ 			object obj = default(object);
+ 			object obj3 = default(object);
+ 			if (!flag)
+ 			{
+ 				int num4 = t.completedLoops - (t.isComplete ? 1 : 0);
+-				float num5 = color2.r * (float)obj;
++				float num5 = changeValue.r * (float)obj;
+ 				int num6 = (int)updateNotice * num4;
+ 				object obj2 = (nint)obj3 * num4;
+-				num2 = color.r + num5;
++				num2 = startValue.r + num5;
+ 				num = startValue.b + (float)num6;
+ 				num3 = startValue.a + (float)obj2;
+ 			}
+ 			bool flag2 = !t.isSequenced;
+-			Color color3 = changeValue;
++			Color color = changeValue;
+ 			if (!flag2)
+ 			{
+ 				Sequence sequenceParent = t.sequenceParent;
+ 				bool flag3 = sequenceParent.loopType != LoopType.Incremental;
+-				color3 = changeValue;
++				color = changeValue;
+ 				if (!flag3)
+ 				{
+ 					bool flag4 = t.loopType != LoopType.Incremental;
+@@ -197,13 +195,13 @@
+ 					int num8 = sequenceParent.completedLoops - (sequenceParent.isComplete ? 1 : 0);
+ 					object obj4 = (int)updateNotice * num7;
+ 					float num9 = (float)obj3 * (float)num7;
+-					float num10 = color2.r * (float)obj;
++					float num10 = changeValue.r * (float)obj;
+ 					object obj5 = default(object);
+ 					float num11 = num10 * (float)obj5;
+-					color3 = (Color)((nint)obj4 * num8);
++					color = (Color)((nint)obj4 * num8);
+ 					float num12 = num9 * (float)num8;
+ 					num2 += num11;
+-					num += color3.r;
++					num += color.r;
+ 					num3 += num12;
+ 				}
+ 			}
+@@ -218,7 +216,7 @@
+ 				IntPtr method = setter.method;
+ 				float num16 = (float)obj3 * num13;
+ 				object obj6 = default(object);
+-				float num17 = color2.r * (float)obj6;
++				float num17 = changeValue.r * (float)obj6;
+ 				num13 = num2 + num17;
+ 				float num18 = num3 + num16;
+ 			}
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/ControlPoint.cs	2026-09-26 16:14:38.903916661 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/ControlPoint.cs	2026-09-28 09:46:40.643302511 +0000
+@@ -38,8 +38,7 @@
+ 		{
+ 			//IL_0063: Expected O, but got F4
+ 			//IL_005e: Expected native int or pointer, but got O
+-			Vector3 vector = default(Vector3);
+-			float num = vector.x + cp.a.x;
++			float num = v.x + cp.a.x;
+ 			float num2 = v.z;
+ 			Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [cp @ X0 (DG.Tweening.Plugins.Core.PathCore.ControlPoint)+8]");
+ 			float num3 = num2 + 0f;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs	2026-09-26 16:14:38.399916643 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs	2026-09-28 09:46:40.299302490 +0000
+@@ -623,13 +623,12 @@
+ 			float num13 = options.lookAhead - 0.0001f;
+ 			bool flag4 = num13 == 0f;
+ 			bool flag5 = !flag4;
+-			Vector3 vector4 = default(Vector3);
+ 			float num24;
+ 			float num26;
+-			Vector3 vector5;
++			Vector3 vector4;
+ 			float num28;
+ 			float num29;
+-			Vector3 vector6;
++			Vector3 vector5;
+ 			if (!(flag3 && flag5) && path.type == PathType.Linear)
+ 			{
+ 				int num14 = path.linearWPIndex - 1;
+@@ -644,7 +643,7 @@
+ 				float num19 = tPos.y;
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v1074 @ X9_v22+4]");
+ 				float num20 = num19 + 0f;
+-				float num21 = vector4.x + (float)obj2;
++				float num21 = tPos.x + (float)obj2;
+ 				float num22 = num21 - (float)obj3;
+ 				float num23 = num20;
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v1078 @ X8_v73+4]");
+@@ -652,7 +651,7 @@
+ 				float num25 = num18;
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v1078 @ X8_v73+8]");
+ 				num26 = num25 - 0f;
+-				vector5 = (Vector3)num22;
++				vector4 = (Vector3)num22;
+ 			}
+ 			else
+ 			{
+@@ -667,10 +666,10 @@
+ 				bool flag7 = !flag6;
+ 				num26 = point.z;
+ 				num24 = point.y;
+-				vector5 = point;
++				vector4 = point;
+ 				num28 = point.z;
+ 				num29 = point.y;
+-				vector6 = point;
++				vector5 = point;
+ 				if (flag7)
+ 				{
+ 					goto IL_132d;
+@@ -684,7 +683,7 @@
+ 			int num31 = (int)((nint)obj5 >> 32);
+ 			int num32 = num31 * 12;
+ 			object obj6 = (nint)obj4 + num32;
+-			float num33 = vector5.x;
++			float num33 = vector4.x;
+ 			Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v558 @ X10_v15+20]");
+ 			float num34 = num33 - 0f;
+ 			float num35 = num24;
+@@ -701,10 +700,10 @@
+ 			bool flag8 = !(num43 < 9.9999994E-11f);
+ 			num28 = num26;
+ 			num29 = num24;
+-			vector6 = vector5;
++			vector5 = vector4;
+ 			if (!flag8)
+ 			{
+-				float num44 = vector4.x;
++				float num44 = tPos.x;
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v558 @ X10_v15+20]");
+ 				float num45 = num44 - 0f;
+ 				float num46 = tPos.y;
+@@ -740,7 +739,7 @@
+ 					float num63 = num62 - 0f;
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v558 @ X10_v15+20]");
+ 					float x2 = 0 + num59;
+-					vector6.x = x2;
++					vector5.x = x2;
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v558 @ X10_v15+24]");
+ 					num29 = 0f + num61;
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v558 @ X10_v15+28]");
+@@ -753,7 +752,7 @@
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v558 @ X10_v15+24]");
+ 					num29 = 0f;
+ 					Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v558 @ X10_v15+20]");
+-					vector6 = (Vector3)0;
++					vector5 = (Vector3)0;
+ 				}
+ 			}
+ 			goto IL_132d;
+@@ -852,19 +851,19 @@
+ 			if ((num95 & 1) != 0)
+ 			{
+ 				Vector3 position4 = default(Vector3);
+-				position4.x = vector6.x;
++				position4.x = vector5.x;
+ 				position4.y = num29;
+ 				position4.z = num28;
+-				Vector3 vector7 = options.parent.TransformPoint(position4);
+-				num28 = vector7.z;
+-				num29 = vector7.y;
+-				vector6 = vector7;
++				Vector3 vector6 = options.parent.TransformPoint(position4);
++				num28 = vector6.z;
++				num29 = vector6.y;
++				vector5 = vector6;
+ 			}
+ 			AxisConstraint lockRotationAxis = options.lockRotationAxis;
+ 			bool flag10 = options.lockRotationAxis == AxisConstraint.None;
+ 			float num96 = up2.z;
+ 			float num97 = up2.y;
+-			Vector3 vector8 = up2;
++			Vector3 vector7 = up2;
+ 			if (!flag10)
+ 			{
+ 				int num98 = num95 & 1;
+@@ -872,63 +871,63 @@
+ 				bool flag11 = num99 == 0;
+ 				num96 = up2.z;
+ 				num97 = up2.y;
+-				vector8 = up2;
++				vector7 = up2;
+ 				if (!flag11)
+ 				{
+ 					Vector3 position5 = default(Vector3);
+-					position5.x = vector6.x;
++					position5.x = vector5.x;
+ 					position5.y = num29;
+ 					position5.z = num28;
+-					Vector3 vector9 = transform.InverseTransformPoint(position5);
++					Vector3 vector8 = transform.InverseTransformPoint(position5);
+ 					Vector3 position6 = default(Vector3);
+-					position6.x = vector9.x;
++					position6.x = vector8.x;
+ 					position6.y = 0f;
+-					position6.z = vector9.z;
+-					Vector3 vector10 = transform.TransformPoint(position6);
++					position6.z = vector8.z;
++					Vector3 vector9 = transform.TransformPoint(position6);
+ 					if (num98 != 0)
+ 					{
+ 						Vector3 up3 = options.parent.up;
+ 						num96 = up3.z;
+ 						num97 = up3.y;
+-						vector8 = up3;
++						vector7 = up3;
+ 					}
+ 					else
+ 					{
+ 						nint num100 = (nint)typeof(Vector3);
+ 						nint num101 = (nint)Vector3.zero;
+-						vector8 = Vector3.upVector;
++						vector7 = Vector3.upVector;
+ 						Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v1553 @ X8_v65 (Il2CppStaticFields<UnityEngine.Vector3>)+1C]");
+ 						num97 = 0f;
+ 						Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v1553 @ X8_v65 (Il2CppStaticFields<UnityEngine.Vector3>)+20]");
+ 						num96 = 0f;
+ 					}
+ 					lockRotationAxis = options.lockRotationAxis;
+-					num28 = vector10.z;
+-					num29 = vector10.y;
+-					vector6 = vector10;
++					num28 = vector9.z;
++					num29 = vector9.y;
++					vector5 = vector9;
+ 				}
+ 				if ((lockRotationAxis & AxisConstraint.Y) != AxisConstraint.None)
+ 				{
+ 					Vector3 position7 = default(Vector3);
+-					position7.x = vector6.x;
++					position7.x = vector5.x;
+ 					position7.y = num29;
+ 					position7.z = num28;
+-					Vector3 vector11 = transform.InverseTransformPoint(position7);
+-					float z5 = vector11.z;
+-					float num102 = 0f - vector11.z;
+-					if (vector11.z < 0f)
++					Vector3 vector10 = transform.InverseTransformPoint(position7);
++					float z5 = vector10.z;
++					float num102 = 0f - vector10.z;
++					if (vector10.z < 0f)
+ 					{
+ 						z5 = num102;
+ 					}
+ 					Vector3 position8 = default(Vector3);
+ 					position8.x = 0f;
+-					position8.y = vector11.y;
++					position8.y = vector10.y;
+ 					position8.z = z5;
+-					Vector3 vector12 = transform.TransformPoint(position8);
++					Vector3 vector11 = transform.TransformPoint(position8);
+ 					lockRotationAxis = options.lockRotationAxis;
+-					num28 = vector12.z;
+-					num29 = vector12.y;
+-					vector6 = vector12;
++					num28 = vector11.z;
++					num29 = vector11.y;
++					vector5 = vector11;
+ 				}
+ 				if ((lockRotationAxis & AxisConstraint.Z) != AxisConstraint.None)
+ 				{
+@@ -946,15 +945,15 @@
+ 					{
+ 						transform2 = transform;
+ 					}
+-					Vector3 vector13 = transform2.TransformDirection(Vector3.upVector);
++					Vector3 vector12 = transform2.TransformDirection(Vector3.upVector);
+ 					num96 = options.startupZRot;
+-					num97 = vector13.y;
+-					vector8 = vector13;
++					num97 = vector12.y;
++					vector7 = vector12;
+ 				}
+ 			}
+ 			if (options.mode == PathMode.Full3D)
+ 			{
+-				float num103 = vector6.x - position.x;
++				float num103 = vector5.x - position.x;
+ 				float num104 = num29 - position.y;
+ 				float num105 = num28 - position.z;
+ 				nint num106 = (nint)typeof(Vector3);
+@@ -989,17 +988,17 @@
+ 				y2 = num97;
+ 				y3 = num104;
+ 				x = num103;
+-				vector3 = vector8;
++				vector3 = vector7;
+ 				z4 = num105;
+ 				goto IL_1755;
+ 			}
+ 			bool flag12 = !flag9;
+-			Vector3 vector14 = position;
++			Vector3 vector13 = position;
+ 			if (!flag12)
+ 			{
+ 				float num118 = num28 - position.z;
+ 				float num119 = num29 - position.y;
+-				float num120 = vector6.x - position.x;
++				float num120 = vector5.x - position.x;
+ 				Vector3 localScale2 = options.parent.localScale;
+ 				float num121 = num120 / localScale2.x;
+ 				float num122 = num119 / localScale2.y;
+@@ -1007,18 +1006,18 @@
+ 				float num124 = position.x + num121;
+ 				num29 = position.y + num122;
+ 				num28 = position.z + num123;
+-				vector14 = position;
+-				vector6 = (Vector3)num124;
++				vector13 = position;
++				vector5 = (Vector3)num124;
+ 			}
+-			Vector3 vector15 = default(Vector3);
+-			vector15.x = vector14.x;
+-			vector15.y = position.y;
+-			vector15.z = position.z;
++			Vector3 vector14 = default(Vector3);
++			vector14.x = vector13.x;
++			vector14.y = position.y;
++			vector14.z = position.z;
+ 			Vector3 to = default(Vector3);
+-			to.x = vector6.x;
++			to.x = vector5.x;
+ 			to.y = num29;
+ 			to.z = num28;
+-			float num125 = DOTweenUtils.Angle2D(vector15, to);
++			float num125 = DOTweenUtils.Angle2D(vector14, to);
+ 			float num126 = num125 + 360f;
+ 			if (num125 < 0f)
+ 			{
+@@ -1054,14 +1053,14 @@
+ 				{
+ 					num125 = num127;
+ 				}
+-				y4 = ((!(vector6.x < vector14.x)) ? 0f : ((float)Math.PI));
++				y4 = ((!(vector5.x < vector13.x)) ? 0f : ((float)Math.PI));
+ 			}
+ 			float z6 = num125 * ((float)Math.PI / 180f);
+-			Vector3 vector16 = default(Vector3);
+-			vector16.x = 0f;
+-			vector16.y = y4;
+-			vector16.z = z6;
+-			quaternion2 = Quaternion.Euler(vector16 * 57.29578f);
++			Vector3 vector15 = default(Vector3);
++			vector15.x = 0f;
++			vector15.y = y4;
++			vector15.z = z6;
++			quaternion2 = Quaternion.Euler(vector15 * 57.29578f);
+ 			y = quaternion2.y;
+ 			z2 = quaternion2.z;
+ 			z = quaternion2.w;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/QuaternionPlugin.cs	2026-09-26 16:14:38.491916646 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/QuaternionPlugin.cs	2026-09-28 09:46:40.459302500 +0000
+@@ -286,43 +286,42 @@
+ 			//IL_035c: Expected O, but got I
+ 			float num2;
+ 			float num4;
+-			Vector3 vector4;
++			Vector3 vector3;
+ 			if (isRelative)
+ 			{
+ 				object obj = t.getter();
+ 				Quaternion rotation = default(Quaternion);
+-				Vector3 vector = default(Vector3);
+-				rotation.x = vector.x;
++				rotation.x = fromValue.x;
+ 				rotation.y = fromValue.y;
+ 				rotation.z = fromValue.z;
+ 				object obj2 = default(object);
+ 				rotation.w = (float)obj2;
+-				Vector3 vector2 = Quaternion.Internal_ToEulerRad(rotation);
+-				float x = vector2.x * 57.29578f;
+-				float y = vector2.y * 57.29578f;
+-				float z = vector2.z * 57.29578f;
++				Vector3 vector = Quaternion.Internal_ToEulerRad(rotation);
++				float x = vector.x * 57.29578f;
++				float y = vector.y * 57.29578f;
++				float z = vector.z * 57.29578f;
+ 				Vector3 euler = default(Vector3);
+ 				euler.x = x;
+ 				euler.y = y;
+ 				euler.z = z;
+-				Vector3 vector3 = Quaternion.Internal_MakePositive(euler);
+-				float num = vector.x + vector3.x;
+-				num2 = fromValue.y + vector3.y;
+-				float num3 = t.endValue.x + vector3.x;
+-				float z2 = vector3.z + t.endValue.z;
++				Vector3 vector2 = Quaternion.Internal_MakePositive(euler);
++				float num = fromValue.x + vector2.x;
++				num2 = fromValue.y + vector2.y;
++				float num3 = t.endValue.x + vector2.x;
++				float z2 = vector2.z + t.endValue.z;
+ 				t.endValue = (Vector3)num3;
+ 				t.endValue.z = z2;
+-				num4 = fromValue.z + vector3.z;
+-				vector4 = (Vector3)num;
++				num4 = fromValue.z + vector2.z;
++				vector3 = (Vector3)num;
+ 			}
+ 			else
+ 			{
+-				vector4 = fromValue;
++				vector3 = fromValue;
+ 				num2 = fromValue.y;
+ 				num4 = fromValue.z;
+ 			}
+ 			Vector3 val = default(Vector3);
+-			val.x = vector4.x;
++			val.x = vector3.x;
+ 			val.y = num2;
+ 			val.z = num4;
+ 			Vector3 counterVal = default(Vector3);
+@@ -336,14 +335,14 @@
+ 			if (setImmediately)
+ 			{
+ 				DOSetter<Quaternion> setter = t.setter;
+-				float x2 = vector4.x * ((float)Math.PI / 180f);
++				float x2 = vector3.x * ((float)Math.PI / 180f);
+ 				float y2 = num2 * ((float)Math.PI / 180f);
+ 				float z3 = num4 * ((float)Math.PI / 180f);
+-				Vector3 vector5 = default(Vector3);
+-				vector5.x = x2;
+-				vector5.y = y2;
+-				vector5.z = z3;
+-				Quaternion quaternion = Quaternion.Euler(vector5 * 57.29578f);
++				Vector3 vector4 = default(Vector3);
++				vector4.x = x2;
++				vector4.y = y2;
++				vector4.z = z3;
++				Quaternion quaternion = Quaternion.Euler(vector4 * 57.29578f);
+ 				t.setter((Quaternion)(nint)setter.method);
+ 			}
+ 		}
+@@ -615,8 +614,7 @@
+ 		public override float GetSpeedBasedDuration(QuaternionOptions options, float unitsXSecond, Vector3 changeValue)
+ 		{
+-			Vector3 vector = default(Vector3);
+-			float num = vector.x * vector.x;
++			float num = changeValue.x * changeValue.x;
+ 			float num2 = changeValue.y * changeValue.y;
+ 			float num3 = num + num2;
+ 			float num4 = changeValue.z * changeValue.z;
+@@ -661,7 +659,6 @@
+ 			}
+ 			object obj = default(object);
+ 			float num5;
+-			Vector3 vector2 = default(Vector3);
+ 			float num6;
+ 			if (t.loopType == LoopType.Incremental)
+ 			{
+@@ -669,13 +666,13 @@
+ 				Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [t @ X2 (DG.Tweening.Tween)+13C]");
+ 				float num3 = 0f * (float)obj;
+ 				float num4 = num * (float)num2;
+-				num5 = vector2.x + num3;
++				num5 = startValue.x + num3;
+ 				num6 = startValue.z + num4;
+ 			}
+ 			else
+ 			{
+ 				num6 = startValue.z;
+-				num5 = vector2.x;
++				num5 = startValue.x;
+ 			}
+ 			if (t.isSequenced)
+ 			{
+@@ -706,13 +703,13 @@
+ 			if (num14 == 2)
+ 			{
+ 				float z2 = startValue.z * ((float)Math.PI / 180f);
+-				float x = vector2.x * ((float)Math.PI / 180f);
++				float x = startValue.x * ((float)Math.PI / 180f);
+ 				float y2 = startValue.y * ((float)Math.PI / 180f);
+-				Vector3 vector3 = default(Vector3);
+-				vector3.x = x;
+-				vector3.y = y2;
+-				vector3.z = z2;
+-				Quaternion rotation = Quaternion.Euler(vector3 * 57.29578f);
++				Vector3 vector2 = default(Vector3);
++				vector2.x = x;
++				vector2.y = y2;
++				vector2.z = z2;
++				Quaternion rotation = Quaternion.Euler(vector2 * 57.29578f);
+ 				float num15 = num13 * (float)obj;
+ 				float num16 = num13 * (float)obj3;
+ 				float num17 = num * num13;
+@@ -722,11 +719,11 @@
+ 					float x2 = num15 * ((float)Math.PI / 180f);
+ 					float y3 = num16 * ((float)Math.PI / 180f);
+ 					float z3 = num17 * ((float)Math.PI / 180f);
+-					Vector3 vector4 = default(Vector3);
+-					vector4.x = x2;
+-					vector4.y = y3;
+-					vector4.z = z3;
+-					Quaternion quaternion2 = Quaternion.Euler(vector4 * 57.29578f);
++					Vector3 vector3 = default(Vector3);
++					vector3.x = x2;
++					vector3.y = y3;
++					vector3.z = z3;
++					Quaternion quaternion2 = Quaternion.Euler(vector3 * 57.29578f);
+ 					float num18 = rotation.w * quaternion.x;
+ 					float num19 = rotation.x * quaternion.w;
+ 					float num20 = rotation.w * quaternion.z;
+@@ -814,11 +811,11 @@
+ 					float x3 = num15 * ((float)Math.PI / 180f);
+ 					float y4 = num16 * ((float)Math.PI / 180f);
+ 					float z4 = num17 * ((float)Math.PI / 180f);
+-					Vector3 vector5 = default(Vector3);
+-					vector5.x = x3;
+-					vector5.y = y4;
+-					vector5.z = z4;
+-					Quaternion quaternion3 = Quaternion.Euler(vector5 * 57.29578f);
++					Vector3 vector4 = default(Vector3);
++					vector4.x = x3;
++					vector4.y = y4;
++					vector4.z = z4;
++					Quaternion quaternion3 = Quaternion.Euler(vector4 * 57.29578f);
+ 					float num93 = rotation.w * quaternion3.w;
+ 					float num94 = rotation.x * quaternion3.x;
+ 					duration2 = rotation.z * quaternion3.z;
+@@ -856,11 +853,11 @@
+ 				float num111 = num6 + num110;
+ 				float x4 = num109 * t.easePeriod;
+ 				float z5 = num111 * ((float)Math.PI / 180f);
+-				Vector3 vector6 = default(Vector3);
+-				vector6.x = x4;
+-				vector6.y = (float)obj3;
+-				vector6.z = z5;
+-				Quaternion quaternion4 = Quaternion.Euler(vector6 * 57.29578f);
++				Vector3 vector5 = default(Vector3);
++				vector5.x = x4;
++				vector5.y = (float)obj3;
++				vector5.z = z5;
++				Quaternion quaternion4 = Quaternion.Euler(vector5 * 57.29578f);
+ 				float num92 = quaternion4.y;
+ 				float num91 = quaternion4.z;
+ 				float num90 = quaternion4.w;
+@@ -914,8 +911,6 @@
+ 			//IL_0662: Expected O, but got F4
+ 			//IL_066f: Expected O, but got F4
+ 			float num2;
+-			Vector3 vector = default(Vector3);
+-			Vector3 vector2 = default(Vector3);
+ 			float num10;
+ 			float num46;
+ 			if (!t._003CisRelative_003Ek__BackingField)
+@@ -923,11 +918,11 @@
+ 				int num = (int)(t.plugOptions & 0xFFFFFFFEL);
+ 				if (num != 2)
+ 				{
+-					num2 = 180f - vector.x;
++					num2 = 180f - val.x;
+ 					float f = val.y + 180f;
+ 					float f2 = val.z + 180f;
+-					float num3 = Mathf.Abs(vector2.x);
+-					float num4 = Mathf.Abs(vector.x);
++					float num3 = Mathf.Abs(counterVal.x);
++					float num4 = Mathf.Abs(val.x);
+ 					float num5 = num3 - num4;
+ 					bool flag = num5 < 0f;
+ 					bool flag2 = num5 == 0f;
+@@ -1057,7 +1052,7 @@
+ 					bool flag53 = flag50 == flag52;
+ 					bool flag54 = !flag51;
+ 					float num49 = ((!(flag53 && flag54)) ? num10 : num46);
+-					float num50 = vector2.x - num49;
++					float num50 = counterVal.x - num49;
+ 					bool flag55 = num50 < 0f;
+ 					float num51 = Mathf.Abs(f2);
+ 					float num52 = num40 - num51;
+@@ -1208,13 +1203,13 @@
+ 			bool flag99 = flag96 == flag98;
+ 			bool flag100 = !flag97;
+ 			float num74 = ((!(flag99 && flag100)) ? num10 : num46);
+-			if (vector2.x < num74)
++			if (counterVal.x < num74)
+ 			{
+ 				goto IL_022a;
+ 			}
+ 			goto IL_1289;
+ 			IL_022a:
+-			num2 = vector.x;
++			num2 = val.x;
+ 			goto IL_1289;
+ 		}
+ 
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/RectPlugin.cs	2026-09-26 16:14:38.035916629 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/RectPlugin.cs	2026-09-28 09:46:40.651302511 +0000
+@@ -233,7 +233,7 @@
+ 			//IL_0663: Expected O, but got F8
+ 			//IL_07bd: Unknown result type (might be due to invalid IL or missing references)
+ 			//IL_07c2: Expected I4, but got Unknown
+-			Rect rect2;
++			Rect rect;
+ 			float num3;
+ 			float num4;
+ 			float num5;
+@@ -241,25 +241,24 @@
+ 			{
+ 				DOGetter<Rect> getter = t.getter;
+ 				object obj = t.getter();
+-				Rect rect = default(Rect);
+-				float num = rect.m_XMin + rect.m_XMin;
+-				float num2 = t.endValue.m_XMin + rect.m_XMin;
++				float num = fromValue.m_XMin + fromValue.m_XMin;
++				float num2 = t.endValue.m_XMin + fromValue.m_XMin;
+ 				num3 = fromValue.m_YMin + fromValue.m_YMin;
+ 				num4 = fromValue.m_Width + fromValue.m_Width;
+ 				t.endValue = (Rect)num2;
+ 				num5 = fromValue.m_Height + fromValue.m_Height;
+ 				TweenerCore<Rect, Rect, RectOptions> tweenerCore = (TweenerCore<Rect, Rect, RectOptions>)(nint)getter.method;
+-				rect2 = (Rect)num;
++				rect = (Rect)num;
+ 			}
+ 			else
+ 			{
+ 				TweenerCore<Rect, Rect, RectOptions> tweenerCore = t;
+-				rect2 = fromValue;
++				rect = fromValue;
+ 				num3 = fromValue.m_YMin;
+ 				num4 = fromValue.m_Width;
+ 				num5 = fromValue.m_Height;
+ 			}
+-			t.startValue.m_XMin = rect2.m_XMin;
++			t.startValue.m_XMin = rect.m_XMin;
+ 			t.startValue.m_YMin = num3;
+ 			t.startValue.m_Width = num4;
+ 			t.startValue.m_Height = num5;
+@@ -275,11 +274,11 @@
+ 				double num8;
+ 				double num10;
+ 				double num7;
+-				if (rect2.m_XMin < 0f)
++				if (rect.m_XMin < 0f)
+ 				{
+-					if ((double)rect2.m_XMin != -0.5)
++					if ((double)rect.m_XMin != -0.5)
+ 					{
+-						double a = (double)rect2.m_XMin + -0.5;
++						double a = (double)rect.m_XMin + -0.5;
+ 						num6 = Math.Ceiling(a);
+ 						num7 = -0.5;
+ 						goto IL_02ea;
+@@ -289,9 +288,9 @@
+ 				}
+ 				else
+ 				{
+-					if ((double)rect2.m_XMin != 0.5)
++					if ((double)rect.m_XMin != 0.5)
+ 					{
+-						double d = (double)rect2.m_XMin + 0.5;
++						double d = (double)rect.m_XMin + 0.5;
+ 						num6 = Math.Floor(d);
+ 						num7 = 0.5;
+ 						goto IL_02ea;
+@@ -337,7 +336,7 @@
+ 			}
+ 			goto IL_065b;
+ 			IL_065b:
+-			rect2 = (Rect)num6;
++			rect = (Rect)num6;
+ 			double num14;
+ 			num3 = (float)num14;
+ 			double num15;
+@@ -478,19 +477,17 @@
+ 			float num2 = startValue.m_Width;
+ 			float num3 = startValue.m_Height;
+ 			bool flag = t.loopType != LoopType.Incremental;
+-			Rect rect = default(Rect);
+-			float num4 = rect.m_XMin;
+-			Rect rect2 = default(Rect);
++			float num4 = startValue.m_XMin;
+ 			object obj2 = default(object);
+ 			object obj3 = default(object);
+ 			if (!flag)
+ 			{
+ 				int num5 = t.completedLoops - (t.isComplete ? 1 : 0);
+-				float num6 = rect2.m_XMin * (float)num5;
++				float num6 = changeValue.m_XMin * (float)num5;
+ 				object obj = (nint)obj2 * num5;
+ 				int num7 = (int)updateNotice * num5;
+ 				height = (float)obj3 * (float)num5;
+-				num4 = rect.m_XMin + num6;
++				num4 = startValue.m_XMin + num6;
+ 				num += (float)obj;
+ 				num2 += (float)num7;
+ 				num3 += height;
+@@ -503,7 +500,7 @@
+ 					int num8 = ((t.loopType != LoopType.Incremental) ? 1 : t.loops);
+ 					int num9 = sequenceParent.completedLoops - (sequenceParent.isComplete ? 1 : 0);
+ 					int num10 = num9 * num8;
+-					float num6 = rect2.m_XMin * (float)num10;
++					float num6 = changeValue.m_XMin * (float)num10;
+ 					object obj4 = (nint)obj2 * num10;
+ 					int num11 = (int)updateNotice * num10;
+ 					height = (float)obj3 * (float)num10;
+@@ -516,7 +513,7 @@
+ 			float time = default(float);
+ 			IntPtr intPtr = default(IntPtr);
+ 			float num12 = EaseManager.Evaluate(t.easeType, t.customEase, time, (nint)intPtr, t.easeOvershootOrAmplitude, t.easePeriod);
+-			float num13 = rect2.m_XMin * num12;
++			float num13 = changeValue.m_XMin * num12;
+ 			float num14 = (float)obj2 * num12;
+ 			float num15 = (float)updateNotice * num12;
+ 			float num16 = (float)obj3 * num12;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector2Plugin.cs	2026-09-26 16:14:38.431916644 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector2Plugin.cs	2026-09-28 09:46:40.231302486 +0000
+@@ -329,8 +329,7 @@
+ 		public override float GetSpeedBasedDuration(VectorOptions options, float unitsXSecond, Vector2 changeValue)
+ 		{
+-			Vector2 vector = default(Vector2);
+-			float num = vector.x * vector.x;
++			float num = changeValue.x * changeValue.x;
+ 			float num2 = changeValue.y * changeValue.y;
+ 			float f = num + num2;
+ 			float num3 = Mathf.Sqrt(f);
+@@ -357,16 +356,14 @@
+ 			//IL_07c5: Unknown result type (might be due to invalid IL or missing references)
+ 			//IL_07ca: Expected I4, but got Unknown
+ 			bool flag = t.loopType != LoopType.Incremental;
+-			Vector2 vector = default(Vector2);
+-			float num = vector.x;
++			float num = startValue.x;
+ 			float num2 = startValue.y;
+-			Vector2 vector2 = default(Vector2);
+ 			if (!flag)
+ 			{
+ 				int num3 = t.completedLoops - (t.isComplete ? 1 : 0);
+-				float num4 = vector2.x * (float)num3;
++				float num4 = changeValue.x * (float)num3;
+ 				float num5 = changeValue.y * (float)num3;
+-				num = vector.x + num4;
++				num = startValue.x + num4;
+ 				num2 = startValue.y + num5;
+ 			}
+ 			if (t.isSequenced)
+@@ -375,7 +372,7 @@
+ 				if (sequenceParent.loopType == LoopType.Incremental)
+ 				{
+ 					int num6 = ((t.loopType != LoopType.Incremental) ? 1 : t.loops);
+-					float num7 = vector2.x * (float)num6;
++					float num7 = changeValue.x * (float)num6;
+ 					float num8 = changeValue.y * (float)num6;
+ 					int num9 = sequenceParent.completedLoops - (sequenceParent.isComplete ? 1 : 0);
+ 					float num10 = num7 * (float)num9;
+@@ -392,7 +389,7 @@
+ 				if ((nint)options == 2)
+ 				{
+ 					object obj = getter();
+-					float num13 = vector2.x * num12;
++					float num13 = changeValue.x * num12;
+ 					float num14 = num + num13;
+ 					if ((int)(options & 0x100000000L) != 0)
+ 					{
+@@ -425,7 +422,7 @@
+ 				}
+ 				else
+ 				{
+-					float num17 = vector2.x * num12;
++					float num17 = changeValue.x * num12;
+ 					float num18 = changeValue.y * num12;
+ 					float num14 = num + num17;
+ 					num19 = num2 + num18;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3Plugin.cs	2026-09-26 16:14:38.907916661 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3Plugin.cs	2026-09-28 09:46:40.539302505 +0000
+@@ -463,8 +463,7 @@
+ 		public override float GetSpeedBasedDuration(VectorOptions options, float unitsXSecond, Vector3 changeValue)
+ 		{
+-			Vector3 vector = default(Vector3);
+-			float num = vector.x * vector.x;
++			float num = changeValue.x * changeValue.x;
+ 			float num2 = changeValue.y * changeValue.y;
+ 			float num3 = num + num2;
+ 			float num4 = changeValue.z * changeValue.z;
+@@ -499,18 +498,16 @@
+ 			//IL_0b39: Unknown result type (might be due to invalid IL or missing references)
+ 			//IL_0b3e: Expected I4, but got Unknown
+ 			bool flag = t.loopType != LoopType.Incremental;
+-			Vector3 vector = default(Vector3);
+-			float num = vector.x;
++			float num = startValue.x;
+ 			float num2 = startValue.y;
+ 			float num3 = startValue.z;
+-			Vector3 vector2 = default(Vector3);
+ 			if (!flag)
+ 			{
+ 				int num4 = t.completedLoops - (t.isComplete ? 1 : 0);
+-				float num5 = vector2.x * (float)num4;
++				float num5 = changeValue.x * (float)num4;
+ 				float num6 = changeValue.y * (float)num4;
+ 				float num7 = changeValue.z * (float)num4;
+-				num = vector.x + num5;
++				num = startValue.x + num5;
+ 				num2 = startValue.y + num6;
+ 				num3 = startValue.z + num7;
+ 			}
+@@ -520,7 +517,7 @@
+ 				if (sequenceParent.loopType == LoopType.Incremental)
+ 				{
+ 					int num8 = ((t.loopType != LoopType.Incremental) ? 1 : t.loops);
+-					float num9 = vector2.x * (float)num8;
++					float num9 = changeValue.x * (float)num8;
+ 					float num10 = changeValue.y * (float)num8;
+ 					int num11 = sequenceParent.completedLoops - (sequenceParent.isComplete ? 1 : 0);
+ 					float num12 = changeValue.z * (float)num8;
+@@ -543,7 +540,7 @@
+ 					if ((nint)options == 2)
+ 					{
+ 						object obj = getter();
+-						float num17 = vector2.x * num16;
++						float num17 = changeValue.x * num16;
+ 						float num18 = num + num17;
+ 						if ((int)(options & 0x100000000L) != 0)
+ 						{
+@@ -575,7 +572,7 @@
+ 						}
+ 						goto IL_06c5;
+ 					}
+-					float num21 = vector2.x * num16;
++					float num21 = changeValue.x * num16;
+ 					float num22 = changeValue.y * num16;
+ 					float num23 = changeValue.z * num16;
+ 					float num24 = num + num21;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector4Plugin.cs	2026-09-26 16:14:38.739916655 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector4Plugin.cs	2026-09-28 09:46:40.379302495 +0000
+@@ -579,8 +579,7 @@
+ 		public override float GetSpeedBasedDuration(VectorOptions options, float unitsXSecond, Vector4 changeValue)
+ 		{
+-			Vector4 vector = default(Vector4);
+-			float num = vector.x * vector.x;
++			float num = changeValue.x * changeValue.x;
+ 			float num2 = changeValue.y * changeValue.y;
+ 			float num3 = changeValue.z * changeValue.z;
+ 			float num4 = num + num2;
+@@ -628,22 +627,20 @@
+ 			//IL_1046: Expected I4, but got Unknown
+ 			float w = startValue.w;
+ 			bool flag = t.loopType != LoopType.Incremental;
+-			Vector4 vector = default(Vector4);
+-			float num = vector.x;
++			float num = startValue.x;
+ 			float num2 = startValue.y;
+ 			float num3 = startValue.z;
+ 			float num4 = startValue.w;
+-			Vector4 vector2 = default(Vector4);
+ 			object obj2 = default(object);
+ 			float num9 = default(float);
+ 			if (!flag)
+ 			{
+ 				int num5 = t.completedLoops - (t.isComplete ? 1 : 0);
+-				float num6 = vector2.x * (float)num5;
++				float num6 = changeValue.x * (float)num5;
+ 				object obj = (nint)obj2 * num5;
+ 				int num7 = (int)updateNotice * num5;
+ 				float num8 = num9 * (float)num5;
+-				num = vector.x + num6;
++				num = startValue.x + num6;
+ 				num2 = startValue.y + (float)obj;
+ 				num3 = startValue.z + (float)num7;
+ 				num4 = startValue.w + num8;
+@@ -655,7 +652,7 @@
+ 				if (sequenceParent.loopType == LoopType.Incremental)
+ 				{
+ 					int num10 = ((t.loopType != LoopType.Incremental) ? 1 : t.loops);
+-					float num11 = vector2.x * (float)num10;
++					float num11 = changeValue.x * (float)num10;
+ 					int num12 = sequenceParent.completedLoops - (sequenceParent.isComplete ? 1 : 0);
+ 					object obj3 = (nint)obj2 * num10;
+ 					int num13 = (int)updateNotice * num10;
+@@ -754,7 +751,7 @@
+ 				if ((nint)options == 2)
+ 				{
+ 					object obj7 = getter();
+-					float num26 = vector2.x * num18;
++					float num26 = changeValue.x * num18;
+ 					float num27 = num + num26;
+ 					if ((int)(options & 0x100000000L) != 0)
+ 					{
+@@ -822,7 +819,7 @@
+ 					goto IL_0c3c;
+ 				}
+ 			}
+-			float num32 = vector2.x * num18;
++			float num32 = changeValue.x * num18;
+ 			float num33 = (float)updateNotice * num18;
+ 			float num34 = num + num32;
+ 			float num35 = (float)obj2 * num18;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs	2026-09-26 16:14:39.215916673 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs	2026-09-28 09:46:40.671302512 +0000
+@@ -89,13 +89,12 @@
+ 				float num = x.a - to.a;
+ 				float num2 = x.b - to.b;
+ 				float num3 = x.g - to.g;
+-				Color color = default(Color);
+-				float num4 = color.r - to.r;
+-				Color color2 = target.GetColor(property);
+-				float b = num2 + color2.b;
+-				float a = num + color2.a;
+-				float r = num4 + color2.r;
+-				float g = num3 + color2.g;
++				float num4 = x.r - to.r;
++				Color color = target.GetColor(property);
++				float b = num2 + color.b;
++				float a = num + color.a;
++				float r = num4 + color.r;
++				float g = num3 + color.g;
+ 				Color value = default(Color);
+ 				value.r = r;
+ 				value.g = g;
+@@ -311,15 +310,14 @@
+ 				DOSetter<Vector3> setter = delegate(Vector3 x)
+ 				{
+ 					Transform transform = target2.transform;
+-					Vector3 vector = default(Vector3);
+-					float x2 = vector.x * ((float)Math.PI / 180f);
++					float x2 = x.x * ((float)Math.PI / 180f);
+ 					float y = x.y * ((float)Math.PI / 180f);
+ 					float z = x.z * ((float)Math.PI / 180f);
+-					Vector3 vector2 = default(Vector3);
+-					vector2.x = x2;
+-					vector2.y = y;
+-					vector2.z = z;
+-					Quaternion localRotation = Quaternion.Euler(vector2 * 57.29578f);
++					Vector3 vector = default(Vector3);
++					vector.x = x2;
++					vector.y = y;
++					vector.z = z;
++					Quaternion localRotation = Quaternion.Euler(vector * 57.29578f);
+ 					transform.localRotation = localRotation;
+ 				};
+ 				TweenerCore<Vector3, Vector3[], Vector3ArrayOptions> t = DOTween.Shake(getter, setter, duration, strength, vibrato, randomness, ignoreZAxis: false, fadeOut, randomnessMode);
+@@ -353,15 +351,14 @@
+ 				DOSetter<Vector3> setter = delegate(Vector3 x)
+ 				{
+ 					Transform transform = target2.transform;
+-					Vector3 vector = default(Vector3);
+-					float x2 = vector.x * ((float)Math.PI / 180f);
++					float x2 = x.x * ((float)Math.PI / 180f);
+ 					float y = x.y * ((float)Math.PI / 180f);
+ 					float z = x.z * ((float)Math.PI / 180f);
+-					Vector3 vector2 = default(Vector3);
+-					vector2.x = x2;
+-					vector2.y = y;
+-					vector2.z = z;
+-					Quaternion localRotation = Quaternion.Euler(vector2 * 57.29578f);
++					Vector3 vector = default(Vector3);
++					vector.x = x2;
++					vector.y = y;
++					vector.z = z;
++					Quaternion localRotation = Quaternion.Euler(vector * 57.29578f);
+ 					transform.localRotation = localRotation;
+ 				};
+ 				TweenerCore<Vector3, Vector3[], Vector3ArrayOptions> t = DOTween.Shake(getter, setter, duration, strength, vibrato, randomness, fadeOut, randomnessMode);
+@@ -774,8 +771,7 @@
+ 			};
+ 			DOSetter<Vector2> setter = delegate(Vector2 x)
+ 			{
+-				Vector2 vector = default(Vector2);
+-				target.startWidth = vector.x;
++				target.startWidth = x.x;
+ 				target.endWidth = x.y;
+ 			};
+ 			Vector2 endValue = default(Vector2);
+@@ -1010,8 +1006,7 @@
+ 			{
+ 				target.rotation = x;
+ 			};
+-			Quaternion quaternion = default(Quaternion);
+-			TweenerCore<Quaternion, Quaternion, NoOptions> tweenerCore = DOTween.To(plugin, getter, setter, (Quaternion)0, quaternion.x);
++			TweenerCore<Quaternion, Quaternion, NoOptions> tweenerCore = DOTween.To(plugin, getter, setter, (Quaternion)0, endValue.x);
+ 			TweenerCore<Quaternion, Quaternion, NoOptions> tweenerCore2 = tweenerCore.SetTarget(target);
+ 			return tweenerCore;
+ 		}
+@@ -1044,8 +1039,7 @@
+ 			{
+ 				target.localRotation = x;
+ 			};
+-			Quaternion quaternion = default(Quaternion);
+-			TweenerCore<Quaternion, Quaternion, NoOptions> tweenerCore = DOTween.To(plugin, getter, setter, (Quaternion)0, quaternion.x);
++			TweenerCore<Quaternion, Quaternion, NoOptions> tweenerCore = DOTween.To(plugin, getter, setter, (Quaternion)0, endValue.x);
+ 			TweenerCore<Quaternion, Quaternion, NoOptions> tweenerCore2 = tweenerCore.SetTarget(target);
+ 			return tweenerCore;
+ 		}
+@@ -1221,8 +1215,7 @@
+ 			IntPtr intPtr = default(IntPtr);
+ 			if ((int)((nint)intPtr & 1) != 0)
+ 			{
+-				Vector3 vector2 = default(Vector3);
+-				tweenerCore.plugOptions.dynamicLookAtWorldPosition.x = vector2.x;
++				tweenerCore.plugOptions.dynamicLookAtWorldPosition.x = towards.x;
+ 				tweenerCore.plugOptions.dynamicLookAtWorldPosition.y = towards.y;
+ 				tweenerCore.plugOptions.dynamicLookAt = true;
+ 				tweenerCore.plugOptions.dynamicLookAtWorldPosition.z = towards.z;
+@@ -1320,15 +1313,14 @@
+ 				DOGetter<Vector3> getter = () => target2.localEulerAngles;
+ 				DOSetter<Vector3> setter = delegate(Vector3 x)
+ 				{
+-					Vector3 vector = default(Vector3);
+-					float x2 = vector.x * ((float)Math.PI / 180f);
++					float x2 = x.x * ((float)Math.PI / 180f);
+ 					float y = x.y * ((float)Math.PI / 180f);
+ 					float z = x.z * ((float)Math.PI / 180f);
+-					Vector3 vector2 = default(Vector3);
+-					vector2.x = x2;
+-					vector2.y = y;
+-					vector2.z = z;
+-					Quaternion localRotation = Quaternion.Euler(vector2 * 57.29578f);
++					Vector3 vector = default(Vector3);
++					vector.x = x2;
++					vector.y = y;
++					vector.z = z;
++					Quaternion localRotation = Quaternion.Euler(vector * 57.29578f);
+ 					target2.localRotation = localRotation;
+ 				};
+ 				TweenerCore<Vector3, Vector3[], Vector3ArrayOptions> t = DOTween.Punch(getter, setter, punch, duration, vibrato, elasticity);
+@@ -1446,15 +1438,14 @@
+ 				DOGetter<Vector3> getter = () => target2.localEulerAngles;
+ 				DOSetter<Vector3> setter = delegate(Vector3 x)
+ 				{
+-					Vector3 vector = default(Vector3);
+-					float x2 = vector.x * ((float)Math.PI / 180f);
++					float x2 = x.x * ((float)Math.PI / 180f);
+ 					float y = x.y * ((float)Math.PI / 180f);
+ 					float z = x.z * ((float)Math.PI / 180f);
+-					Vector3 vector2 = default(Vector3);
+-					vector2.x = x2;
+-					vector2.y = y;
+-					vector2.z = z;
+-					Quaternion localRotation = Quaternion.Euler(vector2 * 57.29578f);
++					Vector3 vector = default(Vector3);
++					vector.x = x2;
++					vector.y = y;
++					vector.z = z;
++					Quaternion localRotation = Quaternion.Euler(vector * 57.29578f);
+ 					target2.localRotation = localRotation;
+ 				};
+ 				TweenerCore<Vector3, Vector3[], Vector3ArrayOptions> t = DOTween.Shake(getter, setter, duration, strength, vibrato, randomness, ignoreZAxis: false, fadeOut, randomnessMode);
+@@ -1483,15 +1474,14 @@
+ 				DOGetter<Vector3> getter = () => target2.localEulerAngles;
+ 				DOSetter<Vector3> setter = delegate(Vector3 x)
+ 				{
+-					Vector3 vector = default(Vector3);
+-					float x2 = vector.x * ((float)Math.PI / 180f);
++					float x2 = x.x * ((float)Math.PI / 180f);
+ 					float y = x.y * ((float)Math.PI / 180f);
+ 					float z = x.z * ((float)Math.PI / 180f);
+-					Vector3 vector2 = default(Vector3);
+-					vector2.x = x2;
+-					vector2.y = y;
+-					vector2.z = z;
+-					Quaternion localRotation = Quaternion.Euler(vector2 * 57.29578f);
++					Vector3 vector = default(Vector3);
++					vector.x = x2;
++					vector.y = y;
++					vector.z = z;
++					Quaternion localRotation = Quaternion.Euler(vector * 57.29578f);
+ 					target2.localRotation = localRotation;
+ 				};
+ 				TweenerCore<Vector3, Vector3[], Vector3ArrayOptions> t = DOTween.Shake(getter, setter, duration, strength, vibrato, randomness, fadeOut, randomnessMode);
+@@ -1935,25 +1925,23 @@
+ 				float num = x.a - to.a;
+ 				float num2 = x.b - to.b;
+ 				float num3 = x.g - to.g;
++				float num4 = x.r - to.r;
++				Color color2 = target2.color;
++				float b2 = num2 + color2.b;
++				float a2 = num + color2.a;
++				float r2 = num4 + color2.r;
++				float g2 = num3 + color2.g;
+ 				Color color3 = default(Color);
+-				float num4 = color3.r - to.r;
+-				Color color4 = target2.color;
+-				float b2 = num2 + color4.b;
+-				float a2 = num + color4.a;
+-				float r2 = num4 + color4.r;
+-				float g2 = num3 + color4.g;
+-				Color color5 = default(Color);
+-				color5.r = r2;
+-				color5.g = g2;
+-				color5.b = b2;
+-				color5.a = a2;
+-				target2.color = color5;
++				color3.r = r2;
++				color3.g = g2;
++				color3.b = b2;
++				color3.a = a2;
++				target2.color = color3;
+ 			};
+ 			float a = endValue.a - color.a;
+ 			float b = endValue.b - color.b;
+ 			float g = endValue.g - color.g;
+-			Color color2 = default(Color);
+-			float r = color2.r - color.r;
++			float r = endValue.r - color.r;
+ 			Color endValue2 = default(Color);
+ 			endValue2.r = r;
+ 			endValue2.g = g;
+@@ -1983,25 +1971,23 @@
+ 				float num = x.a - to.a;
+ 				float num2 = x.b - to.b;
+ 				float num3 = x.g - to.g;
++				float num4 = x.r - to.r;
++				Color color2 = target2.color;
++				float b2 = num2 + color2.b;
++				float a2 = num + color2.a;
++				float r2 = num4 + color2.r;
++				float g2 = num3 + color2.g;
+ 				Color color3 = default(Color);
+-				float num4 = color3.r - to.r;
+-				Color color4 = target2.color;
+-				float b2 = num2 + color4.b;
+-				float a2 = num + color4.a;
+-				float r2 = num4 + color4.r;
+-				float g2 = num3 + color4.g;
+-				Color color5 = default(Color);
+-				color5.r = r2;
+-				color5.g = g2;
+-				color5.b = b2;
+-				color5.a = a2;
+-				target2.color = color5;
++				color3.r = r2;
++				color3.g = g2;
++				color3.b = b2;
++				color3.a = a2;
++				target2.color = color3;
+ 			};
+ 			float a = endValue.a - color.a;
+ 			float b = endValue.b - color.b;
+ 			float g = endValue.g - color.g;
+-			Color color2 = default(Color);
+-			float r = color2.r - color.r;
++			float r = endValue.r - color.r;
+ 			Color endValue2 = default(Color);
+ 			endValue2.r = r;
+ 			endValue2.g = g;
+@@ -2024,28 +2010,26 @@
+ 				Color color = target2.GetColor(property2);
+ 				Color to = default(Color);
+ 				to.b = 0f;
+-				Color color2 = default(Color);
+-				float r = color2.r - color.r;
++				float r = endValue.r - color.r;
+ 				float g = endValue.g - color.g;
+ 				float b = endValue.b - color.b;
+ 				float a = endValue.a - color.a;
+ 				DOGetter<Color> getter = () => to;
+-				DOSetter<Color> setter = delegate(Color color3)
++				DOSetter<Color> setter = delegate(Color color2)
+ 				{
+-					to = color3;
+-					to.g = color3.g;
+-					to.b = color3.b;
+-					to.a = color3.a;
+-					float num = color3.a - to.a;
+-					float num2 = color3.b - to.b;
+-					float num3 = color3.g - to.g;
+-					Color color4 = default(Color);
+-					float num4 = color4.r - to.r;
+-					Color color5 = target2.GetColor(property2);
+-					float b2 = num2 + color5.b;
+-					float a2 = num + color5.a;
+-					float r2 = num4 + color5.r;
+-					float g2 = num3 + color5.g;
++					to = color2;
++					to.g = color2.g;
++					to.b = color2.b;
++					to.a = color2.a;
++					float num = color2.a - to.a;
++					float num2 = color2.b - to.b;
++					float num3 = color2.g - to.g;
++					float num4 = color2.r - to.r;
++					Color color3 = target2.GetColor(property2);
++					float b2 = num2 + color3.b;
++					float a2 = num + color3.a;
++					float r2 = num4 + color3.r;
++					float g2 = num3 + color3.g;
+ 					Color value = default(Color);
+ 					value.r = r2;
+ 					value.g = g2;
+@@ -2088,8 +2072,7 @@
+ 				Color color = target2.GetColor(propertyID2);
+ 				Color to = default(Color);
+ 				to.b = 0f;
+-				Color color2 = default(Color);
+-				float r = color2.r - color.r;
++				float r = endValue.r - color.r;
+ 				float g = endValue.g - color.g;
+ 				float b = endValue.b - color.b;
+ 				float a = endValue.a - color.a;
+@@ -2103,13 +2086,12 @@
+ 					float num = x.a - to.a;
+ 					float num2 = x.b - to.b;
+ 					float num3 = x.g - to.g;
+-					Color color3 = default(Color);
+-					float num4 = color3.r - to.r;
+-					Color color4 = target2.GetColor(propertyID2);
+-					float b2 = num2 + color4.b;
+-					float a2 = num + color4.a;
+-					float r2 = num4 + color4.r;
+-					float g2 = num3 + color4.g;
++					float num4 = x.r - to.r;
++					Color color2 = target2.GetColor(propertyID2);
++					float b2 = num2 + color2.b;
++					float a2 = num + color2.a;
++					float r2 = num4 + color2.r;
++					float g2 = num3 + color2.g;
+ 					Color value = default(Color);
+ 					value.r = r2;
+ 					value.g = g2;
+@@ -2155,8 +2137,7 @@
+ 				to.z = x.z;
+ 				float num3 = x.z - to.z;
+ 				float num4 = x.y - to.y;
+-				Vector3 vector = default(Vector3);
+-				float num5 = vector.x - to.x;
++				float num5 = x.x - to.x;
+ 				Vector3 position = target.position;
+ 				float y = num4 + position.y;
+ 				float z = num3 + position.z;
+@@ -2198,8 +2179,7 @@
+ 				to.z = x.z;
+ 				float num3 = x.z - to.z;
+ 				float num4 = x.y - to.y;
+-				Vector3 vector = default(Vector3);
+-				float num5 = vector.x - to.x;
++				float num5 = x.x - to.x;
+ 				Vector3 localPosition = target.localPosition;
+ 				float y = num4 + localPosition.y;
+ 				float z = num3 + localPosition.z;
+@@ -2240,12 +2220,11 @@
+ 				to.w = x.w;
+ 				Quaternion rotation2 = target.rotation;
+ 				Quaternion quaternion2 = Quaternion.Inverse(rotation2);
+-				Quaternion quaternion3 = default(Quaternion);
+-				float num = quaternion3.x * quaternion.w;
++				float num = x.x * quaternion.w;
+ 				float num2 = x.w * quaternion.x;
+ 				float num3 = x.y * quaternion.w;
+ 				float num4 = x.w * quaternion.y;
+-				float num5 = quaternion3.x * quaternion.x;
++				float num5 = x.x * quaternion.x;
+ 				float num6 = x.w * quaternion.z;
+ 				float num7 = x.w * quaternion.w;
+ 				float num8 = x.z * quaternion.w;
+@@ -2264,7 +2243,7 @@
+ 				float num21 = num14 + num16;
+ 				float num22 = rotation2.z * quaternion2.w;
+ 				float num23 = x.z * quaternion.y;
+-				float num24 = quaternion3.x * quaternion.y;
++				float num24 = x.x * quaternion.y;
+ 				float num25 = x.y * quaternion.y;
+ 				float num26 = rotation2.w * quaternion2.w;
+ 				float num27 = num20 + num22;
+@@ -2280,7 +2259,7 @@
+ 				float num37 = rotation2.z * quaternion2.x;
+ 				float num38 = rotation2.x * quaternion2.y;
+ 				float num39 = rotation2.y * quaternion2.y;
+-				float num40 = quaternion3.x * quaternion.z;
++				float num40 = x.x * quaternion.z;
+ 				float num41 = x.y * quaternion.x;
+ 				float num42 = x.z * quaternion.z;
+ 				float num43 = num37 + num21;
+@@ -2386,12 +2365,11 @@
+ 				to.w = x.w;
+ 				Quaternion localRotation = target.localRotation;
+ 				Quaternion quaternion2 = Quaternion.Inverse(localRotation);
+-				Quaternion quaternion3 = default(Quaternion);
+-				float num = quaternion3.x * quaternion.w;
++				float num = x.x * quaternion.w;
+ 				float num2 = x.w * quaternion.x;
+ 				float num3 = x.y * quaternion.w;
+ 				float num4 = x.w * quaternion.y;
+-				float num5 = quaternion3.x * quaternion.x;
++				float num5 = x.x * quaternion.x;
+ 				float num6 = x.w * quaternion.z;
+ 				float num7 = x.w * quaternion.w;
+ 				float num8 = x.z * quaternion.w;
+@@ -2410,7 +2388,7 @@
+ 				float num21 = num14 + num16;
+ 				float num22 = localRotation.z * quaternion2.w;
+ 				float num23 = x.z * quaternion.y;
+-				float num24 = quaternion3.x * quaternion.y;
++				float num24 = x.x * quaternion.y;
+ 				float num25 = x.y * quaternion.y;
+ 				float num26 = localRotation.w * quaternion2.w;
+ 				float num27 = num20 + num22;
+@@ -2426,7 +2404,7 @@
+ 				float num37 = localRotation.z * quaternion2.x;
+ 				float num38 = localRotation.x * quaternion2.y;
+ 				float num39 = localRotation.y * quaternion2.y;
+-				float num40 = quaternion3.x * quaternion.z;
++				float num40 = x.x * quaternion.z;
+ 				float num41 = x.y * quaternion.x;
+ 				float num42 = x.z * quaternion.z;
+ 				float num43 = num37 + num21;
+@@ -2543,15 +2521,14 @@
+ 					vector.y = y;
+ 					vector.z = z;
+ 					Quaternion rotation = Quaternion.Euler(vector * 57.29578f);
+-					Vector3 vector2 = default(Vector3);
+-					float x2 = vector2.x * ((float)Math.PI / 180f);
++					float x2 = v.x * ((float)Math.PI / 180f);
+ 					float y2 = v.y * ((float)Math.PI / 180f);
+ 					float z2 = v.z * ((float)Math.PI / 180f);
+-					Vector3 vector3 = default(Vector3);
+-					vector3.x = x2;
+-					vector3.y = y2;
+-					vector3.z = z2;
+-					Quaternion quaternion = Quaternion.Euler(vector3 * 57.29578f);
++					Vector3 vector2 = default(Vector3);
++					vector2.x = x2;
++					vector2.y = y2;
++					vector2.z = z2;
++					Quaternion quaternion = Quaternion.Euler(vector2 * 57.29578f);
+ 					Quaternion quaternion2 = Quaternion.Inverse(rotation);
+ 					to = v;
+ 					to.y = v.y;
+@@ -2710,8 +2687,7 @@
+ 				to.z = x.z;
+ 				float num3 = x.z - to.z;
+ 				float num4 = x.y - to.y;
+-				Vector3 vector = default(Vector3);
+-				float num5 = vector.x - to.x;
++				float num5 = x.x - to.x;
+ 				Vector3 localScale = target.localScale;
+ 				float y = num4 + localScale.y;
+ 				float z = num3 + localScale.z;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/TweenSettingsExtensions.cs	2026-09-26 16:14:37.515916610 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/DOTween/DG/Tweening/TweenSettingsExtensions.cs	2026-09-28 09:46:40.015302473 +0000
+@@ -1517,8 +1517,7 @@
+ 		{
+ 			if (t != null && t._003Cactive_003Ek__BackingField)
+ 			{
+-				Vector3 vector = default(Vector3);
+-				t.plugOptions.lookAtPosition.x = vector.x;
++				t.plugOptions.lookAtPosition.x = lookAtPosition.x;
+ 				t.plugOptions.lookAtPosition.y = lookAtPosition.y;
+ 				t.plugOptions.lookAtPosition.z = lookAtPosition.z;
+ 				t.plugOptions.orientType = OrientType.LookAtPosition;
+@@ -1535,8 +1534,7 @@
+ 		{
+ 			if (t != null && t._003Cactive_003Ek__BackingField)
+ 			{
+-				Vector3 vector = default(Vector3);
+-				t.plugOptions.lookAtPosition.x = vector.x;
++				t.plugOptions.lookAtPosition.x = lookAtPosition.x;
+ 				t.plugOptions.lookAtPosition.y = lookAtPosition.y;
+ 				t.plugOptions.lookAtPosition.z = lookAtPosition.z;
+ 				t.plugOptions.orientType = OrientType.LookAtPosition;
+@@ -1638,8 +1636,7 @@
+ 					float lookAhead2 = Mathf.Max(lookAhead, 0.0001f);
+ 					t.plugOptions.lookAhead = lookAhead2;
+ 				}
+-				Vector3 vector = default(Vector3);
+-				t.plugOptions.lookAtPosition.x = vector.x;
++				t.plugOptions.lookAtPosition.x = lookAtPosition.x;
+ 				t.plugOptions.lookAtPosition.y = lookAtPosition.y;
+ 				t.plugOptions.lookAtPosition.z = lookAtPosition.z;
+ 				t.plugOptions.stableZRotation = (byte)stableZRotation2 != 0;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs	2026-09-26 16:14:45.907916918 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs	2026-09-28 09:46:47.635302926 +0000
+@@ -429,20 +429,19 @@
+ 				Vector3 vector2 = parent.InverseTransformPoint(position);
+ 				Quaternion rotation2 = parent.rotation;
+ 				Quaternion quaternion2 = Quaternion.Inverse(rotation2);
+-				Quaternion quaternion3 = default(Quaternion);
+-				float num = quaternion3.x * quaternion2.w;
++				float num = rotation.x * quaternion2.w;
+ 				float num2 = rotation.w * quaternion2.x;
+ 				float num3 = rotation.y * quaternion2.w;
+ 				float num4 = rotation.w * quaternion2.y;
+ 				float num5 = rotation.z * quaternion2.x;
+ 				float num6 = rotation.y * quaternion2.x;
+-				float num7 = quaternion3.x * quaternion2.x;
++				float num7 = rotation.x * quaternion2.x;
+ 				float num8 = rotation.z * quaternion2.w;
+ 				float num9 = rotation.w * quaternion2.w;
+ 				float num10 = rotation.w * quaternion2.z;
+ 				float num11 = rotation.z * quaternion2.y;
+-				float num12 = quaternion3.x * quaternion2.z;
+-				float num13 = quaternion3.x * quaternion2.y;
++				float num12 = rotation.x * quaternion2.z;
++				float num13 = rotation.x * quaternion2.y;
+ 				float num14 = rotation.y * quaternion2.y;
+ 				float num15 = num + num2;
+ 				float num16 = num3 + num4;
+@@ -1179,8 +1178,7 @@
+ 			transform2.localRotation = localRotation;
+ 			Transform transform3 = gameObject.transform;
+ 			Vector3 localScale2 = default(Vector3);
+-			Vector3 vector = default(Vector3);
+-			localScale2.x = vector.x;
++			localScale2.x = localScale.x;
+ 			object obj = default(object);
+ 			localScale2.y = (float)obj;
+ 			object obj2 = default(object);
+@@ -1218,8 +1216,7 @@
+ 			transform.localPosition = localPosition;
+ 			transform.localRotation = localRotation;
+ 			Vector3 localScale2 = default(Vector3);
+-			Vector3 vector = default(Vector3);
+-			localScale2.x = vector.x;
++			localScale2.x = localScale.x;
+ 			object obj = default(object);
+ 			localScale2.y = (float)obj;
+ 			object obj2 = default(object);
+--- Test/Out61c-z/./Impostor/Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs	2026-09-26 16:14:45.731916911 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs	2026-09-28 09:46:47.463302916 +0000
+@@ -177,20 +177,19 @@
+ 				Vector3 vector2 = parent.InverseTransformPoint(position);
+ 				Quaternion rotation2 = parent.rotation;
+ 				Quaternion quaternion2 = Quaternion.Inverse(rotation2);
+-				Quaternion quaternion3 = default(Quaternion);
+-				float num = quaternion3.x * quaternion2.w;
++				float num = rotation.x * quaternion2.w;
+ 				float num2 = rotation.w * quaternion2.x;
+ 				float num3 = rotation.y * quaternion2.w;
+ 				float num4 = rotation.w * quaternion2.y;
+ 				float num5 = rotation.z * quaternion2.x;
+ 				float num6 = rotation.y * quaternion2.x;
+-				float num7 = quaternion3.x * quaternion2.x;
++				float num7 = rotation.x * quaternion2.x;
+ 				float num8 = rotation.z * quaternion2.w;
+ 				float num9 = rotation.w * quaternion2.w;
+ 				float num10 = rotation.w * quaternion2.z;
+ 				float num11 = rotation.z * quaternion2.y;
+-				float num12 = quaternion3.x * quaternion2.z;
+-				float num13 = quaternion3.x * quaternion2.y;
++				float num12 = rotation.x * quaternion2.z;
++				float num13 = rotation.x * quaternion2.y;
+ 				float num14 = rotation.y * quaternion2.y;
+ 				float num15 = num + num2;
+ 				float num16 = num3 + num4;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs	2026-09-26 16:14:43.187916818 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs	2026-09-28 09:46:43.851302701 +0000
+@@ -1037,8 +1037,7 @@
+ 							y = worldPosition.y;
+ 							if (!flag4)
+ 							{
+-								Vector3 vector2 = default(Vector3);
+-								float num = vector2.x - position.x;
++								float num = worldPosition.x - position.x;
+ 								float num2 = worldPosition.y - position.y;
+ 								float num3 = worldPosition.z - position.z;
+ 								Dictionary<Bone, Transform>.ValueCollection.Enumerator enumerator2 = values.GetEnumerator();
+--- Test/Out61c-z/./Impostor/Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs	2026-09-26 16:14:43.543916831 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs	2026-09-28 09:46:44.135302718 +0000
+@@ -786,8 +786,7 @@
+ 							y = worldPosition.y;
+ 							if (!flag4)
+ 							{
+-								Vector3 vector2 = default(Vector3);
+-								float num = vector2.x - position.x;
++								float num = worldPosition.x - position.x;
+ 								float num2 = worldPosition.y - position.y;
+ 								float num3 = worldPosition.z - position.z;
+ 								Dictionary<Bone, Transform>.ValueCollection.Enumerator enumerator2 = values.GetEnumerator();
+--- Test/Out61c-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs	2026-09-26 16:14:34.151916487 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs	2026-09-28 09:46:38.399302377 +0000
+@@ -1365,10 +1365,9 @@
+ 			//IL_0149: Expected I4, but got F4
+ 			//IL_0087: Expected I4, but got F4
+ 			//IL_00a7: Expected I4, but got F4
+-			Rect rect = default(Rect);
+ 			if (SystemInfo.copyTextureSupport == CopyTextureSupport.None)
+ 			{
+-				int x = ((rect.m_XMin != float.PositiveInfinity) ? ((int)sourceRect) : int.MinValue);
++				int x = ((sourceRect.m_XMin != float.PositiveInfinity) ? ((int)sourceRect) : int.MinValue);
+ 				int y = ((sourceRect.m_YMin != float.PositiveInfinity) ? ((int)sourceRect.m_YMin) : int.MinValue);
+ 				int blockWidth = ((sourceRect.m_Width != float.PositiveInfinity) ? ((int)sourceRect.m_Width) : int.MinValue);
+ 				int blockHeight = ((sourceRect.m_Height != float.PositiveInfinity) ? ((int)sourceRect.m_Height) : int.MinValue);
+@@ -1378,7 +1377,7 @@
+ 			}
+ 			else
+ 			{
+-				int srcX = ((rect.m_XMin != float.PositiveInfinity) ? ((int)sourceRect) : int.MinValue);
++				int srcX = ((sourceRect.m_XMin != float.PositiveInfinity) ? ((int)sourceRect) : int.MinValue);
+ 				int srcY = ((sourceRect.m_YMin != float.PositiveInfinity) ? ((int)sourceRect.m_YMin) : int.MinValue);
+ 				int srcWidth = ((sourceRect.m_Width != float.PositiveInfinity) ? ((int)sourceRect.m_Width) : int.MinValue);
+ 				int srcHeight = ((sourceRect.m_Height != float.PositiveInfinity) ? ((int)sourceRect.m_Height) : int.MinValue);
+@@ -1401,8 +1400,7 @@
+ 			//IL_010e: Expected O, but got Unknown
+ 			//IL_012b: Expected O, but got I
+ 			//IL_0147: Expected O, but got I
+-			Rect rect = default(Rect);
+-			int x = ((rect.m_XMin != float.PositiveInfinity) ? ((int)sourceRect) : int.MinValue);
++			int x = ((sourceRect.m_XMin != float.PositiveInfinity) ? ((int)sourceRect) : int.MinValue);
+ 			int y = ((sourceRect.m_YMin != float.PositiveInfinity) ? ((int)sourceRect.m_YMin) : int.MinValue);
+ 			int blockWidth = ((sourceRect.m_Width != float.PositiveInfinity) ? ((int)sourceRect.m_Width) : int.MinValue);
+ 			int blockHeight = ((sourceRect.m_Height != float.PositiveInfinity) ? ((int)sourceRect.m_Height) : int.MinValue);
+@@ -1496,8 +1494,7 @@
+ 			Rect result = default(Rect);
+ 			if (!flag)
+ 			{
+-				Rect rect = default(Rect);
+-				float num = rect.m_XMin / (float)texWidth;
++				float num = textureRect.m_XMin / (float)texWidth;
+ 				bool flag2 = num < 0f;
+ 				result = default(Rect);
+ 				if (!flag2)
+@@ -1700,17 +1697,16 @@
+ 			float num31 = uvRect.m_YMin * (float)page.height;
+ 			float num32 = (float)page.height - num31;
+ 			atlasRegion.page = page;
+-			Rect rect = default(Rect);
+-			float u = uvRect.m_Width + rect.m_XMin;
++			float u = uvRect.m_Width + uvRect.m_XMin;
+ 			float num33 = num32 - num2;
+ 			double num34 = ((num27 != 9.218868437227405E+18) ? num27 : 1.0609978955E-314);
+-			float num35 = rect.m_XMin * (float)page.width;
++			float num35 = uvRect.m_XMin * (float)page.width;
+ 			atlasRegion.u2 = u;
+ 			atlasRegion.v2 = uvRect.m_YMin;
+ 			double num36 = ((num8 != 9.218868437227405E+18) ? num8 : 1.0609978955E-314);
+ 			float v = uvRect.m_Height + uvRect.m_YMin;
+ 			float num37 = ((num33 != float.PositiveInfinity) ? num33 : -0f);
+-			atlasRegion.u = rect.m_XMin;
++			atlasRegion.u = uvRect.m_XMin;
+ 			atlasRegion.v = v;
+ 			atlasRegion.originalHeight = (int)num34;
+ 			atlasRegion.index = -1;
+--- Test/Out61c-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AttachmentRegionExtensions.cs	2026-09-26 16:14:34.271916491 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AttachmentRegionExtensions.cs	2026-09-28 09:46:37.763302340 +0000
+@@ -288,8 +288,7 @@
+ 		public static void SetScale(this RegionAttachment regionAttachment, Vector2 scale)
+ 		{
+-			Vector2 vector = default(Vector2);
+-			regionAttachment.ScaleX = vector.x;
++			regionAttachment.ScaleX = scale.x;
+ 			regionAttachment.ScaleY = scale.y;
+ 		}
+ 
+@@ -307,8 +306,7 @@
+ 		public static void SetPositionOffset(this RegionAttachment regionAttachment, Vector2 offset)
+ 		{
+-			Vector2 vector = default(Vector2);
+-			regionAttachment.X = vector.x;
++			regionAttachment.X = offset.x;
+ 			regionAttachment.Y = offset.y;
+ 		}
+ 
+--- Test/Out61c-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonExtensions.cs	2026-09-26 16:14:33.647916468 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonExtensions.cs	2026-09-28 09:46:37.871302346 +0000
+@@ -61,8 +61,7 @@
+ 		public static void SetColor(this Skeleton skeleton, Color color)
+ 		{
+-			Color color2 = default(Color);
+-			skeleton.R = color2.r;
++			skeleton.R = color.r;
+ 			skeleton.G = color.g;
+ 			skeleton.B = color.b;
+ 			skeleton.A = color.a;
+@@ -88,8 +87,7 @@
+ 		public static void SetColor(this Slot slot, Color color)
+ 		{
+-			Color color2 = default(Color);
+-			slot.R = color2.r;
++			slot.R = color.r;
+ 			slot.G = color.g;
+ 			slot.B = color.b;
+ 			slot.A = color.a;
+@@ -115,8 +113,7 @@
+ 		public static void SetColor(this RegionAttachment attachment, Color color)
+ 		{
+-			Color color2 = default(Color);
+-			attachment.R = color2.r;
++			attachment.R = color.r;
+ 			attachment.G = color.g;
+ 			attachment.B = color.b;
+ 			attachment.A = color.a;
+@@ -142,8 +139,7 @@
+ 		public static void SetColor(this MeshAttachment attachment, Color color)
+ 		{
+-			Color color2 = default(Color);
+-			attachment.R = color2.r;
++			attachment.R = color.r;
+ 			attachment.G = color.g;
+ 			attachment.B = color.b;
+ 			attachment.A = color.a;
+@@ -169,8 +165,7 @@
+ 		public static void SetLocalScale(this Skeleton skeleton, Vector2 scale)
+ 		{
+-			Vector2 vector = default(Vector2);
+-			skeleton.ScaleX = vector.x;
++			skeleton.ScaleX = scale.x;
+ 			skeleton.ScaleY = scale.y;
+ 		}
+ 
+@@ -210,8 +205,7 @@
+ 		public static void SetLocalPosition(this Bone bone, Vector2 position)
+ 		{
+-			Vector2 vector = default(Vector2);
+-			bone.X = vector.x;
++			bone.X = position.x;
+ 			bone.Y = position.y;
+ 		}
+ 
+@@ -220,8 +214,7 @@
+ 		public static void SetLocalPosition(this Bone bone, Vector3 position)
+ 		{
+-			Vector3 vector = default(Vector3);
+-			bone.X = vector.x;
++			bone.X = position.x;
+ 			bone.Y = position.y;
+ 		}
+ 
+@@ -251,8 +244,7 @@
+ 			//IL_0037: Expected O, but got F4
+ 			float worldX = default(float);
+ 			ref float worldY = ref *(float*)((nint)worldX | 4);
+-			Vector2 vector = default(Vector2);
+-			bone.LocalToWorld(vector.x, boneLocal.y, out worldX, out worldY);
++			bone.LocalToWorld(boneLocal.x, boneLocal.y, out worldX, out worldY);
+ 			return (Vector2)worldX;
+ 		}
+ 
+@@ -353,8 +345,7 @@
+ 			//IL_0037: Expected O, but got F4
+ 			float localX = default(float);
+ 			ref float localY = ref *(float*)((nint)localX | 4);
+-			Vector2 vector = default(Vector2);
+-			bone.WorldToLocal(vector.x, worldPosition.y, out localX, out localY);
++			bone.WorldToLocal(worldPosition.x, worldPosition.y, out localX, out localY);
+ 			return (Vector2)localX;
+ 		}
+ 
+--- Test/Out61c-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs	2026-09-26 16:14:32.843916439 +0000
++++ Test/Out61h-z/./Impostor/Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs	2026-09-28 09:46:37.271302310 +0000
+@@ -213,10 +213,9 @@
+ 		{
+ 			//IL_003e: Expected O, but got F4
+ 			Vector2 remainingRootMotion = GetRemainingRootMotion(trackIndex);
+-			Vector2 vector = default(Vector2);
+-			object obj = ((vector.x != 0f) ? distanceToTarget : ((object)0.0001f));
++			object obj = ((distanceToTarget.x != 0f) ? distanceToTarget : ((object)0.0001f));
+ 			float num = ((distanceToTarget.y != 0f) ? distanceToTarget.y : 0.0001f);
+-			float num2 = vector.x / (float)obj;
++			float num2 = distanceToTarget.x / (float)obj;
+ 			float num3 = distanceToTarget.y / num;
+ 			rootMotionScaleX = num2;
+ 			rootMotionScaleY = num3;
+@@ -403,9 +402,8 @@
+ 			//IL_0098: Expected O, but got F4
+ 			//IL_01f8: Expected I, but got O
+ 			float additionalScale = AdditionalScale;
+-			Vector2 vector = default(Vector2);
+-			float num = vector.x * vector.x;
+-			float num2 = localDelta.y * vector.x;
++			float num = localDelta.x * localDelta.x;
++			float num2 = localDelta.y * localDelta.x;
+ 			float x = num * rootMotionScaleX;
+ 			float y = num2 * rootMotionScaleY;
+ 			List<object>.Enumerator enumerator;
+@@ -419,12 +417,12 @@
+ 				num3 = 0;
+ 				if (!flag)
+ 				{
+-					Vector3 vector2 = default(Vector3);
+-					vector2.x = x;
+-					vector2.y = y;
+-					vector2.z = 0f;
+-					Vector3 vector3 = transform.TransformVector(vector2);
+-					float num4 = rigidbodyDisplacement.x + vector3.x;
++					Vector3 vector = default(Vector3);
++					vector.x = x;
++					vector.y = y;
++					vector.z = 0f;
++					Vector3 vector2 = transform.TransformVector(vector);
++					float num4 = rigidbodyDisplacement.x + vector2.x;
+ 					rigidbodyDisplacement = (Vector2)num4;
+ 					goto IL_01d8;
+ 				}
+@@ -444,14 +442,14 @@
+ 					num3 = unchecked((nint)null);
+ 					if (!flag3)
+ 					{
+-						Vector3 vector4 = default(Vector3);
+-						vector4.x = x;
+-						vector4.y = y;
+-						vector4.z = 0f;
+-						Vector3 vector5 = transform3.TransformVector(vector4);
+-						float x2 = position.x + vector5.x;
+-						float y2 = position.y + vector5.y;
+-						float z = position.z + vector5.z;
++						Vector3 vector3 = default(Vector3);
++						vector3.x = x;
++						vector3.y = y;
++						vector3.z = 0f;
++						Vector3 vector4 = transform3.TransformVector(vector3);
++						float x2 = position.x + vector4.x;
++						float y2 = position.y + vector4.y;
++						float z = position.z + vector4.z;
+ 						Vector3 position2 = default(Vector3);
+ 						position2.x = x2;
+ 						position2.y = y2;
