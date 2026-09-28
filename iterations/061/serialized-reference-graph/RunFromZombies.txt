@@ -1,0 +1,12 @@
+== Assets/Scenes/GameScene.unity (PATH <- Assets/Scenes/GameScene.unity)
+  gameObjects  {"MATCHED": 481}
+  components   {"MATCHED": 568, "MATCHED_POSITIONAL": 46}
+  scripts      {"BOUND_EXACT": 11, "SOURCE_SCRIPT_UNDECLARED": 46}
+  references   {"exact": {"FIELD_ABSENT_IN_SOURCE": 5, "MATCH": 500, "MATCH_POSITIONAL_TARGET": 2, "NULL_BOTH": 96}, "positional": {"MATCH": 28, "MATCH_POSITIONAL_TARGET": 7, "NULL_BOTH": 89}}
+== Assets/Scenes/MenuScene.unity (PATH <- Assets/Scenes/MenuScene.unity)
+  gameObjects  {"MATCHED": 185}
+  components   {"MATCHED": 366, "MATCHED_POSITIONAL": 27}
+  scripts      {"BOUND_EXACT": 3, "SOURCE_SCRIPT_UNDECLARED": 27}
+  references   {"exact": {"DIFFERENT_NAME_SANITIZED": 1, "FIELD_ABSENT_IN_SOURCE": 48, "MATCH": 235, "NULL_BOTH": 271, "SOURCE_TARGET_UNKNOWN": 5, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 2}, "positional": {"MATCH": 17, "MATCH_POSITIONAL_TARGET": 3, "NULL_BOTH": 42}}
+TOTAL {"components": {"MATCHED": 934, "MATCHED_POSITIONAL": 73}, "gameObjects": {"MATCHED": 666}, "references": {"exact": {"DIFFERENT_NAME_SANITIZED": 1, "FIELD_ABSENT_IN_SOURCE": 53, "MATCH": 735, "MATCH_POSITIONAL_TARGET": 2, "NULL_BOTH": 367, "SOURCE_TARGET_UNKNOWN": 5, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 2}, "positional": {"MATCH": 45, "MATCH_POSITIONAL_TARGET": 10, "NULL_BOTH": 131}}, "scripts": {"BOUND_EXACT": 14, "SOURCE_SCRIPT_UNDECLARED": 73}}
+RATES {"gameobject_match_rate": 1.0, "reference_decided_exact": 736, "reference_decided_positional": 45, "reference_match_rate_exact": 0.9986, "reference_match_rate_positional": 1.0, "reference_positional_target_exact": 2, "reference_positional_target_positional": 10, "reference_unknown_exact": 7, "reference_unknown_positional": 0, "script_binding_decided": "14 of 87", "script_binding_rate": 1.0}

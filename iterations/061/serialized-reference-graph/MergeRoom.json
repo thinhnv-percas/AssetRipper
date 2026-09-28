@@ -1,0 +1,1273 @@
+{
+ "rates": {
+  "gameobject_match_rate": 1.0,
+  "reference_decided_exact": 1733,
+  "reference_decided_positional": 58,
+  "reference_match_rate_exact": 1.0,
+  "reference_match_rate_positional": 1.0,
+  "reference_positional_target_exact": 35,
+  "reference_positional_target_positional": 16,
+  "reference_unknown_exact": 375,
+  "reference_unknown_positional": 16,
+  "script_binding_decided": "143 of 234",
+  "script_binding_rate": 1.0
+ },
+ "recovered": "Test/Out61c-m/MergeRoom",
+ "scenes": [
+  {
+   "components": {
+    "MATCHED": 1617,
+    "MATCHED_POSITIONAL": 80
+   },
+   "examples": {
+    "SOURCE_TARGET_UNKNOWN": [
+     {
+      "component": "ScriptHolder/Camera#Script:?72ece51f2901e7445ab60da3685d6b5f",
+      "field": "m_CustomBlends",
+      "recovered": "MonoBehaviour<Cinemachine.CinemachineBlenderSettings>:Camera Blends",
+      "source": "MonoBehaviour<?36baaa8bdcb9d8b49b9199833965d2c3>:Camera Blends"
+     },
+     {
+      "component": "ScriptHolder/Canvas/GameCompleteWindow/UIParticle/ConfettiRain#ParticleSystemRenderer",
+      "field": "m_Mesh",
+      "recovered": "Mesh:PolyConfetti",
+      "source": "UNKNOWN:PolyConfetti.FBX object -2783059228146856621"
+     },
+     {
+      "component": "RoomManager/ChildrenBase#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:Base",
+      "source": "UNKNOWN:Base.fbx object 3909233067320746374"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/bed/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:bed",
+      "source": "UNKNOWN:bed.fbx object 3335724914305450694"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/bed/Host#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:bed",
+      "source": "UNKNOWN:bed.fbx object 3335724914305450694"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/chair/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:1 chair",
+      "source": "UNKNOWN:1_chair.fbx object 1046066138905013356"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/chair/Ghost#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:1 chair",
+      "source": "UNKNOWN:1_chair.fbx object 1046066138905013356"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/shelf with books/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:shelf with books",
+      "source": "UNKNOWN:shelf with books.fbx object 5361275539956444962"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/shelf with books/Ghost#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:shelf with books",
+      "source": "UNKNOWN:shelf with books.fbx object 5361275539956444962"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/table/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:1 table",
+      "source": "UNKNOWN:1_table.fbx object -8156788777349405332"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/table/Ghost#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:1 table",
+      "source": "UNKNOWN:1_table.fbx object -8156788777349405332"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/wardrobe/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:1 wardrobe",
+      "source": "UNKNOWN:1_wardrobe.fbx object -4269950454261196689"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/wardrobe/Ghost#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:1 wardrobe",
+      "source": "UNKNOWN:1_wardrobe.fbx object -4269950454261196689"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/printer/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:printer",
+      "source": "UNKNOWN:printer.fbx object -3939253440279775230"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/printer/Ghost#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:printer",
+      "source": "UNKNOWN:printer.fbx object -3939253440279775230"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Computer/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:pk",
+      "source": "UNKNOWN:pk.fbx object 6333684744877278450"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Computer/Chost#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:pk",
+      "source": "UNKNOWN:pk.fbx object 6333684744877278450"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Carpet/Model#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:rug",
+      "source": "UNKNOWN:rug.fbx object 362942330529586645"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Carpet/Ghost#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:rug",
+      "source": "UNKNOWN:rug.fbx object 362942330529586645"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/book (1)#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:book",
+      "source": "UNKNOWN:book.fbx object 381947130776709163"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/book (2)#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:book",
+      "source": "UNKNOWN:book.fbx object 381947130776709163"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/book (3)#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:book",
+      "source": "UNKNOWN:book.fbx object 381947130776709163"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/book (4)#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:book",
+      "source": "UNKNOWN:book.fbx object 381947130776709163"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/book (5)#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:book",
+      "source": "UNKNOWN:book.fbx object 381947130776709163"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/book (6)#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:book",
+      "source": "UNKNOWN:book.fbx object 381947130776709163"
+     }
+    ],
+    "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": [
+     {
+      "component": "ScriptHolder/Canvas/GameCompleteWindow/RoomIcon/Sprite#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid 82b21366e8189454fb2afe780156b0ca"
+     },
+     {
+      "component": "ScriptHolder/Canvas/TutorialWindow/Hand#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid d9566b2ce52166a429b0ccc3e6c3d829"
+     },
+     {
+      "component": "ScriptHolder/Canvas/TutorialWindow/Hand/Stick#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid d363d399c4d8b9943bc9bf789cf8aa18"
+     },
+     {
+      "component": "ScriptHolder/Canvas/TutorialWindow/Joystick#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid d363d399c4d8b9943bc9bf789cf8aa18"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/bed/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/bed/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/chair/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/chair/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/shelf with books/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/shelf with books/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/table/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/table/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/wardrobe/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_00/wardrobe/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/printer/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/printer/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Computer/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Computer/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Carpet/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Carpet/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/ChildrenBase/Stage_01/Books/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 fridge/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 fridge/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 oven/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 oven/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 sink/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 sink/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 lockers/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 lockers/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 countertop/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_00/4 countertop/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 chair/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 chair/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 chair (1)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 chair (1)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 chair (2)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 chair (2)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 microwave/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 microwave/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 table/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_01/4 table/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 picture/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 picture/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 tv/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 tv/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 sofa/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 sofa/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 cake/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/KitchenBase/Stage_02/4 cake/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2bath/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2bath/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2 toilet/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2 toilet/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2 sink/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2 sink/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2 wardrobe1/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_00/2 wardrobe1/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2ironing board/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2ironing board/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2_stiralka/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2_stiralka/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2 carpet/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2 carpet/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2hanger/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_01/2hanger/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_02/2towel/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_02/2towel/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_02/2 wardrobe 2/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_02/2 wardrobe 2/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_02/2shower/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/BathBase/Stage_02/2shower/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 cabinet/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 cabinet/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 sink/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 sink/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 table/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 table/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 table (1)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 table (1)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 cabinet (1)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_00/5 cabinet (1)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 chair/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 chair/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 chair (1)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 chair (1)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 chair (2)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 chair (2)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 pk/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 pk/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 stand/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_01/5 stand/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/5 carpet/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/5 carpet/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/5 microscope/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/5 microscope/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/5 microscope (1)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/5 microscope (1)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/Books/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LabBase/Stage_02/Books/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/3 bed/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/3 bed/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/adult room wardrobe/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/adult room wardrobe/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/3chest/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/3chest/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/3desk/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_00/3desk/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/3_podyshki/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/3_podyshki/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/3_odeyalo/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/3_odeyalo/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/rug/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/rug/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/mirror/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/mirror/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/4_chair/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_01/4_chair/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/picture1/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/picture1/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/picture2/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/picture2/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/3 lamp/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/3 lamp/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/3pk1/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/3pk1/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/3clock/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/LivingBase/Stage_02/3clock/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 bike path/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 bike path/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 cabinet/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 cabinet/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 dumbbells/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 dumbbells/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 swedish wall/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 swedish wall/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 dumbbells (1)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_00/6 dumbbells (1)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 mirror/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 mirror/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 rod/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 rod/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 picture/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 picture/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 kettlebell (1)/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 kettlebell (1)/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 kettlebell/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 kettlebell/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 fan/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_01/6 fan/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_02/6 punching bag/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_02/6 punching bag/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_02/6 boxing gloves/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_02/6 boxing gloves/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_02/6 the mat/Sparks#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     },
+     {
+      "component": "RoomManager/SportBase/Stage_02/6 the mat/Sparks/SparkTrail#ParticleSystem",
+      "field": "LightsModule.light",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid faeb88c246231cb4aafcb2bc5b5b0427"
+     }
+    ]
+   },
+   "gameObjects": {
+    "MATCHED": 575
+   },
+   "pairedBy": "PATH",
+   "references": {
+    "exact": {
+     "MATCH": 1730,
+     "MATCH_POSITIONAL_TARGET": 35,
+     "NULL_BOTH": 5824,
+     "SOURCE_TARGET_UNKNOWN": 223,
+     "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 152
+    },
+    "positional": {
+     "MATCH": 52,
+     "MATCH_POSITIONAL_TARGET": 16,
+     "NULL_BOTH": 188,
+     "SOURCE_TARGET_UNKNOWN": 1,
+     "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4
+    }
+   },
+   "scene": "Assets/Gtap_MergeRoom/Scenes/Level_1.unity",
+   "scripts": {
+    "BOUND_EXACT": 139,
+    "SOURCE_SCRIPT_UNDECLARED": 80
+   },
+   "sourceScene": "Assets/Gtap_MergeRoom/Scenes/Level_1.unity"
+  },
+  {
+   "components": {
+    "MATCHED": 26,
+    "MATCHED_POSITIONAL": 11
+   },
+   "examples": {
+    "SOURCE_TARGET_UNKNOWN": [
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_ActionsAsset",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionAsset>:DefaultInputActions",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_CancelAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/Cancel",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_LeftClickAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/Click",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_MiddleClickAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/MiddleClick",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_MoveAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/Navigate",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_PointAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/Point",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_RightClickAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/RightClick",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_ScrollWheelAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/ScrollWheel",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_SubmitAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/Submit",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_TrackedDeviceOrientationAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/TrackedDeviceOrientation",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     },
+     {
+      "component": "GTAP-Input#Script:?01614664b831546d2ae94a42149d80ac",
+      "field": "m_TrackedDevicePositionAction",
+      "recovered": "MonoBehaviour<UnityEngine.InputSystem.InputActionReference>:UI/TrackedDevicePosition",
+      "source": "UNKNOWN:guid ca9f5fa95ffab41fb9a615ab714db018"
+     }
+    ]
+   },
+   "gameObjects": {
+    "MATCHED": 12
+   },
+   "pairedBy": "PATH",
+   "references": {
+    "exact": {
+     "MATCH": 3,
+     "NULL_BOTH": 11
+    },
+    "positional": {
+     "MATCH": 6,
+     "NULL_BOTH": 9,
+     "SOURCE_TARGET_UNKNOWN": 11
+    }
+   },
+   "scene": "Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity",
+   "scripts": {
+    "BOUND_EXACT": 4,
+    "SOURCE_SCRIPT_UNDECLARED": 11
+   },
+   "sourceScene": "Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity"
+  }
+ ],
+ "source": "artifacts/reference/Merge-Room",
+ "sourceBuildScenes": [
+  "Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity",
+  "Assets/Gtap_MergeRoom/Scenes/Level_1.unity"
+ ],
+ "total": {
+  "components": {
+   "MATCHED": 1643,
+   "MATCHED_POSITIONAL": 91
+  },
+  "gameObjects": {
+   "MATCHED": 587
+  },
+  "references": {
+   "exact": {
+    "MATCH": 1733,
+    "MATCH_POSITIONAL_TARGET": 35,
+    "NULL_BOTH": 5835,
+    "SOURCE_TARGET_UNKNOWN": 223,
+    "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 152
+   },
+   "positional": {
+    "MATCH": 58,
+    "MATCH_POSITIONAL_TARGET": 16,
+    "NULL_BOTH": 197,
+    "SOURCE_TARGET_UNKNOWN": 12,
+    "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4
+   }
+  },
+  "scripts": {
+   "BOUND_EXACT": 143,
+   "SOURCE_SCRIPT_UNDECLARED": 91
+  }
+ }
+}

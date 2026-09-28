@@ -1,0 +1,7 @@
+== Assets/_Impostor 3/Scenes/Tutorial.unity (PATH <- Assets/_Impostor 3/Scenes/Tutorial.unity)
+  gameObjects  {"MATCHED": 103}
+  components   {"MATCHED": 198, "MATCHED_POSITIONAL": 101}
+  scripts      {"BOUND_EXACT": 12, "SOURCE_SCRIPT_UNDECLARED": 101}
+  references   {"exact": {"FIELD_ABSENT_IN_SOURCE": 3, "MATCH": 56, "MATCH_POSITIONAL_TARGET": 7, "NULL_BOTH": 48}, "positional": {"MATCH": 66, "MATCH_POSITIONAL_TARGET": 15, "NULL_BOTH": 203, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4}}
+TOTAL {"components": {"MATCHED": 198, "MATCHED_POSITIONAL": 101}, "gameObjects": {"MATCHED": 103}, "references": {"exact": {"FIELD_ABSENT_IN_SOURCE": 3, "MATCH": 56, "MATCH_POSITIONAL_TARGET": 7, "NULL_BOTH": 48}, "positional": {"MATCH": 66, "MATCH_POSITIONAL_TARGET": 15, "NULL_BOTH": 203, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4}}, "scripts": {"BOUND_EXACT": 12, "SOURCE_SCRIPT_UNDECLARED": 101}}
+RATES {"gameobject_match_rate": 1.0, "reference_decided_exact": 56, "reference_decided_positional": 66, "reference_match_rate_exact": 1.0, "reference_match_rate_positional": 1.0, "reference_positional_target_exact": 7, "reference_positional_target_positional": 15, "reference_unknown_exact": 0, "reference_unknown_positional": 4, "script_binding_decided": "12 of 113", "script_binding_rate": 1.0}

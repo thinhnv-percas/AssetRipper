@@ -1,0 +1,354 @@
+{
+ "rates": {
+  "gameobject_match_rate": 1.0,
+  "reference_decided_exact": 736,
+  "reference_decided_positional": 45,
+  "reference_match_rate_exact": 0.9986,
+  "reference_match_rate_positional": 1.0,
+  "reference_positional_target_exact": 2,
+  "reference_positional_target_positional": 10,
+  "reference_unknown_exact": 7,
+  "reference_unknown_positional": 0,
+  "script_binding_decided": "14 of 87",
+  "script_binding_rate": 1.0
+ },
+ "recovered": "Test/Out61c-j/RunFromZombies",
+ "scenes": [
+  {
+   "components": {
+    "MATCHED": 568,
+    "MATCHED_POSITIONAL": 46
+   },
+   "examples": {
+    "FIELD_ABSENT_IN_SOURCE": [
+     {
+      "component": "Main Camera/Score#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "FirstTab/Stone Floor prefab (1)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "FirstTab/Stone Floor prefab/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "FirstTab/Sideway Prefab/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Plane#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     }
+    ]
+   },
+   "gameObjects": {
+    "MATCHED": 481
+   },
+   "pairedBy": "PATH",
+   "references": {
+    "exact": {
+     "FIELD_ABSENT_IN_SOURCE": 5,
+     "MATCH": 500,
+     "MATCH_POSITIONAL_TARGET": 2,
+     "NULL_BOTH": 96
+    },
+    "positional": {
+     "MATCH": 28,
+     "MATCH_POSITIONAL_TARGET": 7,
+     "NULL_BOTH": 89
+    }
+   },
+   "scene": "Assets/Scenes/GameScene.unity",
+   "scripts": {
+    "BOUND_EXACT": 11,
+    "SOURCE_SCRIPT_UNDECLARED": 46
+   },
+   "sourceScene": "Assets/Scenes/GameScene.unity"
+  },
+  {
+   "components": {
+    "MATCHED": 366,
+    "MATCHED_POSITIONAL": 27
+   },
+   "examples": {
+    "DIFFERENT_NAME_SANITIZED": [
+     {
+      "component": "BackgroundAudio#AudioSource",
+      "field": "m_audioClip",
+      "recovered": "AudioClip:This Can't be the End (Orchestral_ Horror)",
+      "source": "AudioClip:This Can't be the End (Orchestral, Horror)"
+     }
+    ],
+    "FIELD_ABSENT_IN_SOURCE": [
+     {
+      "component": "Street/Stone Floor prefab (4)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (3)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (2)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (1)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Sideway Prefab (2)/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Sideway Prefab (1)/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Sideway Prefab/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (5)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Sideway Prefab (3)/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (6)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (7)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (8)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (9)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Sideway Prefab (4)/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (10)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (11)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Sideway Prefab (5)/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Building_A1_prefab/Building_A1#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Building_I_2_Prefab/Building_I_2/Building_I_2#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Building_I_2_Prefab/Building_I_2/Building_I_2/Fire_escape_leader#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/street_lamp 1 prefab/street_lamp 1#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (12)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Stone Floor prefab (13)/street#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "Street/Sideway Prefab (6)/Sidewalk_05#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     }
+    ],
+    "SOURCE_TARGET_UNKNOWN": [
+     {
+      "component": "Street/Building_I_2_Prefab/Building_I_2/Building_I_2/Fire_escape_leader#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:Fire_escape_leader",
+      "source": "UNKNOWN:Building_I_2.fbx object 4300002"
+     },
+     {
+      "component": "Street/Big_trash_bin prefab/Big_trash_bin/door 1#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:door 1",
+      "source": "UNKNOWN:Big_trash_bin.fbx object 4300004"
+     },
+     {
+      "component": "Street/Big_trash_bin prefab/Big_trash_bin/door 1#MeshCollider",
+      "field": "m_Mesh",
+      "recovered": "Mesh:door 1",
+      "source": "UNKNOWN:Big_trash_bin.fbx object 4300004"
+     },
+     {
+      "component": "Street/Big_trash_bin prefab/Big_trash_bin/door 2#MeshFilter",
+      "field": "m_Mesh",
+      "recovered": "Mesh:door 2",
+      "source": "UNKNOWN:Big_trash_bin.fbx object 4300002"
+     },
+     {
+      "component": "Street/Big_trash_bin prefab/Big_trash_bin/door 2#MeshCollider",
+      "field": "m_Mesh",
+      "recovered": "Mesh:door 2",
+      "source": "UNKNOWN:Big_trash_bin.fbx object 4300002"
+     }
+    ],
+    "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": [
+     {
+      "component": "MenuMove/MobileFreeZombieSimpleMovement#Animator",
+      "field": "m_Avatar",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid 520328afa68e691429451635bbb84c79"
+     },
+     {
+      "component": "MenuMove (1)/MobileFreeZombieSimpleMovement#Animator",
+      "field": "m_Avatar",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid 520328afa68e691429451635bbb84c79"
+     }
+    ]
+   },
+   "gameObjects": {
+    "MATCHED": 185
+   },
+   "pairedBy": "PATH",
+   "references": {
+    "exact": {
+     "DIFFERENT_NAME_SANITIZED": 1,
+     "FIELD_ABSENT_IN_SOURCE": 48,
+     "MATCH": 235,
+     "NULL_BOTH": 271,
+     "SOURCE_TARGET_UNKNOWN": 5,
+     "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 2
+    },
+    "positional": {
+     "MATCH": 17,
+     "MATCH_POSITIONAL_TARGET": 3,
+     "NULL_BOTH": 42
+    }
+   },
+   "scene": "Assets/Scenes/MenuScene.unity",
+   "scripts": {
+    "BOUND_EXACT": 3,
+    "SOURCE_SCRIPT_UNDECLARED": 27
+   },
+   "sourceScene": "Assets/Scenes/MenuScene.unity"
+  }
+ ],
+ "source": "artifacts/reference/RunFromZombiesFullProject",
+ "sourceBuildScenes": [
+  "Assets/Scenes/MenuScene.unity",
+  "Assets/Scenes/GameScene.unity"
+ ],
+ "total": {
+  "components": {
+   "MATCHED": 934,
+   "MATCHED_POSITIONAL": 73
+  },
+  "gameObjects": {
+   "MATCHED": 666
+  },
+  "references": {
+   "exact": {
+    "DIFFERENT_NAME_SANITIZED": 1,
+    "FIELD_ABSENT_IN_SOURCE": 53,
+    "MATCH": 735,
+    "MATCH_POSITIONAL_TARGET": 2,
+    "NULL_BOTH": 367,
+    "SOURCE_TARGET_UNKNOWN": 5,
+    "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 2
+   },
+   "positional": {
+    "MATCH": 45,
+    "MATCH_POSITIONAL_TARGET": 10,
+    "NULL_BOTH": 131
+   }
+  },
+  "scripts": {
+   "BOUND_EXACT": 14,
+   "SOURCE_SCRIPT_UNDECLARED": 73
+  }
+ }
+}
