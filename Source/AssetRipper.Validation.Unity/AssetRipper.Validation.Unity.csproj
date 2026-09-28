@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputPath>..\0Bins\Other\AssetRipper.Validation.Unity\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>..\0Bins\obj\AssetRipper.Validation.Unity\$(Configuration)\</IntermediateOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--
+			The editor script a build injects into the project; compiled by Unity, never by this build.
+			Not named *.cs.txt: MSBuild reads the inner ".cs" as a culture (Czech) and moves the file into
+			a satellite assembly, so the main assembly embeds nothing and the lookup fails silently.
+		-->
+		<EmbeddedResource Include="EditorScripts\RecoveredBuildValidation.template" LogicalName="RecoveredBuildValidation.cs" WithCulture="false" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+{
+  "status": "UNITY_NOT_AVAILABLE",
+  "validationLevel": "BLOCKED",
+  "reason": "local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity; docker: no editor licence in the environment (UNITY_LICENSE or UNITY_SERIAL)",
+  "provider": "none",
+  "unityVersion": "2022.3.62f2",
+  "editorPath": null,
+  "projectPath": "/home/user/AssetRipper/Test/Out61a-j/RunFromZombies",
+  "targetPlatform": "Android",
+  "exitCode": null,
+  "attempts": 1,
+  "transient": false,
+  "unityLog": null,
+  "buildArtifact": null,
+  "artifactExists": false,
+  "startedUtc": "2026-09-28T09:05:36.0596953\u002B00:00",
+  "finishedUtc": "2026-09-28T09:05:36.0596953\u002B00:00",
+  "commandLine": [],
+  "compilerErrors": [],
+  "fingerprint": {
+    "project": "0bd4741a7c2bd60e59957ebd10408100a51f410be040d8f35e6641b200bd15e8",
+    "projectSettings": "9a502b0e0e55d132179d562efc0c96addd0030b0d8a86905f980a5bbc02a1d92",
+    "packages": "c8fe1ba34feb157f4c73d8b96de724d9a3213eeab52f9d70880ae7d73c9a3955",
+    "packageLock": "c8fe1ba34feb157f4c73d8b96de724d9a3213eeab52f9d70880ae7d73c9a3955",
+    "scripts": "256fa62bddea9a2139b850d89978378c60d4f0d1d486efb574cffec49548b969",
+    "assets": "7c22cbfaa9fdaa9c1c816d0068d4194e8e5d71ee29ea31c2c3100e682f95cb97",
+    "files": 1524
+  },
+  "stdout": "",
+  "stderr": ""
+}

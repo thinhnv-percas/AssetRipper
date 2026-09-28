@@ -1,0 +1,72 @@
+// Injected by AssetRipper's Unity build validation. Not part of the recovered project: it is written
+// into Assets/Editor/AssetRipperValidation before a headless build and removed afterwards, and the
+// project fingerprint excludes it.
+#if UNITY_EDITOR
+using System;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.Build.Reporting;
+using UnityEngine;
+
+namespace AssetRipper.Validation
+{
+	public static class RecoveredBuildValidation
+	{
+		private const string Marker = "[RecoveredBuildValidation]";
+
+		// Unity -batchmode -quit -projectPath <p> -buildTarget <t>
+		//   -executeMethod AssetRipper.Validation.RecoveredBuildValidation.BuildPlayer
+		//   -customBuildTarget <t> -customBuildPath <path>
+		public static void BuildPlayer()
+		{
+			if (EditorUtility.scriptCompilationFailed)
+			{
+				Debug.Log($"{Marker} BUILD_RESULT CompileFailed");
+				EditorApplication.Exit(102);
+				return;
+			}
+
+			string[] args = Environment.GetCommandLineArgs();
+			string targetName = Argument(args, "-customBuildTarget") ?? EditorUserBuildSettings.activeBuildTarget.ToString();
+			string path = Argument(args, "-customBuildPath") ?? "Builds/" + targetName;
+
+			if (!Enum.TryParse(targetName, out BuildTarget target))
+			{
+				Debug.Log($"{Marker} BUILD_RESULT Failed reason=unknown-target:{targetName}");
+				EditorApplication.Exit(103);
+				return;
+			}
+
+			string[] scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+			Debug.Log($"{Marker} SCENES {scenes.Length} {string.Join(";", scenes)}");
+
+			BuildPlayerOptions options = new BuildPlayerOptions
+			{
+				scenes = scenes,
+				target = target,
+				locationPathName = path,
+				options = BuildOptions.None,
+			};
+
+			BuildReport report = BuildPipeline.BuildPlayer(options);
+			BuildSummary summary = report.summary;
+			Debug.Log($"{Marker} BUILD_RESULT {summary.result} errors={summary.totalErrors} warnings={summary.totalWarnings} size={summary.totalSize} output={summary.outputPath}");
+			EditorApplication.Exit(summary.result == BuildResult.Succeeded ? 0 : 101);
+		}
+
+		// Imports and compiles, then exits: the stage before a player build.
+		public static void ValidateImport()
+		{
+			bool failed = EditorUtility.scriptCompilationFailed;
+			Debug.Log($"{Marker} IMPORT_RESULT {(failed ? "CompileFailed" : "Succeeded")}");
+			EditorApplication.Exit(failed ? 102 : 0);
+		}
+
+		private static string Argument(string[] args, string name)
+		{
+			int index = Array.IndexOf(args, name);
+			return index >= 0 && index + 1 < args.Length ? args[index + 1] : null;
+		}
+	}
+}
+#endif

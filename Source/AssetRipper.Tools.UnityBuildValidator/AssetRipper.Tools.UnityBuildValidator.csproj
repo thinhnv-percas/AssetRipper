@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<OutputPath>..\0Bins\AssetRipper.Tools.UnityBuildValidator\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>..\0Bins\obj\AssetRipper.Tools.UnityBuildValidator\$(Configuration)\</IntermediateOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AssetRipper.Validation.Unity\AssetRipper.Validation.Unity.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
+	</ItemGroup>
+
+</Project>
