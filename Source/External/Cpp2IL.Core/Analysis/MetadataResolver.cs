@@ -480,8 +480,12 @@ public static class MetadataResolver
                 // first member, and calling that a write of the struct gives an int assigned to a
                 // struct. Only a reference typed base is taken, because a store through the chain needs
                 // the address of the outer field and a value typed local on the stack is a copy.
+                // AssetRipper: the copy problem is the store's alone. A read off a struct local chains
+                // ldfld on the value, so a member inside a struct field of a struct local - the element
+                // of an enumerator, `enumerator._current.attachment` - is reached like any other.
+                var isStore = i == StorageIdentities.DestinationPosition(instruction);
                 if ((field == null || NarrowerThan(field, memory.Size, method))
-                    && staticOwner == null && !owner.IsValueType
+                    && staticOwner == null && (!owner.IsValueType || !isStore)
                     && (genericOwner != null || owner.GenericParameters.Count == 0))
                 {
                     var path = genericOwner != null
@@ -773,8 +777,30 @@ public static class MetadataResolver
             targetOffset,
             accessSize,
             FieldsOf,
-            field => SizeOf(field, method),
+            SizeOfSubstituted,
             InteriorOfSubstituted);
+
+        // AssetRipper: a field declared `T` is as wide as the argument standing in for it. Sized as the
+        // open parameter it read as a pointer, so `List<SkinEntry>.Enumerator._current` - a 24-byte
+        // struct - ended 8 bytes in and nothing past that could be reached.
+        long SizeOfSubstituted(FieldAnalysisContext field)
+        {
+            var type = SubstitutedFieldType(field);
+            var pointerSize = method.AppContext.Binary.is32Bit ? 4 : 8;
+
+            if (!type.IsValueType)
+                return pointerSize;
+
+            var unboxed = TypeSizes.UnboxedSize(type, pointerSize);
+            return unboxed > 0 ? unboxed : 0;
+        }
+
+        TypeAnalysisContext SubstitutedFieldType(FieldAnalysisContext field)
+            => field.FieldType is GenericParameterTypeAnalysisContext { Index: var index }
+                && field.DeclaringType == owner.GenericType
+                && index < owner.GenericArguments.Count
+                    ? owner.GenericArguments[index]
+                    : field.FieldType;
 
         IEnumerable<(FieldAnalysisContext Field, long Offset)> FieldsOf(TypeAnalysisContext type)
             => type is GenericInstanceTypeAnalysisContext instance

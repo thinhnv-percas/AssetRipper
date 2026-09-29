@@ -1,0 +1,267 @@
+{
+ "status": "MEASURED",
+ "game": "Impostor",
+ "bindings": {
+  "EXACT": 9
+ },
+ "exact_rate": 1.0,
+ "decided": 9,
+ "sourceKeywords": {
+  "AMBIGUOUS": 5,
+  "AGREE": 4
+ },
+ "mismatches": [],
+ "rows": [
+  {
+   "material": "imposter_stan_red_Material",
+   "file": "Assets/Material/imposter_stan_red_Material.mat",
+   "shader": "Spine/Skeleton",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1,
+    3,
+    5
+   ],
+   "expectedVertexProgram": [
+    "ad24197ece097254"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "ad24197ece097254",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "imposter_sit_black_Material",
+   "file": "Assets/Material/imposter_sit_black_Material.mat",
+   "shader": "Spine/Skeleton",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": [],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    1,
+    3,
+    5
+   ],
+   "expectedVertexProgram": [
+    "ad24197ece097254"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "ad24197ece097254",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "imposter_stan_red_Material",
+   "file": "Assets/Material/imposter_stan_red_Material.mat",
+   "shader": "Spine/Skeleton",
+   "pass": "0.1",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [],
+   "expectedVertexProgram": [],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "SHADOWS_CUBE",
+    "SHADOWS_DEPTH"
+   ],
+   "selectedState": [
+    "SHADOWS_CUBE"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "25b5824001cd77c2",
+   "fragmentProgram": "25b5824001cd77c2",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "imposter_sit_black_Material",
+   "file": "Assets/Material/imposter_sit_black_Material.mat",
+   "shader": "Spine/Skeleton",
+   "pass": "0.1",
+   "recoveredKeywords": [],
+   "sourceKeywords": [],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [],
+   "expectedVertexProgram": [],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "SHADOWS_CUBE",
+    "SHADOWS_DEPTH"
+   ],
+   "selectedState": [
+    "SHADOWS_CUBE"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "25b5824001cd77c2",
+   "fragmentProgram": "25b5824001cd77c2",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "TextMeshPro/Sprite",
+   "file": "Assets/Material/TextMeshPro_Sprite.mat",
+   "shader": "TextMeshPro/Sprite",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    3,
+    11,
+    19
+   ],
+   "expectedVertexProgram": [
+    "b653398b733cfd72"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP"
+   ],
+   "selectedState": [
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedVariant": 3,
+   "vertexProgram": "b653398b733cfd72",
+   "fragmentProgram": "b653398b733cfd72",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF Material",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF Material.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1,
+    25,
+    49
+   ],
+   "expectedVertexProgram": [
+    "1386dc120161b3f0"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "1386dc120161b3f0",
+   "fragmentProgram": "1386dc120161b3f0",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF Material",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF Material_0.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "OUTLINE_ON"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    2,
+    26,
+    50
+   ],
+   "expectedVertexProgram": [
+    "2366a48b65f6782f"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [
+    "OUTLINE_ON"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "2366a48b65f6782f",
+   "fragmentProgram": "2366a48b65f6782f",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF - Drop Shadow",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Drop Shadow.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "OUTLINE_ON",
+    "UNDERLAY_ON"
+   ],
+   "sourceKeywords": [
+    "OUTLINE_ON",
+    "UNDERLAY_ON"
+   ],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    3,
+    27,
+    51
+   ],
+   "expectedVertexProgram": [
+    "ba9fdeecc769d9a2"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [
+    "OUTLINE_ON",
+    "UNDERLAY_ON"
+   ],
+   "selectedVariant": 3,
+   "vertexProgram": "ba9fdeecc769d9a2",
+   "fragmentProgram": "ba9fdeecc769d9a2",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF - Outline",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "OUTLINE_ON"
+   ],
+   "sourceKeywords": [
+    "OUTLINE_ON"
+   ],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    2,
+    26,
+    50
+   ],
+   "expectedVertexProgram": [
+    "2366a48b65f6782f"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [
+    "OUTLINE_ON"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "2366a48b65f6782f",
+   "fragmentProgram": "2366a48b65f6782f",
+   "statesJudged": 4,
+   "status": "EXACT"
+  }
+ ]
+}

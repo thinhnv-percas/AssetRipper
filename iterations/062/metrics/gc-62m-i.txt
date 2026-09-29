@@ -1,0 +1,23 @@
+corpus: 887 entries, 222 for JellyBlastV2 (665 for other fixtures, 16 retired), 222 found, 0 not present in this rip
+
+== by semantic status ==
+   98  EXACT
+   37  HIGH_CONFIDENCE
+   83  PARTIAL
+    4  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+  134  GENERAL
+   31  STATIC_ENTRY
+    9  CONSTRUCTOR
+    9  LIFECYCLE_START
+    8  LIFECYCLE_AWAKE
+    8  LIFECYCLE_UPDATE
+    7  LIFECYCLE_DESTROY
+    7  UNITY_CALLBACK
+    6  COROUTINE
+    3  EVENT_ACCESSOR
+
+== against baseline ==
+improved 0, regressed 0

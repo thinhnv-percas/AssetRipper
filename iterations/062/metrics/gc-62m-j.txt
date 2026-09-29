@@ -1,0 +1,22 @@
+corpus: 887 entries, 194 for RunFromZombies (693 for other fixtures, 16 retired), 194 found, 0 not present in this rip
+
+== by semantic status ==
+   66  EXACT
+   49  HIGH_CONFIDENCE
+   70  PARTIAL
+    9  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+  153  GENERAL
+   12  STATIC_ENTRY
+    9  CONSTRUCTOR
+    6  EVENT_ACCESSOR
+    6  LIFECYCLE_UPDATE
+    3  LIFECYCLE_START
+    3  UNITY_CALLBACK
+    1  COROUTINE
+    1  LIFECYCLE_AWAKE
+
+== against baseline ==
+improved 0, regressed 0

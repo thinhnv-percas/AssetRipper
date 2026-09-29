@@ -102,6 +102,8 @@ public static class StructSlotAliasRecovery
                 && StackOffsetOf(slot) is not null)
                 addressHolders[holder] = slot;
 
+        RewritePointerReads(position.Keys, addressHolders, structSize, interior);
+
         var handOffs = new List<(Instruction Call, LocalVariable Slot, long Size)>();
         foreach (var instruction in position.Keys)
         {
@@ -168,6 +170,42 @@ public static class StructSlotAliasRecovery
                     instruction.SetOperand(operand, member);
                     Interlocked.Increment(ref InteriorReadsRecovered);
                 }
+            }
+        }
+    }
+
+    /// <summary>How many loads through a register holding a stack struct's address were named as its field.</summary>
+    public static int PointerReadsRecovered;
+
+    /// <summary>
+    /// A load through a register that holds a stack struct's address is a field of that struct.
+    /// </summary>
+    /// <remarks>
+    /// <c>add x0, sp, #off</c> computes the enumerator's address once for <c>MoveNext</c>, and the
+    /// compiler then reads the element straight through it: <c>ldr x1, [x0, #0x10]</c>. In IL terms that
+    /// is <c>ldloca S; ldfld _current</c>, whatever point in the method it is at, because the pointer is
+    /// the storage of exactly that version of the slot - so, unlike an interior word read under its own
+    /// name, it needs no order. Only a field starting exactly at the offset is named; a load inside a
+    /// nested struct field stays reported.
+    /// </remarks>
+    private static void RewritePointerReads(IEnumerable<Instruction> instructions,
+        Dictionary<LocalVariable, LocalVariable> addressHolders,
+        System.Func<LocalVariable, long?> structSize,
+        System.Func<LocalVariable, long, IOperand?> interior)
+    {
+        foreach (var instruction in instructions)
+        {
+            for (var operand = 0; operand < instruction.Operands.Count; operand++)
+            {
+                if (instruction.Operands[operand] is not MemoryOperand { Index: null, Base: LocalVariable holder } memory
+                    || !addressHolders.TryGetValue(holder, out var slot)
+                    || structSize(slot) is not { } size
+                    || memory.Addend < 0 || memory.Addend >= size
+                    || interior(slot, memory.Addend) is not { } member)
+                    continue;
+
+                instruction.SetOperand(operand, member);
+                Interlocked.Increment(ref PointerReadsRecovered);
             }
         }
     }

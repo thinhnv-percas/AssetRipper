@@ -106,13 +106,15 @@ check DECOMP-0014 AnimationState.cs 'as RotateTimeline'
 # The enumerator il2cpp keeps in an address-taken stack slot is still typed from the shared
 # instantiation - that is the store-into-slot case, not this one - so this asserts the call, not
 # every mention of the type in the file.
-check DECOMP-0015 GraphicController.cs 'List<Box>.Enumerator enumerator = Boxes.GetEnumerator();' '(List<object>.Enumerator)Boxes.GetEnumerator'
+# Iteration 062: neo vào kiểu, không vào số thứ tự ILSpy gán cho biến - khi vòng foreach được khôi
+# phục đúng, biến cũ `enumerator` thành `enumerator2` và check hỏng vì một lý do không liên quan.
+check DECOMP-0015 GraphicController.cs 'List<Box>.Enumerator enumerator' '(List<object>.Enumerator)Boxes.GetEnumerator'
 
 # DECOMP-0015, the other side: withholding *every* type a shared body mentions is too much. A shared
 # `List<T>.Enumerator.MoveNext` returns `bool` whatever T is, and leaving that untyped let SSA
 # destruction merge the result with the receiver's register - `GUIManager x = (GUIManager)MoveNext()`
 # and a loop condition read off `this`. Only a type the substitution reached may be withheld.
-check DECOMP-0015 GUIManager.cs '= enumerator2.MoveNext();' ')enumerator2.MoveNext()'
+check DECOMP-0015 GUIManager.cs 'MoveNext();' '= (GUIManager)'
 
 # DECOMP-0016: a delegate's two-argument constructor takes its target as System.Object, so
 # `new OnlineTimeCallback(this, ...)` typed the state machine's `<>4__this` System.Object - the top

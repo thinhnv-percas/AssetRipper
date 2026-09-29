@@ -95,6 +95,10 @@ internal static class Program
 
 		Console.WriteLine($"{result.Status.ToReportName()}  {result.ValidationLevel}  {result.Reason}");
 		Console.WriteLine($"unity {result.UnityVersion ?? "?"}  provider {result.Provider}  fingerprint {result.Fingerprint?.Project}");
+		foreach (UnityStageResult stage in result.Stages)
+		{
+			Console.WriteLine($"  {stage.Stage.ToReportName(),-18} {stage.Outcome.ToReportName(),-12} {stage.Evidence}");
+		}
 
 		return result.Status switch
 		{

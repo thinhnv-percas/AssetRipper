@@ -1,0 +1,127 @@
+{
+ "rates": {
+  "gameobject_match_rate": 1.0,
+  "reference_decided_exact": 56,
+  "reference_decided_positional": 66,
+  "reference_match_rate_exact": 1.0,
+  "reference_match_rate_positional": 1.0,
+  "reference_positional_target_exact": 7,
+  "reference_positional_target_positional": 15,
+  "reference_unknown_exact": 0,
+  "reference_unknown_positional": 4,
+  "script_binding_decided": "12 of 113",
+  "script_binding_rate": 1.0
+ },
+ "recovered": "Test/Out62m-z/Impostor",
+ "scenes": [
+  {
+   "components": {
+    "MATCHED": 198,
+    "MATCHED_POSITIONAL": 101
+   },
+   "examples": {
+    "FIELD_ABSENT_IN_SOURCE": [
+     {
+      "component": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red)#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (1)#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     },
+     {
+      "component": "UICanvas/Canvas/SorryReviewPanel/Imposter_Cry/Spine GameObject (imposter_stan_red) (2)#MeshRenderer",
+      "field": "m_AdditionalVertexStreams",
+      "recovered": "NULL",
+      "source": null
+     }
+    ],
+    "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": [
+     {
+      "component": "AdManager/CanvasGDPR/Panel_Setting/ConsentPopup/UIContainer/Bkg/Shadow#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid 441bcc09d3d3446208dee15a61abb482"
+     },
+     {
+      "component": "AdManager/CanvasGDPR/Panel_Setting/ConsentPopup/UIContainer/Bkg/Bkg#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid 441bcc09d3d3446208dee15a61abb482"
+     },
+     {
+      "component": "AdManager/CanvasGDPR/Panel_Setting/ConsentPopup/UIContainer/NonPersonalizedAdsButton/Bkg#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid a32604bd7c9a24e3d89934781ffe3063"
+     },
+     {
+      "component": "AdManager/CanvasGDPR/Panel_Setting/ConsentPopup/UIContainer/NonPersonalizedAdsButton/Bkg/Bkg#Script:?fe87c0e1cc204ed48ad3b37840f39efc",
+      "field": "m_Sprite",
+      "recovered": "NULL",
+      "source": "UNKNOWN:guid a32604bd7c9a24e3d89934781ffe3063"
+     }
+    ]
+   },
+   "gameObjects": {
+    "MATCHED": 103
+   },
+   "pairedBy": "PATH",
+   "references": {
+    "exact": {
+     "FIELD_ABSENT_IN_SOURCE": 3,
+     "MATCH": 56,
+     "MATCH_POSITIONAL_TARGET": 7,
+     "NULL_BOTH": 48
+    },
+    "positional": {
+     "MATCH": 66,
+     "MATCH_POSITIONAL_TARGET": 15,
+     "NULL_BOTH": 203,
+     "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4
+    }
+   },
+   "scene": "Assets/_Impostor 3/Scenes/Tutorial.unity",
+   "scripts": {
+    "BOUND_EXACT": 12,
+    "SOURCE_SCRIPT_UNDECLARED": 101
+   },
+   "sourceScene": "Assets/_Impostor 3/Scenes/Tutorial.unity"
+  }
+ ],
+ "source": "artifacts/reference/Impostor-Sort-Puzzle-Pro",
+ "sourceBuildScenes": [
+  "Assets/_Impostor 2/Scenes/Tutorial.unity"
+ ],
+ "total": {
+  "components": {
+   "MATCHED": 198,
+   "MATCHED_POSITIONAL": 101
+  },
+  "gameObjects": {
+   "MATCHED": 103
+  },
+  "references": {
+   "exact": {
+    "FIELD_ABSENT_IN_SOURCE": 3,
+    "MATCH": 56,
+    "MATCH_POSITIONAL_TARGET": 7,
+    "NULL_BOTH": 48
+   },
+   "positional": {
+    "MATCH": 66,
+    "MATCH_POSITIONAL_TARGET": 15,
+    "NULL_BOTH": 203,
+    "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4
+   }
+  },
+  "scripts": {
+   "BOUND_EXACT": 12,
+   "SOURCE_SCRIPT_UNDECLARED": 101
+  }
+ }
+}

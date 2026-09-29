@@ -1,0 +1,3 @@
+game Impostor: bindings {"EXACT": 9}
+exact_rate 1.0 over 9 decided
+material keywords against source: {"AMBIGUOUS": 5, "AGREE": 4}

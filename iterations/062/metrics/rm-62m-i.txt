@@ -1,0 +1,43 @@
+SCOPE: the 14 assemblies recovery was attempted on
+methods with a recorded native address: 7485
+native code accounted for: 2241332 bytes
+placeholders: 37028
+
+== by semantic status ==
+  3014  EXACT             40.3%
+    85  HIGH_CONFIDENCE    1.1%
+  4302  PARTIAL           57.5%
+    84  FALLBACK           1.1%
+     0  MISSING            0.0%
+
+methods recovered without a stand-in: 3099 of 7485 (41.4%)
+
+== what a FALLBACK lost, by operation class ==
+    54  CALL
+    28  BRANCH
+     3  FIELD
+     2  ARRAY_READ
+
+== semantic fingerprint, methods reaching each operation class (per side, not a loss) ==
+class                 IR      C#   delta
+CALL                5303    6633   +1330
+ARITHMETIC          5164    5115     -49
+STATIC_ACCESS       5117    5069     -48
+LOOP                3901    1399   -2502
+BRANCH              3901    3888     -13
+COMPARE             3781    3776      -5
+NULL_CHECK          3473    2877    -596
+NEWOBJ              2182    2622    +440
+ARRAY_READ           336     677    +341
+ARRAY_WRITE          163     211     +48
+CAST                  34    1596   +1562
+INSTANCEOF            18       9      -9
+
+== placeholder families ==
+ 23598  UNMANAGED_MEMORY_LOAD            453 files
+  9750  METHOD_NOT_FOUND                 484 files
+  1228  INDIRECT_CALL                    144 files
+   792  UNKNOWN_CALL_TARGET              169 files
+   522  INDIRECT_JUMP                     90 files
+   405  NOT_IMPLEMENTED_INSTRUCTION       75 files
+     9  OTHER                              4 files

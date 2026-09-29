@@ -2832,7 +2832,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.StructSlotAliasRecovery.InteriorReadsRecovered} reads of a word inside a "
 				+ "stack struct whose address a call had been handed were named as the struct's field; "
 				+ $"{Cpp2IL.Core.Analysis.StructSlotAliasRecovery.WholeDefinitionsRecovered} such structs were defined as the whole value "
-				+ "rather than its first field.");
+				+ $"rather than its first field; {Cpp2IL.Core.Analysis.StructSlotAliasRecovery.PointerReadsRecovered} loads through a "
+				+ "register holding such a struct's address were named as its field.");
 
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.InterfaceInvokeDataRecovery.Recovered} interface dispatches "

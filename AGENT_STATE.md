@@ -5,16 +5,25 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 061 (hoàn tất; trọng tâm "native cross-oracle + Unity build/validation pipeline".
-                          LibCpp2IL được kiểm chéo với một reader độc lập và r2unity: 0 DISAGREE
-                          trên 4 fixture. Bốn lỗi nghĩa-binary ≠ nghĩa-phục hồi: bốn chỗ ldloca bỏ
-                          qua luật lưu trữ (member đầu của parameter Vector3 đọc ra 0); bảng entry
-                          shader blob segmented đọc stride 8 thay vì 12 (mọi program gán nhầm
-                          variant); Pinata exit 134 từ 057; material vẽ bằng base variant (đo, chưa
-                          sửa). Mới: IUnityBuildProvider, serialized reference graph, StorageIdentity,
-                          runtime snapshot, lifecycle contract, InterfaceScanRegionClassifier.)
+Iteration hiện tại: 062 (hoàn tất; trọng tâm "interface dispatch, shader variant selection, storage
+                          alias, Unity build stages". Bốn điểm đầu tiên nghĩa binary ≠ nghĩa phục hồi:
+                          immediate trỏ vào header ELF giải mã thành metadata usage (slot của interface
+                          lookup thành typeof); ShaderLab một program mỗi pass; struct generic không có
+                          size nên List<T>.Enumerator trả qua X8 không nối với call (foreach lặp trên
+                          enumerator mặc định: 113/244/30/95 → 5/5/5/0); một status cho sáu stage build.
+                          Mới: StorageHazardClassifier, StructSlotAliasRecovery, ShaderVariantGuards,
+                          UnityBuildStages, shader_variant_fidelity.py, interface_dispatch_corpus.py.)
 
 Cảnh báo cho phiên sau:
+  - Golden corpus 062 báo 3 regression (Impostor) và 1 (Merge-Room). Cả bốn đã đọc: một là phép đo
+    đọc tên field trong một đoạn IR không emit, ba là một giá trị mặc định lặng lẽ thành unresolved
+    load báo ra. KHÔNG đóng băng lại baseline để làm chúng biến mất; sửa recovery_metrics hoặc sửa
+    load mới là cách đúng.
+  - Kiểm chéo buffer register: Pinata (2019.2) có 20/62 call trả struct generic qua buffer mà X8 không
+    giữ địa chỉ stack. Size tính được có thể sai cho layout của phiên bản đó. Chưa phân loại.
+  - `#error VARIANT_SELECTION_UNKNOWN` trong một tổ hợp multi_compile là có chủ đích; Unity có coi đó là
+    lỗi build hay không vẫn BLOCKED (không có Unity trong container).
+  - Check shape phải neo vào kiểu/câu lệnh, không vào tên biến có số (`enumerator2`) — lần thứ hai.
   - Ba trong bốn lỗi của 061 KHÔNG đổi một aggregate nào: EXACT, placeholder, Roslyn đứng yên tới từng
     chữ số khi member đầu của mọi parameter Vector3 đọc ra 0. Đọc diff và chạy
     serialized_reference_graph / runtime_snapshot / shader_variant_binding, đừng chỉ đọc tổng.

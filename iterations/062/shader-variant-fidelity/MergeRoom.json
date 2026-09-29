@@ -1,0 +1,905 @@
+{
+ "status": "MEASURED",
+ "game": "MergeRoom",
+ "bindings": {
+  "EXACT": 29,
+  "PROGRAM_NOT_RECOVERED": 5,
+  "NOT_EMBEDDED": 1
+ },
+ "exact_rate": 0.9667,
+ "decided": 30,
+ "sourceKeywords": {
+  "NOT_FOUND": 25,
+  "AGREE": 7,
+  "AMBIGUOUS": 3
+ },
+ "mismatches": [
+  {
+   "material": "PolySolidGlow",
+   "file": "Assets/Material/PolySolidGlow.mat",
+   "shader": "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft",
+   "pass": "0.3",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "Ghost",
+   "file": "Assets/Material/Ghost.mat",
+   "shader": "Shader Graphs/Ghost",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [],
+   "expectedVertexProgram": [],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "EVALUATE_SH_VERTEX",
+    "_ADDITIONAL_LIGHTS",
+    "_ADDITIONAL_LIGHT_SHADOWS",
+    "_LIGHT_COOKIES",
+    "_MAIN_LIGHT_SHADOWS",
+    "_MAIN_LIGHT_SHADOWS_CASCADE",
+    "_REFLECTION_PROBE_BLENDING",
+    "_REFLECTION_PROBE_BOX_PROJECTION",
+    "_SHADOWS_SOFT"
+   ],
+   "selectedVariant": 1,
+   "vertexProgram": "bf85497a73daf336",
+   "fragmentProgram": null,
+   "status": "NOT_EMBEDDED"
+  },
+  {
+   "material": "Ghost",
+   "file": "Assets/Material/Ghost.mat",
+   "shader": "Shader Graphs/Ghost",
+   "pass": "0.1",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "circle_AB",
+   "file": "Assets/Material/circle_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.2",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "cloud_2x2_default_AB",
+   "file": "Assets/Material/cloud_2x2_default_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.2",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "PolySprite_ADD",
+   "file": "Assets/Material/PolySprite_ADD.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.2",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  }
+ ],
+ "rows": [
+  {
+   "material": "PolySolidGlow",
+   "file": "Assets/Material/PolySolidGlow.mat",
+   "shader": "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "f50c3ca8ce8f2586"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "f50c3ca8ce8f2586",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "PolySolidGlow",
+   "file": "Assets/Material/PolySolidGlow.mat",
+   "shader": "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft",
+   "pass": "0.1",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "6b7b8b9535735631"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "6b7b8b9535735631",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "PolySolidGlow",
+   "file": "Assets/Material/PolySolidGlow.mat",
+   "shader": "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft",
+   "pass": "0.2",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "51b17a3783652bf6"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "_CASTING_PUNCTUAL_LIGHT_SHADOW"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "51b17a3783652bf6",
+   "fragmentProgram": "51b17a3783652bf6",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "PolySolidGlow",
+   "file": "Assets/Material/PolySolidGlow.mat",
+   "shader": "PolygonArsenal/URP/PolygonArsenal-SolidGlowSoft",
+   "pass": "0.3",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "RAM_Reserved_Graph",
+   "file": "Assets/Material/RAM_Reserved_Graph.mat",
+   "shader": "Graphy/Graph Standard",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "23b86f0df9face9c"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "PIXELSNAP_ON"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "23b86f0df9face9c",
+   "fragmentProgram": "23b86f0df9face9c",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "Audio_Spectrum_Graph",
+   "file": "Assets/Material/Audio_Spectrum_Graph.mat",
+   "shader": "Graphy/Graph Standard",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "23b86f0df9face9c"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "PIXELSNAP_ON"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "23b86f0df9face9c",
+   "fragmentProgram": "23b86f0df9face9c",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "Audio_Spectrum_Highest_Values_Graph",
+   "file": "Assets/Material/Audio_Spectrum_Highest_Values_Graph.mat",
+   "shader": "Graphy/Graph Standard",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "23b86f0df9face9c"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "PIXELSNAP_ON"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "23b86f0df9face9c",
+   "fragmentProgram": "23b86f0df9face9c",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "FPS_Graph",
+   "file": "Assets/Material/FPS_Graph.mat",
+   "shader": "Graphy/Graph Standard",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "23b86f0df9face9c"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "PIXELSNAP_ON"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "23b86f0df9face9c",
+   "fragmentProgram": "23b86f0df9face9c",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "RAM_Mono_Graph",
+   "file": "Assets/Material/RAM_Mono_Graph.mat",
+   "shader": "Graphy/Graph Standard",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "23b86f0df9face9c"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "PIXELSNAP_ON"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "23b86f0df9face9c",
+   "fragmentProgram": "23b86f0df9face9c",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "RAM_Allocated_Graph",
+   "file": "Assets/Material/RAM_Allocated_Graph.mat",
+   "shader": "Graphy/Graph Standard",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "23b86f0df9face9c"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "PIXELSNAP_ON"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "23b86f0df9face9c",
+   "fragmentProgram": "23b86f0df9face9c",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "Ghost",
+   "file": "Assets/Material/Ghost.mat",
+   "shader": "Shader Graphs/Ghost",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [],
+   "expectedVertexProgram": [],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "EVALUATE_SH_VERTEX",
+    "_ADDITIONAL_LIGHTS",
+    "_ADDITIONAL_LIGHT_SHADOWS",
+    "_LIGHT_COOKIES",
+    "_MAIN_LIGHT_SHADOWS",
+    "_MAIN_LIGHT_SHADOWS_CASCADE",
+    "_REFLECTION_PROBE_BLENDING",
+    "_REFLECTION_PROBE_BOX_PROJECTION",
+    "_SHADOWS_SOFT"
+   ],
+   "selectedVariant": 1,
+   "vertexProgram": "bf85497a73daf336",
+   "fragmentProgram": null,
+   "status": "NOT_EMBEDDED"
+  },
+  {
+   "material": "Ghost",
+   "file": "Assets/Material/Ghost.mat",
+   "shader": "Shader Graphs/Ghost",
+   "pass": "0.1",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "Ghost",
+   "file": "Assets/Material/Ghost.mat",
+   "shader": "Shader Graphs/Ghost",
+   "pass": "0.2",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "839db218517c04c0"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "_CASTING_PUNCTUAL_LIGHT_SHADOW"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "839db218517c04c0",
+   "fragmentProgram": "839db218517c04c0",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "Ghost",
+   "file": "Assets/Material/Ghost.mat",
+   "shader": "Shader Graphs/Ghost",
+   "pass": "0.3",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "cd227fa0782572e5"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "cd227fa0782572e5",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "Ghost",
+   "file": "Assets/Material/Ghost.mat",
+   "shader": "Shader Graphs/Ghost",
+   "pass": "0.4",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "e9fdae0f298e411a"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "e9fdae0f298e411a",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "Nunito-Black Atlas Material",
+   "file": "Assets/Material/Nunito-Black Atlas Material.mat",
+   "shader": "TextMeshPro/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": [],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "aab6ab79f6e5cf30"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "aab6ab79f6e5cf30",
+   "fragmentProgram": "aab6ab79f6e5cf30",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LilitaOne-Regular SDF Material",
+   "file": "Assets/Material/LilitaOne-Regular SDF Material.mat",
+   "shader": "TextMeshPro/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": [],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "aab6ab79f6e5cf30"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "aab6ab79f6e5cf30",
+   "fragmentProgram": "aab6ab79f6e5cf30",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LilitaOne-Regular SDF",
+   "file": "Assets/Material/LilitaOne-Regular SDF.mat",
+   "shader": "TextMeshPro/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": [],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "aab6ab79f6e5cf30"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "aab6ab79f6e5cf30",
+   "fragmentProgram": "aab6ab79f6e5cf30",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "circle_AB",
+   "file": "Assets/Material/circle_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    2
+   ],
+   "expectedVertexProgram": [
+    "be61e088630ecaba"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedState": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "be61e088630ecaba",
+   "fragmentProgram": "be61e088630ecaba",
+   "statesJudged": 1,
+   "status": "EXACT"
+  },
+  {
+   "material": "cloud_2x2_default_AB",
+   "file": "Assets/Material/cloud_2x2_default_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    2
+   ],
+   "expectedVertexProgram": [
+    "be61e088630ecaba"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedState": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "be61e088630ecaba",
+   "fragmentProgram": "be61e088630ecaba",
+   "statesJudged": 1,
+   "status": "EXACT"
+  },
+  {
+   "material": "PolySprite_ADD",
+   "file": "Assets/Material/PolySprite_ADD.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    2
+   ],
+   "expectedVertexProgram": [
+    "be61e088630ecaba"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedState": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "be61e088630ecaba",
+   "fragmentProgram": "be61e088630ecaba",
+   "statesJudged": 1,
+   "status": "EXACT"
+  },
+  {
+   "material": "circle_AB",
+   "file": "Assets/Material/circle_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.1",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "f8c11fbf0c8a5c6b"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "f8c11fbf0c8a5c6b",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "cloud_2x2_default_AB",
+   "file": "Assets/Material/cloud_2x2_default_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.1",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "f8c11fbf0c8a5c6b"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "f8c11fbf0c8a5c6b",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "PolySprite_ADD",
+   "file": "Assets/Material/PolySprite_ADD.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.1",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "f8c11fbf0c8a5c6b"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "f8c11fbf0c8a5c6b",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "circle_AB",
+   "file": "Assets/Material/circle_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.2",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "cloud_2x2_default_AB",
+   "file": "Assets/Material/cloud_2x2_default_AB.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.2",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "PolySprite_ADD",
+   "file": "Assets/Material/PolySprite_ADD.mat",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "pass": "0.2",
+   "recoveredKeywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "sourceKeywords": null,
+   "status": "PROGRAM_NOT_RECOVERED"
+  },
+  {
+   "material": "TextMeshPro/Sprite",
+   "file": "Assets/Material/TextMeshPro_Sprite.mat",
+   "shader": "TextMeshPro/Sprite",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    3
+   ],
+   "expectedVertexProgram": [
+    "efcccf00ff888c2f"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP"
+   ],
+   "selectedState": [
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedVariant": 3,
+   "vertexProgram": "efcccf00ff888c2f",
+   "fragmentProgram": "efcccf00ff888c2f",
+   "statesJudged": 2,
+   "status": "EXACT"
+  },
+  {
+   "material": "Skybox",
+   "file": "Assets/Material/Skybox.mat",
+   "shader": "LevoriCollection/Skybox",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "384afa92ea43c60c"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "384afa92ea43c60c",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "OutlineFill",
+   "file": "Assets/Resources/materials/OutlineFill.mat",
+   "shader": "Custom/Outline Fill",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": [],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "639eddf1ec6fdea6"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "639eddf1ec6fdea6",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "OutlineMask",
+   "file": "Assets/Resources/materials/OutlineMask.mat",
+   "shader": "Custom/Outline Mask",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": [],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "06e7b9eefcea4b75"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [],
+   "selectedVariant": 1,
+   "vertexProgram": "06e7b9eefcea4b75",
+   "fragmentProgram": null,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF Material",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF Material.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "d3ffb2b09f2cd2e2"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "d3ffb2b09f2cd2e2",
+   "fragmentProgram": "d3ffb2b09f2cd2e2",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF Material",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF Material_0.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [],
+   "sourceKeywords": null,
+   "expectedVariants": [
+    1
+   ],
+   "expectedVertexProgram": [
+    "d3ffb2b09f2cd2e2"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [],
+   "selectedVariant": 1,
+   "vertexProgram": "d3ffb2b09f2cd2e2",
+   "fragmentProgram": "d3ffb2b09f2cd2e2",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF - Drop Shadow",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Drop Shadow.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "OUTLINE_ON",
+    "UNDERLAY_ON"
+   ],
+   "sourceKeywords": [
+    "OUTLINE_ON",
+    "UNDERLAY_ON"
+   ],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    3
+   ],
+   "expectedVertexProgram": [
+    "251874d0a6476a0f"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [
+    "OUTLINE_ON",
+    "UNDERLAY_ON"
+   ],
+   "selectedVariant": 3,
+   "vertexProgram": "251874d0a6476a0f",
+   "fragmentProgram": "251874d0a6476a0f",
+   "statesJudged": 4,
+   "status": "EXACT"
+  },
+  {
+   "material": "LiberationSans SDF - Outline",
+   "file": "Assets/Resources/fonts & materials/LiberationSans SDF - Outline.mat",
+   "shader": "TextMeshPro/Mobile/Distance Field",
+   "pass": "0.0",
+   "recoveredKeywords": [
+    "OUTLINE_ON"
+   ],
+   "sourceKeywords": [
+    "OUTLINE_ON"
+   ],
+   "sourceKeywordsAgree": true,
+   "expectedVariants": [
+    2
+   ],
+   "expectedVertexProgram": [
+    "fa62ce6bc37c03a1"
+   ],
+   "expectedFragmentProgram": [],
+   "engineKeywords": [
+    "UNITY_UI_ALPHACLIP",
+    "UNITY_UI_CLIP_RECT"
+   ],
+   "selectedState": [
+    "OUTLINE_ON"
+   ],
+   "selectedVariant": 2,
+   "vertexProgram": "fa62ce6bc37c03a1",
+   "fragmentProgram": "fa62ce6bc37c03a1",
+   "statesJudged": 4,
+   "status": "EXACT"
+  }
+ ]
+}

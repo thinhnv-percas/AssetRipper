@@ -1,0 +1,12 @@
+== Assets/Gtap_MergeRoom/Scenes/Level_1.unity (PATH <- Assets/Gtap_MergeRoom/Scenes/Level_1.unity)
+  gameObjects  {"MATCHED": 575}
+  components   {"MATCHED": 1604, "MATCHED_POSITIONAL": 93}
+  scripts      {"BOUND_EXACT": 126, "SOURCE_SCRIPT_UNDECLARED": 93}
+  references   {"exact": {"MATCH": 1698, "MATCH_POSITIONAL_TARGET": 41, "NULL_BOTH": 5720, "SOURCE_TARGET_UNKNOWN": 223, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 152}, "positional": {"MATCH": 65, "MATCH_POSITIONAL_TARGET": 16, "NULL_BOTH": 292, "SOURCE_TARGET_UNKNOWN": 14, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4}}
+== Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity (PATH <- Assets/Gtap_MergeRoom/Scenes/[Gtap]CoreScene.unity)
+  gameObjects  {"MATCHED": 12}
+  components   {"MATCHED": 25, "MATCHED_POSITIONAL": 12}
+  scripts      {"BOUND_EXACT": 3, "SOURCE_SCRIPT_UNDECLARED": 12}
+  references   {"exact": {"MATCH": 1, "NULL_BOTH": 3}, "positional": {"MATCH": 7, "NULL_BOTH": 17, "SOURCE_TARGET_UNKNOWN": 12}}
+TOTAL {"components": {"MATCHED": 1629, "MATCHED_POSITIONAL": 105}, "gameObjects": {"MATCHED": 587}, "references": {"exact": {"MATCH": 1699, "MATCH_POSITIONAL_TARGET": 41, "NULL_BOTH": 5723, "SOURCE_TARGET_UNKNOWN": 223, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 152}, "positional": {"MATCH": 72, "MATCH_POSITIONAL_TARGET": 16, "NULL_BOTH": 309, "SOURCE_TARGET_UNKNOWN": 26, "SOURCE_TARGET_UNKNOWN_RECOVERED_NULL": 4}}, "scripts": {"BOUND_EXACT": 129, "SOURCE_SCRIPT_UNDECLARED": 105}}
+RATES {"gameobject_match_rate": 1.0, "reference_decided_exact": 1699, "reference_decided_positional": 72, "reference_match_rate_exact": 1.0, "reference_match_rate_positional": 1.0, "reference_positional_target_exact": 41, "reference_positional_target_positional": 16, "reference_unknown_exact": 375, "reference_unknown_positional": 30, "script_binding_decided": "129 of 234", "script_binding_rate": 1.0}

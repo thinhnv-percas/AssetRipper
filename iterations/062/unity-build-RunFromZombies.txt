@@ -1,0 +1,8 @@
+UNITY_NOT_AVAILABLE  BLOCKED  local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity
+unity 2022.3.62f2  provider none  fingerprint b322317aa9d92f87c5b76ed97b310cfafd14846b96600f23d49cab5c880c47ca
+  PROJECT_DISCOVERY  PASSED       Assets/ and ProjectSettings/ present; ProjectVersion.txt reads 2022.3.62f2
+  UNITY_IMPORT       NOT_REACHED  the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity
+  SCRIPT_COMPILE     NOT_REACHED  the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity
+  ASSET_IMPORT       NOT_REACHED  the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity
+  BUILD_PLAYER       NOT_REACHED  the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity
+  RUNTIME            NOT_RUN      a build does not run the player; no runtime harness was run

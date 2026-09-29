@@ -1897,6 +1897,38 @@ find it; `strings` without `-el` does find method and type names.
 - **MSBuild đọc `X.cs.txt` là culture `cs` (tiếng Séc)** và đưa embedded resource vào satellite
   assembly; tên `.template` cộng `WithCulture="false"`.
 
+- **Một immediate trỏ vào vùng nhớ không ghi được không phải metadata usage slot.** Từ v27 một usage
+  được giải mã từ giá trị *tại* địa chỉ, nên một hằng số nhỏ ánh xạ vào header ELF đọc ra một token hợp
+  lý: slot `29` của interface lookup thành `typeof(T)`, `DataType.Quaternion` thành
+  `typeof(Action<CustomRenderTexture>)`, `'E'` thành `(char)typeof(...)`. Usage slot là global runtime
+  điền vào nên luôn ghi được; `Il2CppBinary.IsVirtualAddressWritable` (ELF `PF_W`, Mach-O
+  `PROT_WRITE`) trả lời. Đây là điểm đầu tiên của 340 dispatch "chưa giải quyết" của 061.
+- **Struct generic không có size trong metadata, và size 0 đọc thành "trả qua thanh ghi".** il2cpp ghi
+  size cho definition thôi; `List<T>.Enumerator` 24 byte trả qua X8 nên buffer không bao giờ nối với
+  call và mọi `foreach` trên list lặp trên enumerator mặc định — compile được, không làm gì, và không
+  một aggregate nào thấy (113/244/30/95 vòng trên bốn fixture). `GenericInstanceFieldLayout.
+  ValueTypeSize`. Kiểm chéo với machine code: một buffer return luôn có địa chỉ trong X8 trước call.
+- **`GenericInstanceFieldLayout` ở frame boxed; con trỏ tới dữ liệu một struct thì không.** `_current`
+  ở value 0x10 đọc thành `_list` ở boxed 0x10. Đổi qua `FieldOffsetFrame` trước khi tra.
+- **Một word bên trong một struct trên stack đã giao địa chỉ cho call là field của struct** — nhưng chỉ
+  khi word đó *được chứng minh* là bản sao của field đó. Bản không có provenance đặt tên một `string`
+  là phần tử enumerator. `StructSlotAliasRecovery`.
+- **Toán hạng của một call không giải quyết được không phải lần đọc.** Generator phát placeholder và
+  không load gì; một phép đo đếm mười sáu raw register là "đọc" báo TrueAlias giả (JellyBlastV2 8 → 1).
+  `IlGenerator.LoadsCallOperands` là luật duy nhất.
+- **Slot interface là `Il2CppMethodDefinition.slot`, không phải vị trí khai báo.** Đo: 0 khác biệt trên
+  năm fixture, nên đây là làm cứng — nhưng ba pass khác đã dùng slot của metadata và một pass dùng vị
+  trí, và câu hỏi giống nhau trả lời hai cách là cách chúng lệch nhau.
+- **Một material phải vẽ bằng đúng program build gốc compile cho keyword của nó, hoặc không program
+  nào.** Guard là tập keyword chính xác; trạng thái không compile rơi vào `#error`. Scope keyword là bit
+  0 của `m_KeywordFlags` (16/16 với pragma nguồn); khai báo `SHADOWS_DEPTH` là local sẽ làm pass
+  ShadowCaster không bao giờ chọn được program. Đo bằng cách *đánh giá* chuỗi guard, không đọc comment.
+- **Một parser preprocessor cho chuỗi guard phải theo độ sâu.** Program bên trong có `#ifdef`/`#else`
+  riêng; dừng ở `#else` đầu tiên báo 7/9 `MISSING_PROGRAM` cho một export đúng.
+- **Một golden regression có thể là bản phục hồi đúng hơn.** 062: một giá trị mặc định lặng lẽ thành
+  unresolved load báo ra hạ EXACT → PARTIAL; một tên field trong đoạn IR không được emit hạ EXACT →
+  FALLBACK cho một thân giờ đúng. Đọc từng cái; không đóng băng lại baseline để làm chúng im.
+
 ### Things measured to be worth nothing — do not redo them
 - **A copy into a differently-typed local as evidence of register reuse.** Written, tested, and
   refuted by the data it was written for. The `List<T>.Add` receivers reported as `this + 0x20` have
@@ -2168,6 +2200,11 @@ Twenty-six scripts, and each measures something the others cannot:
 - `Test/Scripts/lifecycle_contract.py` — message Unity và execution order, theo (assembly, class).
 - `Test/Scripts/shader_variant_binding.py` — material → keyword → variant → program có phải cái export
   mang theo không.
+- `Test/Scripts/shader_variant_fidelity.py` — đánh giá chuỗi guard thật của mỗi pass với mọi tổ hợp
+  keyword engine, so program được chọn theo content hash với program build gốc compile cho trạng thái
+  đó; `--source` so keyword material với source. `--self-test` sáu case.
+- `Test/Scripts/interface_dispatch_corpus.py` — corpus interface dispatch chọn từ bằng chứng của chính
+  pass (`CPP2IL_DUMP_INTERFACE_CALLS`), `--check` một rip: caller vẫn gọi tên method interface.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
 

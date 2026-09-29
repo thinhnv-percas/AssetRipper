@@ -46,7 +46,7 @@ internal sealed class Il2CppStructSlotAliasTests
 
 		StructSlotAliasRecovery.Apply(graph, new DominatorInfo(graph),
 			slot => ReferenceEquals(slot, enumerator) ? 24 : null,
-			(slot, offset) => offset == 0x10 ? Element : null,
+			(slot, offset) => offset is 0x10 or 0x18 ? Element : null, // 0x18 answers so only the size bound can reject it
 			(_, _) => null,
 			(member, source) => ReferenceEquals(member, Element) && ReferenceEquals(source, StaleElement));
 	}
@@ -161,6 +161,29 @@ internal sealed class Il2CppStructSlotAliasTests
 			(_, _) => false);
 
 		Assert.That(only.Instructions[1].Operands[1], Is.SameAs(returned));
+	}
+
+	[Test]
+	public void ALoadThroughTheStructsAddressIsItsField()
+	{
+		// ldr x1, [x0, #0x10] with x0 = &enumerator is the element, before or after any MoveNext.
+		Block only = BlockOf(At(OpCode.Move, pointer, new AddressOf(enumerator)),
+			At(OpCode.Move, read, new MemoryOperand(pointer, addend: 0x10)), MoveNext());
+
+		Run(only);
+
+		Assert.That(only.Instructions[1].Operands[1], Is.SameAs(Element));
+	}
+
+	[Test]
+	public void ALoadPastTheStructThroughItsAddressIsLeftAlone()
+	{
+		Block only = BlockOf(At(OpCode.Move, pointer, new AddressOf(enumerator)),
+			At(OpCode.Move, read, new MemoryOperand(pointer, addend: 0x18)), MoveNext());
+
+		Run(only);
+
+		Assert.That(only.Instructions[1].Operands[1], Is.InstanceOf<MemoryOperand>());
 	}
 
 	[TestCase("stack_-48", -0x48)]

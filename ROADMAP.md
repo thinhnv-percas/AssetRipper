@@ -5,7 +5,20 @@
 `docs/RECOVERY_MATRIX.md`; phần còn lại của file này vẫn đúng về *loại* khiếm khuyết, chỉ không còn
 đúng về lượng.
 
-**Từ iteration 061** (`docs/ITERATION_061.md`) ba mục có bằng chứng và thứ tự rõ:
+**Từ iteration 062** (`docs/ITERATION_062.md`) cả ba mục của 061 đã được làm; điều còn lại, có bằng
+chứng và thứ tự:
+
+- `reports/STORAGE_HAZARD_ANALYSIS.md` §4 — phần tử của enumerator đọc qua một thanh ghi mà định nghĩa
+  không phải `&slot` trực tiếp (bản sao, phi) vẫn là unresolved load; đó là nguồn của mọi regression
+  golden 062 và của phần placeholder Impostor tăng thêm. Tiếp theo: theo `&slot` qua bản sao.
+- Pinata: 20/62 call trả struct generic qua buffer không có địa chỉ stack trong X8 (kiểm chéo), và
+  `MoveNext` trên enumerator mặc định 126 → 112 chỉ. Phân loại trước khi sửa.
+- `reports/INTERFACE_DISPATCH_RECOVERY.md` §7 — 505 vùng quét `ValueEscapes` trên Merge-Room lấy class
+  interface từ RGCTX; `InterfaceOf` chưa nhận class pointer từ RGCTX.
+- Kiểu `MoveNext` của enumerator chia sẻ (`List<object>`) làm C# thành cú pháp con trỏ
+  `((List<object>.Enumerator*)(&e))->MoveNext()`: ngữ nghĩa đúng, compile không.
+
+**Từ iteration 061** (`docs/ITERATION_061.md`) ba mục có bằng chứng và thứ tự rõ (đã làm ở 062):
 
 - `reports/INTERFACE_SCAN_REGIONS.md` — 340 interface dispatch trên Merge-Room **chưa bao giờ được
   giải quyết** (lời gọi vẫn là indirect call qua slot vùng quét tính ra). Đây là việc recovery, trước
