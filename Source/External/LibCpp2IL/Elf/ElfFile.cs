@@ -187,6 +187,20 @@ public sealed class ElfFile : ElfStyleRelocationsBinary
             : ReadReadableArrayAtRawAddr<ElfProgramHeaderEntry64>(_elfHeader!.pProgramHeader, _elfHeader.ProgramHeaderEntryCount).Cast<IElfProgramHeaderEntry>().ToList();
     }
 
+    /// <summary>AssetRipper: by the loadable segment that covers the address; outside every one, not writable.</summary>
+    public override bool? IsVirtualAddressWritable(ulong virtualAddress)
+    {
+        foreach (var header in _elfProgramHeaderEntries)
+        {
+            if (header.Type == ElfProgramEntryType.PT_LOAD
+                && virtualAddress >= header.VirtualAddress
+                && virtualAddress < header.VirtualAddress + header.VirtualSize)
+                return (header.Flags & ElfProgramHeaderFlags.PF_W) != 0;
+        }
+
+        return false;
+    }
+
     private IElfProgramHeaderEntry? GetProgramHeaderOfType(ElfProgramEntryType type) => _elfProgramHeaderEntries.FirstOrDefault(p => p.Type == type);
 
     private IEnumerable<ElfSectionHeaderEntry> GetSections(ElfSectionEntryType type) => _elfSectionHeaderEntries.Where(s => s.Type == type);

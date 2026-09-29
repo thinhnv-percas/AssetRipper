@@ -25,6 +25,16 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
     [ThreadStatic]
     private static Dictionary<string, int>? stackAddresses;
 
+    /// <summary>
+    /// AssetRipper: calls returning a generic struct through a hidden buffer, by whether the buffer
+    /// register held a stack address the lifter saw computed. The first is the machine code agreeing
+    /// with the computed size; the second disagreeing, or a buffer that did not come from the stack.
+    /// </summary>
+    public static int GenericBufferReturnsWithAddress;
+
+    /// <inheritdoc cref="GenericBufferReturnsWithAddress"/>
+    public static int GenericBufferReturnsWithoutAddress;
+
     private static readonly Arm64CallingConventionResolver CallingConventions = new();
 
     public override BaseCallingConventionResolver CallingConventionResolver => CallingConventions;
@@ -465,7 +475,20 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             if (CallingConventions.HiddenReturnBufferRegister(callee) is not { } bufferRegister)
                 return;
 
-            if (!stackAddresses!.TryGetValue(bufferRegister.Name, out var slot))
+            var located = stackAddresses!.TryGetValue(bufferRegister.Name, out var slot);
+
+            // A generic struct's size is computed rather than recorded, so whether the machine code
+            // agrees that it comes back in a buffer is counted: a buffer return is always preceded by
+            // the caller putting an address in the buffer register.
+            if (callee.ReturnType is GenericInstanceTypeAnalysisContext)
+            {
+                if (located)
+                    System.Threading.Interlocked.Increment(ref GenericBufferReturnsWithAddress);
+                else
+                    System.Threading.Interlocked.Increment(ref GenericBufferReturnsWithoutAddress);
+            }
+
+            if (!located)
                 return;
 
             var size = TypeSizes.UnboxedSize(callee.ReturnType, 8);

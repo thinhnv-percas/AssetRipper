@@ -13,6 +13,11 @@ public static class TypeSizes
         if (type.Definition?.RawSizes is { instance_size: var boxed } && boxed > header)
             return boxed - header;
 
+        // AssetRipper: il2cpp records no size for a generic instance; its layout is computed instead.
+        if (type is Model.Contexts.GenericInstanceTypeAnalysisContext
+            && Analysis.GenericInstanceFieldLayout.ValueTypeSize(type, pointerSize) is { } computed)
+            return computed;
+
         return 0;
     }
 }

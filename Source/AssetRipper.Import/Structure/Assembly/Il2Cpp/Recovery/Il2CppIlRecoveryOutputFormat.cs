@@ -66,6 +66,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	private readonly ConcurrentDictionary<string, int> imbalanceNonBoundaryDetail = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, int> storageKinds = new(StringComparer.Ordinal);
 	private readonly ConcurrentDictionary<string, string> storageHazardExamples = new(StringComparer.Ordinal);
+	private readonly ConcurrentDictionary<string, int> storageHazardKinds = new(StringComparer.Ordinal);
+	private static readonly string? StorageHazardDumpPath = Environment.GetEnvironmentVariable("CPP2IL_DUMP_STORAGE_HAZARDS");
 	private int storageBodies, storageHazardBodies, storageHazards, storageEscapingHazards, storageAddressTaken, storageEscaping;
 
 	private int failedMethodCount;
@@ -129,6 +131,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: a write narrower than the field its offset lands on named a member inside it "
 				+ $"{Cpp2IL.Core.Analysis.MetadataResolver.NarrowWritesRefined} times; "
 				+ $"{Cpp2IL.Core.Analysis.MetadataResolver.NarrowWritesUnresolved} times no member accounted for the width, so the field stood.");
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.MetadataResolver.ImmediatesRefusedAsUsageSlots} immediates were not read as "
+				+ "metadata usage slots because they name memory that is not writable (a usage slot is a global the runtime fills in).");
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.MetadataResolver.PageBasesFound} locals held the base of a page "
 				+ $"of metadata usage slots rather than one slot; {Cpp2IL.Core.Analysis.MetadataResolver.UsagesThroughAPageBase} usages "
@@ -1828,7 +1833,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	private void RecordStorage(
 		MethodAnalysisContext methodContext,
 		IReadOnlyDictionary<Cpp2IL.Core.ISIL.LocalVariable, Cpp2IL.Core.Analysis.StorageIdentity> storage,
-		IReadOnlyList<Cpp2IL.Core.Analysis.StorageHazard> hazards)
+		IReadOnlyList<Cpp2IL.Core.Analysis.ClassifiedStorageHazard> hazards)
 	{
 		Interlocked.Increment(ref storageBodies);
 
@@ -1851,17 +1856,26 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		}
 
 		Interlocked.Increment(ref storageHazardBodies);
-		foreach (Cpp2IL.Core.Analysis.StorageHazard hazard in hazards)
+		foreach (Cpp2IL.Core.Analysis.ClassifiedStorageHazard classified in hazards)
 		{
+			var hazard = classified.Hazard;
 			Interlocked.Increment(ref storageHazards);
 			if (hazard.Escapes)
 			{
 				Interlocked.Increment(ref storageEscapingHazards);
 			}
 
-			string shape = hazard.AliasGroup.Split(':')[0] + (hazard.Escapes ? " escaping" : " local");
-			storageHazardExamples.TryAdd(shape,
-				$"{methodContext.DeclaringType?.FullName}::{methodContext.Name} {hazard.AliasGroup} in {hazard.Locals.Count} locals");
+			string kind = classified.Kind.ToString();
+			storageHazardKinds.AddOrUpdate(kind, 1, (_, count) => count + 1);
+			string row = $"{methodContext.DeclaringType?.FullName}::{methodContext.Name} {hazard.AliasGroup} in {hazard.Locals.Count} locals: {classified.Evidence}";
+			storageHazardExamples.TryAdd(kind, row);
+			if (StorageHazardDumpPath is { Length: > 0 } dumpPath)
+			{
+				lock (storageHazardKinds)
+				{
+					File.AppendAllText(dumpPath, $"{kind}\t{row.Replace('\n', ' ')}\n");
+				}
+			}
 		}
 	}
 
@@ -2729,9 +2743,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: storage hazards: {storageHazards} machine locations held in more than one IL place " +
 				$"while their address is taken, in {storageHazardBodies} bodies ({storageEscapingHazards} with the address escaping).");
 
-			foreach ((string group, string example) in storageHazardExamples.OrderBy(pair => pair.Key, StringComparer.Ordinal).Take(8))
+			foreach ((string kind, int count) in storageHazardKinds.OrderByDescending(pair => pair.Value))
 			{
-				Logger.Info(LogCategory.Import, $"      {group}   e.g. {example}");
+				string example = storageHazardExamples.TryGetValue(kind, out string? found) ? found : "";
+				Logger.Info(LogCategory.Import, $"      {count,7} {kind}   e.g. {example}");
 			}
 		}
 
@@ -2805,8 +2820,26 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				+ "function were emitted as the C# operation equivalent to it.");
 
 			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: a value returned through a hidden buffer was named as the call's result at "
+				+ $"{Cpp2IL.Core.Analysis.IndirectReturnBufferRecovery.ReadsRecovered} reads through the buffer and "
+				+ $"{Cpp2IL.Core.Analysis.IndirectReturnBufferRecovery.SlotReadsRecovered} reads of the stack slot it points into; "
+				+ $"{Cpp2IL.Core.Analysis.IndirectReturnBufferRecovery.BuffersAmbiguous} buffers were left alone as ambiguous. "
+				+ $"Of the calls returning a generic struct in a buffer by its computed size, "
+				+ $"{Cpp2IL.Core.InstructionSets.NewArmV8InstructionSet.GenericBufferReturnsWithAddress} had a stack address in the buffer register "
+				+ $"and {Cpp2IL.Core.InstructionSets.NewArmV8InstructionSet.GenericBufferReturnsWithoutAddress} did not.");
+
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.StructSlotAliasRecovery.InteriorReadsRecovered} reads of a word inside a "
+				+ "stack struct whose address a call had been handed were named as the struct's field; "
+				+ $"{Cpp2IL.Core.Analysis.StructSlotAliasRecovery.WholeDefinitionsRecovered} such structs were defined as the whole value "
+				+ "rather than its first field.");
+
+			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.InterfaceInvokeDataRecovery.Recovered} interface dispatches "
-				+ "compiled as a runtime lookup were resolved to the interface method the slot names.");
+				+ "compiled as a runtime lookup were resolved to the interface method the slot names "
+				+ $"({Cpp2IL.Core.Analysis.InterfaceInvokeDataRecovery.RecoveredInTailPosition} in tail position); "
+				+ $"{Cpp2IL.Core.Analysis.InterfaceInvokeDataRecovery.SlotDisagreesWithPosition} lookups named a slot held by a "
+				+ "different method from the one at that position in the interface's declaration list.");
 
 			if (!unresolvedCallKinds.IsEmpty)
 			{

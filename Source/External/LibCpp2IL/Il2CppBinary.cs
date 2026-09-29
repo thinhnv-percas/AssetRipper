@@ -571,6 +571,14 @@ public abstract class Il2CppBinary(Stream input) : ClassReadingBinaryReader(inpu
     /// </remarks>
     public virtual bool IsVirtualAddressEncrypted(ulong virtualAddress) => false;
 
+    /// <summary>
+    /// AssetRipper: whether the memory at <paramref name="virtualAddress"/> is writable once loaded, or
+    /// null when this format does not say. A metadata usage slot is a global the runtime fills in at
+    /// initialisation, so it is always writable; an address in the file header or in code is not one,
+    /// whatever the bytes found there decode to.
+    /// </summary>
+    public virtual bool? IsVirtualAddressWritable(ulong virtualAddress) => null;
+
     public abstract long MapVirtualAddressToRaw(ulong uiAddr, bool throwOnError = true);
     public abstract ulong MapRawAddressToVirtual(uint offset, bool throwOnError = true);
     public abstract ulong GetRva(ulong pointer);

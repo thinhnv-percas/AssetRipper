@@ -96,7 +96,13 @@ public static class MetadataResolver
                 // An immediate the method goes on to read at an offset is a page base, not a slot:
                 // see FindPageBases. The local that reads it may be a copy of this one, so the
                 // address rather than the local is what says so.
+                // AssetRipper: and only an immediate that names writable memory. A usage slot is a
+                // global the runtime fills in, so it is always writable; a small integer such as an
+                // interface slot number maps into the file header, where v27+ decoding reads a
+                // plausible token - slot 29 came back as typeof(T) and the dispatch it fed could
+                // never be matched.
                 Immediate immediate when !pageBases.ContainsValue(immediate.UnsignedValue)
+                    && !NotAUsageSlot(method, immediate.UnsignedValue)
                     => immediate.UnsignedValue,
                 _ => 0ul,
             };
@@ -174,6 +180,18 @@ public static class MetadataResolver
     /// the usage at that offset.
     /// </para>
     /// </remarks>
+    /// <summary>How many immediates were refused as usage slots because they name memory that is not writable.</summary>
+    public static long ImmediatesRefusedAsUsageSlots;
+
+    private static bool NotAUsageSlot(MethodAnalysisContext method, ulong address)
+    {
+        if (method.AppContext.Binary.IsVirtualAddressWritable(address) != false)
+            return false;
+
+        System.Threading.Interlocked.Increment(ref ImmediatesRefusedAsUsageSlots);
+        return true;
+    }
+
     /// <summary>How many page bases were recognised, and how many usages were resolved through one.</summary>
     public static long PageBasesFound;
 
@@ -414,7 +432,13 @@ public static class MetadataResolver
                     // parameter is sized as what it is. This used to bail whenever any argument was a
                     // value type, which lost every field of a List<int> - none of whose fields is of
                     // type T, so nothing about the layout depended on the argument at all.
-                    field = GenericInstanceFieldLayout.FindFieldAtOffset(genericOwner.GenericType, memory.Addend, genericOwner.GenericArguments);
+                    // AssetRipper: the computed layout is in the boxed frame, and a pointer to a struct's
+                    // own data - a return buffer, a stack slot, a field of another object - is not. The
+                    // metadata records a non-generic struct's fields value-relative, which is why this was
+                    // invisible until a generic struct came back through a buffer: List<T>.Enumerator's
+                    // _current at 0x10 read as _list, the field at boxed 0x10.
+                    field = GenericInstanceFieldLayout.FindFieldAtOffset(genericOwner.GenericType,
+                        GenericLayoutOffset(genericOwner, memory.Addend), genericOwner.GenericArguments);
                 }
                 else if (staticOwner == null && owner.GenericParameters.Count > 0)
                 {
@@ -542,10 +566,39 @@ public static class MetadataResolver
     /// in the dump distinguishes them, because every column there describes the load rather than the
     /// pass. This answers it directly at the point the load is counted.
     /// </remarks>
+    /// <summary>
+    /// AssetRipper: an addend off a pointer to a generic instance, in the frame the computed layout is
+    /// in. A value type's pointer points at its data, measured as value-relative over the resolved
+    /// population (iteration 045: 1761 to 0), and the layout starts after an object header.
+    /// </summary>
+    private static long GenericLayoutOffset(GenericInstanceTypeAnalysisContext owner, long addend)
+        => FieldOffsetFrame.ToReceiverDisplacement(addend, owner);
+
+    /// <summary>
+    /// AssetRipper: the instance field of a struct at an offset from the start of its own data, closed on
+    /// the instance for a generic struct, or null when no field starts there.
+    /// </summary>
+    public static FieldAnalysisContext? ValueFieldAt(TypeAnalysisContext structType, long valueOffset)
+    {
+        if (structType is GenericInstanceTypeAnalysisContext instance)
+        {
+            return GenericInstanceFieldLayout.FindFieldAtOffset(instance.GenericType, GenericLayoutOffset(instance, valueOffset), instance.GenericArguments) is { } open
+                ? Instantiate(open, instance)
+                : null;
+        }
+
+        if (structType.GenericParameters.Count > 0)
+            return null;
+
+        return structType.Fields.FirstOrDefault(field => !field.IsStatic
+            && (field.Attributes & FieldAttributes.Literal) == 0
+            && field.BackingData?.FieldOffset == valueOffset);
+    }
+
     public static FieldAnalysisContext? SearchFieldAtOffset(TypeAnalysisContext owner, long addend, bool wantStatic)
     {
         if (owner is GenericInstanceTypeAnalysisContext genericOwner && !wantStatic)
-            return GenericInstanceFieldLayout.FindFieldAtOffset(genericOwner.GenericType, addend, genericOwner.GenericArguments);
+            return GenericInstanceFieldLayout.FindFieldAtOffset(genericOwner.GenericType, GenericLayoutOffset(genericOwner, addend), genericOwner.GenericArguments);
 
         if (!wantStatic && owner.GenericParameters.Count > 0)
             return GenericInstanceFieldLayout.FindFieldAtOffset(owner, addend);
@@ -725,7 +778,9 @@ public static class MetadataResolver
 
         IEnumerable<(FieldAnalysisContext Field, long Offset)> FieldsOf(TypeAnalysisContext type)
             => type is GenericInstanceTypeAnalysisContext instance
+                // AssetRipper: the computed layout is boxed; a struct's interior is value-relative.
                 ? GenericInstanceFieldLayout.LayoutOf(instance.GenericType, instance.GenericArguments)
+                    .Select(pair => (pair.Field, instance.IsValueType ? FieldOffsetFrame.FromComputedLayout(pair.Offset, instance) : pair.Offset))
                 // Below the outermost level the type is a concrete struct reached through a field, so
                 // its own metadata offsets are real and are what the ordinary descent reads.
                 : InstanceFieldsWithOffsets(type);

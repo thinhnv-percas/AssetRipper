@@ -406,6 +406,10 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // then eliminate the now-dead flag computations. Both run in SSA form, where each
         // flag/temporary has a single, version-stable definition.
         FlagConditionRecovery.Run(this);
+
+        // AssetRipper: before dead code elimination, which removes the move that hands a hidden return
+        // buffer to its call; see IndirectReturnBufferRecovery.RunBeforeDeadCode.
+        IndirectReturnBufferRecovery.RunBeforeDeadCode(this);
         DeadCodeEliminator.Run(this);
 
         // Resolve call targets, strings and getters, then run the combined type-propagation and
@@ -438,6 +442,9 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
 
         LocalVariables.ResolveTypesAndFields(this);
         Analysis.IsilDump.Stage(this, "after ResolveTypesAndFields");
+
+        // AssetRipper: needs the slots typed, so after the fixpoint, and dominance, so inside SSA.
+        StructSlotAliasRecovery.Run(this);
 
         // AssetRipper: again, because a class pointer read off an object rather than named by a
         // metadata usage is only typed by the resolution above, and the guard is recognised by its

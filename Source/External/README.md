@@ -97,6 +97,36 @@ Every change is marked `AssetRipper:` at the point it applies.
    knows only the primitives; a struct stride comes from `MetadataElementSize`, and the index may be
    scaled by a multiply rather than a shift because a struct stride is rarely a power of two.
 
+12. **An immediate in unwritable memory was decoded as a metadata usage** (iteration 062) —
+   `Il2CppBinary.IsVirtualAddressWritable`, overridden by `ElfFile` (PT_LOAD with PF_W) and `MachOFile`
+   (segment initial protection), and consulted by `MetadataResolver.NotAUsageSlot`. From metadata v27
+   a usage is decoded from the value found at an address, so a small constant (an interface slot, a
+   bit mask, a character) that maps into the ELF header read back as `typeof(...)` or `fieldof(...)`.
+   A usage slot is a global the runtime fills in, so it is always writable.
+
+13. **A generic struct had no size** (iteration 062) — `TypeSizes.UnboxedSize` falls back to
+   `GenericInstanceFieldLayout.ValueTypeSize`, which walks the definition's fields with the instance's
+   arguments substituted. il2cpp records sizes for definitions only, so every generic struct read as
+   size 0 and `ReturnsViaHiddenBuffer` called it a register return: a `List<T>.Enumerator` returned
+   through X8 was never connected to its call and every `foreach` over a list iterated a default
+   enumerator. `GenericInstanceFieldLayout` is in the boxed frame, so `MetadataResolver` converts a
+   value-relative addend on a generic struct with `FieldOffsetFrame` before looking it up.
+
+14. **A struct slot handed to a call is one piece of memory** (iteration 062) —
+   `Analysis/StructSlotAliasRecovery.cs`, added, run after `ResolveTypesAndFields`; and
+   `IndirectReturnBufferRecovery.RunBeforeDeadCode`, run before `DeadCodeEliminator` removes the move
+   that hands a buffer to its call. A word inside a stack struct read after the struct's address was
+   handed to a call is that struct's field, where the word is demonstrably a copy of that field.
+
+15. **Interface dispatch through the runtime lookup** (iteration 062) — `InterfaceInvokeDataRecovery`
+   maps a slot through `Il2CppMethodDefinition.slot` rather than the declaration position, resolves a
+   dispatch in tail position (`IndirectJump`), and writes one evidence row per resolved call to
+   `CPP2IL_DUMP_INTERFACE_CALLS`.
+
+16. **What the emitted body reads** (iteration 062) — `IlGenerator.LoadsCallOperands` states when the
+   generator loads a call's operands (never for a call it cannot name), and `StorageHazardClassifier`
+   uses it rather than counting the raw registers of an unresolved call as reads.
+
 The build files are adapted: `Directory.Build.props` here isolates this tree from
 `Source/Directory.Build.props` (whose `CheckForOverflowUnderflow` would change how this code runs),
 each project targets only `net10.0`, and packing, SourceLink and package metadata are dropped. The

@@ -54,6 +54,9 @@ public sealed record UnityBuildResult
 	/// <summary>The compiler errors the log carried, for a compile failure; empty otherwise.</summary>
 	public IReadOnlyList<string> CompilerErrors { get; init; } = [];
 
+	/// <summary>Each stage from discovery to runtime with its own evidence; see <see cref="UnityBuildStages"/>.</summary>
+	public IReadOnlyList<UnityStageResult> Stages { get; init; } = [];
+
 	/// <summary>The level of validation this result reaches, in the vocabulary reports use.</summary>
 	public string ValidationLevel => Status switch
 	{
@@ -106,6 +109,17 @@ public sealed record UnityBuildResult
 			foreach (string error in CompilerErrors)
 			{
 				json.WriteStringValue(error);
+			}
+			json.WriteEndArray();
+
+			json.WriteStartArray("stages");
+			foreach (UnityStageResult stage in Stages)
+			{
+				json.WriteStartObject();
+				json.WriteString("stage", stage.Stage.ToReportName());
+				json.WriteString("outcome", stage.Outcome.ToReportName());
+				json.WriteString("evidence", stage.Evidence);
+				json.WriteEndObject();
 			}
 			json.WriteEndArray();
 

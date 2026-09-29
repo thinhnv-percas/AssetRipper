@@ -122,13 +122,16 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 					continue;
 				}
 
-				string key = $"{text.Length}:{text.GetHashCode():x8}";
+				// Identity is the program's content, by a hash that is the same in every process:
+				// string.GetHashCode is randomised per run and 32 bits wide, so it neither names a
+				// program across two rips nor rules out two programs sharing a file.
+				string key = ShaderVariantGuards.ContentHash(text);
 				string keywords = row.Keywords is null ? "_unknown" : row.Keywords.Count == 0 ? "_base" : string.Join('+', row.Keywords);
 
 				if (byContent.TryGetValue(key, out string? existing))
 				{
 					shared++;
-					manifest.Add(Row(row, keywords, existing));
+					manifest.Add(Row(row, keywords, existing, program, key));
 					continue;
 				}
 
@@ -149,7 +152,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 				byContent[key] = name;
 				budget += text.Length;
 				written++;
-				manifest.Add(Row(row, keywords, name));
+				manifest.Add(Row(row, keywords, name, program, key));
 			}
 		}
 
@@ -168,12 +171,19 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 			"Written to AuxiliaryFiles/ShaderVariants.json.");
 	}
 
-	private static string Row(ShaderBlobMapping.Row row, string keywords, string file)
+	/// <summary>
+	/// One variant, with the program's identity as the brief defines it: backend, stage, blob entry,
+	/// the byte range inside the decompressed platform blob, and a hash of the content.
+	/// </summary>
+	private static string Row(ShaderBlobMapping.Row row, string keywords, string file, ShaderProgramProbe.SubProgramEvidence program, string contentHash)
 		=> "  {\"shader\": \"" + Escape(row.Shader) + "\", \"subShader\": " + row.SubShader
 			+ ", \"pass\": " + row.Pass + ", \"passName\": \"" + Escape(row.PassName)
 			+ "\", \"stage\": \"" + row.Stage + "\", \"backend\": \"" + row.Backend
 			+ "\", \"variant\": " + row.Variant + ", \"keywords\": \"" + Escape(keywords)
 			+ "\", \"blobIndex\": " + row.BlobIndex + ", \"size\": " + row.ProgramSize
+			+ ", \"platform\": " + program.Platform + ", \"offset\": " + program.Offset + ", \"length\": " + program.Length
+			+ ", \"textOffset\": " + program.TextOffset + ", \"textLength\": " + program.TextLength
+			+ ", \"contentHash\": \"" + contentHash + "\""
 			+ ", \"file\": \"" + Escape(file) + "\"}";
 
 	private static string Escape(string value)

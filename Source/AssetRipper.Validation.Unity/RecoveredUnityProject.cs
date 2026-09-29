@@ -15,4 +15,9 @@ public sealed record RecoveredUnityProject(string ProjectPath, ProjectVersion? V
 
 		return new RecoveredUnityProject(full, ProjectVersion.Read(full));
 	}
+
+	/// <summary>What <see cref="UnityBuildStage.ProjectDiscovery"/> rests on, in words.</summary>
+	public string DiscoveryEvidence => Version is { } version
+		? $"Assets/ and ProjectSettings/ present; ProjectVersion.txt reads {version.EditorVersion}"
+		: "Assets/ and ProjectSettings/ present; no ProjectVersion.txt, so no editor version";
 }

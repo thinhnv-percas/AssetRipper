@@ -103,6 +103,7 @@ public sealed class DockerUnityBuildProvider(IProcessRunner? runner = null, Func
 			Reason = classification.Reason,
 			Transient = classification.Transient,
 			CompilerErrors = classification.CompilerErrors,
+			Stages = UnityBuildStages.Decide(true, project.DiscoveryEvidence, outcome.ExitCode, log, exists, classification),
 			Provider = $"{Name}:{image}",
 			UnityVersion = version,
 			ProjectPath = project.ProjectPath,

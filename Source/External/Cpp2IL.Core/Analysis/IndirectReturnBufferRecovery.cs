@@ -56,6 +56,46 @@ public static class IndirectReturnBufferRecovery
     /// sits in. Separated from <see cref="Apply"/> so the control flow reasoning can be tested without
     /// a metadata context behind it.
     /// </summary>
+    /// <summary>
+    /// AssetRipper: the same recovery, run before dead code elimination while the call may still be a
+    /// bare address.
+    /// </summary>
+    /// <remarks>
+    /// The move that hands the buffer's address to the call names a register the call does not list as
+    /// an argument - the calling convention remap leaves the hidden buffer out - so dead code
+    /// elimination removes it before <see cref="Run"/> could ever match it, and the slot the call
+    /// filled is left read under a version nothing defines. An address stands for a call that fills a
+    /// buffer only when every method at it returns through the same buffer register, which is the fact
+    /// the rewrite rests on; which of them it is does not matter here.
+    /// </remarks>
+    public static void RunBeforeDeadCode(MethodAnalysisContext method)
+    {
+        if (method.ControlFlowGraph is { } graph && method.DominatorInfo is { } dominators)
+            Apply(graph, dominators, (call, buffer) => FillsAHiddenReturnBufferAtAddress(method, call, buffer));
+    }
+
+    private static bool FillsAHiddenReturnBufferAtAddress(MethodAnalysisContext method, Instruction call, LocalVariable buffer)
+    {
+        if (call.Operands is [MethodAnalysisContext, LocalVariable, ..])
+            return FillsAHiddenReturnBuffer(call, buffer);
+
+        if (call.Operands is not [Immediate target, LocalVariable, ..]
+            || method.AppContext.InstructionSet.CallingConventionResolver is not { } conventions
+            || !method.AppContext.MethodsByAddress.TryGetValue(target.UnsignedValue, out var candidates)
+            || candidates.Count == 0)
+            return false;
+
+        foreach (var candidate in candidates)
+        {
+            if (!conventions.ReturnsViaHiddenBuffer(candidate)
+                || conventions.HiddenReturnBufferRegister(candidate) is not { } register
+                || register.Name != buffer.Register.Name)
+                return false;
+        }
+
+        return true;
+    }
+
     private static bool FillsAHiddenReturnBuffer(Instruction call, LocalVariable buffer)
         => call.Operands is [MethodAnalysisContext callee, LocalVariable, ..]
             && callee.AppContext.InstructionSet.CallingConventionResolver is { } conventions
@@ -82,6 +122,7 @@ public static class IndirectReturnBufferRecovery
                     continue;
 
                 RewriteReadsAfter(graph, dominators, buffer, returned, callBlock, callIndex);
+                RewriteSlotReadsAfter(graph, dominators, slot, returned, callBlock, callIndex);
             }
         }
     }
@@ -196,6 +237,66 @@ public static class IndirectReturnBufferRecovery
     /// that is the instruction order; across blocks it is dominance, so a read on a path that does not
     /// go through the call is not counted as after it.
     /// </summary>
+    /// <summary>How many reads of a return buffer's own stack slot were named as the value the call returned.</summary>
+    public static int SlotReadsRecovered;
+
+    /// <summary>
+    /// AssetRipper: the slot the buffer points into, read under its own name after the call, is the
+    /// value the call returned.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The reads above go through the buffer register. The compiler just as often reads the slot
+    /// directly: <c>foreach</c> over a <c>List&lt;T&gt;</c> gets its 24-byte enumerator back in a
+    /// buffer on the stack and copies it to the slot it iterates, with one 16-byte and one 8-byte load
+    /// of the buffer slot. SSA versions the slot at the address-take and nothing the ISIL says writes
+    /// it afterwards - the callee does, through the pointer - so the copy read a version with no
+    /// definition, and the loop iterated <c>default(List&lt;object&gt;.Enumerator)</c>: 113 such loops on
+    /// the test game, <c>CSVHelper.getListGroupCSV</c> among them, every one compiling and every one
+    /// doing nothing.
+    /// </para>
+    /// <para>
+    /// Only the exact version whose address was handed to the call is rewritten, and only where that
+    /// hand-off is the one address-take of it: a second one could be a second writer, and then which
+    /// value a read sees is not decidable here. A phi is left alone, because its inputs are read at the
+    /// end of each predecessor rather than where the phi stands.
+    /// </para>
+    /// </remarks>
+    private static void RewriteSlotReadsAfter(ISILControlFlowGraph graph, DominatorInfo dominators, LocalVariable slot,
+        LocalVariable returned, Block callBlock, int callIndex)
+    {
+        var takes = 0;
+        foreach (var instruction in graph.AllInstructions)
+            foreach (var operand in instruction.Operands)
+                if (operand is AddressOf { Target: LocalVariable taken } && ReferenceEquals(taken, slot))
+                    takes++;
+
+        if (takes != 1)
+            return;
+
+        foreach (var block in graph.Blocks)
+        {
+            for (var i = 0; i < block.Instructions.Count; i++)
+            {
+                var instruction = block.Instructions[i];
+
+                if (instruction.OpCode == OpCode.Phi || !After(dominators, callBlock, callIndex, block, i))
+                    continue;
+
+                var destination = StorageIdentities.DestinationPosition(instruction);
+
+                for (var operand = 0; operand < instruction.Operands.Count; operand++)
+                {
+                    if (operand == destination || !ReferenceEquals(instruction.Operands[operand], slot))
+                        continue;
+
+                    instruction.SetOperand(operand, returned);
+                    Interlocked.Increment(ref SlotReadsRecovered);
+                }
+            }
+        }
+    }
+
     private static bool After(DominatorInfo dominators, Block earlierBlock, int earlierIndex, Block block, int index)
         => ReferenceEquals(block, earlierBlock) ? index > earlierIndex : dominators.Dominates(earlierBlock, block);
 }

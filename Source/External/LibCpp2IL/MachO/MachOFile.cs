@@ -130,6 +130,18 @@ public class MachOFile : Il2CppBinary
     /// segments are what carry the file-to-memory mapping, and a byte that lies in a segment but in
     /// none of its sections is still encrypted.
     /// </remarks>
+    /// <summary>AssetRipper: by the segment's initial protection; outside every segment, not writable.</summary>
+    public override bool? IsVirtualAddressWritable(ulong virtualAddress)
+    {
+        foreach (var segment in Segments64)
+        {
+            if (virtualAddress >= segment.VirtualAddress && virtualAddress < segment.VirtualAddress + segment.VirtualSize)
+                return (segment.InitialProtection & MachOVmProtection.PROT_WRITE) != 0;
+        }
+
+        return false;
+    }
+
     public override bool IsVirtualAddressEncrypted(ulong virtualAddress)
     {
         if (Encryption is not { IsEncrypted: true } encryption)

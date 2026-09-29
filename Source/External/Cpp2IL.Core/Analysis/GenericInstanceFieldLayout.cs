@@ -406,4 +406,74 @@ public static class GenericInstanceFieldLayout
     }
 
     private const int MaximumNestingDepth = 8;
+
+    /// <summary>
+    /// AssetRipper: the unboxed size of a value type, a generic instance included, or null when a field
+    /// of it cannot be sized.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// il2cpp records sizes for type definitions only, so every generic struct read as size 0 - and
+    /// <c>ReturnsViaHiddenBuffer</c> treats an unknown size as a register return. <c>List&lt;T&gt;.Enumerator</c>
+    /// is 24 bytes and comes back in a buffer the caller passes in X8; read as a register return, the
+    /// buffer was never connected to the call, and 113 <c>foreach</c> loops on the test game iterated a
+    /// default enumerator.
+    /// </para>
+    /// <para>
+    /// An instance declares no fields of its own, so the definition's are walked with the instance's
+    /// arguments substituted, recursively into a field that is itself a generic struct over the same
+    /// parameters (<c>Dictionary&lt;K,V&gt;.Enumerator</c> holds a <c>KeyValuePair&lt;K,V&gt;</c>). An argument
+    /// that is still an open parameter answers null: in shared code it would be a pointer, but nothing
+    /// here says the code is shared.
+    /// </para>
+    /// </remarks>
+    public static long? ValueTypeSize(TypeAnalysisContext type, int pointerSize)
+        => type.IsValueType && InstanceSizeAndAlignment(type, null, pointerSize, 0) is var (size, _) ? size : null;
+
+    private static (long Size, long Alignment)? InstanceSizeAndAlignment(TypeAnalysisContext type,
+        IReadOnlyList<TypeAnalysisContext>? outer, int pointerSize, int depth)
+    {
+        if (depth >= MaximumNestingDepth)
+            return null;
+
+        if (type is GenericParameterTypeAnalysisContext { Index: var index })
+        {
+            if (outer == null || index >= outer.Count || outer[index] is GenericParameterTypeAnalysisContext)
+                return null;
+            return InstanceSizeAndAlignment(outer[index], null, pointerSize, depth + 1);
+        }
+
+        if (type is not GenericInstanceTypeAnalysisContext instance)
+            return GetSizeAndAlignment(type, pointerSize, depth + 1);
+
+        if (!instance.IsValueType)
+            return (pointerSize, pointerSize);
+
+        var arguments = instance.GenericArguments.Select(argument => Substitute(argument, outer)).ToList();
+
+        long size = 0;
+        long alignment = 1;
+        var any = false;
+
+        foreach (var field in instance.GenericType.Fields)
+        {
+            if (field.IsStatic || (field.Attributes & FieldAttributes.Literal) != 0)
+                continue;
+
+            if (InstanceSizeAndAlignment(field.FieldType, arguments, pointerSize, depth + 1) is not var (fieldSize, fieldAlignment))
+                return null;
+
+            size = (size + fieldAlignment - 1) & ~(fieldAlignment - 1);
+            size += fieldSize;
+            any = true;
+
+            if (fieldAlignment > alignment)
+                alignment = fieldAlignment;
+        }
+
+        if (!any)
+            return null;
+
+        return ((size + alignment - 1) & ~(alignment - 1), alignment);
+    }
 }

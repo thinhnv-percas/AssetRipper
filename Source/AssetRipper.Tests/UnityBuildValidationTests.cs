@@ -170,6 +170,88 @@ internal sealed class UnityBuildValidationTests
 		Assert.That(gpu.Arguments, Does.Not.Contain("-nographics"));
 	}
 
+	private static Dictionary<string, string> StagesOf(int? exitCode, string log, bool artifact)
+	{
+		UnityLogClassifier.Classification classification = UnityLogClassifier.Classify(exitCode, log, artifact);
+		return UnityBuildStages.Decide(true, "test", exitCode, log, artifact, classification)
+			.ToDictionary(stage => stage.Stage.ToReportName(), stage => stage.Outcome.ToReportName());
+	}
+
+	[Test]
+	public void EveryStageIsReportedAndRuntimeIsNeverDecidedByABuild()
+	{
+		Dictionary<string, string> stages = StagesOf(0, $"{ValidationScript.Marker} BUILD_RESULT Succeeded\n", artifact: true);
+
+		Assert.That(stages, Is.EqualTo(new Dictionary<string, string>
+		{
+			["PROJECT_DISCOVERY"] = "PASSED",
+			["UNITY_IMPORT"] = "PASSED",
+			["SCRIPT_COMPILE"] = "PASSED",
+			["ASSET_IMPORT"] = "PASSED",
+			["BUILD_PLAYER"] = "PASSED",
+			["RUNTIME"] = "NOT_RUN",
+		}));
+	}
+
+	[Test]
+	public void AnExitCodeWithNoLogDecidesNoStage()
+	{
+		// Unity exited 1 and said nothing: that is not a compile failure, and not a compile success either.
+		Dictionary<string, string> stages = StagesOf(1, "", artifact: false);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(stages["SCRIPT_COMPILE"], Is.EqualTo("UNKNOWN"));
+			Assert.That(stages["UNITY_IMPORT"], Is.EqualTo("UNKNOWN"));
+			Assert.That(stages["BUILD_PLAYER"], Is.EqualTo("UNKNOWN"));
+		});
+	}
+
+	[Test]
+	public void AFailureStopsAtItsOwnStage()
+	{
+		Dictionary<string, string> compile = StagesOf(1, "Assets/Scripts/Player.cs(3,5): error CS0103: The name 'x' does not exist\n", artifact: false);
+		Dictionary<string, string> import = StagesOf(1, "An error occurred while resolving packages\nerror CS0246: missing\n", artifact: false);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(compile["SCRIPT_COMPILE"], Is.EqualTo("FAILED"));
+			Assert.That(compile["BUILD_PLAYER"], Is.EqualTo("NOT_REACHED"));
+			Assert.That(import["UNITY_IMPORT"], Is.EqualTo("FAILED"));
+			Assert.That(import["SCRIPT_COMPILE"], Is.EqualTo("NOT_REACHED"), "compile errors after a failed import are its consequence");
+		});
+	}
+
+	[Test]
+	public void ABuildThatReportsSuccessWithNoPlayerFailsAtTheBuild()
+	{
+		Dictionary<string, string> stages = StagesOf(0, $"{ValidationScript.Marker} BUILD_RESULT Succeeded\n", artifact: false);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(stages["SCRIPT_COMPILE"], Is.EqualTo("PASSED"));
+			Assert.That(stages["BUILD_PLAYER"], Is.EqualTo("FAILED"));
+		});
+	}
+
+	[Test]
+	public void WithNoEditorEveryStageAfterDiscoveryIsNotReached()
+	{
+		RecoveredUnityProject recovered = RecoveredUnityProject.Open(project);
+		BuildRequest request = new() { ProjectPath = recovered.ProjectPath, TargetPlatform = "Android" };
+		UnityBuildResult result = UnityBuildPipeline.Build(recovered, request, [new UnavailableUnityBuildProvider("no editor")]);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(result.Stages.Select(stage => stage.Outcome), Is.EqualTo(new[]
+			{
+				UnityStageOutcome.Passed, UnityStageOutcome.NotReached, UnityStageOutcome.NotReached,
+				UnityStageOutcome.NotReached, UnityStageOutcome.NotReached, UnityStageOutcome.NotRun,
+			}));
+			Assert.That(result.ToJson(), Does.Contain("\"stage\": \"RUNTIME\"").And.Contain("\"outcome\": \"NOT_RUN\""));
+		});
+	}
+
 	[Test]
 	public void OnlyATransientFailureIsRetried()
 	{

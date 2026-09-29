@@ -174,6 +174,42 @@ internal sealed class Il2CppIndirectReturnBufferTests
 		Assert.That(fixture.BaseOf(block.Instructions[2]), Is.SameAs(fixture.Other));
 	}
 
+	[Test]
+	public void TheSlotReadUnderItsOwnNameAfterTheCallIsTheReturnedValue()
+	{
+		// foreach over a List<T>: the enumerator comes back in a buffer on the stack and is copied out
+		// of the slot directly. The copy read a version nothing defined and iterated a default enumerator.
+		Fixture fixture = new();
+		Block block = fixture.Block(fixture.TakeAddress(), fixture.Call(), fixture.ReadSlot());
+
+		fixture.Run(block);
+
+		Assert.That(block.Instructions[2].Operands[1], Is.SameAs(fixture.Returned));
+	}
+
+	[Test]
+	public void TheSlotReadBeforeTheCallIsLeftAlone()
+	{
+		Fixture fixture = new();
+		Block block = fixture.Block(fixture.TakeAddress(), fixture.ReadSlot(), fixture.Call());
+
+		fixture.Run(block);
+
+		Assert.That(block.Instructions[1].Operands[1], Is.SameAs(fixture.Slot));
+	}
+
+	[Test]
+	public void ASlotWhoseAddressIsTakenTwiceIsLeftAlone()
+	{
+		// A second address-take could be a second writer, and then the read's value is not decidable here.
+		Fixture fixture = new();
+		Block block = fixture.Block(fixture.TakeAddress(), fixture.Call(), fixture.TakeSlotAddressElsewhere(), fixture.ReadSlot());
+
+		fixture.Run(block);
+
+		Assert.That(block.Instructions[3].Operands[1], Is.SameAs(fixture.Slot));
+	}
+
 	/// <summary>Builds the smallest graph that exercises the pass, with one buffer and one call.</summary>
 	private sealed class Fixture
 	{
@@ -195,6 +231,10 @@ internal sealed class Il2CppIndirectReturnBufferTests
 			call.SetOperands(new Immediate(0), Returned);
 			return call;
 		}
+
+		public Instruction ReadSlot() => Move(new LocalVariable("copy", new(null, "V0")), Slot);
+
+		public Instruction TakeSlotAddressElsewhere() => Move(Other, new AddressOf(Slot));
 
 		public Instruction Read(long addend) => Move(new LocalVariable("read", new(null, "V0")), new MemoryOperand(Buffer, addend: addend));
 

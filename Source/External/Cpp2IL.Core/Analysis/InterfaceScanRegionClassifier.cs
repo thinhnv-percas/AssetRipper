@@ -86,6 +86,19 @@ public static class InterfaceScanRegionClassifier
     public static long LoadsInProvenRegions => Interlocked.Read(ref _loadsInProvenRegions);
     public static int BodiesWithScans => Volatile.Read(ref _bodies);
 
+    // AssetRipper: one row per region that is not proven dead, so the families can be read site by
+    // site. Same convention as CPP2IL_DUMP_LOADS: only written when the variable names a file.
+    private static readonly string? DumpPath = System.Environment.GetEnvironmentVariable("CPP2IL_DUMP_SCAN_REGIONS");
+    private static readonly Lock DumpLock = new();
+
+    private static void WriteRow(string row)
+    {
+        if (string.IsNullOrEmpty(DumpPath))
+            return;
+        lock (DumpLock)
+            System.IO.File.AppendAllText(DumpPath, row.Replace('\n', ' ') + "\n");
+    }
+
     public static void Run(MethodAnalysisContext method)
     {
         if (method.ControlFlowGraph is not { } graph)
@@ -102,7 +115,12 @@ public static class InterfaceScanRegionClassifier
         if (scanOffsets.Count == 0)
             return;
 
-        var verdicts = Classify(graph, operand => IsScanRead(operand, scanOffsets), message => IsilDump.Trace(method, message));
+        string where = $"{method.DeclaringType?.FullName}::{method.Name}";
+        var verdicts = Classify(graph, operand => IsScanRead(operand, scanOffsets), message =>
+        {
+            IsilDump.Trace(method, message);
+            WriteRow($"{where}\t{message}");
+        });
 
         if (verdicts.Count == 0)
             return;

@@ -29,6 +29,8 @@ Statuses, per (material, pass):
                          the program is right and the material still draws with the wrong one
   NO_COMPILED_VARIANT    no compiled variant matches the material's keywords; the build stripped it
                          or the material's keywords are not the ones the build saw
+  VARIANT_SELECTION_UNKNOWN  the export carries every compiled variant under guards and none is
+                         this state - it reaches the #else, which selects nothing (iteration 062)
   PROGRAM_NOT_RECOVERED  the pass carries a replacement program, so there is nothing to bind
   NO_VARIANT_TABLE       the pass has no entry in the variant table
   KEYWORDS_NOT_RECORDED  the build's version records no keyword names, so which variant a material
@@ -51,6 +53,7 @@ import sys
 BUILTIN_GUIDS = {"0000000000000000f000000000000000", "0000000000000000e000000000000000"}
 RECOVERED = re.compile(r"AssetRipperRecoveredProgram: (?P<backend>\w+), variant (?P<variant>\d+) of (?P<count>\d+), "
                        r"blob index (?P<blob>\d+)(?:, keywords (?P<keywords>\S+))?")
+GUARDED_VARIANT = re.compile(r"AssetRipperVariant: variant (?P<variant>\d+), content \w+, keywords (?P<keywords>\S+)")
 REPLACEMENT = "AssetRipperReplacementProgram"
 SHADER_NAME = re.compile(r'^\s*Shader\s+"([^"]+)"', re.M)
 SUBSHADER = re.compile(r"^\s*SubShader\b")
@@ -98,9 +101,14 @@ def exported_passes(shader_file: pathlib.Path):
         elif PASS.match(line) and not line.strip().startswith(("UsePass", "GrabPass")):
             index += 1
         match = RECOVERED.search(line)
+        guarded = GUARDED_VARIANT.search(line)
         if match and sub >= 0 and index >= 0:
             passes[(sub, index)] = ("RECOVERED", match.group("backend"), int(match.group("variant")) - 1,
-                                    keyword_set(match.group("keywords")))
+                                    keyword_set(match.group("keywords")), [])
+        elif guarded and (sub, index) in passes and passes[(sub, index)][0] == "RECOVERED":
+            # Iteration 062: every variant of the pass under a guard of its own keyword set. The
+            # exported program is then whichever guard the keyword state selects.
+            passes[(sub, index)][4].append(keyword_set(guarded.group("keywords")))
         elif REPLACEMENT in line and sub >= 0 and index >= 0 and (sub, index) not in passes:
             passes[(sub, index)] = ("REPLACEMENT",)
     return declared.group(1), passes
@@ -195,7 +203,7 @@ def run(root: pathlib.Path, example_limit: int):
                 statuses["PROGRAM_NOT_RECOVERED"] += len(users)
                 shader_counts["PROGRAM_NOT_RECOVERED"] += len(users)
                 continue
-            _, backend, exported_variant, exported_keywords = exported
+            _, backend, exported_variant, exported_keywords, guards = exported
             # The table is the authority for which keywords the exported variant was compiled for; the
             # comment in the shader is a rendering of it, and the two must agree.
             table_entry = variants.get((shader_name, sub, index, backend), {}).get(exported_variant)
@@ -216,15 +224,22 @@ def run(root: pathlib.Path, example_limit: int):
             for path, name, keywords in users:
                 required = keywords & space
                 candidates = [v for v, k in table if k & controlled == required]
-                if exported_keywords & controlled == required:
-                    status = "BOUND_EXACT" if not (exported_keywords - controlled) else "BOUND_MODULO_ENGINE"
+                # The programs the export carries for this pass: one, or every guarded variant.
+                carried = guards or [exported_keywords]
+                selected = [k for k in carried if k & controlled == required]
+                if selected:
+                    status = "BOUND_EXACT" if any(not (k - controlled) for k in selected) else "BOUND_MODULO_ENGINE"
                 elif not candidates and required:
                     status = "NO_COMPILED_VARIANT"
+                elif guards:
+                    # Guarded and still no guard for this state: it reaches the #else, which selects
+                    # nothing rather than guessing.
+                    status = "VARIANT_SELECTION_UNKNOWN"
                 else:
                     status = "VARIANT_BINDING_WRONG"
                 statuses[status] += 1
                 shader_counts[status] += 1
-                if status in ("VARIANT_BINDING_WRONG", "NO_COMPILED_VARIANT") and len(examples[status]) < example_limit:
+                if status in ("VARIANT_BINDING_WRONG", "NO_COMPILED_VARIANT", "VARIANT_SELECTION_UNKNOWN") and len(examples[status]) < example_limit:
                     examples[status].append({
                         "material": name, "file": str(path.relative_to(game)), "shader": shader_name,
                         "pass": f"{sub}.{index}", "backend": backend,
@@ -234,7 +249,7 @@ def run(root: pathlib.Path, example_limit: int):
         per_shader[shader_name] = {"materials": len(users), **shader_counts}
 
     decided = sum(statuses[s] for s in ("BOUND_EXACT", "BOUND_MODULO_ENGINE", "VARIANT_BINDING_WRONG",
-                                         "NO_COMPILED_VARIANT"))
+                                         "NO_COMPILED_VARIANT", "VARIANT_SELECTION_UNKNOWN"))
     bound = statuses["BOUND_EXACT"] + statuses["BOUND_MODULO_ENGINE"]
     return {
         "status": "MEASURED",

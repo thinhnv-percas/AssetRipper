@@ -163,6 +163,11 @@ check DECOMP-0022 TimeCheatingDetector.cs 'result = ref *(OnlineTimeResult*)' 'r
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact
 # check on it there is, and a layout that is off by a field does not fail, it names the wrong field.
+
+# Iteration 062: một immediate nhỏ trỏ vào vùng nhớ không ghi được (header ELF) bị đọc như một metadata
+# usage slot và giải mã thành một token hợp lý. Slot là global runtime điền vào, nên luôn ghi được.
+check DECOMP-0040 ObscuredPrefs.cs 'EncryptData(key, array, DataType.Quaternion)' 'typeof(Action<CustomRenderTexture>)'
+
 if [ -f "$log" ]; then
     selfcheck=$(grep -o 'field layout self-check: .*' "$log" | tail -1)
     if [ -z "$selfcheck" ]; then

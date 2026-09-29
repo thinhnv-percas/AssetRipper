@@ -321,9 +321,24 @@ public static class StructuredShaderTextExporter
 
 				built.Append('\n');
 
-				foreach (string line in source.Replace("\r", "").Split('\n'))
+				// AssetRipper: every variant of this backend under a guard of its own keyword set, so a
+				// material draws with the program its keywords select rather than with this one.
+				var guarded = GuardedVariants(shader, program, program.Backends[variant]);
+				if (guarded?.Text is { } text)
 				{
-					built.Append("\t\t\t").Append(line).Append('\n');
+					built.Append(text);
+				}
+				else
+				{
+					if (guarded is not null && program.KeywordSets.Count > 1)
+					{
+						built.Append("\t\t\t// AssetRipperVariantsNotEmbedded: ").Append(guarded.Reason).Append('\n');
+					}
+
+					foreach (string line in source.Replace("\r", "").Split('\n'))
+					{
+						built.Append("\t\t\t").Append(line).Append('\n');
+					}
 				}
 
 				built.Append("\t\t\tENDGLSL");
@@ -332,6 +347,93 @@ public static class StructuredShaderTextExporter
 		}
 
 		return null;
+	}
+
+	private static ShaderVariantGuards.Result? GuardedVariants(IShader shader, ShaderSemanticModel.ProgramModel program, string backend)
+	{
+		if (!program.KeywordsKnown)
+		{
+			return new ShaderVariantGuards.Result(null, "this version records no keyword names", 0, []);
+		}
+
+		List<int> indices = [];
+		HashSet<string> keywords = new(StringComparer.Ordinal);
+
+		for (int index = 0; index < program.BlobIndices.Count && index < program.Backends.Count && index < program.KeywordSets.Count; index++)
+		{
+			if (program.Backends[index] == backend)
+			{
+				indices.Add(index);
+				keywords.UnionWith(program.KeywordSets[index]);
+			}
+		}
+
+		// Decided from the table before a single program is decompressed.
+		if (keywords.Count > ShaderVariantGuards.MaximumKeywords)
+		{
+			return new ShaderVariantGuards.Result(null,
+				$"{keywords.Count} keywords exceed the {ShaderVariantGuards.MaximumKeywords} that can be declared combinatorially", 0, [.. keywords]);
+		}
+
+		List<ShaderVariantGuards.Variant> variants = [];
+		Dictionary<string, string> programOfSet = new(StringComparer.Ordinal);
+
+		foreach (int index in indices)
+		{
+			// Each hardware tier lists the keyword sets again. The engine picks a tier by the device, so
+			// a set whose tiers compiled different programs has no one program this can write; taking
+			// the first tier's would be choosing. Identical programs across tiers are one program.
+			string key = string.Join('+', program.KeywordSets[index]);
+
+			if (ShaderProgramProbe.SourceFor(shader, backend, program.BlobIndices[index]) is not { Length: > 0 } text)
+			{
+				continue;
+			}
+
+			if (programOfSet.TryGetValue(key, out string? earlier))
+			{
+				if (!string.Equals(ShaderVariantGuards.ContentHash(earlier), ShaderVariantGuards.ContentHash(text), StringComparison.Ordinal))
+				{
+					return new ShaderVariantGuards.Result(null,
+						$"hardware tiers compiled different programs for keyword set {(key.Length == 0 ? "<none>" : key)}", 0, [.. keywords]);
+				}
+
+				continue;
+			}
+
+			programOfSet[key] = text;
+			variants.Add(new ShaderVariantGuards.Variant(index, program.KeywordSets[index], text));
+		}
+
+		return ShaderVariantGuards.Build(variants, isLocal: KeywordScopes(shader));
+	}
+
+	/// <summary>
+	/// The scope the serialized shader records for each keyword: bit 0 of its entry in
+	/// <c>m_KeywordFlags</c>, parallel to <c>m_KeywordNames</c>. Measured against every source shader
+	/// the fixtures ship before being used - 16 keywords, each local exactly when its source pragma is
+	/// <c>_local</c> - and no other bit is set on any keyword of either fixture.
+	/// </summary>
+	private static Func<string, bool?>? KeywordScopes(IShader shader)
+	{
+		if (!shader.Has_ParsedForm())
+		{
+			return null;
+		}
+
+		var form = shader.ParsedForm;
+		if (!form.Has_KeywordNames() || !form.Has_KeywordFlags() || form.KeywordFlags.Length != form.KeywordNames.Count)
+		{
+			return null;
+		}
+
+		Dictionary<string, bool> scopes = new(StringComparer.Ordinal);
+		for (int index = 0; index < form.KeywordNames.Count; index++)
+		{
+			scopes.TryAdd(form.KeywordNames[index].String, (form.KeywordFlags[index] & 1) != 0);
+		}
+
+		return keyword => scopes.TryGetValue(keyword, out bool local) ? local : null;
 	}
 
 	private static void WriteTags(TextWriter writer, IReadOnlyDictionary<string, string> tags, int indent)

@@ -35,10 +35,13 @@ public static class UnityBuildPipeline
 		}
 
 		DateTimeOffset now = DateTimeOffset.UtcNow;
+		string unavailable = reasons.Count == 0 ? "no provider was configured" : string.Join("; ", reasons);
 		return new UnityBuildResult
 		{
 			Status = UnityBuildStatus.UnityNotAvailable,
-			Reason = reasons.Count == 0 ? "no provider was configured" : string.Join("; ", reasons),
+			Reason = unavailable,
+			Stages = UnityBuildStages.Decide(true, project.DiscoveryEvidence, null, "", false,
+				new UnityLogClassifier.Classification(UnityBuildStatus.UnityNotAvailable, unavailable, false, [])),
 			Provider = "none",
 			UnityVersion = request.UnityVersion ?? project.Version?.EditorVersion,
 			ProjectPath = project.ProjectPath,

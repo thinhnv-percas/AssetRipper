@@ -63,8 +63,59 @@ public static class InterfaceInvokeDataRecovery
     /// <summary>The operand index of the slot: the third argument register.</summary>
     public const int SlotOperand = 4;
 
+    /// <summary>
+    /// Lookups whose slot names a different method from the one at that position in the interface's
+    /// declaration list - each one a call the earlier position-based mapping resolved to the wrong method.
+    /// </summary>
+    public static long SlotDisagreesWithPosition;
+
     /// <summary>How many interface dispatches have been recovered, for the recovery summary.</summary>
     public static int Recovered;
+
+    /// <summary>How many of <see cref="Recovered"/> were in tail position, an indirect jump rather than a call.</summary>
+    public static int RecoveredInTailPosition;
+
+    private static readonly string? EvidencePath = System.Environment.GetEnvironmentVariable("CPP2IL_DUMP_INTERFACE_CALLS");
+    private static readonly System.Threading.Lock EvidenceLock = new();
+
+    /// <summary>
+    /// One row per resolved dispatch, with what the resolution rests on: the receiver, the interface
+    /// class the lookup was handed, the slot, and the metadata method that holds that slot.
+    /// </summary>
+    /// <remarks>
+    /// The target is the interface method, which is abstract and has no body of its own: which
+    /// implementation runs is decided by the receiver's class at run time, exactly as in the source.
+    /// So the row states the interface method's token and says the RVA is the implementation's,
+    /// dispatched at run time, rather than inventing one.
+    /// </remarks>
+    private static void WriteEvidence(MethodAnalysisContext caller, (string Receiver, string Interface, string Slot) lookup, MethodAnalysisContext target, bool isTailCall)
+    {
+        if (string.IsNullOrEmpty(EvidencePath))
+            return;
+
+        var definition = (target as ConcreteGenericMethodAnalysisContext)?.BaseMethodContext ?? target;
+        var generic = target is ConcreteGenericMethodAnalysisContext concrete
+            ? string.Join(",", concrete.DeclaringType is GenericInstanceTypeAnalysisContext instance ? instance.GenericArguments.Select(a => a.FullName) : [])
+            : "";
+        var rva = definition.UnderlyingPointer == 0 ? "RUNTIME_DISPATCH" : $"0x{definition.Rva:X}";
+        string[] row =
+        [
+            $"{caller.DeclaringType?.FullName}::{caller.Name}",
+            isTailCall ? "TAIL" : "CALL",
+            lookup.Receiver,
+            lookup.Interface,
+            lookup.Slot,
+            $"{definition.DeclaringType?.FullName}::{definition.Name}",
+            $"0x{definition.Definition?.token ?? 0:X8}",
+            rva,
+            generic,
+            "EXACT",
+            "lookup(receiver, interface class, slot) reaches the dispatch pointer; slot = Il2CppMethodDefinition.slot",
+        ];
+
+        lock (EvidenceLock)
+            System.IO.File.AppendAllText(EvidencePath, string.Join('\t', row.Select(cell => cell.Replace('\t', ' ').Replace('\n', ' '))) + "\n");
+    }
 
 
     public static bool Run(MethodAnalysisContext method)
@@ -108,7 +159,10 @@ public static class InterfaceInvokeDataRecovery
 
             foreach (var instruction in instructions)
             {
-                if (instruction.OpCode != OpCode.IndirectCall || instruction.Operands.Count == 0)
+                // A dispatch in tail position is an indirect jump with the same operand layout: the
+                // method's last statement is the interface call and the compiler branches rather than
+                // calls. It is the same dispatch and the same proof.
+                if (instruction.OpCode is not (OpCode.IndirectCall or OpCode.IndirectJump) || instruction.Operands.Count == 0)
                     continue;
 
                 if (PointerLoad(instruction.Operands[0], loads) is not { Base: LocalVariable pointerBase } pointer
@@ -134,14 +188,55 @@ public static class InterfaceInvokeDataRecovery
 
         var changed = false;
 
+        // What each lookup was handed, read before anything is rewritten: one lookup can reach two
+        // dispatches, and the first rewrite empties it.
+        var handed = lookups.ToDictionary(
+            pair => pair.Lookup,
+            pair => (Receiver: pair.Lookup.Operands[2].ToString() ?? "",
+                     Interface: pair.Lookup.Operands[InterfaceOperand].ToString() ?? "",
+                     Slot: pair.Lookup.Operands[SlotOperand].ToString() ?? ""));
+
         foreach (var (dispatch, target) in byDispatch)
         {
             if (target is null)
                 continue;
 
-            dispatch.OpCode = OpCode.Call; // the same operand layout as IndirectCall, and it is resolved now
-            dispatch.SetOperand(0, target);
-            target.AppContext.InstructionSet.CallingConventionResolver?.RemapRawArguments(dispatch, target, method);
+            var callingConventions = target.AppContext.InstructionSet.CallingConventionResolver;
+            var isTailCall = dispatch.OpCode == OpCode.IndirectJump;
+
+            if (isTailCall)
+            {
+                // An indirect jump's second operand is a stale read of the return register, not a
+                // slot to write, so the call is rebuilt: its target, a fresh result, then the
+                // argument registers exactly as the jump carried them.
+                var block = graph.FindBlockByInstruction(dispatch);
+                if (block is null)
+                    continue;
+
+                List<IOperand> operands = [target];
+                if (!target.IsVoid)
+                    operands.Add(new LocalVariable("interfaceTailCallResult", callingConventions?.ReturnRegister(target) ?? new Register(null, "X0")));
+                operands.AddRange(dispatch.Operands.Skip(2));
+                dispatch.SetOperands(operands);
+                dispatch.OpCode = target.IsVoid ? OpCode.CallVoid : OpCode.Call;
+                callingConventions?.RemapRawArguments(dispatch, target, method);
+
+                // The jump ended the block and nothing replaces it but a return: the generator
+                // bridges a block with no terminator to its successor, and a tail call has none.
+                var at = block.Instructions.IndexOf(dispatch);
+                List<IOperand> returned = !method.IsVoid && !target.IsVoid ? [dispatch.Operands[1]] : [];
+                block.Instructions.Insert(at + 1, new Instruction(dispatch.Index, OpCode.Return, returned));
+                block.CalculateBlockType();
+                System.Threading.Interlocked.Increment(ref RecoveredInTailPosition);
+            }
+            else
+            {
+                dispatch.OpCode = OpCode.Call; // the same operand layout as IndirectCall, and it is resolved now
+                dispatch.SetOperand(0, target);
+                callingConventions?.RemapRawArguments(dispatch, target, method);
+            }
+
+            WriteEvidence(method, handed[lookupsOf[dispatch][0]], target, isTailCall);
 
             // The lookup is what the dispatch used to need; once the call names its method nothing
             // reads it. It has to be removed here rather than left to dead code elimination, which
@@ -275,13 +370,29 @@ public static class InterfaceInvokeDataRecovery
         var definition = instance?.GenericType ?? contract;
         var methods = definition.Methods;
 
-        if (slot >= methods.Count)
+        // The slot is the metadata's own record of where the method sits in the interface's vtable,
+        // not its position in the declaration list: a static or non-virtual member of an interface has
+        // no slot and still takes a position, so the two part company after it.
+        var method = MemberHoldingSlot(methods, m => m.Definition?.slot, slot);
+        if (method is null)
             return null;
 
-        var method = methods[slot];
+        if (slot >= methods.Count || !ReferenceEquals(methods[slot], method))
+            System.Threading.Interlocked.Increment(ref SlotDisagreesWithPosition);
 
         return instance is null ? method : new ConcreteGenericMethodAnalysisContext(method, instance.GenericArguments, []);
     }
+
+    /// <summary>
+    /// The member whose metadata slot is <paramref name="slot"/>, or null when none holds it.
+    /// </summary>
+    /// <remarks>
+    /// Written over a delegate so the rule is testable without metadata behind it. Position in the
+    /// list is deliberately not consulted: a member with no slot (0xFFFF - static, or not virtual)
+    /// still occupies a position.
+    /// </remarks>
+    public static T? MemberHoldingSlot<T>(IReadOnlyList<T> members, System.Func<T, ushort?> slotOf, int slot) where T : class
+        => members.FirstOrDefault(member => slotOf(member) is { } held && held != ushort.MaxValue && held == slot);
 
     /// <summary>
     /// A slot is a small non-negative index; anything else is not a slot.

@@ -138,6 +138,9 @@ public sealed class ShaderSemanticModel
 		public required IReadOnlyList<int> ParameterBlobIndices { get; init; }
 	}
 
+	private static readonly string? KeywordScopeDumpPath = Environment.GetEnvironmentVariable("ASSETRIPPER_DUMP_KEYWORD_SCOPE");
+	private static readonly Lock KeywordScopeDumpLock = new();
+
 	public static ShaderSemanticModel? Read(IShader shader)
 	{
 		if (!shader.Has_ParsedForm())
@@ -236,6 +239,18 @@ public sealed class ShaderSemanticModel
 						BlobIndices = blobIndices,
 						ParameterBlobIndices = parameterBlobIndices,
 					});
+				}
+
+				if (KeywordScopeDumpPath is { Length: > 0 } dumpPath)
+				{
+					string local = pass.Has_LocalKeywordMask() ? string.Join(',', pass.LocalKeywordMask) : "-";
+					string global = pass.Has_GlobalKeywordMask() ? string.Join(',', pass.GlobalKeywordMask) : "-";
+					string flags = form.Has_KeywordFlags() ? string.Join(',', form.KeywordFlags) : "-";
+					string used = string.Join(' ', programs.SelectMany(p => p.KeywordSets).SelectMany(k => k).Distinct());
+					lock (KeywordScopeDumpLock)
+					{
+						File.AppendAllText(dumpPath, $"{shader.Name}\t{subShaders.Count}.{passes.Count}\tlocal={local}\tglobal={global}\tnames={string.Join(',', keywords)}\tflags={flags}\tused={used}\n");
+					}
 				}
 
 				var state = pass.State;

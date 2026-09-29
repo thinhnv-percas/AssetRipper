@@ -219,7 +219,8 @@ public static class IlGenerator
             var storage = StorageIdentities.Analyze(
                 context.ControlFlowGraph!.Blocks.SelectMany(block => block.Instructions),
                 parameterNames, parameterByReference, local => local.Type is { IsValueType: true });
-            storageAnalyzed(context, storage, StorageIdentities.Hazards(storage));
+            storageAnalyzed(context, storage, StorageHazardClassifier.Classify(context.ControlFlowGraph!, StorageIdentities.Hazards(storage),
+                instruction => LoadsCallOperands(instruction, context)));
         }
 
         // AssetRipper: a loop is a back edge, which is a fact about the graph rather than about any
@@ -419,8 +420,36 @@ public static class IlGenerator
     /// than assumed: a call whose operand count is not exactly that layout is left alone.
     /// </para>
     /// </remarks>
-    private static bool EmitNativeImportOperation(ulong address, Instruction instruction, MethodAnalysisContext context,
-        MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine)
+    /// <summary>
+    /// AssetRipper: the one managed method at an address, or null when there is none or several. The
+    /// generator resolves a bare call address only through this, and the storage hazard classifier asks
+    /// the same question to know whether a call's operands are emitted at all.
+    /// </summary>
+    internal static MethodAnalysisContext? OnlyMethodAt(MethodAnalysisContext context, ulong address)
+        => context.AppContext.MethodsByAddress.TryGetValue(address, out var candidates) && candidates.Count == 1
+            ? candidates[0]
+            : null;
+
+    /// <summary>
+    /// AssetRipper: whether the generator loads a call's operands. A call it cannot name becomes a
+    /// placeholder and loads none of them - the sixteen raw registers of an unresolved call are not
+    /// reads in the emitted body - so a measurement of what the body reads must not count them either.
+    /// </summary>
+    public static bool LoadsCallOperands(Instruction instruction, MethodAnalysisContext context)
+    {
+        if (instruction.OpCode is not (OpCode.Call or OpCode.CallVoid) || instruction.Operands.Count == 0)
+            return true;
+
+        return instruction.Operands[0] switch
+        {
+            MethodAnalysisContext => true,
+            Immediate address => OnlyMethodAt(context, address.UnsignedValue) is not null
+                || IsNativeImportOperation(address.UnsignedValue, instruction, context),
+            _ => false,
+        };
+    }
+
+    private static bool IsNativeImportOperation(ulong address, Instruction instruction, MethodAnalysisContext context)
     {
         if (instruction.Operands.Count != RawRegisterFileOperandCount
             || context.AppContext.Binary is not LibCpp2IL.Elf.ElfFile elf)
@@ -428,7 +457,13 @@ public static class IlGenerator
 
         var slot = context.AppContext.InstructionSet.GetPltGotSlot(context.AppContext, address);
 
-        if (slot == 0 || !elf.TryGetPltImportName(slot, out var import) || !IsNativeImportWithAnOperation(import))
+        return slot != 0 && elf.TryGetPltImportName(slot, out var import) && IsNativeImportWithAnOperation(import);
+    }
+
+    private static bool EmitNativeImportOperation(ulong address, Instruction instruction, MethodAnalysisContext context,
+        MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals, IMethodDescriptor writeLine)
+    {
+        if (!IsNativeImportOperation(address, instruction, context))
             return false;
 
         if (instruction.Operands[1] is not LocalVariable destination
@@ -619,7 +654,7 @@ public static class IlGenerator
     /// machine locations it holds in more than one IL place while their address is taken. A
     /// measurement, not an input: nothing in generation reads it back.
     /// </summary>
-    public static Action<MethodAnalysisContext, IReadOnlyDictionary<LocalVariable, StorageIdentity>, IReadOnlyList<StorageHazard>>? StorageAnalyzed;
+    public static Action<MethodAnalysisContext, IReadOnlyDictionary<LocalVariable, StorageIdentity>, IReadOnlyList<ClassifiedStorageHazard>>? StorageAnalyzed;
 
     /// <summary>
     /// AssetRipper: writes a call to a private framework method as the public one it is the inside of.
@@ -1665,10 +1700,9 @@ public static class IlGenerator
                 // unambiguous address is taken: identical bodies get folded onto one address, and
                 // generic sharing puts dozens of methods there, where any single pick would be wrong.
                 if (instruction.Operands[0] is Immediate resolvableAddress
-                    && context.AppContext.MethodsByAddress.TryGetValue(resolvableAddress.UnsignedValue, out var candidates)
-                    && candidates.Count == 1)
+                    && OnlyMethodAt(context, resolvableAddress.UnsignedValue) is { } only)
                 {
-                    instruction.SetOperand(0, candidates[0]);
+                    instruction.SetOperand(0, only);
                 }
 
                 if (instruction.Operands[0] is not MethodAnalysisContext targetMethod)

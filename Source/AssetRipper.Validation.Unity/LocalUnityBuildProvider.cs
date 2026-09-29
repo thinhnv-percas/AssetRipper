@@ -104,6 +104,7 @@ public sealed class LocalUnityBuildProvider(IProcessRunner? runner = null, Func<
 				Reason = classification.Reason,
 				Transient = classification.Transient,
 				CompilerErrors = classification.CompilerErrors,
+				Stages = UnityBuildStages.Decide(true, project.DiscoveryEvidence, outcome.ExitCode, log, artifactExists, classification),
 				Provider = Name,
 				UnityVersion = version,
 				EditorPath = editor,
