@@ -29,6 +29,7 @@ Test/Output-*/
 Test/Output[0-9P]*/
 Test/Out[0-9A-Za-z]*/
 Test/AR*.log
+Test/AR*.err
 
 # Unpacked test games. Pinata is committed; anything else is fetched by hand.
 Test/Input/RunFromZombies/
