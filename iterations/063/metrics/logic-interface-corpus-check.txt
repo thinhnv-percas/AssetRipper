@@ -1,0 +1,4 @@
+JellyBlastV2 {"NAMED": 19, "STUBBED": 1}
+Impostor {"NAMED": 17}
+MergeRoom {"NAMED": 20}
+RunFromZombies {"NAMED": 12, "NOT_PRESENT": 8}

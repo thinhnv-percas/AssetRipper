@@ -808,3 +808,28 @@ chính barrier đó, không phải công việc của `MetadataResolver`. Xem
    fidelity và `ICompiledShaderProgram`; §14–§15 value flow trong behaviour contract; §17–§18
    `RuntimeScenario`.
 6. **URP source cho Merge-Room** và **Metal trên iOS** — không đổi so với 059.
+
+## Sau iteration 063 — mục tiêu tiếp theo, đã có bằng chứng
+
+Source JellyBlast là DERIVED (suy ra từ chính IPA); oracle độc lập duy nhất là package upstream khớp
+khai báo, và `CPP2IL_RECOVER_ALSO` mở chúng ra để đo: behaviour 0.6802 (904/1329). Xem
+`reports/JELLYBLAST_BUILD_PROVENANCE.md`, `reports/JELLYBLAST_SOURCE_ORACLE.md`.
+
+1. **3038 lỗi thân trong Assembly-CSharp của JellyBlastV2, 47/179 file sạch** — con số thật đầu tiên
+   (trước đó bị lỗi khai báo che). Phân loại theo nguyên nhân trước khi làm: CS0030 1927 đứng đầu.
+2. **Merge-Room Assembly-CSharp vẫn bị che bởi CS0102**: event field-like có accessor phục hồi không
+   khớp pattern compiler (vì `Interlocked.CompareExchange` cố ý chưa map) trên type implement interface
+   event nên không drop được. Viết lại accessor thành dạng field-like chuẩn, hoặc map CAS có bằng chứng.
+3. **Ghi qua `ref` tới struct**: `SetPropertyUtility.SetColor` ra `currentValue = ref *(Color*)newValue`
+   (gán lại ref) và đọc member qua `Color&` không giải quyết. Lỗi storage, đọc từ UGUI độc lập.
+4. **MSL → HLSL**: 780 chương trình Metal gốc đã trích ra; ShaderLab không có khối MSL. Dịch ngược HLSLcc
+   là cách duy nhất đưa chương trình gốc của iOS vào một project dùng được.
+5. **Package build chứng minh vắng khỏi manifest phục hồi** (TMP, UGUI, Mathematics, Burst, Collections,
+   VisualScripting, Newtonsoft): chúng bị export thành script stub thay vì package. Version cho TMP/UGUI/
+   Mathematics/VisualScripting đã PROVEN theo khai báo; Burst/Collections chưa xác định được.
+6. **Thư viện tĩnh iOS** (`libRF_CNative_ios.a` link vào UnityFramework) không lấy lại được thành file; một
+   project phục hồi build iOS sẽ thiếu symbol. Cần một câu trả lời trung thực trong project (plugin stub
+   có báo lỗi, hoặc ghi rõ BLOCKED).
+7. **RGCTX interface class** cho 505 vùng `ValueEscapes` trên Merge-Room — không đổi từ 062.
+8. **Android P/Invoke**: tên thư viện không có trong metadata; nằm trong chuỗi `PInvokeArguments` của code
+   sinh ra. Chưa đọc.

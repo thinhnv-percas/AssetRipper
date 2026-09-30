@@ -5,16 +5,26 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 062 (hoàn tất; trọng tâm "interface dispatch, shader variant selection, storage
-                          alias, Unity build stages". Bốn điểm đầu tiên nghĩa binary ≠ nghĩa phục hồi:
-                          immediate trỏ vào header ELF giải mã thành metadata usage (slot của interface
-                          lookup thành typeof); ShaderLab một program mỗi pass; struct generic không có
-                          size nên List<T>.Enumerator trả qua X8 không nối với call (foreach lặp trên
-                          enumerator mặc định: 113/244/30/95 → 5/5/5/0); một status cho sáu stage build.
-                          Mới: StorageHazardClassifier, StructSlotAliasRecovery, ShaderVariantGuards,
-                          UnityBuildStages, shader_variant_fidelity.py, interface_dispatch_corpus.py.)
+Iteration hiện tại: 063 (hoàn tất; trọng tâm "JellyBlast source oracle, interface dispatch, shader,
+                          Unity runtime fidelity". Source JellyBlast được SUY RA từ chính IPA (fe27775f là
+                          một bản rip của pipeline này) — chỉ package upstream khớp khai báo là oracle độc
+                          lập, mở bằng CPP2IL_RECOVER_ALSO: behaviour 0.6802 (904/1329). Năm điểm đầu tiên
+                          nghĩa binary ≠ nghĩa phục hồi, đã sửa: AAPCS64 C.3 + stack slot theo kích thước
+                          (tham số t = default), FCMP như SUBS (t ^ 1f), P/Invoke mất [DllImport] (131),
+                          widen đổi layout serialize, và lỗi khai báo của export che mọi lỗi thân
+                          (JellyBlastV2 Assembly-CSharp thật là 3038 lỗi, không phải 22). Chương trình Metal
+                          là MSL source (780), không phải thư viện: trích ra .metal.)
 
 Cảnh báo cho phiên sau:
+  - CPP2IL_RECOVER_ALSO là chế độ đo. Bản rip có nó đã từng làm UI Image mất sprite (widen → layout);
+    đã sửa, nhưng đừng dùng bản rip opt-in cho phép đo serialize hay cho project giao đi.
+  - Placeholder tăng 3–117 mỗi fixture ở 063 là MEASUREMENT_CHANGE (V của FCMP đọc lại toán hạng; load gập
+    vào đó được báo hai lần). So với 062 thì đọc theo family, không theo tổng.
+  - Assembly-CSharp của Merge-Room vẫn bị CS0102 che (event field-like trên type implement interface
+    event). Số lỗi của nó chưa phải số lỗi thân.
+  - Source JellyBlast: Assembly-CSharp, scene, prefab, shader đều DERIVED. Custom/* shader là bản viết
+    lại tay; MSL trích từ build là bản gốc duy nhất.
+  - Harness compile giờ in BODY_PASS. Đọc dòng đó, không đọc dòng đầu, khi có CS0617.
   - Golden corpus 062 báo 3 regression (Impostor) và 1 (Merge-Room). Cả bốn đã đọc: một là phép đo
     đọc tên field trong một đoạn IR không emit, ba là một giá trị mặc định lặng lẽ thành unresolved
     load báo ra. KHÔNG đóng băng lại baseline để làm chúng biến mất; sửa recovery_metrics hoặc sửa

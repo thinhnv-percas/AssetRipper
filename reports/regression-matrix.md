@@ -843,3 +843,21 @@ xem `reports/INJECTED_TYPE_COLLISION.md`; cả hai đổi hình dạng mà mọi
 method. Chênh dưới ~50 là nhiễu trên fixture đó.
 
 Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`**.
+
+## Iteration 063
+
+Bản rip `Test/Out63g-*`, baseline `Out62m-*`. Chi tiết: `iterations/063/RESULT.md`.
+
+| | Impostor | Merge-Room | RunFromZombies | JellyBlastV2 | Pinata |
+|---|---:|---:|---:|---:|---:|
+| EXACT | 4027 → 4042 | 11184 → 11221 | 2785 → 2785 | 3014 → 3027 | 12526 → 12533 |
+| Placeholder (MEASUREMENT_CHANGE: FCMP V) | 4291 → 4301 | 25580 → 25697 | 4578 → 4581 | 36304 → 36383 | 12974 → 12990 |
+| Assembly-CSharp Roslyn, body pass | 237 → 237 | 2 → 1 (CS0102 còn che) | 7 → 7 | 10 → **3038** (lần đầu đo được thân) | 1432 → 1355 |
+| MonoBehaviour layout mismatch | 0 | 0 | 0 | 0 | 0 |
+| P/Invoke có `[DllImport]` | — | — | — | 0 → 131 | — |
+| Shader: MSL source trích ra | — | — | — | 0 → 780 | — |
+
+JellyBlast source oracle độc lập (package upstream khớp khai báo): behaviour **0.6802 (904/1329)**.
+Serialized so với derivation root 1.0000; prefab 26 MATCH + 23 SOURCE_EDIT, 0 lỗi phục hồi.
+
+Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`** (không đổi; Unity không có trong container).

@@ -1697,9 +1697,9 @@ find it; `strings` without `-el` does find method and type names.
   platform's segments, reads the entry table at the head of the decompressed blob and *measures* each
   sub-program: 3079 of 6704 on one fixture are plain GLSL, carrying `#ifdef VERTEX` **and**
   `#ifdef FRAGMENT` in one blob - which is exactly the form Unity's `GLSLPROGRAM` block takes, so
-  recovering a shader program here is extraction rather than decompilation. iOS is the opposite and
-  settles the other half: JellyBlast compiles only to Metal, 0 of 1164 sub-programs are source, and
-  no amount of extraction work will change that.
+  recovering a shader program here is extraction rather than decompilation. **(Sai ở nửa iOS — xem
+  063: 780 chương trình Metal của JellyBlast là MSL source; câu gốc nói "0 of 1164 are source" mà chưa
+  ai mở byte.)**
 - **From Unity 2021 a shader's sub-programs moved to `m_PlayerSubPrograms`**, a list per hardware
   tier of a *different type* (`SerializedPlayerSubProgram`) carrying the same four members. A reader
   of `m_SubPrograms` alone sees "Vertex 0 variant(s)" on a shader with hundreds, and no pass can be
@@ -1784,8 +1784,8 @@ find it; `strings` without `-el` does find method and type names.
 - **A backend the mapping does not know reads as a table that was never consulted.** `MetalVS` and
   `MetalFS` were missing from the backend → platform map, so all 2532 rows of the iOS fixture's blob
   mapping said `NOT_IN_TABLE` - a number about the reader, not about the build. With them: 1164 of
-  1164 sub-programs are Metal libraries. Classify by the backend *the asset names*, never by the bytes:
-  870 of them carry enough printable name table to read as source text otherwise.
+  1164 sub-programs are Metal. **(Kết luận "Metal libraries" và luật "theo backend, không theo byte" là
+  sai — 063: backend quyết định họ, byte quyết định thành viên; 780 là MSL, 384 là parameter block.)**
 
 - **`GetWriteBarrier` returned 0 for every architecture but x86, and the cost was never one
   placeholder.** il2cpp emits a GC write barrier after every reference store into a heap object,
@@ -1928,6 +1928,55 @@ find it; `strings` without `-el` does find method and type names.
 - **Một golden regression có thể là bản phục hồi đúng hơn.** 062: một giá trị mặc định lặng lẽ thành
   unresolved load báo ra hạ EXACT → PARTIAL; một tên field trong đoạn IR không được emit hạ EXACT →
   FALLBACK cho một thân giờ đúng. Đọc từng cái; không đóng băng lại baseline để làm chúng im.
+
+- **Source của JellyBlast được suy ra từ chính IPA, không phải IPA build từ source.** `fe27775f` là một
+  bản rip `--reconstruct-bodies` của pipeline này (mang `AssetRipperInjected.NativeSource`) rồi được sửa
+  tay/LLM qua 64 commit "Fix …". Unity 2022.3.53f1 (IPA) khác 2022.3.62f2 (source); Collections bị hạ về
+  1.2.4 và `NativeParallelHashMap` bị đổi tên tay thành `NativeHashMap` trước commit đầu (local vẫn tên
+  `nativeParallelHashMap`). Với Assembly-CSharp, scene, prefab, shader source là **DERIVED**: đồng thuận với
+  nó là đồng thuận giữa hai bản phục hồi. Oracle độc lập duy nhất là package upstream khớp khai báo
+  (`build_provenance.py`: TMP, UGUI, Mathematics, VisualScripting, Voodoo = PROVEN_BUILD_MATCH) — và chúng bị
+  stub, nên `CPP2IL_RECOVER_ALSO` mở lại chúng *chỉ để đo*.
+- **Provenance theo khai báo đi theo hướng build ⊆ source.** IL2CPP strip thứ không ai gọi, nên source có
+  thêm không chứng minh gì. `SourceDeclarationSurface` (Roslyn: thân → `throw null`, giữ `.cctor` khi có
+  static initializer, giữ trivia để `#region` không lệch) compile được source với stub engine đã strip của
+  build; `AssemblyFingerprint` so metadata. Mọi khai báo thiếu phải quy được về một commit hoặc một version.
+- **Derivation root là trọng tài cho drift.** Chạy cùng oracle với `develop` và với `fe27775f`: khác biệt
+  chỉ có với `develop` là chỉnh sửa tay. Serialized: 19 GameObject, 23 prefab đều là SOURCE_EDIT; 0 lỗi
+  phục hồi. Prefab: phần source có mà bản phục hồi thiếu, nếu root cũng không có, là chỉnh tay.
+- **AAPCS64 C.3: aggregate không vừa thanh ghi vector đặt NSRN = 8.** Mọi float *sau* nó cũng lên stack;
+  resolver cũ gán V6 cho `t` trong `EvaluateCurve(Vector3×4, float t)` và phục hồi đường cong tại t = 0.
+  Stack slot theo kích thước (Vector3 16 byte), và Apple đóng gói stack argument theo natural alignment
+  (float 4, Vector3 12). `Arm64ArgumentPlacement` là hàm thuần, test không cần metadata. Không số tổng hợp
+  nào thấy lỗi này: contract so tên, không so giá trị — phải đọc diff.
+- **FCMP không phải phép trừ.** V là unordered; lift như SUBS ra `object obj = t ^ 1f;` (không phải C#)
+  ở mọi điều kiện đọc V. `!(a == a && b == b)` đúng IEEE — và một load không giải quyết được gập vào toán
+  hạng thì giờ được báo hai lần: placeholder tăng 3–117 mỗi fixture, không mất gì. Đó là MEASUREMENT_CHANGE.
+- **Metadata il2cpp giữ cờ PinvokeImpl, không giữ import map.** 131 `static extern` không `[DllImport]` trên
+  JellyBlastV2: compile được, không bind lúc chạy. Trên Apple mọi P/Invoke là `__Internal`, entry point là
+  tên method (55/55 trong DLL upstream mà source ship). Platform khác cần tên thư viện metadata không giữ.
+- **Widen đổi ai gọi được member, không được đổi gì khác.** Field private không `[SerializeField]` widen lên
+  public thì Unity serialize nó: layout lệch, 81 MonoBehaviour không đọc được, mọi UI Image mất sprite (thấy
+  khi mở UGUI bằng `CPP2IL_RECOVER_ALSO`, 1–12 field mỗi fixture ở chế độ mặc định) — `NotSerialized`. Base
+  và override phải cùng accessibility (CS0507, `OverrideAccessibility`). Kiểu trong chữ ký phải rộng bằng
+  member (CS0052). Ba lần đều là lỗi *khai báo*, và lỗi khai báo che mọi lỗi thân.
+- **Một lỗi khai báo che mọi lỗi thân — lần thứ ba, và lần này số che là 3038.** JellyBlastV2
+  Assembly-CSharp đọc "22 errors, 166/180 file sạch" qua nhiều iteration; thật là 3038 lỗi, 47/179 sạch.
+  Che bởi CS0507 (widen), CS0122 (`__JobReflectionRegistrationOutput__` mang attribute internal — type do
+  Jobs ILPostProcessor sinh lại lúc build, giờ không export), và CS0617: IL2CPP strip **getter** của named
+  argument (`CreateAssetMenuAttribute.order` chỉ còn setter) nên attribute chỉ lỗi với stub. Harness giờ có
+  body pass: bỏ đúng các argument được chứng minh stripped trong một bản sao rồi compile lại. Merge-Room
+  vẫn bị che bởi CS0102 (event field-like có accessor không khớp pattern, vì `Interlocked.CompareExchange`
+  cố ý chưa map, và type implement interface event nên không drop được).
+- **Chương trình Metal của Unity là MSL source.** Container `0x0C0A75BA`, `#include <metal_stdlib>`,
+  `vertex`/`fragment … xlatMtlMain(`; driver compile trên thiết bị. 780/780 trên JellyBlast, 0 `MTLB`.
+  ShaderLab không có khối MSL, nên encoding `MetalSourceText` được trích ra `.metal`, không bao giờ vào
+  `GLSLPROGRAM`. So với source: TMP (độc lập) 3/3 sample đúng texture; 18 shader Custom của studio là bản
+  viết lại tay từ stand-in — build là tham chiếu, 9 khác. `[[ texture(0) ]]` không phải một lần sample.
+- **Một oracle độc lập vẫn cần bốn luật đo trước khi tin được.** Oracle độc lập báo PARTIAL/FALLBACK
+  vì (1) call project bị compiler native inline (chỉ kết luận khi không có boundary *và* không placeholder),
+  (2) event `+=` là `add_X`, (3) accessor inline ghi backing field, (4) thân chỉ tính toán không phải
+  stand-in (`UNDECIDED_ARITHMETIC`, không tính đạt). Mỗi cái có self-test đỏ nếu bỏ.
 
 ### Things measured to be worth nothing — do not redo them
 - **A copy into a differently-typed local as evidence of register reuse.** Written, tested, and
@@ -2205,6 +2254,16 @@ Twenty-six scripts, and each measures something the others cannot:
   đó; `--source` so keyword material với source. `--self-test` sáu case.
 - `Test/Scripts/interface_dispatch_corpus.py` — corpus interface dispatch chọn từ bằng chứng của chính
   pass (`CPP2IL_DUMP_INTERFACE_CALLS`), `--check` một rip: caller vẫn gọi tên method interface.
+- `Test/Scripts/jellyblast_build_provenance.sh` + `build_provenance.py`, `Test/Tools/AssemblyFingerprint`,
+  `Test/Tools/SourceDeclarationSurface` — build có được compile từ source này không, theo khai báo.
+- `Test/Scripts/jellyblast_source_oracle.py` — source oracle theo assembly, nhãn INDEPENDENT /
+  VERSION_MISMATCH / DERIVED; `jellyblast_fix_corpus.py` — method người đã sửa, đọc từ commit.
+- `Test/Scripts/project_oracle.py` (package, player settings, native plugin — build là tham chiếu),
+  `prefab_oracle.py` (cấu trúc, quy nguồn theo derivation root).
+- `Test/Scripts/metal_program_report.py`, `msl_source_comparison.py` — chương trình Metal (MSL) và so với
+  source; `ASSETRIPPER_DUMP_SHADER_PROGRAMS` dump byte từng sub-program.
+- `Test/Scripts/logic_interface_corpus.py` — `Test/logic-interface-corpus.json`, 77 case theo ưu tiên brief.
+- `Test/Scripts/neutralise_stripped_attribute_arguments.py` — body pass của compile harness.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
 

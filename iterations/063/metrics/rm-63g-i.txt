@@ -23,8 +23,8 @@ class                 IR      C#   delta
 CALL                5301    6631   +1330
 ARITHMETIC          5170    5112     -58
 STATIC_ACCESS       5116    5068     -48
-BRANCH              3901    3888     -13
 LOOP                3901    1399   -2502
+BRANCH              3901    3888     -13
 COMPARE             3781    3776      -5
 NULL_CHECK          3454    2881    -573
 NEWOBJ              2181    2622    +441

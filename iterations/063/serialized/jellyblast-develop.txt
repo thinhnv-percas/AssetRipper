@@ -1,0 +1,12 @@
+== Assets/Scenes/Main.unity (PATH <- Assets/Scenes/Main.unity)
+  gameObjects  {"MATCHED": 105, "MISSING_IN_RECOVERED": 19}
+  components   {"MATCHED": 385}
+  scripts      {"BOUND_EXACT": 172}
+  references   {"exact": {"FIELD_ABSENT_IN_RECOVERED": 1, "MATCH": 226, "NULL_BOTH": 276, "NULL_IN_RECOVERED": 1, "SOURCE_TARGET_UNKNOWN": 8}}
+== Assets/Scenes/Preload.unity (PATH <- Assets/Scenes/Preload.unity)
+  gameObjects  {"MATCHED": 1}
+  components   {"MATCHED": 2}
+  scripts      {"BOUND_EXACT": 1}
+  references   {}
+TOTAL {"components": {"MATCHED": 387}, "gameObjects": {"MATCHED": 106, "MISSING_IN_RECOVERED": 19}, "references": {"exact": {"FIELD_ABSENT_IN_RECOVERED": 1, "MATCH": 226, "NULL_BOTH": 276, "NULL_IN_RECOVERED": 1, "SOURCE_TARGET_UNKNOWN": 8}}, "scripts": {"BOUND_EXACT": 173}}
+RATES {"gameobject_match_rate": 0.848, "reference_decided_exact": 228, "reference_decided_positional": 0, "reference_match_rate_exact": 0.9912, "reference_match_rate_positional": null, "reference_positional_target_exact": 0, "reference_positional_target_positional": 0, "reference_unknown_exact": 8, "reference_unknown_positional": 0, "script_binding_decided": "173 of 173", "script_binding_rate": 1.0}

@@ -147,3 +147,31 @@ field; đọc trước lần giao giữ nguyên; word ghi sau lần giao giữ g
 nghĩa không bị giả định; word sao từ thứ khác không phải member; word ngoài struct; nhánh không bị
 dominate; load qua địa chỉ; load quá struct; ô sao từ field đầu là cả struct),
 `Il2CppIndirectReturnBufferTests` (+3).
+
+---
+
+# Iteration 063
+
+## 7. Kết quả phân loại — không đổi
+
+Bản rip cuối 063 (`Test/Out63g-*`), cùng `StorageHazardClassifier`:
+
+| | TrueAlias | NonAlias | Unknown |
+|---|---:|---:|---:|
+| Impostor | 1 | 1 | 18 |
+| RunFromZombies | 0 | 4 | 96 |
+| JellyBlastV2 | 2 | 11 | 48 |
+| Pinata | 0 | 5 | 5 |
+| Merge-Room | 0 | 9 | 51 |
+
+## 8. Hai lỗi storage mới, tìm qua oracle độc lập
+
+- **Tham số trên stack (PROVEN, đã sửa).** Không phải alias: một tham số AAPCS64 đặt trên stack được
+  resolver gán cho một thanh ghi vector không ai ghi, nên *storage* của tham số là sai và mọi lần đọc trả về
+  giá trị mặc định. Đây là cùng họ với lỗi `LocalStorage.For` của 058/061 (một giá trị ở hai nơi), ở tầng
+  ABI thay vì tầng generator. `reports/JELLYBLAST_SOURCE_ORACLE.md` §5.1.
+- **Ghi qua `ref` tới struct (PROVEN, chưa sửa).** `UnityEngine.UI.SetPropertyUtility.SetColor(ref Color
+  currentValue, Color newValue)` phục hồi thành `currentValue = ref *(Color*)newValue;` — gán lại ref cục bộ
+  thay vì lưu giá trị qua con trỏ — và `currentValue.g/.b/.a` đọc thành unresolved load
+  `[currentValue @ X0 (UnityEngine.Color&)+4]`: một base kiểu `T&` không được tra field của `T`. Mục tiêu:
+  zero confirmed semantic storage mismatch (§17) — **chưa đạt**: TrueAlias 1/2 và lỗi này còn mở.

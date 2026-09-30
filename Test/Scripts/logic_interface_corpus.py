@@ -161,6 +161,13 @@ def check(corpus, rip, fixture):
             results["NOT_PRESENT"] += 1
             entry["check"] = "NOT_PRESENT"
             continue
+        # A default rip stubs engine and package assemblies by design (the same prefix rule as
+        # IsFrameworkAssembly); a stub names nothing, and saying NOT_NAMED would call that a regression.
+        assembly = files[0].relative_to(scripts).parts[0]
+        if assembly.startswith(("UnityEngine", "Unity.", "System", "mscorlib", "netstandard")):
+            entry["check"] = "STUBBED"
+            results["STUBBED"] += 1
+            continue
         text = "\n".join(f.read_text(encoding="utf-8", errors="replace") for f in files)
         # How C# spells the caller: an explicit implementation by its last segment
         # (`void ICollection.CopyTo(`), a constructor by its type's name.

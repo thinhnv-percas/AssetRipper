@@ -115,3 +115,42 @@ tự xoá lookup của chính nó khi nó chứng minh được.
 - Cross-oracle với r2unity cho interface: r2unity không có khái niệm dispatch, chỉ có method table;
   việc kiểm chéo mà nó cho được (token → method) đã được làm ở 061 và không đổi (LibCpp2IL không đổi ở
   tầng đó). **Không có CROSS_ORACLE_DISAGREEMENT mới.**
+
+---
+
+# Iteration 063
+
+## 8. Logic interface corpus — `Test/logic-interface-corpus.json`
+
+`Test/Scripts/logic_interface_corpus.py` chọn theo bốn ưu tiên của brief §7 — interface generic, virtual
+generic, interface trên receiver generic, lookup mà class interface đến từ runtime generic context —
+từ chính các hàng bằng chứng của pass (`CPP2IL_DUMP_INTERFACE_CALLS`), không theo tên. Mỗi case mang
+caller, CALL/TAIL, receiver, class interface đưa cho lookup, slot, method interface, token, generic
+context, confidence, các hạng mục, và một cột xác nhận source.
+
+| | Số |
+|---|---:|
+| Case | **77** (JellyBlastV2 20, Impostor 17, Merge-Room 20, RunFromZombies 20) |
+| GENERIC_INTERFACE | 43 |
+| GENERIC_RECEIVER | 50 |
+| RUNTIME_CONTEXT_CLASS | 32 |
+| TAIL | 20 |
+| GENERIC_VIRTUAL | **0** — không có hàng nào: pass runtime-lookup không bao giờ gặp một generic virtual method qua interface trên bốn fixture |
+
+**Source chỉ để xác nhận** (§8). Với caller trong package có source độc lập (TMP, UGUI, VisualScripting,
+Mathematics, Voodoo, PathCreator), cột `sourceConfirmation` hỏi source method có nêu tên method interface
+không: `SOURCE_CONFIRMED` 1 (`Unity.VisualScripting.LinqUtility.AddRange` → `ICollection<T>.Add`), phần
+còn lại `NO_SOURCE` (Newtonsoft, Facebook, code game). Một source không nêu tên không phải bác bỏ
+(`SOURCE_SILENT`): caller có thể đi qua một helper đã bị inline.
+
+`--check` (caller trong C# phục hồi vẫn gọi tên method interface, mọi overload): trên bản rip cuối 063 —
+JellyBlastV2 19 NAMED + 1 STUBBED (VisualScripting bị stub ở bản rip mặc định; NAMED trên bản rip opt-in), Impostor 17/17, Merge-Room 20/20, RunFromZombies 12 NAMED + 8 NOT_PRESENT
+(Mono.Security bị stub). Hai lỗi đo đã sửa trước khi tin: một implementation tường minh được C# viết
+`void ICollection.CopyTo(`, và một `.ctor` được viết bằng tên type.
+
+## 9. RGCTX — UNKNOWN, không đổi
+
+505 vùng `ValueEscapes` trên Merge-Room lấy class interface từ RGCTX vẫn chưa được giải quyết: iteration
+này dùng phần ngân sách đó cho các lỗi mà oracle độc lập chỉ ra (ABI, FCMP, P/Invoke, serialize), vì chúng
+làm sai giá trị lặng lẽ còn một dispatch chưa giải quyết thì được báo. Không có vùng quét nào bị xoá chỉ
+vì DCE nói chết.

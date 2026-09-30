@@ -1,0 +1,118 @@
+{
+ "rates": {
+  "gameobject_match_rate": 1.0,
+  "reference_decided_exact": 228,
+  "reference_decided_positional": 0,
+  "reference_match_rate_exact": 1.0,
+  "reference_match_rate_positional": null,
+  "reference_positional_target_exact": 0,
+  "reference_positional_target_positional": 0,
+  "reference_unknown_exact": 6,
+  "reference_unknown_positional": 0,
+  "script_binding_decided": "173 of 173",
+  "script_binding_rate": 1.0
+ },
+ "recovered": "Test/Out63f-i/JellyBlastV2",
+ "scenes": [
+  {
+   "components": {
+    "MATCHED": 385
+   },
+   "examples": {
+    "SOURCE_TARGET_UNKNOWN": [
+     {
+      "component": "fluid/compute#Script:FluidCompute",
+      "field": "emissionRT",
+      "recovered": "UNKNOWN:emission.renderTexture object 8400000",
+      "source": "UNKNOWN:emission.renderTexture object 8400000"
+     },
+     {
+      "component": "fluid/compute#Script:FluidCompute",
+      "field": "fluidRT",
+      "recovered": "UNKNOWN:fluid.renderTexture object 8400000",
+      "source": "UNKNOWN:fluid.renderTexture object 8400000"
+     },
+     {
+      "component": "fluid/compute#Script:FluidCompute",
+      "field": "rawFieldRT",
+      "recovered": "UNKNOWN:raw fluid.renderTexture object 8400000",
+      "source": "UNKNOWN:raw fluid.renderTexture object 8400000"
+     },
+     {
+      "component": "CollectionManager/low res compute#Script:FluidCompute",
+      "field": "emissionRT",
+      "recovered": "UNKNOWN:collect fluid emission.renderTexture object 8400000",
+      "source": "UNKNOWN:collect fluid emission.renderTexture object 8400000"
+     },
+     {
+      "component": "CollectionManager/low res compute#Script:FluidCompute",
+      "field": "fluidRT",
+      "recovered": "UNKNOWN:collect fluid.renderTexture object 8400000",
+      "source": "UNKNOWN:collect fluid.renderTexture object 8400000"
+     },
+     {
+      "component": "CollectionManager/low res compute#Script:FluidCompute",
+      "field": "rawFieldRT",
+      "recovered": "UNKNOWN:collect fluid raw.renderTexture object 8400000",
+      "source": "UNKNOWN:collect fluid raw.renderTexture object 8400000"
+     }
+    ]
+   },
+   "gameObjects": {
+    "MATCHED": 105
+   },
+   "pairedBy": "PATH",
+   "references": {
+    "exact": {
+     "MATCH": 228,
+     "NULL_BOTH": 277,
+     "SOURCE_TARGET_UNKNOWN": 6
+    }
+   },
+   "scene": "Assets/Scenes/Main.unity",
+   "scripts": {
+    "BOUND_EXACT": 172
+   },
+   "sourceScene": "Assets/Scenes/Main.unity"
+  },
+  {
+   "components": {
+    "MATCHED": 2
+   },
+   "examples": {},
+   "gameObjects": {
+    "MATCHED": 1
+   },
+   "pairedBy": "PATH",
+   "references": {},
+   "scene": "Assets/Scenes/Preload.unity",
+   "scripts": {
+    "BOUND_EXACT": 1
+   },
+   "sourceScene": "Assets/Scenes/Preload.unity"
+  }
+ ],
+ "source": "/tmp/claude-0/-home-user-AssetRipper/6b678baa-98d1-5985-ba79-e2a14d654984/scratchpad/jb-root",
+ "sourceBuildScenes": [
+  "Assets/Scenes/Preload.unity",
+  "Assets/Scenes/Main.unity"
+ ],
+ "total": {
+  "components": {
+   "MATCHED": 387
+  },
+  "gameObjects": {
+   "MATCHED": 106
+  },
+  "references": {
+   "exact": {
+    "MATCH": 228,
+    "NULL_BOTH": 277,
+    "SOURCE_TARGET_UNKNOWN": 6
+   }
+  },
+  "scripts": {
+   "BOUND_EXACT": 173
+  }
+ }
+}

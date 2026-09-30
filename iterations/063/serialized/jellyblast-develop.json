@@ -1,0 +1,173 @@
+{
+ "rates": {
+  "gameobject_match_rate": 0.848,
+  "reference_decided_exact": 228,
+  "reference_decided_positional": 0,
+  "reference_match_rate_exact": 0.9912,
+  "reference_match_rate_positional": null,
+  "reference_positional_target_exact": 0,
+  "reference_positional_target_positional": 0,
+  "reference_unknown_exact": 8,
+  "reference_unknown_positional": 0,
+  "script_binding_decided": "173 of 173",
+  "script_binding_rate": 1.0
+ },
+ "recovered": "Test/Out63g-i/JellyBlastV2",
+ "scenes": [
+  {
+   "components": {
+    "MATCHED": 385
+   },
+   "examples": {
+    "FIELD_ABSENT_IN_RECOVERED": [
+     {
+      "component": "CollectionManager#Script:CollectionManager",
+      "field": "butterflyPrefab",
+      "recovered": null,
+      "source": "NULL"
+     }
+    ],
+    "GAMEOBJECT_MISSING": [
+     "Prefab Indexer",
+     "Prefab Indexer[1]",
+     "Prefab Indexer[2]",
+     "Prefab Indexer[3]",
+     "Prefab Indexer[4]",
+     "Prefab Indexer[5]",
+     "Prefab Indexer[6]",
+     "Prefab Indexer[7]",
+     "Prefab Indexer[8]",
+     "Prefab Indexer[9]",
+     "Prefab Indexer[10]",
+     "Prefab Indexer[11]",
+     "Prefab Indexer[12]",
+     "Prefab Indexer[13]",
+     "Prefab Indexer[14]",
+     "Prefab Indexer[15]",
+     "Prefab Indexer[16]",
+     "Prefab Indexer[17]",
+     "Prefab Indexer[18]"
+    ],
+    "NULL_IN_RECOVERED": [
+     {
+      "component": "CollectionManager/color display#MeshRenderer",
+      "field": "m_Materials[0]",
+      "recovered": "NULL",
+      "source": "Material:fluid"
+     }
+    ],
+    "SOURCE_TARGET_UNKNOWN": [
+     {
+      "component": "fluid/compute#Script:FluidCompute",
+      "field": "emissionRT",
+      "recovered": "UNKNOWN:emission.renderTexture object 8400000",
+      "source": "UNKNOWN:emission.renderTexture object 8400000"
+     },
+     {
+      "component": "fluid/compute#Script:FluidCompute",
+      "field": "fluidCS",
+      "recovered": "?:FluidCS",
+      "source": "UNKNOWN:FluidCS-Fix.compute object 7200000"
+     },
+     {
+      "component": "fluid/compute#Script:FluidCompute",
+      "field": "fluidRT",
+      "recovered": "UNKNOWN:fluid.renderTexture object 8400000",
+      "source": "UNKNOWN:fluid.renderTexture object 8400000"
+     },
+     {
+      "component": "fluid/compute#Script:FluidCompute",
+      "field": "rawFieldRT",
+      "recovered": "UNKNOWN:raw fluid.renderTexture object 8400000",
+      "source": "UNKNOWN:raw fluid.renderTexture object 8400000"
+     },
+     {
+      "component": "CollectionManager/low res compute#Script:FluidCompute",
+      "field": "emissionRT",
+      "recovered": "UNKNOWN:collect fluid emission.renderTexture object 8400000",
+      "source": "UNKNOWN:collect fluid emission.renderTexture object 8400000"
+     },
+     {
+      "component": "CollectionManager/low res compute#Script:FluidCompute",
+      "field": "fluidCS",
+      "recovered": "?:FluidCS",
+      "source": "UNKNOWN:FluidCS-Fix.compute object 7200000"
+     },
+     {
+      "component": "CollectionManager/low res compute#Script:FluidCompute",
+      "field": "fluidRT",
+      "recovered": "UNKNOWN:collect fluid.renderTexture object 8400000",
+      "source": "UNKNOWN:collect fluid.renderTexture object 8400000"
+     },
+     {
+      "component": "CollectionManager/low res compute#Script:FluidCompute",
+      "field": "rawFieldRT",
+      "recovered": "UNKNOWN:collect fluid raw.renderTexture object 8400000",
+      "source": "UNKNOWN:collect fluid raw.renderTexture object 8400000"
+     }
+    ]
+   },
+   "gameObjects": {
+    "MATCHED": 105,
+    "MISSING_IN_RECOVERED": 19
+   },
+   "pairedBy": "PATH",
+   "references": {
+    "exact": {
+     "FIELD_ABSENT_IN_RECOVERED": 1,
+     "MATCH": 226,
+     "NULL_BOTH": 276,
+     "NULL_IN_RECOVERED": 1,
+     "SOURCE_TARGET_UNKNOWN": 8
+    }
+   },
+   "scene": "Assets/Scenes/Main.unity",
+   "scripts": {
+    "BOUND_EXACT": 172
+   },
+   "sourceScene": "Assets/Scenes/Main.unity"
+  },
+  {
+   "components": {
+    "MATCHED": 2
+   },
+   "examples": {},
+   "gameObjects": {
+    "MATCHED": 1
+   },
+   "pairedBy": "PATH",
+   "references": {},
+   "scene": "Assets/Scenes/Preload.unity",
+   "scripts": {
+    "BOUND_EXACT": 1
+   },
+   "sourceScene": "Assets/Scenes/Preload.unity"
+  }
+ ],
+ "source": "/home/user/thinhnv-x-percas/jelly-blast",
+ "sourceBuildScenes": [
+  "Assets/Scenes/Preload.unity",
+  "Assets/Scenes/Main.unity"
+ ],
+ "total": {
+  "components": {
+   "MATCHED": 387
+  },
+  "gameObjects": {
+   "MATCHED": 106,
+   "MISSING_IN_RECOVERED": 19
+  },
+  "references": {
+   "exact": {
+    "FIELD_ABSENT_IN_RECOVERED": 1,
+    "MATCH": 226,
+    "NULL_BOTH": 276,
+    "NULL_IN_RECOVERED": 1,
+    "SOURCE_TARGET_UNKNOWN": 8
+   }
+  },
+  "scripts": {
+   "BOUND_EXACT": 173
+  }
+ }
+}

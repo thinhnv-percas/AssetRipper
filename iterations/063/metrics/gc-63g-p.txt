@@ -9,5 +9,5 @@ corpus: 887 entries, 0 for Pinata (887 for other fixtures, 16 retired), 0 found,
 
 == by runtime role ==
 
-CORPUS_NOT_APPLICABLE: none of the 0 frozen methods for Pinata is in Test/Out63f-p/Pinata.
+CORPUS_NOT_APPLICABLE: none of the 0 frozen methods for Pinata is in Test/Out63g-p/Pinata.
 The keys are relative to the game directory inside the rip - try <output>/<GameName>.
