@@ -335,6 +335,14 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 			field.Attributes = (field.Attributes & ~FieldAttributes.FieldAccessMask) | wanted;
 			Interlocked.Increment(ref widenedMemberCount);
+
+			// A member cannot be more accessible than its type (CS0052): `internal State _state` with
+			// `private enum State` nested in the same class, on Merge-Room, was a declaration error
+			// that hid every body error in the assembly. The type is widened with the member.
+			if (field.DeclaringModule?.RuntimeContext is { } runtime)
+			{
+				WidenTypeOfMember(field.Signature?.FieldType, wanted == FieldAttributes.Public, runtime);
+			}
 		}
 
 	}
@@ -348,6 +356,70 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// anywhere <em>else</em>.
 	/// </remarks>
 	private static int widenedFieldsKeptUnserialized;
+
+	/// <summary>
+	/// Makes a game assembly's type, named in a widened member's signature, at least as accessible as
+	/// the member: a nested private type becomes nested internal, or nested public (with the types it is
+	/// nested in) when the member became public. Array element types and generic arguments are followed.
+	/// </summary>
+	private static void WidenTypeOfMember(TypeSignature? signature, bool toPublic, AsmResolver.DotNet.RuntimeContext runtime)
+	{
+		switch (signature)
+		{
+			case null:
+				return;
+			case GenericInstanceTypeSignature generic:
+				WidenType(generic.GenericType, toPublic, runtime);
+				foreach (TypeSignature argument in generic.TypeArguments)
+				{
+					WidenTypeOfMember(argument, toPublic, runtime);
+				}
+				return;
+			case TypeSpecificationSignature specification:
+				WidenTypeOfMember(specification.BaseType, toPublic, runtime);
+				return;
+		}
+
+		if (signature.GetUnderlyingTypeDefOrRef() is { } reference)
+		{
+			WidenType(reference, toPublic, runtime);
+		}
+	}
+
+	private static void WidenType(ITypeDefOrRef reference, bool toPublic, AsmResolver.DotNet.RuntimeContext runtime)
+	{
+		if (reference.Resolve(runtime, out TypeDefinition? type) != ResolutionStatus.Success
+			|| type is null
+			|| type.DeclaringModule?.Assembly?.Name is not { } name
+			|| Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(name))
+		{
+			return;
+		}
+
+		for (TypeDefinition? current = type; current is not null; current = current.DeclaringType)
+		{
+			TypeAttributes visibility = current.Attributes & TypeAttributes.VisibilityMask;
+			TypeAttributes wanted = current.DeclaringType is null
+				? (toPublic ? TypeAttributes.Public : visibility)
+				: toPublic
+					? TypeAttributes.NestedPublic
+					: visibility is TypeAttributes.NestedPrivate or TypeAttributes.NestedFamily or TypeAttributes.NestedFamilyAndAssembly
+						? TypeAttributes.NestedAssembly
+						: visibility;
+
+			if (wanted != visibility)
+			{
+				current.Attributes = (current.Attributes & ~TypeAttributes.VisibilityMask) | wanted;
+				Interlocked.Increment(ref widenedMemberCount);
+			}
+
+			if (!toPublic)
+			{
+				// Internal reaches the whole assembly already once the innermost type is internal.
+				break;
+			}
+		}
+	}
 
 	private static bool HasSerializeField(FieldDefinition field)
 		=> field.CustomAttributes.Any(attribute => attribute.Constructor?.DeclaringType?.FullName == "UnityEngine.SerializeField");
