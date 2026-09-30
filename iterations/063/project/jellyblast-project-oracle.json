@@ -1,0 +1,574 @@
+{
+ "packages": [
+  {
+   "package": "com.coplaydev.unity-mcp",
+   "buildAssemblies": [],
+   "sourceVersion": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.cysharp.unitask",
+   "buildAssemblies": [],
+   "sourceVersion": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.11",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.dotween",
+   "buildAssemblies": [],
+   "sourceVersion": "https://github.com/thinhnv-percas/DoTween.git",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.esotericsoftware.spine.on-demand-loading",
+   "buildAssemblies": [],
+   "sourceVersion": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Modules/com.esotericsoftware.spine.on-demand-loading#4.2",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.esotericsoftware.spine.spine-csharp",
+   "buildAssemblies": [],
+   "sourceVersion": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-csharp/src#4.2",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.esotericsoftware.spine.spine-unity",
+   "buildAssemblies": [],
+   "sourceVersion": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Assets/Spine#4.2",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.thinhnv.unitytools",
+   "buildAssemblies": [],
+   "sourceVersion": "https://github.com/thinhnv-percas/thinhnv-unity-tools.git",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.animation",
+   "buildAssemblies": [],
+   "sourceVersion": "9.2.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.aseprite",
+   "buildAssemblies": [],
+   "sourceVersion": "1.1.9",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.common",
+   "buildAssemblies": [],
+   "sourceVersion": "8.1.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.pixel-perfect",
+   "buildAssemblies": [],
+   "sourceVersion": "5.1.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.psdimporter",
+   "buildAssemblies": [],
+   "sourceVersion": "8.1.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.sprite",
+   "buildAssemblies": [],
+   "sourceVersion": "1.0.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.spriteshape",
+   "buildAssemblies": [],
+   "sourceVersion": "9.1.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.tilemap",
+   "buildAssemblies": [],
+   "sourceVersion": "1.0.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.2d.tilemap.extras",
+   "buildAssemblies": [],
+   "sourceVersion": "3.1.3",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.addressables",
+   "buildAssemblies": [],
+   "sourceVersion": "2.9.1",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.ads.ios-support",
+   "buildAssemblies": [],
+   "sourceVersion": "1.0.1",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.burst",
+   "buildAssemblies": [
+    "Unity.Burst"
+   ],
+   "sourceVersion": "1.8.21",
+   "recoveredVersion": null,
+   "status": "MISSING_FROM_RECOVERED",
+   "version": "DIFFERENT"
+  },
+  {
+   "package": "com.unity.collections",
+   "buildAssemblies": [
+    "Unity.Collections"
+   ],
+   "sourceVersion": "1.2.4",
+   "recoveredVersion": null,
+   "status": "MISSING_FROM_RECOVERED",
+   "version": "DIFFERENT"
+  },
+  {
+   "package": "com.unity.ext.nunit",
+   "buildAssemblies": [],
+   "sourceVersion": "1.0.6",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.feature.2d",
+   "buildAssemblies": [],
+   "sourceVersion": "2.0.1",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.ide.vscode",
+   "buildAssemblies": [],
+   "sourceVersion": "1.2.5",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.mathematics",
+   "buildAssemblies": [
+    "Unity.Mathematics"
+   ],
+   "sourceVersion": "1.2.6",
+   "recoveredVersion": null,
+   "status": "MISSING_FROM_RECOVERED",
+   "version": "CONSISTENT"
+  },
+  {
+   "package": "com.unity.mobile.notifications",
+   "buildAssemblies": [],
+   "sourceVersion": "2.4.3",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.nuget.newtonsoft-json",
+   "buildAssemblies": [
+    "Newtonsoft.Json"
+   ],
+   "sourceVersion": "3.2.1",
+   "recoveredVersion": null,
+   "status": "MISSING_FROM_RECOVERED",
+   "version": "VERSION_UNKNOWN"
+  },
+  {
+   "package": "com.unity.profiling.core",
+   "buildAssemblies": [],
+   "sourceVersion": "1.0.2",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.purchasing",
+   "buildAssemblies": [],
+   "sourceVersion": "5.4.2",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.scriptablebuildpipeline",
+   "buildAssemblies": [],
+   "sourceVersion": "2.6.1",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.services.core",
+   "buildAssemblies": [],
+   "sourceVersion": "1.14.0",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.test-framework",
+   "buildAssemblies": [],
+   "sourceVersion": "1.1.33",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.textmeshpro",
+   "buildAssemblies": [
+    "Unity.TextMeshPro"
+   ],
+   "sourceVersion": "3.0.9",
+   "recoveredVersion": null,
+   "status": "MISSING_FROM_RECOVERED",
+   "version": "CONSISTENT"
+  },
+  {
+   "package": "com.unity.timeline",
+   "buildAssemblies": [],
+   "sourceVersion": "1.7.7",
+   "recoveredVersion": null,
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "package": "com.unity.ugui",
+   "buildAssemblies": [
+    "UnityEngine.UI"
+   ],
+   "sourceVersion": "1.0.0",
+   "recoveredVersion": null,
+   "status": "MISSING_FROM_RECOVERED",
+   "version": "CONSISTENT"
+  },
+  {
+   "package": "com.unity.visualscripting",
+   "buildAssemblies": [
+    "Unity.VisualScripting.Core"
+   ],
+   "sourceVersion": "1.9.11",
+   "recoveredVersion": null,
+   "status": "MISSING_FROM_RECOVERED",
+   "version": "CONSISTENT"
+  }
+ ],
+ "settings": [
+  {
+   "setting": "companyName",
+   "source": "heseri",
+   "recovered": "heseri",
+   "status": "MATCH"
+  },
+  {
+   "setting": "productName",
+   "source": "Jelly Blast",
+   "recovered": "Jelly Blast",
+   "status": "MATCH"
+  },
+  {
+   "setting": "bundleVersion",
+   "source": "1.1",
+   "recovered": "1.1",
+   "status": "MATCH"
+  },
+  {
+   "setting": "defaultScreenOrientation",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "m_ActiveColorSpace",
+   "source": "1",
+   "recovered": "1",
+   "status": "MATCH"
+  },
+  {
+   "setting": "iOSTargetOSVersionString",
+   "source": "12.0",
+   "recovered": null,
+   "status": "UNKNOWN"
+  },
+  {
+   "setting": "apiCompatibilityLevel",
+   "source": "3",
+   "recovered": "3",
+   "status": "MATCH"
+  },
+  {
+   "setting": "accelerometerFrequency",
+   "source": "60",
+   "recovered": "60",
+   "status": "MATCH"
+  },
+  {
+   "setting": "runInBackground",
+   "source": "1",
+   "recovered": "1",
+   "status": "MATCH"
+  },
+  {
+   "setting": "m_StereoRenderingPath",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "gpuSkinning",
+   "source": "1",
+   "recovered": "1",
+   "status": "MATCH"
+  },
+  {
+   "setting": "graphicsJobs",
+   "source": null,
+   "recovered": null,
+   "status": "UNKNOWN"
+  },
+  {
+   "setting": "useOnDemandResources",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "stripEngineCode",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "iPhoneStrippingLevel",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "iPhoneScriptCallOptimization",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "allowedAutorotateToPortrait",
+   "source": "1",
+   "recovered": "1",
+   "status": "MATCH"
+  },
+  {
+   "setting": "allowedAutorotateToLandscapeLeft",
+   "source": "1",
+   "recovered": "1",
+   "status": "MATCH"
+  },
+  {
+   "setting": "defaultScreenWidth",
+   "source": "1920",
+   "recovered": "1920",
+   "status": "MATCH"
+  },
+  {
+   "setting": "defaultScreenHeight",
+   "source": "1080",
+   "recovered": "1080",
+   "status": "MATCH"
+  },
+  {
+   "setting": "targetDevice",
+   "source": "2",
+   "recovered": "2",
+   "status": "MATCH"
+  },
+  {
+   "setting": "uIRequiresFullScreen",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "uIStatusBarHidden",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "uIExitOnSuspend",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "appleDeveloperTeamID",
+   "source": "",
+   "recovered": null,
+   "status": "UNKNOWN"
+  },
+  {
+   "setting": "iOSRequireARKit",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "m_MTRendering",
+   "source": "1",
+   "recovered": "1",
+   "status": "MATCH"
+  },
+  {
+   "setting": "mipStripping",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  },
+  {
+   "setting": "resetResolutionOnWindowResize",
+   "source": "0",
+   "recovered": "0",
+   "status": "MATCH"
+  }
+ ],
+ "infoPlist": [
+  {
+   "plist": "CFBundleShortVersionString",
+   "build": "1.1",
+   "setting": "bundleVersion",
+   "source": "MATCH",
+   "recovered": "MATCH",
+   "sourceValue": "1.1",
+   "recoveredValue": "1.1"
+  },
+  {
+   "plist": "MinimumOSVersion",
+   "build": "12.0",
+   "setting": "iOSTargetOSVersionString",
+   "source": "MATCH",
+   "recovered": "UNKNOWN",
+   "sourceValue": "12.0",
+   "recoveredValue": null
+  },
+  {
+   "plist": "CFBundleDisplayName",
+   "build": "Jelly Blast",
+   "setting": "productName",
+   "source": "MATCH",
+   "recovered": "MATCH",
+   "sourceValue": "Jelly Blast",
+   "recoveredValue": "Jelly Blast"
+  },
+  {
+   "plist": "CFBundleIdentifier",
+   "build": "io.heseri.blast",
+   "setting": "applicationIdentifier",
+   "sourceValue": "{}",
+   "recoveredValue": "{}"
+  }
+ ],
+ "native": [
+  {
+   "library": "FBAEMKit.framework",
+   "inBuild": true,
+   "inSource": false,
+   "inRecovered": true
+  },
+  {
+   "library": "FBSDKCoreKit.framework",
+   "inBuild": true,
+   "inSource": false,
+   "inRecovered": true
+  },
+  {
+   "library": "FBSDKCoreKit_Basics.framework",
+   "inBuild": true,
+   "inSource": false,
+   "inRecovered": true
+  },
+  {
+   "library": "FBSDKGamingServicesKit.framework",
+   "inBuild": true,
+   "inSource": false,
+   "inRecovered": true
+  },
+  {
+   "library": "FBSDKLoginKit.framework",
+   "inBuild": true,
+   "inSource": false,
+   "inRecovered": true
+  },
+  {
+   "library": "FBSDKShareKit.framework",
+   "inBuild": true,
+   "inSource": false,
+   "inRecovered": true
+  },
+  {
+   "library": "FacebookSDKStrings.bundle",
+   "inBuild": true,
+   "inSource": false,
+   "inRecovered": true
+  },
+  {
+   "library": "libRFUtils_ios.a",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  },
+  {
+   "library": "libRFUtils_lin.so",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  },
+  {
+   "library": "libRFUtils_osx.bundle",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  },
+  {
+   "library": "libRF_CNative.bundle",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  },
+  {
+   "library": "libRF_CNative_andr.so",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  },
+  {
+   "library": "libRF_CNative_ios.a",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  },
+  {
+   "library": "libRF_CNative_lin.so",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  },
+  {
+   "library": "librfutils_andr.so",
+   "inBuild": false,
+   "inSource": true,
+   "inRecovered": false
+  }
+ ]
+}

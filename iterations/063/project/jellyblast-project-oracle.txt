@@ -1,0 +1,63 @@
+== packages (build evidence: an assembly the package compiles is in the build)
+  NOT_IN_BUILD             com.coplaydev.unity-mcp                      source https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main  recovered        -  version -                
+  NOT_IN_BUILD             com.cysharp.unitask                          source https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.11  recovered        -  version -                
+  NOT_IN_BUILD             com.dotween                                  source https://github.com/thinhnv-percas/DoTween.git  recovered        -  version -                
+  NOT_IN_BUILD             com.esotericsoftware.spine.on-demand-loading source https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Modules/com.esotericsoftware.spine.on-demand-loading#4.2  recovered        -  version -                
+  NOT_IN_BUILD             com.esotericsoftware.spine.spine-csharp      source https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-csharp/src#4.2  recovered        -  version -                
+  NOT_IN_BUILD             com.esotericsoftware.spine.spine-unity       source https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Assets/Spine#4.2  recovered        -  version -                
+  NOT_IN_BUILD             com.thinhnv.unitytools                       source https://github.com/thinhnv-percas/thinhnv-unity-tools.git  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.animation                       source    9.2.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.aseprite                        source    1.1.9  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.common                          source    8.1.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.pixel-perfect                   source    5.1.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.psdimporter                     source    8.1.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.sprite                          source    1.0.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.spriteshape                     source    9.1.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.tilemap                         source    1.0.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.2d.tilemap.extras                  source    3.1.3  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.addressables                       source    2.9.1  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.ads.ios-support                    source    1.0.1  recovered        -  version -                
+  MISSING_FROM_RECOVERED   com.unity.burst                              source   1.8.21  recovered        -  version DIFFERENT        Unity.Burst
+  MISSING_FROM_RECOVERED   com.unity.collections                        source    1.2.4  recovered        -  version DIFFERENT        Unity.Collections
+  NOT_IN_BUILD             com.unity.ext.nunit                          source    1.0.6  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.feature.2d                         source    2.0.1  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.ide.vscode                         source    1.2.5  recovered        -  version -                
+  MISSING_FROM_RECOVERED   com.unity.mathematics                        source    1.2.6  recovered        -  version CONSISTENT       Unity.Mathematics
+  NOT_IN_BUILD             com.unity.mobile.notifications               source    2.4.3  recovered        -  version -                
+  MISSING_FROM_RECOVERED   com.unity.nuget.newtonsoft-json              source    3.2.1  recovered        -  version VERSION_UNKNOWN  Newtonsoft.Json
+  NOT_IN_BUILD             com.unity.profiling.core                     source    1.0.2  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.purchasing                         source    5.4.2  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.scriptablebuildpipeline            source    2.6.1  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.services.core                      source   1.14.0  recovered        -  version -                
+  NOT_IN_BUILD             com.unity.test-framework                     source   1.1.33  recovered        -  version -                
+  MISSING_FROM_RECOVERED   com.unity.textmeshpro                        source    3.0.9  recovered        -  version CONSISTENT       Unity.TextMeshPro
+  NOT_IN_BUILD             com.unity.timeline                           source    1.7.7  recovered        -  version -                
+  MISSING_FROM_RECOVERED   com.unity.ugui                               source    1.0.0  recovered        -  version CONSISTENT       UnityEngine.UI
+  MISSING_FROM_RECOVERED   com.unity.visualscripting                    source   1.9.11  recovered        -  version CONSISTENT       Unity.VisualScripting.Core
+  {"NOT_IN_BUILD": 28, "MISSING_FROM_RECOVERED": 7}
+== player settings (source vs recovered)
+  UNKNOWN    iOSTargetOSVersionString         source=12.0                     recovered=None
+  UNKNOWN    graphicsJobs                     source=None                     recovered=None
+  UNKNOWN    appleDeveloperTeamID             source=                         recovered=None
+  {"MATCH": 26, "UNKNOWN": 3}
+== the build's Info.plist
+  CFBundleShortVersionString   build=1.1                    source=MATCH     (1.1) recovered=MATCH     (1.1)
+  MinimumOSVersion             build=12.0                   source=MATCH     (12.0) recovered=UNKNOWN   (None)
+  CFBundleDisplayName          build=Jelly Blast            source=MATCH     (Jelly Blast) recovered=MATCH     (Jelly Blast)
+  CFBundleIdentifier           build=io.heseri.blast        source=-         ({}) recovered=-         ({})
+== native libraries
+  build=Y source=- recovered=Y  FBAEMKit.framework
+  build=Y source=- recovered=Y  FBSDKCoreKit.framework
+  build=Y source=- recovered=Y  FBSDKCoreKit_Basics.framework
+  build=Y source=- recovered=Y  FBSDKGamingServicesKit.framework
+  build=Y source=- recovered=Y  FBSDKLoginKit.framework
+  build=Y source=- recovered=Y  FBSDKShareKit.framework
+  build=Y source=- recovered=Y  FacebookSDKStrings.bundle
+  build=- source=Y recovered=-  libRFUtils_ios.a
+  build=- source=Y recovered=-  libRFUtils_lin.so
+  build=- source=Y recovered=-  libRFUtils_osx.bundle
+  build=- source=Y recovered=-  libRF_CNative.bundle
+  build=- source=Y recovered=-  libRF_CNative_andr.so
+  build=- source=Y recovered=-  libRF_CNative_ios.a
+  build=- source=Y recovered=-  libRF_CNative_lin.so
+  build=- source=Y recovered=-  librfutils_andr.so
