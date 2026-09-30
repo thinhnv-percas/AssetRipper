@@ -143,7 +143,28 @@ internal class ScriptDecompiler
 				return false;
 			}
 
+			if (IsGeneratedAtBuildTime(module, type))
+			{
+				return false;
+			}
+
 			return base.IncludeTypeWhenDecompilingProject(module, type);
+		}
+
+		/// <summary>
+		/// Iteration 063: a type Unity's own IL post-processing adds to an assembly at build time. The Jobs
+		/// post-processor writes one <c>__JobReflectionRegistrationOutput__&lt;hash&gt;</c> per assembly that
+		/// schedules jobs, marked <c>[DOTSCompilerGenerated]</c>, and it will write it again when the
+		/// recovered project is built - so exporting it as a script ships it twice. Its attribute is
+		/// internal to Unity.Collections, which made it a declaration error (CS0122) that hid every body
+		/// error in JellyBlast's Assembly-CSharp; the JellyBlast source's own history deleted its body by
+		/// hand (dd027205). Same reasoning as <c>UnitySourceGeneratedAssemblyMonoScriptTypes_v1</c> below.
+		/// </summary>
+		private static bool IsGeneratedAtBuildTime(MetadataFile module, MetadataTypeDefinitionHandle handle)
+		{
+			MetadataTypeDefinition definition = module.Metadata.GetTypeDefinition(handle);
+			return definition.GetDeclaringType().IsNil
+				&& module.Metadata.GetString(definition.Name).StartsWith("__JobReflectionRegistrationOutput__", StringComparison.Ordinal);
 		}
 
 		/// <summary>Where ILSpy would put this type, as namespace directories and the type's own name.</summary>

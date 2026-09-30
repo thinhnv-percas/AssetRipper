@@ -142,6 +142,12 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened " +
 				"because a recovered body reaches them from outside the type, or the assembly, that declares them.");
 			DropEventsReadAsFields();
+			int reconciled = OverrideAccessibility.Apply(
+				assemblies.SelectMany(assembly => assembly.Modules),
+				module => module.Assembly?.Name is { } name && !Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(name));
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {reconciled} methods had their accessibility aligned with the override chain "
+				+ "they belong to, after widening for recovered bodies.");
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {droppedEventDeclarationCount} event declarations were dropped because a " +
 				"recovered body reads the field they are built on - il2cpp inlines add_/remove_, and C# refuses to read an " +
