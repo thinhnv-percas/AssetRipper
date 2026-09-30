@@ -1,0 +1,1383 @@
+{
+ "entries": [
+  {
+   "fixture": "Impostor",
+   "caller": "GameHelper::FindAllChild",
+   "kind": "CALL",
+   "receiver": "v339 @ X0_v4 (System.Collections.IEnumerator)",
+   "interface": "[v180 @ X22_v3 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x060005B8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::AddEnumerable",
+   "kind": "CALL",
+   "receiver": "v184 @ X19_v2 (System.Collections.IEnumerator)",
+   "interface": "[v190 @ X22_v2 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x060005B8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::InsertEnumeration",
+   "kind": "CALL",
+   "receiver": "v195 @ X19_v2 (System.Collections.IEnumerator)",
+   "interface": "[v201 @ X23_v2 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x060005B8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.Skeleton::SortPathConstraintAttachment",
+   "kind": "CALL",
+   "receiver": "v138 @ X19_v2 (System.Collections.Generic.IEnumerator`1<Spine.Skin+SkinEntry>)",
+   "interface": "[v146 @ X23_v2 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x060005B8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.Collections.CollectionExtensions::ToOrderedDictionary",
+   "kind": "CALL",
+   "receiver": "v106 @ X24_v2",
+   "interface": "v235 @ X1_v19 (Il2CppClass<System.Collections.Generic.IEnumerable`1<TSource>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x060025A7",
+   "generic": "TSource",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::AddCollection",
+   "kind": "CALL",
+   "receiver": "collection @ X1 (System.Collections.Generic.ICollection`1<T>)",
+   "interface": "v228 @ X1_v7 (Il2CppClass<System.Collections.Generic.ICollection`1<T>>)",
+   "slot": "5",
+   "target": "System.Collections.Generic.ICollection`1::CopyTo",
+   "token": "0x060025A0",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::AddCollection",
+   "kind": "CALL",
+   "receiver": "collection @ X1 (System.Collections.Generic.ICollection`1<T>)",
+   "interface": "v43 @ X1_v2 (Il2CppClass<System.Collections.Generic.ICollection`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.ICollection`1::get_Count",
+   "token": "0x0600259B",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::AddEnumerable",
+   "kind": "CALL",
+   "receiver": "enumerable @ X1 (System.Collections.Generic.IEnumerable`1<T>)",
+   "interface": "v56 @ X1_v11 (Il2CppClass<System.Collections.Generic.IEnumerable`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x060025A7",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::AddEnumerable",
+   "kind": "CALL",
+   "receiver": "v106 @ X0_v35 (System.Collections.IEnumerator)",
+   "interface": "v551 @ X1_v17 (Il2CppClass<System.Collections.Generic.IEnumerator`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerator`1::get_Current",
+   "token": "0x060025A8",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::InsertCollection",
+   "kind": "TAIL",
+   "receiver": "collection @ X2 (System.Collections.Generic.ICollection`1<T>)",
+   "interface": "v210 @ X1_v7 (Il2CppClass<System.Collections.Generic.ICollection`1<T>>)",
+   "slot": "5",
+   "target": "System.Collections.Generic.ICollection`1::CopyTo",
+   "token": "0x060025A0",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::InsertCollection",
+   "kind": "CALL",
+   "receiver": "collection @ X2 (System.Collections.Generic.ICollection`1<T>)",
+   "interface": "v44 @ X1_v2 (Il2CppClass<System.Collections.Generic.ICollection`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.ICollection`1::get_Count",
+   "token": "0x0600259B",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::InsertEnumeration",
+   "kind": "CALL",
+   "receiver": "enumerable @ X2 (System.Collections.Generic.IEnumerable`1<T>)",
+   "interface": "v61 @ X1_v11 (Il2CppClass<System.Collections.Generic.IEnumerable`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x060025A7",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.Pool`1::Reset",
+   "kind": "TAIL",
+   "receiver": "v38 @ X0_v3",
+   "interface": "v53 @ X1_v3 (Il2CppClass<Spine.Pool`1<T>+IPoolable<T>>)",
+   "slot": "0",
+   "target": "Spine.Pool`1+IPoolable::Reset",
+   "token": "0x0600013B",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.ExposedList`1::InsertEnumeration",
+   "kind": "CALL",
+   "receiver": "v111 @ X0_v35 (System.Collections.IEnumerator)",
+   "interface": "v570 @ X1_v17 (Il2CppClass<System.Collections.Generic.IEnumerator`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerator`1::get_Current",
+   "token": "0x060025A8",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.Skin::AttachAll",
+   "kind": "CALL",
+   "receiver": "v203 @ X19_v2 (System.Collections.Generic.IEnumerator`1<Spine.Skin+SkinEntry>)",
+   "interface": "[v191 @ X23_v1 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x060005B8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.Skin::GetAttachments",
+   "kind": "CALL",
+   "receiver": "v313 @ X19_v4 (System.Collections.Generic.IEnumerator`1<Spine.Skin+SkinEntry>)",
+   "interface": "[v316 @ X23_v4 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x060005B8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "Impostor",
+   "caller": "Spine.Unity.BlendModeMaterialsAsset::ApplyMaterials",
+   "kind": "CALL",
+   "receiver": "v577 @ X19_v2 (Spine.Unity.BlendModeMaterialsAsset+AtlasMaterialCache)",
+   "interface": "[v570 @ X21_v1 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x060005B8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Facebook.Unity.FB+Windows::CreateReferral",
+   "kind": "TAIL",
+   "receiver": "v43 @ X0_v2 (Facebook.Unity.Windows.IWindowsFacebook)",
+   "interface": "[v46 @ X8_v3 (Il2CppClass<Facebook.Unity.Windows.IWindowsFacebook>)]",
+   "slot": "2",
+   "target": "Facebook.Unity.Windows.IWindowsFacebook::CreateReferral",
+   "token": "0x0600034E",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Facebook.Unity.FB+Windows::GetDataReferral",
+   "kind": "TAIL",
+   "receiver": "v38 @ X0_v2 (Facebook.Unity.Windows.IWindowsFacebook)",
+   "interface": "[v41 @ X8_v3 (Il2CppClass<Facebook.Unity.Windows.IWindowsFacebook>)]",
+   "slot": "3",
+   "target": "Facebook.Unity.Windows.IWindowsFacebook::GetDataReferral",
+   "token": "0x0600034F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Facebook.Unity.FB+Windows::SetSoftKeyboardOpen",
+   "kind": "TAIL",
+   "receiver": "v43 @ X0_v2 (Facebook.Unity.Windows.IWindowsFacebook)",
+   "interface": "[v46 @ X8_v3 (Il2CppClass<Facebook.Unity.Windows.IWindowsFacebook>)]",
+   "slot": "1",
+   "target": "Facebook.Unity.Windows.IWindowsFacebook::SetSoftKeyboardOpen",
+   "token": "0x0600034D",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Facebook.Unity.FB+Windows::SetVirtualGamepadLayout",
+   "kind": "TAIL",
+   "receiver": "v43 @ X0_v2 (Facebook.Unity.Windows.IWindowsFacebook)",
+   "interface": "[v46 @ X8_v3 (Il2CppClass<Facebook.Unity.Windows.IWindowsFacebook>)]",
+   "slot": "0",
+   "target": "Facebook.Unity.Windows.IWindowsFacebook::SetVirtualGamepadLayout",
+   "token": "0x0600034C",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Unity.VisualScripting.LinqUtility::AddRange",
+   "kind": "CALL",
+   "receiver": "collection @ X0 (System.Collections.Generic.ICollection`1<T>)",
+   "interface": "v654 @ X1_v18 (Il2CppClass<System.Collections.Generic.ICollection`1<T>>)",
+   "slot": "2",
+   "target": "System.Collections.Generic.ICollection`1::Add",
+   "token": "0x06002DE8",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "SOURCE_CONFIRMED"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "FluidPhysicsCoupler::Shuffle",
+   "kind": "CALL",
+   "receiver": "list @ X1 (System.Collections.Generic.IList`1<T>)",
+   "interface": "v96 @ X1_v5 (Il2CppClass<System.Collections.Generic.ICollection`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.ICollection`1::get_Count",
+   "token": "0x06002DE6",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Linq.JEnumerable`1::GetEnumerator",
+   "kind": "CALL",
+   "receiver": "v33 @ X20_v2 (System.Collections.Generic.IEnumerable`1<T>)",
+   "interface": "v186 @ X1_v4 (Il2CppClass<System.Collections.Generic.IEnumerable`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x06002DF6",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Serialization.DefaultContractResolver+EnumerableDictionaryWrapper`2+<GetEnumerator>d__2::MoveNext",
+   "kind": "CALL",
+   "receiver": "v256 @ X24_v11",
+   "interface": "v444 @ X1_v24 (Il2CppClass<System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<TEnumeratorKey, TEnumeratorValue>>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x06002DF6",
+   "generic": "System.Collections.Generic.KeyValuePair`2<TEnumeratorKey, TEnumeratorValue>",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.BidirectionalDictionary`2::Set",
+   "kind": "CALL",
+   "receiver": "v173 @ X23_v6 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>)",
+   "interface": "v532 @ X1_v14 (Il2CppClass<System.Collections.Generic.IDictionary`2<TFirst, TSecond>>)",
+   "slot": "5",
+   "target": "System.Collections.Generic.IDictionary`2::Add",
+   "token": "0x06002DF3",
+   "generic": "TFirst,TSecond",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.BidirectionalDictionary`2::Set",
+   "kind": "CALL",
+   "receiver": "v20 @ X23_v1 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>)",
+   "interface": "v196 @ X1_v8 (Il2CppClass<System.Collections.Generic.IDictionary`2<TFirst, TSecond>>)",
+   "slot": "7",
+   "target": "System.Collections.Generic.IDictionary`2::TryGetValue",
+   "token": "0x06002DF5",
+   "generic": "TFirst,TSecond",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.BidirectionalDictionary`2::TryGetByFirst",
+   "kind": "TAIL",
+   "receiver": "v14 @ X21_v1 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>)",
+   "interface": "v46 @ X1_v2 (Il2CppClass<System.Collections.Generic.IDictionary`2<TFirst, TSecond>>)",
+   "slot": "7",
+   "target": "System.Collections.Generic.IDictionary`2::TryGetValue",
+   "token": "0x06002DF5",
+   "generic": "TFirst,TSecond",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.BidirectionalDictionary`2::TryGetBySecond",
+   "kind": "TAIL",
+   "receiver": "v14 @ X21_v1 (System.Collections.Generic.IDictionary`2<TSecond, TFirst>)",
+   "interface": "v46 @ X1_v2 (Il2CppClass<System.Collections.Generic.IDictionary`2<TSecond, TFirst>>)",
+   "slot": "7",
+   "target": "System.Collections.Generic.IDictionary`2::TryGetValue",
+   "token": "0x06002DF5",
+   "generic": "TSecond,TFirst",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.CollectionWrapper`1::GetEnumerator",
+   "kind": "TAIL",
+   "receiver": "v43 @ X19_v2 (System.Collections.Generic.ICollection`1<T>)",
+   "interface": "v55 @ X1_v3 (Il2CppClass<System.Collections.Generic.IEnumerable`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x06002DF6",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::System.Collections.ICollection.CopyTo",
+   "kind": "TAIL",
+   "receiver": "v105 @ X0_v14 (System.Collections.Generic.IDictionary`2<TKey, TValue>)",
+   "interface": "v349 @ X22_v6 (Il2CppClass<System.Collections.Generic.ICollection`1<System.Collections.Generic.KeyValuePair`2<TKey, TValue>>>)",
+   "slot": "5",
+   "target": "System.Collections.Generic.ICollection`1::CopyTo",
+   "token": "0x06002DEB",
+   "generic": "System.Collections.Generic.KeyValuePair`2<TKey, TValue>",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::get_Keys",
+   "kind": "TAIL",
+   "receiver": "v104 @ X0_v5 (System.Collections.Generic.IDictionary`2<TKey, TValue>)",
+   "interface": "v207 @ X1_v5 (Il2CppClass<System.Collections.Generic.IDictionary`2<TKey, TValue>>)",
+   "slot": "2",
+   "target": "System.Collections.Generic.IDictionary`2::get_Keys",
+   "token": "0x06002DF0",
+   "generic": "TKey,TValue",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.DictionaryWrapper`2::get_Values",
+   "kind": "TAIL",
+   "receiver": "v104 @ X0_v5 (System.Collections.Generic.IDictionary`2<TKey, TValue>)",
+   "interface": "v207 @ X1_v5 (Il2CppClass<System.Collections.Generic.IDictionary`2<TKey, TValue>>)",
+   "slot": "3",
+   "target": "System.Collections.Generic.IDictionary`2::get_Values",
+   "token": "0x06002DF1",
+   "generic": "TKey,TValue",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.CollectionUtils::AddRange",
+   "kind": "CALL",
+   "receiver": "initial @ X0 (System.Collections.Generic.IList`1<T>)",
+   "interface": "v691 @ X1_v21 (Il2CppClass<System.Collections.Generic.ICollection`1<T>>)",
+   "slot": "2",
+   "target": "System.Collections.Generic.ICollection`1::Add",
+   "token": "0x06002DE8",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.CollectionUtils::AddRange",
+   "kind": "CALL",
+   "receiver": "collection @ X1 (System.Collections.Generic.IEnumerable`1<T>)",
+   "interface": "v183 @ X1_v11 (Il2CppClass<System.Collections.Generic.IEnumerable`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x06002DF6",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.CollectionUtils::AddRange",
+   "kind": "CALL",
+   "receiver": "v325 @ X0_v36",
+   "interface": "v572 @ X1_v18 (Il2CppClass<System.Collections.Generic.IEnumerator`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerator`1::get_Current",
+   "token": "0x06002DF7",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "JellyBlastV2",
+   "caller": "Newtonsoft.Json.Utilities.CollectionUtils::IndexOf",
+   "kind": "CALL",
+   "receiver": "collection @ X0 (System.Collections.Generic.IEnumerable`1<T>)",
+   "interface": "v128 @ X1_v8 (Il2CppClass<System.Collections.Generic.IEnumerable`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x06002DF6",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cinemachine.CinemachineImpulseDefinition::CreateStandardShapes",
+   "kind": "CALL",
+   "receiver": "v1638 @ X0_v11 (System.Collections.IEnumerator)",
+   "interface": "[v1468 @ X22_v5 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x0600079F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cinemachine.CinemachineVirtualCamera::DestroyPipeline",
+   "kind": "CALL",
+   "receiver": "v546 @ X0_v8 (System.Collections.IEnumerator)",
+   "interface": "[v300 @ X25_v4 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x0600079F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cinemachine.CinemachineVirtualCamera::OnDestroy",
+   "kind": "CALL",
+   "receiver": "v419 @ X0_v6 (System.Collections.IEnumerator)",
+   "interface": "[v207 @ X23_v3 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x0600079F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cinemachine.CinemachineVirtualCamera::UpdateComponentPipeline",
+   "kind": "CALL",
+   "receiver": "v638 @ X0_v66",
+   "interface": "[v235 @ X27_v5 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x0600079F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TaskPool`1::TryPop",
+   "kind": "CALL",
+   "receiver": "v24 @ X21_v3 (T)",
+   "interface": "v121 @ X1_v4 (Il2CppClass<Cysharp.Threading.Tasks.ITaskPoolNode`1<T>>)",
+   "slot": "0",
+   "target": "Cysharp.Threading.Tasks.ITaskPoolNode`1::get_NextNode",
+   "token": "0x0600002D",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TaskPool`1::TryPush",
+   "kind": "CALL",
+   "receiver": "item @ X1 (T)",
+   "interface": "v196 @ X1_v5 (Il2CppClass<Cysharp.Threading.Tasks.ITaskPoolNode`1<T>>)",
+   "slot": "0",
+   "target": "Cysharp.Threading.Tasks.ITaskPoolNode`1::get_NextNode",
+   "token": "0x0600002D",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TriggerEvent`1::Add",
+   "kind": "CALL",
+   "receiver": "v44 @ X22_v15 (Cysharp.Threading.Tasks.ITriggerHandler`1<T>)",
+   "interface": "v188 @ X1_v37 (Il2CppClass<Cysharp.Threading.Tasks.ITriggerHandler`1<T>>)",
+   "slot": "2",
+   "target": "Cysharp.Threading.Tasks.ITriggerHandler`1::get_Prev",
+   "token": "0x06000033",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TriggerEvent`1::Add",
+   "kind": "CALL",
+   "receiver": "v288 @ X0_v95 (Cysharp.Threading.Tasks.ITriggerHandler`1<T>)",
+   "interface": "v609 @ X1_v50 (Il2CppClass<Cysharp.Threading.Tasks.ITriggerHandler`1<T>>)",
+   "slot": "5",
+   "target": "Cysharp.Threading.Tasks.ITriggerHandler`1::set_Next",
+   "token": "0x06000036",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TriggerEvent`1::Add",
+   "kind": "CALL",
+   "receiver": "v231 @ X23_v12 (Cysharp.Threading.Tasks.ITriggerHandler`1<T>)",
+   "interface": "v427 @ X1_v40 (Il2CppClass<Cysharp.Threading.Tasks.ITriggerHandler`1<T>>)",
+   "slot": "3",
+   "target": "Cysharp.Threading.Tasks.ITriggerHandler`1::set_Prev",
+   "token": "0x06000034",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TriggerEvent`1::Remove",
+   "kind": "CALL",
+   "receiver": "handler @ X1 (Cysharp.Threading.Tasks.ITriggerHandler`1<T>)",
+   "interface": "v334 @ X1_v8 (Il2CppClass<Cysharp.Threading.Tasks.ITriggerHandler`1<T>>)",
+   "slot": "4",
+   "target": "Cysharp.Threading.Tasks.ITriggerHandler`1::get_Next",
+   "token": "0x06000035",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TriggerEvent`1::Remove",
+   "kind": "CALL",
+   "receiver": "handler @ X1 (Cysharp.Threading.Tasks.ITriggerHandler`1<T>)",
+   "interface": "v168 @ X1_v5 (Il2CppClass<Cysharp.Threading.Tasks.ITriggerHandler`1<T>>)",
+   "slot": "2",
+   "target": "Cysharp.Threading.Tasks.ITriggerHandler`1::get_Prev",
+   "token": "0x06000033",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TriggerEvent`1::Remove",
+   "kind": "CALL",
+   "receiver": "v315 @ X0_v18 (Cysharp.Threading.Tasks.ITriggerHandler`1<T>)",
+   "interface": "v668 @ X1_v48 (Il2CppClass<Cysharp.Threading.Tasks.ITriggerHandler`1<T>>)",
+   "slot": "5",
+   "target": "Cysharp.Threading.Tasks.ITriggerHandler`1::set_Next",
+   "token": "0x06000036",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.Triggers.AsyncTriggerHandler`1::Cysharp.Threading.Tasks.IUniTaskSource.GetResult",
+   "kind": "TAIL",
+   "receiver": "this @ X0 (Cysharp.Threading.Tasks.Triggers.AsyncTriggerHandler`1<T>)",
+   "interface": "v36 @ X1_v2 (Il2CppClass<Cysharp.Threading.Tasks.IUniTaskSource`1<T>>)",
+   "slot": "0",
+   "target": "Cysharp.Threading.Tasks.IUniTaskSource`1::GetResult",
+   "token": "0x0600000D",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Newtonsoft.Json.Converters.XmlNodeConverter::CreateInstruction",
+   "kind": "TAIL",
+   "receiver": "currentNode @ X3 (Newtonsoft.Json.Converters.IXmlNode)",
+   "interface": "v648 @ X1_v16 (Il2CppClass<Newtonsoft.Json.Converters.IXmlNode>)",
+   "slot": "6",
+   "target": "Newtonsoft.Json.Converters.IXmlNode::AppendChild",
+   "token": "0x060008A8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Newtonsoft.Json.Converters.XmlNodeConverter::DeserializeValue",
+   "kind": "TAIL",
+   "receiver": "currentNode @ X5 (Newtonsoft.Json.Converters.IXmlNode)",
+   "interface": "v626 @ X1_v6 (Il2CppClass<Newtonsoft.Json.Converters.IXmlNode>)",
+   "slot": "6",
+   "target": "Newtonsoft.Json.Converters.IXmlNode::AppendChild",
+   "token": "0x060008A8",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Newtonsoft.Json.Utilities.BidirectionalDictionary`2::TryGetByFirst",
+   "kind": "TAIL",
+   "receiver": "v8 @ X21_v1 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>)",
+   "interface": "v39 @ X1_v2 (Il2CppClass<System.Collections.Generic.IDictionary`2<TFirst, TSecond>>)",
+   "slot": "6",
+   "target": "System.Collections.Generic.IDictionary`2::TryGetValue",
+   "token": "0x06002EC7",
+   "generic": "TFirst,TSecond",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cinemachine.CinemachineBlend::get_State",
+   "kind": "CALL",
+   "receiver": "v961 @ X20_v8 (Cinemachine.ICinemachineCamera)",
+   "interface": "v957 @ X1_v8 (Il2CppClass<Cinemachine.ICinemachineCamera>)",
+   "slot": "8",
+   "target": "Cinemachine.ICinemachineCamera::get_State",
+   "token": "0x06000393",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "CinemachineMixer::ProcessFrame",
+   "kind": "CALL",
+   "receiver": "v210 @ X22_v5 (Cinemachine.ICameraOverrideStack)",
+   "interface": "[v220 @ X26_v5 (Il2CppClass<Cinemachine.ICameraOverrideStack>)]",
+   "slot": "0",
+   "target": "Cinemachine.ICameraOverrideStack::SetCameraOverride",
+   "token": "0x06000040",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "Cysharp.Threading.Tasks.TriggerEvent`1::Remove",
+   "kind": "CALL",
+   "receiver": "v415 @ X0_v23 (Cysharp.Threading.Tasks.ITriggerHandler`1<T>)",
+   "interface": "v492 @ X1_v52 (Il2CppClass<Cysharp.Threading.Tasks.ITriggerHandler`1<T>>)",
+   "slot": "3",
+   "target": "Cysharp.Threading.Tasks.ITriggerHandler`1::set_Prev",
+   "token": "0x06000034",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "MergeRoom",
+   "caller": "ES3::LoadAudio",
+   "kind": "CALL",
+   "receiver": "v285 @ X0_v95 (UnityEngine.Networking.UnityWebRequest)",
+   "interface": "[v572 @ X23_v9 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x0600079F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.Authenticode.AuthenticodeDeformatter::VerifyCounterSignature",
+   "kind": "CALL",
+   "receiver": "v1801 @ X0_v4 (System.String)",
+   "interface": "[v193 @ X29_v2 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.Authenticode.AuthenticodeDeformatter::VerifySignature",
+   "kind": "CALL",
+   "receiver": "v1630 @ X0_v40 (Mono.Security.ASN1)",
+   "interface": "[v550 @ X29_v7 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.X509.PKCS12::GetBytes",
+   "kind": "CALL",
+   "receiver": "returnVal2 @ X0_v517 (System.Byte[])",
+   "interface": "[v583 @ X25_v12 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.X509.PKCS12::GetExistingParameters",
+   "kind": "CALL",
+   "receiver": "v228 @ X0_v6 (System.Security.Cryptography.DSAParameters)",
+   "interface": "[v156 @ X24_v1 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Linq.JContainer::.ctor",
+   "kind": "CALL",
+   "receiver": "v164 @ X19_v2 (System.Collections.Generic.IEnumerator`1<Newtonsoft.Json.Linq.JToken>)",
+   "interface": "[v172 @ X23_v2 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Linq.JContainer::ClearItems",
+   "kind": "CALL",
+   "receiver": "v224 @ X21_v1 (System.Collections.Generic.IEnumerator`1<Newtonsoft.Json.Linq.JToken>)",
+   "interface": "[v222 @ X23_v1 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Linq.JContainer::ContentsHashCode",
+   "kind": "CALL",
+   "receiver": "v254 @ X19_v2 (System.Collections.Generic.IEnumerator`1<Newtonsoft.Json.Linq.JToken>)",
+   "interface": "[v216 @ X22_v1 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Linq.JContainer::CopyItemsTo",
+   "kind": "CALL",
+   "receiver": "v297 @ X0_v77 (System.Collections.Generic.IEnumerator`1<Newtonsoft.Json.Linq.JToken>)",
+   "interface": "[v382 @ X22_v4 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Linq.JEnumerable`1::GetEnumerator",
+   "kind": "CALL",
+   "receiver": "v29 @ X20_v2 (System.Collections.Generic.IEnumerable`1<T>)",
+   "interface": "v73 @ X1_v3 (Il2CppClass<System.Collections.Generic.IEnumerable`1<T>>)",
+   "slot": "0",
+   "target": "System.Collections.Generic.IEnumerable`1::GetEnumerator",
+   "token": "0x06002E06",
+   "generic": "T",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Schema.JsonSchemaBuilder::ProcessExtends",
+   "kind": "CALL",
+   "receiver": "v53 @ X0_v3 (System.Collections.Generic.List`1<Newtonsoft.Json.Schema.JsonSchema>)",
+   "interface": "[v176 @ X25_v3 (Il2CppClass<System.Collections.Generic.ICollection`1<Newtonsoft.Json.Schema.JsonSchema>>)]",
+   "slot": "2",
+   "target": "System.Collections.Generic.ICollection`1::Add",
+   "token": "0x06002DF8",
+   "generic": "Newtonsoft.Json.Schema.JsonSchema",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Schema.JsonSchemaBuilder::ProcessExtends",
+   "kind": "CALL",
+   "receiver": "v53 @ X0_v3 (System.Collections.Generic.List`1<Newtonsoft.Json.Schema.JsonSchema>)",
+   "interface": "[v176 @ X25_v3 (Il2CppClass<System.Collections.Generic.ICollection`1<Newtonsoft.Json.Schema.JsonSchema>>)]",
+   "slot": "0",
+   "target": "System.Collections.Generic.ICollection`1::get_Count",
+   "token": "0x06002DF6",
+   "generic": "Newtonsoft.Json.Schema.JsonSchema",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Schema.JsonSchemaWriter::WriteSchema",
+   "kind": "CALL",
+   "receiver": "v473.<Extends>k__BackingField (System.Collections.Generic.IList`1<Newtonsoft.Json.Schema.JsonSchema>)",
+   "interface": "[v228 @ X26_v6 (Il2CppClass<System.Collections.Generic.ICollection`1<Newtonsoft.Json.Schema.JsonSchema>>)]",
+   "slot": "0",
+   "target": "System.Collections.Generic.ICollection`1::get_Count",
+   "token": "0x06002DF6",
+   "generic": "Newtonsoft.Json.Schema.JsonSchema",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Converters.XmlNodeConverter::CreateInstruction",
+   "kind": "TAIL",
+   "receiver": "currentNode @ X3 (Newtonsoft.Json.Converters.IXmlNode)",
+   "interface": "v648 @ X1_v16 (Il2CppClass<Newtonsoft.Json.Converters.IXmlNode>)",
+   "slot": "7",
+   "target": "Newtonsoft.Json.Converters.IXmlNode::AppendChild",
+   "token": "0x06000F4F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Converters.XmlNodeConverter::DeserializeValue",
+   "kind": "TAIL",
+   "receiver": "currentNode @ X5 (Newtonsoft.Json.Converters.IXmlNode)",
+   "interface": "v626 @ X1_v6 (Il2CppClass<Newtonsoft.Json.Converters.IXmlNode>)",
+   "slot": "7",
+   "target": "Newtonsoft.Json.Converters.IXmlNode::AppendChild",
+   "token": "0x06000F4F",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Utilities.BidirectionalDictionary`2::TryGetByFirst",
+   "kind": "TAIL",
+   "receiver": "v8 @ X21_v1 (System.Collections.Generic.IDictionary`2<TFirst, TSecond>)",
+   "interface": "v39 @ X1_v2 (Il2CppClass<System.Collections.Generic.IDictionary`2<TFirst, TSecond>>)",
+   "slot": "7",
+   "target": "System.Collections.Generic.IDictionary`2::TryGetValue",
+   "token": "0x06002E05",
+   "generic": "TFirst,TSecond",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Newtonsoft.Json.Utilities.BidirectionalDictionary`2::TryGetBySecond",
+   "kind": "TAIL",
+   "receiver": "v8 @ X21_v1 (System.Collections.Generic.IDictionary`2<TSecond, TFirst>)",
+   "interface": "v39 @ X1_v2 (Il2CppClass<System.Collections.Generic.IDictionary`2<TSecond, TFirst>>)",
+   "slot": "7",
+   "target": "System.Collections.Generic.IDictionary`2::TryGetValue",
+   "token": "0x06002E05",
+   "generic": "TSecond,TFirst",
+   "confidence": "EXACT",
+   "categories": [
+    "GENERIC_INTERFACE",
+    "GENERIC_RECEIVER",
+    "TAIL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.X509.PKCS12::RemoveCertificate",
+   "kind": "CALL",
+   "receiver": "v709 @ X19_v16 (System.Collections.IDictionary)",
+   "interface": "[v706 @ X20_v18 (Il2CppClass<System.Collections.IDictionary>)]",
+   "slot": "0",
+   "target": "System.Collections.IDictionary::get_Item",
+   "token": "0x06002AE2",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.X509.PKCS12::get_Certificates",
+   "kind": "CALL",
+   "receiver": "v544 @ X0_v8 (System.Collections.IEnumerator)",
+   "interface": "[v318 @ X24_v5 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.X509.PKCS12::get_Keys",
+   "kind": "CALL",
+   "receiver": "v736 @ X0_v9 (System.Collections.ArrayList)",
+   "interface": "[v94 @ X23_v4 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  },
+  {
+   "fixture": "RunFromZombies",
+   "caller": "Mono.Security.X509.X509Chain::FindCertificateParent",
+   "kind": "CALL",
+   "receiver": "v193 @ X0_v6 (Mono.Security.X509.X509CertificateCollection+X509CertificateEnumerator)",
+   "interface": "[v112 @ X23_v2 (Il2CppClass<System.IDisposable>)]",
+   "slot": "0",
+   "target": "System.IDisposable::Dispose",
+   "token": "0x06000742",
+   "generic": "",
+   "confidence": "EXACT",
+   "categories": [
+    "RUNTIME_CONTEXT_CLASS",
+    "CALL"
+   ],
+   "sourceConfirmation": "NO_SOURCE"
+  }
+ ],
+ "available": {
+  "Impostor:CALL": 17,
+  "Impostor:GENERIC_INTERFACE": 10,
+  "Impostor:GENERIC_RECEIVER": 13,
+  "Impostor:RUNTIME_CONTEXT_CLASS": 9,
+  "Impostor:TAIL": 2,
+  "JellyBlastV2:CALL": 18,
+  "JellyBlastV2:GENERIC_INTERFACE": 24,
+  "JellyBlastV2:GENERIC_RECEIVER": 24,
+  "JellyBlastV2:RUNTIME_CONTEXT_CLASS": 4,
+  "JellyBlastV2:TAIL": 10,
+  "MergeRoom:CALL": 152,
+  "MergeRoom:GENERIC_INTERFACE": 51,
+  "MergeRoom:GENERIC_RECEIVER": 63,
+  "MergeRoom:RUNTIME_CONTEXT_CLASS": 115,
+  "MergeRoom:TAIL": 15,
+  "RunFromZombies:CALL": 53,
+  "RunFromZombies:GENERIC_INTERFACE": 29,
+  "RunFromZombies:GENERIC_RECEIVER": 40,
+  "RunFromZombies:RUNTIME_CONTEXT_CLASS": 31,
+  "RunFromZombies:TAIL": 6
+ }
+}
