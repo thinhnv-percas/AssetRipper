@@ -1,3 +1,4 @@
+using System.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -358,6 +359,25 @@ public static class AsmResolverAssemblyPopulator
         }
     }
 
+    /// <summary>AssetRipper: P/Invokes given their <c>__Internal</c> import map on an Apple build.</summary>
+    public static int PInvokeImportsRestored;
+
+    private static ModuleReference InternalModuleReference(ModuleDefinition module)
+    {
+        lock (module.ModuleReferences)
+        {
+            foreach (var reference in module.ModuleReferences)
+            {
+                if (reference.Name == "__Internal")
+                    return reference;
+            }
+
+            var created = new ModuleReference("__Internal");
+            module.ModuleReferences.Add(created);
+            return created;
+        }
+    }
+
     private static void CopyMethodsInType(TypeAnalysisContext typeContext, TypeDefinition ilTypeDefinition)
     {
         foreach (var methodCtx in typeContext.Methods)
@@ -423,6 +443,22 @@ public static class AsmResolverAssemblyPopulator
 
             methodCtx.PutExtraData("AsmResolverMethod", managedMethod);
             ilTypeDefinition.Methods.Add(managedMethod);
+
+            // AssetRipper: a P/Invoke keeps its PinvokeImpl flag in il2cpp metadata but not its import
+            // map, so it came out as `static extern` with no [DllImport] - which compiles, with a warning,
+            // and has nothing to bind to at run time. On iOS the answer is not a guess: the player links
+            // native code statically and every P/Invoke is `__Internal`, entry point the method's own name.
+            // Measured against the upstream RFLib_DotNet_2018_ios.dll the JellyBlast source ships: 55 of 55.
+            // Other platforms name a library the metadata does not keep, so they are left as they were.
+            if (managedMethod.Attributes.HasFlag(MethodAttributes.PInvokeImpl)
+                && managedMethod.ImplementationMap is null
+                && typeContext.AppContext.Binary is LibCpp2IL.MachO.MachOFile
+                && ilTypeDefinition.DeclaringModule is { } declaringModule)
+            {
+                managedMethod.ImplementationMap = new ImplementationMap(
+                    InternalModuleReference(declaringModule), methodCtx.Name, ImplementationMapAttributes.CallConvWinapi);
+                Interlocked.Increment(ref PInvokeImportsRestored);
+            }
         }
     }
 

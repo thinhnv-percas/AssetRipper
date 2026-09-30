@@ -155,6 +155,14 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     now `!(a == a && b == b)`. 134 of those expressions on JellyBlastV2 became 0; PathCreator's Roslyn
     errors 474 → 372.
 
+20. **A P/Invoke lost its import map** (iteration 063) — `AsmResolverAssemblyPopulator.CopyMethodsInType`.
+    il2cpp metadata keeps a P/Invoke's `PinvokeImpl` flag and not its module or entry point, so every
+    one was written as `static extern` with no `[DllImport]`: it compiles, with a warning, and binds to
+    nothing at run time. On an Apple build the answer is certain - native code is linked statically
+    and every P/Invoke is `__Internal` with the method's own name, 55 of 55 in the upstream
+    `RFLib_DotNet_2018_ios.dll` - so a Mach-O build gets that import map; other platforms name a
+    library the metadata does not keep and are left alone. 131 on JellyBlastV2.
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked
