@@ -43,10 +43,19 @@ public static class ShaderProgramProbe
 		Undecodable,
 
 		/// <summary>
-		/// A compiled Metal library. Not source, and not reachable by extraction: see
-		/// <see cref="IMetalShaderDecompiler"/>, which is declared and deliberately unimplemented.
+		/// A compiled Metal library (Apple's <c>MTLB</c> header). Not source, and not reachable by
+		/// extraction: see <see cref="IMetalShaderDecompiler"/>, which is declared and deliberately unimplemented.
 		/// </summary>
 		MetalLibrary,
+
+		/// <summary>
+		/// Iteration 063: Metal Shading Language source inside Unity's own program container
+		/// (<c>0x0C0A75BA</c>). Unity ships a Metal program as MSL and the driver compiles it on the device
+		/// unless the build precompiled it to a library - which JellyBlast's did not: 778 of its 778 Metal
+		/// programs are MSL, and the other 382 entries are their parameter blocks. It is source, but not
+		/// source ShaderLab can hold, so it is extracted and never embedded as a GLSLPROGRAM.
+		/// </summary>
+		MetalSourceText,
 	}
 
 	public sealed record SubProgramEvidence(
@@ -80,7 +89,11 @@ public static class ShaderProgramProbe
 	[
 		"#version", "void main", "gl_Position", "gl_FragColor", "attribute ", "varying ",
 		"uniform ", "precision ", "highp ", "mediump ", "texture2D", "SV_POSITION", "cbuffer",
+		MetalSourceMarker,
 	];
+
+	/// <summary>The first line of every MSL program HLSLcc writes for Unity.</summary>
+	private const string MetalSourceMarker = "#include <metal_stdlib>";
 
 	/// <summary>
 	/// Probed evidence per shader, so the exporter and the report read the same decompression rather
@@ -181,6 +194,33 @@ public static class ShaderProgramProbe
 		_ => null,
 	};
 
+	/// <summary>
+	/// Iteration 063: where each sub-program's decompressed bytes are written, when set. A compiled
+	/// program's container (Unity's own, around a Metal library or a shading-language source) can only
+	/// be described from its bytes, and the export never writes them anywhere.
+	/// </summary>
+	private static readonly string? ProgramDumpDirectory = Environment.GetEnvironmentVariable("ASSETRIPPER_DUMP_SHADER_PROGRAMS");
+
+	private static void DumpProgram(string shader, int platform, string backend, int entry, byte[] blob, int offset, int length)
+	{
+		if (string.IsNullOrEmpty(ProgramDumpDirectory) || offset < 0 || length <= 0 || offset + length > blob.Length)
+		{
+			return;
+		}
+
+		try
+		{
+			string safe = string.Concat(shader.Select(c => char.IsLetterOrDigit(c) || c is '-' or '_' ? c : '_'));
+			string directory = Path.Combine(ProgramDumpDirectory, safe);
+			Directory.CreateDirectory(directory);
+			File.WriteAllBytes(Path.Combine(directory, $"{platform}_{backend}_{entry:D4}.bin"), blob.AsSpan(offset, length).ToArray());
+		}
+		catch (IOException)
+		{
+			// A dump is a measurement aid; failing to write one must not change the export.
+		}
+	}
+
 	private static ShaderEvidence ProbeUncached(IShader shader)
 	{
 		string name = shader.Has_ParsedForm() ? shader.ParsedForm.Name.String : "";
@@ -213,7 +253,10 @@ public static class ShaderProgramProbe
 				// sub-program's BlobIndex names. A running counter across platforms would look the
 				// same in the report and point at the wrong program.
 				for (int entry = 0; entry < entries.Count; entry++)
+				{
 					found.Add(Classify(platform, backend, entry, entries[entry].Offset, entries[entry].Length, decompressed));
+					DumpProgram(name, platform, backend, entry, decompressed, entries[entry].Offset, entries[entry].Length);
+				}
 			}
 
 			return new ShaderEvidence(name, true, compressed.Length, platformCount, shape, found, null);
@@ -457,10 +500,18 @@ public static class ShaderProgramProbe
 		// compiled to Metal is a Metal library whether or not Unity kept Apple's own header on it,
 		// and 870 of one fixture's carry enough printable name table to read as text otherwise.
 		var metal = MetalShaderLibrary.Read(bytes);
-		bool isMetal = metal.IsMetalLibrary
-			|| string.Equals(backend, nameof(GPUPlatform.Metal), StringComparison.Ordinal);
+		bool metalBackend = string.Equals(backend, nameof(GPUPlatform.Metal), StringComparison.Ordinal);
+		bool isMetal = metal.IsMetalLibrary || metalBackend;
 
-		ProgramEncoding encoding = isMetal
+		// Iteration 063: the backend decides the family, and within Metal the bytes decide which member:
+		// Apple's library header is a library, MSL source is source. The earlier rule - any Metal entry is
+		// a library - was measured, not assumed, to be wrong on the one Metal fixture: its programs are MSL.
+		// The marker is the whole first line of every such program, not a word a name table could hold.
+		ProgramEncoding encoding = metal.IsMetalLibrary
+			? ProgramEncoding.MetalLibrary
+			: metalBackend && markers.Contains(MetalSourceMarker)
+			? ProgramEncoding.MetalSourceText
+			: isMetal
 			? ProgramEncoding.MetalLibrary
 			: markers.Count > 0
 				? ProgramEncoding.SourceText

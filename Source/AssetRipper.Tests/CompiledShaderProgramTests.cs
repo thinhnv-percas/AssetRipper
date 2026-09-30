@@ -47,6 +47,35 @@ public sealed class CompiledShaderProgramTests
 		});
 	}
 
+	/// <summary>
+	/// Iteration 063: Unity ships a Metal program it did not precompile as MSL inside its own container,
+	/// and that is source - 778 of JellyBlast's 778 Metal programs. It is not ShaderLab's to embed.
+	/// </summary>
+	[Test]
+	public void MetalShadingLanguageInUnitysContainerIsSourceOutsideShaderLab()
+	{
+		byte[] container = [0xBA, 0x75, 0x0A, 0x0C, 0x18, 0, 0, 0, .. new byte[24],
+			.. Encoding.ASCII.GetBytes("xlatMtlMain\0#include <metal_stdlib>\nusing namespace metal;\n" +
+				"fragment half4 xlatMtlMain(float4 p [[ position ]]) { return half4(1); }\n")];
+		var program = CompiledShaderProgram.From("Metal", container);
+		Assert.Multiple(() =>
+		{
+			Assert.That(program, Is.TypeOf<MetalSourceProgram>());
+			Assert.That(program.Recoverability, Is.EqualTo(ProgramRecoverability.SourceOutsideShaderLab));
+			Assert.That(program.SourceText, Does.StartWith("#include <metal_stdlib>"));
+			Assert.That(program.SourceText, Does.Contain("fragment half4 xlatMtlMain"));
+		});
+	}
+
+	/// <summary>A Metal parameter block names its constants and is not a program.</summary>
+	[Test]
+	public void AMetalParameterBlockIsNotSource()
+	{
+		byte[] block = [0xBA, 0x75, 0x0A, 0x0C, .. Encoding.ASCII.GetBytes("\0VGlobals\0unity_ObjectToWorld\0unity_MatrixVP\0")];
+		var program = CompiledShaderProgram.From("Metal", block);
+		Assert.That(program.SourceText, Is.Null);
+	}
+
 	[Test]
 	public void DxbcAndSpirvAreRecognisedBySignature()
 	{

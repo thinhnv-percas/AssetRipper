@@ -12,6 +12,9 @@ public enum CompiledProgramKind
 	/// <summary>A compiled Metal library.</summary>
 	MetalBinary,
 
+	/// <summary>Metal Shading Language source, which is how Unity ships a Metal program it did not precompile.</summary>
+	MslSource,
+
 	/// <summary>Direct3D bytecode.</summary>
 	Dxbc,
 
@@ -39,6 +42,12 @@ public enum ProgramRecoverability
 
 	/// <summary>Not established.</summary>
 	Unknown,
+
+	/// <summary>
+	/// The program is source, in a language ShaderLab has no block for (Metal Shading Language). It is
+	/// extracted and compared, never written into the pass: a GLSLPROGRAM holding MSL would not compile.
+	/// </summary>
+	SourceOutsideShaderLab,
 }
 
 /// <summary>
@@ -54,8 +63,8 @@ public enum ProgramRecoverability
 /// <c>GLSLPROGRAM</c> block.
 /// </para>
 /// <para>
-/// <see cref="SourceText"/> is non-null for <see cref="GLSLSourceProgram"/> and for nothing else, by
-/// construction: none of the other types has a way to carry text.
+/// <see cref="SourceText"/> is non-null for <see cref="GLSLSourceProgram"/> and <see cref="MetalSourceProgram"/>
+/// and for nothing else, by construction; only the first is ShaderLab's to hold.
 /// </para>
 /// </remarks>
 public interface ICompiledShaderProgram
@@ -80,6 +89,14 @@ public sealed record MetalBinaryProgram(string Backend, int Length) : ICompiledS
 	public CompiledProgramKind Kind => CompiledProgramKind.MetalBinary;
 	public ProgramRecoverability Recoverability => ProgramRecoverability.BinaryOnly;
 	public string? SourceText => null;
+}
+
+/// <summary>Metal Shading Language source, extracted from Unity's program container.</summary>
+public sealed record MetalSourceProgram(string Backend, int Length, string SourceText) : ICompiledShaderProgram
+{
+	public CompiledProgramKind Kind => CompiledProgramKind.MslSource;
+	public ProgramRecoverability Recoverability => ProgramRecoverability.SourceOutsideShaderLab;
+	string? ICompiledShaderProgram.SourceText => SourceText;
 }
 
 public sealed record DXBCProgram(string Backend, int Length) : ICompiledShaderProgram
@@ -131,6 +148,9 @@ public static class CompiledShaderProgram
 		if (evidence.Encoding == ShaderProgramProbe.ProgramEncoding.MetalLibrary)
 			return new MetalBinaryProgram(backend, bytes.Length);
 
+		if (evidence.Encoding == ShaderProgramProbe.ProgramEncoding.MetalSourceText)
+			return new MetalSourceProgram(backend, bytes.Length, ShaderProgramProbe.SourceTextOfBytes(bytes.ToArray()));
+
 		// Unity puts its own header in front of the container, so the magic is looked for near the
 		// start rather than at offset zero - and only near it, so a byte pattern deep inside some
 		// other format cannot claim the program.
@@ -164,6 +184,8 @@ public static class CompiledShaderProgram
 		{
 			case ShaderProgramProbe.ProgramEncoding.MetalLibrary:
 				return (CompiledProgramKind.MetalBinary, ProgramRecoverability.BinaryOnly);
+			case ShaderProgramProbe.ProgramEncoding.MetalSourceText:
+				return (CompiledProgramKind.MslSource, ProgramRecoverability.SourceOutsideShaderLab);
 			case ShaderProgramProbe.ProgramEncoding.SourceText:
 				return (CompiledProgramKind.GlslSource, ProgramRecoverability.Source);
 		}

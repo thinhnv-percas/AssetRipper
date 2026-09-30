@@ -45,6 +45,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 		int source = 0;
 		int binary = 0;
 		int metal = 0;
+		int metalSource = 0;
 		int unknown = 0;
 
 		foreach (var shader in evidence)
@@ -58,6 +59,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 					case ShaderProgramProbe.ProgramEncoding.SourceText: source++; break;
 					case ShaderProgramProbe.ProgramEncoding.Binary: binary++; break;
 					case ShaderProgramProbe.ProgramEncoding.MetalLibrary: metal++; break;
+					case ShaderProgramProbe.ProgramEncoding.MetalSourceText: metalSource++; break;
 					default: unknown++; break;
 				}
 			}
@@ -65,7 +67,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 
 		Logger.Info(LogCategory.Export,
 			$"Shader programs: {programs} sub-programs across {evidence.Count} shaders - " +
-			$"{source} shading-language source, {binary} binary, {metal} Metal library, " +
+			$"{source} shading-language source, {metalSource} Metal Shading Language source, {binary} binary, {metal} Metal library, " +
 			$"{unknown} not established. " +
 			$"Written to AuxiliaryFiles/{FileName}.");
 	}
@@ -110,7 +112,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 
 			foreach (var row in ShaderBlobMapping.Read(shader))
 			{
-				if (row.ProgramEncoding != "SOURCETEXT")
+				if (row.ProgramEncoding is not ("SOURCETEXT" or "METALSOURCETEXT"))
 				{
 					continue;
 				}
@@ -147,7 +149,8 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 					created = true;
 				}
 
-				string name = $"ShaderVariants/{Sanitise(row.Shader)}_{row.SubShader}_{row.Pass}_{row.Stage}_{row.Backend}_{row.BlobIndex}.glsl";
+				string extension = row.ProgramEncoding == "METALSOURCETEXT" ? "metal" : "glsl";
+				string name = $"ShaderVariants/{Sanitise(row.Shader)}_{row.SubShader}_{row.Pass}_{row.Stage}_{row.Backend}_{row.BlobIndex}.{extension}";
 				fileSystem.File.WriteAllText(fileSystem.Path.Join(settings.AuxiliaryFilesPath, name), text);
 				byContent[key] = name;
 				budget += text.Length;
@@ -248,7 +251,7 @@ public sealed class ShaderProgramPostExporter : IPostExporter
 
 			foreach (var program in probed.SubPrograms)
 			{
-				if (program.Encoding != ShaderProgramProbe.ProgramEncoding.SourceText)
+				if (program.Encoding is not (ShaderProgramProbe.ProgramEncoding.SourceText or ShaderProgramProbe.ProgramEncoding.MetalSourceText))
 					continue;
 
 				if (ShaderProgramProbe.TextOf(shader, program) is not { Length: > 0 } text)

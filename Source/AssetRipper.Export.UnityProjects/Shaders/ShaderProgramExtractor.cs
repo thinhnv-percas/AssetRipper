@@ -58,7 +58,7 @@ public static class ShaderProgramExtractor
 				builder.Append(", \"textOffset\": ").Append(program.TextOffset);
 				builder.Append(", \"textLength\": ").Append(program.TextLength);
 				builder.Append(", \"payload\": ").Append(
-					program.Encoding == ShaderProgramProbe.ProgramEncoding.SourceText
+					program.Encoding is ShaderProgramProbe.ProgramEncoding.SourceText or ShaderProgramProbe.ProgramEncoding.MetalSourceText
 						? Quote(PayloadFileName(shader.Shader, program))
 						: "null");
 				builder.Append('}');
@@ -103,7 +103,8 @@ public static class ShaderProgramExtractor
 		foreach (char character in shader)
 			builder.Append(char.IsLetterOrDigit(character) ? character : '_');
 
-		builder.Append('_').Append(program.Backend).Append('_').Append(program.Index).Append(".glsl");
+		builder.Append('_').Append(program.Backend).Append('_').Append(program.Index)
+			.Append(program.Encoding == ShaderProgramProbe.ProgramEncoding.MetalSourceText ? ".metal" : ".glsl");
 		return builder.ToString();
 	}
 
