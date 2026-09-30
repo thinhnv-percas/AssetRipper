@@ -1,0 +1,43 @@
+build assemblies: 56  {"SOURCE_MISMATCH": 5, "NO_SOURCE": 45, "LIKELY_MATCH": 1, "PROVEN_BUILD_MATCH": 5}
+  SOURCE_MISMATCH      Assembly-CSharp              <- Assembly-CSharp                members 1745/1975 (0.8835) types missing 19  generated missing 704/708
+      AdsPage
+      FBWindowsA2UNotificationsManager
+      FBWindowsADSManager
+      AdsPage|field|INTERSTITIAL_PLACEMENT_ID|0|String
+      AdsPage|field|VIDEO_PLACEMENT_ID|0|String
+      AdsPage|field|_logScroller|0|LogScroller
+  SOURCE_MISMATCH      Assembly-CSharp-firstpass    <- Demigiant.DOTween              members 204/269 (0.7584) types missing 5  generated missing 4/348
+      ClosedPathCollider
+      DebugSDF
+      EarClipTriangulator
+      ClosedPathCollider|field|_pathCreator|0|PathCreation.PathCreator
+      ClosedPathCollider|field|_polyCollider|0|UnityEngine.PolygonCollider2D
+      ClosedPathCollider|field|resolution|0|Int32
+  LIKELY_MATCH         PathCreator                  <- PathCreator                    members 235/239 (0.9833) types missing 0  generated missing 8/13
+      PathCreation.BezierPath|method|.ctor|0|
+      PathCreation.PathCreatorData|field|showAllPointsInspector|0|Boolean
+      PathCreation.Utility.MathUtility|method|ConstrainPosRot|0|UnityEngine.Vector3&,UnityEngine.Quaternion&,PathCreation.PathSpace
+  SOURCE_MISMATCH      RayFireAssembly              <- RayFireAssembly                members 2922/2956 (0.9885) types missing 1  generated missing 227/483
+      RayFire.RayfireShatter/FragLastMode
+      RayFire.RFDemolitionCluster|method|UpdateOriginalClusterOLD|0|RayFire.RayfireRigid
+      RayFire.RFDemolitionMesh|method|CacheRuntime|0|RayFire.RayfireRigid
+      RayFire.RFDemolitionMesh|method|DemolishMesh|0|RayFire.RayfireRigid
+  SOURCE_MISMATCH      Unity.Burst                  <- Unity.Burst                    members 417/425 (0.9812) types missing 2  generated missing 2/16
+      Unity.Burst.BurstCompiler/BurstCompilerHelper
+      Unity.Burst.BurstCompiler/BurstCompilerHelper/IsBurstEnabledDelegate
+      Unity.Burst.BurstCompiler/BurstCompilerHelper|field|IsBurstEnabledImpl|0|Unity.Burst.BurstCompiler/BurstCompilerHelper/IsBurstEnabledDelegate
+      Unity.Burst.BurstCompiler/BurstCompilerHelper|field|IsBurstGenerated|0|Boolean
+      Unity.Burst.BurstCompiler/BurstCompilerHelper|method|.cctor|0|
+  SOURCE_MISMATCH      Unity.Collections            <- Unity.Collections              members 405/1014 (0.3994) types missing 61  generated missing 9/16
+      Unity.Collections.AllocatorManager/SharedStatics/IsAutoDispose
+      Unity.Collections.AllocatorManager/SlabAllocator/Try_000000B9$BurstDirectCall
+      Unity.Collections.AllocatorManager/SlabAllocator/Try_000000B9$PostfixBurstDelegate
+      Unity.Collections.AllocatorManager|field|FirstGlobalScratchpadAllocatorIndex|0|UInt32
+      Unity.Collections.AllocatorManager|field|GlobalAllocatorBaseIndex|0|UInt32
+      Unity.Collections.AllocatorManager|field|MaxNumGlobalAllocators|0|UInt16
+  PROVEN_BUILD_MATCH   Unity.Mathematics            <- Unity.Mathematics              members 177/177 (1.0) types missing 0  generated missing 0/0
+  PROVEN_BUILD_MATCH   Unity.TextMeshPro            <- Unity.TextMeshPro              members 3047/3047 (1.0) types missing 0  generated missing 52/149
+  PROVEN_BUILD_MATCH   Unity.VisualScripting.Core   <- Unity.VisualScripting.Core     members 1205/1205 (1.0) types missing 0  generated missing 9/296
+  PROVEN_BUILD_MATCH   UnityEngine.UI               <- UnityEngine.UI                 members 2573/2573 (1.0) types missing 0  generated missing 52/187
+  PROVEN_BUILD_MATCH   Voodoo.UI.Particles          <- Voodoo.UI.Particles            members 160/160 (1.0) types missing 0  generated missing 2/45
+  NO_SOURCE: DOTween Facebook.Unity Facebook.Unity.IOS Facebook.Unity.Settings GameAnalyticsSDK Mono.Security Newtonsoft.Json RFLib_DotNet_2018_ios System System.Configuration System.Core System.Data System.Drawing System.Numerics System.Runtime.Serialization System.Xml System.Xml.Linq Unity.Burst.Unsafe UnityEngine.AndroidJNIModule UnityEngine.AnimationModule UnityEngine.AudioModule UnityEngine.CoreModule UnityEngine.GameCenterModule UnityEngine.GridModule UnityEngine.IMGUIModule UnityEngine.ImageConversionModule UnityEngine.InputLegacyModule UnityEngine.JSONSerializeModule UnityEngine.ParticleSystemModule UnityEngine.Physics2DModule UnityEngine.PhysicsModule UnityEngine.PropertiesModule UnityEngine.SharedInternalsModule UnityEngine.SpriteShapeModule UnityEngine.TextCoreFontEngineModule UnityEngine.TextCoreTextEngineModule UnityEngine.TextRenderingModule UnityEngine.TilemapModule UnityEngine.UIElementsModule UnityEngine.UIModule UnityEngine.UnityWebRequestModule UnityEngine.UnityWebRequestTextureModule UnityEngine.UnityWebRequestWWWModule __Generated mscorlib
