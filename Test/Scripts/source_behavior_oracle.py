@@ -139,6 +139,7 @@ def recovered_behavior(contract: dict) -> dict:
         "loops": len(contract["control"]["loop_headers"]),
         "branches": contract["control"]["branches"],
         "throws": contract["throws"],
+        "arithmetic": contract.get("arithmetic", 0),
     }
 
 
@@ -174,6 +175,16 @@ def verdict(source: dict, found: dict, declared_fields: set[str], project_member
                 return "SEMANTICALLY_EQUIVALENT", [
                     f"the body is {found['native_length']} bytes of machine code and reaches no "
                     "runtime boundary, so what the source calls was inlined"]
+
+            # A source that reaches only framework calls (which il2cpp inlines) and no state of its own
+            # is a computation, and a recovered body that computes - arithmetic, every call resolved - is
+            # not a stand-in. Whether it computes the *same* value is a question this contract, which
+            # compares effects and calls, cannot answer. FALLBACK would claim an answer; this says so.
+            framework_only = not (source["calls"] & project_members) and not source["field_writes"]
+            if framework_only and found.get("arithmetic", 0) > 0 and calls_complete:
+                return "UNDECIDED_ARITHMETIC", [
+                    f"the body is {found['arithmetic']} arithmetic operations and the source reaches only "
+                    "framework calls; effects and calls cannot decide whether the values agree"]
 
             return "FALLBACK", ["recovered body reaches no effect and no call"]
         return "EXACT", []
@@ -295,6 +306,14 @@ def self_test() -> int:
         ("a backing field written by an inlined setter",
          {**base_source, "field_writes": {"hp", "State"}},
          {**base_found, "field_writes": {"hp", "_state"}}, "EXACT"),
+        ("a computation of framework calls, recovered as arithmetic",
+         {**base_source, "field_writes": set(), "field_reads": set(), "calls": {"Clamp01"}},
+         {**base_found, "field_writes": set(), "field_reads": set(), "calls": set(), "arithmetic": 12},
+         "UNDECIDED_ARITHMETIC", True),
+        ("the same, with an unresolved call in the body",
+         {**base_source, "field_writes": set(), "field_reads": set(), "calls": {"Clamp01"}},
+         {**base_found, "field_writes": set(), "field_reads": set(), "calls": set(), "arithmetic": 12},
+         "FALLBACK", False),
         ("a project call unnamed, calls not known complete",
          base_source, {**base_found, "calls": set()}, "PARTIAL", False),
         ("a project call unnamed, every call the body makes resolved",
@@ -381,9 +400,9 @@ def main() -> int:
         if arguments.verbose and status not in ("EXACT", "SEMANTICALLY_EQUIVALENT"):
             print(f"{status:24} {type_name}.{name}  {'; '.join(notes)}")
 
-    compared = sum(count for status, count in counts.items() if status != "NOT_AVAILABLE")
+    compared = sum(count for status, count in counts.items() if status not in ("NOT_AVAILABLE", "UNDECIDED_ARITHMETIC"))
 
-    for status in ("EXACT", "SEMANTICALLY_EQUIVALENT", "PARTIAL", "MISMATCH", "FALLBACK", "NOT_AVAILABLE"):
+    for status in ("EXACT", "SEMANTICALLY_EQUIVALENT", "PARTIAL", "MISMATCH", "FALLBACK", "UNDECIDED_ARITHMETIC", "NOT_AVAILABLE"):
         print(f"{status:24} {counts[status]}")
 
     if compared:

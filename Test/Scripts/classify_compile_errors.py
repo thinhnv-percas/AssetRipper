@@ -80,6 +80,9 @@ BARE_ERROR = re.compile(r"error (?P<code>CS\d+): (?P<message>.*)$")
 # 'Owner' does not contain a definition for 'member'
 NO_DEFINITION = re.compile(r"^'(?P<owner>[^']+)' does not contain a definition for '(?P<member>[^']+)'")
 # 'Owner.member' is inaccessible due to its protection level
+# CS0617 names the argument and not the attribute: "'order' is not a valid named attribute argument".
+NAMED_ARGUMENT = re.compile(r"^'(?P<member>[^']+)' is not a valid named attribute argument")
+ATTRIBUTE_CALL = re.compile(r"(?P<name>[A-Za-z_][\w.]*)\s*\(")
 INACCESSIBLE = re.compile(r"^'(?P<name>[^']+)' is inaccessible due to its protection level")
 # The type or namespace name 'X' could not be found
 MISSING_TYPE = re.compile(r"type or namespace name '(?P<name>[^']+)'")
@@ -162,7 +165,36 @@ def owner_and_member(code, message):
         return simple_name(name), name
     return None, None
 
-def classify(code, message, ours, references_complete, visibility):
+def attribute_at(path, line, column):
+    """The attribute whose argument list holds the given position, as its type name (`FooAttribute`).
+
+    CS0617 is a lookup failure like any other - the named argument is a property the compiler looked for
+    on the attribute and did not find - but its message names only the argument. The attribute is the
+    innermost call opened before the column on that line and not yet closed.
+    """
+    try:
+        with open(path, encoding="utf-8", errors="replace") as handle:
+            text = handle.readlines()[int(line) - 1][: int(column) - 1]
+    except (OSError, IndexError, ValueError):
+        return None
+    open_calls = []
+    depth_at = []
+    for index, ch in enumerate(text):
+        if ch == "(":
+            match = None
+            for candidate in ATTRIBUTE_CALL.finditer(text[: index + 1]):
+                if candidate.end() == index + 1:
+                    match = candidate
+            open_calls.append(match.group("name").split(".")[-1] if match else None)
+        elif ch == ")" and open_calls:
+            open_calls.pop()
+    name = next((n for n in reversed(open_calls) if n), None)
+    if name is None:
+        return None
+    return name if name.endswith("Attribute") else name + "Attribute"
+
+
+def classify(code, message, ours, references_complete, visibility, attribute=None):
     """Return (category, reason). Precedence is deliberate; see the module docstring."""
     if code in TOOLCHAIN_CODES:
         return TOOLCHAIN_ERROR, "compiler could not read an input"
@@ -172,6 +204,25 @@ def classify(code, message, ours, references_complete, visibility):
     # A name the decompiler invented cannot be supplied by any reference set, whatever the code.
     if MANGLED.search(message):
         return DECOMPILER_ERROR, "names a decompiler-mangled identifier"
+
+    if code == "CS0617" and attribute is not None and NAMED_ARGUMENT.match(message):
+        member = NAMED_ARGUMENT.match(message).group("member")
+        if attribute in ours:
+            return DECOMPILER_ERROR, "a named argument of an attribute this export declares"
+        # A named argument must be a writable field or a *read-write* property. IL2CPP strips an accessor
+        # nothing calls - for an attribute's named argument that is the getter, since the build only ever
+        # constructs it - so the property is write-only in the build's assemblies. Both accessors are asked
+        # about. `CreateAssetMenuAttribute.order` on JellyBlast: getter absent, setter present.
+        seen = visibility.get((attribute, member))
+        getter = visibility.get((attribute, "get_" + member))
+        setter = visibility.get((attribute, "set_" + member))
+        if seen != "ABSENT" and "ABSENT" in (getter, setter):
+            return REFERENCE_ERROR, "a named attribute argument whose accessor is absent from the reference assemblies - stripped from the build"
+        if seen == "ABSENT":
+            return REFERENCE_ERROR, "a named attribute argument absent from the reference assemblies - stripped from the build"
+        if seen in ("PRESENT_PUBLIC", "PRESENT_NONPUBLIC"):
+            return DECOMPILER_ERROR, "a named attribute argument the attribute declares but C# cannot set"
+        return UNCLASSIFIED, "named attribute argument, and Test/Tools/MemberVisibility could not say"
 
     if code in LOOKUP_CODES:
         owner, member = owner_and_member(code, message)
@@ -220,10 +271,17 @@ def main():
         for raw in handle:
             match = ERROR_LINE.match(raw.rstrip("\n")) or BARE_ERROR.search(raw)
             if match:
-                diagnostics.append((match.group("code"), match.group("message")))
+                attribute = None
+                if match.group("code") == "CS0617" and "file" in match.re.groupindex:
+                    attribute = attribute_at(match.group("file"), match.group("line"), match.group("col"))
+                diagnostics.append((match.group("code"), match.group("message"), attribute))
 
     queries = set()
-    for code, message in diagnostics:
+    for code, message, attribute in diagnostics:
+        if code == "CS0617" and attribute is not None and NAMED_ARGUMENT.match(message) and attribute not in ours:
+            queries.add((attribute, NAMED_ARGUMENT.match(message).group("member")))
+            queries.add((attribute, "set_" + NAMED_ARGUMENT.match(message).group("member")))
+            queries.add((attribute, "get_" + NAMED_ARGUMENT.match(message).group("member")))
         if code in LOOKUP_CODES and code != "CS0122" and not MANGLED.search(message):
             owner, member = owner_and_member(code, message)
             if owner is not None and owner not in ours:
@@ -235,8 +293,8 @@ def main():
     reasons = {}
     examples = {}
 
-    for code, message in diagnostics:
-        category, reason = classify(code, message, ours, references_complete, visibility)
+    for code, message, attribute in diagnostics:
+        category, reason = classify(code, message, ours, references_complete, visibility, attribute)
         counts[category] += 1
         per_code[category][code] += 1
         reasons.setdefault((category, code), reason)

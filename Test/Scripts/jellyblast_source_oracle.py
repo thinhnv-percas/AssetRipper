@@ -246,7 +246,7 @@ def main():
             behaviour[be_status] += 1
             methods.append({"type": type_name, "method": name, "arity": arity,
                             "operation": op_status, "behaviour": be_status, "notes": notes[:4]})
-            if args.verbose and be_status not in ("EXACT", "SEMANTICALLY_EQUIVALENT", "NOT_AVAILABLE", "NOT_IN_BUILD"):
+            if args.verbose and be_status not in ("EXACT", "SEMANTICALLY_EQUIVALENT", "NOT_AVAILABLE", "NOT_IN_BUILD", "UNDECIDED_ARITHMETIC"):
                 print(f"    {assembly}: {type_name}.{name}/{arity} {be_status} {'; '.join(notes[:3])}")
 
         result["operation"] = dict(operation)
@@ -261,7 +261,7 @@ def main():
     for r in rows:
         if "behaviour" in r:
             be, op = r["behaviour"], r["operation"]
-            be_cmp = sum(v for k, v in be.items() if k not in ("NOT_AVAILABLE", "NOT_IN_BUILD"))
+            be_cmp = sum(v for k, v in be.items() if k not in ("NOT_AVAILABLE", "NOT_IN_BUILD", "UNDECIDED_ARITHMETIC"))
             be_good = be.get("EXACT", 0) + be.get("SEMANTICALLY_EQUIVALENT", 0)
             op_cmp = sum(v for k, v in op.items() if k != source_oracle.ABSENT)
             op_good = op.get("EXACT", 0) + op.get("SEMANTICALLY_EQUIVALENT", 0)
@@ -276,7 +276,7 @@ def main():
         if not t:
             print(f"{oracle}: no compared assembly")
             continue
-        be_cmp = sum(v for k, v in t.items() if k.startswith("be:") and k not in ("be:NOT_AVAILABLE", "be:NOT_IN_BUILD"))
+        be_cmp = sum(v for k, v in t.items() if k.startswith("be:") and k not in ("be:NOT_AVAILABLE", "be:NOT_IN_BUILD", "be:UNDECIDED_ARITHMETIC"))
         be_good = t["be:EXACT"] + t["be:SEMANTICALLY_EQUIVALENT"]
         rate = f"{be_good / be_cmp:.4f}" if be_cmp else "None"
         print(f"{oracle}: behaviour_equivalence_rate {rate} ({be_good}/{be_cmp}); "

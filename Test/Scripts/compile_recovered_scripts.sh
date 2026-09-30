@@ -171,6 +171,37 @@ if command -v python3 > /dev/null 2>&1 && [ -f "$classifier" ] && [ "$errors" -g
     python3 "$classifier" "$work/log.txt" "$scripts" "$assemblies" ${CLASSIFY_JSON:+--json "$CLASSIFY_JSON"}
 fi
 
+# A declaration error stops Roslyn before it binds any method body, and the one kind the export is not
+# at fault for - a named attribute argument whose accessor IL2CPP stripped from the stub - is enough to
+# hide every body error in the assembly. The body pass removes exactly those arguments from a copy and
+# compiles again, so the count that measures the recovery is visible beside the one that does not.
+neutraliser=$(dirname "$0")/neutralise_stripped_attribute_arguments.py
+if grep -q ': error CS0617: ' "$work/log.txt" && command -v python3 > /dev/null 2>&1 && [ -f "$neutraliser" ]; then
+    mkdir -p "$work/body"
+    removed=$(python3 "$neutraliser" "$work/log.txt" "$scripts" "$assemblies" "$work/body")
+    if [ "${removed:-0}" -gt 0 ]; then
+        : > "$work/body.rsp"
+        while IFS= read -r source; do
+            relative=${source#"$scripts"/}
+            if [ -f "$work/body/$relative" ]; then echo "$work/body/$relative"; else echo "$source"; fi
+        done < "$work/sources.rsp" > "$work/body.rsp"
+        # shellcheck disable=SC2086
+        "$DOTNET" "$csc" -nostdlib -noconfig -nologo -target:library -unsafe+ -langversion:9 \
+            -out:"$work/body.dll" $references "@$work/body.rsp" > "$work/body-log.txt" 2>&1
+        body_errors=$(grep -c ': error ' "$work/body-log.txt")
+        body_faulted=$(grep ': error ' "$work/body-log.txt" | grep -oE '^[^(]+\.cs' | sort -u | wc -l)
+        echo
+        echo "BODY_PASS: $removed stripped attribute arguments neutralised in a copy"
+        echo "$assembly (body pass): $body_errors errors, $((files - body_faulted)) of $files files compile clean"
+        grep -oE ': error CS[0-9]+' "$work/body-log.txt" | sort | uniq -c | sort -rn | head -8 | while read -r count code; do
+            printf '%6d  %s\n' "$count" "${code##*error }"
+        done
+        if [ -n "${BODY_ERRORS_TO:-}" ]; then
+            grep ': error ' "$work/body-log.txt" > "$BODY_ERRORS_TO" || true
+        fi
+    fi
+fi
+
 if [ -n "${KEEP_LOG:-}" ]; then
     cp "$work/log.txt" "$KEEP_LOG"
     echo

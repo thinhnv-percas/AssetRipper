@@ -160,6 +160,9 @@ def contract(body):
         "effects": {key: sorted(set(value)) for key, value in effects.items()},
         "calls": {key: sorted(set(value)) for key, value in calls.items()},
         "allocations": sorted(set(allocations)),
+        # How much of the body is computation, which effects and calls cannot describe: a method that
+        # returns a value computed from its parameters reaches nothing and is still not a stand-in.
+        "arithmetic": sum(1 for operation, *_ in _rows(operations) if operation == "ARITHMETIC"),
         "throws": throws,
         "runtime_boundaries": sorted(set(boundaries)),
         # Which storage each field access went through, which a sequence of operation names cannot
