@@ -57,46 +57,48 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
 
     public override IOperand[] ResolveForManaged(MethodAnalysisContext ctx)
     {
-        var args = new List<IOperand>();
-
-        var integer = 0;
-        var floating = 0;
-        var stack = 0;
-
-        void AddParameter(ParameterAnalysisContext? par)
-        {
-            // AssetRipper: a small aggregate of floats is spread over that many consecutive vector
-            // registers. Only the first can be named as the argument, but the rest are still spoken
-            // for, and counting them is what keeps a later argument pointing at its own register.
-            var floatRegisters = par == null ? 0 : FloatRegisterCount(par.ParameterType);
-
-            if (floatRegisters > 0)
-            {
-                if (floating + floatRegisters <= FloatRegisters.Length)
-                {
-                    args.Add(new Register(null, FloatRegisters[floating]));
-                    floating += floatRegisters;
-                    return;
-                }
-            }
-            else if (integer < IntegerRegisters.Length)
-            {
-                args.Add(new Register(null, IntegerRegisters[integer++]));
-                return;
-            }
-
-            args.Add(new StackOffset(stack));
-            stack += PtrSize;
-        }
+        // AssetRipper: placement is Arm64ArgumentPlacement's, which applies AAPCS64 C.3 (an aggregate
+        // that does not fit sends every later float to the stack) and sizes each stack slot, packed at
+        // natural alignment on Apple platforms.
+        var shapes = new List<Arm64ArgumentPlacement.Shape>();
 
         if (!ctx.IsStatic)
-            AddParameter(null);
+            shapes.Add(Arm64ArgumentPlacement.Shape.Pointer);
 
         foreach (var par in ctx.Parameters)
-            AddParameter(par);
+            shapes.Add(ShapeOf(par.ParameterType));
 
-        AddParameter(null); // The MethodInfo argument
+        shapes.Add(Arm64ArgumentPlacement.Shape.Pointer); // The MethodInfo argument
+
+        var appleStackPacking = ctx.AppContext.Binary is LibCpp2IL.MachO.MachOFile;
+        var args = new List<IOperand>(shapes.Count);
+
+        foreach (var location in Arm64ArgumentPlacement.Place(shapes, appleStackPacking))
+            args.Add(location.OnStack ? new StackOffset(location.StackOffset) : new Register(null, location.Register!));
 
         return args.ToArray();
+    }
+
+    private static Arm64ArgumentPlacement.Shape ShapeOf(TypeAnalysisContext type)
+    {
+        if (IsFloatingPoint(type))
+        {
+            var size = type == type.AppContext.SystemTypes.SystemDoubleType ? 8 : 4;
+            return new(Arm64ArgumentPlacement.Kind.Float, size, 1, size);
+        }
+
+        var members = FloatAggregateMemberCount(type);
+        if (members > 0)
+            return new(Arm64ArgumentPlacement.Kind.FloatAggregate, members * 4, members, 4);
+
+        // A reference, a pointer, or a value type passed in one integer register. Only the stack slot
+        // needs the real size, and only on Apple platforms, where an int takes four bytes rather than eight.
+        if (!type.IsValueType)
+            return Arm64ArgumentPlacement.Shape.Pointer;
+
+        var unboxed = TypeSizes.UnboxedSize(type, PtrSize);
+        return unboxed is > 0 and <= 8 && (unboxed & (unboxed - 1)) == 0
+            ? new(Arm64ArgumentPlacement.Kind.Integer, (int)unboxed, 1, (int)unboxed)
+            : Arm64ArgumentPlacement.Shape.Pointer;
     }
 }
