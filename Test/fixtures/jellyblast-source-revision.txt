@@ -14,3 +14,5 @@ ipa_data_unity3d_sha256=fa4a0905fdc2f5b71abb246ce90ab2f50801b47b2bc89a80db085222
 # Provenance (reports/JELLYBLAST_BUILD_PROVENANCE.md): the source is DERIVED from this IPA.
 # fe27775f ("add demo code", 2026-09-16) is a Cpp2IL + AssetRipper rip of it; later commits edit that rip.
 derivation_root=fe27775f1e73e1e998c79f3a6bf96024f56b722b
+# Assemblies whose source is a recovery of this IPA rather than the programmer's text (derivation above).
+derived_assemblies=Assembly-CSharp,Assembly-CSharp-firstpass

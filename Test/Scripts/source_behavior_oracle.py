@@ -142,7 +142,19 @@ def recovered_behavior(contract: dict) -> dict:
     }
 
 
-def verdict(source: dict, found: dict, declared_fields: set[str], project_members: set[str]) -> tuple[str, list[str]]:
+def backing_name(name: str) -> str:
+    """`_gameState`, `m_GameState` and `GameState` are one member under the usual backing-field names."""
+    if name.startswith("m_"):
+        name = name[2:]
+    return name.lstrip("_").lower()
+
+
+def verdict(source: dict, found: dict, declared_fields: set[str], project_members: set[str],
+            calls_complete: bool = False) -> tuple[str, list[str]]:
+    """`calls_complete`: every call the machine code makes is named in the recovered body - no runtime
+    boundary and no placeholder of any kind. Then a project call the source makes and the body does not
+    name is absent from the machine code itself: the native compiler inlined it, exactly as it inlines
+    framework calls. Without that evidence the two cases stay apart. Off unless the caller has checked."""
     notes = []
 
     # A coroutine's body is not in the method at all: the compiler moved it into a state machine and
@@ -170,9 +182,17 @@ def verdict(source: dict, found: dict, declared_fields: set[str], project_member
     # compiles to. Counting it as a lost field write reported every `transform.position = …` and
     # every `Time.timeScale = 0` as unrecovered while the setter call was right there.
     setters = {name[len("set_"):] for name in found["calls"] if name.startswith("set_")}
-    written = found["field_writes"] | setters | found["property_writes"]
+    # `OnModified += handler` subscribes to an event: the compiler writes it as a call to `add_OnModified`
+    # (or `remove_`), so the "write" the source text shows is that call.
+    accessors = {name[len("add_"):] for name in found["calls"] if name.startswith("add_")}
+    accessors |= {name[len("remove_"):] for name in found["calls"] if name.startswith("remove_")}
+    written = found["field_writes"] | setters | found["property_writes"] | accessors
 
     lost_writes = source["field_writes"] - written
+    # The other side of the inlined-accessor rule below: the source's property write is the recovered
+    # body's store to that property's backing field.
+    stored = {backing_name(name) for name in written}
+    lost_writes = {name for name in lost_writes if backing_name(name) not in stored}
     lost_reads = source["field_reads"] - found["field_reads"]
     lost_calls = source["calls"] - found["calls"]
 
@@ -180,6 +200,15 @@ def verdict(source: dict, found: dict, declared_fields: set[str], project_member
     # recovered body writes the members of value-typed temporaries - the x, y and z of a Vector3 that
     # an inlined `MoveTowards` computed - and those are not state a reader could observe.
     invented_writes = (found["field_writes"] & declared_fields) - source["field_writes"]
+    # A property the source reads or writes is compiled to an accessor, and an accessor that il2cpp
+    # inlined writes its backing field in the caller: `GameState = Win` becomes a store to `_gameState`,
+    # and a lazy getter (`text => _text ??= GetComponent<...>()`) stores on a read. The pairing is by
+    # the backing-field naming convention (`_x`, `m_X`, `x`), and only for a member the source names.
+    named_by_source = {backing_name(name) for name in source["field_writes"] | source["field_reads"]}
+    explained = {name for name in invented_writes if backing_name(name) in named_by_source}
+    if explained:
+        notes.append(f"writes an inlined accessor makes: {sorted(explained)}")
+        invented_writes -= explained
 
     if lost_writes:
         notes.append(f"writes not recovered: {sorted(lost_writes)}")
@@ -192,6 +221,9 @@ def verdict(source: dict, found: dict, declared_fields: set[str], project_member
     # than one of them being assumed.
     lost_own_calls = lost_calls & project_members
     lost_framework_calls = lost_calls - project_members
+    if calls_complete and lost_own_calls:
+        notes.append(f"calls absent from the machine code (every call the body makes is resolved): {sorted(lost_own_calls)}")
+        lost_own_calls = set()
 
     if lost_own_calls:
         notes.append(f"calls into this project not named: {sorted(lost_own_calls)}")
@@ -232,7 +264,7 @@ def self_test() -> int:
     base_found = {"field_writes": {"hp"}, "field_reads": {"hp"}, "calls": {"Die"},
                   "property_writes": set(), "loops": 0, "branches": 1, "throws": 0,
                   "native_length": 256, "boundaries": 0}
-    declared = {"hp", "score"}
+    declared = {"hp", "score", "_state"}
     members = {"Die", "Player"}
 
     cases = [
@@ -255,12 +287,24 @@ def self_test() -> int:
         ("a property write matched by its setter",
          base_source, {**base_found, "field_writes": set(), "calls": {"Die", "set_hp"}},
          "EXACT"),
+        ("an event subscription matched by its accessor",
+         {**base_source, "field_writes": {"hp", "OnDied"}},
+         {**base_found, "calls": {"Die", "add_OnDied"}}, "EXACT"),
+        # Two halves of one rule: without the evidence a lost project call stays a loss; with it, the call
+        # is not in the machine code at all.
+        ("a backing field written by an inlined setter",
+         {**base_source, "field_writes": {"hp", "State"}},
+         {**base_found, "field_writes": {"hp", "_state"}}, "EXACT"),
+        ("a project call unnamed, calls not known complete",
+         base_source, {**base_found, "calls": set()}, "PARTIAL", False),
+        ("a project call unnamed, every call the body makes resolved",
+         base_source, {**base_found, "calls": set()}, "SEMANTICALLY_EQUIVALENT", True),
     ]
 
     failures = 0
 
-    for name, source, found, expected in cases:
-        status, notes = verdict(source, found, declared, members)
+    for name, source, found, expected, *complete in cases:
+        status, notes = verdict(source, found, declared, members, calls_complete=bool(complete and complete[0]))
 
         if status != expected:
             print(f"FAIL {name}: expected {expected}, got {status} ({'; '.join(notes)})")

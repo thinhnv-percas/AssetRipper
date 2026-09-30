@@ -132,6 +132,21 @@ The build files are adapted: `Directory.Build.props` here isolates this tree fro
 each project targets only `net10.0`, and packing, SourceLink and package metadata are dropped. The
 `.editorconfig` here stops AssetRipper's style rules from applying to code written to other ones.
 
+17. **An engine or package assembly can be opted back into recovery for a measurement** (iteration
+    063) — `OutputFormats/IlRecoveryScope.cs`, added, consulted in
+    `AsmResolverDllOutputFormatIlRecovery.FillMethodBody`. `CPP2IL_RECOVER_ALSO=Unity.TextMeshPro,…`
+    recovers the named assemblies instead of stubbing them, so an upstream package whose source is
+    available at the version the build shipped can serve as an independent source oracle. Unset, the
+    decision is exactly upstream's. AssetRipper's `IsFrameworkAssembly` consults the same set.
+
+18. **Arguments past the registers were placed wrong** (iteration 063) — `Utils/Arm64ArgumentPlacement.cs`,
+    added, used by `Arm64CallingConventionResolver.ResolveForManaged`. A float aggregate that does not
+    fit in the vector registers left sets NSRN to 8 (AAPCS64 C.3), so every later float goes to the
+    stack too; each stack argument takes its own size rounded to 8 (a Vector3 16 bytes); and Apple's
+    arm64 ABI packs stack arguments at natural alignment instead. `EvaluateCurve(Vector3 ×4, float t)`
+    named V6 as `t`, which nothing writes, and recovered a curve at t = 0; `VertexGradient`'s fourth
+    Color read as `default(Color)`.
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked
