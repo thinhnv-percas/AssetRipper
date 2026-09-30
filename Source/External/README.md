@@ -147,6 +147,14 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     named V6 as `t`, which nothing writes, and recovered a curve at t = 0; `VertexGradient`'s fourth
     Color read as `default(Color)`.
 
+19. **FCMP was lifted as a subtraction** (iteration 063) — `NewArmV8InstructionSet.EmitFloatCompareFlags`,
+    used by `FCMP`, `FCMPE`, `FCCMP` and `FCCMPE`. FCMP sets N for less than, Z for equal, C for greater,
+    equal or unordered, and V for unordered only. The SUBS lifting computed V as the signed overflow of
+    a subtraction of float bit patterns, which reached the source as `object obj = t ^ 1f;` (not C#)
+    wherever a condition read V, and computed Z from `a - b`, which is wrong for two infinities. V is
+    now `!(a == a && b == b)`. 134 of those expressions on JellyBlastV2 became 0; PathCreator's Roslyn
+    errors 474 → 372.
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked

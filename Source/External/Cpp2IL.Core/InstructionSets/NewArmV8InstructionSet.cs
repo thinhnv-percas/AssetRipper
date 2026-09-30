@@ -679,6 +679,35 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             Add(address, OpCode.CheckLess, flagV, temp4, Imm(0));
         }
 
+        // AssetRipper: FCMP does not subtract. It sets N for less than, Z for equal, C for greater, equal
+        // or unordered, and V for unordered only (Arm ARM, FPCompare). Lifting it as SUBS computed V as the
+        // signed overflow of a subtraction of float bit patterns - `object obj = t ^ 1f;` in the output,
+        // which is not C# at all - and N and Z from `a - b`, which is wrong for two infinities.
+        // Unordered is written with the opcodes there are: a value is unordered with itself exactly when
+        // it is NaN, so V = !(a == a && b == b), and an immediate is never NaN.
+        void EmitFloatCompareFlags(IOperand op0, IOperand op1)
+        {
+            var ordered0 = new Register(null, "TEMP1");
+            var ordered1 = new Register(null, "TEMP2");
+
+            Add(address, OpCode.CheckLess, flagN, op0, op1);
+            Add(address, OpCode.CheckEqual, flagZ, op0, op1);
+            Add(address, OpCode.CheckLess, flagC, op0, op1);
+            Add(address, OpCode.Not, flagC, flagC);
+            Add(address, OpCode.CheckEqual, ordered0, op0, op0);
+
+            if (op1 is Immediate)
+            {
+                Add(address, OpCode.Not, flagV, ordered0);
+            }
+            else
+            {
+                Add(address, OpCode.CheckEqual, ordered1, op1, op1);
+                Add(address, OpCode.And, ordered0, ordered0, ordered1);
+                Add(address, OpCode.Not, flagV, ordered0);
+            }
+        }
+
         void EmitResultFlags(IOperand result)
         {
             Add(address, OpCode.CheckLess, flagN, result, Imm(0));
@@ -942,9 +971,11 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     break;
                 }
             case Arm64Mnemonic.CMP:
+                EmitCompareFlags(ConvertOperand(instruction, 0), ConvertOperand(instruction, 1));
+                break;
             case Arm64Mnemonic.FCMP:
             case Arm64Mnemonic.FCMPE:
-                EmitCompareFlags(ConvertOperand(instruction, 0), ConvertOperand(instruction, 1));
+                EmitFloatCompareFlags(ConvertOperand(instruction, 0), ConvertOperand(instruction, 1));
                 break;
             case Arm64Mnemonic.CMN:
                 // cmp against the negated operand
@@ -1026,7 +1057,11 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                         op1 = negated;
                     }
 
-                    EmitCompareFlags(ConvertOperand(instruction, 0), op1);
+                    // AssetRipper: the conditional form of FCMP sets the flags the way FCMP does.
+                    if (instruction.Mnemonic is Arm64Mnemonic.FCCMP or Arm64Mnemonic.FCCMPE)
+                        EmitFloatCompareFlags(ConvertOperand(instruction, 0), op1);
+                    else
+                        EmitCompareFlags(ConvertOperand(instruction, 0), op1);
                     Add(address, OpCode.Jump, Imm(address + 2));
 
                     var nzcv = instruction.Op2Imm;
