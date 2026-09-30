@@ -1,0 +1,12 @@
+== Assets/Scenes/Main.unity (PATH <- Assets/Scenes/Main.unity)
+  gameObjects  {"MATCHED": 105}
+  components   {"MATCHED": 385}
+  scripts      {"BOUND_EXACT": 172}
+  references   {"exact": {"MATCH": 228, "NULL_BOTH": 277, "SOURCE_TARGET_UNKNOWN": 6}}
+== Assets/Scenes/Preload.unity (PATH <- Assets/Scenes/Preload.unity)
+  gameObjects  {"MATCHED": 1}
+  components   {"MATCHED": 2}
+  scripts      {"BOUND_EXACT": 1}
+  references   {}
+TOTAL {"components": {"MATCHED": 387}, "gameObjects": {"MATCHED": 106}, "references": {"exact": {"MATCH": 228, "NULL_BOTH": 277, "SOURCE_TARGET_UNKNOWN": 6}}, "scripts": {"BOUND_EXACT": 173}}
+RATES {"gameobject_match_rate": 1.0, "reference_decided_exact": 228, "reference_decided_positional": 0, "reference_match_rate_exact": 1.0, "reference_match_rate_positional": null, "reference_positional_target_exact": 0, "reference_positional_target_positional": 0, "reference_unknown_exact": 6, "reference_unknown_positional": 0, "script_binding_decided": "173 of 173", "script_binding_rate": 1.0}
