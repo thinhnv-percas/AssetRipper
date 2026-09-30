@@ -140,7 +140,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				+ "were resolved at an offset from one.");
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened " +
-				"because a recovered body reaches them from outside the type, or the assembly, that declares them.");
+				"because a recovered body reaches them from outside the type, or the assembly, that declares them; " +
+				$"{widenedFieldsKeptUnserialized} fields made public were marked NonSerialized so the serialized layout is unchanged.");
 			DropEventsReadAsFields();
 			int reconciled = OverrideAccessibility.Apply(
 				assemblies.SelectMany(assembly => assembly.Modules),
@@ -319,6 +320,19 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		if (wanted != access)
 		{
+			// Widening changes who can name the field, never whether Unity serializes it. Unity serializes
+			// a public instance field and a non-public one only with [SerializeField], so making a private
+			// field public adds it to the serialized layout - and every object of that type then reads
+			// against a layout the data was not written with. Measured with CPP2IL_RECOVER_ALSO: TMP's
+			// bodies reach into UGUI, 81 MonoBehaviours failed to read and every UI Image lost its sprite.
+			// NotSerialized is the [NonSerialized] the field effectively had.
+			if (wanted == FieldAttributes.Public && !field.IsStatic && !field.IsLiteral && !field.IsNotSerialized
+				&& !HasSerializeField(field))
+			{
+				field.Attributes |= FieldAttributes.NotSerialized;
+				Interlocked.Increment(ref widenedFieldsKeptUnserialized);
+			}
+
 			field.Attributes = (field.Attributes & ~FieldAttributes.FieldAccessMask) | wanted;
 			Interlocked.Increment(ref widenedMemberCount);
 		}
@@ -333,6 +347,11 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	/// event in the assembly and drop every declaration. What the C# compiler refuses is a read from
 	/// anywhere <em>else</em>.
 	/// </remarks>
+	private static int widenedFieldsKeptUnserialized;
+
+	private static bool HasSerializeField(FieldDefinition field)
+		=> field.CustomAttributes.Any(attribute => attribute.Constructor?.DeclaringType?.FullName == "UnityEngine.SerializeField");
+
 	private static bool IsEventAccessor(MethodDefinition method)
 		=> method.DeclaringType?.Events.Any(declaration =>
 			declaration.Semantics.Any(semantics => semantics.Method == method)) == true;
