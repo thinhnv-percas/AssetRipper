@@ -131,6 +131,21 @@ internal sealed class Il2CppRecoverySetupTests
 	/// looking at UnityEngine.CoreModule sees empty bodies however well recovery went — and this
 	/// predicate is what the diagnostics use to name the assemblies worth opening.
 	/// </summary>
+	/// <summary>
+	/// The measurement opt-in names assemblies the way a person would type them: with or without the
+	/// extension, with spaces after the commas. Unset means an empty set, so a default run is upstream's.
+	/// </summary>
+	[Test]
+	public void RecoverAlsoParsesAssemblyNamesAndIsEmptyWhenUnset()
+	{
+		Assert.Multiple(() =>
+		{
+			Assert.That(Cpp2IL.Core.OutputFormats.IlRecoveryScope.Parse(null), Is.Empty);
+			Assert.That(Cpp2IL.Core.OutputFormats.IlRecoveryScope.Parse(" Unity.TextMeshPro.dll, UnityEngine.UI ,,"),
+				Is.EquivalentTo(new[] { "Unity.TextMeshPro", "UnityEngine.UI" }));
+		});
+	}
+
 	[Test]
 	public void FrameworkAssembliesAreTheOnesCpp2IlStubs()
 	{

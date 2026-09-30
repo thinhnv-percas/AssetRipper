@@ -39,9 +39,11 @@ public class AsmResolverDllOutputFormatIlRecovery : AsmResolverDllOutputFormat
     {
         var module = methodDefinition.DeclaringModule!;
         var moduleName = module.Name!.ToString();
-        var shouldSkip = moduleName.StartsWith("UnityEngine.") || moduleName.StartsWith("Unity.") ||
-                         moduleName.StartsWith("System.") || moduleName == "System" ||
-                         moduleName.StartsWith("mscorlib");
+        // AssetRipper: IlRecoveryScope opts a named assembly back in for a source-oracle measurement.
+        var shouldSkip = (moduleName.StartsWith("UnityEngine.") || moduleName.StartsWith("Unity.") ||
+                          moduleName.StartsWith("System.") || moduleName == "System" ||
+                          moduleName.StartsWith("mscorlib"))
+                         && !IlRecoveryScope.IsRecoveredAlso(moduleName);
 
         if (!methodDefinition.IsManagedMethodWithBody())
             return;

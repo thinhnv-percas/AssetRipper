@@ -255,6 +255,13 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 
 		gameAssemblies.Sort(StringComparer.OrdinalIgnoreCase);
 
+		if (Cpp2IL.Core.OutputFormats.IlRecoveryScope.RecoveredAlso.Count > 0)
+		{
+			Logger.Warning(LogCategory.Import,
+				"Il2Cpp recovery: CPP2IL_RECOVER_ALSO opts these framework assemblies into recovery for a measurement run: " +
+				string.Join(", ", Cpp2IL.Core.OutputFormats.IlRecoveryScope.RecoveredAlso.Order(StringComparer.Ordinal)));
+		}
+
 		Logger.Info(LogCategory.Import,
 			$"Il2Cpp recovery: {gameAssemblies.Count} assemblies will be attempted, {frameworkCount} framework assemblies " +
 			$"will be stubbed. Attempted: {(gameAssemblies.Count == 0 ? "none" : string.Join(", ", gameAssemblies))}");
@@ -373,11 +380,12 @@ public sealed class Il2CppRecoveryDiagnosticsProcessingLayer : Cpp2IlProcessingL
 	/// its IL recovery output format, which is where the decision is actually made.
 	/// </summary>
 	public static bool IsFrameworkAssembly(string assemblyName)
-		=> assemblyName.StartsWith("UnityEngine", StringComparison.Ordinal)
+		=> (assemblyName.StartsWith("UnityEngine", StringComparison.Ordinal)
 		|| assemblyName.StartsWith("Unity.", StringComparison.Ordinal)
 		|| assemblyName.StartsWith("System", StringComparison.Ordinal)
 		|| assemblyName.StartsWith("mscorlib", StringComparison.Ordinal)
-		|| assemblyName.StartsWith("netstandard", StringComparison.Ordinal);
+		|| assemblyName.StartsWith("netstandard", StringComparison.Ordinal))
+		&& !Cpp2IL.Core.OutputFormats.IlRecoveryScope.IsRecoveredAlso(assemblyName);
 
 	/// <summary>
 	/// Whether <paramref name="instructionSet"/> produces ISIL, without which there is nothing for IL
