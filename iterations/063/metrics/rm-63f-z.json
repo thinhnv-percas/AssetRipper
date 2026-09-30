@@ -1,0 +1,403 @@
+{
+  "scope": [
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "DOTween",
+    "GoogleMobileAds",
+    "LeanCommon",
+    "LeanPool",
+    "Mono.Security",
+    "__Generated",
+    "spine-unity",
+    "spine-unity-examples"
+  ],
+  "methods": 5482,
+  "nativeBytes": 1075252,
+  "placeholders": 4289,
+  "status": {
+    "HIGH_CONFIDENCE": 204,
+    "PARTIAL": 1066,
+    "EXACT": 4042,
+    "FALLBACK": 170
+  },
+  "byAssembly": {
+    "Assembly-CSharp": {
+      "HIGH_CONFIDENCE": 15,
+      "PARTIAL": 60,
+      "EXACT": 305,
+      "FALLBACK": 10
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "GoogleMobileAds": {
+      "EXACT": 358,
+      "PARTIAL": 319,
+      "FALLBACK": 38,
+      "HIGH_CONFIDENCE": 29
+    },
+    "spine-unity": {
+      "EXACT": 1429,
+      "HIGH_CONFIDENCE": 76,
+      "PARTIAL": 289,
+      "FALLBACK": 51
+    },
+    "LeanCommon": {
+      "EXACT": 15,
+      "PARTIAL": 2,
+      "HIGH_CONFIDENCE": 1
+    },
+    "ACTk.Runtime": {
+      "EXACT": 913,
+      "PARTIAL": 112,
+      "FALLBACK": 38,
+      "HIGH_CONFIDENCE": 26
+    },
+    "LeanPool": {
+      "EXACT": 56,
+      "PARTIAL": 12,
+      "HIGH_CONFIDENCE": 6,
+      "FALLBACK": 4
+    },
+    "spine-unity-examples": {
+      "EXACT": 402,
+      "PARTIAL": 79,
+      "HIGH_CONFIDENCE": 19,
+      "FALLBACK": 9
+    },
+    "DOTween": {
+      "EXACT": 563,
+      "HIGH_CONFIDENCE": 32,
+      "PARTIAL": 193,
+      "FALLBACK": 19
+    }
+  },
+  "lostOperationClasses": {
+    "FIELD": 72,
+    "CALL": 25,
+    "ARRAY_READ": 4,
+    "ARRAY_WRITE": 4,
+    "BRANCH": 56,
+    "NEWOBJ": 14
+  },
+  "fingerprintIr": {
+    "BRANCH": 2285,
+    "COMPARE": 2266,
+    "NULL_CHECK": 2051,
+    "LOOP": 2283,
+    "CALL": 3275,
+    "STATIC_ACCESS": 3621,
+    "INSTANCEOF": 417,
+    "ARITHMETIC": 1767,
+    "ARRAY_READ": 384,
+    "NEWOBJ": 1032,
+    "CAST": 17,
+    "ARRAY_WRITE": 156
+  },
+  "fingerprintCSharp": {
+    "BRANCH": 2243,
+    "COMPARE": 2102,
+    "CAST": 781,
+    "RETURN": 3268,
+    "THROW": 880,
+    "NEWOBJ": 1461,
+    "NULL_CHECK": 1669,
+    "CALL": 4508,
+    "ARITHMETIC": 1702,
+    "STATIC_ACCESS": 2269,
+    "ARRAY_READ": 541,
+    "LOOP": 795,
+    "NEWARR": 180,
+    "FIELD_ADDRESS": 151,
+    "INSTANCEOF": 12,
+    "ARRAY_WRITE": 172,
+    "SWITCH": 25
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 2575,
+      "files": 171
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 689,
+      "files": 100
+    },
+    "NATIVE_IMPORT": {
+      "count": 490,
+      "files": 81
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 211,
+      "files": 54
+    },
+    "INDIRECT_CALL": {
+      "count": 183,
+      "files": 34
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 97,
+      "files": 38
+    },
+    "INDIRECT_JUMP": {
+      "count": 54,
+      "files": 41
+    },
+    "OTHER": {
+      "count": 2,
+      "files": 1
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 1352,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 1052,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs"
+    },
+    {
+      "nativeBytes": 1032,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs"
+    },
+    {
+      "nativeBytes": 948,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs"
+    },
+    {
+      "nativeBytes": 800,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 788,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 760,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs"
+    },
+    {
+      "nativeBytes": 756,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 752,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Box.cs"
+    },
+    {
+      "nativeBytes": 704,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/GUIManager.cs"
+    },
+    {
+      "nativeBytes": 684,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Skeleton.cs"
+    },
+    {
+      "nativeBytes": 540,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 540,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 532,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 524,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 524,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 504,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/BuildHashes.cs"
+    },
+    {
+      "nativeBytes": 480,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 480,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 468,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 456,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+    },
+    {
+      "nativeBytes": 444,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 436,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs"
+    },
+    {
+      "nativeBytes": 424,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/Spineboy.cs"
+    },
+    {
+      "nativeBytes": 420,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/FileFilter.cs"
+    },
+    {
+      "nativeBytes": 412,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+    },
+    {
+      "nativeBytes": 396,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs"
+    },
+    {
+      "nativeBytes": 392,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredString.cs"
+    },
+    {
+      "nativeBytes": 376,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs"
+    },
+    {
+      "nativeBytes": 344,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/ConstrainedCamera.cs"
+    },
+    {
+      "nativeBytes": 328,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs"
+    },
+    {
+      "nativeBytes": 296,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs"
+    },
+    {
+      "nativeBytes": 292,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/SpecialPluginsUtils.cs"
+    },
+    {
+      "nativeBytes": 288,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/CustomNativeTemplateClient.cs"
+    },
+    {
+      "nativeBytes": 280,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs"
+    },
+    {
+      "nativeBytes": 276,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/MobileAdsClient.cs"
+    },
+    {
+      "nativeBytes": 256,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/GamePlayController.cs"
+    },
+    {
+      "nativeBytes": 256,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/TweenParams.cs"
+    },
+    {
+      "nativeBytes": 244,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/GameHelper.cs"
+    },
+    {
+      "nativeBytes": 240,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 240,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InitializationStatusClient.cs"
+    },
+    {
+      "nativeBytes": 236,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/DummyAdBehaviour.cs"
+    },
+    {
+      "nativeBytes": 232,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs"
+    },
+    {
+      "nativeBytes": 224,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Assembly-CSharp/GUIManager.cs"
+    },
+    {
+      "nativeBytes": 212,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/LeanPool/Lean/Pool/Extras/LeanPooledRigidbody.cs"
+    }
+  ]
+}

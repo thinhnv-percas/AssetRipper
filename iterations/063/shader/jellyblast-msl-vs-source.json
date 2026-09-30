@@ -1,0 +1,532 @@
+[
+ {
+  "shader": "Custom/Bee",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Bee.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [
+   "LERP",
+   "MAX"
+  ],
+  "mslOnly": [
+   "COMPARE",
+   "DOT",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_POSITION",
+   "MATRIX_MUL",
+   "NORMALIZE",
+   "STORE_POSITION"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [
+   "_EmissionTex",
+   "_EyesTex",
+   "_FluidTex",
+   "_RawFieldTex"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/Cliffs_Lambert",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Cliffs_Lambert.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [
+   "CLAMP",
+   "MAX",
+   "SUB"
+  ],
+  "mslOnly": [
+   "COMPARE"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/FeverSplash",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_FeverSplash.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 4,
+  "sourceOnly": [
+   "MAX"
+  ],
+  "mslOnly": [
+   "COMPARE",
+   "VECTOR_MUL"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/Fluid",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Fluid.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [
+   "LERP",
+   "LOAD_VERTEX_UV"
+  ],
+  "mslOnly": [
+   "LOAD_TEXTURE"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/Glass2",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Glass2.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [],
+  "mslOnly": [
+   "COMPARE",
+   "DIV",
+   "TEXTURE_SAMPLE"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [
+   "_SceneColor"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/GradientBackground_LUT_World",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_GradientBackground_LUT_World.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [
+   "BRANCH",
+   "LERP",
+   "LOAD_VERTEX_UV",
+   "VECTOR_MUL"
+  ],
+  "mslOnly": [
+   "ADD",
+   "LOAD_TEXTURE",
+   "STORE_COLOR"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/Honey_NoGrab",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Honey_NoGrab.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [
+   "MAX"
+  ],
+  "mslOnly": [
+   "COMPARE",
+   "DIV",
+   "DOT",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_POSITION",
+   "MATRIX_MUL",
+   "NORMALIZE",
+   "STORE_POSITION"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [
+   "_EmissionTex",
+   "_FluidTex",
+   "_RawFieldTex"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/Ice",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Ice.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 2,
+  "verdict": "NO_SOURCE_PROGRAM"
+ },
+ {
+  "shader": "Custom/Mud",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Mud.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [],
+  "mslOnly": [
+   "CLAMP",
+   "COMPARE",
+   "DIV",
+   "DOT",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_POSITION",
+   "MATRIX_MUL",
+   "NORMALIZE",
+   "STORE_POSITION"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [
+   "_EmissionTex",
+   "_FluidTex",
+   "_RawFieldTex"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/Octopus",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Octopus.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 4,
+  "sourceOnly": [
+   "LENGTH",
+   "LERP",
+   "MAX"
+  ],
+  "mslOnly": [
+   "CLAMP",
+   "COMPARE",
+   "DOT",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_POSITION",
+   "MATRIX_MUL",
+   "NORMALIZE",
+   "STORE_POSITION"
+  ],
+  "samplersSourceOnly": [
+   "_SuckerTex"
+  ],
+  "samplersMslOnly": [
+   "_DetailTex",
+   "_EmissionTex",
+   "_EyesTex",
+   "_FluidTex",
+   "_RawFieldTex"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/ParticlesEmission",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_ParticlesEmission.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 4,
+  "sourceOnly": [
+   "LENGTH",
+   "MIN"
+  ],
+  "mslOnly": [
+   "DIV",
+   "DOT",
+   "LOAD_UNIFORM",
+   "MAX",
+   "STORE_COLOR"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/PowerUpParticles",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_PowerUpParticles.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 4,
+  "sourceOnly": [
+   "LENGTH",
+   "MIN"
+  ],
+  "mslOnly": [
+   "DISCARD",
+   "DOT",
+   "LOAD_UNIFORM",
+   "STORE_COLOR"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/SingleFluid",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_SingleFluid.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [],
+  "mslOnly": [
+   "ADD",
+   "CLAMP",
+   "COMPARE",
+   "DIV",
+   "DOT",
+   "LOAD_SAMPLER",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_POSITION",
+   "MATRIX_MUL",
+   "MIN",
+   "NORMALIZE",
+   "STORE_POSITION",
+   "TEXTURE_SAMPLE"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [
+   "_EmissionTex",
+   "_FluidTex",
+   "_RawFieldTex"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/SpecialFluid",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_SpecialFluid.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [],
+  "mslOnly": [
+   "BRANCH",
+   "CLAMP",
+   "COMPARE",
+   "DISCARD",
+   "DOT",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MIN",
+   "NORMALIZE",
+   "STORE_POSITION"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [
+   "_FluidTex",
+   "_RawFieldTex"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/Sponge",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Sponge.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [
+   "LERP",
+   "MAX"
+  ],
+  "mslOnly": [
+   "COMPARE",
+   "DOT",
+   "LOAD_TEXTURE",
+   "LOAD_VERTEX_POSITION",
+   "LOAD_VERTEX_UV",
+   "MATRIX_MUL",
+   "MIN",
+   "NORMALIZE",
+   "STORE_POSITION"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [
+   "_EyesTex",
+   "_RawFieldTex"
+  ],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Custom/UIButton",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_UIButton.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 8,
+  "sourceOnly": [
+   "LERP"
+  ],
+  "mslOnly": [
+   "BRANCH",
+   "COMPARE",
+   "DISCARD",
+   "SUB",
+   "VECTOR_MUL"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/UITransition",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_UITransition.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 8,
+  "sourceOnly": [
+   "LENGTH",
+   "MAX"
+  ],
+  "mslOnly": [
+   "ADD",
+   "BRANCH",
+   "COMPARE",
+   "DISCARD",
+   "DOT"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Custom/Water",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Custom_Water.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [
+   "BRANCH",
+   "DISCARD",
+   "LENGTH",
+   "LERP",
+   "LOAD_VERTEX_UV",
+   "MAX"
+  ],
+  "mslOnly": [
+   "LOAD_TEXTURE"
+  ],
+  "samplersSourceOnly": [
+   "_WaterGrabTex"
+  ],
+  "samplersMslOnly": [
+   "_NoiseTex",
+   "_RawFieldTex",
+   "_SceneColor"
+  ],
+  "essentialSourceOnly": [
+   "DISCARD"
+  ],
+  "verdict": "SAMPLING_DIFFERS"
+ },
+ {
+  "shader": "Hidden/ProBuilder/EdgePicker",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Hidden_ProBuilder_EdgePicker.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 2,
+  "verdict": "NO_SOURCE_PROGRAM"
+ },
+ {
+  "shader": "Hidden/ProBuilder/FacePicker",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Hidden_ProBuilder_FacePicker.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 2,
+  "verdict": "NO_SOURCE_PROGRAM"
+ },
+ {
+  "shader": "Hidden/ProBuilder/HideVertices",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Hidden_ProBuilder_HideVertices.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 2,
+  "verdict": "NO_SOURCE_PROGRAM"
+ },
+ {
+  "shader": "Hidden/ProBuilder/VertexPicker",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Hidden_ProBuilder_VertexPicker.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 2,
+  "verdict": "NO_SOURCE_PROGRAM"
+ },
+ {
+  "shader": "Hidden/WhiteMask",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/Hidden_WhiteMask.shader",
+  "origin": "REBUILT",
+  "mslPrograms": 2,
+  "sourceOnly": [],
+  "mslOnly": [
+   "ADD",
+   "COMPARE",
+   "LOAD_UNIFORM",
+   "MUL"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "ProBuilder/Standard Vertex Color",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/ProBuilder_Standard Vertex Color.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 63,
+  "verdict": "NO_SOURCE_PROGRAM"
+ },
+ {
+  "shader": "ProBuilder/UnlitVertexColor",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Shader/ProBuilder_UnlitVertexColor.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 2,
+  "verdict": "NO_SOURCE_PROGRAM"
+ },
+ {
+  "shader": "TextMeshPro/Distance Field Overlay",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader",
+  "origin": "INDEPENDENT",
+  "mslPrograms": 16,
+  "sourceOnly": [
+   "LERP"
+  ],
+  "mslOnly": [
+   "LOAD_SAMPLER",
+   "MAX",
+   "MIN"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "TextMeshPro/Mobile/Distance Field",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader",
+  "origin": "INDEPENDENT",
+  "mslPrograms": 32,
+  "sourceOnly": [
+   "LERP"
+  ],
+  "mslOnly": [
+   "DISCARD",
+   "LOAD_SAMPLER",
+   "LOAD_UNIFORM",
+   "MAX"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "TextMeshPro/Sprite",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/TextMesh Pro/Shaders/TMP_Sprite.shader",
+  "origin": "INDEPENDENT",
+  "mslPrograms": 8,
+  "sourceOnly": [],
+  "mslOnly": [
+   "BRANCH",
+   "COMPARE",
+   "DISCARD",
+   "SUB",
+   "VECTOR_MUL"
+  ],
+  "samplersSourceOnly": [],
+  "samplersMslOnly": [],
+  "essentialSourceOnly": [],
+  "verdict": "SAMPLING_AGREES"
+ },
+ {
+  "shader": "Unlit/SDFTexturePreview",
+  "source": "/home/user/thinhnv-x-percas/jelly-blast/Assets/Resources/sdftexturepreview.shader",
+  "origin": "STAND_IN",
+  "mslPrograms": 2,
+  "verdict": "NO_SOURCE_PROGRAM"
+ }
+]

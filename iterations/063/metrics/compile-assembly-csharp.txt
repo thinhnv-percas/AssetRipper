@@ -1,0 +1,10 @@
+RunFromZombies 62m: Assembly-CSharp: 23 files, 7 errors, 273 warnings 
+RunFromZombies 63f: Assembly-CSharp: 23 files, 7 errors, 283 warnings 
+Impostor 62m: Assembly-CSharp: 64 files, 237 errors, 2354 warnings 
+Impostor 63f: Assembly-CSharp: 64 files, 237 errors, 2357 warnings 
+JellyBlastV2 62m: Assembly-CSharp: 180 files, 21 errors, 6158 warnings Assembly-CSharp (body pass): 10 errors, 171 of 180 files compile clean 
+JellyBlastV2 63f: Assembly-CSharp: 179 files, 11 errors, 6151 warnings Assembly-CSharp (body pass): 3038 errors, 47 of 179 files compile clean 
+MergeRoom 62m: Assembly-CSharp: 84 files, 6 errors, 2978 warnings Assembly-CSharp (body pass): 2 errors, 82 of 84 files compile clean 
+MergeRoom 63f: Assembly-CSharp: 84 files, 6 errors, 2978 warnings Assembly-CSharp (body pass): 2 errors, 82 of 84 files compile clean 
+Pinata 62m: Assembly-CSharp: 1109 files, 1432 errors, 48188 warnings 
+Pinata 63f: Assembly-CSharp: 1109 files, 1355 errors, 48416 warnings 

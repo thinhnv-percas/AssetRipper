@@ -145,9 +145,11 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
     # extraction reaches one. That is a fact about the input and has its own verdict: counting it as
     # a recovery that fell back would put it in the same bucket as a program that was there and was
     # missed.
-    if backends and backends <= {"Metal", "Vulkan"}:
+    # Iteration 063: a Metal program is MSL source unless the build precompiled it, so the verdict is
+    # decided by whether anything was extracted, never by the backend's name alone.
+    if backends and backends <= {"Metal", "Vulkan"} and not ir.recovered_programs(rip, shader_name):
         result["status"] = "METAL_BINARY_ONLY"
-        result["notes"] = ["every compiled program in this shader is a Metal library"]
+        result["notes"] = ["no program of this shader was extracted: every one is a compiled library"]
         return result
 
     recovered_programs = ir.recovered_programs(rip, shader_name)
@@ -184,7 +186,7 @@ def compare(exported: pathlib.Path, source: pathlib.Path, rip: pathlib.Path, sha
     missing_properties = sorted(source_properties - exported_properties)
 
     source_operations = ir.merge(source_programs, "hlsl")
-    recovered_operations = ir.merge(recovered_programs, "glsl")
+    recovered_operations = ir.merge(recovered_programs, "recovered")
 
     result["render_state_differences"] = state_differences
     result["missing_properties"] = missing_properties
@@ -294,7 +296,7 @@ def main() -> int:
         # would change something.
         backends = ir.backends_of(rip, name)
 
-        if backends and backends <= {"Metal", "Vulkan"}:
+        if backends and backends <= {"Metal", "Vulkan"} and not ir.recovered_programs(rip, name):
             counts["METAL_BINARY_ONLY"] += 1
             results.append({"shader": name, "status": "METAL_BINARY_ONLY",
                             "notes": [f"every compiled program is a {'/'.join(sorted(backends))} library"]})

@@ -123,7 +123,46 @@ HLSL = {
     "RETURN": r"\breturn\b",
 }
 
+# Metal Shading Language, as HLSLcc emits it for Unity's Metal backend (iteration 063: an iOS build ships
+# its Metal programs as this source unless it precompiled them). Uniforms arrive as a `constant` struct
+# bound to a buffer, vertex inputs as `[[ attribute(n) ]]` members named after their semantics, and the
+# outputs as `mtl_Position` and a colour attachment.
+MSL = {
+    "LOAD_UNIFORM": r"\bconstant\s+\w+_Type\s*&|\[\[\s*buffer\s*\(",
+    "LOAD_SAMPLER": r"\bsampler\s+\w+\s*\[\[",
+    "LOAD_TEXTURE": r"\btexture(?:2d|3d|cube|2d_array)\s*<",
+    "TEXTURE_SAMPLE": r"\.sample(?:_compare)?\s*\(|\.read\s*\(",
+    "LOAD_VERTEX_POSITION": r"\bPOSITION\d*\s*\[\[\s*attribute",
+    "LOAD_VERTEX_NORMAL": r"\bNORMAL\d*\s*\[\[\s*attribute",
+    "LOAD_VERTEX_UV": r"\bTEXCOORD\d*\s*\[\[\s*attribute",
+    "LOAD_VERTEX_COLOR": r"\bCOLOR\d*\s*\[\[\s*attribute",
+    "ADD": r"[^+\s]\s*\+\s*[^+=]|\bfma\s*\(",
+    "SUB": r"[^-\s]\s*-\s*[^-=>]",
+    "MUL": r"[^*\s]\s*\*\s*[^*=]|\bfma\s*\(",
+    "DIV": r"[^/\s]\s*/\s*[^/=*]",
+    "DOT": r"\bdot\s*\(",
+    "CROSS": r"\bcross\s*\(",
+    "NORMALIZE": r"\bnormalize\s*\(|\brsqrt\s*\(",
+    "LENGTH": r"\blength\s*\(",
+    "MIN": r"\bmin\s*\(",
+    "MAX": r"\bmax\s*\(",
+    "CLAMP": r"\bclamp\s*\(|\bsaturate\s*\(",
+    "LERP": r"\bmix\s*\(",
+    "MATRIX_MUL": r"\bhlslcc_mtx\w*\b|\bfloat[234]x[234]\b",
+    "VECTOR_MUL": r"\b(?:float|half)[234]\s*\(",
+    "SIN": r"\bsin\s*\(",
+    "COS": r"\bcos\s*\(",
+    "COMPARE": r"[<>]=?|==|!=",
+    "BRANCH": r"\bif\s*\(|\bswitch\s*\(",
+    "DISCARD": r"\bdiscard_fragment\s*\(",
+    "STORE_POSITION": r"\bmtl_Position\b",
+    "STORE_COLOR": r"\bSV_Target\d*\b|\[\[\s*color\s*\(",
+    "STORE_NORMAL": r"\bSV_Target1\b",
+    "RETURN": r"\breturn\b",
+}
+
 _GLSL = {name: re.compile(pattern) for name, pattern in GLSL.items()}
+_MSL = {name: re.compile(pattern) for name, pattern in MSL.items()}
 _HLSL = {name: re.compile(pattern) for name, pattern in HLSL.items()}
 
 # A ShaderLab program block, in any of the spellings Unity accepts.
@@ -138,7 +177,7 @@ def strip(text: str) -> str:
 
 def operations(text: str, language: str) -> dict:
     """{operation: count} for one program's text."""
-    patterns = _GLSL if language == "glsl" else _HLSL
+    patterns = {"glsl": _GLSL, "msl": _MSL}.get(language, _HLSL)
     cleaned = strip(text)
     return {name: len(pattern.findall(cleaned))
             for name, pattern in patterns.items()
@@ -163,8 +202,16 @@ SAMPLED = re.compile(
     r"|\bSAMPLE_TEXTURE2D\w*\s*\(\s*(\w+)")
 
 
+# MSL samples through the texture object: `_MainTex.sample(sampler_MainTex, uv)`. Its `[[ texture(0) ]]`
+# binding attribute is not a sample and would read as one to the GLSL pattern.
+MSL_SAMPLED = re.compile(r"\b(\w+)\.sample(?:_compare)?\s*\(")
+
+
 def samplers(text: str) -> set[str]:
     """The samplers and textures a program actually reads, by name."""
+    if language_of(text) == "msl":
+        return {name for name in MSL_SAMPLED.findall(strip(text)) if not name.startswith("sampler")}
+
     found = set()
 
     for first, second in SAMPLED.findall(strip(text)):
@@ -304,6 +351,12 @@ def recovered_programs(rip: pathlib.Path, shader_name: str) -> list[str]:
     return found
 
 
+def language_of(program: str) -> str:
+    """Which language an extracted program is in, from its own first line: MSL always includes the
+    Metal standard library, and everything else this project extracts is HLSLcc's GLSL."""
+    return "msl" if "#include <metal_stdlib>" in program else "glsl"
+
+
 def backends_of(rip: pathlib.Path, shader_name: str) -> set:
     """Which compiled-program backends a shader carries, from the rip's own report."""
     report = rip / "AuxiliaryFiles" / "ShaderPrograms.json"
@@ -320,7 +373,8 @@ def merge(programs: list[str], language: str) -> dict:
     total = {}
 
     for program in programs:
-        for name, count in operations(program, language).items():
+        # "recovered" picks each program's own language, since one rip can hold GLSL and MSL together.
+        for name, count in operations(program, language_of(program) if language == "recovered" else language).items():
             total[name] = total.get(name, 0) + count
 
     return total

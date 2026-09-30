@@ -1,0 +1,879 @@
+{
+ "summary": {
+  "MATCH": 26,
+  "NOT_IN_BUILD": 21,
+  "SERIALIZED_RECOVERY_MISMATCH": 23
+ },
+ "attribution": {
+  "SOURCE_EDIT": 23
+ },
+ "prefabs": [
+  {
+   "prefab": "5 Moves Left",
+   "source": "Assets/GameObject/5 Moves Left.prefab",
+   "objects": 2,
+   "components": 6,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "Box_frags_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Box_frags_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Box_nest_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Box_nest_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Box_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Box_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Chair_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Chair_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Column_cls_conn",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Column_cls_conn.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Column_cls_nest",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Column_cls_nest.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Column_frags",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Column_frags.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Column_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Column_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Column_rigid_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Column_rigid_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Column_wall_frags",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Column_wall_frags.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Cube",
+   "source": "Assets/PathCreator/Examples/Prefabs/Cube.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Debris",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Debris.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "DefaultUIParticle",
+   "source": "Assets/UIOverlayParticles/Demo/Prefabs/DefaultUIParticle.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Follower",
+   "source": "Assets/PathCreator/Examples/Prefabs/Follower.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "GoldFish",
+   "source": "Assets/GameObject/GoldFish.prefab",
+   "objects": 41,
+   "components": 49,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "Path",
+   "source": "Assets/PathCreator/Examples/Prefabs/Path.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Rock_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Rock_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Scene_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Scene_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Slabs_1",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Slabs_1.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Sphere",
+   "source": "Assets/PathCreator/Examples/Prefabs/Sphere.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Table_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Table_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "Tube_pf",
+   "source": "Assets/RayFire/Tutorial/Prefabs/Tube_pf.prefab",
+   "status": "NOT_IN_BUILD"
+  },
+  {
+   "prefab": "audioclip",
+   "source": "Assets/GameObject/audioclip.prefab",
+   "objects": 1,
+   "components": 2,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "bee",
+   "source": "Assets/GameObject/bee.prefab",
+   "objects": 1,
+   "components": 5,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "butterfly",
+   "source": "Assets/GameObject/butterfly.prefab",
+   "objects": 2,
+   "components": 5,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "caterpillar",
+   "source": "Assets/GameObject/caterpillar.prefab",
+   "objects": 1,
+   "components": 5,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "chain link",
+   "source": "Assets/GameObject/chain link.prefab",
+   "objects": 2,
+   "components": 6,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "coin particle",
+   "source": "Assets/GameObject/coin particle.prefab",
+   "objects": 1,
+   "components": 4,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "collect sprite",
+   "source": "Assets/GameObject/collect sprite.prefab",
+   "objects": 1,
+   "components": 3,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "collect text",
+   "source": "Assets/GameObject/collect text.prefab",
+   "objects": 2,
+   "components": 6,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "confetti",
+   "source": "Assets/GameObject/confetti.prefab",
+   "objects": 1,
+   "components": 4,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "explosion 0",
+   "source": "Assets/GameObject/explosion 0.prefab",
+   "objects": 3,
+   "components": 7,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "explosion 1",
+   "source": "Assets/GameObject/explosion 1.prefab",
+   "objects": 3,
+   "components": 7,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "fever splash",
+   "source": "Assets/GameObject/fever splash.prefab",
+   "objects": 2,
+   "components": 7,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "goalUI",
+   "source": "Assets/GameObject/goalUI.prefab",
+   "objects": 4,
+   "components": 13,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "ice",
+   "source": "Assets/GameObject/ice.prefab",
+   "objects": 12,
+   "components": 48,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "iceDust",
+   "source": "Assets/GameObject/iceDust.prefab",
+   "objects": 1,
+   "components": 3,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "icon quad prefab",
+   "source": "Assets/GameObject/icon quad prefab.prefab",
+   "objects": 1,
+   "components": 3,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "level1",
+   "source": "Assets/GameObject/level1.prefab",
+   "objects": 2,
+   "components": 9,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "level10",
+   "source": "Assets/GameObject/level10.prefab",
+   "objects": 219,
+   "components": 880,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level10/floor|Script:PathFillMeshCreator",
+    "level10/floor|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level10/floor|Script:ClosedPathCollider",
+    "level10/floor|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level11",
+   "source": "Assets/GameObject/level11.prefab",
+   "objects": 532,
+   "components": 2125,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level11/floor|Script:PathFillMeshCreator",
+    "level11/floor|Script:PathPolygonCollider2D",
+    "level11/floor (1)|Script:PathFillMeshCreator",
+    "level11/floor (1)|Script:PathPolygonCollider2D",
+    "level11/floor (2)|Script:PathFillMeshCreator",
+    "level11/floor (2)|Script:PathPolygonCollider2D",
+    "level11/floor (3)|Script:PathFillMeshCreator",
+    "level11/floor (3)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level11/floor|Script:ClosedPathCollider",
+    "level11/floor|Script:RoundedPathMeshCreator",
+    "level11/floor (1)|Script:ClosedPathCollider",
+    "level11/floor (1)|Script:RoundedPathMeshCreator",
+    "level11/floor (2)|Script:ClosedPathCollider",
+    "level11/floor (2)|Script:RoundedPathMeshCreator",
+    "level11/floor (3)|Script:ClosedPathCollider",
+    "level11/floor (3)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level12",
+   "source": "Assets/GameObject/level12.prefab",
+   "objects": 307,
+   "components": 1184,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level12/floor|Script:PathFillMeshCreator",
+    "level12/floor|Script:PathPolygonCollider2D",
+    "level12/floor (1)|Script:PathFillMeshCreator",
+    "level12/floor (1)|Script:PathPolygonCollider2D",
+    "level12/floor (2)|Script:PathFillMeshCreator",
+    "level12/floor (2)|Script:PathPolygonCollider2D",
+    "level12/floor (3)|Script:PathFillMeshCreator",
+    "level12/floor (3)|Script:PathPolygonCollider2D",
+    "level12/floor (4)|Script:PathFillMeshCreator",
+    "level12/floor (4)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level12/floor|Script:ClosedPathCollider",
+    "level12/floor|Script:RoundedPathMeshCreator",
+    "level12/floor (1)|Script:ClosedPathCollider",
+    "level12/floor (1)|Script:RoundedPathMeshCreator",
+    "level12/floor (2)|Script:ClosedPathCollider",
+    "level12/floor (2)|Script:RoundedPathMeshCreator",
+    "level12/floor (3)|Script:ClosedPathCollider",
+    "level12/floor (3)|Script:RoundedPathMeshCreator",
+    "level12/floor (4)|Script:ClosedPathCollider",
+    "level12/floor (4)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level13",
+   "source": "Assets/GameObject/level13.prefab",
+   "objects": 265,
+   "components": 1049,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level13/floor (1)|Script:PathFillMeshCreator",
+    "level13/floor (1)|Script:PathPolygonCollider2D",
+    "level13/floor (2)|Script:PathFillMeshCreator",
+    "level13/floor (2)|Script:PathPolygonCollider2D",
+    "level13/floor (3)|Script:PathFillMeshCreator",
+    "level13/floor (3)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level13/floor (1)|Script:ClosedPathCollider",
+    "level13/floor (1)|Script:RoundedPathMeshCreator",
+    "level13/floor (2)|Script:ClosedPathCollider",
+    "level13/floor (2)|Script:RoundedPathMeshCreator",
+    "level13/floor (3)|Script:ClosedPathCollider",
+    "level13/floor (3)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level14",
+   "source": "Assets/GameObject/level14.prefab",
+   "objects": 130,
+   "components": 517,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level14/curve (3)|Script:PathFillMeshCreator",
+    "level14/curve (3)|Script:PathPolygonCollider2D",
+    "level14/curve (4)|Script:PathFillMeshCreator",
+    "level14/curve (4)|Script:PathPolygonCollider2D",
+    "level14/floor (3)|Script:PathFillMeshCreator",
+    "level14/floor (3)|Script:PathPolygonCollider2D",
+    "level14/floor (4)|Script:PathFillMeshCreator",
+    "level14/floor (4)|Script:PathPolygonCollider2D",
+    "level14/floor (5)|Script:PathFillMeshCreator",
+    "level14/floor (5)|Script:PathPolygonCollider2D",
+    "level14/floor (6)|Script:PathFillMeshCreator",
+    "level14/floor (6)|Script:PathPolygonCollider2D",
+    "level14/floor (7)|Script:PathFillMeshCreator",
+    "level14/floor (7)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level14/curve (3)|Script:ClosedPathCollider",
+    "level14/curve (3)|Script:RoundedPathMeshCreator",
+    "level14/curve (4)|Script:ClosedPathCollider",
+    "level14/curve (4)|Script:RoundedPathMeshCreator",
+    "level14/floor (3)|Script:ClosedPathCollider",
+    "level14/floor (3)|Script:RoundedPathMeshCreator",
+    "level14/floor (4)|Script:ClosedPathCollider",
+    "level14/floor (4)|Script:RoundedPathMeshCreator",
+    "level14/floor (5)|Script:ClosedPathCollider",
+    "level14/floor (5)|Script:RoundedPathMeshCreator",
+    "level14/floor (6)|Script:ClosedPathCollider",
+    "level14/floor (6)|Script:RoundedPathMeshCreator",
+    "level14/floor (7)|Script:ClosedPathCollider",
+    "level14/floor (7)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level15",
+   "source": "Assets/GameObject/level15.prefab",
+   "objects": 890,
+   "components": 3545,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level15/curve (3)|Script:PathFillMeshCreator",
+    "level15/curve (3)|Script:PathPolygonCollider2D",
+    "level15/curve (4)|Script:PathFillMeshCreator",
+    "level15/curve (4)|Script:PathPolygonCollider2D",
+    "level15/floor|Script:PathFillMeshCreator",
+    "level15/floor|Script:PathPolygonCollider2D",
+    "level15/floor (1)|Script:PathFillMeshCreator",
+    "level15/floor (1)|Script:PathPolygonCollider2D",
+    "level15/floor (2)|Script:PathFillMeshCreator",
+    "level15/floor (2)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level15/curve (3)|Script:ClosedPathCollider",
+    "level15/curve (3)|Script:RoundedPathMeshCreator",
+    "level15/curve (4)|Script:ClosedPathCollider",
+    "level15/curve (4)|Script:RoundedPathMeshCreator",
+    "level15/floor|Script:ClosedPathCollider",
+    "level15/floor|Script:RoundedPathMeshCreator",
+    "level15/floor (1)|Script:ClosedPathCollider",
+    "level15/floor (1)|Script:RoundedPathMeshCreator",
+    "level15/floor (2)|Script:ClosedPathCollider",
+    "level15/floor (2)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level16",
+   "source": "Assets/GameObject/level16.prefab",
+   "objects": 139,
+   "components": 552,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level16/floor|Script:PathFillMeshCreator",
+    "level16/floor|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level16/floor|Script:ClosedPathCollider",
+    "level16/floor|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level17",
+   "source": "Assets/GameObject/level17.prefab",
+   "objects": 44,
+   "components": 118,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level17/curve (1)|Script:PathFillMeshCreator",
+    "level17/curve (1)|Script:PathPolygonCollider2D",
+    "level17/floor|Script:PathFillMeshCreator",
+    "level17/floor|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level17/curve (1)|Script:ClosedPathCollider",
+    "level17/curve (1)|Script:RoundedPathMeshCreator",
+    "level17/floor|Script:ClosedPathCollider",
+    "level17/floor|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level18",
+   "source": "Assets/GameObject/level18.prefab",
+   "objects": 833,
+   "components": 3335,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level18/curve (3)|Script:PathFillMeshCreator",
+    "level18/curve (3)|Script:PathPolygonCollider2D",
+    "level18/curve (4)|Script:PathFillMeshCreator",
+    "level18/curve (4)|Script:PathPolygonCollider2D",
+    "level18/floor (4)|Script:PathFillMeshCreator",
+    "level18/floor (4)|Script:PathPolygonCollider2D",
+    "level18/floor (5)|Script:PathFillMeshCreator",
+    "level18/floor (5)|Script:PathPolygonCollider2D",
+    "level18/floor (6)|Script:PathFillMeshCreator",
+    "level18/floor (6)|Script:PathPolygonCollider2D",
+    "level18/floor (7)|Script:PathFillMeshCreator",
+    "level18/floor (7)|Script:PathPolygonCollider2D",
+    "level18/floor (8)|Script:PathFillMeshCreator",
+    "level18/floor (8)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level18/curve (3)|Script:ClosedPathCollider",
+    "level18/curve (3)|Script:RoundedPathMeshCreator",
+    "level18/curve (4)|Script:ClosedPathCollider",
+    "level18/curve (4)|Script:RoundedPathMeshCreator",
+    "level18/floor (4)|Script:ClosedPathCollider",
+    "level18/floor (4)|Script:RoundedPathMeshCreator",
+    "level18/floor (5)|Script:ClosedPathCollider",
+    "level18/floor (5)|Script:RoundedPathMeshCreator",
+    "level18/floor (6)|Script:ClosedPathCollider",
+    "level18/floor (6)|Script:RoundedPathMeshCreator",
+    "level18/floor (7)|Script:ClosedPathCollider",
+    "level18/floor (7)|Script:RoundedPathMeshCreator",
+    "level18/floor (8)|Script:ClosedPathCollider",
+    "level18/floor (8)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level19",
+   "source": "Assets/GameObject/level19.prefab",
+   "objects": 418,
+   "components": 1663,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level19/curve (1)|Script:PathFillMeshCreator",
+    "level19/curve (1)|Script:PathPolygonCollider2D",
+    "level19/floor|Script:PathFillMeshCreator",
+    "level19/floor|Script:PathPolygonCollider2D",
+    "level19/floor (3)|Script:PathFillMeshCreator",
+    "level19/floor (3)|Script:PathPolygonCollider2D",
+    "level19/floor (4)|Script:PathFillMeshCreator",
+    "level19/floor (4)|Script:PathPolygonCollider2D",
+    "level19/floor (5)|Script:PathFillMeshCreator",
+    "level19/floor (5)|Script:PathPolygonCollider2D",
+    "level19/floor (6)|Script:PathFillMeshCreator",
+    "level19/floor (6)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level19/curve (1)|Script:ClosedPathCollider",
+    "level19/curve (1)|Script:RoundedPathMeshCreator",
+    "level19/floor|Script:ClosedPathCollider",
+    "level19/floor|Script:RoundedPathMeshCreator",
+    "level19/floor (3)|Script:ClosedPathCollider",
+    "level19/floor (3)|Script:RoundedPathMeshCreator",
+    "level19/floor (4)|Script:ClosedPathCollider",
+    "level19/floor (4)|Script:RoundedPathMeshCreator",
+    "level19/floor (5)|Script:ClosedPathCollider",
+    "level19/floor (5)|Script:RoundedPathMeshCreator",
+    "level19/floor (6)|Script:ClosedPathCollider",
+    "level19/floor (6)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level2",
+   "source": "Assets/GameObject/level2.prefab",
+   "objects": 3,
+   "components": 16,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level2/curve (1)|Script:PathFillMeshCreator",
+    "level2/curve (1)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level2/curve (1)|Script:ClosedPathCollider",
+    "level2/curve (1)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level20",
+   "source": "Assets/GameObject/level20.prefab",
+   "objects": 37,
+   "components": 107,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level20/curve (3)|Script:PathFillMeshCreator",
+    "level20/curve (3)|Script:PathPolygonCollider2D",
+    "level20/floor|Script:PathFillMeshCreator",
+    "level20/floor|Script:PathPolygonCollider2D",
+    "level20/floor (3)|Script:PathFillMeshCreator",
+    "level20/floor (3)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level20/curve (3)|Script:ClosedPathCollider",
+    "level20/curve (3)|Script:RoundedPathMeshCreator",
+    "level20/floor|Script:ClosedPathCollider",
+    "level20/floor|Script:RoundedPathMeshCreator",
+    "level20/floor (3)|Script:ClosedPathCollider",
+    "level20/floor (3)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level21",
+   "source": "Assets/GameObject/level21.prefab",
+   "objects": 38,
+   "components": 81,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level21/floor|Script:PathFillMeshCreator",
+    "level21/floor|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level21/floor|Script:ClosedPathCollider",
+    "level21/floor|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level22",
+   "source": "Assets/GameObject/level22.prefab",
+   "objects": 218,
+   "components": 853,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level22/floor|Script:PathFillMeshCreator",
+    "level22/floor|Script:PathPolygonCollider2D",
+    "level22/floor (1)|Script:PathFillMeshCreator",
+    "level22/floor (1)|Script:PathPolygonCollider2D",
+    "level22/floor (2)|Script:PathFillMeshCreator",
+    "level22/floor (2)|Script:PathPolygonCollider2D",
+    "level22/floor (3)|Script:PathFillMeshCreator",
+    "level22/floor (3)|Script:PathPolygonCollider2D",
+    "level22/floor (4)|Script:PathFillMeshCreator",
+    "level22/floor (4)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level22/floor|Script:ClosedPathCollider",
+    "level22/floor|Script:RoundedPathMeshCreator",
+    "level22/floor (1)|Script:ClosedPathCollider",
+    "level22/floor (1)|Script:RoundedPathMeshCreator",
+    "level22/floor (2)|Script:ClosedPathCollider",
+    "level22/floor (2)|Script:RoundedPathMeshCreator",
+    "level22/floor (3)|Script:ClosedPathCollider",
+    "level22/floor (3)|Script:RoundedPathMeshCreator",
+    "level22/floor (4)|Script:ClosedPathCollider",
+    "level22/floor (4)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level23",
+   "source": "Assets/GameObject/level23.prefab",
+   "objects": 1243,
+   "components": 4961,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level23/floor|Script:PathFillMeshCreator",
+    "level23/floor|Script:PathPolygonCollider2D",
+    "level23/floor (1)|Script:PathFillMeshCreator",
+    "level23/floor (1)|Script:PathPolygonCollider2D",
+    "level23/floor (2)|Script:PathFillMeshCreator",
+    "level23/floor (2)|Script:PathPolygonCollider2D",
+    "level23/floor (3)|Script:PathFillMeshCreator",
+    "level23/floor (3)|Script:PathPolygonCollider2D",
+    "level23/floor (4)|Script:PathFillMeshCreator",
+    "level23/floor (4)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level23/floor|Script:ClosedPathCollider",
+    "level23/floor|Script:RoundedPathMeshCreator",
+    "level23/floor (1)|Script:ClosedPathCollider",
+    "level23/floor (1)|Script:RoundedPathMeshCreator",
+    "level23/floor (2)|Script:ClosedPathCollider",
+    "level23/floor (2)|Script:RoundedPathMeshCreator",
+    "level23/floor (3)|Script:ClosedPathCollider",
+    "level23/floor (3)|Script:RoundedPathMeshCreator",
+    "level23/floor (4)|Script:ClosedPathCollider",
+    "level23/floor (4)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level3",
+   "source": "Assets/GameObject/level3.prefab",
+   "objects": 136,
+   "components": 551,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level3/curve (1)|Script:PathFillMeshCreator",
+    "level3/curve (1)|Script:PathPolygonCollider2D",
+    "level3/curve (2)|Script:PathFillMeshCreator",
+    "level3/curve (2)|Script:PathPolygonCollider2D",
+    "level3/curve (3)|Script:PathFillMeshCreator",
+    "level3/curve (3)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level3/curve (1)|Script:ClosedPathCollider",
+    "level3/curve (1)|Script:RoundedPathMeshCreator",
+    "level3/curve (2)|Script:ClosedPathCollider",
+    "level3/curve (2)|Script:RoundedPathMeshCreator",
+    "level3/curve (3)|Script:ClosedPathCollider",
+    "level3/curve (3)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level4",
+   "source": "Assets/GameObject/level4.prefab",
+   "objects": 650,
+   "components": 2601,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level4/curve (3)|Script:PathFillMeshCreator",
+    "level4/curve (3)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level4/curve (3)|Script:ClosedPathCollider",
+    "level4/curve (3)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level5",
+   "source": "Assets/GameObject/level5.prefab",
+   "objects": 5,
+   "components": 25,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level5/curve (1)|Script:PathFillMeshCreator",
+    "level5/curve (1)|Script:PathPolygonCollider2D",
+    "level5/curve (3)|Script:PathFillMeshCreator",
+    "level5/curve (3)|Script:PathPolygonCollider2D",
+    "level5/curve (4)|Script:PathFillMeshCreator",
+    "level5/curve (4)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level5/curve (1)|Script:ClosedPathCollider",
+    "level5/curve (1)|Script:RoundedPathMeshCreator",
+    "level5/curve (3)|Script:ClosedPathCollider",
+    "level5/curve (3)|Script:RoundedPathMeshCreator",
+    "level5/curve (4)|Script:ClosedPathCollider",
+    "level5/curve (4)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level6",
+   "source": "Assets/GameObject/level6.prefab",
+   "objects": 1531,
+   "components": 6135,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level6/curve (1)|Script:PathFillMeshCreator",
+    "level6/curve (1)|Script:PathPolygonCollider2D",
+    "level6/curve (2)|Script:PathFillMeshCreator",
+    "level6/curve (2)|Script:PathPolygonCollider2D",
+    "level6/curve (3)|Script:PathFillMeshCreator",
+    "level6/curve (3)|Script:PathPolygonCollider2D",
+    "level6/curve (4)|Script:PathFillMeshCreator",
+    "level6/curve (4)|Script:PathPolygonCollider2D",
+    "level6/curve (5)|Script:PathFillMeshCreator",
+    "level6/curve (5)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level6/curve (1)|Script:ClosedPathCollider",
+    "level6/curve (1)|Script:RoundedPathMeshCreator",
+    "level6/curve (2)|Script:ClosedPathCollider",
+    "level6/curve (2)|Script:RoundedPathMeshCreator",
+    "level6/curve (3)|Script:ClosedPathCollider",
+    "level6/curve (3)|Script:RoundedPathMeshCreator",
+    "level6/curve (4)|Script:ClosedPathCollider",
+    "level6/curve (4)|Script:RoundedPathMeshCreator",
+    "level6/curve (5)|Script:ClosedPathCollider",
+    "level6/curve (5)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level7",
+   "source": "Assets/GameObject/level7.prefab",
+   "objects": 25,
+   "components": 67,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level7/curve (1)|Script:PathFillMeshCreator",
+    "level7/curve (1)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level7/curve (1)|Script:ClosedPathCollider",
+    "level7/curve (1)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level7.5",
+   "source": "Assets/GameObject/level7.5.prefab",
+   "objects": 6,
+   "components": 16,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level7.5/floor (1)|Script:PathFillMeshCreator",
+    "level7.5/floor (1)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level7.5/floor (1)|Script:ClosedPathCollider",
+    "level7.5/floor (1)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level8",
+   "source": "Assets/GameObject/level8.prefab",
+   "objects": 79,
+   "components": 281,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level8/curve (1)|Script:PathFillMeshCreator",
+    "level8/curve (1)|Script:PathPolygonCollider2D",
+    "level8/floor (1)|Script:PathFillMeshCreator",
+    "level8/floor (1)|Script:PathPolygonCollider2D",
+    "level8/floor (2)|Script:PathFillMeshCreator",
+    "level8/floor (2)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level8/curve (1)|Script:ClosedPathCollider",
+    "level8/curve (1)|Script:RoundedPathMeshCreator",
+    "level8/floor (1)|Script:ClosedPathCollider",
+    "level8/floor (1)|Script:RoundedPathMeshCreator",
+    "level8/floor (2)|Script:ClosedPathCollider",
+    "level8/floor (2)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "level9",
+   "source": "Assets/GameObject/level9.prefab",
+   "objects": 646,
+   "components": 2555,
+   "status": "SERIALIZED_RECOVERY_MISMATCH",
+   "onlySource": [
+    "level9/floor|Script:PathFillMeshCreator",
+    "level9/floor|Script:PathPolygonCollider2D",
+    "level9/floor (1)|Script:PathFillMeshCreator",
+    "level9/floor (1)|Script:PathPolygonCollider2D",
+    "level9/floor (2)|Script:PathFillMeshCreator",
+    "level9/floor (2)|Script:PathPolygonCollider2D"
+   ],
+   "onlyRecovered": [
+    "level9/floor|Script:ClosedPathCollider",
+    "level9/floor|Script:RoundedPathMeshCreator",
+    "level9/floor (1)|Script:ClosedPathCollider",
+    "level9/floor (1)|Script:RoundedPathMeshCreator",
+    "level9/floor (2)|Script:ClosedPathCollider",
+    "level9/floor (2)|Script:RoundedPathMeshCreator"
+   ],
+   "attribution": "SOURCE_EDIT"
+  },
+  {
+   "prefab": "mud",
+   "source": "Assets/GameObject/mud.prefab",
+   "objects": 1,
+   "components": 4,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "octopus",
+   "source": "Assets/GameObject/octopus.prefab",
+   "objects": 1,
+   "components": 5,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "powerup",
+   "source": "Assets/GameObject/powerup.prefab",
+   "objects": 3,
+   "components": 9,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "snow",
+   "source": "Assets/GameObject/snow.prefab",
+   "objects": 1,
+   "components": 4,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "sponge",
+   "source": "Assets/GameObject/sponge.prefab",
+   "objects": 1,
+   "components": 5,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "stone",
+   "source": "Assets/GameObject/stone.prefab",
+   "objects": 12,
+   "components": 48,
+   "status": "MATCH"
+  },
+  {
+   "prefab": "water",
+   "source": "Assets/GameObject/water.prefab",
+   "objects": 1,
+   "components": 4,
+   "status": "MATCH"
+  }
+ ]
+}

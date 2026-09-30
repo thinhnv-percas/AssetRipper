@@ -1,0 +1,42 @@
+source shaders declared: 93
+DUMMY                    Custom/Bee  every pass carries the replacement stage
+DUMMY                    Custom/Cliffs_Lambert  every pass carries the replacement stage
+DUMMY                    Custom/FeverSplash  every pass carries the replacement stage
+DUMMY                    Custom/Fluid  every pass carries the replacement stage
+DUMMY                    Custom/Glass2  every pass carries the replacement stage
+DUMMY                    Custom/GradientBackground_LUT_World  every pass carries the replacement stage
+DUMMY                    Custom/Honey_NoGrab  every pass carries the replacement stage
+DUMMY                    Custom/Ice  every pass carries the replacement stage
+DUMMY                    Custom/Mud  every pass carries the replacement stage
+DUMMY                    Custom/Octopus  every pass carries the replacement stage
+DUMMY                    Custom/Octopus  every pass carries the replacement stage
+DUMMY                    Custom/ParticlesEmission  every pass carries the replacement stage
+DUMMY                    Custom/PowerUpParticles  every pass carries the replacement stage
+DUMMY                    Custom/SingleFluid  every pass carries the replacement stage
+DUMMY                    Custom/SpecialFluid  every pass carries the replacement stage
+DUMMY                    Custom/Sponge  every pass carries the replacement stage
+DUMMY                    Custom/UIButton  every pass carries the replacement stage
+DUMMY                    Custom/UITransition  every pass carries the replacement stage
+DUMMY                    Custom/Water  every pass carries the replacement stage
+DUMMY                    Hidden/ProBuilder/EdgePicker  every pass carries the replacement stage
+DUMMY                    Hidden/ProBuilder/FacePicker  every pass carries the replacement stage
+DUMMY                    Hidden/ProBuilder/HideVertices  every pass carries the replacement stage
+DUMMY                    Hidden/ProBuilder/VertexPicker  every pass carries the replacement stage
+DUMMY                    Hidden/WhiteMask  every pass carries the replacement stage
+DUMMY                    ProBuilder/Standard Vertex Color  every pass carries the replacement stage
+DUMMY                    ProBuilder/UnlitVertexColor  every pass carries the replacement stage
+DUMMY                    TextMeshPro/Distance Field Overlay  every pass carries the replacement stage
+DUMMY                    TextMeshPro/Mobile/Distance Field  every pass carries the replacement stage
+DUMMY                    TextMeshPro/Sprite  every pass carries the replacement stage
+EXACT                    0
+SEMANTICALLY_EQUIVALENT  0
+PROGRAM_RECOVERED        0
+PARTIAL                  0
+FALLBACK                 0
+DUMMY                    29
+METAL_BINARY_ONLY        0
+FAILED                   0
+UNKNOWN                  0
+NO_SOURCE_ORACLE         0
+NOT_APPLICABLE           0
+shader_semantic_equivalence_rate 0.0000 (0/29)

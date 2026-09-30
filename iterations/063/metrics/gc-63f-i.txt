@@ -1,0 +1,36 @@
+corpus: 887 entries, 222 for JellyBlastV2 (665 for other fixtures, 16 retired), 220 found, 2 not present in this rip
+
+== by semantic status ==
+  105  EXACT
+   28  HIGH_CONFIDENCE
+   83  PARTIAL
+    4  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+  134  GENERAL
+   29  STATIC_ENTRY
+    9  CONSTRUCTOR
+    9  LIFECYCLE_START
+    8  LIFECYCLE_AWAKE
+    8  LIFECYCLE_UPDATE
+    7  LIFECYCLE_DESTROY
+    7  UNITY_CALLBACK
+    6  COROUTINE
+    3  EVENT_ACCESSOR
+
+== not present ==
+  Assets/Scripts/Assembly-CSharp/__JobReflectionRegistrationOutput__1221673671587648887.cs#0x1029D70
+  Assets/Scripts/Assembly-CSharp/__JobReflectionRegistrationOutput__1221673671587648887.cs#0x102A0A4
+
+== against baseline ==
+improved 9, regressed 0
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/BFS/Essential/DoRotation.cs#0x1027778
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoColor.cs#0x1028AE0
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoDelay.cs#0x1028FC8
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoFloat.cs#0x1029478
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoVector.cs#0x102998C
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/HSBColor.cs#0x100DC5C
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/RayFireAssembly/RayFire/RFNoise.cs#0x1E5FD34
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/RayFireAssembly/RayFire/RayfireVortex.cs#0x1EC7C1C
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/RayFireAssembly/RayFire/RayfireWind.cs#0x1EC92AC

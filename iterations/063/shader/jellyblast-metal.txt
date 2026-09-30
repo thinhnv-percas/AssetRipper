@@ -1,0 +1,86 @@
+Metal entries: 1164  {"METAL_SOURCE_AVAILABLE": 780, "PARAMETER_BLOCK": 384}
+stages: {"vertex": 336, "fragment": 444}  entry points: {"xlatMtlMain": 780}  distinct programs: 532
+shaders: 83; with a material in the rip: 27
+  Custom/Bee                                           {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/Cliffs_Lambert                                {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/FeverSplash                                   {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 3}                    materials: 1
+  Custom/Fluid                                         {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/Glass2                                        {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 2
+  Custom/GradientBackground_LUT_World                  {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/Honey_NoGrab                                  {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/Ice                                           {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/Mud                                           {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 2
+  Custom/Octopus                                       {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 4}                    materials: 2
+  Custom/ParticlesEmission                             {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 4}                    materials: 1
+  Custom/PowerUpParticles                              {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 4}                    materials: 1
+  Custom/SingleFluid                                   {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/SpecialFluid                                  {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 3
+  Custom/Sponge                                        {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/UIButton                                      {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 3}                    materials: 1
+  Custom/UITransition                                  {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 2}                    materials: 1
+  Custom/Water                                         {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 2
+  GUI/Text Shader                                      {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/BlitCopy                                      {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/BlitCopyDepth                                 {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/BlitCopyHDRTonemap                            {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/BlitCopyWithDepth                             {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/BlitToDepth                                   {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/BlitToDepth_MSAA                              {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Compositing                                   {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/ConvertTexture                                {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/CubeBlend                                     {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/CubeBlur                                      {"METAL_SOURCE_AVAILABLE": 3, "PARAMETER_BLOCK": 3}                    materials: 0
+  Hidden/CubeCopy                                      {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/FrameDebuggerRenderTargetDisplay              {"METAL_SOURCE_AVAILABLE": 10, "PARAMETER_BLOCK": 6}                   materials: 0
+  Hidden/Internal-Colored                              {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/Internal-CombineDepthNormals                  {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-CubemapToEquirect                    {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-DebugPattern                         {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-DeferredReflections                  {"METAL_SOURCE_AVAILABLE": 7, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/Internal-DeferredShading                      {"METAL_SOURCE_AVAILABLE": 80, "PARAMETER_BLOCK": 25}                  materials: 0
+  Hidden/Internal-DepthNormalsTexture                  {"METAL_SOURCE_AVAILABLE": 16, "PARAMETER_BLOCK": 9}                   materials: 0
+  Hidden/Internal-Flare                                {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-GUIRoundedRect                       {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-GUIRoundedRectWithColorPerBorder     {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-GUITexture                           {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-GUITextureBlit                       {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-GUITextureClip                       {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-GUITextureClipText                   {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-Halo                                 {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-Loading                              {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/Internal-MotionVectors                        {"METAL_SOURCE_AVAILABLE": 5, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/Internal-ODSWorldTexture                      {"METAL_SOURCE_AVAILABLE": 14, "PARAMETER_BLOCK": 9}                   materials: 0
+  Hidden/Internal-ScreenSpaceShadows                   {"METAL_SOURCE_AVAILABLE": 20, "PARAMETER_BLOCK": 13}                  materials: 0
+  Hidden/Internal-StencilWrite                         {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-UIRAtlasBlitCopy                     {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/Internal-UIRDefault                           {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/Internal-UIRDefaultWorld                      {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/InternalClear                                 {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 4}                    materials: 0
+  Hidden/InternalErrorShader                           {"METAL_SOURCE_AVAILABLE": 16, "PARAMETER_BLOCK": 6}                   materials: 0
+  Hidden/ProBuilder/EdgePicker                         {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Hidden/ProBuilder/FacePicker                         {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Hidden/ProBuilder/HideVertices                       {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 1}                    materials: 1
+  Hidden/ProBuilder/VertexPicker                       {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Hidden/TextCore/Distance Field SSD                   {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/VR/BlitTexArraySlice                          {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/VideoComposite                                {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Hidden/VideoDecode                                   {"METAL_SOURCE_AVAILABLE": 19, "PARAMETER_BLOCK": 4}                   materials: 0
+  Hidden/WhiteMask                                     {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Legacy Shaders/Diffuse                               {"METAL_SOURCE_AVAILABLE": 29, "PARAMETER_BLOCK": 15}                  materials: 0
+  Legacy Shaders/Particles/Alpha Blended               {"METAL_SOURCE_AVAILABLE": 4, "PARAMETER_BLOCK": 4}                    materials: 0
+  Legacy Shaders/VertexLit                             {"METAL_SOURCE_AVAILABLE": 12, "PARAMETER_BLOCK": 7}                   materials: 0
+  Particles/Standard Unlit                             {"METAL_SOURCE_AVAILABLE": 32, "PARAMETER_BLOCK": 12}                  materials: 0
+  ProBuilder/Standard Vertex Color                     {"METAL_SOURCE_AVAILABLE": 63, "PARAMETER_BLOCK": 37}                  materials: 1
+  ProBuilder/UnlitVertexColor                          {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 1
+  Skybox/Procedural                                    {"METAL_SOURCE_AVAILABLE": 6, "PARAMETER_BLOCK": 5}                    materials: 0
+  Sprites/Default                                      {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 4}                    materials: 0
+  Sprites/Mask                                         {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 4}                    materials: 0
+  Standard                                             {"METAL_SOURCE_AVAILABLE": 194, "PARAMETER_BLOCK": 58}                 materials: 0
+  TextMeshPro/Distance Field Overlay                   {"METAL_SOURCE_AVAILABLE": 16, "PARAMETER_BLOCK": 4}                   materials: 1
+  TextMeshPro/Mobile/Distance Field                    {"METAL_SOURCE_AVAILABLE": 32, "PARAMETER_BLOCK": 6}                   materials: 4
+  TextMeshPro/Sprite                                   {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 3}                    materials: 2
+  UI/Default                                           {"METAL_SOURCE_AVAILABLE": 8, "PARAMETER_BLOCK": 3}                    materials: 0
+  Unlit/Color                                          {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Unlit/SDFTexturePreview                              {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Unlit/Texture                                        {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0
+  Unlit/Transparent                                    {"METAL_SOURCE_AVAILABLE": 2, "PARAMETER_BLOCK": 2}                    materials: 0

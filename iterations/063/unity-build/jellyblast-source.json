@@ -1,0 +1,63 @@
+{
+  "status": "UNITY_NOT_AVAILABLE",
+  "validationLevel": "BLOCKED",
+  "reason": "local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity",
+  "provider": "none",
+  "unityVersion": "2022.3.62f2",
+  "editorPath": null,
+  "projectPath": "/home/user/thinhnv-x-percas/jelly-blast",
+  "targetPlatform": "iOS",
+  "exitCode": null,
+  "attempts": 1,
+  "transient": false,
+  "unityLog": null,
+  "buildArtifact": null,
+  "artifactExists": false,
+  "startedUtc": "2026-09-30T04:27:55.0018870\u002B00:00",
+  "finishedUtc": "2026-09-30T04:27:55.0018870\u002B00:00",
+  "commandLine": [],
+  "compilerErrors": [],
+  "stages": [
+    {
+      "stage": "PROJECT_DISCOVERY",
+      "outcome": "PASSED",
+      "evidence": "Assets/ and ProjectSettings/ present; ProjectVersion.txt reads 2022.3.62f2"
+    },
+    {
+      "stage": "UNITY_IMPORT",
+      "outcome": "NOT_REACHED",
+      "evidence": "the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity"
+    },
+    {
+      "stage": "SCRIPT_COMPILE",
+      "outcome": "NOT_REACHED",
+      "evidence": "the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity"
+    },
+    {
+      "stage": "ASSET_IMPORT",
+      "outcome": "NOT_REACHED",
+      "evidence": "the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity"
+    },
+    {
+      "stage": "BUILD_PLAYER",
+      "outcome": "NOT_REACHED",
+      "evidence": "the editor did not run the project: local: no Unity 2022.3.62f2 editor at any of: /root/Unity/Hub/Editor/2022.3.62f2/Editor/Unity, /opt/unity/editors/2022.3.62f2/Editor/Unity, /opt/unity/Editor/Unity"
+    },
+    {
+      "stage": "RUNTIME",
+      "outcome": "NOT_RUN",
+      "evidence": "a build does not run the player; no runtime harness was run"
+    }
+  ],
+  "fingerprint": {
+    "project": "3929f144f57137b6133ef6c8e491577fa9b6c0d42b9af96a92f7ab7a8f4e06f9",
+    "projectSettings": "e371c183070c39b0d72e958deafee06644484c371c4c4b15b6ceb8c3f88e60e1",
+    "packages": "1c52192ecc570401d166a61c2a264943bc9e7d341bef0776df5f0ed1d92ff389",
+    "packageLock": "1c52192ecc570401d166a61c2a264943bc9e7d341bef0776df5f0ed1d92ff389",
+    "scripts": "77d1252beff54feedba72dbac25f3af83f5ca7aac45129a317dd7864f8a8af17",
+    "assets": "36440523440cc1424aa02190b5a21a4b226038b7e5c6205b182dbf59683ea113",
+    "files": 2029
+  },
+  "stdout": "",
+  "stderr": ""
+}

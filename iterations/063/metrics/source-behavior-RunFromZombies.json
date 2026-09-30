@@ -1,0 +1,1523 @@
+{
+ "AudioManager.Awake/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "clip",
+    "loop",
+    "pitch",
+    "source",
+    "volume"
+   ],
+   "field_reads": [
+    "sounds"
+   ],
+   "calls": [],
+   "loops": 1,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 244,
+   "boundaries": 0,
+   "property_writes": [
+    "clip",
+    "loop",
+    "pitch",
+    "volume"
+   ],
+   "field_writes": [
+    "source"
+   ],
+   "field_reads": [
+    "clip",
+    "loop",
+    "pitch",
+    "sounds",
+    "source",
+    "volume"
+   ],
+   "calls": [
+    "AddComponent",
+    "get_gameObject",
+    "set_clip",
+    "set_loop",
+    "set_pitch",
+    "set_volume"
+   ],
+   "loops": 2,
+   "branches": 2,
+   "throws": 0,
+   "arithmetic": 1
+  }
+ },
+ "AudioManager.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [
+    "Play"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 72,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [
+    "Play"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "AudioManager.Play/1": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [
+    "sounds"
+   ],
+   "calls": [
+    "Find",
+    "LogWarning",
+    "Play"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 360,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "name"
+   ],
+   "field_reads": [
+    "name",
+    "sounds",
+    "source"
+   ],
+   "calls": [
+    "Concat",
+    "Find",
+    "LogWarning",
+    "Play"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "BoxRaRot.Start/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['Euler']"
+  ],
+  "source": {
+   "field_writes": [
+    "localRotation"
+   ],
+   "field_reads": [],
+   "calls": [
+    "Euler",
+    "Range"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 112,
+   "boundaries": 0,
+   "property_writes": [
+    "localRotation"
+   ],
+   "field_writes": [
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [],
+   "calls": [
+    "Range",
+    "get_transform",
+    "set_localRotation"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 1
+  }
+ },
+ "Checker.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "animator",
+    "enabled",
+    "nextSpawner",
+    "scoreCounter"
+   ],
+   "field_reads": [
+    "gameOverCanvas"
+   ],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 152,
+   "boundaries": 0,
+   "property_writes": [
+    "enabled"
+   ],
+   "field_writes": [
+    "animator",
+    "nextSpawner",
+    "scoreCounter"
+   ],
+   "field_reads": [
+    "gameOverCanvas"
+   ],
+   "calls": [
+    "GetComponent",
+    "set_enabled"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "Checker.Update/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "isNext",
+    "nextSpawner",
+    "safeMove",
+    "scoreCounter"
+   ],
+   "field_reads": [
+    "nextSpawner",
+    "safeMove",
+    "scoreCounter"
+   ],
+   "calls": [],
+   "loops": 0,
+   "branches": 2,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 152,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "isNext",
+    "nextSpawner",
+    "safeMove",
+    "scoreCounter"
+   ],
+   "field_reads": [
+    "nextSpawner",
+    "safeMove",
+    "scoreCounter"
+   ],
+   "calls": [],
+   "loops": 0,
+   "branches": 2,
+   "throws": 0,
+   "arithmetic": 2
+  }
+ },
+ "Checker.OnTriggerEnter/1": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "enabled",
+    "isLose",
+    "safeMove",
+    "timeScale"
+   ],
+   "field_reads": [
+    "animator",
+    "gameOverCanvas",
+    "movement",
+    "scoreCounter"
+   ],
+   "calls": [
+    "GetInt",
+    "Play",
+    "SetBool",
+    "SetInt"
+   ],
+   "loops": 0,
+   "branches": 5,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 724,
+   "boundaries": 0,
+   "property_writes": [
+    "enabled",
+    "timeScale"
+   ],
+   "field_writes": [
+    "isLose",
+    "safeMove"
+   ],
+   "field_reads": [
+    "animator",
+    "gameOverCanvas",
+    "movement",
+    "scoreCounter"
+   ],
+   "calls": [
+    "FindObjectOfType",
+    "GetInt",
+    "Play",
+    "SetBool",
+    "SetInt",
+    "get_gameObject",
+    "get_tag",
+    "op_Equality",
+    "set_enabled",
+    "set_timeScale"
+   ],
+   "loops": 0,
+   "branches": 4,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "Checker.OnTriggerExit/1": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "safeMove"
+   ],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 120,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "safeMove"
+   ],
+   "field_reads": [],
+   "calls": [
+    "get_gameObject",
+    "get_tag",
+    "op_Equality"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "HighScore.Update/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "text"
+   ],
+   "field_reads": [
+    "highScore"
+   ],
+   "calls": [
+    "GetInt",
+    "ToString"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 172,
+   "boundaries": 0,
+   "property_writes": [
+    "text"
+   ],
+   "field_writes": [],
+   "field_reads": [
+    "highScore",
+    "scoreCounter"
+   ],
+   "calls": [
+    "GetInt",
+    "ToString",
+    "set_text"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "MenuController.PlayButt/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [
+    "LoadASynchronously",
+    "StartCoroutine"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 32,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [
+    "LoadASynchronously",
+    "StartCoroutine"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "MenuController.LoadASynchronously/0": {
+  "status": "NOT_AVAILABLE",
+  "notes": [
+   "coroutine: the body is in a compiler-generated state machine"
+  ],
+  "source": {
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [
+    "Clamp01",
+    "LoadSceneAsync",
+    "Log"
+   ],
+   "loops": 1,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": true
+  },
+  "recovered": {
+   "native_length": 88,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "MenuMove.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "firstSpawn"
+   ],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 48,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "firstSpawn",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "y",
+    "z"
+   ],
+   "calls": [
+    "get_position",
+    "get_transform"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "MenuMove.Update/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['MoveTowards']"
+  ],
+  "source": {
+   "field_writes": [
+    "position"
+   ],
+   "field_reads": [
+    "destination",
+    "firstSpawn"
+   ],
+   "calls": [
+    "MoveTowards"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 492,
+   "boundaries": 0,
+   "property_writes": [
+    "position"
+   ],
+   "field_writes": [
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "destination",
+    "firstSpawn",
+    "x",
+    "y",
+    "z"
+   ],
+   "calls": [
+    "Sqrt",
+    "get_deltaTime",
+    "get_position",
+    "get_transform",
+    "set_position"
+   ],
+   "loops": 0,
+   "branches": 4,
+   "throws": 0,
+   "arithmetic": 27
+  }
+ },
+ "MoveBoard.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "startPos"
+   ],
+   "field_reads": [],
+   "calls": [
+    "InvokeRepeating"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 128,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "startPos"
+   ],
+   "field_reads": [
+    "x"
+   ],
+   "calls": [
+    "InvokeRepeating",
+    "get_gameObject",
+    "get_position",
+    "get_transform"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "MoveBoard.Update/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['MoveTowards', 'Vector3']"
+  ],
+  "source": {
+   "field_writes": [
+    "position"
+   ],
+   "field_reads": [
+    "boardPosition",
+    "posX"
+   ],
+   "calls": [
+    "MoveTowards",
+    "Vector3"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 432,
+   "boundaries": 0,
+   "property_writes": [
+    "position"
+   ],
+   "field_writes": [
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "boardPosition",
+    "posX",
+    "x",
+    "y",
+    "z"
+   ],
+   "calls": [
+    "Sqrt",
+    "get_deltaTime",
+    "get_position",
+    "get_transform",
+    "set_position"
+   ],
+   "loops": 0,
+   "branches": 3,
+   "throws": 0,
+   "arithmetic": 20
+  }
+ },
+ "MoveBoard.ChangeDirection/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "posX"
+   ],
+   "field_reads": [
+    "boardPosition",
+    "startPos"
+   ],
+   "calls": [],
+   "loops": 0,
+   "branches": 3,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 104,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "posX"
+   ],
+   "field_reads": [
+    "boardPosition",
+    "startPos",
+    "x"
+   ],
+   "calls": [
+    "get_position",
+    "get_transform"
+   ],
+   "loops": 2,
+   "branches": 3,
+   "throws": 0,
+   "arithmetic": 1
+  }
+ },
+ "Movement.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "screenWidth"
+   ],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 36,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "screenWidth"
+   ],
+   "field_reads": [],
+   "calls": [
+    "get_width"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "Movement.Update/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['MoveTowards', 'Vector3']"
+  ],
+  "source": {
+   "field_writes": [
+    "posZ",
+    "position",
+    "screenWidth"
+   ],
+   "field_reads": [
+    "character",
+    "moveSound",
+    "moveSpeed",
+    "myAnimator",
+    "posZ",
+    "screenWidth"
+   ],
+   "calls": [
+    "GetKeyDown",
+    "GetMouseButtonDown",
+    "IsPointerOverGameObject",
+    "MoveTowards",
+    "Play",
+    "SetBool",
+    "Vector3"
+   ],
+   "loops": 0,
+   "branches": 9,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 1324,
+   "boundaries": 0,
+   "property_writes": [
+    "position"
+   ],
+   "field_writes": [
+    "posZ",
+    "screenWidth",
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "character",
+    "isPaused",
+    "left",
+    "moveSound",
+    "moveSpeed",
+    "myAnimator",
+    "posZ",
+    "right",
+    "screenWidth",
+    "x",
+    "y",
+    "z"
+   ],
+   "calls": [
+    "GetKeyDown",
+    "GetMouseButtonDown",
+    "IsPointerOverGameObject",
+    "Play",
+    "SetBool",
+    "Sqrt",
+    "get_current",
+    "get_currentResolution",
+    "get_deltaTime",
+    "get_mousePosition",
+    "get_position",
+    "get_transform",
+    "get_width",
+    "set_position"
+   ],
+   "loops": 4,
+   "branches": 15,
+   "throws": 0,
+   "arithmetic": 28
+  }
+ },
+ "ObsDropper.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 4,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "ObsDropper.Update/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['MoveTowards', 'Vector3']"
+  ],
+  "source": {
+   "field_writes": [
+    "isParticle",
+    "position"
+   ],
+   "field_reads": [
+    "dustPart",
+    "isParticle",
+    "isTouch",
+    "obstacle"
+   ],
+   "calls": [
+    "MoveTowards",
+    "Play",
+    "Vector3"
+   ],
+   "loops": 0,
+   "branches": 3,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 516,
+   "boundaries": 0,
+   "property_writes": [
+    "position"
+   ],
+   "field_writes": [
+    "isParticle",
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "dustPart",
+    "isParticle",
+    "isTouch",
+    "obstacle",
+    "x",
+    "y",
+    "z"
+   ],
+   "calls": [
+    "Play",
+    "Sqrt",
+    "get_deltaTime",
+    "get_isPlaying",
+    "get_position",
+    "get_transform",
+    "set_position"
+   ],
+   "loops": 0,
+   "branches": 7,
+   "throws": 0,
+   "arithmetic": 20
+  }
+ },
+ "ObsDropper.OnTriggerEnter/1": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "isTouch"
+   ],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 124,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "isTouch"
+   ],
+   "field_reads": [],
+   "calls": [
+    "get_gameObject",
+    "get_tag",
+    "op_Equality"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "ObsJumper.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 4,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "ObsJumper.Update/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['MoveTowards', 'Vector3']"
+  ],
+  "source": {
+   "field_writes": [
+    "isHigh",
+    "position"
+   ],
+   "field_reads": [
+    "highestPoint",
+    "isHigh",
+    "obstacle"
+   ],
+   "calls": [
+    "MoveTowards",
+    "Vector3"
+   ],
+   "loops": 0,
+   "branches": 3,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 800,
+   "boundaries": 0,
+   "property_writes": [
+    "position"
+   ],
+   "field_writes": [
+    "isHigh",
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "highestPoint",
+    "isHigh",
+    "obstacle",
+    "x",
+    "y",
+    "z"
+   ],
+   "calls": [
+    "Sqrt",
+    "get_deltaTime",
+    "get_position",
+    "get_transform",
+    "set_position"
+   ],
+   "loops": 0,
+   "branches": 9,
+   "throws": 0,
+   "arithmetic": 40
+  }
+ },
+ "ScoreScript.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "score"
+   ],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 80,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "score"
+   ],
+   "field_reads": [],
+   "calls": [
+    "GetComponent"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "ScoreScript.Update/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "text"
+   ],
+   "field_reads": [
+    "score"
+   ],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 132,
+   "boundaries": 0,
+   "property_writes": [
+    "text"
+   ],
+   "field_writes": [],
+   "field_reads": [
+    "score"
+   ],
+   "calls": [
+    "ToString",
+    "set_text"
+   ],
+   "loops": 2,
+   "branches": 1,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "Spawner.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "isNext"
+   ],
+   "field_reads": [],
+   "calls": [
+    "FirstSpawn"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 88,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [
+    "isNext"
+   ],
+   "field_reads": [],
+   "calls": [
+    "FirstSpawn"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "Spawner.Update/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [
+    "isNext"
+   ],
+   "calls": [
+    "NextSpawner"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 96,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [
+    "isNext"
+   ],
+   "calls": [
+    "NextSpawner"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "Spawner.FirstSpawn/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['Vector3']"
+  ],
+  "source": {
+   "field_writes": [
+    "nextSpawn",
+    "parent"
+   ],
+   "field_reads": [
+    "leftSpawnPoint",
+    "nextSpawn",
+    "obsPrefabs",
+    "rightSpawnPoint",
+    "street",
+    "streetSpawnPoint"
+   ],
+   "calls": [
+    "Instantiate",
+    "Range",
+    "Vector3"
+   ],
+   "loops": 1,
+   "branches": 2,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 872,
+   "boundaries": 0,
+   "property_writes": [
+    "parent"
+   ],
+   "field_writes": [
+    "nextSpawn",
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "identity",
+    "leftSpawnPoint",
+    "nextSpawn",
+    "obsPrefabs",
+    "rightSpawnPoint",
+    "street",
+    "streetSpawnPoint",
+    "x",
+    "y"
+   ],
+   "calls": [
+    "Instantiate",
+    "Range",
+    "get_position",
+    "get_transform",
+    "set_parent"
+   ],
+   "loops": 2,
+   "branches": 2,
+   "throws": 0,
+   "arithmetic": 6
+  }
+ },
+ "Spawner.NextSpawner/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['Vector3']"
+  ],
+  "source": {
+   "field_writes": [
+    "isNext",
+    "nextSpawn",
+    "nextStreet",
+    "parent"
+   ],
+   "field_reads": [
+    "leftSpawnPoint",
+    "nextSpawn",
+    "nextStreet",
+    "obsPrefabs",
+    "rightSpawnPoint",
+    "street",
+    "streetSpawnPoint"
+   ],
+   "calls": [
+    "Instantiate",
+    "Range",
+    "Vector3"
+   ],
+   "loops": 1,
+   "branches": 2,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 916,
+   "boundaries": 0,
+   "property_writes": [
+    "parent"
+   ],
+   "field_writes": [
+    "isNext",
+    "nextSpawn",
+    "nextStreet",
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "identity",
+    "leftSpawnPoint",
+    "nextSpawn",
+    "nextStreet",
+    "obsPrefabs",
+    "rightSpawnPoint",
+    "street",
+    "streetSpawnPoint",
+    "x",
+    "y"
+   ],
+   "calls": [
+    "Instantiate",
+    "Range",
+    "get_position",
+    "get_transform",
+    "set_parent"
+   ],
+   "loops": 2,
+   "branches": 2,
+   "throws": 0,
+   "arithmetic": 5
+  }
+ },
+ "StreetKiller.OnTriggerEnter/1": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [
+    "Destroy"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 188,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [
+    "Destroy",
+    "get_gameObject",
+    "get_tag",
+    "op_Equality"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "UIController.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [
+    "pauseMenuUI"
+   ],
+   "calls": [
+    "SetActive"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 32,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [
+    "pauseMenuUI"
+   ],
+   "calls": [
+    "SetActive"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "UIController.PauseButt/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "isPaused",
+    "timeScale"
+   ],
+   "field_reads": [
+    "isPaused",
+    "pauseMenuUI"
+   ],
+   "calls": [
+    "SetActive"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 172,
+   "boundaries": 0,
+   "property_writes": [
+    "timeScale"
+   ],
+   "field_writes": [
+    "isPaused"
+   ],
+   "field_reads": [
+    "isPaused",
+    "pauseMenuUI"
+   ],
+   "calls": [
+    "SetActive",
+    "set_timeScale"
+   ],
+   "loops": 0,
+   "branches": 1,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "UIController.RestartButt/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "isPaused",
+    "timeScale"
+   ],
+   "field_reads": [],
+   "calls": [
+    "LoadScene"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 128,
+   "boundaries": 0,
+   "property_writes": [
+    "timeScale"
+   ],
+   "field_writes": [
+    "isPaused"
+   ],
+   "field_reads": [],
+   "calls": [
+    "LoadScene",
+    "set_timeScale"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "UIController.MenutButt/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [
+    "isPaused",
+    "timeScale"
+   ],
+   "field_reads": [],
+   "calls": [
+    "LoadScene"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 128,
+   "boundaries": 0,
+   "property_writes": [
+    "timeScale"
+   ],
+   "field_writes": [
+    "isPaused"
+   ],
+   "field_reads": [],
+   "calls": [
+    "LoadScene",
+    "set_timeScale"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "ZambiesMovement.Start/0": {
+  "status": "EXACT",
+  "notes": [],
+  "source": {
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 4,
+   "boundaries": 0,
+   "property_writes": [],
+   "field_writes": [],
+   "field_reads": [],
+   "calls": [],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "arithmetic": 0
+  }
+ },
+ "ZambiesMovement.Update/0": {
+  "status": "SEMANTICALLY_EQUIVALENT",
+  "notes": [
+   "framework calls absent, consistent with inlining: ['MoveTowards']"
+  ],
+  "source": {
+   "field_writes": [
+    "position",
+    "realSpeed",
+    "value"
+   ],
+   "field_reads": [
+    "player",
+    "realSpeed",
+    "slider",
+    "speed"
+   ],
+   "calls": [
+    "MoveTowards"
+   ],
+   "loops": 0,
+   "branches": 0,
+   "throws": 0,
+   "coroutine": false
+  },
+  "recovered": {
+   "native_length": 568,
+   "boundaries": 0,
+   "property_writes": [
+    "position",
+    "value"
+   ],
+   "field_writes": [
+    "realSpeed",
+    "x",
+    "y",
+    "z"
+   ],
+   "field_reads": [
+    "player",
+    "realSpeed",
+    "scoreCounter",
+    "slider",
+    "speed",
+    "x",
+    "y",
+    "z"
+   ],
+   "calls": [
+    "Sqrt",
+    "get_deltaTime",
+    "get_position",
+    "get_transform",
+    "set_position",
+    "set_value"
+   ],
+   "loops": 0,
+   "branches": 3,
+   "throws": 0,
+   "arithmetic": 23
+  }
+ }
+}
