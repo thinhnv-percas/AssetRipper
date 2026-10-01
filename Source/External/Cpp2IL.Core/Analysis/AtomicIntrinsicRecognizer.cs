@@ -119,6 +119,86 @@ public static class AtomicIntrinsicRecognizer
         return Shape.None;
     }
 
+    /// <summary>
+    /// AssetRipper: the registers a compare-and-swap's three operands arrive in, read off the sequence.
+    /// </summary>
+    /// <param name="Location">The register both exclusive accesses address through.</param>
+    /// <param name="Value">The register the store-exclusive writes: the value swapped in.</param>
+    /// <param name="Comparand">The register the loaded value is compared with.</param>
+    /// <param name="Width">The access width in bytes, 4 or 8; the load and the store agree on it.</param>
+    public readonly record struct CompareExchangeOperands(int Location, int Value, int Comparand, int Width);
+
+    /// <summary>
+    /// AssetRipper: iteration 064. Which argument registers a compare-and-swap reads as which operand,
+    /// or null when the code is not one whose operands can be read straight off it.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="Classify"/> says <em>what</em> a function does. Mapping a call to
+    /// <c>Interlocked.CompareExchange(ref location, value, comparand)</c> needs more: which argument is
+    /// which, and how wide the location is - the generic overload over a reference and the <c>int</c>
+    /// one are the same instructions at two widths. Both are in the sequence: the address register of
+    /// the exclusive pair is the location, the register the store writes is the value, the other operand
+    /// of the comparison is the comparand, and the size field of the exclusive accesses is the width.
+    /// Anything less direct - a register moved before the loop, an immediate comparand, a load and a
+    /// store of different widths - answers null rather than a mapping that has to be argued for.
+    /// </remarks>
+    public static CompareExchangeOperands? ReadCompareExchange(ReadOnlySpan<byte> code)
+    {
+        int location = -1;
+        int loadedInto = -1;
+        int comparand = -1;
+        int width = 0;
+
+        for (int index = 0; index < WindowInstructions && (index + 1) * 4 <= code.Length; index++)
+        {
+            uint word = BinaryPrimitives.ReadUInt32LittleEndian(code.Slice(index * 4, 4));
+
+            if (IsLoadExclusive(word))
+            {
+                location = AddressRegister(word);
+                loadedInto = TransferRegister(word);
+                width = WidthOf(word);
+                comparand = -1;
+                continue;
+            }
+
+            if (location < 0)
+            {
+                continue;
+            }
+
+            // A register written between the load and the store is not still the argument it arrived
+            // as, so reading it as one would be the guess this method exists to avoid.
+            if (IsCompareWith(word, loadedInto))
+            {
+                if ((word & 0x7F200000) != 0x6B000000)
+                {
+                    return null; // an immediate comparand: not a three-operand compare-and-swap
+                }
+
+                int first = (int)((word >> 5) & 0x1F);
+                int second = (int)((word >> 16) & 0x1F);
+                comparand = first == loadedInto ? second : first;
+                continue;
+            }
+
+            if (IsStoreExclusive(word))
+            {
+                if (AddressRegister(word) != location || comparand < 0 || WidthOf(word) != width)
+                {
+                    return null;
+                }
+
+                return new CompareExchangeOperands(location, TransferRegister(word), comparand, width);
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>The size field of a load/store-exclusive word, in bytes.</summary>
+    private static int WidthOf(uint word) => 1 << (int)(word >> 30);
+
     /// <summary>LDXR/LDAXR, 32- or 64-bit: the load half of an exclusive pair.</summary>
     /// <remarks>
     /// The load/store exclusive family is <c>size(2) 001000 o2 L o1 Rs o0 Rt2 Rn Rt</c>. A load has

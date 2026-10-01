@@ -47,7 +47,9 @@ ALLOCATIONS = {"NEW_OBJECT", "NEW_ARRAY"}
 # A method with any of these changes something outside itself, which is what a runtime check would
 # have to observe. A pure computation has none.
 SIDE_EFFECTING = WRITES | STATIC_WRITES | ARRAY_WRITES | CALLS | VIRTUAL | INTERFACE | DELEGATE | {
-    "LIST_ADD", "THROW", "RUNTIME_BOUNDARY", "INDIRECT_CALL"}
+    "LIST_ADD", "THROW", "RUNTIME_BOUNDARY", "INDIRECT_CALL",
+    # Iteration 064: a write through a `ref`/`out` parameter is visible to the caller.
+    "STORE_INDIRECT"}
 
 
 def bodies_by_rva(game):

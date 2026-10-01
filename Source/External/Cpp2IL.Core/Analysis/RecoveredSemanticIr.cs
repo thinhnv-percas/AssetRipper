@@ -60,6 +60,11 @@ public enum SemanticOperation
     RuntimeBoundary,
 
     ListAdd,
+
+    // AssetRipper: iteration 064. A read or a write through a managed reference (`ref`/`out`
+    // parameter), which is neither a field nor a local: `ldobj`/`stobj`.
+    LoadIndirect,
+    StoreIndirect,
 }
 
 /// <summary>
@@ -475,6 +480,8 @@ public sealed class RecoveredSemanticIr
         SemanticOperation.ObjectAddress => "OBJECT_ADDRESS",
         SemanticOperation.RuntimeBoundary => "RUNTIME_BOUNDARY",
         SemanticOperation.ListAdd => "LIST_ADD",
+        SemanticOperation.LoadIndirect => "LOAD_INDIRECT",
+        SemanticOperation.StoreIndirect => "STORE_INDIRECT",
         _ => operation.ToString(),
     };
 

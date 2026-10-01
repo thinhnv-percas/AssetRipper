@@ -2776,6 +2776,20 @@ public static class IlGenerator
                 // that compiles, reads plausibly, and answers for a mask of zero whatever it is given.
                 LoadLocalAddress(addressed, method, locals);
                 break;
+            case AddressOf { Target: FieldReference fieldAddress }:
+                // AssetRipper: the address of a field, which is what a `ref` parameter is handed when
+                // the argument is a field: `Interlocked.CompareExchange(ref this.handler, …)`.
+                RecoveredSemanticIr.Record(SemanticOperation.FieldAddress, fieldAddress.Field.Name);
+                if (fieldAddress.Field.IsStatic)
+                {
+                    instructions.Add(CilOpCodes.Ldsflda, fieldAddress.Field.ToFieldDescriptor());
+                    break;
+                }
+
+                LoadFieldBase(fieldAddress, fieldAddress.Local.Type is { IsValueType: true }, instructions, context, method, locals, writeLine);
+                LoadContainingFields(fieldAddress, instructions);
+                instructions.Add(CilOpCodes.Ldflda, fieldAddress.Field.ToFieldDescriptor());
+                break;
             case AddressOf { Target: ArrayAccess elementAddress }:
                 RecoveredSemanticIr.Record(SemanticOperation.ObjectAddress, elementAddress.Array.Name);
                 LoadLocal(elementAddress.Array, method, locals);
@@ -2909,10 +2923,15 @@ public static class IlGenerator
                     LoadLocal(local2, method, locals);
 
                     // A load through a managed pointer (byref) dereferences it to yield the referent.
+                    // AssetRipper: ldobj for every referent, because a generic parameter is neither
+                    // known to be a value type nor known not to be one, and ldind.ref on a `ref T` where
+                    // T is a struct reads the struct's first bytes as a reference. ldobj of a reference
+                    // type is exactly ldind.ref.
                     if (local2.Type is ByRefTypeAnalysisContext { ElementType: { } referent })
-                        instructions.Add(referent.IsValueType
-                            ? new CilInstruction(CilOpCodes.Ldobj, referent.ToTypeSignature().ToTypeDefOrRef())
-                            : new CilInstruction(CilOpCodes.Ldind_Ref));
+                    {
+                        RecoveredSemanticIr.Record(SemanticOperation.LoadIndirect, local2.Name);
+                        instructions.Add(CilOpCodes.Ldobj, referent.ToTypeSignature().ToTypeDefOrRef());
+                    }
                     break;
                 }
 
@@ -3226,6 +3245,9 @@ public static class IlGenerator
             LocalVariable local => local.Type,
             FieldReference field => field.Field.FieldType,
             ArrayAccess { Array.Type: SzArrayTypeAnalysisContext array } => array.ElementType,
+            // AssetRipper: what a store through a managed reference writes is its referent, so a zero
+            // stored into `out VariableDeclaration value` is null rather than `(VariableDeclaration)0`.
+            MemoryOperand { Index: null, Scale: 0, Addend: 0, Base: LocalVariable { Type: ByRefTypeAnalysisContext { ElementType: var referent } } } => referent,
             _ => null
         };
 
@@ -3440,6 +3462,25 @@ public static class IlGenerator
                 if (memory.Index == null && memory.Addend == 0 && memory.Scale == 0
                     && memory.Base is LocalVariable local2)
                 {
+                    // AssetRipper: a store through a managed pointer writes the referent. Writing the
+                    // local instead rebinds the reference - `currentValue = ref *(Color*)newValue` -
+                    // which in a `ref` parameter loses the write for the caller and in a body reads
+                    // back as a different variable from then on. ValueFlow.WritesThrough is the
+                    // one rule for which locals are written through rather than to.
+                    if (ValueFlow.WritesThrough(local2.Type) && local2.Type is ByRefTypeAnalysisContext { ElementType: { } target })
+                    {
+                        var targetSignature = target.ToTypeSignature();
+                        var throughScratch = new CilLocalVariable(targetSignature);
+                        method.CilMethodBody!.LocalVariables.Add(throughScratch);
+
+                        instructions.Add(CilOpCodes.Stloc, throughScratch);
+                        LoadLocal(local2, method, locals);
+                        instructions.Add(CilOpCodes.Ldloc, throughScratch);
+                        RecoveredSemanticIr.Record(SemanticOperation.StoreIndirect, local2.Name);
+                        instructions.Add(CilOpCodes.Stobj, targetSignature.ToTypeDefOrRef());
+                        break;
+                    }
+
                     // Can pointer assignments just be ignored because it's C#? (Move [local], 123)
                     StoreLocal(local2, method, locals);
                     break;

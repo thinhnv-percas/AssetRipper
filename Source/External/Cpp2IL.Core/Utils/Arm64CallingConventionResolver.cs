@@ -68,6 +68,11 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
         foreach (var par in ctx.Parameters)
             shapes.Add(ShapeOf(par.ParameterType));
 
+        // AssetRipper: a fully shared generic body returning a value of unknown size takes a pointer to
+        // copy it to, after the parameters and before the MethodInfo. See FullGenericSharing.
+        if (Analysis.FullGenericSharing.ReturnsThroughPointer(ctx))
+            shapes.Add(Arm64ArgumentPlacement.Shape.Pointer);
+
         shapes.Add(Arm64ArgumentPlacement.Shape.Pointer); // The MethodInfo argument
 
         var appleStackPacking = ctx.AppContext.Binary is LibCpp2IL.MachO.MachOFile;

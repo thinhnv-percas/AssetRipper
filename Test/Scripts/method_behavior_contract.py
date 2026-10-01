@@ -39,7 +39,7 @@ ALLOCATIONS = {"NEW_OBJECT", "NEW_ARRAY"}
 
 # An operation that changes state a caller could observe. A read does not; a branch does not; a call
 # might, and is counted because the contract cannot see inside it.
-SIDE_EFFECTING = WRITES | STATIC_WRITES | ARRAY_WRITES | set(CALLS) | {"THROW", "RUNTIME_BOUNDARY"}
+SIDE_EFFECTING = WRITES | STATIC_WRITES | ARRAY_WRITES | set(CALLS) | {"THROW", "RUNTIME_BOUNDARY", "STORE_INDIRECT"}
 
 
 def receiver_of(operands, parameters):

@@ -151,4 +151,49 @@ public class Il2CppAtomicIntrinsicTests
 			Assert.That(AtomicIntrinsicRecognizer.Classify(Code(LoadExclusive(8, 0))), Is.EqualTo(AtomicIntrinsicRecognizer.Shape.None));
 		});
 	}
+
+	[Test]
+	public void TheOperandsAreReadOffTheSequenceNotAssumed()
+	{
+		// Iteration 064: mapping a call to CompareExchange(ref location, value, comparand) needs which
+		// argument register is which. ldaxr x8,[x0]; cmp x8,x2; stlxr w9,x1,[x0] says location X0, value
+		// X1, comparand X2, at eight bytes - and the same loop over other registers says something else.
+		byte[] canonical = Code(LoadExclusive(8, 0), Compare(8, 2), 0x54000061, StoreExclusive(9, 1, 0), 0x35FFFF69, Return());
+		byte[] permuted = Code(LoadExclusive(8, 2), Compare(1, 8), StoreExclusive(9, 0, 2), Return());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(canonical),
+				Is.EqualTo(new AtomicIntrinsicRecognizer.CompareExchangeOperands(0, 1, 2, 8)));
+			Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(permuted),
+				Is.EqualTo(new AtomicIntrinsicRecognizer.CompareExchangeOperands(2, 0, 1, 8)));
+		});
+	}
+
+	[Test]
+	public void TheNarrowFormIsReadAsFourBytes()
+	{
+		// The int overload and the reference one are the same loop at two widths; the width is what
+		// keeps an int field from being swapped as an object.
+		byte[] code = Code(LoadExclusive(8, 0, wide: false), Compare(8, 2), StoreExclusive(9, 1, 0, wide: false), Return());
+
+		Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(code)?.Width, Is.EqualTo(4));
+	}
+
+	[Test]
+	public void AnythingLessDirectAnswersNothing()
+	{
+		// An exchange with no comparison, a load and store of different widths, and two exclusive
+		// accesses to different addresses: each would need an argument to be made, so none is read.
+		byte[] exchange = Code(LoadExclusive(8, 0), StoreExclusive(9, 1, 0), Return());
+		byte[] mixedWidth = Code(LoadExclusive(8, 0), Compare(8, 2), StoreExclusive(9, 1, 0, wide: false), Return());
+		byte[] twoAddresses = Code(LoadExclusive(8, 0), Compare(8, 2), StoreExclusive(9, 1, 3), Return());
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(exchange), Is.Null);
+			Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(mixedWidth), Is.Null);
+			Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(twoAddresses), Is.Null);
+		});
+	}
 }

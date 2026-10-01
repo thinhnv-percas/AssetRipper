@@ -99,6 +99,9 @@ public abstract class BaseCallingConventionResolver
             slots.Add((0, true, null));
         foreach (var parameter in resolved.Parameters)
             slots.Add((FloatRegisterCount(parameter.ParameterType), true, parameter.ParameterType));
+        // AssetRipper: the il2cppRetVal pointer of a fully shared body - a slot, but not an argument.
+        if (Analysis.FullGenericSharing.ReturnsThroughPointer(resolved))
+            slots.Add((0, false, null));
         slots.Add((0, true, null)); // the MethodInfo argument
 
         var operands = new List<IOperand>(argBase + slots.Count);

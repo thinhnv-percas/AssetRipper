@@ -62,6 +62,12 @@ PASS = re.compile(r"^\s*Pass\s*(\{.*)?$")
 MATERIAL_HEADER = re.compile(r"^--- !u!21 &(-?\d+)", re.M)
 
 
+# Backends whose programs are source the export carries outside ShaderLab (iteration 063: Metal is MSL).
+EXTERNAL_BACKENDS = ("MetalVS", "MetalFS")
+# Worst first wins when a pass's stages disagree: a material is bound only if every stage is.
+EXTERNAL_RANK = ["EXTERNAL_PROGRAM_EXACT", "EXTERNAL_PROGRAM_MODULO_ENGINE", "KEYWORDS_NOT_RECORDED", "NO_COMPILED_VARIANT"]
+
+
 def keyword_set(text):
     if not text or text == "<none>":
         return frozenset()
@@ -162,6 +168,14 @@ def run(root: pathlib.Path, example_limit: int):
         variants[(row["shader"], row["subShader"], row["pass"], row["backend"])][row["variant"]] = (
             keywords, row.get("programSize", 1) == 0)
 
+    # (shader, subShader, pass, backend, variant) -> the program file the export carries for it.
+    files = {}
+    variants_path = root / "AuxiliaryFiles" / "ShaderVariants.json"
+    if variants_path.exists():
+        for row in json.loads(variants_path.read_text()):
+            if row.get("file"):
+                files[(row["shader"], row["subShader"], row["pass"], row["backend"], row["variant"])] = row["file"]
+
     guids = read_guids(game / "Assets")
     shaders = {}
     for shader_file in (game / "Assets").rglob("*.shader"):
@@ -200,8 +214,43 @@ def run(root: pathlib.Path, example_limit: int):
             continue
         for (sub, index), exported in sorted(passes.items()):
             if exported[0] == "REPLACEMENT":
-                statuses["PROGRAM_NOT_RECOVERED"] += len(users)
-                shader_counts["PROGRAM_NOT_RECOVERED"] += len(users)
+                # Iteration 064: a program that is source but cannot sit in ShaderLab - MSL - is carried
+                # beside the shader, one file per variant. The binding is then material -> keywords ->
+                # the variant of each stage those keywords select -> that file. Exact or nothing: a
+                # material whose keywords select no compiled variant is NO_COMPILED_VARIANT, never the
+                # nearest one.
+                external = [backend for backend in EXTERNAL_BACKENDS
+                            if variants.get((shader_name, sub, index, backend))]
+                if not external:
+                    statuses["PROGRAM_NOT_RECOVERED"] += len(users)
+                    shader_counts["PROGRAM_NOT_RECOVERED"] += len(users)
+                    continue
+                for path, name, keywords in users:
+                    stage_status = []
+                    for backend in external:
+                        rows = variants[(shader_name, sub, index, backend)]
+                        if any(k is None for k, _ in rows.values()):
+                            stage_status.append(("KEYWORDS_NOT_RECORDED", None))
+                            continue
+                        space = frozenset().union(*(k for k, _ in rows.values()))
+                        controlled = controlled_all & space
+                        required = keywords & space
+                        chosen = [(v, k) for v, (k, stripped) in sorted(rows.items()) if not stripped and k & controlled == required]
+                        if not chosen:
+                            stage_status.append(("NO_COMPILED_VARIANT", None))
+                        elif len(chosen) == 1 or any(not (k - controlled) for _, k in chosen):
+                            exact = next(v for v, k in chosen if not (k - controlled)) if any(not (k - controlled) for _, k in chosen) else chosen[0][0]
+                            stage_status.append(("EXTERNAL_PROGRAM_EXACT", files.get((shader_name, sub, index, backend, exact))))
+                        else:
+                            stage_status.append(("EXTERNAL_PROGRAM_MODULO_ENGINE", None))
+                    worst = max((s for s, _ in stage_status), key=EXTERNAL_RANK.index)
+                    statuses[worst] += 1
+                    shader_counts[worst] += 1
+                    if worst == "EXTERNAL_PROGRAM_EXACT" and len(examples[worst]) < example_limit:
+                        examples[worst].append({"material": name, "shader": shader_name, "pass": f"{sub}.{index}",
+                                                "keywords": sorted(keywords), "programs": [f for _, f in stage_status]})
+                    if any(f is None for s, f in stage_status if s == "EXTERNAL_PROGRAM_EXACT"):
+                        statuses["EXTERNAL_PROGRAM_FILE_MISSING"] += 1
                 continue
             _, backend, exported_variant, exported_keywords, guards = exported
             # The table is the authority for which keywords the exported variant was compiled for; the
@@ -251,6 +300,8 @@ def run(root: pathlib.Path, example_limit: int):
     decided = sum(statuses[s] for s in ("BOUND_EXACT", "BOUND_MODULO_ENGINE", "VARIANT_BINDING_WRONG",
                                          "NO_COMPILED_VARIANT", "VARIANT_SELECTION_UNKNOWN"))
     bound = statuses["BOUND_EXACT"] + statuses["BOUND_MODULO_ENGINE"]
+    external_decided = sum(statuses[s] for s in EXTERNAL_RANK if s != "KEYWORDS_NOT_RECORDED")
+    external_bound = statuses["EXTERNAL_PROGRAM_EXACT"] + statuses["EXTERNAL_PROGRAM_MODULO_ENGINE"]
     return {
         "status": "MEASURED",
         "game": game.name,
@@ -259,6 +310,9 @@ def run(root: pathlib.Path, example_limit: int):
         "bindings": dict(statuses),
         "variant_binding_rate": round(bound / decided, 4) if decided else None,
         "variant_binding_decided": decided,
+        # Reported apart: a program outside ShaderLab is bound for the record, not compiled by the project.
+        "external_program_binding_rate": round(external_bound / external_decided, 4) if external_decided else None,
+        "external_program_binding_decided": external_decided,
         "perShader": per_shader,
         "examples": dict(examples),
     }
@@ -277,6 +331,7 @@ def main():
     print(f"game {report['game']}: {report['materials']} materials; scope {json.dumps(report['materialScope'], sort_keys=True)}")
     print(f"bindings {json.dumps(report['bindings'], sort_keys=True)}")
     print(f"variant_binding_rate {report['variant_binding_rate']} over {report['variant_binding_decided']} decided")
+    print(f"external_program_binding_rate {report['external_program_binding_rate']} over {report['external_program_binding_decided']} decided")
     for shader, counts in sorted(report["perShader"].items(), key=lambda kv: -kv[1].get("VARIANT_BINDING_WRONG", 0))[:12]:
         print(f"  {shader}: {json.dumps(counts, sort_keys=True)}")
     for status, items in report["examples"].items():

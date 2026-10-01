@@ -120,6 +120,10 @@ public static class DeadCodeEliminator
                 case AddressOf { Target: LocalVariable addressed }:
                     yield return addressed;
                     break;
+                // AssetRipper: the address of an instance field reads the object it is a field of.
+                case AddressOf { Target: FieldReference { Field.IsStatic: false, Local: { } addressedFieldBase } }:
+                    yield return addressedFieldBase;
+                    break;
                 case AddressOf { Target: ArrayAccess addressedElement }:
                     foreach (var used in ArrayAccessLocals(addressedElement))
                         yield return used;

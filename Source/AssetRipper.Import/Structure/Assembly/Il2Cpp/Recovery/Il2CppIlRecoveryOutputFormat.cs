@@ -142,6 +142,12 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				$"Il2Cpp method body recovery: {widenedMemberCount} members of a game assembly were widened " +
 				"because a recovered body reaches them from outside the type, or the assembly, that declares them; " +
 				$"{widenedFieldsKeptUnserialized} fields made public were marked NonSerialized so the serialized layout is unchanged.");
+			int canonicalEvents = CanonicaliseFieldLikeEventAccessors(assemblies.SelectMany(assembly => assembly.Modules));
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {canonicalEvents} events have accessors whose every effect is Delegate.Combine/Remove "
+				+ "and Interlocked.CompareExchange on the event's own field, and were written as the compiler's field-like accessors"
+				+ (canonicalEventRejections.IsEmpty ? "." : "; left alone: "
+					+ string.Join(", ", canonicalEventRejections.OrderByDescending(pair => pair.Value).Select(pair => $"{pair.Value} {pair.Key}"))));
 			DropEventsReadAsFields();
 			int reconciled = OverrideAccessibility.Apply(
 				assemblies.SelectMany(assembly => assembly.Modules),
@@ -326,14 +332,22 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			// against a layout the data was not written with. Measured with CPP2IL_RECOVER_ALSO: TMP's
 			// bodies reach into UGUI, 81 MonoBehaviours failed to read and every UI Image lost its sprite.
 			// NotSerialized is the [NonSerialized] the field effectively had.
-			if (wanted == FieldAttributes.Public && !field.IsStatic && !field.IsLiteral && !field.IsNotSerialized
-				&& !HasSerializeField(field))
+			// Iteration 064: decided by SerializedFieldPolicy, the one place that states the rule.
+			SerializedFieldDecision decision = SerializedFieldPolicy.Decide(access, wanted, new SerializedFieldFacts(
+				IsStatic: field.IsStatic,
+				IsLiteral: field.IsLiteral,
+				IsInitOnly: field.IsInitOnly,
+				HasSerializeField: HasSerializeField(field),
+				HasNonSerialized: field.IsNotSerialized,
+				IsCompilerGenerated: field.CustomAttributes.Any(attribute => attribute.Constructor?.DeclaringType?.Name == "CompilerGeneratedAttribute")));
+
+			if (decision.AddNotSerialized)
 			{
 				field.Attributes |= FieldAttributes.NotSerialized;
 				Interlocked.Increment(ref widenedFieldsKeptUnserialized);
 			}
 
-			field.Attributes = (field.Attributes & ~FieldAttributes.FieldAccessMask) | wanted;
+			field.Attributes = (field.Attributes & ~FieldAttributes.FieldAccessMask) | decision.Access;
 			Interlocked.Increment(ref widenedMemberCount);
 
 			// A member cannot be more accessible than its type (CS0052): `internal State _state` with
@@ -605,6 +619,218 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	}
 
 	private static int droppedEventDeclarationCount;
+
+	/// <summary>
+	/// AssetRipper: iteration 064. Writes an event's accessors as the compiler's field-like accessors where
+	/// the recovered bodies are provably exactly that, so a decompiler can declare the event as
+	/// <c>public event T X;</c>.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// A field-like event is a backing field of the event's own name, an event row and two accessors. A
+	/// decompiler folds the three back into one declaration only when the accessors have the compiler's
+	/// exact IL; otherwise it prints the field and the event side by side, and C# refuses two members of
+	/// one name (CS0102). il2cpp's accessors never have that IL: the cast after <c>Delegate.Combine</c> is
+	/// expanded into a type check and a throw, and the compare-and-swap was a call to a runtime function
+	/// until <c>CompareExchangeRecovery</c> named it.
+	/// </para>
+	/// <para>
+	/// The evidence is the accessor's effects, not its name. Every call the recovered body makes is
+	/// <c>Delegate.Combine</c> (or <c>Remove</c>), <c>Interlocked.CompareExchange&lt;T&gt;</c> or the
+	/// <c>InvalidCastException</c> constructor the cast expansion raises; the only address it takes is the
+	/// event's own field; and that field is of the event's type. A loop of exactly those operations is
+	/// the accessor, so the canonical IL restates the body rather than replacing it. Anything else - a
+	/// placeholder, a second field, a call to anything more - leaves the body as it was.
+	/// </para>
+	/// </remarks>
+	private static int CanonicaliseFieldLikeEventAccessors(IEnumerable<ModuleDefinition> modules)
+	{
+		int count = 0;
+
+		foreach (ModuleDefinition module in modules)
+		{
+			if (module.Assembly?.Name is not { } name || Il2CppRecoveryDiagnosticsProcessingLayer.IsFrameworkAssembly(name))
+			{
+				continue;
+			}
+
+			foreach (TypeDefinition type in module.GetAllTypes())
+			{
+				foreach (EventDefinition declaration in type.Events)
+				{
+					if (StorageOf(declaration) is not { } storage)
+					{
+						RejectCanonicalEvent("STORAGE_NOT_ONE_FIELD");
+						continue;
+					}
+
+					if (declaration.EventType is null
+						|| storage.Signature?.FieldType is not { } storageType
+						|| !SignatureComparer.Default.Equals(storageType, declaration.EventType.ToTypeSignature(false)))
+					{
+						RejectCanonicalEvent("FIELD_TYPE_IS_NOT_THE_EVENT_TYPE");
+						continue;
+					}
+
+					if (declaration.AddMethod is not { CilMethodBody: { } } add
+						|| declaration.RemoveMethod is not { CilMethodBody: { } } remove)
+					{
+						RejectCanonicalEvent("ACCESSOR_HAS_NO_BODY");
+						continue;
+					}
+
+					if (FieldLikeAccessorCalls(add, storage, "Combine") is not { } addCalls
+						|| FieldLikeAccessorCalls(remove, storage, "Remove") is not { } removeCalls)
+					{
+						continue;
+					}
+
+					WriteFieldLikeAccessor(add, storage, addCalls.Combine, addCalls.CompareExchange);
+					WriteFieldLikeAccessor(remove, storage, removeCalls.Combine, removeCalls.CompareExchange);
+					count++;
+				}
+			}
+		}
+
+		return count;
+	}
+
+	/// <summary>
+	/// The two calls of a field-like accessor, when they and the cast expansion's throw are every call the
+	/// body makes and the event's field is the only address it takes; otherwise null.
+	/// </summary>
+	private static (IMethodDescriptor Combine, IMethodDescriptor CompareExchange)? FieldLikeAccessorCalls(MethodDefinition accessor, FieldDefinition storage, string delegateOperation)
+	{
+		IMethodDescriptor? combine = null;
+		IMethodDescriptor? compareExchange = null;
+		bool storageAddressed = false;
+
+		foreach (CilInstruction instruction in accessor.CilMethodBody!.Instructions)
+		{
+			switch (instruction.OpCode.Code)
+			{
+				case CilCode.Call or CilCode.Callvirt when instruction.Operand is IMethodDescriptor called:
+					if (called.DeclaringType?.FullName == "System.Delegate" && called.Name == delegateOperation)
+					{
+						combine = called;
+					}
+					else if (called.DeclaringType?.FullName == "System.Threading.Interlocked" && called.Name == "CompareExchange")
+					{
+						compareExchange = called;
+					}
+					else if (IsCastExpansionCall(called))
+					{
+						// The cast after Combine: a delegate type is sealed, so il2cpp tests the exact class
+						// and the check comes back as `x.GetType() == typeof(T)`.
+					}
+					else
+					{
+						RejectCanonicalEvent("OTHER_CALL:" + called.Name);
+						return null;
+					}
+					break;
+				case CilCode.Newobj when instruction.Operand is IMethodDescriptor constructor:
+					if (constructor.DeclaringType?.FullName != "System.InvalidCastException")
+					{
+						RejectCanonicalEvent("OTHER_ALLOCATION");
+						return null;
+					}
+					break;
+				case CilCode.Ldflda or CilCode.Ldsflda when instruction.Operand is IFieldDescriptor addressed:
+					if (!SignatureComparer.Default.Equals(addressed, storage))
+					{
+						RejectCanonicalEvent("OTHER_FIELD_ADDRESSED");
+						return null;
+					}
+					storageAddressed = true;
+					break;
+				case CilCode.Stfld or CilCode.Stsfld or CilCode.Stobj or CilCode.Stind_Ref or CilCode.Ldstr or CilCode.Calli:
+					// A store that is not the compare-and-swap, or a placeholder's message: not only the accessor.
+					RejectCanonicalEvent("OTHER_EFFECT:" + instruction.OpCode.Mnemonic);
+					return null;
+			}
+		}
+
+		if (combine is null || compareExchange is null || !storageAddressed)
+		{
+			RejectCanonicalEvent(combine is null ? "NO_" + delegateOperation.ToUpperInvariant() : compareExchange is null ? "NO_COMPARE_EXCHANGE" : "FIELD_NOT_ADDRESSED");
+			return null;
+		}
+
+		return (combine, compareExchange);
+	}
+
+	/// <summary>
+	/// The IL the C# compiler emits for a field-like event accessor: read the field, then loop combining
+	/// and compare-and-swapping until no other thread wrote the field in between.
+	/// </summary>
+	private static void WriteFieldLikeAccessor(MethodDefinition accessor, FieldDefinition storage, IMethodDescriptor combine, IMethodDescriptor compareExchange)
+	{
+		TypeSignature eventType = storage.Signature!.FieldType;
+		CilMethodBody body = new();
+		CilLocalVariable current = new(eventType);
+		CilLocalVariable original = new(eventType);
+		CilLocalVariable combined = new(eventType);
+		body.LocalVariables.Add(current);
+		body.LocalVariables.Add(original);
+		body.LocalVariables.Add(combined);
+
+		bool isStatic = storage.IsStatic;
+		CilInstructionCollection il = body.Instructions;
+		if (isStatic)
+		{
+			il.Add(CilOpCodes.Ldsfld, storage);
+		}
+		else
+		{
+			il.Add(CilOpCodes.Ldarg_0);
+			il.Add(CilOpCodes.Ldfld, storage);
+		}
+		il.Add(CilOpCodes.Stloc, current);
+
+		CilInstruction loop = il.Add(CilOpCodes.Ldloc, current);
+		il.Add(CilOpCodes.Stloc, original);
+		il.Add(CilOpCodes.Ldloc, original);
+		il.Add(isStatic ? CilOpCodes.Ldarg_0 : CilOpCodes.Ldarg_1);
+		il.Add(CilOpCodes.Call, combine);
+		il.Add(CilOpCodes.Castclass, eventType.ToTypeDefOrRef());
+		il.Add(CilOpCodes.Stloc, combined);
+		if (isStatic)
+		{
+			il.Add(CilOpCodes.Ldsflda, storage);
+		}
+		else
+		{
+			il.Add(CilOpCodes.Ldarg_0);
+			il.Add(CilOpCodes.Ldflda, storage);
+		}
+		il.Add(CilOpCodes.Ldloc, combined);
+		il.Add(CilOpCodes.Ldloc, original);
+		il.Add(CilOpCodes.Call, compareExchange);
+		il.Add(CilOpCodes.Stloc, current);
+		il.Add(CilOpCodes.Ldloc, current);
+		il.Add(CilOpCodes.Ldloc, original);
+		il.Add(CilOpCodes.Bne_Un, loop.CreateLabel());
+		il.Add(CilOpCodes.Ret);
+
+		accessor.CilMethodBody = body;
+		Interlocked.Increment(ref canonicalEventAccessorCount);
+	}
+
+	private static int canonicalEventAccessorCount;
+
+	/// <summary>The calls an exact-type cast check is written with: nothing an accessor could do besides cast.</summary>
+	private static bool IsCastExpansionCall(IMethodDescriptor called) => (called.DeclaringType?.FullName, called.Name?.Value) switch
+	{
+		("System.Object", "GetType") => true,
+		("System.Type", "GetTypeFromHandle") => true,
+		("System.Type", "op_Equality" or "op_Inequality") => true,
+		_ => false,
+	};
+
+	private static readonly ConcurrentDictionary<string, int> canonicalEventRejections = new();
+
+	private static void RejectCanonicalEvent(string reason) => canonicalEventRejections.AddOrUpdate(reason, 1, (_, count) => count + 1);
 
 	private static void WidenMethod(MethodDefinition method, TypeDefinition accessor, ModuleDefinition? from)
 	{
@@ -2983,6 +3209,30 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 					+ "target holds - and for a vtable slot, by what the virtual resolver would have said:");
 
 				foreach ((string kind, int count) in callKinds)
+				{
+					Logger.Info(LogCategory.Import, $"      {count,7} {kind}");
+				}
+			}
+
+			// Iteration 064: the dispatches a runtime interface lookup feeds and that are still indirect,
+			// by path (method pointer or the invoker of a fully shared body), by where the interface class
+			// came from, and by why the lookup did not resolve them.
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.LocalVariables.FullySharedReturnPointersNamed} fully shared generic bodies "
+				+ "take their result through il2cppRetVal ahead of the MethodInfo; "
+				+ $"{Cpp2IL.Core.Analysis.CompareExchangeRecovery.Recovered} compare-and-swap calls recovered as Interlocked.CompareExchange<T>"
+				+ (Cpp2IL.Core.Analysis.CompareExchangeRecovery.Rejected.Count == 0 ? "" : ", left alone: "
+					+ string.Join(", ", Cpp2IL.Core.Analysis.CompareExchangeRecovery.Rejected.Select(pair => $"{pair.Value} {pair.Key}"))));
+
+			var lookupFed = Cpp2IL.Core.Analysis.RuntimeInterfaceResolver.Counts;
+
+			if (lookupFed.Count > 0)
+			{
+				Logger.Info(LogCategory.Import,
+					$"Il2Cpp method body recovery: {lookupFed.Sum(pair => pair.Value)} indirect dispatches are fed by a runtime "
+					+ "interface lookup and still unresolved, by path:class source:reason:");
+
+				foreach ((string kind, int count) in lookupFed)
 				{
 					Logger.Info(LogCategory.Import, $"      {count,7} {kind}");
 				}

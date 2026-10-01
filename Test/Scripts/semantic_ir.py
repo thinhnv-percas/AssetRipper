@@ -39,6 +39,8 @@ SUBSTANTIVE = {
     "ARRAY_LOAD", "ARRAY_STORE",
     "CALL", "VIRTUAL_CALL", "INTERFACE_CALL", "DELEGATE_CALL", "LIST_ADD",
     "NEW_OBJECT", "NEW_ARRAY", "THROW",
+    # Iteration 064: a read or write through a `ref`/`out` parameter.
+    "LOAD_INDIRECT", "STORE_INDIRECT",
 }
 
 # Declared in the canonical set, never produced. Reported rather than silently absent.

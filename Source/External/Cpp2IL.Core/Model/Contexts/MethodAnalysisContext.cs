@@ -548,6 +548,11 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         Analysis.IsilDump.Stage(this, "before MethodSlotDispatchRecovery");
         MethodSlotDispatchRecovery.Run(this);
 
+        // AssetRipper: iteration 064. Out of SSA and after copy propagation, so the location argument
+        // is the `object + offset` it was computed as and the call still has its raw layout; before the
+        // trimmer and the elimination below, so the address arithmetic it stops reading dies with it.
+        CompareExchangeRecovery.Run(this);
+
         // Every call that was going to resolve now has. Any argument registers it ended up
         // not using are just keeping their definitions alive, so drop them.
         CallArgumentTrimmer.Run(this);
@@ -558,6 +563,7 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // AssetRipper: measurement only, and last, so it sees exactly what the generator will.
         IndirectJumpClassifier.Run(this);
         InterfaceScanRegionClassifier.Run(this);
+        RuntimeInterfaceResolver.Run(this);
 
         Analysis.IsilDump.Stage(this, "final");
     }

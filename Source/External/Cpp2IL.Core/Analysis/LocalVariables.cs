@@ -8,6 +8,9 @@ namespace Cpp2IL.Core.Analysis;
 
 public static class LocalVariables
 {
+    /// <summary>AssetRipper: fully shared bodies whose il2cppRetVal argument was named (iteration 064).</summary>
+    public static int FullySharedReturnPointersNamed;
+
     public static int MaxTypePropagationLoopCount = 5000;
 
     private const long StaticFieldsOffset64 = 0xB8;
@@ -141,6 +144,18 @@ public static class LocalVariables
                 methodInfoLocal.IsMethodInfo = true;
                 paramLocals.Add(methodInfoLocal);
             }
+        }
+
+        // AssetRipper: a fully shared body's il2cppRetVal, the argument just before the MethodInfo. It
+        // is where the body copies its result, so it is a reference to the return type.
+        if (hasMethodInfo && FullGenericSharing.ReturnsThroughPointer(method)
+            && methodInfoIndex - 1 >= operandOffset + method.Parameters.Count
+            && method.ParameterOperands[methodInfoIndex - 1] is Register retValOperand
+            && method.Locals.FirstOrDefault(l => l.Register.Number == retValOperand.Number && l.Register.Version == -1) is { } retValLocal)
+        {
+            retValLocal.Name = "il2cppRetVal";
+            retValLocal.Type = new ByRefTypeAnalysisContext(method.ReturnType);
+            System.Threading.Interlocked.Increment(ref FullySharedReturnPointersNamed);
         }
 
         method.ParameterLocals = paramLocals;

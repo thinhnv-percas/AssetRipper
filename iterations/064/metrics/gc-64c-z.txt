@@ -1,0 +1,28 @@
+corpus: 887 entries, 216 for Impostor (671 for other fixtures, 16 retired), 216 found, 0 not present in this rip
+
+== by semantic status ==
+   82  EXACT
+   46  HIGH_CONFIDENCE
+   81  PARTIAL
+    7  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+  133  GENERAL
+   18  STATIC_ENTRY
+   12  CONSTRUCTOR
+   12  LIFECYCLE_UPDATE
+   10  LIFECYCLE_AWAKE
+   10  LIFECYCLE_START
+    9  LIFECYCLE_DESTROY
+    5  UNITY_CALLBACK
+    4  COROUTINE
+    3  EVENT_ACCESSOR
+
+== against baseline ==
+improved 2, regressed 3
+  IMPROVED  FALLBACK -> PARTIAL  Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/AdLoaderClient.cs#0x133E578
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/Triangulator.cs#0x153EDAC
+  REGRESSED EXACT -> FALLBACK  Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xC018B4
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/AnimationMatchModifierAsset.cs#0x150F6E0
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/spine-unity/Spine/Skin.cs#0x154CF5C

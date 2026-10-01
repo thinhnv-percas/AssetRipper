@@ -346,6 +346,12 @@ public static class InterfaceInvokeDataRecovery
             RuntimeClassTypeAnalysisContext runtime => runtime.RepresentedType,
             LocalVariable { Type: RuntimeClassTypeAnalysisContext typed } => typed.RepresentedType,
             MemoryOperand { Base: LocalVariable { Type: RuntimeClassTypeAnalysisContext based } } => based.RepresentedType,
+            // AssetRipper: a type usage handed straight to the call, not moved into a local first. Its
+            // value is the class pointer, exactly as LocalVariables.SeedRuntimeClassTypes reads one -
+            // the local was only ever the place the same fact was recorded.
+            TypeAnalysisContext usage and not (RuntimeMethodInfoAnalysisContext or RuntimeFieldInfoAnalysisContext
+                or StaticFieldStorageTypeAnalysisContext or RgctxTableTypeAnalysisContext or MethodRgctxTableTypeAnalysisContext
+                or WrappedTypeAnalysisContext) => usage,
             _ => null,
         };
 

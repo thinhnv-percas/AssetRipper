@@ -117,6 +117,13 @@ public static class KeyFunctionRecovery
 
         instruction.OpCode = OpCode.IsInst;
         instruction.SetOperands(result, testedType, value);
+
+        // AssetRipper: iteration 064. This runs a second time after the type fixpoint, so the result
+        // local may already carry whatever weaker rule reached it first - an event accessor's cast of
+        // Delegate.Combine came back `(int)(obj as Action<GameState>)`. Inside SSA the local has exactly
+        // this one definition, and an isinst yields the tested type or null, so that is what it is.
+        if (result is LocalVariable cast && testedType is not RuntimeClassTypeAnalysisContext)
+            cast.Type = testedType;
     }
 
     private static void RewriteBox(Instruction instruction)

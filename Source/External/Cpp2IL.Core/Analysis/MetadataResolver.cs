@@ -417,7 +417,17 @@ public static class MetadataResolver
 
                 // check if static field access
                 var staticOwner = (local.Type as StaticFieldStorageTypeAnalysisContext)?.OwnerType;
-                var owner = staticOwner ?? local.Type;
+
+                // AssetRipper: a managed pointer to a struct points at the struct's own data, so an
+                // addend off it is a field of the referent, value-relative - `ref Color c` read at +4 is
+                // `c.g`. Left as the byref type there is nothing to search (a byref declares no
+                // fields), and the store at +0 reached the generator as a write *to the pointer*: the
+                // ref reassignment `currentValue = ref *(Color*)newValue` in place of `currentValue.r =
+                // newValue.r`. Unlike a struct local, a store through the pointer is not into a copy,
+                // so it is a field store like any other. A byref to a reference type is not handled
+                // here: +0 is the reference itself and nothing else is addressable.
+                var referent = staticOwner == null ? ValueTypeReferent(local.Type) : null;
+                var owner = staticOwner ?? referent ?? local.Type;
                 var genericOwner = owner as GenericInstanceTypeAnalysisContext;
 
                 // AssetRipper: set when the field was found on a generic instance *ancestor* rather
@@ -485,7 +495,7 @@ public static class MetadataResolver
                 // of an enumerator, `enumerator._current.attachment` - is reached like any other.
                 var isStore = i == StorageIdentities.DestinationPosition(instruction);
                 if ((field == null || NarrowerThan(field, memory.Size, method))
-                    && staticOwner == null && (!owner.IsValueType || !isStore)
+                    && staticOwner == null && (!owner.IsValueType || !isStore || referent != null)
                     && (genericOwner != null || owner.GenericParameters.Count == 0))
                 {
                     var path = genericOwner != null
@@ -577,6 +587,20 @@ public static class MetadataResolver
     /// </summary>
     private static long GenericLayoutOffset(GenericInstanceTypeAnalysisContext owner, long addend)
         => FieldOffsetFrame.ToReceiverDisplacement(addend, owner);
+
+    /// <summary>
+    /// AssetRipper: the struct a managed pointer points at, or null when the type is not a byref to a
+    /// struct. Such a pointer addresses the struct's data, never a boxed object.
+    /// </summary>
+    /// <remarks>
+    /// A primitive or an enum is excluded: <c>ref float minY</c> read at +0 is <c>minY</c> itself, which
+    /// the generator writes through with <c>stobj</c>, and resolving it to <c>Single.m_value</c> - the
+    /// field the framework keeps the value in - names something C# never writes.
+    /// </remarks>
+    public static TypeAnalysisContext? ValueTypeReferent(TypeAnalysisContext? type)
+        => type is ByRefTypeAnalysisContext { ElementType: { } element } && ValueFlow.KindOf(element) == ValueKind.StructValue
+            ? element
+            : null;
 
     /// <summary>
     /// AssetRipper: the instance field of a struct at an offset from the start of its own data, closed on
