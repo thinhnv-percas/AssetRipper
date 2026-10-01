@@ -23,6 +23,19 @@ find_script() {
 # fail for the wrong reason. Cũng đừng neo vào tên biến do ILSpy sinh ra kèm số thứ tự
 # (`boundingBoxAttachment2`, `num5`): số đó đếm các biến đứng trước nó, nên bất kỳ thay đổi nào
 # làm thân hàm dài ra hay ngắn đi đều đổi nó và check hỏng vì lý do không liên quan.
+# Like check, but only where the file carries a recovered body: an assembly this rip stubbed by design
+# (UGUI outside CPP2IL_RECOVER_ALSO) is SKIP, not FAIL - stubbing is not a regression of the shape.
+check_recovered() {
+    local issue=$1 name=$2
+    local file
+    file=$(find_script "$name")
+    if [ -n "$file" ] && ! grep -qF -- 'NativeSource(Body' "$file"; then
+        printf 'SKIP  %-12s %s is a stub in this rip\n' "$issue" "$name"
+        return
+    fi
+    check "$@"
+}
+
 check() {
     local issue=$1 name=$2 wanted=$3 unwanted=${4:-}
     local file
@@ -159,8 +172,14 @@ check DECOMP-0021 TimeInGame.cs 'Day = dateTime.Day;' 'DateTime dateTime2 = defa
 # vào một local generator tự bịa. Site đọc đã dùng `ldarg` từ trước, nên trước khi sửa một thân hàm
 # có tham số `ref`/`out` ghi vào một chỗ và đọc từ chỗ khác: người gọi không bao giờ thấy giá trị.
 # 46 file trên Impostor. `LocalStorage` là luật duy nhất mà cả ba lần dùng đều hỏi.
-check DECOMP-0022 ObscuredBool.cs 'key = ref *(byte*)' 'ref byte reference = ref *(byte*)'
-check DECOMP-0022 TimeCheatingDetector.cs 'result = ref *(OnlineTimeResult*)' 'ref OnlineTimeResult reference;'
+# Iteration 064: the shape 059 recorded as fixed was half-fixed. `key = ref *(byte*)currentCryptoKey` writes
+# the parameter's storage (right) but rebinds the reference instead of writing through it (wrong): the
+# caller never saw the value. A store at offset 0 through a managed reference is `stobj`.
+check DECOMP-0022 ObscuredBool.cs '= currentCryptoKey;' 'key = ref *(byte*)'
+check DECOMP-0022 TimeCheatingDetector.cs 'result.errorResponseCode = responseCode;' 'result = ref *(OnlineTimeResult*)'
+
+# DECOMP-0056 (iteration 064): `ref Color currentValue` ghi member qua tham chiếu, không gán lại ref.
+check_recovered DECOMP-0056 SetPropertyUtility.cs 'currentValue.g = newValue.g;' 'currentValue = ref *(Color*)'
 
 # DECOMP-0008: the computed field layout has to reproduce every offset metadata carries. It is used
 # where metadata has none - a generic definition's offsets are all zero - so this is the only exact

@@ -173,7 +173,15 @@ def unmentioned_members(source: str, body: str) -> set[str]:
 def native_body(attribute: str) -> str:
     """The pseudo-C# out of the attribute, with its escapes undone and its commentary removed."""
     body = attribute.replace("\\n", "\n").replace('\\"', '"').replace("\\\\", "\\")
-    return "\n".join(line for line in body.split("\n") if not line.lstrip().startswith("//"))
+    lines = body.split("\n")
+    # Iteration 064: a rendering over the size cap ends `// ... truncated`, and the line before the
+    # marker is cut wherever the cap fell - `this.CollectionI` read as a member the C# never names, so a
+    # longer comment earlier in the same body turned an EXACT method FALLBACK. The partial line is not
+    # evidence of anything.
+    if any(line.strip() == "// ... truncated" for line in lines):
+        cut = max(index for index, line in enumerate(lines) if line.strip() == "// ... truncated")
+        lines = lines[:max(cut - 1, 0)]
+    return "\n".join(line for line in lines if not line.lstrip().startswith("//"))
 
 
 def methods(text: str):

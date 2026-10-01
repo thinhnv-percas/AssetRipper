@@ -1,0 +1,587 @@
+{
+  "scope": [
+    "AdjustSDK",
+    "AppMetricaSDK",
+    "AppMetricaSDK.Editor",
+    "Apple",
+    "AppsFlyerSDK",
+    "Assembly-CSharp",
+    "Assembly-CSharp-firstpass",
+    "ConditionalExpression",
+    "DOTween",
+    "DOTween.Modules",
+    "DOTweenPro",
+    "DOTweenPro.Scripts",
+    "EasyMobile",
+    "EasyMobile.Generated",
+    "Facebook.Unity",
+    "Facebook.Unity.Android",
+    "Facebook.Unity.IOS",
+    "Facebook.Unity.Settings",
+    "FacebookStore",
+    "Firebase.App",
+    "Firebase.Platform",
+    "GBG.Pinata.ECS",
+    "GameAnalyticsSDK",
+    "GameAnalyticsSDK.Playmaker",
+    "IronSourceSDK",
+    "LunarConsoleSDK",
+    "Mono.Security",
+    "Morpeh",
+    "Morpeh.Hypercasual",
+    "MyTrackerSDK",
+    "NiceVibrationsSDK",
+    "Obi",
+    "PlayMaker",
+    "Purchasing.Common",
+    "Security",
+    "Sirenix.OdinInspector.Attributes",
+    "Sirenix.Utilities",
+    "Stores",
+    "TenjinSDK",
+    "Tizen",
+    "UDP",
+    "winrt"
+  ],
+  "methods": 16375,
+  "nativeBytes": 3289820,
+  "placeholders": 11928,
+  "status": {
+    "EXACT": 12555,
+    "FALLBACK": 456,
+    "PARTIAL": 2736,
+    "HIGH_CONFIDENCE": 626,
+    "MISSING": 2
+  },
+  "byAssembly": {
+    "Facebook.Unity.Settings": {
+      "EXACT": 28,
+      "FALLBACK": 15,
+      "PARTIAL": 1
+    },
+    "Security": {
+      "EXACT": 152,
+      "PARTIAL": 22,
+      "HIGH_CONFIDENCE": 11,
+      "FALLBACK": 1
+    },
+    "Facebook.Unity": {
+      "EXACT": 385,
+      "PARTIAL": 141,
+      "HIGH_CONFIDENCE": 19,
+      "FALLBACK": 21
+    },
+    "Morpeh.Hypercasual": {
+      "EXACT": 34,
+      "PARTIAL": 4
+    },
+    "AppsFlyerSDK": {
+      "EXACT": 24,
+      "PARTIAL": 10,
+      "HIGH_CONFIDENCE": 23
+    },
+    "LunarConsoleSDK": {
+      "PARTIAL": 71,
+      "EXACT": 262,
+      "HIGH_CONFIDENCE": 25,
+      "FALLBACK": 5
+    },
+    "Obi": {
+      "PARTIAL": 302,
+      "EXACT": 782,
+      "FALLBACK": 179,
+      "HIGH_CONFIDENCE": 31
+    },
+    "GameAnalyticsSDK.Playmaker": {
+      "EXACT": 32,
+      "PARTIAL": 1
+    },
+    "MyTrackerSDK": {
+      "EXACT": 103,
+      "PARTIAL": 74,
+      "FALLBACK": 1,
+      "HIGH_CONFIDENCE": 25
+    },
+    "IronSourceSDK": {
+      "EXACT": 194,
+      "HIGH_CONFIDENCE": 37,
+      "PARTIAL": 134
+    },
+    "Purchasing.Common": {
+      "EXACT": 16,
+      "PARTIAL": 11,
+      "HIGH_CONFIDENCE": 3
+    },
+    "GameAnalyticsSDK": {
+      "EXACT": 198,
+      "PARTIAL": 39,
+      "HIGH_CONFIDENCE": 34
+    },
+    "Assembly-CSharp": {
+      "PARTIAL": 721,
+      "EXACT": 4277,
+      "HIGH_CONFIDENCE": 151,
+      "FALLBACK": 22
+    },
+    "Firebase.Platform": {
+      "EXACT": 119,
+      "PARTIAL": 30,
+      "FALLBACK": 6,
+      "HIGH_CONFIDENCE": 5
+    },
+    "UDP": {
+      "EXACT": 164,
+      "PARTIAL": 33,
+      "HIGH_CONFIDENCE": 10
+    },
+    "Firebase.App": {
+      "EXACT": 94,
+      "PARTIAL": 12,
+      "HIGH_CONFIDENCE": 5,
+      "FALLBACK": 27
+    },
+    "AppMetricaSDK": {
+      "HIGH_CONFIDENCE": 22,
+      "PARTIAL": 67,
+      "EXACT": 157,
+      "MISSING": 2,
+      "FALLBACK": 2
+    },
+    "DOTweenPro": {
+      "PARTIAL": 10,
+      "EXACT": 29
+    },
+    "Facebook.Unity.Android": {
+      "FALLBACK": 1,
+      "EXACT": 2
+    },
+    "ConditionalExpression": {
+      "HIGH_CONFIDENCE": 1
+    },
+    "Sirenix.Utilities": {
+      "EXACT": 22,
+      "PARTIAL": 4,
+      "HIGH_CONFIDENCE": 2,
+      "FALLBACK": 1
+    },
+    "DOTweenPro.Scripts": {
+      "EXACT": 37,
+      "PARTIAL": 11,
+      "HIGH_CONFIDENCE": 1,
+      "FALLBACK": 1
+    },
+    "EasyMobile": {
+      "EXACT": 2471,
+      "FALLBACK": 60,
+      "PARTIAL": 363,
+      "HIGH_CONFIDENCE": 63
+    },
+    "NiceVibrationsSDK": {
+      "EXACT": 15,
+      "PARTIAL": 10,
+      "HIGH_CONFIDENCE": 1
+    },
+    "TenjinSDK": {
+      "EXACT": 40,
+      "PARTIAL": 5,
+      "HIGH_CONFIDENCE": 20
+    },
+    "AdjustSDK": {
+      "EXACT": 281,
+      "PARTIAL": 47,
+      "HIGH_CONFIDENCE": 20,
+      "FALLBACK": 3
+    },
+    "DOTween.Modules": {
+      "EXACT": 74,
+      "HIGH_CONFIDENCE": 15,
+      "FALLBACK": 1,
+      "PARTIAL": 14
+    },
+    "FacebookStore": {
+      "EXACT": 7
+    },
+    "Facebook.Unity.IOS": {
+      "EXACT": 1
+    },
+    "GBG.Pinata.ECS": {
+      "EXACT": 158,
+      "PARTIAL": 53,
+      "FALLBACK": 6,
+      "HIGH_CONFIDENCE": 5
+    },
+    "winrt": {
+      "EXACT": 10,
+      "PARTIAL": 1
+    },
+    "Morpeh": {
+      "EXACT": 154,
+      "PARTIAL": 59,
+      "FALLBACK": 12,
+      "HIGH_CONFIDENCE": 4
+    },
+    "Sirenix.OdinInspector.Attributes": {
+      "EXACT": 13,
+      "FALLBACK": 1,
+      "PARTIAL": 1
+    },
+    "DOTween": {
+      "EXACT": 487,
+      "FALLBACK": 12,
+      "PARTIAL": 192,
+      "HIGH_CONFIDENCE": 31
+    },
+    "Stores": {
+      "EXACT": 343,
+      "PARTIAL": 110,
+      "HIGH_CONFIDENCE": 22,
+      "FALLBACK": 18
+    },
+    "Apple": {
+      "EXACT": 28
+    },
+    "Tizen": {
+      "EXACT": 6
+    },
+    "PlayMaker": {
+      "PARTIAL": 183,
+      "EXACT": 1356,
+      "FALLBACK": 61,
+      "HIGH_CONFIDENCE": 40
+    }
+  },
+  "lostOperationClasses": {
+    "CALL": 172,
+    "BRANCH": 246,
+    "FIELD": 40,
+    "NEWOBJ": 203,
+    "ARRAY_READ": 1
+  },
+  "fingerprintIr": {
+    "NEWOBJ": 3736,
+    "NULL_CHECK": 5734,
+    "BRANCH": 6594,
+    "COMPARE": 6090,
+    "LOOP": 6592,
+    "STATIC_ACCESS": 11392,
+    "CALL": 9769,
+    "ARRAY_READ": 1088,
+    "ARITHMETIC": 3683,
+    "INSTANCEOF": 797,
+    "ARRAY_WRITE": 523,
+    "CAST": 250,
+    "RETURN": 3,
+    "FIELD_ADDRESS": 1,
+    "SWITCH": 1,
+    "THROW": 1
+  },
+  "fingerprintCSharp": {
+    "RETURN": 6657,
+    "NEWOBJ": 3824,
+    "NULL_CHECK": 4256,
+    "BRANCH": 6363,
+    "COMPARE": 5356,
+    "CALL": 13856,
+    "THROW": 1986,
+    "ARRAY_READ": 1182,
+    "ARITHMETIC": 3399,
+    "STATIC_ACCESS": 6521,
+    "CAST": 2927,
+    "ARRAY_WRITE": 533,
+    "NEWARR": 621,
+    "SWITCH": 45,
+    "LOOP": 1707,
+    "FIELD_ADDRESS": 400,
+    "INSTANCEOF": 66
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 7469,
+      "files": 652
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 2322,
+      "files": 501
+    },
+    "NATIVE_IMPORT": {
+      "count": 1224,
+      "files": 213
+    },
+    "INDIRECT_CALL": {
+      "count": 335,
+      "files": 120
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 303,
+      "files": 121
+    },
+    "INDIRECT_JUMP": {
+      "count": 220,
+      "files": 132
+    },
+    "UNRESOLVED_DELEGATE": {
+      "count": 122,
+      "files": 119
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 5,
+      "files": 2
+    },
+    "OTHER": {
+      "count": 1,
+      "files": 1
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 3548,
+      "lost": "BRANCH,NEWOBJ",
+      "file": "Assets/Scripts/Obi/Oni.cs"
+    },
+    {
+      "nativeBytes": 1676,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Obi/Obi/ObiSolver.cs"
+    },
+    {
+      "nativeBytes": 860,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Morpeh/Morpeh/World.cs"
+    },
+    {
+      "nativeBytes": 732,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Morpeh/Morpeh/World.cs"
+    },
+    {
+      "nativeBytes": 648,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Morpeh/Morpeh/World.cs"
+    },
+    {
+      "nativeBytes": 640,
+      "lost": "CALL",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/ControlPoint.cs"
+    },
+    {
+      "nativeBytes": 620,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Doozy/PlayMaker/Actions/DOTweenActionsUtils.cs"
+    },
+    {
+      "nativeBytes": 556,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/PlayMaker/HutongGames/PlayMaker/ActionData.cs"
+    },
+    {
+      "nativeBytes": 552,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Internal/PInvokeCallbackUtil.cs"
+    },
+    {
+      "nativeBytes": 544,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Internal/PInvokeCallbackUtil.cs"
+    },
+    {
+      "nativeBytes": 536,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Internal/PInvokeCallbackUtil.cs"
+    },
+    {
+      "nativeBytes": 512,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Internal/PInvokeCallbackUtil.cs"
+    },
+    {
+      "nativeBytes": 496,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween.Modules/DG/Tweening/DOTweenModulePhysics.cs"
+    },
+    {
+      "nativeBytes": 468,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 460,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 444,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiIsPointerOverUiObject.cs"
+    },
+    {
+      "nativeBytes": 444,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/HasComponent.cs"
+    },
+    {
+      "nativeBytes": 424,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Morpeh/Morpeh/World.cs"
+    },
+    {
+      "nativeBytes": 424,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Morpeh/Morpeh/World.cs"
+    },
+    {
+      "nativeBytes": 384,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Fps/G_FpsManager.cs"
+    },
+    {
+      "nativeBytes": 384,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Obi/Obi/ObiActor.cs"
+    },
+    {
+      "nativeBytes": 376,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Fps/G_FpsManager.cs"
+    },
+    {
+      "nativeBytes": 372,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Audio/G_AudioManager.cs"
+    },
+    {
+      "nativeBytes": 364,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Audio/G_AudioManager.cs"
+    },
+    {
+      "nativeBytes": 352,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Ram/G_RamManager.cs"
+    },
+    {
+      "nativeBytes": 336,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Ram/G_RamManager.cs"
+    },
+    {
+      "nativeBytes": 316,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Morpeh/Morpeh/Filter.cs"
+    },
+    {
+      "nativeBytes": 312,
+      "lost": "CALL",
+      "file": "Assets/Scripts/PlayMaker/PlayMakerFSM.cs"
+    },
+    {
+      "nativeBytes": 312,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/StoreReview.cs"
+    },
+    {
+      "nativeBytes": 308,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/QuaternionCompare.cs"
+    },
+    {
+      "nativeBytes": 300,
+      "lost": "ARRAY_READ,FIELD",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/FBSDKViewHiearchy.cs"
+    },
+    {
+      "nativeBytes": 296,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Morpeh/Morpeh/World.cs"
+    },
+    {
+      "nativeBytes": 296,
+      "lost": "BRANCH,NEWOBJ",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Internal/Gif/Android/AndroidNativeGif.cs"
+    },
+    {
+      "nativeBytes": 276,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Assembly-CSharp/Obi/ObiCharacter.cs"
+    },
+    {
+      "nativeBytes": 272,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity.Settings/Facebook/Unity/Settings/FacebookSettings.cs"
+    },
+    {
+      "nativeBytes": 272,
+      "lost": "BRANCH,NEWOBJ",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Internal/Gif/Android/AndroidNativeGif.cs"
+    },
+    {
+      "nativeBytes": 268,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/PlayMaker/HutongGames/PlayMaker/ActionData.cs"
+    },
+    {
+      "nativeBytes": 264,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Obi/Obi/ObiNativeVector3List.cs"
+    },
+    {
+      "nativeBytes": 264,
+      "lost": "BRANCH,NEWOBJ",
+      "file": "Assets/Scripts/Obi/Oni.cs"
+    },
+    {
+      "nativeBytes": 264,
+      "lost": "BRANCH,CALL",
+      "file": "Assets/Scripts/Firebase.App/Firebase/ErrorMessages.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Obi/Obi/ObiNativeVector4List.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Obi/Obi/ObiNativeQuaternionList.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/Advertising.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/FB.cs"
+    },
+    {
+      "nativeBytes": 256,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Obi/Obi/ObiNativeVector2List.cs"
+    },
+    {
+      "nativeBytes": 256,
+      "lost": "BRANCH,NEWOBJ",
+      "file": "Assets/Scripts/Obi/Oni.cs"
+    },
+    {
+      "nativeBytes": 256,
+      "lost": "BRANCH,NEWOBJ",
+      "file": "Assets/Scripts/Obi/Oni.cs"
+    },
+    {
+      "nativeBytes": 252,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Obi/Obi/ObiNativeIntList.cs"
+    },
+    {
+      "nativeBytes": 252,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Obi/Obi/ObiNativeFloatList.cs"
+    },
+    {
+      "nativeBytes": 252,
+      "lost": "CALL",
+      "file": "Assets/Scripts/EasyMobile/EasyMobile/DeviceContacts.cs"
+    }
+  ]
+}

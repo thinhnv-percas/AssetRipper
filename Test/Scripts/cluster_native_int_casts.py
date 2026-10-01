@@ -92,12 +92,74 @@ def producer_of(operand, declared, previous):
     return UNKNOWN
 
 
+# Iteration 064 (brief §5): the producer of an OBJECT_REFERENCE cast's value, followed through the
+# method's own assignments. The cast is where the typing gave up; the producer is where to fix it.
+RESOLVED_PRODUCERS = ("FIELD", "PARAMETER", "ALLOCATION", "CALL_RESULT", "TYPE_CHECK", "CONSTANT", "ARRAY_ELEMENT", "THIS")
+UNRESOLVED_PRODUCERS = ("UNRESOLVED_LOAD_STANDIN", "ENTRY_VALUE", "UNKNOWN")
+SIGNATURE = re.compile(r"^\s*(?:public|private|protected|internal|static|unsafe|override|virtual|new|sealed|abstract|extern|\s)+[\w<>\[\],.? ]+\s+[\w.<>]+\s*\((?P<params>[^)]*)\)")
+IDENTIFIER = re.compile(r"^[A-Za-z_]\w*$")
+
+
+def producer_kind(expression, name_of_param):
+    expression = expression.strip().rstrip(";").strip()
+    while expression.startswith("(") and expression.endswith(")") and expression.count("(") == expression.count(")"):
+        expression = expression[1:-1].strip()
+    cast = re.match(r"^\((?:[\w.<>\[\],? ]+)\)\s*(?P<inner>.+)$", expression)
+    if cast:
+        return None, cast.group("inner")
+    if expression.startswith("default("):
+        return "UNRESOLVED_LOAD_STANDIN", None
+    if expression in ("null", "true", "false") or re.match(r"^-?[\d.]+[fLuU]*$", expression) or expression.startswith('"'):
+        return "CONSTANT", None
+    if expression.startswith("new "):
+        return "ALLOCATION", None
+    if " as " in expression or " is " in expression:
+        return "TYPE_CHECK", None
+    if expression == "this":
+        return "THIS", None
+    if expression.endswith(")") and "(" in expression:
+        return "CALL_RESULT", None
+    if expression.endswith("]"):
+        return "ARRAY_ELEMENT", None
+    if "." in expression and IDENTIFIER.match(expression.rsplit(".", 1)[-1]):
+        return "FIELD", None
+    if IDENTIFIER.match(expression):
+        return ("PARAMETER", None) if name_of_param(expression) else (None, expression)
+    return "UNKNOWN", None
+
+
+def trace_producer(name, at, lines, depth=0):
+    """Follow `name` back to the statement that produced it, inside the method that contains line `at`."""
+    if depth > 8:
+        return "UNKNOWN"
+    start = at
+    params = set()
+    while start > 0:
+        start -= 1
+        signature = SIGNATURE.match(lines[start])
+        if signature:
+            params = {p.strip().split()[-1] for p in signature.group("params").split(",") if p.strip()}
+            break
+    assignment = re.compile(r"(?:^|[\s(])" + re.escape(name) + r"\s*=\s*(?P<value>[^=].*?);\s*$")
+    for index in range(at - 1, start, -1):
+        match = assignment.search(lines[index])
+        if match:
+            kind, follow = producer_kind(match.group("value"), params.__contains__)
+            while kind is None and follow is not None and not IDENTIFIER.match(follow):
+                kind, follow = producer_kind(follow, params.__contains__)
+            if kind is not None:
+                return kind
+            return trace_producer(follow, index, lines, depth + 1)
+    return "PARAMETER" if name in params else "ENTRY_VALUE"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("root")
     parser.add_argument("--json")
     parser.add_argument("--markdown")
     parser.add_argument("--name")
+    parser.add_argument("--trace", action="store_true", help="follow each OBJECT_REFERENCE cast to its producer")
     arguments = parser.parse_args()
 
     root = pathlib.Path(arguments.root)
@@ -106,6 +168,7 @@ def main():
         return 2
 
     counts = collections.Counter()
+    producers = collections.Counter()
     files = collections.defaultdict(set)
     samples = collections.defaultdict(list)
     total = 0
@@ -116,12 +179,15 @@ def main():
         declared = declarations(lines)
         previous = {}
 
-        for line in lines:
+        for number, line in enumerate(lines):
             if (match := DECLARATION.match(line)) is not None:
                 previous[match.group("name")] = line
 
             for cast in CAST.finditer(line):
                 kind = producer_of(cast.group("operand"), declared, previous)
+                if arguments.trace and kind == OBJECT_REFERENCE:
+                    root_name = cast.group("operand").strip("()").split(".", 1)[0]
+                    producers[trace_producer(root_name, number, lines)] += 1
                 counts[kind] += 1
                 total += 1
                 files[kind].add(str(path.relative_to(root)))
@@ -142,6 +208,14 @@ def main():
             share = counts[kind] / total if total else 0
             print(f"  {kind:<18} {counts[kind]:6d}  {share:5.1%}  {len(files[kind])} files")
             print(f"                     {samples[kind][0]}")
+
+    if arguments.trace:
+        traced = sum(producers.values())
+        resolved = sum(producers[k] for k in RESOLVED_PRODUCERS)
+        report["object_reference_producers"] = dict(producers.most_common())
+        report["resolved_producer_rate"] = round(resolved / traced, 4) if traced else None
+        print(f"  OBJECT_REFERENCE producers: {json.dumps(dict(producers.most_common()))}")
+        print(f"  resolved_producer_rate {report['resolved_producer_rate']} ({resolved} of {traced})")
 
     if arguments.json:
         pathlib.Path(arguments.json).write_text(json.dumps(report, indent=2))

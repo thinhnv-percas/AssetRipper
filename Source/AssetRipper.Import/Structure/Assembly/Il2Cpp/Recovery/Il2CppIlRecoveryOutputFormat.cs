@@ -704,6 +704,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 		IMethodDescriptor? combine = null;
 		IMethodDescriptor? compareExchange = null;
 		bool storageAddressed = false;
+		bool afterFrameNote = false;
 
 		foreach (CilInstruction instruction in accessor.CilMethodBody!.Instructions)
 		{
@@ -717,6 +718,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 					else if (called.DeclaringType?.FullName == "System.Threading.Interlocked" && called.Name == "CompareExchange")
 					{
 						compareExchange = called;
+					}
+					else if (afterFrameNote && called.Name == "NoteDecompilerIssue")
+					{
+						afterFrameNote = false;
 					}
 					else if (IsCastExpansionCall(called))
 					{
@@ -744,9 +749,16 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 					}
 					storageAddressed = true;
 					break;
+				// The native stack analyser's note that the frame's SP delta did not balance, appended after
+				// the body as an unreachable trailer. It concerns stack-slot naming, which none of the evidence
+				// above rests on; every other message is a placeholder for something not recovered.
+				case CilCode.Ldstr when instruction.Operand is string note && note.Contains("Method ends with non empty stack", StringComparison.Ordinal):
+					afterFrameNote = true;
+					break;
 				case CilCode.Stfld or CilCode.Stsfld or CilCode.Stobj or CilCode.Stind_Ref or CilCode.Ldstr or CilCode.Calli:
 					// A store that is not the compare-and-swap, or a placeholder's message: not only the accessor.
-					RejectCanonicalEvent("OTHER_EFFECT:" + instruction.OpCode.Mnemonic);
+					RejectCanonicalEvent("OTHER_EFFECT:" + instruction.OpCode.Mnemonic
+						+ (instruction.Operand is string text ? ":" + new string(text.Take(48).Select(c => char.IsControl(c) || c == ',' ? ' ' : c).ToArray()) : ""));
 					return null;
 			}
 		}
@@ -3220,6 +3232,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {Cpp2IL.Core.Analysis.LocalVariables.FullySharedReturnPointersNamed} fully shared generic bodies "
 				+ "take their result through il2cppRetVal ahead of the MethodInfo; "
+				+ $"{Cpp2IL.Core.Analysis.FieldAddressArguments.Recovered} ref arguments recovered as a field's address; "
 				+ $"{Cpp2IL.Core.Analysis.CompareExchangeRecovery.Recovered} compare-and-swap calls recovered as Interlocked.CompareExchange<T>"
 				+ (Cpp2IL.Core.Analysis.CompareExchangeRecovery.Rejected.Count == 0 ? "" : ", left alone: "
 					+ string.Join(", ", Cpp2IL.Core.Analysis.CompareExchangeRecovery.Rejected.Select(pair => $"{pair.Value} {pair.Key}"))));

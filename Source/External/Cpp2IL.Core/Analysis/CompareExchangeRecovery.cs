@@ -82,9 +82,9 @@ public static class CompareExchangeRecovery
                 continue;
             }
 
-            if (FieldAddressed(call.Operands[argBase + operands.Location], instructions, method) is not { } location)
+            if (FieldAddressed(call.Operands[argBase + operands.Location], instructions, method, out var why) is not { } location)
             {
-                Reject("LOCATION_IS_NOT_A_FIELD_ADDRESS");
+                Reject("LOCATION_IS_NOT_A_FIELD_ADDRESS:" + why);
                 continue;
             }
 
@@ -159,7 +159,12 @@ public static class CompareExchangeRecovery
     /// the instance, which is a separate piece of work rather than a reason to guess.
     /// </remarks>
     public static FieldReference? FieldAddressed(IOperand operand, IReadOnlyList<Instruction> instructions, MethodAnalysisContext method)
+        => FieldAddressed(operand, instructions, method, out _);
+
+    /// <param name="reason">Which condition failed, for the rejection count; empty when one was found.</param>
+    public static FieldReference? FieldAddressed(IOperand operand, IReadOnlyList<Instruction> instructions, MethodAnalysisContext method, out string reason)
     {
+        reason = "";
         // A class's static field storage pointer, which StaticFieldStorageHead names as the field at
         // offset zero: the pointer *is* that field's address. A load of a static field has its local
         // typed as the storage, never as the class, so the two cannot be confused.
@@ -167,9 +172,19 @@ public static class CompareExchangeRecovery
             return head;
 
         if (operand is not LocalVariable pointer)
+        {
+            reason = "NOT_A_LOCAL:" + operand.GetType().Name;
             return null;
+        }
 
         var definitions = instructions.Where(i => ReferenceEquals(i.Destination, pointer)).ToList();
+
+        // A straight copy of the address is the same address: follow it, a few steps at most.
+        for (var hop = 0; hop < 4 && definitions is [{ OpCode: OpCode.Move, Operands: [_, LocalVariable copied] }]; hop++)
+        {
+            pointer = copied;
+            definitions = instructions.Where(i => ReferenceEquals(i.Destination, pointer)).ToList();
+        }
 
         if (definitions is [{ OpCode: OpCode.Move, Operands: [_, FieldReference { Field.IsStatic: true, Offset: 0, Local.Type: RuntimeClassTypeAnalysisContext } moved] }])
             return moved;
@@ -181,18 +196,27 @@ public static class CompareExchangeRecovery
             return new FieldReference(staticField, storage, (int)staticOffset);
 
         if (definitions is not [{ OpCode: OpCode.Add, Operands: [_, LocalVariable owner, Immediate { Value: var offset }] }])
+        {
+            reason = definitions.Count == 1 ? "DEFINED_BY_" + definitions[0].OpCode : "DEFINITIONS_" + definitions.Count;
             return null;
+        }
 
         if (owner.Type is not { IsValueType: false } ownerType
             || ownerType is GenericInstanceTypeAnalysisContext or ByRefTypeAnalysisContext or PointerTypeAnalysisContext
             || ownerType.GenericParameters.Count > 0
             || ValueFlow.KindOf(ownerType) != ValueKind.ObjectReference)
+        {
+            reason = "OWNER_NOT_A_CLASS";
             return null;
+        }
 
         if (MetadataResolver.SearchFieldAtOffset(ownerType, offset, wantStatic: false) is not { } field
             || field.DeclaringType is null
             || field.DeclaringType.GenericParameters.Count > 0)
+        {
+            reason = "NO_FIELD_AT_OFFSET";
             return null;
+        }
 
         return new FieldReference(field, owner, (int)offset);
     }

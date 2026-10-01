@@ -45,6 +45,16 @@ MESSAGE = re.compile(
 UNKNOWN = "UNKNOWN"
 
 
+# When the engine delivers a message, from Unity's documented execution order - a fact about the engine's
+# contract, not an observation of it, so it is stated rather than marked UNKNOWN. A message not listed is
+# delivered on an event (a collision, a click, a callback) and has no frame of its own.
+FRAME_OF_MESSAGE = {
+    "Awake": "LOAD", "OnEnable": "LOAD", "Start": "FIRST_FRAME_BEFORE_UPDATE",
+    "FixedUpdate": "EVERY_PHYSICS_STEP", "Update": "EVERY_FRAME", "LateUpdate": "EVERY_FRAME_AFTER_UPDATE",
+    "OnGUI": "EVERY_GUI_EVENT", "OnDisable": "UNLOAD", "OnDestroy": "UNLOAD", "OnApplicationQuit": "UNLOAD",
+}
+
+
 def guid_of(meta):
     if not meta.is_file():
         return None
@@ -131,6 +141,9 @@ def scenarios_for(scene, game, by_guid):
                 "object": owner,
                 "component": path,
                 "method": message,
+                # Iteration 064 (brief §15): the scenario schema's own names.
+                "message": message,
+                "frame": FRAME_OF_MESSAGE.get(message, "EVENT_DRIVEN"),
                 # A Unity message takes no arguments, so there is nothing to supply.
                 "input": "NONE",
                 "initial_state": serialised_fields(body),

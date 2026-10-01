@@ -196,4 +196,24 @@ public class Il2CppAtomicIntrinsicTests
 			Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(twoAddresses), Is.Null);
 		});
 	}
+
+	[Test]
+	public void AnArgumentCopiedBeforeTheLoopIsReadAsTheArgument()
+	{
+		// The 2019 runtime's form: mov x8, x0; ldaxr x0, [x8]; cmp x0, x2; stlxr w9, x1, [x8]. The location
+		// is X0, not X8 - X8 is no argument at all, and reading it as one found nothing at 476 call sites.
+		byte[] code = Code(Move(8, 0), LoadExclusive(0, 8), Compare(0, 2), 0x54000081, StoreExclusive(9, 1, 8), 0x35FFFF89, Return());
+
+		Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(code),
+			Is.EqualTo(new AtomicIntrinsicRecognizer.CompareExchangeOperands(0, 1, 2, 8)));
+	}
+
+	[Test]
+	public void AnyOtherPrologueInstructionAnswersNothing()
+	{
+		// add x8, x0, #16 makes X8 something other than an argument; the reader must not guess what.
+		byte[] code = Code(0x91004008, LoadExclusive(0, 8), Compare(0, 2), StoreExclusive(9, 1, 8), Return());
+
+		Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(code), Is.Null);
+	}
 }

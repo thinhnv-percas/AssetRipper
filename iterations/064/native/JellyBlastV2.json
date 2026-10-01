@@ -1,0 +1,383 @@
+{
+ "nodes": [
+  {
+   "library": "FBAEMKit.framework",
+   "kind": "FRAMEWORK",
+   "bundle": "FBAEMKit.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBAEMKit.framework/FBAEMKit"
+  },
+  {
+   "library": "FBSDKCoreKit.framework",
+   "kind": "FRAMEWORK",
+   "bundle": "FBSDKCoreKit.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKCoreKit.framework/FBSDKCoreKit"
+  },
+  {
+   "library": "FBSDKCoreKit_Basics.framework",
+   "kind": "FRAMEWORK",
+   "bundle": "FBSDKCoreKit_Basics.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics"
+  },
+  {
+   "library": "FBSDKGamingServicesKit.framework",
+   "kind": "FRAMEWORK",
+   "bundle": "FBSDKGamingServicesKit.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit"
+  },
+  {
+   "library": "FBSDKLoginKit.framework",
+   "kind": "FRAMEWORK",
+   "bundle": "FBSDKLoginKit.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKLoginKit.framework/FBSDKLoginKit"
+  },
+  {
+   "library": "FBSDKShareKit.framework",
+   "kind": "FRAMEWORK",
+   "bundle": "FBSDKShareKit.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKShareKit.framework/FBSDKShareKit"
+  },
+  {
+   "library": "UnityFramework.framework",
+   "kind": "UNITY_ENGINE",
+   "bundle": "UnityFramework.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework"
+  },
+  {
+   "library": "libswiftAVFoundation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftAVFoundation.dylib"
+  },
+  {
+   "library": "libswiftCore.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCore.dylib"
+  },
+  {
+   "library": "libswiftCoreAudio.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreAudio.dylib"
+  },
+  {
+   "library": "libswiftCoreFoundation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreFoundation.dylib"
+  },
+  {
+   "library": "libswiftCoreGraphics.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreGraphics.dylib"
+  },
+  {
+   "library": "libswiftCoreImage.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreImage.dylib"
+  },
+  {
+   "library": "libswiftCoreLocation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreLocation.dylib"
+  },
+  {
+   "library": "libswiftCoreMedia.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreMedia.dylib"
+  },
+  {
+   "library": "libswiftDarwin.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftDarwin.dylib"
+  },
+  {
+   "library": "libswiftDispatch.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftDispatch.dylib"
+  },
+  {
+   "library": "libswiftFoundation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftFoundation.dylib"
+  },
+  {
+   "library": "libswiftMetal.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftMetal.dylib"
+  },
+  {
+   "library": "libswiftObjectiveC.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftObjectiveC.dylib"
+  },
+  {
+   "library": "libswiftQuartzCore.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftQuartzCore.dylib"
+  },
+  {
+   "library": "libswiftUIKit.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftUIKit.dylib"
+  },
+  {
+   "library": "libswift_Concurrency.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswift_Concurrency.dylib"
+  },
+  {
+   "library": "libswiftos.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftos.dylib"
+  },
+  {
+   "library": "libswiftsimd.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftsimd.dylib"
+  },
+  {
+   "library": "Assembly-CSharp (__Internal)",
+   "kind": "UNKNOWN",
+   "bundle": "UnityFramework.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": {
+    "entry_points": 4,
+    "in_engine_symbol_table": 0
+   },
+   "source_evidence": [],
+   "recoverability": "UNKNOWN",
+   "evidence": "no entry point is in the engine binary's symbol table (stripped, or not linked there)",
+   "required_by": "Assembly-CSharp"
+  },
+  {
+   "library": "Facebook.Unity.IOS (__Internal)",
+   "kind": "UNKNOWN",
+   "bundle": "UnityFramework.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": {
+    "entry_points": 28,
+    "in_engine_symbol_table": 0
+   },
+   "source_evidence": [],
+   "recoverability": "UNKNOWN",
+   "evidence": "no entry point is in the engine binary's symbol table (stripped, or not linked there)",
+   "required_by": "Facebook.Unity.IOS"
+  },
+  {
+   "library": "GameAnalyticsSDK (__Internal)",
+   "kind": "UNKNOWN",
+   "bundle": "UnityFramework.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": {
+    "entry_points": 38,
+    "in_engine_symbol_table": 0
+   },
+   "source_evidence": [],
+   "recoverability": "UNKNOWN",
+   "evidence": "no entry point is in the engine binary's symbol table (stripped, or not linked there)",
+   "required_by": "GameAnalyticsSDK"
+  },
+  {
+   "library": "libRF_CNative_ios.a",
+   "kind": "STATIC_LIBRARY",
+   "bundle": "UnityFramework.framework",
+   "architecture": "arm64",
+   "platform": "ios",
+   "symbols": {
+    "entry_points": 34,
+    "in_engine_symbol_table": 34
+   },
+   "source_evidence": [
+    {
+     "archive": "Assets/RayFire/Plugins/Ios/libRF_CNative_ios.a",
+     "defines": 34
+    }
+   ],
+   "recoverability": "LINKED_STATIC_NOT_EXTRACTABLE",
+   "evidence": "all 34 entry points are symbols of UnityFramework: linked into it, no file to extract",
+   "required_by": "RFLib_DotNet_2018_ios"
+  }
+ ],
+ "edges": [
+  {
+   "assembly": "Assembly-CSharp",
+   "library": "__Internal",
+   "entry_points": 4,
+   "in_engine_symbol_table": 0
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "library": "__Internal",
+   "entry_points": 28,
+   "in_engine_symbol_table": 0
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "library": "__Internal",
+   "entry_points": 38,
+   "in_engine_symbol_table": 0
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "library": "__Internal",
+   "entry_points": 34,
+   "in_engine_symbol_table": 34
+  }
+ ],
+ "by_kind": {
+  "FRAMEWORK": 6,
+  "UNITY_ENGINE": 1,
+  "SYSTEM_LIBRARY": 18,
+  "UNKNOWN": 3,
+  "STATIC_LIBRARY": 1
+ },
+ "by_recoverability": {
+  "PRESERVED": 6,
+  "NOT_REQUIRED": 19,
+  "UNKNOWN": 3,
+  "LINKED_STATIC_NOT_EXTRACTABLE": 1
+ }
+}

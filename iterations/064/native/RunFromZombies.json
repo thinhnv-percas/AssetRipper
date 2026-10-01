@@ -1,0 +1,78 @@
+{
+ "nodes": [
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libil2cpp.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libunity.so"
+  },
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libil2cpp.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libunity.so"
+  }
+ ],
+ "edges": [],
+ "by_kind": {
+  "IL2CPP_RUNTIME": 2,
+  "UNITY_ENGINE": 4
+ },
+ "by_recoverability": {
+  "NOT_REQUIRED": 6
+ }
+}

@@ -1,0 +1,125 @@
+{
+ "nodes": [
+  {
+   "library": "libFirebaseCppAnalytics.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/arm64-v8a/libFirebaseCppAnalytics.so"
+  },
+  {
+   "library": "libFirebaseCppApp-6_9_0.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/arm64-v8a/libFirebaseCppApp-6_9_0.so"
+  },
+  {
+   "library": "libOni.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/arm64-v8a/libOni.so"
+  },
+  {
+   "library": "libc++_shared.so",
+   "kind": "SYSTEM_LIBRARY",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libc++_shared.so"
+  },
+  {
+   "library": "libeasymobile.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/arm64-v8a/libeasymobile.so"
+  },
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libil2cpp.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libmain.so"
+  },
+  {
+   "library": "libswappy.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/arm64-v8a/libswappy.so"
+  },
+  {
+   "library": "libswappyVk.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/arm64-v8a/libswappyVk.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libunity.so"
+  }
+ ],
+ "edges": [],
+ "by_kind": {
+  "GAME_NATIVE_PLUGIN": 6,
+  "SYSTEM_LIBRARY": 1,
+  "IL2CPP_RUNTIME": 1,
+  "UNITY_ENGINE": 2
+ },
+ "by_recoverability": {
+  "PRESERVED": 6,
+  "NOT_REQUIRED": 4
+ }
+}

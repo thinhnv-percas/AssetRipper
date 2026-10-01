@@ -1,0 +1,125 @@
+{
+ "nodes": [
+  {
+   "library": "lib_burst_generated.so",
+   "kind": "ENGINE_BUILD_OUTPUT",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/lib_burst_generated.so"
+  },
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libil2cpp.so"
+  },
+  {
+   "library": "liblofelt_sdk.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/arm64-v8a/liblofelt_sdk.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "arm64-v8a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libunity.so"
+  },
+  {
+   "library": "lib_burst_generated.so",
+   "kind": "ENGINE_BUILD_OUTPUT",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/lib_burst_generated.so"
+  },
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libil2cpp.so"
+  },
+  {
+   "library": "liblofelt_sdk.so",
+   "kind": "GAME_NATIVE_PLUGIN",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: lib/armeabi-v7a/liblofelt_sdk.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "bundle": null,
+   "architecture": "armeabi-v7a",
+   "platform": "android",
+   "symbols": null,
+   "source_evidence": [],
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libunity.so"
+  }
+ ],
+ "edges": [],
+ "by_kind": {
+  "ENGINE_BUILD_OUTPUT": 2,
+  "IL2CPP_RUNTIME": 2,
+  "GAME_NATIVE_PLUGIN": 2,
+  "UNITY_ENGINE": 4
+ },
+ "by_recoverability": {
+  "NOT_REQUIRED": 8,
+  "PRESERVED": 2
+ }
+}

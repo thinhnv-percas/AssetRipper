@@ -149,13 +149,23 @@ public static class AtomicIntrinsicRecognizer
         int comparand = -1;
         int width = 0;
 
+        // Registers a prologue copied an argument into: `mov x8, x0` ahead of `ldaxr x0, [x8]` is the
+        // location arriving in X0 and being read through X8 (the 2019 runtime's form). Only plain copies
+        // are followed; any other instruction before the exclusive load answers null rather than leaving
+        // a register whose value the reader no longer knows.
+        Span<int> copiedFrom = stackalloc int[32];
+        for (int register = 0; register < 32; register++)
+        {
+            copiedFrom[register] = register;
+        }
+
         for (int index = 0; index < WindowInstructions && (index + 1) * 4 <= code.Length; index++)
         {
             uint word = BinaryPrimitives.ReadUInt32LittleEndian(code.Slice(index * 4, 4));
 
             if (IsLoadExclusive(word))
             {
-                location = AddressRegister(word);
+                location = copiedFrom[AddressRegister(word)];
                 loadedInto = TransferRegister(word);
                 width = WidthOf(word);
                 comparand = -1;
@@ -164,7 +174,18 @@ public static class AtomicIntrinsicRecognizer
 
             if (location < 0)
             {
-                continue;
+                if (IsRegisterCopy(word, out int destination, out int source))
+                {
+                    copiedFrom[destination] = copiedFrom[source];
+                    continue;
+                }
+
+                if (word is 0xD503201F || (word & 0xFFFFF0FF) == 0xD50330BF)
+                {
+                    continue; // NOP, or a DMB barrier
+                }
+
+                return null;
             }
 
             // A register written between the load and the store is not still the argument it arrived
@@ -184,16 +205,24 @@ public static class AtomicIntrinsicRecognizer
 
             if (IsStoreExclusive(word))
             {
-                if (AddressRegister(word) != location || comparand < 0 || WidthOf(word) != width)
+                if (copiedFrom[AddressRegister(word)] != location || comparand < 0 || WidthOf(word) != width)
                 {
                     return null;
                 }
 
-                return new CompareExchangeOperands(location, TransferRegister(word), comparand, width);
+                return new CompareExchangeOperands(location, copiedFrom[TransferRegister(word)], copiedFrom[comparand], width);
             }
         }
 
         return null;
+    }
+
+    /// <summary><c>MOV Xd, Xn</c> / <c>MOV Wd, Wn</c>: <c>ORR</c> with the zero register and no shift.</summary>
+    private static bool IsRegisterCopy(uint word, out int destination, out int source)
+    {
+        destination = (int)(word & 0x1F);
+        source = (int)((word >> 16) & 0x1F);
+        return (word & 0x7FE0FFE0) == 0x2A0003E0 && source != 31;
     }
 
     /// <summary>The size field of a load/store-exclusive word, in bytes.</summary>
