@@ -833,3 +833,23 @@ khai báo, và `CPP2IL_RECOVER_ALSO` mở chúng ra để đo: behaviour 0.6802 
 7. **RGCTX interface class** cho 505 vùng `ValueEscapes` trên Merge-Room — không đổi từ 062.
 8. **Android P/Invoke**: tên thư viện không có trong metadata; nằm trong chuỗi `PInvokeArguments` của code
    sinh ra. Chưa đọc.
+
+## Sau iteration 064 — mục tiêu tiếp theo, đã có bằng chứng
+
+1. **Dispatch qua invoker của thân fully shared** (DECOMP-0061): 46 dispatch trên Merge-Room có đích EXACT
+   (`interface.Methods[slot]`) nhưng gọi qua `VirtualInvokeData.method->invoker_method(methodPtr, method, obj,
+   void** args, void* ret)`. Cần dựng đối số từ các ô stack mà mảng `args` trỏ tới trước lời gọi — cùng cơ chế
+   version SSA của `RetargetAddressTakesOverwrittenBeforeUse`. Không viết lại khi một ô không chứng minh được.
+2. **Lỗi thân Merge-Room Assembly-CSharp lần đầu đo được: 684** (CS0030 362, CS0122 166, CS0019 59). Phân loại
+   trước khi làm, như mọi họ khác (`classify_compile_errors.py`).
+3. **`OBJECT_REFERENCE` sửa ở producer**: `cluster_native_int_casts.py --trace` nói một nửa (666/1298 Impostor)
+   có producer là `default(object)` của một load bỏ cuộc — tức là công việc unresolved-load, không phải công
+   việc cast.
+4. **`ref T x = ref *(T*)((nint)obj.field + k)`** còn lại (47/185/536): base là một field load đã gập, nên
+   `FieldAddressArguments` không thấy `object + k`. Cần `FieldReference` lồng làm base, hoặc chạy trước khi gập.
+5. **`UNKNOWN_CLASS_SOURCE` của lookup interface (70 trên Merge-Room)**: class operand là giá trị vào của
+   thanh ghi hoặc kết quả class-init helper mà `PointerProvenance` không đi xuyên.
+6. **Package bị stub nhưng manifest xuất ra không khai báo** (blocker `PACKAGES_STUBBED_NOT_DECLARED`): chỉ 4
+   package JellyBlast có version chứng minh được; đưa chúng vào `Packages/manifest.json` với provenance.
+7. **Native `__Internal` UNKNOWN** (Facebook, GameAnalytics, Taptic trên JellyBlast): symbol đã strip; bằng chứng
+   thay thế là `.mm` trong source plugin hoặc chuỗi tên hàm trong `__TEXT`.

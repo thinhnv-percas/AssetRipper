@@ -159,6 +159,14 @@ def allocations_named(source: str, body: str) -> bool:
 def unmentioned_members(source: str, body: str) -> set[str]:
     """Members the IR reached that the C# never names at all."""
     words = set(re.findall(r'[A-Za-z_]\w*', body))
+    # Iteration 064: a member the export renamed to the compiler's backing-field spelling is still named -
+    # an event's field that an interface keeps from being dropped takes `<Name>k__BackingField`, which a
+    # decompiler escapes to one identifier, `_003CName_003Ek__BackingField`, that no word split finds Name in.
+    words |= set(re.findall(r'_003C(\w+?)_003Ek__BackingField', body))
+    # And a decompiler renames a field that shares its name with an event to `m_Name` (`m_OnAdOpening`,
+    # `m_PushTokenReceived`): the IR names the metadata field, the C# the renamed one, and the accessor that
+    # now has no placeholder left would read that as a field it lost.
+    words |= {word[2:] for word in words if word.startswith("m_")}
     reached = set()
     for receiver, member in IR_RECEIVER_MEMBER.findall(source):
         # A namespace-qualified type is not a member access; the rendering writes those as

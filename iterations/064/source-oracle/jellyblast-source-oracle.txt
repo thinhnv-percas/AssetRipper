@@ -1,0 +1,62 @@
+source oracle: https://github.com/ThinhNV-x-Percas/jelly-blast @ 462789cf; build 2022.3.53f1
+assembly                       category       provenance          oracle            bodies  behaviour (EXACT+EQ / compared)   operation (EXACT+EQ / paired)
+Assembly-CSharp                GAME           SOURCE_MISMATCH     DERIVED             1257  268/379  {"EXACT": 93, "FALLBACK": 10, "MISMATCH": 16, "NOT_AVAILABLE": 291, "PARTIAL": 85, "SEMANTICALLY_EQUIVALENT": 175}   255/389
+Assembly-CSharp-firstpass      GAME           SOURCE_MISMATCH     DERIVED              396  18/34  {"EXACT": 7, "NOT_AVAILABLE": 17, "PARTIAL": 16, "SEMANTICALLY_EQUIVALENT": 11}   0/0
+DOTween                        THIRD_PARTY    NO_SOURCE           NO_SOURCE           1143  -
+Facebook.Unity                 THIRD_PARTY    NO_SOURCE           NO_SOURCE           1174  -
+Facebook.Unity.IOS             THIRD_PARTY    NO_SOURCE           NO_SOURCE             40  -
+Facebook.Unity.Settings        THIRD_PARTY    NO_SOURCE           NO_SOURCE             49  -
+GameAnalyticsSDK               THIRD_PARTY    NO_SOURCE           NO_SOURCE            307  -
+Mono.Security                  ENGINE         NO_SOURCE           NO_SOURCE            540  -
+Newtonsoft.Json                THIRD_PARTY    NO_SOURCE           NO_SOURCE           2265  -
+PathCreator                    THIRD_PARTY    LIKELY_MATCH        INDEPENDENT          139  30/56  {"EXACT": 10, "FALLBACK": 2, "NOT_AVAILABLE": 29, "PARTIAL": 24, "SEMANTICALLY_EQUIVALENT": 20, "UNDECIDED_ARITHMETIC": 1}   37/62
+RFLib_DotNet_2018_ios          THIRD_PARTY    NO_SOURCE           NO_SOURCE             39  -
+RayFireAssembly                THIRD_PARTY    SOURCE_MISMATCH     VERSION_MISMATCH    1508  340/449  {"EXACT": 124, "FALLBACK": 10, "MISMATCH": 4, "NOT_AVAILABLE": 580, "PARTIAL": 95, "SEMANTICALLY_EQUIVALENT": 216}   334/575
+System                         ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Configuration           ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Core                    ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Data                    ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Drawing                 ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Numerics                ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Runtime.Serialization   ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Xml                     ENGINE         NO_SOURCE           NO_SOURCE              0  -
+System.Xml.Linq                ENGINE         NO_SOURCE           NO_SOURCE              0  -
+Unity.Burst                    UNITY_PACKAGE  SOURCE_MISMATCH     VERSION_MISMATCH       0  NOT_RECOVERED
+Unity.Burst.Unsafe             UNITY_PACKAGE  NO_SOURCE           NO_SOURCE              0  -
+Unity.Collections              UNITY_PACKAGE  SOURCE_MISMATCH     VERSION_MISMATCH       0  NOT_RECOVERED
+Unity.Mathematics              UNITY_PACKAGE  PROVEN_BUILD_MATCH  INDEPENDENT          146  33/57  {"EXACT": 9, "FALLBACK": 5, "NOT_AVAILABLE": 820, "PARTIAL": 19, "SEMANTICALLY_EQUIVALENT": 24}   0/7
+Unity.TextMeshPro              UNITY_PACKAGE  PROVEN_BUILD_MATCH  INDEPENDENT         1605  322/430  {"EXACT": 114, "FALLBACK": 12, "MISMATCH": 2, "NOT_AVAILABLE": 406, "PARTIAL": 94, "SEMANTICALLY_EQUIVALENT": 208}   294/519
+Unity.VisualScripting.Core     UNITY_PACKAGE  PROVEN_BUILD_MATCH  INDEPENDENT         1038  236/390  {"EXACT": 120, "FALLBACK": 33, "MISMATCH": 2, "NOT_AVAILABLE": 1219, "PARTIAL": 119, "SEMANTICALLY_EQUIVALENT": 116, "UNDECIDED_ARITHMETIC": 8}   381/494
+UnityEngine.AndroidJNIModule   ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.AnimationModule    ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.AudioModule        ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.CoreModule         ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.GameCenterModule   ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.GridModule         ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.IMGUIModule        ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.ImageConversionModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.InputLegacyModule  ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.JSONSerializeModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.ParticleSystemModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.Physics2DModule    ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.PhysicsModule      ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.PropertiesModule   ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.SharedInternalsModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.SpriteShapeModule  ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.TextCoreFontEngineModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.TextCoreTextEngineModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.TextRenderingModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.TilemapModule      ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.UI                 UNITY_PACKAGE  PROVEN_BUILD_MATCH  INDEPENDENT         1804  246/336  {"EXACT": 102, "FALLBACK": 8, "MISMATCH": 1, "NOT_AVAILABLE": 504, "PARTIAL": 81, "SEMANTICALLY_EQUIVALENT": 144}   406/603
+UnityEngine.UIElementsModule   ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.UIModule           ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.UnityWebRequestModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.UnityWebRequestTextureModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+UnityEngine.UnityWebRequestWWWModule ENGINE         NO_SOURCE           NO_SOURCE              0  -
+Voodoo.UI.Particles            THIRD_PARTY    PROVEN_BUILD_MATCH  INDEPENDENT          126  39/60  {"EXACT": 6, "MISMATCH": 1, "NOT_AVAILABLE": 7, "PARTIAL": 20, "SEMANTICALLY_EQUIVALENT": 33}   34/45
+__Generated                    GENERATED_CODE NO_SOURCE           NO_SOURCE              0  -
+mscorlib                       ENGINE         NO_SOURCE           NO_SOURCE              0  -
+
+INDEPENDENT: behaviour_equivalence_rate 0.6817 (906/1329); EXACT=361 FALLBACK=60 MISMATCH=6 NOT_AVAILABLE=2985 PARTIAL=357 SEMANTICALLY_EQUIVALENT=545 UNDECIDED_ARITHMETIC=9
+VERSION_MISMATCH: behaviour_equivalence_rate 0.7572 (340/449); EXACT=124 FALLBACK=10 MISMATCH=4 NOT_AVAILABLE=580 PARTIAL=95 SEMANTICALLY_EQUIVALENT=216
+DERIVED: behaviour_equivalence_rate 0.6925 (286/413); EXACT=100 FALLBACK=10 MISMATCH=16 NOT_AVAILABLE=308 PARTIAL=101 SEMANTICALLY_EQUIVALENT=186

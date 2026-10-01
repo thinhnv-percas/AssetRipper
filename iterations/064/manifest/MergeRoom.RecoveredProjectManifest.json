@@ -815,9 +815,9 @@
   "placeholders": 23746,
   "status": {
    "PARTIAL": 3243,
-   "EXACT": 11483,
-   "FALLBACK": 575,
-   "HIGH_CONFIDENCE": 723,
+   "EXACT": 11484,
+   "FALLBACK": 573,
+   "HIGH_CONFIDENCE": 724,
    "MISSING": 1
   },
   "byAssembly": {
@@ -896,10 +896,10 @@
     "EXACT": 1
    },
    "Newtonsoft.Json": {
-    "EXACT": 1487,
-    "FALLBACK": 111,
+    "EXACT": 1488,
+    "FALLBACK": 109,
     "PARTIAL": 455,
-    "HIGH_CONFIDENCE": 99
+    "HIGH_CONFIDENCE": 100
    },
    "Sirenix.Serialization.Config": {
     "EXACT": 15,
@@ -974,44 +974,44 @@
   },
   "lostOperationClasses": {
    "CALL": 298,
-   "FIELD": 160,
+   "FIELD": 158,
    "BRANCH": 87,
    "ARRAY_READ": 22,
    "ARRAY_WRITE": 24,
    "NEWOBJ": 18
   },
   "fingerprintIr": {
+   "ARITHMETIC": 4387,
+   "BRANCH": 6968,
    "LOOP": 6966,
-   "COMPARE": 6650,
+   "NEWOBJ": 3929,
    "STATIC_ACCESS": 11442,
    "NULL_CHECK": 5848,
-   "BRANCH": 6968,
-   "ARITHMETIC": 4429,
-   "NEWOBJ": 3929,
+   "COMPARE": 6650,
    "CALL": 9919,
    "CAST": 186,
-   "FIELD_ADDRESS": 162,
-   "ARRAY_READ": 895,
+   "FIELD_ADDRESS": 247,
    "INSTANCEOF": 856,
    "ARRAY_WRITE": 347,
+   "ARRAY_READ": 895,
    "SWITCH": 2,
    "RETURN": 12
   },
   "fingerprintCSharp": {
    "CALL": 13923,
-   "STATIC_ACCESS": 7596,
-   "COMPARE": 6282,
-   "NULL_CHECK": 4743,
+   "THROW": 1988,
+   "ARITHMETIC": 4301,
    "BRANCH": 6905,
-   "THROW": 2144,
-   "ARITHMETIC": 4341,
-   "NEWOBJ": 4312,
-   "RETURN": 8146,
+   "NEWOBJ": 4156,
+   "STATIC_ACCESS": 7595,
+   "NULL_CHECK": 4587,
+   "COMPARE": 6282,
+   "RETURN": 7990,
    "NEWARR": 573,
    "ARRAY_READ": 1443,
+   "FIELD_ADDRESS": 772,
    "LOOP": 1748,
-   "CAST": 2656,
-   "FIELD_ADDRESS": 777,
+   "CAST": 2632,
    "ARRAY_WRITE": 385,
    "INSTANCEOF": 139,
    "SWITCH": 111
@@ -1055,11 +1055,6 @@
    }
   },
   "worstFallbacks": [
-   {
-    "nativeBytes": 3572,
-    "lost": "FIELD",
-    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonArrayContract.cs"
-   },
    {
     "nativeBytes": 3236,
     "lost": "ARRAY_READ,ARRAY_WRITE,FIELD",
@@ -1304,6 +1299,11 @@
     "nativeBytes": 556,
     "lost": "FIELD",
     "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMCinemachineZone2D.cs"
+   },
+   {
+    "nativeBytes": 552,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMFeedbackRotation.cs"
    }
   ]
  },

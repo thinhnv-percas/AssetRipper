@@ -360,14 +360,14 @@
    "spine-unity",
    "spine-unity-examples"
   ],
-  "methods": 5482,
-  "nativeBytes": 1075252,
-  "placeholders": 3856,
+  "methods": 5420,
+  "nativeBytes": 1064380,
+  "placeholders": 3852,
   "status": {
-   "HIGH_CONFIDENCE": 189,
-   "PARTIAL": 731,
-   "EXACT": 4223,
-   "FALLBACK": 339
+   "HIGH_CONFIDENCE": 188,
+   "PARTIAL": 727,
+   "EXACT": 4334,
+   "FALLBACK": 171
   },
   "byAssembly": {
    "Assembly-CSharp": {
@@ -381,31 +381,31 @@
     "EXACT": 1
    },
    "GoogleMobileAds": {
-    "EXACT": 438,
+    "EXACT": 538,
     "PARTIAL": 80,
-    "FALLBACK": 197,
+    "FALLBACK": 39,
     "HIGH_CONFIDENCE": 29
    },
    "spine-unity": {
-    "EXACT": 1506,
+    "EXACT": 1512,
     "HIGH_CONFIDENCE": 67,
     "PARTIAL": 215,
-    "FALLBACK": 57
+    "FALLBACK": 51
    },
    "LeanCommon": {
     "EXACT": 16,
     "PARTIAL": 2
    },
    "ACTk.Runtime": {
-    "EXACT": 918,
-    "PARTIAL": 104,
-    "FALLBACK": 42,
+    "EXACT": 922,
+    "PARTIAL": 100,
+    "FALLBACK": 38,
     "HIGH_CONFIDENCE": 25
    },
    "LeanPool": {
-    "EXACT": 56,
+    "EXACT": 57,
     "PARTIAL": 12,
-    "HIGH_CONFIDENCE": 6,
+    "HIGH_CONFIDENCE": 5,
     "FALLBACK": 4
    },
    "spine-unity-examples": {
@@ -422,7 +422,7 @@
    }
   },
   "lostOperationClasses": {
-   "FIELD": 241,
+   "FIELD": 73,
    "CALL": 25,
    "ARRAY_READ": 4,
    "ARRAY_WRITE": 4,
@@ -430,36 +430,36 @@
    "NEWOBJ": 14
   },
   "fingerprintIr": {
-   "INSTANCEOF": 417,
-   "LOOP": 2283,
-   "COMPARE": 2266,
-   "BRANCH": 2285,
-   "NULL_CHECK": 2046,
-   "STATIC_ACCESS": 3621,
-   "CALL": 3275,
-   "ARITHMETIC": 1438,
-   "NEWOBJ": 1032,
+   "BRANCH": 2223,
+   "LOOP": 2221,
+   "NULL_CHECK": 1984,
+   "INSTANCEOF": 357,
+   "CALL": 3213,
+   "STATIC_ACCESS": 3559,
+   "COMPARE": 2204,
+   "ARITHMETIC": 1432,
    "ARRAY_READ": 384,
+   "NEWOBJ": 1032,
    "CAST": 17,
-   "ARRAY_WRITE": 156,
-   "FIELD_ADDRESS": 333
+   "FIELD_ADDRESS": 286,
+   "ARRAY_WRITE": 156
   },
   "fingerprintCSharp": {
-   "NEWOBJ": 1461,
-   "BRANCH": 2243,
-   "COMPARE": 2102,
-   "NULL_CHECK": 1669,
-   "CAST": 870,
-   "THROW": 880,
-   "RETURN": 3268,
-   "CALL": 4508,
-   "ARITHMETIC": 1373,
-   "STATIC_ACCESS": 2268,
-   "LOOP": 794,
+   "BRANCH": 2181,
+   "RETURN": 2932,
+   "NULL_CHECK": 1333,
+   "THROW": 544,
+   "CALL": 4446,
+   "CAST": 630,
+   "NEWOBJ": 1125,
+   "COMPARE": 2040,
+   "ARITHMETIC": 1367,
+   "STATIC_ACCESS": 2204,
+   "LOOP": 732,
    "ARRAY_READ": 541,
    "NEWARR": 180,
+   "FIELD_ADDRESS": 395,
    "INSTANCEOF": 12,
-   "FIELD_ADDRESS": 453,
    "ARRAY_WRITE": 172,
    "SWITCH": 25
   },
@@ -473,7 +473,7 @@
     "files": 81
    },
    "METHOD_NOT_FOUND": {
-    "count": 348,
+    "count": 344,
     "files": 73
    },
    "NOT_IMPLEMENTED_INSTRUCTION": {

@@ -1,0 +1,14 @@
+== MergeRoom (64j-m) generatorFailures=0 0 disagreed layoutMismatch=0
+ 11484 EXACT 71.7%; 724 HIGH_CONFIDENCE 4.5%; 3243 PARTIAL 20.2%; 573 FALLBACK 3.6%; 1 MISSING 0.0%;
+placeholders: 23789
+corpus: 887 entries, 255 for MergeRoom (632 for other fixtures, 16 retired), 253 found, 2 not present in this rip
+improved 6, regressed 1
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/Extra/HideOnCapture.cs#0x18B724C
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/CamController.cs#0x1AD36A0
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0x1965EE0
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/MoreMountains.Feedbacks.Cinemachine/MoreMountains/FeedbacksForThirdParty/MMCinemachinePriorityEvent.cs#0x2A01CA4
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAutoExecution.cs#0x2A95E88
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMOrbitalCamera.cs#0x2AA7A0C
+  REGRESSED HIGH_CONFIDENCE -> PARTIAL  Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMFeedbacks.cs#0x2A05E84
+007 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them; 7 fields made public were marked NonSerialized so the serialized layout is unchanged.
+17 methods had their accessibility aligned with the override chain they belong to, after widening for recovered bodies.

@@ -861,3 +861,24 @@ JellyBlast source oracle độc lập (package upstream khớp khai báo): behav
 Serialized so với derivation root 1.0000; prefab 26 MATCH + 23 SOURCE_EDIT, 0 lỗi phục hồi.
 
 Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`** (không đổi; Unity không có trong container).
+
+## Iteration 064
+
+Bản rip `Test/Out64j-*`, baseline `Out63g-*`, cả hai đầu đo bằng `recovery_metrics.py` của 064. Chi tiết:
+`iterations/064/RESULT.md`.
+
+| | Impostor | Merge-Room | RunFromZombies | JellyBlastV2 | Pinata |
+|---|---:|---:|---:|---:|---:|
+| EXACT | 4042 → **4335** | 11221 → **11484** | 2785 → 2820 | 3027 → 3056 | 12533 → **12790** |
+| FALLBACK | 170 → 170 | 565 → 573 (đã đọc) | 201 → 201 | 84 → 84 | 456 → 454 |
+| Placeholder | 4301 → 3864 | 25697 → 23789 | 4581 → 4405 | 36383 → 36141 | 12990 → 11734 |
+| Assembly-CSharp Roslyn, body pass | 237 → 237 | 1 → **684** (CS0102 hết, lần đầu đo được thân) | 7 → 7 | 3038 → 3005 | 1355 → 1297 |
+| Gán lại ref (`= ref *(`) | 143 → 44 | 842 → 148 | — | 514 → 294 | 172 → 80 |
+| CAS → `CompareExchange<T>` | 686 | 318 | 18 | 74 | 476 |
+| Event accessor chuẩn | 168 | 78 | 4 | 15 | 117 |
+| MonoBehaviour layout mismatch | 0 | 0 | 0 | 0 | 0 |
+
+RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.6802 → **0.6817** (906/1329). Binding
+material → chương trình Metal: 1.0 trên 39 (37 EXACT, 2 MODULO_ENGINE).
+
+Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`** (không đổi; Unity không có trong container).

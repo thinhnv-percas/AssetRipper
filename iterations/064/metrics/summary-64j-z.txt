@@ -1,0 +1,21 @@
+== Impostor (64j-z) generatorFailures=0 0 disagreed layoutMismatch=0
+ 4335 EXACT 80.0%; 188 HIGH_CONFIDENCE 3.5%; 727 PARTIAL 13.4%; 170 FALLBACK 3.1%; 0 MISSING 0.0%;
+placeholders: 3864
+corpus: 887 entries, 216 for Impostor (671 for other fixtures, 16 retired), 216 found, 0 not present in this rip
+improved 11, regressed 3
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/CodeHashGenerator.cs#0xBE8B58
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0xC2DE68
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0xC2DF34
+  IMPROVED  FALLBACK -> PARTIAL  Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/AdLoaderClient.cs#0x133E578
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/LeanCommon/Lean/Common/LeanHelper.cs#0xC77758
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x151557C
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x151B408
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/AnimationState.cs#0x152AEDC
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153A2A8
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/Triangulator.cs#0x153EDAC
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/Unity/SkeletonPartsRenderer.cs#0x1567774
+  REGRESSED EXACT -> FALLBACK  Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xC018B4
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/AnimationMatchModifierAsset.cs#0x150F6E0
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/spine-unity/Spine/Skin.cs#0x154CF5C
+13 members of a game assembly were widened because a recovered body reaches them from outside the type, or the assembly, that declares them; 4 fields made public were marked NonSerialized so the serialized layout is unchanged.
+6 methods had their accessibility aligned with the override chain they belong to, after widening for recovered bodies.

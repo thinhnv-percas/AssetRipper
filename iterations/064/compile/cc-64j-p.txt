@@ -1,0 +1,61 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.401/Roslyn/bincore/csc.dll
+Assembly-CSharp: 1109 files, 1297 errors, 48250 warnings
+Assembly-CSharp: 704 of 1109 files compile clean
+
+  1020  CS0030   [most common: 185 of 1020] Cannot convert type 'int' to 'HutongGames.PlayMaker.Fsm'
+   113  CS0122   [most common: 22 of 113] 'RaycastHit2D.m_Normal' is inaccessible due to its protection level
+   100  CS1061   [most common: 28 of 100] 'Selectable' does not contain a definition for 'm_Navigation' and no accessible extension method 'm_Navigation' accepting a first argument of type 'Selectable' could be found (are you missing a using directive or an assembly reference?)
+    28  CS0019   [most common: 8 of 28] Operator '+' cannot be applied to operands of type 'DynamicBone.Particle' and 'int'
+    11  CS0117   [most common: 8 of 11] 'MonoBehaviour' does not contain a definition for '_002Ector'
+     6  CS0246   [most common: 1 of 6] The type or namespace name '_003F' could not be found (are you missing a using directive or an assembly reference?)
+     6  CS0165   [most common: 2 of 6] Use of unassigned local variable 'obj'
+     4  CS0023   [most common: 4 of 4] Operator '~' cannot be applied to operand of type 'object'
+     2  CS1612   [most common: 2 of 2] Cannot modify the return value of 'PointerEventData.position' because it is not a variable
+     2  CS0400   [most common: 2 of 2] The type or namespace name '_003CPrivateImplementationDetails_003E' could not be found in the global namespace (are you missing an assembly reference?)
+     2  CS0149   [most common: 2 of 2] Method name expected
+     1  CS1593   [most common: 1 of 1] Delegate 'DOSetter<int>' does not take 0 arguments
+     1  CS0234   [most common: 1 of 1] The type or namespace name 'Unsafe' does not exist in the namespace 'System.Runtime.CompilerServices' (are you missing an assembly reference?)
+     1  CS0206   [most common: 1 of 1] A non ref-returning property or indexer may not be used as an out or ref value
+
+reference assemblies: 86
+errors classified: 1297
+
+DECOMPILER_ERROR     1296
+REFERENCE_ERROR         1
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+    1020  CS0030   invalid C# independent of the reference set
+          Cannot convert type 'int' to 'TCP2_PlanarReflection'
+     113  CS0122   reaches a member of a referenced assembly that C# cannot
+          'Ray.m_Origin' is inaccessible due to its protection level
+     100  CS1061   reaches a non-public member of a referenced assembly
+          'List<Transform>' does not contain a definition for '_items' and no accessible extension method '_items' accep
+      28  CS0019   invalid C# independent of the reference set
+          Operator '+' cannot be applied to operands of type 'RaycastHit' and 'int'
+      11  CS0117   names a decompiler-mangled identifier
+          'MonoBehaviour' does not contain a definition for '_002Ector'
+       6  CS0246   names a decompiler-mangled identifier
+          The type or namespace name '_003CStart_003Ed__2' could not be found (are you missing a using directive or an a
+       6  CS0165   invalid C# independent of the reference set
+          Use of unassigned local variable 'obj'
+       4  CS0023   invalid C# independent of the reference set
+          Operator '~' cannot be applied to operand of type 'object'
+       2  CS0149   invalid C# independent of the reference set
+          Method name expected
+       2  CS1612   invalid C# independent of the reference set
+          Cannot modify the return value of 'PointerEventData.position' because it is not a variable
+       2  CS0400   names a decompiler-mangled identifier
+          The type or namespace name '_003CPrivateImplementationDetails_003E' could not be found in the global namespace
+       1  CS1593   invalid C# independent of the reference set
+          Delegate 'DOSetter<int>' does not take 0 arguments
+       1  CS0206   invalid C# independent of the reference set
+          A non ref-returning property or indexer may not be used as an out or ref value
+
+REFERENCE_ERROR
+       1  CS0234   absent from the reference assemblies - stripped from the build
+          The type or namespace name 'Unsafe' does not exist in the namespace 'System.Runtime.CompilerServices' (are you
+

@@ -5,17 +5,24 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 063 (hoàn tất; trọng tâm "JellyBlast source oracle, interface dispatch, shader,
-                          Unity runtime fidelity". Source JellyBlast được SUY RA từ chính IPA (fe27775f là
-                          một bản rip của pipeline này) — chỉ package upstream khớp khai báo là oracle độc
-                          lập, mở bằng CPP2IL_RECOVER_ALSO: behaviour 0.6802 (904/1329). Năm điểm đầu tiên
-                          nghĩa binary ≠ nghĩa phục hồi, đã sửa: AAPCS64 C.3 + stack slot theo kích thước
-                          (tham số t = default), FCMP như SUBS (t ^ 1f), P/Invoke mất [DllImport] (131),
-                          widen đổi layout serialize, và lỗi khai báo của export che mọi lỗi thân
-                          (JellyBlastV2 Assembly-CSharp thật là 3038 lỗi, không phải 22). Chương trình Metal
-                          là MSL source (780), không phải thư viện: trích ra .metal.)
+Iteration hiện tại: 064 (hoàn tất; trọng tâm "Runtime semantic recovery & Unity executable reconstruction".
+                          Bốn P0 sửa ở tầng đầu tiên sai: ghi qua ref (SetColor: field search qua T&, stobj thay
+                          starg), ABI của thân generic chia sẻ hoàn toàn (il2cppRetVal trước MethodInfo — tầng thật
+                          của "RGCTX không có kiểu"), CAS runtime đặt tên theo lệnh máy với overload theo call site,
+                          CS0102 Merge-Room (accessor chuẩn + backing field tên compiler). EXACT tăng ở cả năm
+                          fixture (Impostor 4042 → 4335, Pinata 12533 → 12790). Merge-Room Assembly-CSharp lần
+                          đầu bind được: 684 lỗi thân thật. Không Unity: runtime NOT_RUN.)
 
 Cảnh báo cho phiên sau:
+  - recovery_metrics.py đổi ba chỗ ở 064 (dòng bị cắt, `m_X`, `_003CX_003Ek__BackingField`). So sánh với
+    iteration ≤ 063 phải đo lại CẢ HAI đầu bằng bản mới; số 063 trong docs/ITERATION_064.md đã đo lại như vậy.
+  - Accessor event chuẩn gập thành `public event T X;` và biến khỏi phép đếm method — số method đo được giảm
+    đúng bằng số accessor. Không phải method mất.
+  - Merge-Room Assembly-CSharp: 684 lỗi thân là số ĐẦU TIÊN đo được, không phải regression từ 1.
+  - ReadCompareExchange chỉ chấp nhận prologue là mov, NOP/DMB, frame push vào SP và add x29, sp. Một fixture
+    mới về 0 CAS mà không có lý do từ chối nghĩa là prologue khác: dump byte, đừng nới luật mù.
+  - Log của RuntimeInterfaceResolver/InterfaceInvokeDataRecovery đếm mỗi lần phân tích (hai lần mỗi thân);
+    đếm phân biệt từ CPP2IL_DUMP_INTERFACE_CALLS.
   - CPP2IL_RECOVER_ALSO là chế độ đo. Bản rip có nó đã từng làm UI Image mất sprite (widen → layout);
     đã sửa, nhưng đừng dùng bản rip opt-in cho phép đo serialize hay cho project giao đi.
   - Placeholder tăng 3–117 mỗi fixture ở 063 là MEASUREMENT_CHANGE (V của FCMP đọc lại toán hạng; load gập

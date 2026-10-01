@@ -1,0 +1,339 @@
+{
+ "bindings": {
+  "EXTERNAL_PROGRAM_EXACT": 37,
+  "EXTERNAL_PROGRAM_MODULO_ENGINE": 2,
+  "PROGRAM_NOT_RECOVERED": 4
+ },
+ "examples": {
+  "EXTERNAL_PROGRAM_EXACT": [
+   {
+    "keywords": [],
+    "material": "powerup 2",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_SpecialFluid_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_SpecialFluid_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/SpecialFluid"
+   },
+   {
+    "keywords": [],
+    "material": "powerup 1",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_SpecialFluid_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_SpecialFluid_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/SpecialFluid"
+   },
+   {
+    "keywords": [],
+    "material": "powerup 0",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_SpecialFluid_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_SpecialFluid_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/SpecialFluid"
+   },
+   {
+    "keywords": [],
+    "material": "glass2",
+    "pass": "0.1",
+    "programs": [
+     "ShaderVariants/Custom_Glass2_0_1_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Glass2_0_1_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Glass2"
+   },
+   {
+    "keywords": [],
+    "material": "glass",
+    "pass": "0.1",
+    "programs": [
+     "ShaderVariants/Custom_Glass2_0_1_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Glass2_0_1_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Glass2"
+   },
+   {
+    "keywords": [],
+    "material": "particles",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Hidden_Internal_DebugPattern_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_PowerUpParticles_0_0_Fragment_MetalFS_6.metal"
+    ],
+    "shader": "Custom/PowerUpParticles"
+   },
+   {
+    "keywords": [],
+    "material": "transition",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_UITransition_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_UITransition_0_0_Fragment_MetalFS_6.metal"
+    ],
+    "shader": "Custom/UITransition"
+   },
+   {
+    "keywords": [],
+    "material": "octopus",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_Bee_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Octopus_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Octopus"
+   },
+   {
+    "keywords": [
+     "UNDERLAY_ON"
+    ],
+    "material": "Baloo-Regular Atlas Material",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/TextMeshPro_Distance_Field_Overlay_0_0_Vertex_MetalVS_3.metal",
+     "ShaderVariants/TextMeshPro_Distance_Field_Overlay_0_0_Fragment_MetalFS_13.metal"
+    ],
+    "shader": "TextMeshPro/Distance Field Overlay"
+   },
+   {
+    "keywords": [],
+    "material": "mud",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_Honey_NoGrab_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Mud_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Mud"
+   },
+   {
+    "keywords": [],
+    "material": "snow",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_Honey_NoGrab_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Mud_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Mud"
+   },
+   {
+    "keywords": [],
+    "material": "ice",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_Ice_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Ice_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Ice"
+   },
+   {
+    "keywords": [],
+    "material": "uibutton",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_UIButton_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_UIButton_0_0_Fragment_MetalFS_7.metal"
+    ],
+    "shader": "Custom/UIButton"
+   },
+   {
+    "keywords": [],
+    "material": "particles emission",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Hidden_Internal_DebugPattern_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_ParticlesEmission_0_0_Fragment_MetalFS_6.metal"
+    ],
+    "shader": "Custom/ParticlesEmission"
+   },
+   {
+    "keywords": [],
+    "material": "water",
+    "pass": "0.1",
+    "programs": [
+     "ShaderVariants/Custom_Water_0_1_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Water_0_1_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Water"
+   },
+   {
+    "keywords": [],
+    "material": "w_bubbles",
+    "pass": "0.1",
+    "programs": [
+     "ShaderVariants/Custom_Water_0_1_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Water_0_1_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Water"
+   },
+   {
+    "keywords": [],
+    "material": "TextMeshPro/Sprite",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_UITransition_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/TextMeshPro_Sprite_0_0_Fragment_MetalFS_7.metal"
+    ],
+    "shader": "TextMeshPro/Sprite"
+   },
+   {
+    "keywords": [
+     "UNITY_UI_CLIP_RECT"
+    ],
+    "material": "TextMeshPro/Sprite",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_UITransition_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/TextMeshPro_Sprite_0_0_Fragment_MetalFS_9.metal"
+    ],
+    "shader": "TextMeshPro/Sprite"
+   },
+   {
+    "keywords": [],
+    "material": "fluid_single",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_Honey_NoGrab_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_SingleFluid_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/SingleFluid"
+   },
+   {
+    "keywords": [],
+    "material": "bee",
+    "pass": "0.0",
+    "programs": [
+     "ShaderVariants/Custom_Bee_0_0_Vertex_MetalVS_1.metal",
+     "ShaderVariants/Custom_Bee_0_0_Fragment_MetalFS_3.metal"
+    ],
+    "shader": "Custom/Bee"
+   }
+  ]
+ },
+ "external_program_binding_decided": 39,
+ "external_program_binding_rate": 1.0,
+ "game": "JellyBlastV2",
+ "materialScope": {
+  "BUILTIN_SHADER": 18,
+  "MATERIAL_WITHOUT_SHADER": 5
+ },
+ "materials": 60,
+ "perShader": {
+  "Custom/Bee": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Cliffs_Lambert": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/FeverSplash": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Fluid": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Glass2": {
+   "EXTERNAL_PROGRAM_EXACT": 2,
+   "PROGRAM_NOT_RECOVERED": 2,
+   "materials": 2
+  },
+  "Custom/GradientBackground_LUT_World": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Honey_NoGrab": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Ice": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Mud": {
+   "EXTERNAL_PROGRAM_EXACT": 2,
+   "materials": 2
+  },
+  "Custom/Octopus": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/ParticlesEmission": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/PowerUpParticles": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/SingleFluid": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/SpecialFluid": {
+   "EXTERNAL_PROGRAM_EXACT": 3,
+   "materials": 3
+  },
+  "Custom/Sponge": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/UIButton": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/UITransition": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Custom/Water": {
+   "EXTERNAL_PROGRAM_EXACT": 2,
+   "PROGRAM_NOT_RECOVERED": 2,
+   "materials": 2
+  },
+  "Hidden/ProBuilder/EdgePicker": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Hidden/ProBuilder/FacePicker": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Hidden/ProBuilder/HideVertices": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "Hidden/ProBuilder/VertexPicker": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "ProBuilder/Standard Vertex Color": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "EXTERNAL_PROGRAM_MODULO_ENGINE": 2,
+   "materials": 1
+  },
+  "ProBuilder/UnlitVertexColor": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "TextMeshPro/Distance Field Overlay": {
+   "EXTERNAL_PROGRAM_EXACT": 1,
+   "materials": 1
+  },
+  "TextMeshPro/Mobile/Distance Field": {
+   "EXTERNAL_PROGRAM_EXACT": 4,
+   "materials": 4
+  },
+  "TextMeshPro/Sprite": {
+   "EXTERNAL_PROGRAM_EXACT": 2,
+   "materials": 2
+  }
+ },
+ "status": "MEASURED",
+ "variant_binding_decided": 0,
+ "variant_binding_rate": null
+}
