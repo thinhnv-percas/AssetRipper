@@ -1,0 +1,1243 @@
+{
+ "schema": "RecoveredProjectManifest/1",
+ "source": {
+  "path": "Test/Input/JellyBlastV2",
+  "files": 118,
+  "tree_digest": "fb0436da8ec38d2226fee690b5c027e6465df7d142599700dae280ebedd446ee",
+  "deciding_files": {
+   "Payload/JellyBlast.app/Data/Managed/Metadata/global-metadata.dat": "9567d25b27c91a1e85cc369527216e101aabc57754d239f542ccb8c1a77784ad",
+   "Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework": "8fe519cada234ee7525f2d22bdc37fb8f55e5bb125aacb8a4df94ef318f9e5f6"
+  }
+ },
+ "unity_version": {
+  "build": "2022.3.53f1",
+  "project": "2022.3.53f1",
+  "evidence": "the build's own data, as the import log records it"
+ },
+ "target_platform": {
+  "platform": "iOS",
+  "architectures": [
+   "arm64"
+  ],
+  "evidence": "Frameworks/UnityFramework.framework in the package"
+ },
+ "assemblies": [
+  {
+   "assembly": "Assembly-CSharp",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "SOURCE_MISMATCH"
+  },
+  {
+   "assembly": "Assembly-CSharp-firstpass",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "SOURCE_MISMATCH"
+  },
+  {
+   "assembly": "DOTween",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Facebook.Unity",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Facebook.Unity.Settings",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Mono.Security",
+   "category": "BUILTIN_UNITY",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Newtonsoft.Json",
+   "category": "UNKNOWN",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "PathCreator",
+   "category": "UPSTREAM_EXACT",
+   "export": "RECOVERED",
+   "fingerprint": "LIKELY_MATCH"
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "RayFireAssembly",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": "SOURCE_MISMATCH"
+  },
+  {
+   "assembly": "System",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Configuration",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Core",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Data",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Drawing",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Numerics",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Runtime.CompilerServices.Unsafe",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Runtime.InteropServices",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Runtime.Serialization",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Xml",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "System.Xml.Linq",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Unity.Burst",
+   "category": "UPSTREAM_VERSION_MISMATCH",
+   "export": "STUB",
+   "fingerprint": "SOURCE_MISMATCH"
+  },
+  {
+   "assembly": "Unity.Burst.Unsafe",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Unity.Collections",
+   "category": "UPSTREAM_VERSION_MISMATCH",
+   "export": "STUB",
+   "fingerprint": "SOURCE_MISMATCH"
+  },
+  {
+   "assembly": "Unity.Mathematics",
+   "category": "UPSTREAM_EXACT",
+   "export": "STUB",
+   "fingerprint": "PROVEN_BUILD_MATCH"
+  },
+  {
+   "assembly": "Unity.TextMeshPro",
+   "category": "UPSTREAM_EXACT",
+   "export": "STUB",
+   "fingerprint": "PROVEN_BUILD_MATCH"
+  },
+  {
+   "assembly": "Unity.VisualScripting.Core",
+   "category": "UPSTREAM_EXACT",
+   "export": "STUB",
+   "fingerprint": "PROVEN_BUILD_MATCH"
+  },
+  {
+   "assembly": "UnityEngine",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.AndroidJNIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.AnimationModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.AudioModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.CoreModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.GameCenterModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.GridModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.IMGUIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.ImageConversionModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.InputLegacyModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.JSONSerializeModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.ParticleSystemModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.Physics2DModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.PhysicsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.PropertiesModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.SharedInternalsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.SpriteShapeModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.TextCoreFontEngineModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.TextCoreTextEngineModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.TextRenderingModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.TilemapModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.UI",
+   "category": "UPSTREAM_EXACT",
+   "export": "STUB",
+   "fingerprint": "PROVEN_BUILD_MATCH"
+  },
+  {
+   "assembly": "UnityEngine.UIElementsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.UIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.UnityWebRequestModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.UnityWebRequestTextureModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "UnityEngine.UnityWebRequestWWWModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "Voodoo.UI.Particles",
+   "category": "UPSTREAM_EXACT",
+   "export": "RECOVERED",
+   "fingerprint": "PROVEN_BUILD_MATCH"
+  },
+  {
+   "assembly": "__Generated",
+   "category": "GENERATED",
+   "export": "RECOVERED",
+   "fingerprint": "NO_SOURCE"
+  },
+  {
+   "assembly": "mscorlib",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": "NO_SOURCE"
+  }
+ ],
+ "packages": {
+  "com.coplaydev.unity-mcp": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.cysharp.unitask": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.11",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.dotween": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "https://github.com/thinhnv-percas/DoTween.git",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.esotericsoftware.spine.on-demand-loading": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Modules/com.esotericsoftware.spine.on-demand-loading#4.2",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.esotericsoftware.spine.spine-csharp": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-csharp/src#4.2",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.esotericsoftware.spine.spine-unity": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Assets/Spine#4.2",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.thinhnv.unitytools": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "https://github.com/thinhnv-percas/thinhnv-unity-tools.git",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.animation": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "9.2.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.aseprite": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.1.9",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.common": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "8.1.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.pixel-perfect": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "5.1.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.psdimporter": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "8.1.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.sprite": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.0.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.spriteshape": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "9.1.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.tilemap": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.0.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.2d.tilemap.extras": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "3.1.3",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.addressables": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "2.9.1",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.ads.ios-support": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.0.1",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.burst": {
+   "category": "UPSTREAM_VERSION_MISMATCH",
+   "assemblies": [
+    "Unity.Burst",
+    "Unity.Burst.Unsafe"
+   ],
+   "version": null,
+   "version_source": null
+  },
+  "com.unity.collections": {
+   "category": "UPSTREAM_VERSION_MISMATCH",
+   "assemblies": [
+    "Unity.Collections"
+   ],
+   "version": null,
+   "version_source": null
+  },
+  "com.unity.ext.nunit": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.0.6",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.feature.2d": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "2.0.1",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.ide.vscode": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.2.5",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.mathematics": {
+   "category": "UPSTREAM_EXACT",
+   "assemblies": [
+    "Unity.Mathematics"
+   ],
+   "version": "1.2.6",
+   "version_source": "source manifest, declarations proven to match"
+  },
+  "com.unity.mobile.notifications": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "2.4.3",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.nuget.newtonsoft-json": {
+   "category": "UNKNOWN",
+   "assemblies": [
+    "Newtonsoft.Json"
+   ],
+   "version": null,
+   "version_source": null
+  },
+  "com.unity.profiling.core": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.0.2",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.purchasing": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "5.4.2",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.scriptablebuildpipeline": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "2.6.1",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.services.core": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.14.0",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.test-framework": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.1.33",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.textmeshpro": {
+   "category": "UPSTREAM_EXACT",
+   "assemblies": [
+    "Unity.TextMeshPro"
+   ],
+   "version": "3.0.9",
+   "version_source": "source manifest, declarations proven to match"
+  },
+  "com.unity.timeline": {
+   "category": "NOT_IN_BUILD",
+   "assemblies": [],
+   "version": "1.7.7",
+   "version_source": "source manifest (not in the build, so not a fact about it)"
+  },
+  "com.unity.ugui": {
+   "category": "UPSTREAM_EXACT",
+   "assemblies": [
+    "UnityEngine.UI"
+   ],
+   "version": "1.0.0",
+   "version_source": "source manifest, declarations proven to match"
+  },
+  "com.unity.visualscripting": {
+   "category": "UPSTREAM_EXACT",
+   "assemblies": [
+    "Unity.VisualScripting.Core"
+   ],
+   "version": "1.9.11",
+   "version_source": "source manifest, declarations proven to match"
+  }
+ },
+ "native_dependencies": [
+  {
+   "library": "FBAEMKit.framework",
+   "kind": "FRAMEWORK",
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBAEMKit.framework/FBAEMKit"
+  },
+  {
+   "library": "FBSDKCoreKit.framework",
+   "kind": "FRAMEWORK",
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKCoreKit.framework/FBSDKCoreKit"
+  },
+  {
+   "library": "FBSDKCoreKit_Basics.framework",
+   "kind": "FRAMEWORK",
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics"
+  },
+  {
+   "library": "FBSDKGamingServicesKit.framework",
+   "kind": "FRAMEWORK",
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit"
+  },
+  {
+   "library": "FBSDKLoginKit.framework",
+   "kind": "FRAMEWORK",
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKLoginKit.framework/FBSDKLoginKit"
+  },
+  {
+   "library": "FBSDKShareKit.framework",
+   "kind": "FRAMEWORK",
+   "recoverability": "PRESERVED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKShareKit.framework/FBSDKShareKit"
+  },
+  {
+   "library": "UnityFramework.framework",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework"
+  },
+  {
+   "library": "libswiftAVFoundation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftAVFoundation.dylib"
+  },
+  {
+   "library": "libswiftCore.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCore.dylib"
+  },
+  {
+   "library": "libswiftCoreAudio.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreAudio.dylib"
+  },
+  {
+   "library": "libswiftCoreFoundation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreFoundation.dylib"
+  },
+  {
+   "library": "libswiftCoreGraphics.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreGraphics.dylib"
+  },
+  {
+   "library": "libswiftCoreImage.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreImage.dylib"
+  },
+  {
+   "library": "libswiftCoreLocation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreLocation.dylib"
+  },
+  {
+   "library": "libswiftCoreMedia.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftCoreMedia.dylib"
+  },
+  {
+   "library": "libswiftDarwin.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftDarwin.dylib"
+  },
+  {
+   "library": "libswiftDispatch.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftDispatch.dylib"
+  },
+  {
+   "library": "libswiftFoundation.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftFoundation.dylib"
+  },
+  {
+   "library": "libswiftMetal.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftMetal.dylib"
+  },
+  {
+   "library": "libswiftObjectiveC.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftObjectiveC.dylib"
+  },
+  {
+   "library": "libswiftQuartzCore.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftQuartzCore.dylib"
+  },
+  {
+   "library": "libswiftUIKit.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftUIKit.dylib"
+  },
+  {
+   "library": "libswift_Concurrency.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswift_Concurrency.dylib"
+  },
+  {
+   "library": "libswiftos.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftos.dylib"
+  },
+  {
+   "library": "libswiftsimd.dylib",
+   "kind": "SYSTEM_LIBRARY",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: Payload/JellyBlast.app/Frameworks/libswiftsimd.dylib"
+  },
+  {
+   "library": "Assembly-CSharp (__Internal)",
+   "kind": "UNKNOWN",
+   "recoverability": "UNKNOWN",
+   "evidence": "no entry point is in the engine binary's symbol table (stripped, or not linked there)"
+  },
+  {
+   "library": "Facebook.Unity.IOS (__Internal)",
+   "kind": "UNKNOWN",
+   "recoverability": "UNKNOWN",
+   "evidence": "no entry point is in the engine binary's symbol table (stripped, or not linked there)"
+  },
+  {
+   "library": "GameAnalyticsSDK (__Internal)",
+   "kind": "UNKNOWN",
+   "recoverability": "UNKNOWN",
+   "evidence": "no entry point is in the engine binary's symbol table (stripped, or not linked there)"
+  },
+  {
+   "library": "libRF_CNative_ios.a",
+   "kind": "STATIC_LIBRARY",
+   "recoverability": "LINKED_STATIC_NOT_EXTRACTABLE",
+   "evidence": "all 34 entry points are symbols of UnityFramework: linked into it, no file to extract"
+  }
+ ],
+ "shaders": {
+  "shaders": 30,
+  "program_encodings": {
+   "METALLIBRARY": 384,
+   "METALSOURCETEXT": 780,
+   "UNKNOWN": 1
+  },
+  "external_programs": 532
+ },
+ "serialized": {
+  "scenes": 2,
+  "prefabs": 49,
+  "materials": 60,
+  "assets": 66
+ },
+ "recovery_confidence": {
+  "scope": [
+   "Assembly-CSharp",
+   "Assembly-CSharp-firstpass",
+   "DOTween",
+   "Facebook.Unity",
+   "Facebook.Unity.IOS",
+   "Facebook.Unity.Settings",
+   "GameAnalyticsSDK",
+   "Mono.Security",
+   "Newtonsoft.Json",
+   "PathCreator",
+   "RFLib_DotNet_2018_ios",
+   "RayFireAssembly",
+   "Voodoo.UI.Particles",
+   "__Generated"
+  ],
+  "methods": 7483,
+  "nativeBytes": 2240004,
+  "placeholders": 36865,
+  "status": {
+   "EXACT": 3056,
+   "PARTIAL": 4272,
+   "HIGH_CONFIDENCE": 71,
+   "FALLBACK": 84
+  },
+  "byAssembly": {
+   "Facebook.Unity.Settings": {
+    "EXACT": 2,
+    "PARTIAL": 44
+   },
+   "Facebook.Unity": {
+    "PARTIAL": 657,
+    "EXACT": 461,
+    "HIGH_CONFIDENCE": 7,
+    "FALLBACK": 7
+   },
+   "Voodoo.UI.Particles": {
+    "EXACT": 37,
+    "PARTIAL": 68,
+    "FALLBACK": 1,
+    "HIGH_CONFIDENCE": 1
+   },
+   "RFLib_DotNet_2018_ios": {
+    "EXACT": 43,
+    "PARTIAL": 26,
+    "HIGH_CONFIDENCE": 1
+   },
+   "PathCreator": {
+    "EXACT": 60,
+    "PARTIAL": 65,
+    "FALLBACK": 6,
+    "HIGH_CONFIDENCE": 1
+   },
+   "GameAnalyticsSDK": {
+    "PARTIAL": 282,
+    "EXACT": 71,
+    "HIGH_CONFIDENCE": 5
+   },
+   "Assembly-CSharp": {
+    "EXACT": 486,
+    "PARTIAL": 600,
+    "FALLBACK": 4,
+    "HIGH_CONFIDENCE": 12
+   },
+   "__Generated": {
+    "FALLBACK": 2
+   },
+   "RayFireAssembly": {
+    "PARTIAL": 802,
+    "EXACT": 670,
+    "FALLBACK": 5,
+    "HIGH_CONFIDENCE": 7
+   },
+   "Newtonsoft.Json": {
+    "EXACT": 880,
+    "PARTIAL": 1196,
+    "FALLBACK": 53,
+    "HIGH_CONFIDENCE": 26
+   },
+   "Facebook.Unity.IOS": {
+    "PARTIAL": 34,
+    "EXACT": 45
+   },
+   "DOTween": {
+    "EXACT": 301,
+    "PARTIAL": 498,
+    "HIGH_CONFIDENCE": 11,
+    "FALLBACK": 6
+   }
+  },
+  "lostOperationClasses": {
+   "BRANCH": 28,
+   "CALL": 54,
+   "FIELD": 3,
+   "ARRAY_READ": 2
+  },
+  "fingerprintIr": {
+   "CALL": 5301,
+   "ARITHMETIC": 5170,
+   "BRANCH": 3901,
+   "COMPARE": 3781,
+   "NEWOBJ": 2182,
+   "NULL_CHECK": 3454,
+   "STATIC_ACCESS": 5115,
+   "LOOP": 3901,
+   "ARRAY_READ": 337,
+   "ARRAY_WRITE": 164,
+   "INSTANCEOF": 18,
+   "CAST": 34,
+   "FIELD_ADDRESS": 34
+  },
+  "fingerprintCSharp": {
+   "RETURN": 4237,
+   "STATIC_ACCESS": 5067,
+   "CALL": 6631,
+   "ARITHMETIC": 5084,
+   "BRANCH": 3888,
+   "THROW": 1277,
+   "COMPARE": 3776,
+   "NEWOBJ": 2594,
+   "NULL_CHECK": 2852,
+   "CAST": 1628,
+   "ARRAY_READ": 678,
+   "LOOP": 1399,
+   "SWITCH": 36,
+   "ARRAY_WRITE": 212,
+   "INSTANCEOF": 9,
+   "FIELD_ADDRESS": 276,
+   "NEWARR": 1
+  },
+  "families": {
+   "UNMANAGED_MEMORY_LOAD": {
+    "count": 23475,
+    "files": 453
+   },
+   "METHOD_NOT_FOUND": {
+    "count": 9712,
+    "files": 483
+   },
+   "INDIRECT_CALL": {
+    "count": 1227,
+    "files": 144
+   },
+   "UNKNOWN_CALL_TARGET": {
+    "count": 791,
+    "files": 169
+   },
+   "INDIRECT_JUMP": {
+    "count": 522,
+    "files": 90
+   },
+   "NOT_IMPLEMENTED_INSTRUCTION": {
+    "count": 405,
+    "files": 75
+   },
+   "OTHER": {
+    "count": 9,
+    "files": 4
+   }
+  },
+  "worstFallbacks": [
+   {
+    "nativeBytes": 1536,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/RayFireAssembly/RayFire/RayfireCluster.cs"
+   },
+   {
+    "nativeBytes": 268,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+   },
+   {
+    "nativeBytes": 260,
+    "lost": "ARRAY_READ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeParser.cs"
+   },
+   {
+    "nativeBytes": 212,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Voodoo.UI.Particles/Voodoo/UI/Particles/Utils/ListExtensions.cs"
+   },
+   {
+    "nativeBytes": 196,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/RectOffsetPlugin.cs"
+   },
+   {
+    "nativeBytes": 184,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/StringUtils.cs"
+   },
+   {
+    "nativeBytes": 176,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/PathCreator/PathCreation/Utility/CubicBezierUtility.cs"
+   },
+   {
+    "nativeBytes": 176,
+    "lost": "ARRAY_READ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeParser.cs"
+   },
+   {
+    "nativeBytes": 172,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/PathCreator/PathCreation/Utility/CubicBezierUtility.cs"
+   },
+   {
+    "nativeBytes": 168,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/PathCreator/PathCreation/Utility/CubicBezierUtility.cs"
+   },
+   {
+    "nativeBytes": 140,
+    "lost": "CALL",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/Tweener.cs"
+   },
+   {
+    "nativeBytes": 136,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+   },
+   {
+    "nativeBytes": 132,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs"
+   },
+   {
+    "nativeBytes": 132,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Assembly-CSharp/AudioManager.cs"
+   },
+   {
+    "nativeBytes": 132,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Assembly-CSharp/AudioManager.cs"
+   },
+   {
+    "nativeBytes": 128,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/CodelessCrawler.cs"
+   },
+   {
+    "nativeBytes": 124,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/PathCreator/PathCreation/BezierPath.cs"
+   },
+   {
+    "nativeBytes": 116,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/UintPlugin.cs"
+   },
+   {
+    "nativeBytes": 112,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/Editor/Dialogs/MockShareDialog.cs"
+   },
+   {
+    "nativeBytes": 112,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs"
+   },
+   {
+    "nativeBytes": 112,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs"
+   },
+   {
+    "nativeBytes": 108,
+    "lost": "BRANCH,CALL",
+    "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/ShareResult.cs"
+   },
+   {
+    "nativeBytes": 100,
+    "lost": "CALL",
+    "file": "Assets/Scripts/PathCreator/PathCreation/BezierPath.cs"
+   },
+   {
+    "nativeBytes": 92,
+    "lost": "CALL",
+    "file": "Assets/Scripts/RayFireAssembly/RayFire/RayfireUnyielding.cs"
+   },
+   {
+    "nativeBytes": 92,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs"
+   },
+   {
+    "nativeBytes": 80,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+   },
+   {
+    "nativeBytes": 72,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/__Generated/System/__Il2CppComObject.cs"
+   },
+   {
+    "nativeBytes": 72,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/__Generated/System/__Il2CppComDelegate.cs"
+   },
+   {
+    "nativeBytes": 72,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Assembly-CSharp/EasingFunction.cs"
+   },
+   {
+    "nativeBytes": 68,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/ComponentFactory.cs"
+   },
+   {
+    "nativeBytes": 52,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/PathCreator/PathCreation/Utility/MathUtility.cs"
+   },
+   {
+    "nativeBytes": 44,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs"
+   },
+   {
+    "nativeBytes": 44,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/RayFireAssembly/RayFire/RayfireWind.cs"
+   },
+   {
+    "nativeBytes": 44,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   },
+   {
+    "nativeBytes": 40,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerProxy.cs"
+   }
+  ]
+ },
+ "known_blockers": [
+  {
+   "blocker": "RUNTIME_NOT_RUN",
+   "detail": "no Unity in this environment; nothing about runtime behaviour is established"
+  },
+  {
+   "blocker": "NATIVE_UNKNOWN",
+   "detail": "Assembly-CSharp (__Internal): no entry point is in the engine binary's symbol table (stripped, or not linked there)"
+  },
+  {
+   "blocker": "NATIVE_UNKNOWN",
+   "detail": "Facebook.Unity.IOS (__Internal): no entry point is in the engine binary's symbol table (stripped, or not linked there)"
+  },
+  {
+   "blocker": "NATIVE_UNKNOWN",
+   "detail": "GameAnalyticsSDK (__Internal): no entry point is in the engine binary's symbol table (stripped, or not linked there)"
+  },
+  {
+   "blocker": "NATIVE_LINKED_STATIC",
+   "detail": "libRF_CNative_ios.a must be supplied by its vendor"
+  },
+  {
+   "blocker": "PACKAGES_STUBBED_NOT_DECLARED",
+   "detail": "7 package assemblies are stubbed and the exported manifest does not declare their packages: com.unity.burst, com.unity.collections, com.unity.mathematics, com.unity.textmeshpro, com.unity.ugui, com.unity.visualscripting"
+  },
+  {
+   "blocker": "SHADER_PROGRAMS_OUTSIDE_SHADERLAB",
+   "detail": "{\"METALLIBRARY\": 384, \"METALSOURCETEXT\": 780, \"UNKNOWN\": 1}"
+  }
+ ],
+ "runtime_status": "NOT_RUN"
+}

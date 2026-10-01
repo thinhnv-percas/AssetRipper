@@ -1,0 +1,823 @@
+{
+ "schema": "RecoveredProjectManifest/1",
+ "source": {
+  "path": "Test/Input/RunFromZombies",
+  "files": 35,
+  "tree_digest": "5197b0ff5a8ac7820554f9073dd3e60e1be52a605cd51e971ce440808d1c72cc",
+  "deciding_files": {
+   "assets/bin/Data/Managed/Metadata/global-metadata.dat": "f0c760d6a661233573b1972d288cf1b66d431d7a23a2b01210729cf8b5bbfa8f",
+   "lib/arm64-v8a/libil2cpp.so": "8e92ca92173914cc9e3a09b3ba0838fcce534b4eaf1e74e5213055c3ba95b1ab",
+   "lib/armeabi-v7a/libil2cpp.so": "e24b7a75480731446183df8fda9c77699c12fe0c94deec8f82a00b6a543d4014"
+  }
+ },
+ "unity_version": {
+  "build": "2022.3.62f2",
+  "project": "2022.3.62f2",
+  "evidence": "the build's own data, as the import log records it"
+ },
+ "target_platform": {
+  "platform": "Android",
+  "architectures": [
+   "arm64-v8a",
+   "armeabi-v7a"
+  ],
+  "evidence": "lib/<abi>/libil2cpp.so in the package"
+ },
+ "assemblies": [
+  {
+   "assembly": "Assembly-CSharp",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Mono.Security",
+   "category": "BUILTIN_UNITY",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Newtonsoft.Json",
+   "category": "UNKNOWN",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Configuration",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Core",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Data",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Drawing",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Numerics",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Runtime.CompilerServices.Unsafe",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Runtime.InteropServices",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Runtime.Serialization",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Xml",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Xml.Linq",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Postprocessing.Runtime",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Analytics",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Configuration",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Device",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Environments.Internal",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Internal",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Registration",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Scheduler",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Telemetry",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.Services.Core.Threading",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.AndroidJNIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.AnimationModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.AudioModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.CoreModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.GridModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.IMGUIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.InputLegacyModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.InputModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.ParticleSystemModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.Physics2DModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.PhysicsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.PropertiesModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.SharedInternalsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.SpriteShapeModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.SubsystemsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TextCoreFontEngineModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TextCoreTextEngineModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TextRenderingModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TilemapModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UI",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UIElementsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UnityAnalyticsCommonModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UnityAnalyticsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UnityWebRequestModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.VRModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.XRModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "__Generated",
+   "category": "GENERATED",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "mscorlib",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  }
+ ],
+ "packages": {
+  "com.unity.nuget.newtonsoft-json": {
+   "category": "UNKNOWN",
+   "assemblies": [
+    "Newtonsoft.Json"
+   ],
+   "version": null,
+   "version_source": null
+  },
+  "com.unity.postprocessing": {
+   "category": "STUB",
+   "assemblies": [
+    "Unity.Postprocessing.Runtime"
+   ],
+   "version": null,
+   "version_source": null
+  },
+  "com.unity.services.core": {
+   "category": "STUB",
+   "assemblies": [
+    "Unity.Services.Core"
+   ],
+   "version": null,
+   "version_source": null
+  },
+  "com.unity.ugui": {
+   "category": "STUB",
+   "assemblies": [
+    "UnityEngine.UI"
+   ],
+   "version": null,
+   "version_source": null
+  }
+ },
+ "native_dependencies": [
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libil2cpp.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libunity.so"
+  },
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libil2cpp.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libunity.so"
+  }
+ ],
+ "shaders": {
+  "shaders": 24,
+  "program_encodings": {
+   "BINARY": 881,
+   "SOURCETEXT": 3147,
+   "UNKNOWN": 5
+  },
+  "external_programs": 0
+ },
+ "serialized": {
+  "scenes": 2,
+  "prefabs": 4,
+  "materials": 24,
+  "assets": 36
+ },
+ "recovery_confidence": {
+  "scope": [
+   "Assembly-CSharp",
+   "Mono.Security",
+   "Newtonsoft.Json",
+   "__Generated"
+  ],
+  "methods": 3928,
+  "nativeBytes": 975468,
+  "placeholders": 4444,
+  "status": {
+   "EXACT": 2820,
+   "FALLBACK": 202,
+   "HIGH_CONFIDENCE": 173,
+   "PARTIAL": 733
+  },
+  "byAssembly": {
+   "Assembly-CSharp": {
+    "EXACT": 48,
+    "FALLBACK": 3,
+    "HIGH_CONFIDENCE": 1
+   },
+   "__Generated": {
+    "FALLBACK": 1,
+    "EXACT": 1
+   },
+   "Newtonsoft.Json": {
+    "PARTIAL": 733,
+    "EXACT": 2771,
+    "HIGH_CONFIDENCE": 172,
+    "FALLBACK": 198
+   }
+  },
+  "lostOperationClasses": {
+   "BRANCH": 30,
+   "FIELD": 11,
+   "CALL": 146,
+   "ARRAY_READ": 2,
+   "ARRAY_WRITE": 3,
+   "NEWOBJ": 23
+  },
+  "fingerprintIr": {
+   "STATIC_ACCESS": 2963,
+   "BRANCH": 1700,
+   "ARRAY_READ": 217,
+   "CALL": 2497,
+   "COMPARE": 1622,
+   "ARITHMETIC": 1059,
+   "LOOP": 1700,
+   "NULL_CHECK": 1502,
+   "NEWOBJ": 1032,
+   "CAST": 41,
+   "INSTANCEOF": 289,
+   "ARRAY_WRITE": 91,
+   "FIELD_ADDRESS": 8,
+   "RETURN": 2
+  },
+  "fingerprintCSharp": {
+   "BRANCH": 1679,
+   "ARRAY_READ": 301,
+   "CALL": 3048,
+   "COMPARE": 1498,
+   "LOOP": 370,
+   "STATIC_ACCESS": 1815,
+   "NULL_CHECK": 1218,
+   "NEWOBJ": 1127,
+   "ARITHMETIC": 955,
+   "RETURN": 2540,
+   "CAST": 827,
+   "FIELD_ADDRESS": 331,
+   "THROW": 588,
+   "INSTANCEOF": 16,
+   "ARRAY_WRITE": 112,
+   "NEWARR": 85,
+   "SWITCH": 32
+  },
+  "families": {
+   "UNMANAGED_MEMORY_LOAD": {
+    "count": 2171,
+    "files": 93
+   },
+   "METHOD_NOT_FOUND": {
+    "count": 924,
+    "files": 86
+   },
+   "NATIVE_IMPORT": {
+    "count": 752,
+    "files": 61
+   },
+   "UNKNOWN_CALL_TARGET": {
+    "count": 275,
+    "files": 52
+   },
+   "INDIRECT_CALL": {
+    "count": 150,
+    "files": 47
+   },
+   "INDIRECT_JUMP": {
+    "count": 123,
+    "files": 39
+   },
+   "NOT_IMPLEMENTED_INSTRUCTION": {
+    "count": 6,
+    "files": 4
+   },
+   "OTHER": {
+    "count": 4,
+    "files": 2
+   }
+  },
+  "worstFallbacks": [
+   {
+    "nativeBytes": 916,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Assembly-CSharp/Spawner.cs"
+   },
+   {
+    "nativeBytes": 872,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Assembly-CSharp/Spawner.cs"
+   },
+   {
+    "nativeBytes": 580,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs"
+   },
+   {
+    "nativeBytes": 568,
+    "lost": "ARRAY_WRITE",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonTypeReflector.cs"
+   },
+   {
+    "nativeBytes": 544,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaGenerator.cs"
+   },
+   {
+    "nativeBytes": 400,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs"
+   },
+   {
+    "nativeBytes": 340,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonTypeReflector.cs"
+   },
+   {
+    "nativeBytes": 316,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+   },
+   {
+    "nativeBytes": 316,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+   },
+   {
+    "nativeBytes": 280,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JValue.cs"
+   },
+   {
+    "nativeBytes": 260,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+   },
+   {
+    "nativeBytes": 260,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+   },
+   {
+    "nativeBytes": 260,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+   },
+   {
+    "nativeBytes": 256,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonDynamicContract.cs"
+   },
+   {
+    "nativeBytes": 224,
+    "lost": "ARRAY_READ,ARRAY_WRITE",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/EntityKeyMemberConverter.cs"
+   },
+   {
+    "nativeBytes": 204,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+   },
+   {
+    "nativeBytes": 204,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs"
+   },
+   {
+    "nativeBytes": 192,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+   },
+   {
+    "nativeBytes": 188,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JValue.cs"
+   },
+   {
+    "nativeBytes": 188,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeUtils.cs"
+   },
+   {
+    "nativeBytes": 184,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JTokenReader.cs"
+   },
+   {
+    "nativeBytes": 184,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JTokenReader.cs"
+   },
+   {
+    "nativeBytes": 184,
+    "lost": "BRANCH,CALL,FIELD",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs"
+   },
+   {
+    "nativeBytes": 184,
+    "lost": "BRANCH,CALL,FIELD",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs"
+   },
+   {
+    "nativeBytes": 184,
+    "lost": "BRANCH,CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/TraceJsonReader.cs"
+   },
+   {
+    "nativeBytes": 184,
+    "lost": "BRANCH,CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/TraceJsonReader.cs"
+   },
+   {
+    "nativeBytes": 180,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+   },
+   {
+    "nativeBytes": 180,
+    "lost": "BRANCH,FIELD",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs"
+   },
+   {
+    "nativeBytes": 180,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/TraceJsonReader.cs"
+   },
+   {
+    "nativeBytes": 176,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+   },
+   {
+    "nativeBytes": 176,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DictionaryWrapper.cs"
+   },
+   {
+    "nativeBytes": 176,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/BufferUtils.cs"
+   },
+   {
+    "nativeBytes": 172,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 172,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaGenerator.cs"
+   },
+   {
+    "nativeBytes": 168,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 168,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/AsyncUtils.cs"
+   },
+   {
+    "nativeBytes": 164,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 164,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 164,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs"
+   },
+   {
+    "nativeBytes": 164,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs"
+   },
+   {
+    "nativeBytes": 160,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/EnumUtils.cs"
+   },
+   {
+    "nativeBytes": 156,
+    "lost": "CALL,NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 156,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+   },
+   {
+    "nativeBytes": 152,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 152,
+    "lost": "CALL,NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 148,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+   },
+   {
+    "nativeBytes": 148,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+   },
+   {
+    "nativeBytes": 140,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+   },
+   {
+    "nativeBytes": 140,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+   },
+   {
+    "nativeBytes": 140,
+    "lost": "CALL",
+    "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DynamicProxyMetaObject.cs"
+   }
+  ]
+ },
+ "known_blockers": [
+  {
+   "blocker": "RUNTIME_NOT_RUN",
+   "detail": "no Unity in this environment; nothing about runtime behaviour is established"
+  },
+  {
+   "blocker": "PACKAGES_STUBBED_NOT_DECLARED",
+   "detail": "12 package assemblies are stubbed and the exported manifest does not declare their packages: Unity.Services.Analytics, Unity.Services.Core.Configuration, Unity.Services.Core.Device, Unity.Services.Core.Environments.Internal, Unity.Services.Core.Internal, Unity.Services.Core.Registration, Unity.Services.Core.Scheduler, Unity.Services.Core.Telemetry, Unity.Services.Core.Threading, com.unity.postprocessing, com.unity.services.core, com.unity.ugui"
+  },
+  {
+   "blocker": "SHADER_PROGRAMS_PARTIAL",
+   "detail": "{\"BINARY\": 881, \"SOURCETEXT\": 3147, \"UNKNOWN\": 5}"
+  }
+ ],
+ "runtime_status": "NOT_RUN"
+}

@@ -154,3 +154,22 @@ JellyBlastV2 19 NAMED + 1 STUBBED (VisualScripting bị stub ở bản rip mặc
 này dùng phần ngân sách đó cho các lỗi mà oracle độc lập chỉ ra (ABI, FCMP, P/Invoke, serialize), vì chúng
 làm sai giá trị lặng lẽ còn một dispatch chưa giải quyết thì được báo. Không có vùng quét nào bị xoá chỉ
 vì DCE nói chết.
+
+---
+
+# Iteration 064
+
+## 10. "RGCTX — UNKNOWN" của §9 được tách thành nguyên nhân — `reports/RUNTIME_GENERIC_CONTEXT.md`
+
+Đọc từng method thay vì đếm vùng: một nửa có class interface đã có kiểu và dispatch đi qua
+`VirtualInvokeData.method->invoker_method` (bộ invoker của thân generic chia sẻ hoàn toàn); nửa kia lấy class
+từ RGCTX thật nhưng `MethodInfo` bị đặt sai thanh ghi, vì thân fully shared nhận `il2cppRetVal` trước
+`MethodInfo`. Tầng sai đầu tiên của nửa thứ hai là calling convention (`FullGenericSharing`), không phải
+`InterfaceOf`.
+
+`RuntimeInterfaceResolver` ghi mỗi dispatch còn sống do lookup nuôi vào `CPP2IL_DUMP_INTERFACE_CALLS` với
+confidence `UNRESOLVED` và họ `đường:nguồn class:lý do`. Merge-Room: dispatch giải quyết qua lookup (phân biệt)
+251 → 263, `ValueEscapes` 505 → 496, 152 dispatch còn lại đã phân loại; 46 trong đó có đích EXACT qua invoker và
+chờ dựng lại đối số. `InterfaceOf` nhận thêm một usage kiểu đưa thẳng làm đối số — giá trị của nó là class
+pointer, như `SeedRuntimeClassTypes` đã đọc — điều đó một mình lấy đi 186 `INDIRECT_CALL` và 169
+`INDIRECT_JUMP` trên Pinata.

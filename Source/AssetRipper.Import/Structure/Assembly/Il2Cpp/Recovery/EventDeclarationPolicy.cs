@@ -58,6 +58,21 @@ public static class EventDeclarationPolicy
 		=> storageIsKnown && storageReadOutsideAccessors && !implementsInterfaceEvent && !isFrameworkAssembly;
 
 	/// <summary>
+	/// Iteration 064: whether the field an event is built on must take the compiler's backing-field name
+	/// rather than the event's own.
+	/// </summary>
+	/// <remarks>
+	/// Exactly the case <see cref="ShouldDrop"/> refuses for the interface's sake: the field is read from
+	/// outside the type (so it is widened and printed), the event stays (an interface requires it), and the
+	/// two share a name - CS0102 on Merge-Room's <c>GameManager.OnStateChanged</c>, which hid every body
+	/// error in its assembly. Renaming the field changes nothing an interface, a caller of the event or
+	/// Unity's serializer sees.
+	/// </remarks>
+	public static bool ShouldRenameStorage(bool storageIsKnown, bool storageReadOutsideAccessors,
+		bool implementsInterfaceEvent, bool storageHasEventName)
+		=> storageIsKnown && storageReadOutsideAccessors && implementsInterfaceEvent && storageHasEventName;
+
+	/// <summary>
 	/// The one field an event's accessors touch, or null when they touch none or several.
 	/// </summary>
 	/// <remarks>

@@ -163,6 +163,25 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     `RFLib_DotNet_2018_ios.dll` - so a Mach-O build gets that import map; other platforms name a
     library the metadata does not keep and are left alone. 131 on JellyBlastV2.
 
+21. **A store through a managed reference rebound the reference** (iteration 064) — `IlGenerator`
+    (`LoadOperand`/`StoreToOperand` on `[ref + 0]`, `DestinationType`), `MetadataResolver.ValueTypeReferent`,
+    `Analysis/ValueFlow.cs` (added). A `MemoryOperand` at offset 0 off a `T&` local was stored with
+    `starg`, so `SetColor(ref Color currentValue, …)` wrote `currentValue = ref *(Color*)newValue`; the
+    store is now `stobj T` and the load `ldobj T`. A `T&` base to a struct resolves `T`'s fields
+    value-relative.
+
+22. **Fully shared generic bodies** (iteration 064) — `Analysis/FullGenericSharing.cs` (added), used by
+    `Arm64CallingConventionResolver.ResolveForManaged`, `BaseCallingConventionResolver.RemapRawArguments`
+    and `LocalVariables`. A body whose address an `__Il2CppFullySharedGenericType` instantiation shares
+    takes `il2cppRetVal` after its parameters and before its MethodInfo.
+
+23. **Runtime compare-and-swap, field addresses for `ref` arguments** (iteration 064) —
+    `Analysis/CompareExchangeRecovery.cs`, `Analysis/FieldAddressArguments.cs` (added),
+    `AtomicIntrinsicRecognizer.ReadCompareExchange`, `IlGenerator` (`AddressOf(FieldReference)`),
+    `DeadCodeEliminator`. `KeyFunctionRecovery.RewriteIsInst` types the result as the tested type.
+    `InterfaceInvokeDataRecovery.InterfaceOf` accepts a bare type usage. `RuntimeInterfaceResolver`
+    (added) classifies, rewrites nothing.
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked

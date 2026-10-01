@@ -189,6 +189,13 @@ public static class CompareExchangeRecovery
         if (definitions is [{ OpCode: OpCode.Move, Operands: [_, FieldReference { Field.IsStatic: true, Offset: 0, Local.Type: RuntimeClassTypeAnalysisContext } moved] }])
             return moved;
 
+        // The storage pointer as StaticFieldStorageHead names it, plus an offset: another static field of the
+        // same storage (`v141.m_UpdateCollidersPerfMarker + 0x10` on Pinata, a static event's backing field).
+        if (definitions is [{ OpCode: OpCode.Add, Operands: [_, FieldReference { Field.IsStatic: true, Offset: 0, Local: { Type: RuntimeClassTypeAnalysisContext { RepresentedType: { } headOwner } } klassLocal }, Immediate { Value: var headOffset }] }]
+            && headOwner.GenericParameters.Count == 0
+            && MetadataResolver.SearchFieldAtOffset(headOwner, headOffset, wantStatic: true) is { } headRelative)
+            return new FieldReference(headRelative, klassLocal, (int)headOffset);
+
         // Another static field: the storage pointer plus the field's offset in the storage.
         if (definitions is [{ OpCode: OpCode.Add, Operands: [_, LocalVariable { Type: StaticFieldStorageTypeAnalysisContext { OwnerType: { } staticOwner } } storage, Immediate { Value: var staticOffset }] }]
             && staticOwner.GenericParameters.Count == 0

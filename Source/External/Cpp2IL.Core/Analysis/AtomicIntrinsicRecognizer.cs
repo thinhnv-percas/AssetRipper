@@ -180,9 +180,9 @@ public static class AtomicIntrinsicRecognizer
                     continue;
                 }
 
-                if (word is 0xD503201F || (word & 0xFFFFF0FF) == 0xD50330BF)
+                if (word is 0xD503201F || (word & 0xFFFFF0FF) == 0xD50330BF || WritesOnlyTheStack(word))
                 {
-                    continue; // NOP, or a DMB barrier
+                    continue; // NOP, a DMB barrier, or a frame push that changes no argument register
                 }
 
                 return null;
@@ -223,6 +223,23 @@ public static class AtomicIntrinsicRecognizer
         destination = (int)(word & 0x1F);
         source = (int)((word >> 16) & 0x1F);
         return (word & 0x7FE0FFE0) == 0x2A0003E0 && source != 31;
+    }
+
+    /// <summary>
+    /// A store to the stack (STP/STR with SP as the base, pre-indexed or at an offset) or an SP adjustment
+    /// (<c>ADD/SUB SP|X29, SP, #imm</c>): the frame push a non-leaf runtime function opens with
+    /// (<c>stp x30, x19, [sp, #-16]!</c> on Merge-Room, plus <c>add x29, sp, #16</c> on the iOS fixture).
+    /// Each writes SP or the frame pointer, never an argument register.
+    /// </summary>
+    private static bool WritesOnlyTheStack(uint word)
+    {
+        bool baseIsStackPointer = ((word >> 5) & 0x1F) == 31;
+        bool storePair = (word & 0x7E400000) == 0x28000000 && ((word >> 23) & 0x3) is 2 or 3; // STP, signed offset or pre-index
+        bool storePreIndexed = (word & 0xBFE00C00) == 0xB8000C00;                         // STR (64/32), pre-index
+        // ADD/SUB #imm from SP into SP or into the frame pointer X29 (`add x29, sp, #16` on the iOS fixture);
+        // X29 is never an argument register.
+        bool adjustsStackPointer = (word & 0x7F000000) is 0x11000000 or 0x51000000 && (word & 0x1F) is 31 or 29;
+        return (storePair || storePreIndexed) && baseIsStackPointer || adjustsStackPointer && baseIsStackPointer;
     }
 
     /// <summary>The size field of a load/store-exclusive word, in bytes.</summary>

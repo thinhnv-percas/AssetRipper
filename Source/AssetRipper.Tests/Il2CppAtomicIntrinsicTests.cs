@@ -216,4 +216,25 @@ public class Il2CppAtomicIntrinsicTests
 
 		Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(code), Is.Null);
 	}
+
+	[Test]
+	public void AFramePushBeforeTheLoopChangesNoArgument()
+	{
+		// Merge-Room's form: stp x30, x19, [sp, #-16]!; ldaxr x8, [x0]; cmp x8, x2; b.ne; stlxr w9, x1, [x0].
+		// Refusing it lost all 318 recoveries on that fixture the moment the prologue rule became strict.
+		byte[] code = Code(0xA9BF4FFE, LoadExclusive(8, 0), Compare(8, 2), 0x540000A1, StoreExclusive(9, 1, 0), 0x35FFFF89);
+
+		Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(code),
+			Is.EqualTo(new AtomicIntrinsicRecognizer.CompareExchangeOperands(0, 1, 2, 8)));
+	}
+
+	[Test]
+	public void AFramePointerSetupBeforeTheLoopChangesNoArgument()
+	{
+		// The iOS fixture: stp x20, x19, [sp, #-32]!; stp x29, x30, [sp, #16]; add x29, sp, #16; then the loop.
+		byte[] code = Code(0xA9BE4FF4, 0xA9017BFD, 0x910043FD, LoadExclusive(8, 0), Compare(8, 2), 0x540000A1, StoreExclusive(9, 1, 0));
+
+		Assert.That(AtomicIntrinsicRecognizer.ReadCompareExchange(code),
+			Is.EqualTo(new AtomicIntrinsicRecognizer.CompareExchangeOperands(0, 1, 2, 8)));
+	}
 }

@@ -158,7 +158,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {droppedEventDeclarationCount} event declarations were dropped because a " +
 				"recovered body reads the field they are built on - il2cpp inlines add_/remove_, and C# refuses to read an " +
-				"event from outside its declaring type whatever its accessibility. The field and the accessors stay.");
+				"event from outside its declaring type whatever its accessibility. The field and the accessors stay; "
+				+ $"{renamedEventStorageCount} fields of events an interface requires took the compiler's backing-field name instead.");
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp accessor pairing probe: {IlGenerator.AccessorsWithNoCandidate} non-public instance fields had no "
 				+ $"candidate getter at all; {IlGenerator.GettersForAnotherField} rejections were a getter "
@@ -501,12 +502,28 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 				FieldDefinition? storage = StorageOf(declaration);
 
+				bool implementsInterfaceEvent = ImplementsAnInterfaceEvent(owner, declaration);
 				if (!EventDeclarationPolicy.ShouldDrop(
 					storageIsKnown: storage is not null,
 					storageReadOutsideAccessors: storage is not null && read.Contains(storage),
-					implementsInterfaceEvent: ImplementsAnInterfaceEvent(owner, declaration),
+					implementsInterfaceEvent: implementsInterfaceEvent,
 					isFrameworkAssembly: false))
 				{
+					// Iteration 064 (DECOMP-0055): an event an interface requires cannot be dropped, and when a
+					// recovered body outside the type reads its backing field the field is widened - so a
+					// decompiler prints both, under one name, and C# refuses it (CS0102). The field is the
+					// compiler's, carries the event's name only because C# gives it that name in metadata, and
+					// is a delegate Unity never serializes; naming it as the compiler names every other backing
+					// field keeps the event, its accessors, its accessibility and the interface contract intact.
+					if (EventDeclarationPolicy.ShouldRenameStorage(
+						storageIsKnown: storage is not null,
+						storageReadOutsideAccessors: storage is not null && read.Contains(storage),
+						implementsInterfaceEvent: implementsInterfaceEvent,
+						storageHasEventName: storage?.Name?.Value == declaration.Name?.Value))
+					{
+						storage!.Name = $"<{declaration.Name}>k__BackingField";
+						Interlocked.Increment(ref renamedEventStorageCount);
+					}
 					continue;
 				}
 
@@ -619,6 +636,8 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 	}
 
 	private static int droppedEventDeclarationCount;
+
+	private static int renamedEventStorageCount;
 
 	/// <summary>
 	/// AssetRipper: iteration 064. Writes an event's accessors as the compiler's field-like accessors where

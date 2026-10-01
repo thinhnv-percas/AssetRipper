@@ -87,4 +87,30 @@ public class Il2CppEventDeclarationTests
 	{
 		Assert.That(EventDeclarationPolicy.SingleTouchedField(System.Array.Empty<string>()), Is.Null);
 	}
+
+	[Test]
+	public void AnInterfaceEventReadOutsideItsTypeKeepsItsDeclarationAndRenamesItsField()
+	{
+		// Merge-Room's GameManager.OnStateChanged (iteration 064): IGameStateEvent requires the event, and an
+		// inlined body in GameInstaller reads the field, so the event stays and the field is widened. Both
+		// printed under one name is CS0102; the field takes the compiler's backing-field name instead.
+		Assert.Multiple(() =>
+		{
+			Assert.That(EventDeclarationPolicy.ShouldDrop(true, true, implementsInterfaceEvent: true, isFrameworkAssembly: false), Is.False);
+			Assert.That(EventDeclarationPolicy.ShouldRenameStorage(true, true, implementsInterfaceEvent: true, storageHasEventName: true), Is.True);
+		});
+	}
+
+	[Test]
+	public void AFieldNothingOutsideReadsIsLeftItsName()
+	{
+		// Private and read only by the accessors, the field is the event's own and a decompiler folds the
+		// two into one declaration; renaming it would stop exactly that.
+		Assert.Multiple(() =>
+		{
+			Assert.That(EventDeclarationPolicy.ShouldRenameStorage(true, false, true, true), Is.False);
+			Assert.That(EventDeclarationPolicy.ShouldRenameStorage(true, true, false, true), Is.False, "droppable: the drop handles it");
+			Assert.That(EventDeclarationPolicy.ShouldRenameStorage(true, true, true, false), Is.False, "names already differ");
+		});
+	}
 }

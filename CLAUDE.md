@@ -1978,6 +1978,43 @@ find it; `strings` without `-el` does find method and type names.
   (2) event `+=` là `add_X`, (3) accessor inline ghi backing field, (4) thân chỉ tính toán không phải
   stand-in (`UNDECIDED_ARITHMETIC`, không tính đạt). Mỗi cái có self-test đỏ nếu bỏ.
 
+- **Một store qua managed reference là `stobj`, không phải `starg`.** `MemoryOperand` offset 0 trên một
+  local `T&` từng thành `StoreLocal(base)` — gán lại *tham chiếu*: `currentValue = ref *(Color*)newValue`.
+  Và `MetadataResolver` lấy kiểu byref làm owner, nên `[ref + 4]` không bao giờ thành `.g`. Hai tầng, cùng
+  một quan niệm sai: một con trỏ được đối xử như chính giá trị. `ValueFlow` là luật chung (`WritesThrough`,
+  `StoreSemantics.RebindReference` chỉ hợp lệ khi giá trị là địa chỉ); `ValueTypeReferent` loại primitive và
+  enum, nếu không `ref float minY` ra `minY.m_value`. Gán lại ref giảm 143→47 / 842→185 / 1000→536 trên
+  Impostor / Merge-Room / JellyBlast opt-in. **Shape check DECOMP-0022 của 059 đã đóng băng chính hình dạng
+  sai** (`key = ref *(byte*)…` là "đã sửa") — một golden shape chỉ đúng bằng hiểu biết lúc viết nó.
+- **Thân generic chia sẻ hoàn toàn có ABI riêng, và metadata nói thân nào là nó.** Từ Unity 2022 một method
+  trả về giá trị kích thước không biết nhận `il2cppRetVal` sau tham số, trước `MethodInfo`. Thiếu nó,
+  `MethodInfo` bị đặt sai thanh ghi, nên `klass`, RGCTX và class interface đọc từ nó đều không có kiểu.
+  Thân là fully shared khi một instantiation *tại cùng địa chỉ* mang
+  `Unity.IL2CPP.Metadata.__Il2CppFullySharedGenericType` (`FullGenericSharing`). 182 thân trên Merge-Room.
+  "Class interface đến từ RGCTX" của 062–063 là nửa đúng: nửa kia class *đã* có kiểu và dispatch đi qua
+  `VirtualInvokeData.method->invoker_method` (`RuntimeInterfaceResolver`, 46 dispatch đích EXACT, đối số chưa
+  dựng được).
+- **Overload của CompareExchange được quyết định bởi call site, không bởi địa chỉ.** Lý do 050 không map
+  `0xAF4130` vẫn đúng cho mapping theo địa chỉ. `CompareExchangeRecovery` đọc callee theo lệnh (location,
+  value, comparand, width — `ReadCompareExchange`, theo được `mov x8, x0` của runtime 2019) và chỉ viết lại khi
+  location là địa chỉ của một field kiểu tham chiếu: khi đó chỉ `CompareExchange<T>` type-check được. 678 trên
+  Impostor (339 accessor ×2 lần phân tích). Bản đầu đọc thanh ghi address của `ldaxr` trực tiếp và trên Pinata
+  476/476 là `DEFINITIONS_0` — X8 không phải đối số nào; lý do từ chối chi tiết là thứ nói ra điều đó.
+- **Field-like event chỉ gập lại khi accessor có đúng IL của compiler**, và il2cpp không bao giờ cho IL đó
+  (cast mở rộng thành type check + throw, CAS là runtime call). Khi mọi hiệu ứng của accessor là
+  Combine/Remove + `CompareExchange<T>` trên chính field của event, IL chuẩn là phát biểu lại thân, không phải
+  thay thế. Lý do từ chối phải đọc được: lần đầu "0 events" là 66 `GetType` (cast trên type sealed), lần hai
+  là 80 `ldstr` — ghi chú SP của stack analyser, không phải placeholder.
+- **Phần cuối bị cắt của rendering đọc như một member mất.** `[NativeSource]` có giới hạn kích thước; một comment
+  dài hơn ở đầu thân dời điểm cắt vào giữa `this.CollectionI…`, và `unmentioned_members` gọi method EXACT là
+  FALLBACK. `native_body` bỏ dòng trước `// ... truncated`.
+- **OBJECT_REFERENCE nint cast phần lớn sinh ra từ load không giải quyết.** `cluster_native_int_casts.py --trace`:
+  666/1298 trên Impostor có producer là `default(object)` — stand-in của một load bỏ cuộc. Sửa cast là sửa sai
+  chỗ; `resolved_producer_rate` 0.257 (Impostor), 0.368 (Merge-Room).
+- **Một static library không ship thành file, nên bảng symbol là bằng chứng của nó.** `__Internal` entry point
+  có trong `LC_SYMTAB` của `UnityFramework` ⇒ đã link tĩnh; archive `.a` trong source định nghĩa chúng ⇒ tên.
+  RayFire 34/34 cả hai; Facebook/GameAnalytics 0 (symbol đã strip) ⇒ UNKNOWN, không suy.
+
 ### Things measured to be worth nothing — do not redo them
 - **A copy into a differently-typed local as evidence of register reuse.** Written, tested, and
   refuted by the data it was written for. The `List<T>.Add` receivers reported as `this + 0x20` have
@@ -2264,6 +2301,17 @@ Twenty-six scripts, and each measures something the others cannot:
   source; `ASSETRIPPER_DUMP_SHADER_PROGRAMS` dump byte từng sub-program.
 - `Test/Scripts/logic_interface_corpus.py` — `Test/logic-interface-corpus.json`, 77 case theo ưu tiên brief.
 - `Test/Scripts/neutralise_stripped_attribute_arguments.py` — body pass của compile harness.
+- `Test/Scripts/native_dependency_graph.py` — mọi thư viện native build phụ thuộc, kind
+  (`FRAMEWORK`, `STATIC_LIBRARY`…) và recoverability (`LINKED_STATIC_NOT_EXTRACTABLE`); bằng chứng static là
+  bảng symbol của engine binary và archive trong source. `--self-test` 5 case.
+- `Test/Scripts/package_provenance.py` — category của mỗi assembly/package (`UPSTREAM_EXACT` chỉ khi có
+  fingerprint khai báo), export RECOVERED/STUB từ log, version chỉ khi được chứng minh. `--self-test` 6 case.
+- `Test/Scripts/recovered_project_manifest.py` — `RecoveredProjectManifest.json`: hash nguồn, version Unity từ
+  log, platform từ layout package, assembly, package, native, shader, serialized, blocker; `runtime_status:
+  NOT_RUN`.
+- `cluster_native_int_casts.py --trace` — producer của mỗi cast `OBJECT_REFERENCE`, `resolved_producer_rate`.
+- `shader_variant_binding.py` — thêm `EXTERNAL_PROGRAM_EXACT`: material → keyword → biến thể từng stage → file
+  `.metal`, không bao giờ biến thể gần nhất.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
 

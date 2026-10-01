@@ -1,0 +1,768 @@
+{
+ "schema": "RecoveredProjectManifest/1",
+ "source": {
+  "path": "Test/Input/Impostor",
+  "files": 34,
+  "tree_digest": "488a29512254ccb4a14ed81e5fccf6027ea556d50f5921725378b9118ba4f3bf",
+  "deciding_files": {
+   "assets/bin/Data/Managed/Metadata/global-metadata.dat": "07938a40d0350e638718905a5154c58f61f6ef5da03b5752df0326f5702cf6b0",
+   "lib/arm64-v8a/libil2cpp.so": "b0aad37c7346560a2268bfe30cf7b2c0dc931101d9919b1b277670bd23212fc7",
+   "lib/armeabi-v7a/libil2cpp.so": "a31fd6c816da76ebc88a3d5b44b1af3eb0717a2a46fb095c1d1d9c75b4b5e40a"
+  }
+ },
+ "unity_version": {
+  "build": "2022.3.62f2",
+  "project": "2022.3.62f2",
+  "evidence": "the build's own data, as the import log records it"
+ },
+ "target_platform": {
+  "platform": "Android",
+  "architectures": [
+   "arm64-v8a",
+   "armeabi-v7a"
+  ],
+  "evidence": "lib/<abi>/libil2cpp.so in the package"
+ },
+ "assemblies": [
+  {
+   "assembly": "ACTk.Runtime",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Assembly-CSharp",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "DOTween",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "GoogleMobileAds",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "LeanCommon",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "LeanPool",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Mono.Security",
+   "category": "BUILTIN_UNITY",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Configuration",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Core",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Runtime.CompilerServices.Unsafe",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Runtime.InteropServices",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "System.Xml",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "Unity.TextMeshPro",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.AndroidJNIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.AnimationModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.AudioModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.CoreModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.GridModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.IMGUIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.ImageConversionModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.InputLegacyModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.JSONSerializeModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.ParticleSystemModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.Physics2DModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.PhysicsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.PropertiesModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.SharedInternalsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.SpriteShapeModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TextCoreFontEngineModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TextCoreTextEngineModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TextRenderingModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.TilemapModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UI",
+   "category": "STUB",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UIElementsModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UIModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "UnityEngine.UnityWebRequestModule",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "__Generated",
+   "category": "GENERATED",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "mscorlib",
+   "category": "BUILTIN_UNITY",
+   "export": "STUB",
+   "fingerprint": null
+  },
+  {
+   "assembly": "spine-unity",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  },
+  {
+   "assembly": "spine-unity-examples",
+   "category": "CUSTOM",
+   "export": "RECOVERED",
+   "fingerprint": null
+  }
+ ],
+ "packages": {
+  "com.unity.textmeshpro": {
+   "category": "STUB",
+   "assemblies": [
+    "Unity.TextMeshPro"
+   ],
+   "version": null,
+   "version_source": null
+  },
+  "com.unity.ugui": {
+   "category": "STUB",
+   "assemblies": [
+    "UnityEngine.UI"
+   ],
+   "version": null,
+   "version_source": null
+  }
+ },
+ "native_dependencies": [
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libil2cpp.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/arm64-v8a/libunity.so"
+  },
+  {
+   "library": "libil2cpp.so",
+   "kind": "IL2CPP_RUNTIME",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libil2cpp.so"
+  },
+  {
+   "library": "libmain.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libmain.so"
+  },
+  {
+   "library": "libunity.so",
+   "kind": "UNITY_ENGINE",
+   "recoverability": "NOT_REQUIRED",
+   "evidence": "file in package: lib/armeabi-v7a/libunity.so"
+  }
+ ],
+ "shaders": {
+  "shaders": 3,
+  "program_encodings": {
+   "BINARY": 275,
+   "SOURCETEXT": 484
+  },
+  "external_programs": 0
+ },
+ "serialized": {
+  "scenes": 1,
+  "prefabs": 6,
+  "materials": 11,
+  "assets": 43
+ },
+ "recovery_confidence": {
+  "scope": [
+   "ACTk.Runtime",
+   "Assembly-CSharp",
+   "DOTween",
+   "GoogleMobileAds",
+   "LeanCommon",
+   "LeanPool",
+   "Mono.Security",
+   "__Generated",
+   "spine-unity",
+   "spine-unity-examples"
+  ],
+  "methods": 5482,
+  "nativeBytes": 1075252,
+  "placeholders": 3856,
+  "status": {
+   "HIGH_CONFIDENCE": 189,
+   "PARTIAL": 731,
+   "EXACT": 4223,
+   "FALLBACK": 339
+  },
+  "byAssembly": {
+   "Assembly-CSharp": {
+    "HIGH_CONFIDENCE": 13,
+    "PARTIAL": 60,
+    "EXACT": 307,
+    "FALLBACK": 10
+   },
+   "__Generated": {
+    "FALLBACK": 1,
+    "EXACT": 1
+   },
+   "GoogleMobileAds": {
+    "EXACT": 438,
+    "PARTIAL": 80,
+    "FALLBACK": 197,
+    "HIGH_CONFIDENCE": 29
+   },
+   "spine-unity": {
+    "EXACT": 1506,
+    "HIGH_CONFIDENCE": 67,
+    "PARTIAL": 215,
+    "FALLBACK": 57
+   },
+   "LeanCommon": {
+    "EXACT": 16,
+    "PARTIAL": 2
+   },
+   "ACTk.Runtime": {
+    "EXACT": 918,
+    "PARTIAL": 104,
+    "FALLBACK": 42,
+    "HIGH_CONFIDENCE": 25
+   },
+   "LeanPool": {
+    "EXACT": 56,
+    "PARTIAL": 12,
+    "HIGH_CONFIDENCE": 6,
+    "FALLBACK": 4
+   },
+   "spine-unity-examples": {
+    "EXACT": 416,
+    "PARTIAL": 67,
+    "HIGH_CONFIDENCE": 17,
+    "FALLBACK": 9
+   },
+   "DOTween": {
+    "EXACT": 565,
+    "HIGH_CONFIDENCE": 32,
+    "PARTIAL": 191,
+    "FALLBACK": 19
+   }
+  },
+  "lostOperationClasses": {
+   "FIELD": 241,
+   "CALL": 25,
+   "ARRAY_READ": 4,
+   "ARRAY_WRITE": 4,
+   "BRANCH": 56,
+   "NEWOBJ": 14
+  },
+  "fingerprintIr": {
+   "INSTANCEOF": 417,
+   "LOOP": 2283,
+   "COMPARE": 2266,
+   "BRANCH": 2285,
+   "NULL_CHECK": 2046,
+   "STATIC_ACCESS": 3621,
+   "CALL": 3275,
+   "ARITHMETIC": 1438,
+   "NEWOBJ": 1032,
+   "ARRAY_READ": 384,
+   "CAST": 17,
+   "ARRAY_WRITE": 156,
+   "FIELD_ADDRESS": 333
+  },
+  "fingerprintCSharp": {
+   "NEWOBJ": 1461,
+   "BRANCH": 2243,
+   "COMPARE": 2102,
+   "NULL_CHECK": 1669,
+   "CAST": 870,
+   "THROW": 880,
+   "RETURN": 3268,
+   "CALL": 4508,
+   "ARITHMETIC": 1373,
+   "STATIC_ACCESS": 2268,
+   "LOOP": 794,
+   "ARRAY_READ": 541,
+   "NEWARR": 180,
+   "INSTANCEOF": 12,
+   "FIELD_ADDRESS": 453,
+   "ARRAY_WRITE": 172,
+   "SWITCH": 25
+  },
+  "families": {
+   "UNMANAGED_MEMORY_LOAD": {
+    "count": 2486,
+    "files": 170
+   },
+   "NATIVE_IMPORT": {
+    "count": 488,
+    "files": 81
+   },
+   "METHOD_NOT_FOUND": {
+    "count": 348,
+    "files": 73
+   },
+   "NOT_IMPLEMENTED_INSTRUCTION": {
+    "count": 211,
+    "files": 54
+   },
+   "INDIRECT_CALL": {
+    "count": 182,
+    "files": 34
+   },
+   "UNKNOWN_CALL_TARGET": {
+    "count": 97,
+    "files": 38
+   },
+   "INDIRECT_JUMP": {
+    "count": 54,
+    "files": 41
+   },
+   "OTHER": {
+    "count": 2,
+    "files": 1
+   }
+  },
+  "worstFallbacks": [
+   {
+    "nativeBytes": 1352,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+   },
+   {
+    "nativeBytes": 1052,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs"
+   },
+   {
+    "nativeBytes": 1032,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs"
+   },
+   {
+    "nativeBytes": 948,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs"
+   },
+   {
+    "nativeBytes": 800,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+   },
+   {
+    "nativeBytes": 788,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+   },
+   {
+    "nativeBytes": 760,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs"
+   },
+   {
+    "nativeBytes": 756,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+   },
+   {
+    "nativeBytes": 752,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Assembly-CSharp/Box.cs"
+   },
+   {
+    "nativeBytes": 704,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Assembly-CSharp/GUIManager.cs"
+   },
+   {
+    "nativeBytes": 684,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+   },
+   {
+    "nativeBytes": 616,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Skeleton.cs"
+   },
+   {
+    "nativeBytes": 540,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+   },
+   {
+    "nativeBytes": 540,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+   },
+   {
+    "nativeBytes": 532,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+   },
+   {
+    "nativeBytes": 524,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+   },
+   {
+    "nativeBytes": 524,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+   },
+   {
+    "nativeBytes": 504,
+    "lost": "ARRAY_WRITE",
+    "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/BuildHashes.cs"
+   },
+   {
+    "nativeBytes": 480,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+   },
+   {
+    "nativeBytes": 480,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+   },
+   {
+    "nativeBytes": 468,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+   },
+   {
+    "nativeBytes": 456,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+   },
+   {
+    "nativeBytes": 444,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+   },
+   {
+    "nativeBytes": 436,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs"
+   },
+   {
+    "nativeBytes": 424,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/Spineboy.cs"
+   },
+   {
+    "nativeBytes": 420,
+    "lost": "ARRAY_READ,ARRAY_WRITE",
+    "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/FileFilter.cs"
+   },
+   {
+    "nativeBytes": 412,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+   },
+   {
+    "nativeBytes": 396,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs"
+   },
+   {
+    "nativeBytes": 392,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredString.cs"
+   },
+   {
+    "nativeBytes": 376,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs"
+   },
+   {
+    "nativeBytes": 344,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/ConstrainedCamera.cs"
+   },
+   {
+    "nativeBytes": 328,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs"
+   },
+   {
+    "nativeBytes": 296,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs"
+   },
+   {
+    "nativeBytes": 292,
+    "lost": "NEWOBJ",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/SpecialPluginsUtils.cs"
+   },
+   {
+    "nativeBytes": 288,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/CustomNativeTemplateClient.cs"
+   },
+   {
+    "nativeBytes": 280,
+    "lost": "CALL",
+    "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs"
+   },
+   {
+    "nativeBytes": 276,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/MobileAdsClient.cs"
+   },
+   {
+    "nativeBytes": 256,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Assembly-CSharp/GamePlayController.cs"
+   },
+   {
+    "nativeBytes": 256,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/TweenParams.cs"
+   },
+   {
+    "nativeBytes": 244,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/Assembly-CSharp/GameHelper.cs"
+   },
+   {
+    "nativeBytes": 240,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+   },
+   {
+    "nativeBytes": 240,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InitializationStatusClient.cs"
+   },
+   {
+    "nativeBytes": 236,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/DummyAdBehaviour.cs"
+   },
+   {
+    "nativeBytes": 232,
+    "lost": "ARRAY_READ,ARRAY_WRITE",
+    "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs"
+   },
+   {
+    "nativeBytes": 224,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs"
+   },
+   {
+    "nativeBytes": 220,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+   },
+   {
+    "nativeBytes": 220,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+   },
+   {
+    "nativeBytes": 220,
+    "lost": "BRANCH",
+    "file": "Assets/Scripts/Assembly-CSharp/GUIManager.cs"
+   },
+   {
+    "nativeBytes": 212,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+   },
+   {
+    "nativeBytes": 208,
+    "lost": "FIELD",
+    "file": "Assets/Scripts/LeanPool/Lean/Pool/Extras/LeanPooledRigidbody.cs"
+   }
+  ]
+ },
+ "known_blockers": [
+  {
+   "blocker": "RUNTIME_NOT_RUN",
+   "detail": "no Unity in this environment; nothing about runtime behaviour is established"
+  },
+  {
+   "blocker": "PACKAGES_STUBBED_NOT_DECLARED",
+   "detail": "2 package assemblies are stubbed and the exported manifest does not declare their packages: com.unity.textmeshpro, com.unity.ugui"
+  },
+  {
+   "blocker": "SHADER_PROGRAMS_PARTIAL",
+   "detail": "{\"BINARY\": 275, \"SOURCETEXT\": 484}"
+  }
+ ],
+ "runtime_status": "NOT_RUN"
+}
