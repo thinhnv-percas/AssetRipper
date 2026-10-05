@@ -182,6 +182,33 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     `InterfaceInvokeDataRecovery.InterfaceOf` accepts a bare type usage. `RuntimeInterfaceResolver`
     (added) classifies, rewrites nothing.
 
+24. **ARM64 frame pointer as a stack alias** (iteration 065) — `Analysis/StackAnalyzer.cs`
+    (`ResolveFramePointer`, `_framePosition`), `NewArmV8InstructionSet` (`add sp, x29, #k` lifts to a
+    two-operand `ShiftStack`), `Analysis/SsaForm.cs` (`OnlyRecordedInUnreadSlots`). `[x29 + a]` between the
+    frame setup and the next write of X29 is the stack slot `frame + a`; an address computed from X29 is
+    `AddressOf(slot)`; a method that reads X29 as a value while it is the frame is left alone. The epilogue's
+    `mov sp, x29` resets the stack state. An address-take recorded only in frame slots nothing reads again is
+    not a definition of the slot.
+
+25. **Helpers proven to return their argument** (iteration 065) — `Analysis/ArgumentReturningHelper.cs`
+    (added), `InterfaceInvokeDataRecovery.InterfaceOfLookup`, `RuntimeInterfaceResolver` (provenance of
+    multiply defined locals). The proof is read off A64 instruction words with a strict whitelist.
+
+26. **Invoker arguments, list clear, struct registers, hidden buffer returns** (iteration 065) —
+    `Analysis/InvokerArgumentRecovery.cs`, `InlineListClearRecovery.cs`, `StructRegisterFields.cs` (added);
+    `LocalVariables.ReturnHiddenBuffer`, `ISIL/LocalVariable.IsReturnBuffer`; `InterfaceDispatchRecovery`
+    (`TryExciseResolvedLookup`, `…OutOfSsa`); `InterfaceInvokeDataRecovery` (`ldvirtftn` delegates);
+    `FieldAddressArguments` (value-type receivers, struct fields through a pointer).
+
+27. **ABI and frames** (iteration 065) — `Arm64CallingConventionResolver`/`Arm64ArgumentPlacement`
+    (AAPCS64 C.10/C.11: a 9-16 byte non-HFA composite takes two general registers, or NGRN = 8 and the
+    stack), `BaseCallingConventionResolver.IntegerRegisterCountOf`, `NewArmV8InstructionSet.
+    DefineIntegerCompositeParameters`, `FieldOffsetFrame.MethodPointerReceiverIsBoxed` (the adjustor thunk
+    table decides the receiver frame of a method pointer), `MetadataResolver.FindNestedStaticFieldPath`,
+    `IlGenerator` (static heads, `ldvirtftn`, by-value indirect struct arguments), `DeadCodeEliminator`.
+    `LocalVariables.TypeAddressedLocals` and the by-ref branch of `PropagateFromCallParameters` no longer
+    take a type generic sharing put there.
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked

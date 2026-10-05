@@ -305,7 +305,7 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, 
 
 			default:
 				// Unhandled operations are shown rather than dropped, so nothing silently disappears.
-				return $"\t// {instruction}";
+				return $"\t// {RawWithFieldPaths(instruction)}";
 		}
 	}
 
@@ -357,6 +357,30 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, 
 	/// field name, because a field reached through a value type field is one name of several and only
 	/// the whole path names it.
 	/// </summary>
+	/// <summary>
+	/// AssetRipper: iteration 065 - the raw rendering of an operation the writer has no form for, with each field
+	/// written the way the exported body names it. A <c>MakeStruct</c> of <c>Vector3.one</c>'s members otherwise
+	/// says <c>oneVector</c> where the C# says <c>Vector3.one</c>, and a measure reads the difference as a lost member.
+	/// </summary>
+	private static string RawWithFieldPaths(Instruction instruction)
+	{
+		string raw = instruction.ToString() ?? "";
+		foreach (IOperand operand in instruction.Operands)
+		{
+			if (operand is not FieldReference field)
+				continue;
+
+			string rendered = field.ToString();
+			int declaredType = rendered.LastIndexOf(" (", StringComparison.Ordinal);
+			string path = declaredType < 0 ? rendered : rendered[..declaredType];
+			string written = FieldPath(field);
+			if (path != written)
+				raw = raw.Replace(rendered, written + rendered[path.Length..], StringComparison.Ordinal);
+		}
+
+		return raw;
+	}
+
 	private static string FieldPath(FieldReference field)
 	{
 		string rendered = field.ToString();
@@ -369,9 +393,28 @@ public sealed class PseudoCSharpWriter(RuntimeStructAccessAnnotator? annotator, 
 		// counts a member the export deliberately renamed as one the export lost.
 		string written = IlGenerator.NameReadsAreWrittenUnder(field.Field);
 
-		return written == field.Field.Name || !rendered.EndsWith("." + field.Field.Name, StringComparison.Ordinal)
+		// A static field's rendering is its bare name, with no receiver in front of it.
+		rendered = written == field.Field.Name
+			|| !(rendered.EndsWith("." + field.Field.Name, StringComparison.Ordinal) || rendered == field.Field.Name)
 			? rendered
 			: string.Concat(rendered.AsSpan(0, rendered.Length - field.Field.Name.Length), written);
+
+		// Iteration 065: a static struct field a member is read out of is written as its property as well.
+		foreach (var containing in field.ContainingFields)
+		{
+			if (!containing.IsStatic)
+				continue;
+
+			string containingWritten = IlGenerator.NameReadsAreWrittenUnder(containing);
+			if (containingWritten == containing.Name)
+				continue;
+
+			rendered = rendered.StartsWith(containing.Name + ".", StringComparison.Ordinal)
+				? containingWritten + rendered[containing.Name.Length..]
+				: rendered.Replace("." + containing.Name + ".", "." + containingWritten + ".", StringComparison.Ordinal);
+		}
+
+		return rendered;
 	}
 
 	private static string FormatImmediate(long value)

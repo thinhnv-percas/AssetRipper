@@ -61,4 +61,26 @@ public class Arm64ArgumentPlacementTests
 		Assert.That(Place(false, Vector3, Vector3, Vector3, Shape.Pointer, Single),
 			Is.EqualTo(new[] { "V0", "V3", "[sp+0]", "X0", "[sp+16]" }));
 	}
+
+	/// <summary>
+	/// Iteration 065, C.10: a 16-byte composite that is not a float aggregate takes two general registers,
+	/// so what follows it starts two registers on. `Setup(Settings settings)` named its own second half
+	/// as the MethodInfo when this counted one.
+	/// </summary>
+	[Test]
+	public void ASixteenByteCompositeTakesTwoGeneralRegisters()
+	{
+		Shape composite = new(Kind.Integer, 16, 2, 8);
+		Assert.That(Place(false, Shape.Pointer, composite, Int32, Shape.Pointer),
+			Is.EqualTo(new[] { "X0", "X1", "X3", "X4" }));
+	}
+
+	/// <summary>C.11: a composite that no longer fits goes to the stack, and so does everything after it.</summary>
+	[Test]
+	public void ACompositeThatDoesNotFitSetsNgrnToEight()
+	{
+		Shape composite = new(Kind.Integer, 16, 2, 8);
+		Shape[] shapes = [.. Enumerable.Repeat(Shape.Pointer, 7), composite, Shape.Pointer];
+		Assert.That(Place(false, shapes)[7..], Is.EqualTo(new[] { "[sp+0]", "[sp+16]" }));
+	}
 }

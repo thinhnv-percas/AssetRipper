@@ -59,7 +59,8 @@ public static class DeadCodeEliminator
 
         foreach (var block in cfg.Blocks)
             foreach (var instruction in block.Instructions)
-                if ((!IsRemovable(instruction.OpCode) || instruction.Destination is not LocalVariable)
+                if ((!IsRemovable(instruction.OpCode) || instruction.Destination is not LocalVariable
+                        || StackAnalyzer.IsFramePointerStore(instruction))
                     && live.Add(instruction))
                     pending.Push(instruction);
 
@@ -113,7 +114,9 @@ public static class DeadCodeEliminator
                     break;
                 // A static field access doesn't read the storage pointer it was resolved from, so that
                 // pointer (and the class load feeding it) is free to die.
-                case FieldReference { Field.IsStatic: false, Local: { } fieldLocal }:
+                // AssetRipper: iteration 065 - nor does a member inside a static struct field, whose base
+                // is the static field itself (ldsflda), not the storage pointer.
+                case FieldReference { Field.IsStatic: false, ContainingFields: not [{ IsStatic: true }, ..], Local: { } fieldLocal }:
                     yield return fieldLocal;
                     break;
                 // Handing out a slot's address is a read of it as far as we can tell, whatever the callee then does with it.
@@ -121,7 +124,7 @@ public static class DeadCodeEliminator
                     yield return addressed;
                     break;
                 // AssetRipper: the address of an instance field reads the object it is a field of.
-                case AddressOf { Target: FieldReference { Field.IsStatic: false, Local: { } addressedFieldBase } }:
+                case AddressOf { Target: FieldReference { Field.IsStatic: false, ContainingFields: not [{ IsStatic: true }, ..], Local: { } addressedFieldBase } }:
                     yield return addressedFieldBase;
                     break;
                 case AddressOf { Target: ArrayAccess addressedElement }:

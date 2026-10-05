@@ -16,5 +16,8 @@ public class LocalVariable(string name, Register register, TypeAnalysisContext? 
     public bool IsReturn = false;
     public bool IsMethodInfo = false;
 
+    /// <summary>AssetRipper: the entry value of the hidden return buffer register, which the method's result is written into.</summary>
+    public bool IsReturnBuffer = false;
+
     public override string ToString() => Type == null ? $"{Name} @ {Register}" : $"{Name} @ {Register} ({Type.FullName})";
 }

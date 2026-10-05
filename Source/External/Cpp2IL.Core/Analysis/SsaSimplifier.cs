@@ -48,7 +48,10 @@ public static class SsaSimplifier
                 if (instruction.OpCode == OpCode.Move
                     && instruction.Operands[0] is LocalVariable dest
                     && forwarded.ContainsKey(dest)
-                    && !reads.Contains(dest))
+                    && !reads.Contains(dest)
+                    // AssetRipper: iteration 065 - a store through ARM64's frame pointer may be read through the
+                    // address of a neighbouring slot (an invoker's argument array), which no read names.
+                    && !StackAnalyzer.IsFramePointerStore(instruction))
                 {
                     instruction.OpCode = OpCode.Nop;
                     instruction.SetOperands();
@@ -119,8 +122,14 @@ public static class SsaSimplifier
                     length.Array = lengthReplacement;
                     break;
 
+                // AssetRipper: iteration 065 - an address names a storage, not a value. Replacing `&slot` with `&i`
+                // because `slot = i` makes every write through the address a write to `i`, and makes `i`'s register
+                // an address-taken one, whose versions CopyCoalescer then merges into a single storage: the invoker's
+                // method pointer, loaded into X1 later on, overwrote the parameter `i` that X1 had carried. Only a
+                // version of the same register names the same storage.
                 case AddressOf { Target: LocalVariable addressed } addressOf
-                    when resolved.TryGetValue(addressed, out var addressedValue) && addressedValue is LocalVariable addressedReplacement:
+                    when resolved.TryGetValue(addressed, out var addressedValue) && addressedValue is LocalVariable addressedReplacement
+                        && addressedReplacement.Register.Number == addressed.Register.Number:
                     addressOf.Target = addressedReplacement;
                     break;
             }

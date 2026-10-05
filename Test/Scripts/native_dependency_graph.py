@@ -181,6 +181,47 @@ def build(package, game, source=None):
             "by_recoverability": dict(collections.Counter(n["recoverability"] for n in nodes))}
 
 
+def apply_evidence(graph, bindings_path, archive_reports, game):
+    """Iteration 065: what the machine code says about a node the symbol table could not decide.
+
+    `ios_native_unknown.py` finds each `__Internal` entry point's implementation through the il2cpp wrapper
+    and reads what it references; a group whose every resolved entry point is PROVEN is implemented in the
+    engine binary, and the classes it names say whether that is a bridge to a framework the package ships
+    or a library compiled in. `static_library_provenance.py` proves an archive from outside the package is
+    the code that was linked, byte for byte, and whether it was preserved into the project. Neither changes
+    a node it has nothing to say about.
+    """
+    if bindings_path:
+        rows = json.loads(pathlib.Path(bindings_path).read_text())["rows"]
+        for node in graph["nodes"]:
+            group = node.get("required_by")
+            if node.get("recoverability") != "UNKNOWN" or not group:
+                continue
+            mine = [row for row in rows if row["assembly"] == group]
+            proven = [row for row in mine if row["verdict"] == "PROVEN"]
+            if not proven:
+                continue
+            frameworks = sorted({c.split("(")[-1].rstrip(")") for row in proven for c in row["classes"] if "@rpath/" in c})
+            node["symbols"]["implementations_proven"] = len(proven)
+            node["symbols"]["implementations_unknown"] = len(mine) - len(proven)
+            node["kind"] = "OBJC_BRIDGE" if frameworks else "STATIC_LIBRARY"
+            node["recoverability"] = "BRIDGE_TO_PRESERVED_FRAMEWORK" if frameworks else "LINKED_STATIC_NOT_EXTRACTABLE"
+            node["evidence"] = (f"{len(proven)} of {len(mine)} entry points located through the il2cpp wrapper and proven by the "
+                                f"classes and selectors their code references" + (f"; calls into {', '.join(frameworks)}" if frameworks else "; every class is defined in the engine binary"))
+    for report_path in archive_reports:
+        report = json.loads(pathlib.Path(report_path).read_text())
+        name = pathlib.Path(report["archive"]["path"]).name
+        for node in graph["nodes"]:
+            if node["library"] != name or report.get("verdict") != "LINKED_ARCHIVE_PROVEN":
+                continue
+            preserved = (game / "Assets" / "Plugins" / "iOS" / name).exists()
+            node["recoverability"] = "PRESERVED_FROM_VERIFIED_ARTIFACT" if preserved else "VERIFIED_ARTIFACT_AVAILABLE"
+            node["evidence"] = (f"archive {report['archive']['git_blob']} is byte-identical to the linked code at "
+                                f"{report['summary'].get('BYTE_IDENTICAL', 0)} entry points" + ("; preserved into the project" if preserved else ""))
+    graph["by_kind"] = dict(collections.Counter(n["kind"] for n in graph["nodes"]))
+    graph["by_recoverability"] = dict(collections.Counter(n["recoverability"] for n in graph["nodes"]))
+
+
 def self_test():
     """Each case is red if the rule it names is removed."""
     failures = []
@@ -225,6 +266,8 @@ def main():
     parser.add_argument("game", nargs="?")
     parser.add_argument("--source")
     parser.add_argument("--json")
+    parser.add_argument("--bindings", help="ios_native_unknown.py --json output")
+    parser.add_argument("--archive-provenance", action="append", default=[], help="static_library_provenance.py --json output")
     parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
 
@@ -232,6 +275,7 @@ def main():
         return self_test()
 
     graph = build(pathlib.Path(args.package), pathlib.Path(args.game), pathlib.Path(args.source) if args.source else None)
+    apply_evidence(graph, args.bindings, args.archive_provenance, pathlib.Path(args.game))
     for node in graph["nodes"]:
         if node["kind"] in NOT_REQUIRED:
             continue

@@ -3256,6 +3256,31 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				+ (Cpp2IL.Core.Analysis.CompareExchangeRecovery.Rejected.Count == 0 ? "" : ", left alone: "
 					+ string.Join(", ", Cpp2IL.Core.Analysis.CompareExchangeRecovery.Rejected.Select(pair => $"{pair.Value} {pair.Key}"))));
 
+			// Iteration 065: what each of this iteration's producer fixes did, so a fixture where one never
+			// fires reads as zero rather than as nothing.
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery (065): {Cpp2IL.Core.Analysis.InterfaceDispatchRecovery.InvokeDataLookupsExcised} interface offset scans removed beside a dispatch resolved from the lookup's arguments; "
+				+ $"{Cpp2IL.Core.Analysis.InterfaceInvokeDataRecovery.DelegatesRecovered} delegates over an interface method recovered as ldvirtftn; "
+				+ $"{Cpp2IL.Core.Analysis.FieldAddressArguments.RecoveredReceivers} value type receivers and {Cpp2IL.Core.Analysis.FieldAddressArguments.RecoveredStructOwners} fields of a struct reached through a pointer recovered as a field's address; "
+				+ $"{Cpp2IL.Core.Analysis.LocalVariables.HiddenBufferReturnsRewritten} returns of a struct returned through the hidden buffer return the buffer, "
+				+ $"{Cpp2IL.Core.Analysis.LocalVariables.HiddenBufferReturnsLeftUnwritten} left alone (a path to the return with no store into the buffer, or its address copied); "
+				+ $"{Cpp2IL.Core.Analysis.MetadataResolver.NestedStaticFieldsResolved} members inside a static struct field resolved; "
+				+ $"{Cpp2IL.Core.InstructionSets.NewArmV8InstructionSet.IntegerCompositeParametersSplit} two-register struct parameters had their second register named "
+				+ $"({Cpp2IL.Core.InstructionSets.NewArmV8InstructionSet.IntegerCompositeParametersLeft} left: the second double word is not one field); "
+				+ $"{Cpp2IL.Core.Analysis.StructRegisterFields.ShiftedFieldsRead} shifts and {Cpp2IL.Core.Analysis.StructRegisterFields.LeadingFieldsRead} low-part reads of a struct register recovered as its field; "
+				+ $"{Cpp2IL.Core.IlGenerator.IndirectStructArgumentsPassedByValue} struct arguments passed by reference to a copy written as the value; "
+				+ $"{Cpp2IL.Core.Analysis.StackAnalyzer.FramePointerSlotsResolved} frame pointer accesses and {Cpp2IL.Core.Analysis.StackAnalyzer.FramePointerAddressesResolved} frame pointer address computations named as their stack slot "
+				+ $"({Cpp2IL.Core.Analysis.StackAnalyzer.FramePointerEscapes} methods left alone: the frame address is read as a value; "
+				+ $"{Cpp2IL.Core.Analysis.StackAnalyzer.StackResetsFromFramePointer} stack pointer resets from the frame pointer; "
+				+ $"{Cpp2IL.Core.Analysis.StackAnalyzer.FramePointerStoresKept} stores kept because only a neighbouring slot's address reads them); "
+				+ $"{Cpp2IL.Core.Analysis.ArgumentReturningHelper.LookedThrough} class operands followed through a helper proven to return its argument");
+
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery (065): {Cpp2IL.Core.Analysis.InvokerArgumentRecovery.Sites} interface calls through the runtime invoker, "
+				+ $"{Cpp2IL.Core.Analysis.InvokerArgumentRecovery.Rewritten} rewritten with every argument proven, {Cpp2IL.Core.Analysis.InvokerArgumentRecovery.BuffersModelled} T buffers modelled; arguments: "
+				+ string.Join(", ", Cpp2IL.Core.Analysis.InvokerArgumentRecovery.ArgumentStatuses.Select(pair => $"{pair.Value} {pair.Key}"))
+				+ "; left alone: " + string.Join(", ", Cpp2IL.Core.Analysis.InvokerArgumentRecovery.Refusals.Select(pair => $"{pair.Value} {pair.Key}")));
+
 			var lookupFed = Cpp2IL.Core.Analysis.RuntimeInterfaceResolver.Counts;
 
 			if (lookupFed.Count > 0)

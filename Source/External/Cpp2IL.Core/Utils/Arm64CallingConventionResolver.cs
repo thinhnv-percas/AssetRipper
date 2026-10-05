@@ -52,6 +52,9 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
 
     protected override bool HiddenBufferConsumesArgumentSlot => false;
 
+    protected override int IntegerRegisterCountOf(TypeAnalysisContext type)
+        => System.Math.Max(1, IntegerRegisterCount(type));
+
     protected override int FloatRegisterCount(TypeAnalysisContext type)
         => IsFloatingPoint(type) ? 1 : FloatAggregateMemberCount(type);
 
@@ -84,6 +87,10 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
         return args.ToArray();
     }
 
+    /// <summary>AssetRipper: how many general registers a value of this type is passed in (two for a 9-16 byte composite).</summary>
+    public static int IntegerRegisterCount(TypeAnalysisContext type)
+        => ShapeOf(type) is { Kind: Arm64ArgumentPlacement.Kind.Integer, Registers: var registers } ? registers : 0;
+
     private static Arm64ArgumentPlacement.Shape ShapeOf(TypeAnalysisContext type)
     {
         if (IsFloatingPoint(type))
@@ -102,6 +109,12 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
             return Arm64ArgumentPlacement.Shape.Pointer;
 
         var unboxed = TypeSizes.UnboxedSize(type, PtrSize);
+
+        // AssetRipper: iteration 065. AAPCS64 B.4 replaces only a composite *larger* than 16 bytes with a
+        // pointer to a copy; one of nine to sixteen bytes is passed in two general registers (C.10).
+        if (unboxed is > 8 and <= 16 && !type.IsEnumType)
+            return new(Arm64ArgumentPlacement.Kind.Integer, (int)unboxed, 2, 8);
+
         return unboxed is > 0 and <= 8 && (unboxed & (unboxed - 1)) == 0
             ? new(Arm64ArgumentPlacement.Kind.Integer, (int)unboxed, 1, (int)unboxed)
             : Arm64ArgumentPlacement.Shape.Pointer;

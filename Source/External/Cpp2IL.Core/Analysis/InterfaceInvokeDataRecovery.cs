@@ -130,7 +130,7 @@ public static class InterfaceInvokeDataRecovery
         // direction as well as the one a merge defeats.
         var lookups = instructions
             .Where(IsLookupShape)
-            .Select(lookup => (Lookup: lookup, Target: TargetOf(lookup)))
+            .Select(lookup => (Lookup: lookup, Target: TargetOf(method, lookup, instructions)))
             .Where(pair => pair.Target is not null)
             .ToList();
 
@@ -152,6 +152,7 @@ public static class InterfaceInvokeDataRecovery
         // recording the disagreement is what keeps it from resolving to whichever came first.
         var byDispatch = new Dictionary<Instruction, MethodAnalysisContext?>();
         var lookupsOf = new Dictionary<Instruction, List<Instruction>>();
+        var pointerOf = new Dictionary<Instruction, LocalVariable>();
 
         foreach (var (lookup, target) in lookups)
         {
@@ -178,6 +179,7 @@ public static class InterfaceInvokeDataRecovery
                 }
 
                 byDispatch[instruction] = target;
+                pointerOf[instruction] = pointerBase;
 
                 if (!lookupsOf.TryGetValue(instruction, out var sources))
                     lookupsOf[instruction] = sources = [];
@@ -238,6 +240,17 @@ public static class InterfaceInvokeDataRecovery
 
             WriteEvidence(method, handed[lookupsOf[dispatch][0]], target, isTailCall);
 
+            // AssetRipper: iteration 065. Inside SSA the fast path the compiler inlined beside the
+            // helper is still a merge with it, and with the call resolved the scan computes nothing
+            // anyone reads - but it is control flow, so dead code elimination never takes it.
+            // A lookup can reach two dispatches and the first rewrite empties it, so it is read only
+            // while it still is one.
+            if (lookupsOf[dispatch] is [var only] && only.OpCode == OpCode.Call && only.Operands.Count > SlotOperand
+                && pointerOf.TryGetValue(dispatch, out var invokeData)
+                && only.Operands[SlotOperand] is Immediate { Value: var slotValue }
+                && TryGetSlot(slotValue, out var dispatchSlot))
+                InterfaceDispatchRecovery.TryExciseResolvedLookup(method, only, invokeData, dispatchSlot);
+
             // The lookup is what the dispatch used to need; once the call names its method nothing
             // reads it. It has to be removed here rather than left to dead code elimination, which
             // keeps an unresolved call for its side effects.
@@ -251,14 +264,126 @@ public static class InterfaceInvokeDataRecovery
             changed = true;
         }
 
+        changed |= RecoverInterfaceMethodDelegates(method, graph, lookups, loads);
+
         return changed;
     }
 
+    /// <summary>AssetRipper: delegates over an interface method recovered as <c>ldvirtftn</c>.</summary>
+    public static int DelegatesRecovered;
+
+    /// <summary>
+    /// AssetRipper: <c>new Action(receiver.InterfaceMethod)</c>, which il2cpp compiles to the same lookup
+    /// a dispatch uses and then hands the <c>MethodInfo</c> it finds to the delegate's constructor
+    /// instead of calling through it.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Iteration 065. C# compiles a method group over an interface method to <c>ldvirtftn</c>, because
+    /// which implementation the delegate binds is the receiver's to decide; il2cpp compiles
+    /// <c>ldvirtftn</c> to <c>GetInterfaceInvokeData(slot, receiver, interface)</c> and passes
+    /// <c>invokeData.method</c> - the load at <c>+8</c> of the pointer the lookup returns. Nothing
+    /// dispatches through it, so the pass above never saw it, and the constructor reached the generator
+    /// with a pointer no operand named: <c>new Action&lt;CallbackContext&gt;(instance, (IntPtr)0)</c>,
+    /// 31 errors on Merge-Room, every <c>AddCallbacks</c> of an input action map.
+    /// </para>
+    /// <para>
+    /// Three facts settle it: the constructor is a delegate's two-argument one; its method operand is
+    /// the <c>method</c> member of a pointer this lookup's result reaches; and the receiver the lookup
+    /// was handed is the very operand the delegate closes over - a delegate bound to one object over a
+    /// method looked up on another is not a method group at all. The interface method is then exactly
+    /// the one the slot names, as for a dispatch, and it is written as the <c>MethodInfo</c> the
+    /// generator turns into <c>ldvirtftn</c>.
+    /// </para>
+    /// </remarks>
+    private static bool RecoverInterfaceMethodDelegates(MethodAnalysisContext method, Graphs.ISILControlFlowGraph graph,
+        List<(Instruction Lookup, MethodAnalysisContext? Target)> lookups, Dictionary<LocalVariable, MemoryOperand> loads)
+    {
+        var changed = false;
+        var assembly = method.DeclaringType?.DeclaringAssembly;
+        if (assembly is null)
+            return false;
+
+        foreach (var (lookup, target) in lookups)
+        {
+            if (target is null || lookup.OpCode != OpCode.Call)
+                continue;
+
+            var reached = ForwardClosure(lookup.Destination, graph.AllInstructions.ToList());
+            var receiver = lookup.Operands[2];
+
+            foreach (var instruction in graph.AllInstructions.ToList())
+            {
+                if (instruction.OpCode is not (OpCode.Call or OpCode.CallVoid)
+                    || instruction.Operands is not [MethodAnalysisContext { Name: ".ctor", Parameters.Count: 2, DeclaringType: { } delegateType }, ..]
+                    || !IsDelegate(delegateType))
+                    continue;
+
+                var receiverIndex = instruction.OpCode == OpCode.CallVoid ? 1 : 2;
+                if (receiverIndex + 2 >= instruction.Operands.Count)
+                    continue;
+
+                var closesOver = instruction.Operands[receiverIndex + 1];
+                var pointer = PointerLoad(instruction.Operands[receiverIndex + 2], loads);
+
+                if (pointer is not { Base: LocalVariable pointerBase, Index: null, Scale: 0, Addend: 8 }
+                    || !reached.Contains(pointerBase)
+                    || !SameValue(closesOver, receiver))
+                    continue;
+
+                instruction.SetOperand(receiverIndex + 2, new RuntimeMethodInfoAnalysisContext(target, assembly));
+
+                if (TryGetSlot(lookup.Operands[SlotOperand] is Immediate { Value: var slotValue } ? slotValue : -1, out var slot))
+                    InterfaceDispatchRecovery.TryExciseResolvedLookup(method, lookup, pointerBase, slot);
+
+                lookup.OpCode = OpCode.Nop;
+                lookup.SetOperands();
+
+                System.Threading.Interlocked.Increment(ref DelegatesRecovered);
+                changed = true;
+                break;
+            }
+        }
+
+        return changed;
+    }
+
+    // Two operands that are provably one value: the same local, or the same local's name in a body out of SSA.
+    private static bool SameValue(IOperand left, IOperand right)
+        => ReferenceEquals(left, right) || left is LocalVariable a && right is LocalVariable b && a.Name == b.Name;
+
+    private static bool IsDelegate(TypeAnalysisContext type)
+    {
+        for (var candidate = (type as GenericInstanceTypeAnalysisContext)?.GenericType.BaseType ?? type.BaseType; candidate != null; candidate = candidate.BaseType)
+            if (candidate.FullName is "System.MulticastDelegate" or "System.Delegate")
+                return true;
+
+        return false;
+    }
+
     /// <summary>The method a lookup names, or null when it names none.</summary>
-    private static MethodAnalysisContext? TargetOf(Instruction lookup)
-        => InterfaceOf(lookup.Operands[InterfaceOperand]) is { } contract
+    private static MethodAnalysisContext? TargetOf(MethodAnalysisContext method, Instruction lookup, IReadOnlyList<Instruction> instructions)
+        => InterfaceOfLookup(method, lookup, instructions) is { } contract
             ? MethodOfSlot(contract, lookup.Operands[SlotOperand])
             : null;
+
+    /// <summary>
+    /// AssetRipper: the interface a lookup's class operand names - read directly, or, when the operand is a
+    /// local nothing typed, read off the value it holds once copies, merges that agree and calls to a helper
+    /// proven to return its argument are looked through (<see cref="ArgumentReturningHelper"/>).
+    /// </summary>
+    /// <remarks>
+    /// Iteration 065. A generic body initialises the class it took out of its runtime generic context before
+    /// handing it to the lookup - <c>if (!klass-&gt;initialized) klass = helper(klass)</c> - so the operand is a
+    /// merge of the class and the helper's result, and no rule may type a helper's result. The helper's own
+    /// machine code proves the result is its argument; that is provenance, not a forced metadata usage.
+    /// </remarks>
+    public static TypeAnalysisContext? InterfaceOfLookup(MethodAnalysisContext method, Instruction lookup, IReadOnlyList<Instruction> instructions)
+    {
+        var operand = lookup.Operands[InterfaceOperand];
+        return InterfaceOf(operand)
+            ?? (operand is LocalVariable ? InterfaceOf(ArgumentReturningHelper.LookThrough(method, operand, instructions)) : null);
+    }
 
     /// <summary>
     /// Whether an instruction is a call to an address no managed method sits at, returning a value,

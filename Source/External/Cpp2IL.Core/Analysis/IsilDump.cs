@@ -26,6 +26,20 @@ namespace Cpp2IL.Core.Analysis;
 public static class IsilDump
 {
     private static readonly string? Wanted = Environment.GetEnvironmentVariable("CPP2IL_DUMP_METHOD");
+
+    // AssetRipper: several methods, separated by '|', each into a subdirectory named after its pattern.
+    private static readonly string[] Patterns = Wanted?.Split('|', StringSplitOptions.RemoveEmptyEntries) ?? [];
+
+    private static string? Matching(MethodAnalysisContext method)
+    {
+        foreach (var pattern in Patterns)
+            if (method.FullName.Contains(pattern, StringComparison.Ordinal))
+                return pattern;
+        return null;
+    }
+
+    private static string DirectoryFor(string pattern)
+        => Patterns.Length > 1 ? Path.Combine(Directory!, Sanitise(pattern)) : Directory!;
     private static readonly string? Directory = Environment.GetEnvironmentVariable("CPP2IL_DUMP_DIR");
 
     private static int _ordinal;
@@ -35,9 +49,10 @@ public static class IsilDump
         if (Wanted == null || Directory == null || method.ControlFlowGraph is not { } cfg)
             return;
 
-        if (!method.FullName.Contains(Wanted, StringComparison.Ordinal))
+        if (Matching(method) is not { } pattern)
             return;
 
+        var directory = DirectoryFor(pattern);
         var text = new StringBuilder();
         text.AppendLine($"{method.FullName} @ {stage}");
         text.AppendLine();
@@ -52,21 +67,22 @@ public static class IsilDump
             text.AppendLine();
         }
 
-        System.IO.Directory.CreateDirectory(Directory);
+        System.IO.Directory.CreateDirectory(directory);
         var ordinal = Interlocked.Increment(ref _ordinal);
-        File.WriteAllText(Path.Combine(Directory, $"{ordinal:D3}-{Sanitise(stage)}.txt"), text.ToString());
+        File.WriteAllText(Path.Combine(directory, $"{ordinal:D3}-{Sanitise(stage)}.txt"), text.ToString());
     }
 
     /// <summary>A line of free text, appended to <c>trace.txt</c> beside the stage dumps.</summary>
     public static void Trace(MethodAnalysisContext method, string message)
     {
-        if (Wanted == null || Directory == null || !method.FullName.Contains(Wanted, StringComparison.Ordinal))
+        if (Wanted == null || Directory == null || Matching(method) is not { } pattern)
             return;
 
-        System.IO.Directory.CreateDirectory(Directory);
+        var directory = DirectoryFor(pattern);
+        System.IO.Directory.CreateDirectory(directory);
 
         lock (TraceLock)
-            File.AppendAllText(Path.Combine(Directory, "trace.txt"), $"{method.FullName}: {message}{Environment.NewLine}");
+            File.AppendAllText(Path.Combine(directory, "trace.txt"), $"{method.FullName}: {message}{Environment.NewLine}");
     }
 
     private static readonly object TraceLock = new();

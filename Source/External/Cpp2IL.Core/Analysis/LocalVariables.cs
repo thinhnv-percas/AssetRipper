@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
 using Cpp2IL.Core.Utils;
@@ -10,6 +11,12 @@ public static class LocalVariables
 {
     /// <summary>AssetRipper: fully shared bodies whose il2cppRetVal argument was named (iteration 064).</summary>
     public static int FullySharedReturnPointersNamed;
+
+    /// <summary>AssetRipper: returns of a method that returns through the hidden buffer, made to return the buffer (iteration 065).</summary>
+    public static int HiddenBufferReturnsRewritten;
+
+    /// <summary>AssetRipper: returns of such a method left alone, because no store into the buffer dominates them.</summary>
+    public static int HiddenBufferReturnsLeftUnwritten;
 
     public static int MaxTypePropagationLoopCount = 5000;
 
@@ -168,7 +175,113 @@ public static class LocalVariables
         {
             bufferLocal.Name = "returnBuffer";
             bufferLocal.Type = method.ReturnType;
+
+            bufferLocal.IsReturnBuffer = true;
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 065. Makes a method that returns a struct through the hidden buffer return
+    /// what it wrote into the buffer.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// AAPCS64 leaves X0 undefined on return from such a function; the caller reads the buffer it passed.
+    /// Returning the register the lifter named as the return value made the recovered body hand back
+    /// whatever X0 last held - <c>return (ItemData)(&amp;enumerator2)</c> in StageRoom.GetItemData - while
+    /// the fields it had filled in went nowhere. The local is the value, so the stores into it are member
+    /// stores and the return reads it whole.
+    /// </para>
+    /// <para>
+    /// Runs inside SSA after copy propagation: the prologue routinely copies the buffer address into a
+    /// callee-saved register and every store goes through the copy, which only copy propagation folds
+    /// back onto the buffer. And only where every path from the entry to the return stores into the
+    /// buffer: <c>return Other();</c> hands the caller's buffer straight on and writes nothing, and
+    /// returning the local there would return a default value that reads as a real one. A buffer whose
+    /// address is still copied anywhere is left alone, because once both are value-typed locals a copy
+    /// is a second value and stores through it would not reach the one returned.
+    /// </para>
+    /// </remarks>
+    public static void ReturnHiddenBuffer(MethodAnalysisContext method)
+    {
+        if (method.ControlFlowGraph is not { } graph
+            || method.Locals.FirstOrDefault(static local => local.IsReturnBuffer) is not { } bufferLocal)
+            return;
+
+        var all = graph.Blocks.SelectMany(b => b.Instructions).ToList();
+        var copied = all.Any(instruction => instruction.OpCode is OpCode.Move or OpCode.Phi
+            && instruction.Operands.Skip(1).Any(operand => ReferenceEquals(operand, bufferLocal)));
+
+        var writes = new List<(Block Block, int Index)>();
+        foreach (var block in graph.Blocks)
+            for (var index = 0; index < block.Instructions.Count; index++)
+                if (block.Instructions[index] is { OpCode: OpCode.Move, Operands: [var destination, _] } && WritesInto(destination, bufferLocal))
+                    writes.Add((block, index));
+
+        foreach (var block in graph.Blocks)
+        {
+            for (var index = 0; index < block.Instructions.Count; index++)
+            {
+                var instruction = block.Instructions[index];
+
+                if (instruction.OpCode != OpCode.Return
+                    || instruction.Operands is [LocalVariable already] && ReferenceEquals(already, bufferLocal))
+                    continue;
+
+                if (copied || !EveryPathWrites(graph, writes, block, index))
+                {
+                    System.Threading.Interlocked.Increment(ref HiddenBufferReturnsLeftUnwritten);
+                    continue;
+                }
+
+                instruction.SetOperands(bufferLocal);
+                System.Threading.Interlocked.Increment(ref HiddenBufferReturnsRewritten);
+            }
+        }
+
+        static bool WritesInto(IOperand destination, LocalVariable buffer)
+            => destination switch
+            {
+                FieldReference field => ReferenceEquals(field.Local, buffer),
+                MemoryOperand memory => ReferenceEquals(memory.Base, buffer),
+                _ => false,
+            };
+    }
+
+    /// <summary>
+    /// AssetRipper: whether every path from the entry to the instruction at <paramref name="index"/> of
+    /// <paramref name="target"/> passes one of <paramref name="writes"/>.
+    /// </summary>
+    /// <remarks>
+    /// The return is unreachable once every block holding a write is cut out - with the target's own
+    /// block counted as cut only when a write precedes the return inside it.
+    /// </remarks>
+    public static bool EveryPathWrites(ISILControlFlowGraph graph, IReadOnlyList<(Block Block, int Index)> writes, Block target, int index)
+    {
+        if (writes.Any(write => write.Block == target && write.Index < index))
+            return true;
+
+        var cut = new HashSet<Block>(writes.Select(write => write.Block));
+        cut.Remove(target);
+
+        var seen = new HashSet<Block>();
+        var queue = new Queue<Block>();
+        queue.Enqueue(graph.EntryBlock);
+
+        while (queue.Count > 0)
+        {
+            var block = queue.Dequeue();
+            if (!seen.Add(block) || cut.Contains(block))
+                continue;
+
+            if (block == target)
+                return false;
+
+            foreach (var successor in block.Successors)
+                queue.Enqueue(successor);
+        }
+
+        return true;
     }
 
     public static void RemoveUnused(MethodAnalysisContext method)
@@ -549,8 +662,14 @@ public static class LocalVariables
                 if (parameterIndex > calledMethod.Parameters.Count - 1) // Probably MethodInfo*
                     continue;
 
+                // AssetRipper: iteration 065 - not a type generic sharing put there, for the reason the return value
+                // rule gives: the fixpoint is monotonic, and `Dictionary<object, object>.TryGetValue` typed the out
+                // local `System.Object` before RetargetSharedGenericCalls named the callee on the receiver's own
+                // arguments, so `value.refcount` could never resolve and came back as an unresolved load.
                 if (instruction.Operands[i] is AddressOf { Target: LocalVariable referenced }
-                    && calledMethod.Parameters[parameterIndex].ParameterType is ByRefTypeAnalysisContext { ElementType: { } referencedType })
+                    && calledMethod.Parameters[parameterIndex].ParameterType is ByRefTypeAnalysisContext { ElementType: { } referencedType }
+                    && !(MetadataResolver.IsSharedInstantiation(calledMethod.DeclaringType)
+                        && MetadataResolver.ContainsSharingPlaceholder(referencedType)))
                     changed |= SetTypeIfUnknown(referenced, referencedType);
             }
         }
@@ -1156,7 +1275,10 @@ public static class LocalVariables
                 if (parameterType is ByRefTypeAnalysisContext { ElementType: { } referencedType }
                     && Addressed(instruction.Operands[i]) is { } referenced)
                 {
-                    changed |= SetTypeIfUnknown(referenced, referencedType);
+                    // AssetRipper: iteration 065 - the same sharing guard as TypeAddressedLocals and the return value.
+                    if (!(MetadataResolver.IsSharedInstantiation(calledMethod.DeclaringType)
+                        && MetadataResolver.ContainsSharingPlaceholder(referencedType)))
+                        changed |= SetTypeIfUnknown(referenced, referencedType);
                     continue;
                 }
 

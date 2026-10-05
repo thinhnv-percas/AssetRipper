@@ -112,6 +112,10 @@ public static class Simplifier
                             if (IsLocalUsedAfterInstruction(block, i + 1, local, out _))
                                 continue;
 
+                            // AssetRipper: iteration 065 - see StackAnalyzer.IsFramePointerStore.
+                            if (StackAnalyzer.IsFramePointerStore(instruction))
+                                continue;
+
                             // Change that move to nop
                             instruction.OpCode = OpCode.Nop;
                             instruction.SetOperands();
@@ -167,6 +171,10 @@ public static class Simplifier
                         // If the replacement stopped at a join merging another definition, the local is
                         // still live there - keep its defining move rather than dropping the value on this path.
                         if (IsLocalUsedAfterInstruction(block, i + 1, local, out _))
+                            continue;
+
+                        // AssetRipper: iteration 065 - see StackAnalyzer.IsFramePointerStore.
+                        if (StackAnalyzer.IsFramePointerStore(instruction))
                             continue;
 
                         if (!_method.ParameterLocals.Contains(local))

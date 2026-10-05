@@ -289,6 +289,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         var addresses = new List<ulong>();
 
         DefineFloatAggregateParameters(context, instructions, addresses); // AssetRipper
+        DefineIntegerCompositeParameters(context, instructions, addresses); // AssetRipper
 
         foreach (var instruction in insns)
             ConvertInstructionStatement(instruction, instructions, addresses, context);
@@ -379,6 +380,69 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             }
 
             slot++;
+        }
+    }
+
+    /// <summary>AssetRipper: the second registers of 9-16 byte composite parameters named as the field they carry.</summary>
+    public static int IntegerCompositeParametersSplit;
+
+    /// <summary>AssetRipper: such parameters whose second double word is not exactly one field, left unnamed.</summary>
+    public static int IntegerCompositeParametersLeft;
+
+    /// <summary>
+    /// AssetRipper: iteration 065. The general-register counterpart of
+    /// <see cref="DefineFloatAggregateParameters"/>: a composite of nine to sixteen bytes arrives in two
+    /// consecutive general registers (AAPCS64 C.10), and only the first can be named as the parameter.
+    /// The second is defined as a read at +8 of the first, which the field resolution then names - but
+    /// only when exactly one field occupies the second double word. Two ints at 8 and 12 share the
+    /// register, and naming it as the first would drop the second silently.
+    /// </summary>
+    private void DefineIntegerCompositeParameters(MethodAnalysisContext context, List<Instruction> instructions, List<ulong> addresses)
+    {
+        if (context.Parameters.Count == 0)
+            return;
+
+        var slots = CallingConventions.ResolveForManaged(context);
+        var slot = context.IsStatic ? 0 : 1;
+        var entryAddress = context.UnderlyingPointer == 0 ? 0 : context.UnderlyingPointer - 4;
+
+        foreach (var parameter in context.Parameters)
+        {
+            if (slot >= slots.Length)
+                return;
+
+            var type = parameter.ParameterType;
+
+            if (Arm64CallingConventionResolver.IntegerRegisterCount(type) == 2
+                && slots[slot] is Register { Name: ['X', .. var index] } first
+                && int.TryParse(index, out var number) && number + 1 < 8)
+            {
+                if (SecondDoubleWordIsOneField(type))
+                {
+                    addresses.Add(entryAddress);
+                    instructions.Add(new Instruction(instructions.Count, OpCode.Move,
+                        new Register(null, $"X{number + 1}"),
+                        new MemoryOperand(first, addend: 8)));
+                    System.Threading.Interlocked.Increment(ref IntegerCompositeParametersSplit);
+                }
+                else
+                    System.Threading.Interlocked.Increment(ref IntegerCompositeParametersLeft);
+            }
+
+            slot++;
+        }
+
+        static bool SecondDoubleWordIsOneField(TypeAnalysisContext type)
+        {
+            if (type is GenericInstanceTypeAnalysisContext || type.GenericParameters.Count > 0)
+                return false;
+
+            var inSecond = type.Fields
+                .Where(field => !field.IsStatic && field.BackingData is { FieldOffset: >= 8 })
+                .Select(field => field.BackingData!.FieldOffset)
+                .ToList();
+
+            return inSecond is [8];
         }
     }
 
@@ -938,6 +1002,17 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     if (IsReg31(instruction.Op0Reg) && IsReg31(instruction.Op1Reg) && instruction.Op2Kind == Arm64OperandKind.Immediate && !setsFlags)
                     {
                         Add(address, OpCode.ShiftStack, Imm(isSubtract ? -instruction.Op2Imm : instruction.Op2Imm));
+                        break;
+                    }
+
+                    // AssetRipper: `add sp, x29, #k` (and `mov sp, x29`, which is its k = 0 alias) puts the stack
+                    // pointer back where the frame pointer says it is. An epilogue does this after a variable-size
+                    // allocation, which no ShiftStack accounts for, so without it every restore that follows was
+                    // named after the wrong slot. StackAnalyzer resolves it against the frame pointer's setup.
+                    if (IsReg31(instruction.Op0Reg) && !setsFlags && instruction.Op2Kind == Arm64OperandKind.Immediate
+                        && NormalizeRegister(instruction.Op1Reg) == "X29")
+                    {
+                        Add(address, OpCode.ShiftStack, Imm(isSubtract ? -instruction.Op2Imm : instruction.Op2Imm), Reg(instruction.Op1Reg));
                         break;
                     }
 

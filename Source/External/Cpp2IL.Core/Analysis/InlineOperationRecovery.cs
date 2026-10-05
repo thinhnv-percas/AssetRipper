@@ -45,7 +45,7 @@ public static class InlineOperationRecovery
         Exact,
     }
 
-    /// <summary>The families this recovery knows. Only <c>LIST_ADD</c> is implemented today.</summary>
+    /// <summary>The families this recovery knows. <c>LIST_ADD</c> and, from iteration 065, <c>LIST_CLEAR</c> are implemented.</summary>
     public enum Family
     {
         ListAdd,
@@ -165,7 +165,11 @@ public static class InlineOperationRecovery
     /// </summary>
     public static void Run(ISILControlFlowGraph cfg, MethodAnalysisContext? method)
     {
-        if (!InlineListAddRecovery.Run(cfg, method))
+        // AssetRipper: iteration 065, Clear beside Add. Both run; either rewriting is reason to tidy.
+        var added = InlineListAddRecovery.Run(cfg, method);
+        var cleared = InlineListClearRecovery.Run(cfg, method);
+
+        if (!added && !cleared)
             return;
 
         // A rewritten site leaves the fast path with nothing reaching it and the loads that fed the
@@ -186,5 +190,5 @@ public static class InlineOperationRecovery
     }
 
     /// <summary>The families that have a rule, for the report to distinguish absent from unimplemented.</summary>
-    public static IReadOnlyList<Family> ImplementedFamilies { get; } = [Family.ListAdd];
+    public static IReadOnlyList<Family> ImplementedFamilies { get; } = [Family.ListAdd, Family.ListClear];
 }

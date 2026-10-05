@@ -437,6 +437,11 @@ public static class IlGenerator
     /// </summary>
     public static bool LoadsCallOperands(Instruction instruction, MethodAnalysisContext context)
     {
+        // AssetRipper: iteration 065 - an indirect call or jump that reaches the generator is emitted as a
+        // placeholder and loads nothing, so its raw register list - stale addresses included - is not a read.
+        if (instruction.OpCode is OpCode.IndirectCall or OpCode.IndirectJump)
+            return false;
+
         if (instruction.OpCode is not (OpCode.Call or OpCode.CallVoid) || instruction.Operands.Count == 0)
             return true;
 
@@ -702,6 +707,11 @@ public static class IlGenerator
         return true;
     }
 
+    // AssetRipper: whether a method is declared by an interface, so binding it needs the receiver.
+    private static bool IsInterfaceMethod(MethodAnalysisContext target)
+        => target.DeclaringType is { } owner
+            && ((owner as GenericInstanceTypeAnalysisContext)?.GenericType ?? owner).IsInterface;
+
     // AssetRipper: whether a type is a delegate, whose constructor C# cannot call directly.
     private static bool IsDelegate(TypeAnalysisContext type)
     {
@@ -912,7 +922,10 @@ public static class IlGenerator
     /// </remarks>
     public static string NameReadsAreWrittenUnder(FieldAnalysisContext field)
     {
-        var accessor = InstanceAccessorFor(field);
+        // AssetRipper: iteration 065 - a static field read through its public static property is
+        // written as the property too (`Vector3.one`, not `oneVector`), and with members inside static
+        // struct fields now resolved that is 82 methods on one fixture whose rendering said otherwise.
+        var accessor = field.IsStatic ? PublicAccessorFor(field) : InstanceAccessorFor(field);
 
         return accessor is null || !accessor.Name.StartsWith("get_", StringComparison.Ordinal)
             ? field.Name
@@ -964,7 +977,8 @@ public static class IlGenerator
 
                 sawCandidate = true;
 
-                if (ReturnsNothingButTheField(getter, AccessorOffset(offset, owner)))
+                if (ReturnsNothingButTheField(getter, AccessorOffset(offset, owner))
+                    || ReturnsNothingButTheAggregateField(getter, AccessorOffset(offset, owner), FloatAggregate.MemberCount(toMeasure.FieldType)))
                     return getter;
 
                 RecordRejectedGetter(toMeasure, getter, AccessorOffset(offset, owner));
@@ -1151,9 +1165,61 @@ public static class IlGenerator
     /// header. Measured on 2019.2: <c>set_x</c> lifts to <c>Move [X0+10], V0 | Return</c>. A class's
     /// offsets are object-relative in the metadata already, so those need no adjustment - which is why
     /// the pairing worked on <c>button.m_OnClick</c> and on no struct in any game.
+    /// Iteration 065: only where the recorded method pointer is the adjustor thunk, which is a fact of
+    /// the binary - from metadata 24.5/27.1 it is the unadjusted body and names the field's own offset.
     /// </remarks>
     private static long AccessorOffset(long offset, TypeAnalysisContext owner)
-        => FieldOffsetFrame.ToReceiverDisplacement(offset, owner);
+        => FieldOffsetFrame.ToMethodPointerDisplacement(offset, owner);
+
+    /// <summary>
+    /// AssetRipper: the trivial getter of a field of a float aggregate, which AAPCS64 returns in V0 to
+    /// V(n-1): one four-byte load per member, from the member's own offset into its own register, and a
+    /// return. Iteration 065 - <c>Ray.origin</c> lifts to three such loads, and a single-load rule could
+    /// never see it, so <c>ScreenPointToRay(pos).m_Origin</c> named a private field.
+    /// </summary>
+    private static bool ReturnsNothingButTheAggregateField(MethodAnalysisContext getter, long offset, int members)
+    {
+        if (members < 2)
+            return false;
+
+        List<Instruction> isil;
+
+        try
+        {
+            isil = getter.AppContext.InstructionSet.GetIsilFromMethod(getter);
+        }
+        catch
+        {
+            return false;
+        }
+
+        var loaded = new bool[members];
+        var returned = false;
+
+        foreach (var instruction in isil)
+        {
+            switch (instruction.OpCode)
+            {
+                case OpCode.Nop or OpCode.Interrupt:
+                    continue;
+
+                case OpCode.Move when !returned && instruction.Operands is [Register { Name: var destination }, MemoryOperand { Index: null, Scale: 0, Base: Register { Name: "X0" } } source]
+                    && destination.Length == 2 && destination[0] == 'V' && destination[1] - '0' is var member and >= 0
+                    && member < members && !loaded[member] && source.Addend == offset + 4L * member:
+                    loaded[member] = true;
+                    continue;
+
+                case OpCode.Return when loaded.All(static each => each):
+                    returned = true;
+                    continue;
+
+                default:
+                    return false;
+            }
+        }
+
+        return returned;
+    }
 
     // Whether the getter's whole body is "load the field at this offset and return it".
     private static bool ReturnsNothingButTheField(MethodAnalysisContext getter, long offset)
@@ -1303,7 +1369,7 @@ public static class IlGenerator
         {
             if (!target.Field.IsStatic)
             {
-                LoadLocal(target.Local, method, locals);
+                LoadFieldBase(target, StoreBaseIsAnAddress(target, intoStruct: false), instructions, context, method, locals, writeLine);
                 LoadContainingFields(target, instructions);
             }
 
@@ -1319,7 +1385,7 @@ public static class IlGenerator
         {
             if (!target.Field.IsStatic)
             {
-                LoadLocal(target.Local, method, locals);
+                LoadFieldBase(target, StoreBaseIsAnAddress(target, intoStruct: false), instructions, context, method, locals, writeLine);
                 LoadContainingFields(target, instructions);
             }
 
@@ -1351,7 +1417,7 @@ public static class IlGenerator
         {
             if (!target.Field.IsStatic)
             {
-                LoadLocal(target.Local, method, locals);
+                LoadFieldBase(target, StoreBaseIsAnAddress(target, intoStruct: false), instructions, context, method, locals, writeLine);
                 LoadContainingFields(target, instructions);
             }
 
@@ -1423,8 +1489,10 @@ public static class IlGenerator
                 // AssetRipper: a value type local zeroed by an integer 0. The machine clears the slot,
                 // and storing a 0 into it emitted `(Stack<object>.Enumerator)0` - a cast from an int to
                 // a struct, which is not a conversion C# has. `initobj` is what zeroing a value type is.
-                if (instruction.Operands is [LocalVariable { Type: { IsValueType: true } zeroed } zeroedLocal, Immediate { Value: 0 }]
-                    && !IsFloat(zeroed) && PrimitiveFieldWidth(zeroed) == 0
+                // Iteration 065: and a local of a generic parameter, which is what a fully shared body's
+                // T buffer is - `default(T)` is initobj whatever T turns out to be.
+                if (instruction.Operands is [LocalVariable { Type: { } zeroed } zeroedLocal, Immediate { Value: 0 }]
+                    && (zeroed.IsValueType && !IsFloat(zeroed) && PrimitiveFieldWidth(zeroed) == 0 || zeroed is GenericParameterTypeAnalysisContext)
                     && locals.ContainsKey(zeroedLocal))
                 {
                     LoadLocalAddress(zeroedLocal, method, locals);
@@ -1450,7 +1518,7 @@ public static class IlGenerator
 
                     if (!field.Field.IsStatic)
                     {
-                        LoadFieldBase(field, intoStruct && field.ContainingFields.Count == 0, instructions, context, method, locals, writeLine);
+                        LoadFieldBase(field, StoreBaseIsAnAddress(field, intoStruct), instructions, context, method, locals, writeLine);
 
                         LoadContainingFields(field, instructions);
                     }
@@ -1531,7 +1599,18 @@ public static class IlGenerator
                         else
                             LoadOperand(delegateTarget, context, method, locals, writeLine, delegateConstructor.Parameters[0].ParameterType);
 
-                        instructions.Add(CilOpCodes.Ldftn, pointedAt.ToMethodDescriptor());
+                        // AssetRipper: an interface method has no body to point at; the delegate binds
+                        // whichever implementation the receiver's class has, which is what ldvirtftn is
+                        // and what C# compiles a method group over an interface method to. The receiver
+                        // is read a second time rather than duplicated: it is an operand, and reading
+                        // one has no effect to repeat.
+                        if (delegateTarget is not null && IsInterfaceMethod(pointedAt))
+                        {
+                            LoadOperand(delegateTarget, context, method, locals, writeLine, delegateConstructor.Parameters[0].ParameterType);
+                            instructions.Add(CilOpCodes.Ldvirtftn, pointedAt.ToMethodDescriptor());
+                        }
+                        else
+                            instructions.Add(CilOpCodes.Ldftn, pointedAt.ToMethodDescriptor());
                         RecoveredSemanticIr.Record(SemanticOperation.NewObject, delegateConstructor.DeclaringType?.FullName ?? "");
                     instructions.Add(CilOpCodes.Newobj, delegateConstructor.ToMethodDescriptor());
                         StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
@@ -2192,6 +2271,9 @@ public static class IlGenerator
 
     private static int ConstructorReceiverIndex(Instruction constructorCall) => constructorCall.OpCode == OpCode.CallVoid ? 1 : 2;
 
+    /// <summary>AssetRipper: struct arguments passed by reference to a copy (AAPCS64 B.4) written as the value (iteration 065).</summary>
+    public static int IndirectStructArgumentsPassedByValue;
+
     /// <summary>AssetRipper: how many delegate constructions were emitted rather than reported as lost.</summary>
     public static int DelegateConstructionsRecovered;
 
@@ -2699,6 +2781,18 @@ public static class IlGenerator
             case StringLiteral s:
                 instructions.Add(CilOpCodes.Ldstr, s.Value);
                 break;
+            case LocalVariable local when expectedType is { } wantedScalar
+                && StructRegisterFields.FieldAtZeroOfExactly(local.Type, wantedScalar) is { } leadingField
+                && locals.ContainsKey(local):
+                // AssetRipper: iteration 065. A composite that is not a float aggregate travels in general
+                // registers, its first field in the low bytes of the first one, so where exactly that
+                // field's type is wanted - `fmov s0, w1` of a struct whose field at 0 is a float - the
+                // field is what was read. Exact type only: a conversion or a wider read is not this.
+                LoadLocal(local, method, locals);
+                RecoveredSemanticIr.Record(SemanticOperation.LoadField, leadingField.Name);
+                instructions.Add(CilOpCodes.Ldfld, leadingField.ToFieldDescriptor());
+                System.Threading.Interlocked.Increment(ref StructRegisterFields.LeadingFieldsRead);
+                break;
             case LocalVariable local:
                 // AssetRipper: a value the ABI handed back in several vector registers is named by
                 // its first register, which carries its first field. Where a float is wanted, that
@@ -2763,6 +2857,22 @@ public static class IlGenerator
                     && addressed.Type is not (ByRefTypeAnalysisContext or PointerTypeAnalysisContext))
                 {
                     LoadLocal(addressed, method, locals);
+                    break;
+                }
+
+                // AssetRipper: iteration 065. AAPCS64 B.4 passes a composite larger than sixteen bytes by
+                // a pointer to a copy the caller made, so a by-value struct argument arrives as the
+                // address of a slot. Where the slot holds exactly that struct, the value is what C# passes
+                // - `new GridController(gridCellsSettings, ...)`, not `(GridCellsSettings)(&gridCellsSettings)`.
+                // A slot of another type is the copy's first member, not the copy, and is left alone.
+                if (expectedType is { IsValueType: true } byValueStruct and not (ByRefTypeAnalysisContext or PointerTypeAnalysisContext)
+                    && addressed.Type is { } addressedType && addressedType.FullName == byValueStruct.FullName
+                    && context.AppContext.Binary.InstructionSetId == LibCpp2IL.DefaultInstructionSets.ARM_V8
+                    && Utils.TypeSizes.UnboxedSize(byValueStruct, 8) > 16
+                    && FloatAggregate.MemberCount(byValueStruct) == 0)
+                {
+                    LoadLocal(addressed, method, locals);
+                    System.Threading.Interlocked.Increment(ref IndirectStructArgumentsPassedByValue);
                     break;
                 }
 
@@ -2854,7 +2964,8 @@ public static class IlGenerator
                     // struct reached through another struct's field is left to the plain read.
                     var throughStruct = instanceAccessor != null && field.Field.DeclaringType is { IsValueType: true };
                     var canTakeAddress = field.ContainingFields.Count == 0
-                        || field.Local.Type is { IsValueType: false };
+                        || field.Local.Type is { IsValueType: false }
+                        || HasStaticHead(field);
 
                     if (throughStruct && !canTakeAddress)
                     {
@@ -2867,7 +2978,20 @@ public static class IlGenerator
                     // A field reached through value type fields needs those loaded first. ldfld takes a
                     // value type instance on the stack, so reads chain without needing addresses.
                     foreach (var containing in field.ContainingFields)
-                        instructions.Add(throughStruct ? CilOpCodes.Ldflda : CilOpCodes.Ldfld, containing.ToFieldDescriptor());
+                    {
+                        // A static head read as a value goes through its public static property where
+                        // one returns exactly it: `Vector3.one.y`, not the private `oneVector`.
+                        if (containing.IsStatic && !throughStruct && PublicAccessorFor(containing) is { } staticAccessor)
+                        {
+                            RecoveredSemanticIr.Record(SemanticOperation.PropertyRead, NameOfAccessor(staticAccessor));
+                            instructions.Add(CilOpCodes.Call, staticAccessor.ToMethodDescriptor());
+                            continue;
+                        }
+
+                        instructions.Add(containing.IsStatic
+                            ? throughStruct ? CilOpCodes.Ldsflda : CilOpCodes.Ldsfld
+                            : throughStruct ? CilOpCodes.Ldflda : CilOpCodes.Ldfld, containing.ToFieldDescriptor());
+                    }
 
                     // AssetRipper: where a float is wanted of a field the ABI keeps in several vector
                     // registers, its first member is what the register holds. Naming that member
@@ -3255,11 +3379,37 @@ public static class IlGenerator
     /// Walks down to the value type field a nested access sits in, leaving its address on the stack
     /// so the following stfld writes through it rather than into a copy. A no-op for a direct field.
     /// </summary>
+    /// <summary>
+    /// AssetRipper: whether the base of a store into <paramref name="field"/> has to be pushed as an
+    /// address.
+    /// </summary>
+    /// <remarks>
+    /// Iteration 065. <c>stfld</c> on a value type needs the value's address: a field written through
+    /// a copy is written nowhere, and ILSpy can only render <c>ldloc; stfld</c> on a struct local as
+    /// <c>((T*)(nint)local)-&gt;f = v</c>. That was the rule for a setter call into a struct and for
+    /// no plain store - so every member-at-a-time write of a struct local was lost, and 52 of
+    /// Merge-Room's body errors were the shape (the returned <c>ItemData</c> of
+    /// <c>StageRoom.GetItemData</c>, a <c>CombineInstance</c> being filled in). An array element is
+    /// already reached by its address, and a reference or a managed pointer already is one.
+    /// </remarks>
+    private static bool StoreBaseIsAnAddress(FieldReference field, bool intoStruct)
+        => field.ElementIndex is null
+            && (field.Local.Type is { IsValueType: true } and not PointerTypeAnalysisContext
+                || intoStruct && field.ContainingFields.Count == 0);
+
     private static void LoadContainingFields(FieldReference field, CilInstructionCollection instructions)
     {
         foreach (var containing in field.ContainingFields)
-            instructions.Add(CilOpCodes.Ldflda, containing.ToFieldDescriptor());
+            instructions.Add(containing.IsStatic ? CilOpCodes.Ldsflda : CilOpCodes.Ldflda, containing.ToFieldDescriptor());
     }
+
+    /// <summary>
+    /// AssetRipper: whether a field is a member inside a static struct field - <c>Vector3.one.y</c>,
+    /// read at the storage's offset of <c>oneVector</c> plus four. The base is then the static field
+    /// itself (<c>ldsflda</c>), not the storage pointer the load was made off.
+    /// </summary>
+    private static bool HasStaticHead(FieldReference field)
+        => field.ContainingFields is [{ IsStatic: true }, ..];
 
     // AssetRipper: the address of what LoadLocal would push, for a receiver taken by reference.
     /// <summary>
@@ -3276,6 +3426,9 @@ public static class IlGenerator
         MethodAnalysisContext context, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals,
         IMethodDescriptor writeLine)
     {
+        if (HasStaticHead(field))
+            return;
+
         if (field.ElementIndex is { } index)
         {
             LoadLocal(field.Local, method, locals);
@@ -3426,7 +3579,7 @@ public static class IlGenerator
 
                 instructions.Add(CilOpCodes.Stloc, scratch);
 
-                LoadFieldBase(field, intoStruct && field.ContainingFields.Count == 0, instructions, context, method, locals, writeLine);
+                LoadFieldBase(field, StoreBaseIsAnAddress(field, intoStruct), instructions, context, method, locals, writeLine);
 
                 LoadContainingFields(field, instructions);
                 instructions.Add(CilOpCodes.Ldloc, scratch);

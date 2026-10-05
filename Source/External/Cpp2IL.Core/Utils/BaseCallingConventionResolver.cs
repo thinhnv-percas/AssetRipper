@@ -37,6 +37,12 @@ public abstract class BaseCallingConventionResolver
     /// </summary>
     protected virtual int FloatRegisterCount(TypeAnalysisContext type) => IsFloatingPoint(type) ? 1 : 0;
 
+    /// <summary>
+    /// AssetRipper: how many integer registers an argument of this type occupies - one everywhere
+    /// except where an ABI splits a small composite over two (AAPCS64 C.10, iteration 065).
+    /// </summary>
+    protected virtual int IntegerRegisterCountOf(TypeAnalysisContext type) => 1;
+
     public IOperand[] ResolveForUnmanaged(ApplicationAnalysisContext app, ulong target)
     {
         // We don't know the callee's signature, so preserve every argument register.
@@ -154,7 +160,8 @@ public abstract class BaseCallingConventionResolver
                     if (integer >= integerRegisters.Length)
                         break;
 
-                    operand = call.Operands[argBase + integer++];
+                    operand = call.Operands[argBase + integer];
+                    integer += parameterType is null ? 1 : System.Math.Max(1, IntegerRegisterCountOf(parameterType));
                 }
 
                 if (emit)

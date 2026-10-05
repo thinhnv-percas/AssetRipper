@@ -111,7 +111,9 @@ def blockers(native, packages, shader_record):
         if node["recoverability"] in ("MISSING", "UNKNOWN"):
             found.append({"blocker": f"NATIVE_{node['recoverability']}", "detail": f"{node['library']}: {node['evidence']}"})
         elif node["recoverability"] == "LINKED_STATIC_NOT_EXTRACTABLE":
-            found.append({"blocker": "NATIVE_LINKED_STATIC", "detail": f"{node['library']} must be supplied by its vendor"})
+            found.append({"blocker": "NATIVE_LINKED_STATIC", "detail": f"{node['library']} must be supplied by its vendor ({node['evidence']})"})
+        elif node["recoverability"] == "BRIDGE_TO_PRESERVED_FRAMEWORK":
+            found.append({"blocker": "NATIVE_BRIDGE_SOURCE", "detail": f"{node['library']}: the frameworks it calls are preserved; the bridge compiled into the engine binary has no source in the export ({node['evidence']})"})
     stubbed = [row for row in packages["rows"] if row["export"] == "STUB" and row["category"] != "BUILTIN_UNITY"]
     if stubbed:
         found.append({"blocker": "PACKAGES_STUBBED_NOT_DECLARED",
@@ -132,6 +134,9 @@ def main():
     parser.add_argument("--provenance")
     parser.add_argument("--metrics")
     parser.add_argument("--out")
+    parser.add_argument("--bindings", help="ios_native_unknown.py --json (iteration 065)")
+    parser.add_argument("--archive-provenance", action="append", default=[], help="static_library_provenance.py --json (iteration 065)")
+    parser.add_argument("--manifest-reconstruction", help="package_manifest_reconstruction.py --json (iteration 065)")
     args = parser.parse_args()
 
     package, rip_root = pathlib.Path(args.package), pathlib.Path(args.rip)
@@ -143,6 +148,8 @@ def main():
     source = pathlib.Path(args.source) if args.source else None
     packages = package_provenance.build(game, args.log, source, args.provenance)
     native = native_dependency_graph.build(package, game, source)
+    native_dependency_graph.apply_evidence(native, args.bindings, args.archive_provenance, game)
+    reconstructed = {row["package"]: row for row in json.loads(pathlib.Path(args.manifest_reconstruction).read_text())} if args.manifest_reconstruction else {}
     shader_record = shaders(rip_root, game)
     confidence = None
     if args.metrics:
@@ -161,7 +168,12 @@ def main():
         "target_platform": platform_of(package),
         "assemblies": [{k: row[k] for k in ("assembly", "category", "export", "fingerprint")} for row in packages["rows"] if row["assembly"]],
         "packages": {name: {"category": rows[0]["category"], "assemblies": [r["assembly"] for r in rows if r["assembly"]],
-                            "version": rows[0]["version"], "version_source": rows[0]["version_source"]}
+                            "export": rows[0].get("export"),
+                            "version": reconstructed[name]["version"] if name in reconstructed else rows[0]["version"],
+                            "version_source": "package_manifest_reconstruction (manifest, lock, cache and fingerprint, reported separately)"
+                                if name in reconstructed else rows[0]["version_source"],
+                            **({"version_candidates": reconstructed[name].get("candidates"), "version_conflicts": reconstructed[name]["conflicts"]}
+                               if name in reconstructed else {})}
                      for name, rows in sorted(by_package.items())},
         "native_dependencies": [{k: node[k] for k in ("library", "kind", "recoverability", "evidence")} for node in native["nodes"]],
         "shaders": shader_record,

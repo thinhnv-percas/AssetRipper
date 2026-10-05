@@ -66,7 +66,9 @@ FIELD_READ = re.compile(r'=\s*[^=]*(?:\w|\])\.\w+')
 # that back left the initialisers as the only writes and the method read as having lost one.
 ARRAY_WRITE = re.compile(r'\w\[[^\]]+\]\s*=[^=]|\bnew\s+[\w.<>]+\s*\[[^\]]*\]\s*\{')
 ARRAY_READ = re.compile(r'=\s*[^=]*\w\[[^\]]+\]')
-BRANCH = re.compile(r'\b(?:if|goto|else|switch|while|for)\b')
+# Iteration 065: a decompiler folds `var p = x as T; if (p != null) p.M();` into `(x as T)?.M();`, and a branch
+# into a value into `a ?? b` or `c ? a : b`. All three are the branch, written as an expression.
+BRANCH = re.compile(r'\b(?:if|goto|else|switch|while|for)\b|\?\.|\?\?|\s\?\s')
 COMPARE = re.compile(r'(?:==|!=|<=|>=|\s<\s|\s>\s)')
 ARITHMETIC = re.compile(r'(?:\s[-+*/%]\s|<<|>>|\s&\s|\s\|\s|\s\^\s)')
 THROW = re.compile(r'\bthrow\b')
@@ -124,6 +126,29 @@ IR_MEMBER = re.compile(r'\.([A-Za-z_]\w*)')
 IR_RECEIVER_MEMBER = re.compile(r'([A-Za-z_]\w*)\.([A-Za-z_]\w*)')
 
 
+IR_CALL_NAME = re.compile(r'::(\w+)\(')
+IR_OTHER_CALL = re.compile(r'(?:"[^"]+"|0x[0-9A-Fa-f]+)\(')
+
+
+def calls_are_property_accesses(source: str, body: str) -> bool:
+    """Whether every call the IR names is a property accessor the C# writes as the property.
+
+    Iteration 065. `ICollection<T>::get_Count(this.innerList)` is `innerList.Count` in C#: a call on one
+    side and member syntax on the other, so a method whose only call is a property read scored as having
+    lost it - which surfaced once a scan region that used to keep a placeholder in such a body was
+    removed. Every accessor has to be accounted for by name, and any other call keeps the check as it was.
+    """
+    if IR_OTHER_CALL.search(source):
+        return False
+    names = IR_CALL_NAME.findall(source)
+    if not names:
+        return False
+    for name in names:
+        if not name.startswith(("get_", "set_")) or not re.search(r'\b' + re.escape(name[4:]) + r'\b', body):
+            return False
+    return True
+
+
 def fingerprint(text: str, side: str) -> set[str]:
     found = {name for name, pattern in CLASSES if pattern.search(text)}
     if (CALL_IR if side == "ir" else CALL_CSHARP).search(text):
@@ -167,6 +192,11 @@ def unmentioned_members(source: str, body: str) -> set[str]:
     # `m_PushTokenReceived`): the IR names the metadata field, the C# the renamed one, and the accessor that
     # now has no placeholder left would read that as a field it lost.
     words |= {word[2:] for word in words if word.startswith("m_")}
+    # Iteration 065: a decompiler writes a read of `decimal.Zero`, `One` or `MinusOne` as the literal it holds,
+    # so the C# names `0m` where the IR names the field. Only the literal's presence counts as naming it.
+    for member, literal in (("Zero", r"\b0m\b"), ("One", r"\b1m\b"), ("MinusOne", r"-1m\b")):
+        if re.search(literal, body):
+            words.add(member)
     reached = set()
     for receiver, member in IR_RECEIVER_MEMBER.findall(source):
         # A namespace-qualified type is not a member access; the rendering writes those as
@@ -252,6 +282,8 @@ def classify(native: int, source: str, body: str):
         if "NEWOBJ" not in present and allocations_named(source, body):
             present.add("NEWOBJ")
         lost = sorted((fingerprint(source, "ir") & SUBSTANTIVE) - present)
+        if "CALL" in lost and calls_are_property_accesses(source, body):
+            lost.remove("CALL")
         if unmentioned_members(source, body):
             lost.append("FIELD")
             lost.sort()
@@ -308,7 +340,44 @@ def self_test() -> int:
             failures += 1
         print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: allocation seen = {got}")
 
-    print(f"{len(SELF_TEST) - failures} of {len(SELF_TEST)} cases pass")
+    # Iteration 065: a property read is a call on the IR side and member syntax on the C# side.
+    accessor_cases = [
+        ("a property getter written as the property is not a lost call",
+         "v = ICollection`1<T>::get_Count(this.innerList);", "return innerList.Count;", True),
+        ("a property getter the C# never names is a lost call",
+         "v = ICollection`1<T>::get_Count(this.innerList);", "return 0;", False),
+        ("any other call keeps the check",
+         "v = List::get_Count(x); Foo::Bar(x);", "return x.Count;", False),
+    ]
+    for name, source, body, expected in accessor_cases:
+        got = calls_are_property_accesses(source, body)
+        if got != expected:
+            failures += 1
+        print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: {got}")
+
+    # Iteration 065: a decompiler writes `decimal.Zero` as `0m`; the literal names it, nothing else does.
+    literal_cases = [
+        ("decimal.Zero written as 0m is named", "v1 = v2.Zero;", "return 0m;", set()),
+        ("decimal.Zero with no literal is not named", "v1 = v2.Zero;", "return 10m;", {"Zero"}),
+    ]
+    literal_cases_branch = [
+        ("a null-conditional call is a branch", "(obj as IPoolable)?.Reset();", True),
+        ("a plain call is not a branch", "poolable.Reset();", False),
+    ]
+    for name, body, expected in literal_cases_branch:
+        got = "BRANCH" in fingerprint(body, "csharp")
+        if got != expected:
+            failures += 1
+        print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: {got}")
+
+    for name, source, body, expected in literal_cases:
+        got = unmentioned_members(source, body)
+        if got != expected:
+            failures += 1
+        print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: {sorted(got)}")
+
+    total = len(SELF_TEST) + len(accessor_cases) + len(literal_cases) + len(literal_cases_branch)
+    print(f"{total - failures} of {total} cases pass")
     return 1 if failures else 0
 
 

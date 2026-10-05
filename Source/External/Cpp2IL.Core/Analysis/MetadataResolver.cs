@@ -542,6 +542,26 @@ public static class MetadataResolver
                     }
                 }
 
+                // AssetRipper: iteration 065. The same descent inside a static struct field. Vector3's
+                // static storage holds zeroVector at 0 and oneVector at 0xC, so a read at 0x10 is
+                // `Vector3.one.y`; the search above stops at the static field boundary and the load was
+                // given up on - with the class pointer and the storage pointer it was reached through
+                // left alive beside it as `(nint)typeof(Vector3)`. The storage is not a copy, so a
+                // store through the chain is as good as a read.
+                if (staticOwner != null && staticOwner.GenericParameters.Count == 0
+                    && (field == null || NarrowerThan(field, memory.Size, method))
+                    && FindNestedStaticFieldPath(staticOwner, memory.Addend, memory.Size, method) is { Count: > 1 } staticPath)
+                {
+                    System.Threading.Interlocked.Increment(ref NestedStaticFieldsResolved);
+                    instruction.SetOperand(i, new FieldReference(staticPath[^1], local, (int)memory.Addend)
+                    {
+                        ContainingFields = staticPath.GetRange(0, staticPath.Count - 1),
+                        AccessSize = memory.Size,
+                    });
+                    changed = true;
+                    continue;
+                }
+
                 // No field at this offset and no chain reaching it, so there is nothing to name. This
                 // has to hold whether or not the search above was allowed to run: the code below
                 // instantiates the field on the owner's generic arguments and cannot take a null.
@@ -755,6 +775,40 @@ public static class MetadataResolver
 
         var unboxed = TypeSizes.UnboxedSize(type, pointerSize);
         return unboxed > 0 ? unboxed : 0;
+    }
+
+    /// <summary>AssetRipper: members inside a static struct field resolved by <see cref="FindNestedStaticFieldPath"/>.</summary>
+    public static int NestedStaticFieldsResolved;
+
+    /// <summary>
+    /// AssetRipper: the static struct field an offset into a class's static storage lands inside, then
+    /// the instance members of that struct it reaches - outermost first, or null.
+    /// </summary>
+    /// <remarks>
+    /// Only the first level is a static field; everything below it is the struct's own instance layout,
+    /// which the metadata records value-relative, the frame a field inside static storage is in.
+    /// </remarks>
+    public static List<FieldAnalysisContext>? FindNestedStaticFieldPath(TypeAnalysisContext owner, long targetOffset,
+        int accessSize, MethodAnalysisContext method)
+    {
+        foreach (var candidate in owner.Fields)
+        {
+            if (!candidate.IsStatic || (candidate.Attributes & FieldAttributes.Literal) != 0
+                || candidate.BackingData is not { } data || InteriorOf(candidate) is not { } interior)
+                continue;
+
+            var start = data.FieldOffset;
+            var size = SizeOf(candidate, method);
+            if (size <= 0 || targetOffset < start || targetOffset >= start + size)
+                continue;
+
+            if (FindNestedFieldPath(interior, targetOffset - start, accessSize, method) is not { Count: > 0 } inside)
+                return null;
+
+            return [candidate, .. inside];
+        }
+
+        return null;
     }
 
     /// <summary>

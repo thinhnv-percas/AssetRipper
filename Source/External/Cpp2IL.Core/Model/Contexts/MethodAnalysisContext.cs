@@ -446,6 +446,9 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // AssetRipper: needs the slots typed, so after the fixpoint, and dominance, so inside SSA.
         StructSlotAliasRecovery.Run(this);
 
+        // AssetRipper: iteration 065. Needs the struct register typed, so after the fixpoint.
+        StructRegisterFields.Run(this);
+
         // AssetRipper: again, because a class pointer read off an object rather than named by a
         // metadata usage is only typed by the resolution above, and the guard is recognised by its
         // test being on a class pointer. Most of them are of that shape.
@@ -498,6 +501,10 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         StaticFieldStorageHead.Run(this);
         MakeStructFolder.Run(this);
         DeadCodeEliminator.Run(this);
+
+        // AssetRipper: iteration 065. After copy propagation, which folds the prologue's copy of the
+        // hidden return buffer back onto it, and still in SSA, where the stores into it are one name.
+        LocalVariables.ReturnHiddenBuffer(this);
 
         InternalCallGuardRemover.Run(this);
         KeyFunctionRecovery.Run(this);
@@ -553,6 +560,11 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // trimmer and the elimination below, so the address arithmetic it stops reading dies with it.
         CompareExchangeRecovery.Run(this);
         FieldAddressArguments.Run(this);
+
+        // AssetRipper: iteration 065. Out of SSA, because the T buffers it models are written more than
+        // once; before the trimmer and the elimination below, so the buffer arithmetic and the argument
+        // array it stops reading die with it.
+        InvokerArgumentRecovery.Run(this);
 
         // Every call that was going to resolve now has. Any argument registers it ended up
         // not using are just keeping their definitions alive, so drop them.

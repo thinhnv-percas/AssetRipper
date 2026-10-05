@@ -56,6 +56,12 @@ public static class RuntimeInterfaceResolver
     /// <summary>Nothing establishes what the class operand is.</summary>
     public const string FromUnknown = "UNKNOWN_CLASS_SOURCE";
 
+    /// <summary>
+    /// The class operand is a local whose every definition, looked through copies and a helper proven to return
+    /// its argument, is one class (<see cref="ArgumentReturningHelper"/>).
+    /// </summary>
+    public const string FromArgumentReturningHelper = "THROUGH_ARGUMENT_RETURNING_HELPER";
+
     private static readonly Dictionary<string, int> FamilyCounts = [];
     private static readonly Lock CountLock = new();
     private static readonly string? EvidencePath = System.Environment.GetEnvironmentVariable("CPP2IL_DUMP_INTERFACE_CALLS");
@@ -114,7 +120,10 @@ public static class RuntimeInterfaceResolver
                 continue;
 
             var source = ClassSourceOf(lookup.Operands[InterfaceInvokeDataRecovery.InterfaceOperand], instructions);
-            var contract = InterfaceInvokeDataRecovery.InterfaceOf(lookup.Operands[InterfaceInvokeDataRecovery.InterfaceOperand]);
+            if (InterfaceInvokeDataRecovery.InterfaceOf(lookup.Operands[InterfaceInvokeDataRecovery.InterfaceOperand]) is null
+                && InterfaceInvokeDataRecovery.InterfaceOfLookup(method, lookup, instructions) is not null)
+                source = FromArgumentReturningHelper;
+            var contract = InterfaceInvokeDataRecovery.InterfaceOfLookup(method, lookup, instructions);
             var target = contract is null ? null : InterfaceInvokeDataRecovery.MethodOfSlot(contract, lookup.Operands[InterfaceInvokeDataRecovery.SlotOperand]);
             var reason = contract is null ? "CLASS_NOT_AN_INTERFACE_POINTER"
                 : target is null ? "SLOT_NAMES_NO_METHOD"
@@ -126,7 +135,8 @@ public static class RuntimeInterfaceResolver
             lock (CountLock)
                 FamilyCounts[family] = FamilyCounts.GetValueOrDefault(family) + 1;
 
-            WriteEvidence(method, dispatch, lookup, target, family);
+            WriteEvidence(method, dispatch, lookup, target, family,
+                contract is null ? Provenance(method, lookup.Operands[InterfaceInvokeDataRecovery.InterfaceOperand], instructions, 0) : "");
         }
     }
 
@@ -206,7 +216,82 @@ public static class RuntimeInterfaceResolver
         return local.Type is RuntimeClassTypeAnalysisContext ? FromTypedLocal : FromUnknown;
     }
 
-    private static void WriteEvidence(MethodAnalysisContext caller, Instruction dispatch, Instruction lookup, MethodAnalysisContext? target, string family)
+    /// <summary>
+    /// AssetRipper: iteration 065 - where a class operand nothing named came from, as a path of what
+    /// produced it: register, copy, load (named from the runtime struct tables), helper call (classified
+    /// by <see cref="NativeBoundary"/>), parameter. Evidence only; nothing is rewritten from it.
+    /// </summary>
+    /// <remarks>
+    /// The class a fully shared or generic body hands the lookup is a runtime value, and forcing it into a
+    /// metadata usage would assert a type the binary does not state. What can be stated is the chain, and
+    /// the chain is what separates "read out of this method's own RGCTX" from "returned by a helper whose
+    /// identity is not known" - which want different work.
+    /// </remarks>
+    public static string Provenance(MethodAnalysisContext method, IOperand operand, IReadOnlyList<Instruction> instructions, int depth)
+    {
+        if (depth > 6)
+            return "...";
+
+        switch (operand)
+        {
+            case RuntimeClassTypeAnalysisContext runtimeClass:
+                return $"usage:{runtimeClass.RepresentedType?.Name}";
+            case MemoryOperand { Base: { } memoryBase, Index: null } memory:
+                return $"[{Provenance(method, memoryBase, instructions, depth + 1)}{OffsetName(method, memory)}]";
+            case LocalVariable local:
+            {
+                if (local.IsThis)
+                    return "this";
+                if (local.IsMethodInfo)
+                    return "methodInfo";
+
+                var definitions = instructions.Where(i => ReferenceEquals(i.Destination, local)).ToList();
+                if (definitions.Count == 0)
+                    return local.Type is RgctxTableTypeAnalysisContext or MethodRgctxTableTypeAnalysisContext ? "rgctx-table" : $"param:{local.Name}";
+                if (definitions.Count > 1)
+                    return depth > 3
+                        ? $"DEFINED_{definitions.Count}_TIMES"
+                        : "{" + string.Join(" | ", definitions.Select(d => Render(method, d, local, instructions, depth))) + "}";
+
+                return Render(method, definitions[0], local, instructions, depth);
+            }
+            default:
+                return operand.GetType().Name;
+        }
+    }
+
+    private static string Render(MethodAnalysisContext method, Instruction definition, LocalVariable local, IReadOnlyList<Instruction> instructions, int depth)
+    {
+        // A definition that hands the local back to itself is rendered by name rather than walked again.
+        string Next(IOperand source) => ReferenceEquals(source, local) ? "self" : Provenance(method, source, instructions, depth + 1);
+
+        return definition switch
+        {
+            { OpCode: OpCode.Move, Operands: [_, var source] } => Next(source),
+            { OpCode: OpCode.Phi } => "phi(" + string.Join(", ", definition.Operands.Skip(1).Select(Next)) + ")",
+            { OpCode: OpCode.Call, Operands: [Immediate { Value: var address }, _, var first, ..] }
+                when ArgumentReturningHelper.IsArgumentReturning(method.AppContext, (ulong)address)
+                => $"returns-argument@0x{address:X}({Next(first)})",
+            { OpCode: OpCode.Call or OpCode.CallVoid, Operands: [Immediate { Value: var address }, _, var first, ..] }
+                => $"call {NativeBoundary.Of(method.AppContext, (ulong)address)}@0x{address:X}({Next(first)})",
+            { OpCode: OpCode.Call, Operands: [MethodAnalysisContext called, ..] } => $"call {called.Name}",
+            _ => definition.OpCode.ToString(),
+        };
+    }
+
+    private static string OffsetName(MethodAnalysisContext method, MemoryOperand memory)
+    {
+        if (memory.Addend == 0)
+            return "";
+
+        var is32Bit = method.AppContext.Binary.is32Bit;
+        var name = memory.Base is LocalVariable { Type: RuntimeMethodInfoAnalysisContext } || memory.Base is LocalVariable { IsMethodInfo: true }
+            ? Il2CppMethodInfoUsefulOffsets.GetOffsetName((uint)memory.Addend, method.AppContext.Binary)
+            : Il2CppClassUsefulOffsets.GetOffsetName((uint)memory.Addend, is32Bit);
+        return name is null ? $"+0x{memory.Addend:X}" : $"->{name}";
+    }
+
+    private static void WriteEvidence(MethodAnalysisContext caller, Instruction dispatch, Instruction lookup, MethodAnalysisContext? target, string family, string provenance = "")
     {
         if (string.IsNullOrEmpty(EvidencePath))
             return;
@@ -225,6 +310,7 @@ public static class RuntimeInterfaceResolver
             "",
             "UNRESOLVED",
             family,
+            provenance,
         ];
 
         lock (CountLock)

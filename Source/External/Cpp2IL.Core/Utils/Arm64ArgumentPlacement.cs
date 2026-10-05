@@ -15,6 +15,9 @@ namespace Cpp2IL.Core.Utils;
 /// float t)</c> has a1 in V0-V2, c1 in V3-V5, and c2, a2 and t on the stack; the resolver named V6 as t,
 /// which nothing wrote, and the method recovered as a curve evaluated at t = 0.
 ///
+/// A third, iteration 065: a composite of nine to sixteen bytes that is not a float aggregate takes two
+/// general registers (C.10), and was counted as one.
+///
 /// Apple's arm64 ABI differs in exactly one way that matters here: stack arguments are packed at their
 /// natural alignment rather than in 8-byte slots, so on iOS the same method has c2 at 0, a2 at 12 and t at
 /// 24 ("Writing ARM64 code for Apple platforms", *Pass arguments to functions correctly*).
@@ -71,9 +74,16 @@ public static class Arm64ArgumentPlacement
             }
             else
             {
-                if (ngrn < IntegerRegisters.Length)
+                // AssetRipper: iteration 065. C.10: a composite of up to 16 bytes that is not a float
+                // aggregate takes as many consecutive general registers as it has double words; C.11:
+                // when they are not all left it goes to the stack and NGRN is set to 8, so nothing after
+                // it takes a general register either. A 16-byte struct counted as one register named
+                // its own second half as the next parameter - `this._ironSourceAndroidId = methodInfo`.
+                var needed = Math.Max(argument.Registers, 1);
+                if (ngrn + needed <= IntegerRegisters.Length)
                 {
-                    placed.Add(new Location(IntegerRegisters[ngrn++], 0));
+                    placed.Add(new Location(IntegerRegisters[ngrn], 0));
+                    ngrn += needed;
                     continue;
                 }
 

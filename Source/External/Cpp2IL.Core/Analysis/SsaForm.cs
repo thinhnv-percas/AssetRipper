@@ -105,11 +105,84 @@ public class SsaForm
 
                 foreach (var operand in instruction.Operands)
                 {
-                    if (operand is AddressOf { Target: Register addressed } && IsReadAfter(block, i, addressed))
+                    if (operand is AddressOf { Target: Register addressed } && IsReadAfter(block, i, addressed)
+                        && !OnlyRecordedInUnreadSlots(graph, block, i))
                         _clobbering.Add(instruction);
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 065 - whether an address-take's result is only ever stored into stack slots that
+    /// nothing in the method reads back or takes the address of, so no code in the method can write the slot
+    /// through it.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp records the addresses of a method's live locals in a small frame record for its exception
+    /// bookkeeping (<c>[x29-0x38] = 0; [x29-0x30] = &amp;a; [x29-0x28] = &amp;b</c>), and once ARM64's frame
+    /// pointer is resolved those are ordinary address-takes of slots that are read again - a fully shared body's
+    /// spilled <c>MethodInfo*</c> among them. Treating each as a definition gave every later read a version with
+    /// no value. A pointer that is only ever stored where nothing loads it again cannot be written through by
+    /// anything this method does; what the runtime's unwinder does with it is outside the analysed flow.
+    /// The window is the address-take's own block, up to the holder's next definition: a holder still live at
+    /// the end of the block is treated as escaping.
+    /// </remarks>
+    public static bool OnlyRecordedInUnreadSlots(ISILControlFlowGraph graph, Block block, int index)
+    {
+        if (block.Instructions[index] is not { OpCode: OpCode.Move, Operands: [Register holder, AddressOf] })
+            return false;
+
+        var stores = new List<string>();
+        for (var j = index + 1; j < block.Instructions.Count; j++)
+        {
+            var later = block.Instructions[j];
+            var isStore = later is { OpCode: OpCode.Move, Operands: [Register { Name: var into }, Register stored] }
+                && into.StartsWith("stack_", System.StringComparison.Ordinal) && stored.Name == holder.Name;
+
+            if (isStore)
+            {
+                stores.Add(((Register)later.Operands[0]).Name);
+                continue;
+            }
+
+            if (Mentions(later, holder.Name, skipDestination: true))
+                return false;
+
+            if (later.Destination is Register { Name: var redefined } && redefined == holder.Name)
+                return stores.Count > 0 && stores.All(slot => !graph.Blocks.SelectMany(b => b.Instructions)
+                    .Any(other => Mentions(other, slot, skipDestination: true)));
+        }
+
+        return false;
+    }
+
+    // Whether an instruction reads a register by name, or takes its address, anywhere but as its own destination.
+    private static bool Mentions(Instruction instruction, string name, bool skipDestination)
+    {
+        var destination = skipDestination ? instruction.Destination as Register? : null;
+        var skipped = false;
+
+        foreach (var operand in instruction.Operands)
+        {
+            switch (operand)
+            {
+                case Register register when register.Name == name:
+                    if (!skipped && destination is { } written && written.Name == name)
+                    {
+                        skipped = true;
+                        continue;
+                    }
+                    return true;
+                case AddressOf { Target: Register { Name: var addressed } } when addressed == name:
+                    return true;
+                case MemoryOperand memory when memory.Base is Register { Name: var baseName } && baseName == name
+                    || memory.Index is Register { Name: var indexName } && indexName == name:
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     private static bool IsReadAfter(Block block, int index, Register register)

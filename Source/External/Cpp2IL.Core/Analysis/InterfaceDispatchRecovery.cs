@@ -275,6 +275,158 @@ public static class InterfaceDispatchRecovery
         }
     }
 
+    /// <summary>AssetRipper: lookups removed after <see cref="InterfaceInvokeDataRecovery"/> resolved what they fed.</summary>
+    public static int InvokeDataLookupsExcised;
+
+    /// <summary>
+    /// AssetRipper: the inline interface offset scan beside a lookup whose dispatch another pass has
+    /// already resolved, removed under exactly the proof this pass uses for its own.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Iteration 065. The scan's fast path and the runtime helper's slow path merge into one
+    /// <c>VirtualInvokeData*</c>, and the call goes through it. <see cref="MatchDispatch"/> recognises
+    /// that only when the interface argument of the slow call is already a type - and on Merge-Room it
+    /// is routinely a load of the metadata usage slot the compiler hoisted to the function's entry,
+    /// which is typed only by the resolution that runs after this pass. So
+    /// <see cref="InterfaceInvokeDataRecovery"/> resolves the dispatch later from the helper's own
+    /// arguments and nops the helper - and the scan, which is control flow, stays: 113 of Merge-Room's
+    /// 684 body errors are its loop (<c>(nint)typeof(IDisposable)</c>, <c>obj &lt;&lt; 4</c>, the
+    /// <c>Il2CppClass+0x12E</c> reads), and it is the inside of every <c>foreach</c>'s dispose.
+    /// </para>
+    /// <para>
+    /// The proof is unchanged: one input of the merge is the helper's result and the other the vtable
+    /// entry the scan computed off the receiver's class (<see cref="MatchVTableEntryChain"/>); the
+    /// region between the class load and the merge is closed, does nothing but compute, and nothing it
+    /// computes is read outside it. Short of all of that the scan is left exactly as it was.
+    /// </para>
+    /// </remarks>
+    public static bool TryExciseResolvedLookup(MethodAnalysisContext method, Instruction lookup, LocalVariable invokeData, int slot)
+    {
+        if (method.AppContext.Binary.PointerSizeBytes != 8 || method.ControlFlowGraph is not { } cfg)
+            return false;
+
+        var definitions = new Dictionary<LocalVariable, Instruction>();
+        var homeBlock = new Dictionary<Instruction, Block>();
+
+        foreach (var block in cfg.Blocks)
+        {
+            foreach (var instruction in block.Instructions)
+            {
+                homeBlock[instruction] = block;
+                if (instruction.Destination is LocalVariable destination)
+                    definitions[destination] = instruction;
+            }
+        }
+
+        if (Definition(definitions, invokeData) is not { OpCode: OpCode.Phi, Operands: [_, LocalVariable first, LocalVariable second] } phi
+            || !homeBlock.TryGetValue(phi, out var merge))
+            return false;
+
+        var firstSource = ChaseCopies(definitions, first);
+        var secondSource = ChaseCopies(definitions, second);
+        var vtableEntry = ReferenceEquals(firstSource, lookup) ? secondSource
+            : ReferenceEquals(secondSource, lookup) ? firstSource
+            : null;
+
+        if (vtableEntry is null || MatchVTableEntryChain(definitions, vtableEntry, slot, VTableOffset(method)) is not { } klassLocal)
+        {
+            IsilDump.Trace(method, $"excise after invoke data: no vtable entry chain beside {lookup}");
+            return false;
+        }
+
+        var blocksBefore = cfg.Blocks.Count;
+        TryExciseLookup(cfg, new Match(null!, phi, merge, lookup, klassLocal), definitions, homeBlock, method);
+
+        if (cfg.Blocks.Count == blocksBefore)
+            return false;
+
+        System.Threading.Interlocked.Increment(ref InvokeDataLookupsExcised);
+        return true;
+    }
+
+    /// <summary>
+    /// AssetRipper: the same excision after SSA has been destructed, for a dispatch resolved there.
+    /// </summary>
+    /// <remarks>
+    /// Iteration 065, for <see cref="InvokerArgumentRecovery"/>, which has to run out of SSA because the
+    /// buffers it models are written more than once. With no phi, the merge is the dispatch's own block and
+    /// the two producers of the invoke data pointer are its two definitions: the helper call and the vtable
+    /// entry the scan computed. Every proof is the one the in-SSA path uses; the loads the rewritten call no
+    /// longer makes off the pointer are removed first, because they are what would otherwise read the
+    /// region's value from outside it.
+    /// </remarks>
+    public static bool TryExciseResolvedLookupOutOfSsa(MethodAnalysisContext method, Instruction lookup, LocalVariable invokeData, int slot, Block? merge)
+    {
+        if (method.AppContext.Binary.PointerSizeBytes != 8 || method.ControlFlowGraph is not { } cfg || merge is null)
+            return false;
+
+        // Loads off the pointer that nothing reads any more, and loads off those, transitively.
+        var derived = new HashSet<LocalVariable> { invokeData };
+        for (var changed = true; changed;)
+        {
+            changed = false;
+            var all = cfg.Blocks.SelectMany(b => b.Instructions).ToList();
+
+            foreach (var load in all)
+            {
+                if (load is not { OpCode: OpCode.Move, Operands: [LocalVariable loaded, MemoryOperand { Base: LocalVariable loadBase }] }
+                    || !derived.Contains(loadBase))
+                    continue;
+
+                if (all.Any(other => !ReferenceEquals(other, load) && UsedLocals(other).Any(used => ReferenceEquals(used, loaded))))
+                {
+                    changed |= derived.Add(loaded);
+                    continue;
+                }
+
+                load.OpCode = OpCode.Nop;
+                load.SetOperands();
+                changed = true;
+            }
+        }
+
+        var definitions = new Dictionary<LocalVariable, Instruction>();
+        var homeBlock = new Dictionary<Instruction, Block>();
+        var producers = new List<Instruction>();
+
+        foreach (var block in cfg.Blocks)
+        {
+            foreach (var instruction in block.Instructions)
+            {
+                homeBlock[instruction] = block;
+                if (instruction.Destination is LocalVariable destination)
+                {
+                    definitions[destination] = instruction;
+                    if (ReferenceEquals(destination, invokeData))
+                        producers.Add(instruction);
+                }
+            }
+        }
+
+        if (producers.Count != 2 || !producers.Any(p => ReferenceEquals(p, lookup)))
+        {
+            IsilDump.Trace(method, "excise out of SSA: the invoke data pointer is not the lookup and one other definition");
+            return false;
+        }
+
+        var vtableEntry = producers.First(p => !ReferenceEquals(p, lookup));
+        if (MatchVTableEntryChain(definitions, vtableEntry, slot, VTableOffset(method)) is not { } klassLocal)
+        {
+            IsilDump.Trace(method, "excise out of SSA: no vtable entry chain");
+            return false;
+        }
+
+        var blocksBefore = cfg.Blocks.Count;
+        TryExciseLookup(cfg, new Match(null!, new Instruction(-1, OpCode.Phi, invokeData), merge, lookup, klassLocal), definitions, homeBlock, method);
+
+        if (cfg.Blocks.Count == blocksBefore)
+            return false;
+
+        System.Threading.Interlocked.Increment(ref InvokeDataLookupsExcised);
+        return true;
+    }
+
     // Bailing here is fine, it just leaves the (already resolved) call with dead lookup around it
     private static void TryExciseLookup(ISILControlFlowGraph cfg, Match match, Dictionary<LocalVariable, Instruction> definitions, Dictionary<Instruction, Block> homeBlock, MethodAnalysisContext? method = null)
     {

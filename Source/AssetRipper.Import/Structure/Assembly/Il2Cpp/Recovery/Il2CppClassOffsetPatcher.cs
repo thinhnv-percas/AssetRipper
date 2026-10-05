@@ -39,6 +39,10 @@ public static class Il2CppClassOffsetPatcher
 		("cctor_finished", ["cctor_finished", "cctor_finished_or_no_cctor"]),
 		("typeHierarchy", ["typeHierarchy"]),
 		("typeHierarchyDepth", ["typeHierarchyDepth"]),
+
+		// Iteration 065: what a fully shared generic body sizes its T temporaries by. Measured only - a
+		// layout that does not carry it answers "not known", and the buffer model then does nothing.
+		("stack_slot_size", ["stack_slot_size"]),
 	];
 
 	/// <summary>
