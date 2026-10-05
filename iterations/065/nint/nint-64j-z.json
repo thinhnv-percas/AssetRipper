@@ -1,0 +1,83 @@
+{
+  "fixture": "Impostor",
+  "total": 2544,
+  "producers": {
+    "POINTER": {
+      "casts": 264,
+      "files": 49,
+      "samples": [
+        "object obj3 = (nint)obj2 + 1;",
+        "object obj2 = (nint)obj + 32;",
+        "obj2 = (nint)obj2 + 1;"
+      ]
+    },
+    "ARRAY": {
+      "casts": 115,
+      "files": 44,
+      "samples": [
+        "object obj9 = (nint)array + 32;",
+        "nint num = (nint)array;",
+        "nint num2 = (nint)array;"
+      ]
+    },
+    "FIELD_ADDRESS": {
+      "casts": 75,
+      "files": 32,
+      "samples": [
+        "nint num2 = (nint)this;",
+        "nint num3 = (nint)this;",
+        "nint num = (nint)this;"
+      ]
+    },
+    "OBJECT_REFERENCE": {
+      "casts": 1291,
+      "files": 140,
+      "samples": [
+        "int num5 = (int)(num4 & (nint)obj);",
+        "if ((int)((nint)obj7 & 1) != 0)",
+        "object obj3 = (nint)obj + 8;"
+      ]
+    },
+    "HANDLE": {
+      "casts": 59,
+      "files": 24,
+      "samples": [
+        "formatProvider = (IFormatProvider)(nint)intPtr;",
+        "int increment = (int)((nint)intPtr & 0xFFFF);",
+        "int increment = (int)((nint)intPtr & 0xFFFF);"
+      ]
+    },
+    "INTEGER": {
+      "casts": 54,
+      "files": 17,
+      "samples": [
+        "int num43 = (int)((nint)0 | (nint)num4);",
+        "int num13 = (int)((nint)0 / (nint)num12);",
+        "if ((nint)num3 < (nint)0)"
+      ]
+    },
+    "UNKNOWN": {
+      "casts": 686,
+      "files": 114,
+      "samples": [
+        "long num2 = (nint)System.Runtime.CompilerServices.Unsafe.AsPointer(ref System.Runtime.CompilerServices.Unsafe.",
+        "int num2 = (int)((nint)num | (nint)8);",
+        "int num2 = (int)((nint)num | (nint)8);"
+      ]
+    }
+  },
+  "object_reference_producers": {
+    "UNRESOLVED_LOAD_STANDIN": 666,
+    "UNKNOWN": 178,
+    "CONSTANT": 122,
+    "ENTRY_VALUE": 114,
+    "FIELD": 93,
+    "CALL_RESULT": 40,
+    "ARRAY_ELEMENT": 33,
+    "PARAMETER": 25,
+    "ALLOCATION": 15,
+    "THIS": 4,
+    "TYPE_CHECK": 1
+  },
+  "resolved_producer_rate": 0.2579
+}

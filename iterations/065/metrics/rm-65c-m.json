@@ -1,0 +1,529 @@
+{
+  "scope": [
+    "AlmostEngine",
+    "AlmostEngine.Shared",
+    "Assembly-CSharp",
+    "Assembly-CSharp-firstpass",
+    "Cinemachine",
+    "Coffee.UIParticle",
+    "DELTation.ToonShader",
+    "DOTween",
+    "EasySave3",
+    "Lofelt.NiceVibrations",
+    "Mono.Security",
+    "MoreMountains.Feedbacks",
+    "MoreMountains.Feedbacks.Cinemachine",
+    "MoreMountains.Feedbacks.MMTools",
+    "MoreMountains.Feedbacks.NiceVibrations",
+    "MoreMountains.Feedbacks.PostProcessing",
+    "MoreMountains.Feedbacks.TextMeshPro",
+    "MoreMountains.Feedbacks.URP",
+    "MoreMountains.Tools",
+    "Newtonsoft.Json",
+    "Sirenix.OdinInspector.Attributes",
+    "Sirenix.OdinInspector.CompatibilityLayer",
+    "Sirenix.Serialization",
+    "Sirenix.Serialization.AOTGenerated",
+    "Sirenix.Serialization.Config",
+    "Sirenix.Utilities",
+    "Tayx.Graphy",
+    "UniTask",
+    "__Generated"
+  ],
+  "methods": 16024,
+  "nativeBytes": 4008156,
+  "placeholders": 22627,
+  "status": {
+    "PARTIAL": 3125,
+    "EXACT": 11516,
+    "FALLBACK": 655,
+    "HIGH_CONFIDENCE": 727,
+    "MISSING": 1
+  },
+  "byAssembly": {
+    "DELTation.ToonShader": {
+      "PARTIAL": 2,
+      "EXACT": 5
+    },
+    "MoreMountains.Feedbacks.PostProcessing": {
+      "EXACT": 85,
+      "PARTIAL": 22,
+      "FALLBACK": 2,
+      "HIGH_CONFIDENCE": 4
+    },
+    "AlmostEngine": {
+      "EXACT": 458,
+      "PARTIAL": 45,
+      "HIGH_CONFIDENCE": 16,
+      "FALLBACK": 10
+    },
+    "MoreMountains.Tools": {
+      "EXACT": 1939,
+      "PARTIAL": 369,
+      "FALLBACK": 136,
+      "HIGH_CONFIDENCE": 98
+    },
+    "Assembly-CSharp": {
+      "PARTIAL": 61,
+      "EXACT": 456,
+      "FALLBACK": 35,
+      "HIGH_CONFIDENCE": 18
+    },
+    "MoreMountains.Feedbacks": {
+      "EXACT": 1572,
+      "HIGH_CONFIDENCE": 56,
+      "PARTIAL": 241,
+      "FALLBACK": 26
+    },
+    "MoreMountains.Feedbacks.NiceVibrations": {
+      "EXACT": 43,
+      "PARTIAL": 6
+    },
+    "Tayx.Graphy": {
+      "EXACT": 221,
+      "PARTIAL": 31,
+      "HIGH_CONFIDENCE": 4,
+      "FALLBACK": 1
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "Sirenix.OdinInspector.CompatibilityLayer": {
+      "PARTIAL": 2,
+      "EXACT": 6
+    },
+    "MoreMountains.Feedbacks.TextMeshPro": {
+      "EXACT": 199,
+      "PARTIAL": 31,
+      "HIGH_CONFIDENCE": 3,
+      "FALLBACK": 1
+    },
+    "Sirenix.Utilities": {
+      "EXACT": 376,
+      "HIGH_CONFIDENCE": 29,
+      "PARTIAL": 363,
+      "FALLBACK": 55
+    },
+    "UniTask": {
+      "EXACT": 508,
+      "PARTIAL": 121,
+      "FALLBACK": 5,
+      "HIGH_CONFIDENCE": 70,
+      "MISSING": 1
+    },
+    "Sirenix.Serialization.AOTGenerated": {
+      "EXACT": 1
+    },
+    "Newtonsoft.Json": {
+      "EXACT": 1489,
+      "FALLBACK": 110,
+      "PARTIAL": 449,
+      "HIGH_CONFIDENCE": 104
+    },
+    "Sirenix.Serialization.Config": {
+      "EXACT": 15,
+      "FALLBACK": 2,
+      "PARTIAL": 1,
+      "HIGH_CONFIDENCE": 1
+    },
+    "Sirenix.Serialization": {
+      "EXACT": 780,
+      "PARTIAL": 429,
+      "HIGH_CONFIDENCE": 97,
+      "FALLBACK": 60
+    },
+    "Cinemachine": {
+      "PARTIAL": 251,
+      "EXACT": 840,
+      "FALLBACK": 125,
+      "HIGH_CONFIDENCE": 88
+    },
+    "Coffee.UIParticle": {
+      "PARTIAL": 19,
+      "EXACT": 85,
+      "FALLBACK": 4,
+      "HIGH_CONFIDENCE": 4
+    },
+    "MoreMountains.Feedbacks.URP": {
+      "EXACT": 217,
+      "HIGH_CONFIDENCE": 9,
+      "PARTIAL": 70,
+      "FALLBACK": 5
+    },
+    "MoreMountains.Feedbacks.Cinemachine": {
+      "EXACT": 95,
+      "PARTIAL": 23,
+      "FALLBACK": 2,
+      "HIGH_CONFIDENCE": 1
+    },
+    "EasySave3": {
+      "EXACT": 890,
+      "FALLBACK": 31,
+      "PARTIAL": 295,
+      "HIGH_CONFIDENCE": 87
+    },
+    "AlmostEngine.Shared": {
+      "EXACT": 22,
+      "HIGH_CONFIDENCE": 1,
+      "PARTIAL": 8,
+      "FALLBACK": 1
+    },
+    "MoreMountains.Feedbacks.MMTools": {
+      "PARTIAL": 77,
+      "EXACT": 276,
+      "FALLBACK": 10,
+      "HIGH_CONFIDENCE": 3
+    },
+    "Sirenix.OdinInspector.Attributes": {
+      "EXACT": 292,
+      "PARTIAL": 21
+    },
+    "DOTween": {
+      "EXACT": 554,
+      "HIGH_CONFIDENCE": 31,
+      "PARTIAL": 176,
+      "FALLBACK": 27
+    },
+    "Lofelt.NiceVibrations": {
+      "PARTIAL": 12,
+      "EXACT": 91,
+      "HIGH_CONFIDENCE": 3,
+      "FALLBACK": 6
+    }
+  },
+  "lostOperationClasses": {
+    "CALL": 302,
+    "FIELD": 238,
+    "BRANCH": 83,
+    "ARRAY_READ": 22,
+    "ARRAY_WRITE": 24,
+    "NEWOBJ": 18
+  },
+  "fingerprintIr": {
+    "STATIC_ACCESS": 11421,
+    "LOOP": 6952,
+    "BRANCH": 6954,
+    "NEWOBJ": 3929,
+    "COMPARE": 6636,
+    "ARITHMETIC": 4262,
+    "NULL_CHECK": 5836,
+    "CALL": 9918,
+    "CAST": 187,
+    "FIELD_ADDRESS": 359,
+    "ARRAY_WRITE": 348,
+    "ARRAY_READ": 896,
+    "INSTANCEOF": 856,
+    "SWITCH": 2,
+    "RETURN": 12
+  },
+  "fingerprintCSharp": {
+    "STATIC_ACCESS": 7429,
+    "BRANCH": 6895,
+    "NEWOBJ": 4154,
+    "CALL": 13900,
+    "COMPARE": 6268,
+    "ARITHMETIC": 4192,
+    "NULL_CHECK": 4583,
+    "THROW": 1988,
+    "RETURN": 7997,
+    "ARRAY_READ": 1447,
+    "NEWARR": 573,
+    "LOOP": 1727,
+    "FIELD_ADDRESS": 683,
+    "CAST": 2581,
+    "ARRAY_WRITE": 386,
+    "INSTANCEOF": 139,
+    "SWITCH": 111
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 13902,
+      "files": 763
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 4133,
+      "files": 371
+    },
+    "NATIVE_IMPORT": {
+      "count": 2594,
+      "files": 340
+    },
+    "INDIRECT_CALL": {
+      "count": 782,
+      "files": 187
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 597,
+      "files": 213
+    },
+    "INDIRECT_JUMP": {
+      "count": 335,
+      "files": 211
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 174,
+      "files": 73
+    },
+    "UNRESOLVED_DELEGATE": {
+      "count": 128,
+      "files": 56
+    },
+    "OTHER": {
+      "count": 7,
+      "files": 4
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 3296,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMHealthBar.cs"
+    },
+    {
+      "nativeBytes": 3236,
+      "lost": "ARRAY_READ,ARRAY_WRITE,FIELD",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/JsonTextReader.cs"
+    },
+    {
+      "nativeBytes": 2856,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/DictionaryKeyUtility.cs"
+    },
+    {
+      "nativeBytes": 2512,
+      "lost": "ARRAY_READ,ARRAY_WRITE,FIELD",
+      "file": "Assets/Scripts/UniTask/Cysharp/Threading/Tasks/Internal/PlayerLoopRunner.cs"
+    },
+    {
+      "nativeBytes": 2168,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Lofelt.NiceVibrations/Lofelt/NiceVibrations/LofeltHaptics.cs"
+    },
+    {
+      "nativeBytes": 2004,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Lofelt.NiceVibrations/Lofelt/NiceVibrations/HapticPatterns.cs"
+    },
+    {
+      "nativeBytes": 1992,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineCollider.cs"
+    },
+    {
+      "nativeBytes": 1788,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMDebug.cs"
+    },
+    {
+      "nativeBytes": 1616,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPlotter.cs"
+    },
+    {
+      "nativeBytes": 1484,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/AlmostEngine.Shared/AlmostEngine/Examples/CameraController.cs"
+    },
+    {
+      "nativeBytes": 1472,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/SimpleScreenshotCapture.cs"
+    },
+    {
+      "nativeBytes": 1420,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMF_Scale.cs"
+    },
+    {
+      "nativeBytes": 1420,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/AlmostEngine/AlmostEngine/Examples/Preview/DeviceCustomBorder.cs"
+    },
+    {
+      "nativeBytes": 1396,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFloatingTextSpawner.cs"
+    },
+    {
+      "nativeBytes": 1388,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPath.cs"
+    },
+    {
+      "nativeBytes": 1388,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/ScreenshotTaker.cs"
+    },
+    {
+      "nativeBytes": 1208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineBasicMultiChannelPerlin.cs"
+    },
+    {
+      "nativeBytes": 1144,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAutoRotate.cs"
+    },
+    {
+      "nativeBytes": 1080,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachinePOV.cs"
+    },
+    {
+      "nativeBytes": 1064,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineCollider.cs"
+    },
+    {
+      "nativeBytes": 1052,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineConfiner.cs"
+    },
+    {
+      "nativeBytes": 1040,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineComposer.cs"
+    },
+    {
+      "nativeBytes": 1040,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/FloatController.cs"
+    },
+    {
+      "nativeBytes": 1024,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineCollider.cs"
+    },
+    {
+      "nativeBytes": 1008,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/DOTween.cs"
+    },
+    {
+      "nativeBytes": 1000,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMRandomBoundsInstantiator.cs"
+    },
+    {
+      "nativeBytes": 988,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineOrbitalTransposer.cs"
+    },
+    {
+      "nativeBytes": 960,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineFreeLook.cs"
+    },
+    {
+      "nativeBytes": 936,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/SerializationNodeDataReader.cs"
+    },
+    {
+      "nativeBytes": 932,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineTransposer.cs"
+    },
+    {
+      "nativeBytes": 920,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/Utility/UnityQuaternionExtensions.cs"
+    },
+    {
+      "nativeBytes": 912,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPropertyLinkQuaternion.cs"
+    },
+    {
+      "nativeBytes": 912,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineImpulseListener.cs"
+    },
+    {
+      "nativeBytes": 904,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineTargetGroup.cs"
+    },
+    {
+      "nativeBytes": 892,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPreventPassingThrough2D.cs"
+    },
+    {
+      "nativeBytes": 888,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/UnitySerializationUtility.cs"
+    },
+    {
+      "nativeBytes": 880,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMScreenshot.cs"
+    },
+    {
+      "nativeBytes": 844,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMSpawnAround.cs"
+    },
+    {
+      "nativeBytes": 828,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineConfiner.cs"
+    },
+    {
+      "nativeBytes": 824,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/Lofelt.NiceVibrations/Lofelt/NiceVibrations/HapticPatterns.cs"
+    },
+    {
+      "nativeBytes": 816,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/TweenSettingsExtensions.cs"
+    },
+    {
+      "nativeBytes": 796,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/Cinemachine3rdPersonFollow.cs"
+    },
+    {
+      "nativeBytes": 792,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFaceDirection.cs"
+    },
+    {
+      "nativeBytes": 780,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/Cinemachine3rdPersonAim.cs"
+    },
+    {
+      "nativeBytes": 780,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/PoolManager.cs"
+    },
+    {
+      "nativeBytes": 768,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineImpulseListener.cs"
+    },
+    {
+      "nativeBytes": 764,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/PoolManager.cs"
+    },
+    {
+      "nativeBytes": 764,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/EasySave3/ES3Internal/ES3Reflection.cs"
+    },
+    {
+      "nativeBytes": 748,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Feedbacks.MMTools/MoreMountains/Tools/MMGhostCamera.cs"
+    },
+    {
+      "nativeBytes": 748,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineTargetGroup.cs"
+    }
+  ]
+}

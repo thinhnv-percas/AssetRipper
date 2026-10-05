@@ -1,0 +1,258 @@
+{
+ "total": 361,
+ "families": [
+  {
+   "family": "OBJECT_AS_NATIVE_INT",
+   "count": 64,
+   "layer": "ISIL analysis (typing)",
+   "producer": "a reference used in address arithmetic",
+   "codes": {
+    "CS0030": 53,
+    "CS0019": 11
+   },
+   "files": 17,
+   "examples": [
+    "AdsController.cs:288 CS0030 int num = (int)((nint)_003C_003CInitialize_003Eb__12_0_003Ed2 | 8);"
+   ]
+  },
+  {
+   "family": "OTHER",
+   "count": 49,
+   "layer": "-",
+   "producer": "matched no rule",
+   "codes": {
+    "CS0030": 21,
+    "CS0037": 8,
+    "CS0019": 4,
+    "CS0122": 4,
+    "CS0029": 3,
+    "CS0266": 2,
+    "CS8773": 1,
+    "CS1540": 1,
+    "CS0023": 1,
+    "CS0191": 1,
+    "CS0272": 1,
+    "CS0200": 1,
+    "CS0246": 1
+   },
+   "files": 18,
+   "examples": [
+    "AdsController.cs:284 CS8773 Func<UniTaskVoid> asyncAction = [AsyncStateMachine(typeof(_003C_003CInitialize_003Eb__12_0_003Ed))] () =>"
+   ]
+  },
+  {
+   "family": "INTERFACE_SCAN_SURVIVOR",
+   "count": 38,
+   "layer": "ISIL analysis",
+   "producer": "inlined interface offset scan left beside its dispatch",
+   "codes": {
+    "CS0030": 36,
+    "CS0019": 2
+   },
+   "files": 7,
+   "examples": [
+    "LayerMaskExtension.cs:82 CS0030 nint num3 = (nint)typeof(IDisposable);"
+   ]
+  },
+  {
+   "family": "STRUCT_SELF_FIELD_ADDRESS",
+   "count": 35,
+   "layer": "ISIL analysis",
+   "producer": "this + k on a value-type receiver, passed as a byref",
+   "codes": {
+    "CS0122": 25,
+    "CS0030": 10
+   },
+   "files": 3,
+   "examples": [
+    "AdsController.cs:150 CS0122 object obj9 = (object)System.Runtime.CompilerServices.Unsafe.AsPointer(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref this, 8));"
+   ]
+  },
+  {
+   "family": "ARRAY_ELEMENT_ADDRESS",
+   "count": 26,
+   "layer": "ISIL analysis",
+   "producer": "element address arithmetic not folded into an element access",
+   "codes": {
+    "CS0030": 24,
+    "CS0019": 2
+   },
+   "files": 7,
+   "examples": [
+    "ExtensionList.cs:71 CS0030 nint num3 = (nint)array;"
+   ]
+  },
+  {
+   "family": "FRAMEWORK_PRIVATE_MEMBER",
+   "count": 25,
+   "layer": "CIL emission (accessor pairing)",
+   "producer": "an inlined trivial accessor named by its private field",
+   "codes": {
+    "CS1061": 13,
+    "CS0122": 12
+   },
+   "files": 11,
+   "examples": [
+    "StageRoom.cs:80 CS0122 result.Sprite = (Sprite)enumerator2._current;"
+   ]
+  },
+  {
+   "family": "SHARED_GENERIC_PLACEHOLDER",
+   "count": 23,
+   "layer": "metadata / type resolution",
+   "producer": "a shared-generic stand-in type (Int32Enum, List<object>)",
+   "codes": {
+    "CS0122": 13,
+    "CS0030": 10
+   },
+   "files": 7,
+   "examples": [
+    "SlicedFilledImage.cs:181 CS0030 if (SetPropertyUtility.SetStruct(ref *(System.Int32Enum*)((nint)this + 224), (System.Int32Enum)value))"
+   ]
+  },
+  {
+   "family": "UNRESOLVED_LOAD_STANDIN",
+   "count": 23,
+   "layer": "ISIL analysis (load resolution)",
+   "producer": "the native-int zero an unresolved load pushes",
+   "codes": {
+    "CS0030": 23
+   },
+   "files": 7,
+   "examples": [
+    "SlicedFilledImage.cs:360 CS0030 return (Sprite)0;"
+   ]
+  },
+  {
+   "family": "STRUCT_FIRST_MEMBER",
+   "count": 21,
+   "layer": "CIL emission (offset zero)",
+   "producer": "a struct where its first member is wanted, or the reverse",
+   "codes": {
+    "CS0030": 21
+   },
+   "files": 13,
+   "examples": [
+    "AdsController.cs:167 CS0030 UniTask.Awaiter awaiter3 = (UniTask.Awaiter)adsController._cooldownAdsShow;"
+   ]
+  },
+  {
+   "family": "STRUCT_LOCAL_AS_ADDRESS",
+   "count": 16,
+   "layer": "ISIL analysis",
+   "producer": "the address of a stack struct typed as the struct",
+   "codes": {
+    "CS0030": 15,
+    "CS1061": 1
+   },
+   "files": 8,
+   "examples": [
+    "StageRoom.cs:68 CS0030 object obj = (nint)enumerator + 28;"
+   ]
+  },
+  {
+   "family": "INDIRECT_STRUCT_ARGUMENT",
+   "count": 12,
+   "layer": "ISIL lifting (ABI)",
+   "producer": "AAPCS64 B.4: a composite over 16 bytes passed by reference to a copy",
+   "codes": {
+    "CS0030": 12
+   },
+   "files": 5,
+   "examples": [
+    "RoomController.cs:490 CS0030 SaveRoom saveRoom = ES3.Load(_roomNameKey, (SaveRoom)(&num));"
+   ]
+  },
+  {
+   "family": "BASE_CONSTRUCTOR_CALL",
+   "count": 7,
+   "layer": "CIL emission",
+   "producer": "a constructor call ILSpy could not fold into an initialiser",
+   "codes": {
+    "CS0117": 7
+   },
+   "files": 7,
+   "examples": [
+    "GridController.cs:68 CS0117 base._002Ector();"
+   ]
+  },
+  {
+   "family": "WIDE_IMMEDIATE_STRUCT",
+   "count": 6,
+   "layer": "ISIL analysis",
+   "producer": "a wide immediate store covering a struct's leading fields",
+   "codes": {
+    "CS0030": 6
+   },
+   "files": 5,
+   "examples": [
+    "AdsController.cs:289 CS0030 _003C_003CInitialize_003Eb__12_0_003Ed2 = (_003C_003CInitialize_003Eb__12_0_003Ed)4294967295L;"
+   ]
+  },
+  {
+   "family": "FLOAT_USED_AS_INTEGER",
+   "count": 5,
+   "layer": "ISIL analysis (typing)",
+   "producer": "a local typed float/double that carries integer bits",
+   "codes": {
+    "CS0019": 5
+   },
+   "files": 2,
+   "examples": [
+    "SlicedFilledImage.cs:921 CS0019 num37 = (((num40 & 1) != 0) ? num38 : num40);"
+   ]
+  },
+  {
+   "family": "UNASSIGNED_LOCAL",
+   "count": 4,
+   "layer": "SSA destruction",
+   "producer": "a read with no reaching definition",
+   "codes": {
+    "CS0165": 4
+   },
+   "files": 4,
+   "examples": [
+    "SlicedFilledImage.cs:447 CS0165 SlicedFilledImage slicedFilledImage = (SlicedFilledImage)(object)slicedFilledImage.defaultMaterial;"
+   ]
+  },
+  {
+   "family": "STRIPPED_FRAMEWORK_MEMBER",
+   "count": 3,
+   "layer": "reference assemblies",
+   "producer": "a member IL2CPP stripped from the build",
+   "codes": {
+    "CS0117": 3
+   },
+   "files": 3,
+   "examples": [
+    "ExtensionDraw.cs:27 CS0117 float num4 = (float)num2 * ((float)Math.PI / 180f);"
+   ]
+  },
+  {
+   "family": "INLINED_STATIC_PROPERTY",
+   "count": 3,
+   "layer": "CIL emission (accessor pairing)",
+   "producer": "a static property inlined to its private field",
+   "codes": {
+    "CS0117": 3
+   },
+   "files": 1,
+   "examples": [
+    "ItemController.cs:119 CS0117 float x = position.x + Vector3.upVector.x;"
+   ]
+  },
+  {
+   "family": "INTERFACE_METHOD_DELEGATE",
+   "count": 1,
+   "layer": "ISIL analysis",
+   "producer": "ldvirtftn over an interface method, compiled as an interface lookup",
+   "codes": {
+    "CS0149": 1
+   },
+   "files": 1,
+   "examples": [
+    "RoomManager.cs:168 CS0149 Action value = new Action(this, method);"
+   ]
+  }
+ ]
+}

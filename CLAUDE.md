@@ -2015,6 +2015,57 @@ find it; `strings` without `-el` does find method and type names.
   có trong `LC_SYMTAB` của `UnityFramework` ⇒ đã link tĩnh; archive `.a` trong source định nghĩa chúng ⇒ tên.
   RayFire 34/34 cả hai; Facebook/GameAnalytics 0 (symbol đã strip) ⇒ UNKNOWN, không suy.
 
+- **Frame pointer của A64 chưa từng được resolve, và lỗi đó nằm dưới ba tầng.** `StackAnalyzer` chỉ biết alias frame
+  của x86 (`mov reg, rsp`) và chỉ khi thanh ghi không bị ghi lại; epilogue A64 luôn restore X29 nên quy tắc không bao
+  giờ chạy, và mọi spill `[x29 - k]` là một memory operand không kiểu. Một thân generic chia sẻ hoàn toàn spill
+  `MethodInfo*` của nó ở đó rồi nạp lại trước mỗi lần đọc RGCTX, nên class interface của 124 dispatch trên Merge-Room
+  không đọc được. `ResolveFramePointer` là must-dataflow từ `add x29, sp, #k` duy nhất tới lần ghi X29 kế tiếp; một
+  method đọc X29 như giá trị bị bỏ nguyên. Sửa nó làm lộ hai lỗi, mỗi lỗi chỉ thấy được khi lỗi trước đã sửa:
+  `mov sp, x29` của epilogue không được stack walk biết, nên mọi restore sau một alloca động bị đặt tên lệch (X26
+  "restore" từ ô của bản ghi frame); và bản ghi frame của il2cpp (`[x29-0x30] = &[x29-0x20]`) làm SSA coi address-take
+  là định nghĩa mới, nên mọi lần nạp lại đọc một version không giá trị. Bản đầu của luật address-take không bắn vì lỗi
+  epilogue làm ô bản ghi trông như có người đọc. `UNKNOWN_CLASS_SOURCE` 196 → 66 dòng, dispatch giải được 574 → 692.
+- **Helper chứng minh được là trả về đối số thì kết quả của nó là đối số.** `if (!klass->initialized) klass =
+  helper(klass)` biến toán hạng class thành `phi(entry, helper(entry))`, và không luật nào được gán kiểu cho kết quả
+  helper. `ArgumentReturningHelper` chứng minh từ word lệnh A64 với whitelist chặt (prologue lưu x0 vào callee-saved,
+  không gì ghi lại nó, mọi `ret` đi thẳng từ `mov x0, xN`, lệnh cuối rời hàm). Tự nó thay đổi 0 dispatch — tầng
+  frame pointer ở dưới mới là chỗ chặn — nhưng không có nó thì frame pointer cũng chỉ đưa tới cùng cái phi.
+- **Một ô stack chỉ là bản sao của một thanh ghi thì copy propagation gập nó vào thanh ghi đó, kể cả bên trong
+  `AddressOf`.** Mảng `args` một phần tử của invoker thành `&v63 @ X19`, và `args[0] = &i` thành địa chỉ của chính
+  tham số `i`. Con trỏ tới storage của một local được callee đọc là giá trị của local đó lúc gọi — đúng theo cấu
+  trúc, và `InvokerArgumentRecovery` giờ đọc như vậy.
+- **Một địa chỉ đặt tên một storage, không phải một giá trị — và thay nó bằng địa chỉ của nguồn copy là một lỗi im
+  lặng.** `SsaSimplifier` thay `&slot` bằng `&i` vì `slot = i`. Thanh ghi của `i` khi đó thành thanh ghi bị lấy địa chỉ,
+  và `CopyCoalescer.FindEscapedSlotGroups` gộp *mọi* version của nó thành một storage: con trỏ method của invoker, nạp
+  vào X1 sau đó, ghi đè tham số `i` mà X1 từng mang. Kết quả là `i = 0;` ngay trước `list[i]` trong MMSwap — compile
+  được, không placeholder nào đổi, không status nào đổi. Chỉ một version của *cùng* thanh ghi mới đặt tên cùng storage.
+  `Test/Scripts/parameter_overwrite_scan.py` đếm đúng hình dạng này (một tham số bị gán stand-in ngay sau placeholder
+  của nó): 2 trước 065, 10 khi lỗi có mặt, 0 sau khi sửa — kể cả hai cái có từ trước.
+- **Một ô nằm sau ô bị lấy địa chỉ chỉ đọc được qua địa chỉ đó, và không pass nào thấy lần đọc ấy.** Mảng `args` của
+  invoker là các ô liên tiếp, call nhận địa chỉ ô đầu; khi đã là ô có tên, `args[1]` là một store không ai đọc theo tên,
+  và DCE, `SsaSimplifier`, `Simplifier` đều bỏ nó. Giữ *mọi* store qua frame pointer thì giữ luôn scaffolding của vùng
+  quét interface; giữ đúng một dãy liên tiếp các ô được ghi, không ai đọc theo tên, bắt đầu từ một ô bị lấy địa chỉ
+  (`StackAnalyzer.KeepStoresReadThroughABaseAddress`, 405 store trên Merge-Room) thì không.
+- **`LoadsCallOperands` phải trả lời cho mọi opcode generator không load toán hạng.** Một `IndirectCall` còn tới được
+  generator thành placeholder và không load gì, nhưng luật trả lời "có" cho nó, nên bộ phân loại storage hazard đếm một
+  địa chỉ cũ trong danh sách thanh ghi thô là một lần lấy địa chỉ và báo `TrueAlias` (Merge-Room 0 → 1) cho một call
+  không bao giờ được emit.
+- **Một local `out` của call tới instantiation chia sẻ không được lấy kiểu từ tham số đã chia sẻ.** Luật return value đã
+  có guard đó; `TypeAddressedLocals` và nhánh by-ref của `PropagateFromCallParameters` thì chưa, nên
+  `Dictionary<object, object>.TryGetValue` gán `System.Object` cho `out value` trước khi `RetargetSharedGenericCalls`
+  đặt lại callee — và `value.refcount` không bao giờ resolve được.
+- **Receiver của một method pointer struct nằm ở frame nào là sự thật của binary, không phải của Unity version.**
+  Bảng adjustor thunk có từ metadata 24.5 và 27.1 (không có ở 27.0); trước đó method pointer chính là thunk nhận object
+  boxed. `FieldOffsetFrame.MethodPointerReceiverIsBoxed`. Accessor pairing đã giả định boxed và trượt mọi struct trên
+  2022 (`Rect.m_Width`).
+- **AAPCS64 C.10: composite không phải HFA 9–16 byte chiếm hai thanh ghi tổng quát**, hoặc NGRN = 8 và lên stack nếu
+  không vừa (C.11). Coi nó là một thanh ghi làm mọi tham số sau lệch một (`IndexOf(c, startIndex, length)` đọc sai
+  `length`).
+- **Ba artefact đo của 065, cùng một gốc: hai phía viết một thao tác khác nhau.** Rendering của một static field trần
+  không có tiền tố `Type.` nên luật đổi tên theo property không bắt (`zeroVector` so với `Vector3.zero`); decompiler
+  viết `decimal.Zero` là `0m`; và `(x as T)?.M()` là một nhánh mà `BRANCH` không nhận. Cả ba báo "mất FIELD/BRANCH" cho
+  thân đúng y nguồn.
+
 ### Things measured to be worth nothing — do not redo them
 - **A copy into a differently-typed local as evidence of register reuse.** Written, tested, and
   refuted by the data it was written for. The `List<T>.Add` receivers reported as `this + 0x20` have
@@ -2312,6 +2363,13 @@ Twenty-six scripts, and each measures something the others cannot:
 - `cluster_native_int_casts.py --trace` — producer của mỗi cast `OBJECT_REFERENCE`, `resolved_producer_rate`.
 - `shader_variant_binding.py` — thêm `EXTERNAL_PROGRAM_EXACT`: material → keyword → biến thể từng stage → file
   `.metal`, không bao giờ biến thể gần nhất.
+- `Test/Scripts/parameter_overwrite_scan.py` — tham số bị gán stand-in của một load bỏ cuộc; không aggregate nào
+  thấy được lỗi này. `--self-test` 2 case.
+- `Test/Scripts/cluster_body_errors.py` — lỗi thân Roslyn theo họ producer (lớp đầu tiên sai), không theo message.
+  `method_status_diff.py` — chuyển trạng thái từng method giữa hai rip, kèm lý do.
+- `Test/Scripts/static_library_provenance.py` (so mã máy archive với binary, `--preserve`),
+  `ios_native_unknown.py` (wrapper → địa chỉ cài đặt → ObjC/bind), `package_manifest_reconstruction.py`
+  (manifest/lock/cache tách riêng), `recovered_project_plan.py`.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
 

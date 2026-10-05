@@ -1,0 +1,13 @@
+corpus: 887 entries, 0 for Pinata (887 for other fixtures, 16 retired), 0 found, 0 not present in this rip
+
+== by semantic status ==
+    0  EXACT
+    0  HIGH_CONFIDENCE
+    0  PARTIAL
+    0  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+
+CORPUS_NOT_APPLICABLE: none of the 0 frozen methods for Pinata is in Test/Out65c-p/Pinata.
+The keys are relative to the game directory inside the rip - try <output>/<GameName>.

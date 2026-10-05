@@ -1,0 +1,2624 @@
+{
+ "binary": "Test/Input/JellyBlastV2/Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework",
+ "dylibs": [
+  "/usr/lib/libz.1.dylib",
+  "@rpath/FBAEMKit.framework/FBAEMKit",
+  "@rpath/FBSDKCoreKit.framework/FBSDKCoreKit",
+  "@rpath/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics",
+  "@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit",
+  "@rpath/FBSDKLoginKit.framework/FBSDKLoginKit",
+  "@rpath/FBSDKShareKit.framework/FBSDKShareKit",
+  "/System/Library/Frameworks/CoreMotion.framework/CoreMotion",
+  "/usr/lib/libSystem.B.dylib",
+  "/System/Library/Frameworks/Metal.framework/Metal",
+  "/System/Library/Frameworks/Security.framework/Security",
+  "/System/Library/Frameworks/MediaToolbox.framework/MediaToolbox",
+  "/System/Library/Frameworks/CoreText.framework/CoreText",
+  "/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+  "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+  "/System/Library/Frameworks/AVKit.framework/AVKit",
+  "/System/Library/Frameworks/CFNetwork.framework/CFNetwork",
+  "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+  "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+  "/System/Library/Frameworks/CoreVideo.framework/CoreVideo",
+  "/System/Library/Frameworks/Foundation.framework/Foundation",
+  "/System/Library/Frameworks/OpenAL.framework/OpenAL",
+  "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+  "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+  "/System/Library/Frameworks/UIKit.framework/UIKit",
+  "/usr/lib/libiconv.2.dylib",
+  "/System/Library/Frameworks/GameController.framework/GameController",
+  "/usr/lib/libobjc.A.dylib",
+  "/usr/lib/libc++.1.dylib",
+  "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+  "/System/Library/Frameworks/AppTrackingTransparency.framework/AppTrackingTransparency",
+  "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+  "/usr/lib/libsqlite3.dylib",
+  "/usr/lib/swift/libswiftCoreMIDI.dylib",
+  "/usr/lib/swift/libswiftDataDetection.dylib",
+  "/usr/lib/swift/libswiftFileProvider.dylib",
+  "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib",
+  "/usr/lib/swift/libswiftWebKit.dylib",
+  "@rpath/libswiftAVFoundation.dylib",
+  "@rpath/libswiftCore.dylib",
+  "@rpath/libswiftCoreAudio.dylib",
+  "@rpath/libswiftCoreFoundation.dylib",
+  "@rpath/libswiftCoreImage.dylib",
+  "@rpath/libswiftCoreLocation.dylib",
+  "@rpath/libswiftCoreMedia.dylib",
+  "@rpath/libswiftDarwin.dylib",
+  "@rpath/libswiftDispatch.dylib",
+  "@rpath/libswiftMetal.dylib",
+  "@rpath/libswiftObjectiveC.dylib",
+  "@rpath/libswiftQuartzCore.dylib",
+  "@rpath/libswiftXPC.dylib",
+  "@rpath/libswiftos.dylib",
+  "@rpath/libswiftsimd.dylib",
+  "@rpath/libswiftFoundation.dylib",
+  "@rpath/libswiftUIKit.dylib"
+ ],
+ "function_starts": 179500,
+ "rows": [
+  {
+   "assembly": "Assembly-CSharp",
+   "entry_point": "_unityTapticNotification",
+   "wrapper": "0x1021aa0",
+   "implementation": "0x1e10c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "notification:",
+    "shared"
+   ],
+   "classes": [
+    "UnityTapticPlugin (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Assembly-CSharp",
+   "entry_point": "_unityTapticSelection",
+   "wrapper": "0x1021aac",
+   "implementation": "0x1e160",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "selection",
+    "shared"
+   ],
+   "classes": [
+    "UnityTapticPlugin (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Assembly-CSharp",
+   "entry_point": "_unityTapticImpact",
+   "wrapper": "0x1021aa4",
+   "implementation": "0x1e1ac",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "impact:",
+    "shared"
+   ],
+   "classes": [
+    "UnityTapticPlugin (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Assembly-CSharp",
+   "entry_point": "_unityTapticIsSupport",
+   "wrapper": "0x1021acc",
+   "implementation": "0x1e200",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "UnityTapticPlugin (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBInit",
+   "wrapper": "0x108eb10",
+   "implementation": "0x21184",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "configureAppId:frictionlessRequests:urlSuffix:",
+    "sendEventBindingsToUnity",
+    "setIsUnityInitialized:",
+    "setUserAgentSuffix:",
+    "shared",
+    "sharedInstance",
+    "sharedSettings",
+    "stringFromCString:"
+   ],
+   "classes": [
+    "FBSDKAppEvents (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "FBSDKSettings (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "FBUnityInterface (this binary)",
+    "FBUnityUtility (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBEnableProfileUpdatesOnAccessTokenChange",
+   "wrapper": "0x108eb8c",
+   "implementation": "0x212b0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "FBSDKProfile (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBLogInWithReadPermissions",
+   "wrapper": "0x108ecb8",
+   "implementation": "0x2133c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "logInWithReadPermissions:scope:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBLoginWithTrackingPreference",
+   "wrapper": "0x108ec08",
+   "implementation": "0x212c0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "loginWithTrackingPreference:scope:tracking:nonce:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBLogInWithPublishPermissions",
+   "wrapper": "0x108ed28",
+   "implementation": "0x213a0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "logInWithPublishPermissions:scope:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBLogOut",
+   "wrapper": "0x108ed64",
+   "implementation": "0x21404",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "logOut",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBSetPushNotificationsDeviceTokenString",
+   "wrapper": "0x108ed94",
+   "implementation": "0x21fb4",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setPushNotificationsDeviceTokenString:",
+    "shared",
+    "stringFromCString:"
+   ],
+   "classes": [
+    "FBSDKAppEvents (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "FBUnityUtility (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBSetShareDialogMode",
+   "wrapper": "0x108edc4",
+   "implementation": "0x22048",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setShareDialogMode:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBShareLink",
+   "wrapper": "0x108ee64",
+   "implementation": "0x22284",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "shareLinkWithRequestId:contentURL:contentTitle:contentDescription:photoURL:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBFeedShare",
+   "wrapper": "0x108ef28",
+   "implementation": "0x22308",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "shareFeedWithRequestId:toId:link:linkName:linkCaption:linkDescription:picture:mediaSource:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAppRequest",
+   "wrapper": "0x108f068",
+   "implementation": "0x2209c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "appRequestWithRequestId:message:actionType:objectId:to:toLength:filters:data:title:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAppEventsActivateApp",
+   "wrapper": "0x108f304",
+   "implementation": "0x223b8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "activateApp",
+    "shared"
+   ],
+   "classes": [
+    "FBSDKAppEvents (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAppEventsLogEvent",
+   "wrapper": "0x108f4a8",
+   "implementation": "0x22404",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "dictionaryFromKeys:values:length:",
+    "logEvent:valueToSum:parameters:",
+    "shared",
+    "stringFromCString:"
+   ],
+   "classes": [
+    "FBSDKAppEvents (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "FBUnityUtility (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAppEventsLogPurchase",
+   "wrapper": "0x108f668",
+   "implementation": "0x224e0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "dictionaryFromKeys:values:length:",
+    "logPurchase:currency:parameters:",
+    "shared",
+    "stringFromCString:"
+   ],
+   "classes": [
+    "FBSDKAppEvents (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "FBUnityUtility (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAppEventsSetLimitEventUsage",
+   "wrapper": "0x108f81c",
+   "implementation": "0x225bc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setIsEventDataUsageLimited:",
+    "sharedSettings"
+   ],
+   "classes": [
+    "FBSDKSettings (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAutoLogAppEventsEnabled",
+   "wrapper": "0x108f828",
+   "implementation": "0x22610",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setAutoLogAppEventsEnabled:",
+    "sharedSettings"
+   ],
+   "classes": [
+    "FBSDKSettings (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAdvertiserIDCollectionEnabled",
+   "wrapper": "0x108f834",
+   "implementation": "0x22664",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setAdvertiserIDCollectionEnabled:",
+    "sharedSettings"
+   ],
+   "classes": [
+    "FBSDKSettings (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBAdvertiserTrackingEnabled",
+   "wrapper": "0x108f858",
+   "implementation": "0x226b8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "isAdvertiserTrackingEnabled",
+    "setAdvertiserTrackingEnabled:",
+    "sharedSettings"
+   ],
+   "classes": [
+    "FBSDKSettings (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBDomainErrorEnabled",
+   "wrapper": "0x108f894",
+   "implementation": "0x22744",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "isDomainErrorEnabled",
+    "setIsDomainErrorEnabled:",
+    "sharedSettings"
+   ],
+   "classes": [
+    "FBSDKSettings (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBGetAppLink",
+   "wrapper": "0x108f8b8",
+   "implementation": "0x22150",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "URLWithString:",
+    "appLinkDataFromUrl:",
+    "openURLString",
+    "sendMessageToUnity:userData:requestId:",
+    "setOpenURLString:",
+    "sharedInstance"
+   ],
+   "classes": [
+    "FBUnityInterface (this binary)",
+    "FBUnityUtility (this binary)",
+    "NSURL (/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBSdkVersion",
+   "wrapper": "0x108f8f0",
+   "implementation": "0x227d0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "sdkVersion",
+    "sharedSettings"
+   ],
+   "classes": [
+    "FBSDKSettings (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_malloc",
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue",
+    "_strlen"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBFetchDeferredAppLink",
+   "wrapper": "0x1090998",
+   "implementation": "0x23de8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "fetchDeferredAppLink:"
+   ],
+   "classes": [
+    "FBSDKAppLinkUtility (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBRefreshCurrentAccessToken",
+   "wrapper": "0x10909a4",
+   "implementation": "0x23f28",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "refreshCurrentAccessTokenWithCompletion:"
+   ],
+   "classes": [
+    "FBSDKAccessToken (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainBlock"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBSetUserID",
+   "wrapper": "0x108f950",
+   "implementation": "0x2286c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setUserID:",
+    "shared",
+    "stringFromCString:"
+   ],
+   "classes": [
+    "FBSDKAppEvents (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "FBUnityUtility (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBOpenGamingServicesFriendFinder",
+   "wrapper": "0x108f2fc",
+   "implementation": "0x22900",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "launchFriendFinderDialogWithCompletionHandler:"
+   ],
+   "classes": [
+    "FBSDKFriendFinderDialog (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBUploadImageToMediaLibrary",
+   "wrapper": "0x1090874",
+   "implementation": "0x237a4",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "imageWithContentsOfFile:",
+    "initWithImage:caption:shouldLaunchMediaDialog:",
+    "stringFromCString:",
+    "uploadImageWithConfiguration:andResultCompletion:"
+   ],
+   "classes": [
+    "FBSDKGamingImageUploader (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBSDKGamingImageUploaderConfiguration (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBUnityUtility (this binary)",
+    "UIImage (/System/Library/Frameworks/UIKit.framework/UIKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBUploadVideoToMediaLibrary",
+   "wrapper": "0x1090934",
+   "implementation": "0x23a74",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "fileURLWithPath:",
+    "initWithVideoURL:caption:",
+    "stringFromCString:",
+    "uploadVideoWithConfiguration:andResultCompletion:"
+   ],
+   "classes": [
+    "FBSDKGamingVideoUploader (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBSDKGamingVideoUploaderConfiguration (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBUnityUtility (this binary)",
+    "NSURL (/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBGetTournaments",
+   "wrapper": "0x10905ec",
+   "implementation": "0x2307c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "fetchTournamentsWithCompletionHandler:",
+    "init"
+   ],
+   "classes": [
+    "_TtC14UnityFramework22FBSDKTournamentFetcher (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBUpdateTournament",
+   "wrapper": "0x1090634",
+   "implementation": "0x2333c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "init",
+    "stringWithUTF8String:",
+    "updateWithTournamentID:score:completionHandler:"
+   ],
+   "classes": [
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "_TtC14UnityFramework22FBSDKTournamentUpdater (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBUpdateAndShareTournament",
+   "wrapper": "0x10906b8",
+   "implementation": "0x23498",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "initWithDelegate:",
+    "instanceWithRequestID:",
+    "sendErrorToUnity:error:requestId:",
+    "showWithScore:tournamentID:error:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "FBUnitySDKDelegate (this binary)",
+    "FBUnityUtility (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "_TtC14UnityFramework26FBSDKShareTournamentDialog (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retain",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBCreateAndShareTournament",
+   "wrapper": "0x1090784",
+   "implementation": "0x235c4",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "dateWithTimeIntervalSince1970:",
+    "initWithDelegate:",
+    "instanceWithRequestID:",
+    "sendErrorToUnity:error:requestId:",
+    "showWithInitialScore:title:endTime:scoreType:sortOrder:payload:error:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "FBUnitySDKDelegate (this binary)",
+    "FBUnityUtility (this binary)",
+    "NSDate (/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "_TtC14UnityFramework26FBSDKShareTournamentDialog (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retain",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBCreateGamingContext",
+   "wrapper": "0x108f340",
+   "implementation": "0x229dc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "init",
+    "initDialogContentWithPlayerID:",
+    "instanceWithRequestID:",
+    "makeAndShowCreateContextDialogWithContent:delegate:error:",
+    "sendErrorToUnity:error:requestId:",
+    "stringFromCString:"
+   ],
+   "classes": [
+    "FBSDKContextDialogPresenter (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBSDKCreateContextContent (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBUnitySDKDelegate (this binary)",
+    "FBUnityUtility (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retain",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBSwitchGamingContext",
+   "wrapper": "0x108f3b0",
+   "implementation": "0x22b34",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "init",
+    "initDialogContentWithContextID:",
+    "instanceWithRequestID:",
+    "makeAndShowSwitchContextDialogWithContent:delegate:error:",
+    "sendErrorToUnity:error:requestId:",
+    "stringFromCString:"
+   ],
+   "classes": [
+    "FBSDKContextDialogPresenter (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBSDKSwitchContextContent (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBUnitySDKDelegate (this binary)",
+    "FBUnityUtility (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retain",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBChooseGamingContext",
+   "wrapper": "0x108f438",
+   "implementation": "0x22c8c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "init",
+    "instanceWithRequestID:",
+    "isEqualToString:",
+    "length",
+    "makeAndShowChooseContextDialogWithContent:delegate:",
+    "setFilter:",
+    "setMaxParticipants:",
+    "setMinParticipants:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "FBSDKChooseContextContent (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBSDKContextDialogPresenter (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBUnitySDKDelegate (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [
+    "INCLUDE_EXISTING_CHALLENGES",
+    "NEW_CONTEXT_ONLY",
+    "NEW_PLAYERS_ONLY"
+   ],
+   "imports": [
+    "__Unwind_Resume",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBGetCurrentGamingContext",
+   "wrapper": "0x108f490",
+   "implementation": "0x22e1c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "currentContext",
+    "dictionaryWithObjects:forKeys:count:",
+    "identifier",
+    "sendMessageToUnity:userData:requestId:"
+   ],
+   "classes": [
+    "FBSDKGamingContext (@rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit)",
+    "FBUnityUtility (this binary)",
+    "NSDictionary (/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation)"
+   ],
+   "strings": [
+    "contextId"
+   ],
+   "imports": [
+    "__Unwind_Resume",
+    "___stack_chk_fail",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBGetUserID",
+   "wrapper": "0x108f9ac",
+   "implementation": "0x23d3c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "shared",
+    "userID"
+   ],
+   "classes": [
+    "FBSDKAppEvents (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)"
+   ],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_malloc",
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue",
+    "_strcpy",
+    "_strlen"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBSetDataProcessingOptions",
+   "wrapper": "0x108fa04",
+   "implementation": null,
+   "verdict": "UNKNOWN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBCurrentAuthenticationToken",
+   "wrapper": "0x108fd54",
+   "implementation": "0x21450",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "currentAuthenticationToken",
+    "dataWithJSONObject:options:error:",
+    "dictionaryWithObjects:forKeys:count:",
+    "initWithData:encoding:",
+    "nonce",
+    "tokenString"
+   ],
+   "classes": [
+    "FBSDKAuthenticationToken (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "NSDictionary (/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [
+    "Fail to parse AuthenticationToken",
+    "auth_nonce",
+    "auth_token_string"
+   ],
+   "imports": [
+    "_NSLog",
+    "__Unwind_Resume",
+    "___cxa_begin_catch",
+    "___cxa_end_catch",
+    "___stack_chk_fail",
+    "_malloc",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue",
+    "_strcpy",
+    "_strlen"
+   ]
+  },
+  {
+   "assembly": "Facebook.Unity.IOS",
+   "entry_point": "IOSFBCurrentProfile",
+   "wrapper": "0x10905b0",
+   "implementation": "0x216f4",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "absoluteString",
+    "ageRange",
+    "birthday",
+    "componentsJoinedByString:",
+    "currentProfile",
+    "dataWithJSONObject:options:error:",
+    "email",
+    "firstName",
+    "friendIDs",
+    "gender",
+    "hometown",
+    "id",
+    "imageURL",
+    "initWithData:encoding:",
+    "lastName",
+    "linkURL",
+    "location",
+    "max",
+    "middleName",
+    "min",
+    "name",
+    "new",
+    "numberWithLong:",
+    "setObject:forKeyedSubscript:",
+    "stringValue",
+    "stringWithFormat:",
+    "timeIntervalSince1970",
+    "userID"
+   ],
+   "classes": [
+    "FBSDKProfile (@rpath/FBSDKCoreKit.framework/FBSDKCoreKit)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSMutableDictionary (/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation)",
+    "NSNumber (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [
+    "%@",
+    ",",
+    "Fail to parse Profile",
+    "ageMax",
+    "ageMin",
+    "birthday",
+    "email",
+    "firstName",
+    "friendIDs",
+    "gender",
+    "hometown_id",
+    "hometown_name",
+    "imageURL",
+    "lastName",
+    "linkURL",
+    "location_id",
+    "location_name",
+    "middleName",
+    "name",
+    "userID"
+   ],
+   "imports": [
+    "_NSLog",
+    "__Unwind_Resume",
+    "___cxa_begin_catch",
+    "___cxa_end_catch",
+    "_malloc",
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue",
+    "_strcpy",
+    "_strlen"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureAvailableCustomDimensions01",
+   "wrapper": "0x10ac998",
+   "implementation": "0x24108",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "configureAvailableCustomDimensions01:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureAvailableCustomDimensions02",
+   "wrapper": "0x10ac9c0",
+   "implementation": "0x241bc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "configureAvailableCustomDimensions02:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureAvailableCustomDimensions03",
+   "wrapper": "0x10ac9e8",
+   "implementation": "0x24270",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "configureAvailableCustomDimensions03:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureAvailableResourceCurrencies",
+   "wrapper": "0x10aca10",
+   "implementation": "0x24324",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "configureAvailableResourceCurrencies:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureAvailableResourceItemTypes",
+   "wrapper": "0x10aca38",
+   "implementation": "0x243d8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "configureAvailableResourceItemTypes:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureSdkGameEngineVersion",
+   "wrapper": "0x10aca60",
+   "implementation": "0x2448c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "configureSdkVersion:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureGameEngineVersion",
+   "wrapper": "0x10aca88",
+   "implementation": "0x244e0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "configureEngineVersion:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureBuild",
+   "wrapper": "0x10acab0",
+   "implementation": "0x24534",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "configureBuild:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureUserId",
+   "wrapper": "0x10acad8",
+   "implementation": "0x24588",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "configureUserId:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureExternalUserId",
+   "wrapper": "0x10acb00",
+   "implementation": "0x245dc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "configureExternalUserId:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "configureAutoDetectAppVersion",
+   "wrapper": "0x10acb28",
+   "implementation": "0x24630",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "gaInitialize",
+   "wrapper": "0x10acb2c",
+   "implementation": "0x24640",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "init",
+    "initializeWithGameKey:gameSecret:",
+    "setEnabledErrorReporting:",
+    "setRemoteConfigsDelegate:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GARemoteConfigsUnityDelegate (this binary)",
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_alloc",
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setCustomDimension01",
+   "wrapper": "0x10acb84",
+   "implementation": "0x25830",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setCustomDimension01:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setCustomDimension02",
+   "wrapper": "0x10acbac",
+   "implementation": "0x25884",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setCustomDimension02:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setCustomDimension03",
+   "wrapper": "0x10acbd4",
+   "implementation": "0x258d8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "setCustomDimension03:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setGlobalCustomEventFields",
+   "wrapper": "0x10acbfc",
+   "implementation": "0x2592c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "dataUsingEncoding:",
+    "setGlobalCustomEventFields:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addBusinessEvent",
+   "wrapper": "0x10acc24",
+   "implementation": "0x24714",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addBusinessEventWithCurrency:amount:itemType:itemId:cartType:receipt:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addBusinessEventAndAutoFetchReceipt",
+   "wrapper": "0x10acd04",
+   "implementation": "0x248dc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addBusinessEventWithCurrency:amount:itemType:itemId:cartType:autoFetchReceipt:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addResourceEvent",
+   "wrapper": "0x10acdc8",
+   "implementation": "0x24a7c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addResourceEventWithFlowType:currency:amount:itemType:itemId:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "numberWithFloat:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSNumber (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addProgressionEvent",
+   "wrapper": "0x10ace7c",
+   "implementation": "0x24c1c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addProgressionEventWithProgressionStatus:progression01:progression02:progression03:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addProgressionEventWithScore",
+   "wrapper": "0x10acf20",
+   "implementation": "0x24d7c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addProgressionEventWithProgressionStatus:progression01:progression02:progression03:score:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addDesignEvent",
+   "wrapper": "0x10acfd4",
+   "implementation": "0x24ef4",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addDesignEventWithEventId:value:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addDesignEventWithValue",
+   "wrapper": "0x10ad02c",
+   "implementation": "0x24ff0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addDesignEventWithEventId:value:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "numberWithFloat:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSNumber (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addErrorEvent",
+   "wrapper": "0x10ad094",
+   "implementation": "0x25118",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addErrorEventWithSeverity:message:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addAdEventWithDuration",
+   "wrapper": "0x10ad0f8",
+   "implementation": "0x25218",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addAdEventWithAction:adType:adSdkName:adPlacement:duration:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addAdEventWithReason",
+   "wrapper": "0x10ad198",
+   "implementation": "0x25368",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addAdEventWithAction:adType:adSdkName:adPlacement:noAdReason:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addAdEvent",
+   "wrapper": "0x10ad238",
+   "implementation": "0x254b8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addAdEventWithAction:adType:adSdkName:adPlacement:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "addImpressionEvent",
+   "wrapper": "0x10ad2c8",
+   "implementation": "0x255f0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "JSONObjectWithData:options:error:",
+    "addImpressionEventWithAdNetworkName:adNetworkVersion:impressionData:customFields:mergeFields:",
+    "dataUsingEncoding:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSJSONSerialization (/System/Library/Frameworks/Foundation.framework/Foundation)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retain",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setEnabledInfoLog",
+   "wrapper": "0x10ad360",
+   "implementation": "0x257d8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setEnabledVerboseLog",
+   "wrapper": "0x10ad364",
+   "implementation": "0x257e8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setManualSessionHandling",
+   "wrapper": "0x10ad368",
+   "implementation": "0x257f8",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setEventSubmission",
+   "wrapper": "0x10ad36c",
+   "implementation": null,
+   "verdict": "UNKNOWN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "setEventSubmission",
+   "wrapper": "0x10ad370",
+   "implementation": null,
+   "verdict": "UNKNOWN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "gameAnalyticsStartSession",
+   "wrapper": "0x10ad374",
+   "implementation": "0x25818",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "gameAnalyticsEndSession",
+   "wrapper": "0x10ad378",
+   "implementation": "0x25824",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "getRemoteConfigsValueAsString",
+   "wrapper": "0x10ad37c",
+   "implementation": "0x259e0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "getRemoteConfigsValueAsString:defaultValue:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "isRemoteConfigsReady",
+   "wrapper": "0x10ad3e8",
+   "implementation": "0x25a98",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "getRemoteConfigsContentAsString",
+   "wrapper": "0x10ad404",
+   "implementation": "0x25aa4",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "getRemoteConfigsContentAsString"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "getRemoteConfigsContentAsJSON",
+   "wrapper": "0x10ad438",
+   "implementation": "0x25af0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "getRemoteConfigsContentAsJSON"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "getABTestingId",
+   "wrapper": "0x10ad46c",
+   "implementation": "0x25b3c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "getABTestingId"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "getABTestingVariantId",
+   "wrapper": "0x10ad4a0",
+   "implementation": "0x25c30",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "getABTestingVariantId"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "startTimer",
+   "wrapper": "0x10ad4d4",
+   "implementation": "0x25c7c",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "startTimer:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "pauseTimer",
+   "wrapper": "0x10ad4fc",
+   "implementation": "0x25cd0",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "pauseTimer:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "resumeTimer",
+   "wrapper": "0x10ad524",
+   "implementation": "0x25d24",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "resumeTimer:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "stopTimer",
+   "wrapper": "0x10ad54c",
+   "implementation": "0x25d78",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "stopTimer:",
+    "stringWithUTF8String:"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)",
+    "NSString (/System/Library/Frameworks/Foundation.framework/Foundation)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "getUserId",
+   "wrapper": "0x10ab8cc",
+   "implementation": "0x25b88",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "getUserId"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "getExternalUserId",
+   "wrapper": "0x10ad580",
+   "implementation": "0x25bd4",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [
+    "UTF8String",
+    "getExternalUserId"
+   ],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": [
+    "_objc_release",
+    "_objc_retainAutorelease",
+    "_objc_retainAutoreleasedReturnValue"
+   ]
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "useRandomizedId",
+   "wrapper": "0x10ad5b4",
+   "implementation": "0x25c20",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "enableSDKInitEvent",
+   "wrapper": "0x10ad5b8",
+   "implementation": "0x25dcc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "enableFpsHistogram",
+   "wrapper": "0x10ad5bc",
+   "implementation": "0x25ddc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "enableMemoryHistogram",
+   "wrapper": "0x10ad5c0",
+   "implementation": "0x25dec",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "enableHealthHardwareInfo",
+   "wrapper": "0x10ad5c4",
+   "implementation": "0x25dfc",
+   "verdict": "PROVEN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [
+    "GameAnalytics (this binary)"
+   ],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "GameAnalyticsSDK",
+   "entry_point": "GameAnalyticsRequestTrackingAuthorization",
+   "wrapper": "0x10b7d24",
+   "implementation": null,
+   "verdict": "UNKNOWN",
+   "symbol": null,
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "New",
+   "wrapper": "0x1ec9a70",
+   "implementation": "0xe1d120",
+   "verdict": "LINKED",
+   "symbol": "_New",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "Delete",
+   "wrapper": "0x1ec9b0c",
+   "implementation": "0xe1d0b4",
+   "verdict": "LINKED",
+   "symbol": "_Delete",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "AddExtraUVWs",
+   "wrapper": "0x1eca808",
+   "implementation": "0xe21354",
+   "verdict": "LINKED",
+   "symbol": "_AddExtraUVWs",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "__ZNKSt3__120__vector_base_commonILb1EE20__throw_length_errorEv"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "SetInputMesh",
+   "wrapper": "0x1eca80c",
+   "implementation": "0xe21508",
+   "verdict": "LINKED",
+   "symbol": "_SetInputMesh",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "Sl_ElementData",
+   "wrapper": "0x1ecc10c",
+   "implementation": "0xe1e140",
+   "verdict": "LINKED",
+   "symbol": "_Sl_ElementData",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "__ZNKSt3__120__vector_base_commonILb1EE20__throw_length_errorEv",
+    "_memcpy"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "Sl_ElementMesh",
+   "wrapper": "0x1ecc148",
+   "implementation": "0xe1fec0",
+   "verdict": "LINKED",
+   "symbol": "_Sl_ElementMesh",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "GetElementOrigInds",
+   "wrapper": "0x1ecc184",
+   "implementation": "0xe201d4",
+   "verdict": "LINKED",
+   "symbol": "_GetElementOrigInds",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume",
+    "_memset"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "DisableSafeMode",
+   "wrapper": "0x1ed3434",
+   "implementation": "0xe2044c",
+   "verdict": "LINKED",
+   "symbol": "_DisableSafeMode",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "Sl_Compute",
+   "wrapper": "0x1ed09d0",
+   "implementation": "0xe1dfe0",
+   "verdict": "LINKED",
+   "symbol": "_Sl_Compute",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "Cl_Compute",
+   "wrapper": "0x1ecdcb8",
+   "implementation": "0xe1d19c",
+   "verdict": "LINKED",
+   "symbol": "_Cl_Compute",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "Cl_GetFinalMesh",
+   "wrapper": "0x1ecdcf8",
+   "implementation": "0xe1d400",
+   "verdict": "LINKED",
+   "symbol": "_Cl_GetFinalMesh",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "Cl_GetExplodeElement",
+   "wrapper": "0x1ecdd44",
+   "implementation": "0xe1d4d0",
+   "verdict": "LINKED",
+   "symbol": "_Cl_GetExplodeElement",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InitClusterParams",
+   "wrapper": "0x1ed172c",
+   "implementation": "0xe21aec",
+   "verdict": "LINKED",
+   "symbol": "_InitClusterParams",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateClAll",
+   "wrapper": "0x1ed2e98",
+   "implementation": "0xe21af4",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateClAll",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateClMaterial",
+   "wrapper": "0x1ed3470",
+   "implementation": "0xe21b08",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateClMaterial",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateClColor",
+   "wrapper": "0x1ed34ac",
+   "implementation": "0xe21b18",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateClColor",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateClSTR",
+   "wrapper": "0x1ed34e8",
+   "implementation": "0xe21b28",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateClSTR",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateUVWMapping",
+   "wrapper": "0x1ed2e20",
+   "implementation": "0xe21b78",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateUVWMapping",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "RestoreVNormals",
+   "wrapper": "0x1ed3524",
+   "implementation": "0xe21be0",
+   "verdict": "LINKED",
+   "symbol": "_RestoreVNormals",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateDmTotal",
+   "wrapper": "0x1ed2e5c",
+   "implementation": "0xe21a0c",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateDmTotal",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateDmMaterial",
+   "wrapper": "0x1ed3568",
+   "implementation": "0xe21a24",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateDmMaterial",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateDmSTR",
+   "wrapper": "0x1ed35a4",
+   "implementation": "0xe21a34",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateDmSTR",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateFrVertices",
+   "wrapper": "0x1ed2cb8",
+   "implementation": "0xe218b8",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateFrVertices",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateFrSlice",
+   "wrapper": "0x1ed2de4",
+   "implementation": "0xe21908",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateFrSlice",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateFrMaterial",
+   "wrapper": "0x1ed35e0",
+   "implementation": "0xe218f8",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateFrMaterial",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "InvalidateInput",
+   "wrapper": "0x1ed361c",
+   "implementation": "0xe21344",
+   "verdict": "LINKED",
+   "symbol": "_InvalidateInput",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "setCountPoint3",
+   "wrapper": "0x1ed3340",
+   "implementation": "0xe2054c",
+   "verdict": "LINKED",
+   "symbol": "_setCountPoint3",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "setParamBool",
+   "wrapper": "0x1ed3658",
+   "implementation": "0xe20768",
+   "verdict": "LINKED",
+   "symbol": "_setParamBool",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "getParamInteger",
+   "wrapper": "0x1ed2d6c",
+   "implementation": "0xe20828",
+   "verdict": "LINKED",
+   "symbol": "_getParamInteger",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "setParamInteger",
+   "wrapper": "0x1ed3694",
+   "implementation": "0xe207a0",
+   "verdict": "LINKED",
+   "symbol": "_setParamInteger",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "getParamFloat",
+   "wrapper": "0x1ed2da8",
+   "implementation": "0xe20b04",
+   "verdict": "LINKED",
+   "symbol": "_getParamFloat",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "setParamFloat",
+   "wrapper": "0x1ed36d0",
+   "implementation": "0xe20a04",
+   "verdict": "LINKED",
+   "symbol": "_setParamFloat",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": []
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "setParamPoint3",
+   "wrapper": "0x1ed2c7c",
+   "implementation": "0xe20c0c",
+   "verdict": "LINKED",
+   "symbol": "_setParamPoint3",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "getParamMatrix4x4",
+   "wrapper": "0x1ed2cf4",
+   "implementation": "0xe2111c",
+   "verdict": "LINKED",
+   "symbol": "_getParamMatrix4x4",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  },
+  {
+   "assembly": "RFLib_DotNet_2018_ios",
+   "entry_point": "setParamMatrix4x4",
+   "wrapper": "0x1ed2d30",
+   "implementation": "0xe20f34",
+   "verdict": "LINKED",
+   "symbol": "_setParamMatrix4x4",
+   "selectors": [],
+   "classes": [],
+   "strings": [],
+   "imports": [
+    "__Unwind_Resume"
+   ]
+  }
+ ]
+}

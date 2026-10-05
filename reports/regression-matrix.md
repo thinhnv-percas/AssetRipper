@@ -882,3 +882,23 @@ RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.6802 �
 material → chương trình Metal: 1.0 trên 39 (37 EXACT, 2 MODULO_ENGINE).
 
 Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`** (không đổi; Unity không có trong container).
+
+## Iteration 065 (64j → 65z, cả hai đầu đo bằng script cuối)
+
+| | Impostor | Merge-Room | RunFromZombies | JellyBlastV2 | Pinata |
+|---|---:|---:|---:|---:|---:|
+| EXACT | 4351 → **4474** | 11658 → **11923** | 2935 → 2967 | 3100 → 3127 | 12907 → **13150** |
+| FALLBACK | 154 → **63** | 396 → **221** | 85 → 59 | 39 → 18 | 337 → 286 |
+| Placeholder | 3864 → 3440 | 23789 → 18601 | 4405 → 3902 | 36141 → 34947 | 11734 → 8786 |
+| `UNMANAGED_MEMORY_LOAD` | 2486 → 2073 | 14998 → 10198 | 2171 → 1684 | 23475 → 22289 | 7443 → 4493 |
+| Assembly-CSharp Roslyn, body pass | 237 → 202 | 684 → **324** | 7 → 7 | 3005 → 2599 | 1297 → 1146 |
+| Gán lại ref (`= ref *(`) | 44 → 44 | 148 → 124 | — | opt-in 520 → 399 | — |
+| `UNKNOWN_CLASS_SOURCE` (dòng) | 2 → 0 | 196 → **54** | 28 → 10 | 2575 → 2510 | — |
+| Invoker viết lại (dòng) | — → 2 | 26 (65g) → **60** | 0 | 0 | — |
+| TrueAlias | 1 → **0** | 0 → 0 | 0 → 0 | 2 → **0** | 0 → 0 |
+| Parameter overwrite (stand-in) | 0 → 0 | 2 → **0** | 0 → 0 | 1 → 1 (dương tính giả) | 0 → 0 |
+| Layout mismatch / generatorFailures | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+
+RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.6817 → **0.6862** (912/1329).
+
+Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`** (không đổi; `UNITY_NOT_AVAILABLE`).

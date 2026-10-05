@@ -1,0 +1,83 @@
+{
+  "fixture": "MergeRoom",
+  "total": 8865,
+  "producers": {
+    "POINTER": {
+      "casts": 1181,
+      "files": 185,
+      "samples": [
+        "bool flag2 = (nint)obj < 0;",
+        "obj = (nint)obj + 20;",
+        "bool flag2 = (nint)obj < 0;"
+      ]
+    },
+    "ARRAY": {
+      "casts": 341,
+      "files": 98,
+      "samples": [
+        "object obj = (nint)colorKeys + 48;",
+        "object obj = (nint)colorKeys + 48;",
+        "object obj = (nint)colorKeys + 48;"
+      ]
+    },
+    "FIELD_ADDRESS": {
+      "casts": 752,
+      "files": 197,
+      "samples": [
+        "int num = (int)((nint)this + 16);",
+        "obj = (nint)this + 44;",
+        "obj2 = (nint)this + 40;"
+      ]
+    },
+    "OBJECT_REFERENCE": {
+      "casts": 3541,
+      "files": 457,
+      "samples": [
+        "nint num6 = (nint)obj2;",
+        "nint num6 = (nint)obj2;",
+        "if ((int)((nint)obj3 & 1) != 0)"
+      ]
+    },
+    "HANDLE": {
+      "casts": 79,
+      "files": 35,
+      "samples": [
+        "num = (short)(nint)intPtr;",
+        "NullReferenceException ex = (NullReferenceException)(object)new Dictionary<VertexKey, List<VertexEntry>>((int)",
+        "component = (Component)(nint)intPtr;"
+      ]
+    },
+    "INTEGER": {
+      "casts": 294,
+      "files": 87,
+      "samples": [
+        "int num2 = (int)((nint)num | (nint)8);",
+        "int num2 = (int)((nint)num | (nint)8);",
+        "int num2 = (int)((nint)num | (nint)8);"
+      ]
+    },
+    "UNKNOWN": {
+      "casts": 2677,
+      "files": 403,
+      "samples": [
+        "nint num = (nint)typeof(DOSetter<int>);",
+        "nint num2 = (nint)typeof(DOGetter<int>);",
+        "num = (nint)typeof(DOSetter<int>);"
+      ]
+    }
+  },
+  "object_reference_producers": {
+    "UNRESOLVED_LOAD_STANDIN": 1087,
+    "CONSTANT": 686,
+    "UNKNOWN": 630,
+    "ENTRY_VALUE": 391,
+    "CALL_RESULT": 291,
+    "FIELD": 183,
+    "PARAMETER": 175,
+    "ARRAY_ELEMENT": 46,
+    "ALLOCATION": 39,
+    "TYPE_CHECK": 9,
+    "THIS": 4
+  },
+  "resolved_producer_rate": 0.4047
+}

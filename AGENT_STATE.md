@@ -5,15 +5,23 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 064 (hoàn tất; trọng tâm "Runtime semantic recovery & Unity executable reconstruction".
-                          Bốn P0 sửa ở tầng đầu tiên sai: ghi qua ref (SetColor: field search qua T&, stobj thay
-                          starg), ABI của thân generic chia sẻ hoàn toàn (il2cppRetVal trước MethodInfo — tầng thật
-                          của "RGCTX không có kiểu"), CAS runtime đặt tên theo lệnh máy với overload theo call site,
-                          CS0102 Merge-Room (accessor chuẩn + backing field tên compiler). EXACT tăng ở cả năm
-                          fixture (Impostor 4042 → 4335, Pinata 12533 → 12790). Merge-Room Assembly-CSharp lần
-                          đầu bind được: 684 lỗi thân thật. Không Unity: runtime NOT_RUN.)
+Iteration hiện tại: 065 (hoàn tất; trọng tâm "Body errors, invoker arguments, unresolved loads & native rebuild".
+                          Nguyên nhân gốc của UNKNOWN_CLASS_SOURCE là frame pointer X29 của A64 chưa từng được
+                          resolve (cùng hai lỗi epilogue/bản ghi frame dưới nó); 196 → 54. Invoker 26 → 60 dòng viết
+                          lại với mọi đối số chứng minh. Lỗi thân Merge-Room 684 → 324. Một lỗi giá trị sai im lặng có
+                          từ trước (`&slot` → `&i`, MMSwap `i = 0;`) đã sửa; detector parameter_overwrite_scan.py.
+                          RayFire trùng byte với mã đã link; iOS __Internal 92/96 PROVEN. Không Unity: UNITY_NOT_AVAILABLE.)
 
 Cảnh báo cho phiên sau:
+  - 065 đổi phép đo ở ba chỗ (static field trong rendering, `?.`/`??`/ternary là branch, `0m` là decimal.Zero) và
+    `LoadsCallOperands` (IndirectCall/IndirectJump không load toán hạng → storage hazard). Mọi so sánh với ≤ 064
+    phải đo lại CẢ HAI đầu; số 064 trong docs/ITERATION_065.md đã đo lại.
+  - Alias frame X29 làm nhiều ô frame có tên; `Unknown` storage hazard tăng là NEW_COVERAGE, không phải TrueAlias.
+    TrueAlias phải giữ 0 trên cả bốn fixture ARM64.
+  - Sau mọi thay đổi chạm SSA/copy propagation/coalescing: chạy `parameter_overwrite_scan.py` trên Merge-Room. Lỗi
+    `i = 0;` của 065 không đổi một aggregate nào.
+  - Một store qua frame pointer chỉ được giữ khi nằm trong dãy liên tiếp từ một ô bị lấy địa chỉ. Giữ tất cả thì giữ
+    luôn scaffolding vùng quét interface (đã đo, đã loại).
   - recovery_metrics.py đổi ba chỗ ở 064 (dòng bị cắt, `m_X`, `_003CX_003Ek__BackingField`). So sánh với
     iteration ≤ 063 phải đo lại CẢ HAI đầu bằng bản mới; số 063 trong docs/ITERATION_064.md đã đo lại như vậy.
   - Accessor event chuẩn gập thành `public event T X;` và biến khỏi phép đếm method — số method đo được giảm

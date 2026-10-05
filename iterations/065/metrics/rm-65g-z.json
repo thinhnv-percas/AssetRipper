@@ -1,0 +1,403 @@
+{
+  "scope": [
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "DOTween",
+    "GoogleMobileAds",
+    "LeanCommon",
+    "LeanPool",
+    "Mono.Security",
+    "__Generated",
+    "spine-unity",
+    "spine-unity-examples"
+  ],
+  "methods": 5419,
+  "nativeBytes": 1064372,
+  "placeholders": 3685,
+  "status": {
+    "HIGH_CONFIDENCE": 191,
+    "PARTIAL": 703,
+    "EXACT": 4377,
+    "FALLBACK": 148
+  },
+  "byAssembly": {
+    "Assembly-CSharp": {
+      "HIGH_CONFIDENCE": 13,
+      "PARTIAL": 60,
+      "EXACT": 309,
+      "FALLBACK": 8
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "GoogleMobileAds": {
+      "EXACT": 539,
+      "PARTIAL": 80,
+      "FALLBACK": 38,
+      "HIGH_CONFIDENCE": 29
+    },
+    "spine-unity": {
+      "EXACT": 1522,
+      "HIGH_CONFIDENCE": 70,
+      "PARTIAL": 213,
+      "FALLBACK": 40
+    },
+    "LeanCommon": {
+      "EXACT": 16,
+      "PARTIAL": 2
+    },
+    "ACTk.Runtime": {
+      "EXACT": 931,
+      "PARTIAL": 92,
+      "FALLBACK": 39,
+      "HIGH_CONFIDENCE": 23
+    },
+    "LeanPool": {
+      "EXACT": 60,
+      "PARTIAL": 10,
+      "HIGH_CONFIDENCE": 5,
+      "FALLBACK": 3
+    },
+    "spine-unity-examples": {
+      "EXACT": 419,
+      "PARTIAL": 65,
+      "HIGH_CONFIDENCE": 18,
+      "FALLBACK": 7
+    },
+    "DOTween": {
+      "EXACT": 580,
+      "HIGH_CONFIDENCE": 33,
+      "PARTIAL": 181,
+      "FALLBACK": 12
+    }
+  },
+  "lostOperationClasses": {
+    "FIELD": 66,
+    "CALL": 9,
+    "ARRAY_READ": 4,
+    "ARRAY_WRITE": 4,
+    "BRANCH": 55,
+    "NEWOBJ": 14
+  },
+  "fingerprintIr": {
+    "NULL_CHECK": 1983,
+    "STATIC_ACCESS": 3558,
+    "CALL": 3215,
+    "COMPARE": 2201,
+    "LOOP": 2218,
+    "BRANCH": 2220,
+    "INSTANCEOF": 357,
+    "ARITHMETIC": 1400,
+    "ARRAY_READ": 385,
+    "NEWOBJ": 1032,
+    "CAST": 17,
+    "FIELD_ADDRESS": 302,
+    "ARRAY_WRITE": 157
+  },
+  "fingerprintCSharp": {
+    "NULL_CHECK": 1331,
+    "RETURN": 2934,
+    "NEWOBJ": 1125,
+    "CALL": 4442,
+    "COMPARE": 2034,
+    "THROW": 544,
+    "CAST": 625,
+    "BRANCH": 2179,
+    "STATIC_ACCESS": 2189,
+    "ARITHMETIC": 1339,
+    "ARRAY_READ": 542,
+    "LOOP": 729,
+    "NEWARR": 180,
+    "FIELD_ADDRESS": 386,
+    "INSTANCEOF": 12,
+    "ARRAY_WRITE": 173,
+    "SWITCH": 25
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 2326,
+      "files": 162
+    },
+    "NATIVE_IMPORT": {
+      "count": 484,
+      "files": 81
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 343,
+      "files": 73
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 211,
+      "files": 54
+    },
+    "INDIRECT_CALL": {
+      "count": 180,
+      "files": 34
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 97,
+      "files": 38
+    },
+    "INDIRECT_JUMP": {
+      "count": 54,
+      "files": 41
+    },
+    "OTHER": {
+      "count": 2,
+      "files": 1
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 2192,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs"
+    },
+    {
+      "nativeBytes": 1352,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 1052,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs"
+    },
+    {
+      "nativeBytes": 1032,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs"
+    },
+    {
+      "nativeBytes": 948,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs"
+    },
+    {
+      "nativeBytes": 816,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/TweenSettingsExtensions.cs"
+    },
+    {
+      "nativeBytes": 800,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 788,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 760,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs"
+    },
+    {
+      "nativeBytes": 756,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 752,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/Box.cs"
+    },
+    {
+      "nativeBytes": 704,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/GUIManager.cs"
+    },
+    {
+      "nativeBytes": 684,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 616,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Skeleton.cs"
+    },
+    {
+      "nativeBytes": 540,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 540,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 532,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 524,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs"
+    },
+    {
+      "nativeBytes": 524,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs"
+    },
+    {
+      "nativeBytes": 504,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/BuildHashes.cs"
+    },
+    {
+      "nativeBytes": 468,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 456,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+    },
+    {
+      "nativeBytes": 444,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 436,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs"
+    },
+    {
+      "nativeBytes": 424,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/Spineboy.cs"
+    },
+    {
+      "nativeBytes": 420,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/FileFilter.cs"
+    },
+    {
+      "nativeBytes": 412,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+    },
+    {
+      "nativeBytes": 396,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/AnimationState.cs"
+    },
+    {
+      "nativeBytes": 392,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/ObscuredTypes/ObscuredString.cs"
+    },
+    {
+      "nativeBytes": 344,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/ConstrainedCamera.cs"
+    },
+    {
+      "nativeBytes": 328,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs"
+    },
+    {
+      "nativeBytes": 292,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/SpecialPluginsUtils.cs"
+    },
+    {
+      "nativeBytes": 288,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/CustomNativeTemplateClient.cs"
+    },
+    {
+      "nativeBytes": 280,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs"
+    },
+    {
+      "nativeBytes": 276,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/MobileAdsClient.cs"
+    },
+    {
+      "nativeBytes": 256,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/GamePlayController.cs"
+    },
+    {
+      "nativeBytes": 256,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/TweenParams.cs"
+    },
+    {
+      "nativeBytes": 240,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 240,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InitializationStatusClient.cs"
+    },
+    {
+      "nativeBytes": 236,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/DummyAdBehaviour.cs"
+    },
+    {
+      "nativeBytes": 232,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs"
+    },
+    {
+      "nativeBytes": 224,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Assembly-CSharp/GUIManager.cs"
+    },
+    {
+      "nativeBytes": 212,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/LeanPool/Lean/Pool/Extras/LeanPooledRigidbody.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs"
+    }
+  ]
+}

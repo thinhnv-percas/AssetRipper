@@ -1,0 +1,14 @@
+{
+ "files": 1,
+ "overwrites": 1,
+ "by_file": {
+  "Assets/Scripts/RayFireAssembly/RayFire/RayfireShell.cs": [
+   {
+    "line": 576,
+    "parameter": "shellMeshRenderer",
+    "method": "else if (shellMeshRenderer == null)",
+    "statement": "shellMeshRenderer = null;"
+   }
+  ]
+ }
+}

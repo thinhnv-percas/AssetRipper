@@ -1,0 +1,83 @@
+{
+  "fixture": "MergeRoom",
+  "total": 13002,
+  "producers": {
+    "POINTER": {
+      "casts": 1710,
+      "files": 248,
+      "samples": [
+        "bool flag2 = (nint)obj < 0;",
+        "obj = (nint)obj + 20;",
+        "bool flag2 = (nint)obj < 0;"
+      ]
+    },
+    "ARRAY": {
+      "casts": 336,
+      "files": 96,
+      "samples": [
+        "object obj = (nint)colorKeys + 48;",
+        "object obj = (nint)colorKeys + 48;",
+        "object obj = (nint)colorKeys + 48;"
+      ]
+    },
+    "FIELD_ADDRESS": {
+      "casts": 862,
+      "files": 216,
+      "samples": [
+        "int num = (int)((nint)this + 16);",
+        "obj = (nint)this + 44;",
+        "obj2 = (nint)this + 40;"
+      ]
+    },
+    "OBJECT_REFERENCE": {
+      "casts": 6055,
+      "files": 626,
+      "samples": [
+        "nint num6 = (nint)obj2;",
+        "nint num6 = (nint)obj2;",
+        "nint num6 = (nint)obj2;"
+      ]
+    },
+    "HANDLE": {
+      "casts": 217,
+      "files": 65,
+      "samples": [
+        "num = (short)(nint)intPtr;",
+        "_ironSourceAndroidId = (string)(nint)intPtr;",
+        "NullReferenceException ex = (NullReferenceException)(object)new Dictionary<VertexKey, List<VertexEntry>>((int)"
+      ]
+    },
+    "INTEGER": {
+      "casts": 353,
+      "files": 88,
+      "samples": [
+        "int num2 = (int)((nint)num | (nint)8);",
+        "int num2 = (int)((nint)num | (nint)8);",
+        "int num2 = (int)((nint)num | (nint)8);"
+      ]
+    },
+    "UNKNOWN": {
+      "casts": 3469,
+      "files": 501,
+      "samples": [
+        "nint num = (nint)typeof(DOSetter<int>);",
+        "nint num2 = (nint)typeof(DOGetter<int>);",
+        "num = (nint)typeof(DOSetter<int>);"
+      ]
+    }
+  },
+  "object_reference_producers": {
+    "UNRESOLVED_LOAD_STANDIN": 2485,
+    "CONSTANT": 1372,
+    "UNKNOWN": 832,
+    "ENTRY_VALUE": 510,
+    "CALL_RESULT": 313,
+    "PARAMETER": 209,
+    "FIELD": 202,
+    "ARRAY_ELEMENT": 49,
+    "ALLOCATION": 46,
+    "TYPE_CHECK": 35,
+    "THIS": 2
+  },
+  "resolved_producer_rate": 0.368
+}

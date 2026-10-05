@@ -1,0 +1,83 @@
+{
+  "fixture": "Impostor",
+  "total": 1994,
+  "producers": {
+    "POINTER": {
+      "casts": 249,
+      "files": 48,
+      "samples": [
+        "object obj3 = (nint)obj2 + 1;",
+        "object obj2 = (nint)obj + 32;",
+        "obj2 = (nint)obj2 + 1;"
+      ]
+    },
+    "ARRAY": {
+      "casts": 115,
+      "files": 44,
+      "samples": [
+        "object obj9 = (nint)array + 32;",
+        "nint num = (nint)array;",
+        "nint num2 = (nint)array;"
+      ]
+    },
+    "FIELD_ADDRESS": {
+      "casts": 65,
+      "files": 29,
+      "samples": [
+        "nint num2 = (nint)this;",
+        "nint num3 = (nint)this;",
+        "nint num = (nint)this;"
+      ]
+    },
+    "OBJECT_REFERENCE": {
+      "casts": 963,
+      "files": 132,
+      "samples": [
+        "int num5 = (int)(num4 & (nint)obj);",
+        "if ((int)((nint)obj7 & 1) != 0)",
+        "object obj3 = (nint)obj + 8;"
+      ]
+    },
+    "HANDLE": {
+      "casts": 19,
+      "files": 14,
+      "samples": [
+        "formatProvider = (IFormatProvider)(nint)intPtr;",
+        "int num4 = (int)((nint)intPtr ^ num2);",
+        "int num = (int)((nint)intPtr & 0xFFFFFFFFL);"
+      ]
+    },
+    "INTEGER": {
+      "casts": 51,
+      "files": 16,
+      "samples": [
+        "int num43 = (int)((nint)0 | (nint)num4);",
+        "int num13 = (int)((nint)0 / (nint)num12);",
+        "if ((nint)num3 < (nint)0)"
+      ]
+    },
+    "UNKNOWN": {
+      "casts": 532,
+      "files": 99,
+      "samples": [
+        "int num2 = (int)((nint)num | (nint)8);",
+        "int num2 = (int)((nint)num | (nint)8);",
+        "int num2 = (int)((nint)num | (nint)8);"
+      ]
+    }
+  },
+  "object_reference_producers": {
+    "UNRESOLVED_LOAD_STANDIN": 392,
+    "UNKNOWN": 166,
+    "ENTRY_VALUE": 102,
+    "CONSTANT": 100,
+    "FIELD": 93,
+    "CALL_RESULT": 38,
+    "ARRAY_ELEMENT": 33,
+    "PARAMETER": 19,
+    "ALLOCATION": 15,
+    "THIS": 4,
+    "TYPE_CHECK": 1
+  },
+  "resolved_producer_rate": 0.3146
+}

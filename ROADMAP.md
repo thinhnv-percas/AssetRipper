@@ -853,3 +853,23 @@ khai báo, và `CPP2IL_RECOVER_ALSO` mở chúng ra để đo: behaviour 0.6802 
    package JellyBlast có version chứng minh được; đưa chúng vào `Packages/manifest.json` với provenance.
 7. **Native `__Internal` UNKNOWN** (Facebook, GameAnalytics, Taptic trên JellyBlast): symbol đã strip; bằng chứng
    thay thế là `.mm` trong source plugin hoặc chuỗi tên hàm trong `__TEXT`.
+
+## Sau iteration 065 — mục tiêu tiếp theo, đã có bằng chứng
+
+1. **Class của lookup interface trên iOS (2315/2510 dòng `UNKNOWN_CLASS_SOURCE` của JellyBlastV2).** Provenance là
+   `[Add]`: class được nạp từ base trang `adrp` cộng offset chưa được nhận là metadata usage. CLAUDE.md đã ghi luật cho
+   base trang của v27+; cần đi cùng luật đó tới toán hạng class của lookup.
+2. **Invoker còn lại (Merge-Room).** 46 `UNKNOWN_RETURN`, phần lớn vì buffer kết quả có một `Box` mà mô hình buffer T
+   chưa giải thích. 45 `POINTER_NOT_A_FRAME_ADDRESS_OR_BUFFER`. RunFromZombies và JellyBlastV2 không mô hình được
+   buffer nào; dạng alloca ở đó khác, cần đo trước khi làm.
+3. **Alloca kích thước động** (`sub sp, sp, xN`): không `ShiftStack` nào mô hình được bước này, nên ô sau nó có thể bị
+   đặt tên trùng (`ExtensionList.cs` +3). Mô hình hoá SP sau alloca động bằng frame pointer, vốn đã resolve.
+4. **Lỗi thân Merge-Room 324**, theo `reports/MERGE_ROOM_BODY_ERRORS_065.md`. Họ lớn nhất:
+   - `OBJECT_AS_NATIVE_INT` 59 và `OTHER` 54 (phân cụm tiếp);
+   - `INTERFACE_SCAN_SURVIVOR` 29;
+   - `SHARED_GENERIC_PLACEHOLDER` 28;
+   - `ARRAY_ELEMENT_ADDRESS` 26.
+5. **`= ref *(` qua field đã gập**: 44/124/399. Cần `FieldReference` lồng làm base.
+6. **Store vào ô SP sau ô bị lấy địa chỉ** vẫn có thể bị xoá như store chết. `KeepStoresReadThroughABaseAddress` mới
+   áp dụng cho store qua frame pointer.
+7. **`parameter_overwrite_scan.py`** có một dương tính giả (`else if (…)` bị đọc là chữ ký). Siết regex chữ ký.

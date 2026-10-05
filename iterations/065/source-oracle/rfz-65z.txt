@@ -1,0 +1,8 @@
+EXACT                    23
+SEMANTICALLY_EQUIVALENT  12
+PARTIAL                  0
+MISMATCH                 0
+FALLBACK                 0
+UNDECIDED_ARITHMETIC     0
+NOT_AVAILABLE            1
+behaviour_equivalence_rate 1.0000 (35/35)

@@ -1,0 +1,148 @@
+{
+ "schema": "RecoveredProjectPlan/1",
+ "from": "RecoveredProjectManifest/1",
+ "actions": [
+  {
+   "item": "unity_version",
+   "want": "2022.3.53f1",
+   "have": "2022.3.53f1",
+   "status": "APPLIED",
+   "reason": "ProjectVersion.txt states the build's version"
+  },
+  {
+   "item": "target_platform",
+   "want": "iOS",
+   "status": "PLANNED",
+   "reason": "the editor's build target is set when the project is opened (UnityBuildValidator)"
+  },
+  {
+   "item": "package com.unity.burst",
+   "want": "UNKNOWN",
+   "candidates": null,
+   "conflicts": [],
+   "status": "BLOCKED",
+   "reason": "version not established; the package stays required, not dropped"
+  },
+  {
+   "item": "package com.unity.collections",
+   "want": "UNKNOWN",
+   "candidates": null,
+   "conflicts": [],
+   "status": "BLOCKED",
+   "reason": "version not established; the package stays required, not dropped"
+  },
+  {
+   "item": "package com.unity.mathematics",
+   "want": "1.2.6",
+   "status": "PLANNED",
+   "reason": "declare com.unity.mathematics@1.2.6 and replace the stubbed assemblies ['Unity.Mathematics'] with it - the version is proven by fingerprint"
+  },
+  {
+   "item": "package com.unity.nuget.newtonsoft-json",
+   "want": "UNKNOWN",
+   "candidates": [
+    "3.2.1",
+    "3.2.2"
+   ],
+   "conflicts": [
+    "manifest=3.2.1, lock=3.2.2, cache=3.2.2",
+    "the manifest pins it directly but the lock resolved it at depth 2 - the two files describe different resolutions"
+   ],
+   "status": "BLOCKED",
+   "reason": "version not established; the package stays required, not dropped"
+  },
+  {
+   "item": "package com.unity.textmeshpro",
+   "want": "3.0.9",
+   "status": "PLANNED",
+   "reason": "declare com.unity.textmeshpro@3.0.9 and replace the stubbed assemblies ['Unity.TextMeshPro'] with it - the version is proven by fingerprint"
+  },
+  {
+   "item": "package com.unity.ugui",
+   "want": "1.0.0",
+   "status": "PLANNED",
+   "reason": "declare com.unity.ugui@1.0.0 and replace the stubbed assemblies ['UnityEngine.UI'] with it - the version is proven by fingerprint"
+  },
+  {
+   "item": "package com.unity.visualscripting",
+   "want": "1.9.11",
+   "status": "PLANNED",
+   "reason": "declare com.unity.visualscripting@1.9.11 and replace the stubbed assemblies ['Unity.VisualScripting.Core'] with it - the version is proven by fingerprint"
+  },
+  {
+   "item": "native FBAEMKit.framework",
+   "status": "APPLIED",
+   "recoverability": "PRESERVED",
+   "reason": "file in package: Payload/JellyBlast.app/Frameworks/FBAEMKit.framework/FBAEMKit"
+  },
+  {
+   "item": "native FBSDKCoreKit.framework",
+   "status": "APPLIED",
+   "recoverability": "PRESERVED",
+   "reason": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKCoreKit.framework/FBSDKCoreKit"
+  },
+  {
+   "item": "native FBSDKCoreKit_Basics.framework",
+   "status": "APPLIED",
+   "recoverability": "PRESERVED",
+   "reason": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics"
+  },
+  {
+   "item": "native FBSDKGamingServicesKit.framework",
+   "status": "APPLIED",
+   "recoverability": "PRESERVED",
+   "reason": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit"
+  },
+  {
+   "item": "native FBSDKLoginKit.framework",
+   "status": "APPLIED",
+   "recoverability": "PRESERVED",
+   "reason": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKLoginKit.framework/FBSDKLoginKit"
+  },
+  {
+   "item": "native FBSDKShareKit.framework",
+   "status": "APPLIED",
+   "recoverability": "PRESERVED",
+   "reason": "file in package: Payload/JellyBlast.app/Frameworks/FBSDKShareKit.framework/FBSDKShareKit"
+  },
+  {
+   "item": "native Assembly-CSharp (__Internal)",
+   "status": "BLOCKED",
+   "recoverability": "LINKED_STATIC_NOT_EXTRACTABLE",
+   "reason": "4 of 4 entry points located through the il2cpp wrapper and proven by the classes and selectors their code references; every class is defined in the engine binary"
+  },
+  {
+   "item": "native Facebook.Unity.IOS (__Internal)",
+   "status": "BLOCKED",
+   "recoverability": "BRIDGE_TO_PRESERVED_FRAMEWORK",
+   "reason": "38 of 39 entry points located through the il2cpp wrapper and proven by the classes and selectors their code references; calls into @rpath/FBSDKCoreKit.framework/FBSDKCoreKit, @rpath/FBSDKGamingServicesKit.framework/FBSDKGamingServicesKit"
+  },
+  {
+   "item": "native GameAnalyticsSDK (__Internal)",
+   "status": "BLOCKED",
+   "recoverability": "LINKED_STATIC_NOT_EXTRACTABLE",
+   "reason": "50 of 53 entry points located through the il2cpp wrapper and proven by the classes and selectors their code references; every class is defined in the engine binary"
+  },
+  {
+   "item": "native libRF_CNative_ios.a",
+   "status": "APPLIED",
+   "recoverability": "PRESERVED_FROM_VERIFIED_ARTIFACT",
+   "reason": "archive 9a3750356ff2ae9ff05b58a930144478aa8125a7 is byte-identical to the linked code at 34 entry points; preserved into the project"
+  },
+  {
+   "item": "shader programs",
+   "status": "PLANNED",
+   "reason": "{\"METALLIBRARY\": 384, \"METALSOURCETEXT\": 780, \"UNKNOWN\": 1}"
+  },
+  {
+   "item": "runtime",
+   "status": "BLOCKED",
+   "reason": "NOT_RUN: UNITY_NOT_AVAILABLE"
+  }
+ ],
+ "counts": {
+  "APPLIED": 8,
+  "PLANNED": 6,
+  "BLOCKED": 7
+ }
+}

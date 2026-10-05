@@ -1,0 +1,342 @@
+{
+ "archive": {
+  "path": "/home/user/thinhnv-x-percas/jelly-blast/Assets/RayFire/Plugins/Ios/libRF_CNative_ios.a",
+  "sha256": "5c20bbad4aaec07482f6673c01b19e672d963928eba7a0f09d53dbb759c0643a",
+  "git_blob": "9a3750356ff2ae9ff05b58a930144478aa8125a7",
+  "slices": [
+   {
+    "architecture": "arm64",
+    "size": 9911712,
+    "members": 38,
+    "build_versions": [],
+    "compatible_with_linked": true
+   },
+   {
+    "architecture": "armv7",
+    "size": 9558624,
+    "members": 38,
+    "build_versions": [],
+    "compatible_with_linked": false
+   }
+  ]
+ },
+ "linked": {
+  "path": "Test/Input/JellyBlastV2/Payload/JellyBlast.app/Frameworks/UnityFramework.framework/UnityFramework",
+  "sha256": "8fe519cada234ee7525f2d22bdc37fb8f55e5bb125aacb8a4df94ef318f9e5f6",
+  "architectures": [
+   "arm64"
+  ]
+ },
+ "entries": [
+  {
+   "entry_point": "AddExtraUVWs",
+   "member": "RFInterface.o",
+   "bytes": 436,
+   "words": 109,
+   "relocated": 25,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "Cl_Compute",
+   "member": "RFInterface.o",
+   "bytes": 332,
+   "words": 83,
+   "relocated": 7,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "Cl_GetFinalMesh",
+   "member": "RFInterface.o",
+   "bytes": 120,
+   "words": 30,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "Delete",
+   "member": "RFInterface.o",
+   "bytes": 28,
+   "words": 7,
+   "relocated": 2,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "DisableSafeMode",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "GetElementOrigInds",
+   "member": "RFInterface.o",
+   "bytes": 448,
+   "words": 112,
+   "relocated": 8,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InitClusterParams",
+   "member": "RFInterface.o",
+   "bytes": 8,
+   "words": 2,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateClAll",
+   "member": "RFInterface.o",
+   "bytes": 20,
+   "words": 5,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateClColor",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateClMaterial",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateClSTR",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateDmMaterial",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateDmSTR",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateDmTotal",
+   "member": "RFInterface.o",
+   "bytes": 24,
+   "words": 6,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateFrMaterial",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateFrSlice",
+   "member": "RFInterface.o",
+   "bytes": 20,
+   "words": 5,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateFrVertices",
+   "member": "RFInterface.o",
+   "bytes": 36,
+   "words": 9,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateInput",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "InvalidateUVWMapping",
+   "member": "RFInterface.o",
+   "bytes": 104,
+   "words": 26,
+   "relocated": 0,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "New",
+   "member": "RFInterface.o",
+   "bytes": 108,
+   "words": 27,
+   "relocated": 5,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "RestoreVNormals",
+   "member": "RFInterface.o",
+   "bytes": 120,
+   "words": 30,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "SetInputMesh",
+   "member": "RFInterface.o",
+   "bytes": 500,
+   "words": 125,
+   "relocated": 14,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "Sl_Compute",
+   "member": "RFInterface.o",
+   "bytes": 352,
+   "words": 88,
+   "relocated": 10,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "Sl_ElementData",
+   "member": "RFInterface.o",
+   "bytes": 7352,
+   "words": 1838,
+   "relocated": 118,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "Sl_ElementMesh",
+   "member": "RFInterface.o",
+   "bytes": 788,
+   "words": 197,
+   "relocated": 8,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "getParamFloat",
+   "member": "RFInterface.o",
+   "bytes": 24,
+   "words": 6,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "getParamInteger",
+   "member": "RFInterface.o",
+   "bytes": 24,
+   "words": 6,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "getParamMatrix4x4",
+   "member": "RFInterface.o",
+   "bytes": 228,
+   "words": 57,
+   "relocated": 5,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "setCountPoint3",
+   "member": "RFInterface.o",
+   "bytes": 16,
+   "words": 4,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "setParamBool",
+   "member": "RFInterface.o",
+   "bytes": 56,
+   "words": 14,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "setParamFloat",
+   "member": "RFInterface.o",
+   "bytes": 56,
+   "words": 14,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "setParamInteger",
+   "member": "RFInterface.o",
+   "bytes": 56,
+   "words": 14,
+   "relocated": 1,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "setParamMatrix4x4",
+   "member": "RFInterface.o",
+   "bytes": 164,
+   "words": 41,
+   "relocated": 5,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  },
+  {
+   "entry_point": "setParamPoint3",
+   "member": "RFInterface.o",
+   "bytes": 132,
+   "words": 33,
+   "relocated": 5,
+   "differing": 0,
+   "verdict": "BYTE_IDENTICAL"
+  }
+ ],
+ "summary": {
+  "BYTE_IDENTICAL": 34
+ },
+ "verdict": "LINKED_ARCHIVE_PROVEN"
+}
