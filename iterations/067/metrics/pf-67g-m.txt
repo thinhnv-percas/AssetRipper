@@ -1,0 +1,97 @@
+SCOPE: the 29 assemblies recovery was attempted on
+placeholders: 18782
+
+== by family ==
+family                          count  share  methods  asm  generator site         ISIL operation
+-------------------------------------------------------------------------------------------------
+UNMANAGED_MEMORY_LOAD            9686  51.6%     1951   23  IlGenerator.cs:2463    LoadOperand, a MemoryOperand no field was found for
+METHOD_NOT_FOUND                 4273  22.8%     1456   19  IlGenerator.cs:1328    OpCode.Call / CallVoid, target is an Immediate
+NATIVE_IMPORT                    2985  15.9%     1160   17  IlGenerator.cs:1328    OpCode.Call / CallVoid via a PLT slot
+INDIRECT_CALL                     616   3.3%      350   15  IlGenerator.cs:1446    OpCode.IndirectCall
+UNKNOWN_CALL_TARGET               578   3.1%      416   15  IlGenerator.cs:1333    OpCode.Call, target is not an Immediate
+INDIRECT_JUMP                     334   1.8%      332   21  IlGenerator.cs:1471    OpCode.IndirectJump
+NOT_IMPLEMENTED_INSTRUCTION       175   0.9%      101   14  IlGenerator.cs:1019    OpCode.NotImplemented
+UNRESOLVED_DELEGATE               128   0.7%      109    6  IlGenerator.cs:1155    OpCode.Newobj over a delegate type
+OTHER                               7   0.0%        4    3  -                      -
+
+== what each family means ==
+  UNMANAGED_MEMORY_LOAD          a load whose base type or offset could not be placed
+  METHOD_NOT_FOUND               an address with no managed method at it
+  NATIVE_IMPORT                  a libc or C++ runtime import, named from .rela.plt
+  INDIRECT_CALL                  a virtual or interface dispatch the passes did not resolve
+  UNKNOWN_CALL_TARGET            a call whose target operand is a register or a memory read
+  INDIRECT_JUMP                  a computed branch, typically a switch table
+  NOT_IMPLEMENTED_INSTRUCTION    the lifter has no rule for this native opcode
+  UNRESOLVED_DELEGATE            a delegate built over a function pointer nothing resolved
+  OTHER                          ?
+
+== inside each family, by concrete cause ==
+
+  UNMANAGED_MEMORY_LOAD
+       739    369 methods  SYSREG
+       322    197 methods  X0
+       309     92 methods  (unnamed base)
+       300    201 methods  X8_v4
+       229    130 methods  X8_v5
+       220     90 methods  X8_v3
+       204    169 methods  X9_v1
+       195    104 methods  X8_v8
+       192     24 methods  X24_v3
+       184    106 methods  X8_v6
+       168     21 methods  X23_v2
+       154     86 methods  X8_v10
+    ... and 952 more distinct causes
+
+  METHOD_NOT_FOUND
+      4273   1456 methods  (address only)
+
+  NATIVE_IMPORT
+       743    612 methods  __cxa_end_catch
+       655    341 methods  memcpy
+       630    604 methods  __cxa_begin_catch
+       377    370 methods  __stack_chk_fail
+       106    105 methods  __cxa_allocate_exception
+       106    105 methods  __cxa_throw
+        94     39 methods  modf
+        93     70 methods  memset
+        27     23 methods  sinf
+        26     16 methods  powf
+        19     16 methods  exp2f
+        17     11 methods  tanf
+    ... and 19 more distinct causes
+
+  INDIRECT_CALL
+       616    350 methods  (dispatch)
+
+  UNKNOWN_CALL_TARGET
+       296    232 methods  \"il2cpp_vm_object_unbox\"
+       126     75 methods  \"il2cpp_codegen_object_is_inst\"
+       116    105 methods  \"il2cpp_vm_class_is_assignable_from\"
+        34     21 methods  \"il2cpp_vm_object_box\"
+         6      4 methods  \"SzArrayNew\"
+
+  INDIRECT_JUMP
+       334    332 methods  (computed branch)
+
+  NOT_IMPLEMENTED_INSTRUCTION
+        62     47 methods  DUP
+        55     34 methods  FABD
+        30     22 methods  UNIMPLEMENTED
+        20     13 methods  FADDP
+         4      4 methods  SMULH
+         1      1 methods  UMULH
+         1      1 methods  FCMGT
+         1      1 methods  BIT
+         1      1 methods  ZIP1
+
+  UNRESOLVED_DELEGATE
+       120    104 methods  Delegate
+         5      2 methods  ButtonMethod
+         2      2 methods  LogCallback
+         1      1 methods  Action
+
+  OTHER
+         2      1 methods  Warning: Method ends with non empty stack (-40), the output 
+         2      1 methods  Warning: Method ends with non empty stack (-50), the output 
+         2      1 methods  Warning: Method ends with non empty stack (-30), the output 
+         1      1 methods  Warning: 'this' local not found (operand: X0)

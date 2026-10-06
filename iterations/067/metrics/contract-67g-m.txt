@@ -1,0 +1,59 @@
+{
+ "methods": 570,
+ "unpaired_files": 0,
+ "compile_status": {
+  "FAILS": 90,
+  "COMPILES": 480
+ },
+ "compile_risk_of_failing_methods": {
+  "OTHER": 16,
+  "OBJECT_AS_NATIVE_INT": 13,
+  "FRAMEWORK_PRIVATE_MEMBER": 13,
+  "STRUCT_FIRST_MEMBER": 11,
+  "INDIRECT_STRUCT_ARGUMENT": 10,
+  "BASE_CONSTRUCTOR_CALL": 7,
+  "ARRAY_ELEMENT_ADDRESS": 5,
+  "INTERFACE_SCAN_SURVIVOR": 4,
+  "UNRESOLVED_LOAD_STANDIN": 3,
+  "STRIPPED_FRAMEWORK_MEMBER": 2,
+  "STRUCT_LOCAL_AS_ADDRESS": 2,
+  "FLOAT_USED_AS_INTEGER": 1,
+  "INLINED_STATIC_PROPERTY": 1,
+  "SHARED_GENERIC_PLACEHOLDER": 1,
+  "UNASSIGNED_LOCAL": 1
+ },
+ "semantic_status": {
+  "PARTIAL": 62,
+  "EXACT": 477,
+  "FALLBACK": 10,
+  "HIGH_CONFIDENCE": 21
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 434,
+  "PARTIAL/FAILS": 43,
+  "EXACT/FAILS": 43,
+  "HIGH_CONFIDENCE/COMPILES": 20,
+  "PARTIAL/COMPILES": 19,
+  "FALLBACK/COMPILES": 7,
+  "FALLBACK/FAILS": 3,
+  "HIGH_CONFIDENCE/FAILS": 1
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 570
+ },
+ "type_status": {
+  "STACK_TYPE_MISMATCH": 82,
+  "TYPED": 473,
+  "UNTYPED_LOCALS": 15
+ },
+ "control_flow_status": {
+  "GOTO": 32,
+  "STRUCTURED": 535,
+  "NOT_IMPLEMENTED_INSTRUCTION": 3
+ }
+}
+  Assets/Scripts/Assembly-CSharp/RoomObject.cs#0x18D50F0 CombineMesh: PARTIAL, ARRAY_ELEMENT_ADDRESS; CS0030: Cannot convert type 'UnityEngine.CombineInstance[]' to 'nint'
+  Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs#0x18C83C4 RecalculateNormals: PARTIAL, OTHER; CS0191: A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)
+  Assets/Scripts/Assembly-CSharp/Outline.cs#0x18C4FE4 SmoothNormals: PARTIAL, OTHER; CS0030: Cannot convert type 'System.Collections.Generic.KeyValuePair<UnityEngine.Vector3, int>' to 'UnityEngine.Vector3'
+  Assets/Scripts/Assembly-CSharp/Bootstrapper.cs#0x18C74CC MoveNext: PARTIAL, OBJECT_AS_NATIVE_INT; CS0030: Cannot convert type 'Bootstrapper' to 'nint'
+  Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs#0x18D9528 GenerateSlicedFilledSprite: PARTIAL, INTERFACE_SCAN_SURVIVOR; CS0030: Cannot convert type 'System.Type' to 'nint'

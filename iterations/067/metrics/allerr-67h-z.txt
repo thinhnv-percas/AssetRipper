@@ -1,0 +1,194 @@
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(100,16): error CS0030: Cannot convert type 'int*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(140,15): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(236,32): error CS0030: Cannot convert type 'Box' to 'float'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(237,24): error CS0030: Cannot convert type 'int' to 'Box'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(245,5): error CS0030: Cannot convert type 'int' to 'GameManager'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(178,15): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(190,16): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(195,17): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(218,16): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(251,15): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceCollectionItem.cs(257,17): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Item.cs(20,8): error CS0117: 'ItemBase' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(263,22): error CS0122: 'List<Box>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(267,29): error CS0122: 'List<Box>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(279,6): error CS0030: Cannot convert type 'System.OutOfMemoryException' to 'System.Collections.Generic.List<Box>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(283,18): error CS0030: Cannot convert type 'System.NullReferenceException' to 'System.Collections.Generic.List<Box>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GamePlayController.cs(286,44): error CS1061: 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Item.cs(44,8): error CS0117: 'ItemBase' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Item.cs(61,47): error CS0122: 'Unsafe' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Item.cs(68,11): error CS0030: Cannot convert type 'System.Type' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Item.cs(77,11): error CS0030: Cannot convert type 'System.Type' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Item.cs(102,16): error CS0165: Use of unassigned local variable 'num'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ItemStack.cs(48,8): error CS0117: 'ItemArtifact' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(94,22): error CS0122: 'List<Item>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(95,30): error CS0122: 'List<Item>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(160,44): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(160,66): error CS0030: Cannot convert type 'long*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredLong'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(173,30): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(288,14): error CS0030: Cannot convert type 'int*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(290,16): error CS0030: Cannot convert type 'long*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredLong'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(291,16): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(364,49): error CS7003: Unexpected use of an unbound generic name
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(364,14): error CS0030: Cannot convert type 'long' to 'UserResourceItem<ItemResources>'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(365,10): error CS0030: Cannot convert type 'UserResourceItem<ItemResources>' to 'long'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(376,49): error CS7003: Unexpected use of an unbound generic name
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(376,14): error CS0030: Cannot convert type 'long' to 'UserResourceItem<ItemResources>'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(377,10): error CS0030: Cannot convert type 'UserResourceItem<ItemResources>' to 'long'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(389,5): error CS7003: Unexpected use of an unbound generic name
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(390,8): error CS0246: The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(390,59): error CS0246: The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ResourcesUtil.cs(413,8): error CS0117: 'SingletonMonoDontDestroy<ResourcesUtil>' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/RandNumber.cs(53,12): error CS0030: Cannot convert type 'int' to 'System.Random'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/RandNumber.cs(54,10): error CS0030: Cannot convert type 'System.Random' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ItemArtifact.cs(68,8): error CS0117: 'ItemInventory' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Box.cs(440,41): error CS0122: 'Stack<Imposter>.Enumerator._stack' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Box.cs(468,25): error CS0030: Cannot convert type 'System.NullReferenceException' to 'System.Collections.Generic.Stack<Imposter>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Box.cs(469,11): error CS0030: Cannot convert type 'Imposter' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Box.cs(470,25): error CS0030: Cannot convert type 'Imposter' to 'System.Collections.Generic.Stack<Imposter>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Box.cs(483,21): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Box.cs(488,5): error CS0030: Cannot convert type 'System.NullReferenceException' to 'System.Collections.Generic.Stack<Imposter>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Box.cs(491,4): error CS0030: Cannot convert type 'System.OutOfMemoryException' to 'System.Collections.Generic.Stack<Imposter>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GameHelper.cs(131,8): error CS0019: Operator '&' cannot be applied to operands of type 'float' and 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(46,16): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(64,17): error CS0030: Cannot convert type 'T' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(95,18): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(107,16): error CS0030: Cannot convert type 'int' to 'UnityEngine.GameObject'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(114,16): error CS0030: Cannot convert type 'nint' to 'UnityEngine.GameObject'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(116,32): error CS0030: Cannot convert type 'int' to 'UnityEngine.Component'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(120,16): error CS0030: Cannot convert type 'nint' to 'UnityEngine.GameObject'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(130,11): error CS0030: Cannot convert type 'string' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(154,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(180,15): error CS0030: Cannot convert type 'int' to 'T'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(206,11): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(453,37): error CS0030: Cannot convert type 'System.Collections.Generic.List<int>' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(481,16): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(546,19): error CS0019: Operator '+' cannot be applied to operands of type 'object' and 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(593,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(597,5): error CS0030: Cannot convert type 'int' to 'GraphicController'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(223,15): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(233,22): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMono.cs(251,15): error CS0030: Cannot convert type 'T' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/TimeInGame.cs(68,8): error CS0117: 'object' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(631,37): error CS0030: Cannot convert type 'System.Collections.Generic.List<int>' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(660,16): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(725,19): error CS0019: Operator '+' cannot be applied to operands of type 'object' and 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(772,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GameHelper.cs(194,11): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GameHelper.cs(195,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GameHelper.cs(204,24): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GameHelper.cs(227,23): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GameHelper.cs(247,9): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GameHelper.cs(248,20): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(855,15): error CS0030: Cannot convert type 'System.Collections.Generic.Stack<int>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(862,16): error CS0030: Cannot convert type 'System.Collections.Generic.Stack<int>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(868,17): error CS0030: Cannot convert type 'System.Collections.Generic.Stack<int>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(960,32): error CS0122: 'Stack<Imposter>.Enumerator._stack' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(1016,33): error CS0122: 'Stack<Imposter>.Enumerator._stack' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(1026,32): error CS0122: 'Stack<Imposter>.Enumerator._stack' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/DataController.cs(1031,32): error CS0122: 'Stack<Imposter>.Enumerator._stack' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(21,55): error CS0122: 'List<Dictionary<string, string>>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(26,19): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(28,30): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(31,32): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(35,29): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(54,25): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(101,55): error CS0122: 'List<Dictionary<string, string>>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(116,20): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(118,32): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(121,33): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(131,28): error CS1061: 'List<List<Dictionary<string, string>>>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<List<Dictionary<string, string>>>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(132,14): error CS1061: 'List<List<Dictionary<string, string>>>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<List<Dictionary<string, string>>>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(133,26): error CS1061: 'List<List<Dictionary<string, string>>>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<List<Dictionary<string, string>>>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(134,30): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(135,28): error CS0122: 'List<Dictionary<string, string>>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(136,61): error CS0122: 'List<Dictionary<string, string>>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(162,25): error CS0122: 'List<Dictionary<string, string>>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(171,25): error CS0122: 'List<Dictionary<string, string>>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(172,58): error CS0122: 'List<Dictionary<string, string>>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(177,14): error CS0030: Cannot convert type 'nint' to 'string'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(197,8): error CS0030: Cannot convert type 'string' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/CSVHelper.cs(212,4): error CS0030: Cannot convert type 'System.OutOfMemoryException' to 'System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(288,16): error CS0030: Cannot convert type 'System.Collections.Generic.IList<T>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(315,18): error CS0019: Operator '+' cannot be applied to operands of type 'object' and 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(379,17): error CS0030: Cannot convert type 'System.Collections.Generic.IList<T>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(406,19): error CS0019: Operator '+' cannot be applied to operands of type 'object' and 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(354,16): error CS0165: Use of unassigned local variable 'num9'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(473,17): error CS0030: Cannot convert type 'System.Collections.Generic.IList<T>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(500,19): error CS0019: Operator '+' cannot be applied to operands of type 'object' and 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(548,18): error CS0030: Cannot convert type 'System.Collections.Generic.IList<T>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(573,21): error CS0019: Operator '+' cannot be applied to operands of type 'object' and 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/ItemDistinc.cs(28,8): error CS0117: 'ItemArtifact' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extension.cs(50,14): error CS0030: Cannot convert type 'UnityEngine.MonoBehaviour' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs(102,31): error CS0030: Cannot convert type 'int' to 'UnityEngine.GameObject'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs(110,23): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs(122,26): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs(129,12): error CS0030: Cannot convert type 'UnityEngine.GameObject' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs(137,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs(154,21): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GDPR.cs(47,5): error CS0030: Cannot convert type 'GDPR._003C_003Ec' to 'AdManager'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(46,10): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(46,40): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(63,21): error CS1061: 'Action<Component, object>' does not contain a definition for 'method' and no accessible extension method 'method' accepting a first argument of type 'Action<Component, object>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(64,27): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(138,39): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(139,34): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(144,22): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(149,27): error CS0122: 'List<AudioSource>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(151,16): error CS0122: 'List<AudioSource>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(164,18): error CS0030: Cannot convert type 'System.NullReferenceException' to 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(167,44): error CS1061: 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(169,22): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(192,22): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(197,23): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(202,16): error CS0122: 'List<AudioSource>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(207,46): error CS0030: Cannot convert type 'UnityEngine.Sprite[]' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(207,88): error CS0030: Cannot convert type 'UnityEngine.Sprite[]' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(57,16): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(63,16): error CS0030: Cannot convert type 'bool*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(70,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(78,17): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(88,55): error CS1061: 'long' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'long' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Extensions.cs(689,18): error CS0030: Cannot convert type 'System.Collections.Generic.EqualityComparer<T>' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(134,16): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(142,17): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(170,16): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(195,17): error CS0030: Cannot convert type 'T' to 'long'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(200,13): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredLong'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(221,16): error CS0030: Cannot convert type 'object*' to 'CodeStage.AntiCheat.ObscuredTypes.ObscuredInt'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/UserResourceItem.cs(236,6): error CS7003: Unexpected use of an unbound generic name
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(107,48): error CS0122: 'Dictionary<EventID, List<Action<Component, object>>>.Enumerator._dictionary' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(110,31): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(158,24): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(167,24): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(176,24): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/EventDispatcher.cs(205,8): error CS0117: 'SingletonMono<EventDispatcher>' does not contain a definition for '_002Ector'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(127,45): error CS0030: Cannot convert type '(int, System.Collections.Generic.List<int>)' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(382,39): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(387,22): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(392,27): error CS0122: 'List<AudioSource>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(394,16): error CS0122: 'List<AudioSource>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(404,18): error CS0030: Cannot convert type 'System.NullReferenceException' to 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(407,44): error CS1061: 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(409,22): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(418,4): error CS0030: Cannot convert type 'System.OutOfMemoryException' to 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(420,4): error CS0030: Cannot convert type 'System.OutOfMemoryException' to 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator*'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(426,22): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(431,23): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(436,16): error CS0122: 'List<AudioSource>.Enumerator._current' is inaccessible due to its protection level
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(475,46): error CS0030: Cannot convert type 'UnityEngine.Sprite[]' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GUIManager.cs(475,88): error CS0030: Cannot convert type 'UnityEngine.Sprite[]' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GraphicController.cs(129,26): error CS0030: Cannot convert type 'int' to 'System.Collections.Generic.Stack<object>'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GraphicController.cs(154,33): error CS0030: Cannot convert type 'int' to 'Spine.AnimationState'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GraphicController.cs(230,6): error CS0030: Cannot convert type 'int' to 'UnityEngine.GameObject'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GraphicController.cs(232,40): error CS0030: Cannot convert type 'int' to 'UnityEngine.Component'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GraphicController.cs(235,27): error CS0030: Cannot convert type 'int' to 'System.Collections.Generic.Stack<object>'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/GraphicController.cs(254,34): error CS0030: Cannot convert type 'int' to 'Spine.AnimationState'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(216,15): error CS0030: Cannot convert type 'nint' to 'string'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(232,70): error CS0030: Cannot convert type '(int, System.Collections.Generic.List<int>)' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(276,21): error CS0030: Cannot convert type 'string' to 'int'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(840,18): error CS0030: Cannot convert type 'string[]' to 'nint'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(849,19): error CS0030: Cannot convert type 'int' to 'string'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(949,21): error CS0030: Cannot convert type 'int' to 'string'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(951,16): error CS0030: Cannot convert type 'int' to 'string'
+Test/Out67h-z/Impostor/Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs(957,22): error CS0030: Cannot convert type 'int' to 'string'

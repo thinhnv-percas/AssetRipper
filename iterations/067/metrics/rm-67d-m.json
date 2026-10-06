@@ -1,0 +1,525 @@
+{
+  "scope": [
+    "AlmostEngine",
+    "AlmostEngine.Shared",
+    "Assembly-CSharp",
+    "Assembly-CSharp-firstpass",
+    "Cinemachine",
+    "Coffee.UIParticle",
+    "DELTation.ToonShader",
+    "DOTween",
+    "EasySave3",
+    "Lofelt.NiceVibrations",
+    "Mono.Security",
+    "MoreMountains.Feedbacks",
+    "MoreMountains.Feedbacks.Cinemachine",
+    "MoreMountains.Feedbacks.MMTools",
+    "MoreMountains.Feedbacks.NiceVibrations",
+    "MoreMountains.Feedbacks.PostProcessing",
+    "MoreMountains.Feedbacks.TextMeshPro",
+    "MoreMountains.Feedbacks.URP",
+    "MoreMountains.Tools",
+    "Newtonsoft.Json",
+    "Sirenix.OdinInspector.Attributes",
+    "Sirenix.OdinInspector.CompatibilityLayer",
+    "Sirenix.Serialization",
+    "Sirenix.Serialization.AOTGenerated",
+    "Sirenix.Serialization.Config",
+    "Sirenix.Utilities",
+    "Tayx.Graphy",
+    "UniTask",
+    "__Generated"
+  ],
+  "methods": 16013,
+  "nativeBytes": 4006144,
+  "placeholders": 18122,
+  "status": {
+    "PARTIAL": 3042,
+    "EXACT": 11973,
+    "FALLBACK": 221,
+    "HIGH_CONFIDENCE": 776,
+    "MISSING": 1
+  },
+  "byAssembly": {
+    "DELTation.ToonShader": {
+      "PARTIAL": 2,
+      "EXACT": 5
+    },
+    "MoreMountains.Feedbacks.PostProcessing": {
+      "EXACT": 89,
+      "PARTIAL": 18,
+      "FALLBACK": 2,
+      "HIGH_CONFIDENCE": 4
+    },
+    "AlmostEngine": {
+      "EXACT": 463,
+      "PARTIAL": 45,
+      "HIGH_CONFIDENCE": 16,
+      "FALLBACK": 5
+    },
+    "MoreMountains.Tools": {
+      "EXACT": 2035,
+      "PARTIAL": 346,
+      "FALLBACK": 51,
+      "HIGH_CONFIDENCE": 110
+    },
+    "Assembly-CSharp": {
+      "PARTIAL": 61,
+      "EXACT": 477,
+      "FALLBACK": 10,
+      "HIGH_CONFIDENCE": 22
+    },
+    "MoreMountains.Feedbacks": {
+      "EXACT": 1599,
+      "HIGH_CONFIDENCE": 58,
+      "PARTIAL": 236,
+      "FALLBACK": 2
+    },
+    "MoreMountains.Feedbacks.NiceVibrations": {
+      "EXACT": 43,
+      "PARTIAL": 6
+    },
+    "Tayx.Graphy": {
+      "EXACT": 224,
+      "PARTIAL": 28,
+      "HIGH_CONFIDENCE": 4,
+      "FALLBACK": 1
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "Sirenix.OdinInspector.CompatibilityLayer": {
+      "PARTIAL": 2,
+      "EXACT": 6
+    },
+    "MoreMountains.Feedbacks.TextMeshPro": {
+      "EXACT": 199,
+      "PARTIAL": 31,
+      "HIGH_CONFIDENCE": 3,
+      "FALLBACK": 1
+    },
+    "Sirenix.Utilities": {
+      "EXACT": 415,
+      "HIGH_CONFIDENCE": 26,
+      "PARTIAL": 363,
+      "FALLBACK": 19
+    },
+    "UniTask": {
+      "EXACT": 511,
+      "PARTIAL": 121,
+      "HIGH_CONFIDENCE": 71,
+      "MISSING": 1,
+      "FALLBACK": 1
+    },
+    "Sirenix.Serialization.AOTGenerated": {
+      "EXACT": 1
+    },
+    "Newtonsoft.Json": {
+      "EXACT": 1564,
+      "PARTIAL": 448,
+      "HIGH_CONFIDENCE": 105,
+      "FALLBACK": 35
+    },
+    "Sirenix.Serialization.Config": {
+      "EXACT": 17,
+      "PARTIAL": 1,
+      "HIGH_CONFIDENCE": 1
+    },
+    "Sirenix.Serialization": {
+      "EXACT": 811,
+      "PARTIAL": 424,
+      "HIGH_CONFIDENCE": 93,
+      "FALLBACK": 29
+    },
+    "Cinemachine": {
+      "PARTIAL": 238,
+      "EXACT": 920,
+      "FALLBACK": 31,
+      "HIGH_CONFIDENCE": 115
+    },
+    "Coffee.UIParticle": {
+      "EXACT": 93,
+      "FALLBACK": 3,
+      "HIGH_CONFIDENCE": 4,
+      "PARTIAL": 12
+    },
+    "MoreMountains.Feedbacks.URP": {
+      "EXACT": 218,
+      "HIGH_CONFIDENCE": 9,
+      "PARTIAL": 70,
+      "FALLBACK": 4
+    },
+    "MoreMountains.Feedbacks.Cinemachine": {
+      "EXACT": 97,
+      "PARTIAL": 23,
+      "HIGH_CONFIDENCE": 1
+    },
+    "EasySave3": {
+      "EXACT": 904,
+      "PARTIAL": 291,
+      "HIGH_CONFIDENCE": 84,
+      "FALLBACK": 22
+    },
+    "AlmostEngine.Shared": {
+      "EXACT": 23,
+      "HIGH_CONFIDENCE": 2,
+      "PARTIAL": 7
+    },
+    "MoreMountains.Feedbacks.MMTools": {
+      "PARTIAL": 77,
+      "EXACT": 286,
+      "HIGH_CONFIDENCE": 3
+    },
+    "Sirenix.OdinInspector.Attributes": {
+      "EXACT": 292,
+      "PARTIAL": 21
+    },
+    "DOTween": {
+      "EXACT": 584,
+      "HIGH_CONFIDENCE": 42,
+      "PARTIAL": 161,
+      "FALLBACK": 1
+    },
+    "Lofelt.NiceVibrations": {
+      "PARTIAL": 10,
+      "EXACT": 96,
+      "HIGH_CONFIDENCE": 3,
+      "FALLBACK": 3
+    }
+  },
+  "lostOperationClasses": {
+    "CALL": 119,
+    "FIELD": 55,
+    "ARRAY_READ": 22,
+    "ARRAY_WRITE": 24,
+    "NEWOBJ": 18,
+    "BRANCH": 9
+  },
+  "fingerprintIr": {
+    "NEWOBJ": 3931,
+    "BRANCH": 6927,
+    "LOOP": 6925,
+    "NULL_CHECK": 5733,
+    "ARITHMETIC": 4171,
+    "COMPARE": 6604,
+    "STATIC_ACCESS": 11423,
+    "CALL": 9915,
+    "CAST": 198,
+    "FIELD_ADDRESS": 365,
+    "ARRAY_WRITE": 349,
+    "INSTANCEOF": 856,
+    "ARRAY_READ": 894,
+    "SWITCH": 2,
+    "RETURN": 12
+  },
+  "fingerprintCSharp": {
+    "THROW": 1986,
+    "CALL": 13892,
+    "NEWOBJ": 4146,
+    "BRANCH": 6972,
+    "NULL_CHECK": 4481,
+    "ARITHMETIC": 4091,
+    "COMPARE": 6233,
+    "STATIC_ACCESS": 7374,
+    "RETURN": 7987,
+    "ARRAY_READ": 1737,
+    "NEWARR": 572,
+    "CAST": 2482,
+    "LOOP": 1720,
+    "FIELD_ADDRESS": 660,
+    "ARRAY_WRITE": 388,
+    "INSTANCEOF": 139,
+    "SWITCH": 115
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 9830,
+      "files": 733
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 3867,
+      "files": 370
+    },
+    "NATIVE_IMPORT": {
+      "count": 2562,
+      "files": 340
+    },
+    "INDIRECT_CALL": {
+      "count": 645,
+      "files": 186
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 594,
+      "files": 213
+    },
+    "INDIRECT_JUMP": {
+      "count": 335,
+      "files": 211
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 175,
+      "files": 73
+    },
+    "UNRESOLVED_DELEGATE": {
+      "count": 128,
+      "files": 56
+    },
+    "OTHER": {
+      "count": 7,
+      "files": 4
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 3236,
+      "lost": "ARRAY_READ,ARRAY_WRITE,FIELD",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/JsonTextReader.cs"
+    },
+    {
+      "nativeBytes": 2856,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/DictionaryKeyUtility.cs"
+    },
+    {
+      "nativeBytes": 2512,
+      "lost": "ARRAY_READ,ARRAY_WRITE,FIELD",
+      "file": "Assets/Scripts/UniTask/Cysharp/Threading/Tasks/Internal/PlayerLoopRunner.cs"
+    },
+    {
+      "nativeBytes": 2168,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Lofelt.NiceVibrations/Lofelt/NiceVibrations/LofeltHaptics.cs"
+    },
+    {
+      "nativeBytes": 1788,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMDebug.cs"
+    },
+    {
+      "nativeBytes": 1472,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/SimpleScreenshotCapture.cs"
+    },
+    {
+      "nativeBytes": 1388,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/ScreenshotTaker.cs"
+    },
+    {
+      "nativeBytes": 1040,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/FloatController.cs"
+    },
+    {
+      "nativeBytes": 936,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/SerializationNodeDataReader.cs"
+    },
+    {
+      "nativeBytes": 888,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/UnitySerializationUtility.cs"
+    },
+    {
+      "nativeBytes": 880,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMScreenshot.cs"
+    },
+    {
+      "nativeBytes": 824,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/Lofelt.NiceVibrations/Lofelt/NiceVibrations/HapticPatterns.cs"
+    },
+    {
+      "nativeBytes": 764,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/EasySave3/ES3Internal/ES3Reflection.cs"
+    },
+    {
+      "nativeBytes": 696,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/Vector4DictionaryKeyPathProvider.cs"
+    },
+    {
+      "nativeBytes": 692,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAchievementManager.cs"
+    },
+    {
+      "nativeBytes": 672,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMSpeedTest.cs"
+    },
+    {
+      "nativeBytes": 652,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/AIState.cs"
+    },
+    {
+      "nativeBytes": 628,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMScreenshot.cs"
+    },
+    {
+      "nativeBytes": 596,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/Vector3DictionaryKeyPathProvider.cs"
+    },
+    {
+      "nativeBytes": 584,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonTypeReflector.cs"
+    },
+    {
+      "nativeBytes": 556,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs"
+    },
+    {
+      "nativeBytes": 532,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Utilities/Sirenix/Utilities/ColorExtensions.cs"
+    },
+    {
+      "nativeBytes": 508,
+      "lost": "CALL",
+      "file": "Assets/Scripts/EasySave3/ES3Types/ES3Type_BoneWeight.cs"
+    },
+    {
+      "nativeBytes": 500,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Assembly-CSharp/FingerController.cs"
+    },
+    {
+      "nativeBytes": 484,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/DictionaryKeyUtility.cs"
+    },
+    {
+      "nativeBytes": 476,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/Vector2DictionaryKeyPathProvider.cs"
+    },
+    {
+      "nativeBytes": 436,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/DefaultSerializationBinder.cs"
+    },
+    {
+      "nativeBytes": 428,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMDebugOnScreenConsole.cs"
+    },
+    {
+      "nativeBytes": 420,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMRagdoller.cs"
+    },
+    {
+      "nativeBytes": 416,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/EasySave3/ES3Internal/ES3Debug.cs"
+    },
+    {
+      "nativeBytes": 400,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs"
+    },
+    {
+      "nativeBytes": 392,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPlatformActivation.cs"
+    },
+    {
+      "nativeBytes": 392,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMApplicationPlatformActivation.cs"
+    },
+    {
+      "nativeBytes": 392,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/EasySave3/ES3Internal/ES3Debug.cs"
+    },
+    {
+      "nativeBytes": 392,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/EasySave3/ES3Internal/ES3Debug.cs"
+    },
+    {
+      "nativeBytes": 376,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs"
+    },
+    {
+      "nativeBytes": 340,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineTargetGroup.cs"
+    },
+    {
+      "nativeBytes": 340,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonTypeReflector.cs"
+    },
+    {
+      "nativeBytes": 340,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Utilities/Sirenix/Utilities/PathUtilities.cs"
+    },
+    {
+      "nativeBytes": 340,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/Utilities/PathUtilities.cs"
+    },
+    {
+      "nativeBytes": 332,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineComponentBase.cs"
+    },
+    {
+      "nativeBytes": 320,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMRagdoller.cs"
+    },
+    {
+      "nativeBytes": 316,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+    },
+    {
+      "nativeBytes": 316,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+    },
+    {
+      "nativeBytes": 304,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs"
+    },
+    {
+      "nativeBytes": 292,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/SpecialPluginsUtils.cs"
+    },
+    {
+      "nativeBytes": 292,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/AndroidUtils.cs"
+    },
+    {
+      "nativeBytes": 288,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Cinemachine/Cinemachine/CinemachineConfiner.cs"
+    },
+    {
+      "nativeBytes": 288,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Sirenix.Utilities/Sirenix/Utilities/GlobalConfigAttribute.cs"
+    },
+    {
+      "nativeBytes": 288,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/EntityKeyMemberConverter.cs"
+    }
+  ]
+}

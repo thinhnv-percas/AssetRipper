@@ -1,0 +1,46 @@
+{
+ "root": "Test/Out67x-j/RunFromZombies",
+ "manifest": {
+  "status": "PRESENT",
+  "builtInModules": 31,
+  "builtInModuleVersions": [
+   "1.0.0"
+  ],
+  "packages": {}
+ },
+ "packagesLock": {
+  "status": "ABSENT"
+ },
+ "plugins": {
+  "Android": {
+   "status": "ABSENT"
+  },
+  "iOS": {
+   "status": "ABSENT"
+  }
+ },
+ "projectSettings": {
+  "status": "PRESENT",
+  "files": [
+   "AudioManager.asset",
+   "DelayedCallManager.asset",
+   "DynamicsManager.asset",
+   "EditorBuildSettings.asset",
+   "EditorSettings.asset",
+   "GraphicsSettings.asset",
+   "InputManager.asset",
+   "NavMeshAreas.asset",
+   "Physics2DSettings.asset",
+   "ProjectSettings.asset",
+   "ProjectVersion.txt",
+   "QualitySettings.asset",
+   "RuntimeInitializeOnLoadManager.asset",
+   "StreamingManager.asset",
+   "TagManager.asset",
+   "TimeManager.asset",
+   "UnityConnectSettings.asset",
+   "VFXManager.asset"
+  ],
+  "editorVersion": "2022.3.62f2"
+ }
+}

@@ -1,0 +1,5973 @@
+{
+  "methods": {
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/AudioManager.cs#0xFE79BC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL"
+      ],
+      "nativeBytes": 132,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/AudioManager.cs#0xFE7BE0": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ"
+      ],
+      "nativeBytes": 124,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/AudioManager.cs#0xFE7C70": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 168,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/BFS/Essential/DoRotation.cs#0x1027778": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 920,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoColor.cs#0x1028AE0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 872,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoDelay.cs#0x1028FC8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 792,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoFloat.cs#0x1029478": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 848,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/BFS/Essential/TweenCore/DoVector.cs#0x102998C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 888,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/CoinParticle.cs#0x101847C": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 68,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/CoinParticle.cs#0x1018590": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 264,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/CollectionManager.cs#0xFEBF38": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 448,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/EasingFunction.cs#0xFD3518": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN"
+      ],
+      "nativeBytes": 576,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/ElasticScale.cs#0xFF6084": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "CALL"
+      ],
+      "nativeBytes": 116,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FBWindowsExampleTabsManager.cs#0xFDD2A0": {
+      "status": "EXACT",
+      "ir": [
+        "CALL"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 8,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FBWindowsFriendsManager.cs#0xFDD70C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3412,
+      "placeholders": 6,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FBWindowsPurchaseManager.cs#0xFE1374": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2532,
+      "placeholders": 78,
+      "families": [
+        "INDIRECT_CALL",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/Fish.cs#0xFF71A0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3476,
+      "placeholders": 1,
+      "families": [
+        "UNRESOLVED_DELEGATE"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidCompute.cs#0xFEFE68": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1792,
+      "placeholders": 7,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidPhysicsCoupler.cs#0xFFDB00": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 108,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x10081FC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4996,
+      "placeholders": 30,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0xFFEE98": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2188,
+      "placeholders": 14,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0xFFCE04": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3324,
+      "placeholders": 3,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x10017BC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3552,
+      "placeholders": 16,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x1002C70": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 200,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "COROUTINE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x10057E0": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 188,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "COROUTINE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/GameManager.cs#0x1009D40": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 180,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "EVENT_ACCESSOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/GameManager.cs#0x1009DF4": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 180,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "EVENT_ACCESSOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/GameManager.cs#0x1009EA8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 936,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/GameUIManager.cs#0x10187F4": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 92,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "COROUTINE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/GameUIManager.cs#0x101887C": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 92,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "COROUTINE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/HSBColor.cs#0x100DA74": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE"
+      ],
+      "nativeBytes": 240,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/HSBColor.cs#0x100DB64": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 248,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/HSBColor.cs#0x100DC5C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "RETURN"
+      ],
+      "nativeBytes": 448,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/HSBColor.cs#0x100DFB0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 348,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/HorizontalFOV.cs#0x100D9D8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL"
+      ],
+      "nativeBytes": 116,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/HueColorCycle.cs#0xFE5A48": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 240,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/InterpolateChild.cs#0x100EBF0": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 128,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/Level.cs#0x1010F3C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 888,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/Level.cs#0x10112B8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 420,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/Level.cs#0x1011840": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2420,
+      "placeholders": 12,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/LevelCompleteScreen.cs#0x101F2D0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "CALL",
+        "NEWOBJ"
+      ],
+      "nativeBytes": 280,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/LevelFailedScreen.cs#0x101FD58": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ"
+      ],
+      "nativeBytes": 156,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/Lock.cs#0x1012D88": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1048,
+      "placeholders": 3,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/Menu.cs#0xFD8550": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1036,
+      "placeholders": 20,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/PathCollider2D.cs#0x10136E0": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 156,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/PathCollider2D.cs#0x1013B84": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 148,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/PathCreation/Examples/CylinderMeshCreator.cs#0x1022960": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3844,
+      "placeholders": 6,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/PathCreation/Examples/PlanarLineMeshCreator.cs#0x1023A28": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 5316,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/PowerUp.cs#0x1013DD4": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 92,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "COROUTINE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/RayFire/ActivationEventScript.cs#0x1024F0C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 776,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/RayFire/ActivationEventScript.cs#0x1025214": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 776,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/SettingsScreen.cs#0x1020A28": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 712,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/TextPopEffect.cs#0x1019D48": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1580,
+      "placeholders": 42,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/UIIconGenerator.cs#0x101B49C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 888,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/UIIconGenerator.cs#0x101A7D4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 312,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Assembly-CSharp/Utility.cs#0xFD65A8": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ"
+      ],
+      "csharp": [
+        "CALL",
+        "RETURN"
+      ],
+      "nativeBytes": 168,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "COROUTINE"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x1059CE0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 364,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x1059E4C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1180,
+      "placeholders": 1,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0x105A2E8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL"
+      ],
+      "nativeBytes": 116,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Core/Easing/Bounce.cs#0x1061710": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN"
+      ],
+      "nativeBytes": 580,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs#0x1061978": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3896,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs#0x1062CB0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 5040,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Core/TweenerCore.cs#0x1947FAC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2656,
+      "placeholders": 76,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/CirclePlugin.cs#0x1047DC8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 248,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/Color2Plugin.cs#0x1047F18": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "THROW"
+      ],
+      "nativeBytes": 480,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/ColorPlugin.cs#0x104BD34": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 228,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/ColorPlugin.cs#0x104BE18": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 292,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PluginsManager.cs#0x11723E0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3100,
+      "placeholders": 10,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/QuaternionPlugin.cs#0x104C530": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 992,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/QuaternionPlugin.cs#0x104CB90": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 312,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/QuaternionPlugin.cs#0x104D5C4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "CALL",
+        "RETURN"
+      ],
+      "nativeBytes": 176,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Plugins/UlongPlugin.cs#0x1048EDC": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 384,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Sequence.cs#0x1035A4C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 328,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/DOTween/DG/Tweening/Tween.cs#0x10471A4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 824,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/MiniJSON/Json.cs#0x106621C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH"
+      ],
+      "nativeBytes": 396,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/MiniJSON/Json.cs#0x1067890": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE"
+      ],
+      "nativeBytes": 492,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/AppLinkResult.cs#0x10767FC": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 444,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/AppRequestResult.cs#0x1076F80": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 424,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/Canvas/CanvasFacebook.cs#0x10A32F8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2172,
+      "placeholders": 33,
+      "families": [
+        "INDIRECT_CALL",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/CodelessCrawler.cs#0x10828A4": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 176,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/CodelessCrawler.cs#0x1082DAC": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 320,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/CustomUpdateContent.cs#0x106A0AC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 432,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/CustomUpdateMedia.cs#0x106A37C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 484,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/Editor/EditorFacebookMockDialog.cs#0x10930CC": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 272,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/Editor/EditorFacebookMockDialog.cs#0x10934AC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "NEWARR",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1056,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/FB.cs#0x106AB84": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 292,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/LoginResult.cs#0x1078760": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 428,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/Mobile/Android/AndroidFacebook.cs#0x109D7D4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2240,
+      "placeholders": 10,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/ResultBase.cs#0x1076034": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 320,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/ResultBase.cs#0x1076420": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 460,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/ResultBase.cs#0x107A9FC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 536,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/Utilities.cs#0x107ECDC": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 352,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/Utilities.cs#0x107F734": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2380,
+      "placeholders": 26,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity/Facebook/Unity/Utilities.cs#0x1080080": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3168,
+      "placeholders": 21,
+      "families": [
+        "INDIRECT_CALL",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Facebook.Unity.IOS/Facebook/Unity/IOS/IOSWrapper.cs#0x108FD88": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2088,
+      "placeholders": 6,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/GameAnalyticsSDK/GameAnalyticsSDK/Events/GA_SpecialEvents.cs#0x10B3B14": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1276,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "JellyBlastV2::Assets/Scripts/GameAnalyticsSDK/GameAnalyticsSDK/GameAnalytics.cs#0x10A6938": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 5048,
+      "placeholders": 2,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/GameAnalyticsSDK/GameAnalyticsSDK/Setup/Settings.cs#0x10B0B30": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 432,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/GameAnalyticsSDK/GameAnalyticsSDK/Utilities/GA_MiniJSON.cs#0x10AE704": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH"
+      ],
+      "nativeBytes": 396,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DateTimeConverterBase.cs#0x1E25364": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN"
+      ],
+      "nativeBytes": 376,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/DiscriminatedUnionConverter.cs#0x1E25744": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2388,
+      "placeholders": 94,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlNodeConverter.cs#0x1E33F90": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2712,
+      "placeholders": 56,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlNodeConverter.cs#0x1E31B90": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 6140,
+      "placeholders": 11,
+      "families": [
+        "INDIRECT_CALL",
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlNodeConverter.cs#0x1E35B00": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 932,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1DA63F8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 228,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonException.cs#0x1DA7530": {
+      "status": "EXACT",
+      "ir": [],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 132,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReader.cs#0x1DA820C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "THROW"
+      ],
+      "nativeBytes": 200,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonReaderException.cs#0x1DAD15C": {
+      "status": "EXACT",
+      "ir": [],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 132,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializationException.cs#0x1DAD65C": {
+      "status": "EXACT",
+      "ir": [],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 132,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs#0x1DADA7C": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 180,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "EVENT_ACCESSOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs#0x1DB443C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 1604,
+      "placeholders": 66,
+      "families": [
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs#0x1DB2568": {
+      "status": "PARTIAL",
+      "ir": [],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1732,
+      "placeholders": 30,
+      "families": [
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs#0x1DB75AC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 4920,
+      "placeholders": 8,
+      "families": [
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonWriter.cs#0x1DBD94C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 632,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonWriter.cs#0x1DBF20C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4052,
+      "placeholders": 7,
+      "families": [
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs#0x1E0A14C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 144,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs#0x1E0A1DC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 144,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyKeyedCollection.cs#0x1E0ED80": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 188,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs#0x1E19E18": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3736,
+      "placeholders": 15,
+      "families": [
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/DefaultContractResolver.cs#0x1303020": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1212,
+      "placeholders": 35,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/DefaultContractResolver.cs#0x1DDD940": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3404,
+      "placeholders": 26,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/DefaultContractResolver.cs#0x1DE0994": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 508,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/DefaultContractResolver.cs#0x1DE3BCC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1444,
+      "placeholders": 26,
+      "families": [
+        "INDIRECT_JUMP",
+        "OTHER",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonArrayContract.cs#0x1DE78DC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4020,
+      "placeholders": 9,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonPrimitiveContract.cs#0x1DED21C": {
+      "status": "FALLBACK",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 8,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonPrimitiveContract.cs#0x1DED224": {
+      "status": "FALLBACK",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 8,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs#0x1DEF3F4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 3288,
+      "placeholders": 20,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs#0x1DF90B8": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 408,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs#0x1DF9250": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 7104,
+      "placeholders": 51,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs#0x1DF00CC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 4088,
+      "placeholders": 3,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs#0x1DFB820": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 1164,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalWriter.cs#0x1E01670": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 428,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/ReflectionValueProvider.cs#0x1E05A18": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 428,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/Base64Encoder.cs#0x1DC0970": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 228,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/Base64Encoder.cs#0x1DC0A54": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 600,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/Base64Encoder.cs#0x1DC0CAC": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 196,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/BoxedPrimitives.cs#0x1DC1874": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1312,
+      "placeholders": 4,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ConvertUtils.cs#0x1DC5B3C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 440,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ConvertUtils.cs#0x1DC69A8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4744,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ImmutableCollectionsUtils.cs#0x1DD1B50": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2912,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/JavaScriptUtils.cs#0x1DD41A0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 296,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/MathUtils.cs#0x1DD5124": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 456,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ReflectionUtils.cs#0x1DD92E4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2656,
+      "placeholders": 7,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/StringBuffer.cs#0x1DDBDB4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 124,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/StringUtils.cs#0x1DD42C8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 184,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/StringUtils.cs#0x1DDA60C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 452,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/PathCreator/PathCreation/BezierPath.cs#0x1E3A44C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ"
+      ],
+      "nativeBytes": 1392,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/PathCreator/PathCreation/BezierPath.cs#0x1E3DFBC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1544,
+      "placeholders": 67,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/PathCreator/PathCreation/Utility/VertexPathUtility.cs#0x1E410CC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3724,
+      "placeholders": 49,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/PathCreator/PathCreation/Utility/VertexPathUtility.cs#0x1E42C24": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3884,
+      "placeholders": 52,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/PathCreator/PathCreation/VertexPath.cs#0x1E41F58": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3188,
+      "placeholders": 60,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RFLib_DotNet_2018_ios/RayFire/DotNet/RFShatter.cs#0x1EC9B10": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3320,
+      "placeholders": 38,
+      "families": [
+        "INDIRECT_JUMP",
+        "METHOD_NOT_FOUND",
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RFLib_DotNet_2018_ios/RayFire/DotNet/RFShatter.cs#0x1ECA888": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 6276,
+      "placeholders": 34,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RFLib_DotNet_2018_ios/RayFire/DotNet/RFShatter.cs#0x1ECC7B8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 5376,
+      "placeholders": 36,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RFLib_DotNet_2018_ios/RayFire/DotNet/RFShatter.cs#0x1ED0338": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1688,
+      "placeholders": 10,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "OTHER",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RFLib_DotNet_2018_ios/RayFire/DotNet/RFShatter.cs#0x1ECDDA0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2448,
+      "placeholders": 20,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RFLib_DotNet_2018_ios/RayFire/DotNet/RFShatter.cs#0x1ECE730": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 6916,
+      "placeholders": 55,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFBackupCluster.cs#0x1E6CAD4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 528,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFBackupCluster.cs#0x1E6DA34": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 544,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCache.cs#0x1EB50A4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP"
+      ],
+      "nativeBytes": 476,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCluster.cs#0x1E54B64": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1044,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCluster.cs#0x1E54F78": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1444,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCluster.cs#0x1E55FE0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1036,
+      "placeholders": 16,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCluster.cs#0x1E563EC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1088,
+      "placeholders": 13,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs#0x1E6F730": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 800,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs#0x1E70610": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 800,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs#0x1E6FBE0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 696,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs#0x1E6FF0C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 668,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCollapse.cs#0x1E70AA4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 720,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCombineMesh.cs#0x1E585D4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 512,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFCombineMesh.cs#0x1E59454": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 556,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFDamage.cs#0x1E714A4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN"
+      ],
+      "nativeBytes": 448,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFDamage.cs#0x1E71AF4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 588,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFDemolitionCluster.cs#0x1E74708": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "THROW"
+      ],
+      "nativeBytes": 352,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFDemolitionCluster.cs#0x1E751D8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3408,
+      "placeholders": 1,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFFragment.cs#0x1E91ADC": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 320,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFHexagon.cs#0x1E941EC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFJointProperties.cs#0x1E5D10C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 332,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFJointProperties.cs#0x1E5D348": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 304,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFJointProperties.cs#0x1E5D478": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP"
+      ],
+      "nativeBytes": 436,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFLimitations.cs#0x1E7FFD4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "INSTANCEOF",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 5300,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFMesh.cs#0x1E5E594": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3416,
+      "placeholders": 13,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFMesh.cs#0x1E5F320": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 304,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFNoise.cs#0x1E5FD34": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN"
+      ],
+      "nativeBytes": 344,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFNoise.cs#0x1E5FE8C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN"
+      ],
+      "nativeBytes": 320,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFNoise.cs#0x1E5FFCC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN"
+      ],
+      "nativeBytes": 396,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFPoolingEmitter.cs#0x1E48978": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 680,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFPoolingEmitter.cs#0x1E48C20": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 680,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFPoolingEmitter.cs#0x1E4998C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 468,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFPoolingEmitter.cs#0x1E4A698": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 504,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFPoolingEmitter.cs#0x1E4B8D8": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 456,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFPoolingEmitter.cs#0x1E4BE6C": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 424,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFReset.cs#0x1E8A3F0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "THROW"
+      ],
+      "nativeBytes": 524,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFRuntimeCaching.cs#0x1E8B8C4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 512,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFRuntimeCaching.cs#0x1E8BAC4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 400,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFRuntimeCaching.cs#0x1E8BC54": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 424,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFShard.cs#0x1E62B1C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1432,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFShatterAdvanced.cs#0x1E83934": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1996,
+      "placeholders": 36,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFShatterAdvanced.cs#0x1E8F5FC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2012,
+      "placeholders": 10,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFShatterBatch.cs#0x1E94CC8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 3596,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFStress.cs#0x1E67838": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1188,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RFStress.cs#0x1E67D24": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN"
+      ],
+      "nativeBytes": 612,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireActivator.cs#0x1E97764": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 128,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireActivator.cs#0x1E97E44": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 92,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireActivator.cs#0x1E98170": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 16,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireActivator.cs#0x1E98180": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 20,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireCombine.cs#0x1EA50AC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 7120,
+      "placeholders": 93,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireConnectivity.cs#0x1EA9FE0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 652,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireConnectivity.cs#0x1EAA630": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3640,
+      "placeholders": 4,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireMan.cs#0x1EB1D90": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 68,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireRecorder.cs#0x1EB5568": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 136,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireRigid.cs#0x1EB7E40": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 236,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireRigid.cs#0x1EB8044": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 524,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireRigid.cs#0x1EB8ED8": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL"
+      ],
+      "nativeBytes": 88,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireRigidRoot.cs#0x1EBE230": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 452,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireShatter.cs#0x1EC02C0": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 564,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireVortex.cs#0x1EC7C1C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 292,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/RayFireAssembly/RayFire/RayfireWind.cs#0x1EC92AC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 304,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Voodoo.UI.Particles/Voodoo/UI/Particles/UIParticleUpdater.cs#0x2744F3C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4368,
+      "placeholders": 7,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    },
+    "JellyBlastV2::Assets/Scripts/Voodoo.UI.Particles/Voodoo/UI/Particles/Utils/CombineInstanceEx.cs#0x2747E08": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "CALL"
+      ],
+      "nativeBytes": 372,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "JellyBlastV2",
+      "runtimeRole": "GENERAL"
+    }
+  }
+}

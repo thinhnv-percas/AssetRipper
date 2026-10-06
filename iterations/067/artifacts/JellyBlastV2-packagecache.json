@@ -1,0 +1,73 @@
+{
+ "root": "Test/Out67xk-i/JellyBlastV2",
+ "manifest": {
+  "status": "PRESENT",
+  "builtInModules": 31,
+  "builtInModuleVersions": [
+   "1.0.0"
+  ],
+  "packages": {
+   "com.unity.mathematics": {
+    "version": "1.2.6",
+    "provenance": "EXPORTER_WRITTEN"
+   },
+   "com.unity.textmeshpro": {
+    "version": "3.0.9",
+    "provenance": "EXPORTER_WRITTEN"
+   },
+   "com.unity.visualscripting": {
+    "version": "1.9.11",
+    "provenance": "EXPORTER_WRITTEN"
+   }
+  }
+ },
+ "packagesLock": {
+  "status": "ABSENT"
+ },
+ "plugins": {
+  "Android": {
+   "status": "ABSENT"
+  },
+  "iOS": {
+   "status": "PRESENT",
+   "entries": [
+    "FBAEMKit.framework",
+    "FBAEMKit.framework.meta",
+    "FBSDKCoreKit.framework",
+    "FBSDKCoreKit.framework.meta",
+    "FBSDKCoreKit_Basics.framework",
+    "FBSDKCoreKit_Basics.framework.meta",
+    "FBSDKGamingServicesKit.framework",
+    "FBSDKGamingServicesKit.framework.meta",
+    "FBSDKLoginKit.framework",
+    "FBSDKLoginKit.framework.meta",
+    "FBSDKShareKit.framework",
+    "FBSDKShareKit.framework.meta"
+   ],
+   "files": 61
+  }
+ },
+ "projectSettings": {
+  "status": "PRESENT",
+  "files": [
+   "AudioManager.asset",
+   "DelayedCallManager.asset",
+   "DynamicsManager.asset",
+   "EditorBuildSettings.asset",
+   "EditorSettings.asset",
+   "GraphicsSettings.asset",
+   "InputManager.asset",
+   "NavMeshAreas.asset",
+   "Physics2DSettings.asset",
+   "ProjectSettings.asset",
+   "ProjectVersion.txt",
+   "QualitySettings.asset",
+   "RuntimeInitializeOnLoadManager.asset",
+   "StreamingManager.asset",
+   "TagManager.asset",
+   "TimeManager.asset",
+   "VFXManager.asset"
+  ],
+  "editorVersion": "2022.3.53f1"
+ }
+}

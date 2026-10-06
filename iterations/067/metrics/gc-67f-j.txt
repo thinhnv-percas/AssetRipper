@@ -1,0 +1,48 @@
+corpus: 887 entries, 194 for RunFromZombies (693 for other fixtures, 16 retired), 194 found, 0 not present in this rip
+
+== by semantic status ==
+   82  EXACT
+   37  HIGH_CONFIDENCE
+   71  PARTIAL
+    4  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+  149  GENERAL
+   14  STATIC_ENTRY
+   11  CONSTRUCTOR
+    6  EVENT_ACCESSOR
+    6  LIFECYCLE_UPDATE
+    3  LIFECYCLE_START
+    3  UNITY_CALLBACK
+    1  COROUTINE
+    1  LIFECYCLE_AWAKE
+
+== against baseline ==
+improved 21, regressed 5
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Assembly-CSharp/ScoreScript.cs#0xF0C390
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Assembly-CSharp/Spawner.cs#0xF0C47C
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Assembly-CSharp/Spawner.cs#0xF0C844
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x19580BC
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1958558
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs#0x1960570
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs#0x1960620
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs#0x1986EE4
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs#0x198D8BC
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs#0x198D974
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/DefaultContractResolver.cs#0x19BDE04
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/DefaultContractResolver.cs#0x19BF8A0
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs#0x199CA64
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs#0x199CB74
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionWrapper.cs#0x1717F80
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ConvertUtils.cs#0x199D7CC
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeUtils.cs#0x19A3A00
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DynamicProxyMetaObject.cs#0x11C2A70
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DynamicProxyMetaObject.cs#0x11C2BCC
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ImmutableCollectionsUtils.cs#0x19A9418
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/NoThrowSetBinderMember.cs#0x19A67BC
+  REGRESSED EXACT -> HIGH_CONFIDENCE  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs#0x198CBE4
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Schema/JsonSchemaBuilder.cs#0x19E12D4
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/MemoryTraceWriter.cs#0x19DAEA8
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeUtils.cs#0x19A4F68
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ReflectionUtils.cs#0x19B1C34

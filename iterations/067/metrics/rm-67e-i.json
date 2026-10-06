@@ -1,0 +1,420 @@
+{
+  "scope": [
+    "Assembly-CSharp",
+    "Assembly-CSharp-firstpass",
+    "DOTween",
+    "Facebook.Unity",
+    "Facebook.Unity.IOS",
+    "Facebook.Unity.Settings",
+    "GameAnalyticsSDK",
+    "Mono.Security",
+    "Newtonsoft.Json",
+    "PathCreator",
+    "RFLib_DotNet_2018_ios",
+    "RayFireAssembly",
+    "Voodoo.UI.Particles",
+    "__Generated"
+  ],
+  "methods": 7496,
+  "nativeBytes": 2235648,
+  "placeholders": 12735,
+  "status": {
+    "EXACT": 5301,
+    "PARTIAL": 1914,
+    "FALLBACK": 50,
+    "HIGH_CONFIDENCE": 231
+  },
+  "byAssembly": {
+    "Facebook.Unity.Settings": {
+      "EXACT": 44,
+      "PARTIAL": 3,
+      "FALLBACK": 1
+    },
+    "Facebook.Unity": {
+      "EXACT": 880,
+      "PARTIAL": 231,
+      "HIGH_CONFIDENCE": 17,
+      "FALLBACK": 14
+    },
+    "Voodoo.UI.Particles": {
+      "EXACT": 86,
+      "PARTIAL": 17,
+      "HIGH_CONFIDENCE": 5,
+      "FALLBACK": 3
+    },
+    "RFLib_DotNet_2018_ios": {
+      "EXACT": 48,
+      "PARTIAL": 22,
+      "HIGH_CONFIDENCE": 2
+    },
+    "PathCreator": {
+      "EXACT": 83,
+      "PARTIAL": 43,
+      "FALLBACK": 1,
+      "HIGH_CONFIDENCE": 7
+    },
+    "GameAnalyticsSDK": {
+      "EXACT": 154,
+      "PARTIAL": 195,
+      "HIGH_CONFIDENCE": 8
+    },
+    "Assembly-CSharp": {
+      "EXACT": 783,
+      "PARTIAL": 284,
+      "HIGH_CONFIDENCE": 32,
+      "FALLBACK": 7
+    },
+    "__Generated": {
+      "FALLBACK": 2
+    },
+    "RayFireAssembly": {
+      "PARTIAL": 180,
+      "EXACT": 1251,
+      "FALLBACK": 5,
+      "HIGH_CONFIDENCE": 46
+    },
+    "Newtonsoft.Json": {
+      "EXACT": 1390,
+      "PARTIAL": 663,
+      "HIGH_CONFIDENCE": 80,
+      "FALLBACK": 17
+    },
+    "Facebook.Unity.IOS": {
+      "PARTIAL": 34,
+      "EXACT": 45
+    },
+    "DOTween": {
+      "EXACT": 537,
+      "PARTIAL": 242,
+      "HIGH_CONFIDENCE": 34
+    }
+  },
+  "lostOperationClasses": {
+    "CALL": 27,
+    "BRANCH": 9,
+    "ARRAY_READ": 6,
+    "ARRAY_WRITE": 7,
+    "NEWOBJ": 6,
+    "FIELD": 4
+  },
+  "fingerprintIr": {
+    "BRANCH": 3591,
+    "ARITHMETIC": 2884,
+    "LOOP": 3589,
+    "STATIC_ACCESS": 4928,
+    "COMPARE": 3330,
+    "NULL_CHECK": 2927,
+    "NEWOBJ": 2198,
+    "CALL": 4695,
+    "ARRAY_READ": 386,
+    "ARRAY_WRITE": 189,
+    "FIELD_ADDRESS": 151,
+    "INSTANCEOF": 22,
+    "CAST": 47
+  },
+  "fingerprintCSharp": {
+    "RETURN": 4021,
+    "BRANCH": 3644,
+    "ARITHMETIC": 2808,
+    "STATIC_ACCESS": 3773,
+    "CALL": 6388,
+    "COMPARE": 3390,
+    "NULL_CHECK": 2635,
+    "THROW": 1214,
+    "NEWOBJ": 2430,
+    "ARRAY_READ": 935,
+    "CAST": 1016,
+    "LOOP": 1202,
+    "SWITCH": 44,
+    "ARRAY_WRITE": 290,
+    "NEWARR": 221,
+    "INSTANCEOF": 16,
+    "FIELD_ADDRESS": 252
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 8400,
+      "files": 320
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 2854,
+      "files": 243
+    },
+    "INDIRECT_CALL": {
+      "count": 497,
+      "files": 100
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 404,
+      "files": 75
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 207,
+      "files": 54
+    },
+    "INDIRECT_JUMP": {
+      "count": 205,
+      "files": 67
+    },
+    "UNRESOLVED_DELEGATE": {
+      "count": 4,
+      "files": 3
+    },
+    "OTHER": {
+      "count": 3,
+      "files": 2
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 1536,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/RayFireAssembly/RayFire/RayfireCluster.cs"
+    },
+    {
+      "nativeBytes": 1204,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/RayFireAssembly/RayFire/RFDemolitionMesh.cs"
+    },
+    {
+      "nativeBytes": 740,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/RayFireAssembly/RayFire/RayfireRecorder.cs"
+    },
+    {
+      "nativeBytes": 680,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Assembly-CSharp/RayFire/ConnectivityEventScript.cs"
+    },
+    {
+      "nativeBytes": 680,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Assembly-CSharp/RayFire/ConnectivityEventScript.cs"
+    },
+    {
+      "nativeBytes": 408,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs"
+    },
+    {
+      "nativeBytes": 392,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Assembly-CSharp/HSBColor.cs"
+    },
+    {
+      "nativeBytes": 332,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity.Settings/Facebook/Unity/Settings/FacebookSettings.cs"
+    },
+    {
+      "nativeBytes": 292,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/EntityKeyMemberConverter.cs"
+    },
+    {
+      "nativeBytes": 288,
+      "lost": "CALL",
+      "file": "Assets/Scripts/RayFireAssembly/RayFire/RFShard.cs"
+    },
+    {
+      "nativeBytes": 268,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 268,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/Utilities.cs"
+    },
+    {
+      "nativeBytes": 244,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Assembly-CSharp/Viewport.cs"
+    },
+    {
+      "nativeBytes": 236,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/MethodArguments.cs"
+    },
+    {
+      "nativeBytes": 232,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Assembly-CSharp/Viewport.cs"
+    },
+    {
+      "nativeBytes": 224,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Assembly-CSharp/TextPopEffect.cs"
+    },
+    {
+      "nativeBytes": 216,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/AuthenticationToken.cs"
+    },
+    {
+      "nativeBytes": 216,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/ComponentFactory.cs"
+    },
+    {
+      "nativeBytes": 212,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Voodoo.UI.Particles/Voodoo/UI/Particles/Utils/ListExtensions.cs"
+    },
+    {
+      "nativeBytes": 212,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonProperty.cs"
+    },
+    {
+      "nativeBytes": 212,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/MethodArguments.cs"
+    },
+    {
+      "nativeBytes": 196,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Assembly-CSharp/JsonHelper.cs"
+    },
+    {
+      "nativeBytes": 176,
+      "lost": "CALL",
+      "file": "Assets/Scripts/RayFireAssembly/RayFire/RayfireShatter.cs"
+    },
+    {
+      "nativeBytes": 160,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyDescriptor.cs"
+    },
+    {
+      "nativeBytes": 160,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyDescriptor.cs"
+    },
+    {
+      "nativeBytes": 156,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonDictionaryContract.cs"
+    },
+    {
+      "nativeBytes": 156,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonArrayContract.cs"
+    },
+    {
+      "nativeBytes": 136,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs"
+    },
+    {
+      "nativeBytes": 124,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Voodoo.UI.Particles/Voodoo/UI/Particles/Utils/MeshHelper.cs"
+    },
+    {
+      "nativeBytes": 124,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/FacebookLogger.cs"
+    },
+    {
+      "nativeBytes": 124,
+      "lost": "BRANCH,FIELD",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs"
+    },
+    {
+      "nativeBytes": 116,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Voodoo.UI.Particles/Voodoo/UI/Particles/Utils/MeshHelper.cs"
+    },
+    {
+      "nativeBytes": 116,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/FacebookLogger.cs"
+    },
+    {
+      "nativeBytes": 112,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/Editor/Dialogs/MockShareDialog.cs"
+    },
+    {
+      "nativeBytes": 100,
+      "lost": "CALL",
+      "file": "Assets/Scripts/PathCreator/PathCreation/BezierPath.cs"
+    },
+    {
+      "nativeBytes": 96,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+    },
+    {
+      "nativeBytes": 96,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+    },
+    {
+      "nativeBytes": 80,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    },
+    {
+      "nativeBytes": 72,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/Editor/EditorFacebook.cs"
+    },
+    {
+      "nativeBytes": 72,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/__Generated/System/__Il2CppComObject.cs"
+    },
+    {
+      "nativeBytes": 72,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/__Generated/System/__Il2CppComDelegate.cs"
+    },
+    {
+      "nativeBytes": 68,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/ComponentFactory.cs"
+    },
+    {
+      "nativeBytes": 12,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/ResultBase.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH,FIELD",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonPrimitiveContract.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH,FIELD",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonPrimitiveContract.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/ResultBase.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/CodelessUIInteractEvent.cs"
+    },
+    {
+      "nativeBytes": 8,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Facebook.Unity/Facebook/Unity/CodelessUIInteractEvent.cs"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.401/Roslyn/bincore/csc.dll
+Assembly-CSharp: 64 files, 196 errors, 2222 warnings
+Assembly-CSharp: 40 of 64 files compile clean
+
+   120  CS0030   [most common: 10 of 120] Cannot convert type 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'
+    31  CS0122   [most common: 17 of 31] 'List<object>.Enumerator._current' is inaccessible due to its protection level
+    17  CS0037   [most common: 17 of 17] Cannot convert null to 'nint' because it is a non-nullable value type
+     8  CS0117   [most common: 2 of 8] 'ItemBase' does not contain a definition for '_002Ector'
+     7  CS0019   [most common: 6 of 7] Operator '+' cannot be applied to operands of type 'object' and 'int'
+     5  CS1061   [most common: 2 of 5] 'List<List<Dictionary<string, string>>>' does not contain a definition for '_version' and no accessible extension method '_version' accepting a first argument of type 'List<List<Dictionary<string, string>>>' could be found (are you missing a using directive or an assembly reference?)
+     4  CS7003   [most common: 4 of 4] Unexpected use of an unbound generic name
+     2  CS0246   [most common: 2 of 2] The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)
+     2  CS0165   [most common: 1 of 2] Use of unassigned local variable 'num9'
+
+reference assemblies: 42
+errors classified: 196
+
+DECOMPILER_ERROR      196
+REFERENCE_ERROR         0
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+     120  CS0030   invalid C# independent of the reference set
+          Cannot convert type 'Box' to 'float'
+      31  CS0122   reaches a member of a referenced assembly that C# cannot
+          'List<object>.Enumerator._current' is inaccessible due to its protection level
+      17  CS0037   invalid C# independent of the reference set
+          Cannot convert null to 'nint' because it is a non-nullable value type
+       8  CS0117   names a decompiler-mangled identifier
+          'ItemBase' does not contain a definition for '_002Ector'
+       7  CS0019   invalid C# independent of the reference set
+          Operator '&' cannot be applied to operands of type 'float' and 'int'
+       5  CS1061   reaches a non-public member of a referenced assembly
+          'List<List<Dictionary<string, string>>>' does not contain a definition for '_version' and no accessible extens
+       4  CS7003   invalid C# independent of the reference set
+          Unexpected use of an unbound generic name
+       2  CS0165   invalid C# independent of the reference set
+          Use of unassigned local variable 'num'
+       2  CS0246   names a decompiler-mangled identifier
+          The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly refer
+

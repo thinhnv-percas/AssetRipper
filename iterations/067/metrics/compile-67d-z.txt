@@ -1,0 +1,44 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.401/Roslyn/bincore/csc.dll
+Assembly-CSharp: 64 files, 207 errors, 2219 warnings
+Assembly-CSharp: 40 of 64 files compile clean
+
+   136  CS0030   [most common: 10 of 136] Cannot convert type 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'
+    29  CS0122   [most common: 17 of 29] 'List<object>.Enumerator._current' is inaccessible due to its protection level
+    11  CS0037   [most common: 11 of 11] Cannot convert null to 'nint' because it is a non-nullable value type
+     8  CS1061   [most common: 3 of 8] 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+     8  CS0117   [most common: 2 of 8] 'ItemBase' does not contain a definition for '_002Ector'
+     7  CS0019   [most common: 6 of 7] Operator '+' cannot be applied to operands of type 'object' and 'int'
+     4  CS7003   [most common: 4 of 4] Unexpected use of an unbound generic name
+     2  CS0246   [most common: 2 of 2] The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly reference?)
+     2  CS0165   [most common: 1 of 2] Use of unassigned local variable 'num9'
+
+reference assemblies: 42
+errors classified: 207
+
+DECOMPILER_ERROR      207
+REFERENCE_ERROR         0
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+     136  CS0030   invalid C# independent of the reference set
+          Cannot convert type 'Box' to 'float'
+      29  CS0122   reaches a member of a referenced assembly that C# cannot
+          'List<object>.Enumerator._current' is inaccessible due to its protection level
+      11  CS0037   invalid C# independent of the reference set
+          Cannot convert null to 'nint' because it is a non-nullable value type
+       8  CS1061   reaches a non-public member of a referenced assembly
+          'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a fi
+       8  CS0117   names a decompiler-mangled identifier
+          'ItemBase' does not contain a definition for '_002Ector'
+       7  CS0019   invalid C# independent of the reference set
+          Operator '+' cannot be applied to operands of type 'object' and 'int'
+       4  CS7003   invalid C# independent of the reference set
+          Unexpected use of an unbound generic name
+       2  CS0165   invalid C# independent of the reference set
+          Use of unassigned local variable 'num'
+       2  CS0246   names a decompiler-mangled identifier
+          The type or namespace name '_00210' could not be found (are you missing a using directive or an assembly refer
+
