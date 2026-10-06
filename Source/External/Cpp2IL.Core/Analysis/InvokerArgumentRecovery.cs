@@ -344,14 +344,52 @@ public static class InvokerArgumentRecovery
 
         if (!target.IsVoid && refusal is null)
         {
-            if (dispatch.Operands[ReturnOperand] is LocalVariable returned && buffers.TryGetValue(returned, out var returnBuffer)
-                && SameType(returnBuffer.Type, target.ReturnType))
-                result = returnBuffer.Local;
+            var (returned, reason) = PlanReturn(dispatch.Operands[ReturnOperand], target.ReturnType, frame, buffers);
+            if (returned is not null)
+                result = returned;
             else
-                refusal = "UNKNOWN_RETURN";
+                refusal = UnknownReturn + ":" + reason;
         }
 
         return refusal;
+    }
+
+    public const string UnknownReturn = "UNKNOWN_RETURN";
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - where the invoker writes the return value, and the local that holds it afterwards.
+    /// </summary>
+    /// <remarks>
+    /// The invoker stores the callee's result through its last argument: <c>*(T*)ret = method(...)</c> for a value,
+    /// the object pointer for a reference. So the local that holds the result is the storage <c>ret</c> addresses -
+    /// a <c>T</c> buffer (<see cref="Buffers"/>) or a named frame slot - and nothing is inferred from a size. A frame
+    /// slot is taken only for a type one store writes whole, and only when every local naming the slot is one
+    /// storage, so a read after the call is a read of what the call wrote. This runs out of SSA, so defining that
+    /// local at the call is exactly the callee's store. Every other shape is refused with the reason it is not one.
+    /// </remarks>
+    private static (LocalVariable? Result, string Reason) PlanReturn(IOperand returnPointer, TypeAnalysisContext returnType, FrameMemory frame, Dictionary<LocalVariable, StackBuffer> buffers)
+    {
+        switch (returnPointer)
+        {
+            case LocalVariable pointer when buffers.TryGetValue(pointer, out var buffer):
+                return SameType(buffer.Type, returnType) ? (buffer.Local, "T_BUFFER") : (null, "BUFFER_OF_ANOTHER_TYPE");
+            case Immediate { Value: 0 }:
+                return (null, "NULL_RETURN_POINTER");
+            case AddressOf { Target: LocalVariable slot } when frame.AddressOf(returnPointer) is not null:
+                if (!WrittenByOneStore(returnType))
+                    return (null, returnType.IsValueType ? "STRUCT_ACROSS_FRAME_SLOTS" : "FRAME_SLOT_TYPE_NOT_ONE_STORE");
+                if (!frame.IsOneStorage(slot))
+                    return (null, "FRAME_SLOT_HAS_SEVERAL_STORAGES");
+                return (slot, "FRAME_SLOT");
+        }
+
+        if (frame.AddressOf(returnPointer) is not null)
+            return (null, "COMPUTED_FRAME_ADDRESS");
+
+        if (returnPointer is LocalVariable local && frame.DefinitionOf(local) is { } definition)
+            return (null, definition.OpCode == OpCode.StackAlloc ? "T_BUFFER_WITH_A_USE_THE_MODEL_DOES_NOT_EXPLAIN" : "POINTER_FROM_" + definition.OpCode.ToString().ToUpperInvariant());
+
+        return (null, returnPointer is LocalVariable ? "POINTER_WITH_SEVERAL_DEFINITIONS_OR_NONE" : "POINTER_" + returnPointer.GetType().Name.ToUpperInvariant());
     }
 
     private static bool SameType(TypeAnalysisContext a, TypeAnalysisContext b)
@@ -382,7 +420,16 @@ public static class InvokerArgumentRecovery
 
             foreach (var definition in defined)
             {
-                if (definition is not { OpCode: OpCode.Subtract, Operands: [_, AddressOf { Target: LocalVariable }, LocalVariable size] }
+                // iteration 066: StackAnalyzer now recovers the allocation as what it is; the subtraction from a
+                // frame slot's address is the shape it had before, kept for a body the analyser did not recognise
+                var allocatedSize = definition switch
+                {
+                    { OpCode: OpCode.StackAlloc, Operands: [_, LocalVariable allocated] } => allocated,
+                    { OpCode: OpCode.Subtract, Operands: [_, AddressOf { Target: LocalVariable }, LocalVariable subtracted] } => subtracted,
+                    _ => null,
+                };
+
+                if (allocatedSize is not { } size
                     || Single(definitions, size) is not { OpCode: OpCode.And, Operands: [_, LocalVariable rounded, Immediate] }
                     || Single(definitions, rounded) is not { OpCode: OpCode.Add, Operands: [_, MemoryOperand { Base: LocalVariable { Type: RuntimeClassTypeAnalysisContext { RepresentedType: { } represented } } sizeOf, Index: null, Addend: var addend }, Immediate { Value: 15 }] }
                     || addend != slotSize
@@ -410,7 +457,11 @@ public static class InvokerArgumentRecovery
                 if (!Uses(instruction, pointer))
                     continue;
 
-                var explained = ReferenceEquals(instruction.Destination, pointer) && instruction.OpCode == OpCode.Subtract
+                var explained = ReferenceEquals(instruction.Destination, pointer) && instruction.OpCode is OpCode.Subtract or OpCode.StackAlloc
+                    // iteration 066: the allocation leaves the stack pointer at the buffer; that write is bookkeeping,
+                    // and a read through the stack pointer afterwards is a use of the register, which is still checked
+                    || instruction is { OpCode: OpCode.Move, Operands: [LocalVariable { Register.Name: StackAnalyzer.DynamicStackPointer }, LocalVariable spSource] }
+                        && ReferenceEquals(spSource, pointer)
                     || invokers.Contains(instruction)
                     || instruction is { OpCode: OpCode.Move, Operands: [MemoryOperand { Base: LocalVariable }, LocalVariable stored] } && ReferenceEquals(stored, pointer)
                     // the same store once the frame pointer is resolved: the address written straight into a named slot
@@ -545,6 +596,22 @@ public static class InvokerArgumentRecovery
             .ToDictionary(g => g.Key, g => g.ToList());
 
         private DominatorInfo? dominators;
+
+        /// <summary>The one instruction defining a local, or null.</summary>
+        public Instruction? DefinitionOf(LocalVariable local)
+            => definitions.TryGetValue(local, out var defined) && defined.Count == 1 ? defined[0] : null;
+
+        /// <summary>Whether every local that names this slot's register is this local: one storage, read where it is written.</summary>
+        public bool IsOneStorage(LocalVariable slot)
+            => instructions.All(instruction => instruction.Operands.All(operand => Names(operand, slot)));
+
+        private static bool Names(IOperand operand, LocalVariable slot) => operand switch
+        {
+            LocalVariable other => other.Register.Name != slot.Register.Name || ReferenceEquals(other, slot) || other.Name == slot.Name,
+            AddressOf { Target: var target } => Names(target, slot),
+            MemoryOperand memory => (memory.Base is null || Names(memory.Base, slot)) && (memory.Index is null || Names(memory.Index, slot)),
+            _ => true,
+        };
 
         /// <summary>The frame address an operand holds - a stack slot's register name and an offset - or null.</summary>
         public (string Slot, long Offset)? AddressOf(IOperand operand, int depth = 0)

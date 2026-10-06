@@ -2113,6 +2113,14 @@ public static class IlGenerator
                 StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
                 break;
 
+            // AssetRipper: iteration 066 - il2cpp's alloca for a value whose size is only known at run time.
+            case OpCode.StackAlloc:
+                LoadOperand(instruction.Operands[1], context, method, locals, writeLine);
+                instructions.Add(CilOpCodes.Conv_U);
+                instructions.Add(CilOpCodes.Localloc);
+                StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                break;
+
             case OpCode.Not:
             case OpCode.Negate:
                 LoadOperand(instruction.Operands[1], context, method, locals, writeLine);

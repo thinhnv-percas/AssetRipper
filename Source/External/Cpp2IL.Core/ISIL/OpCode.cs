@@ -143,5 +143,17 @@ public enum OpCode
     /// members are the registers the call was really passed, so composing them back into the value
     /// is the whole of what the abstraction was missing.
     /// </remarks>
-    MakeStruct
+    MakeStruct,
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - allocates op 2 bytes on the stack and moves their address into op 1: IL's
+    /// <c>localloc</c>.
+    /// </summary>
+    /// <remarks>
+    /// A fully shared generic body does not know the size of its type parameters until run time, so il2cpp emits
+    /// <c>alloca(il2cpp_codegen_sizeof(T))</c> for every local of such a type, which A64 compiles to
+    /// <c>mov xA, sp; sub xB, xA, size; mov sp, xB</c>. Each is a buffer of its own; reading them as offsets from a
+    /// fixed frame slot made every one of them alias that slot.
+    /// </remarks>
+    StackAlloc
 }

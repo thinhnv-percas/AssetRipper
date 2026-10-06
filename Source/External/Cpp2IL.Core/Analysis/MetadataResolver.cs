@@ -65,6 +65,73 @@ public static class MetadataResolver
     /// naming the method it refers to (also used to type the local - see <see cref="LocalVariables"/>),
     /// or likewise a <see cref="RuntimeFieldInfoAnalysisContext"/> for a FieldInfo* usage.
     /// </summary>
+    /// <summary>How many metadata usages were reached through an address formed as a page base plus offsets.</summary>
+    public static long UsagesThroughAComputedAddress;
+
+    private static ulong CountedComputed(ulong address)
+    {
+        System.Threading.Interlocked.Increment(ref UsagesThroughAComputedAddress);
+        return address;
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - locals whose value is an address formed from an <c>adrp</c> page and immediate
+    /// offsets: <c>Move t, page</c> then one or more <c>Add t, t, imm</c>, through copies.
+    /// </summary>
+    /// <remarks>
+    /// On the iOS fixture 2315 of 2510 interface lookups whose class operand had no source read the class out of a
+    /// slot whose address was formed this way: <c>x8 = 0x2E1B000; x8 = x8 + 0x9F0; x1 = [x8]</c>. The page is
+    /// recognised by <see cref="FindPageBases"/>, but the load goes through the sum, and nothing evaluated it. Every
+    /// step is an immediate, so the value is exact; the root must be page-aligned (it is what <c>adrp</c> produces)
+    /// and at least one <c>Add</c> must be on the path, since a bare immediate is the absolute-address case that is
+    /// already resolved. A local with more than one definition is not a constant and is left alone.
+    /// </remarks>
+    public static Dictionary<LocalVariable, ulong> FindComputedSlotAddresses(MethodAnalysisContext method)
+    {
+        var definitions = new Dictionary<LocalVariable, List<Instruction>>();
+        foreach (var instruction in method.ControlFlowGraph!.AllInstructions)
+        {
+            if (instruction.Destination is LocalVariable defined)
+            {
+                if (!definitions.TryGetValue(defined, out var list))
+                    definitions[defined] = list = [];
+                list.Add(instruction);
+            }
+        }
+
+        var result = new Dictionary<LocalVariable, ulong>();
+        foreach (var local in definitions.Keys)
+        {
+            if (ComputedSlotAddress(local, definitions, 0) is { HasAdd: true, Value: var value }
+                && method.AppContext.LibCpp2IlContext.Binary.TryMapVirtualAddressToRaw(value, out var raw)
+                && raw >= 0 && raw < method.AppContext.LibCpp2IlContext.Binary.RawLength)
+                result[local] = value;
+        }
+
+        return result;
+    }
+
+    /// <summary>The exact value of an address formed from a page-aligned immediate and immediate offsets, or null.</summary>
+    public static (ulong Value, bool HasAdd)? ComputedSlotAddress(LocalVariable local, IReadOnlyDictionary<LocalVariable, List<Instruction>> definitions, int depth)
+    {
+        if (depth > 8 || !definitions.TryGetValue(local, out var defined) || defined.Count != 1)
+            return null;
+
+        static bool IsPage(ulong value) => value != 0 && (value & 0xFFF) == 0;
+
+        return defined[0] switch
+        {
+            { OpCode: OpCode.Move, Operands: [_, Immediate root] } when IsPage(root.UnsignedValue) => (root.UnsignedValue, false),
+            { OpCode: OpCode.Move, Operands: [_, LocalVariable copied] } => ComputedSlotAddress(copied, definitions, depth + 1),
+            { OpCode: OpCode.Add, Operands: [_, LocalVariable from, Immediate offset] }
+                when ComputedSlotAddress(from, definitions, depth + 1) is { } inner
+                => (unchecked(inner.Value + offset.UnsignedValue), true),
+            { OpCode: OpCode.Add, Operands: [_, Immediate page, Immediate offset] } when IsPage(page.UnsignedValue)
+                => (unchecked(page.UnsignedValue + offset.UnsignedValue), true),
+            _ => null,
+        };
+    }
+
     private static ulong Counted(ulong address)
     {
         System.Threading.Interlocked.Increment(ref UsagesThroughAPageBase);
@@ -76,6 +143,7 @@ public static class MetadataResolver
         var libContext = method.AppContext.LibCpp2IlContext;
         var slotHolders = FindUsageSlotHolders(method);
         var pageBases = FindPageBases(method);
+        var computedAddresses = FindComputedSlotAddresses(method);
 
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
         {
@@ -93,6 +161,14 @@ public static class MetadataResolver
                 MemoryOperand { Base: LocalVariable holder, Index: null, Scale: 0 } memory
                     when pageBases.TryGetValue(holder, out var page)
                     => Counted((ulong)((long)page + memory.Addend)),
+                // AssetRipper: iteration 066 - the slot's address formed in a register first, `t = page + off;
+                // [t]`, which no page base answers because the load goes through the sum. Same evidence as an
+                // absolute load: the address is arithmetic on immediates, and it is taken only where it names
+                // writable memory, which a usage slot always is.
+                MemoryOperand { Base: LocalVariable computed, Index: null, Scale: 0 } memory
+                    when computedAddresses.TryGetValue(computed, out var formed)
+                        && !NotAUsageSlot(method, (ulong)((long)formed + memory.Addend))
+                    => CountedComputed((ulong)((long)formed + memory.Addend)),
                 // An immediate the method goes on to read at an offset is a page base, not a slot:
                 // see FindPageBases. The local that reads it may be a copy of this one, so the
                 // address rather than the local is what says so.

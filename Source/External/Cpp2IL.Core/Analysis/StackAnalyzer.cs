@@ -10,12 +10,31 @@ namespace Cpp2IL.Core.Analysis;
 
 public class StackAnalyzer
 {
-    [DebuggerDisplay("Size = {Size}")]
+    [DebuggerDisplay("Size = {Size}, Dynamic = {Dynamic}")]
     private class StackState
     {
         public int Size;
-        public StackState Copy() => new() { Size = this.Size };
+
+        /// <summary>
+        /// AssetRipper: iteration 066 - the stack pointer was set to a value the code computed (a variable-size
+        /// allocation), so a stack-relative operand no longer names a slot of the fixed frame.
+        /// </summary>
+        public bool Dynamic;
+
+        public StackState Copy() => new() { Size = this.Size, Dynamic = this.Dynamic };
     }
+
+    /// <summary>The register that holds the stack pointer once a dynamic allocation has moved it.</summary>
+    public const string DynamicStackPointer = "SPDYN";
+
+    /// <summary>How many variable-size stack allocations were recovered as <see cref="OpCode.StackAlloc"/>.</summary>
+    public static int DynamicAllocationsRecovered;
+
+    /// <summary>How many times the stack pointer was set to a computed value that is not a recognised allocation.</summary>
+    public static int DynamicStackPointerUnrecognised;
+
+    /// <summary>How many stack operands were read relative to the dynamic stack pointer rather than a fixed slot.</summary>
+    public static int DynamicStackOperands;
 
     private Dictionary<Block, StackState> _inComingState = [];
     private Dictionary<Block, StackState> _outGoingState = [];
@@ -35,10 +54,13 @@ public class StackAnalyzer
     public static int MaxBlockVisitCount = 500000; //High enough to not be legitimately hit, but still give up if something loops infinitely.
 
     public static void Analyze(MethodAnalysisContext method)
+        => Analyze(method.ControlFlowGraph!, method.ParameterOperands, method.AddWarning);
+
+    /// <summary>AssetRipper: the analysis over a graph alone, so it can be tested without metadata behind it.</summary>
+    public static void Analyze(ISILControlFlowGraph graph, List<IOperand>? parameterOperands = null, System.Action<string>? warn = null)
     {
         var analyzer = new StackAnalyzer();
 
-        var graph = method.ControlFlowGraph!;
         graph.RemoveUnreachableBlocks(); // Without this indirect jumps (in try catch i think) cause some weird stuff
 
         analyzer._inComingState = new Dictionary<Block, StackState> { { graph.EntryBlock, new StackState() } };
@@ -50,17 +72,145 @@ public class StackAnalyzer
         if (analyzer._outGoingState.TryGetValue(graph.ExitBlock, out var outDelta) && outDelta.Size != 0)
         {
             var outText = outDelta.Size < 0 ? "-" + (-outDelta.Size).ToString("X") : outDelta.Size.ToString("X");
-            method.AddWarning($"Method ends with non empty stack ({outText}), the output could be wrong!");
+            warn?.Invoke($"Method ends with non empty stack ({outText}), the output could be wrong!");
         }
 
+        analyzer.ResolveDynamicStack(graph);
         analyzer.ResolveFrameAliases(graph);
         analyzer.ResolveFramePointer(graph);
         analyzer.CorrectOffsets(graph);
         analyzer.KeepStoresReadThroughABaseAddress(graph);
-        ReplaceStackWithRegisters(method);
+        ReplaceStackWithRegisters(graph, parameterOperands ?? []);
 
         graph.RemoveNops();
         graph.RemoveEmptyBlocks();
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - the stack pointer after a variable-size allocation.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A fully shared generic body allocates every local of a type parameter with
+    /// <c>alloca(il2cpp_codegen_sizeof(T))</c>, which A64 writes as <c>mov xA, sp; sub xB, xA, size; mov sp, xB</c>.
+    /// The stack walk only knew constant shifts, so it took the stack pointer to be unchanged: <c>mov xA, sp</c>
+    /// named the bottom of the fixed frame every time, every buffer became an offset below one fixed slot, and that
+    /// slot was typed as whatever the buffers were used as - <c>(nint)enumerator - num</c> in the recovered source.
+    /// </para>
+    /// <para>
+    /// The model: <c>SP_new = SP_old - size</c>, held in a register of its own (<see cref="DynamicStackPointer"/>)
+    /// so SSA versions it. An allocation whose three instructions are all there - the read of the stack pointer, the
+    /// subtraction from exactly that value, and the write back of exactly the result - is a
+    /// <see cref="OpCode.StackAlloc"/>, which is what il2cpp's own source says it is. Anything else that sets the stack
+    /// pointer still moves <see cref="DynamicStackPointer"/>, and every stack operand while it is in effect is read
+    /// relative to it rather than named after a fixed slot. Operands through the frame pointer are untouched: the
+    /// frame does not move. The epilogue's reset from the frame pointer ends the dynamic region.
+    /// </para>
+    /// </remarks>
+    private void ResolveDynamicStack(ISILControlFlowGraph graph)
+    {
+        var dynamicSp = new Register(null, DynamicStackPointer);
+
+        foreach (var block in graph.Blocks)
+        {
+            for (var index = 0; index < block.Instructions.Count; index++)
+            {
+                var instruction = block.Instructions[index];
+                if (!_instructionState.TryGetValue(instruction, out var state))
+                    continue;
+
+                if (instruction is { OpCode: OpCode.ShiftStack, Operands: [Register newStackPointer] })
+                {
+                    if (TryRecogniseAllocation(block, index, newStackPointer, state))
+                        Interlocked.Increment(ref DynamicAllocationsRecovered);
+                    else
+                        Interlocked.Increment(ref DynamicStackPointerUnrecognised);
+
+                    instruction.OpCode = OpCode.Move;
+                    instruction.SetOperands([dynamicSp, newStackPointer]);
+                    _instructionState.Remove(instruction);
+                    continue;
+                }
+
+                if (!state.Dynamic)
+                    continue;
+
+                for (var i = 0; i < instruction.Operands.Count; i++)
+                {
+                    switch (instruction.Operands[i])
+                    {
+                        case StackOffset slot:
+                            instruction.SetOperand(i, new MemoryOperand(dynamicSp, addend: slot.Offset));
+                            Interlocked.Increment(ref DynamicStackOperands);
+                            break;
+                        case AddressOf { Target: StackOffset addressed } when instruction is { OpCode: OpCode.Move, Operands.Count: 2 } && i == 1:
+                            if (addressed.Offset == 0)
+                                instruction.SetOperand(1, dynamicSp);
+                            else
+                            {
+                                instruction.OpCode = OpCode.Add;
+                                instruction.SetOperands([instruction.Operands[0], dynamicSp, new Immediate(addressed.Offset)]);
+                            }
+
+                            Interlocked.Increment(ref DynamicStackOperands);
+                            break;
+                        case AddressOf { Target: StackOffset addressed }:
+                        {
+                            // the address is an operand of something else: compute it into a register of its own first
+                            var temporary = new Register(null, $"SPDYNADDR{index}");
+                            block.Instructions.Insert(index, new Instruction(-1, OpCode.Add, temporary, dynamicSp, new Immediate(addressed.Offset)));
+                            index++;
+                            instruction.SetOperand(i, temporary);
+                            Interlocked.Increment(ref DynamicStackOperands);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// <c>mov xA, sp; sub xB, xA, size; mov sp, xB</c> in one block, nothing redefining xA or xB in between. The
+    /// subtraction becomes the allocation; the read of the old stack pointer is left for dead code elimination.
+    /// </summary>
+    private bool TryRecogniseAllocation(Block block, int setIndex, Register result, StackState atSet)
+    {
+        var subtractIndex = LastWriteBefore(block, setIndex, result.Name);
+        if (subtractIndex < 0 || block.Instructions[subtractIndex] is not { OpCode: OpCode.Subtract, Operands: [_, Register oldStackPointer, var size] } subtract
+            || size is not (Register or Immediate) || size is Register { Name: var sizeName } && sizeName == oldStackPointer.Name)
+            return false;
+
+        var readIndex = LastWriteBefore(block, subtractIndex, oldStackPointer.Name);
+        if (readIndex < 0 || !_instructionState.TryGetValue(block.Instructions[readIndex], out var atRead) || atRead.Dynamic != atSet.Dynamic)
+            return false;
+
+        var isStackPointerRead = block.Instructions[readIndex] switch
+        {
+            // the fixed frame: the slot at the stack pointer itself
+            { OpCode: OpCode.Move, Operands: [_, AddressOf { Target: StackOffset { Offset: 0 } }] } => !atRead.Dynamic,
+            _ => false,
+        };
+
+        // after an earlier allocation the read is of the dynamic stack pointer; ResolveDynamicStack rewrites it to
+        // exactly that once it reaches the read, which comes before this write in the block
+        if (!isStackPointerRead && atRead.Dynamic)
+            isStackPointerRead = block.Instructions[readIndex] is { OpCode: OpCode.Move, Operands: [_, Register { Name: DynamicStackPointer }] };
+
+        if (!isStackPointerRead)
+            return false;
+
+        subtract.OpCode = OpCode.StackAlloc;
+        subtract.SetOperands([subtract.Operands[0], size]);
+        return true;
+    }
+
+    private static int LastWriteBefore(Block block, int before, string register)
+    {
+        for (var i = before - 1; i >= 0; i--)
+            if (block.Instructions[i].Destination is Register { Name: var name } && name == register)
+                return i;
+        return -1;
     }
 
     // consider mov [reg], [stack pointer]
@@ -405,8 +555,15 @@ public class StackAnalyzer
                     {
                         currentState = currentState.Copy();
                         currentState.Size = frame + (int)fromFrame.Value;
+                        currentState.Dynamic = false; // iteration 066: the frame does not move, so this ends a dynamic region
                         Interlocked.Increment(ref StackResetsFromFramePointer);
                     }
+                }
+                else if (instruction is { OpCode: OpCode.ShiftStack, Operands: [Register] })
+                {
+                    // AssetRipper: iteration 066 - the stack pointer set to a computed value; see ResolveDynamicStack
+                    currentState = currentState.Copy();
+                    currentState.Dynamic = true;
                 }
                 else if (instruction.OpCode == OpCode.ShiftStack)
                 {
@@ -447,7 +604,18 @@ public class StackAnalyzer
                 {
                     if (existingState.Size != currentState.Size)
                     {
-                        _inComingState[successor] = currentState.Copy();
+                        var replaced = currentState.Copy();
+                        replaced.Dynamic |= existingState.Dynamic;
+                        _inComingState[successor] = replaced;
+                        blockLevelState.Push((successor, visitedBlockCount + 1));
+                    }
+                    else if (currentState.Dynamic && !existingState.Dynamic)
+                    {
+                        // AssetRipper: iteration 066 - a merge reached by a moved stack pointer on any path is not
+                        // the fixed frame on every path, so its stack operands cannot be named as fixed slots
+                        var replaced = existingState.Copy();
+                        replaced.Dynamic = true;
+                        _inComingState[successor] = replaced;
                         blockLevelState.Push((successor, visitedBlockCount + 1));
                     }
                 }
@@ -461,9 +629,9 @@ public class StackAnalyzer
         }
     }
 
-    private static void ReplaceStackWithRegisters(MethodAnalysisContext method)
+    private static void ReplaceStackWithRegisters(ISILControlFlowGraph graph, List<IOperand> parameterOperands)
     {
-        var instructions = method.ControlFlowGraph!.Instructions;
+        var instructions = graph.Instructions;
 
         // Replace stack offset operands
         foreach (var instruction in instructions)
@@ -481,12 +649,12 @@ public class StackAnalyzer
         }
 
         // Replace params
-        for (var i = 0; i < method.ParameterOperands.Count; i++)
+        for (var i = 0; i < parameterOperands.Count; i++)
         {
-            var parameter = method.ParameterOperands[i];
+            var parameter = parameterOperands[i];
 
             if (parameter is StackOffset offset)
-                method.ParameterOperands[i] = new Register(null, NameForSlot(offset));
+                parameterOperands[i] = new Register(null, NameForSlot(offset));
         }
     }
 

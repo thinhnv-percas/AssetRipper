@@ -1016,6 +1016,17 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                         break;
                     }
 
+                    // AssetRipper: iteration 066 - `mov sp, xN` (the alias of `add sp, xN, #0`) sets the stack
+                    // pointer to a value the code computed: the end of a variable-size allocation. Lifted as a move
+                    // into a discarded register it was invisible, so every stack access after it was named after a
+                    // fixed slot it does not address. StackAnalyzer models it.
+                    if (IsReg31(instruction.Op0Reg) && !setsFlags && !isSubtract && instruction.Op2Kind == Arm64OperandKind.Immediate
+                        && instruction.Op2Imm == 0 && !IsReg31(instruction.Op1Reg))
+                    {
+                        Add(address, OpCode.ShiftStack, Reg(instruction.Op1Reg));
+                        break;
+                    }
+
                     // in the immediate forms register 31 is sp, so this takes the address of a stack slot
                     if (IsReg31(instruction.Op1Reg) && instruction.Op2Kind == Arm64OperandKind.Immediate && !IsReg31(instruction.Op0Reg))
                     {
@@ -1038,10 +1049,27 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     if (setsFlags && isSubtract)
                         EmitCompareFlags(src1, src2);
 
-                    Add(address, isSubtract ? OpCode.Subtract : OpCode.Add, dest, src1, src2);
-
+                    // AssetRipper: iteration 066 - ADDS (and CMN, which Disarm hands back as ADDS into the zero
+                    // register) set C and V from the addition, and EmitResultFlags writes both as the constant 0.
+                    // So every `b.lo`/`b.hs` after one branched on a constant: `(uint)(c - '0') < 10`, compiled
+                    // as `sub w12, w11, #0x3a; cmn w12, #0xa; b.lo`, rejected every digit and Newtonsoft's
+                    // DateTimeParser read every time zone hour as 0. The flags of a + b are the flags of a - (-b),
+                    // which is how the explicit CMN case below already lifts it; computed before the write-back
+                    // for the same reason as a subtraction's.
                     if (setsFlags && !isSubtract)
-                        EmitResultFlags(dest);
+                    {
+                        IOperand? negated = src2 is Immediate immediate ? Imm(-immediate.Value) : null;
+                        if (negated is null)
+                        {
+                            var negatedRegister = new Register(null, "TEMPNEG");
+                            Add(address, OpCode.Negate, negatedRegister, src2);
+                            negated = negatedRegister;
+                        }
+
+                        EmitCompareFlags(src1, negated);
+                    }
+
+                    Add(address, isSubtract ? OpCode.Subtract : OpCode.Add, dest, src1, src2);
 
                     break;
                 }

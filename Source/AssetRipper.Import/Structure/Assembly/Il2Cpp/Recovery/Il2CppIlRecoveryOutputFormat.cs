@@ -3281,6 +3281,15 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 				+ string.Join(", ", Cpp2IL.Core.Analysis.InvokerArgumentRecovery.ArgumentStatuses.Select(pair => $"{pair.Value} {pair.Key}"))
 				+ "; left alone: " + string.Join(", ", Cpp2IL.Core.Analysis.InvokerArgumentRecovery.Refusals.Select(pair => $"{pair.Value} {pair.Key}")));
 
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery (066): {Cpp2IL.Core.Analysis.MetadataResolver.UsagesThroughAComputedAddress} metadata usages read through an address formed as a page base plus offsets");
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp method body recovery (066): {Cpp2IL.Core.Analysis.MetadataInitGuardRemover.ClassInitWordGuards} class-init guards on the cctor_finished word removed, {Cpp2IL.Core.Analysis.MetadataInitGuardRemover.DuplicatedTailGuardsFolded} folded over a duplicated continuation, {Cpp2IL.Core.Analysis.MetadataInitGuardRemover.GuardsExcisedThroughForwardingBlock} excised through a forwarding block, {Cpp2IL.Core.Analysis.MetadataInitGuardRemover.ClassInitWordTestsFolded} folded on the tested word alone");
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp method body recovery (066): {Cpp2IL.Core.Analysis.StackAnalyzer.DynamicAllocationsRecovered} variable-size stack allocations recovered as localloc, {Cpp2IL.Core.Analysis.StackAnalyzer.DynamicStackPointerUnrecognised} other writes of the stack pointer, {Cpp2IL.Core.Analysis.StackAnalyzer.DynamicStackOperands} stack operands read relative to the moved stack pointer");
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp method body recovery (066): {Cpp2IL.Core.Analysis.FieldAddressArguments.RecoveredThroughAFieldLoad} ref arguments recovered as a field of an object read out of a field; {Cpp2IL.Core.Analysis.MetadataInitGuardRemover.BlocksMadeUnreachableRemoved} blocks a guard fold left unreachable removed");
+
 			var lookupFed = Cpp2IL.Core.Analysis.RuntimeInterfaceResolver.Counts;
 
 			if (lookupFed.Count > 0)

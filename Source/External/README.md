@@ -209,6 +209,19 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     `LocalVariables.TypeAddressedLocals` and the by-ref branch of `PropagateFromCallParameters` no longer
     take a type generic sharing put there.
 
+28. **iOS metadata usages and class-init guards** (iteration 066) — `MetadataResolver.FindComputedSlotAddresses`
+    (a usage read through a page base plus an `add` in its own instruction); `MetadataInitGuardRemover`
+    (`IsClassInitWordTest` on the measured `cctor_finished` offset, `TryFoldDuplicatedTail`,
+    `TryFoldClassInitWordTest`, `TryExciseThroughForwardingBlock`, a method-init flag stored through a page base,
+    `RemoveMadeUnreachable`; `Run` takes the offset and, for tests, known class pointers).
+
+29. **Dynamic stack allocation, invoker returns, nested field addresses, ADDS flags** (iteration 066) —
+    `ISIL/OpCode.StackAlloc` (appended), `Instruction` (sources/destination), `IlGenerator` (`localloc`),
+    `LocalVariables` (`byte*`); `NewArmV8InstructionSet` (`mov sp, xN` → `ShiftStack [Register]`; ADDS/CMN flags
+    as the compare flags of `a - (-b)`, before the write-back, instead of C = V = 0); `StackAnalyzer`
+    (`StackState.Dynamic`, `ResolveDynamicStack`, `SPDYN`, `Analyze(graph)`); `InvokerArgumentRecovery`
+    (`StackAlloc` buffers, `PlanReturn`); `FieldAddressArguments.FieldOfALoadedObject`.
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked

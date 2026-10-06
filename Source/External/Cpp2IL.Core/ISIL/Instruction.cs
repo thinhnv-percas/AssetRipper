@@ -115,6 +115,7 @@ public class Instruction : IOperand
             case OpCode.Box:
             case OpCode.IsInst: // AssetRipper
             case OpCode.MakeStruct: // AssetRipper
+            case OpCode.StackAlloc: // AssetRipper
                 if (newDestination != null)
                     SetOperand(0, newDestination);
                 return IsConstantValue(_operands[0]) ? null : _operands[0];
@@ -154,6 +155,7 @@ public class Instruction : IOperand
             OpCode.Move or OpCode.ConditionalJump
                 or OpCode.ShiftStack or OpCode.Not or OpCode.Negate
                 or OpCode.Newobj
+                or OpCode.StackAlloc // AssetRipper
                 => [_operands[1]],
 
             OpCode.Box or OpCode.IsInst => [_operands[2]], // AssetRipper

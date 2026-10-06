@@ -579,6 +579,14 @@ public static class LocalVariables
             if (instruction is { OpCode: OpCode.MakeStruct, Operands: [LocalVariable composed, TypeAnalysisContext composedType, ..] })
                 composed.Type = composedType;
 
+            // AssetRipper: iteration 066 - a stack allocation yields the address of raw bytes: byte*, which is what C# can
+            // declare a stackalloc into (an IntPtr local reads back as `(nint)stackalloc`, a Span conversion C# lacks)
+            if (instruction is { OpCode: OpCode.StackAlloc, Operands: [LocalVariable allocated, ..] })
+            {
+                allocated.Type = new PointerTypeAnalysisContext(method.AppContext.SystemTypes.SystemByteType);
+                continue;
+            }
+
             // AssetRipper: an isinst yields the type it tested, or null
             if (instruction is { OpCode: OpCode.IsInst, Operands: [LocalVariable cast, TypeAnalysisContext castType, ..] })
             {

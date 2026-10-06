@@ -28,7 +28,30 @@ public static class MetadataInitGuardRemover
     private const long MethodRgctxOffset32 = 0x1C;
 
     public static void Run(MethodAnalysisContext method)
-        => Run(method.ControlFlowGraph!, method.AppContext.Binary.is32Bit ? InitialisedFlagOffset32 : InitialisedFlagOffset64);
+    {
+        var is32Bit = method.AppContext.Binary.is32Bit;
+        Run(method.ControlFlowGraph!, is32Bit ? InitialisedFlagOffset32 : InitialisedFlagOffset64,
+            Il2CppClassUsefulOffsets.TryGetOffset("cctor_finished", is32Bit, out var cctorFinished) ? cctorFinished : null);
+    }
+
+    /// <summary>AssetRipper: iteration 066 - class-init guards on the whole <c>cctor_finished_or_no_cctor</c> word.</summary>
+    public static int ClassInitWordGuards;
+
+    /// <summary>AssetRipper: iteration 066 - guards whose init arm is the class initializer followed by a copy of the other arm.</summary>
+    public static int DuplicatedTailGuardsFolded;
+
+    /// <summary>AssetRipper: iteration 066 - guards excised through a block that only forwards to the merge.</summary>
+    public static int GuardsExcisedThroughForwardingBlock;
+
+    /// <summary>AssetRipper: what a guard test can be recognised by, collected once per method.</summary>
+    private sealed class GuardEvidence
+    {
+        public required HashSet<LocalVariable> ClassPointers { get; init; }
+        public required HashSet<LocalVariable> ClassByteLoads { get; init; }
+        public required HashSet<LocalVariable> ClassInitWordLoads { get; init; }
+        public required HashSet<LocalVariable> ConstantAddresses { get; init; }
+        public long? CctorFinishedOffset { get; init; }
+    }
 
     // Rewrite any metadata init calls we didn't remove into movs.
     public static void RewriteUnguardedInits(MethodAnalysisContext method)
@@ -86,13 +109,17 @@ public static class MetadataInitGuardRemover
 
     private static bool IsZero(IOperand operand) => operand is Immediate { Value: 0 };
 
-    public static void Run(ISILControlFlowGraph cfg, long initialisedFlagOffset)
+    public static void Run(ISILControlFlowGraph cfg, long initialisedFlagOffset, long? cctorFinishedOffset = null)
+        => Run(cfg, initialisedFlagOffset, cctorFinishedOffset, []);
+
+    /// <summary>AssetRipper: <paramref name="knownClassPointers"/> seeds the class pointers, so the rules can be tested without metadata.</summary>
+    public static void Run(ISILControlFlowGraph cfg, long initialisedFlagOffset, long? cctorFinishedOffset, IEnumerable<LocalVariable> knownClassPointers)
     {
         var removedAny = false;
 
         // AssetRipper: locals holding a byte of an Il2CppClass, so a bit test on one can be recognised
         // as a class-init guard whatever byte of the struct it reads. See IsClassFlagTest.
-        var classPointers = new HashSet<LocalVariable>();
+        var classPointers = new HashSet<LocalVariable>(knownClassPointers);
         var classByteLoads = new HashSet<LocalVariable>();
 
         foreach (var instruction in cfg.Instructions)
@@ -139,17 +166,63 @@ public static class MetadataInitGuardRemover
             }
         } while (grew);
 
+        // AssetRipper: iteration 066 - from 2021 il2cpp guards a static access with
+        // `if (!klass->cctor_finished_or_no_cctor) il2cpp_codegen_runtime_class_init(klass)`, a test of a whole
+        // 32-bit word rather than of one bit. The offset of that word comes from the measured struct table.
+        var classInitWordLoads = new HashSet<LocalVariable>();
+
+        // AssetRipper: iteration 066 - a local holding an address the code names outright. The method-init flag is a
+        // static byte; A64 reaches it through a page base kept in a callee-saved register, so its store is
+        // `[page + offset] = 1` rather than a store to a constant address.
+        var constantAddresses = new HashSet<LocalVariable>();
+
         foreach (var instruction in cfg.Instructions)
         {
-            if (instruction is { OpCode: OpCode.Move, Operands: [LocalVariable destination, MemoryOperand { Index: null, Scale: 0, Addend: > 0, Base: LocalVariable owner }] }
+            if (instruction is { OpCode: OpCode.Move, Operands: [LocalVariable destination, MemoryOperand { Index: null, Scale: 0, Addend: > 0, Base: LocalVariable owner } loaded] }
                 && classPointers.Contains(owner))
+            {
                 classByteLoads.Add(destination);
+                if (cctorFinishedOffset is { } cctor && loaded.Addend == cctor)
+                    classInitWordLoads.Add(destination);
+            }
+
+            if (instruction is { OpCode: OpCode.Move, Operands: [LocalVariable constant, Immediate { Value: not 0 }] })
+                constantAddresses.Add(constant);
         }
 
-        foreach (var guard in cfg.Blocks.ToList())
-            removedAny |= TryRemoveGuard(cfg, guard, initialisedFlagOffset, classByteLoads);
+        var evidence = new GuardEvidence
+        {
+            ClassPointers = classPointers,
+            ClassByteLoads = classByteLoads,
+            ClassInitWordLoads = classInitWordLoads,
+            ConstantAddresses = constantAddresses,
+            CctorFinishedOffset = cctorFinishedOffset,
+        };
+
+        var reachableBefore = Reachable(cfg);
+
+        // AssetRipper: one guard's removal is what makes the next recognisable - an inner class-init guard copied
+        // into the metadata-init region has to fold before that region reconverges - so repeat while anything goes.
+        for (var round = 0; round < 4; round++)
+        {
+            var removedThisRound = false;
+            foreach (var guard in cfg.Blocks.ToList())
+                if (cfg.Blocks.Contains(guard))
+                    removedThisRound |= TryRemoveGuard(cfg, guard, initialisedFlagOffset, evidence);
+
+            removedAny |= removedThisRound;
+            if (!removedThisRound)
+                break;
+        }
 
         removedAny |= RemoveBareClassInitCalls(cfg);
+
+        // AssetRipper: iteration 066 - a fold can leave behind a block that only the folded arm reached, by a path
+        // RemoveOrphans does not follow (a cycle, or an arm shared with a block that is itself now dead). The
+        // rendering and the generator both walk every block in the graph, so a dead block left there reads as a
+        // call the method makes. Only what this pass made unreachable is removed.
+        if (removedAny)
+            RemoveMadeUnreachable(cfg, reachableBefore);
 
         if (removedAny)
             DeadCodeEliminator.Run(cfg);
@@ -178,7 +251,7 @@ public static class MetadataInitGuardRemover
         return removedAny;
     }
 
-    private static bool TryRemoveGuard(ISILControlFlowGraph cfg, Block guard, long initialisedFlagOffset, HashSet<LocalVariable> classByteLoads)
+    private static bool TryRemoveGuard(ISILControlFlowGraph cfg, Block guard, long initialisedFlagOffset, GuardEvidence evidence)
     {
         if (guard.BlockType != BlockType.TwoWay || guard.Successors.Count != 2
             || guard.Instructions.Count == 0 || guard.Instructions[^1].OpCode != OpCode.ConditionalJump)
@@ -186,18 +259,409 @@ public static class MetadataInitGuardRemover
 
         // see if we're checking Il2CppClass::initialized_and_no_error
         // that means this is runtime_init boilerplate and we can drop the block
-        var initialisedFlagTest = guard.Instructions.Any(i => i.OpCode == OpCode.And
+        var classInitWordTest = guard.Instructions.Any(i => IsClassInitWordTest(i, evidence));
+        var initialisedFlagTest = classInitWordTest || guard.Instructions.Any(i => i.OpCode == OpCode.And
             && i.Operands is [_, var flag, var mask]
             && (flag is MemoryOperand { Index: null, Scale: 0, Base: LocalVariable } direct && direct.Addend == initialisedFlagOffset && IsOne(mask)
-                || IsClassFlagTest(flag, mask, classByteLoads)));
+                || IsClassFlagTest(flag, mask, evidence.ClassByteLoads)));
 
         // Either successor could be the init entry; the other is then the merge.
         var first = guard.Successors[0];
         var second = guard.Successors[1];
 
-        return TryExcise(cfg, guard, first, second, initialisedFlagTest)
-            || TryExcise(cfg, guard, second, first, initialisedFlagTest)
-            || (initialisedFlagTest && TryFoldVacuousGuard(cfg, guard)); // AssetRipper
+        var removed = TryExcise(cfg, guard, first, second, initialisedFlagTest, evidence)
+            || TryExcise(cfg, guard, second, first, initialisedFlagTest, evidence)
+            || TryExciseThroughForwardingBlock(cfg, guard, first, second, initialisedFlagTest, evidence)
+            || TryExciseThroughForwardingBlock(cfg, guard, second, first, initialisedFlagTest, evidence)
+            || (initialisedFlagTest && TryFoldVacuousGuard(cfg, guard)) // AssetRipper
+            || (classInitWordTest && (TryFoldDuplicatedTail(cfg, guard, first, second) || TryFoldDuplicatedTail(cfg, guard, second, first)))
+            || (classInitWordTest && TryFoldClassInitWordTest(cfg, guard, evidence));
+
+        if (removed && classInitWordTest)
+            System.Threading.Interlocked.Increment(ref ClassInitWordGuards);
+
+        return removed;
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - <c>klass-&gt;cctor_finished_or_no_cctor == 0</c> on a known class pointer.
+    /// </summary>
+    /// <remarks>
+    /// The word is the runtime's own record of whether the static constructor has run; nothing managed reads it,
+    /// so a comparison of it with zero is the guard and nothing else. The offset is the measured one, so a build
+    /// whose layout is not known recognises nothing here rather than something wrong.
+    /// </remarks>
+    private static bool IsClassInitWordTest(Instruction instruction, GuardEvidence evidence)
+    {
+        if (evidence.CctorFinishedOffset is not { } cctor || instruction.OpCode is not (OpCode.CheckEqual or OpCode.CheckNotEqual)
+            || instruction.Operands is not [_, var left, var right])
+            return false;
+
+        bool IsWord(IOperand operand) => operand switch
+        {
+            LocalVariable local => evidence.ClassInitWordLoads.Contains(local),
+            MemoryOperand { Index: null, Scale: 0, Base: LocalVariable owner } memory => memory.Addend == cctor
+                && (owner.Type is RuntimeClassTypeAnalysisContext || evidence.ClassPointers.Contains(owner)),
+            _ => false,
+        };
+
+        return IsWord(left) && IsZero(right) || IsWord(right) && IsZero(left);
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - a class-init guard whose init arm is the initializer followed by a copy of the
+    /// other arm.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// <c>if (!klass-&gt;cctor_finished_or_no_cctor) il2cpp_codegen_runtime_class_init(klass); rest;</c> has no merge
+    /// when the compiler tail-duplicates <c>rest</c> into the init arm, which it routinely does for a short
+    /// continuation: one arm is <c>init(); rest'</c> and the other is <c>rest</c>, both ending in their own return.
+    /// The region walk then never reconverges and the guard - with the runtime word it reads - survived on every
+    /// iOS fixture.
+    /// </para>
+    /// <para>
+    /// The fold is taken only on proof that <c>rest'</c> is <c>rest</c>: instruction for instruction, the same
+    /// opcodes, the same constants and callees, every value from outside the two stretches the same local, and
+    /// every value defined inside them mapped one to one. Dropping the initializer call is what excising the
+    /// region does in the reconverging shape too; this is the same decision with the copy accounted for.
+    /// </para>
+    /// </remarks>
+    private static bool TryFoldDuplicatedTail(ISILControlFlowGraph cfg, Block guard, Block initArm, Block otherArm)
+    {
+        if (ReferenceEquals(initArm, otherArm) || initArm == cfg.ExitBlock || otherArm == cfg.ExitBlock)
+            return false;
+
+        var index = 0;
+        while (index < initArm.Instructions.Count && initArm.Instructions[index].OpCode is OpCode.Phi or OpCode.Nop)
+            index++;
+
+        if (index >= initArm.Instructions.Count
+            || initArm.Instructions[index] is not { OpCode: OpCode.Call or OpCode.CallVoid, Operands: [StringLiteral { Value: ClassInitExport or ClassInitActual or ClassInitCodegen }, ..] } initCall)
+            return false;
+
+        var initResult = initCall.OpCode == OpCode.Call && initCall.Operands.Count > 1 ? initCall.Operands[1] as LocalVariable : null;
+
+        if (!TailsAreEquivalent(cfg, initArm, index + 1, otherArm, initResult))
+            return false;
+
+        // Send the guard to the other arm; the init arm keeps any other entrance it has.
+        DetachEdge(guard, initArm);
+
+        var terminator = guard.Instructions[^1];
+        terminator.OpCode = OpCode.Jump;
+        terminator.SetOperands(otherArm);
+        guard.CalculateBlockType();
+
+        RemoveOrphans(cfg, initArm);
+        System.Threading.Interlocked.Increment(ref DuplicatedTailGuardsFolded);
+        return true;
+    }
+
+    /// <summary>AssetRipper: iteration 066 - class-init guards folded on the identity of the word they test alone.</summary>
+    public static int ClassInitWordTestsFolded;
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - a class-init guard whose arms no longer have the shape of one.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// By the time this runs the initializer call is often gone - resolved, its result unused, it was dropped as
+    /// dead - and the copy of the continuation in its arm has been simplified differently from the original (a
+    /// double negation on one side, an inverted branch on the other), so neither the region walk nor the
+    /// duplicated-tail proof applies, and the test with its runtime word survives into the output.
+    /// </para>
+    /// <para>
+    /// The test itself is the evidence. <c>cctor_finished_or_no_cctor</c> is the runtime's own record of whether a
+    /// static constructor has run; generated code reads it in exactly one place, the
+    /// <c>IL2CPP_RUNTIME_CLASS_INIT</c> macro, which is <c>if (!klass-&gt;cctor_finished_or_no_cctor)
+    /// il2cpp_codegen_runtime_class_init(klass);</c> and nothing else - so the arm taken when the word is zero is
+    /// the initializer followed by a copy of the other arm. The offset is the measured one and the base has to be a
+    /// class pointer. Folding keeps the initialised side, which is the same decision every other route here takes
+    /// when it drops the initializer. Which side that is follows from the comparison and every negation between it
+    /// and the branch; if that chain cannot be read in the guard block, nothing is folded.
+    /// </para>
+    /// </remarks>
+    private static bool TryFoldClassInitWordTest(ISILControlFlowGraph cfg, Block guard, GuardEvidence evidence)
+    {
+        if (guard.Instructions[^1] is not { OpCode: OpCode.ConditionalJump, Operands: [Block target, LocalVariable condition] })
+            return false;
+
+        var other = guard.Successors.FirstOrDefault(successor => !ReferenceEquals(successor, target));
+        if (other is null || !guard.Successors.Contains(target))
+            return false;
+
+        // true when `condition` being true means the class is not yet initialised
+        bool? trueMeansUninitialised = null;
+        var negations = 0;
+        var wanted = condition.Name;
+
+        for (var i = guard.Instructions.Count - 2; i >= 0 && trueMeansUninitialised is null; i--)
+        {
+            var instruction = guard.Instructions[i];
+            if (instruction.Destination is not LocalVariable { Name: var defined } || defined != wanted)
+                continue;
+
+            switch (instruction)
+            {
+                case { OpCode: OpCode.Not, Operands: [_, LocalVariable negated] }:
+                    negations++;
+                    wanted = negated.Name;
+                    break;
+                case { OpCode: OpCode.CheckEqual } when IsClassInitWordTest(instruction, evidence):
+                    trueMeansUninitialised = negations % 2 == 0;
+                    break;
+                case { OpCode: OpCode.CheckNotEqual } when IsClassInitWordTest(instruction, evidence):
+                    trueMeansUninitialised = negations % 2 == 1;
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        if (trueMeansUninitialised is not { } uninitialisedOnTrue)
+            return false;
+
+        var initArm = uninitialisedOnTrue ? target : other;
+        var initialised = uninitialisedOnTrue ? other : target;
+
+        if (initArm == cfg.ExitBlock || initArm == cfg.EntryBlock)
+            return false;
+
+        DetachEdge(guard, initArm);
+
+        var terminator = guard.Instructions[^1];
+        terminator.OpCode = OpCode.Jump;
+        terminator.SetOperands(initialised);
+        guard.CalculateBlockType();
+
+        RemoveOrphans(cfg, initArm);
+        System.Threading.Interlocked.Increment(ref ClassInitWordTestsFolded);
+        return true;
+    }
+
+    /// <summary>Straight-line stretches from (a, start) and (b, 0) that compute the same thing and end the same way.</summary>
+    private static bool TailsAreEquivalent(ISILControlFlowGraph cfg, Block a, int start, Block b, LocalVariable? excluded)
+    {
+        var mapping = new Dictionary<string, string>();
+        var aIndex = start;
+        var bIndex = 0;
+        var budget = 128;
+
+        while (budget-- > 0)
+        {
+            // converged on one block: everything from here is shared, so equal so far is equal
+            if (ReferenceEquals(a, b) && aIndex == 0 && bIndex == 0)
+                return true;
+
+            var nextA = NextReal(ref a, ref aIndex, cfg);
+            var nextB = NextReal(ref b, ref bIndex, cfg);
+
+            if (ReferenceEquals(a, b) && nextA is not null && ReferenceEquals(nextA, nextB))
+                return true;
+
+            if (nextA is null || nextB is null)
+                return false;
+
+            if (nextA.OpCode != nextB.OpCode || nextA.Operands.Count != nextB.Operands.Count)
+                return false;
+
+            if (nextA.OpCode is OpCode.Phi or OpCode.ConditionalJump or OpCode.IndirectJump)
+                return false;
+
+            var defines = nextA.Destination is LocalVariable && nextA.OpCode is not OpCode.Return;
+            for (var i = 0; i < nextA.Operands.Count; i++)
+            {
+                if (!OperandsMatch(nextA.Operands[i], nextB.Operands[i], defines && i == (nextA.OpCode == OpCode.Call ? 1 : 0), mapping, excluded))
+                    return false;
+            }
+
+            if (nextA.OpCode == OpCode.Return)
+                return true;
+
+            aIndex++;
+            bIndex++;
+        }
+
+        return false;
+    }
+
+    /// <summary>The next instruction worth comparing, following a block that ends by falling or jumping into one successor.</summary>
+    private static Instruction? NextReal(ref Block block, ref int index, ISILControlFlowGraph cfg)
+    {
+        for (var hops = 0; hops < 32; hops++)
+        {
+            while (index < block.Instructions.Count && block.Instructions[index].OpCode is OpCode.Nop or OpCode.Jump)
+                index++;
+
+            if (index < block.Instructions.Count)
+                return block.Instructions[index];
+
+            if (block.Successors.Count != 1 || block.Successors[0] == cfg.ExitBlock)
+                return null;
+
+            block = block.Successors[0];
+            index = 0;
+
+            if (block.Instructions.Any(i => i.OpCode == OpCode.Phi))
+                return null;
+        }
+
+        return null;
+    }
+
+    private static bool OperandsMatch(object a, object b, bool isDefinition, Dictionary<string, string> mapping, LocalVariable? excluded)
+    {
+        switch (a, b)
+        {
+            case (LocalVariable left, LocalVariable right):
+                if (excluded is not null && (left.Name == excluded.Name || right.Name == excluded.Name))
+                    return false;
+                if (isDefinition)
+                {
+                    if (mapping.ContainsKey(left.Name))
+                        return false;
+                    mapping[left.Name] = right.Name;
+                    return true;
+                }
+
+                return mapping.TryGetValue(left.Name, out var mapped) ? mapped == right.Name : left.Name == right.Name;
+            case (MemoryOperand left, MemoryOperand right):
+                return left.Addend == right.Addend && left.Scale == right.Scale
+                    && OptionalMatch(left.Base, right.Base, mapping, excluded) && OptionalMatch(left.Index, right.Index, mapping, excluded);
+            case (Immediate left, Immediate right):
+                return left.Value == right.Value;
+            case (StringLiteral left, StringLiteral right):
+                return left.Value == right.Value;
+            case (Block, Block):
+                return false; // a branch target inside the stretch is not straight-line
+            default:
+                return ReferenceEquals(a, b) || (a.GetType() == b.GetType() && a.Equals(b));
+        }
+    }
+
+    private static bool OptionalMatch(IOperand? a, IOperand? b, Dictionary<string, string> mapping, LocalVariable? excluded)
+        => a is null ? b is null : b is not null && OperandsMatch(a, b, false, mapping, excluded);
+
+    private static HashSet<Block> Reachable(ISILControlFlowGraph cfg)
+    {
+        var seen = new HashSet<Block>();
+        var pending = new Stack<Block>();
+        pending.Push(cfg.EntryBlock);
+        while (pending.Count > 0)
+        {
+            var block = pending.Pop();
+            if (!seen.Add(block))
+                continue;
+            foreach (var successor in block.Successors)
+                pending.Push(successor);
+        }
+
+        return seen;
+    }
+
+    /// <summary>AssetRipper: iteration 066 - blocks reachable before this pass and not after it.</summary>
+    public static int BlocksMadeUnreachableRemoved;
+
+    private static void RemoveMadeUnreachable(ISILControlFlowGraph cfg, HashSet<Block> reachableBefore)
+    {
+        var reachable = Reachable(cfg);
+        var dead = cfg.Blocks.Where(block => reachableBefore.Contains(block) && !reachable.Contains(block)
+                                             && block != cfg.EntryBlock && block != cfg.ExitBlock).ToList();
+        foreach (var block in dead)
+        {
+            foreach (var successor in block.Successors.ToList())
+                DetachEdge(block, successor);
+            foreach (var predecessor in block.Predecessors.ToList())
+                predecessor.Successors.Remove(block);
+            block.Predecessors.Clear();
+            cfg.Blocks.Remove(block);
+        }
+
+        System.Threading.Interlocked.Add(ref BlocksMadeUnreachableRemoved, dead.Count);
+    }
+
+    /// <summary>Removes the edge and the phi inputs it carried.</summary>
+    private static void DetachEdge(Block from, Block to)
+    {
+        var slot = to.Predecessors.IndexOf(from);
+        if (slot < 0)
+            return;
+
+        foreach (var phi in to.Instructions)
+            if (phi.OpCode == OpCode.Phi && 1 + slot < phi.Operands.Count)
+                phi.RemoveOperandAt(1 + slot);
+
+        to.Predecessors.RemoveAt(slot);
+        from.Successors.Remove(to);
+    }
+
+    /// <summary>Deletes a block nothing enters any more, and whatever only it entered.</summary>
+    private static void RemoveOrphans(ISILControlFlowGraph cfg, Block start)
+    {
+        var pending = new Stack<Block>();
+        pending.Push(start);
+
+        while (pending.Count > 0)
+        {
+            var block = pending.Pop();
+            if (block == cfg.EntryBlock || block == cfg.ExitBlock || block.Predecessors.Count != 0 || !cfg.Blocks.Contains(block))
+                continue;
+
+            foreach (var successor in block.Successors.ToList())
+            {
+                DetachEdge(block, successor);
+                pending.Push(successor);
+            }
+
+            cfg.Blocks.Remove(block);
+        }
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 066 - a guard whose skip arm is a block that only forwards to where the region rejoins.
+    /// </summary>
+    /// <remarks>
+    /// Once a class-init guard inside a metadata-init region has folded, what the outer guard skips to is the remnant
+    /// of the inner test - a block that computes a value nothing reads and jumps on - and the region rejoins one
+    /// block further. The guard is redirected to the remnant, which still leads where it led.
+    /// </remarks>
+    private static bool TryExciseThroughForwardingBlock(ISILControlFlowGraph cfg, Block guard, Block initEntry, Block forwarding, bool initialisedFlagTest, GuardEvidence evidence)
+    {
+        if (forwarding.Predecessors.Count != 1 || forwarding.Successors.Count != 1 || forwarding == cfg.ExitBlock
+            || forwarding.Instructions.Any(i => i.OpCode is not (OpCode.Nop or OpCode.Jump) && !IsSideEffectFree(i)))
+            return false;
+
+        var merge = forwarding.Successors[0];
+        if (merge == cfg.EntryBlock || merge == cfg.ExitBlock || merge == initEntry || merge == guard)
+            return false;
+
+        if (!TryCollectRegion(cfg, guard, initEntry, merge, initialisedFlagTest, evidence, out var region, out var shared) || shared)
+            return false;
+
+        foreach (var block in region)
+            foreach (var successor in block.Successors.ToList())
+                if (!region.Contains(successor))
+                    DetachEdge(block, successor);
+
+        DetachEdge(guard, initEntry);
+
+        var terminator = guard.Instructions[^1];
+        terminator.OpCode = OpCode.Jump;
+        terminator.SetOperands(forwarding);
+        guard.CalculateBlockType();
+
+        foreach (var block in region)
+        {
+            foreach (var successor in block.Successors)
+                successor.Predecessors.Remove(block);
+            block.Successors.Clear();
+            block.Predecessors.Clear();
+            cfg.Blocks.Remove(block);
+        }
+
+        System.Threading.Interlocked.Increment(ref GuardsExcisedThroughForwardingBlock);
+        return true;
     }
 
     /// <summary>
@@ -293,12 +757,12 @@ public static class MetadataInitGuardRemover
             _ => false,
         };
 
-    private static bool TryExcise(ISILControlFlowGraph cfg, Block guard, Block initEntry, Block merge, bool initialisedFlagTest)
+    private static bool TryExcise(ISILControlFlowGraph cfg, Block guard, Block initEntry, Block merge, bool initialisedFlagTest, GuardEvidence? evidence = null)
     {
         if (merge == cfg.EntryBlock || merge == cfg.ExitBlock)
             return false;
 
-        if (!TryCollectRegion(cfg, guard, initEntry, merge, initialisedFlagTest, out var region, out var shared))
+        if (!TryCollectRegion(cfg, guard, initEntry, merge, initialisedFlagTest, evidence, out var region, out var shared))
             return false;
 
         // AssetRipper: the compiler shares one initialisation region between several guards, so
@@ -326,7 +790,7 @@ public static class MetadataInitGuardRemover
     }
 
     private static bool TryCollectRegion(ISILControlFlowGraph cfg, Block guard, Block initEntry, Block merge,
-        bool initialisedFlagTest, out HashSet<Block> region, out bool shared)
+        bool initialisedFlagTest, GuardEvidence? evidence, out HashSet<Block> region, out bool shared)
     {
         region = [];
         shared = false;
@@ -359,7 +823,7 @@ public static class MetadataInitGuardRemover
             if (!region.Add(block))
                 continue;
 
-            if (!ClassifyBlock(block, initialisedFlagTest, ref sawMetadataInit, ref sawClassInit, ref sawFlagStore))
+            if (!ClassifyBlock(block, initialisedFlagTest, evidence, ref sawMetadataInit, ref sawClassInit, ref sawFlagStore))
                 return false;
 
             foreach (var successor in block.Successors)
@@ -390,7 +854,7 @@ public static class MetadataInitGuardRemover
     // A region block is acceptable only if every instruction is intra-region control flow, an init
     // call, the flag store, or otherwise side-effect-free (writes a local, not memory). A managed call
     // or any other store would have an effect we cannot silently drop, so it disqualifies the region.
-    private static bool ClassifyBlock(Block block, bool initialisedFlagTest, ref bool sawMetadataInit, ref bool sawClassInit, ref bool sawFlagStore)
+    private static bool ClassifyBlock(Block block, bool initialisedFlagTest, GuardEvidence? evidence, ref bool sawMetadataInit, ref bool sawClassInit, ref bool sawFlagStore)
     {
         foreach (var instruction in block.Instructions)
         {
@@ -426,6 +890,12 @@ public static class MetadataInitGuardRemover
                     break;
 
                 case OpCode.Move when instruction.Operands is [MemoryOperand { IsConstant: true }, _]:
+                    sawFlagStore = true;
+                    break;
+
+                // AssetRipper: iteration 066 - the same store through a page base the code names outright
+                case OpCode.Move when instruction.Operands is [MemoryOperand { Index: null, Scale: 0, Base: LocalVariable page }, _]
+                                      && evidence is not null && evidence.ConstantAddresses.Contains(page):
                     sawFlagStore = true;
                     break;
 
