@@ -387,7 +387,15 @@ public static class InvokerArgumentRecovery
             return (null, "COMPUTED_FRAME_ADDRESS");
 
         if (returnPointer is LocalVariable local && frame.DefinitionOf(local) is { } definition)
-            return (null, definition.OpCode == OpCode.StackAlloc ? "T_BUFFER_WITH_A_USE_THE_MODEL_DOES_NOT_EXPLAIN" : "POINTER_FROM_" + definition.OpCode.ToString().ToUpperInvariant());
+        {
+            if (definition.OpCode != OpCode.StackAlloc)
+                return (null, "POINTER_FROM_" + definition.OpCode.ToString().ToUpperInvariant());
+
+            // iteration 067: the use that broke the model, named
+            return (null, UnexplainedBufferUses.TryGetValue(local, out var use)
+                ? "T_BUFFER_USED_BY:" + use
+                : "T_BUFFER_WITH_A_USE_THE_MODEL_DOES_NOT_EXPLAIN");
+        }
 
         return (null, returnPointer is LocalVariable ? "POINTER_WITH_SEVERAL_DEFINITIONS_OR_NONE" : "POINTER_" + returnPointer.GetType().Name.ToUpperInvariant());
     }
@@ -476,12 +484,40 @@ public static class InvokerArgumentRecovery
                 if (!explained)
                 {
                     found.Remove(pointer);
+                    // iteration 067: say which use the model could not explain, so the refusal names it
+                    UnexplainedBufferUses.AddOrUpdate(pointer, DescribeUse(instruction, pointer));
                     break;
                 }
             }
         }
 
         return found;
+    }
+
+    /// <summary>Iteration 067: for a buffer the model dropped, the first use it could not explain.</summary>
+    private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<LocalVariable, string> UnexplainedBufferUses = new();
+
+    /// <summary>A use, named by what it is: the callee of a call, otherwise the opcode and where the buffer sits in it.</summary>
+    private static string DescribeUse(Instruction instruction, LocalVariable pointer)
+    {
+        var operands = instruction.Operands.ToList();
+        var position = operands.FindIndex(operand => ReferenceEquals(operand, pointer)
+            || operand is MemoryOperand { } memory && (ReferenceEquals(memory.Base, pointer) || ReferenceEquals(memory.Index, pointer)));
+        var through = position >= 0 && operands[position] is MemoryOperand ? "_THROUGH" : "";
+
+        if (instruction.OpCode is OpCode.Call or OpCode.CallVoid && instruction.Operands.Count > 0)
+        {
+            var callee = instruction.Operands[0] switch
+            {
+                MethodAnalysisContext target => target.DeclaringType?.Name + "." + target.Name,
+                StringLiteral helper => helper.Value,
+                Immediate address => $"0x{address.Value:X}",
+                var other => other.GetType().Name,
+            };
+            return $"CALL{through}:{callee}:ARG{position}";
+        }
+
+        return $"{instruction.OpCode.ToString().ToUpperInvariant()}{through}:OPERAND{position}";
     }
 
     private static Instruction? Single(Dictionary<LocalVariable, List<Instruction>> definitions, LocalVariable local)

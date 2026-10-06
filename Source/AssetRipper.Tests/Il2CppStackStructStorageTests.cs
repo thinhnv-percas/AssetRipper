@@ -54,6 +54,8 @@ internal sealed class Il2CppStackStructStorageTests
 		public TypeAnalysisContext? AddressType(LocalVariable storage, long offset) => null;
 
 		public void Retype(LocalVariable version, LocalVariable typed) => Retyped.Add(version);
+
+		public void AdoptMemberType(LocalVariable storage, long offset, LocalVariable source, Instruction? definition) { }
 	}
 
 	private sealed class Kickoff

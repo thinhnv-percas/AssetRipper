@@ -659,9 +659,11 @@ public static class LocalVariables
             var firstArg = instruction.OpCode == OpCode.CallVoid ? 1 : 2;
 
             // the receiver of a value type's instance method is a pointer to the value
+            // iteration 067: and not a type generic sharing put there - see SharedPlaceholderReceiver
             if (!calledMethod.IsStatic && firstArg < instruction.Operands.Count
                 && instruction.Operands[firstArg] is AddressOf { Target: LocalVariable receiver }
-                && calledMethod.DeclaringType is { IsValueType: true } declaringType)
+                && calledMethod.DeclaringType is { IsValueType: true } declaringType
+                && !SharedPlaceholderReceiver(calledMethod, declaringType))
                 changed |= SetTypeIfUnknown(receiver, declaringType);
 
             var paramOffset = firstArg + (calledMethod.IsStatic ? 0 : 1);
@@ -686,6 +688,21 @@ public static class LocalVariables
 
         return changed;
     }
+
+    /// <summary>
+    /// AssetRipper: iteration 067 - the receiver of a shared instantiation's value type method is not evidence of its type.
+    /// </summary>
+    /// <remarks>
+    /// <c>foreach</c> over a <c>List&lt;Dictionary&lt;string, string&gt;&gt;</c> calls the one shared
+    /// <c>List&lt;object&gt;.Enumerator.MoveNext</c> on the enumerator's address. Typing the enumerator slot from that
+    /// declaring type gave it <c>List&lt;object&gt;.Enumerator</c>, a second local beside the real one, and every copy
+    /// between them read <c>(List&lt;object&gt;.Enumerator)enumerator</c> - a cast C# does not have - with
+    /// <c>_current</c> read through a pointer cast. The guard is the parameters' and the return value's: withheld only
+    /// where the sharing substitution reached the type in hand, so the slot is typed by its own definition and the call
+    /// is then retargeted onto it (<see cref="MetadataResolver.RetargetSharedGenericCalls"/>).
+    /// </remarks>
+    private static bool SharedPlaceholderReceiver(MethodAnalysisContext calledMethod, TypeAnalysisContext declaringType)
+        => MetadataResolver.IsSharedInstantiation(calledMethod.DeclaringType) && MetadataResolver.ContainsSharingPlaceholder(declaringType);
 
     // Fills in a local's type only when it is currently unknown, keeping propagation monotonic (a
     // type, once set, is never changed) so the fixpoint terminates. Returns whether it set anything.
@@ -1303,7 +1320,8 @@ public static class LocalVariables
             // Value type instance method, first arg is address of value, but we need to type the value
             if (!calledMethod.IsStatic
                 && Addressed(instruction.Operands[thisParamIndex]) is { } addressedReceiver
-                && calledMethod.DeclaringType is { IsValueType: true } valueType)
+                && calledMethod.DeclaringType is { IsValueType: true } valueType
+                && !SharedPlaceholderReceiver(calledMethod, valueType))
             {
                 changed |= SetTypeIfUnknown(addressedReceiver, valueType);
             }

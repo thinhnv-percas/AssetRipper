@@ -38,6 +38,12 @@ public interface IStackStructModel
 
     /// <summary>Gives <paramref name="version"/> the struct's type.</summary>
     void Retype(LocalVariable version, LocalVariable typed);
+
+    /// <summary>
+    /// A value copied whole into the member at <paramref name="offset"/> becomes that member's own type, where the value
+    /// was produced as a shared instantiation of it. <paramref name="definition"/> is the instruction that produced it.
+    /// </summary>
+    void AdoptMemberType(LocalVariable storage, long offset, LocalVariable source, Instruction? definition);
 }
 
 /// <summary>
@@ -293,7 +299,13 @@ public static class StackStructStorage
 
             var ordered = chunks.OrderBy(chunk => chunk.Offset).ToList();
             var head = ordered[0].Instruction;
-            plan.Add(() => head.SetOperands([member, source!]));
+            var copied = source!;
+            definitions.TryGetValue(copied, out var copiedDefinition);
+            plan.Add(() =>
+            {
+                model.AdoptMemberType(storage, memberStart, copied, multiplyDefined.Contains(copied) ? null : copiedDefinition);
+                head.SetOperands([member, copied]);
+            });
             foreach (var (instruction, _) in ordered.Skip(1))
             {
                 var target = instruction;
@@ -520,11 +532,55 @@ public static class StackStructStorage
 
         public bool HoldsMember(LocalVariable storage, long offset, LocalVariable source)
             => InstanceFields(storage).FirstOrDefault(field => field.BackingData!.FieldOffset == offset) is { } field
-               && source.Type is { } sourceType && sourceType.FullName == field.FieldType.FullName;
+               && source.Type is { } sourceType && SameOrShared(sourceType, field.FieldType);
+
+        /// <summary>
+        /// The same type, or the shared instantiation of it: generic sharing attributes one body to the instantiation over
+        /// <c>System.Object</c>, so a <c>Create()</c> for <c>AsyncTaskMethodBuilder&lt;byte[]&gt;</c> returns an
+        /// <c>AsyncTaskMethodBuilder&lt;object&gt;</c>. Only a reference type argument is shared that way.
+        /// </summary>
+        private static bool SameOrShared(TypeAnalysisContext source, TypeAnalysisContext member)
+        {
+            if (source.FullName == member.FullName)
+                return true;
+
+            if (source is not GenericInstanceTypeAnalysisContext shared || member is not GenericInstanceTypeAnalysisContext exact
+                || shared.GenericType.FullName != exact.GenericType.FullName
+                || shared.GenericArguments.Count != exact.GenericArguments.Count)
+                return false;
+
+            for (var i = 0; i < shared.GenericArguments.Count; i++)
+            {
+                var a = shared.GenericArguments[i];
+                var b = exact.GenericArguments[i];
+                if (a.FullName != b.FullName && !(a.FullName == "System.Object" && !b.IsValueType))
+                    return false;
+            }
+
+            return true;
+        }
 
         public TypeAnalysisContext? AddressType(LocalVariable storage, long offset)
             => InstanceFields(storage).FirstOrDefault(field => field.BackingData!.FieldOffset == offset)?.FieldType.MakeByReferenceType();
 
         public void Retype(LocalVariable version, LocalVariable typed) => version.Type = typed.Type;
+
+        public void AdoptMemberType(LocalVariable storage, long offset, LocalVariable source, Instruction? definition)
+        {
+            if (InstanceFields(storage).FirstOrDefault(field => field.BackingData!.FieldOffset == offset) is not { FieldType: GenericInstanceTypeAnalysisContext wanted }
+                || source.Type is not { } sourceType || sourceType.FullName == wanted.FullName)
+                return;
+
+            // `AsyncTaskMethodBuilder<object>.Create()` is the shared body of `AsyncTaskMethodBuilder<byte[]>.Create()`:
+            // the same method on the member's own instantiation, which is what the source compiled.
+            if (definition is { OpCode: OpCode.Call, Operands: [ConcreteGenericMethodAnalysisContext { IsStatic: true, TypeGenericParameters.Count: > 0 } called, ..] }
+                && called.BaseMethodContext.DeclaringType is { } declaring
+                && wanted.GenericType.FullName == declaring.FullName
+                && wanted.GenericArguments.Count == called.TypeGenericParameters.Count)
+            {
+                definition.SetOperand(0, new ConcreteGenericMethodAnalysisContext(called.BaseMethodContext, wanted.GenericArguments, called.MethodGenericParameters));
+                source.Type = wanted;
+            }
+        }
     }
 }

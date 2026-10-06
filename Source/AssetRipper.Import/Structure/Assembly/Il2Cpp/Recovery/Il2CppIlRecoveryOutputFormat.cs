@@ -3291,7 +3291,7 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			$"Il2Cpp method body recovery (066): {Cpp2IL.Core.Analysis.FieldAddressArguments.RecoveredThroughAFieldLoad} ref arguments recovered as a field of an object read out of a field; {Cpp2IL.Core.Analysis.MetadataInitGuardRemover.BlocksMadeUnreachableRemoved} blocks a guard fold left unreachable removed");
 
 		Logger.Info(LogCategory.Import,
-			$"Il2Cpp method body recovery (067): {Cpp2IL.Core.Analysis.StackStructStorage.StructsRecovered} stack structs recovered as one storage ({Cpp2IL.Core.Analysis.StackStructStorage.StructsRejected} left alone), {Cpp2IL.Core.Analysis.StackStructStorage.MemberStoresRecovered} member stores, {Cpp2IL.Core.Analysis.StackStructStorage.MemberCopiesRecovered} member copies, {Cpp2IL.Core.Analysis.StackStructStorage.MemberAddressesRecovered} member addresses; {Cpp2IL.Core.Analysis.StackAnalyzer.ProvisionalStructStoresKept} stack stores kept provisionally");
+			$"Il2Cpp method body recovery (067): {Cpp2IL.Core.Analysis.StackStructStorage.StructsRecovered} stack structs recovered as one storage ({Cpp2IL.Core.Analysis.StackStructStorage.StructsRejected} left alone), {Cpp2IL.Core.Analysis.StackStructStorage.MemberStoresRecovered} member stores, {Cpp2IL.Core.Analysis.StackStructStorage.MemberCopiesRecovered} member copies, {Cpp2IL.Core.Analysis.StackStructStorage.MemberAddressesRecovered} member addresses; {Cpp2IL.Core.Analysis.StackAnalyzer.ProvisionalStructStoresKept} stack stores kept provisionally; {Cpp2IL.Core.Analysis.FieldAddressArguments.RecoveredDefinitions} managed references recovered as a field address where defined");
 
 			var lookupFed = Cpp2IL.Core.Analysis.RuntimeInterfaceResolver.Counts;
 

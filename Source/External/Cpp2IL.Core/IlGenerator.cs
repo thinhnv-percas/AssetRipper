@@ -2202,34 +2202,9 @@ public static class IlGenerator
     /// declaring type is re-instantiated; the method's own generic arguments are kept, since the
     /// receiver says nothing about those.
     /// </remarks>
+    // iteration 067: one rule, the resolver's; this used to be a copy of it, and the copy had drifted to fewer receivers
     private static MethodAnalysisContext? ReceiverInstantiationOf(MethodAnalysisContext called, IOperand receiver)
-    {
-        if (called.IsStatic
-            || called is not ConcreteGenericMethodAnalysisContext { TypeGenericParameters.Count: > 0 } concrete
-            || concrete.BaseMethodContext.DeclaringType is not { } definition)
-            return null;
-
-        if (ReceiverType(receiver) is not GenericInstanceTypeAnalysisContext { GenericArguments: { } arguments } instance
-            || instance.GenericType.FullName != definition.FullName
-            || arguments.Count != concrete.TypeGenericParameters.Count)
-            return null;
-
-        var sameAlready = true;
-        for (var i = 0; i < arguments.Count && sameAlready; i++)
-            sameAlready = arguments[i].FullName == concrete.TypeGenericParameters[i].FullName;
-
-        if (sameAlready)
-            return null;
-
-        return new ConcreteGenericMethodAnalysisContext(concrete.BaseMethodContext, arguments, concrete.MethodGenericParameters);
-    }
-
-    private static TypeAnalysisContext? ReceiverType(IOperand receiver) => receiver switch
-    {
-        LocalVariable { Type: { } local } => local,
-        FieldReference { Field.FieldType: { } fieldType } => fieldType,
-        _ => null,
-    };
+        => MetadataResolver.ReceiverInstantiationOf(called, receiver);
 
     private static MethodAnalysisContext? BaseConstructorFor(MethodAnalysisContext context, MethodAnalysisContext called)
     {

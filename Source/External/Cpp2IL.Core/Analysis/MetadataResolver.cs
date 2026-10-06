@@ -1758,8 +1758,12 @@ public static class MetadataResolver
 
     private static TypeAnalysisContext? ReceiverType(IOperand receiver) => receiver switch
     {
+        // iteration 067: a value type's receiver is its address - a managed reference, or the address of a field
+        LocalVariable { Type: ByRefTypeAnalysisContext { ElementType: { } referent } } => referent,
         LocalVariable { Type: { } local } => local,
         FieldReference { Field.FieldType: { } fieldType } => fieldType,
+        AddressOf { Target: FieldReference { Field.FieldType: { } addressedType } } => addressedType,
+        AddressOf { Target: LocalVariable { Type: { } addressedLocal } } => addressedLocal,
         _ => null,
     };
 
