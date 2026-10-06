@@ -446,6 +446,10 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // AssetRipper: needs the slots typed, so after the fixpoint, and dominance, so inside SSA.
         StructSlotAliasRecovery.Run(this);
 
+        // AssetRipper: iteration 067. Needs the slots typed, so after the fixpoint; releases the stores the stack
+        // analysis kept provisionally, so it must run for every method that was analysed.
+        StackStructStorage.Run(this);
+
         // AssetRipper: iteration 065. Needs the struct register typed, so after the fixpoint.
         StructRegisterFields.Run(this);
 

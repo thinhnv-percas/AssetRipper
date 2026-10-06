@@ -16,6 +16,12 @@ public class LocalVariable(string name, Register register, TypeAnalysisContext? 
     public bool IsReturn = false;
     public bool IsMethodInfo = false;
 
+    /// <summary>
+    /// AssetRipper: iteration 067 - which of the method's declared parameters this local is, or -1. A parameter whose
+    /// register nothing reads has no local, so the position of a local in <c>ParameterLocals</c> is not its parameter's.
+    /// </summary>
+    public int ParameterIndex = -1;
+
     /// <summary>AssetRipper: the entry value of the hidden return buffer register, which the method's result is written into.</summary>
     public bool IsReturnBuffer = false;
 

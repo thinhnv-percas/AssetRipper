@@ -80,6 +80,7 @@ public class StackAnalyzer
         analyzer.ResolveFramePointer(graph);
         analyzer.CorrectOffsets(graph);
         analyzer.KeepStoresReadThroughABaseAddress(graph);
+        analyzer.KeepStoresInsideAnAddressTakenSlot(graph);
         ReplaceStackWithRegisters(graph, parameterOperands ?? []);
 
         graph.RemoveNops();
@@ -268,8 +269,32 @@ public class StackAnalyzer
     private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Instruction, object> FramePointerStores = new();
     private static readonly object FramePointerStoreMarker = new();
 
-    /// <summary>Whether this store was written through ARM64's frame pointer before the slot was named.</summary>
-    public static bool IsFramePointerStore(Instruction instruction) => FramePointerStores.TryGetValue(instruction, out _);
+    /// <summary>
+    /// Whether this store is a root whatever reads its slot by name: written through ARM64's frame pointer before the
+    /// slot was named, or (iteration 067) provisionally kept as a possible member of a struct on the stack until
+    /// <see cref="StackStructStorage"/> decides.
+    /// </summary>
+    public static bool IsFramePointerStore(Instruction instruction)
+        => FramePointerStores.TryGetValue(instruction, out _) || ProvisionalStructStores.TryGetValue(instruction, out _);
+
+    /// <summary>How many stack stores were kept provisionally as possible members of a struct on the stack.</summary>
+    public static int ProvisionalStructStoresKept;
+
+    private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Instruction, object> ProvisionalStructStores = new();
+
+    /// <summary>Iteration 067: a store kept until <see cref="StackStructStorage"/> has decided whether it is a struct member.</summary>
+    public static bool IsProvisionalStructStore(Instruction instruction) => ProvisionalStructStores.TryGetValue(instruction, out _);
+
+    /// <summary>Iteration 067: the decision is made; the store is a root again only if its destination makes it one.</summary>
+    public static void ReleaseProvisionalStructStore(Instruction instruction) => ProvisionalStructStores.Remove(instruction);
+
+    private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Instruction, object> StackStoreWidths = new();
+
+    /// <summary>Iteration 067: how many bytes a store to a stack slot writes, as the instruction encoded it, or 0 when unknown.</summary>
+    public static int StackStoreWidth(Instruction instruction) => StackStoreWidths.TryGetValue(instruction, out var width) ? (int)width : 0;
+
+    /// <summary>The widest struct a provisional store is looked for in, in bytes.</summary>
+    private const int MaximumStructSpan = 0x100;
 
     /// <summary>How many addresses computed from ARM64's frame pointer were named as the address of their stack slot.</summary>
     public static int FramePointerAddressesResolved;
@@ -391,7 +416,7 @@ public class StackAnalyzer
                         {
                             case MemoryOperand { Base: Register { Name: framePointer }, Index: null, Scale: 0 } memory
                                 when _instructionState.TryGetValue(instruction, out var state):
-                                rewrites.Add((instruction, i, new StackOffset((int)(frame + memory.Addend - state.Size))));
+                                rewrites.Add((instruction, i, new StackOffset((int)(frame + memory.Addend - state.Size)) { Size = memory.Size }));
                                 break;
                             case MemoryOperand { Base: Register { Name: framePointer } } or MemoryOperand { Index: Register { Name: framePointer } }:
                             case Register { Name: framePointer } when !(i == 0 && Writes(instruction)):
@@ -486,6 +511,88 @@ public class StackAnalyzer
         }
     }
 
+    /// <summary>
+    /// AssetRipper: iteration 067 - stores that may be members of a struct on the stack, kept until it is known.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A struct built on the stack and handed to a call by address - an async method's state machine, handed to
+    /// <c>Builder.Start(ref stateMachine)</c> - is written member by member into slots the stack walk names
+    /// separately, and the call reads them through the address of the first. No read names those slots, so every
+    /// pass that drops a dead store dropped them, and the kickoff lost <c>this</c>, its arguments and its builder.
+    /// </para>
+    /// <para>
+    /// Whether a slot is inside a struct needs the struct's type and size, which are not known until the type
+    /// fixpoint, long after the first dead code pass. So the store is kept provisionally here, on the widest test
+    /// that cannot miss one - it lies inside the span of a slot whose address is taken and nothing reads it by name -
+    /// and <see cref="StackStructStorage"/> either turns it into a field store or releases it to die as before.
+    /// Keeping every such store outright, without that decision, is what iteration 066 measured as a regression: the
+    /// stores became locals of their own rather than members, and exposed the framework's private fields.
+    /// The frame setup is an address-take of a slot too and is never the base of a struct; incoming arguments
+    /// (non-negative offsets) are not this method's to build.
+    /// </para>
+    /// </remarks>
+    private void KeepStoresInsideAnAddressTakenSlot(ISILControlFlowGraph graph)
+    {
+        var addressTaken = new List<int>();
+        var read = new HashSet<int>();
+        var stores = new List<(Instruction Instruction, int Offset)>();
+
+        foreach (var instruction in graph.Blocks.SelectMany(block => block.Instructions))
+        {
+            for (var i = 0; i < instruction.Operands.Count; i++)
+            {
+                switch (instruction.Operands[i])
+                {
+                    case AddressOf { Target: StackOffset addressed }
+                        when addressed.Offset < 0 && instruction.Destination is not Register { Name: "X29" or "FP" or "RBP" or "EBP" }:
+                        addressTaken.Add(addressed.Offset);
+                        break;
+                    case StackOffset slot when i == 0 && instruction.OpCode == OpCode.Move:
+                        if (slot.Size > 0)
+                            StackStoreWidths.AddOrUpdate(instruction, slot.Size);
+                        if (slot.Offset < 0)
+                            stores.Add((instruction, slot.Offset));
+                        break;
+                    case StackOffset slot:
+                        read.Add(slot.Offset);
+                        break;
+                }
+            }
+        }
+
+        if (addressTaken.Count == 0)
+            return;
+
+        foreach (var (instruction, offset) in stores)
+        {
+            if (read.Contains(offset) || IsFramePointerStore(instruction))
+                continue;
+
+            if (!addressTaken.Any(start => start < offset && offset - start < MaximumStructSpan))
+                continue;
+
+            ProvisionalStructStores.AddOrUpdate(instruction, FramePointerStoreMarker);
+            Interlocked.Increment(ref ProvisionalStructStoresKept);
+        }
+    }
+
+    /// <summary>Iteration 067: the offset a slot name from <see cref="NameForSlot"/> stands for, or null.</summary>
+    public static int? SlotOffset(string? name)
+    {
+        if (name is null || !name.StartsWith("stack_", System.StringComparison.Ordinal))
+            return null;
+
+        var text = name.Substring(6);
+        var negative = text.StartsWith("-", System.StringComparison.Ordinal);
+        if (negative)
+            text = text.Substring(1);
+
+        return int.TryParse(text, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out var value)
+            ? negative ? -value : value
+            : null;
+    }
+
     private void CorrectOffsets(ISILControlFlowGraph graph)
     {
         foreach (var block in graph.Blocks)
@@ -520,7 +627,7 @@ public class StackAnalyzer
                         // as doing so will make the dictionary lookup impossible.
                         state ??= _instructionState[instruction].Size;
 
-                        var actual = new StackOffset(state.Value + offset.Offset);
+                        var actual = new StackOffset(state.Value + offset.Offset) { Size = offset.Size };
                         instruction.SetOperand(i, op is AddressOf ? new AddressOf(actual) : actual);
                     }
                 }

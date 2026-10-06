@@ -97,6 +97,44 @@ public static class FieldAddressArguments
             }
         }
 
+        changed |= RecoverAddressDefinitions(instructions, method);
+        return changed;
+    }
+
+    /// <summary>Iteration 067: how many managed references were recovered as a field's address where they are defined.</summary>
+    public static int RecoveredDefinitions;
+
+    /// <summary>
+    /// AssetRipper: iteration 067 - a managed reference defined as <c>object + constant</c> is the address of the field
+    /// there, wherever it is used.
+    /// </summary>
+    /// <remarks>
+    /// The rule above recovers the address only where it is a call's argument. An address that is kept - a ref local
+    /// read after the call (<c>SyncRoot</c>'s double-checked <c>_syncRoot</c>), or the value of a ref-returning getter
+    /// (<c>ref NextNode =&gt; ref nextNode</c>, lifted to <c>return this + 0x10</c>) - stayed native arithmetic and
+    /// read back as <c>ref *(object*)((nint)this + 72)</c>, a pointer to a managed type. The same three facts decide it,
+    /// taken from the same rule (<see cref="CompareExchangeRecovery.FieldAddressed(IOperand, IReadOnlyList{Instruction}, MethodAnalysisContext)"/>):
+    /// one definition, a class whose field sits at exactly that offset, and the local already typed as a reference to
+    /// that field's type by a use that needs one. The definition is rewritten, so every use reads the field.
+    /// </remarks>
+    private static bool RecoverAddressDefinitions(System.Collections.Generic.IReadOnlyList<Instruction> instructions, MethodAnalysisContext method)
+    {
+        var changed = false;
+        foreach (var definition in instructions)
+        {
+            if (definition is not { OpCode: OpCode.Add, Operands: [LocalVariable { Type: ByRefTypeAnalysisContext { ElementType: { } referent } } address, LocalVariable, Immediate] })
+                continue;
+
+            if (CompareExchangeRecovery.FieldAddressed(address, instructions, method) is not { Field.FieldType: { } fieldType } field
+                || fieldType.FullName != referent.FullName)
+                continue;
+
+            definition.OpCode = OpCode.Move;
+            definition.SetOperands([address, new AddressOf(field)]);
+            System.Threading.Interlocked.Increment(ref RecoveredDefinitions);
+            changed = true;
+        }
+
         return changed;
     }
 

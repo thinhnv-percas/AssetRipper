@@ -12,6 +12,11 @@ parameters and the stand-in is what the generator pushes for an unresolved opera
 on the line right after the placeholder that reported it. That shape is a parameter overwritten with nothing,
 which no source writes.
 
+Iteration 067: an `out` or `ref` parameter is reported apart. Writing one is the method's own job - `*index = value`
+is what the machine did - so a stand-in written there is an unresolved *value* (already counted as an unresolved
+load), not a parameter whose storage was confused with something else. It surfaced when the generator stopped
+parking the value in a scratch local first: `int num7 = 0; index = num7;` became `index = 0;`, the same store.
+
     parameter_overwrite_scan.py <rip game dir> [--baseline <rip game dir>] [--json out]
     parameter_overwrite_scan.py --self-test
 """
@@ -34,8 +39,9 @@ STANDIN = re.compile(r'^\s*(?P<name>[A-Za-z_]\w*)\s*=\s*(?:0|null|default\([^)]*
 PLACEHOLDER = re.compile(r'NoteDecompilerIssue\("Unmanaged memory load|Il2CppRuntime\.Boundary\(')
 
 
-def parameters(signature_params: str) -> set[str]:
-    names = set()
+def parameters(signature_params: str) -> dict[str, bool]:
+    """Each parameter's name, and whether it is passed by reference (`out` or `ref`)."""
+    names = {}
     for part in signature_params.split(","):
         part = part.strip()
         if not part:
@@ -43,7 +49,7 @@ def parameters(signature_params: str) -> set[str]:
         part = re.sub(r'\[[^\]]*\]\s*', '', part)  # attributes
         match = PARAM_NAME.search(part)
         if match and match.group(1) not in ("this", "ref", "out", "in", "params"):
-            names.add(match.group(1))
+            names[match.group(1)] = bool(re.match(r'(?:out|ref)\s', part))
     return names
 
 
@@ -59,9 +65,9 @@ def is_declaration(match) -> bool:
     return True
 
 
-def scan_text(text: str):
+def scan_text(text: str, through_reference: list | None = None):
     found = []
-    current: set[str] = set()
+    current: dict[str, bool] = {}
     method = ""
     previous = ""
     for number, line in enumerate(text.splitlines(), 1):
@@ -71,18 +77,26 @@ def scan_text(text: str):
             method = line.strip()
         standin = STANDIN.match(line)
         if standin and standin.group("name") in current and PLACEHOLDER.search(previous):
-            found.append({"line": number, "parameter": standin.group("name"), "method": method, "statement": line.strip()})
+            hit = {"line": number, "parameter": standin.group("name"), "method": method, "statement": line.strip()}
+            if current[standin.group("name")]:
+                if through_reference is not None:
+                    through_reference.append(hit)
+            else:
+                found.append(hit)
         if line.strip():
             previous = line
     return found
 
 
-def scan(root: pathlib.Path):
+def scan(root: pathlib.Path, through_reference: dict | None = None):
     results = {}
     for path in sorted(root.rglob("*.cs")):
-        hits = scan_text(path.read_text(errors="replace"))
+        written = []
+        hits = scan_text(path.read_text(errors="replace"), written)
         if hits:
             results[str(path.relative_to(root))] = hits
+        if written and through_reference is not None:
+            through_reference[str(path.relative_to(root))] = written
     return results
 
 
@@ -115,6 +129,16 @@ def self_test() -> int:
 		}
 """))
 
+    def out_written(header):
+        written = []
+        scan_text(header + """
+		{
+			Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v1 @ X0+8]");
+			shellMeshRenderer = null;
+		}
+""", written)
+        return written
+
     cases = [
         ("a parameter assigned the stand-in after a placeholder is reported", len(scan_text(overwritten)) == 1),
         ("a local assigned the stand-in, or a parameter assigned a value, is not", len(scan_text(honest)) == 0),
@@ -131,6 +155,10 @@ def self_test() -> int:
          overwrite_after("\t\tpublic void Build(int other)\n\t\t{\n\t\t\telse if (shellMeshRenderer == null)") == 0),
         ("a constructor's parameter overwritten by a stand-in is reported",
          overwrite_after("\t\tpublic RayfireShell(MeshRenderer shellMeshRenderer)") == 1),
+        ("an out parameter written an unresolved value is not an overwrite",
+         overwrite_after("\t\tpublic bool TryGet(out MeshRenderer shellMeshRenderer)") == 0),
+        ("... and is counted on its own", len(out_written("\t\tpublic bool TryGet(out MeshRenderer shellMeshRenderer)")) == 1),
+        ("a ref parameter likewise", len(out_written("\t\tpublic void Swap(ref MeshRenderer shellMeshRenderer)")) == 1),
     ]
     failures = 0
     for name, ok in cases:
@@ -146,8 +174,10 @@ def main(argv) -> int:
     if len(argv) < 2:
         print(__doc__)
         return 2
-    after = scan(pathlib.Path(argv[1]))
-    report = {"files": len(after), "overwrites": sum(len(v) for v in after.values()), "by_file": after}
+    written = {}
+    after = scan(pathlib.Path(argv[1]), written)
+    report = {"files": len(after), "overwrites": sum(len(v) for v in after.values()), "by_file": after,
+              "out_or_ref_written_unresolved": sum(len(v) for v in written.values()), "out_or_ref_by_file": written}
     if "--baseline" in argv:
         before = scan(pathlib.Path(argv[argv.index("--baseline") + 1]))
         report["baseline_overwrites"] = sum(len(v) for v in before.values())
@@ -155,7 +185,8 @@ def main(argv) -> int:
     if "--json" in argv:
         pathlib.Path(argv[argv.index("--json") + 1]).write_text(json.dumps(report, indent=1))
     print(f"parameter overwrites by a stand-in: {report['overwrites']} in {report['files']} files"
-          + (f" (baseline {report['baseline_overwrites']})" if "baseline_overwrites" in report else ""))
+          + (f" (baseline {report['baseline_overwrites']})" if "baseline_overwrites" in report else "")
+          + f"; out/ref parameters written an unresolved value (not an overwrite): {report['out_or_ref_written_unresolved']}")
     for path, hits in list(after.items())[:20]:
         for hit in hits[:3]:
             print(f"  {path}:{hit['line']}  {hit['statement']}   [{hit['method'][:80]}]")

@@ -1500,6 +1500,21 @@ public static class IlGenerator
                     break;
                 }
 
+                // AssetRipper: iteration 067 - a store through a managed reference, the reference loaded before the value.
+                // StoreToOperand gets the value first and has to park it in a scratch local, which a decompiler writes
+                // out as `object obj = null; result = obj;` for what was `result = null`.
+                if (instruction.Operands is [MemoryOperand { Index: null, Scale: 0, Addend: 0, Base: LocalVariable throughReference }, { } throughValue]
+                    && ValueFlow.WritesThrough(throughReference.Type)
+                    && throughReference.Type is ByRefTypeAnalysisContext { ElementType: { } throughTarget }
+                    && locals.ContainsKey(throughReference))
+                {
+                    LoadLocal(throughReference, method, locals);
+                    LoadOperand(throughValue, context, method, locals, writeLine, throughTarget);
+                    RecoveredSemanticIr.Record(SemanticOperation.StoreIndirect, throughReference.Name);
+                    instructions.Add(CilOpCodes.Stobj, throughTarget.ToTypeSignature().ToTypeDefOrRef());
+                    break;
+                }
+
                 if (instruction.Operands[0] is FieldReference field) // stfld takes instance before value so LoadOperand StoreToOperand doesn't work
                 {
                     // AssetRipper: the write half of the accessor pairing; see InstanceSetterFor. A

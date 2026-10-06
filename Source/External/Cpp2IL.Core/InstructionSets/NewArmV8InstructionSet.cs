@@ -649,7 +649,9 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         }
 
         // the memory operand for the current instruction's access, offset by extraOffset (for the second reg of a pair)
-        IOperand MemOperand(long extraOffset = 0, int size = 0)
+        // AssetRipper: iteration 067 - stackSize is the width of a store pair's register, recorded only for the stack and
+        // the frame pointer (StackOffset.Size); heap stores keep size as it was, so the packed-field logic is unchanged.
+        IOperand MemOperand(long extraOffset = 0, int size = 0, int stackSize = 0)
         {
             var baseReg = instruction.MemBase;
             // writeback modes apply the offset to the base register itself, the access is at [base]
@@ -659,7 +661,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                 return new MemoryOperand(addend: offset, size: size);
 
             if (IsReg31(baseReg))
-                return new StackOffset((int)offset);
+                return new StackOffset((int)offset) { Size = size != 0 ? size : stackSize };
 
             if (instruction.MemAddendReg != Arm64Register.INVALID)
                 return new MemoryOperand(Reg(baseReg), Reg(instruction.MemAddendReg), offset, 1 << instruction.MemExtendOrShiftAmount, size);
@@ -668,7 +670,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             if (adrpOffsets!.TryGetValue(NormalizeRegister(baseReg), out var page))
                 return new MemoryOperand(addend: (long)page + offset, size: size);
 
-            return new MemoryOperand(Reg(baseReg), addend: offset, size: size);
+            return new MemoryOperand(Reg(baseReg), addend: offset, size: size != 0 || baseReg != Arm64Register.X29 ? size : stackSize);
         }
 
         // AssetRipper: how wide the access is, which the mnemonic names for a sub-word one and the
@@ -913,8 +915,8 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
 
                     if (instruction.Mnemonic == Arm64Mnemonic.STP)
                     {
-                        Add(address, OpCode.Move, MemOperand(), ConvertOperand(instruction, 0));
-                        Add(address, OpCode.Move, MemOperand(pairSize), ConvertOperand(instruction, 1));
+                        Add(address, OpCode.Move, MemOperand(stackSize: pairSize), ConvertOperand(instruction, 0));
+                        Add(address, OpCode.Move, MemOperand(pairSize, stackSize: pairSize), ConvertOperand(instruction, 1));
                     }
                     else
                     {

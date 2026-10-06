@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cpp2IL.Core.Graphs;
@@ -136,6 +137,7 @@ public static class LocalVariables
                 continue;
 
             local.Name = method.Parameters[i].ParameterName;
+            local.ParameterIndex = i;
             paramLocals.Add(local);
         }
 
@@ -783,7 +785,7 @@ public static class LocalVariables
                     changed |= PropagateMove(instruction, method.AppContext.Binary.PointerSizeBytes, allowWeakEvidence);
                     break;
                 case OpCode.Phi:
-                    changed |= PropagatePhi(instruction, allowWeakEvidence);
+                    changed |= PropagatePhi(instruction, allowWeakEvidence, method.AppContext.SystemTypes.SystemIntPtrType);
                     break;
                 case OpCode.Add or OpCode.Subtract or OpCode.Multiply:
                     changed |= PropagateArithmetic(instruction, method) || PropagateIntegerResultOfIntegers(instruction, method);
@@ -1127,7 +1129,7 @@ public static class LocalVariables
 
     // A phi is a copy from each predecessor's value, so types flow both ways across it - mirroring
     // the bidirectional Move copies it decays into once SSA is destroyed.
-    private static bool PropagatePhi(Instruction phi, bool allowWeakEvidence)
+    private static bool PropagatePhi(Instruction phi, bool allowWeakEvidence, TypeAnalysisContext? nativeInt = null)
     {
         if (phi.Operands[0] is not LocalVariable destination)
             return false;
@@ -1149,6 +1151,7 @@ public static class LocalVariables
         if (destination.Type == null)
         {
             TypeAnalysisContext? agreed = null;
+            var disagree = false;
 
             for (var i = 1; i < phi.Operands.Count; i++)
             {
@@ -1158,7 +1161,16 @@ public static class LocalVariables
                 if (agreed == null)
                     agreed = inputType;
                 else if (agreed.FullName != inputType.FullName)
-                    return false;
+                    disagree = true;
+            }
+
+            if (disagree)
+            {
+                // AssetRipper: iteration 067 - the one disagreement that has an answer. A merge of a pointer with
+                // integers is a machine word on every path, so it is a native integer: the stackalloc'd buffer and
+                // the count that share a register merged into a local declared `object`, and `(object)ptr` is not
+                // a conversion C# has. References and structs still disagree into nothing, for the reason above.
+                return nativeInt != null && MergesPointerWithIntegers(phi) && SetTypeIfUnknown(destination, nativeInt);
             }
 
             if (agreed != null)
@@ -1185,6 +1197,35 @@ public static class LocalVariables
 
         return changed;
     }
+
+    /// <summary>
+    /// Iteration 067: every typed input of the phi is a machine word - an unmanaged pointer, a native integer or an integer
+    /// primitive - and at least one is a pointer.
+    /// </summary>
+    public static bool MergesPointerWithIntegers(Instruction phi)
+    {
+        var pointers = 0;
+        for (var i = 1; i < phi.Operands.Count; i++)
+        {
+            if (phi.Operands[i] is not LocalVariable { Type: { } type })
+                continue;
+
+            if (type is PointerTypeAnalysisContext)
+                pointers++;
+            else if (!IsMachineInteger(type))
+                return false;
+        }
+
+        return pointers > 0;
+    }
+
+    // A runtime handle - Il2CppClass*, MethodInfo*, static storage, an RGCTX table - is a raw pointer-sized value and is
+    // declared IntPtr (ContextToTypeSignature); the compiler reuses a register for one and a stackalloc'd buffer freely.
+    private static bool IsMachineInteger(TypeAnalysisContext type) => type
+        is RuntimeClassTypeAnalysisContext or RuntimeMethodInfoAnalysisContext or RuntimeFieldInfoAnalysisContext
+        or StaticFieldStorageTypeAnalysisContext or RgctxTableTypeAnalysisContext or MethodRgctxTableTypeAnalysisContext
+        || type.FullName is "System.IntPtr" or "System.UIntPtr" or "System.Int64" or "System.UInt64" or "System.Int32"
+            or "System.UInt32" or "System.Int16" or "System.UInt16" or "System.Byte" or "System.SByte";
 
     private static bool PropagateFromCallParameters(MethodAnalysisContext method, bool allowWeakEvidence)
     {
@@ -1325,17 +1366,27 @@ public static class LocalVariables
             return;
 
         // Normal params
-        var paramIndex = 0;
-        foreach (var local in method.ParameterLocals)
+        AssignParameterTypes(method.ParameterLocals, index => method.Parameters[index].ParameterType, method.Parameters.Count);
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 067 - each parameter local takes its own parameter's type.
+    /// </summary>
+    /// <remarks>
+    /// This used to count: the n-th parameter local took the n-th parameter's type. A parameter whose register nothing
+    /// reads has no local, so every parameter after an unused one took its predecessor's type -
+    /// <c>TryConvert(T instance, ConvertBinder binder, out object result)</c> typed <c>result</c> as a
+    /// <c>ConvertBinder</c>, and the store through the <c>out</c> parameter became a rebind of it,
+    /// <c>result = ref *(object*)null</c>. Silent: the body compiles wherever the wrong type happens to fit.
+    /// </remarks>
+    public static void AssignParameterTypes(IEnumerable<LocalVariable> parameterLocals, Func<int, TypeAnalysisContext?> typeOf, int parameterCount)
+    {
+        foreach (var local in parameterLocals)
         {
-            if (local.IsThis || local.IsMethodInfo)
+            if (local.IsThis || local.IsMethodInfo || local.ParameterIndex < 0 || local.ParameterIndex >= parameterCount)
                 continue;
 
-            if (paramIndex >= method.Parameters.Count)
-                break;
-
-            local.Type = method.Parameters[paramIndex].ParameterType;
-            paramIndex++;
+            local.Type = typeOf(local.ParameterIndex);
         }
     }
 

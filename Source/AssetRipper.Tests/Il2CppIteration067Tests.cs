@@ -303,4 +303,48 @@ public class Il2CppIteration067Tests
 			Assert.That(carryCheck.IsUnsigned, Is.True);
 		});
 	}
+
+	// ------------------------------------------------------------------------------------------------------------
+	// Parameter typing: each parameter local takes its own parameter's type, not the n-th one's.
+	// ------------------------------------------------------------------------------------------------------------
+
+	[Test]
+	public void AParameterLocalIsTypedFromItsOwnParameterWhenAnEarlierOneHasNoLocal()
+	{
+		// TryConvert(T instance, ConvertBinder binder, out object result): nothing reads `instance`, so it has no local.
+		var binder = new LocalVariable("binder", new Register(null, "X2")) { ParameterIndex = 1 };
+		var result = new LocalVariable("result", new Register(null, "X3")) { ParameterIndex = 2 };
+		var self = new LocalVariable("this", new Register(null, "X0")) { IsThis = true };
+		List<(string Local, int Parameter)> asked = [];
+		var current = "";
+
+		LocalVariables.AssignParameterTypes(Track(self, binder, result), index => { asked.Add((current, index)); return null; }, 3);
+
+		Assert.That(asked, Is.EqualTo(new[] { ("binder", 1), ("result", 2) }));
+
+		IEnumerable<LocalVariable> Track(params LocalVariable[] locals)
+		{
+			foreach (var local in locals)
+			{
+				current = local.Name;
+				yield return local;
+			}
+		}
+	}
+
+	// ------------------------------------------------------------------------------------------------------------
+	// Write barrier: the pre-indexed store Apple clang folds the slot's address into.
+	// ------------------------------------------------------------------------------------------------------------
+
+	[TestCase(0xF8028C01u, true, Description = "str x1, [x0, #0x28]! - JellyBlastV2 0xFBC5D8")]
+	[TestCase(0xF8020C14u, true, Description = "str x20, [x0, #0x20]!")]
+	[TestCase(0xF8010C1Fu, true, Description = "str xzr, [x0, #0x10]! - a null stored with a barrier")]
+	[TestCase(0xF8018E7Fu, false, Description = "str xzr, [x19, #0x18]! - not into X0")]
+	[TestCase(0xF9000278u, false, Description = "str x24, [x19] - unsigned offset, no writeback")]
+	[TestCase(0xF8028401u, false, Description = "str x1, [x0], #0x28 - post-index leaves the old address")]
+	[TestCase(0xB8028C01u, false, Description = "str w1, [x0, #0x28]! - a 32-bit store is never a reference")]
+	public void APreIndexedStoreIntoX0IsTheBarriersShape(uint word, bool expected)
+	{
+		Assert.That(Cpp2IL.Core.Il2CppApiFunctions.NewArm64KeyFunctionAddresses.IsPreIndexedStoreIntoX0(word), Is.EqualTo(expected));
+	}
 }

@@ -335,6 +335,17 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
 
             var start = index - window < 0 ? 0 : index - window;
 
+            // iteration 067: the pre-indexed store that leaves the slot's address in X0 (see ScannedWriteBarrierCounts)
+            for (var p = index - PreIndexedWindow < 0 ? 0 : index - PreIndexedWindow; p < index; p++)
+            {
+                if (body[p] is { Mnemonic: Arm64Mnemonic.STR, MemIndexMode: Arm64MemoryIndexMode.PreIndex, MemBase: Arm64Register.X0 }
+                    && body[p].Op0Reg is >= Arm64Register.X0 and <= Arm64Register.X31)
+                {
+                    yield return body[index].BranchTarget;
+                    goto next;
+                }
+            }
+
             for (var a = start; a < index; a++)
             {
                 var add = body[a];
@@ -391,6 +402,25 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
 
                 var start = index - window < 0 ? 0 : index - window;
 
+                // AssetRipper: iteration 067 - the same store with the address folded into it. Apple clang writes the
+                // slot and leaves its address in X0 with one pre-indexed store, `str x1, [x0, #0x28]!`, so the iOS
+                // fixture's 38388 barrier calls matched nothing and the scan voted for an Objective-C import stub
+                // (objc_storeStrong takes the same arguments in the same order) - and the anchors, which were right,
+                // were overruled. It is the dominant shape on Merge-Room as well, alongside the one below.
+                for (var p = index - PreIndexedWindow < 0 ? 0 : index - PreIndexedWindow; p < index; p++)
+                {
+                    if (!IsPreIndexedStoreIntoX0(BinaryPrimitives.ReadUInt32LittleEndian(words[(p * 4)..])))
+                        continue;
+
+                    var preDisplacement = (int)(word & 0x3FFFFFF);
+                    if ((preDisplacement & 0x2000000) != 0)
+                        preDisplacement -= 0x4000000;
+
+                    var preTarget = (ulong)((long)virtualAddress + index * 4L + preDisplacement * 4L);
+                    counts[preTarget] = counts.GetValueOrDefault(preTarget) + 1;
+                    goto next;
+                }
+
                 for (var a = start; a < index; a++)
                 {
                     var add = BinaryPrimitives.ReadUInt32LittleEndian(words[(a * 4)..]);
@@ -428,4 +458,10 @@ public class NewArm64KeyFunctionAddresses : BaseKeyFunctionAddresses
 
         return counts;
     }
+
+    /// <summary>How close before the call a pre-indexed store has to be: the value is moved into X1 between them.</summary>
+    private const int PreIndexedWindow = 3;
+
+    /// <summary><c>STR Xt, [X0, #simm9]!</c>: size 11, opc 00, pre-index (bits 11:10 = 11), base X0.</summary>
+    public static bool IsPreIndexedStoreIntoX0(uint word) => (word & 0xFFE00C00) == 0xF8000C00 && ((word >> 5) & 0x1F) == 0;
 }
