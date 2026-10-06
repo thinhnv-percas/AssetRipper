@@ -1,0 +1,4 @@
+7 errors
+     5  STRUCT_FIRST_MEMBER          [CS0030 5]  CIL emission (offset zero)
+     1  STRIPPED_FRAMEWORK_MEMBER    [CS0117 1]  reference assemblies
+     1  OTHER                        [CS7036 1]  -

@@ -11,14 +11,14 @@
     "spine-unity",
     "spine-unity-examples"
   ],
-  "methods": 5419,
-  "nativeBytes": 1064372,
+  "methods": 5377,
+  "nativeBytes": 1064028,
   "placeholders": 3394,
   "status": {
     "HIGH_CONFIDENCE": 194,
     "PARTIAL": 678,
-    "EXACT": 4485,
-    "FALLBACK": 62
+    "EXACT": 4449,
+    "FALLBACK": 56
   },
   "byAssembly": {
     "Assembly-CSharp": {
@@ -32,10 +32,10 @@
       "EXACT": 1
     },
     "GoogleMobileAds": {
-      "EXACT": 540,
+      "EXACT": 504,
       "PARTIAL": 80,
-      "FALLBACK": 37,
-      "HIGH_CONFIDENCE": 29
+      "HIGH_CONFIDENCE": 29,
+      "FALLBACK": 31
     },
     "spine-unity": {
       "EXACT": 1551,
@@ -75,40 +75,40 @@
     "ARRAY_READ": 4,
     "ARRAY_WRITE": 4,
     "BRANCH": 1,
-    "NEWOBJ": 14,
-    "FIELD": 33
+    "FIELD": 33,
+    "NEWOBJ": 8
   },
   "fingerprintIr": {
-    "LOOP": 2217,
-    "INSTANCEOF": 357,
-    "NULL_CHECK": 1971,
-    "BRANCH": 2219,
-    "COMPARE": 2200,
-    "STATIC_ACCESS": 3571,
     "CALL": 3215,
-    "ARITHMETIC": 1380,
+    "LOOP": 2217,
+    "NULL_CHECK": 1971,
+    "COMPARE": 2200,
+    "INSTANCEOF": 357,
+    "BRANCH": 2219,
+    "STATIC_ACCESS": 3561,
+    "ARITHMETIC": 1378,
     "ARRAY_READ": 385,
-    "NEWOBJ": 1032,
+    "NEWOBJ": 1026,
     "CAST": 17,
     "FIELD_ADDRESS": 306,
     "ARRAY_WRITE": 158
   },
   "fingerprintCSharp": {
+    "CALL": 4430,
     "NULL_CHECK": 1325,
-    "RETURN": 2931,
-    "NEWOBJ": 1125,
-    "BRANCH": 2235,
-    "COMPARE": 2037,
-    "THROW": 544,
-    "CALL": 4442,
     "CAST": 608,
+    "COMPARE": 2037,
+    "NEWOBJ": 1125,
+    "RETURN": 2931,
+    "THROW": 544,
+    "BRANCH": 2235,
     "ARRAY_READ": 582,
-    "ARITHMETIC": 1316,
+    "ARITHMETIC": 1314,
     "STATIC_ACCESS": 2176,
     "LOOP": 729,
     "NEWARR": 180,
-    "INSTANCEOF": 12,
     "FIELD_ADDRESS": 382,
+    "INSTANCEOF": 12,
     "ARRAY_WRITE": 176,
     "SWITCH": 25
   },

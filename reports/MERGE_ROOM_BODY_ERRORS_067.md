@@ -87,3 +87,27 @@ kiểu, trước khi viết guard nào.
 `recovery_contract.py --errors` trên 67x đặt trạng thái semantic cạnh lỗi compile của cùng method. Số method EXACT mà
 file của nó vẫn fail ở `iterations/067/metrics/contract-67x-m.txt`. Cùng kết luận như 066: không fixture nào compile
 sạch.
+
+## 6. Các fixture khác, 66i → 67x (body pass, Assembly-CSharp)
+
+| Họ | Impostor | JellyBlastV2 | Pinata | RunFromZombies |
+|---|---|---|---|---|
+| Tổng | 208 → **194** | 2599 → **1982** | 1144 → 1136 | 7 → 7 |
+| OBJECT_AS_NATIVE_INT | 27 → 26 | 608 → **221** | 2 → 2 | — |
+| INTERFACE_SCAN_SURVIVOR | 12 → 12 | 363 → 309 | — | — |
+| SHARED_GENERIC_PLACEHOLDER | 45 → **7** | 57 → **1** | — | — |
+| FRAMEWORK_PRIVATE_MEMBER | 9 → **48** | 262 → 309 | 198 → 201 | — |
+| ARRAY_ELEMENT_ADDRESS | 5 → 5 | 142 → 112 | 7 → 7 | — |
+| STRUCT_LOCAL_AS_ADDRESS | 12 → 12 | 139 → 119 | 21 → 21 | — |
+| WIDE_IMMEDIATE_STRUCT | — | 5 → 0 | — | — |
+| OTHER | 45 → 31 | 655 → 573 | 507 → 494 | 1 → 1 |
+
+- **JellyBlastV2 OBJECT_AS_NATIVE_INT 608 → 221** là write barrier: dạng `(nint)this + 112` là địa chỉ slot vừa ghi, giữ
+  sống chỉ vì lời gọi barrier chưa được nhận. Barrier tìm được nên lời gọi bị bỏ cùng với số học của nó. Sửa ở
+  producer, không ở chỗ cast, đúng như brief §5 yêu cầu.
+- **SHARED_GENERIC_PLACEHOLDER → FRAMEWORK_PRIVATE_MEMBER** trên Impostor và JellyBlastV2: cùng cơ chế với §2.
+  EXPECTED_CHANGE.
+- **INTERFACE_SCAN_SURVIVOR 363 → 309** trên JellyBlastV2: chưa quy từng vùng về một nguyên nhân (**INFERRED**: cùng
+  thay đổi write barrier, vì nó bỏ các lời gọi chen giữa vùng quét và dispatch). Phần còn lại có lookup chậm là
+  `0xF7087C` (§4). Không pass nào của 067 xoá scaffolding quét interface, nên không vùng nào bị gỡ mà thiếu dispatch
+  được chứng minh.

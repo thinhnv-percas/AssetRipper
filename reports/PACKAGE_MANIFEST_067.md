@@ -47,6 +47,9 @@ Rip với `--package-cache` (`Test/Out67k-i`), theo log của post exporter:
 
 Các module built-in `com.unity.modules.*` giữ nguyên như export vẫn ghi.
 
+Bản build cuối (`Test/Out67xk-i`) cho cùng kết quả: manifest mang đúng ba package trên, `packages-lock.json` vẫn
+ABSENT (`iterations/067/artifacts/JellyBlastV2-packagecache.json`).
+
 ## 3. packages-lock.json — BLOCKED
 
 Không tạo ra. Chỉ resolver của một editor thật mới nói được lock file chứa gì. Một lock file viết từ manifest sẽ

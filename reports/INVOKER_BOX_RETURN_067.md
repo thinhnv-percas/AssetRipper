@@ -13,13 +13,13 @@ helper có tên, hay địa chỉ) cùng vị trí đối số, hoặc opcode c�
 
 Không có suy đoán theo kích thước, không có cast. Mô hình không đổi hành vi, chỉ nói rõ hơn vì sao nó từ chối.
 
-## 2. Đo (`CPP2IL_DUMP_INVOKER_ARGS`)
+## 2. Đo (`CPP2IL_DUMP_INVOKER_ARGS`, bản cuối 67x)
 
 | Fixture | 066 | 067 |
 |---|---|---|
-| Merge-Room | 34 × `T_BUFFER_WITH_A_USE_THE_MODEL_DOES_NOT_EXPLAIN` | 14 × `CALL:0x179CE74:ARG4`, 14 × `INDIRECTCALL:OPERAND6`, 4 × `CALL:0x17FDEF4:ARG3` |
+| Merge-Room | 34 × `T_BUFFER_WITH_A_USE_THE_MODEL_DOES_NOT_EXPLAIN` | 14 × `CALL:0x179CE74:ARG4`, 14 × `INDIRECTCALL:OPERAND6`, 4 × `CALL:0x17FDEF4:ARG3`, 2 × `CALL:List\`1<T>.AddRange:ARG3` |
 | RunFromZombies | 4 | 4 × `CALL:0xE6A35C:ARG3` |
-| JellyBlastV2 | 4 | 6 × lý do cũ (use không phải call hay opcode có toán hạng là buffer) |
+| JellyBlastV2 | 4 | 4 × lý do cũ (use không phải call hay opcode có toán hạng là buffer) |
 | Impostor | 0 | 0 |
 
 Số `UNKNOWN_RETURN` không giảm. Brief cho phép điều đó khi lý do chính xác hơn, và ở đây lý do đã chính xác hơn.

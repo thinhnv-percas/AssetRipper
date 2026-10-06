@@ -436,129 +436,53 @@
       "runtimeRole": "GENERAL"
     },
     "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1955A84": {
-      "status": "HIGH_CONFIDENCE",
+      "status": "EXACT",
       "ir": [
-        "ARITHMETIC",
-        "BRANCH",
         "CALL",
-        "COMPARE",
-        "LOOP",
-        "NULL_CHECK",
         "STATIC_ACCESS"
       ],
       "csharp": [
-        "ARITHMETIC",
-        "BRANCH",
         "CALL",
-        "COMPARE",
-        "NULL_CHECK",
         "RETURN",
         "STATIC_ACCESS"
       ],
-      "nativeBytes": 292,
+      "nativeBytes": 236,
       "placeholders": 0,
       "families": [],
       "fixture": "RunFromZombies",
       "runtimeRole": "GENERAL"
     },
     "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1956458": {
-      "status": "PARTIAL",
+      "status": "EXACT",
       "ir": [
-        "ARITHMETIC",
-        "BRANCH",
         "CALL",
-        "COMPARE",
-        "LOOP",
-        "NEWOBJ",
-        "NULL_CHECK",
         "STATIC_ACCESS"
       ],
       "csharp": [
-        "ARITHMETIC",
-        "BRANCH",
         "CALL",
-        "COMPARE",
-        "NEWOBJ",
-        "NULL_CHECK",
-        "RETURN",
-        "STATIC_ACCESS",
-        "THROW"
+        "RETURN"
       ],
-      "nativeBytes": 2200,
-      "placeholders": 4,
-      "families": [
-        "INDIRECT_JUMP",
-        "METHOD_NOT_FOUND",
-        "UNMANAGED_MEMORY_LOAD"
-      ],
+      "nativeBytes": 104,
+      "placeholders": 0,
+      "families": [],
       "fixture": "RunFromZombies",
       "runtimeRole": "STATIC_ENTRY"
     },
     "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x19580BC": {
       "status": "EXACT",
       "ir": [
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
         "CALL",
-        "COMPARE",
-        "INSTANCEOF",
-        "LOOP",
-        "NEWOBJ",
-        "NULL_CHECK",
         "STATIC_ACCESS"
       ],
       "csharp": [
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
         "CALL",
-        "CAST",
-        "COMPARE",
-        "NEWARR",
-        "NEWOBJ",
-        "NULL_CHECK",
-        "RETURN",
-        "THROW"
+        "RETURN"
       ],
-      "nativeBytes": 432,
+      "nativeBytes": 104,
       "placeholders": 0,
       "families": [],
       "fixture": "RunFromZombies",
-      "runtimeRole": "GENERAL"
-    },
-    "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1958558": {
-      "status": "EXACT",
-      "ir": [
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
-        "CALL",
-        "COMPARE",
-        "INSTANCEOF",
-        "LOOP",
-        "NEWOBJ",
-        "NULL_CHECK",
-        "STATIC_ACCESS"
-      ],
-      "csharp": [
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
-        "CALL",
-        "CAST",
-        "COMPARE",
-        "NEWARR",
-        "NEWOBJ",
-        "NULL_CHECK",
-        "RETURN",
-        "THROW"
-      ],
-      "nativeBytes": 432,
-      "placeholders": 0,
-      "families": [],
-      "fixture": "RunFromZombies",
-      "runtimeRole": "GENERAL"
+      "runtimeRole": "STATIC_ENTRY"
     },
     "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonPosition.cs#0x19592EC": {
       "status": "EXACT",
@@ -2934,78 +2858,6 @@
       "families": [],
       "fixture": "RunFromZombies",
       "runtimeRole": "GENERAL"
-    },
-    "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonArrayContract.cs#0x19BCEE4": {
-      "status": "EXACT",
-      "ir": [
-        "ARITHMETIC",
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
-        "CALL",
-        "COMPARE",
-        "FIELD_ADDRESS",
-        "INSTANCEOF",
-        "LOOP",
-        "NULL_CHECK",
-        "STATIC_ACCESS"
-      ],
-      "csharp": [
-        "ARITHMETIC",
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
-        "CALL",
-        "COMPARE",
-        "FIELD_ADDRESS",
-        "INSTANCEOF",
-        "NEWARR",
-        "NEWOBJ",
-        "NULL_CHECK",
-        "STATIC_ACCESS",
-        "THROW"
-      ],
-      "nativeBytes": 3352,
-      "placeholders": 0,
-      "families": [],
-      "fixture": "RunFromZombies",
-      "runtimeRole": "CONSTRUCTOR"
-    },
-    "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonDictionaryContract.cs#0x19BC1E0": {
-      "status": "EXACT",
-      "ir": [
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
-        "CALL",
-        "COMPARE",
-        "FIELD_ADDRESS",
-        "INSTANCEOF",
-        "LOOP",
-        "NEWOBJ",
-        "NULL_CHECK",
-        "STATIC_ACCESS"
-      ],
-      "csharp": [
-        "ARRAY_READ",
-        "ARRAY_WRITE",
-        "BRANCH",
-        "CALL",
-        "COMPARE",
-        "FIELD_ADDRESS",
-        "INSTANCEOF",
-        "NEWARR",
-        "NEWOBJ",
-        "NULL_CHECK",
-        "RETURN",
-        "STATIC_ACCESS",
-        "THROW"
-      ],
-      "nativeBytes": 2504,
-      "placeholders": 0,
-      "families": [],
-      "fixture": "RunFromZombies",
-      "runtimeRole": "CONSTRUCTOR"
     },
     "RunFromZombies::Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonDynamicContract.cs#0x19BE24C": {
       "status": "EXACT",

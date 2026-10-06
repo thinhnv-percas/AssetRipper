@@ -5,13 +5,13 @@
     "Newtonsoft.Json",
     "__Generated"
   ],
-  "methods": 3928,
-  "nativeBytes": 975468,
+  "methods": 3890,
+  "nativeBytes": 974960,
   "placeholders": 3919,
   "status": {
-    "EXACT": 2970,
+    "EXACT": 2934,
     "HIGH_CONFIDENCE": 176,
-    "FALLBACK": 59,
+    "FALLBACK": 57,
     "PARTIAL": 723
   },
   "byAssembly": {
@@ -25,29 +25,29 @@
     },
     "Newtonsoft.Json": {
       "PARTIAL": 723,
-      "EXACT": 2918,
+      "EXACT": 2882,
       "HIGH_CONFIDENCE": 175,
-      "FALLBACK": 58
+      "FALLBACK": 56
     }
   },
   "lostOperationClasses": {
-    "BRANCH": 7,
+    "BRANCH": 5,
     "ARRAY_READ": 2,
     "ARRAY_WRITE": 3,
     "NEWOBJ": 23,
     "CALL": 25,
-    "FIELD": 3
+    "FIELD": 1
   },
   "fingerprintIr": {
-    "COMPARE": 1620,
     "ARRAY_READ": 218,
-    "LOOP": 1698,
-    "CALL": 2497,
-    "STATIC_ACCESS": 2974,
-    "BRANCH": 1698,
+    "BRANCH": 1696,
     "ARITHMETIC": 878,
-    "NULL_CHECK": 1473,
+    "LOOP": 1696,
+    "STATIC_ACCESS": 2954,
+    "CALL": 2491,
+    "COMPARE": 1618,
     "NEWOBJ": 1032,
+    "NULL_CHECK": 1471,
     "CAST": 38,
     "INSTANCEOF": 289,
     "ARRAY_WRITE": 92,
@@ -55,16 +55,16 @@
     "RETURN": 2
   },
   "fingerprintCSharp": {
-    "COMPARE": 1499,
     "ARRAY_READ": 335,
-    "LOOP": 363,
-    "CALL": 3047,
     "BRANCH": 1701,
-    "NULL_CHECK": 1184,
+    "LOOP": 363,
+    "CALL": 3041,
+    "COMPARE": 1499,
     "RETURN": 2533,
-    "STATIC_ACCESS": 1690,
-    "NEWOBJ": 1119,
     "ARITHMETIC": 832,
+    "NEWOBJ": 1119,
+    "STATIC_ACCESS": 1690,
+    "NULL_CHECK": 1184,
     "CAST": 672,
     "THROW": 580,
     "FIELD_ADDRESS": 235,

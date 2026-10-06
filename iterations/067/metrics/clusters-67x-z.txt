@@ -1,0 +1,14 @@
+194 errors
+    48  FRAMEWORK_PRIVATE_MEMBER     [CS0122 42, CS1061 6]  CIL emission (accessor pairing)
+    31  OTHER                        [CS0030 12, CS0037 11, CS7003 4, CS0246 2, CS0122 1, CS1061 1]  -
+    26  OBJECT_AS_NATIVE_INT         [CS0030 20, CS0019 6]  ISIL analysis (typing)
+    21  UNRESOLVED_LOAD_STANDIN      [CS0030 21]  ISIL analysis (load resolution)
+    14  INDIRECT_STRUCT_ARGUMENT     [CS0030 14]  ISIL lifting (ABI)
+    12  STRUCT_LOCAL_AS_ADDRESS      [CS0030 11, CS1061 1]  ISIL analysis
+    12  INTERFACE_SCAN_SURVIVOR      [CS0030 12]  ISIL analysis
+     8  BASE_CONSTRUCTOR_CALL        [CS0117 8]  CIL emission
+     7  STRUCT_FIRST_MEMBER          [CS0030 7]  CIL emission (offset zero)
+     7  SHARED_GENERIC_PLACEHOLDER   [CS0122 7]  metadata / type resolution
+     5  ARRAY_ELEMENT_ADDRESS        [CS0030 5]  ISIL analysis
+     2  UNASSIGNED_LOCAL             [CS0165 2]  SSA destruction
+     1  FLOAT_USED_AS_INTEGER        [CS0019 1]  ISIL analysis (typing)

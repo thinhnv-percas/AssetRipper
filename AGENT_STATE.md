@@ -5,15 +5,29 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 066 (hoàn tất; trọng tâm "Buildability-driven semantic recovery". iOS: usage qua base trang +
-                          `add` riêng, guard `cctor_finished` dạng word, guard method-init qua base trang;
-                          UNKNOWN_CLASS_SOURCE 2510 → 98, JellyBlastV2 EXACT 3127 → 4349, placeholder 34947 → 16619,
-                          oracle độc lập 0.6862 → 0.7594. Alloca động → `localloc` (StackAnalyzer SPDYN). Return của
-                          invoker có lý do; Merge-Room 64 → 80 dòng viết lại. Cờ ADDS/CMN không còn là hằng 0 (lỗi giá
-                          trị sai im lặng có từ trước). Store qua SP: đo âm, revert. recovery_contract.py,
-                          buildability_matrix.py. Không Unity: UNITY_NOT_AVAILABLE; không fixture nào compile sạch.)
+Iteration hiện tại: 067 (hoàn tất; trọng tâm "Semantic storage, compile recovery & clean C# output". Struct trên
+                          stack là một storage (StackStructStorage, độ rộng store thật); carry unsigned chính xác
+                          (Instruction.IsUnsigned); tham số lấy kiểu theo ParameterIndex; write barrier iOS pre-indexed
+                          (JellyBlastV2 EXACT 4330 → 5258, lỗi thân 2599 → 1982); tuỳ chọn Cpp2ILInjected attributes và
+                          gỡ global:: có kiểm va chạm (CLI + GUI); package UPSTREAM_EXACT vào manifest qua
+                          --package-cache. Oracle độc lập 0.7594 → 0.7864. Không Unity: UNITY_NOT_AVAILABLE; không
+                          fixture nào compile sạch; PROJECT_GENERATED_COMPILE_IMPROVED.)
 
 Cảnh báo cho phiên sau:
+  - 067: recovery_metrics.methods() bỏ qua accessor auto-property đã gập (`get;`/`set;`). Mọi so sánh với ≤ 066 phải
+    đo lại CẢ HAI đầu; số 66i trong docs/ITERATION_067.md đã đo lại (JellyBlastV2 EXACT 4349 → 4330). Golden
+    JellyBlastV2 `ResultBase`, `JsonConvert` đọc regression ở cả hai đầu vì baseline đóng băng bằng reader cũ.
+  - 067: store tạm của `KeepStoresInsideAnAddressTakenSlot` phải được thả. `StackStructStorage.Run` thả trong `finally`;
+    một pass mới chen giữa hai chỗ đó sẽ thấy store sống mà không ai đọc.
+  - 067: độ rộng store lấy từ `StackOffset.Size`/`MemoryOperand.Size` (lifter), không từ tên thanh ghi. Một store
+    vector lên member float là store của bốn member.
+  - 067: carry unsigned của ADDS với immediate `-1` không kiểu chạy ở 64 bit (Pinata `CheckPathMatchPath`,
+    DECOMP-0073). Đừng sửa bằng cách hạ carry về so sánh có dấu.
+  - 067: FRAMEWORK_PRIVATE_MEMBER tăng khi SHARED_GENERIC_PLACEHOLDER giảm là cùng lần đọc, giờ đúng kiểu. Không phải
+    regression.
+  - 067: `0xF7087C` (JellyBlastV2) bị đặt tên `Utilities.TryGetValue`; ba guard đã đo âm. Tìm rule gán kiểu trước.
+  - 067: `--package-cache` chỉ nhận cache dựng bởi `proven_package_cache.py` (UPSTREAM_EXACT). Không bao giờ ghi
+    version không có bằng chứng; `packages-lock.json` BLOCKED.
   - 066: số EXACT không nói một method compile được. `recovery_contract.py` cho thấy 49 method EXACT của Merge-Room
     vẫn fail. Đọc `semantic_by_compile` trước khi kết luận từ EXACT.
   - 066: stage D của validate_unity_stages.py đếm declaration pass (Merge-Room 4, JellyBlastV2 11); số lỗi thân là
@@ -22,7 +36,8 @@ Cảnh báo cho phiên sau:
     đọc như lời gọi method vẫn làm. `MetadataInitGuardRemover.RemoveMadeUnreachable` xoá block do chính pass đó làm
     cho không tới được.
   - 066: đừng mở rộng `KeepStoresReadThroughABaseAddress` sang store qua SP trước khi "struct sau một địa chỉ là một
-    storage" được mô hình (đo âm hai lần, xem docs/ITERATION_066.md).
+    storage" được mô hình (đo âm hai lần, xem docs/ITERATION_066.md). 067 đã mô hình nó bằng giữ *tạm* +
+    `StackStructStorage`; cách giữ vĩnh viễn của 066g/h vẫn là sai.
   - 065 đổi phép đo ở ba chỗ (static field trong rendering, `?.`/`??`/ternary là branch, `0m` là decimal.Zero) và
     `LoadsCallOperands` (IndirectCall/IndirectJump không load toán hạng → storage hazard). Mọi so sánh với ≤ 064
     phải đo lại CẢ HAI đầu; số 064 trong docs/ITERATION_065.md đã đo lại.

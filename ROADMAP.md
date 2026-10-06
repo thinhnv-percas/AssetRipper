@@ -914,3 +914,8 @@ khai báo, và `CPP2IL_RECOVER_ALSO` mở chúng ra để đo: behaviour 0.6802 
 7. **`SetPropertyUtility.SetStruct(ref T)` với `T` là enum** (SHARED_GENERIC_PLACEHOLDER 9 còn lại trên Merge-Room).
 8. **Write barrier trên Impostor/RunFromZombies** vẫn hoà 76/75 và bị từ chối; cần một bằng chứng thứ ba, không hạ ngưỡng.
 9. **`packages-lock.json`** vẫn BLOCKED; `com.unity.ugui` 1.0.0 chứng minh được nhưng không có trên registry.
+10. **REAL_REGRESSION 067: carry unsigned ở 64 bit** (Pinata `CheckPathMatchPath`, DECOMP-0073). Immediate `-1` của
+    thanh ghi W đến generator như `0xFFFFFFFF` không kiểu. Mang độ rộng W vào immediate hoặc gieo kiểu cho phép so sánh
+    unsigned theo độ rộng thanh ghi.
+11. **Phép kiểm tên không thấy mảng ngầm định** (`params`, `String.Concat(string[])` thành `+`): 11 PARTIAL → FALLBACK trên
+    JellyBlastV2 là body đúng hơn. `recovery_metrics.py` cần nhận một mảng chỉ dùng làm đối số `params`/`Concat`.

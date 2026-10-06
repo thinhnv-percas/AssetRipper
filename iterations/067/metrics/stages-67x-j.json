@@ -1,0 +1,164 @@
+{
+  "project": "Test/Out67x-j/RunFromZombies",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "796 scripts, 8300 KiB, 107 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "PASS",
+      "detail": "1.0000 of 5378 references resolve, 0 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "779 of 796 files compile clean, 39 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 796,
+    "bytes": 8499505,
+    "trivial": 107,
+    "reference_resolution_rate": 1.0,
+    "naming": 5378,
+    "unfollowable": 0,
+    "compile_pass_rate": 0.9786432160804021,
+    "compile_errors": 39,
+    "assemblies": [
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 18,
+        "files": 23
+      },
+      {
+        "assembly": "Newtonsoft.Json",
+        "clean": 272,
+        "files": 274
+      },
+      {
+        "assembly": "System.Runtime.CompilerServices.Unsafe",
+        "clean": 1,
+        "files": 1
+      },
+      {
+        "assembly": "Unity.Postprocessing.Runtime",
+        "clean": 107,
+        "files": 107
+      },
+      {
+        "assembly": "Unity.Services.Analytics",
+        "clean": 72,
+        "files": 72
+      },
+      {
+        "assembly": "Unity.Services.Core",
+        "clean": 20,
+        "files": 21
+      },
+      {
+        "assembly": "Unity.Services.Core.Configuration",
+        "clean": 15,
+        "files": 17
+      },
+      {
+        "assembly": "Unity.Services.Core.Device",
+        "clean": 12,
+        "files": 12
+      },
+      {
+        "assembly": "Unity.Services.Core.Environments.Internal",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Services.Core.Internal",
+        "clean": 88,
+        "files": 88
+      },
+      {
+        "assembly": "Unity.Services.Core.Registration",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Services.Core.Scheduler",
+        "clean": 13,
+        "files": 13
+      },
+      {
+        "assembly": "Unity.Services.Core.Telemetry",
+        "clean": 11,
+        "files": 11
+      },
+      {
+        "assembly": "Unity.Services.Core.Threading",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "UnityEngine.UI",
+        "clean": 118,
+        "files": 121
+      },
+      {
+        "assembly": "__Generated",
+        "clean": 9,
+        "files": 12
+      }
+    ],
+    "body_recovery_rate": 0.9853470437017995,
+    "body_status": {
+      "EXACT": 2934,
+      "HIGH_CONFIDENCE": 176,
+      "PARTIAL": 723,
+      "FALLBACK": 57,
+      "MISSING": 0
+    },
+    "bodies_attempted": 3890
+  },
+  "shaders": {
+    "PROGRAMS_RECOVERED": 18,
+    "STRUCTURE_ONLY": 6
+  }
+}

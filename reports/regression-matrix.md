@@ -927,3 +927,32 @@ RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.6862 �
 Trạng thái tổng: **`PROJECT_GENERATED_COMPILE_FAILS`** trên cả năm fixture có body pass; `UNITY_NOT_AVAILABLE`. Nhãn
 `PROJECT_COMPILES_NOT_RUNTIME_VALIDATED` của các iteration trước quá lời: không fixture nào compile sạch.
 
+
+## Iteration 067 (66i → 67x, cả hai đầu đo bằng script cuối)
+
+`recovery_metrics.py` đổi ở 067 (accessor auto-property đã gập không còn ghép với member sau nó), nên EXACT/FALLBACK
+của 66i ở đây là số đo lại, không phải số công bố ở bảng 066.
+
+| | Impostor | Merge-Room | RunFromZombies | JellyBlastV2 | Pinata | opt-in |
+|---|---:|---:|---:|---:|---:|---:|
+| EXACT | 4447 → 4449 | 11944 → 11954 | 2933 → 2934 | 4330 → **5258** | 12972 → 12971 | 7108 → **8510** |
+| FALLBACK | 57 → 56 | 214 → 212 | 57 → 57 | 27 → 38 | 265 → 265 | 63 → 115 |
+| Placeholder | 3382 → 3406 | 18148 → 18142 | 3859 → 3859 | 16619 → **12587** | 8442 → 8442 | 25551 → **19343** |
+| Assembly-CSharp Roslyn, body pass | 208 → **194** | 310 → **298** | 7 → 7 | 2599 → **1982** | 1144 → 1136 | — |
+| Tỉ lệ file compile sạch (A-CSharp) | 0.625 → 0.641 | 0.595 → 0.607 | 0.783 → 0.783 | 0.352 → **0.453** | 0.645 → 0.646 | — |
+| Gán lại ref (`= ref *(`) | 35 → 21 | 111 → 85 | 35 → 24 | 213 → 149 | 58 → 27 | 440 → 275 |
+| Kickoff async dạng con trỏ | 3 → 1 | 18 → 1 | 88 → 14 | 11 → 0 | — | — |
+| `global::` (mặc định bật gỡ) | 18 → 18 | 36 → 0 | 1 → 0 | 0 → 0 | 4 → 0 | 0 → 0 |
+| `UNKNOWN_CLASS_SOURCE` (dòng) | 0 | 54 | 10 | 98 | 141 | 118 |
+| Dispatch interface chưa giải (dòng) | 116 | 171 | 66 | 168 | 147 | 188 |
+| `UNKNOWN_RETURN` (lý do cụ thể ở 67x) | 0 → 0 | 34 → 34 | 4 → 4 | 4 → 4 | — | 4 → 4 |
+| TrueAlias | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 |
+| Parameter overwrite (stand-in) | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 |
+| Layout mismatch / generatorFailures | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| Golden cải thiện / regression | 22/3 → 22/2 | 16/2 → 16/2 | 22/3 → 22/2 | 25/2 → 31/2 | — | 25/2 → 31/2 |
+
+RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.7594 → **0.7864** (1049/1334).
+
+Trạng thái tổng: **`PROJECT_GENERATED_COMPILE_IMPROVED`**: tỉ lệ file sạch tăng trên bốn fixture, không lùi trên fixture
+nào. Không fixture nào compile sạch; `UNITY_NOT_AVAILABLE`. Một REAL_REGRESSION: Pinata `CheckPathMatchPath`
+(carry unsigned của `-1` không kiểu ở 64 bit), xem `docs/ITERATION_067.md`.

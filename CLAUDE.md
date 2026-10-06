@@ -2146,6 +2146,15 @@ find it; `strings` without `-el` does find method and type names.
   vì `v39 @ X3` — entry value của một thanh ghi không phải tham số — có kiểu `Il2CppMethodInfo`. Hai guard trên phép
   đổi tên và một guard trên `PropagateFromCallParameters` đều đo âm (EXACT Merge-Room 11973 → 11882) và đã revert.
   Tìm rule gán kiểu cho `v39` trước khi viết guard nào. `reports/MERGE_ROOM_BODY_ERRORS_067.md` §4.
+- **Một accessor auto-property đã gập không có thân, và reader tìm thân đọc tiếp sang member sau nó.** Gỡ write barrier
+  làm 30 setter của JellyBlastV2 gập thành `get;`/`set;`, và `recovery_metrics.methods()` ghép `NativeSource` cùng thân
+  của member kế tiếp vào chúng: getter `FacebookLogger.Instance` bị chấm FALLBACK vì "mất" `new` của static constructor
+  bên dưới. Một thay đổi làm thân *sạch hơn* đọc như một regression — lần thứ năm hai phía viết một thao tác khác nhau.
+  Accessor không thân giờ bị bỏ qua, như accessor event đã gập.
+- **Carry chính xác đúng ở độ rộng thanh ghi, và một immediate không mang độ rộng đó.** `(a + b) <u a` với `a` là `-1`
+  của một thanh ghi W đến generator như `0xFFFFFFFF` không kiểu, nên thành `long` và phép so sánh chạy ở 64 bit:
+  Pinata `CheckPathMatchPath` giờ ném mọi lần. Bản có dấu cũ chỉ đúng vì nó tình cờ gieo kiểu `int`. Đừng hạ carry
+  về dạng có dấu; mang độ rộng W vào immediate (DECOMP-0073).
 
 ### Things measured to be worth nothing — do not redo them
 - **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
@@ -2466,6 +2475,8 @@ Twenty-six scripts, and each measures something the others cannot:
 - `Test/Scripts/static_library_provenance.py` (so mã máy archive với binary, `--preserve`),
   `ios_native_unknown.py` (wrapper → địa chỉ cài đặt → ObjC/bind), `package_manifest_reconstruction.py`
   (manifest/lock/cache tách riêng), `recovered_project_plan.py`.
+- `Test/Scripts/proven_package_cache.py` — cache `name@version` chỉ của package UPSTREAM_EXACT, tải đúng version đã
+  chứng minh; đưa vào `SystemTester --package-cache`. `--self-test` 8 case.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
 

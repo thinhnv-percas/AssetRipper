@@ -35,6 +35,9 @@ ADDRESS = re.compile(r'\[Address\(RVA = "0x([0-9A-Fa-f]+)"(?:, Offset = "[^"]*")
 NATIVE_SOURCE = re.compile(r'\[NativeSource\(Body = "(.*)"\)\]')
 # The one definition of how a placeholder reaches the source lives beside the family names.
 PLACEHOLDER = re.compile('"(?:' + "|".join(re.escape(p) for p in MESSAGE_PREFIXES) + ')')
+# Iteration 067: an auto-property accessor the decompiler folded back has no body of its own. Reading on from it
+# took the next member's NativeSource and body, so a correct method scored as another's loss.
+BODYLESS_ACCESSOR = re.compile(r'^\s*(?:(?:private|internal|protected|public)\s+)*(?:get|set|init);\s*$')
 GENERATOR_FAILURE = re.compile(r'throw new \w*Exception\("(?:Decompil|Object reference|Index was|The given key)')
 UNTYPED_LOCAL = re.compile(r'\bobject \w+(?:\s*=|;)')
 
@@ -235,6 +238,7 @@ def methods(text: str):
         depth = 0
         started = False
         collected = []
+        bodyless = False
 
         for following in lines[index + 1:index + 4000]:
             stripped = following.lstrip()
@@ -245,6 +249,10 @@ def methods(text: str):
                     source = native_body(native_match.group(1))
                 continue
 
+            if not started and BODYLESS_ACCESSOR.match(following):
+                # A folded auto-property accessor: the compiler writes the body, so there is nothing to score.
+                bodyless = True
+                break
             collected.append(following)
             depth += following.count("{") - following.count("}")
             if "{" in following:
@@ -252,6 +260,8 @@ def methods(text: str):
             if started and depth <= 0:
                 break
 
+        if bodyless:
+            continue
         yield native, source, "\n".join(collected)
 
 
@@ -376,7 +386,25 @@ def self_test() -> int:
             failures += 1
         print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: {sorted(got)}")
 
-    total = len(SELF_TEST) + len(accessor_cases) + len(literal_cases) + len(literal_cases_branch)
+    # Iteration 067: a folded auto-property accessor is not paired with the member after it.
+    folded = "\n".join([
+        '[Address(RVA = "0x10", Offset = "0x10", Length = "0x8")]',
+        '[NativeSource(Body = "return v1.<X>k__BackingField;")]',
+        'private get;',
+        '[Address(RVA = "0x20", Offset = "0x20", Length = "0x8")]',
+        '[NativeSource(Body = "v1 = new Foo();")]',
+        'static Bar()',
+        '{',
+        '    x = new Foo();',
+        '}',
+    ])
+    paired = [(native, source) for native, source, _ in methods(folded)]
+    expected_pairs = [(8, "v1 = new Foo();")]
+    ok = paired == expected_pairs
+    failures += not ok
+    print(f"{'ok  ' if ok else 'FAIL'}  a folded auto-property accessor is skipped, not paired with the next member: {paired}")
+
+    total = len(SELF_TEST) + len(accessor_cases) + len(literal_cases) + len(literal_cases_branch) + 1
     print(f"{total - failures} of {total} cases pass")
     return 1 if failures else 0
 

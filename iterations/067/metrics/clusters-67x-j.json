@@ -1,0 +1,38 @@
+{
+ "total": 7,
+ "families": [
+  {
+   "family": "STRUCT_FIRST_MEMBER",
+   "count": 5,
+   "layer": "CIL emission (offset zero)",
+   "producer": "a struct where its first member is wanted, or the reverse",
+   "codes": {
+    "CS0030": 5
+   },
+   "files": 4,
+   "examples": []
+  },
+  {
+   "family": "STRIPPED_FRAMEWORK_MEMBER",
+   "count": 1,
+   "layer": "reference assemblies",
+   "producer": "a member IL2CPP stripped from the build",
+   "codes": {
+    "CS0117": 1
+   },
+   "files": 1,
+   "examples": []
+  },
+  {
+   "family": "OTHER",
+   "count": 1,
+   "layer": "-",
+   "producer": "matched no rule",
+   "codes": {
+    "CS7036": 1
+   },
+   "files": 1,
+   "examples": []
+  }
+ ]
+}

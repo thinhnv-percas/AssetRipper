@@ -1,0 +1,335 @@
+{
+  "project": "Test/Out67x-m/MergeRoom",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "4044 scripts, 36416 KiB, 371 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "0.9998 of 12358 references resolve, 3 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "3709 of 4033 files compile clean, 2426 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 4044,
+    "bytes": 37290237,
+    "trivial": 371,
+    "reference_resolution_rate": 0.9997572422722123,
+    "naming": 12358,
+    "unfollowable": 3,
+    "compile_pass_rate": 0.9196627820481031,
+    "compile_errors": 2426,
+    "assemblies": [
+      {
+        "assembly": "Ads",
+        "clean": 0,
+        "files": 1
+      },
+      {
+        "assembly": "AlmostEngine",
+        "clean": 67,
+        "files": 68
+      },
+      {
+        "assembly": "AlmostEngine.Shared",
+        "clean": 12,
+        "files": 17
+      },
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 82,
+        "files": 84
+      },
+      {
+        "assembly": "Cinemachine",
+        "clean": 110,
+        "files": 111
+      },
+      {
+        "assembly": "Coffee.UIParticle",
+        "clean": 13,
+        "files": 20
+      },
+      {
+        "assembly": "DELTation.ToonShader",
+        "clean": 11,
+        "files": 12
+      },
+      {
+        "assembly": "DOTween",
+        "clean": 104,
+        "files": 105
+      },
+      {
+        "assembly": "EasySave3",
+        "clean": 227,
+        "files": 228
+      },
+      {
+        "assembly": "Lofelt.NiceVibrations",
+        "clean": 13,
+        "files": 17
+      },
+      {
+        "assembly": "MoreMountains.Feedbacks",
+        "clean": 226,
+        "files": 227
+      },
+      {
+        "assembly": "MoreMountains.Feedbacks.Cinemachine",
+        "clean": 10,
+        "files": 23
+      },
+      {
+        "assembly": "MoreMountains.Feedbacks.MMTools",
+        "clean": 24,
+        "files": 74
+      },
+      {
+        "assembly": "MoreMountains.Feedbacks.NiceVibrations",
+        "clean": 15,
+        "files": 20
+      },
+      {
+        "assembly": "MoreMountains.Feedbacks.PostProcessing",
+        "clean": 16,
+        "files": 35
+      },
+      {
+        "assembly": "MoreMountains.Feedbacks.TextMeshPro",
+        "clean": 9,
+        "files": 34
+      },
+      {
+        "assembly": "MoreMountains.Feedbacks.URP",
+        "clean": 13,
+        "files": 55
+      },
+      {
+        "assembly": "MoreMountains.Tools",
+        "clean": 385,
+        "files": 389
+      },
+      {
+        "assembly": "Newtonsoft.Json",
+        "clean": 217,
+        "files": 218
+      },
+      {
+        "assembly": "Sirenix.OdinInspector.Attributes",
+        "clean": 119,
+        "files": 131
+      },
+      {
+        "assembly": "Sirenix.OdinInspector.CompatibilityLayer",
+        "clean": 7,
+        "files": 9
+      },
+      {
+        "assembly": "Sirenix.Serialization",
+        "clean": 188,
+        "files": 190
+      },
+      {
+        "assembly": "Sirenix.Serialization.AOTGenerated",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Sirenix.Serialization.Config",
+        "clean": 14,
+        "files": 14
+      },
+      {
+        "assembly": "Sirenix.Utilities",
+        "clean": 26,
+        "files": 53
+      },
+      {
+        "assembly": "System.Runtime.CompilerServices.Unsafe",
+        "clean": 1,
+        "files": 1
+      },
+      {
+        "assembly": "Tayx.Graphy",
+        "clean": 13,
+        "files": 30
+      },
+      {
+        "assembly": "UniTask",
+        "clean": 128,
+        "files": 187
+      },
+      {
+        "assembly": "Unity.Burst",
+        "clean": 16,
+        "files": 16
+      },
+      {
+        "assembly": "Unity.InputSystem",
+        "clean": 357,
+        "files": 358
+      },
+      {
+        "assembly": "Unity.LevelPlay",
+        "clean": 40,
+        "files": 40
+      },
+      {
+        "assembly": "Unity.Mathematics",
+        "clean": 24,
+        "files": 25
+      },
+      {
+        "assembly": "Unity.RenderPipeline.Universal.ShaderLibrary",
+        "clean": 21,
+        "files": 21
+      },
+      {
+        "assembly": "Unity.RenderPipelines.Core.Runtime",
+        "clean": 316,
+        "files": 317
+      },
+      {
+        "assembly": "Unity.RenderPipelines.Universal.Runtime",
+        "clean": 319,
+        "files": 323
+      },
+      {
+        "assembly": "Unity.Services.Authentication",
+        "clean": 81,
+        "files": 85
+      },
+      {
+        "assembly": "Unity.Services.Core",
+        "clean": 17,
+        "files": 17
+      },
+      {
+        "assembly": "Unity.Services.Core.Configuration",
+        "clean": 15,
+        "files": 17
+      },
+      {
+        "assembly": "Unity.Services.Core.Device",
+        "clean": 12,
+        "files": 12
+      },
+      {
+        "assembly": "Unity.Services.Core.Environments.Internal",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Services.Core.Internal",
+        "clean": 60,
+        "files": 60
+      },
+      {
+        "assembly": "Unity.Services.Core.Registration",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Services.Core.Scheduler",
+        "clean": 13,
+        "files": 13
+      },
+      {
+        "assembly": "Unity.Services.Core.Telemetry",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "Unity.Services.Core.Threading",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Services.RemoteConfig",
+        "clean": 22,
+        "files": 22
+      },
+      {
+        "assembly": "Unity.TextMeshPro",
+        "clean": 119,
+        "files": 119
+      },
+      {
+        "assembly": "Unity.Timeline",
+        "clean": 58,
+        "files": 58
+      },
+      {
+        "assembly": "UnityEngine.UI",
+        "clean": 120,
+        "files": 123
+      },
+      {
+        "assembly": "__Generated",
+        "clean": 9,
+        "files": 12
+      }
+    ],
+    "body_recovery_rate": 0.9866750078198311,
+    "body_status": {
+      "EXACT": 11954,
+      "HIGH_CONFIDENCE": 776,
+      "PARTIAL": 3042,
+      "FALLBACK": 212,
+      "MISSING": 1
+    },
+    "bodies_attempted": 15985
+  },
+  "shaders": {
+    "PROGRAMS_RECOVERED": 28,
+    "UNKNOWN": 2,
+    "STRUCTURE_ONLY": 4
+  }
+}

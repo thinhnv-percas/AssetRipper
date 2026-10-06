@@ -1,16 +1,16 @@
-corpus: 887 entries, 194 for RunFromZombies (693 for other fixtures, 16 retired), 194 found, 0 not present in this rip
+corpus: 887 entries, 194 for RunFromZombies (693 for other fixtures, 16 retired), 191 found, 3 not present in this rip
 
 == by semantic status ==
-   85  EXACT
-   37  HIGH_CONFIDENCE
-   68  PARTIAL
+   84  EXACT
+   36  HIGH_CONFIDENCE
+   67  PARTIAL
     4  FALLBACK
     0  MISSING
 
 == by runtime role ==
-  150  GENERAL
-   13  STATIC_ENTRY
-   11  CONSTRUCTOR
+  148  GENERAL
+   14  STATIC_ENTRY
+    9  CONSTRUCTOR
     6  EVENT_ACCESSOR
     6  LIFECYCLE_UPDATE
     3  LIFECYCLE_START
@@ -18,13 +18,19 @@ corpus: 887 entries, 194 for RunFromZombies (693 for other fixtures, 16 retired)
     1  COROUTINE
     1  LIFECYCLE_AWAKE
 
+== not present ==
+  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1958558
+  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonArrayContract.cs#0x19BCEE4
+  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonDictionaryContract.cs#0x19BC1E0
+
 == against baseline ==
-improved 21, regressed 2
+improved 22, regressed 2
   IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Assembly-CSharp/ScoreScript.cs#0xF0C390
   IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Assembly-CSharp/Spawner.cs#0xF0C47C
   IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Assembly-CSharp/Spawner.cs#0xF0C844
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1955A84
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1956458
   IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x19580BC
-  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonConvert.cs#0x1958558
   IMPROVED  PARTIAL -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs#0x1960570
   IMPROVED  PARTIAL -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs#0x1960620
   IMPROVED  PARTIAL -> EXACT  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonValidatingReader.cs#0x1986EE4
