@@ -1,0 +1,212 @@
+{
+ "total": 2599,
+ "families": [
+  {
+   "family": "OTHER",
+   "count": 786,
+   "layer": "-",
+   "producer": "matched no rule",
+   "codes": {
+    "CS0030": 512,
+    "CS0019": 118,
+    "CS0037": 61,
+    "CS1061": 26,
+    "CS0122": 23,
+    "CS0266": 14,
+    "CS0144": 7,
+    "CS0246": 7,
+    "CS0029": 6,
+    "CS1059": 3,
+    "CS8174": 2,
+    "CS8172": 2,
+    "CS1073": 2,
+    "CS1510": 2,
+    "CS7003": 1
+   },
+   "files": 101,
+   "examples": []
+  },
+  {
+   "family": "OBJECT_AS_NATIVE_INT",
+   "count": 549,
+   "layer": "ISIL analysis (typing)",
+   "producer": "a reference used in address arithmetic",
+   "codes": {
+    "CS0030": 491,
+    "CS0019": 58
+   },
+   "files": 102,
+   "examples": []
+  },
+  {
+   "family": "UNRESOLVED_LOAD_STANDIN",
+   "count": 212,
+   "layer": "ISIL analysis (load resolution)",
+   "producer": "the native-int zero an unresolved load pushes",
+   "codes": {
+    "CS0030": 212
+   },
+   "files": 48,
+   "examples": []
+  },
+  {
+   "family": "FRAMEWORK_PRIVATE_MEMBER",
+   "count": 199,
+   "layer": "CIL emission (accessor pairing)",
+   "producer": "an inlined trivial accessor named by its private field",
+   "codes": {
+    "CS1061": 132,
+    "CS0122": 67
+   },
+   "files": 11,
+   "examples": []
+  },
+  {
+   "family": "INTERFACE_SCAN_SURVIVOR",
+   "count": 148,
+   "layer": "ISIL analysis",
+   "producer": "inlined interface offset scan left beside its dispatch",
+   "codes": {
+    "CS0019": 82,
+    "CS0030": 66
+   },
+   "files": 20,
+   "examples": []
+  },
+  {
+   "family": "INTERFACE_METHOD_DELEGATE",
+   "count": 141,
+   "layer": "ISIL analysis",
+   "producer": "ldvirtftn over an interface method, compiled as an interface lookup",
+   "codes": {
+    "CS0149": 141
+   },
+   "files": 46,
+   "examples": []
+  },
+  {
+   "family": "ARRAY_ELEMENT_ADDRESS",
+   "count": 117,
+   "layer": "ISIL analysis",
+   "producer": "element address arithmetic not folded into an element access",
+   "codes": {
+    "CS0030": 113,
+    "CS0019": 4
+   },
+   "files": 25,
+   "examples": []
+  },
+  {
+   "family": "SHARED_GENERIC_PLACEHOLDER",
+   "count": 85,
+   "layer": "metadata / type resolution",
+   "producer": "a shared-generic stand-in type (Int32Enum, List<object>)",
+   "codes": {
+    "CS0030": 56,
+    "CS0122": 29
+   },
+   "files": 11,
+   "examples": []
+  },
+  {
+   "family": "STRUCT_FIRST_MEMBER",
+   "count": 77,
+   "layer": "CIL emission (offset zero)",
+   "producer": "a struct where its first member is wanted, or the reverse",
+   "codes": {
+    "CS0030": 77
+   },
+   "files": 29,
+   "examples": []
+  },
+  {
+   "family": "BASE_CONSTRUCTOR_CALL",
+   "count": 64,
+   "layer": "CIL emission",
+   "producer": "a constructor call ILSpy could not fold into an initialiser",
+   "codes": {
+    "CS0117": 64
+   },
+   "files": 47,
+   "examples": []
+  },
+  {
+   "family": "UNASSIGNED_LOCAL",
+   "count": 50,
+   "layer": "SSA destruction",
+   "producer": "a read with no reaching definition",
+   "codes": {
+    "CS0165": 50
+   },
+   "files": 29,
+   "examples": []
+  },
+  {
+   "family": "FLOAT_USED_AS_INTEGER",
+   "count": 42,
+   "layer": "ISIL analysis (typing)",
+   "producer": "a local typed float/double that carries integer bits",
+   "codes": {
+    "CS0019": 42
+   },
+   "files": 12,
+   "examples": []
+  },
+  {
+   "family": "STRUCT_LOCAL_AS_ADDRESS",
+   "count": 37,
+   "layer": "ISIL analysis",
+   "producer": "the address of a stack struct typed as the struct",
+   "codes": {
+    "CS1061": 24,
+    "CS0030": 13
+   },
+   "files": 12,
+   "examples": []
+  },
+  {
+   "family": "STRIPPED_FRAMEWORK_MEMBER",
+   "count": 37,
+   "layer": "reference assemblies",
+   "producer": "a member IL2CPP stripped from the build",
+   "codes": {
+    "CS0117": 37
+   },
+   "files": 8,
+   "examples": []
+  },
+  {
+   "family": "INDIRECT_STRUCT_ARGUMENT",
+   "count": 32,
+   "layer": "ISIL lifting (ABI)",
+   "producer": "AAPCS64 B.4: a composite over 16 bytes passed by reference to a copy",
+   "codes": {
+    "CS0030": 32
+   },
+   "files": 6,
+   "examples": []
+  },
+  {
+   "family": "STRUCT_SELF_FIELD_ADDRESS",
+   "count": 18,
+   "layer": "ISIL analysis",
+   "producer": "this + k on a value-type receiver, passed as a byref",
+   "codes": {
+    "CS0122": 18
+   },
+   "files": 8,
+   "examples": []
+  },
+  {
+   "family": "WIDE_IMMEDIATE_STRUCT",
+   "count": 5,
+   "layer": "ISIL analysis",
+   "producer": "a wide immediate store covering a struct's leading fields",
+   "codes": {
+    "CS0030": 5
+   },
+   "files": 5,
+   "examples": []
+  }
+ ]
+}

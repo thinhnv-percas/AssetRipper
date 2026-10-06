@@ -1,0 +1,88 @@
+{
+  "project": "Test/Out66i-i/JellyBlastV2",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.53f1"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "1499 scripts, 21427 KiB, 203 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "1.0000 of 113286 references resolve, 2 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "175 of 179 files compile clean, 11 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 1499,
+    "bytes": 21941496,
+    "trivial": 203,
+    "reference_resolution_rate": 0.9999823455678548,
+    "naming": 113286,
+    "unfollowable": 2,
+    "compile_pass_rate": 0.9776536312849162,
+    "compile_errors": 11,
+    "assemblies": [
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 175,
+        "files": 179
+      }
+    ],
+    "body_recovery_rate": 0.9958446954940917,
+    "body_status": {
+      "EXACT": 4349,
+      "HIGH_CONFIDENCE": 172,
+      "PARTIAL": 3148,
+      "FALLBACK": 32,
+      "MISSING": 0
+    },
+    "bodies_attempted": 7701
+  },
+  "shaders": {
+    "STRUCTURE_ONLY": 30
+  }
+}

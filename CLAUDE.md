@@ -2066,7 +2066,59 @@ find it; `strings` without `-el` does find method and type names.
   viết `decimal.Zero` là `0m`; và `(x as T)?.M()` là một nhánh mà `BRANCH` không nhận. Cả ba báo "mất FIELD/BRANCH" cho
   thân đúng y nguồn.
 
+- **Trên iOS offset của một usage nằm trong một `add` riêng, không trong memory operand.** Apple clang giữ base trang
+  trong thanh ghi callee-saved: `adrp x8, page; add x8, x8, #0x9F0; ldr x1, [x8]`. Luật base trang của 054 chỉ đọc
+  `[page + k]`, nên toán hạng class của 2315 lookup interface không bao giờ là usage.
+  `MetadataResolver.FindComputedSlotAddresses` đi ngược qua các định nghĩa đơn (immediate căn trang, copy, `Add`)
+  và đọc `[v + 0]` như usage tại địa chỉ tính được, qua đúng `NotAUsageSlot`. 51252 usage trên JellyBlastV2;
+  `UNKNOWN_CLASS_SOURCE` 2510 → 98.
+- **Một guard sống sót trông như số nguyên khi class không có kiểu, và như lỗi compile khi class có kiểu.** Sửa
+  provenance ở trên làm lỗi thân JellyBlastV2 tăng 2599 → 3116: `(nint)typeof(T)`. Đó là guard
+  `if (!klass->cctor_finished_or_no_cctor) init(klass)` chưa từng được nhận trên iOS. Ở 65z nó compile được chỉ vì
+  class pointer là một số nguyên. Nó sống sót vì ba lý do, mỗi lý do chỉ thấy khi lý do trước đã sửa:
+  1. test là cả một word, không phải một bit (offset từ bảng đo được, `"cctor_finished"`);
+  2. phần tiếp theo bị nhân đôi vào nhánh init nên vùng không hội tụ;
+  3. lời gọi init đã bị xoá như code chết và bản sao được rút gọn khác bản gốc.
+
+  Danh tính của word là bằng chứng đủ, vì mã sinh ra chỉ đọc nó ở macro. Phân cực đọc từ phép so sánh và các `Not`.
+  13657 guard trên JellyBlastV2, EXACT 3127 → 4349.
+- **Một lần gập để lại block không ai tới, và block đó đọc như code.** Rendering và generator đi qua mọi block trong
+  `Blocks`, nên lời gọi trong block chết làm một method đúng nguồn bị chấm FALLBACK (`Viewport.GetViewport<t>`). Pass
+  nào cắt cạnh thì phải xoá block nó làm cho không tới được, kèm input phi của chúng.
+- **`mov sp, xN` là phần cuối của một alloca, và lift nó thành phép cộng vào thanh ghi bị bỏ làm mọi buffer trùng
+  một ô.** Thân generic chia sẻ hoàn toàn viết `alloca(sizeof(T))` cho mỗi local kiểu `T`:
+  `mov xA, sp; sub xB, xA, size; mov sp, xB`, 4693 lần trên Merge-Room. Stack walk tin SP không đổi, nên mọi
+  `mov xA, sp` là cùng một ô cố định. `StackAnalyzer.ResolveDynamicStack` đặt SP mới vào thanh ghi `SPDYN`, biến bộ
+  ba thành `OpCode.StackAlloc` (`localloc`), và đọc mọi operand theo SP trong vùng động tương đối `SPDYN`. Kiểu của
+  kết quả là `byte*`: một local `IntPtr` cho ra `(nint)stackalloc`, là C# không hợp lệ (CS8346). **Mọi pass nhận
+  diện buffer bằng hình dạng cũ phải học hình dạng mới:** `InvokerArgumentRecovery` mất 64/64 dòng viết lại cho tới
+  khi được dạy.
+- **Cờ của ADDS và CMN là hằng số 0, và đó là một vòng lặp vô hạn.** Disarm trả `cmn wN, #imm` về ADDS vào thanh ghi
+  zero, và nhánh ADDS gọi `EmitResultFlags`, hàm ghi C = V = 0. Mọi `b.lo`/`b.hs` sau một ADDS hay CMN rẽ theo một
+  hằng:
+  - `(uint)(c - '0') < 10` từ chối mọi chữ số, nên `DateTimeParser.ParseZone` đọc mọi giờ múi là 0;
+  - vòng chữ số của `DateTimeUtils.WriteDefaultIsoDate` là `while (true)`.
+
+  Cờ của `a + b` là cờ của `a - (-b)`, đúng cách nhánh CMN tường minh đã làm, tính trước khi ghi lại. Không aggregate
+  nào thấy lỗi này. Nó lộ ra khi gỡ placeholder làm phép kiểm tên chạy lần đầu trên method đó.
+- **Một return của invoker vào ô frame là local của ô đó**, chạy ngoài SSA và chỉ khi mọi local đặt tên ô là một
+  storage. Mọi `UNKNOWN_RETURN` còn lại mang lý do; trên cả ba fixture lý do còn lại là cùng một:
+  `T_BUFFER_WITH_A_USE_THE_MODEL_DOES_NOT_EXPLAIN`.
+- **EXACT không có nghĩa là compile được.** `recovery_contract.py` đặt mọi trục cạnh nhau theo method: 49 method EXACT
+  của Merge-Room vẫn fail, lỗi ở tầng biểu diễn. Stage D của `validate_unity_stages.py` đếm declaration pass
+  (Merge-Room 4 lỗi) trong khi body pass có 310. Không fixture nào compile sạch, và nhãn
+  `PROJECT_COMPILES_NOT_RUNTIME_VALIDATED` của các iteration trước là quá lời.
+
 ### Things measured to be worth nothing — do not redo them
+- **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
+  - 66g: thiết lập frame (`mov x29, sp`) là một address-take, nên mọi lần lưu thanh ghi phía trên nó được giữ;
+    JellyBlastV2 EXACT 4347 → 4149.
+  - 66h, đã loại thiết lập frame và lần lưu callee-saved: store giữ lại là `<>t__builder` của state machine async,
+    được `Start(ref sm)` đọc qua địa chỉ thật, tức đúng về ngữ nghĩa. Nhưng struct sau một địa chỉ chưa là một
+    storage, nên chúng đi vào local riêng và lộ `m_builder` private: CS0122 Merge-Room 27 → 57, RunFromZombies EXACT
+    2967 → 2908.
+
+  Mô hình storage phải đi trước.
 - **A copy into a differently-typed local as evidence of register reuse.** Written, tested, and
   refuted by the data it was written for. The `List<T>.Add` receivers reported as `this + 0x20` have
   no copy in them at all: the chain reads
@@ -2352,6 +2404,12 @@ Twenty-six scripts, and each measures something the others cannot:
   source; `ASSETRIPPER_DUMP_SHADER_PROGRAMS` dump byte từng sub-program.
 - `Test/Scripts/logic_interface_corpus.py` — `Test/logic-interface-corpus.json`, 77 case theo ưu tiên brief.
 - `Test/Scripts/neutralise_stripped_attribute_arguments.py` — body pass của compile harness.
+- `Test/Scripts/recovery_contract.py` — một hợp đồng mỗi method: semantic, provenance, load/call/return chưa giải,
+  ABI, kiểu, control flow, compile, và họ producer của lỗi đầu tiên. Trả lời "vì sao method này không compile".
+- `Test/Scripts/buildability_matrix.py` — sáu mức (native, semantic, project, compile, runtime, behaviour) theo
+  fixture; runtime là `UNITY_NOT_AVAILABLE` khi không tìm thấy editor; `FULLY_RECOVERED` luôn false khi chưa chạy.
+- `Test/Scripts/project_artifact_check.py` — manifest, lock, Plugins, ProjectSettings của một export; version package
+  không có nguồn thì không được ghi.
 - `Test/Scripts/native_dependency_graph.py` — mọi thư viện native build phụ thuộc, kind
   (`FRAMEWORK`, `STATIC_LIBRARY`…) và recoverability (`LINKED_STATIC_NOT_EXTRACTABLE`); bằng chứng static là
   bảng symbol của engine binary và archive trong source. `--self-test` 5 case.

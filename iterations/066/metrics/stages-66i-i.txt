@@ -1,0 +1,26 @@
+project: Test/Out66i-i/JellyBlastV2
+
+   stage                     verdict  detail
+----------------------------------------------------------------------------------------------------
+A  project generated         PASS     Assets and ProjectSettings present, m_EditorVersion: 2022.3.53f1
+B  scripts generated         PASS     1499 scripts, 21427 KiB, 203 under 200 bytes
+C  references consistent     FAIL     1.0000 of 113286 references resolve, 2 do not
+D  C# compiles               FAIL     175 of 179 files compile clean, 11 errors
+E  AssetDatabase imports     BLOCKED  UNITY_NOT_AVAILABLE
+F  scene opens               BLOCKED  UNITY_NOT_AVAILABLE
+G  prefab instantiates       BLOCKED  UNITY_NOT_AVAILABLE
+H  MonoBehaviour lifecycle   BLOCKED  UNITY_NOT_AVAILABLE
+I  gameplay smoke test       BLOCKED  UNITY_NOT_AVAILABLE
+
+== metrics ==
+compile_pass_rate          0.9777
+body_recovery_rate         0.9958  (7701 methods carry a native address)
+reference_resolution_rate  1.0000
+scene_load_rate            BLOCKED (UNITY_NOT_AVAILABLE)
+prefab_load_rate           BLOCKED (UNITY_NOT_AVAILABLE)
+runtime_smoke_pass_rate    BLOCKED (UNITY_NOT_AVAILABLE)
+shader_programs_recovered  0 of 30  (every pass carries the shader's own compiled program)
+shader_structure_only      30 of 30  (subshaders, passes, tags and render state from the asset; at least one program replaced)
+shader_dummy               0 of 30
+shader_unknown             0 of 30
+shader_exact               NOT_MEASURED_HERE (shader_semantic_equivalence.py decides it against the source ShaderLab)

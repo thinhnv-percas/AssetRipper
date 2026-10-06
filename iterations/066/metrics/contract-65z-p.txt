@@ -1,0 +1,59 @@
+{
+ "methods": 5170,
+ "unpaired_files": 0,
+ "compile_status": {
+  "COMPILES": 4652,
+  "FAILS": 518
+ },
+ "compile_risk_of_failing_methods": {
+  "OTHER": 187,
+  "UNRESOLVED_LOAD_STANDIN": 181,
+  "STRUCT_FIRST_MEMBER": 61,
+  "FRAMEWORK_PRIVATE_MEMBER": 51,
+  "BASE_CONSTRUCTOR_CALL": 11,
+  "STRUCT_LOCAL_AS_ADDRESS": 8,
+  "INDIRECT_STRUCT_ARGUMENT": 7,
+  "UNASSIGNED_LOCAL": 4,
+  "ARRAY_ELEMENT_ADDRESS": 4,
+  "FLOAT_USED_AS_INTEGER": 3,
+  "INTERFACE_METHOD_DELEGATE": 1
+ },
+ "semantic_status": {
+  "EXACT": 4289,
+  "PARTIAL": 715,
+  "HIGH_CONFIDENCE": 156,
+  "FALLBACK": 10
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 4220,
+  "PARTIAL/FAILS": 371,
+  "PARTIAL/COMPILES": 344,
+  "HIGH_CONFIDENCE/COMPILES": 85,
+  "HIGH_CONFIDENCE/FAILS": 71,
+  "EXACT/FAILS": 69,
+  "FALLBACK/FAILS": 7,
+  "FALLBACK/COMPILES": 3
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 5170
+ },
+ "type_status": {
+  "TYPED": 4376,
+  "STACK_TYPE_MISMATCH": 751,
+  "UNTYPED_LOCALS": 43
+ },
+ "control_flow_status": {
+  "STRUCTURED": 4933,
+  "GOTO": 237
+ }
+}
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/SetWheelJoint2dProperties.cs#0x99BC9C SetProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.SetWheelJoint2dProperties' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/GetSceneActivateChangedEventData.cs#0xA34474 DoGetSceneProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.GetSceneActivateChangedEventData' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/SetHingeJoint2dProperties.cs#0x9955B8 SetProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.SetHingeJoint2dProperties' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiSetColorBlock.cs#0x982A98 DoSetValue: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.UiSetColorBlock' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/ProGrids/pg_Util.cs#0xB01A38 SnapIsEnabled: PARTIAL, OTHER; CS0030: Cannot convert type 'System.Type' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiGetColorBlock.cs#0x9A5D98 DoGetValue: EXACT, FRAMEWORK_PRIVATE_MEMBER; CS1061: 'Selectable' does not contain a definition for 'm_Colors' and no accessible extension method 'm_Colors' accepting a first argument of type 'Selectable' could be found (are you missing a using directive or an assembly reference?)
+  Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Advanced/G_AdvancedData.cs#0xB0AE6C Init: PARTIAL, OTHER; CS0030: Cannot convert type 'UnityEngine.UI.Text' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/Tayx/Graphy/GraphyManager.cs#0xB165D4 CheckForHotkeyPresses: EXACT, OTHER; CS0030: Cannot convert type 'bool' to 'Tayx.Graphy.GraphyManager'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/TouchObject2dEvent.cs#0x99FFE4 OnUpdate: PARTIAL, OTHER; CS0030: Cannot convert type 'UnityEngine.Touch[]' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/Facebook/Unity/Example/DialogShare.cs#0xA07F80 GetGui: HIGH_CONFIDENCE, OTHER; CS0030: Cannot convert type 'Facebook.Unity.Example.DialogShare' to 'System.IntPtr'

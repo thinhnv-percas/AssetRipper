@@ -1,0 +1,89 @@
+{
+  "project": "Test/Out66i-p/Pinata",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2019.2.6f1"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "3130 scripts, 26261 KiB, 344 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "1.0000 of 45811 references resolve, 2 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "715 of 1109 files compile clean, 1144 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 3130,
+    "bytes": 26891384,
+    "trivial": 344,
+    "reference_resolution_rate": 0.9999563423631879,
+    "naming": 45811,
+    "unfollowable": 2,
+    "compile_pass_rate": 0.6447249774571686,
+    "compile_errors": 1144,
+    "assemblies": [
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 715,
+        "files": 1109
+      }
+    ],
+    "body_recovery_rate": 0.9824700708526753,
+    "body_status": {
+      "EXACT": 13178,
+      "HIGH_CONFIDENCE": 700,
+      "PARTIAL": 2207,
+      "FALLBACK": 285,
+      "MISSING": 2
+    },
+    "bodies_attempted": 16372
+  },
+  "shaders": {
+    "PROGRAMS_RECOVERED": 21,
+    "STRUCTURE_ONLY": 1
+  }
+}

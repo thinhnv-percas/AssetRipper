@@ -1,0 +1,58 @@
+{
+ "methods": 1102,
+ "unpaired_files": 0,
+ "compile_status": {
+  "FAILS": 510,
+  "COMPILES": 592
+ },
+ "compile_risk_of_failing_methods": {
+  "OTHER": 161,
+  "OBJECT_AS_NATIVE_INT": 153,
+  "BASE_CONSTRUCTOR_CALL": 38,
+  "INTERFACE_METHOD_DELEGATE": 32,
+  "INTERFACE_SCAN_SURVIVOR": 24,
+  "UNRESOLVED_LOAD_STANDIN": 20,
+  "ARRAY_ELEMENT_ADDRESS": 20,
+  "STRIPPED_FRAMEWORK_MEMBER": 17,
+  "SHARED_GENERIC_PLACEHOLDER": 13,
+  "STRUCT_FIRST_MEMBER": 12,
+  "FRAMEWORK_PRIVATE_MEMBER": 6,
+  "WIDE_IMMEDIATE_STRUCT": 5,
+  "FLOAT_USED_AS_INTEGER": 4,
+  "STRUCT_SELF_FIELD_ADDRESS": 2,
+  "UNASSIGNED_LOCAL": 2,
+  "STRUCT_LOCAL_AS_ADDRESS": 1
+ },
+ "semantic_status": {
+  "PARTIAL": 597,
+  "EXACT": 488,
+  "HIGH_CONFIDENCE": 17
+ },
+ "semantic_by_compile": {
+  "PARTIAL/FAILS": 443,
+  "EXACT/COMPILES": 427,
+  "PARTIAL/COMPILES": 154,
+  "EXACT/FAILS": 61,
+  "HIGH_CONFIDENCE/COMPILES": 11,
+  "HIGH_CONFIDENCE/FAILS": 6
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 1101,
+  "INVOKER_ARGUMENT_UNPROVEN": 1
+ },
+ "type_status": {
+  "STACK_TYPE_MISMATCH": 610,
+  "TYPED": 481,
+  "UNTYPED_LOCALS": 11
+ },
+ "control_flow_status": {
+  "STRUCTURED": 859,
+  "GOTO": 210,
+  "NOT_IMPLEMENTED_INSTRUCTION": 33
+ }
+}
+  Assets/Scripts/Assembly-CSharp/Level.cs#0x1010434 CreateSideBackgrounds: PARTIAL, STRUCT_LOCAL_AS_ADDRESS; CS1061: 'int' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'int' could be found (are you missing a using directive or an assembly reference?)
+  Assets/Scripts/Assembly-CSharp/PathCreation/Examples/PlanarLineMeshCreator.cs#0x1023A28 BuildMesh: PARTIAL, OBJECT_AS_NATIVE_INT; CS0030: Cannot convert type 'PathCreation.Examples.PlanarLineMeshCreator' to 'nint'
+  Assets/Scripts/Assembly-CSharp/FBWindowsPurchaseManager.cs#0xFE1374 ProcessPurchase: PARTIAL, OTHER; CS0030: Cannot convert type 'int' to 'string'
+  Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x10017BC FindContiguousRegions: PARTIAL, OBJECT_AS_NATIVE_INT; CS0030: Cannot convert type 'FluidSolver' to 'nint'
+  Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x1005EEC CollectNearbyParticles: PARTIAL, OTHER; CS1061: 'Func<int, bool>' does not contain a definition for 'method' and no accessible extension method 'method' accepting a first argument of type 'Func<int, bool>' could be found (are you missing a using directive or an assembly reference?)

@@ -873,3 +873,24 @@ khai báo, và `CPP2IL_RECOVER_ALSO` mở chúng ra để đo: behaviour 0.6802 
 6. **Store vào ô SP sau ô bị lấy địa chỉ** vẫn có thể bị xoá như store chết. `KeepStoresReadThroughABaseAddress` mới
    áp dụng cho store qua frame pointer.
 7. **`parameter_overwrite_scan.py`** có một dương tính giả (`else if (…)` bị đọc là chữ ký). Siết regex chữ ký.
+
+## Sau iteration 066 — mục tiêu tiếp theo, đã có bằng chứng
+
+1. **Vùng quét interface trên iOS (JellyBlastV2 INTERFACE_SCAN_SURVIVOR 148 → 373 lỗi thân).** Class pointer giờ có
+   kiểu, nên scaffolding quét `interfaceOffsets` còn sót đọc thành `(nint)typeof(T)`. `InterfaceScanRegionClassifier`
+   đã phân loại vùng chết; cần excise vùng mà dispatch đã giải trên dạng iOS.
+2. **Bốn họ P0 của Merge-Room không đổi:** OBJECT_AS_NATIVE_INT 59, INTERFACE_SCAN_SURVIVOR 29,
+   SHARED_GENERIC_PLACEHOLDER 28, ARRAY_ELEMENT_ADDRESS 26.
+3. **`FieldReference` lồng làm base.** `= ref *(` còn 35 / 111 / 213 / 440. Phần lớn là `ref *(T*)null` và base là
+   field struct. Cần biểu diễn, không chỉ một luật ở call site.
+4. **Struct sau một địa chỉ là một storage.** Điều kiện tiên quyết để giữ store qua SP (state machine async
+   `<>t__builder`) mà không lộ field private của framework.
+5. **Merge `byte*` với `nint` → `object`** (14 lỗi). Luật merge cho hai kiểu địa chỉ không quản lý.
+6. **`UNKNOWN_RETURN:T_BUFFER_WITH_A_USE_THE_MODEL_DOES_NOT_EXPLAIN`** (Merge-Room 34, JellyBlastV2 4,
+   RunFromZombies 4): dạy mô hình buffer về `Box` của buffer.
+7. **Guard method-init còn lại trên iOS:** 760 / 1309 load flag tuyệt đối. Đọc vùng nào không đạt điều kiện gỡ.
+8. **Carry unsigned chính xác.** `FlagConditionRecovery` hạ điều kiện unsigned bằng so sánh signed; cần một phép so
+   sánh unsigned trong ISIL hoặc biến đổi XOR bit dấu theo độ rộng thanh ghi.
+9. **Package trong `Packages/manifest.json`.** Export chỉ ghi module built-in. Version đã chứng minh
+   (`iterations/065/manifest/`) chưa được ghi vào project.
+

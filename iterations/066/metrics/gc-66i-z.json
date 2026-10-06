@@ -1,0 +1,6432 @@
+{
+  "methods": {
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Common/ContainerHolder.cs#0xBF3EB0": {
+      "status": "EXACT",
+      "ir": [],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 716,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Common/KeepAliveBehaviour.cs#0xFB668C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 588,
+      "placeholders": 3,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/ACTkDetectorBase.cs#0xDD0608": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 108,
+      "placeholders": 5,
+      "families": [
+        "INDIRECT_JUMP",
+        "OTHER",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs#0xBED6DC": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 116,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "COROUTINE"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/TimeCheatingDetector.cs#0xBED778": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 120,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "COROUTINE"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Detectors/WallHackDetector.cs#0xBF089C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4228,
+      "placeholders": 7,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NOT_IMPLEMENTED_INSTRUCTION"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/AndroidWorker.cs#0xBEA514": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2256,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/CodeHashGenerator.cs#0xBE8B58": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 184,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "EVENT_ACCESSOR"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/CodeHashGenerator.cs#0xBE8E5C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 1380,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/StandaloneWindowsWorker.cs#0xBEB664": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 508,
+      "placeholders": 10,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs#0xBD88B8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 672,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs#0xC826BC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1460,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs#0xBD70B8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2192,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Box.cs#0xBFC5A0": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1064,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/CSVHelper.cs#0xBF6DEC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1260,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/CSVReader.cs#0xBF78D4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1024,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/CSVReader.cs#0xBF7D8C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1132,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/CSVReader.cs#0xBF8268": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1000,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/CSVSerializer.cs#0xBF5998": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 876,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/CSVSerializer.cs#0xBF6404": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 804,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/CSVSerializer.cs#0xBF6728": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 1724,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Extensions.cs#0xC71E68": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 608,
+      "placeholders": 28,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Extensions.cs#0xC720C8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 636,
+      "placeholders": 28,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Extensions.cs#0xC71C80": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 488,
+      "placeholders": 38,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/GDPR.cs#0xBF55CC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 624,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xC018B4": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 704,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/GameController.cs#0xBF9590": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 700,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/GameHelper.cs#0xBFF63C": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 896,
+      "placeholders": 5,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/SingletonMono.cs#0x115DEF8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 684,
+      "placeholders": 8,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/SingletonMonoDontDestroy.cs#0x115CEF4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2000,
+      "placeholders": 8,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/UtilityGame.cs#0xBF92E4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN"
+      ],
+      "nativeBytes": 600,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs#0xC03400": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 664,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs#0xC03A88": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 940,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs#0xC04EEC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 1704,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/Assembly-CSharp/Zitga/CsvTools/CsvReader.cs#0xC03698": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 580,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2C478": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 528,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2C760": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 748,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2CB64": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 376,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2CCDC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 320,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2CE1C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1140,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0xC2DE68": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 204,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "EVENT_ACCESSOR"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0xC2DF34": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 204,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "EVENT_ACCESSOR"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs#0xC32F2C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2624,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/Easing/EaseManager.cs#0xC33CD0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 5000,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs#0xC2F468": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1232,
+      "placeholders": 10,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs#0xC30C0C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2280,
+      "placeholders": 3,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/TweenManager.cs#0xC2E9A4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 540,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Core/TweenerCore.cs#0x11C8E2C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "INSTANCEOF",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1244,
+      "placeholders": 12,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs#0xC2AF00": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 276,
+      "placeholders": 7,
+      "families": [
+        "INDIRECT_CALL",
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/CustomPlugins/PureQuaternionPlugin.cs#0xC2B014": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 436,
+      "placeholders": 7,
+      "families": [
+        "INDIRECT_CALL",
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/DOCurve.cs#0xC05B5C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 296,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/DOCurve.cs#0xC05C84": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 336,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/DOTween.cs#0xC080CC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2096,
+      "placeholders": 1,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/Color2Plugin.cs#0xC1D2E4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 496,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/CatmullRomDecoder.cs#0xC2966C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 504,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/CubicBezierDecoder.cs#0xC28688": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1232,
+      "placeholders": 24,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PathCore/CubicBezierDecoder.cs#0xC28B68": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 504,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PluginsManager.cs#0xC86C4C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2656,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/PluginsManager.cs#0xC866D0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 428,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/PathPlugin.cs#0xC2013C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2368,
+      "placeholders": 27,
+      "families": [
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/QuaternionPlugin.cs#0xC21AFC": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 452,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/StringPlugin.cs#0xC263A8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1732,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Plugins/Vector3ArrayPlugin.cs#0xC1E8D4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2048,
+      "placeholders": 25,
+      "families": [
+        "INDIRECT_JUMP",
+        "NATIVE_IMPORT",
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Sequence.cs#0xC0F2C4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1860,
+      "placeholders": 5,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs#0xC16730": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1240,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/ShortcutExtensions.cs#0xC16C98": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1240,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Tween.cs#0xC1C908": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 876,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/DOTween/DG/Tweening/Tweener.cs#0xCB981C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 768,
+      "placeholders": 15,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/Countdown.cs#0x133C5F8": {
+      "status": "EXACT",
+      "ir": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 288,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/AdLoaderClient.cs#0x133E578": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1296,
+      "placeholders": 3,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs#0x133CD00": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/DisplayMetrics.cs#0x13473B8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2712,
+      "placeholders": 2,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs#0x133D2E4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RequestConfigurationClient.cs#0x134A100": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1648,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs#0x133D6C8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1516,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs#0x133DDC4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedInterstitialAdClient.cs#0x133E1CC": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs#0x1345A74": {
+      "status": "FALLBACK",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1352,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs#0x13437B4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 5772,
+      "placeholders": 65,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/BannerView.cs#0x1355F44": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 1048,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/InterstitialAd.cs#0x1358ACC": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1296,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardBasedVideoAd.cs#0x135A66C": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1592,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardedAd.cs#0x135BC50": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1472,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Api/RewardedInterstitialAd.cs#0x135D9A0": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 908,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/LeanCommon/Lean/Common/LeanHelper.cs#0xC77758": {
+      "status": "EXACT",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1416,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs#0x135F7F0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 944,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs#0x135EAF0": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 428,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs#0x135FBA0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 588,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x13621DC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 824,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x1362B90": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 472,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x1362E1C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 464,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/SharpJson/JsonDecoder.cs#0x1521BD0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 504,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/SharpJson/JsonDecoder.cs#0x1521E64": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH"
+      ],
+      "nativeBytes": 440,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/AnimationState.cs#0x1527958": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 588,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/AnimationState.cs#0x1528464": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1560,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/AnimationState.cs#0x152AEDC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1156,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Atlas.cs#0x152CD9C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 2928,
+      "placeholders": 6,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNKNOWN_CALL_TARGET"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Bone.cs#0x1530660": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2040,
+      "placeholders": 4,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/CollectionExtensions.cs#0xDA5914": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1384,
+      "placeholders": 12,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0xDCD068": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1336,
+      "placeholders": 48,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x11347F0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 668,
+      "placeholders": 33,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1134EE8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 560,
+      "placeholders": 12,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1135118": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1084,
+      "placeholders": 26,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1133608": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 544,
+      "placeholders": 23,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x1133828": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1060,
+      "placeholders": 30,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Collections/OrderedDictionary.cs#0x113587C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1092,
+      "placeholders": 16,
+      "families": [
+        "INDIRECT_CALL",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/DeformTimeline.cs#0x1524C24": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH"
+      ],
+      "nativeBytes": 2852,
+      "placeholders": 43,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/ExposedList.cs#0xF4265C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 148,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/ExposedList.cs#0xF43754": {
+      "status": "PARTIAL",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 340,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/IkConstraint.cs#0x1532620": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2280,
+      "placeholders": 12,
+      "families": [
+        "NATIVE_IMPORT",
+        "NOT_IMPLEMENTED_INSTRUCTION"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/MeshAttachment.cs#0x152E8FC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 940,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/PathConstraint.cs#0x1533634": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 872,
+      "placeholders": 3,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/PathConstraint.cs#0x1533A8C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 944,
+      "placeholders": 3,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/PathConstraint.cs#0x1533E40": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1940,
+      "placeholders": 1,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/PathConstraint.cs#0x15345D4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3480,
+      "placeholders": 2,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Skeleton.cs#0x1535C48": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2924,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Skeleton.cs#0x15367B4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 824,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Skeleton.cs#0x15385D8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 836,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x1538C64": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 5520,
+      "placeholders": 14,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153A2A8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1084,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153BE98": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2780,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153C974": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN"
+      ],
+      "nativeBytes": 644,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153A6E4": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 6068,
+      "placeholders": 9,
+      "families": [
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonClipping.cs#0x153F94C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1912,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonClipping.cs#0x15400C4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1488,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonData.cs#0x15416E8": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL",
+        "NEWOBJ"
+      ],
+      "nativeBytes": 596,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonJson.cs#0x1546700": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3100,
+      "placeholders": 3,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SkeletonJson.cs#0x1547504": {
+      "status": "PARTIAL",
+      "ir": [],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "SWITCH",
+        "THROW"
+      ],
+      "nativeBytes": 19208,
+      "placeholders": 120,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Skin.cs#0x154C9BC": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1440,
+      "placeholders": 5,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Skin.cs#0x154CF5C": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1616,
+      "placeholders": 2,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/SpineSkeletonExtensions.cs#0x15506F0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 856,
+      "placeholders": 2,
+      "families": [
+        "INDIRECT_JUMP",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Triangulator.cs#0x153E7AC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1536,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Triangulator.cs#0x153EDAC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 2752,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs#0x1573F84": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2692,
+      "placeholders": 3,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs#0x15753D8": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4376,
+      "placeholders": 17,
+      "families": [
+        "UNKNOWN_CALL_TARGET",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs#0x1574A5C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 772,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/SkinUtilities.cs#0x1577E48": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3660,
+      "placeholders": 1,
+      "families": [
+        "METHOD_NOT_FOUND"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/BlendModeMaterialsAsset.cs#0x156FE8C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1896,
+      "placeholders": 5,
+      "families": [
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/BoneFollower.cs#0x1554760": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1048,
+      "placeholders": 2,
+      "families": [
+        "NATIVE_IMPORT"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/BoneFollowerGraphic.cs#0x1554D90": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1288,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/BoundingBoxFollower.cs#0x15560A8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 720,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/BoundingBoxFollowerGraphic.cs#0x1557924": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 720,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/Deprecated/SlotBlendModes.cs#0x1579788": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1304,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/FollowLocationRigidbody2D.cs#0x1568FC4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 180,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156D718": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 2148,
+      "placeholders": 12,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x1565098": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3072,
+      "placeholders": 32,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x1565C98": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 4352,
+      "placeholders": 109,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156E04C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 424,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156E66C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 584,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/MeshGenerator.cs#0x156E9E4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 1788,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonDataAsset.cs#0x1550ECC": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1284,
+      "placeholders": 11,
+      "families": [
+        "INDIRECT_CALL",
+        "METHOD_NOT_FOUND",
+        "NATIVE_IMPORT",
+        "UNKNOWN_CALL_TARGET"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonDataCompatibility.cs#0x15521E4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 704,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155B954": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 344,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155CD54": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 528,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155CF64": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 788,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x1556D94": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 932,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155D700": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1896,
+      "placeholders": 15,
+      "families": [
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155DF94": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 800,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155E6D8": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "CALL",
+        "NEWARR",
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 620,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "CONSTRUCTOR"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphicCustomMaterials.cs#0x1563250": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 296,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphicCustomMaterials.cs#0x1563378": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 192,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs#0x155F480": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3784,
+      "placeholders": 2,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs#0x1558500": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 512,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonPartsRenderer.cs#0x1567774": {
+      "status": "EXACT",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 472,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs#0x1568068": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 772,
+      "placeholders": 6,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs#0x156852C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 556,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs#0x155A828": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 780,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs#0x155ACE8": {
+      "status": "EXACT",
+      "ir": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1524,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonRendererCustomMaterials.cs#0x1563D24": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 304,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonRendererCustomMaterials.cs#0x1563E54": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 192,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotion.cs#0x1558DEC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 348,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x1569330": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 788,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "STATIC_ENTRY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x156A728": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1376,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x156A3D8": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 848,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x156AD88": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1652,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtilityBone.cs#0x156B6B0": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 2052,
+      "placeholders": 2,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SpineAtlasAsset.cs#0x1552AA4": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 928,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SpineAtlasAsset.cs#0x1552E6C": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1008,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SpineSpriteAtlasAsset.cs#0x155362C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 704,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/Unity/SubmeshInstruction.cs#0x156FC68": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 524,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity/Spine/VertexAttachment.cs#0x152FD2C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1080,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/AnimationMatchModifierAsset.cs#0x150F6E0": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3424,
+      "placeholders": 3,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/AnimationMatchModifierAsset.cs#0x1510450": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 1100,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/CombinedSkin.cs#0x1515244": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 808,
+      "placeholders": 2,
+      "families": [
+        "NATIVE_IMPORT"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/DraggableTransform.cs#0x150AFD8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "CALL",
+        "CAST"
+      ],
+      "nativeBytes": 132,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/FootSoldierExample.cs#0x150B1C4": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 320,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/Goblins.cs#0x150DFFC": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE"
+      ],
+      "nativeBytes": 328,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/JitterEffectExample.cs#0x15181EC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 376,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MixAndMatch.cs#0x1512840": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 944,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/MixAndMatchGraphic.cs#0x1512EE8": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "FIELD_ADDRESS",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 912,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/RenderExistingMesh.cs#0x1517CE4": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 492,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonAnimationHandleExample.cs#0x150EE84": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 712,
+      "placeholders": 2,
+      "families": [
+        "NATIVE_IMPORT"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x151557C": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWARR",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1044,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x1515BBC": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "ARRAY_WRITE",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "THROW"
+      ],
+      "nativeBytes": 1032,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs#0x151678C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 676,
+      "placeholders": 23,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhostRenderer.cs#0x1516A7C": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 676,
+      "placeholders": 23,
+      "families": [
+        "NOT_IMPLEMENTED_INSTRUCTION",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x151B408": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 608,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x1518F10": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3264,
+      "placeholders": 27,
+      "families": [
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x1519BD0": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 948,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs#0x151B6E4": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 104,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "COROUTINE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs#0x1513634": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 3260,
+      "placeholders": 8,
+      "families": [
+        "NATIVE_IMPORT",
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs#0x151BDBC": {
+      "status": "EXACT",
+      "ir": [
+        "NEWOBJ",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 124,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "COROUTINE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs#0x151B970": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 1052,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonUtilityGroundConstraint.cs#0x151DAD4": {
+      "status": "EXACT",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 276,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonUtilityKinematicShadow.cs#0x151DC14": {
+      "status": "PARTIAL",
+      "ir": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 1600,
+      "placeholders": 2,
+      "families": [
+        "UNMANAGED_MEMORY_LOAD"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineAnimationTesterTool.cs#0x150A1E0": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN"
+      ],
+      "nativeBytes": 1168,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "GENERAL"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineAnimationTesterTool.cs#0x150A6A8": {
+      "status": "HIGH_CONFIDENCE",
+      "ir": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "ARRAY_READ",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 684,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/Spineboy.cs#0x151EE88": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "ARITHMETIC",
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 460,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyBeginnerInput.cs#0x150C920": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 352,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_UPDATE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyBeginnerView.cs#0x150D2DC": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 452,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyFacialExpression.cs#0x151F5D0": {
+      "status": "EXACT",
+      "ir": [
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "CALL"
+      ],
+      "nativeBytes": 272,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpineboyFootplanter.cs#0x151FE94": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "STATIC_ACCESS"
+      ],
+      "nativeBytes": 284,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "UNITY_CALLBACK"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SpriteAttacher.cs#0x15177D0": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK"
+      ],
+      "nativeBytes": 288,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/TwoByTwoTransformEffectExample.cs#0x151853C": {
+      "status": "EXACT",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 376,
+      "placeholders": 0,
+      "families": [],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_AWAKE"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Prototyping/SpineEventUnityHandler.cs#0x1509B1C": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "INSTANCEOF",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "CAST",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 948,
+      "placeholders": 2,
+      "families": [
+        "NATIVE_IMPORT"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_START"
+    },
+    "Impostor::Assets/Scripts/spine-unity-examples/Spine/Unity/Prototyping/SpineEventUnityHandler.cs#0x1509ED8": {
+      "status": "PARTIAL",
+      "ir": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "STATIC_ACCESS"
+      ],
+      "csharp": [
+        "BRANCH",
+        "CALL",
+        "COMPARE",
+        "LOOP",
+        "NEWOBJ",
+        "NULL_CHECK",
+        "RETURN",
+        "STATIC_ACCESS",
+        "THROW"
+      ],
+      "nativeBytes": 544,
+      "placeholders": 2,
+      "families": [
+        "NATIVE_IMPORT"
+      ],
+      "fixture": "Impostor",
+      "runtimeRole": "LIFECYCLE_DESTROY"
+    }
+  }
+}

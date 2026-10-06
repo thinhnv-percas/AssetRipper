@@ -5,14 +5,24 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 065 (hoàn tất; trọng tâm "Body errors, invoker arguments, unresolved loads & native rebuild".
-                          Nguyên nhân gốc của UNKNOWN_CLASS_SOURCE là frame pointer X29 của A64 chưa từng được
-                          resolve (cùng hai lỗi epilogue/bản ghi frame dưới nó); 196 → 54. Invoker 26 → 60 dòng viết
-                          lại với mọi đối số chứng minh. Lỗi thân Merge-Room 684 → 324. Một lỗi giá trị sai im lặng có
-                          từ trước (`&slot` → `&i`, MMSwap `i = 0;`) đã sửa; detector parameter_overwrite_scan.py.
-                          RayFire trùng byte với mã đã link; iOS __Internal 92/96 PROVEN. Không Unity: UNITY_NOT_AVAILABLE.)
+Iteration hiện tại: 066 (hoàn tất; trọng tâm "Buildability-driven semantic recovery". iOS: usage qua base trang +
+                          `add` riêng, guard `cctor_finished` dạng word, guard method-init qua base trang;
+                          UNKNOWN_CLASS_SOURCE 2510 → 98, JellyBlastV2 EXACT 3127 → 4349, placeholder 34947 → 16619,
+                          oracle độc lập 0.6862 → 0.7594. Alloca động → `localloc` (StackAnalyzer SPDYN). Return của
+                          invoker có lý do; Merge-Room 64 → 80 dòng viết lại. Cờ ADDS/CMN không còn là hằng 0 (lỗi giá
+                          trị sai im lặng có từ trước). Store qua SP: đo âm, revert. recovery_contract.py,
+                          buildability_matrix.py. Không Unity: UNITY_NOT_AVAILABLE; không fixture nào compile sạch.)
 
 Cảnh báo cho phiên sau:
+  - 066: số EXACT không nói một method compile được. `recovery_contract.py` cho thấy 49 method EXACT của Merge-Room
+    vẫn fail. Đọc `semantic_by_compile` trước khi kết luận từ EXACT.
+  - 066: stage D của validate_unity_stages.py đếm declaration pass (Merge-Room 4, JellyBlastV2 11); số lỗi thân là
+    body pass (310, 2599). Dùng body pass.
+  - 066: một lần gập guard có thể để lại block không ai tới; rendering và generator đi qua mọi block, nên block chết
+    đọc như lời gọi method vẫn làm. `MetadataInitGuardRemover.RemoveMadeUnreachable` xoá block do chính pass đó làm
+    cho không tới được.
+  - 066: đừng mở rộng `KeepStoresReadThroughABaseAddress` sang store qua SP trước khi "struct sau một địa chỉ là một
+    storage" được mô hình (đo âm hai lần, xem docs/ITERATION_066.md).
   - 065 đổi phép đo ở ba chỗ (static field trong rendering, `?.`/`??`/ternary là branch, `0m` là decimal.Zero) và
     `LoadsCallOperands` (IndirectCall/IndirectJump không load toán hạng → storage hazard). Mọi so sánh với ≤ 064
     phải đo lại CẢ HAI đầu; số 064 trong docs/ITERATION_065.md đã đo lại.

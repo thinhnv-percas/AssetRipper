@@ -902,3 +902,28 @@ Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`** (không đổ
 RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.6817 → **0.6862** (912/1329).
 
 Trạng thái tổng: **`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED`** (không đổi; `UNITY_NOT_AVAILABLE`).
+
+## Iteration 066 (65z → 66i, cả hai đầu đo bằng script cuối)
+
+| | Impostor | Merge-Room | RunFromZombies | JellyBlastV2 | Pinata | opt-in |
+|---|---:|---:|---:|---:|---:|---:|
+| EXACT | 4474 → 4483 | 11923 → 11965 | 2967 → 2969 | 3127 → **4349** | 13150 → 13178 | 5357 → **7145** |
+| FALLBACK | 63 → 63 | 221 → 221 | 59 → 59 | 18 → 32 | 286 → 285 | 30 → 74 |
+| Placeholder | 3440 → 3382 | 18601 → 18148 | 3902 → 3859 | 34947 → **16619** | 8786 → 8442 | 54695 → **25551** |
+| Assembly-CSharp Roslyn, body pass | 202 → 208 | 324 → **310** | 7 → 7 | 2599 → 2599 | 1146 → 1144 | — |
+| `UNKNOWN_CLASS_SOURCE` (dòng) | 0 → 0 | 54 → 54 | 10 → 10 | 2510 → **98** | 141 → 141 | 3072 → **118** |
+| Dispatch interface chưa giải (dòng) | 118 → 116 | 185 → 171 | 68 → 66 | 2582 → **168** | 147 → 147 | 3144 → 188 |
+| Invoker viết lại (dòng) | 2 → 4 | 64 → **80** | 0 → 2 | 0 → 0 | — | 0 → 0 |
+| `UNKNOWN_RETURN` (đều có lý do ở 66i) | 2 → 0 | 48 → 34 | 6 → 4 | 6 → 4 | — | 6 → 4 |
+| Gán lại ref (`= ref *(`) | 44 → 35 | 124 → 111 | 35 → 35 | 249 → 213 | 60 → 58 | 399 → 440 |
+| `stackalloc` (alloca → `localloc`) | 0 → 93 | 2 → 550 | 0 → 72 | 0 → 64 | 2 → 2 | 0 → 134 |
+| TrueAlias | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 |
+| Parameter overwrite (stand-in) | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 |
+| Layout mismatch / generatorFailures | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| Tỉ lệ file compile sạch (A-CSharp) | 0.625 | 0.595 | 0.783 | 0.352 | 0.645 | — |
+
+RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.6862 → **0.7594** (1013/1334).
+
+Trạng thái tổng: **`PROJECT_GENERATED_COMPILE_FAILS`** trên cả năm fixture có body pass; `UNITY_NOT_AVAILABLE`. Nhãn
+`PROJECT_COMPILES_NOT_RUNTIME_VALIDATED` của các iteration trước quá lời: không fixture nào compile sạch.
+

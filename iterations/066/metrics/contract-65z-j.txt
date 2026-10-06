@@ -1,0 +1,37 @@
+{
+ "methods": 52,
+ "unpaired_files": 0,
+ "compile_status": {
+  "COMPILES": 47,
+  "FAILS": 5
+ },
+ "compile_risk_of_failing_methods": {
+  "STRUCT_FIRST_MEMBER": 4,
+  "STRIPPED_FRAMEWORK_MEMBER": 1
+ },
+ "semantic_status": {
+  "EXACT": 51,
+  "HIGH_CONFIDENCE": 1
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 46,
+  "EXACT/FAILS": 5,
+  "HIGH_CONFIDENCE/COMPILES": 1
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 52
+ },
+ "type_status": {
+  "TYPED": 48,
+  "STACK_TYPE_MISMATCH": 4
+ },
+ "control_flow_status": {
+  "STRUCTURED": 45,
+  "GOTO": 7
+ }
+}
+  Assets/Scripts/Assembly-CSharp/BoxRaRot.cs#0xF0AB6C Start: EXACT, STRIPPED_FRAMEWORK_MEMBER; CS0117: 'Math' does not contain a definition for 'PI'
+  Assets/Scripts/Assembly-CSharp/ObsJumper.cs#0xF0C010 Update: EXACT, STRUCT_FIRST_MEMBER; CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+  Assets/Scripts/Assembly-CSharp/MenuMove.cs#0xF0B37C Update: EXACT, STRUCT_FIRST_MEMBER; CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+  Assets/Scripts/Assembly-CSharp/ObsDropper.cs#0xF0BD7C Update: EXACT, STRUCT_FIRST_MEMBER; CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+  Assets/Scripts/Assembly-CSharp/ZambiesMovement.cs#0xF0CE88 Update: EXACT, STRUCT_FIRST_MEMBER; CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'

@@ -1,0 +1,88 @@
+{
+  "project": "Test/Out66i-z/Impostor",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "830 scripts, 9361 KiB, 97 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "0.9942 of 1376 references resolve, 8 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "40 of 64 files compile clean, 208 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 830,
+    "bytes": 9586357,
+    "trivial": 97,
+    "reference_resolution_rate": 0.9941860465116279,
+    "naming": 1376,
+    "unfollowable": 8,
+    "compile_pass_rate": 0.625,
+    "compile_errors": 208,
+    "assemblies": [
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 40,
+        "files": 64
+      }
+    ],
+    "body_recovery_rate": 0.9883742387894445,
+    "body_status": {
+      "EXACT": 4483,
+      "HIGH_CONFIDENCE": 194,
+      "PARTIAL": 679,
+      "FALLBACK": 63,
+      "MISSING": 0
+    },
+    "bodies_attempted": 5419
+  },
+  "shaders": {
+    "PROGRAMS_RECOVERED": 3
+  }
+}

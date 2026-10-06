@@ -1,0 +1,60 @@
+{
+ "methods": 390,
+ "unpaired_files": 0,
+ "compile_status": {
+  "COMPILES": 334,
+  "FAILS": 56
+ },
+ "compile_risk_of_failing_methods": {
+  "OTHER": 10,
+  "SHARED_GENERIC_PLACEHOLDER": 9,
+  "INDIRECT_STRUCT_ARGUMENT": 9,
+  "BASE_CONSTRUCTOR_CALL": 8,
+  "UNRESOLVED_LOAD_STANDIN": 7,
+  "OBJECT_AS_NATIVE_INT": 5,
+  "INTERFACE_SCAN_SURVIVOR": 4,
+  "ARRAY_ELEMENT_ADDRESS": 2,
+  "FLOAT_USED_AS_INTEGER": 1,
+  "STRUCT_FIRST_MEMBER": 1
+ },
+ "semantic_status": {
+  "PARTIAL": 59,
+  "EXACT": 313,
+  "HIGH_CONFIDENCE": 14,
+  "FALLBACK": 4
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 297,
+  "PARTIAL/FAILS": 36,
+  "PARTIAL/COMPILES": 23,
+  "EXACT/FAILS": 16,
+  "HIGH_CONFIDENCE/COMPILES": 11,
+  "HIGH_CONFIDENCE/FAILS": 3,
+  "FALLBACK/COMPILES": 3,
+  "FALLBACK/FAILS": 1
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 387,
+  "INVOKER_ARGUMENT_UNPROVEN": 3
+ },
+ "type_status": {
+  "STACK_TYPE_MISMATCH": 76,
+  "TYPED": 302,
+  "UNTYPED_LOCALS": 12
+ },
+ "control_flow_status": {
+  "STRUCTURED": 363,
+  "GOTO": 22,
+  "NOT_IMPLEMENTED_INSTRUCTION": 5
+ }
+}
+  Assets/Scripts/Assembly-CSharp/CSVHelper.cs#0xBF7318 GetListGroupCSV: PARTIAL, SHARED_GENERIC_PLACEHOLDER; CS0030: Cannot convert type 'System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'
+  Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xBF99F4 SetDefaultGUI: PARTIAL, SHARED_GENERIC_PLACEHOLDER; CS0030: Cannot convert type 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'
+  Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xC018B4 TurnOnOffSound: FALLBACK, SHARED_GENERIC_PLACEHOLDER; CS0030: Cannot convert type 'System.Collections.Generic.List<UnityEngine.AudioSource>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'
+  Assets/Scripts/Assembly-CSharp/SingletonMono.cs#0x115D7F4 : PARTIAL, UNRESOLVED_LOAD_STANDIN; CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+  Assets/Scripts/Assembly-CSharp/Box.cs#0xBFC9C8 isDoneBox: PARTIAL, OTHER; CS0030: Cannot convert type 'System.Collections.Generic.Stack<Imposter>.Enumerator' to 'System.Collections.Generic.Stack<object>.Enumerator'
+  Assets/Scripts/Assembly-CSharp/DataController.cs#0xBFEB90 AddOneBox: PARTIAL, OBJECT_AS_NATIVE_INT; CS0030: Cannot convert type 'System.Collections.Generic.Stack<int>' to 'nint'
+  Assets/Scripts/Assembly-CSharp/CSVHelper.cs#0xBF6DEC getListGroupCSV: EXACT, SHARED_GENERIC_PLACEHOLDER; CS0030: Cannot convert type 'System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'
+  Assets/Scripts/Assembly-CSharp/Extensions.cs#0xC71E68 Replace: PARTIAL, OBJECT_AS_NATIVE_INT; CS0030: Cannot convert type 'T' to 'nint'
+  Assets/Scripts/Assembly-CSharp/GameHelper.cs#0xBFF63C FindAllChild: PARTIAL, INTERFACE_SCAN_SURVIVOR; CS0030: Cannot convert type 'System.Type' to 'nint'
+  Assets/Scripts/Assembly-CSharp/GamePlayController.cs#0xC005D0 isWinning: EXACT, SHARED_GENERIC_PLACEHOLDER; CS0030: Cannot convert type 'System.Collections.Generic.List<Box>.Enumerator' to 'System.Collections.Generic.List<object>.Enumerator'

@@ -1,0 +1,44 @@
+corpus: 887 entries, 255 for MergeRoom (632 for other fixtures, 16 retired), 253 found, 2 not present in this rip
+
+== by semantic status ==
+  124  EXACT
+   48  HIGH_CONFIDENCE
+   78  PARTIAL
+    3  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+  165  GENERAL
+   17  STATIC_ENTRY
+   12  LIFECYCLE_UPDATE
+   11  LIFECYCLE_AWAKE
+   10  CONSTRUCTOR
+   10  LIFECYCLE_DESTROY
+    9  COROUTINE
+    9  LIFECYCLE_START
+    7  UNITY_CALLBACK
+    3  EVENT_ACCESSOR
+
+== not present ==
+  Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMFPSCounter.cs#0x2ADFF60
+  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonPrimitiveContract.cs#0x2D544E8
+
+== against baseline ==
+improved 15, regressed 2
+  IMPROVED  FALLBACK -> HIGH_CONFIDENCE  Assets/Scripts/AlmostEngine.Shared/AlmostEngine/Examples/CameraController.cs#0x18B47EC
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/AlmostEngine/AlmostEngine/Examples/Preview/DeviceCustomBorder.cs#0x18A2E54
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/AlmostEngine/AlmostEngine/Screenshot/Extra/HideOnCapture.cs#0x18B724C
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/Assembly-CSharp/CamController.cs#0x1AD36A0
+  IMPROVED  FALLBACK -> HIGH_CONFIDENCE  Assets/Scripts/Assembly-CSharp/PoolManager.cs#0x18CD028
+  IMPROVED  FALLBACK -> HIGH_CONFIDENCE  Assets/Scripts/Assembly-CSharp/PoolManager.cs#0x1D506C4
+  IMPROVED  FALLBACK -> HIGH_CONFIDENCE  Assets/Scripts/Cinemachine/Cinemachine/Cinemachine3rdPersonAim.cs#0x18E1464
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Cinemachine/Cinemachine/CinemachineCollider.cs#0x18EAC78
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Cinemachine/Cinemachine/CinemachineConfiner.cs#0x18ED8AC
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0x1965EE0
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/MoreMountains.Feedbacks.Cinemachine/MoreMountains/FeedbacksForThirdParty/MMCinemachinePriorityEvent.cs#0x2A01CA4
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMAutoExecution.cs#0x2A95E88
+  IMPROVED  PARTIAL -> HIGH_CONFIDENCE  Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMPlotter.cs#0x2AB0838
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/MoreMountains.Tools/MoreMountains/Tools/MMSpawnAround.cs#0x2AD4BD4
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/Sirenix.Serialization/Sirenix/Serialization/BaseDataReaderWriter.cs#0x2D9F6A8
+  REGRESSED HIGH_CONFIDENCE -> PARTIAL  Assets/Scripts/MoreMountains.Feedbacks/MoreMountains/Feedbacks/MMFeedbacks.cs#0x2A05E84
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DateTimeUtils.cs#0x2D36BB0

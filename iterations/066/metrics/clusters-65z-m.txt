@@ -1,0 +1,19 @@
+324 errors
+    59  OBJECT_AS_NATIVE_INT         [CS0030 48, CS0019 11]  ISIL analysis (typing)
+    54  OTHER                        [CS0030 30, CS0037 8, CS0019 4, CS0029 3, CS0266 2, CS8773 1, CS1540 1, CS0023 1, CS0191 1, CS0272 1, CS0200 1, CS0246 1]  -
+    29  INTERFACE_SCAN_SURVIVOR      [CS0030 29]  ISIL analysis
+    28  SHARED_GENERIC_PLACEHOLDER   [CS0030 17, CS0122 11]  metadata / type resolution
+    26  ARRAY_ELEMENT_ADDRESS        [CS0030 24, CS0019 2]  ISIL analysis
+    25  FRAMEWORK_PRIVATE_MEMBER     [CS1061 13, CS0122 12]  CIL emission (accessor pairing)
+    21  UNRESOLVED_LOAD_STANDIN      [CS0030 21]  ISIL analysis (load resolution)
+    21  STRUCT_FIRST_MEMBER          [CS0030 21]  CIL emission (offset zero)
+    17  STRUCT_LOCAL_AS_ADDRESS      [CS0030 16, CS1061 1]  ISIL analysis
+    12  INDIRECT_STRUCT_ARGUMENT     [CS0030 12]  ISIL lifting (ABI)
+     7  BASE_CONSTRUCTOR_CALL        [CS0117 7]  CIL emission
+     6  WIDE_IMMEDIATE_STRUCT        [CS0030 6]  ISIL analysis
+     5  FLOAT_USED_AS_INTEGER        [CS0019 5]  ISIL analysis (typing)
+     4  STRUCT_SELF_FIELD_ADDRESS    [CS0122 4]  ISIL analysis
+     3  UNASSIGNED_LOCAL             [CS0165 3]  SSA destruction
+     3  STRIPPED_FRAMEWORK_MEMBER    [CS0117 3]  reference assemblies
+     3  INLINED_STATIC_PROPERTY      [CS0117 3]  CIL emission (accessor pairing)
+     1  INTERFACE_METHOD_DELEGATE    [CS0149 1]  ISIL analysis
