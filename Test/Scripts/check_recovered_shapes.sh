@@ -36,6 +36,16 @@ check_recovered() {
     check "$@"
 }
 
+# Like check, but for a file only one fixture has: absent is SKIP, because this script runs over every fixture.
+check_if_present() {
+    local issue=$1 name=$2
+    if [ -z "$(find_script "$name")" ]; then
+        printf 'SKIP  %-12s %s is not in this rip\n' "$issue" "$name"
+        return
+    fi
+    check "$@"
+}
+
 check() {
     local issue=$1 name=$2 wanted=$3 unwanted=${4:-}
     local file
@@ -188,6 +198,11 @@ check_recovered DECOMP-0056 SetPropertyUtility.cs 'currentValue.g = newValue.g;'
 # Iteration 062: một immediate nhỏ trỏ vào vùng nhớ không ghi được (header ELF) bị đọc như một metadata
 # usage slot và giải mã thành một token hợp lý. Slot là global runtime điền vào, nên luôn ghi được.
 check DECOMP-0040 ObscuredPrefs.cs 'EncryptData(key, array, DataType.Quaternion)' 'typeof(Action<CustomRenderTexture>)'
+
+# Iteration 068: một immediate của thanh ghi W là giá trị 32 bit. Disarm trả `mov w8, #-1` về 0xFFFFFFFF; giữ
+# nguyên nó thành long 4294967295, nên carry chính xác của 067 chạy ở 64 bit và CheckPathMatchPath ném mỗi lần
+# (Pinata). Neo vào chính phép so sánh unsigned 32 bit và vào dạng long đã sai, không vào tên biến.
+check_if_present DECOMP-0073 FBSDKViewHiearchy.cs 'bool flag = (uint)' '4294967295L'
 
 if [ -f "$log" ]; then
     selfcheck=$(grep -o 'field layout self-check: .*' "$log" | tail -1)

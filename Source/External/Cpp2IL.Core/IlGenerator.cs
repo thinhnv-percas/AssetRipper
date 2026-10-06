@@ -2762,11 +2762,14 @@ public static class IlGenerator
             // machine has no way to write a float constant other than to materialise its bit pattern
             // in an integer register and store that; a real conversion would be an scvtf. Read as a
             // number, -0.5f came back as 3.2044483E+09f.
-            case Immediate { Value: >= 0 and <= uint.MaxValue } bits when expectedType is { } wantedFloat && IsFloat(wantedFloat):
+            // Iteration 068: a 32 bit immediate is written as the int its bits are (ImmediateAtWidth), so a single's bits
+            // with the sign bit set - -0.5f is 0xBF000000 - arrive negative; they are the same 32 bits.
+            case Immediate { Value: >= int.MinValue and <= uint.MaxValue } bits when expectedType is { } wantedFloat && IsFloat(wantedFloat)
+                && (bits.Value >= 0 || wantedFloat.FullName != "System.Double"):
                 if (wantedFloat.FullName == "System.Double")
                     instructions.Add(CilOpCodes.Ldc_R8, BitConverter.Int64BitsToDouble(bits.Value));
                 else
-                    instructions.Add(CilOpCodes.Ldc_R4, BitConverter.Int32BitsToSingle((int)(uint)bits.Value));
+                    instructions.Add(CilOpCodes.Ldc_R4, BitConverter.Int32BitsToSingle(unchecked((int)(uint)bits.Value)));
                 break;
             // AssetRipper: the same for a 32 bit integer. A register holding 0xFFFFFFFF stored into an
             // int field is -1; read as a number it is 4294967295, which does not fit in an int32, so

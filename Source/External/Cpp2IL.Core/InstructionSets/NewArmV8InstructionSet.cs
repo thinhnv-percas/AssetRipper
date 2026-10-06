@@ -68,6 +68,25 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
     /// </remarks>
     public static long MaskImmediate(ulong mask, bool is64) => is64 ? unchecked((long)mask) : (int)(uint)mask;
 
+    /// <summary>
+    /// AssetRipper: iteration 068 - an immediate on a 32 bit data path is a 32 bit value, so it is written as the
+    /// <c>int</c> its bits are. Disarm hands <c>mov w8, #-1</c> back as <c>0xFFFFFFFF</c>; kept as the long
+    /// 4294967295 it made the local an <c>Int64</c>, and the exact carry of iteration 067, <c>(a + b) &lt;u a</c>, then
+    /// ran at 64 bits where the machine ran at 32 - Pinata's <c>CheckPathMatchPath</c> threw on every call. The same
+    /// rule <see cref="MaskImmediate"/> already applied to masks, for every immediate.
+    /// </summary>
+    public static long ImmediateAtWidth(long value, bool is64) => is64 ? value : unchecked((int)value);
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - the width an instruction's integer data path runs at, read off its first register
+    /// operand: a W register is 32 bits, anything else is not narrowed. A store's first operand is the value stored,
+    /// a compare's is the first value compared, so the rule holds for those as well.
+    /// </summary>
+    public static bool IsWRegister(Arm64Register register) => register is >= Arm64Register.W0 and <= Arm64Register.W31;
+
+    private static bool RunsAt32Bits(Arm64Instruction instruction)
+        => instruction.Op0Kind == Arm64OperandKind.Register && IsWRegister(instruction.Op0Reg);
+
     private static Immediate Imm(long value) => new(value);
     private static Immediate Imm(ulong value) => new(unchecked((long)value));
 
@@ -828,7 +847,8 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                 }
             case Arm64Mnemonic.MOVK:
                 // inserts a 16-bit chunk, which after the movz that always precedes it is just an or
-                Add(address, OpCode.Or, ConvertOperand(instruction, 0), ConvertOperand(instruction, 0), Imm(instruction.Op1Imm));
+                Add(address, OpCode.Or, ConvertOperand(instruction, 0), ConvertOperand(instruction, 0),
+                    Imm(ImmediateAtWidth(instruction.Op1Imm, !RunsAt32Bits(instruction)))); // AssetRipper: iteration 068
                 break;
             case Arm64Mnemonic.MOVN:
                 {
@@ -1011,7 +1031,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                 // cmp against the negated operand
                 // AssetRipper: iteration 067 - the flags of the addition, not of a subtraction of the negation
                 EmitAddFlags(ConvertOperand(instruction, 0),
-                    instruction.Op1Kind == Arm64OperandKind.Immediate ? Imm(instruction.Op1Imm) : ConvertOperand(instruction, 1));
+                    ConvertOperand(instruction, 1)); // AssetRipper: iteration 068 - an immediate goes through the width rule too
 
                 break;
             case Arm64Mnemonic.TST:
@@ -1393,6 +1413,28 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             adrpOffsets!.Remove(NormalizeRegister(instruction.MemBase));
     }
 
+    /// <summary>
+    /// AssetRipper: iteration 068 - the value of an immediate operand as the lifter writes it: a PC-relative one
+    /// resolved to its address, any other narrowed to the instruction's data path (<see cref="ImmediateAtWidth"/>).
+    /// Public so a test can run a real decoded instruction through exactly this rule.
+    /// </summary>
+    public static long LiftImmediate(Arm64Instruction instruction, int operand)
+    {
+        var (kind, imm) = operand switch
+        {
+            0 => (instruction.Op0Kind, instruction.Op0Imm),
+            1 => (instruction.Op1Kind, instruction.Op1Imm),
+            2 => (instruction.Op2Kind, instruction.Op2Imm),
+            3 => (instruction.Op3Kind, instruction.Op3Imm),
+            _ => throw new ArgumentOutOfRangeException(nameof(operand), $"Operand must be between 0 and 3, inclusive. Got {operand}")
+        };
+
+        if (kind == Arm64OperandKind.ImmediatePcRelative)
+            return imm + (long)instruction.Address;
+
+        return ImmediateAtWidth(imm, !RunsAt32Bits(instruction));
+    }
+
     private IOperand ConvertOperand(Arm64Instruction instruction, int operand)
     {
         var kind = operand switch
@@ -1405,21 +1447,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         };
 
         if (kind is Arm64OperandKind.Immediate or Arm64OperandKind.ImmediatePcRelative)
-        {
-            var imm = operand switch
-            {
-                0 => instruction.Op0Imm,
-                1 => instruction.Op1Imm,
-                2 => instruction.Op2Imm,
-                3 => instruction.Op3Imm,
-                _ => throw new ArgumentOutOfRangeException(nameof(operand), $"Operand must be between 0 and 3, inclusive. Got {operand}")
-            };
-
-            if (kind == Arm64OperandKind.ImmediatePcRelative)
-                imm += (long)instruction.Address;
-
-            return new Immediate(imm);
-        }
+            return new Immediate(LiftImmediate(instruction, operand));
 
         if (kind == Arm64OperandKind.FloatingPointImmediate)
         {
