@@ -2109,6 +2109,44 @@ find it; `strings` without `-el` does find method and type names.
   (Merge-Room 4 lỗi) trong khi body pass có 310. Không fixture nào compile sạch, và nhãn
   `PROJECT_COMPILES_NOT_RUNTIME_VALIDATED` của các iteration trước là quá lời.
 
+- **Cờ C của A64 là một phép so sánh unsigned, và ISIL không có cách nói "unsigned".** `FlagConditionRecovery` hạ
+  `b.lo`/`b.hs` thành `clt`/`cgt` có dấu, nên `(uint)(c - '0') < 10` đúng cho mọi `c` nhỏ hơn `'0'`. Lỗi giá trị sai
+  im lặng; RunFromZombies có 47 file đổi khi sửa. `Instruction.IsUnsigned` mang dấu tới generator (`clt.un`/`cgt.un`);
+  `Arm64FlagLifting` là bảng `ConditionHolds` của Arm ARM ở một chỗ, test bằng vector
+  (`0xFFFFFFFF + 1`, `0x7FFFFFFF + 1`, `0x80000000 + 0x80000000`). Một sign test (`N`) chỉ là `< 0` khi phép so
+  sánh có dấu — một rewrite đặt `IsUnsigned` phải xoá nó.
+- **Struct trên stack là một storage, và chỉ được viết lại khi giải thích được toàn bộ phần trong.** Stack analysis đặt
+  tên ô theo offset, nên state machine của một kickoff async là năm local không liên quan và DCE xoá hết trước khi biết
+  kiểu. 066h giữ chúng và lộ `m_builder` (CS0122 27 → 57). 067 giữ *tạm* (`KeepStoresInsideAnAddressTakenSlot`), rồi
+  `StackStructStorage` sau fixpoint kiểu viết lại *cả* struct hoặc không gì, rồi thả mọi store tạm. Kickoff dạng con
+  trỏ RunFromZombies 88 → 14; 13 trong 14 còn lại là `AsyncTaskMethodBuilder<object>` chia sẻ của Newtonsoft, struct
+  bị để nguyên. **Độ rộng phải là của lệnh, không
+  của tên ô**: bản đầu gọi bốn store vector 16 byte của một `Matrix4x4` là store của member float ở cùng offset, ra
+  `matrix.m01 = 0f;`. `StackOffset.Size` mang độ rộng từ lifter.
+- **Tham số lấy kiểu theo chỉ số của chính nó, không theo thứ tự đếm.** Một tham số không ai đọc không có local, nên
+  đếm local thứ n làm mọi tham số sau nó lệch một: `out object result` mang kiểu `ConvertBinder` và store qua nó thành
+  rebind (`result = ref *(object*)null`). `LocalVariable.ParameterIndex`. Lỗi im lặng ở mọi chỗ kiểu sai tình cờ vừa.
+- **Write barrier của Apple clang dùng store pre-indexed.** `str xT, [x0, #k]!; bl barrier` — địa chỉ slot đã nằm sẵn
+  trong X0, không có `add x0, x0, #k`. Quét hình dạng Android không thấy gì trên iOS; thêm dạng này tìm ra barrier của
+  JellyBlastV2 và 3615 `Method not found` của nó biến mất. Impostor và RunFromZombies vẫn hoà (76/75) và vẫn bị từ chối.
+- **Receiver value type không lấy kiểu từ một callee chia sẻ có placeholder.** `List<object>.Enumerator.MoveNext` là
+  thân chung; gán kiểu đó cho enumerator của `List<EItem>` làm `Current` thành `object`. Guard
+  `SharedPlaceholderReceiver` hạ SHARED_GENERIC_PLACEHOLDER Merge-Room 28 → 9 và *tăng* FRAMEWORK_PRIVATE_MEMBER
+  24 → 38: cùng lần đọc `_list`/`_current` inline, giờ đúng kiểu. EXPECTED_CHANGE, không phải regression.
+- **Một tuỳ chọn output đặt ở tầng phát, không ở chuỗi.** "Emit Cpp2ILInjected Attributes" quyết định có cài layer
+  inject hay không; "Simplify global::" là một transform trên syntax tree của ILSpy với kiểm tra va chạm theo luật
+  simple-name lookup của C# (namespace, type, member trong scope). Impostor giữ 18 `global::` vì va chạm thật.
+  `source.Replace("global::", "")` sẽ phá đúng 18 chỗ đó.
+- **Một package chỉ vào manifest khi version của nó là UPSTREAM_EXACT.** `PackageRemapPostExporter` đã có sẵn và chỉ
+  cần một cache `name@version`; `proven_package_cache.py` dựng cache đó từ bằng chứng fingerprint. JellyBlastV2:
+  mathematics, textmeshpro, visualscripting vào; ugui 1.0.0 chứng minh được nhưng không có trên registry nên không vào.
+  `packages-lock.json` BLOCKED — không có nguồn nào để dựng hash.
+- **Một helper runtime có thể bị đặt tên theo một managed method qua một entry value có kiểu sai.** `0xF7087C` trên
+  JellyBlastV2 (lookup interface, 12068 call site) được `ResolveCallsViaMethodInfo` đặt tên `Utilities.TryGetValue`
+  vì `v39 @ X3` — entry value của một thanh ghi không phải tham số — có kiểu `Il2CppMethodInfo`. Hai guard trên phép
+  đổi tên và một guard trên `PropagateFromCallParameters` đều đo âm (EXACT Merge-Room 11973 → 11882) và đã revert.
+  Tìm rule gán kiểu cho `v39` trước khi viết guard nào. `reports/MERGE_ROOM_BODY_ERRORS_067.md` §4.
+
 ### Things measured to be worth nothing — do not redo them
 - **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
   - 66g: thiết lập frame (`mov x29, sp`) là một address-take, nên mọi lần lưu thanh ghi phía trên nó được giữ;

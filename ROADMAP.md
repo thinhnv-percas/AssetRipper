@@ -894,3 +894,23 @@ khai báo, và `CPP2IL_RECOVER_ALSO` mở chúng ra để đo: behaviour 0.6802 
 9. **Package trong `Packages/manifest.json`.** Export chỉ ghi module built-in. Version đã chứng minh
    (`iterations/065/manifest/`) chưa được ghi vào project.
 
+
+## Sau iteration 067 — mục tiêu tiếp theo, đã có bằng chứng
+
+1. **Lookup interface `0xF7087C` bị đặt tên `Utilities.TryGetValue` (JellyBlastV2, 12068 call site).** Entry value
+   `v39 @ X3` của một thanh ghi không phải tham số nhận kiểu `Il2CppMethodInfo` trong `ResolveTypesAndFields`. Ba guard
+   đã đo âm và revert. Tìm rule gán kiểu đó (`IsilDump.Trace`) trước khi viết guard. `MERGE_ROOM_BODY_ERRORS_067.md` §4.
+2. **Lý do từ chối theo struct trong `StackStructStorage`.** Struct để nguyên: 334 / 2145 / 488 / 623 / 513. Kickoff
+   async dạng con trỏ còn 14 trên RunFromZombies (13 `AsyncTaskMethodBuilder<object>` chia sẻ). Pass chỉ có counter
+   tổng; ghi lý do trước khi nới luật.
+3. **Accessor pairing cho `List<T>.Enumerator` inline.** FRAMEWORK_PRIVATE_MEMBER Merge-Room 24 → 38 là `_list`/`_current`
+   giờ đúng kiểu. Một `MoveNext` inline đọc ba field, nên cần gập cả vùng như `InlineListAddRecovery`, không phải một
+   getter.
+4. **OBJECT_AS_NATIVE_INT (Merge-Room 59) và ARRAY_ELEMENT_ADDRESS (26) không đổi.** Producer: địa chỉ `this + k` không
+   trúng field; phần tử struct không gập được.
+5. **INTERFACE_SCAN_SURVIVOR** Merge-Room 29 giữ nguyên có chủ đích: không có dispatch đi kèm để chứng minh scaffolding.
+6. **Helper `0x179CE74` (Merge-Room) và `0xE6A35C` (RunFromZombies)** nhận buffer của invoker; định vị chúng như write
+   barrier (anchor + hình dạng call site) rồi thêm vào mô hình buffer. `INVOKER_BOX_RETURN_067.md`.
+7. **`SetPropertyUtility.SetStruct(ref T)` với `T` là enum** (SHARED_GENERIC_PLACEHOLDER 9 còn lại trên Merge-Room).
+8. **Write barrier trên Impostor/RunFromZombies** vẫn hoà 76/75 và bị từ chối; cần một bằng chứng thứ ba, không hạ ngưỡng.
+9. **`packages-lock.json`** vẫn BLOCKED; `com.unity.ugui` 1.0.0 chứng minh được nhưng không có trên registry.

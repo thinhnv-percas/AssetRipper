@@ -222,6 +222,19 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     (`StackState.Dynamic`, `ResolveDynamicStack`, `SPDYN`, `Analyze(graph)`); `InvokerArgumentRecovery`
     (`StackAlloc` buffers, `PlanReturn`); `FieldAddressArguments.FieldOfALoadedObject`.
 
+30. **Unsigned flags, struct storage on the stack, parameter identity** (iteration 067) —
+    `InstructionSets/Arm64FlagLifting.cs` (added: N/Z/C/V of SUBS and ADDS, the Arm ARM `ConditionHolds` table;
+    C is an unsigned comparison), `ISIL/Instruction.IsUnsigned`, `IlGenerator.ComparisonOpCodes` (`clt.un`/`cgt.un`),
+    `FlagConditionRecovery` (a sign test requires a signed comparison); `ISIL/StackOffset.Size` and the lifter's
+    store widths into SP and X29 slots; `StackAnalyzer.KeepStoresInsideAnAddressTakenSlot` (provisional, released
+    after) and `SlotOffset`; `Analysis/StackStructStorage.cs` (added, runs after `StructSlotAliasRecovery`);
+    `ISIL/LocalVariable.ParameterIndex`, `LocalVariables.AssignParameterTypes` (a parameter takes its own type, not
+    the n-th), `PropagatePhi` (pointer + integer merge is `IntPtr`), the shared-placeholder receiver guard;
+    `FieldAddressArguments.RecoverAddressDefinitions`; `IlGenerator` (a store through a managed reference loads the
+    reference first; `ReceiverInstantiationOf` delegates to `MetadataResolver`); `MetadataResolver.ReceiverType`;
+    `NewArm64KeyFunctionAddresses` (the write barrier's pre-indexed `str xT, [x0, #k]!` call-site shape);
+    `InvokerArgumentRecovery` (`T_BUFFER_USED_BY:<use>`).
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked
