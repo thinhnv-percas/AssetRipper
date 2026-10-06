@@ -20,8 +20,15 @@ import pathlib
 import re
 import sys
 
-SIGNATURE = re.compile(r'^\s*(?:(?:public|private|protected|internal|static|virtual|override|sealed|abstract|extern|unsafe|new|async)\s+)*'
-                       r'[\w<>\[\],.?* ]+\s+[\w<>.]+\s*\((?P<params>[^)]*)\)\s*(?:where .*)?$')
+# A declaration: modifiers, an optional return type (a constructor has none), a name, a parameter list.
+# Iteration 066: `else if (x == null)` matched as "type `else`, name `if`" and turned a local test into a
+# signature, so the statement after it read as a parameter write. A name or a leading word that is a
+# statement keyword is never a declaration.
+SIGNATURE = re.compile(r'^\s*(?:(?:public|private|protected|internal|static|virtual|override|sealed|abstract|extern|unsafe|new|async|readonly)\s+)*'
+                       r'(?:(?P<type>[\w<>\[\],.?* ]+?)\s+)?(?P<name>[\w<>.]+)\s*\((?P<params>[^)]*)\)\s*(?:where .*|:\s*(?:base|this)\(.*\))?$')
+STATEMENT_KEYWORDS = {"if", "else", "for", "foreach", "while", "do", "switch", "case", "catch", "using", "lock", "return",
+                      "throw", "fixed", "checked", "unchecked", "yield", "await", "typeof", "sizeof", "nameof", "default",
+                      "new", "when", "get", "set", "var", "goto"}
 PARAM_NAME = re.compile(r'(?:^|\s)([A-Za-z_]\w*)\s*(?:=\s*[^,]+)?$')
 STANDIN = re.compile(r'^\s*(?P<name>[A-Za-z_]\w*)\s*=\s*(?:0|null|default\([^)]*\)|default)\s*;\s*$')
 PLACEHOLDER = re.compile(r'NoteDecompilerIssue\("Unmanaged memory load|Il2CppRuntime\.Boundary\(')
@@ -40,6 +47,18 @@ def parameters(signature_params: str) -> set[str]:
     return names
 
 
+def is_declaration(match) -> bool:
+    """A signature-shaped line is a declaration only when neither its name nor any word before it is a statement keyword,
+    and a typeless one is a constructor (its name has no generic arguments and starts upper-case)."""
+    name = match.group("name").split(".")[-1]
+    words = (match.group("type") or "").split()
+    if name in STATEMENT_KEYWORDS or any(word in STATEMENT_KEYWORDS for word in words):
+        return False
+    if not words:
+        return name[:1].isupper() and "<" not in name
+    return True
+
+
 def scan_text(text: str):
     found = []
     current: set[str] = set()
@@ -47,7 +66,7 @@ def scan_text(text: str):
     previous = ""
     for number, line in enumerate(text.splitlines(), 1):
         signature = SIGNATURE.match(line)
-        if signature and not line.rstrip().endswith(";"):
+        if signature and not line.rstrip().endswith(";") and is_declaration(signature):
             current = parameters(signature.group("params"))
             method = line.strip()
         standin = STANDIN.match(line)
@@ -84,9 +103,34 @@ def self_test() -> int:
 			i = j;
 		}
 '''
+    def declares(line):
+        match = SIGNATURE.match(line)
+        return bool(match) and not line.rstrip().endswith(";") and is_declaration(match)
+
+    def overwrite_after(header):
+        return len(scan_text(header + """
+		{
+			Cpp2ILHelpers.NoteDecompilerIssue("Unmanaged memory load: [v1 @ X0+8]");
+			shellMeshRenderer = null;
+		}
+"""))
+
     cases = [
         ("a parameter assigned the stand-in after a placeholder is reported", len(scan_text(overwritten)) == 1),
         ("a local assigned the stand-in, or a parameter assigned a value, is not", len(scan_text(honest)) == 0),
+        ("`if (...)` is not a declaration", not declares("\t\t\tif (shellMeshRenderer == null)")),
+        ("`else if (...)` is not a declaration (iteration 065's false positive)", not declares("\t\t\telse if (shellMeshRenderer == null)")),
+        ("`for (...)` is not a declaration", not declares("\t\t\tfor (int i = 0; i < n; i++)")),
+        ("`while (...)` is not a declaration", not declares("\t\t\twhile (enumerator.MoveNext())")),
+        ("`switch (...)` is not a declaration", not declares("\t\t\tswitch (state)")),
+        ("a local declaration is not a declaration", not declares("\t\t\tint x = Foo(a, b);")),
+        ("a lambda is not a declaration", not declares("\t\t\tAction a = () => Foo(shellMeshRenderer);")),
+        ("a method declaration is one", declares("\t\tpublic void Build(MeshRenderer shellMeshRenderer)")),
+        ("a constructor is one", declares("\t\tpublic RayfireShell(MeshRenderer shellMeshRenderer)")),
+        ("a write after `else if` inside a method whose parameter it is not reports nothing",
+         overwrite_after("\t\tpublic void Build(int other)\n\t\t{\n\t\t\telse if (shellMeshRenderer == null)") == 0),
+        ("a constructor's parameter overwritten by a stand-in is reported",
+         overwrite_after("\t\tpublic RayfireShell(MeshRenderer shellMeshRenderer)") == 1),
     ]
     failures = 0
     for name, ok in cases:
