@@ -40,6 +40,9 @@ Các kiểu helper không phải attribute ở lại:
 
 Attribute của chính game không đổi một cái nào. Log ghi `Cpp2ILInjected attributes off`.
 
+Bản build cuối lặp lại phép đo (67x mặc định, 67xn tắt): `[Address(`/`[Token(`/`[FieldOffset(` 22511 → **0**, `[NativeSource(`
+3928 → 3928, file `.cs` 796 → 751.
+
 ## 3. Test (`Il2CppOutputOptionsTests`)
 
 - Mặc định: layer phát attribute được cài đúng một lần.

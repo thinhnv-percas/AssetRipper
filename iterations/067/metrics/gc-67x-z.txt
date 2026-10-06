@@ -1,0 +1,47 @@
+corpus: 887 entries, 216 for Impostor (671 for other fixtures, 16 retired), 216 found, 0 not present in this rip
+
+== by semantic status ==
+   98  EXACT
+   42  HIGH_CONFIDENCE
+   75  PARTIAL
+    1  FALLBACK
+    0  MISSING
+
+== by runtime role ==
+  131  GENERAL
+   20  STATIC_ENTRY
+   12  CONSTRUCTOR
+   12  LIFECYCLE_UPDATE
+   10  LIFECYCLE_AWAKE
+   10  LIFECYCLE_START
+    9  LIFECYCLE_DESTROY
+    5  UNITY_CALLBACK
+    4  COROUTINE
+    3  EVENT_ACCESSOR
+
+== against baseline ==
+improved 22, regressed 2
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/CodeHashGenerator.cs#0xBE8B58
+  IMPROVED  PARTIAL -> HIGH_CONFIDENCE  Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Storage/ObscuredPrefs.cs#0xBD70B8
+  IMPROVED  PARTIAL -> HIGH_CONFIDENCE  Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenComponent.cs#0xC2CE1C
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0xC2DE68
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/DOTween/DG/Tweening/Core/DOTweenExternalCommand.cs#0xC2DF34
+  IMPROVED  FALLBACK -> PARTIAL  Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/AdLoaderClient.cs#0x133E578
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/LeanCommon/Lean/Common/LeanHelper.cs#0xC77758
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/LeanPool/Lean/Pool/LeanGameObjectPool.cs#0x135EAF0
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x1362B90
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/LeanPool/Lean/Pool/LeanPool.cs#0x1362E1C
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x151557C
+  IMPROVED  FALLBACK -> HIGH_CONFIDENCE  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonGhost.cs#0x1515BBC
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x1519BD0
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll.cs#0x151B408
+  IMPROVED  FALLBACK -> EXACT  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/SkeletonRagdoll2D.cs#0x151B970
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/AnimationState.cs#0x152AEDC
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/SkeletonBinary.cs#0x153A2A8
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/Triangulator.cs#0x153EDAC
+  IMPROVED  FALLBACK -> HIGH_CONFIDENCE  Assets/Scripts/spine-unity/Spine/Unity/SkeletonGraphic.cs#0x155DF94
+  IMPROVED  HIGH_CONFIDENCE -> EXACT  Assets/Scripts/spine-unity/Spine/Unity/SkeletonPartsRenderer.cs#0x1567774
+  IMPROVED  PARTIAL -> EXACT  Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderer.cs#0x155ACE8
+  IMPROVED  FALLBACK -> HIGH_CONFIDENCE  Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs#0x1569330
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/spine-unity-examples/Spine/Unity/Examples/AnimationMatchModifierAsset.cs#0x150F6E0
+  REGRESSED EXACT -> PARTIAL  Assets/Scripts/spine-unity/Spine/Skin.cs#0x154CF5C
