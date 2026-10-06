@@ -83,6 +83,7 @@ partial class SettingsPage
 		{ nameof(ProcessingSettings.RemoveNullableAttributes), (value) => { Configuration.ProcessingSettings.RemoveNullableAttributes = value; } },
 		{ nameof(ProcessingSettings.PublicizeAssemblies), (value) => { Configuration.ProcessingSettings.PublicizeAssemblies = value; } },
 		{ nameof(ExportSettings.ScriptTypesFullyQualified), (value) => { Configuration.ExportSettings.ScriptTypesFullyQualified = value; } },
+		{ nameof(ExportSettings.SimplifyGlobalQualification), (value) => { Configuration.ExportSettings.SimplifyGlobalQualification = value; } },
 		{ nameof(ExportSettings.ExportUnreadableAssets), (value) => { Configuration.ExportSettings.ExportUnreadableAssets = value; } },
 		{ nameof(ExportSettings.PreferOriginalTextureExtension), (value) => { Configuration.ExportSettings.PreferOriginalTextureExtension = value; } },
 		{ nameof(ExportSettings.SaveSettingsToDisk), (value) => { Configuration.ExportSettings.SaveSettingsToDisk = value; } },
@@ -172,6 +173,11 @@ partial class SettingsPage
 	private static void WriteCheckBoxForScriptTypesFullyQualified(TextWriter writer, string label, bool disabled = false)
 	{
 		WriteCheckBox(writer, label, Configuration.ExportSettings.ScriptTypesFullyQualified, nameof(ExportSettings.ScriptTypesFullyQualified), disabled);
+	}
+
+	private static void WriteCheckBoxForSimplifyGlobalQualification(TextWriter writer, string label, bool disabled = false)
+	{
+		WriteCheckBox(writer, label, Configuration.ExportSettings.SimplifyGlobalQualification, nameof(ExportSettings.SimplifyGlobalQualification), disabled);
 	}
 
 	private static void WriteDropDownForShaderExportMode(TextWriter writer)

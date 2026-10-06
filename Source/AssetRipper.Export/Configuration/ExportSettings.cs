@@ -35,6 +35,13 @@ public sealed record class ExportSettings
 	public bool ScriptTypesFullyQualified { get; set; } = false;
 
 	/// <summary>
+	/// If true, a <c>global::</c> qualifier is dropped wherever the shorter name resolves to the same namespace or
+	/// type, and kept wherever anything else of that name is in scope. Has no effect when
+	/// <see cref="ScriptTypesFullyQualified"/> is set, which asks for the qualifier everywhere.
+	/// </summary>
+	public bool SimplifyGlobalQualification { get; set; } = true;
+
+	/// <summary>
 	/// How to export shaders?
 	/// </summary>
 	public ShaderExportMode ShaderExportMode { get; set; } = ShaderExportMode.Dummy;
@@ -103,6 +110,8 @@ public sealed record class ExportSettings
 		Logger.Info(LogCategory.General, $"{nameof(LightmapTextureExportFormat)}: {LightmapTextureExportFormat}");
 		Logger.Info(LogCategory.General, $"{nameof(ScriptExportMode)}: {ScriptExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(ScriptLanguageVersion)}: {ScriptLanguageVersion}");
+		Logger.Info(LogCategory.General, $"{nameof(ScriptTypesFullyQualified)}: {ScriptTypesFullyQualified}");
+		Logger.Info(LogCategory.General, $"{nameof(SimplifyGlobalQualification)}: {SimplifyGlobalQualification}");
 		Logger.Info(LogCategory.General, $"{nameof(ShaderExportMode)}: {ShaderExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(SpriteExportMode)}: {SpriteExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(TextExportMode)}: {TextExportMode}");

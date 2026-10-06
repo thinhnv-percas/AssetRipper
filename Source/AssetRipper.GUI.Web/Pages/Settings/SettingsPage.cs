@@ -198,6 +198,8 @@ public sealed partial class SettingsPage : DefaultPage
 								}
 								using (new Div(writer).WithClass("col").End())
 								{
+									WriteCheckBoxForSimplifyGlobalQualification(writer, Localization.ScriptsSimplifyGlobalQualification);
+									new Div(writer).WithClass("form-text").Close(Localization.ScriptsSimplifyGlobalQualificationDescription);
 								}
 							}
 

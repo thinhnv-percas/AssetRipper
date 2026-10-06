@@ -54,6 +54,13 @@ static class Program
 			  --shader-mode <mode>    Dummy, Yaml or Decompile. Default: Dummy. See the note below.
 			  --reconstruct-bodies    Attach approximate C# to bodies IL recovery cannot express. Slow.
 			  --no-emit-offsets       Leave out the field offset and method address attributes.
+			  --no-cpp2il-injected-attributes
+			                          The same: emit no Cpp2ILInjected attribute ([Address], [Token],
+			                          [FieldOffset], [Attribute]) and declare none of their types.
+			  --no-simplify-global    Keep every global:: qualifier ILSpy wrote, even where nothing collides.
+			  --package-cache <dir>   Replace the ripped copies of the packages in <dir> (name@version folders)
+			                          with the packages themselves, and add them to Packages/manifest.json.
+			                          Test/Scripts/proven_package_cache.py builds one holding only proven versions.
 			  --struct-db <dir>       IL2Cpp struct layout directory. Default: the usual locations.
 			  -h, --help              This text.
 
@@ -83,6 +90,8 @@ static class Program
 		public ShaderExportMode ShaderExportMode { get; set; } = ShaderExportMode.Dummy;
 		public bool ReconstructNativeBodies { get; set; }
 		public bool EmitIl2CppOffsets { get; set; } = true;
+		public bool SimplifyGlobalQualification { get; set; } = true;
+		public string? PackageCachePath { get; set; }
 		public string? StructDbPath { get; set; }
 
 		public static bool TryParse(string[] args, out RipOptions options, out string? error)
@@ -123,7 +132,14 @@ static class Program
 						options.ReconstructNativeBodies = true;
 						break;
 					case "--no-emit-offsets":
+					case "--no-cpp2il-injected-attributes": // iteration 067: RecoveredCodeOutputOptions.EmitCpp2ILInjectedAttributes
 						options.EmitIl2CppOffsets = false;
+						break;
+					case "--no-simplify-global": // iteration 067: RecoveredCodeOutputOptions.SimplifyGlobalQualification
+						options.SimplifyGlobalQualification = false;
+						break;
+					case "--package-cache" when i + 1 < args.Length: // iteration 067: a source for PackageRemapPostExporter
+						options.PackageCachePath = Path.GetFullPath(args[++i]);
 						break;
 					case "--struct-db" when i + 1 < args.Length:
 						options.StructDbPath = Path.GetFullPath(args[++i]);
@@ -229,6 +245,11 @@ static class Program
 		FullConfiguration settings = new();
 		settings.ImportSettings.ScriptContentLevel = options.ScriptContentLevel;
 		settings.ImportSettings.EmitIl2CppOffsets = options.EmitIl2CppOffsets;
+		settings.ExportSettings.SimplifyGlobalQualification = options.SimplifyGlobalQualification;
+		if (options.PackageCachePath is not null)
+		{
+			settings.ExportSettings.OfficialPackageCachePath = options.PackageCachePath;
+		}
 		settings.ImportSettings.ReconstructNativeBodies = options.ReconstructNativeBodies;
 		settings.ImportSettings.Il2CppStructDbPath = options.StructDbPath;
 		settings.ExportSettings.ScriptExportMode = ScriptExportMode.Decompiled;

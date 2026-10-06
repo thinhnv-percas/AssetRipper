@@ -31,6 +31,14 @@ public class Instruction : IOperand
     // Exists to clear the return register after a CallVoid, basically.
     public Register? ImplicitDefinition;
 
+    /// <summary>
+    /// AssetRipper: iteration 067 - a comparison of the operands as unsigned integers. A64's carry after a
+    /// subtraction is "no borrow", which is an unsigned `>=`; read as a signed comparison, `(uint)(c - '0') &lt; 10`
+    /// accepts ':' and every bounds check accepts a negative index. A flag rather than an opcode, so every pass that
+    /// matches a comparison by its opcode keeps matching it; the generator emits the `.un` form.
+    /// </summary>
+    public bool IsUnsigned;
+
     public bool IsFallThrough =>
         OpCode switch
         {

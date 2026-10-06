@@ -48,6 +48,9 @@ public static class FlagConditionRecovery
                 var definition = defOf[condition];
                 definition.OpCode = relop;
                 definition.SetOperands(definition.Operands[0], op0!, op1!);
+                // AssetRipper: iteration 067 - the relations this pass produces are the signed approximations its
+                // comment describes; a flag carried over from an unsigned carry would change what they compare.
+                definition.IsUnsigned = false;
             }
         }
     }
@@ -122,7 +125,8 @@ public static class FlagConditionRecovery
     {
         op0 = op1 = null;
         var def = Def(local, defOf);
-        if (def is not { OpCode: OpCode.CheckLess } || !IsZeroConstant(def.Operands[2]))
+        // AssetRipper: iteration 067 - A64's carry is also `CheckLess`, but unsigned, and `t <u 0` is not a sign
+        if (def is not { OpCode: OpCode.CheckLess, IsUnsigned: false } || !IsZeroConstant(def.Operands[2]))
             return false;
         return IsSubtraction(AsLocal(def.Operands[1]), defOf, out op0, out op1);
     }

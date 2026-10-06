@@ -18,7 +18,9 @@ public static class Il2CppRecoverySetup
 	/// <param name="injectAddressAttributes">
 	/// Adds <c>[Address]</c>, <c>[FieldOffset]</c> and <c>[Token]</c> to the exported scripts. This is the
 	/// equivalent of the source tool's <c>// 0x18</c> field comments and <c>// Offset in libil2cpp.so:</c>
-	/// method comments, and it is implemented by Cpp2IL already; AssetRipper simply does not run that layer today.
+	/// method comments, and it is implemented by Cpp2IL already. Iteration 067: this is
+	/// <see cref="RecoveredCodeOutputOptions.EmitCpp2ILInjectedAttributes"/>, and
+	/// <see cref="Cpp2ILInjectedAttributeLayers"/> is the one place that turns it into layers.
 	/// </param>
 	/// <param name="reconstructBodies">Attaches an approximate C# reconstruction to each method. Slow; see <see cref="NativeSourceOptions"/>.</param>
 	/// <param name="nativeSourceOptions">Limits for the reconstruction, when it is enabled.</param>
@@ -48,10 +50,7 @@ public static class Il2CppRecoverySetup
 			new MethodOverrideNameFixer(),
 		];
 
-		if (injectAddressAttributes)
-		{
-			layers.Add(new AttributeInjectorProcessingLayer());
-		}
+		layers.AddRange(Cpp2ILInjectedAttributeLayers(new RecoveredCodeOutputOptions { EmitCpp2ILInjectedAttributes = injectAddressAttributes }));
 
 		if (reconstructBodies)
 		{
@@ -61,13 +60,30 @@ public static class Il2CppRecoverySetup
 		IL2CppManager.RecoveryProcessingLayers = layers;
 
 		Logger.Info(LogCategory.Import,
-			$"Il2Cpp recovery installed: offset attributes {(injectAddressAttributes ? "on" : "off")}, " +
+			$"Il2Cpp recovery installed: Cpp2ILInjected attributes {(injectAddressAttributes ? "on" : "off")}, " +
 			$"body reconstruction {(reconstructBodies ? "on" : "off")}, " +
 			$"struct database {structDbDirectory ?? "not found"}.");
 
 		// ISIL to CIL, so ILSpy produces real C# for the methods it can handle. A fresh instance per
 		// install, because its counters are per-run.
 		IL2CppManager.RecoveryOutputFormat = new Il2CppIlRecoveryOutputFormat();
+	}
+
+	/// <summary>
+	/// Iteration 067: the layers that emit <c>Cpp2ILInjected</c> attributes, for an output policy. Every one of them is
+	/// emitted by <see cref="AttributeInjectorProcessingLayer"/> - <c>[Token]</c>, <c>[Address]</c>, <c>[FieldOffset]</c>
+	/// and <c>[Attribute]</c> - and the attribute types are declared by the same layer, so not installing it is what
+	/// "off" means: nothing is generated and then removed. <see cref="AttributeAnalysisProcessingLayer"/>, which
+	/// restores the attributes the game itself carries, is not one of them and is installed whatever this says.
+	/// Cpp2IL's <c>CallAnalysisProcessingLayer</c> and <c>NativeMethodDetectionProcessingLayer</c> also inject into
+	/// <c>Cpp2ILInjected</c>; neither is installed by AssetRipper, and a test keeps it that way.
+	/// </summary>
+	public static IEnumerable<Cpp2IlProcessingLayer> Cpp2ILInjectedAttributeLayers(RecoveredCodeOutputOptions output)
+	{
+		if (output.EmitCpp2ILInjectedAttributes)
+		{
+			yield return new AttributeInjectorProcessingLayer();
+		}
 	}
 
 	/// <summary>
@@ -87,7 +103,7 @@ public static class Il2CppRecoverySetup
 
 		Install(
 			structDbDirectory: StructDbLocator.Find(settings.Il2CppStructDbPath),
-			injectAddressAttributes: settings.EmitIl2CppOffsets,
+			injectAddressAttributes: RecoveredCodeOutputOptions.From(settings).EmitCpp2ILInjectedAttributes,
 			reconstructBodies: settings.ReconstructNativeBodies);
 	}
 

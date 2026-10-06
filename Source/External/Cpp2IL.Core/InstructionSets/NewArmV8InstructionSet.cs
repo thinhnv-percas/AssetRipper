@@ -719,29 +719,19 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             return shifted;
         }
 
-        var flagN = new Register(null, "N");
-        var flagZ = new Register(null, "Z");
-        var flagC = new Register(null, "C");
-        var flagV = new Register(null, "V");
+        var flagN = Arm64FlagLifting.N;
+        var flagZ = Arm64FlagLifting.Z;
+        var flagC = Arm64FlagLifting.C;
+        var flagV = Arm64FlagLifting.V;
 
-        // models op0 - op1, which CMP and friends are defined in terms of
-        void EmitCompareFlags(IOperand op0, IOperand op1)
-        {
-            var temp1 = new Register(null, "TEMP1");
-            var temp2 = new Register(null, "TEMP2");
-            var temp3 = new Register(null, "TEMP3");
-            var temp4 = new Register(null, "TEMP4");
+        Instruction Emit(OpCode opCode, params List<IOperand> operands) => Add(address, opCode, operands);
 
-            Add(address, OpCode.CheckLess, flagC, op0, op1); // arm's C is the inverse of a borrow
-            Add(address, OpCode.Not, flagC, flagC);
-            Add(address, OpCode.Subtract, temp1, op0, op1);
-            Add(address, OpCode.CheckLess, flagN, temp1, Imm(0));
-            Add(address, OpCode.CheckEqual, flagZ, temp1, Imm(0));
-            Add(address, OpCode.Xor, temp2, op0, op1);
-            Add(address, OpCode.Xor, temp3, op0, temp1);
-            Add(address, OpCode.And, temp4, temp2, temp3);
-            Add(address, OpCode.CheckLess, flagV, temp4, Imm(0));
-        }
+        // models op0 - op1, which CMP and friends are defined in terms of (AssetRipper: iteration 067, Arm64FlagLifting)
+        void EmitCompareFlags(IOperand op0, IOperand op1) => Arm64FlagLifting.Subtract(Emit, op0, op1);
+
+        // AssetRipper: iteration 067 - op0 + op1, ADDS/CMN/CCMN. Lifting them as op0 - (-op1) was exact only for a
+        // nonzero operand whose negation does not overflow.
+        void EmitAddFlags(IOperand op0, IOperand op1) => Arm64FlagLifting.Add(Emit, op0, op1);
 
         // AssetRipper: FCMP does not subtract. It sets N for less than, Z for equal, C for greater, equal
         // or unordered, and V for unordered only (Arm ARM, FPCompare). Lifting it as SUBS computed V as the
@@ -781,62 +771,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         }
 
         // emits any instructions needed to evaluate the condition, returning an operand that is nonzero when it holds
-        IOperand EmitCondition(Arm64ConditionCode condition)
-        {
-            var temp = new Register(null, "TEMPCOND");
-            var temp2 = new Register(null, "TEMPCOND2");
-
-            switch (condition)
-            {
-                case Arm64ConditionCode.EQ:
-                    return flagZ;
-                case Arm64ConditionCode.NE:
-                    Add(address, OpCode.Not, temp, flagZ);
-                    return temp;
-                case Arm64ConditionCode.GE:
-                    Add(address, OpCode.CheckEqual, temp, flagN, flagV);
-                    return temp;
-                case Arm64ConditionCode.LT:
-                    Add(address, OpCode.CheckEqual, temp, flagN, flagV);
-                    Add(address, OpCode.Not, temp, temp);
-                    return temp;
-                case Arm64ConditionCode.GT:
-                    Add(address, OpCode.CheckEqual, temp, flagN, flagV);
-                    Add(address, OpCode.Not, temp2, flagZ);
-                    Add(address, OpCode.And, temp, temp, temp2);
-                    return temp;
-                case Arm64ConditionCode.LE:
-                    Add(address, OpCode.CheckEqual, temp, flagN, flagV);
-                    Add(address, OpCode.Not, temp, temp);
-                    Add(address, OpCode.Or, temp, temp, flagZ);
-                    return temp;
-                case Arm64ConditionCode.CS: // unsigned >=
-                    return flagC;
-                case Arm64ConditionCode.CC: // unsigned <
-                    Add(address, OpCode.Not, temp, flagC);
-                    return temp;
-                case Arm64ConditionCode.HI: // unsigned >
-                    Add(address, OpCode.Not, temp, flagZ);
-                    Add(address, OpCode.And, temp, flagC, temp);
-                    return temp;
-                case Arm64ConditionCode.LS: // unsigned <=
-                    Add(address, OpCode.Not, temp, flagC);
-                    Add(address, OpCode.Or, temp, temp, flagZ);
-                    return temp;
-                case Arm64ConditionCode.MI:
-                    return flagN;
-                case Arm64ConditionCode.PL:
-                    Add(address, OpCode.Not, temp, flagN);
-                    return temp;
-                case Arm64ConditionCode.VS:
-                    return flagV;
-                case Arm64ConditionCode.VC:
-                    Add(address, OpCode.Not, temp, flagV);
-                    return temp;
-                default: // AL/NV are both unconditional
-                    return Imm(1);
-            }
-        }
+        IOperand EmitCondition(Arm64ConditionCode condition) => Arm64FlagLifting.Condition(Emit, condition);
 
         // dest = cond ? <emitTrueValue into dest> : <emitFalseValue into dest>
         void EmitConditionalAssign(Arm64ConditionCode condition, Action emitTrueValue, Action<ulong> emitFalseValue)
@@ -1057,17 +992,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     // which is how the explicit CMN case below already lifts it; computed before the write-back
                     // for the same reason as a subtraction's.
                     if (setsFlags && !isSubtract)
-                    {
-                        IOperand? negated = src2 is Immediate immediate ? Imm(-immediate.Value) : null;
-                        if (negated is null)
-                        {
-                            var negatedRegister = new Register(null, "TEMPNEG");
-                            Add(address, OpCode.Negate, negatedRegister, src2);
-                            negated = negatedRegister;
-                        }
-
-                        EmitCompareFlags(src1, negated);
-                    }
+                        EmitAddFlags(src1, src2);
 
                     Add(address, isSubtract ? OpCode.Subtract : OpCode.Add, dest, src1, src2);
 
@@ -1082,16 +1007,9 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                 break;
             case Arm64Mnemonic.CMN:
                 // cmp against the negated operand
-                if (instruction.Op1Kind == Arm64OperandKind.Immediate)
-                {
-                    EmitCompareFlags(ConvertOperand(instruction, 0), Imm(-instruction.Op1Imm));
-                }
-                else
-                {
-                    var negated = new Register(null, "TEMP");
-                    Add(address, OpCode.Negate, negated, ConvertOperand(instruction, 1));
-                    EmitCompareFlags(ConvertOperand(instruction, 0), negated);
-                }
+                // AssetRipper: iteration 067 - the flags of the addition, not of a subtraction of the negation
+                EmitAddFlags(ConvertOperand(instruction, 0),
+                    instruction.Op1Kind == Arm64OperandKind.Immediate ? Imm(instruction.Op1Imm) : ConvertOperand(instruction, 1));
 
                 break;
             case Arm64Mnemonic.TST:
@@ -1153,16 +1071,13 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     Add(address, OpCode.ConditionalJump, Imm(address + 1), inverse);
 
                     var op1 = ConvertOperand(instruction, 1);
-                    if (instruction.Mnemonic == Arm64Mnemonic.CCMN)
-                    {
-                        var negated = new Register(null, "TEMP");
-                        Add(address, OpCode.Negate, negated, op1);
-                        op1 = negated;
-                    }
 
-                    // AssetRipper: the conditional form of FCMP sets the flags the way FCMP does.
+                    // AssetRipper: the conditional form of FCMP sets the flags the way FCMP does; CCMN's are an
+                    // addition's (iteration 067), not a subtraction of the negation.
                     if (instruction.Mnemonic is Arm64Mnemonic.FCCMP or Arm64Mnemonic.FCCMPE)
                         EmitFloatCompareFlags(ConvertOperand(instruction, 0), op1);
+                    else if (instruction.Mnemonic == Arm64Mnemonic.CCMN)
+                        EmitAddFlags(ConvertOperand(instruction, 0), op1);
                     else
                         EmitCompareFlags(ConvertOperand(instruction, 0), op1);
                     Add(address, OpCode.Jump, Imm(address + 2));

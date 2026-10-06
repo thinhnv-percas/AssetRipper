@@ -22,6 +22,15 @@ public class FullConfiguration : CoreConfiguration
 
 	public bool SaveSettingsToDisk => ExportSettings.SaveSettingsToDisk;
 
+	/// <summary>
+	/// Iteration 067: how recovered C# is written, grouped from the flat settings it is stored as. A fully qualified
+	/// export asks for <c>global::</c> everywhere, so it switches the simplification off rather than fighting it.
+	/// </summary>
+	public RecoveredCodeOutputOptions RecoveredCodeOutput => RecoveredCodeOutputOptions.From(ImportSettings) with
+	{
+		SimplifyGlobalQualification = ExportSettings.SimplifyGlobalQualification && !ExportSettings.ScriptTypesFullyQualified,
+	};
+
 	public string? LanguageCode
 	{
 		get => ExportSettings.LanguageCode;

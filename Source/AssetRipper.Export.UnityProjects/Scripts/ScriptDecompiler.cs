@@ -8,6 +8,7 @@ using ICSharpCode.Decompiler;
 using ICSharpCode.Decompiler.CSharp;
 using ICSharpCode.Decompiler.CSharp.ProjectDecompiler;
 using ICSharpCode.Decompiler.Metadata;
+using ICSharpCode.Decompiler.TypeSystem;
 using MetadataTypeDefinition = System.Reflection.Metadata.TypeDefinition;
 using MetadataTypeDefinitionHandle = System.Reflection.Metadata.TypeDefinitionHandle;
 using System.Text.RegularExpressions;
@@ -21,6 +22,8 @@ internal class ScriptDecompiler
 	public ScriptContentLevel ScriptContentLevel { get; set; } = ScriptContentLevel.Level2;
 	public ScriptingBackend ScriptingBackend { get; set; } = ScriptingBackend.Unknown;
 	public bool FullyQualifiedTypeNames { get; set; } = false;
+	/// <summary>Iteration 067: <see cref="RecoveredCodeOutputOptions.SimplifyGlobalQualification"/>.</summary>
+	public bool SimplifyGlobalQualification { get; set; } = true;
 
 	public ScriptDecompiler(IAssemblyManager assemblyManager) : this(new ILSpyAssemblyResolver(assemblyManager), assemblyManager.ScriptingBackend) { }
 	private ScriptDecompiler(ILSpyAssemblyResolver assemblyResolver, ScriptingBackend scriptingBackend)
@@ -46,7 +49,10 @@ internal class ScriptDecompiler
 			settings.UsingDeclarations = false;
 		}
 
-		CustomWholeProjectDecompiler decompiler = new(settings, assemblyResolver, fileSystem);
+		CustomWholeProjectDecompiler decompiler = new(settings, assemblyResolver, fileSystem)
+		{
+			SimplifyGlobalQualification = SimplifyGlobalQualification && !FullyQualifiedTypeNames,
+		};
 
 		DecompileWholeProject(decompiler, assembly, outputFolder);
 	}
@@ -133,6 +139,20 @@ internal class ScriptDecompiler
 
 	private sealed class CustomWholeProjectDecompiler(DecompilerSettings settings, ILSpyAssemblyResolver assemblyResolver, FileSystem fileSystem) : ILSpyWholeProjectDecompiler(settings, assemblyResolver, NullProjectFileWriter.Instance, fileSystem)
 	{
+		/// <summary>Iteration 067: run <see cref="GlobalQualificationSimplifier"/> after ILSpy's own transforms.</summary>
+		public bool SimplifyGlobalQualification { get; init; }
+
+		protected override CSharpDecompiler CreateDecompiler(DecompilerTypeSystem ts)
+		{
+			CSharpDecompiler decompiler = base.CreateDecompiler(ts);
+			if (SimplifyGlobalQualification)
+			{
+				// last, so it sees the qualifiers ILSpy settled on and the names it escaped
+				decompiler.AstTransforms.Add(new GlobalQualificationSimplifier());
+			}
+			return decompiler;
+		}
+
 		/// <summary>Namespace-and-name paths of the types to leave out of this run.</summary>
 		public HashSet<string> SkippedTypePaths { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 

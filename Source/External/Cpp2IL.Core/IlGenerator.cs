@@ -2055,11 +2055,15 @@ public static class IlGenerator
                 else if (toNativeInt && NeedsNativeIntForArithmetic(instruction.Operands[2]))
                     instructions.Add(CilOpCodes.Conv_I);
 
+                // AssetRipper: iteration 067 - an unsigned comparison (A64's carry) is `clt.un`/`cgt.un`, and only for
+                // integers: on floats the `.un` forms mean "or unordered", which is not what the flag says.
+                var (lessThan, greaterThan) = ComparisonOpCodes(instruction, isFloat: floatOperandType != null);
+
                 switch (instruction.OpCode)
                 {
                     case OpCode.CheckEqual: instructions.Add(CilOpCodes.Ceq); break;
-                    case OpCode.CheckGreater: instructions.Add(CilOpCodes.Cgt); break;
-                    case OpCode.CheckLess: instructions.Add(CilOpCodes.Clt); break;
+                    case OpCode.CheckGreater: instructions.Add(greaterThan); break;
+                    case OpCode.CheckLess: instructions.Add(lessThan); break;
 
                     // a != b  ==  (a == b) == 0
                     case OpCode.CheckNotEqual:
@@ -2069,13 +2073,13 @@ public static class IlGenerator
                         break;
                     // a >= b  ==  !(a < b)
                     case OpCode.CheckGreaterOrEqual:
-                        instructions.Add(CilOpCodes.Clt);
+                        instructions.Add(lessThan);
                         instructions.Add(CilOpCodes.Ldc_I4_0);
                         instructions.Add(CilOpCodes.Ceq);
                         break;
                     // a <= b  ==  !(a > b)
                     case OpCode.CheckLessOrEqual:
-                        instructions.Add(CilOpCodes.Cgt);
+                        instructions.Add(greaterThan);
                         instructions.Add(CilOpCodes.Ldc_I4_0);
                         instructions.Add(CilOpCodes.Ceq);
                         break;
@@ -2612,6 +2616,14 @@ public static class IlGenerator
     /// reads as <c>Oni.Contact[] + int</c>, which is the same defect reported as CS0019 instead of
     /// CS0030 - 41 more errors across the three games, and a shape further from what it means.
     /// </remarks>
+    /// <summary>
+    /// AssetRipper: iteration 067 - the IL a relational comparison is written with. An unsigned one (A64's carry) is
+    /// <c>clt.un</c>/<c>cgt.un</c>, and only for integers: on floats the <c>.un</c> forms mean "or unordered", which is
+    /// not what the flag says.
+    /// </summary>
+    public static (CilOpCode LessThan, CilOpCode GreaterThan) ComparisonOpCodes(Instruction instruction, bool isFloat)
+        => instruction.IsUnsigned && !isFloat ? (CilOpCodes.Clt_Un, CilOpCodes.Cgt_Un) : (CilOpCodes.Clt, CilOpCodes.Cgt);
+
     private static bool NeedsNativeIntForArithmetic(IOperand operand) => operand switch
     {
         AddressOf => true,

@@ -43,6 +43,8 @@ public sealed record class ImportSettings
 	/// <summary>
 	/// Emit IL2Cpp field offsets and method addresses as attributes on the exported scripts.
 	/// Only has an effect at <see cref="ScriptContentLevel.Level3"/>.
+	/// Iteration 067: this is the stored form of <see cref="RecoveredCodeOutputOptions.EmitCpp2ILInjectedAttributes"/>
+	/// ("Emit Cpp2ILInjected Attributes"); the name is kept so saved settings still load.
 	/// </summary>
 	public bool EmitIl2CppOffsets { get; set; } = true;
 
@@ -67,7 +69,7 @@ public sealed record class ImportSettings
 		Logger.Info(LogCategory.General, $"{nameof(TargetVersion)}: {TargetVersion}");
 		if (ScriptContentLevel is ScriptContentLevel.Level3)
 		{
-			Logger.Info(LogCategory.General, $"{nameof(EmitIl2CppOffsets)}: {EmitIl2CppOffsets}");
+			Logger.Info(LogCategory.General, $"{nameof(EmitIl2CppOffsets)} (EmitCpp2ILInjectedAttributes): {EmitIl2CppOffsets}");
 			Logger.Info(LogCategory.General, $"{nameof(ReconstructNativeBodies)}: {ReconstructNativeBodies}");
 			Logger.Info(LogCategory.General, $"{nameof(Il2CppStructDbPath)}: {Il2CppStructDbPath}");
 		}
