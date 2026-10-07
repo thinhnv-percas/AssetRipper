@@ -235,6 +235,19 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     `NewArm64KeyFunctionAddresses` (the write barrier's pre-indexed `str xT, [x0, #k]!` call-site shape);
     `InvokerArgumentRecovery` (`T_BUFFER_USED_BY:<use>`).
 
+31. **Register width, clobbered arguments, proven strides, store pair widths** (iteration 068) —
+    `NewArmV8InstructionSet` (`ImmediateAtWidth`/`LiftImmediate`: a W data path's immediate is the int its bits are;
+    `PairAccessWidth`: each half of an `STP` carries its access width on any base; `Instruction.NativeAddress` set
+    by `Add`); `IlGenerator` (a float's bits from a negative int immediate; a nested field access records its
+    outermost containing field in the semantic IR); `MetadataResolver` (`ReachesWithoutAnInterveningCall` as a
+    worklist, `ReplaceClobberedRawArguments`, the stale-MethodInfo refusal in `ResolveCallsViaMethodInfo`,
+    `SharingPlaceholderAdmits`, `InstantiateMethodParameterOn`); `Model/Contexts/MethodAnalysisContext` (runs
+    `ReplaceClobberedRawArguments` after `IndirectReturnBufferRecovery`, before `ResolveTypesAndFields`);
+    `FieldAddressArguments` (a shared `ref T` instantiated on the addressed field); `StackStructStorage`
+    (rejection reasons, `CPP2IL_DUMP_STRUCT_REJECTIONS`, `IStackStructModel.IsPadding`); `ArrayRecovery`
+    (`DefinitionMap`, `ConstantHeldBy`: a stride held in a register is proven only when every definition is one
+    constant); `ISIL/Instruction.NativeAddress`.
+
 ## Updating
 
 Fetch the branch, diff against commit `cae273a`, take the changes, and re-apply the marked

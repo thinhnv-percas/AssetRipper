@@ -1,0 +1,277 @@
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(359,11): error CS0030: Cannot convert type 'int' to 'UnityEngine.Sprite'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(490,46): error CS0030: Cannot convert type 'int*' to 'RoomController.SaveRoom'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(446,69): error CS0165: Use of unassigned local variable 'slicedFilledImage'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionList.cs(61,15): error CS0030: Cannot convert type 'T[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionList.cs(66,17): error CS0030: Cannot convert type 'T[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionList.cs(128,17): error CS0030: Cannot convert type 'T[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(595,19): error CS1540: Cannot access protected member 'Graphic.useLegacyMeshGeneration' via a qualifier of type 'Graphic'; the qualifier must be of type 'SlicedFilledImage' (or derived from it)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(263,35): error CS8773: Feature 'lambda attributes' is not available in C# 9.0. Please use language version 10.0 or greater.
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(267,20): error CS0030: Cannot convert type 'AdsController._003C_003CInitialize_003Eb__12_0_003Ed' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(268,46): error CS0030: Cannot convert type 'int' to 'AdsController._003C_003CInitialize_003Eb__12_0_003Ed'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionList.cs(244,15): error CS0030: Cannot convert type 'T[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionList.cs(247,17): error CS0030: Cannot convert type 'T[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(574,16): error CS0030: Cannot convert type 'RoomController' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(604,33): error CS0122: 'List<EItem>.Enumerator._list' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(610,22): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(614,43): error CS0122: 'List<EItem>.Enumerator._current' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(624,19): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(634,19): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(665,17): error CS0122: 'Int32Enum' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionList.cs(359,18): error CS0030: Cannot convert type 'System.Collections.Generic.EqualityComparer<W>' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionList.cs(401,31): error CS0030: Cannot convert type 'T' to 'System.OutOfMemoryException'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(752,17): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(756,18): error CS0030: Cannot convert type 'UnityEngine.Vector2[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(839,22): error CS0030: Cannot convert type 'UnityEngine.Vector2[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(843,22): error CS0030: Cannot convert type 'UnityEngine.Vector2[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(847,22): error CS0030: Cannot convert type 'UnityEngine.Vector2[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(849,22): error CS0030: Cannot convert type 'UnityEngine.Vector2[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(855,15): error CS0030: Cannot convert type 'int' to 'UnityEngine.Rect'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(919,14): error CS0019: Operator '&' cannot be applied to operands of type 'double' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(951,8): error CS0019: Operator '&' cannot be applied to operands of type 'double' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1007,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector4'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1016,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector4'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/StageRoom.cs(68,16): error CS0030: Cannot convert type 'System.Collections.Generic.List<ItemData>.Enumerator' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/StageRoom.cs(82,41): error CS0122: 'List<ItemData>.Enumerator._current' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomController.cs(799,26): error CS0030: Cannot convert type 'int*' to 'RoomController.SaveRoom'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionString.cs(56,20): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionString.cs(63,20): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionString.cs(85,18): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionString.cs(92,18): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionDraw.cs(26,43): error CS0117: 'Math' does not contain a definition for 'PI'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionDraw.cs(29,17): error CS0019: Operator '+' cannot be applied to operands of type 'Vector3[]' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1076,16): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector4'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1136,17): error CS0030: Cannot convert type 'UnityEngine.Vector3[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1139,18): error CS0030: Cannot convert type 'UnityEngine.Vector2[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1140,21): error CS0030: Cannot convert type 'long' to 'UnityEngine.Color32'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(57,30): error CS0030: Cannot convert type 'Cysharp.Threading.Tasks.UniTask.Awaiter' to 'Cysharp.Threading.Tasks.IUniTaskSource'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(83,6): error CS0030: Cannot convert type 'Cysharp.Threading.Tasks.UniTask.Awaiter' to 'Cysharp.Threading.Tasks.IUniTaskSource'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(132,62): error CS0122: 'Unsafe' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(132,115): error CS0122: 'Unsafe' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(152,59): error CS0122: 'Unsafe' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/AdsController.cs(152,112): error CS0122: 'Unsafe' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(283,21): error CS1061: 'List<Mesh>' does not contain a definition for '_items' and no accessible extension method '_items' accepting a first argument of type 'List<Mesh>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SelectionController.cs(138,14): error CS0030: Cannot convert type 'IUpdater' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SelectionController.cs(153,14): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SelectionController.cs(179,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SelectionController.cs(253,24): error CS0030: Cannot convert type 'UnityEngine.Vector3*' to 'UnityEngine.Ray'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SelectionController.cs(296,23): error CS0030: Cannot convert type 'UnityEngine.Vector3*' to 'UnityEngine.Ray'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1292,39): error CS1061: 'int' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'int' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(1353,19): error CS0030: Cannot convert type 'UnityEngine.Texture2D' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(484,88): error CS0030: Cannot convert type 'System.Collections.Generic.KeyValuePair<UnityEngine.Vector3, int>' to 'UnityEngine.Vector3'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(489,42): error CS0030: Cannot convert type 'UnityEngine.Vector3[]' to 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(491,14): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(492,15): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(500,17): error CS0030: Cannot convert type 'System.Collections.Generic.IEnumerator<System.Linq.IGrouping<UnityEngine.Vector3, System.Collections.Generic.KeyValuePair<UnityEngine.Vector3, int>>>' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(529,27): error CS0030: Cannot convert type 'nint' to 'System.Collections.Generic.List<UnityEngine.Vector3>'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(530,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(534,26): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(539,21): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(545,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(585,23): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(589,24): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(591,23): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(599,11): error CS0030: Cannot convert type 'System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<UnityEngine.Vector3, int>>' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(600,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(608,11): error CS0030: Cannot convert type 'System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<UnityEngine.Vector3, int>>' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(609,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(618,6): error CS0030: Cannot convert type 'nint' to 'System.IDisposable'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(627,27): error CS1061: 'int' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'int' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SelectionController.cs(339,23): error CS0030: Cannot convert type 'UnityEngine.Vector3*' to 'UnityEngine.Ray'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(28,15): error CS0030: Cannot convert type 'System.Collections.Generic.EqualityComparer<T>' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(29,21): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(34,22): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(35,20): error CS0030: Cannot convert type 'int' to 'T'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(37,21): error CS0023: Operator '~' cannot be applied to operand of type 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Outline.cs(83,11): error CS0030: Cannot convert type 'System.Collections.Generic.KeyValuePair<UnityEngine.Vector3, int>' to 'UnityEngine.Vector3'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(50,14): error CS0030: Cannot convert type 'T' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SlicedFilledImage.cs(54,17): error CS0030: Cannot convert type 'T' to 'nint'
+/tmp/tmp.YtB2cM73Bm/body/GameSettings.cs(63,26): error CS0030: Cannot convert type 'GridCellsSettings' to 'UnityEngine.Vector3'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SelectionController.cs(394,23): error CS0030: Cannot convert type 'UnityEngine.Vector3*' to 'UnityEngine.Ray'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(309,3): error CS0191: A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(310,36): error CS0117: 'Math' does not contain a definition for 'PI'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(355,21): error CS0030: Cannot convert type 'UnityEngine.Vector3[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(357,21): error CS0030: Cannot convert type 'UnityEngine.Vector3[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(365,22): error CS0030: Cannot convert type 'UnityEngine.Vector3[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(369,22): error CS0019: Operator '-' cannot be applied to operands of type 'object' and 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(370,22): error CS0019: Operator '-' cannot be applied to operands of type 'object' and 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(371,22): error CS0019: Operator '-' cannot be applied to operands of type 'object' and 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(372,22): error CS0019: Operator '-' cannot be applied to operands of type 'object' and 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(373,22): error CS0019: Operator '-' cannot be applied to operands of type 'object' and 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(374,22): error CS0019: Operator '-' cannot be applied to operands of type 'object' and 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(418,22): error CS0019: Operator '+' cannot be applied to operands of type 'Vector3[]' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(433,17): error CS0030: Cannot convert type 'int' to 'ExtensionMesh.VertexEntry'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(446,17): error CS0030: Cannot convert type 'int' to 'ExtensionMesh.VertexEntry'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(459,17): error CS0030: Cannot convert type 'int' to 'ExtensionMesh.VertexEntry'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(482,29): error CS0030: Cannot convert type 'int' to 'System.Collections.Generic.List<ExtensionMesh.VertexEntry>'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(503,34): error CS0030: Cannot convert type 'int' to 'System.Collections.Generic.List<ExtensionMesh.VertexEntry>'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(508,20): error CS0019: Operator '<<' cannot be applied to operands of type 'object' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(510,23): error CS0030: Cannot convert type 'UnityEngine.Vector3[][]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(518,37): error CS0030: Cannot convert type 'int' to 'System.Collections.Generic.List<ExtensionMesh.VertexEntry>'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(523,22): error CS0019: Operator '<<' cannot be applied to operands of type 'object' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(525,25): error CS0030: Cannot convert type 'UnityEngine.Vector3[][]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(536,22): error CS0019: Operator '<<' cannot be applied to operands of type 'object' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(538,25): error CS0030: Cannot convert type 'UnityEngine.Vector3[][]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(540,25): error CS0019: Operator '+' cannot be applied to operands of type 'object' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(607,22): error CS0030: Cannot convert type 'UnityEngine.Vector3[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ItemController.cs(119,34): error CS0117: 'Vector3' does not contain a definition for 'upVector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ItemController.cs(120,34): error CS0117: 'Vector3' does not contain a definition for 'upVector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ItemController.cs(121,34): error CS0117: 'Vector3' does not contain a definition for 'upVector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ItemController.cs(167,14): error CS0030: Cannot convert type 'UnityEngine.Sprite*' to 'ItemData'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(68,8): error CS0117: 'object' does not contain a definition for '_002Ector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(71,49): error CS0122: 'Vector2Int.m_Y' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(73,19): error CS0030: Cannot convert type 'UnityEngine.Vector3' to 'GridCellsSettings'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomManager.cs(129,16): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomManager.cs(143,11): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomManager.cs(168,29): error CS0149: Method name expected
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(82,9): error CS0019: Operator '&' cannot be applied to operands of type 'float' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(125,9): error CS0019: Operator '&' cannot be applied to operands of type 'float' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(162,9): error CS0019: Operator '&' cannot be applied to operands of type 'float' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ExtensionMesh.cs(196,17): error CS0030: Cannot convert type 'System.InvalidCastException' to 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(87,33): error CS0122: 'List<Cell>.Enumerator._list' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(88,30): error CS0122: 'List<Cell>.Enumerator._current' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(117,17): error CS0030: Cannot convert type 'System.NullReferenceException' to 'System.Collections.Generic.List<Cell>.Enumerator*'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(120,43): error CS1061: 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(121,44): error CS1061: 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GameInstaller.cs(103,18): error CS0030: Cannot convert type 'PreLaunchItem[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GameInstaller.cs(110,31): error CS0030: Cannot convert type 'nint' to 'UnityEngine.GameObject'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GameInstaller.cs(134,3): error CS0191: A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GameInstaller.cs(159,3): error CS0272: The property or indexer 'GameManager.CurrentState' cannot be used in this context because the set accessor is inaccessible
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/StateMachine.cs(92,15): error CS0030: Cannot convert type 'TState' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(142,30): error CS0122: 'List<Cell>.Enumerator._current' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(143,23): error CS0122: 'List<Cell>.Enumerator._list' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(188,22): error CS0122: 'List<Cell>.Enumerator._list' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(191,16): error CS0122: 'List<Cell>.Enumerator._current' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(199,17): error CS0030: Cannot convert type 'System.NullReferenceException' to 'System.Collections.Generic.List<Cell>.Enumerator*'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(202,33): error CS1061: 'bool' does not contain a definition for 'm_value' and no accessible extension method 'm_value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(225,7): error CS0030: Cannot convert type 'UnityEngine.Vector2Int' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(227,46): error CS0030: Cannot convert type 'UnityEngine.Vector2Int' to 'float'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(260,19): error CS0030: Cannot convert type 'UnityEngine.Vector2Int' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GridController.cs(263,16): error CS0030: Cannot convert type 'GridCellsSettings' to 'float'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/GameInstaller.cs(337,8): error CS0117: 'MonoBehaviour' does not contain a definition for '_002Ector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/StateMachine.cs(133,16): error CS0030: Cannot convert type 'TState' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(325,55): error CS0030: Cannot convert type 'UnityEngine.CombineInstance[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(344,17): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(345,17): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(346,17): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(347,17): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(355,24): error CS0030: Cannot convert type 'int' to 'UnityEngine.MeshFilter'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(356,6): error CS0030: Cannot convert type 'UnityEngine.CombineInstance' to 'UnityEngine.CombineInstance*'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(359,28): error CS0030: Cannot convert type 'int' to 'UnityEngine.Component'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(362,6): error CS0030: Cannot convert type 'UnityEngine.CombineInstance' to 'UnityEngine.CombineInstance*'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(362,54): error CS0030: Cannot convert type 'float*' to 'UnityEngine.Matrix4x4'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(365,30): error CS0030: Cannot convert type 'int' to 'UnityEngine.Component'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(369,41): error CS0019: Operator '+' cannot be applied to operands of type 'CombineInstance' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(374,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(375,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(376,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(377,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(390,50): error CS0030: Cannot convert type 'nint' to 'System.RuntimeTypeHandle'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(400,51): error CS0030: Cannot convert type 'nint' to 'System.RuntimeTypeHandle'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(411,11): error CS0030: Cannot convert type 'RoomObject' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(414,51): error CS0030: Cannot convert type 'nint' to 'System.RuntimeTypeHandle'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(424,51): error CS0030: Cannot convert type 'nint' to 'System.RuntimeTypeHandle'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(435,12): error CS0030: Cannot convert type 'RoomObject' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(479,26): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(498,39): error CS0030: Cannot convert type 'float*' to 'UnityEngine.Matrix4x4'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(504,24): error CS0030: Cannot convert type 'float' to 'UnityEngine.CombineInstance'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(546,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(547,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(548,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(549,13): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(560,58): error CS0030: Cannot convert type 'UnityEngine.CombineInstance[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(561,19): error CS0030: Cannot convert type 'UnityEngine.Mesh[]' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(572,14): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(573,14): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(574,14): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(575,14): error CS0030: Cannot convert type 'System.Type' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(593,23): error CS0122: 'CombineInstance.m_MeshInstanceID' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(595,7): error CS0030: Cannot convert type 'UnityEngine.CombineInstance' to 'UnityEngine.CombineInstance*'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(596,7): error CS0030: Cannot convert type 'UnityEngine.CombineInstance' to 'UnityEngine.CombineInstance*'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(599,30): error CS0019: Operator '+' cannot be applied to operands of type 'CombineInstance' and 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(605,25): error CS0030: Cannot convert type 'string' to 'UnityEngine.CombineInstance'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(627,13): error CS0266: Cannot implicitly convert type 'object' to 'int'. An explicit conversion exists (are you missing a cast?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(628,49): error CS0266: Cannot implicitly convert type 'object' to 'int'. An explicit conversion exists (are you missing a cast?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(629,19): error CS0030: Cannot convert type 'RoomObject' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(631,19): error CS0030: Cannot convert type 'nint' to 'RoomObject'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(638,17): error CS0030: Cannot convert type 'System.Collections.Generic.List<UnityEngine.Material>' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(665,8): error CS0030: Cannot convert type 'nint' to 'System.Collections.Generic.List<object>'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(672,41): error CS0030: Cannot convert type 'nint' to 'System.Collections.Generic.List<object>'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/StateMachine.cs(179,29): error CS0122: 'Dictionary<Type, BaseState>.ValueCollection.Enumerator._dictionary' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/StateMachine.cs(186,29): error CS0122: 'Dictionary<Type, BaseState>.ValueCollection.Enumerator._dictionary' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(734,11): error CS0030: Cannot convert type 'System.NullReferenceException' to 'int'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SceneController.cs(256,8): error CS0117: 'Singleton<SceneController>' does not contain a definition for '_002Ector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(849,8): error CS0117: 'MonoBehaviour' does not contain a definition for '_002Ector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RoomObject.cs(852,17): error CS0030: Cannot convert type 'int' to 'UnityEngine.Color'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/TutorialController.cs(96,19): error CS0030: Cannot convert type 'GameState' to 'RoomObject'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs(462,14): error CS0030: Cannot convert type 'float' to 'RemoteConfigController.Settings'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/UIGame/Toggle.cs(143,15): error CS0030: Cannot convert type 'UIGame.Toggle.Colors' to 'float'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/UIGame/Toggle.cs(159,16): error CS0030: Cannot convert type 'UIGame.Toggle.Colors' to 'float'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs(514,9): error CS0029: Cannot implicitly convert type 'System.Action<Unity.Services.RemoteConfig.ConfigResponse>' to 'System.Exception'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SceneController.cs(74,35): error CS0019: Operator '&' cannot be applied to operands of type 'Scene' and 'long'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SceneController.cs(135,33): error CS0019: Operator '&' cannot be applied to operands of type 'Scene' and 'long'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(425,17): error CS0030: Cannot convert type 'UnityEngine.InputSystem.InputActionAsset' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(439,39): error CS0030: Cannot convert type 'object*' to 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs(220,18): error CS0030: Cannot convert type 'bool' to 'RemoteConfigController'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs(244,50): error CS0030: Cannot convert type 'nint' to 'Unity.Services.RemoteConfig.ConfigResponse'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs(281,10): error CS0029: Cannot implicitly convert type 'System.Action<Unity.Services.RemoteConfig.ConfigResponse>' to 'System.Exception'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(455,11): error CS0122: 'ReadOnlyArray<InputDevice>?.hasValue' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(465,49): error CS0030: Cannot convert type 'bool*' to 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(523,11): error CS0122: 'InputControlScheme.m_DeviceRequirements' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(523,53): error CS0122: 'InputControlScheme.m_DeviceRequirements' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(524,11): error CS0122: 'InputControlScheme.m_Name' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(546,11): error CS0122: 'InputControlScheme.m_DeviceRequirements' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(546,53): error CS0122: 'InputControlScheme.m_DeviceRequirements' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(547,11): error CS0122: 'InputControlScheme.m_Name' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(562,3): error CS0200: Property or indexer 'PlayerInput.asset' cannot be assigned to -- it is read only
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs(125,17): error CS0030: Cannot convert type 'Unity.Services.Authentication.SignInOptions' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/RemoteConfigController.cs(143,37): error CS0030: Cannot convert type 'int' to 'Unity.Services.Authentication.SignInOptions'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(643,28): error CS0030: Cannot convert type 'object*' to 'UnityEngine.InputSystem.InputBinding'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(141,11): error CS0030: Cannot convert type 'int' to 'UnityEngine.InputSystem.InputActionMap'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(290,24): error CS0122: 'List<PlayerInput.IPlayerActions>.Enumerator._list' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(293,38): error CS0122: 'List<PlayerInput.IPlayerActions>.Enumerator._current' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(304,20): error CS0030: Cannot convert type 'nint' to 'PlayerInput.IPlayerActions'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(309,21): error CS0030: Cannot convert type 'nint' to 'PlayerInput.IPlayerActions'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PlayerInput.cs(323,8): error CS0030: Cannot convert type 'PlayerInput.IPlayerActions' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ParticleController.cs(26,70): error CS0030: Cannot convert type 'ParticleController' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ParticleController.cs(27,14): error CS0122: 'ParticleSystem.MainModule.m_ParticleSystem' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/ParticleController.cs(27,33): error CS0030: Cannot convert type 'UnityEngine.ParticleSystem.MainModule' to 'UnityEngine.ParticleSystem'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(81,12): error CS0030: Cannot convert type 'Bootstrapper' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(95,12): error CS0030: Cannot convert type 'Bootstrapper' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(106,5): error CS0030: Cannot convert type 'nint' to 'SplashScreenController'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(113,5): error CS0030: Cannot convert type 'int' to 'GDPRController'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(122,22): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(144,26): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(171,26): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(232,60): error CS0030: Cannot convert type 'int' to 'UnityEngine.GameObject'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(257,20): error CS0030: Cannot convert type 'nint' to 'System.Collections.Generic.List<string>'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Bootstrapper.cs(257,40): error CS0030: Cannot convert type 'int' to 'SplashScreenController'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Cell.cs(358,13): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/HapticManager.cs(35,4): error CS0030: Cannot convert type 'bool' to 'HapticManager'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManager.cs(130,34): error CS1061: 'LinkedListNode<AudioSource>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<AudioSource>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManager.cs(132,37): error CS1061: 'LinkedListNode<AudioSource>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<AudioSource>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManager.cs(134,17): error CS1061: 'LinkedListNode<AudioSource>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<AudioSource>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManager.cs(171,8): error CS0117: 'Singleton<SoundManager>' does not contain a definition for '_002Ector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PoolManager.cs(68,17): error CS1061: 'LinkedListNode<object>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<object>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PoolManager.cs(72,46): error CS1061: 'LinkedListNode<object>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<object>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PoolManager.cs(76,20): error CS1061: 'LinkedListNode<object>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<object>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/FingerController.cs(136,10): error CS0030: Cannot convert type 'FingerController' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/FingerController.cs(140,18): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/FingerController.cs(144,10): error CS0030: Cannot convert type 'FingerController' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/FingerController.cs(209,8): error CS0117: 'MonoBehaviour' does not contain a definition for '_002Ector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManagerComponent.cs(39,23): error CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManagerComponent.cs(42,17): error CS0122: 'List<AudioSource>.Enumerator._current' is inaccessible due to its protection level
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManagerComponent.cs(43,27): error CS0037: Cannot convert null to 'nint' because it is a non-nullable value type
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/CamController.cs(83,10): error CS0029: Cannot implicitly convert type 'System.Action<GameState>' to 'System.Exception'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/UIManager.cs(107,13): error CS0246: The type or namespace name 'T' could not be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/SoundManagerComponent.cs(123,8): error CS0117: 'MonoBehaviour' does not contain a definition for '_002Ector'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PoolManager.cs(158,23): error CS1061: 'LinkedListNode<object>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<object>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PoolManager.cs(160,13): error CS1061: 'LinkedListNode<object>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<object>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PoolManager.cs(162,17): error CS0019: Operator '-' cannot be applied to operands of type 'object' and 'object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/PoolManager.cs(173,39): error CS1061: 'LinkedListNode<object>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<object>' could be found (are you missing a using directive or an assembly reference?)
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/CamController.cs(156,54): error CS0117: 'Math' does not contain a definition for 'PI'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/UIManager.cs(268,16): error CS0030: Cannot convert type 'UIManager' to 'nint'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/CamController.cs(265,21): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Singleton.cs(42,8): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Singleton.cs(52,9): error CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Singleton.cs(89,12): error CS0030: Cannot convert type 'int' to 'T'
+Test/Out68h-m/MergeRoom/Assets/Scripts/Assembly-CSharp/Singleton.cs(94,10): error CS0165: Use of unassigned local variable 'ex'

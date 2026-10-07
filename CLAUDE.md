@@ -2156,6 +2156,44 @@ find it; `strings` without `-el` does find method and type names.
   Pinata `CheckPathMatchPath` giờ ném mọi lần. Bản có dấu cũ chỉ đúng vì nó tình cờ gieo kiểu `int`. Đừng hạ carry
   về dạng có dấu; mang độ rộng W vào immediate (DECOMP-0073).
 
+- **Một thanh ghi call trước đã làm hỏng không phải đối số của call sau, và chính nó đã đặt tên `0xF7087C`.** Call không
+  giải quyết được giữ cả mười sáu thanh ghi thô làm đối số. IR lại không clobber X0–X18/V0–V7 ở một call. Vì vậy
+  `MethodInfo*` mà một lời gọi thật `Utilities.TryGetValue<object>` để lại trong X3 đọc như đối số của lookup interface
+  ngay sau, và `ResolveCallsViaMethodInfo` đặt tên 12068 call site theo nó. Cùng gốc:
+  - `__cxa_end_catch` thành `Buffer.Claim((int)ex)`;
+  - một struct parameter tách hai thanh ghi không gập lại, nên delegate được gọi với `default(StreamingContext)`.
+
+  AAPCS64 nói caller không được dựa vào thanh ghi caller-saved qua một call. `ReplaceClobberedRawArguments` thay mọi đối
+  số thô không tới được call mà không băng qua call khác bằng `clobbered_<reg>`. Pass chạy trong SSA, trước fixpoint
+  kiểu: sau copy propagation, một lần nạp lại đã bị gập vào bản sao cũ, nên luật đặt ở `InvokerArgumentRecovery` là sai.
+  Ba guard trên phép đổi tên ở 067 đo âm vì chúng sửa triệu chứng ở một use, trong khi giá trị cũ còn ghim các use khác.
+- **METHOD_NOT_FOUND tăng khi một bằng chứng giả bị bỏ là đúng.** Impostor +78, Merge-Room +234, JellyBlastV2 +502,
+  RunFromZombies +61. EXACT giảm nhẹ và golden regression tăng (Sirenix `BinaryDataWriter` ×11) vì tên giả từng khớp tên
+  IR. Đọc từng cái trước khi gọi là regression.
+- **Một phép đi ngược trên đồ thị phải là worklist và phải nhớ phi đã mở rộng.** Bản đệ quy đầu tiên của
+  `ReachesFrom` làm Pinata stack overflow (exit 134). Một vòng `v = phi(…, w)`, `w = phi(v)` không có call trên vòng được
+  mở rộng mãi. Fixture lớn nhất là fixture duy nhất thấy lỗi này, nên một thay đổi chỉ đo trên bốn fixture nhỏ chưa đo xong.
+- **Bỏ một đối số giả có thể mở khoá một pass khác.** `MethodSlotDispatchRecovery` đếm đối số của helper
+  generic-virtual. X2 cũ (`methodInfo` của chính method) làm hình dạng không khớp, nên 126 call `0x179CF80` trên Merge-Room
+  chỉ được nhận sau 068. `ES3Type_*Module.Read<T>` giờ gọi `ReadInto<T>` như nguồn.
+- **Một immediate của thanh ghi W là `int`.** Disarm trả `mov w8, #-1` về `0xFFFFFFFF`. Generator chọn `ldc.i8` cho
+  số không vừa `int`, nên carry chính xác của 067 chạy ở 64 bit và không bao giờ bật. `ImmediateAtWidth` ở `LiftImmediate`
+  là luật tổng quát; `MaskImmediate` đã áp nó cho mask từ 048. Dạng cũ là một lỗi im lặng khác có từ trước:
+  `(IntPtr)4294967295 != (IntPtr)(-1)` luôn đúng.
+- **Mỗi nửa của một store pair mang độ rộng thanh ghi của nó, trên mọi base.** 067 chỉ cho `STP` độ rộng stack, "để logic
+  packed-field không đổi". Đó là một lựa chọn chưa đo. Nửa đầu của `stp s0, s1, [x0, #off]` vào một `Vector3` vì vậy không
+  có độ rộng, và luật 037 không phân biệt được field với member đầu: `_direction = (Vector3)num`.
+- **Một stride giữ trong thanh ghi được chứng minh khi mọi định nghĩa tới được nó là cùng một hằng.** `mov w9, #12` trước
+  vòng và trên back edge cho một phi của một hằng. Chỉ `DefinitionMap` trả lời được câu này: ngoài SSA, map định nghĩa giữ
+  định nghĩa cuối và không thể nói thay các định nghĩa khác. Stride đọc lúc chạy (`Il2CppClass.element_size`, 0x104 trên
+  2022.3) của một thân generic chia sẻ hoàn toàn không bao giờ là index.
+- **Một bản ghi semantic IR chỉ ghi member trong cùng thì đọc một bản sao từng member như mất một lần ghi.** Sau khi
+  `STP` có độ rộng, `_rot = v` thành `_rot.x = v.x; _rot.y = v.y; …`, đúng hành vi. Nhưng behaviour oracle hạ RunFromZombies
+  1.0 → 0.9714, vì `STORE_FIELD` ghi `x` chứ không ghi `_rot`. Một truy cập qua `ContainingFields` giờ ghi thêm field ngoài
+  cùng. §22 nói revert khi oracle giảm; ở đây đọc method cho thấy phép đo sai, không phải bản phục hồi.
+- **Một use cũ biến mất đúng ở helper đã suy là không đọc nó — đó là phép thử của suy luận.** `0xE6A35C` (class-init, chỉ
+  X0) mất 4 `UNKNOWN_RETURN` và `REWRITTEN` 2 → 8. `0x179CE74` (store field qua reflection, đọc buffer thật) giữ 14.
+
 ### Things measured to be worth nothing — do not redo them
 - **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
   - 66g: thiết lập frame (`mov x29, sp`) là một address-take, nên mọi lần lưu thanh ghi phía trên nó được giữ;
@@ -2477,6 +2515,9 @@ Twenty-six scripts, and each measures something the others cannot:
   (manifest/lock/cache tách riêng), `recovered_project_plan.py`.
 - `Test/Scripts/proven_package_cache.py` — cache `name@version` chỉ của package UPSTREAM_EXACT, tải đúng version đã
   chứng minh; đưa vào `SystemTester --package-cache`. `--self-test` 8 case.
+- `Test/Scripts/untyped_producers.py` — mỗi local bị khai báo `object` theo opcode và địa chỉ native định nghĩa nó
+  (`CPP2IL_DUMP_UNTYPED`); `--errors` gắn lỗi OBJECT_AS_NATIVE_INT với producer cùng method. `--self-test` 11 case.
+- `CPP2IL_DUMP_STRUCT_REJECTIONS=<file>` — mỗi struct trên stack `StackStructStorage` để nguyên, kèm luật từ chối và lệnh.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
 
