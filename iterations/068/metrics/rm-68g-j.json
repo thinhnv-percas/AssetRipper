@@ -1,0 +1,362 @@
+{
+  "scope": [
+    "Assembly-CSharp",
+    "Mono.Security",
+    "Newtonsoft.Json",
+    "__Generated"
+  ],
+  "methods": 3888,
+  "nativeBytes": 974708,
+  "placeholders": 3987,
+  "status": {
+    "EXACT": 2931,
+    "HIGH_CONFIDENCE": 171,
+    "FALLBACK": 57,
+    "PARTIAL": 729
+  },
+  "byAssembly": {
+    "Assembly-CSharp": {
+      "EXACT": 51,
+      "HIGH_CONFIDENCE": 1
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "Newtonsoft.Json": {
+      "PARTIAL": 729,
+      "EXACT": 2879,
+      "HIGH_CONFIDENCE": 170,
+      "FALLBACK": 56
+    }
+  },
+  "lostOperationClasses": {
+    "BRANCH": 5,
+    "ARRAY_READ": 2,
+    "ARRAY_WRITE": 3,
+    "NEWOBJ": 23,
+    "CALL": 25,
+    "FIELD": 1
+  },
+  "fingerprintIr": {
+    "ARITHMETIC": 873,
+    "CALL": 2490,
+    "BRANCH": 1695,
+    "LOOP": 1695,
+    "COMPARE": 1617,
+    "ARRAY_READ": 216,
+    "STATIC_ACCESS": 2953,
+    "NULL_CHECK": 1470,
+    "NEWOBJ": 1031,
+    "CAST": 39,
+    "INSTANCEOF": 289,
+    "ARRAY_WRITE": 92,
+    "FIELD_ADDRESS": 32,
+    "RETURN": 2
+  },
+  "fingerprintCSharp": {
+    "CALL": 3039,
+    "BRANCH": 1700,
+    "LOOP": 360,
+    "COMPARE": 1498,
+    "ARRAY_READ": 336,
+    "ARITHMETIC": 829,
+    "NEWOBJ": 1119,
+    "NULL_CHECK": 1182,
+    "RETURN": 2534,
+    "STATIC_ACCESS": 1693,
+    "CAST": 671,
+    "FIELD_ADDRESS": 233,
+    "THROW": 580,
+    "INSTANCEOF": 16,
+    "ARRAY_WRITE": 112,
+    "NEWARR": 85,
+    "SWITCH": 33
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 1555,
+      "files": 87
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 968,
+      "files": 89
+    },
+    "NATIVE_IMPORT": {
+      "count": 857,
+      "files": 65
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 273,
+      "files": 52
+    },
+    "INDIRECT_CALL": {
+      "count": 134,
+      "files": 44
+    },
+    "INDIRECT_JUMP": {
+      "count": 122,
+      "files": 39
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 7,
+      "files": 4
+    },
+    "OTHER": {
+      "count": 4,
+      "files": 2
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 580,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalReader.cs"
+    },
+    {
+      "nativeBytes": 568,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonTypeReflector.cs"
+    },
+    {
+      "nativeBytes": 400,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs"
+    },
+    {
+      "nativeBytes": 340,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonTypeReflector.cs"
+    },
+    {
+      "nativeBytes": 316,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+    },
+    {
+      "nativeBytes": 316,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+    },
+    {
+      "nativeBytes": 260,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 224,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/EntityKeyMemberConverter.cs"
+    },
+    {
+      "nativeBytes": 204,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+    },
+    {
+      "nativeBytes": 180,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 176,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Bson/BsonWriter.cs"
+    },
+    {
+      "nativeBytes": 172,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 168,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 168,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/AsyncUtils.cs"
+    },
+    {
+      "nativeBytes": 164,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 164,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 156,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 156,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    },
+    {
+      "nativeBytes": 152,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 152,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 148,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    },
+    {
+      "nativeBytes": 148,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 140,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+    },
+    {
+      "nativeBytes": 140,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    },
+    {
+      "nativeBytes": 140,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/DynamicProxyMetaObject.cs"
+    },
+    {
+      "nativeBytes": 136,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 136,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 136,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 136,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 136,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonSerializerInternalWriter.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Converters/XmlDocumentWrapper.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 128,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonDictionaryContract.cs"
+    },
+    {
+      "nativeBytes": 128,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonArrayContract.cs"
+    },
+    {
+      "nativeBytes": 124,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Serialization/JsonProperty.cs"
+    },
+    {
+      "nativeBytes": 124,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/BidirectionalDictionary.cs"
+    },
+    {
+      "nativeBytes": 112,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    },
+    {
+      "nativeBytes": 108,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyDescriptor.cs"
+    },
+    {
+      "nativeBytes": 108,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JPropertyDescriptor.cs"
+    },
+    {
+      "nativeBytes": 104,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/ReflectionUtils.cs"
+    },
+    {
+      "nativeBytes": 104,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+    },
+    {
+      "nativeBytes": 104,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/Extensions.cs"
+    },
+    {
+      "nativeBytes": 92,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Utilities/CollectionUtils.cs"
+    },
+    {
+      "nativeBytes": 92,
+      "lost": "BRANCH",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonTextReader.cs"
+    },
+    {
+      "nativeBytes": 84,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+    },
+    {
+      "nativeBytes": 84,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JToken.cs"
+    },
+    {
+      "nativeBytes": 76,
+      "lost": "CALL",
+      "file": "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs"
+    }
+  ]
+}

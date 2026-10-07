@@ -1370,7 +1370,7 @@ public static class IlGenerator
             if (!target.Field.IsStatic)
             {
                 LoadFieldBase(target, StoreBaseIsAnAddress(target, intoStruct: false), instructions, context, method, locals, writeLine);
-                LoadContainingFields(target, instructions);
+                LoadContainingFields(target, instructions, recordAsStore: true);
             }
 
             instructions.Add(CilOpCodes.Ldc_R4, value);
@@ -1386,7 +1386,7 @@ public static class IlGenerator
             if (!target.Field.IsStatic)
             {
                 LoadFieldBase(target, StoreBaseIsAnAddress(target, intoStruct: false), instructions, context, method, locals, writeLine);
-                LoadContainingFields(target, instructions);
+                LoadContainingFields(target, instructions, recordAsStore: true);
             }
 
             LoadOperand(value, context, method, locals, writeLine);
@@ -1418,7 +1418,7 @@ public static class IlGenerator
             if (!target.Field.IsStatic)
             {
                 LoadFieldBase(target, StoreBaseIsAnAddress(target, intoStruct: false), instructions, context, method, locals, writeLine);
-                LoadContainingFields(target, instructions);
+                LoadContainingFields(target, instructions, recordAsStore: true);
             }
 
             if (PrimitiveFieldWidth(target.Field.FieldType) == 8)
@@ -1535,7 +1535,7 @@ public static class IlGenerator
                     {
                         LoadFieldBase(field, StoreBaseIsAnAddress(field, intoStruct), instructions, context, method, locals, writeLine);
 
-                        LoadContainingFields(field, instructions);
+                        LoadContainingFields(field, instructions, recordAsStore: true);
                     }
 
                     LoadOperand(instruction.Operands[1], context, method, locals, writeLine, field.Field.FieldType);
@@ -2990,6 +2990,11 @@ public static class IlGenerator
 
                     // A field reached through value type fields needs those loaded first. ldfld takes a
                     // value type instance on the stack, so reads chain without needing addresses.
+                    // AssetRipper: iteration 068 - reading `_rot.x` reads `_rot`; record the outermost field it is read through.
+                    if (field.ContainingFields is [var outermostRead, ..]
+                        && !(outermostRead.IsStatic && !throughStruct && PublicAccessorFor(outermostRead) is not null))
+                        RecoveredSemanticIr.Record(outermostRead.IsStatic ? SemanticOperation.LoadStatic : SemanticOperation.LoadField, outermostRead.Name);
+
                     foreach (var containing in field.ContainingFields)
                     {
                         // A static head read as a value goes through its public static property where
@@ -3410,8 +3415,14 @@ public static class IlGenerator
             && (field.Local.Type is { IsValueType: true } and not PointerTypeAnalysisContext
                 || intoStruct && field.ContainingFields.Count == 0);
 
-    private static void LoadContainingFields(FieldReference field, CilInstructionCollection instructions)
+    // AssetRipper: iteration 068 - `_rot.x = v` writes the storage of `_rot`, so a store through containing fields also
+    // records the outermost one; without it a member-wise copy read as a lost write of the field it copies into. An
+    // address taken through them (FieldAddress) records nothing more, since it neither reads nor writes yet.
+    private static void LoadContainingFields(FieldReference field, CilInstructionCollection instructions, bool recordAsStore = false)
     {
+        if (recordAsStore && field.ContainingFields is [var outermost, ..])
+            RecoveredSemanticIr.Record(outermost.IsStatic ? SemanticOperation.StoreStatic : SemanticOperation.StoreField, outermost.Name);
+
         foreach (var containing in field.ContainingFields)
             instructions.Add(containing.IsStatic ? CilOpCodes.Ldsflda : CilOpCodes.Ldflda, containing.ToFieldDescriptor());
     }
@@ -3594,7 +3605,7 @@ public static class IlGenerator
 
                 LoadFieldBase(field, StoreBaseIsAnAddress(field, intoStruct), instructions, context, method, locals, writeLine);
 
-                LoadContainingFields(field, instructions);
+                LoadContainingFields(field, instructions, recordAsStore: true);
                 instructions.Add(CilOpCodes.Ldloc, scratch);
 
                 if (setter != null)
