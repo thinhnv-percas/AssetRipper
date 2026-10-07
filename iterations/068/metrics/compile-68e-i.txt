@@ -1,0 +1,31 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.401/Roslyn/bincore/csc.dll
+Assembly-CSharp: 179 files, 11 errors, 6172 warnings
+Assembly-CSharp: 175 of 179 files compile clean
+
+    11  CS0617   [most common: 3 of 11] 'order' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties which are public and not static.
+
+reference assemblies: 59
+errors classified: 11
+
+DECOMPILER_ERROR        0
+REFERENCE_ERROR        11
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+REFERENCE_ERROR
+      11  CS0617   a named attribute argument whose accessor is absent from the reference assemblies - stripped from the build
+          'fileName' is not a valid named attribute argument. Named attribute arguments must be fields which are not rea
+
+
+BODY_PASS: 11 stripped attribute arguments neutralised in a copy
+Assembly-CSharp (body pass): 1701 errors, 79 of 179 files compile clean
+   840  CS0030
+   303  CS0019
+   175  CS1061
+   122  CS0122
+    93  CS0037
+    81  CS0117
+    33  CS0266
+    13  CS0029

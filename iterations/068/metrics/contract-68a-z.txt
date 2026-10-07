@@ -1,0 +1,55 @@
+{
+ "methods": 390,
+ "unpaired_files": 0,
+ "compile_status": {
+  "COMPILES": 336,
+  "FAILS": 54
+ },
+ "compile_risk_of_failing_methods": {
+  "OTHER": 9,
+  "INDIRECT_STRUCT_ARGUMENT": 9,
+  "FRAMEWORK_PRIVATE_MEMBER": 8,
+  "BASE_CONSTRUCTOR_CALL": 8,
+  "UNRESOLVED_LOAD_STANDIN": 7,
+  "OBJECT_AS_NATIVE_INT": 4,
+  "INTERFACE_SCAN_SURVIVOR": 4,
+  "ARRAY_ELEMENT_ADDRESS": 2,
+  "SHARED_GENERIC_PLACEHOLDER": 1,
+  "FLOAT_USED_AS_INTEGER": 1,
+  "STRUCT_FIRST_MEMBER": 1
+ },
+ "semantic_status": {
+  "PARTIAL": 58,
+  "EXACT": 315,
+  "HIGH_CONFIDENCE": 14,
+  "FALLBACK": 3
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 299,
+  "PARTIAL/FAILS": 35,
+  "PARTIAL/COMPILES": 23,
+  "EXACT/FAILS": 16,
+  "HIGH_CONFIDENCE/COMPILES": 11,
+  "HIGH_CONFIDENCE/FAILS": 3,
+  "FALLBACK/COMPILES": 3
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 387,
+  "INVOKER_ARGUMENT_UNPROVEN": 3
+ },
+ "type_status": {
+  "STACK_TYPE_MISMATCH": 73,
+  "TYPED": 305,
+  "UNTYPED_LOCALS": 12
+ },
+ "control_flow_status": {
+  "STRUCTURED": 365,
+  "GOTO": 20,
+  "NOT_IMPLEMENTED_INSTRUCTION": 5
+ }
+}
+  Assets/Scripts/Assembly-CSharp/CSVHelper.cs#0xBF7318 GetListGroupCSV: PARTIAL, FRAMEWORK_PRIVATE_MEMBER; CS0122: 'List<Dictionary<string, string>>.Enumerator._list' is inaccessible due to its protection level
+  Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xBF99F4 SetDefaultGUI: PARTIAL, FRAMEWORK_PRIVATE_MEMBER; CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+  Assets/Scripts/Assembly-CSharp/GUIManager.cs#0xC018B4 TurnOnOffSound: EXACT, FRAMEWORK_PRIVATE_MEMBER; CS0122: 'List<AudioSource>.Enumerator._list' is inaccessible due to its protection level
+  Assets/Scripts/Assembly-CSharp/SingletonMono.cs#0x115D7F4 : PARTIAL, UNRESOLVED_LOAD_STANDIN; CS0030: Cannot convert type 'int' to 'UnityEngine.Object'
+  Assets/Scripts/Assembly-CSharp/Box.cs#0xBFC9C8 isDoneBox: PARTIAL, FRAMEWORK_PRIVATE_MEMBER; CS0122: 'Stack<Imposter>.Enumerator._stack' is inaccessible due to its protection level

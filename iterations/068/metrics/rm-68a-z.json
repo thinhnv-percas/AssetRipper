@@ -1,0 +1,401 @@
+{
+  "scope": [
+    "ACTk.Runtime",
+    "Assembly-CSharp",
+    "DOTween",
+    "GoogleMobileAds",
+    "LeanCommon",
+    "LeanPool",
+    "Mono.Security",
+    "__Generated",
+    "spine-unity",
+    "spine-unity-examples"
+  ],
+  "methods": 5377,
+  "nativeBytes": 1064028,
+  "placeholders": 3394,
+  "status": {
+    "HIGH_CONFIDENCE": 193,
+    "PARTIAL": 678,
+    "EXACT": 4450,
+    "FALLBACK": 56
+  },
+  "byAssembly": {
+    "Assembly-CSharp": {
+      "HIGH_CONFIDENCE": 14,
+      "PARTIAL": 58,
+      "EXACT": 315,
+      "FALLBACK": 3
+    },
+    "__Generated": {
+      "FALLBACK": 1,
+      "EXACT": 1
+    },
+    "GoogleMobileAds": {
+      "EXACT": 504,
+      "PARTIAL": 80,
+      "HIGH_CONFIDENCE": 29,
+      "FALLBACK": 31
+    },
+    "spine-unity": {
+      "EXACT": 1551,
+      "HIGH_CONFIDENCE": 67,
+      "PARTIAL": 210,
+      "FALLBACK": 17
+    },
+    "LeanCommon": {
+      "EXACT": 16,
+      "PARTIAL": 2
+    },
+    "ACTk.Runtime": {
+      "EXACT": 967,
+      "PARTIAL": 90,
+      "HIGH_CONFIDENCE": 25,
+      "FALLBACK": 3
+    },
+    "LeanPool": {
+      "EXACT": 67,
+      "PARTIAL": 9,
+      "HIGH_CONFIDENCE": 2
+    },
+    "spine-unity-examples": {
+      "EXACT": 430,
+      "PARTIAL": 64,
+      "HIGH_CONFIDENCE": 15
+    },
+    "DOTween": {
+      "EXACT": 599,
+      "HIGH_CONFIDENCE": 41,
+      "PARTIAL": 165,
+      "FALLBACK": 1
+    }
+  },
+  "lostOperationClasses": {
+    "CALL": 9,
+    "ARRAY_READ": 4,
+    "ARRAY_WRITE": 4,
+    "BRANCH": 1,
+    "FIELD": 33,
+    "NEWOBJ": 8
+  },
+  "fingerprintIr": {
+    "NULL_CHECK": 1971,
+    "COMPARE": 2200,
+    "STATIC_ACCESS": 3561,
+    "BRANCH": 2219,
+    "CALL": 3215,
+    "LOOP": 2217,
+    "INSTANCEOF": 357,
+    "ARITHMETIC": 1378,
+    "ARRAY_READ": 385,
+    "NEWOBJ": 1026,
+    "CAST": 17,
+    "FIELD_ADDRESS": 306,
+    "ARRAY_WRITE": 158
+  },
+  "fingerprintCSharp": {
+    "NULL_CHECK": 1325,
+    "COMPARE": 2037,
+    "NEWOBJ": 1125,
+    "RETURN": 2931,
+    "THROW": 544,
+    "CALL": 4430,
+    "BRANCH": 2235,
+    "CAST": 608,
+    "ARRAY_READ": 582,
+    "STATIC_ACCESS": 2176,
+    "ARITHMETIC": 1314,
+    "LOOP": 729,
+    "NEWARR": 180,
+    "FIELD_ADDRESS": 382,
+    "INSTANCEOF": 12,
+    "ARRAY_WRITE": 176,
+    "SWITCH": 25
+  },
+  "families": {
+    "UNMANAGED_MEMORY_LOAD": {
+      "count": 2047,
+      "files": 157
+    },
+    "NATIVE_IMPORT": {
+      "count": 476,
+      "files": 81
+    },
+    "METHOD_NOT_FOUND": {
+      "count": 341,
+      "files": 73
+    },
+    "NOT_IMPLEMENTED_INSTRUCTION": {
+      "count": 211,
+      "files": 54
+    },
+    "INDIRECT_CALL": {
+      "count": 178,
+      "files": 34
+    },
+    "UNKNOWN_CALL_TARGET": {
+      "count": 97,
+      "files": 38
+    },
+    "INDIRECT_JUMP": {
+      "count": 54,
+      "files": 41
+    },
+    "OTHER": {
+      "count": 2,
+      "files": 1
+    }
+  },
+  "worstFallbacks": [
+    {
+      "nativeBytes": 1352,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 684,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/Utils.cs"
+    },
+    {
+      "nativeBytes": 504,
+      "lost": "ARRAY_WRITE",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/BuildHashes.cs"
+    },
+    {
+      "nativeBytes": 420,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/ACTk.Runtime/CodeStage/AntiCheat/Genuine/CodeHash/FileFilter.cs"
+    },
+    {
+      "nativeBytes": 328,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs"
+    },
+    {
+      "nativeBytes": 292,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/DOTween/DG/Tweening/Plugins/Core/SpecialPluginsUtils.cs"
+    },
+    {
+      "nativeBytes": 288,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/CustomNativeTemplateClient.cs"
+    },
+    {
+      "nativeBytes": 280,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRenderSeparator.cs"
+    },
+    {
+      "nativeBytes": 276,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/MobileAdsClient.cs"
+    },
+    {
+      "nativeBytes": 240,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 240,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InitializationStatusClient.cs"
+    },
+    {
+      "nativeBytes": 232,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/Assembly-CSharp/TimeInGame.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 220,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/ResponseInfoClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/CustomNativeTemplateClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs"
+    },
+    {
+      "nativeBytes": 208,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs"
+    },
+    {
+      "nativeBytes": 200,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonUtility.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedInterstitialAdClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardedAdClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/RewardBasedVideoAdClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/InterstitialClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/CustomNativeTemplateClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs"
+    },
+    {
+      "nativeBytes": 188,
+      "lost": "FIELD",
+      "file": "Assets/Scripts/GoogleMobileAds/GoogleMobileAds/Android/BannerClient.cs"
+    },
+    {
+      "nativeBytes": 184,
+      "lost": "ARRAY_READ,ARRAY_WRITE",
+      "file": "Assets/Scripts/spine-unity/Spine/RegionAttachment.cs"
+    },
+    {
+      "nativeBytes": 180,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/AttachmentTools/AtlasUtilities.cs"
+    },
+    {
+      "nativeBytes": 180,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/ExposedList.cs"
+    },
+    {
+      "nativeBytes": 152,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotionBase.cs"
+    },
+    {
+      "nativeBytes": 144,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/IkConstraintData.cs"
+    },
+    {
+      "nativeBytes": 144,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanimRootMotion.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/TransformConstraintData.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonRootMotion.cs"
+    },
+    {
+      "nativeBytes": 132,
+      "lost": "CALL",
+      "file": "Assets/Scripts/spine-unity/Spine/Unity/SkeletonMecanim.cs"
+    },
+    {
+      "nativeBytes": 128,
+      "lost": "NEWOBJ",
+      "file": "Assets/Scripts/spine-unity/Spine/PathConstraintData.cs"
+    }
+  ]
+}

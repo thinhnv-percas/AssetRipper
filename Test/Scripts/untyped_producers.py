@@ -54,7 +54,9 @@ def family(row):
         return "UNRESOLVED_CALL_ARGUMENT" if row["first_read"] == "an unresolved call" else "ENTRY_VALUE"
     if opcode in ("Call", "IndirectCall"):
         target = definition[definition.find("(") + 1:].split(";", 1)[0]
-        return "RUNTIME_HELPER_RESULT" if target.startswith("0x") or opcode == "IndirectCall" else "MANAGED_CALL_RESULT"
+        # an address, or a symbol the binary named (`"il2cpp_vm_object_box"` renders as StringLiteral), is no managed method
+        runtime = target.startswith("0x") or target.startswith("StringLiteral") or target.startswith('"') or opcode == "IndirectCall"
+        return "RUNTIME_HELPER_RESULT" if runtime else "MANAGED_CALL_RESULT"
     if opcode == "Move" and "MemoryOperand" in definition:
         return "UNRESOLVED_LOAD"
     if opcode == "Add":
@@ -161,6 +163,8 @@ SELF_TEST = [
     ({"opcode": "NONE", "definitions": "0", "first_read": "Add", "chain": "v1:?<-ENTRY"}, "ENTRY_VALUE"),
     ({"opcode": "Call", "definitions": "1", "first_read": "And", "chain": "v1:?<-Call(0xF7087C;v2:?,#7)@100"}, "RUNTIME_HELPER_RESULT"),
     ({"opcode": "Call", "definitions": "1", "first_read": "And", "chain": "v1:?<-Call(List`1::get_Item;v2:?,#7)@100"}, "MANAGED_CALL_RESULT"),
+    ({"opcode": "Call", "definitions": "1", "first_read": "Add",
+      "chain": "v567:?<-Call(StringLiteral;TypeAnalysisContext,MemoryOperand,clobbered_X2:?)@18CB298"}, "RUNTIME_HELPER_RESULT"),
     ({"opcode": "Move", "definitions": "1", "first_read": "Subtract", "chain": "v264:?<-Move(MemoryOperand)@18DA87C"}, "UNRESOLVED_LOAD"),
     ({"opcode": "Add", "definitions": "1", "first_read": "Add",
       "chain": "v1446:?<-Add(v1390:Il2CppClass<System.Collections.Generic.IEnumerator`1<X>>,v1445:Int32)@18C93E0"}, "INTERFACE_METADATA"),

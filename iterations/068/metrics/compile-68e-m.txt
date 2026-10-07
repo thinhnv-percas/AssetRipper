@@ -1,0 +1,31 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.401/Roslyn/bincore/csc.dll
+Assembly-CSharp: 84 files, 4 errors, 2978 warnings
+Assembly-CSharp: 82 of 84 files compile clean
+
+     4  CS0617   [most common: 2 of 4] 'menuName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties which are public and not static.
+
+reference assemblies: 99
+errors classified: 4
+
+DECOMPILER_ERROR        0
+REFERENCE_ERROR         4
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+REFERENCE_ERROR
+       4  CS0617   a named attribute argument whose accessor is absent from the reference assemblies - stripped from the build
+          'fileName' is not a valid named attribute argument. Named attribute arguments must be fields which are not rea
+
+
+BODY_PASS: 4 stripped attribute arguments neutralised in a copy
+Assembly-CSharp (body pass): 280 errors, 50 of 84 files compile clean
+   168  CS0030
+    33  CS0122
+    22  CS0019
+    15  CS1061
+    13  CS0117
+    13  CS0037
+     3  CS0029
+     2  CS0266

@@ -1,0 +1,60 @@
+{
+ "methods": 1096,
+ "unpaired_files": 1,
+ "compile_status": {
+  "COMPILES": 791,
+  "FAILS": 305
+ },
+ "compile_risk_of_failing_methods": {
+  "OTHER": 85,
+  "OBJECT_AS_NATIVE_INT": 48,
+  "INTERFACE_SCAN_SURVIVOR": 39,
+  "UNRESOLVED_LOAD_STANDIN": 25,
+  "BASE_CONSTRUCTOR_CALL": 24,
+  "ARRAY_ELEMENT_ADDRESS": 20,
+  "STRIPPED_FRAMEWORK_MEMBER": 19,
+  "FRAMEWORK_PRIVATE_MEMBER": 17,
+  "STRUCT_FIRST_MEMBER": 15,
+  "INLINED_STATIC_PROPERTY": 5,
+  "FLOAT_USED_AS_INTEGER": 4,
+  "UNASSIGNED_LOCAL": 1,
+  "INTERFACE_METHOD_DELEGATE": 1,
+  "STRUCT_SELF_FIELD_ADDRESS": 1,
+  "SHARED_GENERIC_PLACEHOLDER": 1
+ },
+ "semantic_status": {
+  "EXACT": 768,
+  "PARTIAL": 290,
+  "HIGH_CONFIDENCE": 31,
+  "FALLBACK": 7
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 715,
+  "PARTIAL/FAILS": 229,
+  "PARTIAL/COMPILES": 61,
+  "EXACT/FAILS": 53,
+  "HIGH_CONFIDENCE/FAILS": 20,
+  "HIGH_CONFIDENCE/COMPILES": 11,
+  "FALLBACK/COMPILES": 4,
+  "FALLBACK/FAILS": 3
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 1095,
+  "INVOKER_ARGUMENT_UNPROVEN": 1
+ },
+ "type_status": {
+  "TYPED": 788,
+  "STACK_TYPE_MISMATCH": 297,
+  "UNTYPED_LOCALS": 11
+ },
+ "control_flow_status": {
+  "STRUCTURED": 941,
+  "GOTO": 122,
+  "NOT_IMPLEMENTED_INSTRUCTION": 33
+ }
+}
+  Assets/Scripts/Assembly-CSharp/PathCreation/Examples/PlanarLineMeshCreator.cs#0x1023A28 BuildMesh: PARTIAL, OBJECT_AS_NATIVE_INT; CS0030: Cannot convert type 'PathCreation.Examples.PlanarLineMeshCreator' to 'nint'
+  Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x10017BC FindContiguousRegions: PARTIAL, OTHER; CS0019: Operator '+' cannot be applied to operands of type 'NativeArray<float2>' and 'int'
+  Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x1005EEC CollectNearbyParticles: PARTIAL, OTHER; CS1061: 'Func<int, bool>' does not contain a definition for 'method' and no accessible extension method 'method' accepting a first argument of type 'Func<int, bool>' could be found (are you missing a using directive or an assembly reference?)
+  Assets/Scripts/Assembly-CSharp/Level.cs#0x1010434 CreateSideBackgrounds: PARTIAL, OTHER; CS0030: Cannot convert type 'int' to 'Level._003C_003Ec'
+  Assets/Scripts/Assembly-CSharp/FBWindowsPurchaseManager.cs#0xFE1374 ProcessPurchase: PARTIAL, INTERFACE_SCAN_SURVIVOR; CS0030: Cannot convert type 'Facebook.Unity.IPurchaseResult' to 'nint'

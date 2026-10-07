@@ -1,0 +1,54 @@
+{
+ "methods": 5142,
+ "unpaired_files": 1,
+ "compile_status": {
+  "COMPILES": 4629,
+  "FAILS": 513
+ },
+ "compile_risk_of_failing_methods": {
+  "UNRESOLVED_LOAD_STANDIN": 181,
+  "OTHER": 180,
+  "STRUCT_FIRST_MEMBER": 61,
+  "FRAMEWORK_PRIVATE_MEMBER": 52,
+  "BASE_CONSTRUCTOR_CALL": 11,
+  "INDIRECT_STRUCT_ARGUMENT": 9,
+  "STRUCT_LOCAL_AS_ADDRESS": 8,
+  "UNASSIGNED_LOCAL": 4,
+  "ARRAY_ELEMENT_ADDRESS": 4,
+  "FLOAT_USED_AS_INTEGER": 2,
+  "INTERFACE_METHOD_DELEGATE": 1
+ },
+ "semantic_status": {
+  "EXACT": 4267,
+  "PARTIAL": 711,
+  "HIGH_CONFIDENCE": 154,
+  "FALLBACK": 10
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 4198,
+  "PARTIAL/FAILS": 367,
+  "PARTIAL/COMPILES": 344,
+  "HIGH_CONFIDENCE/COMPILES": 84,
+  "HIGH_CONFIDENCE/FAILS": 70,
+  "EXACT/FAILS": 69,
+  "FALLBACK/FAILS": 7,
+  "FALLBACK/COMPILES": 3
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 5142
+ },
+ "type_status": {
+  "TYPED": 4356,
+  "STACK_TYPE_MISMATCH": 743,
+  "UNTYPED_LOCALS": 43
+ },
+ "control_flow_status": {
+  "STRUCTURED": 4907,
+  "GOTO": 235
+ }
+}
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/SetWheelJoint2dProperties.cs#0x99BC9C SetProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.SetWheelJoint2dProperties' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/GetSceneActivateChangedEventData.cs#0xA34474 DoGetSceneProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.GetSceneActivateChangedEventData' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/Tayx/Graphy/Advanced/G_AdvancedData.cs#0xB0AE6C Init: PARTIAL, OTHER; CS0030: Cannot convert type 'UnityEngine.UI.Text' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/SetHingeJoint2dProperties.cs#0x9955B8 SetProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.SetHingeJoint2dProperties' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiSetColorBlock.cs#0x982A98 DoSetValue: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.UiSetColorBlock' to 'System.IntPtr'

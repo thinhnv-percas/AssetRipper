@@ -1,0 +1,53 @@
+{
+ "methods": 5142,
+ "unpaired_files": 1,
+ "compile_status": {
+  "COMPILES": 4636,
+  "FAILS": 506
+ },
+ "compile_risk_of_failing_methods": {
+  "UNRESOLVED_LOAD_STANDIN": 181,
+  "OTHER": 180,
+  "STRUCT_FIRST_MEMBER": 61,
+  "FRAMEWORK_PRIVATE_MEMBER": 52,
+  "BASE_CONSTRUCTOR_CALL": 11,
+  "INDIRECT_STRUCT_ARGUMENT": 9,
+  "UNASSIGNED_LOCAL": 4,
+  "ARRAY_ELEMENT_ADDRESS": 4,
+  "FLOAT_USED_AS_INTEGER": 2,
+  "STRUCT_LOCAL_AS_ADDRESS": 2
+ },
+ "semantic_status": {
+  "EXACT": 4264,
+  "PARTIAL": 721,
+  "HIGH_CONFIDENCE": 153,
+  "FALLBACK": 4
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 4196,
+  "PARTIAL/FAILS": 368,
+  "PARTIAL/COMPILES": 353,
+  "HIGH_CONFIDENCE/COMPILES": 84,
+  "HIGH_CONFIDENCE/FAILS": 69,
+  "EXACT/FAILS": 68,
+  "FALLBACK/COMPILES": 3,
+  "FALLBACK/FAILS": 1
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 5142
+ },
+ "type_status": {
+  "TYPED": 4349,
+  "STACK_TYPE_MISMATCH": 744,
+  "UNTYPED_LOCALS": 49
+ },
+ "control_flow_status": {
+  "STRUCTURED": 4907,
+  "GOTO": 235
+ }
+}
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/SetWheelJoint2dProperties.cs#0x99BC9C SetProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.SetWheelJoint2dProperties' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/GetSceneActivateChangedEventData.cs#0xA34474 DoGetSceneProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.GetSceneActivateChangedEventData' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/SetHingeJoint2dProperties.cs#0x9955B8 SetProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.SetHingeJoint2dProperties' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiSetColorBlock.cs#0x982A98 DoSetValue: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.UiSetColorBlock' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiGetColorBlock.cs#0x9A5D98 DoGetValue: EXACT, FRAMEWORK_PRIVATE_MEMBER; CS1061: 'Selectable' does not contain a definition for 'm_Colors' and no accessible extension method 'm_Colors' accepting a first argument of type 'Selectable' could be found (are you missing a using directive or an assembly reference?)
