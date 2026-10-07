@@ -5,15 +5,22 @@
 phân tích viết bằng tiếng Việt; tên class, method, symbol, error code giữ nguyên tiếng Anh.
 
 ```
-Iteration hiện tại: 067 (hoàn tất; trọng tâm "Semantic storage, compile recovery & clean C# output". Struct trên
-                          stack là một storage (StackStructStorage, độ rộng store thật); carry unsigned chính xác
-                          (Instruction.IsUnsigned); tham số lấy kiểu theo ParameterIndex; write barrier iOS pre-indexed
-                          (JellyBlastV2 EXACT 4330 → 5258, lỗi thân 2599 → 1982); tuỳ chọn Cpp2ILInjected attributes và
-                          gỡ global:: có kiểm va chạm (CLI + GUI); package UPSTREAM_EXACT vào manifest qua
-                          --package-cache. Oracle độc lập 0.7594 → 0.7864. Không Unity: UNITY_NOT_AVAILABLE; không
+Iteration hiện tại: 068 (hoàn tất; trọng tâm "Native value provenance, compile recovery & Unity runtime gate".
+                          Immediate W là int (Pinata DECOMP-0073 đã sửa); thanh ghi bị call trước làm hỏng không còn là
+                          đối số (nguyên nhân gốc 0xF7087C, lỗi thân Impostor 194 → 156, JellyBlastV2 1982 → 1693,
+                          Pinata 1136 → 1074); stride hằng trong thanh ghi; độ rộng mỗi nửa STP; semantic IR ghi field
+                          chứa ngoài cùng. RunFromZombies behaviour 1.0000. Không Unity: UNITY_NOT_AVAILABLE; không
                           fixture nào compile sạch; PROJECT_GENERATED_COMPILE_IMPROVED.)
 
 Cảnh báo cho phiên sau:
+  - 068: một đối số thô của call không giải quyết được mà không tới được call (đã băng qua call khác) là
+    `clobbered_<reg>`. `ReplaceClobberedRawArguments` chạy trong SSA trước fixpoint kiểu; đừng thêm luật cùng loại sau
+    copy propagation.
+  - 068: METHOD_NOT_FOUND tăng và golden regression tăng (Impostor 11, Merge-Room 22) là tên giả bị gỡ. So với ≤ 067
+    phải đọc từng method; `docs/ITERATION_068.md` §4.
+  - 068: đổi một phép đi ngược trên đồ thị phải chạy cả Pinata. Bản đệ quy chỉ chết ở đó (exit 134).
+  - 068: bản ghi semantic IR giờ ghi thêm field chứa ngoài cùng cho truy cập lồng. Behaviour oracle trước 068 đọc một bản
+    sao từng member là mất ghi.
   - 067: recovery_metrics.methods() bỏ qua accessor auto-property đã gập (`get;`/`set;`). Mọi so sánh với ≤ 066 phải
     đo lại CẢ HAI đầu; số 66i trong docs/ITERATION_067.md đã đo lại (JellyBlastV2 EXACT 4349 → 4330). Golden
     JellyBlastV2 `ResultBase`, `JsonConvert` đọc regression ở cả hai đầu vì baseline đóng băng bằng reader cũ.

@@ -1,0 +1,26 @@
+project: Test/Out68z-p/Pinata
+
+   stage                     verdict  detail
+----------------------------------------------------------------------------------------------------
+A  project generated         PASS     Assets and ProjectSettings present, m_EditorVersion: 2019.2.6f1
+B  scripts generated         PASS     3130 scripts, 26382 KiB, 344 under 200 bytes
+C  references consistent     FAIL     1.0000 of 45811 references resolve, 2 do not
+D  C# compiles               FAIL     2355 of 3115 files compile clean, 4172 errors
+E  AssetDatabase imports     BLOCKED  UNITY_NOT_AVAILABLE
+F  scene opens               BLOCKED  UNITY_NOT_AVAILABLE
+G  prefab instantiates       BLOCKED  UNITY_NOT_AVAILABLE
+H  MonoBehaviour lifecycle   BLOCKED  UNITY_NOT_AVAILABLE
+I  gameplay smoke test       BLOCKED  UNITY_NOT_AVAILABLE
+
+== metrics ==
+compile_pass_rate          0.7560
+body_recovery_rate         0.9838  (16146 methods carry a native address)
+reference_resolution_rate  1.0000
+scene_load_rate            BLOCKED (UNITY_NOT_AVAILABLE)
+prefab_load_rate           BLOCKED (UNITY_NOT_AVAILABLE)
+runtime_smoke_pass_rate    BLOCKED (UNITY_NOT_AVAILABLE)
+shader_programs_recovered  21 of 22  (every pass carries the shader's own compiled program)
+shader_structure_only      1 of 22  (subshaders, passes, tags and render state from the asset; at least one program replaced)
+shader_dummy               0 of 22
+shader_unknown             0 of 22
+shader_exact               NOT_MEASURED_HERE (shader_semantic_equivalence.py decides it against the source ShaderLab)

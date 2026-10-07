@@ -1,0 +1,26 @@
+project: Test/Out68z-m/MergeRoom
+
+   stage                     verdict  detail
+----------------------------------------------------------------------------------------------------
+A  project generated         PASS     Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2
+B  scripts generated         PASS     4044 scripts, 36475 KiB, 371 under 200 bytes
+C  references consistent     FAIL     0.9998 of 12358 references resolve, 3 do not
+D  C# compiles               FAIL     3713 of 4033 files compile clean, 2184 errors
+E  AssetDatabase imports     BLOCKED  UNITY_NOT_AVAILABLE
+F  scene opens               BLOCKED  UNITY_NOT_AVAILABLE
+G  prefab instantiates       BLOCKED  UNITY_NOT_AVAILABLE
+H  MonoBehaviour lifecycle   BLOCKED  UNITY_NOT_AVAILABLE
+I  gameplay smoke test       BLOCKED  UNITY_NOT_AVAILABLE
+
+== metrics ==
+compile_pass_rate          0.9207
+body_recovery_rate         0.9854  (15981 methods carry a native address)
+reference_resolution_rate  0.9998
+scene_load_rate            BLOCKED (UNITY_NOT_AVAILABLE)
+prefab_load_rate           BLOCKED (UNITY_NOT_AVAILABLE)
+runtime_smoke_pass_rate    BLOCKED (UNITY_NOT_AVAILABLE)
+shader_programs_recovered  28 of 34  (every pass carries the shader's own compiled program)
+shader_structure_only      4 of 34  (subshaders, passes, tags and render state from the asset; at least one program replaced)
+shader_dummy               0 of 34
+shader_unknown             2 of 34
+shader_exact               NOT_MEASURED_HERE (shader_semantic_equivalence.py decides it against the source ShaderLab)

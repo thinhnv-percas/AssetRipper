@@ -956,3 +956,34 @@ RunFromZombies behaviour 1.0000 (35/35). JellyBlast oracle độc lập 0.7594 �
 Trạng thái tổng: **`PROJECT_GENERATED_COMPILE_IMPROVED`**: tỉ lệ file sạch tăng trên bốn fixture, không lùi trên fixture
 nào. Không fixture nào compile sạch; `UNITY_NOT_AVAILABLE`. Một REAL_REGRESSION: Pinata `CheckPathMatchPath`
 (carry unsigned của `-1` không kiểu ở 64 bit), xem `docs/ITERATION_067.md`.
+
+## Iteration 068 (67x → 68z, cả hai đầu đo bằng script cuối)
+
+| | Impostor | Merge-Room | RunFromZombies | JellyBlastV2 | Pinata | opt-in |
+|---|---:|---:|---:|---:|---:|---:|
+| EXACT | 4449 → 4437 | 11954 → 11876 | 2934 → 2931 | 5258 → 5247 | 12971 → 12927 | 8510 → 8502 |
+| FALLBACK | 56 → 65 | 212 → 233 | 57 → 57 | 38 → 38 | 265 → 259 | 115 → 115 |
+| Placeholder | 3406 → 3456 | 18142 → **18046** | 3859 → 3920 | 12587 → 12709 | 8442 → 8736 | 19343 → **19210** |
+| Assembly-CSharp Roslyn, body pass | 194 → **156** | 298 → **275** | 7 → 7 | 1982 → **1693** | 1136 → **1074** | — |
+| File compile sạch (body pass) | 41/64 → 41/64 | 50/84 → 51/84 | 18/23 → 18/23 | 79/179 → 79/179 | 716/1109 → 724/1109 | — |
+| OBJECT_AS_NATIVE_INT | 26 → 19 | 59 → 50 | — | 221 → 184 | 2 → 2 | — |
+| STRUCT_FIRST_MEMBER | 7 → 7 | 21 → 15 | 5 → 5 | 67 → 55 | 138 → 127 | — |
+| ARRAY_ELEMENT_ADDRESS | 5 → 5 | 26 → 26 | — | 112 → 110 | 7 → 7 | — |
+| SHARED_GENERIC_PLACEHOLDER | 7 → 4 | 9 → 6 | — | 1 → 1 | — | — |
+| TrueAlias | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 |
+| UnknownAlias | 13 | 43 | 36 | 32 | 14 | 53 |
+| Parameter overwrite (stand-in) | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 |
+| Layout mismatch / generatorFailures | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| Golden cải thiện / regression | 22/2 → 22/11 | 16/2 → 16/22 | 22/2 → 23/5 | 31/2 → 31/2 | — | 31/2 → 31/2 |
+
+Behaviour (tĩnh):
+- RunFromZombies 1.0000 → 1.0000 (35/35);
+- Merge-Room 0.8331 → 0.8338;
+- Impostor 0.7587 → 0.7587;
+- JellyBlast INDEPENDENT 0.7864 → 0.7849 (MEASUREMENT_CHANGE: hai method từng khớp nhờ call giả).
+
+Golden regression và METHOD_NOT_FOUND tăng là tên giả bị gỡ: EXPECTED_CHANGE, `docs/ITERATION_068.md` §4.
+
+REAL_REGRESSION 067 (DECOMP-0073) đã sửa. Không REAL_REGRESSION nào mở. Trạng thái:
+**`PROJECT_GENERATED_COMPILE_IMPROVED`**, `UNITY_NOT_AVAILABLE`.
+

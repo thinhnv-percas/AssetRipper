@@ -1,0 +1,50 @@
+{
+ "root": "Test/Out68z-p/Pinata",
+ "manifest": {
+  "status": "PRESENT",
+  "builtInModules": 31,
+  "builtInModuleVersions": [
+   "1.0.0"
+  ],
+  "packages": {}
+ },
+ "packagesLock": {
+  "status": "ABSENT"
+ },
+ "plugins": {
+  "Android": {
+   "status": "PRESENT",
+   "entries": [
+    "arm64-v8a"
+   ],
+   "files": 7
+  },
+  "iOS": {
+   "status": "ABSENT"
+  }
+ },
+ "projectSettings": {
+  "status": "PRESENT",
+  "files": [
+   "AudioManager.asset",
+   "DelayedCallManager.asset",
+   "DynamicsManager.asset",
+   "EditorBuildSettings.asset",
+   "EditorSettings.asset",
+   "GraphicsSettings.asset",
+   "InputManager.asset",
+   "NavMeshAreas.asset",
+   "Physics2DSettings.asset",
+   "ProjectSettings.asset",
+   "ProjectVersion.txt",
+   "QualitySettings.asset",
+   "RuntimeInitializeOnLoadManager.asset",
+   "StreamingManager.asset",
+   "TagManager.asset",
+   "TimeManager.asset",
+   "UnityConnectSettings.asset",
+   "VFXManager.asset"
+  ],
+  "editorVersion": "2019.2.6f1"
+ }
+}

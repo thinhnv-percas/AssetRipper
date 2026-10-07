@@ -1,0 +1,26 @@
+project: Test/Out68z-j/RunFromZombies
+
+   stage                     verdict  detail
+----------------------------------------------------------------------------------------------------
+A  project generated         PASS     Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2
+B  scripts generated         PASS     796 scripts, 8316 KiB, 107 under 200 bytes
+C  references consistent     PASS     1.0000 of 5378 references resolve, 0 do not
+D  C# compiles               FAIL     779 of 796 files compile clean, 39 errors
+E  AssetDatabase imports     BLOCKED  UNITY_NOT_AVAILABLE
+F  scene opens               BLOCKED  UNITY_NOT_AVAILABLE
+G  prefab instantiates       BLOCKED  UNITY_NOT_AVAILABLE
+H  MonoBehaviour lifecycle   BLOCKED  UNITY_NOT_AVAILABLE
+I  gameplay smoke test       BLOCKED  UNITY_NOT_AVAILABLE
+
+== metrics ==
+compile_pass_rate          0.9786
+body_recovery_rate         0.9853  (3888 methods carry a native address)
+reference_resolution_rate  1.0000
+scene_load_rate            BLOCKED (UNITY_NOT_AVAILABLE)
+prefab_load_rate           BLOCKED (UNITY_NOT_AVAILABLE)
+runtime_smoke_pass_rate    BLOCKED (UNITY_NOT_AVAILABLE)
+shader_programs_recovered  18 of 24  (every pass carries the shader's own compiled program)
+shader_structure_only      6 of 24  (subshaders, passes, tags and render state from the asset; at least one program replaced)
+shader_dummy               0 of 24
+shader_unknown             0 of 24
+shader_exact               NOT_MEASURED_HERE (shader_semantic_equivalence.py decides it against the source ShaderLab)

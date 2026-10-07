@@ -1,0 +1,183 @@
+{
+  "project": "Test/Out68z-i/JellyBlastV2",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.53f1"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "1499 scripts, 19637 KiB, 203 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "1.0000 of 113286 references resolve, 2 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "1327 of 1471 files compile clean, 2602 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    }
+  ],
+  "metrics": {
+    "scripts": 1499,
+    "bytes": 20109073,
+    "trivial": 203,
+    "reference_resolution_rate": 0.9999823455678548,
+    "naming": 113286,
+    "unfollowable": 2,
+    "compile_pass_rate": 0.902107409925221,
+    "compile_errors": 2602,
+    "assemblies": [
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 175,
+        "files": 179
+      },
+      {
+        "assembly": "DOTween",
+        "clean": 105,
+        "files": 106
+      },
+      {
+        "assembly": "Facebook.Unity",
+        "clean": 179,
+        "files": 180
+      },
+      {
+        "assembly": "Facebook.Unity.IOS",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Facebook.Unity.Settings",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "GameAnalyticsSDK",
+        "clean": 21,
+        "files": 34
+      },
+      {
+        "assembly": "Newtonsoft.Json",
+        "clean": 217,
+        "files": 218
+      },
+      {
+        "assembly": "PathCreator",
+        "clean": 9,
+        "files": 18
+      },
+      {
+        "assembly": "RFLib_DotNet_2018_ios",
+        "clean": 8,
+        "files": 9
+      },
+      {
+        "assembly": "RayFireAssembly",
+        "clean": 49,
+        "files": 120
+      },
+      {
+        "assembly": "System.Runtime.CompilerServices.Unsafe",
+        "clean": 1,
+        "files": 1
+      },
+      {
+        "assembly": "Unity.Burst",
+        "clean": 26,
+        "files": 26
+      },
+      {
+        "assembly": "Unity.Burst.Unsafe",
+        "clean": 9,
+        "files": 9
+      },
+      {
+        "assembly": "Unity.Collections",
+        "clean": 80,
+        "files": 104
+      },
+      {
+        "assembly": "Unity.Mathematics",
+        "clean": 18,
+        "files": 19
+      },
+      {
+        "assembly": "Unity.TextMeshPro",
+        "clean": 119,
+        "files": 119
+      },
+      {
+        "assembly": "Unity.VisualScripting.Core",
+        "clean": 159,
+        "files": 160
+      },
+      {
+        "assembly": "UnityEngine.UI",
+        "clean": 118,
+        "files": 121
+      },
+      {
+        "assembly": "Voodoo.UI.Particles",
+        "clean": 11,
+        "files": 20
+      },
+      {
+        "assembly": "__Generated",
+        "clean": 9,
+        "files": 12
+      }
+    ],
+    "body_recovery_rate": 0.9948924731182796,
+    "body_status": {
+      "EXACT": 5247,
+      "HIGH_CONFIDENCE": 221,
+      "PARTIAL": 1934,
+      "FALLBACK": 38,
+      "MISSING": 0
+    },
+    "bodies_attempted": 7440
+  },
+  "shaders": {
+    "STRUCTURE_ONLY": 30
+  }
+}

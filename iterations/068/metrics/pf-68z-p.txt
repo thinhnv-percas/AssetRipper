@@ -1,0 +1,91 @@
+SCOPE: the 42 assemblies recovery was attempted on
+placeholders: 8736
+
+== by family ==
+family                          count  share  methods  asm  generator site         ISIL operation
+-------------------------------------------------------------------------------------------------
+UNMANAGED_MEMORY_LOAD            3879  44.4%     1096   29  IlGenerator.cs:2463    LoadOperand, a MemoryOperand no field was found for
+METHOD_NOT_FOUND                 2232  25.5%      964   29  IlGenerator.cs:1328    OpCode.Call / CallVoid, target is an Immediate
+NATIVE_IMPORT                    1689  19.3%      555   25  IlGenerator.cs:1328    OpCode.Call / CallVoid via a PLT slot
+INDIRECT_CALL                     301   3.4%      183   18  IlGenerator.cs:1446    OpCode.IndirectCall
+UNKNOWN_CALL_TARGET               300   3.4%      209   20  IlGenerator.cs:1333    OpCode.Call, target is not an Immediate
+INDIRECT_JUMP                     207   2.4%      204   22  IlGenerator.cs:1471    OpCode.IndirectJump
+UNRESOLVED_DELEGATE               122   1.4%      122    4  IlGenerator.cs:1155    OpCode.Newobj over a delegate type
+NOT_IMPLEMENTED_INSTRUCTION         5   0.1%        3    2  IlGenerator.cs:1019    OpCode.NotImplemented
+OTHER                               1   0.0%        1    1  -                      -
+
+== what each family means ==
+  UNMANAGED_MEMORY_LOAD          a load whose base type or offset could not be placed
+  METHOD_NOT_FOUND               an address with no managed method at it
+  NATIVE_IMPORT                  a libc or C++ runtime import, named from .rela.plt
+  INDIRECT_CALL                  a virtual or interface dispatch the passes did not resolve
+  UNKNOWN_CALL_TARGET            a call whose target operand is a register or a memory read
+  INDIRECT_JUMP                  a computed branch, typically a switch table
+  UNRESOLVED_DELEGATE            a delegate built over a function pointer nothing resolved
+  NOT_IMPLEMENTED_INSTRUCTION    the lifter has no rule for this native opcode
+  OTHER                          ?
+
+== inside each family, by concrete cause ==
+
+  UNMANAGED_MEMORY_LOAD
+       378    290 methods  X0
+       104     99 methods  X9_v2
+        72     40 methods  (unnamed base)
+        63     40 methods  X8_v15
+        58     19 methods  X8_v4
+        58     48 methods  X20_v2
+        56     12 methods  X21_v10
+        54     31 methods  X8_v12
+        48     21 methods  X8_v17
+        44     19 methods  X21_v6
+        42     24 methods  X8_v7
+        42     26 methods  X1
+    ... and 538 more distinct causes
+
+  METHOD_NOT_FOUND
+      2232    964 methods  (address only)
+
+  NATIVE_IMPORT
+       443    353 methods  __cxa_end_catch
+       407    404 methods  _Unwind_Resume
+       371    344 methods  __cxa_begin_catch
+        87     33 methods  memcpy
+        70     24 methods  modf
+        68     68 methods  __cxa_allocate_exception
+        58     58 methods  __cxa_throw
+        36     29 methods  memset
+        28     21 methods  sqrtf
+        27     18 methods  exp2f
+        22     19 methods  sinf
+        16     15 methods  cosf
+    ... and 15 more distinct causes
+
+  INDIRECT_CALL
+       301    183 methods  (dispatch)
+
+  UNKNOWN_CALL_TARGET
+       188    119 methods  \"il2cpp_vm_object_unbox\"
+        73     68 methods  \"il2cpp_vm_class_is_assignable_from\"
+        19     15 methods  \"il2cpp_codegen_object_is_inst\"
+        16     15 methods  \"il2cpp_vm_object_box\"
+         4      3 methods  \"SzArrayNew\"
+
+  INDIRECT_JUMP
+       207    204 methods  (computed branch)
+
+  UNRESOLVED_DELEGATE
+       113    113 methods  TweenCallback
+         3      3 methods  Action
+         2      2 methods  Trigger2DEvent
+         2      2 methods  TriggerEvent
+         1      1 methods  ParameterizedThreadStart
+         1      1 methods  UpdateFunction
+
+  NOT_IMPLEMENTED_INSTRUCTION
+         2      2 methods  REV
+         1      1 methods  DUP
+         1      1 methods  UNIMPLEMENTED
+         1      1 methods  USHL
+
+  OTHER
+         1      1 methods  Warning: 'this' local not found (operand: X0)

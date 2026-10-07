@@ -1,0 +1,53 @@
+{
+ "methods": 5142,
+ "unpaired_files": 1,
+ "compile_status": {
+  "COMPILES": 4644,
+  "FAILS": 498
+ },
+ "compile_risk_of_failing_methods": {
+  "UNRESOLVED_LOAD_STANDIN": 181,
+  "OTHER": 174,
+  "FRAMEWORK_PRIVATE_MEMBER": 57,
+  "STRUCT_FIRST_MEMBER": 55,
+  "BASE_CONSTRUCTOR_CALL": 11,
+  "INDIRECT_STRUCT_ARGUMENT": 9,
+  "ARRAY_ELEMENT_ADDRESS": 4,
+  "UNASSIGNED_LOCAL": 3,
+  "FLOAT_USED_AS_INTEGER": 2,
+  "STRUCT_LOCAL_AS_ADDRESS": 2
+ },
+ "semantic_status": {
+  "EXACT": 4264,
+  "PARTIAL": 721,
+  "HIGH_CONFIDENCE": 153,
+  "FALLBACK": 4
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 4198,
+  "PARTIAL/FAILS": 362,
+  "PARTIAL/COMPILES": 359,
+  "HIGH_CONFIDENCE/COMPILES": 84,
+  "HIGH_CONFIDENCE/FAILS": 69,
+  "EXACT/FAILS": 66,
+  "FALLBACK/COMPILES": 3,
+  "FALLBACK/FAILS": 1
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 5142
+ },
+ "type_status": {
+  "TYPED": 4359,
+  "STACK_TYPE_MISMATCH": 734,
+  "UNTYPED_LOCALS": 49
+ },
+ "control_flow_status": {
+  "STRUCTURED": 4907,
+  "GOTO": 235
+ }
+}
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/SetWheelJoint2dProperties.cs#0x99BC9C SetProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.SetWheelJoint2dProperties' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/GetSceneActivateChangedEventData.cs#0xA34474 DoGetSceneProperties: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.GetSceneActivateChangedEventData' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiSetColorBlock.cs#0x982A98 DoSetValue: PARTIAL, OTHER; CS0030: Cannot convert type 'HutongGames.PlayMaker.Actions.UiSetColorBlock' to 'System.IntPtr'
+  Assets/Scripts/Assembly-CSharp/HutongGames/PlayMaker/Actions/UiGetColorBlock.cs#0x9A5D98 DoGetValue: EXACT, FRAMEWORK_PRIVATE_MEMBER; CS1061: 'Selectable' does not contain a definition for 'm_Colors' and no accessible extension method 'm_Colors' accepting a first argument of type 'Selectable' could be found (are you missing a using directive or an assembly reference?)
+  Assets/Scripts/Assembly-CSharp/ProGrids/pg_Util.cs#0xB01A38 SnapIsEnabled: PARTIAL, OTHER; CS0030: Cannot convert type 'System.Type' to 'System.IntPtr'

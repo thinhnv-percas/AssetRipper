@@ -49,7 +49,7 @@ Mọi phép gập `array + i * stride` thành `array[i]` cần hai bằng chứn
 | Nhóm | File (số lỗi) | Stride | Kết luận |
 |---|---|---|---|
 | Thân generic chia sẻ hoàn toàn | ExtensionList (5) | `[Il2CppClass<T[]> + 0x104]` = `element_size`, đọc lúc chạy; phần tử chép bằng memcpy `stack_slot_size` (0xFC) | **PROVEN không gập được.** Không có stride tĩnh. |
-| Stride giữ trong thanh ghi qua vòng lặp | ExtensionMesh (8) | `mov w9, #12` trước vòng và trên back edge: phi của một hằng 12 = `sizeof(Vector3)` | **PROVEN, đã sửa ở 068.** |
+| Stride giữ trong thanh ghi qua vòng lặp | ExtensionMesh (8) | `mov w9, #12` trước vòng và trên back edge: phi của một hằng 12 = `sizeof(Vector3)` | **PROVEN, sửa một phần ở 068.** Member `.y`/`.z` giờ là `array6[i].y`; `.x` ở offset 0 vẫn để nguyên theo luật (§4 dưới). |
 | Member đầu ở offset 0 của phần tử struct | SlicedFilledImage (7), RoomObject (3), GameInstaller (1) | `i << 3` trên `Vector2[]`, đọc `[t + 0x20]` | Đây là sự mơ hồ offset 0 (036–039): địa chỉ phần tử và địa chỉ member đầu là một số. Phía load không mang độ rộng. **UNKNOWN**, để nguyên. |
 | Khác | ExtensionDraw (1), Outline (1) | — | Chưa phân loại. |
 
@@ -58,6 +58,14 @@ là cùng một hằng bằng stride metadata (`ConstantHeldBy`).
 - Chỉ trả lời trên `DefinitionMap`, map biết local nào có hơn một định nghĩa. Ngoài SSA, map chỉ giữ định nghĩa cuối
   nên không thể nói thay các định nghĩa khác.
 - Một phi gặp lại trên vòng không đóng góp gì mới.
+
+Luật thứ hai, cùng hàm: compiler cộng cả offset phần tử lẫn offset member trong một lệnh riêng (`t + 0x24` =
+`0x20 + Vector3.y`) rồi đọc `[t2]`. Bước unwrap trước chỉ nhận đúng `0x20`. Giờ nó nhận mọi hằng từ `0x20` trở lên và
+đưa cả hằng vào `DirectElementAddress`, nơi member vẫn được kiểm theo metadata và offset 0 của phần tử struct vẫn bị
+loại. Test: `AnAddPastTheElementsOffsetUnwrapsWithItsWholeConstant`.
+
+Đo trên Merge-Room: ExtensionMesh có `array6[num18].y`, `array6[num18].z`; lỗi thân 277 → 275. Họ ARRAY_ELEMENT_ADDRESS
+vẫn 26, vì mỗi vị trí còn một `(nint)array + k` cho member `.x`.
 
 Test âm:
 - stride đọc lúc chạy (`[klass + 0x104]`, local không định nghĩa, shift theo thanh ghi), với 4/8/12/16;
@@ -81,6 +89,15 @@ D/X 8, Q 16), trên mọi base. Test giải mã `stp s0, s1, [x0, #0x30]`, `stp 
 
 Ghi chú 067 ở chỗ này nói độ rộng heap được giữ nguyên "để logic packed-field không đổi". Đó là một lựa chọn thận trọng,
 không phải một phép đo. Với độ rộng, một store pair đi qua đúng luật mà `STR` cùng độ rộng đã đi từ 046.
+
+Đo (Merge-Room): STRUCT_FIRST_MEMBER 18 → 15; `JoystickVirtual` giờ là `_direction = Vector2.zero;`, đúng như dòng 87 của
+nguồn. Impostor 7 → 7, JellyBlastV2 67 (067) → 55, Pinata 138 (067) → 127.
+
+**Phép đo phải theo kịp.** Với độ rộng, `_rot = v` thành `_rot.x = v.x; _rot.y = v.y; …`, đúng hành vi. Nhưng behaviour
+oracle hạ RunFromZombies 1.0000 → 0.9714 và Merge-Room 0.8331 → 0.8304: `STORE_FIELD` trong semantic IR ghi member trong
+cùng (`x`), không ghi `_rot`, nên `MenuMove.Start` (`firstSpawn = transform.position`) đọc như mất ghi `firstSpawn`. Sửa ở
+nguồn của bản ghi: `IlGenerator` ghi thêm field ngoài cùng khi đọc hoặc ghi qua `ContainingFields`. Sau đó RunFromZombies
+về 1.0000 (35/35) và Merge-Room lên 0.8338.
 
 ## 5. Shared generic (§9)
 

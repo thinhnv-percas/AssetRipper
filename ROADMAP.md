@@ -919,3 +919,26 @@ khai báo, và `CPP2IL_RECOVER_ALSO` mở chúng ra để đo: behaviour 0.6802 
     unsigned theo độ rộng thanh ghi.
 11. **Phép kiểm tên không thấy mảng ngầm định** (`params`, `String.Concat(string[])` thành `+`): 11 PARTIAL → FALLBACK trên
     JellyBlastV2 là body đúng hơn. `recovery_metrics.py` cần nhận một mảng chỉ dùng làm đối số `params`/`Concat`.
+
+## Sau iteration 068 — mục tiêu tiếp theo, đã có bằng chứng
+
+1. **Mang độ rộng store qua `StructSlotAliasRecovery`.** Luật padding của `StackStructStorage` đã viết và có test, nhưng
+   chưa bắn lần nào: store mà pass đó tạo ra đến với `width 0`. Đây là 6 trong 13 kickoff async còn lại trên
+   RunFromZombies (`UNMATCHED_MEMBER offset 4 width 0`). `STRUCT_REJECTION_REASONS_068.md` §3.
+2. **`NAMED_READ_INSIDE` của Merge-Room là một hình dạng.** 768 trên 1000 là mảng `Keyframe` của `AnimationCurve` dựng
+   trên stack rồi đọc từng float theo tên ô.
+3. **`STORE_WIDTH_MISMATCH` là `PackedFieldsCovered` ở tầng struct trên stack.** RunFromZombies 131/181 là
+   `offset 8 width 8 member 1`.
+4. **Member đầu ở offset 0 của phần tử struct vẫn mơ hồ phía load.** ExtensionMesh giờ có `.y`/`.z`; `.x` cần độ rộng
+   load, mà lifter chỉ ghi độ rộng phía store. Một `ldr s0` có độ rộng 4; mang `Size` cho load giống store là bước đầu.
+5. **Miền phi con trỏ/số nguyên.** `MERGE` là producer lớn thứ hai của local không kiểu trên JellyBlastV2 (429 local,
+   23 lỗi). Dump `CPP2IL_DUMP_UNTYPED` đã mang đủ chuỗi định nghĩa để thiết kế luật.
+6. **`0x17FDF50` (khởi tạo method) có trong rendering nhưng không được phát.** 21 FALLBACK của Merge-Room là phép kiểm tên
+   thấy call đó. Định vị nó như một key function, hoặc bỏ nó khỏi rendering khi generator bỏ.
+7. **Accessor pairing cho `List<T>.Enumerator` inline.** Mục 3 của 067, chưa làm. FRAMEWORK_PRIVATE_MEMBER: Impostor 43,
+   Merge-Room 38, JellyBlastV2 254, Pinata 190.
+8. **INTERFACE_SCAN_SURVIVOR** JellyBlastV2 309, Merge-Room 29: giữ nguyên có chủ đích, vì không có dispatch đi kèm để
+   chứng minh scaffolding.
+9. **Write barrier trên Impostor/RunFromZombies** vẫn hoà 76/75; `packages-lock.json` vẫn BLOCKED.
+10. **Một bản Unity** là thứ duy nhất mở được các cổng E–G. Không có nó, mọi số ở đây là tĩnh.
+
