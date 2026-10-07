@@ -440,6 +440,10 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // from the callee's own calling convention.
         IndirectReturnBufferRecovery.Run(this);
 
+        // AssetRipper: iteration 068. Inside SSA and before copy propagation, where a register set up for a call is a
+        // version defined right before it, so "crossed another call" is exactly "left over from an earlier one".
+        MetadataResolver.ReplaceClobberedRawArguments(this);
+
         LocalVariables.ResolveTypesAndFields(this);
         Analysis.IsilDump.Stage(this, "after ResolveTypesAndFields");
 

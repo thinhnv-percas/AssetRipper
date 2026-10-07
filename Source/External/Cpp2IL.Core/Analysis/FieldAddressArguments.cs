@@ -29,6 +29,9 @@ public static class FieldAddressArguments
     /// <summary>How many arguments were recovered as a field's address.</summary>
     public static int Recovered;
 
+    /// <summary>Iteration 068: shared generic methods re-instantiated on the type of the field their <c>ref T</c> addresses.</summary>
+    public static int SharedMethodsInstantiatedOnAField;
+
     public static bool Run(MethodAnalysisContext method)
     {
         if (method.ControlFlowGraph is not { } graph)
@@ -88,8 +91,20 @@ public static class FieldAddressArguments
                     continue;
                 }
 
-                if (field.Field.FieldType is not { } fieldType || fieldType.FullName != referent.FullName)
+                if (field.Field.FieldType is not { } fieldType)
                     continue;
+
+                if (fieldType.FullName != referent.FullName)
+                {
+                    // iteration 068: a shared generic method's `ref T`, filled with Int32Enum or Object, and a field
+                    // that placeholder stood for - the field is the evidence for T, so the call is re-instantiated on it
+                    if (MetadataResolver.InstantiateMethodParameterOn(callee, index, fieldType) is not { } instantiated)
+                        continue;
+
+                    call.SetOperand(0, instantiated);
+                    callee = instantiated;
+                    System.Threading.Interlocked.Increment(ref SharedMethodsInstantiatedOnAField);
+                }
 
                 call.SetOperand(first + index, new AddressOf(field));
                 System.Threading.Interlocked.Increment(ref Recovered);

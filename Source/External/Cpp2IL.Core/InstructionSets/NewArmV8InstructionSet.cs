@@ -472,7 +472,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         Instruction Add(ulong address, OpCode opCode, params List<IOperand> operands)
         {
             addresses.Add(address);
-            var newInstruction = new Instruction(instructions.Count, opCode, operands);
+            var newInstruction = new Instruction(instructions.Count, opCode, operands) { NativeAddress = address }; // AssetRipper: iteration 068
             instructions.Add(newInstruction);
             return newInstruction;
         }

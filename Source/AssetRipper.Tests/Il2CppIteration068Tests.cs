@@ -1,3 +1,5 @@
+using Cpp2IL.Core.Analysis;
+using Cpp2IL.Core.Graphs;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.InstructionSets;
 using Disarm;
@@ -153,5 +155,143 @@ public class Il2CppIteration068Tests
 			Assert.That(IlWidth(old, 5), Is.EqualTo(64));
 			Assert.That(EmittedCarry(old, 5, 64), Is.Not.EqualTo(MachineCarry32(-1, 5)));
 		});
+	}
+
+	// ------------------------------------------------------------------------------------------------------------
+	// §10 - a MethodInfo left in X3 by an earlier call is not an argument of the next one. The interface lookup at
+	// 0xF7087C (receiver, class, slot) was renamed Utilities.TryGetValue on 12068 iOS call sites because the IR keeps
+	// the whole register file as an unresolved call's arguments and does not clobber X0-X18 at a call.
+	// ------------------------------------------------------------------------------------------------------------
+
+	private static LocalVariable Local(string name) => new(name, new Register(null, name));
+
+	private static (ISILControlFlowGraph Graph, Instruction Call) Straight(params Instruction[] instructions)
+	{
+		Block block = new() { Instructions = [.. instructions] };
+		ISILControlFlowGraph graph = new([]);
+		graph.Blocks.Clear();
+		graph.Blocks.Add(block);
+		graph.EntryBlock = block;
+		graph.ExitBlock = block;
+		return (graph, instructions[^1]);
+	}
+
+	[Test]
+	public void AMethodInfoSetUpForTheCallIsItsArgument()
+	{
+		var methodInfo = Local("X3");
+		var (graph, call) = Straight(
+			new Instruction(0, OpCode.Move, methodInfo, new Immediate(0x1000)),
+			new Instruction(1, OpCode.CallVoid, new Immediate(0xF7087C), Local("X0"), methodInfo));
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(graph, call, methodInfo), Is.True);
+	}
+
+	[Test]
+	public void AMethodInfoAnEarlierCallWasGivenIsNotTheNextCallsArgument()
+	{
+		var methodInfo = Local("X3");
+		var (graph, call) = Straight(
+			new Instruction(0, OpCode.Move, methodInfo, new Immediate(0x1000)),
+			new Instruction(1, OpCode.Call, new Immediate(0x2000), Local("ret"), Local("X0"), methodInfo),
+			new Instruction(2, OpCode.Call, new Immediate(0xF7087C), Local("ret2"), Local("X0"), methodInfo));
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(graph, call, methodInfo), Is.False);
+	}
+
+	[Test]
+	public void AnEntryValueReachesOnlyIfNothingWasCalledOnTheWay()
+	{
+		var own = Local("X2");
+		var (direct, firstCall) = Straight(new Instruction(0, OpCode.CallVoid, new Immediate(0x3000), own));
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(direct, firstCall, own), Is.True, "passed straight through");
+
+		var (afterACall, secondCall) = Straight(
+			new Instruction(0, OpCode.CallVoid, new Immediate(0x2000), own),
+			new Instruction(1, OpCode.CallVoid, new Immediate(0x3000), own));
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(afterACall, secondCall, own), Is.False, "clobbered by the first call");
+	}
+
+	[Test]
+	public void APhiReachesOnlyIfEveryInputDoes()
+	{
+		var fresh = Local("X3_a");
+		var stale = Local("X3_b");
+		var merged = Local("X3_c");
+		Block left = new() { Instructions = [new Instruction(0, OpCode.Move, fresh, new Immediate(1))] };
+		Block right = new()
+		{
+			Instructions =
+			[
+				new Instruction(1, OpCode.Move, stale, new Immediate(2)),
+				new Instruction(2, OpCode.CallVoid, new Immediate(0x2000), stale),
+			],
+		};
+		var call = new Instruction(4, OpCode.CallVoid, new Immediate(0xF7087C), merged);
+		Block join = new() { Instructions = [new Instruction(3, OpCode.Phi, merged, fresh, stale), call] };
+		join.Predecessors.AddRange([left, right]);
+		left.Successors.Add(join);
+		right.Successors.Add(join);
+
+		ISILControlFlowGraph graph = new([]);
+		graph.Blocks.Clear();
+		graph.Blocks.AddRange([left, right, join]);
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(graph, call, merged), Is.False, "one input crossed a call");
+
+		right.Instructions.RemoveAt(1);
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(graph, call, merged), Is.True);
+	}
+
+	[Test]
+	public void ACycleOfPhisThroughALoopIsCheckedOnce()
+	{
+		// v = phi(entry, w) at the loop header, w = phi(v) in the latch: each phi's input is the other's destination,
+		// so a walk that expands a phi every time it meets one never ends. The call is on the exit, off the cycle.
+		var entryValue = Local("X1_a");
+		var v = Local("X1_b");
+		var w = Local("X1_c");
+		Block entry = new() { Instructions = [new Instruction(0, OpCode.Move, entryValue, new Immediate(1))] };
+		Block header = new() { Instructions = [new Instruction(1, OpCode.Phi, v, entryValue, w)] };
+		Block latch = new() { Instructions = [new Instruction(2, OpCode.Phi, w, v)] };
+		var call = new Instruction(3, OpCode.CallVoid, new Immediate(0x3000), w);
+		Block exit = new() { Instructions = [call] };
+		header.Predecessors.AddRange([entry, latch]);
+		latch.Predecessors.Add(header);
+		exit.Predecessors.Add(latch);
+		entry.Successors.Add(header);
+		header.Successors.Add(latch);
+		latch.Successors.AddRange([header, exit]);
+
+		ISILControlFlowGraph graph = new([]);
+		graph.Blocks.Clear();
+		graph.Blocks.AddRange([entry, header, latch, exit]);
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(graph, call, w), Is.True, "nothing on the loop calls anything");
+
+		header.Instructions.Add(new Instruction(4, OpCode.CallVoid, new Immediate(0x2000)));
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(graph, call, w), Is.False, "a call between the header phi and the use");
+	}
+
+	[Test]
+	public void AVeryLongChainOfBlocksDoesNotExhaustTheStack()
+	{
+		// Pinata's largest bodies overflowed the stack when the walk recursed once per predecessor.
+		var value = Local("X2");
+		var blocks = new List<Block>();
+		for (var i = 0; i < 200_000; i++)
+		{
+			Block block = new() { Instructions = [new Instruction(i, OpCode.Nop)] };
+			if (blocks.Count > 0)
+			{
+				block.Predecessors.Add(blocks[^1]);
+				blocks[^1].Successors.Add(block);
+			}
+
+			blocks.Add(block);
+		}
+
+		var call = new Instruction(-1, OpCode.CallVoid, new Immediate(0x3000), value);
+		blocks[^1].Instructions.Add(call);
+		ISILControlFlowGraph graph = new([]);
+		graph.Blocks.Clear();
+		graph.Blocks.AddRange(blocks);
+		Assert.That(MetadataResolver.ReachesWithoutAnInterveningCall(graph, call, value), Is.True);
 	}
 }

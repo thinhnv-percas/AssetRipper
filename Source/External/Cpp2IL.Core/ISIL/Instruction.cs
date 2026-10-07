@@ -39,6 +39,13 @@ public class Instruction : IOperand
     /// </summary>
     public bool IsUnsigned;
 
+    /// <summary>
+    /// AssetRipper: iteration 068 - the address of the machine instruction this was lifted from, or 0 for one a pass
+    /// synthesised. Provenance only: nothing in the analysis reads it, so it cannot change what is recovered; it is
+    /// what lets a defect counted in the output be traced back to the instruction that produced it.
+    /// </summary>
+    public ulong NativeAddress;
+
     public bool IsFallThrough =>
         OpCode switch
         {

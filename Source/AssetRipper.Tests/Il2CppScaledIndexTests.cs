@@ -97,6 +97,23 @@ internal sealed class Il2CppScaledIndexTests
 		Assert.That(fixture.Behind(fixture.ShiftLeft(fixture.Index, 64), elementSize: 4), Is.Null);
 	}
 
+	[TestCase(4L)]
+	[TestCase(8L)]
+	[TestCase(12L)]
+	[TestCase(16L)]
+	public void AStrideReadAtRunTimeIsNotAnIndexForAnyStride(long elementSize)
+	{
+		// Iteration 068 (§6): a fully shared generic body indexes T[] with `i * klass->element_size` - a stride
+		// the runtime reads out of Il2CppClass (0x104 on 2022.3), whatever T is instantiated with. No static
+		// stride is proven, so nothing may fold it to array[i], whichever size the metadata would suggest.
+		Fixture fixture = new();
+		LocalVariable klass = new("klass", new(null, "X9"));
+
+		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, new MemoryOperand(baseRegister: klass, addend: 0x104)), elementSize), Is.Null);
+		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, new LocalVariable("stride", new(null, "X11"))), elementSize), Is.Null);
+		Assert.That(fixture.Behind(fixture.ShiftLeftBy(fixture.Index, new LocalVariable("shift", new(null, "X12"))), elementSize), Is.Null);
+	}
+
 	private sealed class Fixture
 	{
 		private int next;
@@ -111,6 +128,10 @@ internal sealed class Il2CppScaledIndexTests
 		public LocalVariable MultiplyReversed(long factor, IOperand index) => Define(OpCode.Multiply, new Immediate(factor), index);
 
 		public LocalVariable Add(IOperand index, long addend) => Define(OpCode.Add, index, new Immediate(addend));
+
+		public LocalVariable MultiplyBy(IOperand index, IOperand factor) => Define(OpCode.Multiply, index, factor);
+
+		public LocalVariable ShiftLeftBy(IOperand index, IOperand shift) => Define(OpCode.ShiftLeft, index, shift);
 
 		private LocalVariable Define(OpCode opCode, IOperand left, IOperand right)
 		{

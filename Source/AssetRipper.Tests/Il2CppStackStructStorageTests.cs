@@ -51,6 +51,13 @@ internal sealed class Il2CppStackStructStorageTests
 
 		public bool HoldsMember(LocalVariable storage, long offset, LocalVariable source) => offset == 8 && ReferenceEquals(source, BuilderValue);
 
+		public bool IsPadding(LocalVariable storage, long offset, long width)
+		{
+			(long Start, long Size)[] members = [(0, 4), (8, 0x18), (0x20, 8), (0x28, 8)];
+			return width > 0 && offset >= 0 && offset + width <= 0x48
+				&& !members.Any(m => offset < m.Start + m.Size && m.Start < offset + width);
+		}
+
 		public TypeAnalysisContext? AddressType(LocalVariable storage, long offset) => null;
 
 		public void Retype(LocalVariable version, LocalVariable typed) => Retyped.Add(version);
@@ -70,10 +77,12 @@ internal sealed class Il2CppStackStructStorageTests
 		public required ISILControlFlowGraph Graph;
 		public required Dictionary<Instruction, int> Widths;
 
-		public int Apply() => StackStructStorage.Apply(Graph, Model, instruction => Widths.TryGetValue(instruction, out var width) ? width : 0);
+		public List<StackStructStorage.Rejection> Rejections { get; } = [];
+
+		public int Apply() => StackStructStorage.Apply(Graph, Model, instruction => Widths.TryGetValue(instruction, out var width) ? width : 0, Rejections);
 	}
 
-	private Kickoff Build(bool readInteriorByName = false, bool gapInCopy = false, bool otherSource = false, int orConstant = 8, int thisStoreWidth = 8)
+	private Kickoff Build(bool readInteriorByName = false, bool gapInCopy = false, bool otherSource = false, int orConstant = 8, int thisStoreWidth = 8, int paddingStoreWidth = 0)
 	{
 		var zero = Reg("V0");
 		var storageZeroed = Slot("stack_-80", 1);
@@ -118,6 +127,7 @@ internal sealed class Il2CppStackStructStorageTests
 			At(OpCode.Move, Slot("stack_-78", 1), vector),
 			At(OpCode.Move, gapInCopy ? Slot("stack_-64", 1) : Slot("stack_-68", 1), x9),
 			At(OpCode.Move, storage, state),
+			.. (paddingStoreWidth > 0 ? new[] { At(OpCode.Move, Slot("stack_-7C", 1), Reg("X11")) } : []),
 			At(OpCode.CallVoid, new Immediate(0x2000), builderAddress, new AddressOf(storage)),
 		];
 		if (readInteriorByName)
@@ -149,6 +159,7 @@ internal sealed class Il2CppStackStructStorageTests
 					"stack_-58" or "stack_-68" or "stack_-64" => 8,
 					"stack_-78" => 16,
 					"stack_-80" => 4,
+					"stack_-7C" => paddingStoreWidth,
 					_ => 0,
 				};
 			}
@@ -255,6 +266,60 @@ internal sealed class Il2CppStackStructStorageTests
 		var k = Build();
 		k.Widths.Clear();
 		Assert.That(k.Apply(), Is.Zero);
+	}
+
+	// Iteration 068: a refusal names the rule that refused it. A total of 488 structs left alone on one fixture said
+	// nothing about which rule to look at; each of these is the reason the case above it is refused for.
+
+	[TestCase(true, false, false, 8, "NAMED_READ_INSIDE")]
+	[TestCase(false, true, false, 8, "INCOMPLETE_COPY")]
+	[TestCase(false, false, true, 8, "MULTIPLE_SOURCE_COPY")]
+	[TestCase(false, false, false, 16, "STORE_WIDTH_MISMATCH")]
+	public void ARefusalNamesItsRule(bool readInterior, bool gap, bool otherSource, int thisWidth, string reason)
+	{
+		var k = Build(readInteriorByName: readInterior, gapInCopy: gap, otherSource: otherSource, thisStoreWidth: thisWidth);
+		Assert.That(k.Apply(), Is.Zero);
+		Assert.That(k.Rejections.Select(r => r.Reason), Is.EqualTo(new[] { reason }));
+		Assert.That(k.Rejections[0].Slot, Is.EqualTo(-0x80), "the slot the struct starts at");
+		Assert.That(k.Rejections[0].CandidateType, Is.EqualTo("StateMachine"));
+	}
+
+	[Test]
+	public void ARecoveredStructRecordsNoRefusal()
+	{
+		var k = Build();
+		Assert.That(k.Apply(), Is.EqualTo(1));
+		Assert.That(k.Rejections, Is.Empty);
+	}
+
+	[Test]
+	public void ASlotNoVersionOfWhichIsAStructIsNotARefusal()
+	{
+		// an int spilled for an `out` argument is address-taken too; it was never a candidate
+		var k = Build();
+		k.Model.Typed.Clear();
+		k.Apply();
+		Assert.That(k.Rejections, Is.Empty);
+	}
+
+	[Test]
+	public void AStoreIntoPaddingIsDroppedNotRefused()
+	{
+		// RunFromZombies' remaining Newtonsoft kickoffs store four bytes at offset 4 - after the int state, before the
+		// builder at 8 - which no member occupies. Nothing reads padding, so the store has no effect to keep.
+		var k = Build(paddingStoreWidth: 4);
+		Assert.That(k.Apply(), Is.EqualTo(1));
+		Assert.That(k.Body.Instructions.Count(i => i.Destination is LocalVariable { Register.Name: "stack_-7C" }), Is.Zero);
+		Assert.That(k.Rejections, Is.Empty);
+	}
+
+	[Test]
+	public void AStoreThatReachesAMemberIsNotPadding()
+	{
+		// eight bytes at offset 4 cover the builder's first four: not padding, and not a member store either
+		var k = Build(paddingStoreWidth: 8);
+		Assert.That(k.Apply(), Is.Zero);
+		Assert.That(k.Rejections.Single().Reason, Is.EqualTo("UNMATCHED_MEMBER"));
 	}
 
 	[TestCase("stack_-80", -0x80)]

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Concurrent;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -29,6 +31,13 @@ public interface IStackStructModel
 
     /// <summary>The struct-typed member containing <paramref name="offset"/>: where it starts and how big it is, or null.</summary>
     (long Start, long Size)? StructMemberContaining(LocalVariable storage, long offset);
+
+    /// <summary>
+    /// Iteration 068: whether <paramref name="width"/> bytes at <paramref name="offset"/> lie inside the struct and touch
+    /// no member - padding, which no C# reads, so a store there has no effect a recovery has to keep. False whenever a
+    /// member's extent is not known.
+    /// </summary>
+    bool IsPadding(LocalVariable storage, long offset, long width);
 
     /// <summary>Whether a value of <paramref name="source"/>'s type is what the member at <paramref name="offset"/> holds.</summary>
     bool HoldsMember(LocalVariable storage, long offset, LocalVariable source);
@@ -83,6 +92,48 @@ public static class StackStructStorage
     public static int MemberAddressesRecovered;
     public static int StructsRejected;
 
+    /// <summary>Iteration 068: stores into a recovered struct's padding, dropped as having no observable effect.</summary>
+    public static int PaddingStoresDropped;
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - why each candidate struct was left alone, counted by reason. A total said that 488
+    /// structs on one fixture were rejected and nothing about which rule did it, so nothing could be chosen to fix.
+    /// </summary>
+    public static readonly ConcurrentDictionary<string, int> RejectionReasons = new();
+
+    /// <summary><c>CPP2IL_DUMP_STRUCT_REJECTIONS=&lt;file&gt;</c>: one row per rejected candidate.</summary>
+    private static readonly string? RejectionDumpPath = Environment.GetEnvironmentVariable("CPP2IL_DUMP_STRUCT_REJECTIONS");
+
+    private static readonly object RejectionDumpLock = new();
+
+    [ThreadStatic] private static MethodAnalysisContext? currentMethod;
+
+    /// <summary>A candidate the pass left alone: the reason, the slot, the candidate type and what broke the rule.</summary>
+    public readonly record struct Rejection(string Reason, int Slot, string CandidateType, string Detail, ulong NativeAddress);
+
+    private static void Reject(List<Rejection>? sink, Rejection rejection)
+    {
+        RejectionReasons.AddOrUpdate(rejection.Reason, 1, static (_, count) => count + 1);
+        sink?.Add(rejection);
+
+        if (RejectionDumpPath is not { Length: > 0 } path || currentMethod is not { } method)
+            return;
+
+        var row = string.Join('\t',
+            method.DeclaringType?.DeclaringAssembly?.Name ?? "?",
+            method.DeclaringType?.FullName ?? "?",
+            method.Name,
+            $"{method.UnderlyingPointer:X}",
+            $"{rejection.NativeAddress:X}",
+            rejection.Slot < 0 ? $"stack_-{-rejection.Slot:X}" : $"stack_{rejection.Slot:X}",
+            rejection.CandidateType,
+            rejection.Reason,
+            rejection.Detail.Replace('\t', ' ').Replace('\n', ' '));
+
+        lock (RejectionDumpLock)
+            File.AppendAllText(path, row + "\n");
+    }
+
     public static void Run(MethodAnalysisContext method)
     {
         if (method.ControlFlowGraph is not { } graph)
@@ -92,10 +143,12 @@ public static class StackStructStorage
 
         try
         {
+            currentMethod = method;
             Apply(graph, new MetadataModel(method.AppContext.Binary.PointerSizeBytes), StackAnalyzer.StackStoreWidth);
         }
         finally
         {
+            currentMethod = null;
             // Every provisional store is decided now: a rewritten one is a member store, a root by its destination;
             // the rest die as they did before iteration 067.
             foreach (var instruction in graph.Blocks.SelectMany(block => block.Instructions))
@@ -103,7 +156,7 @@ public static class StackStructStorage
         }
     }
 
-    public static int Apply(ISILControlFlowGraph graph, IStackStructModel model, Func<Instruction, int> widthOf)
+    public static int Apply(ISILControlFlowGraph graph, IStackStructModel model, Func<Instruction, int> widthOf, List<Rejection>? rejections = null)
     {
         var instructions = graph.Blocks.SelectMany(block => block.Instructions.Select(instruction => (Block: block, Instruction: instruction))).ToList();
 
@@ -132,25 +185,37 @@ public static class StackStructStorage
         foreach (var (start, taken) in addressTaken)
         {
             var typed = versions[start].Where(v => model.StructKey(v) is not null).ToList();
-            if (typed.Count == 0 || typed.Select(model.StructKey).Distinct().Count() != 1)
+            // an address-taken slot no version of which is a struct is not a candidate at all (an int spilled for an
+            // `out` argument), so it is not counted as a rejection; two struct types in one slot is
+            if (typed.Count == 0)
                 continue;
+            if (typed.Select(model.StructKey).Distinct().Count() != 1)
+            {
+                Reject(rejections, new("CONFLICTING_STRUCT_TYPES", start, string.Join("|", typed.Select(model.StructKey).Distinct()), "", 0));
+                continue;
+            }
 
             // the version whose address is handed out names the storage; any typed one otherwise
             var storage = taken.FirstOrDefault(v => model.StructKey(v) is not null) ?? typed[0];
             var size = model.StructSize(storage);
             if (size > 0)
                 candidates.Add((start, size, storage));
+            else
+                Reject(rejections, new("UNKNOWN_MEMBER_LAYOUT", start, $"{model.StructKey(storage)}", "size 0", 0));
         }
 
         // two structs sharing memory are two lifetimes the analysis cannot separate
-        candidates = candidates
-            .Where(c => !candidates.Any(o => o.Start != c.Start && o.Start < c.Start + c.Size && c.Start < o.Start + o.Size))
+        var overlapping = candidates
+            .Where(c => candidates.Any(o => o.Start != c.Start && o.Start < c.Start + c.Size && c.Start < o.Start + o.Size))
             .ToList();
+        foreach (var (start, _, typed) in overlapping)
+            Reject(rejections, new("OVERLAPPING_STORAGE", start, $"{model.StructKey(typed)}", "", 0));
+        candidates = candidates.Except(overlapping).ToList();
 
         var recovered = 0;
         foreach (var (start, size, storage) in candidates)
         {
-            if (TryRecover(start, size, storage, instructions, definitions, multiplyDefined, versions[start], model, widthOf))
+            if (TryRecover(start, size, storage, instructions, definitions, multiplyDefined, versions[start], model, widthOf) is not var (reason, detail, at))
             {
                 recovered++;
                 Interlocked.Increment(ref StructsRecovered);
@@ -158,17 +223,22 @@ public static class StackStructStorage
             else
             {
                 Interlocked.Increment(ref StructsRejected);
+                Reject(rejections, new(reason, start, $"{model.StructKey(storage)}", detail, at));
             }
         }
 
         return recovered;
     }
 
-    private static bool TryRecover(int start, long size, LocalVariable storage,
+    private static (string Reason, string Detail, ulong At)? TryRecover(int start, long size, LocalVariable storage,
         List<(Block Block, Instruction Instruction)> instructions,
         Dictionary<LocalVariable, Instruction> definitions, HashSet<LocalVariable> multiplyDefined,
         HashSet<LocalVariable> slotVersions, IStackStructModel model, Func<Instruction, int> widthOf)
     {
+        // AssetRipper: iteration 068 - every refusal names its rule, the store that broke it and where that came from
+        static (string Reason, string Detail, ulong At)? Fail(string why, Instruction? culprit, string what = "")
+            => (why, culprit is null ? what : $"{what}{(what.Length > 0 ? " " : "")}{culprit}", culprit?.NativeAddress ?? 0);
+
         bool Inside(LocalVariable local) => StackAnalyzer.SlotOffset(local.Register.Name) is { } slot && slot > start && slot < start + size;
 
         bool IsZero(IOperand operand)
@@ -199,7 +269,7 @@ public static class StackStructStorage
                     if (Inside(destination!))
                     {
                         if (instruction.OpCode != OpCode.Move)
-                            return false; // arithmetic into a member's slot: not a store this pass can name
+                            return Fail("NON_MOVE_STORE", instruction); // arithmetic into a member's slot: not a store this pass can name
                         interiorStores.Add((block, instruction, StackAnalyzer.SlotOffset(destination!.Register.Name)!.Value - start));
                     }
                     else if (slotVersions.Contains(destination!) && instruction.OpCode == OpCode.Move)
@@ -212,15 +282,16 @@ public static class StackStructStorage
 
                 // an interior slot read by name is some other variable sharing the memory
                 if (LocalsIn(operand).Any(Inside))
-                    return false;
+                    return Fail("NAMED_READ_INSIDE", instruction);
 
                 // a version that is not the struct, read as a value rather than through its address
                 if (operand is LocalVariable read && slotVersions.Contains(read) && model.StructKey(read) is null)
-                    return false;
+                    return Fail("VERSION_READ_AS_VALUE", instruction);
             }
         }
 
         var plan = new List<Action>();
+        var paddingStores = 0;
         var rewrittenStores = 0;
         var rewrittenCopies = 0;
 
@@ -243,12 +314,13 @@ public static class StackStructStorage
             {
                 if (value is LocalVariable whole && Equals(model.StructKey(whole), storageKey))
                     continue;
-                return false;
+                return Fail("ROOT_STORE_OF_OTHER_VALUE", instruction);
             }
 
-            if (model.Member(storage, 0) is not { } first || model.StructMemberContaining(storage, 0) is not null
-                || widthOf(instruction) != model.MemberSize(storage, 0))
-                return false;
+            if (model.Member(storage, 0) is not { } first || model.StructMemberContaining(storage, 0) is not null)
+                return Fail("UNMATCHED_MEMBER", instruction, "offset 0");
+            if (widthOf(instruction) != model.MemberSize(storage, 0))
+                return Fail("STORE_WIDTH_MISMATCH", instruction, $"offset 0 width {widthOf(instruction)} member {model.MemberSize(storage, 0)}");
 
             var target = instruction;
             plan.Add(() => target.SetOperands([first, target.Operands[1]]));
@@ -280,8 +352,22 @@ public static class StackStructStorage
                 continue;
             }
 
-            if (model.Member(storage, offset) is not { } member || widthOf(instruction) != model.MemberSize(storage, offset))
-                return false;
+            if (model.Member(storage, offset) is not { } member)
+            {
+                // iteration 068: a store into bytes no member occupies - the compiler copying a state field and the
+                // padding after it as one register - writes nothing C# can read, so it is dropped rather than refused
+                if (widthOf(instruction) is > 0 and var paddingWidth && model.IsPadding(storage, offset, paddingWidth))
+                {
+                    var padding = instruction;
+                    plan.Add(() => { padding.OpCode = OpCode.Nop; padding.SetOperands(); });
+                    paddingStores++;
+                    continue;
+                }
+
+                return Fail("UNMATCHED_MEMBER", instruction, $"offset {offset} width {widthOf(instruction)}");
+            }
+            if (widthOf(instruction) != model.MemberSize(storage, offset))
+                return Fail("STORE_WIDTH_MISMATCH", instruction, $"offset {offset} width {widthOf(instruction)} member {model.MemberSize(storage, offset)}");
 
             var target = instruction;
             plan.Add(() => target.SetOperands([member, target.Operands[1]]));
@@ -291,11 +377,11 @@ public static class StackStructStorage
         foreach (var (memberStart, chunks) in copies)
         {
             var memberSize = model.StructMemberContaining(storage, memberStart)!.Value.Size;
-            if (!TryChunkedCopy(chunks, memberStart, memberSize, storage, model, definitions, multiplyDefined, widthOf, out var source))
-                return false;
+            if (!TryChunkedCopy(chunks, memberStart, memberSize, storage, model, definitions, multiplyDefined, widthOf, out var source, out var copyReason))
+                return Fail(copyReason, chunks[0].Instruction, $"member at {memberStart} size {memberSize}");
 
             if (model.Member(storage, memberStart) is not { } member)
-                return false;
+                return Fail("UNMATCHED_MEMBER", chunks[0].Instruction, $"offset {memberStart}");
 
             var ordered = chunks.OrderBy(chunk => chunk.Offset).ToList();
             var head = ordered[0].Instruction;
@@ -346,7 +432,7 @@ public static class StackStructStorage
         }
 
         if (rewrittenStores + rewrittenCopies + addresses == 0 && zeroRoots.Count == 0)
-            return false;
+            return Fail("NOTHING_TO_REWRITE", null);
 
         foreach (var version in slotVersions)
             model.Retype(version, storage);
@@ -355,9 +441,10 @@ public static class StackStructStorage
             step();
 
         Interlocked.Add(ref MemberStoresRecovered, rewrittenStores);
+        Interlocked.Add(ref PaddingStoresDropped, paddingStores);
         Interlocked.Add(ref MemberCopiesRecovered, rewrittenCopies);
         Interlocked.Add(ref MemberAddressesRecovered, addresses);
-        return true;
+        return null;
     }
 
     /// <summary>
@@ -366,9 +453,10 @@ public static class StackStructStorage
     private static bool TryChunkedCopy(List<(Instruction Instruction, long Offset)> chunks, long memberStart, long memberSize,
         LocalVariable storage, IStackStructModel model,
         Dictionary<LocalVariable, Instruction> definitions, HashSet<LocalVariable> multiplyDefined, Func<Instruction, int> widthOf,
-        out LocalVariable? source)
+        out LocalVariable? source, out string reason)
     {
         source = null;
+        reason = "INCOMPLETE_COPY";
         var ordered = chunks.OrderBy(chunk => chunk.Offset).ToList();
         if (ordered[0].Offset != memberStart || ordered.Select(chunk => chunk.Offset).Distinct().Count() != ordered.Count)
             return false;
@@ -380,20 +468,33 @@ public static class StackStructStorage
             // the chunks must tile the member: each starts where the last one ended, and the last ends with the member
             var end = i + 1 < ordered.Count ? ordered[i + 1].Offset : memberStart + memberSize;
             if (widthOf(instruction) is var width && (width <= 0 || offset + width != end))
+            {
+                reason = width <= 0 ? "UNKNOWN_STORE_WIDTH" : "INCOMPLETE_COPY";
                 return false;
+            }
 
             var stored = instruction.Operands[1];
 
             if (SourceOf(stored, definitions, multiplyDefined) is not ({ } value, var at) || at != relative)
+            {
+                reason = "UNKNOWN_COPY_SOURCE";
                 return false;
+            }
 
             if (source is null)
                 source = value;
             else if (!ReferenceEquals(source, value))
+            {
+                reason = "MULTIPLE_SOURCE_COPY";
                 return false;
+            }
         }
 
-        return source is not null && model.HoldsMember(storage, memberStart, source);
+        if (source is not null && model.HoldsMember(storage, memberStart, source))
+            return true;
+
+        reason = "COPY_SOURCE_NOT_MEMBER_TYPE";
+        return false;
     }
 
     /// <summary>Follows copies back to the value a chunk was read out of, and the offset it was read at.</summary>
@@ -528,6 +629,25 @@ public static class StackStructStorage
             }
 
             return null;
+        }
+
+        public bool IsPadding(LocalVariable storage, long offset, long width)
+        {
+            var structSize = TypeSizes.UnboxedSize(storage.Type!, pointerSize);
+            if (width <= 0 || offset < 0 || structSize <= 0 || offset + width > structSize)
+                return false;
+
+            foreach (var field in InstanceFields(storage))
+            {
+                long fieldStart = field.BackingData!.FieldOffset;
+                var fieldSize = field.FieldType.IsValueType ? TypeSizes.UnboxedSize(field.FieldType, pointerSize) : pointerSize;
+                if (fieldSize <= 0)
+                    return false; // an extent not known cannot be shown not to overlap
+                if (offset < fieldStart + fieldSize && fieldStart < offset + width)
+                    return false;
+            }
+
+            return true;
         }
 
         public bool HoldsMember(LocalVariable storage, long offset, LocalVariable source)

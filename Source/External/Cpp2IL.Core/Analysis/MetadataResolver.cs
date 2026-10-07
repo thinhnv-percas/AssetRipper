@@ -1337,6 +1337,19 @@ public static class MetadataResolver
 
             if (!method.AppContext.MethodsByAddress.TryGetValue(target.UnsignedValue, out var candidates))
             {
+                // AssetRipper: iteration 068 - the MethodInfo has to have been handed to *this* call. The raw argument
+                // list of an unresolved call is the whole register file, and the IR does not model a call clobbering the
+                // caller-saved registers, so X3 still names the MethodInfo an earlier `Utilities.TryGetValue<object>` was
+                // given. That is how the iOS interface lookup at 0xF7087C, which takes (receiver, class, slot), was read
+                // as a call to TryGetValue on 12068 call sites. A value defined before an intervening call is not an
+                // argument of the later one: AAPCS64 X0-X18 do not survive a call.
+                if (GetMethodInfoOperand(instruction) is LocalVariable passed
+                    && !ReachesWithoutAnInterveningCall(method.ControlFlowGraph!, instruction, passed))
+                {
+                    System.Threading.Interlocked.Increment(ref StaleMethodInfoArgumentsRefused);
+                    continue;
+                }
+
                 // Some shared generic bodies aren't in the address map at all (todo investigate?).
                 // Il2cpp still passes the concrete MethodInfo as the hidden final parameter, so we can use a methodof there if we have one.
                 // However, make sure it isn't our OWN hidden MethodInfo arg, because that would turn all unknown calls into recursion
@@ -1551,6 +1564,136 @@ public static class MetadataResolver
     private static MethodAnalysisContext BaseMethodOf(MethodAnalysisContext method) =>
         method is ConcreteGenericMethodAnalysisContext { BaseMethodContext: { } baseMethod } ? baseMethod : method;
 
+    /// <summary>Iteration 068: calls not renamed because the MethodInfo they held was left over from an earlier call.</summary>
+    public static int StaleMethodInfoArgumentsRefused;
+
+    /// <summary>The operand <see cref="GetMethodInfoArgument"/> reads its MethodInfo from.</summary>
+    private static IOperand? GetMethodInfoOperand(Instruction call)
+    {
+        var firstArg = call.OpCode == OpCode.CallVoid ? 1 : 2;
+
+        for (var i = call.Operands.Count - 1; i >= firstArg; i--)
+        {
+            if (AsMethodInfo(call.Operands[i]) is not null)
+                return call.Operands[i];
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - whether <paramref name="value"/> reaches <paramref name="call"/> with no other call
+    /// between its definition and it, on every path: what makes a register an argument of that call rather than a value
+    /// left over from an earlier one. A phi's inputs are followed from the end of the predecessor each comes from; a
+    /// value no instruction defines reaches only if no call lies between the method's entry and here.
+    /// </summary>
+    public static bool ReachesWithoutAnInterveningCall(ISILControlFlowGraph graph, Instruction call, LocalVariable value)
+    {
+        foreach (var block in graph.Blocks)
+        {
+            var index = block.Instructions.IndexOf(call);
+            if (index >= 0)
+                return ReachesFrom(block, index - 1, value, []);
+        }
+
+        return false;
+    }
+
+    /// <summary>Iteration 068: raw register arguments of unresolved calls replaced because an earlier call clobbered them.</summary>
+    public static int ClobberedRawArgumentsReplaced;
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - an unresolved call keeps the whole argument register file as its arguments, and the IR
+    /// does not model a call clobbering X0-X18 and V0-V7, so a value an earlier call was handed sits in the next call's
+    /// raw list as if it were passed again. That is not neutral: it is what <see cref="ResolveCallsViaMethodInfo"/> read
+    /// as the callee's identity, and as a use it pins the value - a struct parameter split over two registers stayed a
+    /// local of its own instead of folding back into the parameter, and a delegate was invoked with
+    /// <c>default(StreamingContext)</c> where the source passed <c>context</c>. A raw argument that cannot reach the call
+    /// without crossing another call is replaced by a fresh local named after its register and written by nothing: the
+    /// slot keeps its position and name for any later remapping, and a value nobody passed reads as exactly that.
+    /// </summary>
+    public static void ReplaceClobberedRawArguments(MethodAnalysisContext method)
+    {
+        if (method.ControlFlowGraph is not { } graph
+            || method.AppContext.InstructionSet.CallingConventionResolver is not { } conventions)
+            return;
+
+        foreach (var block in graph.Blocks)
+        {
+            for (var index = 0; index < block.Instructions.Count; index++)
+            {
+                var call = block.Instructions[index];
+                if (call.OpCode is not (OpCode.Call or OpCode.CallVoid) || call.Operands.Count == 0
+                    || call.Operands[0] is MethodAnalysisContext
+                    || !conventions.HasRawArgumentLayout(call, method.AppContext))
+                    continue;
+
+                var first = call.OpCode == OpCode.CallVoid ? 1 : 2;
+                for (var i = first; i < call.Operands.Count; i++)
+                {
+                    if (call.Operands[i] is not LocalVariable { Register.Name: var register } passed
+                        || ReachesFrom(block, index - 1, passed, []))
+                        continue;
+
+                    call.SetOperand(i, new LocalVariable($"clobbered_{register}", new Register(null, register)));
+                    System.Threading.Interlocked.Increment(ref ClobberedRawArgumentsReplaced);
+                }
+            }
+        }
+    }
+
+    // An explicit worklist: every path has to satisfy the rule, so the order the paths are checked in does not matter, and
+    // recursing once per predecessor overflowed the stack on Pinata's largest graphs.
+    private static bool ReachesFrom(Block block, int index, LocalVariable value, HashSet<(Block, LocalVariable)> visited)
+    {
+        var pending = new Stack<(Block Block, int Index, LocalVariable Value)>();
+        var expanded = new HashSet<Instruction>();
+        pending.Push((block, index, value));
+
+        while (pending.Count > 0)
+        {
+            var (current, from, wanted) = pending.Pop();
+            var settled = false;
+
+            for (var i = from; i >= 0 && !settled; i--)
+            {
+                var instruction = current.Instructions[i];
+
+                if (instruction.OpCode == OpCode.Phi && ReferenceEquals(instruction.Destination, wanted))
+                {
+                    // input k of a phi arrives from predecessor k; a cycle of phis through a loop is checked once
+                    var first = expanded.Add(instruction);
+                    for (var k = 1; first && k < instruction.Operands.Count && k - 1 < current.Predecessors.Count; k++)
+                    {
+                        if (instruction.Operands[k] is LocalVariable input)
+                        {
+                            var predecessor = current.Predecessors[k - 1];
+                            pending.Push((predecessor, predecessor.Instructions.Count - 1, input));
+                        }
+                    }
+
+                    settled = true;
+                }
+                else if (ReferenceEquals(instruction.Destination, wanted))
+                    settled = true;
+                else if (instruction.OpCode is OpCode.Call or OpCode.CallVoid or OpCode.IndirectCall)
+                    return false;
+            }
+
+            if (settled)
+                continue;
+
+            if (!visited.Add((current, wanted)))
+                continue; // a loop back to a point already being checked adds no new path
+
+            // the entry block: an entry value reaches if nothing on the way called anything
+            foreach (var predecessor in current.Predecessors)
+                pending.Push((predecessor, predecessor.Instructions.Count - 1, wanted));
+        }
+
+        return true;
+    }
+
     private static RuntimeMethodInfoAnalysisContext? GetMethodInfoArgument(Instruction call)
     {
         var firstArg = call.OpCode == OpCode.CallVoid ? 1 : 2;
@@ -1754,6 +1897,59 @@ public static class MetadataResolver
             return null;
 
         return new ConcreteGenericMethodAnalysisContext(concrete.BaseMethodContext, arguments, concrete.MethodGenericParameters);
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - whether a value of <paramref name="actual"/> type is what a sharing placeholder in a
+    /// generic argument position stood for.
+    /// </summary>
+    /// <remarks>
+    /// il2cpp shares one body for every int-backed enum as <c>System.Int32Enum</c> - a type no source names - and one
+    /// for every reference type as <c>System.Object</c>. So <c>Int32Enum</c> admits exactly an enum whose underlying
+    /// type is <c>int</c>, and <c>Object</c> admits a reference type, and only where the argument position really was
+    /// a type parameter (<see cref="InstantiateMethodParameterOn"/> checks that, so <c>ref object</c> of an ordinary
+    /// method still wants an <c>object</c> field).
+    /// </remarks>
+    public static bool SharingPlaceholderAdmits(TypeAnalysisContext placeholder, TypeAnalysisContext actual) => placeholder.FullName switch
+    {
+        "System.Int32Enum" => actual.IsEnumType && actual.EnumUnderlyingType?.FullName == "System.Int32",
+        "System.Object" => !actual.IsValueType && actual is not GenericParameterTypeAnalysisContext && actual.FullName != "System.Object",
+        _ => false,
+    };
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - <paramref name="callee"/> re-instantiated so that its parameter
+    /// <paramref name="parameterIndex"/>, declared <c>T</c> or <c>ref T</c> for a method type parameter <c>T</c> that
+    /// sharing filled with a placeholder, is <paramref name="actual"/> instead.
+    /// </summary>
+    /// <remarks>
+    /// <c>SetPropertyUtility.SetStruct&lt;T&gt;(ref T currentValue, T newValue)</c> called for an enum field resolves to
+    /// the linker's <c>SetStruct&lt;System.Int32Enum&gt;</c>, and the argument - the field's address - could never match
+    /// <c>ref Int32Enum</c>, so it stayed <c>ref *(System.Int32Enum*)((nint)this + 224)</c>. The field the address names
+    /// is the evidence for <c>T</c>; null when the parameter is not a placeholder-filled method type parameter, or the
+    /// placeholder could not have stood for that type.
+    /// </remarks>
+    public static MethodAnalysisContext? InstantiateMethodParameterOn(MethodAnalysisContext callee, int parameterIndex, TypeAnalysisContext actual)
+    {
+        if (callee is not ConcreteGenericMethodAnalysisContext { MethodGenericParameters.Count: > 0 } concrete
+            || parameterIndex >= concrete.BaseMethodContext.Parameters.Count)
+            return null;
+
+        var declared = concrete.BaseMethodContext.Parameters[parameterIndex].ParameterType;
+        if (declared is ByRefTypeAnalysisContext { ElementType: { } element })
+            declared = element;
+
+        if (declared is not GenericParameterTypeAnalysisContext { Type: LibCpp2IL.BinaryStructures.Il2CppTypeEnum.IL2CPP_TYPE_MVAR, Index: var index }
+            || index >= concrete.MethodGenericParameters.Count)
+            return null;
+
+        var placeholder = concrete.MethodGenericParameters[index];
+        if (!SharingPlaceholderAdmits(placeholder, actual))
+            return null;
+
+        var arguments = concrete.MethodGenericParameters.ToArray();
+        arguments[index] = actual;
+        return new ConcreteGenericMethodAnalysisContext(concrete.BaseMethodContext, concrete.TypeGenericParameters, arguments);
     }
 
     private static TypeAnalysisContext? ReceiverType(IOperand receiver) => receiver switch
