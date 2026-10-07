@@ -1,0 +1,61 @@
+{
+ "methods": 1096,
+ "unpaired_files": 1,
+ "compile_status": {
+  "COMPILES": 793,
+  "FAILS": 303
+ },
+ "compile_risk_of_failing_methods": {
+  "OTHER": 81,
+  "OBJECT_AS_NATIVE_INT": 53,
+  "INTERFACE_SCAN_SURVIVOR": 39,
+  "BASE_CONSTRUCTOR_CALL": 24,
+  "UNRESOLVED_LOAD_STANDIN": 23,
+  "ARRAY_ELEMENT_ADDRESS": 20,
+  "STRIPPED_FRAMEWORK_MEMBER": 19,
+  "FRAMEWORK_PRIVATE_MEMBER": 16,
+  "STRUCT_FIRST_MEMBER": 13,
+  "INLINED_STATIC_PROPERTY": 5,
+  "FLOAT_USED_AS_INTEGER": 5,
+  "UNASSIGNED_LOCAL": 1,
+  "INTERFACE_METHOD_DELEGATE": 1,
+  "STRUCT_SELF_FIELD_ADDRESS": 1,
+  "STRUCT_LOCAL_AS_ADDRESS": 1,
+  "SHARED_GENERIC_PLACEHOLDER": 1
+ },
+ "semantic_status": {
+  "EXACT": 768,
+  "PARTIAL": 290,
+  "HIGH_CONFIDENCE": 31,
+  "FALLBACK": 7
+ },
+ "semantic_by_compile": {
+  "EXACT/COMPILES": 715,
+  "PARTIAL/FAILS": 227,
+  "PARTIAL/COMPILES": 63,
+  "EXACT/FAILS": 53,
+  "HIGH_CONFIDENCE/FAILS": 20,
+  "HIGH_CONFIDENCE/COMPILES": 11,
+  "FALLBACK/COMPILES": 4,
+  "FALLBACK/FAILS": 3
+ },
+ "abi_status": {
+  "NO_EVIDENCE_OF_LOSS": 1095,
+  "INVOKER_ARGUMENT_UNPROVEN": 1
+ },
+ "type_status": {
+  "TYPED": 790,
+  "STACK_TYPE_MISMATCH": 294,
+  "UNTYPED_LOCALS": 12
+ },
+ "control_flow_status": {
+  "STRUCTURED": 941,
+  "GOTO": 122,
+  "NOT_IMPLEMENTED_INSTRUCTION": 33
+ }
+}
+  Assets/Scripts/Assembly-CSharp/PathCreation/Examples/PlanarLineMeshCreator.cs#0x1023A28 BuildMesh: PARTIAL, OBJECT_AS_NATIVE_INT; CS0030: Cannot convert type 'PathCreation.Examples.PlanarLineMeshCreator' to 'nint'
+  Assets/Scripts/Assembly-CSharp/FBWindowsPurchaseManager.cs#0xFE1374 ProcessPurchase: PARTIAL, INTERFACE_SCAN_SURVIVOR; CS0030: Cannot convert type 'Facebook.Unity.IPurchaseResult' to 'nint'
+  Assets/Scripts/Assembly-CSharp/Level.cs#0x1010434 CreateSideBackgrounds: PARTIAL, OTHER; CS0030: Cannot convert type 'int' to 'Level._003C_003Ec'
+  Assets/Scripts/Assembly-CSharp/FluidSolver.cs#0x10017BC FindContiguousRegions: PARTIAL, OTHER; CS0019: Operator '+' cannot be applied to operands of type 'NativeArray<float2>' and 'int'
+  Assets/Scripts/Assembly-CSharp/FBWindowsLoginManager.cs#0xFDF790 GetCurrentProfile: PARTIAL, INTERFACE_SCAN_SURVIVOR; CS0030: Cannot convert type 'Facebook.Unity.IProfileResult' to 'nint'

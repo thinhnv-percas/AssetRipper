@@ -1,0 +1,7 @@
+Test/Out68yn-j/RunFromZombies/Assets/Scripts/Assembly-CSharp/BoxRaRot.cs(12,32): error CS0117: 'Math' does not contain a definition for 'PI'
+Test/Out68yn-j/RunFromZombies/Assets/Scripts/Assembly-CSharp/BoxRaRot.cs(17,41): error CS7036: There is no argument given that corresponds to the required parameter 'y' of 'Quaternion.Euler(float, float, float)'
+Test/Out68yn-j/RunFromZombies/Assets/Scripts/Assembly-CSharp/ObsJumper.cs(79,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out68yn-j/RunFromZombies/Assets/Scripts/Assembly-CSharp/ObsJumper.cs(129,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out68yn-j/RunFromZombies/Assets/Scripts/Assembly-CSharp/MenuMove.cs(66,13): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out68yn-j/RunFromZombies/Assets/Scripts/Assembly-CSharp/ObsDropper.cs(81,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out68yn-j/RunFromZombies/Assets/Scripts/Assembly-CSharp/ZambiesMovement.cs(83,13): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'

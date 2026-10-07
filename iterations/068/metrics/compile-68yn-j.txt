@@ -1,0 +1,30 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.401/Roslyn/bincore/csc.dll
+Assembly-CSharp: 20 files, 7 errors, 66 warnings
+Assembly-CSharp: 15 of 20 files compile clean
+
+     5  CS0030   [most common: 5 of 5] Cannot convert type 'float' to 'UnityEngine.Vector3'
+     1  CS7036   [most common: 1 of 1] There is no argument given that corresponds to the required parameter 'y' of 'Quaternion.Euler(float, float, float)'
+     1  CS0117   [most common: 1 of 1] 'Math' does not contain a definition for 'PI'
+
+reference assemblies: 55
+errors classified: 7
+
+DECOMPILER_ERROR        5
+REFERENCE_ERROR         1
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            1
+
+DECOMPILER_ERROR
+       5  CS0030   invalid C# independent of the reference set
+          Cannot convert type 'float' to 'UnityEngine.Vector3'
+
+REFERENCE_ERROR
+       1  CS0117   absent from the reference assemblies - stripped from the build
+          'Math' does not contain a definition for 'PI'
+
+UNCLASSIFIED
+       1  CS7036   lookup failure whose symbol could not be read from the message
+          There is no argument given that corresponds to the required parameter 'y' of 'Quaternion.Euler(float, float, f
+

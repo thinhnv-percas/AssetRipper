@@ -264,11 +264,10 @@ public static class ArrayRecovery
 
         if (!definitions.TryGetValue(computed, out var outer)
             || outer is not { OpCode: OpCode.Add, Operands: [_, var first, var second] }
-            || ElementsOffsetAddedSeparately(first, second, pointerSize) is not { } inner)
+            || ElementsOffsetAddedSeparately(first, second, pointerSize) is not { } separately)
             return null;
 
-        return DirectElementAddress(memory, inner, definitions, pointerSize, method,
-            ElementsOffset(pointerSize));
+        return DirectElementAddress(memory, separately.Inner, definitions, pointerSize, method, separately.Added);
     }
 
     /// <param name="extraAddend">
@@ -369,14 +368,18 @@ public static class ArrayRecovery
     /// shape an element address rather than arbitrary pointer arithmetic, and it is the same constant
     /// every other rule in this file keys on.
     /// </remarks>
-    private static LocalVariable? ElementsOffsetAddedSeparately(IOperand left, IOperand right, int pointerSize)
+    // AssetRipper: iteration 068 - the constant can carry a member's offset as well: `t + 0x24` is the elements offset plus
+    // Vector3.y, computed once and loaded through as `[t2]`. DirectElementAddress takes the whole constant as the extra
+    // addend, so a member past the start of a struct element is checked against the metadata exactly as when the offset
+    // sits in the memory operand, and offset zero of a struct element stays excluded.
+    public static (LocalVariable Inner, long Added)? ElementsOffsetAddedSeparately(IOperand left, IOperand right, int pointerSize)
     {
         var offset = ElementsOffset(pointerSize);
 
         return (left, right) switch
         {
-            (LocalVariable inner, Immediate { Value: var value }) when value == offset => inner,
-            (Immediate { Value: var value }, LocalVariable inner) when value == offset => inner,
+            (LocalVariable inner, Immediate { Value: var value }) when value >= offset => (inner, value),
+            (Immediate { Value: var value }, LocalVariable inner) when value >= offset => (inner, value),
             _ => null,
         };
     }

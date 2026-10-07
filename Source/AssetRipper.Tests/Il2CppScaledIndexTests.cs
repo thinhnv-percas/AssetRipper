@@ -173,6 +173,22 @@ internal sealed class Il2CppScaledIndexTests
 		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, copy), elementSize: 12), Is.Null);
 	}
 
+	[Test]
+	public void AnAddPastTheElementsOffsetUnwrapsWithItsWholeConstant()
+	{
+		// Iteration 068: ExtensionMesh adds 0x24 - the elements offset plus Vector3.y - in its own instruction and loads
+		// through the result at offset zero. The whole constant is what the element-address check measures from.
+		LocalVariable computed = new("t", new(null, "X11"));
+		Assert.Multiple(() =>
+		{
+			Assert.That(ArrayRecovery.ElementsOffsetAddedSeparately(computed, new Immediate(0x20), 8), Is.EqualTo((computed, 0x20L)));
+			Assert.That(ArrayRecovery.ElementsOffsetAddedSeparately(computed, new Immediate(0x24), 8), Is.EqualTo((computed, 0x24L)));
+			Assert.That(ArrayRecovery.ElementsOffsetAddedSeparately(new Immediate(0x28), computed, 8), Is.EqualTo((computed, 0x28L)));
+			Assert.That(ArrayRecovery.ElementsOffsetAddedSeparately(computed, new Immediate(0x18), 8), Is.Null, "short of the elements offset is the array header");
+			Assert.That(ArrayRecovery.ElementsOffsetAddedSeparately(computed, computed, 8), Is.Null);
+		});
+	}
+
 	private sealed class Fixture
 	{
 		private int next;

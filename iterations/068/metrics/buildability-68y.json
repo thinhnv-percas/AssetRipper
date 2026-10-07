@@ -1,0 +1,338 @@
+{
+ "unity": "UNITY_NOT_AVAILABLE",
+ "fixtures": {
+  "Impostor": {
+   "NativeRecovery": {
+    "verdict": "PASS",
+    "generatorFailures": 0,
+    "fieldLayoutDisagreements": 0,
+    "monoBehaviourLayoutMismatches": 0,
+    "runComplete": true
+   },
+   "SemanticRecovery": {
+    "verdict": "MEASURED",
+    "methods": 5376,
+    "status": {
+     "HIGH_CONFIDENCE": 190,
+     "PARTIAL": 684,
+     "EXACT": 4437,
+     "FALLBACK": 65
+    },
+    "exactRate": 0.8253,
+    "placeholders": 3444
+   },
+   "UnityProjectRecovery": {
+    "verdict": "FAIL",
+    "stages": {
+     "A project generated": {
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2"
+     },
+     "B scripts generated": {
+      "verdict": "PASS",
+      "detail": "830 scripts, 9346 KiB, 97 under 200 bytes"
+     },
+     "C references consistent": {
+      "verdict": "FAIL",
+      "detail": "0.9942 of 1376 references resolve, 8 do not"
+     }
+    },
+    "referenceResolutionRate": 0.9941860465116279,
+    "bodyRecoveryRate": 0.9879092261904762,
+    "note": "stage D of validate_unity_stages counts the declaration pass; CompileReadiness below is the body pass"
+   },
+   "CompileReadiness": {
+    "verdict": "FAIL",
+    "assembly": null,
+    "errors": 156,
+    "files": 830,
+    "filesClean": 807,
+    "fileCompileRate": 0.9723
+   },
+   "RuntimeReadiness": {
+    "verdict": "UNITY_NOT_AVAILABLE",
+    "stages": {
+     "import": "UNITY_NOT_AVAILABLE",
+     "compile_in_editor": "UNITY_NOT_AVAILABLE",
+     "build": "UNITY_NOT_AVAILABLE",
+     "launch": "UNITY_NOT_AVAILABLE",
+     "scenarios": "UNITY_NOT_AVAILABLE"
+    }
+   },
+   "BehaviorReadiness": {
+    "verdict": "MEASURED",
+    "staticOracleRate": 0.7587,
+    "oracle": "static_source_oracle",
+    "runtime": "UNITY_NOT_AVAILABLE",
+    "note": "a static oracle over the recovered text; behavioural equivalence needs both builds run"
+   },
+   "FULLY_RECOVERED": false
+  },
+  "MergeRoom": {
+   "NativeRecovery": {
+    "verdict": "PASS",
+    "generatorFailures": 0,
+    "fieldLayoutDisagreements": 0,
+    "monoBehaviourLayoutMismatches": 0,
+    "runComplete": true
+   },
+   "SemanticRecovery": {
+    "verdict": "MEASURED",
+    "methods": 15981,
+    "status": {
+     "PARTIAL": 3120,
+     "EXACT": 11876,
+     "FALLBACK": 233,
+     "HIGH_CONFIDENCE": 751,
+     "MISSING": 1
+    },
+    "exactRate": 0.7431,
+    "placeholders": 18035
+   },
+   "UnityProjectRecovery": {
+    "verdict": "FAIL",
+    "stages": {
+     "A project generated": {
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2"
+     },
+     "B scripts generated": {
+      "verdict": "PASS",
+      "detail": "4044 scripts, 36475 KiB, 371 under 200 bytes"
+     },
+     "C references consistent": {
+      "verdict": "FAIL",
+      "detail": "0.9998 of 12358 references resolve, 3 do not"
+     }
+    },
+    "referenceResolutionRate": 0.9997572422722123,
+    "bodyRecoveryRate": 0.9853576121644453,
+    "note": "stage D of validate_unity_stages counts the declaration pass; CompileReadiness below is the body pass"
+   },
+   "CompileReadiness": {
+    "verdict": "FAIL",
+    "assembly": null,
+    "errors": 277,
+    "files": 4032,
+    "filesClean": 4000,
+    "fileCompileRate": 0.9921
+   },
+   "RuntimeReadiness": {
+    "verdict": "UNITY_NOT_AVAILABLE",
+    "stages": {
+     "import": "UNITY_NOT_AVAILABLE",
+     "compile_in_editor": "UNITY_NOT_AVAILABLE",
+     "build": "UNITY_NOT_AVAILABLE",
+     "launch": "UNITY_NOT_AVAILABLE",
+     "scenarios": "UNITY_NOT_AVAILABLE"
+    }
+   },
+   "BehaviorReadiness": {
+    "verdict": "MEASURED",
+    "staticOracleRate": 0.8338,
+    "oracle": "static_source_oracle",
+    "runtime": "UNITY_NOT_AVAILABLE",
+    "note": "a static oracle over the recovered text; behavioural equivalence needs both builds run"
+   },
+   "FULLY_RECOVERED": false
+  },
+  "JellyBlastV2": {
+   "NativeRecovery": {
+    "verdict": "PASS",
+    "generatorFailures": 0,
+    "fieldLayoutDisagreements": 0,
+    "monoBehaviourLayoutMismatches": 0,
+    "runComplete": true
+   },
+   "SemanticRecovery": {
+    "verdict": "MEASURED",
+    "methods": 7440,
+    "status": {
+     "EXACT": 5247,
+     "PARTIAL": 1934,
+     "FALLBACK": 38,
+     "HIGH_CONFIDENCE": 221
+    },
+    "exactRate": 0.7052,
+    "placeholders": 12867
+   },
+   "UnityProjectRecovery": {
+    "verdict": "FAIL",
+    "stages": {
+     "A project generated": {
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.53f1"
+     },
+     "B scripts generated": {
+      "verdict": "PASS",
+      "detail": "1499 scripts, 19637 KiB, 203 under 200 bytes"
+     },
+     "C references consistent": {
+      "verdict": "FAIL",
+      "detail": "1.0000 of 113286 references resolve, 2 do not"
+     }
+    },
+    "referenceResolutionRate": 0.9999823455678548,
+    "bodyRecoveryRate": 0.9948924731182796,
+    "note": "stage D of validate_unity_stages counts the declaration pass; CompileReadiness below is the body pass"
+   },
+   "CompileReadiness": {
+    "verdict": "FAIL",
+    "assembly": null,
+    "errors": 1693,
+    "files": 1471,
+    "filesClean": 1373,
+    "fileCompileRate": 0.9334
+   },
+   "RuntimeReadiness": {
+    "verdict": "UNITY_NOT_AVAILABLE",
+    "stages": {
+     "import": "UNITY_NOT_AVAILABLE",
+     "compile_in_editor": "UNITY_NOT_AVAILABLE",
+     "build": "UNITY_NOT_AVAILABLE",
+     "launch": "UNITY_NOT_AVAILABLE",
+     "scenarios": "UNITY_NOT_AVAILABLE"
+    }
+   },
+   "BehaviorReadiness": {
+    "verdict": "NOT_MEASURED",
+    "reason": "no behaviour oracle given",
+    "runtime": "UNITY_NOT_AVAILABLE"
+   },
+   "FULLY_RECOVERED": false
+  },
+  "RunFromZombies": {
+   "NativeRecovery": {
+    "verdict": "PASS",
+    "generatorFailures": 0,
+    "fieldLayoutDisagreements": 0,
+    "monoBehaviourLayoutMismatches": 0,
+    "runComplete": true
+   },
+   "SemanticRecovery": {
+    "verdict": "MEASURED",
+    "methods": 3888,
+    "status": {
+     "EXACT": 2931,
+     "HIGH_CONFIDENCE": 171,
+     "FALLBACK": 57,
+     "PARTIAL": 729
+    },
+    "exactRate": 0.7539,
+    "placeholders": 3987
+   },
+   "UnityProjectRecovery": {
+    "verdict": "PASS",
+    "stages": {
+     "A project generated": {
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2022.3.62f2"
+     },
+     "B scripts generated": {
+      "verdict": "PASS",
+      "detail": "796 scripts, 8316 KiB, 107 under 200 bytes"
+     },
+     "C references consistent": {
+      "verdict": "PASS",
+      "detail": "1.0000 of 5378 references resolve, 0 do not"
+     }
+    },
+    "referenceResolutionRate": 1.0,
+    "bodyRecoveryRate": 0.9853395061728395,
+    "note": "stage D of validate_unity_stages counts the declaration pass; CompileReadiness below is the body pass"
+   },
+   "CompileReadiness": {
+    "verdict": "FAIL",
+    "assembly": null,
+    "errors": 7,
+    "files": 796,
+    "filesClean": 791,
+    "fileCompileRate": 0.9937
+   },
+   "RuntimeReadiness": {
+    "verdict": "UNITY_NOT_AVAILABLE",
+    "stages": {
+     "import": "UNITY_NOT_AVAILABLE",
+     "compile_in_editor": "UNITY_NOT_AVAILABLE",
+     "build": "UNITY_NOT_AVAILABLE",
+     "launch": "UNITY_NOT_AVAILABLE",
+     "scenarios": "UNITY_NOT_AVAILABLE"
+    }
+   },
+   "BehaviorReadiness": {
+    "verdict": "MEASURED",
+    "staticOracleRate": 1.0,
+    "oracle": "static_source_oracle",
+    "runtime": "UNITY_NOT_AVAILABLE",
+    "note": "a static oracle over the recovered text; behavioural equivalence needs both builds run"
+   },
+   "FULLY_RECOVERED": false
+  },
+  "Pinata": {
+   "NativeRecovery": {
+    "verdict": "PASS",
+    "generatorFailures": 0,
+    "fieldLayoutDisagreements": 0,
+    "monoBehaviourLayoutMismatches": 0,
+    "runComplete": true
+   },
+   "SemanticRecovery": {
+    "verdict": "MEASURED",
+    "methods": 16146,
+    "status": {
+     "EXACT": 12927,
+     "FALLBACK": 259,
+     "PARTIAL": 2299,
+     "HIGH_CONFIDENCE": 659,
+     "MISSING": 2
+    },
+    "exactRate": 0.8006,
+    "placeholders": 8724
+   },
+   "UnityProjectRecovery": {
+    "verdict": "FAIL",
+    "stages": {
+     "A project generated": {
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 2019.2.6f1"
+     },
+     "B scripts generated": {
+      "verdict": "PASS",
+      "detail": "3130 scripts, 26382 KiB, 344 under 200 bytes"
+     },
+     "C references consistent": {
+      "verdict": "FAIL",
+      "detail": "1.0000 of 45811 references resolve, 2 do not"
+     }
+    },
+    "referenceResolutionRate": 0.9999563423631879,
+    "bodyRecoveryRate": 0.9838350055741361,
+    "note": "stage D of validate_unity_stages counts the declaration pass; CompileReadiness below is the body pass"
+   },
+   "CompileReadiness": {
+    "verdict": "FAIL",
+    "assembly": null,
+    "errors": 1074,
+    "files": 3115,
+    "filesClean": 2730,
+    "fileCompileRate": 0.8764
+   },
+   "RuntimeReadiness": {
+    "verdict": "UNITY_NOT_AVAILABLE",
+    "stages": {
+     "import": "UNITY_NOT_AVAILABLE",
+     "compile_in_editor": "UNITY_NOT_AVAILABLE",
+     "build": "UNITY_NOT_AVAILABLE",
+     "launch": "UNITY_NOT_AVAILABLE",
+     "scenarios": "UNITY_NOT_AVAILABLE"
+    }
+   },
+   "BehaviorReadiness": {
+    "verdict": "NOT_MEASURED",
+    "reason": "no behaviour oracle given",
+    "runtime": "UNITY_NOT_AVAILABLE"
+   },
+   "FULLY_RECOVERED": false
+  }
+ }
+}
