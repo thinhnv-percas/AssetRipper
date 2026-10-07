@@ -2281,9 +2281,105 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		untypedLocalKinds.AddOrUpdate(kind, 1, static (_, count) => count + 1);
 
+		if (UntypedDumpPath is { Length: > 0 } untypedDump && reads > 0 && methodContext.ControlFlowGraph is { } graph)
+		{
+			DumpUntypedProducer(untypedDump, methodContext, graph, local, firstRead);
+		}
+
 		if (!untypedLocalExamples.ContainsKey(kind))
 		{
 			untypedLocalExamples.TryAdd(kind, $"{methodContext.DeclaringType?.Name}.{methodContext.Name}: {example}");
+		}
+	}
+
+	/// <summary>
+	/// Iteration 068: <c>CPP2IL_DUMP_UNTYPED=&lt;file&gt;</c> writes one row per untyped local that something reads - the
+	/// producer of every <c>object</c>-declared value a cast is later written over - with the defining instruction, the
+	/// native address it was lifted from, and the chain of definitions behind it. A compile error names the expression;
+	/// this names the machine instruction.
+	/// </summary>
+	private static readonly string? UntypedDumpPath = Environment.GetEnvironmentVariable("CPP2IL_DUMP_UNTYPED");
+
+	private static readonly object untypedDumpLock = new();
+
+	private static void DumpUntypedProducer(string path, MethodAnalysisContext methodContext, ISILControlFlowGraph graph, LocalVariable local, string? firstRead)
+	{
+		Dictionary<LocalVariable, List<Instruction>> definitions = [];
+		foreach (Instruction instruction in graph.AllInstructions)
+		{
+			if (instruction.Destination is LocalVariable destination)
+			{
+				if (!definitions.TryGetValue(destination, out List<Instruction>? list))
+				{
+					definitions[destination] = list = [];
+				}
+
+				list.Add(instruction);
+			}
+		}
+
+		string Describe(IOperand operand) => operand switch
+		{
+			LocalVariable { Type: { } type } typed => $"{typed.Name}:{type.Name}",
+			LocalVariable untyped => $"{untyped.Name}:?",
+			Immediate immediate => $"#{immediate.Value}",
+			_ => operand.GetType().Name,
+		};
+
+		List<string> chain = [];
+		HashSet<LocalVariable> seen = [];
+		LocalVariable? cursor = local;
+		ulong nativeAddress = 0;
+		string definitionOpcode = "NONE";
+		int definitionCount = definitions.TryGetValue(local, out List<Instruction>? own) ? own.Count : 0;
+
+		for (int depth = 0; cursor is not null && depth < 6 && seen.Add(cursor); depth++)
+		{
+			if (!definitions.TryGetValue(cursor, out List<Instruction>? defining) || defining.Count == 0)
+			{
+				chain.Add($"{Describe(cursor)}<-{(cursor.ParameterIndex >= 0 || cursor.IsThis ? "PARAMETER" : "ENTRY")}");
+				break;
+			}
+
+			Instruction definition = defining[0];
+			if (depth == 0)
+			{
+				nativeAddress = definition.NativeAddress;
+				definitionOpcode = definition.OpCode.ToString();
+			}
+
+			string operands = string.Join(",", definition.Operands.Skip(1).Take(3).Select(Describe));
+			if (definition.OpCode is OpCode.Call or OpCode.CallVoid or OpCode.IndirectCall && definition.Operands.Count > 0)
+			{
+				// the target says whether this is a managed method's return or a runtime helper's
+				string target = definition.Operands[0] switch
+				{
+					MethodAnalysisContext callee => $"{callee.DeclaringType?.Name}::{callee.Name}",
+					Immediate address => $"0x{address.Value:X}",
+					IOperand other => Describe(other),
+				};
+				operands = $"{target};{string.Join(",", definition.Operands.Skip(2).Take(3).Select(Describe))}";
+			}
+			chain.Add($"{Describe(cursor)}<-{definition.OpCode}({operands})@{definition.NativeAddress:X}{(defining.Count > 1 ? $"x{defining.Count}" : "")}");
+			cursor = definition.Operands.Skip(1).OfType<LocalVariable>().FirstOrDefault(l => l.Type is null)
+				?? definition.Operands.Skip(1).OfType<LocalVariable>().FirstOrDefault();
+		}
+
+		string row = string.Join('\t',
+			methodContext.DeclaringType?.DeclaringAssembly?.Name ?? "?",
+			methodContext.DeclaringType?.FullName ?? "?",
+			methodContext.Name,
+			$"{methodContext.UnderlyingPointer:X}",
+			local.Name,
+			definitionOpcode,
+			$"{nativeAddress:X}",
+			definitionCount.ToString(System.Globalization.CultureInfo.InvariantCulture),
+			firstRead ?? "-",
+			string.Join(" | ", chain).Replace('\t', ' ').Replace('\n', ' '));
+
+		lock (untypedDumpLock)
+		{
+			File.AppendAllText(path, row + "\n");
 		}
 	}
 
@@ -3292,6 +3388,10 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 
 		Logger.Info(LogCategory.Import,
 			$"Il2Cpp method body recovery (067): {Cpp2IL.Core.Analysis.StackStructStorage.StructsRecovered} stack structs recovered as one storage ({Cpp2IL.Core.Analysis.StackStructStorage.StructsRejected} left alone), {Cpp2IL.Core.Analysis.StackStructStorage.MemberStoresRecovered} member stores, {Cpp2IL.Core.Analysis.StackStructStorage.MemberCopiesRecovered} member copies, {Cpp2IL.Core.Analysis.StackStructStorage.MemberAddressesRecovered} member addresses; {Cpp2IL.Core.Analysis.StackAnalyzer.ProvisionalStructStoresKept} stack stores kept provisionally; {Cpp2IL.Core.Analysis.FieldAddressArguments.RecoveredDefinitions} managed references recovered as a field address where defined");
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp method body recovery (068): {Cpp2IL.Core.Analysis.MetadataResolver.ClobberedRawArgumentsReplaced} raw arguments of unresolved calls replaced as clobbered by an earlier call, {Cpp2IL.Core.Analysis.MetadataResolver.StaleMethodInfoArgumentsRefused} calls not renamed after a MethodInfo left over from an earlier call, {Cpp2IL.Core.Analysis.FieldAddressArguments.SharedMethodsInstantiatedOnAField} shared generic methods instantiated on the field their ref T addresses, {Cpp2IL.Core.Analysis.StackStructStorage.PaddingStoresDropped} padding stores dropped");
+		Logger.Info(LogCategory.Import,
+			$"Il2Cpp method body recovery (068): stack structs left alone by reason: {string.Join(", ", Cpp2IL.Core.Analysis.StackStructStorage.RejectionReasons.OrderByDescending(pair => pair.Value).Select(pair => $"{pair.Key} {pair.Value}"))}");
 
 			var lookupFed = Cpp2IL.Core.Analysis.RuntimeInterfaceResolver.Counts;
 

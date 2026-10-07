@@ -57,7 +57,13 @@ static class Program
 			  --no-cpp2il-injected-attributes
 			                          The same: emit no Cpp2ILInjected attribute ([Address], [Token],
 			                          [FieldOffset], [Attribute]) and declare none of their types.
-			  --no-simplify-global    Keep every global:: qualifier ILSpy wrote, even where nothing collides.
+			  --emit-cpp2il-injected-attributes
+			                          Emit them (the default).
+			  --keep-global-qualification
+			                          Keep every global:: qualifier ILSpy wrote, even where nothing collides.
+			                          --no-simplify-global is the same.
+			  --simplify-global-qualification
+			                          Drop a global:: qualifier where nothing collides (the default).
 			  --package-cache <dir>   Replace the ripped copies of the packages in <dir> (name@version folders)
 			                          with the packages themselves, and add them to Packages/manifest.json.
 			                          Test/Scripts/proven_package_cache.py builds one holding only proven versions.
@@ -135,8 +141,15 @@ static class Program
 					case "--no-cpp2il-injected-attributes": // iteration 067: RecoveredCodeOutputOptions.EmitCpp2ILInjectedAttributes
 						options.EmitIl2CppOffsets = false;
 						break;
+					case "--emit-cpp2il-injected-attributes": // iteration 068: the explicit form of the default
+						options.EmitIl2CppOffsets = true;
+						break;
 					case "--no-simplify-global": // iteration 067: RecoveredCodeOutputOptions.SimplifyGlobalQualification
+					case "--keep-global-qualification": // iteration 068: the name the option has everywhere else
 						options.SimplifyGlobalQualification = false;
+						break;
+					case "--simplify-global-qualification": // iteration 068: the explicit form of the default
+						options.SimplifyGlobalQualification = true;
 						break;
 					case "--package-cache" when i + 1 < args.Length: // iteration 067: a source for PackageRemapPostExporter
 						options.PackageCachePath = Path.GetFullPath(args[++i]);
