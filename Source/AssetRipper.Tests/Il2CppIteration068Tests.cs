@@ -157,6 +157,18 @@ public class Il2CppIteration068Tests
 		});
 	}
 
+	// §7 - each half of a store pair writes the width of its register, on any base. The first half of
+	// `stp s0, s1, [x0, #0x30]` into a Vector3 field is its x; without a width it named the whole field.
+	[TestCase(0x2D060400u, 4, TestName = "stp s0, s1, [x0, #0x30] writes four bytes a half")]
+	[TestCase(0xA9012408u, 8, TestName = "stp x8, x9, [x0, #0x10] writes eight bytes a half")]
+	[TestCase(0x29012408u, 4, TestName = "stp w8, w9, [x0, #0x8] writes four bytes a half")]
+	public void AStorePairHalfIsAsWideAsItsRegister(uint word, int width)
+	{
+		var instruction = Decode(word);
+		Assert.That(instruction.Mnemonic, Is.EqualTo(Arm64Mnemonic.STP), instruction.ToString());
+		Assert.That(NewArmV8InstructionSet.PairAccessWidth(instruction.Op0Reg), Is.EqualTo(width), instruction.ToString());
+	}
+
 	// ------------------------------------------------------------------------------------------------------------
 	// §10 - a MethodInfo left in X3 by an earlier call is not an argument of the next one. The interface lookup at
 	// 0xF7087C (receiver, class, slot) was renamed Utilities.TryGetValue on 12068 iOS call sites because the IR keeps

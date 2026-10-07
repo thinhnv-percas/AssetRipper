@@ -114,10 +114,69 @@ internal sealed class Il2CppScaledIndexTests
 		Assert.That(fixture.Behind(fixture.ShiftLeftBy(fixture.Index, new LocalVariable("shift", new(null, "X12"))), elementSize), Is.Null);
 	}
 
+	[Test]
+	public void AStrideALoopKeepsInARegisterIsTheStride()
+	{
+		// Iteration 068: ExtensionMesh.RecalculateNormals reads Vector3[] vertices[triangles[i]] as `triangles[i] * w9` with
+		// `mov w9, #12` before the loop and again on its back edge - a phi of one constant, sizeof(Vector3).
+		Fixture fixture = new();
+		LocalVariable stride = new("stride", new(null, "X9"));
+		fixture.Phi(stride, fixture.Constant(12), stride, new Immediate(12));
+
+		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, stride), elementSize: 12), Is.SameAs(fixture.Index));
+		Assert.That(fixture.Behind(fixture.MultiplyBy(stride, fixture.Index), elementSize: 12), Is.SameAs(fixture.Index));
+	}
+
+	[Test]
+	public void AStrideIsNotProvenByAMergeOfTwoConstants()
+	{
+		Fixture fixture = new();
+		LocalVariable stride = new("stride", new(null, "X9"));
+		fixture.Phi(stride, fixture.Constant(12), fixture.Constant(16));
+
+		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, stride), elementSize: 12), Is.Null);
+		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, stride), elementSize: 16), Is.Null);
+	}
+
+	[Test]
+	public void AStrideIsNotProvenThroughALocalWithSeveralDefinitions()
+	{
+		// Out of SSA the map keeps a local's last definition only, so it cannot speak for the others.
+		Fixture fixture = new();
+		var stride = fixture.Constant(12);
+		fixture.DefineAgain(stride);
+
+		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, stride), elementSize: 12), Is.Null);
+	}
+
+	[Test]
+	public void AStrideIsNotProvenWithoutKnowingHowManyDefinitionsALocalHas()
+	{
+		Fixture fixture = new();
+		var stride = fixture.Constant(12);
+
+		Assert.That(fixture.BehindWithoutDefinitionCounts(fixture.MultiplyBy(fixture.Index, stride), elementSize: 12), Is.Null);
+	}
+
+	[Test]
+	public void AStrideCopiedFromALoadIsNotProven()
+	{
+		Fixture fixture = new();
+		LocalVariable stride = new("stride", new(null, "X9"));
+		LocalVariable klass = new("klass", new(null, "X10"));
+		Instruction load = new(900, OpCode.Move);
+		load.SetOperands(stride, new MemoryOperand(baseRegister: klass, addend: 0x104));
+		fixture.Record(stride, load);
+		LocalVariable copy = new("copy", new(null, "X11"));
+		fixture.Phi(copy, stride);
+
+		Assert.That(fixture.Behind(fixture.MultiplyBy(fixture.Index, copy), elementSize: 12), Is.Null);
+	}
+
 	private sealed class Fixture
 	{
 		private int next;
-		private readonly Dictionary<LocalVariable, Instruction> definitions = [];
+		private readonly ArrayRecovery.DefinitionMap definitions = [];
 
 		public LocalVariable Index { get; } = new("i", new(null, "X10"));
 
@@ -130,6 +189,30 @@ internal sealed class Il2CppScaledIndexTests
 		public LocalVariable Add(IOperand index, long addend) => Define(OpCode.Add, index, new Immediate(addend));
 
 		public LocalVariable MultiplyBy(IOperand index, IOperand factor) => Define(OpCode.Multiply, index, factor);
+
+		public LocalVariable Constant(long value)
+		{
+			LocalVariable destination = new($"constant{next}", new(null, "X9"));
+			Instruction instruction = new(next++, OpCode.Move);
+			instruction.SetOperands(destination, new Immediate(value));
+			definitions[destination] = instruction;
+			return destination;
+		}
+
+		public LocalVariable Phi(LocalVariable destination, params IOperand[] inputs)
+		{
+			Instruction instruction = new(next++, OpCode.Phi);
+			instruction.SetOperands([destination, .. inputs]);
+			definitions[destination] = instruction;
+			return destination;
+		}
+
+		public void DefineAgain(LocalVariable local) => definitions.MultiplyDefined.Add(local);
+
+		public void Record(LocalVariable local, Instruction definition) => definitions[local] = definition;
+
+		public IOperand? BehindWithoutDefinitionCounts(LocalVariable scaled, long elementSize)
+			=> ArrayRecovery.ScaledIndexBehind(scaled, elementSize, new Dictionary<LocalVariable, Instruction>(definitions));
 
 		public LocalVariable ShiftLeftBy(IOperand index, IOperand shift) => Define(OpCode.ShiftLeft, index, shift);
 

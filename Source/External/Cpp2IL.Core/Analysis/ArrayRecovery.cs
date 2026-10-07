@@ -61,13 +61,27 @@ public static class ArrayRecovery
 
     private static Dictionary<LocalVariable, Instruction> Definitions(MethodAnalysisContext method)
     {
-        var definitions = new Dictionary<LocalVariable, Instruction>();
+        var definitions = new DefinitionMap();
 
         foreach (var instruction in method.ControlFlowGraph!.Instructions)
             if (instruction.Destination is LocalVariable destination)
+            {
+                if (definitions.ContainsKey(destination))
+                    definitions.MultiplyDefined.Add(destination);
                 definitions[destination] = instruction;
+            }
 
         return definitions;
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - a definition map that also says which locals it could not map to one instruction. The
+    /// map keeps the last definition of each local, which is all the shape matches need; a proof that a local holds one
+    /// constant needs every definition, so it reads only locals this set does not name.
+    /// </summary>
+    public sealed class DefinitionMap : Dictionary<LocalVariable, Instruction>
+    {
+        public HashSet<LocalVariable> MultiplyDefined { get; } = [];
     }
 
     private static void RecoverAccesses(MethodAnalysisContext method)
@@ -389,8 +403,61 @@ public static class ArrayRecovery
                 when factor.Value == elementSize => index,
             { OpCode: OpCode.Multiply, Operands: [_, Immediate factor, var index] }
                 when factor.Value == elementSize => index,
+            // AssetRipper: iteration 068 - a loop keeps the stride in a register: `mov w9, #12` ahead of it and again on
+            // the back edge, so the multiply names a local that a phi of constants defines. It is the stride only when
+            // every definition reaching it is that one constant; a value loaded at run time (a fully shared body's
+            // Il2CppClass.element_size) or a merge of two constants is not.
+            { OpCode: OpCode.Multiply, Operands: [_, var index, LocalVariable factor] }
+                when ConstantHeldBy(factor, definitions) == elementSize => index,
+            { OpCode: OpCode.Multiply, Operands: [_, LocalVariable factor, var index] }
+                when ConstantHeldBy(factor, definitions) == elementSize => index,
             _ => null,
         };
+    }
+
+    /// <summary>
+    /// AssetRipper: iteration 068 - the constant <paramref name="local"/> holds on every path, or null. Only a
+    /// <see cref="DefinitionMap"/> can answer, because only it says which locals have one definition; through copies and
+    /// phis, with a phi met again on a loop contributing nothing new.
+    /// </summary>
+    public static long? ConstantHeldBy(LocalVariable local, Dictionary<LocalVariable, Instruction> definitions)
+    {
+        if (definitions is not DefinitionMap map)
+            return null;
+
+        long? value = null;
+        return Holds(local, map, [], ref value) ? value : null;
+
+        static bool Holds(IOperand operand, DefinitionMap map, HashSet<LocalVariable> visiting, ref long? value)
+        {
+            switch (operand)
+            {
+                case Immediate immediate:
+                    if (value is { } seen)
+                        return seen == immediate.Value;
+                    value = immediate.Value;
+                    return true;
+                case LocalVariable local:
+                    if (!visiting.Add(local))
+                        return true; // around a loop and back: nothing new
+                    if (map.MultiplyDefined.Contains(local) || !map.TryGetValue(local, out var definition))
+                        return false;
+                    switch (definition)
+                    {
+                        case { OpCode: OpCode.Move, Operands: [_, var source] }:
+                            return Holds(source, map, visiting, ref value);
+                        case { OpCode: OpCode.Phi }:
+                            for (var i = 1; i < definition.Operands.Count; i++)
+                                if (!Holds(definition.Operands[i], map, visiting, ref value))
+                                    return false;
+                            return true;
+                        default:
+                            return false;
+                    }
+                default:
+                    return false;
+            }
+        }
     }
 
     private static IOperand? ElementIndex(MemoryOperand memory, SzArrayTypeAnalysisContext arrayType, int pointerSize)

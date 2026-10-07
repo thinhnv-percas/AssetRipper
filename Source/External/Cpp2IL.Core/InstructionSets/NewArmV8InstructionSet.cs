@@ -922,21 +922,17 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             case Arm64Mnemonic.LDPSW:
             case Arm64Mnemonic.STP:
                 {
-                    var pairSize = instruction.Op0Reg switch
-                    {
-                        >= Arm64Register.V0 and <= Arm64Register.V31 => 16,
-                        >= Arm64Register.D0 and <= Arm64Register.D31 => 8,
-                        >= Arm64Register.S0 and <= Arm64Register.S31 => 4,
-                        >= Arm64Register.W0 and <= Arm64Register.W31 => 4,
-                        _ => 8
-                    };
+                    var pairSize = PairAccessWidth(instruction.Op0Reg);
 
                     EmitWriteback(beforeAccess: true);
 
+                    // AssetRipper: iteration 068 - each half of a pair store writes exactly pairSize bytes, whatever the base.
+                    // Giving only a stack size left a heap store's first half without a width, so `stp s0, s1, [x0, #off]`
+                    // into a Vector3 field could not be read as its x and named the whole field: `_direction = (Vector3)num`.
                     if (instruction.Mnemonic == Arm64Mnemonic.STP)
                     {
-                        Add(address, OpCode.Move, MemOperand(stackSize: pairSize), ConvertOperand(instruction, 0));
-                        Add(address, OpCode.Move, MemOperand(pairSize, stackSize: pairSize), ConvertOperand(instruction, 1));
+                        Add(address, OpCode.Move, MemOperand(size: pairSize, stackSize: pairSize), ConvertOperand(instruction, 0));
+                        Add(address, OpCode.Move, MemOperand(pairSize, size: pairSize, stackSize: pairSize), ConvertOperand(instruction, 1));
                     }
                     else
                     {
@@ -1418,6 +1414,16 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
     /// resolved to its address, any other narrowed to the instruction's data path (<see cref="ImmediateAtWidth"/>).
     /// Public so a test can run a real decoded instruction through exactly this rule.
     /// </summary>
+    /// <summary>The bytes each register of a load or store pair moves: the width of its first register.</summary>
+    public static int PairAccessWidth(Arm64Register first) => first switch
+    {
+        >= Arm64Register.V0 and <= Arm64Register.V31 => 16,
+        >= Arm64Register.D0 and <= Arm64Register.D31 => 8,
+        >= Arm64Register.S0 and <= Arm64Register.S31 => 4,
+        >= Arm64Register.W0 and <= Arm64Register.W31 => 4,
+        _ => 8
+    };
+
     public static long LiftImmediate(Arm64Instruction instruction, int operand)
     {
         var (kind, imm) = operand switch
