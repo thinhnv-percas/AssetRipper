@@ -1,0 +1,5 @@
+Test/Out69s-z/RunFromZombies/Assets/Scripts/Assembly-CSharp/ObsJumper.cs(91,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out69s-z/RunFromZombies/Assets/Scripts/Assembly-CSharp/ObsJumper.cs(141,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out69s-z/RunFromZombies/Assets/Scripts/Assembly-CSharp/MenuMove.cs(76,13): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out69s-z/RunFromZombies/Assets/Scripts/Assembly-CSharp/ObsDropper.cs(95,14): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'
+Test/Out69s-z/RunFromZombies/Assets/Scripts/Assembly-CSharp/ZambiesMovement.cs(97,13): error CS0030: Cannot convert type 'float' to 'UnityEngine.Vector3'

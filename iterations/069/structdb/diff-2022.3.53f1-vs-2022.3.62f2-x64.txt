@@ -1,0 +1,3 @@
+structs only in A: []
+structs only in B: []
+TOTAL position/size differences: 0  (aggregate flattening ignored: 0)

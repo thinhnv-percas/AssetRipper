@@ -1,0 +1,32 @@
+REFERENCES: 39 from the Unity Editor (/tmp/claude-0/-home-user-AssetRipper/45be09e0-b294-533c-9072-5ca4b2617b0d/scratchpad/unity/2022.3.53f1/Editor/Data), 20 from the rip
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.402/Roslyn/bincore/csc.dll
+Assembly-CSharp: 179 files, 2 errors, 6189 warnings
+Assembly-CSharp: 178 of 179 files compile clean
+
+     2  CS0617   [most common: 2 of 2] 'CompileSynchronously' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties which are public and not static.
+
+reference assemblies: 59
+errors classified: 2
+
+DECOMPILER_ERROR        0
+REFERENCE_ERROR         2
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+REFERENCE_ERROR
+       2  CS0617   a named attribute argument whose accessor is absent from the reference assemblies - stripped from the build
+          'CompileSynchronously' is not a valid named attribute argument. Named attribute arguments must be fields which
+
+
+BODY_PASS: 2 stripped attribute arguments neutralised in a copy
+Assembly-CSharp (body pass): 1629 errors, 80 of 179 files compile clean
+   802  CS0030
+   303  CS0019
+   261  CS1061
+    93  CS0037
+    44  CS0117
+    33  CS0266
+    22  CS0122
+    14  CS0234

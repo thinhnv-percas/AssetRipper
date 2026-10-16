@@ -1,0 +1,79 @@
+REFERENCES: 50 from the Unity Editor (/tmp/claude-0/-home-user-AssetRipper/45be09e0-b294-533c-9072-5ca4b2617b0d/scratchpad/unity/2022.3.62f2/Editor/Data), 49 from the rip
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.402/Roslyn/bincore/csc.dll
+Assembly-CSharp: 84 files, 280 errors, 3633 warnings
+Assembly-CSharp: 51 of 84 files compile clean
+
+   165  CS0030   [most common: 27 of 165] Cannot convert type 'System.Type' to 'nint'
+    31  CS1061   [most common: 6 of 31] 'LinkedListNode<object>' does not contain a definition for 'item' and no accessible extension method 'item' accepting a first argument of type 'LinkedListNode<object>' could be found (are you missing a using directive or an assembly reference?)
+    20  CS0019   [most common: 5 of 20] Operator '-' cannot be applied to operands of type 'object' and 'object'
+    13  CS0037   [most common: 13 of 13] Cannot convert null to 'nint' because it is a non-nullable value type
+    10  CS0117   [most common: 4 of 10] 'MonoBehaviour' does not contain a definition for '_002Ector'
+     9  CS0122   [most common: 4 of 9] 'InputControlScheme.m_DeviceRequirements' is inaccessible due to its protection level
+     8  CS0234   [most common: 4 of 8] The type or namespace name 'Unsafe' does not exist in the namespace 'System.Runtime.CompilerServices' (are you missing an assembly reference?)
+     8  CS0104   [most common: 8 of 8] 'Debug' is an ambiguous reference between 'System.Diagnostics.Debug' and 'UnityEngine.Debug'
+     3  CS0029   [most common: 2 of 3] Cannot implicitly convert type 'System.Action<Unity.Services.RemoteConfig.ConfigResponse>' to 'System.Exception'
+     2  CS0266   [most common: 2 of 2] Cannot implicitly convert type 'object' to 'int'. An explicit conversion exists (are you missing a cast?)
+     2  CS0191   [most common: 2 of 2] A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)
+     2  CS0165   [most common: 1 of 2] Use of unassigned local variable 'slicedFilledImage'
+     1  CS8773   [most common: 1 of 1] Feature 'lambda attributes' is not available in C# 9.0. Please use language version 10.0 or greater.
+     1  CS1540   [most common: 1 of 1] Cannot access protected member 'Graphic.useLegacyMeshGeneration' via a qualifier of type 'Graphic'; the qualifier must be of type 'SlicedFilledImage' (or derived from it)
+     1  CS0272   [most common: 1 of 1] The property or indexer 'GameManager.CurrentState' cannot be used in this context because the set accessor is inaccessible
+     1  CS0246   [most common: 1 of 1] The type or namespace name 'T' could not be found (are you missing a using directive or an assembly reference?)
+     1  CS0200   [most common: 1 of 1] Property or indexer 'PlayerInput.asset' cannot be assigned to -- it is read only
+     1  CS0149   [most common: 1 of 1] Method name expected
+     1  CS0023   [most common: 1 of 1] Operator '~' cannot be applied to operand of type 'object'
+
+reference assemblies: 99
+errors classified: 280
+
+DECOMPILER_ERROR      270
+REFERENCE_ERROR        10
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+     165  CS0030   invalid C# independent of the reference set
+          Cannot convert type 'T[]' to 'nint'
+      30  CS1061   reaches a non-public member of a referenced assembly
+          'List<ItemData>.Enumerator' does not contain a definition for '_current' and no accessible extension method '_
+      20  CS0019   invalid C# independent of the reference set
+          Operator '&' cannot be applied to operands of type 'double' and 'int'
+      13  CS0037   invalid C# independent of the reference set
+          Cannot convert null to 'nint' because it is a non-nullable value type
+      10  CS0117   reaches a non-public member of a referenced assembly
+          'Vector3' does not contain a definition for 'upVector'
+       9  CS0122   reaches a member of a referenced assembly that C# cannot
+          'Vector2Int.m_Y' is inaccessible due to its protection level
+       8  CS0104   invalid C# independent of the reference set
+          'Debug' is an ambiguous reference between 'System.Diagnostics.Debug' and 'UnityEngine.Debug'
+       3  CS0029   invalid C# independent of the reference set
+          Cannot implicitly convert type 'System.Action<Unity.Services.RemoteConfig.ConfigResponse>' to 'System.Exceptio
+       2  CS0165   invalid C# independent of the reference set
+          Use of unassigned local variable 'slicedFilledImage'
+       2  CS0191   invalid C# independent of the reference set
+          A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the f
+       2  CS0266   invalid C# independent of the reference set
+          Cannot implicitly convert type 'object' to 'int'. An explicit conversion exists (are you missing a cast?)
+       1  CS1540   invalid C# independent of the reference set
+          Cannot access protected member 'Graphic.useLegacyMeshGeneration' via a qualifier of type 'Graphic'; the qualif
+       1  CS8773   invalid C# independent of the reference set
+          Feature 'lambda attributes' is not available in C# 9.0. Please use language version 10.0 or greater.
+       1  CS0023   invalid C# independent of the reference set
+          Operator '~' cannot be applied to operand of type 'object'
+       1  CS0149   invalid C# independent of the reference set
+          Method name expected
+       1  CS0272   invalid C# independent of the reference set
+          The property or indexer 'GameManager.CurrentState' cannot be used in this context because the set accessor is 
+       1  CS0200   invalid C# independent of the reference set
+          Property or indexer 'PlayerInput.asset' cannot be assigned to -- it is read only
+
+REFERENCE_ERROR
+       8  CS0234   absent from the reference assemblies - stripped from the build
+          The type or namespace name 'Int32Enum' does not exist in the namespace 'System' (are you missing an assembly r
+       1  CS1061   absent from the reference assemblies - stripped from the build
+          'ReadOnlyArray<InputDevice>?' does not contain a definition for 'hasValue' and no accessible extension method 
+       1  CS0246   absent from the reference assemblies - stripped from the build
+          The type or namespace name 'T' could not be found (are you missing a using directive or an assembly reference?
+

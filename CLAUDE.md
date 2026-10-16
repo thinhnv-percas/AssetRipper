@@ -2194,6 +2194,23 @@ find it; `strings` without `-el` does find method and type names.
 - **Một use cũ biến mất đúng ở helper đã suy là không đọc nó — đó là phép thử của suy luận.** `0xE6A35C` (class-init, chỉ
   X0) mất 4 `UNKNOWN_RETURN` và `REWRITTEN` 2 → 8. `0x179CE74` (store field qua reflection, đọc buffer thật) giữ 14.
 
+- **A StructDb fallback is wrong across a stream boundary, and the boundaries are where the
+  recognisers key.** The catalog takes the newest layout at or below the game's version, which is
+  exact inside a stream (first and last release agree on every struct the recovery reads, measured
+  2021.3 → 6000.3) and wrong across one: `Il2CppClass` moves at 2022.2.0 (`typeHierarchyDepth`
+  0x12C → 0x130) and at 2023.1.0 (`cctor_finished_or_no_cctor` 0xE0 → 0xE4). JellyBlastV2 on
+  2022.3.53f1 read 2021.2.9f1's layout and lost 1393 placeholders' worth of type checks to it.
+  `tools/structdb_gen.py` regenerates a layout from the Editor's own `libil2cpp` on Linux without
+  installing anything (`reports/STRUCTDB_REGEN_069.md`); a missing version is an hour's download,
+  not a reason to accept a fallback.
+- **`compile_recovered_scripts.sh` with `UNITY_EDITOR_DATA=<Editor/Data>` compiles against the
+  Editor's assemblies instead of the stripped stubs**, and the two differ by a few percent in both
+  directions: the stub invents `Math.PI`-style errors and *hides* two real families — `x.get_Item(k)`
+  (CS0571, because the stub does not mark an indexer's accessor as one, so ILSpy decompiling against it
+  writes the call) and `Debug` ambiguous between `System.Diagnostics` and `UnityEngine` (CS0104,
+  because the stripped mscorlib has no `System.Diagnostics.Debug`). The reference set needs the
+  `netstandard` facade even when the game ships none, or every `UnityEngine.Object` is CS0012.
+
 ### Things measured to be worth nothing — do not redo them
 - **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
   - 66g: thiết lập frame (`mov x29, sp`) là một address-take, nên mọi lần lưu thanh ghi phía trên nó được giữ;

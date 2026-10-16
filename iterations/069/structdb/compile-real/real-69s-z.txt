@@ -1,0 +1,21 @@
+REFERENCES: 40 from the Unity Editor (/tmp/claude-0/-home-user-AssetRipper/45be09e0-b294-533c-9072-5ca4b2617b0d/scratchpad/unity/2022.3.62f2/Editor/Data), 15 from the rip
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.402/Roslyn/bincore/csc.dll
+Assembly-CSharp: 23 files, 5 errors, 285 warnings
+Assembly-CSharp: 19 of 23 files compile clean
+
+     5  CS0030   [most common: 5 of 5] Cannot convert type 'float' to 'UnityEngine.Vector3'
+
+reference assemblies: 55
+errors classified: 5
+
+DECOMPILER_ERROR        5
+REFERENCE_ERROR         0
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+       5  CS0030   invalid C# independent of the reference set
+          Cannot convert type 'float' to 'UnityEngine.Vector3'
+

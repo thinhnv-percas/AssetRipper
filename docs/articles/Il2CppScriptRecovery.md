@@ -168,6 +168,26 @@ Install that Unity Editor and read the layouts out of
 per pointer size in the schema below. Unity ships the whole IL2Cpp runtime source with every
 Editor, which is why no layout has to be reverse engineered.
 
+`tools/structdb_gen.py` does all of it. It needs only the `libil2cpp` folder, not an installed or
+licensed Editor, so on Linux the Editor tarball can be streamed and that one folder kept:
+
+```
+curl -sSL https://download.unity3d.com/download_unity/<changeset>/LinuxEditorInstaller/Unity-<v>.tar.xz \
+  | xz -dc | tar -x -C editors/<v> --wildcards 'Editor/Data/il2cpp/libil2cpp/*'
+UNITY_EDITOR_ROOTS=editors STRUCTDB_CLANG=/usr/bin/clang \
+STRUCTDB_SYSROOT=<android-ndk>/toolchains/llvm/prebuilt/linux-x86_64/sysroot \
+  python3 tools/structdb_gen.py gen --gzip <v>
+python3 tools/structdb_gen.py index
+```
+
+The changeset is in `https://services.api.unity.com/unity/editor/release/v1/releases?version=<v>`.
+The target is Android (`aarch64-linux-android21`, `armv7a-linux-androideabi21`), so the libc and
+libc++ headers must be the NDK's; only its sysroot is needed, not its compiler. Regenerating
+2022.3.62f2 this way reproduces the bundled file exactly, apart from its timestamp. Every file is
+round-tripped through `static_assert(sizeof/offsetof)` before it is written. `tools/structdb_diff.py A B`
+compares two files by position rather than by spelling — a bitfield by its absolute bit, an aggregate
+kept whole on one side and flattened on the other as the same thing.
+
 ```jsonc
 {
   "schema": 1,

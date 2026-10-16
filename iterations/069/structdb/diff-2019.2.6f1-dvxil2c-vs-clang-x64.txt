@@ -1,0 +1,32 @@
+structs only in A: ['Il2CppGenericMethodIndices', 'ParameterInfo']
+structs only in B: ['Il2CppAppContext', 'Il2CppAppDomain', 'Il2CppArray', 'Il2CppArrayBounds', 'Il2CppArraySize', 'Il2CppDelegate', 'Il2CppException', 'Il2CppGuid', 'Il2CppInteropData', 'Il2CppObject', 'Il2CppReflectionField', 'Il2CppReflectionMethod', 'Il2CppReflectionType', 'Il2CppString', 'Il2CppThread']
+Il2CppDefaults
+  SIZE 648 -> 656
+  mono_field_class: ('byte', 456, 8) -> ('byte', 464, 8)
+  mono_method_class: ('byte', 464, 8) -> ('byte', 472, 8)
+  mono_method_info_class: ('byte', 472, 8) -> ('byte', 480, 8)
+  mono_property_info_class: ('byte', 480, 8) -> ('byte', 488, 8)
+  parameter_info_class: ('byte', 488, 8) -> ('byte', 496, 8)
+  module_class: ('byte', 496, 8) -> ('byte', 504, 8)
+  pointer_class: ('byte', 504, 8) -> ('byte', 512, 8)
+  system_exception_class: ('byte', 512, 8) -> ('byte', 520, 8)
+  argument_exception_class: ('byte', 520, 8) -> ('byte', 528, 8)
+  wait_handle_class: ('byte', 528, 8) -> ('byte', 536, 8)
+  safe_handle_class: ('byte', 536, 8) -> ('byte', 544, 8)
+  sort_key_class: ('byte', 544, 8) -> ('byte', 552, 8)
+  dbnull_class: ('byte', 552, 8) -> ('byte', 560, 8)
+  error_wrapper_class: ('byte', 560, 8) -> ('byte', 568, 8)
+  missing_class: ('byte', 568, 8) -> ('byte', 576, 8)
+  value_type_class: ('byte', 576, 8) -> ('byte', 584, 8)
+  ireference_class: ('byte', 584, 8) -> ('byte', 592, 8)
+  ireferencearray_class: ('byte', 592, 8) -> ('byte', 600, 8)
+  ikey_value_pair_class: ('byte', 600, 8) -> ('byte', 608, 8)
+  key_value_pair_class: ('byte', 608, 8) -> ('byte', 616, 8)
+  windows_foundation_uri_class: ('byte', 616, 8) -> ('byte', 624, 8)
+  windows_foundation_iuri_runtime_class_class: ('byte', 624, 8) -> ('byte', 632, 8)
+  system_uri_class: ('byte', 632, 8) -> ('byte', 640, 8)
+  system_guid_class: ('byte', 640, 8) -> ('byte', 648, 8)
+  enum_info_class: only in B @0x1c8
+Il2CppGenericParameter
+  constraintsStart: ('byte', 8, 2) -> ('byte', 8, 4)
+TOTAL position/size differences: 27  (aggregate flattening ignored: 66)

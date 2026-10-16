@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "count": 370,
+ "count": 389,
  "note": "Struct layout runtime IL2CPP. Xem structdb/README.md.",
  "versions": [
   {
@@ -2275,10 +2275,11 @@
     "x32": "2019.2.6f1-x32.json",
     "x64": "2019.2.6f1-x64.json"
    },
-   "structCount": 64,
-   "enumCount": 6,
-   "defineCount": 30,
-   "source": "dvxil2c"
+   "structCount": 77,
+   "enumCount": 11,
+   "defineCount": 26,
+   "metadataVersion": 24,
+   "source": "clang"
   },
   {
    "unityVersion": "2019.2.7f2",
@@ -4052,6 +4053,102 @@
    "source": "dvxil2c"
   },
   {
+   "unityVersion": "2021.3.0f1",
+   "files": {
+    "x32": "2021.3.0f1-x32.json",
+    "x64": "2021.3.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2021.3.45f2",
+   "files": {
+    "x32": "2021.3.45f2-x32.json",
+    "x64": "2021.3.45f2-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2022.1.0f1",
+   "files": {
+    "x32": "2022.1.0f1-x32.json",
+    "x64": "2022.1.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2022.1.25f1",
+   "files": {
+    "x32": "2022.1.25f1-x32.json",
+    "x64": "2022.1.25f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2022.2.0f1",
+   "files": {
+    "x32": "2022.2.0f1-x32.json",
+    "x64": "2022.2.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2022.2.23f1",
+   "files": {
+    "x32": "2022.2.23f1-x32.json",
+    "x64": "2022.2.23f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2022.3.0f1",
+   "files": {
+    "x32": "2022.3.0f1-x32.json",
+    "x64": "2022.3.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2022.3.53f1",
+   "files": {
+    "x32": "2022.3.53f1-x32.json",
+    "x64": "2022.3.53f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 31,
+   "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
    "unityVersion": "2022.3.62f2",
    "files": {
     "x32": "2022.3.62f2-x32.json",
@@ -4061,6 +4158,138 @@
    "enumCount": 13,
    "defineCount": 31,
    "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2023.1.0f1",
+   "files": {
+    "x32": "2023.1.0f1-x32.json",
+    "x64": "2023.1.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2023.1.22f1",
+   "files": {
+    "x32": "2023.1.22f1-x32.json",
+    "x64": "2023.1.22f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2023.2.0f1",
+   "files": {
+    "x32": "2023.2.0f1-x32.json",
+    "x64": "2023.2.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "2023.2.22f1",
+   "files": {
+    "x32": "2023.2.22f1-x32.json",
+    "x64": "2023.2.22f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "6000.0.0f1",
+   "files": {
+    "x32": "6000.0.0f1-x32.json",
+    "x64": "6000.0.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 29,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "6000.0.85f1",
+   "files": {
+    "x32": "6000.0.85f1-x32.json",
+    "x64": "6000.0.85f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "6000.1.0f1",
+   "files": {
+    "x32": "6000.1.0f1-x32.json",
+    "x64": "6000.1.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "6000.1.17f1",
+   "files": {
+    "x32": "6000.1.17f1-x32.json",
+    "x64": "6000.1.17f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "6000.2.0f1",
+   "files": {
+    "x32": "6000.2.0f1-x32.json",
+    "x64": "6000.2.0f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "6000.2.15f1",
+   "files": {
+    "x32": "6000.2.15f1-x32.json",
+    "x64": "6000.2.15f1-x64.json"
+   },
+   "structCount": 88,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 31,
+   "source": "clang"
+  },
+  {
+   "unityVersion": "6000.3.0f1",
+   "files": {
+    "x32": "6000.3.0f1-x32.json",
+    "x64": "6000.3.0f1-x64.json"
+   },
+   "structCount": 89,
+   "enumCount": 13,
+   "defineCount": 32,
+   "metadataVersion": 39,
    "source": "clang"
   },
   {

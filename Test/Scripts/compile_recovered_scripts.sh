@@ -76,12 +76,55 @@ namespace System.Runtime.InteropServices
 SHIM
 echo "$work/shim.cs" >> "$work/sources.rsp"
 
+# UNITY_EDITOR_DATA=<Editor/Data of the game's Unity version> compiles against the Editor's own
+# assemblies wherever it has one of the same name - the UnityEngine modules and the class library -
+# and keeps the rip's for everything else (the game's own assemblies, and packages such as
+# UnityEngine.UI that the Editor ships as source). Only the files are needed, not a running or
+# licensed Editor: a stub carries only what IL2CPP kept, so against it a member the build stripped
+# reads as a compile error the export is not at fault for (`Math.PI`, `Quaternion.Euler(Vector3)`),
+# while against the Editor's assemblies it does not.
+declare -A real=()
+if [ -n "${UNITY_EDITOR_DATA:-}" ]; then
+    api="$UNITY_EDITOR_DATA/UnityReferenceAssemblies/unity-4.8-api"
+    [ -d "$api" ] || api="$UNITY_EDITOR_DATA/MonoBleedingEdge/lib/mono/4.7.1-api"
+    # Later directories win, so the UnityEngine modules override anything of the same name.
+    for dir in "$UNITY_EDITOR_DATA/NetStandard/ref/2.1.0" "$api/Facades" "$api" "$UNITY_EDITOR_DATA/Managed/UnityEngine"; do
+        [ -d "$dir" ] || continue
+        for dll in "$dir"/*.dll; do
+            [ -f "$dll" ] && real[$(basename "$dll")]=$dll
+        done
+    done
+    if [ ${#real[@]} -eq 0 ]; then
+        echo "UNITY_EDITOR_DATA=$UNITY_EDITOR_DATA holds no reference assemblies" >&2
+        exit 2
+    fi
+fi
+
 # The game's own mscorlib is among the references, so the SDK's must not be: -nostdlib -noconfig.
 references=""
+from_editor=0
+from_rip=0
 for dll in "$assemblies"/*.dll; do
-    [ "$(basename "$dll")" = "$assembly.dll" ] && continue
-    references="$references -reference:$dll"
+    name=$(basename "$dll")
+    [ "$name" = "$assembly.dll" ] && continue
+    if [ -n "${real[$name]:-}" ]; then
+        references="$references -reference:${real[$name]}"
+        from_editor=$((from_editor + 1))
+    else
+        references="$references -reference:$dll"
+        from_rip=$((from_rip + 1))
+    fi
 done
+if [ -n "${UNITY_EDITOR_DATA:-}" ]; then
+    # The Editor's UnityEngine modules are built against netstandard, and a game that never named it
+    # ships none - every use of UnityEngine.Object then reads as CS0012. The facade forwards to
+    # mscorlib, so adding it changes nothing else.
+    if [ ! -f "$assemblies/netstandard.dll" ] && [ -n "${real[netstandard.dll]:-}" ]; then
+        references="$references -reference:${real[netstandard.dll]}"
+        from_editor=$((from_editor + 1))
+    fi
+    echo "REFERENCES: $from_editor from the Unity Editor ($UNITY_EDITOR_DATA), $from_rip from the rip"
+fi
 
 # ANALYZERS=<dir or dll> also runs Roslyn analyzers over the scripts. Microsoft.Unity.Analyzers is
 # the one worth running: its diagnostics are about Unity's own contract - a message with the wrong

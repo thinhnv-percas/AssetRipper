@@ -18,6 +18,14 @@ Iteration 069 — KẾ HOẠCH (chưa thực hiện): docs/ITERATION_069_PLAN.md
   (iterations/069/patch-lazy-basetype-v2.diff, Pinata lỗi thân 1074 → 876); asmdef xuất ra rỗng references;
   JellyBlastV2 đang dùng layout StructDb 2021.2.9f1. Pinata là ARM64 (arm64-v8a), không phải x86 như ghi dưới.
 
+Iteration 069 — StructDb (ĐÃ LÀM): reports/STRUCTDB_REGEN_069.md. Sinh lại từ libil2cpp của Editor thật bằng
+  tools/structdb_gen.py (Linux: stream tarball, clang hệ thống + sysroot NDK). 370 → 389 phiên bản: 2022.3.53f1
+  (JellyBlastV2 hết fallback: placeholder 12709 → 11316, EXACT +51, 0 method rời EXACT), 2019.2.6f1 thay bằng clang
+  (rip Pinata giống từng byte), và bản đầu/cuối mỗi dòng 2021.3 → 6000.3. Trước đó mọi game 2022.2–2022.3.61 dùng
+  sai `typeHierarchyDepth`, mọi game 2023.1–6000.2 sai `cctor_finished_or_no_cctor`. Compile harness có
+  UNITY_EDITOR_DATA=<Editor/Data>: compile với assembly thật của Editor; nó lộ 24 CS0571 (Pinata, `get_Item` gọi
+  thẳng) và 8+8 CS0104 (`Debug` mơ hồ) mà stub che, và bỏ các `Math.PI` giả.
+
 Cảnh báo cho phiên sau:
   - 068: một đối số thô của call không giải quyết được mà không tới được call (đã băng qua call khác) là
     `clobbered_<reg>`. `ReplaceClobberedRawArguments` chạy trong SSA trước fixpoint kiểu; đừng thêm luật cùng loại sau

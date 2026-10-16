@@ -1,0 +1,77 @@
+structs only in A: ['Il2CppGenericMethodIndices']
+structs only in B: ['Il2CppAppContext', 'Il2CppAppDomain', 'Il2CppArray', 'Il2CppArrayBounds', 'Il2CppArraySize', 'Il2CppDelegate', 'Il2CppException', 'Il2CppGuid', 'Il2CppInteropData', 'Il2CppMulticastDelegate', 'Il2CppObject', 'Il2CppReflectionField', 'Il2CppReflectionMethod', 'Il2CppReflectionType', 'Il2CppString', 'Il2CppThread']
+Il2CppClass
+  actualSize: ('byte', 252, 4) -> ('byte', 256, 4)
+  element_size: ('byte', 256, 4) -> ('byte', 260, 4)
+  native_size: ('byte', 260, 4) -> ('byte', 264, 4)
+  static_fields_size: ('byte', 264, 4) -> ('byte', 268, 4)
+  thread_static_fields_size: ('byte', 268, 4) -> ('byte', 272, 4)
+  thread_static_fields_offset: ('byte', 272, 4) -> ('byte', 276, 4)
+  flags: ('byte', 276, 4) -> ('byte', 280, 4)
+  token: ('byte', 280, 4) -> ('byte', 284, 4)
+  method_count: ('byte', 284, 2) -> ('byte', 288, 2)
+  property_count: ('byte', 286, 2) -> ('byte', 290, 2)
+  field_count: ('byte', 288, 2) -> ('byte', 292, 2)
+  event_count: ('byte', 290, 2) -> ('byte', 294, 2)
+  nested_type_count: ('byte', 292, 2) -> ('byte', 296, 2)
+  vtable_count: ('byte', 294, 2) -> ('byte', 298, 2)
+  interfaces_count: ('byte', 296, 2) -> ('byte', 300, 2)
+  interface_offsets_count: ('byte', 298, 2) -> ('byte', 302, 2)
+  typeHierarchyDepth: ('byte', 300, 1) -> ('byte', 304, 1)
+  genericRecursionDepth: ('byte', 301, 1) -> ('byte', 305, 1)
+  rank: ('byte', 302, 1) -> ('byte', 306, 1)
+  minimumAlignment: ('byte', 303, 1) -> ('byte', 307, 1)
+  naturalAligment: only in A @0x130
+  packingSize: ('byte', 305, 1) -> ('byte', 308, 1)
+  initialized_and_no_error: ('bit', 2448, 1) -> ('bit', 2472, 1)
+  initialized: ('bit', 2449, 1) -> ('bit', 2473, 1)
+  enumtype: ('bit', 2450, 1) -> ('bit', 2474, 1)
+  nullabletype: ('bit', 2451, 1) -> ('bit', 2475, 1)
+  is_generic: ('bit', 2452, 1) -> ('bit', 2476, 1)
+  has_references: ('bit', 2453, 1) -> ('bit', 2477, 1)
+  init_pending: ('bit', 2454, 1) -> ('bit', 2478, 1)
+  size_init_pending: ('bit', 2455, 1) -> ('bit', 2479, 1)
+  size_inited: ('bit', 2456, 1) -> ('bit', 2480, 1)
+  has_finalize: ('bit', 2457, 1) -> ('bit', 2481, 1)
+  has_cctor: ('bit', 2458, 1) -> ('bit', 2482, 1)
+  is_blittable: ('bit', 2459, 1) -> ('bit', 2483, 1)
+  is_import_or_windows_runtime: ('bit', 2460, 1) -> ('bit', 2484, 1)
+  is_vtable_initialized: ('bit', 2461, 1) -> ('bit', 2485, 1)
+  is_byref_like: ('bit', 2462, 1) -> ('bit', 2486, 1)
+  stack_slot_size: only in B @0xfc
+Il2CppCodeRegistration
+  SIZE 120 -> 136
+  unresolvedVirtualCallCount: only in A @0x38
+  interopDataCount: ('byte', 72, 4) -> ('byte', 88, 4)
+  interopData: ('byte', 80, 8) -> ('byte', 96, 8)
+  windowsRuntimeFactoryCount: ('byte', 88, 4) -> ('byte', 104, 4)
+  windowsRuntimeFactoryTable: ('byte', 96, 8) -> ('byte', 112, 8)
+  codeGenModulesCount: ('byte', 104, 4) -> ('byte', 120, 4)
+  codeGenModules: ('byte', 112, 8) -> ('byte', 128, 8)
+  unresolvedIndirectCallCount: only in B @0x38
+  unresolvedInstanceCallPointers: only in B @0x48
+  unresolvedStaticCallPointers: only in B @0x50
+Il2CppGenericParameter
+  constraintsStart: ('byte', 8, 2) -> ('byte', 8, 4)
+Il2CppGlobalMetadataHeader
+  unresolvedVirtualCallParameterTypesOffset: only in A @0xd8
+  unresolvedVirtualCallParameterTypesSize: only in A @0xdc
+  unresolvedVirtualCallParameterRangesOffset: only in A @0xe0
+  unresolvedVirtualCallParameterRangesSize: only in A @0xe4
+  unresolvedIndirectCallParameterTypesOffset: only in B @0xd8
+  unresolvedIndirectCallParameterTypesSize: only in B @0xdc
+  unresolvedIndirectCallParameterRangesOffset: only in B @0xe0
+  unresolvedIndirectCallParameterRangesSize: only in B @0xe4
+Il2CppMethodDefinition
+  SIZE 32 -> 36
+  parameterStart: ('byte', 12, 4) -> ('byte', 16, 4)
+  genericContainerIndex: ('byte', 16, 4) -> ('byte', 20, 4)
+  token: ('byte', 20, 4) -> ('byte', 24, 4)
+  flags: ('byte', 24, 2) -> ('byte', 28, 2)
+  iflags: ('byte', 26, 2) -> ('byte', 30, 2)
+  slot: ('byte', 28, 2) -> ('byte', 32, 2)
+  parameterCount: ('byte', 30, 2) -> ('byte', 34, 2)
+  returnParameterToken: only in B @0xc
+MethodInfo
+  indirect_call_via_invokers: only in A @0x53
+TOTAL position/size differences: 68  (aggregate flattening ignored: 67)
