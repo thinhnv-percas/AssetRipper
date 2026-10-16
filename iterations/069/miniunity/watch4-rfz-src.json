@@ -1,0 +1,489 @@
+{
+ "ok": true,
+ "command": "play",
+ "frames": 300,
+ "time": 5,
+ "errors": 1210,
+ "warnings": 0,
+ "exceptions": [
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEngine.TextGenerator.Invalidate",
+   "where": "Text.OnEnable",
+   "stack": [
+    {
+     "method": "UnityEngine.TextGenerator.Invalidate",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEngine.TextRenderingModule.g.cs",
+     "line": 43
+    },
+    {
+     "method": "UnityEngine.UI.Text.OnEnable",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/.cache/unity/2022.3.62f2/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Text.cs",
+     "line": 566
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEngine.TextGenerator.Invalidate",
+   "count": 6
+  },
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "where": "PostProcessLayer.OnEnable",
+   "stack": [
+    {
+     "method": "UnityEditor.TypeCache.GetTypesDerivedFrom",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEditor.CoreModule.g.cs",
+     "line": 6104
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.RuntimeUtilities.GetAllTypesDerivedFrom",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+     "line": 1229
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager.ReloadBaseTypes",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 84
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager..ctor",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 53
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager.get_instance",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 24
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessLayer.InitBundles",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessLayer.cs",
+     "line": 314
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessLayer.OnEnable",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessLayer.cs",
+     "line": 221
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+   "line": 1229,
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "count": 1
+  },
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "where": "PostProcessVolume.OnEnable",
+   "stack": [
+    {
+     "method": "UnityEditor.TypeCache.GetTypesDerivedFrom",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEditor.CoreModule.g.cs",
+     "line": 6104
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.RuntimeUtilities.GetAllTypesDerivedFrom",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+     "line": 1229
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager.ReloadBaseTypes",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 84
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager..ctor",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 53
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager.get_instance",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 24
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessVolume.OnEnable",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessVolume.cs",
+     "line": 176
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+   "line": 1229,
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "count": 1
+  },
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "where": "PostProcessVolume.Update",
+   "stack": [
+    {
+     "method": "UnityEditor.TypeCache.GetTypesDerivedFrom",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEditor.CoreModule.g.cs",
+     "line": 6104
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.RuntimeUtilities.GetAllTypesDerivedFrom",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+     "line": 1229
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager.ReloadBaseTypes",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 84
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager..ctor",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 53
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessManager.get_instance",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessManager.cs",
+     "line": 24
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessVolume.Update",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessVolume.cs",
+     "line": 195
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+   "line": 1229,
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "count": 300
+  },
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "where": "PostProcessLayer.OnPreCull",
+   "stack": [
+    {
+     "method": "UnityEngine.Rendering.GraphicsSettings.get_currentRenderPipeline",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEngine.CoreModule.g.cs",
+     "line": 8818
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.RuntimeUtilities.get_scriptableRenderPipelineActive",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+     "line": 769
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessLayer.OnPreCull",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessLayer.cs",
+     "line": 418
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+   "line": 769,
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "count": 300
+  },
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "where": "PostProcessLayer.OnPreRender",
+   "stack": [
+    {
+     "method": "UnityEngine.Rendering.GraphicsSettings.get_currentRenderPipeline",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEngine.CoreModule.g.cs",
+     "line": 8818
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.RuntimeUtilities.get_scriptableRenderPipelineActive",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+     "line": 769
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessLayer.OnPreRender",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessLayer.cs",
+     "line": 500
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+   "line": 769,
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "count": 300
+  },
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "where": "PostProcessLayer.OnPostRender",
+   "stack": [
+    {
+     "method": "UnityEngine.Rendering.GraphicsSettings.get_currentRenderPipeline",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEngine.CoreModule.g.cs",
+     "line": 8818
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.RuntimeUtilities.get_scriptableRenderPipelineActive",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+     "line": 769
+    },
+    {
+     "method": "UnityEngine.Rendering.PostProcessing.PostProcessLayer.OnPostRender",
+     "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/PostProcessLayer.cs",
+     "line": 708
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "file": "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs",
+   "line": 769,
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "count": 300
+  },
+  {
+   "type": "UnityEngine.MissingReferenceException",
+   "message": "The variable moveSound of Movement doesn't exist anymore.\nYou probably need to reassign the moveSound variable of the 'Movement' script in the inspector.",
+   "where": "Movement.Update",
+   "stack": [
+    {
+     "method": "UnityEngine.Object.ThrowIfDestroyed",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Core/Objects/Object.cs",
+     "line": 69
+    },
+    {
+     "method": "UnityEngine.Object.ThrowIfFakeNull",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Core/Objects/Object.cs",
+     "line": 76
+    },
+    {
+     "method": "UnityEngine.Object.NGet",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Core/Objects/NativeAccess.cs",
+     "line": 18
+    },
+    {
+     "method": "UnityEngine.Object.NRef",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Core/Objects/NativeAccess.cs",
+     "line": 63
+    },
+    {
+     "method": "UnityEngine.AudioSource.get_clip",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Core/Audio/AudioApi.cs",
+     "line": 152
+    },
+    {
+     "method": "UnityEngine.AudioSource.Start",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Core/Audio/AudioApi.cs",
+     "line": 221
+    },
+    {
+     "method": "UnityEngine.AudioSource.Play",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Core/Audio/AudioApi.cs",
+     "line": 238
+    },
+    {
+     "method": "Movement.Update",
+     "file": "Assets/Scripts/Movement.cs",
+     "line": 52
+    },
+    {
+     "method": ".InvokeStub_Movement.Update"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "file": "Assets/Scripts/Movement.cs",
+   "line": 52,
+   "count": 2
+  }
+ ],
+ "logs": [
+  {
+   "type": "Exception",
+   "message": "NotImplementedException: UnityEngine.TextGenerator.Invalidate",
+   "count": 6,
+   "firstFrame": 0
+  },
+  {
+   "type": "Exception",
+   "message": "NotImplementedException: UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "count": 302,
+   "firstFrame": 0
+  },
+  {
+   "type": "Exception",
+   "message": "NotImplementedException: UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "count": 900,
+   "firstFrame": 1
+  },
+  {
+   "type": "Exception",
+   "message": "MissingReferenceException: The variable moveSound of Movement doesn't exist anymore.\nYou probably need to reassign the moveSound variable of the 'Movement' script in the inspector.",
+   "count": 2,
+   "firstFrame": 60
+  }
+ ],
+ "scene": "Assets/Scenes/GameScene.unity",
+ "seconds": 4.04,
+ "objects": 825,
+ "watch": {
+  "Main Camera/Transform.position": "(0.00, 2.00, -6.00)",
+  "Main Camera/Movement.posZ": -2.5
+ },
+ "audio": [
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "Zambies",
+   "clip": "Zombie003_Idle_A_003",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "AudioManager",
+   "clip": "Zombie003_Attack_A_001",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "AudioManager",
+   "clip": "Hit & Damage 5",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "AudioManager",
+   "clip": "Hope - Loop Free",
+   "action": "play",
+   "volume": 0.2,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Hope - Loop Free",
+   "action": "play",
+   "volume": 0.2,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "Zambies",
+   "clip": "Zombie003_Idle_A_003",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Zombie003_Attack_A_001",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Hit & Damage 5",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Hope - Loop Free",
+   "action": "start",
+   "volume": 0.2,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0.5,
+   "frame": 30,
+   "source": "AudioManager",
+   "clip": "Hit & Damage 5",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0.5
+  },
+  {
+   "dsp": 1.25,
+   "frame": 75,
+   "source": "AudioManager",
+   "clip": "Zombie003_Attack_A_001",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 1.248
+  },
+  {
+   "dsp": 2.6,
+   "frame": 156,
+   "source": "Zambies",
+   "clip": "Zombie003_Idle_A_003",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 2.592
+  }
+ ],
+ "note": "MiniUnity simulates the player loop with physics (3D/2D), Animator/Animation and the audio timeline; frames are rendered (software renderer) only for --screenshot"
+}

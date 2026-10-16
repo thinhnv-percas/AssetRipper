@@ -1,0 +1,7 @@
+  FAIL AnimatorTests.SpriteSwapControllerFromUnitySample: default state of the sample controller
+  Expected: True
+  But was:  False
+  skip ImportArtifactEditorTests.MaterialFromTheArtifactKeepsUnitysValues: no Unity Editor data (unity_builtin_extra) in MiniUnity/.cache
+  skip ImportArtifactEditorTests.TextureFromTheArtifactDecodes: no Unity Editor data (unity_builtin_extra) in MiniUnity/.cache
+  note: RoboHero sample not found (com.unity.2d.pixel-perfect in Library/PackageCache); its Animator test fails
+FAILED: 191 passed, 1 failed, 2 skipped · /tmp/mu_fixtures_mabm9m23

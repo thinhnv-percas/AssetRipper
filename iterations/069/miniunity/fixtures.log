@@ -1,0 +1,15 @@
+  FAIL AnimatorTests.SpriteSwapControllerFromUnitySample: default state of the sample controller
+  Expected: True
+  But was:  False
+  FAIL MsaaTests.QualityLevelHasTwoSamples: Expected: 2
+  But was:  4
+  FAIL RenderApiTests.PropertyBlockStoresValuesByKind: colours and vectors share a slot (linear-space project: the shader value)
+  Expected: RGBA(1.000, 0.214, 0.000, 1.000)
+  But was:  RGBA(1.000, 0.500, 0.000, 1.000)
+  FAIL RenderShaderTests.ColorSpaceComesFromPlayerSettings: the fixture project's ProjectSettings are linear
+  Expected: Linear
+  But was:  Gamma
+  skip ImportArtifactEditorTests.MaterialFromTheArtifactKeepsUnitysValues: no Unity Editor data (unity_builtin_extra) in MiniUnity/.cache
+  skip ImportArtifactEditorTests.TextureFromTheArtifactDecodes: no Unity Editor data (unity_builtin_extra) in MiniUnity/.cache
+  note: RoboHero sample not found (com.unity.2d.pixel-perfect in Library/PackageCache); its Animator test fails
+FAILED: 188 passed, 4 failed, 2 skipped · /tmp/mu_fixtures_yneq_q1p

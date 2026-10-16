@@ -1,0 +1,132 @@
+{
+ "ok": true,
+ "command": "apigap",
+ "assemblies": [
+  "Assembly-CSharp"
+ ],
+ "compileErrors": 0,
+ "summary": {
+  "unityMembersUsed": 54,
+  "stub": 5,
+  "missing": 0,
+  "stubUses": 6,
+  "missingUses": 0,
+  "hitAtRuntime": 6
+ },
+ "byType": [
+  {
+   "type": "UnityEngine.SceneManagement.SceneManager",
+   "members": 2,
+   "uses": 3
+  },
+  {
+   "type": "UnityEngine.TextMesh",
+   "members": 1,
+   "uses": 1
+  },
+  {
+   "type": "UnityEngine.Screen",
+   "members": 1,
+   "uses": 1
+  },
+  {
+   "type": "UnityEngine.Resolution",
+   "members": 1,
+   "uses": 1
+  }
+ ],
+ "stub": [
+  {
+   "member": "UnityEngine.SceneManagement.SceneManager.LoadScene",
+   "uses": 2,
+   "module": "UnityEngine.CoreModule",
+   "sites": [
+    "Assets/Scripts/UIController.cs:40",
+    "Assets/Scripts/UIController.cs:49"
+   ],
+   "hitAtRuntime": null
+  },
+  {
+   "member": "UnityEngine.Resolution.width",
+   "uses": 1,
+   "module": "UnityEngine.CoreModule",
+   "sites": [
+    "Assets/Scripts/Movement.cs:29"
+   ],
+   "hitAtRuntime": null
+  },
+  {
+   "member": "UnityEngine.SceneManagement.SceneManager.LoadSceneAsync",
+   "uses": 1,
+   "module": "UnityEngine.CoreModule",
+   "sites": [
+    "Assets/Scripts/MenuController.cs:17"
+   ],
+   "hitAtRuntime": null
+  },
+  {
+   "member": "UnityEngine.Screen.currentResolution",
+   "uses": 1,
+   "module": "UnityEngine.CoreModule",
+   "sites": [
+    "Assets/Scripts/Movement.cs:29"
+   ],
+   "hitAtRuntime": 300
+  },
+  {
+   "member": "UnityEngine.TextMesh.text",
+   "uses": 1,
+   "module": "UnityEngine.TextRenderingModule",
+   "sites": [
+    "Assets/Scripts/ScoreScript.cs:19"
+   ],
+   "hitAtRuntime": null
+  }
+ ],
+ "missing": [],
+ "runtime": [
+  {
+   "member": "UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline",
+   "count": 900,
+   "sites": [
+    "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs:769"
+   ]
+  },
+  {
+   "member": "UnityEditor.TypeCache.GetTypesDerivedFrom",
+   "count": 302,
+   "sites": [
+    "Library/PackageCache/com.unity.postprocessing@3.4.0/PostProcessing/Runtime/Utils/RuntimeUtilities.cs:1229"
+   ]
+  },
+  {
+   "member": "UnityEngine.Screen.currentResolution",
+   "count": 300,
+   "sites": [
+    "Assets/Scripts/Movement.cs:29"
+   ]
+  },
+  {
+   "member": "UnityEngine.Rendering.SortingGroup.invalidSortingGroupID",
+   "count": 154,
+   "sites": [
+    "EventSystem.Update"
+   ]
+  },
+  {
+   "member": "UnityEngine.DrivenRectTransformTracker.Clear",
+   "count": 151,
+   "sites": [
+    "Slider.OnEnable",
+    "Assets/Scripts/ZambiesMovement.cs:23"
+   ]
+  },
+  {
+   "member": "UnityEngine.TextGenerator.Invalidate",
+   "count": 6,
+   "sites": [
+    "Text.OnEnable"
+   ]
+  }
+ ]
+}

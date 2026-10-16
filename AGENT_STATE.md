@@ -26,6 +26,11 @@ Iteration 069 — StructDb (ĐÃ LÀM): reports/STRUCTDB_REGEN_069.md. Sinh lạ
   UNITY_EDITOR_DATA=<Editor/Data>: compile với assembly thật của Editor; nó lộ 24 CS0571 (Pinata, `get_Item` gọi
   thẳng) và 8+8 CS0104 (`Debug` mơ hồ) mà stub che, và bỏ các `Math.PI` giả.
 
+Iteration 069 — MiniUnity (ĐÃ THỬ): reports/MINIUNITY_EVALUATION_069.md. `ThinhNV-DEV/miniUnity` (Unity giả headless,
+  compile như Unity + play + render, không license) chạy được project AssetRipper phục hồi của RunFromZombies: sau khi
+  điền `references` asmdef từ AssemblyRef, xuất UI thành package ugui (remap GUID theo tên class) và Hybrid cho thư viện,
+  project compile 0 lỗi và Play cho cùng `posZ`/vị trí với source. Đây là đường cho cổng E–G thay cho UNITY_NOT_AVAILABLE.
+
 Cảnh báo cho phiên sau:
   - 068: một đối số thô của call không giải quyết được mà không tới được call (đã băng qua call khác) là
     `clobbered_<reg>`. `ReplaceClobberedRawArguments` chạy trong SSA trước fixpoint kiểu; đừng thêm luật cùng loại sau

@@ -1,0 +1,40 @@
+{
+ "ok": true,
+ "command": "compile",
+ "success": false,
+ "errors": 5,
+ "warnings": 9074,
+ "seconds": 5,
+ "cached": 0,
+ "assemblies": [
+  {
+   "name": "UnityEngine.UI",
+   "files": 121,
+   "ok": true,
+   "cached": false,
+   "errors": 0,
+   "skippedBecause": null,
+   "output": "Library/MiniUnity/ScriptAssemblies/UnityEngine.UI.dll"
+  },
+  {
+   "name": "Unity.Postprocessing.Runtime",
+   "files": 107,
+   "ok": true,
+   "cached": false,
+   "errors": 0,
+   "skippedBecause": null,
+   "output": "Library/MiniUnity/ScriptAssemblies/Unity.Postprocessing.Runtime.dll"
+  },
+  {
+   "name": "Assembly-CSharp",
+   "files": 23,
+   "ok": false,
+   "cached": false,
+   "errors": 5,
+   "skippedBecause": null,
+   "output": null
+  }
+ ],
+ "truncated": false,
+ "projectWarnings": []
+}

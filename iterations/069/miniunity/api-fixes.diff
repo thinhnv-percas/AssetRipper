@@ -1,0 +1,75 @@
+diff --git a/Engine/Core/Objects/ScreenAndTextMesh.cs b/Engine/Core/Objects/ScreenAndTextMesh.cs
+new file mode 100644
+index 0000000..add6d55
+--- /dev/null
++++ b/Engine/Core/Objects/ScreenAndTextMesh.cs
+@@ -0,0 +1,69 @@
++// Screen.currentResolution / Resolution, and TextMesh's serialized text: a game's per-frame Update commonly reads the
++// resolution (to react to a rotated or resized screen) and writes a score into a TextMesh, and a stub throwing there aborts
++// the whole Update - the player never moves. The resolution is the simulated screen (--size); TextMesh keeps its YAML bag.
++using System;
++
++namespace UnityEngine
++{
++    public partial struct RefreshRate
++    {
++        public double value => denominator == 0 ? 0 : (double)numerator / denominator;
++        public bool Equals(RefreshRate other) => (ulong)numerator * other.denominator == (ulong)other.numerator * denominator;
++        public int CompareTo(RefreshRate other) => value.CompareTo(other.value);
++        public override string ToString() => value.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
++    }
++
++    public partial struct Resolution
++    {
++        int m_Width;
++        int m_Height;
++        RefreshRate m_RefreshRate;
++        public int width { get => m_Width; set => m_Width = value; }
++        public int height { get => m_Height; set => m_Height = value; }
++        public RefreshRate refreshRateRatio { get => m_RefreshRate; set => m_RefreshRate = value; }
++        public int refreshRate
++        {
++            get => (int)Math.Round(m_RefreshRate.value);
++            set => m_RefreshRate = new RefreshRate { numerator = (uint)Math.Max(0, value), denominator = 1 };
++        }
++        public override string ToString() => $"{m_Width} x {m_Height} @ {refreshRate}Hz";
++    }
++
++    public sealed partial class Screen
++    {
++        public static Resolution currentResolution => new Resolution { width = width, height = height, refreshRate = 60 };
++        public static Resolution[] resolutions => new[] { currentResolution };
++    }
++
++    public sealed partial class TextMesh
++    {
++        public string text { get => NStr("m_Text"); set => NSetS("m_Text", value ?? ""); }
++        public int fontSize { get => NInt("m_FontSize"); set => NSetI("m_FontSize", value); }
++        public Color color { get => NColor("m_Color"); set => NSetColor("m_Color", value); }
++    }
++}
++
++namespace UnityEngine
++{
++    // Records which RectTransform properties a layout component drives, for the Editor's Inspector and Undo; a player has no
++    // Inspector, so in a player every call is a no-op - and uGUI's Selectable/LayoutGroup call Clear in OnEnable.
++    public partial struct DrivenRectTransformTracker
++    {
++        internal static bool CanRecordModifications() => false;
++        public static void StopRecordingUndo() { }
++        public static void StartRecordingUndo() { }
++        public void Add(Object driver, RectTransform rectTransform, DrivenTransformProperties drivenProperties) { }
++        public void Clear(bool revertValues) { }
++        public void Clear() { }
++    }
++}
++
++namespace UnityEngine.Rendering
++{
++    public sealed partial class SortingGroup
++    {
++        // The id a renderer outside any sorting group reports (20-bit index space, all ones). EventSystem's raycast comparer
++        // reads it for every pair it sorts, so a stub here turns every pointer event into "Failed to compare two elements".
++        internal static int invalidSortingGroupID => 0xFFFFF;
++    }
++}

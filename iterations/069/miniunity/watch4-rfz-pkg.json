@@ -1,0 +1,233 @@
+{
+ "ok": true,
+ "command": "play",
+ "frames": 300,
+ "time": 5,
+ "errors": 6,
+ "warnings": 0,
+ "exceptions": [
+  {
+   "type": "System.NotImplementedException",
+   "message": "UnityEngine.TextGenerator.Invalidate",
+   "where": "Text.OnEnable",
+   "stack": [
+    {
+     "method": "UnityEngine.TextGenerator.Invalidate",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/Engine/Generated/UnityEngine.TextRenderingModule.g.cs",
+     "line": 43
+    },
+    {
+     "method": "UnityEngine.UI.Text.OnEnable",
+     "file": "/home/user/thinhnv-dev/mu-host/MiniUnity/.cache/unity/2022.3.62f2/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Text.cs",
+     "line": 566
+    },
+    {
+     "method": "System.RuntimeMethodHandle.InvokeMethod"
+    },
+    {
+     "method": "System.Reflection.MethodBaseInvoker.InvokeWithNoArgs"
+    }
+   ],
+   "miniunity": "API not implemented by MiniUnity (works in Unity): UnityEngine.TextGenerator.Invalidate",
+   "count": 6
+  }
+ ],
+ "logs": [
+  {
+   "type": "Exception",
+   "message": "NotImplementedException: UnityEngine.TextGenerator.Invalidate",
+   "count": 6,
+   "firstFrame": 0
+  }
+ ],
+ "scene": "Assets/Scenes/GameScene.unity",
+ "seconds": 6.3,
+ "objects": 825,
+ "watch": {
+  "Main Camera/Transform.position": "(0.00, 2.00, -6.00)",
+  "Main Camera/Movement.posZ": -2.5
+ },
+ "audio": [
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "Zambies",
+   "clip": "Zombie003_Idle_A_003",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "AudioManager",
+   "clip": "Zombie003_Attack_A_001",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "AudioManager",
+   "clip": "Hit & Damage 5",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 0,
+   "source": "AudioManager",
+   "clip": "Hope - Loop Free",
+   "action": "play",
+   "volume": 0.2,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Hope - Loop Free",
+   "action": "play",
+   "volume": 0.2,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "Zambies",
+   "clip": "Zombie003_Idle_A_003",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Zombie003_Attack_A_001",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Hit & Damage 5",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0,
+   "frame": 1,
+   "source": "AudioManager",
+   "clip": "Hope - Loop Free",
+   "action": "start",
+   "volume": 0.2,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0.5,
+   "frame": 30,
+   "source": "AudioManager",
+   "clip": "Hit & Damage 5",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0.5
+  },
+  {
+   "dsp": 0.9833,
+   "frame": 60,
+   "source": "Player",
+   "clip": "Stone footstep 8",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 0.9833,
+   "frame": 60,
+   "source": "Player",
+   "clip": "Stone footstep 8",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 1.2167,
+   "frame": 73,
+   "source": "Player",
+   "clip": "Stone footstep 8",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0.224
+  },
+  {
+   "dsp": 1.25,
+   "frame": 75,
+   "source": "AudioManager",
+   "clip": "Zombie003_Attack_A_001",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 1.248
+  },
+  {
+   "dsp": 2.4833,
+   "frame": 150,
+   "source": "Player",
+   "clip": "Stone footstep 8",
+   "action": "play",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 2.4833,
+   "frame": 150,
+   "source": "Player",
+   "clip": "Stone footstep 8",
+   "action": "start",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0
+  },
+  {
+   "dsp": 2.6,
+   "frame": 156,
+   "source": "Zambies",
+   "clip": "Zombie003_Idle_A_003",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 2.592
+  },
+  {
+   "dsp": 2.7167,
+   "frame": 163,
+   "source": "Player",
+   "clip": "Stone footstep 8",
+   "action": "end",
+   "volume": 0.5,
+   "pitch": 1,
+   "clipTime": 0.224
+  }
+ ],
+ "note": "MiniUnity simulates the player loop with physics (3D/2D), Animator/Animation and the audio timeline; frames are rendered (software renderer) only for --screenshot"
+}

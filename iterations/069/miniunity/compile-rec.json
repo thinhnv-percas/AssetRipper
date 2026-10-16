@@ -1,0 +1,157 @@
+{
+ "ok": true,
+ "command": "compile",
+ "success": false,
+ "errors": 3022,
+ "warnings": 29016,
+ "seconds": 10.9,
+ "cached": 0,
+ "assemblies": [
+  {
+   "name": "UnityEngine.UI",
+   "files": 121,
+   "ok": true,
+   "cached": false,
+   "errors": 0,
+   "skippedBecause": null,
+   "output": "Library/MiniUnity/ScriptAssemblies/UnityEngine.UI.dll"
+  },
+  {
+   "name": "Unity.Services.Core.Device",
+   "files": 12,
+   "ok": false,
+   "cached": false,
+   "errors": 4,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Unity.Services.Core.Internal",
+   "files": 88,
+   "ok": false,
+   "cached": false,
+   "errors": 15,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Unity.Services.Core.Telemetry",
+   "files": 11,
+   "ok": false,
+   "cached": false,
+   "errors": 16,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "__Generated",
+   "files": 12,
+   "ok": false,
+   "cached": false,
+   "errors": 2,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Unity.Services.Core",
+   "files": 21,
+   "ok": true,
+   "cached": false,
+   "errors": 0,
+   "skippedBecause": null,
+   "output": "Library/MiniUnity/ScriptAssemblies/Unity.Services.Core.dll"
+  },
+  {
+   "name": "Unity.Services.Core.Scheduler",
+   "files": 13,
+   "ok": false,
+   "cached": false,
+   "errors": 3,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Newtonsoft.Json",
+   "files": 274,
+   "ok": false,
+   "cached": false,
+   "errors": 2855,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Unity.Services.Core.Environments.Internal",
+   "files": 8,
+   "ok": false,
+   "cached": false,
+   "errors": 3,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Unity.Services.Analytics",
+   "files": 72,
+   "ok": false,
+   "cached": false,
+   "errors": 26,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Unity.Services.Core.Configuration",
+   "files": 17,
+   "ok": false,
+   "cached": false,
+   "errors": 33,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "System.Runtime.CompilerServices.Unsafe",
+   "files": 1,
+   "ok": true,
+   "cached": false,
+   "errors": 0,
+   "skippedBecause": null,
+   "output": "Library/MiniUnity/ScriptAssemblies/System.Runtime.CompilerServices.Unsafe.dll"
+  },
+  {
+   "name": "Unity.Postprocessing.Runtime",
+   "files": 107,
+   "ok": true,
+   "cached": false,
+   "errors": 0,
+   "skippedBecause": null,
+   "output": "Library/MiniUnity/ScriptAssemblies/Unity.Postprocessing.Runtime.dll"
+  },
+  {
+   "name": "Unity.Services.Core.Registration",
+   "files": 8,
+   "ok": false,
+   "cached": false,
+   "errors": 44,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Unity.Services.Core.Threading",
+   "files": 8,
+   "ok": false,
+   "cached": false,
+   "errors": 21,
+   "skippedBecause": null,
+   "output": null
+  },
+  {
+   "name": "Assembly-CSharp",
+   "files": 23,
+   "ok": false,
+   "cached": false,
+   "errors": 0,
+   "skippedBecause": "Unity.Services.Core.Device",
+   "output": null
+  }
+ ],
+ "truncated": true,
+ "projectWarnings": []
+}
