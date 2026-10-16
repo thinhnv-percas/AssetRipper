@@ -12,6 +12,12 @@ Iteration hiện tại: 068 (hoàn tất; trọng tâm "Native value provenance,
                           chứa ngoài cùng. RunFromZombies behaviour 1.0000. Không Unity: UNITY_NOT_AVAILABLE; không
                           fixture nào compile sạch; PROJECT_GENERATED_COMPILE_IMPROVED.)
 
+Iteration 069 — KẾ HOẠCH (chưa thực hiện): docs/ITERATION_069_PLAN.md. Đọc nó trước mọi mục dưới đây về
+  "việc tiếp theo": trạng thái 068 đã tái lập từng chữ số trong container trống; một lỗi upstream Cpp2IL
+  (GenericInstanceTypeAnalysisContext.DefaultBaseType null cho mọi Derived : Base<T>) đã có patch đo đủ 5 fixture
+  (iterations/069/patch-lazy-basetype-v2.diff, Pinata lỗi thân 1074 → 876); asmdef xuất ra rỗng references;
+  JellyBlastV2 đang dùng layout StructDb 2021.2.9f1. Pinata là ARM64 (arm64-v8a), không phải x86 như ghi dưới.
+
 Cảnh báo cho phiên sau:
   - 068: một đối số thô của call không giải quyết được mà không tới được call (đã băng qua call khác) là
     `clobbered_<reg>`. `ReplaceClobberedRawArguments` chạy trong SSA trước fixpoint kiểu; đừng thêm luật cùng loại sau

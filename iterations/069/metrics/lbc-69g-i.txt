@@ -1,0 +1,32 @@
+CHANGED  CodeStage.AntiCheat.Detectors.SpeedHackDetector.StopDetection  calls: ['UnityEngine.Object::op_Inequality'] -> ['CodeStage.AntiCheat.Detectors.ACTkDetectorBase`1<CodeStage.AntiCheat.Detectors.SpeedHackDetector>::StopDetectionInternal', 'UnityEngine.Object::op_Inequality']
+CHANGED  CodeStage.AntiCheat.ObscuredTypes.ObscuredVector3Int.set_x  field_reads: ['currentCryptoKey'] -> ['currentCryptoKey', 'hiddenValue', 'y']
+CHANGED  CodeStage.AntiCheat.Detectors.TimeCheatingDetector.StopDetection  calls: ['UnityEngine.Object::op_Inequality'] -> ['CodeStage.AntiCheat.Detectors.TimeCheatingDetector::StopDetectionInternal', 'UnityEngine.Object::op_Inequality']
+CHANGED  CodeStage.AntiCheat.ObscuredTypes.ObscuredByte.CompareTo  field_writes: [] -> ['fakeValueActive']
+CHANGED  CodeStage.AntiCheat.Detectors.TimeCheatingDetector.Dispose  calls: ['UnityEngine.Object::op_Inequality'] -> ['CodeStage.AntiCheat.Common.KeepAliveBehaviour`1<CodeStage.AntiCheat.Detectors.TimeCheatingDetector>::DisposeInternal', 'UnityEngine.Object::op_Inequality']
+CHANGED  CodeStage.AntiCheat.Genuine.CodeHash.StandaloneWindowsWorker.GenerateHashThread  returns: 2 -> 3
+CHANGED  CodeStage.AntiCheat.ObscuredTypes.ObscuredDecimal.op_Decrement  field_reads: ['currentCryptoKey', 'fakeValue', 'fakeValueActive'] -> ['b9', 'currentCryptoKey', 'fakeValue', 'fakeValueActive', 'hiddenValue']
+CHANGED  CodeStage.AntiCheat.ObscuredTypes.ObscuredDecimal.op_Increment  field_reads: ['currentCryptoKey', 'fakeValue', 'fakeValueActive'] -> ['b9', 'currentCryptoKey', 'fakeValue', 'fakeValueActive', 'hiddenValue']
+CHANGED  CodeStage.AntiCheat.Genuine.CodeHash.BuildHashes.CalculateSummaryCodeHash  field_reads: [] -> ['Hash', '_current', '_list']
+CHANGED  CodeStage.AntiCheat.Detectors.WallHackDetector.OnDestroy  field_reads: ['renderTexture', 'serviceContainer', 'wfMaterial'] -> ['instancesInScene', 'renderTexture', 'serviceContainer', 'wfMaterial']
+CHANGED  CodeStage.AntiCheat.Detectors.TimeCheatingDetector.Update  conditions: ['PROPERTY_READ IsStarted', 'PROPERTY_READ IsRunning', 'LOAD_FIELD interval', 'LOAD_FIELD updateAfterPause', 'COMPARE CheckGreaterOrEqual'] -> ['PROPERTY_READ IsStarted', 'PROPERTY_READ IsRunning', 'ARITHMETIC Or', 'LOAD_FIELD updateAfterPause', 'COMPARE CheckEqual']
+CHANGED  CodeStage.AntiCheat.Detectors.WallHackDetector.StartDetectionInternal  field_reads: ['IsRunning', 'detectionEventHasListener', 'y', 'z'] -> ['IsRunning', 'detectionEventHasListener', 'x', 'y', 'z']
+CHANGED  CodeStage.AntiCheat.Common.KeepAliveBehaviour`1.OnDestroy  allocations: ['UnityEngine.Events.UnityAction`2<UnityEngine.SceneManagement.Scene, UnityEngine.SceneManagement.LoadSceneMode>'] -> []
+CHANGED  CodeStage.AntiCheat.Detectors.WallHackDetector.FixedUpdate  conditions: ['PROPERTY_READ CheckRigidbody', 'UNKNOWN', 'LOAD_FIELD z', 'COMPARE CheckEqual', 'PROPERTY_READ IsRunning'] -> ['PROPERTY_READ CheckRigidbody', 'UNKNOWN', 'ARITHMETIC Or', 'COMPARE CheckEqual', 'PROPERTY_READ IsRunning']
+CHANGED  CodeStage.AntiCheat.Detectors.SpeedHackDetector.Update  conditions: ['COMPARE CheckNotEqual', 'LOAD_FIELD threshold', 'LOAD_FIELD threshold', 'LOAD_FIELD currentFalsePositives', 'LOAD_FIELD coolDown', 'LOAD_FIELD coolDown', 'UNKNOWN', 'PROPERTY_READ IsRunning', 'COMPARE CheckLess'] -> ['UNKNOWN', 'ARITHMETIC And', 'ARITHMETIC And', 'LOAD_FIELD currentFalsePositives', 'LOAD_FIELD coolDown', 'LOAD_FIELD coolDown', 'UNKNOWN', 'PROPERTY_READ IsRunning', 'COMPARE CheckLess']
+CHANGED  AdManager.Awake  calls: ['UnityEngine.AndroidJavaObject::Call', 'UnityEngine.AndroidJavaObject::GetStatic', 'UnityEngine.Component::get_gameObject', 'UnityEngine.Object::Destroy', 'UnityEngine.Object::DontDestroyOnLoad', 'UnityEngine.Object::op_Equality', 'UnityEngine.SceneManagement.SceneManager::add_sceneLoaded'] -> ['System.Array::Empty', 'UnityEngine.AndroidJavaObject::Call', 'UnityEngine.AndroidJavaObject::GetStatic', 'UnityEngine.Component::get_gameObject', 'UnityEngine.Object::Destroy', 'UnityEngine.Object::DontDestroyOnLoad', 'UnityEngine.Object::op_Equality', 'UnityEngine.SceneManagement.SceneManager::add_sceneLoaded']
+CHANGED  GameHelper.FindAllChild  blocks: 45 -> 35
+CHANGED  GameHelper..cctor  field_reads: ['y', 'z'] -> ['x', 'y', 'z']
+CHANGED  DG.Tweening.ShortcutExtensions.DOPath  field_reads: ['target'] -> ['HasValue', 'target']
+CHANGED  DG.Tweening.Plugins.PathPlugin.EvaluateAndApply  field_reads: ['completedLoops', 'customEase', 'easeOvershootOrAmplitude', 'easePeriod', 'easeType', 'isBackwards', 'isClosedPath', 'isComplete', 'loopType', 'method', 'miscInt', 'mode', 'onWaypointChange', 'orientType', 'wps', 'y', 'z'] -> ['completedLoops', 'customEase', 'easeOvershootOrAmplitude', 'easePeriod', 'easeType', 'isBackwards', 'isClosedPath', 'isComplete', 'loopType', 'method', 'miscInt', 'mode', 'onWaypointChange', 'orientType', 'wps', 'x', 'y', 'z']
+CHANGED  DG.Tweening.Plugins.Vector4Plugin.SetFrom  field_writes: ['endValue', 'w', 'x', 'y', 'z'] -> ['endValue', 'startValue', 'w', 'x', 'y', 'z']
+CHANGED  DG.Tweening.Plugins.UintPlugin.SetFrom  field_writes: ['m_value'] -> ['endValue', 'startValue']
+CHANGED  DG.Tweening.Plugins.Core.PathCore.Path.GetPoint  calls: ['DG.Tweening.Plugins.Core.PathCore.Path::ConvertToConstantPathPerc'] -> ['DG.Tweening.Plugins.Core.PathCore.ABSPathDecoder::GetPoint', 'DG.Tweening.Plugins.Core.PathCore.Path::ConvertToConstantPathPerc']
+CHANGED  DG.Tweening.Core.DOTweenComponent.FixedUpdate  conditions: ['COMPARE CheckLessOrEqual', 'LOAD_STATIC useSmoothDeltaTime', 'LOAD_STATIC useSmoothDeltaTime', 'LOAD_STATIC hasActiveFixedTweens'] -> ['ARITHMETIC Or', 'LOAD_STATIC useSmoothDeltaTime', 'LOAD_STATIC useSmoothDeltaTime', 'LOAD_STATIC hasActiveFixedTweens']
+entries 84  matched 84  changed 24  missing 0
+  field_reads: 9
+  calls: 5
+  conditions: 4
+  field_writes: 3
+  returns: 1
+  allocations: 1
+  blocks: 1

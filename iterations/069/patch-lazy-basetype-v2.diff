@@ -1,0 +1,36 @@
+diff --git a/Source/External/Cpp2IL.Core/Model/Contexts/GenericInstanceTypeAnalysisContext.cs b/Source/External/Cpp2IL.Core/Model/Contexts/GenericInstanceTypeAnalysisContext.cs
+index 2a91a545..ba953d2c 100644
+--- a/Source/External/Cpp2IL.Core/Model/Contexts/GenericInstanceTypeAnalysisContext.cs
++++ b/Source/External/Cpp2IL.Core/Model/Contexts/GenericInstanceTypeAnalysisContext.cs
+@@ -34,7 +34,22 @@ public class GenericInstanceTypeAnalysisContext : ReferencedTypeAnalysisContext
+         set => GenericType.OverrideNamespace = value;
+     }
+ 
+-    public sealed override TypeAnalysisContext? DefaultBaseType { get; }
++    // AssetRipper (experiment 069, v2): the Il2CppType constructor never set this, so every generic
++    // instance resolved from metadata - every `Derived : Base<T>` link - had a null base and the
++    // base-chain field search stopped there. The definition's base is instantiated on this
++    // instance's arguments, so `Foo<int> : Bar<T>` gives `Bar<int>` rather than the open `Bar<T>`,
++    // which would otherwise reach the output as a cast to a type C# cannot spell.
++    private TypeAnalysisContext? _defaultBaseType;
++    public sealed override TypeAnalysisContext? DefaultBaseType => _defaultBaseType ??= InstantiateBaseType();
++
++    private TypeAnalysisContext? InstantiateBaseType()
++    {
++        var open = GenericType.BaseType;
++        if (open is null)
++            return null;
++
++        return Utils.GenericInstantiation.Instantiate(open, GenericArguments, []);
++    }
+ 
+     public sealed override Il2CppTypeEnum Type => Il2CppTypeEnum.IL2CPP_TYPE_GENERICINST;
+ 
+@@ -69,7 +84,6 @@ public class GenericInstanceTypeAnalysisContext : ReferencedTypeAnalysisContext
+     {
+         GenericType = genericType;
+         GenericArguments.AddRange(genericArguments);
+-        DefaultBaseType = genericType.BaseType;
+ 
+         SetDeclaringType();
+     }
