@@ -21,6 +21,8 @@ public class ScriptExporter : IAssetExporter
 		};
 		ExportMode = configuration.ExportSettings.ScriptExportMode;
 		RuntimeSafeBodies = configuration.ExportSettings.RuntimeSafeBodies;
+		StubbedAssemblies = configuration.ExportSettings.StubbedAssemblies;
+		DecompiledAssemblies = configuration.ExportSettings.DecompiledAssemblies;
 		AuxiliaryFilesPath = configuration.AuxiliaryFilesPath;
 		ReferenceAssemblyDictionary = ReferenceAssemblies.GetReferenceAssemblies(AssemblyManager, configuration.Version);
 	}
@@ -29,6 +31,10 @@ public class ScriptExporter : IAssetExporter
 	public ScriptExportMode ExportMode { get; }
 	/// <summary>Whether saved assemblies have their unsafe bodies replaced; see <see cref="Scripts.RuntimeSafeBodies"/>.</summary>
 	public bool RuntimeSafeBodies { get; }
+	/// <summary>Saved assemblies whose every body is replaced; see <see cref="Configuration.ExportSettings.StubbedAssemblies"/>.</summary>
+	public string? StubbedAssemblies { get; }
+	/// <summary>Assemblies Hybrid decompiles besides the predefined ones; see <see cref="Configuration.ExportSettings.DecompiledAssemblies"/>.</summary>
+	public string? DecompiledAssemblies { get; }
 	public string AuxiliaryFilesPath { get; }
 	internal ScriptDecompiler Decompiler { get; }
 	internal Dictionary<string, UnityGuid> ReferenceAssemblyDictionary { get; }
@@ -95,7 +101,7 @@ public class ScriptExporter : IAssetExporter
 		}
 		else if (ExportMode is ScriptExportMode.Hybrid)
 		{
-			return ReferenceAssemblies.IsPredefinedAssembly(assemblyName)
+			return ReferenceAssemblies.IsPredefinedAssembly(assemblyName) || Scripts.RuntimeSafeBodies.IsListed(assemblyName, DecompiledAssemblies)
 				? AssemblyExportType.Decompile
 				: AssemblyExportType.Save;
 		}

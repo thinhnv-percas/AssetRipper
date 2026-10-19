@@ -77,6 +77,12 @@ static class Program
 			  --runtime-safe-bodies   Verify every body of an assembly saved as a DLL and replace the ones a
 			                          runtime cannot execute with a minimal body; lists them in
 			                          AuxiliaryFiles/RuntimeSafeBodies.json.
+			  --stub-assemblies <names>
+			                          ';'-separated assembly names (* wildcards) saved as DLLs with every body
+			                          replaced by a minimal one - SDKs a recovered project does not need to run.
+			  --decompile-assemblies <names>
+			                          ';'-separated assembly names (* wildcards) Hybrid decompiles to C# besides
+			                          Assembly-CSharp* - a game's own frameworks, so they can be read and repaired.
 			  --struct-db <dir>       IL2Cpp struct layout directory. Default: the usual locations.
 			  -h, --help              This text.
 
@@ -110,6 +116,8 @@ static class Program
 		public List<string> PackageCachePaths { get; } = [];
 		public ScriptExportMode ScriptExportMode { get; set; } = ScriptExportMode.Decompiled;
 		public bool RuntimeSafeBodies { get; set; }
+		public string? StubbedAssemblies { get; set; }
+		public string? DecompiledAssemblies { get; set; }
 		public string? StructDbPath { get; set; }
 
 		public static bool TryParse(string[] args, out RipOptions options, out string? error)
@@ -179,6 +187,12 @@ static class Program
 					}
 					case "--runtime-safe-bodies": // SandOut: a DLL export a runtime can execute
 						options.RuntimeSafeBodies = true;
+						break;
+					case "--stub-assemblies" when i + 1 < args.Length: // SandOut: SDKs kept as declarations only
+						options.StubbedAssemblies = args[++i];
+						break;
+					case "--decompile-assemblies" when i + 1 < args.Length: // SandOut: the studio frameworks as source
+						options.DecompiledAssemblies = args[++i];
 						break;
 					case "--script-mode" when i + 1 < args.Length: // iteration 069
 						if (!Enum.TryParse(args[++i], ignoreCase: true, out ScriptExportMode scriptMode))
@@ -320,6 +334,8 @@ static class Program
 		settings.ImportSettings.Il2CppStructDbPath = options.StructDbPath;
 		settings.ExportSettings.ScriptExportMode = options.ScriptExportMode;
 		settings.ExportSettings.RuntimeSafeBodies = options.RuntimeSafeBodies;
+		settings.ExportSettings.StubbedAssemblies = options.StubbedAssemblies;
+		settings.ExportSettings.DecompiledAssemblies = options.DecompiledAssemblies;
 		settings.ExportSettings.ShaderExportMode = options.ShaderExportMode;
 
 		settings.LogConfigurationValues();

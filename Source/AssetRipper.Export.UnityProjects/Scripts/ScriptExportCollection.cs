@@ -81,10 +81,11 @@ public sealed class ScriptExportCollection : ScriptExportCollectionBase
 				Logger.Info(LogCategory.Export, $"Saving {assemblyName}");
 				fileSystem.Directory.Create(pluginsFolder);
 				string outputPath = fileSystem.Path.Join(pluginsFolder, SpecialFileNames.AddAssemblyFileExtension(assemblyName));
-				if (AssetExporter.RuntimeSafeBodies)
+				bool stubbed = RuntimeSafeBodies.IsListed(assemblyName, AssetExporter.StubbedAssemblies);
+				if (AssetExporter.RuntimeSafeBodies || stubbed)
 				{
 					runtimeSafety ??= new RuntimeSafeBodies(AssetExporter.AssemblyManager);
-					fileSystem.File.WriteAllBytes(outputPath, runtimeSafety.Neutralise(assembly));
+					fileSystem.File.WriteAllBytes(outputPath, runtimeSafety.Neutralise(assembly, stubbed));
 				}
 				else
 				{

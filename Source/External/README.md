@@ -271,6 +271,11 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     (`AllocationsWithoutConstructor`, 841 on SandOut), and `InlinedConstructor` pairs a parameter with a field under the
     `_x` / `m_x` / `mX` conventions (`NamesTheSameMember`) - `GlobalScopeContextInstaller(Transform parentTransform)`
     storing `_parentTransform` had fallen back to null and the game's bootstrapper threw on its first frame.
+36. **An accessor is never read through itself** (SandOut) — `IlGenerator.IsBeingGenerated`. The trivial-accessor
+    pairing reads a field through the property whose getter returns it, and inside that getter it wrote
+    `get { return Progress; }`: a recursion that compiles and overflows the stack on first use, which in the Unity
+    Editor ends the process with nothing in the Console. `GenerateIl` records the method being generated (thread
+    static, restored on exit) and `PublicAccessorFor`, `InstanceAccessorFor` and `InstanceSetterFor` refuse it.
 
 ## Updating
 

@@ -50,6 +50,25 @@ public sealed record class ExportSettings
 	public bool RuntimeSafeBodies { get; set; } = false;
 
 	/// <summary>
+	/// Assemblies saved as a DLL whose every method body is replaced with a minimal one, as <c>;</c>-separated names
+	/// with <c>*</c> wildcards. For SDKs (ads, analytics, purchasing, social) whose behaviour a recovered project is not
+	/// meant to reproduce: their declarations stay, so the game's code still compiles against them, and their startup
+	/// hooks do nothing. Listed in AuxiliaryFiles/RuntimeSafeBodies.json like any other replacement.
+	/// </summary>
+	public string? StubbedAssemblies { get; set; }
+
+	/// <summary>
+	/// In <see cref="ScriptExportMode.Hybrid"/>, assemblies decompiled to C# in addition to the predefined ones
+	/// (Assembly-CSharp and its siblings): ';'-separated assembly names, <c>*</c> matching any run of characters.
+	/// </summary>
+	/// <remarks>
+	/// A game's own frameworks are usually separate assemblies, so Hybrid ships them as DLLs - which cannot be read or
+	/// repaired, and whose unsafe bodies <see cref="RuntimeSafeBodies"/> replaces. Listing them here exports them as
+	/// source with an asmdef each, like <see cref="ScriptExportMode.Decompiled"/> would, while everything else stays a DLL.
+	/// </remarks>
+	public string? DecompiledAssemblies { get; set; }
+
+	/// <summary>
 	/// How to export shaders?
 	/// </summary>
 	public ShaderExportMode ShaderExportMode { get; set; } = ShaderExportMode.Dummy;
@@ -122,6 +141,14 @@ public sealed record class ExportSettings
 		Logger.Info(LogCategory.General, $"{nameof(ScriptTypesFullyQualified)}: {ScriptTypesFullyQualified}");
 		Logger.Info(LogCategory.General, $"{nameof(SimplifyGlobalQualification)}: {SimplifyGlobalQualification}");
 		Logger.Info(LogCategory.General, $"{nameof(RuntimeSafeBodies)}: {RuntimeSafeBodies}");
+		if (!string.IsNullOrWhiteSpace(StubbedAssemblies))
+		{
+			Logger.Info(LogCategory.General, $"{nameof(StubbedAssemblies)}: {StubbedAssemblies}");
+		}
+		if (!string.IsNullOrWhiteSpace(DecompiledAssemblies))
+		{
+			Logger.Info(LogCategory.General, $"{nameof(DecompiledAssemblies)}: {DecompiledAssemblies}");
+		}
 		Logger.Info(LogCategory.General, $"{nameof(ShaderExportMode)}: {ShaderExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(SpriteExportMode)}: {SpriteExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(TextExportMode)}: {TextExportMode}");

@@ -85,14 +85,20 @@ public sealed class RuntimeSafeBodies
 	public IReadOnlyList<AssemblyReport> Reports => reports;
 
 	/// <summary>The image of <paramref name="assembly"/> with every unsafe body replaced.</summary>
-	public byte[] Neutralise(AssemblyDefinition assembly)
+	/// <param name="assembly">A saved assembly of this game.</param>
+	/// <param name="stubEverything">
+	/// Replace every body, verified or not: the assembly is one the export was asked to keep only as declarations
+	/// (an SDK - ads, analytics, purchasing - whose behaviour a recovered project is not meant to reproduce). Its
+	/// startup hooks then do nothing rather than whatever recovered code would have done.
+	/// </param>
+	public byte[] Neutralise(AssemblyDefinition assembly, bool stubEverything = false)
 	{
 		string name = assembly.Name ?? "";
 		byte[] image = resolver.ImageOf(name) ?? throw new ArgumentException($"{name} is not an assembly of this game", nameof(assembly));
 		AssemblyReport report = new(name);
 		reports.Add(report);
 
-		Dictionary<int, string> unsafeMethods = FindUnsafeMethods(name, report);
+		Dictionary<int, string> unsafeMethods = stubEverything ? AllMethods(name, report) : FindUnsafeMethods(name, report);
 		if (unsafeMethods.Count == 0)
 		{
 			return image;
@@ -115,6 +121,44 @@ public sealed class RuntimeSafeBodies
 		Logger.Info(LogCategory.Export, $"Runtime-safe bodies: {name}: {report.Replaced.Count} of {report.Methods} bodies replaced"
 			+ (report.ByError.Count > 0 ? " (" + string.Join(", ", report.ByError.OrderByDescending(p => p.Value).Select(p => $"{p.Key} {p.Value}")) + ")" : ""));
 		return output.ToArray();
+	}
+
+	private Dictionary<int, string> AllMethods(string name, AssemblyReport report)
+	{
+		Dictionary<int, string> found = [];
+		MetadataReader metadata = resolver.ResolveAssembly(new AssemblyNameInfo(name))!.GetMetadataReader();
+		foreach (MethodDefinitionHandle handle in metadata.MethodDefinitions)
+		{
+			if (metadata.GetMethodDefinition(handle).RelativeVirtualAddress != 0)
+			{
+				report.Methods++;
+				found[MetadataTokens.GetToken(handle)] = StubbedByRequest;
+			}
+		}
+		report.ByError[StubbedByRequest] = found.Count;
+		return found;
+	}
+
+	/// <summary>The reason recorded for a body replaced because its assembly was listed, not because it failed.</summary>
+	public const string StubbedByRequest = "StubbedByRequest";
+
+	/// <summary>Whether <paramref name="assemblyName"/> matches one of the <c>;</c>-separated patterns (<c>*</c> wildcards).</summary>
+	public static bool IsListed(string assemblyName, string? patterns)
+	{
+		if (string.IsNullOrWhiteSpace(patterns))
+		{
+			return false;
+		}
+
+		foreach (string pattern in patterns.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+		{
+			string regex = "^" + System.Text.RegularExpressions.Regex.Escape(pattern).Replace("\\*", ".*") + "$";
+			if (System.Text.RegularExpressions.Regex.IsMatch(assemblyName, regex, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private Dictionary<int, string> FindUnsafeMethods(string name, AssemblyReport report)

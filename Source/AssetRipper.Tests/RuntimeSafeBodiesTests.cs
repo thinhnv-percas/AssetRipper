@@ -82,4 +82,33 @@ public sealed class RuntimeSafeBodiesTests
 			Assert.That(BodyOf(written, "UninitialisedLocals").Count, Is.EqualTo(4), "InitLocals is a rule of verification, not of execution");
 		});
 	}
+
+	[Test]
+	public void AListedAssemblyHasEveryBodyReplaced()
+	{
+		(BaseManager manager, AssemblyDefinition probe) = Build();
+		RuntimeSafeBodies safety = new(manager);
+
+		ModuleDefinition written = ModuleDefinition.FromBytes(safety.Neutralise(probe, stubEverything: true));
+		RuntimeSafeBodies.AssemblyReport report = safety.Reports.Single();
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(report.Replaced, Has.Count.EqualTo(3));
+			Assert.That(report.Replaced.Select(static body => body.Reason), Is.All.EqualTo(RuntimeSafeBodies.StubbedByRequest));
+			Assert.That(BodyOf(written, "Good").Any(static instruction => instruction.OpCode == CilOpCodes.Ldc_I4_1), Is.False,
+				"a listed assembly keeps none of its bodies, sound or not");
+		});
+	}
+
+	[TestCase("Facebook.Unity.IOS", "Elephant*;Facebook.*", true)]
+	[TestCase("Elephant", "Elephant*;Facebook.*", true)]
+	[TestCase("ElephantUniTask.Linq", "Elephant*", true)]
+	[TestCase("Assembly-CSharp", "Elephant*;Facebook.*", false)]
+	[TestCase("Unity.Services.Core", "unity.services.*", true)]
+	[TestCase("Unity.Entities", "", false)]
+	public void PatternsMatchWholeNamesWithWildcards(string name, string patterns, bool listed)
+	{
+		Assert.That(RuntimeSafeBodies.IsListed(name, patterns), Is.EqualTo(listed));
+	}
 }

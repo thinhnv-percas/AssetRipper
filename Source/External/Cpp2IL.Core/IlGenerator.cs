@@ -81,7 +81,46 @@ public static class IlGenerator
             [appContext.SystemTypes.SystemStringType, appContext.SystemTypes.SystemStringType]);
     }
 
+    // AssetRipper: the method whose body is being generated on this thread; see IsBeingGenerated.
+    [ThreadStatic] private static MethodAnalysisContext? generating;
+
+    /// <summary>
+    /// AssetRipper: whether <paramref name="accessor"/> is the method whose body is being generated.
+    /// </summary>
+    /// <remarks>
+    /// A trivial accessor's own body is a load of its field and a return, so reading the field
+    /// "through its property" inside that very getter writes <c>get { return Progress; }</c> - a
+    /// recursion that compiles, and that overflows the stack the first time it runs, which in the
+    /// Unity Editor takes the whole process down with no exception to read. The setter is the same
+    /// with a store. The pairing is right everywhere else; it is only never right in the accessor.
+    /// </remarks>
+    private static bool IsBeingGenerated(MethodAnalysisContext? accessor)
+    {
+        if (accessor is null || generating is not { } current)
+            return false;
+
+        static MethodAnalysisContext Definition(MethodAnalysisContext method)
+            => method is ConcreteGenericMethodAnalysisContext concrete ? concrete.BaseMethodContext : method;
+
+        return ReferenceEquals(Definition(accessor), Definition(current));
+    }
+
     public static void GenerateIl(MethodAnalysisContext context, MethodDefinition definition)
+    {
+        var previous = generating;
+        generating = context;
+
+        try
+        {
+            GenerateIlCore(context, definition);
+        }
+        finally
+        {
+            generating = previous;
+        }
+    }
+
+    private static void GenerateIlCore(MethodAnalysisContext context, MethodDefinition definition)
     {
         var assembly = context.DeclaringType!.DeclaringAssembly;
         var module = definition.DeclaringModule!;
@@ -865,7 +904,7 @@ public static class IlGenerator
                 continue;
 
             if (getter.ReturnType.FullName == field.FieldType.FullName)
-                return getter;
+                return IsBeingGenerated(getter) ? null : getter;
         }
 
         return null;
@@ -937,6 +976,9 @@ public static class IlGenerator
     }
 
     private static MethodAnalysisContext? InstanceAccessorFor(FieldAnalysisContext field)
+        => InstanceAccessorForAnyMethod(field) is { } accessor && !IsBeingGenerated(accessor) ? accessor : null;
+
+    private static MethodAnalysisContext? InstanceAccessorForAnyMethod(FieldAnalysisContext field)
     {
         // A field of a generic instance carries no metadata of its own - its BackingData is null and
         // its declaring type is the instantiation, which has no properties at all. The pairing is a
@@ -1058,6 +1100,9 @@ public static class IlGenerator
     /// them a write rather than a read.
     /// </remarks>
     private static MethodAnalysisContext? InstanceSetterFor(FieldAnalysisContext field)
+        => InstanceSetterForAnyMethod(field) is { } setter && !IsBeingGenerated(setter) ? setter : null;
+
+    private static MethodAnalysisContext? InstanceSetterForAnyMethod(FieldAnalysisContext field)
     {
         if (field is ConcreteGenericFieldAnalysisContext concrete)
         {
