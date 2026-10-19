@@ -1,0 +1,43 @@
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.402/Roslyn/bincore/csc.dll
+Assembly-CSharp: 1646 files, 13 errors, 0 warnings
+Assembly-CSharp: 1641 of 1646 files compile clean
+
+    13  CS1525   [most common: 13 of 13] Invalid expression term 'ref'
+
+reference assemblies: 191
+errors classified: 13
+
+DECOMPILER_ERROR       13
+REFERENCE_ERROR         0
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+      13  CS1525   invalid C# independent of the reference set
+          Invalid expression term 'ref'
+
+
+PARSE_PASS: 5 files with syntax errors set aside
+Assembly-CSharp (parse pass): 187 errors, 36719 warnings, 1573 of 1641 files compile clean
+    79  CS0617   'menuName' is not a valid named attribute argument. Named attribute arguments must be fields which are not readonly, static, or const, or read-write properties which are public and not static.
+    47  CS0122   'MonoPInvokeCallbackAttribute' is inaccessible due to its protection level
+    19  CS8702   'ISystem.OnDestroy(ref SystemState)' cannot implement interface member 'ISystem.OnDestroy(ref SystemState)' in type 'WallCollisionSystem' because the target runtime doesn't support default interface implementation.
+    17  CS0570   'IJobChunk.Execute(in ArchetypeChunk, int, bool, in v128)' is not supported by the language
+    15  CS0246   The type or namespace name 'RunStyle' could not be found (are you missing a using directive or an assembly reference?)
+     6  CS8701   Target runtime doesn't support default interface implementation.
+     2  CS0683   'SROptions.remove_PropertyChanged(PropertyChangedEventHandler)' explicit method implementation cannot implement 'INotifyPropertyChanged.PropertyChanged.remove' because it is an accessor
+     1  CS0738   'SROptions' does not implement interface member 'INotifyPropertyChanged.PropertyChanged'. 'SROptions.PropertyChanged' cannot implement 'INotifyPropertyChanged.PropertyChanged' because it does not have the matching return type of 'PropertyChangedEventHandler'.
+     1  CS0234   The type or namespace name 'Network' does not exist in the namespace 'ElephantSocial.Team' (are you missing an assembly reference?)
+
+BODY_PASS: 79 stripped attribute arguments neutralised in a copy
+Assembly-CSharp (body pass): 108 errors, 1614 of 1641 files compile clean
+    47  CS0122
+    19  CS8702
+    17  CS0570
+    15  CS0246
+     6  CS8701
+     2  CS0683
+     1  CS0738
+     1  CS0234

@@ -38,6 +38,9 @@ public class MachOLoadCommand : ReadableClass
                 break;
             }
             case LoadCommandId.LC_DYLD_CHAINED_FIXUPS:
+            // AssetRipper: a binary linked with chained fixups publishes its exports here rather than in
+            // LC_DYLD_INFO_ONLY; the payload is the same (offset, size) pair. See MachOFile.
+            case LoadCommandId.LC_DYLD_EXPORTS_TRIE:
             {
                 CommandData = reader.ReadReadableHereNoLock<MachOLinkEditDataCommand>();
                 break;

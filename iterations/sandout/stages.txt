@@ -1,0 +1,29 @@
+project: Test/OutSO/SandOut
+
+   stage                     verdict        detail
+----------------------------------------------------------------------------------------------------
+A  project generated         PASS           Assets and ProjectSettings present, m_EditorVersion: 6000.0.72f1
+B  scripts generated         PASS           8543 scripts, 118084 KiB, 1118 under 200 bytes
+C  references consistent     FAIL           0.9998 of 41619 references resolve, 8 do not
+D  C# compiles               FAIL           7550 of 8609 files compile clean, 12574 errors
+E  AssetDatabase imports     BLOCKED        UNITY_NOT_AVAILABLE
+F  scene opens               BLOCKED        UNITY_NOT_AVAILABLE
+G  prefab instantiates       BLOCKED        UNITY_NOT_AVAILABLE
+H  MonoBehaviour lifecycle   BLOCKED        UNITY_NOT_AVAILABLE
+I  gameplay smoke test       BLOCKED        UNITY_NOT_AVAILABLE
+D2 compiles as Unity would   BLOCKED        MiniUnity: MINIUNITY_NOT_AVAILABLE
+F2 scenes play [MiniUnity]   BLOCKED        MiniUnity: MINIUNITY_NOT_AVAILABLE
+I2 behaviour = source        BLOCKED        MiniUnity: MINIUNITY_NOT_AVAILABLE
+
+== metrics ==
+compile_pass_rate          0.8770
+body_recovery_rate         0.9935  (33969 methods carry a native address)
+reference_resolution_rate  0.9998
+scene_load_rate            BLOCKED (UNITY_NOT_AVAILABLE)
+prefab_load_rate           BLOCKED (UNITY_NOT_AVAILABLE)
+runtime_smoke_pass_rate    BLOCKED (UNITY_NOT_AVAILABLE)
+shader_programs_recovered  0 of 86  (every pass carries the shader's own compiled program)
+shader_structure_only      80 of 86  (subshaders, passes, tags and render state from the asset; at least one program replaced)
+shader_dummy               0 of 86
+shader_unknown             6 of 86
+shader_exact               NOT_MEASURED_HERE (shader_semantic_equivalence.py decides it against the source ShaderLab)

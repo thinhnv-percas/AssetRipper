@@ -214,20 +214,57 @@ if command -v python3 > /dev/null 2>&1 && [ -f "$classifier" ] && [ "$errors" -g
     python3 "$classifier" "$work/log.txt" "$scripts" "$assemblies" ${CLASSIFY_JSON:+--json "$CLASSIFY_JSON"}
 fi
 
+# A syntax error is reported at parse time, and with one in the compilation Roslyn binds nothing: no
+# semantic error and no warning anywhere in the assembly. SandOut's Assembly-CSharp read "13 errors, 0
+# warnings" over 1646 recovered files for exactly this reason - five files with `ref` where C# cannot
+# have one. The parse pass sets those files aside and compiles the rest, so the semantic count is visible beside the one that hides it. The codes are the parser's
+# own, listed rather than ranged: CS1061, CS1501 and CS1503 are in the same numeric range and are
+# semantic.
+syntax_codes='CS1001|CS1002|CS1003|CS1009|CS1010|CS1012|CS1013|CS1014|CS1015|CS1022|CS1026|CS1031|CS1033|CS1035|CS1037|CS1039|CS1040|CS1041|CS1043|CS1044|CS1055|CS1056|CS1513|CS1514|CS1519|CS1520|CS1525|CS1526|CS1527|CS1528|CS1553|CS1597|CS8124|CS8641'
+# It runs before the body pass, whose stripped attribute arguments are declaration errors and so are
+# only reported once the parser has let the compilation through.
+stage_log="$work/log.txt"
+stage_rsp="$work/sources.rsp"
+if grep -qE ": error ($syntax_codes): " "$work/log.txt"; then
+    grep -E ": error ($syntax_codes): " "$work/log.txt" | grep -oE '^[^(]+\.cs' | sort -u > "$work/unparsed.txt"
+    grep -vxF -f "$work/unparsed.txt" "$work/sources.rsp" > "$work/parse.rsp"
+    # shellcheck disable=SC2086
+    "$DOTNET" "$csc" -nostdlib -noconfig -nologo -target:library -unsafe+ -langversion:9 \
+        -out:"$work/parse.dll" $references "@$work/parse.rsp" > "$work/parse-log.txt" 2>&1
+    unparsed=$(wc -l < "$work/unparsed.txt")
+    parse_errors=$(grep -c ': error ' "$work/parse-log.txt")
+    parse_warnings=$(grep -c ': warning ' "$work/parse-log.txt")
+    parse_faulted=$(grep ': error ' "$work/parse-log.txt" | grep -oE '^[^(]+\.cs' | sort -u | wc -l)
+    echo
+    echo "PARSE_PASS: $unparsed files with syntax errors set aside"
+    echo "$assembly (parse pass): $parse_errors errors, $parse_warnings warnings, $((files - unparsed - parse_faulted)) of $((files - unparsed)) files compile clean"
+    grep -oE ': error CS[0-9]+' "$work/parse-log.txt" | sort | uniq -c | sort -rn | head -10 | while read -r count code; do
+        bare="${code##*error }"
+        example=$(grep ": error $bare: " "$work/parse-log.txt" | sed "s/.*error $bare: //" | sort | uniq -c | sort -rn | head -1 | sed 's/^ *[0-9]* //')
+        printf '%6d  %-8s %s\n' "$count" "$bare" "$example"
+    done
+    if [ -n "${PARSE_ERRORS_TO:-}" ]; then
+        grep ': error ' "$work/parse-log.txt" > "$PARSE_ERRORS_TO" || true
+    fi
+    stage_log="$work/parse-log.txt"
+    stage_rsp="$work/parse.rsp"
+fi
+
+
 # A declaration error stops Roslyn before it binds any method body, and the one kind the export is not
 # at fault for - a named attribute argument whose accessor IL2CPP stripped from the stub - is enough to
 # hide every body error in the assembly. The body pass removes exactly those arguments from a copy and
 # compiles again, so the count that measures the recovery is visible beside the one that does not.
 neutraliser=$(dirname "$0")/neutralise_stripped_attribute_arguments.py
-if grep -q ': error CS0617: ' "$work/log.txt" && command -v python3 > /dev/null 2>&1 && [ -f "$neutraliser" ]; then
+if grep -q ': error CS0617: ' "$stage_log" && command -v python3 > /dev/null 2>&1 && [ -f "$neutraliser" ]; then
     mkdir -p "$work/body"
-    removed=$(python3 "$neutraliser" "$work/log.txt" "$scripts" "$assemblies" "$work/body")
+    removed=$(python3 "$neutraliser" "$stage_log" "$scripts" "$assemblies" "$work/body")
     if [ "${removed:-0}" -gt 0 ]; then
         : > "$work/body.rsp"
         while IFS= read -r source; do
             relative=${source#"$scripts"/}
             if [ -f "$work/body/$relative" ]; then echo "$work/body/$relative"; else echo "$source"; fi
-        done < "$work/sources.rsp" > "$work/body.rsp"
+        done < "$stage_rsp" > "$work/body.rsp"
         # shellcheck disable=SC2086
         "$DOTNET" "$csc" -nostdlib -noconfig -nologo -target:library -unsafe+ -langversion:9 \
             -out:"$work/body.dll" $references "@$work/body.rsp" > "$work/body-log.txt" 2>&1
@@ -235,7 +272,9 @@ if grep -q ': error CS0617: ' "$work/log.txt" && command -v python3 > /dev/null 
         body_faulted=$(grep ': error ' "$work/body-log.txt" | grep -oE '^[^(]+\.cs' | sort -u | wc -l)
         echo
         echo "BODY_PASS: $removed stripped attribute arguments neutralised in a copy"
-        echo "$assembly (body pass): $body_errors errors, $((files - body_faulted)) of $files files compile clean"
+        body_files=$(grep -c '\.cs$' "$work/body.rsp")
+        body_files=$((body_files - 1)) # the shim
+        echo "$assembly (body pass): $body_errors errors, $((body_files - body_faulted)) of $body_files files compile clean"
         grep -oE ': error CS[0-9]+' "$work/body-log.txt" | sort | uniq -c | sort -rn | head -8 | while read -r count code; do
             printf '%6d  %s\n' "$count" "${code##*error }"
         done

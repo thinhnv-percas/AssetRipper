@@ -255,6 +255,10 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     `IlGenerator` (`OpCode.Move`): a `float` local copied into a local typed as a whole float aggregate is stored into
     the aggregate's first member, as the arithmetic rule already did - `vector = (Vector3)num13` (CS0030) was the
     x component of an inlined `Vector3.MoveTowards`.
+33. **Exports from `LC_DYLD_EXPORTS_TRIE`** (SandOut) — `MachOLoadCommand` reads the command as a
+    `MachOLinkEditDataCommand`, and `MachOFile` parses the trie there when the binary has no `LC_DYLD_INFO(_ONLY)`.
+    A binary linked with chained fixups carries only the former, so it had no exports and the runtime helpers keyed on
+    the exported `il2cpp_*` API were not located (4 of 35 on SandOut).
 
 ## Updating
 

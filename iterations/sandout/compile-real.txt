@@ -1,0 +1,30 @@
+REFERENCES: 56 from the Unity Editor (/tmp/claude-0/-home-user-AssetRipper/45be09e0-b294-533c-9072-5ca4b2617b0d/scratchpad/unity/6000.0.72f1/Editor/Data), 135 from the rip
+ROSLYN_STATUS: AVAILABLE_AND_RUN
+ROSLYN_COMPILER: /home/user/.dotnet/sdk/10.0.402/Roslyn/bincore/csc.dll
+Assembly-CSharp: 1641 files, 17 errors, 0 warnings
+Assembly-CSharp: 1635 of 1641 files compile clean
+
+    17  CS1525   [most common: 17 of 17] Invalid expression term 'ref'
+
+reference assemblies: 191
+errors classified: 17
+
+DECOMPILER_ERROR       17
+REFERENCE_ERROR         0
+ROSLYN_ERROR            0
+TOOLCHAIN_ERROR         0
+UNCLASSIFIED            0
+
+DECOMPILER_ERROR
+      17  CS1525   invalid C# independent of the reference set
+          Invalid expression term 'ref'
+
+
+PARSE_PASS: 6 files with syntax errors set aside
+Assembly-CSharp (parse pass): 83 errors, 37683 warnings, 1612 of 1635 files compile clean
+    47  CS0122   'MonoPInvokeCallbackAttribute' is inaccessible due to its protection level
+    17  CS0570   'IJobChunk.Execute(in ArchetypeChunk, int, bool, in v128)' is not supported by the language
+    15  CS0246   The type or namespace name 'RunStyle' could not be found (are you missing a using directive or an assembly reference?)
+     2  CS0683   'SROptions.remove_PropertyChanged(PropertyChangedEventHandler)' explicit method implementation cannot implement 'INotifyPropertyChanged.PropertyChanged.remove' because it is an accessor
+     1  CS0738   'SROptions' does not implement interface member 'INotifyPropertyChanged.PropertyChanged'. 'SROptions.PropertyChanged' cannot implement 'INotifyPropertyChanged.PropertyChanged' because it does not have the matching return type of 'PropertyChangedEventHandler'.
+     1  CS0234   The type or namespace name 'Network' does not exist in the namespace 'ElephantSocial.Team' (are you missing an assembly reference?)

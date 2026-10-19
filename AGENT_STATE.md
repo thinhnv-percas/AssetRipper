@@ -39,6 +39,11 @@ Iteration 069 — cổng project (ĐÃ LÀM): reports/PROJECT_GATES_069.md. Năm
   RunFromZombies Hybrid: D2 PASS 0 lỗi, F2 0 runtime exception, I2 5/5 giá trị bằng source. Semantic status, placeholder,
   golden corpus 5 fixture giống từng chữ số. Decompiled-mode vẫn 2854 lỗi Unity, toàn bộ trong Newtonsoft.Json.
 
+SandOut (ĐÃ THỬ, nhánh claude/sandout-ipa-decompile): reports/SANDOUT_IPA.md. iOS, Unity 6000.0.72f1, binary đầu tiên có
+  chained fixups. Hai lỗi sửa: export ở LC_DYLD_EXPORTS_TRIE (helper 4 → 30/35, EXACT 18097 → 22632) và lỗi ILSpy dạng
+  method-level không được skip (220 file Assembly-CSharp mất). Compile harness có parse pass. Lỗi thân của game này chưa
+  đo được: còn 83 lỗi khai báo với Editor thật, phần lớn từ codegen của Unity.Entities.
+
 Cảnh báo cho phiên sau:
   - 068: một đối số thô của call không giải quyết được mà không tới được call (đã băng qua call khác) là
     `clobbered_<reg>`. `ReplaceClobberedRawArguments` chạy trong SSA trước fixpoint kiểu; đừng thêm luật cùng loại sau

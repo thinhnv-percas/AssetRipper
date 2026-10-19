@@ -1,0 +1,861 @@
+{
+  "project": "Test/OutSO/SandOut",
+  "stages": [
+    {
+      "stage": "A",
+      "name": "project generated",
+      "verdict": "PASS",
+      "detail": "Assets and ProjectSettings present, m_EditorVersion: 6000.0.72f1"
+    },
+    {
+      "stage": "B",
+      "name": "scripts generated",
+      "verdict": "PASS",
+      "detail": "8543 scripts, 118084 KiB, 1118 under 200 bytes"
+    },
+    {
+      "stage": "C",
+      "name": "references consistent",
+      "verdict": "FAIL",
+      "detail": "0.9998 of 41619 references resolve, 8 do not"
+    },
+    {
+      "stage": "D",
+      "name": "C# compiles",
+      "verdict": "FAIL",
+      "detail": "7550 of 8609 files compile clean, 12574 errors"
+    },
+    {
+      "stage": "E",
+      "name": "AssetDatabase imports",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F",
+      "name": "scene opens",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "G",
+      "name": "prefab instantiates",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "H",
+      "name": "MonoBehaviour lifecycle",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I",
+      "name": "gameplay smoke test",
+      "verdict": "BLOCKED",
+      "detail": "UNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "D2",
+      "name": "compiles as Unity would",
+      "verdict": "BLOCKED",
+      "detail": "MiniUnity: MINIUNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "F2",
+      "name": "scenes play [MiniUnity]",
+      "verdict": "BLOCKED",
+      "detail": "MiniUnity: MINIUNITY_NOT_AVAILABLE"
+    },
+    {
+      "stage": "I2",
+      "name": "behaviour = source",
+      "verdict": "BLOCKED",
+      "detail": "MiniUnity: MINIUNITY_NOT_AVAILABLE"
+    }
+  ],
+  "miniunity": {
+    "status": "BLOCKED",
+    "reason": "MINIUNITY_NOT_AVAILABLE"
+  },
+  "metrics": {
+    "scripts": 8543,
+    "bytes": 120918177,
+    "trivial": 1118,
+    "reference_resolution_rate": 0.9998077801004349,
+    "naming": 41619,
+    "unfollowable": 8,
+    "compile_pass_rate": 0.8769891973516087,
+    "compile_errors": 12574,
+    "assemblies": [
+      {
+        "assembly": "ALG.Runtime",
+        "clean": 77,
+        "files": 78
+      },
+      {
+        "assembly": "AdjustSdk.Scripts",
+        "clean": 23,
+        "files": 38
+      },
+      {
+        "assembly": "AllIn1SpriteShaderAssembly",
+        "clean": 24,
+        "files": 25
+      },
+      {
+        "assembly": "AllIn1VfxAssmebly",
+        "clean": 21,
+        "files": 23
+      },
+      {
+        "assembly": "AllIn1VfxDemoScriptAssemblies",
+        "clean": 26,
+        "files": 28
+      },
+      {
+        "assembly": "AllIn1VfxTexDemoAssembly",
+        "clean": 9,
+        "files": 10
+      },
+      {
+        "assembly": "AlmostEngine",
+        "clean": 56,
+        "files": 57
+      },
+      {
+        "assembly": "AlmostEngine.Shared",
+        "clean": 12,
+        "files": 18
+      },
+      {
+        "assembly": "Amazon.Scripts",
+        "clean": 38,
+        "files": 65
+      },
+      {
+        "assembly": "Assembly-CSharp",
+        "clean": 1635,
+        "files": 1641
+      },
+      {
+        "assembly": "Coffee.CFX_Demo_With_UIParticle",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Coffee.UIParticle",
+        "clean": 16,
+        "files": 30
+      },
+      {
+        "assembly": "Coffee.UIParticle.Demo",
+        "clean": 9,
+        "files": 11
+      },
+      {
+        "assembly": "Coffee.UIParticle.PerformanceDemo",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Coffee.UIParticle.R",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "ConnectedVoxelSystem.Runtime",
+        "clean": 12,
+        "files": 22
+      },
+      {
+        "assembly": "ContainerSystem.Runtime",
+        "clean": 36,
+        "files": 70
+      },
+      {
+        "assembly": "Core",
+        "clean": 0,
+        "files": 11
+      },
+      {
+        "assembly": "Data",
+        "clean": 0,
+        "files": 12
+      },
+      {
+        "assembly": "Database.Core",
+        "clean": 14,
+        "files": 26
+      },
+      {
+        "assembly": "Database.Editor",
+        "clean": 7,
+        "files": 7
+      },
+      {
+        "assembly": "Database.Runtime",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "DomainReloadHelper.Runtime",
+        "clean": 9,
+        "files": 9
+      },
+      {
+        "assembly": "E7.NotchSolution",
+        "clean": 21,
+        "files": 27
+      },
+      {
+        "assembly": "EditMode",
+        "clean": 0,
+        "files": 2
+      },
+      {
+        "assembly": "Elephant",
+        "clean": 160,
+        "files": 212
+      },
+      {
+        "assembly": "ElephantUniTask",
+        "clean": 271,
+        "files": 272
+      },
+      {
+        "assembly": "ElephantUniTask.Addressables",
+        "clean": 7,
+        "files": 7
+      },
+      {
+        "assembly": "ElephantUniTask.DOTween",
+        "clean": 7,
+        "files": 7
+      },
+      {
+        "assembly": "ElephantUniTask.Linq",
+        "clean": 126,
+        "files": 127
+      },
+      {
+        "assembly": "ElephantUniTask.TextMeshPro",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "ElephantUsercentrics",
+        "clean": 8,
+        "files": 9
+      },
+      {
+        "assembly": "EnhancedScroller_asmdef",
+        "clean": 87,
+        "files": 111
+      },
+      {
+        "assembly": "Facebook.Unity",
+        "clean": 110,
+        "files": 178
+      },
+      {
+        "assembly": "Facebook.Unity.IOS",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Facebook.Unity.Settings",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Firebase.Analytics",
+        "clean": 10,
+        "files": 14
+      },
+      {
+        "assembly": "Firebase.App",
+        "clean": 28,
+        "files": 33
+      },
+      {
+        "assembly": "Firebase.Crashlytics",
+        "clean": 14,
+        "files": 17
+      },
+      {
+        "assembly": "Firebase.Platform",
+        "clean": 27,
+        "files": 29
+      },
+      {
+        "assembly": "Firebase.TaskExtension",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "HighlightPlus.Demo",
+        "clean": 9,
+        "files": 13
+      },
+      {
+        "assembly": "HighlightPlus.Runtime",
+        "clean": 59,
+        "files": 60
+      },
+      {
+        "assembly": "IAP",
+        "clean": 0,
+        "files": 2
+      },
+      {
+        "assembly": "KinoBloom.Runtime",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Lofelt.NiceVibrations",
+        "clean": 21,
+        "files": 27
+      },
+      {
+        "assembly": "Lofelt.NiceVibrations.Demo",
+        "clean": 22,
+        "files": 38
+      },
+      {
+        "assembly": "LunarConsole",
+        "clean": 31,
+        "files": 53
+      },
+      {
+        "assembly": "MaxSdk.Scripts",
+        "clean": 13,
+        "files": 26
+      },
+      {
+        "assembly": "Newtonsoft.Json",
+        "clean": 218,
+        "files": 219
+      },
+      {
+        "assembly": "Notifications",
+        "clean": 0,
+        "files": 7
+      },
+      {
+        "assembly": "PrimeTween.Debug",
+        "clean": 9,
+        "files": 9
+      },
+      {
+        "assembly": "PrimeTween.Demo",
+        "clean": 11,
+        "files": 26
+      },
+      {
+        "assembly": "PrimeTween.Runtime",
+        "clean": 32,
+        "files": 33
+      },
+      {
+        "assembly": "Purchasing.Common",
+        "clean": 9,
+        "files": 12
+      },
+      {
+        "assembly": "RollicMAX",
+        "clean": 21,
+        "files": 29
+      },
+      {
+        "assembly": "Runtime",
+        "clean": 0,
+        "files": 13
+      },
+      {
+        "assembly": "SandOut.GameSpeedCore",
+        "clean": 10,
+        "files": 12
+      },
+      {
+        "assembly": "ScriptingDefineSymvolSystem",
+        "clean": 7,
+        "files": 7
+      },
+      {
+        "assembly": "Services",
+        "clean": 0,
+        "files": 1
+      },
+      {
+        "assembly": "SettingsSystem",
+        "clean": 12,
+        "files": 13
+      },
+      {
+        "assembly": "Shop",
+        "clean": 0,
+        "files": 1
+      },
+      {
+        "assembly": "Sirenix.OdinInspector.Attributes",
+        "clean": 144,
+        "files": 161
+      },
+      {
+        "assembly": "Sirenix.Serialization",
+        "clean": 210,
+        "files": 213
+      },
+      {
+        "assembly": "Sirenix.Serialization.Config",
+        "clean": 12,
+        "files": 14
+      },
+      {
+        "assembly": "Sirenix.Utilities",
+        "clean": 27,
+        "files": 57
+      },
+      {
+        "assembly": "SoundSystem.Runtime",
+        "clean": 18,
+        "files": 20
+      },
+      {
+        "assembly": "StompyRobot.SRDebugger",
+        "clean": 74,
+        "files": 130
+      },
+      {
+        "assembly": "StompyRobot.SRF",
+        "clean": 33,
+        "files": 66
+      },
+      {
+        "assembly": "System.Runtime.CompilerServices.Unsafe",
+        "clean": 1,
+        "files": 1
+      },
+      {
+        "assembly": "TimeTaskSystem.Runtime",
+        "clean": 19,
+        "files": 20
+      },
+      {
+        "assembly": "ToonyColorsPro.Runtime",
+        "clean": 9,
+        "files": 13
+      },
+      {
+        "assembly": "ToonyColorsPro2.Demo",
+        "clean": 9,
+        "files": 16
+      },
+      {
+        "assembly": "TutorialActions",
+        "clean": 0,
+        "files": 2
+      },
+      {
+        "assembly": "TutorialSystem",
+        "clean": 0,
+        "files": 1
+      },
+      {
+        "assembly": "Tweener",
+        "clean": 12,
+        "files": 27
+      },
+      {
+        "assembly": "TweenerSystem",
+        "clean": 0,
+        "files": 1
+      },
+      {
+        "assembly": "UI",
+        "clean": 0,
+        "files": 6
+      },
+      {
+        "assembly": "Ui",
+        "clean": 0,
+        "files": 6
+      },
+      {
+        "assembly": "UiAnimations",
+        "clean": 0,
+        "files": 1
+      },
+      {
+        "assembly": "UiFactory.Runtime",
+        "clean": 30,
+        "files": 32
+      },
+      {
+        "assembly": "Unco.AdSystem",
+        "clean": 10,
+        "files": 11
+      },
+      {
+        "assembly": "Unco.CSVDownloaderUtility",
+        "clean": 8,
+        "files": 9
+      },
+      {
+        "assembly": "Unco.CommonManagers",
+        "clean": 8,
+        "files": 9
+      },
+      {
+        "assembly": "Unco.EventBusSystem",
+        "clean": 10,
+        "files": 15
+      },
+      {
+        "assembly": "Unco.Extensions",
+        "clean": 18,
+        "files": 19
+      },
+      {
+        "assembly": "Unco.FlowSystem",
+        "clean": 11,
+        "files": 13
+      },
+      {
+        "assembly": "Unco.GameConditions",
+        "clean": 22,
+        "files": 27
+      },
+      {
+        "assembly": "Unco.InitializationSystem",
+        "clean": 18,
+        "files": 19
+      },
+      {
+        "assembly": "Unco.ListTableDrawer",
+        "clean": 9,
+        "files": 9
+      },
+      {
+        "assembly": "Unco.Notifications",
+        "clean": 25,
+        "files": 27
+      },
+      {
+        "assembly": "Unco.Objects",
+        "clean": 29,
+        "files": 40
+      },
+      {
+        "assembly": "Unco.OptionalValueSystem",
+        "clean": 7,
+        "files": 9
+      },
+      {
+        "assembly": "Unco.RemoteManagementSystem",
+        "clean": 21,
+        "files": 23
+      },
+      {
+        "assembly": "Unco.ResourceSystem",
+        "clean": 25,
+        "files": 27
+      },
+      {
+        "assembly": "Unco.RewardSystem",
+        "clean": 24,
+        "files": 41
+      },
+      {
+        "assembly": "Unco.StateSystem.Runtime",
+        "clean": 9,
+        "files": 12
+      },
+      {
+        "assembly": "Unco.TutorialSystem",
+        "clean": 32,
+        "files": 33
+      },
+      {
+        "assembly": "Unco.Utils",
+        "clean": 8,
+        "files": 11
+      },
+      {
+        "assembly": "Unity.Burst",
+        "clean": 32,
+        "files": 32
+      },
+      {
+        "assembly": "Unity.Burst.Unsafe",
+        "clean": 9,
+        "files": 9
+      },
+      {
+        "assembly": "Unity.Collections",
+        "clean": 106,
+        "files": 161
+      },
+      {
+        "assembly": "Unity.Collections.LowLevel.ILSupport",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Deformations",
+        "clean": 11,
+        "files": 11
+      },
+      {
+        "assembly": "Unity.Entities",
+        "clean": 302,
+        "files": 369
+      },
+      {
+        "assembly": "Unity.Entities.Graphics",
+        "clean": 174,
+        "files": 209
+      },
+      {
+        "assembly": "Unity.Entities.Hybrid",
+        "clean": 63,
+        "files": 77
+      },
+      {
+        "assembly": "Unity.Entities.Hybrid.HybridComponents",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "Unity.InputSystem",
+        "clean": 339,
+        "files": 340
+      },
+      {
+        "assembly": "Unity.InputSystem.ForUI",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Mathematics",
+        "clean": 23,
+        "files": 29
+      },
+      {
+        "assembly": "Unity.Mathematics.Extensions",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "Unity.Mathematics.Extensions.Hybrid",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.MemoryProfiler",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "Unity.Notifications.iOS",
+        "clean": 35,
+        "files": 35
+      },
+      {
+        "assembly": "Unity.RenderPipeline.Universal.ShaderLibrary",
+        "clean": 23,
+        "files": 23
+      },
+      {
+        "assembly": "Unity.RenderPipelines.Core.Runtime",
+        "clean": 416,
+        "files": 433
+      },
+      {
+        "assembly": "Unity.RenderPipelines.Core.Runtime.Shared",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.RenderPipelines.GPUDriven.Runtime",
+        "clean": 89,
+        "files": 124
+      },
+      {
+        "assembly": "Unity.RenderPipelines.Universal.Runtime",
+        "clean": 264,
+        "files": 282
+      },
+      {
+        "assembly": "Unity.Scenes",
+        "clean": 48,
+        "files": 54
+      },
+      {
+        "assembly": "Unity.Serialization",
+        "clean": 76,
+        "files": 77
+      },
+      {
+        "assembly": "Unity.Services.Core",
+        "clean": 16,
+        "files": 16
+      },
+      {
+        "assembly": "Unity.Services.Core.Configuration",
+        "clean": 15,
+        "files": 17
+      },
+      {
+        "assembly": "Unity.Services.Core.Device",
+        "clean": 13,
+        "files": 13
+      },
+      {
+        "assembly": "Unity.Services.Core.Environments.Internal",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Services.Core.Internal",
+        "clean": 56,
+        "files": 56
+      },
+      {
+        "assembly": "Unity.Services.Core.Registration",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Services.Core.Scheduler",
+        "clean": 13,
+        "files": 13
+      },
+      {
+        "assembly": "Unity.Services.Core.Telemetry",
+        "clean": 11,
+        "files": 11
+      },
+      {
+        "assembly": "Unity.Services.Core.Threading",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "Unity.Splines",
+        "clean": 83,
+        "files": 84
+      },
+      {
+        "assembly": "Unity.TextMeshPro",
+        "clean": 134,
+        "files": 135
+      },
+      {
+        "assembly": "Unity.Transforms",
+        "clean": 17,
+        "files": 19
+      },
+      {
+        "assembly": "Unity.Transforms.Hybrid",
+        "clean": 11,
+        "files": 13
+      },
+      {
+        "assembly": "Unity.Usercentrics",
+        "clean": 84,
+        "files": 84
+      },
+      {
+        "assembly": "UnityEngine.IdentifiersModule",
+        "clean": 6,
+        "files": 8
+      },
+      {
+        "assembly": "UnityEngine.Purchasing",
+        "clean": 75,
+        "files": 75
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.Apple",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.AppleCore",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.AppleMacosStub",
+        "clean": 7,
+        "files": 8
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.Security",
+        "clean": 25,
+        "files": 25
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.SecurityCore",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.Stores",
+        "clean": 144,
+        "files": 166
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.WinRTCore",
+        "clean": 10,
+        "files": 10
+      },
+      {
+        "assembly": "UnityEngine.Purchasing.WinRTStub",
+        "clean": 8,
+        "files": 8
+      },
+      {
+        "assembly": "UnityEngine.UI",
+        "clean": 118,
+        "files": 121
+      },
+      {
+        "assembly": "__Generated",
+        "clean": 11,
+        "files": 12
+      },
+      {
+        "assembly": "spine-csharp",
+        "clean": 119,
+        "files": 120
+      },
+      {
+        "assembly": "spine-unity",
+        "clean": 84,
+        "files": 90
+      },
+      {
+        "assembly": "spine-unity-examples",
+        "clean": 32,
+        "files": 88
+      }
+    ],
+    "body_recovery_rate": 0.9935235067267214,
+    "body_status": {
+      "EXACT": 22632,
+      "HIGH_CONFIDENCE": 849,
+      "PARTIAL": 10268,
+      "FALLBACK": 220,
+      "MISSING": 0
+    },
+    "bodies_attempted": 33969
+  },
+  "shaders": {
+    "STRUCTURE_ONLY": 80,
+    "UNKNOWN": 6
+  }
+}

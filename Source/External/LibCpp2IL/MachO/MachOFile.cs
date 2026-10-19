@@ -80,6 +80,20 @@ public class MachOFile : Il2CppBinary
 
         var dyldData = _loadCommands.FirstOrDefault(c => c.Command is LoadCommandId.LC_DYLD_INFO or LoadCommandId.LC_DYLD_INFO_ONLY)?.CommandData as MachODynamicLinkerCommand;
         var exports = dyldData?.Exports ?? [];
+
+        // AssetRipper: a binary linked with chained fixups (LC_DYLD_CHAINED_FIXUPS) has no LC_DYLD_INFO_ONLY at
+        // all, and its export trie - the same format - is in LC_DYLD_EXPORTS_TRIE instead. Reading only the first
+        // left such a binary with no exports, so the il2cpp_* API the runtime helpers are located by was not found:
+        // on SandOut (Unity 6000.0, the first fixture linked this way) 4 of 35 helpers were located against 30 on
+        // every other fixture, and METHOD_NOT_FOUND was a third of all placeholders.
+        if (exports.Length == 0
+            && _loadCommands.FirstOrDefault(c => c.Command == LoadCommandId.LC_DYLD_EXPORTS_TRIE)?.CommandData is MachOLinkEditDataCommand { Size: > 0 } exportsTrie)
+        {
+            var returnTo = BaseStream.Position;
+            BaseStream.Position = exportsTrie.Offset;
+            exports = new MachOExportTrie(this).Entries.ToArray();
+            BaseStream.Position = returnTo;
+        }
         
         _exportAddressesDict = exports.ToDictionary(e => e.Name[1..], e => e.Address); //Skip the first character, which is a leading underscore inserted by the compiler
         _exportNamesDict = new Dictionary<ulong, string>();
@@ -88,7 +102,7 @@ public class MachOFile : Il2CppBinary
             _exportNamesDict[export.Address] = export.Name[1..];
         }
 
-        LibLogger.VerboseNewline($"\tFound {_exportAddressesDict.Count} exports in the DYLD info load command.");
+        LibLogger.VerboseNewline($"\tFound {_exportAddressesDict.Count} exports in the DYLD info or exports trie load command.");
         
         var chainedFixups = _loadCommands.FirstOrDefault(c => c.Command == LoadCommandId.LC_DYLD_CHAINED_FIXUPS)?.CommandData as MachOLinkEditDataCommand;
         if (chainedFixups != null) 

@@ -11,7 +11,6 @@ using ICSharpCode.Decompiler.Metadata;
 using ICSharpCode.Decompiler.TypeSystem;
 using MetadataTypeDefinition = System.Reflection.Metadata.TypeDefinition;
 using MetadataTypeDefinitionHandle = System.Reflection.Metadata.TypeDefinitionHandle;
-using System.Text.RegularExpressions;
 
 namespace AssetRipper.Export.UnityProjects.Scripts;
 
@@ -68,6 +67,7 @@ internal class ScriptDecompiler
 		// type then costs itself rather than everything after it.
 		HashSet<string> skipped = new(StringComparer.OrdinalIgnoreCase);
 		Exception? lastFailure = null;
+		MetadataFile? module = null;
 
 		while (skipped.Count <= MaximumSkippedTypes)
 		{
@@ -78,7 +78,8 @@ internal class ScriptDecompiler
 					custom.SkippedTypePaths = skipped;
 				}
 
-				decompiler.DecompileProject(assemblyResolver.Resolve(assembly), outputFolder, TextWriter.Null);
+				module = assemblyResolver.Resolve(assembly);
+				decompiler.DecompileProject(module, outputFolder, TextWriter.Null);
 
 				if (skipped.Count > 0)
 				{
@@ -95,9 +96,17 @@ internal class ScriptDecompiler
 
 				int before = skipped.Count;
 
-				foreach (string path in FailingFilePaths(exception))
+				foreach (string path in DecompilationFailurePaths.FailingFilePaths(exception))
 				{
 					skipped.Add(path);
+				}
+
+				if (module is not null)
+				{
+					foreach (string path in DecompilationFailurePaths.FailingMethodTypePaths(exception, module))
+					{
+						skipped.Add(path);
+					}
 				}
 
 				if (skipped.Count == before)
@@ -115,25 +124,6 @@ internal class ScriptDecompiler
 		if (lastFailure is not null)
 		{
 			Logger.Error(lastFailure);
-		}
-	}
-
-	/// <summary>The source paths ILSpy names in a decompilation failure, without their extension.</summary>
-	private static IEnumerable<string> FailingFilePaths(Exception exception)
-	{
-		foreach (Match match in Regex.Matches(exception.ToString(), @"Error decompiling for '([^']+)'"))
-		{
-			string path = match.Groups[1].Value.Replace('\\', '/');
-
-			if (path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
-			{
-				path = path[..^3];
-			}
-
-			if (path.Length > 0)
-			{
-				yield return path;
-			}
 		}
 	}
 
@@ -158,7 +148,7 @@ internal class ScriptDecompiler
 
 		protected override bool IncludeTypeWhenDecompilingProject(MetadataFile module, MetadataTypeDefinitionHandle type)
 		{
-			if (SkippedTypePaths.Count > 0 && SkippedTypePaths.Contains(PathFor(module, type)))
+			if (SkippedTypePaths.Count > 0 && SkippedTypePaths.Contains(DecompilationFailurePaths.PathFor(module, type)))
 			{
 				return false;
 			}
@@ -185,22 +175,6 @@ internal class ScriptDecompiler
 			MetadataTypeDefinition definition = module.Metadata.GetTypeDefinition(handle);
 			return definition.GetDeclaringType().IsNil
 				&& module.Metadata.GetString(definition.Name).StartsWith("__JobReflectionRegistrationOutput__", StringComparison.Ordinal);
-		}
-
-		/// <summary>Where ILSpy would put this type, as namespace directories and the type's own name.</summary>
-		private static string PathFor(MetadataFile module, MetadataTypeDefinitionHandle handle)
-		{
-			MetadataTypeDefinition definition = module.Metadata.GetTypeDefinition(handle);
-			string name = module.Metadata.GetString(definition.Name);
-			string containingNamespace = module.Metadata.GetString(definition.Namespace);
-
-			int arity = name.IndexOf('`');
-			if (arity >= 0)
-			{
-				name = name[..arity];
-			}
-
-			return string.IsNullOrEmpty(containingNamespace) ? name : containingNamespace.Replace('.', '/') + '/' + name;
 		}
 
 		protected override TextWriter CreateFile(string path)

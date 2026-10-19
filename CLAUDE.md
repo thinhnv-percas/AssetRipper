@@ -2237,6 +2237,18 @@ find it; `strings` without `-el` does find method and type names.
   compiles the project with 0 errors and plays it to the same watched values as the source.
   `Test/Scripts/miniunity_gate.py` is that gate; its scenarios never state an expected value - the
   source project, played the same way, is the expectation.
+- **A binary linked with chained fixups keeps its exports in `LC_DYLD_EXPORTS_TRIE`, not `LC_DYLD_INFO_ONLY`.**
+  SandOut (iOS, Unity 6000.0.72f1, `reports/SANDOUT_IPA.md`) is the first fixture linked that way, and with exports
+  read only from the second it had none: 4 of 35 runtime helpers located against 30 everywhere else, every
+  `object_new`/`box`/`class_init` call a placeholder. Reading the trie from either command took EXACT 18097 → 22632.
+  It is also the first real binary the chained fixup code ran on, and the field layout self-check read 0 disagreements.
+- **ILSpy can fail a method without naming its file**, as `Error decompiling @06000ACA <method>`, and the skip-and-retry
+  read only `Error decompiling for '<file>'` - so it skipped nothing and 220 of SandOut's Assembly-CSharp files were
+  lost. `DecompilationFailurePaths.FailingMethodTypePaths` resolves the token in the module ILSpy read.
+- **A parse error hides every semantic error in the compilation, including declaration errors.** SandOut read "13
+  errors, 0 warnings" over 1641 files; the harness's parse pass sets the unparsable files aside, and runs before the
+  body pass because CS0617 only appears once the parser lets the compilation through. Zero warnings over a recovered
+  assembly means nothing was bound.
 
 
 ### Things measured to be worth nothing — do not redo them

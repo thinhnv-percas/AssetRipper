@@ -1,0 +1,83 @@
+SCOPE: the 89 assemblies recovery was attempted on
+placeholders: 207284
+
+== by family ==
+family                          count  share  methods  asm  generator site         ISIL operation
+-------------------------------------------------------------------------------------------------
+UNMANAGED_MEMORY_LOAD          132788  64.1%     7419   73  IlGenerator.cs:2463    LoadOperand, a MemoryOperand no field was found for
+METHOD_NOT_FOUND                61479  29.7%     6930   71  IlGenerator.cs:1328    OpCode.Call / CallVoid, target is an Immediate
+INDIRECT_CALL                    8633   4.2%     2709   55  IlGenerator.cs:1446    OpCode.IndirectCall
+UNKNOWN_CALL_TARGET              2220   1.1%     1149   47  IlGenerator.cs:1333    OpCode.Call, target is not an Immediate
+NOT_IMPLEMENTED_INSTRUCTION      1394   0.7%      346   32  IlGenerator.cs:1019    OpCode.NotImplemented
+INDIRECT_JUMP                     752   0.4%      727   31  IlGenerator.cs:1471    OpCode.IndirectJump
+OTHER                              14   0.0%       11    4  -                      -
+UNRESOLVED_DELEGATE                 4   0.0%        4    4  IlGenerator.cs:1155    OpCode.Newobj over a delegate type
+
+== what each family means ==
+  UNMANAGED_MEMORY_LOAD          a load whose base type or offset could not be placed
+  METHOD_NOT_FOUND               an address with no managed method at it
+  INDIRECT_CALL                  a virtual or interface dispatch the passes did not resolve
+  UNKNOWN_CALL_TARGET            a call whose target operand is a register or a memory read
+  NOT_IMPLEMENTED_INSTRUCTION    the lifter has no rule for this native opcode
+  INDIRECT_JUMP                  a computed branch, typically a switch table
+  OTHER                          ?
+  UNRESOLVED_DELEGATE            a delegate built over a function pointer nothing resolved
+
+== inside each family, by concrete cause ==
+
+  UNMANAGED_MEMORY_LOAD
+      6575    711 methods  X0
+      5817   2817 methods  (unnamed base)
+      1664    721 methods  X8_v5
+      1423    711 methods  X8_v8
+      1376    821 methods  X8_v9
+      1207    621 methods  X8_v6
+      1121    528 methods  X8_v7
+      1037    165 methods  stack_
+       852    356 methods  X8_v20
+       759    328 methods  X8_v12
+       684    346 methods  X8_v16
+       664    299 methods  X8_v18
+    ... and 3910 more distinct causes
+
+  METHOD_NOT_FOUND
+     61479   6930 methods  (address only)
+
+  INDIRECT_CALL
+      8633   2709 methods  (dispatch)
+
+  UNKNOWN_CALL_TARGET
+      1365    521 methods  \"il2cpp_vm_object_box\"
+       522    430 methods  \"il2cpp_vm_class_is_assignable_from\"
+       240    172 methods  \"il2cpp_vm_object_unbox\"
+        93     67 methods  \"SzArrayNew\"
+
+  NOT_IMPLEMENTED_INSTRUCTION
+       515    145 methods  UNIMPLEMENTED
+       271    154 methods  DUP
+        82     54 methods  FADDP
+        82     39 methods  FCMGT
+        80     62 methods  FABD
+        50     36 methods  BIT
+        37     23 methods  BIF
+        29      8 methods  SMAX
+        28     12 methods  EXT
+        26     12 methods  UZP1
+        26      6 methods  CMEQ
+        22     22 methods  SMULH
+    ... and 22 more distinct causes
+
+  INDIRECT_JUMP
+       752    727 methods  (computed branch)
+
+  OTHER
+         7      7 methods  Warning: 'this' local not found (operand: X0)
+         2      1 methods  Warning: Method ends with non empty stack (-40), the output 
+         2      1 methods  Warning: Method ends with non empty stack (-50), the output 
+         2      1 methods  Warning: Method ends with non empty stack (-60), the output 
+         1      1 methods  Store into unknown operand: v1128.Length
+
+  UNRESOLVED_DELEGATE
+         2      2 methods  Action
+         1      1 methods  TrackEntryDelegate
+         1      1 methods  SerializationCallback

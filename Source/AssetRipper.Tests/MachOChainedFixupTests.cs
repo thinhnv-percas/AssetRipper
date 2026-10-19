@@ -225,8 +225,39 @@ internal sealed class MachOChainedFixupTests
 	/// and load commands, a __DATA segment holding <paramref name="dataWords"/>, a __LINKEDIT
 	/// segment holding the chained fixups blob, and optionally an encryption command.
 	/// </summary>
+	/// <summary>
+	/// A binary linked with chained fixups has no <c>LC_DYLD_INFO_ONLY</c>; its exports are in
+	/// <c>LC_DYLD_EXPORTS_TRIE</c>, in the same trie format. Read only from the first, SandOut had no exports and
+	/// 4 of 35 runtime helpers were located.
+	/// </summary>
+	[Test]
+	public void ExportsAreReadFromTheExportsTrieCommand()
+	{
+		// Root: not terminal, one edge "_il2cpp_object_new" to offset 22. Child: terminal, flags 0, address
+		// 0x1234 (ULEB128 B4 24), no edges. Laid out from the format in mach-o/loader.h, not from the parser.
+		byte[] trie =
+		[
+			0x00, 0x01, .. System.Text.Encoding.ASCII.GetBytes("_il2cpp_object_new"), 0x00, 22,
+			0x03, 0x00, 0xB4, 0x24, 0x00,
+		];
+		Assert.That(trie[22], Is.EqualTo(0x03), "the child node must start where the edge says");
+
+		MachOFile file = Build(0, MachODyldChainedPtr.DYLD_CHAINED_PTR_64_OFFSET, [Rebase(0x1234, 0, 0)], exportsTrie: trie);
+
+		Assert.That(file.GetVirtualAddressOfExportedFunctionByName("il2cpp_object_new"), Is.EqualTo(0x1234UL));
+		Assert.That(file.TryGetExportedFunctionName(0x1234, out string? name) ? name : null, Is.EqualTo("il2cpp_object_new"));
+	}
+
+	[Test]
+	public void WithoutAnExportsCommandThereAreNoExports()
+	{
+		MachOFile file = Build(0, MachODyldChainedPtr.DYLD_CHAINED_PTR_64_OFFSET, [Rebase(0x1234, 0, 0)]);
+
+		Assert.That(file.GetExportedFunctions(), Is.Empty);
+	}
+
 	private static MachOFile Build(ulong imageBase, MachODyldChainedPtr pointerFormat, ulong[] dataWords,
-		ushort[]? pageStarts = null, uint cryptOffset = 0, uint cryptSize = 0, uint cryptId = 0)
+		ushort[]? pageStarts = null, uint cryptOffset = 0, uint cryptSize = 0, uint cryptId = 0, byte[]? exportsTrie = null)
 	{
 		int dataSize = Align(dataWords.Length * 8, PageSize);
 		int linkEditOffset = TextSize + dataSize;
@@ -264,8 +295,10 @@ internal sealed class MachOChainedFixupTests
 		bw.Flush();
 		byte[] fixupBlob = blob.ToArray();
 
-		byte[] raw = new byte[linkEditOffset + Align(fixupBlob.Length, PageSize)];
+		int trieOffset = linkEditOffset + Align(fixupBlob.Length, 8);
+		byte[] raw = new byte[linkEditOffset + Align(fixupBlob.Length + 8 + (exportsTrie?.Length ?? 0), PageSize)];
 		fixupBlob.CopyTo(raw, linkEditOffset);
+		exportsTrie?.CopyTo(raw, trieOffset);
 		for (int i = 0; i < dataWords.Length; i++)
 			BitConverter.GetBytes(dataWords[i]).CopyTo(raw, TextSize + i * 8);
 
@@ -283,15 +316,16 @@ internal sealed class MachOChainedFixupTests
 		const uint lcSegment64 = 0x19;
 		const uint lcDyldChainedFixups = 0x80000034;
 		const uint lcEncryptionInfo64 = 0x2C;
+		const uint lcDyldExportsTrie = 0x80000033;
 		const int segmentCommandSize = 72;
 
-		uint commandCount = cryptSize == 0 ? 4u : 5u;
+		uint commandCount = (cryptSize == 0 ? 4u : 5u) + (exportsTrie is null ? 0u : 1u);
 		U32(0xFEEDFACF); // magic
 		U32(0x0100000C); // CPU_TYPE_ARM64
 		U32(0); // cpusubtype
 		U32(6); // MH_DYLIB
 		U32(commandCount);
-		U32((uint)(segmentCommandSize * 3 + 16 + (cryptSize == 0 ? 0 : 24)));
+		U32((uint)(segmentCommandSize * 3 + 16 + (cryptSize == 0 ? 0 : 24) + (exportsTrie is null ? 0 : 16)));
 		U32(0); // flags
 		U32(0); // reserved
 
@@ -328,6 +362,14 @@ internal sealed class MachOChainedFixupTests
 			U32(cryptSize);
 			U32(cryptId);
 			U32(0); // pad
+		}
+
+		if (exportsTrie is not null)
+		{
+			U32(lcDyldExportsTrie);
+			U32(16);
+			U32((uint)trieOffset);
+			U32((uint)exportsTrie.Length);
 		}
 
 		return new MachOFile(new MemoryStream(raw, 0, raw.Length, writable: true, publiclyVisible: true));
