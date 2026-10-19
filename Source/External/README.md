@@ -259,6 +259,9 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     `MachOLinkEditDataCommand`, and `MachOFile` parses the trie there when the binary has no `LC_DYLD_INFO(_ONLY)`.
     A binary linked with chained fixups carries only the former, so it had no exports and the runtime helpers keyed on
     the exported `il2cpp_*` API were not located (4 of 35 on SandOut).
+34. **Injected helper types extend `System.Object`** (SandOut) — `IlGenerator.InjectHelpersType` passed no base for
+    `Cpp2ILHelpers` and `Il2CppRuntime`. A class with no base is valid only for `System.Object`; a runtime refuses to load
+    it, so every recovered body naming one threw `TypeLoadException` when run.
 
 ## Updating
 

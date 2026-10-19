@@ -2918,7 +2918,13 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			try
 			{
 				body.Instructions.CalculateOffsets();
-				body.ComputeMaxStack(false);
+
+				// ComputeMaxStack returns the depth; it does not store it. The generator builds every body with
+				// ComputeMaxStackOnBuild off, so the writer keeps MaxStack as it is, and every recovered body
+				// shipped with a max stack of 0. ILSpy does not read it, so no decompiled script ever showed it;
+				// a runtime does, and rejects the method with InvalidProgramException the first time it runs -
+				// every MonoBehaviour constructor of SandOut's DLL export, before a single Awake.
+				body.MaxStack = body.ComputeMaxStack(false);
 
 				if (round > 0)
 				{

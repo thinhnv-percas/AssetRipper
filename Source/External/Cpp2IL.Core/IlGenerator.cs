@@ -52,10 +52,14 @@ public static class IlGenerator
 
     public static void InjectHelpersType(ApplicationAnalysisContext appContext)
     {
+        // AssetRipper: the base is System.Object, not none. A class extending nothing is valid only for System.Object
+        // itself; a decompiler prints it as an ordinary static class, but a runtime refuses to load it ("the parent does
+        // not exist"), and every recovered body that names it - a placeholder, a boundary - then throws TypeLoadException
+        // the first time it runs. SandOut's DLL export failed in every MonoBehaviour that had one.
         var helpersType = appContext.InjectTypeIntoAllAssemblies(
             HelpersNamespace,
             HelpersTypeName,
-            null,
+            appContext.SystemTypes.SystemObjectType,
             TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Abstract | TypeAttributes.Sealed);
 
         helpersType.InjectMethodToAllAssemblies(
@@ -67,7 +71,7 @@ public static class IlGenerator
         var runtimeType = appContext.InjectTypeIntoAllAssemblies(
             HelpersNamespace,
             RuntimeTypeName,
-            null,
+            appContext.SystemTypes.SystemObjectType,
             TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Abstract | TypeAttributes.Sealed);
 
         runtimeType.InjectMethodToAllAssemblies(

@@ -1,0 +1,266 @@
+diff --git a/Engine/Core/Agent/UaPackages.cs b/Engine/Core/Agent/UaPackages.cs
+index fccf704..f218af4 100644
+--- a/Engine/Core/Agent/UaPackages.cs
++++ b/Engine/Core/Agent/UaPackages.cs
+@@ -127,6 +127,11 @@ namespace MiniUnity.Agent
+                 {
+                     r.Source = "builtin";
+                     if (lockEntry?["dependencies"] is JsonObject ld) foreach (var d in ld) r.Deps[d.Key] = d.Value!.GetValue<string>();
++                    // Without a lock file a built-in package's dependencies are in its own package.json: test-framework needs
++                    // com.unity.ext.nunit, URP needs shadergraph. Reading only the lock dropped them from a project that ships none.
++                    else if (UnityEditorInstall.BuiltInPackages is string bdir && File.Exists(Path.Combine(bdir, name, "package.json"))
++                             && JsonNode.Parse(File.ReadAllText(Path.Combine(bdir, name, "package.json")))?["dependencies"] is JsonObject bd)
++                        foreach (var d in bd) r.Deps[d.Key] = d.Value!.GetValue<string>();
+                 }
+                 else if (IsGit(chosen) || IsLocal(chosen))
+                 {
+diff --git a/Engine/Core/Assets/AssetLoader.cs b/Engine/Core/Assets/AssetLoader.cs
+index 06384a0..9f35309 100644
+--- a/Engine/Core/Assets/AssetLoader.cs
++++ b/Engine/Core/Assets/AssetLoader.cs
+@@ -282,8 +282,19 @@ namespace MiniUnity
+                     if (Verbose) Console.Error.WriteLine($"[load] unknown script guid {sref?.Guid}");
+                     return isComponent ? null : Lifecycle.CreateScriptableObject(typeof(MissingScriptObject), false);
+                 }
+-                if (typeof(ScriptableObject).IsAssignableFrom(t)) return Lifecycle.CreateScriptableObject(t, false);
+-                return (Object)Activator.CreateInstance(t, true);
++                // A script whose constructor (field initialisers) throws is logged and loads as missing, as in Unity; letting it
++                // escape aborted the whole scene and reported only "Exception has been thrown by the target of an invocation".
++                try
++                {
++                    if (typeof(ScriptableObject).IsAssignableFrom(t)) return Lifecycle.CreateScriptableObject(t, false);
++                    return (Object)Activator.CreateInstance(t, true);
++                }
++                catch (System.Reflection.TargetInvocationException e) when (e.InnerException != null)
++                {
++                    Debug.LogException(e.InnerException);
++                    if (Verbose) Console.Error.WriteLine($"[load] {t.FullName} constructor threw: {e.InnerException}");
++                    return isComponent ? null : Lifecycle.CreateScriptableObject(typeof(MissingScriptObject), false);
++                }
+             }
+             if (Serializer.TypeById.TryGetValue(d.ClassId, out var nt))
+             {
+diff --git a/Engine/Core/Assets/ScriptRegistry.cs b/Engine/Core/Assets/ScriptRegistry.cs
+index 762f394..69e9d5b 100644
+--- a/Engine/Core/Assets/ScriptRegistry.cs
++++ b/Engine/Core/Assets/ScriptRegistry.cs
+@@ -44,7 +44,7 @@ namespace MiniUnity
+                 if (!guidToType.TryGetValue(pick.guid, out var have) || (TypeCache.IsProjectType(t) && !TypeCache.IsProjectType(have))) guidToType[pick.guid] = t;
+             }
+         }
+-        public static void Reset() { byName = null; guidToType = null; typeToGuid = null; }
++        public static void Reset() { byName = null; guidToType = null; typeToGuid = null; dllByGuid = null; dllScripts.Clear(); }
+ 
+         static readonly Dictionary<string, string> sources = new();
+ 
+@@ -91,7 +91,50 @@ namespace MiniUnity
+             [13312] = typeof(UnityEngine.Tilemaps.Tile),
+         };
+         public const string BuiltinScriptGuid = "0000000000000000e000000000000000";
+-        public static Type TypeOf(string guid, long fileID) => guid == BuiltinScriptGuid ? (builtinScripts.TryGetValue(fileID, out var bt) ? bt : null) : TypeOf(guid);
++        public static Type TypeOf(string guid, long fileID) => guid == BuiltinScriptGuid ? (builtinScripts.TryGetValue(fileID, out var bt) ? bt : null)
++            : TypeOf(guid) ?? DllTypeOf(guid, fileID);
++
++        // ------------------------------------------------------------------ scripts inside precompiled assemblies
++        /// <summary>Plugin DLLs under Assets by the guid of their .dll.meta, and the scripts each declares by file id.</summary>
++        static Dictionary<string, string> dllByGuid;
++        static readonly Dictionary<string, Dictionary<long, Type>> dllScripts = new();
++
++        /// <summary>A MonoBehaviour or ScriptableObject inside a precompiled assembly: the scene names it by the DLL's guid and
++        /// <see cref="DllScriptIds.FileIdOf"/> of its namespace and name, never by a .cs.meta.</summary>
++        public static Type DllTypeOf(string guid, long fileID)
++        {
++            if (guid == null) return null;
++            if (dllByGuid == null)
++            {
++                dllByGuid = new();
++                var assets = Path.Combine(AssetIndex.Root, "Assets");
++                if (Directory.Exists(assets))
++                    foreach (var meta in Directory.EnumerateFiles(assets, "*.dll.meta", SearchOption.AllDirectories))
++                        foreach (var l in File.ReadLines(meta))
++                            if (l.StartsWith("guid: ")) { dllByGuid[l.Substring(6).Trim()] = meta[..^5]; break; }
++            }
++            if (!dllByGuid.TryGetValue(guid, out var dll)) return null;
++            if (!dllScripts.TryGetValue(guid, out var byId))
++            {
++                dllScripts[guid] = byId = new();
++                System.Reflection.Assembly asm = null;
++                try { asm = System.Reflection.Assembly.Load(new System.Reflection.AssemblyName(Path.GetFileNameWithoutExtension(dll))); }
++                catch (Exception e) { Debug.LogWarning($"[MiniUnity] cannot load {Path.GetFileName(dll)}: {e.Message}"); }
++                if (asm != null)
++                {
++                    if (!TypeCache.ProjectAssemblies.Contains(asm)) TypeCache.AddProjectAssembly(asm);
++                    Type[] types;
++                    try { types = asm.GetTypes(); } catch (System.Reflection.ReflectionTypeLoadException e) { types = e.Types.Where(t => t != null).ToArray(); }
++                    foreach (var t in types)
++                    {
++                        if (t.IsGenericTypeDefinition || t.IsNested) continue;
++                        if (!(typeof(MonoBehaviour).IsAssignableFrom(t) || typeof(ScriptableObject).IsAssignableFrom(t))) continue;
++                        byId[DllScriptIds.FileIdOf(t.Namespace, t.Name)] = t;
++                    }
++                }
++            }
++            return byId.TryGetValue(fileID, out var found) ? found : null;
++        }
+ 
+         public static YRef ScriptRef(Type t)
+         {
+diff --git a/Engine/Core/Objects/ScreenAndTextMesh.cs b/Engine/Core/Objects/ScreenAndTextMesh.cs
+new file mode 100644
+index 0000000..add6d55
+--- /dev/null
++++ b/Engine/Core/Objects/ScreenAndTextMesh.cs
+@@ -0,0 +1,69 @@
++// Screen.currentResolution / Resolution, and TextMesh's serialized text: a game's per-frame Update commonly reads the
++// resolution (to react to a rotated or resized screen) and writes a score into a TextMesh, and a stub throwing there aborts
++// the whole Update - the player never moves. The resolution is the simulated screen (--size); TextMesh keeps its YAML bag.
++using System;
++
++namespace UnityEngine
++{
++    public partial struct RefreshRate
++    {
++        public double value => denominator == 0 ? 0 : (double)numerator / denominator;
++        public bool Equals(RefreshRate other) => (ulong)numerator * other.denominator == (ulong)other.numerator * denominator;
++        public int CompareTo(RefreshRate other) => value.CompareTo(other.value);
++        public override string ToString() => value.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
++    }
++
++    public partial struct Resolution
++    {
++        int m_Width;
++        int m_Height;
++        RefreshRate m_RefreshRate;
++        public int width { get => m_Width; set => m_Width = value; }
++        public int height { get => m_Height; set => m_Height = value; }
++        public RefreshRate refreshRateRatio { get => m_RefreshRate; set => m_RefreshRate = value; }
++        public int refreshRate
++        {
++            get => (int)Math.Round(m_RefreshRate.value);
++            set => m_RefreshRate = new RefreshRate { numerator = (uint)Math.Max(0, value), denominator = 1 };
++        }
++        public override string ToString() => $"{m_Width} x {m_Height} @ {refreshRate}Hz";
++    }
++
++    public sealed partial class Screen
++    {
++        public static Resolution currentResolution => new Resolution { width = width, height = height, refreshRate = 60 };
++        public static Resolution[] resolutions => new[] { currentResolution };
++    }
++
++    public sealed partial class TextMesh
++    {
++        public string text { get => NStr("m_Text"); set => NSetS("m_Text", value ?? ""); }
++        public int fontSize { get => NInt("m_FontSize"); set => NSetI("m_FontSize", value); }
++        public Color color { get => NColor("m_Color"); set => NSetColor("m_Color", value); }
++    }
++}
++
++namespace UnityEngine
++{
++    // Records which RectTransform properties a layout component drives, for the Editor's Inspector and Undo; a player has no
++    // Inspector, so in a player every call is a no-op - and uGUI's Selectable/LayoutGroup call Clear in OnEnable.
++    public partial struct DrivenRectTransformTracker
++    {
++        internal static bool CanRecordModifications() => false;
++        public static void StopRecordingUndo() { }
++        public static void StartRecordingUndo() { }
++        public void Add(Object driver, RectTransform rectTransform, DrivenTransformProperties drivenProperties) { }
++        public void Clear(bool revertValues) { }
++        public void Clear() { }
++    }
++}
++
++namespace UnityEngine.Rendering
++{
++    public sealed partial class SortingGroup
++    {
++        // The id a renderer outside any sorting group reports (20-bit index space, all ones). EventSystem's raycast comparer
++        // reads it for every pair it sorts, so a stub here turns every pointer event into "Failed to compare two elements".
++        internal static int invalidSortingGroupID => 0xFFFFF;
++    }
++}
+diff --git a/Engine/Core/Assets/DllScriptIds.cs b/Engine/Core/Assets/DllScriptIds.cs
+new file mode 100644
+index 0000000..14d5ba1
+--- /dev/null
++++ b/Engine/Core/Assets/DllScriptIds.cs
+@@ -0,0 +1,78 @@
++using System;
++using System.Buffers.Binary;
++using System.Text;
++
++namespace MiniUnity
++{
++    /// <summary>
++    /// The file id Unity gives a MonoBehaviour or ScriptableObject inside a precompiled assembly: the first four bytes,
++    /// little endian, of MD4("s\0\0\0" + namespace + name). A scene references such a script as (guid of the .dll.meta,
++    /// that file id), so without it every component from a plugin DLL loads as a missing script.
++    /// </summary>
++    public static class DllScriptIds
++    {
++        public static int FileIdOf(string ns, string name)
++        {
++            var text = Encoding.UTF8.GetBytes((ns ?? "") + name);
++            var input = new byte[4 + text.Length];
++            input[0] = (byte)'s';
++            text.CopyTo(input, 4);
++            return BinaryPrimitives.ReadInt32LittleEndian(Md4(input));
++        }
++
++        /// <summary>RFC 1320.</summary>
++        public static byte[] Md4(byte[] message)
++        {
++            long bitLength = (long)message.Length * 8;
++            int padded = ((message.Length + 8) / 64 + 1) * 64;
++            var data = new byte[padded];
++            message.CopyTo(data, 0);
++            data[message.Length] = 0x80;
++            BinaryPrimitives.WriteInt64LittleEndian(data.AsSpan(padded - 8), bitLength);
++
++            uint a = 0x67452301, b = 0xefcdab89, c = 0x98badcfe, d = 0x10325476;
++            var x = new uint[16];
++            for (int block = 0; block < padded; block += 64)
++            {
++                for (int i = 0; i < 16; i++) x[i] = BinaryPrimitives.ReadUInt32LittleEndian(data.AsSpan(block + i * 4));
++                uint aa = a, bb = b, cc = c, dd = d;
++
++                static uint Rol(uint v, int s) => (v << s) | (v >> (32 - s));
++                static uint F(uint p, uint q, uint r) => (p & q) | (~p & r);
++                static uint G(uint p, uint q, uint r) => (p & q) | (p & r) | (q & r);
++                static uint H(uint p, uint q, uint r) => p ^ q ^ r;
++
++                foreach (int i in new[] { 0, 4, 8, 12 })
++                {
++                    a = Rol(a + F(b, c, d) + x[i], 3);
++                    d = Rol(d + F(a, b, c) + x[i + 1], 7);
++                    c = Rol(c + F(d, a, b) + x[i + 2], 11);
++                    b = Rol(b + F(c, d, a) + x[i + 3], 19);
++                }
++                foreach (int i in new[] { 0, 1, 2, 3 })
++                {
++                    a = Rol(a + G(b, c, d) + x[i] + 0x5a827999, 3);
++                    d = Rol(d + G(a, b, c) + x[i + 4] + 0x5a827999, 5);
++                    c = Rol(c + G(d, a, b) + x[i + 8] + 0x5a827999, 9);
++                    b = Rol(b + G(c, d, a) + x[i + 12] + 0x5a827999, 13);
++                }
++                foreach (int i in new[] { 0, 2, 1, 3 })
++                {
++                    a = Rol(a + H(b, c, d) + x[i] + 0x6ed9eba1, 3);
++                    d = Rol(d + H(a, b, c) + x[i + 8] + 0x6ed9eba1, 9);
++                    c = Rol(c + H(d, a, b) + x[i + 4] + 0x6ed9eba1, 11);
++                    b = Rol(b + H(c, d, a) + x[i + 12] + 0x6ed9eba1, 15);
++                }
++
++                a += aa; b += bb; c += cc; d += dd;
++            }
++
++            var digest = new byte[16];
++            BinaryPrimitives.WriteUInt32LittleEndian(digest.AsSpan(0), a);
++            BinaryPrimitives.WriteUInt32LittleEndian(digest.AsSpan(4), b);
++            BinaryPrimitives.WriteUInt32LittleEndian(digest.AsSpan(8), c);
++            BinaryPrimitives.WriteUInt32LittleEndian(digest.AsSpan(12), d);
++            return digest;
++        }
++    }
++}

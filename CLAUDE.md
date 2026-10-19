@@ -2249,6 +2249,22 @@ find it; `strings` without `-el` does find method and type names.
   errors, 0 warnings" over 1641 files; the harness's parse pass sets the unparsable files aside, and runs before the
   body pass because CS0617 only appears once the parser lets the compilation through. Zero warnings over a recovered
   assembly means nothing was bound.
+- **Every recovered body shipped with a max stack of 0, and nothing that only reads the output could see it.**
+  `CilMethodBody.ComputeMaxStack` returns the depth and does not store it; the generator turns `ComputeMaxStackOnBuild`
+  off, so `TryBalanceStack` computed the right number and threw it away. ILSpy ignores max stack, so every decompiled
+  script and every metric was unaffected - and every DLL export was unrunnable: CoreCLR (and Mono) reject the method on
+  first call. Found only by *executing* SandOut's export in MiniUnity. The same run found the injected `Cpp2ILHelpers`
+  and `Il2CppRuntime` created with no base type, which a decompiler prints as a static class and a runtime refuses to
+  load. **A recovered body has never been measured by running it**; the first time one was, both fell out at once.
+- **A plugin DLL that is auto-referenced is referenced by every assembly in the project, packages included.** Shipping
+  recovered libraries as plugins (Hybrid / DLL export) put Entities' `Unity.Mathematics.AABB` into the Editor's
+  light-transport package and a global `MaterialSlot` into ShaderGraph's editor. A plugin is now auto-referenced only if
+  decompiled source in the project compiles against it, and one whose assembly a manifest package provides is removed
+  (`PackageProvidedPlugins`) - the plugin is the stripped copy, and URP failed on an operator IL2CPP had removed from it.
+- **MiniUnity cannot see a MonoBehaviour inside a DLL unless taught to**, and then a scene "plays" with no game script
+  in it: SandOut's DLL export read PASS on two of three scenes while running nothing. A scene names such a script by
+  the DLL's guid and `fileID` = first four bytes of MD4("s\0\0\0" + namespace + name); the local patch is in
+  `iterations/sandout/miniunity/`. Check that scripts were instantiated before believing a play verdict.
 
 
 ### Things measured to be worth nothing — do not redo them

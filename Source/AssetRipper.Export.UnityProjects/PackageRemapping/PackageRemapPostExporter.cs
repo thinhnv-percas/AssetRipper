@@ -55,9 +55,37 @@ public sealed class PackageRemapPostExporter : IPostExporter
 		}
 
 		run.Finish();
+		RemovePluginsThePackagesProvide(settings, fileSystem, run, packages);
 		configuration.Save(configurationPath);
 		WriteReport(settings, fileSystem, run);
 		WritePackageGuids(settings, fileSystem, run);
+	}
+
+	/// <summary>
+	/// Deletes the plugin DLLs whose assembly a package now in the manifest provides, directly or through its dependencies.
+	/// See <see cref="PackageProvidedPlugins"/>.
+	/// </summary>
+	private static void RemovePluginsThePackagesProvide(FullConfiguration settings, FileSystem fileSystem, PackageRemapRun run, List<ResolvedPackage> packages)
+	{
+		List<string> roots = run.Outcomes.Where(static outcome => outcome.AddedToManifest).Select(static outcome => outcome.Name).ToList();
+		if (roots.Count == 0)
+		{
+			return;
+		}
+
+		Dictionary<string, string> directories = new(StringComparer.Ordinal);
+		foreach (ResolvedPackage package in packages)
+		{
+			directories.TryAdd(package.Name, package.Directory);
+		}
+
+		HashSet<string> provided = PackageProvidedPlugins.ProvidedAssemblies(roots, directories);
+		string plugins = fileSystem.Path.Join(settings.ProjectRootPath, "Assets", "Plugins");
+		List<string> removed = PackageProvidedPlugins.RemoveFrom(plugins, provided, fileSystem);
+		if (removed.Count > 0)
+		{
+			Logger.Info(LogCategory.Export, $"Package remapping: removed {removed.Count} plugin assemblies the manifest's packages provide: {string.Join(", ", removed)}");
+		}
 	}
 
 	/// <summary>

@@ -88,7 +88,43 @@ Cả 83 vẫn là **lỗi khai báo**, nên thân hàm vẫn chưa được bind
 - Stage C: 8 reference không resolve (0,9998).
 - MiniUnity chưa chạy (không có scenario và không có source).
 
-## 6. Tái lập
+## 6. MiniUnity: compile như Unity và chạy
+
+Đo bằng `miniunity_gate.py` với Editor 6000.0.72f1. Mỗi tầng chỉ lộ ra khi tầng trước đã qua:
+
+| bước | kết quả |
+|---|---|
+| Hybrid, như xuất | D2 FAIL: URP 17.0.4 (từ Editor) compile với `Unity.Mathematics` plugin đã bị strip — `int * uint3` không còn |
+| + bỏ plugin Mathematics/Burst/Collections, để package | 5 lỗi: `AABB` mơ hồ — `Unity.Mathematics.Extensions` (plugin của Entities) được auto-reference vào package light-transport |
+| + plugin không auto-reference | Assembly-CSharp được bind lần đầu theo luật Unity: **16740 lỗi** trong C# phục hồi |
+| DLL export (Assembly-CSharp cũng là DLL) | **D2 PASS, 0 lỗi, 36/36 assembly**; 3 scene chạy 300 frame — nhưng không script game nào chạy (MiniUnity không đọc script trong DLL) |
+| + MiniUnity đọc script trong DLL | mọi constructor MonoBehaviour: `InvalidProgramException` — **max stack = 0** |
+| + max stack | `TypeLoadException: Cpp2ILHelpers … the parent does not exist` |
+| + base `System.Object` | 2 "Bad IL format", 1 invalid program (số nguyên ở chỗ cần string), IntroScene và Main **segfault** |
+
+Bốn lỗi của tool, đã sửa, cả bốn vô hình với mọi phép đo tĩnh:
+
+1. **Max stack của mọi thân phục hồi là 0.** `TryBalanceStack` gọi `ComputeMaxStack`, hàm *trả về* độ sâu chứ không gán,
+   và generator tắt `ComputeMaxStackOnBuild`. ILSpy không đọc max stack nên không script decompile nào lộ ra; runtime
+   (CoreCLR, và Mono của Unity) từ chối method ngay lần chạy đầu. Mọi DLL export có thân phục hồi đều không chạy được.
+2. **`Cpp2ILHelpers` và `Il2CppRuntime` được inject không có base type.** Chỉ `System.Object` được phép không có base;
+   decompiler in ra như static class bình thường, runtime không load được, và mọi thân có placeholder ném
+   `TypeLoadException`.
+3. **Plugin chỉ auto-reference khi source trong project compile với nó** (trực tiếp hoặc qua plugin khác). Plugin
+   auto-reference được tham chiếu bởi *mọi* assembly, kể cả package, và type của nó va với type của package.
+4. **Plugin mà package trong manifest cung cấp bị bỏ** (`PackageProvidedPlugins`): URP kéo theo Mathematics/Burst/
+   Collections; plugin cùng tên là bản đã strip.
+
+MiniUnity (bản vá cục bộ, `iterations/sandout/miniunity/miniunity-sandout.diff`): đọc dependency của package built-in từ
+`package.json` khi không có lock file (thiếu nunit, shadergraph); nhận MonoBehaviour trong DLL theo `fileID` =
+MD4("s\0\0\0" + namespace + name) (đã kiểm với `fileID` thật trong scene); constructor ném thì log và load như
+missing script thay vì bỏ cả scene.
+
+**Chưa chơi được không lỗi.** Phần còn lại là lỗi phục hồi thật: stand-in sai kiểu (một số nguyên — địa chỉ của chuỗi
+chưa giải — truyền vào tham số `string`) và ghi qua địa chỉ native chưa giải (`Unsafe.AsPointer(ref this) + 376`), thứ
+làm hỏng bộ nhớ khi code thật sự chạy. Với 10268 method PARTIAL đó không phải việc của một phiên.
+
+## 7. Tái lập
 
 ```
 curl -sSL -o Test/Download/sandout/sandout.ipa \

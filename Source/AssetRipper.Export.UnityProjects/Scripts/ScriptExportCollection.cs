@@ -59,6 +59,7 @@ public sealed class ScriptExportCollection : ScriptExportCollectionBase
 		Dictionary<string, AssemblyDefinitionDetails> assemblyDefinitionDetailsDictionary = new();
 
 		string pluginsFolder = fileSystem.Path.Join(assetsDirectoryPath, "Plugins");
+		HashSet<string> compiledAgainst = PluginsTheSourceCompilesAgainst();
 
 		foreach (AssemblyDefinition assembly in AssetExporter.AssemblyManager.GetAssemblies())
 		{
@@ -80,7 +81,7 @@ public sealed class ScriptExportCollection : ScriptExportCollectionBase
 				fileSystem.Directory.Create(pluginsFolder);
 				string outputPath = fileSystem.Path.Join(pluginsFolder, SpecialFileNames.AddAssemblyFileExtension(assemblyName));
 				AssetExporter.AssemblyManager.SaveAssembly(assembly, outputPath, fileSystem);
-				OnAssemblyExported(container, outputPath, fileSystem);
+				OnAssemblyExported(container, outputPath, fileSystem, explicitlyReferenced: !compiledAgainst.Contains(assemblyName));
 			}
 		}
 
@@ -169,10 +170,61 @@ public sealed class ScriptExportCollection : ScriptExportCollectionBase
 			&& AssetExporter.AssemblyManager.GetAssemblies().Any(assembly => assembly.Name == assemblyName);
 	}
 
-	private void OnAssemblyExported(IExportContainer container, string path, FileSystem fileSystem)
+	/// <summary>
+	/// The saved assemblies a decompiled one in this project compiles against, directly or through another saved one.
+	/// </summary>
+	/// <remarks>
+	/// A plugin left auto-referenced is referenced by every assembly in the project, packages included, and its types then
+	/// collide with theirs: on SandOut the Editor's light-transport package read <c>AABB</c> as ambiguous with
+	/// <c>Unity.Mathematics.AABB</c> from Entities, and ShaderGraph's editor <c>MaterialSlot</c> with a global one from the
+	/// game. Only what the project's own source compiles against needs to be; every other plugin is still loaded at run
+	/// time, by name, from what references it. An export with no decompiled assembly therefore references none.
+	/// </remarks>
+	private HashSet<string> PluginsTheSourceCompilesAgainst()
+	{
+		HashSet<string> needed = new(StringComparer.Ordinal);
+		Queue<AssemblyDefinition> pending = new(AssetExporter.AssemblyManager.GetAssemblies()
+			.Where(assembly => AssetExporter.GetExportType(assembly.Name!) is AssemblyExportType.Decompile));
+		Dictionary<string, AssemblyDefinition> byName = AssetExporter.AssemblyManager.GetAssemblies()
+			.Where(static assembly => assembly.Name is not null)
+			.GroupBy(static assembly => (string)assembly.Name!)
+			.ToDictionary(static group => group.Key, static group => group.First());
+
+		while (pending.TryDequeue(out AssemblyDefinition? assembly))
+		{
+			IReadOnlyList<string> references;
+			try
+			{
+				references = AssemblyReferenceNames.Read(AssetExporter.AssemblyManager.GetStreamForAssembly(assembly));
+			}
+			catch (Exception exception)
+			{
+				Logger.Warning(LogCategory.Export, $"References of {assembly.Name} could not be read from its image: {exception.Message}");
+				continue;
+			}
+
+			foreach (string reference in references)
+			{
+				if (AssetExporter.GetExportType(reference) is AssemblyExportType.Save
+					&& byName.TryGetValue(reference, out AssemblyDefinition? saved)
+					&& needed.Add(reference))
+				{
+					pending.Enqueue(saved);
+				}
+			}
+		}
+
+		return needed;
+	}
+
+	private void OnAssemblyExported(IExportContainer container, string path, FileSystem fileSystem, bool explicitlyReferenced)
 	{
 		UnityGuid guid = ScriptHashing.CalculateAssemblyGuid(Path.GetFileName(path));
 		IPluginImporter importer = PluginImporter.Create(Assets.First().Collection, container.ExportVersion);
+		if (importer.Has_IsExplicitlyReferenced())
+		{
+			importer.IsExplicitlyReferenced = explicitlyReferenced;
+		}
 		if (importer.HasPlatformData())
 		{
 			PlatformSettingsData_Plugin anyPlatformSettings = importer.AddPlatformSettings("Any", Utf8String.Empty);
