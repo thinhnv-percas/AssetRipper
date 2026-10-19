@@ -1,0 +1,7 @@
+{
+  "name": "EnhancedScroller_asmdef",
+  "references": [
+    "UnityEngine.UI"
+  ],
+  "allowUnsafeCode": true
+}

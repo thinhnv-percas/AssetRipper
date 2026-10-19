@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_conveyor_superhard
-  m_Shader: {fileID: 4800000, guid: 945806981e704cd4dbbb01b7b8e63b35, type: 3}
+  m_Shader: {fileID: 4800000, guid: dd34c5abfd4858440ba8103f7cec7d29, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -31,7 +31,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _BaseMap:
-        m_Texture: {fileID: 2800000, guid: ebbc2207be0e8aa44a8010bd5478dd19, type: 3}
+        m_Texture: {fileID: 2800000, guid: aa108b28e9d138f439173d2ebdbca79f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _BumpMap:
@@ -51,7 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: af0497a91cf7e5a4f93d5557c72ee2e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 25b7ece9ad619e34f95b262ed811e1d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Ramp:

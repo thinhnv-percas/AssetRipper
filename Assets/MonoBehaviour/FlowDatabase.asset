@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1349998818, guid: 5d1bdffb394e888f9606b15ffca57ed2, type: 3}
+  m_Script: {fileID: 11500000, guid: 356401dad56ed10453e85928e3ca01f7, type: 3}
   m_Name: FlowDatabase
   m_EditorClassIdentifier:
   m_FlowSteps:
-  - {fileID: 11400000, guid: 0467c3fa8d03e6442a664b5c827d44ac, type: 2}
-  - {fileID: 11400000, guid: 8abc3a038187a1044898fe269313630b, type: 2}
-  - {fileID: 11400000, guid: 7f07ccd2c99841d41a1238878ff84a89, type: 2}
-  - {fileID: 11400000, guid: 2b03c7da6fa68e7438287312b10d8656, type: 2}
+  - {fileID: 11400000, guid: 3856f517bc4013f4cab8b0e843513b7c, type: 2}
+  - {fileID: 11400000, guid: 1947ab2525aeef045aa78d34205dfd04, type: 2}
+  - {fileID: 11400000, guid: a23ae796c99e90844af743285669894d, type: 2}
+  - {fileID: 11400000, guid: 708b53db410ed5c4abe022d4887a3e3f, type: 2}

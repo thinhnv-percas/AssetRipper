@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -687540951, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 745427ea4f6c57956d0fec6f9e92ba00, type: 3}
   m_Name: SwapBoosterDef
   m_EditorClassIdentifier:
   m_id: swap_booster
   m_displayName: Swap Booster
   m_description: Shuffle the first row of molds with better ones
-  m_icon: {fileID: 21300000, guid: c74262e932059974fac9eea71056ac6d, type: 2}
+  m_icon: {fileID: 21300000, guid: 3510ddda5c6ad1f4294a8fb9d92a9700, type: 2}
   m_maxStack: 10000

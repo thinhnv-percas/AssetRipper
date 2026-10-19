@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1109330668, guid: e8509f5db018a90c20bdc38ea4cadbf8, type: 3}
+  m_Script: {fileID: 11500000, guid: fce7526bc17152a6a1baf67acd536a51, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  AudioSourceTemp: {fileID: 1709254077376921, guid: 0f91c67bfb7ad1b40a081b0ad98e5a58, type: 2}
-  _soundListSo: {fileID: 11400000, guid: 1f64ea00a8570864f8bc456d7d9efebe, type: 2}
+  AudioSourceTemp: {fileID: 1709254077376921, guid: a059536d7b088c541841ee7ab7ccdcb3, type: 2}
+  _soundListSo: {fileID: 11400000, guid: b8910691c07831f42a598b2120c6f6dc, type: 2}
   m_snapshotList: []
   m_mixerList: []

@@ -1,0 +1,10 @@
+{
+  "name": "HighlightPlus.Runtime",
+  "references": [
+    "UnityEngine.UI",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.TextMeshPro"
+  ],
+  "allowUnsafeCode": true
+}

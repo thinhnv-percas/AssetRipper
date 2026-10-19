@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 253494585, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: c519ebbc10516a98ed88fd59525683ba, type: 3}
   m_Name: HoveringTextInstaller
   m_EditorClassIdentifier:
-  m_prefab: {fileID: 114884547391421755, guid: c3f2cb2303de1134e9d1446220303ee3, type: 2}
+  m_prefab: {fileID: 114884547391421755, guid: 81d94a5835a144a4fb9a2d3d57b2e2f0, type: 2}

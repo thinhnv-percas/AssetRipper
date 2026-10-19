@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: fill_mat
-  m_Shader: {fileID: 4800000, guid: a6c4358dfaa5ba34eb01a370d548fd2e, type: 3}
+  m_Shader: {fileID: 4800000, guid: c52a43230e0d6f8458328d59cacab0e8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _BumpMap:
-        m_Texture: {fileID: 2800000, guid: ea2dd46a019a250448dfef93bed379ec, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7953b5d5199ee6348ba068b2f9325095, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _EmissionMap:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: 2c01b4e75d1d50344b5848e2ca0f8aef, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9f3c0e5d95fa0f445a26e748658ff8cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _OcclusionMap:

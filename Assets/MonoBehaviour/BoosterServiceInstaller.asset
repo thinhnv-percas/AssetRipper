@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1055795463, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ca5882d5b53d550c1f9e5e564d016a2, type: 3}
   m_Name: BoosterServiceInstaller
   m_EditorClassIdentifier:
-  m_boosterDatabase: {fileID: 11400000, guid: 362e48e7e731e8a45b9ffe0ac1e04136, type: 2}
+  m_boosterDatabase: {fileID: 11400000, guid: 8899aaf1d01f24e44973abe4fa510071, type: 2}
   m_boosterConfigs:
   - BoosterId: vacuum_booster
     VisibleFromLevel: 0

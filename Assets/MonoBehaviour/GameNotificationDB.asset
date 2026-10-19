@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1080631756, guid: d5c73c17cc1af77b3085903f51bfd001, type: 3}
+  m_Script: {fileID: 11500000, guid: 13411107c8bbcf8dcdc7f9e4488cfb99, type: 3}
   m_Name: GameNotificationDB
   m_EditorClassIdentifier:
   m_dataList:
-  - {fileID: 11400000, guid: 9690a164470009d469085a76b9249009, type: 2}
+  - {fileID: 11400000, guid: 157cabac024043b4d8b97d01f95603df, type: 2}
   _ignoreElephantNotifsIos: 0
   _enablePushNotifications: 1
   _comeBackTimes:

@@ -301,7 +301,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1117657024, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 87b3c09b840305db2593450c7d2c965e, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_bodyRenderer: {fileID: 137313026266067498}
@@ -595,8 +595,8 @@ MonoBehaviour:
     _updateType: 0
   m_vacuumMaxSpeed: 20
   m_arrivalRadius: 0.1
-  m_suckLoopVfxPrefab: {fileID: 1709254077376921, guid: 242fe562a301b3148bddc62945295b82, type: 2}
-  m_releaseVfxPrefab: {fileID: 1709254077376921, guid: d5beff9d973501b4eb9cca12b92cde42, type: 2}
+  m_suckLoopVfxPrefab: {fileID: 1709254077376921, guid: 8075e52849bfddf48b47a475895c7a6d, type: 2}
+  m_releaseVfxPrefab: {fileID: 1709254077376921, guid: 884b4b950547f0f4f99a322590e1cbf2, type: 2}
   m_particleParent: {fileID: 4320256170494724}
   m_suckLoopVfxDestroyDelay: 0.5
 --- !u!114 &114256069497284392
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -257007032, guid: 096ff04e61a5a02e0ab3a0bf8a76f137, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d32e94da0397295395c852400725f72, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   profile: {fileID: 0}
@@ -820,7 +820,7 @@ MonoBehaviour:
   labelText: Label
   labelTextSize: 14
   labelColor: {r: 1, g: 1, b: 1, a: 1}
-  labelPrefab: {fileID: 1709254077376921, guid: ad6e237cb7925364ba5fb01c6c1967c6, type: 2}
+  labelPrefab: {fileID: 1709254077376921, guid: e244f35319134a3419e176bfd304bab9, type: 2}
   labelViewportOffset: {x: 0, y: 0}
   labelVerticalOffset: 0
   labelLineLength: 200
@@ -894,7 +894,7 @@ Animator:
   m_GameObject: {fileID: 1730242686860875}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f4dc5c9fd44ed1a4285793e91302eef9, type: 2}
+  m_Controller: {fileID: 9100000, guid: c470f8359b130b7409e4e4a2ff5d3b86, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -945,8 +945,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5075aea098c18d348a9e5e642fcffe58, type: 2}
-  - {fileID: 2100000, guid: e4b7a17bebf5f0243a3f34215f6b6f2c, type: 2}
+  - {fileID: 2100000, guid: f434adad5ae3bff4780074d70596d7f2, type: 2}
+  - {fileID: 2100000, guid: 21fc1858fd94be74ea7942e202448ac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -970,7 +970,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: 5903cd14db23d694c8c31c00899b24c7, type: 2}
+  m_Mesh: {fileID: 4300000, guid: c5cf2997f80c7004f9186c9d61a6f69c, type: 2}
   m_Bones:
   - {fileID: 4632457200066912}
   - {fileID: 4969106005120503}

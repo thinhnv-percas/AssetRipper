@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_jelly_bottom_pink
-  m_Shader: {fileID: 4800000, guid: 945806981e704cd4dbbb01b7b8e63b35, type: 3}
+  m_Shader: {fileID: 4800000, guid: dd34c5abfd4858440ba8103f7cec7d29, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -45,11 +45,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 2fd312527a5c10740b082048c3f031e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 231fc51cc093b2a4088758b533f2d976, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: 52778b6884d8c7b46a8f9f3131d1f005, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9aef536d08d28cd4da9868c072a7953e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Ramp:

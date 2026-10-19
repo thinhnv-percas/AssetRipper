@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 89655374, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: fa355f23d72e7f77c8e4a2456564fda7, type: 3}
   m_Name: MoldSwapInstaller
   m_EditorClassIdentifier:
-  m_config: {fileID: 11400000, guid: 992e3d534ff04194dbb10f6812b0f003, type: 2}
-  m_controllerPrefab: {fileID: 114724804207875695, guid: 669efd8bcb44d1142892dc15c11cf8ba, type: 2}
+  m_config: {fileID: 11400000, guid: c7ed7a49133c9c348bde45076ee41b7b, type: 2}
+  m_controllerPrefab: {fileID: 114724804207875695, guid: cbe6a1076ab476c4794c375c83de17f5, type: 2}
   m_testerPrefab: {fileID: 0}

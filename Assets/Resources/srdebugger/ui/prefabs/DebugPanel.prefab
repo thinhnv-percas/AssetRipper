@@ -958,7 +958,7 @@ MonoBehaviour:
   m_Name: SR_
   m_EditorClassIdentifier:
   TabButtonContainer: {fileID: 224085275382694935}
-  TabButtonPrefab: {fileID: 114025901758691103, guid: 15ecb901fc2e8ec45ad00b5e8ece49fc, type: 2}
+  TabButtonPrefab: {fileID: 114025901758691103, guid: 02d52616137d47f4ca7eb08c60cec48d, type: 2}
   TabContentsContainer: {fileID: 224433013960508438}
   TabHeaderContentContainer: {fileID: 224295926465608920}
   TabHeaderText: {fileID: 114274303670636188}
@@ -974,7 +974,7 @@ MonoBehaviour:
   m_Script: {fileID: -1781619796, guid: 02be243e0ba7d7d3ffab020eca78469d, type: 3}
   m_Name: SR_
   m_EditorClassIdentifier:
-  AboutTab: {fileID: 114587765826080250, guid: 3d55b380fe620ff428377bfb4244fc6f, type: 2}
+  AboutTab: {fileID: 114587765826080250, guid: ba849bc614862084fa4e69cc4552c322, type: 2}
   TabController: {fileID: 114344419225485095}
 --- !u!114 &114107629493147155
 MonoBehaviour:
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_Script: {fileID: -1126983989, guid: 5ad997fd1c90b50280b4ae4980c27e5f, type: 3}
   m_Name: SR_
   m_EditorClassIdentifier:
-  StyleSheet: {fileID: 11400000, guid: 547b537ab62ac7f4a8017f838fc78063, type: 2}
+  StyleSheet: {fileID: 11400000, guid: 3ffc5008d794fb74d9e06ab4ad1d4d06, type: 2}
 --- !u!114 &114693329660128220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fec5d17ad38408644baf17a957cd8eba, type: 2}
+  m_Sprite: {fileID: 21300000, guid: b410254f8b58b124198954edca551dce, type: 2}
   m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1621,7 +1621,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b1f2756a230c25041967da235215d68d, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 719368a7ba4f20445ae64ee96fc8096b, type: 2}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2457,7 +2457,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7784d016e850dcf4eb5f6405f3ab2226, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 29607b816957fd94185dad066b4f90a3, type: 2}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2782,7 +2782,7 @@ MonoBehaviour:
   m_Name: SR_
   m_EditorClassIdentifier:
   TransparentStyleKey: Tab_Background_Transparent
-  _styleSheet: {fileID: 11400000, guid: 547b537ab62ac7f4a8017f838fc78063, type: 2}
+  _styleSheet: {fileID: 11400000, guid: 3ffc5008d794fb74d9e06ab4ad1d4d06, type: 2}
 --- !u!114 &114771092198208730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3449,7 +3449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 058949fc50cd2c3469d3d9139677d802, type: 2}
+  m_Sprite: {fileID: 21300000, guid: c0eea21316b834b448e02c5a398a9605, type: 2}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3562,7 +3562,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: ed6017db5264fc243bd8b4f3a1dc2084, type: 3}
+    m_Font: {fileID: 12800000, guid: e3cc341b3bfced145b683a4ad10112dd, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 1
@@ -3965,7 +3965,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bea3ecc2b65fd75489522d81f1b661c3, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 1b52f06c274e1614e933d6d11454c007, type: 2}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

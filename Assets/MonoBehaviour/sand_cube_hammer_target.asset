@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1781078058, guid: 096ff04e61a5a02e0ab3a0bf8a76f137, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d8aff3d690b38c445a7fd69b412b6aa, type: 3}
   m_Name: sand_cube_hammer_target
   m_EditorClassIdentifier:
   effectGroup: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   outlinePatternThreshold: 0.3
   outlinePatternDistortionAmount: 0.5
   outlinePatternStopMotionScale: 5
-  outlinePatternDistortionTexture: {fileID: 2800000, guid: 662c59e12aa2c164d909fcac66d3ae72, type: 3}
+  outlinePatternDistortionTexture: {fileID: 2800000, guid: 16774e3cf0264ce42b69476cea617117, type: 3}
   padding: 0
   outlinePixelation: 0
   outlineDashed: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   targetFXFrameWidth: 0.1
   targetFXCornerLength: 0.25
   targetFXFrameMinOpacity: 0
-  targetFXTexture: {fileID: 2800000, guid: 8d5edc5896798b449b3c100aecba4b0d, type: 3}
+  targetFXTexture: {fileID: 2800000, guid: b29e07c02cb8f094b8667e3569fb5ce5, type: 3}
   targetFXColor: {r: 1, g: 1, b: 1, a: 1}
   targetFXRotationSpeed: 50
   targetFXRotationAngle: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   labelText: Label
   labelTextSize: 14
   labelColor: {r: 1, g: 1, b: 1, a: 1}
-  labelPrefab: {fileID: 1709254077376921, guid: ad6e237cb7925364ba5fb01c6c1967c6, type: 2}
+  labelPrefab: {fileID: 1709254077376921, guid: e244f35319134a3419e176bfd304bab9, type: 2}
   labelVerticalOffset: 0
   labelViewportOffset: {x: 0, y: 0}
   labelLineLength: 200

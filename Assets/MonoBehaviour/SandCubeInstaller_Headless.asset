@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1604887440, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: d77c38553a4e7b548e9cac5c49502df5, type: 3}
   m_Name: SandCubeInstaller_Headless
   m_EditorClassIdentifier:
-  m_config: {fileID: 11400000, guid: 5ec3dfc94bbc0e84b980eee54dab2267, type: 2}
+  m_config: {fileID: 11400000, guid: 031a583158cf26d42b83b3d738c53c75, type: 2}

@@ -1,0 +1,7 @@
+{
+  "name": "Unco.FlowSystem",
+  "references": [
+    "ContainerSystem.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 282468068, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 800178850e8b7eba4ce13c9f82ca3d9a, type: 3}
   m_Name: BoosterDatabase
   m_EditorClassIdentifier:
   m_boosters:
-  - {fileID: 11400000, guid: 6c8eaaae76d8fb44685dfef81122371e, type: 2}
-  - {fileID: 11400000, guid: 1d201c35c74b1324286ecb8525aa1eee, type: 2}
-  - {fileID: 11400000, guid: b9ad88f2efa07fd449867cbe2a97dff9, type: 2}
-  m_coinIcon: {fileID: 21300000, guid: e739d1f867b585f43b3f37714bf53ece, type: 2}
+  - {fileID: 11400000, guid: 5c1a498cc548fe8449cbc05b94b9aff5, type: 2}
+  - {fileID: 11400000, guid: fcddf2578668a064ebe8664832046631, type: 2}
+  - {fileID: 11400000, guid: 7540296ca840cae41af0691c1cf7ce31, type: 2}
+  m_coinIcon: {fileID: 21300000, guid: 822854c3de4ba2c46a603a91385e34fa, type: 2}
   m_costPrefix: '<sprite=ic_coin>'

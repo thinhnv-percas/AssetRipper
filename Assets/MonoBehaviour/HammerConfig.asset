@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1674930243, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: e57017cf24272ba739fa97cdff77d8c9, type: 3}
   m_Name: HammerConfig
   m_EditorClassIdentifier:
-  hammerMono: {fileID: 1709254077376921, guid: 2a04c8f57bedded4b9b6198e2e00a96c, type: 2}
+  hammerMono: {fileID: 1709254077376921, guid: 56f7799d550506a4a8ad786894e01ab8, type: 2}
   targetOffset: {x: 0, y: -0.4, z: -1}
   vfxOffset: {x: 0, y: -0.4, z: -1}
   normalHit:
@@ -273,7 +273,7 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-    hitVfx: {fileID: 1709254077376921, guid: 672c4ffd344af6f4ea0997a1a11c8176, type: 2}
+    hitVfx: {fileID: 1709254077376921, guid: 5686b57a8d9210f44a653899d7e5bfc6, type: 2}
   lastHit:
     moveSettings:
       duration: 0.75
@@ -532,7 +532,7 @@ MonoBehaviour:
       useUnscaledTime: 0
       _useFixedUpdate: 0
       _updateType: 0
-    hitVfx: {fileID: 1709254077376921, guid: d810d5d8d65a98d4eafe30e045b37971, type: 2}
+    hitVfx: {fileID: 1709254077376921, guid: b76cf4c2ec2da9543b38d6b8524d21b5, type: 2}
   areaPunchSettings:
     strength: {x: 0.2, y: 0.2, z: 0.2}
     duration: 0.15

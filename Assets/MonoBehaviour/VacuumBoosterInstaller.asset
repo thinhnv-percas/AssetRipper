@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1060270536, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0736288167a193bf8f4cab0101b37215, type: 3}
   m_Name: VacuumBoosterInstaller
   m_EditorClassIdentifier:
-  m_config: {fileID: 11400000, guid: 4560c227e43ea3848b3264530d86166f, type: 2}
-  m_vacuumBoosterPrefab: {fileID: 114703437598541787, guid: 144a935ad8d61fe42b96cf7b5c40f1a3, type: 2}
+  m_config: {fileID: 11400000, guid: 30754ddee47b67c4289e05c3c89cd42b, type: 2}
+  m_vacuumBoosterPrefab: {fileID: 114703437598541787, guid: 07388688e5446634ba4d5ea78b80124a, type: 2}

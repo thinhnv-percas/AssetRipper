@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HighlightBlockerOutlineAndGlow
-  m_Shader: {fileID: 4800000, guid: f73fd5d8448b80245a55e3c2db0c3c30, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2c1ccc203cd998a45b58a1b87ce9604e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

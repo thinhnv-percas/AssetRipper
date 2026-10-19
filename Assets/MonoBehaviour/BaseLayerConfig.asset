@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1255142789, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 11b13024bd7f0bd5347d33b80fe9f776, type: 3}
   m_Name: BaseLayerConfig
   m_EditorClassIdentifier:
   m_installerSoReferences:
-  - {fileID: 11400000, guid: e95147c6f7cbee141ad6c5b839a97215, type: 2}
-  - {fileID: 11400000, guid: cfe951107e49459438884387de243a06, type: 2}
-  - {fileID: 11400000, guid: c5140704b0e11e049beece4ca12489a1, type: 2}
-  - {fileID: 11400000, guid: 63ee0d7dd2ef85b4ea749d0deab990f4, type: 2}
-  - {fileID: 11400000, guid: cba851f4f2afc6c489c23c4d1deca078, type: 2}
-  - {fileID: 11400000, guid: 666c5730e6345fc40a94efe159fc5e54, type: 2}
+  - {fileID: 11400000, guid: 6222db38606d5c4429ecedd31973ef85, type: 2}
+  - {fileID: 11400000, guid: 0737fe87218865c40af9c8f1b793e4f6, type: 2}
+  - {fileID: 11400000, guid: ddf140607c43d9c4696eccd57aeccf38, type: 2}
+  - {fileID: 11400000, guid: 37e26bc606ede1a4bab666d61f87c66c, type: 2}
+  - {fileID: 11400000, guid: 159481adea3bce54da26947732c611ad, type: 2}
+  - {fileID: 11400000, guid: 0a8d248e3f02d394cb2911f788ec7514, type: 2}
   m_installerGroupId: baselayer

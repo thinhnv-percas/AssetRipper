@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DefaultLavaLamp
-  m_Shader: {fileID: 4800000, guid: 0970a0d240b4a7d4d9374bbed6b755ae, type: 3}
+  m_Shader: {fileID: 4800000, guid: c9d12db142059c3468c49af3cd6135e7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:

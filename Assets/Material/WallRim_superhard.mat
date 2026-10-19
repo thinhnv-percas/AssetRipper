@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WallRim_superhard
-  m_Shader: {fileID: 4800000, guid: a6c4358dfaa5ba34eb01a370d548fd2e, type: 3}
+  m_Shader: {fileID: 4800000, guid: c52a43230e0d6f8458328d59cacab0e8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -43,11 +43,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 03da29296036db84b9152c912b511f9f, type: 3}
+        m_Texture: {fileID: 2800000, guid: d423a48c5af46654f8ad0ebc04decb4e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: 78f951b48a45a9c4bb93391dfcbbec5a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2ba937eb369b8db44afd6d13b44cb3b3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _OcclusionMap:

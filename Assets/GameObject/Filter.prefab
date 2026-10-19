@@ -107,7 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1509753457, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 52b33bfca4ce84904a85f640a3bd783c, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_activeColor: {r: 1, g: 1, b: 1, a: 1}
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1142143722, guid: 3e48b0afc47aa9d0b84173e911a289e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bcfd373cf92ce2d6bc3c505618e5b12, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   Button: {fileID: 114099118695303065}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730242686860875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1841157174, guid: 3e48b0afc47aa9d0b84173e911a289e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6203dd2a804cbce6f9c8ac727fd46abe, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_Material: {fileID: 0}
@@ -264,8 +264,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c474b248228e58d4aae4d59afb26dc05, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 16851fcf79d5fc7418c9fd9a62bf1944, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 63ffa0805891daf40a690af2f1b0a3fd, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e20a7f7052b9ebb468c94496435834a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

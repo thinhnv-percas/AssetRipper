@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -767219758, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 95aa2e775944110aee69eb991ee1da68, type: 3}
   m_Name: ForcePourConfig
   m_EditorClassIdentifier:
   absorptionProfile:
@@ -24,8 +24,8 @@ MonoBehaviour:
   staggerJitter: 0.05
   hammerSwingDelay: 0.8
   postExecuteOtherBoosterBlockDuration: 2
-  overlayIndicatorPrefab: {fileID: 1709254077376921, guid: aec04b79c3e10c74da32e8fbaa258abb, type: 2}
-  hammerPrefab: {fileID: 1709254077376921, guid: c2ee3f12b73de7448876084f9af7949a, type: 2}
+  overlayIndicatorPrefab: {fileID: 1709254077376921, guid: 03ffdb03634332443a2271bce9e6aab2, type: 2}
+  hammerPrefab: {fileID: 1709254077376921, guid: 96b82f9c534cd0e4d8aed3dde45a1b3e, type: 2}
   hammerHitParticlePrefab: {fileID: 0}
   hammerOffset: {x: 0.5, y: -0.5, z: 0}
   fallbackParticleDepthZ: 0

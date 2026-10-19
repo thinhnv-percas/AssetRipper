@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_small_conveyor
-  m_Shader: {fileID: 4800000, guid: a6c4358dfaa5ba34eb01a370d548fd2e, type: 3}
+  m_Shader: {fileID: 4800000, guid: c52a43230e0d6f8458328d59cacab0e8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -31,7 +31,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 992d16781550dba45ad5d0826d625d7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 17aee5b73bcb22240a53ede4a845f530, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _BumpMap:
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: af0497a91cf7e5a4f93d5557c72ee2e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 25b7ece9ad619e34f95b262ed811e1d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _OcclusionMap:

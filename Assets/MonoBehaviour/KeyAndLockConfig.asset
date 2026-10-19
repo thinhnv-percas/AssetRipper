@@ -9,29 +9,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1745308656, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f148ff2453a3e9ae5c52020a1a54757, type: 3}
   m_Name: KeyAndLockConfig
   m_EditorClassIdentifier:
   m_lockMaterials:
   - Key: 0
-    Value: {fileID: 2100000, guid: 2a3cb49d1b0d07e4d90008f669bf978d, type: 2}
+    Value: {fileID: 2100000, guid: 2c36e5d25eb08204b9557f9d50bdce6e, type: 2}
   - Key: 1
-    Value: {fileID: 2100000, guid: d9fcda881d893cd42bd1ebc18c8db51a, type: 2}
+    Value: {fileID: 2100000, guid: 73423ee12e9e5f04cb9f7da1e57654d6, type: 2}
   m_keyMaterials:
   - Key: 0
-    Value: {fileID: 2100000, guid: 6aed29cb7b92a7a43b63a3545cccd13d, type: 2}
+    Value: {fileID: 2100000, guid: 7b65cdb47ac8d6f458965f7d2954270e, type: 2}
   - Key: 1
-    Value: {fileID: 2100000, guid: b91aaf69334b32649929a0ce46e636b7, type: 2}
+    Value: {fileID: 2100000, guid: 16ad4d9cb6167ad428650f367e7ed843, type: 2}
   m_chainMaterials:
   - Key: 0
-    Value: {fileID: 2100000, guid: cfd4b93fa29b7d1429f81c6d3336a249, type: 2}
+    Value: {fileID: 2100000, guid: bfffa163bea22694d87581cc881e7c29, type: 2}
   - Key: 1
-    Value: {fileID: 2100000, guid: c7d7b6b5964c0d74283f6e6aa06190e1, type: 2}
-  lockVfx: {fileID: 1709254077376921, guid: eaefbdb833fce6b419ead64846af7221, type: 2}
-  lockVfxGold: {fileID: 1709254077376921, guid: 0d43c4e954b3f3a4b8ea506f9246b966, type: 2}
-  keyMono: {fileID: 1709254077376921, guid: 1382cd103b73f074a8b45a69ddb8207e, type: 2}
-  lockMono: {fileID: 1709254077376921, guid: 8e249b4a44621884cb9d2c6fef4a5cb4, type: 2}
-  chainPrefab: {fileID: 1709254077376921, guid: 7409cfb5a74e7d644b4a08aa191e49c8, type: 2}
+    Value: {fileID: 2100000, guid: a40f4c31764cfc046a5eb7311a6fe0bd, type: 2}
+  lockVfx: {fileID: 1709254077376921, guid: 60488a7e1fb10ca48aee07146ca7b1c3, type: 2}
+  lockVfxGold: {fileID: 1709254077376921, guid: 6ce0678d07cb09449ab8facc3e98e2f1, type: 2}
+  keyMono: {fileID: 1709254077376921, guid: fb1ec821f8acc0b4d934df91ebbfb9b7, type: 2}
+  lockMono: {fileID: 1709254077376921, guid: 0ddae72aeb5cd07498dc29081252bbff, type: 2}
+  chainPrefab: {fileID: 1709254077376921, guid: 0cac0f72b8865a84f9fc9c43eeae75cf, type: 2}
   keyOverlayOffset: {x: 0.05, y: -0.15, z: -0.9}
   lockOverlayOffset: {x: 0, y: 0, z: -0.34}
   moveSettings:

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_snake_blocker_wall
-  m_Shader: {fileID: 4800000, guid: a6c4358dfaa5ba34eb01a370d548fd2e, type: 3}
+  m_Shader: {fileID: 4800000, guid: c52a43230e0d6f8458328d59cacab0e8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -32,7 +32,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _BaseMap:
-        m_Texture: {fileID: 2800000, guid: c7576b409c768c34cac7e11ce0d70de7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 48756c4c3d51c824a9a85d4b499d26f2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _BumpMap:
@@ -44,11 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: bedcf2e5310ae3a4298274acd23f37e5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0e6d4df872adfd240a564a0ac2bb16c1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: 52778b6884d8c7b46a8f9f3131d1f005, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9aef536d08d28cd4da9868c072a7953e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _OcclusionMap:

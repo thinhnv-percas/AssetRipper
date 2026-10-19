@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1185547350, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: d87ff8ebf38053e02fb56d755df54740, type: 3}
   m_Name: SRDebuggerHomeInstaller
   m_EditorClassIdentifier:

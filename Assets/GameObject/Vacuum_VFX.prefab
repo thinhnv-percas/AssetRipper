@@ -2358,7 +2358,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730242686860875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 819213153, guid: da005cdd717a8fc1c7659da763810093, type: 3}
+  m_Script: {fileID: 11500000, guid: 86920180b027d2c14cb29599bd95ab94, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   numericPropertyName: _HsvShift
@@ -2369,7 +2369,7 @@ MonoBehaviour:
   modulo: 360
   stopAtValue: 0
   stopValue: 0
-  mat: {fileID: 2100000, guid: c6e27ec7353e61d46a328902669493de, type: 2}
+  mat: {fileID: 2100000, guid: c29eba150a05db84c9dee58abb5748b7, type: 2}
 --- !u!199 &199061268324235159
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -2395,7 +2395,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
-  - {fileID: 2100000, guid: d4ab27b18e086f44488869d02562cf28, type: 2}
+  - {fileID: 2100000, guid: 254884495cc4bd8429ef813e647718dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

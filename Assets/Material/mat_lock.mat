@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_lock
-  m_Shader: {fileID: 4800000, guid: 945806981e704cd4dbbb01b7b8e63b35, type: 3}
+  m_Shader: {fileID: 4800000, guid: dd34c5abfd4858440ba8103f7cec7d29, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -34,7 +34,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 8b42c2d4a15f9af4cbb02e3cb6db4241, type: 3}
+        m_Texture: {fileID: 2800000, guid: 299055193ccc5e54fb3ebe69b59788d8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _BumpMap:
@@ -42,7 +42,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _CSpecMask:
-        m_Texture: {fileID: 2800000, guid: 8b42c2d4a15f9af4cbb02e3cb6db4241, type: 3}
+        m_Texture: {fileID: 2800000, guid: 299055193ccc5e54fb3ebe69b59788d8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _EmissionMap:
@@ -50,11 +50,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 0d4c2fbb23b2ee04580a0f52f9558df4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 74b7b3ac22e12f44f829af486fdfc34e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: 52778b6884d8c7b46a8f9f3131d1f005, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9aef536d08d28cd4da9868c072a7953e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Ramp:

@@ -9,70 +9,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1558862191, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: dbc5334178dfeed1176f9a521c6d30c0, type: 3}
   m_Name: SandCubeConfig
   m_EditorClassIdentifier:
-  sandCubePrefab: {fileID: 1709254077376921, guid: 39524ff04faeb794290372365482b4e3, type: 2}
+  sandCubePrefab: {fileID: 1709254077376921, guid: 204da22b86be2b44bab7db473f2ebac4, type: 2}
   m_jellyColors:
   - gameColor: 0
-    jellyMaterial: {fileID: 2100000, guid: 7512e15327e506e46a005d8cb3490ac8, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 0093d5829d92e5940a25392ad3844d32, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 447fa31d72af92e468999d25a8fbd8bc, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: ac5d147018e59d1469e2a8f4f2f7fdde, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: cab4677a074b1d5449b616cb4b02bf7e, type: 2}
+    boxMaterial: {fileID: 2100000, guid: ed5dd5d60c8245b4299a2cd889ca3a03, type: 2}
   - gameColor: 1
-    jellyMaterial: {fileID: 2100000, guid: e731b2292eb1598478c9946a79aece09, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 3421a36783b905b42a478322f7156b7f, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 6e1b51106ab3b6d47af5969285056b90, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: 97beb9628768f244a82227d294770ce4, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: c6b83d6111c81aa4d9b7de1b35e07471, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 8f28bf0daef3c744ba9af2308559fe5c, type: 2}
   - gameColor: 2
-    jellyMaterial: {fileID: 2100000, guid: 0d299c0f925e50a40ae6b53d22ab9f06, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 59ddff6f1b8bfaa40a36dac866ba7cba, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 3c5eb603c5ad45e4caf3d146962bd668, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: 7e711c5a732226449b32343921e7f20a, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: a8802c722abd0364db73d9461b094d41, type: 2}
+    boxMaterial: {fileID: 2100000, guid: bb085c68b9c4d9e409b91c638509b420, type: 2}
   - gameColor: 3
-    jellyMaterial: {fileID: 2100000, guid: 2b8911dc566b5374686daad477f63dc8, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 6f78e32a250428b41892584273d39d1d, type: 2}
-    boxMaterial: {fileID: 2100000, guid: fd97c04ff1073ad4d98797d02992522a, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: 04b6a103527ed5842a396f87dc8d1ddd, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 237b1106e3775af419709ee6f66d865e, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 1821a15c1454b5141bdb0a7517123768, type: 2}
   - gameColor: 4
-    jellyMaterial: {fileID: 2100000, guid: bf22f106bf06dec428d7915f5426d948, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 146c6eb3e89e1d2499adfbcc98dd692d, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 090dc1ba5df18c6439e20ee8ee71208a, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: 65251481399a4654a8d7d003c24581b2, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 971929fb769a6924a99c66868b978a44, type: 2}
+    boxMaterial: {fileID: 2100000, guid: cbfca4a2038289a44a3fbddb9595dc89, type: 2}
   - gameColor: 5
-    jellyMaterial: {fileID: 2100000, guid: 947ddb60e6493664489ba4ea7264fcbd, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 382ad45816946c64a874d95000692634, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 9cd281e635d8ede46852651ef5710e1a, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: a34ae9db79f8b034799906b291166575, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 7160d685d8ee868459399bddbe2822ce, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 5046290db5082e74db962ba16ff693ec, type: 2}
   - gameColor: 6
-    jellyMaterial: {fileID: 2100000, guid: 0664084705a357e46a90fe49109128bd, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 36650faaee70de845b43490beed1736f, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 2a7190d6b4f72b04e8627ced52f2aa3e, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: aa22b4f8c79e8b5449659ba5633f55e4, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 59947af6548a81a43b7ffbf3312386d3, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 60db78b06ac42224fa298ea1d8fa93e2, type: 2}
   - gameColor: 7
     jellyMaterial: {fileID: 0}
     bottomMaterial: {fileID: 0}
     boxMaterial: {fileID: 0}
   - gameColor: 8
-    jellyMaterial: {fileID: 2100000, guid: a103d87ee28e69d44b685dd31c51e673, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 4b94586cbfa3ea64b95675bc912a0adc, type: 2}
-    boxMaterial: {fileID: 2100000, guid: bef70a9577dca854e8b3dd20b1f69ca3, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: da4b8dbee421340418afee9dab10172e, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 5929fa1d5b1b7564a998f1827b0e22c8, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 238ccc026a545ba41b1a54ab43d0fc33, type: 2}
   - gameColor: 9
-    jellyMaterial: {fileID: 2100000, guid: 1cd9e064604ea4f41add794d11288767, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 63e164baf11b23840b4ba7f4fa595f41, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 1ae836190ca22aa48a5992e4544ee211, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: dc6c53639f6add04fb46421629586f10, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 5c2fafe29075b6a45bb341d845daea29, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 52e538707952cb3488cb3af013116155, type: 2}
   - gameColor: 10
-    jellyMaterial: {fileID: 2100000, guid: ccbb1dde9ffb1664dbcc0ad27229f0b9, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 8baae6b8c65ffea469cb49673858fd0a, type: 2}
-    boxMaterial: {fileID: 2100000, guid: ccb72d7773ee48c4a9d5192c68cab8e3, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: fe277e43d7e195b469115fa93e5ce1bc, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: f7450b4da5274984ca839a99ce3aceed, type: 2}
+    boxMaterial: {fileID: 2100000, guid: f63c572fa11beec48bd95bb7956a17f3, type: 2}
   - gameColor: 11
-    jellyMaterial: {fileID: 2100000, guid: 5f196ded3dd7abf4789bb30b424a7379, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: e9618e2b01915d544ba052e5cdf832bc, type: 2}
-    boxMaterial: {fileID: 2100000, guid: c0430dc24e762464aba886e621a79f92, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: b6a64555e65065648bbf6ec758e78adc, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 9648d9342b1deb646b734eb75f1a2e6b, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 65e404e3ddcfa3f49b9e1893ad1b179a, type: 2}
   - gameColor: 12
-    jellyMaterial: {fileID: 2100000, guid: 6431657da0b561e4db4b56f4abc6599f, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: d30bd9403a0109d4e85fb201dfe23cf2, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 807dba815e019e34e893faed9d0678c1, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: 1e88c59da1c72204aaa343c4a333e3ef, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 126e76271e0bf8645ab7b1ac4be1e1a0, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 4d76c4f48703af549bed6226e1745116, type: 2}
   hiddenMaterials:
     gameColor: 0
-    jellyMaterial: {fileID: 2100000, guid: d2b609b1356b48345ab28b0112882c5e, type: 2}
-    bottomMaterial: {fileID: 2100000, guid: 0229fb517db314f44b62486b2723292b, type: 2}
-    boxMaterial: {fileID: 2100000, guid: 0229fb517db314f44b62486b2723292b, type: 2}
+    jellyMaterial: {fileID: 2100000, guid: 1c03cc38b89212045af915a4f13d656d, type: 2}
+    bottomMaterial: {fileID: 2100000, guid: 39f68b3e46add454a9473441624e2454, type: 2}
+    boxMaterial: {fileID: 2100000, guid: 39f68b3e46add454a9473441624e2454, type: 2}
   m_particleSpawnDelay: 0.19
-  explodeVfxPrefab: {fileID: 1709254077376921, guid: d81df81499052f3499c228e1fdebb38a, type: 2}
+  explodeVfxPrefab: {fileID: 1709254077376921, guid: 2c375f9044fb4ea4d84967c160b58042, type: 2}
   particleTintPairs:
   - Key: 0
     Value: {r: 0.99607843, g: 0.27450982, b: 0.3647059, a: 1}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SampleSceneProfile
   m_EditorClassIdentifier:
   components:
-  - {fileID: 11400000, guid: 5e7ecef7e285ae84ba2ab889c83ebe51, type: 2}
-  - {fileID: 11400000, guid: 32d905fa59aa6c2479dbb795622397bc, type: 2}
-  - {fileID: 11400000, guid: c1f51e54f9b2e8446852ef4989bafa3a, type: 2}
-  - {fileID: 11400000, guid: 4398bfd9deea77e43b8f9d5beb504aa7, type: 2}
+  - {fileID: 11400000, guid: e25923fb69362a14ebe84f10d22cc615, type: 2}
+  - {fileID: 11400000, guid: d618a40f0a7459f40aa62cf73ae3baa9, type: 2}
+  - {fileID: 11400000, guid: f358bc51699b1c84aa9039e37ac5c5e8, type: 2}
+  - {fileID: 11400000, guid: 16e8b8b7d170d26498789adde7885aaa, type: 2}

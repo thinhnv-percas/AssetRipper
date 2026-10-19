@@ -112,10 +112,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 841611201, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: b75a802c9a313da5b40600e81892f81c, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  m_config: {fileID: 11400000, guid: f162bb8540239d44e902fd888564f9c4, type: 2}
+  m_config: {fileID: 11400000, guid: 32bf5fa074f590f4397e6517cba937d1, type: 2}
   m_textParent: {fileID: 224730242686860875}
   m_duration: 1.5
   m_positionCurve:

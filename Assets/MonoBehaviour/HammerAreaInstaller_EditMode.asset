@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -269474904, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: d7fccc7bdc0a2d21c5d106bd835d394a, type: 3}
   m_Name: HammerAreaInstaller_EditMode
   m_EditorClassIdentifier:
-  m_config: {fileID: 11400000, guid: 16cd62a1bea630c43b00bac377e2c88d, type: 2}
+  m_config: {fileID: 11400000, guid: c41c8c221d460f646a892f0fd1fa1f23, type: 2}

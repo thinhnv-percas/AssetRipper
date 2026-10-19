@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: skeleton_SkeletonData
   m_EditorClassIdentifier:
   atlasAssets:
-  - {fileID: 11400000, guid: 067998a6c962b894f81bd0222ec0468d, type: 2}
+  - {fileID: 11400000, guid: 1e0f578a91191d348ba2b7aef53d166e, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 9866b33823ac0704f8da3965be0c8497, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: e3bb644ba7d8e6b4588cdc6b00dd39a5, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 1
@@ -23,10 +23,10 @@ MonoBehaviour:
     additiveMaterials: []
     multiplyMaterials:
     - pageName: SandOut.png
-      material: {fileID: 2100000, guid: 430d076665af5944ba98fdfa059b18ff, type: 2}
+      material: {fileID: 2100000, guid: 3df2ec50dc640e048845fbb0d1ecca73, type: 2}
     screenMaterials:
     - pageName: SandOut.png
-      material: {fileID: 2100000, guid: 0a56ffb5e96bd4f48bbcfda1adeb168b, type: 2}
+      material: {fileID: 2100000, guid: 566d35c1c9857c649acf84939b47897d, type: 2}
   skeletonDataModifiers: []
   fromAnimation: []
   toAnimation: []

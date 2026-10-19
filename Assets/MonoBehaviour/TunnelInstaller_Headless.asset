@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 82442110, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0462db1fbf7878947632e716dd3f4ad2, type: 3}
   m_Name: TunnelInstaller_Headless
   m_EditorClassIdentifier:
-  tunnelConfig: {fileID: 11400000, guid: bcc78375183e9a84cb00c3099508cc14, type: 2}
+  tunnelConfig: {fileID: 11400000, guid: 365053de866531d4dab4523d85906830, type: 2}

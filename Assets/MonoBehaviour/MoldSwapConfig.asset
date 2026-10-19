@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 480769303, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f1cd1783634b3417bcbe1d126c84c8c, type: 3}
   m_Name: MoldSwapConfig
   m_EditorClassIdentifier:
   alwaysSwap: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
-  swapHighlightProfile: {fileID: 11400000, guid: fe6c91d3fad7b2e42a24911df1eab7dd, type: 2}
+  swapHighlightProfile: {fileID: 11400000, guid: 94b1e02ca182da246bc51c754c5f4b68, type: 2}
   backdropMaxAlpha: 0.6
   backdropFadeIn:
     duration: 0.5

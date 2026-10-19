@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_moldbox_brown
-  m_Shader: {fileID: 4800000, guid: 945806981e704cd4dbbb01b7b8e63b35, type: 3}
+  m_Shader: {fileID: 4800000, guid: dd34c5abfd4858440ba8103f7cec7d29, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -32,7 +32,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _BaseMap:
-        m_Texture: {fileID: 2800000, guid: d9e3aa738e5f51840a24688e5b049db1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 726e51554ccb53148bae57b6de73cc1e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _BumpMap:
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _CSpecMask:
-        m_Texture: {fileID: 2800000, guid: 5e83992595d037d43a68176f0b1662d6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9a886e02b2d8f5c4ba416731b95cdeca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _EmissionMap:
@@ -48,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 5e83992595d037d43a68176f0b1662d6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9a886e02b2d8f5c4ba416731b95cdeca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: 0720994b0dcbac94c9de3aad0b421e3f, type: 3}
+        m_Texture: {fileID: 2800000, guid: db498fdc72ab30a4e8b8bfe84444b6b6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Ramp:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: c5b2eaf1586e0fd42a2b0ef9440f2d7a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4bd178d215375f144bd2bac73aa52840, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

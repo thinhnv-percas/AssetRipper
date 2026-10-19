@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: -1126983989, guid: 5ad997fd1c90b50280b4ae4980c27e5f, type: 3}
   m_Name: SR_
   m_EditorClassIdentifier:
-  StyleSheet: {fileID: 11400000, guid: 516eead0d879bdb4db9c2204a4c594e3, type: 2}
+  StyleSheet: {fileID: 11400000, guid: bb261dc0550a35740bc6542080c31228, type: 2}
 --- !u!114 &114709867586078768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,7 +659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a038b0ae969f87a419a1d470be923f59, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 128b21d4cc9a6474abb69ccdd700e94e, type: 2}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -732,7 +732,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9f9677238eca7804089a9f3357e93eb7, type: 3}
+    m_Font: {fileID: 12800000, guid: 3e028c2b6d7cc0642ba21d3486a86890, type: 3}
     m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0

@@ -1,0 +1,14 @@
+{
+  "name": "Unco.Objects",
+  "references": [
+    "SettingsSystem",
+    "SoundSystem.Runtime",
+    "Unco.Utils",
+    "ContainerSystem.Runtime",
+    "Unco.Extensions",
+    "UnityEngine.UI",
+    "PrimeTween.Runtime",
+    "Unity.TextMeshPro"
+  ],
+  "allowUnsafeCode": true
+}

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1781078058, guid: 096ff04e61a5a02e0ab3a0bf8a76f137, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d8aff3d690b38c445a7fd69b412b6aa, type: 3}
   m_Name: MoldSwapBooster
   m_EditorClassIdentifier:
   effectGroup: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   targetFXFrameWidth: 0.1
   targetFXCornerLength: 0.25
   targetFXFrameMinOpacity: 0
-  targetFXTexture: {fileID: 2800000, guid: 241e172bfe6164a4898644ba62340061, type: 3}
+  targetFXTexture: {fileID: 2800000, guid: 737b7f40ef5bef84fa5172a877677c77, type: 3}
   targetFXColor: {r: 1, g: 1, b: 1, a: 1}
   targetFXRotationSpeed: 50
   targetFXRotationAngle: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   iconFX: 0
   iconFXAssetType: 0
   iconFXPrefab: {fileID: 0}
-  iconFXMesh: {fileID: 4300000, guid: 05cf2cc9da14c8b478ac6655abdfdba8, type: 2}
+  iconFXMesh: {fileID: 4300000, guid: 6272f74be01e8b44f9614ea7a1478e41, type: 2}
   iconFXLightColor: {r: 1, g: 1, b: 1, a: 1}
   iconFXDarkColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   iconFXRotationSpeed: 50
@@ -189,7 +189,7 @@ MonoBehaviour:
   labelText: Label
   labelTextSize: 14
   labelColor: {r: 1, g: 1, b: 1, a: 1}
-  labelPrefab: {fileID: 1709254077376921, guid: ad6e237cb7925364ba5fb01c6c1967c6, type: 2}
+  labelPrefab: {fileID: 1709254077376921, guid: e244f35319134a3419e176bfd304bab9, type: 2}
   labelVerticalOffset: 0
   labelViewportOffset: {x: 0, y: 0}
   labelLineLength: 200

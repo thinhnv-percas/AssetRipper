@@ -1,0 +1,5 @@
+{
+  "name": "ContainerSystem.Runtime",
+  "references": [],
+  "allowUnsafeCode": true
+}

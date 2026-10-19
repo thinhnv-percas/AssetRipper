@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1634044489, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: e80fccf58d69e0979523e114878f018c, type: 3}
   m_Name: BaseLayerTrackingInstaller
   m_EditorClassIdentifier:
-  m_trackingConfig: {fileID: 11400000, guid: cd1df8cf247205d4295051c3c009b091, type: 2}
+  m_trackingConfig: {fileID: 11400000, guid: 7afce77fedac47147937c220c1d84df0, type: 2}

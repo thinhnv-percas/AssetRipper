@@ -65,7 +65,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1938747147, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3149afb4d86ebd8d85bf08eadf57e4a7, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_uText: {fileID: 114099118695303065}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730242686860875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1623573360, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9406ce7d78051b514ddca3c7d1652f19, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_Material: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: UText
   m_font: {fileID: 0}
-  m_style: {fileID: 11400000, guid: d5098cd1f8c2eb743abbd22d29ec2191, type: 2}
+  m_style: {fileID: 11400000, guid: 828b33f41abad3741acc655edc7a83f2, type: 2}
   m_layoutSettings:
     FontSize: 60
     Bold: 0

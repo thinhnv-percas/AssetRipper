@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_box_brown
-  m_Shader: {fileID: 4800000, guid: 945806981e704cd4dbbb01b7b8e63b35, type: 3}
+  m_Shader: {fileID: 4800000, guid: dd34c5abfd4858440ba8103f7cec7d29, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -47,11 +47,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 0b6f26d260da7a94486eac766400a902, type: 3}
+        m_Texture: {fileID: 2800000, guid: a5073c959551a924ea29c748c624e94b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: ebd4b6c3982b771488bdc4f4ca116306, type: 3}
+        m_Texture: {fileID: 2800000, guid: 585574c62b8f61f4aa41748e3ec87ea6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Ramp:
@@ -63,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: 0b6f26d260da7a94486eac766400a902, type: 3}
+        m_Texture: {fileID: 2800000, guid: a5073c959551a924ea29c748c624e94b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

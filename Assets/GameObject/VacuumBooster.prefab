@@ -76,12 +76,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -677660869, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c72612e087dbf5e43275aec6ef8a7f1, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_vacuumPos: {fileID: 4099118695303065}
   m_spitPos: {fileID: 4243736805655561}
-  m_vacuumPrefab: {fileID: 114336590748365959, guid: 605a53b24fe9e3847b7dc4208a413177, type: 2}
+  m_vacuumPrefab: {fileID: 114336590748365959, guid: 3c18174d594495e46b01024a06ebde60, type: 2}
   m_moveToSpitPosTweenSettings:
     duration: 0.3
     ease: 10
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1521947008, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cbf3e877d23d92a6383dc88628e1a87, type: 3}
   m_Name:
   m_EditorClassIdentifier:
 --- !u!4 &4099118695303065

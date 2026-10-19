@@ -1,0 +1,7 @@
+{
+  "name": "Unco.CommonManagers",
+  "references": [
+    "ContainerSystem.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

@@ -205,7 +205,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -652873071, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: c5d7891c0255fca3d423432e3d41d9d7, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_showAnimationTypes: None
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 213dd5f789213c043b16b98b77ba8b31, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 43b0ff0c95c62a947ae10c737fcde7c5, type: 2}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ce7323e4f375b4048a7d304a8cccdc14, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 171c9d3d77714b349b097bb657f6f1b4, type: 2}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618682377417806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1841157174, guid: 3e48b0afc47aa9d0b84173e911a289e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6203dd2a804cbce6f9c8ac727fd46abe, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_Material: {fileID: 0}
@@ -392,7 +392,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Swipe to Rotate
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 91570d9440c28f64f84bc50154621d43, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4293ff531ed78fc479db79bc1774b58f, type: 2}
   m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01d55aa4a7c48004cb984c5f61a80242, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 53e58fbe20d9d9549b8124ddafc84d68, type: 2}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1884547391421755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1841157174, guid: 3e48b0afc47aa9d0b84173e911a289e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6203dd2a804cbce6f9c8ac727fd46abe, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_Material: {fileID: 0}
@@ -570,8 +570,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Find all <color=yellow>Target</color> items
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 91570d9440c28f64f84bc50154621d43, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 739e57aec12749e4d8cef3fe892db1f3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4293ff531ed78fc479db79bc1774b58f, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 3f19c32f7daf1f34ab6bd59f058d52ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

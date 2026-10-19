@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 740262771, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: da10df9e4ed6236fd86feb9ee384d4e8, type: 3}
   m_Name: FlowTutorialsInstaller
   m_EditorClassIdentifier:
-  m_flowDatabase: {fileID: 11400000, guid: 04be512dcbddc5747b454b0a4acdadae, type: 2}
+  m_flowDatabase: {fileID: 11400000, guid: d352ccc96f27e72448110171f5150052, type: 2}

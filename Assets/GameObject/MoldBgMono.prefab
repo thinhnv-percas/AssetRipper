@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5704c7f7d7ed9d049bcd68e1c0218aa0, type: 2}
+  - {fileID: 2100000, guid: 6eddc6c44210095448003f3b650de7f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1285626581, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: fb6f6474039c4c819684fed0524f2287, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   _presets:
@@ -129,19 +129,19 @@ MonoBehaviour:
     - Renderer: {fileID: 23618682377417806}
       Slots:
       - MaterialIndex: 0
-        Material: {fileID: 2100000, guid: 5704c7f7d7ed9d049bcd68e1c0218aa0, type: 2}
+        Material: {fileID: 2100000, guid: 6eddc6c44210095448003f3b650de7f5, type: 2}
   - Name: hard_level
     Groups:
     - Renderer: {fileID: 23618682377417806}
       Slots:
       - MaterialIndex: 0
-        Material: {fileID: 2100000, guid: 95113bf9cd8eb1745b2a6c2115a05557, type: 2}
+        Material: {fileID: 2100000, guid: ad4c31a166d07ab4fb65382f7eb36c97, type: 2}
   - Name: superhard_level
     Groups:
     - Renderer: {fileID: 23618682377417806}
       Slots:
       - MaterialIndex: 0
-        Material: {fileID: 2100000, guid: 2df1ffcee5def7948affb0ddec39e3b9, type: 2}
+        Material: {fileID: 2100000, guid: d3c7de4e72d3fc9499fc4cfb5987c96e, type: 2}
 --- !u!114 &114099118695303065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +151,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1689717309, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 556bda00f108641a4c62becaee96a054, type: 3}
   m_Name:
   m_EditorClassIdentifier:

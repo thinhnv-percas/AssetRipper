@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1946827939, guid: f2689cba7115589d0cbb110aef2ebe45, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f65e451854d0415e5dc3dd0c2021253, type: 3}
   m_Name: ResourceVisualHub
   m_EditorClassIdentifier:
   m_sprites:
   - Key: 1
-    Value: {fileID: 21300000, guid: 2a5a65223a5628e4c9c151cb1c0b0136, type: 2}
+    Value: {fileID: 21300000, guid: 19ba87683fec8d247945dbb3084d2b9d, type: 2}
   - Key: 2
-    Value: {fileID: 21300000, guid: e739d1f867b585f43b3f37714bf53ece, type: 2}
+    Value: {fileID: 21300000, guid: 822854c3de4ba2c46a603a91385e34fa, type: 2}
   - Key: 5
-    Value: {fileID: 21300000, guid: e739d1f867b585f43b3f37714bf53ece, type: 2}
+    Value: {fileID: 21300000, guid: 822854c3de4ba2c46a603a91385e34fa, type: 2}
   - Key: -1
-    Value: {fileID: 21300000, guid: f4a30a2407fade842bfb3a638287dd93, type: 2}
+    Value: {fileID: 21300000, guid: ff424a339959f004bb1cc474783252bd, type: 2}
   m_genericSprites: []

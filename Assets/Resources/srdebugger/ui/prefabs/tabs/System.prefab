@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: SR_
   m_EditorClassIdentifier:
   HeaderExtraContent: {fileID: 224470112387431263}
-  Icon: {fileID: 21300000, guid: a038b0ae969f87a419a1d470be923f59, type: 2}
+  Icon: {fileID: 21300000, guid: 128b21d4cc9a6474abb69ccdd700e94e, type: 2}
   IconExtraContent: {fileID: 0}
   IconStyleKey: Icon_System
   SortIndex: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 313406538, guid: 02be243e0ba7d7d3ffab020eca78469d, type: 3}
   m_Name: SR_
   m_EditorClassIdentifier:
-  InfoBlockPrefab: {fileID: 114884547391421755, guid: ed4dc66e5d7c4814eab4f488e449450d, type: 2}
+  InfoBlockPrefab: {fileID: 114884547391421755, guid: ef09377d2435da240849839d76604234, type: 2}
   LayoutContainer: {fileID: 224841364053301648}
   ToggleButton: {fileID: 114711914853252429}
 --- !u!114 &114336590748365959
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7c972f2f915ae4241b58c0a50c9ddd82, type: 2}
+  m_Sprite: {fileID: 21300000, guid: eb6e5009de8330d4a9628911f9ad0127, type: 2}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1116,7 +1116,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9f9677238eca7804089a9f3357e93eb7, type: 3}
+    m_Font: {fileID: 12800000, guid: 3e028c2b6d7cc0642ba21d3486a86890, type: 3}
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0

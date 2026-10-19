@@ -1,0 +1,7 @@
+{
+  "name": "Unco.EventBusSystem",
+  "references": [
+    "ContainerSystem.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

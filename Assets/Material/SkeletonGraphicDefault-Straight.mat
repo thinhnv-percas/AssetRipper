@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SkeletonGraphicDefault-Straight
-  m_Shader: {fileID: 4800000, guid: be667fa3016548c48b05cdbdb17654b2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 62a7a330adbf2ae4492caad8a2bbc32b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:

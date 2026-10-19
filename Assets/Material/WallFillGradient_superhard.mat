@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WallFillGradient_superhard
-  m_Shader: {fileID: 4800000, guid: 295fa12a78e54824b8759fc5622cd19d, type: 3}
+  m_Shader: {fileID: 4800000, guid: ba661b3024eb84349bde9c5c2b8ff12b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:

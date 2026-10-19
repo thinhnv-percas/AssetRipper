@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_jelly_yellow
-  m_Shader: {fileID: 4800000, guid: 74a0e78bf36c5c949ad16e4322733948, type: 3}
+  m_Shader: {fileID: 4800000, guid: b2d8f6e20ec1940408d5e22689b17749, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -31,7 +31,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 3fcbf5d6cc25f5a40ae400dd8c8483ed, type: 3}
+        m_Texture: {fileID: 2800000, guid: cfb47820cfc00364b95d378167e98b14, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _BumpMap:
@@ -43,11 +43,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 2fd312527a5c10740b082048c3f031e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 231fc51cc093b2a4088758b533f2d976, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: cbbfc8b658c87cf438efa85c8b947fea, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6cb74037efe658544aeea78b0a68e5b3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Ramp:

@@ -1,0 +1,13 @@
+{
+  "name": "SoundSystem.Runtime",
+  "references": [
+    "SettingsSystem",
+    "Unco.RemoteManagementSystem",
+    "ContainerSystem.Runtime",
+    "Unco.Utils",
+    "DomainReloadHelper.Runtime",
+    "Unco.Extensions",
+    "PrimeTween.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

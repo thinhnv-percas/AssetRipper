@@ -1,0 +1,7 @@
+{
+  "name": "AllIn1SpriteShaderAssembly",
+  "references": [
+    "UnityEngine.UI"
+  ],
+  "allowUnsafeCode": true
+}

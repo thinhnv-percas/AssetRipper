@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1521945571, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5df75bbcc5e9471600704fd1bd3ff195, type: 3}
   m_Name: DefaultSpriteAtlas
   m_EditorClassIdentifier:
-  Atlas: {fileID: 2800000, guid: 28a40936a1b19dd4299c72ba52391a7b, type: 3}
+  Atlas: {fileID: 2800000, guid: 833c57258f89cca42896f21e84ddbddc, type: 3}
   Entries:
   - Name: ic_coin
     UvRect:

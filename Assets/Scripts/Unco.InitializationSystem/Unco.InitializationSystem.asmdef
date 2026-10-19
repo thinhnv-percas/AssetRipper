@@ -1,0 +1,7 @@
+{
+  "name": "Unco.InitializationSystem",
+  "references": [
+    "Unco.Extensions"
+  ],
+  "allowUnsafeCode": true
+}

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1255142789, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 11b13024bd7f0bd5347d33b80fe9f776, type: 3}
   m_Name: HomeLayerConfig
   m_EditorClassIdentifier:
   m_installerSoReferences:
-  - {fileID: 11400000, guid: 3c82d9ec1829b5e4685f67e29982ac48, type: 2}
-  - {fileID: 11400000, guid: 58b4b152250b3784c9fbbebae1500974, type: 2}
-  - {fileID: 11400000, guid: 846a2797e6b1f9e4c96d617c01c15331, type: 2}
+  - {fileID: 11400000, guid: 7f900d565b8855c43838f5aa103c43af, type: 2}
+  - {fileID: 11400000, guid: 9869177aac8777d4282734da8753fd40, type: 2}
+  - {fileID: 11400000, guid: 035cae3cb0dfc114c913236b0841f6fa, type: 2}
   m_installerGroupId: homelayer

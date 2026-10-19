@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1347806867, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f1fe3402d53caf11b8950063e8b4fbd, type: 3}
   m_Name: ForcePourInstaller
   m_EditorClassIdentifier:
-  m_config: {fileID: 11400000, guid: 86ad6277a59eea44d829528bc1e404de, type: 2}
-  m_controllerPrefab: {fileID: 114724804207875695, guid: 05ac88bcceb759d4d9ca7661544c703e, type: 2}
+  m_config: {fileID: 11400000, guid: 337a0f9e6514b6a4b98015dbeffcec0f, type: 2}
+  m_controllerPrefab: {fileID: 114724804207875695, guid: 047ce2d648e55984d92d09d988e75523, type: 2}

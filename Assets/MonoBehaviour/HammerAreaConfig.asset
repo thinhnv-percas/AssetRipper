@@ -9,28 +9,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 15734009, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 41298079a0b0d38488110bb6f59ca52f, type: 3}
   m_Name: HammerAreaConfig
   m_EditorClassIdentifier:
   entries:
   - width: 3
     height: 1
-    prefab: {fileID: 1709254077376921, guid: 97ec248e28570d5498aa46d5f0f955d5, type: 2}
+    prefab: {fileID: 1709254077376921, guid: b1044546e929e804882c0a7c388875a4, type: 2}
   - width: 4
     height: 1
-    prefab: {fileID: 1709254077376921, guid: a143b1f0da18b424088d531947275f8b, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 4abf765111029fd498a382abc9c25913, type: 2}
   - width: 2
     height: 2
-    prefab: {fileID: 1709254077376921, guid: 748aaf7e62254ba4fb91f920d5b66d26, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 129703977bfecdd4eb707f7a58d434db, type: 2}
   - width: 3
     height: 2
-    prefab: {fileID: 1709254077376921, guid: 8153e76a62e05584e9bf099f98fcee89, type: 2}
+    prefab: {fileID: 1709254077376921, guid: bef5553347ded954fbd86ef2a0f6531b, type: 2}
   - width: 3
     height: 3
-    prefab: {fileID: 1709254077376921, guid: a5ba68f7055b93d4bbca9cb020668f64, type: 2}
+    prefab: {fileID: 1709254077376921, guid: c3ae1b0d5470a3445add32f1a6aa648c, type: 2}
   - width: 4
     height: 3
-    prefab: {fileID: 1709254077376921, guid: 33882b487c49eb741a672e557302e3d4, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 9b6f98200a91dee4ab7c10e328db23c7, type: 2}
   parentScaleTween:
     startFromCurrent: 0
     startValue: 0.6

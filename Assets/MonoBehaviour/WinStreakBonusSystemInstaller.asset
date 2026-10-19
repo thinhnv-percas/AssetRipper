@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -940340986, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f1eec3b8d62314894cc82047c47f58e, type: 3}
   m_Name: WinStreakBonusSystemInstaller
   m_EditorClassIdentifier:
-  m_winStreakBonusDatabase: {fileID: 11400000, guid: f05c04a35e0d11348a2cc19dc0f72be3, type: 2}
+  m_winStreakBonusDatabase: {fileID: 11400000, guid: 442575de294985a429ac80df832212d0, type: 2}

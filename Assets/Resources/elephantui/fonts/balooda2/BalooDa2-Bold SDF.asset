@@ -35,7 +35,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 7.6
     m_StrikethroughThickness: 2.05
     m_TabWidth: 8
-  m_Material: {fileID: 2100000, guid: 3d28aace05c2b71499a30908fa0e0a20, type: 2}
+  m_Material: {fileID: 2100000, guid: 70565b4f86e78fc46a4c7c06879ae5d0, type: 2}
   m_SourceFontFileGUID: dd516f4ee2f9f43b7a8f2c24fa632a51
   m_CreationSettings:
     sourceFontFileName:
@@ -4205,7 +4205,7 @@ MonoBehaviour:
     m_GlyphIndex: 700
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 2800000, guid: a127d5d2f0ce76948a6f0d1c45c04308, type: 3}
+  - {fileID: 2800000, guid: e68f3e1fe39c8f04fb66af08b683b313, type: 3}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_GetFontFeatures: 1

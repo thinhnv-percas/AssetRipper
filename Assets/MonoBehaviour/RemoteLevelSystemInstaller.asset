@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1064006334, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: c0882aa77cdc61e3d214170352d7301b, type: 3}
   m_Name: RemoteLevelSystemInstaller
   m_EditorClassIdentifier:
-  m_levelListSo: {fileID: 11400000, guid: 2df8c0b6c9abca34ab7b039b89be5dd5, type: 2}
+  m_levelListSo: {fileID: 11400000, guid: 94b1468c5b0f60a41948793976b9b4c0, type: 2}

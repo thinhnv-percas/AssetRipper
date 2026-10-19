@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1755380265, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: c0ed341c80205c2599de28b0f9b2e816, type: 3}
   m_Name: FeatureUnlockDatabase
   m_EditorClassIdentifier:
   FeatureUnlocks:
   - featureId: hidden_block
     featureName: Hidden Blocks!
     featureDescription: Reveals when a neighbor is opened
-    featureIcon: {fileID: 21300000, guid: 6bce9d6aeb1883345b6963c408fd9b7c, type: 2}
+    featureIcon: {fileID: 21300000, guid: 72f87c971a706dd4ea081bc3e1c1108c, type: 2}
     featureShowcaseImage: {fileID: 0}
-    VideoClip: {fileID: 32900000, guid: b564e60e87c75fa44b7c7900213c6062, type: 3}
+    VideoClip: {fileID: 32900000, guid: 7a2006f6da044e34f8c63013a1ff8312, type: 3}
     videoPositionOffset: {x: -1, y: -63}
     videoScale: 1.2535323
     videoRect: {x: 585, y: 1266}
@@ -28,9 +28,9 @@ MonoBehaviour:
   - featureId: tunnel_blocker
     featureName: Tunnels!
     featureDescription: Clear the block in front to spawn new ones
-    featureIcon: {fileID: 21300000, guid: 9b157c3d2854b384f886f68fb66649b5, type: 2}
+    featureIcon: {fileID: 21300000, guid: 05e0fcae44e271a47aa4a286e0f5ce84, type: 2}
     featureShowcaseImage: {fileID: 0}
-    VideoClip: {fileID: 32900000, guid: d52f6822a07922247a00996ee0bf5805, type: 3}
+    VideoClip: {fileID: 32900000, guid: 304c6f2be37b2bd4e969ef2a2d5fba51, type: 3}
     videoPositionOffset: {x: 0, y: -104}
     videoScale: 1.228953
     videoRect: {x: 585, y: 1266}
@@ -40,9 +40,9 @@ MonoBehaviour:
   - featureId: hidden_box
     featureName: Hidden Box!
     featureDescription: Reveals when reached
-    featureIcon: {fileID: 21300000, guid: 525c4e923bcfd8543b1e652e64ea7cfe, type: 2}
+    featureIcon: {fileID: 21300000, guid: 3fa9ec7d2b2d3a34682f93791025627f, type: 2}
     featureShowcaseImage: {fileID: 0}
-    VideoClip: {fileID: 32900000, guid: fff2ee282796c7746bc4c751cc6c8144, type: 3}
+    VideoClip: {fileID: 32900000, guid: 970fe6a782893b64fba81a4229b1e093, type: 3}
     videoPositionOffset: {x: 0, y: 234}
     videoScale: 1.1780839
     videoRect: {x: 585, y: 1266}
@@ -52,8 +52,8 @@ MonoBehaviour:
   - featureId: extra_space
     featureName: Extra Space!
     featureDescription: Your conveyor holds 33% more
-    featureIcon: {fileID: 21300000, guid: 5a7bbf7ef4ff5e543ab445ef262f0084, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 5a7bbf7ef4ff5e543ab445ef262f0084, type: 2}
+    featureIcon: {fileID: 21300000, guid: 094f3359e9a605d4c9ec98cfa9a41fb2, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: 094f3359e9a605d4c9ec98cfa9a41fb2, type: 2}
     VideoClip: {fileID: 0}
     videoPositionOffset: {x: 0, y: 0}
     videoScale: 1
@@ -64,9 +64,9 @@ MonoBehaviour:
   - featureId: key_lock
     featureName: Key & Lock!
     featureDescription: Break the key cube to unlock
-    featureIcon: {fileID: 21300000, guid: ef1bbc4298653dc4aa6b454ab784384b, type: 2}
+    featureIcon: {fileID: 21300000, guid: 8279e1cc69f2d174cafb07a97d484812, type: 2}
     featureShowcaseImage: {fileID: 0}
-    VideoClip: {fileID: 32900000, guid: b53b5b9a4343f3d498774b49d6e19976, type: 3}
+    VideoClip: {fileID: 32900000, guid: 06a4f629f4383644b99f9b3a74326f8f, type: 3}
     videoPositionOffset: {x: 4.5, y: 73}
     videoScale: 1.1889123
     videoRect: {x: 585, y: 1266}
@@ -76,9 +76,9 @@ MonoBehaviour:
   - featureId: garage_blocker
     featureName: Garage!
     featureDescription: Tap sand cubes to open the garage
-    featureIcon: {fileID: 21300000, guid: a0ed020bd39d92b4ca5cf93a1bc94ffc, type: 2}
+    featureIcon: {fileID: 21300000, guid: b2199d7632d1c664dbdce03a6836725d, type: 2}
     featureShowcaseImage: {fileID: 0}
-    VideoClip: {fileID: 32900000, guid: e0df41bba32c753488113091807e3362, type: 3}
+    VideoClip: {fileID: 32900000, guid: b2c269b9b03b0b34ca90f0e115134a88, type: 3}
     videoPositionOffset: {x: -2, y: -82}
     videoScale: 1.1962217
     videoRect: {x: 585, y: 1266}
@@ -88,9 +88,9 @@ MonoBehaviour:
   - featureId: connected_box
     featureName: Linked Boxes!
     featureDescription: Opens when both boxes reach the front
-    featureIcon: {fileID: 21300000, guid: d3708c932786b074b82f9dbcb4310fc2, type: 2}
+    featureIcon: {fileID: 21300000, guid: bcef7a958eb9d0847a5312b49605b78a, type: 2}
     featureShowcaseImage: {fileID: 0}
-    VideoClip: {fileID: 32900000, guid: 650dcb7dfe5b8f94c905e53d675ac96f, type: 3}
+    VideoClip: {fileID: 32900000, guid: afec4ba7de7164144adfbcc5666e7b30, type: 3}
     videoPositionOffset: {x: -0, y: 313}
     videoScale: 1.3246976
     videoRect: {x: 585, y: 1266}
@@ -100,44 +100,44 @@ MonoBehaviour:
   - featureId: vacuum_booster
     featureName: Vacuum!
     featureDescription: Clears a portion of sand
-    featureIcon: {fileID: 21300000, guid: 59a634111a1ec0c43802753f7a173f50, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 59a634111a1ec0c43802753f7a173f50, type: 2}
+    featureIcon: {fileID: 21300000, guid: c91dcdba61e1176478f4af902d169015, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: c91dcdba61e1176478f4af902d169015, type: 2}
     VideoClip: {fileID: 0}
     videoPositionOffset: {x: 17, y: 670}
     videoScale: 2.2
     videoRect: {x: 0, y: 0}
     showProgressInWinUi: 0
-    titleSprite: {fileID: 21300000, guid: 00553633faab6294f9b7ca2a5231087f, type: 2}
+    titleSprite: {fileID: 21300000, guid: 74039e762a5166444ad92d0e67199262, type: 2}
     hideFrame: 1
   - featureId: swap_booster
     featureName: Shuffle!
     featureDescription: Brings the best matching 4 sand boxes forward
-    featureIcon: {fileID: 21300000, guid: c74262e932059974fac9eea71056ac6d, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: c74262e932059974fac9eea71056ac6d, type: 2}
+    featureIcon: {fileID: 21300000, guid: 3510ddda5c6ad1f4294a8fb9d92a9700, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: 3510ddda5c6ad1f4294a8fb9d92a9700, type: 2}
     VideoClip: {fileID: 0}
     videoPositionOffset: {x: 17, y: 670}
     videoScale: 2.2
     videoRect: {x: 0, y: 0}
     showProgressInWinUi: 0
-    titleSprite: {fileID: 21300000, guid: 00553633faab6294f9b7ca2a5231087f, type: 2}
+    titleSprite: {fileID: 21300000, guid: 74039e762a5166444ad92d0e67199262, type: 2}
     hideFrame: 1
   - featureId: hammer_booster
     featureName: Hammer!
     featureDescription: Breaks a selected sand cube
-    featureIcon: {fileID: 21300000, guid: 02c8e6c3ecaa3644abe9adf82a623b53, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 02c8e6c3ecaa3644abe9adf82a623b53, type: 2}
+    featureIcon: {fileID: 21300000, guid: c2cca0cce2c0ee04a88ec467c5d22c5f, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: c2cca0cce2c0ee04a88ec467c5d22c5f, type: 2}
     VideoClip: {fileID: 0}
     videoPositionOffset: {x: 17, y: 670}
     videoScale: 2.2
     videoRect: {x: 0, y: 0}
     showProgressInWinUi: 0
-    titleSprite: {fileID: 21300000, guid: 00553633faab6294f9b7ca2a5231087f, type: 2}
+    titleSprite: {fileID: 21300000, guid: 74039e762a5166444ad92d0e67199262, type: 2}
     hideFrame: 1
   - featureId: extra_space_v2
     featureName: Extra Space!
     featureDescription: Your conveyor holds 25% more
-    featureIcon: {fileID: 21300000, guid: 5a7bbf7ef4ff5e543ab445ef262f0084, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 5a7bbf7ef4ff5e543ab445ef262f0084, type: 2}
+    featureIcon: {fileID: 21300000, guid: 094f3359e9a605d4c9ec98cfa9a41fb2, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: 094f3359e9a605d4c9ec98cfa9a41fb2, type: 2}
     VideoClip: {fileID: 0}
     videoPositionOffset: {x: 0, y: 0}
     videoScale: 1
@@ -148,9 +148,9 @@ MonoBehaviour:
   - featureId: bond_blocker
     featureName: Linked Blocks!
     featureDescription: Linked blocks drop as one
-    featureIcon: {fileID: 21300000, guid: 7ddf82a0518921e42a0e5cbd2a6f7538, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 7ddf82a0518921e42a0e5cbd2a6f7538, type: 2}
-    VideoClip: {fileID: 32900000, guid: 65a3e98c553f30e49b5c1a2f0010b5fa, type: 3}
+    featureIcon: {fileID: 21300000, guid: 0354b6f5c347a1748a4a3ba8c5ab9905, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: 0354b6f5c347a1748a4a3ba8c5ab9905, type: 2}
+    VideoClip: {fileID: 32900000, guid: 49e3ff2605818f346ad31ed33060713e, type: 3}
     videoPositionOffset: {x: -0.2, y: 39}
     videoScale: 1.1864463
     videoRect: {x: 585, y: 1266}
@@ -160,9 +160,9 @@ MonoBehaviour:
   - featureId: slider_blocker
     featureName: Slider!
     featureDescription: Bring hammers to the front to break locked areas!
-    featureIcon: {fileID: 21300000, guid: 1adf0b5db5e979049995dad1b23083fe, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 1adf0b5db5e979049995dad1b23083fe, type: 2}
-    VideoClip: {fileID: 32900000, guid: 497513e0372c0a84789b4df3668c7c11, type: 3}
+    featureIcon: {fileID: 21300000, guid: 1191408cec34fab48add8f0fd4bd6329, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: 1191408cec34fab48add8f0fd4bd6329, type: 2}
+    VideoClip: {fileID: 32900000, guid: dce9a535fc361a2468c7710a4720afec, type: 3}
     videoPositionOffset: {x: -32, y: -39}
     videoScale: 1.3327054
     videoRect: {x: 585, y: 1266}
@@ -172,9 +172,9 @@ MonoBehaviour:
   - featureId: pin_blocker
     featureName: Pin
     featureDescription: Tap the trigger block to remove the pin!
-    featureIcon: {fileID: 21300000, guid: 5fe6915ba98f85347ad88a7dbeb718cd, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 5fe6915ba98f85347ad88a7dbeb718cd, type: 2}
-    VideoClip: {fileID: 32900000, guid: f83d7475d6180e74ea68653da1666eec, type: 3}
+    featureIcon: {fileID: 21300000, guid: df761989aa7fa004bb9d60302e64fac3, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: df761989aa7fa004bb9d60302e64fac3, type: 2}
+    VideoClip: {fileID: 32900000, guid: ec2c38195ca462144b40ea595e7480b8, type: 3}
     videoPositionOffset: {x: -5, y: -65}
     videoScale: 1.243206
     videoRect: {x: 585, y: 1266}
@@ -184,9 +184,9 @@ MonoBehaviour:
   - featureId: hammer_blocker
     featureName: Hammer
     featureDescription: Tap the trigger block to remove the pin!
-    featureIcon: {fileID: 21300000, guid: 5fe6915ba98f85347ad88a7dbeb718cd, type: 2}
-    featureShowcaseImage: {fileID: 21300000, guid: 5fe6915ba98f85347ad88a7dbeb718cd, type: 2}
-    VideoClip: {fileID: 32900000, guid: f83d7475d6180e74ea68653da1666eec, type: 3}
+    featureIcon: {fileID: 21300000, guid: df761989aa7fa004bb9d60302e64fac3, type: 2}
+    featureShowcaseImage: {fileID: 21300000, guid: df761989aa7fa004bb9d60302e64fac3, type: 2}
+    VideoClip: {fileID: 32900000, guid: ec2c38195ca462144b40ea595e7480b8, type: 3}
     videoPositionOffset: {x: -5, y: -65}
     videoScale: 1.243206
     videoRect: {x: 585, y: 1266}

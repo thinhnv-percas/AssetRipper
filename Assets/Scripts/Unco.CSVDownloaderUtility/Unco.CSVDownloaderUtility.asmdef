@@ -1,0 +1,7 @@
+{
+  "name": "Unco.CSVDownloaderUtility",
+  "references": [
+    "Unco.Extensions"
+  ],
+  "allowUnsafeCode": true
+}

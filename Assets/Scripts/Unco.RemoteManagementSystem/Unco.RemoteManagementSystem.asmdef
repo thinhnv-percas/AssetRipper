@@ -1,0 +1,9 @@
+{
+  "name": "Unco.RemoteManagementSystem",
+  "references": [
+    "Unco.Utils",
+    "Unco.Extensions",
+    "ContainerSystem.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

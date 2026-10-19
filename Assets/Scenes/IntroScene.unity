@@ -600,7 +600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0a377342c3e30474f8a6d1077ac84226, type: 2}
+  m_Sprite: {fileID: 21300000, guid: bbd909758f65b35458d065691b1376bc, type: 2}
   m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -653,7 +653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c97ed3c323f36e7468711cbf57a61f60, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 5f183f5eb974c8b44bcd4839d828e406, type: 2}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3c3c91edd45070543bc9ce402702f43c, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 0470876f229161a4bbf15f61ce67629e, type: 2}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -713,7 +713,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 77c60808305632547befd105d5ecc1f6, type: 2}
+  m_Sprite: {fileID: 21300000, guid: ed196c62f2162ab47aaba903cd62777c, type: 2}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1915578835, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: b3af05a560af8697feb5177cd6a54c94, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_fill: {fileID: 33}
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 768431408, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: ace2c8739103cbf4ce7b5d60fdef2af9, type: 3}
   m_Name:
   m_EditorClassIdentifier:
 --- !u!114 &37
@@ -774,8 +774,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1645522053, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: a5fc3eb02bd8073b8cb075173d0f8da6, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  _gameModeConfig: {fileID: 11400000, guid: 2af4f036db5e8574aa1e1d95f974ce31, type: 2}
+  _gameModeConfig: {fileID: 11400000, guid: 0d8c8f1508ed74f4fbb7d61f9673e45f, type: 2}
   _dontDestroyOnLoad: 1

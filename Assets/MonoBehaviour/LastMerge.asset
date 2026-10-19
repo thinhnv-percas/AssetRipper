@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -379668066, guid: e8509f5db018a90c20bdc38ea4cadbf8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5711c8bfbf1cda140ff102f418ea9c56, type: 3}
   m_Name: LastMerge
   m_EditorClassIdentifier:
   m_soundProperties:
@@ -20,4 +20,4 @@ MonoBehaviour:
     IsMusic: 0
     IsMultiple: 0
     CoolDown: 0
-  m_clip: {fileID: 8300000, guid: 613a3d82abb070d43885bfa8c7e4a338, type: 3}
+  m_clip: {fileID: 8300000, guid: e504a4c835cdeec4c916c7b8a84e08e2, type: 3}

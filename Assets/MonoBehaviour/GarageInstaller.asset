@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1756967321, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 90f54a61f118736cf5d5f64e7219d67d, type: 3}
   m_Name: GarageInstaller
   m_EditorClassIdentifier:
-  m_config: {fileID: 11400000, guid: 04fdb969a9977aa4fa791ce55e73e07c, type: 2}
+  m_config: {fileID: 11400000, guid: 8f109b978947d7b428177941fcef0396, type: 2}

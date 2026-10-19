@@ -290,20 +290,20 @@ MonoBehaviour:
   dividers: []
   buttonAreaImage: {fileID: 114220653531496868}
   buttonImage: {fileID: 0}
-  _buttonPrefab: {fileID: 1709254077376921, guid: ef7bb725211c1214baf07e5d11cde4ea, type: 2}
+  _buttonPrefab: {fileID: 1709254077376921, guid: a32752692f25a704cadce2abae472f8c, type: 2}
   _closeButton: {fileID: 114320256170494724}
   _contentText: {fileID: 114060945828524476}
   _topContainer: {fileID: 224841364053301648}
   _bottomContainer: {fileID: 224291844617409189}
   _iconList:
   - platform: 0
-    logo: {fileID: 21300000, guid: 761078bac9177ad4aab5b1e23685003d, type: 2}
+    logo: {fileID: 21300000, guid: abee9d95e47e448419fa673ea863579d, type: 2}
   - platform: 1
-    logo: {fileID: 21300000, guid: bae2bffcd27ce4c4d8fec9bc401d98e0, type: 2}
+    logo: {fileID: 21300000, guid: 6c0da54b53be0e041b6f2e6021185c7c, type: 2}
   - platform: 2
-    logo: {fileID: 21300000, guid: 89ef4ad7c468b2e429c1be8ed0a3ed8c, type: 2}
+    logo: {fileID: 21300000, guid: e6bd7b142b1d95c43999d985b265357e, type: 2}
   - platform: 3
-    logo: {fileID: 21300000, guid: d0eebae823a5ef14196ba9a51d2d1b3f, type: 2}
+    logo: {fileID: 21300000, guid: 80443a594ee9ef64d8577e31f94df525, type: 2}
 --- !u!224 &224985305603660343
 RectTransform:
   serializedVersion: 2
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b3c514c70bf039b4997943af510b803b, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 98d13667ad990454ab0afedfd4f6958b, type: 2}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0e0693fe31b4ba04d9df89482f9ae8fd, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 40f6c7826db079140a7afe2140161eb0, type: 2}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -620,8 +620,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: FOLLOW US &
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 024fa98cc0262f5439c19b73ffd80f50, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 5124fca7223dc054c9c602d4b127b8dd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cecdfdec4068ae741b04711850cfaa47, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 5b82f57a6cd090241a3028b59bc8b36f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -740,8 +740,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: GET COINS!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 024fa98cc0262f5439c19b73ffd80f50, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 5124fca7223dc054c9c602d4b127b8dd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cecdfdec4068ae741b04711850cfaa47, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 5b82f57a6cd090241a3028b59bc8b36f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -858,7 +858,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5aa043e130ba8564a8bd9a1c61fa76f7, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 6526c80fac04cb94c8658338327cc1b0, type: 2}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1043,8 +1043,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Follow us for updates, giveaways, and coins just for hopping on board.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3ef4bb47ce6f969418aa0916cb101b71, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e47de198e8b2e7646953e5a7a1244c9e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 181a6c2051c26664e8c09131c3e5ced6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e5038fe07513f7947a655f284d0ccec8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c2d9c4a666176b438bd52ce88f8265a, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 0c35c7b71b865244a84504507f9239e6, type: 2}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

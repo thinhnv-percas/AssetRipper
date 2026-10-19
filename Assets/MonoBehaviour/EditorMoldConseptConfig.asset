@@ -9,52 +9,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 210885314, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: eeeed637e893618244f04810a3efd51b, type: 3}
   m_Name: EditorMoldConseptConfig
   m_EditorClassIdentifier:
   m_conceptId: default
   m_displayName: default
-  m_thumbnail: {fileID: 21300000, guid: 8259a24ff11e572439f690ba4a53be73, type: 2}
-  m_moldPrefab: {fileID: 1709254077376921, guid: 28900e146fbb1ad4a927c88689675f60, type: 2}
+  m_thumbnail: {fileID: 21300000, guid: 669ba1b795f4ed24d8db1f455fa78c21, type: 2}
+  m_moldPrefab: {fileID: 1709254077376921, guid: 9a2d21ae2771503419b66cec966d6593, type: 2}
   m_materials:
   - gameColor: 0
-    moldMaterial: {fileID: 2100000, guid: 5fa7e8c70b1ba8641a7dd1d9ef1b7ced, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: dd3104735d4d96945a21737cac718192, type: 2}
+    moldMaterial: {fileID: 2100000, guid: d80e8251125ceb7439926bad857bc146, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: acff16705493c5847844679e1c7f142e, type: 2}
   - gameColor: 1
-    moldMaterial: {fileID: 2100000, guid: dcc63548848bceb44992f0fb08135db7, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 292eaf0810d9b634c948a1b1b5431b12, type: 2}
+    moldMaterial: {fileID: 2100000, guid: f415b7e77d83ca243a08732ccf33ec07, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: f8468bc79b8000a40a46c1310db779b4, type: 2}
   - gameColor: 2
-    moldMaterial: {fileID: 2100000, guid: 80d08886c2aef4342a7a9780aa8ca15c, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 429617d6e4320ec4b90e4d0be8a642c9, type: 2}
+    moldMaterial: {fileID: 2100000, guid: 2e033e36b6443f544b736320a1a07000, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 81b7f697625848b48bb71ea42f62f449, type: 2}
   - gameColor: 3
-    moldMaterial: {fileID: 2100000, guid: 2baac726a6a71354a9aa01cd3de6e7bc, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 266b961647c546942bd7d33cfae9ea3c, type: 2}
+    moldMaterial: {fileID: 2100000, guid: c11ee3b0d87a8e04e8bcc50e4613a37d, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 35b7be7455b1a8a4c88c055968c657be, type: 2}
   - gameColor: 4
-    moldMaterial: {fileID: 2100000, guid: 040a02f3455b4c9439d13ec4cdccc234, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 64cab93ff2f2fb14cad4ef1a07817a4a, type: 2}
+    moldMaterial: {fileID: 2100000, guid: 649b100aec8c78e4c972e744e71befd2, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 01e0da6e6ef75924da8284f3c35f8d1e, type: 2}
   - gameColor: 5
-    moldMaterial: {fileID: 2100000, guid: 04f79300851caa14fb17a63dafc19982, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: cbe5b5e882760354689368a718a34099, type: 2}
+    moldMaterial: {fileID: 2100000, guid: b0774f419149c76448613c5c2b04713f, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 1be71194d033bd9449ee17650c3ff703, type: 2}
   - gameColor: 6
-    moldMaterial: {fileID: 2100000, guid: 455122dcb8abcf04db0bbadb782f3880, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: bc9d934df7424af42afd3b4097c8ec0d, type: 2}
+    moldMaterial: {fileID: 2100000, guid: d373e478c352e794d9aa39164aa0a37d, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 52e78af1f8e60c6419e1f2b9ec833348, type: 2}
   - gameColor: 7
-    moldMaterial: {fileID: 2100000, guid: dcc63548848bceb44992f0fb08135db7, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 292eaf0810d9b634c948a1b1b5431b12, type: 2}
+    moldMaterial: {fileID: 2100000, guid: f415b7e77d83ca243a08732ccf33ec07, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: f8468bc79b8000a40a46c1310db779b4, type: 2}
   - gameColor: 8
-    moldMaterial: {fileID: 2100000, guid: 81a66a9d7b3d7614498a945a449db860, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: b354fdf2780809a48a64fba8ec1a1c83, type: 2}
+    moldMaterial: {fileID: 2100000, guid: da88d5e14cbbec54f943c8d9fb00e144, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 04ca39c969996f845aa347b704c00e4c, type: 2}
   - gameColor: 9
-    moldMaterial: {fileID: 2100000, guid: 4777924ecf674494eb6b25d1f471d4ed, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: c653705890bcc084dbc192ae7edcf60d, type: 2}
+    moldMaterial: {fileID: 2100000, guid: fa4018d595b1089438d5b79ab160bd1d, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 5702baf26161aa840bbd4374ec94e442, type: 2}
   - gameColor: 10
-    moldMaterial: {fileID: 2100000, guid: b137d7720a0ff25418979a9466fed831, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 8c4ad27b8377b8d469ed2e3a8a3d627d, type: 2}
+    moldMaterial: {fileID: 2100000, guid: b63fd4eab1963b7409211194b69dc543, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 03ef7bf0195922844877b01615b73c99, type: 2}
   - gameColor: 11
-    moldMaterial: {fileID: 2100000, guid: b82eee44e65eff14d8942c544893a392, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 46bd3af971825c94f8ba5f6ab12c1263, type: 2}
+    moldMaterial: {fileID: 2100000, guid: 854721b97db499d40ab9b36b05ffa4f8, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: ac9e2d84d4fe18a4aaa4d2274b380ef1, type: 2}
   - gameColor: 12
-    moldMaterial: {fileID: 2100000, guid: bc26376db83fb7c4d87136890b20e8b1, type: 2}
-    moldInsideMaterial: {fileID: 2100000, guid: 25096c1757e05fc409dac1c69704a88a, type: 2}
+    moldMaterial: {fileID: 2100000, guid: 95e699f07527e5c4ab54e121b4b7ebc4, type: 2}
+    moldInsideMaterial: {fileID: 2100000, guid: 9b000a26a42325d439fe0d4302ec359d, type: 2}
   m_hiddenMoldMaterial: {fileID: 0}
   m_moldFillColors: []

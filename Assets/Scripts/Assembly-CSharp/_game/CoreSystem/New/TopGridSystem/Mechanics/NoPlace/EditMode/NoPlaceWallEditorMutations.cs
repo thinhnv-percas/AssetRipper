@@ -1,0 +1,51 @@
+using System.Collections.Generic;
+using AssetRipperInjected;
+using Cpp2ILInjected;
+using Reflex.Attributes;
+using _game.BaseLayerSystems.EntitySystem.Core;
+using _game.CoreSystem.New.GridEcsBinding;
+using _game.CoreSystem.New.Shared.EditMode;
+using _game.CoreSystem.New.TopGridSystem.Core.Handlers;
+using _game.CoreSystem.New.TopGridSystem.Mechanics.NoPlace.ECS.IdentifierTags;
+
+namespace _game.CoreSystem.New.TopGridSystem.Mechanics.NoPlace.EditMode
+{
+	[Token(Token = "0x20001CA")]
+	public class NoPlaceWallEditorMutations
+	{
+		[Inject(false)]
+		[Token(Token = "0x4000586")]
+		[FieldOffset(Offset = "0x10")]
+		private EntityManager _em;
+
+		[Inject(false)]
+		[Token(Token = "0x4000587")]
+		[FieldOffset(Offset = "0x18")]
+		private EditorHistory _history;
+
+		[Inject(false)]
+		[Token(Token = "0x4000588")]
+		[FieldOffset(Offset = "0x20")]
+		private TopGridHandler _gridHandler;
+
+		[Inject(false)]
+		[Token(Token = "0x4000589")]
+		[FieldOffset(Offset = "0x28")]
+		private TopGridEntitySystemCreator _entityCreator;
+
+		[Token(Token = "0x600083B")]
+		[Address(RVA = "0x3E77044", Offset = "0x3E77044", Length = "0x574")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_0038;\n\tv631 = 0xB285000 + 0x610;\n\tv65 = coords->klass;\n\tv379 = coords->klass->interface_offsets_count;\n\tv67 = *([v65 @ X8_v4 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>>)+12E]) == 0;\n\tif (v67) goto L_0061;\n\tv214 = *([v65 @ X8_v4 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>>)+B0]) + 8;\n\tv214 = v214 + 0x10;\n\tv291 = v379 - 1;\n\tv281 = v379 != 1;\nL_FFFFFFFF:\n\tv379 = v291;\n\tif (v281) goto L_0048;\nL_0061:\n\tv236 = System.Collections.Generic.IReadOnlyCollection`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::get_Count(coords);\n\tv382 = v236 == 0;\n\tv244 = ~v382;\n\tif (v244) goto L_0075;\n\tgoto L_0243;\nL_0067:\n\tv121 = *([v214 @ X10_v31]) << 4;\n\tv387 = v65 + v121;\n\tv388 = v387 + 0x138;\n\t*([v388 @ X0_v71])(v237, coords, *([v388 @ X0_v71+8]), methodInfo, v601, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51);\n\tv245 = v237 == 0;\n\tif (v245) goto L_0243;\nL_0075:\n\tv238 = _game.CoreSystem.New.TopGridSystem.Core.Handlers.TopGridHandler::TryGetGridComponent(this._gridHandler, &v117 @ stack_-70_v4 (_game.CoreSystem.New.GridEcsBinding.Components.GridComponent));\n\tv246 = ~v238;\n\tif (v246) goto L_0243;\n\tgoto L_00A2;\nL_00B8:\n\tSystem.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::Add(v241, v830);\nL_FFFFFFFF:\n\tv601 = Il2CppMethodInfo;\nL_FFFFFFFF:\n\tv606 = v448;\n\tv682 = *([v640 @ X8_v15 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>>)+B0]) + 8;\n\tv682 = v682 + 0x10;\n\tv668 = v683 - 1;\n\tv648 = v683 != 1;\nL_FFFFFFFF:\n\tv683 = v668;\n\tif (v648) goto L_00C7;\nL_00DC:\n\tv671 = System.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::.ctor(coords, *([v631 @ X26_v9 (System.Int32)]));\n\t*([v671 @ X0_v58 (System.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>)])(v696, coords, *([v671 @ X0_v58 (System.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>)+8]), 0, v601, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51);\n\tv707 = v111 < v696;\n\tif (v707) goto L_0102;\n\tgoto L_01C0;\nL_00EF:\n\tv710 = *([v682 @ X10_v21]) << 4;\n\tv711 = v640 + v710;\n\tv712 = v711 + 0x138;\n\t*([v712 @ X0_v61])(v716, coords, *([v712 @ X0_v61+8]), v605, v601, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51);\n\tv726 = v111 >= v716;\n\tif (v726) goto L_01C0;\nL_0102:\n\tv745 = coords->klass;\n\tv789 = coords->klass->interface_offsets_count;\n\tv747 = *([v745 @ X8_v30 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>>)+12E]) == 0;\n\tif (v747) goto L_0124;\n\tv788 = *([v745 @ X8_v30 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>>)+B0]) + 8;\n\tv788 = v788 + 0x10;\n\tv774 = v789 - 1;\n\tv754 = v789 != 1;\nL_FFFFFFFF:\n\tv789 = v774;\n\tif (v754) goto L_010D;\nL_0124:\n\tv417 = *([v777 @ X0_v51+8]);\n\tv830 = System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::get_Item(coords, v111);\n\tv805 = v111 == 0;\n\tv806 = ~v805;\nL_FFFFFFFF:\n\tv448 = v111;\n\tif (v806) goto L_013A;\nL_FFFFFFFF:\n\tv606 = *([v777 @ X0_v51+8]);\n\tgoto L_00BA;\nL_012E:\n\tv809 = *([v788 @ X10_v16]) << 4;\n\tv810 = v745 + v809;\n\tv811 = v810 + 0x138;\n\tv417 = *([v811 @ X0_v54+8]);\n\t*([v811 @ X0_v54])(v830, coords, v111, *([v811 @ X0_v54+8]), v601, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51);\n\tv818 = v111 == 0;\nL_FFFFFFFF:\n\tv448 = v111;\nL_FFFFFFFF:\n\tv606 = *([v811 @ X0_v54+8]);\n\tif (v818) goto L_00BA;\nL_013A:\n\tv833 = v830 & 0x80000000;\n\tv834 = v833 == 0;\n\tv835 = ~v834;\nL_FFFFFFFF:\n\tv606 = v417;\n\tif (v835) goto L_00BA;\n\tv869 = v830 & 0x8000000000000000;\n\tv870 = v869 == 0;\n\tv867 = ~v870;\nL_FFFFFFFF:\n\tv606 = v417;\n\tif (v867) goto L_00BA;\n\tv883 = v880 - v830;\n\tv884 = v883 < 0;\n\tv885 = v883 == 0;\n\tv886 = v880 ^ v830;\n\tv887 = v880 ^ v883;\n\tv888 = v886 & v887;\n\tv889 = v888 < 0;\n\tv890 = v884 == v889;\n\tv407 = ~v885;\n\tv891 = v890 & v407;\n\tv406 = ~v891;\n\tif (v406) goto L_FFFFFFFF;\n\tv901 = v117 - v830.y;\n\tv439 = v901 < 0;\n\tv437 = v901 == 0;\n\tv904 = v117 ^ v830.y;\n\tv905 = v117 ^ v901;\n\tv906 = v904 & v905;\n\tv429 = v906 < 0;\n\tgoto L_0162;\nL_FFFFFFFF:\n\tv429 = 0;\nL_FFFFFFFF:\n\tv437 = 1;\nL_FFFFFFFF:\n\tv439 = 0;\n\tv462 = _game.CoreSystem.New.TopGridSystem.Core.Handlers.TopGridHandler::GetNoPlaceWallAt(this._gridHandler, v830);\n\tv918 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::IsValid(this._em, v462);\n\tv920 = v918 == 0;\n\tv921 = ~v920;\nL_FFFFFFFF:\n\tv601 = 0;\nL_FFFFFFFF:\n\tv606 = 0;\n\tif (v921) goto L_00BA;\n\tv464 = _game.CoreSystem.New.TopGridSystem.Core.Handlers.TopGridHandler::GetPinAt(this._gridHandler, v830);\n\tv465 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::IsValid(this._em, v464);\n\tv950 = v465 == 0;\n\tv938 = ~v950;\nL_FFFFFFFF:\n\tv601 = 0;\nL_FFFFFFFF:\n\tv606 = 0;\n\tif (v938) goto L_00BA;\n\tv466 = System.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::Contains(v241, v830);\n\tv954 = v466 == 0;\n\tv939 = ~v954;\nL_FFFFFFFF:\n\tv601 = Il2CppMethodInfo;\nL_FFFFFFFF:\n\tv606 = v448;\n\tif (v939) goto L_00BA;\n\tgoto L_00B8;\nL_01C0:\n\tv257 = v241.Count;\n\tv247 = v241.Count == 0;\n\tif (v247) goto L_0243;\n\tv249 = this._history == 0;\n\tif (v249) goto L_01E2;\n\tv836 = v241.Count;\n\tv838 = 0xB7D5000 + 0x538;\n\tv841 = \"il2cpp_vm_object_box\"(*([v838 @ X8_v25 (System.Int32)+48]), &v836 @ stack_-74_v4 (System.Int32), clobbered_X2, clobbered_X3, clobbered_X4, clobbered_X5, clobbered_X6, clobbered_X7, clobbered_V0, clobbered_V1, clobbered_V2, clobbered_V3, clobbered_V4, clobbered_V5, clobbered_V6, clobbered_V7);\n\tv876 = System.String::Format(\"AddNoPlaceWall ({0})\", v841);\n\t_game.CoreSystem.New.Shared.EditMode.EditorHistory::Push(this._history, v876);\n\tv257 = v241.Count;\nL_FFFFFFFF:\n\tv896 = v241;\nL_FFFFFFFF:\n\tv490 = 0;\n\tgoto L_0203;\nL_01F2:\n\tv923 = _game.CoreSystem.New.TopGridSystem.Core.Handlers.TopGridEntitySystemCreator::CreateNoPlaceWall(this._entityCreator, v898);\n\tv490 = v490 + 1;\n\tv136 = v490 >= v241.Count;\nL_FFFFFFFF:\n\tv896 = v241;\n\tif (v136) goto L_0243;\nL_0203:\n\tv898 = System.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::get_Item(v896, v490);\n\tv914 = _game.CoreSystem.New.TopGridSystem.Core.Handlers.TopGridHandler::GetNoPlaceAt(this._gridHandler, v898);\n\tv915 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::IsValid(this._em, v914);\n\tv916 = ~v915;\n\tif (v916) goto L_01F2;\n\t_game.BaseLayerSystems.EntitySystem.Core.EntityManager::AddComponent(this._em, v914, 0);\n\t_game.CoreSystem.New.TopGridSystem.Core.Handlers.TopGridHandler::InitEntity(this._gridHandler, v914, v898);\n\tv490 = v490 + 1;\n\tv131 = v490 < v241.Count;\nL_FFFFFFFF:\n\tv896 = v241;\n\tif (v131) goto L_0203;\nL_0243:\n\treturn;\nL_0038:\n\tv58 = coords == 0;\n\tif (v58) goto L_0243;\nL_0048:\n\tv178 = *([v214 @ X10_v31-8]) == System.Collections.Generic.IReadOnlyCollection`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>;\n\tif (v178) goto L_0067;\nL_00A2:\n\tv580 = System.Collections.Generic.IReadOnlyCollection`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::get_Count(coords);\n\tv241 = new System.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>();\n\tSystem.Collections.Generic.List`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>::.ctor(v241, v580);\nL_FFFFFFFF:\n\tv111 = 0;\nL_FFFFFFFF:\n\tv605 = Il2CppMethodInfo;\n\tgoto L_00BC;\nL_00BC:\n\tv640 = coords->klass;\n\tv683 = coords->klass->interface_offsets_count;\n\tv642 = *([v640 @ X8_v15 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>>)+12E]) == 0;\n\tif (v642) goto L_00DC;\nL_00C7:\n\tv688 = *([v682 @ X10_v21-8]) == *([v631 @ X26_v9 (System.Int32)]);\n\tif (v688) goto L_00EF;\nL_010D:\n\tv794 = *([v788 @ X10_v16-8]) == System.Collections.Generic.IReadOnlyList`1<_game.CoreSystem.New.GridEcsBinding.GridCoord>;\n\tif (v794) goto L_012E;\nL_00BA:\n\tv111 = v111 + 1;\nL_FFFFFFFF:\n\tv605 = v606;\nL_0162:\n\tv912 = v439 == v429;\n\tv913 = ~v912;\n\tv427 = v913 | v437;\nL_FFFFFFFF:\n\tv606 = v417;\n\tif (v427) goto L_00BA;\nL_01E2:\n\tv138 = v257 < 1;\n\tif (v138) goto L_0243;\n// 6 bookkeeping instructions omi\n// ... truncated")]
+		public void AddAt(IReadOnlyList<GridCoord> coords)
+		{
+			global::AssetRipperInjected.RecoveryStub.Missing("NoPlaceWallEditorMutations::AddAt");
+		}
+
+		[Token(Token = "0x600083C")]
+		[Address(RVA = "0x3E75680", Offset = "0x3E75680", Length = "0x8")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tSystem.Object::.ctor(this);\n\treturn;\n")]
+		public NoPlaceWallEditorMutations()
+		{
+		}
+	}
+}

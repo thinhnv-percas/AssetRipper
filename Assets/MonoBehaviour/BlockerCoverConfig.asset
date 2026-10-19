@@ -9,28 +9,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1078441166, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0971dde70134bc95d6f78e3bc6a571d3, type: 3}
   m_Name: BlockerCoverConfig
   m_EditorClassIdentifier:
   entries:
   - width: 3
     height: 1
-    prefab: {fileID: 1709254077376921, guid: c0f88a9d83063514190de244e9cacf9b, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 747ee0676b0d8174b8222639aa5463f1, type: 2}
   - width: 4
     height: 1
-    prefab: {fileID: 1709254077376921, guid: 41577dcf5e709d5498ad3f71dc515cba, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 38cea01c89325094094d76ef0720fb0e, type: 2}
   - width: 2
     height: 2
-    prefab: {fileID: 1709254077376921, guid: a78fb2937ff5f88478c87026cf719c90, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 7cfa45687ffcf9f4bb7f265266253405, type: 2}
   - width: 3
     height: 2
-    prefab: {fileID: 1709254077376921, guid: bb3876f45df044146b31613d78829035, type: 2}
+    prefab: {fileID: 1709254077376921, guid: d2f771d295a5cbb419438a9af07eeeef, type: 2}
   - width: 3
     height: 3
-    prefab: {fileID: 1709254077376921, guid: de428ab0a32517f4b833aa03cb095b4a, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 8e62492b7a77457408efd7372d7404db, type: 2}
   - width: 4
     height: 3
-    prefab: {fileID: 1709254077376921, guid: e9c7f186328ee564090671b35d6408eb, type: 2}
+    prefab: {fileID: 1709254077376921, guid: 34f8cf841e6fa1b419d6212eb0b70183, type: 2}
   parentScaleTween:
     startFromCurrent: 0
     startValue: 0.85

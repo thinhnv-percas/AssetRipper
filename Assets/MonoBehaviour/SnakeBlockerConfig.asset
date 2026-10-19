@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 248308212, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: a970fba8ec63375688ace3ff0c8e1a08, type: 3}
   m_Name: SnakeBlockerConfig
   m_EditorClassIdentifier:
-  tailendPrefab: {fileID: 1709254077376921, guid: e421eb4ad87386b4c993b3bbefd03455, type: 2}
-  middlePrefab: {fileID: 1709254077376921, guid: 8a003d437c03ad6429ce50e92818e17a, type: 2}
-  cornerPrefab: {fileID: 1709254077376921, guid: 822d544becbada240a2da8dc753879ac, type: 2}
-  arrowPrefab: {fileID: 1709254077376921, guid: 10a12ce1633585a49ad712b7f7a96b6d, type: 2}
-  rampPrefab: {fileID: 1709254077376921, guid: dbfba9462b1ceed4393e7deef0dbec91, type: 2}
+  tailendPrefab: {fileID: 1709254077376921, guid: 78cd8dc2e0b85584d8e7c0a10c4ddd36, type: 2}
+  middlePrefab: {fileID: 1709254077376921, guid: 9b363fe5e4a0a7c44b11e2298dcb91ba, type: 2}
+  cornerPrefab: {fileID: 1709254077376921, guid: 258c7d2658a55f04c909407aa080cb78, type: 2}
+  arrowPrefab: {fileID: 1709254077376921, guid: 659c776b6fbee5a479d0ac3de807256d, type: 2}
+  rampPrefab: {fileID: 1709254077376921, guid: c83baaafdedba614d958d30a46f4a676, type: 2}
   bodyScaleRatio: 0.85
   bodyZOffset: -0.3
-  chainRootPrefab: {fileID: 1709254077376921, guid: ebb7178982c7bc649a4bd6bffd8ac8d4, type: 2}
+  chainRootPrefab: {fileID: 1709254077376921, guid: b3936c589b7e9a54a8d1aa614fb35bab, type: 2}
   pieceZOffset: -0.4
   pieceScaleMultiplier: 1.18
   cubeShiftTween:
@@ -219,5 +219,5 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
-  fallParticle: {fileID: 1709254077376921, guid: c8aa5782321a1144b850e3f6f5fd91af, type: 2}
+  fallParticle: {fileID: 1709254077376921, guid: 6e586013fcd0cb04ead50fb121fa303a, type: 2}
   fallParticleInsertTime: 0.4

@@ -1,0 +1,62 @@
+using System.Collections.Generic;
+using AssetRipperInjected;
+using Cpp2ILInjected;
+using Reflex.Attributes;
+using _game.BaseLayerSystems.EntitySystem.Core;
+using _game.CoreSystem.New.TopGridSystem.Mechanics.HammerArea.ECS.Data;
+using _game.CoreSystem.New.TopGridSystem.Mechanics.HammerArea.ECS.Tags;
+
+namespace _game.CoreSystem.New.TopGridSystem.Mechanics.HammerArea.ECS.Systems
+{
+	[Token(Token = "0x2000215")]
+	public class HammerAreaGroupHandler
+	{
+		[Inject(false)]
+		[Token(Token = "0x4000688")]
+		[FieldOffset(Offset = "0x10")]
+		private EntityManager _em;
+
+		[Token(Token = "0x6000953")]
+		[Address(RVA = "0x3E91D78", Offset = "0x3E91D78", Length = "0x248")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_0030;\nL_0030:\n\tv64 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::Query(this._em);\n\tv142 = 0;\n\tgoto L_0042;\nL_0040:\n\tv142 = v142 + 1;\n\tv337 = *([v292 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+B0]) + 8;\n\tv337 = v337 + 0x10;\n\tv304 = v328 - 1;\n\tv302 = v328 != 1;\n\tv328 = v304;\n\tif (v302) goto L_004D;\nL_0066:\n\tv350 = System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Count(v64);\n\tv361 = v142 < v350;\n\tif (v361) goto L_008B;\n\tgoto L_00E3;\nL_0075:\n\tv364 = *([v337 @ X10_v15]) << 4;\n\tv365 = v292 + v364;\n\tv366 = v365 + 0x138;\n\t*([v366 @ X0_v32])(v370, v64, *([v366 @ X0_v32+8]), v260, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51);\n\tv380 = v142 >= v370;\n\tif (v380) goto L_00E3;\nL_008B:\n\tgoto L_00B2;\n\tv510 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::IsValid(this._em, v509);\n\tv511 = ~v510;\n\tv260 = 0;\n\tif (v511) goto L_0040;\n\tv512 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::HasComponent(this._em, v509);\n\tv513 = ~v512;\n\tv260 = Il2CppMethodInfo;\n\tif (v513) goto L_0040;\n\tv498 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::GetComponent(this._em, v509);\n\tv487 = v498.groupId != groupId;\n\tv260 = Il2CppMethodInfo;\n\tif (v487) goto L_0040;\n\tv478 = v509;\n\tgoto L_00F6;\nL_00E3:\n\tgoto L_00E7;\nL_0042:\n\tv292 = *([v64 @ X0_v5 (System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>)]);\n\tv328 = *([v292 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]);\n\tv294 = *([v292 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]) == 0;\n\tif (v294) goto L_0066;\nL_004D:\n\tv342 = *([v337 @ X10_v15-8]) == System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>;\n\tif (v342) goto L_0075;\nL_00B2:\n\tv509 = System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Item(v64, v142);\nL_00F6:\n\treturn v478;\nL_00E7:\n\tv478 = v455.Invalid;\n")]
+		public Entity GetParentByGroupId(int groupId)
+		{
+			global::AssetRipperInjected.RecoveryStub.Missing("HammerAreaGroupHandler::GetParentByGroupId");
+			return default;
+		}
+
+		[Token(Token = "0x6000954")]
+		[Address(RVA = "0x3E91FC0", Offset = "0x3E91FC0", Length = "0x2AC")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_0035;\n\tv78 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::Query(this._em);\n\tv163 = 0;\n\tgoto L_0055;\nL_0052:\n\tSystem.Collections.Generic.List`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::Add(v61, v450);\n\tv269 = Il2CppMethodInfo;\nL_0053:\n\tv163 = v163 + 1;\n\tv325 = *([v281 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+B0]) + 8;\n\tv325 = v325 + 0x10;\n\tv292 = v316 - 1;\n\tv290 = v316 != 1;\n\tv316 = v292;\n\tif (v290) goto L_0060;\nL_0079:\n\tv338 = System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Count(v78);\n\tv349 = v163 < v338;\n\tif (v349) goto L_009E;\n\tgoto L_0113;\nL_0088:\n\tv352 = *([v325 @ X10_v16]) << 4;\n\tv353 = v281 + v352;\n\tv354 = v353 + 0x138;\n\t*([v354 @ X0_v30])(v358, v78, *([v354 @ X0_v30+8]), v269, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55);\n\tv368 = v163 >= v358;\n\tif (v368) goto L_0113;\nL_009E:\n\tgoto L_00C5;\n\tv451 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::IsValid(this._em, v450);\n\tv452 = ~v451;\n\tv269 = 0;\n\tif (v452) goto L_0053;\n\tv467 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::HasComponent(this._em, v450);\n\tv468 = ~v467;\n\tv269 = Il2CppMethodInfo;\n\tif (v468) goto L_0053;\n\tv151 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::GetComponent(this._em, v450);\n\tv90 = v151 != groupId;\n\tv269 = Il2CppMethodInfo;\n\tif (v90) goto L_0053;\n\tgoto L_0052;\nL_0113:\n\treturn v61;\nL_0035:\n\tv61 = new System.Collections.Generic.List`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>();\n\tSystem.Collections.Generic.List`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::.ctor(v61);\nL_0055:\n\tv281 = *([v78 @ X0_v7 (System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>)]);\n\tv316 = *([v281 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]);\n\tv224 = *([v281 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]) == 0;\n\tif (v224) goto L_0079;\nL_0060:\n\tv330 = *([v325 @ X10_v16-8]) == System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>;\n\tif (v330) goto L_0088;\nL_00C5:\n\tv450 = System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Item(v78, v163);\n// 5 bookkeeping instructions omitted: flag registers, address bases and no-ops.\n")]
+		public List<Entity> GetCoversByGroupId(int groupId)
+		{
+			global::AssetRipperInjected.RecoveryStub.Missing("HammerAreaGroupHandler::GetCoversByGroupId");
+			return default;
+		}
+
+		[Token(Token = "0x6000955")]
+		[Address(RVA = "0x3E9226C", Offset = "0x3E9226C", Length = "0x2B8")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_0034;\n\tv77 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::Query(this._em);\n\tv192 = 0;\n\tgoto L_0056;\nL_0053:\n\tSystem.Collections.Generic.List`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::Add(v60, v495);\n\tv314 = Il2CppMethodInfo;\nL_0054:\n\tv192 = v192 + 1;\n\tv370 = *([v326 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+B0]) + 8;\n\tv370 = v370 + 0x10;\n\tv337 = v361 - 1;\n\tv335 = v361 != 1;\n\tv361 = v337;\n\tif (v335) goto L_0061;\nL_007A:\n\tv383 = System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Count(v77);\n\tv394 = v192 < v383;\n\tif (v394) goto L_009F;\n\tgoto L_011C;\nL_0089:\n\tv397 = *([v370 @ X10_v16]) << 4;\n\tv398 = v326 + v397;\n\tv399 = v398 + 0x138;\n\t*([v399 @ X0_v30])(v403, v77, *([v399 @ X0_v30+8]), v314, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54);\n\tv413 = v192 >= v403;\n\tif (v413) goto L_011C;\nL_009F:\n\tgoto L_00C6;\n\tv496 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::IsValid(this._em, v495);\n\tv497 = ~v496;\n\tv314 = 0;\n\tif (v497) goto L_0054;\n\tv512 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::HasComponent(this._em, v495);\n\tv513 = ~v512;\n\tv314 = Il2CppMethodInfo;\n\tif (v513) goto L_0054;\n\tv180 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::GetComponent(this._em, v495);\n\tv117 = v180.dataCounter < 1;\n\tv314 = Il2CppMethodInfo;\n\tif (v117) goto L_0054;\n\tgoto L_0053;\nL_011C:\n\treturn v60;\nL_0034:\n\tv60 = new System.Collections.Generic.List`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>();\n\tSystem.Collections.Generic.List`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::.ctor(v60);\nL_0056:\n\tv326 = *([v77 @ X0_v7 (System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>)]);\n\tv361 = *([v326 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]);\n\tv264 = *([v326 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]) == 0;\n\tif (v264) goto L_007A;\nL_0061:\n\tv375 = *([v370 @ X10_v16-8]) == System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>;\n\tif (v375) goto L_0089;\nL_00C6:\n\tv495 = System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Item(v77, v192);\n// 5 bookkeeping instructions omitted: flag registers, address bases and no-ops.\n")]
+		public List<Entity> GetOpenAreas()
+		{
+			global::AssetRipperInjected.RecoveryStub.Missing("HammerAreaGroupHandler::GetOpenAreas");
+			return default;
+		}
+
+		[Token(Token = "0x6000956")]
+		[Address(RVA = "0x3E92524", Offset = "0x3E92524", Length = "0x218")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_002C;\nL_002C:\n\tv63 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::Query(this._em);\nL_FFFFFFFF:\n\tv145 = 0;\nL_FFFFFFFF:\n\tv483 = 0;\n\tgoto L_003D;\nL_003B:\n\tv145 = v145 + 1;\n\tv336 = *([v294 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+B0]) + 8;\n\tv336 = v336 + 0x10;\n\tv303 = v327 - 1;\n\tv301 = v327 != 1;\nL_FFFFFFFF:\n\tv327 = v303;\n\tif (v301) goto L_0048;\nL_0061:\n\tv349 = System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Count(v63);\n\tv360 = v145 < v349;\n\tif (v360) goto L_0086;\n\tgoto L_00E1;\nL_0070:\n\tv363 = *([v336 @ X10_v14]) << 4;\n\tv364 = v294 + v363;\n\tv365 = v364 + 0x138;\n\t*([v365 @ X0_v27])(v369, v63, *([v365 @ X0_v27+8]), v261, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50);\n\tv379 = v145 >= v369;\n\tif (v379) goto L_00E1;\nL_0086:\n\tgoto L_00AD;\n\tv462 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::IsValid(this._em, v461);\n\tv463 = ~v462;\nL_FFFFFFFF:\n\tv261 = 0;\n\tif (v463) goto L_003B;\n\tv485 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::HasComponent(this._em, v461);\n\tv487 = ~v485;\nL_FFFFFFFF:\n\tv261 = Il2CppMethodInfo;\n\tif (v487) goto L_003B;\n\tv486 = _game.BaseLayerSystems.EntitySystem.Core.EntityManager::GetComponent(this._em, v461);\n\tv481 = v486.groupId - v483;\n\tv480 = v481 < 0;\n\tv479 = v481 == 0;\n\tv478 = v486.groupId ^ v483;\n\tv477 = v486.groupId ^ v481;\n\tv476 = v478 & v477;\n\tv475 = v476 < 0;\n\tv491 = v480 == v475;\n\tv465 = ~v479;\n\tv474 = v491 & v465;\n\tv464 = ~v474;\n\tif (v464) goto L_FFFFFFFF;\nL_FFFFFFFF:\n\tv483 = v486.groupId;\n\tgoto L_FFFFFFFF;\nL_00E1:\n\treturnVal2 = v483 + 1;\n\treturn returnVal2;\nL_003D:\n\tv294 = *([v63 @ X0_v5 (System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>)]);\n\tv327 = *([v294 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]);\n\tv238 = *([v294 @ X8_v7 (Il2CppClass<System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>>)+12E]) == 0;\n\tif (v238) goto L_0061;\nL_0048:\n\tv341 = *([v336 @ X10_v14-8]) == System.Collections.Generic.IReadOnlyCollection`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>;\n\tif (v341) goto L_0070;\nL_00AD:\n\tv461 = System.Collections.Generic.IReadOnlyList`1<_game.BaseLayerSystems.EntitySystem.Core.Entity>::get_Item(v63, v145);\nL_FFFFFFFF:\n\tv261 = Il2CppMethodInfo;\n\tgoto L_003B;\n")]
+		public int GetNextGroupId()
+		{
+			global::AssetRipperInjected.RecoveryStub.Missing("HammerAreaGroupHandler::GetNextGroupId");
+			return default;
+		}
+
+		[Token(Token = "0x6000957")]
+		[Address(RVA = "0x3E90C94", Offset = "0x3E90C94", Length = "0x8")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tSystem.Object::.ctor(this);\n\treturn;\n")]
+		public HammerAreaGroupHandler()
+		{
+		}
+	}
+}

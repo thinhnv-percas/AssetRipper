@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_conveyor_hard_frame
-  m_Shader: {fileID: 4800000, guid: 3d3c23bbc8225fd4084416b34be9d85b, type: 3}
+  m_Shader: {fileID: 4800000, guid: c0d1d329689c44d4888dae7b2a14c45e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -32,7 +32,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 0f83beead6941974599369538bad87ab, type: 3}
+        m_Texture: {fileID: 2800000, guid: 298284c261e542b44b76c8ecf94fa8d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

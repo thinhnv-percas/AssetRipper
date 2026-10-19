@@ -1,0 +1,13 @@
+{
+  "name": "UiFactory.Runtime",
+  "references": [
+    "Tweener",
+    "ContainerSystem.Runtime",
+    "Unco.EventBusSystem",
+    "Unco.Objects",
+    "Unco.Extensions",
+    "UnityEngine.UI",
+    "PrimeTween.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

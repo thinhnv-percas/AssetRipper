@@ -1,0 +1,9 @@
+{
+  "name": "Unco.Extensions",
+  "references": [
+    "Unco.OptionalValueSystem",
+    "PrimeTween.Runtime",
+    "Unity.Mathematics"
+  ],
+  "allowUnsafeCode": true
+}

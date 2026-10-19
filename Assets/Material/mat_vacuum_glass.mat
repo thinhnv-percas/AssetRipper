@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_vacuum_glass
-  m_Shader: {fileID: 4800000, guid: a6c4358dfaa5ba34eb01a370d548fd2e, type: 3}
+  m_Shader: {fileID: 4800000, guid: c52a43230e0d6f8458328d59cacab0e8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -46,11 +46,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 0b6f26d260da7a94486eac766400a902, type: 3}
+        m_Texture: {fileID: 2800000, guid: a5073c959551a924ea29c748c624e94b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: a57535c703639aa4db4208510501b384, type: 3}
+        m_Texture: {fileID: 2800000, guid: 35c74476fed8f8c4fa0a7a42311497d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _OcclusionMap:

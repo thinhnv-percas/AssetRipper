@@ -1,0 +1,7 @@
+{
+  "name": "E7.NotchSolution",
+  "references": [
+    "UnityEngine.UI"
+  ],
+  "allowUnsafeCode": true
+}

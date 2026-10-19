@@ -204,7 +204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -833820972, guid: 54c220dfa38b63c736d4682b71ee7d1f, type: 3}
+  m_Script: {fileID: 11500000, guid: b043bf9ed47a21c8acbd7f032df1281d, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_showAnimationTypes:
@@ -218,9 +218,9 @@ MonoBehaviour:
   m_collectAllText: {fileID: 1884547391421755}
   m_holeList:
   - Key: 0
-    Value: {fileID: 114884547391421755, guid: 4816ae8d2bc08ed409f514c0575c3016, type: 2}
+    Value: {fileID: 114884547391421755, guid: d9975418910d2bd4cb5e38bf6a920976, type: 2}
   - Key: 1
-    Value: {fileID: 114884547391421755, guid: 24e94c5f82ddbb747b8d8723ebf7bcc1, type: 2}
+    Value: {fileID: 114884547391421755, guid: f8bf984c8f4e92d43a58e9800075d12a, type: 2}
 --- !u!224 &224589667821646929
 RectTransform:
   serializedVersion: 2
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730242686860875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1142143722, guid: 3e48b0afc47aa9d0b84173e911a289e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bcfd373cf92ce2d6bc3c505618e5b12, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   Button: {fileID: 114985305603660343}
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1884547391421755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1841157174, guid: 3e48b0afc47aa9d0b84173e911a289e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6203dd2a804cbce6f9c8ac727fd46abe, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   m_Material: {fileID: 0}
@@ -577,8 +577,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Find all <color=yellow>Target</color> items
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 91570d9440c28f64f84bc50154621d43, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 739e57aec12749e4d8cef3fe892db1f3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4293ff531ed78fc479db79bc1774b58f, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 3f19c32f7daf1f34ab6bd59f058d52ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

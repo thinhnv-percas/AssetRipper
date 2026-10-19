@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_uipart_star
-  m_Shader: {fileID: 4800000, guid: 188a8316cb2d2f84c962e703488bfda0, type: 3}
+  m_Shader: {fileID: 4800000, guid: 1aeb2345649e1a841b77a20e43bb1351, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _MainTex:
-        m_Texture: {fileID: 2800000, guid: ffe3ed064e2d2c34f9bbf555bdbc6ae6, type: 3}
+        m_Texture: {fileID: 2800000, guid: e6617f0f0aac26346a8e7d48df7b8083, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

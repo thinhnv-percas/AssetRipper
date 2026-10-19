@@ -1,0 +1,11 @@
+{
+  "name": "Unco.Notifications",
+  "references": [
+    "Unco.Utils",
+    "Unco.CommonManagers",
+    "SettingsSystem",
+    "Unco.Extensions",
+    "ContainerSystem.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

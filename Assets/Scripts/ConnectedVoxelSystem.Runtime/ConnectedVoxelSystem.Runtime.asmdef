@@ -1,0 +1,8 @@
+{
+  "name": "ConnectedVoxelSystem.Runtime",
+  "references": [
+    "Unco.OptionalValueSystem",
+    "Unity.Mathematics"
+  ],
+  "allowUnsafeCode": true
+}

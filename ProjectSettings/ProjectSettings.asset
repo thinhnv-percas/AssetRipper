@@ -44,7 +44,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: 6d1e2f648c2c45746a2c117310e77f95, type: 2}
+  - logo: {fileID: 21300000, guid: 20717a1c2aeffd74cafa2d066e54dc63, type: 2}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -150,8 +150,8 @@ PlayerSettings:
   tvOSBundleVersion: 1.0
   bundleVersion: 0.2.5
   preloadedAssets:
-  - {fileID: 11400000, guid: 28b1c7e77bc06284bacfedb40d935b6a, type: 2}
-  - {fileID: 11400000, guid: 9da9c9575f5e5164285831090f0f0ac1, type: 2}
+  - {fileID: 11400000, guid: 7b5e68bee1527c744a5f99f7ac7b56a8, type: 2}
+  - {fileID: 11400000, guid: fc6f51ee9f207d44e9e4f387f6beb25b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1

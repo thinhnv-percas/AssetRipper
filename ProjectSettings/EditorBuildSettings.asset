@@ -7,12 +7,12 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Elephant/elephant_scene.unity
-    guid: 6564976efa884734aab66660f9c9abf6
+    guid: 5ea2d3c5a42dd67419f8fbf8b9cd0cee
   - enabled: 1
     path: Assets/Scenes/IntroScene.unity
-    guid: a263aaf95dab0eb42a21dc0faae02b14
+    guid: da3aec7581ae35e488cdaa0b70bd79db
   - enabled: 1
     path: Assets/Scenes/Main.unity
-    guid: f0c6cb08cd46c9d44ba22340435c0f88
+    guid: 12abccb1ac302b5489c22cf13b87398b
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

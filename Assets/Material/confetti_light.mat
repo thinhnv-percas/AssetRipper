@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: confetti_light
-  m_Shader: {fileID: 4800000, guid: 8614d783728858a46b0025b0fbc7b0bf, type: 3}
+  m_Shader: {fileID: 4800000, guid: 34c05367e5abe14488a553491eef3f7f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -37,11 +37,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _DistNormalMap:
-        m_Texture: {fileID: 2800000, guid: 136c632c9f636184d96f24743e252541, type: 3}
+        m_Texture: {fileID: 2800000, guid: d73d13c1246db2044af1804e542f814c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _DistortTex:
-        m_Texture: {fileID: 2800000, guid: bb6645fb66c1bf249b25f9a6ae19b658, type: 3}
+        m_Texture: {fileID: 2800000, guid: fcd8774a5a3c9084487ee9da5bf2b727, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _FadeBurnTex:
@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _FadeTex:
-        m_Texture: {fileID: 2800000, guid: 79418a9e9955b3149954a9ba8105c799, type: 3}
+        m_Texture: {fileID: 2800000, guid: c669f02d565a9b242a3ffb7f542f1ca8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _GlowTex:
@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MainTex:
-        m_Texture: {fileID: 2800000, guid: e310f789083804043a355ae23c0497ac, type: 3}
+        m_Texture: {fileID: 2800000, guid: e4cbc549d86ac42489fa5adba3e808f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MaskTex:
@@ -65,19 +65,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape1MaskTex:
-        m_Texture: {fileID: 2800000, guid: a2d5a5342c1431846a9c6ae445d9df8d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 08a6d73cc1069ae469b122eb0b1de106, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape2DistortTex:
-        m_Texture: {fileID: 2800000, guid: 668aa4ad838f7fd4e8729e51d7dac7f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d966acb95180e4479945e7e09faa922, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape2Tex:
-        m_Texture: {fileID: 2800000, guid: 212495db4de1c46488c1c4652d8a7e41, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8bab1f0cd92cfe241b72d24ffbbbe2ed, type: 3}
         m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
       _Shape3DistortTex:
-        m_Texture: {fileID: 2800000, guid: 668aa4ad838f7fd4e8729e51d7dac7f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d966acb95180e4479945e7e09faa922, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape3Tex:
@@ -85,7 +85,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _ShapeDistortTex:
-        m_Texture: {fileID: 2800000, guid: 3d36f24534479ab4dae6bc93911acec2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 60a6e525e9d6d8f4abfe70f5afffe756, type: 3}
         m_Scale: {x: 20, y: 2}
         m_Offset: {x: 0, y: 0}
       _TrailWidthGradient:
@@ -93,7 +93,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _VertOffsetTex:
-        m_Texture: {fileID: 2800000, guid: b2e710acbead2f24c99c0efacc5e48a7, type: 3}
+        m_Texture: {fileID: 2800000, guid: d841956d7593364448b08cf15d615330, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

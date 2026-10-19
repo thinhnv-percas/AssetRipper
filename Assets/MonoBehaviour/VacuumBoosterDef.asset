@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -687540951, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 745427ea4f6c57956d0fec6f9e92ba00, type: 3}
   m_Name: VacuumBoosterDef
   m_EditorClassIdentifier:
   m_id: vacuum_booster
   m_displayName: Vacuum Booster
   m_description: Empty the conveyor and send the sands to molds
-  m_icon: {fileID: 21300000, guid: 59a634111a1ec0c43802753f7a173f50, type: 2}
+  m_icon: {fileID: 21300000, guid: c91dcdba61e1176478f4af902d169015, type: 2}
   m_maxStack: 10000

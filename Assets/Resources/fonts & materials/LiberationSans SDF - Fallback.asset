@@ -35,7 +35,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 18
     m_StrikethroughThickness: 6.298828
     m_TabWidth: 24
-  m_Material: {fileID: 2100000, guid: 7ceaff37942cf444bac27738a2d6f432, type: 2}
+  m_Material: {fileID: 2100000, guid: ea836fc0c1d7014449cfc5d3f1249031, type: 2}
   m_SourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75
   m_CreationSettings:
     sourceFontFileName:
@@ -56,14 +56,14 @@ MonoBehaviour:
     fontStyleModifier: 0
     renderMode: 4169
     includeFontFeatures: 1
-  m_SourceFontFile: {fileID: 12800000, guid: a2618d292e0d5ec49aeeb36218cc5e49, type: 3}
+  m_SourceFontFile: {fileID: 12800000, guid: 86c99ebe7fd456e4594e317c91b5b5aa, type: 3}
   m_SourceFontFilePath:
   m_AtlasPopulationMode: 1
   InternalDynamicOS: 0
   m_GlyphTable: []
   m_CharacterTable: []
   m_AtlasTextures:
-  - {fileID: 2800000, guid: 11d752838719eeb418157a3bcdecd825, type: 3}
+  - {fileID: 2800000, guid: 06c634962920d4845981479ac2be5cbc, type: 3}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 1
   m_GetFontFeatures: 1

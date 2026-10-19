@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1646290665, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: d533af96b2433574965c20002fcd842c, type: 3}
   m_Name: FramePresetRegistry
   m_EditorClassIdentifier:
   m_entries:
   - presetType: 1
-    config: {fileID: 11400000, guid: 6bf726e011113cd4ba90a9804e28d295, type: 2}
+    config: {fileID: 11400000, guid: 4fc3d855c44cbf74da7e3c07f0a8cee9, type: 2}
   - presetType: 2
-    config: {fileID: 11400000, guid: 8434af3e90a9d424c9077524e4845172, type: 2}
+    config: {fileID: 11400000, guid: 88edb5d45cc18134195ac9328b9f8d1a, type: 2}
   - presetType: 3
-    config: {fileID: 11400000, guid: 87ba09af66042be4a82f3c6301d42d17, type: 2}
+    config: {fileID: 11400000, guid: 3e47aa6902431054b8bf47adddce7051, type: 2}
   - presetType: 4
-    config: {fileID: 11400000, guid: f0cddd1d63576c240bff8d685a4f37d0, type: 2}
+    config: {fileID: 11400000, guid: 4544b8d80bfed0e4ea0f995d7bc38cb1, type: 2}

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SandOut_Material-Multiply
-  m_Shader: {fileID: 4800000, guid: 045690732ee5f0340ab9c0df1044416a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 65d54e15fc50feb4da4d95b0460b8145, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0b0abc13f19afe24d93e12bc4e21ef92, type: 3}
+        m_Texture: {fileID: 2800000, guid: d9f15497d2149bb48b5a261f0ebb7700, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

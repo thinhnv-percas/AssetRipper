@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 342978721, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 27bf2ecf57135f8cec64293b140ec8e2, type: 3}
   m_Name: StandardFramePreset
   m_EditorClassIdentifier:
   m_presetType: 1
@@ -589,4 +589,4 @@ MonoBehaviour:
     generateMesh: 0000
     isFullSnapshot: 0
   m_playableSeedPoint: {x: 0, y: -2}
-  m_conveyorPrefab: {fileID: 1709254077376921, guid: 1846e44bbd8c02a4e9e7e87823802d7b, type: 2}
+  m_conveyorPrefab: {fileID: 1709254077376921, guid: 26074a59442d42a46822d3becb009a6f, type: 2}

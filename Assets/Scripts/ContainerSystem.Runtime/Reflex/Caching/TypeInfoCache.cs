@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.Serialization;
+using AssetRipperInjected;
+using Cpp2ILInjected;
+using Reflex.Attributes;
+using UnityEngine.Pool;
+
+namespace Reflex.Caching
+{
+	[Token(Token = "0x200003C")]
+	internal static class TypeInfoCache
+	{
+		[Token(Token = "0x400005D")]
+		private const BindingFlags Flags = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+		[Token(Token = "0x400005E")]
+		private static readonly Dictionary<Type, TypeAttributeInfo> _cache;
+
+		[Token(Token = "0x60000CC")]
+		[Address(RVA = "0x3F32004", Offset = "0x3F32004", Length = "0x118")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_0014;\nL_0014:\n\tgoto L_0017;\nL_0017:\n\tv54 = v52._cache == 0;\n\tv55 = ~v54;\n\tif (v55) goto L_0037;\n\tgoto L_0059;\nL_0037:\n\tv77 = System.Collections.Generic.Dictionary`2<System.Type, Reflex.Caching.TypeAttributeInfo>::TryGetValue(v52._cache, type, &v75 @ stack_-38_v3 (Reflex.Caching.TypeAttributeInfo));\n\tv96 = v77 == 0;\n\tv97 = ~v96;\n\tif (v97) goto L_0058;\n\tgoto L_0043;\nL_0043:\n\tv137 = Reflex.Caching.TypeInfoCache::Generate(type);\n\tSystem.Collections.Generic.Dictionary`2<System.Type, Reflex.Caching.TypeAttributeInfo>::Add(v93._cache, type, v137);\nL_0058:\n\treturn v137;\nL_0059:\n\treturnVal1 = new System.NullReferenceException();\n\treturn returnVal1;\n")]
+		internal static TypeAttributeInfo Get(Type type)
+		{
+			if (_cache != null)
+			{
+				TypeAttributeInfo typeAttributeInfo = default(TypeAttributeInfo);
+				if (!_cache.TryGetValue(type, out var _))
+				{
+					typeAttributeInfo = Generate(type);
+					_cache.Add(type, typeAttributeInfo);
+				}
+				return typeAttributeInfo;
+			}
+			return (TypeAttributeInfo)(object)new NullReferenceException();
+		}
+
+		[Token(Token = "0x60000CD")]
+		[Address(RVA = "0x3F37DF8", Offset = "0x3F37DF8", Length = "0xB60")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_0055;\nL_006B:\n\tv86 = UnityEngine.Pool.CollectionPool`2<System.Object, System.Object>::Get(&v85 @ stack_-80_v2);\n\tv90 = v86;\n\tv91 = Il2CppMethodInfo;\n\tgoto L_0079;\nL_0079:\n\tv107 = UnityEngine.Pool.CollectionPool`2<System.Object, System.Object>::Get(&v106 @ stack_-98_v2);\n\tv113 = v107;\n\tv114 = Il2CppMethodInfo;\n\tgoto L_008B;\nL_008B:\n\tv132 = UnityEngine.Pool.CollectionPool`2<System.Object, System.Object>::Get(&v131 @ stack_-B0_v2);\n\tv138 = v132;\n\tgoto L_009D;\nL_009D:\n\tv157 = UnityEngine.Pool.CollectionPool`2<System.Object, System.Object>::Get(&v156 @ stack_-C8_v2);\n\tv161 = v157;\n\tgoto L_00AB;\nL_00AB:\n\tv178 = UnityEngine.Pool.CollectionPool`2<System.Object, System.Object>::Get(&v177 @ stack_-E0_v2);\n\tv244 = 0xB27D000 + 0x5E0;\n\tv242 = 0xB2B0000 + 0x140;\n\tv190 = v178;\n\tv262 = type;\n\tgoto L_00CA;\nL_00BE:\n\tv253 = System.Type::get_BaseType(v262);\n\tv242 = 0xB2B0000 + 0x140;\n\tv262 = v253;\nL_00CF:\n\tv278 = System.Type::op_Inequality(v262, 0);\n\tv283 = v278 == 0;\n\tv296 = 0;\n\tif (v283) goto L_0288;\n\tv288 = 0xB7D5000 + 0x538;\n\tgoto L_00DC;\nL_00DC:\n\tv311 = *([v288 @ X8_v45 (System.Int32)+10]) + 0x20;\n\tv313 = System.Type::GetTypeFromHandle(v311);\n\tv299 = System.Type::op_Inequality(v262, v313);\n\tv301 = v299 == 0;\n\tv296 = v313;\n\tif (v301) goto L_0288;\n\tv570 = v262 == 0;\n\tif (v570) goto L_0313;\n\tv622 = System.Type::GetFields(v262, 0x36);\n\tv571 = v622 == 0;\n\tif (v571) goto L_0315;\n\tv637 = v622.Length < 1;\n\tif (v637) goto L_0169;\n\tv385 = 0;\n\tgoto L_0116;\nL_0101:\n\t;\n\tSystem.Collections.Generic.List`1<System.Object>::AddWithResize(v85, v622[v385 @ X22_v21 (System.Int32)]);\nL_0106:\n\tv385 = v385 + 1;\n\tv654 = v385 >= v622.Length;\n\tif (v654) goto L_0169;\nL_0116:\n\tv698 = System.Reflection.CustomAttributeExtensions::GetCustomAttribute(v622[v385 @ X22_v21 (System.Int32)]);\n\tv725 = v698 == 0;\n\tif (v725) goto L_0106;\n\tv395 = v698.IsOptional != 1;\n\tif (v395) goto L_0145;\n\tv854 = v106 == 0;\n\tif (v854) goto L_030F;\n\tv902 = *([v106 @ stack_-98_v2+1C]) + 1;\n\t*([v106 @ stack_-98_v2+1C]) = v902;\n\tv798 = *([v106 @ stack_-98_v2+10]);\n\tv808 = *([v106 @ stack_-98_v2+10]) == 0;\n\tif (v808) goto L_030F;\n\tv987 = *([v106 @ stack_-98_v2+18]) < *([v798 @ X9_v45+18]);\n\tv794 = ~v987;\n\tif (v794) goto L_0163;\n\tv811 = *([v106 @ stack_-98_v2+18]) + 1;\n\t*([v106 @ stack_-98_v2+18]) = v811;\n\tv764 = *([v106 @ stack_-98_v2+18]) << 3;\n\tv1005 = *([v106 @ stack_-98_v2+10]) + v764;\n\tv1006 = v1005 + 0x20;\n\t*([v1006 @ X0_v189]) = v622[v385 @ X22_v21 (System.Int32)];\n\tgoto L_0106;\nL_0145:\n\tv855 = v85 == 0;\n\tif (v855) goto L_030D;\n\tv905 = *([v85 @ stack_-80_v2+1C]) + 1;\n\t*([v85 @ stack_-80_v2+1C]) = v905;\n\tv797 = *([v85 @ stack_-80_v2+10]);\n\tv807 = *([v85 @ stack_-80_v2+10]) == 0;\n\tif (v807) goto L_030D;\n\tv988 = *([v85 @ stack_-80_v2+18]) < *([v797 @ X9_v41+18]);\n\tv793 = ~v988;\n\tif (v793) goto L_0101;\n\tv812 = *([v85 @ stack_-80_v2+18]) + 1;\n\t*([v85 @ stack_-80_v2+18]) = v812;\n\tv765 = *([v85 @ stack_-80_v2+18]) << 3;\n\tv1008 = *([v85 @ stack_-80_v2+10]) + v765;\n\tv1009 = v1008 + 0x20;\n\t*([v1009 @ X0_v184]) = v622[v385 @ X22_v21 (System.Int32)];\n\tgoto L_0106;\nL_0163:\n\t;\n\tSystem.Collections.Generic.List`1<System.Object>::AddWithResize(v106, v622[v385 @ X22_v21 (System.Int32)]);\n\tgoto L_0106;\nL_0169:\n\tv596 = *([v262 @ X19_v2 (System.Type)]);\n\tv742 = *([v596 @ X8_v50 (Il2CppClass<System.Type>)+850]);\n\tv676 = System.Type::GetProperties(v262, 0x36);\n\tv572 = v676 == 0;\n\tif (v572) goto L_0317;\n\tv710 = v676.Length < 1;\n\tif (v710) goto L_01D2;\n\tv371 = 0;\n\tv746 = 0x36;\n\tgoto L_0194;\nL_0182:\n\tv1237 = *([v1169 @ X8_v83+20]);\n\tv941 = *([v1237 @ X8_v85+C0]);\n\tv742 = *([v941 @ X8_v86+70]);\n\tSystem.Collections.Generic.List`1<System.Object>::AddWithResize(v131, v676[v371 @ X23_v18 (System.Int32)]);\n\tv746 = v676[v371 @ X23_v18 (System.Int32)];\nL_0187:\n\t;\n\tv371 = v371 + 1;\n\tv732 = v371 >= v676.Length;\n\tif (v732) goto L_01D2;\nL_0194:\n\tv603 = v676[v371 @ X23_v18 (System.Int32)];\n\tv564 = v676[v371 @ X23_v18 (System.Int32)] == 0;\n\tif (v564) goto L_0307;\n\tv856 = *([v603 @ X21_v24 (System.Reflection.MemberInfo)]);\n\tv746 = *([v856 @ X8_v78 (Il2CppClass<System.Reflection.MemberInfo>)+2A0]);\n\t*([v856 @ X8_v78 (Il2CppClass<System.Reflection.MemberInfo>)+298])(v860, v676[v371 @ X23_v18 (System.Int32)], *([v856 @ X8_v78 (Il2CppClass<System.Reflection.MemberInfo>)+2A0]), v742, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52);\n\tv861 = v860 & 1;\n\tv862 = v861 == 0;\n\tif (v862) goto L_0187;\n\tgoto L_01AA;\nL_01AA:\n\tv993 = System.Type::GetTypeFromHandle(*([v244 @ X24_v3 (System.Int32)]));\n\tv936 = System.Reflection.CustomAttributeExtensions::IsDefined(v676[v371 @ X23_v18 (System.Int32)], v993);\n\tv939 = v936 == 0;\n\tv742 = 0;\n\tv746 = v993;\n\tif (v939) goto L_0187;\n\tv1123 = v131 == 0;\n\tif (v1123) goto L_0311;\n\tv1169 = *([v242 @ X28_v3 (System.Int32)]);\n\tv1171 = *([v131 @ stack_-B0_v2+1C]) + 1;\n\t*([v131 @ stack_-B0_v2+1C]) = v1171;\n\tv932 = *([v131 @ stack_-B0_v2+10]);\n\tv938 = *([v131 @ stack_-B0_v2+10]) == 0;\n\tif (v938) goto L_0311;\n\tv1230 = *([v131 @ stack_-B0_v2+18]) < *([v932 @ X9_v35+18]);\n\tv930 = ~v1230;\n\tif (v930) goto L_0182;\n\tv942 = *([v131 @ stack_-B0_v2+18]) + 1;\n\t*([v131 @ stack_-B0_v2+18]) = v942;\n\tv912 = *([v131 @ stack_-B0_v2+18]) << 3;\n\tv1235 = *([v131 @ stack_-B0_v2+10]) + v912;\n\tv1236 = v1235 + 0x20;\n\t*([v1236 @ X0_v174]) = v676[v371 @ X23_v18 (System.Int32)];\n\tv742 = 0;\n\tv746 = v676[v371 @ X23_v18 (System.Int32)];\n\tgoto L_0187;\nL_01D2:\n\tv597 = *([v262 @ X19_v2 (System.Type)]);\n\tv878 = *([v597 @ X8_v53 (Il2CppClass<System.Type>)+7B0]);\n\tv754 = System.Type::GetMethods(v262, 0x36);\n\tv573 = v754 == 0;\n\tif (v573) goto L_0319;\n\tv829 = v754.Length < 1;\n\tif (v829) goto L_00BE;\n\tv496 = 0;\n\tgoto L_01FF;\nL_01F1:\n\tSystem.Collections.Generic.List`1<System.Object>::AddWithResize(v156, v1114);\n\tv878 = Il2CppMethodInfo;\nL_01F2:\n\tv496 = v496 + 1;\n\tv869 = v496 >= v754.Length;\n\tif (v869) goto L_00BE;\nL_01FF:\n\tv604 = v754[v496 @ X27_v12 (System.Int32)];\n\tv963 = System.Reflection.CustomAttributeExtensions::GetCustomAttribute(v754[v496 @ X27_v12 (System.Int32)]);\n\tv994 = v963 == 0;\n\tif (v994) goto L_01F2;\n\tv394 = v963.IsOptional != 1;\n\tif (v394) goto L_024B;\n\tv1113 = new Reflex.Caching.InjectableMethodInfo();\n\tSystem.Object::.ctor(v1113);\n\tv1113.MethodInfo = v754[v496 @ X27_v12 (System.Int32)];\n\tv1231 = v754[v496 @ X27_v12 (System.Int32)] == 0;\n\tv532 = v754[v496 @ X27_v12 (System.Int32)];\n\tif (v1231) goto L_0309;\n\tv1238 = *([v604 @ X21_v21 (System.Reflection.MemberInfo)]);\n\t*([v1238 @ X8_v66 (Il2CppClass<System.Reflection.MemberInfo>)+258])(v1242, v754[v496 @ X27_v12 (System.Int32)], *([v1238 @ X8_v66 (Il2CppClass<System.Reflection.MemberInfo>)+260]), v878, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52);\n\tv1113.Parameters = v1242;\n\tv1248 = v177 == 0;\n\tv532 = v1242;\n\tif (v1248) goto L_0309;\n\tv1265 = *([v177 @ stack_-E0_v2+1C]) + 1;\n\t*([v177 @ stack_-E0_v2+1C]) = v1265;\n\tv1051 = *([v177 @ stack_-E0_v2+10]);\n\tv1061 = *([v177 @ stack_-E0_v2+10]) == 0;\n\tv532 = v1242;\n\tif (v1061) goto L_0309;\n\tv1270 = *([v177 @ stack_-E0_v2+18]) < *([v1051 @ X9_v26+18]);\n\tv1047 = ~v1270;\n\tif (v1047) goto L_0285;\n\tv1064 = *([v177 @ stack_-E0_v2+18]) + 1;\n\t*([v177 @ stack_-E0_v2+18]) = v1064;\n\tv1017 = *([v177 @ stack_-E0_v2+18]) << 3;\n\tv1272 = *([v177 @ stack_-E0_v2+10]) + v1017;\n\tv1273 = v1272 + 0x20;\n\t*([v1273 @ X0_v155]) = v1113;\n\tgoto L_01F2;\nL_024B:\n\tv1114 = new Reflex.Caching.InjectableMethodInfo();\n\tSystem.Object::.ctor(v1114);\n\tv1114.MethodInfo = v754[v496 @ X27_v12 (System.Int32)];\n\tv1232 = v754[v496 @ X27_v12 (System.Int32)] == 0;\n\tv533 = v754[v496 @ X27_v12 (System.Int32)];\n\tif (v1232) goto L_030B;\n\tv1250 = *([v604 @ X21_v21 (System.Reflection.MemberInfo)]);\n\t*([v1250 @ X8_v58 (Il2CppClass<System.Reflection.MemberInfo>)+258])(v1254, v754[v496 @ X27_v12 (System.Int32)], *([v1250 @ X8_v58 (Il2CppClass<System.Reflection.MemberInfo>)+260]), v878, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52);\n\tv1114.Parameters = v1254;\n\tv1260 = v156 == 0;\n\tv533 = v1254;\n\tif (v1260) goto L_030B;\n\tv1269 = *([v156 @ stack_-C8_v2+1C]) + 1;\n\t*([v156 @ stack_-C8_v2+1C]) = v1269;\n\tv1050 = *([v156 @ stack_-C8_v2+10]);\n\tv1060 = *([v156 @ stack_-C8_v2+10]) == 0;\n\tv53\n// ... truncated")]
+		internal static TypeAttributeInfo Generate(Type type)
+		{
+			global::AssetRipperInjected.RecoveryStub.Missing("TypeInfoCache::Generate");
+			return default;
+		}
+
+		[Token(Token = "0x60000CE")]
+		[Address(RVA = "0x3F38958", Offset = "0x3F38958", Length = "0x94")]
+		[NativeSource(Body = "// Approximate reconstruction from native code. Reads as C#; does not compile.\n\tgoto L_0020;\n\treturn;\nL_0020:\n\tv49 = new System.Collections.Generic.Dictionary`2<System.Type, Reflex.Caching.TypeAttributeInfo>();\n\tSystem.Collections.Generic.Dictionary`2<System.Type, Reflex.Caching.TypeAttributeInfo>::.ctor(v49);\n\tv58._cache = v49;\n")]
+		static TypeInfoCache()
+		{
+			Dictionary<Type, TypeAttributeInfo> cache = new Dictionary<Type, TypeAttributeInfo>();
+			_cache = cache;
+		}
+	}
+}

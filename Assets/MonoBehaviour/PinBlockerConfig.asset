@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1980543080, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: b627ffda1ab45dd54dbed703e2046869, type: 3}
   m_Name: PinBlockerConfig
   m_EditorClassIdentifier:
-  endpointPrefab: {fileID: 1709254077376921, guid: 2c8c0269671f5444e97149066e7496e1, type: 2}
-  straightPrefab: {fileID: 1709254077376921, guid: 2c8c0269671f5444e97149066e7496e1, type: 2}
-  cornerPrefab: {fileID: 1709254077376921, guid: 238e1071bd02f4748b45864421ff30bd, type: 2}
-  markerPrefab: {fileID: 1709254077376921, guid: 21416982817359140aa8c3bae5e449af, type: 2}
-  terminalPrefab: {fileID: 1709254077376921, guid: 2a4b437d89819494686fc042436cb352, type: 2}
+  endpointPrefab: {fileID: 1709254077376921, guid: 19cce40c3f188574798a30e26e1327f3, type: 2}
+  straightPrefab: {fileID: 1709254077376921, guid: 19cce40c3f188574798a30e26e1327f3, type: 2}
+  cornerPrefab: {fileID: 1709254077376921, guid: 43df7e5eb32047d468e16e95d8e6d73b, type: 2}
+  markerPrefab: {fileID: 1709254077376921, guid: 87c1f60f3a4fe13418d0305652522e3f, type: 2}
+  terminalPrefab: {fileID: 1709254077376921, guid: f8380e40c32c2c14caff9560b2f2ec99, type: 2}
   verticalOffset: 0.35
   pieceScale: {x: 1, y: 1, z: 1}
   markerScale: {x: 0.6, y: 0.6, z: 0.6}
-  highlightProfile: {fileID: 11400000, guid: 6084948f2ba8c6443bf1834a89aafacd, type: 2}
+  highlightProfile: {fileID: 11400000, guid: dbcd5b6bff810974ebf5bfd7d1661daa, type: 2}
   disappearSeconds: 0.2
   explosionForce: 4.5
   upwardBias: 10

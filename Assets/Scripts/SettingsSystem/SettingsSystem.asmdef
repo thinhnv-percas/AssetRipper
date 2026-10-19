@@ -1,0 +1,8 @@
+{
+  "name": "SettingsSystem",
+  "references": [
+    "Unco.RemoteManagementSystem",
+    "ContainerSystem.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

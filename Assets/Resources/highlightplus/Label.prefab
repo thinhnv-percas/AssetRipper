@@ -132,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -2079137821, guid: 096ff04e61a5a02e0ab3a0bf8a76f137, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bef14bd277768d36a48c0b83744aa0a, type: 3}
   m_Name:
   m_EditorClassIdentifier:
   cam: {fileID: 0}
@@ -258,8 +258,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Label
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c474b248228e58d4aae4d59afb26dc05, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 16851fcf79d5fc7418c9fd9a62bf1944, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 63ffa0805891daf40a690af2f1b0a3fd, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e20a7f7052b9ebb468c94496435834a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

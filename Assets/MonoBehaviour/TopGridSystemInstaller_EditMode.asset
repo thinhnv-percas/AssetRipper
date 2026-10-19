@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1919493209, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: f8c91a5197cdca74fa0ac5eb7b6a78a1, type: 3}
   m_Name: TopGridSystemInstaller_EditMode
   m_EditorClassIdentifier:
-  m_visualHandlerEditorPrefab: {fileID: 114724804207875695, guid: c5401910105e86a42abc5b04440837cd, type: 2}
-  m_reconcileTickEditorPrefab: {fileID: 114724804207875695, guid: 6ffc876a45e1c5f408d276d2331bb649, type: 2}
+  m_visualHandlerEditorPrefab: {fileID: 114724804207875695, guid: da39960d02d535146b584e9770267469, type: 2}
+  m_reconcileTickEditorPrefab: {fileID: 114724804207875695, guid: f9e32a9922469d4489000b5de8ece816, type: 2}

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TextMeshPro/Sprite
-  m_Shader: {fileID: 4800000, guid: ffa5ac875effda447a20b1bc0bc940dd, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8b0083ac5d31dcc4c98fb4e2eb399bcb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
       _MainTex:
-        m_Texture: {fileID: 2800000, guid: 42be6134990f79d4c8b97855d3d3f5fe, type: 3}
+        m_Texture: {fileID: 2800000, guid: 94dbfc47fcd76ce409156e50417624f3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

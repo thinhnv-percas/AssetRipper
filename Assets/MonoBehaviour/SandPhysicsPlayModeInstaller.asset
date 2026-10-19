@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -2011121812, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9098ced4c82c8ab2ff354f01b01586a1, type: 3}
   m_Name: SandPhysicsPlayModeInstaller
   m_EditorClassIdentifier:
-  m_renderAssets: {fileID: 11400000, guid: d0ee934eec202fb4aa61113619040719, type: 2}
-  m_sdfConfig: {fileID: 11400000, guid: e4d4e3da3b726434a99848104c730dc7, type: 2}
+  m_renderAssets: {fileID: 11400000, guid: 27b181e4c68358848a8846984883fa7f, type: 2}
+  m_sdfConfig: {fileID: 11400000, guid: d17f0991c94648c4caaeef8a6cf9667b, type: 2}

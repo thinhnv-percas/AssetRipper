@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 89605919, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 27038b60533fd6377a81c5897b3fe939, type: 3}
   m_Name: MoldSystemCoreInstaller
   m_EditorClassIdentifier:
-  m_moldConceptRegistry: {fileID: 11400000, guid: cfab104ae0c4f564cb9bff1d99574df3, type: 2}
-  m_moldConfigSO: {fileID: 11400000, guid: 6ee3df4749971504ba001bab81ef8686, type: 2}
-  m_moldHubPrefab: {fileID: 114044625135789424, guid: a89fa74da0601f44ca63af32d5ef93ea, type: 2}
+  m_moldConceptRegistry: {fileID: 11400000, guid: 184f04cfd9e30bc49a9c921439daf3a4, type: 2}
+  m_moldConfigSO: {fileID: 11400000, guid: 8278ba122b7d5f84cbd1278cb62ec984, type: 2}
+  m_moldHubPrefab: {fileID: 114044625135789424, guid: c224feb3089010e4e998de319199f859, type: 2}

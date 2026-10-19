@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: -2008523861, guid: 02be243e0ba7d7d3ffab020eca78469d, type: 3}
   m_Name: SR_
   m_EditorClassIdentifier:
-  BugReportSheetPrefab: {fileID: 114694121525821480, guid: f063d9eb54094de489434d8232cbd3eb, type: 2}
+  BugReportSheetPrefab: {fileID: 114694121525821480, guid: a8ea2b6df4efa3f45b175f0eb2736df7, type: 2}
   Container: {fileID: 224044625135789424}
 --- !u!114 &114099118695303065
 MonoBehaviour:

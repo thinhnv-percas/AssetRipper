@@ -1,0 +1,7 @@
+{
+  "name": "ToonyColorsPro.Runtime",
+  "references": [
+    "Unity.RenderPipelines.Universal.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: -1126983989, guid: 5ad997fd1c90b50280b4ae4980c27e5f, type: 3}
   m_Name: SR_
   m_EditorClassIdentifier:
-  StyleSheet: {fileID: 11400000, guid: 547b537ab62ac7f4a8017f838fc78063, type: 2}
+  StyleSheet: {fileID: 11400000, guid: 3ffc5008d794fb74d9e06ab4ad1d4d06, type: 2}
 --- !u!225 &225985305603660343
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -666,7 +666,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: ed6017db5264fc243bd8b4f3a1dc2084, type: 3}
+    m_Font: {fileID: 12800000, guid: e3cc341b3bfced145b683a4ad10112dd, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 1
@@ -808,7 +808,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: ed6017db5264fc243bd8b4f3a1dc2084, type: 3}
+    m_Font: {fileID: 12800000, guid: e3cc341b3bfced145b683a4ad10112dd, type: 3}
     m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0

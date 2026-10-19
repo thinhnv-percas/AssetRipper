@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 26547843, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: f6e6d8ef38a0478ae553f34bb47c9d4a, type: 3}
   m_Name: TopGridCommonInstaller
   m_EditorClassIdentifier:
-  m_visualGridControllerPrefab: {fileID: 114724804207875695, guid: fc8be2afec0535c4bad9891f1450e71b, type: 2}
+  m_visualGridControllerPrefab: {fileID: 114724804207875695, guid: 52e5da07182d943489aee74403e3c6f4, type: 2}

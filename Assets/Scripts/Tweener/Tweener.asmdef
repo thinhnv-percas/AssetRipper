@@ -1,0 +1,8 @@
+{
+  "name": "Tweener",
+  "references": [
+    "PrimeTween.Runtime",
+    "UnityEngine.UI"
+  ],
+  "allowUnsafeCode": true
+}

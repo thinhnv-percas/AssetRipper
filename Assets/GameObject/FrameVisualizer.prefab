@@ -41,25 +41,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1408062465, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: e7c580b41218a26bbf7f873108262212, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  m_playableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
-  m_nonPlayableMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}
-  m_rimMaterial: {fileID: 2100000, guid: 270be7c052c62444e9bfbc53547b7556, type: 2}
+  m_playableMaterial: {fileID: 2100000, guid: 9bb2663ed12bc9a4da11a2a8c9db6733, type: 2}
+  m_nonPlayableMaterial: {fileID: 2100000, guid: df487241478aae347ae1b03c6e2fefef, type: 2}
+  m_rimMaterial: {fileID: 2100000, guid: 1fd03175f7ce58d47894cf8cb7e8aa92, type: 2}
   m_difficultyPresets:
   - Difficulty: 2
-    NonPlayableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
-    WallFillMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}
-    RimMaterial: {fileID: 2100000, guid: 270be7c052c62444e9bfbc53547b7556, type: 2}
+    NonPlayableMaterial: {fileID: 2100000, guid: 9bb2663ed12bc9a4da11a2a8c9db6733, type: 2}
+    WallFillMaterial: {fileID: 2100000, guid: df487241478aae347ae1b03c6e2fefef, type: 2}
+    RimMaterial: {fileID: 2100000, guid: 1fd03175f7ce58d47894cf8cb7e8aa92, type: 2}
   - Difficulty: 3
-    NonPlayableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
-    WallFillMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}
-    RimMaterial: {fileID: 2100000, guid: 270be7c052c62444e9bfbc53547b7556, type: 2}
+    NonPlayableMaterial: {fileID: 2100000, guid: 9bb2663ed12bc9a4da11a2a8c9db6733, type: 2}
+    WallFillMaterial: {fileID: 2100000, guid: df487241478aae347ae1b03c6e2fefef, type: 2}
+    RimMaterial: {fileID: 2100000, guid: 1fd03175f7ce58d47894cf8cb7e8aa92, type: 2}
   - Difficulty: 4
-    NonPlayableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
-    WallFillMaterial: {fileID: 2100000, guid: afa3ce6bd53710c459e849278d8f3474, type: 2}
-    RimMaterial: {fileID: 2100000, guid: 8486dbfc3fe9c1847b21b2c79bef3753, type: 2}
+    NonPlayableMaterial: {fileID: 2100000, guid: 9bb2663ed12bc9a4da11a2a8c9db6733, type: 2}
+    WallFillMaterial: {fileID: 2100000, guid: 75042e458bc77ab41a15d234bcd9a73a, type: 2}
+    RimMaterial: {fileID: 2100000, guid: 6cb49ca3b8c17024fb974b3151b2b0dd, type: 2}
   m_cornerRadius: 0.115
   m_outlineCornerSegments: 16
   m_playableDepth: 0
@@ -72,4 +72,4 @@ MonoBehaviour:
   m_rimCornerSegments: 16
   m_rimSortingOrder: 2
   m_bakeWallGradient: 1
-  m_wallFillMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}
+  m_wallFillMaterial: {fileID: 2100000, guid: df487241478aae347ae1b03c6e2fefef, type: 2}

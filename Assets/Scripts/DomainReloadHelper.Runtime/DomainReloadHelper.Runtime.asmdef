@@ -1,0 +1,5 @@
+{
+  "name": "DomainReloadHelper.Runtime",
+  "references": [],
+  "allowUnsafeCode": true
+}

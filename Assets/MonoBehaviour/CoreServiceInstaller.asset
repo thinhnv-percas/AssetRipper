@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 369484841, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: d42c087615cf66e3bf9764967905eb67, type: 3}
   m_Name: CoreServiceInstaller
   m_EditorClassIdentifier:
-  m_featureUnlockDatabase: {fileID: 11400000, guid: 87b4266a76240f74e8dcca0f02aa40f2, type: 2}
-  m_currencyAnimationController: {fileID: 114724804207875695, guid: afb21d7865a16c14999322cff65d7044, type: 2}
+  m_featureUnlockDatabase: {fileID: 11400000, guid: 42da1a2f3c711d641b5d2df949a11335, type: 2}
+  m_currencyAnimationController: {fileID: 114724804207875695, guid: a6ea46eb54180e348b5efc81ad5f0213, type: 2}

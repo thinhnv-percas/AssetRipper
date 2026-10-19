@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 254783143, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 576b065a174b70539442e9f98cafe31c, type: 3}
   m_Name: MonetizationCore
   m_EditorClassIdentifier:
   _installers:
-  - {fileID: 11400000, guid: 26f19e6472f58a94780c8295b6d67244, type: 2}
-  - {fileID: 11400000, guid: 2eb7a730282f7a54d9a2ddad4dad9229, type: 2}
-  - {fileID: 11400000, guid: 1ad8687d2ee3f8a4684287b99cbf72a2, type: 2}
-  - {fileID: 11400000, guid: 5e28ef76c548086448bc25298cc673bd, type: 2}
-  - {fileID: 11400000, guid: 5b1ab11a7bc06444a9a6a20afe2d0512, type: 2}
-  - {fileID: 11400000, guid: 03bca4bfd9208464fb0f6096e2aff046, type: 2}
-  - {fileID: 11400000, guid: d896d68f125b7fa4ab4cc9b121caed34, type: 2}
+  - {fileID: 11400000, guid: 2c2c50f6799a6784cb59e0a4a9fe1a98, type: 2}
+  - {fileID: 11400000, guid: cda34d57525d39543b7f31c3ec189da8, type: 2}
+  - {fileID: 11400000, guid: 56ab1eeccdc9f4f449f5e2afe1ecdd31, type: 2}
+  - {fileID: 11400000, guid: ec3f0b046ad4b9b44b838d74fb06b41b, type: 2}
+  - {fileID: 11400000, guid: f3091956569c2da47ab95dbf1e0cf22a, type: 2}
+  - {fileID: 11400000, guid: dec1ab2d2ff1a834e8883a335ebf2f0b, type: 2}
+  - {fileID: 11400000, guid: 7780134735c75a94393ff32cd53337a3, type: 2}

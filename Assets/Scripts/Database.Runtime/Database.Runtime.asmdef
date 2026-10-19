@@ -1,0 +1,8 @@
+{
+  "name": "Database.Runtime",
+  "references": [
+    "Database.Core",
+    "Unco.InitializationSystem"
+  ],
+  "allowUnsafeCode": true
+}

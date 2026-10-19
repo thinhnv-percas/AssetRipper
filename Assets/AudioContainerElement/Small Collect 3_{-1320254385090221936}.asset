@@ -7,6 +7,6 @@ AudioContainerElement:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Small Collect 3_{-1320254385090221936}
-  m_AudioClip: {fileID: 8300000, guid: 91dca01b96fa35449b26bf66419580a2, type: 3}
+  m_AudioClip: {fileID: 8300000, guid: f15bba4c518b3964fa2553b7c3dde4dc, type: 3}
   m_Volume: -6
   m_Enabled: 1

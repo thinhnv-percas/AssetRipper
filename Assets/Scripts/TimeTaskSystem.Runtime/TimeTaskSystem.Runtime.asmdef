@@ -1,0 +1,7 @@
+{
+  "name": "TimeTaskSystem.Runtime",
+  "references": [
+    "ContainerSystem.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RedFaintGlow
-  m_Shader: {fileID: 4800000, guid: f7850a21074574d41a832069e6387ea1, type: 3}
+  m_Shader: {fileID: 4800000, guid: 9acc0d6a55ac2964aae3a010d6243e0a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -36,11 +36,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _DistNormalMap:
-        m_Texture: {fileID: 2800000, guid: 136c632c9f636184d96f24743e252541, type: 3}
+        m_Texture: {fileID: 2800000, guid: d73d13c1246db2044af1804e542f814c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _DistortTex:
-        m_Texture: {fileID: 2800000, guid: 668aa4ad838f7fd4e8729e51d7dac7f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d966acb95180e4479945e7e09faa922, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _FadeBurnTex:
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _FadeTex:
-        m_Texture: {fileID: 2800000, guid: 79418a9e9955b3149954a9ba8105c799, type: 3}
+        m_Texture: {fileID: 2800000, guid: c669f02d565a9b242a3ffb7f542f1ca8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _GlowTex:
@@ -60,15 +60,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MaskTex:
-        m_Texture: {fileID: 2800000, guid: 8e974b0fa16efb24fafc4ca233219f13, type: 3}
+        m_Texture: {fileID: 2800000, guid: 984f3d2910d47c6488451a282180eaee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape1MaskTex:
-        m_Texture: {fileID: 2800000, guid: a2d5a5342c1431846a9c6ae445d9df8d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 08a6d73cc1069ae469b122eb0b1de106, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape2DistortTex:
-        m_Texture: {fileID: 2800000, guid: 668aa4ad838f7fd4e8729e51d7dac7f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d966acb95180e4479945e7e09faa922, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape2Tex:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape3DistortTex:
-        m_Texture: {fileID: 2800000, guid: 668aa4ad838f7fd4e8729e51d7dac7f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d966acb95180e4479945e7e09faa922, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Shape3Tex:
@@ -84,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _ShapeDistortTex:
-        m_Texture: {fileID: 2800000, guid: 668aa4ad838f7fd4e8729e51d7dac7f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d966acb95180e4479945e7e09faa922, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _TrailWidthGradient:
@@ -92,7 +92,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _VertOffsetTex:
-        m_Texture: {fileID: 2800000, guid: b2e710acbead2f24c99c0efacc5e48a7, type: 3}
+        m_Texture: {fileID: 2800000, guid: d841956d7593364448b08cf15d615330, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

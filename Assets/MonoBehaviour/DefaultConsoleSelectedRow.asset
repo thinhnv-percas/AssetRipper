@@ -20,4 +20,4 @@ MonoBehaviour:
     HoverColor: {r: 1, g: 1, b: 1, a: 1}
     Image: {fileID: 0}
     NormalColor: {r: 0.24313726, g: 0.37254903, b: 0.58431375, a: 0.8235294}
-  Parent: {fileID: 11400000, guid: 547b537ab62ac7f4a8017f838fc78063, type: 2}
+  Parent: {fileID: 11400000, guid: 3ffc5008d794fb74d9e06ab4ad1d4d06, type: 2}

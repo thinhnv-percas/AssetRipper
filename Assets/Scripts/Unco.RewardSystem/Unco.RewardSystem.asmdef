@@ -1,0 +1,11 @@
+{
+  "name": "Unco.RewardSystem",
+  "references": [
+    "Unco.ResourceSystem",
+    "Unco.Extensions",
+    "Unco.Objects",
+    "Unity.TextMeshPro",
+    "PrimeTween.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

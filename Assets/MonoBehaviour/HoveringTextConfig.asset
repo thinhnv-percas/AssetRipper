@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 82309179, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: e9b22e9d3c6f55f8af6439749c062f7f, type: 3}
   m_Name: HoveringTextConfig
   m_EditorClassIdentifier:
   m_viewList:
   - Key: default
-    Value: {fileID: 114618682377417806, guid: f4d10cc14fae79e41b16813b5b02ac9e, type: 2}
+    Value: {fileID: 114618682377417806, guid: d17f0c646e96dbb439935342f4329312, type: 2}

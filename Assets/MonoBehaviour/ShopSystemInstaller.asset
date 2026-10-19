@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1872955289, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 28c25b9fb293fce4933b75b9f59293db, type: 3}
   m_Name: ShopSystemInstaller
   m_EditorClassIdentifier:
-  m_shopVisualHub: {fileID: 11400000, guid: 14b617ed9083ef743b6ddfea56fed048, type: 2}
-  m_resourceVisualHub: {fileID: 11400000, guid: fa2d182847879e9408c107fe63ba6430, type: 2}
+  m_shopVisualHub: {fileID: 11400000, guid: d4150737352bca343b1dd8b71c5757b5, type: 2}
+  m_resourceVisualHub: {fileID: 11400000, guid: b3d3c7b9b6c8af943a17bf60391bf68f, type: 2}

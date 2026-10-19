@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709254077376921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -168791706, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2538df4f32536a3a4c38093e1c27d89b, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  _linkMesh: {fileID: 4300000, guid: f50d16e2b57b18b42899bbbd84fdaecc, type: 2}
+  _linkMesh: {fileID: 4300000, guid: 6f86628ad0b08d14ba49f971ae02e0a7, type: 2}
   _linkScale: {x: 0.2, y: 0.2, z: 0.2}
   _damping: 0.9
   _constraintIterations: 5

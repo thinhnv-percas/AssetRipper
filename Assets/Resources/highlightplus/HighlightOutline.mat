@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HighlightOutline
-  m_Shader: {fileID: 4800000, guid: a93ef41f30cb0e74cbe0218aac030de6, type: 3}
+  m_Shader: {fileID: 4800000, guid: 66fa12bd2367b4d4487c0d2018f4baf0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

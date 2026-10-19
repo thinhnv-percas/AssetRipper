@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 927991108, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 87c9e3ecd3a44b855c127bab78014334, type: 3}
   m_Name: SandRenderingAssetsSo
   m_EditorClassIdentifier:
-  m_particleTexture: {fileID: 2800000, guid: a230e96f1aace884db8db1f9bd1a88ff, type: 3}
-  m_particleMaterial: {fileID: 2100000, guid: e22f0a275cba81d4f9c14e9726199595, type: 2}
+  m_particleTexture: {fileID: 2800000, guid: 81211ca3c8319ae44871f4d28ca1a6f5, type: 3}
+  m_particleMaterial: {fileID: 2100000, guid: 1d2e1622654b57349abed7983d070313, type: 2}
   m_particleDepthZ: -0.8
   m_particleColors:
   - Key: 0

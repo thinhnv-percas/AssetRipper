@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1614580636, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 34358d6e60c09dd016c43c372770222f, type: 3}
   m_Name: InputInstaller
   m_EditorClassIdentifier:
-  m_controller: {fileID: 114724804207875695, guid: af3a772dc1c6b514883b6981b66c4390, type: 2}
+  m_controller: {fileID: 114724804207875695, guid: d4505bb4e0b43f24ea65e73c6010c9b1, type: 2}

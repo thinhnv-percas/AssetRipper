@@ -1,0 +1,14 @@
+{
+  "name": "Unco.TutorialSystem",
+  "references": [
+    "Unco.Utils",
+    "Unco.EventBusSystem",
+    "ContainerSystem.Runtime",
+    "Unco.Objects",
+    "Unco.CommonManagers",
+    "UiFactory.Runtime",
+    "UnityEngine.UI",
+    "PrimeTween.Runtime"
+  ],
+  "allowUnsafeCode": true
+}

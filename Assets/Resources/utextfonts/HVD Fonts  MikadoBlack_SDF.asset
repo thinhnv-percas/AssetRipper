@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -748504891, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 91bd0dede4380a5b6a4bdb31d9169a00, type: 3}
   m_Name: HVD Fonts  MikadoBlack_SDF
   m_EditorClassIdentifier:
   SamplingPointSize: 64
   Padding: 16
-  AtlasTexture: {fileID: 2800000, guid: 02d25789a0cc1534b9d048e23be2009d, type: 3}
+  AtlasTexture: {fileID: 2800000, guid: 9373e1c023663d644b254b044cd7b6e6, type: 3}
   AscentEm: 1.006
   DescentEm: 0.341
   LineHeightEm: 1.347

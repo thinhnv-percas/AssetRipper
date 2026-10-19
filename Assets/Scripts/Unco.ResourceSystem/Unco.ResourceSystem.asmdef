@@ -1,0 +1,7 @@
+{
+  "name": "Unco.ResourceSystem",
+  "references": [
+    "Unco.Utils"
+  ],
+  "allowUnsafeCode": true
+}

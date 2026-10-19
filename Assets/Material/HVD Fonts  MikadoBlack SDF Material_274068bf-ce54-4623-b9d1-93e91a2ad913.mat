@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HVD Fonts  MikadoBlack SDF Material_274068bf-ce54-4623-b9d1-93e91a2ad913
-  m_Shader: {fileID: 4800000, guid: 92e9e15b513f5a446ae37a4c1c6d1e8b, type: 3}
+  m_Shader: {fileID: 4800000, guid: f716c8ac20914144da9a8896ceff5eb9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1362204b1c68def4ba1612b944839cbf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 24c9d0a68ec755c40b7ac9813991cffa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _OutlineTex:

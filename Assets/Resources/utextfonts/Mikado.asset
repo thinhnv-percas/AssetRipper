@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1723721102, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8905cd3b9334ee3fea7c0b83ad0a616f, type: 3}
   m_Name: Mikado
   m_EditorClassIdentifier:
-  RegularAtlas: {fileID: 11400000, guid: d92d1c60456086743873120bbd409a7f, type: 2}
+  RegularAtlas: {fileID: 11400000, guid: 5e7daafdc02922f4398bb2059391aebf, type: 2}
   RegularWeight: 700
-  BoldAtlas: {fileID: 11400000, guid: aab4c40a8346e374fa43e7f67ef929e6, type: 2}
+  BoldAtlas: {fileID: 11400000, guid: 6ff8e0095ce9b204292272112eb82f88, type: 2}
   BoldWeight: 900
   ItalicAtlas: {fileID: 0}
   BoldItalicAtlas: {fileID: 0}

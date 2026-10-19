@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_moldbox_orange_inside
-  m_Shader: {fileID: 4800000, guid: 945806981e704cd4dbbb01b7b8e63b35, type: 3}
+  m_Shader: {fileID: 4800000, guid: dd34c5abfd4858440ba8103f7cec7d29, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _CSpecMask:
-        m_Texture: {fileID: 2800000, guid: 5e83992595d037d43a68176f0b1662d6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9a886e02b2d8f5c4ba416731b95cdeca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _EmissionMap:
@@ -49,11 +49,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapMask:
-        m_Texture: {fileID: 2800000, guid: 5e83992595d037d43a68176f0b1662d6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9a886e02b2d8f5c4ba416731b95cdeca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: aee3d21e849dcb747bb58288db4a3b82, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4880c177bcd7e4e45bebb9e8f7b41852, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _Ramp:
@@ -65,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
       _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: c5b2eaf1586e0fd42a2b0ef9440f2d7a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4bd178d215375f144bd2bac73aa52840, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: {}

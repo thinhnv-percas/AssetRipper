@@ -9,35 +9,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 978790474, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 04df6679c354c11e0739b61108423c25, type: 3}
   m_Name: VfxPoolPrewarmConfig
   m_EditorClassIdentifier:
   m_entries:
-  - prefab: {fileID: 1709254077376921, guid: 9f2d36b7bd29fba4da020a92e7ce8896, type: 2}
+  - prefab: {fileID: 1709254077376921, guid: 50f1f0c8c83054745ba6cd2c434a2482, type: 2}
     prewarmCount: 2
     defaultCapacity: 4
     maxSize: 8
-  - prefab: {fileID: 1709254077376921, guid: d81df81499052f3499c228e1fdebb38a, type: 2}
+  - prefab: {fileID: 1709254077376921, guid: 2c375f9044fb4ea4d84967c160b58042, type: 2}
     prewarmCount: 8
     defaultCapacity: 16
     maxSize: 32
-  - prefab: {fileID: 1709254077376921, guid: 66726673d1bbca34f89521320599f2e1, type: 2}
+  - prefab: {fileID: 1709254077376921, guid: 3d06fd38ed0f2d74ab513d64c0952007, type: 2}
     prewarmCount: 1
     defaultCapacity: 4
     maxSize: 8
-  - prefab: {fileID: 1709254077376921, guid: b232b9c90e0a28a4bbb500ee4a3dcfbb, type: 2}
+  - prefab: {fileID: 1709254077376921, guid: 735f0b04e4de88249a5e239738c2f4c5, type: 2}
     prewarmCount: 2
     defaultCapacity: 4
     maxSize: 8
-  - prefab: {fileID: 1709254077376921, guid: 242fe562a301b3148bddc62945295b82, type: 2}
+  - prefab: {fileID: 1709254077376921, guid: 8075e52849bfddf48b47a475895c7a6d, type: 2}
     prewarmCount: 1
     defaultCapacity: 2
     maxSize: 4
-  - prefab: {fileID: 1709254077376921, guid: d5beff9d973501b4eb9cca12b92cde42, type: 2}
+  - prefab: {fileID: 1709254077376921, guid: 884b4b950547f0f4f99a322590e1cbf2, type: 2}
     prewarmCount: 4
     defaultCapacity: 8
     maxSize: 16
-  - prefab: {fileID: 1709254077376921, guid: 6ad6b885f491e2e40954fa7b1498fc92, type: 2}
+  - prefab: {fileID: 1709254077376921, guid: f7b9a00399f4e4e4896ef0639187e556, type: 2}
     prewarmCount: 4
     defaultCapacity: 8
     maxSize: 16

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1526300215, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Script: {fileID: 11500000, guid: eb51959a33adb5d201719c98a7b8eb1f, type: 3}
   m_Name: VfxPoolInstaller
   m_EditorClassIdentifier:
-  m_prewarmConfig: {fileID: 11400000, guid: 0c4835b9a067323498f0cbb9517b9eaf, type: 2}
+  m_prewarmConfig: {fileID: 11400000, guid: fa7a881ac12d6df44a8529dd521aae3e, type: 2}
