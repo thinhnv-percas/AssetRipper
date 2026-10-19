@@ -1,0 +1,1832 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -748504891, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: HVD Fonts  MikadoBlack_SDF
+  m_EditorClassIdentifier:
+  SamplingPointSize: 64
+  Padding: 16
+  AtlasTexture: {fileID: 2800000, guid: 02d25789a0cc1534b9d048e23be2009d, type: 3}
+  AscentEm: 1.006
+  DescentEm: 0.341
+  LineHeightEm: 1.347
+  SpaceAdvanceEm: 0.17407227
+  Glyphs:
+  - Codepoint: 32
+    UvRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    SizeEm: {x: 0, y: 0}
+    OffsetEm: {x: 0, y: 0}
+    AdvanceEm: 0.17407227
+  - Codepoint: 33
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.0009765625
+      width: 0.047851562
+      height: 0.07714844
+    SizeEm: {x: 0.765625, y: 1.234375}
+    OffsetEm: {x: -0.22192383, y: -0.25610352}
+    AdvanceEm: 0.30810547
+  - Codepoint: 34
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.07910156
+      width: 0.0546875
+      height: 0.05078125
+    SizeEm: {x: 0.875, y: 0.8125}
+    OffsetEm: {x: -0.2290039, y: 0.17895508}
+    AdvanceEm: 0.4140625
+  - Codepoint: 35
+    UvRect:
+      serializedVersion: 2
+      x: 0.049804688
+      y: 0.0009765625
+      width: 0.06738281
+      height: 0.07714844
+    SizeEm: {x: 1.078125, y: 1.234375}
+    OffsetEm: {x: -0.2290039, y: -0.25708008}
+    AdvanceEm: 0.60595703
+  - Codepoint: 36
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.13085938
+      width: 0.06640625
+      height: 0.087890625
+    SizeEm: {x: 1.0625, y: 1.40625}
+    OffsetEm: {x: -0.22705078, y: -0.3449707}
+    AdvanceEm: 0.6020508
+  - Codepoint: 37
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.21972656
+      width: 0.08300781
+      height: 0.078125
+    SizeEm: {x: 1.328125, y: 1.25}
+    OffsetEm: {x: -0.22802734, y: -0.2800293}
+    AdvanceEm: 0.8569336
+  - Codepoint: 38
+    UvRect:
+      serializedVersion: 2
+      x: 0.068359375
+      y: 0.07910156
+      width: 0.07324219
+      height: 0.078125
+    SizeEm: {x: 1.171875, y: 1.25}
+    OffsetEm: {x: -0.21508789, y: -0.27807617}
+    AdvanceEm: 0.70410156
+  - Codepoint: 39
+    UvRect:
+      serializedVersion: 2
+      x: 0.068359375
+      y: 0.15820312
+      width: 0.041992188
+      height: 0.05078125
+    SizeEm: {x: 0.671875, y: 0.8125}
+    OffsetEm: {x: -0.2290039, y: 0.17895508}
+    AdvanceEm: 0.20288086
+  - Codepoint: 40
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.29882812
+      width: 0.053710938
+      height: 0.0859375
+    SizeEm: {x: 0.859375, y: 1.375}
+    OffsetEm: {x: -0.23095703, y: -0.37890625}
+    AdvanceEm: 0.37597656
+  - Codepoint: 41
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.3857422
+      width: 0.053710938
+      height: 0.0859375
+    SizeEm: {x: 0.859375, y: 1.375}
+    OffsetEm: {x: -0.24707031, y: -0.37890625}
+    AdvanceEm: 0.375
+  - Codepoint: 42
+    UvRect:
+      serializedVersion: 2
+      x: 0.11816406
+      y: 0.0009765625
+      width: 0.055664062
+      height: 0.0546875
+    SizeEm: {x: 0.890625, y: 0.875}
+    OffsetEm: {x: -0.22290039, y: 0.15405273}
+    AdvanceEm: 0.4140625
+  - Codepoint: 43
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.47265625
+      width: 0.06347656
+      height: 0.064453125
+    SizeEm: {x: 1.015625, y: 1.03125}
+    OffsetEm: {x: -0.23095703, y: -0.22192383}
+    AdvanceEm: 0.53808594
+  - Codepoint: 44
+    UvRect:
+      serializedVersion: 2
+      x: 0.055664062
+      y: 0.29882812
+      width: 0.046875
+      height: 0.059570312
+    SizeEm: {x: 0.75, y: 0.953125}
+    OffsetEm: {x: -0.2290039, y: -0.4560547}
+    AdvanceEm: 0.28808594
+  - Codepoint: 45
+    UvRect:
+      serializedVersion: 2
+      x: 0.08496094
+      y: 0.20996094
+      width: 0.052734375
+      height: 0.041992188
+    SizeEm: {x: 0.84375, y: 0.671875}
+    OffsetEm: {x: -0.21508789, y: -0.045898438}
+    AdvanceEm: 0.40698242
+  - Codepoint: 46
+    UvRect:
+      serializedVersion: 2
+      x: 0.111328125
+      y: 0.15820312
+      width: 0.046875
+      height: 0.047851562
+    SizeEm: {x: 0.75, y: 0.765625}
+    OffsetEm: {x: -0.2290039, y: -0.2680664}
+    AdvanceEm: 0.28588867
+  - Codepoint: 47
+    UvRect:
+      serializedVersion: 2
+      x: 0.14257812
+      y: 0.056640625
+      width: 0.060546875
+      height: 0.0859375
+    SizeEm: {x: 0.96875, y: 1.375}
+    OffsetEm: {x: -0.23291016, y: -0.33203125}
+    AdvanceEm: 0.49291992
+  - Codepoint: 48
+    UvRect:
+      serializedVersion: 2
+      x: 0.055664062
+      y: 0.359375
+      width: 0.06738281
+      height: 0.078125
+    SizeEm: {x: 1.078125, y: 1.25}
+    OffsetEm: {x: -0.22094727, y: -0.26611328}
+    AdvanceEm: 0.6088867
+  - Codepoint: 49
+    UvRect:
+      serializedVersion: 2
+      x: 0.103515625
+      y: 0.2529297
+      width: 0.056640625
+      height: 0.07714844
+    SizeEm: {x: 0.90625, y: 1.234375}
+    OffsetEm: {x: -0.25610352, y: -0.25708008}
+    AdvanceEm: 0.4399414
+  - Codepoint: 50
+    UvRect:
+      serializedVersion: 2
+      x: 0.15917969
+      y: 0.14355469
+      width: 0.061523438
+      height: 0.07714844
+    SizeEm: {x: 0.984375, y: 1.234375}
+    OffsetEm: {x: -0.22998047, y: -0.2548828}
+    AdvanceEm: 0.5258789
+  - Codepoint: 51
+    UvRect:
+      serializedVersion: 2
+      x: 0.20410156
+      y: 0.0009765625
+      width: 0.06347656
+      height: 0.07714844
+    SizeEm: {x: 1.015625, y: 1.234375}
+    OffsetEm: {x: -0.24511719, y: -0.2619629}
+    AdvanceEm: 0.5319824
+  - Codepoint: 52
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.53808594
+      width: 0.06738281
+      height: 0.07714844
+    SizeEm: {x: 1.078125, y: 1.234375}
+    OffsetEm: {x: -0.24707031, y: -0.25805664}
+    AdvanceEm: 0.592041
+  - Codepoint: 53
+    UvRect:
+      serializedVersion: 2
+      x: 0.06542969
+      y: 0.43847656
+      width: 0.064453125
+      height: 0.07714844
+    SizeEm: {x: 1.03125, y: 1.234375}
+    OffsetEm: {x: -0.24511719, y: -0.2619629}
+    AdvanceEm: 0.5410156
+  - Codepoint: 54
+    UvRect:
+      serializedVersion: 2
+      x: 0.12402344
+      y: 0.3310547
+      width: 0.06542969
+      height: 0.07714844
+    SizeEm: {x: 1.046875, y: 1.234375}
+    OffsetEm: {x: -0.22509766, y: -0.26098633}
+    AdvanceEm: 0.5649414
+  - Codepoint: 55
+    UvRect:
+      serializedVersion: 2
+      x: 0.16113281
+      y: 0.22167969
+      width: 0.0625
+      height: 0.076171875
+    SizeEm: {x: 1, y: 1.21875}
+    OffsetEm: {x: -0.23803711, y: -0.26391602}
+    AdvanceEm: 0.4909668
+  - Codepoint: 56
+    UvRect:
+      serializedVersion: 2
+      x: 0.22167969
+      y: 0.07910156
+      width: 0.06640625
+      height: 0.07714844
+    SizeEm: {x: 1.0625, y: 1.234375}
+    OffsetEm: {x: -0.22607422, y: -0.26391602}
+    AdvanceEm: 0.5900879
+  - Codepoint: 57
+    UvRect:
+      serializedVersion: 2
+      x: 0.2685547
+      y: 0.0009765625
+      width: 0.06542969
+      height: 0.07714844
+    SizeEm: {x: 1.046875, y: 1.234375}
+    OffsetEm: {x: -0.2409668, y: -0.26098633}
+    AdvanceEm: 0.5649414
+  - Codepoint: 58
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.61621094
+      width: 0.046875
+      height: 0.06640625
+    SizeEm: {x: 0.75, y: 1.0625}
+    OffsetEm: {x: -0.22192383, y: -0.2680664}
+    AdvanceEm: 0.29296875
+  - Codepoint: 59
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.68359375
+      width: 0.046875
+      height: 0.078125
+    SizeEm: {x: 0.75, y: 1.25}
+    OffsetEm: {x: -0.2199707, y: -0.4560547}
+    AdvanceEm: 0.29711914
+  - Codepoint: 60
+    UvRect:
+      serializedVersion: 2
+      x: 0.22167969
+      y: 0.15722656
+      width: 0.05859375
+      height: 0.05859375
+    SizeEm: {x: 0.9375, y: 0.9375}
+    OffsetEm: {x: -0.22802734, y: -0.17993164}
+    AdvanceEm: 0.4741211
+  - Codepoint: 61
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.7626953
+      width: 0.059570312
+      height: 0.051757812
+    SizeEm: {x: 0.953125, y: 0.828125}
+    OffsetEm: {x: -0.20800781, y: -0.123046875}
+    AdvanceEm: 0.5161133
+  - Codepoint: 62
+    UvRect:
+      serializedVersion: 2
+      x: 0.048828125
+      y: 0.61621094
+      width: 0.059570312
+      height: 0.061523438
+    SizeEm: {x: 0.953125, y: 0.984375}
+    OffsetEm: {x: -0.22607422, y: -0.21899414}
+    AdvanceEm: 0.48388672
+  - Codepoint: 63
+    UvRect:
+      serializedVersion: 2
+      x: 0.048828125
+      y: 0.67871094
+      width: 0.05859375
+      height: 0.07714844
+    SizeEm: {x: 0.9375, y: 1.234375}
+    OffsetEm: {x: -0.22998047, y: -0.25610352}
+    AdvanceEm: 0.46704102
+  - Codepoint: 64
+    UvRect:
+      serializedVersion: 2
+      x: 0.06933594
+      y: 0.51660156
+      width: 0.09082031
+      height: 0.09277344
+    SizeEm: {x: 1.453125, y: 1.484375}
+    OffsetEm: {x: -0.22705078, y: -0.4880371}
+    AdvanceEm: 0.9970703
+  - Codepoint: 65
+    UvRect:
+      serializedVersion: 2
+      x: 0.13085938
+      y: 0.4091797
+      width: 0.07714844
+      height: 0.07714844
+    SizeEm: {x: 1.234375, y: 1.234375}
+    OffsetEm: {x: -0.24707031, y: -0.2619629}
+    AdvanceEm: 0.7229004
+  - Codepoint: 66
+    UvRect:
+      serializedVersion: 2
+      x: 0.19042969
+      y: 0.29882812
+      width: 0.068359375
+      height: 0.076171875
+    SizeEm: {x: 1.09375, y: 1.21875}
+    OffsetEm: {x: -0.2019043, y: -0.25610352}
+    AdvanceEm: 0.6430664
+  - Codepoint: 67
+    UvRect:
+      serializedVersion: 2
+      x: 0.22460938
+      y: 0.21679688
+      width: 0.07128906
+      height: 0.078125
+    SizeEm: {x: 1.140625, y: 1.25}
+    OffsetEm: {x: -0.2290039, y: -0.27294922}
+    AdvanceEm: 0.6550293
+  - Codepoint: 68
+    UvRect:
+      serializedVersion: 2
+      x: 0.2890625
+      y: 0.07910156
+      width: 0.07128906
+      height: 0.07714844
+    SizeEm: {x: 1.140625, y: 1.234375}
+    OffsetEm: {x: -0.20092773, y: -0.26098633}
+    AdvanceEm: 0.70288086
+  - Codepoint: 69
+    UvRect:
+      serializedVersion: 2
+      x: 0.33496094
+      y: 0.0009765625
+      width: 0.06542969
+      height: 0.07714844
+    SizeEm: {x: 1.046875, y: 1.234375}
+    OffsetEm: {x: -0.20410156, y: -0.2590332}
+    AdvanceEm: 0.58691406
+  - Codepoint: 70
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.8154297
+      width: 0.06542969
+      height: 0.07714844
+    SizeEm: {x: 1.046875, y: 1.234375}
+    OffsetEm: {x: -0.20410156, y: -0.26000977}
+    AdvanceEm: 0.57788086
+  - Codepoint: 71
+    UvRect:
+      serializedVersion: 2
+      x: 0.0009765625
+      y: 0.8935547
+      width: 0.07324219
+      height: 0.078125
+    SizeEm: {x: 1.171875, y: 1.25}
+    OffsetEm: {x: -0.2290039, y: -0.27294922}
+    AdvanceEm: 0.6970215
+  - Codepoint: 72
+    UvRect:
+      serializedVersion: 2
+      x: 0.06738281
+      y: 0.75683594
+      width: 0.07421875
+      height: 0.07910156
+    SizeEm: {x: 1.1875, y: 1.265625}
+    OffsetEm: {x: -0.20507812, y: -0.27001953}
+    AdvanceEm: 0.7590332
+  - Codepoint: 73
+    UvRect:
+      serializedVersion: 2
+      x: 0.10839844
+      y: 0.67871094
+      width: 0.046875
+      height: 0.07714844
+    SizeEm: {x: 0.75, y: 1.234375}
+    OffsetEm: {x: -0.20092773, y: -0.27001953}
+    AdvanceEm: 0.33691406
+  - Codepoint: 74
+    UvRect:
+      serializedVersion: 2
+      x: 0.07519531
+      y: 0.83691406
+      width: 0.060546875
+      height: 0.07714844
+    SizeEm: {x: 0.96875, y: 1.234375}
+    OffsetEm: {x: -0.25708008, y: -0.26391602}
+    AdvanceEm: 0.49291992
+  - Codepoint: 75
+    UvRect:
+      serializedVersion: 2
+      x: 0.07519531
+      y: 0.91503906
+      width: 0.072265625
+      height: 0.078125
+    SizeEm: {x: 1.15625, y: 1.25}
+    OffsetEm: {x: -0.20996094, y: -0.27490234}
+    AdvanceEm: 0.6699219
+  - Codepoint: 76
+    UvRect:
+      serializedVersion: 2
+      x: 0.13671875
+      y: 0.83691406
+      width: 0.0625
+      height: 0.07714844
+    SizeEm: {x: 1, y: 1.234375}
+    OffsetEm: {x: -0.19995117, y: -0.2548828}
+    AdvanceEm: 0.54589844
+  - Codepoint: 77
+    UvRect:
+      serializedVersion: 2
+      x: 0.14257812
+      y: 0.75683594
+      width: 0.0859375
+      height: 0.078125
+    SizeEm: {x: 1.375, y: 1.25}
+    OffsetEm: {x: -0.23803711, y: -0.26904297}
+    AdvanceEm: 0.8840332
+  - Codepoint: 78
+    UvRect:
+      serializedVersion: 2
+      x: 0.1484375
+      y: 0.91503906
+      width: 0.072265625
+      height: 0.07714844
+    SizeEm: {x: 1.15625, y: 1.234375}
+    OffsetEm: {x: -0.20288086, y: -0.2619629}
+    AdvanceEm: 0.7451172
+  - Codepoint: 79
+    UvRect:
+      serializedVersion: 2
+      x: 0.20019531
+      y: 0.8359375
+      width: 0.076171875
+      height: 0.078125
+    SizeEm: {x: 1.21875, y: 1.25}
+    OffsetEm: {x: -0.22998047, y: -0.26904297}
+    AdvanceEm: 0.75390625
+  - Codepoint: 80
+    UvRect:
+      serializedVersion: 2
+      x: 0.22167969
+      y: 0.91503906
+      width: 0.068359375
+      height: 0.07714844
+    SizeEm: {x: 1.09375, y: 1.234375}
+    OffsetEm: {x: -0.20092773, y: -0.26098633}
+    AdvanceEm: 0.63500977
+  - Codepoint: 81
+    UvRect:
+      serializedVersion: 2
+      x: 0.15625
+      y: 0.61035156
+      width: 0.07714844
+      height: 0.09082031
+    SizeEm: {x: 1.234375, y: 1.453125}
+    OffsetEm: {x: -0.2290039, y: -0.4699707}
+    AdvanceEm: 0.7561035
+  - Codepoint: 82
+    UvRect:
+      serializedVersion: 2
+      x: 0.16113281
+      y: 0.4873047
+      width: 0.0703125
+      height: 0.078125
+    SizeEm: {x: 1.125, y: 1.25}
+    OffsetEm: {x: -0.2019043, y: -0.2709961}
+    AdvanceEm: 0.6640625
+  - Codepoint: 83
+    UvRect:
+      serializedVersion: 2
+      x: 0.20898438
+      y: 0.37597656
+      width: 0.06640625
+      height: 0.07714844
+    SizeEm: {x: 1.0625, y: 1.234375}
+    OffsetEm: {x: -0.23388672, y: -0.2548828}
+    AdvanceEm: 0.58496094
+  - Codepoint: 84
+    UvRect:
+      serializedVersion: 2
+      x: 0.25976562
+      y: 0.29589844
+      width: 0.06738281
+      height: 0.07714844
+    SizeEm: {x: 1.078125, y: 1.234375}
+    OffsetEm: {x: -0.24194336, y: -0.25708008}
+    AdvanceEm: 0.58203125
+  - Codepoint: 85
+    UvRect:
+      serializedVersion: 2
+      x: 0.22949219
+      y: 0.70214844
+      width: 0.07128906
+      height: 0.078125
+    SizeEm: {x: 1.140625, y: 1.25}
+    OffsetEm: {x: -0.20703125, y: -0.26904297}
+    AdvanceEm: 0.7150879
+  - Codepoint: 86
+    UvRect:
+      serializedVersion: 2
+      x: 0.27734375
+      y: 0.78125
+      width: 0.07421875
+      height: 0.07714844
+    SizeEm: {x: 1.1875, y: 1.234375}
+    OffsetEm: {x: -0.25, y: -0.2619629}
+    AdvanceEm: 0.67993164
+  - Codepoint: 87
+    UvRect:
+      serializedVersion: 2
+      x: 0.296875
+      y: 0.15722656
+      width: 0.09082031
+      height: 0.078125
+    SizeEm: {x: 1.453125, y: 1.25}
+    OffsetEm: {x: -0.23510742, y: -0.26904297}
+    AdvanceEm: 0.9499512
+  - Codepoint: 88
+    UvRect:
+      serializedVersion: 2
+      x: 0.29101562
+      y: 0.859375
+      width: 0.07324219
+      height: 0.078125
+    SizeEm: {x: 1.171875, y: 1.25}
+    OffsetEm: {x: -0.25097656, y: -0.26611328}
+    AdvanceEm: 0.6430664
+  - Codepoint: 89
+    UvRect:
+      serializedVersion: 2
+      x: 0.23242188
+      y: 0.45410156
+      width: 0.072265625
+      height: 0.078125
+    SizeEm: {x: 1.15625, y: 1.25}
+    OffsetEm: {x: -0.24902344, y: -0.27001953}
+    AdvanceEm: 0.63305664
+  - Codepoint: 90
+    UvRect:
+      serializedVersion: 2
+      x: 0.36132812
+      y: 0.07910156
+      width: 0.06542969
+      height: 0.07714844
+    SizeEm: {x: 1.046875, y: 1.234375}
+    OffsetEm: {x: -0.2290039, y: -0.25610352}
+    AdvanceEm: 0.5810547
+  - Codepoint: 91
+    UvRect:
+      serializedVersion: 2
+      x: 0.234375
+      y: 0.5332031
+      width: 0.051757812
+      height: 0.0859375
+    SizeEm: {x: 0.828125, y: 1.375}
+    OffsetEm: {x: -0.20507812, y: -0.40307617}
+    AdvanceEm: 0.36401367
+  - Codepoint: 92
+    UvRect:
+      serializedVersion: 2
+      x: 0.234375
+      y: 0.6201172
+      width: 0.057617188
+      height: 0.08105469
+    SizeEm: {x: 0.921875, y: 1.296875}
+    OffsetEm: {x: -0.23291016, y: -0.28588867}
+    AdvanceEm: 0.44702148
+  - Codepoint: 93
+    UvRect:
+      serializedVersion: 2
+      x: 0.28710938
+      y: 0.5332031
+      width: 0.051757812
+      height: 0.0859375
+    SizeEm: {x: 0.828125, y: 1.375}
+    OffsetEm: {x: -0.23901367, y: -0.3930664}
+    AdvanceEm: 0.35595703
+  - Codepoint: 94
+    UvRect:
+      serializedVersion: 2
+      x: 0.15625
+      y: 0.70214844
+      width: 0.059570312
+      height: 0.051757812
+    SizeEm: {x: 0.953125, y: 0.828125}
+    OffsetEm: {x: -0.23291016, y: 0.1640625}
+    AdvanceEm: 0.4741211
+  - Codepoint: 95
+    UvRect:
+      serializedVersion: 2
+      x: 0.16113281
+      y: 0.56640625
+      width: 0.052734375
+      height: 0.040039062
+    SizeEm: {x: 0.84375, y: 0.640625}
+    OffsetEm: {x: -0.21508789, y: -0.39697266}
+    AdvanceEm: 0.40893555
+  - Codepoint: 96
+    UvRect:
+      serializedVersion: 2
+      x: 0.296875
+      y: 0.23632812
+      width: 0.049804688
+      height: 0.044921875
+    SizeEm: {x: 0.796875, y: 0.71875}
+    OffsetEm: {x: -0.19506836, y: 0.28588867}
+    AdvanceEm: 0.39990234
+  - Codepoint: 97
+    UvRect:
+      serializedVersion: 2
+      x: 0.4013672
+      y: 0.0009765625
+      width: 0.059570312
+      height: 0.064453125
+    SizeEm: {x: 0.953125, y: 1.03125}
+    OffsetEm: {x: -0.23291016, y: -0.25805664}
+    AdvanceEm: 0.5
+  - Codepoint: 98
+    UvRect:
+      serializedVersion: 2
+      x: 0.30566406
+      y: 0.37402344
+      width: 0.068359375
+      height: 0.08203125
+    SizeEm: {x: 1.09375, y: 1.3125}
+    OffsetEm: {x: -0.24194336, y: -0.2680664}
+    AdvanceEm: 0.6020508
+  - Codepoint: 99
+    UvRect:
+      serializedVersion: 2
+      x: 0.30566406
+      y: 0.45703125
+      width: 0.060546875
+      height: 0.064453125
+    SizeEm: {x: 0.96875, y: 1.03125}
+    OffsetEm: {x: -0.23291016, y: -0.26489258}
+    AdvanceEm: 0.48291016
+  - Codepoint: 100
+    UvRect:
+      serializedVersion: 2
+      x: 0.29296875
+      y: 0.6201172
+      width: 0.06738281
+      height: 0.08105469
+    SizeEm: {x: 1.078125, y: 1.296875}
+    OffsetEm: {x: -0.23095703, y: -0.26904297}
+    AdvanceEm: 0.6188965
+  - Codepoint: 101
+    UvRect:
+      serializedVersion: 2
+      x: 0.3017578
+      y: 0.70214844
+      width: 0.061523438
+      height: 0.064453125
+    SizeEm: {x: 0.984375, y: 1.03125}
+    OffsetEm: {x: -0.2319336, y: -0.26489258}
+    AdvanceEm: 0.5019531
+  - Codepoint: 102
+    UvRect:
+      serializedVersion: 2
+      x: 0.35253906
+      y: 0.7675781
+      width: 0.059570312
+      height: 0.080078125
+    SizeEm: {x: 0.953125, y: 1.28125}
+    OffsetEm: {x: -0.25, y: -0.26293945}
+    AdvanceEm: 0.41308594
+  - Codepoint: 103
+    UvRect:
+      serializedVersion: 2
+      x: 0.328125
+      y: 0.28222656
+      width: 0.06738281
+      height: 0.078125
+    SizeEm: {x: 1.078125, y: 1.25}
+    OffsetEm: {x: -0.23095703, y: -0.4790039}
+    AdvanceEm: 0.61694336
+  - Codepoint: 104
+    UvRect:
+      serializedVersion: 2
+      x: 0.33984375
+      y: 0.52246094
+      width: 0.06542969
+      height: 0.08105469
+    SizeEm: {x: 1.046875, y: 1.296875}
+    OffsetEm: {x: -0.21191406, y: -0.25708008}
+    AdvanceEm: 0.6010742
+  - Codepoint: 105
+    UvRect:
+      serializedVersion: 2
+      x: 0.36132812
+      y: 0.6044922
+      width: 0.045898438
+      height: 0.080078125
+    SizeEm: {x: 0.734375, y: 1.28125}
+    OffsetEm: {x: -0.21289062, y: -0.2548828}
+    AdvanceEm: 0.28295898
+  - Codepoint: 106
+    UvRect:
+      serializedVersion: 2
+      x: 0.38867188
+      y: 0.15722656
+      width: 0.049804688
+      height: 0.09375
+    SizeEm: {x: 0.796875, y: 1.5}
+    OffsetEm: {x: -0.27294922, y: -0.47802734}
+    AdvanceEm: 0.2849121
+  - Codepoint: 107
+    UvRect:
+      serializedVersion: 2
+      x: 0.42773438
+      y: 0.06640625
+      width: 0.06640625
+      height: 0.08203125
+    SizeEm: {x: 1.0625, y: 1.3125}
+    OffsetEm: {x: -0.22290039, y: -0.28808594}
+    AdvanceEm: 0.56591797
+  - Codepoint: 108
+    UvRect:
+      serializedVersion: 2
+      x: 0.3642578
+      y: 0.6855469
+      width: 0.044921875
+      height: 0.080078125
+    SizeEm: {x: 0.71875, y: 1.28125}
+    OffsetEm: {x: -0.2109375, y: -0.2619629}
+    AdvanceEm: 0.2758789
+  - Codepoint: 109
+    UvRect:
+      serializedVersion: 2
+      x: 0.46191406
+      y: 0.0009765625
+      width: 0.08203125
+      height: 0.064453125
+    SizeEm: {x: 1.3125, y: 1.03125}
+    OffsetEm: {x: -0.21191406, y: -0.25708008}
+    AdvanceEm: 0.86694336
+  - Codepoint: 110
+    UvRect:
+      serializedVersion: 2
+      x: 0.3671875
+      y: 0.45703125
+      width: 0.064453125
+      height: 0.064453125
+    SizeEm: {x: 1.03125, y: 1.03125}
+    OffsetEm: {x: -0.21191406, y: -0.25708008}
+    AdvanceEm: 0.59399414
+  - Codepoint: 111
+    UvRect:
+      serializedVersion: 2
+      x: 0.40625
+      y: 0.52246094
+      width: 0.064453125
+      height: 0.064453125
+    SizeEm: {x: 1.03125, y: 1.03125}
+    OffsetEm: {x: -0.23291016, y: -0.26391602}
+    AdvanceEm: 0.5629883
+  - Codepoint: 112
+    UvRect:
+      serializedVersion: 2
+      x: 0.375
+      y: 0.36132812
+      width: 0.06738281
+      height: 0.078125
+    SizeEm: {x: 1.078125, y: 1.25}
+    OffsetEm: {x: -0.21411133, y: -0.47998047}
+    AdvanceEm: 0.62109375
+  - Codepoint: 113
+    UvRect:
+      serializedVersion: 2
+      x: 0.4326172
+      y: 0.4404297
+      width: 0.06640625
+      height: 0.07910156
+    SizeEm: {x: 1.0625, y: 1.265625}
+    OffsetEm: {x: -0.22998047, y: -0.48901367}
+    AdvanceEm: 0.6040039
+  - Codepoint: 114
+    UvRect:
+      serializedVersion: 2
+      x: 0.40820312
+      y: 0.5878906
+      width: 0.056640625
+      height: 0.064453125
+    SizeEm: {x: 0.90625, y: 1.03125}
+    OffsetEm: {x: -0.20898438, y: -0.25708008}
+    AdvanceEm: 0.4189453
+  - Codepoint: 115
+    UvRect:
+      serializedVersion: 2
+      x: 0.39648438
+      y: 0.25195312
+      width: 0.059570312
+      height: 0.06542969
+    SizeEm: {x: 0.953125, y: 1.046875}
+    OffsetEm: {x: -0.23999023, y: -0.26904297}
+    AdvanceEm: 0.4580078
+  - Codepoint: 116
+    UvRect:
+      serializedVersion: 2
+      x: 0.43945312
+      y: 0.14941406
+      width: 0.057617188
+      height: 0.072265625
+    SizeEm: {x: 0.921875, y: 1.15625}
+    OffsetEm: {x: -0.23706055, y: -0.26293945}
+    AdvanceEm: 0.4099121
+  - Codepoint: 117
+    UvRect:
+      serializedVersion: 2
+      x: 0.4951172
+      y: 0.06640625
+      width: 0.06347656
+      height: 0.064453125
+    SizeEm: {x: 1.015625, y: 1.03125}
+    OffsetEm: {x: -0.21508789, y: -0.26391602}
+    AdvanceEm: 0.5859375
+  - Codepoint: 118
+    UvRect:
+      serializedVersion: 2
+      x: 0.41015625
+      y: 0.6533203
+      width: 0.06738281
+      height: 0.06640625
+    SizeEm: {x: 1.078125, y: 1.0625}
+    OffsetEm: {x: -0.2409668, y: -0.2680664}
+    AdvanceEm: 0.55908203
+  - Codepoint: 119
+    UvRect:
+      serializedVersion: 2
+      x: 0.44335938
+      y: 0.31835938
+      width: 0.08300781
+      height: 0.06640625
+    SizeEm: {x: 1.328125, y: 1.0625}
+    OffsetEm: {x: -0.23999023, y: -0.2680664}
+    AdvanceEm: 0.8100586
+  - Codepoint: 120
+    UvRect:
+      serializedVersion: 2
+      x: 0.45703125
+      y: 0.22265625
+      width: 0.06738281
+      height: 0.06542969
+    SizeEm: {x: 1.078125, y: 1.046875}
+    OffsetEm: {x: -0.25195312, y: -0.26489258}
+    AdvanceEm: 0.54589844
+  - Codepoint: 121
+    UvRect:
+      serializedVersion: 2
+      x: 0.49804688
+      y: 0.13183594
+      width: 0.06640625
+      height: 0.07910156
+    SizeEm: {x: 1.0625, y: 1.265625}
+    OffsetEm: {x: -0.24511719, y: -0.47802734}
+    AdvanceEm: 0.54589844
+  - Codepoint: 122
+    UvRect:
+      serializedVersion: 2
+      x: 0.5449219
+      y: 0.0009765625
+      width: 0.05859375
+      height: 0.064453125
+    SizeEm: {x: 0.9375, y: 1.03125}
+    OffsetEm: {x: -0.22998047, y: -0.2590332}
+    AdvanceEm: 0.4609375
+  - Codepoint: 123
+    UvRect:
+      serializedVersion: 2
+      x: 0.5253906
+      y: 0.21191406
+      width: 0.052734375
+      height: 0.08691406
+    SizeEm: {x: 0.84375, y: 1.390625}
+    OffsetEm: {x: -0.2529297, y: -0.4050293}
+    AdvanceEm: 0.32788086
+  - Codepoint: 124
+    UvRect:
+      serializedVersion: 2
+      x: 0.4716797
+      y: 0.5205078
+      width: 0.038085938
+      height: 0.09277344
+    SizeEm: {x: 0.609375, y: 1.484375}
+    OffsetEm: {x: -0.20996094, y: -0.48095703}
+    AdvanceEm: 0.17895508
+  - Codepoint: 125
+    UvRect:
+      serializedVersion: 2
+      x: 0.5
+      y: 0.3857422
+      width: 0.052734375
+      height: 0.08691406
+    SizeEm: {x: 0.84375, y: 1.390625}
+    OffsetEm: {x: -0.23901367, y: -0.4050293}
+    AdvanceEm: 0.3269043
+  - Codepoint: 126
+    UvRect:
+      serializedVersion: 2
+      x: 0.5
+      y: 0.4736328
+      width: 0.06347656
+      height: 0.044921875
+    SizeEm: {x: 1.015625, y: 0.71875}
+    OffsetEm: {x: -0.22509766, y: -0.03100586}
+    AdvanceEm: 0.5510254
+  - Codepoint: 160
+    UvRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    SizeEm: {x: 0, y: 0}
+    OffsetEm: {x: 0, y: 0}
+    AdvanceEm: 0.17407227
+  - Codepoint: 161
+    UvRect:
+      serializedVersion: 2
+      x: 0.52734375
+      y: 0.2998047
+      width: 0.047851562
+      height: 0.07714844
+    SizeEm: {x: 0.765625, y: 1.234375}
+    OffsetEm: {x: -0.2241211, y: -0.46606445}
+    AdvanceEm: 0.29492188
+  - Codepoint: 162
+    UvRect:
+      serializedVersion: 2
+      x: 0.55371094
+      y: 0.3779297
+      width: 0.061523438
+      height: 0.072265625
+    SizeEm: {x: 0.984375, y: 1.15625}
+    OffsetEm: {x: -0.22705078, y: -0.3359375}
+    AdvanceEm: 0.51000977
+  - Codepoint: 163
+    UvRect:
+      serializedVersion: 2
+      x: 0.5761719
+      y: 0.2998047
+      width: 0.06347656
+      height: 0.07714844
+    SizeEm: {x: 1.015625, y: 1.234375}
+    OffsetEm: {x: -0.22290039, y: -0.2548828}
+    AdvanceEm: 0.5529785
+  - Codepoint: 164
+    UvRect:
+      serializedVersion: 2
+      x: 0.5595703
+      y: 0.06640625
+      width: 0.061523438
+      height: 0.06347656
+    SizeEm: {x: 0.984375, y: 1.015625}
+    OffsetEm: {x: -0.2290039, y: -0.20410156}
+    AdvanceEm: 0.52197266
+  - Codepoint: 165
+    UvRect:
+      serializedVersion: 2
+      x: 0.5654297
+      y: 0.13085938
+      width: 0.072265625
+      height: 0.078125
+    SizeEm: {x: 1.15625, y: 1.25}
+    OffsetEm: {x: -0.2290039, y: -0.27001953}
+    AdvanceEm: 0.68188477
+  - Codepoint: 166
+    UvRect:
+      serializedVersion: 2
+      x: 0.6220703
+      y: 0.0009765625
+      width: 0.038085938
+      height: 0.09277344
+    SizeEm: {x: 0.609375, y: 1.484375}
+    OffsetEm: {x: -0.20605469, y: -0.48095703}
+    AdvanceEm: 0.17895508
+  - Codepoint: 167
+    UvRect:
+      serializedVersion: 2
+      x: 0.57910156
+      y: 0.20996094
+      width: 0.06738281
+      height: 0.0859375
+    SizeEm: {x: 1.078125, y: 1.375}
+    OffsetEm: {x: -0.22607422, y: -0.39501953}
+    AdvanceEm: 0.6159668
+  - Codepoint: 168
+    UvRect:
+      serializedVersion: 2
+      x: 0.41015625
+      y: 0.7207031
+      width: 0.056640625
+      height: 0.04296875
+    SizeEm: {x: 0.90625, y: 0.6875}
+    OffsetEm: {x: -0.2019043, y: 0.30200195}
+    AdvanceEm: 0.5
+  - Codepoint: 169
+    UvRect:
+      serializedVersion: 2
+      x: 0.6386719
+      y: 0.09472656
+      width: 0.08105469
+      height: 0.08105469
+    SizeEm: {x: 1.296875, y: 1.296875}
+    OffsetEm: {x: -0.22509766, y: -0.28808594}
+    AdvanceEm: 0.8378906
+  - Codepoint: 170
+    UvRect:
+      serializedVersion: 2
+      x: 0.29101562
+      y: 0.93847656
+      width: 0.0546875
+      height: 0.05859375
+    SizeEm: {x: 0.875, y: 0.9375}
+    OffsetEm: {x: -0.2319336, y: -0.0061035156}
+    AdvanceEm: 0.40698242
+  - Codepoint: 171
+    UvRect:
+      serializedVersion: 2
+      x: 0.6611328
+      y: 0.0009765625
+      width: 0.061523438
+      height: 0.06347656
+    SizeEm: {x: 0.984375, y: 1.015625}
+    OffsetEm: {x: -0.2319336, y: -0.2109375}
+    AdvanceEm: 0.5239258
+  - Codepoint: 172
+    UvRect:
+      serializedVersion: 2
+      x: 0.3466797
+      y: 0.93847656
+      width: 0.060546875
+      height: 0.049804688
+    SizeEm: {x: 0.96875, y: 0.796875}
+    OffsetEm: {x: -0.2241211, y: -0.16796875}
+    AdvanceEm: 0.513916
+  - Codepoint: 173
+    UvRect:
+      serializedVersion: 2
+      x: 0.44335938
+      y: 0.3857422
+      width: 0.052734375
+      height: 0.041992188
+    SizeEm: {x: 0.84375, y: 0.671875}
+    OffsetEm: {x: -0.21508789, y: -0.045898438}
+    AdvanceEm: 0.40698242
+  - Codepoint: 174
+    UvRect:
+      serializedVersion: 2
+      x: 0.36523438
+      y: 0.8486328
+      width: 0.0625
+      height: 0.061523438
+    SizeEm: {x: 1, y: 0.984375}
+    OffsetEm: {x: -0.22509766, y: 0.06689453}
+    AdvanceEm: 0.5280762
+  - Codepoint: 175
+    UvRect:
+      serializedVersion: 2
+      x: 0.41308594
+      y: 0.76464844
+      width: 0.0546875
+      height: 0.0390625
+    SizeEm: {x: 0.875, y: 0.625}
+    OffsetEm: {x: -0.17797852, y: 0.31298828}
+    AdvanceEm: 0.5
+  - Codepoint: 176
+    UvRect:
+      serializedVersion: 2
+      x: 0.40820312
+      y: 0.9111328
+      width: 0.052734375
+      height: 0.052734375
+    SizeEm: {x: 0.84375, y: 0.84375}
+    OffsetEm: {x: -0.23291016, y: 0.13110352}
+    AdvanceEm: 0.3720703
+  - Codepoint: 177
+    UvRect:
+      serializedVersion: 2
+      x: 0.42871094
+      y: 0.8046875
+      width: 0.06347656
+      height: 0.06933594
+    SizeEm: {x: 1.015625, y: 1.109375}
+    OffsetEm: {x: -0.22607422, y: -0.20507812}
+    AdvanceEm: 0.5510254
+  - Codepoint: 178
+    UvRect:
+      serializedVersion: 2
+      x: 0.46875
+      y: 0.7207031
+      width: 0.053710938
+      height: 0.06347656
+    SizeEm: {x: 0.859375, y: 1.015625}
+    OffsetEm: {x: -0.22998047, y: 0.04711914}
+    AdvanceEm: 0.38891602
+  - Codepoint: 179
+    UvRect:
+      serializedVersion: 2
+      x: 0.47851562
+      y: 0.6142578
+      width: 0.0546875
+      height: 0.064453125
+    SizeEm: {x: 0.875, y: 1.03125}
+    OffsetEm: {x: -0.23999023, y: 0.041992188}
+    AdvanceEm: 0.39501953
+  - Codepoint: 180
+    UvRect:
+      serializedVersion: 2
+      x: 0.5107422
+      y: 0.51953125
+      width: 0.05078125
+      height: 0.044921875
+    SizeEm: {x: 0.8125, y: 0.71875}
+    OffsetEm: {x: -0.1430664, y: 0.28588867}
+    AdvanceEm: 0.5
+  - Codepoint: 181
+    UvRect:
+      serializedVersion: 2
+      x: 0.46191406
+      y: 0.875
+      width: 0.064453125
+      height: 0.07714844
+    SizeEm: {x: 1.03125, y: 1.234375}
+    OffsetEm: {x: -0.2109375, y: -0.46801758}
+    AdvanceEm: 0.59106445
+  - Codepoint: 182
+    UvRect:
+      serializedVersion: 2
+      x: 0.49316406
+      y: 0.78515625
+      width: 0.07128906
+      height: 0.083984375
+    SizeEm: {x: 1.140625, y: 1.34375}
+    OffsetEm: {x: -0.23291016, y: -0.38989258}
+    AdvanceEm: 0.7050781
+  - Codepoint: 183
+    UvRect:
+      serializedVersion: 2
+      x: 0.5107422
+      y: 0.5654297
+      width: 0.047851562
+      height: 0.047851562
+    SizeEm: {x: 0.765625, y: 0.765625}
+    OffsetEm: {x: -0.22802734, y: -0.08203125}
+    AdvanceEm: 0.2890625
+  - Codepoint: 184
+    UvRect:
+      serializedVersion: 2
+      x: 0.109375
+      y: 0.61035156
+      width: 0.044921875
+      height: 0.046875
+    SizeEm: {x: 0.71875, y: 0.75}
+    OffsetEm: {x: -0.10107422, y: -0.43408203}
+    AdvanceEm: 0.5
+  - Codepoint: 185
+    UvRect:
+      serializedVersion: 2
+      x: 0.5234375
+      y: 0.6796875
+      width: 0.049804688
+      height: 0.06347656
+    SizeEm: {x: 0.796875, y: 1.015625}
+    OffsetEm: {x: -0.24804688, y: 0.044921875}
+    AdvanceEm: 0.3239746
+  - Codepoint: 186
+    UvRect:
+      serializedVersion: 2
+      x: 0.5341797
+      y: 0.6142578
+      width: 0.05859375
+      height: 0.057617188
+    SizeEm: {x: 0.9375, y: 0.921875}
+    OffsetEm: {x: -0.22998047, y: -0.010009766}
+    AdvanceEm: 0.46606445
+  - Codepoint: 187
+    UvRect:
+      serializedVersion: 2
+      x: 0.5625
+      y: 0.51953125
+      width: 0.061523438
+      height: 0.06347656
+    SizeEm: {x: 0.984375, y: 1.015625}
+    OffsetEm: {x: -0.22290039, y: -0.2109375}
+    AdvanceEm: 0.513916
+  - Codepoint: 188
+    UvRect:
+      serializedVersion: 2
+      x: 0.52734375
+      y: 0.8701172
+      width: 0.08984375
+      height: 0.07910156
+    SizeEm: {x: 1.4375, y: 1.265625}
+    OffsetEm: {x: -0.23291016, y: -0.27905273}
+    AdvanceEm: 0.9790039
+  - Codepoint: 189
+    UvRect:
+      serializedVersion: 2
+      x: 0.5654297
+      y: 0.7441406
+      width: 0.08886719
+      height: 0.07910156
+    SizeEm: {x: 1.421875, y: 1.265625}
+    OffsetEm: {x: -0.23291016, y: -0.27905273}
+    AdvanceEm: 0.9609375
+  - Codepoint: 190
+    UvRect:
+      serializedVersion: 2
+      x: 0.61621094
+      y: 0.3779297
+      width: 0.09375
+      height: 0.07910156
+    SizeEm: {x: 1.5, y: 1.265625}
+    OffsetEm: {x: -0.22998047, y: -0.27905273}
+    AdvanceEm: 1.0349121
+  - Codepoint: 191
+    UvRect:
+      serializedVersion: 2
+      x: 0.640625
+      y: 0.296875
+      width: 0.05859375
+      height: 0.07714844
+    SizeEm: {x: 0.9375, y: 1.234375}
+    OffsetEm: {x: -0.22998047, y: -0.46606445}
+    AdvanceEm: 0.46191406
+  - Codepoint: 192
+    UvRect:
+      serializedVersion: 2
+      x: 0.64746094
+      y: 0.17675781
+      width: 0.07714844
+      height: 0.091796875
+    SizeEm: {x: 1.234375, y: 1.46875}
+    OffsetEm: {x: -0.24707031, y: -0.2619629}
+    AdvanceEm: 0.7229004
+  - Codepoint: 193
+    UvRect:
+      serializedVersion: 2
+      x: 0.7001953
+      y: 0.26953125
+      width: 0.07714844
+      height: 0.091796875
+    SizeEm: {x: 1.234375, y: 1.46875}
+    OffsetEm: {x: -0.24707031, y: -0.2619629}
+    AdvanceEm: 0.7229004
+  - Codepoint: 194
+    UvRect:
+      serializedVersion: 2
+      x: 0.7207031
+      y: 0.06542969
+      width: 0.07714844
+      height: 0.09082031
+    SizeEm: {x: 1.234375, y: 1.453125}
+    OffsetEm: {x: -0.24707031, y: -0.2619629}
+    AdvanceEm: 0.7229004
+  - Codepoint: 195
+    UvRect:
+      serializedVersion: 2
+      x: 0.72558594
+      y: 0.15722656
+      width: 0.07714844
+      height: 0.09082031
+    SizeEm: {x: 1.234375, y: 1.453125}
+    OffsetEm: {x: -0.24707031, y: -0.2619629}
+    AdvanceEm: 0.7229004
+  - Codepoint: 196
+    UvRect:
+      serializedVersion: 2
+      x: 0.7988281
+      y: 0.0009765625
+      width: 0.07714844
+      height: 0.09082031
+    SizeEm: {x: 1.234375, y: 1.453125}
+    OffsetEm: {x: -0.24707031, y: -0.2619629}
+    AdvanceEm: 0.7229004
+  - Codepoint: 197
+    UvRect:
+      serializedVersion: 2
+      x: 0.8769531
+      y: 0.0009765625
+      width: 0.07714844
+      height: 0.09082031
+    SizeEm: {x: 1.234375, y: 1.453125}
+    OffsetEm: {x: -0.24707031, y: -0.2619629}
+    AdvanceEm: 0.7229004
+  - Codepoint: 198
+    UvRect:
+      serializedVersion: 2
+      x: 0.59375
+      y: 0.5839844
+      width: 0.09277344
+      height: 0.07714844
+    SizeEm: {x: 1.484375, y: 1.234375}
+    OffsetEm: {x: -0.26000977, y: -0.2619629}
+    AdvanceEm: 0.97094727
+  - Codepoint: 199
+    UvRect:
+      serializedVersion: 2
+      x: 0.625
+      y: 0.4580078
+      width: 0.07128906
+      height: 0.087890625
+    SizeEm: {x: 1.140625, y: 1.40625}
+    OffsetEm: {x: -0.2290039, y: -0.42407227}
+    AdvanceEm: 0.6550293
+  - Codepoint: 200
+    UvRect:
+      serializedVersion: 2
+      x: 0.61816406
+      y: 0.82421875
+      width: 0.06542969
+      height: 0.091796875
+    SizeEm: {x: 1.046875, y: 1.46875}
+    OffsetEm: {x: -0.20410156, y: -0.2590332}
+    AdvanceEm: 0.58691406
+  - Codepoint: 201
+    UvRect:
+      serializedVersion: 2
+      x: 0.65527344
+      y: 0.6621094
+      width: 0.06542969
+      height: 0.091796875
+    SizeEm: {x: 1.046875, y: 1.46875}
+    OffsetEm: {x: -0.20410156, y: -0.2590332}
+    AdvanceEm: 0.58691406
+  - Codepoint: 202
+    UvRect:
+      serializedVersion: 2
+      x: 0.6875
+      y: 0.546875
+      width: 0.06542969
+      height: 0.09082031
+    SizeEm: {x: 1.046875, y: 1.453125}
+    OffsetEm: {x: -0.20410156, y: -0.2590332}
+    AdvanceEm: 0.58691406
+  - Codepoint: 203
+    UvRect:
+      serializedVersion: 2
+      x: 0.7109375
+      y: 0.3623047
+      width: 0.06542969
+      height: 0.09082031
+    SizeEm: {x: 1.046875, y: 1.453125}
+    OffsetEm: {x: -0.20410156, y: -0.2590332}
+    AdvanceEm: 0.58691406
+  - Codepoint: 204
+    UvRect:
+      serializedVersion: 2
+      x: 0.80371094
+      y: 0.09277344
+      width: 0.049804688
+      height: 0.09277344
+    SizeEm: {x: 0.796875, y: 1.484375}
+    OffsetEm: {x: -0.22802734, y: -0.27001953}
+    AdvanceEm: 0.3359375
+  - Codepoint: 205
+    UvRect:
+      serializedVersion: 2
+      x: 0.8544922
+      y: 0.09277344
+      width: 0.049804688
+      height: 0.09277344
+    SizeEm: {x: 0.796875, y: 1.484375}
+    OffsetEm: {x: -0.22802734, y: -0.27001953}
+    AdvanceEm: 0.3359375
+  - Codepoint: 206
+    UvRect:
+      serializedVersion: 2
+      x: 0.7109375
+      y: 0.45410156
+      width: 0.0546875
+      height: 0.091796875
+    SizeEm: {x: 0.875, y: 1.46875}
+    OffsetEm: {x: -0.26489258, y: -0.27001953}
+    AdvanceEm: 0.3359375
+  - Codepoint: 207
+    UvRect:
+      serializedVersion: 2
+      x: 0.90527344
+      y: 0.09277344
+      width: 0.057617188
+      height: 0.091796875
+    SizeEm: {x: 0.921875, y: 1.46875}
+    OffsetEm: {x: -0.2849121, y: -0.27001953}
+    AdvanceEm: 0.3359375
+  - Codepoint: 208
+    UvRect:
+      serializedVersion: 2
+      x: 0.61816406
+      y: 0.9169922
+      width: 0.07421875
+      height: 0.07714844
+    SizeEm: {x: 1.1875, y: 1.234375}
+    OffsetEm: {x: -0.24609375, y: -0.26098633}
+    AdvanceEm: 0.7060547
+  - Codepoint: 209
+    UvRect:
+      serializedVersion: 2
+      x: 0.90527344
+      y: 0.18554688
+      width: 0.072265625
+      height: 0.09082031
+    SizeEm: {x: 1.15625, y: 1.453125}
+    OffsetEm: {x: -0.20288086, y: -0.2619629}
+    AdvanceEm: 0.7451172
+  - Codepoint: 210
+    UvRect:
+      serializedVersion: 2
+      x: 0.80371094
+      y: 0.18652344
+      width: 0.076171875
+      height: 0.09277344
+    SizeEm: {x: 1.21875, y: 1.484375}
+    OffsetEm: {x: -0.22998047, y: -0.26904297}
+    AdvanceEm: 0.75390625
+  - Codepoint: 211
+    UvRect:
+      serializedVersion: 2
+      x: 0.8808594
+      y: 0.27734375
+      width: 0.076171875
+      height: 0.09277344
+    SizeEm: {x: 1.21875, y: 1.484375}
+    OffsetEm: {x: -0.22998047, y: -0.26904297}
+    AdvanceEm: 0.75390625
+  - Codepoint: 212
+    UvRect:
+      serializedVersion: 2
+      x: 0.7783203
+      y: 0.28027344
+      width: 0.076171875
+      height: 0.091796875
+    SizeEm: {x: 1.21875, y: 1.46875}
+    OffsetEm: {x: -0.22998047, y: -0.26904297}
+    AdvanceEm: 0.75390625
+  - Codepoint: 213
+    UvRect:
+      serializedVersion: 2
+      x: 0.85546875
+      y: 0.37109375
+      width: 0.076171875
+      height: 0.091796875
+    SizeEm: {x: 1.21875, y: 1.46875}
+    OffsetEm: {x: -0.22998047, y: -0.26904297}
+    AdvanceEm: 0.75390625
+  - Codepoint: 214
+    UvRect:
+      serializedVersion: 2
+      x: 0.77734375
+      y: 0.37304688
+      width: 0.076171875
+      height: 0.091796875
+    SizeEm: {x: 1.21875, y: 1.46875}
+    OffsetEm: {x: -0.22998047, y: -0.26904297}
+    AdvanceEm: 0.75390625
+  - Codepoint: 215
+    UvRect:
+      serializedVersion: 2
+      x: 0.5644531
+      y: 0.4580078
+      width: 0.059570312
+      height: 0.059570312
+    SizeEm: {x: 0.953125, y: 0.953125}
+    OffsetEm: {x: -0.22802734, y: -0.17993164}
+    AdvanceEm: 0.48901367
+  - Codepoint: 216
+    UvRect:
+      serializedVersion: 2
+      x: 0.8544922
+      y: 0.4638672
+      width: 0.076171875
+      height: 0.080078125
+    SizeEm: {x: 1.21875, y: 1.28125}
+    OffsetEm: {x: -0.22998047, y: -0.29003906}
+    AdvanceEm: 0.75390625
+  - Codepoint: 217
+    UvRect:
+      serializedVersion: 2
+      x: 0.76660156
+      y: 0.4658203
+      width: 0.07128906
+      height: 0.09277344
+    SizeEm: {x: 1.140625, y: 1.484375}
+    OffsetEm: {x: -0.20703125, y: -0.26904297}
+    AdvanceEm: 0.7141113
+  - Codepoint: 218
+    UvRect:
+      serializedVersion: 2
+      x: 0.6845703
+      y: 0.7548828
+      width: 0.07128906
+      height: 0.09277344
+    SizeEm: {x: 1.140625, y: 1.484375}
+    OffsetEm: {x: -0.20703125, y: -0.26904297}
+    AdvanceEm: 0.7141113
+  - Codepoint: 219
+    UvRect:
+      serializedVersion: 2
+      x: 0.7216797
+      y: 0.6386719
+      width: 0.07128906
+      height: 0.091796875
+    SizeEm: {x: 1.140625, y: 1.46875}
+    OffsetEm: {x: -0.20703125, y: -0.26904297}
+    AdvanceEm: 0.7141113
+  - Codepoint: 220
+    UvRect:
+      serializedVersion: 2
+      x: 0.6933594
+      y: 0.8486328
+      width: 0.07128906
+      height: 0.091796875
+    SizeEm: {x: 1.140625, y: 1.46875}
+    OffsetEm: {x: -0.20703125, y: -0.26904297}
+    AdvanceEm: 0.7141113
+  - Codepoint: 221
+    UvRect:
+      serializedVersion: 2
+      x: 0.75683594
+      y: 0.7314453
+      width: 0.072265625
+      height: 0.09277344
+    SizeEm: {x: 1.15625, y: 1.484375}
+    OffsetEm: {x: -0.24902344, y: -0.27001953}
+    AdvanceEm: 0.63305664
+  - Codepoint: 222
+    UvRect:
+      serializedVersion: 2
+      x: 0.75390625
+      y: 0.5595703
+      width: 0.068359375
+      height: 0.076171875
+    SizeEm: {x: 1.09375, y: 1.21875}
+    OffsetEm: {x: -0.20092773, y: -0.26098633}
+    AdvanceEm: 0.6320801
+  - Codepoint: 223
+    UvRect:
+      serializedVersion: 2
+      x: 0.9316406
+      y: 0.4638672
+      width: 0.06738281
+      height: 0.07910156
+    SizeEm: {x: 1.078125, y: 1.265625}
+    OffsetEm: {x: -0.20800781, y: -0.27905273}
+    AdvanceEm: 0.6130371
+  - Codepoint: 224
+    UvRect:
+      serializedVersion: 2
+      x: 0.59375
+      y: 0.6621094
+      width: 0.059570312
+      height: 0.07910156
+    SizeEm: {x: 0.953125, y: 1.265625}
+    OffsetEm: {x: -0.23291016, y: -0.25805664}
+    AdvanceEm: 0.49804688
+  - Codepoint: 225
+    UvRect:
+      serializedVersion: 2
+      x: 0.9326172
+      y: 0.37109375
+      width: 0.059570312
+      height: 0.07910156
+    SizeEm: {x: 0.953125, y: 1.265625}
+    OffsetEm: {x: -0.23291016, y: -0.25805664}
+    AdvanceEm: 0.49804688
+  - Codepoint: 226
+    UvRect:
+      serializedVersion: 2
+      x: 0.9316406
+      y: 0.5439453
+      width: 0.059570312
+      height: 0.07910156
+    SizeEm: {x: 0.953125, y: 1.265625}
+    OffsetEm: {x: -0.23291016, y: -0.25805664}
+    AdvanceEm: 0.49804688
+  - Codepoint: 227
+    UvRect:
+      serializedVersion: 2
+      x: 0.7939453
+      y: 0.63671875
+      width: 0.059570312
+      height: 0.078125
+    SizeEm: {x: 0.953125, y: 1.25}
+    OffsetEm: {x: -0.23291016, y: -0.25805664}
+    AdvanceEm: 0.49804688
+  - Codepoint: 228
+    UvRect:
+      serializedVersion: 2
+      x: 0.8388672
+      y: 0.5449219
+      width: 0.059570312
+      height: 0.078125
+    SizeEm: {x: 0.953125, y: 1.25}
+    OffsetEm: {x: -0.23291016, y: -0.25805664}
+    AdvanceEm: 0.49804688
+  - Codepoint: 229
+    UvRect:
+      serializedVersion: 2
+      x: 0.8544922
+      y: 0.62402344
+      width: 0.059570312
+      height: 0.07910156
+    SizeEm: {x: 0.953125, y: 1.265625}
+    OffsetEm: {x: -0.23291016, y: -0.25805664}
+    AdvanceEm: 0.49804688
+  - Codepoint: 230
+    UvRect:
+      serializedVersion: 2
+      x: 0.91503906
+      y: 0.62402344
+      width: 0.08300781
+      height: 0.064453125
+    SizeEm: {x: 1.328125, y: 1.03125}
+    OffsetEm: {x: -0.23291016, y: -0.26489258}
+    AdvanceEm: 0.85498047
+  - Codepoint: 231
+    UvRect:
+      serializedVersion: 2
+      x: 0.91503906
+      y: 0.6894531
+      width: 0.060546875
+      height: 0.07519531
+    SizeEm: {x: 0.96875, y: 1.203125}
+    OffsetEm: {x: -0.23291016, y: -0.43408203}
+    AdvanceEm: 0.48291016
+  - Codepoint: 232
+    UvRect:
+      serializedVersion: 2
+      x: 0.8300781
+      y: 0.7158203
+      width: 0.061523438
+      height: 0.07910156
+    SizeEm: {x: 0.984375, y: 1.265625}
+    OffsetEm: {x: -0.2319336, y: -0.26489258}
+    AdvanceEm: 0.5019531
+  - Codepoint: 233
+    UvRect:
+      serializedVersion: 2
+      x: 0.8925781
+      y: 0.765625
+      width: 0.061523438
+      height: 0.07910156
+    SizeEm: {x: 0.984375, y: 1.265625}
+    OffsetEm: {x: -0.2319336, y: -0.26489258}
+    AdvanceEm: 0.5019531
+  - Codepoint: 234
+    UvRect:
+      serializedVersion: 2
+      x: 0.8300781
+      y: 0.79589844
+      width: 0.061523438
+      height: 0.07910156
+    SizeEm: {x: 0.984375, y: 1.265625}
+    OffsetEm: {x: -0.2319336, y: -0.26489258}
+    AdvanceEm: 0.5019531
+  - Codepoint: 235
+    UvRect:
+      serializedVersion: 2
+      x: 0.765625
+      y: 0.8251953
+      width: 0.061523438
+      height: 0.078125
+    SizeEm: {x: 0.984375, y: 1.25}
+    OffsetEm: {x: -0.2319336, y: -0.26489258}
+    AdvanceEm: 0.5019531
+  - Codepoint: 236
+    UvRect:
+      serializedVersion: 2
+      x: 0.765625
+      y: 0.9042969
+      width: 0.049804688
+      height: 0.07910156
+    SizeEm: {x: 0.796875, y: 1.265625}
+    OffsetEm: {x: -0.26391602, y: -0.2548828}
+    AdvanceEm: 0.28295898
+  - Codepoint: 237
+    UvRect:
+      serializedVersion: 2
+      x: 0.81640625
+      y: 0.9042969
+      width: 0.049804688
+      height: 0.07910156
+    SizeEm: {x: 0.796875, y: 1.265625}
+    OffsetEm: {x: -0.2409668, y: -0.2548828}
+    AdvanceEm: 0.28295898
+  - Codepoint: 238
+    UvRect:
+      serializedVersion: 2
+      x: 0.8671875
+      y: 0.87597656
+      width: 0.0546875
+      height: 0.07910156
+    SizeEm: {x: 0.875, y: 1.265625}
+    OffsetEm: {x: -0.29003906, y: -0.2548828}
+    AdvanceEm: 0.28295898
+  - Codepoint: 239
+    UvRect:
+      serializedVersion: 2
+      x: 0.92285156
+      y: 0.8457031
+      width: 0.057617188
+      height: 0.078125
+    SizeEm: {x: 0.921875, y: 1.25}
+    OffsetEm: {x: -0.30908203, y: -0.2548828}
+    AdvanceEm: 0.28295898
+  - Codepoint: 247
+    UvRect:
+      serializedVersion: 2
+      x: 0.92285156
+      y: 0.9248047
+      width: 0.059570312
+      height: 0.068359375
+    SizeEm: {x: 0.953125, y: 1.09375}
+    OffsetEm: {x: -0.22802734, y: -0.24291992}
+    AdvanceEm: 0.47998047
+  - Codepoint: 8209
+    UvRect:
+      serializedVersion: 2
+      x: 0.08496094
+      y: 0.20996094
+      width: 0.052734375
+      height: 0.041992188
+    SizeEm: {x: 0.84375, y: 0.671875}
+    OffsetEm: {x: -0.21508789, y: -0.045898438}
+    AdvanceEm: 0.40698242
+  - Codepoint: 8211
+    UvRect:
+      serializedVersion: 2
+      x: 0.46191406
+      y: 0.953125
+      width: 0.059570312
+      height: 0.041992188
+    SizeEm: {x: 0.953125, y: 0.671875}
+    OffsetEm: {x: -0.21289062, y: -0.05102539}
+    AdvanceEm: 0.513916
+  - Codepoint: 8212
+    UvRect:
+      serializedVersion: 2
+      x: 0.7236328
+      y: 0.0009765625
+      width: 0.07421875
+      height: 0.041015625
+    SizeEm: {x: 1.1875, y: 0.65625}
+    OffsetEm: {x: -0.21289062, y: -0.03100586}
+    AdvanceEm: 0.74194336
+  - Codepoint: 8220
+    UvRect:
+      serializedVersion: 2
+      x: 0.6933594
+      y: 0.94140625
+      width: 0.0625
+      height: 0.056640625
+    SizeEm: {x: 1, y: 0.90625}
+    OffsetEm: {x: -0.23510742, y: 0.068115234}
+    AdvanceEm: 0.5209961
+  - Codepoint: 8226
+    UvRect:
+      serializedVersion: 2
+      x: 0.52734375
+      y: 0.9501953
+      width: 0.048828125
+      height: 0.048828125
+    SizeEm: {x: 0.78125, y: 0.78125}
+    OffsetEm: {x: -0.20288086, y: -0.09106445}
+    AdvanceEm: 0.3630371

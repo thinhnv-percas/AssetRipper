@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 254783143, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: MonetizationCore
+  m_EditorClassIdentifier:
+  _installers:
+  - {fileID: 11400000, guid: 26f19e6472f58a94780c8295b6d67244, type: 2}
+  - {fileID: 11400000, guid: 2eb7a730282f7a54d9a2ddad4dad9229, type: 2}
+  - {fileID: 11400000, guid: 1ad8687d2ee3f8a4684287b99cbf72a2, type: 2}
+  - {fileID: 11400000, guid: 5e28ef76c548086448bc25298cc673bd, type: 2}
+  - {fileID: 11400000, guid: 5b1ab11a7bc06444a9a6a20afe2d0512, type: 2}
+  - {fileID: 11400000, guid: 03bca4bfd9208464fb0f6096e2aff046, type: 2}
+  - {fileID: 11400000, guid: d896d68f125b7fa4ab4cc9b121caed34, type: 2}

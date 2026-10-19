@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709254077376921
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4730242686860875}
+  - component: {fileID: 114724804207875695}
+  m_Layer: 0
+  m_Name: FrameVisualizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4730242686860875
+Transform:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114724804207875695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1408062465, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  m_playableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
+  m_nonPlayableMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}
+  m_rimMaterial: {fileID: 2100000, guid: 270be7c052c62444e9bfbc53547b7556, type: 2}
+  m_difficultyPresets:
+  - Difficulty: 2
+    NonPlayableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
+    WallFillMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}
+    RimMaterial: {fileID: 2100000, guid: 270be7c052c62444e9bfbc53547b7556, type: 2}
+  - Difficulty: 3
+    NonPlayableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
+    WallFillMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}
+    RimMaterial: {fileID: 2100000, guid: 270be7c052c62444e9bfbc53547b7556, type: 2}
+  - Difficulty: 4
+    NonPlayableMaterial: {fileID: 2100000, guid: 04b911cdd1336ae44a60dc61d7d0c4f2, type: 2}
+    WallFillMaterial: {fileID: 2100000, guid: afa3ce6bd53710c459e849278d8f3474, type: 2}
+    RimMaterial: {fileID: 2100000, guid: 8486dbfc3fe9c1847b21b2c79bef3753, type: 2}
+  m_cornerRadius: 0.115
+  m_outlineCornerSegments: 16
+  m_playableDepth: 0
+  m_nonPlayableDepth: 0.12
+  m_fillSortingOrder: 0
+  m_outlineSortingOrder: 1
+  m_generateRim: 1
+  m_rimWidth: 0.08
+  m_rimExtraHeight: 0.12
+  m_rimCornerSegments: 16
+  m_rimSortingOrder: 2
+  m_bakeWallGradient: 1
+  m_wallFillMaterial: {fileID: 2100000, guid: 865079bc91da73c48b96651e8fce0117, type: 2}

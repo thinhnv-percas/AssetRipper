@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1060270536, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: VacuumBoosterInstaller
+  m_EditorClassIdentifier:
+  m_config: {fileID: 11400000, guid: 4560c227e43ea3848b3264530d86166f, type: 2}
+  m_vacuumBoosterPrefab: {fileID: 114703437598541787, guid: 144a935ad8d61fe42b96cf7b5c40f1a3, type: 2}

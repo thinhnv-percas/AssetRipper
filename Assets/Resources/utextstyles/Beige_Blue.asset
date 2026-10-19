@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1475726618, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: Beige_Blue
+  m_EditorClassIdentifier:
+  FillColor: {r: 0.9882353, g: 0.96862745, b: 0.8509804, a: 1}
+  FillDilate: 0
+  Effects:
+  - Color: {r: 0.105882354, g: 0.44705883, b: 0.99215686, a: 1}
+    Offset: {x: 0, y: 0}
+    Expand: 0.26666668
+  - Color: {r: 0, g: 0.19877476, b: 0.5163574, a: 1}
+    Offset: {x: 0, y: -0.116666675}
+    Expand: 0.26666668
+  Shadow:
+    m_enabled: 0
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    Offset: {x: 0, y: 0}
+    Spread: 0
+    BlurRadius: 0

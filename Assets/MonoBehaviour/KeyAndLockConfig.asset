@@ -1,0 +1,328 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1745308656, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: KeyAndLockConfig
+  m_EditorClassIdentifier:
+  m_lockMaterials:
+  - Key: 0
+    Value: {fileID: 2100000, guid: 2a3cb49d1b0d07e4d90008f669bf978d, type: 2}
+  - Key: 1
+    Value: {fileID: 2100000, guid: d9fcda881d893cd42bd1ebc18c8db51a, type: 2}
+  m_keyMaterials:
+  - Key: 0
+    Value: {fileID: 2100000, guid: 6aed29cb7b92a7a43b63a3545cccd13d, type: 2}
+  - Key: 1
+    Value: {fileID: 2100000, guid: b91aaf69334b32649929a0ce46e636b7, type: 2}
+  m_chainMaterials:
+  - Key: 0
+    Value: {fileID: 2100000, guid: cfd4b93fa29b7d1429f81c6d3336a249, type: 2}
+  - Key: 1
+    Value: {fileID: 2100000, guid: c7d7b6b5964c0d74283f6e6aa06190e1, type: 2}
+  lockVfx: {fileID: 1709254077376921, guid: eaefbdb833fce6b419ead64846af7221, type: 2}
+  lockVfxGold: {fileID: 1709254077376921, guid: 0d43c4e954b3f3a4b8ea506f9246b966, type: 2}
+  keyMono: {fileID: 1709254077376921, guid: 1382cd103b73f074a8b45a69ddb8207e, type: 2}
+  lockMono: {fileID: 1709254077376921, guid: 8e249b4a44621884cb9d2c6fef4a5cb4, type: 2}
+  chainPrefab: {fileID: 1709254077376921, guid: 7409cfb5a74e7d644b4a08aa191e49c8, type: 2}
+  keyOverlayOffset: {x: 0.05, y: -0.15, z: -0.9}
+  lockOverlayOffset: {x: 0, y: 0, z: -0.34}
+  moveSettings:
+    duration: 0.6
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.7480894
+        outSlope: 0.7480894
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.37211803
+        value: 0.27837753
+        inSlope: 0.47564632
+        outSlope: 0.47564632
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.30633387
+      - serializedVersion: 3
+        time: 0.75560504
+        value: 0.37421468
+        inSlope: -0.07279372
+        outSlope: -0.07279372
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.28405544
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2.5605493
+        outSlope: 2.5605493
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  moveZSettings:
+    duration: 0.6
+    ease: 0
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  zCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6.1555924
+      outSlope: 6.1555924
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.16274089
+    - serializedVersion: 3
+      time: 0.2837696
+      value: 2.4641984
+      inSlope: 0.9578157
+      outSlope: 0.9578157
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16202874
+      outWeight: 0.1245021
+    - serializedVersion: 3
+      time: 0.6887715
+      value: 2.4812236
+      inSlope: -0.30318028
+      outSlope: 3.0217502
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3040555
+      outWeight: 0.13396218
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -29.156782
+      outSlope: -29.156782
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.03638806
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  zCurveMultiplier: 1
+  keyScaleUpSettings:
+    duration: 0.25
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  keyScaleBackSettings:
+    duration: 0.15
+    ease: 6
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0.3
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  keyMaxScale: 3
+  rotateToMidSettings:
+    duration: 0.3
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  rotateToTargetSettings:
+    duration: 0.3
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  midRotationEuler: {x: 0, y: 0, z: 210}
+  flightSpinTurns: 1
+  flightSpinAxis: {x: 0, y: 1, z: 0}
+  lockScaleDownSettings:
+    duration: 0.22
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -13.390606
+        outSlope: -13.390606
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.103122644
+      - serializedVersion: 3
+        time: 0.23062402
+        value: -1.2773495
+        inSlope: -1.3029977
+        outSlope: 0.542526
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.24376723
+        outWeight: 0.063823394
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 4.9263353
+        outSlope: 4.9263353
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.054383285
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  keyScaleDownSettings:
+    duration: 0.1
+    ease: 26
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0

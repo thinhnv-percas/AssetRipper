@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1475726618, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: White_Blue1
+  m_EditorClassIdentifier:
+  FillColor: {r: 1, g: 1, b: 1, a: 1}
+  FillDilate: 0
+  Effects:
+  - Color: {r: 0.29411766, g: 0.3529412, b: 0.7921569, a: 1}
+    Offset: {x: 0, y: 0}
+    Expand: 0.48936298
+  - Color: {r: 0.21536286, g: 0.24272707, b: 0.6258263, a: 1}
+    Offset: {x: 0, y: -0.09787261}
+    Expand: 0.48936298
+  Shadow:
+    m_enabled: 0
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    Offset: {x: 0, y: 0}
+    Spread: 0
+    BlurRadius: 0

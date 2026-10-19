@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1980543080, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: PinBlockerConfig
+  m_EditorClassIdentifier:
+  endpointPrefab: {fileID: 1709254077376921, guid: 2c8c0269671f5444e97149066e7496e1, type: 2}
+  straightPrefab: {fileID: 1709254077376921, guid: 2c8c0269671f5444e97149066e7496e1, type: 2}
+  cornerPrefab: {fileID: 1709254077376921, guid: 238e1071bd02f4748b45864421ff30bd, type: 2}
+  markerPrefab: {fileID: 1709254077376921, guid: 21416982817359140aa8c3bae5e449af, type: 2}
+  terminalPrefab: {fileID: 1709254077376921, guid: 2a4b437d89819494686fc042436cb352, type: 2}
+  verticalOffset: 0.35
+  pieceScale: {x: 1, y: 1, z: 1}
+  markerScale: {x: 0.6, y: 0.6, z: 0.6}
+  highlightProfile: {fileID: 11400000, guid: 6084948f2ba8c6443bf1834a89aafacd, type: 2}
+  disappearSeconds: 0.2
+  explosionForce: 4.5
+  upwardBias: 10
+  explosionTorque: 15
+  pieceLifetime: 3

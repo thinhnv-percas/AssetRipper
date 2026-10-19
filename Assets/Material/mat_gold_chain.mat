@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: mat_gold_chain
+  m_Shader: {fileID: 4800000, guid: 945806981e704cd4dbbb01b7b8e63b35, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - TCP2_MATCAP
+  - TCP2_RIM_LIGHTING
+  - TCP2_RIM_LIGHTING_LIGHTMASK
+  - TCP2_SHADOW_LIGHT_COLOR
+  - TCP2_SPECULAR
+  m_InvalidKeywords:
+  - TCP2_OUTLINE_MIN_SIZE
+  - TCP2_OUTLINE_TEXTURED_VERTEX
+  - TCP2_REFLECTIONS
+  - TCP2_UV_NORMALS_FULL
+  m_LightmapFlags: 6
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties:
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+      _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _CSpecMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _MatCapMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _MatCapTex:
+        m_Texture: {fileID: 2800000, guid: 05992245e1a5b3343846e97343287cdb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _Ramp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _ShadowBaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: {}
+    m_Floats:
+      _AddPrecomputedVelocity: 0
+      _AlphaClip: 0
+      _AlphaToMask: 0
+      _Blend: 0
+      _BlendModePreserveSpecular: 1
+      _BumpScale: 1
+      _CSpecAnisotropy: 0
+      _CSpecElevation: 31.9
+      _CSpecMaskChannel: 0
+      _CSpecRotation: 162
+      _CSpecRoughness: 0.216
+      _CSpecStrength: 1.43
+      _ClearCoatMask: 0
+      _ClearCoatSmoothness: 0
+      _Cull: 2
+      _Cutoff: 0.5
+      _DetailAlbedoMapScale: 1
+      _DetailNormalMapScale: 1
+      _DirectIntensityOutline: 1
+      _DstBlend: 0
+      _DstBlendAlpha: 0
+      _EmissionChannel: 4
+      _EnvironmentReflections: 1
+      _FresnelMax: 1
+      _FresnelMin: 0
+      _GlossMapScale: 1
+      _Glossiness: 0.78
+      _GlossyReflections: 1
+      _IndirectIntensity: 1
+      _IndirectIntensityOutline: 0
+      _MatCapMaskChannel: 0
+      _MatCapType: 0
+      _Metallic: 1
+      _NormalsSource: 0
+      _NormalsUVType: 0
+      _ObjGradHeight: 1
+      _ObjGradNormalMix: 0.135
+      _ObjGradOffset: -0.708
+      _ObjGradStrength: 0.626
+      _OcclusionChannel: 0
+      _OcclusionStrength: 1
+      _OutlineLightingType: 0
+      _OutlineLightingTypeURP: 0
+      _OutlineMaxWidth: 224.65
+      _OutlineMinWidth: 81.44
+      _OutlinePixelSizeType: 2
+      _OutlineTextureLOD: 2.56
+      _OutlineTextureType: 1
+      _OutlineWidth: 5.37
+      _Parallax: 0.005
+      _QueueOffset: 0
+      _RampBands: 2
+      _RampBandsSmoothing: 0.05
+      _RampOffset: 0
+      _RampScale: 1
+      _RampSmoothing: 1
+      _RampThreshold: 0.974
+      _RampType: 0
+      _ReceiveShadows: 1
+      _ReceiveShadowsOff: 1
+      _ReflectionMapType: 0
+      _ReflectionSmoothness: 0.473
+      _RenderingMode: 0
+      _RimMax: 0.478
+      _RimMin: 0.211
+      _SecSpecRoughness: 0.132
+      _SecSpecStrength: 0.244
+      _ShadowColorLightAtten: 1
+      _SingleIndirectColor: 0
+      _Smoothness: 0.78
+      _SmoothnessTextureChannel: 0
+      _SpecularHighlights: 1
+      _SpecularMapType: 0
+      _SpecularRoughness: 0.507
+      _SpecularToonSize: 0.034
+      _SpecularToonSmoothness: 0.746
+      _SpecularType: 0
+      _SrcBlend: 1
+      _SrcBlendAlpha: 1
+      _Surface: 0
+      _UseAlphaTest: 0
+      _UseEmission: 0
+      _UseFresnelReflections: 0
+      _UseMatCap: 1
+      _UseMatCapMask: 0
+      _UseMobileMode: 0
+      _UseNormalMap: 0
+      _UseOcclusion: 0
+      _UseOutline: 0
+      _UseReflections: 1
+      _UseRim: 1
+      _UseRimLightMask: 1
+      _UseShadowTexture: 0
+      _UseSpecular: 1
+      _WorkflowMode: 1
+      _ZWrite: 1
+    m_Colors:
+      _BaseColor: {r: 1, g: 0.7176471, b: 0.16470589, a: 1}
+      _CSpecColor: {r: 0.6886792, g: 0.5544452, b: 0, a: 1}
+      _Color: {r: 0.47843137, g: 0.47843137, b: 0.49803922, a: 1}
+      _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+      _HColor: {r: 1, g: 0.8039216, b: 0.4117647, a: 1}
+      _MatCapColor: {r: 0.4072403, g: 0.4072403, b: 0.4072403, a: 1}
+      _ObjGradBottomColor: {r: 0.5188679, g: 0.48949802, b: 0, a: 1}
+      _ObjGradTopColor: {r: 1, g: 1, b: 1, a: 1}
+      _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+      _ReflectionColor: {r: 0.78431374, g: 0.78431374, b: 0.8039216, a: 1}
+      _RimColor: {r: 1, g: 1, b: 1, a: 0.6}
+      _SColor: {r: 0.4056604, g: 0.12915061, b: 0.001913497, a: 1}
+      _SecSpecColor: {r: 0.8207547, g: 0.63198113, b: 0.19744569, a: 1}
+      _SpecColor: {r: 1, g: 0.9764706, b: 0.92156863, a: 1}
+      _SpecularColor: {r: 0.764151, g: 0.5939737, b: 0.20545568, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 0

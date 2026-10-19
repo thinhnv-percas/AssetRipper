@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -248503107, guid: b0ca72fee1bf28f87c69743a99ea085a, type: 3}
+  m_Name: noads_offer_config
+  m_EditorClassIdentifier:
+  Key: noads_offer_config
+  Value: '{"startAfterEventCount":1,"repeatEveryNEvents":10,"maxShowCount":1}'
+  DevValue:

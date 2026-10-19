@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 210039527, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: SandPhysicsConfig
+  m_EditorClassIdentifier:
+  m_particlesPerCube: 600
+  m_particleRadius: 0.037
+  m_particleVisualSize: 0.085
+  m_referenceEffectiveCubeSize: 0.8
+  m_shrinkBlockerQuadByParticleRadius: 1
+  m_gravity:
+    x: 0
+    y: -9.81
+  m_maxSpeed: 100
+  m_restitution: 0
+  m_friction: 0.1
+  m_damping: 0.99
+  m_subThresholdDamping: 0.98
+  m_contactDamping: 0.1
+  m_settleVelocityThreshold: 0.06
+  m_settleFrameCount: 5
+  m_settleDecayRate: 3
+  m_wakeUpRadius: 0.3
+  m_isolatedSettleRadius: 0.6
+  m_isolatedSettleFrameThreshold: 90
+  m_wallPenetrationRescueFrames: 30
+  m_twoSidedCatchRadii: 1
+  m_flowZoneHeight: 0.5
+  m_flowZoneGravityMultiplier: 1
+  m_flowZoneDamping: 1
+  m_flowZoneConvergeForce:
+    x: 0
+    y: 0
+  m_physicsTickRate: 60
+  m_maxSubSteps: 3
+  m_solverIterations: 3
+  m_maxRadiiPerStep: 6
+  m_spatialHashCellSizeMultiplier: 2
+  m_settleUpdateInterval: 3
+  m_sameColorCorrectionScale: 0.25
+  m_diffColorCorrectionScale: 0.65
+  m_movingCubePushStrength: 0.5
+  m_breakJitterStrength: 0
+  m_spawnGraceFrames: 0
+  m_spawnGraceCorrectionScale: 0

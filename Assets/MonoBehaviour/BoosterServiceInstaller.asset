@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1055795463, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: BoosterServiceInstaller
+  m_EditorClassIdentifier:
+  m_boosterDatabase: {fileID: 11400000, guid: 362e48e7e731e8a45b9ffe0ac1e04136, type: 2}
+  m_boosterConfigs:
+  - BoosterId: vacuum_booster
+    VisibleFromLevel: 0
+    UnlockLevel: 11
+    GiftCountOnUnlock: 3
+    PurchaseAmount: 3
+    PurchasePrice: 1900
+  - BoosterId: hammer_booster
+    VisibleFromLevel: 0
+    UnlockLevel: 4
+    GiftCountOnUnlock: 3
+    PurchaseAmount: 3
+    PurchasePrice: 1400
+  - BoosterId: swap_booster
+    VisibleFromLevel: 0
+    UnlockLevel: 7
+    GiftCountOnUnlock: 3
+    PurchaseAmount: 3
+    PurchasePrice: 1400

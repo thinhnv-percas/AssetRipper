@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1658914445, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: ShopVisualHub
+  m_EditorClassIdentifier:
+  m_shopIcons:
+  - Key: SoftCurrency
+    Value: {fileID: 21300000, guid: e739d1f867b585f43b3f37714bf53ece, type: 2}
+  - Key: coin_pack_1
+    Value: {fileID: 21300000, guid: e22f9d4e88c11b04993f04415da63867, type: 2}
+  - Key: coin_pack_2
+    Value: {fileID: 21300000, guid: 0670108950db6334f9272edccaceae15, type: 2}
+  - Key: coin_pack_3
+    Value: {fileID: 21300000, guid: 07a0130595bff094790a433e7f2f8d50, type: 2}
+  - Key: coin_pack_4
+    Value: {fileID: 21300000, guid: 95b3dd5e46bb674479ba7b39a7afe6e4, type: 2}
+  - Key: coin_pack_5
+    Value: {fileID: 21300000, guid: 7e05fcfac0fdd124498882dd320abcec, type: 2}
+  - Key: coin_pack_6
+    Value: {fileID: 21300000, guid: 657e4093ee8b8354596a34af11b1ccdf, type: 2}
+  - Key: bundle_1
+    Value: {fileID: 21300000, guid: 0670108950db6334f9272edccaceae15, type: 2}
+  - Key: bundle_2
+    Value: {fileID: 21300000, guid: aa9e73b3507077a4fb5db890db246293, type: 2}
+  - Key: bundle_3
+    Value: {fileID: 21300000, guid: 8be94287b47d60e43af84215c13fc840, type: 2}
+  - Key: bundle_6
+    Value: {fileID: 21300000, guid: 0670108950db6334f9272edccaceae15, type: 2}
+  - Key: LimitlessHealth
+    Value: {fileID: 21300000, guid: 402c8cfa52546794589ec1cc9deb28ad, type: 2}
+  - Key: None
+    Value: {fileID: 21300000, guid: b146457ad93ea3a498a9202e8094cd60, type: 2}
+  - Key: NoAds
+    Value: {fileID: 21300000, guid: f1399b4136ffcd8489dc66bef81faf68, type: 2}
+  - Key: offer_ego
+    Value: {fileID: 21300000, guid: 07a0130595bff094790a433e7f2f8d50, type: 2}
+  - Key: IncreaseHealth
+    Value: {fileID: 21300000, guid: 1adde24205711ae498559966f0698f4b, type: 2}
+  - Key: hammer_booster
+    Value: {fileID: 21300000, guid: ff2f5831223fc824d984f0de276e731a, type: 2}
+  - Key: swap_booster
+    Value: {fileID: 21300000, guid: 10fd77ba691378940af760a8f140f5d2, type: 2}
+  - Key: vacuum_booster
+    Value: {fileID: 0}
+  m_rarityVisuals:
+  - Key: 1
+    Value:
+      Frame: {fileID: 21300000, guid: 8772425f48b13c84583e6d5e586635e2, type: 2}
+  m_groupViewPrefabs:
+  - Key: no_ads
+    Value: {fileID: 114320256170494724, guid: 5e61fc57aee2dce489b1bb0a38d255a9, type: 2}
+  - Key: line
+    Value: {fileID: 114634108722742392, guid: 36c20d88cda3ad84ea89160b136e0519, type: 2}
+  - Key: multi_group
+    Value: {fileID: 114397768327470545, guid: 7903ba33e1877e047b73d3128092b0a7, type: 2}
+  - Key: multi_group_super
+    Value: {fileID: 114397768327470545, guid: 8d27acbff10f0f24ebc7372600d04244, type: 2}
+  - Key: default
+    Value: {fileID: 114841364053301648, guid: 8fea43897a4b7f148ab0554279f662ed, type: 2}
+  - Key: no_ad_multi_group
+    Value: {fileID: 114397768327470545, guid: 0168b2b593e38c844a0818625838bb9e, type: 2}
+  - Key: fail_multi_group
+    Value: {fileID: 114924050743934937, guid: 8f7e95b0026275543a3e266e0f1ab389, type: 2}
+  m_lineRowPrefab: {fileID: 224730242686860875, guid: 674e3c9df3766fa4897b1a1694f8940a, type: 2}
+  m_offerTags:
+  - Key: 1
+    Value: '%{0} Off'
+  - Key: 2
+    Value: BEST DEAL
+  - Key: 3
+    Value: Popular
+  - Key: 4
+    Value: New

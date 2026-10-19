@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1078441166, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: BlockerCoverConfig
+  m_EditorClassIdentifier:
+  entries:
+  - width: 3
+    height: 1
+    prefab: {fileID: 1709254077376921, guid: c0f88a9d83063514190de244e9cacf9b, type: 2}
+  - width: 4
+    height: 1
+    prefab: {fileID: 1709254077376921, guid: 41577dcf5e709d5498ad3f71dc515cba, type: 2}
+  - width: 2
+    height: 2
+    prefab: {fileID: 1709254077376921, guid: a78fb2937ff5f88478c87026cf719c90, type: 2}
+  - width: 3
+    height: 2
+    prefab: {fileID: 1709254077376921, guid: bb3876f45df044146b31613d78829035, type: 2}
+  - width: 3
+    height: 3
+    prefab: {fileID: 1709254077376921, guid: de428ab0a32517f4b833aa03cb095b4a, type: 2}
+  - width: 4
+    height: 3
+    prefab: {fileID: 1709254077376921, guid: e9c7f186328ee564090671b35d6408eb, type: 2}
+  parentScaleTween:
+    startFromCurrent: 0
+    startValue: 0.85
+    endValue: 1
+    settings:
+      duration: 0.3
+      ease: 27
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0.6
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0

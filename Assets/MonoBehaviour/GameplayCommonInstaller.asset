@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1608701788, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: GameplayCommonInstaller
+  m_EditorClassIdentifier:
+  m_sandPhysicsConfig: {fileID: 11400000, guid: 942661a61b331fe469d5a7b0cffaaaa3, type: 2}
+  m_moldConceptRegistry: {fileID: 11400000, guid: cfab104ae0c4f564cb9bff1d99574df3, type: 2}
+  m_presetRegistry: {fileID: 11400000, guid: e6c3677e931a944499cf9d622391204a, type: 2}
+  m_moldConfigSO: {fileID: 11400000, guid: 6ee3df4749971504ba001bab81ef8686, type: 2}

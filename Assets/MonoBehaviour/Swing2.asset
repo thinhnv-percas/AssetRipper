@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -379668066, guid: e8509f5db018a90c20bdc38ea4cadbf8, type: 3}
+  m_Name: Swing2
+  m_EditorClassIdentifier:
+  m_soundProperties:
+    Type: 7
+    Volume: 0.85
+    Pitch: 1
+    IsLoop: 0
+    IsMusic: 0
+    IsMultiple: 1
+    CoolDown: 0
+  m_clip: {fileID: 8300000, guid: c5d36cc8c94366d4c80e39bc9b4607da, type: 3}

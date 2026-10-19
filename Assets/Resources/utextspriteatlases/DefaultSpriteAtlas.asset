@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1521945571, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: DefaultSpriteAtlas
+  m_EditorClassIdentifier:
+  Atlas: {fileID: 2800000, guid: 28a40936a1b19dd4299c72ba52391a7b, type: 3}
+  Entries:
+  - Name: ic_coin
+    UvRect:
+      serializedVersion: 2
+      x: 0.7734375
+      y: 0
+      width: 0.17773438
+      height: 0.17773438
+    SizeEm: {x: 1.2, y: 1.2}
+    LeadingAdvanceEm: 0
+    AdvanceEm: 1.25
+    BaselineOffsetEm: -0.29
+  - Name: ic_health
+    UvRect:
+      serializedVersion: 2
+      x: 0
+      y: 0.4609375
+      width: 0.39453125
+      height: 0.39453125
+    SizeEm: {x: 5.8333335, y: 5.8333335}
+    LeadingAdvanceEm: 0
+    AdvanceEm: 1.578125
+    BaselineOffsetEm: 0
+  - Name: ic_rewarded
+    UvRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0.44726562
+      height: 0.45898438
+    SizeEm: {x: 3.1805556, y: 3.2638888}
+    LeadingAdvanceEm: 0
+    AdvanceEm: 1.7890625
+    BaselineOffsetEm: 0
+  - Name: ic_time
+    UvRect:
+      serializedVersion: 2
+      x: 0.44921875
+      y: 0
+      width: 0.32226562
+      height: 0.32226562
+    SizeEm: {x: 2.2916667, y: 2.2916667}
+    LeadingAdvanceEm: 0
+    AdvanceEm: 1.2890625
+    BaselineOffsetEm: 0
+  - Name: ic_infinite
+    UvRect:
+      serializedVersion: 2
+      x: 0
+      y: 0.8574219
+      width: 0.1953125
+      height: 0.10546875
+    SizeEm: {x: 1.3888888, y: 0.75}
+    LeadingAdvanceEm: 0
+    AdvanceEm: 0.78125
+    BaselineOffsetEm: 0
+  - Name: ic_noads
+    UvRect:
+      serializedVersion: 2
+      x: 0.44921875
+      y: 0.32421875
+      width: 0.31054688
+      height: 0.31054688
+    SizeEm: {x: 2.2083333, y: 2.2083333}
+    LeadingAdvanceEm: 0
+    AdvanceEm: 1.2421875
+    BaselineOffsetEm: 0
+  SpriteMaterial: {fileID: 0}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 24567495, guid: d5c73c17cc1af77b3085903f51bfd001, type: 3}
+  m_Name: Comeback
+  m_EditorClassIdentifier:
+  Type: 25
+  m_infoList:
+  - Title: Sand Out!
+    Body: Been a while? No worries! Sand Cubes are waiting ⏳
+  - Title: Sand Out!
+    Body: Tap the cubes. Fill the boxes. Let’s go!
+  - Title: Sand Out!
+    Body: Boxes are ready. Drop some sand!
+  - Title: Sand Out!
+    Body: Your conveyor is empty… time to fill it!
+  - Title: Sand Out!
+    Body: Boxes are waiting to be filled!
+  - Title: Sand Out!
+    Body: Jump back in and crush some cubes.

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 15734009, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: HammerAreaConfig
+  m_EditorClassIdentifier:
+  entries:
+  - width: 3
+    height: 1
+    prefab: {fileID: 1709254077376921, guid: 97ec248e28570d5498aa46d5f0f955d5, type: 2}
+  - width: 4
+    height: 1
+    prefab: {fileID: 1709254077376921, guid: a143b1f0da18b424088d531947275f8b, type: 2}
+  - width: 2
+    height: 2
+    prefab: {fileID: 1709254077376921, guid: 748aaf7e62254ba4fb91f920d5b66d26, type: 2}
+  - width: 3
+    height: 2
+    prefab: {fileID: 1709254077376921, guid: 8153e76a62e05584e9bf099f98fcee89, type: 2}
+  - width: 3
+    height: 3
+    prefab: {fileID: 1709254077376921, guid: a5ba68f7055b93d4bbca9cb020668f64, type: 2}
+  - width: 4
+    height: 3
+    prefab: {fileID: 1709254077376921, guid: 33882b487c49eb741a672e557302e3d4, type: 2}
+  parentScaleTween:
+    startFromCurrent: 0
+    startValue: 0.6
+    endValue: 1
+    settings:
+      duration: 0.2
+      ease: 27
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
+  spawnDepthZ: -0.3

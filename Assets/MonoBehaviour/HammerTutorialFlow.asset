@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -284545759, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: HammerTutorialFlow
+  m_EditorClassIdentifier:
+  FlowCompleted: 0
+  m_levelRange:
+    Key: 4
+    Value: 4
+  m_flowName: force_pour_tutorial
+  m_persistCompletion: 1
+  m_maskColor: {r: 0, g: 0, b: 0, a: 0.8}
+  m_holeType: 0
+  m_inputConfig:
+    inputMode: 1
+    holdDuration: 0
+  m_fingerSize: {x: 100, y: 100}
+  m_fingerOffset: {x: 0, y: 0, z: 0}
+  m_initialDelay: 0.5
+  m_postActivateDelay: 0.5
+  m_targetCubeGridPos: {x: 6, y: 8}
+  m_cubeHoleSize: {x: 160, y: 160}

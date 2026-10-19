@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1080631756, guid: d5c73c17cc1af77b3085903f51bfd001, type: 3}
+  m_Name: GameNotificationDB
+  m_EditorClassIdentifier:
+  m_dataList:
+  - {fileID: 11400000, guid: 9690a164470009d469085a76b9249009, type: 2}
+  _ignoreElephantNotifsIos: 0
+  _enablePushNotifications: 1
+  _comeBackTimes:
+  - Key: Comeback
+    Value: 3600
+  - Key: Comeback
+    Value: 10800
+  - Key: Comeback
+    Value: 86400
+  - Key: Comeback
+    Value: 172800
+  - Key: Comeback
+    Value: 259200
+  - Key: Comeback
+    Value: 345600

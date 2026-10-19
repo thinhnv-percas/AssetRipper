@@ -1,0 +1,223 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 248308212, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: SnakeBlockerConfig
+  m_EditorClassIdentifier:
+  tailendPrefab: {fileID: 1709254077376921, guid: e421eb4ad87386b4c993b3bbefd03455, type: 2}
+  middlePrefab: {fileID: 1709254077376921, guid: 8a003d437c03ad6429ce50e92818e17a, type: 2}
+  cornerPrefab: {fileID: 1709254077376921, guid: 822d544becbada240a2da8dc753879ac, type: 2}
+  arrowPrefab: {fileID: 1709254077376921, guid: 10a12ce1633585a49ad712b7f7a96b6d, type: 2}
+  rampPrefab: {fileID: 1709254077376921, guid: dbfba9462b1ceed4393e7deef0dbec91, type: 2}
+  bodyScaleRatio: 0.85
+  bodyZOffset: -0.3
+  chainRootPrefab: {fileID: 1709254077376921, guid: ebb7178982c7bc649a4bd6bffd8ac8d4, type: 2}
+  pieceZOffset: -0.4
+  pieceScaleMultiplier: 1.18
+  cubeShiftTween:
+    duration: 0.4
+    ease: 6
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0.6
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  moduleShiftTween:
+    duration: 0.4
+    ease: 6
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  shiftStepDelay: 0
+  rebuildDelay: 0
+  fallZCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.039130516
+      value: 0
+      inSlope: -4.02519
+      outSlope: -4.02519
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09230153
+    - serializedVersion: 3
+      time: 0.4950019
+      value: -0.9742235
+      inSlope: -0.0432905
+      outSlope: -0.0432905
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18707979
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 1.9307321
+      outSlope: 1.9307321
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.081528164
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fallMoveZSettings:
+    duration: 0.4
+    ease: 1
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  fallZMultiplier: 0.5
+  fallMoveXYSettings:
+    duration: 0.4
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 3.5998776
+        outSlope: 3.5998776
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.07180669
+      - serializedVersion: 3
+        time: 0.34560317
+        value: 0.7095554
+        inSlope: 0.16710839
+        outSlope: 0.16710839
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.09844874
+      - serializedVersion: 3
+        time: 0.68170786
+        value: 0.7538982
+        inSlope: 0.13567884
+        outSlope: 0.13567884
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.15551344
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  fallScaleSettings:
+    duration: 0.5
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.49844173
+        value: 0.46885133
+        inSlope: 2.2530339
+        outSlope: 2.2530339
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.76969975
+        value: 1.3798045
+        inSlope: 2.3141222
+        outSlope: 2.3141222
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.051054407
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.90849984
+        value: 0.6254474
+        inSlope: -0.050164912
+        outSlope: -0.050164912
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.57013845
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  fallParticle: {fileID: 1709254077376921, guid: c8aa5782321a1144b850e3f6f5fd91af, type: 2}
+  fallParticleInsertTime: 0.4

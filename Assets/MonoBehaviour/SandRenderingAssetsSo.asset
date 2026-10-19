@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 927991108, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: SandRenderingAssetsSo
+  m_EditorClassIdentifier:
+  m_particleTexture: {fileID: 2800000, guid: a230e96f1aace884db8db1f9bd1a88ff, type: 3}
+  m_particleMaterial: {fileID: 2100000, guid: e22f0a275cba81d4f9c14e9726199595, type: 2}
+  m_particleDepthZ: -0.8
+  m_particleColors:
+  - Key: 0
+    Value: {r: 0.9056604, g: 0.07977425, b: 0.07262372, a: 1}
+  - Key: 1
+    Value: {r: 0, g: 0.15156436, b: 1, a: 1}
+  - Key: 2
+    Value: {r: 0.9339623, g: 0.7104178, b: 0, a: 1}
+  - Key: 3
+    Value: {r: 0.029706942, g: 0.6981132, b: 0, a: 1}
+  - Key: 4
+    Value: {r: 0.2924528, g: 0.0736247, b: 0.042764325, a: 1}
+  - Key: 5
+    Value: {r: 0.05512415, g: 0.23584908, b: 0.04561232, a: 1}
+  - Key: 6
+    Value: {r: 0.050462812, g: 0.051098347, b: 0.05660379, a: 1}
+  - Key: 7
+    Value: {r: 0.6745283, g: 0.8650483, b: 1, a: 1}
+  - Key: 8
+    Value: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+  - Key: 9
+    Value: {r: 0.9150943, g: 0.23552175, b: 0, a: 1}
+  - Key: 10
+    Value: {r: 1, g: 0.1273585, b: 0.8295306, a: 1}
+  - Key: 11
+    Value: {r: 0.4970254, g: 0.06274509, b: 0.90588236, a: 1}
+  - Key: 12
+    Value: {r: 0.061409745, g: 0.8000868, b: 0.8679245, a: 1}

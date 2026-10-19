@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2129300477, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: game_speed_config
+  m_EditorClassIdentifier:
+  Key: game_speed_config
+  Value: '{"defaultProfile":{"conveyor":1.5,"sand":1.5,"mold":1.7999999523162842},"tapSpeed":{"conveyor":2.200000047683716,"sand":2.200000047683716,"mold":2.200000047683716,"enabled":true,"unlockLevel":0},"certainWin":{"conveyor":2.549999952316284,"sand":2.549999952316284,"mold":2.549999952316284}}'
+  DevValue: '{"defaultProfile":{"conveyor":1.5,"sand":1.5,"mold":1.7999999523162842},"tapSpeed":{"conveyor":2.200000047683716,"sand":2.200000047683716,"mold":2.200000047683716,"enabled":true,"unlockLevel":0},"certainWin":{"conveyor":2.549999952316284,"sand":2.549999952316284,"mold":2.549999952316284}}'

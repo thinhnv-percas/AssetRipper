@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 695342730, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: GameplayAreaInstaller
+  m_EditorClassIdentifier:
+  m_registry: {fileID: 11400000, guid: e6c3677e931a944499cf9d622391204a, type: 2}
+  m_controller: {fileID: 114724804207875695, guid: 540a59f0ebcfa9543b8b8ce644987fb9, type: 2}
+  m_moldBgMono: {fileID: 114099118695303065, guid: 6704200ee8d973f42acec54a797bb383, type: 2}
+  m_frameVisualizerPrefab: {fileID: 114724804207875695, guid: 90c0c15231cfaaf468b3a3b10123b59b, type: 2}
+  m_stuckProbePrefab: {fileID: 114724804207875695, guid: 0be4b70bc2006d449a3f45031123a7da, type: 2}

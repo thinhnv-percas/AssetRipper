@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 88969409, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: UTextSettings
+  m_EditorClassIdentifier:
+  m_textShader3DPath: UTextShaders/UText3D
+  m_textShaderUIPath: UTextShaders/UTextGUI
+  m_spriteShader3DName: Unlit/Transparent
+  m_spriteShaderUIName: UI/Default
+  m_defaultFontPath: UTextFonts/Mikado
+  m_defaultStylePath: UTextStyles/DefaultStyle
+  m_defaultSpriteAtlasPath: UTextSpriteAtlases/DefaultSpriteAtlas
+  m_styleResourcesFolder: UTextStyles/
+  m_spriteAtlasResourcesFolder: UTextSpriteAtlases/
+  m_figmaGeneratedStylesFolder: Assets/_game/Art/Generated/Resources/UTextStyles
+  m_figmaStyleColorTolerance: 0.025
+  m_figmaStyleOffsetTolerance: 0.05
+  m_figmaStyleExpandTolerance: 0.05

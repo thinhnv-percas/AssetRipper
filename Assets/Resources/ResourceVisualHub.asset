@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1946827939, guid: f2689cba7115589d0cbb110aef2ebe45, type: 3}
+  m_Name: ResourceVisualHub
+  m_EditorClassIdentifier:
+  m_sprites:
+  - Key: 1
+    Value: {fileID: 21300000, guid: 2a5a65223a5628e4c9c151cb1c0b0136, type: 2}
+  - Key: 2
+    Value: {fileID: 21300000, guid: e739d1f867b585f43b3f37714bf53ece, type: 2}
+  - Key: 5
+    Value: {fileID: 21300000, guid: e739d1f867b585f43b3f37714bf53ece, type: 2}
+  - Key: -1
+    Value: {fileID: 21300000, guid: f4a30a2407fade842bfb3a638287dd93, type: 2}
+  m_genericSprites: []

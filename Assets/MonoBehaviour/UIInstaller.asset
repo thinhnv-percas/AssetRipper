@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1455310973, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: UIInstaller
+  m_EditorClassIdentifier:
+  m_overlayUiFactory: {fileID: 114372920208702427, guid: 2fcb567ca0e69894a8e8102af20e3aec, type: 2}
+  m_cameraUiFactory: {fileID: 114372920208702427, guid: 8d8c8863b36a5e74c9fbbbc7b2758e1f, type: 2}
+  m_baseUIConfig: {fileID: 11400000, guid: 40e7958023d244347966fab1c7c09caf, type: 2}
+  m_standaloneInputModule: {fileID: 114618682377417806, guid: 98289be52e2698244b4c2af1175bc24c, type: 2}

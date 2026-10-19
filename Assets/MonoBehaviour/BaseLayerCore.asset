@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 254783143, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: BaseLayerCore
+  m_EditorClassIdentifier:
+  _installers:
+  - {fileID: 11400000, guid: aecc3bcca4b5256458a0ac4067fa9265, type: 2}
+  - {fileID: 11400000, guid: f6675da1d4ff2e2488a81f176d04ed88, type: 2}
+  - {fileID: 11400000, guid: 199d4c43bf66d9447a2bd2b05e4b2b6e, type: 2}
+  - {fileID: 11400000, guid: d1b8da37f1cc6f94d87dc3302e0b577d, type: 2}
+  - {fileID: 11400000, guid: 52db5a099ab9eb547ab0eda88d381407, type: 2}
+  - {fileID: 11400000, guid: 403245958414f5e419dd3e65b1a3762e, type: 2}
+  - {fileID: 11400000, guid: 6f7d9d145b1bcf64b97a2b2e7c81c62f, type: 2}
+  - {fileID: 11400000, guid: 880da32e5ab9df344849e6249daf9385, type: 2}
+  - {fileID: 11400000, guid: 2f4c45104beedab4792a467600ef1778, type: 2}
+  - {fileID: 11400000, guid: 4be9ff79c1405894687681372c9c51f9, type: 2}
