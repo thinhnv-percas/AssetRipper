@@ -207,7 +207,7 @@ internal sealed class Il2CppStorageIdentityTests
 
 		Assert.Multiple(() =>
 		{
-			Assert.That(indexed, Is.EqualTo(3), "LoadLocal, StoreLocal and LoadLocalAddress, and nothing else");
+			Assert.That(indexed, Is.EqualTo(4), "LoadLocal, StoreLocal, LoadLocalAddress and StorageTypeOf, and nothing else");
 			Assert.That(looked, Is.EqualTo(0), "a TryGetValue hands back the invented local even for a parameter");
 		});
 	}

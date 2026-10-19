@@ -176,6 +176,9 @@ public sealed partial class Il2CppIlRecoveryOutputFormat : AsmResolverDllOutputF
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: {IlGenerator.SharedGenericCallsRetargeted} calls were retargeted from a " +
 				"shared generic instantiation onto the one the receiver's own type names.");
+			Logger.Info(LogCategory.Import,
+				$"Il2Cpp method body recovery: {IlGenerator.AllocationsWithoutConstructor} allocations no constructor could be fused " +
+				"with were made without one, as object_new made them, rather than written as null.");
 			LogInlineOperations();
 			Logger.Info(LogCategory.Import,
 				$"Il2Cpp method body recovery: SSA destruction left copies - {Cpp2IL.Core.Analysis.CopyCoalescer.Coalesced} coalesced, " +

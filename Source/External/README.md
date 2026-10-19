@@ -262,6 +262,15 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
 34. **Injected helper types extend `System.Object`** (SandOut) — `IlGenerator.InjectHelpersType` passed no base for
     `Cpp2ILHelpers` and `Il2CppRuntime`. A class with no base is valid only for `System.Object`; a runtime refuses to load
     it, so every recovered body naming one threw `TypeLoadException` when run.
+35. **A recovered body a runtime can execute** (SandOut) — three `IlGenerator` changes, each found by running the
+    DLL export rather than reading it. A call whose target is abstract or declared by an interface is `callvirt`
+    (`IsDispatchOnly`): a `call` there is "Bad IL format" for the whole caller (938 bodies). A comparison of an object
+    reference with an immediate zero loads the zero as `ldnull` (`ReferenceTypeOf`, which asks what the local was
+    declared as in the IL): `ldloc <ref>; ldc.i4 0; ceq` was the commonest unverifiable shape. An allocation no
+    constructor can be fused with is `FormatterServices.GetUninitializedObject(typeof(T))` rather than `null`
+    (`AllocationsWithoutConstructor`, 841 on SandOut), and `InlinedConstructor` pairs a parameter with a field under the
+    `_x` / `m_x` / `mX` conventions (`NamesTheSameMember`) - `GlobalScopeContextInstaller(Transform parentTransform)`
+    storing `_parentTransform` had fallen back to null and the game's bootstrapper threw on its first frame.
 
 ## Updating
 

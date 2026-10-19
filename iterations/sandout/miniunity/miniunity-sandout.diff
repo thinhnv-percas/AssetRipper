@@ -14,6 +14,87 @@ index fccf704..f218af4 100644
                  }
                  else if (IsGit(chosen) || IsLocal(chosen))
                  {
+diff --git a/Engine/Core/Agent/UaTest.cs b/Engine/Core/Agent/UaTest.cs
+index d2fd486..60ba58d 100644
+--- a/Engine/Core/Agent/UaTest.cs
++++ b/Engine/Core/Agent/UaTest.cs
+@@ -107,6 +107,65 @@ namespace MiniUnity.Agent
+ 
+         static void RegisterTestCommands()
+         {
++            Reg("jit.check", "jit.check [--assembly name[,name]] [--max n] [--trace]   JIT-compile every method body of the project's assemblies and plugins; lists the ones the runtime rejects (InvalidProgram, BadImageFormat, TypeLoad…)", a =>
++            {
++                var (m, build, _) = RuntimeHost.CompileAndLoad(a, x => !x.Editor);
++                if (build.Errors > 0) return new JsonObject { ["compiled"] = false, ["errors"] = build.Errors };
++                var only = a.O("assembly")?.Split(',').ToHashSet();
++                int max = a.I("max", 400);
++                var asms = new List<Assembly>();
++                foreach (var dll in m.PluginDlls.Concat(m.ExplicitPlugins.Select(e => e.path)))
++                {
++                    try { asms.Add(Assembly.Load(Path.GetFileNameWithoutExtension(dll))); } catch { }
++                }
++                foreach (var x in build.Order.Where(x => !x.Failed && !x.Editor))
++                {
++                    try { asms.Add(Assembly.Load(x.Name)); } catch { }
++                }
++                var failures = new JsonArray();
++                var byKind = new SortedDictionary<string, int>();
++                var byAssembly = new SortedDictionary<string, int>();
++                int checkedCount = 0, skipped = 0;
++                const BindingFlags all = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
++                foreach (var asm in asms.Distinct())
++                {
++                    var name = asm.GetName().Name;
++                    if (only != null && !only.Contains(name)) continue;
++                    Type[] types;
++                    try { types = asm.GetTypes(); }
++                    catch (ReflectionTypeLoadException e) { types = e.Types.Where(t => t != null).ToArray(); byKind["TypeLoad (assembly)"] = byKind.GetValueOrDefault("TypeLoad (assembly)") + e.LoaderExceptions.Length; }
++                    foreach (var t in types)
++                    {
++                        if (t.ContainsGenericParameters) { skipped++; continue; }
++                        MethodBase[] methods;
++                        try { methods = t.GetMethods(all).Cast<MethodBase>().Concat(t.GetConstructors(all)).ToArray(); }
++                        catch (Exception e) { byKind[e.GetType().Name + " (type)"] = byKind.GetValueOrDefault(e.GetType().Name + " (type)") + 1; continue; }
++                        foreach (var mb in methods)
++                        {
++                            if (mb.IsAbstract || mb.ContainsGenericParameters || mb.GetMethodBody() == null) { skipped++; continue; }
++                            checkedCount++;
++                            if (a.Has("trace")) { Console.Error.WriteLine("[jit] " + name + " " + t.FullName + "::" + mb); Console.Error.Flush(); }
++                            try { System.Runtime.CompilerServices.RuntimeHelpers.PrepareMethod(mb.MethodHandle); }
++                            catch (Exception e)
++                            {
++                                var kind = e.GetType().Name;
++                                byKind[kind] = byKind.GetValueOrDefault(kind) + 1;
++                                byAssembly[name] = byAssembly.GetValueOrDefault(name) + 1;
++                                if (failures.Count < max)
++                                    failures.Add(new JsonObject { ["assembly"] = name, ["type"] = t.FullName, ["method"] = mb.ToString(), ["token"] = mb.MetadataToken.ToString("X8"), ["exception"] = kind, ["message"] = e.Message });
++                            }
++                        }
++                    }
++                }
++                return new JsonObject
++                {
++                    ["checked"] = checkedCount, ["skipped"] = skipped,
++                    ["rejected"] = byKind.Values.Sum(),
++                    ["byKind"] = new JsonObject(byKind.Select(k => KeyValuePair.Create(k.Key, (JsonNode)k.Value))),
++                    ["byAssembly"] = new JsonObject(byAssembly.Select(k => KeyValuePair.Create(k.Key, (JsonNode)k.Value))),
++                    ["failures"] = failures,
++                };
++            });
+             Reg("play", "play <scene.unity> [--frames n | --seconds s] [--fps 60] [--watch Path/Comp.member,…] [--input Space@10,mouse0@5-8,Horizontal=1@20-40] [--max-logs n] [--audio-out mix.wav] [--screenshot out.png[@seconds,…] --size 1080x1920] [--call Path/Comp.Method@seconds,…] [--interactive [--serve port]]   run the scene in MiniUnity's player loop (physics, animation, audio timeline); screenshots render every camera with the software renderer; --interactive keeps the session open for JSON commands on stdin (step / input / hold / mouse / screenshot / watch / state / call / quit, replies on lines starting with \"@mu \") and --serve adds a browser viewer to play it", a =>
+             {
+                 var scene = Ua.Rel(a.P(0, "scene"));
+@@ -179,6 +238,10 @@ namespace MiniUnity.Agent
+                 if (shotFiles.Count > 0) res["screenshots"] = shotFiles;
+                 res["scene"] = scene; res["seconds"] = Math.Round(sw.Elapsed.TotalSeconds, 2);
+                 res["objects"] = Play.SceneObjects().Count();
++                var messages = new JsonObject();
++                foreach (var g in Play.MessageCalls.GroupBy(k => k.Key.assembly).OrderBy(g => g.Key))
++                    messages[g.Key] = new JsonObject(g.OrderBy(k => k.Key.message).Select(k => KeyValuePair.Create(k.Key.message, (JsonNode)k.Value)));
++                res["messages"] = messages;
+                 if (a.O("watch") is string w) res["watch"] = new JsonObject(w.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => new KeyValuePair<string, JsonNode>(s, Watch(s.Trim()))));
+                 if (MiniUnity.Audio.AudioSystem.Log.Count > 0)
+                     res["audio"] = Arr(MiniUnity.Audio.AudioSystem.Log.Take(a.I("max-logs", 60) * 4), e => new JsonObject
 diff --git a/Engine/Core/Assets/AssetLoader.cs b/Engine/Core/Assets/AssetLoader.cs
 index 06384a0..9f35309 100644
 --- a/Engine/Core/Assets/AssetLoader.cs
@@ -40,146 +121,6 @@ index 06384a0..9f35309 100644
              }
              if (Serializer.TypeById.TryGetValue(d.ClassId, out var nt))
              {
-diff --git a/Engine/Core/Assets/ScriptRegistry.cs b/Engine/Core/Assets/ScriptRegistry.cs
-index 762f394..69e9d5b 100644
---- a/Engine/Core/Assets/ScriptRegistry.cs
-+++ b/Engine/Core/Assets/ScriptRegistry.cs
-@@ -44,7 +44,7 @@ namespace MiniUnity
-                 if (!guidToType.TryGetValue(pick.guid, out var have) || (TypeCache.IsProjectType(t) && !TypeCache.IsProjectType(have))) guidToType[pick.guid] = t;
-             }
-         }
--        public static void Reset() { byName = null; guidToType = null; typeToGuid = null; }
-+        public static void Reset() { byName = null; guidToType = null; typeToGuid = null; dllByGuid = null; dllScripts.Clear(); }
- 
-         static readonly Dictionary<string, string> sources = new();
- 
-@@ -91,7 +91,50 @@ namespace MiniUnity
-             [13312] = typeof(UnityEngine.Tilemaps.Tile),
-         };
-         public const string BuiltinScriptGuid = "0000000000000000e000000000000000";
--        public static Type TypeOf(string guid, long fileID) => guid == BuiltinScriptGuid ? (builtinScripts.TryGetValue(fileID, out var bt) ? bt : null) : TypeOf(guid);
-+        public static Type TypeOf(string guid, long fileID) => guid == BuiltinScriptGuid ? (builtinScripts.TryGetValue(fileID, out var bt) ? bt : null)
-+            : TypeOf(guid) ?? DllTypeOf(guid, fileID);
-+
-+        // ------------------------------------------------------------------ scripts inside precompiled assemblies
-+        /// <summary>Plugin DLLs under Assets by the guid of their .dll.meta, and the scripts each declares by file id.</summary>
-+        static Dictionary<string, string> dllByGuid;
-+        static readonly Dictionary<string, Dictionary<long, Type>> dllScripts = new();
-+
-+        /// <summary>A MonoBehaviour or ScriptableObject inside a precompiled assembly: the scene names it by the DLL's guid and
-+        /// <see cref="DllScriptIds.FileIdOf"/> of its namespace and name, never by a .cs.meta.</summary>
-+        public static Type DllTypeOf(string guid, long fileID)
-+        {
-+            if (guid == null) return null;
-+            if (dllByGuid == null)
-+            {
-+                dllByGuid = new();
-+                var assets = Path.Combine(AssetIndex.Root, "Assets");
-+                if (Directory.Exists(assets))
-+                    foreach (var meta in Directory.EnumerateFiles(assets, "*.dll.meta", SearchOption.AllDirectories))
-+                        foreach (var l in File.ReadLines(meta))
-+                            if (l.StartsWith("guid: ")) { dllByGuid[l.Substring(6).Trim()] = meta[..^5]; break; }
-+            }
-+            if (!dllByGuid.TryGetValue(guid, out var dll)) return null;
-+            if (!dllScripts.TryGetValue(guid, out var byId))
-+            {
-+                dllScripts[guid] = byId = new();
-+                System.Reflection.Assembly asm = null;
-+                try { asm = System.Reflection.Assembly.Load(new System.Reflection.AssemblyName(Path.GetFileNameWithoutExtension(dll))); }
-+                catch (Exception e) { Debug.LogWarning($"[MiniUnity] cannot load {Path.GetFileName(dll)}: {e.Message}"); }
-+                if (asm != null)
-+                {
-+                    if (!TypeCache.ProjectAssemblies.Contains(asm)) TypeCache.AddProjectAssembly(asm);
-+                    Type[] types;
-+                    try { types = asm.GetTypes(); } catch (System.Reflection.ReflectionTypeLoadException e) { types = e.Types.Where(t => t != null).ToArray(); }
-+                    foreach (var t in types)
-+                    {
-+                        if (t.IsGenericTypeDefinition || t.IsNested) continue;
-+                        if (!(typeof(MonoBehaviour).IsAssignableFrom(t) || typeof(ScriptableObject).IsAssignableFrom(t))) continue;
-+                        byId[DllScriptIds.FileIdOf(t.Namespace, t.Name)] = t;
-+                    }
-+                }
-+            }
-+            return byId.TryGetValue(fileID, out var found) ? found : null;
-+        }
- 
-         public static YRef ScriptRef(Type t)
-         {
-diff --git a/Engine/Core/Objects/ScreenAndTextMesh.cs b/Engine/Core/Objects/ScreenAndTextMesh.cs
-new file mode 100644
-index 0000000..add6d55
---- /dev/null
-+++ b/Engine/Core/Objects/ScreenAndTextMesh.cs
-@@ -0,0 +1,69 @@
-+// Screen.currentResolution / Resolution, and TextMesh's serialized text: a game's per-frame Update commonly reads the
-+// resolution (to react to a rotated or resized screen) and writes a score into a TextMesh, and a stub throwing there aborts
-+// the whole Update - the player never moves. The resolution is the simulated screen (--size); TextMesh keeps its YAML bag.
-+using System;
-+
-+namespace UnityEngine
-+{
-+    public partial struct RefreshRate
-+    {
-+        public double value => denominator == 0 ? 0 : (double)numerator / denominator;
-+        public bool Equals(RefreshRate other) => (ulong)numerator * other.denominator == (ulong)other.numerator * denominator;
-+        public int CompareTo(RefreshRate other) => value.CompareTo(other.value);
-+        public override string ToString() => value.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
-+    }
-+
-+    public partial struct Resolution
-+    {
-+        int m_Width;
-+        int m_Height;
-+        RefreshRate m_RefreshRate;
-+        public int width { get => m_Width; set => m_Width = value; }
-+        public int height { get => m_Height; set => m_Height = value; }
-+        public RefreshRate refreshRateRatio { get => m_RefreshRate; set => m_RefreshRate = value; }
-+        public int refreshRate
-+        {
-+            get => (int)Math.Round(m_RefreshRate.value);
-+            set => m_RefreshRate = new RefreshRate { numerator = (uint)Math.Max(0, value), denominator = 1 };
-+        }
-+        public override string ToString() => $"{m_Width} x {m_Height} @ {refreshRate}Hz";
-+    }
-+
-+    public sealed partial class Screen
-+    {
-+        public static Resolution currentResolution => new Resolution { width = width, height = height, refreshRate = 60 };
-+        public static Resolution[] resolutions => new[] { currentResolution };
-+    }
-+
-+    public sealed partial class TextMesh
-+    {
-+        public string text { get => NStr("m_Text"); set => NSetS("m_Text", value ?? ""); }
-+        public int fontSize { get => NInt("m_FontSize"); set => NSetI("m_FontSize", value); }
-+        public Color color { get => NColor("m_Color"); set => NSetColor("m_Color", value); }
-+    }
-+}
-+
-+namespace UnityEngine
-+{
-+    // Records which RectTransform properties a layout component drives, for the Editor's Inspector and Undo; a player has no
-+    // Inspector, so in a player every call is a no-op - and uGUI's Selectable/LayoutGroup call Clear in OnEnable.
-+    public partial struct DrivenRectTransformTracker
-+    {
-+        internal static bool CanRecordModifications() => false;
-+        public static void StopRecordingUndo() { }
-+        public static void StartRecordingUndo() { }
-+        public void Add(Object driver, RectTransform rectTransform, DrivenTransformProperties drivenProperties) { }
-+        public void Clear(bool revertValues) { }
-+        public void Clear() { }
-+    }
-+}
-+
-+namespace UnityEngine.Rendering
-+{
-+    public sealed partial class SortingGroup
-+    {
-+        // The id a renderer outside any sorting group reports (20-bit index space, all ones). EventSystem's raycast comparer
-+        // reads it for every pair it sorts, so a stub here turns every pointer event into "Failed to compare two elements".
-+        internal static int invalidSortingGroupID => 0xFFFFF;
-+    }
-+}
 diff --git a/Engine/Core/Assets/DllScriptIds.cs b/Engine/Core/Assets/DllScriptIds.cs
 new file mode 100644
 index 0000000..14d5ba1
@@ -264,3 +205,431 @@ index 0000000..14d5ba1
 +        }
 +    }
 +}
+diff --git a/Engine/Core/Assets/ScriptRegistry.cs b/Engine/Core/Assets/ScriptRegistry.cs
+index 762f394..69e9d5b 100644
+--- a/Engine/Core/Assets/ScriptRegistry.cs
++++ b/Engine/Core/Assets/ScriptRegistry.cs
+@@ -44,7 +44,7 @@ namespace MiniUnity
+                 if (!guidToType.TryGetValue(pick.guid, out var have) || (TypeCache.IsProjectType(t) && !TypeCache.IsProjectType(have))) guidToType[pick.guid] = t;
+             }
+         }
+-        public static void Reset() { byName = null; guidToType = null; typeToGuid = null; }
++        public static void Reset() { byName = null; guidToType = null; typeToGuid = null; dllByGuid = null; dllScripts.Clear(); }
+ 
+         static readonly Dictionary<string, string> sources = new();
+ 
+@@ -91,7 +91,50 @@ namespace MiniUnity
+             [13312] = typeof(UnityEngine.Tilemaps.Tile),
+         };
+         public const string BuiltinScriptGuid = "0000000000000000e000000000000000";
+-        public static Type TypeOf(string guid, long fileID) => guid == BuiltinScriptGuid ? (builtinScripts.TryGetValue(fileID, out var bt) ? bt : null) : TypeOf(guid);
++        public static Type TypeOf(string guid, long fileID) => guid == BuiltinScriptGuid ? (builtinScripts.TryGetValue(fileID, out var bt) ? bt : null)
++            : TypeOf(guid) ?? DllTypeOf(guid, fileID);
++
++        // ------------------------------------------------------------------ scripts inside precompiled assemblies
++        /// <summary>Plugin DLLs under Assets by the guid of their .dll.meta, and the scripts each declares by file id.</summary>
++        static Dictionary<string, string> dllByGuid;
++        static readonly Dictionary<string, Dictionary<long, Type>> dllScripts = new();
++
++        /// <summary>A MonoBehaviour or ScriptableObject inside a precompiled assembly: the scene names it by the DLL's guid and
++        /// <see cref="DllScriptIds.FileIdOf"/> of its namespace and name, never by a .cs.meta.</summary>
++        public static Type DllTypeOf(string guid, long fileID)
++        {
++            if (guid == null) return null;
++            if (dllByGuid == null)
++            {
++                dllByGuid = new();
++                var assets = Path.Combine(AssetIndex.Root, "Assets");
++                if (Directory.Exists(assets))
++                    foreach (var meta in Directory.EnumerateFiles(assets, "*.dll.meta", SearchOption.AllDirectories))
++                        foreach (var l in File.ReadLines(meta))
++                            if (l.StartsWith("guid: ")) { dllByGuid[l.Substring(6).Trim()] = meta[..^5]; break; }
++            }
++            if (!dllByGuid.TryGetValue(guid, out var dll)) return null;
++            if (!dllScripts.TryGetValue(guid, out var byId))
++            {
++                dllScripts[guid] = byId = new();
++                System.Reflection.Assembly asm = null;
++                try { asm = System.Reflection.Assembly.Load(new System.Reflection.AssemblyName(Path.GetFileNameWithoutExtension(dll))); }
++                catch (Exception e) { Debug.LogWarning($"[MiniUnity] cannot load {Path.GetFileName(dll)}: {e.Message}"); }
++                if (asm != null)
++                {
++                    if (!TypeCache.ProjectAssemblies.Contains(asm)) TypeCache.AddProjectAssembly(asm);
++                    Type[] types;
++                    try { types = asm.GetTypes(); } catch (System.Reflection.ReflectionTypeLoadException e) { types = e.Types.Where(t => t != null).ToArray(); }
++                    foreach (var t in types)
++                    {
++                        if (t.IsGenericTypeDefinition || t.IsNested) continue;
++                        if (!(typeof(MonoBehaviour).IsAssignableFrom(t) || typeof(ScriptableObject).IsAssignableFrom(t))) continue;
++                        byId[DllScriptIds.FileIdOf(t.Namespace, t.Name)] = t;
++                    }
++                }
++            }
++            return byId.TryGetValue(fileID, out var found) ? found : null;
++        }
+ 
+         public static YRef ScriptRef(Type t)
+         {
+diff --git a/Engine/Core/Compat/AudioVideoTypes.cs b/Engine/Core/Compat/AudioVideoTypes.cs
+new file mode 100644
+index 0000000..8bb0c73
+--- /dev/null
++++ b/Engine/Core/Compat/AudioVideoTypes.cs
+@@ -0,0 +1,20 @@
++// Types of Unity 6 that MiniUnity had no use for, but that a serialized field can be declared as: without them the
++// field's declaring type does not load, and every field of it reads as missing.
++namespace UnityEngine.Audio
++{
++    /// <summary>Unity 6: the base of AudioClip and of the audio random container; a field of this type holds either.</summary>
++    public abstract class AudioResource : UnityEngine.Object { }
++}
++
++namespace UnityEngine.Video
++{
++    public sealed class VideoClip : UnityEngine.Object
++    {
++        public string originalPath => "";
++        public ulong frameCount => 0;
++        public double frameRate => 0;
++        public double length => 0;
++        public uint width => 0;
++        public uint height => 0;
++    }
++}
+diff --git a/Engine/Core/Compat/JetBrainsAnnotations.cs b/Engine/Core/Compat/JetBrainsAnnotations.cs
+new file mode 100644
+index 0000000..60c22cd
+--- /dev/null
++++ b/Engine/Core/Compat/JetBrainsAnnotations.cs
+@@ -0,0 +1,167 @@
++// Declarations of JetBrains.Annotations as UnityEngine.CoreModule.dll has them (Unity 6000.0); generated for MiniUnity.
++namespace JetBrains.Annotations {
++    [global::System.AttributeUsage((global::System.AttributeTargets)24516)]
++    public sealed class CanBeNullAttribute : global::System.Attribute {
++        public CanBeNullAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)24516)]
++    public sealed class NotNullAttribute : global::System.Attribute {
++        public NotNullAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)6592)]
++    public sealed class ItemNotNullAttribute : global::System.Attribute {
++        public ItemNotNullAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)6592)]
++    public sealed class ItemCanBeNullAttribute : global::System.Attribute {
++        public ItemCanBeNullAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)4320)]
++    public sealed class StringFormatMethodAttribute : global::System.Attribute {
++        public StringFormatMethodAttribute(string a0) { }
++        public string FormatParameterName { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2432, AllowMultiple = true)]
++    public sealed class ValueProviderAttribute : global::System.Attribute {
++        public ValueProviderAttribute(string a0) { }
++        public string Name { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2048)]
++    public sealed class InvokerParameterNameAttribute : global::System.Attribute {
++        public InvokerParameterNameAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64)]
++    public sealed class NotifyPropertyChangedInvocatorAttribute : global::System.Attribute {
++        public NotifyPropertyChangedInvocatorAttribute() { }
++        public NotifyPropertyChangedInvocatorAttribute(string a0) { }
++        public string ParameterName { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64, AllowMultiple = true)]
++    public sealed class ContractAnnotationAttribute : global::System.Attribute {
++        public ContractAnnotationAttribute(string a0) { }
++        public ContractAnnotationAttribute(string a0, bool a1) { }
++        public string Contract { get; private set; }
++        public bool ForceFullStates { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)32767)]
++    public sealed class LocalizationRequiredAttribute : global::System.Attribute {
++        public LocalizationRequiredAttribute() { }
++        public LocalizationRequiredAttribute(bool a0) { }
++        public bool Required { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)1036)]
++    public sealed class CannotApplyEqualityOperatorAttribute : global::System.Attribute {
++        public CannotApplyEqualityOperatorAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)4, AllowMultiple = true)]
++    public sealed class BaseTypeRequiredAttribute : global::System.Attribute {
++        public BaseTypeRequiredAttribute(System.Type a0) { }
++        public System.Type BaseType { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)32767, Inherited = false)]
++    public sealed class UsedImplicitlyAttribute : global::System.Attribute {
++        public UsedImplicitlyAttribute() { }
++        public UsedImplicitlyAttribute(global::JetBrains.Annotations.ImplicitUseKindFlags a0) { }
++        public UsedImplicitlyAttribute(global::JetBrains.Annotations.ImplicitUseTargetFlags a0) { }
++        public UsedImplicitlyAttribute(global::JetBrains.Annotations.ImplicitUseKindFlags a0, global::JetBrains.Annotations.ImplicitUseTargetFlags a1) { }
++        public global::JetBrains.Annotations.ImplicitUseKindFlags UseKindFlags { get; private set; }
++        public global::JetBrains.Annotations.ImplicitUseTargetFlags TargetFlags { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)18436)]
++    public sealed class MeansImplicitUseAttribute : global::System.Attribute {
++        public MeansImplicitUseAttribute() { }
++        public MeansImplicitUseAttribute(global::JetBrains.Annotations.ImplicitUseKindFlags a0) { }
++        public MeansImplicitUseAttribute(global::JetBrains.Annotations.ImplicitUseTargetFlags a0) { }
++        public MeansImplicitUseAttribute(global::JetBrains.Annotations.ImplicitUseKindFlags a0, global::JetBrains.Annotations.ImplicitUseTargetFlags a1) { }
++        public global::JetBrains.Annotations.ImplicitUseKindFlags UseKindFlags { get; private set; }
++        public global::JetBrains.Annotations.ImplicitUseTargetFlags TargetFlags { get; private set; }
++    }
++    [global::System.Flags]
++    public enum ImplicitUseKindFlags { Default = 7, Access = 1, Assign = 2, InstantiatedWithFixedConstructorSignature = 4, InstantiatedNoFixedConstructorSignature = 8 }
++    [global::System.Flags]
++    public enum ImplicitUseTargetFlags { Default = 1, Itself = 1, Members = 2, WithMembers = 3 }
++    [global::System.AttributeUsage((global::System.AttributeTargets)32767, Inherited = false)]
++    public sealed class PublicAPIAttribute : global::System.Attribute {
++        public PublicAPIAttribute() { }
++        public PublicAPIAttribute(string a0) { }
++        public string Comment { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2048)]
++    public sealed class InstantHandleAttribute : global::System.Attribute {
++        public InstantHandleAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64)]
++    public sealed class PureAttribute : global::System.Attribute {
++        public PureAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64)]
++    public sealed class MustUseReturnValueAttribute : global::System.Attribute {
++        public MustUseReturnValueAttribute() { }
++        public MustUseReturnValueAttribute(string a0) { }
++        public string Justification { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2156)]
++    public sealed class MustDisposeResourceAttribute : global::System.Attribute {
++        public MustDisposeResourceAttribute() { }
++        public MustDisposeResourceAttribute(bool a0) { }
++        public bool Value { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)19916)]
++    public sealed class ProvidesContextAttribute : global::System.Attribute {
++        public ProvidesContextAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2048)]
++    public sealed class PathReferenceAttribute : global::System.Attribute {
++        public PathReferenceAttribute() { }
++        public PathReferenceAttribute(string a0) { }
++        public string BasePath { get; private set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64)]
++    public sealed class SourceTemplateAttribute : global::System.Attribute {
++        public SourceTemplateAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2112, AllowMultiple = true)]
++    public sealed class MacroAttribute : global::System.Attribute {
++        public MacroAttribute() { }
++        public string Expression { get; set; }
++        public int Editable { get; set; }
++        public string Target { get; set; }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)224)]
++    public sealed class CollectionAccessAttribute : global::System.Attribute {
++        public CollectionAccessAttribute(global::JetBrains.Annotations.CollectionAccessType a0) { }
++        public global::JetBrains.Annotations.CollectionAccessType CollectionAccessType { get; private set; }
++    }
++    [global::System.Flags]
++    public enum CollectionAccessType { None = 0, Read = 1, ModifyExistingContent = 2, UpdatedContent = 6 }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64)]
++    public sealed class AssertionMethodAttribute : global::System.Attribute {
++        public AssertionMethodAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2048)]
++    public sealed class AssertionConditionAttribute : global::System.Attribute {
++        public AssertionConditionAttribute(global::JetBrains.Annotations.AssertionConditionType a0) { }
++        public global::JetBrains.Annotations.AssertionConditionType ConditionType { get; private set; }
++    }
++    public enum AssertionConditionType { IS_TRUE = 0, IS_FALSE = 1, IS_NULL = 2, IS_NOT_NULL = 3 }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64)]
++    public sealed class TerminatesProgramAttribute : global::System.Attribute {
++        public TerminatesProgramAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)64)]
++    public sealed class LinqTunnelAttribute : global::System.Attribute {
++        public LinqTunnelAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2048)]
++    public sealed class NoEnumerationAttribute : global::System.Attribute {
++        public NoEnumerationAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)2048)]
++    public sealed class RegexPatternAttribute : global::System.Attribute {
++        public RegexPatternAttribute() { }
++    }
++    [global::System.AttributeUsage((global::System.AttributeTargets)1052)]
++    public sealed class NoReorderAttribute : global::System.Attribute {
++        public NoReorderAttribute() { }
++    }
++}
+diff --git a/Engine/Core/Objects/PlayMode.cs b/Engine/Core/Objects/PlayMode.cs
+index 4e8a574..7b10e6d 100644
+--- a/Engine/Core/Objects/PlayMode.cs
++++ b/Engine/Core/Objects/PlayMode.cs
+@@ -52,7 +52,7 @@ namespace MiniUnity
+         {
+             IsPlaying = false; Time = UnscaledTime = FixedTime = 0; Frame = 0; TimeScale = 1;
+             ResetRender();
+-            Input.Clear(); routines.Clear(); byHandle.Clear(); invokes.Clear(); started.Clear(); Log.Clear(); Exceptions.Clear(); pendingDestroy.Clear();
++            Input.Clear(); routines.Clear(); byHandle.Clear(); invokes.Clear(); started.Clear(); Log.Clear(); Exceptions.Clear(); pendingDestroy.Clear(); MessageCalls.Clear();
+             Physics3D.PhysicsWorld.Reset();
+             Box2D.Physics2DWorld.Reset();
+             Anim.AnimationSystem.Reset();
+@@ -96,6 +96,8 @@ namespace MiniUnity
+         {
+             var m = Method(mb.GetType(), name);
+             if (m == null) return null;
++            var key = (mb.GetType().Assembly.GetName().Name, name);
++            MessageCalls[key] = MessageCalls.GetValueOrDefault(key) + 1;
+             try
+             {
+                 var r = m.Invoke(mb, null);
+@@ -107,6 +109,10 @@ namespace MiniUnity
+             return null;
+         }
+ 
++        /// <summary>How many times each message was delivered, by the assembly of the receiving behaviour: what says a scene's own
++        /// scripts ran at all, which a run with no exceptions does not.</summary>
++        public static readonly Dictionary<(string assembly, string message), int> MessageCalls = new();
++
+         public static void Report(Exception e, string where)
+         {
+             Exceptions.Add((e, where));
+diff --git a/Engine/Core/Objects/ScreenAndTextMesh.cs b/Engine/Core/Objects/ScreenAndTextMesh.cs
+new file mode 100644
+index 0000000..add6d55
+--- /dev/null
++++ b/Engine/Core/Objects/ScreenAndTextMesh.cs
+@@ -0,0 +1,69 @@
++// Screen.currentResolution / Resolution, and TextMesh's serialized text: a game's per-frame Update commonly reads the
++// resolution (to react to a rotated or resized screen) and writes a score into a TextMesh, and a stub throwing there aborts
++// the whole Update - the player never moves. The resolution is the simulated screen (--size); TextMesh keeps its YAML bag.
++using System;
++
++namespace UnityEngine
++{
++    public partial struct RefreshRate
++    {
++        public double value => denominator == 0 ? 0 : (double)numerator / denominator;
++        public bool Equals(RefreshRate other) => (ulong)numerator * other.denominator == (ulong)other.numerator * denominator;
++        public int CompareTo(RefreshRate other) => value.CompareTo(other.value);
++        public override string ToString() => value.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
++    }
++
++    public partial struct Resolution
++    {
++        int m_Width;
++        int m_Height;
++        RefreshRate m_RefreshRate;
++        public int width { get => m_Width; set => m_Width = value; }
++        public int height { get => m_Height; set => m_Height = value; }
++        public RefreshRate refreshRateRatio { get => m_RefreshRate; set => m_RefreshRate = value; }
++        public int refreshRate
++        {
++            get => (int)Math.Round(m_RefreshRate.value);
++            set => m_RefreshRate = new RefreshRate { numerator = (uint)Math.Max(0, value), denominator = 1 };
++        }
++        public override string ToString() => $"{m_Width} x {m_Height} @ {refreshRate}Hz";
++    }
++
++    public sealed partial class Screen
++    {
++        public static Resolution currentResolution => new Resolution { width = width, height = height, refreshRate = 60 };
++        public static Resolution[] resolutions => new[] { currentResolution };
++    }
++
++    public sealed partial class TextMesh
++    {
++        public string text { get => NStr("m_Text"); set => NSetS("m_Text", value ?? ""); }
++        public int fontSize { get => NInt("m_FontSize"); set => NSetI("m_FontSize", value); }
++        public Color color { get => NColor("m_Color"); set => NSetColor("m_Color", value); }
++    }
++}
++
++namespace UnityEngine
++{
++    // Records which RectTransform properties a layout component drives, for the Editor's Inspector and Undo; a player has no
++    // Inspector, so in a player every call is a no-op - and uGUI's Selectable/LayoutGroup call Clear in OnEnable.
++    public partial struct DrivenRectTransformTracker
++    {
++        internal static bool CanRecordModifications() => false;
++        public static void StopRecordingUndo() { }
++        public static void StartRecordingUndo() { }
++        public void Add(Object driver, RectTransform rectTransform, DrivenTransformProperties drivenProperties) { }
++        public void Clear(bool revertValues) { }
++        public void Clear() { }
++    }
++}
++
++namespace UnityEngine.Rendering
++{
++    public sealed partial class SortingGroup
++    {
++        // The id a renderer outside any sorting group reports (20-bit index space, all ones). EventSystem's raycast comparer
++        // reads it for every pair it sorts, so a stub here turns every pointer event into "Failed to compare two elements".
++        internal static int invalidSortingGroupID => 0xFFFFF;
++    }
++}
+diff --git a/Engine/MiniUnity.csproj b/Engine/MiniUnity.csproj
+index dd13746..ee9f600 100644
+--- a/Engine/MiniUnity.csproj
++++ b/Engine/MiniUnity.csproj
+@@ -22,6 +22,51 @@
+   <ItemGroup>
+     <!-- hosts reach the engine internals they drive (main thread, asset index, renderer statistics…) -->
+     <InternalsVisibleTo Include="MiniUnity.Video" />
++    <!-- precompiled package assemblies reach engine internals the way UnityEngine.*Module grants them ([InternalsVisibleTo]) -->
++    <InternalsVisibleTo Include="Unity.InputSystem" />
++    <InternalsVisibleTo Include="Unity.InputSystem.ForUI" />
++    <InternalsVisibleTo Include="Unity.Entities" />
++    <InternalsVisibleTo Include="Unity.Collections" />
++    <InternalsVisibleTo Include="Unity.Burst" />
++    <InternalsVisibleTo Include="Unity.TextMeshPro" />
++    <InternalsVisibleTo Include="Unity.Timeline" />
++    <InternalsVisibleTo Include="UnityEngine.UI" />
++    <InternalsVisibleTo Include="Unity.Logging" />
++    <InternalsVisibleTo Include="Unity.2D.Entities.Hybrid" />
++    <InternalsVisibleTo Include="Unity.Motion.Hybrid" />
++    <InternalsVisibleTo Include="Unity.Networking.Transport" />
++    <InternalsVisibleTo Include="Unity.PathTracing.Runtime" />
++    <InternalsVisibleTo Include="Unity.VisualEffectGraph.Runtime" />
++    <InternalsVisibleTo Include="Unity.RenderPipelines.GPUDriven.Runtime" />
++    <InternalsVisibleTo Include="Unity.RenderPipelines.Universal.2D.Runtime" />
++    <InternalsVisibleTo Include="Unity.Services.QoS" />
++    <InternalsVisibleTo Include="Unity.Services.CloudDiagnostics" />
++    <InternalsVisibleTo Include="Unity.Analytics" />
++    <InternalsVisibleTo Include="Unity.Audio.DSPGraph" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.001" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.002" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.003" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.004" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.005" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.006" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.007" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.008" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.009" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.010" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.011" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.012" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.013" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.014" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.015" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.016" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.017" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.018" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.019" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.020" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.021" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.022" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.023" />
++    <InternalsVisibleTo Include="Unity.InternalAPIEngineBridge.024" />
+   </ItemGroup>
+   <ItemGroup>
+     <!-- Roslyn for `ua compile` (C# 9 like Unity 2022.3), Mono.Cecil to patch the portable NUnit to Unity's ABI (Agent/NUnitAbi.cs) -->

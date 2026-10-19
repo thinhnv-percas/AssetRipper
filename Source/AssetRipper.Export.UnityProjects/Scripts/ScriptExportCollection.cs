@@ -60,6 +60,7 @@ public sealed class ScriptExportCollection : ScriptExportCollectionBase
 
 		string pluginsFolder = fileSystem.Path.Join(assetsDirectoryPath, "Plugins");
 		HashSet<string> compiledAgainst = PluginsTheSourceCompilesAgainst();
+		RuntimeSafeBodies? runtimeSafety = null;
 
 		foreach (AssemblyDefinition assembly in AssetExporter.AssemblyManager.GetAssemblies())
 		{
@@ -80,9 +81,26 @@ public sealed class ScriptExportCollection : ScriptExportCollectionBase
 				Logger.Info(LogCategory.Export, $"Saving {assemblyName}");
 				fileSystem.Directory.Create(pluginsFolder);
 				string outputPath = fileSystem.Path.Join(pluginsFolder, SpecialFileNames.AddAssemblyFileExtension(assemblyName));
-				AssetExporter.AssemblyManager.SaveAssembly(assembly, outputPath, fileSystem);
+				if (AssetExporter.RuntimeSafeBodies)
+				{
+					runtimeSafety ??= new RuntimeSafeBodies(AssetExporter.AssemblyManager);
+					fileSystem.File.WriteAllBytes(outputPath, runtimeSafety.Neutralise(assembly));
+				}
+				else
+				{
+					AssetExporter.AssemblyManager.SaveAssembly(assembly, outputPath, fileSystem);
+				}
 				OnAssemblyExported(container, outputPath, fileSystem, explicitlyReferenced: !compiledAgainst.Contains(assemblyName));
 			}
+		}
+
+		if (runtimeSafety is not null)
+		{
+			fileSystem.Directory.Create(AssetExporter.AuxiliaryFilesPath);
+			runtimeSafety.WriteReport(fileSystem.Path.Join(AssetExporter.AuxiliaryFilesPath, RuntimeSafeBodies.ReportFileName), fileSystem);
+			Logger.Info(LogCategory.Export, $"Runtime-safe bodies: {runtimeSafety.Reports.Sum(static r => r.Replaced.Count)} of "
+				+ $"{runtimeSafety.Reports.Sum(static r => r.Methods)} bodies replaced across {runtimeSafety.Reports.Count} saved assemblies; "
+				+ $"see AuxiliaryFiles/{RuntimeSafeBodies.ReportFileName}");
 		}
 
 		foreach (IMonoScript asset in m_export)

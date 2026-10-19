@@ -86,7 +86,7 @@ Cả 83 vẫn là **lỗi khai báo**, nên thân hàm vẫn chưa được bind
 - Shader: 2794 sub-program trên 135 shader — 1950 MSL source, 844 Metal library; export ghi 0 program vào pass
   (`shader_programs_recovered 0 of 86`).
 - Stage C: 8 reference không resolve (0,9998).
-- MiniUnity chưa chạy (không có scenario và không có source).
+- MiniUnity: §6–7. Không có source nên không có so sánh giá trị (I2).
 
 ## 6. MiniUnity: compile như Unity và chạy
 
@@ -120,11 +120,63 @@ MiniUnity (bản vá cục bộ, `iterations/sandout/miniunity/miniunity-sandout
 MD4("s\0\0\0" + namespace + name) (đã kiểm với `fileID` thật trong scene); constructor ném thì log và load như
 missing script thay vì bỏ cả scene.
 
-**Chưa chơi được không lỗi.** Phần còn lại là lỗi phục hồi thật: stand-in sai kiểu (một số nguyên — địa chỉ của chuỗi
-chưa giải — truyền vào tham số `string`) và ghi qua địa chỉ native chưa giải (`Unsafe.AsPointer(ref this) + 376`), thứ
-làm hỏng bộ nhớ khi code thật sự chạy. Với 10268 method PARTIAL đó không phải việc của một phiên.
+Tới đây vẫn chưa chạy được không lỗi; phần còn lại là §7.
 
-## 7. Tái lập
+## 7. Chạy không lỗi: thân an toàn khi chạy (`--runtime-safe-bodies`)
+
+Ép JIT mọi method (lệnh `jit.check` thêm vào MiniUnity) cho thấy hai segfault không phải ghi qua địa chỉ native như đoán ở
+trên mà là **JIT crash trên IL sai kiểu**: `ldarg <struct Optional<float>>; ldc.i4 1; and`. ILSpy đọc IL như vậy thành
+một cast và đi tiếp; runtime thì từ chối (`InvalidProgramException`, "Bad IL format") hoặc — JIT release bỏ phần lớn
+assert kiểu — chấp nhận rồi sinh mã coi số nguyên là tham chiếu. Không phép đo tĩnh nào thấy chuyện này.
+
+**Công cụ.** `ExportSettings.RuntimeSafeBodies` (SystemTester `--runtime-safe-bodies`), `Scripts/RuntimeSafeBodies.cs`:
+mỗi assembly xuất dạng DLL được ILVerify (verifier chuẩn của .NET, gói `Microsoft.ILVerification`) kiểm *từng method*
+với chính các assembly đã dùng để phục hồi (mscorlib đã strip của game). Method lỗi — trừ bảy luật chỉ thuộc tập con
+verifiable mà runtime không áp (`InitLocals`, `ThisMismatch`, `ThisUninitReturn`, `ThisUninitStore`, `InitOnly`,
+`CallCtor`, `LdftnNonFinalVirtual`) — được thay bằng thân tối thiểu (không hiệu ứng, trả default; getter/setter
+auto-property vẫn đọc/ghi field). Danh sách đầy đủ kèm lý do: `AuxiliaryFiles/RuntimeSafeBodies.json`. Script decompile
+không bị ảnh hưởng. Test: `RuntimeSafeBodiesTests`.
+
+**Ba lỗi generator sửa trên đường đi** (`Source/External/README.md` mục 35), mỗi cái giảm số thân bị thay:
+
+| | thân bị thay | ghi chú |
+|---|---:|---|
+| prototype ngoài repo | 17059 / 50946 | |
+| `call` tới method abstract/interface → `callvirt` | 16696 / 65104 | `CallAbstract` 938 → 0 ("Bad IL format") |
+| so tham chiếu với hằng 0 → `ldnull`; cấp phát không ghép được ctor → object chưa khởi tạo | **14841 / 65104** | 841 phép cấp phát trước đây là `null` |
+
+Lỗi còn lại theo mã: `StackUnexpected` 12312, `ExpectedNumericType` 1413, `FieldAccess` 510, `ExpectedIntegerType` 310.
+Assembly-CSharp 3290/9958 thân bị thay, Elephant 332/1154, Newtonsoft.Json 989/2323, Unity.Entities 65/3002.
+
+Phép cấp phát: `GameBootstrapper.Initialize` (nguồn: `new GlobalScopeContextInstaller(parent)`) ra
+`GlobalScopeContextInstaller x = null; x._parentTransform = ...` — constructor `(Transform parentTransform)` gán
+`_parentTransform`, `InlinedConstructor` so tên chính xác nên trượt, và fallback là `ldnull`. Giờ tên khớp theo quy ước
+`_x`/`m_x`/`mX`, và khi không constructor nào khớp thì là `FormatterServices.GetUninitializedObject(typeof(T))` — đúng
+thứ `object_new` làm, các store theo sau vẫn ở trong thân.
+
+**MiniUnity** (vá cục bộ, `iterations/sandout/miniunity/`): `JetBrains.Annotations` (sinh từ CoreModule của Editor),
+`AudioResource` làm base của `AudioClip`, `VideoClip`, `Screen.sleepTimeout`, `InternalsVisibleTo` cho assembly package
+mà engine Unity cấp (Input System đọc `NativeInputEvent`), lệnh `jit.check`, và đếm message (`Awake`/`Update`…) theo
+assembly trong output `play` — thứ chứng minh script game thực sự chạy.
+
+**Kết quả** (`iterations/sandout/miniunity/gate-runtime-safe-30s.json`, 30 giây = 1800 frame mỗi scene):
+
+| scene | lỗi / warning / exception | script chạy |
+|---|---|---|
+| `Assets/Elephant/elephant_scene.unity` | 0 / 0 / 0 | Elephant: Awake 2, Start 2, Update 1800, LateUpdate 1800; Adjust, Usercentrics: Awake |
+| `Assets/Scenes/IntroScene.unity` | 0 / 0 / 0 | Assembly-CSharp `GameBootstrapper.Awake` chạy hết; UGUI 6 component |
+| `Assets/Scenes/Main.unity` | 0 / 0 / 0 | chỉ URP và Splines — không MonoBehaviour nào của game trong scene |
+
+D2 compile như Unity: 0 lỗi, 36/36 assembly.
+
+**Những gì kết quả này không nói.** Không có lỗi không có nghĩa là game chạy đúng: 14841 thân (23%) đã bị thay bằng thân
+không làm gì. Gameplay của SandOut nằm trong hệ ECS của Unity.Entities, mà MiniUnity không chạy; MiniUnity cũng không
+chuyển scene, nên luồng `IntroScene → Main` của bootstrapper không được thử. Ảnh chụp giây 29 là nền đen (Intro) và nền
+màu (Main). Chưa có Unity Editor thật để mở project. Hồi quy trên fixture khác: Impostor (decompile) EXACT 4437 → 4461,
+Roslyn 156 = 156, golden corpus và shape check như baseline (DECOMP-0014 nay chấp nhận cả `is RotateTimeline`, vì phép
+so null đúng kiểu làm ILSpy viết `x as T == null` thành `!(x is T)`).
+
+## 8. Tái lập
 
 ```
 curl -sSL -o Test/Download/sandout/sandout.ipa \
@@ -133,4 +185,10 @@ curl -sSL -o Test/Download/sandout/sandout.ipa \
 dotnet Source/0Bins/AssetRipper.Tools.SystemTester/Release/AssetRipper.Tools.SystemTester.dll \
   --script-level 3 --reconstruct-bodies --struct-db StructDb --output Test/OutSO --log Test/ARSO.log Test/Input/SandOut
 UNITY_EDITOR_DATA=<Unity-6000.0.72f1>/Editor/Data bash Test/Scripts/compile_recovered_scripts.sh Test/OutSO Assembly-CSharp
+# bản chạy được (DLL, thân an toàn khi chạy) và cổng MiniUnity
+dotnet Source/0Bins/AssetRipper.Tools.SystemTester/Release/AssetRipper.Tools.SystemTester.dll \
+  --script-level 3 --reconstruct-bodies --struct-db StructDb --script-mode DllExportWithRenaming --runtime-safe-bodies \
+  --unity-editor <Unity-6000.0.72f1>/Editor --output Test/OutSOR3 --log Test/ARSOR3.log Test/Input/SandOut
+MINIUNITY_HOME=<MiniUnity đã vá> python3 Test/Scripts/miniunity_gate.py Test/OutSOR3/SandOut \
+  --unity-editor <Unity-6000.0.72f1>/Editor --seconds 30 --size 1170x2532
 ```

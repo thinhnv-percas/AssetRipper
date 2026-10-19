@@ -43,6 +43,10 @@ SandOut (ĐÃ THỬ, nhánh claude/sandout-ipa-decompile): reports/SANDOUT_IPA.m
   chained fixups. Hai lỗi sửa: export ở LC_DYLD_EXPORTS_TRIE (helper 4 → 30/35, EXACT 18097 → 22632) và lỗi ILSpy dạng
   method-level không được skip (220 file Assembly-CSharp mất). Compile harness có parse pass. Lỗi thân của game này chưa
   đo được: còn 83 lỗi khai báo với Editor thật, phần lớn từ codegen của Unity.Entities.
+  Bản chạy được: DLL + `--runtime-safe-bodies` (ILVerify từng method, 14841/65104 thân bị thay), 3 scene × 30 s trong
+  MiniUnity 0 lỗi / 0 exception, compile như Unity 0 lỗi. Không có nghĩa là gameplay đúng: ECS không được MiniUnity chạy.
+  Project đã đẩy lên nhánh orphan `project/sandout`. Ba sửa generator (callvirt, so null bằng ldnull, cấp phát không
+  ctor) đo trên Impostor: EXACT +24, Roslyn bằng baseline. Các fixture khác (Pinata, Merge-Room, JBV2, RFZ) chưa đo lại.
 
 Cảnh báo cho phiên sau:
   - 068: một đối số thô của call không giải quyết được mà không tới được call (đã băng qua call khác) là

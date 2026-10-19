@@ -42,6 +42,14 @@ public sealed record class ExportSettings
 	public bool SimplifyGlobalQualification { get; set; } = true;
 
 	/// <summary>
+	/// If true, every method body of an assembly the export saves as a DLL is verified, and one the runtime cannot be
+	/// trusted to execute is replaced with a minimal body that does nothing. The project then runs; it does not do what
+	/// the replaced bodies did, and AuxiliaryFiles/RuntimeSafeBodies.json lists each of them. Decompiled scripts are
+	/// not affected.
+	/// </summary>
+	public bool RuntimeSafeBodies { get; set; } = false;
+
+	/// <summary>
 	/// How to export shaders?
 	/// </summary>
 	public ShaderExportMode ShaderExportMode { get; set; } = ShaderExportMode.Dummy;
@@ -113,6 +121,7 @@ public sealed record class ExportSettings
 		Logger.Info(LogCategory.General, $"{nameof(ScriptLanguageVersion)}: {ScriptLanguageVersion}");
 		Logger.Info(LogCategory.General, $"{nameof(ScriptTypesFullyQualified)}: {ScriptTypesFullyQualified}");
 		Logger.Info(LogCategory.General, $"{nameof(SimplifyGlobalQualification)}: {SimplifyGlobalQualification}");
+		Logger.Info(LogCategory.General, $"{nameof(RuntimeSafeBodies)}: {RuntimeSafeBodies}");
 		Logger.Info(LogCategory.General, $"{nameof(ShaderExportMode)}: {ShaderExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(SpriteExportMode)}: {SpriteExportMode}");
 		Logger.Info(LogCategory.General, $"{nameof(TextExportMode)}: {TextExportMode}");

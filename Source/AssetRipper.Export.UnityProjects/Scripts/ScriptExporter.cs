@@ -20,11 +20,16 @@ public class ScriptExporter : IAssetExporter
 			SimplifyGlobalQualification = configuration.RecoveredCodeOutput.SimplifyGlobalQualification,
 		};
 		ExportMode = configuration.ExportSettings.ScriptExportMode;
+		RuntimeSafeBodies = configuration.ExportSettings.RuntimeSafeBodies;
+		AuxiliaryFilesPath = configuration.AuxiliaryFilesPath;
 		ReferenceAssemblyDictionary = ReferenceAssemblies.GetReferenceAssemblies(AssemblyManager, configuration.Version);
 	}
 
 	public IAssemblyManager AssemblyManager { get; }
 	public ScriptExportMode ExportMode { get; }
+	/// <summary>Whether saved assemblies have their unsafe bodies replaced; see <see cref="Scripts.RuntimeSafeBodies"/>.</summary>
+	public bool RuntimeSafeBodies { get; }
+	public string AuxiliaryFilesPath { get; }
 	internal ScriptDecompiler Decompiler { get; }
 	internal Dictionary<string, UnityGuid> ReferenceAssemblyDictionary { get; }
 	private bool HasDecompiled { get; set; } = false;

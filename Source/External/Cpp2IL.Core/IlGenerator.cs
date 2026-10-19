@@ -1718,6 +1718,40 @@ public static class IlGenerator
                     instructions.Add(CilOpCodes.Newobj, parameterlessCtor.ToMethodDescriptor());
                     StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
                 }
+                // AssetRipper: no constructor fits, but the allocation is still an allocation. il2cpp's
+                // object_new hands back a zeroed object and the inlined constructor's stores follow it
+                // as ordinary field writes, which stay in the body - so an object made without running a
+                // constructor is exactly what the machine had. The fallback used to be null: SandOut's
+                // GameBootstrapper.Initialize then wrote a field of nothing and threw on the first frame.
+                else if (instruction.Operands is [_, TypeAnalysisContext { IsValueType: false, IsAbstract: false } uninitialisedType])
+                {
+                    var corLibScope = method.DeclaringModule!.CorLibTypeFactory.CorLibScope;
+                    var typeSignature = corLibScope.CreateTypeReference("System", "Type").ToTypeSignature(false);
+                    var typeFromHandle = corLibScope.CreateTypeReference("System", "Type")
+                        .CreateMemberReference("GetTypeFromHandle", MethodSignature.CreateStatic(typeSignature,
+                            [corLibScope.CreateTypeReference("System", "RuntimeTypeHandle").ToTypeSignature(true)]));
+                    var getUninitializedObject = corLibScope.CreateTypeReference("System.Runtime.Serialization", "FormatterServices")
+                        .CreateMemberReference("GetUninitializedObject", MethodSignature.CreateStatic(
+                            method.DeclaringModule!.CorLibTypeFactory.Object, [typeSignature]));
+                    var allocatedSignature = uninitialisedType.ToTypeSignature().ToTypeDefOrRef();
+
+                    RecoveredSemanticIr.Record(SemanticOperation.NewObject, uninitialisedType.FullName);
+                    instructions.Add(CilOpCodes.Ldtoken, allocatedSignature);
+                    instructions.Add(CilOpCodes.Call, typeFromHandle);
+                    instructions.Add(CilOpCodes.Call, getUninitializedObject);
+                    instructions.Add(CilOpCodes.Castclass, allocatedSignature);
+                    StoreToOperand(instruction.Operands[0], context, method, locals, writeLine);
+                    System.Threading.Interlocked.Increment(ref AllocationsWithoutConstructor);
+
+                    // The base constructor call il2cpp kept is a call on an object that already exists,
+                    // which C# cannot write; System.Object's does nothing, and anything else is left for
+                    // the call case to report.
+                    if (FindConstructorCall(context, instruction) is { Operands: [MethodAnalysisContext { DeclaringType.FullName: "System.Object" }, ..] } objectConstructor)
+                    {
+                        objectConstructor.OpCode = OpCode.Nop;
+                        objectConstructor.SetOperands();
+                    }
+                }
                 else
                 {
                     instructions.Add(CilOpCodes.Ldnull);
@@ -1963,7 +1997,11 @@ public static class IlGenerator
                 }
 
                 RecordCall(targetMethod);
-                instructions.Add(CilOpCodes.Call, importedMethod);
+                // AssetRipper: an abstract or interface method has no body to call directly, so a `call`
+                // to one is not a program - the runtime rejects the whole caller with "Bad IL format" the
+                // first time it runs it. Such a target only ever comes from a resolved virtual dispatch,
+                // which is a callvirt. 938 bodies on SandOut.
+                instructions.Add(IsDispatchOnly(targetMethod) ? CilOpCodes.Callvirt : CilOpCodes.Call, importedMethod);
 
                 // the lifter's guess at whether the callee returns anything can disagree with the
                 // signature we later resolved, so go by the signature and balance the stack
@@ -2079,12 +2117,19 @@ public static class IlGenerator
                 // which is not C#. A comparison is left alone: `ceq` on two references is legitimate.
                 var toNativeInt = floatOperandType == null && instruction.OpCode is not (>= OpCode.CheckEqual and <= OpCode.CheckLessOrEqual);
 
-                LoadOperand(instruction.Operands[1], context, method, locals, writeLine, floatOperandType);
+                // AssetRipper: a reference compared with zero is compared with null. The zero arrives as an
+                // integer immediate, and `ldloc <ref>; ldc.i4 0; ceq` is not a program: a runtime may reject
+                // it or, worse, accept it. It was the commonest unverifiable shape in SandOut's export -
+                // every `if (x == null)` of a body that was otherwise fine.
+                var zeroAs1 = floatOperandType == null && IsZeroConstant(instruction.Operands[1]) ? ReferenceTypeOf(instruction.Operands[2], method, locals) : null;
+                var zeroAs2 = floatOperandType == null && IsZeroConstant(instruction.Operands[2]) ? ReferenceTypeOf(instruction.Operands[1], method, locals) : null;
+
+                LoadOperand(instruction.Operands[1], context, method, locals, writeLine, floatOperandType ?? zeroAs1);
                 if (floatConversion is { } conv1)
                     instructions.Add(conv1);
                 else if (toNativeInt && NeedsNativeIntForArithmetic(instruction.Operands[1]))
                     instructions.Add(CilOpCodes.Conv_I);
-                LoadOperand(instruction.Operands[2], context, method, locals, writeLine, floatOperandType);
+                LoadOperand(instruction.Operands[2], context, method, locals, writeLine, floatOperandType ?? zeroAs2);
                 if (floatConversion is { } conv2)
                     instructions.Add(conv2);
                 else if (toNativeInt && NeedsNativeIntForArithmetic(instruction.Operands[2]))
@@ -2291,6 +2336,11 @@ public static class IlGenerator
         }
     }
 
+    // AssetRipper: a method that can only be reached through dispatch - abstract, or declared by an
+    // interface. See the call case in GenerateInstructions.
+    private static bool IsDispatchOnly(MethodAnalysisContext method)
+        => !method.IsStatic && (method.IsAbstract || method.DeclaringType is { IsInterface: true });
+
     private static int ConstructorReceiverIndex(Instruction constructorCall) => constructorCall.OpCode == OpCode.CallVoid ? 1 : 2;
 
     /// <summary>AssetRipper: struct arguments passed by reference to a copy (AAPCS64 B.4) written as the value (iteration 065).</summary>
@@ -2298,6 +2348,10 @@ public static class IlGenerator
 
     /// <summary>AssetRipper: how many delegate constructions were emitted rather than reported as lost.</summary>
     public static int DelegateConstructionsRecovered;
+
+    // AssetRipper: allocations no constructor could be fused with, emitted as an object made without
+    // one rather than as null; see the Newobj case.
+    public static int AllocationsWithoutConstructor;
 
     /// <summary>
     /// AssetRipper: the method a delegate construction points at, when an operand names one.
@@ -2463,7 +2517,11 @@ public static class IlGenerator
             for (var i = 0; i < candidate.Parameters.Count && everyParameterNamesAField; i++)
             {
                 var name = candidate.Parameters[i].ParameterName;
+                // AssetRipper: `_parentTransform = parentTransform` is as much the convention as
+                // `this.x = x`; see NamesTheSameMember.
                 var stored = fields.FindIndex(f => f.Name == name);
+                if (stored < 0)
+                    stored = fields.FindIndex(f => NamesTheSameMember(f.Name, name));
 
                 if (stored >= 0)
                 {
@@ -2475,7 +2533,7 @@ public static class IlGenerator
                 // A parameter with no store is one the call passed a zero for: the object is freshly
                 // allocated and therefore already zeroed, so the compiler is free to drop the store.
                 // It still has to name a field, or this is not the constructor that was inlined.
-                everyParameterNamesAField = allocatedType.Fields.Any(f => !f.IsStatic && f.Name == name);
+                everyParameterNamesAField = allocatedType.Fields.Any(f => !f.IsStatic && NamesTheSameMember(f.Name, name));
             }
 
             // Every store has to be accounted for, since they are all about to be removed.
@@ -2487,6 +2545,29 @@ public static class IlGenerator
         }
 
         return null;
+    }
+
+    // AssetRipper: whether a field and a constructor parameter are named for the same member under the
+    // usual C# conventions - identical, or the field carrying a `_`, `m_` or `m` prefix the parameter
+    // does not (`_parentTransform` / `parentTransform`, `m_Value` / `value`). Case of the first letter
+    // is ignored after the prefix, since that is what the prefix changes. The caller tries an exact
+    // name first, so a type with both `x` and `_x` pairs parameter `x` with `x`.
+    public static bool NamesTheSameMember(string field, string? parameter)
+    {
+        if (parameter is null or "")
+            return false;
+        if (field == parameter)
+            return true;
+
+        var bare = field.StartsWith("m_", StringComparison.Ordinal) ? field[2..]
+            : field.StartsWith('_') ? field[1..]
+            : field.Length > 1 && field[0] == 'm' && char.IsUpper(field[1]) ? field[1..]
+            : null;
+
+        return bare is { Length: > 0 }
+            && bare.Length == parameter.Length
+            && char.ToLowerInvariant(bare[0]) == char.ToLowerInvariant(parameter[0])
+            && string.CompareOrdinal(bare, 1, parameter, 1, bare.Length - 1) == 0;
     }
 
     // Try find the follow up CallVoid for a constructor, after a Newobj.
@@ -3400,6 +3481,24 @@ public static class IlGenerator
     }
 
     private static bool IsZeroConstant(IOperand operand) => operand is Immediate { Value: 0 };
+
+    // AssetRipper: the type of an operand when it is an object reference, which is when a zero beside it is null.
+    // A pointer or a managed pointer is compared with an integer zero legitimately, and a generic parameter may be
+    // a value type. A local is asked what it was declared as in the IL, because a runtime structure the analysis
+    // typed (a class pointer, static field storage) is declared a native integer there.
+    private static TypeAnalysisContext? ReferenceTypeOf(IOperand operand, MethodDefinition? method, Dictionary<LocalVariable, CilLocalVariable> locals)
+    {
+        if (DestinationType(operand) is not { IsValueType: false } type
+            || type is PointerTypeAnalysisContext or ByRefTypeAnalysisContext or GenericParameterTypeAnalysisContext)
+            return null;
+
+        if (operand is LocalVariable local && method is not null
+            && StorageTypeOf(local, method, locals) is not (TypeDefOrRefSignature { IsValueType: false } or GenericInstanceTypeSignature { IsValueType: false }
+                or SzArrayTypeSignature or ArrayTypeSignature or CorLibTypeSignature { ElementType: AsmResolver.PE.DotNet.Metadata.Tables.ElementType.Object or AsmResolver.PE.DotNet.Metadata.Tables.ElementType.String }))
+            return null;
+
+        return type;
+    }
     
     private static TypeAnalysisContext? DestinationType(IOperand destination) =>
         destination switch
@@ -3505,6 +3604,21 @@ public static class IlGenerator
         }
 
         return LocalStorage.For(local.Name, local.IsThis, names, byReference);
+    }
+
+    /// <summary>
+    /// AssetRipper: the type a lifted local is declared as where it lives - the parameter's for a parameter, the
+    /// invented local's otherwise. The fourth of the storage helpers, asking the same rule.
+    /// </summary>
+    private static TypeSignature? StorageTypeOf(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)
+    {
+        var site = StorageOf(local, method);
+        return site.Kind switch
+        {
+            LocalStorageKind.This => method.Parameters.ThisParameter?.ParameterType,
+            LocalStorageKind.Parameter => method.Parameters[site.ParameterIndex].ParameterType,
+            _ => locals.ContainsKey(local) ? locals[local].VariableType : null,
+        };
     }
 
     private static void LoadLocalAddress(LocalVariable local, MethodDefinition method, Dictionary<LocalVariable, CilLocalVariable> locals)

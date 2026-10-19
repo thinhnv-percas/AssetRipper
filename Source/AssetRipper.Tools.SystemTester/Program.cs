@@ -74,6 +74,9 @@ static class Program
 			  --script-mode <mode>    Decompiled, Hybrid, DllExportWithRenaming or DllExportWithoutRenaming.
 			                          Hybrid decompiles Assembly-CSharp* and ships every other assembly as the
 			                          recovered DLL. Default: Decompiled.
+			  --runtime-safe-bodies   Verify every body of an assembly saved as a DLL and replace the ones a
+			                          runtime cannot execute with a minimal body; lists them in
+			                          AuxiliaryFiles/RuntimeSafeBodies.json.
 			  --struct-db <dir>       IL2Cpp struct layout directory. Default: the usual locations.
 			  -h, --help              This text.
 
@@ -106,6 +109,7 @@ static class Program
 		public bool SimplifyGlobalQualification { get; set; } = true;
 		public List<string> PackageCachePaths { get; } = [];
 		public ScriptExportMode ScriptExportMode { get; set; } = ScriptExportMode.Decompiled;
+		public bool RuntimeSafeBodies { get; set; }
 		public string? StructDbPath { get; set; }
 
 		public static bool TryParse(string[] args, out RipOptions options, out string? error)
@@ -173,6 +177,9 @@ static class Program
 						options.PackageCachePaths.Add(builtIn);
 						break;
 					}
+					case "--runtime-safe-bodies": // SandOut: a DLL export a runtime can execute
+						options.RuntimeSafeBodies = true;
+						break;
 					case "--script-mode" when i + 1 < args.Length: // iteration 069
 						if (!Enum.TryParse(args[++i], ignoreCase: true, out ScriptExportMode scriptMode))
 						{
@@ -312,6 +319,7 @@ static class Program
 		settings.ImportSettings.ReconstructNativeBodies = options.ReconstructNativeBodies;
 		settings.ImportSettings.Il2CppStructDbPath = options.StructDbPath;
 		settings.ExportSettings.ScriptExportMode = options.ScriptExportMode;
+		settings.ExportSettings.RuntimeSafeBodies = options.RuntimeSafeBodies;
 		settings.ExportSettings.ShaderExportMode = options.ShaderExportMode;
 
 		settings.LogConfigurationValues();

@@ -2265,6 +2265,22 @@ find it; `strings` without `-el` does find method and type names.
   in it: SandOut's DLL export read PASS on two of three scenes while running nothing. A scene names such a script by
   the DLL's guid and `fileID` = first four bytes of MD4("s\0\0\0" + namespace + name); the local patch is in
   `iterations/sandout/miniunity/`. Check that scripts were instantiated before believing a play verdict.
+- **A body ILSpy can read is not a body a runtime can run, and ILVerify is what tells them apart.** SandOut's DLL export
+  segfaulted on two of three scenes, and the cause was not a write through a native address but the JIT itself crashing
+  on `ldarg <struct>; ldc.i4 1; and` - IL that ILSpy reads as a cast. A release JIT compiles most of its type assertions
+  out, so wrong-typed IL is either rejected ("Bad IL format", `InvalidProgramException`) or accepted and run as an
+  integer treated as a reference. `ExportSettings.RuntimeSafeBodies` (`--runtime-safe-bodies`) verifies every body of a
+  saved assembly per method against the game's own assemblies and replaces the unsafe ones with a minimal body, listed in
+  `AuxiliaryFiles/RuntimeSafeBodies.json`; seven verifier rules are not enforced by a runtime and are exempt
+  (`RuntimeSafeBodies.BenignErrors`). It is a DLL-export option only: a decompiled script with a type mismatch still says
+  something true. **Count the reasons before fixing anything** - the largest shape was `ldloc <ref>; ldc.i4 0; ceq`, every
+  null check of an otherwise sound body, and three generator fixes (callvirt to abstract, null compare against `ldnull`,
+  an allocation with no fusable constructor made uninitialised instead of `null`) took the replaced count 17059 → 14841
+  and moved Impostor's EXACT +24 with Roslyn unchanged. MiniUnity's `jit.check` command is the ground truth for one runtime.
+- **"No exceptions" is a statement about what ran, so say what ran.** MiniUnity's `play` now reports message counts per
+  assembly. SandOut's three scenes run 30 s with zero errors, but its gameplay is Unity.Entities systems, which MiniUnity
+  does not tick, and the bootstrapper's scene change is not followed; 23% of bodies are replacements. Report a play
+  verdict with both.
 
 
 ### Things measured to be worth nothing — do not redo them
@@ -2593,6 +2609,7 @@ Twenty-six scripts, and each measures something the others cannot:
 - `CPP2IL_DUMP_STRUCT_REJECTIONS=<file>` — mỗi struct trên stack `StackStructStorage` để nguyên, kèm luật từ chối và lệnh.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
+- `AuxiliaryFiles/RuntimeSafeBodies.json` (`--runtime-safe-bodies`) — mỗi thân bị thay khi xuất DLL, với lỗi ILVerify.
 - `Test/Scripts/miniunity_gate.py` — compile như Unity (D2), play scene (F2) và so giá trị theo dõi với source chơi
   cùng kịch bản (I2), qua MiniUnity (`MINIUNITY_HOME` hoặc `--miniunity`); kịch bản ở `Test/miniunity-scenarios.json`.
   `validate_unity_stages.py --miniunity` thêm ba dòng đó. Không có MiniUnity thì `BLOCKED`. `--self-test` 21 case.

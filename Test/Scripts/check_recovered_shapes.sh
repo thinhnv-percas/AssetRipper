@@ -57,7 +57,10 @@ check() {
         return
     fi
 
-    if ! grep -qF -- "$wanted" "$file"; then
+    # A wanted shape starting with ~ is an extended regex, for a recovery that has more than one correct spelling.
+    local mode=-qF
+    if [ "${wanted#\~}" != "$wanted" ]; then mode=-qE; wanted=${wanted#\~}; fi
+    if ! grep $mode -- "$wanted" "$file"; then
         printf 'FAIL  %-12s %s does not contain %s\n' "$issue" "$name" "$wanted"
         failures=$((failures + 1))
         return
@@ -121,7 +124,9 @@ check DECOMP-0013 DataController.cs 'gpc' 'Il2CppStaticFields<UnityEngine.Quater
 # The `as` is the recovery; the shortcut around it is counted by `typeHierarchyDepthLoads` in the
 # metrics rather than asserted here, because what is left in this file is the hierarchy *walk*, a
 # different shape from the shortcut this issue removed.
-check DECOMP-0014 AnimationState.cs 'as RotateTimeline'
+# Since the null comparison is emitted against ldnull rather than an integer zero, ILSpy writes the same test
+# as `!(x is RotateTimeline)` where the local is not otherwise used; both spellings are the recovered check.
+check DECOMP-0014 AnimationState.cs '~(as|is) RotateTimeline'
 
 # DECOMP-0015: a call's target was taken from whichever instantiation the linker attributed the
 # shared body to, so `foreach (Box box in Boxes)` came back as
