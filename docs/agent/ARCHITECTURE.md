@@ -60,7 +60,9 @@ exportHandler.Export(gameData, options.OutputPath, LocalFileSystem.Instance);
 
 - **Project:** `AssetRipper.Tools.SystemTester`
 - **Entry points:** `Program.Main`, `Program.Rip`, `Program.RunTests`
-- **Inputs:** file/directory paths, `--script-level`, `--reconstruct-bodies`, `--struct-db`, `--output`, `--log`
+- **Inputs:** file/directory paths, `--script-level`, `--reconstruct-bodies`, `--struct-db`, `--output`, `--log`,
+  `--script-mode <Decompiled|Hybrid|DllExportWithRenaming|...>` (default Decompiled), `--package-cache <dir>`
+  (repeatable), `--unity-editor <Editor dir>` (adds its `BuiltInPackages` as a package source)
 - **Outputs:** a Unity project directory, a log file
 - **Dependencies:** `AssetRipper.Export.UnityProjects`, `AssetRipper.Import`, `AssetRipper.Processing`
 - **Tests:** none of its own; it *is* the integration harness

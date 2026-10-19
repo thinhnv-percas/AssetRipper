@@ -987,3 +987,19 @@ Golden regression và METHOD_NOT_FOUND tăng là tên giả bị gỡ: EXPECTED_
 REAL_REGRESSION 067 (DECOMP-0073) đã sửa. Không REAL_REGRESSION nào mở. Trạng thái:
 **`PROJECT_GENERATED_COMPILE_IMPROVED`**, `UNITY_NOT_AVAILABLE`.
 
+
+## Iteration 069 — cổng project (69s/69k → 69n, cùng script đo; `reports/PROJECT_GATES_069.md`)
+
+| | Impostor | Merge-Room | RunFromZombies | JellyBlastV2 | Pinata |
+|---|---|---|---|---|---|
+| EXACT / HIGH / PARTIAL / FALLBACK | giống | giống | giống | giống | giống |
+| Placeholder | giống | giống | giống | giống | giống |
+| Assembly-CSharp Roslyn, body pass | 156 → 156 | 275 → **270** | 7 → **2** | 1663 → **1652** | 1074 → **1026** |
+| File compile sạch | 41/64 → 41/64 | 51/84 → 52/84 | 18/23 → 22/23 | 80/179 → 80/179 | 724/1109 → 744/1109 |
+| asmdef reference (cạnh) | 0 → 7 | 0 → 76 | 0 → 19 | 0 → 9 | 0 → 62 |
+| `abstract struct` | 2 → 0 | 2 → 0 | 2 → 0 | 2 → 0 | — |
+| Golden cải thiện / regression | giống | giống | giống | giống | giống |
+
+Chỉ CS0030 giảm, không mã lỗi mới. RunFromZombies Hybrid + `--unity-editor`: stage C 5378/5378, MiniUnity D2 PASS
+(0 lỗi, 3/3), F2 PASS_WITH_GAPS (0 runtime exception), I2 PASS (5/5 bằng source). Trạng thái:
+**`PROJECT_COMPILES_UNDER_MINIUNITY`** cho RunFromZombies Hybrid; `UNITY_NOT_AVAILABLE` cho Unity thật.

@@ -23,6 +23,12 @@ public sealed class PackageOutcome
 	public bool Skipped { get; set; }
 
 	/// <summary>
+	/// The package came from an Editor's catalog of built-in packages and none of its code paired with the game's,
+	/// so it was left alone whatever its assets matched.
+	/// </summary>
+	public bool NoCodeEvidence { get; set; }
+
+	/// <summary>
 	/// Assemblies paired, which is the match that repoints every script of the package at once.
 	/// </summary>
 	public int AssembliesPaired { get; set; }
@@ -59,6 +65,15 @@ public sealed class PackageRemapRun
 	private readonly List<string> conflicts = [];
 	private readonly List<ScriptRemap> scripts = [];
 	private readonly List<PackageOutcome> outcomes = [];
+
+	/// <summary>
+	/// Every guid a reference was repointed at, with the package it belongs to. The package is not in the project
+	/// folder - it is in the manifest - so nothing in the export declares these guids, and a reference audit that
+	/// only reads .meta files reads every repointed reference as broken.
+	/// </summary>
+	private readonly SortedDictionary<string, string> packageGuids = new(StringComparer.OrdinalIgnoreCase);
+
+	public IReadOnlyDictionary<string, string> PackageGuids => packageGuids;
 
 	/// <summary>
 	/// Files to remove once the rewrite is done, with the package each one belongs to so that what was
@@ -127,17 +142,33 @@ public sealed class PackageRemapRun
 		// Most packages ship source rather than an assembly, so their types are matched one at a time by
 		// name. A package that does ship an assembly is covered by the assembly match below instead.
 		SourcePackageScripts sourceScripts = SourcePackageScriptMapping.Build(settings.AssetsPath, packageDirectory, fileSystem);
-		scripts.AddRange(sourceScripts.Remaps);
 		outcome.TypesPaired = sourceScripts.Remaps.Count;
 
 		PackageScripts packageScripts = ScriptReferenceMapping.Build(packageDirectory);
-		scripts.AddRange(packageScripts.Remaps);
 		outcome.TypesInAssemblies = packageScripts.Remaps.Count;
 
 		List<ExportMatch> found = ExportPackageMatcher.Match(settings.AssetsPath, packageDirectory, fileSystem);
+		int assembliesFound = found.Count(static match => match.Kind == "assembly");
+
+		if (package.RequiresCodeEvidence && outcome.TypesPaired == 0 && assembliesFound == 0)
+		{
+			// Nothing of the package's code is in the game, so nothing it has is used; see RequiresCodeEvidence.
+			outcome.NoCodeEvidence = true;
+			outcome.OtherAssetsPaired = 0;
+			return;
+		}
+
+		scripts.AddRange(sourceScripts.Remaps);
+		scripts.AddRange(packageScripts.Remaps);
+		foreach (ScriptRemap remap in sourceScripts.Remaps)
+		{
+			packageGuids[remap.New.Guid] = package.Name;
+		}
+
 		foreach (ExportMatch match in found)
 		{
 			guidMatches[match.OldGuid] = match.NewGuid;
+			packageGuids[match.NewGuid] = package.Name;
 
 			switch (match.Kind)
 			{
@@ -155,7 +186,9 @@ public sealed class PackageRemapRun
 			}
 		}
 
-		outcome.AddedToManifest = found.Count > 0 || scripts.Count > 0;
+		// This package's own evidence. The run-wide script list used to stand in here, so once one package had
+		// paired a type every package considered after it went into the manifest with nothing paired at all.
+		outcome.AddedToManifest = found.Count > 0 || sourceScripts.Remaps.Count > 0;
 
 		if (configuration.DeleteRippedCopies)
 		{
@@ -396,6 +429,10 @@ public sealed class PackageRemapRun
 			{
 				Logger.Info(LogCategory.Export, $"  {outcome.Name}: skipped by configuration");
 			}
+			else if (outcome.NoCodeEvidence)
+			{
+				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: from the Editor's built-in packages and none of its code is in the game; left alone");
+			}
 			else if (outcome.TotalPaired == 0 && outcome.TypesPaired == 0)
 			{
 				Logger.Info(LogCategory.Export, $"  {outcome.Name} {outcome.Version}: nothing in the export matched it");
@@ -428,10 +465,10 @@ public sealed class PackageRemapRun
 		writer.WriteLine();
 
 		writer.WriteLine("## Packages");
-		writer.WriteLine("name,version,dependency,typesPaired,assemblies,shaders,otherAssets,filesDeleted,addedToManifest,skipped");
+		writer.WriteLine("name,version,dependency,typesPaired,assemblies,shaders,otherAssets,filesDeleted,addedToManifest,skipped,noCodeEvidence");
 		foreach (PackageOutcome outcome in outcomes)
 		{
-			writer.WriteLine($"{outcome.Name},{outcome.Version},{outcome.Dependency},{outcome.TypesPaired},{outcome.AssembliesPaired},{outcome.ShadersPaired},{outcome.OtherAssetsPaired},{outcome.FilesDeleted},{outcome.AddedToManifest},{outcome.Skipped}");
+			writer.WriteLine($"{outcome.Name},{outcome.Version},{outcome.Dependency},{outcome.TypesPaired},{outcome.AssembliesPaired},{outcome.ShadersPaired},{outcome.OtherAssetsPaired},{outcome.FilesDeleted},{outcome.AddedToManifest},{outcome.Skipped},{outcome.NoCodeEvidence}");
 		}
 
 		if (conflicts.Count > 0)

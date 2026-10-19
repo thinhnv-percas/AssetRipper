@@ -67,6 +67,13 @@ static class Program
 			  --package-cache <dir>   Replace the ripped copies of the packages in <dir> (name@version folders)
 			                          with the packages themselves, and add them to Packages/manifest.json.
 			                          Test/Scripts/proven_package_cache.py builds one holding only proven versions.
+			                          May be given more than once.
+			  --unity-editor <dir>    A Unity Editor of the game's version (the folder holding Data/, or Data/
+			                          itself; only its files are read). Its built-in packages become a package
+			                          source, which is where com.unity.ugui - UnityEngine.UI - comes from.
+			  --script-mode <mode>    Decompiled, Hybrid, DllExportWithRenaming or DllExportWithoutRenaming.
+			                          Hybrid decompiles Assembly-CSharp* and ships every other assembly as the
+			                          recovered DLL. Default: Decompiled.
 			  --struct-db <dir>       IL2Cpp struct layout directory. Default: the usual locations.
 			  -h, --help              This text.
 
@@ -97,7 +104,8 @@ static class Program
 		public bool ReconstructNativeBodies { get; set; }
 		public bool EmitIl2CppOffsets { get; set; } = true;
 		public bool SimplifyGlobalQualification { get; set; } = true;
-		public string? PackageCachePath { get; set; }
+		public List<string> PackageCachePaths { get; } = [];
+		public ScriptExportMode ScriptExportMode { get; set; } = ScriptExportMode.Decompiled;
 		public string? StructDbPath { get; set; }
 
 		public static bool TryParse(string[] args, out RipOptions options, out string? error)
@@ -152,7 +160,26 @@ static class Program
 						options.SimplifyGlobalQualification = true;
 						break;
 					case "--package-cache" when i + 1 < args.Length: // iteration 067: a source for PackageRemapPostExporter
-						options.PackageCachePath = Path.GetFullPath(args[++i]);
+						options.PackageCachePaths.Add(Path.GetFullPath(args[++i]));
+						break;
+					case "--unity-editor" when i + 1 < args.Length: // iteration 069: the Editor's built-in packages
+					{
+						string? builtIn = FindBuiltInPackages(Path.GetFullPath(args[++i]));
+						if (builtIn is null)
+						{
+							error = $"--unity-editor: no Data/Resources/PackageManager/BuiltInPackages under {args[i]}";
+							return false;
+						}
+						options.PackageCachePaths.Add(builtIn);
+						break;
+					}
+					case "--script-mode" when i + 1 < args.Length: // iteration 069
+						if (!Enum.TryParse(args[++i], ignoreCase: true, out ScriptExportMode scriptMode))
+						{
+							error = $"--script-mode must be one of {string.Join(", ", Enum.GetNames<ScriptExportMode>())}";
+							return false;
+						}
+						options.ScriptExportMode = scriptMode;
 						break;
 					case "--struct-db" when i + 1 < args.Length:
 						options.StructDbPath = Path.GetFullPath(args[++i]);
@@ -176,6 +203,25 @@ static class Program
 
 			return true;
 		}
+	}
+
+	/// <summary>
+	/// The built-in packages folder of an Editor, given the Editor folder, its Data folder, or the folder itself.
+	/// </summary>
+	private static string? FindBuiltInPackages(string editor)
+	{
+		foreach (string candidate in (string[])[
+			Path.Join(editor, "Data", "Resources", "PackageManager", "BuiltInPackages"),
+			Path.Join(editor, "Resources", "PackageManager", "BuiltInPackages"),
+			Path.Join(editor, "Editor", "Data", "Resources", "PackageManager", "BuiltInPackages"),
+			editor])
+		{
+			if (Directory.Exists(Path.Join(candidate, "com.unity.ugui")))
+			{
+				return candidate;
+			}
+		}
+		return null;
 	}
 
 	static void RunTests()
@@ -259,13 +305,13 @@ static class Program
 		settings.ImportSettings.ScriptContentLevel = options.ScriptContentLevel;
 		settings.ImportSettings.EmitIl2CppOffsets = options.EmitIl2CppOffsets;
 		settings.ExportSettings.SimplifyGlobalQualification = options.SimplifyGlobalQualification;
-		if (options.PackageCachePath is not null)
+		if (options.PackageCachePaths.Count > 0)
 		{
-			settings.ExportSettings.OfficialPackageCachePath = options.PackageCachePath;
+			settings.ExportSettings.OfficialPackageCachePath = string.Join(Path.PathSeparator, options.PackageCachePaths);
 		}
 		settings.ImportSettings.ReconstructNativeBodies = options.ReconstructNativeBodies;
 		settings.ImportSettings.Il2CppStructDbPath = options.StructDbPath;
-		settings.ExportSettings.ScriptExportMode = ScriptExportMode.Decompiled;
+		settings.ExportSettings.ScriptExportMode = options.ScriptExportMode;
 		settings.ExportSettings.ShaderExportMode = options.ShaderExportMode;
 
 		settings.LogConfigurationValues();

@@ -31,6 +31,14 @@ Iteration 069 — MiniUnity (ĐÃ THỬ): reports/MINIUNITY_EVALUATION_069.md. `
   điền `references` asmdef từ AssemblyRef, xuất UI thành package ugui (remap GUID theo tên class) và Hybrid cho thư viện,
   project compile 0 lỗi và Play cho cùng `posZ`/vị trí với source. Đây là đường cho cổng E–G thay cho UNITY_NOT_AVAILABLE.
 
+Iteration 069 — cổng project (ĐÃ LÀM): reports/PROJECT_GATES_069.md. Năm bước tay ở trên giờ nằm trong tool: asmdef
+  `references` đọc từ AssemblyRef của PE đã ghi (0 cạnh → 19/7/62/9/76, 0 tên treo); `abstract struct` quyết định theo
+  base type (`IsValueTypeOver`); bản sao float vào local aggregate ghi member đầu (CS0030 Pinata 810 → 762);
+  `SystemTester --unity-editor` (BuiltInPackages, chỉ áp package có bằng chứng code), `--script-mode Hybrid`,
+  `AuxiliaryFiles/PackageGuids.json`; `Test/Scripts/miniunity_gate.py` + dòng D2/F2/I2 trong `validate_unity_stages.py`.
+  RunFromZombies Hybrid: D2 PASS 0 lỗi, F2 0 runtime exception, I2 5/5 giá trị bằng source. Semantic status, placeholder,
+  golden corpus 5 fixture giống từng chữ số. Decompiled-mode vẫn 2854 lỗi Unity, toàn bộ trong Newtonsoft.Json.
+
 Cảnh báo cho phiên sau:
   - 068: một đối số thô của call không giải quyết được mà không tới được call (đã băng qua call khác) là
     `clobbered_<reg>`. `ReplaceClobberedRawArguments` chạy trong SSA trước fixpoint kiểu; đừng thêm luật cùng loại sau

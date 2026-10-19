@@ -123,12 +123,50 @@ public sealed class ScriptExportCollection : ScriptExportCollectionBase
 				//    see: https://docs.unity3d.com/2017.3/Documentation/Manual/ScriptCompilationAssemblyDefinitionFiles.html
 				if (!ReferenceAssemblies.IsPredefinedAssembly(details.AssemblyName))
 				{
-					AssemblyDefinitionExporter.Export(details, fileSystem, AssetExporter.ReferenceAssemblyDictionary);
+					AssemblyDefinitionExporter.Export(
+						details,
+						fileSystem,
+						AssetExporter.ReferenceAssemblyDictionary,
+						ReadReferenceNames(details),
+						IsAssemblyDefinition);
 				}
 			}
 		}
 
 		return true;
+	}
+
+	/// <summary>
+	/// The names the assembly's written image references, which for an IL2Cpp game is the only place they are
+	/// recorded (see <see cref="AssemblyReferenceNames"/>).
+	/// </summary>
+	private IReadOnlyList<string>? ReadReferenceNames(AssemblyDefinitionDetails details)
+	{
+		if (details.Assembly is null)
+		{
+			return null;
+		}
+
+		try
+		{
+			return AssemblyReferenceNames.Read(AssetExporter.AssemblyManager.GetStreamForAssembly(details.Assembly));
+		}
+		catch (Exception exception)
+		{
+			Logger.Warning(LogCategory.Export, $"References of {details.AssemblyName} could not be read from its image: {exception.Message}");
+			return null;
+		}
+	}
+
+	/// <summary>
+	/// Whether a referenced assembly is written as an assembly definition of this project, and so can be named in
+	/// another one's <c>references</c>.
+	/// </summary>
+	private bool IsAssemblyDefinition(string assemblyName)
+	{
+		return !ReferenceAssemblies.IsPredefinedAssembly(assemblyName)
+			&& AssetExporter.GetExportType(assemblyName) is AssemblyExportType.Decompile
+			&& AssetExporter.AssemblyManager.GetAssemblies().Any(assembly => assembly.Name == assemblyName);
 	}
 
 	private void OnAssemblyExported(IExportContainer container, string path, FileSystem fileSystem)

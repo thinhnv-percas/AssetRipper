@@ -57,6 +57,7 @@ public sealed class PackageRemapPostExporter : IPostExporter
 		run.Finish();
 		configuration.Save(configurationPath);
 		WriteReport(settings, fileSystem, run);
+		WritePackageGuids(settings, fileSystem, run);
 	}
 
 	/// <summary>
@@ -70,10 +71,16 @@ public sealed class PackageRemapPostExporter : IPostExporter
 	{
 		List<PackageSource> sources = [.. configuration.Sources.Where(static source => source.Enabled && !source.IsEmpty)];
 
+		// Several caches may be given, separated as a PATH is. A Unity Editor's own built-in packages
+		// (Editor/Data/Resources/PackageManager/BuiltInPackages) are one: com.unity.ugui ships there and in no
+		// registry, so a cache built from the registry can never place UnityEngine.UI.
 		string? cachePath = settings.ExportSettings.OfficialPackageCachePath;
 		if (!string.IsNullOrWhiteSpace(cachePath))
 		{
-			sources.Add(new PackageSource { Kind = PackageSourceKind.Cache, Location = cachePath });
+			foreach (string path in cachePath.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+			{
+				sources.Add(new PackageSource { Kind = PackageSourceKind.Cache, Location = path });
+			}
 		}
 
 		return sources;
@@ -115,6 +122,38 @@ public sealed class PackageRemapPostExporter : IPostExporter
 
 		return packages;
 	}
+
+	/// <summary>
+	/// The guids references were repointed at and the package each belongs to, for a reference audit: the package
+	/// lives in the manifest rather than in the project folder, so no .meta in the export declares them.
+	/// </summary>
+	private static void WritePackageGuids(FullConfiguration settings, FileSystem fileSystem, PackageRemapRun run)
+	{
+		if (run.PackageGuids.Count == 0)
+		{
+			return;
+		}
+
+		try
+		{
+			fileSystem.Directory.Create(settings.AuxiliaryFilesPath);
+			using StringWriter writer = new();
+			writer.WriteLine("{");
+			int index = 0;
+			foreach ((string guid, string package) in run.PackageGuids)
+			{
+				writer.WriteLine($"  \"{guid}\": \"{package}\"{(++index < run.PackageGuids.Count ? "," : "")}");
+			}
+			writer.WriteLine("}");
+			fileSystem.File.WriteAllText(fileSystem.Path.Join(settings.AuxiliaryFilesPath, PackageGuidsFileName), writer.ToString());
+		}
+		catch (IOException exception)
+		{
+			Logger.Warning(LogCategory.Export, $"Package guid list could not be written: {exception.Message}");
+		}
+	}
+
+	public const string PackageGuidsFileName = "PackageGuids.json";
 
 	private static void WriteReport(FullConfiguration settings, FileSystem fileSystem, PackageRemapRun run)
 	{

@@ -2210,6 +2210,34 @@ find it; `strings` without `-el` does find method and type names.
   writes the call) and `Debug` ambiguous between `System.Diagnostics` and `UnityEngine` (CS0104,
   because the stripped mscorlib has no `System.Diagnostics.Debug`). The reference set needs the
   `netstandard` facade even when the game ships none, or every `UnityEngine.Object` is CS0012.
+- **Cpp2IL's in-memory modules have no AssemblyRefs; the written PE does.** Every exported asmdef read
+  `references: []` because `AssemblyDefinitionExporter` asked the AsmResolver module Cpp2IL keeps in
+  memory, whose `AssemblyReferences` is empty until it is written. In Unity one missing reference is
+  CS0246 for every type of the other assembly, and then every assembly depending on it - Assembly-CSharp
+  included - is *skipped*, which a per-assembly Roslyn harness never shows. `AssemblyReferenceNames.Read`
+  reads the table from `AssemblyManager.GetStreamForAssembly`; a reference is kept only when it names an
+  asmdef in the project (a plugin DLL is implicit, `Assembly-CSharp*` cannot be referenced).
+- **An Editor's `BuiltInPackages` is a catalog, not a list of what the game used.** It is the only source
+  for `com.unity.ugui`, but assets pair across packages by name: on a Built-in RP game PostProcessing
+  v2's Hidden shaders matched HDRP's and the first run deleted 78 of the game's files and put HDRP, URP
+  and Shader Graph in the manifest. From a catalog a package applies only when a type or assembly of it
+  paired (`RequiresCodeEvidence`); a project's own `Library/PackageCache` is already that list. And a
+  package's guids have no `.meta` in the project, so a reference audit needs
+  `AuxiliaryFiles/PackageGuids.json` or it reads every remapped script reference as broken.
+- **`abstract` on a stub type is decided by its base, not by il2cpp's value-type flag.** il2cpp generates
+  `__Il2CppFullySharedGenericType` and `...StructType` `abstract sealed` over `System.ValueType`; the
+  first is not a value type by `Il2CppTypeDefinition.IsValueType`, so a rule on the flag fixed one of two.
+  A decompiler writes `struct` because of the base type, so that is what decides (`IsValueTypeOver`,
+  `System.Enum` excepted). The stub still reports CS8701 in `__Generated` - the stripped corlib lacks
+  `RuntimeFeature.DefaultImplementationsOfInterfaces` - and the real Editor assemblies do not.
+- **Under Unity's rules the recovered C# of a third-party library is what fails the project, not
+  Assembly-CSharp.** RunFromZombies decompiled whole: 2854 errors, every one in Newtonsoft.Json, and ten
+  assemblies skipped behind it. `--script-mode Hybrid` ships those as plugin DLLs carrying the recovered
+  bodies, which are valid IL; with that, ugui from the Editor and the asmdef references, MiniUnity
+  compiles the project with 0 errors and plays it to the same watched values as the source.
+  `Test/Scripts/miniunity_gate.py` is that gate; its scenarios never state an expected value - the
+  source project, played the same way, is the expectation.
+
 
 ### Things measured to be worth nothing — do not redo them
 - **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
@@ -2537,6 +2565,9 @@ Twenty-six scripts, and each measures something the others cannot:
 - `CPP2IL_DUMP_STRUCT_REJECTIONS=<file>` — mỗi struct trên stack `StackStructStorage` để nguyên, kèm luật từ chối và lệnh.
 - `AssetRipper.Tools.UnityBuildValidator` — build một project khôi phục qua `IUnityBuildProvider`;
   không có Unity thì `UNITY_NOT_AVAILABLE`, exit 2.
+- `Test/Scripts/miniunity_gate.py` — compile như Unity (D2), play scene (F2) và so giá trị theo dõi với source chơi
+  cùng kịch bản (I2), qua MiniUnity (`MINIUNITY_HOME` hoặc `--miniunity`); kịch bản ở `Test/miniunity-scenarios.json`.
+  `validate_unity_stages.py --miniunity` thêm ba dòng đó. Không có MiniUnity thì `BLOCKED`. `--self-test` 21 case.
 
 `iterations/` holds one immutable directory per run: the commit, the change that was in the working
 tree, the log, the metrics, the audit and the compile result. The generated projects themselves are

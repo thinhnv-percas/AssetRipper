@@ -1515,6 +1515,22 @@ public static class IlGenerator
                     break;
                 }
 
+                // AssetRipper: iteration 069 - the arithmetic rule above, for a copy. A float copied into a local typed as a
+                // whole float aggregate is that aggregate's first member: an inlined Vector3.MoveTowards computes the moved
+                // position a component at a time into the registers the unmoved position was in, and the x component arrived
+                // as `vector = (Vector3)num13;` - a cast C# does not have (CS0030), five of them on RunFromZombies, and
+                // under Unity's rules one such error fails Assembly-CSharp. A scalar float cannot be a whole Vector3.
+                if (instruction.Operands is [LocalVariable { Type: { } aggregateType } aggregateLocal, LocalVariable { Type: { } scalarType } scalarSource]
+                    && scalarType.FullName == "System.Single"
+                    && FloatAggregate.FirstMember(aggregateType) is { } copiedMember
+                    && locals.ContainsKey(aggregateLocal))
+                {
+                    LoadLocalAddress(aggregateLocal, method, locals);
+                    LoadOperand(scalarSource, context, method, locals, writeLine, scalarType);
+                    instructions.Add(CilOpCodes.Stfld, copiedMember.ToFieldDescriptor());
+                    break;
+                }
+
                 if (instruction.Operands[0] is FieldReference field) // stfld takes instance before value so LoadOperand StoreToOperand doesn't work
                 {
                     // AssetRipper: the write half of the accessor pairing; see InstanceSetterFor. A

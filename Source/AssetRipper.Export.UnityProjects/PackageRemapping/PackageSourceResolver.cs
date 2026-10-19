@@ -25,7 +25,21 @@ public enum GitFetchMode
 /// version for one out of a registry, a <c>file:</c> path for one on disk, the repository url for one
 /// out of git. Empty when the source could not say.
 /// </param>
-public readonly record struct ResolvedPackage(string Directory, string Name, string Version, string Dependency);
+public readonly record struct ResolvedPackage(string Directory, string Name, string Version, string Dependency)
+{
+	/// <summary>
+	/// Whether the package came from a catalog of everything an Editor ships rather than from a list of what one
+	/// project uses, so that its being there says nothing about the game having used it.
+	/// </summary>
+	/// <remarks>
+	/// An Editor's BuiltInPackages holds HDRP, URP, Shader Graph and VFX Graph whether or not a game uses any of
+	/// them, and assets match across packages by name: PostProcessing v2's blue noise textures and Hidden shaders
+	/// have HDRP namesakes, and on a Built-in RP game a run took them for HDRP, deleted 78 files and put HDRP in the
+	/// manifest. From a catalog only code is evidence - a type or an assembly of the package paired with one the
+	/// game ships - and a package with none is left alone, assets included.
+	/// </remarks>
+	public bool RequiresCodeEvidence { get; init; }
+}
 
 /// <summary>
 /// What one source turned out to hold.
@@ -145,12 +159,22 @@ public static class PackageSourceResolver
 
 		// A git package's dependency is written against the clone's root rather than the folder the scan
 		// started in, because a repository holding several packages needs a path per package.
+		bool catalog = IsEditorCatalog(directory);
 		foreach (ResolvedPackage package in FindPackages(directory))
 		{
-			result.Packages.Add(package with { Dependency = BuildDependency(source, root, package) });
+			result.Packages.Add(package with { Dependency = BuildDependency(source, root, package), RequiresCodeEvidence = catalog });
 		}
 
 		return result;
+	}
+
+	/// <summary>
+	/// Whether a folder is an Editor's built-in packages (<c>Data/Resources/PackageManager/BuiltInPackages</c>),
+	/// which holds every package the Editor ships rather than the ones a project uses.
+	/// </summary>
+	public static bool IsEditorCatalog(string directory)
+	{
+		return string.Equals(Path.GetFileName(directory.TrimEnd('/', '\\')), "BuiltInPackages", StringComparison.OrdinalIgnoreCase);
 	}
 
 	/// <summary>

@@ -94,8 +94,9 @@ public sealed record class ExportSettings
 	public string? LanguageCode { get; set; }
 
 	/// <summary>
-	/// Where the official Unity packages live, usually a project's Library/PackageCache. When set, an
-	/// export repoints its references at those packages instead of at the ripped copies of them.
+	/// Where the official Unity packages live, usually a project's Library/PackageCache, or an Editor's
+	/// Data/Resources/PackageManager/BuiltInPackages. Several are separated by <see cref="Path.PathSeparator"/>.
+	/// When set, an export repoints its references at those packages instead of at the ripped copies of them.
 	/// </summary>
 	/// <remarks>
 	/// Empty by default, because the guids it needs are not part of the game being ripped and there is

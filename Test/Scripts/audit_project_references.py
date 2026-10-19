@@ -11,7 +11,8 @@ Five verdicts, and the distinctions are the point:
   EXACT     a reference within the same document, whose anchor is in that document
   RESOLVED  a reference to another asset, whose GUID a .meta in this rip declares - or to one of
             Unity's own built-in resources, which no project declares and which are therefore not
-            broken however much they look it
+            broken however much they look it - or to a package the manifest names, repointed by the
+            export's package remap (AuxiliaryFiles/PackageGuids.json)
   AMBIGUOUS a GUID that resolves to more than one file, so which one the editor picks is not decided
   BROKEN    a GUID no .meta declares, or a local anchor that is not in the document
   MISSING   a null PPtr in a slot that must not be null - a MonoBehaviour with no m_Script has no
@@ -96,6 +97,28 @@ ORDER = [EXACT, RESOLVED, AMBIGUOUS, BROKEN, MISSING, NULL]
 REQUIRED_PROPERTIES = {"m_Script"}
 
 
+# Filled by load_package_guids: guid -> package for the references the package remap repointed (the export's
+# AuxiliaryFiles/PackageGuids.json), and the packages the project's manifest names. A repointed reference resolves
+# through the package, which lives in the manifest rather than in the project folder, so no .meta declares it.
+PACKAGE_GUIDS: dict[str, str] = {}
+MANIFEST_PACKAGES: set[str] = set()
+
+
+def load_package_guids(root: pathlib.Path, explicit: str | None = None) -> None:
+    PACKAGE_GUIDS.clear()
+    MANIFEST_PACKAGES.clear()
+    for candidate in ([pathlib.Path(explicit)] if explicit else []) + [root.parent / "AuxiliaryFiles" / "PackageGuids.json"]:
+        if candidate.is_file():
+            PACKAGE_GUIDS.update(json.loads(candidate.read_text()))
+            break
+    manifest = root / "Packages" / "manifest.json"
+    if manifest.is_file():
+        try:
+            MANIFEST_PACKAGES.update(json.loads(manifest.read_text()).get("dependencies", {}))
+        except json.JSONDecodeError:
+            pass
+
+
 def guid_index(root: pathlib.Path) -> dict[str, list[str]]:
     """GUID -> the assets declaring it. A list, because two .meta files with one GUID is ambiguous."""
     found: dict[str, list[str]] = collections.defaultdict(list)
@@ -134,6 +157,12 @@ def classify(match: re.Match, anchors: set[str], guids: dict[str, list[str]], ho
         # Unity ships these; a project that declared them would be the broken one.
         return RESOLVED, "Unity built-in resource"
 
+    if guid in PACKAGE_GUIDS:
+        # Repointed by the package remap at a package the manifest names; the package, not the project, declares it.
+        package = PACKAGE_GUIDS[guid]
+        return (RESOLVED, f"package {package} (in Packages/manifest.json)") if package in MANIFEST_PACKAGES \
+            else (BROKEN, f"guid of package {package}, which Packages/manifest.json does not name")
+
     targets = guids.get(guid, [])
 
     if len(targets) == 1:
@@ -166,6 +195,7 @@ def main() -> int:
     parser.add_argument("root", help="the game directory inside the rip output")
     parser.add_argument("--json")
     parser.add_argument("--verbose", action="store_true", help="list every reference that is not EXACT or RESOLVED")
+    parser.add_argument("--package-guids", help="guid -> package map (default: <rip>/AuxiliaryFiles/PackageGuids.json)")
     arguments = parser.parse_args()
 
     root = pathlib.Path(arguments.root)
@@ -173,6 +203,8 @@ def main() -> int:
     if not root.is_dir():
         print(f"NOT_A_DIRECTORY: {root}")
         return 2
+
+    load_package_guids(root, arguments.package_guids)
 
     guids = guid_index(root)
     # How many documents name each GUID, for the absence evidence below.

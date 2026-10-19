@@ -19,6 +19,13 @@ public static class AsmResolverAssemblyPopulator
         return typeCtx.Name.StartsWith("<Module>") || typeCtx.FullName.StartsWith("<Module>");
     }
 
+    /// <summary>
+    /// AssetRipper: whether a type with this base is a value type as C# sees it, which is what decides whether
+    /// <c>abstract</c> can be written on it.
+    /// </summary>
+    public static bool IsValueTypeOver(string? baseTypeFullName, string typeFullName)
+        => baseTypeFullName is "System.ValueType" or "System.Enum" && typeFullName != "System.Enum";
+
     public static void ConfigureHierarchy(AssemblyAnalysisContext asmCtx)
     {
         foreach (var typeCtx in asmCtx.Types)
@@ -37,6 +44,15 @@ public static class AsmResolverAssemblyPopulator
                 typeDefinition.BaseType = typeCtx.AppContext.SystemTypes.EnumType.ToTypeSignature().ToTypeDefOrRef();
             else
                 typeDefinition.BaseType = typeCtx.BaseType?.ToTypeSignature().ToTypeDefOrRef();
+
+            // AssetRipper: il2cpp generates __Il2CppFullySharedGenericType and __Il2CppFullySharedGenericStructType
+            // (__Generated) `abstract sealed` over System.ValueType. The runtime does not mind; C# has no abstract struct,
+            // so a decompiler writes `internal abstract struct` (CS0106) and Unity fails __Generated - and with it, through
+            // the asmdef references, every assembly that depends on it. Decided on the base type, which is what makes a
+            // decompiler write `struct`: the first of the two is not a value type by il2cpp's own flag. System.Enum is
+            // the one abstract type over System.ValueType that is a class.
+            if (IsValueTypeOver(typeDefinition.BaseType?.FullName, typeDefinition.FullName))
+                typeDefinition.Attributes &= ~TypeAttributes.Abstract;
 
             //Set interfaces
             foreach (var interfaceType in typeCtx.InterfaceContexts)

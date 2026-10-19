@@ -326,7 +326,7 @@ public sealed partial class SettingsPage : DefaultPage
 			.WithName(nameof(Configuration.ExportSettings.OfficialPackageCachePath))
 			.WithValue(Configuration.ExportSettings.OfficialPackageCachePath ?? "")
 			.Close();
-		new Div(writer).WithClass("form-text").Close("A Unity project's Library/PackageCache. When set, the export repoints its references at those packages instead of at the ripped copies. Leave empty to skip.");
+		new Div(writer).WithClass("form-text").Close($"A Unity project's Library/PackageCache, or an Editor's Data/Resources/PackageManager/BuiltInPackages (where com.unity.ugui comes from). Several may be given, separated by '{Path.PathSeparator}'. When set, the export repoints its references at those packages instead of at the ripped copies. Leave empty to skip.");
 
 		// A cache is one source of packages and the only one that is a setting. The rest are a list, and
 		// this is where someone looking for where packages come from ends up first.

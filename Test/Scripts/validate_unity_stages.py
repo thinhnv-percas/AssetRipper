@@ -14,11 +14,19 @@ one with a verdict it can defend:
   H  MonoBehaviour lifecycle    needs Unity
   I  gameplay smoke test        needs Unity
 
+Beside them, three rows run by MiniUnity (Test/Scripts/miniunity_gate.py), a headless stand-in for the Editor -
+never in place of the Unity rows, which stay BLOCKED without Unity:
+
+  D2 compiles as Unity would    asmdefs and their references, plugins, packages, Assembly-CSharp referencing all
+  F2 scenes play                the player loop for the scenario's seconds; MiniUnity's own gaps counted apart
+  I2 behaviour matches source   the scenario's watched values against the source project played the same way
+
 Verdicts: PASS, FAIL, BLOCKED (the tool to decide this is not here), UNKNOWN (it is here and could
 not decide). BLOCKED is never PASS and never FAIL - a stage nobody ran has no result, and reporting
 one is how a pipeline claims to run a game it has never started. Nothing here simulates a runtime.
 
 Usage: validate_unity_stages.py <rip output>/<GameName> [--log run.log] [--json out.json]
+                                [--miniunity <dir>] [--source <source project>] [--unity-editor <dir>]
 """
 import argparse
 import collections
@@ -30,6 +38,8 @@ import subprocess
 import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import miniunity_gate  # noqa: E402
 
 PASS, FAIL, BLOCKED, UNKNOWN = "PASS", "FAIL", "BLOCKED", "UNKNOWN"
 
@@ -248,6 +258,10 @@ def main() -> int:
     parser.add_argument("--assembly", help="restrict the compile stage to one assembly")
     parser.add_argument("--log", help="the run log, so the body measure can be read beside the compile rate")
     parser.add_argument("--json")
+    parser.add_argument("--miniunity", help="MiniUnity checkout for rows D2/F2/I2 (default: $MINIUNITY_HOME)")
+    parser.add_argument("--source", help="the source Unity project, for row I2")
+    parser.add_argument("--unity-editor", help="Unity Editor folder for MiniUnity")
+    parser.add_argument("--screenshots", help="directory for MiniUnity's screenshots")
     arguments = parser.parse_args()
 
     root = pathlib.Path(arguments.root)
@@ -292,6 +306,12 @@ def main() -> int:
                          ("H", "MonoBehaviour lifecycle"), ("I", "gameplay smoke test")]:
         stages.append((letter, name, BLOCKED, blocked))
 
+    # MiniUnity's rows. They are named for what ran them, so a PASS here is never read as Unity's.
+    gate_report = miniunity_rows(root, arguments)
+    names = {"D2": "compiles as Unity would", "F2": "scenes play [MiniUnity]", "I2": "behaviour = source"}
+    for stage, verdict, detail in miniunity_gate.verdicts(gate_report):
+        stages.append((stage, names[stage], verdict, f"MiniUnity: {detail}"))
+
     # A compile rate read on its own is the "a stand-in that compiles looks exactly like success"
     # trap in another place. An export whose bodies are empty compiles beautifully: the iOS fixture,
     # whose __TEXT is FairPlay-encrypted so no method body can be read at all, scores 0.9654 against
@@ -304,10 +324,10 @@ def main() -> int:
     total_shaders = sum(shaders.values())
 
     print(f"project: {root}\n")
-    print(f"{'':<3}{'stage':<26}{'verdict':<9}detail")
+    print(f"{'':<3}{'stage':<26}{'verdict':<15}detail")
     print("-" * 100)
     for letter, name, verdict, detail in stages:
-        print(f"{letter:<3}{name:<26}{verdict:<9}{detail}")
+        print(f"{letter:<3}{name:<26}{verdict:<15}{detail}")
 
     print("\n== metrics ==")
     print(f"compile_pass_rate          {format_rate(metrics.get('compile_pass_rate'))}")
@@ -336,6 +356,7 @@ def main() -> int:
         pathlib.Path(arguments.json).write_text(json.dumps({
             "project": str(root),
             "stages": [{"stage": s, "name": n, "verdict": v, "detail": d} for s, n, v, d in stages],
+            "miniunity": gate_report,
             "metrics": metrics,
             "shaders": dict(shaders),
         }, indent=2))
@@ -343,6 +364,25 @@ def main() -> int:
     # A blocked stage is not a failure of the project, so it does not fail the run; a stage that ran
     # and said no is.
     return 1 if any(verdict == FAIL for _, _, verdict, _ in stages) else 0
+
+
+def miniunity_rows(root: pathlib.Path, arguments) -> dict:
+    """The MiniUnity gate's report for this project, or a BLOCKED one when there is no MiniUnity to run."""
+    if miniunity_gate.find_miniunity(arguments.miniunity) is None:
+        return {"status": BLOCKED, "reason": "MINIUNITY_NOT_AVAILABLE"}
+    scenario = miniunity_gate.load_scenario(HERE.parent / "miniunity-scenarios.json", root.resolve())
+    return miniunity_gate.gate(
+        root.resolve(),
+        source=pathlib.Path(arguments.source).resolve() if arguments.source else None,
+        miniunity=arguments.miniunity,
+        editor=arguments.unity_editor,
+        scenes=scenario.get("scenes"),
+        seconds=scenario.get("seconds", 5),
+        size=scenario.get("size", "720x1280"),
+        inputs=scenario.get("input"),
+        watches=scenario.get("watch"),
+        screenshots=pathlib.Path(arguments.screenshots) if arguments.screenshots else None,
+    )
 
 
 def format_rate(value) -> str:

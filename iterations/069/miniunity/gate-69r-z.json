@@ -1,0 +1,82 @@
+{
+  "status": "RAN",
+  "miniunity": "/home/user/thinhnv-dev/mu-host/MiniUnity",
+  "project": "/home/user/AssetRipper/Test/Out69r-z/RunFromZombies",
+  "scenes": [
+    "Assets/Scenes/MenuScene.unity",
+    "Assets/Scenes/GameScene.unity"
+  ],
+  "scenario": {
+    "seconds": 5,
+    "size": "720x1280",
+    "input": "mouse0@60-62,mouse=(600,640),mouse0@150-152,mouse=(100,640)",
+    "watch": [
+      "Main Camera/Transform.position",
+      "Main Camera/Movement.posZ",
+      "Main Camera/Movement.left",
+      "Main Camera/Movement.right"
+    ]
+  },
+  "recovered": {
+    "packages": {
+      "ok": true,
+      "count": 31,
+      "fetched": [],
+      "error": null
+    },
+    "compile": {
+      "verdict": "FAIL",
+      "errors": 2854,
+      "assemblies": 16,
+      "assemblies_ok": 5,
+      "failed": {
+        "Newtonsoft.Json": 2854
+      },
+      "skipped_because_a_dependency_failed": {
+        "Unity.Services.Core.Internal": "Newtonsoft.Json",
+        "Unity.Services.Core.Device": "Unity.Services.Core.Internal",
+        "Unity.Services.Core.Telemetry": "Unity.Services.Core.Internal",
+        "Unity.Services.Core.Scheduler": "Unity.Services.Core.Internal",
+        "Unity.Services.Core.Environments.Internal": "Unity.Services.Core.Internal",
+        "Unity.Services.Analytics": "Unity.Services.Core.Internal",
+        "Unity.Services.Core.Configuration": "Unity.Services.Core.Internal",
+        "Unity.Services.Core.Threading": "Unity.Services.Core.Internal",
+        "Unity.Services.Core.Registration": "Unity.Services.Core.Scheduler",
+        "Assembly-CSharp": "Unity.Services.Core.Device"
+      },
+      "errors_by_code": {
+        "CS0030": 108,
+        "CS0234": 24,
+        "CS0200": 21,
+        "CS0470": 8,
+        "CS0019": 6,
+        "CS1061": 6,
+        "CS0246": 5,
+        "CS0037": 5,
+        "CS0104": 4,
+        "CS0535": 4,
+        "CS0165": 3,
+        "CS0191": 2,
+        "CS0508": 1,
+        "CS0453": 1,
+        "CS0115": 1,
+        "CS0029": 1
+      },
+      "first_errors": [
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs:921 CS0104 'ErrorEventArgs' is an ambiguous reference between 'Newtonsoft.Json.Serialization.ErrorEventArgs' and 'System.IO.ErrorEventArgs'",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs:938 CS0104 'ErrorEventArgs' is an ambiguous reference between 'Newtonsoft.Json.Serialization.ErrorEventArgs' and 'System.IO.ErrorEventArgs'",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs:1883 CS0104 'ErrorEventArgs' is an ambiguous reference between 'Newtonsoft.Json.Serialization.ErrorEventArgs' and 'System.IO.ErrorEventArgs'",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/JsonSerializer.cs:144 CS0104 'ErrorEventArgs' is an ambiguous reference between 'Newtonsoft.Json.Serialization.ErrorEventArgs' and 'System.IO.ErrorEventArgs'",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs:1421 CS0508 'JContainer.Values<T>()': return type must be 'IEnumerable<T?>' to match overridden member 'JToken.Values<T>()'",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs:1047 CS0470 Method 'JContainer.add_ListChanged(ListChangedEventHandler)' cannot implement interface accessor 'IBindingList.ListChanged.add' for type 'JC",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs:1071 CS0470 Method 'JContainer.remove_ListChanged(ListChangedEventHandler)' cannot implement interface accessor 'IBindingList.ListChanged.remove' for ty",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs:20 CS0535 'JContainer' does not implement interface member 'IBindingList.ListChanged'",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs:1143 CS0470 Method 'JContainer.add_CollectionChanged(NotifyCollectionChangedEventHandler?)' cannot implement interface accessor 'INotifyCollectionChange",
+        "Assets/Scripts/Newtonsoft.Json/Newtonsoft/Json/Linq/JContainer.cs:1167 CS0470 Method 'JContainer.remove_CollectionChanged(NotifyCollectionChangedEventHandler?)' cannot implement interface accessor 'INotifyCollectionCha"
+      ],
+      "truncated": true,
+      "error": null
+    },
+    "play": {}
+  }
+}

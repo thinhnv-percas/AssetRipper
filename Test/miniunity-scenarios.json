@@ -1,0 +1,30 @@
+{
+  "note": "Scenarios for Test/Scripts/miniunity_gate.py, keyed by the game directory's name inside a rip. A scenario only says what to play and what to watch; it never states an expected value - the source project, played the same way, is the expectation. Scenes default to Build Settings.",
+  "fixtures": {
+    "RunFromZombies": {
+      "source": "https://github.com/thinhabc01/RunFromZombiesFullProject",
+      "scenes": ["Assets/Scenes/MenuScene.unity", "Assets/Scenes/GameScene.unity"],
+      "seconds": 5,
+      "size": "720x1280",
+      "input": "mouse0@60-62,mouse=(600,640),mouse0@150-152,mouse=(100,640)",
+      "watch": ["Main Camera/Transform.position", "Main Camera/Movement.posZ", "Main Camera/Movement.left", "Main Camera/Movement.right"]
+    },
+    "Impostor": {
+      "source": "https://github.com/thinhabc01/Impostor-Sort-Puzzle-Pro",
+      "seconds": 5,
+      "size": "720x1280"
+    },
+    "MergeRoom": {
+      "seconds": 5,
+      "size": "720x1280"
+    },
+    "JellyBlastV2": {
+      "seconds": 5,
+      "size": "1170x2532"
+    },
+    "Pinata": {
+      "seconds": 5,
+      "size": "720x1280"
+    }
+  }
+}

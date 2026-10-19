@@ -247,6 +247,14 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     (rejection reasons, `CPP2IL_DUMP_STRUCT_REJECTIONS`, `IStackStructModel.IsPadding`); `ArrayRecovery`
     (`DefinitionMap`, `ConstantHeldBy`: a stride held in a register is proven only when every definition is one
     constant); `ISIL/Instruction.NativeAddress`.
+32. **No abstract value types** (iteration 069) — `AsmResolverAssemblyPopulator.ConfigureHierarchy` clears
+    `Abstract` on a type whose base is `System.ValueType` or `System.Enum` (`System.Enum` itself excepted). il2cpp
+    generates `__Il2CppFullySharedGenericType` and `__Il2CppFullySharedGenericStructType` as `abstract sealed`, which a
+    decompiler writes as `abstract struct` (CS0106) and which fails the `__Generated` asmdef in Unity. Decided on the
+    base type rather than `Il2CppTypeDefinition.IsValueType`: the first of the two is not a value type by that flag.
+    `IlGenerator` (`OpCode.Move`): a `float` local copied into a local typed as a whole float aggregate is stored into
+    the aggregate's first member, as the arithmetic rule already did - `vector = (Vector3)num13` (CS0030) was the
+    x component of an inlined `Vector3.MoveTowards`.
 
 ## Updating
 
