@@ -255,6 +255,13 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     `IlGenerator` (`OpCode.Move`): a `float` local copied into a local typed as a whole float aggregate is stored into
     the aggregate's first member, as the arithmetic rule already did - `vector = (Vector3)num13` (CS0030) was the
     x component of an inlined `Vector3.MoveTowards`.
+33. **Module-level functions, unmappable throw-helper targets** (Kitty Knots) — `IlGenerator.IsModuleFunction`: a
+    call to a method declared on `<Module>` is a `Module-level function` boundary rather than an import, and
+    `LoadsCallOperands` answers false for it. `BuildStubAssembly` builds no `<Module>`, so importing one threw and
+    the whole calling body was lost; an obfuscated `Paxie.Thales.dll` reads every protected constant through eight
+    such functions, 615 bodies. `NewArmV8InstructionSet.InspectPotentialThrowHelper` maps the address with
+    `TryMapVirtualAddressToRaw`, as the x86 one already effectively did: a call target outside every segment threw
+    out of `ThrowHelperRecovery` and cost 70 more. 685 → 1 bodies failed to convert on that game.
 
 ## Updating
 

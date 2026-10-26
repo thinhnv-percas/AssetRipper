@@ -38,7 +38,13 @@ PLACEHOLDER = re.compile('"(?:' + "|".join(re.escape(p) for p in MESSAGE_PREFIXE
 # Iteration 067: an auto-property accessor the decompiler folded back has no body of its own. Reading on from it
 # took the next member's NativeSource and body, so a correct method scored as another's loss.
 BODYLESS_ACCESSOR = re.compile(r'^\s*(?:(?:private|internal|protected|public)\s+)*(?:get|set|init);\s*$')
-GENERATOR_FAILURE = re.compile(r'throw new \w*Exception\("(?:Decompil|Object reference|Index was|The given key)')
+# The body FillMethodBody writes when IlGenerator throws is the exception's text, stack included. Matching
+# the message alone missed every failure whose message is not on the list - 427 of Kitty Knots' 685 were
+# "System.Exception: AsmResolver type not found" and "No entry in the Elf PHT", and scored EXACT because a
+# bare throw has no placeholder in it. A Cpp2IL stack frame in the literal is what every one of them carries.
+GENERATOR_FAILURE = re.compile(
+    r'throw new \w*Exception\("(?:Decompil|Object reference|Index was|The given key'
+    r'|(?:[^"\\]|\\.)*?\\n\s+at Cpp2IL\.)')
 UNTYPED_LOCAL = re.compile(r'\bobject \w+(?:\s*=|;)')
 
 # One operation class per shape, read off a rendering of the IR rather than off machine code.
@@ -386,6 +392,20 @@ def self_test() -> int:
             failures += 1
         print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: {sorted(got)}")
 
+    # Kitty Knots: a generator failure is recognised by the Cpp2IL frame in its text, not by its message.
+    failure_cases = [
+        ("a failure whose message is not on the list is still MISSING",
+         'throw new Exception("System.Exception: AsmResolver type not found in type analysis context for <Module>'
+         '\\n   at Cpp2IL.Core.Utils.AsmResolver.ContextToTypeSignature.GetTypeDefinition()");', "MISSING"),
+        ("a game's own throw is not a generator failure",
+         'throw new Exception("System.Exception: not ready\\n   at Game.Start()");', "EXACT"),
+    ]
+    for name, body, expected in failure_cases:
+        got = classify(64, "", body)[0]
+        if got != expected:
+            failures += 1
+        print(f"{'ok  ' if got == expected else 'FAIL'}  {name}: {got}")
+
     # Iteration 067: a folded auto-property accessor is not paired with the member after it.
     folded = "\n".join([
         '[Address(RVA = "0x10", Offset = "0x10", Length = "0x8")]',
@@ -404,7 +424,7 @@ def self_test() -> int:
     failures += not ok
     print(f"{'ok  ' if ok else 'FAIL'}  a folded auto-property accessor is skipped, not paired with the next member: {paired}")
 
-    total = len(SELF_TEST) + len(accessor_cases) + len(literal_cases) + len(literal_cases_branch) + 1
+    total = len(SELF_TEST) + len(accessor_cases) + len(literal_cases) + len(literal_cases_branch) + len(failure_cases) + 1
     print(f"{total - failures} of {total} cases pass")
     return 1 if failures else 0
 

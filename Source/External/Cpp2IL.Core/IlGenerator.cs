@@ -435,6 +435,20 @@ public static class IlGenerator
     /// placeholder and loads none of them - the sixteen raw registers of an unresolved call are not
     /// reads in the emitted body - so a measurement of what the body reads must not count them either.
     /// </summary>
+    private const string ModuleTypeName = "<Module>";
+
+    /// <summary>
+    /// AssetRipper: whether a call target is declared on <c>&lt;Module&gt;</c>, which the export never builds.
+    /// </summary>
+    /// <remarks>
+    /// <c>AsmResolverDllOutputFormat.BuildStubAssembly</c> skips the il2cpp <c>&lt;Module&gt;</c> type (an
+    /// AsmResolver module carries its own), so no method on it has an AsmResolver definition and
+    /// importing one throws. Such a call is emitted as a boundary and loads nothing, which is why
+    /// <see cref="LoadsCallOperands"/> asks this too.
+    /// </remarks>
+    public static bool IsModuleFunction(MethodAnalysisContext target)
+        => target.DeclaringType is { } declaring && AsmResolverAssemblyPopulator.IsTypeContextModule(declaring);
+
     public static bool LoadsCallOperands(Instruction instruction, MethodAnalysisContext context)
     {
         // AssetRipper: iteration 065 - an indirect call or jump that reaches the generator is emitted as a
@@ -447,7 +461,7 @@ public static class IlGenerator
 
         return instruction.Operands[0] switch
         {
-            MethodAnalysisContext => true,
+            MethodAnalysisContext target => !IsModuleFunction(target),
             Immediate address => OnlyMethodAt(context, address.UnsignedValue) is not null
                 || IsNativeImportOperation(address.UnsignedValue, instruction, context),
             _ => false,
@@ -1862,6 +1876,19 @@ public static class IlGenerator
                             Diagnostic($"Unknown call target operand: {instruction.Operands[0]}"));
                     }
 
+                    break;
+                }
+
+                // AssetRipper: a module-level function - a method declared on <Module> - has no type C# can
+                // name it by, and the export builds no <Module> for it, so importing it threw and cost the
+                // whole calling body. An obfuscator puts its decoders there: Kitty Knots' Paxie.Thales.dll
+                // reads every protected constant through one of eight such functions, and 615 bodies were
+                // lost to it. One reported boundary per call is the honest cost; see IsModuleFunction.
+                if (IsModuleFunction(targetMethod))
+                {
+                    EmitBoundary(instructions, context, writeLine,
+                        new NativeBoundary.Verdict(NativeBoundary.Managed, ModuleTypeName),
+                        $"Module-level function {ModuleTypeName} 0x{(targetMethod is ConcreteGenericMethodAnalysisContext { BaseMethodContext: var definition } ? definition : targetMethod).Token:X8}");
                     break;
                 }
 

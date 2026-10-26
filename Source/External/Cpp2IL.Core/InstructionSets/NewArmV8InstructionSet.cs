@@ -151,9 +151,12 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         const int maxInstructions = 48;
 
         var binary = context.Binary;
-        var rawStart = (int)binary.MapVirtualAddressToRaw(address);
-        if (rawStart <= 0)
+        // AssetRipper: a call target read off a misdecoded BL can lie outside every segment
+        // (0xFFFFFFFFFC87F158 on Kitty Knots), and MapVirtualAddressToRaw throws on that rather than returning
+        // a negative, which cost the whole body of every method that reached it. Not mapped means not a helper.
+        if (!binary.TryMapVirtualAddressToRaw(address, out var rawAddress) || rawAddress <= 0)
             return ([], []);
+        var rawStart = (int)rawAddress;
 
         var content = binary.GetRawBinaryContent();
         var window = System.Math.Min(maxInstructions * 4, content.Length - rawStart);

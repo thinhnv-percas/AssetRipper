@@ -65,6 +65,7 @@ MESSAGE_PREFIXES = (
     "Il2Cpp runtime handle",
     "Stack shift",
     "Unresolved branch target",
+    "Module-level function",
 )
 
 # family -> (generator site, the ISIL operation that reaches it, what the family means)
@@ -91,6 +92,8 @@ SITES = {
                     "stack analysis left a shift behind"),
     "INVALID_INSTRUCTION": ("IlGenerator.cs:1012", "OpCode.Invalid",
                             "the disassembler produced nothing decodable"),
+    "MODULE_FUNCTION": ("IlGenerator.cs IsModuleFunction", "OpCode.Call / CallVoid, target declared on <Module>",
+                        "a module-level function C# cannot name, typically an obfuscator's decoder"),
 }
 
 
@@ -131,6 +134,9 @@ def family_of(message: str) -> tuple[str, str]:
 
     if message.startswith("Invalid instruction:"):
         return "INVALID_INSTRUCTION", "(undecodable)"
+
+    if message.startswith("Module-level function"):
+        return "MODULE_FUNCTION", message.rsplit(" ", 1)[-1]
 
     return "OTHER", message[:60]
 
