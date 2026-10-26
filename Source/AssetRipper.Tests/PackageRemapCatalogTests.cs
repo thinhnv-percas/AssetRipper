@@ -186,6 +186,8 @@ public sealed class PackageRemapCatalogTests
 			Assert.That(outcome.NoCodeEvidence, Is.False);
 			Assert.That(outcome.AssembliesPaired, Is.EqualTo(1));
 			Assert.That(outcome.AddedToManifest, Is.True);
+			Assert.That(run.PackageGuids["d0000000000000000000000000000004"], Is.EqualTo("com.demigiant.dotween.pro"),
+				"a reference repointed into the package's assembly names a guid an audit has to be told about");
 			Assert.That(File.Exists(ripped), Is.False, "the decompiled copy is replaced by the package");
 			Assert.That(run.Outcomes.Single(o => o.Name == "com.unity.render-pipelines.high-definition").NoCodeEvidence, Is.True);
 		});

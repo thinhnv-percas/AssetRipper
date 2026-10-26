@@ -196,6 +196,16 @@ public sealed class PackageRemapRun
 		// paired a type every package considered after it went into the manifest with nothing paired at all.
 		outcome.AddedToManifest = found.Count > 0 || sourceScripts.Remaps.Count > 0 || rippedAssembliesReplaced > 0;
 
+		// A script reference repointed into one of the package's assemblies names that assembly's guid, which no
+		// export meta declares, so it has to be listed too or an audit reads DOTweenSettings' m_Script as broken.
+		if (outcome.AddedToManifest)
+		{
+			foreach (ScriptRemap remap in packageScripts.Remaps)
+			{
+				packageGuids[remap.New.Guid] = package.Name;
+			}
+		}
+
 		if (configuration.DeleteRippedCopies)
 		{
 			CollectRedundant(outcome, found, [.. packageScripts.AssemblyNames, .. sourceScripts.AssemblyNames], sourceScripts.RippedAssemblyPaths);
