@@ -79,6 +79,64 @@ public static class IlGenerator
 
     public static void GenerateIl(MethodAnalysisContext context, MethodDefinition definition)
     {
+        var outer = GeneratingMethod;
+        GeneratingMethod = context;
+
+        try
+        {
+            GenerateIlCore(context, definition);
+        }
+        finally
+        {
+            GeneratingMethod = outer;
+        }
+    }
+
+    // AssetRipper: the method whose body is being generated on this thread, so the accessor pairing
+    // can refuse to pair a property's backing field with that very property inside its own accessor.
+    [ThreadStatic]
+    private static MethodAnalysisContext? GeneratingMethod;
+
+    /// <summary>
+    /// AssetRipper: <paramref name="accessor"/>, unless it is an accessor of the same property as the
+    /// method being generated.
+    /// </summary>
+    /// <remarks>
+    /// The pairing rewrites a read of a backing field as a call to the property that returns it. Inside
+    /// that property's own getter the read is the whole body, so the rewrite turned
+    /// <c>get { return version; }</c> into <c>get { return Version; }</c> - which compiles, and
+    /// recurses until the stack overflows the first time anything asks. Every trivial property of a
+    /// game type came out that way (31 on <c>ThemeDefinition</c> alone), and the setter side the same:
+    /// <c>set { FingerFilterOn = value; }</c>.
+    /// </remarks>
+    private static MethodAnalysisContext? NotTheAccessorBeingGenerated(MethodAnalysisContext? accessor)
+    {
+        if (accessor is null || GeneratingMethod is not { } current)
+            return accessor;
+
+        return SameProperty(accessor, current) ? null : accessor;
+    }
+
+    private static bool SameProperty(MethodAnalysisContext accessor, MethodAnalysisContext current)
+    {
+        static MethodAnalysisContext Definition(MethodAnalysisContext method)
+            => method is ConcreteGenericMethodAnalysisContext concrete ? concrete.BaseMethodContext : method;
+
+        static string? PropertyName(string name)
+            => name.StartsWith("get_", StringComparison.Ordinal) || name.StartsWith("set_", StringComparison.Ordinal) ? name[4..] : null;
+
+        var a = Definition(accessor);
+        var c = Definition(current);
+
+        if (ReferenceEquals(a, c))
+            return true;
+
+        return a.DeclaringType is { } owner && ReferenceEquals(owner, c.DeclaringType)
+            && PropertyName(a.Name) is { } property && property == PropertyName(c.Name);
+    }
+
+    private static void GenerateIlCore(MethodAnalysisContext context, MethodDefinition definition)
+    {
         var assembly = context.DeclaringType!.DeclaringAssembly;
         var module = definition.DeclaringModule!;
         var factory = module.CorLibTypeFactory;
@@ -854,6 +912,9 @@ public static class IlGenerator
     /// </para>
     /// </remarks>
     private static MethodAnalysisContext? PublicAccessorFor(FieldAnalysisContext field)
+        => NotTheAccessorBeingGenerated(PublicAccessorCandidate(field));
+
+    private static MethodAnalysisContext? PublicAccessorCandidate(FieldAnalysisContext field)
     {
         if ((field.Attributes & FieldAttributes.FieldAccessMask) == FieldAttributes.Public)
             return null;
@@ -947,6 +1008,9 @@ public static class IlGenerator
     }
 
     private static MethodAnalysisContext? InstanceAccessorFor(FieldAnalysisContext field)
+        => NotTheAccessorBeingGenerated(InstanceAccessorCandidate(field));
+
+    private static MethodAnalysisContext? InstanceAccessorCandidate(FieldAnalysisContext field)
     {
         // A field of a generic instance carries no metadata of its own - its BackingData is null and
         // its declaring type is the instantiation, which has no properties at all. The pairing is a
@@ -1068,6 +1132,9 @@ public static class IlGenerator
     /// them a write rather than a read.
     /// </remarks>
     private static MethodAnalysisContext? InstanceSetterFor(FieldAnalysisContext field)
+        => NotTheAccessorBeingGenerated(InstanceSetterCandidate(field));
+
+    private static MethodAnalysisContext? InstanceSetterCandidate(FieldAnalysisContext field)
     {
         if (field is ConcreteGenericFieldAnalysisContext concrete)
         {

@@ -41,8 +41,12 @@ internal static class NativeFactsDump
 {
 	private static readonly string? DumpPath = Environment.GetEnvironmentVariable("CPP2IL_DUMP_NATIVE_FACTS");
 
+	private static readonly string? AddressMapPath = Environment.GetEnvironmentVariable("CPP2IL_DUMP_ADDRESS_MAP");
+
 	public static void WriteIfRequested(ApplicationAnalysisContext appContext)
 	{
+		WriteAddressMapIfRequested(appContext);
+
 		if (string.IsNullOrEmpty(DumpPath))
 		{
 			return;
@@ -56,6 +60,37 @@ internal static class NativeFactsDump
 		catch (Exception ex)
 		{
 			Logger.Warning(LogCategory.Import, $"Il2Cpp recovery: native facts could not be written: {ex.Message}");
+		}
+	}
+
+	/// <summary>
+	/// <c>CPP2IL_DUMP_ADDRESS_MAP</c>: every method body address with every method that shares it, concrete generic
+	/// instantiations included, one line per method - what a reader of the disassembly needs to name a call target.
+	/// </summary>
+	private static void WriteAddressMapIfRequested(ApplicationAnalysisContext appContext)
+	{
+		if (string.IsNullOrEmpty(AddressMapPath))
+		{
+			return;
+		}
+
+		try
+		{
+			using StreamWriter writer = new(AddressMapPath, false, new UTF8Encoding(false));
+			int lines = 0;
+			foreach ((ulong address, List<Cpp2IL.Core.Model.Contexts.MethodAnalysisContext> methods) in appContext.MethodsByAddress.OrderBy(pair => pair.Key))
+			{
+				foreach (Cpp2IL.Core.Model.Contexts.MethodAnalysisContext method in methods)
+				{
+					writer.WriteLine($"{address:X}\t{method.DeclaringType?.FullName}::{method.Name}({string.Join(", ", method.Parameters.Select(p => p.ParameterType.FullName))})");
+					lines++;
+				}
+			}
+			Logger.Info(LogCategory.Import, $"Il2Cpp recovery: address map: {lines} lines written to {AddressMapPath}.");
+		}
+		catch (Exception ex)
+		{
+			Logger.Warning(LogCategory.Import, $"Il2Cpp recovery: address map could not be written: {ex.Message}");
 		}
 	}
 

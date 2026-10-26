@@ -2254,6 +2254,17 @@ find it; `strings` without `-el` does find method and type names.
 - **`MOVK` không phải OR.** Sau `movn` hoặc mov bitmask, chunk bị thay là các bit 1: 0.2 thành -0.4000000000000001.
   Vị trí chunk (`hw`) đọc từ word lệnh vì dạng đã decode không mang nó khi immediate bằng 0.
 
+- **Ghép accessor không được chạy bên trong chính accessor đó.** Luật ghép "field → property" (một
+  getter chỉ load một field rồi return là accessor của field đó) đổi mọi lần đọc backing field thành
+  lời gọi property, kể cả trong thân getter của chính property ấy: `get { return version; }` thành
+  `get { return Version; }`, compile được và đệ quy tới khi tràn stack ở lần gọi đầu. Setter cũng vậy
+  (`FingerFilterOn = value;`). Trên Kitty Knots là 109 accessor tự gọi mình trong DrawPath.Game, 31 chỉ
+  riêng `ThemeDefinition`; sau khi sửa còn 0. `IlGenerator.GeneratingMethod` (ThreadStatic) ghi method
+  đang được sinh, và `NotTheAccessorBeingGenerated` bỏ ghép khi accessor thuộc cùng property với nó.
+  Không một aggregate nào thấy lỗi này: thân trông sạch, không placeholder, và ILSpy vui vẻ in ra.
+- `CPP2IL_DUMP_ADDRESS_MAP=<file>` ghi "VA\tType::Method(params)" cho mọi entry của `MethodsByAddress`,
+  để một công cụ disassembly bên ngoài đặt tên được call target.
+
 ### Things measured to be worth nothing — do not redo them
 - **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
   - 66g: thiết lập frame (`mov x29, sp`) là một address-take, nên mọi lần lưu thanh ghi phía trên nó được giữ;
