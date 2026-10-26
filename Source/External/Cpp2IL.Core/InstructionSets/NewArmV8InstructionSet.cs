@@ -18,6 +18,18 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
     private static Dictionary<string, ulong>? adrpOffsets;
 
     /// <summary>
+    /// AssetRipper: the sixteen bytes a vector register was loaded with from read-only data, keyed by register name.
+    /// </summary>
+    /// <remarks>
+    /// A compiler initialises two adjacent doubles (or four floats, or a 16 byte struct) by loading a 128 bit constant
+    /// out of <c>.rodata</c> into a Q register and storing it whole. ISIL has no 128 bit value, so the load stayed an
+    /// unresolved absolute read and every field it initialised read zero: <c>BallSizeCurve = 0.0</c> where the
+    /// binary says 0.55. The constant is in the file, and the store that consumes it says where each half goes.
+    /// </remarks>
+    [ThreadStatic]
+    private static Dictionary<string, (ulong Low, ulong High)>? vectorConstants;
+
+    /// <summary>
     /// AssetRipper: stack slot a register holds the address of, keyed by register name. A composite
     /// return value is written through such a pointer, and the words it covers are only ever read back
     /// by offset, so without this the call is not seen to have written them.
@@ -86,6 +98,44 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
 
     private static bool RunsAt32Bits(Arm64Instruction instruction)
         => instruction.Op0Kind == Arm64OperandKind.Register && IsWRegister(instruction.Op0Reg);
+
+    /// <summary>
+    /// AssetRipper: the sixteen bytes at <paramref name="address"/>, when it is read-only data the code names outright.
+    /// A writable address is a global the program can change, so its value in the file is not the value the load reads.
+    /// </summary>
+    private static (ulong Low, ulong High)? ReadVectorConstant(LibCpp2IL.Il2CppBinary binary, ulong address)
+    {
+        if (binary.IsVirtualAddressWritable(address) != false || !binary.TryMapVirtualAddressToRaw(address, out var raw))
+            return null;
+
+        var content = binary.GetRawBinaryContent();
+
+        if (raw < 0 || raw + 16 > content.Length)
+            return null;
+
+        var bytes = content.Slice((int)raw, 16).ToArray();
+        return (BitConverter.ToUInt64(bytes, 0), BitConverter.ToUInt64(bytes, 8));
+    }
+
+    /// <summary>AssetRipper: the 16 bit chunk a MOVK at <paramref name="address"/> inserts, and the bit position it goes to.</summary>
+    private static (long Value, int Shift)? MovkChunk(LibCpp2IL.Il2CppBinary binary, ulong address)
+    {
+        if (!binary.TryMapVirtualAddressToRaw(address, out var raw))
+            return null;
+
+        var content = binary.GetRawBinaryContent();
+
+        if (raw < 0 || raw + 4 > content.Length)
+            return null;
+
+        var word = BinaryPrimitives.ReadUInt32LittleEndian(content.Slice((int)raw, 4));
+
+        // MOVK is sf 11 100101 hw imm16 Rd
+        if ((word & 0x7F800000) != 0x72800000)
+            return null;
+
+        return ((word >> 5) & 0xFFFF, (int)((word >> 21) & 3) * 16);
+    }
 
     private static Immediate Imm(long value) => new(value);
     private static Immediate Imm(ulong value) => new(unchecked((long)value));
@@ -306,6 +356,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             adrpOffsets.Clear();
 
         (stackAddresses ??= new()).Clear();
+        (vectorConstants ??= new()).Clear();
 
         var instructions = new List<Instruction>();
         var addresses = new List<ulong>();
@@ -352,6 +403,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
 
         adrpOffsets.Clear();
         stackAddresses.Clear();
+        vectorConstants.Clear();
         return instructions;
     }
 
@@ -392,12 +444,13 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             if (members >= 2 && slots[slot] is Register { Name: ['V', .. var index] } first
                 && int.TryParse(index, out var number) && number + members <= 8)
             {
+                var memberSize = FloatAggregate.MemberSize(parameter.ParameterType);
                 for (var member = 1; member < members; member++)
                 {
                     addresses.Add(entryAddress);
                     instructions.Add(new Instruction(instructions.Count, OpCode.Move,
                         new Register(null, $"V{number + member}"),
-                        new MemoryOperand(first, addend: member * 4)));
+                        new MemoryOperand(first, addend: member * memberSize)));
                 }
             }
 
@@ -471,6 +524,7 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
     private void ConvertInstructionStatement(Arm64Instruction instruction, List<Instruction> instructions, List<ulong> addresses, MethodAnalysisContext context)
     {
         var address = instruction.Address;
+        (ulong Low, ulong High)? pendingVectorConstant = null;
 
         Instruction Add(ulong address, OpCode opCode, params List<IOperand> operands)
         {
@@ -643,16 +697,44 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
 
             var returnRegister = CallingConventions.ReturnRegister(callee);
 
+            var memberSize = FloatAggregate.MemberSize(callee.ReturnType);
             for (var member = 1; member < members; member++)
-                Add(address, OpCode.Move, new Register(null, $"V{member}"), new MemoryOperand(returnRegister, addend: member * 4));
+                Add(address, OpCode.Move, new Register(null, $"V{member}"), new MemoryOperand(returnRegister, addend: member * memberSize));
         }
 
         void AddReturn()
         {
             if (context.IsVoid)
+            {
                 Add(address, OpCode.Return);
-            else
-                Add(address, OpCode.Return, CallingConventions.ReturnRegister(context));
+                return;
+            }
+
+            // AssetRipper: the fourth side of the float aggregate defect - this method's own return. A
+            // homogeneous float or double aggregate leaves its members in V0 to V3 and the return can name
+            // only V0, so `return a + b` on a Vec2 { double X, Y } kept X and returned Y as nothing. The
+            // members are composed into one value first, the same MakeStruct the argument side builds.
+            var members = Arm64CallingConventionResolver.FloatAggregateMemberCount(context.ReturnType);
+            if (members >= 2 && !CallingConventions.ReturnsViaHiddenBuffer(context))
+            {
+                var composed = new Register(null, $"AGGRET{address:X}");
+                var operands = new List<IOperand> { composed, context.ReturnType };
+                for (var member = 0; member < members; member++)
+                    operands.Add(new Register(null, $"V{member}"));
+                Add(address, OpCode.MakeStruct, operands);
+                Add(address, OpCode.Return, composed);
+                return;
+            }
+
+            Add(address, OpCode.Return, CallingConventions.ReturnRegister(context));
+        }
+
+        // AssetRipper: a 128 bit constant stored whole is two eight byte stores of its halves. The integer bits are
+        // what is written; the generator reads them as the field's type, which is the only place that type is known.
+        void EmitVectorConstantStore(long extraOffset, (ulong Low, ulong High) vector)
+        {
+            Add(address, OpCode.Move, MemOperand(extraOffset, size: 8, stackSize: 8), Imm(vector.Low));
+            Add(address, OpCode.Move, MemOperand(extraOffset + 8, size: 8, stackSize: 8), Imm(vector.High));
         }
 
         // for pre/post indexed accesses, apply the base register update on the correct side of the access
@@ -849,10 +931,24 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     break;
                 }
             case Arm64Mnemonic.MOVK:
-                // inserts a 16-bit chunk, which after the movz that always precedes it is just an or
-                Add(address, OpCode.Or, ConvertOperand(instruction, 0), ConvertOperand(instruction, 0),
-                    Imm(ImmediateAtWidth(instruction.Op1Imm, !RunsAt32Bits(instruction)))); // AssetRipper: iteration 068
-                break;
+                {
+                    // inserts a 16-bit chunk, which after a movz is just an or
+                    // AssetRipper: but not after a movn or a bitmask mov, whose chunk is ones: `mov x10, #-0x6666666666666667;
+                    // movk x10, #0x999a; movk x10, #0x3fc9, lsl #48` is 0.2, and or-ing the chunks in gave -0.4000000000000001.
+                    // The chunk the instruction replaces is named by its hw field, which the decoded form does not carry
+                    // when the inserted value is zero, so it is read from the word itself.
+                    var is64 = !RunsAt32Bits(instruction);
+                    if (MovkChunk(context.AppContext.Binary, address) is { } chunk)
+                    {
+                        var cleared = ~(0xFFFFL << chunk.Shift);
+                        Add(address, OpCode.And, ConvertOperand(instruction, 0), ConvertOperand(instruction, 0), Imm(ImmediateAtWidth(cleared, is64)));
+                        Add(address, OpCode.Or, ConvertOperand(instruction, 0), ConvertOperand(instruction, 0), Imm(ImmediateAtWidth(chunk.Value << chunk.Shift, is64)));
+                    }
+                    else
+                        Add(address, OpCode.Or, ConvertOperand(instruction, 0), ConvertOperand(instruction, 0),
+                            Imm(ImmediateAtWidth(instruction.Op1Imm, is64))); // AssetRipper: iteration 068
+                    break;
+                }
             case Arm64Mnemonic.MOVN:
                 {
                     var temp = new Register(null, "TEMP");
@@ -903,6 +999,17 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                             instruction.Op0Reg is <= Arm64Register.D31) is { } constant)
                         source = constant;
 
+                    // AssetRipper: a 128 bit constant. Its uses are the stores below, which write each half where it goes;
+                    // what the register itself holds is given as its low half, which is lane 0 of any scalar read of it.
+                    if (instruction.Mnemonic is Arm64Mnemonic.LDR or Arm64Mnemonic.LDUR
+                        && instruction.Op0Reg is >= Arm64Register.V0 and <= Arm64Register.V31
+                        && source is MemoryOperand { Base: null, Index: null, Addend: > 0 } vectorAddress
+                        && ReadVectorConstant(context.AppContext.Binary, (ulong)vectorAddress.Addend) is { } vector)
+                    {
+                        pendingVectorConstant = vector;
+                        source = Imm(vector.Low);
+                    }
+
                     if (instruction.Op0Kind == Arm64OperandKind.Register && IsReg31(instruction.Op0Reg))
                         Add(address, OpCode.Nop); // load to xzr = prefetch, discard
                     else
@@ -918,7 +1025,12 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
             case Arm64Mnemonic.STURB:
             case Arm64Mnemonic.STURH:
                 EmitWriteback(beforeAccess: true);
-                Add(address, OpCode.Move, MemOperand(size: AccessWidth()), ConvertOperand(instruction, 0));
+                if (instruction.Mnemonic is Arm64Mnemonic.STR or Arm64Mnemonic.STUR
+                    && vectorConstants!.TryGetValue(NormalizeRegister(instruction.Op0Reg), out var storedVector)
+                    && instruction.Op0Reg is >= Arm64Register.V0 and <= Arm64Register.V31)
+                    EmitVectorConstantStore(0, storedVector);
+                else
+                    Add(address, OpCode.Move, MemOperand(size: AccessWidth()), ConvertOperand(instruction, 0));
                 EmitWriteback(beforeAccess: false);
                 break;
             case Arm64Mnemonic.LDP:
@@ -932,7 +1044,15 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
                     // AssetRipper: iteration 068 - each half of a pair store writes exactly pairSize bytes, whatever the base.
                     // Giving only a stack size left a heap store's first half without a width, so `stp s0, s1, [x0, #off]`
                     // into a Vector3 field could not be read as its x and named the whole field: `_direction = (Vector3)num`.
-                    if (instruction.Mnemonic == Arm64Mnemonic.STP)
+                    if (instruction.Mnemonic == Arm64Mnemonic.STP
+                        && instruction.Op0Reg is >= Arm64Register.V0 and <= Arm64Register.V31
+                        && vectorConstants!.TryGetValue(NormalizeRegister(instruction.Op0Reg), out var firstVector)
+                        && vectorConstants.TryGetValue(NormalizeRegister(instruction.Op1Reg), out var secondVector))
+                    {
+                        EmitVectorConstantStore(0, firstVector);
+                        EmitVectorConstantStore(16, secondVector);
+                    }
+                    else if (instruction.Mnemonic == Arm64Mnemonic.STP)
                     {
                         Add(address, OpCode.Move, MemOperand(size: pairSize, stackSize: pairSize), ConvertOperand(instruction, 0));
                         Add(address, OpCode.Move, MemOperand(pairSize, size: pairSize, stackSize: pairSize), ConvertOperand(instruction, 1));
@@ -1408,6 +1528,18 @@ public class NewArmV8InstructionSet : Cpp2IlInstructionSet
         // any register write invalidates a tracked ADRP page address (ADRP itself just set one)
         if (instruction.Mnemonic != Arm64Mnemonic.ADRP && instruction.Op0Kind == Arm64OperandKind.Register)
             adrpOffsets!.Remove(NormalizeRegister(instruction.Op0Reg));
+
+        // AssetRipper: and a tracked vector constant, except by a store, which reads its register rather than writing it
+        if (instruction.Mnemonic is not (Arm64Mnemonic.STR or Arm64Mnemonic.STUR or Arm64Mnemonic.STP))
+        {
+            if (instruction.Op0Kind == Arm64OperandKind.Register)
+                vectorConstants!.Remove(NormalizeRegister(instruction.Op0Reg));
+            if (instruction.Op1Kind == Arm64OperandKind.Register && instruction.Mnemonic is Arm64Mnemonic.LDP)
+                vectorConstants!.Remove(NormalizeRegister(instruction.Op1Reg));
+        }
+
+        if (pendingVectorConstant is { } loaded)
+            vectorConstants![NormalizeRegister(instruction.Op0Reg)] = loaded;
         if (instruction.MemIndexMode != Arm64MemoryIndexMode.Offset && instruction.MemBase != Arm64Register.INVALID)
             adrpOffsets!.Remove(NormalizeRegister(instruction.MemBase));
     }

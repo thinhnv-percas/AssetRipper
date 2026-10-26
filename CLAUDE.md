@@ -2239,6 +2239,21 @@ find it; `strings` without `-el` does find method and type names.
   source project, played the same way, is the expectation.
 
 
+- **HFA của AAPCS64 gồm cả double.** `struct Vec2 { double X, Y; }` đi và về trong D0/D1 như một Vector2 trong
+  S0/S1; chỉ nhận float thì mọi toán tử của Vec2 trả về toán hạng trái và mọi tích vô hướng đọc ra 0 (Kitty Knots).
+  `FloatAggregate.MemberSize` là 4 hoặc 8, và mọi chỗ tính offset member nhân với nó.
+- **Một bản build có PairIP có thể có metadata usage slot không đọc được.** `libil2cpp.so` của Kitty Knots NEEDED
+  `libpairipcore.so`, và một khối liền 6390 slot trong `.data` (0x6ed1fa0..0x6ede748) mang giá trị 64 bit trông
+  ngẫu nhiên, phân bố đều trên cả tám giá trị bit kind kể cả các giá trị không hợp lệ — đó là slot của chính các
+  assembly gameplay. Không giải mã lớp bảo vệ; phần còn lại của thân hàm vẫn nói được kiểu: `OpaqueClassOperands`
+  lấy kiểu cấp phát từ constructor hoặc từ kiểu của đích, và `SzArrayNew` có class không đọc được lấy kiểu mảng từ
+  kiểu kết quả mà fixpoint đã gán. Các lần đọc GOT phía sau chết theo.
+- **Một hằng 128 bit nạp bằng `ldr q` rồi lưu nguyên khối là hai nửa 8 byte, không phải một lần đọc không giải được.**
+  Bit nguyên được ghi; generator đọc chúng theo kiểu field (số nguyên 64 bit vào field double là bit của double, store
+  gộp vào field float/double là bit, và store gộp đi được vào member của struct lồng).
+- **`MOVK` không phải OR.** Sau `movn` hoặc mov bitmask, chunk bị thay là các bit 1: 0.2 thành -0.4000000000000001.
+  Vị trí chunk (`hw`) đọc từ word lệnh vì dạng đã decode không mang nó khi immediate bằng 0.
+
 ### Things measured to be worth nothing — do not redo them
 - **Giữ store qua SP sau ô bị lấy địa chỉ, như store qua X29 (iteration 066).** Hai lần đo:
   - 66g: thiết lập frame (`mov x29, sp`) là một address-take, nên mọi lần lưu thanh ghi phía trên nó được giữ;

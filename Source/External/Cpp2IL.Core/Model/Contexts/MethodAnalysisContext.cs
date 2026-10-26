@@ -537,6 +537,10 @@ public class MethodAnalysisContext : HasGenericParameters, IMethodInfoProvider, 
         // Runs late so the array type and length reach the allocation call as operands after copy propagation has inlined them
         ArrayRecovery.Run(this);
 
+        // AssetRipper: after ArrayRecovery, which types an allocation whose class names nothing from its result; this
+        // does the same for an object allocation, so the unreadable class load behind either dies below.
+        OpaqueClassOperands.Run(this);
+
         LocalVariables.TypeAddressedLocals(this);
 
         // AssetRipper: after ArrayRecovery, because the capacity test it matches reads the backing

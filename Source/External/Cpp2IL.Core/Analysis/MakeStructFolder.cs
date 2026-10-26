@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cpp2IL.Core.ISIL;
 using Cpp2IL.Core.Model.Contexts;
+using Cpp2IL.Core.Utils;
 
 namespace Cpp2IL.Core.Analysis;
 
@@ -61,14 +62,15 @@ public static class MakeStructFolder
         switch (head)
         {
             // A value read out of a field: the first member resolves to the field and the rest are
-            // loads at four byte steps past it that nothing named. Quaternion.identity arrives this
+            // loads at member-size steps past it that nothing named. Quaternion.identity arrives this
             // way, as identityQuaternion plus three unresolved loads off the static field storage.
             case FieldReference source when source.Field.FieldType.FullName == type.FullName:
             {
+                var memberSize = FloatAggregate.MemberSize(type);
                 for (var member = 1; member + 2 < instruction.Operands.Count; member++)
                 {
                     if (Behind(instruction.Operands[member + 2], definitions) is not MemoryOperand { Index: null, Scale: 0, Base: LocalVariable memoryBase } load
-                        || !ReferenceEquals(memoryBase, source.Local) || load.Addend != source.Offset + member * 4)
+                        || !ReferenceEquals(memoryBase, source.Local) || load.Addend != source.Offset + member * memberSize)
                         return null;
                 }
 

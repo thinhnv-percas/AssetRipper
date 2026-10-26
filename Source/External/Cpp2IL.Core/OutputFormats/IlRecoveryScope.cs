@@ -24,6 +24,18 @@ public static class IlRecoveryScope
 
     public static bool IsRecoveredAlso(string assemblyName) => Also.Contains(Normalise(assemblyName));
 
+    private static readonly HashSet<string> Only = Parse(Environment.GetEnvironmentVariable("CPP2IL_RECOVER_ONLY"));
+
+    /// <summary>The assemblies <c>CPP2IL_RECOVER_ONLY</c> restricts recovery to (empty when it is not set).</summary>
+    public static IReadOnlyCollection<string> RecoveredOnly => Only;
+
+    /// <summary>
+    /// <c>CPP2IL_RECOVER_ONLY</c> names the assemblies to recover (comma separated, without <c>.dll</c>) and stubs
+    /// every other one. It exists to make iterating on the recovery of a few assemblies quick - a whole game takes
+    /// minutes - and is off unless set: a project exported with it has stub bodies everywhere else.
+    /// </summary>
+    public static bool IsExcludedByOnly(string assemblyName) => Only.Count > 0 && !Only.Contains(Normalise(assemblyName));
+
     public static HashSet<string> Parse(string? value)
         => value is null
             ? new HashSet<string>(StringComparer.Ordinal)

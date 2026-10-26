@@ -101,7 +101,10 @@ public class Arm64CallingConventionResolver : BaseCallingConventionResolver
 
         var members = FloatAggregateMemberCount(type);
         if (members > 0)
-            return new(Arm64ArgumentPlacement.Kind.FloatAggregate, members * 4, members, 4);
+        {
+            var memberSize = FloatAggregate.MemberSize(type);
+            return new(Arm64ArgumentPlacement.Kind.FloatAggregate, members * memberSize, members, memberSize);
+        }
 
         // A reference, a pointer, or a value type passed in one integer register. Only the stack slot
         // needs the real size, and only on Apple platforms, where an int takes four bytes rather than eight.

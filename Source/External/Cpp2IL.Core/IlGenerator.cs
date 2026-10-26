@@ -1435,7 +1435,12 @@ public static class IlGenerator
                 LoadContainingFields(target, instructions, recordAsStore: true);
             }
 
-            if (PrimitiveFieldWidth(target.Field.FieldType) == 8)
+            // AssetRipper: the bits a packed store writes into a float field are the float's own.
+            if (target.Field.FieldType.FullName == "System.Single")
+                instructions.Add(CilOpCodes.Ldc_R4, BitConverter.Int32BitsToSingle(unchecked((int)value)));
+            else if (target.Field.FieldType.FullName == "System.Double")
+                instructions.Add(CilOpCodes.Ldc_R8, BitConverter.Int64BitsToDouble(value));
+            else if (PrimitiveFieldWidth(target.Field.FieldType) == 8)
                 instructions.Add(CilOpCodes.Ldc_I8, value);
             else
                 instructions.Add(CilOpCodes.Ldc_I4, (int)value);
@@ -1482,9 +1487,23 @@ public static class IlGenerator
                 if (instruction.Operands is [FieldReference { AccessSize: >= 2 } packedHead, { } packedValue]
                     && PackedFieldsCovered(packedHead) is { } packed)
                 {
+                    // AssetRipper: a constant loaded into a float register and stored whole is the bits it covers, not a
+                    // number: `ldr d0, =(3, -1); stur d0, [x0, #0x84]` initialises two ints, and slicing the double
+                    // as a value wrote `0.0 / 0.0 >> 32` into the second.
+                    packedValue = packedValue switch
+                    {
+                        DoubleLiteral packedDouble => new Immediate(BitConverter.DoubleToInt64Bits(packedDouble.Value)),
+                        FloatLiteral packedFloat => new Immediate((uint)BitConverter.SingleToInt32Bits(packedFloat.Value)),
+                        _ => packedValue,
+                    };
+
                     foreach (var (member, byteOffset, width) in packed)
                     {
-                        var slot = new FieldReference(member, packedHead.Local, packedHead.Offset + byteOffset);
+                        var slot = new FieldReference(member, packedHead.Local, packedHead.Offset + byteOffset)
+                        {
+                            ContainingFields = packedHead.ContainingFields,
+                            ElementIndex = packedHead.ElementIndex,
+                        };
 
                         if (packedValue is Immediate constant)
                         {
@@ -2579,6 +2598,7 @@ public static class IlGenerator
             return null;
 
         TypeAnalysisContext? scalar = null;
+        TypeAnalysisContext? member = null;   // the member type of an aggregate operand: float, or double for an aggregate of doubles
         var aggregates = 0;
 
         for (var i = 1; i <= 2; i++)
@@ -2596,6 +2616,7 @@ public static class IlGenerator
                     break;
                 case var operand when DestinationType(operand) is { } type && FloatAggregate.MemberCount(type) >= 2:
                     aggregates++;
+                    member ??= FloatAggregate.MemberType(type);
                     break;
             }
         }
@@ -2622,8 +2643,13 @@ public static class IlGenerator
                 if (DestinationType(instruction.Operands[i]) is { } operandType
                     && FloatAggregate.MemberCount(operandType) >= 2
                     && operandType.FullName != destination.FullName)
-                    return scalar ?? context.AppContext.SystemTypes.SystemSingleType;
+                    return scalar ?? FloatAggregate.MemberType(destination) ?? context.AppContext.SystemTypes.SystemSingleType;
         }
+
+        // AssetRipper: two aggregate operands and no scalar - `a.X + b.X` on a Vec2 of doubles, with both
+        // operands named by the registers carrying their first members - is arithmetic in the member type.
+        if (aggregates > 0 && scalar == null && member?.FullName == "System.Double")
+            return member;
 
         return aggregates > 0 ? scalar : null;
     }
@@ -2813,6 +2839,12 @@ public static class IlGenerator
                     instructions.Add(CilOpCodes.Ldc_R8, BitConverter.Int64BitsToDouble(bits.Value));
                 else
                     instructions.Add(CilOpCodes.Ldc_R4, BitConverter.Int32BitsToSingle(unchecked((int)(uint)bits.Value)));
+                break;
+            // AssetRipper: and a double's bits are wider than any 32 bit range - 0.55 is 0x3FE199999999999A. A 64 bit
+            // integer stored where a double belongs is that double, materialised with movz/movk or loaded as half of a
+            // 128 bit constant; read as a number it is an ldc.i8 into a float slot, which is not a value at all.
+            case Immediate { Value: < int.MinValue or > uint.MaxValue } wideBits when expectedType is { FullName: "System.Double" }:
+                instructions.Add(CilOpCodes.Ldc_R8, BitConverter.Int64BitsToDouble(wideBits.Value));
                 break;
             // AssetRipper: the same for a 32 bit integer. A register holding 0xFFFFFFFF stored into an
             // int field is -1; read as a number it is 4294967295, which does not fit in an int32, so
@@ -3362,7 +3394,9 @@ public static class IlGenerator
     /// </remarks>
     private static List<(FieldAnalysisContext Field, int ByteOffset, int Width)>? PackedFieldsCovered(FieldReference head)
     {
-        if (head.ContainingFields.Count > 0 || head.Field.IsStatic || head.Field.BackingData is not { } backing)
+        // AssetRipper: a member of a struct field is packed with its siblings exactly as a field of the object is; the
+        // offsets compared below are all the struct's own, and the slots built from the result keep the containing path.
+        if (head.Field.IsStatic || head.Field.BackingData is not { } backing)
             return null;
 
         var headWidth = PrimitiveFieldWidth(head.Field.FieldType);

@@ -43,7 +43,8 @@ public class AsmResolverDllOutputFormatIlRecovery : AsmResolverDllOutputFormat
         var shouldSkip = (moduleName.StartsWith("UnityEngine.") || moduleName.StartsWith("Unity.") ||
                           moduleName.StartsWith("System.") || moduleName == "System" ||
                           moduleName.StartsWith("mscorlib"))
-                         && !IlRecoveryScope.IsRecoveredAlso(moduleName);
+                         && !IlRecoveryScope.IsRecoveredAlso(moduleName)
+                         || IlRecoveryScope.IsExcludedByOnly(moduleName);
 
         if (!methodDefinition.IsManagedMethodWithBody())
             return;

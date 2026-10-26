@@ -222,8 +222,23 @@ public static class ArrayRecovery
         return false;
     }
 
+    public static long OpaqueAllocationsTyped;
+
     private static void RecoverAllocation(Instruction instruction)
     {
+        // AssetRipper: the class argument is a metadata usage slot that decodes to nothing - on a protected build the
+        // slots of the game's own assemblies are unreadable in the file (see OpaqueClassOperands) - so it names no type.
+        // What was allocated is still evident from what the result is used as: the fixpoint typed it as an array from
+        // its uses, and the element type of that array is the class the slot would have named.
+        if (instruction is { IsCall: true, Operands: [StringLiteral { Value: var opaqueName }, LocalVariable { Type: SzArrayTypeAnalysisContext typedResult } opaqueResult, not TypeAnalysisContext, { } opaqueLength, ..] }
+            && ArrayNewFunctions.Contains(opaqueName))
+        {
+            instruction.OpCode = OpCode.NewArr;
+            instruction.SetOperands(opaqueResult, typedResult, opaqueLength);
+            System.Threading.Interlocked.Increment(ref OpaqueAllocationsTyped);
+            return;
+        }
+
         // Call "SzArrayNew", result, typeof(T[]), length, ...
         if (!instruction.IsCall || instruction.Operands is not [StringLiteral { Value: var name }, LocalVariable result, TypeAnalysisContext type, { } length, ..]
             || !ArrayNewFunctions.Contains(name))
